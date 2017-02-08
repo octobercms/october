@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -65,8 +65,8 @@ $.FE.LANGUAGE['hu'] = {
     "Unordered List": "Felsorol\u00e1s",
 
     // Indent
-    "Decrease Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
-    "Increase Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
+    "Decrease Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
+    "Increase Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
 
     // Links
     "Insert Link": "Hivatkoz\u00e1s beilleszt\u00e9se",
@@ -80,7 +80,7 @@ $.FE.LANGUAGE['hu'] = {
     "Insert Image": "K\u00e9p beilleszt\u00e9se",
     "Upload Image": "K\u00e9p felt\u00f6lt\u00e9se",
     "By URL": "Webc\u00edm megad\u00e1sa",
-    "Browse": "B\u00f6ng\u00e9sz\u00e9s a M\u00e9di\u00e1ban",
+    "Browse": "B\u00f6ng\u00e9sz\u00e9s",
     "Drop image": "H\u00fazza ide a k\u00e9pet",
     "or click": "vagy kattintson ide",
     "Manage Images": "K\u00e9pek kezel\u00e9se",
@@ -103,9 +103,6 @@ $.FE.LANGUAGE['hu'] = {
     // Video
     "Insert Video": "Vide\u00f3 beilleszt\u00e9se",
     "Embedded Code": "K\u00f3d bem\u00e1sol\u00e1sa",
-
-    // Audio
-    "Insert Audio": "Audi\u00f3 beilleszt\u00e9se",
 
     // Tables
     "Insert Table": "T\u00e1bl\u00e1zat beilleszt\u00e9se",
@@ -138,7 +135,6 @@ $.FE.LANGUAGE['hu'] = {
     // Files
     "Upload File": "F\u00e1jl felt\u00f6lt\u00e9se",
     "Drop file": "H\u00fazza ide a f\u00e1jlt",
-    "Insert File": "F\u00e1jl beilleszt\u00e9se",
 
     // Emoticons
     "Emoticons": "Hangulatjelek",

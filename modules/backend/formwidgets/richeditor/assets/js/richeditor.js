@@ -76,7 +76,8 @@
             language: this.options.editorLang,
             fullPage: this.options.fullpage,
             pageLinksHandler: this.options.linksHandler,
-            aceEditorVendorPath: this.options.aceVendorPath
+            aceEditorVendorPath: this.options.aceVendorPath,
+            toolbarSticky: false
         }
 
         if (this.options.toolbarButtons) {
