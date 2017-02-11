@@ -355,10 +355,10 @@ return [
         'menu_description' => 'Specify which areas should use logging.',
         'default_tab' => 'Logging',
         'log_events' => 'Log system events',
-        'log_events_comment' => 'Browser requests that may require attention, such as 404 errors.',
+        'log_events_comment' => 'Store system events in the database in addition to the file-based log.',
         'log_requests' => 'Log bad requests',
-        'log_requests_comment' => 'When a change is made to the theme using the back-end.',
+        'log_requests_comment' => 'Browser requests that may require attention, such as 404 errors.',
         'log_theme' => 'Log theme changes',
-        'log_theme_comment' => 'Store system events in the database in addition to the file-based log.',
+        'log_theme_comment' => 'When a change is made to the theme using the back-end.',
     ]
 ];
