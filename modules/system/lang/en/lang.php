@@ -353,6 +353,7 @@ return [
     'log' => [
         'menu_label' => 'Log settings',
         'menu_description' => 'Specify which areas should use logging.',
+        'default_tab' => 'Logging',
         'log_events' => 'Log system events',
         'log_events_comment' => 'Browser requests that may require attention, such as 404 errors.',
         'log_requests' => 'Log bad requests',
