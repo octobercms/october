@@ -3,7 +3,7 @@
 # ===================================
 
 tabs:
-    defaultTab: Logging
+    defaultTab: system::lang.log.logging
     fields:
 
         log_requests:
