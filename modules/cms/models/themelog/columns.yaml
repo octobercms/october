@@ -22,7 +22,7 @@ columns:
     any_template:
         label: cms::lang.theme_log.template
 
-    new_template:
+    template:
         label: cms::lang.theme_log.new_template
         searchable: true
         invisible: true
