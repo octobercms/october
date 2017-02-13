@@ -78,6 +78,8 @@ return [
         'make_default' => 'Make default',
         'make_default_confirm' => 'Set the current layout as the default?',
         'make_default_success' => 'Current layout is now the default',
+        'collapse_all' => 'Collapse all',
+        'expand_all' => 'Expand all',
         'status' => [
             'widget_title_default' => 'System status',
             'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',

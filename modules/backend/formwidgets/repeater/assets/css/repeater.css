@@ -19,6 +19,9 @@
 .field-repeater ul.field-repeater-items > li.dragged .repeater-item-remove {
   opacity: 0;
 }
+.field-repeater ul.field-repeater-items > li.dragged .repeater-item-collapsed-title {
+  top: 5px;
+}
 .field-repeater ul.field-repeater-items > li.placeholder {
   display: block;
   position: relative;
@@ -45,6 +48,7 @@
   margin-left: 5px;
   padding-left: 15px;
   border-left: 1px solid #dbdee0;
+  min-height: 30px;
 }
 .field-repeater li.field-repeater-item:before {
   color: #bdc3c7;
@@ -59,6 +63,23 @@
   position: absolute;
   left: -4px;
   top: -2px;
+}
+.field-repeater li.field-repeater-item.collapsed .field-repeater-form {
+  display: none;
+}
+.field-repeater li.field-repeater-item.collapsed .repeater-item-collapse .repeater-item-collapse-one {
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
+}
+.field-repeater li.field-repeater-item.collapsed .repeater-item-collapsed-title {
+  display: block;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapsed-title {
+  display: none;
+  top: -5px;
+  position: absolute;
+  font-size: 13px;
 }
 .field-repeater li.field-repeater-item .field-repeater-form {
   position: relative;
@@ -87,18 +108,43 @@
 .field-repeater li.field-repeater-item .repeater-item-handle:hover {
   color: #999;
 }
+.field-repeater li.field-repeater-item .repeater-item-collapse {
+  position: absolute;
+  top: -9px;
+  right: 22px;
+  z-index: 90;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a,
+.field-repeater li.field-repeater-item .repeater-item-collapse button {
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s;
+  color: #bdc3c7;
+  line-height: 20px;
+  display: block;
+  font-size: 12px;
+}
+.field-repeater li.field-repeater-item .repeater-item-collapse a:hover,
+.field-repeater li.field-repeater-item .repeater-item-collapse button:hover,
+.field-repeater li.field-repeater-item .repeater-item-collapse a:focus,
+.field-repeater li.field-repeater-item .repeater-item-collapse button:focus {
+  color: #999;
+  text-decoration: none;
+}
 .field-repeater li.field-repeater-item .repeater-item-remove {
   position: absolute;
   top: -10px;
   right: 0;
   z-index: 90;
 }
+.field-repeater li.field-repeater-item .repeater-item-collapse,
 .field-repeater li.field-repeater-item .repeater-item-handle,
 .field-repeater li.field-repeater-item .repeater-item-remove {
   width: 20px;
   height: 20px;
   text-align: center;
 }
+.field-repeater li.field-repeater-item:hover .repeater-item-collapse,
+.field-repeater li.field-repeater-item:active .repeater-item-collapse,
 .field-repeater li.field-repeater-item:hover .repeater-item-handle,
 .field-repeater li.field-repeater-item:active .repeater-item-handle,
 .field-repeater li.field-repeater-item:hover .repeater-item-remove,

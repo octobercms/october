@@ -11,14 +11,14 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.'
     ],
     'dashboard' => [
         'active_theme' => [
             'widget_title_default' => 'Website',
             'online' => 'Online',
             'maintenance' => 'In maintenance',
-            'manage_themes' => 'Manage themes',
+            'manage_themes' => 'Manage themes'
         ]
     ],
     'theme' => [
@@ -45,6 +45,8 @@ return [
         'homepage_placeholder' => 'Website URL',
         'code_label' => 'Code',
         'code_placeholder' => 'A unique code for this theme used for distribution',
+        'preview_image_label' => 'Preview image',
+        'preview_image_placeholder' => 'The path of theme preview image.',
         'dir_name_label' => 'Directory name',
         'dir_name_create_label' => 'The destination theme directory',
         'theme_label' => 'Theme',
@@ -88,14 +90,14 @@ return [
         'dir_name_taken' => 'Desired theme directory already exists.',
         'find_more_themes' => 'Find more themes',
         'saving' => 'Saving theme...',
-        'return' => 'Return to themes list',
+        'return' => 'Return to themes list'
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
         'is_enabled_comment' => 'Select the page to show when maintenance mode is activated.',
-        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.',
+        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.'
     ],
     'page' => [
         'not_found_name' => "The page ':name' is not found",
@@ -203,7 +205,7 @@ return [
         'invalid_path' => 'Path can contain only digits, Latin letters, spaces and the following symbols: ._-/',
         'error_deleting_file' => 'Error deleting file :name.',
         'error_deleting_dir_not_empty' => 'Error deleting directory :name. The directory is not empty.',
-        'error_deleting_dir' => 'Error deleting file :name.',
+        'error_deleting_dir' => 'Error deleting directory :name.',
         'invalid_name' => 'Name can contain only digits, Latin letters, spaces and the following symbols: ._-',
         'original_not_found' => 'Original file or directory not found',
         'already_exists' => 'File or directory with this name already exists',
@@ -245,7 +247,7 @@ return [
         'saved' => 'Template saved.',
         'no_list_records' => 'No records found',
         'delete_confirm' => 'Delete selected templates?',
-        'order_by' =>'Order by'
+        'order_by' => 'Order by'
     ],
     'permissions' => [
         'name' => 'CMS',

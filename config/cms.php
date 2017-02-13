@@ -316,4 +316,16 @@ return [
 
     'enableCsrfProtection' => env('ENABLE_CSRF', true),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Force bytecode invalidation
+    |--------------------------------------------------------------------------
+    |
+    | When using OPcache with opcache.validate_timestamps set to 0 or APC
+    | with apc.stat set to 0 and Twig cache enabled, clearing the template
+    | cache won't update the cache, set to true to get around this.
+    |
+    */
+
+    'forceBytecodeInvalidation' => true,
 ];

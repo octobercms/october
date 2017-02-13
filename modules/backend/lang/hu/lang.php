@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
+        'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
         'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
     ],
     'widget' => [
@@ -77,6 +78,8 @@ return [
         'make_default' => 'Elrendezés mentése',
         'make_default_confirm' => 'A jelenlegi elrendezés legyen az alapértelmezett?',
         'make_default_success' => 'A jelenlegi elrendezés lett az alapértelmezett.',
+        'collapse_all' => 'Összes becsukása',
+        'expand_all' => 'Összes kibontása',
         'status' => [
             'widget_title_default' => 'Rendszer állapota',
             'update_available' => '{0} frissítés érhető el!|{1} frissítés érhető el!|[2,Inf] frissítés érhető el!',
@@ -162,8 +165,10 @@ return [
         'missing_definition' => "A lista viselkedés nem tartalmaz oszlopot a(z) ':field' mező számára.",
         'missing_parent_definition' => "A lista viselkedés nem tartalmaz definíciót az alábbihoz: ':definition'.",
         'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása. Kérjük ellenőrizze, hogy meghívta-e a makeLists() függvényt a vezérlőben.',
-        'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a Modellben?",
+        'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a modellben?",
         'pagination' => 'Megjelenítve: :from-:to / :total',
+        'first_page' => 'Első lap',
+        'last_page' => 'Utolsó lap',
         'prev_page' => 'Előző lap',
         'next_page' => 'Következő lap',
         'refresh' => 'Frissítés',

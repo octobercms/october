@@ -15,6 +15,7 @@ use Response;
 use Exception;
 use BackendAuth;
 use Twig_Environment;
+use Twig_Cache_Filesystem;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -484,14 +485,20 @@ class Controller
     {
         $this->loader = new TwigLoader;
 
+        $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
         ];
-        if (!Config::get('cms.twigNoCache')) {
-            $options['cache'] =  storage_path().'/cms/twig';
+
+        if ($useCache) {
+            $options['cache'] = new Twig_Cache_Filesystem(
+                storage_path().'/cms/twig',
+                $forceBytecode ? Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION : 0
+            );
         }
 
         $this->twig = new Twig_Environment($this->loader, $options);

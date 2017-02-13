@@ -1,6 +1,10 @@
 <?php foreach ($records as $record): ?>
 
-    <li data-record-id="<?= $record->getKey() ?>" data-record-sort-order="<?= $record->sort_order ?>">
+    <li data-record-id="<?= $record->getKey() ?>"
+        <?php if ($reorderSortMode === 'simple') : ?>
+            data-record-sort-order="<?= $record->{$record->getSortOrderColumn()} ?>"
+        <?php endif ?>
+    >
         <div class="record">
             <a href="javascript:;" class="move"></a>
             <span><?= $this->reorderGetRecordName($record) ?></span>

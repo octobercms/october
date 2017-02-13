@@ -49,6 +49,7 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuler',
+        'widget_remove_confirm' => 'Retirer ce widget ?'
     ],
 
     'datepicker' => [

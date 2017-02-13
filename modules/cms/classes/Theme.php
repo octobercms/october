@@ -58,6 +58,7 @@ class Theme
         $theme = new static;
         $theme->setDirName($dirName);
         $theme->registerHalyconDatasource();
+
         return $theme;
     }
 
@@ -133,6 +134,7 @@ class Theme
     public function isActiveTheme()
     {
         $activeTheme = self::getActiveTheme();
+
         return $activeTheme && $activeTheme->getDirName() == $this->getDirName();
     }
 
@@ -374,9 +376,10 @@ class Theme
      */
     public function getPreviewImageUrl()
     {
-        $previewPath = '/assets/images/theme-preview.png';
-        if (File::exists($this->getPath().$previewPath)) {
-            return Url::asset('themes/'.$this->getDirName().$previewPath);
+        $previewPath = $this->getConfigValue('previewImage', 'assets/images/theme-preview.png');
+
+        if (File::exists($this->getPath().'/'.$previewPath)) {
+            return Url::asset('themes/'.$this->getDirName().'/'.$previewPath);
         }
 
         return Url::asset('modules/cms/assets/images/default-theme-preview.png');
@@ -390,6 +393,7 @@ class Theme
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
+
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
     }

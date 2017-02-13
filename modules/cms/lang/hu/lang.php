@@ -45,6 +45,8 @@ return [
         'homepage_placeholder' => 'A honlap webcíme',
         'code_label' => 'Kód',
         'code_placeholder' => 'Egyedi azonosító ehhez a témához',
+        'preview_image_label' => 'Előnézet',
+        'preview_image_placeholder' => 'A téma előnézet képének elérési útvonala.',
         'dir_name_label' => 'Könyvtár',
         'dir_name_create_label' => 'A célkönyvtár',
         'theme_label' => 'Téma',
@@ -115,7 +117,10 @@ return [
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
         'no_layout' => '-- nincs --',
-        'cms_page' => 'Lapok'
+        'cms_page' => 'Lapok',
+        'title' => 'Elnevezés szerint',
+        'url' => 'Webcím szerint',
+        'file_name' => 'Fájlnév szerint'
     ],
     'layout' => [
         'not_found_name' => "A(z) ':name' elrendezés nem található",
@@ -241,7 +246,8 @@ return [
         'not_found' => 'A kért sablon nem található.',
         'saved' => 'A módosítások sikeresen mentésre kerültek.',
         'no_list_records' => 'Nincs találat',
-        'delete_confirm' => 'Valóban törölni akarja a témát?'
+        'delete_confirm' => 'Valóban törölni akarja a témát?',
+        'order_by' => 'Rendezés'
     ],
     'permissions' => [
         'name' => 'Testreszabás',

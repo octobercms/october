@@ -907,7 +907,7 @@ if(this.pageTitleTemplate===undefined)
 this.pageTitleTemplate=$title.data('titleTemplate')
 $title.text(this.pageTitleTemplate.replace('%s',title))}
 OctoberLayout.prototype.updateLayout=function(title){var $children,$el,fixedWidth,margin
-$('.layout-cell.width-fix, [data-calculate-width]').each(function(){$children=$(this).children()
+$('[data-calculate-width]').each(function(){$children=$(this).children()
 if($children.length>0){fixedWidth=0
 $children.each(function(){$el=$(this)
 margin=$el.data('oc.layoutMargin')

@@ -283,6 +283,28 @@
     }
 }
 
+html.chrome {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 6px 10px 7px!important;
+            }
+        }
+    }
+}
+
+html.safari, html.gecko {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 5px 10px 5px;
+            }
+        }
+    }
+}
+
 ul.table-widget-autocomplete {
     background: white;
     font-size: 13px;
