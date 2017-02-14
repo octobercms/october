@@ -329,7 +329,6 @@ return [
 
     'forceBytecodeInvalidation' => true,
 
-
     /*
     |--------------------------------------------------------------------------
     | Duplicate database query cache
