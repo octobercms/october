@@ -1098,11 +1098,14 @@ class MediaManager extends WidgetBase
             $path = $quickMode ? '/uploaded-files' : Input::get('path');
             $path = MediaLibrary::validatePath($path);
             $filePath = $path.'/'.$fileName;
-            
-            $realPath = empty(trim($uploadedFile->getRealPath())) 
-                             ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName() 
+
+            /*
+             * getRealPath() can be empty for some environments (IIS)
+             */
+            $realPath = empty(trim($uploadedFile->getRealPath()))
+                             ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
                              : $uploadedFile->getRealPath();
-            
+
             MediaLibrary::instance()->put(
                 $filePath,
                 File::get($realPath)
