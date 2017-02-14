@@ -524,13 +524,11 @@ class Lists extends WidgetBase
             $records = $model->get();
         }
 
+        
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('list.extendRecords', [$records], true)) ||
-            ($event = Event::fire('backend.list.extendRecords', [$this, $records], true))
-        ) {
+        if ($event = $this->fireSystemEvent('backend.list.extendRecords', [$records])) {
             $records = $event;
         }
 
