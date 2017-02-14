@@ -163,6 +163,10 @@ class ListController extends ControllerBehavior
             $this->controller->listExtendQuery($query, $definition);
         });
 
+        $widget->bindEvent('list.extendRecords', function ($records) use ($definition) {
+            $this->controller->listExtendRecords($records, $definition);
+        });
+
         $widget->bindEvent('list.injectRowClass', function ($record) use ($definition) {
             return $this->controller->listInjectRowClass($record, $definition);
         });
@@ -464,7 +468,16 @@ class ListController extends ControllerBehavior
     }
 
     /**
-     * Controller override: Extend the query used for populating the filter 
+     * Controller override: Extend the records used for populating the list
+     * after the query is processed.
+     * @param Illuminate\Contracts\Pagination\LengthAwarePaginator|Illuminate\Database\Eloquent\Collection $records
+     */
+    public function listExtendRecords($records, $definition = null)
+    {
+    }
+
+    /**
+     * Controller override: Extend the query used for populating the filter
      * options before the default query is processed.
      * @param \October\Rain\Database\Builder $query
      * @param array $scope
