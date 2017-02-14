@@ -65,6 +65,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         var requestHeaders = {
+            'X-Requested-With': 'XMLHttpRequest',
             'X-OCTOBER-REQUEST-HANDLER': handler,
             'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
         }
