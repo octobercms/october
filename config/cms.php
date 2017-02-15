@@ -329,18 +329,4 @@ return [
 
     'forceBytecodeInvalidation' => true,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Duplicate database query cache
-    |--------------------------------------------------------------------------
-    |
-    | If the caching is enabled, database queries with identical statements will
-    | have the results stored in memory across the same request. This increases
-    | performance for smaller more frequent queries but may lower performance
-    | for queries that return a large number of records.
-    |
-    */
-
-    'enableDuplicateQueryCache' => true,
-
 ];

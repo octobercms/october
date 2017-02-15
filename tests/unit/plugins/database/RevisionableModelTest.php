@@ -12,6 +12,7 @@ class RevisionableModelTest extends PluginTestCase
         include_once base_path().'/tests/fixtures/plugins/database/tester/models/Post.php';
 
         $this->runPluginRefreshCommand('Database.Tester');
+        Model::flushDuplicateCache();
     }
 
     public function testUpdateNothing()
