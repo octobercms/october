@@ -110,7 +110,7 @@
                 $(this).trigger('close.oc.tab')
                 return false
             }).hotKey({
-                hotkey: 'ctrl+q, cmd+q',
+                hotkey: 'alt+w',
                 callback: function(element){
                     $(element).trigger('close.oc.tab');
                     return false
