@@ -53,9 +53,22 @@ class OctoberUtil extends Command
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
 
+        $list = [
+            'october:util compile',
+            'october:util git',
+            'october:util purge',
+        ];
+
         if (!$this->argument('name')) {
-            $this->error('Check "http://octobercms.com/docs/console/commands#october-util-command" For More Info');
-            return;
+            $message = 'There are no commands defined in the "util" namespace.';
+            if (1 == count($list)) {
+                $message .= "\n\nDid you mean this?\n    ";
+            } else {
+                $message .= "\n\nDid you mean one of these?\n    ";
+            }
+
+            $message .= implode("\n    ", $list);
+            throw new \InvalidArgumentException($message);
         }
 
         if (!method_exists($this, $method)) {
