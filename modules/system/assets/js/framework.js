@@ -65,7 +65,6 @@ if (window.jQuery.request !== undefined) {
         }
 
         var requestHeaders = {
-            'X-REQUESTED-WITH': 'XMLHttpRequest',
             'X-OCTOBER-REQUEST-HANDLER': handler,
             'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
         }
@@ -76,6 +75,7 @@ if (window.jQuery.request !== undefined) {
 
         var requestOptions = {
             url: window.location.href,
+            crossDomain: false,
             context: context,
             headers: requestHeaders,
             success: function(data, textStatus, jqXHR) {
