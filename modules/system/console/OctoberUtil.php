@@ -171,7 +171,7 @@ class OctoberUtil extends Command
             $destPath = base_path() . '/modules/system/assets/js/lang/lang.'.$locale.'.js';
 
             $contents = str_replace(
-                ['{{ locale }}', '{{ messages }}'],
+                ['{{locale}}', '{{messages}}'],
                 [$locale, json_encode($messages)],
                 File::get($stub)
             );
