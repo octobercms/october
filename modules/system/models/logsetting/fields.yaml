@@ -10,16 +10,16 @@ tabs:
             label: system::lang.log.log_requests
             span: auto
             type: switch
-            comment: system::lang.log.log_events_comment
+            comment: system::lang.log.log_requests_comment
 
         log_theme:
             label: system::lang.log.log_theme
             span: auto
             type: switch
-            comment: system::lang.log.log_requests_comment
+            comment: system::lang.log.log_theme_comment
 
         log_events:
             label: system::lang.log.log_events
             span: auto
             type: switch
-            comment: system::lang.log.log_theme_comment
+            comment: system::lang.log.log_events_comment
