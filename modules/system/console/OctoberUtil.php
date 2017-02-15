@@ -53,8 +53,13 @@ class OctoberUtil extends Command
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
 
+        if (!$this->argument('name')) {
+            $this->error('Check "http://octobercms.com/docs/console/commands#october-util-command" For More Info');
+            return;
+        }
+
         if (!method_exists($this, $method)) {
-            $this->error(sprintf('<error>Utility command "%s" does not exist!</error>', $command));
+            $this->error(sprintf('Utility command "%s" does not exist!', $command));
             return;
         }
 
@@ -68,7 +73,7 @@ class OctoberUtil extends Command
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::IS_ARRAY, 'A utility command to perform.'],
+            ['name', InputArgument::IS_ARRAY, 'The utility command to perform, For more info "http://octobercms.com/docs/console/commands#october-util-command".'],
         ];
     }
 
@@ -166,7 +171,7 @@ class OctoberUtil extends Command
             $destPath = base_path() . '/modules/system/assets/js/lang/lang.'.$locale.'.js';
 
             $contents = str_replace(
-                ['{{locale}}', '{{messages}}'],
+                ['{{ locale }}', '{{ messages }}'],
                 [$locale, json_encode($messages)],
                 File::get($stub)
             );
