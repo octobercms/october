@@ -53,11 +53,10 @@ class OctoberUtil extends Command
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
 
-        $list = [
-            'october:util compile',
-            'october:util git',
-            'october:util purge',
-        ];
+        $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
+        $list = array_map(function($item){
+            return snake_case($item, $delimiter = " ");
+        },$methods);
 
         if (!$this->argument('name')) {
             $message = 'There are no commands defined in the "util" namespace.';
