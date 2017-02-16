@@ -55,7 +55,7 @@ class OctoberUtil extends Command
 
         $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
         $list = array_map(function($item){
-            return snake_case($item, " ");
+            return "october:".snake_case($item, " ");
         },$methods);
 
         if (!$this->argument('name')) {
