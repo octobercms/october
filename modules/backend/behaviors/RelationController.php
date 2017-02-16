@@ -626,6 +626,10 @@ class RelationController extends ControllerBehavior
             ) {
                 $defaultOnClick = null;
             }
+            
+            if ($showCheckboxes = $this->getConfig('showCheckboxes')) {
+                $config->showCheckboxes = $showCheckboxes;
+            }
 
             $config->recordOnClick = $this->getConfig('view[recordOnClick]', $defaultOnClick);
 
