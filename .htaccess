@@ -23,7 +23,7 @@
     RewriteRule ^storage/cms/.* index.php [L,NC]
     RewriteRule ^storage/framework/.* index.php [L,NC]
     RewriteRule ^storage/logs/.* index.php [L,NC]
-    RewriteRule ^storage/temp/protected/.* index.php [L,NC]
+    RewriteRule ^storage/temp/.* index.php [L,NC]
     RewriteRule ^tests/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
 
@@ -34,7 +34,6 @@
     RewriteCond %{REQUEST_FILENAME} !/.well-known/*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/public/.*
-    RewriteCond %{REQUEST_FILENAME} !/storage/temp/public/.*
     RewriteCond %{REQUEST_FILENAME} !/themes/.*/(assets|resources)/.*
     RewriteRule !^index.php index.php [L,NC]
 
