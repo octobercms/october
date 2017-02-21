@@ -78,7 +78,7 @@
                         <dl>
                             <?php foreach ($changelog as $version => $comment): ?>
                                 <dt><?= e($version) ?></dt>
-                                <dd><?= e($comment) ?></dd>
+                                <dd><?= nl2br(e($comment)) ?></dd>
                             <?php endforeach ?>
                         </dl>
                     <?php else: ?>
