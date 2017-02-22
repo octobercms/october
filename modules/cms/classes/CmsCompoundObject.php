@@ -269,7 +269,7 @@ class CmsCompoundObject extends CmsObject
      */
     public function getComponentProperties($componentName)
     {
-        $key = crc32($this->theme->getPath()).'component-properties';
+        $key = md5($this->theme->getPath()).'component-properties';
 
         if (self::$objectComponentPropertyMap !== null) {
             $objectComponentMap = self::$objectComponentPropertyMap;
@@ -336,7 +336,7 @@ class CmsCompoundObject extends CmsObject
      */
     public static function clearCache($theme)
     {
-        $key = crc32($theme->getPath()).'component-properties';
+        $key = md5($theme->getPath()).'component-properties';
         Cache::forget($key);
     }
 

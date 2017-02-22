@@ -308,7 +308,7 @@ class Router
      */
     protected function getCacheKey($keyName)
     {
-        return crc32($this->theme->getPath()).$keyName;
+        return md5($this->theme->getPath()).$keyName;
     }
 
     /**
