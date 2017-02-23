@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => env('DISK_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -49,11 +49,11 @@ return [
         ],
 
         's3' => [
-            'driver' => 's3',
-            'key'    => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'driver' => env('S3_DRIVER', 's3'),
+            'key'    => env('S3_KEY'),
+            'secret' => env('S3_SECRET'),
+            'region' => env('S3_REGION'),
+            'bucket' => env('S3_BUCKET'),
         ],
 
         'rackspace' => [

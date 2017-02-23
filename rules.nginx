@@ -1,0 +1,25 @@
+# Black listed folders:
+# /bootstrap/
+# /config/
+# /vendor/
+location ~ ^/(bootstrap|config|vendor)/ {
+    deny all;
+    return 404;
+}
+
+# Black listed folders:
+# /storage/cms/
+# /storage/logs/
+# /storage/framework/
+# /storage/temp/protected/
+# /storage/app/uploads/protected/
+location ~ ^/storage/(cms|logs|framework|temp/protected|app/uploads/protected)/ {
+    deny all;
+    return 404;
+}
+
+# Block all PHP files, except index
+location ~ [^index]\.php$ {
+    deny all;
+    return 404;
+}
