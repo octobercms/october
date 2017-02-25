@@ -42,6 +42,8 @@
         this.$el.on('click', '> ul > li > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
+
+        this.hidePrompt()
     }
 
     Repeater.prototype.dispose = function() {
@@ -132,6 +134,16 @@
         }
 
         return defaultText
+    }
+
+    Repeater.prototype.hidePrompt = function () {
+        var maxItems = $('.field-repeater').attr('data-max-items')
+        if(maxItems != 0) {
+            var repeatedItems = $('.field-repeater-item').length
+            if (repeatedItems >= maxItems) {
+                $('.field-repeater-add-item').hide()
+            }
+        }
     }
 
     // FIELD REPEATER PLUGIN DEFINITION

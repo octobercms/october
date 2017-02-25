@@ -6,13 +6,14 @@
 
     <div class="repeater-item-remove">
         <button
-            type="button"
-            class="close"
-            aria-label="Remove"
-            data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
-            data-request-data="'index': '<?= $indexValue ?>'"
-            data-request-success="$(this).closest('.field-repeater-item').remove()"
-            data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
+                type="button"
+                class="close"
+                aria-label="Remove"
+                data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
+                data-request-data="'index': '<?= $indexValue ?>'"
+                data-request-success="$(this).closest('.field-repeater-item').remove()"
+                data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>"
+                data-request-complete="($('.field-repeater').attr('data-max-items') > $('.field-repeater-item').length || $('.field-repeater').attr('data-max-items') == 0) ? $('.field-repeater-add-item').show() : $('.field-repeater-add-item').hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
