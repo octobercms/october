@@ -22,13 +22,14 @@
                 </a>
             </li>
             <li>
-                <a href="<?= Backend::url('cms/themes') ?>"><?= e(trans('cms::lang.dashboard.active_theme.manage_themes')) ?></a>
+                <a href="<?= Backend::url('cms/themes') ?>">
+                    <?= e(trans('cms::lang.dashboard.active_theme.manage_themes')) ?>
+                </a>
             </li>
             <?php if ($theme->hasCustomData()): ?>
                 <li>
-                    <a
-                        href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>">
-                        Customize theme
+                    <a href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>">
+                        <?= e(trans('cms::lang.dashboard.active_theme.customize_theme')) ?>
                     </a>
                 </li>
             <?php endif ?>
