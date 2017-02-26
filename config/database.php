@@ -54,7 +54,7 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => '127.0.0.1',
+            'host'      => 'localhost',
             'port'      => '',
             'database'  => 'database',
             'username'  => 'root',
@@ -66,7 +66,7 @@ return [
 
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'     => '127.0.0.1',
+            'host'     => 'localhost',
             'port'     => '',
             'database' => 'database',
             'username' => 'root',
@@ -78,7 +78,7 @@ return [
 
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
-            'host'     => '127.0.0.1',
+            'host'     => 'localhost',
             'port'     => '',
             'database' => 'database',
             'username' => 'root',
