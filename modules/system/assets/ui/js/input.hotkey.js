@@ -1,12 +1,12 @@
 /*
  * Hot key binding.
- * 
+ *
  * Data attributes:
  * - data-hotkey="ctrl+s, cmd+s" - enables the hotkey plugin
  *
  * JavaScript API:
  *
- * $('html').hotKey({ hotkey: 'ctrl+s, cmd+s', callback: doSomething);
+ * $('html').hotKey({ hotkey: 'ctrl+s, cmd+s', hotkeyVisible: false, callback: doSomething });
  */
 +function ($) { "use strict";
 
@@ -209,7 +209,7 @@
 
     // HOTKEY DATA-API
     // ==============
-    
+
     $(document).render(function() {
         $('[data-hotkey]').hotKey()
     })
