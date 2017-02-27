@@ -44,6 +44,7 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         this.hidePrompt()
+        $(document).on('ajaxSuccess', this.proxy(this.hidePrompt))
     }
 
     Repeater.prototype.dispose = function() {

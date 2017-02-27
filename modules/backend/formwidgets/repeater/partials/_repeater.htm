@@ -17,7 +17,6 @@
         <a
                 href="javascript:;"
                 data-request="<?= $this->getEventHandler('onAddItem') ?>"
-                data-request-complete="($('.field-repeater').attr('data-max-items') > $('.field-repeater-item').length || $('.field-repeater').attr('data-max-items') == 0) ? $('.field-repeater-add-item').show() : $('.field-repeater-add-item').hide()"
                 data-load-indicator>
             <?= e(trans($prompt)) ?>
         </a>
