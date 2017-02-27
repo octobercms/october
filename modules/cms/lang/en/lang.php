@@ -18,8 +18,7 @@ return [
             'widget_title_default' => 'Website',
             'online' => 'Online',
             'maintenance' => 'In maintenance',
-            'manage_themes' => 'Manage themes',
-            'customize_theme' => 'Customize Theme'
+            'manage_themes' => 'Manage themes'
         ]
     ],
     'theme' => [
