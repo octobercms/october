@@ -136,6 +136,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Секретный ключ Mandrill',
         'mandrill_secret_comment' => 'Введите ваш Mandrill API-ключ.',
+        'ses' => 'SES',
+        'ses_key' => 'SES API-ключ',
+        'ses_key_comment' => 'Введите ваш SES API-ключ',
+        'ses_secret' => 'SES секретный API-ключ',
+        'ses_secret_comment' => 'Введите ваш секретный SES API-ключ',
+        'ses_region' => 'SES регион',
+        'ses_region_comment' => 'Введите ваш SES регион (например, us-east-1)',
         'drivers_hint_header' => 'Драйвера не установлены',
         'drivers_hint_content' => 'Этот почтовый метод требует плагин ":plugin", установленный прежде, чем можно будет отправлять почту.'
     ],
