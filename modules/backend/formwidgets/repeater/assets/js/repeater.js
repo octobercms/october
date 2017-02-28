@@ -33,7 +33,8 @@
     Repeater.DEFAULTS = {
         sortableHandle: '.repeater-item-handle',
         sortableContainer: 'ul.field-repeater-items',
-        titleFrom: null
+        titleFrom: null,
+        maxItems: null
     }
 
     Repeater.prototype.init = function() {
@@ -138,11 +139,10 @@
     }
 
     Repeater.prototype.hidePrompt = function () {
-        var maxItems = $('.field-repeater').attr('data-max-items')
-        if(maxItems != 0) {
-            var repeatedItems = $('.field-repeater-item').length
-            if (repeatedItems >= maxItems) {
-                $('.field-repeater-add-item').hide()
+        if(this.options.maxItems != 0) {
+            var repeatedItems = this.$el.find('.field-repeater-item').length
+            if (repeatedItems >= this.options.maxItems) {
+                this.$el.find('.field-repeater-add-item').hide()
             }
         }
     }
