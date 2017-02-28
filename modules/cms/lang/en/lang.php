@@ -19,7 +19,7 @@ return [
             'online' => 'Online',
             'maintenance' => 'In maintenance',
             'manage_themes' => 'Manage themes',
-            'customize_theme' => 'Customize Theme'
+            'customize_theme' => 'Customize theme'
         ]
     ],
     'theme' => [
