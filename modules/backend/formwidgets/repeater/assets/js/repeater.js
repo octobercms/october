@@ -33,7 +33,8 @@
     Repeater.DEFAULTS = {
         sortableHandle: '.repeater-item-handle',
         sortableContainer: 'ul.field-repeater-items',
-        titleFrom: null
+        titleFrom: null,
+        maxItems: null
     }
 
     Repeater.prototype.init = function() {
@@ -42,6 +43,9 @@
         this.$el.on('click', '> ul > li > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
+
+        this.hidePrompt()
+        this.$el.on('ajaxUpdate', this.proxy(this.hidePrompt))
     }
 
     Repeater.prototype.dispose = function() {
@@ -132,6 +136,15 @@
         }
 
         return defaultText
+    }
+
+    Repeater.prototype.hidePrompt = function () {
+        if(this.options.maxItems != 0) {
+            var repeatedItems = this.$el.find('.field-repeater-item').length
+            if (repeatedItems >= this.options.maxItems) {
+                this.$el.find('.field-repeater-add-item').hide()
+            }
+        }
     }
 
     // FIELD REPEATER PLUGIN DEFINITION
