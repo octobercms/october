@@ -15,6 +15,19 @@ class AttachOneModelTest extends PluginTestCase
         $this->runPluginRefreshCommand('Database.Tester');
     }
 
+    public function testSetRelationValue()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        // Set by string
+        $user->avatar = base_path().'/tests/fixtures/plugins/database/tester/assets/images/avatar.png';
+        $user->save();
+        $this->assertNotNull($user->avatar);
+        $this->assertEquals('avatar.png', $user->avatar->file_name);
+    }
+
     public function testDeleteFlagDestroyRelationship()
     {
         Model::unguard();
