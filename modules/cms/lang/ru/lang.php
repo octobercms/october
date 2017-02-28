@@ -17,7 +17,8 @@ return [
             'widget_title_default' => 'Веб-сайт',
             'online' => 'Онлайн',
             'maintenance' => 'в разработке',
-            'manage_themes' => 'Управление темами'
+            'manage_themes' => 'Управление темами',
+            'customize_theme' => 'Настройка Темы'
         ]
     ],
     'theme' => [
