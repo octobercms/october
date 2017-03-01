@@ -1,5 +1,6 @@
 <div class="field-repeater"
      data-control="fieldrepeater"
+     <?= $maxItems ? 'data-max-items="'.$maxItems.'"' : '' ?>
      data-sortable-container="#<?= $this->getId('items') ?>"
      data-sortable-handle=".<?= $this->getId('items') ?>-handle">
 

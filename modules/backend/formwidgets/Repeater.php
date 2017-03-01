@@ -52,11 +52,11 @@ class Repeater extends FormWidgetBase
      * @var bool Stops nested repeaters populating from previous sibling.
      */
     protected static $onAddItemCalled = false;
-    
+
     /**
-     * @var int Maximum repeated items (0 == unlimited items)
+     * @var int Maximum repeated items allowable.
      */
-    protected $maxItems = 0;
+    protected $maxItems = null;
 
     /**
      * {@inheritDoc}

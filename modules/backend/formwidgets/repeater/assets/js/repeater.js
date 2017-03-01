@@ -45,7 +45,7 @@
         this.$el.on('click', '> ul > li > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
-        
+
         this.togglePrompt()
     }
 
@@ -79,7 +79,7 @@
 
         this.$sortable.sortable(sortableOptions)
     }
-    
+
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
         $(ev.target).closest('.field-repeater-item').remove()
         this.togglePrompt()
@@ -88,17 +88,13 @@
     Repeater.prototype.onAddItemSuccess = function(ev) {
         this.togglePrompt()
     }
-    
+
     Repeater.prototype.togglePrompt = function () {
-        if (this.options.maxItems != 0) {
+        if (this.options.maxItems && this.options.maxItems > 0) {
             var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
                 $addItemBtn = this.$el.find('> .field-repeater-add-item')
-                
-            if (repeatedItems >= this.options.maxItems) {
-                $addItemBtn.hide()
-            } else if (repeatedItems < this.options.maxItems) {
-                $addItemBtn.show()
-            }
+
+            $addItemBtn.toggle(repeatedItems < this.options.maxItems)
         }
     }
 
