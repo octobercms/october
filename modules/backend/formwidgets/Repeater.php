@@ -48,10 +48,15 @@ class Repeater extends FormWidgetBase
      */
     protected $formWidgets = [];
 
-     /**
-      * @var bool Stops nested repeaters populating from previous sibling.
-      */
+    /**
+     * @var bool Stops nested repeaters populating from previous sibling.
+     */
     protected static $onAddItemCalled = false;
+    
+    /**
+     * @var int Maximum repeated items (0 == unlimited items)
+     */
+    protected $maxItems = 0;
 
     /**
      * {@inheritDoc}
@@ -62,6 +67,7 @@ class Repeater extends FormWidgetBase
             'form',
             'prompt',
             'sortable',
+            'maxItems',
         ]);
 
         if (!self::$onAddItemCalled) {
@@ -86,6 +92,7 @@ class Repeater extends FormWidgetBase
         $this->vars['indexName'] = self::INDEX_PREFIX.$this->formField->getName(false).'[]';
         $this->vars['prompt'] = $this->prompt;
         $this->vars['formWidgets'] = $this->formWidgets;
+        $this->vars['maxItems'] = $this->maxItems;
     }
 
     /**
