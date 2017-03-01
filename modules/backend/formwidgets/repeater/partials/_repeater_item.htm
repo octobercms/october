@@ -9,9 +9,9 @@
             type="button"
             class="close"
             aria-label="Remove"
+            data-repeater-remove
             data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
             data-request-data="'index': '<?= $indexValue ?>'"
-            data-request-success="$(this).closest('.field-repeater-item').remove()"
             data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
             <span aria-hidden="true">&times;</span>
         </button>

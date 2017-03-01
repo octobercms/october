@@ -39,6 +39,8 @@
     Repeater.prototype.init = function() {
         this.bindSorting()
 
+        this.$el.on('ajaxDone', '[data-repeater-remove]', this.proxy(this.onRemoveItemSuccess))
+        this.$el.on('ajaxDone', '[data-repeater-add]', this.proxy(this.onAddItemSuccess))
         this.$el.on('click', '> ul > li > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
@@ -47,6 +49,8 @@
     Repeater.prototype.dispose = function() {
         this.$sortable.sortable('destroy')
 
+        this.$el.off('ajaxDone', '[data-repeater-remove]', this.proxy(this.onRemoveItemSuccess))
+        this.$el.off('ajaxDone', '[data-repeater-add]', this.proxy(this.onAddItemSuccess))
         this.$el.off('click', '> ul > li > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
 
         this.$el.off('dispose-control', this.proxy(this.dispose))
@@ -71,6 +75,14 @@
         }
 
         this.$sortable.sortable(sortableOptions)
+    }
+
+    Repeater.prototype.onRemoveItemSuccess = function(ev) {
+        $(ev.target).closest('.field-repeater-item').remove()
+    }
+
+    // This fires twice, not sure why
+    Repeater.prototype.onAddItemSuccess = function(ev) {
     }
 
     Repeater.prototype.toggleCollapse = function(ev) {
