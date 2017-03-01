@@ -68,22 +68,13 @@ class OctoberInstall extends Command
         if ($this->confirm('Configure advanced options?', false)) {
             $this->setupEncryptionKey();
             $this->setupAdvancedValues();
+            $this->addDriverPlugin();
         }
         else {
             $this->setupEncryptionKey(true);
         }
 
         $this->setupMigrateDatabase();
-
-        if ($this->confirm('Do you wish to install the (Driver & Builder) plugins')) {
-            $this->callSilent('plugin:install', [
-                'name' => 'October.Drivers',
-            ]);
-
-            $this->callSilent('plugin:install', [
-                'name' => 'RainLab.Builder',
-            ]);
-        }
 
         $this->displayOutro();
     }
@@ -114,6 +105,13 @@ class OctoberInstall extends Command
     {
         $url = $this->ask('Application URL', Config::get('app.url'));
         $this->writeToConfig('app', ['url' => $url]);
+    }
+
+    protected function addDriverPlugin()
+    {
+        $this->callSilent('plugin:install', [
+            'name' => 'October.Drivers',
+        ]);
     }
 
     protected function setupAdvancedValues()
