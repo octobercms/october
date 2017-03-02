@@ -18,11 +18,12 @@ return [
             'widget_title_default' => 'Honlap',
             'online' => 'Online',
             'maintenance' => 'Karbantartás alatt',
-            'manage_themes' => 'Témák kezelése'
+            'manage_themes' => 'Témák kezelése',
+            'customize_theme' => 'Téma testreszabása'
         ]
     ],
     'theme' => [
-        'not_found_name' => "A következő sablon nem található: ':name'",
+        'not_found_name' => "A következő téma nem található: ':name'",
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
             'not_found' => 'Az aktív téma nem található.'
@@ -324,5 +325,34 @@ return [
         'resize_image' => 'Kép átméretezése',
         'image_size' => 'Kép mérete:',
         'selected_size' => 'Kiválasztva:'
+    ],
+    'theme_log' => [
+        'hint' => 'Az adminisztrátorok által elvégzett módosítások az aktív téma fájlaiban, amiket az admin felületen keresztül hajtottak végre.',
+        'menu_label' => 'Téma napló',
+        'menu_description' => 'Változtatások listája az aktív témánál.',
+        'empty_link' => 'Kiürítés',
+        'empty_loading' => 'A kiürítés folyamatban...',
+        'empty_success' => 'A téma napló kiürítése megtörtént.',
+        'return_link' => 'Vissza a téma naplóhoz',
+        'id' => 'ID',
+        'id_label' => 'Napló ID',
+        'created_at' => 'Dátum',
+        'user' => 'Felhasználó',
+        'type' => 'Művelet',
+        'type_create' => 'Létrehozás',
+        'type_update' => 'Módosítás',
+        'type_delete' => 'Törlés',
+        'theme_name' => 'Téma',
+        'theme_code' => 'Kódnév',
+        'old_template' => 'Fájl (régi)',
+        'new_template' => 'Fájl (új)',
+        'template' => 'Fájl',
+        'diff' => 'Változtatások',
+        'old_value' => 'Régi tartalom',
+        'new_value' => 'Új tartalom',
+        'preview_title' => 'Változtatások',
+        'template_updated' => 'A fájl frissítve lett.',
+        'template_created' => 'A fájl létre lett hozva.',
+        'template_deleted' => 'A fájl törölve lett.',
     ]
 ];

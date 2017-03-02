@@ -100,7 +100,7 @@ return [
             'welcome_to_name' => 'Köszöntjük a(z) :app weboldalon, :name.',
             'first_sign_in' => 'Ez az első alkalom, hogy bejelentkezett.',
             'last_sign_in' => 'Legutóbb bejelentkezés:',
-            'view_access_logs' => 'Hozzáférésnapló megtekintése',
+            'view_access_logs' => 'Hozzáférés napló megtekintése',
             'nice_message' => 'Legyen jó napja!'
         ]
     ],
@@ -405,7 +405,7 @@ return [
     ],
     'access_log' => [
         'hint' => 'Ez a napló a felhasználók sikeres bejelentkezési kísérleteit listázza ki. A bejegyzéseket :days napig őrzi meg a rendszer.',
-        'menu_label' => 'Hozzáférésnapló',
+        'menu_label' => 'Hozzáférés napló',
         'menu_description' => 'A felhasználók sikeres bejelentkezéseinek megtekintése.',
         'created_at' => 'Időpont',
         'login' => 'Felhasználónév',
