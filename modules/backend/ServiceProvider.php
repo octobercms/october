@@ -95,7 +95,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'iconSvg'     => 'modules/backend/assets/images/dashboard-icon.svg',
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
-                    'order'       => 1
+                    'order'       => 10
                 ]
             ]);
         });

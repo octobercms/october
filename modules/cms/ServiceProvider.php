@@ -129,7 +129,7 @@ class ServiceProvider extends ModuleServiceProvider
                         'cms.manage_layouts',
                         'cms.manage_partials'
                     ],
-                    'order'       => 10,
+                    'order'       => 100,
                     'sideMenu' => [
                         'pages' => [
                             'label'        => 'cms::lang.page.menu_label',
@@ -186,7 +186,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
                     'url'         => Backend::url('cms/media'),
                     'permissions' => ['media.*'],
-                    'order'       => 20
+                    'order'       => 200
                 ]
             ]);
         });
