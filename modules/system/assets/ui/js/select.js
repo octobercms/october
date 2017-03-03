@@ -45,10 +45,31 @@
                     dropdownCssClass: '',
                     containerCssClass: ''
                 }
+            var requestMethod = $element.attr('data-request')
 
             // Prevent duplicate loading
             if ($element.data('select2') != null) {
                 return true; // Continue
+            }
+
+            if (requestMethod) {
+                extraOptions.ajax = {
+                    transport: function(params, success, failure) {
+
+                        var requestOptions = {
+                            success: success,
+                            error: failure,
+                            data: params.data
+                        }
+
+                        return $element.request(requestMethod, requestOptions)
+                    },
+                    processResults: function(data, params) {
+                        return { results: data.options };
+                    },
+                    cache: true,
+                    delay: 250
+                }
             }
 
             $element.attr('data-disposable', 'data-disposable')

@@ -1,0 +1,35 @@
+<?php
+    $fieldOptions = [];
+
+    if ($this->isAjax() === false) {
+        $fieldOptions = $this->getOptions();
+    }
+
+    $useSearch = $this->showSearch;
+    $emptyOption = $this->emptyOption ? $this->emptyOption : $this->placeholder;
+?>
+    <select
+        id="<?= $this->getId() ?>"
+        name="<?= $this->getFieldName() ?>"
+        class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
+        <?= $this->getFieldAttributes() ?>
+        <?= $this->placeholder ? 'data-placeholder="'.e(trans($this->placeholder)).'"' : '' ?>
+        <?= $this->isAjax() ? 'data-request="'.$this->getEventHandler('onGetOptions').'"' : '' ?>
+        >
+        <?php if ($emptyOption): ?>
+            <option value=""><?= e(trans($emptyOption)) ?></option>
+        <?php endif ?>
+        <?php if ($this->isAjax() && ($option = $this->getOption($value))): ?>
+            <option value="<?= $value ?>" selected="selected"><?= e(trans($option['title'])) ?></option>
+        <?php endif; ?>
+        <?php foreach ($fieldOptions as $value => $option): ?>
+            <?php
+                if (!is_array($option)) $option = [$option];
+            ?>
+            <option
+                <?= $this->isSelected($value) ? 'selected="selected"' : '' ?>
+                <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
+                value="<?= $value ?>"
+            ><?= e(trans($option[0])) ?></option>
+        <?php endforeach ?>
+    </select>

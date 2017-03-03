@@ -1,0 +1,5 @@
+<?php if ($this->previewMode): ?>
+    <?= $this->makePartial('preview'); ?>
+<?php else: ?>
+    <?= $this->makePartial('field'); ?>
+<?php endif ?>

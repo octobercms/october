@@ -1,0 +1,4 @@
+<?php
+    $fieldOptions = $this->getOptions();
+?>
+<div class="form-control"><?= (isset($fieldOptions[$this->value])) ? e(trans($fieldOptions[$this->value])) : '' ?></div>

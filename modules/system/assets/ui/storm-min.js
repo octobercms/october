@@ -3170,7 +3170,10 @@ return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
 return state.text}
 var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m},width:'style'}
 $('select.custom-select').each(function(){var $element=$(this),extraOptions={dropdownCssClass:'',containerCssClass:''}
+var requestMethod=$element.attr('data-request')
 if($element.data('select2')!=null){return true;}
+if(requestMethod){extraOptions.ajax={transport:function(params,success,failure){var requestOptions={success:success,error:failure,data:params.data}
+return $element.request(requestMethod,requestOptions)},processResults:function(data,params){return{results:data.options};},cache:true,delay:250}}
 $element.attr('data-disposable','data-disposable')
 $element.one('dispose-control',function(){if($element.data('select2')){$element.select2('destroy')}})
 if($element.hasClass('select-no-search')){extraOptions.minimumResultsForSearch=Infinity}
