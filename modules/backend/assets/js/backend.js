@@ -208,3 +208,31 @@ $.fn.extend({
     }
 })
 */
+
+/*
+ * Browser Fixes
+ * - If another fix using JS is necessary, move this logic to backend.fixes.js
+ */
+
+/*
+ * Internet Explorer v11
+ * - IE11 will not honor height 100% when overflow is used on the Y axis.
+ */
+if (!!window.MSInputMethodContext && !!document.documentMode) {
+    $(window).on('resize', function() {
+        fixMediaManager()
+        fixSidebar()
+    })
+
+    function fixMediaManager() {
+        var $el = $('div[data-control="media-manager"] .control-scrollpad')
+        $el.height($el.parent().height())
+    }
+
+    function fixSidebar() {
+        var $el = $('#layout-sidenav'),
+            menuHeight = $('#layout-mainmenu').height()
+
+        $el.height(Math.max($('#layout-body').innerHeight(), $(window).height() - menuHeight))
+    }
+}

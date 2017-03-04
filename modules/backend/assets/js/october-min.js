@@ -1343,3 +1343,9 @@ img.src=source})}};return o;};assetManager=new AssetManager();if($.oc===undefine
 $.oc={}
 $.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
 return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
+if(!!window.MSInputMethodContext&&!!document.documentMode){$(window).on('resize',function(){fixMediaManager()
+fixSidebar()})
+function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
+$el.height($el.parent().height())}
+function fixSidebar(){var $el=$('#layout-sidenav'),menuHeight=$('#layout-mainmenu').height()
+$el.height(Math.max($('#layout-body').innerHeight(),$(window).height()-menuHeight))}}
