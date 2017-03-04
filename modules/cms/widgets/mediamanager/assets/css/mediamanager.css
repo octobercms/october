@@ -64,7 +64,7 @@ div[data-control="media-manager"] .list-container p.no-data{padding:0 20px 20px 
 div[data-control="media-manager"] .list-container li.no-data{padding-top:20px;display:block !important;width:100% !important;border:none !important;background:transparent !important;cursor:default !important}
 div[data-control="media-manager"] .list-container table.table.data tbody tr:not(.no-data):active td{background:#4ea5e0 !important}
 div[data-control="media-manager"] [data-control="item-list"]{position:relative;display:table-cell}
-div[data-control="media-manager"] .control-scrollpad{position:absolute;left:0;top:0;min-height:300px}
+div[data-control="media-manager"] .control-scrollpad{position:absolute;left:0;top:0}
 div[data-control="media-manager"] .scroll-wrapper{position:relative}
 div[data-control="media-manager"] table.table{table-layout:fixed;margin-bottom:0;white-space:nowrap}
 div[data-control="media-manager"] table.table div.no-wrap-text{overflow:hidden;text-overflow:ellipsis}

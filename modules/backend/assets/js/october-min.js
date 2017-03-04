@@ -1347,5 +1347,4 @@ if(!!window.MSInputMethodContext&&!!document.documentMode){$(window).on('resize'
 fixSidebar()})
 function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
 $el.height($el.parent().height())}
-function fixSidebar(){var $el=$('#layout-sidenav'),menuHeight=$('#layout-mainmenu').height()
-$el.height(Math.max($('#layout-body').innerHeight(),$(window).height()-menuHeight))}}
+function fixSidebar(){$('#layout-sidenav').height(Math.max($('#layout-body').innerHeight(),$(window).height()-$('#layout-mainmenu').height()))}}

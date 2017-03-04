@@ -230,9 +230,9 @@ if (!!window.MSInputMethodContext && !!document.documentMode) {
     }
 
     function fixSidebar() {
-        var $el = $('#layout-sidenav'),
-            menuHeight = $('#layout-mainmenu').height()
-
-        $el.height(Math.max($('#layout-body').innerHeight(), $(window).height() - menuHeight))
+        $('#layout-sidenav').height(Math.max(
+            $('#layout-body').innerHeight(),
+            $(window).height() - $('#layout-mainmenu').height()
+        ))
     }
 }
