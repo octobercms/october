@@ -18,3 +18,5 @@ composer.lock
 
 # for netbeans
 nbproject
+# for vscode
+.vscode
