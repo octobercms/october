@@ -155,7 +155,7 @@ class Dropdown extends FormWidgetBase
             return $this->getOptionFromModel($value);
         }
 
-        $methodToCall = "get" . ucwords($this->arrayName) . "Option";
+        $methodToCall = "get" . ucwords($this->formField->fieldName) . "Option";
 
         if (is_string($this->options) && method_exists($this->controller, $methodToCall)) {
             return call_user_func([$this->controller, $methodToCall], $value);
