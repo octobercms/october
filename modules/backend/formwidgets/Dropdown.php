@@ -17,7 +17,7 @@ class Dropdown extends FormWidgetBase
      * Or the fully qualified class name of the Model to obtain options from.
      * @var string|array
      */
-    public $options = [];
+    public $options;
 
     /**
      * Specifies the database column to use as an options value.
@@ -149,15 +149,21 @@ class Dropdown extends FormWidgetBase
      * @param  mixed $value
      * @return string
      */
-    public function getOption($value = null)
+    public function valueToTitle($value = null)
     {
-        if (is_string($this->options) && class_exists($this->options)) {
-            return $this->getOptionFromModel($value);
+        if (is_string($this->options) 
+            && class_exists($this->options)) {
+            return $this->getOptionFromQuery($value);
         }
 
-        $methodToCall = "get" . ucwords($this->formField->fieldName) . "Option";
+        $field = $this->formField;
+        list(, $fieldName) = $field->resolveModelAttribute($this->model, $field->fieldName);
 
-        if (is_string($this->options) && method_exists($this->controller, $methodToCall)) {
+        $methodToCall = "get" . studly_case($fieldName) . "Option";
+
+        if (is_string($this->options) 
+            && $this->objectMethodExists($this->controller, $methodToCall)) {
+
             return call_user_func([$this->controller, $methodToCall], $value);
         }
 
@@ -175,19 +181,38 @@ class Dropdown extends FormWidgetBase
      * @param  mixed $search
      * @return array
      */
-    public function getOptions($search = false)
+    public function options($value = null, $search = false)
     {
-        if (is_string($this->options) && class_exists($this->options)) {
-            return $this->getOptionsFromModel($search);
-        }
-
-        if (is_string($this->options) && method_exists($this->controller, $this->options)) {
-            $options = call_user_func([$this->controller, $this->options]);
-            return $this->filterResultSet($options, $search);
+        if ($value) {
+            $this->options = $value;
+            return $this;
         }
 
         if (is_array($this->options)) {
             return $this->filterResultSet($this->options, $search);
+        }
+
+        if (class_exists($this->options)) {
+            return $this->getOptionsFromQuery($search);
+        }
+
+        if ($this->objectMethodExists($this->model, $this->options)) {
+            $options = call_user_func($this->model, $this->options);
+            return $this->filterResultSet($options, $search);
+        }
+
+        $field = $this->formField;
+        list(,$fieldName) = $field->resolveModelAttribute($this->model, $field->fieldName);
+        $methodName = "get" . studly_case($fieldName) . "Options";
+
+        if ($this->objectMethodExists($this->model, $methodName)) {
+            $options = call_user_func([$this->model, $methodName]);
+            return $this->filterResultSet($options, $search);
+        }
+
+        if ($this->objectMethodExists($this->model, "getDropdownOptions")) {
+            $options = call_user_func([$this->model, "getDropdownOptions"], $fieldName);
+            return $this->filterResultSet($options, $search);
         }
 
         return [];
@@ -202,8 +227,13 @@ class Dropdown extends FormWidgetBase
     {
         $term = post('term', false);
 
+        $options = [];
+        foreach($this->options(null, $term) as $id => $text) {
+            $options[] = compact('id', 'text');
+        }
+
         return [
-            'options' => $this->getOptions($term)
+            'options' => $options
         ];
     }
 
@@ -239,7 +269,7 @@ class Dropdown extends FormWidgetBase
      * Retreives an option from the database that corressponds to the passed in $value.
      * @return array
      */
-    protected function getOptionFromModel($value = null)
+    protected function getOptionFromQuery($value = null)
     {
         if ($value === null) {
             $value = $this->getLoadValue();
@@ -271,7 +301,7 @@ class Dropdown extends FormWidgetBase
      * @param  mixed $search
      * @return array
      */
-    protected function getOptionsFromModel($search = false)
+    protected function getOptionsFromQuery($search = false)
     {
         $valueFrom = $this->optionsValueFrom;
         $model = $this->options;
@@ -289,10 +319,7 @@ class Dropdown extends FormWidgetBase
                 $key = $record->{$valueFrom};
                 $value = $this->getFormattedOptionTitle($record);
             
-                $list[] = [
-                    'id' => $key,
-                    'text' => $value
-                ];
+                $list[$key] = $value;
             
                 return $list;
             }, []);
@@ -342,9 +369,9 @@ class Dropdown extends FormWidgetBase
 
     /**
      * Prepares the current options query to be filtered by the passed in $search term.
-     * @param  [type]  $options [description]
-     * @param  boolean $search  [description]
-     * @return [type]           [description]
+     * @param  array  $options
+     * @param  string $search
+     * @return array
      */
     protected function searchOptionsQuery($options, $search = false) {
         
@@ -377,11 +404,11 @@ class Dropdown extends FormWidgetBase
     protected function getFormattedOptionTitle($option)
     {
         if (is_string($this->optionsTitleFormatter) === false) {
-            $this->optionsTitleFormatter = "getFormatted" . $this->formField->fieldName . "OptionTitle";
+            $this->optionsTitleFormatter = "getFormatted" . studly_case($this->formField->fieldName) . "OptionTitle";
         }
 
-        if (method_exists($this->controller, $this->optionsTitleFormatter) === true) {
-            return call_user_func([$this->controller, $this->optionsTitleFormatter], $option);
+        if ($this->objectMethodExists($this->model, $this->optionsTitleFormatter) === true) {
+            return call_user_func([$this->model, $this->optionsTitleFormatter], $option);
         }
 
         if (is_array($this->optionsTitleFrom) === true) {
@@ -397,5 +424,21 @@ class Dropdown extends FormWidgetBase
         }
 
         return null;
+    }
+
+    /**
+     * Internal helper for method existence checks.
+     *
+     * @param  object $object
+     * @param  string $method
+     * @return boolean
+     */
+    protected function objectMethodExists($object, $method)
+    {
+        if (method_exists($object, 'methodExists')) {
+            return $object->methodExists($method);
+        }
+
+        return method_exists($object, $method);
     }
 }

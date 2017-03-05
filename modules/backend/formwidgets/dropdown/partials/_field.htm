@@ -2,7 +2,7 @@
     $fieldOptions = [];
 
     if ($this->isAjax() === false) {
-        $fieldOptions = $this->getOptions();
+        $fieldOptions = $this->options();
     }
 
     $useSearch = $this->showSearch;
@@ -19,7 +19,7 @@
         <?php if ($emptyOption): ?>
             <option value=""><?= e(trans($emptyOption)) ?></option>
         <?php endif ?>
-        <?php if ($this->isAjax() && ($option = $this->getOption($value))): ?>
+        <?php if ($this->isAjax() && ($option = $this->valueToTitle($value))): ?>
             <option value="<?= $value ?>" selected="selected"><?= e(trans($option['title'])) ?></option>
         <?php endif; ?>
         <?php foreach ($fieldOptions as $value => $option): ?>
