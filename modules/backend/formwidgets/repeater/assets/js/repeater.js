@@ -51,7 +51,7 @@
 
     Repeater.prototype.dispose = function() {
         this.$sortable.sortable('destroy')
-        
+
         this.$el.off('ajaxDone', '> .field-repeater-items > .field-repeater-item > .repeater-item-remove > [data-repeater-remove]', this.proxy(this.onRemoveItemSuccess))
         this.$el.off('ajaxDone', '> .field-repeater-add-item > [data-repeater-add]', this.proxy(this.onAddItemSuccess))
         this.$el.off('click', '> .field-repeater-items > .field-repeater-item > .repeater-item-collapse .repeater-item-collapse-one', this.proxy(this.toggleCollapse))
@@ -101,6 +101,8 @@
     Repeater.prototype.toggleCollapse = function(ev) {
         var $item = $(ev.target).closest('.field-repeater-item'),
             isCollapsed = $item.hasClass('collapsed')
+
+        ev.preventDefault()
 
         if (ev.ctrlKey || ev.metaKey) {
             isCollapsed ? this.expandAll() : this.collapseAll()
