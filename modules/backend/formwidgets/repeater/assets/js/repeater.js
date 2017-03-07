@@ -102,7 +102,7 @@
         var $item = $(ev.target).closest('.field-repeater-item'),
             isCollapsed = $item.hasClass('collapsed')
 
-        if (event.ctrlKey || event.metaKey) {
+        if (ev.ctrlKey || ev.metaKey) {
             isCollapsed ? this.expandAll() : this.collapseAll()
         }
         else {
