@@ -138,7 +138,10 @@ class PluginBase extends ServiceProviderBase
      */
     public function registerSettings()
     {
-        return [];
+		$configuration = $this->getConfigurationFromYaml();
+		if (array_key_exists('settings', $configuration)) {
+			return $configuration['settings'];
+		}
     }
 
     /**
