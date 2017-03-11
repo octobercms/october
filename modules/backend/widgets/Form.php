@@ -219,7 +219,7 @@ class Form extends WidgetBase
          * Apply preview mode to widgets
          */
         foreach ($this->formWidgets as $widget) {
-            $widget->previewMode = $this->previewMode;
+            $widget->previewMode = (isset($widget->config->disabled) && $widget->config->disabled) ? true : $this->previewMode;
         }
 
         return $this->makePartial($targetPartial, $extraVars);
@@ -768,7 +768,7 @@ class Form extends WidgetBase
         $widgetConfig = $this->makeConfig($field->config);
         $widgetConfig->alias = $this->alias . studly_case(HtmlHelper::nameToId($field->fieldName));
         $widgetConfig->sessionKey = $this->getSessionKey();
-        $widgetConfig->previewMode = $this->previewMode;
+        $widgetConfig->previewMode = (isset($widgetConfig->disabled) && $widgetConfig->disabled) ? true : $this->previewMode;
         $widgetConfig->model = $this->model;
         $widgetConfig->data = $this->data;
 
