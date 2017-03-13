@@ -96,6 +96,10 @@ class FileUpload extends FormWidgetBase
             'useCaption'
         ]);
 
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         $this->checkUploadPostback();
     }
 

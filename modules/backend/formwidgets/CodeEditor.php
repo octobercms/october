@@ -118,6 +118,10 @@ class CodeEditor extends FormWidgetBase
     {
         $this->applyEditorPreferences();
 
+        if ($this->formField->disabled) {
+            $this->readOnly = true;
+        }
+
         $this->fillFromConfig([
             'language',
             'showGutter',

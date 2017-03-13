@@ -6,6 +6,7 @@
         id="<?= $this->getId() ?>"
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
+        <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
         <?php if ($toolbarButtons): ?>data-toolbar-buttons="<?= implode(',', $toolbarButtons) ?>"<?php endif ?>
         <?php if ($allowEmptyTags): ?>data-allow-empty-tags="<?= e($allowEmptyTags) ?>"<?php endif ?>

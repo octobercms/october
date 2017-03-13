@@ -606,7 +606,7 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/'}
+RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
@@ -642,6 +642,7 @@ this.$textarea.on('froalaEditor.html.set',this.proxy(this.onSetContent))
 this.$form.on('oc.beforeRequest',this.proxy(this.onFormBeforeRequest))
 this.$textarea.froalaEditor(froalaOptions)
 this.editor=this.$textarea.data('froala.editor')
+if(this.options.readOnly){this.editor.edit.off()}
 this.$el.on('keydown','.fr-view figure',this.proxy(this.onFigureKeydown))}
 RichEditor.prototype.dispose=function(){this.unregisterHandlers()
 this.$textarea.froalaEditor('destroy')

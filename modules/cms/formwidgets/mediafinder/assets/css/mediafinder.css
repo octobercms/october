@@ -50,6 +50,10 @@
 .field-mediafinder.is-populated .find-object:hover .meta .find-remove-button {
   display: block;
 }
+.field-mediafinder.is-preview .find-button,
+.field-mediafinder.is-preview .find-remove-button {
+  display: none !important;
+}
 @media (max-width: 1024px) {
   .field-fileupload.is-populated .find-object h4 a,
   .field-fileupload.is-populated .find-object .meta .find-remove-button {

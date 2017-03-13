@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Cms\Classes\MediaLibrary;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -51,6 +52,10 @@ class MediaFinder extends FormWidgetBase
             'mode',
             'prompt'
         ]);
+
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
     }
 
     /**
@@ -73,6 +78,18 @@ class MediaFinder extends FormWidgetBase
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSaveValue($value)
+    {
+        if ($this->formField->disabled || $this->formField->hidden) {
+            return FormField::NO_SAVE_DATA;
+        }
+
+        return $value;
     }
 
     /**
