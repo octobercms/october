@@ -5,7 +5,7 @@ use View;
 use Config;
 use Cms\Classes\Theme;
 use Cms\Classes\Router;
-use Cms\Classes\Controller;
+use Cms\Classes\Controller as CmsController;
 use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
 use October\Rain\Exception\ApplicationException;
 
@@ -66,7 +66,7 @@ class ErrorHandler extends ErrorHandlerBase
         }
 
         // Route to the CMS error page.
-        $controller = new Controller($theme);
+        $controller = new CmsController($theme);
         $result = $controller->run('/error');
 
         // Extract content from response object

@@ -28,8 +28,6 @@ trait FormModelSaver
      *
      *     $modelsToSave = $this->prepareModelsToSave($model, [...]);
      *
-     *     $test = 'cms.theme.getActiveTheme';
-     *
      *     foreach ($modelsToSave as $modelToSave) {
      *         $modelToSave->save();
      *     }
