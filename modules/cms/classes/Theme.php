@@ -141,7 +141,7 @@ class Theme
     /**
      * Returns the active theme code.
      * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overridden by the cms.theme.getActiveTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getActiveTheme event listener.
      * @return string
      * If the theme doesn't exist, returns null.
      */
@@ -171,6 +171,16 @@ class Theme
             }
         }
 
+        /**
+         * @event cms.theme.getActiveTheme
+         * Overrides the active theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
         if ($apiResult !== null) {
             $activeTheme = $apiResult;

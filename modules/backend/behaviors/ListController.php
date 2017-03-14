@@ -47,7 +47,7 @@ class ListController extends ControllerBehavior
     protected $filterWidgets = [];
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['listConfig'];
 

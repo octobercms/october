@@ -20,13 +20,13 @@ trait EventEmitter
      *
      * For example:
      *
-     *   $this->fireSystemEvent('backend.list.myEvent', ['my value']);
+     *     $this->fireSystemEvent('backend.list.myEvent', ['my value']);
      *
      * Is equivalent to:
      *
-     *   $this->fireEvent('list.myEvent', ['myvalue'], true);
+     *     $this->fireEvent('list.myEvent', ['myvalue'], true);
      *
-     *   Event::fire('backend.list.myEvent', [$this, 'myvalue'], true);
+     *     Event::fire('backend.list.myEvent', [$this, 'myvalue'], true);
      *
      * @param string $event Event name
      * @param array $params Event parameters
