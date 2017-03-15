@@ -105,7 +105,7 @@ class ComponentManager
             $code = Str::getClassId($className);
         }
 
-        if ($code == 'viewBag' && $className != 'Cms\Classes\ViewBag') {
+        if ($code == 'viewBag' && $className != 'Cms\Components\ViewBag') {
             throw new SystemException(sprintf(
                 'The component code viewBag is reserved. Please use another code for the component class %s.',
                 $className

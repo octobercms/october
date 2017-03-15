@@ -1,10 +1,13 @@
-<?php namespace Cms\Classes;
+<?php namespace Cms\Components;
 
 use Cms\Classes\ComponentBase;
 use Cms\Classes\CodeBase;
 
 class UnknownComponent extends ComponentBase
 {
+    /**
+     * @var string Error message that is shown with this error component.
+     */
     protected $errorMessage;
 
     /**

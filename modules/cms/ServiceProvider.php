@@ -63,7 +63,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerComponents()
     {
         ComponentManager::instance()->registerComponents(function ($manager) {
-            $manager->registerComponent('Cms\Classes\ViewBag', 'viewBag');
+            $manager->registerComponent('Cms\Components\ViewBag', 'viewBag');
         });
     }
 

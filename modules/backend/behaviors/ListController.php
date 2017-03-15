@@ -490,7 +490,7 @@ class ListController extends ControllerBehavior
      * Returns a CSS class name for a list row (<tr class="...">).
      * @param  Model $record The populated model used for the column
      * @param  string $definition List definition (optional)
-     * @return string HTML view
+     * @return string CSS class name
      */
     public function listInjectRowClass($record, $definition = null)
     {
