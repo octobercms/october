@@ -269,7 +269,7 @@ class CmsCompoundObjectTest extends TestCase
         $properties = $viewBag->getProperties();
         $this->assertCount(1, $properties);
         $this->assertEquals($obj->viewBag, $properties);
-        $this->assertInstanceOf('Cms\Classes\ViewBag', $viewBag);
+        $this->assertInstanceOf('Cms\Components\ViewBag', $viewBag);
         $this->assertArrayHasKey('title', $properties);
         $this->assertEquals('Toxicity', $properties['title']);
     }
@@ -281,7 +281,7 @@ class CmsCompoundObjectTest extends TestCase
         $obj = TestParsedCmsCompoundObject::load($theme, 'compound.htm');
 
         $viewBag = $obj->getViewBag();
-        $this->assertInstanceOf('Cms\Classes\ViewBag', $viewBag);
+        $this->assertInstanceOf('Cms\Components\ViewBag', $viewBag);
         $properties = $viewBag->getProperties();
         $this->assertEmpty($properties);
         $this->assertEquals($obj->viewBag, $properties);
