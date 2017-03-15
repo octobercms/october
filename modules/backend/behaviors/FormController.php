@@ -50,7 +50,7 @@ class FormController extends ControllerBehavior
     protected $formWidget;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['formConfig'];
 

@@ -8,7 +8,7 @@ class UnknownComponent extends ComponentBase
     protected $errorMessage;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function __construct($cmsObject, $properties, $errorMessage)
     {

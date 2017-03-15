@@ -15,7 +15,7 @@ use Backend\Classes\ControllerBehavior;
 class ReorderController extends ControllerBehavior
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['reorderConfig'];
 

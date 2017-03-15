@@ -200,7 +200,7 @@ class Updates extends Controller
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function listInjectRowClass($record, $definition = null)
     {

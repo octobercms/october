@@ -31,7 +31,7 @@ class SettingsModel extends ModelBehavior
     private static $instances = [];
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['settingsFields', 'settingsCode'];
 

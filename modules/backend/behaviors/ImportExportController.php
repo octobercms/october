@@ -26,7 +26,7 @@ class ImportExportController extends ControllerBehavior
 {
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['importExportConfig'];
 

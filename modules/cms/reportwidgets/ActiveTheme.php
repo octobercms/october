@@ -49,7 +49,7 @@ class ActiveTheme extends ReportWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

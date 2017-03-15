@@ -17,7 +17,7 @@ class Standard extends Skin
 {
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function __construct()
     {
@@ -26,7 +26,7 @@ class Standard extends Skin
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function skinDetails()
     {
@@ -36,7 +36,7 @@ class Standard extends Skin
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getPath($path = null, $isPublic = false)
     {
@@ -48,7 +48,7 @@ class Standard extends Skin
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLayoutPaths()
     {

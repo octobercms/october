@@ -17,7 +17,7 @@ use Exception;
 class Components extends FormWidgetBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
