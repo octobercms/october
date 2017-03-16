@@ -84,6 +84,17 @@ class OctoberInstall extends Command
         }
 
         $this->setupMigrateDatabase();
+
+        if ($this->confirm('Do you wish to install the (Driver & Builder) plugins')) {
+            $this->callSilent('plugin:install', [
+                'name' => 'October.Drivers',
+            ]);
+
+            $this->callSilent('plugin:install', [
+                'name' => 'RainLab.Builder',
+            ]);
+        }
+
         $this->displayOutro();
     }
 

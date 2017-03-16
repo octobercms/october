@@ -502,7 +502,12 @@ class MediaLibrary
      */
     protected function isVisible($path)
     {
-        return !in_array(basename($path), $this->ignoreNames);
+        $clean = [];
+        foreach ($this->ignoreNames as $one) {
+            $pattern = "/$one/";
+            $clean[] = !preg_grep($pattern, [basename($path)]);
+        }
+        return in_array(basename($path), $clean);
     }
 
     /**
