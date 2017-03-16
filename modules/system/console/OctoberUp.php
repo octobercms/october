@@ -5,6 +5,14 @@ use System\Classes\UpdateManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to migrate the database.
+ *
+ * This builds up all database tables that are registered for October and all plugins.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class OctoberUp extends Command
 {
 

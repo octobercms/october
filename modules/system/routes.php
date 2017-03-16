@@ -7,5 +7,5 @@ App::before(function ($request) {
     /*
      * Combine JavaScript and StyleSheet assets
      */
-    Route::any('combine/{file}', 'System\Classes\Controller@combine');
+    Route::any('combine/{file}', 'System\Classes\SystemController@combine');
 });

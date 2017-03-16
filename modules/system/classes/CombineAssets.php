@@ -21,9 +21,26 @@ use ApplicationException;
 use DateTime;
 
 /**
- * Class used for combining JavaScript and StyleSheet
- * files.
+ * Combiner class used for combining JavaScript and StyleSheet files.
  *
+ * This works by taking a collection of asset locations, serializing them,
+ * then storing them in the session with a unique ID. The ID is then used
+ * to generate a URL to the `/combine` route via the system controller.
+ *
+ * When the combine route is hit, the unique ID is used to serve up the
+ * assets -- minified, compiled or both. Special E-Tags are used to prevent
+ * compilation and delivery of cached assets that are unchanged.
+ *
+ * Use the `CombineAssets::combine` method to combine your own assets.
+ *
+ * The functionality of this class is controlled by these config items:
+ *
+ * - cms.enableAssetCache - Cache untouched assets
+ * - cms.enableAssetMinify - Compress assets using minification
+ * - cms.enableAssetDeepHashing - Advanced caching of imports
+ *
+ * @see System\Classes\SystemController System controller
+ * @see https://octobercms.com/docs/services/session Session service
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -147,6 +164,17 @@ class CombineAssets
     /**
      * Combines JavaScript or StyleSheet file references
      * to produce a page relative URL to the combined contents.
+     *
+     *     $assets = [
+     *         'assets/vendor/mustache/mustache.js',
+     *         'assets/js/vendor/jquery.ui.widget.js',
+     *         'assets/js/vendor/canvas-to-blob.js',
+     *     ];
+     *
+     *     CombineAssets::combine($assets, base_path('plugins/acme/blog'));
+     *
+     * @param array $assets Collection of assets
+     * @param string $localPath Prefix all assets with this path (optional)
      * @return string URL to contents.
      */
     public static function combine($assets = [], $localPath = null)
@@ -156,11 +184,24 @@ class CombineAssets
 
     /**
      * Combines a collection of assets files to a destination file
-     * @param array $assets
-     * @param string $destination
+     *
+     *     $assets = [
+     *         'assets/less/header.less',
+     *         'assets/less/footer.less',
+     *     ];
+     *
+     *     CombineAssets::combineToFile(
+     *         $assets,
+     *         base_path('themes/website/assets/theme.less'),
+     *         base_path('themes/website')
+     *     );
+     *
+     * @param array $assets Collection of assets
+     * @param string $destination Write the combined file to this location
+     * @param string $localPath Prefix all assets with this path (optional)
      * @return void
      */
-    public function combineToFile($assets = [], $destination)
+    public function combineToFile($assets = [], $destination, $localPath = null)
     {
         // Disable cache always
         $this->storagePath = null;
@@ -482,13 +523,13 @@ class CombineAssets
     /**
      * Registers a callback function that defines bundles.
      * The callback function should register bundles by calling the manager's
-     * registerBundle() function. Thi instance is passed to the
-     * callback function as an argument. Usage:
-     * <pre>
-     *   CombineAssets::registerCallback(function($combiner){
-     *       $combiner->registerBundle('~/modules/backend/assets/less/october.less');
-     *   });
-     * </pre>
+     * `registerBundle` method. Thi instance is passed to the callback 
+     * function as an argument. Usage:
+     *
+     *     CombineAssets::registerCallback(function($combiner){
+     *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+     *     });
+     *
      * @param callable $callback A callable function.
      */
     public static function registerCallback(callable $callback)
