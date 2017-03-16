@@ -198,7 +198,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.myaccount.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-user',
-                    'url'         => Backend::URL('backend/users/myaccount'),
+                    'url'         => Backend::url('backend/users/myaccount'),
                     'order'       => 500,
                     'context'     => 'mysettings',
                     'keywords'    => 'backend::lang.myaccount.menu_keywords'
@@ -208,7 +208,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.backend_preferences.menu_description',
                     'category'    => SettingsManager::CATEGORY_MYSETTINGS,
                     'icon'        => 'icon-laptop',
-                    'url'         => Backend::URL('backend/preferences'),
+                    'url'         => Backend::url('backend/preferences'),
                     'permissions' => ['backend.manage_preferences'],
                     'order'       => 510,
                     'context'     => 'mysettings'

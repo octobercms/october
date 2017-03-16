@@ -274,7 +274,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'cms::lang.theme.settings_menu_description',
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-picture-o',
-                    'url'         => Backend::URL('cms/themes'),
+                    'url'         => Backend::url('cms/themes'),
                     'permissions' => ['cms.manage_themes'],
                     'order'       => 200
                 ],
