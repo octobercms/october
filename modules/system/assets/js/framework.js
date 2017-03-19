@@ -32,7 +32,7 @@ if (window.jQuery.request !== undefined) {
         /*
          * Prepare the options and execute the request
          */
-        var $form = $el.closest('form'),
+        var $form = options.form ? $(options.form) : $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options }
 
@@ -377,6 +377,7 @@ if (window.jQuery.request !== undefined) {
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
+            form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
         }
