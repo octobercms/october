@@ -256,7 +256,8 @@ return [
         'return_to_list' => 'Return to the list'
     ],
     'recordfinder' => [
-        'find_record' => 'Find Record'
+        'find_record' => 'Find Record',
+        'cancel' => 'Cancel',
     ],
     'pagelist' => [
         'page_link' => 'Page link',
