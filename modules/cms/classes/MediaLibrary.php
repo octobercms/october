@@ -352,7 +352,7 @@ class MediaLibrary
     {
         if (Str::lower($originalPath) !== Str::lower($newPath)) {
             // If there is no risk that the directory was renamed
-            // by just changing the letter case in the name - 
+            // by just changing the letter case in the name -
             // copy the directory to the destination path and delete
             // the source directory.
 
@@ -502,7 +502,12 @@ class MediaLibrary
      */
     protected function isVisible($path)
     {
-        return !in_array(basename($path), $this->ignoreNames);
+        $clean = [];
+        foreach ($this->ignoreNames as $one) {
+            $pattern = "/$one/";
+            $clean[] = !preg_grep($pattern, [basename($path)]);
+        }
+        return in_array(basename($path), $clean);
     }
 
     /**
