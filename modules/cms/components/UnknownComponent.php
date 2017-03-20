@@ -1,7 +1,7 @@
 <?php namespace Cms\Components;
 
-use Cms\Classes\ComponentBase;
 use Cms\Classes\CodeBase;
+use Cms\Classes\ComponentBase;
 
 class UnknownComponent extends ComponentBase
 {

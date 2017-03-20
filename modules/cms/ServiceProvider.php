@@ -64,6 +64,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         ComponentManager::instance()->registerComponents(function ($manager) {
             $manager->registerComponent('Cms\Components\ViewBag', 'viewBag');
+            $manager->registerComponent('Cms\Components\Resources', 'resources');
         });
     }
 
