@@ -48,6 +48,12 @@ class MediaLibrary
     protected $ignoreNames;
 
     /**
+     * @var array Contains a list of regex patterns to ignore in files and directories.
+     * The list can be customized with cms.storage.media.ignorePatterns configuration option.
+     */
+    protected $ignorePatterns;
+
+    /**
      * @var int Cache for the storage folder name length.
      */
     protected $storageFolderNameLength;
@@ -65,6 +71,8 @@ class MediaLibrary
         }
 
         $this->ignoreNames = Config::get('cms.storage.media.ignore', FileDefinitions::get('ignoreFiles'));
+
+        $this->ignorePatterns = Config::get('cms.storage.media.ignorePatterns', ['^\..*']);
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
     }
@@ -502,12 +510,19 @@ class MediaLibrary
      */
     protected function isVisible($path)
     {
-        $clean = [];
-        foreach ($this->ignoreNames as $one) {
-            $pattern = "/$one/";
-            $clean[] = !preg_grep($pattern, [basename($path)]);
+        $baseName = basename($path);
+
+        if (in_array($baseName, $this->ignoreNames)) {
+            return false;
         }
-        return in_array(basename($path), $clean);
+
+        foreach ($this->ignorePatterns as $pattern) {
+            if (preg_match('/'.$pattern.'/', $baseName)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

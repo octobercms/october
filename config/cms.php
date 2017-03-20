@@ -248,8 +248,6 @@ return [
             'disk'   => 'local',
             'folder' => 'media',
             'path'   => '/storage/app/media',
-            'ignore' => ['^\..*'], // use "php artisan cache:clear" after changing
-            'ttl'    => 10, // how much in minutes to cache the media items before refetching
         ],
 
     ],
