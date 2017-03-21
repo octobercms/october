@@ -54,7 +54,6 @@ class NullablePost extends Post
 
 class SluggablePost extends Post
 {
-
     use \October\Rain\Database\Traits\Sluggable;
 
     /**
@@ -74,7 +73,6 @@ class SluggablePost extends Post
 
 class RevisionablePost extends Post
 {
-
     use \October\Rain\Database\Traits\Revisionable;
     use \October\Rain\Database\Traits\SoftDelete;
 
@@ -125,6 +123,11 @@ class RevisionablePost extends Post
 class ValidationPost extends Post
 {
     use \October\Rain\Database\Traits\Validation;
+
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
 
     public $rules = [
         'title' => 'required|min:3|max:255',
