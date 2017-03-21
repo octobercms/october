@@ -4,7 +4,6 @@ use Model;
 
 class Post extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */
@@ -121,4 +120,14 @@ class RevisionablePost extends Post
         return 7;
     }
 
+}
+
+class ValidationPost extends Post
+{
+    use \October\Rain\Database\Traits\Validation;
+
+    public $rules = [
+        'title' => 'required|min:3|max:255',
+        'slug' => ['required', 'regex:/^[a-z0-9\/\:_\-\*\[\]\+\?\|]*$/i', 'unique:database_tester_posts'],
+    ];
 }
