@@ -14,22 +14,36 @@
 
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // RECORDFINDER CLASS DEFINITION
     // ============================
 
     var RecordFinder = function(element, options) {
-        var self       = this
         this.options   = options
         this.$el       = $(element)
 
-        this.$el.on('dblclick', function () {
-            $('.btn:first', self.$el).trigger('click')
-        })
+        Base.call(this)
+        this.init()
     }
+
+
+    RecordFinder.prototype = Object.create(BaseProto)
+    RecordFinder.prototype.constructor = RecordFinder
 
     RecordFinder.DEFAULTS = {
         refreshHandler: null,
         dataLocker: null
+    }
+
+    RecordFinder.prototype.init = function() {
+        var self = this
+        this.$el.on('dblclick', function () {
+            $('.btn.find-record', self.$el).trigger('click')
+        })
+
+        this.$el.on('click', '.clear-record', this.proxy(this.clearRecord))
     }
 
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {
@@ -45,7 +59,13 @@
             }
         })
 
-        $(linkEl).closest('.recordfinder-popup').popup('hide')
+        if(linkEl){
+            $(linkEl).closest('.recordfinder-popup').popup('hide')
+        }
+    }
+
+    RecordFinder.prototype.clearRecord = function() {
+        this.updateRecord(false, '')
     }
 
     // RECORDFINDER PLUGIN DEFINITION

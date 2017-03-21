@@ -17,7 +17,12 @@
 
     <?php if (!$this->previewMode): ?>
         <button
-            class="btn btn-default"
+            class="btn btn-default clear-record"
+            type="button">
+            <i class="icon-times"></i>
+        </button>
+        <button
+            class="btn btn-default find-record"
             data-control="popup"
             data-size="huge"
             data-handler="<?= $this->getEventHandler('onFindRecord') ?>"
