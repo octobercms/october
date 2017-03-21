@@ -16,11 +16,16 @@
     </span>
 
     <?php if (!$this->previewMode): ?>
-        <button
-            class="btn btn-default clear-record"
-            type="button">
-            <i class="icon-times"></i>
-        </button>
+        <?php if ($value): ?>
+            <button
+                type="button"
+                class="btn btn-default clear-record"
+                data-request="<?= $this->getEventHandler('onClearRecord') ?>"
+                data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>"
+                aria-label="Remove">
+                <i class="icon-times"></i>
+            </button>
+        <?php endif ?>
         <button
             class="btn btn-default find-record"
             data-control="popup"

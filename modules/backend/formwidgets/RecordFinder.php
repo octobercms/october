@@ -123,6 +123,10 @@ class RecordFinder extends FormWidgetBase
             'recordsPerPage',
         ]);
 
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
             $this->listWidget->bindToController();
@@ -155,6 +159,15 @@ class RecordFinder extends FormWidgetBase
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         $model->{$attribute} = post($this->getFieldName());
+
+        $this->prepareVars();
+        return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
+    }
+
+    public function onClearRecord()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+        $model->{$attribute} = null;
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
