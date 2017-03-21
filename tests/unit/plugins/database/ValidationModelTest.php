@@ -16,7 +16,7 @@ class ValidationModelTest extends PluginTestCase
     /**
      * @expectedException October\Rain\Database\ModelException
      */
-    public function test_slug_has_to_be_unique()
+    public function testUniqueTableValidation()
     {
         $post = ValidationPost::create([
             'title' => 'This is a new post',
