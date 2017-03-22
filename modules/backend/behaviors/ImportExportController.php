@@ -16,8 +16,19 @@ use SplTempFileObject;
 use Exception;
 
 /**
- * Import/Export Controller Behavior
  * Adds features for importing and exporting data.
+ *
+ * This behavior is implemented in the controller like so:
+ *
+ *     public $implement = [
+ *         'Backend.Behaviors.ImportExportController',
+ *     ];
+ *
+ *     public $importExportConfig = 'config_import_export.yaml';
+ *
+ * The `$importExportConfig` property makes reference to the configuration
+ * values as either a YAML file, located in the controller view directory,
+ * or directly as a PHP array.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges

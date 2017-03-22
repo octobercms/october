@@ -8,8 +8,19 @@ use ApplicationException;
 use Backend\Classes\ControllerBehavior;
 
 /**
- * List Controller Behavior
  * Adds features for working with backend lists.
+ *
+ * This behavior is implemented in the controller like so:
+ *
+ *     public $implement = [
+ *         'Backend.Behaviors.ListController',
+ *     ];
+ *
+ *     public $listConfig = 'config_list.yaml';
+ *
+ * The `$listConfig` property makes reference to the list configuration
+ * values as either a YAML file, located in the controller view directory,
+ * or directly as a PHP array.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
