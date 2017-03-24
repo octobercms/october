@@ -5,6 +5,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to switch themes.
+ *
+ * This switches the active theme to another one, saved to the database.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class ThemeUse extends Command
 {
     use \Illuminate\Console\ConfirmableTrait;

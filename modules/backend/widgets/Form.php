@@ -75,7 +75,7 @@ class Form extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'form';
 
@@ -121,7 +121,7 @@ class Form extends WidgetBase
     protected $widgetManager;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -155,7 +155,7 @@ class Form extends WidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

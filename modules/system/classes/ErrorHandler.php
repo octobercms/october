@@ -18,7 +18,7 @@ use October\Rain\Exception\ApplicationException;
 class ErrorHandler extends ErrorHandlerBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     // public function handleException(Exception $proposedException)
     // {

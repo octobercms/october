@@ -18,6 +18,16 @@ use Illuminate\Encryption\Encrypter;
 use Symfony\Component\Console\Input\InputOption;
 use Exception;
 
+/**
+ * Console command to install October.
+ *
+ * This sets up October for the first time. It will prompt the user for several
+ * configuration items, including application URL and database config, and then
+ * perform a database migration.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class OctoberInstall extends Command
 {
     use \Illuminate\Console\ConfirmableTrait;

@@ -7,12 +7,14 @@ use Illuminate\Routing\Controller as ControllerBase;
 use Exception;
 
 /**
- * The System controller class.
+ * The is the master controller for system related routing.
+ * It is currently only responsible for serving up the asset combiner contents.
  *
+ * @see System\Classes\CombineAssets Asset combiner class
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends ControllerBase
+class SystemController extends ControllerBase
 {
     /**
      * Combines JavaScript and StyleSheet assets.

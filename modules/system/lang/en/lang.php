@@ -14,7 +14,7 @@ return [
         'en-au' => 'English (Australia)',
         'en-ca' => 'English (Canada)',
         'en-gb' => 'English (United Kingdom)',
-        'de' => 'Deutsche',
+        'de' => 'Deutsch',
         'el' => 'Ελληνικά',
         'es' => 'Español',
         'es-ar' => 'Español (Argentina)',

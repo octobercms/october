@@ -6,6 +6,15 @@ use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to refresh a plugin.
+ *
+ * This destroys all database tables for a specific plugin, then builds them up again.
+ * It is a great way for developers to debug and develop new plugins.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginRefresh extends Command
 {
 

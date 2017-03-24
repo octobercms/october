@@ -14,22 +14,50 @@
 
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // RECORDFINDER CLASS DEFINITION
     // ============================
 
     var RecordFinder = function(element, options) {
-        var self       = this
-        this.options   = options
         this.$el       = $(element)
+        this.options = options || {}
 
-        this.$el.on('dblclick', function () {
-            $('.btn:first', self.$el).trigger('click')
-        })
+        $.oc.foundation.controlUtils.markDisposable(element)
+        Base.call(this)
+        this.init()
+    }
+
+    RecordFinder.prototype = Object.create(BaseProto)
+    RecordFinder.prototype.constructor = RecordFinder
+
+    RecordFinder.prototype.init = function() {
+        this.$el.on('dblclick', this.proxy(this.onDoubleClick))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+    }
+
+    RecordFinder.prototype.dispose = function() {
+        this.$el.off('dblclick', this.proxy(this.onDoubleClick))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+        this.$el.removeData('oc.someDisposableControl')
+
+        this.$el = null
+
+        // In some cases options could contain callbacks, 
+        // so it's better to clean them up too.
+        this.options = null
+
+        BaseProto.dispose.call(this)
     }
 
     RecordFinder.DEFAULTS = {
         refreshHandler: null,
         dataLocker: null
+    }
+
+    RecordFinder.prototype.onDoubleClick = function(linkEl, recordId) {
+        $('.btn.find-record', this.$el).trigger('click')
     }
 
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {

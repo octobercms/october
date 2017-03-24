@@ -4,7 +4,6 @@ use Model;
 
 class Post extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */
@@ -55,7 +54,6 @@ class NullablePost extends Post
 
 class SluggablePost extends Post
 {
-
     use \October\Rain\Database\Traits\Sluggable;
 
     /**
@@ -75,7 +73,6 @@ class SluggablePost extends Post
 
 class RevisionablePost extends Post
 {
-
     use \October\Rain\Database\Traits\Revisionable;
     use \October\Rain\Database\Traits\SoftDelete;
 
@@ -121,4 +118,19 @@ class RevisionablePost extends Post
         return 7;
     }
 
+}
+
+class ValidationPost extends Post
+{
+    use \October\Rain\Database\Traits\Validation;
+
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
+
+    public $rules = [
+        'title' => 'required|min:3|max:255',
+        'slug' => ['required', 'regex:/^[a-z0-9\/\:_\-\*\[\]\+\?\|]*$/i', 'unique:database_tester_posts'],
+    ];
 }

@@ -565,8 +565,12 @@ class PluginManager
     //
 
     /**
-     * Scans the system plugins to locate any dependencies
-     * that are not currently installed.
+     * Scans the system plugins to locate any dependencies that are not currently
+     * installed. Returns an array of plugin codes that are needed.
+     *
+     *     PluginManager::instance()->findMissingDependencies();
+     *
+     * @return array
      */
     public function findMissingDependencies()
     {
@@ -592,6 +596,7 @@ class PluginManager
     /**
      * Cross checks all plugins and their dependancies, if not met plugins
      * are disabled and vice versa.
+     * @return void
      */
     protected function loadDependencies()
     {

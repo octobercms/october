@@ -7,6 +7,15 @@ use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to remove a plugin.
+ *
+ * This completely deletes an existing plugin, including database tables, files
+ * and directories.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginRemove extends Command
 {
 
