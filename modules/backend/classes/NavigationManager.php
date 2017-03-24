@@ -247,7 +247,7 @@ class NavigationManager
     public function addSideMenuItems($owner, $code, array $definitions)
     {
         foreach ($definitions as $sideCode => $definition) {
-            $this->addSideMenuItem($owner, $code, $sideCode, $definition);
+            $this->addSideMenuItem($owner, $code, $sideCode, (array) $definition);
         }
     }
 
