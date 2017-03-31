@@ -247,6 +247,7 @@ class CombineAssets
         $response->header('Content-Type', $mime);
         $response->setLastModified(new DateTime($lastModifiedTime));
         $response->setEtag($etag);
+        $response->setPublic();
         $modified = !$response->isNotModified(App::make('request'));
 
         /*
