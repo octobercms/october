@@ -269,11 +269,12 @@ return [
         'important_action' => [
             'empty' => 'Select action',
             'confirm' => 'Confirm update',
-            'skip' => 'Skip this plugin (once only)',
-            'ignore' => 'Skip this plugin (always)'
+            'skip' => 'Skip this update (once only)',
+            'ignore' => 'Skip this update (always)'
         ],
         'important_action_required' => 'Action required',
         'important_view_guide' => 'View upgrade guide',
+        'important_view_release_notes' => 'View release notes',
         'important_alert_text' => 'Some updates need your attention.',
         'details_title' => 'Plugin details',
         'details_view_homepage' => 'View homepage',

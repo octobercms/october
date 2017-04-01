@@ -332,6 +332,26 @@ class Updates extends Controller
     protected function processImportantUpdates($result)
     {
         $hasImportantUpdates = false;
+
+        /*
+         * Core
+         */
+        $coreImportant = false;
+
+        foreach (array_get($result, 'core.updates', []) as $build => $description) {
+            if (strpos($description, '!!!') === false) continue;
+
+            $detailsUrl = '//octobercms.com/support/articles/release-notes';
+            $description = str_replace('!!!', '', $description);
+            $result['core']['updates'][$build] = [$description, $detailsUrl];
+            $coreImportant = $hasImportantUpdates = true;
+        }
+
+        $result['core']['isImportant'] = $coreImportant ? '1' : '0';
+
+        /*
+         * Plugins
+         */
         foreach (array_get($result, 'plugins', []) as $code => $plugin) {
             $isImportant = false;
 
@@ -348,6 +368,7 @@ class Updates extends Controller
         }
 
         $result['hasImportantUpdates'] = $hasImportantUpdates;
+
         return $result;
     }
 
