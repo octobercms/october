@@ -907,7 +907,7 @@ if(this.pageTitleTemplate===undefined)
 this.pageTitleTemplate=$title.data('titleTemplate')
 $title.text(this.pageTitleTemplate.replace('%s',title))}
 OctoberLayout.prototype.updateLayout=function(title){var $children,$el,fixedWidth,margin
-$('.layout-cell.width-fix, [data-calculate-width]').each(function(){$children=$(this).children()
+$('[data-calculate-width]').each(function(){$children=$(this).children()
 if($children.length>0){fixedWidth=0
 $children.each(function(){$el=$(this)
 margin=$el.data('oc.layoutMargin')
@@ -1343,3 +1343,8 @@ img.src=source})}};return o;};assetManager=new AssetManager();if($.oc===undefine
 $.oc={}
 $.oc.escapeHtmlString=function(string){var htmlEscapes={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'},htmlEscaper=/[&<>"'\/]/g
 return(''+string).replace(htmlEscaper,function(match){return htmlEscapes[match];})}
+if(!!window.MSInputMethodContext&&!!document.documentMode){$(window).on('resize',function(){fixMediaManager()
+fixSidebar()})
+function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
+$el.height($el.parent().height())}
+function fixSidebar(){$('#layout-sidenav').height(Math.max($('#layout-body').innerHeight(),$(window).height()-$('#layout-mainmenu').height()))}}

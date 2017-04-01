@@ -7,7 +7,7 @@ use App;
 use File;
 use View;
 use Lang;
-use Event;
+use Flash;
 use Config;
 use Session;
 use Request;
@@ -15,6 +15,7 @@ use Response;
 use Exception;
 use BackendAuth;
 use Twig_Environment;
+use Twig_Cache_Filesystem;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -41,7 +42,7 @@ use Illuminate\Http\RedirectResponse;
 class Controller
 {
     use \System\Traits\AssetMaker;
-    use \October\Rain\Support\Traits\Emitter;
+    use \System\Traits\EventEmitter;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -179,10 +180,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.beforeDisplay', [$url, $page], true)) ||
-            ($event = Event::fire('cms.page.beforeDisplay', [$this, $url, $page], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
             }
@@ -222,10 +220,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.display', [$url, $page, $result], true)) ||
-            ($event = Event::fire('cms.page.display', [$this, $url, $page, $result], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
             return $event;
         }
 
@@ -325,10 +320,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.init', [$page], true)) ||
-            ($event = Event::fire('cms.page.init', [$this, $page], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.init', [$page])) {
             return $event;
         }
 
@@ -361,10 +353,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.beforeRenderPage', [$page], true)) ||
-            ($event = Event::fire('cms.page.beforeRenderPage', [$this, $page], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.beforeRenderPage', [$page])) {
             $this->pageContents = $event;
         }
         else {
@@ -409,10 +398,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.start', [], true)) ||
-            ($event = Event::fire('cms.page.start', [$this], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.start')) {
             return $event;
         }
 
@@ -421,9 +407,11 @@ class Controller
          */
         if ($this->layoutObj) {
             CmsException::mask($this->layout, 300);
-            $response = (($result = $this->layoutObj->onStart()) ||
+            $response = (
+                ($result = $this->layoutObj->onStart()) ||
                 ($result = $this->layout->runComponents()) ||
-                ($result = $this->layoutObj->onBeforePageStart())) ? $result: null;
+                ($result = $this->layoutObj->onBeforePageStart())
+            ) ? $result : null;
             CmsException::unmask();
 
             if ($response) {
@@ -435,9 +423,11 @@ class Controller
          * Run page functions
          */
         CmsException::mask($this->page, 300);
-        $response = (($result = $this->pageObj->onStart()) ||
+        $response = (
+            ($result = $this->pageObj->onStart()) ||
             ($result = $this->page->runComponents()) ||
-            ($result = $this->pageObj->onEnd())) ? $result : null;
+            ($result = $this->pageObj->onEnd())
+        ) ? $result : null;
         CmsException::unmask();
 
         if ($response) {
@@ -456,10 +446,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.end', [], true)) ||
-            ($event = Event::fire('cms.page.end', [$this], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.end')) {
             return $event;
         }
 
@@ -480,7 +467,7 @@ class Controller
 
         $dataHolder = (object) ['content' => $content];
 
-        Event::fire('cms.page.postprocess', [$this, $url, $page, $dataHolder]);
+        $this->fireSystemEvent('cms.page.postprocess', [$url, $page, $dataHolder]);
 
         return $dataHolder->content;
     }
@@ -498,14 +485,20 @@ class Controller
     {
         $this->loader = new TwigLoader;
 
+        $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
         ];
-        if (!Config::get('cms.twigNoCache')) {
-            $options['cache'] =  storage_path().'/cms/twig';
+
+        if ($useCache) {
+            $options['cache'] = new Twig_Cache_Filesystem(
+                storage_path().'/cms/twig',
+                $forceBytecode ? Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION : 0
+            );
         }
 
         $this->twig = new Twig_Environment($this->loader, $options);
@@ -565,8 +558,7 @@ class Controller
         /*
          * Extensibility
          */
-        $this->fireEvent('page.initComponents', [$this->page, $this->layout]);
-        Event::fire('cms.page.initComponents', [$this, $this->page, $this->layout]);
+        $this->fireSystemEvent('cms.page.initComponents', [$this->page, $this->layout]);
     }
 
     //
@@ -644,6 +636,12 @@ class Controller
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                     $result = null;
+                }
+                /*
+                 * No redirect is used, look for any flash messages
+                 */
+                elseif (Request::header('X_OCTOBER_REQUEST_FLASH') && Flash::check()) {
+                    $responseContents['X_OCTOBER_FLASH_MESSAGES'] = Flash::all();
                 }
 
                 /*
@@ -743,10 +741,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.render', [$contents], true)) ||
-            ($event = Event::fire('cms.page.render', [$this, $contents], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.render', [$contents])) {
             return $event;
         }
 
@@ -774,9 +769,15 @@ class Controller
         }
 
         /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('cms.page.beforeRenderPartial', [$name])) {
+            $partial = $event;
+        }
+        /*
          * Process Component partial
          */
-        if (strpos($name, '::') !== false) {
+        elseif (strpos($name, '::') !== false) {
 
             list($componentAlias, $partialName) = explode('::', $name);
 
@@ -795,10 +796,10 @@ class Controller
                         return false;
                     }
                 }
+            }
             /*
              * Component alias is supplied
              */
-            }
             else {
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
                     if ($throwException) {
@@ -859,7 +860,6 @@ class Controller
         /*
          * Run functions for CMS partials only (Cms\Classes\Partial)
          */
-
         if ($partial instanceof Partial) {
             $this->partialStack->stackPartial();
 
@@ -870,8 +870,9 @@ class Controller
                 // Not sure if they're needed there by the requirements,
                 // but there were problems with array-typed properties used by Static Pages 
                 // snippets and setComponentPropertiesFromParams(). --ab
-                if ($component == 'viewBag')
+                if ($component == 'viewBag') {
                     continue;
+                }
 
                 list($name, $alias) = strpos($component, ' ')
                     ? explode(' ', $component)
@@ -908,7 +909,7 @@ class Controller
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFilePath());
-        $result = $template->render(array_merge($this->vars, $parameters));
+        $partialContent = $template->render(array_merge($this->vars, $parameters));
         CmsException::unmask();
 
         if ($partial instanceof Partial) {
@@ -916,7 +917,15 @@ class Controller
         }
 
         $this->vars = $vars;
-        return $result;
+
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('cms.page.renderPartial', [$name, &$partialContent])) {
+            return $event;
+        }
+
+        return $partialContent;
     }
 
     /**
@@ -931,10 +940,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.beforeRenderContent', [$name], true)) ||
-            ($event = Event::fire('cms.page.beforeRenderContent', [$this, $name], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.beforeRenderContent', [$name])) {
             $content = $event;
         }
         /*
@@ -964,10 +970,7 @@ class Controller
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.renderContent', [$name, $fileContent], true)) ||
-            ($event = Event::fire('cms.page.renderContent', [$this, $name, $fileContent], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.page.renderContent', [$name, &$fileContent])) {
             return $event;
         }
 
@@ -975,22 +978,29 @@ class Controller
     }
 
     /**
-     * Renders a component's default content.
+     * Renders a component's default content, preserves the previous component context.
      * @param $name
      * @param array $parameters
      * @return string Returns the component default contents.
      */
     public function renderComponent($name, $parameters = [])
     {
+        $result = null;
+        $previousContext = $this->componentContext;
+
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
-            if ($result = $componentObj->onRender()) {
-                return $result;
-            }
+            $this->componentContext = $componentObj;
+            $result = $componentObj->onRender();
         }
 
-        return $this->renderPartial($name.'::default', [], false);
+        if (!$result) {
+            $result = $this->renderPartial($name.'::default', [], false);
+        }
+
+        $this->componentContext = $previousContext;
+        return $result;
     }
 
     //

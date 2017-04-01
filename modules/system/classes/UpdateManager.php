@@ -119,7 +119,7 @@ class UpdateManager
      */
     public function update()
     {
-        $firstUp = !Schema::hasTable('migrations');
+        $firstUp = !Schema::hasTable($this->getMigrationTableName());
         if ($firstUp) {
             $this->repository->createRepository();
             $this->note('Migration table created');
@@ -337,7 +337,7 @@ class UpdateManager
             }
         }
 
-        Schema::dropIfExists('migrations');
+        Schema::dropIfExists($this->getMigrationTableName());
 
         return $this;
     }
@@ -873,5 +873,14 @@ class UpdateManager
     protected function createSignature($data, $secret)
     {
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
+    }
+
+    //
+    // Internals
+    //
+
+    protected function getMigrationTableName()
+    {
+        return Config::get('database.migrations', 'migrations');
     }
 }

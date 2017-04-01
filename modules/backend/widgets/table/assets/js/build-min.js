@@ -646,7 +646,7 @@ Base.prototype.isCellFocusable=function(){return true}
 Base.prototype.getCellContentContainer=function(cellElement){return cellElement.querySelector('.content-container')}
 Base.prototype.createViewContainer=function(cellContentContainer,value){var viewContainer=document.createElement('div')
 viewContainer.setAttribute('data-view-container','data-view-container')
-viewContainer.textContent=value
+viewContainer.textContent=value===undefined?'':value
 cellContentContainer.appendChild(viewContainer)
 return viewContainer}
 Base.prototype.getViewContainer=function(cellElement){return cellElement.querySelector('[data-view-container]')}

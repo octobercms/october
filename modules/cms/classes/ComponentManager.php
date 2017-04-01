@@ -72,13 +72,12 @@ class ComponentManager
     }
 
     /**
-     * Manually registers a widget for consideration.
+     * Manually registers a component for consideration.
      * Usage:
-     * <pre>
-     *   ComponentManager::registerComponents(function($manager){
-     *       $manager->registerComponent('October\Demo\Components\Test', 'testComponent');
-     *   });
-     * </pre>
+     *
+     *     ComponentManager::registerComponents(function($manager){
+     *         $manager->registerComponent('October\Demo\Components\Test', 'testComponent');
+     *     });
      *
      * @param callable $definitions
      * @return array Array values are class names.
@@ -105,7 +104,7 @@ class ComponentManager
             $code = Str::getClassId($className);
         }
 
-        if ($code == 'viewBag' && $className != 'Cms\Classes\ViewBag') {
+        if ($code == 'viewBag' && $className != 'Cms\Components\ViewBag') {
             throw new SystemException(sprintf(
                 'The component code viewBag is reserved. Please use another code for the component class %s.',
                 $className

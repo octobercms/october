@@ -8,8 +8,19 @@ use ApplicationException;
 use Backend\Classes\ControllerBehavior;
 
 /**
- * List Controller Behavior
  * Adds features for working with backend lists.
+ *
+ * This behavior is implemented in the controller like so:
+ *
+ *     public $implement = [
+ *         'Backend.Behaviors.ListController',
+ *     ];
+ *
+ *     public $listConfig = 'config_list.yaml';
+ *
+ * The `$listConfig` property makes reference to the list configuration
+ * values as either a YAML file, located in the controller view directory,
+ * or directly as a PHP array.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -47,7 +58,7 @@ class ListController extends ControllerBehavior
     protected $filterWidgets = [];
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['listConfig'];
 
@@ -137,6 +148,7 @@ class ListController extends ControllerBehavior
             'showCheckboxes',
             'showTree',
             'treeExpanded',
+            'customViewPath',
         ];
 
         foreach ($configFieldsToTransfer as $field) {
@@ -160,6 +172,10 @@ class ListController extends ControllerBehavior
 
         $widget->bindEvent('list.extendQuery', function ($query) use ($definition) {
             $this->controller->listExtendQuery($query, $definition);
+        });
+
+        $widget->bindEvent('list.extendRecords', function ($records) use ($definition) {
+            $this->controller->listExtendRecords($records, $definition);
         });
 
         $widget->bindEvent('list.injectRowClass', function ($record) use ($definition) {
@@ -342,17 +358,7 @@ class ListController extends ControllerBehavior
             'toolbar' => null,
             'filter' => null,
             'list' => null,
-            'topPartial' => null,
-            'sidePartial' => null
         ];
-
-        if (isset($listConfig->topPartial)) {
-            $vars['topPartial'] = $listConfig->topPartial;
-        }
-
-        if (isset($listConfig->sidePartial)) {
-            $vars['sidePartial'] = $listConfig->sidePartial;
-        }
 
         if (isset($this->toolbarWidgets[$definition])) {
             $vars['toolbar'] = $this->toolbarWidgets[$definition];
@@ -364,7 +370,23 @@ class ListController extends ControllerBehavior
 
         $vars['list'] = $this->listWidgets[$definition];
 
-        return $this->makePartial('list', $vars);
+        return $this->listMakePartial('container', $vars);
+    }
+
+    /**
+     * Controller accessor for making partials within this behavior.
+     * @param string $partial
+     * @param array $params
+     * @return string Partial contents
+     */
+    public function listMakePartial($partial, $params = [])
+    {
+        $contents = $this->controller->makePartial('list_'.$partial, $params + $this->vars, false);
+        if (!$contents) {
+            $contents = $this->makePartial($partial, $params);
+        }
+
+        return $contents;
     }
 
     /**
@@ -420,15 +442,6 @@ class ListController extends ControllerBehavior
     //
 
     /**
-     * Called before the list columns are defined.
-     * @param Backend\Widgets\List $host The hosting list widget
-     * @return void
-     */
-    // public function listExtendColumnsBefore($host)
-    // {
-    // }
-
-    /**
      * Called after the list columns are defined.
      * @param \Backend\Widgets\List $host The hosting list widget
      * @return void
@@ -466,7 +479,16 @@ class ListController extends ControllerBehavior
     }
 
     /**
-     * Controller override: Extend the query used for populating the filter 
+     * Controller override: Extend the records used for populating the list
+     * after the query is processed.
+     * @param Illuminate\Contracts\Pagination\LengthAwarePaginator|Illuminate\Database\Eloquent\Collection $records
+     */
+    public function listExtendRecords($records, $definition = null)
+    {
+    }
+
+    /**
+     * Controller override: Extend the query used for populating the filter
      * options before the default query is processed.
      * @param \October\Rain\Database\Builder $query
      * @param array $scope
@@ -479,7 +501,7 @@ class ListController extends ControllerBehavior
      * Returns a CSS class name for a list row (<tr class="...">).
      * @param  Model $record The populated model used for the column
      * @param  string $definition List definition (optional)
-     * @return string HTML view
+     * @return string CSS class name
      */
     public function listInjectRowClass($record, $definition = null)
     {

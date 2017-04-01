@@ -9,38 +9,41 @@
             $(el).closest('.control-list').listWidget('toggleChecked', [el])
         }
 
-        this.clickViewListRecord = function(recordId, relationField, sessionKey, readOnly) {
-            var newPopup = $('<a />')
+        this.clickViewListRecord = function(recordId, relationId, sessionKey) {
+            var newPopup = $('<a />'),
+                $container = $('#'+relationId),
+                requestData = paramToObj('data-request-data', $container.data('request-data'))
 
             newPopup.popup({
                 handler: 'onRelationClickViewList',
                 size: 'huge',
-                extraData: {
+                extraData: $.extend({}, requestData, {
                     'manage_id': recordId,
-                    '_relation_field': relationField,
-                    '_session_key': sessionKey,
-                    '_relation_read_only': readOnly ? 1 : 0
-                }
+                    '_session_key': sessionKey
+                })
             })
         }
 
-        this.clickManageListRecord = function(recordId, relationField, sessionKey) {
-            var oldPopup = $('#relationManagePopup')
+        this.clickManageListRecord = function(recordId, relationId, sessionKey) {
+            var oldPopup = $('#relationManagePopup'),
+                $container = $('#'+relationId),
+                requestData = paramToObj('data-request-data', $container.data('request-data'))
 
             $.request('onRelationClickManageList', {
-                data: {
+                data: $.extend({}, requestData, {
                     'record_id': recordId,
-                    '_relation_field': relationField,
                     '_session_key': sessionKey
-                }
+                })
             })
 
             oldPopup.popup('hide')
         }
 
-        this.clickManagePivotListRecord = function(foreignId, relationField, sessionKey) {
+        this.clickManagePivotListRecord = function(foreignId, relationId, sessionKey) {
             var oldPopup = $('#relationManagePivotPopup'),
-                newPopup = $('<a />')
+                newPopup = $('<a />'),
+                $container = $('#'+relationId),
+                requestData = paramToObj('data-request-data', $container.data('request-data'))
 
             if (oldPopup.length) {
                 oldPopup.popup('hide')
@@ -49,11 +52,10 @@
             newPopup.popup({
                 handler: 'onRelationClickManageListPivot',
                 size: 'huge',
-                extraData: {
+                extraData: $.extend({}, requestData, {
                     'foreign_id': foreignId,
-                    '_relation_field': relationField,
                     '_session_key': sessionKey
-                }
+                })
             })
         }
 
@@ -69,6 +71,18 @@
                     $form.prepend($('<input />').attr({ type: 'hidden', name: name, value: value }))
                 })
             })
+        }
+
+        function paramToObj(name, value) {
+            if (value === undefined) value = ''
+            if (typeof value == 'object') return value
+
+            try {
+                return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+            }
+            catch (e) {
+                throw new Error('Error parsing the '+name+' attribute value. '+e)
+            }
         }
 
     }

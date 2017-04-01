@@ -86,7 +86,7 @@ class RecordFinder extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'recordfinder';
 
@@ -106,7 +106,7 @@ class RecordFinder extends FormWidgetBase
     protected $searchWidget;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -122,6 +122,10 @@ class RecordFinder extends FormWidgetBase
             'searchScope',
             'recordsPerPage',
         ]);
+
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
 
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
@@ -143,7 +147,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -154,7 +158,16 @@ class RecordFinder extends FormWidgetBase
     public function onRefresh()
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        $model->{$attribute} = post($this->formField->getName());
+        $model->{$attribute} = post($this->getFieldName());
+
+        $this->prepareVars();
+        return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
+    }
+
+    public function onClearRecord()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+        $model->{$attribute} = null;
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
@@ -178,7 +191,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -186,7 +199,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {
@@ -194,7 +207,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLoadValue()
     {
@@ -272,7 +285,7 @@ class RecordFinder extends FormWidgetBase
         }
         elseif ($scopeMethod = $this->scope) {
             $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                $query->$scopeMethod();
+                $query->$scopeMethod($this->model);
             });
         }
         else {

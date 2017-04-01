@@ -5,11 +5,11 @@ use Str;
 use Lang;
 use View;
 use Flash;
-use Event;
 use Config;
 use Request;
 use Backend;
 use Session;
+use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
@@ -37,8 +37,8 @@ class Controller extends Extendable
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
+    use \System\Traits\EventEmitter;
     use \Backend\Traits\WidgetMaker;
-    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var string Object used for storing a fatal error.
@@ -153,8 +153,10 @@ class Controller extends Extendable
         /*
          * Media Manager widget is available on all back-end pages
          */
-        $manager = new MediaManager($this, 'ocmediamanager');
-        $manager->bindToController();
+        if (class_exists('Cms\Widgets\MediaManager')) {
+            $manager = new MediaManager($this, 'ocmediamanager');
+            $manager->bindToController();
+        }
     }
 
     /**
@@ -176,12 +178,16 @@ class Controller extends Extendable
         }
 
         /*
+         * Check forced HTTPS protocol.
+         */
+        if (!$this->verifyForceSecure()) {
+            return Redirect::secure(Request::path());
+        }
+
+        /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('page.beforeDisplay', [$action, $params], true)) ||
-            ($event = Event::fire('backend.page.beforeDisplay', [$this, $action, $params], true))
-        ) {
+        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
             return $event;
         }
 
@@ -512,7 +518,7 @@ class Controller extends Extendable
             }
 
             if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
-                $result = call_user_func_array([$widget, $handlerName], $this->params);
+                $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
                 return ($result) ?: true;
             }
         }
@@ -543,13 +549,29 @@ class Controller extends Extendable
 
             foreach ((array) $this->widget as $widget) {
                 if ($widget->methodExists($handler)) {
-                    $result = call_user_func_array([$widget, $handler], $this->params);
+                    $result = $this->runAjaxHandlerForWidget($widget, $handler);
                     return ($result) ?: true;
                 }
             }
         }
 
         return false;
+    }
+
+    /**
+     * Specific code for executing an AJAX handler for a widget.
+     * This will append the widget view paths to the controller and merge the vars.
+     * @return mixed
+     */
+    protected function runAjaxHandlerForWidget($widget, $handler)
+    {
+        $this->addViewPath($widget->getViewPaths());
+
+        $result = call_user_func_array([$widget, $handler], $this->params);
+
+        $this->vars = $widget->vars + $this->vars;
+
+        return $result;
     }
 
     /**
@@ -655,7 +677,7 @@ class Controller extends Extendable
     }
 
     //
-    // CSRF Protection
+    // Security
     //
 
     /**
@@ -680,5 +702,24 @@ class Controller extends Extendable
             Session::getToken(),
             $token
         );
+    }
+
+    /**
+     * Checks if the back-end should force a secure protocol (HTTPS) enabled by config.
+     * @return bool
+     */
+    protected function verifyForceSecure()
+    {
+        if (Request::secure() || Request::ajax()) {
+            return true;
+        }
+
+        // @todo if year >= 2018 change default from false to null
+        $forceSecure = Config::get('cms.backendForceSecure', false);
+        if ($forceSecure === null) {
+            $forceSecure = !Config::get('app.debug', false);
+        }
+
+        return !$forceSecure;
     }
 }

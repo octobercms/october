@@ -18,7 +18,7 @@ If you clone this theme to use as a starting point. You may follow these instruc
 
 ## Combining CSS and JavaScript
 
-This theme doesn't combine assets for performance reasons. To combine the stylesheets, replace the following lines in the default layout.
+This theme doesn't combine assets for performance reasons. To combine the stylesheets, replace the following lines in the default layout. When combining with this theme, we recommend enabling the config `enableAssetDeepHashing` in the file **config/cms.php**.
 
 Uncombined stylesheets:
 

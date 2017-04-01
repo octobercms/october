@@ -17,7 +17,7 @@ use SystemException;
 class Table extends WidgetBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'table';
 
@@ -145,7 +145,7 @@ class Table extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

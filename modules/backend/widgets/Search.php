@@ -46,7 +46,7 @@ class Search extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'search';
 

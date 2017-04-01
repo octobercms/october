@@ -1,21 +1,21 @@
 <?php namespace Backend\Widgets;
 
 use Db;
-use Html;
 use App;
+use Html;
 use Lang;
 use Input;
-use Event;
 use Backend;
 use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
+use System\Classes\PluginManager;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
-use ApplicationException;
 use October\Rain\Database\Model;
+use ApplicationException;
 use DateTime;
 
 /**
@@ -96,12 +96,17 @@ class Lists extends WidgetBase
      */
     public $showPagination = 'auto';
 
+    /**
+     * @var string Specify a custom view path to override partials used by the list.
+     */
+    public $customViewPath;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'list';
 
@@ -193,6 +198,7 @@ class Lists extends WidgetBase
             'showTree',
             'treeExpanded',
             'showPagination',
+            'customViewPath',
         ]);
 
         /*
@@ -204,12 +210,16 @@ class Lists extends WidgetBase
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
         }
 
+        if ($this->customViewPath) {
+            $this->addViewPath($this->customViewPath);
+        }
+
         $this->validateModel();
         $this->validateTree();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -324,8 +334,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.list.extendQueryBefore', [$this, $query]);
-        $this->fireEvent('list.extendQueryBefore', [$query]);
+        $this->fireSystemEvent('backend.list.extendQueryBefore', [$query]);
 
         /*
          * Prepare searchable column names
@@ -491,10 +500,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('list.extendQuery', [$query], true)) ||
-            ($event = Event::fire('backend.list.extendQuery', [$this, $query], true))
-        ) {
+        if ($event = $this->fireSystemEvent('backend.list.extendQuery', [$query])) {
             return $event;
         }
 
@@ -520,6 +526,13 @@ class Lists extends WidgetBase
         }
         else {
             $records = $model->get();
+        }
+
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('backend.list.extendRecords', [&$records])) {
+            $records = $event;
         }
 
         return $this->records = $records;
@@ -646,8 +659,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.list.extendColumns', [$this]);
-        $this->fireEvent('list.extendColumns');
+        $this->fireSystemEvent('backend.list.extendColumns');
 
         /*
          * Use a supplied column order
@@ -706,12 +718,25 @@ class Lists extends WidgetBase
             $label = studly_case($name);
         }
 
+        /*
+         * Auto configure pivot relation
+         */
         if (starts_with($name, 'pivot[') && strpos($name, ']') !== false) {
             $_name = HtmlHelper::nameToArray($name);
-            $config['relation'] = array_shift($_name);
-            $config['valueFrom'] = array_shift($_name);
+            $relationName = array_shift($_name);
+            $valueFrom = array_shift($_name);
+
+            if (count($_name) > 0) {
+                $valueFrom  .= '['.implode('][', $_name).']';
+            }
+
+            $config['relation'] = $relationName;
+            $config['valueFrom'] = $valueFrom;
             $config['searchable'] = false;
         }
+        /*
+         * Auto configure standard relation
+         */
         elseif (strpos($name, '[') !== false && strpos($name, ']') !== false) {
             $config['valueFrom'] = $name;
             $config['sortable'] = false;
@@ -734,12 +759,15 @@ class Lists extends WidgetBase
     {
         $columns = $this->visibleColumns ?: $this->getVisibleColumns();
         $total = count($columns);
+
         if ($this->showCheckboxes) {
             $total++;
         }
+
         if ($this->showSetup) {
             $total++;
         }
+
         return $total;
     }
 
@@ -753,11 +781,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if ($response = Event::fire('backend.list.overrideHeaderValue', [$this, $column, $value], true)) {
-            $value = $response;
-        }
-
-        if ($response = $this->fireEvent('list.overrideHeaderValue', [$column, $value], true)) {
+        if ($response = $this->fireSystemEvent('backend.list.overrideHeaderValue', [$column, $value])) {
             $value = $response;
         }
 
@@ -765,9 +789,10 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Looks up the column value
+     * Returns a raw column value
+     * @return string
      */
-    public function getColumnValue($record, $column)
+    public function getColumnValueRaw($record, $column)
     {
         $columnName = $column->columnName;
 
@@ -781,10 +806,12 @@ class Lists extends WidgetBase
                 $value = null;
             }
             elseif ($this->isColumnRelated($column, true)) {
-                $value = implode(', ', $record->{$columnName}->lists($column->valueFrom));
+                $value = $record->{$columnName}->lists($column->valueFrom);
             }
             elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
-                $value = $record->{$columnName} ? $record->{$columnName}->{$column->valueFrom} : null;
+                $value = $record->{$columnName}
+                    ? $column->getValueFromData($record->{$columnName})
+                    : null;
             }
             else {
                 $value = null;
@@ -794,11 +821,7 @@ class Lists extends WidgetBase
          * Handle taking value from model attribute.
          */
         elseif ($column->valueFrom) {
-            $keyParts = HtmlHelper::nameToArray($column->valueFrom);
-            $value = $record;
-            foreach ($keyParts as $key) {
-                $value = $value->{$key};
-            }
+            $value = $column->getValueFromData($record);
         }
         /*
          * Otherwise, if the column is a relation, it will be a custom select,
@@ -814,8 +837,22 @@ class Lists extends WidgetBase
             }
         }
 
+        return $value;
+    }
+
+    /**
+     * Returns a column value, with filters applied
+     * @return string
+     */
+    public function getColumnValue($record, $column)
+    {
+        $value = $this->getColumnValueRaw($record, $column);
+
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue')) {
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
+        }
+        else {
+            $value = $this->evalCustomListType($column->type, $record, $column, $value);
         }
 
         /*
@@ -828,11 +865,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if (($response = Event::fire('backend.list.overrideColumnValue', [$this, $record, $column, $value], true)) !== null) {
-            $value = $response;
-        }
-
-        if (($response = $this->fireEvent('list.overrideColumnValue', [$record, $column, $value], true)) !== null) {
+        if ($response = $this->fireSystemEvent('backend.list.overrideColumnValue', [$record, $column, &$value])) {
             $value = $response;
         }
 
@@ -851,11 +884,7 @@ class Lists extends WidgetBase
         /*
          * Extensibility
          */
-        if ($response = Event::fire('backend.list.injectRowClass', [$this, $record], true)) {
-            $value = $response;
-        }
-
-        if ($response = $this->fireEvent('list.injectRowClass', [$record], true)) {
+        if ($response = $this->fireSystemEvent('backend.list.injectRowClass', [$record])) {
             $value = $response;
         }
 
@@ -867,11 +896,55 @@ class Lists extends WidgetBase
     //
 
     /**
+     * Process a custom list types registered by plugins.
+     */
+    protected function evalCustomListType($type, $record, $column, $value)
+    {
+        $plugins = PluginManager::instance()->getRegistrationMethodValues('registerListColumnTypes');
+
+        foreach ($plugins as $availableTypes) {
+            if (!isset($availableTypes[$type])) {
+                continue;
+            }
+
+            $callback = $availableTypes[$type];
+
+            if (is_callable($callback)) {
+                return call_user_func_array($callback, [$value, $column, $record]);
+            }
+        }
+
+        throw new ApplicationException(sprintf('List column type "%s" could not be found.', $type));
+    }
+
+    /**
      * Process as text, escape the value
      */
     protected function evalTextTypeValue($record, $column, $value)
     {
+        if (is_array($value) && count($value) == count($value, COUNT_RECURSIVE)) {
+            $value = implode(', ', $value);
+        }
+
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
+     * Process as number, proxy to text
+     */
+    protected function evalNumberTypeValue($record, $column, $value)
+    {
+        return $this->evalTextTypeValue($record, $column, $value);
+    }
+
+    /**
+     * Common mistake, relation is not a valid list column.
+     * @deprecated Remove if year >= 2018
+     */
+    protected function evalRelationTypeValue($record, $column, $value)
+    {
+        traceLog(sprintf('Warning: List column type "relation" for class "%s" is not valid.', get_class($record)));
+        return $this->evalTextTypeValue($record, $column, $value);
     }
 
     /**
@@ -1104,8 +1177,8 @@ class Lists extends WidgetBase
 
         if ($scopeMethod = $this->searchScope) {
             $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
-            $query->$searchMethod(function($q) use ($term, $scopeMethod) {
-                $q->$scopeMethod($term);
+            $query->$searchMethod(function($q) use ($term, $columns, $scopeMethod) {
+                $q->$scopeMethod($term, $columns);
             });
         }
         else {
@@ -1250,7 +1323,7 @@ class Lists extends WidgetBase
     public function onApplySetup()
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
-            $this->columnOverride = array_keys($visibleColumns);
+            $this->columnOverride = $visibleColumns;
             $this->putSession('visible', $this->columnOverride);
         }
 

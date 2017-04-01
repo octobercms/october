@@ -11,7 +11,7 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled.',
+        'safe_mode_enabled' => 'Safe mode is currently enabled.'
     ],
     'dashboard' => [
         'active_theme' => [
@@ -19,6 +19,7 @@ return [
             'online' => 'Online',
             'maintenance' => 'In maintenance',
             'manage_themes' => 'Manage themes',
+            'customize_theme' => 'Customize theme'
         ]
     ],
     'theme' => [
@@ -45,6 +46,8 @@ return [
         'homepage_placeholder' => 'Website URL',
         'code_label' => 'Code',
         'code_placeholder' => 'A unique code for this theme used for distribution',
+        'preview_image_label' => 'Preview image',
+        'preview_image_placeholder' => 'The path of theme preview image.',
         'dir_name_label' => 'Directory name',
         'dir_name_create_label' => 'The destination theme directory',
         'theme_label' => 'Theme',
@@ -88,14 +91,14 @@ return [
         'dir_name_taken' => 'Desired theme directory already exists.',
         'find_more_themes' => 'Find more themes',
         'saving' => 'Saving theme...',
-        'return' => 'Return to themes list',
+        'return' => 'Return to themes list'
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
         'is_enabled_comment' => 'Select the page to show when maintenance mode is activated.',
-        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.',
+        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.'
     ],
     'page' => [
         'not_found_name' => "The page ':name' is not found",
@@ -114,7 +117,11 @@ return [
         'invalid_url' => 'Invalid URL format. The URL should start with the forward slash symbol and can contain digits, Latin letters and the following symbols: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Delete selected pages?',
         'delete_confirm_single' => 'Delete this page?',
-        'no_layout' => '-- no layout --'
+        'no_layout' => '-- no layout --',
+        'cms_page' => 'CMS page',
+        'title' => 'Page title',
+        'url' => 'Page URL',
+        'file_name' => 'Page file name'
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
@@ -199,7 +206,7 @@ return [
         'invalid_path' => 'Path can contain only digits, Latin letters, spaces and the following symbols: ._-/',
         'error_deleting_file' => 'Error deleting file :name.',
         'error_deleting_dir_not_empty' => 'Error deleting directory :name. The directory is not empty.',
-        'error_deleting_dir' => 'Error deleting file :name.',
+        'error_deleting_dir' => 'Error deleting directory :name.',
         'invalid_name' => 'Name can contain only digits, Latin letters, spaces and the following symbols: ._-',
         'original_not_found' => 'Original file or directory not found',
         'already_exists' => 'File or directory with this name already exists',
@@ -219,6 +226,8 @@ return [
         'error_moving_file' => 'Error moving file :file',
         'error_moving_directory' => 'Error moving directory :dir',
         'error_deleting_directory' => 'Error deleting the original directory :dir',
+        'no_list_records' => 'No files found',
+        'delete_confirm' => 'Delete selected files or directories?',
         'path' => 'Path'
     ],
     'component' => [
@@ -236,7 +245,10 @@ return [
     'template' => [
         'invalid_type' => 'Unknown template type.',
         'not_found' => 'Template not found.',
-        'saved'=> 'Template saved.'
+        'saved' => 'Template saved.',
+        'no_list_records' => 'No records found',
+        'delete_confirm' => 'Delete selected templates?',
+        'order_by' => 'Order by'
     ],
     'permissions' => [
         'name' => 'CMS',
@@ -249,6 +261,7 @@ return [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
+        'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
     'media' => [
@@ -312,5 +325,34 @@ return [
         'resize_image' => 'Resize image',
         'image_size' => 'Image size:',
         'selected_size' => 'Selected:'
-    ]
+    ],
+    'theme_log' => [
+        'hint' => 'This log displays any changes made to the theme by administrators in the back-end area.',
+        'menu_label' => 'Theme log',
+        'menu_description' => 'View changes made to the active theme.',
+        'empty_link' => 'Empty theme log',
+        'empty_loading' => 'Emptying theme log...',
+        'empty_success' => 'Theme log emptied',
+        'return_link' => 'Return to theme log',
+        'id' => 'ID',
+        'id_label' => 'Log ID',
+        'created_at' => 'Date & Time',
+        'user' => 'User',
+        'type' => 'Type',
+        'type_create' => 'Create',
+        'type_update' => 'Update',
+        'type_delete' => 'Delete',
+        'theme_name' => 'Theme',
+        'theme_code' => 'Theme code',
+        'old_template' => 'Template (Old)',
+        'new_template' => 'Template (New)',
+        'template' => 'Template',
+        'diff' => 'Changes',
+        'old_value' => 'Old value',
+        'new_value' => 'New value',
+        'preview_title' => 'Template changes',
+        'template_updated' => 'Template was updated',
+        'template_created' => 'Template was created',
+        'template_deleted' => 'Template was deleted',
+    ],
 ];

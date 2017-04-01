@@ -58,7 +58,7 @@ class ReportContainer extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'reportContainer';
 
@@ -119,7 +119,7 @@ class ReportContainer extends WidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

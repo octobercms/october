@@ -28,7 +28,7 @@ class MediaViewHelper
         $mediaTags = $this->extractMediaTags($html);
         foreach ($mediaTags as $tagInfo) {
             $pattern = preg_quote($tagInfo['declaration']);
-            $generatedMarkup = $this->generateMediaTagaMarkup($tagInfo['type'], $tagInfo['src']);
+            $generatedMarkup = $this->generateMediaTagMarkup($tagInfo['type'], $tagInfo['src']);
             $html = mb_ereg_replace($pattern, $generatedMarkup, $html);
         }
 
@@ -63,7 +63,7 @@ class MediaViewHelper
         return $result;
     }
 
-    protected function generateMediaTagaMarkup($type, $src)
+    protected function generateMediaTagMarkup($type, $src)
     {
         $partialName = $type == 'audio' ? 'oc-audio-player' : 'oc-video-player';
 

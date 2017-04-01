@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'نوع فیلد :type نا معتبر می باشد.',
+        'options_method_invalid_model' => "خصیصه ':field' به مدل معتبری اشاره نمی کند. گزینه مورد نظر را در مدل :model ایجاد نمایید.",
         'options_method_not_exists' => 'کلاس مدل :model باید شامل متد :method() باشد و گزینه های مورد نیاز ":field" را بازنشاند.',
     ],
     'widget' => [
@@ -252,6 +253,10 @@ return [
     'recordfinder' => [
         'find_record' => 'انتخاب مورد'
     ],
+    'pagelist' => [
+        'page_link' => 'لینک صفحه',
+        'select_page' => 'صفحه ای را انتخاب نمایید...'
+    ],
     'relation' => [
         'missing_config' => "کنترل کننده ارتباطات پایگاه داده شامل تعریفی برای ':config' نمی باشد.",
         'missing_definition' => "در ارتباط مورد نظر فیلد ':field' وجود ندارد.",
@@ -259,7 +264,7 @@ return [
         'invalid_action_single' => "این عمل در ارتباط یک تعرفه نمبتواند اعمال شود.",
         'invalid_action_multi' => "این عمل در ارتباط چند طرفه نمیتواند اعمال شود.",
         'help' => "بر روی یک گزینه کلیک کنید تا افزوده شود",
-        'related_data' => "اعلاعات :name مرتبط",
+        'related_data' => "اطلاعات :name مرتبط",
         'add' => "افزودن",
         'add_selected' => "افرودن انتخاب شده ها",
         'add_a_new' => ":name جدید",

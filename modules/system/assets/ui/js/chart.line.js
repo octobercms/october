@@ -87,7 +87,7 @@
 
         this.chartOptions = $.extend({}, this.chartOptions, parsedOptions)
 
-        this.options       = options,
+        this.options       = options
         this.$el           = $(element)
         this.fullDataSet   = []
         this.resetZoomLink = $(options.resetZoomLink)

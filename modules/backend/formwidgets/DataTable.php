@@ -35,7 +35,7 @@ class DataTable extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'datatable';
 
@@ -45,7 +45,7 @@ class DataTable extends FormWidgetBase
     protected $table;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -67,7 +67,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -87,7 +87,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLoadValue()
     {
@@ -103,7 +103,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {

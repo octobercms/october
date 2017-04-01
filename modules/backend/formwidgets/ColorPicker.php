@@ -36,12 +36,12 @@ class ColorPicker extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'colorpicker';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -51,7 +51,7 @@ class ColorPicker extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -64,14 +64,14 @@ class ColorPicker extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['name'] = $this->formField->getName();
+        $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value = $this->getLoadValue();
         $this->vars['availableColors'] = $this->availableColors;
         $this->vars['isCustomColor'] = !in_array($value, $this->availableColors);
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -82,7 +82,7 @@ class ColorPicker extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {

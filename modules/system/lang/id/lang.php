@@ -5,29 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Dapati kembali yang mendasar'
     ],
-    'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'Inggris',
-        'de' => 'Jerman',
-        'es' => 'Spanyol',
-        'es-ar' => 'Spanyol (Argentina)',
-        'fa' => 'Persia',
-        'fr' => 'Prancis',
-        'hu' => 'Hungaria',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italia',
-        'ja' => 'Jepang',
-        'nl' => 'Belanda',
-        'pl' => 'Polandia',
-        'pt-br' => 'Portugis (Brazil)',
-        'ro' => 'Romania',
-        'ru' => 'Rusia',
-        'sv' => 'Swedia',
-        'sk' => 'Slowakia (Slovakia)',
-        'tr' => 'Turki',
-        'nb-no' => 'Norwegian (Bokmål)'
-    ],
     'directory' => [
         'create_fail' => 'Tidak dapat membuat direktori: :name'
     ],
@@ -173,6 +150,7 @@ return [
         'plugin_description' => 'Jabaran',
         'plugin_version' => 'Versi',
         'plugin_author' => 'Penulis',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Binaan kini',
         'core_build' => 'Binaan :build',
         'core_build_help' => 'Tersedia binaan terbaru.',

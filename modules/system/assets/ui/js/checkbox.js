@@ -3,14 +3,14 @@
  *
  */
 
-(function($){
+(function($) {
 
-    $(document).on('keydown', 'div.custom-checkbox', function(e){
+    $(document).on('keydown', 'div.custom-checkbox', function(e) {
         if (e.keyCode == 32)
             e.preventDefault()
     })
 
-    $(document).on('keyup', 'div.custom-checkbox', function(e){
+    $(document).on('keyup', 'div.custom-checkbox', function(e) {
         if (e.keyCode == 32) {
             var $cb = $('input', this)
 

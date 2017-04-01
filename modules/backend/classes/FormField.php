@@ -24,8 +24,9 @@ class FormField
     public $fieldName;
 
     /**
-     * @var string If the field element names should be contained in an array.
-     * Eg: <input name="nameArray[fieldName]" />
+     * @var string If the field element names should be contained in an array. Eg:
+     *
+     *     <input name="nameArray[fieldName]" />
      */
     public $arrayName;
 
@@ -93,6 +94,11 @@ class FormField
      * @var bool Specifies if this field is mandatory.
      */
     public $required = false;
+
+    /**
+     * @var bool Specify if the field is read-only or not.
+     */
+    public $readOnly = false;
 
     /**
      * @var bool Specify if the field is disabled or not.
@@ -266,6 +272,7 @@ class FormField
             'placeholder',
             'dependsOn',
             'required',
+            'readOnly',
             'disabled',
             'cssClass',
             'stretch',
@@ -346,6 +353,20 @@ class FormField
     }
 
     /**
+     * Determine if the provided value matches this field's value.
+     * @param string $value
+     * @return bool
+     */
+    public function isSelected($value = true)
+    {
+        if ($this->value === null) {
+            return false;
+        }
+
+        return (string) $value === (string) $this->value;
+    }
+
+    /**
      * Sets the attributes for this field in a given position.
      * - field: Attributes are added to the form field element (input, select, textarea, etc)
      * - container: Attributes are added to the form field container (div.form-group)
@@ -415,6 +436,10 @@ class FormField
 
         if ($position == 'field' && $this->disabled) {
             $attributes = $attributes + ['disabled' => 'disabled'];
+        }
+
+        if ($position == 'field' && $this->readOnly) {
+            $attributes = $attributes + ['readonly' => 'readonly'];
         }
 
         return $attributes;
@@ -592,8 +617,10 @@ class FormField
     }
 
     /**
-     * Returns the final model and attribute name of a nested attribute.
-     * Eg: list($model, $attribute) = $this->resolveAttribute('person[phone]');
+     * Returns the final model and attribute name of a nested attribute. Eg:
+     *
+     *     list($model, $attribute) = $this->resolveAttribute('person[phone]');
+     *
      * @param  string $attribute.
      * @return array
      */

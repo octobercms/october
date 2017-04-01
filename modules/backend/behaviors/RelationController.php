@@ -10,8 +10,19 @@ use October\Rain\Database\Model;
 use ApplicationException;
 
 /**
- * Relation Controller Behavior
  * Uses a combination of lists and forms for managing Model relations.
+ *
+ * This behavior is implemented in the controller like so:
+ *
+ *     public $implement = [
+ *         'Backend.Behaviors.RelationController',
+ *     ];
+ *
+ *     public $relationConfig = 'config_relation.yaml';
+ *
+ * The `$relationConfig` property makes reference to the configuration
+ * values as either a YAML file, located in the controller view directory,
+ * or directly as a PHP array.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -33,15 +44,15 @@ class RelationController extends ControllerBehavior
     /**
      * @var const Postback parameter for read only mode.
      */
-    const PARAM_READ_ONLY = '_relation_read_only';
+    const PARAM_EXTRA_CONFIG = '_relation_extra_config';
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the search widget object.
+     * @var Backend\Widgets\Search Reference to the search widget object.
      */
     protected $searchWidget;
 
     /**
-     * @var Backend\Classes\WidgetBase Reference to the toolbar widget object.
+     * @var Backend\Widgets\Toolbar Reference to the toolbar widget object.
      */
     protected $toolbarWidget;
 
@@ -61,7 +72,7 @@ class RelationController extends ControllerBehavior
     protected $pivotWidget;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['relationConfig'];
 
@@ -79,6 +90,11 @@ class RelationController extends ControllerBehavior
      * @var array Original configuration values
      */
     protected $originalConfig;
+
+    /**
+     * @var array Config provided by the relationRender method
+     */
+    protected $extraConfig;
 
     /**
      * @var bool Has the behavior been initialized.
@@ -242,8 +258,8 @@ class RelationController extends ControllerBehavior
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationViewModel'] = $this->viewModel;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
-        $this->vars['relationReadOnly'] = $this->readOnly ? 1 : 0;
         $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
+        $this->vars['relationExtraConfig'] = $this->extraConfig;
     }
 
     /**
@@ -305,8 +321,13 @@ class RelationController extends ControllerBehavior
             throw new ApplicationException(Lang::get('backend::lang.relation.missing_definition', compact('field')));
         }
 
+        if ($extraConfig = post(self::PARAM_EXTRA_CONFIG)) {
+            $this->applyExtraConfig($extraConfig);
+        }
+
         $this->alias = camel_case('relation ' . $field);
         $this->config = $this->makeConfig($this->getConfig($field), $this->requiredRelationProperties);
+        $this->controller->relationExtendConfig($this->config, $this->field, $this->model);
 
         /*
          * Relationship details
@@ -316,13 +337,14 @@ class RelationController extends ControllerBehavior
         $this->relationObject = $this->model->{$field}();
         $this->relationModel = $this->relationObject->getRelated();
 
+        $this->manageId = post('manage_id');
+        $this->foreignId = post('foreign_id');
+        $this->readOnly = $this->getConfig('readOnly');
         $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
         $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
         $this->manageTitle = $this->evalManageTitle();
-        $this->manageId = post('manage_id');
-        $this->foreignId = post('foreign_id');
 
         /*
          * Toolbar widget
@@ -342,7 +364,7 @@ class RelationController extends ControllerBehavior
          * View widget
          */
         if ($this->viewWidget = $this->makeViewWidget()) {
-            $this->controller->relationExtendViewWidget($this->viewWidget, $this->field);
+            $this->controller->relationExtendViewWidget($this->viewWidget, $this->field, $this->model);
             $this->viewWidget->bindToController();
         }
 
@@ -350,7 +372,7 @@ class RelationController extends ControllerBehavior
          * Manage widget
          */
         if ($this->manageWidget = $this->makeManageWidget()) {
-            $this->controller->relationExtendManageWidget($this->manageWidget, $this->field);
+            $this->controller->relationExtendManageWidget($this->manageWidget, $this->field, $this->model);
             $this->manageWidget->bindToController();
         }
 
@@ -359,16 +381,9 @@ class RelationController extends ControllerBehavior
          */
         if ($this->manageMode == 'pivot') {
             if ($this->pivotWidget = $this->makePivotWidget()) {
-                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field);
+                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
                 $this->pivotWidget->bindToController();
             }
-        }
-
-        /*
-         * Read only mode
-         */
-        if (post(self::PARAM_READ_ONLY, $this->getConfig('readOnly'))) {
-            $this->makeReadOnly();
         }
     }
 
@@ -380,26 +395,29 @@ class RelationController extends ControllerBehavior
      */
     public function relationRender($field, $options = [])
     {
-        $field = $this->validateField($field);
-
+        /*
+         * Session key
+         */
         if (is_string($options)) {
             $options = ['sessionKey' => $options];
         }
 
-        /*
-         * Session key
-         */
         if (isset($options['sessionKey'])) {
             $this->sessionKey = $options['sessionKey'];
         }
 
         /*
-         * Read only mode
+         * Apply options and extra config
          */
-        if (isset($options['readOnly']) && $options['readOnly']) {
-            $this->makeReadOnly();
-        }
+        $allowConfig = ['readOnly', 'recordUrl', 'recordOnClick'];
+        $extraConfig = array_only($options, $allowConfig);
+        $this->extraConfig = $extraConfig;
+        $this->applyExtraConfig($extraConfig, $field);
 
+        /*
+         * Initialize
+         */
+        $this->validateField($field);
         $this->prepareVars();
 
         /*
@@ -525,9 +543,11 @@ class RelationController extends ControllerBehavior
         /*
          * Add buttons to toolbar
          */
-        $defaultButtons = $this->toolbarButtons
-            ? '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm'
-            : null;
+        $defaultButtons = null;
+
+        if (!$this->readOnly && $this->toolbarButtons) {
+            $defaultButtons = '~/modules/backend/behaviors/relationcontroller/partials/_toolbar.htm';
+        }
 
         $defaultConfig['buttons'] = $this->getConfig('view[toolbarPartial]', $defaultButtons);
 
@@ -551,8 +571,9 @@ class RelationController extends ControllerBehavior
         /*
          * No buttons, no search should mean no toolbar
          */
-        if (empty($toolbarConfig->search) && empty($toolbarConfig->buttons))
+        if (empty($toolbarConfig->search) && empty($toolbarConfig->buttons)) {
             return;
+        }
 
         $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
         $toolbarWidget->cssClasses[] = 'list-header';
@@ -585,6 +606,8 @@ class RelationController extends ControllerBehavior
 
     protected function makeViewWidget()
     {
+        $widget = null;
+
         /*
          * Multiple (has many, belongs to many)
          */
@@ -595,15 +618,14 @@ class RelationController extends ControllerBehavior
             $config->showSorting = $this->getConfig('view[showSorting]', true);
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
-            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', true);
+            $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
 
             $defaultOnClick = sprintf(
-                "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s', %s)",
+                "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
                 $this->relationModel->getKeyName(),
-                $this->field,
-                $this->relationGetSessionKey(),
-                $this->readOnly ? 1 : 0
+                $this->relationGetId(),
+                $this->relationGetSessionKey()
             );
 
             if ($config->recordUrl) {
@@ -634,7 +656,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($scopeMethod = $this->getConfig('view[scope]')) {
                 $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                    $query->$scopeMethod();
+                    $query->$scopeMethod($this->model);
                 });
             }
             else {
@@ -736,7 +758,7 @@ class RelationController extends ControllerBehavior
                 $config->recordOnClick = sprintf(
                     "$.oc.relationBehavior.clickManageListRecord(:%s, '%s', '%s')",
                     $this->relationModel->getKeyName(),
-                    $this->field,
+                    $this->relationGetId(),
                     $this->relationGetSessionKey()
                 );
             }
@@ -747,7 +769,7 @@ class RelationController extends ControllerBehavior
                 $config->recordOnClick = sprintf(
                     "$.oc.relationBehavior.clickManagePivotListRecord(:%s, '%s', '%s')",
                     $this->relationModel->getKeyName(),
-                    $this->field,
+                    $this->relationGetId(),
                     $this->relationGetSessionKey()
                 );
             }
@@ -764,7 +786,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($scopeMethod = $this->getConfig('manage[scope]')) {
                 $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                    $query->$scopeMethod();
+                    $query->$scopeMethod($this->model);
                 });
             }
             else {
@@ -795,7 +817,10 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->manageMode == 'form') {
 
-            $config = $this->makeConfigForMode('manage', 'form');
+            if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
+                return null;
+            }
+
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = $this->evalFormContext('manage', !!$this->manageId);
@@ -1044,10 +1069,10 @@ class RelationController extends ControllerBehavior
         }
         elseif ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);
-            $this->viewModel->save();
+            $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
 
-        return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
+        return $this->relationRefresh();
     }
 
     /**
@@ -1229,10 +1254,10 @@ class RelationController extends ControllerBehavior
              * Save data to models
              */
             $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-            $hyrdatedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
+            $hydratedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
             $saveData = $this->pivotWidget->getSaveData();
 
-            foreach ($hyrdatedModels as $hydratedModel) {
+            foreach ($hydratedModels as $hydratedModel) {
                 $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
                 foreach ($modelsToSave as $modelToSave) {
                     $modelToSave->save(null, $this->pivotWidget->getSessionKey());
@@ -1264,11 +1289,22 @@ class RelationController extends ControllerBehavior
     //
 
     /**
+     * Provides an opportunity to manipulate the field configuration.
+     * @param object $config
+     * @param string $field
+     * @param October\Rain\Database\Model $model
+     */
+    public function relationExtendConfig($config, $field, $model)
+    {
+    }
+
+    /**
      * Provides an opportunity to manipulate the view widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendViewWidget($widget, $field)
+    public function relationExtendViewWidget($widget, $field, $model)
     {
     }
 
@@ -1276,8 +1312,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the manage widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendManageWidget($widget, $field)
+    public function relationExtendManageWidget($widget, $field, $model)
     {
     }
 
@@ -1285,8 +1322,9 @@ class RelationController extends ControllerBehavior
      * Provides an opportunity to manipulate the pivot widget.
      * @param Backend\Classes\WidgetBase $widget
      * @param string $field
+     * @param October\Rain\Database\Model $model
      */
-    public function relationExtendPivotWidget($widget, $field)
+    public function relationExtendPivotWidget($widget, $field, $model)
     {
     }
 
@@ -1399,15 +1437,20 @@ class RelationController extends ControllerBehavior
             case 'list':
                 if ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
-                } else {
+                }
+                else {
                     return 'backend::lang.relation.add_a_new';
                 }
                 break;
             case 'form':
                 if ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
-                } else {
+                }
+                elseif ($this->manageId) {
                     return 'backend::lang.relation.update_name';
+                }
+                else {
+                    return 'backend::lang.relation.create_name';
                 }
                 break;
         }
@@ -1479,19 +1522,32 @@ class RelationController extends ControllerBehavior
     }
 
     /**
-     * Apply read only mode.
+     * Apply extra configuration
      */
-    protected function makeReadOnly()
+    protected function applyExtraConfig($config, $field = null)
     {
-        $this->readOnly = true;
-
-        if ($this->toolbarWidget && !$this->getConfig('view[toolbarPartial]', false)) {
-            $this->toolbarWidget->buttons = null;
+        if (!$field) {
+            $field = $this->field;
         }
 
-        if ($this->viewWidget && $this->viewMode == 'multi' && !$this->getConfig('view[showCheckboxes]', false)) {
-            $this->viewWidget->showCheckboxes = false;
+        if (!$config || !isset($this->originalConfig->{$field})) {
+            return;
         }
+
+        if (
+            !is_array($config) &&
+            (!$config = @json_decode(@base64_decode($config), true))
+        ) {
+            return;
+        }
+
+        $parsedConfig = array_only($config, ['readOnly']);
+        $parsedConfig['view'] = array_only($config, ['recordUrl', 'recordOnClick']);
+
+        $this->originalConfig->{$field} = array_replace_recursive(
+            $this->originalConfig->{$field},
+            $parsedConfig
+        );
     }
 
     /**

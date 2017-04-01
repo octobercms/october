@@ -6,6 +6,14 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\PluginManager;
 
+/**
+ * Console command to install a new plugin.
+ *
+ * This adds a new plugin by requesting it from the October marketplace.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginInstall extends Command
 {
 
@@ -19,7 +27,7 @@ class PluginInstall extends Command
      * The console command description.
      * @var string
      */
-    protected $description = 'Adds a new plugin.';
+    protected $description = 'Install a plugin from the October marketplace.';
 
     /**
      * Create a new command instance.

@@ -25,7 +25,7 @@ trait PropertyContainer
      */
     public function validateProperties(array $properties)
     {
-        $definedProperties = $this->defineProperties();
+        $definedProperties = $this->defineProperties() ?: [];
 
         // Determine and implement default values
         $defaultProperties = [];
@@ -53,7 +53,7 @@ trait PropertyContainer
     /**
      * Sets multiple properties.
      * @param array $properties
-     * @return array
+     * @return void
      */
     public function setProperties($properties)
     {

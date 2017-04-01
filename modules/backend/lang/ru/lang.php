@@ -54,6 +54,7 @@ return [
         'widget_label' => 'Виджет',
         'widget_width' => 'Ширина',
         'full_width' => 'полная ширина',
+        'manage_widgets' => 'Управление виджетами',
         'add_widget' => 'Добавить виджет',
         'widget_inspector_title' => 'Конфигурации виджета',
         'widget_inspector_description' => 'Настройка отображения виджета',
@@ -65,9 +66,36 @@ return [
         'widget_new_row_description' => 'Поставить виджет с новой строки.',
         'widget_title_label' => 'Заголовок',
         'widget_title_error' => 'Заголовок виджета обязателен.',
+        'reset_layout' => 'Сбросить расположение',
+        'reset_layout_confirm' => 'Сбросить расположение к расположению по умолчанию?',
+        'reset_layout_success' => 'Расположение было сброшено',
+        'make_default' => 'Сохранить по умолчанию',
+        'make_default_confirm' => 'Сделать текущее расположение расположением по умолчанию?',
+        'make_default_success' => 'Текущее расположение сохранено как расположение по умолчанию',
+        'collapse_all' => 'Свернуть всё',
+        'expand_all' => 'Развернуть всё',
         'status' => [
             'widget_title_default' => 'Статус системы',
-            'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!'
+            'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!',
+            'updates_pending' => 'Доступны обновления',
+            'updates_nil' => 'Используется последняя версия',
+            'updates_link' => 'Обновить',
+            'warnings_pending' => 'Требуется ваше внимание',
+            'warnings_nil' => 'Ошибок нет',
+            'warnings_link' => 'Просмотр',
+            'core_build' => 'Сборка',
+            'event_log' => 'Лог событий',
+            'request_log' => 'Лог запросов',
+            'app_birthday' => 'Онлайн с'
+        ],
+        'welcome' => [
+            'widget_title_default' => 'Добро пожаловать',
+            'welcome_back_name' => 'С возвращением в :app, :name.',
+            'welcome_to_name' => 'Добро пожаловать в :app, :name.',
+            'first_sign_in' => 'Это первый раз, когда вы вошли в систему.',
+            'last_sign_in' => 'Последний раз вы заходили',
+            'view_access_logs' => 'Посмотреть лог доступа',
+            'nice_message' => 'Хорошего дня!',
         ]
     ],
     'user' => [
@@ -97,6 +125,10 @@ return [
         'allow' => 'Разрешить',
         'inherit' => 'Наследовать',
         'deny' => 'Запретить',
+        'activated' => 'Активирован',
+        'last_login' => 'Последний вход',
+        'created_at' => 'Создан',
+        'updated_at' => 'Обновлен',
         'group' => [
             'name' => 'Группы',
             'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
@@ -273,11 +305,21 @@ return [
         'tab_size' => 'Размер табуляции',
         'use_hard_tabs' => 'Использовать табуляцию для индентации',
         'code_folding' => 'Свертывание кода',
+        'autocompletion' => 'Автодополнение',
         'word_wrap' => 'Перенос слов',
         'highlight_active_line' => 'Подсвечивать активную строку',
         'auto_closing' => 'Автоматическое закрытие тегов и специальных символов',
         'show_invisibles' => 'Показывать невидимые символы',
         'show_gutter' => 'Показывать нумерацию строк',
+        'basic_autocompletion'=> 'Базовое автодополнение (Ctrl + Space)',
+        'live_autocompletion'=> 'Живое автодополнение',
+        'enable_snippets'=> 'Включить сниппеты (Tab)',
+        'display_indent_guides'=> 'Показывать символы перевода строки',
+        'show_print_margin'=> 'Показывать границу печати',
+        'mode_off' => 'Выключено',
+        'mode_fluid' => 'Адаптивный',
+        '40_characters' => '40 символов',
+        '80_characters' => '80 символов',
         'theme' => 'Цветовая схема',
         'markup_styles' => 'Стили разметки',
         'custom_styles' => 'Дополнительные CSS стили',
@@ -295,7 +337,7 @@ return [
         'allowed_empty_tags_comment' => 'Список тегов, которые не будут удаляться, если внутри них нет содержания.',
         'allowed_tags' => 'Разрешенные теги',
         'allowed_tags_comment' => 'Список разрешенных тегов.',
-        'no_wrap' => 'Do not wrap теги',
+        'no_wrap' => 'Не оборачивать теги',
         'no_wrap_comment' => 'Список тегов, которые не должны быть обернуты в блочные элементы.',
         'remove_tags' => 'Удаляемые теги',
         'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.'
@@ -356,7 +398,9 @@ return [
         'email' => 'Почта'
     ],
     'filter' => [
-      'all' => 'все'
+        'all' => 'все',
+        'options_method_not_exists' => "Модель класса :model должна определить метод :method() возвращающего варианты для фильтра ':filter'.",
+        'date_all' => 'весь период'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Загрузка CSV-файл',

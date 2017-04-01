@@ -17,7 +17,6 @@ use ValidationException;
  */
 class Asset extends Extendable
 {
-
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme containing the object.
      */
@@ -271,7 +270,7 @@ class Asset extends Extendable
      */
     public static function getEditableExtensions()
     {
-        $defaultTypes =  ['css','js','less','sass','scss'];
+        $defaultTypes =  ['css', 'js', 'less', 'sass', 'scss'];
 
         $configTypes = Config::get('cms.editableAssetTypes');
         if (!$configTypes) {
@@ -280,5 +279,4 @@ class Asset extends Extendable
 
         return $configTypes;
     }
-
 }

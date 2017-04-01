@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
+        'options_method_invalid_model' => "L’attribut ':field' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle ':model'.",
         'options_method_not_exists' => 'La classe du modèle :model doit définir une méthode :method() renvoyant des options pour le champ ":field" du formulaire.',
     ],
     'widget' => [
@@ -18,6 +19,11 @@ return [
             'label' => 'Accès refusé',
             'help' => 'Vous n’êtes pas autorisé à consulter cette page.',
             'cms_link' => 'Retour à l’interface d’administration'
+        ],
+        'no_database' => [
+            'label' => 'Base de données introuvable',
+            'help' => 'Une base de données est requise pour l’accès à l’interface d’administration. Veuillez vérifier que la base de données existe et que les migrations ont été effectuées avant de ré-essayer.',
+            'cms_link' => 'Retour à l’accueil'
         ],
         'invalid_token' => [
             'label' => 'La clé de sécurité est invalide'
@@ -72,6 +78,8 @@ return [
         'make_default' => 'Par défaut',
         'make_default_confirm' => 'Définir la maquette actuelle comme celle par défaut ?',
         'make_default_success' => 'La maquette actuelle est définie comme celle par défaut',
+        'collapse_all' => 'Réduire tout',
+        'expand_all' => 'Développer tout',
         'status' => [
             'widget_title_default' => 'État du système',
             'update_available' => '{0} mise à jour disponible !|{1} mise à jour disponible !|[2,Inf] mises à jour disponibles !',
@@ -102,7 +110,7 @@ return [
         'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.',
         'list_title' => 'Gérer les administrateurs',
         'new' => 'Créer un nouvel administrateur',
-        'login' => 'S’identifier',
+        'login' => 'Identifiant',
         'first_name' => 'Prénom',
         'last_name' => 'Nom',
         'full_name' => 'Nom complet',
@@ -115,7 +123,7 @@ return [
         'permissions' => 'Permissions',
         'account' => 'Compte',
         'superuser' => 'Super utilisateur',
-        'superuser_comment' => 'Donner à ce compte un niveau d’accès illimité à toutes les sections du système. Les super-utilisateurs peuvent ajouter et gérer les autres utilisateurs.',
+        'superuser_comment' => 'Donner à ce compte un niveau d’accès illimité à toutes les sections du système. Les super-utilisateurs peuvent ajouter et gérer les autres utilisateurs. ',
         'send_invite' => 'Envoyer une invitation par e-mail',
         'send_invite_comment' => 'Envoyer une invitation aux utilisateurs par e-mail contenant l’identifiant et le mot de passe.',
         'delete_confirm' => 'Supprimer cet administrateur ?',
@@ -123,6 +131,10 @@ return [
         'allow' => 'Autoriser',
         'inherit' => 'Hériter',
         'deny' => 'Interdire',
+        'activated' => 'Activé',
+        'last_login' => 'Dernière connexion',
+        'created_at' => 'Créé le',
+        'updated_at' => 'Mis à jour le',
         'group' => [
             'name' => 'Groupe',
             'name_comment' => 'Le nom est affiché dans la liste des groupes dans le formulaire de création/modification des administrateurs.',
@@ -155,12 +167,14 @@ return [
         'behavior_not_ready' => 'La liste utilisée n’a pas été initialisée, vérifier que la méthode d’appel de makeLists() a été soumise au contrôleur.',
         'invalid_column_datetime' => 'La valeur de la colonne ":column" n’est pas un objet DateTime, manque-t-il une référence dans la propriété \$dates du modèle ?',
         'pagination' => 'Enregistrements affichés : :from-:to sur :total',
+        'first_page' => 'Première page',
+        'last_page' => 'Dernière page',
         'prev_page' => 'Page précédente',
         'next_page' => 'Page suivante',
         'refresh' => 'Actualiser',
         'updating' => 'Mise à jour…',
         'loading' => 'Chargement…',
-        'setup_title' => 'Installation de la liste',
+        'setup_title' => 'Configuration de la liste',
         'setup_help' => 'Cocher les colonnes qui doivent être affichées dans la liste. Il est possible de modifier l’ordre des colonnes en les glissant vers le haut ou le bas.',
         'records_per_page' => 'Nombre d’enregistrements par page',
         'records_per_page_help' => 'Choisir le nombre d’enregistrements à afficher. Note : un nombre d’enregistrements trop élevé sur une seule page peut réduire les performances.',
@@ -185,12 +199,12 @@ return [
         'remove_file' => 'Supprimer le fichier',
     ],
     'form' => [
-        'create_title' => 'Nouveau :name',
-        'update_title' => 'Modifier :name',
-        'preview_title' => 'Aperçu :name',
-        'create_success' => ':name a été créé avec succès',
-        'update_success' => ':name a été modifié avec succès',
-        'delete_success' => ':name a été supprimé avec succès',
+        'create_title' => 'Créer un(e) :name',
+        'update_title' => 'Mise à jour d\'un(e) :name',
+        'preview_title' => 'Aperçu d\'un(e) :name',
+        'create_success' => ':name créé(e) avec succès',
+        'update_success' => ':name modifié(e) avec succès',
+        'delete_success' => ':name supprimé(e) avec succès',
         'reset_success' => 'Réinitialisation terminée',
         'missing_id' => 'L’ID de l’enregistrement du formulaire n’est pas précisé.',
         'missing_model' => 'Le behavior formulaire utilisé dans la classe :class n’a pas de modèle défini.',
@@ -200,19 +214,19 @@ return [
         'create' => 'Créer',
         'create_and_close' => 'Créer et fermer',
         'creating' => 'Création en cours…',
-        'creating_name' => 'Création de :name en cours…',
+        'creating_name' => 'Création d\'un(e) :name en cours…',
         'save' => 'Enregistrer',
         'save_and_close' => 'Enregistrer et fermer',
         'saving' => 'Enregistrement en cours…',
-        'saving_name' => 'Enregistrement de :name en cours…',
+        'saving_name' => 'Enregistrement d\'un(e) :name en cours…',
         'delete' => 'Supprimer',
         'deleting' => 'Suppression en cours…',
         'confirm_delete' => 'Supprimer cet enregistrement?',
         'confirm_delete_multiple' => 'Supprimer les enregistrements sélectionnés ?',
-        'deleting_name' => 'Suppression de :name en cours…',
+        'deleting_name' => 'Suppression d\'un(e) :name en cours…',
         'reset_default' => 'Restaurer les valeurs par défaut',
         'resetting' => 'Restauration',
-        'resetting_name' => 'Restauration de :name',
+        'resetting_name' => 'Restauration d\'un(e) :name',
         'undefined_tab' => 'Divers',
         'field_off' => 'Off',
         'field_on' => 'On',
@@ -242,6 +256,10 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Trouver un enregistrement'
+    ],
+    'pagelist' => [
+        'page_link' => 'Lien de page',
+        'select_page' => 'Sélectionnez une page...'
     ],
     'relation' => [
         'missing_config' => 'La behavior relation n’a pas de configuration pour ":config".',

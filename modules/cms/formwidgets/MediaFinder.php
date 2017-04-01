@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Cms\Classes\MediaLibrary;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -38,12 +39,12 @@ class MediaFinder extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'media';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -51,10 +52,14 @@ class MediaFinder extends FormWidgetBase
             'mode',
             'prompt'
         ]);
+
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -76,7 +81,19 @@ class MediaFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     */
+    public function getSaveValue($value)
+    {
+        if ($this->formField->disabled || $this->formField->hidden) {
+            return FormField::NO_SAVE_DATA;
+        }
+
+        return $value;
+    }
+
+    /**
+     * @inheritDoc
      */
     protected function loadAssets()
     {

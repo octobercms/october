@@ -95,6 +95,7 @@ return [
         'settings_menu_description' => 'Instellingen voor de onderhoudsmodus pagina.',
         'is_enabled' => 'Onderhoudsmodus inschakelen',
         'is_enabled_comment' => 'Toon de volgende pagina als onderhoudsmodus is ingeschakeld:',
+        'hint' => 'Onderhoudsmodus zal de onderhoudspagina tonen aan bezoekers die niet ingelogd zijn in het CMS.',
     ],
     'page' => [
         'not_found_name' => 'De pagina \':name\' is niet gevonden.',

@@ -13,8 +13,6 @@ use System\Classes\PluginManager;
  */
 class PluginVersion extends Model
 {
-    use \October\Rain\Database\Traits\Purgeable;
-
     public $table = 'system_plugin_versions';
 
     /**
@@ -23,19 +21,54 @@ class PluginVersion extends Model
     protected $guarded = ['*'];
 
     /**
-     * @var array List of attribute names which should not be saved to the database.
+     * @var bool Disable model timestamps.
      */
-    protected $purgeable = ['name', 'description', 'orphaned', 'author', 'icon', 'homepage'];
-
     public $timestamps = false;
 
+    /**
+     * @var array Cache store for version information
+     */
     protected static $versionCache = null;
 
+    /**
+     * @var bool Plugin has been disabled by a missing dependency.
+     */
     public $disabledBySystem = false;
 
+    /**
+     * @var bool Plugin has been disabled by the user or configuration.
+     */
     public $disabledByConfig = false;
 
+    /**
+     * @var bool If true, plugin exists in the database but not the filesystem.
+     */
     public $orphaned = false;
+
+    /**
+     * @var string Plugin name, sourced from plugin details
+     */
+    public $name;
+
+    /**
+     * @var string Plugin description, sourced from plugin details
+     */
+    public $description;
+
+    /**
+     * @var string Plugin author, sourced from plugin details
+     */
+    public $author;
+
+    /**
+     * @var string Plugin icon, sourced from plugin details
+     */
+    public $icon;
+
+    /**
+     * @var string Plugin homepage, sourced from plugin details
+     */
+    public $homepage;
 
     /**
      * The accessors to append to the model's array form.
@@ -58,7 +91,9 @@ class PluginVersion extends Model
         if ($pluginObj) {
             $pluginInfo = $pluginObj->pluginDetails();
             foreach ($pluginInfo as $attribute => $info) {
-                $this->{$attribute} = Lang::get($info);
+                if (property_exists($this, $attribute)) {
+                    $this->{$attribute} = Lang::get($info);
+                }
             }
 
             if ($this->is_disabled) {

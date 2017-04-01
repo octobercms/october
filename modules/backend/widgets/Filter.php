@@ -1,14 +1,11 @@
 <?php namespace Backend\Widgets;
 
-use Backend;
-use Backend\Classes\FormField;
-use Backend\FormWidgets\DatePicker;
-use Carbon\Carbon;
 use Db;
 use Str;
 use Lang;
-use Event;
+use Backend;
 use DbDongle;
+use Carbon\Carbon;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
@@ -42,7 +39,7 @@ class Filter extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'filter';
 
@@ -211,7 +208,9 @@ class Filter extends WidgetBase
          * Trigger class event, merge results as viewable array
          */
         $params = func_get_args();
+
         $result = $this->fireEvent('filter.update', [$params]);
+
         if ($result && is_array($result)) {
             return call_user_func_array('array_merge', $result);
         }
@@ -306,8 +305,7 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.filter.extendQuery', [$this, $query, $scope]);
-        $this->fireEvent('filter.extendQuery', [$query, $scope]);
+        $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
         if (!$searchQuery) {
             return $query->get();
@@ -417,8 +415,7 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.filter.extendScopesBefore', [$this]);
-        $this->fireEvent('filter.extendScopesBefore');
+        $this->fireSystemEvent('backend.filter.extendScopesBefore');
 
         /*
          * All scopes
@@ -432,8 +429,7 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.filter.extendScopes', [$this]);
-        $this->fireEvent('filter.extendScopes');
+        $this->fireSystemEvent('backend.filter.extendScopes');
 
         $this->scopesDefined = true;
     }
@@ -475,6 +471,17 @@ class Filter extends WidgetBase
             }
 
             $this->allScopes[$name] = $scopeObj;
+        }
+    }
+    
+    /**
+     * Programatically remove a scope, used for extensibility.
+     * @param string $scopeName Scope name
+     */
+    public function removeScope($scopeName)
+    {
+        if (isset($this->allScopes[$scopeName])) {
+            unset($this->allScopes[$scopeName]);
         }
     }
 
@@ -743,7 +750,6 @@ class Filter extends WidgetBase
         return $processed;
     }
 
-
     /**
      * Convert an array from the posted dates
      *
@@ -781,7 +787,6 @@ class Filter extends WidgetBase
         }
         return $dates;
     }
-
 
     /**
      * @param mixed $scope

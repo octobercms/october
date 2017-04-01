@@ -6,15 +6,13 @@ use Twig_TokenParser;
 use Twig_Error_Syntax;
 
 /**
- * Parser for the {% partial %} Twig tag.
+ * Parser for the `{% partial %}` Twig tag.
  *
- * <pre>
- *  {% partial "sidebar" %}
+ *     {% partial "sidebar" %}
  *
- *  {% partial "sidebar" name='John' %}
+ *     {% partial "sidebar" name='John' %}
  *
- *  {% partial "sidebar" name='John', year=2013 %}
- * </pre>
+ *     {% partial "sidebar" name='John', year=2013 %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
@@ -25,7 +23,6 @@ class PartialTokenParser extends Twig_TokenParser
      * Parses a token and returns a node.
      *
      * @param Twig_Token $token A Twig_Token instance
-     *
      * @return Twig_NodeInterface A Twig_NodeInterface instance
      */
     public function parse(Twig_Token $token)

@@ -147,4 +147,20 @@ class BelongsToManyModelTest extends PluginTestCase
         $author->delete();
         $this->assertEquals(0, Db::table('database_tester_authors_roles')->where('author_id', $author->id)->count());
     }
+
+    public function testConditionsWithPivotAttributes()
+    {
+        Model::unguard();
+        $author = Author::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        $role1 = Role::create(['name' => "Designer", 'description' => "Quality"]);
+        $role2 = Role::create(['name' => "Programmer", 'description' => "Speed"]);
+        $role3 = Role::create(['name' => "Manager", 'description' => "Budget"]);
+        Model::reguard();
+
+        $author->roles()->add($role1, null, ['is_executive' => 1]);
+        $author->roles()->add($role2, null, ['is_executive' => 1]);
+        $author->roles()->add($role3, null, ['is_executive' => 0]);
+
+        $this->assertEquals([1, 2], $author->executive_authors->lists('id'));
+    }
 }

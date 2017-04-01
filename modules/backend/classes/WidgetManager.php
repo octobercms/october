@@ -93,11 +93,15 @@ class WidgetManager
     /**
      * Registers a single form form widget.
      * @param string $className Widget class name.
-     * @param array $widgetInfo Registration information, can contain an 'code' key.
+     * @param array $widgetInfo Registration information, can contain a `code` key.
      * @return void
      */
     public function registerFormWidget($className, $widgetInfo = null)
     {
+        if (!is_array($widgetInfo)) {
+            $widgetInfo = ['code' => $widgetInfo];
+        }
+
         $widgetCode = isset($widgetInfo['code']) ? $widgetInfo['code'] : null;
 
         if (!$widgetCode) {
@@ -111,14 +115,11 @@ class WidgetManager
     /**
      * Manually registers form widget for consideration.
      * Usage:
-     * <pre>
-     *   WidgetManager::registerFormWidgets(function($manager){
-     *       $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', [
-     *           'name' => 'Code editor',
-     *           'code'  => 'codeeditor'
-     *       ]);
-     *   });
-     * </pre>
+     *
+     *     WidgetManager::registerFormWidgets(function($manager){
+     *         $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
+     *     });
+     *
      */
     public function registerFormWidgets(callable $definitions)
     {
@@ -201,14 +202,14 @@ class WidgetManager
     /**
      * Manually registers report widget for consideration.
      * Usage:
-     * <pre>
-     *   WidgetManager::registerReportWidgets(function($manager){
-     *       $manager->registerReportWidget('RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview', [
-     *           'name'=>'Google Analytics traffic overview',
-     *           'context'=>'dashboard'
-     *       ]);
-     *   });
-     * </pre>
+     *
+     *     WidgetManager::registerReportWidgets(function($manager){
+     *         $manager->registerReportWidget('RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview', [
+     *             'name'=>'Google Analytics traffic overview',
+     *             'context'=>'dashboard'
+     *         ]);
+     *     });
+     *
      */
     public function registerReportWidgets(callable $definitions)
     {

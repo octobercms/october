@@ -4,9 +4,27 @@
         <!-- Control Panel -->
         <div class="toolbar-item" data-calculate-width>
             <div class="btn-group">
-                <button type="button" class="btn btn-default oc-icon-plus last"
-                    data-control="create-template"
-                    ><?= e(trans('cms::lang.sidebar.add')) ?></button>
+                <button
+                    type="button"
+                    class="btn btn-default oc-icon-plus <?= !$this->sortingProperties ? 'last' : null ?>"
+                    data-control="create-template"><?= e(trans('cms::lang.sidebar.add')) ?></button>
+
+                <?php if ($this->sortingProperties): ?>
+                    <div class="dropdown">
+                        <button
+                            type="button"
+                            class="btn btn-default empty oc-icon-sort-alpha-desc"
+                            data-toggle="dropdown"></button>
+                        <ul
+                            class="dropdown-menu offset-left"
+                            data-dropdown-title="<?= e(trans('cms::lang.template.order_by')) ?>"
+                            id="<?= $this->getId('sorting-options') ?>"
+                            role="menu">
+                            <?= $this->makePartial('sorting-options') ?>
+                        </ul>
+                    </div>
+                <?php endif?>
+
                 <button type="button" class="btn btn-default empty oc-icon-trash-o hide"
                     id="<?= $this->getId('delete-button') ?>"
                     data-control="delete-template"

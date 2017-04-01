@@ -1,4 +1,4 @@
-<?php namespace Cms\Classes;
+<?php namespace Cms\Components;
 
 use Cms\Classes\ComponentBase;
 
