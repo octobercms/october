@@ -30,7 +30,7 @@
                                 </h5>
                             </div>
                             <dl>
-                                <?php foreach ($core['updates'] as $build => $description): ?>
+                                <?php foreach (array_get($core, 'updates', []) as $build => $description): ?>
                                     <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$build])) ?></dt>
                                     <?php if (is_array($description)): ?>
                                         <dd>
@@ -104,7 +104,7 @@
                                         <?= e(trans('system::lang.updates.plugin_version_none')) ?>
                                     </dd>
                                 <?php else: ?>
-                                    <?php foreach ($plugin['updates'] as $version => $description): ?>
+                                    <?php foreach (array_get($plugin, 'updates', []) as $version => $description): ?>
                                         <dt><?= e($version) ?></dt>
                                         <?php if (is_array($description)): ?>
                                             <dd>
