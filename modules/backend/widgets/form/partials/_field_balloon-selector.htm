@@ -13,5 +13,10 @@
         <?php endforeach ?>
     </ul>
 
-    <input type="hidden" name="<?= $field->getName() ?>" value="<?= e($field->value) ?>"/>
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        id="<?= $field->getId() ?>"
+        value="<?= e($field->value) ?>"
+        />
 </div>

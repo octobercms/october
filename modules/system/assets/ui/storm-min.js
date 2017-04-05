@@ -2664,12 +2664,10 @@ $el.prop('checked',false)}
 $el.trigger('change')
 return false})})(jQuery);+function($){"use strict";var BalloonSelector=function(element,options){this.$el=$(element)
 this.$field=$('input',this.$el)
-this.options=options||{};var self=this;$('li',this.$el).click(function(){if(self.$el.hasClass('control-disabled'))
-return
+this.options=options||{};var self=this;$('li',this.$el).click(function(){if(self.$el.hasClass('control-disabled')){return}
 $('li',self.$el).removeClass('active')
 $(this).addClass('active')
-self.$field.val($(this).data('value'))
-self.$el.trigger('change')})}
+self.$field.val($(this).data('value')).trigger('change')})}
 BalloonSelector.DEFAULTS={}
 var old=$.fn.balloonSelector
 $.fn.balloonSelector=function(option){return this.each(function(){var $this=$(this)
