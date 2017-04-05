@@ -6314,7 +6314,7 @@ BaseProto.dispose.call(this)}
 ValidationSet.prototype.disposeValidators=function(){for(var i=0,len=this.validators.length;i<len;i++){this.validators[i].dispose()}}
 ValidationSet.prototype.throwError=function(errorMessage){throw new Error(errorMessage+' Property: '+this.propertyName)}
 ValidationSet.prototype.createValidators=function(){if((this.options.required!==undefined||this.options.validationPattern!==undefined||this.options.validationMessage!==undefined)&&this.options.validation!==undefined){this.throwError('Legacy and new validation syntax should not be mixed.')}
-if(this.options.required!==undefined){var validator=new $.oc.inspector.validators.required({message:this.options.validationMessage})
+if(this.options.required!==undefined&&this.options.required){var validator=new $.oc.inspector.validators.required({message:this.options.validationMessage})
 this.validators.push(validator)}
 if(this.options.validationPattern!==undefined){var validator=new $.oc.inspector.validators.regex({message:this.options.validationMessage,pattern:this.options.validationPattern})
 this.validators.push(validator)}
