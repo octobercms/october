@@ -22,7 +22,7 @@
 
     var RecordFinder = function(element, options) {
         this.$el       = $(element)
-        this.options = options || {}
+        this.options   = options || {}
 
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
@@ -62,14 +62,15 @@
 
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {
         if (!this.options.dataLocker) return
-        var self = this
-        $(this.options.dataLocker).val(recordId)
+        var $locker = $(this.options.dataLocker)
+
+        $locker.val(recordId)
 
         this.$el.loadIndicator({ opaque: true })
         this.$el.request(this.options.refreshHandler, {
             success: function(data) {
                 this.success(data)
-                $(self.options.dataLocker).trigger('change')
+                $locker.trigger('change')
             }
         })
 

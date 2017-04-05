@@ -1697,8 +1697,8 @@ a.control-status-list > ul li .status-text.warning:hover{color:#66512c}
 a.control-status-list > ul li .status-text.danger:hover{color:#843534}
 .control-status-list > ul li .status-label{float:right;display:inline-block;padding:1px 5px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .control-status-list > ul li .status-label:not(.link){color:white;letter-spacing:1px;font-family:monospace}
-.control-status-list > ul li .status-icon{display:inline-block;text-align:center;color:white;width:22px;height:22px;line-height:22px;position:relative;top:-1px;-webkit-border-radius:100px;-moz-border-radius:100px;border-radius:100px}
-.control-status-list > ul li .status-icon > i{font-size:10px}
+.control-status-list > ul li .status-icon{display:inline-block;text-align:center;color:white;width:22px;height:22px;position:relative;top:-1px;-webkit-border-radius:100px;-moz-border-radius:100px;border-radius:100px}
+.control-status-list > ul li .status-icon > i{font-size:10px;line-height:22px}
 .control-status-list > ul li .status-icon,.control-status-list > ul li .status-label{background:#aaa}
 .control-status-list > ul li .status-icon.success,.control-status-list > ul li .status-label.success{background:#31ac5f}
 .control-status-list > ul li .status-icon.primary,.control-status-list > ul li .status-label.primary{background:#34495e}
