@@ -63,6 +63,7 @@
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {
         if (!this.options.dataLocker) return
         var $locker = $(this.options.dataLocker)
+        var $container = this.$el.parent().parent();
 
         $locker.val(recordId)
 
@@ -70,7 +71,7 @@
         this.$el.request(this.options.refreshHandler, {
             success: function(data) {
                 this.success(data)
-                $locker.trigger('change')
+                $container.trigger('change') // call change on the container
             }
         })
 
