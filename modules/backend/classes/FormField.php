@@ -171,6 +171,11 @@ class FormField
     public $preset;
 
     /**
+     * @var string Specifies another field this field should be positioned directly after
+     */
+    public $after;
+
+    /**
      * Constructor.
      * @param string $fieldName
      * @param string $label
@@ -281,6 +286,7 @@ class FormField
             'trigger',
             'preset',
             'path',
+            'after',
         ];
 
         foreach ($applyConfigValues as $value) {

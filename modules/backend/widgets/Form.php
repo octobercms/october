@@ -460,18 +460,24 @@ class Form extends WidgetBase
         $this->fireSystemEvent('backend.form.extendFields', [$this->allFields]);
 
         /*
-         * Convert automatic spanned fields
+         * Process after definitions and convert automatic spanned fields
          */
-        foreach ($this->allTabs->outside->getFields() as $fields) {
+        foreach ($this->allTabs->outside->getFields() as $key => $fields) {
+            $this->processAfterDefinition($fields);
             $this->processAutoSpan($fields);
+            $this->allTabs->outside->fields[$key] = $fields;
         }
 
-        foreach ($this->allTabs->primary->getFields() as $fields) {
+        foreach ($this->allTabs->primary->getFields() as $key => $fields) {
+            $this->processAfterDefinition($fields);
             $this->processAutoSpan($fields);
+            $this->allTabs->primary->fields[$key] = $fields;
         }
 
-        foreach ($this->allTabs->secondary->getFields() as $fields) {
+        foreach ($this->allTabs->secondary->getFields() as $key => $fields) {
+            $this->processAfterDefinition($fields);
             $this->processAutoSpan($fields);
+            $this->allTabs->secondary->fields[$key] = $fields;
         }
 
         /*
@@ -506,6 +512,49 @@ class Form extends WidgetBase
         }
 
         $this->fieldsDefined = true;
+    }
+
+
+    /**
+     * Processes fields that have specifed an after field defintion
+     *
+     * @return void
+     */
+    protected function processAfterDefinition(&$fields)
+    {
+        $fields = collect($fields)->values();
+
+        $requireOrdering = $fields->filter(function ($value) {
+            return $value->after;
+        });
+
+        $result = $fields->reject(function ($value) {
+            return $value->after;
+        });
+
+        $requireOrdering->each(function ($searchItem) use (&$result) {
+            $key = $result->search(function ($resultItem) use ($searchItem) {
+                return ($resultItem->fieldName == $searchItem->after);
+            });
+
+            /*
+             * If the definition has been found, split the array, piece in and re-join
+             */
+            if ($key !== false) {
+                $partOne = $result->slice(0, $key + 1);
+                $partTwo = $result->slice($key);
+                $result = $partOne->merge([$searchItem])->merge($partTwo);
+            }
+            else {
+                return $searchItem;
+            }
+
+        });
+
+        /*
+         * Add any fields that couldn't be match to the end of the string
+         */
+        return $fields = $result->merge($requireOrdering)->keyBy('fieldName')->toArray();
     }
 
     /**
