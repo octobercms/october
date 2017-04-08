@@ -1155,9 +1155,9 @@ class MediaManager extends WidgetBase
     {
         $extension = strtolower(File::extension($name));
 
-        $blockedFileTypes = FileDefinitions::get('blockedExtensions');
+        $allowedFileTypes = FileDefinitions::get('defaultExtensions');
 
-        if (in_array($extension, $blockedFileTypes)) {
+        if (!in_array($extension, $allowedFileTypes)) {
             return false;
         }
 

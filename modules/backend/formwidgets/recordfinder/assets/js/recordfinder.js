@@ -63,7 +63,6 @@
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {
         if (!this.options.dataLocker) return
 
-
         // Selector name must be used because by the time success runs
         // - this.options will be disposed
         // - $locker element will be replaced

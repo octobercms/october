@@ -821,7 +821,12 @@
 
     MediaManager.prototype.uploadError = function(file, message) {
         this.updateUploadBar('error', 'progress-bar progress-bar-danger');
-        $.oc.alert('Error uploading file')
+
+        if (!message) {
+            message = 'Error uploading file'
+        }
+
+        $.oc.alert(message)
     }
 
     //
