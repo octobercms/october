@@ -10,7 +10,12 @@
     <div class="modal-body">
         <div class="form-group">
             <label><?= e(trans('cms::lang.asset.rename_new_name')) ?></label>
-            <input type="text" class="form-control" name="name" value="<?= $name ?>" />
+            <input
+                type="text"
+                name="name"
+                value="<?= e($name) ?>"
+                class="form-control"
+                autocomplete="off" />
         </div>
 
         <input type="hidden" name="originalPath" value="<?= e($originalPath) ?>" />

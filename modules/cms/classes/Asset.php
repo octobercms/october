@@ -238,6 +238,14 @@ class Asset extends Extendable
                 ])
             ]);
         }
+
+        if (!FileHelper::validatePath($fileName, null)) {
+            throw new ValidationException(['fileName' =>
+                Lang::get('cms::lang.cms_object.invalid_file', [
+                    'name' => $fileName
+                ])
+            ]);
+        }
     }
 
     /**
