@@ -148,12 +148,21 @@ class Controller extends Extendable
         $this->layoutPath[] = '~/modules/' . $relativePath . '/layouts';
         $this->layoutPath[] = '~/plugins/' . $relativePath . '/layouts';
 
+        /*
+         * Create a new instance of the admin user
+         */
+        $this->user = BackendAuth::getUser();
+
         parent::__construct();
 
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if (class_exists('Cms\Widgets\MediaManager')) {
+        if (
+            class_exists('Cms\Widgets\MediaManager') &&
+            $this->user &&
+            $this->user->hasAccess('media.*')
+        ) {
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }
@@ -195,9 +204,6 @@ class Controller extends Extendable
          * Determine if this request is a public action.
          */
         $isPublicAction = in_array($action, $this->publicActions);
-
-        // Create a new instance of the admin user
-        $this->user = BackendAuth::getUser();
 
         /*
          * Check that user is logged in and has permission to view this page
