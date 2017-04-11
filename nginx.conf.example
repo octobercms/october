@@ -1,0 +1,34 @@
+server {
+  listen        *:8080;
+  server_name   october.dev;
+  root          /var/www/october;
+  index         index.php;
+
+  # Deny access to dotfiles
+  location ~ /\. {
+    deny  all;
+  }
+
+  # Deny access to framework directories
+  location ~ /(bootstrap/|config/|modules/|plugins/|storage/|themes/|vendor/) {
+    deny  all;
+  }
+
+  location / {
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  location ~ \.php$ {
+    try_files $uri $uri/ /index.php?$args;
+
+    fastcgi_param       PATH_INFO $fastcgi_path_info;
+    fastcgi_param       PATH_TRANSLATED $document_root$fastcgi_path_info;
+    fastcgi_param       SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+    fastcgi_pass        127.0.0.1:9000;
+    fastcgi_index       index.php;
+    fastcgi_split_path_info     ^(.+\.php)(/.+)$;
+    fastcgi_intercept_errors    on;
+    include             fastcgi_params;
+  }
+}
