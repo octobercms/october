@@ -296,7 +296,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component')->getContent();
-        $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -324,7 +324,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-components')->getContent();
-        $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
 
         $this->assertArrayHasKey('firstAlias', $page->components);
         $this->assertArrayHasKey('secondAlias', $page->components);
