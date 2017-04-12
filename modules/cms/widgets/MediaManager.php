@@ -306,16 +306,19 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
         }
 
-        if (!$this->validateFileType($newName)) {
-            throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
-        }
-
         $originalPath = Input::get('originalPath');
         $originalPath = MediaLibrary::validatePath($originalPath);
         $newPath = dirname($originalPath).'/'.$newName;
         $type = Input::get('type');
 
         if ($type == MediaLibraryItem::TYPE_FILE) {
+            /*
+             * Validate extension
+             */
+            if (!$this->validateFileType($newName)) {
+                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+            }
+
             /*
              * Move single file
              */
@@ -350,10 +353,6 @@ class MediaManager extends WidgetBase
 
         if (!$this->validateFileName($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
-        }
-
-        if (!$this->validateFileType($name)) {
-            throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
         }
 
         $path = Input::get('path');
