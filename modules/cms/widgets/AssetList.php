@@ -221,13 +221,6 @@ class AssetList extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
         }
 
-        if (!$this->validateFileType($newName)) {
-            throw new ApplicationException(Lang::get(
-                'cms::lang.asset.type_not_allowed',
-                ['allowed_types' => implode(', ', $this->assetExtensions)]
-            ));
-        }
-
         $originalPath = Input::get('originalPath');
         if (!$this->validatePath($originalPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_path'));
@@ -236,6 +229,13 @@ class AssetList extends WidgetBase
         $originalFullPath = $this->getFullPath($originalPath);
         if (!file_exists($originalFullPath)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.original_not_found'));
+        }
+
+        if (!is_dir($originalFullPath) && !$this->validateFileType($newName)) {
+            throw new ApplicationException(Lang::get(
+                'cms::lang.asset.type_not_allowed',
+                ['allowed_types' => implode(', ', $this->assetExtensions)]
+            ));
         }
 
         $newFullPath = $this->getFullPath(dirname($originalPath).'/'.$newName);
@@ -274,13 +274,6 @@ class AssetList extends WidgetBase
 
         if (!$this->validateName($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
-        }
-
-        if (!$this->validateFileType($newName)) {
-            throw new ApplicationException(Lang::get(
-                'cms::lang.asset.type_not_allowed',
-                ['allowed_types' => implode(', ', $this->assetExtensions)]
-            ));
         }
 
         $newFullPath = $this->getCurrentPath().'/'.$newName;
