@@ -183,4 +183,20 @@ trait ConfigMaker
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return $guessedPath;
     }
+
+    /**
+     * Merges two configuration sources, either prepared or not, and returns
+     * them as a single configuration object.
+     * @param mixed $configA
+     * @param mixed $configB
+     * @return stdClass The config object
+     */
+    public function mergeConfig($configA, $configB)
+    {
+        $configA = $this->makeConfig($configA);
+
+        $configB = $this->makeConfig($configB);
+
+        return (object) array_merge((array) $configA, (array) $configB);
+    }
 }
