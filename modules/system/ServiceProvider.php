@@ -316,7 +316,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-cog',
                     'iconSvg'     => 'modules/system/assets/images/cog-icon.svg',
                     'url'         => Backend::url('system/settings'),
-                    'permissions' => [],
+                    'permissions' => ['system.settings.*'],
                     'order'       => 1000
                 ]
             ]);
