@@ -81,5 +81,4 @@ class MarkdownEditor extends FormWidgetBase
             'preview' => $previewHtml
         ];
     }
-
 }

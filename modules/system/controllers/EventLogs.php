@@ -50,15 +50,18 @@ class EventLogs extends Controller
     {
         EventLog::truncate();
         Flash::success(Lang::get('system::lang.event_log.empty_success'));
+
         return $this->listRefresh();
     }
 
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = EventLog::find($recordId)) continue;
+                if (!$record = EventLog::find($recordId)) {
+                    continue;
+                }
+
                 $record->delete();
             }
 
@@ -70,7 +73,6 @@ class EventLogs extends Controller
 
         return $this->listRefresh();
     }
-
 
     public function preview($id)
     {

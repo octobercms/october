@@ -27,7 +27,6 @@ use Exception;
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
- *
  */
 class Updates extends Controller
 {
@@ -63,6 +62,7 @@ class Updates extends Controller
         $this->vars['projectOwner'] = Parameter::get('system::project.owner');
         $this->vars['pluginsActiveCount'] = PluginVersion::applyEnabled()->count();
         $this->vars['pluginsCount'] = PluginVersion::count();
+
         return $this->asExtension('ListController')->index();
     }
 
@@ -73,6 +73,7 @@ class Updates extends Controller
     {
         $this->pageTitle = 'system::lang.plugins.manage';
         PluginManager::instance()->clearDisabledCache();
+
         return $this->asExtension('ListController')->index();
     }
 
@@ -340,7 +341,9 @@ class Updates extends Controller
             $coreImportant = false;
 
             foreach (array_get($result, 'core.updates', []) as $build => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $detailsUrl = '//octobercms.com/support/articles/release-notes';
                 $description = str_replace('!!!', '', $description);
@@ -358,7 +361,9 @@ class Updates extends Controller
             $isImportant = false;
 
             foreach (array_get($plugin, 'updates', []) as $version => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $isImportant = $hasImportantUpdates = true;
                 $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';
@@ -590,19 +595,19 @@ class Updates extends Controller
 
         foreach ($themes as $name => $hash) {
             $updateSteps[] = [
-                'code' => 'extractTheme',
+                'code'  => 'extractTheme',
                 'label' => Lang::get('system::lang.updates.theme_extracting', compact('name')),
-                'name' => $name,
-                'hash' => $hash
+                'name'  => $name,
+                'hash'  => $hash
             ];
         }
 
         foreach ($plugins as $name => $hash) {
             $updateSteps[] = [
-                'code' => 'extractPlugin',
+                'code'  => 'extractPlugin',
                 'label' => Lang::get('system::lang.updates.plugin_extracting', compact('name')),
-                'name' => $name,
-                'hash' => $hash
+                'name'  => $name,
+                'hash'  => $hash
             ];
         }
 
@@ -657,6 +662,7 @@ class Updates extends Controller
         ]);
 
         Flash::success(Lang::get('system::lang.project.unbind_success'));
+
         return Backend::redirect('system/updates');
     }
 
@@ -738,7 +744,6 @@ class Updates extends Controller
     public function onRemovePlugin()
     {
         if ($pluginCode = post('code')) {
-
             PluginManager::instance()->deletePlugin($pluginCode);
 
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
@@ -784,6 +789,7 @@ class Updates extends Controller
     {
         $disable = post('disable', false);
         $freeze = post('freeze', false);
+
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
@@ -873,7 +879,6 @@ class Updates extends Controller
     public function onRemoveTheme()
     {
         if ($themeCode = post('code')) {
-
             ThemeManager::instance()->deleteTheme($themeCode);
 
             Flash::success(trans('cms::lang.theme.delete_theme_success'));
@@ -892,6 +897,7 @@ class Updates extends Controller
         $serverUri = $searchType == 'plugins' ? 'plugin/search' : 'theme/search';
 
         $manager = UpdateManager::instance();
+
         return $manager->requestServerData($serverUri, ['query' => get('query')]);
     }
 
@@ -917,6 +923,7 @@ class Updates extends Controller
     {
         $installed = PluginVersion::lists('code');
         $manager = UpdateManager::instance();
+
         return $manager->requestProductDetails($installed, 'plugin');
     }
 
