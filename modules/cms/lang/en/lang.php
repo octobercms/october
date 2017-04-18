@@ -24,6 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
+        'by' => 'By',
         'active' => [
             'not_set' => 'The active theme is not set.',
             'not_found' => 'The active theme is not found.'
@@ -77,7 +78,7 @@ return [
         'export_folders_label' => 'Folders',
         'export_folders_comment' => 'Please select the theme folders you would like to export',
         'delete_button' => 'Delete',
-        'delete_confirm' => 'Are you sure you want to delete this theme? It cannot be undone!',
+        'delete_confirm' => 'Delete this theme? It cannot be undone!',
         'delete_active_theme_failed' => 'Cannot delete the active theme, try making another theme active first.',
         'delete_theme_success' => 'Theme deleted!',
         'create_title' => 'Create theme',

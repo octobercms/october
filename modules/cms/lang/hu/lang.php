@@ -24,6 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "A következő téma nem található: ':name'",
+        'by' => 'Fejlesztő:',
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
             'not_found' => 'Az aktív téma nem található.'
