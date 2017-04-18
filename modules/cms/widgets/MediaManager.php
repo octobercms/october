@@ -49,6 +49,49 @@ class MediaManager extends WidgetBase
      */
     public $cropAndInsertButton = false;
 
+	/**
+     * @var array A list of default disallowed file types.
+     * This parameter can be overridden with the cms.disAllowedFileTypes configuration option.
+     * https://en.wikipedia.org/wiki/Server-side_scripting
+     */
+    public $disAllowedFileTypes = [
+        'asp',
+		'avfp',
+		'aspx',
+		'cshtml',
+		'cfm',
+		'go',
+		'gsp',
+		'php',
+		'hs',
+		'jsp',
+		'ssjs',
+		'js',
+		'lasso',
+		'lp',
+		'op',
+		'lua',
+		'p',
+		'cgi', 
+		'ipl',
+		'pl',
+		'php',
+		'php3',
+		'php4',
+		'phtml',
+		'py',
+		'rhtml',
+		'rb',
+		'rbw',
+		'smx',
+		'tcl',
+		'dna',
+		'tpl',
+		'r',
+		'w',
+		'wig'
+    ];
+	
     public function __construct($controller, $alias)
     {
         $this->alias = $alias;
@@ -1066,11 +1109,22 @@ class MediaManager extends WidgetBase
             $uploadedFile = Input::file('file_data');
 
             $fileName = $uploadedFile->getClientOriginalName();
-
+			
+			// Use the simple extension validation.
+            $disAllowedFileTypes = Config::get('cms.disAllowedFileTypes');
+            if (!$disAllowedFileTypes) {
+                $disAllowedFileTypes = $this->disAllowedFileTypes;
+            }
+			
             /*
              * Convert uppcare case file extensions to lower case
              */
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
+			// Verify file extensions against server-side scripting file upload
+            if (in_array($extension, $disAllowedFileTypes)) {
+				throw new ApplicationException('Error uploading file');
+            }
+			
             $fileName = File::name($fileName).'.'.$extension;
 
             /*
