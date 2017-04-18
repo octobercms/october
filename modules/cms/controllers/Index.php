@@ -80,8 +80,7 @@ class Index extends Controller
             new ComponentList($this, 'componentList');
 
             new AssetList($this, 'assetList');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -160,8 +159,7 @@ class Index extends Controller
         foreach ($fields as $field) {
             if (array_key_exists($field, $saveData)) {
                 $templateData[$field] = $saveData[$field];
-            }
-            elseif (array_key_exists($field, $postData)) {
+            } elseif (array_key_exists($field, $postData)) {
                 $templateData[$field] = $postData[$field];
             }
         }
@@ -252,8 +250,7 @@ class Index extends Controller
                     $deleted[] = $path;
                 }
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $error = $ex->getMessage();
         }
 

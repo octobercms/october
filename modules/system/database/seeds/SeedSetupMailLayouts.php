@@ -5,11 +5,9 @@ use System\Models\MailLayout;
 
 class SeedSetupMailLayouts extends Seeder
 {
-
     public function run()
     {
-
-$css = 'a, a:hover {
+        $css = 'a, a:hover {
     text-decoration: none;
     color: #0862A2;
     font-weight: bold;
@@ -24,7 +22,7 @@ p {
     margin: 10px 0;
 }';
 
-$html = '<html>
+        $html = '<html>
     <head>
         <style type="text/css" media="screen">
             {{ css|raw }}
@@ -35,7 +33,7 @@ $html = '<html>
     </body>
 </html>';
 
-$text = '{{ content|raw }}';
+        $text = '{{ content|raw }}';
 
         MailLayout::create([
             'is_locked'    => true,
@@ -46,7 +44,7 @@ $text = '{{ content|raw }}';
             'content_text' => $text,
         ]);
 
-$html = '<html>
+        $html = '<html>
     <head>
         <style type="text/css" media="screen">
             {{ css|raw }}
@@ -59,7 +57,7 @@ $html = '<html>
     </body>
 </html>';
 
-$text = '{{ content|raw }}
+        $text = '{{ content|raw }}
 
 
 ---

@@ -78,15 +78,13 @@ class MailSetting extends Model
                 if ($settings->smtp_authorization) {
                     $config->set('mail.username', $settings->smtp_user);
                     $config->set('mail.password', $settings->smtp_password);
-                }
-                else {
+                } else {
                     $config->set('mail.username', null);
                     $config->set('mail.password', null);
                 }
                 if ($settings->smtp_encryption) {
                     $config->set('mail.encryption', $settings->smtp_encryption);
-                }
-                else {
+                } else {
                     $config->set('mail.encryption', null);
                 }
                 break;
@@ -110,7 +108,6 @@ class MailSetting extends Model
                 $config->set('services.ses.region', $settings->ses_region);
                 break;
         }
-
     }
 
 

@@ -96,7 +96,6 @@ class Relation extends FormWidgetBase
     protected function makeRenderFormField()
     {
         return $this->renderFormField = RelationBase::noConstraints(function () {
-
             $field = clone $this->formField;
             $relationObject = $this->getRelationObject();
             $query = $relationObject->newQuery();
@@ -107,8 +106,7 @@ class Relation extends FormWidgetBase
 
             if (in_array($relationType, ['belongsToMany', 'morphToMany', 'morphedByMany', 'hasMany'])) {
                 $field->type = 'checkboxlist';
-            }
-            elseif (in_array($relationType, ['belongsTo', 'hasOne'])) {
+            } elseif (in_array($relationType, ['belongsTo', 'hasOne'])) {
                 $field->type = 'dropdown';
             }
 
@@ -133,8 +131,7 @@ class Relation extends FormWidgetBase
                 $nameFrom = 'selection';
                 $selectColumn = $usesTree ? '*' : $relationModel->getKeyName();
                 $result = $query->select($selectColumn, Db::raw($this->sqlSelect . ' AS ' . $nameFrom));
-            }
-            else {
+            } else {
                 $nameFrom = $this->nameFrom;
                 $result = $query->getQuery()->get();
             }

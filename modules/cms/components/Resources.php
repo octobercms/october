@@ -11,17 +11,17 @@ use System\Classes\CombineAssets;
 class Resources extends ComponentBase
 {
     /**
-     * @var string The default JavaScript directory 
+     * @var string The default JavaScript directory
      */
     public $jsDir = 'js';
 
     /**
-     * @var string The default CSS directory 
+     * @var string The default CSS directory
      */
     public $cssDir = 'css';
 
     /**
-     * @var string The default LESS directory 
+     * @var string The default LESS directory
      */
     public $lessDir = 'less';
 
@@ -155,8 +155,7 @@ class Resources extends ComponentBase
 
         if (File::isDirectory($baseTheme.'/assets')) {
             return $baseTheme.'/assets';
-        }
-        else {
+        } else {
             return $baseTheme.'/resources';
         }
     }

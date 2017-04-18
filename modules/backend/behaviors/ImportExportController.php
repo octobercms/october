@@ -200,14 +200,12 @@ class ImportExportController extends ControllerBehavior
 
             $this->vars['importResults'] = $model->getResultStats();
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
-        }
-        catch (MassAssignmentException $ex) {
+        } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
                 'backend::lang.model.mass_assignment_failed',
                 ['attribute' => $ex->getMessage()]
             )));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -218,8 +216,7 @@ class ImportExportController extends ControllerBehavior
     {
         try {
             $this->checkRequiredImportColumns();
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -318,7 +315,7 @@ class ImportExportController extends ControllerBehavior
         $firstRow = $reader->fetchOne(0);
 
         if (!post('first_row_titles')) {
-            array_walk($firstRow, function(&$value, $key) {
+            array_walk($firstRow, function (&$value, $key) {
                 $value = 'Column #'.($key + 1);
             });
         }
@@ -345,7 +342,7 @@ class ImportExportController extends ControllerBehavior
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
 
-        $widget->bindEvent('form.beforeRefresh', function($holder) {
+        $widget->bindEvent('form.beforeRefresh', function ($holder) {
             $holder->data = [];
         });
 
@@ -385,7 +382,9 @@ class ImportExportController extends ControllerBehavior
 
         $dbColumns = $this->getImportDbColumns();
         foreach ($dbColumns as $column => $label) {
-            if (!$this->importIsColumnRequired($column)) continue;
+            if (!$this->importIsColumnRequired($column)) {
+                continue;
+            }
 
             $found = false;
             foreach ($matches as $matchedColumns) {
@@ -428,14 +427,12 @@ class ImportExportController extends ControllerBehavior
 
             $this->vars['fileUrl'] = $fileUrl;
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('export');
-        }
-        catch (MassAssignmentException $ex) {
+        } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
                 'backend::lang.model.mass_assignment_failed',
                 ['attribute' => $ex->getMessage()]
             )));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -503,7 +500,7 @@ class ImportExportController extends ControllerBehavior
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
 
-        $widget->bindEvent('form.beforeRefresh', function($holder) {
+        $widget->bindEvent('form.beforeRefresh', function ($holder) {
             $holder->data = [];
         });
 
@@ -559,8 +556,7 @@ class ImportExportController extends ControllerBehavior
 
         if (is_array($useList)) {
             $listDefinition = array_get($useList, 'definition');
-        }
-        else {
+        } else {
             $listDefinition = $useList;
         }
 
@@ -721,8 +717,7 @@ class ImportExportController extends ControllerBehavior
         foreach ($config->columns as $attribute => $column) {
             if (is_array($column)) {
                 $result[$attribute] = array_get($column, 'label', $attribute);
-            }
-            else {
+            } else {
                 $result[$attribute] = $column ?: $attribute;
             }
         }
@@ -804,5 +799,4 @@ class ImportExportController extends ControllerBehavior
 
         return $options;
     }
-
 }

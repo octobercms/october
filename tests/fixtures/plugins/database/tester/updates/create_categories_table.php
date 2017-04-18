@@ -5,11 +5,9 @@ use October\Rain\Database\Updates\Migration;
 
 class CreateCategoriesTable extends Migration
 {
-
     public function up()
     {
-        Schema::create('database_tester_categories', function($table)
-        {
+        Schema::create('database_tester_categories', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('parent_id')->nullable();
@@ -22,8 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('database_tester_categories_nested', function($table)
-        {
+        Schema::create('database_tester_categories_nested', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('parent_id')->nullable();
@@ -45,5 +42,4 @@ class CreateCategoriesTable extends Migration
         Schema::dropIfExists('database_tester_categories');
         Schema::dropIfExists('database_tester_categories_nested');
     }
-
 }

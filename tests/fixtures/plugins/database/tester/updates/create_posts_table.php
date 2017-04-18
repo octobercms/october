@@ -5,11 +5,9 @@ use October\Rain\Database\Updates\Migration;
 
 class CreatePostsTable extends Migration
 {
-
     public function up()
     {
-        Schema::create('database_tester_posts', function($table)
-        {
+        Schema::create('database_tester_posts', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('title')->nullable();
@@ -29,5 +27,4 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('database_tester_posts');
     }
-
 }

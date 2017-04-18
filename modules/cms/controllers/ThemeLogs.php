@@ -55,15 +55,15 @@ class ThemeLogs extends Controller
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = ThemeLog::find($recordId)) continue;
+                if (!$record = ThemeLog::find($recordId)) {
+                    continue;
+                }
                 $record->delete();
             }
 
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
-        }
-        else {
+        } else {
             Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }
 

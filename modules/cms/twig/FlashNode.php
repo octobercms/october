@@ -33,7 +33,7 @@ class FlashNode extends Twig_Node
         ;
 
         if ($attrib == 'all') {
-           $compiler
+            $compiler
                 ->addDebugInfo($this)
                 ->write('foreach (Flash::getMessages() as $type => $messages) {'.PHP_EOL)
                 ->indent()
@@ -47,8 +47,7 @@ class FlashNode extends Twig_Node
                 ->outdent()
                 ->write('}'.PHP_EOL)
             ;
-        }
-        else {
+        } else {
             $compiler
                 ->addDebugInfo($this)
                 ->write('$context["type"] = ')

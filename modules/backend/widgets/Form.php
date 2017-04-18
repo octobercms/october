@@ -376,7 +376,6 @@ class Form extends WidgetBase
          * If an array of fields is supplied, update specified fields individually.
          */
         if (($updateFields = post('fields')) && is_array($updateFields)) {
-
             foreach ($updateFields as $field) {
                 if (!isset($this->allFields[$field])) {
                     continue;
@@ -484,11 +483,9 @@ class Form extends WidgetBase
         ) {
             if ($this->allTabs->secondary->hasFields()) {
                 $this->allTabs->secondary->stretch = true;
-            }
-            elseif ($this->allTabs->primary->hasFields()) {
+            } elseif ($this->allTabs->primary->hasFields()) {
                 $this->allTabs->primary->stretch = true;
-            }
-            else {
+            } else {
                 $this->allTabs->outside->stretch = true;
             }
         }
@@ -522,8 +519,7 @@ class Form extends WidgetBase
             if (strtolower($field->span) === 'auto') {
                 if ($prevSpan === 'left') {
                     $field->span = 'right';
-                }
-                else {
+                } else {
                     $field->span = 'left';
                 }
             }
@@ -542,7 +538,6 @@ class Form extends WidgetBase
     public function addFields(array $fields, $addToArea = null)
     {
         foreach ($fields as $name => $config) {
-
             $fieldObj = $this->makeFormField($name, $config);
             $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
 
@@ -657,20 +652,16 @@ class Form extends WidgetBase
          * Simple field type
          */
         if (is_string($config)) {
-
             if ($this->isFormWidget($config) !== false) {
                 $field->displayAs('widget', ['widget' => $config]);
-            }
-            else {
+            } else {
                 $field->displayAs($config);
             }
-
         }
         /*
          * Defined field type
          */
         else {
-
             $fieldType = isset($config['type']) ? $config['type'] : null;
             if (!is_string($fieldType) && !is_null($fieldType)) {
                 throw new ApplicationException(Lang::get(
@@ -688,7 +679,6 @@ class Form extends WidgetBase
             }
 
             $field->displayAs($fieldType, $config);
-
         }
 
         /*
@@ -792,7 +782,9 @@ class Form extends WidgetBase
         if (isset($field->config['options'])) {
             $field->options(function () use ($field) {
                 $fieldOptions = $field->config['options'];
-                if ($fieldOptions === true) $fieldOptions = null;
+                if ($fieldOptions === true) {
+                    $fieldOptions = null;
+                }
                 $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
                 return $fieldOptions;
             });
@@ -1043,11 +1035,9 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-
             try {
                 list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
                     'model' => get_class($this->model),
                     'field' => $field->fieldName
@@ -1068,8 +1058,7 @@ class Form extends WidgetBase
 
             if ($this->objectMethodExists($model, $methodName)) {
                 $fieldOptions = $model->$methodName($field->value, $this->data);
-            }
-            else {
+            } else {
                 $fieldOptions = $model->getDropdownOptions($attribute, $field->value, $this->data);
             }
         }

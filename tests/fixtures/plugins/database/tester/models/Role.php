@@ -32,5 +32,4 @@ class Role extends Model
             'table' => 'database_tester_authors_roles'
         ],
     ];
-
 }

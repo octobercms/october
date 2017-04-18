@@ -27,8 +27,7 @@ class FlashTokenParser extends Twig_TokenParser
 
         if ($token = $stream->nextIf(Twig_Token::NAME_TYPE)) {
             $name = $token->getValue();
-        }
-        else {
+        } else {
             $name = 'all';
         }
         $stream->expect(Twig_Token::BLOCK_END_TYPE);

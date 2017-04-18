@@ -96,7 +96,7 @@ class ReorderController extends ControllerBehavior
     {
         $this->addJs('js/october.reorder.js', 'core');
 
-        $this->controller->pageTitle = $this->controller->pageTitle 
+        $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('title', 'backend::lang.reorder.default_title'));
 
         $this->validateModel();
@@ -115,8 +115,12 @@ class ReorderController extends ControllerBehavior
          * Simple
          */
         if ($this->sortMode == 'simple') {
-            if (!$ids = post('record_ids')) return;
-            if (!$orders = post('sort_orders')) return;
+            if (!$ids = post('record_ids')) {
+                return;
+            }
+            if (!$orders = post('sort_orders')) {
+                return;
+            }
 
             $model->setSortableOrder($ids, $orders);
         }
@@ -127,7 +131,9 @@ class ReorderController extends ControllerBehavior
             $sourceNode = $model->find(post('sourceNode'));
             $targetNode = post('targetNode') ? $model->find(post('targetNode')) : null;
 
-            if ($sourceNode == $targetNode) return;
+            if ($sourceNode == $targetNode) {
+                return;
+            }
 
             switch (post('position')) {
                 case 'before':
@@ -204,12 +210,10 @@ class ReorderController extends ControllerBehavior
 
         if (isset($modelTraits['October\Rain\Database\Traits\Sortable'])) {
             $this->sortMode = 'simple';
-        }
-        elseif (isset($modelTraits['October\Rain\Database\Traits\NestedTree'])) {
+        } elseif (isset($modelTraits['October\Rain\Database\Traits\NestedTree'])) {
             $this->sortMode = 'nested';
             $this->showTree = true;
-        }
-        else {
+        } else {
             throw new ApplicationException('The model must implement the NestedTree or Sortable traits.');
         }
 
@@ -233,8 +237,7 @@ class ReorderController extends ControllerBehavior
                 ->orderBy($model->getSortOrderColumn())
                 ->get()
             ;
-        }
-        elseif ($this->sortMode == 'nested') {
+        } elseif ($this->sortMode == 'nested') {
             $records = $query->getNested();
         }
 
@@ -260,8 +263,7 @@ class ReorderController extends ControllerBehavior
         if ($toolbarConfig = $this->getConfig('toolbar')) {
             $toolbarConfig = $this->makeConfig($toolbarConfig);
             $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
-        }
-        else {
+        } else {
             $toolbarWidget = null;
         }
 
@@ -287,5 +289,4 @@ class ReorderController extends ControllerBehavior
 
         return $contents;
     }
-
 }

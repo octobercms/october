@@ -56,8 +56,7 @@ class Components extends FormWidgetBase
                         $componentObj->pluginIcon = $pluginDetails['icon'];
                     }
                 }
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
                 $componentObj->alias = $alias;
                 $componentObj->pluginIcon = 'icon-bug';

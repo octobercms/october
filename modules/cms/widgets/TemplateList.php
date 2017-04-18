@@ -72,7 +72,7 @@ class TemplateList extends WidgetBase
     public $ignoreDirectories = [];
 
     /**
-     * @var boolean Defines sorting properties. 
+     * @var boolean Defines sorting properties.
      * The sorting feature is disabled if there are no sorting properties defined.
      */
     public $sortingProperties = [];
@@ -202,8 +202,7 @@ class TemplateList extends WidgetBase
                     $filteredItems[] = $item;
                 }
             }
-        }
-        else {
+        } else {
             $filteredItems = $items;
         }
 
@@ -227,13 +226,12 @@ class TemplateList extends WidgetBase
                 }
 
                 $foundGroups[$group]->items[] = $itemData;
-            }
-            else {
+            } else {
                 $result[] = $itemData;
             }
         }
 
-        // Sort folders by name regardless of the 
+        // Sort folders by name regardless of the
         // selected sorting options.
         ksort($foundGroups);
 
@@ -261,7 +259,7 @@ class TemplateList extends WidgetBase
 
         $ignoreCache = [];
 
-        $items = array_filter($items, function($item) use (&$ignoreCache) {
+        $items = array_filter($items, function ($item) use (&$ignoreCache) {
             $fileName = $item->getBaseFileName();
             $dirName = dirname($fileName);
 

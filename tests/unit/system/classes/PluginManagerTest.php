@@ -4,7 +4,6 @@ use System\Classes\PluginManager;
 
 class PluginManagerTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -148,5 +147,4 @@ class PluginManagerTest extends TestCase
         $this->assertEquals('Test plugin used by unit tests.', $pluginDetails['description']);
         $this->assertEquals('Alexey Bobkov, Samuel Georges', $pluginDetails['author']);
     }
-
 }

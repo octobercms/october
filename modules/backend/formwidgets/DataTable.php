@@ -176,8 +176,7 @@ class DataTable extends FormWidgetBase
 
         if ($this->model->methodExists($methodName)) {
             $result = $this->model->$methodName($field, $data);
-        }
-        else {
+        } else {
             $result = $this->model->getDataTableOptions($this->fieldName, $field, $data);
         }
 
@@ -187,5 +186,4 @@ class DataTable extends FormWidgetBase
 
         return $result;
     }
-
 }

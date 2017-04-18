@@ -27,8 +27,7 @@ trait FormModelWidget
     {
         try {
             return $this->formField->resolveModelAttribute($this->model, $attribute);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             throw new ApplicationException(Lang::get('backend::lang.model.missing_relation', [
                 'class' => get_class($this->model),
                 'relation' => $attribute
@@ -98,5 +97,4 @@ trait FormModelWidget
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         return $model->getRelationType($attribute);
     }
-
 }

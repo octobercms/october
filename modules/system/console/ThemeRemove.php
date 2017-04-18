@@ -17,7 +17,6 @@ use Exception;
  */
 class ThemeRemove extends Command
 {
-
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
@@ -68,8 +67,7 @@ class ThemeRemove extends Command
             $themeManager->deleteTheme($themeName);
 
             $this->info(sprintf('The theme %s has been deleted.', $themeName));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->error($ex->getMessage());
         }
     }

@@ -5,7 +5,6 @@ use ApplicationException;
 
 class Todo extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [

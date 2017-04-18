@@ -185,8 +185,7 @@ class UpdateManager
         try {
             $result = $this->requestUpdateList();
             $newCount = array_get($result, 'update', 0);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $newCount = 0;
         }
 
@@ -250,8 +249,7 @@ class UpdateManager
                 (isset($updatable[$code]) && !$updatable[$code])
             ) {
                 $updateCount = max(0, --$updateCount);
-            }
-            else {
+            } else {
                 $plugins[$code] = $info;
             }
         }
@@ -578,8 +576,9 @@ class UpdateManager
 
     public function requestProductDetails($codes, $type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $codes = (array) $codes;
         $this->loadProductDetailCache();
@@ -615,7 +614,9 @@ class UpdateManager
         $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
 
         foreach ($requestedDetails as $detail) {
-            if ($detail === -1) continue;
+            if ($detail === -1) {
+                continue;
+            }
             $result[] = $detail;
         }
 
@@ -627,8 +628,9 @@ class UpdateManager
      */
     public function requestPopularProducts($type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $cacheKey = 'system-updates-popular-'.$type;
 
@@ -656,8 +658,7 @@ class UpdateManager
 
         if (Cache::has($cacheKey)) {
             $this->productCache = @unserialize(@base64_decode(Cache::get($cacheKey))) ?: $defaultCache;
-        }
-        else {
+        } else {
             $this->productCache = $defaultCache;
         }
     }
@@ -748,8 +749,7 @@ class UpdateManager
 
         try {
             $resultData = @json_decode($result->body, true);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
         }
 

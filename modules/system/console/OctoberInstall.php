@@ -78,8 +78,7 @@ class OctoberInstall extends Command
         if ($this->confirm('Configure advanced options?', false)) {
             $this->setupEncryptionKey();
             $this->setupAdvancedValues();
-        }
-        else {
+        } else {
             $this->setupEncryptionKey(true);
         }
 
@@ -143,8 +142,7 @@ class OctoberInstall extends Command
 
         if ($force) {
             $key = $randomKey;
-        }
-        else {
+        } else {
             $this->line(sprintf('Enter a new value of %s characters, or press ENTER to use the generated key', $keyLength));
 
             while (!$validKey) {
@@ -246,8 +244,7 @@ class OctoberInstall extends Command
 
                 new PDO('sqlite:'.$filename);
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->error($ex->getMessage());
             $this->setupDatabaseSqlite();
         }
@@ -292,8 +289,7 @@ class OctoberInstall extends Command
         try {
             Db::purge();
             UpdateManager::instance()->resetNotes()->update();
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->error($ex->getMessage());
             $this->setupDatabaseConfig();
             $this->setupMigrateDatabase();

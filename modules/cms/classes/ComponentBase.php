@@ -41,7 +41,7 @@ abstract class ComponentBase extends Extendable
     public $isHidden = false;
 
     /**
-     * @var string Icon of the plugin that defines the component. 
+     * @var string Icon of the plugin that defines the component.
      * This field is used by the CMS internally.
      */
     public $pluginIcon;
@@ -121,7 +121,7 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
-     * Executed when this component is bound to a page or layout, part of 
+     * Executed when this component is bound to a page or layout, part of
      * the page life cycle.
      */
     public function onRun()
@@ -261,8 +261,8 @@ abstract class ComponentBase extends Extendable
     {
         try {
             parent::__call($method, $parameters);
+        } catch (BadMethodCallException $ex) {
         }
-        catch (BadMethodCallException $ex) {}
 
         if (method_exists($this->controller, $method)) {
             return call_user_func_array([$this->controller, $method], $parameters);

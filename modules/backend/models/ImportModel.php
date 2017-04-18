@@ -109,7 +109,7 @@ abstract class ImportModel extends Model
         $reader = CsvReader::createFromPath($filePath, 'r');
 
         // Filter out empty rows
-        $reader->addFilter(function(array $row) {
+        $reader->addFilter(function (array $row) {
             return count($row) > 1 || reset($row) !== null;
         });
 
@@ -174,7 +174,9 @@ abstract class ImportModel extends Model
      */
     protected function decodeArrayValue($value, $delimeter = '|')
     {
-        if (strpos($value, $delimeter) === false) return [$value];
+        if (strpos($value, $delimeter) === false) {
+            return [$value];
+        }
 
         $data = preg_split('~(?<!\\\)' . preg_quote($delimeter, '~') . '~', $value);
         $newData = [];
@@ -233,7 +235,7 @@ abstract class ImportModel extends Model
             'Windows-1252'
         ];
 
-        $translated = array_map(function($option){
+        $translated = array_map(function ($option) {
             return Lang::get('backend::lang.import_export.encodings.'.Str::slug($option, '_'));
         }, $options);
 

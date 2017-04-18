@@ -9,7 +9,9 @@ class TestCmsCompoundObject extends CmsCompoundObject
 {
     protected $dirName = 'testobjects';
 
-    protected function parseSettings() {}
+    protected function parseSettings()
+    {
+    }
 }
 
 class TestParsedCmsCompoundObject extends CmsCompoundObject
@@ -21,7 +23,9 @@ class TestTemporaryCmsCompoundObject extends CmsCompoundObject
 {
     protected $dirName = 'temporary';
 
-    protected function parseSettings() {}
+    protected function parseSettings()
+    {
+    }
 }
 
 class CmsCompoundObjectTest extends TestCase
@@ -109,8 +113,9 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertNotEmpty($testContent);
 
         $filePath = $themePath .= '/temporary/testcompound.htm';
-        if (file_exists($filePath))
+        if (file_exists($filePath)) {
             @unlink($filePath);
+        }
 
         $this->assertFileNotExists($filePath);
         file_put_contents($filePath, $testContent);
@@ -176,8 +181,9 @@ class CmsCompoundObjectTest extends TestCase
         $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound-markup.htm';
-        if (file_exists($destFilePath))
+        if (file_exists($destFilePath)) {
             unlink($destFilePath);
+        }
 
         $this->assertFileNotExists($destFilePath);
 
@@ -200,8 +206,9 @@ class CmsCompoundObjectTest extends TestCase
         $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/compound-markup-settings.htm';
-        if (file_exists($destFilePath))
+        if (file_exists($destFilePath)) {
             unlink($destFilePath);
+        }
 
         $this->assertFileNotExists($destFilePath);
 
@@ -301,5 +308,4 @@ class CmsCompoundObjectTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-
 }

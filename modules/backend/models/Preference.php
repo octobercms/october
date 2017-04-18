@@ -59,8 +59,7 @@ class Preference extends Model
     {
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
-        }
-        elseif (
+        } elseif (
             ($user = BackendAuth::getUser()) &&
             ($locale = static::get('locale'))
         ) {
@@ -73,8 +72,7 @@ class Preference extends Model
     {
         if (Session::has('fallback_locale')) {
             Lang::setFallback(Session::get('fallback_locale'));
-        }
-        elseif (
+        } elseif (
             ($user = BackendAuth::getUser()) &&
             ($locale = static::get('fallback_locale'))
         ) {
@@ -191,7 +189,7 @@ class Preference extends Model
         }
 
         // Sort the array by offset, identifier ascending
-        usort($tempTimezones, function($a, $b) {
+        usort($tempTimezones, function ($a, $b) {
             return $a['offset'] === $b['offset']
                 ? strcmp($a['identifier'], $b['identifier'])
                 : $a['offset'] - $b['offset'];
@@ -226,7 +224,6 @@ class Preference extends Model
                     $themes[$themeId] = $themeName;
                 }
             }
-
         }
 
         // Sort the theme alphabetically, and push the default theme

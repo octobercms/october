@@ -79,8 +79,7 @@ class Settings extends Controller
 
             $model = $this->createModel($item);
             $this->initWidgets($model);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }

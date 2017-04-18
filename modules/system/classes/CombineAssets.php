@@ -310,8 +310,7 @@ class CombineAssets
         if (count($combineCss) > count($combineJs)) {
             $extension = 'css';
             $assets = $combineCss;
-        }
-        else {
+        } else {
             $extension = 'js';
             $assets = $combineJs;
         }
@@ -367,8 +366,7 @@ class CombineAssets
             if ($this->useDeepHashing) {
                 $factory = new AssetFactory($this->localPath);
                 $lastMod = $factory->getLastModified($combiner);
-            }
-            else {
+            } else {
                 $lastMod = $combiner->getLastModified();
             }
 
@@ -457,7 +455,7 @@ class CombineAssets
     {
         $key = '';
 
-        $assetFiles = array_map(function($file) {
+        $assetFiles = array_map(function ($file) {
             return File::symbolizePath($file, null) ?: $this->localPath . $file;
         }, $assets);
 
@@ -486,8 +484,7 @@ class CombineAssets
 
         if ($actionExists) {
             return Url::action($combineAction, [$outputFilename], false);
-        }
-        else {
+        } else {
             return '/combine/'.$outputFilename;
         }
     }
@@ -524,7 +521,7 @@ class CombineAssets
     /**
      * Registers a callback function that defines bundles.
      * The callback function should register bundles by calling the manager's
-     * `registerBundle` method. Thi instance is passed to the callback 
+     * `registerBundle` method. Thi instance is passed to the callback
      * function as an argument. Usage:
      *
      *     CombineAssets::registerCallback(function($combiner){
@@ -579,8 +576,7 @@ class CombineAssets
     {
         if ($extension === null) {
             $this->filters = [];
-        }
-        else {
+        } else {
             $this->filters[$extension] = [];
         }
 
@@ -596,11 +592,9 @@ class CombineAssets
     {
         if ($extension === null) {
             return $this->filters;
-        }
-        elseif (isset($this->filters[$extension])) {
+        } elseif (isset($this->filters[$extension])) {
             return $this->filters[$extension];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -644,8 +638,7 @@ class CombineAssets
                     $path = $cssPath;
                 }
                 $destination = $path.'/'.$file.'.css';
-            }
-            else {
+            } else {
                 $destination = $path.'/'.$file.'-min.'.$extension;
             }
         }
@@ -664,11 +657,9 @@ class CombineAssets
     {
         if ($extension === null) {
             return $this->bundles;
-        }
-        elseif (isset($this->bundles[$extension])) {
+        } elseif (isset($this->bundles[$extension])) {
             return $this->bundles[$extension];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -710,8 +701,7 @@ class CombineAssets
     {
         if ($extension === null) {
             $this->aliases = [];
-        }
-        else {
+        } else {
             $this->aliases[$extension] = [];
         }
 
@@ -727,11 +717,9 @@ class CombineAssets
     {
         if ($extension === null) {
             return $this->aliases;
-        }
-        elseif (isset($this->aliases[$extension])) {
+        } elseif (isset($this->aliases[$extension])) {
             return $this->aliases[$extension];
-        }
-        else {
+        } else {
             return null;
         }
     }

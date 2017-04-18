@@ -152,16 +152,14 @@ class Theme
         if (App::hasDatabase()) {
             try {
                 try {
-                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
                         return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
                     });
-                }
-                catch (Exception $ex) {
+                } catch (Exception $ex) {
                     // Cache failed
                     $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
                 }
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 // Database failed
                 $dbResult = null;
             }
@@ -216,7 +214,7 @@ class Theme
 
     /**
      * Sets the active theme.
-     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter. 
+     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter.
      * @param string $code Specifies the  active theme code.
      */
     public static function setActiveTheme($code)
@@ -342,8 +340,7 @@ class Theme
 
             if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
                 $path = $fileName;
-            }
-            else {
+            } else {
                 $path = $this->getPath().'/'.$result;
             }
 

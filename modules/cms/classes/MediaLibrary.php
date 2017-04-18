@@ -105,8 +105,7 @@ class MediaLibrary
 
         if (array_key_exists($fullFolderPath, $cached)) {
             $folderContents = $cached[$fullFolderPath];
-        }
-        else {
+        } else {
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
             $cached[$fullFolderPath] = $folderContents;
@@ -130,8 +129,7 @@ class MediaLibrary
 
         if (!$ignoreFolders) {
             $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
-        }
-        else {
+        } else {
             $folderContents = $folderContents['files'];
         }
 
@@ -152,15 +150,15 @@ class MediaLibrary
         $words = explode(' ', Str::lower($searchTerm));
         $result = [];
 
-        $findInFolder = function($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
+        $findInFolder = function ($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
             $folderContents = $this->listFolderContents($folder, $sortBy, $filter);
 
             foreach ($folderContents as $item) {
-                if ($item->type == MediaLibraryItem::TYPE_FOLDER)
+                if ($item->type == MediaLibraryItem::TYPE_FOLDER) {
                     $findInFolder($item->path);
-                else
-                    if ($this->pathMatchesSearch($item->path, $words))
-                        $result[] = $item;
+                } elseif ($this->pathMatchesSearch($item->path, $words)) {
+                    $result[] = $item;
+                }
             }
         };
 
@@ -225,8 +223,9 @@ class MediaLibrary
 
         $folders = $this->getStorageDisk()->directories($fullPath);
         foreach ($folders as $folder) {
-            if (basename($folder) == $folderName)
+            if (basename($folder) == $folderName) {
                 return true;
+            }
         }
 
         return false;
@@ -320,28 +319,31 @@ class MediaLibrary
     {
         $disk = $this->getStorageDisk();
 
-        $copyDirectory = function($srcPath, $destPath) use (&$copyDirectory, $disk) {
+        $copyDirectory = function ($srcPath, $destPath) use (&$copyDirectory, $disk) {
             $srcPath = self::validatePath($srcPath);
             $fullSrcPath = $this->getMediaPath($srcPath);
 
             $destPath = self::validatePath($destPath);
             $fullDestPath = $this->getMediaPath($destPath);
 
-            if (!$disk->makeDirectory($fullDestPath))
+            if (!$disk->makeDirectory($fullDestPath)) {
                 return false;
+            }
 
             $folderContents = $this->scanFolderContents($fullSrcPath);
 
             foreach ($folderContents['folders'] as $dirInfo) {
-                if (!$copyDirectory($dirInfo->path, $destPath.'/'.basename($dirInfo->path)))
+                if (!$copyDirectory($dirInfo->path, $destPath.'/'.basename($dirInfo->path))) {
                     return false;
+                }
             }
 
             foreach ($folderContents['files'] as $fileInfo) {
                 $fullFileSrcPath = $this->getMediaPath($fileInfo->path);
 
-                if (!$disk->copy($fullFileSrcPath, $fullDestPath.'/'.basename($fileInfo->path)))
+                if (!$disk->copy($fullFileSrcPath, $fullDestPath.'/'.basename($fileInfo->path))) {
                     return false;
+                }
             }
 
             return true;
@@ -497,8 +499,9 @@ class MediaLibrary
     {
         $path = self::validatePath($path, true);
 
-        if (substr($path, 0, $this->storageFolderNameLength) == $this->storageFolder)
+        if (substr($path, 0, $this->storageFolderNameLength) == $this->storageFolder) {
             return substr($path, $this->storageFolderNameLength);
+        }
 
         throw new SystemException(sprintf('Cannot convert Media Library path "%s" to a path relative to the Library root.', $path));
     }
@@ -535,8 +538,9 @@ class MediaLibrary
     {
         $relativePath = $this->getMediaRelativePath($path);
 
-        if (!$this->isVisible($relativePath))
+        if (!$this->isVisible($relativePath)) {
             return;
+        }
 
         /*
          * S3 doesn't allow getting the last modified timestamp for folders,
@@ -597,14 +601,16 @@ class MediaLibrary
 
         $files = $this->getStorageDisk()->files($fullFolderPath);
         foreach ($files as $file) {
-            if ($libraryItem = $this->initLibraryItem($file, MediaLibraryItem::TYPE_FILE))
+            if ($libraryItem = $this->initLibraryItem($file, MediaLibraryItem::TYPE_FILE)) {
                 $result['files'][] = $libraryItem;
+            }
         }
 
         $folders = $this->getStorageDisk()->directories($fullFolderPath);
         foreach ($folders as $folder) {
-            if ($libraryItem = $this->initLibraryItem($folder, MediaLibraryItem::TYPE_FOLDER))
+            if ($libraryItem = $this->initLibraryItem($folder, MediaLibraryItem::TYPE_FOLDER)) {
                 $result['folders'][] = $libraryItem;
+            }
         }
 
         return $result;
@@ -621,18 +627,20 @@ class MediaLibrary
         $files = [];
         $folders = [];
 
-        usort($itemList, function($a, $b) use ($sortBy) {
+        usort($itemList, function ($a, $b) use ($sortBy) {
             switch ($sortBy) {
                 case self::SORT_BY_TITLE: return strcasecmp($a->path, $b->path);
                 case self::SORT_BY_SIZE:
-                    if ($a->size > $b->size)
+                    if ($a->size > $b->size) {
                         return -1;
+                    }
 
                     return $a->size < $b->size ? 1 : 0;
                 break;
                 case self::SORT_BY_MODIFIED:
-                    if ($a->lastModified > $b->lastModified)
+                    if ($a->lastModified > $b->lastModified) {
                         return -1;
+                    }
 
                     return $a->lastModified < $b->lastModified ? 1 : 0;
                 break;
@@ -648,13 +656,15 @@ class MediaLibrary
      */
     protected function filterItemList(&$itemList, $filter)
     {
-        if (!$filter)
+        if (!$filter) {
             return;
+        }
 
         $result = [];
         foreach ($itemList as $item) {
-            if ($item->getFileType() == $filter)
+            if ($item->getFileType() == $filter) {
                 $result[] = $item;
+            }
         }
 
         $itemList = $result;
@@ -669,8 +679,9 @@ class MediaLibrary
      */
     protected function getStorageDisk()
     {
-        if ($this->storageDisk)
+        if ($this->storageDisk) {
             return $this->storageDisk;
+        }
 
         return $this->storageDisk = Storage::disk(
             Config::get('cms.storage.media.disk', 'local')
@@ -689,11 +700,13 @@ class MediaLibrary
 
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word))
+            if (!strlen($word)) {
                 continue;
+            }
 
-            if (!Str::contains($path, $word))
+            if (!Str::contains($path, $word)) {
                 return false;
+            }
         }
 
         return true;

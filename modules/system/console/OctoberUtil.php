@@ -29,7 +29,6 @@ use System\Classes\CombineAssets;
  */
 class OctoberUtil extends Command
 {
-
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
@@ -59,9 +58,9 @@ class OctoberUtil extends Command
         $method = 'util'.studly_case($command);
 
         $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
-        $list = array_map(function($item){
+        $list = array_map(function ($item) {
             return "october:".snake_case($item, " ");
-        },$methods);
+        }, $methods);
 
         if (!$this->argument('name')) {
             $message = 'There are no commands defined in the "util" namespace.';
@@ -132,7 +131,7 @@ class OctoberUtil extends Command
         $combiner = CombineAssets::instance();
         $bundles = $combiner->getBundles($type);
 
-        if (!$bundles){
+        if (!$bundles) {
             $this->comment('Nothing to compile!');
             return;
         }
@@ -247,8 +246,7 @@ class OctoberUtil extends Command
 
         if ($totalCount > 0) {
             $this->comment(sprintf('Successfully deleted %s thumbs', $totalCount));
-        }
-        else {
+        } else {
             $this->comment('No thumbs found to delete');
         }
     }
@@ -278,7 +276,9 @@ class OctoberUtil extends Command
     {
         foreach (File::directories(plugins_path()) as $authorDir) {
             foreach (File::directories($authorDir) as $pluginDir) {
-                if (!File::isDirectory($pluginDir.'/.git')) continue;
+                if (!File::isDirectory($pluginDir.'/.git')) {
+                    continue;
+                }
                 $exec = 'cd ' . $pluginDir . ' && ';
                 $exec .= 'git pull 2>&1';
                 echo 'Updating plugin: '. basename(dirname($pluginDir)) .'.'. basename($pluginDir) . PHP_EOL;
@@ -287,12 +287,13 @@ class OctoberUtil extends Command
         }
 
         foreach (File::directories(themes_path()) as $themeDir) {
-            if (!File::isDirectory($themeDir.'/.git')) continue;
+            if (!File::isDirectory($themeDir.'/.git')) {
+                continue;
+            }
             $exec = 'cd ' . $themeDir . ' && ';
             $exec .= 'git pull 2>&1';
             echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
             echo shell_exec($exec);
         }
     }
-
 }

@@ -20,7 +20,7 @@ class NestedTreeModelTest extends PluginTestCase
         $items = CategoryNested::getNested();
 
         // Eager loaded
-        $items->each(function($item) {
+        $items->each(function ($item) {
             $this->assertTrue($item->relationLoaded('children'));
         });
 
@@ -32,7 +32,7 @@ class NestedTreeModelTest extends PluginTestCase
         $items = CategoryNested::getAllRoot();
 
         // Not eager loaded
-        $items->each(function($item) {
+        $items->each(function ($item) {
             $this->assertFalse($item->relationLoaded('children'));
         });
 

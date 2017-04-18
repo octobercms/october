@@ -13,7 +13,6 @@ use ApplicationException;
 use ValidationException;
 use Exception;
 
-
 /**
  * File upload field
  * Renders a form file uploader field.
@@ -146,7 +145,7 @@ class FileUpload extends FormWidgetBase
         /*
          * Decorate each file with thumb and custom download path
          */
-        $list->each(function($file) {
+        $list->each(function ($file) {
             $this->decorateFileAttributes($file);
         });
 
@@ -209,8 +208,7 @@ class FileUpload extends FormWidgetBase
             $cssDimensions .= ($this->imageHeight)
                 ? 'height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
-        }
-        else {
+        } else {
             $cssDimensions .= ($this->imageWidth)
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
@@ -246,7 +244,7 @@ class FileUpload extends FormWidgetBase
             $types = explode(',', $types);
         }
 
-        $types = array_map(function($value) use ($includeDot) {
+        $types = array_map(function ($value) use ($includeDot) {
             $value = trim($value);
 
             if (substr($value, 0, 1) == '.') {
@@ -325,8 +323,7 @@ class FileUpload extends FormWidgetBase
             }
 
             throw new ApplicationException('Unable to find file, it may no longer exist');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -406,9 +403,7 @@ class FileUpload extends FormWidgetBase
             ];
 
             Response::json($result, 200)->send();
-
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Response::json($ex->getMessage(), 400)->send();
         }
 

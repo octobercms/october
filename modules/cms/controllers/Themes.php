@@ -217,8 +217,7 @@ class Themes extends Controller
         try {
             $model = $this->getThemeData($dirName);
             $this->asExtension('FormController')->update($model->id);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -295,8 +294,7 @@ class Themes extends Controller
         try {
             $this->pageTitle = 'Download theme export archive';
             return ThemeExport::download($name, $outputName);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -366,5 +364,4 @@ class Themes extends Controller
 
         return $theme;
     }
-
 }

@@ -4,7 +4,6 @@ use System\Classes\VersionManager;
 
 class VersionManagerTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -118,5 +117,4 @@ class VersionManagerTest extends TestCase
         $this->assertArrayHasKey('1.0.4', $result);
         $this->assertArrayHasKey('1.0.5', $result);
     }
-
 }

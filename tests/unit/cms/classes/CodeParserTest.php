@@ -295,9 +295,8 @@ class CodeParserTest extends TestCase
 
    protected function getContents($path)
    {
-        $content = file_get_contents($path);
-        $content = preg_replace('~\R~u', PHP_EOL, $content); // Normalize EOL
+       $content = file_get_contents($path);
+       $content = preg_replace('~\R~u', PHP_EOL, $content); // Normalize EOL
         return $content;
    }
-
 }

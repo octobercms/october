@@ -92,8 +92,7 @@ class Search extends WidgetBase
 
         if ($this->partial) {
             return $this->controller->makePartial($this->partial);
-        }
-        else {
+        } else {
             return $this->makePartial('search');
         }
     }
@@ -143,8 +142,7 @@ class Search extends WidgetBase
     {
         if (strlen($term)) {
             $this->putSession('term', $term);
-        }
-        else {
+        } else {
             $this->resetSession();
         }
 

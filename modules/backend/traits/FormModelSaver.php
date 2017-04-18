@@ -71,8 +71,7 @@ trait FormModelSaver
 
             if ($isNested && is_array($value)) {
                 $this->setModelAttributes($model->{$attribute}, $value);
-            }
-            elseif ($value !== FormField::NO_SAVE_DATA) {
+            } elseif ($value !== FormField::NO_SAVE_DATA) {
                 if (Str::startsWith($attribute, '_')) {
                     $attributesToPurge[] = $attribute;
                 }
@@ -98,9 +97,8 @@ trait FormModelSaver
          */
         if (method_exists($model, 'getPurgeableAttributes')) {
             $model->addPurgeable($attributesToPurge);
-        }
-        else {
-            $model->bindEventOnce('model.saveInternal', function() use ($model, $attributesToPurge) {
+        } else {
+            $model->bindEventOnce('model.saveInternal', function () use ($model, $attributesToPurge) {
                 foreach ($attributesToPurge as $attribute) {
                     unset($model->attributes[$attribute]);
                 }

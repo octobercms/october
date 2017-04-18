@@ -175,9 +175,9 @@ class Page extends CmsCompoundObject
      * - url - the menu item URL. Not required for menu item types that return all available records.
      *   The URL should be returned relative to the website root and include the subdirectory, if any.
      *   Use the URL::to() helper to generate the URLs.
-     * - isActive - determines whether the menu item is active. Not required for menu item types that 
+     * - isActive - determines whether the menu item is active. Not required for menu item types that
      *   return all available records.
-     * - items - an array of arrays with the same keys (url, isActive, items) + the title key. 
+     * - items - an array of arrays with the same keys (url, isActive, items) + the title key.
      *   The items array should be added only if the $item's $nesting property value is TRUE.
      * @param \RainLab\Pages\Classes\MenuItem $item Specifies the menu item.
      * @param string $url Specifies the current page URL, normalized, in lower case

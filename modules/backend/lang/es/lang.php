@@ -244,7 +244,7 @@ return [
         'find_record' => 'Buscar Registro'
     ],
     'relation' => [
-        'missing_config' => "Relación de comportamiento no tiene ninguna configuración para ':config'.",    
+        'missing_config' => "Relación de comportamiento no tiene ninguna configuración para ':config'.",
         'missing_definition' => "Relación de comportamiento no contiene una definición para ':field'.",
         'missing_model' => 'Relación de comportamiento utilizado en :class no tiene un modelo definido.',
         'invalid_action_single' => 'Esta acción no se puede realizar en una relación singular.',
@@ -279,7 +279,7 @@ return [
     'reorder' => [
         'default_title' => 'Reordenar registros',
         'no_records' => 'No existen registros disponibles para ordenar.'
-    ],  
+    ],
     'model' => [
         'name' => 'Modelo',
         'not_found' => "Modelo ':class' con el ID :id no se pudo encontrar",

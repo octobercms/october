@@ -21,7 +21,7 @@ class View
             return static::$globalVarCache;
         }
 
-        $vars = array_filter(ViewFacade::getShared(), function($var) {
+        $vars = array_filter(ViewFacade::getShared(), function ($var) {
             return is_scalar($var) || is_array($var);
         });
 

@@ -4,7 +4,6 @@ use Cms\Classes\ComponentBase;
 
 class MainMenu extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
@@ -17,5 +16,4 @@ class MainMenu extends ComponentBase
     {
         return ['Home', 'Blog', 'About', 'Contact'];
     }
-
 }

@@ -54,8 +54,7 @@ class PlaceholderNode extends Twig_Node
         $compiler->addDebugInfo($this);
         if (!$isText) {
             $compiler->write("echo \$this->env->getExtension('CMS')->displayBlock(");
-        }
-        else {
+        } else {
             $compiler->write("echo twig_escape_filter(\$this->env, \$this->env->getExtension('CMS')->displayBlock(");
         }
 
@@ -68,8 +67,7 @@ class PlaceholderNode extends Twig_Node
 
         if (!$isText) {
             $compiler->raw(";\n");
-        }
-        else {
+        } else {
             $compiler->raw(");\n");
         }
 

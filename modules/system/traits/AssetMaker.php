@@ -102,7 +102,7 @@ trait AssetMaker
     }
 
     /**
-     * Adds JavaScript asset to the asset list. Call $this->makeAssets() in a view 
+     * Adds JavaScript asset to the asset list. Call $this->makeAssets() in a view
      * to output corresponding markup.
      * @param string $name Specifies a path (URL) to the script.
      * @param array $attributes Adds extra HTML attributes to the asset link.
@@ -245,8 +245,7 @@ trait AssetMaker
 
             if ($build == 'core') {
                 $build = 'v' . Parameter::get('system::core.build', 1);
-            }
-            elseif ($pluginVersion = PluginVersion::getVersion($build)) {
+            } elseif ($pluginVersion = PluginVersion::getVersion($build)) {
                 $build = 'v' . $pluginVersion;
             }
 
@@ -281,10 +280,8 @@ trait AssetMaker
     protected function removeDuplicates()
     {
         foreach ($this->assets as $type => &$collection) {
-
             $pathCache = [];
             foreach ($collection as $key => $asset) {
-
                 if (!$path = array_get($asset, 'path')) {
                     continue;
                 }
@@ -296,7 +293,6 @@ trait AssetMaker
 
                 $pathCache[$path] = true;
             }
-
         }
     }
 }

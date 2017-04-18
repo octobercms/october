@@ -86,7 +86,7 @@ return [
             'request_log' => 'Log richieste',
             'app_birthday' => 'Online dal',
         ],
-		'welcome' => [
+        'welcome' => [
             'widget_title_default' => 'Benvenuto',
             'welcome_back_name' => 'Bentornato su :app, :name.',
             'welcome_to_name' => 'Benvenuto su :app, :name.',
@@ -238,7 +238,7 @@ return [
         'delete_row' => 'Elimina riga',
         'concurrency_file_changed_title' => 'Il file è stato cambiato',
         'concurrency_file_changed_description' => "Il file che stavi modificando è stato cambiato da un altro utente. Puoi ricaricare il file e perdere le tue modifiche oppure sovrascrivere il file sul disco.",
-		'return_to_list' => 'Ritorna all\'elenco'
+        'return_to_list' => 'Ritorna all\'elenco'
     ],
     'recordfinder' => [
         'find_record' => 'Trova record'

@@ -137,8 +137,7 @@ class MailTemplate extends Model
     {
         if (isset(self::$cache[$code])) {
             $template = self::$cache[$code];
-        }
-        else {
+        } else {
             self::$cache[$code] = $template = self::findOrMakeTemplate($code);
         }
 

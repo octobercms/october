@@ -401,7 +401,6 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
-
         if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
@@ -416,8 +415,7 @@ class Controller extends Extendable
                  */
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
-                }
-                else {
+                } else {
                     $partialList = [];
                 }
 
@@ -466,17 +464,14 @@ class Controller extends Extendable
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
+                } elseif (is_string($result)) {
                     $responseContents['result'] = $result;
-                }
-                elseif (is_object($result)) {
+                } elseif (is_object($result)) {
                     return $result;
                 }
 
                 return Response::make()->setContent($responseContents);
-            }
-            catch (ValidationException $ex) {
+            } catch (ValidationException $ex) {
                 /*
                  * Handle validation error gracefully
                  */
@@ -485,11 +480,9 @@ class Controller extends Extendable
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 throw new AjaxException($responseContents);
-            }
-            catch (MassAssignmentException $ex) {
+            } catch (MassAssignmentException $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 throw $ex;
             }
         }
@@ -527,8 +520,7 @@ class Controller extends Extendable
                 $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
                 return ($result) ?: true;
             }
-        }
-        else {
+        } else {
             /*
              * Process page specific handler (index_onSomething)
              */

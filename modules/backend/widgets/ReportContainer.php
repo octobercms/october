@@ -85,8 +85,7 @@ class ReportContainer extends WidgetBase
             $path = $controller->getConfigPath($configuration);
             if (File::isFile($path)) {
                 $configuration = $this->makeConfig($path);
-            }
-            else {
+            } else {
                 $configuration = [];
             }
         }
@@ -98,7 +97,7 @@ class ReportContainer extends WidgetBase
     }
 
     /**
-     * Ensure report widgets are registered so they can also be bound to 
+     * Ensure report widgets are registered so they can also be bound to
      * the controller this allows their AJAX features to operate.
      * @return void
      */
@@ -228,8 +227,7 @@ class ReportContainer extends WidgetBase
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
-        }
-        while (array_key_exists($alias, $widgets));
+        } while (array_key_exists($alias, $widgets));
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
@@ -412,7 +410,6 @@ class ReportContainer extends WidgetBase
 
         $result[] = $property;
         foreach ($properties as $name => $params) {
-
             $property = [
                 'property' => $name,
                 'title'    => isset($params['title']) ? Lang::get($params['title']) : $name,

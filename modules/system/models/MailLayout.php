@@ -46,5 +46,4 @@ class MailLayout extends Model
     {
         return array_get(self::listCodes(), $code);
     }
-
 }

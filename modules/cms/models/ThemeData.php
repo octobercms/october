@@ -67,8 +67,8 @@ class ThemeData extends Model
     {
         try {
             CombineAssets::resetCache();
+        } catch (Exception $ex) {
         }
-        catch (Exception $ex) {}
     }
 
     /**
@@ -85,8 +85,7 @@ class ThemeData extends Model
 
         try {
             $themeData = ThemeData::firstOrCreate(['theme' => $dirName]);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             // Database failed
             $themeData = new ThemeData(['theme' => $dirName]);
         }
@@ -108,8 +107,7 @@ class ThemeData extends Model
 
             if ($field['type'] == 'repeater') {
                 $this->jsonable[] = $id;
-            }
-            elseif ($field['type'] == 'fileupload') {
+            } elseif ($field['type'] == 'fileupload') {
                 $this->attachOne[$id] = 'System\Models\File';
                 unset($data[$id]);
             }
@@ -133,7 +131,6 @@ class ThemeData extends Model
      */
     public function initFormFields()
     {
-
     }
 
     /**
@@ -208,7 +205,7 @@ class ThemeData extends Model
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (!$theme){
+        if (!$theme) {
             return;
         }
 

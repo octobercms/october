@@ -10,7 +10,7 @@ use SystemException;
  * Table Widget.
  *
  * Represents an editable tabular control.
- * 
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -80,8 +80,7 @@ class Table extends WidgetBase
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
             if (strpos($this->fieldName, '[') === false) {
                 $requestDataField = $this->fieldName.'TableData';
-            }
-            else {
+            } else {
                 $requestDataField = $this->fieldName.'[TableData]';
             }
 
@@ -156,7 +155,7 @@ class Table extends WidgetBase
     /**
      * Converts the columns associative array to a regular array and translates column headers and drop-down options.
      * Working with regular arrays is much faster in JavaScript.
-     * References: 
+     * References:
      * - http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
      * - http://jsperf.com/performance-of-array-vs-object/3
      */
@@ -167,12 +166,14 @@ class Table extends WidgetBase
         foreach ($this->columns as $key=>$data) {
             $data['key'] = $key;
 
-            if (isset($data['title']))
+            if (isset($data['title'])) {
                 $data['title'] = trans($data['title']);
+            }
 
             if (isset($data['options'])) {
-                foreach ($data['options'] as &$option)
+                foreach ($data['options'] as &$option) {
                     $option = trans($option);
+                }
             }
 
             if (isset($data['validation'])) {

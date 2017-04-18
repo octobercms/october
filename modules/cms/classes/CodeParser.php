@@ -27,7 +27,7 @@ class CodeParser
     /**
      * @var mixed The internal cache, keeps parsed object information during a request.
      */
-    static protected $cache = [];
+    protected static $cache = [];
 
     /**
      * @var string Key for the parsed PHP file information cache.
@@ -337,8 +337,7 @@ class CodeParser
         if (Config::get('cms.forceBytecodeInvalidation', false)) {
             if (function_exists('opcache_invalidate')) {
                 opcache_invalidate($path, true);
-            }
-            elseif (function_exists('apc_compile_file')) {
+            } elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($path);
             }
         }

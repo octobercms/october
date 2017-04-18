@@ -83,8 +83,7 @@ class ListController extends ControllerBehavior
         if (is_array($controller->listConfig)) {
             $this->listDefinitions = $controller->listConfig;
             $this->primaryDefinition = key($this->listDefinitions);
-        }
-        else {
+        } else {
             $this->listDefinitions = ['list' => $controller->listConfig];
             $this->primaryDefinition = 'list';
         }
@@ -244,7 +243,7 @@ class ListController extends ControllerBehavior
             /*
              * Extend the query of the list of options
              */
-            $filterWidget->bindEvent('filter.extendQuery', function($query, $scope) {
+            $filterWidget->bindEvent('filter.extendQuery', function ($query, $scope) {
                 $this->controller->listFilterExtendQuery($query, $scope);
             });
 
@@ -329,8 +328,7 @@ class ListController extends ControllerBehavior
             }
 
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
-        }
-        else {
+        } else {
             Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }
 
