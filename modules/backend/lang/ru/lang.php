@@ -256,7 +256,7 @@ return [
         'related_data' => 'Связанные :name данные',
         'add' => 'Добавить',
         'add_selected' => 'Добавить выбранные',
-        'add_a_new' => 'Добавить новый :name',
+        'add_a_new' => 'Добавление нового :name',
         'link_selected' => 'Связать выбранное',
         'link_a_new' => 'Новая ссылка :name',
         'cancel' => 'Отмена',
