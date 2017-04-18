@@ -25,10 +25,10 @@ class MailTemplate extends Model
     protected $table = 'system_mail_templates';
 
     public $rules = [
-        'code'                  => 'required|unique:system_mail_templates',
-        'subject'               => 'required',
-        'description'           => 'required',
-        'content_html'          => 'required',
+        'code'         => 'required|unique:system_mail_templates',
+        'subject'      => 'required',
+        'description'  => 'required',
+        'content_html' => 'required',
     ];
 
     public $belongsTo = [
@@ -57,6 +57,7 @@ class MailTemplate extends Model
         $dbTemplates = (array) self::lists('description', 'code');
         $templates = $fileTemplates + $dbTemplates;
         ksort($templates);
+
         return $templates;
     }
 

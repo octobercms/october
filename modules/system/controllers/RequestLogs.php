@@ -49,15 +49,18 @@ class RequestLogs extends Controller
     {
         RequestLog::truncate();
         Flash::success(Lang::get('system::lang.request_log.empty_success'));
+
         return $this->listRefresh();
     }
 
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = RequestLog::find($recordId)) continue;
+                if (!$record = RequestLog::find($recordId)) {
+                    continue;
+                }
+
                 $record->delete();
             }
 

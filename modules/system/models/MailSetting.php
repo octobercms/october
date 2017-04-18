@@ -110,9 +110,7 @@ class MailSetting extends Model
                 $config->set('services.ses.region', $settings->ses_region);
                 break;
         }
-
     }
-
 
     /**
      * @return array smtp_encryption options values
@@ -120,7 +118,7 @@ class MailSetting extends Model
     public function getSmtpEncryptionOptions()
     {
         return [
-            '' => 'system::lang.mail.smtp_encryption_none',
+            ''    => 'system::lang.mail.smtp_encryption_none',
             'tls' => 'system::lang.mail.smtp_encryption_tls',
             'ssl' => 'system::lang.mail.smtp_encryption_ssl',
         ];

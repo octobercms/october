@@ -187,5 +187,4 @@ class TagList extends FormWidgetBase
             case 'space': return ' ';
         }
     }
-
 }

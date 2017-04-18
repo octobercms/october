@@ -6,16 +6,13 @@ use October\Rain\Router\Helper as RouterHelper;
 
 /**
  * Standard skin information file.
- *
  * This skin uses the default paths always, there is no lookup required.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-
 class Standard extends Skin
 {
-
     /**
      * @inheritDoc
      */
@@ -27,6 +24,7 @@ class Standard extends Skin
 
     /**
      * @inheritDoc
+     * @return array
      */
     public function skinDetails()
     {
@@ -37,6 +35,7 @@ class Standard extends Skin
 
     /**
      * @inheritDoc
+     * @return string
      */
     public function getPath($path = null, $isPublic = false)
     {
@@ -49,6 +48,7 @@ class Standard extends Skin
 
     /**
      * @inheritDoc
+     * @return array
      */
     public function getLayoutPaths()
     {
