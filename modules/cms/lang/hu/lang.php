@@ -24,6 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "A következő téma nem található: ':name'",
+        'by' => 'Fejlesztő:',
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
             'not_found' => 'Az aktív téma nem található.'
@@ -33,8 +34,8 @@ return [
             'not_found' => 'A szerkesztés alatt lévő téma nem található.',
             'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra a lapot.'
         ],
-        'settings_menu' => 'Dizájn',
-        'settings_menu_description' => 'A telepített témák és a választható sablonok listája.',
+        'settings_menu' => 'Megjelenés',
+        'settings_menu_description' => 'A telepített témák listája és azok testreszabása.',
         'default_tab' => 'Tulajdonságok',
         'name_label' => 'Név',
         'name_create_placeholder' => 'Az új téma neve',

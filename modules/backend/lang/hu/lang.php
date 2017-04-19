@@ -242,7 +242,8 @@ return [
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
         'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Kérjük ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
         'preview_no_files_message' => 'Nincsenek feltöltve fájlok.',
-        'preview_no_record_message' => 'Egy mező sincs kiválasztva.',
+        'preview_no_media_message' => 'Nincs kiválasztva média.',
+        'preview_no_record_message' => 'Nincs kiválasztva mező.',
         'select' => 'Kiválaszt',
         'select_all' => 'mind',
         'select_none' => 'egyik sem',
@@ -255,7 +256,8 @@ return [
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
-        'find_record' => 'Rekord keresése'
+        'find_record' => 'Tartalom keresése',
+        'cancel' => 'Mégsem'
     ],
     'pagelist' => [
         'page_link' => 'Lapok',
@@ -311,7 +313,8 @@ return [
         'tips' => 'Rendszer konfigurációs tippek',
         'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
-        'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.'
+        'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
+        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük, hogy telepítse ezt a bővítményt.'
     ],
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
@@ -372,8 +375,8 @@ return [
         'menu_keywords' => 'biztonságos bejelentkezés'
     ],
     'branding' => [
-        'menu_label' => 'Admin felület',
-        'menu_description' => 'A kinézetének módosítása és egyedivé tétele.',
+        'menu_label' => 'Kinézet',
+        'menu_description' => 'Az admin felület megjelenésének módosítása.',
         'brand' => 'Márka',
         'logo' => 'Logó',
         'logo_description' => 'A bejelentkezési felületen, illetve egyes oldalak hátterében fog megjelenni.',
