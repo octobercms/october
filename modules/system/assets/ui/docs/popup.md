@@ -108,7 +108,7 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 - data-ajax="popup-content.htm" - ajax content to load
 - data-handler="onLoadContent" - October ajax request name
 - data-keyboard="false" - Allow popup to be closed with the keyboard
-- data-extra-data="file_id: 1" - October ajax request data
+- data-request-data="file_id: 1" - October ajax request data
 - data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
 
 ### JavaScript API
@@ -117,4 +117,6 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 $('a#someLink').popup({ ajax: 'popup-content.htm' })
 $('a#someLink').popup({ handler: 'onLoadSomePopup' })
 $('a#someLink').popup({ handler: 'onLoadSomePopup', extraData: { id: 3 } })
+$('a#someLink').popup({ content: 'sample html content')
+$('a#someLink').popup({ content: function() {return 'sample html content'})
 ```
