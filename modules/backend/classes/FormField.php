@@ -632,9 +632,20 @@ class FormField
 
         $parts = is_array($attribute) ? $attribute : HtmlHelper::nameToArray($attribute);
         $last = array_pop($parts);
+        $currentAttr = $model;
 
         foreach ($parts as $part) {
-            $model = $model->{$part};
+            
+            if (is_object($currentAttr)) {
+                $currentAttr = $currentAttr->{$part};
+                if (is_object($currentAttr)) {
+                    $model = $currentAttr;
+                }
+            }
+            elseif (is_array($currentAttr)) {
+                $currentAttr = $currentAttr[$part];
+            }
+            
         }
 
         return [$model, $last];
