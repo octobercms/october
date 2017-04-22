@@ -17,8 +17,8 @@
                 return state.text; // optgroup
 
             var $option = $(state.element),
-                iconClass = $option.data('icon'),
-                imageSrc = $option.data('image')
+                iconClass = state.icon ? state.icon : $option.data('icon'),
+                imageSrc = state.image ? state.image : $option.data('image')
 
             if (iconClass)
                 return '<i class="select-icon '+iconClass+'"></i> ' + state.text
@@ -68,6 +68,24 @@
 
             if ($element.hasClass('select-hide-selected')) {
                 extraOptions.dropdownCssClass += ' select-hide-selected'
+            }
+
+            var source = $element.data('source');
+            if (source) {
+                extraOptions.ajax = {
+                    transport: function(params, success, failure) {
+                        var $request = $element.request(source, {
+                            data: params.data
+                        })
+
+                        $request.done(success)
+                        $request.fail(failure)
+
+                        return $request
+                    },
+
+                    dataType: 'json'
+                }
             }
 
             var separators = $element.data('token-separators')
