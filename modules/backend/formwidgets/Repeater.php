@@ -92,8 +92,8 @@ class Repeater extends FormWidgetBase
         ]);
 
         $fieldName = $this->formField->getName(false);
-        $this->indexInputName = self::INDEX_PREFIX.$fieldName.'[]';
-        $this->groupInputName = self::GROUP_PREFIX.$fieldName.'[]';
+        $this->indexInputName = self::INDEX_PREFIX.$fieldName;
+        $this->groupInputName = self::GROUP_PREFIX.$fieldName;
 
         $this->processGroupMode();
 
@@ -166,14 +166,14 @@ class Repeater extends FormWidgetBase
         $itemIndexes = post($this->indexInputName, $loadValue);
         $itemGroups = post($this->groupInputName, $loadValue);
 
+        if (!count($itemIndexes)) {
+            return;
+        }
+
         $items = array_combine(
             (array) $itemIndexes,
             (array) ($this->useGroups ? $itemGroups : $itemIndexes)
         );
-
-        if (!is_array($items)) {
-            return;
-        }
 
         foreach ($items as $itemIndex => $groupCode) {
             $this->makeItemFormWidget($itemIndex, $groupCode);
@@ -224,8 +224,6 @@ class Repeater extends FormWidgetBase
         self::$onAddItemCalled = true;
 
         $this->indexCount++;
-
-        traceLog($this->indexCount);
 
         $groupCode = post('_repeater_group');
 

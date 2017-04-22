@@ -83,11 +83,23 @@
     }
 
     Repeater.prototype.clickAddGroupButton = function(ev) {
-        var templateHtml = $('> [data-group-palette-template]', this.$el).html()
+        var templateHtml = $('> [data-group-palette-template]', this.$el).html(),
+            $target = $(ev.target),
+            $form = this.$el.closest('form')
 
-        $(ev.target).ocPopover({
+        $target.ocPopover({
             content: templateHtml
         })
+
+        var $container = $target.data('oc.popover').$container
+
+        $container.on('click', 'a', function (ev) {
+            setTimeout(function() {
+                $(ev.target).trigger('close.oc.popover')
+            }, 1)
+        })
+
+        $('[data-repeater-add]', $container).data('request-form', $form)
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
