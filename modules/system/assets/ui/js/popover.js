@@ -171,14 +171,12 @@
     }
 
     Popover.prototype.getContent = function () {
-        var content = this.options.content
-
-        if (typeof content == 'function') {
-            return content.call(this.$el[0], this)
+        if (this.options.contentFrom) {
+            return $(this.options.contentFrom).html()
         }
 
-        if (content.charAt(0) === '#') {
-            return $(content).html()
+        if (typeof this.options.content == 'function') {
+            return this.options.content.call(this.$el[0], this)
         }
 
         return this.options.content
@@ -319,6 +317,7 @@
         placement: 'bottom',
         fallbackPlacement: 'bottom',
         content: '<p>Popover content<p>',
+        contentFrom: null,
         width: false,
         modal: false,
         highlightModalTarget: false,

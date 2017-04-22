@@ -18,7 +18,7 @@ You may add `data-control="popover"` to an anchor or button to activate a popove
 
 ### Template content
 
-Define the popover content as a template and reference it with `data-content="#myPopoverContent"`.
+Define the popover content as a template and reference it with `data-content-from="#myPopoverContent"`.
 
 ```html
 <script type="text/template" id="myPopoverContent">
@@ -47,7 +47,7 @@ Define the popover content as a template and reference it with `data-content="#m
         class="btn btn-primary"
         data-control="popover"
         data-width="200"
-        data-content="#myPopoverContent">
+        data-content-from="#myPopoverContent">
         Template popover
     </a>
 
@@ -97,6 +97,8 @@ Closes the popover. There are 3 ways to close the popover: call it's `hide()` me
 - `fallbackPlacement`: top | bottom | left | right. The placement to use if the default placement and all other possible placements do not work. The default value is "bottom".
 
 - `content`: content HTML string or callback
+
+- `contentFrom`: selector to source the content HTML
 
 - `width`: content width, optional. If not specified, the content width will be used.
 

@@ -3440,9 +3440,8 @@ Popover.prototype.reposition=function(){var
 placement=this.calcPlacement(),position=this.calcPosition(placement)
 this.$container.removeClass('placement-center placement-bottom placement-top placement-left placement-right')
 this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)}
-Popover.prototype.getContent=function(){var content=this.options.content
-if(typeof content=='function'){return content.call(this.$el[0],this)}
-if(content.charAt(0)==='#'){return $(content).html()}
+Popover.prototype.getContent=function(){if(this.options.contentFrom){return $(this.options.contentFrom).html()}
+if(typeof this.options.content=='function'){return this.options.content.call(this.$el[0],this)}
 return this.options.content}
 Popover.prototype.calcDimensions=function(){var
 documentWidth=$(document).width(),documentHeight=$(document).height(),targetOffset=this.$el.offset(),targetWidth=this.$el.outerWidth(),targetHeight=this.$el.outerHeight()
@@ -3490,7 +3489,7 @@ if(this.options.onCheckDocumentClickTarget&&this.options.onCheckDocumentClickTar
 if($.contains(this.$container.get(0),e.target))
 return
 this.hide();}
-Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false,onCheckDocumentClickTarget:null}
+Popover.DEFAULTS={placement:'bottom',fallbackPlacement:'bottom',content:'<p>Popover content<p>',contentFrom:null,width:false,modal:false,highlightModalTarget:false,closeOnPageClick:true,closeOnEsc:true,container:false,containerClass:null,offset:15,useAnimation:false,onCheckDocumentClickTarget:null}
 var old=$.fn.ocPopover
 $.fn.ocPopover=function(option){var args=arguments;return this.each(function(){var $this=$(this)
 var data=$this.data('oc.popover')
