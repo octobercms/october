@@ -141,15 +141,28 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        // traceLog($value);
-        // return '';
-        return (array) $value;
+        return $this->processSaveValue($value);
     }
 
-    // Format the save value to index _index and _group and strip the array keys
-    protected function processSaveValue()
+    /**
+     * Splices in some meta data (group and index values) to the dataset.
+     * @param array $value
+     * @return array
+     */
+    protected function processSaveValue($value)
     {
+        if (!is_array($value)) {
+            return $value;
+        }
 
+        foreach ($value as $index => &$data) {
+            $data['_index'] = $index;
+            if ($this->useGroups) {
+                $data['_group'] = $this->getGroupCodeFromIndex($index);
+            }
+        }
+
+        return array_values($value);
     }
 
     /**
@@ -159,12 +172,15 @@ class Repeater extends FormWidgetBase
     protected function processExistingItems()
     {
         $loadValue = $this->getLoadValue();
-        if (is_array($loadValue)) {
-            $loadValue = array_keys($loadValue);
+
+        $loadedIndexes = $loadedGroups = [];
+        foreach ($loadValue as $loadedValue) {
+            $loadedIndexes[] = array_get($loadedValue, '_index');
+            $loadedGroups[] = array_get($loadedValue, '_group');
         }
 
-        $itemIndexes = post($this->indexInputName, $loadValue);
-        $itemGroups = post($this->groupInputName, $loadValue);
+        $itemIndexes = post($this->indexInputName, $loadedIndexes);
+        $itemGroups = post($this->groupInputName, $loadedGroups);
 
         if (!count($itemIndexes)) {
             return;
@@ -189,18 +205,13 @@ class Repeater extends FormWidgetBase
      */
     protected function makeItemFormWidget($index = 0, $groupCode = null)
     {
-        $loadValue = $this->getLoadValue();
-        if (!is_array($loadValue)) {
-            $loadValue = [];
-        }
-
         $configDefinition = $this->useGroups
             ? $this->getGroupFormFieldConfig($groupCode)
             : $this->form;
 
         $config = $this->makeConfig($configDefinition);
         $config->model = $this->model;
-        $config->data = array_get($loadValue, $index, []);
+        $config->data = $this->getLoadValueFromIndex($index);
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
@@ -213,6 +224,21 @@ class Repeater extends FormWidgetBase
         ];
 
         return $this->formWidgets[$index] = $widget;
+    }
+
+    /**
+     * Returns the load data at a given index.
+     * @param int $index
+     */
+    protected function getLoadValueFromIndex($index)
+    {
+        if (is_array($loadValue = $this->getLoadValue())) {
+            foreach ($loadValue as $data) {
+                if (array_get($data, '_index') == $index) {
+                    return $data;
+                }
+            }
+        }
     }
 
     //
