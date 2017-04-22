@@ -1434,6 +1434,8 @@ body.popover-open .control-popover > div:before,body.popover-open .control-popov
 body.popover-open .control-popover div.popover-fixed-height{height:100%;min-height:100%}
 body.popover-open .control-popover .popover-head:before{display:none}
 }
+.autocomplete.dropdown-menu{background:white}
+.autocomplete.dropdown-menu li a{padding:3px 12px}
 .control-breadcrumb{margin:-20px -20px 20px -20px;background-color:#d0d9dd}
 .control-breadcrumb ul{padding:0;margin:0;font-size:0}
 .control-breadcrumb li{font-size:14px;list-style:none;margin:0;padding:12px 10px 12px 30px;display:inline-block;position:relative;color:#ffffff;background-color:#9098a2}

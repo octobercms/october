@@ -509,8 +509,6 @@ div.control-scrollpad > .scrollpad-scrollbar[data-visible]{opacity:0.7;filter:al
 div.control-scrollpad > .scrollpad-scrollbar[data-hidden]{display:none}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar{top:auto;left:0;width:auto;height:11px}
 div.control-scrollpad[data-direction=horizontal] > .scrollpad-scrollbar .drag-handle{right:auto;top:2px;height:7px;min-height:0;min-width:10px;width:auto}
-.autocomplete.dropdown-menu{background:white}
-.autocomplete.dropdown-menu li a{padding:3px 12px}
 .svg-icon-container img.svg-icon{display:none}
 .svg-icon-container.svg-active-effects img.svg-icon{-webkit-filter:grayscale(100%);filter:grayscale(100%);opacity:0.6;filter:alpha(opacity=60)}
 .svg-icon-container.svg-active-effects:hover img.svg-icon,.svg-icon-container.svg-active-effects.active img.svg-icon{-webkit-filter:none;filter:none;opacity:1;filter:alpha(opacity=100)}

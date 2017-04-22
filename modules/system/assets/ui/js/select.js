@@ -9,7 +9,7 @@
 (function($){
 
     /*
-     * Custom drop downs (Desktop only)
+     * Custom drop downs
      */
     $(document).render(function(){
         var formatSelectOption = function(state) {
@@ -70,7 +70,10 @@
                 extraOptions.dropdownCssClass += ' select-hide-selected'
             }
 
-            var source = $element.data('source');
+            /*
+             * October AJAX
+             */
+            var source = $element.data('handler');
             if (source) {
                 extraOptions.ajax = {
                     transport: function(params, success, failure) {
