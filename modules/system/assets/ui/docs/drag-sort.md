@@ -28,7 +28,7 @@ Sort the buttons
         }
     </style>
 
-## JavaScript API:
+## JavaScript API
 
 The `sortable()` method must be invoked on valid containers, meaning they must match the containerSelector option.
 
@@ -47,7 +47,7 @@ Remove the sortable plugin from the set of matched elements
 `.sortable('serialize')`
 Serialize all selected containers. Returns a jQuery object . Use .get() to retrieve the array, if needed.
 
-### Supported options:
+### Supported options
 
 - `useAnimation`: Use animation when an item is removed or inserted into the tree.
 
@@ -95,7 +95,7 @@ Serialize all selected containers. Returns a jQuery object . Use .get() to retri
 
 - `tolerance`: Set tolerance while dragging. Positive values decrease sensitivity, negative values increase it.
 
-### Supported options (container specific):
+### Supported options (container specific)
 
 - `drag`: If true, items can be dragged from this container
 

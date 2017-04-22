@@ -3407,25 +3407,20 @@ this.options.onCheckDocumentClickTarget=null}
 Popover.prototype.show=function(options){var self=this
 var e=$.Event('showing.oc.popover',{relatedTarget:this.$el})
 this.$el.trigger(e,this)
-if(e.isDefaultPrevented())
-return
+if(e.isDefaultPrevented())return
 this.$container=$('<div />').addClass('control-popover')
-if(this.options.containerClass)
-this.$container.addClass(this.options.containerClass)
-if(this.options.useAnimation)
-this.$container.addClass('fade')
+if(this.options.containerClass){this.$container.addClass(this.options.containerClass)}
+if(this.options.useAnimation){this.$container.addClass('fade')}
 var $content=$('<div />').html(this.getContent())
 this.$container.append($content)
-if(this.options.width)
-this.$container.width(this.options.width)
+if(this.options.width){this.$container.width(this.options.width)}
 if(this.options.modal){this.$overlay=$('<div />').addClass('popover-overlay')
 $(document.body).append(this.$overlay)
 if(this.options.highlightModalTarget){this.$el.addClass('popover-highlight')
-this.$el.blur()}}else{this.$overlay=false}
-if(this.options.container)
-$(this.options.container).append(this.$container)
-else
-$(document.body).append(this.$container)
+this.$el.blur()}}
+else{this.$overlay=false}
+if(this.options.container){$(this.options.container).append(this.$container)}
+else{$(document.body).append(this.$container)}
 this.reposition()
 this.$container.addClass('in')
 if(this.$overlay)this.$overlay.addClass('in')
@@ -3445,7 +3440,10 @@ Popover.prototype.reposition=function(){var
 placement=this.calcPlacement(),position=this.calcPosition(placement)
 this.$container.removeClass('placement-center placement-bottom placement-top placement-left placement-right')
 this.$container.css({left:position.x,top:position.y}).addClass('placement-'+placement)}
-Popover.prototype.getContent=function(){return typeof this.options.content=='function'?this.options.content.call(this.$el[0],this):this.options.content}
+Popover.prototype.getContent=function(){var content=this.options.content
+if(typeof content=='function'){return content.call(this.$el[0],this)}
+if(content.charAt(0)==='#'){return $(content).html()}
+return this.options.content}
 Popover.prototype.calcDimensions=function(){var
 documentWidth=$(document).width(),documentHeight=$(document).height(),targetOffset=this.$el.offset(),targetWidth=this.$el.outerWidth(),targetHeight=this.$el.outerHeight()
 return{containerWidth:this.$container.outerWidth()+this.arrowSize,containerHeight:this.$container.outerHeight()+this.arrowSize,targetOffset:targetOffset,targetHeight:targetHeight,targetWidth:targetWidth,spaceLeft:targetOffset.left,spaceRight:documentWidth-(targetWidth+targetOffset.left),spaceTop:targetOffset.top,spaceBottom:documentHeight-(targetHeight+targetOffset.top),spaceHorizontalBottom:documentHeight-targetOffset.top,spaceVerticalRight:documentWidth-targetOffset.left,documentWidth:documentWidth}}
