@@ -2,9 +2,10 @@
     $fieldOptions = $field->options();
     $checkedValues = (array) $field->value;
     $isScrollable = count($fieldOptions) > 10;
+    $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
 ?>
 <!-- Checkbox List -->
-<?php if ($this->previewMode && $field->value): ?>
+<?php if ($readOnly && $field->value): ?>
 
     <div class="field-checkboxlist">
         <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
@@ -33,7 +34,7 @@
         <?php endforeach ?>
     </div>
 
-<?php elseif (!$this->previewMode && count($fieldOptions)): ?>
+<?php elseif (!$readOnly && count($fieldOptions)): ?>
 
     <div class="field-checkboxlist <?= $isScrollable ? 'is-scrollable' : '' ?>">
         <?php if ($isScrollable): ?>
