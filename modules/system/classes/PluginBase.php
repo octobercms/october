@@ -107,13 +107,23 @@ class PluginBase extends ServiceProviderBase
             $navigation = $configuration['navigation'];
 
             if (is_array($navigation)) {
+
+                foreach ($navigation as $key => $item) {
+                    if (isset($item['autoredirect']) && $item['autoredirect'] && isset($item['sideMenu'])) {
+                        if($url = $this->findAccessableItemUrl($item['sideMenu'])){
+                            $navigation[$key]['url'] = $url;
+                        }
+                    }
+                }
+
                 array_walk_recursive($navigation, function(&$item, $key){
                     if ($key === 'url') {
                         $item = Backend::url($item);
                     }
                 });
-            }
 
+            }
+            
             return $navigation;
         }
     }
@@ -257,5 +267,22 @@ class PluginBase extends ServiceProviderBase
         }
 
         return $this->loadedYamlConfiguration;
+    }
+
+    /**
+     * Finds the url of the first accessable side menu item
+     * 
+     * @param array $navigation Side menu items
+     * @return string|null Url
+     */
+    public function findAccessableItemUrl($navigation){
+        if ($user = BackendAuth::getUser()) {
+            foreach ($navigation as $key => $item) {
+                if (isset($item['url']) && (!isset($item['permissions']) || $user->hasAnyAccess($item['permissions']))) {
+                    return $item['url'];
+                }
+            }
+        }
+        return null;
     }
 }
