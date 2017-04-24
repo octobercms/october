@@ -27,7 +27,7 @@ class CodeParser
     /**
      * @var mixed The internal cache, keeps parsed object information during a request.
      */
-    static protected $cache = [];
+    protected static $cache = [];
 
     /**
      * @var string Key for the parsed PHP file information cache.

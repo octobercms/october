@@ -246,7 +246,7 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeCreate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        Db::transaction(function() use ($modelsToSave) {
+        Db::transaction(function () use ($modelsToSave) {
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->formWidget->getSessionKey());
             }
@@ -313,7 +313,7 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeUpdate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        Db::transaction(function() use ($modelsToSave) {
+        Db::transaction(function () use ($modelsToSave) {
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->formWidget->getSessionKey());
             }
@@ -466,7 +466,7 @@ class FormController extends ControllerBehavior
         }
         
         if (post('refresh', false)) {
-	        return Redirect::refresh();
+            return Redirect::refresh();
         }
 
         if (post('redirect', true)) {
@@ -481,7 +481,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * Internal method that returns a redirect URL from the config based on 
+     * Internal method that returns a redirect URL from the config based on
      * supplied context. Otherwise the default redirect is used.
      *
      * @param string $context Redirect context, eg: create, update, delete.
@@ -553,7 +553,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the 
+     * View helper to check if a form tab has fields in the
      * non-tabbed section (outside fields).
      *
      *     <?php if ($this->formHasOutsideFields()): ?>
@@ -581,7 +581,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the 
+     * View helper to check if a form tab has fields in the
      * primary tab section.
      *
      *     <?php if ($this->formHasPrimaryTabs()): ?>
@@ -609,7 +609,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the 
+     * View helper to check if a form tab has fields in the
      * secondary tab section.
      *
      *     <?php if ($this->formHasSecondaryTabs()): ?>

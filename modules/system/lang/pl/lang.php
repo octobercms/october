@@ -32,7 +32,7 @@ return [
             'my_settings' => 'Moje Ustawienia'
         ]
     ],
-	'theme' => [
+    'theme' => [
         'label' => 'Motyw',
         'unnamed' => 'Nienazwany motyw',
         'name' => [
@@ -49,7 +49,7 @@ return [
         'remove_confirm' => 'Na pewno usunąć ten motyw?'
     ],
     'plugin' => [
-		'label' => 'Wtyczka',
+        'label' => 'Wtyczka',
         'unnamed' => 'Wtyczka bez nazwy',
         'name' => [
             'label' => 'Nazwa Wtyczki',
@@ -60,7 +60,7 @@ return [
         'manage' => 'Zarządzaj Wtyczkami',
         'enable_or_disable' => 'Włącz lub wyłącz',
         'enable_or_disable_title' => 'Włącz lub Wyłącz Wtyczki',
-		'install' => 'Zainstaluj wtyczki',
+        'install' => 'Zainstaluj wtyczki',
         'install_products' => 'Zainstaluj produkty',
         'search' => 'szukaj wtyczek do instalacji...',
         'installed' => 'Zainstalowane wtyczki',
@@ -70,7 +70,7 @@ return [
         'refresh' => 'Odśwież',
         'disabled_label' => 'Wyłączona',
         'disabled_help' => 'Wyłączone wtyczki są ignorowane przez aplikację.',
-		'frozen_label' => 'Zablokuj zaktualizacje',
+        'frozen_label' => 'Zablokuj zaktualizacje',
         'frozen_help' => 'Zamrożone wtyczki będą pomijane w procesie aktualizacji.',
         'selected_amount' => 'Zaznaczono wtyczek: :amount',
         'remove_confirm' => 'Czy jesteś pewny?',
@@ -133,7 +133,7 @@ return [
         'mailgun_domain_comment' => 'Proszę podać nazwę domeny Mailgun.',
         'mailgun_secret' => 'Mailgun Secret',
         'mailgun_secret_comment' => 'Podaj swój klucz API Mailgun.',
-		'mandrill' => 'Mandrill',
+        'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill secret',
         'mandrill_secret_comment' => 'Podaj swój klucz API Mandrill.',
         'ses' => 'SES',
@@ -184,9 +184,9 @@ return [
     'install' => [
         'project_label' => 'Podłącz do Projektu',
         'plugin_label' => 'Zainstaluj Wtyczkę',
-		'theme_label' => 'Zainstaluj Motyw',
+        'theme_label' => 'Zainstaluj Motyw',
         'missing_plugin_name' => 'Proszę podać nazwę Wtyczki do zainstalowania.',
-		'missing_theme_name' => 'Proszę podać nazwę Motywu do zainstalowania.',
+        'missing_theme_name' => 'Proszę podać nazwę Motywu do zainstalowania.',
         'install_completing' => 'Proces instalacji prawie zakończony.',
         'install_success' => 'Wtyczka została zainstalowana pomyślnie.'
     ],
@@ -195,11 +195,11 @@ return [
         'name' => 'Aktualizacje',
         'menu_label' => 'Aktualizacje',
         'menu_description' => 'Aktualizacja systemu, zarządzaj i instaluj wtyczki oraz szablony.',
-		'return_link' => 'Wróć do aktualizacji systemu',
+        'return_link' => 'Wróć do aktualizacji systemu',
         'check_label' => 'Sprawdź aktualizacje',
         'retry_label' => 'Spróbuj ponownie',
         'plugin_name' => 'Nazwa',
-		'plugin_code' => 'Kod',
+        'plugin_code' => 'Kod',
         'plugin_description' => 'Opis',
         'plugin_version' => 'Wersja',
         'plugin_author' => 'Autor',
@@ -210,12 +210,12 @@ return [
         'core_downloading' => 'Pobieranie plików aplikacji',
         'core_extracting' => 'Rozpakowywanie plików aplikacji',
         'plugins' => 'Wtyczki',
-		'themes' => 'Motywy',
+        'themes' => 'Motywy',
         'disabled' => 'Wyłączony',
         'plugin_downloading' => 'Pobieranie wtyczki: :name',
         'plugin_extracting' => 'Rozpakowywanie wtyczki: :name',
         'plugin_version_none' => 'Nowa wtyczka',
-		'plugin_current_version' => 'Aktualna wersja',
+        'plugin_current_version' => 'Aktualna wersja',
         'theme_new_install' => 'Zainstaluj nowy motyw.',
         'theme_downloading' => 'Pobieranie nowego motywu: :name',
         'theme_extracting' => 'Rozpakowywanie motywu: :name',
@@ -233,7 +233,7 @@ return [
             'label' => 'Brak aktualizacji',
             'help' => 'Brak nowych aktualizacji.'
         ],
-		'important_action' => [
+        'important_action' => [
             'empty' => 'Wybierz działanie',
             'confirm' => 'Zatwierdź aktualizację',
             'skip' => 'Pomiń tę wtyczkę (tylko teraz)',
@@ -304,13 +304,13 @@ return [
         'name' => 'System',
         'manage_system_settings' => 'Zarządzaj ustawienia systemu',
         'manage_software_updates' => 'Zarządzaj aktualizacjami – software',
-		'access_logs' => 'Przeglądaj logi systemowe',
+        'access_logs' => 'Przeglądaj logi systemowe',
         'manage_mail_templates' => 'Zarządzaj szablonami wiadomości',
         'manage_mail_settings' => 'Zarządzaj ustawieniami wiadomości',
         'manage_other_administrators' => 'Zarządzaj innymi administratorami',
         'manage_preferences' => 'Zarządzaj ustawieniami backend',
         'manage_editor' => 'Zarządzaj ustawieniami edytora kodu',
         'view_the_dashboard' => 'Zobacz kokpit',
-		'manage_branding' => 'Personalizuj zaplecze'
+        'manage_branding' => 'Personalizuj zaplecze'
     ]
 ];

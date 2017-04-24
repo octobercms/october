@@ -18,8 +18,8 @@ return [
     | Time to live for parsed CMS objects.
     |--------------------------------------------------------------------------
     |
-    | Specifies the number of minutes the CMS object cache lives. After the interval 
-    | is expired item are re-cached. Note that items are re-cached automatically when 
+    | Specifies the number of minutes the CMS object cache lives. After the interval
+    | is expired item are re-cached. Note that items are re-cached automatically when
     | the corresponding template file is modified.
     |
     */
@@ -32,7 +32,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If the caching is enabled, the page URL map is saved in the cache. If a page
-    | URL was changed on the disk, the old URL value could be still saved in the cache. 
+    | URL was changed on the disk, the old URL value could be still saved in the cache.
     | To update the cache the back-end Clear Cache feature should be used. It is recommended
     | to disable the caching during the development, and enable it in the production mode.
     |
@@ -59,7 +59,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If the caching is enabled, combined assets are cached. If a asset file
-    | is changed on the disk, the old file contents could be still saved in the cache. 
+    | is changed on the disk, the old file contents could be still saved in the cache.
     | To update the cache the back-end Clear Cache feature should be used. It is recommended
     | to disable the caching during the development, and enable it in the production mode.
     |

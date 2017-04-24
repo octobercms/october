@@ -95,7 +95,7 @@ return [
             'view_access_logs' => 'Zugriffsprotokoll betrachten',
             'nice_message' => 'Wir wünschen einen schönen Tag!',
         ]
-    ],    
+    ],
     'user' => [
         'name' => 'Administrator',
         'menu_label' => 'Administratoren',

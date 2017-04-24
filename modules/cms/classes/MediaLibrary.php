@@ -152,14 +152,13 @@ class MediaLibrary
         $words = explode(' ', Str::lower($searchTerm));
         $result = [];
 
-        $findInFolder = function($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
+        $findInFolder = function ($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
             $folderContents = $this->listFolderContents($folder, $sortBy, $filter);
 
             foreach ($folderContents as $item) {
                 if ($item->type == MediaLibraryItem::TYPE_FOLDER)
                     $findInFolder($item->path);
-                else
-                    if ($this->pathMatchesSearch($item->path, $words))
+                elseif ($this->pathMatchesSearch($item->path, $words))
                         $result[] = $item;
             }
         };
@@ -320,7 +319,7 @@ class MediaLibrary
     {
         $disk = $this->getStorageDisk();
 
-        $copyDirectory = function($srcPath, $destPath) use (&$copyDirectory, $disk) {
+        $copyDirectory = function ($srcPath, $destPath) use (&$copyDirectory, $disk) {
             $srcPath = self::validatePath($srcPath);
             $fullSrcPath = $this->getMediaPath($srcPath);
 
@@ -621,7 +620,7 @@ class MediaLibrary
         $files = [];
         $folders = [];
 
-        usort($itemList, function($a, $b) use ($sortBy) {
+        usort($itemList, function ($a, $b) use ($sortBy) {
             switch ($sortBy) {
                 case self::SORT_BY_TITLE: return strcasecmp($a->path, $b->path);
                 case self::SORT_BY_SIZE:

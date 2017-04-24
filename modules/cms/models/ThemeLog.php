@@ -39,11 +39,11 @@ class ThemeLog extends Model
      */
     public static function bindEventsToModel(HalcyonModel $template)
     {
-        $template->bindEvent('model.beforeDelete', function() use ($template) {
+        $template->bindEvent('model.beforeDelete', function () use ($template) {
             self::add($template, self::TYPE_DELETE);
         });
 
-        $template->bindEvent('model.beforeSave', function() use ($template) {
+        $template->bindEvent('model.beforeSave', function () use ($template) {
             self::add($template, $template->exists ? self::TYPE_UPDATE : self::TYPE_CREATE);
         });
     }

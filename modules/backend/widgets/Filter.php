@@ -365,7 +365,7 @@ class Filter extends WidgetBase
     {
         $filteredOptions = [];
 
-        $optionMatchesSearch = function($words, $option) {
+        $optionMatchesSearch = function ($words, $option) {
             foreach ($words as $word) {
                 $word = trim($word);
                 if (!strlen($word)) {

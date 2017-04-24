@@ -6,7 +6,7 @@
 abstract class DataSourceBase
 {
     /**
-     * @var string Specifies a name of record's key column 
+     * @var string Specifies a name of record's key column
      */
     protected $keyColumn;
 

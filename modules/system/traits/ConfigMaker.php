@@ -100,7 +100,7 @@ trait ConfigMaker
     }
 
     /**
-     * Makes a config object from an array, making the first level keys properties a new object. 
+     * Makes a config object from an array, making the first level keys properties a new object.
      * Property values are converted to camelCase and are not set if one already exists.
      * @param array $configArray Config array.
      * @return stdClass The config object

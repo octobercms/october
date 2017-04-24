@@ -7,7 +7,7 @@ use SystemException;
 /**
  * Config Maker Trait
  *
- * Adds widget based methods to a controller class, or a class that contains a 
+ * Adds widget based methods to a controller class, or a class that contains a
  * $controller property referencing a controller.
  *
  * @package october\backend

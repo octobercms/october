@@ -247,7 +247,7 @@ class MediaManager extends WidgetBase
                  */
                 $filesToDelete[] = $path;
             }
-            else if ($type === MediaLibraryItem::TYPE_FOLDER) {
+            elseif ($type === MediaLibraryItem::TYPE_FOLDER) {
                 /*
                  * Delete single folder
                  */
@@ -943,7 +943,7 @@ class MediaManager extends WidgetBase
                 'isError' => false,
                 'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
             ]);
-        } 
+        }
         catch (Exception $ex) {
             if ($tempFilePath) {
                 File::delete($tempFilePath);

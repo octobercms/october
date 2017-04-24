@@ -1173,7 +1173,7 @@ class Lists extends WidgetBase
 
         if ($scopeMethod = $this->searchScope) {
             $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
-            $query->$searchMethod(function($q) use ($term, $columns, $scopeMethod) {
+            $query->$searchMethod(function ($q) use ($term, $columns, $scopeMethod) {
                 $q->$scopeMethod($term, $columns);
             });
         }
@@ -1260,7 +1260,7 @@ class Lists extends WidgetBase
          */
         if ($this->sortColumn === null || !$this->isSortable($this->sortColumn)) {
             $columns = $this->visibleColumns ?: $this->getVisibleColumns();
-            $columns = array_filter($columns, function($column){ return $column->sortable; });
+            $columns = array_filter($columns, function ($column) { return $column->sortable; });
             $this->sortColumn = key($columns);
             $this->sortDirection = 'desc';
         }
@@ -1291,7 +1291,7 @@ class Lists extends WidgetBase
         }
 
         $columns = $this->getColumns();
-        $sortable = array_filter($columns, function($column){
+        $sortable = array_filter($columns, function ($column) {
             return $column->sortable;
         });
 

@@ -14,7 +14,7 @@ use Backend\Classes\FormWidgetBase;
  *        label: Some image
  *        type: media
  *        prompt: Click the %s button to find a user
- * 
+ *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
