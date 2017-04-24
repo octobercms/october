@@ -194,7 +194,7 @@ class OctoberEnv extends Command
      */
     private function saveEnvSettings($key, $value)
     {
-        if ( ! $this->envKeyExists($key)) {
+        if (! $this->envKeyExists($key)) {
             $line = sprintf("%s=%s\n", $key, $this->stripQuotes($value));
 
             if ($this->config == 'database' && $key != 'DB_CONNECTION') {

@@ -59,9 +59,9 @@ class OctoberUtil extends Command
         $method = 'util'.studly_case($command);
 
         $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
-        $list = array_map(function($item){
+        $list = array_map(function ($item) {
             return "october:".snake_case($item, " ");
-        },$methods);
+        }, $methods);
 
         if (!$this->argument('name')) {
             $message = 'There are no commands defined in the "util" namespace.';

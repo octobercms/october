@@ -8,7 +8,7 @@ class CreateMetaTable extends Migration
 
     public function up()
     {
-        Schema::create('database_tester_meta', function($table)
+        Schema::create('database_tester_meta', function ($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();

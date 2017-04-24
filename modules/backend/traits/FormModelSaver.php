@@ -100,7 +100,7 @@ trait FormModelSaver
             $model->addPurgeable($attributesToPurge);
         }
         else {
-            $model->bindEventOnce('model.saveInternal', function() use ($model, $attributesToPurge) {
+            $model->bindEventOnce('model.saveInternal', function () use ($model, $attributesToPurge) {
                 foreach ($attributesToPurge as $attribute) {
                     unset($model->attributes[$attribute]);
                 }

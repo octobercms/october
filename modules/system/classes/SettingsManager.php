@@ -207,8 +207,8 @@ class SettingsManager
 
     /**
      * Registers the back-end setting items.
-     * The argument is an array of the settings items. The array keys represent the 
-     * setting item codes, specific for the plugin/module. Each element in the 
+     * The argument is an array of the settings items. The array keys represent the
+     * setting item codes, specific for the plugin/module. Each element in the
      * array should be an associative array with the following keys:
      * - label - specifies the settings label localization string key, required.
      * - icon - an icon name from the Font Awesome icon collection, required.

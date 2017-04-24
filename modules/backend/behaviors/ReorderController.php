@@ -96,7 +96,7 @@ class ReorderController extends ControllerBehavior
     {
         $this->addJs('js/october.reorder.js', 'core');
 
-        $this->controller->pageTitle = $this->controller->pageTitle 
+        $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('title', 'backend::lang.reorder.default_title'));
 
         $this->validateModel();

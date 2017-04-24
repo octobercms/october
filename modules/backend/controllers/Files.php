@@ -42,7 +42,7 @@ class Files extends Controller
             echo $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,
-                compact('mode','extension')
+                compact('mode', 'extension')
             );
             exit;
         }

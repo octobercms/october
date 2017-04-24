@@ -50,7 +50,7 @@ class TranscodeFilter extends php_user_filter
         }
 
         $this->encodingTo = mb_internal_encoding();
-        if (isset( $matches[3] )) {
+        if (isset($matches[3])) {
             $this->encodingTo = $matches[3];
         }
 

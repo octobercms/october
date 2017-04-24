@@ -43,7 +43,7 @@ class CmsObjectQueryTest extends TestCase
     {
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
 
-        $pages = Page::withComponent('testArchive', function($component) {
+        $pages = Page::withComponent('testArchive', function ($component) {
             return $component->property('posts-per-page') == '69';
         })->all();
 

@@ -107,7 +107,7 @@ class PluginBase extends ServiceProviderBase
             $navigation = $configuration['navigation'];
 
             if (is_array($navigation)) {
-                array_walk_recursive($navigation, function(&$item, $key){
+                array_walk_recursive($navigation, function (&$item, $key) {
                     if ($key === 'url') {
                         $item = Backend::url($item);
                     }

@@ -21,11 +21,11 @@ use October\Rain\Router\Helper as RouterHelper;
  * <pre>/blog/:post_id?/comments - although the :post_id parameter is marked as optional,
  * it will be processed as required.</pre>
  * Optional parameters can have default values which are used as fallback values in case if the real
- * parameter value is not presented in the URL. Default values cannot contain the pipe symbols and question marks. 
+ * parameter value is not presented in the URL. Default values cannot contain the pipe symbols and question marks.
  * Specify the default value after the question mark:
  * <pre>/blog/category/:category_id?10 - The category_id parameter would be 10 for this URL: /blog/category</pre>
  * You can also add regular expression validation to parameters. To add a validation expression
- * add the pipe symbol after the parameter name (or the question mark) and specify the expression. 
+ * add the pipe symbol after the parameter name (or the question mark) and specify the expression.
  * The forward slash symbol is not allowed in the expressions. Examples:
  * <pre>/blog/:post_id|^[0-9]+$/comments - this will match /blog/post/10/comments
  * /blog/:post_id|^[0-9]+$ - this will match /blog/post/3
@@ -209,7 +209,7 @@ class Router
     /**
      * Loads the URL map - a list of page file names and corresponding URL patterns.
      * The URL map can is cached. The clearUrlMap() method resets the cache. By default
-     * the map is updated every time when a page is saved in the back-end, or 
+     * the map is updated every time when a page is saved in the back-end, or
      * when the interval defined with the cms.urlCacheTtl expires.
      * @return boolean Returns true if the URL map was loaded from the cache. Otherwise returns false.
      */
