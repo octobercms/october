@@ -315,6 +315,10 @@ class Repeater extends FormWidgetBase
             return;
         }
 
+        if (is_string($group)) {
+            $group = $this->makeConfig($group);
+        }
+
         foreach ($group as $code => $config) {
             $palette[$code] = [
                 'code' => $code,
