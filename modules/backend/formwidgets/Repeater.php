@@ -175,8 +175,8 @@ class Repeater extends FormWidgetBase
 
         $loadValue = $this->getLoadValue();
         if (is_array($loadValue)) {
-            foreach ($loadValue as $loadedValue) {
-                $loadedIndexes[] = array_get($loadedValue, '_index');
+            foreach ($loadValue as $index => $loadedValue) {
+                $loadedIndexes[] = array_get($loadedValue, '_index', $index);
                 $loadedGroups[] = array_get($loadedValue, '_group');
             }
         }
@@ -337,5 +337,15 @@ class Repeater extends FormWidgetBase
     public function getGroupCodeFromIndex($index)
     {
         return array_get($this->indexMeta, $index.'.groupCode');
+    }
+
+    /**
+     * Returns the group title from its unique code.
+     * @param $groupCode string
+     * @return string
+     */
+    public function getGroupTitle($groupCode)
+    {
+        return array_get($this->groupDefinitions, $groupCode.'.name');
     }
 }

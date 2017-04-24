@@ -1,7 +1,10 @@
 <?php
     $groupCode = $useGroups ? $this->getGroupCodeFromIndex($indexValue) : '';
+    $itemTitle = $useGroups ? $this->getGroupTitle($groupCode) : null;
 ?>
-<li class="field-repeater-item">
+<li
+    <?= $itemTitle ? 'data-collapse-title="'.$itemTitle.'"' : '' ?>
+    class="field-repeater-item">
 
     <div class="repeater-item-handle <?= $this->getId('items') ?>-handle">
         <i class="icon-bars"></i>

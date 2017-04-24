@@ -173,7 +173,12 @@
 
     Repeater.prototype.getCollapseTitle = function($item) {
         var $target,
-            defaultText = ''
+            defaultText = '',
+            explicitText = $item.data('collapse-title')
+
+        if (explicitText) {
+            return explicitText
+        }
 
         if (this.options.titleFrom) {
             $target = $('[data-field-name="'+this.options.titleFrom+'"]')
