@@ -85,7 +85,8 @@
     Repeater.prototype.clickAddGroupButton = function(ev) {
         var templateHtml = $('> [data-group-palette-template]', this.$el).html(),
             $target = $(ev.target),
-            $form = this.$el.closest('form')
+            $form = this.$el.closest('form'),
+            $loadContainer = $target.closest('.loading-indicator-container')
 
         $target.ocPopover({
             content: templateHtml
@@ -93,11 +94,17 @@
 
         var $container = $target.data('oc.popover').$container
 
-        $container.on('click', 'a', function (ev) {
-            setTimeout(function() {
-                $(ev.target).trigger('close.oc.popover')
-            }, 1)
-        })
+        $container
+            .on('click', 'a', function (ev) {
+                setTimeout(function() { $(ev.target).trigger('close.oc.popover') }, 1)
+            })
+            .on('ajaxPromise', '[data-repeater-add]', function(ev, context) {
+                $loadContainer.loadIndicator()
+
+                $form.one('ajaxComplete', function() {
+                    $loadContainer.loadIndicator('hide')
+                })
+            })
 
         $('[data-repeater-add]', $container).data('request-form', $form)
     }

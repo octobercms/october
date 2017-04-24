@@ -171,12 +171,14 @@ class Repeater extends FormWidgetBase
      */
     protected function processExistingItems()
     {
-        $loadValue = $this->getLoadValue();
-
         $loadedIndexes = $loadedGroups = [];
-        foreach ($loadValue as $loadedValue) {
-            $loadedIndexes[] = array_get($loadedValue, '_index');
-            $loadedGroups[] = array_get($loadedValue, '_group');
+
+        $loadValue = $this->getLoadValue();
+        if (is_array($loadValue)) {
+            foreach ($loadValue as $loadedValue) {
+                $loadedIndexes[] = array_get($loadedValue, '_index');
+                $loadedGroups[] = array_get($loadedValue, '_group');
+            }
         }
 
         $itemIndexes = post($this->indexInputName, $loadedIndexes);
