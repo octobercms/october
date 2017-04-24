@@ -141,7 +141,7 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return $this->processSaveValue($value);
+        return (array) $this->processSaveValue($value);
     }
 
     /**
@@ -151,7 +151,7 @@ class Repeater extends FormWidgetBase
      */
     protected function processSaveValue($value)
     {
-        if (!is_array($value)) {
+        if (!is_array($value) || !$value) {
             return $value;
         }
 
