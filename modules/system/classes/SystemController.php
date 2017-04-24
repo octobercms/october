@@ -24,6 +24,7 @@ class SystemController extends ControllerBase
     public function combine($name)
     {
         try {
+
             if (!strpos($name, '-')) {
                 throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name' => $name]));
             }
@@ -33,7 +34,9 @@ class SystemController extends ControllerBase
 
             $combiner = CombineAssets::instance();
             return $combiner->getContents($cacheId);
-        } catch (Exception $ex) {
+
+        }
+        catch (Exception $ex) {
             return '/* '.e($ex->getMessage()).' */';
         }
     }

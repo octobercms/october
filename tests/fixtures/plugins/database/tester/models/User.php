@@ -24,6 +24,7 @@ class User extends Model
     public $attachMany = [
         'photos' => 'System\Models\File'
     ];
+
 }
 
 class SoftDeleteUser extends User

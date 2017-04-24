@@ -138,6 +138,7 @@ class OctoberEnv extends Command
     private function replaceDbConfigLine($line)
     {
         if ($this->config == 'database') {
+
             foreach ($this->dbConfig() as $connection => $settings) {
                 $this->setCurrentConnection($line, $connection);
 
@@ -178,6 +179,7 @@ class OctoberEnv extends Command
     private function buildCallback($envKey, $configKey)
     {
         return function ($matches) use ($envKey, $configKey) {
+
             $value = $this->envValue($configKey);
 
             $this->saveEnvSettings($envKey, $value);
@@ -192,7 +194,7 @@ class OctoberEnv extends Command
      */
     private function saveEnvSettings($key, $value)
     {
-        if (! $this->envKeyExists($key)) {
+        if ( ! $this->envKeyExists($key)) {
             $line = sprintf("%s=%s\n", $key, $this->stripQuotes($value));
 
             if ($this->config == 'database' && $key != 'DB_CONNECTION') {
@@ -391,4 +393,5 @@ class OctoberEnv extends Command
             ],
         ];
     }
+
 }

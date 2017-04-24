@@ -107,7 +107,7 @@ class PluginBase extends ServiceProviderBase
             $navigation = $configuration['navigation'];
 
             if (is_array($navigation)) {
-                array_walk_recursive($navigation, function (&$item, $key) {
+                array_walk_recursive($navigation, function(&$item, $key){
                     if ($key === 'url') {
                         $item = Backend::url($item);
                     }
@@ -244,10 +244,12 @@ class PluginBase extends ServiceProviderBase
         if (!file_exists($yamlFilePath)) {
             if ($exceptionMessage) {
                 throw new SystemException($exceptionMessage);
-            } else {
+            }
+            else {
                 $this->loadedYamlConfiguration = [];
             }
-        } else {
+        }
+        else {
             $this->loadedYamlConfiguration = Yaml::parse(file_get_contents($yamlFilePath));
             if (!is_array($this->loadedYamlConfiguration)) {
                 throw new SystemException(sprintf('Invalid format of the plugin configuration file: %s. The file should define an array.', $yamlFilePath));

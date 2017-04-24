@@ -122,9 +122,7 @@ class NavigationManager
              */
             $orderCount = 0;
             foreach ($item->sideMenu as $sideMenuItem) {
-                if ($sideMenuItem->order !== -1) {
-                    continue;
-                }
+                if ($sideMenuItem->order !== -1) continue;
                 $sideMenuItem->order = ($orderCount += 100);
             }
 

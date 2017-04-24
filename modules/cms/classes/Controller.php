@@ -183,7 +183,8 @@ class Controller
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
-            } else {
+            }
+            else {
                 return $event;
             }
         }
@@ -268,7 +269,8 @@ class Controller
          */
         if (!$page->layout) {
             $layout = Layout::initFallback($this->theme);
-        } elseif (($layout = Layout::loadCached($this->theme, $page->layout)) === null) {
+        }
+        elseif (($layout = Layout::loadCached($this->theme, $page->layout)) === null) {
             throw new CmsException(Lang::get('cms::lang.layout.not_found_name', ['name'=>$page->layout]));
         }
 
@@ -353,7 +355,8 @@ class Controller
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderPage', [$page])) {
             $this->pageContents = $event;
-        } else {
+        }
+        else {
             /*
              * Render the page
              */
@@ -605,7 +608,8 @@ class Controller
                             throw new CmsException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
                         }
                     }
-                } else {
+                }
+                else {
                     $partialList = [];
                 }
 
@@ -647,21 +651,25 @@ class Controller
                  */
                 if (is_array($result)) {
                     $responseContents = array_merge($responseContents, $result);
-                } elseif (is_string($result)) {
+                }
+                elseif (is_string($result)) {
                     $responseContents['result'] = $result;
-                } elseif (is_object($result)) {
+                }
+                elseif (is_object($result)) {
                     return $result;
                 }
 
                 return Response::make($responseContents, $this->statusCode);
-            } catch (ValidationException $ex) {
+            }
+            catch (ValidationException $ex) {
                 /*
                  * Handle validation errors
                  */
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
                 $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
                 throw new AjaxException($responseContents);
-            } catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
                 throw $ex;
             }
         }
@@ -681,6 +689,7 @@ class Controller
          * Process Component handler
          */
         if (strpos($handler, '::')) {
+
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
@@ -769,6 +778,7 @@ class Controller
          * Process Component partial
          */
         elseif (strpos($name, '::') !== false) {
+
             list($componentAlias, $partialName) = explode('::', $name);
 
             /*
@@ -777,10 +787,12 @@ class Controller
             if (!strlen($componentAlias)) {
                 if ($this->componentContext !== null) {
                     $componentObj = $this->componentContext;
-                } elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
+                }
+                elseif (($componentObj = $this->findComponentByPartial($partialName)) === null) {
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$partialName]));
-                    } else {
+                    }
+                    else {
                         return false;
                     }
                 }
@@ -792,7 +804,8 @@ class Controller
                 if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
-                    } else {
+                    }
+                    else {
                         return false;
                     }
                 }
@@ -819,7 +832,8 @@ class Controller
             if ($partial === null) {
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -828,14 +842,16 @@ class Controller
              * Set context for self access
              */
             $this->vars['__SELF__'] = $componentObj;
-        } else {
+        }
+        else {
             /*
              * Process theme partial
              */
             if (($partial = Partial::loadCached($this->theme, $name)) === null) {
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -852,7 +868,7 @@ class Controller
             foreach ($partial->settings['components'] as $component => $properties) {
                 // Do not inject the viewBag component to the environment.
                 // Not sure if they're needed there by the requirements,
-                // but there were problems with array-typed properties used by Static Pages
+                // but there were problems with array-typed properties used by Static Pages 
                 // snippets and setComponentPropertiesFromParams(). --ab
                 if ($component == 'viewBag') {
                     continue;
@@ -1148,7 +1164,8 @@ class Controller
 
         if (is_array($url)) {
             $_url = Url::to(CombineAssets::combine($url, themes_path().'/'.$themeDir));
-        } else {
+        }
+        else {
             $_url = Config::get('cms.themesPath', '/themes').'/'.$themeDir;
             if ($url !== null) {
                 $_url .= '/'.$url;
@@ -1203,7 +1220,8 @@ class Controller
 
             $componentObj->alias = $alias;
             $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
-        } else {
+        }
+        else {
             if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
                 throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
             }
@@ -1319,7 +1337,9 @@ class Controller
                     $newPropertyValue = array_key_exists($routeParamName, $routerParameters)
                         ? $routerParameters[$routeParamName]
                         : null;
-                } else {
+
+                }
+                else {
                     $newPropertyValue = array_key_exists($paramName, $parameters)
                         ? $parameters[$paramName]
                         : null;

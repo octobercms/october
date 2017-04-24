@@ -6,6 +6,7 @@ use Backend\Models\UserGroup;
 
 class SeedSetupAdmin extends Seeder
 {
+
     public static $email = 'admin@domain.tld';
     public static $login = 'admin';
     public static $password = 'admin';
@@ -45,4 +46,5 @@ class SeedSetupAdmin extends Seeder
 
         $user->addGroup($group);
     }
+
 }

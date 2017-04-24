@@ -4,6 +4,7 @@ use Cms\Classes\ComponentBase;
 
 class Post extends ComponentBase
 {
+
     public function componentDetails()
     {
         return [
@@ -21,4 +22,5 @@ class Post extends ComponentBase
             ]
         ];
     }
+
 }

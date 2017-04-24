@@ -154,7 +154,8 @@ class AssetList extends WidgetBase
                                     ['name'=>$path]
                                 ));
                             }
-                        } else {
+                        }
+                        else {
                             $empty = File::isDirectoryEmpty($fullPath);
                             if ($empty === false) {
                                 throw new ApplicationException(Lang::get(
@@ -176,7 +177,8 @@ class AssetList extends WidgetBase
                     }
                 }
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $error = $ex->getMessage();
         }
 
@@ -355,7 +357,8 @@ class AssetList extends WidgetBase
                         ['file'=>$basename]
                     ));
                 }
-            } elseif (is_dir($originalFullPath)) {
+            }
+            elseif (is_dir($originalFullPath)) {
                 if (!@File::copyDirectory($originalFullPath, $newFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_moving_directory',
@@ -526,7 +529,8 @@ class AssetList extends WidgetBase
                     'name'     => $node->getFilename(),
                     'editable' => false
                 ];
-            } elseif ($node->isFile()) {
+            }
+            elseif ($node->isFile()) {
                 $files[] = (object)[
                     'type'     => 'file',
                     'path'     => File::normalizePath($this->getRelativePath($node->getPathname())),
@@ -671,7 +675,8 @@ class AssetList extends WidgetBase
             $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
 
             die('success');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $message = $fileName !== null
                 ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $fileName, 'error' => $ex->getMessage()])
                 : $ex->getMessage();

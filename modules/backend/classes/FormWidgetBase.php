@@ -129,4 +129,5 @@ abstract class FormWidgetBase extends WidgetBase
 
         return $this->formField->getValueFromData($this->data ?: $this->model, $defaultValue);
     }
+
 }

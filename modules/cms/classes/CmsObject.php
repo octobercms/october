@@ -170,7 +170,8 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     {
         try {
             parent::save($options);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->throwHalcyonSaveException($ex);
         }
     }
@@ -285,30 +286,36 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
             throw new ValidationException([
                 'fileName' => Lang::get('cms::lang.cms_object.file_name_required')
             ]);
-        } elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidExtensionException) {
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidExtensionException) {
             throw new ValidationException(['fileName' =>
                 Lang::get('cms::lang.cms_object.invalid_file_extension', [
                     'allowed' => implode(', ', $ex->getAllowedExtensions()),
                     'invalid' => $ex->getInvalidExtension()
                 ])
             ]);
-        } elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidFileNameException) {
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\InvalidFileNameException) {
             throw new ValidationException([
                'fileName' => Lang::get('cms::lang.cms_object.invalid_file', ['name'=>$ex->getInvalidFileName()])
             ]);
-        } elseif ($ex instanceof \October\Rain\Halcyon\Exception\FileExistsException) {
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\FileExistsException) {
             throw new ApplicationException(
                 Lang::get('cms::lang.cms_object.file_already_exists', ['name' => $ex->getInvalidPath()])
             );
-        } elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateDirectoryException) {
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateDirectoryException) {
             throw new ApplicationException(
                 Lang::get('cms::lang.cms_object.error_creating_directory', ['name' => $ex->getInvalidPath()])
             );
-        } elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateFileException) {
+        }
+        elseif ($ex instanceof \October\Rain\Halcyon\Exception\CreateFileException) {
             throw new ApplicationException(
                 Lang::get('cms::lang.cms_object.error_saving', ['name' => $ex->getInvalidPath()])
             );
-        } else {
+        }
+        else {
             throw $ex;
         }
     }

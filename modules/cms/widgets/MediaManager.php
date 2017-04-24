@@ -246,7 +246,8 @@ class MediaManager extends WidgetBase
                  * Add to bulk collection
                  */
                 $filesToDelete[] = $path;
-            } elseif ($type === MediaLibraryItem::TYPE_FOLDER) {
+            }
+            else if ($type === MediaLibraryItem::TYPE_FOLDER) {
                 /*
                  * Delete single folder
                  */
@@ -327,7 +328,8 @@ class MediaManager extends WidgetBase
              * Extensibility
              */
             $this->fireSystemEvent('media.file.rename', [$originalPath, $newPath]);
-        } else {
+        }
+        else {
             /*
              * Move single folder
              */
@@ -400,7 +402,8 @@ class MediaManager extends WidgetBase
 
             if ($folder == '/') {
                 $name = Lang::get('cms::lang.media.library');
-            } else {
+            }
+            else {
                 $segments = explode('/', $folder);
                 $name = str_repeat('&nbsp;', (count($segments)-1)*4).basename($folder);
             }
@@ -596,7 +599,8 @@ class MediaManager extends WidgetBase
 
         if (!$searchMode) {
             $this->vars['items'] = $this->listFolderItems($folder, $filter, $sortBy);
-        } else {
+        }
+        else {
             $this->vars['items'] = $this->findFiles($searchTerm, $filter, $sortBy);
         }
 
@@ -811,7 +815,8 @@ class MediaManager extends WidgetBase
             if ($viewMode == self::VIEW_MODE_LIST) {
                 $result['width'] = 75;
                 $result['height'] = 75;
-            } else {
+            }
+            else {
                 $result['width'] = 165;
                 $result['height'] = 165;
             }
@@ -938,7 +943,8 @@ class MediaManager extends WidgetBase
                 'isError' => false,
                 'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
             ]);
-        } catch (Exception $ex) {
+        } 
+        catch (Exception $ex) {
             if ($tempFilePath) {
                 File::delete($tempFilePath);
             }
@@ -1008,12 +1014,12 @@ class MediaManager extends WidgetBase
         try {
             $thumbnailDir = dirname($path);
             if (!File::isDirectory($thumbnailDir)) {
-                if (File::makeDirectory($thumbnailDir, 0777, true) === false) {
+                if (File::makeDirectory($thumbnailDir, 0777, true) === false)
                     return;
-                }
             }
             File::copy($this->getBrokenImagePath(), $path);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             traceLog($ex->getMessage());
         }
     }
@@ -1033,7 +1039,8 @@ class MediaManager extends WidgetBase
             }
 
             return $dimensions;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             return $originalDimensions;
         }
     }
@@ -1112,7 +1119,8 @@ class MediaManager extends WidgetBase
                 'link' => MediaLibrary::url($filePath),
                 'result' => 'success'
             ])->send();
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             Response::json($ex->getMessage(), 400)->send();
         }
 
@@ -1229,6 +1237,7 @@ class MediaManager extends WidgetBase
              * return its URL and dimensions.
              */
             else {
+
                 $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
                 if (!File::isFile($originalFilePath)) {
                     throw new SystemException('The original image is not found in the cropping session directory.');
@@ -1252,7 +1261,8 @@ class MediaManager extends WidgetBase
                     'dimensions' => $dimensions
                 ];
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             if ($sessionDirectoryCreated) {
                 @File::deleteDirectory($fullSessionDirectoryPath);
             }
@@ -1337,7 +1347,8 @@ class MediaManager extends WidgetBase
          */
         if ($selectionData['w'] == 0 || $selectionData['h'] == 0) {
             File::copy($imagePath, $targetTmpPath);
-        } else {
+        }
+        else {
             Resizer::open($imagePath)
                 ->crop(
                     $selectionData['x'],
@@ -1368,5 +1379,5 @@ class MediaManager extends WidgetBase
             'title' => $targetImageName,
             'folder' => $targetFolder
         ];
-    }
+   }
 }

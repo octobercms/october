@@ -479,7 +479,8 @@ class PluginManager
         if (File::exists($path)) {
             $disabled = json_decode(File::get($path), true) ?: [];
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
-        } else {
+        }
+        else {
             $this->writeDisabled();
         }
     }
@@ -609,14 +610,16 @@ class PluginManager
             foreach ($required as $require) {
                 if (!$pluginObj = $this->findByIdentifier($require)) {
                     $disable = true;
-                } elseif ($pluginObj->disabled) {
+                }
+                elseif ($pluginObj->disabled) {
                     $disable = true;
                 }
             }
 
             if ($disable) {
                 $this->disablePlugin($id);
-            } else {
+            }
+            else {
                 $this->enablePlugin($id);
             }
         }
@@ -657,6 +660,7 @@ class PluginManager
 
         $loopCount = 0;
         while (count($checklist)) {
+
             if (++$loopCount > 999) {
                 throw new ApplicationException('Too much recursion');
             }
@@ -694,6 +698,7 @@ class PluginManager
                 array_push($result, $code);
                 unset($checklist[$code]);
             }
+
         }
 
         return $result;

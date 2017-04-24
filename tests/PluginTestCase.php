@@ -109,9 +109,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     protected function runPluginRefreshCommand($code, $throwException = true)
     {
         if (!preg_match('/^[\w+]*\.[\w+]*$/', $code)) {
-            if (!$throwException) {
-                return;
-            }
+            if (!$throwException) return;
             throw new Exception(sprintf('Invalid plugin code: "%s"', $code));
         }
 
@@ -126,9 +124,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
             $path = array_get($manager->getPluginNamespaces(), $namespace);
 
             if (!$path) {
-                if (!$throwException) {
-                    return;
-                }
+                if (!$throwException) return;
                 throw new Exception(sprintf('Unable to find plugin with code: "%s"', $code));
             }
 
@@ -142,9 +138,8 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
 
         if (!empty($plugin->require)) {
             foreach ((array) $plugin->require as $dependency) {
-                if (isset($this->pluginTestCaseLoadedPlugins[$dependency])) {
-                    continue;
-                }
+
+                if (isset($this->pluginTestCaseLoadedPlugins[$dependency])) continue;
 
                 $this->runPluginRefreshCommand($dependency);
             }

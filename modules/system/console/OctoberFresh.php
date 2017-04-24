@@ -53,7 +53,8 @@ class OctoberFresh extends Command
             File::deleteDirectory($demoThemePath);
 
             $this->info('Demo has been removed! Enjoy a fresh start.');
-        } else {
+        }
+        else {
             $this->error('Demo theme is already removed.');
         }
     }

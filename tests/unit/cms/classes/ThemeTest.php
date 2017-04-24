@@ -21,9 +21,8 @@ class ThemeTest extends TestCase
         $it->rewind();
 
         while ($it->valid()) {
-            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm') {
+            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm')
                 $result++;
-            }
 
             $it->next();
         }
@@ -76,9 +75,7 @@ class ThemeTest extends TestCase
     public function testApiTheme()
     {
         Event::flush('cms.theme.getActiveTheme');
-        Event::listen('cms.theme.getActiveTheme', function () {
-            return 'apitest';
-        });
+        Event::listen('cms.theme.getActiveTheme', function() { return 'apitest'; });
 
         $activeTheme = Theme::getActiveTheme();
         $this->assertNotNull($activeTheme);

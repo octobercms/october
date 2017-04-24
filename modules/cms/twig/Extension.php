@@ -218,9 +218,8 @@ class Extension extends Twig_Extension
             return $default;
         }
 
-        if ($event = Event::fire('cms.block.render', [$name, $result], true)) {
+        if ($event = Event::fire('cms.block.render', [$name, $result], true))
             $result = $event;
-        }
 
         $result = str_replace('<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->', trim($default), $result);
         return $result;

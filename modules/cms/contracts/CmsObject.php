@@ -59,4 +59,5 @@ interface CmsObject
      * @return string
      */
     public function getTwigCacheKey();
+
 }

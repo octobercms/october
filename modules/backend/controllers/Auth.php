@@ -47,10 +47,12 @@ class Auth extends Controller
         try {
             if (post('postback')) {
                 return $this->signin_onSubmit();
-            } else {
+            }
+            else {
                 $this->bodyClass .= ' preload';
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -101,7 +103,8 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->restore_onSubmit();
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -154,7 +157,8 @@ class Auth extends Controller
             if (!$userId || !$code) {
                 throw new ApplicationException(trans('backend::lang.account.reset_error'));
             }
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
 

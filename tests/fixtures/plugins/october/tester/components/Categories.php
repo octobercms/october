@@ -30,4 +30,5 @@ class Categories extends ComponentBase
     {
         $this->page['var'] = 'page';
     }
+
 }

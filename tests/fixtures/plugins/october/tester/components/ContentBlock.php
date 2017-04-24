@@ -4,6 +4,7 @@ use Cms\Classes\ComponentBase;
 
 class ContentBlock extends ComponentBase
 {
+
     public function componentDetails()
     {
         return [
@@ -20,4 +21,5 @@ class ContentBlock extends ComponentBase
 
         return 'Pass';
     }
+
 }

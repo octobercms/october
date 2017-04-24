@@ -71,4 +71,5 @@ class CmsExceptionTest extends TestCase
         $this->assertEquals('PHP Content', $exception->getErrorType());
         $this->assertEquals('This is a general error', $exception->getMessage());
     }
+
 }

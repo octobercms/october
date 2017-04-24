@@ -215,4 +215,5 @@ class CodeEditor extends FormWidgetBase
         $this->displayIndentGuides = $preferences->editor_display_indent_guides;
         $this->showPrintMargin = $preferences->editor_show_print_margin;
     }
+
 }

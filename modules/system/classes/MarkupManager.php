@@ -71,6 +71,7 @@ class MarkupManager
 
                 $this->registerExtensions($type, $definitions);
             }
+
         }
     }
 
@@ -96,7 +97,7 @@ class MarkupManager
 
     /**
      * Registers the CMS Twig extension items.
-     * The argument is an array of the extension definitions. The array keys represent the
+     * The argument is an array of the extension definitions. The array keys represent the 
      * function/filter name, specific for the plugin/module. Each element in the
      * array should be an associative array.
      * @param string $type The extension type: filters, functions, tokens
@@ -113,6 +114,7 @@ class MarkupManager
         }
 
         foreach ($definitions as $name => $definition) {
+
             switch ($type) {
                 case self::EXTENSION_TOKEN_PARSER:
                     $this->items[$type][] = $definition;
@@ -289,7 +291,7 @@ class MarkupManager
     }
 
     /**
-     * Tests if a callable type contains a wildcard, also acts as a
+     * Tests if a callable type contains a wildcard, also acts as a 
      * utility to replace the wildcard with a string.
      * @param  callable  $callable
      * @param  string|bool $replaceWith
@@ -308,7 +310,8 @@ class MarkupManager
                 if ($replaceWith) {
                     $isWild = $callable;
                     $isWild[0] = str_replace('*', $replaceWith, $callable[0]);
-                } else {
+                }
+                else {
                     $isWild = true;
                 }
             }
@@ -317,7 +320,8 @@ class MarkupManager
                 if ($replaceWith) {
                     $isWild = $isWild ?: $callable;
                     $isWild[1] = str_replace('*', $replaceWith, $callable[1]);
-                } else {
+                }
+                else {
                     $isWild = true;
                 }
             }

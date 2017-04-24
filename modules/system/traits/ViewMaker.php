@@ -55,7 +55,8 @@ trait ViewMaker
 
         if (is_array($path)) {
             $this->viewPath = array_merge($path, $this->viewPath);
-        } else {
+        }
+        else {
             array_unshift($this->viewPath, $path);
         }
     }
@@ -88,7 +89,8 @@ trait ViewMaker
         if (!File::exists($partialPath)) {
             if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found_name', ['name' => $partialPath]));
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -147,7 +149,8 @@ trait ViewMaker
         if (!File::exists($layoutPath)) {
             if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found_name', ['name' => $layoutPath]));
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -239,9 +242,11 @@ trait ViewMaker
         // an exception is thrown. This prevents any partial views from leaking.
         try {
             include $filePath;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             $this->handleViewException($e, $obLevel);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->handleViewException(new FatalThrowableError($e), $obLevel);
         }
 

@@ -3,7 +3,7 @@
 use Cms\Classes\Theme;
 use System\Classes\CombineAssets;
 
-class CombineAssetsTest extends TestCase
+class CombineAssetsTest extends TestCase 
 {
     public function setUp()
     {
@@ -130,4 +130,5 @@ class CombineAssetsTest extends TestCase
         $combiner = CombineAssets::instance();
         $this->assertNull($combiner->resetCache());
     }
+
 }

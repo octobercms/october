@@ -116,18 +116,20 @@ class Filter extends WidgetBase
                     $after = $scope->value[0]->format('Y-m-d H:i:s');
                     $before = $scope->value[1]->format('Y-m-d H:i:s');
 
-                    if (strcasecmp($after, '0000-00-00 00:00:00') > 0) {
+                    if(strcasecmp($after, '0000-00-00 00:00:00') > 0) {
                         $params['afterStr'] = Backend::dateTime($scope->value[0], ['formatAlias' => 'dateMin']);
                         $params['after']    = $after;
-                    } else {
+                    }
+                    else {
                         $params['afterStr'] = '∞';
                         $params['after']    = null;
                     }
 
-                    if (strcasecmp($before, '2999-12-31 23:59:59') < 0) {
+                    if(strcasecmp($before, '2999-12-31 23:59:59') < 0) {
                         $params['beforeStr'] = Backend::dateTime($scope->value[1], ['formatAlias' => 'dateMin']);
                         $params['before']    = $before;
-                    } else {
+                    }
+                    else {
                         $params['beforeStr'] = '∞';
                         $params['before']    = null;
                     }
@@ -178,7 +180,8 @@ class Filter extends WidgetBase
 
                 if (!empty($dates)) {
                     list($date) = $dates;
-                } else {
+                }
+                else {
                     $date = null;
                 }
 
@@ -192,7 +195,8 @@ class Filter extends WidgetBase
                     list($after, $before) = $dates;
 
                     $dates = [$after, $before];
-                } else {
+                }
+                else {
                     $dates = null;
                 }
 
@@ -335,7 +339,8 @@ class Filter extends WidgetBase
             }
 
             $options = $model->$methodName();
-        } elseif (!is_array($options)) {
+        }
+        elseif (!is_array($options)) {
             $options = [];
         }
 
@@ -360,7 +365,7 @@ class Filter extends WidgetBase
     {
         $filteredOptions = [];
 
-        $optionMatchesSearch = function ($words, $option) {
+        $optionMatchesSearch = function($words, $option) {
             foreach ($words as $word) {
                 $word = trim($word);
                 if (!strlen($word)) {
@@ -435,6 +440,7 @@ class Filter extends WidgetBase
     public function addScopes(array $scopes)
     {
         foreach ($scopes as $name => $config) {
+
             $scopeObj = $this->makeFilterScope($name, $config);
 
             /*
@@ -607,7 +613,8 @@ class Filter extends WidgetBase
                         $filtered = implode(',', array_build($value, function ($key, $_value) {
                             return [$key, Db::getPdo()->quote($_value)];
                         }));
-                    } else {
+                    }
+                    else {
                         $filtered = Db::getPdo()->quote($value);
                     }
 
@@ -758,7 +765,7 @@ class Filter extends WidgetBase
 
         if (null !== $ajaxDates) {
             if (!is_array($ajaxDates)) {
-                if (preg_match($dateRegex, $ajaxDates)) {
+                if(preg_match($dateRegex, $ajaxDates)) {
                     $dates = [$ajaxDates];
                 }
             } else {
@@ -766,7 +773,7 @@ class Filter extends WidgetBase
                     if (preg_match($dateRegex, $date)) {
                         $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
                     } elseif (empty($date)) {
-                        if ($i == 0) {
+                        if($i == 0) {
                             $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '0000-00-00 00:00:00');
                         } else {
                             $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '2999-12-31 23:59:59');

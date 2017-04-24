@@ -198,7 +198,8 @@ abstract class ExportModel extends Model
         foreach ($data as $value) {
             if (is_array($value)) {
                 $newData[] = 'Array';
-            } else {
+            }
+            else {
                 $newData[] = str_replace($delimeter, '\\'.$delimeter, $value);
             }
         }

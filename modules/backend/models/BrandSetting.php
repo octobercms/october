@@ -86,7 +86,8 @@ class BrandSetting extends Model
         try {
             $customCss = self::compileCss();
             Cache::forever(self::CACHE_KEY, $customCss);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $customCss = '/* ' . $ex->getMessage() . ' */';
         }
 
@@ -138,4 +139,5 @@ class BrandSetting extends Model
 
         return null;
     }
+
 }

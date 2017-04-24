@@ -230,7 +230,8 @@ class ListColumn
         foreach ($keyParts as $key) {
             if ($result instanceof Model && $result->hasRelation($key)) {
                 $result = $result->{$key};
-            } else {
+            }
+            else {
                 if (!isset($result->{$key})) {
                     return $default;
                 }

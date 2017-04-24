@@ -2,6 +2,7 @@
 
 class AuthTest extends UiTestCase
 {
+
     public function testSignInAndOut()
     {
         $this->open('backend');
@@ -14,7 +15,8 @@ class AuthTest extends UiTestCase
             $this->assertTrue($this->isElementPresent("name=password"));
             $this->assertTrue($this->isElementPresent("//button[@type='submit']"));
             $this->verifyText("//button[@type='submit']", "Login");
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
 
@@ -29,7 +31,8 @@ class AuthTest extends UiTestCase
         try {
             $this->assertTitle('Dashboard | October CMS');
             $this->assertTrue($this->isElementPresent('css='.$cssLogoutLink));
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
 
@@ -43,7 +46,8 @@ class AuthTest extends UiTestCase
 
         try {
             $this->assertTitle('Administration Area');
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
     }
@@ -54,7 +58,8 @@ class AuthTest extends UiTestCase
 
         try {
             $this->assertTrue($this->isElementPresent("link=exact:Forgot your password?"));
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
 
@@ -65,7 +70,8 @@ class AuthTest extends UiTestCase
             $this->assertTrue($this->isElementPresent("//button[@type='submit']"));
             $this->verifyText("//button[@type='submit']", "Restore");
             $this->assertTrue($this->isElementPresent("link=Cancel"));
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
 
@@ -78,8 +84,11 @@ class AuthTest extends UiTestCase
             $this->assertTitle('Administration Area');
             $this->assertTrue($this->isElementPresent("css=p.flash-message.success"));
             $this->verifyText("css=p.flash-message.success", "An email has been sent to your email address with password restore instructions.×");
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
+        }
+        catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
+
     }
+
 }

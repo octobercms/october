@@ -68,7 +68,8 @@ class MaintenanceSetting extends Model
             && ($cmsPage = array_get($themeMap, $theme->getDirName()))
         ) {
             $this->cms_page = $cmsPage;
-        } else {
+        }
+        else {
             $this->is_enabled = false;
         }
     }

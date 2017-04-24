@@ -70,4 +70,5 @@ class Content extends CmsCompoundObject
 
         return $result;
     }
+
 }

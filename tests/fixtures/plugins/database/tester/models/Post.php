@@ -68,6 +68,7 @@ class SluggablePost extends Post
         'slug' => 'title',
         'long_slug' => ['title', 'description']
     ];
+
 }
 
 class RevisionablePost extends Post
@@ -116,6 +117,7 @@ class RevisionablePost extends Post
     {
         return 7;
     }
+
 }
 
 class ValidationPost extends Post

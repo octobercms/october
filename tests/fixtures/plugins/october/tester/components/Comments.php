@@ -39,4 +39,5 @@ class Comments extends ComponentBase
     {
         return $this->users;
     }
+
 }

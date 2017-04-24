@@ -131,9 +131,11 @@ class FormController extends ControllerBehavior
 
         if ($context == self::CONTEXT_CREATE) {
             $formFields = $this->getConfig('create[form]', $formFields);
-        } elseif ($context == self::CONTEXT_UPDATE) {
+        }
+        elseif ($context == self::CONTEXT_UPDATE) {
             $formFields = $this->getConfig('update[form]', $formFields);
-        } elseif ($context == self::CONTEXT_PREVIEW) {
+        }
+        elseif ($context == self::CONTEXT_PREVIEW) {
             $formFields = $this->getConfig('preview[form]', $formFields);
         }
 
@@ -157,9 +159,7 @@ class FormController extends ControllerBehavior
 
         $this->formWidget->bindEvent('form.beforeRefresh', function ($holder) {
             $result = $this->controller->formExtendRefreshData($this->formWidget, $holder->data);
-            if (is_array($result)) {
-                $holder->data = $result;
-            }
+            if (is_array($result)) $holder->data = $result;
         });
 
         $this->formWidget->bindEvent('form.refreshFields', function ($fields) {
@@ -217,7 +217,8 @@ class FormController extends ControllerBehavior
             $model = $this->controller->formExtendModel($model) ?: $model;
 
             $this->initForm($model);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }
@@ -245,7 +246,7 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeCreate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        Db::transaction(function () use ($modelsToSave) {
+        Db::transaction(function() use ($modelsToSave) {
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->formWidget->getSessionKey());
             }
@@ -285,7 +286,8 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }
@@ -311,7 +313,7 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeUpdate($model);
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
-        Db::transaction(function () use ($modelsToSave) {
+        Db::transaction(function() use ($modelsToSave) {
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->formWidget->getSessionKey());
             }
@@ -378,7 +380,8 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
     }
@@ -463,7 +466,7 @@ class FormController extends ControllerBehavior
         }
         
         if (post('refresh', false)) {
-            return Redirect::refresh();
+	        return Redirect::refresh();
         }
 
         if (post('redirect', true)) {
@@ -478,7 +481,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * Internal method that returns a redirect URL from the config based on
+     * Internal method that returns a redirect URL from the config based on 
      * supplied context. Otherwise the default redirect is used.
      *
      * @param string $context Redirect context, eg: create, update, delete.
@@ -550,7 +553,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the
+     * View helper to check if a form tab has fields in the 
      * non-tabbed section (outside fields).
      *
      *     <?php if ($this->formHasOutsideFields()): ?>
@@ -578,7 +581,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the
+     * View helper to check if a form tab has fields in the 
      * primary tab section.
      *
      *     <?php if ($this->formHasPrimaryTabs()): ?>
@@ -606,7 +609,7 @@ class FormController extends ControllerBehavior
     }
 
     /**
-     * View helper to check if a form tab has fields in the
+     * View helper to check if a form tab has fields in the 
      * secondary tab section.
      *
      *     <?php if ($this->formHasSecondaryTabs()): ?>

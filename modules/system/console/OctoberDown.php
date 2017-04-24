@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class OctoberDown extends Command
 {
+
     use \Illuminate\Console\ConfirmableTrait;
 
     /**

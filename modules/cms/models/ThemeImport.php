@@ -73,9 +73,7 @@ class ThemeImport extends Model
 
     public function setThemeAttribute($theme)
     {
-        if (!$theme instanceof CmsTheme) {
-            return;
-        }
+        if (!$theme instanceof CmsTheme) return;
 
         $this->attributes['themeName'] = $theme->getConfigValue('name', $theme->getDirName());
         $this->attributes['dirName'] = $theme->getDirName();
@@ -89,7 +87,8 @@ class ThemeImport extends Model
         $this->theme = $theme;
         $this->fill($data);
 
-        try {
+        try
+        {
             $file = $this->uploaded_file()->withDeferred($sessionKey)->first();
             if (!$file) {
                 throw new ApplicationException('There is no file attached to import!');
@@ -102,9 +101,8 @@ class ThemeImport extends Model
 
             File::put($zipPath, $file->getContents());
 
-            if (!File::makeDirectory($tempPath)) {
+            if (!File::makeDirectory($tempPath))
                 throw new ApplicationException('Unable to create directory '.$tempPath);
-            }
 
             Zip::extract($zipPath, $tempPath);
 
@@ -117,16 +115,16 @@ class ThemeImport extends Model
             }
 
             foreach ($this->folders as $folder) {
-                if (!array_key_exists($folder, $this->getFoldersOptions())) {
-                    continue;
-                }
+                if (!array_key_exists($folder, $this->getFoldersOptions())) continue;
                 $this->copyDirectory($tempPath.'/'.$folder, $themePath.'/'.$folder);
             }
 
             File::deleteDirectory($tempPath);
             File::delete($zipPath);
             $file->delete();
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
+
             if (!empty($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }
@@ -154,9 +152,7 @@ class ThemeImport extends Model
             return File::copyDirectory($directory, $destination);
         }
 
-        if (!File::isDirectory($directory)) {
-            return false;
-        }
+        if (!File::isDirectory($directory)) return false;
 
         $options = FilesystemIterator::SKIP_DOTS;
 
@@ -172,21 +168,17 @@ class ThemeImport extends Model
             if ($item->isDir()) {
                 $path = $item->getPathname();
 
-                if (!$this->copyDirectory($path, $target)) {
-                    return false;
-                }
-            } else {
+                if (!$this->copyDirectory($path, $target)) return false;
+            }
+            else {
                 // Do not overwrite existing files
-                if (File::isFile($target)) {
-                    continue;
-                }
+                if (File::isFile($target)) continue;
 
-                if (!File::copy($item->getPathname(), $target)) {
-                    return false;
-                }
+                if (!File::copy($item->getPathname(), $target)) return false;
             }
         }
 
         return true;
     }
+
 }

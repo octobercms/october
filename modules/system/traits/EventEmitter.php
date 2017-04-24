@@ -47,7 +47,8 @@ trait EventEmitter
         if ($response = $this->fireEvent($shortEvent, $params, $halt)) {
             if ($halt) {
                 return $response;
-            } else {
+            }
+            else {
                 $result = array_merge($result, $response);
             }
         }
@@ -58,7 +59,8 @@ trait EventEmitter
         if ($response = Event::fire($event, $longArgs, $halt)) {
             if ($halt) {
                 return $response;
-            } else {
+            }
+            else {
                 $result = array_merge($result, $response);
             }
         }

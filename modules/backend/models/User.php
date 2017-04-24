@@ -81,7 +81,8 @@ class User extends UserBase
     {
         if (is_string($options)) {
             $options = ['default' => $options];
-        } elseif (!is_array($options)) {
+        }
+        elseif (!is_array($options)) {
             $options = [];
         }
 
@@ -90,7 +91,8 @@ class User extends UserBase
 
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size, $options);
-        } else {
+        }
+        else {
             return '//www.gravatar.com/avatar/' .
                 md5(strtolower(trim($this->email))) .
                 '?s='. $size .

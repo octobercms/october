@@ -8,6 +8,7 @@ use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
+
     public function pluginDetails()
     {
         return [

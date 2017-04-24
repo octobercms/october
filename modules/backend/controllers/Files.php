@@ -27,8 +27,8 @@ class Files extends Controller
         try {
             echo $this->findFileObject($code)->output();
             exit;
-        } catch (Exception $ex) {
         }
+        catch (Exception $ex) {}
 
         return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
     }
@@ -42,11 +42,11 @@ class Files extends Controller
             echo $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,
-                compact('mode', 'extension')
+                compact('mode','extension')
             );
             exit;
-        } catch (Exception $ex) {
         }
+        catch (Exception $ex) {}
 
         return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
     }

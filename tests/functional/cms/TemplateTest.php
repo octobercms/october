@@ -2,6 +2,7 @@
 
 class TemplateTest extends UiTestCase
 {
+
     public function testOpenTemplates()
     {
         $this->signInToBackend();
@@ -140,5 +141,7 @@ class TemplateTest extends UiTestCase
         $this->click("xpath=(//button[@data-request='onDelete'])[1]");
         $this->getSweetConfirmation('Do you really want delete this content file?');
         $this->waitForElementNotPresent("name=fileName");
+
     }
+
 }

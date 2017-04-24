@@ -122,7 +122,8 @@ class Backend
 
         if ($jsFormat !== null) {
             $format = $jsFormat;
-        } else {
+        }
+        else {
             $format = DateTimeHelper::momentFormat($format);
         }
 
@@ -133,14 +134,18 @@ class Backend
 
         if ($timeTense) {
             $attributes['data-time-tense'] = 1;
-        } elseif ($timeSince) {
+        }
+        elseif ($timeSince) {
             $attributes['data-time-since'] = 1;
-        } elseif ($format) {
+        }
+        elseif ($format) {
             $attributes['data-format'] = $format;
-        } elseif ($formatAlias) {
+        }
+        elseif ($formatAlias) {
             $attributes['data-format-alias'] = $formatAlias;
         }
 
         return '<time'.Html::attributes($attributes).'>'.e($defaultValue).'</time>'.PHP_EOL;
     }
+
 }

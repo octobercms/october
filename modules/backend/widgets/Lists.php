@@ -260,7 +260,8 @@ class Lists extends WidgetBase
             $this->vars['pageLast'] = $this->records->lastPage();
             $this->vars['pageFrom'] = $this->records->firstItem();
             $this->vars['pageTo'] = $this->records->lastItem();
-        } else {
+        }
+        else {
             $this->vars['recordTotal'] = $this->records->count();
             $this->vars['pageCurrent'] = 1;
         }
@@ -371,6 +372,7 @@ class Lists extends WidgetBase
          * Prepare related eager loads (withs) and custom selects (joins)
          */
         foreach ($this->getVisibleColumns() as $column) {
+
             if (!$this->isColumnRelated($column) || (!isset($column->sqlSelect) && !isset($column->valueFrom))) {
                 continue;
             }
@@ -419,6 +421,7 @@ class Lists extends WidgetBase
                     }
                 }
             }
+
         });
 
         /*
@@ -513,9 +516,11 @@ class Lists extends WidgetBase
 
         if ($this->showTree) {
             $records = $model->getNested();
-        } elseif ($this->showPagination) {
+        }
+        elseif ($this->showPagination) {
             $records = $model->paginate($this->recordsPerPage, $this->currentPageNumber);
-        } else {
+        }
+        else {
             $records = $model->get();
         }
 
@@ -604,6 +609,7 @@ class Lists extends WidgetBase
         }
 
         if ($this->columnOverride && is_array($this->columnOverride)) {
+
             $invalidColumns = array_diff($this->columnOverride, array_keys($definitions));
             if (!count($definitions)) {
                 throw new ApplicationException(Lang::get(
@@ -700,9 +706,11 @@ class Lists extends WidgetBase
     {
         if (is_string($config)) {
             $label = $config;
-        } elseif (isset($config['label'])) {
+        }
+        elseif (isset($config['label'])) {
             $label = $config['label'];
-        } else {
+        }
+        else {
             $label = studly_case($name);
         }
 
@@ -792,13 +800,16 @@ class Lists extends WidgetBase
 
             if (!array_key_exists($columnName, $record->getRelations())) {
                 $value = null;
-            } elseif ($this->isColumnRelated($column, true)) {
+            }
+            elseif ($this->isColumnRelated($column, true)) {
                 $value = $record->{$columnName}->lists($column->valueFrom);
-            } elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
+            }
+            elseif ($this->isColumnRelated($column) || $this->isColumnPivot($column)) {
                 $value = $record->{$columnName}
                     ? $column->getValueFromData($record->{$columnName})
                     : null;
-            } else {
+            }
+            else {
                 $value = null;
             }
         }
@@ -816,7 +827,8 @@ class Lists extends WidgetBase
         else {
             if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes)) {
                 $value = $record->attributes[$columnName];
-            } else {
+            }
+            else {
                 $value = $record->{$columnName};
             }
         }
@@ -834,7 +846,8 @@ class Lists extends WidgetBase
 
         if (method_exists($this, 'eval'. studly_case($column->type) .'TypeValue')) {
             $value = $this->{'eval'. studly_case($column->type) .'TypeValue'}($record, $column, $value);
-        } else {
+        }
+        else {
             $value = $this->evalCustomListType($column->type, $record, $column, $value);
         }
 
@@ -954,7 +967,8 @@ class Lists extends WidgetBase
 
         if ($value) {
             $contents = Lang::get('backend::lang.list.column_switch_true');
-        } else {
+        }
+        else {
             $contents = Lang::get('backend::lang.list.column_switch_false');
         }
 
@@ -974,7 +988,8 @@ class Lists extends WidgetBase
 
         if ($column->format !== null) {
             $value = $dateTime->format($column->format);
-        } else {
+        }
+        else {
             $value = $dateTime->toDayDateTimeString();
         }
 
@@ -1020,7 +1035,8 @@ class Lists extends WidgetBase
 
         if ($column->format !== null) {
             $value = $dateTime->format($column->format);
-        } else {
+        }
+        else {
             $value = $dateTime->toFormattedDateString();
         }
 
@@ -1157,10 +1173,11 @@ class Lists extends WidgetBase
 
         if ($scopeMethod = $this->searchScope) {
             $searchMethod = $boolean == 'and' ? 'where' : 'orWhere';
-            $query->$searchMethod(function ($q) use ($term, $columns, $scopeMethod) {
+            $query->$searchMethod(function($q) use ($term, $columns, $scopeMethod) {
                 $q->$scopeMethod($term, $columns);
             });
-        } else {
+        }
+        else {
             $searchMethod = $boolean == 'and' ? 'searchWhere' : 'orSearchWhere';
             $query->$searchMethod($term, $columns, $this->searchMode);
         }
@@ -1184,7 +1201,8 @@ class Lists extends WidgetBase
 
             if ($column != $sortOptions['column'] || $sortOptions['direction'] == 'asc') {
                 $this->sortDirection = $sortOptions['direction'] = 'desc';
-            } else {
+            }
+            else {
                 $this->sortDirection = $sortOptions['direction'] = 'asc';
             }
 
@@ -1220,14 +1238,16 @@ class Lists extends WidgetBase
         if ($this->showSorting && ($sortOptions = $this->getSession('sort'))) {
             $this->sortColumn = $sortOptions['column'];
             $this->sortDirection = $sortOptions['direction'];
-        } else {
+        }
+        else {
             /*
              * Supplied default
              */
             if (is_string($this->defaultSort)) {
                 $this->sortColumn = $this->defaultSort;
                 $this->sortDirection = 'desc';
-            } elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
+            }
+            elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
                 $this->sortColumn = $this->defaultSort['column'];
                 $this->sortDirection = (isset($this->defaultSort['direction'])) ?
                     $this->defaultSort['direction'] :
@@ -1240,9 +1260,7 @@ class Lists extends WidgetBase
          */
         if ($this->sortColumn === null || !$this->isSortable($this->sortColumn)) {
             $columns = $this->visibleColumns ?: $this->getVisibleColumns();
-            $columns = array_filter($columns, function ($column) {
-                return $column->sortable;
-            });
+            $columns = array_filter($columns, function($column){ return $column->sortable; });
             $this->sortColumn = key($columns);
             $this->sortDirection = 'desc';
         }
@@ -1257,7 +1275,8 @@ class Lists extends WidgetBase
     {
         if ($column === null) {
             return (count($this->getSortableColumns()) > 0);
-        } else {
+        }
+        else {
             return array_key_exists($column, $this->getSortableColumns());
         }
     }
@@ -1272,7 +1291,7 @@ class Lists extends WidgetBase
         }
 
         $columns = $this->getColumns();
-        $sortable = array_filter($columns, function ($column) {
+        $sortable = array_filter($columns, function($column){
             return $column->sortable;
         });
 

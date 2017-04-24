@@ -5,9 +5,11 @@ use October\Rain\Database\Updates\Migration;
 
 class CreateAuthorsTable extends Migration
 {
+
     public function up()
     {
-        Schema::create('database_tester_authors', function ($table) {
+        Schema::create('database_tester_authors', function($table)
+        {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
@@ -22,4 +24,5 @@ class CreateAuthorsTable extends Migration
     {
         Schema::dropIfExists('database_tester_authors');
     }
+
 }

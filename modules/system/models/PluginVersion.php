@@ -98,7 +98,8 @@ class PluginVersion extends Model
 
             if ($this->is_disabled) {
                 $manager->disablePlugin($this->code, true);
-            } else {
+            }
+            else {
                 $manager->enablePlugin($this->code, true);
             }
 
@@ -107,7 +108,8 @@ class PluginVersion extends Model
             if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
                 $this->disabledByConfig = in_array($this->code, $configDisabled);
             }
-        } else {
+        }
+        else {
             $this->name = $this->code;
             $this->description = Lang::get('system::lang.plugins.unknown_plugin');
             $this->orphaned = true;

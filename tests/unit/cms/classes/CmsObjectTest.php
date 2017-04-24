@@ -61,9 +61,8 @@ class CmsObjectTest extends TestCase
         $themePath = $theme->getPath();
 
         $filePath = $themePath .= '/temporary/test.htm';
-        if (file_exists($filePath)) {
+        if (file_exists($filePath))
             @unlink($filePath);
-        }
 
         $this->assertFileNotExists($filePath);
 
@@ -217,9 +216,8 @@ class CmsObjectTest extends TestCase
         $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/mytestobj.htm';
-        if (file_exists($destFilePath)) {
+        if (file_exists($destFilePath))
             unlink($destFilePath);
-        }
 
         $this->assertFileNotExists($destFilePath);
 
@@ -246,9 +244,8 @@ class CmsObjectTest extends TestCase
         $this->assertFileExists($srcFilePath);
 
         $destFilePath = $theme->getPath().'/testobjects/anotherobj.htm';
-        if (file_exists($destFilePath)) {
+        if (file_exists($destFilePath))
             unlink($destFilePath);
-        }
 
         $testContents = 'mytestcontent';
         $obj = TestCmsObject::load($theme, 'mytestobj.htm');
@@ -277,9 +274,8 @@ class CmsObjectTest extends TestCase
         $this->assertFileExists($srcFilePath);
 
         $destFilePath = $theme->getPath().'/testobjects/existingobj.htm';
-        if (!file_exists($destFilePath)) {
+        if (!file_exists($destFilePath))
             file_put_contents($destFilePath, 'str');
-        }
         $this->assertFileExists($destFilePath);
 
         $obj = TestCmsObject::load($theme, 'anotherobj.htm');
@@ -315,14 +311,12 @@ class CmsObjectTest extends TestCase
         $theme = Theme::load('apitest');
 
         $destFilePath = $theme->getPath().'/testobjects/testsubdir/mytestobj.htm';
-        if (file_exists($destFilePath)) {
+        if (file_exists($destFilePath))
             unlink($destFilePath);
-        }
 
         $destDirPath = dirname($destFilePath);
-        if (file_exists($destDirPath) && is_dir($destDirPath)) {
+        if (file_exists($destDirPath) && is_dir($destDirPath))
             rmdir($destDirPath);
-        }
 
         $this->assertFileNotExists($destFilePath);
         $this->assertFileNotExists($destDirPath);

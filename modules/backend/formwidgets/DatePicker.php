@@ -97,7 +97,9 @@ class DatePicker extends FormWidgetBase
      */
     public function prepareVars()
     {
+
         if ($value = $this->getLoadValue()) {
+
             $value = DateTimeHelper::makeCarbon($value, false);
 
             $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
@@ -152,9 +154,11 @@ class DatePicker extends FormWidgetBase
 
         if ($this->mode == 'time') {
             return 'time';
-        } elseif ($this->mode == 'date') {
+        }
+        elseif ($this->mode == 'date') {
             return 'dateLong';
-        } else {
+        }
+        else {
             return 'dateTimeLong';
         }
     }

@@ -207,7 +207,7 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Returns a component by its name.
-     * This method is used only in the back-end and for internal system needs when
+     * This method is used only in the back-end and for internal system needs when 
      * the standard way to access components is not an option.
      * @param string $componentName Specifies the component name.
      * @return \Cms\Classes\ComponentBase Returns the component instance or null.
@@ -236,6 +236,7 @@ class CmsCompoundObject extends CmsObject
         $componentName = $componentManager->resolve($componentName);
 
         foreach ($this->settings['components'] as $sectionName => $values) {
+
             $result = $sectionName;
 
             if ($sectionName == $componentName) {
@@ -255,6 +256,7 @@ class CmsCompoundObject extends CmsObject
             if ($sectionName == $componentName) {
                 return $result;
             }
+
         }
 
         return false;
@@ -272,7 +274,8 @@ class CmsCompoundObject extends CmsObject
 
         if (self::$objectComponentPropertyMap !== null) {
             $objectComponentMap = self::$objectComponentPropertyMap;
-        } else {
+        }
+        else {
             $cached = Cache::get($key, false);
             $unserialized = $cached ? @unserialize(@base64_decode($cached)) : false;
             $objectComponentMap = $unserialized ? $unserialized : [];
@@ -293,7 +296,8 @@ class CmsCompoundObject extends CmsObject
 
         if (!isset($this->settings['components'])) {
             $objectComponentMap[$objectCode] = [];
-        } else {
+        }
+        else {
             foreach ($this->settings['components'] as $name => $settings) {
                 $nameParts = explode(' ', $name);
                 if (count($nameParts > 1)) {
@@ -343,7 +347,7 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Returns the configured view bag component.
-     * This method is used only in the back-end and for internal system needs when
+     * This method is used only in the back-end and for internal system needs when 
      * the standard way to access components is not an option.
      * @return \Cms\Components\ViewBag Returns the view bag component instance.
      */

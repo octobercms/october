@@ -95,7 +95,8 @@ class Updates extends Controller
             $this->vars['activeTab'] = $tab ?: 'plugins';
             $this->vars['installedPlugins'] = $this->getInstalledPlugins();
             $this->vars['installedThemes'] = $this->getInstalledThemes();
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -135,7 +136,8 @@ class Updates extends Controller
                 $this->vars['pluginAuthor'] = array_get($details, 'author');
                 $this->vars['pluginIcon'] = array_get($details, 'icon', 'icon-leaf');
                 $this->vars['pluginHomepage'] = array_get($details, 'homepage');
-            } else {
+            }
+            else {
                 throw new ApplicationException(Lang::get('system::lang.updates.plugin_not_found'));
             }
 
@@ -153,7 +155,8 @@ class Updates extends Controller
             $this->vars['changelog'] = $changelog;
             $this->vars['upgrades'] = $upgrades;
             $this->vars['licence'] = $licence;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
     }
@@ -171,8 +174,8 @@ class Updates extends Controller
                     ? array_shift($details)
                     : $details;
             }
-        } catch (Exception $ex) {
         }
+        catch (Exception $ex) {}
 
         return $contents;
     }
@@ -181,9 +184,7 @@ class Updates extends Controller
     {
         $contents = null;
         foreach ($filenames as $file) {
-            if (!File::exists($path . '/'.$file)) {
-                continue;
-            }
+            if (!File::exists($path . '/'.$file)) continue;
 
             $contents = File::get($path . '/'.$file);
 
@@ -315,7 +316,8 @@ class Updates extends Controller
             $this->vars['hasImportantUpdates'] = array_get($result, 'hasImportantUpdates', false);
             $this->vars['pluginList'] = array_get($result, 'plugins', []);
             $this->vars['themeList'] = array_get($result, 'themes', []);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -338,9 +340,7 @@ class Updates extends Controller
             $coreImportant = false;
 
             foreach (array_get($result, 'core.updates', []) as $build => $description) {
-                if (strpos($description, '!!!') === false) {
-                    continue;
-                }
+                if (strpos($description, '!!!') === false) continue;
 
                 $detailsUrl = '//octobercms.com/support/articles/release-notes';
                 $description = str_replace('!!!', '', $description);
@@ -358,9 +358,7 @@ class Updates extends Controller
             $isImportant = false;
 
             foreach (array_get($plugin, 'updates', []) as $version => $description) {
-                if (strpos($description, '!!!') === false) {
-                    continue;
-                }
+                if (strpos($description, '!!!') === false) continue;
 
                 $isImportant = $hasImportantUpdates = true;
                 $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';
@@ -433,7 +431,8 @@ class Updates extends Controller
             ];
 
             $this->vars['updateSteps'] = $updateSteps;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -464,7 +463,8 @@ class Updates extends Controller
                 }
 
                 $plugins = array_combine($pluginCodes, $plugins);
-            } else {
+            }
+            else {
                 $plugins = [];
             }
 
@@ -479,7 +479,8 @@ class Updates extends Controller
                 }
 
                 $themes = array_combine($themeCodes, $themes);
-            } else {
+            }
+            else {
                 $themes = [];
             }
 
@@ -489,9 +490,7 @@ class Updates extends Controller
             $pluginActions = (array) post('plugin_actions');
             foreach ($plugins as $code => $hash) {
                 $_code = $this->encodeCode($code);
-                if (!array_key_exists($_code, $pluginActions)) {
-                    continue;
-                }
+                if (!array_key_exists($_code, $pluginActions)) continue;
                 $pluginAction = $pluginActions[$_code];
 
                 if (!$pluginAction) {
@@ -523,7 +522,8 @@ class Updates extends Controller
             ];
 
             $this->vars['updateSteps'] = $updateSteps;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -641,7 +641,8 @@ class Updates extends Controller
             ]);
 
             return $this->onForceUpdate();
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
             return $this->makePartial('project_form');
         }
@@ -701,7 +702,8 @@ class Updates extends Controller
             $this->vars['updateSteps'] = $updateSteps;
 
             return $this->makePartial('execute');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
             return $this->makePartial('plugin_form');
         }
@@ -714,6 +716,7 @@ class Updates extends Controller
     public function onRemovePlugins()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
             foreach ($checkedIds as $objectId) {
                 if (!$object = PluginVersion::find($objectId)) {
                     continue;
@@ -735,6 +738,7 @@ class Updates extends Controller
     public function onRemovePlugin()
     {
         if ($pluginCode = post('code')) {
+
             PluginManager::instance()->deletePlugin($pluginCode);
 
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
@@ -750,6 +754,7 @@ class Updates extends Controller
     public function onRefreshPlugins()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
             foreach ($checkedIds as $objectId) {
                 if (!$object = PluginVersion::find($objectId)) {
                     continue;
@@ -768,7 +773,8 @@ class Updates extends Controller
     {
         try {
             $this->vars['checked'] = post('checked');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
         }
         return $this->makePartial('disable_form');
@@ -779,6 +785,7 @@ class Updates extends Controller
         $disable = post('disable', false);
         $freeze = post('freeze', false);
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
             $manager = PluginManager::instance();
 
             foreach ($checkedIds as $objectId) {
@@ -788,7 +795,8 @@ class Updates extends Controller
 
                 if ($disable) {
                     $manager->disablePlugin($object->code, true);
-                } else {
+                }
+                else {
                     $manager->enablePlugin($object->code, true);
                 }
 
@@ -796,11 +804,13 @@ class Updates extends Controller
                 $object->is_frozen = $freeze;
                 $object->save();
             }
+
         }
 
         if ($disable) {
             Flash::success(Lang::get('system::lang.plugins.disable_success'));
-        } else {
+        }
+        else {
             Flash::success(Lang::get('system::lang.plugins.enable_success'));
         }
 
@@ -849,7 +859,8 @@ class Updates extends Controller
             $this->vars['updateSteps'] = $updateSteps;
 
             return $this->makePartial('execute');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $this->handleError($ex);
             return $this->makePartial('theme_form');
         }
@@ -862,6 +873,7 @@ class Updates extends Controller
     public function onRemoveTheme()
     {
         if ($themeCode = post('code')) {
+
             ThemeManager::instance()->deleteTheme($themeCode);
 
             Flash::success(trans('cms::lang.theme.delete_theme_success'));

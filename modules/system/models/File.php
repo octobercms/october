@@ -34,7 +34,8 @@ class File extends FileBase
 
         if ($this->isPublic()) {
             $uploadsPath .= '/public';
-        } else {
+        }
+        else {
             $uploadsPath .= '/protected';
         }
 
@@ -50,7 +51,8 @@ class File extends FileBase
 
         if ($this->isPublic()) {
             return $uploadsFolder . '/public/';
-        } else {
+        }
+        else {
             return $uploadsFolder . '/protected/';
         }
     }
