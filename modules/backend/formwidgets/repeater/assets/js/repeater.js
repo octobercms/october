@@ -94,6 +94,9 @@
 
         var $container = $target.data('oc.popover').$container
 
+        // Initialize the scrollpad control in the popup
+        $container.trigger('render')
+
         $container
             .on('click', 'a', function (ev) {
                 setTimeout(function() { $(ev.target).trigger('close.oc.popover') }, 1)
