@@ -151,13 +151,12 @@ class Repeater extends FormWidgetBase
      */
     protected function processSaveValue($value)
     {
-        if (!$this->useGroups || !is_array($value) || !$value) {
+        if (!is_array($value) || !$value) {
             return $value;
         }
 
-        foreach ($value as $index => &$data) {
-            $data['_index'] = $index;
-            if ($this->useGroups) {
+        if ($this->useGroups) {
+            foreach ($value as $index => &$data) {
                 $data['_group'] = $this->getGroupCodeFromIndex($index);
             }
         }
@@ -176,7 +175,7 @@ class Repeater extends FormWidgetBase
 
         if (is_array($loadValue)) {
             foreach ($loadValue as $index => $loadedValue) {
-                $loadedIndexes[] = array_get($loadedValue, '_index', $index);
+                $loadedIndexes[] = $index;
                 $loadedGroups[] = array_get($loadedValue, '_group');
             }
         }
@@ -234,17 +233,12 @@ class Repeater extends FormWidgetBase
      */
     protected function getLoadValueFromIndex($index)
     {
-        if (is_array($loadValue = $this->getLoadValue())) {
-            foreach ($loadValue as $_index => $data) {
-                if (array_get($data, '_index') == $index) {
-                    return $data;
-                }
-
-                if ($_index == $index) {
-                    return $data;
-                }
-            }
+        $loadValue = $this->getLoadValue();
+        if (!is_array($loadValue)) {
+            $loadValue = [];
         }
+
+        return array_get($loadValue, $index, []);
     }
 
     //
