@@ -29,6 +29,7 @@
 =require js/foundation.event.js
 =require js/foundation.controlutils.js
 =require js/flashmessage.js
+=require js/autocomplete.js
 =require js/checkbox.js
 =require js/checkbox.balloon.js
 =require js/dropdown.js

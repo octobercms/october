@@ -2,6 +2,7 @@
 
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use ApplicationException;
 
 /**
  * Repeater Form Widget
@@ -9,6 +10,7 @@ use Backend\Classes\FormWidgetBase;
 class Repeater extends FormWidgetBase
 {
     const INDEX_PREFIX = '___index_';
+    const GROUP_PREFIX = '___group_';
 
     //
     // Configurable properties
@@ -29,6 +31,11 @@ class Repeater extends FormWidgetBase
      */
     public $sortable = false;
 
+    /**
+     * @var int Maximum repeated items allowable.
+     */
+    public $maxItems = null;
+
     //
     // Object properties
     //
@@ -39,9 +46,19 @@ class Repeater extends FormWidgetBase
     protected $defaultAlias = 'repeater';
 
     /**
+     * @var string Form field name for capturing an index.
+     */
+    protected $indexInputName;
+
+    /**
      * @var int Count of repeated items.
      */
     protected $indexCount = 0;
+
+    /**
+     * @var array Meta data associated to each field, organised by index
+     */
+    protected $indexMeta = [];
 
     /**
      * @var array Collection of form widgets.
@@ -53,10 +70,14 @@ class Repeater extends FormWidgetBase
      */
     protected static $onAddItemCalled = false;
 
+    protected $useGroups = false;
+
     /**
-     * @var int Maximum repeated items allowable.
+     * @var string Form field name for capturing an index.
      */
-    protected $maxItems = null;
+    protected $groupInputName;
+
+    protected $groupDefinitions = [];
 
     /**
      * @inheritDoc
@@ -69,6 +90,12 @@ class Repeater extends FormWidgetBase
             'sortable',
             'maxItems',
         ]);
+
+        $fieldName = $this->formField->getName(false);
+        $this->indexInputName = self::INDEX_PREFIX.$fieldName;
+        $this->groupInputName = self::GROUP_PREFIX.$fieldName;
+
+        $this->processGroupMode();
 
         if (!self::$onAddItemCalled) {
             $this->processExistingItems();
@@ -89,10 +116,15 @@ class Repeater extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['indexName'] = self::INDEX_PREFIX.$this->formField->getName(false).'[]';
+        $this->vars['indexInputName'] = $this->indexInputName;
+        $this->vars['groupInputName'] = $this->groupInputName;
+
         $this->vars['prompt'] = $this->prompt;
         $this->vars['formWidgets'] = $this->formWidgets;
         $this->vars['maxItems'] = $this->maxItems;
+
+        $this->vars['useGroups'] = $this->useGroups;
+        $this->vars['groupDefinitions'] = $this->groupDefinitions;
     }
 
     /**
@@ -109,38 +141,78 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return (array) $value;
+        return (array) $this->processSaveValue($value);
     }
 
-    protected function processExistingItems()
+    /**
+     * Splices in some meta data (group and index values) to the dataset.
+     * @param array $value
+     * @return array
+     */
+    protected function processSaveValue($value)
     {
-        $loadValue = $this->getLoadValue();
-        if (is_array($loadValue)) {
-            $loadValue = array_keys($loadValue);
+        if (!is_array($value) || !$value) {
+            return $value;
         }
 
-        $itemIndexes = post(self::INDEX_PREFIX.$this->formField->getName(false), $loadValue);
+        if ($this->useGroups) {
+            foreach ($value as $index => &$data) {
+                $data['_group'] = $this->getGroupCodeFromIndex($index);
+            }
+        }
 
-        if (!is_array($itemIndexes)) {
+        return array_values($value);
+    }
+
+    /**
+     * Processes existing form data and applies it to the form widgets.
+     * @return void
+     */
+    protected function processExistingItems()
+    {
+        $loadedIndexes = $loadedGroups = [];
+        $loadValue = $this->getLoadValue();
+
+        if (is_array($loadValue)) {
+            foreach ($loadValue as $index => $loadedValue) {
+                $loadedIndexes[] = $index;
+                $loadedGroups[] = array_get($loadedValue, '_group');
+            }
+        }
+
+        $itemIndexes = post($this->indexInputName, $loadedIndexes);
+        $itemGroups = post($this->groupInputName, $loadedGroups);
+
+        if (!count($itemIndexes)) {
             return;
         }
 
-        foreach ($itemIndexes as $itemIndex) {
-            $this->makeItemFormWidget($itemIndex);
+        $items = array_combine(
+            (array) $itemIndexes,
+            (array) ($this->useGroups ? $itemGroups : $itemIndexes)
+        );
+
+        foreach ($items as $itemIndex => $groupCode) {
+            $this->makeItemFormWidget($itemIndex, $groupCode);
             $this->indexCount = max((int) $itemIndex, $this->indexCount);
         }
     }
 
-    protected function makeItemFormWidget($index = 0)
+    /**
+     * Creates a form widget based on a field index and optional group code.
+     * @param int $index
+     * @param string $index
+     * @return \Backend\Widgets\Form
+     */
+    protected function makeItemFormWidget($index = 0, $groupCode = null)
     {
-        $loadValue = $this->getLoadValue();
-        if (!is_array($loadValue)) {
-            $loadValue = [];
-        }
+        $configDefinition = $this->useGroups
+            ? $this->getGroupFormFieldConfig($groupCode)
+            : $this->form;
 
-        $config = $this->makeConfig($this->form);
+        $config = $this->makeConfig($configDefinition);
         $config->model = $this->model;
-        $config->data = array_get($loadValue, $index, []);
+        $config->data = $this->getLoadValueFromIndex($index);
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
@@ -148,8 +220,30 @@ class Repeater extends FormWidgetBase
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         $widget->bindToController();
 
+        $this->indexMeta[$index] = [
+            'groupCode' => $groupCode
+        ];
+
         return $this->formWidgets[$index] = $widget;
     }
+
+    /**
+     * Returns the load data at a given index.
+     * @param int $index
+     */
+    protected function getLoadValueFromIndex($index)
+    {
+        $loadValue = $this->getLoadValue();
+        if (!is_array($loadValue)) {
+            $loadValue = [];
+        }
+
+        return array_get($loadValue, $index, []);
+    }
+
+    //
+    // AJAX handlers
+    //
 
     public function onAddItem()
     {
@@ -157,8 +251,10 @@ class Repeater extends FormWidgetBase
 
         $this->indexCount++;
 
+        $groupCode = post('_repeater_group');
+
         $this->prepareVars();
-        $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount);
+        $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount, $groupCode);
         $this->vars['indexValue'] = $this->indexCount;
 
         $itemContainer = '@#'.$this->getId('items');
@@ -173,9 +269,85 @@ class Repeater extends FormWidgetBase
     public function onRefresh()
     {
         $index = post('_repeater_index');
+        $group = post('_repeater_group');
 
-        $widget = $this->makeItemFormWidget($index);
+        $widget = $this->makeItemFormWidget($index, $group);
 
         return $widget->onRefresh();
+    }
+
+    //
+    // Group mode
+    //
+
+    /**
+     * Returns the form field configuration for a group, identified by code.
+     * @param string $code
+     * @return array|null
+     */
+    protected function getGroupFormFieldConfig($code)
+    {
+        if (!$code) {
+            return null;
+        }
+
+        $fields = array_get($this->groupDefinitions, $code.'.fields');
+
+        if (!$fields) {
+            return null;
+        }
+
+        return ['fields' => $fields];
+    }
+
+    /**
+     * Process features related to group mode.
+     * @return void
+     */
+    protected function processGroupMode()
+    {
+        $palette = [];
+
+        if (!$group = $this->getConfig('groups', [])) {
+            $this->useGroups = false;
+            return;
+        }
+
+        if (is_string($group)) {
+            $group = $this->makeConfig($group);
+        }
+
+        foreach ($group as $code => $config) {
+            $palette[$code] = [
+                'code' => $code,
+                'name' => array_get($config, 'name'),
+                'icon' => array_get($config, 'icon', 'icon-square-o'),
+                'description' => array_get($config, 'description'),
+                'fields' => array_get($config, 'fields')
+            ];
+        }
+
+        $this->groupDefinitions = $palette;
+        $this->useGroups = true;
+    }
+
+    /**
+     * Returns a field group code from its index.
+     * @param $index int
+     * @return string
+     */
+    public function getGroupCodeFromIndex($index)
+    {
+        return array_get($this->indexMeta, $index.'.groupCode');
+    }
+
+    /**
+     * Returns the group title from its unique code.
+     * @param $groupCode string
+     * @return string
+     */
+    public function getGroupTitle($groupCode)
+    {
+        return array_get($this->groupDefinitions, $groupCode.'.name');
     }
 }

@@ -8,7 +8,7 @@ class CreatePostsTable extends Migration
 
     public function up()
     {
-        Schema::create('database_tester_posts', function($table)
+        Schema::create('database_tester_posts', function ($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');

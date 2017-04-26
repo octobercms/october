@@ -1,49 +1,9 @@
 /*
  * Popover plugin
  *
- * Options:
- * - placement: top | bottom | left | right | center. The placement could automatically be changed 
-     if the popover doesn't fit into the desired position.
- * - fallbackPlacement: top | bottom | left | right. The placement to use if the default placement
- *   and all other possible placements do not work. The default value is "bottom".
- * - content: content HTML string or callback
- * - width: content width, optional. If not specified, the content width will be used.
- * - modal: make the popover modal
- * - highlightModalTarget: "pop" the popover target above the overlay, making it highlighted.
- *   The feature assigns the target position relative.
- * - closeOnPageClick: close the popover if the page was clicked outside the popover area.
- * - container: the popover container selector or element. The default container is the document body.
- *   The container must be relative positioned.
- * - containerClass - a CSS class to apply to the popover container element
- * - offset - offset in pixels to add to the calculated position, to make the position more "random"
- * - offsetX - X offset in pixels to add to the calculated position, to make the position more "random". 
- *   If specified, overrides the offset property for the bottom and top popover placement.
- * - offsetY - Y offset in pixels to add to the calculated position, to make the position more "random". 
- *   If specified, overrides the offset property for the left and right popover placement.
- * - useAnimation: adds animation to the open and close sequence, the equivalent of adding 
- *   the CSS class 'fade' to the containerClass.
- *
- * Methods:
- * - hide
- *
- * Closing the popover. There are 3 ways to close the popover: call it's hide() method, trigger 
- * the close.oc.popover on any element inside the popover or click an element with attribute 
- * data-dismiss="popover" inside the popover.
- *
- * Events:
- * - showing.oc.popover - triggered before the popover is displayed. Allows to override the 
- *   popover options (for example the content) or cancel the action with e.preventDefault()
- * - show.oc.popover - triggered after the popover is displayed.
- * - hiding.oc.popover - triggered before the popover is closed. Allows to cancel the action with
- *   e.preventDefault()
- * - hide.oc.popover - triggered after the popover is hidden.
- *
- * JavaScript API:
- * $('#element').ocPopover({
-    content: '<p>This is a popover</p>'
-    placement: 'top'
- * })
+ * Documentation: ../docs/popover.md
  */
+
 +function ($) { "use strict";
 
     var Popover = function (element, options) {
@@ -108,25 +68,28 @@
          */
         var e = $.Event('showing.oc.popover', { relatedTarget: this.$el })
         this.$el.trigger(e, this)
-        if (e.isDefaultPrevented())
-            return
+        if (e.isDefaultPrevented()) return
 
         /*
          * Create the popover container and overlay
          */
         this.$container = $('<div />').addClass('control-popover')
 
-        if (this.options.containerClass)
+        if (this.options.containerClass) {
             this.$container.addClass(this.options.containerClass)
+        }
 
-        if (this.options.useAnimation)
+        if (this.options.useAnimation) {
             this.$container.addClass('fade')
+        }
 
         var $content = $('<div />').html(this.getContent())
+
         this.$container.append($content)
 
-        if (this.options.width)
+        if (this.options.width) {
             this.$container.width(this.options.width)
+        }
 
         if (this.options.modal) {
             this.$overlay = $('<div />').addClass('popover-overlay')
@@ -135,14 +98,17 @@
                 this.$el.addClass('popover-highlight')
                 this.$el.blur()
             }
-        } else {
+        }
+        else {
             this.$overlay = false
         }
 
-        if (this.options.container)
+        if (this.options.container) {
             $(this.options.container).append(this.$container)
-        else
+        }
+        else {
             $(document.body).append(this.$container)
+        }
 
         /*
          * Determine the popover position
@@ -205,9 +171,15 @@
     }
 
     Popover.prototype.getContent = function () {
-        return typeof this.options.content == 'function'
-            ? this.options.content.call(this.$el[0], this)
-            : this.options.content
+        if (this.options.contentFrom) {
+            return $(this.options.contentFrom).html()
+        }
+
+        if (typeof this.options.content == 'function') {
+            return this.options.content.call(this.$el[0], this)
+        }
+
+        return this.options.content
     }
 
     Popover.prototype.calcDimensions = function() {
@@ -345,6 +317,7 @@
         placement: 'bottom',
         fallbackPlacement: 'bottom',
         content: '<p>Popover content<p>',
+        contentFrom: null,
         width: false,
         modal: false,
         highlightModalTarget: false,

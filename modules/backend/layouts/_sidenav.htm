@@ -18,7 +18,7 @@
                         <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
                             <li
                                 class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
-                                <?= HTML::attributes($item->attributes) ?>
+                                <?= Html::attributes($item->attributes) ?>
                             >
                                 <a href="<?= $item->url ?>">
                                     <span class="nav-icon">

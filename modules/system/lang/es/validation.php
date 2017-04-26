@@ -46,7 +46,7 @@ return [
         "array"   => "El campo :attribute no debe tener más de :max elementos."
     ],
     "mimes"            => "El campo :attribute debe ser un archivo del tipo: :values.",
-    "extensions"       => "El campo :attribute debe tener una extensión de: :values.",	
+    "extensions"       => "El campo :attribute debe tener una extensión de: :values.",
     "min"              => [
         "numeric" => "El campo :attribute debe ser :min o más.",
         "file"    => "El campo :attribute debe ocupar :min kilobytes o más.",

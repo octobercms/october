@@ -207,7 +207,7 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Returns a component by its name.
-     * This method is used only in the back-end and for internal system needs when 
+     * This method is used only in the back-end and for internal system needs when
      * the standard way to access components is not an option.
      * @param string $componentName Specifies the component name.
      * @return \Cms\Classes\ComponentBase Returns the component instance or null.
@@ -347,7 +347,7 @@ class CmsCompoundObject extends CmsObject
 
     /**
      * Returns the configured view bag component.
-     * This method is used only in the back-end and for internal system needs when 
+     * This method is used only in the back-end and for internal system needs when
      * the standard way to access components is not an option.
      * @return \Cms\Components\ViewBag Returns the view bag component instance.
      */

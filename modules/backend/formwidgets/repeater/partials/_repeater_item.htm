@@ -1,4 +1,10 @@
-<li class="field-repeater-item">
+<?php
+    $groupCode = $useGroups ? $this->getGroupCodeFromIndex($indexValue) : '';
+    $itemTitle = $useGroups ? $this->getGroupTitle($groupCode) : null;
+?>
+<li
+    <?= $itemTitle ? 'data-collapse-title="'.$itemTitle.'"' : '' ?>
+    class="field-repeater-item">
 
     <div class="repeater-item-handle <?= $this->getId('items') ?>-handle">
         <i class="icon-bars"></i>
@@ -11,7 +17,7 @@
             aria-label="Remove"
             data-repeater-remove
             data-request="<?= $this->getEventHandler('onRemoveItem') ?>"
-            data-request-data="'index': '<?= $indexValue ?>'"
+            data-request-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'"
             data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -28,12 +34,15 @@
     <div class="field-repeater-form"
          data-control="formwidget"
          data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-         data-refresh-data="'_repeater_index': '<?= $indexValue ?>'">
+         data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'">
         <?php foreach ($widget->getFields() as $field): ?>
             <?= $widget->renderField($field) ?>
         <?php endforeach ?>
     </div>
 
-    <input type="hidden" name="<?= $indexName ?>" value="<?= $indexValue ?>" />
+    <input type="hidden" name="<?= $indexInputName ?>[]" value="<?= $indexValue ?>" />
+    <?php if ($useGroups): ?>
+        <input type="hidden" name="<?= $groupInputName ?>[]" value="<?= $groupCode ?>" />
+    <?php endif ?>
 
 </li>

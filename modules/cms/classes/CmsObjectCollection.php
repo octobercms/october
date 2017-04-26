@@ -19,7 +19,7 @@ class CmsObjectCollection extends CollectionBase
      */
     public function withComponent($components, $callback = null)
     {
-        return $this->filter(function($object) use ($components, $callback) {
+        return $this->filter(function ($object) use ($components, $callback) {
 
             $hasComponent = false;
 
@@ -47,7 +47,7 @@ class CmsObjectCollection extends CollectionBase
      */
     public function where($property, $value, $strict = true)
     {
-        return $this->filter(function($object) use ($property, $value, $strict) {
+        return $this->filter(function ($object) use ($property, $value, $strict) {
 
             if (!array_key_exists($property, $object->settings)) {
                 return false;
@@ -69,7 +69,7 @@ class CmsObjectCollection extends CollectionBase
      */
     public function whereComponent($components, $property, $value, $strict = false)
     {
-        return $this->filter(function($object) use ($components, $property, $value, $strict) {
+        return $this->filter(function ($object) use ($components, $property, $value, $strict) {
 
             $hasComponent = false;
 

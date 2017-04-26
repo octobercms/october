@@ -73,7 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerThemeLogging()
     {
-        CmsObject::extend(function($model) {
+        CmsObject::extend(function ($model) {
             ThemeLog::bindEventsToModel($model);
         });
     }
@@ -86,7 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register asset bundles
          */
-        CombineAssets::registerCallback(function($combiner) {
+        CombineAssets::registerCallback(function ($combiner) {
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
             $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
         });

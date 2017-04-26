@@ -8,7 +8,7 @@ class CreateRolesTable extends Migration
 
     public function up()
     {
-        Schema::create('database_tester_roles', function($table)
+        Schema::create('database_tester_roles', function ($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -17,7 +17,7 @@ class CreateRolesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('database_tester_authors_roles', function($table)
+        Schema::create('database_tester_authors_roles', function ($table)
         {
             $table->engine = 'InnoDB';
             $table->integer('author_id')->unsigned();

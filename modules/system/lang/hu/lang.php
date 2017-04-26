@@ -315,12 +315,12 @@ return [
         'manage_preferences' => 'Saját beállítások kezelése',
         'manage_editor' => 'Kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult elérése',
-        'manage_branding' => 'Admin felület testreszabása'
+        'manage_branding' => 'Kinézet testreszabása'
     ],
     'log' => [
-        'menu_label' => 'Beállítások',
+        'menu_label' => 'Engedélyek',
         'menu_description' => 'Válassza ki, hogy mit szeretene naplózni.',
-        'default_tab' => 'Naplózás',
+        'default_tab' => 'Engedélyek',
         'log_events' => 'Események naplózása',
         'log_events_comment' => 'A rendszer üzeneteinek eltárolása.',
         'log_requests' => 'Kérelmek naplózása',

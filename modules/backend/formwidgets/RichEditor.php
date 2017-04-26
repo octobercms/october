@@ -106,7 +106,7 @@ class RichEditor extends FormWidgetBase
         $buttons = $this->toolbarButtons;
 
         if (is_string($buttons)) {
-            $buttons = array_map(function($button) {
+            $buttons = array_map(function ($button) {
                 return strlen($button) ? $button : '|';
             }, explode('|', $buttons));
         }
@@ -210,7 +210,7 @@ class RichEditor extends FormWidgetBase
 
         $links[] = ['name' => Lang::get('backend::lang.pagelist.select_page'), 'url' => false];
 
-        $iterator = function($links, $level = 0) use (&$iterator) {
+        $iterator = function ($links, $level = 0) use (&$iterator) {
             $result = [];
             foreach ($links as $linkUrl => $link) {
 

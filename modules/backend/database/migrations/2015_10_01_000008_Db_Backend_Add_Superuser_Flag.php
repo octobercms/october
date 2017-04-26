@@ -12,7 +12,7 @@ class DbBackendAddSuperuserFlag extends Migration
             $table->boolean('is_superuser')->default(false);
         });
 
-        AdminModel::all()->each(function($user) {
+        AdminModel::all()->each(function ($user) {
             if ($user->hasPermission('superuser')) {
                 $user->is_superuser = true;
                 $user->save();

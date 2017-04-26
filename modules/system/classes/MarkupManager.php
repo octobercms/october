@@ -97,7 +97,7 @@ class MarkupManager
 
     /**
      * Registers the CMS Twig extension items.
-     * The argument is an array of the extension definitions. The array keys represent the 
+     * The argument is an array of the extension definitions. The array keys represent the
      * function/filter name, specific for the plugin/module. Each element in the
      * array should be an associative array.
      * @param string $type The extension type: filters, functions, tokens
@@ -291,7 +291,7 @@ class MarkupManager
     }
 
     /**
-     * Tests if a callable type contains a wildcard, also acts as a 
+     * Tests if a callable type contains a wildcard, also acts as a
      * utility to replace the wildcard with a string.
      * @param  callable  $callable
      * @param  string|bool $replaceWith

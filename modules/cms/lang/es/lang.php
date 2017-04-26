@@ -35,7 +35,7 @@ return [
         ],
         'settings_menu' => 'Tema para el Front-end',
         'settings_menu_description' => 'Previsualiza la lista de temas instalados y selecciona un tema activo.',
-        'default_tab' => 'Propiedades',		
+        'default_tab' => 'Propiedades',
         'name_label' => 'Nombre',
         'name_create_placeholder' => 'Nombre del nuevo tema',
         'author_label' => 'Autor',
@@ -51,10 +51,10 @@ return [
         'dir_name_label' => 'Nombre del directorio',
         'dir_name_create_label' => 'El directorio de destino del tema',
         'theme_label' => 'Tema',
-        'theme_title' => 'Temas',		
+        'theme_title' => 'Temas',
         'activate_button' => 'Activar',
         'active_button' => 'Activar',
-        'customize_theme' => 'Personalizar Tema',		
+        'customize_theme' => 'Personalizar Tema',
         'customize_button' => 'Personalizar',
         'duplicate_button' => 'Duplicar',
         'duplicate_title' => 'Duplicar tema',
@@ -90,7 +90,7 @@ return [
         'dir_name_invalid' => 'El nombre sólo puede contener dígitos, letras latinas y los siguientes símbolos: _-',
         'dir_name_taken' => 'Este directorio ya existe.',
         'find_more_themes' => 'Buscar nuevos temas',
-        'saving' => 'Guardando tema...',		
+        'saving' => 'Guardando tema...',
         'return' => 'Volver a la lista de temas'
     ],
     'maintenance' => [
@@ -188,7 +188,7 @@ return [
     ],
     'asset' => [
         'menu_label' => 'Recursos',
-        'unsaved_label' => 'Recurso(s) sin guardar',		
+        'unsaved_label' => 'Recurso(s) sin guardar',
         'drop_down_add_title' => 'Añadir...',
         'drop_down_operation_title' => 'Acción...',
         'upload_files' => 'Subir archivo(s)',
@@ -262,8 +262,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Buscador de multimedia',
-        'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia'
-    ],	
+        'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia',
+    ],
     'media' => [
         'invalid_path' => "Ruta de archivo especificada no válida: ':path'.",
         'menu_label' => 'Media',
@@ -292,7 +292,7 @@ return [
         'multiple_selected' => 'Se han seleccionado varios elementos.',
         'uploading_file_num' => 'Subiendo :number archivo(s)...',
         'uploading_complete' => 'Subida completada',
-        'uploading_error' => 'Error al subir',		
+        'uploading_error' => 'Error al subir',
         'type_blocked' => 'El tipo de archivo usado ha sido bloqueado por motivos de seguridad.',
         'order_by' => 'Ordenar por',
         'folder' => 'Carpeta',

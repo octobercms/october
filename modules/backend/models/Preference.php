@@ -191,7 +191,7 @@ class Preference extends Model
         }
 
         // Sort the array by offset, identifier ascending
-        usort($tempTimezones, function($a, $b) {
+        usort($tempTimezones, function ($a, $b) {
             return $a['offset'] === $b['offset']
                 ? strcmp($a['identifier'], $b['identifier'])
                 : $a['offset'] - $b['offset'];

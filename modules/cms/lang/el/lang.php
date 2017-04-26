@@ -161,7 +161,7 @@ return [
         'new_title' => 'Νέος τίτλος σελίδας',
         'url' => 'URL',
         'filename' => 'Όνομα Αρχείου',
-        'layout' => 'Διάταξη', 
+        'layout' => 'Διάταξη',
         'description' => 'Περιγραφή',
         'preview' => 'Προεπισκόπηση',
         'meta' => 'Meta',
