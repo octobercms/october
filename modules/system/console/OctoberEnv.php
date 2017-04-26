@@ -360,6 +360,9 @@ class OctoberEnv extends Command
                 'LINK_POLICY' => 'linkPolicy',
                 'ENABLE_CSRF' => 'enableCsrfProtection',
             ],
+            'trustedproxy' => [
+                'TRUSTED_PROXIES' => 'proxies',
+            ],
         ];
     }
 

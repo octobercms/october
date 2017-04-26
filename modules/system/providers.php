@@ -38,4 +38,8 @@ return [
     October\Rain\Mail\MailServiceProvider::class,
     October\Rain\Argon\ArgonServiceProvider::class,
 
+    /**
+     * Third party providers
+     */
+    Fideloper\Proxy\TrustedProxyServiceProvider::class,
 ];
