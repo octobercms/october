@@ -94,11 +94,11 @@ class MediaViewHelper
     {
         switch ($type) {
             case 'video':
-                return '<video src="'.e($src).'" controls></video>';
+                return '<video src="'.e($src).'" controls preload="metadata"></video>';
             break;
 
             case 'audio':
-                return '<audio src="'.e($src).'" controls></audio>';
+                return '<audio src="'.e($src).'" controls preload="metadata"></audio>';
             break;
         }
     }
