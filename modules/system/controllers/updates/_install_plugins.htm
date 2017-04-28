@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="details">
                                     <h4><?= $plugin['name'] ?></h4>
-                                    <p><?= str_replace(':name', $plugin['author'], e(trans('cms::lang.theme.by_author'))) ?></p>
+                                    <p><?= trans('cms::lang.theme.by_author', ['name' => $plugin['author']]) ?></p>
                                 </div>
                                 <button
                                     type="button"
