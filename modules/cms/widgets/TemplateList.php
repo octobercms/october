@@ -300,14 +300,32 @@ class TemplateList extends WidgetBase
             'title'        => $this->getItemTitle($item),
             'fileName'     => $item->getFileName(),
             'description'  => $description,
-            'descriptions' => $descriptions
+            'descriptions' => $descriptions,
+            'dragValue'    => $this->getItemDragValue($item)
         ];
 
-        foreach ($this->sortingProperties as $property=>$name) {
+        foreach ($this->sortingProperties as $property => $name) {
             $result[$property] = $item->$property;
         }
 
         return (object) $result;
+    }
+
+    protected function getItemDragValue($item)
+    {
+        if ($item instanceof \Cms\Classes\Partial) {
+            return "{% partial '".$item->getBaseFileName()."' %}";
+        }
+
+        if ($item instanceof \Cms\Classes\Content) {
+            return "{% content '".$item->getBaseFileName()."' %}";
+        }
+
+        if ($item instanceof \Cms\Classes\Page) {
+            return "{{ '".$item->getBaseFileName()."'|page }}";
+        }
+
+        return '';
     }
 
     protected function getItemTitle($item)
