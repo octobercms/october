@@ -7,11 +7,11 @@ return [
         'file_already_exists' => "Már létezik ':name' nevű fájl.",
         'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
         'error_creating_directory' => 'Hiba a(z) :name könyvtár létrehozásakor. Ellenőrizze az írási engedélyeket.',
-        'invalid_file_extension'=>'Érvénytelen fájl kiterjesztés: :invalid. Az engedélyezett kiterjesztések: :allowed.',
+        'invalid_file_extension' => 'Érvénytelen kiterjesztés: :invalid. Engedélyezett kiterjesztések: :allowed.',
         'error_deleting' => "Hiba a(z) ':name' sablonfájl törlésekor. Ellenőrizze az írási engedélyeket.",
         'delete_success' => 'A sablonok törlése sikerült: :count.',
         'file_name_required' => 'A Fájlnév mező kitöltése kötelező.',
-        'safe_mode_enabled' => 'A biztonságos mód jelenleg engedélyezett.'
+        'safe_mode_enabled' => 'A biztonságos mód jelenleg aktív.'
     ],
     'dashboard' => [
         'active_theme' => [
@@ -24,7 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "A következő téma nem található: ':name'",
-        'by' => 'Fejlesztő:',
+        'by_author' => 'Fejlesztő: :name',
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
             'not_found' => 'Az aktív téma nem található.'

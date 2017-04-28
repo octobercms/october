@@ -7,7 +7,7 @@ return [
         'file_already_exists' => "File ':name' already exists.",
         'error_saving' => "Error saving file ':name'. Please check write permissions.",
         'error_creating_directory' => 'Error creating directory :name. Please check write permissions.',
-        'invalid_file_extension'=>'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
+        'invalid_file_extension' => 'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
@@ -24,7 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
-        'by' => 'By',
+        'by_author' => 'By :name',
         'active' => [
             'not_set' => 'The active theme is not set.',
             'not_found' => 'The active theme is not found.'
