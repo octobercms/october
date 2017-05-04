@@ -41,13 +41,17 @@ if (window.jQuery.request !== undefined) {
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [$form.serialize()],
+        var data = new FormData($form[0]),
             loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
+            var parentData = paramToObj('data-request-data', $(this).data('request-data'))
+            
+            Object.keys(parentData).forEach(function (key) {
+                data.append(key, parentData[key])
+            })
         })
 
         if ($el.is(':input') && !$form.length) {
@@ -57,7 +61,9 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            data.push($.param(options.data))
+            Object.keys(options.data).forEach(function (key) {
+                data.append(key, options.data[key])
+            })
         }
 
         if ($.type(loading) == 'string') {
@@ -306,7 +312,7 @@ if (window.jQuery.request !== undefined) {
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-        requestOptions.data = data.join('&')
+        requestOptions.data = data
 
         /*
          * Initiate request
@@ -345,6 +351,8 @@ if (window.jQuery.request !== undefined) {
         evalSuccess: null,
         evalError: null,
         evalComplete: null,
+        contentType: false,
+        processData: false
     }
 
     /*
