@@ -421,7 +421,11 @@ if (window.jQuery.request !== undefined) {
     // ===========================
     function appendObjectToFormData(obj, formdata, namespace) {
         var formKey
-      
+        
+        if (typeof obj !== 'object' || obj === null) {
+            return
+        }
+        
         Object.keys(obj).forEach(function (property) {
             if (namespace) {
                 formKey = namespace + '[' + property + ']'
