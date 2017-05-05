@@ -47,7 +47,7 @@ if (window.jQuery.request !== undefined) {
             useFlash = options.flash !== undefined
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            appenObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
+            appendObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
         })
 
         if ($el.is(':input') && !$form.length) {
