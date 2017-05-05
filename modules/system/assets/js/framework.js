@@ -47,11 +47,7 @@ if (window.jQuery.request !== undefined) {
             useFlash = options.flash !== undefined
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            var parentData = paramToObj('data-request-data', $(this).data('request-data'))
-            
-            Object.keys(parentData).forEach(function (key) {
-                data.append(key, parentData[key])
-            })
+            appenObjectToFormData(paramToObj('data-request-data', $(this).data('request-data'), data)
         })
 
         if ($el.is(':input') && !$form.length) {
@@ -61,9 +57,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            Object.keys(options.data).forEach(function (key) {
-                data.append(key, options.data[key])
-            })
+            appendObjectToFormData(options.data, data)
         }
 
         if ($.type(loading) == 'string') {
@@ -421,6 +415,26 @@ if (window.jQuery.request !== undefined) {
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
+    }
+               
+    // Appends an object to a FormData instance
+    // ===========================
+    function appendObjectToFormData(obj, formdata, namespace) {
+        var formKey
+      
+        Object.keys(obj).forEach(function (property) {
+            if (namespace) {
+                formKey = namespace + '[' + property + ']'
+            } else {
+                formKey = property
+            }   
+            
+            if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+                appendObjectToFormData(obj[property], formdata, formKey)
+            } else {
+                formdata.append(formKey, obj[property])
+            }
+        });
     }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
