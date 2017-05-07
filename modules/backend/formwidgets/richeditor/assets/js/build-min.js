@@ -716,4 +716,4 @@ return this}
 $(document).render(function(){$('[data-control="richeditor"]').richEditor()})
 if($.oc===undefined)
 $.oc={}
-$.oc.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}(window.jQuery);
+$.oc.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','color','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}(window.jQuery);
