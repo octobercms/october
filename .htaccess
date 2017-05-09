@@ -49,5 +49,11 @@
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+    
+    ##
+    ## Force trailing slash
+    ##
+    RewriteCond %{REQUEST_URI} !(/$|\.)
+    RewriteRule ^(.*)$ http://%{HTTP_HOST}/$1/ [R=301,L]
 
 </IfModule>
