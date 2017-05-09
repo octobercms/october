@@ -26,7 +26,7 @@ return [
         'it' => 'Italiano',
         'ja' => '日本語',
         'lt' => 'Lietuvių',
-        'lv' => 'Latvijas',
+        'lv' => 'Latviešu',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
         'pl' => 'Polskie',
