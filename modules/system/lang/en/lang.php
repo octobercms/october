@@ -25,6 +25,7 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italiano',
         'ja' => '日本語',
+        'lt' => 'Lietuvių',
         'lv' => 'Latvijas',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
