@@ -318,7 +318,7 @@ class VersionManager
         if (!isset($this->databaseVersions[$code])) {
             $this->databaseVersions[$code] = Db::table('system_plugin_versions')
                 ->where('code', $code)
-                ->pluck('version')
+                ->value('version')
             ;
         }
 
@@ -428,7 +428,11 @@ class VersionManager
             return $this->databaseHistory[$code];
         }
 
-        $historyInfo = Db::table('system_plugin_history')->where('code', $code)->orderBy('id')->get();
+        $historyInfo = Db::table('system_plugin_history')
+            ->where('code', $code)
+            ->orderBy('id')
+            ->get()
+            ->all();
 
         return $this->databaseHistory[$code] = $historyInfo;
     }
