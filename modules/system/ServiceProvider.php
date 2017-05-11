@@ -472,18 +472,19 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerValidator()
     {
-        /*
-         * Allowed file extensions, as opposed to mime types.
-         * - extensions: png,jpg,txt
-         */
-        Validator::extend('extensions', function ($attribute, $value, $parameters) {
-            $extension = strtolower($value->getClientOriginalExtension());
-            return in_array($extension, $parameters);
-        });
+        $this->app->resolving('validator', function($validator) {
+            /*
+             * Allowed file extensions, as opposed to mime types.
+             * - extensions: png,jpg,txt
+             */
+            $validator->extend('extensions', function ($attribute, $value, $parameters) {
+                $extension = strtolower($value->getClientOriginalExtension());
+                return in_array($extension, $parameters);
+            });
 
-        Validator::replacer('extensions', function ($message, $attribute, $rule, $parameters) {
-            return strtr($message, [':values' => implode(', ', $parameters)]);
+            $validator->replacer('extensions', function ($message, $attribute, $rule, $parameters) {
+                return strtr($message, [':values' => implode(', ', $parameters)]);
+            });
         });
     }
-
 }
