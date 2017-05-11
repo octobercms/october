@@ -9,7 +9,6 @@ return [
     Illuminate\Bus\BusServiceProvider::class,
     Illuminate\Cache\CacheServiceProvider::class,
     Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-    Illuminate\Routing\ControllerServiceProvider::class,
     Illuminate\Cookie\CookieServiceProvider::class,
     Illuminate\Encryption\EncryptionServiceProvider::class,
     Illuminate\Foundation\Providers\FoundationServiceProvider::class,
