@@ -906,6 +906,7 @@ class Controller
         /*
          * Render the partial
          */
+        Event::fire('cms.partial.beforeRender', [$this, $partial], true);
         CmsException::mask($partial, 400);
         $this->loader->setObject($partial);
         $template = $this->twig->loadTemplate($partial->getFilePath());
