@@ -2,7 +2,6 @@
 
 use Twig_Node;
 use Twig_Compiler;
-use Twig_NodeInterface;
 
 /**
  * Represents a placeholder node
@@ -53,10 +52,10 @@ class PlaceholderNode extends Twig_Node
 
         $compiler->addDebugInfo($this);
         if (!$isText) {
-            $compiler->write("echo \$this->env->getExtension('CMS')->displayBlock(");
+            $compiler->write("echo \$this->env->getExtension('Cms\Twig\Extension')->displayBlock(");
         }
         else {
-            $compiler->write("echo twig_escape_filter(\$this->env, \$this->env->getExtension('CMS')->displayBlock(");
+            $compiler->write("echo twig_escape_filter(\$this->env, \$this->env->getExtension('Cms\Twig\Extension')->displayBlock(");
         }
 
         $compiler
