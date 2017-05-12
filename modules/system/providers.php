@@ -20,6 +20,7 @@ return [
     Illuminate\Session\SessionServiceProvider::class,
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
+    Laravel\Tinker\TinkerServiceProvider::class,
 
     /*
      * October Rain providers
