@@ -543,4 +543,20 @@ class ListController extends ControllerBehavior
             call_user_func_array($callback, [$widget, $widget->model]);
         });
     }
+    
+     /**
+     * Static helper for extending filter scopes.
+     * @param  callable $callback
+     * @return void
+     */
+    public static function extendFilterScopes($callback)
+    {
+        $calledClass = self::getCalledExtensionClass();
+        Event::listen('backend.filter.extendScopes', function ($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) {
+                return;
+            }
+            call_user_func_array($callback, [$widget, $widget->model]);
+        });
+    }
 }
