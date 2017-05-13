@@ -240,6 +240,13 @@ class ListController extends ControllerBehavior
             $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
                 return $widget->onRefresh();
             });
+            
+            /*
+             * Filter Widget with extensibility
+             */
+            $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
+                $this->controller->filterExtendScopes($filterWidget);
+            });
 
             /*
              * Extend the query of the list of options
@@ -449,6 +456,15 @@ class ListController extends ControllerBehavior
     public function listExtendColumns($host)
     {
     }
+    
+    /**
+     * Called after the filter scopes are defined.
+     * @param \Backend\Widgets\Filter $host The hosting filter widget
+     * @return void
+     */
+    public function filterExtendScopes($host)
+    {
+    }
 
     /**
      * Controller override: Extend supplied model
@@ -541,6 +557,22 @@ class ListController extends ControllerBehavior
                 return;
             }
             call_user_func_array($callback, [$widget, $widget->model]);
+        });
+    }
+    
+     /**
+     * Static helper for extending filter scopes.
+     * @param  callable $callback
+     * @return void
+     */
+    public static function extendFilterScopes($callback)
+    {
+        $calledClass = self::getCalledExtensionClass();
+        Event::listen('backend.filter.extendScopes', function ($widget) use ($calledClass, $callback) {
+            if (!is_a($widget->getController(), $calledClass)) {
+                return;
+            }
+            call_user_func_array($callback, [$widget]);
         });
     }
 }
