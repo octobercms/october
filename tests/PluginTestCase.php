@@ -35,9 +35,9 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         ]);
 
         /*
-         * Mailer pretend
+         * Disable mailer
          */
-        $app['config']->set('mail.driver', 'log');
+        Mail::pretend();
 
         /*
          * Modify the plugin path away from the test context
