@@ -82,6 +82,16 @@ class UpdateManager
     protected $productCache;
 
     /**
+     * @var Illuminate\Database\Migrations\Migrator
+     */
+    protected $migrator;
+
+    /**
+     * @var Illuminate\Database\Migrations\DatabaseMigrationRepository
+     */
+    protected $repository;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
@@ -316,23 +326,24 @@ class UpdateManager
         /*
          * Register module migration files
          */
+        $paths = [];
         $modules = Config::get('cms.loadModules', []);
+
         foreach ($modules as $module) {
-            $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
-            $this->migrator->requireFiles($path, $this->migrator->getMigrationFiles($path));
+            $paths[] = $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
         }
 
         /*
          * Rollback modules
          */
         while (true) {
-            $count = $this->migrator->rollback();
+            $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
 
             foreach ($this->migrator->getNotes() as $note) {
                 $this->note($note);
             }
 
-            if ($count == 0) {
+            if (count($rolledBack) == 0) {
                 break;
             }
         }
