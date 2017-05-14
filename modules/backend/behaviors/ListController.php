@@ -240,12 +240,12 @@ class ListController extends ControllerBehavior
             $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
                 return $widget->onRefresh();
             });
-            
+
             /*
              * Filter Widget with extensibility
              */
             $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
-                $this->controller->filterExtendScopes($filterWidget);
+                $this->controller->listFilterExtendScopes($filterWidget);
             });
 
             /*
@@ -462,7 +462,7 @@ class ListController extends ControllerBehavior
      * @param \Backend\Widgets\Filter $host The hosting filter widget
      * @return void
      */
-    public function filterExtendScopes($host)
+    public function listFilterExtendScopes($host)
     {
     }
 
@@ -565,7 +565,7 @@ class ListController extends ControllerBehavior
      * @param  callable $callback
      * @return void
      */
-    public static function extendFilterScopes($callback)
+    public static function extendListFilterScopes($callback)
     {
         $calledClass = self::getCalledExtensionClass();
         Event::listen('backend.filter.extendScopes', function ($widget) use ($calledClass, $callback) {
