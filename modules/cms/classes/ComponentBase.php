@@ -260,7 +260,7 @@ abstract class ComponentBase extends Extendable
     public function __call($method, $parameters)
     {
         try {
-            parent::__call($method, $parameters);
+            return parent::__call($method, $parameters);
         }
         catch (BadMethodCallException $ex) {}
 
