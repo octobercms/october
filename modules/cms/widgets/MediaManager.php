@@ -884,7 +884,8 @@ class MediaManager extends WidgetBase
 
     protected function getThumbnailDirectory()
     {
-        return '/public/';
+        // NOTE: Custom routing for /storage/temp/$thumbnailDirectory must be setup to return the thumbnail if not using default 'public' directory
+        return MediaLibrary::validatePath(Config::get('cms.storage.media.thumbnailDirectory', 'public'), true) . '/';
     }
 
     protected function getPlaceholderId($item)
