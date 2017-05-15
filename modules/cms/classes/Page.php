@@ -89,21 +89,11 @@ class Page extends CmsCompoundObject
         $layouts = Layout::listInTheme($theme, true);
         $result = [];
         $result[null] = Lang::get('cms::lang.page.no_layout');
-        $ignoreNames = FileDefinitions::get('ignoreFiles');
 
         foreach ($layouts as $layout) {
             $baseName = $layout->getBaseFileName();
 
-            //Filter ignore files
-            $ignoreFile = false;
-            foreach ($ignoreNames as $ignoreName) {
-                if(strpos($baseName, $ignoreName) === 0) {
-                    $ignoreFile = true;
-                    break;
-                }
-            }
-
-            if($ignoreFile) {
+            if (FileDefinitions::isPathIgnored($baseName)) {
                 continue;
             }
 
