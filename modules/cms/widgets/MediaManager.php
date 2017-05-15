@@ -6,6 +6,7 @@ use Lang;
 use File;
 use Form;
 use Input;
+use Config;
 use Request;
 use Response;
 use Exception;
@@ -872,7 +873,7 @@ class MediaManager extends WidgetBase
     {
         $fileName = md5($fileName.uniqid().microtime());
 
-        $path = temp_path() . '/media';
+        $path = temp_path() . MediaLibrary::validatePath(Config::get('cms.storage.media.folder', 'media'), true);
 
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
