@@ -343,7 +343,8 @@ $.oc.confirm(this.options.deleteConfirm,this.proxy(this.deleteConfirmation))}
 MediaManager.prototype.deleteConfirmation=function(confirmed){if(!confirmed)
 return
 var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),paths=[]
-for(var i=0,len=items.length;i<len;i++){paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
+for(var i=0,len=items.length;i<len;i++){if(items[i].hasAttribute('data-root')){continue;}
+paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
 this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
