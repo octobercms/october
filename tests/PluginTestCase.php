@@ -35,11 +35,6 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         ]);
 
         /*
-         * Disable mailer
-         */
-        Mail::pretend();
-
-        /*
          * Modify the plugin path away from the test context
          */
         $app->setPluginsPath(realpath(base_path().Config::get('cms.pluginsPath')));
@@ -78,6 +73,11 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         if ($pluginCode !== false) {
             $this->runPluginRefreshCommand($pluginCode, false);
         }
+
+        /*
+         * Disable mailer
+         */
+        Mail::pretend();
     }
 
     /**
