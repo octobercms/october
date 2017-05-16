@@ -25,7 +25,6 @@ return [
     /*
      * October Rain providers
      */
-    October\Rain\Foundation\Providers\ArtisanServiceProvider::class,
     October\Rain\Database\DatabaseServiceProvider::class,
     October\Rain\Halcyon\HalcyonServiceProvider::class,
     October\Rain\Filesystem\FilesystemServiceProvider::class,

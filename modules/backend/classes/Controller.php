@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Str;
 use Lang;
 use View;
 use Flash;
@@ -704,7 +703,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return Str::equals(
+        return hash_equals(
             Session::getToken(),
             $token
         );
