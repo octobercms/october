@@ -677,7 +677,7 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->withDeferred($sessionKey);
                 }
                 elseif ($this->model->exists) {
-                    $this->relationObject->addConstraints();
+                    $this->relationObject->addDefinedConstraintsToQuery($query);
                 }
 
                 /*
