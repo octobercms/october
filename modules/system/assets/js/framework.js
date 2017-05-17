@@ -441,7 +441,7 @@ if (window.jQuery.request !== undefined) {
         });
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {
         $(this).request()
     })
 
