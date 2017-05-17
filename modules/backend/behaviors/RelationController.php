@@ -102,6 +102,11 @@ class RelationController extends ControllerBehavior
     protected $initialized = false;
 
     /**
+     * @var array Relationship definition
+     */
+    public $relationDefinition;
+
+    /**
      * @var string Relationship type
      */
     public $relationType;
@@ -333,6 +338,7 @@ class RelationController extends ControllerBehavior
          * Relationship details
          */
         $this->relationName = $field;
+        $this->relationDefinition = $this->model->getRelationDefinition($field);
         $this->relationType = $this->model->getRelationType($field);
         $this->relationObject = $this->model->{$field}();
         $this->relationModel = $this->relationObject->getRelated();
@@ -678,6 +684,11 @@ class RelationController extends ControllerBehavior
                 }
                 elseif ($this->model->exists) {
                     $this->relationObject->addConstraints();
+                }
+
+                if (isset($this->relationDefinition['scope'])) {
+                    $scope = $this->relationDefinition['scope'];
+                    $this->relationObject->{$scope}();
                 }
 
                 /*
