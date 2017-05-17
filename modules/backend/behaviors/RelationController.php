@@ -1413,11 +1413,13 @@ class RelationController extends ControllerBehavior
             case 'morphToMany':
             case 'morphedByMany':
             case 'belongsToMany':
+            case 'attachMany':
                 return 'multi';
 
             case 'hasOne':
             case 'morphOne':
             case 'belongsTo':
+            case 'attachOne':
                 return 'single';
         }
     }
