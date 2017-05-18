@@ -603,9 +603,11 @@ class ImportExportController extends ControllerBehavior
          * Add headers
          */
         $headers = [];
+        $index = 0;
         $columns = $widget->getVisibleColumns();
         foreach ($columns as $column) {
-            $headers[] = Lang::get($column->label);
+            $label = Lang::get($column->label);
+            $headers[] = ($index++ == 0) ? ucfirst(mb_strtolower($label)) : $label;
         }
         $csv->insertOne($headers);
 
