@@ -141,4 +141,17 @@
         $('[data-control="listwidget"]').listWidget();
     })
 
+    // Remember the previous page if the user clicks "back" from
+    // within a list items page.
+    $(window).on('ajaxUpdate', function(event, data, response, status) {
+        if (data.handler !== 'list::onPaginate' || status !== 'success') {
+            return
+        }
+
+        var params = jQuery.param(data.options.data)
+        var url = window.location.href.split('?')[0] + '?' + params
+
+        history.pushState(data.options.data, 'history', url)
+    })
+
 }(window.jQuery);
