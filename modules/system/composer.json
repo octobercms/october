@@ -18,7 +18,7 @@
     "require": {
         "php": ">=7.0",
         "composer/installers": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "dev-l55upgrade"
     },
     "autoload": {
         "psr-4": {
