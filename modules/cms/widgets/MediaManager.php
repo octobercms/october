@@ -6,6 +6,7 @@ use Lang;
 use File;
 use Form;
 use Input;
+use Config;
 use Request;
 use Response;
 use Exception;
@@ -872,7 +873,9 @@ class MediaManager extends WidgetBase
     {
         $fileName = md5($fileName.uniqid().microtime());
 
-        $path = temp_path() . '/media';
+        $mediaFolder = Config::get('cms.storage.media.folder', 'media');
+
+        $path = temp_path() . MediaLibrary::validatePath($mediaFolder, true);
 
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
@@ -883,7 +886,11 @@ class MediaManager extends WidgetBase
 
     protected function getThumbnailDirectory()
     {
-        return '/public/';
+        /*
+         * NOTE: Custom routing for /storage/temp/$thumbnailDirectory must be setup
+         * to return the thumbnail if not using default 'public' directory
+         */
+        return MediaLibrary::validatePath(Config::get('cms.storage.media.thumbFolder', 'public'), true) . '/';
     }
 
     protected function getPlaceholderId($item)

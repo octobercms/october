@@ -53,8 +53,8 @@
                                         data-request="<?= $this->getEventHandler('onAddItem') ?>"
                                         data-request-data="_repeater_group: '<?= $item['code'] ?>'">
                                         <i class="list-icon <?= $item['icon'] ?>"></i>
-                                        <span class="title"><?= $item['name'] ?></span>
-                                        <span class="description"><?= $item['description'] ?></span>
+                                        <span class="title"><?= e(trans($item['name'])) ?></span>
+                                        <span class="description"><?= e(trans($item['description'])) ?></span>
                                         <span class="borders"></span>
                                     </a>
                                 </li>

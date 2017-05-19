@@ -4,6 +4,7 @@ use Lang;
 use Cms\Classes\Theme;
 use Cms\Classes\Layout;
 use ApplicationException;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * The CMS page class.
@@ -88,8 +89,14 @@ class Page extends CmsCompoundObject
         $layouts = Layout::listInTheme($theme, true);
         $result = [];
         $result[null] = Lang::get('cms::lang.page.no_layout');
+
         foreach ($layouts as $layout) {
             $baseName = $layout->getBaseFileName();
+
+            if (FileDefinitions::isPathIgnored($baseName)) {
+                continue;
+            }
+
             $result[$baseName] = strlen($layout->name) ? $layout->name : $baseName;
         }
 
