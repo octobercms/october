@@ -45,26 +45,27 @@ class PluginRefresh extends Command
      */
     public function fire()
     {
+        /*
+         * Lookup plugin
+         */
         $pluginName = $this->argument('name');
         $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
         if (!PluginManager::instance()->exists($pluginName)) {
             throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
         }
 
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
 
+        /*
+         * Rollback plugin
+         */
         $manager->rollbackPlugin($pluginName);
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
 
-        $manager->resetNotes();
+        /*
+         * Update plugin
+         */
         $this->output->writeln('<info>Reinstalling plugin...</info>');
         $manager->updatePlugin($pluginName);
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
     }
 
     /**
