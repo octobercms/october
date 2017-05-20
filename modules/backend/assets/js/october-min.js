@@ -917,6 +917,7 @@ fixedWidth+=$el.get(0).offsetWidth+margin})
 $(this).width(fixedWidth)
 $(this).trigger('oc.widthFixed')}})}
 OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$el=$(el),$parent=$(el).parent(),$menu=$el.next()
+$el.tooltip('hide')
 if($menu.hasClass('active')){self.$accountMenuOverlay.remove()
 $parent.removeClass('highlight')
 $menu.removeClass('active')}

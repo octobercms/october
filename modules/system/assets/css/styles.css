@@ -1044,7 +1044,7 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .oc-icon-themeisle:before,.icon-themeisle:before{content:"\f2b2"}
 .oc-icon-google-plus-circle:before,.icon-google-plus-circle:before,.oc-icon-google-plus-official:before,.icon-google-plus-official:before{content:"\f2b3"}
 .oc-icon-fa:before,.icon-fa:before,.oc-icon-font-awesome:before,.icon-font-awesome:before{content:"\f2b4"}
-.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
+.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;font-family:sans-serif;opacity:0.2;filter:alpha(opacity=20)}
 .close:hover,.close:focus{color:#000000;text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
 button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
 @font-face{font-family:'FontAwesome';src:url('../ui/font/fontawesome-webfont.eot?v=1.0.1');src:url('../ui/font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('../ui/font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('../ui/font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('../ui/font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}
