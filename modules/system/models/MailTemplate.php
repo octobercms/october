@@ -32,7 +32,7 @@ class MailTemplate extends Model
     ];
 
     public $belongsTo = [
-        'layout' => ['System\Models\MailLayout']
+        'layout' => MailLayout::class
     ];
 
     /**

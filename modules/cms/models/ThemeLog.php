@@ -29,7 +29,7 @@ class ThemeLog extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['Backend\Models\User']
+        'user' => \Backend\Models\User::class
     ];
 
     protected $themeCache;

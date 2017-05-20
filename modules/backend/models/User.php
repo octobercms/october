@@ -32,11 +32,11 @@ class User extends UserBase
      * Relations
      */
     public $belongsToMany = [
-        'groups' => ['Backend\Models\UserGroup', 'table' => 'backend_users_groups']
+        'groups' => [UserGroup::class, 'table' => 'backend_users_groups']
     ];
 
     public $attachOne = [
-        'avatar' => ['System\Models\File']
+        'avatar' => \System\Models\File::class
     ];
 
     /**
