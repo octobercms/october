@@ -704,7 +704,7 @@ class Controller extends Extendable
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
         return hash_equals(
-            Session::getToken(),
+            Session::token(),
             $token
         );
     }
