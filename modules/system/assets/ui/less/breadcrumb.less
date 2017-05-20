@@ -39,25 +39,15 @@
             display: inline-block;
             color: @color-breadcrumb-text;
             text-decoration: none;
-            text-shadow: 0 1px 0 rgba(0,0,0,.15);
             &:hover { color: @color-breadcrumb-text; }
         }
 
-        &:before, &:after {
+        &:after {
             top: 0;
-            right: -15px;
+            right: -14px;
             position: absolute;
             z-index: @zindex-breadcrumb;
-        }
-
-        &:after {
             .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
-        }
-
-        &:before {
-            right: -16px;
-            z-index: @zindex-breadcrumb - 1;
-            .triangle(right, 15px, 45px, @color-breadcrumb-background);
         }
 
         &:first-child {
@@ -71,7 +61,6 @@
         &:last-child {
             background-color: transparent;
             color: @color-breadcrumb-active-text;
-            text-shadow: 0 1px 0 rgba(255,255,255,.35);
 
             &:after {
                 display: none;

@@ -1,14 +1,3 @@
-.sidenav-tree-shadow-element() {
-    content: '';
-    position: absolute;
-    height: 100%;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 100%;
-    .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
-}
-
 .sidenav-tree {
     width: 300px;
 
@@ -24,7 +13,7 @@
             outline: none;
             padding: 12px 13px 13px;
             .border-radius(0);
-            .box-shadow(inset -5px 0 3px rgba(0,0,0,0.1));
+            .box-shadow(inset -3px 0 3px rgba(0,0,0,0.1));
 
             &.search {
                 background-position: right -78px;
@@ -86,10 +75,6 @@
                     .transition(all 0.1s ease);
                     font-size: 16px;
                 }
-
-                &:after {
-                    .sidenav-tree-shadow-element();
-                }
             }
 
             // Use two triangles to achieve the darkening effect
@@ -119,10 +104,6 @@
                     color: @color-sidebarnav-tree-inactive-text;
                     text-decoration: none!important;
                     .opacity(.65);
-
-                    &:after {
-                        .sidenav-tree-shadow-element();
-                    }
 
                     &:hover {
                         text-decoration: none;

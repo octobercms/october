@@ -8,26 +8,12 @@
     width: 100%;
     .box-sizing(border-box);
 
-    .sidenav-shadow-element() {
-        content: '';
-        position: absolute;
-        height: 100%;
-        top: 0;
-        right: 0;
-        width: 10px;
-        .box-shadow(inset -5px 0 3px rgba(0,0,0,.1));
-    }
-
     ul {
         position: relative;
         margin: 0;
         padding: 0;
         height: 100%;
         overflow: hidden;
-
-        &:after {
-            .sidenav-shadow-element();
-        }
 
         li {
             display: block;
@@ -57,11 +43,6 @@
                     margin-bottom: 5px;
                     font-size: 28px;
                 }
-
-                .nav-label,
-                .nav-icon {
-                    text-shadow: 0 -1px 0 rgba(0,0,0,.6);
-                }
             }
 
             &:first-child a {
@@ -71,13 +52,6 @@
             &.active a, a:hover {
                 color: @color-sidebarnav-active-text;
                 i { color: @color-sidebarnav-active-icon; }
-            }
-
-            &.active a {
-                .nav-label,
-                .nav-icon {
-                    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-                }
             }
 
             span.counter {

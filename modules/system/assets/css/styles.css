@@ -40,7 +40,7 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:62.5%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-body{font-family:sans-serif;font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
 input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 button,input,select[multiple],textarea{background-image:none}
 a{color:#0181b9;text-decoration:none}
@@ -1059,8 +1059,8 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .icon-3x{font-size:3em}
 .icon-4x{font-size:4em}
 .icon-5x{font-size:5em}
-body{padding-top:20px;font-family:sans-serif;background:#f3f3f3;color:#405261}
-h1,h2,h3,h4,h5{font-family:sans-serif;text-transform:uppercase}
+body{padding-top:20px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background:#f3f3f3;color:#405261}
+h1,h2,h3,h4,h5{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";text-transform:uppercase}
 h1{font-weight:300;font-size:50px;margin-bottom:15px}
 h1 i[class^="icon-"]:before{font-size:46px}
 i[class^="icon-"].warning{color:#c84530}

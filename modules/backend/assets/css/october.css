@@ -418,7 +418,7 @@ body.dragging .control-treeview.treeview-light ol.dragging > li > div,body.dragg
 .sidenav-tree{width:300px}
 .sidenav-tree .control-toolbar{padding:0}
 .sidenav-tree .control-toolbar .toolbar-item{display:block}
-.sidenav-tree .control-toolbar input.form-control{border:none;outline:none;padding:12px 13px 13px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
+.sidenav-tree .control-toolbar input.form-control{border:none;outline:none;padding:12px 13px 13px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:inset -3px 0 3px rgba(0,0,0,0.1);box-shadow:inset -3px 0 3px rgba(0,0,0,0.1)}
 .sidenav-tree .control-toolbar input.form-control.search{background-position:right -78px}
 .sidenav-tree ul{padding:0;margin:0;list-style:none}
 .sidenav-tree div.scrollbar-thumb{background:rgba(0,0,0,0.2) !important}
@@ -428,11 +428,9 @@ body.dragging .control-treeview.treeview-light ol.dragging > li > div,body.dragg
 .sidenav-tree ul.top-level > li > div.group{position:relative}
 .sidenav-tree ul.top-level > li > div.group h3{background:rgba(0,0,0,0.15);color:#ecf0f1;text-transform:uppercase;font-size:15px;padding:15px 15px 15px 40px;margin:0;position:relative;cursor:pointer}
 .sidenav-tree ul.top-level > li > div.group h3:before{display:block;position:absolute;width:10px;height:10px;left:16px;top:15px;color:#cfcfcf;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105";-webkit-transform:rotate(90deg) translate(5px,-3px);-ms-transform:rotate(90deg) translate(5px,-3px);transform:rotate(90deg) translate(5px,-3px);-webkit-transition:all 0.1s ease;transition:all 0.1s ease;font-size:16px}
-.sidenav-tree ul.top-level > li > div.group h3:after{content:'';position:absolute;top:0;right:0;width:10px;height:100%;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
 .sidenav-tree ul.top-level > li > div.group:before,.sidenav-tree ul.top-level > li > div.group:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #34495e;border-bottom-width:0;position:absolute;left:15px;bottom:-8px;z-index:101}
 .sidenav-tree ul.top-level > li > div.group:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid rgba(0,0,0,0.15);border-bottom-width:0}
 .sidenav-tree ul.top-level > li > ul li a{display:block;position:relative;padding:18px 25px 18px 55px;background:transparent;border-bottom:1px solid rgba(0,0,0,0.15);color:#ffffff;text-decoration:none !important;opacity:0.65;filter:alpha(opacity=65)}
-.sidenav-tree ul.top-level > li > ul li a:after{content:'';position:absolute;top:0;right:0;width:10px;height:100%;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
 .sidenav-tree ul.top-level > li > ul li a:hover{text-decoration:none}
 .sidenav-tree ul.top-level > li > ul li a i{position:absolute;left:16px;top:18px;font-size:22px}
 .sidenav-tree ul.top-level > li > ul li a span{display:block;line-height:150%}
@@ -591,7 +589,7 @@ body.dragging,body.dragging *{cursor:move !important}
 body.loading,body.loading *{cursor:wait !important}
 body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default !important}
 html,body{height:100%; }
-body{font-family:sans-serif;background:#f9f9f9;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background:#f9f9f9;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 #layout-canvas{min-height:100%;height:100%}
 .control-tabs.primary-tabs > ul.nav-tabs,.control-tabs.primary-tabs > div > ul.nav-tabs,.control-tabs.primary-tabs > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > div > ul.nav-tabs{margin-left:0;margin-right:0}
@@ -657,7 +655,7 @@ nav#layout-mainmenu a{text-decoration:none}
 nav#layout-mainmenu a:focus{background:transparent}
 nav#layout-mainmenu ul{margin:0;padding:0;list-style:none;float:left;white-space:nowrap;overflow:hidden}
 nav#layout-mainmenu ul li{color:rgba(255,255,255,0.6);display:inline-block;vertical-align:top;position:relative;margin-right:30px}
-nav#layout-mainmenu ul li a{display:inline-block;font-size:14px;color:inherit;outline:none;text-shadow:0 0 2px black;padding:14px 0 10px}
+nav#layout-mainmenu ul li a{display:inline-block;font-size:14px;color:inherit;outline:none;padding:14px 0 10px}
 nav#layout-mainmenu ul li a:hover{background-color:transparent}
 nav#layout-mainmenu ul li a:active,nav#layout-mainmenu ul li a:focus{text-decoration:none;color:rgba(255,255,255,0.6)}
 nav#layout-mainmenu ul li a i{line-height:1;font-size:30px;vertical-align:middle}
@@ -684,9 +682,9 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu.active{display:block}
 nav#layout-mainmenu ul li .mainmenu-accountmenu:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #f9f9f9;right:9px;top:-7px;position:absolute}
 nav#layout-mainmenu ul li .mainmenu-accountmenu ul{float:none;display:block;overflow:visible}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li{padding:0;margin:0;font-weight:normal;text-align:left;display:block}
-nav#layout-mainmenu ul li .mainmenu-accountmenu li a{display:block;padding:10px 30px;text-align:left;font-size:14px;color:#666666;text-shadow:none}
-nav#layout-mainmenu ul li .mainmenu-accountmenu li a:hover,nav#layout-mainmenu ul li .mainmenu-accountmenu li a:focus{background:#4ea5e0;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
-nav#layout-mainmenu ul li .mainmenu-accountmenu li a:active{background:#3498db;color:#ffffff;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
+nav#layout-mainmenu ul li .mainmenu-accountmenu li a{display:block;padding:10px 30px;text-align:left;font-size:14px;color:#666666}
+nav#layout-mainmenu ul li .mainmenu-accountmenu li a:hover,nav#layout-mainmenu ul li .mainmenu-accountmenu li a:focus{background:#4ea5e0;color:#ffffff}
+nav#layout-mainmenu ul li .mainmenu-accountmenu li a:active{background:#3498db;color:#ffffff}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:hover:after,nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:focus:after,nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #4ea5e0;position:absolute;right:9px;top:-7px;z-index:102}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #3498db}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;background-color:#e0e0e0}
@@ -747,7 +745,7 @@ nav#layout-mainmenu.navbar .menu-toggle{display:inline-block;color:#ffffff !impo
 .mainmenu-collapsed > div ul.mainmenu-nav li:first-child{margin-left:0}
 .mainmenu-collapsed > div ul{margin:0;padding:5px 0 15px 15px;overflow:hidden}
 .mainmenu-collapsed > div ul li{color:rgba(255,255,255,0.6);display:inline-block;vertical-align:top;position:relative;margin-right:30px}
-.mainmenu-collapsed > div ul li a{display:inline-block;font-size:14px;color:inherit;outline:none;text-shadow:0 0 2px black}
+.mainmenu-collapsed > div ul li a{display:inline-block;font-size:14px;color:inherit;outline:none}
 .mainmenu-collapsed > div ul li a:hover{background-color:transparent}
 .mainmenu-collapsed > div ul li a:active,.mainmenu-collapsed > div ul li a:focus{text-decoration:none;color:rgba(255,255,255,0.6)}
 .mainmenu-collapsed > div ul li a i{line-height:1;font-size:30px;vertical-align:middle}
@@ -765,23 +763,18 @@ nav#layout-mainmenu.navbar ul li:hover a:active,.mainmenu-collapsed li:hover a:a
 nav#layout-mainmenu.navbar ul li.highlight > a,.mainmenu-collapsed li.highlight > a{color:#ffffff !important}
 nav#layout-mainmenu.navbar ul li.active,.mainmenu-collapsed li.active{color:#ffffff !important}
 nav#layout-mainmenu.navbar ul li.active a,.mainmenu-collapsed li.active a{color:#ffffff !important}
-nav#layout-mainmenu.navbar ul li.active a .nav-label,.mainmenu-collapsed li.active a .nav-label{text-shadow:none}
 nav#layout-mainmenu.navbar ul li:hover,.mainmenu-collapsed li:hover{color:#ffffff;background:transparent}
 body.drag nav#layout-mainmenu.navbar ul.nav li:hover,body.drag .mainmenu-collapsed ul li:hover{color:rgba(255,255,255,0.6)}
-body.drag nav#layout-mainmenu.navbar ul.nav li a:active .nav-label,body.drag .mainmenu-collapsed ul li a:active .nav-label,body.drag nav#layout-mainmenu.navbar ul.nav li a:focus .nav-label,body.drag .mainmenu-collapsed ul li a:focus .nav-label{text-shadow:none}
 #layout-sidenav{position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 #layout-sidenav ul{position:relative;margin:0;padding:0;height:100%;overflow:hidden}
-#layout-sidenav ul:after{content:'';position:absolute;height:100%;top:0;right:0;width:10px;-webkit-box-shadow:inset -5px 0 3px rgba(0,0,0,0.1);box-shadow:inset -5px 0 3px rgba(0,0,0,0.1)}
 #layout-sidenav ul li{display:block;text-align:center;position:relative}
 #layout-sidenav ul li a{padding:20px 10px;display:block;font-size:13px;color:rgba(255,255,255,0.6);font-weight:normal;position:relative}
 #layout-sidenav ul li a:hover{text-decoration:none;background-color:transparent}
 #layout-sidenav ul li a:focus{background:transparent}
 #layout-sidenav ul li a i{color:rgba(255,255,255,0.6);display:block;margin-bottom:5px;font-size:28px}
-#layout-sidenav ul li a .nav-label,#layout-sidenav ul li a .nav-icon{text-shadow:0 -1px 0 rgba(0,0,0,0.6)}
 #layout-sidenav ul li:first-child a{padding-top:30px}
 #layout-sidenav ul li.active a,#layout-sidenav ul li a:hover{color:#ffffff}
 #layout-sidenav ul li.active a i,#layout-sidenav ul li a:hover i{color:#ffffff}
-#layout-sidenav ul li.active a .nav-label,#layout-sidenav ul li.active a .nav-icon{text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 #layout-sidenav ul li span.counter{display:block;position:absolute;top:15px;right:15px;padding:2px 6px 3px 4px;background-color:#d9350f;color:#ffffff;font-size:11px;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty{opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover{color:rgba(255,255,255,0.6) !important}
@@ -796,7 +789,7 @@ body.drag nav#layout-mainmenu.navbar ul.nav li a:active .nav-label,body.drag .ma
 #layout-side-panel .sidepanel-content-header:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #d35400;border-bottom-width:0;position:absolute;left:14px;bottom:-8px}
 body.side-panel-not-fixed #layout-side-panel{display:none}
 body.side-panel-not-fixed #layout-side-panel .fix-button{opacity:0.5;filter:alpha(opacity=50)}
-body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:600;width:350px;-webkit-box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3);box-shadow:2px 0px 2px 0 rgba(0,0,0,0.3)}
+body.display-side-panel #layout-side-panel{display:block;position:absolute;z-index:600;width:350px;-webkit-box-shadow:3px 0px 3px 0 rgba(0,0,0,0.1);box-shadow:3px 0px 3px 0 rgba(0,0,0,0.1)}
 @media (min-width:992px){body.side-panel-fix-shadow #layout-side-panel{-webkit-box-shadow:none;box-shadow:none}
 }
 .touch #layout-side-panel .fix-button{display:none}
