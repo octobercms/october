@@ -2395,7 +2395,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-checkbox label:hover:before,.custom-radio label:hover:before{border-color:#b5bdc2}
 .custom-checkbox label:active:before,.custom-radio label:active:before{border-color:#99a4ab;border-width:2px}
 .custom-checkbox input[type=radio]:checked + label:before,.custom-radio input[type=radio]:checked + label:before{border-color:#1f99dc;line-height:17px;border-width:2px}
-.custom-checkbox input[type=radio]:checked + label:after,.custom-radio input[type=radio]:checked + label:after{content:'';width:12px;height:12px;background-color:#1f99dc;display:inline-block;position:absolute;left:0;top:2px;-webkit-border-radius:17px;-moz-border-radius:17px;border-radius:17px}
+.custom-checkbox input[type=radio]:checked + label:after,.custom-radio input[type=radio]:checked + label:after{content:'';width:12px;height:12px;background-color:#1f99dc;display:inline-block;position:absolute;left:0;top:3px;-webkit-border-radius:17px;-moz-border-radius:17px;border-radius:17px}
 .custom-checkbox input[type=radio][data-radio-color=green]:checked + label:before,.custom-radio input[type=radio][data-radio-color=green]:checked + label:before{border-color:#76a544}
 .custom-checkbox input[type=radio][data-radio-color=green]:checked + label:after,.custom-radio input[type=radio][data-radio-color=green]:checked + label:after{background-color:#76a544}
 .custom-checkbox input[type=radio][data-radio-color=red]:checked + label:before,.custom-radio input[type=radio][data-radio-color=red]:checked + label:before{border-color:#bb2424}
@@ -2699,7 +2699,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1{padding-left:115px}
 .inspector-fields tr.expanded{display:table-row}
 .inspector-fields.has-groups th{padding-left:20px}
 .inspector-fields.has-groups tr.grouped th{padding-left:35px}
-.inspector-fields td{font-weight:300;border-left:1px solid #c8cccd;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;background:#ffffff}
+.inspector-fields td{font-weight:400;border-left:1px solid #c8cccd;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;background:#ffffff}
 .inspector-fields td.text input[type=text]::-webkit-input-placeholder{font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text input[type=text]:-moz-placeholder{font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text input[type=text]::-moz-placeholder{font-weight:normal !important;color:#b5babd}
