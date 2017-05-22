@@ -222,7 +222,7 @@ class RecordFinder extends FormWidgetBase
 
     public function getKeyValue()
     {
-        if (!$this->relationModel) {
+        if ($this->relationModel->isEmpty()) {
             return null;
         }
 
@@ -231,7 +231,7 @@ class RecordFinder extends FormWidgetBase
 
     public function getNameValue()
     {
-        if (!$this->relationModel || !$this->nameFrom) {
+        if ($this->relationModel->isEmpty() || !$this->nameFrom) {
             return null;
         }
 
@@ -240,7 +240,7 @@ class RecordFinder extends FormWidgetBase
 
     public function getDescriptionValue()
     {
-        if (!$this->relationModel || !$this->descriptionFrom) {
+        if ($this->relationModel->isEmpty() || !$this->descriptionFrom) {
             return null;
         }
 
