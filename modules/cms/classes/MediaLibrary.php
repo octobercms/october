@@ -467,14 +467,14 @@ class MediaLibrary
 
     /**
      * Returns a public file URL.
-     * @param string $path Specifies the file path relative the the Library root.
+     * @param string $path Specifies the file path relative to the Library root.
      * @return string
      */
     public function getPathUrl($path)
     {
         $path = $this->validatePath($path);
 
-        return $this->storagePath.$path;
+        return $path;
     }
 
     /**
