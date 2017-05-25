@@ -41,10 +41,11 @@ if (window.jQuery.request !== undefined) {
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = new FormData($form[0]),
-            loading = options.loading !== undefined ? options.loading : null,
+        var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
-            useFlash = options.flash !== undefined
+            useFlash = options.flash !== undefined,
+            withFiles = $el[0] == $form[0] && $form.find(':file').length || $el.is(':file') || options.withFiles !== undefined,
+            data = withFiles ? new FormData($form[0]) : [$form.serialize()]
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             appendObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
@@ -306,7 +307,9 @@ if (window.jQuery.request !== undefined) {
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-        requestOptions.data = data
+        requestOptions.data = $.isArray(data) ? data.join('&') : data
+        
+        if (withFiles) requestOptions.processData = requestOptions.contentType = false
 
         /*
          * Initiate request
@@ -344,9 +347,7 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null,
-        contentType: false,
-        processData: false
+        evalComplete: null
     }
 
     /*
@@ -381,7 +382,8 @@ if (window.jQuery.request !== undefined) {
             flash: $this.data('request-flash'),
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
-            data: paramToObj('data-request-data', $this.data('request-data'))
+            data: paramToObj('data-request-data', $this.data('request-data')),
+            withFiles: $this.data('request-with-files')
         }
         if (!handler) handler = $this.data('request')
         var options = $.extend(true, {}, Request.DEFAULTS, data, typeof option == 'object' && option)
@@ -417,12 +419,15 @@ if (window.jQuery.request !== undefined) {
         }
     }
                
-    // Appends an object to a FormData instance
-    // ===========================
+    // Appends an object to the form data
+    // =======================
     function appendObjectToFormData(obj, formdata, namespace) {
         var formKey
         
-        if (typeof obj !== 'object' || obj === null) {
+        if (typeof obj !== 'object' || obj === null) return
+        
+        if ($.isArray(formdata)) {
+            formdata.push($.param(obj))
             return
         }
         
