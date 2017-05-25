@@ -1177,10 +1177,9 @@ class Lists extends WidgetBase
                 $q->$scopeMethod($term, $columns);
             });
         }
-        else {
-            $searchMethod = $boolean == 'and' ? 'searchWhere' : 'orSearchWhere';
-            $query->$searchMethod($term, $columns, $this->searchMode);
-        }
+        
+        $searchMethod = $boolean == 'and' ? 'searchWhere' : 'orSearchWhere';
+        $query->$searchMethod($term, $columns, $this->searchMode);
     }
 
     //
