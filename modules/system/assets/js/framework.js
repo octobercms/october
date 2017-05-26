@@ -44,8 +44,8 @@ if (window.jQuery.request !== undefined) {
         var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
-            withFiles = $el[0] == $form[0] && $form.find(':file').length || $el.is(':file') || options.withFiles !== undefined,
-            data = withFiles ? new FormData($form[0]) : [$form.serialize()]
+            sendFiles = $form.attr('enctype') == 'multipart/form-data' && ($el[0] == $form[0] || $el.is(':file') || options.sendFiles !== undefined),
+            data = sendFiles ? new FormData($form[0]) : [$form.serialize()]
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             appendObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
@@ -308,8 +308,8 @@ if (window.jQuery.request !== undefined) {
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
         requestOptions.data = $.isArray(data) ? data.join('&') : data
-        
-        if (withFiles) requestOptions.processData = requestOptions.contentType = false
+
+        if (sendFiles) requestOptions.processData = requestOptions.contentType = false
 
         /*
          * Initiate request
@@ -383,7 +383,7 @@ if (window.jQuery.request !== undefined) {
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data')),
-            withFiles: $this.data('request-with-files')
+            sendFiles: $this.data('request-send-files')
         }
         if (!handler) handler = $this.data('request')
         var options = $.extend(true, {}, Request.DEFAULTS, data, typeof option == 'object' && option)
@@ -418,19 +418,19 @@ if (window.jQuery.request !== undefined) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
     }
-               
+
     // Appends an object to the form data
     // =======================
     function appendObjectToFormData(obj, formdata, namespace) {
         var formKey
-        
+
         if (typeof obj !== 'object' || obj === null) return
-        
+
         if ($.isArray(formdata)) {
             formdata.push($.param(obj))
             return
         }
-        
+
         Object.keys(obj).forEach(function (property) {
             if (namespace) {
                 formKey = namespace + '[' + property + ']'
