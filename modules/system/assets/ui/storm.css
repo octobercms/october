@@ -2615,6 +2615,7 @@ table.table.data tfoot td,table.table.data tfoot th{border-color:#d4d8da;padding
 table.table.data th.list-cell-type-switch,table.table.data td.list-cell-type-switch{text-align:center}
 table.table.data th.list-cell-type-number,table.table.data td.list-cell-type-number{text-align:right}
 table.table.data .list-badge{display:inline-block;position:relative;top:0;margin:0 5px 0 0;padding:1px 0 0 0;font-size:10px;width:15px;height:15px;text-align:center;border-radius:3px;color:#fff}
+table.table.data .list-badge > i{position:relative;top:-1px}
 table.table.data .list-badge.badge-default{background:#999999}
 table.table.data .list-badge.badge-primary{background:#34495e}
 table.table.data .list-badge.badge-success{background:#31ac5f}
