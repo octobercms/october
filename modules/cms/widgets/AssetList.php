@@ -354,7 +354,7 @@ class AssetList extends WidgetBase
                 if (!@File::move($originalFullPath, $newFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_moving_file',
-                        ['file'=>$basename]
+                        ['file' => $basename]
                     ));
                 }
             }
@@ -362,28 +362,28 @@ class AssetList extends WidgetBase
                 if (!@File::copyDirectory($originalFullPath, $newFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_moving_directory',
-                        ['dir'=>$basename]
+                        ['dir' => $basename]
                     ));
                 }
 
                 if (strpos($originalFullPath, '../') !== false) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_deleting_directory',
-                        ['dir'=>$basename]
+                        ['dir' => $basename]
                     ));
                 }
 
                 if (strpos($originalFullPath, $safeDir) !== 0) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_deleting_directory',
-                        ['dir'=>$basename]
+                        ['dir' => $basename]
                     ));
                 }
 
                 if (!@File::deleteDirectory($originalFullPath)) {
                     throw new ApplicationException(Lang::get(
                         'cms::lang.asset.error_deleting_directory',
-                        ['dir'=>$basename]
+                        ['dir' => $basename]
                     ));
                 }
             }
@@ -414,7 +414,7 @@ class AssetList extends WidgetBase
             if (!File::makeDirectory($assetsPath)) {
                 throw new ApplicationException(Lang::get(
                     'cms::lang.cms_object.error_creating_directory',
-                    ['name'=>$assetsPath]
+                    ['name' => $assetsPath]
                 ));
             }
         }
@@ -655,7 +655,7 @@ class AssetList extends WidgetBase
             if ($uploadedFile->getSize() > $maxSize) {
                 throw new ApplicationException(Lang::get(
                     'cms::lang.asset.too_large',
-                    ['max_size '=> File::sizeToString($maxSize)]
+                    ['max_size' => File::sizeToString($maxSize)]
                 ));
             }
 
