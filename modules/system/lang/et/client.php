@@ -13,76 +13,76 @@ return [
     */
 
     'markdowneditor' => [
-        'formatting' => 'Formatting',
-        'quote' => 'Quote',
-        'code' => 'Code',
-        'header1' => 'Header 1',
-        'header2' => 'Header 2',
-        'header3' => 'Header 3',
-        'header4' => 'Header 4',
-        'header5' => 'Header 5',
-        'header6' => 'Header 6',
-        'bold' => 'Bold',
-        'italic' => 'Italic',
-        'unorderedlist' => 'Unordered List',
-        'orderedlist' => 'Ordered List',
+        'formatting' => 'Vorming',
+        'quote' => 'Tsitaat',
+        'code' => 'Kood',
+        'header1' => 'Pealkiri 1',
+        'header2' => 'Pealkiri 2',
+        'header3' => 'Pealkiri 3',
+        'header4' => 'Pealkiri 4',
+        'header5' => 'Pealkiri 5',
+        'header6' => 'Pealkiri 6',
+        'bold' => 'Paks',
+        'italic' => 'Kursiiv',
+        'unorderedlist' => 'Järjestamata nimekiri',
+        'orderedlist' => 'Järjestatud nimekiri',
         'video' => 'Video',
-        'image' => 'Image',
+        'image' => 'Pilt',
         'link' => 'Link',
-        'horizontalrule' => 'Insert Horizontal Rule',
-        'fullscreen' => 'Full screen',
-        'preview' => 'Preview',
+        'horizontalrule' => 'Sisesta horisontaaljoon',
+        'fullscreen' => 'Täisekraan',
+        'preview' => 'Eelvaade',
     ],
     'mediamanager' => [
-        'insert_link' => 'Insert Media Link',
-        'insert_image' => 'Insert Media Image',
-        'insert_video' => 'Insert Media Video',
-        'insert_audio' => 'Insert Media Audio',
-        'invalid_file_empty_insert' => 'Please select file to insert a links to.',
-        'invalid_file_single_insert' => 'Please select a single file.',
-        'invalid_image_empty_insert' => 'Please select image(s) to insert.',
-        'invalid_video_empty_insert' => 'Please select a video file to insert.',
-        'invalid_audio_empty_insert' => 'Please select an audio file to insert.',
+        'insert_link' => 'Sisesta link',
+        'insert_image' => 'Siseta pilt',
+        'insert_video' => 'Sisesta video',
+        'insert_audio' => 'Sisesta heliklipp',
+        'invalid_file_empty_insert' => 'Palun vali fail, millele link lisada.',
+        'invalid_file_single_insert' => 'Palun vali üks fail.',
+        'invalid_image_empty_insert' => 'Palun vali pildid, mida lisada.',
+        'invalid_video_empty_insert' => 'Palun vali videoklipp, mida lisada.',
+        'invalid_audio_empty_insert' => 'Palun vali heliklipp, mida lisada.',
     ],
     'alert' => [
         'confirm_button_text' => 'OK',
-        'cancel_button_text' => 'Cancel',
-        'widget_remove_confirm' => 'Remove this widget?'
+        'cancel_button_text' => 'Loobu',
+        'widget_remove_confirm' => 'Eemalda see widget?'
     ],
     'datepicker' => [
-        'previousMonth' => 'Previous Month',
-        'nextMonth' => 'Next Month',
-        'months' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        'previousMonth' => 'Eelmine kuu',
+        'nextMonth' => 'Järgmine kuu',
+        'months' => ['Jaanuar', 'Veebruar', 'Märts', 'Aprill', 'Mai', 'Juuni', 'Juuli', 'August', 'September', 'Oktoober', 'November', 'Detsember'],
+        'weekdays' => ['Pühapäev', 'Esmaspäev', 'Teisipäev', 'Kolmapäev', 'Neljapäev', 'Reede', 'Laupäev'],
+        'weekdaysShort' => ['P', 'E', 'T', 'K', 'N', 'R', 'L']
     ],
     'filter' => [
         'group' => [
-            'all' => 'all'
+            'all' => 'kõik'
         ],
         'dates' => [
-            'all' => 'all',
-            'filter_button_text' => 'Filter',
-            'reset_button_text'  => 'Reset',
-            'date_placeholder' => 'Date',
-            'after_placeholder' => 'After',
-            'before_placeholder' => 'Before'
+            'all' => 'kõik',
+            'filter_button_text' => 'Filtreeri',
+            'reset_button_text'  => 'Lähtesta',
+            'date_placeholder' => 'Kuupäev',
+            'after_placeholder' => 'Hiljem kui',
+            'before_placeholder' => 'Varem kui'
         ]
     ],
     'eventlog' => [
-        'show_stacktrace' => 'Show the stacktrace',
-        'hide_stacktrace' => 'Hide the stacktrace',
+        'show_stacktrace' => 'Näita stacktrace',
+        'hide_stacktrace' => 'Peida stacktrace',
         'tabs' => [
-            'formatted' => 'Formatted',
-            'raw' => 'Raw',
+            'formatted' => 'Kujundatud',
+            'raw' => 'Algne',
         ],
         'editor' => [
-            'title' => 'Source code editor',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
-            'openWith' => 'Open with',
-            'remember_choice' => 'Remember selected option for this session',
-            'open' => 'Open',
-            'cancel' => 'Cancel'
+            'title' => 'Lähtekoodi redaktor',
+            'description' => 'Sinu operatsioonisüsteem peaks olema sedistatud ühe URL skeemi jaoks.',
+            'openWith' => 'Ava programmiga',
+            'remember_choice' => 'Jäta valik selleks sessiooniks meelde',
+            'open' => 'Ava',
+            'cancel' => 'Loobu'
         ]
     ]
 ];
