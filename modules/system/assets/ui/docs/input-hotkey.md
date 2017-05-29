@@ -18,4 +18,14 @@ Allows keyboard shortcuts (hotkeys) to be bound to an element's click event.
         Press "Shift + R" on your keyboard
     </button>
 
+## Javascript API
 
+```html
+
+$('html').hotKey({
+  hotkey: 'ctrl+s, cmd+s',
+  hotkeyVisible: false,
+  callback: doSomething
+});
+
+```
