@@ -624,6 +624,20 @@ class Filter extends WidgetBase
                  * Scope
                  */
                 elseif ($scopeMethod = $scope->scope) {
+                    /*
+                     * Switch scope: multiple scopes
+                     */
+                    if(is_array($scopeMethod)) {
+                        $scopeNum = is_array($value) ? 0 : $value - 1;
+                        list($scopeMethod) = array_slice($scopeMethod, $scopeNum);
+                    }
+                    /*
+                     * Group scope
+                     */
+                    elseif(Str::contains($scopeMethod, ':filtered')) {
+                        $replace = (is_array($value)) ? $value[0] : $value;
+                        $scopeMethod = str_replace(':filtered', $replace, $scopeMethod);
+                    }
                     $query->$scopeMethod($value);
                 }
 
