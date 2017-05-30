@@ -171,7 +171,7 @@ class Updates extends Controller
 
             foreach ($updates as $version => $details) {
                 $contents[$version] = is_array($details)
-                    ? array_shift($details)
+                    ? implode($details, "\n")
                     : $details;
             }
         }
