@@ -42,12 +42,21 @@
             &:hover { color: @color-breadcrumb-text; }
         }
 
-        &:after {
+        &:before, &:after {
             top: 0;
             right: -14px;
             position: absolute;
             z-index: @zindex-breadcrumb;
+        }
+
+        &:after {
             .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
+        }
+
+        &:before {
+            right: -15px;
+            z-index: @zindex-breadcrumb - 1;
+            .triangle(right, 15px, 45px, @color-breadcrumb-background);
         }
 
         &:first-child {

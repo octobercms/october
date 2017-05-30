@@ -1441,7 +1441,9 @@ body.popover-open .control-popover .popover-head:before{display:none}
 .control-breadcrumb li{font-size:14px;list-style:none;margin:0;padding:12px 10px 12px 30px;display:inline-block;position:relative;color:#ffffff;background-color:#9098a2}
 .control-breadcrumb li a{display:inline-block;color:#ffffff;text-decoration:none}
 .control-breadcrumb li a:hover{color:#ffffff}
-.control-breadcrumb li:after{top:0;right:-14px;position:absolute;z-index:10;content:'';display:block;width:0;height:0;border-top:22.5px solid transparent;border-bottom:22.5px solid transparent;border-left:15px solid #9098a2}
+.control-breadcrumb li:before,.control-breadcrumb li:after{top:0;right:-14px;position:absolute;z-index:10}
+.control-breadcrumb li:after{content:'';display:block;width:0;height:0;border-top:22.5px solid transparent;border-bottom:22.5px solid transparent;border-left:15px solid #9098a2}
+.control-breadcrumb li:before{right:-15px;z-index:9;content:'';display:block;width:0;height:0;border-top:22.5px solid transparent;border-bottom:22.5px solid transparent;border-left:15px solid #d0d9dd}
 .control-breadcrumb li:first-child{padding-left:20px}
 .control-breadcrumb li:last-child:after{content:''}
 .control-breadcrumb li:last-child{background-color:transparent;color:#2a3e51}
