@@ -2,6 +2,7 @@
 
 use Str;
 use System\Classes\PluginManager;
+use Event;
 
 /**
  * Widget manager
@@ -188,6 +189,11 @@ class WidgetManager
             }
         }
 
+        /*
+         * Extensibility
+         */
+        Event::fire('system.reportwidgets.extendItems', [$this]);
+
         return $this->reportWidgets;
     }
 
@@ -215,4 +221,17 @@ class WidgetManager
     {
         $this->reportWidgetCallbacks[] = $definitions;
     }
+
+    /**
+     * Removes a single report widget item
+     */
+    public function removeReportWidgetItem($className)
+    {
+        if (!$this->reportWidgets) {
+            throw new SystemException('Unable to remove a widget before widgets are loaded.');
+        }
+
+        unset($this->reportWidgets[$className]);
+    }
+
 }
