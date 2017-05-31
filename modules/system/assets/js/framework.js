@@ -44,7 +44,7 @@ if (window.jQuery.request !== undefined) {
         var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
-            sendFiles = $form.attr('enctype') == 'multipart/form-data' && ($el[0] == $form[0] || $el.is(':file') || options.sendFiles !== undefined),
+            sendFiles = $form.attr('enctype') == 'multipart/form-data' && ($el[0] == $form[0] || $el.is(':file') || options.sendFiles),
             data = sendFiles ? new FormData($form[0]) : [$form.serialize()]
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
@@ -383,7 +383,7 @@ if (window.jQuery.request !== undefined) {
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data')),
-            sendFiles: $this.data('request-send-files')
+            sendFiles: $this.data('request-send-files') !== undefined
         }
         if (!handler) handler = $this.data('request')
         var options = $.extend(true, {}, Request.DEFAULTS, data, typeof option == 'object' && option)
