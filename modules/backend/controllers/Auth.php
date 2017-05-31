@@ -11,7 +11,7 @@ use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
 use Exception;
-
+use Event;
 /**
  * Authentication controller
  *
@@ -42,6 +42,7 @@ class Auth extends Controller
      */
     public function signin()
     {
+        Event::fire('backend.admin.signinform', [$this]);
         $this->bodyClass = 'signin';
 
         try {
