@@ -44,6 +44,25 @@ trait FormModelSaver
     }
 
     /**
+     * Initialise a singular relation object if it doesn't exist yet.
+     * @param Model $model
+     * @param string $attribute
+     */
+    protected function initSingularRelationObject($model, $attribute) {
+
+        $relation = $model->makeRelation($attribute);
+
+        switch($model->getRelationType($attribute)) {
+
+            case 'belongsTo' : $model->{$attribute}()->associate($relation);break;
+            case 'hasOne' : $model->{$attribute}()->add($relation);break;
+            case 'morphOne' : $model->{$attribute}()->add($relation);
+
+        }
+
+    }
+    
+    /**
      * Sets a data collection to a model attributes, relations will also be set.
      * @return void
      */
@@ -70,6 +89,12 @@ trait FormModelSaver
             );
 
             if ($isNested && is_array($value)) {
+                 $relationModel = $model->{$attribute};
+
+                if(is_null($relationModel)) {
+                    $this->initSingularRelationObject($model,$attribute);
+                }
+                
                 $this->setModelAttributes($model->{$attribute}, $value);
             }
             elseif ($value !== FormField::NO_SAVE_DATA) {
