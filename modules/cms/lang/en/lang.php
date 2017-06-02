@@ -284,7 +284,7 @@ return [
         'size' => 'Size',
         'title' => 'Title',
         'last_modified' => 'Last modified',
-        'public_url' => 'Download URL',
+        'public_url' => 'URL',
         'click_here' => 'Click here',
         'thumbnail_error' => 'Error generating thumbnail.',
         'return_to_parent' => 'Return to the parent folder',
