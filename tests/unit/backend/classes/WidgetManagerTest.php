@@ -38,7 +38,7 @@ class WidgetManagerTest extends TestCase
             'context' => 'dashboard'
         ]);
 
-        $manager->removeReportWidgetItem('Acme\Fake\ReportWidget\ByeWorld');
+        $manager->removeReportWidget('Acme\Fake\ReportWidget\ByeWorld');
 
         $widgets = $manager->listReportWidgets();
 

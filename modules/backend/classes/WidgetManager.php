@@ -223,9 +223,11 @@ class WidgetManager
     }
 
     /**
-     * Removes a single report widget item
+     * Remove a registered ReportWidget.
+     * @param string $className Widget class name.
+     * @return void
      */
-    public function removeReportWidgetItem($className)
+    public function removeReportWidget($className)
     {
         if (!$this->reportWidgets) {
             throw new SystemException('Unable to remove a widget before widgets are loaded.');
