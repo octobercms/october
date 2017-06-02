@@ -318,6 +318,7 @@ class FileUpload extends FormWidgetBase
             if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
                 $file->title = post('title');
                 $file->description = post('description');
+                $file->url = post('url');
                 $file->save();
 
                 return ['displayName' => $file->title ?: $file->file_name];

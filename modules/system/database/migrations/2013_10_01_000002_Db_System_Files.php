@@ -16,6 +16,7 @@ class DbSystemFiles extends Migration
             $table->string('content_type');
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->text('url')->nullable();
             $table->string('field')->nullable()->index();
             $table->string('attachment_id')->index()->nullable();
             $table->string('attachment_type')->index()->nullable();

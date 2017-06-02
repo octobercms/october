@@ -38,7 +38,12 @@
                     placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
                     class="form-control"><?= e($file->description) ?></textarea>
             </div>
-
+            <div class="form-group">
+                <textarea
+                        name="url"
+                        placeholder="<?= e(trans('backend::lang.fileupload.url_label')) ?>"
+                        class="form-control"><?= $file->url ?></textarea>
+            </div>
         </div>
         <div class="modal-footer">
             <a href="<?= $file->pathUrl ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">

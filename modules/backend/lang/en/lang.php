@@ -191,6 +191,7 @@ return [
         'help' => 'Add a title and description for this attachment.',
         'title_label' => 'Title',
         'description_label' => 'Description',
+        'url_label' => 'Url',
         'default_prompt' => 'Click the %s or drag a file here to upload',
         'attachment_url' => 'Attachment URL',
         'upload_file' => 'Upload file',
