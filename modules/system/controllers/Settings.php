@@ -24,8 +24,14 @@ class Settings extends Controller
      */
     protected $formWidget;
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = [];
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();

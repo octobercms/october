@@ -154,18 +154,19 @@
 .control-scrollbar > div{-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
 .control-scrollbar > .scrollbar-scrollbar{position:absolute;z-index:100}
 .control-scrollbar > .scrollbar-scrollbar .scrollbar-track{background-color:transparent;position:relative;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
-.control-scrollbar > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{background-color:#aaaaaa;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;overflow:hidden;position:absolute}
+.control-scrollbar > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{background-color:rgba(0,0,0,0.35);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;overflow:hidden;position:absolute}
 .control-scrollbar > .scrollbar-scrollbar.disabled{display:none !important}
-.control-scrollbar.vertical > .scrollbar-scrollbar{right:0;width:4px}
-.control-scrollbar.vertical > .scrollbar-scrollbar .scrollbar-track{height:100%;width:4px}
-.control-scrollbar.vertical > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{height:20px;width:4px;top:0;left:0}
-.control-scrollbar.vertical > .scrollbar-scrollbar:active,.control-scrollbar.vertical > .scrollbar-scrollbar:hover{width:6px;-webkit-transition:width 0.3s;transition:width 0.3s}
-.control-scrollbar.vertical > .scrollbar-scrollbar:active .scrollbar-track,.control-scrollbar.vertical > .scrollbar-scrollbar:hover .scrollbar-track,.control-scrollbar.vertical > .scrollbar-scrollbar:active .scrollbar-thumb,.control-scrollbar.vertical > .scrollbar-scrollbar:hover .scrollbar-thumb{width:6px;-webkit-transition:width 0.3s;transition:width 0.3s}
-.control-scrollbar.horizontal > .scrollbar-scrollbar{margin:0 0 5px;clear:both;height:4px}
-.control-scrollbar.horizontal > .scrollbar-scrollbar .scrollbar-track{width:100%;height:4px}
-.control-scrollbar.horizontal > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{height:4px;margin:2px 0;left:0;top:0}
-.control-scrollbar.horizontal > .scrollbar-scrollbar:active,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover{height:6px;-webkit-transition:height 0.3s;transition:height 0.3s}
-.control-scrollbar.horizontal > .scrollbar-scrollbar:active .scrollbar-track,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover .scrollbar-track,.control-scrollbar.horizontal > .scrollbar-scrollbar:active .scrollbar-thumb,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover .scrollbar-thumb{height:6px;-webkit-transition:height 0.3s;transition:height 0.3s}
+.control-scrollbar.vertical > .scrollbar-scrollbar{right:0;margin-right:5px;width:6px}
+.control-scrollbar.vertical > .scrollbar-scrollbar .scrollbar-track{height:100%;width:6px}
+.control-scrollbar.vertical > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{height:20px;width:6px;top:0;left:0}
+.control-scrollbar.vertical > .scrollbar-scrollbar:active,.control-scrollbar.vertical > .scrollbar-scrollbar:hover{width:8px;-webkit-transition:width 0.3s;transition:width 0.3s}
+.control-scrollbar.vertical > .scrollbar-scrollbar:active .scrollbar-track,.control-scrollbar.vertical > .scrollbar-scrollbar:hover .scrollbar-track,.control-scrollbar.vertical > .scrollbar-scrollbar:active .scrollbar-thumb,.control-scrollbar.vertical > .scrollbar-scrollbar:hover .scrollbar-thumb{width:8px;-webkit-transition:width 0.3s;transition:width 0.3s}
+.control-scrollbar.horizontal > .scrollbar-scrollbar{margin:0 0 5px;clear:both;height:6px}
+.control-scrollbar.horizontal > .scrollbar-scrollbar .scrollbar-track{width:100%;height:6px}
+.control-scrollbar.horizontal > .scrollbar-scrollbar .scrollbar-track .scrollbar-thumb{height:6px;margin:2px 0;left:0;top:0}
+.control-scrollbar.horizontal > .scrollbar-scrollbar:active,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover{height:8px;-webkit-transition:height 0.3s;transition:height 0.3s}
+.control-scrollbar.horizontal > .scrollbar-scrollbar:active .scrollbar-track,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover .scrollbar-track,.control-scrollbar.horizontal > .scrollbar-scrollbar:active .scrollbar-thumb,.control-scrollbar.horizontal > .scrollbar-scrollbar:hover .scrollbar-thumb{height:8px;-webkit-transition:height 0.3s;transition:height 0.3s}
+html.mobile .control-scrollbar{overflow:auto;-webkit-overflow-scrolling:touch}
 .no-touch .control-scrollbar > .scrollbar-scrollbar{opacity:0;-webkit-transition:opacity 0.3s;transition:opacity 0.3s}
 .no-touch .control-scrollbar:active > .scrollbar-scrollbar,.no-touch .control-scrollbar:hover > .scrollbar-scrollbar{opacity:1}
 @media (max-width:768px){.responsive-sidebar > .layout-cell:last-child .control-scrollbar{overflow:visible;height:auto}
@@ -431,7 +432,7 @@ body.dragging .control-treeview.treeview-light ol.dragging > li > div,body.dragg
 .sidenav-tree ul.top-level > li > div.group:before,.sidenav-tree ul.top-level > li > div.group:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #34495e;border-bottom-width:0;position:absolute;left:15px;bottom:-8px;z-index:101}
 .sidenav-tree ul.top-level > li > div.group:after{content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid rgba(0,0,0,0.15);border-bottom-width:0}
 .sidenav-tree ul.top-level > li > ul li a{display:block;position:relative;padding:18px 25px 18px 55px;background:transparent;border-bottom:1px solid rgba(0,0,0,0.15);color:#ffffff;text-decoration:none !important;opacity:0.65;filter:alpha(opacity=65)}
-.sidenav-tree ul.top-level > li > ul li a:hover{text-decoration:none}
+.sidenav-tree ul.top-level > li > ul li a:active,.sidenav-tree ul.top-level > li > ul li a:hover{opacity:1;filter:alpha(opacity=100);text-decoration:none}
 .sidenav-tree ul.top-level > li > ul li a i{position:absolute;left:16px;top:18px;font-size:22px}
 .sidenav-tree ul.top-level > li > ul li a span{display:block;line-height:150%}
 .sidenav-tree ul.top-level > li > ul li a span.header{color:#ffffff;font-size:15px;margin-bottom:5px}
@@ -441,8 +442,17 @@ body.dragging .control-treeview.treeview-light ol.dragging > li > div,body.dragg
 .sidenav-tree ul.top-level > li > ul li.active a{color:rgba(255,255,255,0.91);padding-right:20px}
 .sidenav-tree ul.top-level > li > ul li.active a span.header{color:#ffffff}
 .sidenav-tree ul.top-level > li > ul li.active a span.description{color:rgba(255,255,255,0.91)}
-.sidenav-tree ul.top-level > li > ul li:last-child a{border-bottom:none}
 .sidenav-tree .back-link{display:none}
+@media (min-width:768px){.sidenav-tree-root .sidenav-tree{width:600px}
+.sidenav-tree-root .sidenav-tree ul.top-level > li > ul{font-size:0;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:stretch;align-content:stretch}
+.sidenav-tree-root .sidenav-tree ul.top-level > li > ul > li{display:inline-block;width:300px}
+.sidenav-tree-root .sidenav-tree ul.top-level > li > ul > li a{height:100%}
+}
+@media (min-width:768px) and (max-width:991px){.sidenav-tree-root .sidenav-tree{width:100%}
+.sidenav-tree-root .sidenav-tree ul.top-level > li > ul > li{width:50%}
+}
+@media (min-width:1200px){.sidenav-tree-root .sidenav-tree{width:900px}
+}
 @media (max-width:768px){.sidenav-tree{width:100%;height:auto !important;display:block !important}
 .sidenav-tree > .layout{display:none}
 .sidenav-tree-root .sidenav-tree{width:100% !important;height:100% !important;display:table-cell !important}
@@ -501,7 +511,7 @@ div.control-scrollpad > div::-webkit-scrollbar{width:0;height:0}
 div.control-scrollpad[data-direction=horizontal] > div{overflow-x:scroll;overflow-y:hidden;width:100%}
 div.control-scrollpad[data-direction=horizontal] > div::-webkit-scrollbar{width:auto;height:0}
 div.control-scrollpad > .scrollpad-scrollbar{z-index:199;position:absolute;top:0;right:0;bottom:0;width:11px;background-color:transparent;opacity:0;overflow:hidden;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-transition:opacity 0.3s;transition:opacity 0.3s}
-div.control-scrollpad > .scrollpad-scrollbar .drag-handle{position:absolute;right:2px;min-height:10px;width:7px;background-color:#aaaaaa;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+div.control-scrollpad > .scrollpad-scrollbar .drag-handle{position:absolute;right:2px;min-height:10px;width:7px;background-color:rgba(0,0,0,0.35);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 div.control-scrollpad > .scrollpad-scrollbar:hover{opacity:0.7;filter:alpha(opacity=70);-webkit-transition:opacity 0 linear;transition:opacity 0 linear}
 div.control-scrollpad > .scrollpad-scrollbar[data-visible]{opacity:0.7;filter:alpha(opacity=70)}
 div.control-scrollpad > .scrollpad-scrollbar[data-hidden]{display:none}
@@ -584,7 +594,7 @@ html.svg .svg-icon-container i.svg-replace{display:none}
 100%{opacity:0;-webkit-transform:translate3d(0,-100%,0);-ms-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}
 }
 .fadeOutUp{-webkit-animation-name:fadeOutUp;animation-name:fadeOutUp}
-body.drag *{cursor:drag !important;cursor:-webkit-grab !important;cursor:-moz-grab !important}
+html:not(.mobile) body.drag *{cursor:drag !important;cursor:-webkit-grab !important;cursor:-moz-grab !important}
 body.dragging,body.dragging *{cursor:move !important}
 body.loading,body.loading *{cursor:wait !important}
 body.no-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default !important}
@@ -648,7 +658,7 @@ body.slim-container .layout.layout-container,body.slim-container .layout .layout
 .flex-layout-item.center{-webkit-align-self:center;-moz-align-self:center;-ms-align-self:center;align-self:center}
 .flex-layout-item.relative{position:relative}
 .flex-layout-item.layout-container{max-width:none}
-body.mainmenu-open{overflow:hidden}
+body.mainmenu-open{overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner{font-size:13px;padding:6px 16px}
 nav#layout-mainmenu{background-color:#000000;padding:0 0 0 20px;line-height:0;white-space:nowrap;vertical-align:top}
 nav#layout-mainmenu a{text-decoration:none}
@@ -712,9 +722,11 @@ nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li:first-child{margin-left:
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li:hover .nav-label{width:auto;min-width:100px;text-overflow:all;overflow:visible;z-index:2}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li.active:first-child{margin-left:0}
 nav#layout-mainmenu .menu-toggle{height:45px;line-height:45px;font-size:16px;display:none}
-nav#layout-mainmenu .menu-toggle .menu-toggle-icon{background:#333;display:inline-block;height:45px;line-height:45px;width:45px;text-align:center}
-nav#layout-mainmenu .menu-toggle .menu-toggle-icon i{line-height:1;font-size:30px;vertical-align:middle}
+nav#layout-mainmenu .menu-toggle .menu-toggle-icon{background:#333;display:inline-block;height:45px;line-height:45px;width:45px;text-align:center;opacity:.7}
+nav#layout-mainmenu .menu-toggle .menu-toggle-icon i{line-height:45px;font-size:20px;vertical-align:bottom}
 nav#layout-mainmenu .menu-toggle .menu-toggle-title{margin-left:10px}
+nav#layout-mainmenu .menu-toggle:hover .menu-toggle-icon{opacity:1}
+body.mainmenu-open nav#layout-mainmenu .menu-toggle-icon{opacity:1}
 nav#layout-mainmenu.navbar-mode-collapse{padding-left:0;height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-preview a{height:45px;line-height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account > a{height:45px;line-height:45px}
@@ -758,6 +770,7 @@ nav#layout-mainmenu.navbar .menu-toggle{display:inline-block;color:#ffffff !impo
 .mainmenu-collapsed.scroll-before .scroll-marker.before{display:block}
 .mainmenu-collapsed.scroll-after .scroll-marker.after{display:block}
 body.mainmenu-open .mainmenu-collapsed ul{position:absolute;left:0;top:10px;bottom:10px}
+html.mobile .mainmenu-collapsed ul{overflow:auto;-webkit-overflow-scrolling:touch}
 nav#layout-mainmenu.navbar ul li:hover a:active,.mainmenu-collapsed li:hover a:active,nav#layout-mainmenu.navbar ul li:hover a:focus,.mainmenu-collapsed li:hover a:focus{color:#ffffff !important}
 .touch .mainmenu-collapsed li a:hover{color:rgba(255,255,255,0.6)}
 nav#layout-mainmenu.navbar ul li.highlight > a,.mainmenu-collapsed li.highlight > a{color:#ffffff !important}
@@ -777,6 +790,7 @@ body.drag nav#layout-mainmenu.navbar ul.nav li:hover,body.drag .mainmenu-collaps
 #layout-sidenav ul li.active a i,#layout-sidenav ul li a:hover i{color:#ffffff}
 #layout-sidenav ul li span.counter{display:block;position:absolute;top:15px;right:15px;padding:2px 6px 3px 4px;background-color:#d9350f;color:#ffffff;font-size:11px;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty{opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
+html.mobile #layout-sidenav ul{overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover{color:rgba(255,255,255,0.6) !important}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover i,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover i{color:rgba(255,255,255,0.6) !important}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover:after,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover:after{display:none !important}

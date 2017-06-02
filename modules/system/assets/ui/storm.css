@@ -1736,6 +1736,7 @@ a.control-status-list > ul li .status-text.danger:hover{color:#843534}
 .control-toolbar input.form-control[type=text]{height:auto;padding:6px 13px 6px}
 .control-toolbar.toolbar-padded{padding:20px}
 [data-control=toolbar]{white-space:nowrap;width:100%;overflow:hidden}
+html.mobile [data-control=toolbar].is-native-drag{overflow:auto;-webkit-overflow-scrolling:touch}
 .control-toolbar.editor-toolbar{padding:0;background:#f2f2f2;border-bottom-right-radius:0;border-bottom-left-radius:0;border-bottom:2px solid #d4d8da}
 .control-toolbar.editor-toolbar .toolbar-item .btn,.control-toolbar.editor-toolbar .toolbar-item .btn-group,.control-toolbar.editor-toolbar .toolbar-item .dropdown{margin:0;padding:0}
 .control-toolbar.editor-toolbar .toolbar-item .btn{text-align:center;height:38px;width:38px;line-height:38px;zoom:1;color:rgba(64,82,97,0.8);background:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-box-shadow:none;box-shadow:none;text-shadow:none;border-radius:0;font-size:14px}

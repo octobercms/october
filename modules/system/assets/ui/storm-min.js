@@ -2947,7 +2947,8 @@ this.$toolbar=$toolbar
 this.options=options||{};var noDragSupport=options.noDragSupport!==undefined&&options.noDragSupport
 Base.call(this)
 var scrollClassContainer=options.scrollClassContainer!==undefined?options.scrollClassContainer:$el.parent()
-$el.dragScroll({scrollClassContainer:scrollClassContainer,useDrag:!noDragSupport})
+if(this.options.useNativeDrag){$el.addClass('is-native-drag')}
+$el.dragScroll({scrollClassContainer:scrollClassContainer,useDrag:!noDragSupport,useNative:this.options.useNativeDrag})
 $('.form-control.growable',$toolbar).on('focus.toolbar',function(){update()})
 $('.form-control.growable',$toolbar).on('blur.toolbar',function(){update()})
 this.$el.one('dispose-control',this.proxy(this.dispose))
@@ -2960,7 +2961,7 @@ this.$el.dragScroll('dispose')
 this.$el.removeData('oc.toolbar')
 this.$el=null
 BaseProto.dispose.call(this)}
-Toolbar.DEFAULTS={}
+Toolbar.DEFAULTS={useNativeDrag:false}
 var old=$.fn.toolbar
 $.fn.toolbar=function(option){var args=Array.prototype.slice.call(arguments,1)
 return this.each(function(){var $this=$(this)
@@ -4192,47 +4193,45 @@ $.fn.sortable.noConflict=function(){$.fn.sortable=old
 return this}}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var DragScroll=function(element,options){this.options=$.extend({},DragScroll.DEFAULTS,options)
 var
-$el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX';this.el=$el
+$el=$(element),el=$el.get(0),dragStart=0,startOffset=0,self=this,dragging=false,eventElementName=this.options.vertical?'pageY':'pageX',isNative=this.options.useNative&&$('html').hasClass('mobile');this.el=$el
 this.scrollClassContainer=this.options.scrollClassContainer?$(this.options.scrollClassContainer):$el
 this.isScrollable=true
 Base.call(this)
 if(this.options.scrollMarkerContainer){$(this.options.scrollMarkerContainer).append($('<span class="before scroll-marker"></span><span class="after scroll-marker"></span>'))}
 var $scrollSelect=this.options.scrollSelector?$(this.options.scrollSelector,$el):$el
-$scrollSelect.mousewheel(function(event){if(!self.options.useScroll)
-return;var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
+$scrollSelect.mousewheel(function(event){if(!self.options.useScroll){return;}
+var offset,offsetX=event.deltaFactor*event.deltaX,offsetY=event.deltaFactor*event.deltaY
 if(!offsetX&&self.options.useComboScroll){offset=offsetY*-1}
 else if(!offsetY&&self.options.useComboScroll){offset=offsetX}
 else{offset=self.options.vertical?(offsetY*-1):offsetX}
 return!scrollWheel(offset)})
-if(this.options.useDrag){$el.on('mousedown.dragScroll',this.options.dragSelector,function(event){if(event.target&&event.target.tagName==='INPUT')
-return
-if(!self.isScrollable)
-return
+if(this.options.useDrag){$el.on('mousedown.dragScroll',this.options.dragSelector,function(event){if(event.target&&event.target.tagName==='INPUT'){return}
+if(!self.isScrollable){return}
 startDrag(event)
 return false})}
-$el.on('touchstart.dragScroll',this.options.dragSelector,function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
-event.stopPropagation()}})
-$el.on('click.dragScroll',function(){if($(document.body).hasClass(self.options.dragClass))
-return false})
+if(Modernizr.touch){$el.on('touchstart.dragScroll',this.options.dragSelector,function(event){var touchEvent=event.originalEvent
+if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
+event.stopPropagation()}})}
+$el.on('click.dragScroll',function(){if($(document.body).hasClass(self.options.dragClass)){return false}})
 $(document).on('ready',this.proxy(this.fixScrollClasses))
 $(window).on('resize',this.proxy(this.fixScrollClasses))
 function startDrag(event){dragStart=event[eventElementName]
 startOffset=self.options.vertical?$el.scrollTop():$el.scrollLeft()
 if(Modernizr.touch){$(window).on('touchmove.dragScroll',function(event){var touchEvent=event.originalEvent
 moveDrag(touchEvent.touches[0])
-event.preventDefault()})
+if(!isNative){event.preventDefault()}})
 $(window).on('touchend.dragScroll',function(event){stopDrag()})}
-else{$(window).on('mousemove.dragScroll',function(event){moveDrag(event)
+$(window).on('mousemove.dragScroll',function(event){moveDrag(event)
 return false})
 $(window).on('mouseup.dragScroll',function(mouseUpEvent){var isClick=event.pageX==mouseUpEvent.pageX&&event.pageY==mouseUpEvent.pageY
 stopDrag(isClick)
-return false})}}
+return false})}
 function moveDrag(event){var current=event[eventElementName],offset=dragStart-current
 if(Math.abs(offset)>3){if(!dragging){dragging=true
 $el.trigger('start.oc.dragScroll')
 self.options.start()
 $(document.body).addClass(self.options.dragClass)}
-self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)
+if(!isNative){self.options.vertical?$el.scrollTop(startOffset+offset):$el.scrollLeft(startOffset+offset)}
 $el.trigger('drag.oc.dragScroll')
 self.options.drag()}}
 function stopDrag(click){$(window).off('.dragScroll')
@@ -4253,7 +4252,7 @@ return scrolled}
 this.fixScrollClasses();}
 DragScroll.prototype=Object.create(BaseProto)
 DragScroll.prototype.constructor=DragScroll
-DragScroll.DEFAULTS={vertical:false,useDrag:true,useScroll:true,useComboScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,scrollSelector:null,dragSelector:null,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
+DragScroll.DEFAULTS={vertical:false,useDrag:true,useScroll:true,useNative:false,useComboScroll:true,scrollClassContainer:false,scrollMarkerContainer:false,scrollSelector:null,dragSelector:null,dragClass:'drag',start:function(){},drag:function(){},stop:function(){}}
 DragScroll.prototype.fixScrollClasses=function(){var isStart=this.isStart(),isEnd=this.isEnd()
 this.scrollClassContainer.toggleClass('scroll-before',!isStart)
 this.scrollClassContainer.toggleClass('scroll-after',!isEnd)
@@ -5358,14 +5357,14 @@ if(iconClass){return'<i class="select-icon '+iconClass+'"></i> '+state.text}
 if(imageSrc){return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text}
 return state.text}
 DropdownEditor.prototype.createOption=function(select,title,value){var option=document.createElement('option')
-if(title!==null){if(!$.isArray(title)){option.textContent=title}else{if(title[1].indexOf('.')!==-1){option.setAttribute('data-image',title[1])}
+if(title!==null){if(!$.isArray(title)){option.textContent=title}
+else{if(title[1].indexOf('.')!==-1){option.setAttribute('data-image',title[1])}
 else{option.setAttribute('data-icon',title[1])}
 option.textContent=title[0]}}
 if(value!==null){option.value=value}
 select.appendChild(option)}
 DropdownEditor.prototype.createOptions=function(select,options){for(var value in options){this.createOption(select,options[value],value)}}
 DropdownEditor.prototype.initCustomSelect=function(){var select=this.getSelect()
-if(Modernizr.touch){return}
 var options={dropdownCssClass:'ocInspectorDropdown'}
 if(this.propertyDefinition.placeholder!==undefined){options.placeholder=this.propertyDefinition.placeholder}
 options.templateResult=this.formatSelectOption

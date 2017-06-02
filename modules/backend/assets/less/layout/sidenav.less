@@ -78,6 +78,13 @@
     }
 }
 
+html.mobile {
+    #layout-sidenav ul {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {
     color: @color-sidebarnav-inactive-text !important;

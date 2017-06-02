@@ -2,7 +2,7 @@
 // Common layout elements
 // --------------------------------------------------
 
-body.drag * {
+html:not(.mobile) body.drag * {
     cursor: drag !important;
     cursor: -webkit-grab !important;
     cursor: -moz-grab !important;
@@ -19,7 +19,7 @@ body.loading, body.loading * {
 
 body.no-select {
     .user-select(none);
-    cursor: default!important;
+    cursor: default !important;
 }
 
 //

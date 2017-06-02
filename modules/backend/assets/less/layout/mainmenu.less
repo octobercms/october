@@ -13,6 +13,7 @@
 
 body.mainmenu-open {
     overflow: hidden;
+    position: fixed;
 }
 
 .mainmenu-item-link() {
@@ -460,16 +461,31 @@ nav#layout-mainmenu {
             line-height: @mainmenu-mode-collapse-height;
             width: @mainmenu-mode-collapse-height;
             text-align: center;
+            opacity: .7;
 
             i {
-                line-height: 1;
-                font-size: 30px;
-                vertical-align: middle;
+                line-height: @mainmenu-mode-collapse-height;
+                font-size: 20px;
+                vertical-align: bottom;
             }
         }
 
         .menu-toggle-title {
             margin-left: 10px;
+        }
+
+        &:hover {
+            .menu-toggle-icon {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+body.mainmenu-open {
+    nav#layout-mainmenu {
+        .menu-toggle-icon {
+            opacity: 1;
         }
     }
 }
@@ -482,15 +498,6 @@ nav#layout-mainmenu.navbar-mode-collapse {
     nav#layout-mainmenu.navbar {
         .mainmenu-navbar-collapse();
     }
-}
-
-// This logic is implemented in the october.navbar.js script,
-// it prevents the collapse mode from working beyond the min
-// breakpoint. Leaving this code just in case, remove later.
-// -SG
-@media (min-width: @menu-breakpoint-min) {
-    // #layout-canvas { position: static !important; }
-    // .mainmenu-collapsed { display: none !important; }
 }
 
 .mainmenu-navbar-collapse() {
@@ -567,6 +574,13 @@ body.mainmenu-open .mainmenu-collapsed ul {
     left: 0;
     top: 10px;
     bottom: 10px;
+}
+
+html.mobile {
+    .mainmenu-collapsed ul {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 //
