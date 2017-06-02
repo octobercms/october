@@ -2,11 +2,16 @@
 // Side navigation bar
 // --------------------------------------------------
 
+.layout-sidenav-container {
+    width: 120px;
+}
+
 #layout-sidenav {
     position: absolute;
     height: 100%;
     width: 100%;
     .box-sizing(border-box);
+    font-size: @font-size-base;
 
     ul {
         position: relative;
@@ -21,9 +26,9 @@
             position: relative;
 
             a {
-                padding: 20px 10px;
+                padding: 1.429em .714em;
                 display: block;
-                font-size: @font-size-base - 1;
+                font-size: .929em;
                 color: @color-sidebarnav-inactive-text;
                 font-weight: normal;
                 position: relative;
@@ -41,12 +46,12 @@
                     color: @color-sidebarnav-inactive-icon;
                     display: block;
                     margin-bottom: 5px;
-                    font-size: 28px;
+                    font-size: 2em;
                 }
             }
 
             &:first-child a {
-                padding-top: 30px;
+                padding-top: 2.143em;
             }
 
             &.active a, a:hover {
@@ -57,12 +62,12 @@
             span.counter {
                 display: block;
                 position: absolute;
-                top: 15px;
-                right: 15px;
-                padding: 2px 6px 3px 4px;
+                top: 1.071em;
+                right: 1.071em;
+                padding: .143em .429em .214em .286em;
                 background-color: @color-sidebarnav-counter-bg;
                 color: @color-sidebarnav-counter-text;
-                font-size: 11px;
+                font-size: .786em;
                 line-height: 100%;
                 .border-radius(3px);
                 .opacity(1);
@@ -75,6 +80,15 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: @screen-xs) {
+    #layout-sidenav {
+        font-size: 10px;
+    }
+    .layout-sidenav-container {
+        width: 80px;
     }
 }
 

@@ -2449,6 +2449,10 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .form-control.icon.lock{background-position:right 0}
 .form-control.growable{width:110px}
 .form-control.growable:focus,.form-control.growable:active{width:200px !important}
+@media (max-width:480px){.form-control.growable{width:40px;text-indent:-999px}
+.form-control.growable:focus,.form-control.growable:active{text-indent:0;width:100px !important}
+.form-control.growable.icon{padding-right:0 !important}
+}
 .form-group{position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .form-group:empty{display:none}
 .form-group,.form-group.layout-item{padding-bottom:20px;margin-bottom:0}

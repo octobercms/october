@@ -778,18 +778,22 @@ nav#layout-mainmenu.navbar ul li.active,.mainmenu-collapsed li.active{color:#fff
 nav#layout-mainmenu.navbar ul li.active a,.mainmenu-collapsed li.active a{color:#ffffff !important}
 nav#layout-mainmenu.navbar ul li:hover,.mainmenu-collapsed li:hover{color:#ffffff;background:transparent}
 body.drag nav#layout-mainmenu.navbar ul.nav li:hover,body.drag .mainmenu-collapsed ul li:hover{color:rgba(255,255,255,0.6)}
-#layout-sidenav{position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.layout-sidenav-container{width:120px}
+#layout-sidenav{position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:14px}
 #layout-sidenav ul{position:relative;margin:0;padding:0;height:100%;overflow:hidden}
 #layout-sidenav ul li{display:block;text-align:center;position:relative}
-#layout-sidenav ul li a{padding:20px 10px;display:block;font-size:13px;color:rgba(255,255,255,0.6);font-weight:normal;position:relative}
+#layout-sidenav ul li a{padding:1.429em .714em;display:block;font-size:.929em;color:rgba(255,255,255,0.6);font-weight:normal;position:relative}
 #layout-sidenav ul li a:hover{text-decoration:none;background-color:transparent}
 #layout-sidenav ul li a:focus{background:transparent}
-#layout-sidenav ul li a i{color:rgba(255,255,255,0.6);display:block;margin-bottom:5px;font-size:28px}
-#layout-sidenav ul li:first-child a{padding-top:30px}
+#layout-sidenav ul li a i{color:rgba(255,255,255,0.6);display:block;margin-bottom:5px;font-size:2em}
+#layout-sidenav ul li:first-child a{padding-top:2.143em}
 #layout-sidenav ul li.active a,#layout-sidenav ul li a:hover{color:#ffffff}
 #layout-sidenav ul li.active a i,#layout-sidenav ul li a:hover i{color:#ffffff}
-#layout-sidenav ul li span.counter{display:block;position:absolute;top:15px;right:15px;padding:2px 6px 3px 4px;background-color:#d9350f;color:#ffffff;font-size:11px;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
+#layout-sidenav ul li span.counter{display:block;position:absolute;top:1.071em;right:1.071em;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#ffffff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty{opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
+@media (max-width:480px){#layout-sidenav{font-size:10px}
+.layout-sidenav-container{width:80px}
+}
 html.mobile #layout-sidenav ul{overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover{color:rgba(255,255,255,0.6) !important}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover i,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover i{color:rgba(255,255,255,0.6) !important}

@@ -748,6 +748,7 @@ this.$scrollbar=$('<div />').addClass('scrollbar-scrollbar')
 this.$track=$('<div />').addClass('scrollbar-track').appendTo(this.$scrollbar)
 this.$thumb=$('<div />').addClass('scrollbar-thumb').appendTo(this.$track)
 $el.addClass('drag-scrollbar').addClass(options.vertical?'vertical':'horizontal').prepend(this.$scrollbar)
+$el.dragScroll()
 if(isTouch){this.$el.on('touchstart',function(event){var touchEvent=event.originalEvent;if(touchEvent.touches.length==1){startDrag(touchEvent.touches[0])
 event.stopPropagation()}})}
 else{this.$thumb.on('mousedown',function(event){startDrag(event)})

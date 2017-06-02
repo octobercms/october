@@ -92,6 +92,20 @@
         &:focus, &:active {
             width: 200px !important;
         }
+
+        @media (max-width: @screen-xs) {
+            width: 40px;
+            text-indent: -999px;
+
+            &:focus, &:active {
+                text-indent: 0;
+                width: 100px !important;
+            }
+
+            &.icon {
+                padding-right: 0 !important;
+            }
+        }
     }
 }
 
