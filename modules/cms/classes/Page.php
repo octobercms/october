@@ -181,7 +181,7 @@ class Page extends CmsCompoundObject
      * with the following keys:
      * - url - the menu item URL. Not required for menu item types that return all available records.
      *   The URL should be returned relative to the website root and include the subdirectory, if any.
-     *   Use the URL::to() helper to generate the URLs.
+     *   Use the Url::to() helper to generate the URLs.
      * - isActive - determines whether the menu item is active. Not required for menu item types that
      *   return all available records.
      * - items - an array of arrays with the same keys (url, isActive, items) + the title key.

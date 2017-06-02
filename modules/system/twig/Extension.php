@@ -1,6 +1,6 @@
 <?php namespace System\Twig;
 
-use URL;
+use Url;
 use Twig_Extension;
 use Twig_TokenParser;
 use Twig_SimpleFilter;
@@ -90,6 +90,6 @@ class Extension extends Twig_Extension
      */
     public function appFilter($url)
     {
-        return URL::to($url);
+        return Url::to($url);
     }
 }

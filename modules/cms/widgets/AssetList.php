@@ -1,7 +1,7 @@
 <?php namespace Cms\Widgets;
 
 use Str;
-use URL;
+use Url;
 use File;
 use Lang;
 use Input;
@@ -438,7 +438,7 @@ class AssetList extends WidgetBase
 
     protected function getThemeFileUrl($path)
     {
-        return URL::to('themes/'.$this->theme->getDirName().'/assets'.$path);
+        return Url::to('themes/'.$this->theme->getDirName().'/assets'.$path);
     }
 
     public function getCurrentRelativePath()

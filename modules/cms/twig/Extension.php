@@ -1,6 +1,5 @@
 <?php namespace Cms\Twig;
 
-use URL;
 use Flash;
 use Block;
 use Event;

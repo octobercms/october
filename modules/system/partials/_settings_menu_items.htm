@@ -18,7 +18,7 @@
             <ul>
                 <?php foreach ($items as $item): ?>
                     <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>" data-keywords="<?= e(trans($item->keywords)) ?>">
-                        <a href="<?= $item->url ?>">
+                        <a href="<?= $item->url ?>" ontouchstart="">
                             <i class="<?= $item->icon ?>"></i>
                             <span class="header"><?= e(trans($item->label)) ?></span>
                             <span class="description"><?= e(trans($item->description)) ?></span>
