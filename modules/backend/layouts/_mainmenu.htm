@@ -24,7 +24,7 @@
                         <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
-                                    <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
+                                    <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">
                                 <?php endif ?>
 
                                 <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -42,7 +42,7 @@
         <ul class="mainmenu-toolbar">
             <li class="mainmenu-preview with-tooltip">
                 <a
-                    href="<?= URL::to('/') ?>"
+                    href="<?= Url::to('/') ?>"
                     target="_blank"
                     title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
