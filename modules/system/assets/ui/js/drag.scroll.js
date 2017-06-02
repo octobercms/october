@@ -136,7 +136,7 @@
             startOffset = self.options.vertical ? $el.scrollTop() : $el.scrollLeft()
 
             if (Modernizr.touch) {
-                $(window).on('touchmove.dragScroll', function(event){
+                $(window).on('touchmove.dragScroll', function(event) {
                     var touchEvent = event.originalEvent
                     moveDrag(touchEvent.touches[0])
                     if (!isNative) {
@@ -149,12 +149,12 @@
                 })
             }
 
-            $(window).on('mousemove.dragScroll', function(event){
+            $(window).on('mousemove.dragScroll', function(event) {
                 moveDrag(event)
                 return false
             })
 
-            $(window).on('mouseup.dragScroll', function(mouseUpEvent){
+            $(window).on('mouseup.dragScroll', function(mouseUpEvent) {
                 var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
                 stopDrag(isClick)
                 return false

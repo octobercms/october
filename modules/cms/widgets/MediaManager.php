@@ -50,6 +50,9 @@ class MediaManager extends WidgetBase
      */
     public $cropAndInsertButton = false;
 
+    /**
+     * Constructor.
+     */
     public function __construct($controller, $alias)
     {
         $this->alias = $alias;
@@ -784,7 +787,7 @@ class MediaManager extends WidgetBase
             }
         }
 
-        return array_reverse($result);
+        return array_reverse($result, true);
     }
 
     protected function setViewMode($viewMode)

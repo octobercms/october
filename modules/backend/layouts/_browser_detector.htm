@@ -43,7 +43,7 @@ if(!preg_match('/opera|webtv/i', $ua) && preg_match('/msie\s(\d)/', $ua, $array)
     $b[] = $g;
 }
 
-// platform             
+// platform
 if(strstr($ua, 'j2me')) {
     $b[] = $m . ' j2me';
 } else if(strstr($ua, 'iphone')) {
