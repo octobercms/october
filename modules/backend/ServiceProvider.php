@@ -107,7 +107,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('Backend\ReportWidgets\Welcome', [
+            $manager->registerReportWidget(\Backend\ReportWidgets\Welcome::class, [
                 'label'   => 'backend::lang.dashboard.welcome.widget_title_default',
                 'context' => 'dashboard'
             ]);

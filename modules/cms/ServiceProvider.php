@@ -63,8 +63,8 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerComponents()
     {
         ComponentManager::instance()->registerComponents(function ($manager) {
-            $manager->registerComponent('Cms\Components\ViewBag', 'viewBag');
-            $manager->registerComponent('Cms\Components\Resources', 'resources');
+            $manager->registerComponent(\Cms\Components\ViewBag::class, 'viewBag');
+            $manager->registerComponent(\Cms\Components\Resources::class, 'resources');
         });
     }
 
@@ -199,7 +199,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('Cms\ReportWidgets\ActiveTheme', [
+            $manager->registerReportWidget(\Cms\ReportWidgets\ActiveTheme::class, [
                 'label'   => 'cms::lang.dashboard.active_theme.widget_title_default',
                 'context' => 'dashboard'
             ]);
