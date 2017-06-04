@@ -282,6 +282,7 @@ class Lists extends WidgetBase
     public function onPaginate()
     {
         $this->currentPageNumber = post('page');
+        $this->putSession('currentPage', $this->currentPageNumber);
         return $this->onRefresh();
     }
 
@@ -518,7 +519,10 @@ class Lists extends WidgetBase
             $records = $model->getNested();
         }
         elseif ($this->showPagination) {
-            $records = $model->paginate($this->recordsPerPage, $this->currentPageNumber);
+            $records = $model->paginate(
+                $this->recordsPerPage,
+                $this->getSession('currentPage', $this->currentPageNumber)
+            );
         }
         else {
             $records = $model->get();
