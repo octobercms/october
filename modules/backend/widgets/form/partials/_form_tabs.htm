@@ -22,7 +22,7 @@
 <div class="tab-content <?= $contentCss ?>">
     <?php $index = 0; foreach ($tabs as $name => $fields): ?>
         <div
-            class="tab-pane <?= $index++==0?'active':''?> <?= $paneCss ?>"
+            class="tab-pane <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $index++==0?'active':''?> <?= $paneCss ?>"
             id="<?= $type.'tab-'.$index ?>">
             <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
         </div>
