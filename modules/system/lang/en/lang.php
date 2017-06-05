@@ -61,9 +61,11 @@ return [
             'users' => 'Users',
             'system' => 'System',
             'social' => 'Social',
+            'backend' => 'Backend',
             'events' => 'Events',
             'customers' => 'Customers',
-            'my_settings' => 'My Settings'
+            'my_settings' => 'My Settings',
+            'notifications' => 'Notifications'
         ]
     ],
     'theme' => [

@@ -2,7 +2,7 @@
 
 use Db;
 use App;
-use URL;
+use Url;
 use File;
 use Lang;
 use Http;
@@ -874,7 +874,7 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
+        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;

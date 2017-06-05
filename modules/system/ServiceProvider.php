@@ -338,7 +338,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('System\ReportWidgets\Status', [
+            $manager->registerReportWidget(\System\ReportWidgets\Status::class, [
                 'label'   => 'backend::lang.dashboard.status.widget_title_default',
                 'context' => 'dashboard'
             ]);
@@ -401,15 +401,6 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.manage_users'],
                     'order'       => 400
                 ],
-                'mail_settings' => [
-                    'label'       => 'system::lang.mail.menu_label',
-                    'description' => 'system::lang.mail.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MAIL,
-                    'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSetting',
-                    'permissions' => ['system.manage_mail_settings'],
-                    'order'       => 600
-                ],
                 'mail_templates' => [
                     'label'       => 'system::lang.mail_templates.menu_label',
                     'description' => 'system::lang.mail_templates.menu_description',
@@ -418,6 +409,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('system/mailtemplates'),
                     'permissions' => ['system.manage_mail_templates'],
                     'order'       => 610
+                ],
+                'mail_settings' => [
+                    'label'       => 'system::lang.mail.menu_label',
+                    'description' => 'system::lang.mail.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-envelope',
+                    'class'       => 'System\Models\MailSetting',
+                    'permissions' => ['system.manage_mail_settings'],
+                    'order'       => 620
                 ],
                 'event_logs' => [
                     'label'       => 'system::lang.event_log.menu_label',
