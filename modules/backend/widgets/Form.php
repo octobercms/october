@@ -401,7 +401,9 @@ class Form extends WidgetBase
         $eventResults = $this->fireSystemEvent('backend.form.refresh', [$result], false);
 
         foreach ($eventResults as $eventResult) {
-            $result = $eventResult + $result;
+            if (is_array($eventResult)) {
+                $result = $eventResult + $result;
+            }
         }
 
         return $result;
