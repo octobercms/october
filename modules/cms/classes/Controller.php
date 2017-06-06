@@ -31,6 +31,7 @@ use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * The CMS controller class.
@@ -656,6 +657,13 @@ class Controller
                     $responseContents['result'] = $result;
                 }
                 elseif (is_object($result)) {
+                    return $result;
+                }
+                /**
+                 * If the handler returned File response,
+                 * return as it is.
+                 */
+                elseif ($result instanceof BinaryFileResponse) {
                     return $result;
                 }
 

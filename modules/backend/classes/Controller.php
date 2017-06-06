@@ -24,6 +24,7 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * The Backend base controller class, used by Backend controllers.
@@ -444,6 +445,13 @@ class Controller extends Extendable
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
                     $result = null;
+                }
+                /**
+                 * If the handler returned File response,
+                 * return as it is.
+                 */
+                elseif ($result instanceof BinaryFileResponse) {
+                    return $result;
                 }
                 /*
                  * No redirect is used, look for any flash messages
