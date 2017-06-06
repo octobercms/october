@@ -31,7 +31,8 @@
         "october/system": "dev-l55upgrade",
         "october/backend": "dev-l55upgrade",
         "october/cms": "dev-l55upgrade",
-        "laravel/framework": "5.5.*@dev"
+        "laravel/framework": "5.5.*@dev",
+        "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
