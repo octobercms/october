@@ -452,6 +452,8 @@ class MediaLibrary
             throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', compact('path')));
         }
 
+        $path = str_replace('', '%20', $path);
+
         return $path;
     }
 
