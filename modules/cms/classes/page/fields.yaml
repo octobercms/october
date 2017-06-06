@@ -51,6 +51,12 @@ tabs:
         settings[meta_title]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_title
+            
+        settings[meta_keywords]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_keywords
+            type: textarea
+            size: tiny
 
         settings[meta_description]:
             tab: cms::lang.editor.meta

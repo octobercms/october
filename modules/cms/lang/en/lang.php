@@ -174,6 +174,7 @@ return [
         'preview' => 'Preview',
         'meta' => 'Meta',
         'meta_title' => 'Meta Title',
+        'meta_keywords' => 'Meta Keywords',
         'meta_description' => 'Meta Description',
         'markup' => 'Markup',
         'code' => 'Code',
