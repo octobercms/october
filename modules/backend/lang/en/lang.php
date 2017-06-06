@@ -22,7 +22,7 @@ return [
         ],
         'no_database' => [
             'label' => 'Database missing',
-            'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
+            'help' => 'A database is required to access the back-end. Check the database is configured and migrated before trying again.',
             'cms_link' => 'Return to the homepage'
         ],
         'invalid_token' => [
@@ -123,7 +123,7 @@ return [
         'permissions' => 'Permissions',
         'account' => 'Account',
         'superuser' => 'Super User',
-        'superuser_comment' => 'Grants this account unlimited access to all areas of the system. Super users can add and manage other users. ',
+        'superuser_comment' => 'Grants this account unlimited access to all areas of the system. Super users can add and manage other users.',
         'send_invite' => 'Send invitation by email',
         'send_invite_comment' => 'Sends a welcome message containing login and password information.',
         'delete_confirm' => 'Delete this administrator?',
@@ -141,7 +141,7 @@ return [
             'name_field' => 'Name',
             'description_field' => 'Description',
             'is_new_user_default_field_label' => 'Default group',
-            'is_new_user_default_field_comment' => 'Add new administrators to this group by default',
+            'is_new_user_default_field_comment' => 'Add new administrators to this group by default.',
             'code_field' => 'Code',
             'code_comment' => 'Enter a unique code if you want to access the group object with the API.',
             'menu_label' => 'Manage Groups',
@@ -306,7 +306,7 @@ return [
         'missing_id' => 'There is no ID specified for looking up the model record.',
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'missing_method' => "Model ':class' does not contain a method ':method'.",
-        'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
+        'invalid_class' => 'Model :model used in :class is not valid, it must inherit the \Model class.',
         'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'."
     ],
     'warnings' => [
