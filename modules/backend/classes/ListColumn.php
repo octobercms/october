@@ -92,6 +92,26 @@ class ListColumn
     public $path;
 
     /**
+     * @var bool If set to yes convert switch column into a button
+     */
+    public $switchable = false;
+
+    /**
+     * @var bool If set to yes display tick/cross instead of yes/no
+     */
+    public $icon = false;
+
+    /**
+     * @var string Default lang string displayed on switch buttons for advise change to false
+     */
+    public $switchLinkTitleTrue = 'backend::lang.list.column_switch_link_title_true';
+
+    /**
+     * @var string Default lang string displayed on switch buttons for advise change to true
+     */
+    public $switchLinkTitleFalse = 'backend::lang.list.column_switch_link_title_false';
+
+    /**
      * @var array Raw field configuration.
      */
     public $config;
@@ -162,6 +182,18 @@ class ListColumn
         }
         if (isset($config['path'])) {
             $this->path = $config['path'];
+        }
+        if (isset($config['switchable'])) {
+            $this->switchable = $config['switchable'];
+        }
+        if (isset($config['icon'])) {
+            $this->icon = $config['icon'];
+        }
+        if (isset($config['switchLinkTitleFalse'])) {
+            $this->switchLinkTitleFalse = $config['switchLinkTitleFalse'];
+        }
+        if (isset($config['switchLinkTitleTrue'])) {
+            $this->switchLinkTitleTrue = $config['switchLinkTitleTrue'];
         }
 
         return $config;

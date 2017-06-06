@@ -345,6 +345,30 @@ class ListController extends ControllerBehavior
     }
 
     /**
+     * Switch a boolean value of a model field
+     * @return void
+     */
+    public function index_onSwitchField()
+    {
+        $field = post('field');
+        $id = post('id');
+        $modelClass = post('model');
+
+        if (empty($field) || empty($id) || empty($modelClass)) {
+            Flash::error('Following parameters are required : id, field, model');
+            return;
+        }
+
+        $model = new $modelClass;
+        $item = $model::find($id);
+        $item->{$field} = !$item->{$field};
+
+        $item->save();
+
+        return $this->controller->listRefresh($this->primaryDefinition);
+    }
+
+    /**
      * Renders the widget collection.
      * @param  string $definition Optional list definition.
      * @return string Rendered HTML for the list.

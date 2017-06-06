@@ -887,6 +887,40 @@ class Lists extends WidgetBase
         return $value;
     }
 
+    /**
+     * Return data-request-data params for the switch button
+     * @param Model                      $record
+     * @param Backend\Classes\ListColumn $column
+     * @return string
+     */
+    public function getSwitchFieldRequestData($record, $column)
+    {
+        $modelClass = str_replace('\\', '\\\\', get_class($record));
+
+        return implode(', ', [
+            "id: $record->id",
+            "field: '$column->columnName'",
+            "model: '$modelClass'"
+        ]);
+    }
+
+    /*
+     * Return translated linkTitle for the current status of the field (true/false)
+     * @param Model                      $record
+     * @param Backend\Classes\ListColumn $column
+     * @return string
+     */
+    public function getSwitchFieldLinkTitle($record, $column)
+    {
+        $value = $this->getColumnValueRaw($record, $column);
+
+        if ($value) {
+            return e(trans($column->switchLinkTitleTrue));
+        }
+
+        return e(trans($column->switchLinkTitleFalse));
+    }
+
     //
     // Value processing
     //
@@ -965,7 +999,13 @@ class Lists extends WidgetBase
     {
         $contents = '';
 
-        if ($value) {
+        if ($value && $column->icon) {
+            $contents = '<i class="oc-icon-check"></i>';
+        }
+        elseif (!$value && $column->icon) {
+            $contents = '<i class="oc-icon-times"></i>';
+        }
+        elseif ($value) {
             $contents = Lang::get('backend::lang.list.column_switch_true');
         }
         else {

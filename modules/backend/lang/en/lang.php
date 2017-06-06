@@ -184,7 +184,9 @@ return [
         'delete_selected_confirm' => 'Delete the selected records?',
         'delete_selected_success' => 'Deleted selected records.',
         'column_switch_true' => 'Yes',
-        'column_switch_false' => 'No'
+        'column_switch_false' => 'No',
+        'column_switch_link_title_true' => 'Click to switch to No',
+        'column_switch_link_title_false' => 'Click to switch to Yes'
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
