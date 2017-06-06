@@ -8,4 +8,17 @@
  */
 class PartialCode extends CodeBase
 {
+    public function getParam($attr) {
+        $params = $this->getParams();
+
+        if(isset($params[$attr])) {
+            return $params[$attr];
+        } else {
+            return null;
+        }
+    }
+
+    public function getParams() {
+        return $this->controller->vars["this"]["partial"]["vars"];
+    }
 }

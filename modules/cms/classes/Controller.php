@@ -20,6 +20,7 @@ use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Models\MaintenanceSetting;
+use Cms\Classes\Partial;
 use System\Models\RequestLog;
 use System\Helpers\View as ViewHelper;
 use System\Classes\ErrorHandler;
@@ -115,6 +116,11 @@ class Controller
     protected $partialStack = [];
 
     /**
+     * @var \Cms\Classes\Partial holding partial object
+     */
+    protected $partial;
+
+    /**
      * Creates the controller.
      * @param \Cms\Classes\Theme $theme Specifies the CMS theme.
      * If the theme is not specified, the current active theme used.
@@ -129,6 +135,7 @@ class Controller
         $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->partialStack = new PartialStack;
+        $this->partial = new Partial;
         $this->initTwigEnvironment();
 
         self::$instance = $this;
@@ -285,6 +292,7 @@ class Controller
             'theme'       => $this->theme,
             'param'       => $this->router->getParameters(),
             'controller'  => $this,
+            'partial'     => $this->partial,
             'environment' => App::environment(),
             'session'     => App::make('session'),
         ];
@@ -760,6 +768,7 @@ class Controller
     {
         $vars = $this->vars;
         $this->vars = array_merge($this->vars, $parameters);
+        $this->vars["this"]["partial"]["vars"] = $parameters;
 
         /*
          * Alias @ symbol for ::

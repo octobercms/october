@@ -14,11 +14,30 @@ class Partial extends CmsCompoundObject
     protected $dirName = 'partials';
 
     /**
+     * @var array collection of vars passed to partial
+     */
+     protected $vars = [];
+
+    /**
      * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
      * @return string Returns the class name.
      */
     public function getCodeClassParent()
     {
         return '\Cms\Classes\PartialCode';
+    }
+
+    public function getParam( $var )
+    {
+        if(isset($this->vars[$var])) {
+            return $this->vars[$var];
+        } else {
+            return null;
+        }
+    }
+
+    public function getParams()
+    {
+      return $this->vars;
     }
 }
