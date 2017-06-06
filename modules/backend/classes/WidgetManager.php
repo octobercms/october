@@ -189,8 +189,20 @@ class WidgetManager
             }
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event system.reportwidgets.extendItems
+         * Allows to append or remove a report widget.
+         *
+         * You will have access to the WidgetManager instance and be able to call the appropiated methods
+         * $manager->registerReportWidget();
+         * $manager->removeReportWidget();
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.reportwidgets.extendItems', function($manager) {
+         *          $manager->removeReportWidget('Acme\ReportWidgets\YourWidget');
+         *     });
+         *
          */
         Event::fire('system.reportwidgets.extendItems', [$this]);
 
