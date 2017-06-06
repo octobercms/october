@@ -151,7 +151,7 @@ class AssetList extends WidgetBase
                             if (!@File::delete($fullPath)) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_file',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
                         }
@@ -160,14 +160,14 @@ class AssetList extends WidgetBase
                             if ($empty === false) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_dir_not_empty',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
 
                             if (!@rmdir($fullPath)) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_dir',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
                         }
@@ -248,7 +248,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -289,7 +289,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -390,7 +390,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
