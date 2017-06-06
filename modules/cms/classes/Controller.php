@@ -659,7 +659,20 @@ class Controller
                     return $result;
                 }
 
-                return Response::make($responseContents, $this->statusCode);
+                if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
+                    $content = json_decode($result->getContent(), true);
+                    if ($content !== null) {
+                        $responseContents = array_merge($responseContents, $content);
+                    }
+
+                    $result->setStatusCode(200);
+                    $result->setContent(json_encode($responseContents));
+                }
+                else {
+                    $result = Response::make($responseContents, $this->statusCode);
+                }
+
+                return $result;
             }
             catch (ValidationException $ex) {
                 /*
