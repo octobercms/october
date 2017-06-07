@@ -19,9 +19,9 @@ class MailLayout extends Model
     protected $table = 'system_mail_layouts';
 
     public $rules = [
-        'code'                  => 'required|unique:system_mail_layouts',
-        'name'                  => 'required',
-        'content_html'          => 'required',
+        'code'         => 'required|unique:system_mail_layouts',
+        'name'         => 'required',
+        'content_html' => 'required'
     ];
 
     public static $codeCache;
@@ -46,5 +46,4 @@ class MailLayout extends Model
     {
         return array_get(self::listCodes(), $code);
     }
-
 }

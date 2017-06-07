@@ -120,7 +120,7 @@ class MailSetting extends Model
     public function getSmtpEncryptionOptions()
     {
         return [
-            '' => 'system::lang.mail.smtp_encryption_none',
+            ''    => 'system::lang.mail.smtp_encryption_none',
             'tls' => 'system::lang.mail.smtp_encryption_tls',
             'ssl' => 'system::lang.mail.smtp_encryption_ssl',
         ];
