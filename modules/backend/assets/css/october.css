@@ -296,7 +296,7 @@ html.mobile .control-scrollbar{overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treelist li.dragged > div.record:before{display:none}
 .control-treelist li.placeholder{display:inline-block;position:relative;background:#4ea5e0 !important;height:25px;margin-bottom:5px}
 .control-treelist li.placeholder:before{display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f053";color:#d35714;left:-10px;top:8px;z-index:2000}
-.control-treeview{margin-bottom:40px; }
+.control-treeview{margin-bottom:40px;  }
 .control-treeview ol{margin:0;padding:0;list-style:none;background:#ffffff}
 .control-treeview ol > li{-webkit-transition:width 1s;transition:width 1s}
 .control-treeview ol > li > div{font-size:14px;font-weight:normal;background:#ffffff;border-bottom:1px solid #ecf0f1;position:relative}
@@ -396,6 +396,14 @@ html.mobile .control-scrollbar{overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > a{margin-left:-161px;padding-left:161px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div:before{margin-left:100px}
 .control-treeview ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > div > span.expand{left:102px}
+.control-treeview.with-dual-icons ol > li > div:before,.control-treeview.with-icons ol > li > div:before{display:none}
+.control-treeview.with-dual-icons ol > li > div span.icon,.control-treeview.with-icons ol > li > div span.icon{display:block;position:absolute;width:22px;height:22px;left:20px;top:15px;text-align:center;font-weight:500;line-height:22px;color:#999}
+.control-treeview.with-dual-icons ol > li > div span.icon > i,.control-treeview.with-icons ol > li > div span.icon > i{line-height:22px;font-weight:normal;font-size:22px;color:#999}
+.control-treeview.with-dual-icons ol > li > div:hover span.icon > i,.control-treeview.with-icons ol > li > div:hover span.icon > i,.control-treeview.with-dual-icons ol > li > div.popover-highlight span.icon > i,.control-treeview.with-icons ol > li > div.popover-highlight span.icon > i{color:#fff !important}
+.control-treeview.with-dual-icons ol > li > div > a{padding-left:91px}
+.control-treeview.with-dual-icons ol > li > div span.icon:first-child{font-size:11px;color:#ccc}
+.control-treeview.with-dual-icons ol > li > div span.icon:first-child > i{color:#ccc;font-size:15px}
+.control-treeview.with-dual-icons ol > li > div span.icon:last-child{left:52px}
 .control-treeview p.no-data{padding:18px 0;margin:0;color:#666666;font-size:14px;text-align:center;font-weight:400}
 .control-treeview a.menu-control{display:block;margin:20px;padding:13px 15px;border:dotted 2px #ebebeb;color:#bdc3c7;font-size:12px;font-weight:600;text-transform:uppercase;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;vertical-align:middle}
 .control-treeview a.menu-control:hover{text-decoration:none;background-color:#58b6f7 !important;color:#ffffff !important;border:none;padding:15px 17px}
@@ -408,6 +416,7 @@ html.mobile .control-scrollbar{overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treeview.treeview-light ol > li > div span.expand{top:19px}
 .control-treeview.treeview-light ol > li > div > span.drag-handle{top:0;right:0;bottom:auto;height:100%;width:60px;background:#2581b8;-webkit-transition:none !important;transition:none !important}
 .control-treeview.treeview-light ol > li > div > span.drag-handle:before{position:absolute;left:50%;top:50%;margin-left:-6px}
+.control-treeview.treeview-light ol > li > div > .subpanel{right:0;top:0;height:100%;position:absolute;z-index:200;padding:0 20px}
 .control-treeview.treeview-light ol > li > div > ul.submenu{right:60px;left:auto;bottom:auto;top:0;height:100%;margin:0;background:transparent;white-space:nowrap;font-size:0}
 .control-treeview.treeview-light ol > li > div > ul.submenu:before,.control-treeview.treeview-light ol > li > div > ul.submenu:after{display:none}
 .control-treeview.treeview-light ol > li > div > ul.submenu li{height:100%;display:inline-block;background:#2581b8;border-right:1px solid #328ec8}
