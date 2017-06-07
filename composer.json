@@ -34,7 +34,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit": "~5.7",
         "phpunit/phpunit-selenium": "~1.2"
     },
     "autoload-dev": {
