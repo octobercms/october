@@ -8,6 +8,7 @@ use Model;
 use October\Rain\Mail\MailParser;
 use System\Classes\PluginManager;
 use System\Helpers\View as ViewHelper;
+use ApplicationException;
 
 /**
  * Mail template
@@ -25,10 +26,10 @@ class MailTemplate extends Model
     protected $table = 'system_mail_templates';
 
     public $rules = [
-        'code'                  => 'required|unique:system_mail_templates',
-        'subject'               => 'required',
-        'description'           => 'required',
-        'content_html'          => 'required',
+        'code'         => 'required|unique:system_mail_templates',
+        'subject'      => 'required',
+        'description'  => 'required',
+        'content_html' => 'required'
     ];
 
     public $belongsTo = [
@@ -55,8 +56,10 @@ class MailTemplate extends Model
     {
         $fileTemplates = (array) self::make()->listRegisteredTemplates();
         $dbTemplates = (array) self::lists('description', 'code');
+
         $templates = $fileTemplates + $dbTemplates;
         ksort($templates);
+
         return $templates;
     }
 
@@ -161,11 +164,15 @@ class MailTemplate extends Model
         /*
          * HTML contents
          */
+        if (preg_match('{{(\s*message*\s*)}}', $template->content_html)) {
+            throw new ApplicationException('Do not use the \'message\' variable.');
+        }
+
         $html = Twig::parse($template->content_html, $data);
         if ($template->layout) {
             $html = Twig::parse($template->layout->content_html, [
                 'content' => $html,
-                'css' => $template->layout->content_css
+                'css'     => $template->layout->content_css
             ] + (array) $data);
         }
 
