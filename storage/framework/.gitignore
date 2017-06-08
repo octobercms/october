@@ -2,5 +2,7 @@ config.php
 routes.php
 compiled.php
 services.php
+classes.php
+packages.php
 events.scanned.php
 routes.scanned.php
