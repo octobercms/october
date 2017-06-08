@@ -20,7 +20,7 @@ class DbSystemTimestampFix extends Migration
                 $columns = ['created_at', 'updated_at'];
             }
 
-            DbDongle::convertTimestamps($table, $columns);
+            DbDongle::convertTimestamps(DbDongle::getTablePrefix() . $table, $columns);
         }
     }
 
