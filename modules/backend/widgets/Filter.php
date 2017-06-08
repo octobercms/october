@@ -1,11 +1,14 @@
 <?php namespace Backend\Widgets;
 
+use Backend;
+use Backend\Classes\FormField;
+use Backend\FormWidgets\DatePicker;
+use Carbon\Carbon;
 use Db;
 use Str;
 use Lang;
-use Backend;
+use Event;
 use DbDongle;
-use Carbon\Carbon;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
@@ -39,7 +42,7 @@ class Filter extends WidgetBase
     //
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected $defaultAlias = 'filter';
 
@@ -135,6 +138,32 @@ class Filter extends WidgetBase
                     }
                 }
 
+            case 'numberrange':
+                if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
+                    $scope->value[0] &&
+                    $scope->value[1]
+                ) {
+                    $min = $scope->value[0];
+                    $max = $scope->value[1];
+
+                    if($min) {
+                        $params['minStr'] = $min;
+                        $params['min']    = $min;
+                    }
+                    else {
+                        $params['minStr'] = '';
+                        $params['min']    = null;
+                    }
+
+                    if($max) {
+                        $params['maxStr'] = $max;
+                        $params['max']    = $max;
+                    }
+                    else {
+                        $params['maxStr'] = '∞';
+                        $params['max']    = null;
+                    }
+                }
                 break;
         }
 
@@ -202,15 +231,26 @@ class Filter extends WidgetBase
 
                 $this->setScopeValue($scope, $dates);
                 break;
+            case 'numberrange':
+                $numbers = $this->numbersFromAjax(post('options.numbers'));
+                if (!empty($numbers)) {
+                    list($min, $max) = $numbers;
+
+                    $numbers = [$min, $max];
+                }
+                else {
+                    $numbers = null;
+                }
+
+                $this->setScopeValue($scope, $numbers);
+                break;
         }
 
         /*
          * Trigger class event, merge results as viewable array
          */
         $params = func_get_args();
-
         $result = $this->fireEvent('filter.update', [$params]);
-
         if ($result && is_array($result)) {
             return call_user_func_array('array_merge', $result);
         }
@@ -305,7 +345,8 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
+        Event::fire('backend.filter.extendQuery', [$this, $query, $scope]);
+        $this->fireEvent('filter.extendQuery', [$query, $scope]);
 
         if (!$searchQuery) {
             return $query->get();
@@ -365,7 +406,7 @@ class Filter extends WidgetBase
     {
         $filteredOptions = [];
 
-        $optionMatchesSearch = function ($words, $option) {
+        $optionMatchesSearch = function($words, $option) {
             foreach ($words as $word) {
                 $word = trim($word);
                 if (!strlen($word)) {
@@ -415,7 +456,8 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireSystemEvent('backend.filter.extendScopesBefore');
+        Event::fire('backend.filter.extendScopesBefore', [$this]);
+        $this->fireEvent('filter.extendScopesBefore');
 
         /*
          * All scopes
@@ -429,7 +471,8 @@ class Filter extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireSystemEvent('backend.filter.extendScopes');
+        Event::fire('backend.filter.extendScopes', [$this]);
+        $this->fireEvent('filter.extendScopes');
 
         $this->scopesDefined = true;
     }
@@ -470,18 +513,14 @@ class Filter extends WidgetBase
                 $scopeObj->maxDate = '2099-12-31';
             }
 
+            /*
+             * Ensure dates options are set
+             */
+            if (!isset($config['minNumber'])) {
+                $scopeObj->minNumber = '0';
+                $scopeObj->maxNumber = '999999999';
+            }
             $this->allScopes[$name] = $scopeObj;
-        }
-    }
-    
-    /**
-     * Programatically remove a scope, used for extensibility.
-     * @param string $scopeName Scope name
-     */
-    public function removeScope($scopeName)
-    {
-        if (isset($this->allScopes[$scopeName])) {
-            unset($this->allScopes[$scopeName]);
         }
     }
 
@@ -593,6 +632,33 @@ class Filter extends WidgetBase
 
                 break;
 
+            case 'numberrange':
+            \Log::info(print_r($scope->value, true));
+                if (is_array($scope->value) && count($scope->value) > 1) {
+                    list($min, $max) = array_values($scope->value);
+
+                    if ($min && $max) {
+
+                        /*
+                         * Condition
+                         *
+                         */
+                        if ($scopeConditions = $scope->conditions) {
+                            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
+                                ':min'  => $min,
+                                ':max'  => $max
+                            ])));
+                        }
+                        /*
+                         * Scope
+                         */
+                        elseif ($scopeMethod = $scope->scope) {
+                            $query->$scopeMethod($min, $max);
+                        }
+                    }
+                }
+
+                break;
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
 
@@ -750,6 +816,7 @@ class Filter extends WidgetBase
         return $processed;
     }
 
+
     /**
      * Convert an array from the posted dates
      *
@@ -787,6 +854,46 @@ class Filter extends WidgetBase
         }
         return $dates;
     }
+
+    /**
+     * Convert an array from the posted numbers
+     *
+     * @param  mixed $scope
+     * @param  array $numbers
+     *
+     * @return array
+     */
+    protected function numbersFromAjax($ajaxNumbers)
+    {
+        $numbers = [];
+        $dateRegex = '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/';
+
+        if (null !== $ajaxNumbers) {
+            if (!is_array($ajaxNumbers)) {
+        //        if(preg_match($dateRegex, $ajaxDates)) {
+                    $numbers = [$ajaxNumbers];
+        //        }
+            } else {
+                foreach ($ajaxNumbers as $i => $number) {
+                  //            if (preg_match($dateRegex, $number)) {
+                    if(!empty($number)){
+                        $numbers[] = $number;
+                    } elseif (empty($number)) {
+                        if($i == 0) {
+                            $numbers[] = 0;
+                        } else {
+                            $numbers[] = 999999999;
+                        }
+                    } else {
+                        $numbers = [];
+                        break;
+                    }
+                }
+            }
+        }
+        return $numbers;
+    }
+
 
     /**
      * @param mixed $scope
