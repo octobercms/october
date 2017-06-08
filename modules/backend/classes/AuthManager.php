@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use Lang;
 use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
 
@@ -145,7 +146,7 @@ class AuthManager extends RainAuthManager
 
         foreach ($this->listPermissions() as $permission) {
             $tab = isset($permission->tab)
-                ? $permission->tab
+                ? Lang::get($permission->tab)
                 : 'backend::lang.form.undefined_tab';
 
             if (!array_key_exists($tab, $tabs)) {
