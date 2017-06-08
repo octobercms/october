@@ -61,6 +61,7 @@ class OctoberMirror extends Command
         'plugins/*/*/reportwidgets/*/assets',
         'plugins/*/*/reportwidgets/*/resources',
         'plugins/*/*/formwidgets/*/assets',
+        'plugins/*/*/formwidgets/*/widget/assets',
         'plugins/*/*/formwidgets/*/resources',
         'plugins/*/*/widgets/*/assets',
         'plugins/*/*/widgets/*/resources',
