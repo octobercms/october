@@ -190,6 +190,20 @@ class ListController extends ControllerBehavior
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
 
+        /*
+         * Apply defined constraints
+         */
+        if ($sqlConditions = $this->getConfig('conditions')) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+                $query->whereRaw($sqlConditions);
+            });
+        }
+        elseif ($scopeMethod = $this->getConfig('scope')) {
+            $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
+                $query->$scopeMethod();
+            });
+        }
+        
         $widget->bindToController();
 
         /*
