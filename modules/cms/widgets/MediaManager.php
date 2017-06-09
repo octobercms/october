@@ -750,12 +750,12 @@ class MediaManager extends WidgetBase
 
     protected function setSidebarVisible($visible)
     {
-        return $this->putSession('sideba_visible', !!$visible);
+        return $this->putSession('sidebar_visible', !!$visible);
     }
 
     protected function getSidebarVisible()
     {
-        return $this->getSession('sideba_visible', true);
+        return $this->getSession('sidebar_visible', true);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
