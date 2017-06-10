@@ -37,8 +37,6 @@ class AssetList extends WidgetBase
 
     protected $theme;
 
-    protected $groupStatusCache = false;
-
     /**
      * @var string Message to display when there are no records in the list.
      */
@@ -87,14 +85,9 @@ class AssetList extends WidgetBase
         ]);
     }
 
-    /*
-     * Event handlers
-     */
-
-    public function onGroupStatusUpdate()
-    {
-        $this->setGroupStatus(Input::get('group'), Input::get('status'));
-    }
+    //
+    // Event handlers
+    //
 
     public function onOpenDirectory()
     {
