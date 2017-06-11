@@ -18,6 +18,7 @@ abstract class WidgetBase extends Extendable
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \Backend\Traits\SessionMaker;
 

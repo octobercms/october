@@ -15,7 +15,6 @@ use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
 use Cms\Widgets\MediaManager;
-use System\Classes\ErrorHandler;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
@@ -37,12 +36,8 @@ class Controller extends Extendable
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
-
-    /**
-     * @var string Object used for storing a fatal error.
-     */
-    protected $fatalError;
 
     /**
      * @var object Reference the logged in admin user.
@@ -608,16 +603,6 @@ class Controller extends Extendable
     {
         $this->statusCode = (int) $code;
         return $this;
-    }
-
-    /**
-     * Sets standard page variables in the case of a controller error.
-     */
-    public function handleError($exception)
-    {
-        $errorMessage = ErrorHandler::getDetailedMessage($exception);
-        $this->fatalError = $errorMessage;
-        $this->vars['fatalError'] = $errorMessage;
     }
 
     //
