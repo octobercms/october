@@ -44,7 +44,7 @@ if (window.jQuery.request !== undefined) {
         var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
-            sendFiles = $form.attr('enctype') == 'multipart/form-data' && ($el[0] == $form[0] || $el.is(':file') || options.sendFiles),
+            sendFiles = $el.is(':file')  || ($el[0] == $form[0] && $form.attr('enctype') == 'multipart/form-data') || options.sendFiles,
             data = sendFiles ? new FormData($form[0]) : [$form.serialize()]
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
@@ -54,7 +54,7 @@ if (window.jQuery.request !== undefined) {
         if ($el.is(':input') && !$form.length) {
             var inputName = $el.attr('name')
             if (inputName !== undefined && options.data[inputName] === undefined)
-                options.data[inputName] = $el.val()
+                options.data[inputName] = $el.is(':file') ? $el[0].files : $el.val()
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
@@ -434,13 +434,21 @@ if (window.jQuery.request !== undefined) {
         Object.keys(obj).forEach(function (property) {
             if (namespace) {
                 formKey = namespace + '[' + property + ']'
-            } else {
+            }
+            else {
                 formKey = property
             }   
             
-            if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+            if (typeof obj[property] === 'object' && !obj[property] instanceof File && !obj[property] instanceof FileList) {
                 appendObjectToFormData(obj[property], formdata, formKey)
-            } else {
+            }
+            else if (obj[property] instanceof FileList) {
+                var files = obj[property]
+            
+                for (var index = 0; index < files.length; index++)
+                    formdata.append(formKey, files[index])
+            }
+            else {
                 formdata.append(formKey, obj[property])
             }
         });
