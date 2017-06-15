@@ -52,9 +52,7 @@ if (window.jQuery.request !== undefined) {
         })
 
         if ($el.is(':input') && !$form.length) {
-            var inputName = $el.attr('name')
-            if (inputName !== undefined && options.data[inputName] === undefined)
-                options.data[inputName] = $el.is(':file') ? $el[0].files : $el.val()
+            appendElementToFormData(element, data)
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
@@ -426,7 +424,7 @@ if (window.jQuery.request !== undefined) {
 
         if (typeof obj !== 'object' || obj === null) return
 
-        if ($.isArray(formdata)) {
+        if (formdata instanceof Array) {
             formdata.push($.param(obj))
             return
         }
@@ -437,21 +435,39 @@ if (window.jQuery.request !== undefined) {
             }
             else {
                 formKey = property
-            }   
-            
-            if (typeof obj[property] === 'object' && !obj[property] instanceof File && !obj[property] instanceof FileList) {
-                appendObjectToFormData(obj[property], formdata, formKey)
             }
-            else if (obj[property] instanceof FileList) {
-                var files = obj[property]
-            
-                for (var index = 0; index < files.length; index++)
-                    formdata.append(formKey, files[index])
+
+            if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+                appendObjectToFormData(obj[property], formdata, formKey)
             }
             else {
                 formdata.append(formKey, obj[property])
             }
         });
+    }
+
+    // Appends an element to the form data
+    // ========================
+    function appendElementToFormData(el, formdata) {
+        var $el = $(el)
+        var name = $el.attr('name')
+
+        if (!$el.is(':input') || name === undefined) return;
+
+        if (formdata instanceof Array) {
+            formdata.push($el.serialize())
+            return
+        }
+
+        var val = $el.is(':file') ? $el[0].files : $el.val()
+
+        if (val.length > 0) {
+            for (var i=0; i < val.length; i++) {
+                formdata.append(name, val[i])
+            }
+        } else {
+            formdata.append(name, $el.val)
+        }
     }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {
