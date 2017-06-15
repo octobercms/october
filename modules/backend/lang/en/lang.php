@@ -39,7 +39,7 @@ return [
         'restore' => 'Restore',
         'login_placeholder' => 'login',
         'password_placeholder' => 'password',
-        'remember_me' => 'Keep me logged in?',
+        'remember_me' => 'Stay logged in',
         'forgot_password' => 'Forgot your password?',
         'enter_email' => 'Enter your email',
         'enter_login' => 'Enter your login',
