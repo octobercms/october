@@ -52,7 +52,7 @@ if (window.jQuery.request !== undefined) {
         })
 
         if ($el.is(':input') && !$form.length) {
-            appendElementToFormData(element, data)
+            appendElementToFormData($el, data)
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
@@ -448,8 +448,7 @@ if (window.jQuery.request !== undefined) {
 
     // Appends an element to the form data
     // ========================
-    function appendElementToFormData(el, formdata) {
-        var $el = $(el)
+    function appendElementToFormData($el, formdata) {
         var name = $el.attr('name')
 
         if (!$el.is(':input') || name === undefined) return;
