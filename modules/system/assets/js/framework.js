@@ -460,12 +460,12 @@ if (window.jQuery.request !== undefined) {
 
         var val = $el.is(':file') ? $el[0].files : $el.val()
 
-        if (val.length > 0) {
-            for (var i=0; i < val.length; i++) {
-                formdata.append(name, val[i])
-            }
+        if (typeof val === 'object') {
+            Object.keys(val).forEach(function (key) {
+                formdata.append(name, val[key])
+            })
         } else {
-            formdata.append(name, $el.val)
+            formdata.append(name, val)
         }
     }
 
