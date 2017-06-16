@@ -418,13 +418,13 @@ if (window.jQuery.request !== undefined) {
     }
 
     // Appends an object to the form data
-    // =======================
+    // ==================================
     function appendObjectToFormData(obj, formdata, namespace) {
         var formKey
 
         if (typeof obj !== 'object' || obj === null) return
 
-        if (formdata instanceof Array) {
+        if ($.isArray(formdata)) {
             formdata.push($.param(obj))
             return
         }
@@ -447,25 +447,29 @@ if (window.jQuery.request !== undefined) {
     }
 
     // Appends an element to the form data
-    // ========================
-    function appendElementToFormData($el, formdata) {
-        var name = $el.attr('name')
+    // ===================================
+    function appendElementToFormData(el, formdata) {
+        var $el = $(el),
+            name = $el.attr("name")
 
-        if (!$el.is(':input') || name === undefined) return;
+        if (name === undefined || $el.is(':checkbox, :radio') && !$el.is(':checked')) return
 
-        if (formdata instanceof Array) {
+        var val = $el.is(':file') ? $el[0].files : $el.val()
+
+        if (val === null) return
+
+        if ($.isArray(formdata)) {
             formdata.push($el.serialize())
             return
         }
 
-        var val = $el.is(':file') ? $el[0].files : $el.val()
-
-        if (typeof val === 'object' && val !== null) {
-            Object.keys(val).forEach(function (key) {
+        if (typeof val === "object") {
+            Object.keys(val).forEach(function(key) {
                 formdata.append(name, val[key])
             })
-        } else {
-            formdata.append(name, val)
+        }
+        else {
+            formdata.append(name, val);
         }
     }
 
