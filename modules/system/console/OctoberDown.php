@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class OctoberDown extends Command
 {
-
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
@@ -45,11 +44,10 @@ class OctoberDown extends Command
             return;
         }
 
-        $manager = UpdateManager::instance()->resetNotes()->uninstall();
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
+        UpdateManager::instance()
+            ->setNotesOutput($this->output)
+            ->uninstall()
+        ;
     }
 
     /**
