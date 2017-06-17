@@ -163,7 +163,7 @@ return [
         'missing_column' => 'Нет никаких определений столбца для :columns.',
         'missing_columns' => 'Список используемый в :class не имеет никаких столбцов.',
         'missing_definition' => "Поведение списка не содержит столбец для ':field'.",
-        'missing_parent_definition' => "Поведение списка не содержит определения для: определения.",
+        'missing_parent_definition' => "Поведение списка не содержит определения для ':definition'.",
         'behavior_not_ready' => 'Поведение списка не было инициализировано, проверьте вызов makeLists() в вашем контроллере.',
         'invalid_column_datetime' => "Значение столбца ':column' не является объектом DateTime. Отсутствует \$dates ссылка в модели?",
         'pagination' => 'Отображено записей: :from-:to из :total',

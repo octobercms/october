@@ -31,7 +31,6 @@ return [
             'events' => 'События',
             'customers' => 'Клиентское',
             'my_settings' => 'Мои настройки',
-            'notifications' => 'Уведомления'
         ]
     ],
     'theme' => [

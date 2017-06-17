@@ -67,7 +67,6 @@ return [
             'events' => 'Events',
             'customers' => 'Customers',
             'my_settings' => 'My Settings',
-            'notifications' => 'Notifications'
         ]
     ],
     'theme' => [
