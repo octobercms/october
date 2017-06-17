@@ -36,6 +36,7 @@ return [
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
         'tr' => 'Türkçe',
+        'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
         'zh-tw' => '繁體中文'
     ],
@@ -61,9 +62,11 @@ return [
             'users' => 'Users',
             'system' => 'System',
             'social' => 'Social',
+            'backend' => 'Backend',
             'events' => 'Events',
             'customers' => 'Customers',
-            'my_settings' => 'My Settings'
+            'my_settings' => 'My Settings',
+            'notifications' => 'Notifications'
         ]
     ],
     'theme' => [
