@@ -140,6 +140,7 @@ class Preference extends Model
             'en-au' => [Lang::get('system::lang.locale.en-au'), 'flag-au'],
             'en-ca' => [Lang::get('system::lang.locale.en-ca'), 'flag-ca'],
             'en-gb' => [Lang::get('system::lang.locale.en-gb'), 'flag-gb'],
+            'et' => [Lang::get('system::lang.locale.et'), 'flag-ee'],
             'de' => [Lang::get('system::lang.locale.de'), 'flag-de'],
             'es' => [Lang::get('system::lang.locale.es'), 'flag-es'],
             'es-ar' => [Lang::get('system::lang.locale.es-ar'), 'flag-ar'],

@@ -291,7 +291,11 @@ class OctoberInstall extends Command
 
         try {
             Db::purge();
-            UpdateManager::instance()->resetNotes()->update();
+
+            UpdateManager::instance()
+                ->setNotesOutput($this->output)
+                ->update()
+            ;
         }
         catch (Exception $ex) {
             $this->error($ex->getMessage());

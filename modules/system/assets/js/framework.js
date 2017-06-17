@@ -323,14 +323,14 @@ if (window.jQuery.request !== undefined) {
             .fail(function(jqXHR, textStatus, errorThrown) {
                 if (!isRedirect) {
                     $el.trigger('ajaxFail', [context, textStatus, jqXHR])
-                    if (loading) loading.hide()
                 }
+                if (loading) loading.hide()
             })
             .done(function(data, textStatus, jqXHR) {
                 if (!isRedirect) {
                     $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
-                    if (loading) loading.hide()
                 }
+                if (loading) loading.hide()
             })
             .always(function(dataOrXhr, textStatus, xhrOrError) {
                 $el.trigger('ajaxAlways', [context, dataOrXhr, textStatus, xhrOrError])

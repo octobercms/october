@@ -43,6 +43,11 @@ class Relation extends FormWidgetBase
      */
     public $emptyOption;
 
+    /**
+     * @var string Use a custom scope method for the list query.
+     */
+    public $scope;
+
     //
     // Object properties
     //
@@ -66,6 +71,7 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'descriptionFrom',
             'emptyOption',
+            'scope',
         ]);
 
         if (isset($this->config->select)) {
@@ -118,6 +124,10 @@ class Relation extends FormWidgetBase
                 $query->where($relationModel->getKeyName(), '<>', $model->getKey());
             }
 
+            if ($scopeMethod = $this->scope) {
+                $query->$scopeMethod($model);
+            }
+
             // Even though "no constraints" is applied, belongsToMany constrains the query
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
@@ -138,6 +148,7 @@ class Relation extends FormWidgetBase
                 $nameFrom = $this->nameFrom;
                 $result = $query->getQuery()->get();
             }
+
 
             // Some simpler relations can specify a custom local or foreign "other" key,
             // which can be detected and implemented here automagically.
