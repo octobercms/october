@@ -31,6 +31,7 @@ return [
         'nl' => 'Nederlands',
         'pl' => 'Polskie',
         'pt-br' => 'Português (Brasil)',
+        'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
         'ru' => 'Русский',
         'sv' => 'Svenska',
