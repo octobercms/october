@@ -27,9 +27,10 @@ return [
             'users' => 'Пользователи',
             'system' => 'Система',
             'social' => 'Социальное',
+            'backend' => 'Backend',
             'events' => 'События',
             'customers' => 'Клиентское',
-            'my_settings' => 'Мои настройки'
+            'my_settings' => 'Мои настройки',
         ]
     ],
     'theme' => [
@@ -203,7 +204,7 @@ return [
         'plugin_description' => 'Описание',
         'plugin_version' => 'Версия',
         'plugin_author' => 'Автор',
-        'plugin_not_found' => 'Plugin not found',
+        'plugin_not_found' => 'Плагин не найден',
         'core_current_build' => 'Текущая сборка',
         'core_build' => 'Сборка :build',
         'core_build_help' => 'Последняя доступная сборка.',
@@ -241,13 +242,18 @@ return [
         ],
         'important_action_required' => 'Необходимое действие',
         'important_view_guide' => 'Посмотреть руководство по обновлению',
+        'important_view_release_notes' => 'Просмотреть заметки о выпуске',
         'important_alert_text' => 'Некоторые обновления требуют вашего внимания.',
         'details_title' => 'Информация о плагине',
         'details_view_homepage' => 'Перейти к домашней странице',
         'details_readme' => 'Документация',
         'details_readme_missing' => 'Документация не предоставлена.',
+        'details_changelog' => 'Изменения',
+        'details_changelog_missing' => 'Нет никакого измененного списка.',
         'details_upgrades' => 'Инструкция по обновлению',
         'details_upgrades_missing' => 'Инструкция по обновлению не предоставлена.',
+        'details_licence' => 'Лицензия',
+        'details_licence_missing' => 'Лицензия не предоставляется.',
         'details_current_version' => 'Текущая версия',
         'details_author' => 'Автор',
     ],
@@ -281,7 +287,8 @@ return [
         'id_label' => 'ID события',
         'created_at' => 'Дата & Время',
         'message' => 'Сообщение',
-        'level' => 'Уровень'
+        'level' => 'Уровень',
+        'preview_title' => 'События',
     ],
     'request_log' => [
         'hint' => 'В этом журнале отображается список запросов браузера, которые могут потребовать внимания. Например, если посетитель открывает несуществующую страницу, то в журнале создается запись с кодом статуса 404.',
@@ -296,7 +303,8 @@ return [
         'count' => 'Счетчик',
         'referer' => 'Источник запроса',
         'url' => 'Адрес',
-        'status_code' => 'Статус'
+        'status_code' => 'Статус',
+        'preview_title' => 'Запрос',
     ],
     'permissions' => [
         'name' => 'Система',
