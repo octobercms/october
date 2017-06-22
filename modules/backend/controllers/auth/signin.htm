@@ -33,18 +33,18 @@
         </div>
 
         <?php if (is_null(config('cms.backendForceRemember', true))) : ?>
-        <!-- Remember checkbox -->
-        <div class="form-group checkbox-field horizontal-form remember">
-            <div class="checkbox custom-checkbox">
-                <input
-                    type="checkbox"
-                    id="remember"
-                    name="remember" />
-                <label for="remember">
-                    <?= e(trans('backend::lang.account.remember_me')) ?>
-                </label>
+            <!-- Remember checkbox -->
+            <div class="form-group checkbox-field horizontal-form remember">
+                <div class="checkbox custom-checkbox">
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        name="remember" />
+                    <label for="remember">
+                        <?= e(trans('backend::lang.account.remember_me')) ?>
+                    </label>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
 
         <p class="oc-icon-lock pull-right forgot-password">
