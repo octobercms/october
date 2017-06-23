@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
+        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
     ],
     'widget' => [
@@ -38,6 +39,7 @@ return [
         'restore' => 'Restore',
         'login_placeholder' => 'login',
         'password_placeholder' => 'password',
+        'remember_me' => 'Stay logged in',
         'forgot_password' => 'Forgot your password?',
         'enter_email' => 'Enter your email',
         'enter_login' => 'Enter your login',
@@ -77,6 +79,8 @@ return [
         'make_default' => 'Make default',
         'make_default_confirm' => 'Set the current layout as the default?',
         'make_default_success' => 'Current layout is now the default',
+        'collapse_all' => 'Collapse all',
+        'expand_all' => 'Expand all',
         'status' => [
             'widget_title_default' => 'System status',
             'update_available' => '{0} updates available!|{1} update available!|[2,Inf] updates available!',
@@ -128,6 +132,10 @@ return [
         'allow' => 'Allow',
         'inherit' => 'Inherit',
         'deny' => 'Deny',
+        'activated' => 'Activated',
+        'last_login' => 'Last login',
+        'created_at' => 'Created at',
+        'updated_at' => 'Updated at',
         'group' => [
             'name' => 'Group',
             'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',
@@ -160,6 +168,8 @@ return [
         'behavior_not_ready' => 'List behavior has not been initialized, check that you have called makeLists() in your controller.',
         'invalid_column_datetime' => "Column value ':column' is not a DateTime object, are you missing a \$dates reference in the Model?",
         'pagination' => 'Displayed records: :from-:to of :total',
+        'first_page' => 'First page',
+        'last_page' => 'Last page',
         'prev_page' => 'Previous page',
         'next_page' => 'Next page',
         'refresh' => 'Refresh',
@@ -233,6 +243,7 @@ return [
         'confirm_tab_close' => 'Close the tab? Unsaved changes will be lost.',
         'behavior_not_ready' => 'Form behavior has not been initialized, check that you have called initForm() in your controller.',
         'preview_no_files_message' => 'There are no files uploaded.',
+        'preview_no_media_message' => 'There is no media selected.',
         'preview_no_record_message' => 'There is no record selected.',
         'select' => 'Select',
         'select_all' => 'all',
@@ -246,7 +257,12 @@ return [
         'return_to_list' => 'Return to the list'
     ],
     'recordfinder' => [
-        'find_record' => 'Find Record'
+        'find_record' => 'Find Record',
+        'cancel' => 'Cancel',
+    ],
+    'pagelist' => [
+        'page_link' => 'Page link',
+        'select_page' => 'Select a page...'
     ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",
@@ -298,7 +314,8 @@ return [
         'tips' => 'System configuration tips',
         'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
-        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.'
+        'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
+        'plugin_missing' => 'The plugin :name is a dependency but is not installed. Please install this plugin.',
     ],
     'editor' => [
         'menu_label' => 'Editor settings',

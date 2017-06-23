@@ -43,12 +43,17 @@ class Relation extends FormWidgetBase
      */
     public $emptyOption;
 
+    /**
+     * @var string Use a custom scope method for the list query.
+     */
+    public $scope;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'relation';
 
@@ -58,7 +63,7 @@ class Relation extends FormWidgetBase
     public $renderFormField;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -66,6 +71,7 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'descriptionFrom',
             'emptyOption',
+            'scope',
         ]);
 
         if (isset($this->config->select)) {
@@ -74,7 +80,7 @@ class Relation extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -112,12 +118,14 @@ class Relation extends FormWidgetBase
                 $field->type = 'dropdown';
             }
 
-            $field->placeholder = $this->emptyOption;
-
             // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relationModel))) {
                 $query->where($relationModel->getKeyName(), '<>', $model->getKey());
+            }
+
+            if ($scopeMethod = $this->scope) {
+                $query->$scopeMethod($model);
             }
 
             // Even though "no constraints" is applied, belongsToMany constrains the query
@@ -141,16 +149,23 @@ class Relation extends FormWidgetBase
                 $result = $query->getQuery()->get();
             }
 
+
+            // Some simpler relations can specify a custom local or foreign "other" key,
+            // which can be detected and implemented here automagically.
+            $primaryKeyName = in_array($relationType, ['hasMany', 'belongsTo', 'hasOne'])
+                ? $relationObject->getOtherKey()
+                : $relationModel->getKeyName();
+
             $field->options = $usesTree
-                ? $result->listsNested($nameFrom, $relationModel->getKeyName())
-                : $result->lists($nameFrom, $relationModel->getKeyName());
+                ? $result->listsNested($nameFrom, $primaryKeyName)
+                : $result->lists($nameFrom, $primaryKeyName);
 
             return $field;
         });
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {

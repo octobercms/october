@@ -140,10 +140,8 @@
         // Touch devices use double-tap for the navigation and single tap for selecting.
         // Another option is checkboxes visible only on touch devices, but this approach
         // will require more significant changes in the code for the touch device support.
-        if (!Modernizr.touch)
-            this.$el.on('click.item', '[data-type="media-item"]', this.proxy(this.onItemClick))
-        else 
-            this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
+        this.$el.on('click.item', '[data-type="media-item"]', this.proxy(this.onItemClick))
+        this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
 
         this.$el.on('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
         this.$el.on('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
@@ -163,10 +161,8 @@
         this.$el.off('click.tree-path', this.proxy(this.onNavigate))
         this.$el.off('click.command', this.proxy(this.onCommandClick))
 
-        if (!Modernizr.touch)
-            this.$el.off('click.item', this.proxy(this.onItemClick))
-        else
-            this.$el.off('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
+        this.$el.off('click.item', this.proxy(this.onItemClick))
+        this.$el.off('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
 
         this.$el.off('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
         this.$el.off('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
@@ -203,7 +199,7 @@
     }
 
     MediaManager.prototype.isSearchMode = function() {
-        return this.$el.find('[data-type="search-mode"]').val() == 'true' 
+        return this.$el.find('[data-type="search-mode"]').val() == 'true'
     }
 
     MediaManager.prototype.initScroll = function() {
@@ -268,7 +264,7 @@
         if (this.isPreviewSidebarVisible()) {
             // Use the timeout to prevent too many AJAX requests
             // when the selection changes too quickly (with the keyboard arrows)
-            this.selectTimer = setTimeout(this.proxy(this.updateSidebarPreview), 100) 
+            this.selectTimer = setTimeout(this.proxy(this.updateSidebarPreview), 100)
         }
 
         // Disable delete and move buttons
@@ -411,7 +407,7 @@
                 this.resetSearch()
                 this.gotoFolder($item.data('path'), true)
             }
-        } 
+        }
         else if ($item.data('item-type') == 'file') {
             // Trigger the Insert popup command if a file item
             // was double clicked or Enter key was pressed.
@@ -436,7 +432,7 @@
             $sidebar.removeClass('hide')
             this.updateSidebarPreview()
             $button.removeClass('sidebar-hidden')
-        } 
+        }
         else {
             $sidebar.addClass('hide')
             $button.addClass('sidebar-hidden')
@@ -601,8 +597,8 @@
         for (var i = (placeholders.length-1); i >= 0; i--)
             this.thumbnailQueue.push({
                 id: placeholders[i].getAttribute('id'),
-                width: placeholders[i].getAttribute('data-width'), 
-                height: placeholders[i].getAttribute('data-height'), 
+                width: placeholders[i].getAttribute('data-width'),
+                height: placeholders[i].getAttribute('data-height'),
                 path: placeholders[i].getAttribute('data-path'),
                 lastModified: placeholders[i].getAttribute('data-last-modified')
             })
@@ -825,7 +821,12 @@
 
     MediaManager.prototype.uploadError = function(file, message) {
         this.updateUploadBar('error', 'progress-bar progress-bar-danger');
-        $.oc.alert('Error uploading file')
+
+        if (!message) {
+            message = 'Error uploading file'
+        }
+
+        $.oc.alert(message)
     }
 
     //
@@ -918,6 +919,10 @@
             paths = []
 
         for (var i=0, len=items.length; i<len; i++) {
+            // Skip the 'return to parent' item
+            if (items[i].hasAttribute('data-root')) {
+                continue;
+            }
             paths.push({
                 'path': items[i].getAttribute('data-path'),
                 'type': items[i].getAttribute('data-item-type')
@@ -1014,7 +1019,7 @@
                 originalPath: $(ev.target).find('input[name=originalPath]').val(),
                 files: [],
                 folders: []
-            } 
+            }
 
         for (var i = 0, len = items.length; i < len; i++) {
             var item = items[i],
@@ -1112,18 +1117,23 @@
     }
 
     MediaManager.prototype.onItemTouch = function(ev) {
-        this.onItemClick(ev)
+        // The 'click' event is triggered after 'touchend',
+        // so we can prevent handling it.
+        ev.preventDefault()
+        ev.stopPropagation()
 
         if (this.dblTouchFlag) {
             this.onNavigate(ev)
             this.dblTouchFlag = null
         }
-        else
+        else {
+            this.onItemClick(ev)
             this.dblTouchFlag = true
+        }
 
         this.clearDblTouchTimer()
 
-        this.dblTouchTimer = setTimeout(this.proxy(this.clearDblTouchFlag), 300) 
+        this.dblTouchTimer = setTimeout(this.proxy(this.clearDblTouchFlag), 300)
     }
 
     MediaManager.prototype.onListMouseDown = function(ev) {
@@ -1167,7 +1177,7 @@
                     if (!ev.shiftKey)
                         item.setAttribute('class', 'selected')
                     else {
-                        if (item.getAttribute('class') == 'selected') 
+                        if (item.getAttribute('class') == 'selected')
                             item.setAttribute('class', '')
                         else
                             item.setAttribute('class', 'selected')
@@ -1192,7 +1202,7 @@
             deltaY = relativePosition.y - this.selectionStartPoint.y
 
         if (!this.selectionStarted && (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2)) {
-            // Start processing the selection only if the mouse was moved by 
+            // Start processing the selection only if the mouse was moved by
             // at least 2 pixels.
             this.createSelectionMarker()
 
@@ -1203,20 +1213,20 @@
 
         if (this.selectionStarted) {
             if (deltaX >= 0) {
-                this.selectionMarker.style.left = this.selectionStartPoint.x + 'px' 
-                this.selectionMarker.style.width = deltaX + 'px' 
+                this.selectionMarker.style.left = this.selectionStartPoint.x + 'px'
+                this.selectionMarker.style.width = deltaX + 'px'
             }
             else {
-                this.selectionMarker.style.left = relativePosition.x + 'px' 
-                this.selectionMarker.style.width = Math.abs(deltaX) + 'px' 
+                this.selectionMarker.style.left = relativePosition.x + 'px'
+                this.selectionMarker.style.width = Math.abs(deltaX) + 'px'
             }
 
             if (deltaY >= 0) {
-                this.selectionMarker.style.height = deltaY + 'px' 
+                this.selectionMarker.style.height = deltaY + 'px'
                 this.selectionMarker.style.top = this.selectionStartPoint.y + 'px'
             }
             else {
-                this.selectionMarker.style.top = relativePosition.y + 'px' 
+                this.selectionMarker.style.top = relativePosition.y + 'px'
                 this.selectionMarker.style.height = Math.abs(deltaY) + 'px'
             }
         }
@@ -1279,7 +1289,7 @@
     var old = $.fn.mediaManager
 
     $.fn.mediaManager = function (option) {
-        var args = Array.prototype.slice.call(arguments, 1), 
+        var args = Array.prototype.slice.call(arguments, 1),
             result = undefined
 
         this.each(function () {
@@ -1290,7 +1300,7 @@
             if (typeof option == 'string') result = data[option].apply(data, args)
             if (typeof result != 'undefined') return false
         })
-        
+
         return result ? result : this
     }
 

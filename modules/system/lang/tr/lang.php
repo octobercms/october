@@ -2,35 +2,8 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Sadeliğe dönüş...'
-    ],
-    'locale' => [
-        'cs' => 'Čeština (Česko)',
-        'da' => 'Danish',
-        'en' => 'English (United States)',
-        'de' => 'Deutsch (Deutschland)',
-        'el' => 'Ελληνικά (Ελλάδα)',
-        'es' => 'Español (Spanish)',
-        'es-ar' => 'Español (Argentina)',
-        'fa' => '‏فارسی‏ (Iran) ايران',
-        'fr' => 'Français (France)',
-        'hu' => 'Magyar - Magyarország (Hungary)',
-        'id' => 'Bahasa Indonesia (Indonesia)',
-        'it' => 'Italiano (Italia)',
-        'ja' => '日本語 (Japan) 日本',
-        'lv' => 'Latviešu (Latvija)',
-        'nb-no' => 'Norsk - Bokmål (Norge)',
-        'nl' => 'Nederlands (Nederland)',
-        'pl' => 'Polski (Polska)',
-        'pt-br' => 'Português (Brasil)',
-        'ro' => 'Română (România)',
-        'ru' => 'Русский (Россия - Russia)',
-        'sv' => 'Svenska (Sverige)',
-        'sk' => 'Slovenčina (Slovensko)',
-        'tr' => 'Türkçe (Türkiye)',
-        'zh-cn' => '中文(简体) - 中国 (Chine-Simplified Chinese)',
-        'zh-tw' => '中文(台灣) - 台灣 (Taiwan-Traditional Chinese)'
     ],
     'directory' => [
         'create_fail' => "Klasör oluşturulamıyor: :name"
@@ -163,6 +136,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Gizli Anahtarı',
         'mandrill_secret_comment' => 'Mandrill API anahtarını girin.',
+        'ses' => 'SES',
+        'ses_key' => 'SES key',
+        'ses_key_comment' => 'SES API keyi girin',
+        'ses_secret' => 'SES secret',
+        'ses_secret_comment' => 'SES API secret keyi girin',
+        'ses_region' => 'SES bölgesi',
+        'ses_region_comment' => 'SES bölgenizi girin (örnek: us-east-1)',
         'drivers_hint_header' => 'Sürücüler yüklenmemiş',
         'drivers_hint_content' => 'Bu eposta yöntemiyle eposta gönderebilmeniz için ":plugin" eklentisinin kurulmuş olması gerekir.'
     ],
@@ -223,6 +203,7 @@ return [
         'plugin_description' => 'Açıklama',
         'plugin_version' => 'Versiyon',
         'plugin_author' => 'Yazar',
+        'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Mevcut versiyon',
         'core_build' => 'Versiyon :build',
         'core_build_help' => 'Son versiyon kullanılabilir.',
@@ -300,7 +281,8 @@ return [
         'id_label' => 'Olay Numarası',
         'created_at' => 'Tarih & Saat',
         'message' => 'Mesaj',
-        'level' => 'Seviye'
+        'level' => 'Seviye',
+        'preview_title' => 'Olay'
     ],
     'request_log' => [
         'hint' => 'Bu günlük dikkat edilmesi gereken tarayıcı isteklerinin bir listesini görüntüler. Örneğin, bir ziyaretçi bulunmayan bir CMS sayfasını açarsa 404 kodu ile bir kayıt oluşturulur.',
@@ -315,7 +297,8 @@ return [
         'count' => 'Sayaç',
         'referer' => 'Referer',
         'url' => 'URL',
-        'status_code' => 'Durum'
+        'status_code' => 'Durum',
+        'preview_title' => 'İstek'
     ],
     'permissions' => [
         'name' => 'Sistem',

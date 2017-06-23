@@ -18,9 +18,11 @@
                     data-item-theme="<?= e($this->theme->getDirName()) ?>"
                     data-item-type="<?= $this->itemType ?>"
                     data-id="<?= e($dataId) ?>">
-                    <a href="javascript:;">
+                    <a href="javascript:;"
+                        data-control="dragvalue"
+                        data-text-value="<?= $item->dragValue ?>">
                         <span class="title"><?= e($item->title) ?></span>
-                        <span class="description">
+                        <span class="description" title="<?= e($item->description) ?>">
                             <?php foreach ($item->descriptions as $title => $value): ?>
                                 <?php if (strlen($value)): ?>
                                     <?= e($title) ?>: <strong><?= e($value) ?></strong>

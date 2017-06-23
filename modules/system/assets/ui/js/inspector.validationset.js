@@ -54,12 +54,12 @@
 
         if ((this.options.required !== undefined ||
             this.options.validationPattern !== undefined ||
-            this.options.validationMessage !== undefined) && 
+            this.options.validationMessage !== undefined) &&
             this.options.validation !== undefined) {
             this.throwError('Legacy and new validation syntax should not be mixed.')
         }
 
-        if (this.options.required !== undefined) {
+        if (this.options.required !== undefined && this.options.required) {
             var validator = new $.oc.inspector.validators.required({
                 message: this.options.validationMessage
             })

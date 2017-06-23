@@ -41,13 +41,6 @@ class ComponentList extends WidgetBase
         ]);
     }
 
-    /**
-     * Returns information about this widget, including name and description.
-     */
-    public function widgetDetails()
-    {
-    }
-
     /*
      * Event handlers
      */

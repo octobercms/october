@@ -10,12 +10,15 @@ return [
         'invalid_file_extension'=>'Hatalı dosya uzantısı: :invalid. İzin verilen uzantılar: :allowed.',
         'error_deleting' => '":name" şablon dosyası silinirken hatayla karşılaşıldı.',
         'delete_success' => ':count şablon başarıyla silindi.',
-        'file_name_required' => 'Dosya adı alanı gereklidir.'
+        'file_name_required' => 'Dosya adı alanı gereklidir.',
+        'safe_mode_enabled' => 'Güvenli mod şuan aktif.',
     ],
     'dashboard' => [
         'active_theme' => [
+            'widget_title_default' => 'Website',
             'online' => 'yayında',
             'maintenance' => 'bakım modunda',
+            'manage_themes' => 'Temaları yönet',
         ]
     ],
     'theme' => [
@@ -91,7 +94,8 @@ return [
         'settings_menu' => 'Bakım modu',
         'settings_menu_description' => 'Bakım modu ayarlarını düzenleyip bakım sayfasını yapılandırabilirsiniz.',
         'is_enabled' => 'Bakım modunu aktifleştir',
-        'is_enabled_comment' => 'Aktifleştirildiğinde, web sitesi ziyaretçileri aşağıdaki seçtiğiniz sayfayı görecektir.'
+        'is_enabled_comment' => 'Aktifleştirildiğinde, web sitesi ziyaretçileri aşağıdaki seçtiğiniz sayfayı görecektir.',
+        'hint' => 'Bakımda sayfası, yönetim paneli girişi yapmamış tüm ziyaretçilere seçilen bakımda sayfasını gösterir.',
     ],
     'page' => [
         'not_found_name' => "':name' sayfası bulunamadı",
@@ -169,7 +173,11 @@ return [
         'hidden' => 'Gizli',
         'hidden_comment' => 'Gizli sayfalara yalnızca Yönetim Paneline giriş yapmış kullanıcılar erişilebilir.',
         'enter_fullscreen' => 'Tam Ekran moduna geç',
-        'exit_fullscreen' => 'Tam Ekran modundan çık'
+        'exit_fullscreen' => 'Tam Ekran modundan çık',
+        'open_searchbox' => 'Arama kutusunu aç',
+        'close_searchbox'  => 'Arama kutusunu kapat',
+        'open_replacebox' => 'Düzenleme kutusunu aç',
+        'close_replacebox'  => 'Düzenleme kutusunu kapat'
     ],
     'asset' => [
         'menu_label' => "Dosyalar",
@@ -272,6 +280,7 @@ return [
         'uploading_file_num' => ':number adet dosya yükleniyor...',
         'uploading_complete' => 'Yükleme tamamlandı',
         'uploading_error' => 'Yükleme hatası',
+        'type_blocked' => 'Seçilen dosya türünü güvenlik nedenleriyle izin verilmiyor.',
         'order_by' => 'Sırala',
         'folder' => 'Klasör',
         'no_files_found' => 'İsteğiniz doğrultusunda hiçbir dosya bulunamadı.',

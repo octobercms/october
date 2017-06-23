@@ -23,7 +23,26 @@
  */
 +function ($) { "use strict";
 
-    var LATIN_MAP = {
+    var VIETNAMESE_MAP = {
+        'Á': 'A', 'À': 'A', 'Ã': 'A', 'Ả': 'A', 'Ạ': 'A', 'Ắ': 'A', 'Ằ': 'A', 'Ẵ':
+        'A', 'Ẳ': 'A', 'Ặ': 'A', 'Ấ': 'A', 'Ầ': 'A', 'Ẫ': 'A', 'Ẩ': 'A', 'Ậ': 'A',
+        'Đ': 'D', 'É': 'E', 'È': 'E', 'Ẽ': 'E', 'Ẻ': 'E', 'Ẹ': 'E', 'Ế': 'E', 'Ề':
+        'E', 'Ễ': 'E', 'Ể': 'E', 'Ệ': 'E', 'Ó': 'O', 'Ò': 'O', 'Ỏ': 'O', 'Õ': 'O',
+        'Ọ': 'O', 'Ố': 'O', 'Ồ': 'O', 'Ổ': 'O', 'Ỗ': 'O', 'Ộ': 'O', 'Ớ': 'O', 'Ờ':
+        'O', 'Ở': 'O', 'Ỡ': 'O', 'Ợ': 'O', 'Í': 'I', 'Ì': 'I', 'Ỉ': 'I', 'Ĩ': 'I',
+        'Ị': 'I', 'Ú': 'U', 'Ù': 'U', 'Ủ': 'U', 'Ũ': 'U', 'Ụ': 'U', 'Ứ': 'U', 'Ừ':
+        'U', 'Ử': 'U', 'Ữ': 'U', 'Ự': 'U', 'Ý': 'Y', 'Ỳ': 'Y', 'Ỷ': 'Y', 'Ỹ': 'Y',
+        'Ỵ': 'Y', 'á': 'a', 'à': 'a', 'ã': 'a', 'ả': 'a', 'ạ': 'a', 'ắ': 'a', 'ằ':
+        'a', 'ẵ': 'a', 'ẳ': 'a', 'ặ': 'a', 'ấ': 'a', 'ầ': 'a', 'ẫ': 'a', 'ẩ': 'a',
+        'ậ': 'a','đ': 'd', 'é': 'e', 'è': 'e', 'ẽ': 'e', 'ẻ': 'e', 'ẹ': 'e', 'ế': 
+        'e', 'ề':'e', 'ễ': 'e', 'ể': 'e', 'ệ': 'e', 'ó': 'o', 'ò': 'o', 'ỏ': 'o',
+        'õ': 'o', 'ọ': 'o', 'ố': 'o', 'ồ': 'o', 'ổ': 'o', 'ỗ': 'o', 'ộ': 'o', 'ớ':
+        'o', 'ờ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o', 'í': 'i', 'ì': 'i', 'ỉ': 'i',
+        'ĩ': 'i', 'ị': 'i', 'ú': 'u', 'ù': 'u', 'ủ': 'u', 'ũ': 'u', 'ụ': 'u', 'ứ':
+        'u', 'ừ': 'u', 'ử': 'u', 'ữ': 'u', 'ự': 'u', 'ý': 'y', 'ỳ': 'y', 'ỷ': 'y', 
+        'ỹ': 'y', 'ỵ': 'y'
+    },
+    LATIN_MAP = {
         'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE', 'Ç':
         'C', 'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E', 'Ì': 'I', 'Í': 'I', 'Î': 'I',
         'Ï': 'I', 'Ð': 'D', 'Ñ': 'N', 'Ò': 'O', 'Ó': 'O', 'Ô': 'O', 'Õ': 'O', 'Ö':
@@ -107,6 +126,10 @@
         'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
         'Ç':'C', 'Ə':'E', 'Ğ':'G', 'İ':'I', 'Ö':'O', 'Ş':'S', 'Ü':'U'
     },
+    ROMANIAN_MAP = {
+        'ă':'a', 'â':'a', 'î':'i', 'ș':'s', 'ț':'t',
+        'Ă':'A', 'Â':'A', 'Î':'I', 'Ș':'S', 'Ț':'T'
+    },
     SPECIFIC_MAPS = {
         'de': {
             'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE',
@@ -114,6 +137,7 @@
         }
     },
     ALL_MAPS = [
+        VIETNAMESE_MAP,
         LATIN_MAP,
         LATIN_SYMBOLS_MAP,
         GREEK_MAP,
@@ -127,7 +151,8 @@
         PERSIAN_MAP,
         LITHUANIAN_MAP,
         SERBIAN_MAP,
-        AZERBAIJANI_MAP
+        AZERBAIJANI_MAP,
+        ROMANIAN_MAP
     ]
 
     var removeList = [
@@ -222,14 +247,28 @@
         if ($el.val().length && $el.val() != prefix)
             return
 
-        $el.val(prefix)
+        $el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 
-        this.$src = $(options.inputPreset, parent),
+        this.$src = $(options.inputPreset, parent)
+
         this.$src.on('keyup', function() {
             if (self.cancelled)
                 return
 
-            $el.val(prefix + self.formatValue())
+            $el
+                .val(prefix + self.formatValue())
+                .trigger('oc.inputPreset.afterUpdate')
+        })
+
+        this.$src.on('paste', function() {
+            if (self.cancelled)
+                return
+
+            setTimeout(function() {
+                $el
+                    .val(prefix + self.formatValue())
+                    .trigger('oc.inputPreset.afterUpdate')
+            }, 100)
         })
 
         this.$el.on('change', function() {
@@ -244,7 +283,10 @@
     }
 
     InputPreset.prototype.formatValue = function() {
-        if (this.options.inputPresetType == 'namespace') {
+        if (this.options.inputPresetType == 'exact') {
+            return this.$src.val();
+        }
+        else if (this.options.inputPresetType == 'namespace') {
             return this.formatNamespace()
         }
 
@@ -297,7 +339,8 @@
     // INPUT CONVERTER DATA-API
     // ===============
 
-    $(document).render(function(){
+    $(document).render(function() {
         $('[data-input-preset]').inputPreset()
     })
+
 }(window.jQuery);

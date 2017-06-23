@@ -16,7 +16,7 @@
         $('body > p.flash-message').remove()
 
         if ($element.length == 0) {
-            $element = $('<p/>').addClass(options.class).html(options.text)
+            $element = $('<p />').addClass(options.class).html(options.text)
         }
 
         $element.addClass('flash-message fade')
@@ -27,11 +27,11 @@
 
         $(document.body).append($element)
 
-        setTimeout(function(){
+        setTimeout(function() {
             $element.addClass('in')
-        }, 1)
+        }, 100)
 
-        var timer = window.setTimeout(remove, options.interval*1000)
+        var timer = window.setTimeout(remove, options.interval * 1000)
 
         function removeElement() {
             $element.remove()
@@ -41,18 +41,18 @@
             window.clearInterval(timer)
 
             $element.removeClass('in')
-            $.support.transition && $element.hasClass('fade') ?
-                $element
+            $.support.transition && $element.hasClass('fade')
+                ? $element
                     .one($.support.transition.end, removeElement)
-                    .emulateTransitionEnd(500) :
-                removeElement()
+                    .emulateTransitionEnd(500)
+                : removeElement()
         }
     }
 
     FlashMessage.DEFAULTS = {
         class: 'success',
         text: 'Default text',
-        interval: 2
+        interval: 5
     }
 
     // FLASH MESSAGE PLUGIN DEFINITION

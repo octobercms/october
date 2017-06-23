@@ -84,7 +84,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Boot plugins
          */
-        $pluginManager = PluginManager::instance()->bootAll();
+        PluginManager::instance()->bootAll();
 
         parent::boot('system');
     }
@@ -94,6 +94,10 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerSingletons()
     {
+        App::singleton('cms.helper', function () {
+            return new \Cms\Helpers\Cms;
+        });
+
         App::singleton('backend.helper', function () {
             return new \Backend\Helpers\Backend;
         });
@@ -194,7 +198,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Allow plugins to use the scheduler
          */
-        Event::listen('console.schedule', function($schedule) {
+        Event::listen('console.schedule', function ($schedule) {
             $plugins = PluginManager::instance()->getPlugins();
             foreach ($plugins as $plugin) {
                 if (method_exists($plugin, 'registerSchedule')) {
@@ -206,7 +210,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Add CMS based cache clearing to native command
          */
-        Event::listen('cache:cleared', function() {
+        Event::listen('cache:cleared', function () {
             \System\Helpers\Cache::clearInternal();
         });
 
@@ -237,7 +241,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerErrorHandler()
     {
-        Event::listen('exception.beforeRender', function ($exception, $httpCode, $request){
+        Event::listen('exception.beforeRender', function ($exception, $httpCode, $request) {
             $handler = new ErrorHandler;
             return $handler->handleException($exception);
         });
@@ -373,6 +377,10 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerBackendSettings()
     {
+        Event::listen('system.settings.extendItems', function ($manager) {
+            \System\Models\LogSetting::filterSettingItems($manager);
+        });
+
         SettingsManager::instance()->registerCallback(function ($manager) {
             $manager->registerSettingItems('October.System', [
                 'updates' => [
@@ -430,7 +438,16 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['system.access_logs'],
                     'order'       => 910,
                     'keywords'    => '404 error'
-                ]
+                ],
+                'log_settings' => [
+                    'label'       => 'system::lang.log.menu_label',
+                    'description' => 'system::lang.log.menu_description',
+                    'category'    => SettingsManager::CATEGORY_LOGS,
+                    'icon'        => 'icon-dot-circle-o',
+                    'class'       => 'System\Models\LogSetting',
+                    'permissions' => ['system.manage_logs'],
+                    'order'       => 990
+                ],
             ]);
         });
     }
@@ -443,7 +460,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register asset bundles
          */
-        CombineAssets::registerCallback(function($combiner) {
+        CombineAssets::registerCallback(function ($combiner) {
             $combiner->registerBundle('~/modules/system/assets/less/styles.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.js');
@@ -459,12 +476,12 @@ class ServiceProvider extends ModuleServiceProvider
          * Allowed file extensions, as opposed to mime types.
          * - extensions: png,jpg,txt
          */
-        Validator::extend('extensions', function($attribute, $value, $parameters) {
+        Validator::extend('extensions', function ($attribute, $value, $parameters) {
             $extension = strtolower($value->getClientOriginalExtension());
             return in_array($extension, $parameters);
         });
 
-        Validator::replacer('extensions', function($message, $attribute, $rule, $parameters) {
+        Validator::replacer('extensions', function ($message, $attribute, $rule, $parameters) {
             return strtr($message, [':values' => implode(', ', $parameters)]);
         });
     }

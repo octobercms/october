@@ -19,7 +19,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | If you are developing with October, it is important to have the latest
-    | code base, set this value to 'true' to tell the platform to download
+    | code base. Set this value to 'true' to tell the platform to download
     | and use the development copies of core files and plugins.
     |
     */
@@ -37,6 +37,37 @@ return [
     */
 
     'backendUri' => 'backend',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back-end force HTTPS security
+    |--------------------------------------------------------------------------
+    |
+    | Use this setting to force a secure protocol when accessing any back-end
+    | pages, including the authentication pages. If set to null, this setting
+    | is enabled when debug mode (app.debug) is disabled.
+    |
+    */
+
+    'backendForceSecure' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Back-end login remember
+    |--------------------------------------------------------------------------
+    |
+    | Define live duration of backend sessions :
+    |
+    | true  - session never expire (cookie expiration in 5 years)
+    |
+    | false - session have a limited time (see session.lifetime)
+    |
+    | null  - The form login display a checkbox that allow user to choose
+    |         wanted behavior
+    |
+    */
+
+    'backendForceRemember' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +199,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Check import timestamps when combining assets
+    |--------------------------------------------------------------------------
+    |
+    | If deep hashing is enabled, the combiner cache will be reset when a change
+    | is detected on imported files, in addition to those referenced directly.
+    | This will cause slower page performance. If set to null, deep hashing
+    | is used when debug mode (app.debug) is enabled.
+    |
+    */
+
+    'enableAssetDeepHashing' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Public plugins path
     |--------------------------------------------------------------------------
     |
@@ -270,8 +315,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | If safe mode is enabled, the PHP code section is disabled in the CMS
-    | for security reasons. If set to null, safe mode is on when debug mode
-    | (app.debug) is disabled.
+    | for security reasons. If set to null, safe mode is enabled when
+    | debug mode (app.debug) is disabled.
     |
     */
 
@@ -288,5 +333,18 @@ return [
     */
 
     'enableCsrfProtection' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force bytecode invalidation
+    |--------------------------------------------------------------------------
+    |
+    | When using OPcache with opcache.validate_timestamps set to 0 or APC
+    | with apc.stat set to 0 and Twig cache enabled, clearing the template
+    | cache won't update the cache, set to true to get around this.
+    |
+    */
+
+    'forceBytecodeInvalidation' => true,
 
 ];

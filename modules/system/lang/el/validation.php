@@ -1,5 +1,5 @@
 <?php
-
+/* Greek Language Updated on 2015-07-06 v1.01 */
 return [
 
     /*
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'custom' => array(),
+    'custom' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -94,6 +94,6 @@ return [
     |
     */
 
-    'attributes' => array(),
+    'attributes' => [],
 
 ];

@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
+        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'."
     ],
     'widget' => [
@@ -18,6 +19,11 @@ return [
             'label' => 'Доступ запрещен',
             'help' => 'У вас нет необходимых прав для просмотра этой страницы.',
             'cms_link' => 'Перейти к CMS'
+        ],
+        'no_database' => [
+            'label' => 'Отсутствует база данных',
+            'help' => "Для доступа к серверу требуется база данных. Проверьте, что база данных настроена и перенесена, прежде чем повторять попытку.",
+            'cms_link' => 'Вернуться на главную страницу'
         ],
         'invalid_token' => [
             'label' => 'Неверный токен безопасности'
@@ -54,6 +60,7 @@ return [
         'widget_label' => 'Виджет',
         'widget_width' => 'Ширина',
         'full_width' => 'полная ширина',
+        'manage_widgets' => 'Управление виджетами',
         'add_widget' => 'Добавить виджет',
         'widget_inspector_title' => 'Конфигурации виджета',
         'widget_inspector_description' => 'Настройка отображения виджета',
@@ -65,9 +72,36 @@ return [
         'widget_new_row_description' => 'Поставить виджет с новой строки.',
         'widget_title_label' => 'Заголовок',
         'widget_title_error' => 'Заголовок виджета обязателен.',
+        'reset_layout' => 'Сбросить расположение',
+        'reset_layout_confirm' => 'Сбросить расположение к расположению по умолчанию?',
+        'reset_layout_success' => 'Расположение было сброшено',
+        'make_default' => 'Сохранить по умолчанию',
+        'make_default_confirm' => 'Сделать текущее расположение расположением по умолчанию?',
+        'make_default_success' => 'Текущее расположение сохранено как расположение по умолчанию',
+        'collapse_all' => 'Свернуть всё',
+        'expand_all' => 'Развернуть всё',
         'status' => [
             'widget_title_default' => 'Статус системы',
-            'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!'
+            'update_available' => '{0} нет новый обновлений!|{1} доступно новое обновление!|[2,Inf] доступны новые обновления!',
+            'updates_pending' => 'Доступны обновления',
+            'updates_nil' => 'Используется последняя версия',
+            'updates_link' => 'Обновить',
+            'warnings_pending' => 'Требуется ваше внимание',
+            'warnings_nil' => 'Ошибок нет',
+            'warnings_link' => 'Просмотр',
+            'core_build' => 'Сборка',
+            'event_log' => 'Лог событий',
+            'request_log' => 'Лог запросов',
+            'app_birthday' => 'Онлайн с'
+        ],
+        'welcome' => [
+            'widget_title_default' => 'Добро пожаловать',
+            'welcome_back_name' => 'С возвращением в :app, :name.',
+            'welcome_to_name' => 'Добро пожаловать в :app, :name.',
+            'first_sign_in' => 'Это первый раз, когда вы вошли в систему.',
+            'last_sign_in' => 'Последний раз вы заходили',
+            'view_access_logs' => 'Посмотреть лог доступа',
+            'nice_message' => 'Хорошего дня!',
         ]
     ],
     'user' => [
@@ -97,6 +131,10 @@ return [
         'allow' => 'Разрешить',
         'inherit' => 'Наследовать',
         'deny' => 'Запретить',
+        'activated' => 'Активирован',
+        'last_login' => 'Последний вход',
+        'created_at' => 'Создан',
+        'updated_at' => 'Обновлен',
         'group' => [
             'name' => 'Группы',
             'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
@@ -125,9 +163,12 @@ return [
         'missing_column' => 'Нет никаких определений столбца для :columns.',
         'missing_columns' => 'Список используемый в :class не имеет никаких столбцов.',
         'missing_definition' => "Поведение списка не содержит столбец для ':field'.",
+        'missing_parent_definition' => "Поведение списка не содержит определения для ':definition'.",
         'behavior_not_ready' => 'Поведение списка не было инициализировано, проверьте вызов makeLists() в вашем контроллере.',
         'invalid_column_datetime' => "Значение столбца ':column' не является объектом DateTime. Отсутствует \$dates ссылка в модели?",
         'pagination' => 'Отображено записей: :from-:to из :total',
+        'first_page' => 'Первая страница',
+        'last_page' => 'Последняя страница',
         'prev_page' => 'Предыдущая страница',
         'next_page' => 'Следующая страница',
         'refresh' => 'Обновить',
@@ -137,6 +178,7 @@ return [
         'setup_help' => 'Используйте флажки для выбора колонок, которые вы хотите видеть в списке. Вы можете изменить положение столбцов, перетаскивая их вверх или вниз.',
         'records_per_page' => 'Записей на странице',
         'records_per_page_help' => 'Выберите количество записей на странице для отображения. Обратите внимание, что большое количество записей на одной странице может привести к снижению производительности.',
+        'check' => 'Проверить',
         'delete_selected' => 'Удалить выбранное',
         'delete_selected_empty' => 'Нет выбранных записей для удаления.',
         'delete_selected_confirm' => 'Удалить выбранные записи?',
@@ -150,7 +192,7 @@ return [
         'title_label' => 'Название',
         'description_label' => 'Описание',
         'default_prompt' => 'Кликните по %s или перетащите файл сюда для загрузки',
-        'attachment_url' => 'Привязать URL',
+        'attachment_url' => 'URL',
         'upload_file' => 'Загрузить файл',
         'upload_error' => 'Ошибка загрузки',
         'remove_confirm' => 'Вы уверены?',
@@ -163,6 +205,7 @@ return [
         'create_success' => ':name был успешно создан',
         'update_success' => ':name был успешно сохранен',
         'delete_success' => ':name был успешно удален',
+        'reset_success' => 'Сброс завершен',
         'missing_id' => 'Идентификатор формы записи не указан.',
         'missing_model' => 'Для формы используемой в :class не определена модель.',
         'missing_definition' => "Поведение формы не содержит поле для':field'.",
@@ -199,6 +242,7 @@ return [
         'confirm_tab_close' => 'Закрыть вкладку? Несохраненные изменения будут потеряны.',
         'behavior_not_ready' => 'Поведение формы не было инициализировано, проверьте вызов initForm() в вашем контроллере.',
         'preview_no_files_message' => 'Нет загруженных файлов.',
+        'preview_no_media_message' => 'Нет выбраного медиа.',
         'preview_no_record_message' => 'Нет выбранных записей.',
         'select' => 'Выбрать',
         'select_all' => 'все',
@@ -212,7 +256,12 @@ return [
         'return_to_list' => 'Вернуться к списку'
     ],
     'recordfinder' => [
-        'find_record' => 'Найти запись'
+        'find_record' => 'Найти запись',
+        'cancel' => 'Отмена',
+    ],
+    'pagelist' => [
+        'page_link' => 'Ссылка на страницу',
+        'select_page' => 'Выберите страницу...'
     ],
     'relation' => [
         'missing_config' => "Поведение отношения не имеет конфигурации для ':config'.",
@@ -264,7 +313,8 @@ return [
         'tips' => 'Подсказки по конфигурации системы',
         'tips_description' => 'Есть проблемы, на которые стоит обратить внимание, чтобы правильно настроить систему.',
         'permissions'  => 'Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.',
-        'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.'
+        'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.',
+        'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.',
     ],
     'editor' => [
         'menu_label' => 'Настройки редактора',
@@ -273,11 +323,23 @@ return [
         'tab_size' => 'Размер табуляции',
         'use_hard_tabs' => 'Использовать табуляцию для индентации',
         'code_folding' => 'Свертывание кода',
+        'code_folding_begin' => 'Mark begin',
+        'code_folding_begin_end' => 'Mark begin and end',
+        'autocompletion' => 'Автодополнение',
         'word_wrap' => 'Перенос слов',
         'highlight_active_line' => 'Подсвечивать активную строку',
         'auto_closing' => 'Автоматическое закрытие тегов и специальных символов',
         'show_invisibles' => 'Показывать невидимые символы',
         'show_gutter' => 'Показывать нумерацию строк',
+        'basic_autocompletion'=> 'Базовое автодополнение (Ctrl + Space)',
+        'live_autocompletion'=> 'Живое автодополнение',
+        'enable_snippets'=> 'Включить сниппеты (Tab)',
+        'display_indent_guides'=> 'Показывать символы перевода строки',
+        'show_print_margin'=> 'Показывать границу печати',
+        'mode_off' => 'Выключено',
+        'mode_fluid' => 'Адаптивный',
+        '40_characters' => '40 символов',
+        '80_characters' => '80 символов',
         'theme' => 'Цветовая схема',
         'markup_styles' => 'Стили разметки',
         'custom_styles' => 'Дополнительные CSS стили',
@@ -295,7 +357,7 @@ return [
         'allowed_empty_tags_comment' => 'Список тегов, которые не будут удаляться, если внутри них нет содержания.',
         'allowed_tags' => 'Разрешенные теги',
         'allowed_tags_comment' => 'Список разрешенных тегов.',
-        'no_wrap' => 'Do not wrap теги',
+        'no_wrap' => 'Не оборачивать теги',
         'no_wrap_comment' => 'Список тегов, которые не должны быть обернуты в блочные элементы.',
         'remove_tags' => 'Удаляемые теги',
         'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.'
@@ -325,7 +387,7 @@ return [
         'colors' => 'Цвета',
         'primary_color' => 'Первичный color',
         'secondary_color' => 'Вторичный color',
-        'accent_color' => 'Accent color',
+        'accent_color' => 'Цвет акцента',
         'styles' => 'Стили',
         'custom_stylesheet' => 'Пользовательские стили',
         'navigation' => 'Навигация',
@@ -356,7 +418,9 @@ return [
         'email' => 'Почта'
     ],
     'filter' => [
-      'all' => 'все'
+        'all' => 'все',
+        'options_method_not_exists' => "Модель класса :model должна определить метод :method() возвращающего варианты для фильтра ':filter'.",
+        'date_all' => 'весь период'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Загрузка CSV-файл',
@@ -399,5 +463,35 @@ return [
         'column_preview' => 'Предпросмотр столбца',
         'file_not_found_error' => 'Файл не найден',
         'empty_error' => 'Нет данных доступных для экспорта',
+        'empty_import_columns_error' => 'Укажите некоторые столбцы для импорта.',
+        'match_some_column_error' => 'Сначала сначала сопоставьте некоторые столбцы.',
+        'required_match_column_error' => 'Укажите соответствующее поле :label.',
+        'empty_export_columns_error' => 'Укажите некоторые столбцы для экспорта.',
+        'behavior_missing_uselist_error' => "Вы должны реализовать поведение контроллера ListController с включенной опцией 'useList' экспорта.",
+        'missing_model_class_error' => 'Укажите свойство modelClass для :type',
+        'missing_column_id_error' => 'Отсутствует идентификатор столбца',
+        'unknown_column_error' => 'Неизвестная колонка',
+        'encoding_not_supported_error' => 'Кодировка исходного файла не распознается. Пожалуйста, выберите опцию пользовательского формата файла с правильной кодировкой для импорта файла.',
+        'encoding_format' => 'Кодирование файлов',
+        'encodings' => [
+            'utf_8' => 'UTF-8',
+            'us_ascii' => 'US-ASCII',
+            'iso_8859_1' => 'ISO-8859-1 (Latin-1, Western European)',
+            'iso_8859_2' => 'ISO-8859-2 (Latin-2, Central European)',
+            'iso_8859_3' => 'ISO-8859-3 (Latin-3, South European)',
+            'iso_8859_4' => 'ISO-8859-4 (Latin-4, North European)',
+            'iso_8859_5' => 'ISO-8859-5 (Latin, Cyrillic)',
+            'iso_8859_6' => 'ISO-8859-6 (Latin, Arabic)',
+            'iso_8859_7' => 'ISO-8859-7 (Latin, Greek)',
+            'iso_8859_8' => 'ISO-8859-8 (Latin, Hebrew)',
+            'iso_8859_0' => 'ISO-8859-9 (Latin-5, Turkish)',
+            'iso_8859_10' => 'ISO-8859-10 (Latin-6, Nordic)',
+            'iso_8859_11' => 'ISO-8859-11 (Latin, Thai)',
+            'iso_8859_13' => 'ISO-8859-13 (Latin-7, Baltic Rim)',
+            'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
+            'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
+            'windows_1251' => 'Windows-1251 (CP1251)',
+            'windows_1252' => 'Windows-1252 (CP1252)'
+        ]
     ],
 ];

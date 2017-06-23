@@ -48,7 +48,7 @@ class Welcome extends ReportWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

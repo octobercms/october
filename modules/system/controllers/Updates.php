@@ -3,6 +3,7 @@
 use Str;
 use Lang;
 use Html;
+use Yaml;
 use File;
 use Flash;
 use Config;
@@ -109,8 +110,9 @@ class Updates extends Controller
 
             $readmeFiles = ['README.md', 'readme.md'];
             $upgradeFiles = ['UPGRADE.md', 'upgrade.md'];
+            $licenceFiles = ['LICENCE.md', 'licence.md', 'LICENSE.md', 'license.md'];
 
-            $upgrades = $readme = $name = null;
+            $readme = $changelog = $upgrades = $licence = $name = null;
             $code = str_replace('-', '.', $urlCode);
 
             /*
@@ -124,7 +126,9 @@ class Updates extends Controller
             if ($path && $plugin) {
                 $details = $plugin->pluginDetails();
                 $readme = $this->getPluginMarkdownFile($path, $readmeFiles);
+                $changelog = $this->getPluginVersionFile($path, 'updates/version.yaml');
                 $upgrades = $this->getPluginMarkdownFile($path, $upgradeFiles);
+                $licence = $this->getPluginMarkdownFile($path, $licenceFiles);
 
                 $pluginVersion = PluginVersion::whereCode($code)->first();
                 $this->vars['pluginName'] = array_get($details, 'name', 'system::lang.plugin.unnamed');
@@ -134,7 +138,7 @@ class Updates extends Controller
                 $this->vars['pluginHomepage'] = array_get($details, 'homepage');
             }
             else {
-                throw new ApplicationException('Plugin not found');
+                throw new ApplicationException(Lang::get('system::lang.updates.plugin_not_found'));
             }
 
             /*
@@ -147,12 +151,33 @@ class Updates extends Controller
 
             $this->vars['activeTab'] = $tab ?: 'readme';
             $this->vars['urlCode'] = $urlCode;
-            $this->vars['upgrades'] = $upgrades;
             $this->vars['readme'] = $readme;
+            $this->vars['changelog'] = $changelog;
+            $this->vars['upgrades'] = $upgrades;
+            $this->vars['licence'] = $licence;
         }
         catch (Exception $ex) {
             $this->handleError($ex);
         }
+    }
+
+    protected function getPluginVersionFile($path, $filename)
+    {
+        $contents = [];
+
+        try {
+            $updates = Yaml::parseFile($path.'/'.$filename);
+            $updates = is_array($updates) ? array_reverse($updates) : [];
+
+            foreach ($updates as $version => $details) {
+                $contents[$version] = is_array($details)
+                    ? array_shift($details)
+                    : $details;
+            }
+        }
+        catch (Exception $ex) {}
+
+        return $contents;
     }
 
     protected function getPluginMarkdownFile($path, $filenames)
@@ -175,7 +200,17 @@ class Updates extends Controller
     }
 
     /**
-     * {@inheritDoc}
+     * Override for ListController behavior.
+     * Modifies the CSS class for each row in the list to
+     *
+     * - hidden - Disabled by configuration
+     * - safe disabled - Orphaned or disabled
+     * - negative - Disabled by system
+     * - frozen - Frozen by the user
+     * - positive - Default CSS class
+     *
+     * @see Backend\Behaviors\ListController
+     * @return string
      */
     public function listInjectRowClass($record, $definition = null)
     {
@@ -297,6 +332,28 @@ class Updates extends Controller
     protected function processImportantUpdates($result)
     {
         $hasImportantUpdates = false;
+
+        /*
+         * Core
+         */
+        if (isset($result['core'])) {
+            $coreImportant = false;
+
+            foreach (array_get($result, 'core.updates', []) as $build => $description) {
+                if (strpos($description, '!!!') === false) continue;
+
+                $detailsUrl = '//octobercms.com/support/articles/release-notes';
+                $description = str_replace('!!!', '', $description);
+                $result['core']['updates'][$build] = [$description, $detailsUrl];
+                $coreImportant = $hasImportantUpdates = true;
+            }
+
+            $result['core']['isImportant'] = $coreImportant ? '1' : '0';
+        }
+
+        /*
+         * Plugins
+         */
         foreach (array_get($result, 'plugins', []) as $code => $plugin) {
             $isImportant = false;
 
@@ -313,6 +370,7 @@ class Updates extends Controller
         }
 
         $result['hasImportantUpdates'] = $hasImportantUpdates;
+
         return $result;
     }
 
@@ -626,6 +684,7 @@ class Updates extends Controller
             $name = $result['code'];
             $hash = $result['hash'];
             $plugins = [$name => $hash];
+            $plugins = $this->appendRequiredPlugins($plugins, $result);
 
             /*
              * Update steps
@@ -782,17 +841,7 @@ class Updates extends Controller
             $name = $result['code'];
             $hash = $result['hash'];
             $themes = [$name => $hash];
-            $plugins = [];
-
-            foreach ((array) array_get($result, 'require') as $plugin) {
-                if (
-                    ($name = array_get($plugin, 'code')) &&
-                    ($hash = array_get($plugin, 'hash')) &&
-                    !PluginManager::instance()->hasPlugin($name)
-                ) {
-                    $plugins[$name] = $hash;
-                }
-            }
+            $plugins = $this->appendRequiredPlugins([], $result);
 
             /*
              * Update steps
@@ -926,5 +975,26 @@ class Updates extends Controller
     protected function decodeCode($code)
     {
         return str_replace(':', '.', $code);
+    }
+
+    /**
+     * Adds require plugin codes to the collection based on a result.
+     * @param array $plugins
+     * @param array $result
+     * @return array
+     */
+    protected function appendRequiredPlugins(array $plugins, array $result)
+    {
+        foreach ((array) array_get($result, 'require') as $plugin) {
+            if (
+                ($name = array_get($plugin, 'code')) &&
+                ($hash = array_get($plugin, 'hash')) &&
+                !PluginManager::instance()->hasPlugin($name)
+            ) {
+                $plugins[$name] = $hash;
+            }
+        }
+
+        return $plugins;
     }
 }

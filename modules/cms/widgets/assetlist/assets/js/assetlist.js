@@ -82,14 +82,20 @@
         this.updateUi()
     }
 
-    AssetList.prototype.onUploadFail = function(file, error) {
-        alert('Error uploading file: ' + error)
+    AssetList.prototype.onUploadFail = function(file, message) {
+        if (!message) {
+            message = 'Error uploading file'
+        }
+
+        $.oc.alert(message)
+
         this.refresh()
     }
 
     AssetList.prototype.onUploadSuccess = function(file, data) {
-        if (data !== 'success')
-            alert(data)
+        if (data !== 'success') {
+            $.oc.alert(data)
+        }
     }
 
     AssetList.prototype.onUploadComplete = function(file, data) {

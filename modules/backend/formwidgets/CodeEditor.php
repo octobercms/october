@@ -107,16 +107,20 @@ class CodeEditor extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'codeeditor';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
         $this->applyEditorPreferences();
+
+        if ($this->formField->disabled) {
+            $this->readOnly = true;
+        }
 
         $this->fillFromConfig([
             'language',
@@ -140,7 +144,7 @@ class CodeEditor extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -167,7 +171,6 @@ class CodeEditor extends FormWidgetBase
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
-        $this->vars['name'] = $this->formField->getName();
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['autocompletion'] = $this->autocompletion;
         $this->vars['enableSnippets'] = $this->enableSnippets;
@@ -176,10 +179,11 @@ class CodeEditor extends FormWidgetBase
 
         // Double encode when escaping
         $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
+        $this->vars['name'] = $this->getFieldName();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

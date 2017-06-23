@@ -88,7 +88,7 @@ class EditorSetting extends Model
     {
         $count = 0;
 
-        return array_build($arr, function($key, $value) use (&$count) {
+        return array_build($arr, function ($key, $value) use (&$count) {
             return [$count++, ['class_label' => $value, 'class_name' => $key]];
         });
     }
@@ -106,7 +106,7 @@ class EditorSetting extends Model
         $defaultValue = $instance->getDefaultValue($key);
 
         if (is_array($value)) {
-            $value = array_build($value, function($key, $value) {
+            $value = array_build($value, function ($key, $value) {
                 return [array_get($value, 'class_name'), array_get($value, 'class_label')];
             });
         }

@@ -5,33 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => '欢迎使用October CMS！'
     ],
-    'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'English',
-        'de' => 'German',
-        'es' => 'Spanish',
-        'es-ar' => 'Spanish (Argentina)',
-        'fa' => 'Persian',
-        'fr' => 'French',
-        'hu' => 'Hungarian',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italian',
-        'ja' => 'Japanese',
-        'lv' => 'Latvian',
-        'nb-no' => 'Norwegian (Bokmål)',
-        'nl' => 'Dutch',
-        'pl' => 'Polish',
-        'pt-br' => 'Portuguese (Brazil)',
-        'ro' => 'Romanian',
-        'ru' => 'Russian',
-        'sv' => 'Swedish',
-        'sk' => 'Slovak (Slovakia)',
-        'tr' => 'Turkish',
-        'zh-cn' => '简体中文',
-        'zh-tw' => 'Chinese (Taiwan)',
-        'el' => 'Greek'
-    ],
     'directory' => [
         'create_fail' => '不能创建目录: :name'
     ],
@@ -207,6 +180,7 @@ return [
         'plugin_description' => '描述',
         'plugin_version' => '版本',
         'plugin_author' => '作者',
+        'plugin_not_found' => 'Plugin not found',
         'core_build' => '当前版本',
         'core_build_old' => '当前版本 :build',
         'core_build_new' => '版本 :build',
@@ -300,7 +274,8 @@ return [
         'count' => '次数',
         'referer' => '来源',
         'url' => 'URL',
-        'status_code' => '状态'
+        'status_code' => '状态',
+        'preview_title'=> '预览事件日志'
     ],
     'permissions' => [
         'name' => '系统',
@@ -310,6 +285,8 @@ return [
         'manage_mail_templates' => '管理邮件模板',
         'manage_mail_settings' => '管理邮件设置',
         'manage_other_administrators' => '管理其他管理员',
+        'manage_preferences' => '管理后台偏好设置',
+        'manage_editor' => '管理代码编辑器偏好设置',
         'view_the_dashboard' => '查看仪表盘',
         'manage_branding' => '自定义后台'
     ]

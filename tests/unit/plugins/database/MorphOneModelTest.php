@@ -59,6 +59,11 @@ class MorphOneModelTest extends PluginTestCase
         $this->assertEquals(get_class($post), $meta1->taggable_type);
         $this->assertEquals('Question', $post->meta->meta_title);
 
+        // Double check
+        $meta1 = Meta::find($meta1->id);
+        $this->assertEquals($post->id, $meta1->taggable_id);
+        $this->assertEquals(get_class($post), $meta1->taggable_type);
+
         // Set by primary key
         $metaId = $meta2->id;
         $author->meta = $metaId;
@@ -80,6 +85,33 @@ class MorphOneModelTest extends PluginTestCase
         $author->meta = $meta3;
         $this->assertEquals('Answer', $author->meta->meta_title);
         $this->assertEquals($author->id, $meta3->taggable_id);
+    }
+
+    public function testSetRelationValueTwice()
+    {
+        Model::unguard();
+        $author = Author::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        $meta = Meta::create([
+            'meta_title' => 'Question',
+            'meta_description' => 'Industry',
+            'meta_keywords' => 'major',
+            'canonical_url' => 'http://google.com/search/jobs',
+            'redirect_url' => 'http://google.com',
+            'robot_index' => 'index',
+            'robot_follow' => 'follow',
+        ]);
+        Model::reguard();
+
+        $metaId = $meta->id;
+        $author->meta = $metaId;
+        $author->save();
+
+        $author->meta = $metaId;
+        $author->save();
+
+        $meta = Meta::find($metaId);
+        $this->assertEquals($author->id, $meta->taggable_id);
+        $this->assertEquals(get_class($author), $meta->taggable_type);
     }
 
     public function testGetRelationValue()

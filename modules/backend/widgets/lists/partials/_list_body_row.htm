@@ -1,10 +1,9 @@
 <?php
-    if ($showTree) {
-        $expanded = $this->isTreeNodeExpanded($record);
-        $childRecords = $record->getChildren();
-    }
+    $expanded = $showTree ? $this->isTreeNodeExpanded($record) : null;
+    $childRecords = $showTree ? $record->getChildren() : null;
+    $treeLevelClass = $showTree ? 'list-tree-level-'.$treeLevel : '';
 ?>
-<tr class="list-tree-level-<?= $treeLevel ?> <?= $this->getRowClass($record) ?>">
+<tr class="<?= $treeLevelClass ?> <?= $this->getRowClass($record) ?>">
     <?php if ($showCheckboxes): ?>
         <?= $this->makePartial('list_body_checkbox', ['record' => $record]) ?>
     <?php endif ?>
@@ -19,7 +18,7 @@
 
     <?php $index = $url = 0; foreach ($columns as $key => $column): ?>
         <?php $index++; ?>
-        <td data-title="<?= e(trans($column->label)) ?>" class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->clickable ? '' : 'nolink' ?> <?= $column->cssClass ?>">
+        <td class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->clickable ? '' : 'nolink' ?> <?= $column->cssClass ?>">
             <?php if ($column->clickable && !$url && ($url = $this->getRecordUrl($record))): ?>
                 <a <?= $this->getRecordOnClick($record) ?> href="<?= $url ?>">
                     <?= $this->getColumnValue($record, $column) ?>

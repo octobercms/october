@@ -11,6 +11,7 @@
     var FormWidget = function (element, options) {
         this.$el = $(element)
         this.options = options || {}
+        this.fieldElementCache = null
 
         /*
          * Throttle dependency updating
@@ -44,7 +45,9 @@
         this.$el.removeData('oc.formwidget')
 
         this.$el = null
+        this.$form = null
         this.options = null
+        this.fieldElementCache = null
 
         BaseProto.dispose.call(this)
     }
@@ -72,23 +75,44 @@
     }
 
     /*
+     * Get all fields elements that belong to this form, nested form
+     * fields are removed from this collection.
+     */
+    FormWidget.prototype.getFieldElements = function() {
+        if (this.fieldElementCache !== null) {
+            return this.fieldElementCache
+        }
+
+        var form = this.$el,
+            nestedFields = form.find('[data-control="formwidget"] [data-field-name]')
+
+        return this.fieldElementCache = form.find('[data-field-name]').not(nestedFields)
+    }
+
+    /*
      * Bind dependant fields
      */
     FormWidget.prototype.bindDependants = function() {
+
+        if (!$('[data-field-depends]', this.$el).length) {
+            return;
+        }
+
         var self = this,
-            form = this.$el,
-            fieldMap = {}
+            fieldMap = {},
+            fieldElements = this.getFieldElements()
 
         /*
          * Map master and slave fields
          */
-        form.find('[data-field-depends]').each(function() {
+        fieldElements.filter('[data-field-depends]').each(function() {
             var name = $(this).data('field-name'),
                 depends = $(this).data('field-depends')
 
             $.each(depends, function(index, depend){
-                if (!fieldMap[depend])
+                if (!fieldMap[depend]) {
                     fieldMap[depend] = { fields: [] }
+                }
 
                 fieldMap[depend].fields.push(name)
             })
@@ -98,8 +122,7 @@
          * When a master is updated, refresh its slaves
          */
         $.each(fieldMap, function(fieldName, toRefresh){
-            form
-                .find('[data-field-name="'+fieldName+'"]')
+            fieldElements.filter('[data-field-name="'+fieldName+'"]')
                 .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
         })
     }
@@ -111,22 +134,28 @@
     FormWidget.prototype.onRefreshDependants = function(fieldName, toRefresh) {
         var self = this,
             form = this.$el,
-            formEl = this.$form
+            formEl = this.$form,
+            fieldElements = this.getFieldElements()
 
         if (this.dependantUpdateTimers[fieldName] !== undefined) {
             window.clearTimeout(this.dependantUpdateTimers[fieldName])
         }
 
         this.dependantUpdateTimers[fieldName] = window.setTimeout(function() {
+            var refreshData = $.extend({},
+                toRefresh,
+                paramToObj('data-refresh-data', self.options.refreshData)
+            )
+
             formEl.request(self.options.refreshHandler, {
-                data: toRefresh
+                data: refreshData
             }).success(function() {
                 self.toggleEmptyTabs()
             })
         }, this.dependantUpdateInterval)
 
         $.each(toRefresh.fields, function(index, field) {
-            form.find('[data-field-name="'+field+'"]:visible')
+            fieldElements.filter('[data-field-name="'+field+'"]:visible')
                 .addClass('loading-indicator-container size-form-field')
                 .loadIndicator()
         })
@@ -192,7 +221,8 @@
     }
 
     FormWidget.DEFAULTS = {
-        refreshHandler: null
+        refreshHandler: null,
+        refreshData: {}
     }
 
     // FORM WIDGET PLUGIN DEFINITION
@@ -228,6 +258,18 @@
 
     // FORM WIDGET DATA-API
     // ==============
+
+    function paramToObj(name, value) {
+        if (value === undefined) value = ''
+        if (typeof value == 'object') return value
+
+        try {
+            return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+        }
+        catch (e) {
+            throw new Error('Error parsing the '+name+' attribute value. '+e)
+        }
+    }
 
     $(document).render(function() {
         $('[data-control="formwidget"]').formWidget();

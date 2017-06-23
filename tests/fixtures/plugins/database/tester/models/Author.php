@@ -32,7 +32,15 @@ class Author extends Model
     ];
 
     public $belongsToMany = [
-        'roles' => ['Database\Tester\Models\Role', 'table' => 'database_tester_authors_roles']
+        'roles' => [
+            'Database\Tester\Models\Role',
+            'table' => 'database_tester_authors_roles'
+        ],
+        'executive_authors' => [
+            'Database\Tester\Models\Role',
+            'table' => 'database_tester_authors_roles',
+            'conditions' => 'is_executive = 1'
+        ],
     ];
 
     public $morphMany = [

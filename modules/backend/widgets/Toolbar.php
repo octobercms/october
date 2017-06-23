@@ -30,7 +30,7 @@ class Toolbar extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'toolbar';
 

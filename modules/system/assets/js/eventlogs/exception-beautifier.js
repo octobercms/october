@@ -324,8 +324,12 @@
             '<div class="tab-pane pane-inset" id="beautifier-tab-raw"></div>' +
             '</div></div>')
 
+        if (source.indexOf('Message-ID:') > 0) {
+            markup = '<div class="beautifier-formatted-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>'
+        }
+
         tabs.find('#beautifier-tab-formatted').append(markup)
-        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
+        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + $.oc.escapeHtmlString(source.trim()).replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
 
         tabs.ocTab({closable: false})
 

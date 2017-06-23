@@ -33,7 +33,7 @@ trait InspectableContainer
             throw new ApplicationException('The options cannot be loaded for the specified class.');
         }
 
-        $obj = new $className;
+        $obj = new $className(null);
 
         // Nested properties have names like object.property.
         // Convert them to Object.Property.

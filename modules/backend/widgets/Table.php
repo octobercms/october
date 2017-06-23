@@ -10,14 +10,14 @@ use SystemException;
  * Table Widget.
  *
  * Represents an editable tabular control.
- * 
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class Table extends WidgetBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'table';
 
@@ -145,7 +145,7 @@ class Table extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -156,7 +156,7 @@ class Table extends WidgetBase
     /**
      * Converts the columns associative array to a regular array and translates column headers and drop-down options.
      * Working with regular arrays is much faster in JavaScript.
-     * References: 
+     * References:
      * - http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
      * - http://jsperf.com/performance-of-array-vs-object/3
      */

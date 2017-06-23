@@ -24,6 +24,11 @@ class DatePicker extends FormWidgetBase
     public $mode = 'datetime';
 
     /**
+     * @var string Provide an explicit date display format.
+     */
+    public $format = null;
+
+    /**
      * @var string the minimum/earliest date that can be selected.
      * eg: 2000-01-01
      */
@@ -35,17 +40,23 @@ class DatePicker extends FormWidgetBase
      */
     public $maxDate = null;
 
+    /**
+     * @var string number of years either side or array of upper/lower range
+     * eg: 10 or [1900,1999]
+     */
+    public $yearRange = null;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'datepicker';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -54,6 +65,7 @@ class DatePicker extends FormWidgetBase
             'mode',
             'minDate',
             'maxDate',
+            'yearRange',
         ]);
 
         $this->mode = strtolower($this->mode);
@@ -72,7 +84,7 @@ class DatePicker extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -85,43 +97,28 @@ class DatePicker extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['name'] = $this->formField->getName();
-
 
         if ($value = $this->getLoadValue()) {
+
+            $value = DateTimeHelper::makeCarbon($value, false);
+
             $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
-
-            /*
-             * Time
-             */
-            if (strlen($value) <= 8) {
-                $value = Carbon::now()->toDateString() . ' ' . $value;
-            }
         }
 
-        /*
-         * Display alias, used by preview mode
-         */
-        if ($this->mode == 'time') {
-            $formatAlias = 'time';
-        }
-        elseif ($this->mode == 'date') {
-            $formatAlias = 'dateLong';
-        }
-        else {
-            $formatAlias = 'dateTimeLong';
-        }
-
-        $this->vars['formatAlias'] = $formatAlias;
+        $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value ?: '';
         $this->vars['field'] = $this->formField;
         $this->vars['mode'] = $this->mode;
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
+        $this->vars['yearRange'] = $this->yearRange;
+        $this->vars['format'] = $this->format;
+        $this->vars['formatMoment'] = $this->getDateFormatMoment();
+        $this->vars['formatAlias'] = $this->getDateFormatAlias();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {
@@ -134,5 +131,35 @@ class DatePicker extends FormWidgetBase
         }
 
         return $value;
+    }
+
+    /**
+     * Convert PHP format to JS format
+     */
+    protected function getDateFormatMoment()
+    {
+        if ($this->format) {
+            return DateTimeHelper::momentFormat($this->format);
+        }
+    }
+
+    /*
+     * Display alias, used by preview mode
+     */
+    protected function getDateFormatAlias()
+    {
+        if ($this->format) {
+            return null;
+        }
+
+        if ($this->mode == 'time') {
+            return 'time';
+        }
+        elseif ($this->mode == 'date') {
+            return 'dateLong';
+        }
+        else {
+            return 'dateTimeLong';
+        }
     }
 }

@@ -318,7 +318,7 @@
         }
     }
 
-    CmsPage.prototype.onAjaxError = function(ev, context, data, jqXHR) {
+    CmsPage.prototype.onAjaxError = function(ev, context, message, data, jqXHR) {
         if (context.handler == 'onSave') {
             if (jqXHR.responseText == 'mtime-mismatch') {
                 ev.preventDefault()

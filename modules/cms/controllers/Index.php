@@ -1,16 +1,13 @@
 <?php namespace Cms\Controllers;
 
-use URL;
+use Url;
 use Lang;
 use Flash;
-use Event;
 use Config;
 use Request;
 use Response;
 use Exception;
 use BackendMenu;
-use Backend\Classes\Controller;
-use Backend\Classes\WidgetManager;
 use Cms\Widgets\AssetList;
 use Cms\Widgets\TemplateList;
 use Cms\Widgets\ComponentList;
@@ -23,9 +20,10 @@ use Cms\Classes\Content;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
-use ApplicationException;
-use Backend\Traits\InspectableContainer;
+use Backend\Classes\Controller;
+use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
+use ApplicationException;
 
 /**
  * CMS index
@@ -35,11 +33,17 @@ use October\Rain\Router\Router as RainRouter;
  */
 class Index extends Controller
 {
-    use InspectableContainer;
+    use \Backend\Traits\InspectableContainer;
 
     protected $theme;
 
-    public $requiredPermissions = ['cms.*'];
+    public $requiredPermissions = [
+        'cms.manage_content',
+        'cms.manage_assets',
+        'cms.manage_pages',
+        'cms.manage_layouts',
+        'cms.manage_partials'
+    ];
 
     /**
      * Constructor.
@@ -138,19 +142,27 @@ class Index extends Controller
         $type = Request::input('templateType');
         $templatePath = trim(Request::input('templatePath'));
         $template = $templatePath ? $this->loadTemplate($type, $templatePath) : $this->createTemplate($type);
+        $formWidget = $this->makeTemplateFormWidget($type, $template);
 
-        $settings = Request::input('settings') ?: [];
+        $saveData = $formWidget->getSaveData();
+        $postData = post();
+        $templateData = [];
+
+        $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
         $settings = $this->upgradeSettings($settings);
 
-        $templateData = [];
         if ($settings) {
             $templateData['settings'] = $settings;
         }
 
         $fields = ['markup', 'code', 'fileName', 'content'];
+
         foreach ($fields as $field) {
-            if (array_key_exists($field, $_POST)) {
-                $templateData[$field] = Request::input($field);
+            if (array_key_exists($field, $saveData)) {
+                $templateData[$field] = $saveData[$field];
+            }
+            elseif (array_key_exists($field, $postData)) {
+                $templateData[$field] = $postData[$field];
             }
         }
 
@@ -175,8 +187,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.save', [$this, $template, $type]);
-        $this->fireEvent('template.save', [$template, $type]);
+        $this->fireSystemEvent('cms.template.save', [$template, $type]);
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
@@ -187,7 +198,7 @@ class Index extends Controller
         ];
 
         if ($type == 'page') {
-            $result['pageUrl'] = URL::to($template->url);
+            $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
             CmsCompoundObject::clearCache($this->theme);
@@ -216,7 +227,7 @@ class Index extends Controller
 
         return [
             'tabTitle' => $this->getTabTitle($type, $template),
-            'tab'   => $this->makePartial('form_page', [
+            'tab'      => $this->makePartial('form_page', [
                 'form'          => $widget,
                 'templateType'  => $type,
                 'templateTheme' => $this->theme->getDirName(),
@@ -249,8 +260,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('template.delete', [$type]);
+        $this->fireSystemEvent('cms.template.delete', [$type]);
 
         return [
             'deleted' => $deleted,
@@ -270,8 +280,7 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        Event::fire('cms.template.delete', [$this, $type]);
-        $this->fireEvent('template.delete', [$type]);
+        $this->fireSystemEvent('cms.template.delete', [$type]);
     }
 
     public function onGetTemplateList()
@@ -352,7 +361,10 @@ class Index extends Controller
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 
-        Event::fire('cms.template.processSettingsAfterLoad', [$this, $template]);
+        /*
+         * Extensibility
+         */
+        $this->fireSystemEvent('cms.template.processSettingsAfterLoad', [$template]);
 
         return $template;
     }
@@ -461,11 +473,9 @@ class Index extends Controller
         /*
          * Extensibility
          */
-        $dataHolder = (object)[
-            'settings' => $settings
-        ];
+        $dataHolder = (object) ['settings' => $settings];
 
-        Event::fire('cms.template.processSettingsBeforeSave', [$this, $dataHolder]);
+        $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
     }
@@ -490,6 +500,7 @@ class Index extends Controller
     {
         $markup = str_replace("\r\n", "\n", $markup);
         $markup = str_replace("\r", "\n", $markup);
+
         return $markup;
     }
 }

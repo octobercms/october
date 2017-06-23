@@ -1,0 +1,17 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    is_superuser:
+        label: backend::lang.user.superuser
+        type: switch
+        conditions:
+            - is_superuser = false
+            - is_superuser = true
+
+    login_date:
+        label: backend::lang.user.last_login
+        type: daterange
+        conditions: last_login >= ':after' AND last_login <= ':before'

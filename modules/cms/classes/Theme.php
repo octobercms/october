@@ -58,6 +58,7 @@ class Theme
         $theme = new static;
         $theme->setDirName($dirName);
         $theme->registerHalyconDatasource();
+
         return $theme;
     }
 
@@ -133,13 +134,14 @@ class Theme
     public function isActiveTheme()
     {
         $activeTheme = self::getActiveTheme();
+
         return $activeTheme && $activeTheme->getDirName() == $this->getDirName();
     }
 
     /**
      * Returns the active theme code.
      * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overridden by the cms.theme.getActiveTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getActiveTheme event listener.
      * @return string
      * If the theme doesn't exist, returns null.
      */
@@ -150,7 +152,7 @@ class Theme
         if (App::hasDatabase()) {
             try {
                 try {
-                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
                         return Parameter::applyKey(self::ACTIVE_KEY)->pluck('value');
                     });
                 }
@@ -169,6 +171,16 @@ class Theme
             }
         }
 
+        /**
+         * @event cms.theme.getActiveTheme
+         * Overrides the active theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
         if ($apiResult !== null) {
             $activeTheme = $apiResult;
@@ -204,7 +216,7 @@ class Theme
 
     /**
      * Sets the active theme.
-     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter. 
+     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter.
      * @param string $code Specifies the  active theme code.
      */
     public static function setActiveTheme($code)
@@ -374,9 +386,10 @@ class Theme
      */
     public function getPreviewImageUrl()
     {
-        $previewPath = '/assets/images/theme-preview.png';
-        if (File::exists($this->getPath().$previewPath)) {
-            return Url::asset('themes/'.$this->getDirName().$previewPath);
+        $previewPath = $this->getConfigValue('previewImage', 'assets/images/theme-preview.png');
+
+        if (File::exists($this->getPath().'/'.$previewPath)) {
+            return Url::asset('themes/'.$this->getDirName().'/'.$previewPath);
         }
 
         return Url::asset('modules/cms/assets/images/default-theme-preview.png');
@@ -390,6 +403,7 @@ class Theme
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
+
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
     }

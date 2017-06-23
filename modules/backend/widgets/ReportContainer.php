@@ -58,7 +58,7 @@ class ReportContainer extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'reportContainer';
 
@@ -98,7 +98,7 @@ class ReportContainer extends WidgetBase
     }
 
     /**
-     * Ensure report widgets are registered so they can also be bound to 
+     * Ensure report widgets are registered so they can also be bound to
      * the controller this allows their AJAX features to operate.
      * @return void
      */
@@ -119,7 +119,7 @@ class ReportContainer extends WidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

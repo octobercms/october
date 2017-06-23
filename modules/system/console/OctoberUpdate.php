@@ -7,6 +7,16 @@ use System\Classes\UpdateManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to perform a system update.
+ *
+ * This updates October CMS and all plugins, database and files. It uses the
+ * October gateway to receive the files via a package manager, then saves
+ * the latest build number to the system.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class OctoberUpdate extends Command
 {
 
@@ -34,7 +44,7 @@ class OctoberUpdate extends Command
     public function fire()
     {
         $this->output->writeln('<info>Updating October...</info>');
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
         $forceUpdate = $this->option('force');
 
         /*
@@ -56,7 +66,7 @@ class OctoberUpdate extends Command
          * Perform update
          */
         $updateList = $manager->requestUpdateList($forceUpdate);
-        $updates = (int)array_get($updateList, 'update', 0);
+        $updates = (int) array_get($updateList, 'update', 0);
 
         if ($updates == 0) {
             $this->output->writeln('<info>No new updates found</info>');

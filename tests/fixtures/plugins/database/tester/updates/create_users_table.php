@@ -8,7 +8,7 @@ class CreateUsersTable extends Migration
 
     public function up()
     {
-        Schema::create('database_tester_users', function($table)
+        Schema::create('database_tester_users', function ($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');

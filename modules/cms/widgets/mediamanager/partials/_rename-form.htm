@@ -10,11 +10,17 @@
     <div class="modal-body">
         <div class="form-group">
             <label><?= e(trans('cms::lang.asset.rename_new_name')) ?></label>
-            <input type="text" default-focus class="form-control" name="name" value="<?= e($name) ?>" />
-            <input type="hidden" name="originalName" value="<?= e($name) ?>">
-            <input type="hidden" name="type" value="<?= e($type) ?>">
+            <input
+                type="text"
+                name="name"
+                value="<?= e($name) ?>"
+                class="form-control"
+                autocomplete="off"
+                default-focus />
         </div>
 
+        <input type="hidden" name="originalName" value="<?= e($name) ?>">
+        <input type="hidden" name="type" value="<?= e($type) ?>">
         <input type="hidden" name="originalPath" value="<?= e($originalPath) ?>" />
     </div>
     <div class="modal-footer">

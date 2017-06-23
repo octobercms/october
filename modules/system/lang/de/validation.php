@@ -42,14 +42,14 @@ return [
     "max"              => [
         "numeric" => ":attribute darf nicht größer als :max sein.",
         "file"    => ":attribute darf nicht größer als :max kilobytes sein.",
-        "string"  => "Dateiname von :attribute darf nicht mehr als :max Zeichen haben.",
+        "string"  => ":attribute darf nicht mehr als :max Zeichen haben.",
         "array"   => ":attribute darf nicht mehr als :max Elemente besitzen.",
     ],
     "mimes"            => ":attribute muss eine Datei des Typs: :values sein.",
     "min"              => [
         "numeric" => ":attribute muss mindestens :min sein.",
         "file"    => ":attribute darf nicht kleiner als :min kilobytes sein.",
-        "string"  => "Dateiname von :attribute darf nicht weniger als :min Zeichen haben.",
+        "string"  => ":attribute darf nicht weniger als :min Zeichen haben.",
         "array"   => ":attribute darf nicht weniger als :min Elemente besitzen.",
     ],
     "not_in"           => "Das ausgewählte Attribut :attribute ist ungültig.",

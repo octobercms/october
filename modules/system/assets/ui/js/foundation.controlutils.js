@@ -40,7 +40,7 @@
     $.oc.foundation.controlUtils = ControlUtils;
 
     $(document).on('ajaxBeforeReplace', function(ev){
-        // Automatically displose controls in an element
+        // Automatically dispose controls in an element
         // before the element contents is replaced.
         // The ajaxBeforeReplace event is triggered in 
         // framework.js

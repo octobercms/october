@@ -14,15 +14,33 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Asset\AssetCollection;
+use Assetic\Factory\AssetFactory;
 use October\Rain\Parse\Assetic\FilesystemCache;
 use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
 
 /**
- * Class used for combining JavaScript and StyleSheet
- * files.
+ * Combiner class used for combining JavaScript and StyleSheet files.
  *
+ * This works by taking a collection of asset locations, serializing them,
+ * then storing them in the session with a unique ID. The ID is then used
+ * to generate a URL to the `/combine` route via the system controller.
+ *
+ * When the combine route is hit, the unique ID is used to serve up the
+ * assets -- minified, compiled or both. Special E-Tags are used to prevent
+ * compilation and delivery of cached assets that are unchanged.
+ *
+ * Use the `CombineAssets::combine` method to combine your own assets.
+ *
+ * The functionality of this class is controlled by these config items:
+ *
+ * - cms.enableAssetCache - Cache untouched assets
+ * - cms.enableAssetMinify - Compress assets using minification
+ * - cms.enableAssetDeepHashing - Advanced caching of imports
+ *
+ * @see System\Classes\SystemController System controller
+ * @see https://octobercms.com/docs/services/session Session service
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -76,6 +94,12 @@ class CombineAssets
     public $useMinify = false;
 
     /**
+     * @var bool When true, cache will be busted when an import is modified.
+     * Enabling this feature will make page loading slower.
+     */
+    public $useDeepHashing = false;
+
+    /**
      * @var array Cache of registration callbacks.
      */
     private static $callbacks = [];
@@ -90,9 +114,14 @@ class CombineAssets
          */
         $this->useCache = Config::get('cms.enableAssetCache', false);
         $this->useMinify = Config::get('cms.enableAssetMinify', null);
+        $this->useDeepHashing = Config::get('cms.enableAssetDeepHashing', null);
 
         if ($this->useMinify === null) {
             $this->useMinify = !Config::get('app.debug', false);
+        }
+
+        if ($this->useDeepHashing === null) {
+            $this->useDeepHashing = Config::get('app.debug', false);
         }
 
         /*
@@ -104,15 +133,16 @@ class CombineAssets
          * Register CSS filters
          */
         $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
         $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
             $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less'], new \October\Rain\Parse\Assetic\StylesheetMinify);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*
@@ -134,6 +164,17 @@ class CombineAssets
     /**
      * Combines JavaScript or StyleSheet file references
      * to produce a page relative URL to the combined contents.
+     *
+     *     $assets = [
+     *         'assets/vendor/mustache/mustache.js',
+     *         'assets/js/vendor/jquery.ui.widget.js',
+     *         'assets/js/vendor/canvas-to-blob.js',
+     *     ];
+     *
+     *     CombineAssets::combine($assets, base_path('plugins/acme/blog'));
+     *
+     * @param array $assets Collection of assets
+     * @param string $localPath Prefix all assets with this path (optional)
      * @return string URL to contents.
      */
     public static function combine($assets = [], $localPath = null)
@@ -143,11 +184,24 @@ class CombineAssets
 
     /**
      * Combines a collection of assets files to a destination file
-     * @param array $assets
-     * @param string $destination
+     *
+     *     $assets = [
+     *         'assets/less/header.less',
+     *         'assets/less/footer.less',
+     *     ];
+     *
+     *     CombineAssets::combineToFile(
+     *         $assets,
+     *         base_path('themes/website/assets/theme.less'),
+     *         base_path('themes/website')
+     *     );
+     *
+     * @param array $assets Collection of assets
+     * @param string $destination Write the combined file to this location
+     * @param string $localPath Prefix all assets with this path (optional)
      * @return void
      */
-    public function combineToFile($assets = [], $destination)
+    public function combineToFile($assets = [], $destination, $localPath = null)
     {
         // Disable cache always
         $this->storagePath = null;
@@ -163,6 +217,7 @@ class CombineAssets
 
     /**
      * Returns the combined contents from a prepared cache identifier.
+     * @param string $cacheKey Cache identifier.
      * @return string Combined file contents.
      */
     public function getContents($cacheKey)
@@ -175,21 +230,35 @@ class CombineAssets
         $this->localPath = $cacheInfo['path'];
         $this->storagePath = storage_path('cms/combiner/assets');
 
-        $combiner = $this->prepareCombiner($cacheInfo['files']);
-        $contents = $combiner->dump();
-        $mime = ($cacheInfo['extension'] == 'css') ? 'text/css' : 'application/javascript';
-
-        header_remove();
-        $response = Response::make($contents);
-        $response->header('Content-Type', $mime);
+        /*
+         * Analyse cache information
+         */
+        $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", array_get($cacheInfo, 'lastMod'));
+        $etag = array_get($cacheInfo, 'etag');
+        $mime = (array_get($cacheInfo, 'extension') == 'css')
+            ? 'text/css'
+            : 'application/javascript';
 
         /*
          * Set 304 Not Modified header, if necessary
          */
-        $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", array_get($cacheInfo, 'lastMod'));
+        header_remove();
+        $response = Response::make();
+        $response->header('Content-Type', $mime);
         $response->setLastModified(new DateTime($lastModifiedTime));
-        $response->setEtag(array_get($cacheInfo, 'etag'));
-        $response->isNotModified(App::make('request'));
+        $response->setEtag($etag);
+        $response->setPublic();
+        $modified = !$response->isNotModified(App::make('request'));
+
+        /*
+         * Request says response is cached, no code evaluation needed
+         */
+        if ($modified) {
+            $this->setHashOnCombinerFilters($cacheKey);
+            $combiner = $this->prepareCombiner($cacheInfo['files']);
+            $contents = $combiner->dump();
+            $response->setContent($contents);
+        }
 
         return $response;
     }
@@ -197,7 +266,7 @@ class CombineAssets
     /**
      * Prepares an array of assets by normalizing the collection
      * and processing aliases.
-     * @param $assets array
+     * @param array $assets
      * @return array
      */
     protected function prepareAssets(array $assets)
@@ -267,10 +336,10 @@ class CombineAssets
     }
 
     /**
-     * Combines asset file references of a single type to produce 
+     * Combines asset file references of a single type to produce
      * a URL reference to the combined contents.
-     * @var array List of asset files.
-     * @var string File extension, used for aesthetic purposes only.
+     * @param array $assets List of asset files.
+     * @param string $localPath File extension, used for aesthetic purposes only.
      * @return string URL to contents.
      */
     protected function prepareRequest(array $assets, $localPath = null)
@@ -291,8 +360,17 @@ class CombineAssets
         $cacheInfo = $this->useCache ? $this->getCache($cacheKey) : false;
 
         if (!$cacheInfo) {
+            $this->setHashOnCombinerFilters($cacheKey);
+
             $combiner = $this->prepareCombiner($assets);
-            $lastMod = $combiner->getLastModified();
+
+            if ($this->useDeepHashing) {
+                $factory = new AssetFactory($this->localPath);
+                $lastMod = $factory->getLastModified($combiner);
+            }
+            else {
+                $lastMod = $combiner->getLastModified();
+            }
 
             $cacheInfo = [
                 'version'   => $cacheKey.'-'.$lastMod,
@@ -311,6 +389,8 @@ class CombineAssets
 
     /**
      * Returns the combined contents from a prepared cache identifier.
+     * @param array $assets List of asset files.
+     * @param string $rewritePath
      * @return string Combined file contents.
      */
     protected function prepareCombiner(array $assets, $rewritePath = null)
@@ -324,7 +404,7 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
-            $path = File::symbolizePath($asset, null) ?: $this->localPath . $asset;
+            $path = file_exists($asset) ? $asset : File::symbolizePath($asset, null) ?: $this->localPath . $asset;
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->localPath . $asset;
         }
@@ -338,12 +418,60 @@ class CombineAssets
         }
 
         if (!File::isDirectory($this->storagePath)) {
-            File::makeDirectory($this->storagePath);
+            @File::makeDirectory($this->storagePath);
         }
 
         $cache = new FilesystemCache($this->storagePath);
-        $cachedCollection = new AssetCache($collection, $cache);
+
+        $cachedFiles = [];
+        foreach ($files as $file) {
+            $cachedFiles[] = new AssetCache($file, $cache);
+        }
+
+        $cachedCollection = new AssetCollection($cachedFiles, [], $filesSalt);
+        $cachedCollection->setTargetPath($this->getTargetPath($rewritePath));
         return $cachedCollection;
+    }
+
+    /**
+     * Busts the cache based on a different cache key.
+     * @return void
+     */
+    protected function setHashOnCombinerFilters($hash)
+    {
+        $allFilters = call_user_func_array('array_merge', $this->getFilters());
+
+        foreach ($allFilters as $filter) {
+            if (method_exists($filter, 'setHash')) {
+                $filter->setHash($hash);
+            }
+        }
+    }
+
+    /**
+     * Returns a deep hash on filters that support it.
+     * @param array $assets List of asset files.
+     * @return void
+     */
+    protected function getDeepHashFromAssets($assets)
+    {
+        $key = '';
+
+        $assetFiles = array_map(function ($file) {
+            return file_exists($file) ? $file : File::symbolizePath($file, null) ?: $this->localPath . $file;
+        }, $assets);
+
+        foreach ($assetFiles as $file) {
+            $filters = $this->getFilters(File::extension($file));
+
+            foreach ($filters as $filter) {
+                if (method_exists($filter, 'hashAsset')) {
+                    $key .= $filter->hashAsset($file, $this->localPath);
+                }
+            }
+        }
+
+        return $key;
     }
 
     /**
@@ -371,6 +499,7 @@ class CombineAssets
      * /combine              returns combine/
      * /index.php/combine    returns index-php/combine/
      *
+     * @param string|null $path
      * @return string The new target path
      */
     protected function getTargetPath($path = null)
@@ -395,13 +524,13 @@ class CombineAssets
     /**
      * Registers a callback function that defines bundles.
      * The callback function should register bundles by calling the manager's
-     * registerBundle() function. Thi instance is passed to the
-     * callback function as an argument. Usage:
-     * <pre>
-     *   CombineAssets::registerCallback(function($combiner){
-     *       $combiner->registerBundle('~/modules/backend/assets/less/october.less');
-     *   });
-     * </pre>
+     * `registerBundle` method. Thi instance is passed to the callback
+     * function as an argument. Usage:
+     *
+     *     CombineAssets::registerCallback(function($combiner){
+     *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+     *     });
+     *
      * @param callable $callback A callable function.
      */
     public static function registerCallback(callable $callback)
@@ -417,7 +546,7 @@ class CombineAssets
      * Register a filter to apply to the combining process.
      * @param string|array $extension Extension name. Eg: css
      * @param object $filter Collection of files to combine.
-     * @return Self
+     * @return self
      */
     public function registerFilter($extension, $filter)
     {
@@ -444,7 +573,7 @@ class CombineAssets
     /**
      * Clears any registered filters.
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function resetFilters($extension = null)
     {
@@ -461,7 +590,7 @@ class CombineAssets
     /**
      * Returns filters.
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function getFilters($extension = null)
     {
@@ -485,7 +614,7 @@ class CombineAssets
      * @param string $alias Alias name. Eg: framework
      * @param object $filter Collection of files to combine
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function registerBundle($files, $destination = null, $extension = null)
     {
@@ -504,11 +633,12 @@ class CombineAssets
         if ($destination === null) {
             $file = File::name($firstFile);
             $path = dirname($firstFile);
+            $preprocessors = array_except(self::$cssExtensions, 'css');
 
-            if ($extension == 'less') {
+            if (in_array($extension, $preprocessors)) {
                 $cssPath = $path.'/../css';
                 if (
-                    strtolower(basename($path)) == 'less' &&
+                    in_array(strtolower(basename($path)), $preprocessors) &&
                     File::isDirectory(File::symbolizePath($cssPath))
                 ) {
                     $path = $cssPath;
@@ -528,7 +658,7 @@ class CombineAssets
     /**
      * Returns bundles.
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function getBundles($extension = null)
     {
@@ -552,7 +682,7 @@ class CombineAssets
      * @param string $alias Alias name. Eg: framework
      * @param string $file Path to file to use for alias
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function registerAlias($alias, $file, $extension = null)
     {
@@ -574,7 +704,7 @@ class CombineAssets
     /**
      * Clears any registered aliases.
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function resetAliases($extension = null)
     {
@@ -591,7 +721,7 @@ class CombineAssets
     /**
      * Returns aliases.
      * @param string $extension Extension name. Eg: css
-     * @return Self
+     * @return self
      */
     public function getAliases($extension = null)
     {
@@ -613,8 +743,8 @@ class CombineAssets
     /**
      * Stores information about a asset collection against
      * a cache identifier.
-     * @var string Cache identifier.
-     * @var array List of asset files.
+     * @param string $cacheKey Cache identifier.
+     * @param array $cacheInfo List of asset files.
      * @return bool Successful
      */
     protected function putCache($cacheKey, array $cacheInfo)
@@ -632,7 +762,7 @@ class CombineAssets
 
     /**
      * Look up information about a cache identifier.
-     * @var string Cache identifier
+     * @param string $cacheKey Cache identifier
      * @return array Cache information
      */
     protected function getCache($cacheKey)
@@ -648,12 +778,19 @@ class CombineAssets
 
     /**
      * Builds a unique string based on assets
-     * @var array Asset files
+     * @param array $assets Asset files
      * @return string Unique identifier
      */
     protected function getCacheKey(array $assets)
     {
         $cacheKey = $this->localPath . implode('|', $assets);
+
+        /*
+         * Deep hashing
+         */
+        if ($this->useDeepHashing) {
+            $cacheKey .= $this->getDeepHashFromAssets($assets);
+        }
 
         /*
          * Extensibility
@@ -687,7 +824,7 @@ class CombineAssets
     /**
      * Adds a cache identifier to the index store used for
      * performing a reset of the cache.
-     * @var string Cache identifier
+     * @param string $cacheKey Cache identifier
      * @return bool Returns false if identifier is already in store
      */
     protected function putCacheIndex($cacheKey)

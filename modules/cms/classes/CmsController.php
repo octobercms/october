@@ -5,9 +5,11 @@ use Illuminate\Routing\Controller as ControllerBase;
 use Closure;
 
 /**
- * The CMS controller class.
- * The base controller services front end pages.
+ * This is the master controller for all front-end pages.
+ * All requests that have not been picked up already by the router will end up here,
+ * then the URL is passed to the front-end controller for processing.
  *
+ * @see Cms\Classes\Controller Front-end controller class
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */

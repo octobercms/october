@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use Str;
 use Lang;
 use Model;
@@ -96,7 +97,8 @@ abstract class ImportModel extends Model
             'firstRowTitles' => true,
             'delimiter' => null,
             'enclosure' => null,
-            'escape' => null
+            'escape' => null,
+            'encoding' => null
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -107,7 +109,7 @@ abstract class ImportModel extends Model
         $reader = CsvReader::createFromPath($filePath, 'r');
 
         // Filter out empty rows
-        $reader->addFilter(function(array $row) {
+        $reader->addFilter(function (array $row) {
             return count($row) > 1 || reset($row) !== null;
         });
 
@@ -125,6 +127,18 @@ abstract class ImportModel extends Model
 
         if ($options['firstRowTitles']) {
             $reader->setOffset(1);
+        }
+
+        if (
+            $options['encoding'] !== null &&
+            $reader->isActiveStreamFilter()
+        ) {
+            $reader->appendStreamFilter(sprintf(
+                '%s%s:%s',
+                TranscodeFilter::FILTER_NAME,
+                strtolower($options['encoding']),
+                'utf-8'
+            ));
         }
 
         $result = [];
@@ -181,6 +195,7 @@ abstract class ImportModel extends Model
         $file = $this
             ->import_file()
             ->withDeferred($sessionKey)
+            ->orderBy('id', 'desc')
             ->first()
         ;
 
@@ -218,7 +233,7 @@ abstract class ImportModel extends Model
             'Windows-1252'
         ];
 
-        $translated = array_map(function($option){
+        $translated = array_map(function ($option) {
             return Lang::get('backend::lang.import_export.encodings.'.Str::slug($option, '_'));
         }, $options);
 

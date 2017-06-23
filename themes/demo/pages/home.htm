@@ -28,9 +28,7 @@ layout = "default"
         The layout file <code>layouts/default.htm</code> defines the page scaffold &mdash;
         everything that repeats on each page, such as the HTML, HEAD and BODY tags, StyleSheet and JavaScript references.
     </p>
-    <p>
-        The page menu and footer in the Demo theme are defined in the layout as well.
-    </p>
+    <p>The page menu and footer in the Demo theme are defined in the layout as well.</p>
 
     <hr />
 
@@ -42,9 +40,9 @@ layout = "default"
     <p>
         The page file <code>pages/home.htm</code> defines the page URL (<code>/</code> for this page) and the page content.
         Pages are rendered inside layouts with this function that should be called in the layout code:
-        <pre>{{ "{% page %}" }}</pre>
-        Using a layout for pages is optional &mdash; you can define everything right in the page file.
     </p>
+    <pre>{{ "{% page %}" }}</pre>
+    <p>Using a layout for pages is optional &mdash; you can define everything right in the page file.</p>
 
     <hr />
 
@@ -54,12 +52,13 @@ layout = "default"
         <i class="icon-tags"></i> &nbsp; Partials contain reusable chunks of HTML markup.
     </p>
     <p>
-        Partials are chunks of HTML defined in separate files which can be included anywhere.
-        In this example we placed the footer content to the <code>partials/footer.htm</code> partial.
+        Partials are chunks of HTML defined in separate files that can be included anywhere.
         Partials are rendered with:
-        <pre>{{ "{% partial \"partial-name\" %}" }}</pre> 
-        It can be used inside pages, templates or other partials.
     </p>
+    <pre>{{ "{% partial \"partial-name\" %}" }}</pre>
+    <p>You may place partials inside folders too. In this example we placed the footer content to the <code>partials/site/footer.htm</code> partial.</p>
+    <pre>{{ "{% partial \"site/footer\" %}" }}</pre>
+    <p>Partials can be used inside pages, layouts or other partials.</p>
 
     <hr />
 
@@ -70,7 +69,7 @@ layout = "default"
     </p>
     <p>
         The introductory text used on this page is defined in the <code>content/welcome.htm</code> file.
-        Content blocks are defined and rendered with: 
+        Content blocks are defined and rendered with:
         <pre>{{ "{% content \"content-name.htm\" %}" }}</pre>
     </p>
 
@@ -88,12 +87,12 @@ layout = "default"
     </p>
     <div class="row">
         <div class="col-md-6">
-            Layout file:
-            <pre>{% filter escape %}{% content "placeholder/layout.txt" %}{% endfilter %}</pre>
+            <p>Layout file:</p>
+            <pre>{% content "placeholder/layout.txt" %}</pre>
         </div>
         <div class="col-md-6">
-            Page file:
-            <pre>{% filter escape %}{% content "placeholder/page.txt" %}{% endfilter %}</pre>
+            <p>Page file:</p>
+            <pre>{% content "placeholder/page.txt" %}</pre>
         </div>
     </div>
 

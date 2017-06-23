@@ -8,6 +8,7 @@
  */
 
  +function ($) { "use strict";
+
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
@@ -204,7 +205,7 @@
             if (!data) $this.data('oc.sortable', (data = new Sortable(this, options)))
             if (typeof option == 'string') data[option].apply(data, args)
         })
-      }
+    }
 
     $.fn.sortable.Constructor = Sortable
 

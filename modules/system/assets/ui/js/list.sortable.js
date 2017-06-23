@@ -41,6 +41,7 @@
  */
 
 +function ($) { "use strict";
+
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype,
         listSortableIdCounter = 0,
@@ -94,6 +95,8 @@
     }
 
     ListSortable.prototype.unregisterListHandlers = function(list) {
+        var $list = $(list)
+
         $list.off('dragstart', '> li', this.proxy(this.onDragStart))
         $list.off('dragover', '> li', this.proxy(this.onDragOver))
         $list.off('dragenter', '> li', this.proxy(this.onDragEnter))
@@ -138,7 +141,7 @@
     ListSortable.prototype.elementBelongsToManagedList = function(element) {
         for (var i=this.lists.length-1; i >= 0; i--) {
             var list = this.lists[i],
-                children = [].slice.call(list.children) // Converts HTMLCollection to array
+                children = [].slice.call(list.children); // Converts HTMLCollection to array
 
             if (children.indexOf(element) !== -1) {
                 return true
@@ -442,7 +445,7 @@
                 }
             }
         })
-      }
+    }
 
     $.fn.listSortable.Constructor = ListSortable
 

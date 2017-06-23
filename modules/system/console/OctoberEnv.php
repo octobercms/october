@@ -2,6 +2,15 @@
 
 use Illuminate\Console\Command;
 
+/**
+ * Console command to convert configuration to use .env files.
+ *
+ * This creates an .env file with some default configuration values, it also converts
+ * the existing PHP-based configuration files to use the `env` function for values.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class OctoberEnv extends Command
 {
 
@@ -185,7 +194,7 @@ class OctoberEnv extends Command
      */
     private function saveEnvSettings($key, $value)
     {
-        if ( ! $this->envKeyExists($key)) {
+        if (! $this->envKeyExists($key)) {
             $line = sprintf("%s=%s\n", $key, $this->stripQuotes($value));
 
             if ($this->config == 'database' && $key != 'DB_CONNECTION') {

@@ -1,7 +1,9 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-mediafinder style-image-single is-image <?= $value ? 'is-populated' : '' ?>"
+    class="field-mediafinder style-image-single is-image <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="mediafinder"
+    data-thumbnail-width="<?= $imageWidth ?: '0' ?>"
+    data-thumbnail-height="<?= $imageHeight ?: '0' ?>"
 >
 
     <!-- Find Button -->

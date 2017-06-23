@@ -16,13 +16,17 @@
 
         var self = this;
         $('li', this.$el).click(function(){
-            if (self.$el.hasClass('control-disabled'))
+            if (self.$el.hasClass('control-disabled')) {
                 return
+            }
 
             $('li', self.$el).removeClass('active')
+
             $(this).addClass('active')
-            self.$field.val($(this).data('value'))
-            self.$el.trigger('change')
+
+            self.$field
+                .val($(this).data('value'))
+                .trigger('change')
         })
     }
 
@@ -41,7 +45,7 @@
 
             if (!data) $this.data('oc.balloon-selector', (data = new BalloonSelector(this, options)))
         })
-      }
+    }
 
     $.fn.balloonSelector.Constructor = BalloonSelector
 

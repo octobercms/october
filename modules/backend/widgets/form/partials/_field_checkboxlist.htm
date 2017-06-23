@@ -2,9 +2,11 @@
     $fieldOptions = $field->options();
     $checkedValues = (array) $field->value;
     $isScrollable = count($fieldOptions) > 10;
+    $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
+    $quickselectEnabled = $field->getConfig('quickselect');
 ?>
 <!-- Checkbox List -->
-<?php if ($this->previewMode && $field->value): ?>
+<?php if ($readOnly && $field->value): ?>
 
     <div class="field-checkboxlist">
         <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
@@ -33,17 +35,18 @@
         <?php endforeach ?>
     </div>
 
-<?php elseif (!$this->previewMode && count($fieldOptions)): ?>
+<?php elseif (!$readOnly && count($fieldOptions)): ?>
 
     <div class="field-checkboxlist <?= $isScrollable ? 'is-scrollable' : '' ?>">
-        <?php if ($isScrollable): ?>
+        <?php if ($quickselectEnabled || $isScrollable): ?>
             <!-- Quick selection -->
             <small>
                 <?= e(trans('backend::lang.form.select')) ?>:
                 <a href="javascript:;" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>,
                 <a href="javascript:;" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
             </small>
-
+        <?php endif ?>
+        <?php if ($isScrollable): ?>          
             <!-- Scrollable Checkbox list -->
             <div class="field-checkboxlist-scrollable">
                 <div class="control-scrollbar" data-control="scrollbar">

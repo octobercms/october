@@ -8,20 +8,18 @@
                 <?= $this->makePartial('list_body_rows') ?>
             <?php else: ?>
                 <tr class="no-data">
-                    <td colspan="<?= $columnTotal ?>" class="list-pagination nolink">
+                    <td colspan="<?= $columnTotal ?>" class="nolink">
                         <p class="no-data"><?= $noRecordsMessage ?></p>
                     </td>
                 </tr>
             <?php endif ?>
         </tbody>
-        <tfoot>
-            <?php if ($showPagination): ?>
-                <tr>
-                    <td colspan="<?= $columnTotal ?>" class="list-pagination nolink">
-                        <?= $this->makePartial('list_pagination') ?>
-                    </td>
-                </tr>
-            <?php endif ?>
-        </tfoot>
     </table>
+    <?php if ($showPagination): ?>
+        <div class="list-footer">
+            <div class="list-pagination">
+                <?= $this->makePartial('list_pagination') ?>
+            </div>
+        </div>
+    <?php endif ?>
 </div>

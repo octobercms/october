@@ -54,7 +54,7 @@ class ComponentHelpers
             /*
              * Translate human values
              */
-            $translate = ['title', 'description', 'options', 'group'];
+            $translate = ['title', 'description', 'options', 'group', 'validationMessage'];
             foreach ($property as $name => $value) {
                 if (!in_array($name, $translate)) {
                     continue;

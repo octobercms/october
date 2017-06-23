@@ -5,12 +5,9 @@ use View;
 use Config;
 use Cms\Classes\Theme;
 use Cms\Classes\Router;
-use Cms\Classes\Controller;
-use Cms\Classes\CmsException;
+use Cms\Classes\Controller as CmsController;
 use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
 use October\Rain\Exception\ApplicationException;
-use Twig_Error_Runtime;
-use Exception;
 
 /**
  * System Error Handler, this class handles application exception events.
@@ -21,7 +18,7 @@ use Exception;
 class ErrorHandler extends ErrorHandlerBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     // public function handleException(Exception $proposedException)
     // {
@@ -56,19 +53,20 @@ class ErrorHandler extends ErrorHandlerBase
      */
     public function handleCustomError()
     {
-        if (Config::get('app.debug', false))
+        if (Config::get('app.debug', false)) {
             return null;
+        }
 
         $theme = Theme::getActiveTheme();
+        $router = new Router($theme);
 
         // Use the default view if no "/error" URL is found.
-        $router = new Router($theme);
         if (!$router->findByUrl('/error')) {
             return View::make('cms::error');
         }
 
         // Route to the CMS error page.
-        $controller = new Controller($theme);
+        $controller = new CmsController($theme);
         $result = $controller->run('/error');
 
         // Extract content from response object

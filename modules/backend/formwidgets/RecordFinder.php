@@ -86,7 +86,7 @@ class RecordFinder extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'recordfinder';
 
@@ -106,7 +106,7 @@ class RecordFinder extends FormWidgetBase
     protected $searchWidget;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -123,12 +123,18 @@ class RecordFinder extends FormWidgetBase
             'recordsPerPage',
         ]);
 
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
             $this->listWidget->bindToController();
 
             $this->searchWidget = $this->makeSearchWidget();
             $this->searchWidget->bindToController();
+
+            $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
 
             /*
              * Link the Search Widget to the List Widget
@@ -137,13 +143,11 @@ class RecordFinder extends FormWidgetBase
                 $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm());
                 return $this->listWidget->onRefresh();
             });
-
-            $this->searchWidget->setActiveTerm(null);
         }
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -154,7 +158,16 @@ class RecordFinder extends FormWidgetBase
     public function onRefresh()
     {
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        $model->{$attribute} = post($this->formField->getName());
+        $model->{$attribute} = post($this->getFieldName());
+
+        $this->prepareVars();
+        return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
+    }
+
+    public function onClearRecord()
+    {
+        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+        $model->{$attribute} = null;
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
@@ -166,6 +179,10 @@ class RecordFinder extends FormWidgetBase
     public function prepareVars()
     {
         $this->relationModel = $this->getLoadValue();
+        
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
 
         $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;
@@ -178,7 +195,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -186,7 +203,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {
@@ -194,7 +211,7 @@ class RecordFinder extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLoadValue()
     {
@@ -237,6 +254,15 @@ class RecordFinder extends FormWidgetBase
     public function onFindRecord()
     {
         $this->prepareVars();
+
+        /*
+         * Purge the search term stored in session
+         */
+        if ($this->searchWidget) {
+            $this->listWidget->setSearchTerm(null);
+            $this->searchWidget->setActiveTerm(null);
+        }
+
         return $this->makePartial('recordfinder_form');
     }
 
@@ -257,17 +283,17 @@ class RecordFinder extends FormWidgetBase
         ]);
 
         if ($sqlConditions = $this->conditions) {
-            $widget->bindEvent('list.extendQueryBefore', function($query) use ($sqlConditions) {
+            $widget->bindEvent('list.extendQueryBefore', function ($query) use ($sqlConditions) {
                 $query->whereRaw($sqlConditions);
             });
         }
         elseif ($scopeMethod = $this->scope) {
-            $widget->bindEvent('list.extendQueryBefore', function($query) use ($scopeMethod) {
-                $query->$scopeMethod();
+            $widget->bindEvent('list.extendQueryBefore', function ($query) use ($scopeMethod) {
+                $query->$scopeMethod($this->model);
             });
         }
         else {
-            $widget->bindEvent('list.extendQueryBefore', function($query) {
+            $widget->bindEvent('list.extendQueryBefore', function ($query) {
                 $this->getRelationObject()->addDefinedConstraintsToQuery($query);
             });
         }

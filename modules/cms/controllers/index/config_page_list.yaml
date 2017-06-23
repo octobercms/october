@@ -9,3 +9,7 @@ descriptionProperties:
 noRecordsMessage: 'cms::lang.page.no_list_records'
 deleteConfirmation: 'cms::lang.page.delete_confirm_multiple'
 itemType: page
+sortingProperties:
+    url: 'cms::lang.page.url'
+    title: 'cms::lang.page.title'
+    fileName: 'cms::lang.page.file_name'

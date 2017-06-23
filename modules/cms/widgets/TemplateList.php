@@ -17,6 +17,8 @@ use Backend\Classes\WidgetBase;
  */
 class TemplateList extends WidgetBase
 {
+    const SORTING_FILENAME = 'fileName';
+
     use \Backend\Traits\SelectableWidget;
 
     protected $searchTerm = false;
@@ -47,12 +49,12 @@ class TemplateList extends WidgetBase
     /**
      * @var string Message to display when there are no records in the list.
      */
-    public $noRecordsMessage = 'No records found';
+    public $noRecordsMessage = 'cms::lang.template.no_list_records';
 
     /**
      * @var string Message to display when the Delete button is clicked.
      */
-    public $deleteConfirmation = 'Delete selected templates?';
+    public $deleteConfirmation = 'cms::lang.template.delete_confirm';
 
     /**
      * @var string Specifies the item type.
@@ -68,6 +70,12 @@ class TemplateList extends WidgetBase
      * @var string A list of file name patterns to suppress / hide.
      */
     public $ignoreDirectories = [];
+
+    /**
+     * @var boolean Defines sorting properties.
+     * The sorting feature is disabled if there are no sorting properties defined.
+     */
+    public $sortingProperties = [];
 
     /*
      * Public methods
@@ -137,6 +145,16 @@ class TemplateList extends WidgetBase
         return $this->updateList();
     }
 
+    public function onApplySorting()
+    {
+        $this->setSortingProperty(Input::get('sortProperty'));
+
+        $result = $this->updateList();
+        $result['#'.$this->getId('sorting-options')] = $this->makePartial('sorting-options');
+
+        return $result;
+    }
+
     //
     // Methods for the internal use
     //
@@ -156,9 +174,7 @@ class TemplateList extends WidgetBase
 
         $items = array_map([$this, 'normalizeItem'], $items);
 
-        usort($items, function ($a, $b) {
-            return strcmp($a->fileName, $b->fileName);
-        });
+        $this->sortItems($items);
 
         /*
          * Apply the search
@@ -217,11 +233,24 @@ class TemplateList extends WidgetBase
             }
         }
 
+        // Sort folders by name regardless of the
+        // selected sorting options.
+        ksort($foundGroups);
+
         foreach ($foundGroups as $group) {
             $result[] = $group;
         }
 
         return $result;
+    }
+
+    protected function sortItems(&$items)
+    {
+        $sortingProperty = $this->getSortingProperty();
+
+        usort($items, function ($a, $b) use ($sortingProperty) {
+            return strcmp($a->$sortingProperty, $b->$sortingProperty);
+        });
     }
 
     protected function removeIgnoredDirectories($items)
@@ -232,7 +261,7 @@ class TemplateList extends WidgetBase
 
         $ignoreCache = [];
 
-        $items = array_filter($items, function($item) use (&$ignoreCache) {
+        $items = array_filter($items, function ($item) use (&$ignoreCache) {
             $fileName = $item->getBaseFileName();
             $dirName = dirname($fileName);
 
@@ -271,10 +300,32 @@ class TemplateList extends WidgetBase
             'title'        => $this->getItemTitle($item),
             'fileName'     => $item->getFileName(),
             'description'  => $description,
-            'descriptions' => $descriptions
+            'descriptions' => $descriptions,
+            'dragValue'    => $this->getItemDragValue($item)
         ];
 
+        foreach ($this->sortingProperties as $property => $name) {
+            $result[$property] = $item->$property;
+        }
+
         return (object) $result;
+    }
+
+    protected function getItemDragValue($item)
+    {
+        if ($item instanceof \Cms\Classes\Partial) {
+            return "{% partial '".$item->getBaseFileName()."' %}";
+        }
+
+        if ($item instanceof \Cms\Classes\Content) {
+            return "{% content '".$item->getBaseFileName()."' %}";
+        }
+
+        if ($item instanceof \Cms\Classes\Page) {
+            return "{{ '".$item->getBaseFileName()."'|page }}";
+        }
+
+        return '';
     }
 
     protected function getItemTitle($item)
@@ -384,5 +435,21 @@ class TemplateList extends WidgetBase
         $statuses[$group] = $status;
         $this->groupStatusCache = $statuses;
         $this->putSession($this->getThemeSessionKey('groups'), $statuses);
+    }
+
+    protected function getSortingProperty()
+    {
+        $property = $this->getSession($this->getThemeSessionKey('sorting_property'), self::SORTING_FILENAME);
+
+        if (!array_key_exists($property, $this->sortingProperties)) {
+            return self::SORTING_FILENAME;
+        }
+
+        return $property;
+    }
+
+    protected function setSortingProperty($property)
+    {
+        $this->putSession($this->getThemeSessionKey('sorting_property'), $property);
     }
 }

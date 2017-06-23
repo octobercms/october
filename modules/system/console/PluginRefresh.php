@@ -6,6 +6,15 @@ use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to refresh a plugin.
+ *
+ * This destroys all database tables for a specific plugin, then builds them up again.
+ * It is a great way for developers to debug and develop new plugins.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginRefresh extends Command
 {
 
@@ -36,26 +45,27 @@ class PluginRefresh extends Command
      */
     public function fire()
     {
+        /*
+         * Lookup plugin
+         */
         $pluginName = $this->argument('name');
         $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
         if (!PluginManager::instance()->exists($pluginName)) {
             throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
         }
 
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
 
+        /*
+         * Rollback plugin
+         */
         $manager->rollbackPlugin($pluginName);
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
 
-        $manager->resetNotes();
+        /*
+         * Update plugin
+         */
         $this->output->writeln('<info>Reinstalling plugin...</info>');
         $manager->updatePlugin($pluginName);
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
     }
 
     /**

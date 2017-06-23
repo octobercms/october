@@ -195,7 +195,7 @@
             if (!data) $this.data('oc.hotkey', (data = new HotKey(this, options)))
             if (typeof option == 'string') data[option].apply(data, args)
         })
-      }
+    }
 
     $.fn.hotKey.Constructor = HotKey
 
@@ -210,7 +210,7 @@
     // HOTKEY DATA-API
     // ==============
     
-    $(document).render(function(){
+    $(document).render(function() {
         $('[data-hotkey]').hotKey()
     })
 

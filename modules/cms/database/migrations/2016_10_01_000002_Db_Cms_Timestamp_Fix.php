@@ -15,16 +15,6 @@ class DbCmsTimestampFix extends Migration
         DbDongle::disableStrictMode();
 
         DbDongle::convertTimestamps('cms_theme_data');
-
-        // Use this opportunity to patch the theme.yaml file for stable
-        $demoTheme = base_path('themes/demo/theme.yaml');
-        if (file_exists($demoTheme) && is_writable($demoTheme)) {
-            $contents = file_get_contents($demoTheme);
-            $search = "description: Demo OctoberCMS theme. Demonstrates the basic concepts of the front-end theming: layouts, pages, partials, components, content blocks, AJAX framework.";
-            $replace = "description: 'Demo OctoberCMS theme. Demonstrates the basic concepts of the front-end theming: layouts, pages, partials, components, content blocks, AJAX framework.'";
-            $contents = str_replace($search, $replace, $contents);
-            file_put_contents($demoTheme, $contents);
-        }
     }
 
     public function down()

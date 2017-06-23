@@ -11,17 +11,41 @@
             <div class="control-updatelist">
                 <div class="control-scrollbar" style="height:400px" data-control="scrollbar">
                     <?php if ($core): ?>
-                        <div class="update-item">
+                        <div class="update-item <?= $core['isImportant'] ? 'item-danger' : '' ?>">
                             <div class="item-header">
+                                <?php if ($core['isImportant']): ?>
+                                    <div class="important-update form-group form-group-sm">
+                                        <select
+                                            name="core_action"
+                                            class="form-control custom-select select-no-search"
+                                            data-important-update-select>
+                                            <option value="">-- <?= e(trans('system::lang.updates.important_action.empty')) ?> --</option>
+                                            <option value="confirm"><?= e(trans('system::lang.updates.important_action.confirm')) ?></option>
+                                        </select>
+                                    </div>
+                                <?php endif ?>
                                 <h5>
                                     <i class="icon-cube"></i>
                                     <?= e(trans('system::lang.system.name')) ?>
                                 </h5>
                             </div>
                             <dl>
-                                <?php foreach ($core['updates'] as $build => $description): ?>
+                                <?php foreach (array_get($core, 'updates', []) as $build => $description): ?>
                                     <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$build])) ?></dt>
-                                    <dd><?= e($description) ?></dd>
+                                    <?php if (is_array($description)): ?>
+                                        <dd>
+                                            <span class="important-update-label">
+                                                <?= e(trans('system::lang.updates.important_action_required')) ?>
+                                            </span>
+                                            <?= e($description[0]) ?>
+                                            <a href="<?= $description[1] ?>" target="_blank">
+                                                <?= e(trans('system::lang.updates.important_view_release_notes')) ?>
+                                                <i class="icon-external-link"></i>
+                                            </a>
+                                        </dd>
+                                    <?php else: ?>
+                                        <dd><?= e($description) ?></dd>
+                                    <?php endif ?>
                                 <?php endforeach ?>
                                 <?php if ($core['old_build']): ?>
                                     <dt class="text-muted"><?= e(trans('system::lang.updates.core_build', ['build'=>$core['old_build']])) ?></dt>
@@ -80,7 +104,7 @@
                                         <?= e(trans('system::lang.updates.plugin_version_none')) ?>
                                     </dd>
                                 <?php else: ?>
-                                    <?php foreach ($plugin['updates'] as $version => $description): ?>
+                                    <?php foreach (array_get($plugin, 'updates', []) as $version => $description): ?>
                                         <dt><?= e($version) ?></dt>
                                         <?php if (is_array($description)): ?>
                                             <dd>

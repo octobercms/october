@@ -1,5 +1,7 @@
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= e($value) ?></div>
+    <div class="form-control">
+        <pre><?= e($value) ?></pre>
+    </div>
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"

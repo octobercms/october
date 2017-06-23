@@ -2,11 +2,12 @@
 
 return [
     'auth' => [
-        'title' => 'Adminisztrációs oldal'
+        'title' => 'Admin felület'
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
-        'options_method_not_exists' => "A(z) :model modellosztálynak egy :method() metódus visszaadandó beállításait kell definiálnia a(z) ':field' űrlapmező számára."
+        'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
+        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
     ],
     'widget' => [
         'not_registered' => "A(z) ':name' widget osztálynév regisztrálása nem történt meg.",
@@ -18,6 +19,11 @@ return [
             'label' => 'Hozzáférés megtagadva',
             'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
+        ],
+        'no_database' => [
+            'label' => 'Hiányzó adatbázis',
+            'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
+            'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
             'label' => 'Érvénytelen a biztonsági kód.'
@@ -39,7 +45,7 @@ return [
         'email_placeholder' => 'e-mail cím',
         'enter_new_password' => 'Adjon meg egy új jelszót',
         'password_reset' => 'Új jelszó kiadása',
-        'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került az e-mail címére.',
+        'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került.',
         'restore_error' => "Nem található a(z) ':login' nevű felhasználó.",
         'reset_success' => 'A jelszó átállítása sikerült. Most már bejelentkezhet.',
         'reset_error' => 'A megadott jelszó átállítási adatok érvénytelenek. Próbálja újra!',
@@ -72,6 +78,8 @@ return [
         'make_default' => 'Elrendezés mentése',
         'make_default_confirm' => 'A jelenlegi elrendezés legyen az alapértelmezett?',
         'make_default_success' => 'A jelenlegi elrendezés lett az alapértelmezett.',
+        'collapse_all' => 'Összes becsukása',
+        'expand_all' => 'Összes kibontása',
         'status' => [
             'widget_title_default' => 'Rendszer állapota',
             'update_available' => '{0} frissítés érhető el!|{1} frissítés érhető el!|[2,Inf] frissítés érhető el!',
@@ -92,7 +100,7 @@ return [
             'welcome_to_name' => 'Köszöntjük a(z) :app weboldalon, :name.',
             'first_sign_in' => 'Ez az első alkalom, hogy bejelentkezett.',
             'last_sign_in' => 'Legutóbb bejelentkezés:',
-            'view_access_logs' => 'Hozzáférésnapló megtekintése',
+            'view_access_logs' => 'Hozzáférés napló megtekintése',
             'nice_message' => 'Legyen jó napja!'
         ]
     ],
@@ -123,6 +131,10 @@ return [
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
         'deny' => 'Tiltás',
+        'activated' => 'Aktivált',
+        'last_login' => 'Bejelentkezve',
+        'created_at' => 'Létrehozva',
+        'updated_at' => 'Módosítva',
         'group' => [
             'name' => 'Csoport',
             'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
@@ -146,26 +158,28 @@ return [
     'list' => [
         'default_title' => 'Lista',
         'search_prompt' => 'Keresés...',
-        'no_records' => 'Nincs megjeleníthető tartalom.',
+        'no_records' => 'Nincs megjeleníthető tartalom',
         'missing_model' => 'Nincs modell definiálva a(z) :class osztályban használt lista viselkedéshez.',
         'missing_column' => 'Nincsenek oszlop definíciók a(z) :columns oszlopok számára.',
         'missing_columns' => 'A(z) :class osztályban használt listának nincsenek definiált lista oszlopai.',
         'missing_definition' => "A lista viselkedés nem tartalmaz oszlopot a(z) ':field' mező számára.",
-        'missing_parent_definition' => "A lista viselkedés nem tartalmaz definiciót az alábbihoz: ':definition'.",
-        'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása és ellenőrizze, hogy meghívta-e a(z) makeLists() függvényt a vezérlőben.',
-        'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a Modellben?",
-        'pagination' => 'Megjelenített elemek: :from-:to / :total',
+        'missing_parent_definition' => "A lista viselkedés nem tartalmaz definíciót az alábbihoz: ':definition'.",
+        'behavior_not_ready' => 'Nem történt meg a lista viselkedés inicializálása. Kérjük ellenőrizze, hogy meghívta-e a makeLists() függvényt a vezérlőben.',
+        'invalid_column_datetime' => "A(z) ':column' oszlopérték nem DateTime objektum, hiányzik egy \$dates hivatkozás a modellben?",
+        'pagination' => 'Megjelenítve: :from-:to / :total',
+        'first_page' => 'Első lap',
+        'last_page' => 'Utolsó lap',
         'prev_page' => 'Előző lap',
         'next_page' => 'Következő lap',
         'refresh' => 'Frissítés',
-        'updating' => 'Feltöltés...',
+        'updating' => 'Folyamatban...',
         'loading' => 'Betöltés...',
         'setup_title' => 'Lista testreszabása',
         'setup_help' => 'A jelölőnégyzetek használatával válassza ki azokat az oszlopokat, melyeket látni szeretne a listában. Az oszlopok pozícióját felfelé vagy lefelé húzással módosíthatja.',
         'records_per_page' => 'Listázás',
         'records_per_page_help' => 'Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti.',
         'check' => 'Bejelöl',
-        'delete_selected' => 'Kiválasztottak törlése',
+        'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
         'delete_selected_confirm' => 'Töröljük a kiválasztott elemeket?',
         'delete_selected_success' => 'Sikeresen törölve lettek a kiválasztott elemek.',
@@ -187,13 +201,13 @@ return [
     'form' => [
         'create_title' => 'Új :name',
         'update_title' => ':name szerkesztése',
-        'preview_title' => ':name villámnézete',
+        'preview_title' => ':name gyorsnézete',
         'create_success' => 'A(z) :name létrehozása sikerült',
         'update_success' => 'A(z) :name módosítása sikerült',
         'delete_success' => 'A(z) :name törlése sikerült',
         'reset_success' => 'A visszaállítás sikerült',
         'missing_id' => 'Nincs megadva az űrlap rekord azonosítója.',
-        'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésnek nincs definiált modellje.',
+        'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésének nincs definiált modellje.',
         'missing_definition' => "Az űrlap viselkedés nem tartalmaz mezőt a(z) ':field' mezőhöz.",
         'not_found' => 'A(z) :id azonosítójú űrlap rekord nem található.',
         'action_confirm' => 'Biztos benne?',
@@ -222,14 +236,15 @@ return [
         'close' => 'Bezárás',
         'confirm' => 'Megerősítés',
         'reload' => 'Újratöltés',
-        'complete' => 'Teljes',
+        'complete' => 'Befejezés',
         'ok' => 'OK',
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
-        'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
-        'preview_no_files_message' => 'Nincsennek feltöltve fájlok.',
-        'preview_no_record_message' => 'Egy mező sincs kiválasztva.',
-        'select' => 'Válasszon',
+        'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Kérjük ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
+        'preview_no_files_message' => 'Nincsenek feltöltve fájlok.',
+        'preview_no_media_message' => 'Nincs kiválasztva média.',
+        'preview_no_record_message' => 'Nincs kiválasztva mező.',
+        'select' => 'Kiválaszt',
         'select_all' => 'mind',
         'select_none' => 'egyik sem',
         'select_placeholder' => 'válasszon',
@@ -237,11 +252,16 @@ return [
         'insert_row_below' => 'Sor beszúrása alá',
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
-        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Vagy újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
+        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
-        'find_record' => 'Rekord keresése'
+        'find_record' => 'Tartalom keresése',
+        'cancel' => 'Mégsem'
+    ],
+    'pagelist' => [
+        'page_link' => 'Lapok',
+        'select_page' => '-- válasszon --'
     ],
     'relation' => [
         'missing_config' => "A reláció viselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
@@ -283,7 +303,7 @@ return [
     'model' => [
         'name' => 'Modell',
         'not_found' => "Nem található :id azonosítójú ':class' modell.",
-        'missing_id' => 'Nincs azonosító megadva a modellrekord kereséséhez.',
+        'missing_id' => 'Nincs azonosító megadva a modell rekord kereséséhez.',
         'missing_relation' => "A(z) ':class' modell nem tartalmaz definíciót a(z) ':relation' reláció számára.",
         'missing_method' => "A(z) ':class' modell nem tartalmaz ':method' metódust.",
         'invalid_class' => "A(z) :class osztályban használt :model modell nem érvényes, örökölnie kell a \Model osztályt.",
@@ -292,8 +312,9 @@ return [
     'warnings' => [
         'tips' => 'Rendszer konfigurációs tippek',
         'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
-        'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a webkiszolgálónak erre a könyvtárra.',
-        'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.'
+        'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
+        'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
+        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük, hogy telepítse ezt a bővítményt.'
     ],
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
@@ -310,7 +331,7 @@ return [
         'auto_closing' => 'Automatikus kódlezárás',
         'show_invisibles' => 'Láthatatlan karakterek mutatása',
         'show_gutter' => 'Margó megjelenítése',
-        'basic_autocompletion'=> 'Egyszerű mód (Ctrl + Space)',
+        'basic_autocompletion'=> 'Egyszerű mód (Ctrl + Szóköz)',
         'live_autocompletion'=> 'Intelligens mód',
         'enable_snippets'=> 'Kódrészletek engedélyezése (Tab)',
         'display_indent_guides'=> 'Bekezdés megjelenítése',
@@ -322,16 +343,16 @@ return [
         'theme' => 'Színséma',
         'markup_styles' => 'Stílusok',
         'custom_styles' => 'Egyéni megjelenés',
-        'custom styles_comment' => 'Saját stílusok megadása, amik a HTML szerkesztőre is vonatkoznak.',
-        'markup_classes' => 'CSS osztályok',
+        'custom styles_comment' => 'Saját stílusok és megjelenések megadása.',
+        'markup_classes' => 'Értékek',
         'paragraph' => 'Bekezdés',
         'link' => 'Hivatkozás',
         'table' => 'Táblázat',
         'table_cell' => 'Táblázat cella',
         'image' => 'Kép',
-        'label' => 'Címke',
-        'class_name' => 'Osztály neve',
-        'markup_tags' => 'HTML elemek',
+        'label' => 'Megnevezés',
+        'class_name' => 'CSS osztály',
+        'markup_tags' => 'Szabályok',
         'allowed_empty_tags' => 'Engedélyezett üres elemek',
         'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
         'allowed_tags' => 'Engedélyezett elemek',
@@ -354,8 +375,8 @@ return [
         'menu_keywords' => 'biztonságos bejelentkezés'
     ],
     'branding' => [
-        'menu_label' => 'Admin felület',
-        'menu_description' => 'A kinézetének módosítása és egyedivé tétele.',
+        'menu_label' => 'Kinézet',
+        'menu_description' => 'Az admin felület megjelenésének módosítása.',
         'brand' => 'Márka',
         'logo' => 'Logó',
         'logo_description' => 'A bejelentkezési felületen, illetve egyes oldalak hátterében fog megjelenni.',
@@ -376,18 +397,18 @@ return [
         'menu_mode_collapsed' => 'Összezárt'
     ],
     'backend_preferences' => [
-        'menu_label' => 'Admin felület',
+        'menu_label' => 'Beállításaim',
         'menu_description' => 'A működésének testreszabása.',
         'region' => 'Régió',
         'code_editor' => 'Kódszerkesztő',
         'timezone' => 'Időzóna',
-        'timezone_comment' => 'Dátumok megjelenítése a választott időzóna alapján.',
+        'timezone_comment' => 'Válassza ki az alapértelmezett időzónát.',
         'locale' => 'Nyelv',
         'locale_comment' => 'Válassza ki az alapértelmezett nyelvet.'
     ],
     'access_log' => [
         'hint' => 'Ez a napló a felhasználók sikeres bejelentkezési kísérleteit listázza ki. A bejegyzéseket :days napig őrzi meg a rendszer.',
-        'menu_label' => 'Hozzáférésnapló',
+        'menu_label' => 'Hozzáférés napló',
         'menu_description' => 'A felhasználók sikeres bejelentkezéseinek megtekintése.',
         'created_at' => 'Időpont',
         'login' => 'Felhasználónév',
@@ -398,26 +419,26 @@ return [
     ],
     'filter' => [
         'all' => 'mind',
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
+        'options_method_not_exists' => "A(z) :model osztálynak kötelező definiálni a(z) :method() metódust a(z) ':filter' szűrő feltételhez.",
         'date_all' => 'minden időszak'
     ],
     'import_export' => [
-        'upload_csv_file' => '1. CSV fájl feltöltése',
-        'import_file' => 'Fájl importálása',
+        'upload_csv_file' => '1. CSV fájl',
+        'import_file' => 'Fájl feltöltése',
         'first_row_contains_titles' => 'Az első sor tartalmazza az oszlop neveit',
         'first_row_contains_titles_desc' => 'Hagyja bejelölve, amennyiben a CSV fájl első sora az oszlop neveket tartalmazza.',
-        'match_columns' => '2. Fájl oszlopainak párosítása az adatbázis mezőihez',
+        'match_columns' => '2. Oszlopok párosítása',
         'file_columns' => 'Fájl oszlopok',
-        'database_fields' => 'Adatbázis mezők',
-        'set_import_options' => '3. Importálási beállítások',
-        'export_output_format' => '1. Kimenő formátum exportálása',
-        'file_format' => 'Fájl formátum',
+        'database_fields' => 'Adatbázis oszlopok',
+        'set_import_options' => '3. További beállítások',
+        'export_output_format' => '1. CSV fájl',
+        'file_format' => 'Fájl formátuma',
         'standard_format' => 'Szabvány formátum',
         'custom_format' => 'Egyedi formátum',
         'delimiter_char' => 'Határoló karakter',
         'enclosure_char' => 'Elválasztó karakter',
         'escape_char' => 'Végjel karakter',
-        'select_columns' => '2. Oszlopok kiválasztása exportáláshoz',
+        'select_columns' => '2. Oszlopok kiválasztása',
         'column' => 'Oszlop',
         'columns' => 'Oszlopok',
         'set_export_options' => '3. Exportálási beállítások',
@@ -435,8 +456,8 @@ return [
         'upload_valid_csv' => 'Kérjük töltsön fel érvényes CSV fájlt.',
         'drop_column_here' => 'Húzza ide az oszlopot...',
         'ignore_this_column' => 'Figyelmen kívül hagyott oszlop',
-        'processing_successful_line1' => 'A fájl exportálási folyamat sikeresen lezárult!',
-        'processing_successful_line2' => 'A böngésző most átirányítást hajt végre a fájl letöltéséhez.',
+        'processing_successful_line1' => 'Az exportálási folyamat sikeresen lezárult!',
+        'processing_successful_line2' => 'A böngésző elkezdi a fájl letöltését.',
         'export_progress' => 'Exportálás folyamatban',
         'export_error' => 'Exportálási hiba',
         'column_preview' => 'Oszlop előnézete',
@@ -444,13 +465,13 @@ return [
         'empty_error' => 'Nincs adat az exportáláshoz.',
         'empty_import_columns_error' => 'Kérjük adjon meg néhány oszlopot az importáláshoz.',
         'match_some_column_error' => 'Kérjük elsőként párosítson össze oszlopokat.',
-        'required_match_column_error' => 'Please specify a match for the required field :label.',
+        'required_match_column_error' => 'Kérjük adja meg a párosítást ehhez a kötelező mezőhöz: :label.',
         'empty_export_columns_error' => 'Kérjük adjon meg néhány oszlopot az exportáláshoz.',
         'behavior_missing_uselist_error' => 'You must implement the controller behavior ListController with the export "useList" option enabled.',
-        'missing_model_class_error' => 'Please specify the modelClass property for :type',
+        'missing_model_class_error' => 'Kérjük adja meg a modelClass tulajdonságát ehhez: :type',
         'missing_column_id_error' => 'Hiányzó oszlop azonosító',
         'unknown_column_error' => 'Ismeretlen oszlop',
-        'encoding_not_supported_error' => 'Source file encoding is not recognized. Please select the custom file format option with the proper encoding to import your file.',
+        'encoding_not_supported_error' => 'A forrásfájl kódolása nem felismerhető. Please select the custom file format option with the proper encoding to import your file.',
         'encoding_format' => 'Fájl kódolása',
         'encodings' => [
             'utf_8' => 'UTF-8',

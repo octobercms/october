@@ -100,7 +100,7 @@ trait ConfigMaker
     }
 
     /**
-     * Makes a config object from an array, making the first level keys properties a new object. 
+     * Makes a config object from an array, making the first level keys properties a new object.
      * Property values are converted to camelCase and are not set if one already exists.
      * @param array $configArray Config array.
      * @return stdClass The config object
@@ -182,5 +182,21 @@ trait ConfigMaker
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
         return $guessedPath;
+    }
+
+    /**
+     * Merges two configuration sources, either prepared or not, and returns
+     * them as a single configuration object.
+     * @param mixed $configA
+     * @param mixed $configB
+     * @return stdClass The config object
+     */
+    public function mergeConfig($configA, $configB)
+    {
+        $configA = $this->makeConfig($configA);
+
+        $configB = $this->makeConfig($configB);
+
+        return (object) array_merge((array) $configA, (array) $configB);
     }
 }

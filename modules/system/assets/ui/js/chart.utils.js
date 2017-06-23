@@ -3,6 +3,7 @@
  */
 
 +function ($) { "use strict";
+
     var ChartUtils = function() {}
 
     ChartUtils.prototype.defaultValueColor = '#b8b8b8';

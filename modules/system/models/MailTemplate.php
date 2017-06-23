@@ -229,11 +229,11 @@ class MailTemplate extends Model
      * The callback function should register templates by calling the manager's
      * registerMailTemplates() function. Thi instance is passed to the
      * callback function as an argument. Usage:
-     * <pre>
-     *   MailTemplate::registerCallback(function($template){
-     *       $template->registerMailTemplates([...]);
-     *   });
-     * </pre>
+     *
+     *     MailTemplate::registerCallback(function($template){
+     *         $template->registerMailTemplates([...]);
+     *     });
+     *
      * @param callable $callback A callable function.
      */
     public static function registerCallback(callable $callback)

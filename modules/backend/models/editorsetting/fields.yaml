@@ -7,7 +7,7 @@ tabs:
 
         html_custom_styles:
             label: backend::lang.editor.custom_styles
-            comment: backend::lang.editor.custom styles_comment
+            commentAbove: backend::lang.editor.custom styles_comment
             tab: backend::lang.editor.markup_styles
             type: codeeditor
             size: giant

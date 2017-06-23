@@ -13,7 +13,6 @@ use ApplicationException;
 use ValidationException;
 use Exception;
 
-
 /**
  * File upload field
  * Renders a form file uploader field.
@@ -77,12 +76,12 @@ class FileUpload extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'fileupload';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -96,11 +95,15 @@ class FileUpload extends FormWidgetBase
             'useCaption'
         ]);
 
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         $this->checkUploadPostback();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -142,7 +145,7 @@ class FileUpload extends FormWidgetBase
         /*
          * Decorate each file with thumb and custom download path
          */
-        $list->each(function($file) {
+        $list->each(function ($file) {
             $this->decorateFileAttributes($file);
         });
 
@@ -242,7 +245,7 @@ class FileUpload extends FormWidgetBase
             $types = explode(',', $types);
         }
 
-        $types = array_map(function($value) use ($includeDot) {
+        $types = array_map(function ($value) use ($includeDot) {
             $value = trim($value);
 
             if (substr($value, 0, 1) == '.') {
@@ -328,7 +331,7 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -337,7 +340,7 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {

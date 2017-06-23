@@ -47,11 +47,47 @@ return [
     ],
 
     'alert' => [
-        'confirm_button_text' => 'TAMAM',
+        'confirm_button_text' => 'Evet',
         'cancel_button_text' => 'İptal',
+        'widget_remove_confirm' => 'Bu eklentiyi kaldırma istediğinize emin misiniz?'
     ],
 
+    'datepicker' => [
+        'previousMonth' => 'Önceki Ay',
+        'nextMonth' => 'Sonraki Ay',
+        'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+        'weekdaysShort' => ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt']
+    ],
+
+    'filter' => [
+        'group' => [
+            'all' => 'tümü'
+        ],
+        'dates' => [
+            'all' => 'tümü',
+            'filter_button_text' => 'Filtrele',
+            'reset_button_text'  => 'Sıfırla',
+            'date_placeholder' => 'Tarih',
+            'after_placeholder' => 'Sonra',
+            'before_placeholder' => 'Önce'
+        ]
+    ],
+
+    'eventlog' => [
+        'show_stacktrace' => 'Veri yığınını göster',
+        'hide_stacktrace' => 'Veri yığınını gizle',
+        'tabs' => [
+            'formatted' => 'Formatlı',
+            'raw' => 'Ham Veri',
+        ],
+        'editor' => [
+            'title' => 'Kaynak kod editörü',
+            'description' => 'İşletim sisteminiz URL şemalarına yanıt verecek şekilde yapılandırılmalıdır.',
+            'openWith' => 'Birlikte aç',
+            'remember_choice' => 'Bu oturum için seçenekleri hatırla',
+            'open' => 'Aç',
+            'cancel' => 'İptal'
+        ]
+    ]
 ];
-
-
-

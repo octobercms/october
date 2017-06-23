@@ -22,3 +22,12 @@
 .widget-welcome .welcome-logo .oc-logo {
     height: 80px;
 }
+
+@media (max-width: 468px) {
+    .widget-welcome .welcome-logo {
+        float: none;
+    }
+    .widget-welcome .welcome-message {
+        margin-left: 0;
+    }
+}

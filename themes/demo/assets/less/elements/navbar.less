@@ -1,0 +1,89 @@
+.navbar-header .navbar-brand {
+    padding-left: 55px;
+    background-image: url('../images/october.png');
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: 7px 50%;
+    transition: color 0.2s ease 0.05s;
+    color: #ccc;
+    &:hover {
+        color: #fff;
+    }
+}
+
+.navbar-nav li.separator {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    height: 30px;
+    margin: 20px 10px 0 10px;
+}
+
+.navbar-autohide {
+    transition: transform .5s;
+}
+
+.navbar-autohide.is-hidden {
+    transform: translateY(-(@navbar-height + 2px));
+}
+
+.navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    > a {
+        transition: color 0.2s ease 0.05s;
+    }
+
+    > a:after {
+        position: absolute;
+        height: 4px;
+        bottom: -1px;
+        content: '';
+        border-radius: 4px;
+        z-index: 5;
+        width: 0;
+        left: 50%;
+        transition: all 0.2s ease 0.05s;
+    }
+
+    &.active > a:after {
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    &:hover > a:after {
+        width: 100%;
+        left: 0;
+    }
+
+    &.active > a {
+        background: transparent;
+    }
+}
+
+.navbar-inverse .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    &.active > a:after,
+    > a:hover:after {
+        background: @navbar-inverse-stripe-color-active;
+    }
+
+    &.active > a:hover:after {
+        background: @navbar-inverse-stripe-color-active;
+    }
+
+    > a:hover:after {
+        background: @navbar-inverse-stripe-color-hover;
+    }
+}
+
+.navbar-default .navbar-collapse:not(.in):not(.collapsing) .navbar-nav li {
+    &.active > a:after,
+    > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    &.active > a:hover:after {
+        background: @navbar-default-stripe-color-active;
+    }
+
+    > a:hover:after {
+        background: @navbar-default-stripe-color-hover;
+    }
+}

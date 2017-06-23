@@ -75,7 +75,7 @@ class ThemeTest extends TestCase
     public function testApiTheme()
     {
         Event::flush('cms.theme.getActiveTheme');
-        Event::listen('cms.theme.getActiveTheme', function() { return 'apitest'; });
+        Event::listen('cms.theme.getActiveTheme', function () { return 'apitest'; });
 
         $activeTheme = Theme::getActiveTheme();
         $this->assertNotNull($activeTheme);

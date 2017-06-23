@@ -2,7 +2,6 @@
 
 use Str;
 use Lang;
-use Event;
 use Config;
 use Cms\Classes\CodeBase;
 use Cms\Classes\CmsException;
@@ -18,8 +17,8 @@ use BadMethodCallException;
 abstract class ComponentBase extends Extendable
 {
     use \System\Traits\AssetMaker;
+    use \System\Traits\EventEmitter;
     use \System\Traits\PropertyContainer;
-    use \October\Rain\Support\Traits\Emitter;
 
     /**
      * @var string A unique identifier for this component.
@@ -42,7 +41,7 @@ abstract class ComponentBase extends Extendable
     public $isHidden = false;
 
     /**
-     * @var string Icon of the plugin that defines the component. 
+     * @var string Icon of the plugin that defines the component.
      * This field is used by the CMS internally.
      */
     public $pluginIcon;
@@ -122,7 +121,7 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
-     * Executed when this component is bound to a page or layout, part of 
+     * Executed when this component is bound to a page or layout, part of
      * the page life cycle.
      */
     public function onRun()
@@ -157,10 +156,7 @@ abstract class ComponentBase extends Extendable
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('component.beforeRunAjaxHandler', [$handler], true)) ||
-            ($event = Event::fire('cms.component.beforeRunAjaxHandler', [$this, $handler], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.component.beforeRunAjaxHandler', [$handler])) {
             return $event;
         }
 
@@ -169,10 +165,7 @@ abstract class ComponentBase extends Extendable
         /*
          * Extensibility
          */
-        if (
-            ($event = $this->fireEvent('component.runAjaxHandler', [$handler, $result], true)) ||
-            ($event = Event::fire('cms.component.runAjaxHandler', [$this, $handler, $result], true))
-        ) {
+        if ($event = $this->fireSystemEvent('cms.component.runAjaxHandler', [$handler, $result])) {
             return $event;
         }
 
@@ -267,7 +260,7 @@ abstract class ComponentBase extends Extendable
     public function __call($method, $parameters)
     {
         try {
-            parent::__call($method, $parameters);
+            return parent::__call($method, $parameters);
         }
         catch (BadMethodCallException $ex) {}
 

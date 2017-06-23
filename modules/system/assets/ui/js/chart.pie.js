@@ -11,7 +11,7 @@
  *
  * Dependences:
  * - Raphaël (raphael-min.js)
- * - October chart utilities (october.chartutils.js)
+ * - October chart utilities (chart.utils.js)
  */
 +function ($) { "use strict";
 
@@ -119,7 +119,7 @@
             if (!data) 
                 $this.data('oc.pieChart', new PieChart(this, options))
         })
-      }
+    }
 
     $.fn.pieChart.Constructor = PieChart
 

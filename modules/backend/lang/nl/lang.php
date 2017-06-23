@@ -6,6 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
+        'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",
         'options_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin opties voor het veld ":field".',
     ],
     'widget' => [
@@ -77,6 +78,8 @@ return [
         'make_default' => 'Als standaard instellen',
         'make_default_confirm' => 'Huidige layout als standaard instellen?',
         'make_default_success' => 'Huidige layout is nu als standaard ingesteld.',
+        'collapse_all' => 'Alles inklappen',
+        'expand_all' => 'Alles uitklappen',
         'status' => [
             'widget_title_default' => 'Systeemstatus',
             'update_available' => '{0} updates beschikbaar!|{1} update beschikbaar!|[2,Inf] updates beschikbaar!',
@@ -128,6 +131,10 @@ return [
         'allow' => 'Toestaat',
         'inherit' => 'Overerven',
         'deny' => 'Weigeren',
+        'activated' => 'Geactiveerd',
+        'last_login' => 'Laatste login',
+        'created_at' => 'Aangemaakt op',
+        'updated_at' => 'Gewijzigd op',
         'group' => [
             'name' => 'Groep',
             'name_comment' => 'De naam die wordt weergegeven in de groepenlijst bij het aanmaken of bewerken van een beheerder.',
@@ -160,6 +167,8 @@ return [
         'behavior_not_ready' => 'Behavior van de lijst is niet geladen. Controleer of makeLists() in de controller is aangeroepen.',
         'invalid_column_datetime' => "De waarde van kolom ':column' is geen DateTime object, mist er een \$dates referentie in het Model?",
         'pagination' => 'Getoonde resultaten: :from-:to van :total',
+        'first_page' => 'Eerste pagina',
+        'last_page' => 'Laatste pagina',
         'prev_page' => 'Vorige pagina',
         'next_page' => 'Volgende pagina',
         'refresh' => 'Vernieuwen',
@@ -233,6 +242,7 @@ return [
         'confirm_tab_close' => 'Weet je zeker dat je dit tabblad wilt sluiten? Niet opgeslagen wijzigingen gaan verloren.',
         'behavior_not_ready' => 'Gedrag (behavior) van het formulier is niet geladen. Controleer of initForm() in de controller is aangeroepen.',
         'preview_no_files_message' => 'Bestanden zijn niet geüpload.',
+        'preview_no_media_message' => 'Er zijn geen media geselecteerd.',
         'preview_no_record_message' => 'Er zijn geen records geselecteerd.',
         'select' => 'Selecteer',
         'select_all' => 'alles',
@@ -247,6 +257,11 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Zoek record',
+        'cancel' => 'Annuleren',
+    ],
+    'pagelist' => [
+        'page_link' => 'Pagina link',
+        'select_page' => 'Selecteer een pagina...'
     ],
     'relation' => [
         'missing_config' => "Het gedrag (behavior) van deze relatie bevat geen instellingen voor ':config'.",
@@ -299,6 +314,7 @@ return [
         'tips_description' => 'Er zijn problemen gevonden waar je aandacht aan moet besteden om uw systeem goed te configureren.',
         'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
+        'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',

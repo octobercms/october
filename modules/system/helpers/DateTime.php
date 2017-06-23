@@ -2,9 +2,9 @@
 
 use Lang;
 use Carbon\Carbon;
-use Exception;
 use DateTime as PhpDateTime;
 use InvalidArgumentException;
+use Exception;
 
 class DateTime
 {
@@ -67,7 +67,9 @@ class DateTime
             $value = Carbon::createFromFormat('Y-m-d', $value)->startOfDay();
         }
         else {
-            $value = @Carbon::parse($value);
+            try {
+                $value = Carbon::parse($value);
+            } catch (Exception $ex) {}
         }
 
         if (!$value instanceof Carbon && $throwException) {

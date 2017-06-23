@@ -15,7 +15,7 @@ class PermissionEditor extends FormWidgetBase
     public $mode;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -25,7 +25,7 @@ class PermissionEditor extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -38,22 +38,20 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
-
-        $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
-        $this->vars['baseFieldName'] = $this->formField->getName();
         $permissionsData = $this->formField->getValueFromData($this->model);
-
         if (!is_array($permissionsData)) {
             $permissionsData = [];
         }
 
+        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
+        $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
+        $this->vars['baseFieldName'] = $this->getFieldName();
         $this->vars['permissionsData'] = $permissionsData;
         $this->vars['field'] = $this->formField;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {
@@ -65,7 +63,7 @@ class PermissionEditor extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {

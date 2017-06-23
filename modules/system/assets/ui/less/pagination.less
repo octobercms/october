@@ -20,12 +20,63 @@
 
 .control-pagination {
     font-size: 0;
+    text-align: center;
+
+    @media (min-width: @screen-sm-min) {
+        text-align: right;
+    }
+
     .page-iteration {
         margin-right: 4px;
         font-size: @font-size-base - 1;
         color: @color-pagination;
+        display: block;
+        @media (min-width: @screen-sm-min) {
+            display: inline-block;
+        }
     }
-    .page-next, .page-back {
+
+    //
+    // Page selector
+    //
+
+    select {
+        width: 50px;
+        border: none;
+        background: transparent;
+    }
+    select, .select2-container {
+        text-align: center;
+        display: inline-block;
+    }
+    .select2-container {
+        min-width: 50px;
+        vertical-align: bottom;
+        bottom: 2px;
+
+        .select2-selection {
+            height: 29px;
+            line-height: 29px;
+            padding: 0 30px 0 10px;
+            border: none !important;
+            font-size: 12px;
+
+            background-color: transparent;
+
+            .border-radius(0) !important;
+            .box-shadow(none) !important;
+
+            &.select2-default {
+                font-weight: normal !important;
+            }
+        }
+    }
+
+    //
+    // Next and previous
+    //
+
+    .page-next, .page-back, .page-last, .page-first {
         display: inline-block;
         padding: 10px 15px;
         &:before {
@@ -38,12 +89,12 @@
             top: 2px;
         }
     }
-    a.page-next, a.page-back {
+    a.page-next, a.page-back, a.page-last, a.page-first {
         &:hover:before {
             color: @color-pagination-hover;
         }
     }
-    span.page-next, span.page-back {
+    span.page-next, span.page-back, span.page-last, span.page-first {
         &:before {
             color: @color-pagination-inactive;
         }
@@ -54,6 +105,14 @@
     .page-back {
         padding-right: 6px;
     }
+    .page-last {
+        padding-left: 6px;
+    }
+    .page-first {
+        padding-right: 6px;
+    }
     .page-next:before { .icon(@angle-right); }
     .page-back:before { .icon(@angle-left); }
+    .page-last:before { .icon(@angle-double-right); }
+    .page-first:before { .icon(@angle-double-left); }
 }

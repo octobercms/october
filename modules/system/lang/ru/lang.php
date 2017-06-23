@@ -5,33 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Возвращение к истокам'
     ],
-    'locale' => [
-        'cs' => 'Czech',
-        'da' => 'Danish',
-        'en' => 'English',
-        'de' => 'German',
-        'el' => 'Greek',
-        'es' => 'Spanish',
-        'es-ar' => 'Spanish (Argentina)',
-        'fa' => 'Persian',
-        'fr' => 'French',
-        'hu' => 'Hungarian',
-        'id' => 'Bahasa Indonesia',
-        'it' => 'Italian',
-        'ja' => 'Japanese',
-        'lv' => 'Latvian',
-        'nb-no' => 'Norwegian (Bokmål)',
-        'nl' => 'Dutch',
-        'pl' => 'Polish',
-        'pt-br' => 'Portuguese (Brazil)',
-        'ro' => 'Romanian',
-        'ru' => 'Russian',
-        'sv' => 'Swedish',
-        'sk' => 'Slovak (Slovakia)',
-        'tr' => 'Turkish',
-        'zh-cn' => 'Chinese (China)',
-        'zh-tw' => 'Chinese (Taiwan)'
-    ],
     'directory' => [
         'create_fail' => 'Невозможно создать директорию: :name'
     ],
@@ -54,9 +27,10 @@ return [
             'users' => 'Пользователи',
             'system' => 'Система',
             'social' => 'Социальное',
+            'backend' => 'Backend',
             'events' => 'События',
             'customers' => 'Клиентское',
-            'my_settings' => 'Мои настройки'
+            'my_settings' => 'Мои настройки',
         ]
     ],
     'theme' => [
@@ -163,6 +137,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Секретный ключ Mandrill',
         'mandrill_secret_comment' => 'Введите ваш Mandrill API-ключ.',
+        'ses' => 'SES',
+        'ses_key' => 'SES API-ключ',
+        'ses_key_comment' => 'Введите ваш SES API-ключ',
+        'ses_secret' => 'SES секретный API-ключ',
+        'ses_secret_comment' => 'Введите ваш секретный SES API-ключ',
+        'ses_region' => 'SES регион',
+        'ses_region_comment' => 'Введите ваш SES регион (например, us-east-1)',
         'drivers_hint_header' => 'Драйвера не установлены',
         'drivers_hint_content' => 'Этот почтовый метод требует плагин ":plugin", установленный прежде, чем можно будет отправлять почту.'
     ],
@@ -223,6 +204,7 @@ return [
         'plugin_description' => 'Описание',
         'plugin_version' => 'Версия',
         'plugin_author' => 'Автор',
+        'plugin_not_found' => 'Плагин не найден',
         'core_current_build' => 'Текущая сборка',
         'core_build' => 'Сборка :build',
         'core_build_help' => 'Последняя доступная сборка.',
@@ -260,13 +242,18 @@ return [
         ],
         'important_action_required' => 'Необходимое действие',
         'important_view_guide' => 'Посмотреть руководство по обновлению',
+        'important_view_release_notes' => 'Просмотреть заметки о выпуске',
         'important_alert_text' => 'Некоторые обновления требуют вашего внимания.',
         'details_title' => 'Информация о плагине',
         'details_view_homepage' => 'Перейти к домашней странице',
         'details_readme' => 'Документация',
         'details_readme_missing' => 'Документация не предоставлена.',
+        'details_changelog' => 'Изменения',
+        'details_changelog_missing' => 'Нет никакого измененного списка.',
         'details_upgrades' => 'Инструкция по обновлению',
         'details_upgrades_missing' => 'Инструкция по обновлению не предоставлена.',
+        'details_licence' => 'Лицензия',
+        'details_licence_missing' => 'Лицензия не предоставляется.',
         'details_current_version' => 'Текущая версия',
         'details_author' => 'Автор',
     ],
@@ -300,7 +287,8 @@ return [
         'id_label' => 'ID события',
         'created_at' => 'Дата & Время',
         'message' => 'Сообщение',
-        'level' => 'Уровень'
+        'level' => 'Уровень',
+        'preview_title' => 'События',
     ],
     'request_log' => [
         'hint' => 'В этом журнале отображается список запросов браузера, которые могут потребовать внимания. Например, если посетитель открывает несуществующую страницу, то в журнале создается запись с кодом статуса 404.',
@@ -315,7 +303,8 @@ return [
         'count' => 'Счетчик',
         'referer' => 'Источник запроса',
         'url' => 'Адрес',
-        'status_code' => 'Статус'
+        'status_code' => 'Статус',
+        'preview_title' => 'Запрос',
     ],
     'permissions' => [
         'name' => 'Система',
@@ -329,5 +318,16 @@ return [
         'manage_editor' => 'Управление настройками редактора кода',
         'view_the_dashboard' => 'Просмотр панели управления',
         'manage_branding' => 'Персонализация панели управления'
+    ],
+    'log' => [
+        'menu_label' => 'Настройки логов',
+        'menu_description' => 'Указать какие части CMS следует логировать.',
+        'default_tab' => 'Логирование',
+        'log_events' => 'Логировать системные события',
+        'log_events_comment' => 'Хранить системные события в базе данных в дополнение к файловому журналу.',
+        'log_requests' => 'Логировать неудачные запросы',
+        'log_requests_comment' => 'Запросы браузера, которые могут потребовать внимания. Например, 404 ошибки.',
+        'log_theme' => 'Логировать изменения темы',
+        'log_theme_comment' => 'Когда изменения внесены средствами CMS',
     ]
 ];

@@ -137,7 +137,7 @@
         var viewContainer = document.createElement('div')
 
         viewContainer.setAttribute('data-view-container', 'data-view-container')
-        viewContainer.textContent = value
+        viewContainer.textContent = value === undefined ? '' : value
 
         cellContentContainer.appendChild(viewContainer)
 

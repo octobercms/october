@@ -120,7 +120,7 @@ Example with data attributes (data-control="tab"):
         </div>
     </div>
 
-### JavaScript API:
+### JavaScript API
 
 - $('#mytabs').ocTab({closable: true, closeConfirmation: 'Close this tab? Unsaved data will be lost.'})
 - $('#mytabs').ocTab('addTab', 'Tab title', 'Tab content', identifier) - adds tab. The optional identifier parameter allows to associate a identifier with a tab. The identifier can be used with the goTo() method to find and open a tab by it's identifier.

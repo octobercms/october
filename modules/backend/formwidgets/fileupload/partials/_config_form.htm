@@ -28,7 +28,7 @@
                     type="text"
                     name="title"
                     class="form-control"
-                    value="<?= $file->title ?>"
+                    value="<?= e($file->title) ?>"
                     placeholder="<?= e(trans('backend::lang.fileupload.title_label')) ?>"
                     />
             </div>
@@ -36,7 +36,7 @@
                 <textarea
                     name="description"
                     placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
-                    class="form-control"><?= $file->description ?></textarea>
+                    class="form-control"><?= e($file->description) ?></textarea>
             </div>
 
         </div>

@@ -6,6 +6,14 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\PluginManager;
 
+/**
+ * Console command to install a new plugin.
+ *
+ * This adds a new plugin by requesting it from the October marketplace.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginInstall extends Command
 {
 
@@ -19,7 +27,7 @@ class PluginInstall extends Command
      * The console command description.
      * @var string
      */
-    protected $description = 'Adds a new plugin.';
+    protected $description = 'Install a plugin from the October marketplace.';
 
     /**
      * Create a new command instance.
@@ -37,7 +45,7 @@ class PluginInstall extends Command
     public function fire()
     {
         $pluginName = $this->argument('name');
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
 
         $pluginDetails = $manager->requestPluginDetails($pluginName);
 
@@ -56,10 +64,6 @@ class PluginInstall extends Command
         $this->output->writeln(sprintf('<info>Migrating plugin...</info>', $code));
         PluginManager::instance()->loadPlugins();
         $manager->updatePlugin($code);
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
     }
 
     /**

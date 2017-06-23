@@ -23,7 +23,7 @@
 =require ../vendor/froala_drm/js/plugins/link.js
 
 =require ../vendor/froala_drm/js/plugins/table.min.js
-=require ../vendor/froala_drm/js/plugins/video.min.js
+=require ../vendor/froala_drm/js/plugins/video_simple.js
 =require ../vendor/froala_drm/js/plugins/audio.js
 =require ../vendor/froala_drm/js/plugins/quote.min.js
 =require ../vendor/froala_drm/js/plugins/font_size.min.js

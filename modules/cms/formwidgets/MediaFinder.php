@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Cms\Classes\MediaLibrary;
+use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -13,7 +14,7 @@ use Backend\Classes\FormWidgetBase;
  *        label: Some image
  *        type: media
  *        prompt: Click the %s button to find a user
- * 
+ *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -33,32 +34,49 @@ class MediaFinder extends FormWidgetBase
      */
     public $mode = 'file';
 
+    /**
+     * @var int Preview image width
+     */
+    public $imageWidth = null;
+
+    /**
+     * @var int Preview image height
+     */
+    public $imageHeight = null;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'media';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
         $this->fillFromConfig([
             'mode',
-            'prompt'
+            'prompt',
+            'imageWidth',
+            'imageHeight'
         ]);
+
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
         $this->prepareVars();
+
         return $this->makePartial('mediafinder');
     }
 
@@ -73,10 +91,24 @@ class MediaFinder extends FormWidgetBase
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;
+        $this->vars['imageWidth'] = $this->imageWidth;
+        $this->vars['imageHeight'] = $this->imageHeight;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     */
+    public function getSaveValue($value)
+    {
+        if ($this->formField->disabled || $this->formField->hidden) {
+            return FormField::NO_SAVE_DATA;
+        }
+
+        return $value;
+    }
+
+    /**
+     * @inheritDoc
      */
     protected function loadAssets()
     {

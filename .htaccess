@@ -28,6 +28,7 @@
     ## White listed folders
     ##
     RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} !/.well-known/*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/temp/public/.*

@@ -198,8 +198,7 @@
                 margin-right: 8px;
                 position: relative;
                 top: 3px;
-                background: transparent url(../images/table-icons.gif) no-repeat;
-                background-position: 0 0;
+                background: transparent url(../images/table-icons.gif) no-repeat 0 0;
                 background-size: 32px auto;
             }
 
@@ -280,6 +279,28 @@
             outline: none;
             border: none;
             padding: 6px 10px 7px;
+        }
+    }
+}
+
+html.chrome {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 6px 10px 7px!important;
+            }
+        }
+    }
+}
+
+html.safari, html.gecko {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 5px 10px 5px;
+            }
         }
     }
 }
@@ -404,9 +425,8 @@ ul.table-widget-autocomplete {
 html.cssanimations {
     .control-table td[data-column-type=dropdown] {
         [data-view-container].loading:after {
-            background-image: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg');
+            background: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg') 50% 50%;
             background-size: 15px 15px;
-            background-position: 50% 50%;
             position: absolute;
             width: 15px;
             height: 15px;

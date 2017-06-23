@@ -1,7 +1,6 @@
 <?php namespace Backend\Widgets;
 
 use Lang;
-use Event;
 use Form as FormHelper;
 use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
@@ -11,6 +10,7 @@ use Backend\Classes\FormWidgetBase;
 use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
+use Exception;
 
 /**
  * Form Widget
@@ -21,6 +21,8 @@ use ApplicationException;
  */
 class Form extends WidgetBase
 {
+    use \Backend\Traits\FormModelSaver;
+
     //
     // Configurable properties
     //
@@ -62,12 +64,18 @@ class Form extends WidgetBase
      */
     public $arrayName;
 
+    /**
+     * @var bool Used to flag that this form is being rendered as part of another form,
+     * a good indicator to expect that the form model and dataset values will differ.
+     */
+    public $isNested = false;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'form';
 
@@ -113,7 +121,7 @@ class Form extends WidgetBase
     protected $widgetManager;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -123,8 +131,9 @@ class Form extends WidgetBase
             'secondaryTabs',
             'model',
             'data',
-            'arrayName',
             'context',
+            'arrayName',
+            'isNested',
         ]);
 
         $this->widgetManager = WidgetManager::instance();
@@ -146,7 +155,7 @@ class Form extends WidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function loadAssets()
     {
@@ -207,10 +216,12 @@ class Form extends WidgetBase
         $this->prepareVars();
 
         /*
-         * Apply preview mode to widgets
+         * Force preview mode on all widgets
          */
-        foreach ($this->formWidgets as $widget) {
-            $widget->previewMode = $this->previewMode;
+        if ($this->previewMode) {
+            foreach ($this->formWidgets as $widget) {
+                $widget->previewMode = $this->previewMode;
+            }
         }
 
         return $this->makePartial($targetPartial, $extraVars);
@@ -311,9 +322,21 @@ class Form extends WidgetBase
             $data = $this->getSaveData();
         }
 
-        $this->model->forceFill($data);
-        $this->data = (object) array_merge((array) $this->data, (array) $data);
+        /*
+         * Fill the model as if it were to be saved
+         */
+        $this->prepareModelsToSave($this->model, $data);
 
+        /*
+         * Data set differs from model
+         */
+        if ($this->data !== $this->model) {
+            $this->data = (object) array_merge((array) $this->data, (array) $data);
+        }
+
+        /*
+         * Set field values from data source
+         */
         foreach ($this->allFields as $field) {
             $field->value = $this->getFieldValue($field);
         }
@@ -335,8 +358,7 @@ class Form extends WidgetBase
          * Extensibility
          */
         $dataHolder = (object) ['data' => $saveData];
-        $this->fireEvent('form.beforeRefresh', [$dataHolder]);
-        Event::fire('backend.form.beforeRefresh', [$this, $dataHolder]);
+        $this->fireSystemEvent('backend.form.beforeRefresh', [$dataHolder]);
         $saveData = $dataHolder->data;
 
         /*
@@ -348,8 +370,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireEvent('form.refreshFields', [$this->allFields]);
-        Event::fire('backend.form.refreshFields', [$this, $this->allFields]);
+        $this->fireSystemEvent('backend.form.refreshFields', [$this->allFields]);
 
         /*
          * If an array of fields is supplied, update specified fields individually.
@@ -377,10 +398,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $eventResults = array_merge(
-            $this->fireEvent('form.refresh', [$result]),
-            Event::fire('backend.form.refresh', [$this, $result])
-        );
+        $eventResults = $this->fireSystemEvent('backend.form.refresh', [$result], false);
 
         foreach ($eventResults as $eventResult) {
             $result = $eventResult + $result;
@@ -404,8 +422,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        Event::fire('backend.form.extendFieldsBefore', [$this]);
-        $this->fireEvent('form.extendFieldsBefore');
+        $this->fireSystemEvent('backend.form.extendFieldsBefore');
 
         /*
          * Outside fields
@@ -440,8 +457,7 @@ class Form extends WidgetBase
         /*
          * Extensibility
          */
-        $this->fireEvent('form.extendFields', [$this->allFields]);
-        Event::fire('backend.form.extendFields', [$this, $this->allFields]);
+        $this->fireSystemEvent('backend.form.extendFields', [$this->allFields]);
 
         /*
          * Convert automatic spanned fields
@@ -1027,24 +1043,34 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-            list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+
+            try {
+                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+            }
+            catch (Exception $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
+                    'model' => get_class($this->model),
+                    'field' => $field->fieldName
+                ]));
+            }
 
             $methodName = 'get'.studly_case($attribute).'Options';
             if (
                 !$this->objectMethodExists($model, $methodName) &&
                 !$this->objectMethodExists($model, 'getDropdownOptions')
             ) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($model), 'method'=>$methodName, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($model),
+                    'method' => $methodName,
+                    'field'  => $field->fieldName
+                ]));
             }
 
             if ($this->objectMethodExists($model, $methodName)) {
-                $fieldOptions = $model->$methodName($field->value);
+                $fieldOptions = $model->$methodName($field->value, $this->data);
             }
             else {
-                $fieldOptions = $model->getDropdownOptions($attribute, $field->value);
+                $fieldOptions = $model->getDropdownOptions($attribute, $field->value, $this->data);
             }
         }
         /*
@@ -1052,13 +1078,14 @@ class Form extends WidgetBase
          */
         elseif (is_string($fieldOptions)) {
             if (!$this->objectMethodExists($this->model, $fieldOptions)) {
-                throw new ApplicationException(Lang::get(
-                    'backend::lang.field.options_method_not_exists',
-                    ['model'=>get_class($this->model), 'method'=>$fieldOptions, 'field'=>$field->fieldName]
-                ));
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($this->model),
+                    'method' => $fieldOptions,
+                    'field'  => $field->fieldName
+                ]));
             }
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName);
+            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
         }
 
         return $fieldOptions;

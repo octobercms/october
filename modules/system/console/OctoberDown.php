@@ -5,9 +5,16 @@ use System\Classes\UpdateManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to tear down the database.
+ *
+ * This destroys all database tables that are registered for October and all plugins.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class OctoberDown extends Command
 {
-
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
@@ -37,11 +44,10 @@ class OctoberDown extends Command
             return;
         }
 
-        $manager = UpdateManager::instance()->resetNotes()->uninstall();
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
+        UpdateManager::instance()
+            ->setNotesOutput($this->output)
+            ->uninstall()
+        ;
     }
 
     /**

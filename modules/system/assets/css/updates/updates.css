@@ -3,7 +3,7 @@
 }
 .control-updatelist {
   border: 1px solid #ccc;
-  margin-bottom: 21px;
+  margin-bottom: 20px;
 }
 .control-updatelist .update-item {
   border-bottom: 1px solid #ccc;
@@ -80,7 +80,9 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .25em;
+  -webkit-border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
 }
 .control-updatelist .update-item:last-child {
   border-bottom: none;

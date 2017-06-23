@@ -48,6 +48,12 @@ class MediaLibrary
     protected $ignoreNames;
 
     /**
+     * @var array Contains a list of regex patterns to ignore in files and directories.
+     * The list can be customized with cms.storage.media.ignorePatterns configuration option.
+     */
+    protected $ignorePatterns;
+
+    /**
      * @var int Cache for the storage folder name length.
      */
     protected $storageFolderNameLength;
@@ -60,11 +66,13 @@ class MediaLibrary
         $this->storageFolder = self::validatePath(Config::get('cms.storage.media.folder', 'media'), true);
         $this->storagePath = rtrim(Config::get('cms.storage.media.path', '/storage/app/media'), '/');
 
-        if (!preg_match("/(\/\/|http|https)/", $this->storagePath)) {
+        if (!starts_with($this->storagePath, ['//', 'http://', 'https://'])) {
             $this->storagePath = Request::getBasePath() . $this->storagePath;
         }
 
         $this->ignoreNames = Config::get('cms.storage.media.ignore', FileDefinitions::get('ignoreFiles'));
+
+        $this->ignorePatterns = Config::get('cms.storage.media.ignorePatterns', ['^\..*']);
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
     }
@@ -76,9 +84,10 @@ class MediaLibrary
      * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
      * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
+     * @param boolean $ignoreFolders Determines whether folders should be suppressed in the result list.
      * @return array Returns an array of MediaLibraryItem objects.
      */
-    public function listFolderContents($folder = '/', $sortBy = 'title', $filter = null)
+    public function listFolderContents($folder = '/', $sortBy = 'title', $filter = null, $ignoreFolders = false)
     {
         $folder = self::validatePath($folder);
         $fullFolderPath = $this->getMediaPath($folder);
@@ -119,7 +128,12 @@ class MediaLibrary
 
         $this->filterItemList($folderContents['files'], $filter);
 
-        $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
+        if (!$ignoreFolders) {
+            $folderContents = array_merge($folderContents['folders'], $folderContents['files']);
+        }
+        else {
+            $folderContents = $folderContents['files'];
+        }
 
         return $folderContents;
     }
@@ -138,14 +152,13 @@ class MediaLibrary
         $words = explode(' ', Str::lower($searchTerm));
         $result = [];
 
-        $findInFolder = function($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
+        $findInFolder = function ($folder) use (&$findInFolder, $words, &$result, $sortBy, $filter) {
             $folderContents = $this->listFolderContents($folder, $sortBy, $filter);
 
             foreach ($folderContents as $item) {
                 if ($item->type == MediaLibraryItem::TYPE_FOLDER)
                     $findInFolder($item->path);
-                else
-                    if ($this->pathMatchesSearch($item->path, $words))
+                elseif ($this->pathMatchesSearch($item->path, $words))
                         $result[] = $item;
             }
         };
@@ -306,7 +319,7 @@ class MediaLibrary
     {
         $disk = $this->getStorageDisk();
 
-        $copyDirectory = function($srcPath, $destPath) use (&$copyDirectory, $disk) {
+        $copyDirectory = function ($srcPath, $destPath) use (&$copyDirectory, $disk) {
             $srcPath = self::validatePath($srcPath);
             $fullSrcPath = $this->getMediaPath($srcPath);
 
@@ -346,7 +359,7 @@ class MediaLibrary
     {
         if (Str::lower($originalPath) !== Str::lower($newPath)) {
             // If there is no risk that the directory was renamed
-            // by just changing the letter case in the name - 
+            // by just changing the letter case in the name -
             // copy the directory to the destination path and delete
             // the source directory.
 
@@ -496,7 +509,19 @@ class MediaLibrary
      */
     protected function isVisible($path)
     {
-        return !in_array(basename($path), $this->ignoreNames);
+        $baseName = basename($path);
+
+        if (in_array($baseName, $this->ignoreNames)) {
+            return false;
+        }
+
+        foreach ($this->ignorePatterns as $pattern) {
+            if (preg_match('/'.$pattern.'/', $baseName)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -595,7 +620,7 @@ class MediaLibrary
         $files = [];
         $folders = [];
 
-        usort($itemList, function($a, $b) use ($sortBy) {
+        usort($itemList, function ($a, $b) use ($sortBy) {
             switch ($sortBy) {
                 case self::SORT_BY_TITLE: return strcasecmp($a->path, $b->path);
                 case self::SORT_BY_SIZE:

@@ -11,7 +11,12 @@
     <div class="modal-body">
         <div class="form-group">
             <label><?= e(trans('cms::lang.asset.directory_name')) ?></label>
-            <input type="text" class="form-control" name="name" value=""/>
+            <input
+                type="text"
+                name="name"
+                value=""
+                class="form-control"
+                autocomplete="off" />
         </div>
 
         <input type="hidden" name="theme" value="<?= e($this->theme->getDirName()) ?>">

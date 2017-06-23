@@ -12,6 +12,7 @@
  */
 
 +function ($) { "use strict";
+
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
@@ -95,12 +96,14 @@
     //
 
     DatePicker.prototype.initDatePicker = function() {
-        var self = this
+        var self = this,
+            dateFormat = this.getDateFormat(),
+            now = moment().tz(this.timezone).format(dateFormat)
 
         var pikadayOptions = {
             yearRange: this.options.yearRange,
-            format: this.getDateFormat(),
-            setDefaultDate: moment().tz(this.timezone).format('l'), // now
+            format: dateFormat,
+            setDefaultDate: now,
             onOpen: function() {
                 var $field = $(this._o.trigger)
 
@@ -119,7 +122,7 @@
             pikadayOptions.i18n = lang
         }
 
-        this.$datePicker.val(this.getDataLockerValue('l'))
+        this.$datePicker.val(this.getDataLockerValue(dateFormat))
 
         if (this.options.minDate) {
             pikadayOptions.minDate = new Date(this.options.minDate)
@@ -160,9 +163,12 @@
     }
 
     DatePicker.prototype.getDateFormat = function() {
-        var format = this.options.format
+        var format = 'YYYY-MM-DD'
 
-        if (this.locale) {
+        if (this.options.format) {
+            format = this.options.format
+        }
+        else if (this.locale) {
             format = moment()
                 .locale(this.locale)
                 .localeData()
@@ -298,7 +304,7 @@
     DatePicker.DEFAULTS = {
         minDate: null,
         maxDate: null,
-        format: 'YYYY-MM-DD',
+        format: null,
         yearRange: 10
     }
 

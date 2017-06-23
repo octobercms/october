@@ -37,6 +37,10 @@ class RequestLog extends Model
             return;
         }
 
+        if (!LogSetting::get('log_requests')) {
+            return;
+        }
+
         $record = static::firstOrNew([
             'url' => substr(Request::fullUrl(), 0, 255),
             'status_code' => $statusCode,

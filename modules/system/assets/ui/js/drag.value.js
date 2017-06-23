@@ -131,7 +131,7 @@
         // IE
         if (document.selection) {
             el.focus()
-            sel = document.selection.createRange()
+            var sel = document.selection.createRange()
             sel.text = insertValue
             el.focus()
         }
