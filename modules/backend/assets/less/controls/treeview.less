@@ -1,64 +1,3 @@
-//
-// Tree view
-// --------------------------------------------------
-//
-// Usage (dual icons)
-//    <div class="control-treeview treeview-light with-dual-icons" data-control="treeview">
-//        <ol>
-//            <li>
-//                <div>
-//                    <div class="icons">
-//                        <span class="icon">ON</span>
-//                        <span class="icon"><i class="icon-user"></i></span>
-//                    </div>
-//                    <a href="#">
-//                        <span class="title">Something</span>
-//                        <span class="comment">Comment</span>
-//                    </a>
-//                    <div class="subpanel">
-//                        <input />
-//                    </div>
-//                </div>
-//            </li>
-//            <li>
-//                <div>
-//                    <div class="icons">
-//                        <span class="icon"><i class="icon-bolt"></i></span>
-//                        <span class="icon"><i class="icon-envelope"></i></span>
-//                    </div>
-//                    <a href="#">
-//                        <span class="title">Send message</span>
-//                        <span class="comment">To all my friends</span>
-//                    </a>
-//                    <ul class="submenu">
-//                        <li>
-//                            <p>
-//                                <a href="javascript:;" data-control="create-item">
-//                                    <i class="icon-plus"></i> Add submenu
-//                                </a>
-//                            </p>
-//                        </li>
-//                        <li>
-//                            <p>
-//                                <a href="javascript:;" data-control="delete-menu-item">
-//                                    <i class="icon-trash-o control-icon"></i>
-//                                </a>
-//                            </p>
-//                        </li>
-//                    </ul>
-//                    <span class="drag-handle">
-//                        Drag
-//                    </span>
-//                </div>
-//            </li>
-//        </ol>
-//
-//        <a href="javascript:;" class="menu-control">
-//            <i class="icon-plus"></i> Add item
-//        </a>
-//    </div>
-//
-
 .control-treeview {
     margin-bottom: 40px;
 
@@ -236,32 +175,32 @@
                 }
 
                 &.popover-highlight {
-                    background-color: @color-treeview-hover-bg !important;
+                    background-color: @color-treeview-hover-bg!important;
 
                     &:before {
                         background-position: 0px -80px;
                     }
 
                     > a {
-                        color: @color-treeview-hover-text !important;
+                        color: @color-treeview-hover-text!important;
                         cursor: default;
                     }
 
                     span {
-                        color: @color-treeview-hover-text !important;
+                        color: @color-treeview-hover-text!important;
                     }
 
                     > ul.submenu, > span.drag-handle {
-                        display: none !important;
+                        display: none!important;
                     }
                 }
             }
 
             &.dragged div, > div:hover {
-                background-color: @color-treeview-hover-bg !important;
+                background-color: @color-treeview-hover-bg!important;
 
                 > a {
-                    color: @color-treeview-hover-text !important;
+                    color: @color-treeview-hover-text!important;
                 }
 
                 &:before {
@@ -269,12 +208,12 @@
                 }
 
                 &:after {
-                    top: 0 !important;
-                    bottom: 0 !important;
+                    top: 0!important;
+                    bottom: 0!important;
                 }
 
                 span {
-                    color: @color-treeview-hover-text !important;
+                    color: @color-treeview-hover-text!important;
 
                     &.drag-handle {
                         cursor: move;
@@ -289,7 +228,7 @@
 
             &[data-no-drag-mode] div:hover {
                 span.drag-handle {
-                    cursor: default !important;
+                    cursor: default!important;
                     .opacity(.3)!important;
                 }
             }
@@ -302,7 +241,7 @@
                 }
 
                 div > ul.submenu {
-                    display: none !important;
+                    display: none!important;
                 }
             }
 
@@ -452,65 +391,6 @@
         .tree-view-paddings (@max-level);
     }
 
-    /*
-     * When using custom icons
-     */
-    &.with-dual-icons,
-    &.with-icons {
-        ol > li > div {
-            &:before {
-                display: none;
-            }
-
-            span.icon {
-                display: block;
-                position: absolute;
-                width: 22px;
-                height: 22px;
-                left: 20px;
-                top: 15px;
-                text-align: center;
-                font-weight: 500;
-                line-height: 22px;
-                color: #999;
-
-                > i {
-                    line-height: 22px;
-                    font-weight: normal;
-                    font-size: 22px;
-                    color: #999;
-                }
-            }
-
-            &:hover, &.popover-highlight {
-                span.icon > i {
-                    color: #fff !important;
-                }
-            }
-        }
-    }
-
-    &.with-dual-icons {
-        ol > li > div {
-            > a {
-                padding-left: 91px;
-            }
-
-            span.icon:first-child {
-                font-size: 11px;
-                color: #ccc;
-
-                > i {
-                    color: #ccc;
-                    font-size: 15px;
-                }
-            }
-            span.icon:last-child {
-                left: 52px;
-            }
-        }
-    }
-
     p.no-data {
         .no-data();
     }
@@ -576,7 +456,7 @@
                         height: 100%;
                         width: 60px;
                         background: @color-treeview-light-submenu-bg;
-                        .transition(none) !important;
+                        .transition(none)!important;
 
                         &:before {
                             position: absolute;
@@ -584,15 +464,6 @@
                             top: 50%;
                             margin-left: -6px;
                         }
-                    }
-
-                    > .subpanel {
-                        right: 0;
-                        top: 0;
-                        height: 100%;
-                        position: absolute;
-                        z-index: 200;
-                        padding: 0 20px;
                     }
 
                     > ul.submenu {
