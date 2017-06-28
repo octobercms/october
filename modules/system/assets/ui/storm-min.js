@@ -2877,7 +2877,7 @@ this.$el=null
 this.options=null
 BaseProto.dispose.call(this)}
 DatePicker.prototype.initDatePicker=function(){var self=this,dateFormat=this.getDateFormat(),now=moment().tz(this.timezone).format(dateFormat)
-var pikadayOptions={yearRange:this.options.yearRange,format:dateFormat,setDefaultDate:now,onOpen:function(){var $field=$(this._o.trigger)
+var pikadayOptions={yearRange:this.options.yearRange,firstDay:this.options.firstDay,format:dateFormat,setDefaultDate:now,onOpen:function(){var $field=$(this._o.trigger)
 $(this.el).css({left:'auto',right:$(window).width()-$field.offset().left-$field.outerWidth()})},onSelect:function(){self.onSelectDatePicker.call(self,this.getMoment())}}
 var lang=this.getLang('datepicker',false)
 if(lang){pikadayOptions.i18n=lang}
@@ -2926,7 +2926,7 @@ if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}
 DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
-DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10}
+DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0}
 var old=$.fn.datePicker
 $.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1),items,result
 items=this.each(function(){var $this=$(this)
