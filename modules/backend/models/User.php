@@ -111,6 +111,8 @@ class User extends UserBase
         if ($this->send_invite) {
             $this->sendInvitation();
         }
+        
+        Event::fire('backend.user.created', [$this]);
     }
 
     /**
