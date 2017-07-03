@@ -31,10 +31,14 @@ class UpdateManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
-     * The notes for the current operation.
-     * @var array
+     * @var array The notes for the current operation.
      */
     protected $notes = [];
+
+    /**
+     * @var \Illuminate\Console\OutputStyle
+     */
+    protected $notesOutput;
 
     /**
      * @var string Application base path.
@@ -365,9 +369,11 @@ class UpdateManager
         $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         $this->note($module);
+
         foreach ($this->migrator->getNotes() as $note) {
             $this->note(' - '.$note);
         }
+
         return $this;
     }
 
@@ -466,13 +472,17 @@ class UpdateManager
             return;
         }
 
-        $this->versionManager->resetNotes();
+        $this->note($name);
+
+        $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
+
         if ($this->versionManager->updatePlugin($plugin) !== false) {
-            $this->note($name);
+
             foreach ($this->versionManager->getNotes() as $note) {
-                $this->note(' - '.$note);
+                $this->note($note);
             }
         }
+
         return $this;
     }
 
@@ -689,11 +699,17 @@ class UpdateManager
     /**
      * Raise a note event for the migrator.
      * @param  string  $message
-     * @return void
+     * @return self
      */
     protected function note($message)
     {
-        $this->notes[] = $message;
+        if ($this->notesOutput !== null) {
+            $this->notesOutput->writeln($message);
+        }
+        else {
+            $this->notes[] = $message;
+        }
+
         return $this;
     }
 
@@ -708,11 +724,26 @@ class UpdateManager
 
     /**
      * Resets the notes store.
-     * @return array
+     * @return self
      */
     public function resetNotes()
     {
+        $this->notesOutput = null;
+
         $this->notes = [];
+
+        return $this;
+    }
+
+    /**
+     * Sets an output stream for writing notes.
+     * @param  Illuminate\Console\Command $output
+     * @return self
+     */
+    public function setNotesOutput($output)
+    {
+        $this->notesOutput = $output;
+
         return $this;
     }
 

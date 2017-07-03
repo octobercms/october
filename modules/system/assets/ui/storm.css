@@ -1774,7 +1774,7 @@ div.scoreboard .control-chart .canvas + ul{margin-left:0}
 div.scoreboard .scoreboard-offset{padding-left:20px}
 body.slim-container div.scoreboard{padding:0 20px}
 #layout-canvas .flash-message{display:none}
-.flash-message{position:fixed;width:500px;left:50%;top:13px;margin-left:-250px;color:#ffffff;font-size:14px;padding:10px 30px 10px 15px;z-index:10300;word-wrap:break-word;text-shadow:0 -1px 0px rgba(0,0,0,0.15);text-align:center;-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.flash-message{position:fixed;width:500px;left:50%;top:50px;margin-left:-250px;color:#ffffff;font-size:14px;padding:10px 30px 10px 15px;z-index:10300;word-wrap:break-word;text-shadow:0 -1px 0px rgba(0,0,0,0.15);text-align:center;-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .flash-message.fade{opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.5s,width 0s;transition:all 0.5s,width 0s;-webkit-transform:scale(0.9);-ms-transform:scale(0.9);transform:scale(0.9)}
 .flash-message.fade.in{opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
 .flash-message.success{background:#8da85e}
