@@ -63,12 +63,8 @@ class PluginRemove extends Command
         /*
          * Rollback plugin
          */
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
         $manager->rollbackPlugin($pluginName);
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
 
         /*
          * Delete from file system

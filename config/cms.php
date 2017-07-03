@@ -53,6 +53,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Back-end login remember
+    |--------------------------------------------------------------------------
+    |
+    | Define live duration of backend sessions :
+    |
+    | true  - session never expire (cookie expiration in 5 years)
+    |
+    | false - session have a limited time (see session.lifetime)
+    |
+    | null  - The form login display a checkbox that allow user to choose
+    |         wanted behavior
+    |
+    */
+
+    'backendForceRemember' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Back-end timezone
     |--------------------------------------------------------------------------
     |
