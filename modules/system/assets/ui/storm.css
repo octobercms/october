@@ -1615,11 +1615,12 @@ to{background-position:0 0}
 .control-tabs.content-tabs > ul.nav-tabs{position:relative}
 .control-tabs.content-tabs > ul.nav-tabs:before{content:' ';position:absolute;bottom:0;left:0;width:100%;height:1px;background:#e3e5e7}
 .control-tabs.content-tabs > ul.nav-tabs li{margin-right:0;border-top:1px solid #e3e5e7;border-right:1px solid #e3e5e7}
-.control-tabs.content-tabs > ul.nav-tabs li a{font-size:12px;padding:11px 20px;margin:0;border:none;text-transform:uppercase;background:transparent;font-weight:600}
+.control-tabs.content-tabs > ul.nav-tabs li a{font-size:12px;padding:11px 20px;margin:0;border:none;text-transform:uppercase;background:transparent;font-weight:500}
 .control-tabs.content-tabs > ul.nav-tabs li a span.title span{border-top:none}
 .control-tabs.content-tabs > ul.nav-tabs li:first-child{border-left:1px solid #e3e5e7}
 .control-tabs.content-tabs > ul.nav-tabs li:last-child{border-right:1px solid #e3e5e7}
 .control-tabs.content-tabs > ul.nav-tabs li.active{background:#ffffff}
+.control-tabs.content-tabs > ul.nav-tabs li.active a{font-weight:600}
 .control-tabs.content-tabs.tabs-inset > ul.nav-tabs,.control-tabs.content-tabs.tabs-inset > div > ul.nav-tabs,.control-tabs.content-tabs.tabs-inset > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.content-tabs.tabs-inset > ul.nav-tabs li:first-child,.control-tabs.content-tabs.tabs-inset > div > ul.nav-tabs li:first-child,.control-tabs.content-tabs.tabs-inset > div > div > ul.nav-tabs li:first-child{margin-left:20px}
 .control-tabs.content-tabs.tabs-offset > ul.nav-tabs li:first-child{margin-left:20px}
@@ -2463,6 +2464,7 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .form-group.layout-relative{padding-bottom:0}
 .form-group.checkbox-field{padding-bottom:5px}
 .form-group.number-field > .form-control{text-align:right}
+.form-group.radio-align{padding-left:28px;margin-top:-20px}
 .form-group.checkbox-align{padding-left:28px;margin-top:-5px}
 .form-group.field-align-above{margin-top:-5px}
 .form-group.field-slim.span-left,.form-group.field-slim.span-right{width:50%}
