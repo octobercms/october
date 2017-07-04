@@ -252,6 +252,10 @@ class SettingsManager
     {
         $itemKey = $this->makeItemKey($owner, $code);
 
+        if (isset($this->items[$itemKey])) {
+            $definition = array_merge((array) $this->items[$itemKey], $definition);
+        }
+
         $item = array_merge(self::$itemDefaults, array_merge($definition, [
             'code' => $code,
             'owner' => $owner
