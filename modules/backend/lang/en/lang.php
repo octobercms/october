@@ -362,7 +362,7 @@ return [
         'remove_tags' => 'Remove tags',
         'remove_tags_comment' => 'The list of tags that are removed together with their content.',
         'toolbar_buttons' => 'Toolbar Buttons',
-        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website'
