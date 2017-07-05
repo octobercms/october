@@ -4,7 +4,7 @@
 
         <?php if ($button == 'update'): ?>
             <?= $this->relationMakePartial('button_update', [
-                'relationManageId' => $relationViewModel->id
+                'relationManageId' => $relationViewModel->getKey()
             ]) ?>
         <?php else: ?>
             <?= $this->relationMakePartial('button_'.$button) ?>
