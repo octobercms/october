@@ -1,6 +1,6 @@
 /*
  * Field Repeater plugin
- * 
+ *
  * Data attributes:
  * - data-control="fieldrepeater" - enables the plugin on an element
  * - data-option="value" - an option with a value
@@ -190,9 +190,14 @@
             $target = $item
         }
 
-        var $textInput = $('input[type=text]:first', $target)
-        if ($textInput.length) {
-            return $textInput.val()
+        var $input = $('input[type=text]:first, select:first', $target).eq(0);
+        if ($input.length) {
+            switch($input.prop("tagName")) {
+                case 'SELECT':
+                    return $input.children('option:selected').text();
+                default:
+                    return $input.val();
+            }
         }
 
         return defaultText
