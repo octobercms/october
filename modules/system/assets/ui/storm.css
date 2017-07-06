@@ -2509,7 +2509,8 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .field-recordfinder .btn:hover{color:#333333}
 .field-recordfinder .text-muted i{font-size:14px;position:relative;top:1px;display:inline-block;margin:0 2px}
 .field-recordfinder .primary{font-weight:600}
-.recordfinder-search{background-position:right -81px !important;border-top:none !important;border-left:none !important;border-right:none !important;border-radius:0}
+.recordfinder-list .list-footer{padding-top:0;padding-bottom:0}
+.recordfinder-search{background-position:right -81px !important;border-top:none !important;border-left:none !important;border-right:none !important;border-radius:0;padding-left:20px}
 .form-buttons{padding-bottom:20px;font-size:0}
 .form-buttons:before,.form-buttons:after{content:" ";display:table}
 .form-buttons:after{clear:both}
