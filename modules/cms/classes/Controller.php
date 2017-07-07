@@ -1022,6 +1022,15 @@ class Controller
     // Getters
     //
 
+     /**
+     * Returns the status code for the current web response.
+     * @return int Status code
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
     /**
      * Returns an existing instance of the controller.
      * If the controller doesn't exists, returns null.
