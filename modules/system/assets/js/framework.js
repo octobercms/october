@@ -68,7 +68,7 @@ if (window.jQuery.request !== undefined) {
                     name = $el.attr('name'),
                     files = $el.prop('files')
 
-                if (name === undefined || files === undefined) return
+                if (name === undefined || files === undefined || files === null) return
                     
                 $.each(files, function (index, file) {
                     formdata.append(name, file)
