@@ -45,7 +45,7 @@ if (window.jQuery.request !== undefined) {
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
             sendFiles = $el.is(':file') || ($el[0] == $form[0] && $form.attr('enctype') == 'multipart/form-data') || options.sendFiles,
-            data = $triggerEl.find(':input').addBack(':input').serializeArray()
+            data = $triggerEl.serializeArray()
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             appendObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
@@ -56,17 +56,20 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (sendFiles) {
-            var formdata = new FormData()
+            var formdata = new FormData(),
+                $fileEls = $triggerEl.is('form') ? $triggerEl.find(':file') : $triggerEl
 
             $.each(data, function (index, field) {
                 formdata.append(field.name, field.value)
             })
 
-            $triggerEl.find(':file').addBack(':file').each(function () {
+            $fileEls.each(function () {
                 var $el = $(this),
                     name = $el.attr('name'),
                     files = $el.prop('files')
 
+                if (name === undefined || files === undefined) return
+                    
                 $.each(files, function (index, file) {
                     formdata.append(name, file)
                 })
