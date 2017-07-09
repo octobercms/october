@@ -194,7 +194,7 @@
         if ($textInput.length) {
             return $textInput.val()
         } else {
-            var $disabledTextInput = $('.text-field > .form-control', $target)
+            var $disabledTextInput = $('.text-field:first > .form-control', $target)
             if ($disabledTextInput.length) {
                 return $disabledTextInput.text()
             }
