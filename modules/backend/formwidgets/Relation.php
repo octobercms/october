@@ -29,11 +29,6 @@ class Relation extends FormWidgetBase
     public $nameFrom = 'name';
 
     /**
-     * @var string Model column to use for the description reference
-     */
-    public $descriptionFrom = 'description';
-
-    /**
      * @var string Custom SQL column selection to use for the name reference
      */
     public $sqlSelect;
@@ -69,7 +64,6 @@ class Relation extends FormWidgetBase
     {
         $this->fillFromConfig([
             'nameFrom',
-            'descriptionFrom',
             'emptyOption',
             'scope',
         ]);

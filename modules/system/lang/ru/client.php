@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'Полный экран',
         'preview' => 'Предпросмотр',
     ],
-
     'mediamanager' => [
         'insert_link' => "Вставить медиа-ссылку",
         'insert_image' => "Вставить медиа-изображение",
@@ -45,7 +44,6 @@ return [
         'invalid_video_empty_insert' => "Пожалуйста, выберите видео для вставки.",
         'invalid_audio_empty_insert' => "Пожалуйста, выберите аудио для вставки.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Отмена',

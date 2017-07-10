@@ -52,7 +52,7 @@
         })
 
         if (!!$container.length) {
-            $container = $('[data-validate-error]')
+            $container = $('[data-validate-error]', $this)
         }
 
         if (!!$container.length) {

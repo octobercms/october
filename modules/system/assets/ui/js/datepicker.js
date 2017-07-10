@@ -102,6 +102,7 @@
 
         var pikadayOptions = {
             yearRange: this.options.yearRange,
+            firstDay: this.options.firstDay,
             format: dateFormat,
             setDefaultDate: now,
             onOpen: function() {
@@ -305,7 +306,8 @@
         minDate: null,
         maxDate: null,
         format: null,
-        yearRange: 10
+        yearRange: 10,
+        firstDay: 0
     }
 
     // PLUGIN DEFINITION

@@ -39,6 +39,7 @@ return [
         'restore' => 'Restaurer',
         'login_placeholder' => 'identifiant',
         'password_placeholder' => 'mot de passe',
+        'remember_me' => 'Rester connecté',
         'forgot_password' => 'Mot de passe oublié ?',
         'enter_email' => 'Saisir votre adresse e-mail',
         'enter_login' => 'Saisir votre identifiant',

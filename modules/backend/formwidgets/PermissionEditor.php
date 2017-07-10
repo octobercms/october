@@ -44,7 +44,7 @@ class PermissionEditor extends FormWidgetBase
         }
 
         $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
-        $this->vars['permissions'] = BackendAuth::listTabbedPermissions();
+        $this->vars['permissions'] = $this->getFilteredPermissions();
         $this->vars['baseFieldName'] = $this->getFieldName();
         $this->vars['permissionsData'] = $permissionsData;
         $this->vars['field'] = $this->formField;
@@ -55,11 +55,29 @@ class PermissionEditor extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        if (is_array($value)) {
-            return $value;
+        $newPermissions = is_array($value) ? array_map('intval', $value) : [];
+
+        if (!empty($newPermissions)) {
+            $existingPermissions = $this->model->permissions;
+
+            $allowedPermissions = array_map(function ($permissionObject) {
+                return $permissionObject->code;
+            }, array_flatten($this->getFilteredPermissions()));
+
+            foreach ($newPermissions as $permission => $code) {
+                if ($code === 0) {
+                    continue;
+                }
+
+                if (in_array($permission, $allowedPermissions)) {
+                    $existingPermissions[$permission] = $code;
+                }
+            }
+
+            $newPermissions = $existingPermissions;
         }
 
-        return [];
+        return $newPermissions;
     }
 
     /**
@@ -74,5 +92,31 @@ class PermissionEditor extends FormWidgetBase
     protected function getControlMode()
     {
         return strlen($this->mode) ? $this->mode : 'radio';
+    }
+
+    /**
+     * Returns the available permissions; removing those that the logged-in user does not have access to
+     *
+     * @return array The permissions that the logged-in user does have access to
+     */
+    protected function getFilteredPermissions()
+    {
+        $permissions = BackendAuth::listTabbedPermissions();
+        $user = BackendAuth::getUser();
+        foreach ($permissions as $tab => $permissionsArray) {
+            foreach ($permissionsArray as $index => $permission) {
+                if (!$user->hasAccess($permission->code)) {
+                    unset($permissionsArray[$index]);
+                }
+            }
+
+            if (empty($permissionsArray)) {
+                unset($permissions[$tab]);
+            } else {
+                $permissions[$tab] = $permissionsArray;
+            }
+        }
+
+        return $permissions;
     }
 }
