@@ -55,11 +55,29 @@ class PermissionEditor extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        if (is_array($value)) {
-            return $value;
+        $newPermissions = is_array($value) ? array_map('intval', $value) : [];
+
+        if (!empty($newPermissions)) {
+            $existingPermissions = $this->model->permissions;
+
+            $allowedPermissions = array_map(function ($permissionObject) {
+                return $permissionObject->code;
+            }, array_flatten($this->getFilteredPermissions()));
+
+            foreach ($newPermissions as $permission => $code) {
+                if ($code === 0) {
+                    continue;
+                }
+
+                if (in_array($permission, $allowedPermissions)) {
+                    $existingPermissions[$permission] = $code;
+                }
+            }
+
+            $newPermissions = $existingPermissions;
         }
 
-        return [];
+        return $newPermissions;
     }
 
     /**
