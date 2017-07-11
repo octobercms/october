@@ -12,7 +12,7 @@ use System\Classes\SettingsManager;
  * @author Alexey Bobkov, Samuel Georges
  *
  */
-class UserGroups extends Controller
+class UserRoles extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -30,5 +30,31 @@ class UserGroups extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
+    }
+
+    /**
+     * Add available permission fields to the Role form.
+     */
+    public function formExtendFields($form)
+    {
+        /*
+         * Add permissions tab
+         */
+        $form->addTabFields($this->generatePermissionsField());
+    }
+
+    /**
+     * Adds the permissions editor widget to the form.
+     * @return array
+     */
+    protected function generatePermissionsField()
+    {
+        return [
+            'permissions' => [
+                'tab' => 'backend::lang.user.permissions',
+                'type' => 'Backend\FormWidgets\PermissionEditor',
+                'mode' => 'checkbox'
+            ]
+        ];
     }
 }

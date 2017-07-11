@@ -1,7 +1,7 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
         <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
-        <li><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('backend/userroles') ?>"><?= e(trans('backend::lang.user.role.menu_label')) ?></a></li>
         <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -39,7 +39,7 @@
                     class="btn btn-danger pull-right"
                     data-request="onDelete"
                     data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
-                    data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">
+                    data-request-confirm="<?= e(trans('backend::lang.user.role.delete_confirm')) ?>">
                     <?= e(trans('backend::lang.form.delete')) ?>
                 </button>
             </div>
@@ -49,5 +49,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('backend/usergroups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
+    <p><a href="<?= Backend::url('backend/userroles') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.role.return')) ?></a></p>
 <?php endif ?>
