@@ -1,5 +1,7 @@
 <?php namespace Backend\Controllers;
 
+use View;
+use Response;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\Controller;
@@ -30,6 +32,15 @@ class UserRoles extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
+
+        /*
+         * Only super users can access
+         */
+        $this->bindEvent('page.beforeDisplay', function() {
+            if (!$this->user->isSuperUser()) {
+                return Response::make(View::make('backend::access_denied'), 403);
+            }
+        });
     }
 
     /**

@@ -6,6 +6,7 @@ use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
+use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
@@ -123,6 +124,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-magic',
                     'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
+                    'order'       => 100,
                     'permissions' => [
                         'cms.manage_content',
                         'cms.manage_assets',
@@ -130,7 +132,6 @@ class ServiceProvider extends ModuleServiceProvider
                         'cms.manage_layouts',
                         'cms.manage_partials'
                     ],
-                    'order'       => 100,
                     'sideMenu' => [
                         'pages' => [
                             'label'        => 'cms::lang.page.menu_label',
@@ -216,31 +217,37 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_content' => [
                     'label' => 'cms::lang.permissions.manage_content',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_assets' => [
                     'label' => 'cms::lang.permissions.manage_assets',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_pages' => [
                     'label' => 'cms::lang.permissions.manage_pages',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_layouts' => [
                     'label' => 'cms::lang.permissions.manage_layouts',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_partials' => [
                     'label' => 'cms::lang.permissions.manage_partials',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_themes' => [
                     'label' => 'cms::lang.permissions.manage_themes',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'media.manage_media' => [

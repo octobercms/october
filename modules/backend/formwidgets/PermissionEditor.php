@@ -12,6 +12,8 @@ use BackendAuth;
  */
 class PermissionEditor extends FormWidgetBase
 {
+    protected $user;
+
     public $mode;
 
     /**
@@ -22,6 +24,8 @@ class PermissionEditor extends FormWidgetBase
         $this->fillFromConfig([
             'mode'
         ]);
+
+        $this->user = BackendAuth::getUser();
     }
 
     /**
@@ -38,6 +42,10 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         $permissionsData = $this->formField->getValueFromData($this->model);
         if (!is_array($permissionsData)) {
             $permissionsData = [];
@@ -54,6 +62,36 @@ class PermissionEditor extends FormWidgetBase
      * @inheritDoc
      */
     public function getSaveValue($value)
+    {
+        if ($this->user->isSuperUser()) {
+            return is_array($value) ? $value : [];
+        }
+
+        return $this->getSaveValueSecure($value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function loadAssets()
+    {
+        $this->addCss('css/permissioneditor.css', 'core');
+        $this->addJs('js/permissioneditor.js', 'core');
+    }
+
+    protected function getControlMode()
+    {
+        return strlen($this->mode) ? $this->mode : 'radio';
+    }
+
+    /**
+     * Returns a safely parsed set of permissions, ensuring the user cannot elevate
+     * their own permissions or permissions of another user above their own.
+     *
+     * @param string $value
+     * @return array
+     */
+    protected function getSaveValueSecure($value)
     {
         $newPermissions = is_array($value) ? array_map('intval', $value) : [];
 
@@ -81,20 +119,6 @@ class PermissionEditor extends FormWidgetBase
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function loadAssets()
-    {
-        $this->addCss('css/permissioneditor.css', 'core');
-        $this->addJs('js/permissioneditor.js', 'core');
-    }
-
-    protected function getControlMode()
-    {
-        return strlen($this->mode) ? $this->mode : 'radio';
-    }
-
-    /**
      * Returns the available permissions; removing those that the logged-in user does not have access to
      *
      * @return array The permissions that the logged-in user does have access to
@@ -102,17 +126,22 @@ class PermissionEditor extends FormWidgetBase
     protected function getFilteredPermissions()
     {
         $permissions = BackendAuth::listTabbedPermissions();
-        $user = BackendAuth::getUser();
+
+        if ($this->user->isSuperUser()) {
+            return $permissions;
+        }
+
         foreach ($permissions as $tab => $permissionsArray) {
             foreach ($permissionsArray as $index => $permission) {
-                if (!$user->hasAccess($permission->code)) {
+                if (!$this->user->hasAccess($permission->code)) {
                     unset($permissionsArray[$index]);
                 }
             }
 
             if (empty($permissionsArray)) {
                 unset($permissions[$tab]);
-            } else {
+            }
+            else {
                 $permissions[$tab] = $permissionsArray;
             }
         }

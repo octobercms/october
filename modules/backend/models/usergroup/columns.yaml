@@ -5,11 +5,16 @@
 columns:
     name:
         label: backend::lang.user.group.name_field
-        searchable: yes
+        searchable: true
+
+    code:
+        label: backend::lang.user.group.code_field
+        searchable: true
+        invisible: true
 
     description:
         label: backend::lang.user.group.description_field
-        searchable: yes
+        searchable: true
 
     users_count:
         label: backend::lang.user.group.users_count

@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use Backend\Classes\AuthManager;
 use October\Rain\Auth\Models\Role as RoleBase;
 
 /**
@@ -10,10 +11,8 @@ use October\Rain\Auth\Models\Role as RoleBase;
  */
 class UserRole extends RoleBase
 {
-    /**
-     * @var string The default role code.
-     */
-    const DEFAULT_CODE = 'default';
+    const CODE_DEVELOPER = 'developer';
+    const CODE_PUBLISHER = 'publisher';
 
     /**
      * @var string The database table used by the model.
@@ -25,6 +24,7 @@ class UserRole extends RoleBase
      */
     public $rules = [
         'name' => 'required|between:2,128|unique:backend_user_roles',
+        'code' => 'unique:backend_user_roles',
     ];
 
     /**
@@ -34,4 +34,48 @@ class UserRole extends RoleBase
         'users' => [User::class, 'key' => 'role_id'],
         'users_count' => [User::class, 'key' => 'role_id', 'count' => true]
     ];
+
+    public function filterFields($fields)
+    {
+        if ($this->is_system) {
+            $fields->code->disabled = true;
+            $fields->permissions->disabled = true;
+        }
+    }
+
+    public function afterFetch()
+    {
+        if ($this->is_system) {
+            $this->permissions = $this->getDefaultPermissions();
+        }
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isSystemRole()) {
+            $this->is_system = true;
+            $this->permissions = [];
+        }
+    }
+
+    public function isSystemRole()
+    {
+        if (!$this->code || !strlen(trim($this->code))) {
+            return false;
+        }
+
+        if ($this->is_system || in_array($this->code, [
+            self::CODE_DEVELOPER,
+            self::CODE_PUBLISHER
+        ])) {
+            return true;
+        }
+
+        return AuthManager::instance()->hasPermissionsForRole($this->code);
+    }
+
+    public function getDefaultPermissions()
+    {
+        return AuthManager::instance()->listPermissionsForRole($this->code);
+    }
 }

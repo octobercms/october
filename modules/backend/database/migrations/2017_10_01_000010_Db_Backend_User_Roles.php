@@ -1,5 +1,6 @@
 <?php
 
+use Backend\Models\UserRole;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
@@ -14,6 +15,7 @@ class DbBackendUserRoles extends Migration
             $table->string('code')->nullable()->index('role_code_index');
             $table->text('description')->nullable();
             $table->text('permissions')->nullable();
+            $table->boolean('is_system')->default(0);
             $table->timestamps();
         });
 
@@ -33,11 +35,12 @@ class DbBackendUserRoles extends Migration
         // Role not found in the users table, perform a complete migration.
         // Merging group permissions with the user and assigning the user
         // with the first available role.
-        if (Schema::hasColumn('backend_users', 'role_id')) {
+        if (!Schema::hasColumn('backend_users', 'role_id')) {
             Schema::table('backend_users', function (Blueprint $table) {
                 $table->integer('role_id')->unsigned()->nullable()->index('admin_role_index');
             });
 
+            $this->createSystemUserRoles();
             $this->migratePermissionsFromGroupsToRoles();
         }
 
@@ -47,6 +50,21 @@ class DbBackendUserRoles extends Migration
                 $table->dropColumn('permissions');
             });
         }
+    }
+
+    protected function createSystemUserRoles()
+    {
+        Db::table('backend_user_roles')->insert([
+            'name' => 'Publisher',
+            'code' => UserRole::CODE_PUBLISHER,
+            'description' => 'Site editor with access to publishing tools.',
+        ]);
+
+        Db::table('backend_user_roles')->insert([
+            'name' => 'Developer',
+            'code' => UserRole::CODE_DEVELOPER,
+            'description' => 'Site administrator with access to developer tools.',
+        ]);
     }
 
     protected function migratePermissionsFromGroupsToRoles()
@@ -66,6 +84,7 @@ class DbBackendUserRoles extends Migration
             try {
                 $roles[$group->id] = Db::table('backend_user_roles')->insertGetId([
                     'name' => $group->name,
+                    'description' => $group->description,
                     'permissions' => $group->permissions ?? null
                 ]);
             }

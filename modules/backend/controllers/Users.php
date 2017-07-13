@@ -95,6 +95,7 @@ class Users extends Controller
 
         if (!$this->user->isSuperUser()) {
             $form->removeField('is_superuser');
+            $form->removeField('role');
         }
 
         /*

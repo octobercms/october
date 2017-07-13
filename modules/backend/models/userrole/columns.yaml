@@ -5,7 +5,12 @@
 columns:
     name:
         label: backend::lang.user.role.name_field
-        searchable: yes
+        searchable: true
+
+    code:
+        label: backend::lang.user.role.code_field
+        searchable: true
+        invisible: true
 
     description:
         label: backend::lang.user.role.description_field

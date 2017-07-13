@@ -141,7 +141,7 @@ return [
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
-            'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',
+            'name_comment' => 'The name is displayed in the group list on the Administrator form.',
             'description_field' => 'Description',
             'is_new_user_default_field_label' => 'Default group',
             'is_new_user_default_field_comment' => 'Add new administrators to this group by default',
@@ -157,7 +157,7 @@ return [
         'role' => [
             'name' => 'Role',
             'name_field' => 'Name',
-            'name_comment' => 'The name is displayed in the role list on the Create/Edit Administrator form.',
+            'name_comment' => 'The name is displayed in the role list on the Administrator form.',
             'description_field' => 'Description',
             'code_field' => 'Code',
             'code_comment' => 'Enter a unique code if you want to access the role object with the API.',
