@@ -1,6 +1,7 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Console command to convert configuration to use .env files.
@@ -54,6 +55,16 @@ class OctoberEnv extends Command
         $this->overwriteConfig();
 
         $this->info('.env configuration file has been created.');
+    }
+
+    /**
+     * Get the console command options.
+     */
+    protected function getOptions()
+    {
+        return [
+            ['protect', null, InputOption::VALUE_NONE, 'Make sure to replace sensitive config values by the default ones.'],
+        ];
     }
 
     /**
@@ -183,6 +194,10 @@ class OctoberEnv extends Command
             $value = $this->envValue($configKey);
 
             $this->saveEnvSettings($envKey, $value);
+
+            if ($this->option('protect') && array_key_exists($envKey, $this->protectedConfig())) {
+                $value = $this->normalize($this->protectedConfig()[$envKey]);
+            }
 
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
         };
@@ -391,6 +406,33 @@ class OctoberEnv extends Command
                 'REDIS_PASSWORD' => 'password',
                 'REDIS_PORT' => 'port',
             ],
+        ];
+    }
+
+    /**
+     * Config (env) keys of which the value should not be included in orginal config files anymore.
+     *
+     * @return array
+     */
+    private function protectedConfig()
+    {
+        return [
+            'APP_KEY' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
+
+            'DB_HOST' => 'localhost',
+            'DB_PORT' => 3306,
+            'DB_DATABASE' => 'database',
+            'DB_USERNAME' => 'root',
+            'DB_PASSWORD' => '',
+
+            'REDIS_HOST' => '127.0.0.1',
+            'REDIS_PASSWORD' => null,
+            'REDIS_PORT' => 6379,
+
+            'MAIL_HOST' => 'smtp.mailgun.org',
+            'MAIL_PORT' => 587,
+            'MAIL_USERNAME' => null,
+            'MAIL_PASSWORD' => null,
         ];
     }
 
