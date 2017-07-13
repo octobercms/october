@@ -35,7 +35,7 @@ class User extends UserBase
         'groups' => [UserGroup::class, 'table' => 'backend_users_groups']
     ];
 
-    public $belongsto = [
+    public $belongsTo = [
         'role' => UserRole::class
     ];
 
