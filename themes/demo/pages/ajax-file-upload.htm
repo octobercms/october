@@ -1,0 +1,48 @@
+title = "AJAX File Upload"
+url = "/demo/ajax-file-upload"
+layout = "default"
+is_hidden = 0
+==
+<?php
+use System\Models\File;
+
+function onSubmit()
+{
+    $validator = Validator::make(
+        $form = Input::all(), [
+            'image' => 'required|image',
+            'size' => 'required|integer|min:0|max:500',
+        ]
+    );
+
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+
+    $file = (new File())->fromPost($form['image']);
+
+    return [
+        '#result' => '<img src="'.$file->getThumb($form['size'], $form['size']).'">'
+    ];
+}
+?>
+==
+<div class="container">
+    <h2>Image Resize</h2>
+    <form data-request="onSubmit" data-request-flash enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Image</label>
+            <input type="file" name="image" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label>Size</label>
+            <input type="integer" name="size" class="form-control" value="200">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <h2>Result</h2>
+    <div id="result">No image uploaded</div>
+</div>
