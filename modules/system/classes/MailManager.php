@@ -63,9 +63,11 @@ class MailManager
         /*
          * HTML contents
          */
-        $templateHtml = Markdown::parse($template->content_html);
+        $templateHtml = $template->content_html;
 
         $html = Twig::parse($templateHtml, $data);
+        $html = Markdown::parse($html);
+
         if ($template->layout) {
             $html = Twig::parse($template->layout->content_html, [
                 'content' => $html,
@@ -78,16 +80,20 @@ class MailManager
         /*
          * Text contents
          */
-        if (strlen($template->content_text)) {
-            $text = Twig::parse($template->content_text, $data);
-            if ($template->layout) {
-                $text = Twig::parse($template->layout->content_text, [
-                    'content' => $text
-                ] + (array) $data);
-            }
+        $templateText = $template->content_text;
 
-            $message->addPart($text, 'text/plain');
+        if (!strlen($template->content_text)) {
+            $templateText = $template->content_html;
         }
+
+        $text = Twig::parse($templateText, $data);
+        if ($template->layout) {
+            $text = Twig::parse($template->layout->content_text, [
+                'content' => $text
+            ] + (array) $data);
+        }
+
+        $message->addPart($text, 'text/plain');
     }
 
     //
