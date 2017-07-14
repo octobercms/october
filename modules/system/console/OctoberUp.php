@@ -36,7 +36,7 @@ class OctoberUp extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->output->writeln('<info>Migrating application and plugins...</info>');
 

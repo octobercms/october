@@ -38,7 +38,7 @@ class OctoberDown extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if (!$this->confirmToProceed('This will DESTROY all database tables.')) {
             return;

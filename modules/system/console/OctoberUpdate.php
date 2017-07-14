@@ -41,7 +41,7 @@ class OctoberUpdate extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->output->writeln('<info>Updating October...</info>');
         $manager = UpdateManager::instance()->setNotesOutput($this->output);

@@ -53,7 +53,7 @@ class OctoberUtil extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
