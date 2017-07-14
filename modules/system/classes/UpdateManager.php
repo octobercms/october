@@ -86,6 +86,11 @@ class UpdateManager
     protected $productCache;
 
     /**
+     * @var boolean Checks if the Cms module is loaded (true) or not (false).
+     */
+    protected $cmsLoaded;
+
+    /**
      * @var Illuminate\Database\Migrations\Migrator
      */
     protected $migrator;
@@ -100,8 +105,10 @@ class UpdateManager
      */
     protected function init()
     {
+        $this->cmsLoaded = in_array('Cms', Config::get('cms.loadModules', []));
+
         $this->pluginManager = PluginManager::instance();
-        $this->themeManager = ThemeManager::instance();
+        $this->themeManager = $this->cmsLoaded ? ThemeManager::instance() : null;
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
@@ -276,7 +283,7 @@ class UpdateManager
          */
         $themes = [];
         foreach (array_get($result, 'themes', []) as $code => $info) {
-            if (!$this->themeManager->isInstalled($code)) {
+            if ($this->cmsLoaded && !$this->themeManager->isInstalled($code)) {
                 $themes[$code] = $info;
             }
         }
@@ -605,7 +612,9 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
+        if ($this->cmsLoaded) {
         $this->themeManager->setInstalled($name);
+        }
         @unlink($filePath);
     }
 
