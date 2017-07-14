@@ -136,7 +136,7 @@ class OctoberInstall extends Command
         if ($drivers) {
             $this->output->writeln('<info>Installing plugin October.Drivers</info>');
             $this->callSilent('plugin:install', [
-                'name' => 'October.Drivers',
+                'name' => 'October.Drivers'
             ]);
             $this->output->writeln('<info>October.Drivers installed successfully.</info>');
         }
@@ -144,7 +144,7 @@ class OctoberInstall extends Command
         if($builder) {
             $this->output->writeln('<info>Installing plugin Rainlab.Builder</info>');
             $this->callSilent('plugin:install', [
-                'name' => 'Rainlab.Builder',
+                'name' => 'Rainlab.Builder'
             ]);
             $this->output->writeln('<info>Rainlab.Builder installed successfully.</info>');
         }
