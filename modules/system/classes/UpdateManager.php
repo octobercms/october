@@ -357,6 +357,22 @@ class UpdateManager
         return $this;
     }
 
+    /**
+     * Asks the gateway for the lastest build number and stores it.
+     * @return void
+     */
+    public function setBuildNumberManually()
+    {
+        $result = $this->requestServerData('ping');
+        $build = (int) array_get($result, 'pong', 420);
+
+        Parameter::set([
+            'system::core.build' => $build
+        ]);
+
+        return $build;
+    }
+
     //
     // Modules
     //

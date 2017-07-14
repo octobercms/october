@@ -6,6 +6,7 @@ use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
 
 /**
@@ -108,6 +109,21 @@ class OctoberUtil extends Command
     //
     // Utilties
     //
+
+    protected function utilSetBuild()
+    {
+        $build = UpdateManager::instance()->setBuildNumberManually();
+
+        $this->comment('-');
+        $this->comment('*** October sets build: '.$build);
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+    }
 
     protected function utilCompileJs()
     {
