@@ -5,7 +5,7 @@ use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
-use System\Models\MailTemplate;
+use System\Classes\MailManager;
 use System\Classes\CombineAssets;
 use System\Classes\SettingsManager;
 use October\Rain\Support\ModuleServiceProvider;
@@ -51,7 +51,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerMailer()
     {
-        MailTemplate::registerCallback(function ($template) {
+        MailManager::instance()->registerCallback(function ($template) {
             $template->registerMailTemplates([
                 'backend::mail.invite'  => 'Invitation for newly created administrators.',
                 'backend::mail.restore' => 'Password reset instructions for backend-end administrators.',

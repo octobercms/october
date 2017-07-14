@@ -11,6 +11,7 @@ use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
 use Twig_Loader_String;
+use System\Classes\MailManager;
 use System\Classes\ErrorHandler;
 use System\Classes\MarkupManager;
 use System\Classes\PluginManager;
@@ -299,7 +300,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Override standard Mailer content with template
          */
         Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data) {
-            MailTemplate::addContentToMailer($message, $view, $data);
+            MailManager::instance()->addContentToMailer($message, $view, $data);
             return false;
         });
     }
