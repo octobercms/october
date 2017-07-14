@@ -2,6 +2,7 @@
 
 use Lang;
 use Cms\Classes\Theme;
+use Cms\ServiceProvider;
 use Cms\Models\MaintenanceSetting;
 use Backend\Classes\ReportWidgetBase;
 use ApplicationException;
@@ -25,6 +26,12 @@ class ActiveTheme extends ReportWidgetBase
      */
     public function render()
     {
+        /**
+         * If the Cms module is not loaded, it makes no sense to render this widget.
+         */
+        if(!array_key_exists(ServiceProvider::class, app()->getLoadedProviders())) {
+            return false;
+        }
         try {
             $this->loadData();
         }
