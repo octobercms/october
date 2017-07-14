@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
+use Exception;
 
 /**
  * Console command for other utility commands.
@@ -112,10 +113,16 @@ class OctoberUtil extends Command
 
     protected function utilSetBuild()
     {
-        $build = UpdateManager::instance()->setBuildNumberManually();
-
         $this->comment('-');
-        $this->comment('*** October sets build: '.$build);
+
+        try {
+            $build = UpdateManager::instance()->setBuildNumberManually();
+            $this->comment('*** October sets build: '.$build);
+        }
+        catch (Exception $ex) {
+            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
+        }
+
         $this->comment('-');
         sleep(1);
         $this->comment('Ping? Pong!');
