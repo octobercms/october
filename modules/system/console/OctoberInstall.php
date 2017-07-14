@@ -60,7 +60,7 @@ class OctoberInstall extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->displayIntro();
 
@@ -78,6 +78,7 @@ class OctoberInstall extends Command
         if ($this->confirm('Configure advanced options?', false)) {
             $this->setupEncryptionKey();
             $this->setupAdvancedValues();
+            $this->askToInstallPlugins();
         }
         else {
             $this->setupEncryptionKey(true);
@@ -128,6 +129,25 @@ class OctoberInstall extends Command
 
         $debug = (bool) $this->confirm('Enable Debug Mode?', true);
         $this->writeToConfig('app', ['debug' => $debug]);
+    }
+
+    protected function askToInstallPlugins() {
+        $drivers = (bool)$this->confirm('Do you wish to install October.Drivers plugin?', false);
+        if ($drivers) {
+            $this->output->writeln('<info>Installing plugin October.Drivers</info>');
+            $this->callSilent('plugin:install', [
+                'name' => 'October.Drivers',
+            ]);
+            $this->output->writeln('<info>October.Drivers installed successfully.</info>');
+        }
+        $builder = (bool)$this->confirm('Do you wish to install Rainlab.Builder plugin?', false);
+        if($builder) {
+            $this->output->writeln('<info>Installing plugin Rainlab.Builder</info>');
+            $this->callSilent('plugin:install', [
+                'name' => 'Rainlab.Builder',
+            ]);
+            $this->output->writeln('<info>Rainlab.Builder installed successfully.</info>');
+        }
     }
 
     //
@@ -291,7 +311,11 @@ class OctoberInstall extends Command
 
         try {
             Db::purge();
-            UpdateManager::instance()->resetNotes()->update();
+
+            UpdateManager::instance()
+                ->setNotesOutput($this->output)
+                ->update()
+            ;
         }
         catch (Exception $ex) {
             $this->error($ex->getMessage());
