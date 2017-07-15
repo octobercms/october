@@ -86,11 +86,6 @@ class UpdateManager
     protected $productCache;
 
     /**
-     * @var boolean Checks if the Cms module is loaded (true) or not (false).
-     */
-    protected $cmsLoaded;
-
-    /**
      * @var Illuminate\Database\Migrations\Migrator
      */
     protected $migrator;
@@ -105,10 +100,8 @@ class UpdateManager
      */
     protected function init()
     {
-        $this->cmsLoaded = in_array('Cms', Config::get('cms.loadModules', []));
-
         $this->pluginManager = PluginManager::instance();
-        $this->themeManager = $this->cmsLoaded ? ThemeManager::instance() : null;
+        $this->themeManager = class_exists(ThemeManager::class) ? ThemeManager::instance() : null;
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
@@ -281,13 +274,15 @@ class UpdateManager
         /*
          * Strip out themes that have been installed before
          */
-        $themes = [];
-        foreach (array_get($result, 'themes', []) as $code => $info) {
-            if ($this->cmsLoaded && !$this->themeManager->isInstalled($code)) {
-                $themes[$code] = $info;
+        if ($this->themeManager) {
+            $themes = [];
+            foreach (array_get($result, 'themes', []) as $code => $info) {
+                if (!$this->themeManager->isInstalled($code)) {
+                    $themes[$code] = $info;
+                }
             }
+            $result['themes'] = $themes;
         }
-        $result['themes'] = $themes;
 
         /*
          * If there is a core update and core updates are disabled,
@@ -612,9 +607,10 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        if ($this->cmsLoaded) {
-        $this->themeManager->setInstalled($name);
+        if ($this->themeManager) {
+            $this->themeManager->setInstalled($name);
         }
+
         @unlink($filePath);
     }
 
