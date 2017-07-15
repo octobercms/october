@@ -36,8 +36,10 @@ secondaryTabs:
             size: giant
             language: html
             tab: system::lang.mail_templates.content_html
+            stretch: true
 
         content_text:
             type: textarea
             size: giant
             tab: system::lang.mail_templates.content_text
+            stretch: true
