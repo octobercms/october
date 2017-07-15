@@ -106,13 +106,16 @@
   float: none;
   height: auto;
   position: absolute;
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   margin-top: 40px;
 }
-.field-markdowneditor.stretch .editor-write {
-  left: 0;
+.field-markdowneditor.stretch.mode-split .editor-preview {
+  left: auto;
+}
+.field-markdowneditor.stretch.mode-split .editor-write {
   right: auto;
 }
 .field-markdowneditor.is-fullscreen {
