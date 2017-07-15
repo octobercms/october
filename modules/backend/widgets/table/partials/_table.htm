@@ -8,6 +8,7 @@
     data-field-name="<?= e($this->fieldName) ?>"
     data-postback-handler-name="<?= e($postbackHandlerName) ?>"
     data-adding="<?= e($adding) ?>"
+    data-searching="<?= e($searching) ?>"
     data-deleting="<?= e($deleting) ?>"
     data-toolbar="<?= e($toolbar) ?>"
     data-height="<?= e($height) ?>"
@@ -34,14 +35,6 @@
     </script>
     <script type="text/template" data-table-toolbar-search>
         <form method="get" class="table-search">
-            <?php if (!is_null(get('search'))): ?>
-                <a
-                    href="javascript:;"
-                    data-request="onReset"
-                    class="btn oc-icon-undo"><?= e(trans('rainlab.translate::lang.messages.reset_search')) ?>
-                </a>
-            <?php endif ?>
-
             <input
                 placeholder="<?= e(trans('backend::lang.list.search_prompt')) ?>"
                 name="search"

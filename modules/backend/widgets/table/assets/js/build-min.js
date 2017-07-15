@@ -569,8 +569,9 @@ this.searchInput=$('.table-search-input',this.searchForm).get(0)}}
 Search.prototype.getQuery=function(){return $.trim(this.activeQuery)}
 Search.prototype.hasQuery=function(){return this.searchEnabled()&&$.trim(this.activeQuery).length>0}
 Search.prototype.searchEnabled=function(){return this.tableObj.options.searching}
-Search.prototype.performSearch=function(query,onSuccess){this.activeQuery=query
-this.tableObj.updateDataTable(onSuccess)}
+Search.prototype.performSearch=function(query,onSuccess){var isDirty=this.activeQuery!=query
+this.activeQuery=query
+if(isDirty){this.tableObj.updateDataTable(onSuccess)}}
 Search.prototype.onKeydown=function(ev){if(ev.keyCode==9){this.onClick(ev)
 return}
 if(!this.isActive){return}

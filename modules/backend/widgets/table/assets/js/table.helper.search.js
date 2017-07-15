@@ -74,9 +74,13 @@
     }
 
     Search.prototype.performSearch = function(query, onSuccess) {
+        var isDirty = this.activeQuery != query
+
         this.activeQuery = query
 
-        this.tableObj.updateDataTable(onSuccess)
+        if (isDirty) {
+            this.tableObj.updateDataTable(onSuccess)
+        }
     }
 
     // EVENT HANDLERS
