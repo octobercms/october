@@ -58,6 +58,22 @@
     }
 
     /*
+     * Identical to getRecords except using a search query.
+     */
+    Server.prototype.searchRecords = function(query, offset, count, onSuccess) {
+        var handlerName = this.tableObj.getAlias()+'::onServerSearchRecords'
+        this.tableObj.$el.request(handlerName, {
+            data: {
+                query: query,
+                offset: offset,
+                count: count
+            }
+        }).done(function(data) {
+            onSuccess(data.records, data.count)
+        })
+    }
+
+    /*
      * Creates a record with the passed data and returns the updated page records
      * to the onSuccess callback function.
      * 

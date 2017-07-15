@@ -846,7 +846,7 @@ body.outer .layout > .layout-row > .layout-cell .outer-form-container h2{font-si
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form{font-size:0;display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form input{vertical-align:top;margin-right:9px;display:inline-block;border:none;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .horizontal-form button{background:#0181b9;text-align:center;font-size:13px;font-weight:600;height:40px;vertical-align:top;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-body.outer .layout > .layout-row > .layout-cell .outer-form-container .remember label {color:rgba(255,255,255,0.44)}
+body.outer .layout > .layout-row > .layout-cell .outer-form-container .remember label{color:rgba(255,255,255,0.44)}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password{margin-top:30px;font-size:13px;top:8px}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password a{color:rgba(255,255,255,0.44)}
 body.outer .layout > .layout-row > .layout-cell .outer-form-container .forgot-password:before{color:rgba(255,255,255,0.44);font-size:14px;position:relative;margin-right:5px}
