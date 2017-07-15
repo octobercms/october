@@ -225,6 +225,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.fresh', 'System\Console\OctoberFresh');
         $this->registerConsoleCommand('october.env', 'System\Console\OctoberEnv');
         $this->registerConsoleCommand('october.install', 'System\Console\OctoberInstall');
+        $this->registerConsoleCommand('october.installed', 'System\Console\OctoberInstalled');
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
