@@ -132,16 +132,14 @@ class OctoberInstall extends Command
     }
 
     protected function askToInstallPlugins() {
-        $drivers = (bool)$this->confirm('Do you wish to install October.Drivers plugin?', false);
-        if ($drivers) {
+        if ($this->confirm('Do you wish to install October.Drivers plugin?', false)) {
             $this->output->writeln('<info>Installing plugin October.Drivers</info>');
             $this->callSilent('plugin:install', [
                 'name' => 'October.Drivers'
             ]);
             $this->output->writeln('<info>October.Drivers installed successfully.</info>');
         }
-        $builder = (bool)$this->confirm('Do you wish to install Rainlab.Builder plugin?', false);
-        if($builder) {
+        if($this->confirm('Do you wish to install Rainlab.Builder plugin?', false)) {
             $this->output->writeln('<info>Installing plugin Rainlab.Builder</info>');
             $this->callSilent('plugin:install', [
                 'name' => 'Rainlab.Builder'
