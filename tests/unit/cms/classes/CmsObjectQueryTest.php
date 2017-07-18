@@ -68,6 +68,7 @@ class CmsObjectQueryTest extends TestCase
             "code-namespaces-aliases",
             "component-custom-render",
             "component-partial",
+            "component-partial-alias-override",
             "component-partial-nesting",
             "component-partial-override",
             "cycle-test",

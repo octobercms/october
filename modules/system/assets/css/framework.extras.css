@@ -136,7 +136,8 @@ body > p.flash-message button.close:focus {
   display: none;
 }
 a.oc-loading:after,
-button.oc-loading:after {
+button.oc-loading:after,
+span.oc-loading:after {
   content: '';
   display: inline-block;
   vertical-align: middle;

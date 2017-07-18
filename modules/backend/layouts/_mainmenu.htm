@@ -5,7 +5,7 @@
 ?>
 <nav class="navbar control-toolbar navbar-mode-<?= $navbarMode ?>" id="layout-mainmenu" role="navigation">
     <div class="toolbar-item toolbar-primary">
-        <div data-control="toolbar">
+        <div data-control="toolbar" data-use-native-drag="true">
             <a class="menu-toggle" href="javascript:;">
                 <span class="menu-toggle-icon">
                     <i class="icon-bars"></i>
@@ -24,7 +24,7 @@
                         <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
-                                    <img class="svg-icon" src="<?= URL::asset($item->iconSvg) ?>">
+                                    <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">
                                 <?php endif ?>
 
                                 <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -42,17 +42,16 @@
         <ul class="mainmenu-toolbar">
             <li class="mainmenu-preview with-tooltip">
                 <a
-                    href="<?= URL::to('/') ?>"
+                    href="<?= Url::to('/') ?>"
                     target="_blank"
                     title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
-            <li class="mainmenu-account">
-                <a href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)">
-                    <span class="account-name hidden-xs">
-                        <?= e($this->user->first_name.' '.$this->user->last_name) ?>
-                    </span>
+            <li class="mainmenu-account with-tooltip">
+                <a
+                    href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
+                    title="Signed in as <?= e($this->user->full_name) ?>">
                     <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
                 <div class="mainmenu-accountmenu">

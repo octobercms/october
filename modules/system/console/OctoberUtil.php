@@ -6,7 +6,9 @@ use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
+use Exception;
 
 /**
  * Console command for other utility commands.
@@ -53,7 +55,7 @@ class OctoberUtil extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
@@ -108,6 +110,27 @@ class OctoberUtil extends Command
     //
     // Utilties
     //
+
+    protected function utilSetBuild()
+    {
+        $this->comment('-');
+
+        try {
+            $build = UpdateManager::instance()->setBuildNumberManually();
+            $this->comment('*** October sets build: '.$build);
+        }
+        catch (Exception $ex) {
+            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
+        }
+
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+    }
 
     protected function utilCompileJs()
     {

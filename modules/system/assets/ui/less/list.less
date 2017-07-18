@@ -155,7 +155,6 @@ table.table.data {
 
         tr.rowlink:hover td, tr:not(.no-data).selected td, {
             background: @color-list-hover-bg !important;
-            text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
             color: @highlight-hover-text;
 
             a:not(.btn), span, i[class^="icon-"] {
@@ -164,7 +163,6 @@ table.table.data {
         }
 
         tr.rowlink:active td {
-            text-shadow: 0 -1px 0 @highlight-active-text-shadow;
             background: @color-list-active-bg !important;
             color: @color-list-active-text;
         }
@@ -299,7 +297,7 @@ table.table.data {
     .list-badge {
         display: inline-block;
         position: relative;
-        top: -1px;
+        top: 0;
         margin: 0 5px 0 0;
         padding: 1px 0 0 0;
         font-size: 10px;
@@ -308,6 +306,11 @@ table.table.data {
         text-align: center;
         border-radius: @border-radius-base;
         color: #fff;
+
+        > i {
+            position: relative;
+            top: -1px;
+        }
 
         &.badge-default {
             background: @gray-light;

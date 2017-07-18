@@ -28,8 +28,7 @@ class ModelBehavior extends ModelBehaviorBase
         /*
          * Validate model properties
          */
-        foreach ($this->requiredProperties as $property)
-        {
+        foreach ($this->requiredProperties as $property) {
             if (!isset($model->{$property})) {
                 throw new ApplicationException(Lang::get('system::lang.behavior.missing_property', [
                     'class' => get_class($model),

@@ -11,6 +11,7 @@ use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
 use Twig_Loader_String;
+use System\Classes\MailManager;
 use System\Classes\ErrorHandler;
 use System\Classes\MarkupManager;
 use System\Classes\PluginManager;
@@ -299,7 +300,7 @@ class ServiceProvider extends ModuleServiceProvider
          * Override standard Mailer content with template
          */
         Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data) {
-            MailTemplate::addContentToMailer($message, $view, $data);
+            MailManager::instance()->addContentToMailer($message, $view, $data);
             return false;
         });
     }
@@ -338,7 +339,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('System\ReportWidgets\Status', [
+            $manager->registerReportWidget(\System\ReportWidgets\Status::class, [
                 'label'   => 'backend::lang.dashboard.status.widget_title_default',
                 'context' => 'dashboard'
             ]);
@@ -401,15 +402,6 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.manage_users'],
                     'order'       => 400
                 ],
-                'mail_settings' => [
-                    'label'       => 'system::lang.mail.menu_label',
-                    'description' => 'system::lang.mail.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MAIL,
-                    'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSetting',
-                    'permissions' => ['system.manage_mail_settings'],
-                    'order'       => 600
-                ],
                 'mail_templates' => [
                     'label'       => 'system::lang.mail_templates.menu_label',
                     'description' => 'system::lang.mail_templates.menu_description',
@@ -418,6 +410,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('system/mailtemplates'),
                     'permissions' => ['system.manage_mail_templates'],
                     'order'       => 610
+                ],
+                'mail_settings' => [
+                    'label'       => 'system::lang.mail.menu_label',
+                    'description' => 'system::lang.mail.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-envelope',
+                    'class'       => 'System\Models\MailSetting',
+                    'permissions' => ['system.manage_mail_settings'],
+                    'order'       => 620
                 ],
                 'event_logs' => [
                     'label'       => 'system::lang.event_log.menu_label',
@@ -472,18 +473,19 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerValidator()
     {
-        /*
-         * Allowed file extensions, as opposed to mime types.
-         * - extensions: png,jpg,txt
-         */
-        Validator::extend('extensions', function ($attribute, $value, $parameters) {
-            $extension = strtolower($value->getClientOriginalExtension());
-            return in_array($extension, $parameters);
-        });
+        $this->app->resolving('validator', function($validator) {
+            /*
+             * Allowed file extensions, as opposed to mime types.
+             * - extensions: png,jpg,txt
+             */
+            $validator->extend('extensions', function ($attribute, $value, $parameters) {
+                $extension = strtolower($value->getClientOriginalExtension());
+                return in_array($extension, $parameters);
+            });
 
-        Validator::replacer('extensions', function ($message, $attribute, $rule, $parameters) {
-            return strtr($message, [':values' => implode(', ', $parameters)]);
+            $validator->replacer('extensions', function ($message, $attribute, $rule, $parameters) {
+                return strtr($message, [':values' => implode(', ', $parameters)]);
+            });
         });
     }
-
 }

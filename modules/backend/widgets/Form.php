@@ -1018,8 +1018,18 @@ class Form extends WidgetBase
      */
     protected function applyFiltersFromModel()
     {
+        /*
+         * Standard usage
+         */
         if (method_exists($this->model, 'filterFields')) {
             $this->model->filterFields((object) $this->allFields, $this->getContext());
+        }
+
+        /*
+         * Advanced usage
+         */
+        if (method_exists($this->model, 'fireEvent')) {
+            $this->model->fireEvent('model.form.filterFields', [$this]);
         }
     }
 

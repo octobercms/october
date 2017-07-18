@@ -95,3 +95,10 @@ tabs:
             tab: backend::lang.editor.markup_tags
             type: textarea
             span: auto
+
+        html_toolbar_buttons:
+            label: backend::lang.editor.toolbar_buttons
+            comment: backend::lang.editor.toolbar_buttons_comment
+            tab: backend::lang.editor.toolbar_buttons
+            type: textarea
+            span: auto

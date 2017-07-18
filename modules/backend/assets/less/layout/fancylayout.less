@@ -1,3 +1,42 @@
+body.breadcrumb-fancy .control-breadcrumb,
+.control-breadcrumb.breadcrumb-fancy {
+    margin-bottom: 0;
+
+    background-color: @color-fancy-form-tabless-fields-bg;
+
+    li {
+        background-color: @color-fancy-master-tabs-bg;
+        color: rgba(255,255,255, .5);
+
+        a {
+            opacity: .5;
+            .transition(all 0.3s ease);
+            &:hover {
+                opacity: 1;
+
+            }
+        }
+
+        &:before {
+            border-left-color: @color-fancy-form-text;
+            opacity: .5;
+        }
+
+        &:after {
+            border-left-color: @color-fancy-master-tabs-bg;
+        }
+
+        &:last-child {
+            background-color: @color-fancy-master-tabs-bg;
+
+            &:before {
+                opacity: 1;
+                border-left-color: @color-fancy-master-tabs-bg;
+            }
+        }
+    }
+}
+
 .fancy-layout {
     //
     // Fancy form tabs
@@ -58,11 +97,12 @@
                         top: 1px;
                         padding-top: 3px;
 
-                        span.tab-close{
+                        span.tab-close {
                             top: 14px;
                             right: -3px;
                             left: auto;
                             z-index: 110;
+                            font-family: sans-serif;
 
                             i {
                                 top: 4px;
@@ -74,7 +114,6 @@
 
                                 &:hover { color: @color-fancy-master-tabs-active-text !important; }
                             }
-
                         }
 
                         a {
@@ -359,15 +398,18 @@
         }
 
         &.primary-tabs {
+
+            &.master-area {
+                > div > ul.nav-tabs {
+                    .transition(background-color 0.5s);
+                    background: @color-fancy-form-tabless-fields-bg;
+                }
+            }
+
             > div > ul.nav-tabs {
                 background: @color-fancy-primary-tabs-bg;
                 margin-left: 0!important;
                 margin-right: 0!important;
-
-                &.master-area {
-                    .transition(background-color 0.5s);
-                    background: @color-fancy-form-tabless-fields-bg;
-                }
 
                 &:before {
                     display: none;

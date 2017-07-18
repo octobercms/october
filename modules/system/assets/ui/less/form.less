@@ -81,7 +81,7 @@
         background-image: url('@{image-path}/bitmap-icons.png');
 
         &.plus { background-position: right -124px; }
-        &.search { background-position: right -83px; }
+        &.search { background-position: right -84px; }
         &.user { background-position: right -41px; }
         &.lock { background-position: right 0; }
     }
@@ -91,6 +91,20 @@
         //.transition(width 0.2s);
         &:focus, &:active {
             width: 200px !important;
+        }
+
+        @media (max-width: @screen-xs) {
+            width: 40px;
+            text-indent: -999px;
+
+            &:focus, &:active {
+                text-indent: 0;
+                width: 100px !important;
+            }
+
+            &.icon {
+                padding-right: 0 !important;
+            }
         }
     }
 }
@@ -150,6 +164,11 @@
 
     &.number-field {
         > .form-control { text-align: right; }
+    }
+
+    &.radio-align {
+        padding-left: 28px;
+        margin-top: -20px;
     }
 
     &.checkbox-align {
@@ -383,12 +402,20 @@
     }
 }
 
+.recordfinder-list {
+    .list-footer {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
 .recordfinder-search {
     background-position: right -81px !important;
-    border-top: none  !important;
-    border-left: none  !important;
-    border-right: none  !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
     border-radius: 0;
+    padding-left: 20px;
 }
 
 .form-buttons {
