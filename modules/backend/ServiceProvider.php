@@ -51,10 +51,10 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerMailer()
     {
-        MailManager::instance()->registerCallback(function ($template) {
-            $template->registerMailTemplates([
-                'backend::mail.invite'  => 'Invitation for newly created administrators.',
-                'backend::mail.restore' => 'Password reset instructions for backend-end administrators.',
+        MailManager::instance()->registerCallback(function ($manager) {
+            $manager->registerMailTemplates([
+                'backend::mail.invite',
+                'backend::mail.restore',
             ]);
         });
     }

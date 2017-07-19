@@ -22,6 +22,19 @@ class MailTemplate extends Model
      */
     protected $table = 'system_mail_templates';
 
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
+
+    /**
+     * @var array Fillable fields
+     */
+    protected $fillable = [];
+
+    /**
+     * @var array Validation rules
+     */
     public $rules = [
         'code'                  => 'required|unique:system_mail_templates',
         'subject'               => 'required',
@@ -40,7 +53,7 @@ class MailTemplate extends Model
     public static function listAllTemplates()
     {
         $fileTemplates = (array) MailManager::instance()->listRegisteredTemplates();
-        $dbTemplates = (array) self::lists('description', 'code');
+        $dbTemplates = (array) self::lists('code', 'code');
         $templates = $fileTemplates + $dbTemplates;
         ksort($templates);
         return $templates;
@@ -52,6 +65,9 @@ class MailTemplate extends Model
      */
     public static function syncAll()
     {
+        MailLayout::createLayouts();
+        MailPartial::createPartials();
+
         $templates = MailManager::instance()->listRegisteredTemplates();
         $dbTemplates = self::lists('is_custom', 'code');
         $newTemplates = array_diff_key($templates, $dbTemplates);
@@ -59,8 +75,8 @@ class MailTemplate extends Model
         /*
          * Clean up non-customized templates
          */
-        foreach ($dbTemplates as $code => $is_custom) {
-            if ($is_custom) {
+        foreach ($dbTemplates as $code => $isCustom) {
+            if ($isCustom) {
                 continue;
             }
 
@@ -72,9 +88,10 @@ class MailTemplate extends Model
         /*
          * Create new templates
          */
-        foreach ($newTemplates as $code => $description) {
+        foreach ($newTemplates as $code) {
             $sections = self::getTemplateSections($code);
             $layoutCode = array_get($sections, 'settings.layout', 'default');
+            $description = array_get($sections, 'settings.description');
 
             $template = self::make();
             $template->code = $code;

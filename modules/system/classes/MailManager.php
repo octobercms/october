@@ -2,9 +2,13 @@
 
 use Twig;
 use Markdown;
+use System\Models\MailPartial;
 use System\Models\MailTemplate;
 use System\Helpers\View as ViewHelper;
 use System\Classes\PluginManager;
+use System\Classes\MarkupManager;
+use System\Twig\MailPartialTokenParser;
+use System\Twig\MailComponentTokenParser;
 
 /**
  * This class manages Mail sending functions
@@ -32,6 +36,21 @@ class MailManager
     protected $registeredTemplates;
 
     /**
+     * @var array List of registered partials in the system
+     */
+    protected $registeredPartials;
+
+    /**
+     * @var array List of registered layouts in the system
+     */
+    protected $registeredLayouts;
+
+    /**
+     * @var bool Internal marker for rendering mode
+     */
+    protected $isHtmlRenderMode;
+
+    /**
      * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer` 
      * class, using the `mailer.beforeAddContent` event.
      */
@@ -43,6 +62,16 @@ class MailManager
         else {
             $this->templateCache[$code] = $template = MailTemplate::findOrMakeTemplate($code);
         }
+
+        /*
+         * Start twig transaction
+         */
+        $markupManager = MarkupManager::instance();
+        $markupManager->beginTransaction();
+        $markupManager->registerTokenParsers([
+            new MailPartialTokenParser,
+            new MailComponentTokenParser
+        ]);
 
         /*
          * Inject global view variables
@@ -63,6 +92,31 @@ class MailManager
         /*
          * HTML contents
          */
+        $html = $this->renderHtmlContents($template, $data);
+
+        $message->setBody($html, 'text/html');
+
+        /*
+         * Text contents
+         */
+        $text = $this->renderTextContents($template, $data);
+
+        $message->addPart($text, 'text/plain');
+
+        /*
+         * End twig transaction
+         */
+        $markupManager->endTransaction();
+    }
+
+    //
+    // Rendering
+    //
+
+    public function renderHtmlContents($template, $data)
+    {
+        $this->isHtmlRenderMode = true;
+
         $templateHtml = $template->content_html;
 
         $html = Twig::parse($templateHtml, $data);
@@ -75,11 +129,13 @@ class MailManager
             ] + (array) $data);
         }
 
-        $message->setBody($html, 'text/html');
+        return $html;
+    }
 
-        /*
-         * Text contents
-         */
+    public function renderTextContents($template, $data)
+    {
+        $this->isHtmlRenderMode = false;
+
         $templateText = $template->content_text;
 
         if (!strlen($template->content_text)) {
@@ -93,7 +149,45 @@ class MailManager
             ] + (array) $data);
         }
 
-        $message->addPart($text, 'text/plain');
+        return $text;
+    }
+
+    public function renderPartial($code, $params)
+    {
+        if (!$partial = MailPartial::whereCode($code)->first()) {
+            return '<!-- Missing partial: '.$code.' -->';
+        }
+
+        if ($this->isHtmlRenderMode) {
+            return $this->renderHtmlPartial($partial, $params);
+        }
+        else {
+            return $this->renderTextPartial($partial, $params);
+        }
+    }
+
+    public function renderHtmlPartial($partial, $params)
+    {
+        $content = $partial->content_html;
+
+        if (!strlen(trim($content))) {
+            return '';
+        }
+
+        $params['body'] = Markdown::parse(array_get($params, 'body'));
+
+        return Twig::parse($content, $params);
+    }
+
+    public function renderTextPartial($partial, $params)
+    {
+        $content = $partial->content_text ?: $partial->content_html;
+
+        if (!strlen(trim($content))) {
+            return '';
+        }
+
+        return Twig::parse($content, $params);
     }
 
     //
@@ -135,6 +229,32 @@ class MailManager
     }
 
     /**
+     * Returns a list of the registered partials.
+     * @return array
+     */
+    public function listRegisteredPartials()
+    {
+        if ($this->registeredPartials === null) {
+            $this->loadRegisteredTemplates();
+        }
+
+        return $this->registeredPartials;
+    }
+
+    /**
+     * Returns a list of the registered layouts.
+     * @return array
+     */
+    public function listRegisteredLayouts()
+    {
+        if ($this->registeredLayouts === null) {
+            $this->loadRegisteredTemplates();
+        }
+
+        return $this->registeredLayouts;
+    }
+
+    /**
      * Registers a callback function that defines mail templates.
      * The callback function should register templates by calling the manager's
      * registerMailTemplates() function. Thi instance is passed to the
@@ -160,6 +280,37 @@ class MailManager
             $this->registeredTemplates = [];
         }
 
-        $this->registeredTemplates = array_merge($this->registeredTemplates, $definitions);
+        // Prior sytax where (key) code => (value) description
+        if (!isset($definitions[0])) {
+            $definitions = array_keys($definitions);
+        }
+
+        $definitions = array_combine($definitions, $definitions);
+
+        $this->registeredTemplates = $definitions + $this->registeredTemplates;
+    }
+
+    /**
+     * Registers mail views and manageable layouts.
+     */
+    public function registerMailPartials(array $definitions)
+    {
+        if (!$this->registeredPartials) {
+            $this->registeredPartials = [];
+        }
+
+        $this->registeredPartials = $definitions + $this->registeredPartials;
+    }
+
+    /**
+     * Registers mail views and manageable layouts.
+     */
+    public function registerMailLayouts(array $definitions)
+    {
+        if (!$this->registeredLayouts) {
+            $this->registeredLayouts = [];
+        }
+
+        $this->registeredLayouts = $definitions + $this->registeredLayouts;
     }
 }

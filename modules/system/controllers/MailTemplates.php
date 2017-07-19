@@ -29,7 +29,12 @@ class MailTemplates extends Controller
 
     public $requiredPermissions = ['system.manage_mail_templates'];
 
-    public $listConfig = ['templates' => 'config_templates_list.yaml', 'layouts' => 'config_layouts_list.yaml'];
+    public $listConfig = [
+        'templates' => 'config_templates_list.yaml',
+        'layouts' => 'config_layouts_list.yaml',
+        'partials' => 'config_partials_list.yaml'
+    ];
+
     public $formConfig = 'config_form.yaml';
 
     public function __construct()

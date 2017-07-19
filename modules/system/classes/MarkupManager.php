@@ -27,7 +27,7 @@ class MarkupManager
     protected $callbacks = [];
 
     /**
-     * @var array Registered extension items
+     * @var array Globally registered extension items
      */
     protected $items;
 
@@ -35,6 +35,16 @@ class MarkupManager
      * @var \System\Classes\PluginManager
      */
     protected $pluginManager;
+
+    /**
+     * @var array Transaction based extension items
+     */
+    protected $tranItems;
+
+    /**
+     * @var bool Manager is in transaction mode
+     */
+    protected $transactionMode = false;
 
     /**
      * Initialize this singleton.
@@ -71,7 +81,6 @@ class MarkupManager
 
                 $this->registerExtensions($type, $definitions);
             }
-
         }
     }
 
@@ -105,23 +114,25 @@ class MarkupManager
      */
     public function registerExtensions($type, array $definitions)
     {
-        if (is_null($this->items)) {
-            $this->items = [];
+        $items = $this->transactionMode ? 'tranItems' : 'items';
+
+        if (is_null($this->$items)) {
+            $this->$items = [];
         }
 
-        if (!array_key_exists($type, $this->items)) {
-            $this->items[$type] = [];
+        if (!array_key_exists($type, $this->$items)) {
+            $this->$items[$type] = [];
         }
 
         foreach ($definitions as $name => $definition) {
 
             switch ($type) {
                 case self::EXTENSION_TOKEN_PARSER:
-                    $this->items[$type][] = $definition;
+                    $this->$items[$type][] = $definition;
                     break;
                 case self::EXTENSION_FILTER:
                 case self::EXTENSION_FUNCTION:
-                    $this->items[$type][$name] = $definition;
+                    $this->$items[$type][$name] = $definition;
                     break;
             }
         }
@@ -161,15 +172,21 @@ class MarkupManager
      */
     public function listExtensions($type)
     {
+        $results = [];
+
         if ($this->items === null) {
             $this->loadExtensions();
         }
 
-        if (!isset($this->items[$type]) || !is_array($this->items[$type])) {
-            return [];
+        if (isset($this->items[$type]) && is_array($this->items[$type])) {
+            $results = $this->items[$type];
         }
 
-        return $this->items[$type];
+        if ($this->tranItems !== null && isset($this->tranItems[$type])) {
+            $results = array_merge($results, $this->tranItems[$type]);
+        }
+
+        return $results;
     }
 
     /**
@@ -328,5 +345,42 @@ class MarkupManager
         }
 
         return $isWild;
+    }
+
+    //
+    // Transactions
+    //
+
+    /**
+     * Execute a single serving transaction, containing filters, functions,
+     * and token parsers that are disposed of afterwards.
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public function transaction(Closure $callback)
+    {
+        $this->beginTransaction();
+        $callback($this);
+        $this->endTransaction();
+    }
+
+    /**
+     * Start a new transaction.
+     * @return void
+     */
+    public function beginTransaction()
+    {
+        $this->transactionMode = true;
+    }
+
+    /**
+     * Ends an active transaction.
+     * @return void
+     */
+    public function endTransaction()
+    {
+        $this->transactionMode = false;
+
+        $this->tranItems = null;
     }
 }

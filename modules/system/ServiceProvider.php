@@ -288,6 +288,21 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerMailer()
     {
         /*
+         * Register system layouts
+         */
+        MailManager::instance()->registerCallback(function ($manager) {
+            $manager->registerMailLayouts([
+                'default' => 'system::mail.default',
+                'system' => 'system::mail.system',
+            ]);
+
+            $manager->registerMailPartials([
+                'button' => 'system::mail.button',
+                'table' => 'system::mail.table',
+            ]);
+        });
+
+        /*
          * Override system mailer with mail settings
          */
         Event::listen('mailer.beforeRegister', function () {
