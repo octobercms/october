@@ -47,18 +47,18 @@ return [
     'alert' => [
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Отмена',
-        'widget_remove_confirm' => 'Удалить этот виджет?'
+        'widget_remove_confirm' => 'Удалить этот виджет?',
     ],
     'datepicker' => [
         'previousMonth' => 'Предыдущий месяц',
         'nextMonth' => 'Следующий месяц',
         'months' => ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
         'weekdays' => ['Воскресение', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-        'weekdaysShort' => ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+        'weekdaysShort' => ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
     ],
     'filter' => [
         'group' => [
-            'all' => 'все'
+            'all' => 'все',
         ],
         'dates' => [
             'all' => 'все',
@@ -66,8 +66,8 @@ return [
             'reset_button_text'  => 'Сбросить',
             'date_placeholder' => 'Дата',
             'after_placeholder' => 'После',
-            'before_placeholder' => 'До'
-        ]
+            'before_placeholder' => 'До',
+        ],
     ],
     'eventlog' => [
         'show_stacktrace' => 'Показать трассировку стека',
@@ -82,7 +82,7 @@ return [
             'openWith' => 'Открыть с помощью',
             'remember_choice' => 'Запомнить выбранный вариант для этой сессии',
             'open' => 'Открыть',
-            'cancel' => 'Отменить'
-        ]
-    ]
+            'cancel' => 'Отменить',
+        ],
+    ],
 ];
