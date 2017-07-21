@@ -46,7 +46,7 @@ class Themes extends Controller
          * Custom redirect for unauthorized request
          */
         $this->bindEvent('page.beforeDisplay', function() {
-            if (!$this->user->hasAnyAccess($this->requiredPermissions)) {
+            if (!$this->user->hasAnyAccess($this->requiredPermissions) && $this->user->hasAccess('cms.manage_theme_options')) {
                 return Backend::redirect('cms/themeoptions/update');
             }
         });
