@@ -40,7 +40,7 @@ return [
         'name_label' => 'Название',
         'name_create_placeholder' => 'Название новой темы',
         'author_label' => 'Автор',
-        'author_placeholder' => 'Человек или название компании',
+        'author_placeholder' => 'Имя автора или название компании',
         'description_label' => 'Описание',
         'description_placeholder' => 'Описание темы',
         'homepage_label' => 'Домашняя страница',
@@ -264,7 +264,7 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Поиск медиа',
-        'default_prompt' => 'Кликните на %s кнопку, чтобы найти медиафайл',
+        'default_prompt' => 'Кликните на кнопку %s, чтобы найти медиафайл',
     ],
     'media' => [
         'invalid_path' => "Указан недопустимый путь к файлу: ':path'.",
@@ -337,7 +337,7 @@ return [
         'empty_success' => 'Журнал очищен',
         'return_link' => 'Вернуться к журналу',
         'id' => 'ID',
-        'id_label' => 'ID журнала',
+        'id_label' => 'ID записи журнала',
         'created_at' => 'Дата & Время',
         'user' => 'Пользователь',
         'type' => 'Тип',
