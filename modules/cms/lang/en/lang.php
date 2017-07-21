@@ -259,7 +259,7 @@ return [
         'manage_layouts' => 'Create, modify and delete CMS layouts',
         'manage_partials' => 'Create, modify and delete CMS partials',
         'manage_themes' => 'Activate, deactivate and configure CMS themes',
-        'manage_theme_options' => 'Configure the currently active CMS theme',
+        'manage_theme_options' => 'Configure customization options for the active theme',
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
