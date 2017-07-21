@@ -250,6 +250,11 @@ class ServiceProvider extends ModuleServiceProvider
                     'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
+                'cms.manage_theme_options' => [
+                    'label' => 'cms::lang.permissions.manage_theme_options',
+                    'tab' => 'cms::lang.permissions.name',
+                    'order' => 100
+                ],
                 'media.manage_media' => [
                     'label' => 'cms::lang.permissions.manage_media',
                     'tab' => 'cms::lang.permissions.name',
@@ -283,7 +288,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::url('cms/themes'),
-                    'permissions' => ['cms.manage_themes'],
+                    'permissions' => ['cms.manage_themes', 'cms.manage_theme_options'],
                     'order'       => 200
                 ],
                 'maintenance_settings' => [
