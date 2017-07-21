@@ -60,7 +60,7 @@ return [
     ],
     'plugins' => [
         'manage' => 'Управління плагінами',
-        'enable_or_disable' => 'Включити або вимкнути',
+        'enable_or_disable' => 'Увімкнути або вимкнути',
         'enable_or_disable_title' => 'Включення або відключення плагінів',
         'install' => 'Встановити плагіни',
         'install_products' => 'Встановити розширення',
