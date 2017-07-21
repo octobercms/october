@@ -2,12 +2,10 @@
 
 use File;
 use Yaml;
-use View;
 use Flash;
 use Config;
 use Backend;
 use Redirect;
-use Response;
 use BackendMenu;
 use ValidationException;
 use ApplicationException;
@@ -29,13 +27,7 @@ use Exception;
  */
 class Themes extends Controller
 {
-    public $implement = [
-        'Backend.Behaviors.FormController'
-    ];
-
-    public $formConfig = 'config_form.yaml';
-
-    public $requiredPermissions = ['cms.manage_themes', 'cms.manage_theme_options'];
+    public $requiredPermissions = ['cms.manage_themes'];
 
     /**
      * Constructor.
@@ -51,47 +43,19 @@ class Themes extends Controller
         SettingsManager::setContext('October.Cms', 'theme');
 
         /*
+         * Custom redirect for unauthorized request
+         */
+        $this->bindEvent('page.beforeDisplay', function() {
+            if (!$this->user->hasAnyAccess($this->requiredPermissions)) {
+                return Backend::redirect('cms/themeoptions/update');
+            }
+        });
+
+        /*
          * Enable AJAX for Form widgets
          */
         if (post('mode') == 'import') {
             $this->makeImportFormWidget($this->findThemeObject())->bindToController();
-        }
-    }
-
-    /**
-     * Check user's permissions
-     */
-    public function run($action = null, $params = [])
-    {
-        $canAccess = false;
-        $user = \BackendAuth::getUser();
-
-        if (!$user->hasAccess('cms.manage_themes')) {
-            $activeThemeCode = CmsTheme::getActiveThemeCode();
-
-            switch ($action) {
-                case 'update':
-                    if (
-                        $user->hasAccess('cms.manage_theme_options') &&
-                        @$params[0] === $activeThemeCode
-                    ) {
-                        $canAccess = true;
-                    }
-                    break;
-                default:
-                    if ($user->hasAccess('cms.manage_theme_options')) {
-                        return Redirect::to(Backend::url("cms/themes/update/$activeThemeCode"));
-                    }
-                    break;
-            }
-        } else {
-            $canAccess = true;
-        }
-
-        if ($canAccess) {
-            return parent::run($action, $params);
-        } else {
-            return Response::make(View::make('backend::access_denied'), 403);
         }
     }
 
@@ -248,64 +212,6 @@ class Themes extends Controller
     }
 
     //
-    // Theme customization
-    //
-
-    public function update($dirName)
-    {
-        try {
-            $model = $this->getThemeData($dirName);
-            $this->asExtension('FormController')->update($model->id);
-        }
-        catch (Exception $ex) {
-            $this->handleError($ex);
-        }
-    }
-
-    public function update_onSave($dirName)
-    {
-        $model = $this->getThemeData($dirName);
-        $this->asExtension('FormController')->update_onSave($model->id);
-    }
-
-    public function update_onResetDefault($dirName)
-    {
-        $model = $this->getThemeData($dirName);
-        $model->delete();
-
-        return Backend::redirect('cms/themes/update/'.$dirName);
-    }
-
-    protected function getThemeData($dirName)
-    {
-        $theme = $this->findThemeObject($dirName);
-        $model = ThemeData::forTheme($theme);
-        return $model;
-    }
-
-    /**
-     * Add form fields defined in theme.yaml
-     */
-    public function formExtendFields($form)
-    {
-        $model = $form->model;
-        $theme = $this->findThemeObject($model->theme);
-        $config = $theme->getConfigArray('form');
-
-        if ($fields = array_get($config, 'fields')) {
-            $form->addFields($fields);
-        }
-
-        if ($fields = array_get($config, 'tabs.fields')) {
-            $form->addTabFields($fields);
-        }
-
-        if ($fields = array_get($config, 'secondaryTabs.fields')) {
-            $form->addSecondaryTabFields($fields);
-        }
-    }
-
-    //
     // Theme export
     //
 
@@ -405,5 +311,4 @@ class Themes extends Controller
 
         return $theme;
     }
-
 }

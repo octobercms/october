@@ -35,7 +35,7 @@ return [
             'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
         ],
         'settings_menu' => 'Front-end theme',
-        'settings_menu_description' => 'Manage the front-end theme',
+        'settings_menu_description' => 'Manage the front-end theme and customization options.',
         'default_tab' => 'Properties',
         'name_label' => 'Name',
         'name_create_placeholder' => 'New theme name',
