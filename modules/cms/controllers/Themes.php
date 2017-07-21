@@ -2,10 +2,12 @@
 
 use File;
 use Yaml;
+use View;
 use Flash;
 use Config;
 use Backend;
 use Redirect;
+use Response;
 use BackendMenu;
 use ValidationException;
 use ApplicationException;
@@ -33,7 +35,7 @@ class Themes extends Controller
 
     public $formConfig = 'config_form.yaml';
 
-    public $requiredPermissions = ['cms.manage_themes'];
+    public $requiredPermissions = ['cms.manage_themes', 'cms.manage_theme_options'];
 
     /**
      * Constructor.
@@ -53,6 +55,43 @@ class Themes extends Controller
          */
         if (post('mode') == 'import') {
             $this->makeImportFormWidget($this->findThemeObject())->bindToController();
+        }
+    }
+
+    /**
+     * Check user's permissions
+     */
+    public function run($action = null, $params = [])
+    {
+        $canAccess = false;
+        $user = \BackendAuth::getUser();
+
+        if (!$user->hasAccess('cms.manage_themes')) {
+            $activeThemeCode = CmsTheme::getActiveThemeCode();
+
+            switch ($action) {
+                case 'update':
+                    if (
+                        $user->hasAccess('cms.manage_theme_options') &&
+                        @$params[0] === $activeThemeCode
+                    ) {
+                        $canAccess = true;
+                    }
+                    break;
+                default:
+                    if ($user->hasAccess('cms.manage_theme_options')) {
+                        return Redirect::to(Backend::url("cms/themes/update/$activeThemeCode"));
+                    }
+                    break;
+            }
+        } else {
+            $canAccess = true;
+        }
+
+        if ($canAccess) {
+            return parent::run($action, $params);
+        } else {
+            return Response::make(View::make('backend::access_denied'), 403);
         }
     }
 
