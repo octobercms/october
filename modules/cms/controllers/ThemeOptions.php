@@ -42,16 +42,7 @@ class ThemeOptions extends Controller
 
     public function update($dirName = null)
     {
-        /*
-         * Only the active theme can be managed without this permission
-         */
-        if ($dirName && !$this->user->hasAccess('cms.manage_themes')) {
-            $dirName = null;
-        }
-
-        if ($dirName === null) {
-            $dirName = CmsTheme::getActiveThemeCode();
-        }
+        $dirName = $this->getDirName($dirName);
 
         try {
             $model = $this->getThemeData($dirName);
@@ -65,30 +56,18 @@ class ThemeOptions extends Controller
         }
     }
 
-    public function update_onSave($dirName)
+    public function update_onSave($dirName = null)
     {
-        $model = $this->getThemeData($dirName);
+        $model = $this->getThemeData($this->getDirName($dirName));
         $this->asExtension('FormController')->update_onSave($model->id);
     }
 
-    public function update_onResetDefault($dirName)
+    public function update_onResetDefault($dirName = null)
     {
-        $model = $this->getThemeData($dirName);
+        $model = $this->getThemeData($this->getDirName($dirName));
         $model->delete();
 
         return Backend::redirect('cms/themeoptions/update/'.$dirName);
-    }
-
-    protected function hasThemeData($dirName)
-    {
-        return $this->findThemeObject($dirName)->hasCustomData();
-    }
-
-    protected function getThemeData($dirName)
-    {
-        $theme = $this->findThemeObject($dirName);
-        $model = ThemeData::forTheme($theme);
-        return $model;
     }
 
     /**
@@ -116,6 +95,37 @@ class ThemeOptions extends Controller
     //
     // Helpers
     //
+
+    /**
+     * Default to the active theme if user doesn't have access to manage all themes
+     */
+    protected function getDirName($dirName = null)
+    {
+        /*
+         * Only the active theme can be managed without this permission
+         */
+        if ($dirName && !$this->user->hasAccess('cms.manage_themes')) {
+            $dirName = null;
+        }
+
+        if ($dirName === null) {
+            $dirName = CmsTheme::getActiveThemeCode();
+        }
+
+        return $dirName;
+    }
+
+    protected function hasThemeData($dirName)
+    {
+        return $this->findThemeObject($dirName)->hasCustomData();
+    }
+
+    protected function getThemeData($dirName)
+    {
+        $theme = $this->findThemeObject($dirName);
+        $model = ThemeData::forTheme($theme);
+        return $model;
+    }
 
     protected function findThemeObject($name = null)
     {
