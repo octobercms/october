@@ -1,21 +1,11 @@
 <?php namespace Cms\Controllers;
 
-use File;
-use Yaml;
-use View;
 use Flash;
-use Config;
 use Backend;
-use Redirect;
-use Response;
 use BackendMenu;
-use ValidationException;
 use ApplicationException;
 use Cms\Models\ThemeData;
-use Cms\Models\ThemeExport;
-use Cms\Models\ThemeImport;
 use Cms\Classes\Theme as CmsTheme;
-use Cms\Classes\ThemeManager;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
 use Exception;
