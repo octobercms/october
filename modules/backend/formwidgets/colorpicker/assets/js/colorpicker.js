@@ -41,6 +41,7 @@
 
         this.$colorList.on('click', '>li', function(){
             self.selectColor(this)
+            self.$dataLocker.trigger('change')
         })
 
         /*

@@ -88,16 +88,16 @@
 }
 .sp-alpha-handle {
   background-color: #ccc;
-  border: 1px solid #555;
+  border: 1px solid #666;
   width: 4px;
 }
 .sp-color,
 .sp-hue {
-  border: 1px solid #333333;
+  border: 1px solid #ccc;
 }
 .sp-slider {
   background-color: #ccc;
-  border: 1px solid #555;
+  border: 1px solid #666;
   height: 3px;
   left: -4px;
   width: 22px;
