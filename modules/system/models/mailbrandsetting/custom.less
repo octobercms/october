@@ -40,7 +40,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #2F3133;
+    color: @heading-color;
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
@@ -48,7 +48,7 @@ h1 {
 }
 
 h2 {
-    color: #2F3133;
+    color: @heading-color;
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
@@ -56,7 +56,7 @@ h2 {
 }
 
 h3 {
-    color: #2F3133;
+    color: @heading-color;
     font-size: 14px;
     font-weight: bold;
     margin-top: 0;
@@ -108,7 +108,7 @@ img {
 }
 
 .header a, .header span {
-    color: #bbbfc3;
+    color: @header-color;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -163,7 +163,7 @@ img {
 }
 
 .footer p {
-    color: #AEAEAE;
+    color: @footer-color;
     font-size: 12px;
     text-align: center;
 }
@@ -171,6 +171,7 @@ img {
 /* Tables */
 
 .table table {
+    border-collapse: collapse;
     margin: 30px auto;
     width: 100%;
     -premailer-cellpadding: 0;
@@ -179,7 +180,7 @@ img {
 }
 
 .table th {
-    border-bottom: 1px solid #EDEFF2;
+    border-bottom: 1px solid @table-border-color;
     padding-bottom: 8px;
 }
 
@@ -246,7 +247,7 @@ img {
 }
 
 .panel-content {
-    background-color: #EDEFF2;
+    background-color: @panel-bg;
     padding: 16px;
 }
 
@@ -262,8 +263,8 @@ img {
 /* Promotions */
 
 .promotion {
-    background-color: #FFFFFF;
-    border: 2px dashed #9BA2AB;
+    background-color: @promotion-bg;
+    border: 2px dashed @promotion-border-color;
     margin: 0;
     margin-bottom: 25px;
     margin-top: 25px;
@@ -281,4 +282,9 @@ img {
 .promotion p {
     font-size: 15px;
     text-align: center;
+}
+
+.promotion p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }

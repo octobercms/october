@@ -225,7 +225,7 @@ return [
         'return' => 'Return to template list'
     ],
     'mail_brand' => [
-        'menu_label' => 'Customize mail templates',
+        'menu_label' => 'Mail branding',
         'menu_description' => 'Modify the colors and appearance of mail templates.',
     ],
     'install' => [
