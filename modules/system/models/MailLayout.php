@@ -107,21 +107,21 @@ class MailLayout extends Model
         $sections = self::getTemplateSections($path);
 
         $css = '
-            @media only screen and (max-width: 600px) {
-                .inner-body {
-                    width: 100% !important;
-                }
+@media only screen and (max-width: 600px) {
+    .inner-body {
+        width: 100% !important;
+    }
 
-                .footer {
-                    width: 100% !important;
-                }
-            }
+    .footer {
+        width: 100% !important;
+    }
+}
 
-            @media only screen and (max-width: 500px) {
-                .button {
-                    width: 100% !important;
-                }
-            }
+@media only screen and (max-width: 500px) {
+    .button {
+        width: 100% !important;
+    }
+}
         ';
 
         $this->name = array_get($sections, 'settings.name', '???');
