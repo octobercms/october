@@ -8,6 +8,7 @@ use Markdown;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
+use Exception;
 
 /**
  * Mail partial
@@ -47,6 +48,22 @@ class MailPartial extends Model
     {
         if (!$this->is_custom) {
             $this->fillFromCode();
+        }
+    }
+
+    public static function findOrMakePartial($code)
+    {
+        try {
+            if (!$template = self::whereCode($code)->first()) {
+                $template = new self;
+                $template->code = $code;
+                $template->fillFromCode($code);
+            }
+
+            return $template;
+        }
+        catch (Exception $ex) {
+            return null;
         }
     }
 

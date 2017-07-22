@@ -2,6 +2,7 @@
 
 use File;
 use Flash;
+use Config;
 use Backend;
 use BackendMenu;
 use ApplicationException;
@@ -60,8 +61,22 @@ class MailBrandSettings extends Controller
         }
     }
 
+    public function onUpdateSampleMessage()
+    {
+        $this->pageAction();
+
+        $this->formGetWidget()->setFormValues();
+
+        return ['previewHtml' => $this->renderSampleMessage()];
+    }
+
     public function renderSampleMessage()
     {
+        $data = [
+            'subject' => Config::get('app.name'),
+            'appName' => Config::get('app.name'),
+        ];
+
         $layout = new MailLayout;
         $layout->fillFromCode('default');
 
@@ -69,7 +84,7 @@ class MailBrandSettings extends Controller
         $template->layout = $layout;
         $template->content_html = File::get(base_path('modules/system/models/mailbrandsetting/sample_template.htm'));
 
-        return MailManager::instance()->renderTemplate($template);
+        return MailManager::instance()->renderTemplate($template, $data);
     }
 
     public function formCreateModelObject()

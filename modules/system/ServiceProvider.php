@@ -297,8 +297,13 @@ class ServiceProvider extends ModuleServiceProvider
             ]);
 
             $manager->registerMailPartials([
+                'header' => 'system::mail.partial-header',
+                'footer' => 'system::mail.partial-footer',
                 'button' => 'system::mail.partial-button',
+                'panel' => 'system::mail.partial-panel',
                 'table' => 'system::mail.partial-table',
+                'subcopy' => 'system::mail.partial-subcopy',
+                'promotion' => 'system::mail.partial-promotion',
             ]);
         });
 

@@ -1,6 +1,7 @@
 <?php namespace System\Classes;
 
 use Twig;
+use Config;
 use Markdown;
 use System\Models\MailPartial;
 use System\Models\MailTemplate;
@@ -91,9 +92,10 @@ class MailManager
             $message->subject(Twig::parse($template->subject, $data));
         }
 
-        if (!isset($data['subject'])) {
-            $data['subject'] = $swiftMessage->getSubject();
-        }
+        $data += [
+            'subject' => $swiftMessage->getSubject(),
+            'appName' => Config::get('app.name')
+        ];
 
         /*
          * HTML contents
@@ -199,7 +201,7 @@ class MailManager
 
     public function renderPartial($code, $params)
     {
-        if (!$partial = MailPartial::whereCode($code)->first()) {
+        if (!$partial = MailPartial::findOrMakePartial($code)) {
             return '<!-- Missing partial: '.$code.' -->';
         }
 

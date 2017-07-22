@@ -59,12 +59,12 @@ secondaryTabs:
             type: section
 
         header_color:
-            label: Site name color
+            label: Header color
             type: colorpicker
             availableColors: []
 
         heading_color:
-            label: Heading color
+            label: Headings color
             type: colorpicker
             availableColors: []
 

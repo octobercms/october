@@ -7,7 +7,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 
 body {
     background-color: @body-bg;
-    color: #74787E;
+    color: @text-color;
     height: 100%;
     hyphens: auto;
     line-height: 1.4;
@@ -64,7 +64,7 @@ h3 {
 }
 
 p {
-    color: #74787E;
+    color: @text-color;
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -107,12 +107,11 @@ img {
     text-align: center;
 }
 
-.header a {
+.header a, .header span {
     color: #bbbfc3;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow: 0 1px 0 white;
 }
 
 /* Body */
@@ -185,7 +184,7 @@ img {
 }
 
 .table td {
-    color: #74787E;
+    color: @text-color;
     font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
