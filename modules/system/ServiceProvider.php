@@ -435,6 +435,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['system.manage_mail_settings'],
                     'order'       => 620
                 ],
+                'mail_brand_settings' => [
+                    'label'       => 'system::lang.mail_brand.menu_label',
+                    'description' => 'system::lang.mail_brand.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-paint-brush',
+                    'url'         => Backend::url('system/mailbrandsettings'),
+                    'permissions' => ['system.manage_mail_settings'],
+                    'order'       => 630
+                ],
                 'event_logs' => [
                     'label'       => 'system::lang.event_log.menu_label',
                     'description' => 'system::lang.event_log.menu_description',

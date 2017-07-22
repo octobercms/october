@@ -4,6 +4,7 @@ use Twig;
 use Markdown;
 use System\Models\MailPartial;
 use System\Models\MailTemplate;
+use System\Models\MailBrandSetting;
 use System\Helpers\View as ViewHelper;
 use System\Classes\PluginManager;
 use System\Classes\MarkupManager;
@@ -48,7 +49,12 @@ class MailManager
     /**
      * @var bool Internal marker for rendering mode
      */
-    protected $isHtmlRenderMode;
+    protected $isHtmlRenderMode = false;
+
+    /**
+     * @var bool Internal marker for booting custom twig extensions.
+     */
+    protected $isTwigStarted = false;
 
     /**
      * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer` 
@@ -66,12 +72,7 @@ class MailManager
         /*
          * Start twig transaction
          */
-        $markupManager = MarkupManager::instance();
-        $markupManager->beginTransaction();
-        $markupManager->registerTokenParsers([
-            new MailPartialTokenParser,
-            new MailComponentTokenParser
-        ]);
+        $this->startTwig();
 
         /*
          * Inject global view variables
@@ -84,55 +85,98 @@ class MailManager
         /*
          * Subject
          */
-        $customSubject = $message->getSwiftMessage()->getSubject();
-        if (empty($customSubject)) {
+        $swiftMessage = $message->getSwiftMessage();
+
+        if (empty($swiftMessage->getSubject())) {
             $message->subject(Twig::parse($template->subject, $data));
+        }
+
+        if (!isset($data['subject'])) {
+            $data['subject'] = $swiftMessage->getSubject();
         }
 
         /*
          * HTML contents
          */
-        $html = $this->renderHtmlContents($template, $data);
+        $html = $this->renderTemplate($template, $data);
 
         $message->setBody($html, 'text/html');
 
         /*
          * Text contents
          */
-        $text = $this->renderTextContents($template, $data);
+        $text = $this->renderTextTemplate($template, $data);
 
         $message->addPart($text, 'text/plain');
 
         /*
          * End twig transaction
          */
-        $markupManager->endTransaction();
+        $this->stopTwig();
     }
 
     //
     // Rendering
     //
 
-    public function renderHtmlContents($template, $data)
+    /**
+     * Render the Markdown template into HTML.
+     *
+     * @param  string  $content
+     * @param  array  $data
+     * @return string
+     */
+    public function render($content, $data = [])
+    {
+        if (!$content) {
+            return '';
+        }
+
+        $html = $this->renderTwig($content, $data);
+
+        $html = Markdown::parse($html);
+
+        return $html;
+    }
+
+    public function renderTemplate($template, $data = [])
     {
         $this->isHtmlRenderMode = true;
 
-        $templateHtml = $template->content_html;
-
-        $html = Twig::parse($templateHtml, $data);
-        $html = Markdown::parse($html);
+        $html = $this->render($template->content_html, $data);
 
         if ($template->layout) {
-            $html = Twig::parse($template->layout->content_html, [
+            $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
-                'css' => $template->layout->content_css
+                'css' => $template->layout->content_css,
+                'brandCss' => MailBrandSetting::compileCss()
             ] + (array) $data);
         }
 
         return $html;
     }
 
-    public function renderTextContents($template, $data)
+    /**
+     * Render the Markdown template into text.
+     *
+     * @param  string  $view
+     * @param  array  $data
+     * @return string
+     */
+    public function renderText($content, $data = [])
+    {
+        if (!$content) {
+            return '';
+        }
+
+        $text = $this->renderTwig($content, $data);
+
+        $text = html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", $text), ENT_QUOTES, 'UTF-8');
+
+        return $text;
+    }
+
+    public function renderTextTemplate($template, $data = [])
     {
         $this->isHtmlRenderMode = false;
 
@@ -142,9 +186,10 @@ class MailManager
             $templateText = $template->content_html;
         }
 
-        $text = Twig::parse($templateText, $data);
+        $text = $this->renderText($templateText, $data);
+
         if ($template->layout) {
-            $text = Twig::parse($template->layout->content_text, [
+            $text = $this->renderTwig($template->layout->content_text, [
                 'content' => $text
             ] + (array) $data);
         }
@@ -166,7 +211,7 @@ class MailManager
         }
     }
 
-    public function renderHtmlPartial($partial, $params)
+    protected function renderHtmlPartial($partial, $params)
     {
         $content = $partial->content_html;
 
@@ -174,12 +219,12 @@ class MailManager
             return '';
         }
 
-        $params['body'] = Markdown::parse(array_get($params, 'body'));
+        $params['body'] = array_get($params, 'body');
 
-        return Twig::parse($content, $params);
+        return $this->renderTwig($content, $params);
     }
 
-    public function renderTextPartial($partial, $params)
+    protected function renderTextPartial($partial, $params)
     {
         $content = $partial->content_text ?: $partial->content_html;
 
@@ -187,7 +232,53 @@ class MailManager
             return '';
         }
 
-        return Twig::parse($content, $params);
+        return $this->renderTwig($content, $params);
+    }
+
+    /**
+     * Internal helper for rendering Twig
+     */
+    protected function renderTwig($content, $data = [])
+    {
+        if ($this->isTwigStarted) {
+            return Twig::parse($content, $data);
+        }
+
+        $this->startTwig();
+
+        $result = Twig::parse($content, $data);
+
+        $this->stopTwig();
+
+        return $result;
+    }
+
+    protected function startTwig()
+    {
+        if ($this->isTwigStarted) {
+            return;
+        }
+
+        $this->isTwigStarted = true;
+
+        $markupManager = MarkupManager::instance();
+        $markupManager->beginTransaction();
+        $markupManager->registerTokenParsers([
+            new MailPartialTokenParser,
+            new MailComponentTokenParser
+        ]);
+    }
+
+    protected function stopTwig()
+    {
+        if (!$this->isTwigStarted) {
+            return;
+        }
+
+        $markupManager = MarkupManager::instance();
+        $markupManager->endTransaction();
+
+        $this->isTwigStarted = false;
     }
 
     //

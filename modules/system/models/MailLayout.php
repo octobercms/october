@@ -79,45 +79,55 @@ class MailLayout extends Model
                 continue;
             }
 
-            self::createLayoutFromFile($code, $path);
+            $layout = new static;
+            $layout->code = $code;
+            $layout->is_locked = true;
+            $layout->fillFromView($path);
+            $layout->save();
         }
     }
 
-    /**
-     * Creates a layout using the contents of a specified file.
-     * @param  string $code  New Layout code
-     * @param  string $viewPath  View path
-     * @return void
-     */
-    public static function createLayoutFromFile($code, $viewPath)
+    public function fillFromCode($code = null)
     {
-        $sections = self::getTemplateSections($viewPath);
+        $definitions = MailManager::instance()->listRegisteredLayouts();
 
-        $name = array_get($sections, 'settings.name', '???');
-
-        $css = 'a, a:hover {
-            text-decoration: none;
-            color: #0862A2;
-            font-weight: bold;
+        if ($code === null) {
+            $code = $this->code;
         }
 
-        td, tr, th, table {
-            padding: 0px;
-            margin: 0px;
+        if (!$definition = array_get($definitions, $code)) {
+            throw new ApplicationException('Unable to find a registered layout with code: '.$code);
         }
 
-        p {
-            margin: 10px 0;
-        }';
+        $this->fillFromView($definition);
+    }
 
-        self::create([
-            'is_locked'    => true,
-            'name'         => $name,
-            'code'         => $code,
-            'content_css'  => $css,
-            'content_html' => array_get($sections, 'html'),
-            'content_text' => array_get($sections, 'text')
-        ]);
+    public function fillFromView($path)
+    {
+        $sections = self::getTemplateSections($path);
+
+        $css = '
+            @media only screen and (max-width: 600px) {
+                .inner-body {
+                    width: 100% !important;
+                }
+
+                .footer {
+                    width: 100% !important;
+                }
+            }
+
+            @media only screen and (max-width: 500px) {
+                .button {
+                    width: 100% !important;
+                }
+            }
+        ';
+
+        $this->name = array_get($sections, 'settings.name', '???');
+        $this->content_css = $css;
+        $this->content_html =  array_get($sections, 'html');
+        $this->content_text = array_get($sections, 'text');
     }
 
     protected static function getTemplateSections($code)

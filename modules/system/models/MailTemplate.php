@@ -112,6 +112,7 @@ class MailTemplate extends Model
     public function fillFromView()
     {
         $sections = self::getTemplateSections($this->code);
+
         $this->content_html = $sections['html'];
         $this->content_text = $sections['text'];
         $this->subject = array_get($sections, 'settings.subject', 'No subject');

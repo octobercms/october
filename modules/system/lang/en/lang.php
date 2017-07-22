@@ -224,6 +224,10 @@ return [
         'sending' => 'Sending test message...',
         'return' => 'Return to template list'
     ],
+    'mail_brand' => [
+        'menu_label' => 'Customize mail templates',
+        'menu_description' => 'Modify the colors and appearance of mail templates.',
+    ],
     'install' => [
         'project_label' => 'Attach to Project',
         'plugin_label' => 'Install Plugin',

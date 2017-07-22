@@ -39,7 +39,7 @@ class MarkupManager
     /**
      * @var array Transaction based extension items
      */
-    protected $tranItems;
+    protected $transactionItems;
 
     /**
      * @var bool Manager is in transaction mode
@@ -114,7 +114,7 @@ class MarkupManager
      */
     public function registerExtensions($type, array $definitions)
     {
-        $items = $this->transactionMode ? 'tranItems' : 'items';
+        $items = $this->transactionMode ? 'transactionItems' : 'items';
 
         if (is_null($this->$items)) {
             $this->$items = [];
@@ -182,8 +182,8 @@ class MarkupManager
             $results = $this->items[$type];
         }
 
-        if ($this->tranItems !== null && isset($this->tranItems[$type])) {
-            $results = array_merge($results, $this->tranItems[$type]);
+        if ($this->transactionItems !== null && isset($this->transactionItems[$type])) {
+            $results = array_merge($results, $this->transactionItems[$type]);
         }
 
         return $results;
@@ -381,6 +381,6 @@ class MarkupManager
     {
         $this->transactionMode = false;
 
-        $this->tranItems = null;
+        $this->transactionItems = null;
     }
 }
