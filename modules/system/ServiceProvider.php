@@ -292,13 +292,13 @@ class ServiceProvider extends ModuleServiceProvider
          */
         MailManager::instance()->registerCallback(function ($manager) {
             $manager->registerMailLayouts([
-                'default' => 'system::mail.default',
-                'system' => 'system::mail.system',
+                'default' => 'system::mail.layout-default',
+                'system' => 'system::mail.layout-system',
             ]);
 
             $manager->registerMailPartials([
-                'button' => 'system::mail.button',
-                'table' => 'system::mail.table',
+                'button' => 'system::mail.partial-button',
+                'table' => 'system::mail.partial-table',
             ]);
         });
 
