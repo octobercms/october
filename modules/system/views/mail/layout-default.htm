@@ -16,10 +16,10 @@ name = "Default layout"
 
     <table class="wrapper" width="100%" cellpadding="0" cellspacing="0">
 
-<!-- Header -->
-{% component 'header' %}
-{{ subject }}
-{% endcomponent %}
+        <!-- Header -->
+        {% component 'header' %}
+            {{ subject }}
+        {% endcomponent %}
 
         <tr>
             <td align="center">
@@ -41,10 +41,10 @@ name = "Default layout"
             </td>
         </tr>
 
-<!-- Footer -->
-{% component 'footer' %}
-&copy; 2017 {{ appName }}. All rights reserved.
-{% endcomponent %}
+        <!-- Footer -->
+        {% component 'footer' %}
+            &copy; 2017 {{ appName }}. All rights reserved.
+        {% endcomponent %}
 
     </table>
 
