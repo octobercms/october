@@ -45,11 +45,13 @@ class MailTemplates extends Controller
         SettingsManager::setContext('October.System', 'mail_templates');
     }
 
-    public function index()
+    public function index($tab = null)
     {
         MailTemplate::syncAll();
         $this->asExtension('ListController')->index();
         $this->bodyClass = 'compact-container';
+
+        $this->vars['activeTab'] = $tab ?: 'templates';
     }
 
     public function formBeforeSave($model)

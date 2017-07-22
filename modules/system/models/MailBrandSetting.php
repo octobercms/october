@@ -78,6 +78,11 @@ class MailBrandSetting extends Model
 
     public function afterSave()
     {
+        $this->resetCache();
+    }
+
+    public function resetCache()
+    {
         Cache::forget(self::CACHE_KEY);
     }
 

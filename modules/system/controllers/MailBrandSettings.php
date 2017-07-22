@@ -1,9 +1,11 @@
 <?php namespace System\Controllers;
 
+use Lang;
 use File;
 use Flash;
 use Config;
 use Backend;
+use Redirect;
 use BackendMenu;
 use ApplicationException;
 use System\Models\MailBrandSetting;
@@ -53,12 +55,27 @@ class MailBrandSettings extends Controller
 
         $setting = MailBrandSetting::instance();
 
-        if ($setting->exists) {
-            return $this->update($setting->id);
-        }
-        else {
-            return $this->create();
-        }
+        $setting->resetCache();
+
+        return $this->create();
+    }
+
+    public function index_onSave()
+    {
+        $setting = MailBrandSetting::instance();
+
+        return $this->create_onSave();
+    }
+
+    public function index_onResetDefault()
+    {
+        $setting = MailBrandSetting::instance();
+
+        $setting->resetDefault();
+
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
+
+        return Redirect::refresh();
     }
 
     public function onUpdateSampleMessage()

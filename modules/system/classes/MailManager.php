@@ -151,7 +151,7 @@ class MailManager
             $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
                 'css' => $template->layout->content_css,
-                'brandCss' => MailBrandSetting::compileCss()
+                'brandCss' => MailBrandSetting::renderCss()
             ] + (array) $data);
         }
 
