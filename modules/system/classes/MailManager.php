@@ -199,36 +199,18 @@ class MailManager
         return $text;
     }
 
-    public function renderPartial($code, $params)
+    public function renderPartial($code, array $params = [])
     {
         if (!$partial = MailPartial::findOrMakePartial($code)) {
             return '<!-- Missing partial: '.$code.' -->';
         }
 
         if ($this->isHtmlRenderMode) {
-            return $this->renderHtmlPartial($partial, $params);
+            $content = $partial->content_html;
         }
         else {
-            return $this->renderTextPartial($partial, $params);
+            $content = $partial->content_text ?: $partial->content_html;
         }
-    }
-
-    protected function renderHtmlPartial($partial, $params)
-    {
-        $content = $partial->content_html;
-
-        if (!strlen(trim($content))) {
-            return '';
-        }
-
-        $params['body'] = array_get($params, 'body');
-
-        return $this->renderTwig($content, $params);
-    }
-
-    protected function renderTextPartial($partial, $params)
-    {
-        $content = $partial->content_text ?: $partial->content_html;
 
         if (!strlen(trim($content))) {
             return '';
@@ -255,6 +237,10 @@ class MailManager
         return $result;
     }
 
+    /**
+     * Temporarily registers mail based token parsers with Twig.
+     * @return void
+     */
     protected function startTwig()
     {
         if ($this->isTwigStarted) {
@@ -271,6 +257,10 @@ class MailManager
         ]);
     }
 
+    /**
+     * Indicates that we are finished with Twig.
+     * @return void
+     */
     protected function stopTwig()
     {
         if (!$this->isTwigStarted) {
