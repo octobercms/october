@@ -43,7 +43,7 @@ name = "Default layout"
 
         <!-- Footer -->
         {% component 'footer' %}
-            &copy; 2017 {{ appName }}. All rights reserved.
+            &copy; {{ "now"|date("Y") }} {{ appName }}. All rights reserved.
         {% endcomponent %}
 
     </table>

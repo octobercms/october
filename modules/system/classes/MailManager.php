@@ -11,6 +11,7 @@ use System\Classes\PluginManager;
 use System\Classes\MarkupManager;
 use System\Twig\MailPartialTokenParser;
 use System\Twig\MailComponentTokenParser;
+use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 /**
  * This class manages Mail sending functions
@@ -147,13 +148,19 @@ class MailManager
 
         $html = $this->render($template->content_html, $data);
 
+        $css = MailBrandSetting::renderCss();
+
         if ($template->layout) {
             $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
                 'css' => $template->layout->content_css,
-                'brandCss' => MailBrandSetting::renderCss()
+                'brandCss' => $css
             ] + (array) $data);
+
+            $css += PHP_EOL . $template->layout->content_css;
         }
+
+        $html = (new CssToInlineStyles)->convert($html, $css);
 
         return $html;
     }
