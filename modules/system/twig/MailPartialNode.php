@@ -34,7 +34,7 @@ class MailPartialNode extends Twig_Node
         }
 
         $compiler
-            ->write("echo \$this->env->getExtension('Cms\Twig\Extension')->partialFunction(")
+            ->write("echo \System\Classes\MailManager::instance()->renderPartial(")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", \$context['__system_partial_params']")
             ->write(");\n")
