@@ -2,6 +2,7 @@
 
 use App;
 use Lang;
+use View;
 use Event;
 use Config;
 use Backend;
@@ -54,6 +55,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerMarkupTags();
         $this->registerAssetBundles();
         $this->registerValidator();
+        $this->registerGlobalViewVars();
 
         /*
          * Register other module providers
@@ -517,5 +519,10 @@ class ServiceProvider extends ModuleServiceProvider
                 return strtr($message, [':values' => implode(', ', $parameters)]);
             });
         });
+    }
+
+    protected function registerGlobalViewVars()
+    {
+        View::share('appName', Config::get('app.name'));
     }
 }

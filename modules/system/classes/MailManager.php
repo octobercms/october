@@ -1,7 +1,6 @@
 <?php namespace System\Classes;
 
 use Twig;
-use Config;
 use Markdown;
 use System\Models\MailPartial;
 use System\Models\MailTemplate;
@@ -94,8 +93,7 @@ class MailManager
         }
 
         $data += [
-            'subject' => $swiftMessage->getSubject(),
-            'appName' => Config::get('app.name')
+            'subject' => $swiftMessage->getSubject()
         ];
 
         /*
