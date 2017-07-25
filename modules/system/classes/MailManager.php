@@ -155,7 +155,7 @@ class MailManager
                 'brandCss' => $css
             ] + (array) $data);
 
-            $css += PHP_EOL . $template->layout->content_css;
+            $css .= PHP_EOL . $template->layout->content_css;
         }
 
         $html = (new CssToInlineStyles)->convert($html, $css);
