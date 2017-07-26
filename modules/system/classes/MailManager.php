@@ -205,7 +205,6 @@ class MailManager
 
     public function renderPartial($code, array $params = [])
     {
-        traceLog($params);
         if (!$partial = MailPartial::findOrMakePartial($code)) {
             return '<!-- Missing partial: '.$code.' -->';
         }
