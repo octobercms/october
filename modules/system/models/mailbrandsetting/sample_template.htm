@@ -5,43 +5,43 @@ Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus te
 
 ## Heading 2
 
-{% component 'table' %}
+{% partial 'table' body %}
 | Item          | Description   | Price    |
 |:------------- |:-------------:| --------:|
 | Item 1        | Centered      | $10      |
 | Item 2        | Right-Aligned | $20      |
-{% endcomponent %}
+{% endpartial %}
 
 ### Heading 3
 
 This is a paragraph filled with Lorem Ipsum and a link.
 Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.
 
-{% component 'button' url='javascript:;' %}
+{% partial 'button' url='javascript:;' body %}
 Primary button
-{% endcomponent %}
+{% endpartial %}
 
-{% component 'button' type='positive' url='javascript:;' %}
+{% partial 'button' type='positive' url='javascript:;' body %}
 Positive button
-{% endcomponent %}
+{% endpartial %}
 
-{% component 'button' type='negative' url='javascript:;' %}
+{% partial 'button' type='negative' url='javascript:;' body %}
 Negative button
-{% endcomponent %}
+{% endpartial %}
 
-{% component 'panel' %}
+{% partial 'panel' body %}
 How awesome is this panel?
-{% endcomponent %}
+{% endpartial %}
 
 Some more text
 
-{% component 'promotion' %}
+{% partial 'promotion' body %}
 Coupon code: OCTOBER
-{% endcomponent %}
+{% endpartial %}
 
 Thanks,
 {{ appName }}
 
-{% component 'subcopy' %}
+{% partial 'subcopy' body %}
 This is the subcopy of the email
-{% endcomponent %}
+{% endpartial %}

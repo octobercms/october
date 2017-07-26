@@ -11,9 +11,15 @@ use Twig_Compiler;
  */
 class MailPartialNode extends Twig_Node
 {
-    public function __construct(Twig_Node $nodes, $paramNames, $lineno, $tag = 'partial')
+    public function __construct(Twig_Node $nodes, $paramNames, $body, $lineno, $tag = 'partial')
     {
-        parent::__construct(['nodes' => $nodes], ['names' => $paramNames], $lineno, $tag);
+        $nodes = ['nodes' => $nodes];
+
+        if ($body) {
+            $nodes['body'] = $body;
+        }
+
+        parent::__construct($nodes, ['names' => $paramNames], $lineno, $tag);
     }
 
     /**
@@ -26,6 +32,14 @@ class MailPartialNode extends Twig_Node
         $compiler->addDebugInfo($this);
 
         $compiler->write("\$context['__system_partial_params'] = [];\n");
+
+        if ($this->hasNode('body')) {
+            $compiler
+                ->addDebugInfo($this)
+                ->write('ob_start();')
+                ->subcompile($this->getNode('body'))
+                ->write("\$context['__system_partial_params']['body'] = ob_get_clean();");
+        }
 
         for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
             $compiler->write("\$context['__system_partial_params']['".$this->getAttribute('names')[$i-1]."'] = ");

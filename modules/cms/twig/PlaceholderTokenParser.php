@@ -75,9 +75,9 @@ class PlaceholderTokenParser extends Twig_TokenParser
 
                 default:
                     throw new Twig_Error_Syntax(
-                        sprintf('Invalid syntax in the placeholder tag. Line %s', $lineno),
+                        sprintf('Invalid syntax in the placeholder tag. Line %s', $stream->getCurrent()->getLine()),
                         $stream->getCurrent()->getLine(),
-                        $stream->getFilename()
+                        $stream->getSourceContext()
                     );
                     break;
             }

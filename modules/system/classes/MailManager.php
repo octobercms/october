@@ -9,7 +9,6 @@ use System\Helpers\View as ViewHelper;
 use System\Classes\PluginManager;
 use System\Classes\MarkupManager;
 use System\Twig\MailPartialTokenParser;
-use System\Twig\MailComponentTokenParser;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 /**
@@ -206,6 +205,7 @@ class MailManager
 
     public function renderPartial($code, array $params = [])
     {
+        traceLog($params);
         if (!$partial = MailPartial::findOrMakePartial($code)) {
             return '<!-- Missing partial: '.$code.' -->';
         }
@@ -257,8 +257,7 @@ class MailManager
         $markupManager = MarkupManager::instance();
         $markupManager->beginTransaction();
         $markupManager->registerTokenParsers([
-            new MailPartialTokenParser,
-            new MailComponentTokenParser
+            new MailPartialTokenParser
         ]);
     }
 

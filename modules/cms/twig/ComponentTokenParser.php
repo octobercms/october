@@ -49,7 +49,7 @@ class ComponentTokenParser extends Twig_TokenParser
                     throw new Twig_Error_Syntax(
                         sprintf('Invalid syntax in the component tag. Line %s', $lineno),
                         $stream->getCurrent()->getLine(),
-                        $stream->getFilename()
+                        $stream->getSourceContext()
                     );
                     break;
             }

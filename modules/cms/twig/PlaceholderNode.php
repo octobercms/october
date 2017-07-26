@@ -14,9 +14,11 @@ class PlaceholderNode extends Twig_Node
     public function __construct($name, $paramValues, $body, $lineno, $tag = 'placeholder')
     {
         $nodes = [];
+
         if ($body) {
             $nodes['default'] = $body;
         }
+
         $attributes = $paramValues;
         $attributes['name'] = $name;
 

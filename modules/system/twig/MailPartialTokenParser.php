@@ -33,10 +33,20 @@ class MailPartialTokenParser extends Twig_TokenParser
         $name = $this->parser->getExpressionParser()->parseExpression();
         $paramNames = [];
         $nodes = [$name];
+        $hasBody = false;
+        $body = null;
 
         $end = false;
         while (!$end) {
             $current = $stream->next();
+
+            if (
+                $current->test(Twig_Token::NAME_TYPE, 'body') &&
+                !$stream->test(Twig_Token::OPERATOR_TYPE, '=')
+            ) {
+                $hasBody = true;
+                $current = $stream->next();
+            }
 
             switch ($current->getType()) {
                 case Twig_Token::NAME_TYPE:
@@ -53,13 +63,23 @@ class MailPartialTokenParser extends Twig_TokenParser
                     throw new Twig_Error_Syntax(
                         sprintf('Invalid syntax in the partial tag. Line %s', $lineno),
                         $stream->getCurrent()->getLine(),
-                        $stream->getFilename()
+                        $stream->getSourceContext()
                     );
                     break;
             }
         }
 
-        return new MailPartialNode(new Twig_Node($nodes), $paramNames, $token->getLine(), $this->getTag());
+        if ($hasBody) {
+            $body = $this->parser->subparse([$this, 'decidePartialEnd'], true);
+            $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        }
+
+        return new MailPartialNode(new Twig_Node($nodes), $paramNames, $body, $token->getLine(), $this->getTag());
+    }
+
+    public function decidePartialEnd(Twig_Token $token)
+    {
+        return $token->test('endpartial');
     }
 
     /**
