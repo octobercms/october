@@ -1,0 +1,24 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: backend::lang.user.role.name_field
+        searchable: true
+
+    code:
+        label: backend::lang.user.role.code_field
+        searchable: true
+        invisible: true
+
+    description:
+        label: backend::lang.user.role.description_field
+        searchable: yes
+
+    users_count:
+        label: backend::lang.user.role.users_count
+        relation: users_count
+        valueFrom: count
+        default: 0
+        sortable: false

@@ -8,13 +8,13 @@
         <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
-        <link href="<?= URL::asset('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
-        <link href="<?= URL::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
-        <script src="<?= URL::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
-        <script src="<?= URL::to('modules/system/assets/js/framework.js') ?>"></script>
-        <script src="<?= URL::asset('modules/system/assets/ui/storm-min.js') ?>"></script>
-        <script src="<?= URL::to('modules/backend/assets/js/october-min.js') ?>"></script>
-        <script src="<?= URL::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
+        <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
+        <link href="<?= Url::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
+        <script src="<?= Url::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
+        <script src="<?= Url::to('modules/system/assets/js/framework.js') ?>"></script>
+        <script src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>"></script>
+        <script src="<?= Url::to('modules/backend/assets/js/october-min.js') ?>"></script>
+        <script src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
         <?= $this->makeLayoutPartial('custom_styles') ?>

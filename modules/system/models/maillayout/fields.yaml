@@ -25,14 +25,17 @@ secondaryTabs:
             size: giant
             tab: system::lang.mail_templates.content_html
             language: html
+            stretch: true
 
         content_css:
             type: codeeditor
             size: giant
             tab: system::lang.mail_templates.content_css
             language: css
+            stretch: true
 
         content_text:
             type: textarea
             size: giant
             tab: system::lang.mail_templates.content_text
+            stretch: true

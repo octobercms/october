@@ -36,7 +36,7 @@
         <?php endif ?>
         <?php if ($theme->hasCustomData()): ?>
             <a
-                href="<?= Backend::url('cms/themes/update/'.$theme->getDirName()) ?>"
+                href="<?= Backend::url('cms/themeoptions/update/'.$theme->getDirName()) ?>"
                 class="btn btn-secondary">
                 <i class="icon-paint-brush"></i>
                 <?= e(trans('cms::lang.theme.customize_button')) ?>

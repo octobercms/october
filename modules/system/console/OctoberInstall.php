@@ -60,7 +60,7 @@ class OctoberInstall extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->displayIntro();
 

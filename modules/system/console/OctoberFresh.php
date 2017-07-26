@@ -40,7 +40,7 @@ class OctoberFresh extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if (!$this->confirmToProceed('Are you sure?')) {
             return;

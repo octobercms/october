@@ -24,6 +24,7 @@ this.toolbarClickHandler=this.onToolbarClick.bind(this)
 if(this.options.postback&&this.options.clientDataSourceClass=='client')
 this.formSubmitHandler=this.onFormSubmit.bind(this)
 this.navigation=null
+this.search=null
 this.recordsAddedOrDeleted=0
 this.disposeBound=this.dispose.bind(this)
 this.init()
@@ -31,6 +32,7 @@ $.oc.foundation.controlUtils.markDisposable(element)}
 Table.prototype.init=function(){this.createDataSource()
 this.initCellProcessors()
 this.navigation=new $.oc.table.helper.navigation(this)
+this.search=new $.oc.table.helper.search(this)
 this.buildUi()
 this.registerHandlers()}
 Table.prototype.disposeCellProcessors=function(){for(var i=0,len=this.options.columns.length;i<len;i++){var column=this.options.columns[i].key
@@ -68,36 +70,18 @@ this.cellProcessors[column]=new $.oc.table.processor[columnType](this,column,col
 Table.prototype.getCellProcessor=function(columnName){return this.cellProcessors[columnName]}
 Table.prototype.buildUi=function(){this.tableContainer=document.createElement('div')
 this.tableContainer.setAttribute('class','table-container')
-if(this.options.toolbar)
-this.buildToolbar()
+if(this.options.toolbar){this.buildToolbar()}
 this.tableContainer.appendChild(this.buildHeaderTable())
 this.el.insertBefore(this.tableContainer,this.el.children[0])
-if(!this.options.height)
-this.dataTableContainer=this.tableContainer
-else
-this.dataTableContainer=this.buildScrollbar()
+if(!this.options.height){this.dataTableContainer=this.tableContainer}
+else{this.dataTableContainer=this.buildScrollbar()}
 this.updateDataTable()}
-Table.prototype.buildToolbar=function(){if(!this.options.adding&&!this.options.deleting)
-return
-this.toolbar=document.createElement('div')
-this.toolbar.setAttribute('class','toolbar')
-if(this.options.adding){var addBelowButton=document.createElement('a')
-addBelowButton.setAttribute('class','btn table-icon add-table-row-below')
-addBelowButton.setAttribute('data-cmd','record-add-below')
-this.toolbar.appendChild(addBelowButton)
-if(this.navigation.paginationEnabled()||!this.options.rowSorting){addBelowButton.textContent=this.options.btnAddRowLabel}
-else{addBelowButton.textContent=this.options.btnAddRowBelowLabel
-var addAboveButton=document.createElement('a')
-addAboveButton.setAttribute('class','btn table-icon add-table-row-above')
-addAboveButton.textContent='Add row above'
-addAboveButton.setAttribute('data-cmd','record-add-above')
-this.toolbar.appendChild(addAboveButton)}}
-if(this.options.deleting){var deleteButton=document.createElement('a')
-deleteButton.setAttribute('class','btn table-icon delete-table-row')
-deleteButton.textContent=this.options.btnDeleteRowLabel
-deleteButton.setAttribute('data-cmd','record-delete')
-this.toolbar.appendChild(deleteButton)}
-this.tableContainer.appendChild(this.toolbar)}
+Table.prototype.buildToolbar=function(){if(!this.options.adding&&!this.options.deleting){return}
+this.toolbar=$($('[data-table-toolbar]',this.el).html()).appendTo(this.tableContainer).get(0)
+if(!this.options.adding){$('[data-cmd^="record-add"]',this.toolbar).remove()}
+else{if(this.navigation.paginationEnabled()||!this.options.rowSorting){$('[data-cmd=record-add-below], [data-cmd=record-add-above]',this.toolbar).remove()}
+else{$('[data-cmd=record-add]',this.toolbar).remove()}}
+if(!this.options.deleting){$('[data-cmd="record-delete"]',this.toolbar).remove()}}
 Table.prototype.buildScrollbar=function(){var scrollbar=document.createElement('div'),scrollbarContent=document.createElement('div')
 scrollbar.setAttribute('class','control-scrollbar')
 if(this.options.dynamicHeight)
@@ -155,11 +139,13 @@ this.dataTableContainer.appendChild(dataTable)
 this.dataTable=dataTable
 this.updateColumnWidth()
 this.updateScrollbar()
-this.navigation.buildPagination(totalCount)}
+this.navigation.buildPagination(totalCount)
+this.search.buildSearchForm()}
 Table.prototype.formatDataContainerValue=function(value){if(value===undefined){return''}
 if(typeof value==='boolean'){return value?1:''}
 return value}
-Table.prototype.fetchRecords=function(onSuccess){this.dataSource.getRecords(this.navigation.getPageFirstRowOffset(),this.options.recordsPerPage,onSuccess)}
+Table.prototype.fetchRecords=function(onSuccess){if(this.search.hasQuery()){this.dataSource.searchRecords(this.search.getQuery(),this.navigation.getPageFirstRowOffset(),this.options.recordsPerPage,onSuccess)}
+else{this.dataSource.getRecords(this.navigation.getPageFirstRowOffset(),this.options.recordsPerPage,onSuccess)}}
 Table.prototype.updateScrollbar=function(){if(!this.options.height)
 return
 $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()}
@@ -275,6 +261,8 @@ return true}
 Table.prototype.onClick=function(ev){this.focusTable()
 if(this.navigation.onClick(ev)===false)
 return
+if(this.search.onClick(ev)===false)
+return
 for(var i=0,len=this.options.columns.length;i<len;i++){var column=this.options.columns[i].key
 this.cellProcessors[column].onClick(ev)}
 var target=this.getEventTarget(ev,'TD')
@@ -283,7 +271,8 @@ return
 if(target.tagName!='TD')
 return
 this.focusCell(target,true)}
-Table.prototype.onKeydown=function(ev){if(ev.keyCode==65&&ev.altKey&&this.options.adding){if(!ev.shiftKey){this.addRecord('below')}else{this.addRecord('above')}
+Table.prototype.onKeydown=function(ev){if(ev.keyCode==65&&ev.altKey&&this.options.adding){if(!ev.shiftKey){this.addRecord('below')}
+else{this.addRecord('above')}
 this.stopEvent(ev)
 return}
 if(ev.keyCode==68&&ev.altKey&&this.options.deleting){this.deleteRecord()
@@ -291,17 +280,16 @@ this.stopEvent(ev)
 return}
 for(var i=0,len=this.options.columns.length;i<len;i++){var column=this.options.columns[i].key
 this.cellProcessors[column].onKeyDown(ev)}
-if(this.navigation.onKeydown(ev)===false)
-return}
+if(this.navigation.onKeydown(ev)===false){return}
+if(this.search.onKeydown(ev)===false){return}}
 Table.prototype.onFormSubmit=function(ev,data){if(data.handler==this.options.postbackHandlerName){this.unfocusTable()
 if(!this.validate()){ev.preventDefault()
 return}
 var fieldName=this.options.fieldName.indexOf('[')>-1?this.options.fieldName+'[TableData]':this.options.fieldName+'TableData'
 data.options.data[fieldName]=this.dataSource.getAllData()}}
 Table.prototype.onToolbarClick=function(ev){var target=this.getEventTarget(ev),cmd=target.getAttribute('data-cmd')
-if(!cmd)
-return
-switch(cmd){case'record-add-below':this.addRecord('below')
+if(!cmd){return}
+switch(cmd){case'record-add':case'record-add-below':this.addRecord('below')
 break
 case'record-add-above':this.addRecord('above')
 break
@@ -397,7 +385,7 @@ if(dataContainer.value!=value){dataContainer.value=value
 this.markCellRowDirty(cellElement)
 this.notifyRowProcessorsOnChange(cellElement)
 if(suppressEvents===undefined||!suppressEvents){this.$el.trigger('oc.tableCellChanged',[this.getCellColumnName(cellElement),value,this.getCellRowIndex(cellElement)])}}}
-Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,rowSorting:false,height:false,dynamicHeight:false,btnAddRowLabel:'Add row',btnAddRowBelowLabel:'Add row below',btnDeleteRowLabel:'Delete row'}
+Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,searching:false,rowSorting:false,height:false,dynamicHeight:false}
 var old=$.fn.table
 $.fn.table=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)
@@ -561,11 +549,43 @@ this.gotoPage(pageIndex)
 this.tableObj.stopEvent(ev)
 return false}
 $.oc.table.helper.navigation=Navigation;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
+throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.helper===undefined)
+$.oc.table.helper={}
+var Search=function(tableObj){this.tableObj=tableObj
+this.searchForm=null
+this.searchInput=null
+this.inputTrackTimer=null
+this.activeQuery=null
+this.isActive=false
+this.init()};Search.prototype.init=function(){}
+Search.prototype.dispose=function(){this.tableObj=null
+this.searchForm=null
+this.searchInput=null}
+Search.prototype.buildSearchForm=function(){if(!this.searchEnabled())
+return
+var el=this.tableObj.getElement(),toolbar=this.tableObj.getToolbar(),searchForm=toolbar.querySelector('.table-search')
+if(!searchForm){this.searchForm=$($('[data-table-toolbar-search]',el).html()).appendTo(toolbar).get(0)
+this.searchInput=$('.table-search-input',this.searchForm).get(0)}}
+Search.prototype.getQuery=function(){return $.trim(this.activeQuery)}
+Search.prototype.hasQuery=function(){return this.searchEnabled()&&$.trim(this.activeQuery).length>0}
+Search.prototype.searchEnabled=function(){return this.tableObj.options.searching}
+Search.prototype.performSearch=function(query,onSuccess){var isDirty=this.activeQuery!=query
+this.activeQuery=query
+if(isDirty){this.tableObj.updateDataTable(onSuccess)}}
+Search.prototype.onKeydown=function(ev){if(ev.keyCode==9){this.onClick(ev)
+return}
+if(!this.isActive){return}
+var self=this
+this.inputTrackTimer=window.setTimeout(function(){self.performSearch(self.searchInput.value)},300)}
+Search.prototype.onClick=function(ev){var target=this.tableObj.getEventTarget(ev,'INPUT')
+this.isActive=target&&$(target).hasClass('table-search-input')}
+$.oc.table.helper.search=Search;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.datasource===undefined)
 $.oc.table.datasource={}
 var Base=function(tableObj){this.tableObj=tableObj}
 Base.prototype.dispose=function(){this.tableObj=null}
 Base.prototype.getRecords=function(offset,count,onSuccess){onSuccess([])}
+Base.prototype.searchRecords=function(query,offset,count,onSuccess){onSuccess([])}
 Base.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){onSuccess([],0)}
 Base.prototype.updateRecord=function(key,recordData){}
 Base.prototype.deleteRecord=function(key,newRecordData,offset,count,onSuccess){onSuccess([],0)}
@@ -614,6 +634,8 @@ Server.prototype.dispose=function(){BaseProto.dispose.call(this)
 this.data=null}
 Server.prototype.getRecords=function(offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerGetRecords'
 this.tableObj.$el.request(handlerName,{data:{offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
+Server.prototype.searchRecords=function(query,offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerSearchRecords'
+this.tableObj.$el.request(handlerName,{data:{query:query,offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
 Server.prototype.createRecord=function(recordData,placement,relativeToKey,offset,count,onSuccess){var handlerName=this.tableObj.getAlias()+'::onServerCreateRecord'
 this.tableObj.$el.request(handlerName,{data:{recordData:recordData,placement:placement,relativeToKey:relativeToKey,offset:offset,count:count}}).done(function(data){onSuccess(data.records,data.count)})}
 Server.prototype.updateRecord=function(key,recordData){var handlerName=this.tableObj.getAlias()+'::onServerUpdateRecord'

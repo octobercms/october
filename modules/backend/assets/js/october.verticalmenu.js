@@ -83,6 +83,7 @@
          */
         this.menuElement.dragScroll({
             vertical: true,
+            useNative: true,
             start: function(){self.menuElement.addClass('drag')},
             stop: function(){self.menuElement.removeClass('drag')},
             scrollClassContainer: self.menuPanel,

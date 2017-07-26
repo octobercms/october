@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/mailtemplates') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
+        <li><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
         <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -24,7 +24,7 @@
             <?= $this->formRender() ?>
         </div>
 
-        <div class="form-buttons">
+        <div class="form-buttons p-t">
             <div class="loading-indicator-container">
                 <button
                     type="submit"
@@ -44,7 +44,16 @@
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
-                <?php if (!$formModel->is_locked): ?>
+                <?php if ($formModel->is_locked): ?>
+                    <button
+                        type="button"
+                        class="btn btn-danger pull-right"
+                        data-request="onResetDefault"
+                        data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
+                        data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
+                        <?= e(trans('backend::lang.form.reset_default')) ?>
+                    </button>
+                <?php else: ?>
                     <button
                         type="button"
                         class="oc-icon-trash-o btn-icon danger pull-right"
@@ -54,7 +63,7 @@
                     </button>
                 <?php endif ?>
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/mailtemplates') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -64,6 +73,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('system/mailtemplates') ?>" class="btn btn-default"><?= e(trans('system::lang.mail_templates.return')) ?></a></p>
+    <p><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>" class="btn btn-default"><?= e(trans('system::lang.mail_templates.return')) ?></a></p>
 
 <?php endif ?>

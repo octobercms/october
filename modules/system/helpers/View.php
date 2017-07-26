@@ -2,6 +2,16 @@
 
 use View as ViewFacade;
 
+/**
+ * This helper class is used to extract basic variables
+ * (scalar or array) from the global `View` Facade.
+ *
+ * You can register these global variables with `View::share`.
+ *
+ *     View::share('siteName', 'OctoberCMS');
+ *
+ * Then available globally for use in the front-end and mail templates.
+ */
 class View
 {
     /**

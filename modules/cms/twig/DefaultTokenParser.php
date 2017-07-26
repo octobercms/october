@@ -20,7 +20,7 @@ class DefaultTokenParser extends Twig_TokenParser
      * Parses a token and returns a node.
      *
      * @param Twig_Token $token A Twig_Token instance
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @return Twig_Node A Twig_Node instance
      */
     public function parse(Twig_Token $token)
     {

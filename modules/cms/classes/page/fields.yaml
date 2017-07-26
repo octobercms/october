@@ -26,6 +26,7 @@ fields:
     components: Cms\FormWidgets\Components
 
 tabs:
+    cssClass: master-area
     fields:
         fileName:
             tab: cms::lang.editor.settings

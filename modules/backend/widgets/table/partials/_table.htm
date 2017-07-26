@@ -8,6 +8,7 @@
     data-field-name="<?= e($this->fieldName) ?>"
     data-postback-handler-name="<?= e($postbackHandlerName) ?>"
     data-adding="<?= e($adding) ?>"
+    data-searching="<?= e($searching) ?>"
     data-deleting="<?= e($deleting) ?>"
     data-toolbar="<?= e($toolbar) ?>"
     data-height="<?= e($height) ?>"
@@ -15,7 +16,33 @@
     data-key-column="<?= e($recordsKeyFrom) ?>"
     data-client-data-source-class="<?= e($clientDataSourceClass) ?>"
     data-dynamic-height="<?= e($dynamicHeight) ?>"
-    data-btn-add-row-label="<?= e($btnAddRowLabel) ?>"
-    data-btn-add-row-below-label="<?= e($btnAddRowBelowLabel) ?>"
-    data-btn-delete-row-label="<?= e($btnDeleteRowLabel) ?>"
-></div>
+>
+    <script type="text/template" data-table-toolbar>
+        <div class="toolbar">
+            <a class="btn table-icon add-table-row-below" data-cmd="record-add">
+                <?= e($btnAddRowLabel) ?>
+            </a>
+            <a class="btn table-icon add-table-row-below" data-cmd="record-add-below">
+                <?= e($btnAddRowBelowLabel) ?>
+            </a>
+            <a class="btn table-icon add-table-row-above" data-cmd="record-add-above">
+                Add row above
+            </a>
+            <a class="btn table-icon delete-table-row" data-cmd="record-delete">
+                <?= e($btnDeleteRowLabel) ?>
+            </a>
+        </div>
+    </script>
+    <script type="text/template" data-table-toolbar-search>
+        <div class="table-search">
+            <input
+                placeholder="<?= e(trans('backend::lang.list.search_prompt')) ?>"
+                name="search"
+                id="search"
+                value="<?= get('search') ?>"
+                type="text"
+                autocomplete="off"
+                class="table-search-input form-control icon search" />
+        </div>
+    </script>
+</div>

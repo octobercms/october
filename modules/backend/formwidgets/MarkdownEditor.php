@@ -22,6 +22,11 @@ class MarkdownEditor extends FormWidgetBase
      */
     public $mode = 'tab';
 
+    /**
+     * @var bool Render preview with safe markdown.
+     */
+    public $safe = false;
+
     //
     // Object properties
     //
@@ -38,6 +43,7 @@ class MarkdownEditor extends FormWidgetBase
     {
         $this->fillFromConfig([
             'mode',
+            'safe',
         ]);
     }
 
@@ -75,11 +81,12 @@ class MarkdownEditor extends FormWidgetBase
     public function onRefresh()
     {
         $value = post($this->getFieldName());
-        $previewHtml = Markdown::parse($value);
+        $previewHtml = $this->safe
+            ? Markdown::parseSafe($value)
+            : Markdown::parse($value);
 
         return [
             'preview' => $previewHtml
         ];
     }
-
 }

@@ -231,7 +231,7 @@
             if (this.pageIndex < this.pageCount - 1) {
                 var self = this
 
-                this.gotoPage(this.pageIndex + 1, function navDownPageSuccess(){
+                this.gotoPage(this.pageIndex + 1, function navDownPageSuccess() {
                     self.focusCell('top', cellIndex)
                     self = null
                 })
@@ -421,4 +421,5 @@
     }
 
     $.oc.table.helper.navigation = Navigation;
+
 }(window.jQuery);

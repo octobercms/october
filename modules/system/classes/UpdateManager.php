@@ -2,7 +2,7 @@
 
 use Db;
 use App;
-use URL;
+use Url;
 use File;
 use Lang;
 use Http;
@@ -86,12 +86,22 @@ class UpdateManager
     protected $productCache;
 
     /**
+     * @var Illuminate\Database\Migrations\Migrator
+     */
+    protected $migrator;
+
+    /**
+     * @var Illuminate\Database\Migrations\DatabaseMigrationRepository
+     */
+    protected $repository;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
     {
         $this->pluginManager = PluginManager::instance();
-        $this->themeManager = ThemeManager::instance();
+        $this->themeManager = class_exists(ThemeManager::class) ? ThemeManager::instance() : null;
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
@@ -264,13 +274,15 @@ class UpdateManager
         /*
          * Strip out themes that have been installed before
          */
-        $themes = [];
-        foreach (array_get($result, 'themes', []) as $code => $info) {
-            if (!$this->themeManager->isInstalled($code)) {
-                $themes[$code] = $info;
+        if ($this->themeManager) {
+            $themes = [];
+            foreach (array_get($result, 'themes', []) as $code => $info) {
+                if (!$this->themeManager->isInstalled($code)) {
+                    $themes[$code] = $info;
+                }
             }
+            $result['themes'] = $themes;
         }
-        $result['themes'] = $themes;
 
         /*
          * If there is a core update and core updates are disabled,
@@ -320,23 +332,24 @@ class UpdateManager
         /*
          * Register module migration files
          */
+        $paths = [];
         $modules = Config::get('cms.loadModules', []);
+
         foreach ($modules as $module) {
-            $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
-            $this->migrator->requireFiles($path, $this->migrator->getMigrationFiles($path));
+            $paths[] = $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
         }
 
         /*
          * Rollback modules
          */
         while (true) {
-            $count = $this->migrator->rollback();
+            $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
 
             foreach ($this->migrator->getNotes() as $note) {
                 $this->note($note);
             }
 
-            if ($count == 0) {
+            if (count($rolledBack) == 0) {
                 break;
             }
         }
@@ -344,6 +357,22 @@ class UpdateManager
         Schema::dropIfExists($this->getMigrationTableName());
 
         return $this;
+    }
+
+    /**
+     * Asks the gateway for the lastest build number and stores it.
+     * @return void
+     */
+    public function setBuildNumberManually()
+    {
+        $result = $this->requestServerData('ping');
+        $build = (int) array_get($result, 'pong', 420);
+
+        Parameter::set([
+            'system::core.build' => $build
+        ]);
+
+        return $build;
     }
 
     //
@@ -578,7 +607,10 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        $this->themeManager->setInstalled($name);
+        if ($this->themeManager) {
+            $this->themeManager->setInstalled($name);
+        }
+
         @unlink($filePath);
     }
 
@@ -863,7 +895,7 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
+        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;

@@ -46,11 +46,17 @@ tabs:
             span: right
             label: backend::lang.user.password_confirmation
 
-        groups:
+        role:
             context: [create, update]
+            label: backend::lang.user.role_field
+            commentAbove: backend::lang.user.role_comment
+            type: radio
+
+        groups:
             label: backend::lang.user.groups
             commentAbove: backend::lang.user.groups_comment
             type: checkboxlist
+            tab: backend::lang.user.groups
 
 secondaryTabs:
     fields:

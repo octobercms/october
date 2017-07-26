@@ -1,7 +1,7 @@
 <?php namespace Cms\Widgets;
 
 use Str;
-use URL;
+use Url;
 use File;
 use Lang;
 use Input;
@@ -36,8 +36,6 @@ class AssetList extends WidgetBase
     protected $searchTerm = false;
 
     protected $theme;
-
-    protected $groupStatusCache = false;
 
     /**
      * @var string Message to display when there are no records in the list.
@@ -87,14 +85,9 @@ class AssetList extends WidgetBase
         ]);
     }
 
-    /*
-     * Event handlers
-     */
-
-    public function onGroupStatusUpdate()
-    {
-        $this->setGroupStatus(Input::get('group'), Input::get('status'));
-    }
+    //
+    // Event handlers
+    //
 
     public function onOpenDirectory()
     {
@@ -151,7 +144,7 @@ class AssetList extends WidgetBase
                             if (!@File::delete($fullPath)) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_file',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
                         }
@@ -160,14 +153,14 @@ class AssetList extends WidgetBase
                             if ($empty === false) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_dir_not_empty',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
 
                             if (!@rmdir($fullPath)) {
                                 throw new ApplicationException(Lang::get(
                                     'cms::lang.asset.error_deleting_dir',
-                                    ['name'=>$path]
+                                    ['name' => $path]
                                 ));
                             }
                         }
@@ -248,7 +241,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -289,7 +282,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -390,7 +383,7 @@ class AssetList extends WidgetBase
         }
 
         return [
-            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items'=>$this->getData()])
+            '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
     }
 
@@ -438,7 +431,7 @@ class AssetList extends WidgetBase
 
     protected function getThemeFileUrl($path)
     {
-        return URL::to('themes/'.$this->theme->getDirName().'/assets'.$path);
+        return Url::to('themes/'.$this->theme->getDirName().'/assets'.$path);
     }
 
     public function getCurrentRelativePath()

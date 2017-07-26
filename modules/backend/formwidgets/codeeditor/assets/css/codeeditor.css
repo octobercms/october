@@ -6,7 +6,7 @@
 .field-codeeditor.size-large{min-height:200px}
 .field-codeeditor.size-huge{min-height:250px}
 .field-codeeditor.size-giant{min-height:350px}
-.field-codeeditor .ace_search{font-family:sans-serif;font-size:14px;color:#333333;z-index:13}
+.field-codeeditor .ace_search{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:14px;color:#333333;z-index:13}
 .field-codeeditor .editor-code{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-codeeditor .editor-toolbar{position:absolute;top:10px;right:10px;z-index:10}
 .field-codeeditor .editor-toolbar > ul,.field-codeeditor .editor-toolbar ul > li{list-style-type:none;padding:0;margin:0}

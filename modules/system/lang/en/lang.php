@@ -68,6 +68,7 @@ return [
             'events' => 'Events',
             'customers' => 'Customers',
             'my_settings' => 'My Settings',
+            'notifications' => 'Notifications'
         ]
     ],
     'theme' => [
@@ -189,9 +190,13 @@ return [
         'menu_description' => 'Modify the mail templates that are sent to users and administrators, manage email layouts.',
         'new_template' => 'New Template',
         'new_layout' => 'New Layout',
+        'new_partial' => 'New Partial',
         'template' => 'Template',
         'templates' => 'Templates',
+        'partial' => 'Partial',
+        'partials' => 'Partials',
         'menu_layouts_label' => 'Mail Layouts',
+        'menu_partials_label' => 'Mail Partials',
         'layout' => 'Layout',
         'layouts' => 'Layouts',
         'no_layout' => '-- No layout --',
@@ -218,6 +223,10 @@ return [
         'deleting_layout' => 'Deleting Layout...',
         'sending' => 'Sending test message...',
         'return' => 'Return to template list'
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Mail branding',
+        'menu_description' => 'Modify the colors and appearance of mail templates.',
     ],
     'install' => [
         'project_label' => 'Attach to Project',

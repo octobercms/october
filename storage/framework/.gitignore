@@ -1,6 +1,8 @@
 config.php
 routes.php
 compiled.php
-services.json
+services.php
+classes.php
+packages.php
 events.scanned.php
 routes.scanned.php

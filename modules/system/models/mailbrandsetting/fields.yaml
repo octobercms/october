@@ -1,0 +1,122 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    _mail_preview:
+        type: partial
+        path: field_mail_preview
+
+secondaryTabs:
+    fields:
+
+        _section_background:
+            label: Background
+            type: section
+
+        body_bg:
+            label: Body background
+            type: colorpicker
+            availableColors: []
+
+        content_bg:
+            label: Content background
+            type: colorpicker
+            availableColors: []
+
+        content_inner_bg:
+            label: Inner content background
+            type: colorpicker
+            availableColors: []
+
+        _section_buttons:
+            label: Buttons
+            type: section
+
+        button_text_color:
+            label: Button text color
+            type: colorpicker
+            availableColors: []
+
+        button_primary_bg:
+            label: Primary button background
+            type: colorpicker
+            availableColors: []
+
+        button_positive_bg:
+            label: Positive button background
+            type: colorpicker
+            availableColors: []
+
+        button_negative_bg:
+            label: Negative button background
+            type: colorpicker
+            availableColors: []
+
+        _section_type:
+            label: Typography
+            type: section
+
+        header_color:
+            label: Header color
+            type: colorpicker
+            availableColors: []
+
+        heading_color:
+            label: Headings color
+            type: colorpicker
+            availableColors: []
+
+        text_color:
+            label: Text color
+            type: colorpicker
+            availableColors: []
+
+        link_color:
+            label: Link color
+            type: colorpicker
+            availableColors: []
+
+        footer_color:
+            label: Footer color
+            type: colorpicker
+            availableColors: []
+
+        _section_borders:
+            label: Borders
+            type: section
+
+        body_border_color:
+            label: Body border color
+            type: colorpicker
+            availableColors: []
+
+        subcopy_border_color:
+            label: Subcopy border color
+            type: colorpicker
+            availableColors: []
+
+        table_border_color:
+            label: Table border color
+            type: colorpicker
+            availableColors: []
+
+        _section_components:
+            label: Components
+            type: section
+
+        panel_bg:
+            label: Panel background
+            type: colorpicker
+            availableColors: []
+
+        promotion_bg:
+            label: Promotion background
+            type: colorpicker
+            availableColors: []
+
+        promotion_border_color:
+            label: Promotion border color
+            type: colorpicker
+            availableColors: []

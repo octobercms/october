@@ -42,7 +42,7 @@ class PluginInstall extends Command
      * Execute the console command.
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $pluginName = $this->argument('name');
         $manager = UpdateManager::instance()->setNotesOutput($this->output);

@@ -1,6 +1,5 @@
 # Select
 
-
 ### Select
 
 Custom select control.
@@ -18,7 +17,7 @@ Custom select control.
     <div class="form-group form-group-sm">
         <select class="form-control custom-select">
             <option value="1" selected="selected">One</option>
-            <option value="2" selected="selected">Two</option>
+            <option value="2">Two</option>
         </select>
     </div>
 
@@ -27,7 +26,7 @@ Custom select control.
     <div class="form-group form-group-lg">
         <select class="form-control custom-select">
             <option value="1" selected="selected">One</option>
-            <option value="2" selected="selected">Two</option>
+            <option value="2">Two</option>
         </select>
     </div>
 
@@ -43,6 +42,20 @@ Add the `select-no-search` CSS class to disable searching.
             <option value="2" selected="selected">Two</option>
         </select>
     </div>
+
+## Option groups
+
+Use the `optgroup` element to create option groups.
+
+    <select class="form-control custom-select">
+        <option value="1">Please select an option</option>
+        <option value="2">Ungrouped option</option>
+        <optgroup label="Option Group">
+            <option value="3">Grouped option</option>
+            <option value="4">Another option</option>
+            <option value="4">Third option</option>
+        </optgroup>
+    </select>
 
 ## AJAX search
 

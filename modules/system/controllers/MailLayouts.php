@@ -35,4 +35,16 @@ class MailLayouts extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.System', 'mail_templates');
     }
+
+    public function update_onResetDefault($recordId)
+    {
+        $model = $this->formFindModelObject($recordId);
+
+        $model->fillFromCode();
+        $model->save();
+
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
+
+        return Redirect::refresh();
+    }
 }

@@ -6,6 +6,8 @@
     .user-select(none);
 }
 
+@scrollbar-thumb-size: 6px;
+
 .control-scrollbar {
     position: relative;
     overflow: hidden;
@@ -32,32 +34,34 @@
                 position: absolute;
             }
         }
+
         &.disabled {
-            display: none!important;
+            display: none !important;
         }
     }
 
     &.vertical {
         >.scrollbar-scrollbar {
             right: 0;
-            width: 4px;
+            margin-right: 5px;
+            width: @scrollbar-thumb-size;
             .scrollbar-track {
                 height: 100%;
-                width: 4px;
+                width: @scrollbar-thumb-size;
                 .scrollbar-thumb {
                     height: 20px;
-                    width: 4px;
+                    width: @scrollbar-thumb-size;
                     top: 0;
                     left: 0;
                 }
             }
 
             &:active, &:hover {
-                width: 6px;
+                width: @scrollbar-thumb-size + 2px;
                 .transition(width .3s);
                 .scrollbar-track,
                 .scrollbar-thumb {
-                    width: 6px;
+                    width: @scrollbar-thumb-size + 2px;
                     .transition(width .3s);
                 }
             }
@@ -68,28 +72,35 @@
         >.scrollbar-scrollbar {
             margin: 0 0 5px;
             clear: both;
-            height: 4px;
+            height: @scrollbar-thumb-size;
             .scrollbar-track {
                 width: 100%;
-                height: 4px;
+                height: @scrollbar-thumb-size;
                 .scrollbar-thumb {
-                    height: 4px;
-                    margin:2px 0;
+                    height: @scrollbar-thumb-size;
+                    margin: 2px 0;
                     left: 0;
                     top: 0;
                 }
             }
-            
+
             &:active, &:hover {
-                height: 6px;
+                height: @scrollbar-thumb-size + 2px;
                 .transition(height .3s);
                 .scrollbar-track,
                 .scrollbar-thumb {
-                    height: 6px;
+                    height: @scrollbar-thumb-size + 2px;
                     .transition(height .3s);
                 }
             }
         }
+    }
+}
+
+html.mobile {
+    .control-scrollbar {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
