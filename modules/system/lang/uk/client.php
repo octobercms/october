@@ -31,23 +31,23 @@ return [
         'link' => 'Посилання',
         'horizontalrule' => 'Вставити горизонтальну риску',
         'fullscreen' => 'Повний екран',
-        'preview' => 'Попередній перегляд',
+        'preview' => 'Попередній перегляд'
     ],
     'mediamanager' => [
         'insert_link' => "Вставити медіа-посилання",
         'insert_image' => "Вставити медіа-зображення",
         'insert_video' => "Вставити медіа-відео",
         'insert_audio' => "Вставити медіа-аудіо",
-        'invalid_file_empty_insert' => "Будь ласка, виберіть файл для вставки посилання.",
-        'invalid_file_single_insert' => "Будь ласка, виберіть один файл.",
-        'invalid_image_empty_insert' => "Будь ласка, виберіть зображення для вставки.",
-        'invalid_video_empty_insert' => "Будь ласка, виберіть відео для вставки.",
-        'invalid_audio_empty_insert' => "Будь ласка, виберіть аудіо для вставки.",
+        'invalid_file_empty_insert' => "Будь ласка, оберіть файл для вставки посилання.",
+        'invalid_file_single_insert' => "Будь ласка, оберіть один файл.",
+        'invalid_image_empty_insert' => "Будь ласка, оберіть зображення для вставки.",
+        'invalid_video_empty_insert' => "Будь ласка, оберіть відео для вставки.",
+        'invalid_audio_empty_insert' => "Будь ласка, оберіть аудіо для вставки.",
     ],
     'alert' => [
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Скасувати',
-        'widget_remove_confirm' => 'Видалити цей віджет?',
+        'widget_remove_confirm' => 'Видалити цей віджет?'
     ],
     'datepicker' => [
         'previousMonth' => 'Попередній місяць',
@@ -58,7 +58,7 @@ return [
     ],
     'filter' => [
         'group' => [
-            'all' => 'всі',
+            'all' => 'всі'
         ],
         'dates' => [
             'all' => 'всі',
@@ -66,7 +66,7 @@ return [
             'reset_button_text' => 'Скинути',
             'date_placeholder' => 'Дата',
             'after_placeholder' => 'Після',
-            'before_placeholder' => 'До',
+            'before_placeholder' => 'До'
         ],
     ],
     'eventlog' => [
@@ -74,7 +74,7 @@ return [
         'hide_stacktrace' => 'Приховати трасування стека',
         'tabs' => [
             'formatted' => 'Форматований',
-            'raw' => 'Початковий',
+            'raw' => 'Початковий'
         ],
         'editor' => [
             'title' => 'Редактор вихідного коду',
@@ -82,7 +82,7 @@ return [
             'openWith' => 'Відкрити за допомогою',
             'remember_choice' => 'Запам\'ятати обраний варіант для цієї сесії',
             'open' => 'Відкрити',
-            'cancel' => 'Скасувати',
+            'cancel' => 'Скасувати'
         ],
     ],
 ];

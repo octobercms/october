@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Зона адміністрування',
+        'title' => 'Зона адміністрування'
     ],
     'field' => [
         'invalid_type' => 'Неправильний тип поля :type.',
@@ -18,15 +18,15 @@ return [
         'access_denied' => [
             'label' => 'Доступ заборонено',
             'help' => 'У Вас немає необхідних прав для перегляду цієї сторінки.',
-            'cms_link' => 'Повернутися до back-end-у',
+            'cms_link' => 'Повернутися до back-end-у'
         ],
         'no_database' => [
             'label' => 'База данних відсутня',
             'help' => 'Для доступу до back-end - потрібна база данних. Перевірте, налаштування та міграції бази данних, перш ніж спробувати знову.',
-            'cms_link' => 'Повернутися на домашню сторінку',
+            'cms_link' => 'Повернутися на домашню сторінку'
         ],
         'invalid_token' => [
-            'label' => 'Неправильний токен безпеки',
+            'label' => 'Неправильний токен безпеки'
         ],
     ],
     'partial' => [
@@ -54,7 +54,7 @@ return [
         'apply' => 'Застосувати',
         'cancel' => 'Скасувати',
         'delete' => 'Видалити',
-        'ok' => 'ОК',
+        'ok' => 'ОК'
     ],
     'dashboard' => [
         'menu_label' => 'Панель керування',
@@ -93,7 +93,7 @@ return [
             'core_build' => 'Версія системи',
             'event_log' => 'Журнал подій',
             'request_log' => 'Журнал запитів',
-            'app_birthday' => 'Сайт засновано',
+            'app_birthday' => 'Сайт засновано'
         ],
         'welcome' => [
             'widget_title_default' => 'Ласкаво просимо',
@@ -102,7 +102,7 @@ return [
             'first_sign_in' => 'Це ваша перша авторизація.',
             'last_sign_in' => 'Дата останньої авторизації',
             'view_access_logs' => 'Перегляд журналу доступу',
-            'nice_message' => 'Гарного дня!',
+            'nice_message' => 'Гарного дня!'
         ],
     ],
     'user' => [
@@ -152,7 +152,7 @@ return [
             'new' => 'Нова група',
             'delete_confirm' => 'Видалити цю групу адміністраторів?',
             'return' => 'Повернутись до списку груп',
-            'users_count' => 'Користувачі',
+            'users_count' => 'Користувачі'
         ],
         'role' => [
             'name' => 'Роль',
@@ -161,15 +161,15 @@ return [
             'description_field' => 'Опис',
             'code_field' => 'Код',
             'code_comment' => 'Введіть унікальний код, якщо ви хочете отримати доступ до об\'єкту ролі за допомогою API.',
-            'menu_label' => 'Управління ролями',
-            'list_title' => 'Управління ролями',
+            'menu_label' => 'Керування ролями',
+            'list_title' => 'Керування ролями',
             'new' => 'Нова роль',
             'delete_confirm' => 'Видалити цю роль адміністратора?',
             'return' => 'Повернутися до списку ролей',
-            'users_count' => 'Користувачі',
+            'users_count' => 'Користувачі'
         ],
         'preferences' => [
-            'not_authenticated' => 'Немає автентифікованих користувачів, чиї налаштування можна завантажити або зберегти.',
+            'not_authenticated' => 'Немає автентифікованих користувачів, чиї налаштування можна завантажити або зберегти.'
         ],
     ],
     'list' => [
@@ -201,7 +201,7 @@ return [
         'delete_selected_confirm' => 'Видалити обрані записи?',
         'delete_selected_success' => 'Обрані записи успішно видалено',
         'column_switch_true' => 'Так',
-        'column_switch_false' => 'Ні',
+        'column_switch_false' => 'Ні'
     ],
     'fileupload' => [
         'attachment' => 'Прикріплення',
@@ -213,7 +213,7 @@ return [
         'upload_file' => 'Завантажити файл',
         'upload_error' => 'Помилка завантаження',
         'remove_confirm' => 'Ви впевнені?',
-        'remove_file' => 'Видалити файл',
+        'remove_file' => 'Видалити файл'
     ],
     'form' => [
         'create_title' => 'Нова :name',
@@ -270,15 +270,15 @@ return [
         'delete_row' => 'Видалити рядок',
         'concurrency_file_changed_title' => 'Файл було змінено',
         'concurrency_file_changed_description' => 'Файл, що Ви редагуєте, було змінено на диску іншим користувачем. Ви можете або перезавантажити файл та втратити свої зміни, або перезаписати файл на диску.',
-        'return_to_list' => 'Повернутися до списку',
+        'return_to_list' => 'Повернутися до списку'
     ],
     'recordfinder' => [
         'find_record' => 'Знайти запис',
-        'cancel' => 'Скасувати',
+        'cancel' => 'Скасувати'
     ],
     'pagelist' => [
         'page_link' => 'Посилання на сторінку',
-        'select_page' => 'Обрати сторынку...',
+        'select_page' => 'Обрати сторынку...'
     ],
     'relation' => [
         'missing_config' => "Поведінка відношення не містить жодного налаштування для ':config'.",
@@ -311,11 +311,11 @@ return [
         'link_name' => 'Зв\'язати :name',
         'unlink' => 'Відв\'язати',
         'unlink_name' => 'Відв\'язати :name',
-        'unlink_confirm' => 'Ви впевнені?',
+        'unlink_confirm' => 'Ви впевнені?'
     ],
     'reorder' => [
         'default_title' => 'Перевпорядкувати записи',
-        'no_records' => 'Немає доступних до сортування записів.',
+        'no_records' => 'Немає доступних до сортування записів.'
     ],
     'model' => [
         'name' => 'Модель',
@@ -331,7 +331,7 @@ return [
         'tips_description' => 'Є речі, на які потрібно звернути увагу щоб правильно налаштувати систему.',
         'permissions' => 'Директорія :name та її субдиректорії не мають дозволу для запису для PHP. Будь ласка, встановіть відповідні дозволи для веб-серверу для цієї директорії.',
         'extension' => 'Розширення PHP :name не встановлено. Будь ласка, встановіть цю бібліотеку та активуйте розширення.',
-        'plugin_missing' => 'Плагін :name має залежності, які не встановлено. Будь ласка, встановіть ці плагіни.',
+        'plugin_missing' => 'Плагін :name має залежності, які не встановлено. Будь ласка, встановіть ці плагіни.'
     ],
     'editor' => [
         'menu_label' => 'Налаштування редактору коду',
@@ -379,19 +379,19 @@ return [
         'remove_tags' => 'Видаляємі теги',
         'remove_tags_comment' => 'Теги які видаляються разом з їх вмістом.',
         'toolbar_buttons' => 'Кнопки панелі інструментів',
-        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
     'tooltips' => [
-        'preview_website' => 'Перегляд веб-сайту',
+        'preview_website' => 'Перегляд веб-сайту'
     ],
     'mysettings' => [
         'menu_label' => 'Мої налаштування',
-        'menu_description' => 'Налаштування, що стосуються Вашого адміністративного облікового запису',
+        'menu_description' => 'Налаштування, що стосуються Вашого адміністративного облікового запису'
     ],
     'myaccount' => [
         'menu_label' => 'Мій обліковий запис',
         'menu_description' => 'Оновіть свої деталі облікового запису, такі як ім\'я, електронна адреса та пароль.',
-        'menu_keywords' => 'безпека ім\'я користувача',
+        'menu_keywords' => 'безпека ім\'я користувача'
     ],
     'branding' => [
         'menu_label' => 'Налаштування вигляду back-end-у',
@@ -413,7 +413,7 @@ return [
         'menu_mode' => 'Cтиль меню',
         'menu_mode_inline' => 'В лінію',
         'menu_mode_tile' => 'Плитка',
-        'menu_mode_collapsed' => 'Схлопнутий',
+        'menu_mode_collapsed' => 'Схлопнутий'
     ],
     'backend_preferences' => [
         'menu_label' => 'Налаштування back-end-у',
@@ -423,7 +423,7 @@ return [
         'timezone' => 'Часовий пояс',
         'timezone_comment' => 'Виводити дати в обраному часовому поясі.',
         'locale' => 'Мова',
-        'locale_comment' => 'Оберіть бажану мову для використання.',
+        'locale_comment' => 'Оберіть бажану мову для використання.'
     ],
     'access_log' => [
         'hint' => 'Цей журнал показує список успішних спроб входу адміністраторів. Записи зберігаються :days днів.',
@@ -434,12 +434,12 @@ return [
         'ip_address' => 'IP-адреса',
         'first_name' => 'Ім\'я',
         'last_name' => 'Прізвище',
-        'email' => 'Електронна адреса',
+        'email' => 'Електронна адреса'
     ],
     'filter' => [
         'all' => 'всі',
         'options_method_not_exists' => "Модель класу :model повинна містити метод :method() який повертає значення для поля ':filter'.",
-        'date_all' => 'весь період',
+        'date_all' => 'весь період'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Завантажити CSV-файл',
@@ -510,7 +510,7 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)',
-        ],
-    ],
+            'windows_1252' => 'Windows-1252 (CP1252)'
+        ]
+    ]
 ];
