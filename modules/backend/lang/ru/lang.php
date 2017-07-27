@@ -7,11 +7,11 @@ return [
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
-        'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'."
+        'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
     ],
     'widget' => [
         'not_registered' => "Класс виджета ':name' не зарегистрирован.",
-        'not_bound' => "Виджет с именем класса ':name' не связан с контроллером."
+        'not_bound' => "Виджет с именем класса ':name' не связан с контроллером.",
     ],
     'page' => [
         'untitled' => 'Без названия',
@@ -27,7 +27,7 @@ return [
         ],
         'invalid_token' => [
             'label' => 'Неверный токен безопасности'
-        ]
+        ],
     ],
     'partial' => [
         'not_found_name' => 'Не удалось найти шаблон (partial) с именем :name.'
@@ -39,6 +39,7 @@ return [
         'restore' => 'Восстановить',
         'login_placeholder' => 'пользователь',
         'password_placeholder' => 'пароль',
+        'remember_me' => 'Оставаться в системе',
         'forgot_password' => 'Забыли пароль?',
         'enter_email' => 'Введите вашу почту',
         'enter_login' => 'Введите ваш Логин',
@@ -101,8 +102,8 @@ return [
             'first_sign_in' => 'Это первый раз, когда вы вошли в систему.',
             'last_sign_in' => 'Последний раз вы заходили',
             'view_access_logs' => 'Посмотреть лог доступа',
-            'nice_message' => 'Хорошего дня!',
-        ]
+            'nice_message' => 'Хорошего дня!'
+        ],
     ],
     'user' => [
         'name' => 'Администратора',
@@ -115,6 +116,8 @@ return [
         'last_name' => 'Фамилия',
         'full_name' => 'Полное имя',
         'email' => 'Почта',
+        'role_field' => 'Роль',
+        'role_comment' => 'Роли определяют уровни доступа пользователей, которые могут быть изменены на уровне пользователя, на вкладке "Разрешения".',
         'groups' => 'Группы',
         'groups_comment' => 'Укажите, к какой группе должен принадлежать этот аккаунт.',
         'avatar' => 'Аватар',
@@ -151,9 +154,23 @@ return [
             'return' => 'Вернуться к списку групп',
             'users_count' => 'Пользователи'
         ],
+        'role' => [
+            'name' => 'Роль',
+            'name_field' => 'Название',
+            'name_comment' => 'Название отображается в списке ролей в форме "Администратор".',
+            'description_field' => 'Описание',
+            'code_field' => 'Код',
+            'code_comment' => 'Введите уникальный код, если вы хотите получить доступ к объекту роли при помощи API.',
+            'menu_label' => 'Управление ролями',
+            'list_title' => 'Управление ролями',
+            'new' => 'Новая роль',
+            'delete_confirm' => 'Удалить эту роль администратора?',
+            'return' => 'Вернуться к списку ролей',
+            'users_count' => 'Пользователи'
+        ],
         'preferences' => [
             'not_authenticated' => 'Невозможно загрузить или сохранить настройки для неавторизованного пользователя.'
-        ]
+        ],
     ],
     'list' => [
         'default_title' => 'Список',
@@ -257,7 +274,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Найти запись',
-        'cancel' => 'Отмена',
+        'cancel' => 'Отмена'
     ],
     'pagelist' => [
         'page_link' => 'Ссылка на страницу',
@@ -269,7 +286,7 @@ return [
         'missing_model' => 'Для поведения отношения, используемого в :class не определена модель.',
         'invalid_action_single' => 'Это действие не может быть выполнено для особого отношения.',
         'invalid_action_multi' => 'Это действие не может быть выполнено для множественных отношений.',
-        'help'  => 'Нажмите на элемент, который нужно добавить',
+        'help' => 'Нажмите на элемент, который нужно добавить',
         'related_data' => 'Связанные :name данные',
         'add' => 'Добавить',
         'add_selected' => 'Добавить выбранные',
@@ -298,7 +315,7 @@ return [
     ],
     'reorder' => [
         'default_title' => 'Сортировать записи',
-        'no_records' => 'Нет доступных записей для сортировки.',
+        'no_records' => 'Нет доступных записей для сортировки.'
     ],
     'model' => [
         'name' => 'Модель',
@@ -307,14 +324,14 @@ return [
         'missing_relation' => "Модель ':class' не содержит определения для ':relation'",
         'missing_method' => "Модель ':class' не содержит метод ':method'.",
         'invalid_class' => 'Модель :model используемая в :class не допустима, она должна наследовать класс \Model.',
-        'mass_assignment_failed' => "Массовое заполнение недоступно для атрибута модели ':attribute'."
+        'mass_assignment_failed' => "Массовое заполнение недоступно для атрибута модели ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'Подсказки по конфигурации системы',
         'tips_description' => 'Есть проблемы, на которые стоит обратить внимание, чтобы правильно настроить систему.',
-        'permissions'  => 'Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.',
+        'permissions' => 'Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.',
         'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.',
-        'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.',
+        'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.'
     ],
     'editor' => [
         'menu_label' => 'Настройки редактора',
@@ -331,11 +348,11 @@ return [
         'auto_closing' => 'Автоматическое закрытие тегов и специальных символов',
         'show_invisibles' => 'Показывать невидимые символы',
         'show_gutter' => 'Показывать нумерацию строк',
-        'basic_autocompletion'=> 'Базовое автодополнение (Ctrl + Space)',
-        'live_autocompletion'=> 'Живое автодополнение',
-        'enable_snippets'=> 'Включить сниппеты (Tab)',
-        'display_indent_guides'=> 'Показывать символы перевода строки',
-        'show_print_margin'=> 'Показывать границу печати',
+        'basic_autocompletion' => 'Базовое автодополнение (Ctrl + Space)',
+        'live_autocompletion' => 'Живое автодополнение',
+        'enable_snippets' => 'Включить сниппеты (Tab)',
+        'display_indent_guides' => 'Показывать символы перевода строки',
+        'show_print_margin' => 'Показывать границу печати',
         'mode_off' => 'Выключено',
         'mode_fluid' => 'Адаптивный',
         '40_characters' => '40 символов',
@@ -360,7 +377,9 @@ return [
         'no_wrap' => 'Не оборачивать теги',
         'no_wrap_comment' => 'Список тегов, которые не должны быть обернуты в блочные элементы.',
         'remove_tags' => 'Удаляемые теги',
-        'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.'
+        'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.',
+        'toolbar_buttons' => 'Кнопки панели инструментов',
+        'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
     'tooltips' => [
         'preview_website' => 'Просмотр сайта'
@@ -493,5 +512,5 @@ return [
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
         ]
-    ],
+    ]
 ];

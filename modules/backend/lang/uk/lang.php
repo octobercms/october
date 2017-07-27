@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Зона адміністрування',
+        'title' => 'Зона адміністрування'
     ],
     'field' => [
         'invalid_type' => 'Неправильний тип поля :type.',
@@ -18,15 +18,15 @@ return [
         'access_denied' => [
             'label' => 'Доступ заборонено',
             'help' => 'У Вас немає необхідних прав для перегляду цієї сторінки.',
-            'cms_link' => 'Повернутися до back-end-у',
+            'cms_link' => 'Повернутися до back-end-у'
         ],
         'no_database' => [
             'label' => 'База данних відсутня',
             'help' => 'Для доступу до back-end - потрібна база данних. Перевірте, налаштування та міграції бази данних, перш ніж спробувати знову.',
-            'cms_link' => 'Повернутися на домашню сторінку',
+            'cms_link' => 'Повернутися на домашню сторінку'
         ],
         'invalid_token' => [
-            'label' => 'Неправильний токен безпеки',
+            'label' => 'Неправильний токен безпеки'
         ],
     ],
     'partial' => [
@@ -39,6 +39,7 @@ return [
         'restore' => 'Відновити',
         'login_placeholder' => 'логін',
         'password_placeholder' => 'пароль',
+        'remember_me' => 'Залишитись в системі',
         'forgot_password' => 'Забули свій пароль?',
         'enter_email' => 'Введіть свою електронну адресу',
         'enter_login' => 'Введіть своє ім\'я користувача',
@@ -52,8 +53,8 @@ return [
         'reset_fail' => 'Не вдалося змінити Ваш пароль!',
         'apply' => 'Застосувати',
         'cancel' => 'Скасувати',
-        'delete' => 'Вилучити',
-        'ok' => 'ОК',
+        'delete' => 'Видалити',
+        'ok' => 'ОК'
     ],
     'dashboard' => [
         'menu_label' => 'Панель керування',
@@ -63,12 +64,12 @@ return [
         'manage_widgets' => 'Керування віджетами',
         'add_widget' => 'Додати віджет',
         'widget_inspector_title' => 'Налаштування віджету',
-        'widget_inspector_description' => 'Налаштування віджету-звіту',
+        'widget_inspector_description' => 'Налаштування віджету',
         'widget_columns_label' => 'Ширина :columns',
         'widget_columns_description' => 'Ширина віджету, число між 1 та 10.',
         'widget_columns_error' => 'Будь ласка, уведіть ширину віджету як число між 1 та 10.',
         'columns' => '{1} колонка|[2,4] колонки|[5,Inf] колонок',
-        'widget_new_row_label' => 'Створити новий рядок',
+        'widget_new_row_label' => 'Перенести на новий рядок',
         'widget_new_row_description' => 'Помістити віджет у новий рядок.',
         'widget_title_label' => 'Назва віджету',
         'widget_title_error' => 'Назва віджету є обов\'язковою.',
@@ -92,7 +93,7 @@ return [
             'core_build' => 'Версія системи',
             'event_log' => 'Журнал подій',
             'request_log' => 'Журнал запитів',
-            'app_birthday' => 'Сайт засновано',
+            'app_birthday' => 'Сайт засновано'
         ],
         'welcome' => [
             'widget_title_default' => 'Ласкаво просимо',
@@ -100,8 +101,8 @@ return [
             'welcome_to_name' => 'Ласкаво просимо до :app, :name.',
             'first_sign_in' => 'Це ваша перша авторизація.',
             'last_sign_in' => 'Дата останньої авторизації',
-            'view_access_logs' => 'Перегляд журналів доступу',
-            'nice_message' => 'Гарного дня!',
+            'view_access_logs' => 'Перегляд журналу доступу',
+            'nice_message' => 'Гарного дня!'
         ],
     ],
     'user' => [
@@ -115,6 +116,8 @@ return [
         'last_name' => 'Прізвище',
         'full_name' => 'Повне ім\'я',
         'email' => 'Електронна пошта',
+        'role_field' => 'Роль',
+        'role_comment' => 'Ролі визначають рівні доступу користувачів, які можна визначити у вкладці "Права".',
         'groups' => 'Групи',
         'groups_comment' => 'Вкажіть до яких груп повинен належати цей обліковий запис.',
         'avatar' => 'Аватар',
@@ -126,7 +129,7 @@ return [
         'superuser_comment' => 'Надає цьому обліковому запису необмежений доступ.',
         'send_invite' => 'Надіслати запрошення за електронною адресою',
         'send_invite_comment' => 'Надсилає вітальне повідомлення, що містить інформацію про ім\'я користувача та пароль.',
-        'delete_confirm' => 'Ви дійсно хочете вилучити цього адміністратора?',
+        'delete_confirm' => 'Ви дійсно хочете видалити цього адміністратора?',
         'return' => 'Повернутися до списку адміністраторів',
         'allow' => 'Дозволити',
         'inherit' => 'Успадкувати',
@@ -147,12 +150,26 @@ return [
             'menu_label' => 'Групи',
             'list_title' => 'Керування групами',
             'new' => 'Нова група',
-            'delete_confirm' => 'Ви дійсно хочете вилучити цю групу адміністраторів?',
+            'delete_confirm' => 'Видалити цю групу адміністраторів?',
             'return' => 'Повернутись до списку груп',
-            'users_count' => 'Користувачі',
+            'users_count' => 'Користувачі'
+        ],
+        'role' => [
+            'name' => 'Роль',
+            'name_field' => 'Назва',
+            'name_comment' => 'Назва відображається у списку ролей у формі "Адміністратор".',
+            'description_field' => 'Опис',
+            'code_field' => 'Код',
+            'code_comment' => 'Введіть унікальний код, якщо ви хочете отримати доступ до об\'єкту ролі за допомогою API.',
+            'menu_label' => 'Керування ролями',
+            'list_title' => 'Керування ролями',
+            'new' => 'Нова роль',
+            'delete_confirm' => 'Видалити цю роль адміністратора?',
+            'return' => 'Повернутися до списку ролей',
+            'users_count' => 'Користувачі'
         ],
         'preferences' => [
-            'not_authenticated' => 'Немає автентифікованих користувачів, чиї налаштування можна завантажити або зберегти.',
+            'not_authenticated' => 'Немає автентифікованих користувачів, чиї налаштування можна завантажити або зберегти.'
         ],
     ],
     'list' => [
@@ -179,12 +196,12 @@ return [
         'records_per_page' => 'Записів на сторінку',
         'records_per_page_help' => 'Оберіть число записів на сторінку для показу. Будь ласка, зауважте, що велике число записів на одну сторінку може зменшити швидкодію.',
         'check' => 'Перевірити',
-        'delete_selected' => 'Вилучити обрані',
-        'delete_selected_empty' => 'Немає обраних до вилучення записів.',
-        'delete_selected_confirm' => 'Вилучити обрані записи?',
-        'delete_selected_success' => 'Успішно вилучено обрані записи.',
+        'delete_selected' => 'Видалити обрані',
+        'delete_selected_empty' => 'Немає обраних записів до видалення.',
+        'delete_selected_confirm' => 'Видалити обрані записи?',
+        'delete_selected_success' => 'Обрані записи успішно видалено',
         'column_switch_true' => 'Так',
-        'column_switch_false' => 'Ні',
+        'column_switch_false' => 'Ні'
     ],
     'fileupload' => [
         'attachment' => 'Прикріплення',
@@ -196,7 +213,7 @@ return [
         'upload_file' => 'Завантажити файл',
         'upload_error' => 'Помилка завантаження',
         'remove_confirm' => 'Ви впевнені?',
-        'remove_file' => 'Вилучити файл',
+        'remove_file' => 'Видалити файл'
     ],
     'form' => [
         'create_title' => 'Нова :name',
@@ -204,7 +221,7 @@ return [
         'preview_title' => 'Попередній перегляд :name',
         'create_success' => ':name створено',
         'update_success' => ':name оновлено',
-        'delete_success' => ':name вилучено',
+        'delete_success' => ':name видалено',
         'reset_success' => 'Успішно скасовано',
         'missing_id' => 'Ідентифікатор запису форми не було вказано.',
         'missing_model' => 'Поведінка форми, що використовується в :class не містить визначення моделі.',
@@ -219,12 +236,12 @@ return [
         'save_and_close' => 'Зберегти та закрити',
         'saving' => 'Збереження…',
         'saving_name' => 'Збереження :name…',
-        'delete' => 'Вилучити',
-        'deleting' => 'Вилучення…',
-        'confirm_delete' => 'Ви дійсно хочете вилучити цей запис?',
-        'confirm_delete_multiple' => 'Ви дійсно хочете вилучити обрані записи?',
-        'deleting_name' => 'Вилучення :name…',
-        'reset_default' => 'Скинути до значення за замовчуванням',
+        'delete' => 'Видалити',
+        'deleting' => 'Видалення…',
+        'confirm_delete' => 'Ви дійсно хочете видалити цей запис?',
+        'confirm_delete_multiple' => 'Ви дійсно хочете видалити обрані записи?',
+        'deleting_name' => 'Видалення :name…',
+        'reset_default' => 'Скинути за замовчуванням',
         'resetting' => 'Скидання',
         'resetting_name' => 'Скидання :name',
         'undefined_tab' => 'Різне',
@@ -250,18 +267,18 @@ return [
         'select_placeholder' => 'будь ласка, оберіть',
         'insert_row' => 'Вставити рядок',
         'insert_row_below' => 'Вставити рядок нижче',
-        'delete_row' => 'Вилучити рядок',
+        'delete_row' => 'Видалити рядок',
         'concurrency_file_changed_title' => 'Файл було змінено',
         'concurrency_file_changed_description' => 'Файл, що Ви редагуєте, було змінено на диску іншим користувачем. Ви можете або перезавантажити файл та втратити свої зміни, або перезаписати файл на диску.',
-        'return_to_list' => 'Повернутися до списку',
+        'return_to_list' => 'Повернутися до списку'
     ],
     'recordfinder' => [
         'find_record' => 'Знайти запис',
-        'cancel' => 'Скасувати',
+        'cancel' => 'Скасувати'
     ],
     'pagelist' => [
         'page_link' => 'Посилання на сторінку',
-        'select_page' => 'Обрати сторынку...',
+        'select_page' => 'Обрати сторынку...'
     ],
     'relation' => [
         'missing_config' => "Поведінка відношення не містить жодного налаштування для ':config'.",
@@ -275,7 +292,7 @@ return [
         'add_selected' => 'Додати обрані',
         'add_a_new' => 'Додати нове :name',
         'link_selected' => 'Обрано зв\'язок',
-        'link_a_new' => 'Прив\'язати нове :name',
+        'link_a_new' => 'Зв\'язати нове :name',
         'cancel' => 'Скасувати',
         'close' => 'Закрити',
         'add_name' => 'Додати :name',
@@ -285,20 +302,20 @@ return [
         'update_name' => 'Оновити :name',
         'preview' => 'Попередній перегляд',
         'preview_name' => 'Попередній перегляд :name',
-        'remove' => 'Вилучити',
-        'remove_name' => 'Вилучити :name',
-        'delete' => 'Вилучити',
-        'delete_name' => 'Вилучити :name',
+        'remove' => 'Видалити',
+        'remove_name' => 'Видалити :name',
+        'delete' => 'Видалити',
+        'delete_name' => 'Видалити :name',
         'delete_confirm' => 'Ви впевнені?',
-        'link' => 'Пов\'язати',
-        'link_name' => 'Пов\'язати :name',
+        'link' => 'Зв\'язати',
+        'link_name' => 'Зв\'язати :name',
         'unlink' => 'Відв\'язати',
         'unlink_name' => 'Відв\'язати :name',
-        'unlink_confirm' => 'Ви впевнені?',
+        'unlink_confirm' => 'Ви впевнені?'
     ],
     'reorder' => [
         'default_title' => 'Перевпорядкувати записи',
-        'no_records' => 'Немає доступних до сортування записів.',
+        'no_records' => 'Немає доступних до сортування записів.'
     ],
     'model' => [
         'name' => 'Модель',
@@ -314,17 +331,17 @@ return [
         'tips_description' => 'Є речі, на які потрібно звернути увагу щоб правильно налаштувати систему.',
         'permissions' => 'Директорія :name та її субдиректорії не мають дозволу для запису для PHP. Будь ласка, встановіть відповідні дозволи для веб-серверу для цієї директорії.',
         'extension' => 'Розширення PHP :name не встановлено. Будь ласка, встановіть цю бібліотеку та активуйте розширення.',
-        'plugin_missing' => 'Плагін :name має залежності, які не встановлено. Будь ласка, встановіть ці плагіни.',
+        'plugin_missing' => 'Плагін :name має залежності, які не встановлено. Будь ласка, встановіть ці плагіни.'
     ],
     'editor' => [
         'menu_label' => 'Налаштування редактору коду',
-        'menu_description' => 'Персоналізуйте свої налаштування редактору коду, такі як розмір шрифту та кольорова схема.',
+        'menu_description' => 'Персоналізуйте свої налаштування редактору коду, такі як розмір шрифту та колір.',
         'font_size' => 'Розмір шрифту',
         'tab_size' => 'Розмір табуляції',
         'use_hard_tabs' => 'Відступ табуляціями',
         'code_folding' => 'Згортання коду',
-        'code_folding_begin' => 'Mark begin',
-        'code_folding_begin_end' => 'Mark begin and end',
+        'code_folding_begin' => 'Відмітка на початку блоку',
+        'code_folding_begin_end' => 'Відмітка на початку та кінці блоку',
         'autocompletion' => 'Заповнити форму',
         'word_wrap' => 'Перенос слів',
         'highlight_active_line' => 'Підсвічувати активні рядки',
@@ -336,43 +353,45 @@ return [
         'enable_snippets' => 'Увімкнути фрагменти коду (Tab)',
         'display_indent_guides' => 'Показати відступ напрямних',
         'show_print_margin' => 'Показати запас друку',
-        'mode_off' => 'Off',
-        'mode_fluid' => 'Fluid',
+        'mode_off' => 'Вимкнено',
+        'mode_fluid' => 'Адаптивно',
         '40_characters' => '40 символів',
         '80_characters' => '80 символів',
         'theme' => 'Кольорова схема',
-        'markup_styles' => 'Markup Styles',
-        'custom_styles' => 'Custom stylesheet',
-        'custom styles_comment' => 'Custom styles to include in the HTML editor.',
-        'markup_classes' => 'Markup Classes',
-        'paragraph' => 'Paragraph',
+        'markup_styles' => 'Стилі розмітки',
+        'custom_styles' => 'Спеціальна таблиця стилів',
+        'custom styles_comment' => 'Спеціальні стилі для включення в редактор HTML.',
+        'markup_classes' => 'Класи розмітки',
+        'paragraph' => 'Абзац',
         'link' => 'Посилання',
         'table' => 'Таблиця',
-        'table_cell' => 'Table Cell',
+        'table_cell' => 'Клітинки таблиці',
         'image' => 'Зображення',
         'label' => 'Назва поля',
         'class_name' => 'Назва класу',
-        'markup_tags' => 'Markup Tags',
+        'markup_tags' => 'Теги розмітки',
         'allowed_empty_tags' => 'Дозволені порожні теги',
         'allowed_empty_tags_comment' => 'Контактні дані, які не видаляються, коли вони не мають ніякого змісту всередині.',
         'allowed_tags' => 'Дозволені теги',
         'allowed_tags_comment' => 'Список дозволених тегів.',
-        'no_wrap' => 'Do not wrap tags',
-        'no_wrap_comment' => 'The list of tags that should not be wrapped inside block tags.',
+        'no_wrap' => 'Не обертати теги',
+        'no_wrap_comment' => 'Список тегів, які не повинні бути обгорнуті в блокові елементи.',
         'remove_tags' => 'Видаляємі теги',
         'remove_tags_comment' => 'Теги які видаляються разом з їх вмістом.',
+        'toolbar_buttons' => 'Кнопки панелі інструментів',
+        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
     'tooltips' => [
-        'preview_website' => 'Попередній перегляд веб-сайту',
+        'preview_website' => 'Перегляд веб-сайту'
     ],
     'mysettings' => [
         'menu_label' => 'Мої налаштування',
-        'menu_description' => 'Налаштування, що стосуються Вашого адміністративного облікового запису',
+        'menu_description' => 'Налаштування, що стосуються Вашого адміністративного облікового запису'
     ],
     'myaccount' => [
         'menu_label' => 'Мій обліковий запис',
         'menu_description' => 'Оновіть свої деталі облікового запису, такі як ім\'я, електронна адреса та пароль.',
-        'menu_keywords' => 'безпека ім\'я користувача',
+        'menu_keywords' => 'безпека ім\'я користувача'
     ],
     'branding' => [
         'menu_label' => 'Налаштування вигляду back-end-у',
@@ -383,7 +402,7 @@ return [
         'app_name' => 'Назва додатку',
         'app_name_description' => 'Ця назва показується в заголовку back-end-у.',
         'app_tagline' => 'Девіз додатку',
-        'app_tagline_description' => 'Ця назва покахується на екрані входу до back-end-у.',
+        'app_tagline_description' => 'Ця назва показується на екрані входу до back-end-у.',
         'colors' => 'Кольори',
         'primary_color' => 'Основний колір',
         'secondary_color' => 'Вторинний колір',
@@ -394,7 +413,7 @@ return [
         'menu_mode' => 'Cтиль меню',
         'menu_mode_inline' => 'В лінію',
         'menu_mode_tile' => 'Плитка',
-        'menu_mode_collapsed' => 'Collapsed',
+        'menu_mode_collapsed' => 'Схлопнутий'
     ],
     'backend_preferences' => [
         'menu_label' => 'Налаштування back-end-у',
@@ -402,25 +421,25 @@ return [
         'region' => 'Область',
         'code_editor' => 'Редактор коду',
         'timezone' => 'Часовий пояс',
-        'timezone_comment' => 'Відрегулюйте відображені дати до цього часового поясу.',
+        'timezone_comment' => 'Виводити дати в обраному часовому поясі.',
         'locale' => 'Мова',
-        'locale_comment' => 'Оберіть свою бажану локаль мови для використання.',
+        'locale_comment' => 'Оберіть бажану мову для використання.'
     ],
     'access_log' => [
-        'hint' => 'Цей журнал показує список успішних спроб входу адміністраторів. Записи зберігаються для :days днів.',
+        'hint' => 'Цей журнал показує список успішних спроб входу адміністраторів. Записи зберігаються :days днів.',
         'menu_label' => 'Журнал доступу',
-        'menu_description' => 'Дивитись список успішних входів користувачів back-end-у.',
+        'menu_description' => 'Переглянути список успішних входів користувачів back-end-у.',
         'created_at' => 'Дата та час',
         'login' => 'Ім\'я користувача',
         'ip_address' => 'IP-адреса',
         'first_name' => 'Ім\'я',
         'last_name' => 'Прізвище',
-        'email' => 'Електронна адреса',
+        'email' => 'Електронна адреса'
     ],
     'filter' => [
         'all' => 'всі',
         'options_method_not_exists' => "Модель класу :model повинна містити метод :method() який повертає значення для поля ':filter'.",
-        'date_all' => 'all period',
+        'date_all' => 'весь період'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Завантажити CSV-файл',
@@ -491,7 +510,7 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)',
-        ],
-    ],
+            'windows_1252' => 'Windows-1252 (CP1252)'
+        ]
+    ]
 ];

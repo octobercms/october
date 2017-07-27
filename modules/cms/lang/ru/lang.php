@@ -11,7 +11,7 @@ return [
         'error_deleting' => "Невозможно удалить файл шаблона ':name'. Пожалуйста, проверьте права на запись.",
         'delete_success' => 'Шаблоны были успешно удалены: :count.',
         'file_name_required' => 'Пожалуйста, укажите имя файла шаблона.',
-        'safe_mode_enabled' => 'В настоящий момент включен безопасный режим.',
+        'safe_mode_enabled' => 'В настоящий момент включен безопасный режим.'
     ],
     'dashboard' => [
         'active_theme' => [
@@ -20,7 +20,7 @@ return [
             'maintenance' => 'в разработке',
             'manage_themes' => 'Управление темами',
             'customize_theme' => 'Настройка Темы'
-        ]
+        ],
     ],
     'theme' => [
         'not_found_name' => "Тема ':name' не найдена.",
@@ -35,12 +35,12 @@ return [
             'not_match' => 'Объект, который вы пытаетесь открыть, не принадлежит редактируемой теме. Пожалуйста, обновите страницу.'
         ],
         'settings_menu' => 'Фронтенд темы',
-        'settings_menu_description' => 'Просмотр списка установленных тем и выбор активной темы.',
+        'settings_menu_description' => 'Управление темой интерфейса',
         'default_tab' => 'Свойства',
         'name_label' => 'Название',
-        'name_create_placeholder' => 'Новое название темы',
+        'name_create_placeholder' => 'Название новой темы',
         'author_label' => 'Автор',
-        'author_placeholder' => 'Человек или название компании',
+        'author_placeholder' => 'Имя автора или название компании',
         'description_label' => 'Описание',
         'description_placeholder' => 'Описание темы',
         'homepage_label' => 'Домашняя страница',
@@ -96,7 +96,7 @@ return [
     ],
     'maintenance' => [
         'settings_menu' => 'Режим обслуживания',
-        'settings_menu_description' => 'Управление режимом обслуживания сайта.',
+        'settings_menu_description' => 'Управление режимом работы сайта.',
         'is_enabled' => 'Включить режим обслуживания',
         'is_enabled_comment' => 'При активации этого режима посетители сайта увидят страницу выбранную ниже.',
         'hint' => 'Режим обслуживания покажет страницу обслуживания для посетителей, которые не авторизовались в CMS.'
@@ -127,7 +127,7 @@ return [
     'layout' => [
         'not_found_name' => "Не удалось найти шаблон (layout) с именем :name.",
         'menu_label' => 'Шаблоны',
-        'unsaved_label' => 'Несохранённый(е) макет(ы)',
+        'unsaved_label' => 'Несоsхранённый(е) макет(ы)',
         'no_list_records' => 'Шаблоны не найдены',
         'new' => 'Новый шаблон',
         'delete_confirm_multiple' => 'Вы действительно хотите удалить выделенные шаблоны?',
@@ -173,8 +173,8 @@ return [
         'description' => 'Описание',
         'preview' => 'Предпросмотр',
         'meta' => 'Метатеги',
-        'meta_title' => 'Заголовок (meta)',
-        'meta_description' => 'Описание (meta)',
+        'meta_title' => 'Заголовок (meta title)',
+        'meta_description' => 'Описание (meta description)',
         'markup' => 'Разметка',
         'code' => 'Код',
         'content' => 'Содержание',
@@ -218,7 +218,7 @@ return [
         'file_not_valid' => 'Файл не может быть сохранен',
         'error_uploading_file' => "Ошибка загрузки файла ':name': :error",
         'move_please_select' => 'пожалуйста, выберите директорию',
-        'move_destination' => 'Новая директория',
+        'move_destination' => 'Папка назначения',
         'move_popup_title' => 'Переместить файлы',
         'move_button' => 'Переместить',
         'selected_files_not_found' => 'Выбранные файлы не найдены',
@@ -259,11 +259,12 @@ return [
         'manage_layouts' => 'Управление шаблонами',
         'manage_partials' => 'Управление фрагментами',
         'manage_themes' => 'Управление темами',
+        'manage_theme_options' => 'Настроить текущую тему CMS',
         'manage_media' => 'Управление медиафайлами'
     ],
     'mediafinder' => [
         'label' => 'Поиск медиа',
-        'default_prompt' => 'Кликните на %s кнопку, чтобы найти медиафайл'
+        'default_prompt' => 'Кликните на кнопку %s, чтобы найти медиафайл'
     ],
     'media' => [
         'invalid_path' => "Указан недопустимый путь к файлу: ':path'.",
@@ -328,15 +329,15 @@ return [
         'selected_size' => 'Выбрано:'
     ],
     'theme_log' => [
-        'hint' => 'В этом журнале отображаются изменения, внесенные в тему администраторами во внутренней области.',
-        'menu_label' => 'Журнал тем',
+        'hint' => 'В этом журнале отображаются изменения, внесенные в тему администраторами во внутренней области CMS.',
+        'menu_label' => 'Журнал изменений тем',
         'menu_description' => 'Просмотр изменений, внесенных в активную тему.',
-        'empty_link' => 'Пустой журнал темы',
-        'empty_loading' => 'Освобождение журнала тем...',
-        'empty_success' => 'Журнал тем опустошен',
-        'return_link' => 'Вернуться к списку тем',
+        'empty_link' => 'Очистить журнал',
+        'empty_loading' => 'Очистка журнала...',
+        'empty_success' => 'Журнал очищен',
+        'return_link' => 'Вернуться к журналу',
         'id' => 'ID',
-        'id_label' => 'ID журнала',
+        'id_label' => 'ID записи журнала',
         'created_at' => 'Дата & Время',
         'user' => 'Пользователь',
         'type' => 'Тип',
@@ -345,7 +346,7 @@ return [
         'type_delete' => 'Удалить',
         'theme_name' => 'Тема',
         'theme_code' => 'Код темы',
-        'old_template' => 'Шаблон (Старый)',
+        'old_template' => 'Шаблон (старый)',
         'new_template' => 'Шаблон (новый)',
         'template' => 'Шаблон',
         'diff' => 'Изменения',
@@ -354,6 +355,6 @@ return [
         'preview_title' => 'Изменение шаблона',
         'template_updated' => 'Шаблон обновлен',
         'template_created' => 'Шаблон был создан',
-        'template_deleted' => 'Шаблон был удален',
-    ],
+        'template_deleted' => 'Шаблон был удален'
+    ]
 ];
