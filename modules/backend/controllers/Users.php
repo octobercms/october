@@ -37,6 +37,11 @@ class Users extends Controller
     /**
      * @var array Permissions required to view this page.
      */
+    public $requiredPermissions = ['backend.manage_users'];
+
+    /**
+     * @var string HTML body tag class
+     */
     public $bodyClass = 'compact-container';
 
     /**
