@@ -41,23 +41,39 @@ if (window.jQuery.request !== undefined) {
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [$form.serialize()],
-            loading = options.loading !== undefined ? options.loading : null,
+        var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
-            useFlash = options.flash !== undefined
+            useFlash = options.flash !== undefined,
+            sendFiles = $el.is(':file') || ($el[0] == $form[0] && $form.attr('enctype') == 'multipart/form-data') || options.sendFiles,
+            data = $triggerEl.serializeArray()
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
+            appendObjectToFormData(paramToObj('data-request-data', $(this).data('request-data')), data)
         })
 
-        if ($el.is(':input') && !$form.length) {
-            var inputName = $el.attr('name')
-            if (inputName !== undefined && options.data[inputName] === undefined)
-                options.data[inputName] = $el.val()
+        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
+            appendObjectToFormData(options.data, data)
         }
 
-        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            data.push($.param(options.data))
+        if (sendFiles) {
+            var formdata = new FormData(),
+                $fileEls = $triggerEl.is('form') ? $triggerEl.find(':file') : $triggerEl
+
+            $.each(data, function (index, field) {
+                formdata.append(field.name, field.value)
+            })
+
+            $fileEls.each(function () {
+                var $el = $(this),
+                    name = $el.attr('name'),
+                    files = $el.prop('files')
+
+                if (name === undefined || files === undefined || files === null) return
+                    
+                $.each(files, function (index, file) {
+                    formdata.append(name, file)
+                })
+            })
         }
 
         if ($.type(loading) == 'string') {
@@ -306,7 +322,9 @@ if (window.jQuery.request !== undefined) {
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-        requestOptions.data = data.join('&')
+        requestOptions.data = sendFiles ? formdata : data
+
+        if (sendFiles) requestOptions.processData = requestOptions.contentType = false
 
         /*
          * Initiate request
@@ -344,7 +362,7 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null,
+        evalComplete: null
     }
 
     /*
@@ -379,7 +397,8 @@ if (window.jQuery.request !== undefined) {
             flash: $this.data('request-flash'),
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
-            data: paramToObj('data-request-data', $this.data('request-data'))
+            data: paramToObj('data-request-data', $this.data('request-data')),
+            sendFiles: $this.data('request-send-files') !== undefined
         }
         if (!handler) handler = $this.data('request')
         var options = $.extend(true, {}, Request.DEFAULTS, data, typeof option == 'object' && option)
@@ -415,7 +434,24 @@ if (window.jQuery.request !== undefined) {
         }
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
+    // Appends an object to the form data
+    // ==================================
+    function appendObjectToFormData(obj, formdata, namespace) {
+        if (typeof obj !== 'object' || obj === null) return
+
+        $.each(obj, function (index, value) {
+            var formKey = !!namespace ? namespace + '[' + ($.isNumeric(index) && typeof value !== 'object' || value === null ? '' : index) + ']' : index
+
+            if (typeof value === 'object' && value !== null && !(value instanceof File)) {
+                appendObjectToFormData(value, formdata, formKey)
+            }
+            else {
+                formdata.push({name: formKey, value: value})
+            }
+        })
+    }
+
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {
         $(this).request()
     })
 
