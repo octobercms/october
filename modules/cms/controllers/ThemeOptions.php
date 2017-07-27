@@ -19,12 +19,21 @@ use Exception;
  */
 class ThemeOptions extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController'
+        \Backend\Behaviors\FormController::class
     ];
 
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['cms.manage_themes', 'cms.manage_theme_options'];
 
     /**

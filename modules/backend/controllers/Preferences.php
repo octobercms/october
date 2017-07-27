@@ -18,11 +18,17 @@ use Backend\Models\Preference as PreferenceModel;
 class Preferences extends Controller
 {
     public $implement = [
-        'Backend.Behaviors.FormController',
+        \Backend\Behaviors\FormController::class
     ];
 
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['backend.manage_preferences'];
 
     /**

@@ -22,21 +22,36 @@ use Exception;
  */
 class MailTemplates extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
     ];
 
-    public $requiredPermissions = ['system.manage_mail_templates'];
+    /**
+     * @var array `FormController` configuration.
+     */
+    public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var array `ListController` configuration.
+     */
     public $listConfig = [
         'templates' => 'config_templates_list.yaml',
         'layouts' => 'config_layouts_list.yaml',
         'partials' => 'config_partials_list.yaml'
     ];
 
-    public $formConfig = 'config_form.yaml';
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = ['system.manage_mail_templates'];
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();

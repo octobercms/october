@@ -20,14 +20,26 @@ use Exception;
  */
 class MailLayouts extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
+        \Backend\Behaviors\FormController::class,
     ];
 
-    public $requiredPermissions = ['system.manage_mail_templates'];
-
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = ['system.manage_mail_templates'];
+
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();

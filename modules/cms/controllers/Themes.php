@@ -27,6 +27,9 @@ use Exception;
  */
 class Themes extends Controller
 {
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['cms.manage_themes'];
 
     /**

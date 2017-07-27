@@ -24,7 +24,9 @@ class MailSetting extends Model
     /**
      * @var array Behaviors implemented by this model.
      */
-    public $implement = ['System.Behaviors.SettingsModel'];
+    public $implement = [
+        \System\Behaviors\SettingsModel::class
+    ];
 
     /**
      * @var string Unique code

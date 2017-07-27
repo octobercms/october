@@ -18,6 +18,7 @@ class Index extends Controller
     use \Backend\Traits\InspectableContainer;
 
     /**
+     * @var array Permissions required to view this page.
      * @see checkPermissionRedirect()
      */
     public $requiredPermissions = [];
