@@ -439,24 +439,6 @@ if (window.jQuery.request !== undefined) {
         }
     }
 
-    // function serializeArrayToObj(arr) {
-    //     var obj = {}
-
-    //     $.each(arr, function() {
-    //         if (obj[this.name]) {
-    //             if (!obj[this.name].push) {
-    //                 obj[this.name] = [obj[this.name]]
-    //             }
-    //             obj[this.name].push(this.value || '')
-    //         }
-    //         else {
-    //             obj[this.name] = this.value || ''
-    //         }
-    //     })
-
-    //     return obj
-    // }
-
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
         $(this).request()
     })
