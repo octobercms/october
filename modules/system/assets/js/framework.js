@@ -319,7 +319,8 @@ if (window.jQuery.request !== undefined) {
         }
         else {
             requestData = $form.serialize()
-            if (!$.isEmptyObject(data)) requestData += '&' + $.param(data)
+            if (requestData) requestData = requestData + '&'
+            if (!$.isEmptyObject(data)) requestData += $.param(data)
         }
 
         /*
