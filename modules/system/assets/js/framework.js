@@ -41,13 +41,18 @@ if (window.jQuery.request !== undefined) {
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [$form.serialize()],
+        var data = {},
             loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
-            useFlash = options.flash !== undefined
+            useFlash = options.flash !== undefined,
+            useFiles = options.files !== undefined
+
+        if (useFiles && typeof FormData === 'undefined') {
+            console.warn('This browser does not support file uploads via FormData')
+        }
 
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
+            $.extend(data, paramToObj('data-request-data', $(this).data('request-data')))
         })
 
         if ($el.is(':input') && !$form.length) {
@@ -57,7 +62,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            data.push($.param(options.data))
+            $.extend(data, options.data)
         }
 
         if ($.type(loading) == 'string') {
@@ -300,13 +305,31 @@ if (window.jQuery.request !== undefined) {
         }
 
         /*
+         * Prepare request data
+         */
+        var requestData
+        if (useFiles && typeof FormData !== 'undefined') {
+            requestData = new FormData($form.length ? $form.get(0) : null)
+
+            $.each(data, function(key) {
+                requestData.append(key, this)
+            })
+
+            requestOptions.processData = requestOptions.contentType = false
+        }
+        else {
+            requestData = $form.serialize()
+            if (!$.isEmptyObject(data)) requestData += '&' + $.param(data)
+        }
+
+        /*
          * Allow default business logic to be called from user functions
          */
         context.success = requestOptions.success
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-        requestOptions.data = data.join('&')
+        requestOptions.data = requestData
 
         /*
          * Initiate request
@@ -344,7 +367,7 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null,
+        evalComplete: null
     }
 
     /*
@@ -377,6 +400,7 @@ if (window.jQuery.request !== undefined) {
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
+            files: $this.data('request-files'),
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
@@ -414,6 +438,24 @@ if (window.jQuery.request !== undefined) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
     }
+
+    // function serializeArrayToObj(arr) {
+    //     var obj = {}
+
+    //     $.each(arr, function() {
+    //         if (obj[this.name]) {
+    //             if (!obj[this.name].push) {
+    //                 obj[this.name] = [obj[this.name]]
+    //             }
+    //             obj[this.name].push(this.value || '')
+    //         }
+    //         else {
+    //             obj[this.name] = this.value || ''
+    //         }
+    //     })
+
+    //     return obj
+    // }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
         $(this).request()
