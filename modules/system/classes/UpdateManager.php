@@ -311,8 +311,7 @@ class UpdateManager
      */
     public function requestProjectDetails($projectId)
     {
-        $result = $this->requestServerData('project/detail', ['id' => $projectId]);
-        return $result;
+        return $this->requestServerData('project/detail', ['id' => $projectId]);
     }
 
     /**
@@ -471,8 +470,7 @@ class UpdateManager
      */
     public function requestPluginDetails($name)
     {
-        $result = $this->requestServerData('plugin/detail', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('plugin/detail', ['name' => $name]);
     }
 
     /**
@@ -482,8 +480,7 @@ class UpdateManager
      */
     public function requestPluginContent($name)
     {
-        $result = $this->requestServerData('plugin/content', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('plugin/content', ['name' => $name]);
     }
 
     /**
@@ -538,6 +535,7 @@ class UpdateManager
         }
 
         $this->note('<error>Unable to find:</error> ' . $name);
+
         return $this;
     }
 
@@ -579,8 +577,7 @@ class UpdateManager
      */
     public function requestThemeDetails($name)
     {
-        $result = $this->requestServerData('theme/detail', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('theme/detail', ['name' => $name]);
     }
 
     /**
@@ -592,6 +589,7 @@ class UpdateManager
     public function downloadTheme($name, $hash)
     {
         $fileCode = $name . $hash;
+
         $this->requestServerFile('theme/get', $fileCode, $hash, ['name' => $name]);
     }
 
@@ -620,8 +618,9 @@ class UpdateManager
 
     public function requestProductDetails($codes, $type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $codes = (array) $codes;
         $this->loadProductDetailCache();
@@ -669,8 +668,9 @@ class UpdateManager
      */
     public function requestPopularProducts($type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $cacheKey = 'system-updates-popular-'.$type;
 

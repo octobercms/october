@@ -99,11 +99,13 @@
 
         $.each(steps, function(index, step){
 
-            if (step == fromStep)
+            if (step == fromStep) {
                 skipStep = false
+            }
 
-            if (skipStep)
+            if (skipStep) {
                 return true // Continue
+            }
 
             eventChain.push(function(){
                 var deferred = $.Deferred()
@@ -151,9 +153,5 @@
         $.oc = {}
 
     $.oc.updateProcess = new UpdateProcess;
-
-    // $(document).ready(function(){
-    //     new $oc.updateProcess
-    // })
 
 }(window.jQuery);
