@@ -435,11 +435,9 @@ class UpdateManager
 
     /**
      * Extracts the core after it has been downloaded.
-     * @param string $hash
-     * @param string $build
      * @return void
      */
-    public function extractCore($hash, $build)
+    public function extractCore()
     {
         $filePath = $this->getFilePath('core');
 

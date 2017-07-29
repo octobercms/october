@@ -273,7 +273,7 @@ class Updates extends Controller
                 break;
 
             case 'extractCore':
-                $manager->extractCore(post('hash'), post('build'));
+                $manager->extractCore();
                 break;
 
             case 'setBuild':
@@ -603,9 +603,7 @@ class Updates extends Controller
         if ($coreHash) {
             $updateSteps[] = [
                 'code'  => 'extractCore',
-                'label' => Lang::get('system::lang.updates.core_extracting'),
-                'hash'  => $coreHash,
-                'build' => $coreBuild
+                'label' => Lang::get('system::lang.updates.core_extracting')
             ];
 
             $updateSteps[] = [
