@@ -449,8 +449,6 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        @unlink($filePath);
-
         // Database may fall asleep after this long process
         Db::reconnect();
 
@@ -458,6 +456,8 @@ class UpdateManager
             'system::core.hash'  => $hash,
             'system::core.build' => $build
         ]);
+
+        @unlink($filePath);
     }
 
     //
