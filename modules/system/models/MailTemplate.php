@@ -105,14 +105,22 @@ class MailTemplate extends Model
     public function afterFetch()
     {
         if (!$this->is_custom) {
-            $this->fillFromView();
+            $this->fillFromView($this->code);
         }
     }
 
-    public function fillFromView()
+    public function fillFromContent($content)
     {
-        $sections = self::getTemplateSections($this->code);
+        $this->fillFromSections(MailParser::parse($content));
+    }
 
+    public function fillFromView($path)
+    {
+        $this->fillFromSections(self::getTemplateSections($path));
+    }
+
+    protected function fillFromSections($sections)
+    {
         $this->content_html = $sections['html'];
         $this->content_text = $sections['text'];
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
@@ -128,10 +136,12 @@ class MailTemplate extends Model
 
     public static function findOrMakeTemplate($code)
     {
-        if (!$template = self::whereCode($code)->first()) {
+        $template = self::whereCode($code)->first();
+
+        if (!$template && View::exists($code)) {
             $template = new self;
             $template->code = $code;
-            $template->fillFromView();
+            $template->fillFromView($code);
         }
 
         return $template;

@@ -57,8 +57,24 @@ class MailManager
     protected $isTwigStarted = false;
 
     /**
+     * Same as `addContentToMailer` except with raw content.
+     * @return bool
+     */
+    public function addRawContentToMailer($message, $content, $data)
+    {
+        $template = new MailTemplate;
+
+        $template->fillFromContent($content);
+
+        $this->addContentToMailerInternal($message, $template, $data);
+
+        return true;
+    }
+
+    /**
      * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer` 
      * class, using the `mailer.beforeAddContent` event.
+     * @return bool
      */
     public function addContentToMailer($message, $code, $data)
     {
@@ -69,6 +85,21 @@ class MailManager
             $this->templateCache[$code] = $template = MailTemplate::findOrMakeTemplate($code);
         }
 
+        if (!$template) {
+            return false;
+        }
+
+        $this->addContentToMailerInternal($message, $template, $data);
+
+        return true;
+    }
+
+    /**
+     * Internal method used to share logic between `addRawContentToMailer` and `addContentToMailer`
+     * @return void
+     */
+    protected function addContentToMailerInternal($message, $template, $data)
+    {
         /*
          * Start twig transaction
          */
