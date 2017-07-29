@@ -256,6 +256,7 @@ return [
         'core_build_help' => 'Latest build is available.',
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
+        'core_set_build' => 'Setting build number',
         'plugins' => 'Plugins',
         'themes' => 'Themes',
         'disabled' => 'Disabled',

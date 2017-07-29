@@ -276,6 +276,10 @@ class Updates extends Controller
                 $manager->extractCore(post('hash'), post('build'));
                 break;
 
+            case 'setBuild':
+                $manager->setBuild(post('build'), post('hash'));
+                break;
+
             case 'downloadPlugin':
                 $manager->downloadPlugin(post('name'), post('hash'));
                 break;
@@ -600,6 +604,13 @@ class Updates extends Controller
             $updateSteps[] = [
                 'code'  => 'extractCore',
                 'label' => Lang::get('system::lang.updates.core_extracting'),
+                'hash'  => $coreHash,
+                'build' => $coreBuild
+            ];
+
+            $updateSteps[] = [
+                'code'  => 'setBuild',
+                'label' => Lang::get('system::lang.updates.core_set_build'),
                 'hash'  => $coreHash,
                 'build' => $coreBuild
             ];

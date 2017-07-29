@@ -365,11 +365,10 @@ class UpdateManager
     public function setBuildNumberManually()
     {
         $result = $this->requestServerData('ping');
+
         $build = (int) array_get($result, 'pong', 420);
 
-        Parameter::set([
-            'system::core.build' => $build
-        ]);
+        $this->setBuild($build);
 
         return $build;
     }
@@ -448,15 +447,26 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        // Database may fall asleep after this long process
-        Db::reconnect();
-
-        Parameter::set([
-            'system::core.hash'  => $hash,
-            'system::core.build' => $build
-        ]);
-
         @unlink($filePath);
+    }
+
+    /**
+     * Sets the build number and hash
+     * @param string $hash
+     * @param string $build
+     * @return void
+     */
+    public function setBuild($build, $hash = null)
+    {
+        $params = [
+            'system::core.build' => $build
+        ];
+
+        if ($hash) {
+            $params['system::core.hash'] = $hash;
+        }
+
+        Parameter::set($params);
     }
 
     //
