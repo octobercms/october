@@ -256,9 +256,9 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerLogging()
     {
-        Event::listen('illuminate.log', function ($level, $message, $context) {
+        Event::listen(\Illuminate\Log\Events\MessageLogged::class, function ($event) {
             if (EventLog::useLogging()) {
-                EventLog::add($message, $level);
+                EventLog::add($event->message, $event->level);
             }
         });
     }
