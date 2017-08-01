@@ -227,6 +227,7 @@ return [
     'mail_brand' => [
         'menu_label' => 'Mail branding',
         'menu_description' => 'Modify the colors and appearance of mail templates.',
+        'page_title' => 'Customize mail appearance'
     ],
     'install' => [
         'project_label' => 'Attach to Project',
