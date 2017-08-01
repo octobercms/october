@@ -1233,9 +1233,15 @@
     }
 
     MediaManager.prototype.onSortingChanged = function(ev) {
-        var data = {
-            sortBy: $(ev.target).val(),
-            path: this.$el.find('[data-type="current-folder"]').val()
+        var $target = $(ev.target),
+            data = {
+                path: this.$el.find('[data-type="current-folder"]').val()
+            }
+
+        if ($target.data('sort') == 'by') {
+            data.sortBy = $target.val();
+        } else if ($target.data('sort') == 'direction') {
+            data.sortDirection = $target.val()
         }
 
         this.execNavigationRequest('onSetSorting', data)
