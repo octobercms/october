@@ -12,111 +12,111 @@ secondaryTabs:
     fields:
 
         _section_background:
-            label: Background
+            label: system::lang.mail_brand.fields._section_background
             type: section
 
         body_bg:
-            label: Body background
+            label: system::lang.mail_brand.fields.body_bg
             type: colorpicker
             availableColors: []
 
         content_bg:
-            label: Content background
+            label: system::lang.mail_brand.fields.content_bg
             type: colorpicker
             availableColors: []
 
         content_inner_bg:
-            label: Inner content background
+            label: system::lang.mail_brand.fields.content_inner_bg
             type: colorpicker
             availableColors: []
 
         _section_buttons:
-            label: Buttons
+            label: system::lang.mail_brand.fields._section_buttons
             type: section
 
         button_text_color:
-            label: Button text color
+            label: system::lang.mail_brand.fields.button_text_color
             type: colorpicker
             availableColors: []
 
         button_primary_bg:
-            label: Primary button background
+            label: system::lang.mail_brand.fields.button_primary_bg
             type: colorpicker
             availableColors: []
 
         button_positive_bg:
-            label: Positive button background
+            label: system::lang.mail_brand.fields.button_positive_bg
             type: colorpicker
             availableColors: []
 
         button_negative_bg:
-            label: Negative button background
+            label: system::lang.mail_brand.fields.button_negative_bg
             type: colorpicker
             availableColors: []
 
         _section_type:
-            label: Typography
+            label: system::lang.mail_brand.fields._section_type
             type: section
 
         header_color:
-            label: Header color
+            label: system::lang.mail_brand.fields.header_color
             type: colorpicker
             availableColors: []
 
         heading_color:
-            label: Headings color
+            label: system::lang.mail_brand.fields.heading_color
             type: colorpicker
             availableColors: []
 
         text_color:
-            label: Text color
+            label: system::lang.mail_brand.fields.text_color
             type: colorpicker
             availableColors: []
 
         link_color:
-            label: Link color
+            label: system::lang.mail_brand.fields.link_color
             type: colorpicker
             availableColors: []
 
         footer_color:
-            label: Footer color
+            label: system::lang.mail_brand.fields.footer_color
             type: colorpicker
             availableColors: []
 
         _section_borders:
-            label: Borders
+            label: system::lang.mail_brand.fields._section_borders
             type: section
 
         body_border_color:
-            label: Body border color
+            label: system::lang.mail_brand.fields.body_border_color
             type: colorpicker
             availableColors: []
 
         subcopy_border_color:
-            label: Subcopy border color
+            label: system::lang.mail_brand.fields.subcopy_border_color
             type: colorpicker
             availableColors: []
 
         table_border_color:
-            label: Table border color
+            label: system::lang.mail_brand.fields.table_border_color
             type: colorpicker
             availableColors: []
 
         _section_components:
-            label: Components
+            label: system::lang.mail_brand.fields._section_components
             type: section
 
         panel_bg:
-            label: Panel background
+            label: system::lang.mail_brand.fields.panel_bg
             type: colorpicker
             availableColors: []
 
         promotion_bg:
-            label: Promotion background
+            label: system::lang.mail_brand.fields.promotion_bg
             type: colorpicker
             availableColors: []
 
         promotion_border_color:
-            label: Promotion border color
+            label: system::lang.mail_brand.fields.promotion_border_color
             type: colorpicker
             availableColors: []

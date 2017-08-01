@@ -227,7 +227,53 @@ return [
     'mail_brand' => [
         'menu_label' => 'Mail branding',
         'menu_description' => 'Modify the colors and appearance of mail templates.',
-        'page_title' => 'Customize mail appearance'
+        'page_title' => 'Customize mail appearance',
+        'sample_template' => [
+            'heading' => 'Heading',
+            'paragraph' => 'This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Item',
+                'description' => 'Description',
+                'price' => 'Price',
+                'centered' => 'Centered',
+                'right_aligned' => 'Right-Aligned'
+            ],
+            'buttons' => [
+                'primary' => 'Primary button',
+                'positive' => 'Positive button',
+                'negative' => 'Negative button',
+            ],
+            'panel' => 'How awesome is this panel?',
+            'more' => 'Some more text',
+            'promotion' => 'Coupon code: OCTOBER',
+            'subcopy' => 'This is the subcopy of the email',
+            'thanks' => 'Thanks'
+        ],
+        'fields' => [
+            '_section_background' => 'Background',
+            'body_bg' => 'Body background',
+            'content_bg' => 'Content background',
+            'content_inner_bg' => 'Inner content background',
+            '_section_buttons' => 'Buttons',
+            'button_text_color' => 'Button text color',
+            'button_primary_bg' => 'Primary button background',
+            'button_positive_bg' => 'Positive button background',
+            'button_negative_bg' => 'Negative button background',
+            '_section_type' => 'Typography',
+            'header_color' => 'Header color',
+            'heading_color' => 'Headings color',
+            'text_color' => 'Text color',
+            'link_color' => 'Link color',
+            'footer_color' => 'Footer color',
+            '_section_borders' => 'Borders',
+            'body_border_color' => 'Body border color',
+            'subcopy_border_color' => 'Subcopy border color',
+            'table_border_color' => 'Table border color',
+            '_section_components' => 'Components',
+            'panel_bg' => 'Panel background',
+            'promotion_bg' => 'Promotion background',
+            'promotion_border_color' => 'Promotion border color',
+        ]
     ],
     'install' => [
         'project_label' => 'Attach to Project',

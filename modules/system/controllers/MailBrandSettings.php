@@ -104,6 +104,7 @@ class MailBrandSettings extends Controller
         $data = [
             'subject' => Config::get('app.name'),
             'appName' => Config::get('app.name'),
+            'texts' => Lang::get('system::lang.mail_brand.sample_template')
         ];
 
         $layout = new MailLayout;
