@@ -61,7 +61,7 @@ return [
         'widget_label' => 'Widget',
         'widget_width' => 'Šířka',
         'full_width' => 'Plná šířka',
-        'manage_widgets' => 'Manage widgets',
+        'manage_widgets' => 'Správa widgetů',
         'add_widget' => 'Přidat widget',
         'widget_inspector_title' => 'Nastavení widgetu',
         'widget_inspector_description' => 'Zde si upravte všechna nastavení widgetu',
@@ -166,7 +166,7 @@ return [
             'new' => 'Nová role',
             'delete_confirm' => 'Opravdu chcete smazat tuto roli?',
             'return' => 'Zpět na seznam rolí',
-            'users_count' => 'Users'
+            'users_count' => 'Uživatelů'
         ],
         'preferences' => [
             'not_authenticated' => 'Nebyl nalezen žádný přihlášený uživatel pro načtení, nebo uložení nastavení.'
@@ -409,11 +409,11 @@ return [
         'accent_color' => 'Barva pro zvýraznění',
         'styles' => 'Styly',
         'custom_stylesheet' => 'Vlastní kaskádové styly',
-        'navigation' => 'Navigation',
-        'menu_mode' => 'Menu style',
-        'menu_mode_inline' => 'Inline',
-        'menu_mode_tile' => 'Tiles',
-        'menu_mode_collapsed' => 'Collapsed',
+        'navigation' => 'Navigace',
+        'menu_mode' => 'Styl menu',
+        'menu_mode_inline' => 'V řádku',
+        'menu_mode_tile' => 'V dlaždicích',
+        'menu_mode_collapsed' => 'Sbalené',
     ],
     'backend_preferences' => [
         'menu_label' => 'Nastavení administrace',

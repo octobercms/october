@@ -2,7 +2,7 @@
 
 return [
     'cms_object' => [
-        'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
+        'invalid_file' => 'Neplatný název souboru: :name. Názvy souborů mohou obsahovat pouze alfanumerické symboly, podtržítka, pomlčky a tečky. Některé příklady správných názvů souborů: stranka.htm, stranka, adresar/stranka',
         'invalid_property' => "Parametr ':name' není možno nastavit",
         'file_already_exists' => "Soubor ':name' již existuje.",
         'error_saving' => "Chyba ukládání souboru ':name'. Zkontrolujte práva k zápisu.",
@@ -155,8 +155,8 @@ return [
         'new' => 'Žádný obsahový soubor'
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Invalid AJAX handler name: :name.',
-        'not_found' => "AJAX handler ':name' was not found."
+        'invalid_name' => 'Neplatný název AJAX handleru: :name.',
+        'not_found' => "AJAX handler ':name' nebyl nalezen."
     ],
     'cms' => [
         'menu_label' => 'CMS'
@@ -175,9 +175,9 @@ return [
         'description' => 'Popisek',
         'preview' => 'Náhled',
         'meta' => 'Meta údaje',
-        'meta_title' => 'Meta Title',
-        'meta_description' => 'Meta Description',
-        'markup' => 'Markup',
+        'meta_title' => 'Meta Nadpis (Title)',
+        'meta_description' => 'Meta Popisek (Description)',
+        'markup' => 'Kód',
         'code' => 'PHP kód',
         'content' => 'Obsah',
         'hidden' => 'Skrytý',
@@ -251,7 +251,7 @@ return [
         'saved'=> 'Šablona byla úspěšně uložena.',
         'no_list_records' => 'Žádné záznamy nebyly nalezeny',
         'delete_confirm' => 'Smazat vybraná témata?',
-        'order_by' => 'Order by'
+        'order_by' => 'Řadit podle'
     ],
     'permissions' => [
         'name' => 'Cms',
@@ -270,7 +270,7 @@ return [
     ],
     'media' => [
         'invalid_path' => "Chybně zadaná cesta: ':path'.",
-        'menu_label' => 'Media',
+        'menu_label' => 'Média',
         'upload' => 'Nahrát',
         'move' => 'Přesunout',
         'delete' => 'Smazat',
@@ -291,7 +291,7 @@ return [
         'click_here' => 'Klikněte zde',
         'thumbnail_error' => 'Chyba generování náhledu.',
         'return_to_parent' => 'Zpět do nadřazené složky',
-        'return_to_parent_label' => 'Go up ..',
+        'return_to_parent_label' => 'Nahoru ..',
         'nothing_selected' => 'Nic nevybráno.',
         'multiple_selected' => 'Vybráno více položek.',
         'uploading_file_num' => 'Nahrávám :number soubor(y)...',
@@ -300,14 +300,14 @@ return [
         'type_blocked' => 'Kvůli bezpečnosti je tento typ souborů zablokován.',
         'order_by' => 'Seřadit dle',
         'folder' => 'Složka',
-        'no_files_found' => 'No files found by your request.',
+        'no_files_found' => 'Pro tento požadavek nebyly nalezeny žádné soubory.',
         'delete_empty' => 'Vyberte položky ke smazání.',
         'delete_confirm' => 'Opravu chcete smazat vybrané položky?',
         'error_renaming_file' => 'Přejmenování se nezdařilo.',
         'new_folder_title' => 'Nová složka',
         'folder_name' => 'Název složky',
         'error_creating_folder' => 'Chyba vytváření složky',
-        'folder_or_file_exist' => 'A folder or file with the specified name already exists.',
+        'folder_or_file_exist' => 'Soubor nebo soubor se zadaným názvem již existuje.',
         'move_empty' => 'Vyberte položky k přesunutí.',
         'move_popup_title' => 'Přesun souborů nebo složek',
         'move_destination' => 'Cílová složka',
@@ -325,10 +325,10 @@ return [
         'selection_mode_fixed_size' => 'Pevná velikost',
         'height' => 'Výška',
         'width' => 'Šířka',
-        'selection_mode' => 'Selection mode',
-        'resize_image' => 'Resize image',
-        'image_size' => 'Image size:',
-        'selected_size' => 'Selected:'
+        'selection_mode' => 'Způsob označování (selection mode)',
+        'resize_image' => 'Změnit velikost obrázku',
+        'image_size' => 'Velikost obrázku:',
+        'selected_size' => 'Vybráno:'
     ],
     'theme_log' => [
         'hint' => 'Tento protokol zobrazuje změny v tématu provedené administrátory v administraci.',

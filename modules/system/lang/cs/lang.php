@@ -15,8 +15,8 @@ return [
         'not_found' => "Slučující soubor ':name' nebyl nalezen."
     ],
     'system' => [
-        'name' => 'System',
-        'menu_label' => 'System',
+        'name' => 'Systém',
+        'menu_label' => 'Systém',
         'categories' => [
             'cms' => 'CMS',
             'misc' => 'Ostatní',
@@ -25,7 +25,7 @@ return [
             'shop' => 'E-shop',
             'team' => 'Tým',
             'users' => 'Uživatelé',
-            'system' => 'System',
+            'system' => 'Systém',
             'social' => 'Sociální',
             'backend' => 'Administrace',
             'events' => 'Události',
@@ -107,7 +107,7 @@ return [
         'search' => 'Hledat'
     ],
     'mail' => [
-        'log_file' => 'Log file',
+        'log_file' => 'Soubor protokolu',
         'menu_label' => 'Nastavení e-mailů',
         'menu_description' => 'Konfigurace posílání e-mailových zpráv.',
         'general' => 'Obecné',
@@ -308,7 +308,7 @@ return [
         'empty_success' => 'Seznam požadavků úspěšně vymazán.',
         'return_link' => 'Zpět na záznam událostí',
         'id' => 'ID',
-        'id_label' => 'Log ID',
+        'id_label' => 'ID záznamu',
         'count' => 'Počítadlo',
         'referer' => 'Odkaz',
         'url' => 'URL',
