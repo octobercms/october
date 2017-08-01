@@ -647,7 +647,7 @@ class MediaLibrary
                 'by' => $sortSettings,
                 'direction' => self::SORT_DIRECTION_ASC,
             ];
-        }
+        }
 
         usort($itemList, function ($a, $b) use ($sortSettings) {
             $result = 0;
