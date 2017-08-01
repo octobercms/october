@@ -307,7 +307,7 @@ return [
         'new_folder_title' => 'Nová složka',
         'folder_name' => 'Název složky',
         'error_creating_folder' => 'Chyba vytváření složky',
-        'folder_or_file_exist' => 'Soubor nebo soubor se zadaným názvem již existuje.',
+        'folder_or_file_exist' => 'Adresář nebo soubor se zadaným názvem již existuje.',
         'move_empty' => 'Vyberte položky k přesunutí.',
         'move_popup_title' => 'Přesun souborů nebo složek',
         'move_destination' => 'Cílová složka',
