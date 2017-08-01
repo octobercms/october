@@ -660,7 +660,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_filter', $filter);
+        $this->putSession('media_filter', $filter);
     }
 
     protected function getFilter()
@@ -688,7 +688,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_sort_by', $sortBy);
+        $this->putSession('media_sort_by', $sortBy);
     }
 
     protected function getSortBy()
@@ -741,7 +741,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_crop_selection_params', [
+        $this->putSession('media_crop_selection_params', [
             'mode'   => $selectionMode,
             'width'  => $selectionWidth,
             'height' => $selectionHeight
@@ -750,7 +750,7 @@ class MediaManager extends WidgetBase
 
     protected function setSidebarVisible($visible)
     {
-        return $this->putSession('sidebar_visible', !!$visible);
+        $this->putSession('sidebar_visible', !!$visible);
     }
 
     protected function getSidebarVisible()
@@ -800,7 +800,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('view_mode', $viewMode);
+        $this->putSession('view_mode', $viewMode);
     }
 
     protected function getViewMode()
