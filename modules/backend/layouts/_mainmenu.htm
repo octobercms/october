@@ -51,7 +51,7 @@
             <li class="mainmenu-account with-tooltip">
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
-                    title="Signed in as <?= e($this->user->full_name) ?>">
+                    title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
                     <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
                 <div class="mainmenu-accountmenu">

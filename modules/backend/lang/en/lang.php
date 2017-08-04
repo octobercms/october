@@ -33,6 +33,7 @@ return [
         'not_found_name' => "The partial ':name' is not found."
     ],
     'account' => [
+        'signed_in_as' => 'Signed in as :full_name',
         'sign_out' => 'Sign out',
         'login' => 'Login',
         'reset' => 'Reset',
