@@ -25,6 +25,8 @@ class MediaLibrary
     const SORT_BY_TITLE = 'title';
     const SORT_BY_SIZE = 'size';
     const SORT_BY_MODIFIED = 'modified';
+    const SORT_DIRECTION_ASC = 'asc';
+    const SORT_DIRECTION_DESC = 'desc';
 
     /**
      * @var string Relative or absolute URL of the Library root folder.
@@ -79,9 +81,10 @@ class MediaLibrary
 
     /**
      * Returns a list of folders and files in a Library folder.
+     *
      * @param string $folder Specifies the folder path relative the the Library root.
-     * @param string $sortBy Determines the sorting preference.
-     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) and FALSE.
+     * @param mixed $sortBy Determines the sorting preference.
+     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants), FALSE (to disable sorting), or an associative array with a 'by' key and a 'direction' key: ['by' => SORT_BY_XXX, 'direction' => SORT_DIRECTION_XXX].
      * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @param boolean $ignoreFolders Determines whether folders should be suppressed in the result list.
@@ -141,8 +144,8 @@ class MediaLibrary
     /**
      * Finds files in the Library.
      * @param string $searchTerm Specifies the search term.
-     * @param string $sortBy Determines the sorting preference.
-     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
+     * @param mixed $sortBy Determines the sorting preference.
+     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants), FALSE (to disable sorting), or an associative array with a 'by' key and a 'direction' key: ['by' => SORT_BY_XXX, 'direction' => SORT_DIRECTION_XXX].
      * @param string $filter Determines the document type filtering preference.
      * Supported values are 'image', 'video', 'audio', 'document' (see FILE_TYPE_XXX constants of MediaLibraryItem class).
      * @return array Returns an array of MediaLibraryItem objects.
@@ -167,7 +170,14 @@ class MediaLibrary
 
         $findInFolder('/');
 
-        $this->sortItemList($result, $sortBy);
+        /*
+         * Sort the result
+         */
+
+        if ($sortBy !== false) {
+            $this->sortItemList($result, $sortBy);
+        }
+
         return $result;
     }
 
@@ -623,30 +633,51 @@ class MediaLibrary
     /**
      * Sorts the item list by title, size or last modified date.
      * @param array $itemList Specifies the item list to sort.
-     * @param string $sortBy Determines the sorting preference.
-     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants).
+     * @param mixed $sortSettings Determines the sorting preference.
+     * Supported values are 'title', 'size', 'lastModified' (see SORT_BY_XXX class constants) or an associative array with a 'by' key and a 'direction' key: ['by' => SORT_BY_XXX, 'direction' => SORT_DIRECTION_XXX].
      */
-    protected function sortItemList(&$itemList, $sortBy)
+    protected function sortItemList(&$itemList, $sortSettings)
     {
         $files = [];
         $folders = [];
 
-        usort($itemList, function ($a, $b) use ($sortBy) {
-            switch ($sortBy) {
-                case self::SORT_BY_TITLE: return strcasecmp($a->path, $b->path);
-                case self::SORT_BY_SIZE:
-                    if ($a->size > $b->size)
-                        return -1;
+        // Convert string $sortBy to array
+        if (is_string($sortSettings)) {
+            $sortSettings = [
+                'by' => $sortSettings,
+                'direction' => self::SORT_DIRECTION_ASC,
+            ];
+        }
 
-                    return $a->size < $b->size ? 1 : 0;
+        usort($itemList, function ($a, $b) use ($sortSettings) {
+            $result = 0;
+
+            switch ($sortSettings['by']) {
+                case self::SORT_BY_TITLE:
+                    $result = strcasecmp($a->path, $b->path);
+                break;
+                case self::SORT_BY_SIZE:
+                    if ($a->size < $b->size) {
+                        $result = -1;
+                    } else {
+                        $result = $a->size > $b->size ? 1 : 0;
+                    }
                 break;
                 case self::SORT_BY_MODIFIED:
-                    if ($a->lastModified > $b->lastModified)
-                        return -1;
-
-                    return $a->lastModified < $b->lastModified ? 1 : 0;
+                    if ($a->lastModified < $b->lastModified) {
+                        $result = -1;
+                    } else {
+                        $result = $a->lastModified > $b->lastModified ? 1 : 0;
+                    }
                 break;
             }
+
+            // Reverse the polarity of the result to direct sorting in a descending order instead
+            if ($sortSettings['direction'] === self::SORT_DIRECTION_DESC) {
+                $result = 0 - $result;
+            }
+
+            return $result;
         });
     }
 
