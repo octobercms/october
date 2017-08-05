@@ -136,6 +136,33 @@ class Filter extends WidgetBase
                 }
 
                 break;
+            case 'numberrange':
+                if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
+                    $scope->value[0] &&
+                    $scope->value[1]
+                ) {
+                    $min = $scope->value[0];
+                    $max = $scope->value[1];
+
+                    if($min) {
+                        $params['minStr'] = $min;
+                        $params['min']    = $min;
+                    }
+                    else {
+                        $params['minStr'] = '';
+                        $params['min']    = null;
+                    }
+
+                    if($max) {
+                        $params['maxStr'] = $max;
+                        $params['max']    = $max;
+                    }
+                    else {
+                        $params['maxStr'] = '∞';
+                        $params['max']    = null;
+                    }
+                }
+                break
         }
 
         return $this->makePartial('scope_'.$scope->type, $params);
@@ -202,6 +229,20 @@ class Filter extends WidgetBase
 
                 $this->setScopeValue($scope, $dates);
                 break;
+
+           	case 'numberrange':
+                $numbers = $this->numbersFromAjax(post('options.numbers'));
+                if (!empty($numbers)) {
+                    list($min, $max) = $numbers;
+
+                    $numbers = [$min, $max];
+                }
+                else {
+                    $numbers = null;
+                }
+
+                $this->setScopeValue($scope, $numbers);
+                break;              
         }
 
         /*
@@ -486,6 +527,14 @@ class Filter extends WidgetBase
                 $scopeObj->{$property} = $value;
             }
 
+            /*
+             * Ensure number options are set
+             */
+            if (!isset($config['minNumber'])) {
+                $scopeObj->minNumber = '0';
+                $scopeObj->maxNumber = '999999999';
+            }
+
             $this->allScopes[$name] = $scopeObj;
         }
     }
@@ -603,6 +652,33 @@ class Filter extends WidgetBase
                          */
                         elseif ($scopeMethod = $scope->scope) {
                             $query->$scopeMethod($after, $before);
+                        }
+                    }
+                }
+
+                break;
+
+            case 'numberrange':
+                if (is_array($scope->value) && count($scope->value) > 1) {
+                    list($min, $max) = array_values($scope->value);
+
+                    if ($min && $max) {
+
+                        /*
+                         * Condition
+                         *
+                         */
+                        if ($scopeConditions = $scope->conditions) {
+                            $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
+                                ':min'  => $min,
+                                ':max'  => $max
+                            ])));
+                        }
+                        /*
+                         * Scope
+                         */
+                        elseif ($scopeMethod = $scope->scope) {
+                            $query->$scopeMethod($min, $max);
                         }
                     }
                 }
