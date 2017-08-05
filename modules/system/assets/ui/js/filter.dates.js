@@ -253,7 +253,7 @@
                 defaults = {
                     minDate: new Date(scopeData.minDate),
                     maxDate: new Date(scopeData.maxDate),
-                    yearRange: 10,
+                    yearRange: scopeData.yearRange,
                     setDefaultDate: '' !== defaultValue ? defaultValue.toDate() : '',
                     format: self.getDateFormat(),
                     i18n: self.getLang('datepicker')

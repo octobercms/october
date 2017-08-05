@@ -463,17 +463,33 @@ class Filter extends WidgetBase
             }
 
             /*
-             * Ensure dates options are set
+             * Ensure scope type options are set
              */
-            if (!isset($config['minDate'])) {
-                $scopeObj->minDate = '2000-01-01';
-                $scopeObj->maxDate = '2099-12-31';
+            $scopeProperties = [];
+            switch ($scopeObj->type) {
+                case 'date':
+                case 'daterange':
+                    $scopeProperties = [
+                        'minDate'   => '2000-01-01',
+                        'maxDate'   => '2099-12-31',
+                        'yearRange' => 10,
+                    ];
+
+                    break;
+            }
+
+            foreach ($scopeProperties as $property => $value) {
+                if (isset($config[$property])) {
+                    $value = $config[$property];
+                }
+
+                $scopeObj->{$property} = $value;
             }
 
             $this->allScopes[$name] = $scopeObj;
         }
     }
-    
+
     /**
      * Programatically remove a scope, used for extensibility.
      * @param string $scopeName Scope name
