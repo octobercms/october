@@ -82,6 +82,16 @@ class FilterScope
     public $cssClass;
 
     /**
+     * @var string Minimum date for date pickers
+     */
+    public $minDate;
+    
+    /**
+     * @var string Maximum date for date pickers
+     */
+    public $maxDate;
+    
+    /**
      * @var array Raw scope configuration.
      */
     public $config;
@@ -139,6 +149,12 @@ class FilterScope
         }
         if (array_key_exists('disabled', $config)) {
             $this->disabled = $config['disabled'];
+        }
+        if(isset($config['minDate'])) {
+            $this->minDate = $config['minDate'];
+        }
+        if(isset($config['maxDate'])) {
+            $this->maxDate = $config['maxDate'];
         }
         return $config;
     }
