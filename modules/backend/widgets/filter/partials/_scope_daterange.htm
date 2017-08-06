@@ -1,6 +1,6 @@
 <!-- Date Range scope -->
 <a
-    class="filter-scope-date range <?= isset($after) || isset($before) ? 'active' : '' ?>"
+    class="filter-scope-date filter-has-popover range <?= isset($after) || isset($before) ? 'active' : '' ?>"
     href="javascript:;"
     data-scope-name="<?= $scope->scopeName ?>"
     data-scope-data="<?= e(json_encode([

@@ -93,22 +93,27 @@
     }
 
     /*
-     * Get popover date template
+     * Get popover number template
      */
     FilterWidget.prototype.getPopoverNumberTemplate = function () {
         return '                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-number-popover">     \
+                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">\
                         <div class="filter-search loading-indicator-container size-input-text">                         \
-                                    <input                                                                              \
-                                        type="text"                                                                     \
-                                        name="number"                                                                   \
-                                        value="{{ number }}"                                                            \
-                                        class="form-control align-right"                                                \
-                                        autocomplete="off"                                                              \
-                                        placeholder="{{ number_placeholder }}" />                                       \
+                            <div class="field-number">                                                                  \
+                                <input                                                                                  \
+                                    type="number"                                                                       \
+                                    name="number"                                                                       \
+                                    value="{{ number }}"                                                                \
+                                    class="form-control align-right"                                                    \
+                                    autocomplete="off"                                                                  \
+                                    placeholder="{{ number_placeholder }}" />                                           \
+                            </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
+                                    {{ filter_button_text }}                                                            \
+                                </button>                                                                               \
                                 <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
@@ -120,18 +125,18 @@
     }
 
     /*
-     * Get popover range template
+     * Get popover number range template
      */
     FilterWidget.prototype.getPopoverNumberRangeTemplate = function () {
         return '                                                                                                            \
                 <form>                                                                                                      \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                        \
-                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-number-popover --range"> \
+                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">    \
                         <div class="filter-search loading-indicator-container size-input-text">                             \
                             <div class="field-number">                                                                      \
                                 <div class="right-align">                                                                   \
                                     <input                                                                                  \
-                                        type="text"                                                                         \
+                                        type="number"                                                                       \
                                         name="number"                                                                       \
                                         value="{{ number }}"                                                                \
                                         class="form-control align-right"                                                    \
@@ -142,7 +147,8 @@
                             <div class="field-number">                                                                      \
                                 <div class="right-align">                                                                   \
                                     <input                                                                                  \
-                                        type="text"                                                                         \
+                                        type="number"                                                                       \
+                                        {{ maxNumber }}                                                                     \
                                         name="number"                                                                       \
                                         value="{{ number }}"                                                                \
                                         class="form-control align-right"                                                    \
@@ -171,8 +177,8 @@
 
         data = $.extend({}, data, {
             filter_button_text: this.getLang('filter.numbers.filter_button_text'),
-            reset_button_text: this.getLang('filter.numberss.reset_button_text'),
-            number_placeholder: this.getLang('filter.numberss.number_placeholder', 'Number')
+            reset_button_text: this.getLang('filter.numbers.reset_button_text'),
+            number_placeholder: this.getLang('filter.numbers.number_placeholder', 'Number')
         })
 
         data.scopeName = scopeName
@@ -205,7 +211,7 @@
 
         // Destroy any popovers already bound
         $scope.data('oc.popover', null)
-        console.log(data);
+
         $scope.ocPopover({
             content: Mustache.render(this.getPopoverNumberRangeTemplate(), data),
             modal: false,
@@ -235,30 +241,23 @@
                 defaultValue = data.numbers[index] ? data.numbers[index] : ''
             }
 
-            if (!isRange) {
-                defaults.onSelect = function () {
-                    self.filterByNumber()
-                }
-            }
-
             numberinput.value = '' !== defaultValue ? defaultValue : '';
-
         })
     }
 
     FilterWidget.prototype.updateScopeNumberSetting = function ($scope, numbers) {
         var $setting = $scope.find('.filter-setting'),
-            dateRegex =/\d*/,
+            numberRegex =/\d*/,
             reset = false
 
         if (numbers && numbers.length) {
-            numbers[0] = numbers[0] && numbers[0].match(dateRegex) ? numbers[0] : null
+            numbers[0] = numbers[0] && numbers[0].match(numberRegex) ? numbers[0] : null
 
             if (numbers.length > 1) {
-                numbers[1] = numbers[1] && numbers[1].match(dateRegex) ? numbers[1] : null
+                numbers[1] = numbers[1] && numbers[1].match(numberRegex) ? numbers[1] : null
 
                 if(numbers[0] || numbers[1]) {
-                    var min = numbers[0] ? numbers[0]  : '',
+                    var min = numbers[0] ? numbers[0] : '',
                         max = numbers[1] ? numbers[1] : '∞'
 
                     $setting.text(min + ' → ' + max)

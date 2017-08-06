@@ -101,39 +101,7 @@
         }
     }
 
-    > .filter-scope-date {
-        display: inline-block;
-        padding: (@padding-standard / 2);
-        .filter-label {}
-        .filter-setting {
-            display: inline-block;
-            .transition(color 0.6s);
-        }
-
-        &:after {
-            font-size: 14px;
-            .icon(@angle-down);
-        }
-
-        &.active {
-            .filter-setting {
-                padding-left: 5px;
-                padding-right: 5px;
-                color: #FFF;
-                background-color: @color-filter-bg-active;
-                .border-radius(4px);
-                .transition(~'color 1s, background-color 1s');
-            }
-        }
-
-        &:hover {
-            color: #000;
-            .filter-label { color: @color-filter-text; }
-            &.active .filter-setting { background-color: darken(@color-filter-bg-active, 5%); }
-        }
-    }
-
-    > .filter-scope-number {
+    > .filter-has-popover {
         display: inline-block;
         padding: (@padding-standard / 2);
         .filter-label {}
@@ -248,36 +216,7 @@
         li.animate-enter { .animation(fadeInDown .5s); }
     }
 
-    &.control-filter-date-popover {
-        min-width: 190px;
-
-        .filter-buttons {
-            margin: 0;
-            padding: 0;
-
-            &:after {
-                content: "";
-                display: block;
-                clear: both;
-            }
-
-            .btn {
-                float: left;
-                width: 100%;
-                margin: 0;
-                border-radius: 0;
-                text-align: center;
-            }
-        }
-
-        &.--range {
-            .filter-buttons .btn {
-                width: 50%;
-            }
-        }
-    }
-
-    &.control-filter-number-popover {
+    &.control-filter-box-popover {
         min-width: 190px;
 
         .filter-buttons {
