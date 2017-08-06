@@ -50,6 +50,7 @@ div[data-control="media-manager"] .media-list.tiles li.selected h4{color:#2581b8
 div[data-control="media-manager"] .media-list.tiles i.icon-chain-broken{margin-top:47px}
 div[data-control="media-manager"] .media-list.tiles p.size{margin-bottom:0}
 div[data-control="media-manager"] [data-control="sidebar-labels"]{word-wrap:break-word}
+div[data-control="media-manager"] .sidebar-group{margin-bottom:20px}
 div[data-control="media-manager"] .sidebar-image-placeholder-container{display:table;width:100%}
 div[data-control="media-manager"] .sidebar-image-placeholder{display:table-cell;height:225px;position:relative;vertical-align:middle;text-align:center;border-bottom:1px solid #ecf0f1}
 div[data-control="media-manager"] .sidebar-image-placeholder[data-loading]{background:#ecf0f1}

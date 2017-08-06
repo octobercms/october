@@ -3159,7 +3159,7 @@ self.filterByDate(true)})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover">          \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover">          \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -3185,7 +3185,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
 FilterWidget.prototype.getPopoverRangeTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-date-popover --range">  \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -3235,7 +3235,7 @@ $scope.data('oc.popover',null)
 $scope.ocPopover({content:Mustache.render(this.getPopoverRangeTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target)}})}
 FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopover'),data=this.scopeValues[this.activeScopeName]
 if(!data){data={dates:isRange?(scopeData.dates?scopeData.dates:[]):(scopeData.date?[scopeData.date]:[])}}
-$inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),yearRange:10,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:self.getLang('datepicker')}
+$inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),yearRange:scopeData.yearRange,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:self.getLang('datepicker')}
 if(0<=index&&index<data.dates.length){defaultValue=data.dates[index]?moment.tz(data.dates[index],self.appTimezone).tz(self.timezone):''}
 if(!isRange){defaults.onSelect=function(){self.filterByDate()}}
 datepicker.value=''!==defaultValue?defaultValue.format(self.getDateFormat()):'';$datepicker.pikaday(defaults)})}
@@ -3266,7 +3266,125 @@ FilterWidget.prototype.initRegion=function(){this.locale=$('meta[name="backend-l
 this.timezone=$('meta[name="backend-timezone"]').attr('content')
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}
-if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);(function($){$(document).render(function(){var formatSelectOption=function(state){if(!state.id)
+if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
+this.initFilterNumber()}
+FilterWidget.prototype.initFilterNumber=function(){var self=this
+this.$el.on('show.oc.popover','a.filter-scope-number',function(){self.initNumberInputs($(this).hasClass('range'))})
+this.$el.on('hide.oc.popover','a.filter-scope-number',function(){var $scope=$(this)
+self.pushOptions(self.activeScopeName)
+self.activeScopeName=null
+self.$activeScope=null
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
+this.$el.on('click','a.filter-scope-number',function(){var $scope=$(this),scopeName=$scope.data('scope-name')
+if($scope.hasClass('filter-scope-open'))return
+if(null!==self.activeScopeName)return
+self.$activeScope=$scope
+self.activeScopeName=scopeName
+self.isActiveScopeDirty=false
+if($scope.hasClass('range')){self.displayPopoverNumberRange($scope)}
+else{self.displayPopoverNumber($scope)}
+$scope.addClass('filter-scope-open')})
+$(document).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber()})
+$(document).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber(true)})}
+FilterWidget.prototype.getPopoverNumberTemplate=function(){return'                                                                                                        \
+                <form>                                                                                                  \
+                    <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
+                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">\
+                        <div class="filter-search loading-indicator-container size-input-text">                         \
+                            <div class="field-number">                                                                  \
+                                <input                                                                                  \
+                                    type="number"                                                                       \
+                                    name="number"                                                                       \
+                                    value="{{ number }}"                                                                \
+                                    class="form-control align-right"                                                    \
+                                    autocomplete="off"                                                                  \
+                                    placeholder="{{ number_placeholder }}" />                                           \
+                            </div>                                                                                      \
+                            <div class="filter-buttons">                                                                \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
+                                    {{ filter_button_text }}                                                            \
+                                </button>                                                                               \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
+                                    {{ reset_button_text }}                                                             \
+                                </button>                                                                               \
+                            </div>                                                                                      \
+                        </div>                                                                                          \
+                    </div>                                                                                              \
+                </form>                                                                                                 \
+            '}
+FilterWidget.prototype.getPopoverNumberRangeTemplate=function(){return'                                                                                                            \
+                <form>                                                                                                      \
+                    <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                        \
+                    <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">    \
+                        <div class="filter-search loading-indicator-container size-input-text">                             \
+                            <div class="field-number">                                                                      \
+                                <div class="right-align">                                                                   \
+                                    <input                                                                                  \
+                                        type="number"                                                                       \
+                                        name="number"                                                                       \
+                                        value="{{ number }}"                                                                \
+                                        class="form-control align-right"                                                    \
+                                        autocomplete="off"                                                                  \
+                                        placeholder="{{ min_placeholder }}" />                                              \
+                                </div>                                                                                      \
+                            </div>                                                                                          \
+                            <div class="field-number">                                                                      \
+                                <div class="right-align">                                                                   \
+                                    <input                                                                                  \
+                                        type="number"                                                                       \
+                                        {{ maxNumber }}                                                                     \
+                                        name="number"                                                                       \
+                                        value="{{ number }}"                                                                \
+                                        class="form-control align-right"                                                    \
+                                        autocomplete="off"                                                                  \
+                                        placeholder="{{ max_placeholder }}" />                                              \
+                                </div>                                                                                      \
+                            </div>                                                                                          \
+                            <div class="filter-buttons">                                                                    \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                            \
+                                    {{ filter_button_text }}                                                                \
+                                </button>                                                                                   \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                           \
+                                    {{ reset_button_text }}                                                                 \
+                                </button>                                                                                   \
+                            </div>                                                                                          \
+                        </div>                                                                                              \
+                    </div>                                                                                                  \
+                </form>                                                                                                     \
+            '}
+FilterWidget.prototype.displayPopoverNumber=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
+data=$.extend({},data,{filter_button_text:this.getLang('filter.numbers.filter_button_text'),reset_button_text:this.getLang('filter.numbers.reset_button_text'),number_placeholder:this.getLang('filter.numbers.number_placeholder','Number')})
+data.scopeName=scopeName
+$scope.data('oc.popover',null)
+$scope.ocPopover({content:Mustache.render(this.getPopoverNumberTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',})}
+FilterWidget.prototype.displayPopoverNumberRange=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
+data=$.extend({},data,{filter_button_text:this.getLang('filter.numbers.filter_button_text'),reset_button_text:this.getLang('filter.numbers.reset_button_text'),min_placeholder:this.getLang('filter.numbers.min_placeholder','Min'),max_placeholder:this.getLang('filter.numbers.max_placeholder','Max')})
+data.scopeName=scopeName
+$scope.data('oc.popover',null)
+$scope.ocPopover({content:Mustache.render(this.getPopoverNumberRangeTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',})}
+FilterWidget.prototype.initNumberInputs=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-number input','#controlFilterPopoverNum'),data=this.scopeValues[this.activeScopeName]
+if(!data){data={numbers:isRange?(scopeData.numbers?scopeData.numbers:[]):(scopeData.number?[scopeData.number]:[])}}
+$inputs.each(function(index,numberinput){var defaultValue=''
+if(0<=index&&index<data.numbers.length){defaultValue=data.numbers[index]?data.numbers[index]:''}
+numberinput.value=''!==defaultValue?defaultValue:'';})}
+FilterWidget.prototype.updateScopeNumberSetting=function($scope,numbers){var $setting=$scope.find('.filter-setting'),numberRegex=/\d*/,reset=false
+if(numbers&&numbers.length){numbers[0]=numbers[0]&&numbers[0].match(numberRegex)?numbers[0]:null
+if(numbers.length>1){numbers[1]=numbers[1]&&numbers[1].match(numberRegex)?numbers[1]:null
+if(numbers[0]||numbers[1]){var min=numbers[0]?numbers[0]:'',max=numbers[1]?numbers[1]:'∞'
+$setting.text(min+' → '+max)}else{reset=true}}
+else if(numbers[0]){$setting.text(numbers[0])}else{reset=true}}
+else{reset=true}
+if(reset){$setting.text(this.getLang('filter.numbers.all','all'));$scope.removeClass('active')}else{$scope.addClass('active')}}
+FilterWidget.prototype.filterByNumber=function(isReset){var self=this,numbers=[]
+if(!isReset){var numberinputs=$('.field-number input','#controlFilterPopoverNum')
+numberinputs.each(function(index,numberinput){var number=$(numberinput).val()
+numbers.push(number)})}
+this.updateScopeNumberSetting(this.$activeScope,numbers);this.scopeValues[this.activeScopeName]={numbers:numbers}
+this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}}(window.jQuery);(function($){$(document).render(function(){var formatSelectOption=function(state){if(!state.id)
 return state.text;var $option=$(state.element),iconClass=state.icon?state.icon:$option.data('icon'),imageSrc=state.image?state.image:$option.data('image')
 if(iconClass)
 return'<i class="select-icon '+iconClass+'"></i> '+state.text

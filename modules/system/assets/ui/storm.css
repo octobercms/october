@@ -2884,13 +2884,13 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter > .filter-scope:hover,.control-filter > .filter-scope.active,.control-filter > .filter-scope:hover.custom-checkbox label,.control-filter > .filter-scope.active.custom-checkbox label{color:#000000}
 .control-filter > .filter-scope:hover .filter-label,.control-filter > .filter-scope.active .filter-label{color:#000000}
 .control-filter > .filter-scope:hover.active .filter-setting,.control-filter > .filter-scope.active.active .filter-setting{background-color:#5f9a4c}
-.control-filter > .filter-scope-date{display:inline-block;padding:10px}
-.control-filter > .filter-scope-date .filter-setting{display:inline-block;-webkit-transition:color 0.6s;transition:color 0.6s}
-.control-filter > .filter-scope-date:after{font-size:14px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f107"}
-.control-filter > .filter-scope-date.active .filter-setting{padding-left:5px;padding-right:5px;color:#FFF;background-color:#6aab55;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-transition:color 1s,background-color 1s;transition:color 1s,background-color 1s}
-.control-filter > .filter-scope-date:hover{color:#000}
-.control-filter > .filter-scope-date:hover .filter-label{color:rgba(0,0,0,0.6)}
-.control-filter > .filter-scope-date:hover.active .filter-setting{background-color:#5f9a4c}
+.control-filter > .filter-has-popover{display:inline-block;padding:10px}
+.control-filter > .filter-has-popover .filter-setting{display:inline-block;-webkit-transition:color 0.6s;transition:color 0.6s}
+.control-filter > .filter-has-popover:after{font-size:14px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f107"}
+.control-filter > .filter-has-popover.active .filter-setting{padding-left:5px;padding-right:5px;color:#FFF;background-color:#6aab55;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-transition:color 1s,background-color 1s;transition:color 1s,background-color 1s}
+.control-filter > .filter-has-popover:hover{color:#000}
+.control-filter > .filter-has-popover:hover .filter-label{color:rgba(0,0,0,0.6)}
+.control-filter > .filter-has-popover:hover.active .filter-setting{background-color:#5f9a4c}
 .control-filter-popover{min-width:275px}
 .control-filter-popover .filter-search{min-height:36px}
 .control-filter-popover .filter-search input{min-height:36px;border:none;border-bottom:1px solid #d7dbdd;border-bottom-right-radius:0;border-bottom-left-radius:0;-webkit-box-shadow:none;box-shadow:none;background-color:transparent}
@@ -2909,11 +2909,11 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter-popover .filter-items li.animate-enter{-webkit-animation:fadeInUp 0.5s;animation:fadeInUp 0.5s}
 .control-filter-popover .filter-active-items a:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00d"}
 .control-filter-popover .filter-active-items li.animate-enter{-webkit-animation:fadeInDown 0.5s;animation:fadeInDown 0.5s}
-.control-filter-popover.control-filter-date-popover{min-width:190px}
-.control-filter-popover.control-filter-date-popover .filter-buttons{margin:0;padding:0}
-.control-filter-popover.control-filter-date-popover .filter-buttons:after{content:"";display:block;clear:both}
-.control-filter-popover.control-filter-date-popover .filter-buttons .btn{float:left;width:100%;margin:0;border-radius:0;text-align:center}
-.control-filter-popover.control-filter-date-popover.--range .filter-buttons .btn{width:50%}
+.control-filter-popover.control-filter-box-popover{min-width:190px}
+.control-filter-popover.control-filter-box-popover .filter-buttons{margin:0;padding:0}
+.control-filter-popover.control-filter-box-popover .filter-buttons:after{content:"";display:block;clear:both}
+.control-filter-popover.control-filter-box-popover .filter-buttons .btn{float:left;width:100%;margin:0;border-radius:0;text-align:center}
+.control-filter-popover.control-filter-box-popover.--range .filter-buttons .btn{width:50%}
 @media (max-width:480px){.control-filter-popover .filter-items{max-height:200px}
 .control-filter-popover .filter-search input{padding-left:36px;padding-right:36px}
 .control-filter-popover .filter-search .form-control.icon.search{background-position:0 -81px}
