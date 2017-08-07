@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DbDeferredBindingsAlterSlaveToIntAndAddUniqueSession extends Migration
+class DbDeferredBindingsAddIndexSession extends Migration
 {
     /**
      * Run the migrations.
