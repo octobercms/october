@@ -13,7 +13,6 @@ class DbDeferredBindingsAlterSlaveToIntAndAddUniqueSession extends Migration
     public function up()
     {
         Schema::table('deferred_bindings', function (Blueprint $table) {
-            $table->integer('slave_id')->unsigned()->change();
             $table->index('session_key');
         });
     }
@@ -26,7 +25,6 @@ class DbDeferredBindingsAlterSlaveToIntAndAddUniqueSession extends Migration
     public function down()
     {
         Schema::table('deferred_bindings', function (Blueprint $table) {
-            $table->string('slave_id')->change();
             $table->dropIndex(['session_key']);
         });
     }
