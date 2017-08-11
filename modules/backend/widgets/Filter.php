@@ -522,6 +522,7 @@ class Filter extends WidgetBase
                     $scopeProperties = [
                         'minDate'   => '2000-01-01',
                         'maxDate'   => '2099-12-31',
+                        'firstDay'  => 0,
                         'yearRange' => 10,
                     ];
 

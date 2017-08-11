@@ -253,6 +253,7 @@
                 defaults = {
                     minDate: new Date(scopeData.minDate),
                     maxDate: new Date(scopeData.maxDate),
+                    firstDay: scopeData.firstDay,
                     yearRange: scopeData.yearRange,
                     setDefaultDate: '' !== defaultValue ? defaultValue.toDate() : '',
                     format: self.getDateFormat(),
