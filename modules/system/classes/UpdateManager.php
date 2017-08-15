@@ -364,7 +364,13 @@ class UpdateManager
      */
     public function setBuildNumberManually()
     {
-        $result = $this->requestServerData('ping');
+        $postData = [];
+
+        if (Config::get('cms.edgeUpdates', false)) {
+            $postData['edge'] = 1;
+        }
+
+        $result = $this->requestServerData('ping', $postData);
 
         $build = (int) array_get($result, 'pong', 420);
 
