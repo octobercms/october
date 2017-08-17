@@ -115,7 +115,7 @@
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
+                                        class="form-control align-right popup-allow-focus"                              \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ date_placeholder }}" />                                         \
                                 </div>                                                                                  \
@@ -147,7 +147,7 @@
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
+                                        class="form-control align-right popup-allow-focus"                              \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ after_placeholder }}" />                                        \
                                 </div>                                                                                  \
