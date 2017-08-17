@@ -22,8 +22,12 @@ Allows keyboard shortcuts (hotkeys) to be bound to an element's click event.
 
 If you use a selector other than a button or a link, you will need to add the `hotkeyVisible` property to the hotkey config.
 
-    $('html').hotKey({
-        hotkey: 'ctrl+s, cmd+s',
-        hotkeyVisible: false,
-        callback: doSomething
-    });
+```html
+
+$('html').hotKey({
+    hotkey: 'ctrl+s, cmd+s',
+    hotkeyVisible: false,
+    callback: doSomething
+});
+
+```
