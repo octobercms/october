@@ -1,7 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
 use Markdown;
-use Backend\Models\EditorPreferences;
 use Backend\Classes\FormWidgetBase;
 
 /**
