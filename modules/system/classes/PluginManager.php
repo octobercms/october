@@ -635,6 +635,10 @@ class PluginManager
         if (is_string($plugin) && (!$plugin = $this->findByIdentifier($plugin))) {
             return false;
         }
+        
+        if (method_exists($plugin, 'setRequiredPlugins')) {
+		    $plugin->require = $plugin->setRequiredPlugins();
+	    }
 
         if (!isset($plugin->require) || !$plugin->require) {
             return null;
