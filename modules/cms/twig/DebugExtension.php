@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use Twig_Template;
 use Twig_Extension;
 use Twig_Environment;
 use Twig_SimpleFunction;
