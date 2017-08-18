@@ -10,12 +10,12 @@ return [
         'invalid_file_extension' => 'Érvénytelen kiterjesztés: :invalid. Engedélyezett kiterjesztések: :allowed.',
         'error_deleting' => "Hiba a(z) ':name' sablonfájl törlésekor. Ellenőrizze az írási engedélyeket.",
         'delete_success' => 'A sablonok törlése sikerült: :count.',
-        'file_name_required' => 'A Fájlnév mező kitöltése kötelező.',
+        'file_name_required' => 'A fájlnév mező kitöltése kötelező.',
         'safe_mode_enabled' => 'A biztonságos mód jelenleg aktív.'
     ],
     'dashboard' => [
         'active_theme' => [
-            'widget_title_default' => 'Honlap',
+            'widget_title_default' => 'Weboldal',
             'online' => 'Online',
             'maintenance' => 'Karbantartás alatt',
             'manage_themes' => 'Témák kezelése',
@@ -78,8 +78,8 @@ return [
         'export_folders_label' => 'Könyvtárak',
         'export_folders_comment' => 'Válassza ki azokat a könyvtárakat, amiket exportálni szeretne.',
         'delete_button' => 'Törlés',
-        'delete_confirm' => 'Biztos, hogy törölni szeretné a témát?',
-        'delete_active_theme_failed' => 'Nem lehet törölni a témát. Először aktiváljon egy másik témát.',
+        'delete_confirm' => 'Valóban törölni akarja a témát?',
+        'delete_active_theme_failed' => 'Nem lehet törölni a témát. Először tegyen aktivvá egy másik témát.',
         'delete_theme_success' => 'A téma törlése sikeresen megtörtént!',
         'create_title' => 'Sablon létrehozása',
         'create_button' => 'Létrehozás',
@@ -89,8 +89,8 @@ return [
         'new_directory_name_label' => 'Téma helye',
         'new_directory_name_comment' => 'Adjon meg egy új könyvtárat a duplikált témának.',
         'dir_name_invalid' => 'A név csak számokat, latin betűket és a következő szimbólumokat tartalmazhatja: _-',
-        'dir_name_taken' => 'A megadott könyvtár név már létezik.',
-        'find_more_themes' => 'További témák az OctoberCMS piacterén.',
+        'dir_name_taken' => 'A megadott könyvtár már létezik.',
+        'find_more_themes' => 'További témák az OctoberCMS piacterén',
         'saving' => 'Téma mentése...',
         'return' => 'Vissza a témákhoz'
     ],
@@ -213,7 +213,7 @@ return [
         'already_exists' => 'Már létezik ilyen nevű fájl vagy könyvtár.',
         'error_renaming' => 'Hiba a fájl vagy a könyvtár átnevezésekor.',
         'name_cant_be_empty' => 'A név nem lehet üres.',
-        'too_large' => 'A feltöltött fájl túl nagy. A maximálisan engedélyezett fájlméret :max_size',
+        'too_large' => 'A feltöltött fájl túl nagy. A maximálisan engedélyezett fájlméret: :max_size',
         'type_not_allowed' => 'Csak a következő fájltípusok engedélyezettek: :allowed_types',
         'file_not_valid' => 'A fájl nem érvényes.',
         'error_uploading_file' => "Hiba a(z) ':name' fájl feltöltésekor: :error",
@@ -228,7 +228,7 @@ return [
         'error_moving_directory' => 'Hiba a(z) :dir könyvtár áthelyezésekor.',
         'error_deleting_directory' => 'Hiba a(z) :dir eredeti könyvtár áthelyezésekor.',
         'no_list_records' => 'Nincs találat',
-        'delete_confirm' => 'Valóban törölni akarja a kiválasztott fájlokat és könyvtárakat?',
+        'delete_confirm' => 'Valóban törölni akarja a fájlokat és a könyvtárakat?',
         'path' => 'Elérési út'
     ],
     'component' => [
@@ -259,6 +259,7 @@ return [
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',
         'manage_themes' => 'Témák kezelése',
+        'manage_theme_options' => 'Aktív téma testreszabása',
         'manage_media' => 'Média kezelése'
     ],
     'mediafinder' => [
@@ -296,7 +297,10 @@ return [
         'uploading_error' => 'Feltöltés sikertelen',
         'type_blocked' => 'A fájltípus blokkolva lett biztonsági okokból.',
         'order_by' => 'Rendezés',
-        'folder' => 'Könyvtárak',
+        'direction' => 'Irány',
+        'direction_asc' => 'Növekvő',
+        'direction_desc' => 'Csökkenő',
+        'folder' => 'Könyvtár',
         'no_files_found' => 'Nem található fájl a lekérésben.',
         'delete_empty' => 'Kérjük válassza ki a törölni kívánt fájlokat.',
         'delete_confirm' => 'Valóban törölni akarja a kiválasztott fájlokat?',
@@ -354,6 +358,6 @@ return [
         'preview_title' => 'Változtatások',
         'template_updated' => 'A fájl frissítve lett.',
         'template_created' => 'A fájl létre lett hozva.',
-        'template_deleted' => 'A fájl törölve lett.',
+        'template_deleted' => 'A fájl törölve lett.'
     ]
 ];

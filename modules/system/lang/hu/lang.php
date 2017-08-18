@@ -27,9 +27,11 @@ return [
             'users' => 'Felhasználók',
             'system' => 'Rendszer',
             'social' => 'Közösség',
+            'backend' => 'Admin',
             'events' => 'Események',
             'customers' => 'Vevők',
-            'my_settings' => 'Beállításaim'
+            'my_settings' => 'Beállításaim',
+            'notifications' => 'Értesítések'
         ]
     ],
     'theme' => [
@@ -46,7 +48,7 @@ return [
         'installed' => 'Telepítve',
         'no_themes' => 'A piactérről még nem lett telepítve téma.',
         'recommended' => 'Ajánlott',
-        'remove_confirm' => 'Valóban törölni akarja ezt a témát?'
+        'remove_confirm' => 'Valóban törölni akarja a témát?'
     ],
     'plugin' => [
         'label' => 'Bővítmény',
@@ -90,7 +92,7 @@ return [
         'none' => 'Nincs',
         'id' => [
             'label' => 'Projekt azonosító',
-            'help' => 'Segítség (angol nyelvű)',
+            'help' => 'Súgó (angol nyelvű)',
             'missing' => 'Adjon meg egy projekt azonosítót.'
         ],
         'detach_confirm' => 'Biztosan le akarja választani a projektet?',
@@ -151,9 +153,13 @@ return [
         'menu_description' => 'A kimenő levelek megjelenésének testreszabása.',
         'new_template' => 'Új sablon',
         'new_layout' => 'Új elrendezés',
+        'new_partial' => 'Új részlap',
         'template' => 'Sablon',
         'templates' => 'Sablonok',
+        'partial' => 'Részlap',
+        'partials' => 'Részlapok',
         'menu_layouts_label' => 'Levél elrendezések',
+        'menu_partials_label' => 'Levél részlapok',
         'layout' => 'Elrendezés',
         'layouts' => 'Elrendezések',
         'no_layout' => '-- nincs --',
@@ -181,8 +187,12 @@ return [
         'sending' => 'Üzenet küldése folyamatban...',
         'return' => 'Vissza a sablonokhoz'
     ],
+    'mail_brand' => [
+        'menu_label' => 'Kinézet',
+        'menu_description' => 'A színek és további vizuális jellemzők testreszabása.',
+    ],
     'install' => [
-        'project_label' => 'Csatolás projekthez',
+        'project_label' => 'Csatolás',
         'plugin_label' => 'Bővítmény telepítése',
         'theme_label' => 'Téma telepítése',
         'missing_plugin_name' => 'Adja meg a telepítendő bővítmény nevét.',
@@ -203,12 +213,12 @@ return [
         'plugin_description' => 'Leírás',
         'plugin_version' => 'Verzió',
         'plugin_author' => 'Fejlesztő',
-        'plugin_not_found' => 'Plugin not found',
+        'plugin_not_found' => 'A bővítmény nem található',
         'core_current_build' => 'Verzió',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
-        'core_downloading' => 'Honlap frissítésének letöltése...',
-        'core_extracting' => 'Honlap frissítésének kicsomagolása...',
+        'core_downloading' => 'Rendszer frissítés letöltése...',
+        'core_extracting' => 'Rendszer frissítés kicsomagolása...',
         'plugins' => 'Bővítmények',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
@@ -235,22 +245,23 @@ return [
         ],
         'important_action' => [
             'empty' => 'Művelet kiválasztása',
-            'confirm' => 'Frissítések elfogadása',
-            'skip' => 'Bővítmény kihagyása (csak most)',
-            'ignore' => 'Bővítmény kihagyása (mindig)'
+            'confirm' => 'Frissítés elfogadása',
+            'skip' => 'Frissítés kihagyása (csak most)',
+            'ignore' => 'Frissítés kihagyása (mindig)'
         ],
         'important_action_required' => 'Művelet szükséges',
         'important_view_guide' => 'Frissítési útmutató megtekintése',
+        'important_view_release_notes' => 'Kiadási megjegyzések megtekintése',
         'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
         'details_title' => 'Bővítmény részletei',
-        'details_view_homepage' => 'Honlap megtekintése',
+        'details_view_homepage' => 'Weboldal',
         'details_readme' => 'Dokumentáció',
         'details_readme_missing' => 'Nincs megadva leírás.',
         'details_changelog' => 'Kiadott verziók',
-        'details_changelog_missing' => 'Nincs megadva lista.',
+        'details_changelog_missing' => 'Nincs kiadási jegyzék.',
         'details_upgrades' => 'Frissítési útmutató',
         'details_upgrades_missing' => 'Nincs megadva instrukció.',
-        'details_licence' => 'Licenc',
+        'details_licence' => 'Felhasználási feltételek',
         'details_licence_missing' => 'Nincs megadva licenc.',
         'details_current_version' => 'Verzió',
         'details_author' => 'Fejlesztő'

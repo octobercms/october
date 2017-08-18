@@ -21,7 +21,7 @@ return [
             'cms_link' => 'Vissza a látogatói oldalra'
         ],
         'no_database' => [
-            'label' => 'Hiányzó adatbázis',
+            'label' => 'Adatbázis nem elérhető',
             'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
             'cms_link' => 'Vissza a weboldalra'
         ],
@@ -33,15 +33,17 @@ return [
         'not_found_name' => "A(z) ':name' részlap nem található."
     ],
     'account' => [
+        'signed_in_as' => 'Bejelentkezve mint :full_name',
         'sign_out' => 'Kijelentkezés',
         'login' => 'Belépés',
         'reset' => 'Alaphelyzet',
         'restore' => 'Visszaállítás',
         'login_placeholder' => 'felhasználónév',
         'password_placeholder' => 'jelszó',
+        'remember_me' => 'Bejelentkezve maradjak',
         'forgot_password' => 'Elfelejtette a jelszavát?',
         'enter_email' => 'Adja meg az e-mail címét',
-        'enter_login' => 'Adja meg a felhasználónevét',
+        'enter_login' => 'Adja meg a felhasználói nevét',
         'email_placeholder' => 'e-mail cím',
         'enter_new_password' => 'Adjon meg egy új jelszót',
         'password_reset' => 'Új jelszó kiadása',
@@ -74,7 +76,7 @@ return [
         'widget_title_error' => 'A widget címének megadása kötelező.',
         'reset_layout' => 'Elrendezés visszaállítása',
         'reset_layout_confirm' => 'Visszaállítás az alapértelmezettre?',
-        'reset_layout_success' => 'A visszaállítás megtörtént',
+        'reset_layout_success' => 'A visszaállítás megtörtént.',
         'make_default' => 'Elrendezés mentése',
         'make_default_confirm' => 'A jelenlegi elrendezés legyen az alapértelmezett?',
         'make_default_success' => 'A jelenlegi elrendezés lett az alapértelmezett.',
@@ -86,20 +88,20 @@ return [
             'updates_pending' => 'Függőben lévő frissítések',
             'updates_nil' => 'A weboldal naprakész',
             'updates_link' => 'Frissítés',
-            'warnings_pending' => 'Néhány dolog odafigyelést igényel',
-            'warnings_nil' => 'Nincs megjeleníthető hiba',
+            'warnings_pending' => 'Függőben lévő teendők',
+            'warnings_nil' => 'Minden rendben van',
             'warnings_link' => 'Megtekintés',
             'core_build' => 'Verzió',
-            'event_log' => 'Eseménynapló',
-            'request_log' => 'Kérelemnapló',
+            'event_log' => 'Esemény napló',
+            'request_log' => 'Kérelem napló',
             'app_birthday' => 'Telepítve'
         ],
         'welcome' => [
-            'widget_title_default' => 'Üdvözöljük',
+            'widget_title_default' => 'Üdvözöljük!',
             'welcome_back_name' => 'Köszönjük, hogy visszatért a(z) :app weboldalra, :name.',
             'welcome_to_name' => 'Köszöntjük a(z) :app weboldalon, :name.',
             'first_sign_in' => 'Ez az első alkalom, hogy bejelentkezett.',
-            'last_sign_in' => 'Legutóbb bejelentkezés:',
+            'last_sign_in' => 'Legutóbbi bejelentkezése:',
             'view_access_logs' => 'Hozzáférés napló megtekintése',
             'nice_message' => 'Legyen jó napja!'
         ]
@@ -110,11 +112,13 @@ return [
         'menu_description' => 'A felhasználók, a csoportok és az engedélyek kezelése.',
         'list_title' => 'Adminisztrátorok kezelése',
         'new' => 'Új adminisztrátor',
-        'login' => 'Felhasználónév',
+        'login' => 'Felhasználói név',
         'first_name' => 'Vezetéknév',
         'last_name' => 'Keresztnév',
         'full_name' => 'Teljes név',
         'email' => 'E-mail cím',
+        'role_field' => 'Szerepkör',
+        'role_comment' => 'Meghatározza a felhasználó jogosultságait. Felülbírálható a felhasználó adatlapján, az Engedélyek fülön.',
         'groups' => 'Csoportok',
         'groups_comment' => 'Adja meg, hogy a felhasználó melyik csoport(ok)ba tartozzon.',
         'avatar' => 'Profilkép',
@@ -126,7 +130,7 @@ return [
         'superuser_comment' => 'Korlátlan hozzáférést biztosít az admin felülethez.',
         'send_invite' => 'Meghívó küldése e-mailben',
         'send_invite_comment' => 'Csak a belépéshez szükséges adatokat tartalmazza.',
-        'delete_confirm' => 'Valóban törölni akarja ezt az adminisztrátort?',
+        'delete_confirm' => 'Valóban törölni akarja az adminisztrátort?',
         'return' => 'Vissza az adminisztrátorokhoz',
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
@@ -145,10 +149,24 @@ return [
             'code_field' => 'Kód',
             'code_comment' => 'Adjon meg egy egyedi kódot, ha az API-val kíván hozzáférni.',
             'menu_label' => 'Csoportok',
-            'list_title' => 'Csoportok kezelése',
-            'new' => 'Új adminisztrátori csoport',
-            'delete_confirm' => 'Valóban törölni akarja ezt a adminisztrátori csoportot?',
+            'list_title' => 'Csoportok',
+            'new' => 'Új csoport',
+            'delete_confirm' => 'Valóban törölni akarja az adminisztrátori csoportot?',
             'return' => 'Vissza a csoportokhoz',
+            'users_count' => 'Felhasználók'
+        ],
+        'role' => [
+            'name' => 'Szerepkör',
+            'name_field' => 'Név',
+            'name_comment' => 'A szerepkör megnevezése, ami a listákban jelenik meg.',
+            'description_field' => 'Leírás',
+            'code_field' => 'Kód',
+            'code_comment' => 'Egyedi értéket adjon meg, amit az API elérés során használhat.',
+            'menu_label' => 'Szerepkörök',
+            'list_title' => 'Szerepkörök',
+            'new' => 'Új szerepkör',
+            'delete_confirm' => 'Valóban törölni akarja a szerepkört?',
+            'return' => 'Vissza a szerepkörhöz',
             'users_count' => 'Felhasználók'
         ],
         'preferences' => [
@@ -181,7 +199,7 @@ return [
         'check' => 'Bejelöl',
         'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
-        'delete_selected_confirm' => 'Töröljük a kiválasztott elemeket?',
+        'delete_selected_confirm' => 'Valóban töröljük a kiválasztott elemeket?',
         'delete_selected_success' => 'Sikeresen törölve lettek a kiválasztott elemek.',
         'column_switch_true' => 'Igen',
         'column_switch_false' => 'Nem'
@@ -310,8 +328,8 @@ return [
         'mass_assignment_failed' => "A tömeges hozzárendelés a(z) ':attribute' modell attribútumhoz nem sikerült."
     ],
     'warnings' => [
-        'tips' => 'Rendszer konfigurációs tippek',
-        'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő konfigurálása érdekében.',
+        'tips' => 'Rendszer beállítási tippek',
+        'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő működése érdekében.',
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
         'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük, hogy telepítse ezt a bővítményt.'
@@ -360,7 +378,9 @@ return [
         'no_wrap' => 'Nem tördelhető elemek',
         'no_wrap_comment' => 'Azon HTML elemek, amik tartalma nem tördelhető.',
         'remove_tags' => 'Eltávolítható elemek',
-        'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.'
+        'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.',
+        'toolbar_buttons' => 'Eszköztár',
+        'toolbar_buttons_comment' => 'Használható értékek: [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
@@ -379,11 +399,11 @@ return [
         'menu_description' => 'Az admin felület megjelenésének módosítása.',
         'brand' => 'Márka',
         'logo' => 'Logó',
-        'logo_description' => 'A bejelentkezési felületen, illetve egyes oldalak hátterében fog megjelenni.',
+        'logo_description' => 'Legalább közepes méretű legyen.',
         'app_name' => 'Név',
-        'app_name_description' => 'A bejelentkező képernyőn lesz látható.',
+        'app_name_description' => 'A honlap megnevezése.',
         'app_tagline' => 'Szlogen',
-        'app_tagline_description' => 'A bejelentkező oldalon lesz látható.',
+        'app_tagline_description' => 'A weboldal mottója.',
         'colors' => 'Színek',
         'primary_color' => 'Alap szín',
         'secondary_color' => 'Másodlagos szín',
@@ -420,7 +440,8 @@ return [
     'filter' => [
         'all' => 'mind',
         'options_method_not_exists' => "A(z) :model osztálynak kötelező definiálni a(z) :method() metódust a(z) ':filter' szűrő feltételhez.",
-        'date_all' => 'minden időszak'
+        'date_all' => 'minden időszak',
+        'number_all' => 'minden szám'
     ],
     'import_export' => [
         'upload_csv_file' => '1. CSV fájl',
