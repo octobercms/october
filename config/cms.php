@@ -255,6 +255,7 @@ return [
     */
 
     'storage' => [
+        'temp' => '/storage/temp',
 
         'uploads' => [
             'disk'   => 'local',
