@@ -823,6 +823,14 @@ class Controller
             }
 
             /*
+             * Check for default partial override
+             */
+            if ($partial === null) {
+                $overrideName = $componentObj->name . '/' . $partialName;
+                $partial = Partial::loadCached($this->theme, $overrideName);
+            }
+
+            /*
              * Check the component partial
              */
             if ($partial === null) {
