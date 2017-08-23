@@ -6,6 +6,7 @@ use Cache;
 use Config;
 use Storage;
 use Request;
+use Url;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 use SystemException;
@@ -491,7 +492,7 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
-        return $this->storagePath.$path;
+        return URL::to($this->storagePath.$path);
     }
 
     /**
