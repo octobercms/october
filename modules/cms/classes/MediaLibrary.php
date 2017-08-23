@@ -475,7 +475,9 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
-        return Url::to($this->storagePath.$path);
+        $fullPath = implode("/", array_map("rawurlencode", explode("/", $this->storagePath.$path)));
+
+        return Url::to($fullPath);
     }
 
     /**
