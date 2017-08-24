@@ -58,37 +58,20 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
 Unit tests can be performed by running `phpunit` in the root directory or inside `/tests/unit`.
 
-### Functional tests
+### Functional tests with Laravel Dusk
 
-Functional tests can be performed by running `phpunit` in the `/tests/functional` directory. Ensure the following configuration is met:
+Functional tests can be performed by running `php artisan dusk` in the root of the project. Ensure the following configuration is met:
 
 - Active theme is `demo`
 - Language preference is `en`
+- A sqlite file located at 'storage/testing.sqlite'
 
-#### Selenium set up
+> You will need a real sqlite database to perform the functional testing because Laravel Dusk use a different process to execute the tests.
 
-1. Download latest Java SE from http://java.sun.com/ and install
-1. Download a distribution archive of [Selenium Server](http://seleniumhq.org/download/).
-1. Unzip the distribution archive and copy selenium-server-standalone-2.42.2.jar (check the version suffix) to /usr/local/bin, for instance.
-1. Start the Selenium Server server by running `java -jar /usr/local/bin/selenium-server-standalone-2.42.2.jar`.
+To be able to run the `dusk` artisan command it's necessary to register the Laravel Dusk Provider, a dusk configuration was added to the `config` directory so you only need to create an enviroment file `.env` with the following line.
 
-#### Selenium configuration
+```
+    APP_ENV=dusk
+```
 
-Create a new file `selenium.php` in the root directory, add the following content:
-
-    <?php
-
-    // Selenium server details
-    define('TEST_SELENIUM_HOST', '127.0.0.1');
-    define('TEST_SELENIUM_PORT', 4444);
-    define('TEST_SELENIUM_BROWSER', '*firefox');
-
-    // Back-end URL
-    define('TEST_SELENIUM_URL', 'http://localhost/backend/');
-
-    // Active Theme
-    define('TEST_SELENIUM_THEME', 'demo');
-
-    // Back-end credentials
-    define('TEST_SELENIUM_USER', 'admin');
-    define('TEST_SELENIUM_PASS', 'admin');
+For more information about Laravel Dusk please read the [Docs](https://laravel.com/docs/5.4/dusk).

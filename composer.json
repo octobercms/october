@@ -37,13 +37,15 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "phpunit/phpunit": "~5.7",
-        "phpunit/phpunit-selenium": "~1.2"
+        "laravel/dusk": "^1.1"
     },
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
             "tests/UiTestCase.php",
-            "tests/PluginTestCase.php"
+            "tests/PluginTestCase.php",
+            "tests/CreatesApplication.php",
+            "tests/DuskTestCase.php"
         ]
     },
     "scripts": {

@@ -1,26 +1,49 @@
 <?php
 
-class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class UiTestCase extends \Tests\DuskTestCase
 {
+    use DatabaseTransactions;
 
-    protected function setUp()
+    private $env;
+
+    public function setUp()
     {
-        /*
-         * Look for selenium configuration
-         */
-        if (file_exists($seleniumEnv = __DIR__.'/../selenium.php'))
-            require_once $seleniumEnv;
+        $this->createApplication();
 
         /*
-         * Configure selenium
+         * Ensure system is up to date
          */
-        if (!defined('TEST_SELENIUM_URL'))
-            return $this->markTestSkipped('Selenium skipped');
+        $this->runOctoberUpCommand();
 
-        if (defined('TEST_SELENIUM_HOST')) $this->setHost(TEST_SELENIUM_HOST);
-        if (defined('TEST_SELENIUM_PORT')) $this->setPort(TEST_SELENIUM_PORT);
-        if (defined('TEST_SELENIUM_BROWSER')) $this->setBrowser(TEST_SELENIUM_BROWSER);
-        $this->setBrowserUrl(TEST_SELENIUM_URL);
+        Browser::$baseUrl = $this->baseUrl();
+
+        Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
+
+        Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
+
+        Browser::$userResolver = function () {
+            return $this->user();
+        };
+        $this->setEnvToDusk();
+    }
+
+    protected function runOctoberUpCommand()
+    {
+        Artisan::call('october:up');
+    }
+
+    protected function setEnvToDusk()
+    {
+        $this->env = file_get_contents('.env');
+        file_put_contents('.env', 'APP_ENV=dusk');
+    }
+
+    protected function revertEnv()
+    {
+        file_put_contents('.env', $this->env);
     }
 
     //
@@ -29,63 +52,26 @@ class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
 
     protected function signInToBackend()
     {
-        $this->open('backend');
-        $this->type("name=login", TEST_SELENIUM_USER);
-        $this->type("name=password", TEST_SELENIUM_PASS);
-        $this->click("//button[@type='submit']");
-        $this->waitForPageToLoad("30000");
+        $this->browse(function ($browser) {
+            $browser->visit('backend')
+                ->assertTitle('Administration Area')
+                ->type("login", 'admin')
+                ->type("password", 'admin')
+                ->press("Login")
+                ->waitFor(".nav")
+                ->assertPathIs('/backend');
+        });
     }
 
-    /**
-     * Similar to the native getConfirmation() function
-     */
-    protected function getSweetConfirmation($expectedText = null, $clickOk = true)
+    protected function getTextFromElement($element)
     {
-        $this->waitForElementPresent("xpath=(//div[@class='sweet-alert showSweetAlert visible'])[1]");
-
-        if ($expectedText) {
-            $this->verifyText("//div[@class='sweet-alert showSweetAlert visible']//h4", $expectedText);
-        }
-
-        $this->verifyText("//div[@class='sweet-alert showSweetAlert visible']//button[@class='confirm btn btn-primary']", "OK");
-
-        if ($clickOk) {
-            $this->click("xpath=(//div[@class='sweet-alert showSweetAlert visible']//button[@class='confirm btn btn-primary'])[1]");
-        }
+        return trim($element->getAttribute('innerHTML'));
     }
 
-    //
-    // Selenium helpers
-    //
-
-    protected function waitForElementPresent($target, $timeout = 60)
+    public function tearDown()
     {
-        for ($second = 0; ; $second++) {
-            if ($second >= $timeout)
-                $this->fail('timeout');
-
-            try {
-                if ($this->isElementPresent($target)) break;
-            }
-            catch (Exception $e) {}
-
-            sleep(1);
-        }
-    }
-
-    protected function waitForElementNotPresent($target, $timeout = 60)
-    {
-        for ($second = 0; ; $second++) {
-            if ($second >= $timeout)
-                $this->fail('timeout');
-
-            try {
-                if (!$this->isElementPresent($target)) break;
-            }
-            catch (Exception $e) {}
-
-            sleep(1);
-        }
+        parent::tearDown();
+        $this->revertEnv();
     }
 
 }
