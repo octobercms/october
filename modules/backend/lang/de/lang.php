@@ -6,7 +6,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
-        'options_method_invalid_model' => 'Das Attribut ':field' löst sich nicht zu einen gültigen Model auf. Probiere die options Methode der Model-Klasse :model explicit zu definieren.',
+        'options_method_invalid_model' => 'Das Attribut ":field" löst sich nicht zu einen gültigen Model auf. Probiere die options Methode der Model-Klasse :model explicit zu definieren.',
         'options_method_not_exists' => 'Die Model-Klasse :model muss eine Methode :method() mit Rückgabe der Werte von ":field" besitzen.',
     ],
     'widget' => [
@@ -338,7 +338,7 @@ return [
         'mode_off' => 'Aus',
         'mode_fluid' => 'Fluid',
         '40_characters' => '40 Zeichen',
-        '80_characters' => '80 Zeichen'
+        '80_characters' => '80 Zeichen',
         'theme' => 'Farb Schema',
         'markup_styles' => 'Markup Styles',
         'custom_styles' => 'Custom stylesheet',
