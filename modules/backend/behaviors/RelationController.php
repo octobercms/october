@@ -1203,7 +1203,9 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             if ($this->relationType == 'belongsTo') {
                 $this->relationObject->dissociate();
-                $this->relationObject->getParent()->save();
+                if ($this->relationObject->getParent()->exists){
+                    $this->relationObject->getParent()->save();
+                }
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $relatedModel->find($recordId)) {
