@@ -2,6 +2,7 @@
 
 use App;
 use Lang;
+use Event;
 use Config;
 use October\Rain\Halcyon\Model as HalcyonModel;
 use Cms\Contracts\CmsObject as CmsObjectContract;
@@ -126,24 +127,47 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
      * This method is used internally by the system.
      * @param \Cms\Classes\Theme $theme Specifies a parent theme.
      * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
-     * @return array Returns an array of CMS objects.
+     * @return Collection Returns a collection of CMS objects.
      */
     public static function listInTheme($theme, $skipCache = false)
     {
+        $result = [];
         $instance = static::inTheme($theme);
 
         if ($skipCache) {
-            return $instance->get();
+            $result = $instance->get();
+        } else {
+            $items = $instance->newQuery()->lists('fileName');
+
+            $loadedItems = [];
+            foreach ($items as $item) {
+                $loadedItems[] = static::loadCached($theme, $item);
+            }
+
+            $result = $intance->newCollection($result);
         }
 
-        $result = [];
-        $items = $instance->newQuery()->lists('fileName');
+        /**
+         * @event cms.object.listInTheme
+         * Provides opportunity to filter the items returned by a call to CmsObject::listInTheme()
+         *
+         * Parameters provided are `$cmsObject` (the object being listed) and `$objectList` (a collection of the CmsObjects being returned)
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.object.listInTheme', function($cmsObject, $objectList) {
+         *         if ($cmsObject instanceof \Cms\Classes\Page) {
+         *             $objectList->filter(function($page){
+         *                 // Filter out all pages except the one with the '/support' URL
+         *                 return $page->url == '/support';
+         *             });
+         *         }
+         *     });
+         *
+         */
+        Event::fire('cms.object.listInTheme', [$this, $result]);
 
-        foreach ($items as $item) {
-            $result[] = static::loadCached($theme, $item);
-        }
-
-        return $instance->newCollection($result);
+        return $result;
     }
 
     /**
