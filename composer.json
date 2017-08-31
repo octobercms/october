@@ -27,11 +27,11 @@
         "php": ">=7.0",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "october/rain": "dev-develop",
-        "october/system": "dev-develop",
-        "october/backend": "dev-develop",
-        "october/cms": "dev-develop",
-        "laravel/framework": "5.5.*@dev",
+        "october/rain": "~1.0",
+        "october/system": "~1.0",
+        "october/backend": "~1.0",
+        "october/cms": "~1.0",
+        "laravel/framework": "5.5.*",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
