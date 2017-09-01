@@ -54,7 +54,7 @@ class MailBrandSettings extends Controller
     {
         parent::__construct();
 
-        $this->pageTitle = 'Customize mail appearance';
+        $this->pageTitle = 'system::lang.mail_brand.page_title';
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.System', 'mail_brand_settings');
@@ -104,6 +104,7 @@ class MailBrandSettings extends Controller
         $data = [
             'subject' => Config::get('app.name'),
             'appName' => Config::get('app.name'),
+            'texts' => Lang::get('system::lang.mail_brand.sample_template')
         ];
 
         $layout = new MailLayout;

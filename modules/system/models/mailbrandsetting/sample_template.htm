@@ -1,47 +1,45 @@
-# Heading 1
+# {{texts.heading}} 1
 
-This is a paragraph filled with Lorem Ipsum and a link.
-Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.
+{{texts.paragraph|raw}}
 
-## Heading 2
+## {{texts.heading}} 2
 
 {% partial 'table' body %}
-| Item          | Description   | Price    |
+| {{texts.table.item}}          | {{texts.table.description}}   | {{texts.table.price}}    |
 |:------------- |:-------------:| --------:|
-| Item 1        | Centered      | $10      |
-| Item 2        | Right-Aligned | $20      |
+| {{texts.table.item}} 1        | {{texts.table.centered}}      | $10      |
+| {{texts.table.item}} 2        | {{texts.table.right_aligned}} | $20      |
 {% endpartial %}
 
-### Heading 3
+### {{texts.heading}} 3
 
-This is a paragraph filled with Lorem Ipsum and a link.
-Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.
+{{texts.paragraph|raw}}
 
 {% partial 'button' url='javascript:;' body %}
-Primary button
+{{texts.buttons.primary}}
 {% endpartial %}
 
 {% partial 'button' type='positive' url='javascript:;' body %}
-Positive button
+{{texts.buttons.positive}}
 {% endpartial %}
 
 {% partial 'button' type='negative' url='javascript:;' body %}
-Negative button
+{{texts.buttons.negative}}
 {% endpartial %}
 
 {% partial 'panel' body %}
-How awesome is this panel?
+{{texts.panel}}
 {% endpartial %}
 
-Some more text
+{{texts.more}}
 
 {% partial 'promotion' body %}
-Coupon code: OCTOBER
+{{texts.promotion}}
 {% endpartial %}
 
-Thanks,
+{{texts.thanks}},
 {{ appName }}
 
 {% partial 'subcopy' body %}
-This is the subcopy of the email
+{{texts.subcopy}}
 {% endpartial %}
