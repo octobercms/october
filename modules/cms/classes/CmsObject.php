@@ -165,7 +165,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
          *     });
          *
          */
-        Event::fire('cms.object.listInTheme', [$this, $result]);
+        Event::fire('cms.object.listInTheme', [$instance, $result]);
 
         return $result;
     }
