@@ -4,6 +4,7 @@ use Model;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
 use ApplicationException;
+use Event;
 
 /**
  * Maintenance mode settings
@@ -37,9 +38,11 @@ class MaintenanceSetting extends Model
      */
     public $rules = [];
 
+
     /**
      * Initialize the seed data for this model. This only executes when the
      * model is first created or reset to default.
+     *
      * @return void
      */
     public function initSettingsData()
@@ -53,11 +56,34 @@ class MaintenanceSetting extends Model
             throw new ApplicationException('Unable to find the active theme.');
         }
 
-        return Page::listInTheme($theme)->lists('fileName', 'fileName');
+        $pages = Page::listInTheme($theme);
+
+        /**
+         * @event cms.maintenance.listpages
+         * Allows to filter the pages to show in the maintenance settings dropdown.
+         *
+         * You will have access to CmsObjectCollection to be able to filter the pagelist
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.maintenance.listpages', function($pages) {
+         *          return $pages->filter(function($page){
+         *               return $page->url == '/support'; //For example we can filter the list and show only the support page
+         *          });
+         *     });
+         *
+         */
+        $filtered = Event::fire('cms.maintenance.listpages', [$pages]);
+        if (array_key_exists(0, $filtered)) {
+            $pages = $filtered[0];
+        }
+
+        return $pages->lists('fileName', 'fileName');
     }
 
     /**
      * Ensure each theme has its own CMS page, store it inside a mapping array.
+     *
      * @return void
      */
     public function beforeValidate()
@@ -74,6 +100,7 @@ class MaintenanceSetting extends Model
     /**
      * Restore the CMS page found in the mapping array, or disable the
      * maintenance mode.
+     *
      * @return void
      */
     public function afterFetch()
@@ -84,8 +111,7 @@ class MaintenanceSetting extends Model
             && ($cmsPage = array_get($themeMap, $theme->getDirName()))
         ) {
             $this->cms_page = $cmsPage;
-        }
-        else {
+        } else {
             $this->is_enabled = false;
         }
     }
