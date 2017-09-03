@@ -151,19 +151,30 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
          * @event cms.object.listInTheme
          * Provides opportunity to filter the items returned by a call to CmsObject::listInTheme()
          *
-         * Parameters provided are `$cmsObject` (the object being listed) and `$objectList` (a collection of the CmsObjects being returned)
+         * Parameters provided are `$cmsObject` (the object being listed) and `$objectList` (a collection of the CmsObjects being returned).
+         * > Note: The `$objectList` provided is an object reference to a CmsObjectCollection, to make changes you must use object modifying methods.
          *
-         * Example usage:
+         * Example usage (filters all pages except for the 404 page on the CMS Maintenance mode settings page):
          *
-         *     Event::listen('cms.object.listInTheme', function($cmsObject, $objectList) {
-         *         if ($cmsObject instanceof \Cms\Classes\Page) {
-         *             $objectList->filter(function($page){
-         *                 // Filter out all pages except the one with the '/support' URL
-         *                 return $page->url == '/support';
-         *             });
-         *         }
+         *     // Extend only the Settings Controller
+         *     \System\Controllers\Settings::extend(function($controller) {
+         *         // Listen for the cms.object.listInTheme event
+         *         \Event::listen('cms.object.listInTheme', function ($cmsObject, $objectList) {
+         *             // Get the current context of the Settings Manager to ensure we only affect what we need to affect
+         *             $context = \System\Classes\SettingsManager::instance()->getContext();
+         *             if ($context->owner === 'october.cms' && $context->itemCode === 'maintenance_settings') {
+         *                 // Double check that this is a Page List that we're modifying
+         *                 if ($cmsObject instanceof \Cms\Classes\Page) {
+         *                     // Perform filtering with an original-object modifying method as $objectList is passed by reference (being that it's an object)
+         *                     foreach ($objectList as $index => $page) {
+         *                         if ($page->url !== '/404') {
+         *                             $objectList->forget($index);
+         *                         }
+         *                     }
+         *                 }
+         *             }
+         *         });
          *     });
-         *
          */
         Event::fire('cms.object.listInTheme', [$instance, $result]);
 
