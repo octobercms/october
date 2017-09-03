@@ -144,7 +144,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
                 $loadedItems[] = static::loadCached($theme, $item);
             }
 
-            $result = $intance->newCollection($result);
+            $result = $instance->newCollection($loadedItems);
         }
 
         /**
