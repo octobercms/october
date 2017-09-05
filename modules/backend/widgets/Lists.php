@@ -97,6 +97,11 @@ class Lists extends WidgetBase
     public $showPagination = 'auto';
 
     /**
+     * @var bool Display page numbers when pagination is enabled
+     */
+    public $showPageNumbers = true;
+
+    /**
      * @var string Specify a custom view path to override partials used by the list.
      */
     public $customViewPath;
@@ -190,6 +195,7 @@ class Lists extends WidgetBase
             'recordUrl',
             'recordOnClick',
             'noRecordsMessage',
+            'showPageNumbers',
             'recordsPerPage',
             'showSorting',
             'defaultSort',
@@ -248,6 +254,7 @@ class Lists extends WidgetBase
         $this->vars['showCheckboxes'] = $this->showCheckboxes;
         $this->vars['showSetup'] = $this->showSetup;
         $this->vars['showPagination'] = $this->showPagination;
+        $this->vars['showPageNumbers'] = $this->showPageNumbers;
         $this->vars['showSorting'] = $this->showSorting;
         $this->vars['sortColumn'] = $this->getSortColumn();
         $this->vars['sortDirection'] = $this->sortDirection;
@@ -255,11 +262,15 @@ class Lists extends WidgetBase
         $this->vars['treeLevel'] = 0;
 
         if ($this->showPagination) {
-            $this->vars['recordTotal'] = $this->records->total();
             $this->vars['pageCurrent'] = $this->records->currentPage();
-            $this->vars['pageLast'] = $this->records->lastPage();
-            $this->vars['pageFrom'] = $this->records->firstItem();
-            $this->vars['pageTo'] = $this->records->lastItem();
+            if ($this->showPageNumbers) {
+                $this->vars['recordTotal'] = $this->records->total();
+                $this->vars['pageLast'] = $this->records->lastPage();
+                $this->vars['pageFrom'] = $this->records->firstItem();
+                $this->vars['pageTo'] = $this->records->lastItem();
+            } else {
+                $this->vars['hasMorePages'] = $this->records->hasMorePages();
+            }
         }
         else {
             $this->vars['recordTotal'] = $this->records->count();
@@ -518,7 +529,10 @@ class Lists extends WidgetBase
             $records = $model->getNested();
         }
         elseif ($this->showPagination) {
-            $records = $model->paginate($this->recordsPerPage, $this->currentPageNumber);
+            $paginationMethod = $this->showPageNumbers
+                ? 'paginate'
+                : 'simplePaginate';
+            $records = $model->{$paginationMethod}($this->recordsPerPage, $this->currentPageNumber);
         }
         else {
             $records = $model->get();
