@@ -42,11 +42,16 @@ $.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
             var i;
             for (i = 0; i < text_inputs.length; i++) {
                 $input = $(text_inputs[i]);
-                if (link[$input.attr('name')]) {
-                    $input.val(link[$input.attr('name')]);
-                }
-                else if ($input.attr('name') != 'text') {
-                    $input.val('');
+                var name = $input.attr('name');
+                var value = link[name];
+
+                if (name === 'text') {
+                    // Change link popup text, only if it is not already filled.
+                    if ($input.val().length === 0) {
+                        $input.val(value);
+                    }
+                } else {
+                    $input.val(value);
                 }
             }
 
