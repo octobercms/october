@@ -97,7 +97,7 @@ class Lists extends WidgetBase
     public $showPagination = 'auto';
 
     /**
-     * @var bool Display page numbers when pagination is enabled
+     * @var bool Display page numbers with pagination, disable to improve performance.
      */
     public $showPageNumbers = true;
 
@@ -268,7 +268,8 @@ class Lists extends WidgetBase
                 $this->vars['pageLast'] = $this->records->lastPage();
                 $this->vars['pageFrom'] = $this->records->firstItem();
                 $this->vars['pageTo'] = $this->records->lastItem();
-            } else {
+            }
+            else {
                 $this->vars['hasMorePages'] = $this->records->hasMorePages();
             }
         }
@@ -529,10 +530,8 @@ class Lists extends WidgetBase
             $records = $model->getNested();
         }
         elseif ($this->showPagination) {
-            $paginationMethod = $this->showPageNumbers
-                ? 'paginate'
-                : 'simplePaginate';
-            $records = $model->{$paginationMethod}($this->recordsPerPage, $this->currentPageNumber);
+            $method = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
+            $records = $model->{$method}($this->recordsPerPage, $this->currentPageNumber);
         }
         else {
             $records = $model->get();
