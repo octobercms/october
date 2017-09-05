@@ -54,6 +54,9 @@ $.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
                 $input = $(check_inputs[i]);
                 $input.prop('checked', $input.data('checked') == link[$input.attr('name')]);
             }
+
+            // Restore selection, so that the link gets inserted properly.
+            editor.selection.restore();
         }
 
         function insertLink() {
@@ -61,6 +64,9 @@ $.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
 
             editor.$el.popup({
                 handler: editor.opts.pageLinksHandler
+            }).one('shown.oc.popup.pageLinks', function () {
+              // I still have no idea why selection is only restored after popup is actually shown.
+              editor.selection.save()
             })
         }
 
