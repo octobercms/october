@@ -86,6 +86,31 @@
             }
         }
 
+        &.text {
+            padding: 0 10px;
+
+            &, label {
+                margin: 0;
+            }
+
+            .form-control {
+                display: inline;
+                width: auto;
+                height: 30px;
+                margin-left: 10px;
+            }
+
+            &:after {
+                content: '';
+            }
+
+            .loading-indicator {
+                top: -2px;
+                right: 7px;
+                left: auto;
+            }
+        }
+
         &:hover, &.active {
             &, &.custom-checkbox label {
                 color: @color-filter-text-active;

@@ -142,6 +142,13 @@ class Filter extends WidgetBase
                 }
 
                 break;
+
+            case 'text':
+                $params['value'] = $scope->value;
+                $params['size'] = array_get($scope->config, 'size', 10);
+
+                break;
+
             case 'numberrange':
                 if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
                     $scope->value[0] &&
@@ -238,7 +245,20 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $number);
                 break;
 
-           	case 'numberrange':
+            case 'text':
+                $values = post('options.value');
+
+                if (!is_null($values) && $values !== '') {
+                    list($value) = $values;
+                }
+                else {
+                    $value = null;
+                }
+
+                $this->setScopeValue($scope, $value);
+                break;
+
+            case 'numberrange':
                 $numbers = $this->numbersFromAjax(post('options.numbers'));
 
                 if (!empty($numbers)) {
@@ -701,6 +721,25 @@ class Filter extends WidgetBase
                             $query->$scopeMethod($min, $max);
                         }
                     }
+                }
+
+                break;
+
+            case 'text':
+                /*
+                 * Condition
+                 */
+                if ($scopeConditions = $scope->conditions) {
+                    $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
+                        ':value' => Db::getPdo()->quote($scope->value),
+                    ])));
+                }
+
+                /*
+                 * Scope
+                 */
+                elseif ($scopeMethod = $scope->scope) {
+                    $query->$scopeMethod($scope->value);
                 }
 
                 break;
