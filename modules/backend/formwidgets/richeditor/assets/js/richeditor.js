@@ -79,7 +79,7 @@
             pageLinksHandler: this.options.linksHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
             toolbarSticky: false,
-            zIndex:1000
+            zIndex: 1000
         }
 
         if (this.options.toolbarButtons) {
