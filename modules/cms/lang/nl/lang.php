@@ -11,7 +11,7 @@ return [
         'error_deleting' => 'Fout bij het verwijderen van template: ":name". Controleer de schrijfrechten.',
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
         'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.',
-        'safe_mode_enabled' => 'Safe-modus is op dit moment ingeschakeld.',
+        'safe_mode_enabled' => 'Beveiligde modus is op dit moment ingeschakeld.',
     ],
     'dashboard' => [
         'active_theme' => [
@@ -24,6 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => 'Het thema \':name\' is niet gevonden.',
+        'by_author' => 'Door :name',
         'active' => [
             'not_set' => 'Er is geen actief thema geselecteerd.',
             'not_found' => 'Het actieve thema is niet gevonden.',
@@ -69,7 +70,7 @@ return [
         'import_theme_success' => 'Thema succesvol geïmporteerd!',
         'import_uploaded_file' => 'Thema archiefbestand',
         'import_overwrite_label' => 'Overschijf bestaande bestanden',
-        'import_overwrite_comment' => 'Untick this box to only import new files',
+        'import_overwrite_comment' => 'Vink uit om alleen nieuwe bestanden te importeren',
         'import_folders_label' => 'Mappen',
         'import_folders_comment' => 'Selecteer de mappen die je wilt importeren:',
         'export_button' => 'Exporteren',

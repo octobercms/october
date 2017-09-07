@@ -6,7 +6,7 @@
         type="text"
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
-        value="<?= e($field->value) ?>"
+        value="<?= e(trans($field->value)) ?>"
         placeholder="<?= e(trans($field->placeholder)) ?>"
         class="form-control"
         autocomplete="off"

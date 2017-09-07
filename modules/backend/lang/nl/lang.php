@@ -39,6 +39,7 @@ return [
         'restore' => 'Herstellen',
         'login_placeholder' => 'Gebruikersnaam',
         'password_placeholder' => 'Wachtwoord',
+        'remember_me' => 'Blijf ingelogd',
         'forgot_password' => 'Wachtwoord vergeten?',
         'enter_email' => 'Vul e-mailadres in',
         'enter_login' => 'Vul gebruikersnaam in',
@@ -361,6 +362,8 @@ return [
         'no_wrap_comment' => 'Een lijst van tags die niet worden afgebroken.',
         'remove_tags' => 'Te verwijderen HTML-tags',
         'remove_tags_comment' => 'Een lijst van HTML-tags die samen met hun inhoud worden verwijderd.',
+        'toolbar_buttons' => 'Toolbar knoppen',
+        'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Voorvertoning website',
@@ -491,7 +494,7 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)',
-        ],
-    ],
+            'windows_1252' => 'Windows-1252 (CP1252)'
+        ]
+    ]
 ];

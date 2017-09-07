@@ -1,6 +1,5 @@
 <?php namespace Cms\Twig;
 
-use URL;
 use Flash;
 use Block;
 use Event;
@@ -32,16 +31,6 @@ class Extension extends Twig_Extension
     public function __construct(Controller $controller = null)
     {
         $this->controller = $controller;
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'CMS';
     }
 
     /**

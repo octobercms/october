@@ -4,6 +4,7 @@ use Lang;
 use Cms\Classes\Theme;
 use Cms\Classes\Layout;
 use ApplicationException;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * The CMS page class.
@@ -88,8 +89,14 @@ class Page extends CmsCompoundObject
         $layouts = Layout::listInTheme($theme, true);
         $result = [];
         $result[null] = Lang::get('cms::lang.page.no_layout');
+
         foreach ($layouts as $layout) {
             $baseName = $layout->getBaseFileName();
+
+            if (FileDefinitions::isPathIgnored($baseName)) {
+                continue;
+            }
+
             $result[$baseName] = strlen($layout->name) ? $layout->name : $baseName;
         }
 
@@ -174,7 +181,7 @@ class Page extends CmsCompoundObject
      * with the following keys:
      * - url - the menu item URL. Not required for menu item types that return all available records.
      *   The URL should be returned relative to the website root and include the subdirectory, if any.
-     *   Use the URL::to() helper to generate the URLs.
+     *   Use the Url::to() helper to generate the URLs.
      * - isActive - determines whether the menu item is active. Not required for menu item types that
      *   return all available records.
      * - items - an array of arrays with the same keys (url, isActive, items) + the title key.

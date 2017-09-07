@@ -102,12 +102,12 @@ class MediaLibraryItem
         }
 
         if (!self::$imageExtensions) {
-            self::$imageExtensions = Config::get('cms.storage.media.imageExtensions', FileDefinitions::get('imageExtensions'));
-            self::$videoExtensions = Config::get('cms.storage.media.videoExtensions', FileDefinitions::get('videoExtensions'));
-            self::$audioExtensions = Config::get('cms.storage.media.audioExtensions', FileDefinitions::get('audioExtensions'));
+            self::$imageExtensions = array_map('strtolower', Config::get('cms.storage.media.imageExtensions', FileDefinitions::get('imageExtensions')));
+            self::$videoExtensions = array_map('strtolower', Config::get('cms.storage.media.videoExtensions', FileDefinitions::get('videoExtensions')));
+            self::$audioExtensions = array_map('strtolower', Config::get('cms.storage.media.audioExtensions', FileDefinitions::get('audioExtensions')));
         }
 
-        $extension = pathinfo($this->path, PATHINFO_EXTENSION);
+        $extension = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
         if (!strlen($extension)) {
             return self::FILE_TYPE_DOCUMENT;
         }

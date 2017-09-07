@@ -29,8 +29,10 @@ class SettingsManager
     const CATEGORY_SOCIAL = 'system::lang.system.categories.social';
     const CATEGORY_SYSTEM = 'system::lang.system.categories.system';
     const CATEGORY_EVENTS = 'system::lang.system.categories.events';
+    const CATEGORY_BACKEND = 'system::lang.system.categories.backend';
     const CATEGORY_CUSTOMERS = 'system::lang.system.categories.customers';
     const CATEGORY_MYSETTINGS = 'system::lang.system.categories.my_settings';
+    const CATEGORY_NOTIFICATIONS = 'system::lang.system.categories.notifications';
 
     /**
      * @var array Cache of registration callbacks.
@@ -251,6 +253,10 @@ class SettingsManager
     public function addSettingItem($owner, $code, array $definition)
     {
         $itemKey = $this->makeItemKey($owner, $code);
+
+        if (isset($this->items[$itemKey])) {
+            $definition = array_merge((array) $this->items[$itemKey], $definition);
+        }
 
         $item = array_merge(self::$itemDefaults, array_merge($definition, [
             'code' => $code,

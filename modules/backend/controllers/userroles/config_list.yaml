@@ -1,0 +1,16 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: backend::lang.user.role.list_title
+list: ~/modules/backend/models/userrole/columns.yaml
+modelClass: Backend\Models\UserRole
+recordUrl: backend/userroles/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 25
+showSetup: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

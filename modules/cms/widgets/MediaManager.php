@@ -6,6 +6,7 @@ use Lang;
 use File;
 use Form;
 use Input;
+use Config;
 use Request;
 use Response;
 use Exception;
@@ -49,6 +50,9 @@ class MediaManager extends WidgetBase
      */
     public $cropAndInsertButton = false;
 
+    /**
+     * Constructor.
+     */
     public function __construct($controller, $alias)
     {
         $this->alias = $alias;
@@ -208,10 +212,12 @@ class MediaManager extends WidgetBase
 
     public function onSetSorting()
     {
-        $sortBy = Input::get('sortBy');
+        $sortBy = Input::get('sortBy', $this->getSortBy());
+        $sortDirection = Input::get('sortDirection', $this->getSortDirection());
         $path = Input::get('path');
 
         $this->setSortBy($sortBy);
+        $this->setSortDirection($sortDirection);
         $this->setCurrentFolder($path);
 
         $this->prepareVars();
@@ -594,14 +600,15 @@ class MediaManager extends WidgetBase
         $viewMode = $this->getViewMode();
         $filter = $this->getFilter();
         $sortBy = $this->getSortBy();
+        $sortDirection = $this->getSortDirection();
         $searchTerm = $this->getSearchTerm();
         $searchMode = strlen($searchTerm) > 0;
 
         if (!$searchMode) {
-            $this->vars['items'] = $this->listFolderItems($folder, $filter, $sortBy);
+            $this->vars['items'] = $this->listFolderItems($folder, $filter, ['by' => $sortBy, 'direction' => $sortDirection]);
         }
         else {
-            $this->vars['items'] = $this->findFiles($searchTerm, $filter, $sortBy);
+            $this->vars['items'] = $this->findFiles($searchTerm, $filter, ['by' => $sortBy, 'direction' => $sortDirection]);
         }
 
         $this->vars['currentFolder'] = $folder;
@@ -611,6 +618,7 @@ class MediaManager extends WidgetBase
         $this->vars['thumbnailParams'] = $this->getThumbnailParams($viewMode);
         $this->vars['currentFilter'] = $filter;
         $this->vars['sortBy'] = $sortBy;
+        $this->vars['sortDirection'] = $sortDirection;
         $this->vars['searchMode'] = $searchMode;
         $this->vars['searchTerm'] = $searchTerm;
         $this->vars['sidebarVisible'] = $this->getSidebarVisible();
@@ -656,7 +664,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_filter', $filter);
+        $this->putSession('media_filter', $filter);
     }
 
     protected function getFilter()
@@ -684,12 +692,29 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_sort_by', $sortBy);
+        $this->putSession('media_sort_by', $sortBy);
     }
 
     protected function getSortBy()
     {
         return $this->getSession('media_sort_by', MediaLibrary::SORT_BY_TITLE);
+    }
+
+    protected function setSortDirection($sortDirection)
+    {
+        if (!in_array($sortDirection, [
+            MediaLibrary::SORT_DIRECTION_ASC,
+            MediaLibrary::SORT_DIRECTION_DESC
+        ])) {
+            throw new ApplicationException('Invalid input data');
+        }
+
+        $this->putSession('media_sort_direction', $sortDirection);
+    }
+
+    protected function getSortDirection()
+    {
+        return $this->getSession('media_sort_direction', MediaLibrary::SORT_DIRECTION_ASC);
     }
 
     protected function getSelectionParams()
@@ -737,7 +762,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('media_crop_selection_params', [
+        $this->putSession('media_crop_selection_params', [
             'mode'   => $selectionMode,
             'width'  => $selectionWidth,
             'height' => $selectionHeight
@@ -746,12 +771,12 @@ class MediaManager extends WidgetBase
 
     protected function setSidebarVisible($visible)
     {
-        return $this->putSession('sideba_visible', !!$visible);
+        $this->putSession('sidebar_visible', !!$visible);
     }
 
     protected function getSidebarVisible()
     {
-        return $this->getSession('sideba_visible', true);
+        return $this->getSession('sidebar_visible', true);
     }
 
     protected function itemTypeToIconClass($item, $itemType)
@@ -783,7 +808,7 @@ class MediaManager extends WidgetBase
             }
         }
 
-        return array_reverse($result);
+        return array_reverse($result, true);
     }
 
     protected function setViewMode($viewMode)
@@ -796,7 +821,7 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        return $this->putSession('view_mode', $viewMode);
+        $this->putSession('view_mode', $viewMode);
     }
 
     protected function getViewMode()
@@ -872,7 +897,9 @@ class MediaManager extends WidgetBase
     {
         $fileName = md5($fileName.uniqid().microtime());
 
-        $path = temp_path() . '/media';
+        $mediaFolder = Config::get('cms.storage.media.folder', 'media');
+
+        $path = temp_path() . MediaLibrary::validatePath($mediaFolder, true);
 
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
@@ -883,7 +910,11 @@ class MediaManager extends WidgetBase
 
     protected function getThumbnailDirectory()
     {
-        return '/public/';
+        /*
+         * NOTE: Custom routing for /storage/temp/$thumbnailDirectory must be setup
+         * to return the thumbnail if not using default 'public' directory
+         */
+        return MediaLibrary::validatePath(Config::get('cms.storage.media.thumbFolder', 'public'), true) . '/';
     }
 
     protected function getPlaceholderId($item)

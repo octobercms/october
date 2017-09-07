@@ -2,7 +2,6 @@
 
 use Twig_Node;
 use Twig_Compiler;
-use Twig_NodeInterface;
 use Twig_Node_Expression;
 
 /**
@@ -13,7 +12,7 @@ use Twig_Node_Expression;
  */
 class FlashNode extends Twig_Node
 {
-    public function __construct($name, Twig_NodeInterface $body, $lineno, $tag = 'flash')
+    public function __construct($name, Twig_Node $body, $lineno, $tag = 'flash')
     {
         parent::__construct(['body' => $body], ['name' => $name], $lineno, $tag);
     }

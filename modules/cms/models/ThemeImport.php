@@ -40,7 +40,7 @@ class ThemeImport extends Model
     protected $fillable = [];
 
     public $attachOne = [
-        'uploaded_file' => ['System\Models\File']
+        'uploaded_file' => \System\Models\File::class
     ];
 
     /**

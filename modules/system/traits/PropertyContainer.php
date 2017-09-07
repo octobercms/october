@@ -27,16 +27,18 @@ trait PropertyContainer
     {
         $definedProperties = $this->defineProperties() ?: [];
 
-        // Determine and implement default values
+        /*
+         * Determine and implement default values
+         */
         $defaultProperties = [];
+
         foreach ($definedProperties as $name => $information) {
             if (array_key_exists('default', $information)) {
                 $defaultProperties[$name] = $information['default'];
             }
         }
-        $properties = array_merge($defaultProperties, $properties);
 
-        // @todo Check required properties
+        $properties = array_merge($defaultProperties, $properties);
 
         return $properties;
     }

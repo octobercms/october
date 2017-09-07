@@ -8,8 +8,14 @@ require __DIR__ . '/../bootstrap/autoload.php';
 /*
  * Fallback autoloader
  */
-October\Rain\Support\ClassLoader::register();
-October\Rain\Support\ClassLoader::addDirectories([
-    __DIR__.'/../modules',
-    __DIR__.'/../plugins'
+$loader = new October\Rain\Support\ClassLoader(
+    new October\Rain\Filesystem\Filesystem,
+    __DIR__ . '/../',
+    __DIR__ . '/../storage/framework/classes.php'
+);
+
+$loader->register();
+$loader->addDirectories([
+    'modules',
+    'plugins'
 ]);

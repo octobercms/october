@@ -13,6 +13,7 @@
 
 body.mainmenu-open {
     overflow: hidden;
+    position: fixed;
 }
 
 .mainmenu-item-link() {
@@ -20,7 +21,6 @@ body.mainmenu-open {
     font-size: @font-size-base;
     color: inherit;
     outline: none;
-    text-shadow: 0 0 2px black;
 
     &:hover {
         background-color: transparent;
@@ -277,18 +277,15 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
             text-align: left;
             font-size: @font-size-base;
             color: @color-accountmenu-text;
-            text-shadow: none;
 
             &:hover, &:focus {
                 background: @highlight-hover-bg;
                 color: @highlight-hover-text;
-                text-shadow: 0 -1px 0 @highlight-hover-text-shadow;
             }
 
             &:active {
                 background: @highlight-active-bg;
                 color: @highlight-active-text;
-                text-shadow: 0 -1px 0 @highlight-active-text-shadow;
             }
         }
 
@@ -464,16 +461,31 @@ nav#layout-mainmenu {
             line-height: @mainmenu-mode-collapse-height;
             width: @mainmenu-mode-collapse-height;
             text-align: center;
+            opacity: .7;
 
             i {
-                line-height: 1;
-                font-size: 30px;
-                vertical-align: middle;
+                line-height: @mainmenu-mode-collapse-height;
+                font-size: 20px;
+                vertical-align: bottom;
             }
         }
 
         .menu-toggle-title {
             margin-left: 10px;
+        }
+
+        &:hover {
+            .menu-toggle-icon {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+body.mainmenu-open {
+    nav#layout-mainmenu {
+        .menu-toggle-icon {
+            opacity: 1;
         }
     }
 }
@@ -486,15 +498,6 @@ nav#layout-mainmenu.navbar-mode-collapse {
     nav#layout-mainmenu.navbar {
         .mainmenu-navbar-collapse();
     }
-}
-
-// This logic is implemented in the october.navbar.js script,
-// it prevents the collapse mode from working beyond the min
-// breakpoint. Leaving this code just in case, remove later.
-// -SG
-@media (min-width: @menu-breakpoint-min) {
-    // #layout-canvas { position: static !important; }
-    // .mainmenu-collapsed { display: none !important; }
 }
 
 .mainmenu-navbar-collapse() {
@@ -573,6 +576,13 @@ body.mainmenu-open .mainmenu-collapsed ul {
     bottom: 10px;
 }
 
+html.mobile {
+    .mainmenu-collapsed ul {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 //
 // Misc
 //
@@ -593,12 +603,6 @@ nav#layout-mainmenu.navbar ul li:hover,
 nav#layout-mainmenu.navbar ul li,
 .mainmenu-collapsed li {
 
-    // a:active, a:focus {
-    //     .nav-label {
-    //         text-shadow: 1px 1px 15px white, -1px -1px 15px white;
-    //     }
-    // }
-
     // Used by account menu
     &.highlight > a {
         color: @color-mainmenu-active !important;
@@ -609,10 +613,6 @@ nav#layout-mainmenu.navbar ul li,
 
         a {
             color: @color-mainmenu-active !important;
-
-            .nav-label {
-               text-shadow: none;
-            }
         }
     }
 
@@ -627,12 +627,6 @@ body.drag {
     .mainmenu-collapsed ul li {
         &:hover {
             color: @color-mainmenu-inactive;
-        }
-
-        a:active, a:focus {
-            .nav-label {
-                text-shadow: none;
-            }
         }
     }
 }

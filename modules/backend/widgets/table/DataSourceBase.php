@@ -54,6 +54,14 @@ abstract class DataSourceBase
     abstract public function getRecords($offset, $count);
 
     /**
+     * Identical to getRecords except provided with a search query.
+     */
+    public function searchRecords($query, $offset, $count)
+    {
+        return $this->getRecords($offset, $count);
+    }
+
+    /**
      * Rewinds the the data source to the first record.
      * Use this method with the readRecords() method.
      */

@@ -12,6 +12,9 @@ use Cms\Widgets\MediaManager;
  */
 class Media extends Controller
 {
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['media.*'];
 
     /**

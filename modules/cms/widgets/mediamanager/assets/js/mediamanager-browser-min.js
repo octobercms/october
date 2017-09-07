@@ -343,7 +343,8 @@ $.oc.confirm(this.options.deleteConfirm,this.proxy(this.deleteConfirmation))}
 MediaManager.prototype.deleteConfirmation=function(confirmed){if(!confirmed)
 return
 var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),paths=[]
-for(var i=0,len=items.length;i<len;i++){paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
+for(var i=0,len=items.length;i<len;i++){if(items[i].hasAttribute('data-root')){continue;}
+paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
 this.$form.request(this.options.alias+'::onDeleteItem',{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(this.proxy(this.afterNavigate))}
@@ -449,7 +450,8 @@ if(deltaY>=0){this.selectionMarker.style.height=deltaY+'px'
 this.selectionMarker.style.top=this.selectionStartPoint.y+'px'}
 else{this.selectionMarker.style.top=relativePosition.y+'px'
 this.selectionMarker.style.height=Math.abs(deltaY)+'px'}}}
-MediaManager.prototype.onSortingChanged=function(ev){var data={sortBy:$(ev.target).val(),path:this.$el.find('[data-type="current-folder"]').val()}
+MediaManager.prototype.onSortingChanged=function(ev){var $target=$(ev.target),data={path:this.$el.find('[data-type="current-folder"]').val()}
+if($target.data('sort')=='by'){data.sortBy=$target.val();}else if($target.data('sort')=='direction'){data.sortDirection=$target.val()}
 this.execNavigationRequest('onSetSorting',data)}
 MediaManager.prototype.onKeyDown=function(ev){var eventHandled=false
 switch(ev.which){case 13:var items=this.getSelectedItems(true,true)

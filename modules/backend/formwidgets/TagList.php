@@ -122,7 +122,7 @@ class TagList extends FormWidgetBase
 
         foreach ($newTags as $newTag) {
             $newModel = $relationModel::create([$this->nameFrom => $newTag]);
-            $existingTags[$newModel->id] = $newTag;
+            $existingTags[$newModel->getKey()] = $newTag;
         }
 
         return array_keys($existingTags);

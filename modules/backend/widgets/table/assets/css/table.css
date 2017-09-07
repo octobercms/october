@@ -150,6 +150,14 @@
   opacity: 1;
   filter: alpha(opacity=100);
 }
+.control-table .toolbar .table-search {
+  float: right;
+  margin: 3px 3px 0 0;
+}
+.control-table .toolbar .table-search .table-search-input {
+  height: auto;
+  padding: 5px 13px 5px;
+}
 .control-table .toolbar a.table-icon:before {
   display: inline-block;
   content: ' ';

@@ -239,13 +239,25 @@
     &.filelist-hero {
         .a-hover() {
             background: @color-filelist-hero-hover-bg;
-            border-bottom: 1px solid @color-filelist-hero-hover-bg!important;
+            border-bottom: 1px solid @color-filelist-hero-hover-bg !important;
             span.title, span.description {
-                color: @color-filelist-hero-hover-text!important;
+                color: @color-filelist-hero-hover-text !important;
             }
 
             .list-icon {
-                color: @color-filelist-hero-hover-text!important;
+                color: @color-filelist-hero-hover-text !important;
+            }
+        }
+
+        .a-active() {
+            background: @color-filelist-hero-active-bg;
+            border-bottom: 1px solid @color-filelist-hero-active-bg !important;
+            span.title, span.description {
+                color: @color-filelist-hero-active-text !important;
+            }
+
+            .list-icon {
+                color: @color-filelist-hero-active-text !important;
             }
         }
 
@@ -280,6 +292,10 @@
                     &:hover {
                         .a-hover();
                     }
+
+                    &:active {
+                        .a-active();
+                    }
                 }
 
                 .checkbox {
@@ -313,6 +329,10 @@
 
                         &:hover > span.borders:before {
                             background-color: @color-filelist-hero-hover-bg;
+                        }
+
+                        &:active > span.borders:before {
+                            background-color: @color-filelist-hero-active-bg;
                         }
                     }
                 }
@@ -392,6 +412,13 @@
 
                 > a {
                     .a-hover();
+                }
+            }
+            ul li:active {
+                background: @color-filelist-hero-active-bg;
+
+                > a {
+                    .a-active();
                 }
             }
         }

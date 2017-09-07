@@ -43,9 +43,18 @@
 
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
+        if (this.options.thumbnailWidth > 0) {
+            this.$el.css('maxWidth', this.options.thumbnailWidth + 'px')
+        }
+
+        else if (this.options.thumbnailHeight > 0) {
+            this.$el.css('maxHeight', this.options.thumbnailHeight + 'px')
+        }
+
         // Stop here for preview mode
-        if (this.options.isPreview)
+        if (this.options.isPreview) {
             return
+        }
 
         this.$el.on('click', '.find-button', this.proxy(this.onClickFindButton))
         this.$el.on('click', '.find-remove-button', this.proxy(this.onClickRemoveButton))
@@ -108,7 +117,6 @@
                 this.hide()
             }
         })
-
     }
 
     MediaFinder.prototype.evalIsPopulated = function() {
@@ -128,10 +136,10 @@
 
     var old = $.fn.mediaFinder
 
-    $.fn.mediaFinder = function (option) {
+    $.fn.mediaFinder = function(option) {
         var args = arguments;
 
-        return this.each(function () {
+        return this.each(function() {
             var $this   = $(this)
             var data    = $this.data('oc.mediaFinder')
             var options = $.extend({}, MediaFinder.DEFAULTS, $this.data(), typeof option == 'object' && option)
@@ -142,12 +150,12 @@
 
     $.fn.mediaFinder.Constructor = MediaFinder
 
-    $.fn.mediaFinder.noConflict = function () {
+    $.fn.mediaFinder.noConflict = function() {
         $.fn.mediaFinder = old
         return this
     }
 
-    $(document).render(function (){
+    $(document).render(function() {
         $('[data-control="mediafinder"]').mediaFinder()
     })
 

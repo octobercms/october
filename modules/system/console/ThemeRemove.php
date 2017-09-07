@@ -45,7 +45,7 @@ class ThemeRemove extends Command
      * Execute the console command.
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $themeManager = ThemeManager::instance();
         $themeName = $this->argument('name');

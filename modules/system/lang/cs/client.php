@@ -49,6 +49,45 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Zrušit',
+        'widget_remove_confirm' => 'Odstranit widget?'
     ],
-
+    'datepicker' => [
+        'previousMonth' => 'Předchozí měsíc',
+        'nextMonth' => 'Následující měsíc',
+        'months' => ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+        'weekdays' => ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
+        'weekdaysShort' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So']
+    ],
+    'colorpicker' => [
+        'choose' => 'Ok',
+    ],
+    'filter' => [
+        'group' => [
+            'all' => 'Vše'
+        ],
+        'dates' => [
+            'all' => 'Vše',
+            'filter_button_text' => 'Filtrovat',
+            'reset_button_text'  => 'Zrušit',
+            'date_placeholder' => 'Datum',
+            'after_placeholder' => 'Po',
+            'before_placeholder' => 'Před'
+        ]
+    ],
+    'eventlog' => [
+        'show_stacktrace' => 'Zobrazit stacktrace',
+        'hide_stacktrace' => 'Skrýt stacktrace',
+        'tabs' => [
+            'formatted' => 'Formátováno',
+            'raw' => 'Původní (raw)',
+        ],
+        'editor' => [
+            'title' => 'Editor zdrojového kódu',
+            'description' => 'Váš operační systém by měl být konfigurován tak, aby naslouchal jednomu z těchto schémat adres URL.',
+            'openWith' => 'Otevřít v',
+            'remember_choice' => 'Zapamatovat si vybranou volbu pro tuto relaci',
+            'open' => 'Otevřít',
+            'cancel' => 'Zrušit'
+        ]
+    ]
 ];

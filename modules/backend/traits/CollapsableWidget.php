@@ -1,7 +1,5 @@
 <?php namespace Backend\Traits;
 
-use Input;
-
 /**
  * Collapsable Widget Trait
  * Adds collapse/expand item features to back-end widgets
@@ -12,42 +10,120 @@ use Input;
 
 trait CollapsableWidget
 {
-    protected $groupStatusCache = false;
+    /**
+     * @var string The key name to use when storing collapsed states in the session.
+     */
+    public $collapseSessionKey = 'groups';
 
-    public function onGroupStatusUpdate()
+    /**
+     * @var array|false Memory cache of collapsed states.
+     */
+    protected $collapseGroupStatusCache = false;
+
+    /**
+     * AJAX handler to toggle a collapsed state. This should take two post variables:
+     * - group: The collapsible group name
+     * - status: The state of the group. Usually a 1 or a 0.
+     *
+     * @return void
+     */
+    public function onSetCollapseStatus()
     {
-        $this->setGroupStatus(Input::get('group'), Input::get('status'));
+        $this->setCollapseStatus(post('group'), post('status'));
     }
 
-    protected function getGroupStatuses()
+    /**
+     * Returns the array of all collapsed states belonging to this widget.
+     *
+     * @return array
+     */
+    protected function getCollapseStatuses()
     {
-        if ($this->groupStatusCache !== false) {
-            return $this->groupStatusCache;
+        if ($this->collapseGroupStatusCache !== false) {
+            return $this->collapseGroupStatusCache;
         }
 
-        $groups = $this->getSession('groups', []);
+        $groups = $this->getSession($this->collapseSessionKey, []);
+
         if (!is_array($groups)) {
-            return $this->groupStatusCache = [];
+            return $this->collapseGroupStatusCache = [];
         }
 
-        return $this->groupStatusCache = $groups;
+        return $this->collapseGroupStatusCache = $groups;
     }
 
-    protected function setGroupStatus($group, $status)
+    /**
+     * Sets a collapsed state.
+     *
+     * @param string $group
+     * @param string $status
+     */
+    protected function setCollapseStatus($group, $status)
     {
-        $statuses = $this->getGroupStatuses();
+        $statuses = $this->getCollapseStatuses();
+
         $statuses[$group] = $status;
-        $this->groupStatusCache = $statuses;
-        $this->putSession('groups', $statuses);
+
+        $this->collapseGroupStatusCache = $statuses;
+
+        $this->putSession($this->collapseSessionKey, $statuses);
     }
 
-    protected function getGroupStatus($group, $default = true)
+    /**
+     * Gets a collapsed state.
+     *
+     * @param string $group
+     * @param bool $default
+     * @return bool|string
+     */
+    protected function getCollapseStatus($group, $default = true)
     {
-        $statuses = $this->getGroupStatuses();
+        $statuses = $this->getCollapseStatuses();
+
         if (array_key_exists($group, $statuses)) {
             return $statuses[$group];
         }
 
         return $default;
+    }
+
+    //
+    // Deprecations, remove if year >= 2019
+    //
+
+    /**
+     * @deprecated  onGroupStatusUpdate is deprecated. Please update onSetCollapseStatus instead.
+     */
+    public function onGroupStatusUpdate()
+    {
+        traceLog('onGroupStatusUpdate is deprecated. Please update onSetCollapseStatus instead. Class: '.get_class($this));
+        $this->onSetCollapseStatus();
+    }
+
+    /**
+     * @deprecated - getGroupStatuses is deprecated. Please update getCollapseStatuses instead.
+     */
+    protected function getGroupStatuses()
+    {
+        traceLog('getGroupStatuses is deprecated. Please update getCollapseStatuses instead. Class: '.get_class($this));
+        return $this->getCollapseStatuses();
+    }
+
+    /**
+     * @deprecated - setGroupStatus is deprecated. Please update setCollapseStatus instead.
+     */
+    protected function setGroupStatus($group, $status)
+    {
+        traceLog('setGroupStatus is deprecated. Please update setCollapseStatus instead. Class: '.get_class($this));
+        return $this->setCollapseStatus($group, $status);
+    }
+
+    /**
+     * @deprecated - getGroupStatus is deprecated. Please update getCollapseStatus instead.
+     */
+    protected function getGroupStatus($group, $default = true)
+    {
+        traceLog('getGroupStatus is deprecated. Please update getCollapseStatus instead. Class: '.get_class($this));
+        return $this->getCollapseStatus($group, $default);
     }
 }

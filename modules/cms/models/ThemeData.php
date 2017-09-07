@@ -154,7 +154,7 @@ class ThemeData extends Model
         $result = [];
 
         foreach ($this->getFormFields() as $attribute => $field) {
-            if (!$value = array_get($field, 'default')) {
+            if (($value = array_get($field, 'default')) === null) {
                 continue;
             }
 
