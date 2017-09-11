@@ -43,7 +43,6 @@
     DateTimeConverter.prototype.constructor = DateTimeConverter
 
     DateTimeConverter.prototype.init = function() {
-
         this.initDefaults()
 
         this.$el.text(this.getDateTimeValue())
@@ -76,6 +75,11 @@
 
     DateTimeConverter.prototype.getDateTimeValue = function() {
         this.datetime = this.$el.attr('datetime')
+
+        if (this.$el.get(0).hasAttribute('data-ignore-timezone')) {
+            this.appTimezone = 'UTC'
+            this.options.timezone = 'UTC'
+        }
 
         var momentObj = moment.tz(this.datetime, this.appTimezone),
             result

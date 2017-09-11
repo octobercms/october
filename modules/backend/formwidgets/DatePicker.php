@@ -52,6 +52,11 @@ class DatePicker extends FormWidgetBase
      */
     public $firstDay = 0;
 
+    /**
+     * @var bool change datetime exactly as is in database
+     */
+    public $ignoreTimezone = false;
+
     //
     // Object properties
     //
@@ -73,6 +78,7 @@ class DatePicker extends FormWidgetBase
             'maxDate',
             'yearRange',
             'firstDay',
+            'ignoreTimezone',
         ]);
 
         $this->mode = strtolower($this->mode);
@@ -120,6 +126,7 @@ class DatePicker extends FormWidgetBase
         $this->vars['maxDate'] = $this->maxDate;
         $this->vars['yearRange'] = $this->yearRange;
         $this->vars['firstDay'] = $this->firstDay;
+        $this->vars['ignoreTimezone'] = $this->ignoreTimezone;
         $this->vars['format'] = $this->format;
         $this->vars['formatMoment'] = $this->getDateFormatMoment();
         $this->vars['formatAlias'] = $this->getDateFormatAlias();

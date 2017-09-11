@@ -46,6 +46,7 @@
         this.$timePicker = $('[data-timepicker]', this.$el)
         this.hasDate = !!this.$datePicker.length
         this.hasTime = !!this.$timePicker.length
+        this.ignoreTimezone = this.$el.get(0).hasAttribute('data-ignore-timezone')
 
         this.initRegion()
 
@@ -290,6 +291,12 @@
         }
 
         if (!this.timezone) {
+            this.timezone = 'UTC'
+        }
+
+        // Set both timezones to UTC to disable converting between them
+        if (this.ignoreTimezone) {
+            this.appTimezone = 'UTC'
             this.timezone = 'UTC'
         }
     }

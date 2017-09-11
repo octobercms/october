@@ -2861,6 +2861,7 @@ this.$datePicker=$('[data-datepicker]',this.$el)
 this.$timePicker=$('[data-timepicker]',this.$el)
 this.hasDate=!!this.$datePicker.length
 this.hasTime=!!this.$timePicker.length
+this.ignoreTimezone=this.$el.get(0).hasAttribute('data-ignore-timezone')
 this.initRegion()
 if(this.hasDate){this.initDatePicker()}
 if(this.hasTime){this.initTimePicker()}
@@ -2923,7 +2924,9 @@ DatePicker.prototype.initRegion=function(){this.locale=$('meta[name="backend-loc
 this.timezone=$('meta[name="backend-timezone"]').attr('content')
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}
-if(!this.timezone){this.timezone='UTC'}}
+if(!this.timezone){this.timezone='UTC'}
+if(this.ignoreTimezone){this.appTimezone='UTC'
+this.timezone='UTC'}}
 DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
 DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0}
@@ -2989,7 +2992,7 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
                                 type="text"                                                             \
                                 name="search"                                                           \
                                 autocomplete="off"                                                      \
-                                class="filter-search-input form-control icon search"                    \
+                                class="filter-search-input form-control icon search popup-allow-focus"  \
                                 data-request="{{ optionsHandler }}"                                     \
                                 data-load-indicator-opaque                                              \
                                 data-load-indicator                                                     \
@@ -3168,7 +3171,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
+                                        class="form-control align-right popup-allow-focus"                              \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ date_placeholder }}" />                                         \
                                 </div>                                                                                  \
@@ -3194,7 +3197,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
+                                        class="form-control align-right popup-allow-focus"                              \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ after_placeholder }}" />                                        \
                                 </div>                                                                                  \

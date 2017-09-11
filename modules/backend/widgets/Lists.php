@@ -1006,11 +1006,17 @@ class Lists extends WidgetBase
             $value = $dateTime->toDayDateTimeString();
         }
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateTimeLongMin'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1028,11 +1034,17 @@ class Lists extends WidgetBase
 
         $value = $dateTime->format($format);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'time'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1053,11 +1065,17 @@ class Lists extends WidgetBase
             $value = $dateTime->toFormattedDateString();
         }
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateLongMin'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1073,10 +1091,16 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeSince($dateTime);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'timeSince' => true
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1092,10 +1116,16 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeTense($dateTime);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'timeTense' => true
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
