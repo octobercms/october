@@ -142,6 +142,9 @@ class MediaManager extends WidgetBase
     {
         $path = Input::get('path');
         $lastModified = Input::get('lastModified');
+        
+        $isSVG = $this->isSVG($path);
+        if ($isSVG) return $isSVG;        
 
         $thumbnailParams = $this->getThumbnailParams();
         $thumbnailParams['width'] = 300;
@@ -868,8 +871,13 @@ class MediaManager extends WidgetBase
         return $result;
     }
 
-    protected function getThumbnailImageUrl($imagePath)
+    protected function getThumbnailImageUrl($imagePath, $itemPath = null)
     {
+        if ($this->isSVG($itemPath))
+        {
+            return Url::to(Config::get('cms.storage.media.path') . $itemPath);
+        }
+
         return Url::to('/storage/temp'.$imagePath);
     }
 
@@ -886,8 +894,10 @@ class MediaManager extends WidgetBase
         return false;
     }
 
-    protected function thumbnailIsError($thumbnailPath)
+    protected function thumbnailIsError($thumbnailPath, $itemPath = null)
     {
+        if ($this->isSVG($itemPath)) return false;
+        
         $fullPath = temp_path(ltrim($thumbnailPath, '/'));
 
         return hash_file('crc32', $fullPath) == $this->getBrokenImageHash();
@@ -1215,6 +1225,20 @@ class MediaManager extends WidgetBase
         $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
 
         return trim($title, $separator);
+    }
+    
+    protected function isSVG($path)
+    {
+        $ext = strtolower((new \SplFileInfo($path))->getExtension());
+        if ($ext == 'svg') {
+            return [
+                'markup' => $this->makePartial('thumbnail-image', [
+                    'isError' => false,
+                    'imageUrl' => Url::to(Config::get('cms.storage.media.path') . $path)
+                ])
+            ];
+        }
+        return false;
     }
 
     //
