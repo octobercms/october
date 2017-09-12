@@ -17,8 +17,8 @@
                 </div>
             <?php else: ?>
                 <?= $this->makePartial('thumbnail-image', [
-                    'isError' => $this->thumbnailIsError($thumbnailPath),
-                    'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
+                    'isError' => $this->thumbnailIsError($thumbnailPath, $item->path),
+                    'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath, $item->path)
                 ]) ?>
             <?php endif ?>
         </div>
