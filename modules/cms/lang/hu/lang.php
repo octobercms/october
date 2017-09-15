@@ -2,7 +2,7 @@
 
 return [
     'cms_object' => [
-        'invalid_file' => 'Érvénytelen fájlnév. Csak latin betűt, számot, aláhúzásjelet, kötőjelet és pontot tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, konyvtar/oldalnev',
+        'invalid_file' => 'Érvénytelen fájlnév. Csak latin betűket, számokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, konyvtar/oldalnev',
         'invalid_property' => "A(z) ':name' tulajdonság nem állítható be.",
         'file_already_exists' => "Már létezik ':name' nevű fájl.",
         'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
@@ -79,7 +79,7 @@ return [
         'export_folders_comment' => 'Válassza ki azokat a könyvtárakat, amiket exportálni szeretne.',
         'delete_button' => 'Törlés',
         'delete_confirm' => 'Valóban törölni akarja a témát?',
-        'delete_active_theme_failed' => 'Nem lehet törölni a témát. Először tegyen aktivvá egy másik témát.',
+        'delete_active_theme_failed' => 'Nem lehet törölni a témát. Először tegyen aktívvá egy másik témát.',
         'delete_theme_success' => 'A téma törlése sikeresen megtörtént!',
         'create_title' => 'Sablon létrehozása',
         'create_button' => 'Létrehozás',
@@ -88,7 +88,7 @@ return [
         'create_theme_required_name' => 'Kérem adjon meg egy nevet a témának.',
         'new_directory_name_label' => 'Téma helye',
         'new_directory_name_comment' => 'Adjon meg egy új könyvtárat a duplikált témának.',
-        'dir_name_invalid' => 'A név csak számokat, latin betűket és a következő szimbólumokat tartalmazhatja: _-',
+        'dir_name_invalid' => 'A név csak számokat, latin betűket, aláhúzásokat és kötőjeleket tartalmazhat.',
         'dir_name_taken' => 'A megadott könyvtár már létezik.',
         'find_more_themes' => 'További témák az OctoberCMS piacterén',
         'saving' => 'Téma mentése...',
@@ -96,7 +96,7 @@ return [
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás',
-        'settings_menu_description' => 'Szolgáltatás aktiválása és testreszabása.',
+        'settings_menu_description' => 'A weboldal ideiglenes felfüggesztése a látogatók számára.',
         'is_enabled' => 'Karbantartás engedélyezése',
         'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.',
         'hint' => 'Karbantartás módban a lentebb megadott lap fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.'
@@ -115,7 +115,7 @@ return [
         'unsaved_label' => 'Nem mentett lap(ok)',
         'no_list_records' => 'Nincs találat',
         'new' => 'Új lap',
-        'invalid_url' => 'Érvénytelen a webcím formátuma. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
+        'invalid_url' => 'Érvénytelen a formátum. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
         'no_layout' => '-- nincs --',
@@ -237,7 +237,7 @@ return [
         'no_description' => 'Nincs megadott leírás',
         'alias' => 'Alias',
         'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
-        'validation_message' => 'A komponens aliasok kötelezőek, és csak latin szimbólumokat, számokat, valamint aláhúzás jeleket tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
+        'validation_message' => 'A komponens aliasok kötelezőek, és csak latin betűket, számokat, valamint aláhúzásokat tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
         'invalid_request' => 'A sablon érvénytelen komponens adatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",
@@ -332,7 +332,7 @@ return [
         'selected_size' => 'Kiválasztva:'
     ],
     'theme_log' => [
-        'hint' => 'Az adminisztrátorok által elvégzett módosítások az aktív téma fájlaiban, amiket az admin felületen keresztül hajtottak végre.',
+        'hint' => 'Az adminok által elvégzett módosítások az aktív téma fájlaiban, amiket az admin felületen keresztül hajtottak végre.',
         'menu_label' => 'Téma napló',
         'menu_description' => 'Változtatások listája az aktív témánál.',
         'empty_link' => 'Kiürítés',
