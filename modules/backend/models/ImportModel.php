@@ -146,16 +146,6 @@ abstract class ImportModel extends Model
         foreach ($contents as $row) {
             $result[] = $this->processImportRow($row, $matches);
         }
-        
-        // Offset the array index in order to have the correct row index in error logs
-        if ($options['firstRowTitles']) {
-            array_unshift($result, [], []);
-            unset($result[0]);
-            unset($result[1]);
-        } else {
-            array_unshift($result, []);
-            unset($result[0]);
-        }
 
         return $result;
     }
