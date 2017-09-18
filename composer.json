@@ -32,7 +32,8 @@
         "october/backend": "~1.0",
         "october/cms": "~1.0",
         "laravel/framework": "5.5.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "wikimedia/composer-merge-plugin": "dev-master",
+        "doctrine/dbal": "2.6 as 2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
