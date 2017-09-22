@@ -1129,6 +1129,17 @@ class MediaManager extends WidgetBase
             $path = MediaLibrary::validatePath($path);
             $filePath = $path.'/'.$fileName;
 
+            if (MediaLibrary::instance()->exists($filePath)) {
+                if ($quickMode) {
+                    // If quickMode is true, auto rename file name
+                    $fileName = File::name($uploadedFile->getClientOriginalName()) . '-' . str_random(40) . '.' . $extension;
+                    $filePath = $path . '/' . $fileName;
+                } else {
+                    // Else throw exception
+                    throw new ApplicationException(Lang::get('cms::lang.cms_object.file_already_exists',['name' => $fileName]));
+                }
+            }
+
             /*
              * getRealPath() can be empty for some environments (IIS)
              */
