@@ -78,15 +78,15 @@ if (window.jQuery.request !== undefined) {
             $.extend(data, paramToObj('data-request-data', $(this).data('request-data')))
         })
 
-        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            $.extend(data, options.data)
-        }
-
         if ($el.is(':input') && !$form.length) {
             inputName = $el.attr('name')
             if (inputName !== undefined && options.data[inputName] === undefined) {
-                data[inputName] = $el.val()
+                options.data[inputName] = $el.val()
             }
+        }
+
+        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
+            $.extend(data, options.data)
         }
 
         if (useFiles) {

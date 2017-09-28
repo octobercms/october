@@ -150,7 +150,7 @@ return [
     ],
     'mail_templates' => [
         'menu_label' => 'Sablonok',
-        'menu_description' => 'A kimenő levelek megjelenésének testreszabása.',
+        'menu_description' => 'Levél típusok és elrendezések menedzselése.',
         'new_template' => 'Új sablon',
         'new_layout' => 'Új elrendezés',
         'new_partial' => 'Új részlap',
@@ -189,7 +189,54 @@ return [
     ],
     'mail_brand' => [
         'menu_label' => 'Kinézet',
-        'menu_description' => 'A színek és további vizuális jellemzők testreszabása.',
+        'menu_description' => 'A színek és más vizuális jellemzők módosítása.',
+        'page_title' => 'Levél megjelenésének testreszabása',
+        'sample_template' => [
+            'heading' => 'Címsor',
+            'paragraph' => 'Ez egy bekezdés Lorem Ipsum szöveggel és hivatkozással. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Elem',
+                'description' => 'Leírás',
+                'price' => 'Ár',
+                'centered' => 'középre igazítva',
+                'right_aligned' => 'jobbra igazítva'
+            ],
+            'buttons' => [
+                'primary' => 'Elsődleges gomb',
+                'positive' => 'Pozitív gomb',
+                'negative' => 'Negatív gomb'
+            ],
+            'panel' => 'Kiemelt szöveg',
+            'more' => 'Még több szöveg',
+            'promotion' => 'Kupon kód: OCTOBER',
+            'subcopy' => 'Utóirat helye',
+            'thanks' => 'Üdvözlettel'
+        ],
+        'fields' => [
+            '_section_background' => 'Hátterek',
+            'body_bg' => 'Törzs háttere',
+            'content_bg' => 'Tartalom háttere',
+            'content_inner_bg' => 'Belső tartalom háttere',
+            '_section_buttons' => 'Gombok',
+            'button_text_color' => 'Szöveg színe',
+            'button_primary_bg' => 'Elsődleges gomb háttere',
+            'button_positive_bg' => 'Pozitív gomb háttere',
+            'button_negative_bg' => 'Negatív gomb háttere',
+            '_section_type' => 'Tipográfia',
+            'header_color' => 'Fejléc színe',
+            'heading_color' => 'Címsorok színe',
+            'text_color' => 'Szöveg színe',
+            'link_color' => 'Hivatkozás színe',
+            'footer_color' => 'Lábléc színe',
+            '_section_borders' => 'Szegélyek',
+            'body_border_color' => 'Törzs szegély színe',
+            'subcopy_border_color' => 'Utóirat szegély színe',
+            'table_border_color' => 'Táblázat szegély színe',
+            '_section_components' => 'Komponensek',
+            'panel_bg' => 'Panel háttere',
+            'promotion_bg' => 'Promóció háttere',
+            'promotion_border_color' => 'Promóció szegély színe'
+        ]
     ],
     'install' => [
         'project_label' => 'Csatolás',
@@ -330,13 +377,13 @@ return [
     ],
     'log' => [
         'menu_label' => 'Engedélyek',
-        'menu_description' => 'Válassza ki, hogy mit szeretene naplózni.',
+        'menu_description' => 'Válassza ki, hogy mely műveleteket szeretne naplózni.',
         'default_tab' => 'Engedélyek',
         'log_events' => 'Események naplózása',
         'log_events_comment' => 'A rendszer üzeneteinek eltárolása.',
         'log_requests' => 'Kérelmek naplózása',
         'log_requests_comment' => 'Rossz vagy átirányított kérelmek eltárolása.',
         'log_theme' => 'Téma változtatások naplózása',
-        'log_theme_comment' => 'A fájlokban történt változtatások eltárolása.',
+        'log_theme_comment' => 'A fájlokban történt változtatások eltárolása.'
     ]
 ];

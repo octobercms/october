@@ -487,8 +487,22 @@ class MediaManager extends WidgetBase
         $this->setSidebarVisible($visible);
     }
 
+    public function convertFormModeParamToConstant($mode) {
+        switch($mode) {
+            case 'normal': return MediaManager::SELECTION_MODE_NORMAL;
+            case 'size': return MediaManager::SELECTION_MODE_FIXED_SIZE;
+            case 'ratio': return MediaManager::SELECTION_MODE_FIXED_RATIO;
+            default: return null;
+        }
+    }
+
     public function onLoadPopup()
     {
+        $this->setSelectionParams(
+            $this->convertFormModeParamToConstant(Input::get('cropmode', 'normal')),
+            Input::get('cropwidth', ''),
+            Input::get('cropheight', '')
+        );
         $this->bottomToolbar = Input::get('bottomToolbar', $this->bottomToolbar);
 
         $this->cropAndInsertButton = Input::get('cropAndInsertButton', $this->cropAndInsertButton);
