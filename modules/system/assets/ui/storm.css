@@ -1417,7 +1417,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 body.dropdown-open .dropdown-overlay{position:fixed;left:0;top:0;right:0;bottom:0;z-index:599}
 @media (max-width:480px){body.dropdown-open{overflow:hidden}
 body.dropdown-open .dropdown-overlay{background:rgba(0,0,0,0.4)}
-body.dropdown-open .dropdown-menu{overflow:auto;overflow-y:scroll;position:fixed !important;margin:0 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;z-index:500}
+body.dropdown-open .dropdown-menu{overflow:auto;overflow-y:scroll;position:fixed !important;margin:0 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;z-index:1100}
 body.dropdown-open .dropdown-menu .dropdown-container{padding:10px;height:100%}
 body.dropdown-open .dropdown-menu .dropdown-container ul{min-height:100%;margin-top:0}
 body.dropdown-open .dropdown-menu .dropdown-container ul:before,body.dropdown-open .dropdown-menu .dropdown-container ul:after{display:none}
@@ -2920,12 +2920,12 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter-popover .filter-search .close{width:30px;display:block;position:absolute;top:5px;right:5px;font-size:28px;z-index:10}
 }
 .modal-open{overflow:hidden}
-.modal{display:none;overflow:auto;overflow-y:scroll;position:fixed;top:0;right:0;bottom:0;left:0;z-index:600;-webkit-overflow-scrolling:touch;outline:0}
+.modal{display:none;overflow:auto;overflow-y:scroll;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1200;-webkit-overflow-scrolling:touch;outline:0}
 .modal.fade .modal-dialog{-webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);transform:translate(0,-25%);-webkit-transition:-webkit-transform 0.3s ease-out;-moz-transition:-moz-transform 0.3s ease-out;-o-transition:-o-transform 0.3s ease-out;transition:transform 0.3s ease-out}
 .modal.in .modal-dialog{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}
 .modal-dialog{position:relative;width:auto;margin:10px}
 .modal-content{position:relative;border:1px solid #999999;border:1px solid rgba(0,0,0,0.2);-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 3px 9px rgba(0,0,0,0.5);box-shadow:0 3px 9px rgba(0,0,0,0.5);background-clip:padding-box;outline:none}
-.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:500;background-color:rgba(0,0,0,0.2)}
+.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1100;background-color:rgba(0,0,0,0.2)}
 .modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}
 .modal-backdrop.in{opacity:0.5;filter:alpha(opacity=50)}
 .modal-header{padding:20px 20px;border-bottom:1px solid #e5e5e5;min-height:21.42857143px}
@@ -2965,7 +2965,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 }
 .control-popup.fade .modal-dialog{opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.3s,width 0s;transition:all 0.3s,width 0s;-webkit-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}
 .control-popup.fade.in .modal-dialog{opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
-.popup-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:490;background-color:rgba(0,0,0,0.2);opacity:1;filter:alpha(opacity=100)}
+.popup-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1090;background-color:rgba(0,0,0,0.2);opacity:1;filter:alpha(opacity=100)}
 .popup-backdrop .popup-loading-indicator{display:block;width:100px;height:100px;position:absolute;top:130px;left:50%;margin-left:-50px;-webkit-transition:all 0.3s,width 0s;transition:all 0.3s,width 0s;-webkit-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7);opacity:0;filter:alpha(opacity=0)}
 .popup-backdrop .popup-loading-indicator:after{content:' ';display:block;background-size:50px 50px;background-repeat:no-repeat;background-position:50% 50%;background-image:url('images/loader-transparent.svg');-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite;width:50px;height:50px;margin:25px 0 0 25px}
 .popup-backdrop.loading .popup-loading-indicator{opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
