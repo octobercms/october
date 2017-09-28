@@ -37,12 +37,17 @@ class MediaFinder extends FormWidgetBase
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $cropwidth = '';
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $cropheight = '';
+
+    /**
+     * @var string Preview image mod (normal, ratio or size)
+     */
+    public $cropmode = 'normal';
 
     //
     // Object properties
@@ -61,8 +66,9 @@ class MediaFinder extends FormWidgetBase
         $this->fillFromConfig([
             'mode',
             'prompt',
-            'imageWidth',
-            'imageHeight'
+            'cropheight',
+            'cropwidth',
+            'cropmode'
         ]);
 
         if ($this->formField->disabled) {
@@ -91,8 +97,9 @@ class MediaFinder extends FormWidgetBase
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;
-        $this->vars['imageWidth'] = $this->imageWidth;
-        $this->vars['imageHeight'] = $this->imageHeight;
+        $this->vars['cropwidth'] = $this->cropwidth;
+        $this->vars['cropheight'] = $this->cropheight;
+        $this->vars['cropmode'] = $this->cropmode;
     }
 
     /**

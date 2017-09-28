@@ -88,6 +88,9 @@
 
         new $.oc.mediaManager.popup({
             alias: 'ocmediamanager',
+            cropwidth: self.options.cropwidth,
+            cropheight: self.options.cropheight,
+            cropmode: self.options.cropmode,
             cropAndInsertButton: true,
             onInsert: function(items) {
                 if (!items.length) {
