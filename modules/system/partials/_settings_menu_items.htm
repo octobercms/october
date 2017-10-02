@@ -10,7 +10,7 @@
     <?php foreach ($items as $category => $items):
         $collapsed = in_array($category, $collapsedGroups);
     ?>
-        <li data-group-code="<?= e($category) ?>" <?= $collapsed ? 'data-status="collapsed"' : null ?>>
+        <li data-group-code="<?= e(trans($category)) ?>" <?= $collapsed ? 'data-status="collapsed"' : null ?>>
             <div class="group">
                 <h3><?= e(trans($category)) ?></h3>
             </div>
