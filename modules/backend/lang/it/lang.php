@@ -151,7 +151,7 @@ return [
         'missing_column' => 'Non ci sono colonne definite per :columns.',
         'missing_columns' => 'L\'elenco utilizzato nella classe :class non ha un elenco di colonne definito.',
         'missing_definition' => "L'elenco non contiene una colonna per il campo ':field'.",
-        'missing_parent_definition' => "L\'elenco non contiene una definitzione per ':definition'.",
+        'missing_parent_definition' => "L\'elenco non contiene una definizione per ':definition'.",
         'behavior_not_ready' => 'Il comportamento "elenco" non è stato inizializzato, controlla di aver chiamato il metodo makeLists() nel controller.',
         'invalid_column_datetime' => "Il valore della colonna ':column' non è un oggetto di tipo DateTime, hai dimenticato un riferimento a \$dates nel modello?",
         'pagination' => 'Record visualizzati: :from-:to di :total',
