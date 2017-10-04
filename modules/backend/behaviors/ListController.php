@@ -176,7 +176,7 @@ class ListController extends ControllerBehavior
         });
 
         $widget->bindEvent('list.extendRecords', function ($records) use ($definition) {
-            $this->controller->listExtendRecords($records, $definition);
+            return $this->controller->listExtendRecords($records, $definition);
         });
 
         $widget->bindEvent('list.injectRowClass', function ($record) use ($definition) {
