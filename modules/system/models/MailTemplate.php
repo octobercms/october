@@ -60,6 +60,22 @@ class MailTemplate extends Model
     }
 
     /**
+     * Returns a list of all mail templates.
+     * @return array Returns an array of the MailTemplate objects.
+     */
+    public static function allTemplates()
+    {
+        $result = [];
+        $codes = array_keys(self::listAllTemplates());
+
+        foreach ($codes as $code) {
+            $result[] = self::findOrMakeTemplate($code);
+        }
+
+        return $result;
+    }
+
+    /**
      * Syncronise all file templates to the database.
      * @return void
      */
