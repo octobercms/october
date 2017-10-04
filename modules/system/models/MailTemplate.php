@@ -69,7 +69,6 @@ class MailTemplate extends Model
         $codes = array_keys(self::listAllTemplates());
 
         foreach ($codes as $code) {
-
             $result[] = self::findOrMakeTemplate($code);
         }
 
