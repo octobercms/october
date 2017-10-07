@@ -122,7 +122,7 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('\database\tester', $result);
         $this->assertArrayHasKey('\testvendor\test', $result);
     }
-    
+
     public function testGetVendorAndPluginNames()
     {
         $manager = PluginManager::instance();
@@ -147,6 +147,16 @@ class PluginManagerTest extends TestCase
         $this->assertEquals('October Test Plugin', $pluginDetails['name']);
         $this->assertEquals('Test plugin used by unit tests.', $pluginDetails['description']);
         $this->assertEquals('Alexey Bobkov, Samuel Georges', $pluginDetails['author']);
+    }
+
+    public function testUnregisterall()
+    {
+        $manager = PluginManager::instance();
+        $result = $manager->getPlugins();
+        $this->assertCount(5, $result);
+
+        $manager->unregisterAll();
+        $this->assertEmpty($manager->getPlugins());
     }
 
 }
