@@ -2,7 +2,7 @@
 
 <ul class="nav nav-stacked selector-group">
     <li role="presentation" <?php if ($currentFilter == Cms\Widgets\MediaManager::FILTER_EVERYTHING): ?>class="active"<?php endif ?>>
-        <a href="#" data-command="set-filter" data-filter="<?= Cms\Widgets\MediaManager::FILTER_EVERYTHING ?>">
+        <a href="#" data-command="set-filter" data-filter="<?= Backend\Widgets\MediaManager::FILTER_EVERYTHING ?>">
             <i class="icon-recycle"></i>
 
             <?= e(trans('cms::lang.media.filter_everything')) ?>

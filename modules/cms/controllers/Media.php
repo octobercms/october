@@ -1,6 +1,6 @@
 <?php namespace Cms\Controllers;
 
-use Backend\Controllers\Media;
+use Backend\Controllers\Media as MediaController;
 
 /**
  * CMS Media Manager
@@ -16,6 +16,7 @@ class Media extends MediaController
      */
     public function __construct()
     {
+        traceLog('Controller Cms\Controllers\Media has been deprecated, use Backend\Controller\Media instead.');
         parent::__construct();
     }
 }

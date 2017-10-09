@@ -6,9 +6,9 @@
             <div class="empty-library"><?= e(trans('cms::lang.media.empty_library')) ?></div>
         <?php endif ?>
 
-        <?php if ($viewMode == Cms\Widgets\MediaManager::VIEW_MODE_GRID): ?>
+        <?php if ($viewMode == Backend\Widgets\MediaManager::VIEW_MODE_GRID): ?>
             <?= $this->makePartial('list-grid') ?>
-        <?php elseif ($viewMode == Cms\Widgets\MediaManager::VIEW_MODE_LIST): ?>
+        <?php elseif ($viewMode == Backend\Widgets\MediaManager::VIEW_MODE_LIST): ?>
             <?= $this->makePartial('list-list') ?>
         <?php else: ?>
             <?= $this->makePartial('list-tiles') ?>

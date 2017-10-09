@@ -1,12 +1,12 @@
 <?php
 
     $selectionModes = [
-        Cms\Widgets\MediaManager::SELECTION_MODE_NORMAL => trans('cms::lang.media.selection_mode_normal'),
-        Cms\Widgets\MediaManager::SELECTION_MODE_FIXED_RATIO => trans('cms::lang.media.selection_mode_fixed_ratio'),
-        Cms\Widgets\MediaManager::SELECTION_MODE_FIXED_SIZE => trans('cms::lang.media.selection_mode_fixed_size')
+        Backend\Widgets\MediaManager::SELECTION_MODE_NORMAL => trans('cms::lang.media.selection_mode_normal'),
+        Backend\Widgets\MediaManager::SELECTION_MODE_FIXED_RATIO => trans('cms::lang.media.selection_mode_fixed_ratio'),
+        Backend\Widgets\MediaManager::SELECTION_MODE_FIXED_SIZE => trans('cms::lang.media.selection_mode_fixed_size')
     ];
 
-    $sizeDisabledAttr = $currentSelectionMode == Cms\Widgets\MediaManager::SELECTION_MODE_NORMAL ? 'disabled="disabled"' : null;
+    $sizeDisabledAttr = $currentSelectionMode == Backend\Widgets\MediaManager::SELECTION_MODE_NORMAL ? 'disabled="disabled"' : null;
 ?>
 
 <div class="control-toolbar toolbar-padded">
