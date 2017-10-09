@@ -171,7 +171,44 @@ class Repeater extends FormWidgetBase
             }
         }
 
+        $formWidgets = array_map(
+            function (\Backend\Widgets\Form $form): array {
+                return $form->getFormWidgets();
+            },
+            $this->formWidgets
+        );
+
+        foreach ($value as $key => $group) {
+            $value[$key] = $this->getWidgetValuesForGroup(
+                $group,
+                array_get($formWidgets, $key, [])
+            );
+        }
+
         return array_values($value);
+    }
+
+    /**
+     * If a group contains a custom form widget, pass values through its getSaveValue() method.
+     * @param array $group
+     * @param array $allWidgets
+     * @return array The modified values
+     */
+    protected function getWidgetValuesForGroup(array $group, array $allWidgets): array
+    {
+        $keys = array_keys($group);
+        return array_reduce(
+            $keys,
+            function($out, $key) use ($allWidgets, $group) {
+                $widget = array_get($allWidgets, $key, null);
+                $value = $group[$key];
+                $widgetValue = $widget
+                    ? $widget->getSaveValue($value)
+                    : $value;
+                return array_merge($out, [$key => $widgetValue]);
+            },
+            []
+        );
     }
 
     /**
