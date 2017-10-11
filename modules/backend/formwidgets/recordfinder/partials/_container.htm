@@ -2,6 +2,24 @@
 
     <span class="form-control"><?= e(trans('backend::lang.form.preview_no_record_message')) ?></span>
 
+<?php elseif ($field->readOnly): ?>
+    <span class="form-control" disabled="disabled">
+        <?php if ($value): ?>
+            <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>
+            <?php if ($descriptionValue): ?>
+                <span class="secondary"> - <?= e($descriptionValue) ?></span>
+            <?php endif ?>
+        <?php else: ?>
+            <span class="form-control"><?= e(trans('backend::lang.form.preview_no_record_message')) ?></span>
+        <?php endif ?>
+    </span>
+
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        id="<?= $field->getId() ?>"
+        value="<?= e($value) ?>"
+        />
 <?php else: ?>
 
     <div class="recordfinder-widget" id="<?= $this->getId('container') ?>">
