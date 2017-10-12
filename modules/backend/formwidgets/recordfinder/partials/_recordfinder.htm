@@ -4,9 +4,7 @@
     data-control="recordfinder"
     data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
     data-data-locker="#<?= $field->getId() ?>">
-    <span class="form-control"
-        <?= $this->previewMode ? 'disabled="disabled"' : '' ?>>
-        
+    <span class="form-control" <?= $this->previewMode ? 'disabled="disabled"' : '' ?>>
         <?php if ($value): ?>
             <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>
             <?php if ($descriptionValue): ?>
