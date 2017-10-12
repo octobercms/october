@@ -6,6 +6,15 @@
 <!-- Dropdown -->
 <?php if ($this->previewMode): ?>
     <div class="form-control"><?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?></div>
+
+<!-- ReadOnly alternative -->
+<?php elseif ($field->readOnly): ?>
+    <div class="form-control" disabled="disabled"><?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?></div>
+    <input
+        type="hidden"
+        name="<?= $field->getName() ?>"
+        value="<?= $field->value ?>">
+        
 <?php else: ?>
     <select
         id="<?= $field->getId() ?>"

@@ -1,3 +1,8 @@
+<?php
+    if($field->readOnly){
+        $this->previewMode = true;
+    }
+?>
 <!-- Switch -->
 <div class="field-switch">
     <label><?= e(trans($field->label)) ?></label>
