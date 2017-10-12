@@ -5,9 +5,7 @@
 ?>
 <!-- Dropdown -->
 <?php if ($this->previewMode || $field->readOnly): ?>
-    <div class="form-control"
-        <?= $field->readOnly ? 'disabled="disabled"' : ''; ?>
-        >
+    <div class="form-control" <?= $field->readOnly ? 'disabled="disabled"' : ''; ?>>
         <?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?>
     </div>
     <?php if ($field->readOnly): ?>
