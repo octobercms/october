@@ -176,7 +176,7 @@ class RecordFinder extends FormWidgetBase
     {
         $this->relationModel = $this->getLoadValue();
 
-        if ($this->formField->disabled) {
+        if ($this->formField->disabled || $this->formField->readOnly) {
             $this->previewMode = true;
         }
 
