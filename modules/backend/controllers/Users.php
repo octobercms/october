@@ -49,6 +49,11 @@ class Users extends Controller
      */
     public function __construct()
     {
+        // Prevent non-superusers from even seeing the is_superuser filter
+        $this->listConfig = $this->makeConfig($this->listConfig);
+        $this->listConfig->filter = $this->makeConfig($this->listConfig->filter);
+        unset($this->listConfig->filter->scopes['is_superuser']);
+
         parent::__construct();
 
         if ($this->action == 'myaccount') {
@@ -57,6 +62,26 @@ class Users extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
+    }
+
+    /**
+     * Extends the list query to hide superusers if the current user is not a superuser themselves
+     */
+    public function listExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
+    }
+
+    /**
+     * Extends the form query to prevent non-superusers from accessing superusers at all
+     */
+    public function formExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
     }
 
     /**
@@ -114,7 +139,6 @@ class Users extends Controller
 
         if (!$this->user->isSuperUser()) {
             $form->removeField('is_superuser');
-            $form->removeField('role');
         }
 
         /*
