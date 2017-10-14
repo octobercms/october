@@ -366,5 +366,9 @@ return [
         'log_requests_comment' => 'Verzoeken van browsers die aandacht benodigd hebben, zoals bijvoorbeeld 404 fouten.',
         'log_theme' => 'Bijhouden van thema wijzigingen',
         'log_theme_comment' => 'Wanneer er een wijziging zijn gemaakt binnen het thema (vanuit de back-end omgeving).',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => 'Ongeldig pad opgegeven: \':path\'.',
+        'folder_size_items' => 'item(s)',
+    ],
 ];
