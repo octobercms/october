@@ -423,5 +423,9 @@ return [
         'log_requests_comment' => 'Browser requests that may require attention, such as 404 errors.',
         'log_theme' => 'Log theme changes',
         'log_theme_comment' => 'When a change is made to the theme using the back-end.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Invalid file path specified: ':path'.",
+        'folder_size_items' => 'item(s)',
+    ],
 ];
