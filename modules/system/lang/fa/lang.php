@@ -316,5 +316,9 @@ return [
         'manage_editor' => 'مدیریت تنظیمات ویرایشگر کد',
         'view_the_dashboard' => 'نمایش صفحه مدیریت',
         'manage_branding' => 'شخصی سازی قسمت مدیریت'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "آدرس فایل ':path' معتبر نیست.",
+        'folder_size_items' => 'مورد(ها)',
+    ],
 ];
