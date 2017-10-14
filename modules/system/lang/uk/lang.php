@@ -331,4 +331,8 @@ return [
         'log_theme' => 'Зберігати зміни теми',
         'log_theme_comment' => 'Зміни які внесені засобами CMS.'
     ],
+    'media' => [
+        'invalid_path' => 'Вказано неприпустимий шлях до файлу: ":path".',
+        'folder_size_items' => 'Об\'єктів',
+    ],
 ];
