@@ -311,5 +311,9 @@ return [
         'manage_editor' => 'Gestionar preferencias editor código',
         'view_the_dashboard' => 'Ver el Escritorio',
         'manage_branding' => 'Perzonalizar el back-end'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Ruta de archivo especificada no válida: ':path'.",
+        'folder_size_items' => 'elemento(s)',
+    ],
 ];
