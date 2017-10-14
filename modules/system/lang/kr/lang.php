@@ -324,5 +324,9 @@ return [
         'log_requests_comment' => '404같은 주의가 필요한 브라우저 요청 기록',
         'log_theme' => '테마 변경 기록',
         'log_theme_comment' => '백엔드를 사용한 테마변경 기록',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "잘못된 경로: ':path'.",
+        'folder_size_items' => '갯수',
+    ],
 ];
