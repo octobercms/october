@@ -289,5 +289,9 @@ return [
         'manage_editor' => '管理代码编辑器偏好设置',
         'view_the_dashboard' => '查看仪表盘',
         'manage_branding' => '自定义后台'
-    ]
+    ],
+   'media' => [
+        'invalid_path' => "不合法的路径: ':path'.",
+        'folder_size_items' => '个数',
+    ],
 ];
