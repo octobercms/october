@@ -337,5 +337,9 @@ return [
         'log_requests_comment' => 'Požadavky prohlížeče, které mohou vyžadovat pozornost, například chyby 404.',
         'log_theme' => 'Zaznamenávat změny témat',
         'log_theme_comment' => 'Když dojde ke změně tématu pomocí administrace.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Chybně zadaná cesta: ':path'.",
+        'folder_size_items' => 'soubor(ů)',
+    ],
 ];
