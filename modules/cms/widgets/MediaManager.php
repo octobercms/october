@@ -17,6 +17,8 @@ use Cms\Classes\MediaLibrary;
 use Cms\Classes\MediaLibraryItem;
 use October\Rain\Database\Attach\Resizer;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Media Manager widget.
@@ -1128,6 +1130,21 @@ class MediaManager extends WidgetBase
             $path = $quickMode ? '/uploaded-files' : Input::get('path');
             $path = MediaLibrary::validatePath($path);
             $filePath = $path.'/'.$fileName;
+
+            if (MediaLibrary::instance()->exists($filePath)) {
+                if ($quickMode) {
+                    // If quickMode is true, auto rename file name
+                    try{
+                        $fileName = Uuid::uuid1()->toString() . '.' . $extension;
+                        $filePath = $path . '/' . $fileName;
+                    }catch (UnsatisfiedDependencyException $e){
+                        throw new ApplicationException($e->getMessage());
+                    }
+                } else {
+                    // Else throw exception
+                    throw new ApplicationException(Lang::get('cms::lang.cms_object.file_already_exists', ['name' => $fileName]));
+                }
+            }
 
             /*
              * getRealPath() can be empty for some environments (IIS)
