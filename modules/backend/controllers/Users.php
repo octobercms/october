@@ -49,10 +49,13 @@ class Users extends Controller
      */
     public function __construct()
     {
-        // Prevent non-superusers from even seeing the is_superuser filter
-        $this->listConfig = $this->makeConfig($this->listConfig);
-        $this->listConfig->filter = $this->makeConfig($this->listConfig->filter);
-        unset($this->listConfig->filter->scopes['is_superuser']);
+        $this->user = BackendAuth::getUser();
+        if (!$this->user->isSuperUser()) {
+            // Prevent non-superusers from even seeing the is_superuser filter
+            $this->listConfig = $this->makeConfig($this->listConfig);
+            $this->listConfig->filter = $this->makeConfig($this->listConfig->filter);
+            unset($this->listConfig->filter->scopes['is_superuser']);
+        }
 
         parent::__construct();
 
