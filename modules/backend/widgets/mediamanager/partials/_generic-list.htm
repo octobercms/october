@@ -10,7 +10,7 @@
                     <div class="icon-wrapper"><i class="icon-folder"></i></div>
                 </div>
                 <div class="info">
-                    <h4 title="<?= e(trans('cms::lang.media.return_to_parent')) ?>"><?= e(trans('cms::lang.media.return_to_parent_label')) ?></h4>
+                    <h4 title="<?= e(trans('backend::lang.media.return_to_parent')) ?>"><?= e(trans('backend::lang.media.return_to_parent_label')) ?></h4>
                 </div>
             </li>
         <?php endif ?>
@@ -54,7 +54,7 @@
 
     <?php if (count($items) == 0 && $searchMode): ?>
         <li class="no-data">
-            <?= e(trans('cms::lang.media.no_files_found')) ?>
+            <?= e(trans('backend::lang.media.no_files_found')) ?>
         </li>
     <?php endif ?>
 </ul>

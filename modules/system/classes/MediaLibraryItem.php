@@ -137,7 +137,7 @@ class MediaLibraryItem
     {
         return $this->type == self::TYPE_FILE
             ? File::sizeToString($this->size)
-            : $this->size.' '.trans('cms::lang.media.folder_size_items');
+            : $this->size.' '.trans('system::lang.media.folder_size_items');
     }
 
     /**

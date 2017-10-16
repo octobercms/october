@@ -100,7 +100,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'order'       => 10
                 ],
                 'media' => [
-                    'label'       => 'cms::lang.media.menu_label',
+                    'label'       => 'backend::lang.media.menu_label',
                     'icon'        => 'icon-folder',
                     'iconSvg'     => 'modules/backend/assets/images/media-icon.svg',
                     'url'         => Backend::url('backend/media'),
@@ -152,8 +152,8 @@ class ServiceProvider extends ModuleServiceProvider
                     'tab'   => 'system::lang.permissions.name'
                 ],
                 'media.manage_media' => [
-                    'label' => 'cms::lang.permissions.manage_media',
-                    'tab' => 'cms::lang.permissions.name',
+                    'label' => 'backend::lang.permissions.manage_media',
+                    'tab' => 'system::lang.permissions.name',
                 ]
             ]);
         });

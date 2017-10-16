@@ -25,7 +25,7 @@ class Media extends Controller
         parent::__construct();
 
         BackendMenu::setContext('October.Backend', 'media', true);
-        $this->pageTitle = 'cms::lang.media.menu_label';
+        $this->pageTitle = 'backend::lang.media.menu_label';
 
         $manager = new MediaManager($this, 'manager');
         $manager->bindToController();

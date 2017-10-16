@@ -27,7 +27,7 @@ class MediaFinder extends FormWidgetBase
     /**
      * @var string Prompt to display if no record is selected.
      */
-    public $prompt = 'cms::lang.mediafinder.default_prompt';
+    public $prompt = 'backend::lang.mediafinder.default_prompt';
 
     /**
      * @var string Display mode for the selection. Values: file, image.

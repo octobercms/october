@@ -1,5 +1,5 @@
 <ul class="tree-path">
-    <li class="root"><a href="javascript:;" data-type="media-item" data-item-type="folder" data-path="/" data-clear-search="true"><?= e(trans('cms::lang.media.library')) ?></a></li>
+    <li class="root"><a href="javascript:;" data-type="media-item" data-item-type="folder" data-path="/" data-clear-search="true"><?= e(trans('backend::lang.media.library')) ?></a></li>
 
     <?php if (!$searchMode): ?>
         <?php foreach ($pathSegments as $folder => $path): ?>
@@ -8,6 +8,6 @@
             <?php endif ?>
         <?php endforeach?>
     <?php else: ?>
-        <li><a href="javascript:;" data-type="media-item"><?= e(trans('cms::lang.media.search')) ?></a></li>
+        <li><a href="javascript:;" data-type="media-item"><?= e(trans('backend::lang.media.search')) ?></a></li>
     <?php endif ?>
 </ul>

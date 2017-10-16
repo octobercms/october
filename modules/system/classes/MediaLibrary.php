@@ -466,7 +466,7 @@ class MediaLibrary
          */
         $regex = '#'.implode('|', $regex).'#';
         if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {
-            throw new ApplicationException(Lang::get('cms::lang.media.invalid_path', compact('path')));
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
         }
 
         return $path;

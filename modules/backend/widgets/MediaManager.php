@@ -322,7 +322,7 @@ class MediaManager extends WidgetBase
              * Validate extension
              */
             if (!$this->validateFileType($newName)) {
-                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+                throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
             }
 
             /*
@@ -369,14 +369,14 @@ class MediaManager extends WidgetBase
         $library = MediaLibrary::instance();
 
         if ($library->folderExists($newFolderPath)) {
-            throw new ApplicationException(Lang::get('cms::lang.media.folder_or_file_exist'));
+            throw new ApplicationException(Lang::get('backend::lang.media.folder_or_file_exist'));
         }
 
         /*
          * Create the new folder
          */
         if (!$library->makeFolder($newFolderPath)) {
-            throw new ApplicationException(Lang::get('cms::lang.media.error_creating_folder'));
+            throw new ApplicationException(Lang::get('backend::lang.media.error_creating_folder'));
         }
 
         /*
@@ -407,7 +407,7 @@ class MediaManager extends WidgetBase
             $path = $folder;
 
             if ($folder == '/') {
-                $name = Lang::get('cms::lang.media.library');
+                $name = Lang::get('backend::lang.media.library');
             }
             else {
                 $segments = explode('/', $folder);
@@ -427,12 +427,12 @@ class MediaManager extends WidgetBase
     {
         $dest = trim(Input::get('dest'));
         if (!strlen($dest)) {
-            throw new ApplicationException(Lang::get('cms::lang.media.please_select_move_dest'));
+            throw new ApplicationException(Lang::get('backend::lang.media.please_select_move_dest'));
         }
 
         $dest = MediaLibrary::validatePath($dest);
         if ($dest == Input::get('originalPath')) {
-            throw new ApplicationException(Lang::get('cms::lang.media.move_dest_src_match'));
+            throw new ApplicationException(Lang::get('backend::lang.media.move_dest_src_match'));
         }
 
         $files = Input::get('files', []);
@@ -1115,7 +1115,7 @@ class MediaManager extends WidgetBase
              * Check for unsafe file extensions
              */
             if (!$this->validateFileType($fileName)) {
-                throw new ApplicationException(Lang::get('cms::lang.media.type_blocked'));
+                throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
             }
 
             /*

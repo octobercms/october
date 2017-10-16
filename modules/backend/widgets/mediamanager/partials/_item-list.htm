@@ -3,7 +3,7 @@
     <input type="hidden" data-type="search-mode" value="<?= $searchMode ? 'true' : 'false' ?>"/>
     <div class="list-container">
         <?php if (count($items) == 0 && $isRootFolder && !$searchMode): ?>
-            <div class="empty-library"><?= e(trans('cms::lang.media.empty_library')) ?></div>
+            <div class="empty-library"><?= e(trans('backend::lang.media.empty_library')) ?></div>
         <?php endif ?>
 
         <?php if ($viewMode == Backend\Widgets\MediaManager::VIEW_MODE_GRID): ?>
