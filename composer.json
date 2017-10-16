@@ -35,7 +35,7 @@
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
+        "fzaninotto/faker": "~1.7",
         "phpunit/phpunit": "~5.7",
         "phpunit/phpunit-selenium": "~1.2"
     },
