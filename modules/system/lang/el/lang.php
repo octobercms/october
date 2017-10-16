@@ -312,5 +312,9 @@ return [
         'manage_editor' => 'Διαχείριση προτιμήσεων του επεξεργαστεί κώδικα',
         'view_the_dashboard' => 'Προβολή του πίνακα ελέγχου',
         'manage_branding' => 'Προσαρμογή του back-end',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Ορίστηκε μη έγκυρη διαδρομή αρχείου : ':path'.",
+        'folder_size_items' => 'αντικείμενο(α)',
+    ],
 ];

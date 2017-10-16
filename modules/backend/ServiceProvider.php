@@ -68,6 +68,8 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/assets/less/october.less');
             $combiner->registerBundle('~/modules/backend/assets/js/october.js');
             $combiner->registerBundle('~/modules/backend/widgets/table/assets/js/build.js');
+            $combiner->registerBundle('~/modules/backend/widgets/mediamanager/assets/js/mediamanager-browser.js');
+            $combiner->registerBundle('~/modules/backend/widgets/mediamanager/assets/less/mediamanager.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/less/codeeditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/codeeditor/assets/js/build.js');
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
@@ -96,6 +98,14 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('backend'),
                     'permissions' => ['backend.access_dashboard'],
                     'order'       => 10
+                ],
+                'media' => [
+                    'label'       => 'backend::lang.media.menu_label',
+                    'icon'        => 'icon-folder',
+                    'iconSvg'     => 'modules/backend/assets/images/media-icon.svg',
+                    'url'         => Backend::url('backend/media'),
+                    'permissions' => ['media.*'],
+                    'order'       => 200
                 ]
             ]);
         });
@@ -140,6 +150,10 @@ class ServiceProvider extends ModuleServiceProvider
                 'backend.manage_branding' => [
                     'label' => 'system::lang.permissions.manage_branding',
                     'tab'   => 'system::lang.permissions.name'
+                ],
+                'media.manage_media' => [
+                    'label' => 'backend::lang.permissions.manage_media',
+                    'tab' => 'system::lang.permissions.name',
                 ]
             ]);
         });
@@ -163,6 +177,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', 'recordfinder');
             $manager->registerFormWidget('Backend\FormWidgets\Repeater', 'repeater');
             $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
+            $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
         });
     }
 

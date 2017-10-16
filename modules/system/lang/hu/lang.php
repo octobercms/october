@@ -385,5 +385,9 @@ return [
         'log_requests_comment' => 'Rossz vagy átirányított kérelmek eltárolása.',
         'log_theme' => 'Téma változtatások naplózása',
         'log_theme_comment' => 'A fájlokban történt változtatások eltárolása.'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Érvénytelen elérési útvonal: ':path'",
+        'folder_size_items' => 'fájl',
+    ],
 ];

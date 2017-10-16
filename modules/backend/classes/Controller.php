@@ -14,7 +14,7 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
-use Cms\Widgets\MediaManager;
+use Backend\Widgets\MediaManager;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
@@ -152,11 +152,7 @@ class Controller extends Extendable
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if (
-            class_exists('Cms\Widgets\MediaManager') &&
-            $this->user &&
-            $this->user->hasAccess('media.*')
-        ) {
+        if ($this->user && $this->user->hasAccess('media.*')) {
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }

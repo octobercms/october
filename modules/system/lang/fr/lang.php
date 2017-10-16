@@ -316,5 +316,9 @@ return [
         'manage_editor' => 'Gérer les préférences de l’éditeur de code',
         'view_the_dashboard' => 'Voir le tableau de bord',
         'manage_branding' => 'Personnaliser l’interface d’administration'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Le chemin du fichier indiqué est invalide : ':path'.",
+        'folder_size_items' => 'Articles(s)',
+    ],
 ];

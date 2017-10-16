@@ -231,5 +231,9 @@ return [
         'manage_editor' => 'Code-Editor-Einstellungen verwalten',
         'view_the_dashboard' => 'Dashboard einsehen',
         'manage_branding' => 'Backend individualisieren'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Ungültiger Dateipfad: ':path'.",
+        'folder_size_items' => 'Datei(en)',
+    ],
 ];

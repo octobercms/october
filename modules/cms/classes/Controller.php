@@ -1192,16 +1192,6 @@ class Controller
     }
 
     /**
-     * Converts supplied file to a URL relative to the media library.
-     * @param string $file Specifies the media-relative file
-     * @return string
-     */
-    public function mediaUrl($file = null)
-    {
-        return MediaLibrary::url($file);
-    }
-
-    /**
      * Returns a routing parameter.
      * @param string $name Routing parameter name.
      * @param string $default Default to use if none is found.

@@ -260,5 +260,9 @@ return [
         'manage_other_administrators' => '管理其他管理員',
         'view_the_dashboard' => '查看儀表板',
         'manage_branding' => '自訂後台'
-    ]
+    ],
+   'media' => [
+        'invalid_path' => "不合法的路徑: ':path'.",
+        'folder_size_items' => '個數',
+    ],
 ];

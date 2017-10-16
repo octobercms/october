@@ -286,5 +286,9 @@ return [
         'manage_other_administrators' => 'Pārvaldīt citus administrātorus',
         'view_the_dashboard' => 'Skatīt mērinstrumentu paneli',
         'manage_branding' => 'Pielāgot back-end'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Norādīts nederīgs ceļš līdz failam: ':path'.",
+        'folder_size_items' => 'objekti(s)',
+    ],
 ];

@@ -362,5 +362,9 @@ return [
         'log_requests_comment' => 'Requisições que requerem a sua atenção, por exemplo erros 404.',
         'log_theme' => 'Registar alterações de tema',
         'log_theme_comment' => 'Quado uma alteração é efectuada no tema utilizando o backend.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Caminho especificado inválido: ':path'.",
+        'folder_size_items' => 'item(s)',
+    ],
 ];

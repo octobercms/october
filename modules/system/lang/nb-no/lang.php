@@ -312,5 +312,9 @@ return [
         'manage_editor' => 'Administrer kodeeditor-innstillinger',
         'view_the_dashboard' => 'Se dashboard',
         'manage_branding' => 'Tilpasse backend'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Ugyldig filsti: ':path'.",
+        'folder_size_items' => 'fil(er)',
+    ],
 ];

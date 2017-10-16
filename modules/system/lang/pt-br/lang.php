@@ -313,4 +313,8 @@ return [
         'view_the_dashboard' => 'Visualizar o painel',
         'manage_branding' => 'Personalizar o painel'
     ],
+    'media' => [
+        'invalid_path' => "Caminho especificado inválido: ':path'.",
+        'folder_size_items' => 'item(s)',
+    ],
 ];
