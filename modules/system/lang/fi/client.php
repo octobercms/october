@@ -34,15 +34,15 @@ return [
         'preview' => 'Esikatselu',
     ],
     'mediamanager' => [
-        'insert_link' => 'Insert Media Link',
-        'insert_image' => 'Insert Media Image',
-        'insert_video' => 'Insert Media Video',
-        'insert_audio' => 'Insert Media Audio',
-        'invalid_file_empty_insert' => 'Please select file to insert a links to.',
-        'invalid_file_single_insert' => 'Please select a single file.',
-        'invalid_image_empty_insert' => 'Please select image(s) to insert.',
-        'invalid_video_empty_insert' => 'Please select a video file to insert.',
-        'invalid_audio_empty_insert' => 'Please select an audio file to insert.',
+        'insert_link' => 'Lisää linkki Mediaan',
+        'insert_image' => 'Lisää kuva',
+        'insert_video' => 'Lisää video',
+        'insert_audio' => 'Lisää äänitiedosto',
+        'invalid_file_empty_insert' => 'Valitse liitettävä tiedosto.',
+        'invalid_file_single_insert' => 'Valitse vain yksi tiedosto.',
+        'invalid_image_empty_insert' => 'Valitse liitettävä(t) kuva(t).',
+        'invalid_video_empty_insert' => 'Valitse liitettävä videotiedosto.',
+        'invalid_audio_empty_insert' => 'Valitse liitettävä äänitiedosto.',
     ],
     'alert' => [
         'confirm_button_text' => 'OK',
@@ -50,11 +50,11 @@ return [
         'widget_remove_confirm' => 'Poista tämä vimpain?'
     ],
     'datepicker' => [
-        'previousMonth' => 'Previous Month',
-        'nextMonth' => 'Next Month',
-        'months' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        'previousMonth' => 'Edellinen kuukausi',
+        'nextMonth' => 'Seuraava kuukausi',
+        'months' => ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'],
+        'weekdays' => ['Sunnutai', 'Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai', 'Lauantai'],
+        'weekdaysShort' => ['Su', 'Ma', 'Ti', 'Ke', 'To', 'Pe', 'La']
     ],
     'filter' => [
         'group' => [
@@ -73,16 +73,16 @@ return [
         'show_stacktrace' => 'Show the stacktrace',
         'hide_stacktrace' => 'Hide the stacktrace',
         'tabs' => [
-            'formatted' => 'Formatted',
+            'formatted' => 'Muotoiltu',
             'raw' => 'Raw',
         ],
         'editor' => [
-            'title' => 'Source code editor',
+            'title' => 'Lähdekoodin editori',
             'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
-            'openWith' => 'Open with',
+            'openWith' => 'Avaa kohteessa',
             'remember_choice' => 'Remember selected option for this session',
-            'open' => 'Open',
-            'cancel' => 'Cancel'
+            'open' => 'Avaa',
+            'cancel' => 'Peruuta'
         ]
     ]
 ];
