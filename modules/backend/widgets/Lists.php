@@ -845,6 +845,28 @@ class Lists extends WidgetBase
                 $value = $record->{$columnName};
             }
         }
+        
+        /**
+         * @event backend.list.overrideColumnValueRaw
+         * Overrides the raw column value in a list widget. 
+         *
+         * If a value is returned from this event, it will be used as the raw value for the provided column.
+         * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
+         *
+         *     Event::listen('backend.list.overrideColumnValueRaw', function($record, $column, &$value) { 
+         *         $value .= '-modified';
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('list.overrideColumnValueRaw', function ($record, $column, $value) {
+         *         return 'No values for you!';
+         *     });
+         *
+         */
+        if ($response = $this->fireSystemEvent('backend.list.overrideColumnValueRaw', [$record, $column, &$value])) {
+            $value = $response;
+        }
 
         return $value;
     }
@@ -871,8 +893,23 @@ class Lists extends WidgetBase
             $value = $column->defaults;
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.list.overrideColumnValue
+         * Overrides the column value in a list widget. 
+         *
+         * If a value is returned from this event, it will be used as the value for the provided column.
+         * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
+         *
+         *     Event::listen('backend.list.overrideColumnValue', function($record, $column, &$value) { 
+         *         $value .= '-modified';
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('list.overrideColumnValue', function ($record, $column, $value) {
+         *         return 'No values for you!';
+         *     });
+         *
          */
         if ($response = $this->fireSystemEvent('backend.list.overrideColumnValue', [$record, $column, &$value])) {
             $value = $response;
