@@ -6,7 +6,7 @@ use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use ApplicationException;
-use System\Classes\MediaLibary;
+use System\Classes\MediaLibrary;
 use System\Classes\MarkupManager;
 
 /**
