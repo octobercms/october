@@ -1,8 +1,8 @@
-# Contributing to OctoberCMS
+# Contributing to October
 
 Thank you for your contributions!
 
-## Reporting a bug with OctoberCMS
+## Reporting a bug with October
 
 **Please don't use the main GitHub for reporting bugs with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](http://octobercms.com/plugins).
 
@@ -14,7 +14,7 @@ We work hard to process bugs that are reported, to assist with this please ensur
 
 - **Reproduce steps**: Clearly mention the steps to reproduce the bug.
 
-- **Expected behavior**: How OctoberCMS should behave on above mentioned steps.
+- **Expected behavior**: How October should behave on above mentioned steps.
 
 - **Actual behavior**: What is the actual result on running above steps i.e. the bug behavior - **include any error messages**.
 
@@ -34,11 +34,11 @@ If you find out your bug is actually a duplicate of another bug and only notice 
 
 #### Reporting security issues
 
-If you wish to contact us privately about any security exploits in OctoberCMS you may find, you can find our email on the [OctoberCMS website](http://octobercms.com).
+If you wish to contact us privately about any security exploits in October you may find, you can find our email on the [October website](http://octobercms.com).
 
 ## Feature requests
 
-**Please don't use GitHub issues for suggesting a new feature.** If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](http://octobercms.com/forum/chan/feature-requests).
+**Please don't use GitHub issues for suggesting a new feature.** If you have a feature idea, the best place to suggest it is the [October website forum](http://octobercms.com/forum/chan/feature-requests).
 
 Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](http://octobercms.com/chat).
 
@@ -81,4 +81,4 @@ All reported issues to this project are valuable. Please act with respect and av
 
 #### Escalation process
 
-We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [OctoberCMS Bounty Program](https://www.bountysource.com/teams/october).
+We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [October Bounty Program](https://www.bountysource.com/teams/october).
