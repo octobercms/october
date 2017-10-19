@@ -217,8 +217,8 @@ class OctoberEnv extends Command
 
             $this->saveEnvSettings($envKey, $value);
 
-            if ($this->option('protect') && array_key_exists($envKey, $defaultConfig)) {
-                $value = $this->normalize($defaultConfig[$envKey]);
+            if ($this->option('protect') && array_key_exists($envKey, $this->defaultConfig)) {
+                $value = $this->normalize($this->defaultConfig[$envKey]);
             }
 
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
