@@ -33,7 +33,24 @@ class OctoberEnv extends Command
     /**
      * Default configuration.
      */
-    protected $defaultConfig = $this->protectedConfig();
+    protected $defaultConfig = [
+        'APP_KEY' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
+
+        'DB_HOST' => 'localhost',
+        'DB_PORT' => 3306,
+        'DB_DATABASE' => 'database',
+        'DB_USERNAME' => 'root',
+        'DB_PASSWORD' => '',
+
+        'REDIS_HOST' => '127.0.0.1',
+        'REDIS_PASSWORD' => null,
+        'REDIS_PORT' => 6379,
+
+        'MAIL_HOST' => 'smtp.mailgun.org',
+        'MAIL_PORT' => 587,
+        'MAIL_USERNAME' => null,
+        'MAIL_PASSWORD' => null,
+    ];
 
     /**
      * The current database connection cursor.
@@ -200,8 +217,8 @@ class OctoberEnv extends Command
 
             $this->saveEnvSettings($envKey, $value);
 
-            if ($this->option('protect') && array_key_exists($envKey, $this->protectedConfig())) {
-                $value = $this->normalize($this->protectedConfig()[$envKey]);
+            if ($this->option('protect') && array_key_exists($envKey, $defaultConfig)) {
+                $value = $this->normalize($defaultConfig[$envKey]);
             }
 
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
@@ -413,32 +430,4 @@ class OctoberEnv extends Command
             ],
         ];
     }
-
-    /**
-     * Config (env) keys of which the value should not be included in orginal config files anymore.
-     *
-     * @return array
-     */
-    private function protectedConfig()
-    {
-        return [
-            'APP_KEY' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
-
-            'DB_HOST' => 'localhost',
-            'DB_PORT' => 3306,
-            'DB_DATABASE' => 'database',
-            'DB_USERNAME' => 'root',
-            'DB_PASSWORD' => '',
-
-            'REDIS_HOST' => '127.0.0.1',
-            'REDIS_PASSWORD' => null,
-            'REDIS_PORT' => 6379,
-
-            'MAIL_HOST' => 'smtp.mailgun.org',
-            'MAIL_PORT' => 587,
-            'MAIL_USERNAME' => null,
-            'MAIL_PASSWORD' => null,
-        ];
-    }
-
 }
