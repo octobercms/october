@@ -31,6 +31,11 @@ class OctoberEnv extends Command
     protected $config;
 
     /**
+     * Default configuration.
+     */
+    protected $defaultConfig = $this->protectedConfig();
+
+    /**
      * The current database connection cursor.
      */
     protected $connection;
@@ -63,7 +68,7 @@ class OctoberEnv extends Command
     protected function getOptions()
     {
         return [
-            ['protect', null, InputOption::VALUE_NONE, 'Make sure to replace sensitive config values by the default ones.'],
+            ['protect', null, InputOption::VALUE_NONE, 'Replaces sensitive config values in the config files with the default values.'],
         ];
     }
 
