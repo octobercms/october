@@ -85,8 +85,13 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        // Load version updates
-        UpdateManager::instance()->update();
+        try {
+            // Load version updates
+            UpdateManager::instance()->update();
+        }
+        catch (Exception $ex) {
+            Flash::error($ex->getMessage());
+        }
 
         // Log the sign in event
         AccessLog::add($user);
