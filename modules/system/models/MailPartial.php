@@ -1,7 +1,6 @@
 <?php namespace System\Models;
 
 use Twig;
-use File;
 use View;
 use Model;
 use Markdown;
@@ -116,6 +115,6 @@ class MailPartial extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(File::get(View::make($code)->getPath()));
+        return MailParser::parse(\File::get(View::make($code)->getPath()));
     }
 }

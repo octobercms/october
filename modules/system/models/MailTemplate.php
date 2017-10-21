@@ -1,7 +1,6 @@
 <?php namespace System\Models;
 
 use App;
-use File;
 use View;
 use Model;
 use System\Classes\MailManager;
@@ -147,7 +146,7 @@ class MailTemplate extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(File::get(View::make($code)->getPath()));
+        return MailParser::parse(\File::get(View::make($code)->getPath()));
     }
 
     public static function findOrMakeTemplate($code)

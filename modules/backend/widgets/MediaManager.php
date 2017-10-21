@@ -4,7 +4,6 @@ use Url;
 use Str;
 use Lang;
 use File;
-use Form;
 use Input;
 use Config;
 use Request;
@@ -500,7 +499,7 @@ class MediaManager extends WidgetBase
     {
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
-        $cropSessionKey = md5(Form::getSessionKey());
+        $cropSessionKey = md5(\Form::getSessionKey());
         $selectionParams = $this->getSelectionParams();
 
         $urlAndSize = $this->getCropEditImageUrlAndSize($path, $cropSessionKey);
