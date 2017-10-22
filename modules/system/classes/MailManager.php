@@ -178,7 +178,12 @@ class MailManager
 
         $css = MailBrandSetting::renderCss();
 
+        $inlineCss = true;
+
         if ($template->layout) {
+
+            $inlineCss = $template->layout->inline_css;
+
             $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
                 'css' => $template->layout->content_css,
@@ -188,7 +193,9 @@ class MailManager
             $css .= PHP_EOL . $template->layout->content_css;
         }
 
-        $html = (new CssToInlineStyles)->convert($html, $css);
+        if ($inlineCss) {
+            $html = (new CssToInlineStyles)->convert($html, $css);
+        }
 
         return $html;
     }
