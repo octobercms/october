@@ -22,6 +22,11 @@ class FormField
      * @var string Form field name.
      */
     public $fieldName;
+    
+    /**
+     * @var Form The form this field belongs to
+     */
+    public $form;
 
     /**
      * @var string If the field element names should be contained in an array. Eg:
@@ -174,11 +179,13 @@ class FormField
      * Constructor.
      * @param string $fieldName
      * @param string $label
+     * @param Form $form
      */
-    public function __construct($fieldName, $label)
+    public function __construct($fieldName, $label, $form = null)
     {
         $this->fieldName = $fieldName;
         $this->label = $label;
+        $this->form = $form;
     }
 
     /**
@@ -365,6 +372,21 @@ class FormField
 
         return (string) $value === (string) $this->value;
     }
+    
+    /**
+     * Return a selector that can be used to get any rendered elements belonging
+     * to this field
+     * @return string
+     */
+    public function getSelector()
+    {
+        $name = $this->getName();
+        if ($this->type === 'checkboxlist') {
+            $name .= '[]';
+        }
+        
+        return '[name="'.$name.'"]';
+    }
 
     /**
      * Sets the attributes for this field in a given position.
@@ -471,15 +493,19 @@ class FormField
             return $attributes;
         }
 
-        if ($this->arrayName) {
-            $fullTriggerField = $this->arrayName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
+        $triggerFieldObj = $this->form ? $this->form->getField($triggerField) : null;
+        if ($triggerFieldObj) {
+            $selector = $triggerFieldObj->getSelector();
+        }
+        elseif ($this->arrayName) {
+            $selector = '[name="'.$this->arrayName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']"]';
         }
         else {
-            $fullTriggerField = $triggerField;
+            $selector = '[name="'.$triggerField.'"]';
         }
-
+        
         $newAttributes = [
-            'data-trigger' => '[name="'.$fullTriggerField.'"]',
+            'data-trigger' => $selector,
             'data-trigger-action' => $triggerAction,
             'data-trigger-condition' => $triggerCondition,
             'data-trigger-closest-parent' => 'form'
@@ -488,7 +514,7 @@ class FormField
         $attributes = $attributes + $newAttributes;
         return $attributes;
     }
-
+    
     /**
      * Adds attributes used specifically by the Input Preset API
      * @param  array $attributes
