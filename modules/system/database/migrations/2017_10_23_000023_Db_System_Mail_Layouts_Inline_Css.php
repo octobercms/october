@@ -12,7 +12,7 @@ class DbSystemMailLayoutsInlineCss extends Migration
     public function down()
     {
         Schema::table('system_mail_layouts', function (Blueprint $table) {
-           $table->dropColumn('inlince_css');
+           $table->dropColumn('inline_css');
         });
     }
 }
