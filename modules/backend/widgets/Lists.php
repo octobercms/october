@@ -97,6 +97,11 @@ class Lists extends WidgetBase
     public $showPagination = 'auto';
 
     /**
+     * @var bool Display page numbers with pagination, disable to improve performance.
+     */
+    public $showPageNumbers = true;
+
+    /**
      * @var string Specify a custom view path to override partials used by the list.
      */
     public $customViewPath;
@@ -190,6 +195,7 @@ class Lists extends WidgetBase
             'recordUrl',
             'recordOnClick',
             'noRecordsMessage',
+            'showPageNumbers',
             'recordsPerPage',
             'showSorting',
             'defaultSort',
@@ -248,6 +254,7 @@ class Lists extends WidgetBase
         $this->vars['showCheckboxes'] = $this->showCheckboxes;
         $this->vars['showSetup'] = $this->showSetup;
         $this->vars['showPagination'] = $this->showPagination;
+        $this->vars['showPageNumbers'] = $this->showPageNumbers;
         $this->vars['showSorting'] = $this->showSorting;
         $this->vars['sortColumn'] = $this->getSortColumn();
         $this->vars['sortDirection'] = $this->sortDirection;
@@ -255,11 +262,16 @@ class Lists extends WidgetBase
         $this->vars['treeLevel'] = 0;
 
         if ($this->showPagination) {
-            $this->vars['recordTotal'] = $this->records->total();
             $this->vars['pageCurrent'] = $this->records->currentPage();
-            $this->vars['pageLast'] = $this->records->lastPage();
-            $this->vars['pageFrom'] = $this->records->firstItem();
-            $this->vars['pageTo'] = $this->records->lastItem();
+            if ($this->showPageNumbers) {
+                $this->vars['recordTotal'] = $this->records->total();
+                $this->vars['pageLast'] = $this->records->lastPage();
+                $this->vars['pageFrom'] = $this->records->firstItem();
+                $this->vars['pageTo'] = $this->records->lastItem();
+            }
+            else {
+                $this->vars['hasMorePages'] = $this->records->hasMorePages();
+            }
         }
         else {
             $this->vars['recordTotal'] = $this->records->count();
@@ -452,7 +464,7 @@ class Lists extends WidgetBase
                  * Manipulate a count query for the sub query
                  */
                 $relationObj = $this->model->{$column->relation}();
-                $countQuery = $relationObj->getRelationCountQuery($relationObj->getRelated()->newQueryWithoutScopes(), $query);
+                $countQuery = $relationObj->getRelationExistenceQuery($relationObj->getRelated()->newQueryWithoutScopes(), $query);
 
                 $joinSql = $this->isColumnRelated($column, true)
                     ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")
@@ -518,7 +530,8 @@ class Lists extends WidgetBase
             $records = $model->getNested();
         }
         elseif ($this->showPagination) {
-            $records = $model->paginate($this->recordsPerPage, $this->currentPageNumber);
+            $method = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
+            $records = $model->{$method}($this->recordsPerPage, $this->currentPageNumber);
         }
         else {
             $records = $model->get();
@@ -993,11 +1006,17 @@ class Lists extends WidgetBase
             $value = $dateTime->toDayDateTimeString();
         }
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateTimeLongMin'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1015,11 +1034,17 @@ class Lists extends WidgetBase
 
         $value = $dateTime->format($format);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'time'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1040,11 +1065,17 @@ class Lists extends WidgetBase
             $value = $dateTime->toFormattedDateString();
         }
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'format' => $column->format,
             'formatAlias' => 'dateLongMin'
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1060,10 +1091,16 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeSince($dateTime);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'timeSince' => true
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**
@@ -1079,10 +1116,16 @@ class Lists extends WidgetBase
 
         $value = DateTimeHelper::timeTense($dateTime);
 
-        return Backend::dateTime($dateTime, [
+        $options = [
             'defaultValue' => $value,
             'timeTense' => true
-        ]);
+        ];
+
+        if (!empty($column->config['ignoreTimezone'])) {
+            $options['ignoreTimezone'] = true;
+        }
+
+        return Backend::dateTime($dateTime, $options);
     }
 
     /**

@@ -12,7 +12,7 @@
         $pageUrl = isset($pageUrl) ? $pageUrl : null;
     ?>
     <a
-        href="<?= URL::to($pageUrl) ?>"
+        href="<?= Url::to($pageUrl) ?>"
         target="_blank"
         class="btn btn-primary oc-icon-crosshairs <?php if (!$templatePath): ?>hide<?php endif ?>"
         data-control="preview-button">

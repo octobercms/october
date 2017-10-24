@@ -31,6 +31,16 @@ class ColorPicker extends FormWidgetBase
         '#95a5a6', '#7f8c8d',
     ];
 
+    /**
+     * @var bool Allow empty value
+     */
+    public $allowEmpty = false;
+
+    /**
+     * @var bool Show opacity slider
+     */
+    public $showAlpha = false;
+
     //
     // Object properties
     //
@@ -47,6 +57,8 @@ class ColorPicker extends FormWidgetBase
     {
         $this->fillFromConfig([
             'availableColors',
+            'allowEmpty',
+            'showAlpha',
         ]);
     }
 
@@ -67,6 +79,8 @@ class ColorPicker extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value = $this->getLoadValue();
         $this->vars['availableColors'] = $this->availableColors;
+        $this->vars['allowEmpty'] = $this->allowEmpty;
+        $this->vars['showAlpha'] = $this->showAlpha;
         $this->vars['isCustomColor'] = !in_array($value, $this->availableColors);
     }
 
@@ -75,8 +89,8 @@ class ColorPicker extends FormWidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCss('vendor/colpick/css/colpick.css', 'core');
-        $this->addJs('vendor/colpick/js/colpick.js', 'core');
+        $this->addCss('vendor/spectrum/spectrum.css', 'core');
+        $this->addJs('vendor/spectrum/spectrum.js', 'core');
         $this->addCss('css/colorpicker.css', 'core');
         $this->addJs('js/colorpicker.js', 'core');
     }

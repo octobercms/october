@@ -2,7 +2,7 @@
 
 use Db;
 use App;
-use URL;
+use Url;
 use File;
 use Lang;
 use Http;
@@ -31,10 +31,14 @@ class UpdateManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
-     * The notes for the current operation.
-     * @var array
+     * @var array The notes for the current operation.
      */
     protected $notes = [];
+
+    /**
+     * @var \Illuminate\Console\OutputStyle
+     */
+    protected $notesOutput;
 
     /**
      * @var string Application base path.
@@ -82,12 +86,22 @@ class UpdateManager
     protected $productCache;
 
     /**
+     * @var Illuminate\Database\Migrations\Migrator
+     */
+    protected $migrator;
+
+    /**
+     * @var Illuminate\Database\Migrations\DatabaseMigrationRepository
+     */
+    protected $repository;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
     {
         $this->pluginManager = PluginManager::instance();
-        $this->themeManager = ThemeManager::instance();
+        $this->themeManager = class_exists(ThemeManager::class) ? ThemeManager::instance() : null;
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
@@ -260,13 +274,15 @@ class UpdateManager
         /*
          * Strip out themes that have been installed before
          */
-        $themes = [];
-        foreach (array_get($result, 'themes', []) as $code => $info) {
-            if (!$this->themeManager->isInstalled($code)) {
-                $themes[$code] = $info;
+        if ($this->themeManager) {
+            $themes = [];
+            foreach (array_get($result, 'themes', []) as $code => $info) {
+                if (!$this->themeManager->isInstalled($code)) {
+                    $themes[$code] = $info;
+                }
             }
+            $result['themes'] = $themes;
         }
-        $result['themes'] = $themes;
 
         /*
          * If there is a core update and core updates are disabled,
@@ -295,8 +311,7 @@ class UpdateManager
      */
     public function requestProjectDetails($projectId)
     {
-        $result = $this->requestServerData('project/detail', ['id' => $projectId]);
-        return $result;
+        return $this->requestServerData('project/detail', ['id' => $projectId]);
     }
 
     /**
@@ -316,23 +331,24 @@ class UpdateManager
         /*
          * Register module migration files
          */
+        $paths = [];
         $modules = Config::get('cms.loadModules', []);
+
         foreach ($modules as $module) {
-            $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
-            $this->migrator->requireFiles($path, $this->migrator->getMigrationFiles($path));
+            $paths[] = $path = base_path() . '/modules/'.strtolower($module).'/database/migrations';
         }
 
         /*
          * Rollback modules
          */
         while (true) {
-            $count = $this->migrator->rollback();
+            $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
 
             foreach ($this->migrator->getNotes() as $note) {
                 $this->note($note);
             }
 
-            if ($count == 0) {
+            if (count($rolledBack) == 0) {
                 break;
             }
         }
@@ -340,6 +356,27 @@ class UpdateManager
         Schema::dropIfExists($this->getMigrationTableName());
 
         return $this;
+    }
+
+    /**
+     * Asks the gateway for the lastest build number and stores it.
+     * @return void
+     */
+    public function setBuildNumberManually()
+    {
+        $postData = [];
+
+        if (Config::get('cms.edgeUpdates', false)) {
+            $postData['edge'] = 1;
+        }
+
+        $result = $this->requestServerData('ping', $postData);
+
+        $build = (int) array_get($result, 'pong', 420);
+
+        $this->setBuild($build);
+
+        return $build;
     }
 
     //
@@ -365,9 +402,11 @@ class UpdateManager
         $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         $this->note($module);
+
         foreach ($this->migrator->getNotes() as $note) {
             $this->note(' - '.$note);
         }
+
         return $this;
     }
 
@@ -402,11 +441,9 @@ class UpdateManager
 
     /**
      * Extracts the core after it has been downloaded.
-     * @param string $hash
-     * @param string $build
      * @return void
      */
-    public function extractCore($hash, $build)
+    public function extractCore()
     {
         $filePath = $this->getFilePath('core');
 
@@ -415,14 +452,25 @@ class UpdateManager
         }
 
         @unlink($filePath);
+    }
 
-        // Database may fall asleep after this long process
-        Db::reconnect();
-
-        Parameter::set([
-            'system::core.hash'  => $hash,
+    /**
+     * Sets the build number and hash
+     * @param string $hash
+     * @param string $build
+     * @return void
+     */
+    public function setBuild($build, $hash = null)
+    {
+        $params = [
             'system::core.build' => $build
-        ]);
+        ];
+
+        if ($hash) {
+            $params['system::core.hash'] = $hash;
+        }
+
+        Parameter::set($params);
     }
 
     //
@@ -436,8 +484,7 @@ class UpdateManager
      */
     public function requestPluginDetails($name)
     {
-        $result = $this->requestServerData('plugin/detail', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('plugin/detail', ['name' => $name]);
     }
 
     /**
@@ -447,8 +494,7 @@ class UpdateManager
      */
     public function requestPluginContent($name)
     {
-        $result = $this->requestServerData('plugin/content', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('plugin/content', ['name' => $name]);
     }
 
     /**
@@ -466,13 +512,17 @@ class UpdateManager
             return;
         }
 
-        $this->versionManager->resetNotes();
+        $this->note($name);
+
+        $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
+
         if ($this->versionManager->updatePlugin($plugin) !== false) {
-            $this->note($name);
+
             foreach ($this->versionManager->getNotes() as $note) {
-                $this->note(' - '.$note);
+                $this->note($note);
             }
         }
+
         return $this;
     }
 
@@ -499,6 +549,7 @@ class UpdateManager
         }
 
         $this->note('<error>Unable to find:</error> ' . $name);
+
         return $this;
     }
 
@@ -540,8 +591,7 @@ class UpdateManager
      */
     public function requestThemeDetails($name)
     {
-        $result = $this->requestServerData('theme/detail', ['name' => $name]);
-        return $result;
+        return $this->requestServerData('theme/detail', ['name' => $name]);
     }
 
     /**
@@ -553,6 +603,7 @@ class UpdateManager
     public function downloadTheme($name, $hash)
     {
         $fileCode = $name . $hash;
+
         $this->requestServerFile('theme/get', $fileCode, $hash, ['name' => $name]);
     }
 
@@ -568,7 +619,10 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
-        $this->themeManager->setInstalled($name);
+        if ($this->themeManager) {
+            $this->themeManager->setInstalled($name);
+        }
+
         @unlink($filePath);
     }
 
@@ -578,8 +632,9 @@ class UpdateManager
 
     public function requestProductDetails($codes, $type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $codes = (array) $codes;
         $this->loadProductDetailCache();
@@ -627,8 +682,9 @@ class UpdateManager
      */
     public function requestPopularProducts($type = null)
     {
-        if ($type != 'plugin' && $type != 'theme')
+        if ($type != 'plugin' && $type != 'theme') {
             $type = 'plugin';
+        }
 
         $cacheKey = 'system-updates-popular-'.$type;
 
@@ -689,11 +745,17 @@ class UpdateManager
     /**
      * Raise a note event for the migrator.
      * @param  string  $message
-     * @return void
+     * @return self
      */
     protected function note($message)
     {
-        $this->notes[] = $message;
+        if ($this->notesOutput !== null) {
+            $this->notesOutput->writeln($message);
+        }
+        else {
+            $this->notes[] = $message;
+        }
+
         return $this;
     }
 
@@ -708,11 +770,26 @@ class UpdateManager
 
     /**
      * Resets the notes store.
-     * @return array
+     * @return self
      */
     public function resetNotes()
     {
+        $this->notesOutput = null;
+
         $this->notes = [];
+
+        return $this;
+    }
+
+    /**
+     * Sets an output stream for writing notes.
+     * @param  Illuminate\Console\Command $output
+     * @return self
+     */
+    public function setNotesOutput($output)
+    {
+        $this->notesOutput = $output;
+
         return $this;
     }
 
@@ -832,7 +909,7 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => URL::to('/')]));
+        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;

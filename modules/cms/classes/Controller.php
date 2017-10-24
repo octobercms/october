@@ -723,6 +723,13 @@ class Controller
             }
         }
 
+        /*
+         * Generic handler that does nothing
+         */
+        if ($handler == 'onAjax') {
+            return true;
+        }
+
         return false;
     }
 
@@ -818,8 +825,7 @@ class Controller
              * Check if the theme has an override
              */
             if (strpos($partialName, '/') === false) {
-                $overrideName = $componentObj->alias . '/' . $partialName;
-                $partial = Partial::loadCached($this->theme, $overrideName);
+                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
             }
 
             /*
@@ -1021,6 +1027,15 @@ class Controller
     //
     // Getters
     //
+
+     /**
+     * Returns the status code for the current web response.
+     * @return int Status code
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
 
     /**
      * Returns an existing instance of the controller.

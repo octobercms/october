@@ -35,7 +35,7 @@ php artisan october:install
 
 ### Development Team
 
-October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](http://au.linkedin.com/pub/sam-georges/31/641/a9), who both continue to develop the platform.
+October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/), who both continue to develop the platform.
 
 ### Foundation library
 

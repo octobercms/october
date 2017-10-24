@@ -42,6 +42,7 @@ outline: 1px solid red;\
 }\
 .ace_search_field {\
 background-color: white;\
+color: black;\
 border-right: 1px solid #cbcbcb;\
 border: 0 none;\
 -webkit-box-sizing: border-box;\

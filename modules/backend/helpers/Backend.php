@@ -116,6 +116,7 @@ class Backend
             'jsFormat' => null,
             'timeTense' => false,
             'timeSince' => false,
+            'ignoreTimezone' => false,
         ], $options));
 
         $carbon = DateTimeHelper::makeCarbon($dateTime);
@@ -131,6 +132,10 @@ class Backend
             'datetime' => $carbon,
             'data-datetime-control' => 1,
         ];
+
+        if ($ignoreTimezone) {
+            $attributes['data-ignore-timezone'] = true;
+        }
 
         if ($timeTense) {
             $attributes['data-time-tense'] = 1;

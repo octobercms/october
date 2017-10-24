@@ -50,7 +50,7 @@
                                 type="text"                                                             \
                                 name="search"                                                           \
                                 autocomplete="off"                                                      \
-                                class="filter-search-input form-control icon search"                    \
+                                class="filter-search-input form-control icon search popup-allow-focus"  \
                                 data-request="{{ optionsHandler }}"                                     \
                                 data-load-indicator-opaque                                              \
                                 data-load-indicator                                                     \

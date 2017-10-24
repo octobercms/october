@@ -670,7 +670,7 @@ return false})
 this.wrapper.click(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){closeMenu()
 return false}})
 $(window).resize(function(){if(self.body.hasClass(self.options.bodyMenuOpenClass)){if($(window).width()>self.breakpoint){hideMenu()}}})
-this.menuElement.dragScroll({vertical:true,start:function(){self.menuElement.addClass('drag')},stop:function(){self.menuElement.removeClass('drag')},scrollClassContainer:self.menuPanel,scrollMarkerContainer:self.menuContainer})
+this.menuElement.dragScroll({vertical:true,useNative:true,start:function(){self.menuElement.addClass('drag')},stop:function(){self.menuElement.removeClass('drag')},scrollClassContainer:self.menuPanel,scrollMarkerContainer:self.menuContainer})
 this.menuElement.on('click',function(){if(self.menuElement.hasClass('drag'))
 return false})
 function hideMenu(){self.body.removeClass(self.options.bodyMenuOpenClass)
@@ -691,9 +691,9 @@ if(typeof option=='string')data[option].call($this)})}
 $.fn.verticalMenu.Constructor=VerticalMenu
 $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
 return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
-navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse')
+navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse'),isMobile=$('html').hasClass('mobile')
 nav.verticalMenu($('a.menu-toggle',navbar),{breakpoint:collapseMode?Infinity:769})
-$('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'})
+$('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'}).on('show.bs.tooltip',function(e){if(isMobile)e.preventDefault()})
 $('[data-calculate-width]',navbar).one('oc.widthFixed',function(){var dragScroll=$('[data-control=toolbar]',navbar).data('oc.dragScroll')
 if(dragScroll){dragScroll.goToElement($('ul.nav > li.active',navbar),undefined,{'duration':0})}})})})})(jQuery);+function($){"use strict";if($.oc===undefined)
 $.oc={}
@@ -703,9 +703,9 @@ this.$list=$('ul',this.$el)
 this.$items=$('li',this.$list)
 this.init();}
 SideNav.DEFAULTS={activeClass:'active'}
-SideNav.prototype.init=function(){var self=this;this.$list.dragScroll({vertical:true,start:function(){self.$list.addClass('drag')},stop:function(){self.$list.removeClass('drag')},scrollClassContainer:self.$el,scrollMarkerContainer:self.$el})
-this.$list.on('click',function(){if(self.$list.hasClass('drag'))
-return false})}
+SideNav.prototype.init=function(){var self=this
+this.$list.dragScroll({vertical:true,useNative:true,start:function(){self.$list.addClass('drag')},stop:function(){self.$list.removeClass('drag')},scrollClassContainer:self.$el,scrollMarkerContainer:self.$el})
+this.$list.on('click',function(){if(self.$list.hasClass('drag')){return false}})}
 SideNav.prototype.unsetActiveItem=function(itemId){this.$items.removeClass(this.options.activeClass)}
 SideNav.prototype.setActiveItem=function(itemId){if(!itemId){return}
 this.$items.removeClass(this.options.activeClass).filter('[data-menu-item='+itemId+']').addClass(this.options.activeClass)}
@@ -740,9 +740,10 @@ $.fn.sideNav.noConflict=function(){$.fn.sideNav=old
 return this}
 $(document).ready(function(){$('[data-control="sidenav"]').sideNav()})}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollbar=function(element,options){var
-$el=this.$el=$(element),el=$el.get(0),self=this,options=this.options=options||{},sizeName=this.sizeName=options.vertical?'height':'width',isTouch=this.isTouch=Modernizr.touch,isScrollable=this.isScrollable=false,isLocked=this.isLocked=false,eventElementName=options.vertical?'pageY':'pageX',dragStart=0,startOffset=0;$.oc.foundation.controlUtils.markDisposable(element)
+$el=this.$el=$(element),el=$el.get(0),self=this,options=this.options=options||{},sizeName=this.sizeName=options.vertical?'height':'width',isNative=$('html').hasClass('mobile'),isTouch=this.isTouch=Modernizr.touch,isScrollable=this.isScrollable=false,isLocked=this.isLocked=false,eventElementName=options.vertical?'pageY':'pageX',dragStart=0,startOffset=0;$.oc.foundation.controlUtils.markDisposable(element)
 Base.call(this)
 this.$el.one('dispose-control',this.proxy(this.dispose))
+if(isNative){return}
 this.$scrollbar=$('<div />').addClass('scrollbar-scrollbar')
 this.$track=$('<div />').addClass('scrollbar-track').appendTo(this.$scrollbar)
 this.$thumb=$('<div />').addClass('scrollbar-thumb').appendTo(this.$track)
@@ -917,6 +918,7 @@ fixedWidth+=$el.get(0).offsetWidth+margin})
 $(this).width(fixedWidth)
 $(this).trigger('oc.widthFixed')}})}
 OctoberLayout.prototype.toggleAccountMenu=function(el){var self=this,$el=$(el),$parent=$(el).parent(),$menu=$el.next()
+$el.tooltip('hide')
 if($menu.hasClass('active')){self.$accountMenuOverlay.remove()
 $parent.removeClass('highlight')
 $menu.removeClass('active')}
@@ -1073,7 +1075,7 @@ $.fn.treeListWidget.noConflict=function(){$.fn.treeListWidget=old
 return this}
 $(document).render(function(){$('[data-control="treelist"]').treeListWidget();})}(window.jQuery);+function($){"use strict";var SidenavTree=function(element,options){this.options=options
 this.$el=$(element)
-this.init();}
+this.init()}
 SidenavTree.DEFAULTS={treeName:'sidenav_tree'}
 SidenavTree.prototype.init=function(){var self=this
 $(document.body).addClass('has-sidenav-tree')
@@ -1081,17 +1083,18 @@ this.statusCookieName=this.options.treeName+'groupStatus'
 this.searchCookieName=this.options.treeName+'search'
 this.$searchInput=$(this.options.searchInput)
 this.$el.on('click','li > div.group',function(){self.toggleGroup($(this).closest('li'))
-return false;});this.$searchInput.on('keyup',function(){self.handleSearchChange()})
+return false})
+this.$searchInput.on('keyup',function(){self.handleSearchChange()})
 var searchTerm=$.cookie(this.searchCookieName)
 if(searchTerm!==undefined&&searchTerm.length>0){this.$searchInput.val(searchTerm)
 this.applySearch()}
 var scrollbar=$('[data-control=scrollbar]',this.$el).data('oc.scrollbar'),active=$('li.active',this.$el)
-if(active.length>0)
-scrollbar.gotoElement(active)}
+if(active.length>0){scrollbar.gotoElement(active)}}
 SidenavTree.prototype.toggleGroup=function(group){var $group=$(group),status=$group.attr('data-status')
 status===undefined||status=='expanded'?this.collapseGroup($group):this.expandGroup($group)}
 SidenavTree.prototype.collapseGroup=function(group){var
-$list=$('> ul',group),self=this;$list.css('overflow','hidden')
+$list=$('> ul',group),self=this
+$list.css('overflow','hidden')
 $list.animate({'height':0},{duration:100,queue:false,complete:function(){$list.css({'overflow':'visible','display':'none'})
 $(group).attr('data-status','collapsed')
 $(window).trigger('oc.updateUi')
@@ -1099,32 +1102,30 @@ self.saveGroupStatus($(group).data('group-code'),true)}})}
 SidenavTree.prototype.expandGroup=function(group,duration){var
 $list=$('> ul',group),self=this
 duration=duration===undefined?100:duration
-$list.css({'overflow':'hidden','display':'block','height':0})
+$list.css({'overflow':'hidden','display':'','height':0})
 $list.animate({'height':$list[0].scrollHeight},{duration:duration,queue:false,complete:function(){$list.css({'overflow':'visible','height':'auto'})
 $(group).attr('data-status','expanded')
 $(window).trigger('oc.updateUi')
 self.saveGroupStatus($(group).data('group-code'),false)}})}
 SidenavTree.prototype.saveGroupStatus=function(groupCode,collapsed){var collapsedGroups=$.cookie(this.statusCookieName),updatedGroups=[]
-if(collapsedGroups===undefined)
-collapsedGroups=''
+if(collapsedGroups===undefined){collapsedGroups=''}
 collapsedGroups=collapsedGroups.split('|')
 $.each(collapsedGroups,function(){if(groupCode!=this)
 updatedGroups.push(this)})
-if(collapsed)
-updatedGroups.push(groupCode)
+if(collapsed){updatedGroups.push(groupCode)}
 $.cookie(this.statusCookieName,updatedGroups.join('|'),{expires:30,path:'/'})}
-SidenavTree.prototype.handleSearchChange=function(){var lastValue=this.$searchInput.data('oc.lastvalue');if(lastValue!==undefined&&lastValue==this.$searchInput.val())
-return
+SidenavTree.prototype.handleSearchChange=function(){var lastValue=this.$searchInput.data('oc.lastvalue');if(lastValue!==undefined&&lastValue==this.$searchInput.val()){return}
 this.$searchInput.data('oc.lastvalue',this.$searchInput.val())
-if(this.dataTrackInputTimer!==undefined)
-window.clearTimeout(this.dataTrackInputTimer);var self=this
+if(this.dataTrackInputTimer!==undefined){window.clearTimeout(this.dataTrackInputTimer)}
+var self=this
 this.dataTrackInputTimer=window.setTimeout(function(){self.applySearch()},300);$.cookie(this.searchCookieName,$.trim(this.$searchInput.val()),{expires:30,path:'/'})}
 SidenavTree.prototype.applySearch=function(){var query=$.trim(this.$searchInput.val()),words=query.toLowerCase().split(' '),visibleGroups=[],visibleItems=[],self=this
 if(query.length==0){$('li',this.$el).removeClass('hidden')
 return}
 $('ul.top-level > li',this.$el).each(function(){var $li=$(this)
 if(self.textContainsWords($('div.group h3',$li).text(),words)){visibleGroups.push($li.get(0))
-$('ul li',$li).each(function(){visibleItems.push(this)})}else{$('ul li',$li).each(function(){if(self.textContainsWords($(this).text(),words)||self.textContainsWords($(this).data('keywords'),words)){visibleGroups.push($li.get(0))
+$('ul li',$li).each(function(){visibleItems.push(this)})}
+else{$('ul li',$li).each(function(){if(self.textContainsWords($(this).text(),words)||self.textContainsWords($(this).data('keywords'),words)){visibleGroups.push($li.get(0))
 visibleItems.push(this)}})}})
 $('ul.top-level > li',this.$el).each(function(){var $li=$(this),groupIsVisible=$.inArray(this,visibleGroups)!==-1
 $li.toggleClass('hidden',!groupIsVisible)
@@ -1166,6 +1167,8 @@ if(this.options.formatAlias){this.options.format=this.getFormatFromAlias(this.op
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}}
 DateTimeConverter.prototype.getDateTimeValue=function(){this.datetime=this.$el.attr('datetime')
+if(this.$el.get(0).hasAttribute('data-ignore-timezone')){this.appTimezone='UTC'
+this.options.timezone='UTC'}
 var momentObj=moment.tz(this.datetime,this.appTimezone),result
 if(this.options.locale){momentObj=momentObj.locale(this.options.locale)}
 if(this.options.timezone){momentObj=momentObj.tz(this.options.timezone)}

@@ -209,10 +209,7 @@
 
         var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>'),
             $primaryPanel = $('.control-tabs.primary-tabs', data.pane),
-            $secondaryPanel = $('.control-tabs.secondary-tabs', data.pane),
-            $primaryTabContainer = $('.nav-tabs', $primaryPanel)
-
-        $primaryTabContainer.addClass('master-area')
+            $secondaryPanel = $('.control-tabs.secondary-tabs', data.pane)
 
         if ($primaryPanel.length > 0) {
             $secondaryPanel.append($primaryCollapseIcon);

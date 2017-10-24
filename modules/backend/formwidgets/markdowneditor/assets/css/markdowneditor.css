@@ -26,11 +26,17 @@
 .field-markdowneditor.size-tiny .editor-preview {
   height: 50px;
 }
+.field-markdowneditor.size-tiny.stretch {
+  min-height: 90px;
+}
 .field-markdowneditor.size-small .editor-write {
   min-height: 100px;
 }
 .field-markdowneditor.size-small .editor-preview {
   height: 100px;
+}
+.field-markdowneditor.size-small.stretch {
+  min-height: 140px;
 }
 .field-markdowneditor.size-large .editor-write {
   min-height: 200px;
@@ -38,17 +44,26 @@
 .field-markdowneditor.size-large .editor-preview {
   height: 200px;
 }
+.field-markdowneditor.size-large.stretch {
+  min-height: 240px;
+}
 .field-markdowneditor.size-huge .editor-write {
   min-height: 250px;
 }
 .field-markdowneditor.size-huge .editor-preview {
   height: 250px;
 }
+.field-markdowneditor.size-huge.stretch {
+  min-height: 290px;
+}
 .field-markdowneditor.size-giant .editor-write {
   min-height: 350px;
 }
 .field-markdowneditor.size-giant .editor-preview {
   height: 350px;
+}
+.field-markdowneditor.size-giant.stretch {
+  min-height: 390px;
 }
 .field-markdowneditor .editor-write {
   position: relative;
@@ -101,18 +116,26 @@
 .field-markdowneditor.stretch .editor-toolbar {
   height: auto;
 }
-.field-markdowneditor.stretch .editor-write,
+.field-markdowneditor.stretch .editor-write {
+  float: none;
+  height: calc(100% - 40px);
+  position: relative;
+  min-height: 0;
+}
 .field-markdowneditor.stretch .editor-preview {
   float: none;
   height: auto;
   position: absolute;
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   margin-top: 40px;
 }
-.field-markdowneditor.stretch .editor-write {
-  left: 0;
+.field-markdowneditor.stretch.mode-split .editor-preview {
+  left: auto;
+}
+.field-markdowneditor.stretch.mode-split .editor-write {
   right: auto;
 }
 .field-markdowneditor.is-fullscreen {

@@ -22,6 +22,3 @@ fields:
         label: backend::lang.user.group.description_field
         type: textarea
         size: tiny
-
-tabs:
-    stretch: true

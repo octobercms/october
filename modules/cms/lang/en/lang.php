@@ -35,7 +35,7 @@ return [
             'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
         ],
         'settings_menu' => 'Front-end theme',
-        'settings_menu_description' => 'Preview the list of installed themes and select an active theme.',
+        'settings_menu_description' => 'Manage the front-end theme and customization options.',
         'default_tab' => 'Properties',
         'name_label' => 'Name',
         'name_create_placeholder' => 'New theme name',
@@ -259,6 +259,7 @@ return [
         'manage_layouts' => 'Create, modify and delete CMS layouts',
         'manage_partials' => 'Create, modify and delete CMS partials',
         'manage_themes' => 'Activate, deactivate and configure CMS themes',
+        'manage_theme_options' => 'Configure customization options for the active theme',
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
     ],
     'mediafinder' => [
@@ -284,7 +285,7 @@ return [
         'size' => 'Size',
         'title' => 'Title',
         'last_modified' => 'Last modified',
-        'public_url' => 'Download URL',
+        'public_url' => 'URL',
         'click_here' => 'Click here',
         'thumbnail_error' => 'Error generating thumbnail.',
         'return_to_parent' => 'Return to the parent folder',
@@ -296,6 +297,9 @@ return [
         'uploading_error' => 'Upload failed',
         'type_blocked' => 'The file type used is blocked for security reasons.',
         'order_by' => 'Order by',
+        'direction' => 'Direction',
+        'direction_asc' => 'Ascending',
+        'direction_desc' => 'Descending',
         'folder' => 'Folder',
         'no_files_found' => 'No files found by your request.',
         'delete_empty' => 'Please select items to delete.',

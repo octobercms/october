@@ -43,7 +43,7 @@ class ThemeInstall extends Command
      * Execute the console command.
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $themeName = $this->argument('name');
         $argDirName = $this->argument('dirName');

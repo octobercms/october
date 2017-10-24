@@ -1,6 +1,6 @@
 /*
  * Field Repeater plugin
- * 
+ *
  * Data attributes:
  * - data-control="fieldrepeater" - enables the plugin on an element
  * - data-option="value" - an option with a value
@@ -193,6 +193,11 @@
         var $textInput = $('input[type=text]:first', $target)
         if ($textInput.length) {
             return $textInput.val()
+        } else {
+            var $disabledTextInput = $('.text-field:first > .form-control', $target)
+            if ($disabledTextInput.length) {
+                return $disabledTextInput.text()
+            }
         }
 
         return defaultText

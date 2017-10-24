@@ -1,0 +1,122 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    _mail_preview:
+        type: partial
+        path: field_mail_preview
+
+secondaryTabs:
+    fields:
+
+        _section_background:
+            label: system::lang.mail_brand.fields._section_background
+            type: section
+
+        body_bg:
+            label: system::lang.mail_brand.fields.body_bg
+            type: colorpicker
+            availableColors: []
+
+        content_bg:
+            label: system::lang.mail_brand.fields.content_bg
+            type: colorpicker
+            availableColors: []
+
+        content_inner_bg:
+            label: system::lang.mail_brand.fields.content_inner_bg
+            type: colorpicker
+            availableColors: []
+
+        _section_buttons:
+            label: system::lang.mail_brand.fields._section_buttons
+            type: section
+
+        button_text_color:
+            label: system::lang.mail_brand.fields.button_text_color
+            type: colorpicker
+            availableColors: []
+
+        button_primary_bg:
+            label: system::lang.mail_brand.fields.button_primary_bg
+            type: colorpicker
+            availableColors: []
+
+        button_positive_bg:
+            label: system::lang.mail_brand.fields.button_positive_bg
+            type: colorpicker
+            availableColors: []
+
+        button_negative_bg:
+            label: system::lang.mail_brand.fields.button_negative_bg
+            type: colorpicker
+            availableColors: []
+
+        _section_type:
+            label: system::lang.mail_brand.fields._section_type
+            type: section
+
+        header_color:
+            label: system::lang.mail_brand.fields.header_color
+            type: colorpicker
+            availableColors: []
+
+        heading_color:
+            label: system::lang.mail_brand.fields.heading_color
+            type: colorpicker
+            availableColors: []
+
+        text_color:
+            label: system::lang.mail_brand.fields.text_color
+            type: colorpicker
+            availableColors: []
+
+        link_color:
+            label: system::lang.mail_brand.fields.link_color
+            type: colorpicker
+            availableColors: []
+
+        footer_color:
+            label: system::lang.mail_brand.fields.footer_color
+            type: colorpicker
+            availableColors: []
+
+        _section_borders:
+            label: system::lang.mail_brand.fields._section_borders
+            type: section
+
+        body_border_color:
+            label: system::lang.mail_brand.fields.body_border_color
+            type: colorpicker
+            availableColors: []
+
+        subcopy_border_color:
+            label: system::lang.mail_brand.fields.subcopy_border_color
+            type: colorpicker
+            availableColors: []
+
+        table_border_color:
+            label: system::lang.mail_brand.fields.table_border_color
+            type: colorpicker
+            availableColors: []
+
+        _section_components:
+            label: system::lang.mail_brand.fields._section_components
+            type: section
+
+        panel_bg:
+            label: system::lang.mail_brand.fields.panel_bg
+            type: colorpicker
+            availableColors: []
+
+        promotion_bg:
+            label: system::lang.mail_brand.fields.promotion_bg
+            type: colorpicker
+            availableColors: []
+
+        promotion_border_color:
+            label: system::lang.mail_brand.fields.promotion_border_color
+            type: colorpicker
+            availableColors: []

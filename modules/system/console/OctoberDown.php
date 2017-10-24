@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class OctoberDown extends Command
 {
-
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
@@ -39,17 +38,16 @@ class OctoberDown extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if (!$this->confirmToProceed('This will DESTROY all database tables.')) {
             return;
         }
 
-        $manager = UpdateManager::instance()->resetNotes()->uninstall();
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
+        UpdateManager::instance()
+            ->setNotesOutput($this->output)
+            ->uninstall()
+        ;
     }
 
     /**

@@ -1,0 +1,16 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: system::lang.mail_partials.menu_label
+list: ~/modules/system/models/mailpartial/columns.yaml
+modelClass: System\Models\MailPartial
+recordUrl: system/mailpartials/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+showSetup: true
+
+toolbar:
+    buttons: list_partials_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

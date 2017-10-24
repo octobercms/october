@@ -33,12 +33,14 @@ return [
         'not_found_name' => "The partial ':name' is not found."
     ],
     'account' => [
+        'signed_in_as' => 'Signed in as :full_name',
         'sign_out' => 'Sign out',
         'login' => 'Login',
         'reset' => 'Reset',
         'restore' => 'Restore',
         'login_placeholder' => 'login',
         'password_placeholder' => 'password',
+        'remember_me' => 'Stay logged in',
         'forgot_password' => 'Forgot your password?',
         'enter_email' => 'Enter your email',
         'enter_login' => 'Enter your login',
@@ -115,8 +117,10 @@ return [
         'last_name' => 'Last Name',
         'full_name' => 'Full Name',
         'email' => 'Email',
+        'role_field' => 'Role',
+        'role_comment' => 'Roles define user permissions, which can be overriden on the user level, on the Permissions tab.',
         'groups' => 'Groups',
-        'groups_comment' => 'Specify which groups the account should belong to. Groups define user permissions, which can be overriden on the user level, on the Permissions tab.',
+        'groups_comment' => 'Specify which groups this account should belong to.',
         'avatar' => 'Avatar',
         'password' => 'Password',
         'password_confirmation' => 'Confirm Password',
@@ -137,8 +141,8 @@ return [
         'updated_at' => 'Updated at',
         'group' => [
             'name' => 'Group',
-            'name_comment' => 'The name is displayed in the group list on the Create/Edit Administrator form.',
             'name_field' => 'Name',
+            'name_comment' => 'The name is displayed in the group list on the Administrator form.',
             'description_field' => 'Description',
             'is_new_user_default_field_label' => 'Default group',
             'is_new_user_default_field_comment' => 'Add new administrators to this group by default',
@@ -149,6 +153,20 @@ return [
             'new' => 'New Group',
             'delete_confirm' => 'Delete this administrator group?',
             'return' => 'Return to group list',
+            'users_count' => 'Users'
+        ],
+        'role' => [
+            'name' => 'Role',
+            'name_field' => 'Name',
+            'name_comment' => 'The name is displayed in the role list on the Administrator form.',
+            'description_field' => 'Description',
+            'code_field' => 'Code',
+            'code_comment' => 'Enter a unique code if you want to access the role object with the API.',
+            'menu_label' => 'Manage Roles',
+            'list_title' => 'Manage Roles',
+            'new' => 'New Role',
+            'delete_confirm' => 'Delete this administrator role?',
+            'return' => 'Return to role list',
             'users_count' => 'Users'
         ],
         'preferences' => [
@@ -360,7 +378,9 @@ return [
         'no_wrap' => 'Do not wrap tags',
         'no_wrap_comment' => 'The list of tags that should not be wrapped inside block tags.',
         'remove_tags' => 'Remove tags',
-        'remove_tags_comment' => 'The list of tags that are removed together with their content.'
+        'remove_tags_comment' => 'The list of tags that are removed together with their content.',
+        'toolbar_buttons' => 'Toolbar Buttons',
+        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website'
@@ -420,7 +440,8 @@ return [
     'filter' => [
         'all' => 'all',
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
-        'date_all' => 'all period'
+        'date_all' => 'all periods',
+        'number_all' => 'all numbers',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',

@@ -78,7 +78,8 @@
             fullPage: this.options.fullpage,
             pageLinksHandler: this.options.linksHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
-            toolbarSticky: false
+            toolbarSticky: false,
+            zIndex: 1000
         }
 
         if (this.options.toolbarButtons) {

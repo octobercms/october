@@ -232,6 +232,9 @@ class ListColumn
                 $result = $result->{$key};
             }
             else {
+                if (is_array($result) && array_key_exists($key, $result)) {
+                    return $result[$key];
+                }
                 if (!isset($result->{$key})) {
                     return $default;
                 }

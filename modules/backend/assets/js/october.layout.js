@@ -44,6 +44,8 @@
             $parent = $(el).parent(),
             $menu = $el.next()
 
+        $el.tooltip('hide')
+
         if ($menu.hasClass('active')) {
             self.$accountMenuOverlay.remove()
             $parent.removeClass('highlight')

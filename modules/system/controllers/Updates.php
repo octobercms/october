@@ -31,12 +31,29 @@ use Exception;
  */
 class Updates extends Controller
 {
-    public $implement = ['Backend.Behaviors.ListController'];
+    /**
+     * @var array Extensions implemented by this controller.
+     */
+    public $implement = [
+        \Backend\Behaviors\ListController::class
+    ];
 
+    /**
+     * @var array `ListController` configuration.
+     */
+    public $listConfig = [
+        'list' => 'config_list.yaml',
+        'manage' => 'config_manage_list.yaml'
+    ];
+
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['system.manage_updates'];
 
-    public $listConfig = ['list' => 'config_list.yaml', 'manage' => 'config_manage_list.yaml'];
-
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -256,7 +273,11 @@ class Updates extends Controller
                 break;
 
             case 'extractCore':
-                $manager->extractCore(post('hash'), post('build'));
+                $manager->extractCore();
+                break;
+
+            case 'setBuild':
+                $manager->setBuild(post('build'), post('hash'));
                 break;
 
             case 'downloadPlugin':
@@ -582,7 +603,12 @@ class Updates extends Controller
         if ($coreHash) {
             $updateSteps[] = [
                 'code'  => 'extractCore',
-                'label' => Lang::get('system::lang.updates.core_extracting'),
+                'label' => Lang::get('system::lang.updates.core_extracting')
+            ];
+
+            $updateSteps[] = [
+                'code'  => 'setBuild',
+                'label' => Lang::get('system::lang.updates.core_set_build'),
                 'hash'  => $coreHash,
                 'build' => $coreBuild
             ];

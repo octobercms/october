@@ -1,0 +1,300 @@
+/* Base */
+
+body, body *:not(html):not(style):not(br):not(tr):not(code) {
+    font-family: Avenir, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: @body-bg;
+    color: @text-color;
+    height: 100%;
+    hyphens: auto;
+    line-height: 1.4;
+    margin: 0;
+    -moz-hyphens: auto;
+    -ms-word-break: break-all;
+    width: 100% !important;
+    -webkit-hyphens: auto;
+    -webkit-text-size-adjust: none;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+p,
+ul,
+ol,
+blockquote {
+    line-height: 1.4;
+    text-align: left;
+}
+
+a {
+    color: @link-color;
+}
+
+a img {
+    border: none;
+}
+
+/* Typography */
+
+h1 {
+    color: @heading-color;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+h2 {
+    color: @heading-color;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+h3 {
+    color: @heading-color;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+p {
+    color: @text-color;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-top: 0;
+    text-align: left;
+}
+
+code {
+    color: @text-color;
+    font-size: 16px;
+    line-height: 1.5em;
+}
+
+p.sub {
+    font-size: 12px;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Layout */
+
+.wrapper {
+    background-color: @body-bg;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.content {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+/* Header */
+
+.header {
+    padding: 25px 0;
+    text-align: center;
+}
+
+.header a, .header span {
+    color: @header-color;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Body */
+
+.body {
+    background-color: @content-bg;
+    border-bottom: 1px solid @body-border-color;
+    border-top: 1px solid @body-border-color;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.inner-body {
+    background-color: @content-inner-bg;
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
+
+/* Subcopy */
+
+.subcopy {
+    border-top: 1px solid @subcopy-border-color;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.subcopy p {
+    font-size: 12px;
+}
+
+/* Footer */
+
+.footer {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
+
+.footer p {
+    color: @footer-color;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Tables */
+
+.table table {
+    border-collapse: collapse;
+    margin: 30px auto;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.table th {
+    border-bottom: 1px solid @table-border-color;
+    padding-bottom: 8px;
+}
+
+.table td {
+    color: @text-color;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 10px 0;
+}
+
+.content-cell {
+    padding: 35px;
+}
+
+.wrapper.layout-system .content-cell {
+    padding: 35px 0;
+}
+
+/* Buttons */
+
+.action {
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.button {
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    color: @button-text-color;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+}
+
+.button-primary {
+    background-color: @button-primary-bg;
+    border-top: 10px solid @button-primary-bg;
+    border-right: 18px solid @button-primary-bg;
+    border-bottom: 10px solid @button-primary-bg;
+    border-left: 18px solid @button-primary-bg;
+}
+
+.button-positive {
+    background-color: @button-positive-bg;
+    border-top: 10px solid @button-positive-bg;
+    border-right: 18px solid @button-positive-bg;
+    border-bottom: 10px solid @button-positive-bg;
+    border-left: 18px solid @button-positive-bg;
+}
+
+.button-negative {
+    background-color: @button-negative-bg;
+    border-top: 10px solid @button-negative-bg;
+    border-right: 18px solid @button-negative-bg;
+    border-bottom: 10px solid @button-negative-bg;
+    border-left: 18px solid @button-negative-bg;
+}
+
+/* Panels */
+
+.panel {
+    margin: 0 0 21px;
+}
+
+.panel-content {
+    background-color: @panel-bg;
+    padding: 16px;
+}
+
+.panel-item {
+    padding: 0;
+}
+
+.panel-item p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Promotions */
+
+.promotion {
+    background-color: @promotion-bg;
+    border: 2px dashed @promotion-border-color;
+    margin: 0;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding: 24px;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.promotion h1 {
+    text-align: center;
+}
+
+.promotion p {
+    font-size: 15px;
+    text-align: center;
+}
+
+.promotion p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
