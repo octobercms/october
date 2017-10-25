@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use App;
+use Backend\Facades\BackendAuth;
 use File;
 use Event;
 use Lang;
@@ -86,6 +87,16 @@ class RichEditor extends FormWidgetBase
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
+
+        if (!BackendAuth::getUser()->hasPermission(['media.manage_media'])) {
+            $mediaButtonNames = ['insertImage', 'insertVideo', 'insertAudio', 'insertFile'];
+
+            foreach($mediaButtonNames as $mediaButtonName)
+            {
+                $this->vars['globalToolbarButtons'] = str_replace($mediaButtonName, "", $this->vars['globalToolbarButtons']);
+            }
+        }
+
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
         $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
         $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
