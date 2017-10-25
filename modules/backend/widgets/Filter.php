@@ -566,7 +566,11 @@ class Filter extends WidgetBase
         /*
          * Set scope value
          */
-        $scope->value = $this->getScopeValue($scope);
+        if($scopeType=='checkbox' || $scopeType=='switch'){
+            $scope->value = isset($config['value']) ? $config['value'] : $this->getScopeValue($scope);
+        } else{
+            $scope->value = $this->getScopeValue($scope);
+        }
 
         return $scope;
     }
