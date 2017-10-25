@@ -1,7 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use App;
-use Backend\Facades\BackendAuth;
+use BackendAuth;
 use File;
 use Event;
 use Lang;
@@ -88,7 +88,7 @@ class RichEditor extends FormWidgetBase
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
 
-        if (!BackendAuth::getUser()->hasPermission(['media.manage_media'])) {
+        if (!BackendAuth::getUser()->hasAccess('media.manage_media')) {
             $mediaButtonNames = ['insertImage', 'insertVideo', 'insertAudio', 'insertFile'];
 
             foreach($mediaButtonNames as $mediaButtonName)
