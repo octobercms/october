@@ -566,8 +566,8 @@ class Filter extends WidgetBase
         /*
          * Set scope value
          */
-        $scope->value = $this->getScopeValue($scope);
-
+        $scope->value = $this->getScopeValue($scope, @$config['default']);
+        
         return $scope;
     }
 
