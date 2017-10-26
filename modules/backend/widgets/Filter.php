@@ -564,13 +564,10 @@ class Filter extends WidgetBase
         $scope->displayAs($scopeType, $config);
 
         /*
-         * Set scope value if session/cookies is not set then retrieve default value for switch/checkbox
+         * Set scope value
          */
-        $scope->value = $this->getScopeValue($scope);
-        if(!isset($scope->value) && isset($config['default']) && ($scopeType==="checkbox" || $scopeType==="switch")){
-            $scope->value = $config['default'];
-        }
-
+        $scope->value = $this->getScopeValue($scope, @$config['default']);
+        
         return $scope;
     }
 
