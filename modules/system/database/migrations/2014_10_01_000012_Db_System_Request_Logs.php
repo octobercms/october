@@ -3,6 +3,8 @@
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
+const MAX_URL_LENGTH = 8000; //https://tools.ietf.org/html/rfc7230#section-3.1.1
+
 class DbSystemRequestLogs extends Migration
 {
     public function up()
@@ -11,7 +13,7 @@ class DbSystemRequestLogs extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('status_code')->nullable();
-            $table->string('url')->nullable();
+            $table->string('url', MAX_URL_LENGTH)->nullable();
             $table->text('referer')->nullable();
             $table->integer('count')->default(0);
             $table->timestamps();
