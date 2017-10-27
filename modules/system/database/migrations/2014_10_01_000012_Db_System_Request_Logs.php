@@ -3,8 +3,6 @@
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-
-
 class DbSystemRequestLogs extends Migration
 {
     const MAX_URL_LENGTH = 8000; //https://tools.ietf.org/html/rfc7230#section-3.1.1
