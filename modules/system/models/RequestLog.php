@@ -42,7 +42,7 @@ class RequestLog extends Model
         }
 
         $record = static::firstOrNew([
-            'url' => substr(Request::fullUrl(), 0, 255),
+            'url' => mb_substr(Request::fullUrl(), 0, 8000),
             'status_code' => $statusCode,
         ]);
 
