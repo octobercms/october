@@ -184,13 +184,6 @@ class Controller extends Extendable
         }
 
         /*
-         * Extensibility
-         */
-        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
-            return $event;
-        }
-
-        /*
          * Determine if this request is a public action.
          */
         $isPublicAction = in_array($action, $this->publicActions);
@@ -215,6 +208,13 @@ class Controller extends Extendable
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions)) {
                 return Response::make(View::make('backend::access_denied'), 403);
             }
+        }
+        
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
+            return $event;
         }
 
         /*
