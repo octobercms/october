@@ -700,11 +700,7 @@ class Form extends WidgetBase
          * Check model if field is required
          */
         if ($field->required === null && $this->model && method_exists($this->model, 'isAttributeRequired')) {
-            $fieldName = $field->fieldName;
-            if (strpos($fieldName, '[') !== false) {
-                parse_str($fieldName, $htmlArray);
-                $fieldName = array_keys(array_dot($htmlArray))[0];
-            }
+            $fieldName = implode('.', HtmlHelper::nameToArray($field->fieldName));
             $field->required = $this->model->isAttributeRequired($fieldName);
         }
 
