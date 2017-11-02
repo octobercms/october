@@ -5,6 +5,7 @@ use View;
 use Model;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
+use File as FileHelper;
 
 /**
  * Mail template
@@ -146,7 +147,7 @@ class MailTemplate extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(\File::get(View::make($code)->getPath()));
+        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
 
     public static function findOrMakeTemplate($code)
