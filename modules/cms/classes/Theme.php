@@ -148,8 +148,11 @@ class Theme
     public static function getActiveThemeCode()
     {
         $activeTheme = Config::get('cms.activeTheme');
+        $havingMoreThemes = count($themes) > 1;
+        $themeHasChanged = !empty($themes[0]) && $themes[0]->dirName !== $activeTheme;
+        $checkDatabase = $havingMoreThemes || $themeHasChanged;
 
-        if (App::hasDatabase()) {
+        if ($checkDatabase && App::hasDatabase()) {
             try {
                 try {
                     $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
