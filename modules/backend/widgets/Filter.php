@@ -143,12 +143,6 @@ class Filter extends WidgetBase
 
                 break;
 
-            case 'text':
-                $params['value'] = $scope->value;
-                $params['size'] = array_get($scope->config, 'size', 10);
-
-                break;
-
             case 'numberrange':
                 if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
                     $scope->value[0] &&
@@ -163,6 +157,12 @@ class Filter extends WidgetBase
                     $params['maxStr'] = $max ? $max : '∞';
                     $params['max'] = $max ? $max : null;
                 }
+
+                break;
+
+            case 'text':
+                $params['value'] = $scope->value;
+                $params['size'] = array_get($scope->config, 'size', 10);
 
                 break;
         }
@@ -245,19 +245,6 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $number);
                 break;
 
-            case 'text':
-                $values = post('options.value');
-
-                if (!is_null($values) && $values !== '') {
-                    list($value) = $values;
-                }
-                else {
-                    $value = null;
-                }
-
-                $this->setScopeValue($scope, $value);
-                break;
-
             case 'numberrange':
                 $numbers = $this->numbersFromAjax(post('options.numbers'));
 
@@ -271,6 +258,19 @@ class Filter extends WidgetBase
                 }
 
                 $this->setScopeValue($scope, $numbers);
+                break;
+
+            case 'text':
+                $values = post('options.value');
+
+                if (!is_null($values) && $values !== '') {
+                    list($value) = $values;
+                }
+                else {
+                    $value = null;
+                }
+
+                $this->setScopeValue($scope, $value);
                 break;
         }
 
