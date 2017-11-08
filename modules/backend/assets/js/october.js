@@ -15,7 +15,7 @@
 =require ../vendor/sweet-alert/sweet-alert.js
 =require ../vendor/jcrop/js/jquery.Jcrop.js
 =require ../../../system/assets/vendor/prettify/prettify.js
-=require ../../../cms/widgets/mediamanager/assets/js/mediamanager-global.js
+=require ../../widgets/mediamanager/assets/js/mediamanager-global.js
 
 =require october.lang.js
 =require october.alert.js
