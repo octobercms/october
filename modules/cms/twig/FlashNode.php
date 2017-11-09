@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use Flash;
 use Twig_Node;
 use Twig_Compiler;
 use Twig_Node_Expression;
@@ -15,6 +16,11 @@ class FlashNode extends Twig_Node
     public function __construct($name, Twig_Node $body, $lineno, $tag = 'flash')
     {
         parent::__construct(['body' => $body], ['name' => $name], $lineno, $tag);
+    }
+    
+    public function __destruct()
+    {
+        Flash::purge();
     }
 
     /**
