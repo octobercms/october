@@ -99,6 +99,7 @@ body.prevent-scroll.fr-mobile{position:fixed;-webkit-overflow-scrolling:touch}
 .fr-popup .fr-input-line input + label,.fr-popup .fr-input-line textarea + label{position:absolute;top:0;left:0;font-size:12px;color:rgba(0,0,0,0);transition:color 0.2s ease 0s;-webkit-transition:color 0.2s ease 0s;-moz-transition:color 0.2s ease 0s;-ms-transition:color 0.2s ease 0s;-o-transition:color 0.2s ease 0s;z-index:3;width:100%;display:block;background:#f9f9f9}
 .fr-popup .fr-input-line input.fr-not-empty:focus + label,.fr-popup .fr-input-line textarea.fr-not-empty:focus + label{color:#1e88e5}
 .fr-popup .fr-input-line input.fr-not-empty + label,.fr-popup .fr-input-line textarea.fr-not-empty + label{color:#2a3e51}
+.fr-popup .fr-layer .fr-input-line label{display: none;}
 .fr-popup input,.fr-popup textarea{user-select:text;-o-user-select:text;-moz-user-select:text;-khtml-user-select:text;-webkit-user-select:text;-ms-user-select:text;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;outline:none}
 .fr-popup textarea{resize:none}
 .fr-popup .fr-buttons{-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);padding:0 2px;white-space:nowrap;line-height:0;border-bottom:0px}
