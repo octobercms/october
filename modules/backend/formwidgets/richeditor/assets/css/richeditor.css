@@ -7,8 +7,6 @@
 .fr-element a{user-select:auto;-o-user-select:auto;-moz-user-select:auto;-khtml-user-select:auto;-webkit-user-select:auto;-ms-user-select:auto}
 .fr-element.fr-disabled{user-select:none;-o-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none}
 .fr-element [contenteditable="false"]{user-select:none;-o-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none}
-
-
 .fr-element [contenteditable="true"]{outline:0px solid transparent}
 .fr-box a.fr-floating-btn{-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);border-radius:100%;-moz-border-radius:100%;-webkit-border-radius:100%;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;height:32px;width:32px;background:#ffffff;color:#1e88e5;transition:background 0.2s ease 0s,color 0.2s ease 0s,transform 0.2s ease 0s;-webkit-transition:background 0.2s ease 0s,color 0.2s ease 0s,transform 0.2s ease 0s;-moz-transition:background 0.2s ease 0s,color 0.2s ease 0s,transform 0.2s ease 0s;-ms-transition:background 0.2s ease 0s,color 0.2s ease 0s,transform 0.2s ease 0s;-o-transition:background 0.2s ease 0s,color 0.2s ease 0s,transform 0.2s ease 0s;outline:none;left:0;top:0;line-height:32px;transform:scale(0);-webkit-transform:scale(0);-moz-transform:scale(0);-ms-transform:scale(0);-o-transform:scale(0);text-align:center;display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:none}
 .fr-box a.fr-floating-btn svg{transition:transform 0.2s ease 0s;-webkit-transition:transform 0.2s ease 0s;-moz-transition:transform 0.2s ease 0s;-ms-transition:transform 0.2s ease 0s;-o-transition:transform 0.2s ease 0s;fill:#1e88e5}
@@ -99,9 +97,9 @@ body.prevent-scroll.fr-mobile{position:fixed;-webkit-overflow-scrolling:touch}
 .fr-popup .fr-input-line input[type="text"],.fr-popup .fr-input-line textarea{width:100%;margin:0px 0 1px 0;border:none;border-bottom:solid 1px #bdbdbd;color:#222222;font-size:14px;padding:6px 0 2px;background:rgba(0,0,0,0);position:relative;z-index:2;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .fr-popup .fr-input-line input[type="text"]:focus,.fr-popup .fr-input-line textarea:focus{border-bottom:solid 2px #1e88e5;margin-bottom:0px}
 .fr-popup .fr-input-line input + label,.fr-popup .fr-input-line textarea + label{position:absolute;top:0;left:0;font-size:12px;color:rgba(0,0,0,0);transition:color 0.2s ease 0s;-webkit-transition:color 0.2s ease 0s;-moz-transition:color 0.2s ease 0s;-ms-transition:color 0.2s ease 0s;-o-transition:color 0.2s ease 0s;z-index:3;width:100%;display:block;background:#f9f9f9}
-.fr-popup .fr-layer .fr-input-line label{display: none;}
 .fr-popup .fr-input-line input.fr-not-empty:focus + label,.fr-popup .fr-input-line textarea.fr-not-empty:focus + label{color:#1e88e5}
 .fr-popup .fr-input-line input.fr-not-empty + label,.fr-popup .fr-input-line textarea.fr-not-empty + label{color:#2a3e51}
+.fr-popup .fr-layer .fr-input-line label{display: none;}
 .fr-popup input,.fr-popup textarea{user-select:text;-o-user-select:text;-moz-user-select:text;-khtml-user-select:text;-webkit-user-select:text;-ms-user-select:text;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box;outline:none}
 .fr-popup textarea{resize:none}
 .fr-popup .fr-buttons{-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 1px 1px rgba(0,0,0,0.16);padding:0 2px;white-space:nowrap;line-height:0;border-bottom:0px}
@@ -448,5 +446,3 @@ body .fr-popup .fr-checkbox span{border-color:#d1d6d9}
 .control-richeditor figure[data-video]:before,.control-richeditor figure[data-audio]:before{position:static;margin-right:8px}
 .control-richeditor figure[data-video]:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f03d"}
 .control-richeditor figure[data-audio]:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f028"}
-
-
