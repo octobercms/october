@@ -7,6 +7,7 @@
  * @see october-min.js
  *
 
+=require vendor/jquery-migrate.min.js
 =require vendor/jquery.touchwipe.js
 =require vendor/jquery.autoellipsis.js
 =require vendor/jquery.waterfall.js
