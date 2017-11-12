@@ -36,6 +36,7 @@ return [
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
         'ru' => 'Русский',
+        'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
         'tr' => 'Türkçe',
