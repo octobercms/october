@@ -57,6 +57,17 @@ $.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
         }
 
         function insertLink() {
+            editor.selection.restore();
+            range = editor.selection.ranges(0);
+            editor.events.on('link.beforeInsert', function(){
+                if (range) {
+                    var sel = editor.selection.get();
+                    editor.selection.clear();
+                    sel.addRange(range);
+                    range = null;
+                }
+            });
+            
             richeditorPageLinksPlugin = this
 
             editor.$el.popup({
