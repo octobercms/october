@@ -72,8 +72,6 @@ $.FroalaEditor.DEFAULTS.key = 'HHMDUGENKACTMXQL==';
 
             editor.$el.popup({
                 handler: editor.opts.pageLinksHandler
-            }).on('shown.oc.popup', function(){
-                editor.selection.save();
             });
         }
 
