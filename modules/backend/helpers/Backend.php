@@ -120,7 +120,7 @@ class Backend
         ], $options));
         
         if(!$dateTime) {
-        return;
+            return '';
         }
 
         $carbon = DateTimeHelper::makeCarbon($dateTime);
