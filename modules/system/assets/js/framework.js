@@ -242,6 +242,9 @@ if (window.jQuery.request !== undefined) {
 
                 var isFirstInvalidField = true
                 $.each(fields, function focusErrorField(fieldName, fieldMessages) {
+
+                	fieldName = fieldName.replace(/\.(\w+)/g, '[$1]');
+
                     var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                     if (fieldElement.length > 0) {
 
