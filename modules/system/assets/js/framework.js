@@ -105,9 +105,7 @@ if (window.jQuery.request !== undefined) {
             })
         }
         else {
-            requestData = $form.serialize()
-            if (requestData) requestData = requestData + '&'
-            if (!$.isEmptyObject(data)) requestData += $.param(data)
+            requestData = [$form.serialize(), $.param(data)].filter(Boolean).join('&')
         }
 
         /*
