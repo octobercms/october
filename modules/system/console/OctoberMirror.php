@@ -94,19 +94,19 @@ class OctoberMirror extends Command
         $paths->wildcards = $this->wildcards;
 
         /**
-         * @event system.console.october:mirror.extendPaths
+         * @event system.console.mirror.extendPaths
          * Enables extending the `php artisan october:mirror` command
          *
          * You will have access to a $paths stdClass with `files`, `directories`, `wildcards` properties available for modifying.
          *
          * Example usage:
          *
-         *     Event::listen('system.console.october:mirror.extendPaths', function($paths) {
+         *     Event::listen('system.console.mirror.extendPaths', function($paths) {
          *          $paths->directories = array_merge($paths->directories, ['plugins/myauthor/myplugin/public']);
          *     });
          *
          */
-        Event::fire('system.console.october:mirror.extendPaths', [$paths]);
+        Event::fire('system.console.mirror.extendPaths', [$paths]);
 
         foreach ($paths->files as $file) {
             $this->mirrorFile($file);
