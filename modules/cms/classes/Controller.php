@@ -1261,6 +1261,16 @@ class Controller
             return $partialComponent;
         }
 
+        if (strpos($name, '::')) {
+            list($name) = explode('::', $name);
+            if (isset($this->page->components[$name])) {
+                return $this->page->components[$name];
+            }
+            if (isset($this->layout->components[$name])) {
+                return $this->layout->components[$name];
+            }
+         }
+
         return null;
     }
 
