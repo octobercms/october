@@ -1,6 +1,7 @@
 <?php namespace System\Behaviors;
 
 use App;
+use Artisan;
 use Cache;
 use System\Classes\ModelBehavior;
 use ApplicationException;
@@ -196,12 +197,14 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
-     * After the model is saved, clear the cached query entry.
+     * After the model is saved, clear the cached query entry
+     * and restart queue workers so they have the latest settings
      * @return void
      */
     public function afterModelSave()
     {
         Cache::forget($this->getCacheKey());
+        Artisan::call('queue:restart');
     }
 
     /**
