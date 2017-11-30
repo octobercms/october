@@ -585,4 +585,7 @@ return [
         'image_size' => 'Image size:',
         'selected_size' => 'Selected:'
     ],
+    'repeater' => [
+        'min_items_error' => 'You cannot delete any item. You should modify the existing.'
+    ]
 ];

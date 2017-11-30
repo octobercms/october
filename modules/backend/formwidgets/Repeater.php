@@ -3,6 +3,7 @@
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use ApplicationException;
+use Lang;
 
 /**
  * Repeater Form Widget
@@ -35,6 +36,11 @@ class Repeater extends FormWidgetBase
      * @var int Maximum repeated items allowable.
      */
     public $maxItems = null;
+
+    /**
+     * @var int Maximum repeated items allowable.
+     */
+    public $minItems = null;
 
     //
     // Object properties
@@ -89,6 +95,7 @@ class Repeater extends FormWidgetBase
             'prompt',
             'sortable',
             'maxItems',
+            'minItems',
         ]);
 
         if ($this->formField->disabled) {
@@ -125,7 +132,7 @@ class Repeater extends FormWidgetBase
         if (!self::$onAddItemCalled) {
             $this->processExistingItems();
         }
-        
+
         if ($this->previewMode) {
             foreach ($this->formWidgets as $widget) {
                 $widget->previewMode = true;
@@ -280,6 +287,7 @@ class Repeater extends FormWidgetBase
     public function onRemoveItem()
     {
         // Useful for deleting relations
+        $this->processForMinItems();
     }
 
     public function onRefresh()
@@ -365,5 +373,14 @@ class Repeater extends FormWidgetBase
     public function getGroupTitle($groupCode)
     {
         return array_get($this->groupDefinitions, $groupCode.'.name');
+    }
+
+    protected function processForMinItems()
+    {
+        if($this->minItems === null) return;
+
+        if ($this->indexCount <= $this->minItems) {
+            throw new ApplicationException(Lang::get('backend::lang.repeater.min_items_error'));
+        }
     }
 }
