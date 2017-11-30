@@ -962,9 +962,14 @@ class MediaManager extends WidgetBase
             }
 
             /*
-             * Resize the thumbnail and save to the thumbnails directory
+             * Resize the thumbnail
              */
-            $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
+            $this->resizeImage($thumbnailParams, $tempFilePath);
+
+            /*
+             * Save thumbnail to storage
+             */
+            $library->put($thumbnailPath, file_get_contents($tempFilePath));
 
             /*
              * Delete the temporary file
@@ -1000,15 +1005,8 @@ class MediaManager extends WidgetBase
         }
     }
 
-    protected function resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath)
+    protected function resizeImage($thumbnailParams, $tempFilePath)
     {
-        $thumbnailDir = dirname($fullThumbnailPath);
-        if (!File::isDirectory($thumbnailDir)) {
-            if (File::makeDirectory($thumbnailDir, 0777, true) === false) {
-                throw new SystemException('Error creating thumbnail directory');
-            }
-        }
-
         $targetDimensions = $this->getTargetDimensions($thumbnailParams['width'], $thumbnailParams['height'], $tempFilePath);
 
         $targetWidth = $targetDimensions[0];
@@ -1019,10 +1017,10 @@ class MediaManager extends WidgetBase
                 'mode'   => $thumbnailParams['mode'],
                 'offset' => [0, 0]
             ])
-            ->save($fullThumbnailPath)
+            ->save($tempFilePath)
         ;
 
-        File::chmod($fullThumbnailPath);
+        File::chmod($tempFilePath);
     }
 
     protected function getBrokenImagePath()
