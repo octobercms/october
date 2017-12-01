@@ -174,6 +174,10 @@ class Repeater extends FormWidgetBase
      */
     protected function processSaveValue($value)
     {
+        if ($this->indexCount < $this->minItems) {
+            throw new ApplicationException(Lang::get('backend::lang.repeater.min_items_error', ['number' => $this->minItems]));
+        }
+
         if (!is_array($value) || !$value) {
             return $value;
         }
