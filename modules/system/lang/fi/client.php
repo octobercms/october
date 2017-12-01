@@ -70,17 +70,17 @@ return [
         ]
     ],
     'eventlog' => [
-        'show_stacktrace' => 'Show the stacktrace',
-        'hide_stacktrace' => 'Hide the stacktrace',
+        'show_stacktrace' => 'Näytä stacktrace',
+        'hide_stacktrace' => 'Piilota stacktrace',
         'tabs' => [
             'formatted' => 'Muotoiltu',
-            'raw' => 'Raw',
+            'raw' => 'Raaka',
         ],
         'editor' => [
             'title' => 'Lähdekoodin editori',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
+            'description' => 'Järjestelmäsi tulisi asettaa kuuntelemaan URL skeemaa.',
             'openWith' => 'Avaa kohteessa',
-            'remember_choice' => 'Remember selected option for this session',
+            'remember_choice' => 'Muista valinnat istunnon ajan',
             'open' => 'Avaa',
             'cancel' => 'Peruuta'
         ]
