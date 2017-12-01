@@ -19,7 +19,7 @@ class ComponentTokenParser extends Twig_TokenParser
      * Parses a token and returns a node.
      *
      * @param Twig_Token $token A Twig_Token instance
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @return Twig_Node A Twig_Node instance
      */
     public function parse(Twig_Token $token)
     {
@@ -47,9 +47,9 @@ class ComponentTokenParser extends Twig_TokenParser
 
                 default:
                     throw new Twig_Error_Syntax(
-                        sprintf('Invalid syntax in the partial tag. Line %s', $lineno),
+                        sprintf('Invalid syntax in the component tag. Line %s', $lineno),
                         $stream->getCurrent()->getLine(),
-                        $stream->getFilename()
+                        $stream->getSourceContext()
                     );
                     break;
             }

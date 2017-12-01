@@ -5,6 +5,6 @@
     <?php endif ?>
 
     <?php if ($field->comment): ?>
-        <p class="help-block"><?= e(trans($field->comment)) ?></p>
+        <p class="help-block"><?= $field->commentHtml ? trans($field->comment) : e(trans($field->comment)) ?></p>
     <?php endif ?>
 </div>

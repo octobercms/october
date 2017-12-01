@@ -35,20 +35,22 @@
     }
 
     SideNav.prototype.init = function (){
-        var self = this;
+        var self = this
 
         this.$list.dragScroll({
             vertical: true,
-            start: function(){ self.$list.addClass('drag') },
-            stop: function(){ self.$list.removeClass('drag') },
+            useNative: true,
+            start: function() { self.$list.addClass('drag') },
+            stop: function() { self.$list.removeClass('drag') },
             scrollClassContainer: self.$el,
             scrollMarkerContainer: self.$el
         })
 
         this.$list.on('click', function() {
             /* Do not handle menu item clicks while dragging */
-            if (self.$list.hasClass('drag'))
+            if (self.$list.hasClass('drag')) {
                 return false
+            }
         })
     }
 

@@ -1,6 +1,7 @@
 <?php namespace Cms\Twig;
 
 use Event;
+use Twig_Source;
 use Twig_LoaderInterface;
 use Cms\Contracts\CmsObject;
 use System\Twig\Loader as LoaderBase;
@@ -37,10 +38,10 @@ class Loader extends LoaderBase implements Twig_LoaderInterface
      * Returns the Twig content string.
      * This step is cached internally by Twig.
      */
-    public function getSource($name)
+    public function getSourceContext($name)
     {
         if (!$this->validateCmsObject($name)) {
-            return parent::getSource($name);
+            return parent::getSourceContext($name);
         }
 
         $content = $this->obj->getTwigContent();
@@ -52,7 +53,7 @@ class Loader extends LoaderBase implements Twig_LoaderInterface
 
         Event::fire('cms.template.processTwigContent', [$this->obj, $dataHolder]);
 
-        return $dataHolder->content;
+        return new Twig_Source($dataHolder->content, $name);
     }
 
     /**

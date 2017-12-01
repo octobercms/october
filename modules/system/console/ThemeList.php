@@ -37,7 +37,7 @@ class ThemeList extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $themeManager = ThemeManager::instance();
         $updateManager = UpdateManager::instance();

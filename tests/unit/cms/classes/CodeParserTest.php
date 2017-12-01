@@ -8,6 +8,18 @@ use Cms\Classes\Controller;
 
 class CodeParserTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setup();
+
+        /*
+         * Clear cache
+         */
+        foreach (File::directories(storage_path().'/cms/cache') as $directory) {
+            File::deleteDirectory($directory);
+        }
+    }
+
     public static function getProperty($name)
     {
         $class = new ReflectionClass('\Cms\Classes\CodeParser');

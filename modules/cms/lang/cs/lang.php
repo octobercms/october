@@ -2,7 +2,7 @@
 
 return [
     'cms_object' => [
-        'invalid_file' => 'Invalid file name: :name. File names can contain only alphanumeric symbols, underscores, dashes and dots. Some examples of correct file names: page.htm, page, subdirectory/page',
+        'invalid_file' => 'Neplatný název souboru: :name. Názvy souborů mohou obsahovat pouze alfanumerické symboly, podtržítka, pomlčky a tečky. Některé příklady správných názvů souborů: stranka.htm, stranka, adresar/stranka',
         'invalid_property' => "Parametr ':name' není možno nastavit",
         'file_already_exists' => "Soubor ':name' již existuje.",
         'error_saving' => "Chyba ukládání souboru ':name'. Zkontrolujte práva k zápisu.",
@@ -10,16 +10,22 @@ return [
         'invalid_file_extension'=>'Chybná přípona souboru: :invalid. Povolené přípony jsou: :allowed.',
         'error_deleting' => "Chyba mazání souboru s šablonou ':name'. Zkontrolujte práva k zápisu.",
         'delete_success' => 'Šablony úspěšně smazány: :count.',
-        'file_name_required' => 'Je nutno vyplnit Název souboru.'
+        'file_name_required' => 'Je nutno vyplnit Název souboru.',
+        'safe_mode_enabled' => 'Bezpěčný režim (safe mode) je aktivní.'
+
     ],
     'dashboard' => [
         'active_theme' => [
-            'online' => 'online',
-            'maintenance' => 'v údržbě',
+            'widget_title_default' => 'Webová stránka',
+            'online' => 'Online',
+            'maintenance' => 'Probíhá údržba',
+            'manage_themes' => 'Spravovat témata vzhledu',
+            'customize_theme' => 'Upravit téma vzhledu'
         ]
     ],
     'theme' => [
         'not_found_name' => "Téma ':name' nebylo nalezeno.",
+        'by_author' => 'Vytvořil :name',
         'active' => [
             'not_set' => 'Aktivní téma nebylo nastaveno.',
             'not_found' => 'Aktivní téma nebylo nalezeno.'
@@ -42,6 +48,8 @@ return [
         'homepage_placeholder' => 'URL domovské stránky',
         'code_label' => 'Kód',
         'code_placeholder' => 'Unikátní kód téma pro distribuci aktualizační sítí',
+        'preview_image_label' => 'Náhled',
+        'preview_image_placeholder' => 'Cesta k souboru s náhledem vzhledu.',
         'dir_name_label' => 'Název složky',
         'dir_name_create_label' => 'Název cílové složky pro uložení téma',
         'theme_label' => 'Téma',
@@ -91,7 +99,9 @@ return [
         'settings_menu' => 'Režim údržby',
         'settings_menu_description' => 'Nastavte stránku režimu údržby a její nastavení.',
         'is_enabled' => 'Aktivovat režim údržby',
-        'is_enabled_comment' => 'Pokud je režim údržby aktivní, uživatelé uvidí stránku vybranou níže.'
+        'is_enabled_comment' => 'Pokud je režim údržby aktivní, uživatelé uvidí stránku vybranou níže.',
+        'hint' => 'Režim údržby zobrazí stránku údržby návštěvníkům, kteří nejsou přihlášeni do administrace.'
+
     ],
     'page' => [
         'not_found_name' => "Stránka ':name' nebyla nalezena",
@@ -110,7 +120,11 @@ return [
         'invalid_url' => 'Špatný formát URL. URL musí začínat lomítkem a může obsahovat pouze číslice, písmena a následující znaky: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Opravdu chcete odstranit vybrané stránky?',
         'delete_confirm_single' => 'Opravdu chcete odstranit tuto stránku?',
-        'no_layout' => '-- žádný layout --'
+        'no_layout' => '-- žádný layout --',
+        'cms_page' => 'CMS stránka',
+        'title' => 'Název stránky',
+        'url' => 'URL stránky',
+        'file_name' => 'Název souboru stránky'
     ],
     'layout' => [
         'not_found_name' => "Layout ':name' nebyl nalezen",
@@ -141,8 +155,8 @@ return [
         'new' => 'Žádný obsahový soubor'
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Invalid AJAX handler name: :name.',
-        'not_found' => "AJAX handler ':name' was not found."
+        'invalid_name' => 'Neplatný název AJAX handleru: :name.',
+        'not_found' => "AJAX handler ':name' nebyl nalezen."
     ],
     'cms' => [
         'menu_label' => 'CMS'
@@ -161,15 +175,19 @@ return [
         'description' => 'Popisek',
         'preview' => 'Náhled',
         'meta' => 'Meta údaje',
-        'meta_title' => 'Meta Title',
-        'meta_description' => 'Meta Description',
-        'markup' => 'Markup',
+        'meta_title' => 'Meta Nadpis (Title)',
+        'meta_description' => 'Meta Popisek (Description)',
+        'markup' => 'Kód',
         'code' => 'PHP kód',
         'content' => 'Obsah',
         'hidden' => 'Skrytý',
         'hidden_comment' => 'Skryté stránky jsou dostupné pouze přihlášeným administrátorům pro náhled.',
         'enter_fullscreen' => 'Zapnout režim celé obrazovky',
-        'exit_fullscreen' => 'Opustit režim celé obrazovky'
+        'exit_fullscreen' => 'Opustit režim celé obrazovky',
+        'open_searchbox' => 'Otevřít box hledávání',
+        'close_searchbox'  => 'Zavřít box hledání',
+        'open_replacebox' => 'Otevřít box nahrazování',
+        'close_replacebox'  => 'Zavřít box nahrazování'
     ],
     'asset' => [
         'menu_label' => 'Soubory',
@@ -211,6 +229,8 @@ return [
         'error_moving_file' => 'Chyba přesunu souboru :file',
         'error_moving_directory' => 'Chyba přesunu složky :dir',
         'error_deleting_directory' => 'Chyba přesunu původní složky :dir',
+        'no_list_records' => 'Žádné soubory nebyly nalezeny',
+        'delete_confirm' => 'Opravdu chcete smazat vybrané soubory nebo adresáře?',
         'path' => 'Cesta'
     ],
     'component' => [
@@ -228,7 +248,10 @@ return [
     'template' => [
         'invalid_type' => 'Neznámý typ šablony.',
         'not_found' => 'Požadovaná šablona nebyla nalezena.',
-        'saved'=> 'Šablona byla úspěšně uložena.'
+        'saved'=> 'Šablona byla úspěšně uložena.',
+        'no_list_records' => 'Žádné záznamy nebyly nalezeny',
+        'delete_confirm' => 'Smazat vybraná témata?',
+        'order_by' => 'Řadit podle'
     ],
     'permissions' => [
         'name' => 'Cms',
@@ -238,69 +261,35 @@ return [
         'manage_layouts' => 'Správa layoutů',
         'manage_partials' => 'Správa dílčích šablon',
         'manage_themes' => 'Správa témat',
-        'manage_media' => 'Správa médií'
+        'manage_theme_options' => 'Nastavit možnosti přizpůsobení pro aktivní téma',
     ],
-    'mediafinder' => [
-        'default_prompt' => 'Klikněte na tlačítko %s pro hledání souboru'
+    'theme_log' => [
+        'hint' => 'Tento protokol zobrazuje změny v tématu provedené administrátory v administraci.',
+        'menu_label' => 'Protokol témat',
+        'menu_description' => 'Zobrazení změn v aktivním tématu.',
+        'empty_link' => 'Smazat protokol témat',
+        'empty_loading' => 'Mazání protokolu témat...',
+        'empty_success' => 'Protokol témat byl smazán',
+        'return_link' => 'Zpět na protokol témat',
+        'id' => 'ID',
+        'id_label' => 'ID protokolu',
+        'created_at' => 'Datum a čas',
+        'user' => 'Uživatel',
+        'type' => 'Typ',
+        'type_create' => 'Vytvořeno',
+        'type_update' => 'Změněno',
+        'type_delete' => 'Smazáno',
+        'theme_name' => 'Téma',
+        'theme_code' => 'Kód tématu',
+        'old_template' => 'Šablona (Původní)',
+        'new_template' => 'Šablona (Nová)',
+        'template' => 'Šablona',
+        'diff' => 'Změny',
+        'old_value' => 'Původní hodnota',
+        'new_value' => 'Nová hodnota',
+        'preview_title' => 'Změny šablony',
+        'template_updated' => 'Šablona byla aktualizována',
+        'template_created' => 'Šablona byla vytvořena',
+        'template_deleted' => 'Šablona byla smazána',
     ],
-    'media' => [
-        'invalid_path' => "Chybně zadaná cesta: ':path'.",
-        'menu_label' => 'Media',
-        'upload' => 'Nahrát',
-        'move' => 'Přesunout',
-        'delete' => 'Smazat',
-        'add_folder' => 'Přidat složku',
-        'search' => 'Vyhledat',
-        'display' => 'Zobrazit',
-        'filter_everything' => 'Vše',
-        'filter_images' => 'Obrázky',
-        'filter_video' => 'Video',
-        'filter_audio' => 'Audio',
-        'filter_documents' => 'Dokumenty',
-        'library' => 'Knihovna',
-        'folder_size_items' => 'soubor(ů)',
-        'size' => 'Velikost',
-        'title' => 'Název',
-        'last_modified' => 'Naposledy upraveno',
-        'public_url' => 'Veřejná URL',
-        'click_here' => 'Klikněte zde',
-        'thumbnail_error' => 'Chyba generování náhledu.',
-        'return_to_parent' => 'Zpět do nadřazené složky',
-        'return_to_parent_label' => 'Go up ..',
-        'nothing_selected' => 'Nic nevybráno.',
-        'multiple_selected' => 'Vybráno více položek.',
-        'uploading_file_num' => 'Nahrávám :number soubor(y)...',
-        'uploading_complete' => 'Nahrávání kompletní',
-        'order_by' => 'Seřadit dle',
-        'folder' => 'Složka',
-        'no_files_found' => 'No files found by your request.',
-        'delete_empty' => 'Vyberte položky ke smazání.',
-        'delete_confirm' => 'Opravu chcete smazat vybrané položky?',
-        'error_renaming_file' => 'Přejmenování se nezdařilo.',
-        'new_folder_title' => 'Nová složka',
-        'folder_name' => 'Název složky',
-        'error_creating_folder' => 'Chyba vytváření složky',
-        'folder_or_file_exist' => 'A folder or file with the specified name already exists.',
-        'move_empty' => 'Vyberte položky k přesunutí.',
-        'move_popup_title' => 'Přesun souborů nebo složek',
-        'move_destination' => 'Cílová složka',
-        'please_select_move_dest' => 'Prosím vyberte cílovou složku.',
-        'move_dest_src_match' => 'Prosím vyberte jinou cílovou složku.',
-        'empty_library' => 'Knihovna médií je prázdná. Nahrajte prosím soubory, nebo vytvořte složky.',
-        'insert' => 'Vložit',
-        'crop_and_insert' => 'Oříznout & vložit',
-        'select_single_image' => 'Prosím vyberte pouze jeden obrázek.',
-        'selection_not_image' => 'Vybraná položka není obrázek.',
-        'restore' => 'Zpět všechny změny',
-        'resize' => 'Změnit velikost...',
-        'selection_mode_normal' => 'Normální',
-        'selection_mode_fixed_ratio' => 'Pevný poměr stran',
-        'selection_mode_fixed_size' => 'Pevná velikost',
-        'height' => 'Výška',
-        'width' => 'Šířka',
-        'selection_mode' => 'Selection mode',
-        'resize_image' => 'Změna rozměrů obrázku',
-        'image_size' => 'Velikost obrázku:',
-        'selected_size' => 'Vybrané:'
-    ]
 ];

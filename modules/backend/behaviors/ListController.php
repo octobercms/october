@@ -141,6 +141,7 @@ class ListController extends ControllerBehavior
             'recordUrl',
             'recordOnClick',
             'recordsPerPage',
+            'showPageNumbers',
             'noRecordsMessage',
             'defaultSort',
             'showSorting',
@@ -175,7 +176,7 @@ class ListController extends ControllerBehavior
         });
 
         $widget->bindEvent('list.extendRecords', function ($records) use ($definition) {
-            $this->controller->listExtendRecords($records, $definition);
+            return $this->controller->listExtendRecords($records, $definition);
         });
 
         $widget->bindEvent('list.injectRowClass', function ($record) use ($definition) {
@@ -456,7 +457,7 @@ class ListController extends ControllerBehavior
     public function listExtendColumns($host)
     {
     }
-    
+
     /**
      * Called after the filter scopes are defined.
      * @param \Backend\Widgets\Filter $host The hosting filter widget
@@ -559,7 +560,7 @@ class ListController extends ControllerBehavior
             call_user_func_array($callback, [$widget, $widget->model]);
         });
     }
-    
+
      /**
      * Static helper for extending filter scopes.
      * @param  callable $callback

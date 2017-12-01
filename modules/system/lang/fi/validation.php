@@ -7,68 +7,68 @@ return [
     | Validation Language Lines
     |--------------------------------------------------------------------------
     |
-    | following language lines contain the default error messages used by
+    | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
 
-    "accepted"         => ":attribute on hyväksyttävä.",
-    "active_url"       => ":attribute ei ole kelvollinen URL.",
-    "after"            => ":attribute on oltava pvm :date jälkeen.",
-    "alpha"            => ":attribute voi sisältää vain kirjaimia.",
-    "alpha_dash"       => ":attribute voi sisältää vain kirjaimia, numeroita ja välimerkkejä.",
-    "alpha_num"        => ":attribute voi sisältää vain kirjaimia ja numeroita.",
-    "array"            => ":attribute on oltava array.",
-    "before"           => ":attribute on oltava pvm ennen :date.",
+    "accepted"         => "Kenttä :attribute täytyy hyväksyä.",
+    "active_url"       => "Kenttä :attribute ei ole kelvollinen URL.",
+    "after"            => "Kentän :attribute täytyy olla päivämäärä :date jälkeen.",
+    "alpha"            => "Kenttä :attribute voi sisältää vain kirjaimia.",
+    "alpha_dash"       => "Kenttä :attribute voi sisältää vain kirjaimia, numeroita, ja viivoja.",
+    "alpha_num"        => "Kenttä :attribute voi sisältää vain kirjaimia ja numeroita.",
+    "array"            => "Kentän :attribute on oltava lista.",
+    "before"           => "Kentän :attribute täytyy olla päivämäärä ennen :date.",
     "between"          => [
-        "numeric" => ":attribute on oltava väliltä :min - :max.",
-        "file"    => ":attribute on oltava väliltä :min - :max kilotavua.",
-        "string"  => ":attribute on oltava väliltä :min - :max kirjainta.",
-        "array"   => ":attribute oltava väliltä :min - :max kohdetta.",
+        "numeric" => "Kentän :attribute täytyy olla väliltä :min - :max.",
+        "file"    => "Kentän :attribute täytyy olla väliltä :min - :max kilotavua.",
+        "string"  => "Kentän :attribute täytyy olla väliltä :min - :max merkkiä.",
+        "array"   => "Listan :attribute täytyy sisältää :min - :max väliltä kohdetta.",
     ],
-    "confirmed"        => ":attribute vahvistus ei vastaa toisiaan.",
-    "date"             => ":attribute ei ole oikea pvm.",
-    "date_format"      => ":attribute ei vastaa muotoa :format.",
-    "different"        => ":attribute ja :other on oltava eri.",
-    "digits"           => ":attribute on oltava :digits numeroa.",
-    "digits_between"   => ":attribute on oltava väliltä :min ja :max numeroa.",
-    "email"            => ":attribute muoto on virheellinen.",
-    "exists"           => "valittu :attribute ei kelpaa.",
-    "image"            => ":attribute on oltava kuva.",
-    "in"               => "valittu :attribute ei kelpaa.",
-    "integer"          => ":attribute on oltava kokonaisluku.",
-    "ip"               => ":attribute on oltava kelvollinen IP-osoite.",
+    "confirmed"        => "Kentän :attribute vahvistus ei vastaa toisiaan.",
+    "date"             => "Kenttä :attribute ei ole kelvollinen päivämäärä.",
+    "date_format"      => "Kenttä :attribute ei vastaa päivämääräformaattia :format.",
+    "different"        => "Kenttä :attribute ja :other täytyy olla erilaisia.",
+    "digits"           => "Kentän :attribute on oltava :digits numeroa.",
+    "digits_between"   => "Kentän :attribute on oltava väliltä :min ja :max.",
+    "email"            => "Kentän :attribute muotoilu ei ole kelvollinen.",
+    "exists"           => "Valittu kenttä :attribute ei ole kelvollinen.",
+    "image"            => "Kentän :attribute on oltava kuva.",
+    "in"               => "Valittu kenttä :attribute ei ole kelvollinen.",
+    "integer"          => "Kentän :attribute on oltava kokonaisluku.",
+    "ip"               => "Kentän :attribute on oltava kelvollin IP osoite.",
     "max"              => [
-        "numeric" => ":attribute ei voi olla enempää kuin :max.",
-        "file"    => ":attribute ei voi olla enempää kuin :max kilotavua.",
-        "string"  => ":attribute ei voi olla enempää kuin :max kirjainta.",
-        "array"   => ":attribute ei voi olla enempää kuin :max kohdetta.",
+        "numeric" => "Kenttä :attribute ei voi olla suurempi kuin :max.",
+        "file"    => "Kenttä :attribute ei voi olla suurempi kuin :max kilotavua.",
+        "string"  => "Kenttä :attribute ei voi olla suurempi kuin :max merkkiä.",
+        "array"   => "Lista :attribute ei saa sisältää enempää kuin :max kohdetta.",
     ],
-    "mimes"            => ":attribute on oltava tyypiltään: :values.",
-    "extensions"       => ":attribute on oltava päätteeltään: :values.",
+    "mimes"            => "Kentän :attribute on oltava tiedostomuotoa: :values.",
+    "extensions"       => "Kentän :attribute on oltava päätteellä: :values.",
     "min"              => [
-        "numeric" => ":attribute on oltava vähintään :min.",
-        "file"    => ":attribute on oltava vähintään :min kilotavua.",
-        "string"  => ":attribute on oltava vähintään :min merkkiä.",
-        "array"   => ":attribute on oltava vähintään :min kohdetta.",
+        "numeric" => "Kentän :attribute on oltava vähintään :min.",
+        "file"    => "Kentän :attribute on oltava vähintään :min kilotavua.",
+        "string"  => "Kentän :attribute on oltava vähintään :min merkkiä.",
+        "array"   => "Listassa :attribute on oltava vähintään :min kohdetta.",
     ],
-    "not_in"           => "valittu :attribute ei kelpaa.",
-    "numeric"          => ":attribute on oltava numero.",
-    "regex"            => ":attribute muoto ei kelpaa.",
-    "required"         => ":attribute on pakollinen.",
-    "required_if"      => ":attribute kenttä on pakollinen mikäli :other on :value.",
-    "required_with"    => ":attribute kenttä on pakollinen mikäli :values on olemassa.",
-    "required_without" => ":attribute kenttä on pakollinen mikäli :values ei ole olemassa.",
-    "same"             => ":attribute ja :other on vastattava toisiaan",
+    "not_in"           => "valittu kenttä :attribute ei ole kelvollinen.",
+    "numeric"          => "Kentän :attribute on oltava numero.",
+    "regex"            => "Kentän :attribute formaatti ei ole kelvollinen.",
+    "required"         => "Kenttä :attribute on vaadittu.",
+    "required_if"      => "Kettä :attribute on vaadittu kun kenttä :other on :value.",
+    "required_with"    => "Kenttä :attribute on vaadittu kun :values on läsnä.",
+    "required_without" => "Kenttä :attribute on vaadittu kun :values ei ole läsnä.",
+    "same"             => "Kenttien :attribute ja :other täytyy vastata toisiaan.",
     "size"             => [
-        "numeric" => ":attribute on oltava :size.",
-        "file"    => ":attribute oltava :size kilotavua.",
-        "string"  => ":attribute on oltava :size merkkiä.",
-        "array"   => ":attribute on sisällettävä :size kohdetta.",
+        "numeric" => "Kentän :attribute täytyy olla :size.",
+        "file"    => "Kentän :attribute täytyy olla :size kilotavua.",
+        "string"  => "Kentän :attribute täytyy olla :size merkkiä.",
+        "array"   => "Listan :attribute täytyy sisältää :size kohdetta.",
     ],
-    "unique"           => ":attribute on jo olemassa.",
-    "url"              => ":attribute muoto ei kelpaa.",
+    "unique"           => "Kenttä :attribute on jo varattu.",
+    "url"              => "Kentän :attribute formaatti ei ole kelvollinen.",
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     | Custom Validation Attributes
     |--------------------------------------------------------------------------
     |
-    | following language lines are used to swap attribute place-holders
+    | The following language lines are used to swap attribute place-holders
     | with something more reader friendly such as E-Mail Address instead
     | of "email". This simply helps us make messages a little cleaner.
     |

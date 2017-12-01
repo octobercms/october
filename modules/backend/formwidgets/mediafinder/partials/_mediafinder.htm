@@ -1,0 +1,19 @@
+<?php if ($this->previewMode && !$value): ?>
+
+    <span class="form-control"><?= e(trans('backend::lang.form.preview_no_media_message')) ?></span>
+
+<?php else: ?>
+
+    <?php switch ($mode):
+
+        case 'image': ?>
+            <?= $this->makePartial('image_single') ?>
+        <?php break ?>
+
+        <?php case 'file': ?>
+            <?= $this->makePartial('file_single') ?>
+        <?php break ?>
+
+    <?php endswitch ?>
+
+<?php endif ?>

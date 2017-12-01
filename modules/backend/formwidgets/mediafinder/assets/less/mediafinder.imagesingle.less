@@ -1,0 +1,47 @@
+
+.field-mediafinder.style-image-single {
+
+    .find-button {
+        .finder-block-button();
+        min-height: 100px;
+        min-width: 100px;
+    }
+
+    .find-object {
+        display: none;
+        padding-bottom: 39px;
+
+        .icon-container {
+            display: block;
+            border: 1px solid #f6f8f9;
+            background: rgba(255,255,255,.5);
+
+            img {
+                .border-radius(3px);
+                .img-responsive();
+            }
+        }
+
+        .info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 39px;
+        }
+
+        &:hover {
+            h4 { padding-right: 20px; }
+        }
+    }
+
+    &.is-populated {
+        .find-button {
+            display: none;
+        }
+        .find-object {
+            display: block;
+        }
+    }
+
+}

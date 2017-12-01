@@ -10,11 +10,12 @@
 
 $ua = isset($_SERVER['HTTP_USER_AGENT']) ? strtolower($_SERVER['HTTP_USER_AGENT']) : null;
 if (!$ua)
-  return;
+    return;
 
 $g = 'gecko';
 $w = 'webkit';
 $s = 'safari';
+$m = 'mobile';
 $b = array();
 
 // browser
@@ -44,11 +45,17 @@ if(!preg_match('/opera|webtv/i', $ua) && preg_match('/msie\s(\d)/', $ua, $array)
 
 // platform
 if(strstr($ua, 'j2me')) {
-    $b[] = 'mobile';
+    $b[] = $m . ' j2me';
 } else if(strstr($ua, 'iphone')) {
-    $b[] = 'iphone'; 
+    $b[] = $m . ' iphone';
 } else if(strstr($ua, 'ipod')) {
-    $b[] = 'ipod';
+    $b[] = $m . ' ipod';
+} else if(strstr($ua, 'ipad')) {
+    $b[] = $m . ' ipad';
+} else if(strstr($ua, 'android')) {
+    $b[] = $m . ' android';
+} else if(strstr($ua, 'blackberry')) {
+    $b[] = $m . ' blackberry';
 } else if(strstr($ua, 'mac')) {
     $b[] = 'mac';
 } else if(strstr($ua, 'darwin')) {

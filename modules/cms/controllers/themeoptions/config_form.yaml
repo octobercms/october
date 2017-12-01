@@ -1,0 +1,21 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: cms::lang.theme.theme_label
+
+# Fields are defined by extension
+form: []
+
+# Model Class name
+modelClass: Cms\Models\ThemeData
+
+# Default redirect location
+defaultRedirect: cms/themes
+
+# Update page
+update:
+    title: cms::lang.theme.customize_theme
+    redirect: cms/themes
+    redirectClose: cms/themes

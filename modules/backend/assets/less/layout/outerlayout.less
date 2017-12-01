@@ -19,11 +19,11 @@ body.outer {
                     position: relative;
 
                     &:after {
-                        .triangle(down, 70px, 25px, @color-outer-header);
+                        .triangle(down, 56px, 20px, @color-outer-header);
                         position: absolute;
-                        bottom: -25px;
+                        bottom: -20px;
                         left: 50%;
-                        margin-left: -35px;
+                        margin-left: -28px;
                     }
 
                     h1.oc-logo {
@@ -71,6 +71,12 @@ body.outer {
                             height: 40px;
                             vertical-align: top;
                             .box-sizing(border-box);
+                        }
+                    }
+
+                    .remember {
+                        label {
+                            color: @color-outer-muted-text;
                         }
                     }
 

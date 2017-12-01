@@ -14,47 +14,37 @@ use System\Classes\SettingsManager;
  */
 class UserGroups extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
     ];
 
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
+
+    /**
+     * @var array `ListController` configuration.
+     */
     public $listConfig = 'config_list.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['backend.manage_users'];
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
-    }
-
-    /**
-     * Add available permission fields to the Group form.
-     */
-    public function formExtendFields($form)
-    {
-        /*
-         * Add permissions tab
-         */
-        $form->addTabFields($this->generatePermissionsField());
-    }
-
-    /**
-     * Adds the permissions editor widget to the form.
-     * @return array
-     */
-    protected function generatePermissionsField()
-    {
-        return [
-            'permissions' => [
-                'tab' => 'backend::lang.user.permissions',
-                'type' => 'Backend\FormWidgets\PermissionEditor',
-                'mode' => 'checkbox'
-            ]
-        ];
     }
 }

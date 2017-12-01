@@ -1,0 +1,22 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: backend::lang.user.role.name_field
+        commentAbove: backend::lang.user.role.name_comment
+        span: auto
+
+    code:
+        label: backend::lang.user.role.code_field
+        commentAbove: backend::lang.user.role.code_comment
+        span: auto
+
+    description:
+        label: backend::lang.user.role.description_field
+        type: textarea
+        size: tiny
+
+tabs:
+    stretch: true

@@ -337,6 +337,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
+            ($this->verifyCsrfToken()) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -723,6 +724,13 @@ class Controller
             }
         }
 
+        /*
+         * Generic handler that does nothing
+         */
+        if ($handler == 'onAjax') {
+            return true;
+        }
+
         return false;
     }
 
@@ -818,8 +826,7 @@ class Controller
              * Check if the theme has an override
              */
             if (strpos($partialName, '/') === false) {
-                $overrideName = $componentObj->alias . '/' . $partialName;
-                $partial = Partial::loadCached($this->theme, $overrideName);
+                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
             }
 
             /*
@@ -1022,6 +1029,15 @@ class Controller
     // Getters
     //
 
+     /**
+     * Returns the status code for the current web response.
+     * @return int Status code
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
     /**
      * Returns an existing instance of the controller.
      * If the controller doesn't exists, returns null.
@@ -1174,16 +1190,6 @@ class Controller
         }
 
         return $_url;
-    }
-
-    /**
-     * Converts supplied file to a URL relative to the media library.
-     * @param string $file Specifies the media-relative file
-     * @return string
-     */
-    public function mediaUrl($file = null)
-    {
-        return MediaLibrary::url($file);
     }
 
     /**
@@ -1349,5 +1355,37 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
+    }
+
+    //
+    // Security
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found. Override this
+     * method to disable the check.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (!Config::get('cms.enableCsrfProtection')) {
+            return true;
+        }
+
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!strlen($token)) {
+            return false;
+        }
+
+        return hash_equals(
+            Session::token(),
+            $token
+        );
     }
 }

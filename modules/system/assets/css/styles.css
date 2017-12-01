@@ -40,7 +40,7 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:62.5%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-body{font-family:sans-serif;font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:14px;line-height:1.42857143;color:#333333;background-color:#f9f9f9}
 input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 button,input,select[multiple],textarea{background-image:none}
 a{color:#0181b9;text-decoration:none}
@@ -343,7 +343,7 @@ th.visible-print,td.visible-print{display:table-cell !important}
 }
 @media print{.hidden-print{display:none !important}
 }
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:inherit;font-weight:400;line-height:1.1;color:inherit}
 h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small,h1 .small,h2 .small,h3 .small,h4 .small,h5 .small,h6 .small,.h1 .small,.h2 .small,.h3 .small,.h4 .small,.h5 .small,.h6 .small{font-weight:normal;line-height:1;color:#999999}
 h1,.h1,h2,.h2,h3,.h3{margin-top:20px;margin-bottom:10px}
 h1 small,.h1 small,h2 small,.h2 small,h3 small,.h3 small,h1 .small,.h1 .small,h2 .small,.h2 .small,h3 .small,.h3 .small{font-size:65%}
@@ -934,7 +934,7 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .oc-icon-optin-monster:before,.icon-optin-monster:before{content:"\f23c"}
 .oc-icon-opencart:before,.icon-opencart:before{content:"\f23d"}
 .oc-icon-expeditedssl:before,.icon-expeditedssl:before{content:"\f23e"}
-.oc-icon-battery-4:before,.icon-battery-4:before,.oc-icon-battery-full:before,.icon-battery-full:before{content:"\f240"}
+.oc-icon-battery-4:before,.icon-battery-4:before,.oc-icon-battery:before,.icon-battery:before,.oc-icon-battery-full:before,.icon-battery-full:before{content:"\f240"}
 .oc-icon-battery-3:before,.icon-battery-3:before,.oc-icon-battery-three-quarters:before,.icon-battery-three-quarters:before{content:"\f241"}
 .oc-icon-battery-2:before,.icon-battery-2:before,.oc-icon-battery-half:before,.icon-battery-half:before{content:"\f242"}
 .oc-icon-battery-1:before,.icon-battery-1:before,.oc-icon-battery-quarter:before,.icon-battery-quarter:before{content:"\f243"}
@@ -1044,7 +1044,48 @@ address{margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .oc-icon-themeisle:before,.icon-themeisle:before{content:"\f2b2"}
 .oc-icon-google-plus-circle:before,.icon-google-plus-circle:before,.oc-icon-google-plus-official:before,.icon-google-plus-official:before{content:"\f2b3"}
 .oc-icon-fa:before,.icon-fa:before,.oc-icon-font-awesome:before,.icon-font-awesome:before{content:"\f2b4"}
-.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}
+.oc-icon-handshake-o:before,.icon-handshake-o:before{content:"\f2b5"}
+.oc-icon-envelope-open:before,.icon-envelope-open:before{content:"\f2b6"}
+.oc-icon-envelope-open-o:before,.icon-envelope-open-o:before{content:"\f2b7"}
+.oc-icon-linode:before,.icon-linode:before{content:"\f2b8"}
+.oc-icon-address-book:before,.icon-address-book:before{content:"\f2b9"}
+.oc-icon-address-book-o:before,.icon-address-book-o:before{content:"\f2ba"}
+.oc-icon-vcard:before,.icon-vcard:before,.oc-icon-address-card:before,.icon-address-card:before{content:"\f2bb"}
+.oc-icon-vcard-o:before,.icon-vcard-o:before,.oc-icon-address-card-o:before,.icon-address-card-o:before{content:"\f2bc"}
+.oc-icon-user-circle:before,.icon-user-circle:before{content:"\f2bd"}
+.oc-icon-user-circle-o:before,.icon-user-circle-o:before{content:"\f2be"}
+.oc-icon-user-o:before,.icon-user-o:before{content:"\f2c0"}
+.oc-icon-id-badge:before,.icon-id-badge:before{content:"\f2c1"}
+.oc-icon-drivers-license:before,.icon-drivers-license:before,.oc-icon-id-card:before,.icon-id-card:before{content:"\f2c2"}
+.oc-icon-drivers-license-o:before,.icon-drivers-license-o:before,.oc-icon-id-card-o:before,.icon-id-card-o:before{content:"\f2c3"}
+.oc-icon-quora:before,.icon-quora:before{content:"\f2c4"}
+.oc-icon-free-code-camp:before,.icon-free-code-camp:before{content:"\f2c5"}
+.oc-icon-telegram:before,.icon-telegram:before{content:"\f2c6"}
+.oc-icon-thermometer-4:before,.icon-thermometer-4:before,.oc-icon-thermometer:before,.icon-thermometer:before,.oc-icon-thermometer-full:before,.icon-thermometer-full:before{content:"\f2c7"}
+.oc-icon-thermometer-3:before,.icon-thermometer-3:before,.oc-icon-thermometer-three-quarters:before,.icon-thermometer-three-quarters:before{content:"\f2c8"}
+.oc-icon-thermometer-2:before,.icon-thermometer-2:before,.oc-icon-thermometer-half:before,.icon-thermometer-half:before{content:"\f2c9"}
+.oc-icon-thermometer-1:before,.icon-thermometer-1:before,.oc-icon-thermometer-quarter:before,.icon-thermometer-quarter:before{content:"\f2ca"}
+.oc-icon-thermometer-0:before,.icon-thermometer-0:before,.oc-icon-thermometer-empty:before,.icon-thermometer-empty:before{content:"\f2cb"}
+.oc-icon-shower:before,.icon-shower:before{content:"\f2cc"}
+.oc-icon-bathtub:before,.icon-bathtub:before,.oc-icon-s15:before,.icon-s15:before,.oc-icon-bath:before,.icon-bath:before{content:"\f2cd"}
+.oc-icon-podcast:before,.icon-podcast:before{content:"\f2ce"}
+.oc-icon-window-maximize:before,.icon-window-maximize:before{content:"\f2d0"}
+.oc-icon-window-minimize:before,.icon-window-minimize:before{content:"\f2d1"}
+.oc-icon-window-restore:before,.icon-window-restore:before{content:"\f2d2"}
+.oc-icon-times-rectangle:before,.icon-times-rectangle:before,.oc-icon-window-close:before,.icon-window-close:before{content:"\f2d3"}
+.oc-icon-times-rectangle-o:before,.icon-times-rectangle-o:before,.oc-icon-window-close-o:before,.icon-window-close-o:before{content:"\f2d4"}
+.oc-icon-bandcamp:before,.icon-bandcamp:before{content:"\f2d5"}
+.oc-icon-grav:before,.icon-grav:before{content:"\f2d6"}
+.oc-icon-etsy:before,.icon-etsy:before{content:"\f2d7"}
+.oc-icon-imdb:before,.icon-imdb:before{content:"\f2d8"}
+.oc-icon-ravelry:before,.icon-ravelry:before{content:"\f2d9"}
+.oc-icon-eercast:before,.icon-eercast:before{content:"\f2da"}
+.oc-icon-microchip:before,.icon-microchip:before{content:"\f2db"}
+.oc-icon-snowflake-o:before,.icon-snowflake-o:before{content:"\f2dc"}
+.oc-icon-superpowers:before,.icon-superpowers:before{content:"\f2dd"}
+.oc-icon-wpexplorer:before,.icon-wpexplorer:before{content:"\f2de"}
+.oc-icon-meetup:before,.icon-meetup:before{content:"\f2e0"}
+.close{float:right;font-size:21px;font-weight:bold;line-height:1;color:#000000;text-shadow:0 1px 0 #ffffff;font-family:sans-serif;opacity:0.2;filter:alpha(opacity=20)}
 .close:hover,.close:focus{color:#000000;text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
 button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
 @font-face{font-family:'FontAwesome';src:url('../ui/font/fontawesome-webfont.eot?v=1.0.1');src:url('../ui/font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('../ui/font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('../ui/font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('../ui/font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}
@@ -1059,8 +1100,8 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 .icon-3x{font-size:3em}
 .icon-4x{font-size:4em}
 .icon-5x{font-size:5em}
-body{padding-top:20px;font-family:sans-serif;background:#f3f3f3;color:#405261}
-h1,h2,h3,h4,h5{font-family:sans-serif;text-transform:uppercase}
+body{padding-top:20px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background:#f3f3f3;color:#405261}
+h1,h2,h3,h4,h5{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";text-transform:uppercase}
 h1{font-weight:300;font-size:50px;margin-bottom:15px}
 h1 i[class^="icon-"]:before{font-size:46px}
 i[class^="icon-"].warning{color:#c84530}

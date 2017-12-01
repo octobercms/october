@@ -6,6 +6,7 @@ use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
+use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
@@ -29,7 +30,6 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerComponents();
         $this->registerThemeLogging();
-        $this->registerAssetBundles();
         $this->registerCombinerEvents();
 
         /*
@@ -63,8 +63,8 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerComponents()
     {
         ComponentManager::instance()->registerComponents(function ($manager) {
-            $manager->registerComponent('Cms\Components\ViewBag', 'viewBag');
-            $manager->registerComponent('Cms\Components\Resources', 'resources');
+            $manager->registerComponent(\Cms\Components\ViewBag::class, 'viewBag');
+            $manager->registerComponent(\Cms\Components\Resources::class, 'resources');
         });
     }
 
@@ -75,20 +75,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         CmsObject::extend(function ($model) {
             ThemeLog::bindEventsToModel($model);
-        });
-    }
-
-    /**
-     * Register asset bundles.
-     */
-    protected function registerAssetBundles()
-    {
-        /*
-         * Register asset bundles
-         */
-        CombineAssets::registerCallback(function ($combiner) {
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
         });
     }
 
@@ -123,6 +109,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'icon'        => 'icon-magic',
                     'iconSvg'     => 'modules/cms/assets/images/cms-icon.svg',
                     'url'         => Backend::url('cms'),
+                    'order'       => 100,
                     'permissions' => [
                         'cms.manage_content',
                         'cms.manage_assets',
@@ -130,7 +117,6 @@ class ServiceProvider extends ModuleServiceProvider
                         'cms.manage_layouts',
                         'cms.manage_partials'
                     ],
-                    'order'       => 100,
                     'sideMenu' => [
                         'pages' => [
                             'label'        => 'cms::lang.page.menu_label',
@@ -180,14 +166,6 @@ class ServiceProvider extends ModuleServiceProvider
                             'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
-                ],
-                'media' => [
-                    'label'       => 'cms::lang.media.menu_label',
-                    'icon'        => 'icon-folder',
-                    'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
-                    'url'         => Backend::url('cms/media'),
-                    'permissions' => ['media.*'],
-                    'order'       => 200
                 ]
             ]);
         });
@@ -199,7 +177,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('Cms\ReportWidgets\ActiveTheme', [
+            $manager->registerReportWidget(\Cms\ReportWidgets\ActiveTheme::class, [
                 'label'   => 'cms::lang.dashboard.active_theme.widget_title_default',
                 'context' => 'dashboard'
             ]);
@@ -216,38 +194,44 @@ class ServiceProvider extends ModuleServiceProvider
                 'cms.manage_content' => [
                     'label' => 'cms::lang.permissions.manage_content',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_assets' => [
                     'label' => 'cms::lang.permissions.manage_assets',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_pages' => [
                     'label' => 'cms::lang.permissions.manage_pages',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_layouts' => [
                     'label' => 'cms::lang.permissions.manage_layouts',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_partials' => [
                     'label' => 'cms::lang.permissions.manage_partials',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
                 'cms.manage_themes' => [
                     'label' => 'cms::lang.permissions.manage_themes',
                     'tab' => 'cms::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                     'order' => 100
                 ],
-                'media.manage_media' => [
-                    'label' => 'cms::lang.permissions.manage_media',
+                'cms.manage_theme_options' => [
+                    'label' => 'cms::lang.permissions.manage_theme_options',
                     'tab' => 'cms::lang.permissions.name',
                     'order' => 100
-                ]
+                ],
             ]);
         });
     }
@@ -259,7 +243,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Cms\FormWidgets\Components');
-            $manager->registerFormWidget('Cms\FormWidgets\MediaFinder', 'mediafinder');
         });
     }
 
@@ -276,7 +259,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-picture-o',
                     'url'         => Backend::url('cms/themes'),
-                    'permissions' => ['cms.manage_themes'],
+                    'permissions' => ['cms.manage_themes', 'cms.manage_theme_options'],
                     'order'       => 200
                 ],
                 'maintenance_settings' => [

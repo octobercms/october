@@ -1,0 +1,67 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= e(trans('system::lang.mail_templates.menu_partials_label')) ?></a></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout']) ?>
+
+        <div class="layout-row min-size">
+            <div class="scoreboard">
+                <div data-control="toolbar">
+                    <div class="scoreboard-item title-value">
+                        <h4><?= e(trans('system::lang.mail_templates.layout')) ?></h4>
+                        <p><?= $formModel->code ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
+
+        <div class="form-buttons p-t">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="redirect:0"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving_layout')) ?>"
+                    class="btn btn-primary">
+                    <?= e(trans('backend::lang.form.save')) ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.saving_layout')) ?>"
+                    class="btn btn-default">
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
+                </button>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('system::lang.mail_templates.deleting_layout')) ?>"
+                    data-request-confirm="<?= e(trans('system::lang.mail_templates.delete_layout_confirm')) ?>">
+                </button>
+                <span class="btn-text">
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                </span>
+            </div>
+        </div>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    <p><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>" class="btn btn-default"><?= e(trans('system::lang.mail_templates.return')) ?></a></p>
+
+<?php endif ?>

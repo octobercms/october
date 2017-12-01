@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use App;
-use Str;
 use Lang;
 use View;
 use Flash;
@@ -15,8 +14,7 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
-use Cms\Widgets\MediaManager;
-use System\Classes\ErrorHandler;
+use Backend\Widgets\MediaManager;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
@@ -38,12 +36,8 @@ class Controller extends Extendable
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
-
-    /**
-     * @var string Object used for storing a fatal error.
-     */
-    protected $fatalError;
 
     /**
      * @var object Reference the logged in admin user.
@@ -158,11 +152,7 @@ class Controller extends Extendable
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if (
-            class_exists('Cms\Widgets\MediaManager') &&
-            $this->user &&
-            $this->user->hasAccess('media.*')
-        ) {
+        if ($this->user && $this->user->hasAccess('media.*')) {
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }
@@ -194,13 +184,6 @@ class Controller extends Extendable
         }
 
         /*
-         * Extensibility
-         */
-        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
-            return $event;
-        }
-
-        /*
          * Determine if this request is a public action.
          */
         $isPublicAction = in_array($action, $this->publicActions);
@@ -225,6 +208,13 @@ class Controller extends Extendable
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions)) {
                 return Response::make(View::make('backend::access_denied'), 403);
             }
+        }
+        
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
+            return $event;
         }
 
         /*
@@ -561,6 +551,13 @@ class Controller extends Extendable
             }
         }
 
+        /*
+         * Generic handler that does nothing
+         */
+        if ($handler == 'onAjax') {
+            return true;
+        }
+
         return false;
     }
 
@@ -609,16 +606,6 @@ class Controller extends Extendable
     {
         $this->statusCode = (int) $code;
         return $this;
-    }
-
-    /**
-     * Sets standard page variables in the case of a controller error.
-     */
-    public function handleError($exception)
-    {
-        $errorMessage = ErrorHandler::getDetailedMessage($exception);
-        $this->fatalError = $errorMessage;
-        $this->vars['fatalError'] = $errorMessage;
     }
 
     //
@@ -704,8 +691,12 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        return Str::equals(
-            Session::getToken(),
+        if (!strlen($token)) {
+            return false;
+        }
+
+        return hash_equals(
+            Session::token(),
             $token
         );
     }

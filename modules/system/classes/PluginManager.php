@@ -163,6 +163,16 @@ class PluginManager
     }
 
     /**
+     * Unregisters all plugins: the negative of registerAll().
+     * @return void
+     */
+    public function unregisterAll()
+    {
+        $this->registered = false;
+        $this->plugins = [];
+    }
+
+    /**
      * Registers a single plugin object.
      * @param PluginBase $plugin
      * @param string $pluginId

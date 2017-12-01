@@ -1,12 +1,15 @@
 <?php namespace System\Console;
 
+use App;
 use Lang;
 use File;
 use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
+use Exception;
 
 /**
  * Console command for other utility commands.
@@ -23,6 +26,7 @@ use System\Classes\CombineAssets;
  * - compile less: Compile registered LESS files only.
  * - compile scss: Compile registered SCSS files only.
  * - compile lang: Compile registered Language files only.
+ * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -53,7 +57,7 @@ class OctoberUtil extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
@@ -108,6 +112,35 @@ class OctoberUtil extends Command
     //
     // Utilties
     //
+
+    protected function utilSetBuild()
+    {
+        $this->comment('-');
+
+        /*
+         * Skip setting the build number if no database is detected to set it within
+         */
+        if (!App::hasDatabase()) {
+            $this->comment('No database detected - skipping setting the build number.');
+            return;
+        }
+
+        try {
+            $build = UpdateManager::instance()->setBuildNumberManually();
+            $this->comment('*** October sets build: '.$build);
+        }
+        catch (Exception $ex) {
+            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
+        }
+
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+        sleep(1);
+        $this->comment('Ping? Pong!');
+        $this->comment('-');
+    }
 
     protected function utilCompileJs()
     {

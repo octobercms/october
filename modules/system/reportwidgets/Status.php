@@ -61,7 +61,7 @@ class Status extends ReportWidgetBase
         $this->vars['coreBuild'] = Parameter::get('system::core.build');
         $this->vars['eventLog'] = EventLog::count();
         $this->vars['requestLog'] = RequestLog::count();
-        $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->pluck('created_at');
+        $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->value('created_at');
     }
 
     public function onLoadWarningsForm()

@@ -156,6 +156,7 @@
   margin-top: 10px;
   margin-left: 20px;
   border: 2px dotted #e0e0e0;
+  border-radius: 5px;
 }
 .field-repeater .field-repeater-add-item:before {
   color: #bdc3c7;
@@ -176,14 +177,32 @@
   text-align: center;
   display: block;
   text-decoration: none;
-  padding: 20px 10px;
+  padding: 13px 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
 }
-.field-repeater .field-repeater-add-item:hover {
-  border: 2px dotted rgba(0, 0, 0, 0.1);
+.field-repeater .field-repeater-add-item:hover,
+.field-repeater .field-repeater-add-item:focus {
+  background-color: #4ea5e0;
+  border-color: transparent;
 }
-.field-repeater .field-repeater-add-item:hover:before {
+.field-repeater .field-repeater-add-item:hover:before,
+.field-repeater .field-repeater-add-item:focus:before {
   color: #999;
 }
-.field-repeater .field-repeater-add-item:hover > a {
-  color: #bdc3c7;
+.field-repeater .field-repeater-add-item:hover > a,
+.field-repeater .field-repeater-add-item:focus > a {
+  color: #ffffff;
+}
+.field-repeater .field-repeater-add-item:active {
+  background: #3498db;
+  border-color: transparent;
+}
+.field-repeater .field-repeater-add-item:active > a {
+  color: #ffffff;
+}
+.field-repeater .field-repeater-add-item.in-progress {
+  border-color: #e0e0e0 !important;
+  background: transparent !important;
 }

@@ -160,6 +160,19 @@
                     }
                 }
 
+                &:active {
+                    > ul.submenu {
+                        background-position: left -116px;
+
+                        &:before {
+                            background-position: left -77px;
+                        }
+                        &:after {
+                            background-position: -100px -77px;
+                        }
+                    }
+                }
+
                 .checkbox {
                     position: absolute;
                     top: -2px;
@@ -175,19 +188,19 @@
                 }
 
                 &.popover-highlight {
-                    background-color: @color-treeview-hover-bg!important;
+                    background-color: @color-treeview-hover-bg !important;
 
                     &:before {
                         background-position: 0px -80px;
                     }
 
                     > a {
-                        color: @color-treeview-hover-text!important;
+                        color: @color-treeview-hover-text !important;
                         cursor: default;
                     }
 
                     span {
-                        color: @color-treeview-hover-text!important;
+                        color: @color-treeview-hover-text !important;
                     }
 
                     > ul.submenu, > span.drag-handle {
@@ -197,10 +210,10 @@
             }
 
             &.dragged div, > div:hover {
-                background-color: @color-treeview-hover-bg!important;
+                background-color: @color-treeview-hover-bg !important;
 
                 > a {
-                    color: @color-treeview-hover-text!important;
+                    color: @color-treeview-hover-text !important;
                 }
 
                 &:before {
@@ -208,12 +221,12 @@
                 }
 
                 &:after {
-                    top: 0!important;
-                    bottom: 0!important;
+                    top: 0 !important;
+                    bottom: 0 !important;
                 }
 
                 span {
-                    color: @color-treeview-hover-text!important;
+                    color: @color-treeview-hover-text !important;
 
                     &.drag-handle {
                         cursor: move;
@@ -223,6 +236,14 @@
                     &.borders {
                         display: none;
                     }
+                }
+            }
+
+            > div:active {
+                background-color: @color-treeview-active-bg !important;
+
+                > a {
+                    color: @color-treeview-active-text !important;
                 }
             }
 
@@ -404,15 +425,20 @@
         font-size: @font-size-base - 2;
         font-weight: 600;
         text-transform: uppercase;
-        .border-radius(5px);
+        border-radius: 5px;
         vertical-align: middle;
 
-        &:hover {
+        &:hover, &:focus {
             text-decoration: none;
-            background-color: @color-treeview-hover-bg !important;
-            color: @color-treeview-hover-text !important;
+            background-color: @color-treeview-hover-bg;
+            color: @color-treeview-hover-text;
             border: none;
             padding: 15px 17px;
+        }
+
+        &:active {
+            background: @color-treeview-active-bg;
+            color: @color-treeview-active-text;
         }
 
         i {

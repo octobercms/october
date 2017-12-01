@@ -46,6 +46,7 @@
         this.$timePicker = $('[data-timepicker]', this.$el)
         this.hasDate = !!this.$datePicker.length
         this.hasTime = !!this.$timePicker.length
+        this.ignoreTimezone = this.$el.get(0).hasAttribute('data-ignore-timezone')
 
         this.initRegion()
 
@@ -102,6 +103,7 @@
 
         var pikadayOptions = {
             yearRange: this.options.yearRange,
+            firstDay: this.options.firstDay,
             format: dateFormat,
             setDefaultDate: now,
             onOpen: function() {
@@ -291,6 +293,12 @@
         if (!this.timezone) {
             this.timezone = 'UTC'
         }
+
+        // Set both timezones to UTC to disable converting between them
+        if (this.ignoreTimezone) {
+            this.appTimezone = 'UTC'
+            this.timezone = 'UTC'
+        }
     }
 
     DatePicker.prototype.getLang = function(name, defaultValue) {
@@ -305,7 +313,8 @@
         minDate: null,
         maxDate: null,
         format: null,
-        yearRange: 10
+        yearRange: 10,
+        firstDay: 0
     }
 
     // PLUGIN DEFINITION

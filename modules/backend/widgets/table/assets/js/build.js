@@ -9,6 +9,7 @@
 
 =require table.js
 =require table.helper.navigation.js
+=require table.helper.search.js
 =require table.datasource.base.js
 =require table.datasource.client.js
 =require table.datasource.server.js

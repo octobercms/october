@@ -18,6 +18,7 @@
  * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con 
  *   contain the ellipses icon, indicating whether scrolling is possible)
  * - useDrag - determines if dragging is allowed support, true by default
+ * - useNative - if native CSS is enabled via "mobile" on the HTML tag, false by default
  * - useScroll - determines if the mouse wheel scrolling is allowed, true by default
  * - useComboScroll - determines if horizontal scroll should act as vertical, and vice versa, true by default
  * - dragSelector - restrict drag events to this selector
@@ -48,7 +49,8 @@
             startOffset = 0,
             self = this,
             dragging = false,
-            eventElementName = this.options.vertical ? 'pageY' : 'pageX';
+            eventElementName = this.options.vertical ? 'pageY' : 'pageX',
+            isNative = this.options.useNative && $('html').hasClass('mobile');
 
         this.el = $el
         this.scrollClassContainer = this.options.scrollClassContainer ? $(this.options.scrollClassContainer) : $el
@@ -70,8 +72,9 @@
         var $scrollSelect = this.options.scrollSelector ? $(this.options.scrollSelector, $el) : $el
 
         $scrollSelect.mousewheel(function(event){
-            if (!self.options.useScroll)
+            if (!self.options.useScroll) {
                 return;
+            }
 
             var offset,
                 offsetX = event.deltaFactor * event.deltaX,
@@ -92,29 +95,34 @@
 
         if (this.options.useDrag) {
             $el.on('mousedown.dragScroll', this.options.dragSelector, function(event){
-                if (event.target && event.target.tagName === 'INPUT')
+                if (event.target && event.target.tagName === 'INPUT') {
                     return // Don't prevent clicking inputs in the toolbar
+                }
 
-                if (!self.isScrollable)
+                if (!self.isScrollable) {
                     return
+                }
 
                 startDrag(event)
                 return false
             })
         }
 
-        $el.on('touchstart.dragScroll', this.options.dragSelector, function(event){
-            var touchEvent = event.originalEvent;
-            if (touchEvent.touches.length == 1) {
-                startDrag(touchEvent.touches[0])
-                event.stopPropagation()
-            }
-        })
+        if (Modernizr.touch) {
+            $el.on('touchstart.dragScroll', this.options.dragSelector, function(event){
+                var touchEvent = event.originalEvent
+                if (touchEvent.touches.length == 1) {
+                    startDrag(touchEvent.touches[0])
+                    event.stopPropagation()
+                }
+            })
+        }
 
         $el.on('click.dragScroll', function() {
             // Do not handle item clicks while dragging
-            if ($(document.body).hasClass(self.options.dragClass))
+            if ($(document.body).hasClass(self.options.dragClass)) {
                 return false
+            }
         })
 
         $(document).on('ready', this.proxy(this.fixScrollClasses))
@@ -128,28 +136,29 @@
             startOffset = self.options.vertical ? $el.scrollTop() : $el.scrollLeft()
 
             if (Modernizr.touch) {
-                $(window).on('touchmove.dragScroll', function(event){
+                $(window).on('touchmove.dragScroll', function(event) {
                     var touchEvent = event.originalEvent
                     moveDrag(touchEvent.touches[0])
-                    event.preventDefault()
+                    if (!isNative) {
+                        event.preventDefault()
+                    }
                 })
 
                 $(window).on('touchend.dragScroll', function(event) {
                     stopDrag()
                 })
             }
-            else {
-                $(window).on('mousemove.dragScroll', function(event){
-                    moveDrag(event)
-                    return false
-                })
 
-                $(window).on('mouseup.dragScroll', function(mouseUpEvent){
-                    var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
-                    stopDrag(isClick)
-                    return false
-                })
-            }
+            $(window).on('mousemove.dragScroll', function(event) {
+                moveDrag(event)
+                return false
+            })
+
+            $(window).on('mouseup.dragScroll', function(mouseUpEvent) {
+                var isClick = event.pageX == mouseUpEvent.pageX && event.pageY == mouseUpEvent.pageY
+                stopDrag(isClick)
+                return false
+            })
         }
 
         /*
@@ -167,9 +176,11 @@
                     $(document.body).addClass(self.options.dragClass)
                 }
 
-                self.options.vertical
-                    ? $el.scrollTop(startOffset + offset)
-                    : $el.scrollLeft(startOffset + offset)
+                if (!isNative) {
+                    self.options.vertical
+                        ? $el.scrollTop(startOffset + offset)
+                        : $el.scrollLeft(startOffset + offset)
+                }
 
                 $el.trigger('drag.oc.dragScroll')
                 self.options.drag()
@@ -241,6 +252,7 @@
         vertical: false,
         useDrag: true,
         useScroll: true,
+        useNative: false,
         useComboScroll: true,
         scrollClassContainer: false,
         scrollMarkerContainer: false,

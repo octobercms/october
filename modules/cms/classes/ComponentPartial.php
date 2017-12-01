@@ -89,6 +89,28 @@ class ComponentPartial extends Extendable implements CmsObjectContract
     }
 
     /**
+     * Checks if a partial override exists in the supplied theme and returns it.
+     * Since the beginning of time, October inconsistently checked for overrides
+     * using the component alias exactly, resulting in a folder with uppercase
+     * characters, subsequently this method checks for both variants.
+     *
+     * @param \Cms\Classes\Theme $theme
+     * @param \Cms\Classes\ComponentBase $component
+     * @param string $fileName
+     * @return mixed
+     */
+    public static function loadOverrideCached($theme, $component, $fileName)
+    {
+        $partial = Partial::loadCached($theme, strtolower($component->alias) . '/' . $fileName);
+
+        if ($partial === null) {
+            $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
+        }
+
+        return $partial;
+    }
+
+    /**
      * Find a single template by its file name.
      *
      * @param  string $fileName

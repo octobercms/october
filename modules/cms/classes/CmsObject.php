@@ -2,6 +2,7 @@
 
 use App;
 use Lang;
+use Event;
 use Config;
 use October\Rain\Halcyon\Model as HalcyonModel;
 use Cms\Contracts\CmsObject as CmsObjectContract;
@@ -126,24 +127,58 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
      * This method is used internally by the system.
      * @param \Cms\Classes\Theme $theme Specifies a parent theme.
      * @param boolean $skipCache Indicates if objects should be reloaded from the disk bypassing the cache.
-     * @return array Returns an array of CMS objects.
+     * @return Collection Returns a collection of CMS objects.
      */
     public static function listInTheme($theme, $skipCache = false)
     {
+        $result = [];
         $instance = static::inTheme($theme);
 
         if ($skipCache) {
-            return $instance->get();
+            $result = $instance->get();
+        } else {
+            $items = $instance->newQuery()->lists('fileName');
+
+            $loadedItems = [];
+            foreach ($items as $item) {
+                $loadedItems[] = static::loadCached($theme, $item);
+            }
+
+            $result = $instance->newCollection($loadedItems);
         }
 
-        $result = [];
-        $items = $instance->newQuery()->lists('fileName');
+        /**
+         * @event cms.object.listInTheme
+         * Provides opportunity to filter the items returned by a call to CmsObject::listInTheme()
+         *
+         * Parameters provided are `$cmsObject` (the object being listed) and `$objectList` (a collection of the CmsObjects being returned).
+         * > Note: The `$objectList` provided is an object reference to a CmsObjectCollection, to make changes you must use object modifying methods.
+         *
+         * Example usage (filters all pages except for the 404 page on the CMS Maintenance mode settings page):
+         *
+         *     // Extend only the Settings Controller
+         *     \System\Controllers\Settings::extend(function($controller) {
+         *         // Listen for the cms.object.listInTheme event
+         *         \Event::listen('cms.object.listInTheme', function ($cmsObject, $objectList) {
+         *             // Get the current context of the Settings Manager to ensure we only affect what we need to affect
+         *             $context = \System\Classes\SettingsManager::instance()->getContext();
+         *             if ($context->owner === 'october.cms' && $context->itemCode === 'maintenance_settings') {
+         *                 // Double check that this is a Page List that we're modifying
+         *                 if ($cmsObject instanceof \Cms\Classes\Page) {
+         *                     // Perform filtering with an original-object modifying method as $objectList is passed by reference (being that it's an object)
+         *                     foreach ($objectList as $index => $page) {
+         *                         if ($page->url !== '/404') {
+         *                             $objectList->forget($index);
+         *                         }
+         *                     }
+         *                 }
+         *             }
+         *         });
+         *     });
+         */
+        Event::fire('cms.object.listInTheme', [$instance, $result]);
 
-        foreach ($items as $item) {
-            $result[] = static::loadCached($theme, $item);
-        }
-
-        return $instance->newCollection($result);
+        return $result;
     }
 
     /**
