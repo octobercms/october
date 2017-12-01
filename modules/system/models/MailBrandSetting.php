@@ -3,13 +3,13 @@
 use App;
 use Url;
 use Str;
-use File;
 use Lang;
 use Model;
 use Cache;
 use Config;
 use Less_Parser;
 use Exception;
+use File as FileHelper;
 
 /**
  * Mail brand settings
@@ -152,7 +152,7 @@ class MailBrandSetting extends Model
 
         $parser->ModifyVars(static::makeCssVars());
 
-        $parser->parse(File::get($basePath . '/custom.less'));
+        $parser->parse(FileHelper::get($basePath . '/custom.less'));
 
         $css = $parser->getCss();
 

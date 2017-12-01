@@ -6,6 +6,7 @@ use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use ApplicationException;
+use System\Classes\MediaLibrary;
 use System\Classes\MarkupManager;
 
 /**
@@ -56,6 +57,7 @@ class Extension extends Twig_Extension
     {
         $filters = [
             new Twig_SimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
         ];
 
         /*
@@ -91,5 +93,15 @@ class Extension extends Twig_Extension
     public function appFilter($url)
     {
         return Url::to($url);
+    }
+
+    /**
+     * Converts supplied file to a URL relative to the media library.
+     * @param string $file Specifies the media-relative file
+     * @return string
+     */
+    public function mediaFilter($file)
+    {
+        return MediaLibrary::url($file);
     }
 }

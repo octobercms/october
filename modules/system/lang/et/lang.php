@@ -363,5 +363,9 @@ return [
         'log_requests_comment' => 'Süsteemi juurdepääsu päringud, mis võiksid vajada tähelepanu (nt 404)',
         'log_theme' => 'Logi teema muudatusi',
         'log_theme_comment' => 'Teema muudatused, mida tehakse haldusliideses.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Invalid file path specified: ':path'.",
+        'folder_size_items' => 'item(s)',
+    ],
 ];

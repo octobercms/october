@@ -354,6 +354,18 @@ class ServiceProvider extends ModuleServiceProvider
             'system',
             '~/modules/system/partials/_system_sidebar.htm'
         );
+
+        /*
+         * Remove the October.System.system main menu item if there is no subpages to display
+         */
+        Event::listen('backend.menu.extendItems', function ($manager) {
+            $systemSettingItems = SettingsManager::instance()->listItems('system');
+            $systemMenuItems = $manager->listSideMenuItems('October.System', 'system');
+
+            if (empty($systemSettingItems) && empty($systemMenuItems)) {
+                $manager->removeMainMenuItem('October.System', 'system');
+            }
+        }, -9999);
     }
 
     /*

@@ -1,11 +1,11 @@
 <?php namespace System\Models;
 
 use App;
-use File;
 use View;
 use Model;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
+use File as FileHelper;
 
 /**
  * Mail template
@@ -57,6 +57,22 @@ class MailTemplate extends Model
         $templates = $fileTemplates + $dbTemplates;
         ksort($templates);
         return $templates;
+    }
+
+    /**
+     * Returns a list of all mail templates.
+     * @return array Returns an array of the MailTemplate objects.
+     */
+    public static function allTemplates()
+    {
+        $result = [];
+        $codes = array_keys(self::listAllTemplates());
+
+        foreach ($codes as $code) {
+            $result[] = self::findOrMakeTemplate($code);
+        }
+
+        return $result;
     }
 
     /**
@@ -131,7 +147,7 @@ class MailTemplate extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(File::get(View::make($code)->getPath()));
+        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
 
     public static function findOrMakeTemplate($code)

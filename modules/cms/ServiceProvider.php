@@ -30,7 +30,6 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerComponents();
         $this->registerThemeLogging();
-        $this->registerAssetBundles();
         $this->registerCombinerEvents();
 
         /*
@@ -76,20 +75,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         CmsObject::extend(function ($model) {
             ThemeLog::bindEventsToModel($model);
-        });
-    }
-
-    /**
-     * Register asset bundles.
-     */
-    protected function registerAssetBundles()
-    {
-        /*
-         * Register asset bundles
-         */
-        CombineAssets::registerCallback(function ($combiner) {
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/js/mediamanager-browser.js');
-            $combiner->registerBundle('~/modules/cms/widgets/mediamanager/assets/less/mediamanager.less');
         });
     }
 
@@ -181,14 +166,6 @@ class ServiceProvider extends ModuleServiceProvider
                             'permissions' => ['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials']
                         ]
                     ]
-                ],
-                'media' => [
-                    'label'       => 'cms::lang.media.menu_label',
-                    'icon'        => 'icon-folder',
-                    'iconSvg'     => 'modules/cms/assets/images/media-icon.svg',
-                    'url'         => Backend::url('cms/media'),
-                    'permissions' => ['media.*'],
-                    'order'       => 200
                 ]
             ]);
         });
@@ -255,11 +232,6 @@ class ServiceProvider extends ModuleServiceProvider
                     'tab' => 'cms::lang.permissions.name',
                     'order' => 100
                 ],
-                'media.manage_media' => [
-                    'label' => 'cms::lang.permissions.manage_media',
-                    'tab' => 'cms::lang.permissions.name',
-                    'order' => 100
-                ]
             ]);
         });
     }
@@ -271,7 +243,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Cms\FormWidgets\Components');
-            $manager->registerFormWidget('Cms\FormWidgets\MediaFinder', 'mediafinder');
         });
     }
 

@@ -14,7 +14,7 @@ use Exception;
 use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
-use Cms\Widgets\MediaManager;
+use Backend\Widgets\MediaManager;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
@@ -152,11 +152,7 @@ class Controller extends Extendable
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if (
-            class_exists('Cms\Widgets\MediaManager') &&
-            $this->user &&
-            $this->user->hasAccess('media.*')
-        ) {
+        if ($this->user && $this->user->hasAccess('media.*')) {
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }
@@ -188,13 +184,6 @@ class Controller extends Extendable
         }
 
         /*
-         * Extensibility
-         */
-        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
-            return $event;
-        }
-
-        /*
          * Determine if this request is a public action.
          */
         $isPublicAction = in_array($action, $this->publicActions);
@@ -219,6 +208,13 @@ class Controller extends Extendable
             if ($this->requiredPermissions && !$this->user->hasAnyAccess($this->requiredPermissions)) {
                 return Response::make(View::make('backend::access_denied'), 403);
             }
+        }
+        
+        /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
+            return $event;
         }
 
         /*
@@ -694,6 +690,10 @@ class Controller extends Extendable
         }
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!strlen($token)) {
+            return false;
+        }
 
         return hash_equals(
             Session::token(),

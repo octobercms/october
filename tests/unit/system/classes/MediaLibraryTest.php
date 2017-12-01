@@ -1,6 +1,6 @@
 <?php
 
-use Cms\Classes\MediaLibrary;
+use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {

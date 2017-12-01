@@ -313,14 +313,18 @@ class NavigationManager
      * Returns a list of side menu items for the currently active main menu item.
      * The currently active main menu item is set with the setContext methods.
      */
-    public function listSideMenuItems()
+    public function listSideMenuItems($owner = null, $code = null)
     {
         $activeItem = null;
 
-        foreach ($this->listMainMenuItems() as $item) {
-            if ($this->isMainMenuItemActive($item)) {
-                $activeItem = $item;
-                break;
+        if (!is_null($owner) && !is_null($code)) {
+            $activeItem = @$this->items[$this->makeItemKey($owner, $code)];
+        } else {
+            foreach ($this->listMainMenuItems() as $item) {
+                if ($this->isMainMenuItemActive($item)) {
+                    $activeItem = $item;
+                    break;
+                }
             }
         }
 

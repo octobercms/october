@@ -78,7 +78,8 @@ trait ViewMaker
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
-        if (!File::isPathSymbol($partial) && realpath($partial) === false) {
+        $notRealPath = realpath($partial) === false || is_dir($partial) === true;
+        if (!File::isPathSymbol($partial) && $notRealPath) {
             $folder = strpos($partial, '/') !== false ? dirname($partial) . '/' : '';
             $partial = $folder . '_' . strtolower(basename($partial)).'.htm';
         }

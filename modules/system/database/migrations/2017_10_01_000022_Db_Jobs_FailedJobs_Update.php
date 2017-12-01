@@ -30,7 +30,7 @@ class DbJobsFailedJobsUpdate extends Migration
     public function down()
     {
         Schema::table($this->getTableName(), function (Blueprint $table) {
-            $table->tinyInteger('reserved')->unsigned();
+            $table->tinyInteger('reserved')->unsigned()->default(0);
             $table->dropIndex('jobs_queue_reserved_at_index');
         });
 
