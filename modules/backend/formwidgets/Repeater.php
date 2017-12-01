@@ -380,7 +380,7 @@ class Repeater extends FormWidgetBase
         if($this->minItems === null) return;
 
         if ($this->indexCount <= $this->minItems) {
-            throw new ApplicationException(Lang::get('backend::lang.repeater.min_items_error'));
+            throw new ApplicationException(Lang::get('backend::lang.repeater.min_items_error', ['number' => $this->minItems]));
         }
     }
 }

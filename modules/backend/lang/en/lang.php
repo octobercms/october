@@ -586,6 +586,6 @@ return [
         'selected_size' => 'Selected:'
     ],
     'repeater' => [
-        'min_items_error' => 'You cannot delete any item. You should modify the existing.'
+        'min_items_error' => 'At least :number items are required.'
     ]
 ];
