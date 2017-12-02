@@ -6,6 +6,7 @@ use Cache;
 use Config;
 use Storage;
 use Request;
+use Url;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 use SystemException;
