@@ -165,8 +165,6 @@ class MailManager
 
         $html = $this->renderTwig($content, $data);
 
-        $html = Markdown::parseSafe($html);
-
         return $html;
     }
 
