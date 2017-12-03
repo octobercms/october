@@ -3,7 +3,7 @@
 return [
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
-        'options_method_not_exists' => 'La clase del modelo :model debe definir un método :method() que devuelva opciones para el campo ':field'.',
+        'options_method_not_exists' => 'La clase del modelo :model debe definir un método :method() que devuelva opciones para el campo ":field".',
     ],
     'widget' => [
         'not_registered' => "No se ha registrado ningún módulo con la clase ':name'.",
