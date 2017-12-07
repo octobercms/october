@@ -464,7 +464,7 @@ class FormController extends ControllerBehavior
         if (post('close') && !ends_with($context, '-close')) {
             $context .= '-close';
         }
-        
+
         if (post('refresh', false)) {
             return Redirect::refresh();
         }
@@ -789,6 +789,7 @@ class FormController extends ControllerBehavior
     /**
      * Called after the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array All form fields in the form of ['fieldName' => $fieldObject]
      * @return void
      */
     public function formExtendFields($host, $fields)
