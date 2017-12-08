@@ -103,7 +103,7 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-post.htm', $page->getFileName());
-        $this->assertEquals(1, count($parameters));
+        $this->assertCount(1, $parameters);
         $this->assertArrayHasKey('url_title', $parameters);
         $this->assertEquals('my-post-title', $parameters['url_title']);
 
@@ -112,7 +112,7 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-post.htm', $page->getFileName());
-        $this->assertEquals(1, count($parameters));
+        $this->assertCount(1, $parameters);
         $this->assertArrayHasKey('url_title', $parameters);
         $this->assertEquals('my-post-title', $parameters['url_title']);
 
@@ -120,7 +120,7 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('authors.htm', $page->getFileName());
-        $this->assertEquals(1, count($parameters));
+        $this->assertCount(1, $parameters);
         $this->assertArrayHasKey('author_id', $parameters);
         $this->assertEquals('no-author', $parameters['author_id']);
 
@@ -134,7 +134,7 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('authors.htm', $page->getFileName());
-        $this->assertEquals(1, count($parameters));
+        $this->assertCount(1, $parameters);
         $this->assertArrayHasKey('author_id', $parameters);
         $this->assertEquals('44', $parameters['author_id']);
 
@@ -142,7 +142,7 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-archive.htm', $page->getFileName());
-        $this->assertEquals(1, count($parameters));
+        $this->assertCount(1, $parameters);
     }
 
     public function testFindPageFromSubdirectory()
