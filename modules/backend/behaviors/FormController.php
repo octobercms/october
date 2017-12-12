@@ -487,7 +487,7 @@ class FormController extends ControllerBehavior
 
         // Assign the default redirect afterwards to prevent the
         // source for the default redirect being default[redirect]
-        $redirects['default' => $this->getConfig('defaultRedirect', '')];
+        $redirects['default'] = $this->getConfig('defaultRedirect', '');
 
         if (!isset($redirects[$context])) {
             return $redirects['default'];
