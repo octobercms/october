@@ -870,7 +870,7 @@ class MediaManager extends WidgetBase
 
     protected function getThumbnailImageUrl($imagePath)
     {
-        return Url::to('/storage/temp'.$imagePath);
+        return MediaLibrary::instance()->getPathUrl($imagePath);
     }
 
     protected function thumbnailExists($thumbnailParams, $itemPath, $lastModified)
