@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Lang;
+use Config;
 use Cms\Classes\Theme;
 use Cms\Classes\Layout;
 use ApplicationException;
@@ -57,9 +58,18 @@ class Page extends CmsCompoundObject
     {
         parent::__construct($attributes);
 
+        $this->setRuleForDuplicateUrls();
+
         $this->customMessages = [
-            'url.regex' => Lang::get('cms::lang.page.invalid_url')
+            'url.regex' => Lang::get('cms::lang.page.invalid_url'),
+            'url.not_in' => Lang::get('cms::lang.page.duplicate_url', ['name' => 'Backend Management'])
         ];
+    }
+
+    protected function setRuleForDuplicateUrls()
+    {
+        $ruleForDuplicatesURL = 'notIn:/' . Config::get('cms.backendUri');
+        array_push($this->rules['url'], $ruleForDuplicatesURL);
     }
 
     protected function parseSettings()
