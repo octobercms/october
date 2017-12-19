@@ -867,6 +867,11 @@ class MediaManager extends WidgetBase
 
         return $result;
     }
+    
+    protected function getLocalThumbnailImageUrl($imagePath)
+    {
+        return Url::to('/storage/temp'.$imagePath);
+    }
 
     protected function getThumbnailImageUrl($imagePath)
     {
@@ -1253,7 +1258,7 @@ class MediaManager extends WidgetBase
                     throw new SystemException('Error saving remote file to a temporary location.');
                 }
 
-                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
+                $url = $this->getLocalThumbnailImageUrl($sessionDirectoryPath.'/'.$originalThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
 
                 return [
@@ -1282,7 +1287,7 @@ class MediaManager extends WidgetBase
                     ->save($tempFilePath)
                 ;
 
-                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
+                $url = $this->getLocalThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
                 $dimensions = getimagesize($tempFilePath);
 
                 return [
