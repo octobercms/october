@@ -5,6 +5,11 @@
     </IfModule>
 
     RewriteEngine On
+    
+    ##
+    ## Allow access subdomain folders
+    ## RewriteRule ^(subdomain1|subdomain2)($|/) - [L] 
+    ##
 
     ##
     ## You may need to uncomment the following line for some hosting environments,
