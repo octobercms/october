@@ -181,6 +181,57 @@ return [
         'sending' => 'Lähetetään testiviestiä...',
         'return' => 'Palaa mallilistaan'
     ],
+    'mail_brand' => [
+        'menu_label' => 'Sähköpostin brändäys',
+        'menu_description' => 'Muokkaa sähköpostimallien värejä ja ulkonäköä.',
+        'page_title' => 'Kustomoi sähköpostin ulkonäköä',
+        'sample_template' => [
+            'heading' => 'Otsikko',
+            'paragraph' => 'Tämä leipäteksti sisältää Lorem Ipsumia ja linkin. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Kohde',
+                'description' => 'Kuvaus',
+                'price' => 'Hinta',
+                'centered' => 'Keskitetty',
+                'right_aligned' => 'Tasattu oikealle'
+            ],
+            'buttons' => [
+                'primary' => 'Ensisijainen painike',
+                'positive' => 'Positiivinen painike',
+                'negative' => 'Negatiivinen painike',
+            ],
+            'panel' => 'Kuinka mahtava tämä paneeli on?',
+            'more' => 'Vähän lisää tekstiä',
+            'promotion' => 'Kampanjakoodi: OCTOBER',
+            'subcopy' => 'Tämä on sähköpostin alateksti',
+            'thanks' => 'Kiitos'
+        ],
+        'fields' => [
+            '_section_background' => 'Tausta',
+            'body_bg' => 'Kehon tausta',
+            'content_bg' => 'Sisällön tausta',
+            'content_inner_bg' => 'Keskeisen sisällön tausta',
+            '_section_buttons' => 'Painikkeet',
+            'button_text_color' => 'Painikkeiden tekstin väri',
+            'button_primary_bg' => 'Ensisijaisen painikkeen tausta',
+            'button_positive_bg' => 'Positiivisen painikkeen tausta',
+            'button_negative_bg' => 'Negatiivisen painikkeen tausta',
+            '_section_type' => 'Typografia',
+            'header_color' => 'Taulukko-otsikon väri',
+            'heading_color' => 'Otsikoiden väri',
+            'text_color' => 'Tekstin väri',
+            'link_color' => 'Linkin väri',
+            'footer_color' => 'Alatunnisteen väri',
+            '_section_borders' => 'Reunukset',
+            'body_border_color' => 'Kehon reunuksen väri',
+            'subcopy_border_color' => 'Alatekstin reunuksen väri',
+            'table_border_color' => 'Taulukon reunuksen väri',
+            '_section_components' => 'Komponentit',
+            'panel_bg' => 'Paneelin tausta',
+            'promotion_bg' => 'Kampanjan tausta',
+            'promotion_border_color' => 'Kampanjan reunuksen väri',
+        ]
+    ],
     'install' => [
         'project_label' => 'Liitä projektiin',
         'plugin_label' => 'Asenna lisäosa',
@@ -328,5 +379,9 @@ return [
         'log_requests_comment' => 'Selainten pyynnöt, jotka saattavat vaatia huomiota, kuten 404 virheet.',
         'log_theme' => 'Kirjaa teeman muutokset',
         'log_theme_comment' => 'Kun muutos on tehty teemaan käyttäen hallintapaneelia.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Kelvoton tiedostopolku määritetty: ':path'.",
+        'folder_size_items' => 'kohteita',
+    ],
 ];
