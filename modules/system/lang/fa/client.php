@@ -51,10 +51,10 @@ return [
     ],
 'datepicker' => [
         'previousMonth' => 'ماه قبل',
-        'nextMonth' => 'ماه بعذ',
-        'months' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        'weekdays' => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        'weekdaysShort' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        'nextMonth' => 'ماه بعد',
+        'months' => ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
+        'weekdays' => ['یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه', 'شنبه'],
+        'weekdaysShort' => ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش']
     ],
     'filter' => [
         'group' => [
