@@ -98,8 +98,8 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Asetukset',
-        'not_found' => 'Unable to find the specified settings.',
-        'missing_model' => 'The settings page is missing a Model definition.',
+        'not_found' => 'Määritettyjä asetuksia ei voitu löytää.',
+        'missing_model' => 'Asetussivulta puuttuu Model määritelmä.',
         'update_success' => ':name asetus päivitetty',
         'return' => 'Palaa järjestelmän asetuksiin',
         'search' => 'Hae'
@@ -334,7 +334,7 @@ return [
         'empty_success' => 'Tapahtumaloki tyhjätty',
         'return_link' => 'Palaa tapahtumalokiin',
         'id' => 'ID',
-        'id_label' => 'Event ID',
+        'id_label' => 'Tapahtuma ID',
         'created_at' => 'Päivämäärä ja aika',
         'message' => 'Viesti',
         'level' => 'Taso',

@@ -64,7 +64,7 @@ return [
             'all' => 'kaikki'
         ],
         'dates' => [
-            'all' => 'all',
+            'all' => 'kaikki',
             'filter_button_text' => 'Suodata',
             'reset_button_text'  => 'Palauta',
             'date_placeholder' => 'Päivä',
