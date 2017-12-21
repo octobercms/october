@@ -160,6 +160,7 @@ class Page extends CmsCompoundObject
         if ($type == 'cms-page') {
             $theme = Theme::getActiveTheme();
             $pages = self::listInTheme($theme, true);
+            $references = [];
 
             foreach ($pages as $page) {
                 $references[$page->getBaseFileName()] = $page->title . ' ['.$page->getBaseFileName().']';
