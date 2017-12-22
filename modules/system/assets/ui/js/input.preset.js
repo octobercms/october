@@ -194,7 +194,6 @@
     
 
     var InputPreset = function (element, options) {
-        console.log(options);
         var $el = this.$el = $(element)
         this.options = options || {}
         this.cancelled = false
