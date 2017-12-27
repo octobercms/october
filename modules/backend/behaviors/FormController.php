@@ -490,11 +490,6 @@ class FormController extends ControllerBehavior
         // Get the redirect for the provided context
         $redirects[$context] = $this->getConfig("{$redirectContext}[{$redirectSource}]", $redirects['default']);
 
-
-        if (!isset($redirects[$context])) {
-            return $redirects['default'];
-        }
-
         return $redirects[$context];
     }
 
