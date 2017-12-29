@@ -482,7 +482,9 @@ class FormController extends ControllerBehavior
         $redirectContext = explode('-', $context, 2)[0];
         $redirectSource = ends_with($context, '-close') ? 'redirectClose' : 'redirect';
 
-        $redirects = [];
+        // Get the redirect for the provided context
+        $redirects = [$context => $this->getConfig("{$redirectContext}[{$redirectSource}]", '')];
+
         // Assign the default redirect afterwards to prevent the
         // source for the default redirect being default[redirect]
         $redirects['default'] = $this->getConfig('defaultRedirect', '');
