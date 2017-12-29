@@ -47,9 +47,6 @@
         ]
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "php artisan key:generate"
-        ],
         "post-update-cmd": [
             "php artisan october:util set build"
         ]
