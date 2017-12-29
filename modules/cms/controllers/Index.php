@@ -163,6 +163,10 @@ class Index extends Controller
 
         $fields = ['markup', 'code', 'fileName', 'content'];
 
+        if(Config::get('cms.backendUri') === substr($templateData['settings']['url'], 1)) {
+            throw new ApplicationException(trans('cms::lang.page.duplicate_url', ['url' => 'backend']));
+        }
+
         foreach ($fields as $field) {
             if (array_key_exists($field, $saveData)) {
                 $templateData[$field] = $saveData[$field];

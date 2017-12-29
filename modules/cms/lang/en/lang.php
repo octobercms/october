@@ -122,7 +122,8 @@ return [
         'cms_page' => 'CMS page',
         'title' => 'Page title',
         'url' => 'Page URL',
-        'file_name' => 'Page file name'
+        'file_name' => 'Page file name',
+        'duplicate_url' => 'You cannot create the same :url url'
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
