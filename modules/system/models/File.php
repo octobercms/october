@@ -60,8 +60,8 @@ class File extends FileBase
     }
 
     /**
-     * Returns true if the storage engine is local.
-     * @return bool True if storage.uploads.disk in config/cms.php is "local".
+     * Returns true if storage.uploads.disk in config/cms.php is "local".
+     * @return bool
      */
     protected function isLocalStorage()
     {
