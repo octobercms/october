@@ -1173,7 +1173,7 @@ class Lists extends WidgetBase
             $value = implode(', ', $value);
         }
 
-        return  '<span style="background:'.$value.'; padding:10px">'.$value.'<span>';
+        return  '<span style="width:30px; height:30px; display:inline-block; background:'.$value.'; padding:10px"><span>';
     }
     /**
      * Validates a column type as a date
