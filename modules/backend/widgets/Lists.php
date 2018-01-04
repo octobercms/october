@@ -1164,7 +1164,17 @@ class Lists extends WidgetBase
 
         return Backend::dateTime($dateTime, $options);
     }
+    /**
+     * Process as background color, to be seen at list
+     */
+    protected function evalColorPickerTypeValue($record, $column, $value)
+    {
+        if (is_array($value) && count($value) == count($value, COUNT_RECURSIVE)) {
+            $value = implode(', ', $value);
+        }
 
+        return  '<span style="background:'.$value.'; padding:10px">'.$value.'<span>';
+    }
     /**
      * Validates a column type as a date
      */
