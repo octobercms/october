@@ -1169,11 +1169,7 @@ class Lists extends WidgetBase
      */
     protected function evalColorPickerTypeValue($record, $column, $value)
     {
-        if (is_array($value) && count($value) == count($value, COUNT_RECURSIVE)) {
-            $value = implode(', ', $value);
-        }
-
-        return  '<span style="width:30px; height:30px; display:inline-block; background:'.$value.'; padding:10px"><span>';
+        return  '<span style="width:30px; height:30px; display:inline-block; background:'.e($value).'; padding:10px"><span>';
     }
     /**
      * Validates a column type as a date
