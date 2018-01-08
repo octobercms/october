@@ -46,7 +46,7 @@ class Page extends CmsCompoundObject
      */
     public $rules = [
         'title' => 'required',
-        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
+        'url' => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
     ];
 
     /**
@@ -70,9 +70,9 @@ class Page extends CmsCompoundObject
      * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
      * @return mixed Returns the class name or null.
      */
-    public function getCodeClassParent(): ?string
+    public function getCodeClassParent(): string
     {
-        return PageCode::class;
+        return '\Cms\Classes\PageCode';
     }
 
     /**
@@ -112,7 +112,7 @@ class Page extends CmsCompoundObject
         $result = [];
         $pages = self::sortBy('baseFileName')->all();
         foreach ($pages as $page) {
-            $result[$page->baseFileName] = $page->title.' ('.$page->baseFileName.')';
+            $result[$page->baseFileName] = $page->title . ' (' . $page->baseFileName . ')';
         }
 
         return $result;
@@ -163,12 +163,12 @@ class Page extends CmsCompoundObject
             $references = [];
 
             foreach ($pages as $page) {
-                $references[$page->getBaseFileName()] = $page->title . ' ['.$page->getBaseFileName().']';
+                $references[$page->getBaseFileName()] = $page->title . ' [' . $page->getBaseFileName() . ']';
             }
 
             $result = [
-                'references'   => $references,
-                'nesting'      => false,
+                'references' => $references,
+                'nesting' => false,
                 'dynamicItems' => false
             ];
         }

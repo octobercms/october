@@ -46,8 +46,8 @@ class Theme
      */
     protected static $editThemeCache = false;
 
-    private const ACTIVE_KEY = 'cms::theme.active';
-    private const EDIT_KEY = 'cms::theme.edit';
+    const ACTIVE_KEY = 'cms::theme.active';
+    const EDIT_KEY = 'cms::theme.edit';
 
     /**
      * Loads the theme.
