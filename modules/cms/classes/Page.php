@@ -46,7 +46,7 @@ class Page extends CmsCompoundObject
      */
     public $rules = [
         'title' => 'required',
-        'url' => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
+        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
     ];
 
     /**
@@ -167,8 +167,8 @@ class Page extends CmsCompoundObject
             }
 
             $result = [
-                'references' => $references,
-                'nesting' => false,
+                'references'   => $references,
+                'nesting'      => false,
                 'dynamicItems' => false
             ];
         }
