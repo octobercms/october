@@ -9,7 +9,7 @@ use Cms\Contracts\CmsObject as CmsObjectContract;
 use ApplicationException;
 use ValidationException;
 use Exception;
-use Cms\Classes\Theme;
+
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
  * The class implements basic operations with file-based templates.
