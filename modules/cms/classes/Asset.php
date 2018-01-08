@@ -93,7 +93,7 @@ class Asset extends Extendable
 
     /**
      * Prepares the theme datasource for the model.
-     * @param \Cms\Classes\Theme $theme Specifies a parent theme.
+     * @param \Cms\Classes\Theme|string $theme Specifies a parent theme.
      * @return $this
      */
     public static function inTheme($theme)

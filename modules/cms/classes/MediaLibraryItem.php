@@ -13,7 +13,7 @@ class MediaLibraryItem extends SystemMediaLibraryItem
 {
     public function __construct()
     {
-        traceLog('Class Cms\Classes\MediaLibraryItem has been deprecated, use System\Classes\MediaLibraryItem instead.');
+        traceLog('Class ' . __CLASS__ . ' has been deprecated, use ' . SystemMediaLibraryItem::class . ' instead.');
         parent::__construct(...func_get_args());
     }
 }
