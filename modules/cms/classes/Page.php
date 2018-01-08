@@ -62,7 +62,7 @@ class Page extends CmsCompoundObject
         ];
     }
 
-    protected function parseSettings(): void
+    protected function parseSettings()
     {
     }
 
@@ -70,7 +70,7 @@ class Page extends CmsCompoundObject
      * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
      * @return mixed Returns the class name or null.
      */
-    public function getCodeClassParent(): string
+    public function getCodeClassParent() : string
     {
         return '\Cms\Classes\PageCode';
     }
@@ -80,7 +80,7 @@ class Page extends CmsCompoundObject
      * This method is used by the form widget.
      * @return array Returns an array of strings.
      */
-    public function getLayoutOptions(): array
+    public function getLayoutOptions() : array
     {
         if (!($theme = Theme::getEditTheme())) {
             throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_found'));
@@ -107,7 +107,7 @@ class Page extends CmsCompoundObject
      * Helper that returns a nicer list of pages for use in dropdowns.
      * @return array
      */
-    public static function getNameList(): array
+    public static function getNameList() : array
     {
         $result = [];
         $pages = self::sortBy('baseFileName')->all();
@@ -124,7 +124,7 @@ class Page extends CmsCompoundObject
      * @param array $params Route parameters to consider in the URL.
      * @return string
      */
-    public static function url($page, array $params = []): string
+    public static function url($page, array $params = []) : string
     {
         /*
          * Reuse existing controller or create a new one,
@@ -153,7 +153,7 @@ class Page extends CmsCompoundObject
      * @param string $type Specifies the menu item type
      * @return array Returns an array
      */
-    public static function getMenuTypeInfo(string $type): array
+    public static function getMenuTypeInfo(string $type) : array
     {
         $result = [];
 
@@ -221,7 +221,7 @@ class Page extends CmsCompoundObject
      * @param string $type Specifies the page link type
      * @return array
      */
-    public static function getRichEditorTypeInfo(string $type): array
+    public static function getRichEditorTypeInfo(string $type) : array
     {
         $result = [];
 
