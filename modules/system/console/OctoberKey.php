@@ -31,10 +31,8 @@ class OctoberKey extends Command
         $this->configWriter = new ConfigWriter;
     }
 
-
     public function handle()
     {
-
         $key = $this->generateRandomKey();
 
         $this->writeToConfig('app', ['key' => $key]);
@@ -56,7 +54,6 @@ class OctoberKey extends Command
             );
     }
 
-
     protected function writeToConfig($file, $values)
     {
         $configFile = $this->getConfigFile($file);
@@ -68,7 +65,6 @@ class OctoberKey extends Command
         $this->configWriter->toFile($configFile, $values);
     }
 
-
     /**
      * Get a config file and contents.
      *
@@ -77,14 +73,8 @@ class OctoberKey extends Command
     protected function getConfigFile($name = 'app')
     {
         $env = $this->option('env') ? $this->option('env') . '/' : '';
-
         $name .= '.php';
-
         $contents = File::get($path = $this->laravel['path.config'] . "/{$env}{$name}");
-
         return $path;
-
     }
-
 }
-
