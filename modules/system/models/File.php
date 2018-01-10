@@ -30,7 +30,7 @@ class File extends FileBase
      */
     public function getPublicPath()
     {
-        $uploadsPath = Config::get($this->getStorageConfigKey() . '.path', '/storage/app/uploads');
+        $uploadsPath = Config::get('cms.storage.uploads.path', '/storage/app/uploads');
 
         if ($this->isPublic()) {
             $uploadsPath .= '/public';
@@ -47,7 +47,7 @@ class File extends FileBase
      */
     public function getStorageDirectory()
     {
-        $uploadsFolder = Config::get($this->getStorageConfigKey() . '.folder');
+        $uploadsFolder = Config::get('cms.storage.uploads.folder');
 
         if ($this->isPublic()) {
             return $uploadsFolder . '/public/';
@@ -58,12 +58,11 @@ class File extends FileBase
     }
 
     /**
-     * Provides the key of the configuration that specifies a disk for the storage.
-     * @return string|null
-     * @see \October\Rain\Database\Attach\File
+     * Returns the name of the disk defined in config/filesystems.php.
+     * @return string
      */
-    protected function getStorageConfigKey()
+    protected function getStorageDiskKey()
     {
-        return 'cms.storage.uploads';
+        return Config::get('cms.storage.uploads.disk');
     }
 }
