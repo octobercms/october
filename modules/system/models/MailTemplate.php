@@ -169,7 +169,7 @@ class MailTemplate extends Model
      */
     public static function registerCallback(callable $callback)
     {
-        traceLog('MailTemplate::registerCallback is deprecated, use System\Classes\MailManager::registerCallback instead');
+        traceLog('MailTemplate::registerCallback is deprecated, use ' . MailManager::class . '::registerCallback instead');
         MailManager::instance()->registerCallback($callback);
     }
 }
