@@ -221,6 +221,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register console commands
          */
+        $this->registerConsoleCommand('october.key', 'System\Console\OctoberKey');
         $this->registerConsoleCommand('october.up', 'System\Console\OctoberUp');
         $this->registerConsoleCommand('october.down', 'System\Console\OctoberDown');
         $this->registerConsoleCommand('october.update', 'System\Console\OctoberUpdate');
