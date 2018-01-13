@@ -41,6 +41,11 @@ class TagList extends FormWidgetBase
      * @var string If mode is relation, model column to use for the name reference.
      */
     public $nameFrom = 'name';
+	
+	/**
+     * @var bool Use the key instead of value for saving and reading data
+     */
+    public $useKey = false;
 
     //
     // Object properties
@@ -62,6 +67,7 @@ class TagList extends FormWidgetBase
             'options',
             'mode',
             'nameFrom',
+            'useKey'
         ]);
     }
 
@@ -71,7 +77,12 @@ class TagList extends FormWidgetBase
     public function render()
     {
         $this->prepareVars();
-        return $this->makePartial('taglist');
+		
+		if (($this->mode !== static::MODE_RELATION) && ($this->useKey === true)) {
+			return $this->makePartial('taglist_key');
+		}else{
+			return $this->makePartial('taglist');
+		}
     }
 
     /**
@@ -134,6 +145,10 @@ class TagList extends FormWidgetBase
     public function getLoadValue()
     {
         $value = parent::getLoadValue();
+		
+		// BUGFIX: return empty if there is no value
+		if(!$value || ($value == NULL))
+			return NULL;
 
         if ($this->mode === static::MODE_RELATION) {
             return $this->getRelationObject()->lists($this->nameFrom);
