@@ -41,7 +41,7 @@ class Layout extends CmsCompoundObject
      */
     public function isFallBack()
     {
-        return $this->fileName == self::FALLBACK_FILE_NAME;
+        return $this->fileName === self::FALLBACK_FILE_NAME;
     }
 
     /**
@@ -50,6 +50,6 @@ class Layout extends CmsCompoundObject
      */
     public function getCodeClassParent()
     {
-        return '\Cms\Classes\LayoutCode';
+        return LayoutCode::class;
     }
 }
