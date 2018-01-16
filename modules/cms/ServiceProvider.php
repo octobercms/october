@@ -3,14 +3,12 @@
 use App;
 use Lang;
 use Event;
-use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
-use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\CmsObject;
@@ -242,7 +240,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendWidgets()
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
-            $manager->registerFormWidget('Cms\FormWidgets\Components');
+            $manager->registerFormWidget(FormWidgets\Components::class);
         });
     }
 
