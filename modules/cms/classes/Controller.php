@@ -493,6 +493,7 @@ class Controller
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
+            'strict_variables' => $isDebugMode,
         ];
 
         if ($useCache) {
