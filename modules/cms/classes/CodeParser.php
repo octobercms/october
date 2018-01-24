@@ -32,7 +32,7 @@ class CodeParser
     /**
      * @var string Key for the parsed PHP file information cache.
      */
-    protected $dataCacheKey = 'cms-php-file-data';
+    protected $dataCacheKey = '';
 
     /**
      * Creates the class instance
@@ -40,8 +40,10 @@ class CodeParser
      */
     public function __construct(CmsCompoundObject $object)
     {
+
         $this->object = $object;
         $this->filePath = $object->getFilePath();
+        $this->dataCacheKey = Config::get('cache.codeParserDataCacheKey', 'cms-php-file-data');
     }
 
     /**
