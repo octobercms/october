@@ -10,44 +10,66 @@
         <?php endif ?>
 
         <p><?= e(trans('system::lang.plugins.selected_amount', ['amount'=>count($checked)])) ?></p>
+        <!-- Unable to factor in where to put this script. I want to put it in a js file for global use of switch/checkboxes, but I don't know where.
+        ref issue: https://github.com/octobercms/october/issues/2714
+        -->
+        <script>
+          $( document ).ready(function() {
+            $("[data-check|='oc']").each(function() {
+                $(this).find('input').on('change', function() {
+                  this.value = this.checked ? 1 : 0;
+                });
+            });
+          });
+        </script>
+        <div class="form-preview" style="padding:0">
+          <table class="table table-bordered table-striped" style="margin-bottom:0">
+              <thead>
+                  <tr>
+                      <th class="text-center"><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
+                      <th><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
+                      <th><span><?= e(trans('system::lang.plugins.disabled_label')) ?></span></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php foreach ($checked as $plugin): ?>
+                  <tr>
+                      <input type="hidden" name="checked[]" value="<?= $plugin->id ?>" />
+                      <td><?= $plugin->code ?></td>
+                      <td>
+                        <label class="custom-switch" data-check="oc-freeze-<?= $plugin->id ?>">
+                            <input id="pluginFreeze-<?= $plugin->id ?>"
+                                   type="checkbox"
+                                   name="freeze_<?= $plugin->id ?>"
+                                   value="<?= $plugin->is_frozen ?>"
+                                   <?php if($plugin->is_frozen): ?>checked=checked<?php endif ?>>
 
-        <div class="form-preview">
+                            <span>
+                                <span><?= e(trans('system::lang.plugins.check_yes')) ?></span>
+                                <span><?= e(trans('system::lang.plugins.check_no')) ?></span>
+                            </span>
+                            <a class="slide-button"></a>
+                        </label>
+                      </td>
+                      <td>
+                        <label class="custom-switch" data-check="oc-disable-<?= $plugin->id ?>">
+                            <input id="pluginDisable-<?= $plugin->id ?>"
+                                   type="checkbox"
+                                   name="disable_<?= $plugin->id ?>"
+                                   value="<?= $plugin->is_disabled ?>"
+                                   <?php if($plugin->is_disabled): ?>checked=checked<?php endif ?>>
 
-            <div class="form-group">
-                <!-- Checkbox -->
-                <div class="checkbox custom-checkbox">
-                    <input
-                        type="checkbox"
-                        name="disable"
-                        value="1"
-                        id="pluginDisable">
-                    <label for="pluginDisable">
-                        <?= e(trans('system::lang.plugins.disabled_label')) ?>
-                    </label>
-                    <p class="help-block"><?= e(trans('system::lang.plugins.disabled_help')) ?></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <!-- Checkbox -->
-                <div class="checkbox custom-checkbox">
-                    <input
-                        type="checkbox"
-                        name="freeze"
-                        value="1"
-                        id="pluginFreeze">
-                    <label for="pluginFreeze">
-                        <?= e(trans('system::lang.plugins.frozen_label')) ?>
-                    </label>
-                    <p class="help-block"><?= e(trans('system::lang.plugins.frozen_help')) ?></p>
-                </div>
-            </div>
-
-        </div>
-
-        <?php foreach ($checked as $id): ?>
-            <input type="hidden" name="checked[]" value="<?= $id ?>" />
-        <?php endforeach ?>
+                            <span>
+                                <span><?= e(trans('system::lang.plugins.check_yes')) ?></span>
+                                <span><?= e(trans('system::lang.plugins.check_no')) ?></span>
+                            </span>
+                            <a class="slide-button"></a>
+                        </label>
+                      </td>
+                  </tr>
+                  <?php endforeach ?>
+              </tbody>
+          </table>
 
     </div>
 

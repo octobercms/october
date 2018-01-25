@@ -772,7 +772,7 @@ class Updates extends Controller
     public function onLoadDisableForm()
     {
         try {
-            $this->vars['checked'] = post('checked');
+            $this->vars['checked'] = PluginVersion::find(post('checked'));
         }
         catch (Exception $ex) {
             $this->handleError($ex);
@@ -782,16 +782,19 @@ class Updates extends Controller
 
     public function onDisablePlugins()
     {
-        $disable = post('disable', false);
-        $freeze = post('freeze', false);
+
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
 
             foreach ($checkedIds as $objectId) {
+
                 if (!$object = PluginVersion::find($objectId)) {
                     continue;
                 }
+
+                $disable = post('disable_' . $object->id);
+                $freeze = post('freeze_' . $object->id);
 
                 if ($disable) {
                     $manager->disablePlugin($object->code, true);
