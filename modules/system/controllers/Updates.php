@@ -772,7 +772,7 @@ class Updates extends Controller
     public function onLoadDisableForm()
     {
         try {
-            $this->vars['checked'] = post('checked');
+            $this->vars['checked'] = PluginVersion::find(post('checked'));
         }
         catch (Exception $ex) {
             $this->handleError($ex);
@@ -782,16 +782,19 @@ class Updates extends Controller
 
     public function onDisablePlugins()
     {
-        $disable = post('disable', false);
-        $freeze = post('freeze', false);
+
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
 
             foreach ($checkedIds as $objectId) {
+
                 if (!$object = PluginVersion::find($objectId)) {
                     continue;
                 }
+
+                $disable = post('disable_' . $object->id);
+                $freeze = post('freeze_' . $object->id);
 
                 if ($disable) {
                     $manager->disablePlugin($object->code, true);
@@ -815,6 +818,45 @@ class Updates extends Controller
         }
 
         return Backend::redirect('system/updates/manage');
+    }
+
+    public function onToggleFrozen()
+    {
+      $objectId = post('plugin_id');
+
+      $object = PluginVersion::find($objectId);
+
+      $object->is_frozen = post('is_frozen');
+      $object->save();
+
+      return $this->listRefresh('manage');
+    }
+
+    public function onToggleDisable()
+    {
+      $objectId = post('plugin_id');
+      $disable = post('is_disabled');
+      $manager = PluginManager::instance();
+      $object = PluginVersion::find($objectId);
+
+      if ($disable) {
+          $manager->disablePlugin($object->code, true);
+      }
+      else {
+          $manager->enablePlugin($object->code, true);
+      }
+
+      $object->is_disabled = $disable;
+      $object->save();
+
+      if ($disable) {
+          Flash::success(Lang::get('system::lang.plugins.disable_success'));
+      }
+      else {
+          Flash::success(Lang::get('system::lang.plugins.enable_success'));
+      }
+
+      return $this->listRefresh('manage');
     }
 
     //

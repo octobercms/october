@@ -12,7 +12,7 @@
             data-control="popup"
             data-handler="onLoadDisableForm"
             data-trigger-action="enable"
-            data-trigger=".control-list input[type=checkbox]"
+            data-trigger=".control-list .list-checkbox input[type=checkbox]"
             data-trigger-condition="checked"
             data-stripe-load-indicator>
             <?= e(trans('system::lang.plugins.enable_or_disable')) ?>
@@ -42,7 +42,7 @@
             data-request="onRemovePlugins"
             data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
             data-trigger-action="enable"
-            data-trigger=".control-list input[type=checkbox]"
+            data-trigger=".control-list .list-checkbox input[type=checkbox]"
             data-trigger-condition="checked"
             data-request-success="$(this).closest('.btn-group').find('button').prop('disabled', true)"
             data-stripe-load-indicator>
