@@ -3,7 +3,7 @@
  *
  * Data attributes:
  * - data-control="fileupload" - enables the file upload plugin
- * - data-unique-id="XXX" - an optional identifier for multiple uploaders on the same page, this value will 
+ * - data-unique-id="XXX" - an optional identifier for multiple uploaders on the same page, this value will
  *   appear in the postback variable called X_OCTOBER_FILEUPLOAD
  * - data-template - a Dropzone.js template to use for each item
  * - data-error-template - a popover template used to show an error
@@ -85,7 +85,7 @@
         this.$filesContainer = null
         this.uploaderOptions = null
 
-        // In some cases options could contain callbacks, 
+        // In some cases options could contain callbacks,
         // so it's better to clean them up too.
         this.options = null
 
@@ -203,15 +203,19 @@
             $img.attr('src', response.thumb)
         }
 
-        /*
-         * Trigger change event (Compatability with october.form.js)
-         */
-        this.$el.closest('[data-field-name]').trigger('change.oc.formwidget')
+        this.triggerChange();
     }
 
     FileUpload.prototype.onUploadError = function(file, error) {
         var $preview = $(file.previewElement)
         $preview.addClass('is-error')
+    }
+
+    /*
+     * Trigger change event (Compatibility with october.form.js)
+     */
+    FileUpload.prototype.triggerChange = function() {
+        this.$el.closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     FileUpload.prototype.addExtraFormData = function(formData) {
@@ -307,6 +311,7 @@
             .one('ajaxDone', function(){
                 self.removeFileFromElement($object)
                 self.evalIsPopulated()
+                self.triggerChange()
             })
             .request()
 

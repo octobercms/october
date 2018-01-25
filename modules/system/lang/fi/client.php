@@ -56,17 +56,27 @@ return [
         'weekdays' => ['Sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'],
         'weekdaysShort' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la']
     ],
+    'colorpicker' => [
+        'choose' => 'Ok',
+    ],
     'filter' => [
         'group' => [
             'all' => 'kaikki'
         ],
         'dates' => [
-            'all' => 'all',
+            'all' => 'kaikki',
             'filter_button_text' => 'Suodata',
             'reset_button_text'  => 'Palauta',
             'date_placeholder' => 'Päivä',
             'after_placeholder' => 'Jälkeen',
             'before_placeholder' => 'Ennen'
+        ],
+        'numbers' => [
+            'all' => 'kaikki',
+            'filter_button_text' => 'Suodata',
+            'reset_button_text'  => 'Palauta',
+            'min_placeholder' => 'Vähintään',
+            'max_placeholder' => 'Enintään'
         ]
     ],
     'eventlog' => [

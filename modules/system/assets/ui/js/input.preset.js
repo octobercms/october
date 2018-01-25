@@ -12,6 +12,7 @@
  *   url, file, slug, camel.
  * - data-input-preset-prefix-input: optional, prefixes the converted value with the value found
  *   in the supplied input element using a CSS selector.
+ * - data-input-preset-remove-words: optional, use removeList to filter stop words of source string.
  *
  * Example: <input type="text" id="name" value=""/>
  *          <input type="text"
@@ -190,41 +191,7 @@
         }
     }
 
-    function toCamel(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.toLowerCase()
-        slug = slug.replace(/(\b|-)\w/g, function(m) {
-            return m.toUpperCase();
-        });
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '')
-        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
-        return slug.substring(0, numChars)
-    }
-
-    function slugify(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '-')
-        slug = slug.toLowerCase()
-        return slug.substring(0, numChars)
-    }
+    
 
     var InputPreset = function (element, options) {
         var $el = this.$el = $(element)
@@ -277,7 +244,7 @@
     }
 
     InputPreset.prototype.formatNamespace = function() {
-        var value = toCamel(this.$src.val())
+        var value = this.toCamel(this.$src.val())
 
         return value.substr(0, 1).toUpperCase() + value.substr(1)
     }
@@ -291,10 +258,10 @@
         }
 
         if (this.options.inputPresetType == 'camel') {
-            var value = toCamel(this.$src.val())
+            var value = this.toCamel(this.$src.val())
         }
         else {
-            var value = slugify(this.$src.val())
+            var value = this.slugify(this.$src.val())
         }
 
         if (this.options.inputPresetType == 'url') {
@@ -304,11 +271,55 @@
         return value.replace(/\s/gi, "-")
     }
 
+    InputPreset.prototype.toCamel = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.toLowerCase()
+        slug = slug.replace(/(\b|-)\w/g, function(m) {
+            return m.toUpperCase();
+        });
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '')
+        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.slugify = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '-')
+        slug = slug.toLowerCase()
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.removeStopWords = function(str) {
+        if (this.options.inputPresetRemoveWords) {
+            var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
+            str = str.replace(regex, '')
+        }
+
+        return str;
+    }
+
     InputPreset.DEFAULTS = {
         inputPreset: '',
         inputPresetType: 'slug',
         inputPresetClosestParent: undefined,
-        inputPresetPrefixInput: undefined
+        inputPresetPrefixInput: undefined,
+        inputPresetRemoveWords: true
     }
 
     // INPUT CONVERTER PLUGIN DEFINITION

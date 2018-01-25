@@ -1,6 +1,6 @@
 <?php
     $selectedValues = is_array($selectedValues) ? $selectedValues : [];
-    $availableOptions = array_unique(array_merge($selectedValues, $fieldOptions));
+    $availableOptions = $useKey ? $fieldOptions : array_unique(array_merge($selectedValues, $fieldOptions));
 ?>
 <!-- Tag List -->
 <select
@@ -10,8 +10,12 @@
     <?php if ($customSeparators): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
     multiple
     <?= $field->getAttributes() ?>>
-    <?php foreach ($availableOptions as $option): ?>
+    <?php foreach ($availableOptions as $key => $option): ?>
         <?php if (!strlen($option)) continue ?>
-        <option value="<?= e($option) ?>" <?= in_array($option, $selectedValues) ? 'selected="selected"' : '' ?>><?= e(trans($option)) ?></option>
+        <?php if ($useKey): ?>
+            <option value="<?= e($key) ?>" <?= in_array($key, $selectedValues) ? 'selected="selected"' : '' ?>><?= e(trans($option)) ?></option>
+        <?php else: ?>
+            <option value="<?= e($option) ?>" <?= in_array($option, $selectedValues) ? 'selected="selected"' : '' ?>><?= e(trans($option)) ?></option>
+        <?php endif ?>
     <?php endforeach ?>
 </select>
