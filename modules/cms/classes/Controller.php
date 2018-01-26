@@ -488,7 +488,8 @@ class Controller
 
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
-        if (($strictVariables = Config::get('cms.enableTwigStrictVariables', null)) === null) {
+        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+        if ($strictVariables === null) {
             $strictVariables = $isDebugMode;
         }
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
