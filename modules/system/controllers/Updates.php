@@ -820,39 +820,30 @@ class Updates extends Controller
         return Backend::redirect('system/updates/manage');
     }
 
-    public function onToggleFrozen()
+    public function onToggleFreezeDisable()
     {
-      $objectId = post('plugin_id');
 
-      $object = PluginVersion::find($objectId);
-
-      $object->is_frozen = post('is_frozen');
-      $object->save();
-
-      return $this->listRefresh('manage');
-    }
-
-    public function onToggleDisable()
-    {
-      $objectId = post('plugin_id');
       $disable = post('is_disabled');
+      $freeze = post('is_frozen');
+
       $manager = PluginManager::instance();
-      $object = PluginVersion::find($objectId);
+      $plugin = PluginVersion::find(post('plugin_id'));
 
       if ($disable) {
-          $manager->disablePlugin($object->code, true);
+          $manager->disablePlugin($plugin->code, true);
       }
       else {
-          $manager->enablePlugin($object->code, true);
+          $manager->enablePlugin($plugin->code, true);
       }
 
-      $object->is_disabled = $disable;
-      $object->save();
+      $plugin->is_disabled = $disable;
+      $plugin->is_frozen = $freeze;
+      $plugin->save();
 
       if ($disable) {
           Flash::success(Lang::get('system::lang.plugins.disable_success'));
       }
-      else {
+      else{
           Flash::success(Lang::get('system::lang.plugins.enable_success'));
       }
 
