@@ -15,13 +15,13 @@ columns:
         sortable: false
 
     is_frozen:
-        label: system::lang.plugins.frozen_label
+        label: system::lang.plugins.freeze_label
         type: partial
         path: is_frozen
         sortable: false
 
     is_disabled:
-        label: system::lang.plugins.disabled_label
+        label: system::lang.plugins.disable_label
         type: partial
         path: is_disabled
         sortable: false

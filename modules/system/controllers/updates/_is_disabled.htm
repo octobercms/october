@@ -1,6 +1,7 @@
 <label class="custom-switch" data-check="oc-disable-<?= $record->id ?>" style="margin-bottom:0">
     <input data-request="onToggleDisable"
            data-request-data="plugin_id: <?= $record->id ?>"
+           data-request-update="list_manage_toolbar: '#plugin-toolbar'"
            type="checkbox"
            name="disable_<?= $record->id ?>"
            value="<?= $record->is_disabled ?>"

@@ -73,6 +73,7 @@ class Updates extends Controller
     {
         $this->pageTitle = 'system::lang.plugins.manage';
         PluginManager::instance()->clearDisabledCache();
+        $this->addJs('/modules/system/assets/js/updates/bulk-actions.js', 'core');
         return $this->asExtension('ListController')->index();
     }
 
@@ -769,9 +770,9 @@ class Updates extends Controller
         return $this->listRefresh('manage');
     }
 
-    public function onDisablePlugins()
+    public function onBulkAction()
     {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+        if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
 
@@ -781,13 +782,24 @@ class Updates extends Controller
                     continue;
                 }
 
-                switch ($plugin->is_disabled) {
-                    case 0:
+                switch ($bulkAction) {
+                    case 'freeze':
+                        $plugin->is_frozen = 1;
+                        Flash::success(Lang::get('system::lang.plugins.freeze_success'));
+                        break;
+
+                    case 'unfreeze':
+                        $plugin->is_frozen = 0;
+                        Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
+                        break;
+
+                    case 'disable':
                         $plugin->is_disabled = 1;
                         $manager->disablePlugin($plugin->code, true);
                         Flash::success(Lang::get('system::lang.plugins.disable_success'));
                         break;
-                    case 1:
+
+                    case 'enable':
                         $plugin->is_disabled = 0;
                         $manager->enablePlugin($plugin->code, true);
                         Flash::success(Lang::get('system::lang.plugins.enable_success'));
@@ -803,33 +815,6 @@ class Updates extends Controller
         return $this->listRefresh('manage');
     }
 
-    public function onFreezePlugins()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            foreach ($checkedIds as $pluginId) {
-
-                if (!$plugin = PluginVersion::find($pluginId)) {
-                    continue;
-                }
-
-                switch ($plugin->is_frozen) {
-                    case 0:
-                        $plugin->is_frozen = 1;
-                        break;
-                    case 1:
-                        $plugin->is_frozen = 0;
-                        break;
-                }
-
-                $plugin->save();
-            }
-
-        }
-
-        return $this->listRefresh('manage');
-    }
-
     public function onToggleFreeze()
     {
         $plugin = PluginVersion::find(post('plugin_id'));
@@ -838,6 +823,12 @@ class Updates extends Controller
 
         $plugin->is_frozen = $freeze;
         $plugin->save();
+
+        if($freeze) {
+          Flash::success(Lang::get('system::lang.plugins.freeze_success'));
+        } else {
+          Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
+        }
 
         return $this->listRefresh('manage');
     }
