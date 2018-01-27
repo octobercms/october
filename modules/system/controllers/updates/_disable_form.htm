@@ -26,30 +26,18 @@
           <table class="table table-bordered table-striped" style="margin-bottom:0">
               <thead>
                   <tr>
-<<<<<<< HEAD
                       <th><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
                       <th class="text-center"><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
                       <th class="text-center"><span><?= e(trans('system::lang.plugins.disabled_label')) ?></span></th>
-=======
-                      <th class="text-center"><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
-                      <th><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
-                      <th><span><?= e(trans('system::lang.plugins.disabled_label')) ?></span></th>
->>>>>>> develop
                   </tr>
               </thead>
               <tbody>
                   <?php foreach ($checked as $plugin): ?>
                   <tr>
                       <input type="hidden" name="checked[]" value="<?= $plugin->id ?>" />
-<<<<<<< HEAD
                       <td valign="middle"><?= $plugin->code ?></td>
                       <td valign="middle">
                         <label class="custom-switch center-block" data-check="oc-freeze-<?= $plugin->id ?>" style="margin-bottom:0">
-=======
-                      <td><?= $plugin->code ?></td>
-                      <td>
-                        <label class="custom-switch" data-check="oc-freeze-<?= $plugin->id ?>">
->>>>>>> develop
                             <input id="pluginFreeze-<?= $plugin->id ?>"
                                    type="checkbox"
                                    name="freeze_<?= $plugin->id ?>"
@@ -63,13 +51,8 @@
                             <a class="slide-button"></a>
                         </label>
                       </td>
-<<<<<<< HEAD
                       <td valign="middle">
                         <label class="custom-switch center-block" data-check="oc-disable-<?= $plugin->id ?>" style="margin-bottom:0">
-=======
-                      <td>
-                        <label class="custom-switch" data-check="oc-disable-<?= $plugin->id ?>">
->>>>>>> develop
                             <input id="pluginDisable-<?= $plugin->id ?>"
                                    type="checkbox"
                                    name="disable_<?= $plugin->id ?>"
