@@ -769,85 +769,104 @@ class Updates extends Controller
         return $this->listRefresh('manage');
     }
 
-    public function onLoadDisableForm()
-    {
-        try {
-            $this->vars['checked'] = PluginVersion::find(post('checked'));
-        }
-        catch (Exception $ex) {
-            $this->handleError($ex);
-        }
-        return $this->makePartial('disable_form');
-    }
-
     public function onDisablePlugins()
     {
-
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
 
-            foreach ($checkedIds as $objectId) {
+            foreach ($checkedIds as $pluginId) {
 
-                if (!$object = PluginVersion::find($objectId)) {
+                if (!$plugin = PluginVersion::find($pluginId)) {
                     continue;
                 }
 
-                $disable = post('disable_' . $object->id);
-                $freeze = post('freeze_' . $object->id);
-
-                if ($disable) {
-                    $manager->disablePlugin($object->code, true);
+                switch ($plugin->is_disabled) {
+                    case 0:
+                        $plugin->is_disabled = 1;
+                        $manager->disablePlugin($plugin->code, true);
+                        Flash::success(Lang::get('system::lang.plugins.disable_success'));
+                        break;
+                    case 1:
+                        $plugin->is_disabled = 0;
+                        $manager->enablePlugin($plugin->code, true);
+                        Flash::success(Lang::get('system::lang.plugins.enable_success'));
+                        break;
                 }
-                else {
-                    $manager->enablePlugin($object->code, true);
-                }
 
-                $object->is_disabled = $disable;
-                $object->is_frozen = $freeze;
-                $object->save();
+                $plugin->save();
+
             }
 
         }
 
+        return $this->listRefresh('manage');
+    }
+
+    public function onFreezePlugins()
+    {
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+
+            foreach ($checkedIds as $pluginId) {
+
+                if (!$plugin = PluginVersion::find($pluginId)) {
+                    continue;
+                }
+
+                switch ($plugin->is_frozen) {
+                    case 0:
+                        $plugin->is_frozen = 1;
+                        break;
+                    case 1:
+                        $plugin->is_frozen = 0;
+                        break;
+                }
+
+                $plugin->save();
+            }
+
+        }
+
+        return $this->listRefresh('manage');
+    }
+
+    public function onToggleFreeze()
+    {
+        $plugin = PluginVersion::find(post('plugin_id'));
+
+        $freeze = post('freeze_' . $plugin->id);
+
+        $plugin->is_frozen = $freeze;
+        $plugin->save();
+
+        return $this->listRefresh('manage');
+    }
+
+    public function onToggleDisable()
+    {
+        $manager = PluginManager::instance();
+        $plugin = PluginVersion::find(post('plugin_id'));
+
+        $disable = post('disable_' . $plugin->id);
+
+        if ($disable) {
+            $manager->disablePlugin($plugin->code, true);
+        }
+        else {
+            $manager->enablePlugin($plugin->code, true);
+        }
+
+        $plugin->is_disabled = $disable;
+        $plugin->save();
+
         if ($disable) {
             Flash::success(Lang::get('system::lang.plugins.disable_success'));
         }
-        else {
+        else{
             Flash::success(Lang::get('system::lang.plugins.enable_success'));
         }
 
-        return Backend::redirect('system/updates/manage');
-    }
-
-    public function onToggleFreezeDisable()
-    {
-
-      $disable = post('is_disabled');
-      $freeze = post('is_frozen');
-
-      $manager = PluginManager::instance();
-      $plugin = PluginVersion::find(post('plugin_id'));
-
-      if ($disable) {
-          $manager->disablePlugin($plugin->code, true);
-      }
-      else {
-          $manager->enablePlugin($plugin->code, true);
-      }
-
-      $plugin->is_disabled = $disable;
-      $plugin->is_frozen = $freeze;
-      $plugin->save();
-
-      if ($disable) {
-          Flash::success(Lang::get('system::lang.plugins.disable_success'));
-      }
-      else{
-          Flash::success(Lang::get('system::lang.plugins.enable_success'));
-      }
-
-      return $this->listRefresh('manage');
+        return $this->listRefresh('manage');
     }
 
     //

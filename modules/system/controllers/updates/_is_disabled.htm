@@ -1,8 +1,8 @@
 <label class="custom-switch" data-check="oc-disable-<?= $record->id ?>" style="margin-bottom:0">
-    <input data-request="onToggleFreezeDisable"
+    <input data-request="onToggleDisable"
            data-request-data="plugin_id: <?= $record->id ?>"
            type="checkbox"
-           name="is_disabled"
+           name="disable_<?= $record->id ?>"
            value="<?= $record->is_disabled ?>"
            <?php if($record->is_disabled): ?>checked=checked<?php endif ?>>
 

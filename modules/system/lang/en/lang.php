@@ -92,8 +92,9 @@ return [
     ],
     'plugins' => [
         'manage' => 'Manage plugins',
-        'enable_or_disable' => 'Enable or disable',
+        'enable_or_disable' => 'Enable/Disable',
         'enable_or_disable_title' => 'Enable or Disable Plugins',
+        'freeze_or_unfreeze' => 'Freeze/Unfreeze',
         'install' => 'Install plugins',
         'install_products' => 'Install products',
         'search' => 'search plugins to install...',
