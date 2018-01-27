@@ -27,9 +27,15 @@
               <thead>
                   <tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <th><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
                       <th class="text-center"><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
                       <th class="text-center"><span><?= e(trans('system::lang.plugins.disabled_label')) ?></span></th>
+=======
+                      <th class="text-center"><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
+                      <th><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
+                      <th><span><?= e(trans('system::lang.plugins.disabled_label')) ?></span></th>
+>>>>>>> develop
 =======
                       <th class="text-center"><span><?= e(trans('system::lang.plugins.plugin_label')) ?></span></th>
                       <th><span><?= e(trans('system::lang.plugins.frozen_label')) ?></sapn></th>
@@ -42,9 +48,15 @@
                   <tr>
                       <input type="hidden" name="checked[]" value="<?= $plugin->id ?>" />
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <td valign="middle"><?= $plugin->code ?></td>
                       <td valign="middle">
                         <label class="custom-switch center-block" data-check="oc-freeze-<?= $plugin->id ?>" style="margin-bottom:0">
+=======
+                      <td><?= $plugin->code ?></td>
+                      <td>
+                        <label class="custom-switch" data-check="oc-freeze-<?= $plugin->id ?>">
+>>>>>>> develop
 =======
                       <td><?= $plugin->code ?></td>
                       <td>
@@ -64,8 +76,13 @@
                         </label>
                       </td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <td valign="middle">
                         <label class="custom-switch center-block" data-check="oc-disable-<?= $plugin->id ?>" style="margin-bottom:0">
+=======
+                      <td>
+                        <label class="custom-switch" data-check="oc-disable-<?= $plugin->id ?>">
+>>>>>>> develop
 =======
                       <td>
                         <label class="custom-switch" data-check="oc-disable-<?= $plugin->id ?>">
