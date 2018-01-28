@@ -804,7 +804,6 @@ class Updates extends Controller
                         $manager->enablePlugin($plugin->code, true);
                         Flash::success(Lang::get('system::lang.plugins.enable_success'));
                         break;
-                }
 
                 $plugin->save();
 
