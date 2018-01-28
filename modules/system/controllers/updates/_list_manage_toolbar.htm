@@ -4,18 +4,18 @@
         <?= e(trans('system::lang.updates.return_link')) ?>
     </a>
 
-    <div class="btn-group dropdown dropdown-fixed" data-control="bulk-actions">
+    <div class="btn-group dropdown dropdown-fixed">
         <button
             data-primary-button
             type="button"
             class="btn btn-default"
-            data-request="onBulkAction"
-            data-request-update="list_manage_toolbar: '#plugin-toolbar'"
+            data-toggle="dropdown"
             data-trigger-action="enable"
             data-trigger=".control-list .list-checkbox input[type=checkbox]"
             data-trigger-condition="checked"
             data-request-success="$(this).prop('disabled', true).next().prop('disabled', true)"
             data-stripe-load-indicator>
+            Select Action...
         </button>
         <button
             type="button"
@@ -26,29 +26,42 @@
             data-toggle="dropdown">
             <span class="caret"></span>
         </button>
+
         <ul class="dropdown-menu" data-dropdown-title="<?= e(trans('rainlab.user::lang.users.bulk_actions')) ?>">
             <li>
-                <a href="javascript:;" class="oc-icon-snowflake-o" data-action="freeze"
-                   data-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.freeze'))])) ?>">
+                <a href="javascript:;" class="oc-icon-snowflake-o"
+                   data-request="onBulkAction"
+                   data-request-data="action: 'freeze', checked: $('.control-list').listWidget('getChecked')"
+                   data-request-update="list_manage_toolbar: '#plugin-toolbar'"
+                   data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.freeze'))])) ?>">
                     <?= e(trans('system::lang.plugins.freeze_label')) ?>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" class="oc-icon-snowflake-o" data-action="unfreeze"
-                   data-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.unfreeze'))])) ?>">
+                <a href="javascript:;" class="oc-icon-snowflake-o"
+                   data-request="onBulkAction"
+                   data-request-data="action: 'unfreeze', checked: $('.control-list').listWidget('getChecked')"
+                   data-request-update="list_manage_toolbar: '#plugin-toolbar'"
+                   data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.unfreeze'))])) ?>">
                     <?= e(trans('system::lang.plugins.unfreeze_label')) ?>
                 </a>
             </li>
             <li role="separator" class="divider"></li>
             <li>
-                <a href="javascript:;" class="oc-icon-power-off" data-action="disable"
-                   data-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.disable'))])) ?>">
+                <a href="javascript:;" class="oc-icon-power-off"
+                   data-request="onBulkAction"
+                   data-request-data="action: 'disable', checked: $('.control-list').listWidget('getChecked')"
+                   data-request-update="list_manage_toolbar: '#plugin-toolbar'"
+                   data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.disable'))])) ?>">
                     <?= e(trans('system::lang.plugins.disable_label')) ?>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" class="oc-icon-power-off" data-action="enable"
-                   data-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.enable'))])) ?>">
+                <a href="javascript:;" class="oc-icon-power-off"
+                   data-request="onBulkAction"
+                   data-request-data="action: 'enable', checked: $('.control-list').listWidget('getChecked')"
+                   data-request-update="list_manage_toolbar: '#plugin-toolbar'"
+                   data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.enable'))])) ?>">
                     <?= e(trans('system::lang.plugins.enable_label')) ?>
                 </a>
             </li>
@@ -58,10 +71,8 @@
         <button
             class="btn btn-default oc-icon-trash-o"
             disabled="disabled"
-            onclick="$(this).data('request-data', {
-                checked: $('.control-list').listWidget('getChecked')
-            })"
             data-request="onRemovePlugins"
+            data-request-data="checked: $('.control-list').listWidget('getChecked')"
             data-request-update="list_manage_toolbar: '#plugin-toolbar'"
             data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
             data-trigger-action="enable"

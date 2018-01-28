@@ -73,7 +73,6 @@ class Updates extends Controller
     {
         $this->pageTitle = 'system::lang.plugins.manage';
         PluginManager::instance()->clearDisabledCache();
-        $this->addJs('/modules/system/assets/js/updates/bulk-actions.js', 'core');
         return $this->asExtension('ListController')->index();
     }
 
@@ -804,7 +803,6 @@ class Updates extends Controller
                         $manager->enablePlugin($plugin->code, true);
                         Flash::success(Lang::get('system::lang.plugins.enable_success'));
                         break;
-                }
 
                 $plugin->save();
 
