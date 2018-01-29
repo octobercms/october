@@ -111,6 +111,7 @@ return [
         'freeze_label' => 'Freeze Updates',
         'unfreeze_label' => 'Unfreeze Updates',
         'selected_amount' => 'Plugins selected: :amount',
+        'select_label' => 'Select Action...',
         'check_yes' => 'Yes',
         'check_no' => 'No',
         'remove_confirm' => 'Are you sure you want to remove this plugin?',
