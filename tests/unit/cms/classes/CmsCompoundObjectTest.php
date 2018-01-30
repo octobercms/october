@@ -29,9 +29,10 @@ class CmsCompoundObjectTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
         Model::clearBootedModels();
         Model::flushEventListeners();
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Post.php';
     }
 
     public function testLoadFile()
@@ -92,6 +93,24 @@ class CmsCompoundObjectTest extends TestCase
         // Negative test
         $this->assertFalse($obj->hasComponent('yooHooBigSummerBlowOut'));
         $this->assertFalse($obj->hasComponent('October\Tester\Components\BigSummer'));
+    }
+
+    public function testGetComponentProperties()
+    {
+        $theme = Theme::load('test');
+
+        $obj = TestCmsCompoundObject::load($theme, 'components.htm');
+
+        $properties = $obj->getComponentProperties('October\Tester\Components\Post');
+        $emptyProperties = $obj->getComponentProperties('October\Tester\Components\Archive');
+        $notExistingProperties = $obj->getComponentProperties('This\Is\Not\Component');
+        $this->assertInternalType('array', $properties);
+        $this->assertArrayHasKey('show-featured', $properties);
+        $this->assertTrue((bool)$properties['show-featured']);
+        $this->assertEquals('true', $properties['show-featured']);
+        $this->assertCount(1, $properties);
+        $this->assertCount(0, $emptyProperties);
+        $this->assertCount(0, $notExistingProperties);
     }
 
     public function testCache()

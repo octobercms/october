@@ -96,17 +96,13 @@ class PermissionEditor extends FormWidgetBase
         $newPermissions = is_array($value) ? array_map('intval', $value) : [];
 
         if (!empty($newPermissions)) {
-            $existingPermissions = $this->model->permissions;
+            $existingPermissions = $this->model->permissions ?: [];
 
             $allowedPermissions = array_map(function ($permissionObject) {
                 return $permissionObject->code;
             }, array_flatten($this->getFilteredPermissions()));
 
             foreach ($newPermissions as $permission => $code) {
-                if ($code === 0) {
-                    continue;
-                }
-
                 if (in_array($permission, $allowedPermissions)) {
                     $existingPermissions[$permission] = $code;
                 }

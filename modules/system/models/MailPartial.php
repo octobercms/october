@@ -8,6 +8,7 @@ use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
 use Exception;
+use File as FileHelper;
 
 /**
  * Mail partial
@@ -115,6 +116,6 @@ class MailPartial extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(\File::get(View::make($code)->getPath()));
+        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
 }

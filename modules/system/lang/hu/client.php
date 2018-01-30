@@ -90,7 +90,7 @@ return [
         ],
         'editor' => [
             'title' => 'Forráskód szerkesztő',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
+            'description' => 'Az operációs rendszert úgy kell beállítani, hogy figyelembe vegye az URL sémát.',
             'openWith' => 'Megnyitás mint',
             'remember_choice' => 'Kiválasztott beállítások megjegyzése ebben a munkamenetben',
             'open' => 'Megnyitás',

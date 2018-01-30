@@ -205,6 +205,7 @@ class Preference extends Model
             'pt-pt' => [Lang::get('system::lang.locale.pt-pt'), 'flag-pt'],
             'ro' => [Lang::get('system::lang.locale.ro'), 'flag-ro'],
             'ru' => [Lang::get('system::lang.locale.ru'), 'flag-ru'],
+            'fi' => [Lang::get('system::lang.locale.fi'), 'flag-fi'],
             'sv' => [Lang::get('system::lang.locale.sv'), 'flag-se'],
             'tr' => [Lang::get('system::lang.locale.tr'), 'flag-tr'],
             'uk' => [Lang::get('system::lang.locale.uk'), 'flag-ua'],

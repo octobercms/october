@@ -2881,6 +2881,11 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a{padding:5px 12px;white
 .control-filter > .filter-scope.checkbox,.control-filter > .filter-scope.checkbox label{margin-bottom:0}
 .control-filter > .filter-scope.checkbox label{padding-left:25px}
 .control-filter > .filter-scope.checkbox:after{content:''}
+.control-filter > .filter-scope.text{padding:0 10px}
+.control-filter > .filter-scope.text,.control-filter > .filter-scope.text label{margin:0}
+.control-filter > .filter-scope.text .form-control{display:inline;width:auto;height:30px;margin-left:10px}
+.control-filter > .filter-scope.text:after{content:''}
+.control-filter > .filter-scope.text .loading-indicator{top:-2px;right:7px;left:auto}
 .control-filter > .filter-scope:hover,.control-filter > .filter-scope.active,.control-filter > .filter-scope:hover.custom-checkbox label,.control-filter > .filter-scope.active.custom-checkbox label{color:#000000}
 .control-filter > .filter-scope:hover .filter-label,.control-filter > .filter-scope.active .filter-label{color:#000000}
 .control-filter > .filter-scope:hover.active .filter-setting,.control-filter > .filter-scope.active.active .filter-setting{background-color:#5f9a4c}

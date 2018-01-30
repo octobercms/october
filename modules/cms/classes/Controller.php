@@ -337,6 +337,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
+            ($this->verifyCsrfToken()) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -487,11 +488,14 @@ class Controller
 
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+        $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
+            'strict_variables' => $strictVariables,
         ];
 
         if ($useCache) {
@@ -1354,5 +1358,37 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
+    }
+
+    //
+    // Security
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found. Override this
+     * method to disable the check.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (!Config::get('cms.enableCsrfProtection')) {
+            return true;
+        }
+
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!strlen($token)) {
+            return false;
+        }
+
+        return hash_equals(
+            Session::token(),
+            $token
+        );
     }
 }

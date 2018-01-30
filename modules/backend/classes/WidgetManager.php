@@ -15,17 +15,17 @@ class WidgetManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
-     * @var array An array of report widgets.
+     * @var array An array of form widgets. Stored in the form of ['FormWidgetClass' => $formWidgetInfo].
      */
     protected $formWidgets;
 
     /**
-     * @var array Cache of report widget registration callbacks.
+     * @var array Cache of form widget registration callbacks.
      */
     protected $formWidgetCallbacks = [];
 
     /**
-     * @var array An array of report widgets.
+     * @var array An array of form widgets keyed by their code. Stored in the form of ['formwidgetcode' => 'FormWidgetClass'].
      */
     protected $formWidgetHints;
 
@@ -92,7 +92,7 @@ class WidgetManager
     }
 
     /**
-     * Registers a single form form widget.
+     * Registers a single form widget.
      * @param string $className Widget class name.
      * @param array $widgetInfo Registration information, can contain a `code` key.
      * @return void
@@ -129,7 +129,7 @@ class WidgetManager
 
     /**
      * Returns a class name from a form widget code
-     * Normalizes a class name or converts an code to it's class name.
+     * Normalizes a class name or converts an code to its class name.
      * @param string $name Class name or form widget code.
      * @return string The class name resolved, or the original name.
      */
@@ -191,9 +191,9 @@ class WidgetManager
 
         /**
          * @event system.reportwidgets.extendItems
-         * Allows to append or remove a report widget.
+         * Enables adding or removing report widgets.
          *
-         * You will have access to the WidgetManager instance and be able to call the appropiated methods
+         * You will have access to the WidgetManager instance and be able to call the appropiate methods
          * $manager->registerReportWidget();
          * $manager->removeReportWidget();
          *
@@ -223,8 +223,8 @@ class WidgetManager
      *
      *     WidgetManager::registerReportWidgets(function($manager){
      *         $manager->registerReportWidget('RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview', [
-     *             'name'=>'Google Analytics traffic overview',
-     *             'context'=>'dashboard'
+     *             'name' => 'Google Analytics traffic overview',
+     *             'context' => 'dashboard'
      *         ]);
      *     });
      *

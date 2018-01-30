@@ -142,6 +142,7 @@ class Filter extends WidgetBase
                 }
 
                 break;
+
             case 'numberrange':
                 if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
                     $scope->value[0] &&
@@ -156,6 +157,12 @@ class Filter extends WidgetBase
                     $params['maxStr'] = $max ? $max : '∞';
                     $params['max'] = $max ? $max : null;
                 }
+
+                break;
+
+            case 'text':
+                $params['value'] = $scope->value;
+                $params['size'] = array_get($scope->config, 'size', 10);
 
                 break;
         }
@@ -238,7 +245,7 @@ class Filter extends WidgetBase
                 $this->setScopeValue($scope, $number);
                 break;
 
-           	case 'numberrange':
+            case 'numberrange':
                 $numbers = $this->numbersFromAjax(post('options.numbers'));
 
                 if (!empty($numbers)) {
@@ -251,6 +258,19 @@ class Filter extends WidgetBase
                 }
 
                 $this->setScopeValue($scope, $numbers);
+                break;
+
+            case 'text':
+                $values = post('options.value');
+
+                if (!is_null($values) && $values !== '') {
+                    list($value) = $values;
+                }
+                else {
+                    $value = null;
+                }
+
+                $this->setScopeValue($scope, $value);
                 break;
         }
 
@@ -350,7 +370,14 @@ class Filter extends WidgetBase
     protected function getOptionsFromModel($scope, $searchQuery = null)
     {
         $model = $this->scopeModels[$scope->scopeName];
+
         $query = $model->newQuery();
+
+        /*
+         * The 'group' scope has trouble supporting more than 500 records at a time
+         * @todo Introduce a more advanced version with robust list support.
+         */
+        $query->limit(500);
 
         /*
          * Extensibility
@@ -566,8 +593,8 @@ class Filter extends WidgetBase
         /*
          * Set scope value
          */
-        $scope->value = $this->getScopeValue($scope);
-
+        $scope->value = $this->getScopeValue($scope, @$config['default']);
+        
         return $scope;
     }
 
@@ -701,6 +728,25 @@ class Filter extends WidgetBase
                             $query->$scopeMethod($min, $max);
                         }
                     }
+                }
+
+                break;
+
+            case 'text':
+                /*
+                 * Condition
+                 */
+                if ($scopeConditions = $scope->conditions) {
+                    $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
+                        ':value' => Db::getPdo()->quote($scope->value),
+                    ])));
+                }
+
+                /*
+                 * Scope
+                 */
+                elseif ($scopeMethod = $scope->scope) {
+                    $query->$scopeMethod($scope->value);
                 }
 
                 break;

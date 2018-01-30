@@ -16,6 +16,7 @@ use System\Classes\MediaLibrary;
 use System\Classes\MediaLibraryItem;
 use October\Rain\Database\Attach\Resizer;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
+use Form as FormHelper;
 
 /**
  * Media Manager widget.
@@ -499,7 +500,7 @@ class MediaManager extends WidgetBase
     {
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
-        $cropSessionKey = md5(\Form::getSessionKey());
+        $cropSessionKey = md5(FormHelper::getSessionKey());
         $selectionParams = $this->getSelectionParams();
 
         $urlAndSize = $this->getCropEditImageUrlAndSize($path, $cropSessionKey);

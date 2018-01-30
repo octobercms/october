@@ -120,6 +120,12 @@ class Repeater extends FormWidgetBase
      */
     public function prepareVars()
     {
+        // Refresh the loaded data to support being modified by filterFields
+        // @see https://github.com/octobercms/october/issues/2613
+        if (!self::$onAddItemCalled) {
+            $this->processExistingItems();
+        }
+        
         if ($this->previewMode) {
             foreach ($this->formWidgets as $widget) {
                 $widget->previewMode = true;
