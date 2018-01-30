@@ -129,6 +129,8 @@ return [
         'deleting_layout' => 'Lösche Layout...',
         'sending' => 'Sende Nachricht...',
         'return' => 'Zurück zur Vorlagen-Liste',
+        'options' => 'Optionen',
+        'inline_css' => 'Inline CSS aktivieren',
     ],
     'install' => [
         'project_label' => 'Mit Projekt verbinden',
