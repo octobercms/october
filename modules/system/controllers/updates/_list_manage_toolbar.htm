@@ -19,7 +19,7 @@
 
         <ul class="dropdown-menu" data-dropdown-title="<?= e(trans('rainlab.user::lang.users.bulk_actions')) ?>">
             <li>
-                <a href="javascript:;" class="oc-icon-ban"
+                <a href="javascript:;" class="oc-icon-pause"
                    data-request="onBulkAction"
                    data-request-data="action: 'freeze', checked: $('.control-list').listWidget('getChecked')"
                    data-request-update="list_manage_toolbar: '#plugin-toolbar'"
@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;" class="oc-icon-check"
+                <a href="javascript:;" class="oc-icon-play"
                    data-request="onBulkAction"
                    data-request-data="action: 'unfreeze', checked: $('.control-list').listWidget('getChecked')"
                    data-request-update="list_manage_toolbar: '#plugin-toolbar'"
@@ -40,7 +40,7 @@
             </li>
             <li role="separator" class="divider"></li>
             <li>
-                <a href="javascript:;" class="oc-icon-pause"
+                <a href="javascript:;" class="oc-icon-ban"
                    data-request="onBulkAction"
                    data-request-data="action: 'disable', checked: $('.control-list').listWidget('getChecked')"
                    data-request-update="list_manage_toolbar: '#plugin-toolbar'"
@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;" class="oc-icon-play"
+                <a href="javascript:;" class="oc-icon-check"
                    data-request="onBulkAction"
                    data-request-data="action: 'enable', checked: $('.control-list').listWidget('getChecked')"
                    data-request-update="list_manage_toolbar: '#plugin-toolbar'"

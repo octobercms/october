@@ -122,7 +122,7 @@ return [
         'unfreeze_label' => 'Enable Updates',
         'enable_label' => 'Enable Plugins',
         'disable_label' => 'Disable Plugins',
-        'refresh_label' => 'Reset Plugins',
+        'refresh_label' => 'Reset Plugin Data',
         'action_confirm' => 'Are you sure you want to :action these plugins?',
         'freeze_success' => 'Successfully disabled updates for the selected plugins.',
         'unfreeze_success' => 'Successfully enabled updates for the selected plugins.',
