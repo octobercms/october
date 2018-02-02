@@ -795,52 +795,93 @@ class Updates extends Controller
         return $this->listRefresh('manage');
     }
 
-    public function onLoadDisableForm()
+    public function onBulkAction()
     {
-        try {
-            $this->vars['checked'] = post('checked');
-        }
-        catch (Exception $ex) {
-            $this->handleError($ex);
-        }
-        return $this->makePartial('disable_form');
-    }
-
-    public function onDisablePlugins()
-    {
-        $disable = post('disable', false);
-        $freeze = post('freeze', false);
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+        if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
             $manager = PluginManager::instance();
 
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
+            foreach ($checkedIds as $pluginId) {
+
+                if (!$plugin = PluginVersion::find($pluginId)) {
                     continue;
                 }
 
-                if ($disable) {
-                    $manager->disablePlugin($object->code, true);
-                }
-                else {
-                    $manager->enablePlugin($object->code, true);
-                }
+                switch ($bulkAction) {
+                    case 'freeze':
+                        $plugin->is_frozen = 1;
+                        Flash::success(Lang::get('system::lang.plugins.freeze_success'));
+                        break;
 
-                $object->is_disabled = $disable;
-                $object->is_frozen = $freeze;
-                $object->save();
+                    case 'unfreeze':
+                        $plugin->is_frozen = 0;
+                        Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
+                        break;
+
+                    case 'disable':
+                        $plugin->is_disabled = 1;
+                        $manager->disablePlugin($plugin->code, true);
+                        Flash::success(Lang::get('system::lang.plugins.disable_success'));
+                        break;
+
+                    case 'enable':
+                        $plugin->is_disabled = 0;
+                        $manager->enablePlugin($plugin->code, true);
+                        Flash::success(Lang::get('system::lang.plugins.enable_success'));
+                        break;
+
+                $plugin->save();
+
             }
 
         }
 
+        return $this->listRefresh('manage');
+    }
+
+    public function onToggleFreeze()
+    {
+        $plugin = PluginVersion::find(post('plugin_id'));
+
+        $freeze = post('freeze_' . $plugin->id);
+
+        $plugin->is_frozen = $freeze;
+        $plugin->save();
+
+        if($freeze) {
+          Flash::success(Lang::get('system::lang.plugins.freeze_success'));
+        } else {
+          Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
+        }
+
+        return $this->listRefresh('manage');
+    }
+
+    public function onToggleDisable()
+    {
+        $manager = PluginManager::instance();
+        $plugin = PluginVersion::find(post('plugin_id'));
+
+        $disable = post('disable_' . $plugin->id);
+
+        if ($disable) {
+            $manager->disablePlugin($plugin->code, true);
+        }
+        else {
+            $manager->enablePlugin($plugin->code, true);
+        }
+
+        $plugin->is_disabled = $disable;
+        $plugin->save();
+
         if ($disable) {
             Flash::success(Lang::get('system::lang.plugins.disable_success'));
         }
-        else {
+        else{
             Flash::success(Lang::get('system::lang.plugins.enable_success'));
         }
 
-        return Backend::redirect('system/updates/manage');
+        return $this->listRefresh('manage');
     }
 
     //
