@@ -6,25 +6,23 @@
 <?php Block::endPut() ?>
 
 <?= $this->listRender('manage') ?>
+
+<!-- Specific assets for this page only -->
 <style>
-td {
-  vertical-align: middle !important;
-}
+    td { vertical-align: middle !important; }
 </style>
-<!-- Unable to factor in where to put this script. I want to put it in a js file for global use of switch/checkboxes, but I don't know where.
-ref issue: https://github.com/octobercms/october/issues/2714
--->
 <script>
-$("[data-check|='oc']").each(function() {
-    $(this).find('input').on('change', function() {
-      this.value = this.checked ? 1 : 0;
+    jQuery(document).ready(function($) {
+        function checkSwitches() {
+            $("[data-check|='oc']").each(function() {
+                $(this).find('input').on('change', function() {
+                  this.value = this.checked ? 1 : 0;
+                });
+            });
+        }
+        checkSwitches();
+        $(document).ajaxComplete(function() {
+            checkSwitches();
+        });
     });
-});
-$(document).ajaxComplete(function() {
-  $("[data-check|='oc']").each(function() {
-      $(this).find('input').on('change', function() {
-        this.value = this.checked ? 1 : 0;
-      });
-  });
-});
 </script>
