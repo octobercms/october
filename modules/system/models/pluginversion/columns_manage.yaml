@@ -14,14 +14,14 @@ columns:
         label: system::lang.updates.plugin_version
         sortable: false
 
-    is_frozen:
-        label: system::lang.plugins.freeze_label
+    is_unfrozen:
+        label: system::lang.plugins.unfrozen
         type: partial
-        path: is_frozen
+        path: is_unfrozen
         sortable: false
 
-    is_disabled:
-        label: system::lang.plugins.disable_label
+    is_enabled:
+        label: system::lang.plugins.enabled
         type: partial
-        path: is_disabled
+        path: is_enabled
         sortable: false

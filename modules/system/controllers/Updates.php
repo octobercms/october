@@ -736,37 +736,13 @@ class Updates extends Controller
     }
 
     /**
-     * Rollback and remove plugins from the system.
-     * @return void
-     */
-    public function onRemovePlugins()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
-                    continue;
-                }
-
-                PluginManager::instance()->deletePlugin($object->code);
-            }
-
-            Flash::success(Lang::get('system::lang.plugins.remove_success'));
-        }
-
-        return $this->listRefresh('manage');
-    }
-
-    /**
      * Rollback and remove a single plugin from the system.
      * @return void
      */
     public function onRemovePlugin()
     {
         if ($pluginCode = post('code')) {
-
             PluginManager::instance()->deletePlugin($pluginCode);
-
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
         }
 
@@ -774,114 +750,67 @@ class Updates extends Controller
     }
 
     /**
-     * Rebuilds plugin database migrations.
+     * Perform a bulk action on the provided plugins
      * @return void
      */
-    public function onRefreshPlugins()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
-                    continue;
-                }
-
-                PluginManager::instance()->refreshPlugin($object->code);
-            }
-
-            Flash::success(Lang::get('system::lang.plugins.refresh_success'));
-        }
-
-        return $this->listRefresh('manage');
-    }
-
     public function onBulkAction()
     {
-        if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
+        if (($bulkAction = post('action')) &&
+            ($checkedIds = post('checked')) &&
+            is_array($checkedIds) &&
+            count($checkedIds)
+        ) {
             $manager = PluginManager::instance();
 
             foreach ($checkedIds as $pluginId) {
-
                 if (!$plugin = PluginVersion::find($pluginId)) {
                     continue;
                 }
 
+                $savePlugin = true;
                 switch ($bulkAction) {
+                    // Enables plugin's updates.
                     case 'freeze':
                         $plugin->is_frozen = 1;
-                        Flash::success(Lang::get('system::lang.plugins.freeze_success'));
                         break;
 
+                    // Disables plugin's updates.
                     case 'unfreeze':
                         $plugin->is_frozen = 0;
-                        Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
                         break;
 
+                    // Disables plugin on the system.
                     case 'disable':
                         $plugin->is_disabled = 1;
                         $manager->disablePlugin($plugin->code, true);
-                        Flash::success(Lang::get('system::lang.plugins.disable_success'));
                         break;
 
+                    // Enables plugin on the system.
                     case 'enable':
                         $plugin->is_disabled = 0;
                         $manager->enablePlugin($plugin->code, true);
-                        Flash::success(Lang::get('system::lang.plugins.enable_success'));
+                        break;
+
+                    // Rebuilds plugin database migrations.
+                    case 'refresh':
+                        $savePlugin = false;
+                        $manager->refreshPlugin($plugin->code);
+                        break;
+
+                    // Rollback and remove plugins from the system.
+                    case 'remove':
+                        $savePlugin = false;
+                        $manager->deletePlugin($plugin->code);
                         break;
                 }
 
-                $plugin->save();
-
+                if ($savePlugin) {
+                    $plugin->save();
+                }
             }
-
         }
 
-        return $this->listRefresh('manage');
-    }
-
-    public function onToggleFreeze()
-    {
-        $plugin = PluginVersion::find(post('plugin_id'));
-
-        $freeze = post('freeze_' . $plugin->id);
-
-        $plugin->is_frozen = $freeze;
-        $plugin->save();
-
-        if($freeze) {
-          Flash::success(Lang::get('system::lang.plugins.freeze_success'));
-        } else {
-          Flash::success(Lang::get('system::lang.plugins.unfreeze_success'));
-        }
-
-        return $this->listRefresh('manage');
-    }
-
-    public function onToggleDisable()
-    {
-        $manager = PluginManager::instance();
-        $plugin = PluginVersion::find(post('plugin_id'));
-
-        $disable = post('disable_' . $plugin->id);
-
-        if ($disable) {
-            $manager->disablePlugin($plugin->code, true);
-        }
-        else {
-            $manager->enablePlugin($plugin->code, true);
-        }
-
-        $plugin->is_disabled = $disable;
-        $plugin->save();
-
-        if ($disable) {
-            Flash::success(Lang::get('system::lang.plugins.disable_success'));
-        }
-        else{
-            Flash::success(Lang::get('system::lang.plugins.enable_success'));
-        }
-
+        Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
         return $this->listRefresh('manage');
     }
 

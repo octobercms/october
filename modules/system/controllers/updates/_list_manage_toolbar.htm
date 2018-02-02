@@ -76,8 +76,8 @@
         <button
             class="btn btn-danger oc-icon-trash-o"
             disabled="disabled"
-            data-request="onRemovePlugins"
-            data-request-data="checked: $('.control-list').listWidget('getChecked')"
+            data-request="onBulkAction"
+            data-request-data="action: 'remove', checked: $('.control-list').listWidget('getChecked')"
             data-request-update="list_manage_toolbar: '#plugin-toolbar'"
             data-request-confirm="<?= e(trans('system::lang.plugins.remove_confirm')) ?>"
             data-trigger-action="enable"
