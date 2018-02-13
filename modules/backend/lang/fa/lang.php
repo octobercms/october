@@ -40,6 +40,7 @@ return [
         'restore' => 'بازنشاندن',
         'login_placeholder' => 'ورود',
         'password_placeholder' => 'کلمه عبور',
+        'remember_me' => 'دفعات بعد مرا به خاطر داشته باش',
         'forgot_password' => "کلمه عبور خود را فراموش کرده اید؟",
         'enter_email' => "پست الکترونیکی خود را وارد نمایید",
         'enter_login' => "نام کاربری خود را وارد نمایید",
@@ -79,6 +80,8 @@ return [
         'make_default' => 'استفاده به عنوان پیشفرض',
         'make_default_confirm' => 'آیا از استفاده طرح بندی کنونی به عنوان پیشفرض اطمینان دارید؟',
         'make_default_success' => 'طرح بندی کنونی به عنوان پیشفرض تایین شد.',
+        'collapse_all' => 'بستن همه',
+        'expand_all' => 'باز کردن همه',
         'status' => [
             'widget_title_default' => 'وضعیت سیستم',
             'update_available' => '{0} به روز رسانی موجود است!|{1} به روز رسانی موجود است!|[2,Inf] به روز رسانی موجود است!',
@@ -114,6 +117,8 @@ return [
         'last_name' => "نام خانوادگی",
         'full_name' => "نام کامل",
         'email' => "پست الکترونیکی",
+        'role_field' => 'نقش',
+        'role_comment' => 'نقش ها نحوه دسترسی کاربران را تعیین میکنند، نحوه دسترسی کاربران در تب دسترسی ها قابل تغییر می باشد.',
         'groups' => "گروه ها",
         'groups_comment' => "اختصاص به گروهی که این شخص به آن تعلق دارد.",
         'avatar' => "نمایه",
@@ -136,8 +141,8 @@ return [
         'updated_at' => 'ویرایش شده در',
         'group' => [
             'name' => 'گروه',
-            'name_comment' => 'نام در لیست گروه های در فرم مدیریت در هنگام ویرایش یا ایجاد به  نمایش  در می آید.',
             'name_field' => 'نام',
+            'name_comment' => 'نام در لیست گروه های در فرم مدیریت در هنگام ویرایش یا ایجاد به  نمایش  در می آید.',
             'description_field' => 'توضیحات',
             'is_new_user_default_field_label' => 'گروه پیشفرض',
             'is_new_user_default_field_comment' => 'بطور پیشفرض مدیران جدید را در این گروه ایجاد کن.',
@@ -148,6 +153,20 @@ return [
             'new' => 'گروه مدیریت جدید',
             'delete_confirm' => 'آیا از حذف این گروه از مدیران اطمینان دارید?',
             'return' => 'بازگشت به لیست گروه ها',
+            'users_count' => 'کاربران'
+        ],
+        'role' => [
+            'name' => 'نقش',
+            'name_field' => 'نام',
+            'name_comment' => 'نام در لیست نقشها در بخش مدیریت به نمایش در می آید.',
+            'description_field' => 'توضیحات',
+            'code_field' => 'کد',
+            'code_comment' => 'کد منحصربفرد نقش را جهت دسترسی به آن توسط رابط برنامه نویسی وارد نمایید.',
+            'menu_label' => 'مدیریت نقش ها',
+            'list_title' => 'مدیریت نقش ها',
+            'new' => 'نقش جدید',
+            'delete_confirm' => 'آیا از حذف این نقش اطمینان دارید؟',
+            'return' => 'بازگشت به لیست نقش ها',
             'users_count' => 'کاربران'
         ],
         'preferences' => [
@@ -166,6 +185,8 @@ return [
         'behavior_not_ready' => 'لسیت مقدار دهی اولیه شده است ، لطفا بررسی نمایید که متد makeLists() در کنترلر خود فراخوانی کرده باشید.',
         'invalid_column_datetime' => "ستون ':column' از نوع شی تاریخ نمی باشد ، لطفا بررسی نمایید که این ستون در مدل از نوع تاریخ تعریف شده باشد.",
         'pagination' => 'نمایش :from تا :to از :total مورد',
+        'first_page' => 'اولین صفحه',
+        'last_page' => 'آخرین صفحه',
         'prev_page' => 'صفحه قبل',
         'next_page' => 'صفحه بعد',
         'refresh' => 'بازنشانی',
@@ -239,7 +260,8 @@ return [
         'confirm_tab_close' => 'در صورت بستن این پنجره موارد ذخیره نشده از بین خواهند رفت. آیا از حذف شدن این پنجره اطمینان دارید؟',
         'behavior_not_ready' => 'فرم مور نظر مقدار دهی اولیه نشده است ، بررسی کنید که متد initForm() در کنترلر فرتخوانی شده باشد.',
         'preview_no_files_message' => 'فایلی جهت ارسال وجود ندارد',
-        'preview_no_record_message' => 'موردی انتخاب نشده است',
+        'preview_no_media_message' => 'رسانه ای انتخاب نشده است.',
+        'preview_no_record_message' => 'موردی انتخاب نشده است.',
         'select' => 'انتخاب',
         'select_all' => 'همه',
         'select_none' => 'هیچ',
@@ -252,7 +274,8 @@ return [
         'return_to_list' => 'بازگشت به لیست'
     ],
     'recordfinder' => [
-        'find_record' => 'انتخاب مورد'
+        'find_record' => 'انتخاب مورد',
+        'cancel' => 'انصراف',
     ],
     'pagelist' => [
         'page_link' => 'لینک صفحه',
@@ -308,7 +331,8 @@ return [
         'tips' => 'راهنمایی پیکر بندی سیستم',
         'tips_description' => 'مشکلاتی در پیکربندی سیستم وجود دارد، شما باید تنظیمات زیر را بررسی نمایید.',
         'permissions' => 'پوشه :name یا یکی از زیر پوشه های آن برای PHP قابل نوشتن نیستند. لطفا تنظیمات این پوشه را تعییر دهید.',
-        'extension' => 'افزونه PHP با نام :name نصب نشده است. لطفن این افزونه را نصب کرده و فعال نمایید.'
+        'extension' => 'افزونه PHP با نام :name نصب نشده است. لطفن این افزونه را نصب کرده و فعال نمایید.',
+        'plugin_missing' => 'افزونه :name مورد نیاز است ولی نصب نشده. لطفا این افزونه را نصب کنید.',
     ],
     'editor' => [
         'menu_label' => 'تنظیمات ویرایشگر کد',
@@ -354,7 +378,9 @@ return [
         'no_wrap' => 'تگ های بدون دربرگیرنده',
         'no_wrap_comment' => 'لیست تگ هایی که درون تک بلاک قرار نمیگیرند',
         'remove_tags' => 'تگ های غیر مجاز',
-        'remove_tags_comment' => 'تگ هایی که در صورت وارد شدن در ویرایش گر با محتوی خود حذف می شوند'
+        'remove_tags_comment' => 'تگ هایی که در صورت وارد شدن در ویرایش گر با محتوی خود حذف می شوند',
+        'toolbar_buttons' => 'دکمه های جعبه ابزار',
+        'toolbar_buttons_comment' => 'دکمه های پیشفرض جهت نمایش در ویرایشگر. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'پیش نمایش وب سایت'
@@ -414,7 +440,8 @@ return [
     'filter' => [
         'all' => 'همه',
         'options_method_not_exists' => "مدل :model باید شامل متدی به نام :method() باشد که گزینه های ':filter' را بازگرداند.",
-        'date_all' => 'تمام دوره زمانی'
+        'date_all' => 'تمام دوره های زمانی',
+        'number_all' => 'همه شماره ها',
     ],
     'import_export' => [
         'upload_csv_file' => '1. ارسال فایل CSV.',
@@ -524,6 +551,9 @@ return [
         'uploading_error' => 'خطا در ارسال',
         'type_blocked' => 'نوع فایل استفاده شده به دلیل مسایل امنیتی مجاز نمی باشد..',
         'order_by' => 'مرتب سازی با',
+        'direction' => 'جهت',
+        'direction_asc' => 'صعودی',
+        'direction_desc' => 'نزولی',
         'folder' => 'پوشه',
         'direction_asc' => 'صعودی',
         'direction_desc' => 'نزولی',
