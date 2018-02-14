@@ -1,6 +1,7 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Console command to convert configuration to use .env files.
@@ -30,6 +31,28 @@ class OctoberEnv extends Command
     protected $config;
 
     /**
+     * Default configuration.
+     */
+    protected $defaultConfig = [
+        'APP_KEY' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
+
+        'DB_HOST' => 'localhost',
+        'DB_PORT' => 3306,
+        'DB_DATABASE' => 'database',
+        'DB_USERNAME' => 'root',
+        'DB_PASSWORD' => '',
+
+        'REDIS_HOST' => '127.0.0.1',
+        'REDIS_PASSWORD' => null,
+        'REDIS_PORT' => 6379,
+
+        'MAIL_HOST' => 'smtp.mailgun.org',
+        'MAIL_PORT' => 587,
+        'MAIL_USERNAME' => null,
+        'MAIL_PASSWORD' => null,
+    ];
+
+    /**
      * The current database connection cursor.
      */
     protected $connection;
@@ -54,6 +77,16 @@ class OctoberEnv extends Command
         $this->overwriteConfig();
 
         $this->info('.env configuration file has been created.');
+    }
+
+    /**
+     * Get the console command options.
+     */
+    protected function getOptions()
+    {
+        return [
+            ['protect', null, InputOption::VALUE_NONE, 'Replaces sensitive config values in the config files with the default values.'],
+        ];
     }
 
     /**
@@ -183,6 +216,10 @@ class OctoberEnv extends Command
             $value = $this->envValue($configKey);
 
             $this->saveEnvSettings($envKey, $value);
+
+            if ($this->option('protect') && array_key_exists($envKey, $this->defaultConfig)) {
+                $value = $this->normalize($this->defaultConfig[$envKey]);
+            }
 
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
         };
@@ -393,5 +430,4 @@ class OctoberEnv extends Command
             ],
         ];
     }
-
 }
