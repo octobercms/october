@@ -346,5 +346,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Twig Strict Variables
+    |--------------------------------------------------------------------------
+    |
+    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | variables (variables and or attributes/methods that do not exist) and
+    | replace them with a null value. When enabled, Twig throws an exception
+    | instead. If set to null, it is enabled when debug mode (app.debug) is
+    | enabled.
+    |
+    */
+    
+    'enableTwigStrictVariables' => false,
 
 ];
