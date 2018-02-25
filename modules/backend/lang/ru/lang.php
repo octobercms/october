@@ -441,7 +441,7 @@ return [
         'all' => 'все',
         'options_method_not_exists' => "Модель класса :model должна определить метод :method() возвращающего варианты для фильтра ':filter'.",
         'date_all' => 'весь период',
-        'number_all' => 'all numbers'
+        'number_all' => 'все номера'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Загрузка CSV-файл',
