@@ -37,16 +37,16 @@ class Encryptable extends \October\Rain\Extension\ExtensionBase
          * Encrypt required fields when necessary
          */
         $parent_class = get_class($this->parent);
-        $parent_class::extend(function($parent) {
-            $encryptable = $parent->getEncryptableAttributes();
-            $parent->bindEvent('model.beforeSetAttribute', function($key, $value) use ($parent, $encryptable) {
+        $parent_class::extend(function($model) {
+            $encryptable = $model->getEncryptableAttributes();
+            $model->bindEvent('model.beforeSetAttribute', function($key, $value) use ($model, $encryptable) {
                 if (in_array($key, $encryptable) && !empty($value)) {
-                    return $parent->makeEncryptableValue($key, $value);
+                    return $model->makeEncryptableValue($key, $value);
                 }
             });
-            $parent->bindEvent('model.beforeGetAttribute', function($key) use ($parent, $encryptable) {
-                if (in_array($key, $encryptable) && array_get($parent->attributes, $key) != null) {
-                    return $parent->getEncryptableValue($key);
+            $model->bindEvent('model.beforeGetAttribute', function($key) use ($model, $encryptable) {
+                if (in_array($key, $encryptable) && array_get($model->attributes, $key) != null) {
+                    return $model->getEncryptableValue($key);
                 }
             });
         });

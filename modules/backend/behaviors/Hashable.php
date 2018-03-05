@@ -37,11 +37,11 @@ class Hashable extends \October\Rain\Extension\ExtensionBase
          * Hash required fields when necessary
          */
         $parent_class = get_class($this->parent);
-        $parent_class::extend(function($parent){
-            $parent->bindEvent('model.beforeSetAttribute', function($key, $value) use ($parent) {
-                $hashable = $parent->getHashableAttributes();
+        $parent_class::extend(function($model){
+            $model->bindEvent('model.beforeSetAttribute', function($key, $value) use ($model) {
+                $hashable = $model->getHashableAttributes();
                 if (in_array($key, $hashable) && !empty($value)) {
-                    return $parent->makeHashValue($key, $value);
+                    return $model->makeHashValue($key, $value);
                 }
             });
         });
