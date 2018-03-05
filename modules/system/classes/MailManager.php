@@ -182,7 +182,7 @@ class MailManager
 
         if ($template->layout) {
 
-            $inlineCss = $template->layout->inline_css;
+            $inlineCss = array_get($template->layout->options, 'inline_css', true);
 
             $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
