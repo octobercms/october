@@ -44,8 +44,8 @@ class MailLayout extends Model
     /**
      * @var array Options array
      */
-    protected $casts = [
-        'options' => 'array',
+    protected $jsonable = [
+        'options'
     ];
 
     public static $codeCache;
@@ -140,28 +140,5 @@ class MailLayout extends Model
     protected static function getTemplateSections($code)
     {
         return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
-    }
-
-    /**
-     * Get the layouts inline_css attribute.
-     *
-     * @return boolean
-     */
-    public function getInlineCssAttribute()
-    {
-        return array_get($this->options, 'inline_css', true);
-    }
-
-    /**
-     * Set the layouts inline_css attribute.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setInlineCssAttribute($value)
-    {
-        $options = $this->options;
-        $options['inline_css'] =  $value;
-        $this->options = $options;
     }
 }
