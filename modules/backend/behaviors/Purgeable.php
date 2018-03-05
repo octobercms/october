@@ -32,14 +32,14 @@ class Purgeable extends \October\Rain\Extension\ExtensionBase
 
         if (!isset($this->parent->purgeable))
             throw new Exception(sprintf(
-                'You must define a $purgeable property in %s to use the Purgeable trait.', get_class($this->parent)
+                'You must define a $purgeable property in %s to use the Purgeable behaviour.', get_class($this->parent)
             ));
 
         /*
          * Remove any purge attributes from the data set
          */
-        $parentClass = get_class($this->parent);
-        $parentClass::extend(function($parent)
+        $parent_class = get_class($this->parent);
+        $parent_class::extend(function($parent)
         {
             $parent->bindEvent('model.saveInternal', function() use ($parent)
             {
@@ -59,7 +59,7 @@ class Purgeable extends \October\Rain\Extension\ExtensionBase
 
         $this->parent->purgeable = array_merge($this->parent->purgeable, $attributes);
 
-        return $this;
+        return $this->parent;
     }
 
     /**
@@ -127,6 +127,6 @@ class Purgeable extends \October\Rain\Extension\ExtensionBase
     public function restorePurgedValues()
     {
         $this->parent->attributes = array_merge($this->parent->getAttributes(), $this->originalPurgeableValues);
-        return $this;
+        return $this->parent;
     }
 }
