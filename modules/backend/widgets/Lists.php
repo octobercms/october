@@ -263,6 +263,9 @@ class Lists extends WidgetBase
 
         if ($this->showPagination) {
             $this->vars['pageCurrent'] = $this->records->currentPage();
+            // Store the currently visited page number in the session so the same
+            // data can be displayed when the user returns to this list.
+            $this->putSession('lastVisitedPage', $this->vars['pageCurrent']);
             if ($this->showPageNumbers) {
                 $this->vars['recordTotal'] = $this->records->total();
                 $this->vars['pageLast'] = $this->records->lastPage();
@@ -540,8 +543,13 @@ class Lists extends WidgetBase
             $records = $model->getNested();
         }
         elseif ($this->showPagination) {
-            $method = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
-            $records = $model->{$method}($this->recordsPerPage, $this->currentPageNumber);
+            $method            = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
+            $currentPageNumber = $this->currentPageNumber;
+            if (!$currentPageNumber && empty($this->searchTerm)) {
+                // Restore the last visited page from the session if available.
+                $currentPageNumber = $this->getSession('lastVisitedPage');
+            }
+            $records = $model->{$method}($this->recordsPerPage, $currentPageNumber);
         }
         else {
             $records = $model->get();
