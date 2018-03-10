@@ -335,8 +335,8 @@ class CodeParser
          * Compile cached file into bytecode cache
          */
         if (Config::get('cms.forceBytecodeInvalidation', false)) {
-            if (function_exists('opcache_invalidate')) {
-                @opcache_invalidate($path, true);
+            if (function_exists('opcache_invalidate') && opcache_invalidate($path, true)) {
+                opcache_invalidate($path, true);
             }
             elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($path);
