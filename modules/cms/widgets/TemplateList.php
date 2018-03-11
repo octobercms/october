@@ -202,12 +202,20 @@ class TemplateList extends WidgetBase
             $filteredItems = $items;
         }
 
-        /*
-         * Group the items
-         */
+        return $this->groupItems($filteredItems);
+    }
+
+    protected function groupItems($filteredItems)
+    {
         $result = [];
         $foundGroups = [];
+        $folderStrcture = [];
+        $isMultiLayer = false;
         foreach ($filteredItems as $itemData) {
+            $folderStrcture = explode('/', $itemData->fileName);
+            if (sizeof($folderStrcture) > 2) {
+                $subGroup = $folderStrcture[1];
+            }
             $pos = strpos($itemData->fileName, '/');
 
             if ($pos !== false) {
@@ -217,11 +225,21 @@ class TemplateList extends WidgetBase
                         'title' => $group,
                         'items' => []
                     ];
-
                     $foundGroups[$group] = $newGroup;
                 }
-
                 $foundGroups[$group]->items[] = $itemData;
+
+                // if sub group exist
+                if (isset($subGroup)) {
+                    if (!array_key_exists($subGroup, $foundGroups[$group]->items)) {
+                        $newGroup = (object)[
+                            'title' => $subGroup,
+                            'items' => []
+                        ];
+                        $foundGroups[$group]->items[$subGroup] = $newGroup;
+                    }
+                    $foundGroups[$group]->items[$subGroup]->items[] = $itemData;
+                }
             }
             else {
                 $result[] = $itemData;
