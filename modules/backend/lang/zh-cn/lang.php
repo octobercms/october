@@ -2,35 +2,35 @@
 
 return [
     'auth' => [
-        'title' => '管理区域'
+        'title' => '管理'
     ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
-        'options_method_invalid_model' => "属性 ':field' 不能解析为一个有效的模型. 请尝试为模型类:model指定一个可选的方法.",
+        'options_method_invalid_model' => "属性 ':field' 不能解析为有效模型. 请尝试为模型类:model指定一个可选方法.",
         'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。"
     ],
     'widget' => [
-        'not_registered' => "部件 ':name' 还没注册",
-        'not_bound' => "部件 ':name' 没绑到控制器"
+        'not_registered' => "未注册部件 ':name' ",
+        'not_bound' => "部件 ':name' 未绑定至控制器"
     ],
     'page' => [
         'untitled' => '未命名',
         'access_denied' => [
-            'label' => '访问拒绝',
-            'help' => "你没有访问这个页面需要的权限.",
+            'label' => '拒绝访问',
+            'help' => "您没有访问该页面所需的权限.",
             'cms_link' => '返回后台'
         ],
         'no_database' => [
-            'label' => '找不到数据库',
-            'help' => "需要一个数据库来访问后端. 在再次尝试之前，检查数据库的配置和迁移.",
+            'label' => '无法找到数据库',
+            'help' => "需要数据库以访问后端。请在再次尝试之前检查数据库的配置和迁移。",
             'cms_link' => '返回首页'
         ],
         'invalid_token' => [
-            'label' => '非法的security token'
+            'label' => '非法安全令牌'
         ]
     ],
     'partial' => [
-        'not_found_name' => "部件 ':name' 没找到."
+        'not_found_name' => "未找到部件 ':name' "
     ],
     'account' => [
         'sign_out' => '登出',
@@ -39,17 +39,17 @@ return [
         'restore' => '还原',
         'login_placeholder' => '登录',
         'password_placeholder' => '密码',
-        'forgot_password' => '忘记你的密码?',
-        'enter_email' => '输入你的邮件',
+        'forgot_password' => '忘记密码?',
+        'enter_email' => '输入邮件地址',
         'enter_login' => '输入账号',
         'email_placeholder' => '邮件',
         'enter_new_password' => '输入新密码',
         'password_reset' => '密码重置',
-        'restore_success' => '密码重置的邮件已发往你的邮箱.',
+        'restore_success' => '密码重置邮件已发至您的邮箱。',
         'restore_error' => "找不到用户 ':login'",
-        'reset_success' => '你的密码已经重置成功. 你现在可以登录了.',
+        'reset_success' => '密码已经重置成功。您现在可以登录了。',
         'reset_error' => '密码重置失败. 请重试!',
-        'reset_fail' => '不能重置你的密码!',
+        'reset_fail' => '无法重置您的密码！',
         'apply' => '应用',
         'cancel' => '取消',
         'delete' => '删除',
@@ -65,31 +65,31 @@ return [
         'widget_inspector_title' => '小工具配置',
         'widget_inspector_description' => '配置报表小工具',
         'widget_columns_label' => '宽度 :columns',
-        'widget_columns_description' => '小工具宽度, 1 到 10.',
-        'widget_columns_error' => '请输入小工具宽度, 1 到 10.',
+        'widget_columns_description' => '小工具宽度， 1 到 10.',
+        'widget_columns_error' => '请输入小工具宽度，1 到 10.',
         'columns' => '{1} 栏|[2,Inf] 栏',
         'widget_new_row_label' => '强制新列',
         'widget_new_row_description' => '把小工具放到新列.',
         'widget_title_label' => '小工具标题',
         'widget_title_error' => '需要小工具标题.',
         'reset_layout' => '重置布局',
-        'reset_layout_confirm' => '重置布局恢复为默认？',
+        'reset_layout_confirm' => '是否将布局恢复为默认？',
         'reset_layout_success' => '布局已经复位',
         'make_default' => '设为默认',
-        'make_default_confirm' => '设置当前布局作为默认？',
-        'make_default_success' => '现在目前的布局是默认',
+        'make_default_confirm' => '是否设置当前布局作为默认？',
+        'make_default_success' => '当前布局为默认',
         'collapse_all' => '全部折叠',
         'expand_all' => '全部展开',
         'status' => [
             'widget_title_default' => '系统状态',
             'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!',
             'updates_pending' => '待定软件更新',
-            'updates_nil' => '软件是最新的',
+            'updates_nil' => '软件已为最新版本',
             'updates_link' => '更新',
-            'warnings_pending' => '有些问题需要注意',
+            'warnings_pending' => '您需要留意一些问题',
             'warnings_nil' => '没有警告显示',
             'warnings_link' => '查看',
-            'core_build' => '系统建设',
+            'core_build' => '系统构建',
             'event_log' => '事件日志',
             'request_log' => '请求日志',
             'app_birthday' => '在线日期',
@@ -98,10 +98,10 @@ return [
             'widget_title_default' => '欢迎',
             'welcome_back_name' => '欢迎归来 :app, :name.',
             'welcome_to_name' => '欢迎到 :app, :name.',
-            'first_sign_in' => '这是你第一次登陆.',
-            'last_sign_in' => '你最后登陆是',
+            'first_sign_in' => '这是您首次登陆.',
+            'last_sign_in' => '您最后登陆是',
             'view_access_logs' => '访问登陆日志',
-            'nice_message' => '祝你有美好的一天!',
+            'nice_message' => '祝你有美好的一天！',
         ]
     ],
     'user' => [
@@ -116,17 +116,17 @@ return [
         'full_name' => '全名',
         'email' => '邮件',
         'groups' => '团队',
-        'groups_comment' => '指明这个人属于哪个组.',
+        'groups_comment' => '指定成员所归属的组.',
         'avatar' => '头像',
         'password' => '密码',
         'password_confirmation' => '确认密码',
         'permissions' => '权限',
         'account' => '帐号',
         'superuser' => '超级用户',
-        'superuser_comment' => '选中并允许这个人访问全部区域.',
+        'superuser_comment' => '选中并允许此成员访问所有区域.',
         'send_invite' => '发送邀请邮件',
         'send_invite_comment' => '发送一封包含用户名和密码的欢迎邮件',
-        'delete_confirm' => '你真的想要删除这个管理员?',
+        'delete_confirm' => '您真的想要删除这个管理员?',
         'return' => '返回管理员列表',
         'allow' => '允许',
         'inherit' => '继承',
@@ -141,18 +141,18 @@ return [
             'name_field' => '名字',
             'description_field' => '描述',
             'is_new_user_default_field_label' => '默认组',
-            'is_new_user_default_field_comment' => '默认增加新管理员到这个组',
+            'is_new_user_default_field_comment' => '默认增加新管理员到此组',
             'code_field' => '代码',
-            'code_comment' => '如果你想访问 API, 请输入唯一码.',
+            'code_comment' => '如果若您想访问 API, 请输入唯一代码。',
             'menu_label' => '群组',
             'list_title' => '管理群组',
             'new' => '新管理组',
-            'delete_confirm' => '你真的想要删除这个管理组?',
+            'delete_confirm' => '您真的想要删除这个管理组?',
             'return' => '返回组列表',
             'users_count' => '用户'
         ],
         'preferences' => [
-            'not_authenticated' => '没有认证用户加载或保存设置.'
+            'not_authenticated' => '无认证用户加载或保存设置.'
         ]
     ],
     'list' => [
@@ -163,9 +163,9 @@ return [
         'missing_column' => '没有 :columns 的栏定义.',
         'missing_columns' => ':class 中使用的列表没有定义好的栏.',
         'missing_definition' => "列表不包含 ':field' 栏.",
-        'missing_parent_definition' => "List 的行为未包含一个 ':definition'.",
-        'behavior_not_ready' => '列表没有初始化, 确认你的控制器中调用了makeLists().',
-        'invalid_column_datetime' => "栏值 ':column' 不是时间对象, 缺少了 \$dates 在模型中的引用吗?",
+        'missing_parent_definition' => "列表行为未包含一个 ':definition'.",
+        'behavior_not_ready' => '列表未初始化，请确认您的控制器中调用了makeLists().',
+        'invalid_column_datetime' => "栏值 ':column' 非时间对象，是否缺少 \$dates 在模型中的引用?",
         'pagination' => '显示记录: :from-:to :total',
         'first_page' => 'First page',
         'last_page' => 'Last page',
@@ -175,16 +175,16 @@ return [
         'updating' => '更新中...',
         'loading' => '加载中...',
         'setup_title' => '建立列表',
-        'setup_help' => '使用多选框选择你想在列表中看到的栏. 你可以通过拖拽调整栏的位置.',
+        'setup_help' => '您可以通过拖拽调整栏的位置并使用多选框选择您想在列表中看到的栏目。',
         'records_per_page' => '每页的记录',
-        'records_per_page_help' => '选择每页想显示的记录数量. 请注意一页中太多记录可能会降低性能.',
+        'records_per_page_help' => '选择每页显示的记录数。请注意单页中若存在太多记录可能会降低性能。',
         'check' => 'Check',
-        'delete_selected' => '删除选择的',
-        'delete_selected_empty' => '没有需要删除的记录.',
-        'delete_selected_confirm' => '删除选中的记录?',
-        'delete_selected_success' => '成功删除选择的记录.',
-        'column_switch_true' => 'Yes',
-        'column_switch_false' => 'No'
+        'delete_selected' => '删除选择项',
+        'delete_selected_empty' => '没有需要删除的项.',
+        'delete_selected_confirm' => '删除选中的项?',
+        'delete_selected_success' => '成功删除选择项',
+        'column_switch_true' => '是',
+        'column_switch_false' => '否'
     ],
     'fileupload' => [
         'attachment' => '附件',
