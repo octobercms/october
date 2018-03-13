@@ -25,7 +25,7 @@ DocCommentHighlightRules.getTagRule = function(start) {
         token : "comment.doc.tag.storage.type",
         regex : "\\b(?:TODO|FIXME|XXX|HACK)\\b"
     };
-}
+};
 
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
@@ -54,13 +54,13 @@ ace.define("ace/mode/css_highlight_rules",["require","exports","module","ace/lib
 var oop = require("../lib/oop");
 var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
-var supportType = exports.supportType = "align-content|align-items|align-self|all|animation|animation-delay|animation-direction|animation-duration|animation-fill-mode|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|backface-visibility|background|background-attachment|background-blend-mode|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|border|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|cursor|direction|display|empty-cells|filter|flex|flex-basis|flex-direction|flex-flow|flex-grow|flex-shrink|flex-wrap|float|font|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|hanging-punctuation|height|justify-content|left|letter-spacing|line-height|list-style|list-style-image|list-style-position|list-style-type|margin|margin-bottom|margin-left|margin-right|margin-top|max-height|max-width|min-height|min-width|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|order|outline|outline-color|outline-offset|outline-style|outline-width|overflow|overflow-x|overflow-y|padding|padding-bottom|padding-left|padding-right|padding-top|page-break-after|page-break-before|page-break-inside|perspective|perspective-origin|position|quotes|resize|right|tab-size|table-layout|text-align|text-align-last|text-decoration|text-decoration-color|text-decoration-line|text-decoration-style|text-indent|text-justify|text-overflow|text-shadow|text-transform|top|transform|transform-origin|transform-style|transition|transition-delay|transition-duration|transition-property|transition-timing-function|unicode-bidi|vertical-align|visibility|white-space|width|word-break|word-spacing|word-wrap|z-index";
+var supportType = exports.supportType = "align-content|align-items|align-self|all|animation|animation-delay|animation-direction|animation-duration|animation-fill-mode|animation-iteration-count|animation-name|animation-play-state|animation-timing-function|backface-visibility|background|background-attachment|background-blend-mode|background-clip|background-color|background-image|background-origin|background-position|background-repeat|background-size|border|border-bottom|border-bottom-color|border-bottom-left-radius|border-bottom-right-radius|border-bottom-style|border-bottom-width|border-collapse|border-color|border-image|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-left|border-left-color|border-left-style|border-left-width|border-radius|border-right|border-right-color|border-right-style|border-right-width|border-spacing|border-style|border-top|border-top-color|border-top-left-radius|border-top-right-radius|border-top-style|border-top-width|border-width|bottom|box-shadow|box-sizing|caption-side|clear|clip|color|column-count|column-fill|column-gap|column-rule|column-rule-color|column-rule-style|column-rule-width|column-span|column-width|columns|content|counter-increment|counter-reset|cursor|direction|display|empty-cells|filter|flex|flex-basis|flex-direction|flex-flow|flex-grow|flex-shrink|flex-wrap|float|font|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|hanging-punctuation|height|justify-content|left|letter-spacing|line-height|list-style|list-style-image|list-style-position|list-style-type|margin|margin-bottom|margin-left|margin-right|margin-top|max-height|max-width|max-zoom|min-height|min-width|min-zoom|nav-down|nav-index|nav-left|nav-right|nav-up|opacity|order|outline|outline-color|outline-offset|outline-style|outline-width|overflow|overflow-x|overflow-y|padding|padding-bottom|padding-left|padding-right|padding-top|page-break-after|page-break-before|page-break-inside|perspective|perspective-origin|position|quotes|resize|right|tab-size|table-layout|text-align|text-align-last|text-decoration|text-decoration-color|text-decoration-line|text-decoration-style|text-indent|text-justify|text-overflow|text-shadow|text-transform|top|transform|transform-origin|transform-style|transition|transition-delay|transition-duration|transition-property|transition-timing-function|unicode-bidi|user-select|user-zoom|vertical-align|visibility|white-space|width|word-break|word-spacing|word-wrap|z-index";
 var supportFunction = exports.supportFunction = "rgb|rgba|url|attr|counter|counters";
-var supportConstant = exports.supportConstant = "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero";
-var supportConstantColor = exports.supportConstantColor = "aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow";
+var supportConstant = exports.supportConstant = "absolute|after-edge|after|all-scroll|all|alphabetic|always|antialiased|armenian|auto|avoid-column|avoid-page|avoid|balance|baseline|before-edge|before|below|bidi-override|block-line-height|block|bold|bolder|border-box|both|bottom|box|break-all|break-word|capitalize|caps-height|caption|center|central|char|circle|cjk-ideographic|clone|close-quote|col-resize|collapse|column|consider-shifts|contain|content-box|cover|crosshair|cubic-bezier|dashed|decimal-leading-zero|decimal|default|disabled|disc|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|e-resize|ease-in|ease-in-out|ease-out|ease|ellipsis|end|exclude-ruby|fill|fixed|georgian|glyphs|grid-height|groove|hand|hanging|hebrew|help|hidden|hiragana-iroha|hiragana|horizontal|icon|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|ideographic|inactive|include-ruby|inherit|initial|inline-block|inline-box|inline-line-height|inline-table|inline|inset|inside|inter-ideograph|inter-word|invert|italic|justify|katakana-iroha|katakana|keep-all|last|left|lighter|line-edge|line-through|line|linear|list-item|local|loose|lower-alpha|lower-greek|lower-latin|lower-roman|lowercase|lr-tb|ltr|mathematical|max-height|max-size|medium|menu|message-box|middle|move|n-resize|ne-resize|newspaper|no-change|no-close-quote|no-drop|no-open-quote|no-repeat|none|normal|not-allowed|nowrap|nw-resize|oblique|open-quote|outset|outside|overline|padding-box|page|pointer|pre-line|pre-wrap|pre|preserve-3d|progress|relative|repeat-x|repeat-y|repeat|replaced|reset-size|ridge|right|round|row-resize|rtl|s-resize|scroll|se-resize|separate|slice|small-caps|small-caption|solid|space|square|start|static|status-bar|step-end|step-start|steps|stretch|strict|sub|super|sw-resize|table-caption|table-cell|table-column-group|table-column|table-footer-group|table-header-group|table-row-group|table-row|table|tb-rl|text-after-edge|text-before-edge|text-bottom|text-size|text-top|text|thick|thin|transparent|underline|upper-alpha|upper-latin|upper-roman|uppercase|use-script|vertical-ideographic|vertical-text|visible|w-resize|wait|whitespace|z-index|zero|zoom";
+var supportConstantColor = exports.supportConstantColor = "aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen";
 var supportConstantFonts = exports.supportConstantFonts = "arial|century|comic|courier|cursive|fantasy|garamond|georgia|helvetica|impact|lucida|symbol|system|tahoma|times|trebuchet|utopia|verdana|webdings|sans-serif|serif|monospace";
 
-var numRe = exports.numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
+var numRe = exports.numRe = "\\-?(?:(?:[0-9]+(?:\\.[0-9]+)?)|(?:\\.[0-9]+))";
 var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-letter|first-line|moz-selection|selection)\\b";
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
@@ -76,20 +76,24 @@ var CssHighlightRules = function() {
 
     this.$rules = {
         "start" : [{
-            token : "comment", // multi line comment
-            regex : "\\/\\*",
-            push : "comment"
+            include : ["strings", "url", "comments"]
         }, {
             token: "paren.lparen",
             regex: "\\{",
-            push:  "ruleset"
+            next:  "ruleset"
+        }, {
+            token: "paren.rparen",
+            regex: "\\}"
         }, {
             token: "string",
-            regex: "@.*?{",
-            push:  "media"
+            regex: "@(?!viewport)",
+            next:  "media"
         }, {
             token: "keyword",
             regex: "#[a-z0-9-_]+"
+        }, {
+            token: "keyword",
+            regex: "%"
         }, {
             token: "variable",
             regex: "\\.[a-z0-9-_]+"
@@ -97,66 +101,60 @@ var CssHighlightRules = function() {
             token: "string",
             regex: ":[a-z0-9-_]+"
         }, {
+            token : "constant.numeric",
+            regex : numRe
+        }, {
             token: "constant",
             regex: "[a-z0-9-_]+"
         }, {
             caseInsensitive: true
         }],
-
-        "media" : [{
-            token : "comment", // multi line comment
-            regex : "\\/\\*",
-            push : "comment"
+        
+        "media": [{
+            include : ["strings", "url", "comments"]
         }, {
             token: "paren.lparen",
             regex: "\\{",
-            push:  "ruleset"
+            next:  "start"
         }, {
-            token: "string",
+            token: "paren.rparen",
             regex: "\\}",
-            next:  "pop"
-        }, {
-            token: "keyword",
-            regex: "#[a-z0-9-_]+"
-        }, {
-            token: "variable",
-            regex: "\\.[a-z0-9-_]+"
+            next:  "start"
         }, {
             token: "string",
-            regex: ":[a-z0-9-_]+"
+            regex: ";",
+            next:  "start"
         }, {
-            token: "constant",
-            regex: "[a-z0-9-_]+"
-        }, {
-            caseInsensitive: true
+            token: "keyword",
+            regex: "(?:media|supports|document|charset|import|namespace|media|supports|document"
+                + "|page|font|keyframes|viewport|counter-style|font-feature-values"
+                + "|swash|ornaments|annotation|stylistic|styleset|character-variant)"
         }],
 
-        "comment" : [{
-            token : "comment",
-            regex : "\\*\\/",
-            next : "pop"
-        }, {
-            defaultToken : "comment"
+        "comments" : [{
+            token: "comment", // multi line comment
+            regex: "\\/\\*",
+            push: [{
+                token : "comment",
+                regex : "\\*\\/",
+                next : "pop"
+            }, {
+                defaultToken : "comment"
+            }]
         }],
 
-        "ruleset" : [
-        {
+        "ruleset" : [{
+            regex : "-(webkit|ms|moz|o)-",
+            token : "text"
+        }, {
             token : "paren.rparen",
             regex : "\\}",
-            next:   "pop"
+            next : "start"
         }, {
-            token : "comment", // multi line comment
-            regex : "\\/\\*",
-            push : "comment"
-        }, {
-            token : "string", // single line
-            regex : '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
-        }, {
-            token : "string", // single line
-            regex : "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"
+            include : ["strings", "url", "comments"]
         }, {
             token : ["constant.numeric", "keyword"],
-            regex : "(" + numRe + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vm|vw|%)"
+            regex : "(" + numRe + ")(ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vmax|vmin|vm|vw|%)"
         }, {
             token : "constant.numeric",
             regex : numRe
@@ -173,14 +171,64 @@ var CssHighlightRules = function() {
             token : ["punctuation", "entity.other.attribute-name.pseudo-class.css"],
             regex : pseudoClasses
         }, {
-            token : ["support.function", "string", "support.function"],
-            regex : "(url\\()(.*)(\\))"
+            include: "url"
         }, {
             token : keywordMapper,
             regex : "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*"
         }, {
             caseInsensitive: true
+        }],
+        
+        url: [{
+            token : "support.function",
+            regex : "(?:url(:?-prefix)?|domain|regexp)\\(",
+            push: [{
+                token : "support.function",
+                regex : "\\)",
+                next : "pop"
+            }, {
+                defaultToken: "string"
+            }]
+        }],
+        
+        strings: [{
+            token : "string.start",
+            regex : "'",
+            push : [{
+                token : "string.end",
+                regex : "'|$",
+                next: "pop"
+            }, {
+                include : "escapes"
+            }, {
+                token : "constant.language.escape",
+                regex : /\\$/,
+                consumeLineEnd: true
+            }, {
+                defaultToken: "string"
+            }]
+        }, {
+            token : "string.start",
+            regex : '"',
+            push : [{
+                token : "string.end",
+                regex : '"|$',
+                next: "pop"
+            }, {
+                include : "escapes"
+            }, {
+                token : "constant.language.escape",
+                regex : /\\$/,
+                consumeLineEnd: true
+            }, {
+                defaultToken: "string"
+            }]
+        }],
+        escapes: [{
+            token : "constant.language.escape",
+            regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
+        
     };
 
     this.normalizeRules();
@@ -216,7 +264,7 @@ var JavaScriptHighlightRules = function(options) {
         "keyword":
             "const|yield|import|get|set|async|await|" +
             "break|case|catch|continue|default|delete|do|else|finally|for|function|" +
-            "if|in|instanceof|new|return|switch|throw|try|typeof|let|var|while|with|debugger|" +
+            "if|in|of|instanceof|new|return|switch|throw|try|typeof|let|var|while|with|debugger|" +
             "__parent__|__count__|escape|unescape|with|__proto__|" +
             "class|enum|extends|super|export|implements|private|public|interface|package|protected|static",
         "storage.type":
@@ -250,11 +298,11 @@ var JavaScriptHighlightRules = function(options) {
                 regex : '"(?=.)',
                 next  : "qqstring"
             }, {
-                token : "constant.numeric", // hex
-                regex : /0(?:[xX][0-9a-fA-F]+|[bB][01]+)\b/
+                token : "constant.numeric", // hexadecimal, octal and binary
+                regex : /0(?:[xX][0-9a-fA-F]+|[oO][0-7]+|[bB][01]+)\b/
             }, {
-                token : "constant.numeric", // float
-                regex : /[+-]?\d[\d_]*(?:(?:\.\d*)?(?:[eE][+-]?\d+)?)?\b/
+                token : "constant.numeric", // decimal integers and floats
+                regex : /(?:\d\d*(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+\b)?/
             }, {
                 token : [
                     "storage.type", "punctuation.operator", "support.function",
@@ -305,6 +353,9 @@ var JavaScriptHighlightRules = function(options) {
                 next: "function_arguments"
             }, {
                 token : "keyword",
+                regex : "from(?=\\s*('|\"))"
+            }, {
+                token : "keyword",
                 regex : "(?:" + kwBeforeRe + ")\\b",
                 next : "start"
             }, {
@@ -321,8 +372,11 @@ var JavaScriptHighlightRules = function(options) {
                 regex : /[.](?![.])/,
                 next  : "property"
             }, {
+                token : "storage.type",
+                regex : /=>/
+            }, {
                 token : "keyword.operator",
-                regex : /--|\+\+|\.{3}|===|==|=|!=|!==|<+=?|>+=?|!|&&|\|\||\?\:|[!$%&*+\-~\/^]=?/,
+                regex : /--|\+\+|\.{3}|===|==|=|!=|!==|<+=?|>+=?|!|&&|\|\||\?:|[!$%&*+\-~\/^]=?/,
                 next  : "start"
             }, {
                 token : "punctuation.operator",
@@ -460,7 +514,7 @@ var JavaScriptHighlightRules = function(options) {
             }, {
                 token : "string",
                 regex : "\\\\$",
-                next  : "qqstring"
+                consumeLineEnd  : true
             }, {
                 token : "string",
                 regex : '"|$',
@@ -476,7 +530,7 @@ var JavaScriptHighlightRules = function(options) {
             }, {
                 token : "string",
                 regex : "\\\\$",
-                next  : "qstring"
+                consumeLineEnd  : true
             }, {
                 token : "string",
                 regex : "'|$",
@@ -486,8 +540,8 @@ var JavaScriptHighlightRules = function(options) {
             }
         ]
     };
-    
-    
+
+
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
             regex: "[{}]", onMatch: function(val, state, stack) {
@@ -522,14 +576,14 @@ var JavaScriptHighlightRules = function(options) {
                 defaultToken: "string.quasi"
             }]
         });
-        
-        if (!options || !options.noJSX)
+
+        if (!options || options.jsx != false)
             JSX.call(this);
     }
-    
+
     this.embedRules(DocCommentHighlightRules, "doc-",
         [ DocCommentHighlightRules.getEndRule("no_regex") ]);
-    
+
     this.normalizeRules();
 };
 
@@ -580,8 +634,8 @@ function JSX() {
         {defaultToken: "string"}
     ];
     this.$rules.jsxAttributes = [{
-        token : "meta.tag.punctuation.tag-close.xml", 
-        regex : "/?>", 
+        token : "meta.tag.punctuation.tag-close.xml",
+        regex : "/?>",
         onMatch : function(value, currentState, stack) {
             if (currentState == stack[0])
                 stack.shift();
@@ -596,7 +650,7 @@ function JSX() {
             return [{type: this.token, value: value}];
         },
         nextState: "jsx"
-    }, 
+    },
     jsxJsRule,
     comments("jsxAttributes"),
     {
@@ -672,14 +726,10 @@ var XmlHighlightRules = function(normalize) {
         start : [
             {token : "string.cdata.xml", regex : "<\\!\\[CDATA\\[", next : "cdata"},
             {
-                token : ["punctuation.xml-decl.xml", "keyword.xml-decl.xml"],
-                regex : "(<\\?)(xml)(?=[\\s])", next : "xml_decl", caseInsensitive: true
-            },
-            {
                 token : ["punctuation.instruction.xml", "keyword.instruction.xml"],
                 regex : "(<\\?)(" + tagRegex + ")", next : "processing_instruction"
             },
-            {token : "comment.xml", regex : "<\\!--", next : "comment"},
+            {token : "comment.start.xml", regex : "<\\!--", next : "comment"},
             {
                 token : ["xml-pe.doctype.xml", "xml-pe.doctype.xml"],
                 regex : "(<\\!)(DOCTYPE)(?=[\\s])", next : "doctype", caseInsensitive: true
@@ -691,9 +741,9 @@ var XmlHighlightRules = function(normalize) {
             {defaultToken : "text.xml"}
         ],
 
-        xml_decl : [{
+        processing_instruction : [{
             token : "entity.other.attribute-name.decl-attribute-name.xml",
-            regex : "(?:" + tagRegex + ":)?" + tagRegex + ""
+            regex : tagRegex
         }, {
             token : "keyword.operator.decl-attribute-equals.xml",
             regex : "="
@@ -706,11 +756,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\?>",
             next : "start"
         }],
-
-        processing_instruction : [
-            {token : "punctuation.instruction.xml", regex : "\\?>", next : "start"},
-            {defaultToken : "instruction.xml"}
-        ],
 
         doctype : [
             {include : "whitespace"},
@@ -749,7 +794,7 @@ var XmlHighlightRules = function(normalize) {
         ],
 
         comment : [
-            {token : "comment.xml", regex : "-->", next : "start"},
+            {token : "comment.end.xml", regex : "-->", next : "start"},
             {defaultToken : "comment.xml"}
         ],
 
@@ -796,7 +841,7 @@ var XmlHighlightRules = function(normalize) {
 
         attributes: [{
             token : "entity.other.attribute-name.xml",
-            regex : "(?:" + tagRegex + ":)?" + tagRegex + ""
+            regex : tagRegex
         }, {
             token : "keyword.operator.attribute-equals.xml",
             regex : "="
@@ -849,7 +894,7 @@ var XmlHighlightRules = function(normalize) {
                     stack.splice(0);
                     return this.token;
             }}
-        ]
+        ];
 
         this.embedRules(HighlightRules, prefix, [{
             token: ["meta.tag.punctuation.end-tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -942,7 +987,7 @@ var HtmlHighlightRules = function() {
     });
 
     this.embedTagRules(CssHighlightRules, "css-", "style");
-    this.embedTagRules(new JavaScriptHighlightRules({noJSX: true}).getRules(), "js-", "script");
+    this.embedTagRules(new JavaScriptHighlightRules({jsx: false}).getRules(), "js-", "script");
 
     if (this.constructor === HtmlHighlightRules)
         this.normalizeRules();
@@ -1430,11 +1475,26 @@ var PhpLangHighlightRules = function() {
         'mysql_field_name|mysql_field_seek|mysql_field_table|mysql_field_type|mysql_free_result|mysql_get_client_info|mysql_get_host_info|' +
         'mysql_get_proto_info|mysql_get_server_info|mysql_info|mysql_insert_id|mysql_list_dbs|mysql_list_fields|mysql_list_processes|' +
         'mysql_list_tables|mysql_num_fields|mysql_num_rows|mysql_pconnect|mysql_ping|mysql_query|mysql_real_escape_string|mysql_result|' +
-        'mysql_select_db|mysql_set_charset|mysql_stat|mysql_tablename|mysql_thread_id|mysql_unbuffered_query|mysqli|mysqli_bind_param|' +
-        'mysqli_bind_result|mysqli_client_encoding|mysqli_connect|mysqli_disable_reads_from_master|mysqli_disable_rpl_parse|mysqli_driver|' +
-        'mysqli_enable_reads_from_master|mysqli_enable_rpl_parse|mysqli_escape_string|mysqli_execute|mysqli_fetch|mysqli_get_metadata|' +
-        'mysqli_master_query|mysqli_param_count|mysqli_report|mysqli_result|mysqli_rpl_parse_enabled|mysqli_rpl_probe|mysqli_rpl_query_type|' +
-        'mysqli_send_long_data|mysqli_send_query|mysqli_set_opt|mysqli_slave_query|mysqli_stmt|mysqli_warning|mysqlnd_ms_get_stats|' +
+        'mysql_select_db|mysql_set_charset|mysql_stat|mysql_tablename|mysql_thread_id|mysql_unbuffered_query|mysqli|mysqli_affected_rows|' +
+        'mysqli_autocommit|mysqli_bind_param|mysqli_bind_result|mysqli_cache_stats|mysqli_change_user|mysqli_character_set_name|' +
+        'mysqli_client_encoding|mysqli_close|mysqli_commit|mysqli_connect|mysqli_connect_errno|mysqli_connect_error|mysqli_data_seek|' +
+        'mysqli_debug|mysqli_disable_reads_from_master|mysqli_disable_rpl_parse|mysqli_driver|mysqli_dump_debug_info|mysqli_embedded_server_end|' +
+        'mysqli_embedded_server_start|mysqli_enable_reads_from_master|mysqli_enable_rpl_parse|mysqli_errno|mysqli_error|mysqli_escape_string|' +
+        'mysqli_execute|mysqli_fetch|mysqli_fetch_all|mysqli_fetch_array|mysqli_fetch_assoc|mysqli_fetch_field|mysqli_fetch_field_direct|' +
+        'mysqli_fetch_fields|mysqli_fetch_lengths|mysqli_fetch_object|mysqli_fetch_row|mysqli_field_count|mysqli_field_seek|mysqli_field_tell|' +
+        'mysqli_free_result|mysqli_get_charset|mysqli_get_client_info|mysqli_get_client_stats|mysqli_get_client_version|mysqli_get_connection_stats|' +
+        'mysqli_get_host_info|mysqli_get_metadata|mysqli_get_proto_info|mysqli_get_server_info|mysqli_get_server_version|mysqli_get_warnings|' +
+        'mysqli_info|mysqli_init|mysqli_insert_id|mysqli_kill|mysqli_link_construct|mysqli_master_query|mysqli_more_results|mysqli_multi_query|' +
+        'mysqli_next_result|mysqli_num_fields|mysqli_num_rows|mysqli_options|mysqli_param_count|mysqli_ping|mysqli_poll|mysqli_prepare|' +
+        'mysqli_query|mysqli_real_connect|mysqli_real_escape_string|mysqli_real_query|mysqli_reap_async_query|mysqli_refresh|mysqli_report|' +
+        'mysqli_result|mysqli_rollback|mysqli_rpl_parse_enabled|mysqli_rpl_probe|mysqli_rpl_query_type|mysqli_select_db|mysqli_send_long_data|' +
+        'mysqli_send_query|mysqli_set_charset|mysqli_set_local_infile_default|mysqli_set_local_infile_handler|mysqli_set_opt|mysqli_slave_query|' +
+        'mysqli_sqlstate|mysqli_ssl_set|mysqli_stat|mysqli_stmt|mysqli_stmt_affected_rows|mysqli_stmt_attr_get|mysqli_stmt_attr_set|' +
+        'mysqli_stmt_bind_param|mysqli_stmt_bind_result|mysqli_stmt_close|mysqli_stmt_data_seek|mysqli_stmt_errno|mysqli_stmt_error|' +
+        'mysqli_stmt_execute|mysqli_stmt_fetch|mysqli_stmt_field_count|mysqli_stmt_free_result|mysqli_stmt_get_result|mysqli_stmt_get_warnings|' +
+        'mysqli_stmt_init|mysqli_stmt_insert_id|mysqli_stmt_next_result|mysqli_stmt_num_rows|mysqli_stmt_param_count|mysqli_stmt_prepare|' +
+        'mysqli_stmt_reset|mysqli_stmt_result_metadata|mysqli_stmt_send_long_data|mysqli_stmt_sqlstate|mysqli_stmt_store_result|mysqli_store_result|' +
+        'mysqli_thread_id|mysqli_thread_safe|mysqli_use_result|mysqli_warning|mysqli_warning_count|mysqlnd_ms_get_stats|' +
         'mysqlnd_ms_query_is_select|mysqlnd_ms_set_user_pick_server|mysqlnd_qc_change_handler|mysqlnd_qc_clear_cache|mysqlnd_qc_get_cache_info|' +
         'mysqlnd_qc_get_core_stats|mysqlnd_qc_get_handler|mysqlnd_qc_get_query_trace_log|mysqlnd_qc_set_user_handlers|natcasesort|natsort|' +
         'ncurses_addch|ncurses_addchnstr|ncurses_addchstr|ncurses_addnstr|ncurses_addstr|ncurses_assume_default_colors|ncurses_attroff|' +
@@ -2304,7 +2364,7 @@ var functionMap = {
     ],
     "array_rand": [
         "mixed array_rand(array input [, int num_req])",
-        "Return key\/keys for random entry\/entries in the array"
+        "Return key/keys for random entry/entries in the array"
     ],
     "array_reduce": [
         "mixed array_reduce(array input, mixed callback [, mixed initial])",
@@ -2408,7 +2468,7 @@ var functionMap = {
     ],
     "assert_options": [
         "mixed assert_options(int what [, mixed value])",
-        "Set\/get the various assert flags"
+        "Set/get the various assert flags"
     ],
     "atan": [
         "float atan(float number)",
@@ -2416,7 +2476,7 @@ var functionMap = {
     ],
     "atan2": [
         "float atan2(float y, float x)",
-        "Returns the arc tangent of y\/x, with the resulting quadrant determined by the signs of y and x"
+        "Returns the arc tangent of y/x, with the resulting quadrant determined by the signs of y and x"
     ],
     "atanh": [
         "float atanh(float number)",
@@ -2792,7 +2852,7 @@ var functionMap = {
     ],
     "cosh": [
         "float cosh(float number)",
-        "Returns the hyperbolic cosine of the number, defined as (exp(number) + exp(-number))\/2"
+        "Returns the hyperbolic cosine of the number, defined as (exp(number) + exp(-number))/2"
     ],
     "count": [
         "int count(mixed var [, int mode])",
@@ -2936,7 +2996,7 @@ var functionMap = {
     ],
     "date": [
         "string date(string format [, long timestamp])",
-        "Format a local date\/time"
+        "Format a local date/time"
     ],
     "date_add": [
         "DateTime date_add(DateTime object, DateInterval interval)",
@@ -2956,11 +3016,11 @@ var functionMap = {
     ],
     "date_default_timezone_get": [
         "string date_default_timezone_get()",
-        "Gets the default timezone used by all date\/time functions in a script"
+        "Gets the default timezone used by all date/time functions in a script"
     ],
     "date_default_timezone_set": [
         "bool date_default_timezone_set(string timezone_identifier)",
-        "Sets the default timezone used by all date\/time functions in a script"
+        "Sets the default timezone used by all date/time functions in a script"
     ],
     "date_diff": [
         "DateInterval date_diff(DateTime object [, bool absolute])",
@@ -2972,7 +3032,7 @@ var functionMap = {
     ],
     "date_get_last_errors": [
         "array date_get_last_errors()",
-        "Returns the warnings and errors found while parsing a date\/time string."
+        "Returns the warnings and errors found while parsing a date/time string."
     ],
     "date_interval_create_from_date_string": [
         "DateInterval date_interval_create_from_date_string(string time)",
@@ -3008,7 +3068,7 @@ var functionMap = {
     ],
     "date_sun_info": [
         "array date_sun_info(long time, float latitude, float longitude)",
-        "Returns an array with information about sun set\/rise and twilight begin\/end"
+        "Returns an array with information about sun set/rise and twilight begin/end"
     ],
     "date_sunrise": [
         "mixed date_sunrise(mixed time [, int format [, float latitude [, float longitude [, float zenith [, float gmt_offset]]]]])",
@@ -3179,204 +3239,17 @@ var functionMap = {
         "Return backtrace as array"
     ],
     "debug_print_backtrace": [
-        "void debug_print_backtrace(void) *\/",
-        "ZEND_FUNCTION(debug_print_backtrace) {  zend_execute_data *ptr, *skip;  int lineno;  char *function_name;  char *filename;  char *class_name = NULL;  char *call_type;  char *include_filename = NULL;  zval *arg_array = NULL;  int indent = 0;   if (zend_parse_parameters_none() == FAILURE) {   return;  }   ptr = EG(current_execute_data);   \/* skip debug_backtrace()"
-    ],
-    "debug_zval_dump": [
-        "void debug_zval_dump(mixed var)",
-        "Dumps a string representation of an internal zend value to output."
-    ],
-    "decbin": [
-        "string decbin(int decimal_number)",
-        "Returns a string containing a binary representation of the number"
-    ],
-    "dechex": [
-        "string dechex(int decimal_number)",
-        "Returns a string containing a hexadecimal representation of the given number"
-    ],
-    "decoct": [
-        "string decoct(int decimal_number)",
-        "Returns a string containing an octal representation of the given number"
-    ],
-    "define": [
-        "bool define(string constant_name, mixed value, boolean case_insensitive=false)",
-        "Define a new constant"
-    ],
-    "define_syslog_variables": [
-        "void define_syslog_variables(void)",
-        "Initializes all syslog-related variables"
-    ],
-    "defined": [
-        "bool defined(string constant_name)",
-        "Check whether a constant exists"
-    ],
-    "deg2rad": [
-        "float deg2rad(float number)",
-        "Converts the number in degrees to the radian equivalent"
-    ],
-    "dgettext": [
-        "string dgettext(string domain_name, string msgid)",
-        "Return the translation of msgid for domain_name, or msgid unaltered if a translation does not exist"
-    ],
-    "die": [
-        "void die([mixed status])",
-        "Output a message and terminate the current script"
-    ],
-    "dir": [
-        "object dir(string directory[, resource context])",
-        "Directory class with properties, handle and class and methods read, rewind and close"
-    ],
-    "dirname": [
-        "string dirname(string path)",
-        "Returns the directory name component of the path"
-    ],
-    "disk_free_space": [
-        "float disk_free_space(string path)",
-        "Get free disk space for filesystem that path is on"
-    ],
-    "disk_total_space": [
-        "float disk_total_space(string path)",
-        "Get total disk space for filesystem that path is on"
-    ],
-    "display_disabled_function": [
-        "void display_disabled_function(void)",
-        "Dummy function which displays an error when a disabled function is called."
-    ],
-    "dl": [
-        "int dl(string extension_filename)",
-        "Load a PHP extension at runtime"
-    ],
-    "dngettext": [
-        "string dngettext (string domain, string msgid1, string msgid2, int count)",
-        "Plural version of dgettext()"
-    ],
-    "dns_check_record": [
-        "bool dns_check_record(string host [, string type])",
-        "Check DNS records corresponding to a given Internet host name or IP address"
-    ],
-    "dns_get_mx": [
-        "bool dns_get_mx(string hostname, array mxhosts [, array weight])",
-        "Get MX records corresponding to a given Internet host name"
-    ],
-    "dns_get_record": [
-        "array|false dns_get_record(string hostname [, int type[, array authns, array addtl]])",
-        "Get any Resource Record corresponding to a given Internet host name"
-    ],
-    "dom_attr_is_id": [
-        "boolean dom_attr_is_id();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Attr-isId Since: DOM Level 3"
-    ],
-    "dom_characterdata_append_data": [
-        "void dom_characterdata_append_data(string arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-32791A2F Since:"
-    ],
-    "dom_characterdata_delete_data": [
-        "void dom_characterdata_delete_data(int offset, int count);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-7C603781 Since:"
-    ],
-    "dom_characterdata_insert_data": [
-        "void dom_characterdata_insert_data(int offset, string arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-3EDB695F Since:"
-    ],
-    "dom_characterdata_replace_data": [
-        "void dom_characterdata_replace_data(int offset, int count, string arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-E5CBA7FB Since:"
-    ],
-    "dom_characterdata_substring_data": [
-        "string dom_characterdata_substring_data(int offset, int count);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-6531BCCF Since:"
-    ],
-    "dom_document_adopt_node": [
-        "DOMNode dom_document_adopt_node(DOMNode source);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Document3-adoptNode Since: DOM Level 3"
-    ],
-    "dom_document_create_attribute": [
-        "DOMAttr dom_document_create_attribute(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1084891198 Since:"
-    ],
-    "dom_document_create_attribute_ns": [
-        "DOMAttr dom_document_create_attribute_ns(string namespaceURI, string qualifiedName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-DocCrAttrNS Since: DOM Level 2"
-    ],
-    "dom_document_create_cdatasection": [
-        "DOMCdataSection dom_document_create_cdatasection(string data);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-D26C0AF8 Since:"
-    ],
-    "dom_document_create_comment": [
-        "DOMComment dom_document_create_comment(string data);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1334481328 Since:"
-    ],
-    "dom_document_create_document_fragment": [
-        "DOMDocumentFragment dom_document_create_document_fragment();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-35CB04B5 Since:"
-    ],
-    "dom_document_create_element": [
-        "DOMElement dom_document_create_element(string tagName [, string value]);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-2141741547 Since:"
-    ],
-    "dom_document_create_element_ns": [
-        "DOMElement dom_document_create_element_ns(string namespaceURI, string qualifiedName [,string value]);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-DocCrElNS Since: DOM Level 2"
-    ],
-    "dom_document_create_entity_reference": [
-        "DOMEntityReference dom_document_create_entity_reference(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-392B75AE Since:"
-    ],
-    "dom_document_create_processing_instruction": [
-        "DOMProcessingInstruction dom_document_create_processing_instruction(string target, string data);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-135944439 Since:"
-    ],
-    "dom_document_create_text_node": [
-        "DOMText dom_document_create_text_node(string data);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1975348127 Since:"
-    ],
-    "dom_document_get_element_by_id": [
-        "DOMElement dom_document_get_element_by_id(string elementId);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-getElBId Since: DOM Level 2"
-    ],
-    "dom_document_get_elements_by_tag_name": [
-        "DOMNodeList dom_document_get_elements_by_tag_name(string tagname);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-A6C9094 Since:"
-    ],
-    "dom_document_get_elements_by_tag_name_ns": [
-        "DOMNodeList dom_document_get_elements_by_tag_name_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-getElBTNNS Since: DOM Level 2"
-    ],
-    "dom_document_import_node": [
-        "DOMNode dom_document_import_node(DOMNode importedNode, boolean deep);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Core-Document-importNode Since: DOM Level 2"
-    ],
-    "dom_document_load": [
-        "DOMNode dom_document_load(string source [, int options]);",
-        "URL: http:\/\/www.w3.org\/TR\/DOM-Level-3-LS\/load-save.html#LS-DocumentLS-load Since: DOM Level 3"
-    ],
-    "dom_document_load_html": [
-        "DOMNode dom_document_load_html(string source);",
-        "Since: DOM extended"
-    ],
-    "dom_document_load_html_file": [
-        "DOMNode dom_document_load_html_file(string source);",
-        "Since: DOM extended"
-    ],
-    "dom_document_loadxml": [
-        "DOMNode dom_document_loadxml(string source [, int options]);",
-        "URL: http:\/\/www.w3.org\/TR\/DOM-Level-3-LS\/load-save.html#LS-DocumentLS-loadXML Since: DOM Level 3"
-    ],
-    "dom_document_normalize_document": [
-        "void dom_document_normalize_document();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Document3-normalizeDocument Since: DOM Level 3"
-    ],
-    "dom_document_relaxNG_validate_file": [
-        "boolean dom_document_relaxNG_validate_file(string filename); *\/",
-        "PHP_FUNCTION(dom_document_relaxNG_validate_file) {  _dom_document_relaxNG_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_FILE); } \/* }}} end dom_document_relaxNG_validate_file"
+        "void debug_print_backtrace(void) */",
+        "ZEND_FUNCTION(debug_print_backtrace) {  zend_execute_data *ptr, *skip;  int lineno;  char *function_name;  char *filename;  char *class_name = NULL;  char *call_type;  char *include_filename = NULL;  zval *arg_array = NULL;  int indent = 0;   if (zend_parse_parameters_none() == FAILURE) {   return;  }   ptr = EG(current_execute_data);",
+        "PHP_FUNCTION(dom_document_relaxNG_validate_file) {  _dom_document_relaxNG_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_FILE); } /* }}} end dom_document_relaxNG_validate_file"
     ],
     "dom_document_relaxNG_validate_xml": [
-        "boolean dom_document_relaxNG_validate_xml(string source); *\/",
-        "PHP_FUNCTION(dom_document_relaxNG_validate_xml) {  _dom_document_relaxNG_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_STRING); } \/* }}} end dom_document_relaxNG_validate_xml"
+        "boolean dom_document_relaxNG_validate_xml(string source); */",
+        "PHP_FUNCTION(dom_document_relaxNG_validate_xml) {  _dom_document_relaxNG_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_STRING); } /* }}} end dom_document_relaxNG_validate_xml"
     ],
     "dom_document_rename_node": [
         "DOMNode dom_document_rename_node(node n, string namespaceURI, string qualifiedName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Document3-renameNode Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-Document3-renameNode Since: DOM Level 3"
     ],
     "dom_document_save": [
         "int dom_document_save(string file);",
@@ -3392,15 +3265,15 @@ var functionMap = {
     ],
     "dom_document_savexml": [
         "string dom_document_savexml([node n]);",
-        "URL: http:\/\/www.w3.org\/TR\/DOM-Level-3-LS\/load-save.html#LS-DocumentLS-saveXML Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/DOM-Level-3-LS/load-save.html#LS-DocumentLS-saveXML Since: DOM Level 3"
     ],
     "dom_document_schema_validate": [
-        "boolean dom_document_schema_validate(string source); *\/",
-        "PHP_FUNCTION(dom_document_schema_validate_xml) {  _dom_document_schema_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_STRING); } \/* }}} end dom_document_schema_validate"
+        "boolean dom_document_schema_validate(string source); */",
+        "PHP_FUNCTION(dom_document_schema_validate_xml) {  _dom_document_schema_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_STRING); } /* }}} end dom_document_schema_validate"
     ],
     "dom_document_schema_validate_file": [
-        "boolean dom_document_schema_validate_file(string filename); *\/",
-        "PHP_FUNCTION(dom_document_schema_validate_file) {  _dom_document_schema_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_FILE); } \/* }}} end dom_document_schema_validate_file"
+        "boolean dom_document_schema_validate_file(string filename); */",
+        "PHP_FUNCTION(dom_document_schema_validate_file) {  _dom_document_schema_validate(INTERNAL_FUNCTION_PARAM_PASSTHRU, DOM_LOAD_FILE); } /* }}} end dom_document_schema_validate_file"
     ],
     "dom_document_validate": [
         "boolean dom_document_validate();",
@@ -3412,123 +3285,123 @@ var functionMap = {
     ],
     "dom_domconfiguration_can_set_parameter": [
         "boolean dom_domconfiguration_can_set_parameter(string name, domuserdata value);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMConfiguration-canSetParameter Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMConfiguration-canSetParameter Since:"
     ],
     "dom_domconfiguration_get_parameter": [
         "domdomuserdata dom_domconfiguration_get_parameter(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMConfiguration-getParameter Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMConfiguration-getParameter Since:"
     ],
     "dom_domconfiguration_set_parameter": [
         "dom_void dom_domconfiguration_set_parameter(string name, domuserdata value);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMConfiguration-property Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMConfiguration-property Since:"
     ],
     "dom_domerrorhandler_handle_error": [
         "dom_boolean dom_domerrorhandler_handle_error(domerror error);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-ERRORS-DOMErrorHandler-handleError Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-ERRORS-DOMErrorHandler-handleError Since:"
     ],
     "dom_domimplementation_create_document": [
         "DOMDocument dom_domimplementation_create_document(string namespaceURI, string qualifiedName, DOMDocumentType doctype);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Level-2-Core-DOM-createDocument Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Level-2-Core-DOM-createDocument Since: DOM Level 2"
     ],
     "dom_domimplementation_create_document_type": [
         "DOMDocumentType dom_domimplementation_create_document_type(string qualifiedName, string publicId, string systemId);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Level-2-Core-DOM-createDocType Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Level-2-Core-DOM-createDocType Since: DOM Level 2"
     ],
     "dom_domimplementation_get_feature": [
         "DOMNode dom_domimplementation_get_feature(string feature, string version);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMImplementation3-getFeature Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMImplementation3-getFeature Since: DOM Level 3"
     ],
     "dom_domimplementation_has_feature": [
         "boolean dom_domimplementation_has_feature(string feature, string version);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-5CED94D7 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-5CED94D7 Since:"
     ],
     "dom_domimplementationlist_item": [
         "domdomimplementation dom_domimplementationlist_item(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMImplementationList-item Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMImplementationList-item Since:"
     ],
     "dom_domimplementationsource_get_domimplementation": [
         "domdomimplementation dom_domimplementationsource_get_domimplementation(string features);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-getDOMImpl Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-getDOMImpl Since:"
     ],
     "dom_domimplementationsource_get_domimplementations": [
         "domimplementationlist dom_domimplementationsource_get_domimplementations(string features);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-getDOMImpls Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-getDOMImpls Since:"
     ],
     "dom_domstringlist_item": [
         "domstring dom_domstringlist_item(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#DOMStringList-item Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#DOMStringList-item Since:"
     ],
     "dom_element_get_attribute": [
         "string dom_element_get_attribute(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-666EE0F9 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-666EE0F9 Since:"
     ],
     "dom_element_get_attribute_node": [
         "DOMAttr dom_element_get_attribute_node(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-217A91B8 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-217A91B8 Since:"
     ],
     "dom_element_get_attribute_node_ns": [
         "DOMAttr dom_element_get_attribute_node_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElGetAtNodeNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElGetAtNodeNS Since: DOM Level 2"
     ],
     "dom_element_get_attribute_ns": [
         "string dom_element_get_attribute_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElGetAttrNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElGetAttrNS Since: DOM Level 2"
     ],
     "dom_element_get_elements_by_tag_name": [
         "DOMNodeList dom_element_get_elements_by_tag_name(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1938918D Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-1938918D Since:"
     ],
     "dom_element_get_elements_by_tag_name_ns": [
         "DOMNodeList dom_element_get_elements_by_tag_name_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-A6C90942 Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-A6C90942 Since: DOM Level 2"
     ],
     "dom_element_has_attribute": [
         "boolean dom_element_has_attribute(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElHasAttr Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElHasAttr Since: DOM Level 2"
     ],
     "dom_element_has_attribute_ns": [
         "boolean dom_element_has_attribute_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElHasAttrNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElHasAttrNS Since: DOM Level 2"
     ],
     "dom_element_remove_attribute": [
         "void dom_element_remove_attribute(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-6D6AC0F9 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-6D6AC0F9 Since:"
     ],
     "dom_element_remove_attribute_node": [
         "DOMAttr dom_element_remove_attribute_node(DOMAttr oldAttr);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-D589198 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-D589198 Since:"
     ],
     "dom_element_remove_attribute_ns": [
         "void dom_element_remove_attribute_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElRemAtNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElRemAtNS Since: DOM Level 2"
     ],
     "dom_element_set_attribute": [
         "void dom_element_set_attribute(string name, string value);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-F68F082 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-F68F082 Since:"
     ],
     "dom_element_set_attribute_node": [
         "DOMAttr dom_element_set_attribute_node(DOMAttr newAttr);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-887236154 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-887236154 Since:"
     ],
     "dom_element_set_attribute_node_ns": [
         "DOMAttr dom_element_set_attribute_node_ns(DOMAttr newAttr);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElSetAtNodeNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElSetAtNodeNS Since: DOM Level 2"
     ],
     "dom_element_set_attribute_ns": [
         "void dom_element_set_attribute_ns(string namespaceURI, string qualifiedName, string value);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElSetAttrNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElSetAttrNS Since: DOM Level 2"
     ],
     "dom_element_set_id_attribute": [
         "void dom_element_set_id_attribute(string name, boolean isId);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElSetIdAttr Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElSetIdAttr Since: DOM Level 3"
     ],
     "dom_element_set_id_attribute_node": [
         "void dom_element_set_id_attribute_node(attr idAttr, boolean isId);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElSetIdAttrNode Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElSetIdAttrNode Since: DOM Level 3"
     ],
     "dom_element_set_id_attribute_ns": [
         "void dom_element_set_id_attribute_ns(string namespaceURI, string localName, boolean isId);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-ElSetIdAttrNS Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-ElSetIdAttrNS Since: DOM Level 3"
     ],
     "dom_import_simplexml": [
         "somNode dom_import_simplexml(sxeobject node)",
@@ -3536,155 +3409,155 @@ var functionMap = {
     ],
     "dom_namednodemap_get_named_item": [
         "DOMNode dom_namednodemap_get_named_item(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1074577549 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-1074577549 Since:"
     ],
     "dom_namednodemap_get_named_item_ns": [
         "DOMNode dom_namednodemap_get_named_item_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-getNamedItemNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-getNamedItemNS Since: DOM Level 2"
     ],
     "dom_namednodemap_item": [
         "DOMNode dom_namednodemap_item(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-349467F9 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-349467F9 Since:"
     ],
     "dom_namednodemap_remove_named_item": [
         "DOMNode dom_namednodemap_remove_named_item(string name);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-D58B193 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-D58B193 Since:"
     ],
     "dom_namednodemap_remove_named_item_ns": [
         "DOMNode dom_namednodemap_remove_named_item_ns(string namespaceURI, string localName);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-removeNamedItemNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-removeNamedItemNS Since: DOM Level 2"
     ],
     "dom_namednodemap_set_named_item": [
         "DOMNode dom_namednodemap_set_named_item(DOMNode arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1025163788 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-1025163788 Since:"
     ],
     "dom_namednodemap_set_named_item_ns": [
         "DOMNode dom_namednodemap_set_named_item_ns(DOMNode arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-setNamedItemNS Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-setNamedItemNS Since: DOM Level 2"
     ],
     "dom_namelist_get_name": [
         "string dom_namelist_get_name(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#NameList-getName Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#NameList-getName Since:"
     ],
     "dom_namelist_get_namespace_uri": [
         "string dom_namelist_get_namespace_uri(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#NameList-getNamespaceURI Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#NameList-getNamespaceURI Since:"
     ],
     "dom_node_append_child": [
         "DomNode dom_node_append_child(DomNode newChild);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-184E7107 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-184E7107 Since:"
     ],
     "dom_node_clone_node": [
         "DomNode dom_node_clone_node(boolean deep);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-3A0ED0A4 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-3A0ED0A4 Since:"
     ],
     "dom_node_compare_document_position": [
         "short dom_node_compare_document_position(DomNode other);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-compareDocumentPosition Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-compareDocumentPosition Since: DOM Level 3"
     ],
     "dom_node_get_feature": [
         "DomNode dom_node_get_feature(string feature, string version);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-getFeature Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-getFeature Since: DOM Level 3"
     ],
     "dom_node_get_user_data": [
         "mixed dom_node_get_user_data(string key);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-getUserData Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-getUserData Since: DOM Level 3"
     ],
     "dom_node_has_attributes": [
         "boolean dom_node_has_attributes();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-NodeHasAttrs Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-NodeHasAttrs Since: DOM Level 2"
     ],
     "dom_node_has_child_nodes": [
         "boolean dom_node_has_child_nodes();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-810594187 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-810594187 Since:"
     ],
     "dom_node_insert_before": [
         "domnode dom_node_insert_before(DomNode newChild, DomNode refChild);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-952280727 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-952280727 Since:"
     ],
     "dom_node_is_default_namespace": [
         "boolean dom_node_is_default_namespace(string namespaceURI);",
-        "URL: http:\/\/www.w3.org\/TR\/DOM-Level-3-Core\/core.html#Node3-isDefaultNamespace Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-isDefaultNamespace Since: DOM Level 3"
     ],
     "dom_node_is_equal_node": [
         "boolean dom_node_is_equal_node(DomNode arg);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-isEqualNode Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-isEqualNode Since: DOM Level 3"
     ],
     "dom_node_is_same_node": [
         "boolean dom_node_is_same_node(DomNode other);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-isSameNode Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-isSameNode Since: DOM Level 3"
     ],
     "dom_node_is_supported": [
         "boolean dom_node_is_supported(string feature, string version);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Level-2-Core-Node-supports Since: DOM Level 2"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-Level-2-Core-Node-supports Since: DOM Level 2"
     ],
     "dom_node_lookup_namespace_uri": [
         "string dom_node_lookup_namespace_uri(string prefix);",
-        "URL: http:\/\/www.w3.org\/TR\/DOM-Level-3-Core\/core.html#Node3-lookupNamespaceURI Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-lookupNamespaceURI Since: DOM Level 3"
     ],
     "dom_node_lookup_prefix": [
         "string dom_node_lookup_prefix(string namespaceURI);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-lookupNamespacePrefix Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-lookupNamespacePrefix Since: DOM Level 3"
     ],
     "dom_node_normalize": [
         "void dom_node_normalize();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-normalize Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-normalize Since:"
     ],
     "dom_node_remove_child": [
         "DomNode dom_node_remove_child(DomNode oldChild);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-1734834066 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-1734834066 Since:"
     ],
     "dom_node_replace_child": [
         "DomNode dom_node_replace_child(DomNode newChild, DomNode oldChild);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-785887307 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-785887307 Since:"
     ],
     "dom_node_set_user_data": [
         "mixed dom_node_set_user_data(string key, mixed data, userdatahandler handler);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#Node3-setUserData Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#Node3-setUserData Since: DOM Level 3"
     ],
     "dom_nodelist_item": [
         "DOMNode dom_nodelist_item(int index);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-844377136 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-844377136 Since:"
     ],
     "dom_string_extend_find_offset16": [
         "int dom_string_extend_find_offset16(int offset32);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#i18n-methods-StringExtend-findOffset16 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#i18n-methods-StringExtend-findOffset16 Since:"
     ],
     "dom_string_extend_find_offset32": [
         "int dom_string_extend_find_offset32(int offset16);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#i18n-methods-StringExtend-findOffset32 Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#i18n-methods-StringExtend-findOffset32 Since:"
     ],
     "dom_text_is_whitespace_in_element_content": [
         "boolean dom_text_is_whitespace_in_element_content();",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Text3-isWhitespaceInElementContent Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-Text3-isWhitespaceInElementContent Since: DOM Level 3"
     ],
     "dom_text_replace_whole_text": [
         "DOMText dom_text_replace_whole_text(string content);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-Text3-replaceWholeText Since: DOM Level 3"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-Text3-replaceWholeText Since: DOM Level 3"
     ],
     "dom_text_split_text": [
         "DOMText dom_text_split_text(int offset);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#core-ID-38853C1D Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#core-ID-38853C1D Since:"
     ],
     "dom_userdatahandler_handle": [
         "dom_void dom_userdatahandler_handle(short operation, string key, domobject data, node src, node dst);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html#ID-handleUserDataEvent Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html#ID-handleUserDataEvent Since:"
     ],
     "dom_xpath_evaluate": [
-        "mixed dom_xpath_evaluate(string expr [,DOMNode context]); *\/",
-        "PHP_FUNCTION(dom_xpath_evaluate) {  php_xpath_eval(INTERNAL_FUNCTION_PARAM_PASSTHRU, PHP_DOM_XPATH_EVALUATE); } \/* }}} end dom_xpath_evaluate"
+        "mixed dom_xpath_evaluate(string expr [,DOMNode context]); */",
+        "PHP_FUNCTION(dom_xpath_evaluate) {  php_xpath_eval(INTERNAL_FUNCTION_PARAM_PASSTHRU, PHP_DOM_XPATH_EVALUATE); } /* }}} end dom_xpath_evaluate"
     ],
     "dom_xpath_query": [
-        "DOMNodeList dom_xpath_query(string expr [,DOMNode context]); *\/",
-        "PHP_FUNCTION(dom_xpath_query) {  php_xpath_eval(INTERNAL_FUNCTION_PARAM_PASSTHRU, PHP_DOM_XPATH_QUERY); } \/* }}} end dom_xpath_query"
+        "DOMNodeList dom_xpath_query(string expr [,DOMNode context]); */",
+        "PHP_FUNCTION(dom_xpath_query) {  php_xpath_eval(INTERNAL_FUNCTION_PARAM_PASSTHRU, PHP_DOM_XPATH_QUERY); } /* }}} end dom_xpath_query"
     ],
     "dom_xpath_register_ns": [
-        "boolean dom_xpath_register_ns(string prefix, string uri); *\/",
-        "PHP_FUNCTION(dom_xpath_register_ns) {  zval *id;  xmlXPathContextPtr ctxp;  int prefix_len, ns_uri_len;  dom_xpath_object *intern;  unsigned char *prefix, *ns_uri;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"Oss\", &id, dom_xpath_class_entry, &prefix, &prefix_len, &ns_uri, &ns_uri_len) == FAILURE) {   return;  }   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   ctxp = (xmlXPathContextPtr) intern->ptr;  if (ctxp == NULL) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Invalid XPath Context\");   RETURN_FALSE;  }   if (xmlXPathRegisterNs(ctxp, prefix, ns_uri) != 0) {   RETURN_FALSE  }  RETURN_TRUE; } \/* }}}"
+        "boolean dom_xpath_register_ns(string prefix, string uri); */",
+        "PHP_FUNCTION(dom_xpath_register_ns) {  zval *id;  xmlXPathContextPtr ctxp;  int prefix_len, ns_uri_len;  dom_xpath_object *intern;  unsigned char *prefix, *ns_uri;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"Oss\", &id, dom_xpath_class_entry, &prefix, &prefix_len, &ns_uri, &ns_uri_len) == FAILURE) {   return;  }   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   ctxp = (xmlXPathContextPtr) intern->ptr;  if (ctxp == NULL) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Invalid XPath Context\");   RETURN_FALSE;  }   if (xmlXPathRegisterNs(ctxp, prefix, ns_uri) != 0) {   RETURN_FALSE  }  RETURN_TRUE; } /* }}}"
     ],
     "dom_xpath_register_php_functions": [
-        "void dom_xpath_register_php_functions() *\/",
-        "PHP_FUNCTION(dom_xpath_register_php_functions) {  zval *id;  dom_xpath_object *intern;  zval *array_value, **entry, *new_string;  int  name_len = 0;  char *name;   DOM_GET_THIS(id);    if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"a\",  &array_value) == SUCCESS) {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   zend_hash_internal_pointer_reset(Z_ARRVAL_P(array_value));    while (zend_hash_get_current_data(Z_ARRVAL_P(array_value), (void **)&entry) == SUCCESS) {    SEPARATE_ZVAL(entry);    convert_to_string_ex(entry);     MAKE_STD_ZVAL(new_string);    ZVAL_LONG(new_string,1);       zend_hash_update(intern->registered_phpfunctions, Z_STRVAL_PP(entry), Z_STRLEN_PP(entry) + 1, &new_string, sizeof(zval*), NULL);    zend_hash_move_forward(Z_ARRVAL_P(array_value));   }   intern->registerPhpFunctions = 2;   RETURN_TRUE;   } else if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"s\",  &name, &name_len) == SUCCESS) {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);      MAKE_STD_ZVAL(new_string);   ZVAL_LONG(new_string,1);   zend_hash_update(intern->registered_phpfunctions, name, name_len + 1, &new_string, sizeof(zval*), NULL);   intern->registerPhpFunctions = 2;     } else {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   intern->registerPhpFunctions = 1;  }   } \/* }}} end dom_xpath_register_php_functions"
+        "void dom_xpath_register_php_functions() */",
+        "PHP_FUNCTION(dom_xpath_register_php_functions) {  zval *id;  dom_xpath_object *intern;  zval *array_value, **entry, *new_string;  int  name_len = 0;  char *name;   DOM_GET_THIS(id);    if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"a\",  &array_value) == SUCCESS) {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   zend_hash_internal_pointer_reset(Z_ARRVAL_P(array_value));    while (zend_hash_get_current_data(Z_ARRVAL_P(array_value), (void **)&entry) == SUCCESS) {    SEPARATE_ZVAL(entry);    convert_to_string_ex(entry);     MAKE_STD_ZVAL(new_string);    ZVAL_LONG(new_string,1);       zend_hash_update(intern->registered_phpfunctions, Z_STRVAL_PP(entry), Z_STRLEN_PP(entry) + 1, &new_string, sizeof(zval*), NULL);    zend_hash_move_forward(Z_ARRVAL_P(array_value));   }   intern->registerPhpFunctions = 2;   RETURN_TRUE;   } else if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"s\",  &name, &name_len) == SUCCESS) {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);      MAKE_STD_ZVAL(new_string);   ZVAL_LONG(new_string,1);   zend_hash_update(intern->registered_phpfunctions, name, name_len + 1, &new_string, sizeof(zval*), NULL);   intern->registerPhpFunctions = 2;     } else {   intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);   intern->registerPhpFunctions = 1;  }   } /* }}} end dom_xpath_register_php_functions"
     ],
     "each": [
         "array each(array arr)",
@@ -3712,7 +3585,7 @@ var functionMap = {
     ],
     "enchant_broker_dict_exists": [
         "bool enchant_broker_dict_exists(resource broker, string tag)",
-        "Wether a dictionary exists or not. Using non-empty tag"
+        "Whether a dictionary exists or not. Using non-empty tag"
     ],
     "enchant_broker_free": [
         "boolean enchant_broker_free(resource broker)",
@@ -3752,7 +3625,7 @@ var functionMap = {
     ],
     "enchant_broker_set_ordering": [
         "bool enchant_broker_set_ordering(resource broker, string tag, string ordering)",
-        "Declares a preference of dictionaries to use for the language  described\/referred to by 'tag'. The ordering is a comma delimited  list of provider names. As a special exception, the \"*\" tag can  be used as a language tag to declare a default ordering for any  language that does not explictly declare an ordering."
+        "Declares a preference of dictionaries to use for the language  described/referred to by 'tag'. The ordering is a comma delimited  list of provider names. As a special exception, the \"*\" tag can  be used as a language tag to declare a default ordering for any  language that does not explictly declare an ordering."
     ],
     "enchant_dict_add_to_personal": [
         "void enchant_dict_add_to_personal(resource dict, string word)",
@@ -3840,7 +3713,7 @@ var functionMap = {
     ],
     "exif_read_data": [
         "array exif_read_data(string filename [, sections_needed [, sub_arrays[, read_thumbnail]]])",
-        "Reads header data from the JPEG\/TIFF image filename and optionally reads the internal thumbnails"
+        "Reads header data from the JPEG/TIFF image filename and optionally reads the internal thumbnails"
     ],
     "exif_tagname": [
         "string exif_tagname(index)",
@@ -3920,7 +3793,7 @@ var functionMap = {
     ],
     "file_put_contents": [
         "int file_put_contents(string file, mixed data [, int flags [, resource context]])",
-        "Write\/Create a file with contents data and return the number of bytes written"
+        "Write/Create a file with contents data and return the number of bytes written"
     ],
     "fileatime": [
         "int fileatime(string filename)",
@@ -4068,7 +3941,7 @@ var functionMap = {
     ],
     "ftell": [
         "int ftell(resource fp)",
-        "Get file pointer's read\/write position"
+        "Get file pointer's read/write position"
     ],
     "ftok": [
         "int ftok(string pathname, string proj)",
@@ -4136,7 +4009,7 @@ var functionMap = {
     ],
     "ftp_nb_continue": [
         "int ftp_nb_continue(resource stream)",
-        "Continues retrieving\/sending a file nbronously"
+        "Continues retrieving/sending a file nbronously"
     ],
     "ftp_nb_fget": [
         "int ftp_nb_fget(resource stream, resource fp, string remote_file, int mode[, int resumepos])",
@@ -4376,7 +4249,7 @@ var functionMap = {
     ],
     "getdate": [
         "array getdate([int timestamp])",
-        "Get date\/time information"
+        "Get date/time information"
     ],
     "getenv": [
         "string getenv(string varname)",
@@ -4428,7 +4301,7 @@ var functionMap = {
     ],
     "getprotobyname": [
         "int getprotobyname(string name)",
-        "Returns protocol number associated with name as per \/etc\/protocols"
+        "Returns protocol number associated with name as per /etc/protocols"
     ],
     "getprotobynumber": [
         "string getprotobynumber(int proto)",
@@ -4468,7 +4341,7 @@ var functionMap = {
     ],
     "gmdate": [
         "string gmdate(string format [, long timestamp])",
-        "Format a GMT date\/time"
+        "Format a GMT date/time"
     ],
     "gmmktime": [
         "int gmmktime([int hour [, int min [, int sec [, int mon [, int day [, int year]]]]]])",
@@ -4636,7 +4509,7 @@ var functionMap = {
     ],
     "gmstrftime": [
         "string gmstrftime(string format [, int timestamp])",
-        "Format a GMT\/UCT time\/date according to locale settings"
+        "Format a GMT/UCT time/date according to locale settings"
     ],
     "grapheme_extract": [
         "string grapheme_extract(string str, int size[, int extract_type[, int start[, int next]]])",
@@ -4760,7 +4633,7 @@ var functionMap = {
     ],
     "headers_list": [
         "array headers_list(void)",
-        "Return list of headers to be sent \/ already sent"
+        "Return list of headers to be sent / already sent"
     ],
     "headers_sent": [
         "bool headers_sent([string &$file [, int &$line]])",
@@ -5048,7 +4921,7 @@ var functionMap = {
     ],
     "idate": [
         "int idate(string format [, int timestamp])",
-        "Format a local time\/date as integer"
+        "Format a local time/date as integer"
     ],
     "idn_to_ascii": [
         "int idn_to_ascii(string domain[, int options])",
@@ -5140,7 +5013,7 @@ var functionMap = {
     ],
     "imagecolorresolvealpha": [
         "int imagecolorresolvealpha(resource im, int red, int green, int blue, int alpha)",
-        "Resolve\/Allocate a colour with an alpha level.  Works for true colour and palette based images"
+        "Resolve/Allocate a colour with an alpha level.  Works for true colour and palette based images"
     ],
     "imagecolorset": [
         "void imagecolorset(resource im, int col, int red, int green, int blue)",
@@ -5720,7 +5593,7 @@ var functionMap = {
     ],
     "import_request_variables": [
         "bool import_request_variables(string types [, string prefix])",
-        "Import GET\/POST\/Cookie variables into the global scope"
+        "Import GET/POST/Cookie variables into the global scope"
     ],
     "in_array": [
         "bool in_array(mixed needle, array haystack [, bool strict])",
@@ -6144,7 +6017,7 @@ var functionMap = {
     ],
     "leak": [
         "void leak(int num_bytes=3)",
-        "Cause an intentional memory leak, for testing\/debugging purposes"
+        "Cause an intentional memory leak, for testing/debugging purposes"
     ],
     "levenshtein": [
         "int levenshtein(string str1, string str2[, int cost_ins, int cost_rep, int cost_del])",
@@ -6156,7 +6029,7 @@ var functionMap = {
     ],
     "libxml_disable_entity_loader": [
         "bool libxml_disable_entity_loader([boolean disable])",
-        "Disable\/Enable ability to load external entities"
+        "Disable/Enable ability to load external entities"
     ],
     "libxml_get_errors": [
         "object libxml_get_errors()",
@@ -6400,7 +6273,7 @@ var functionMap = {
     ],
     "mb_parse_str": [
         "bool mb_parse_str(string encoded_string [, array result])",
-        "Parses GET\/POST\/COOKIE data and sets global variables"
+        "Parses GET/POST/COOKIE data and sets global variables"
     ],
     "mb_preferred_mime_name": [
         "string mb_preferred_mime_name(string encoding)",
@@ -6492,11 +6365,11 @@ var functionMap = {
     ],
     "mcrypt_cbc": [
         "string mcrypt_cbc(int cipher, string key, string data, int mode, string iv)",
-        "CBC crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "CBC crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "mcrypt_cfb": [
         "string mcrypt_cfb(int cipher, string key, string data, int mode, string iv)",
-        "CFB crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "CFB crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "mcrypt_create_iv": [
         "string mcrypt_create_iv(int size, int source)",
@@ -6504,11 +6377,11 @@ var functionMap = {
     ],
     "mcrypt_decrypt": [
         "string mcrypt_decrypt(string cipher, string key, string data, string mode, string iv)",
-        "OFB crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "OFB crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "mcrypt_ecb": [
         "string mcrypt_ecb(int cipher, string key, string data, int mode, string iv)",
-        "ECB crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "ECB crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "mcrypt_enc_get_algorithms_name": [
         "string mcrypt_enc_get_algorithms_name(resource td)",
@@ -6552,7 +6425,7 @@ var functionMap = {
     ],
     "mcrypt_encrypt": [
         "string mcrypt_encrypt(string cipher, string key, string data, string mode, string iv)",
-        "OFB crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "OFB crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "mcrypt_generic": [
         "string mcrypt_generic(resource td, string data)",
@@ -6628,7 +6501,7 @@ var functionMap = {
     ],
     "mcrypt_ofb": [
         "string mcrypt_ofb(int cipher, string key, string data, int mode, string iv)",
-        "OFB crypt\/decrypt data using key key with cipher cipher starting with iv"
+        "OFB crypt/decrypt data using key key with cipher cipher starting with iv"
     ],
     "md5": [
         "string md5(string str, [ bool raw_output])",
@@ -6712,7 +6585,7 @@ var functionMap = {
     ],
     "msg_queue_exists": [
         "bool msg_queue_exists(int key)",
-        "Check wether a message queue exists"
+        "Check whether a message queue exists"
     ],
     "msg_receive": [
         "mixed msg_receive(resource queue, int desiredmsgtype, int &msgtype, int maxsize, mixed message [, bool unserialize=true [, int flags=0 [, int errorcode]]])",
@@ -6915,7 +6788,7 @@ var functionMap = {
         "Close a MySQL connection"
     ],
     "mysql_connect": [
-        "resource mysql_connect([string hostname[:port][:\/path\/to\/socket] [, string username [, string password [, bool new [, int flags]]]]])",
+        "resource mysql_connect([string hostname[:port][:/path/to/socket] [, string username [, string password [, bool new [, int flags]]]]])",
         "Opens a connection to a MySQL Server"
     ],
     "mysql_create_db": [
@@ -7047,7 +6920,7 @@ var functionMap = {
         "Gets number of rows in a result"
     ],
     "mysql_pconnect": [
-        "resource mysql_pconnect([string hostname[:port][:\/path\/to\/socket] [, string username [, string password [, int flags]]]])",
+        "resource mysql_pconnect([string hostname[:port][:/path/to/socket] [, string username [, string password [, int flags]]]])",
         "Opens a persistent connection to a MySQL Server"
     ],
     "mysql_ping": [
@@ -7243,8 +7116,8 @@ var functionMap = {
         "Return the MySQL version for the server referenced by the given link"
     ],
     "mysqli_get_warnings": [
-        "object mysqli_get_warnings(object link) *\/",
-        "PHP_FUNCTION(mysqli_get_warnings) {  MY_MYSQL   *mysql;  zval    *mysql_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQLI_WARNING  *w;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"O\", &mysql_link, mysqli_link_class_entry) == FAILURE) {   return;  }  MYSQLI_FETCH_RESOURCE(mysql, MY_MYSQL*, &mysql_link, \"mysqli_link\", MYSQLI_STATUS_VALID);   if (mysql_warning_count(mysql->mysql)) {   w = php_get_warnings(mysql->mysql TSRMLS_CC);   } else {   RETURN_FALSE;  }  mysqli_resource = (MYSQLI_RESOURCE *)ecalloc (1, sizeof(MYSQLI_RESOURCE));  mysqli_resource->ptr = mysqli_resource->info = (void *)w;  mysqli_resource->status = MYSQLI_STATUS_VALID;  MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_warning_class_entry);  } \/* }}}"
+        "object mysqli_get_warnings(object link) */",
+        "PHP_FUNCTION(mysqli_get_warnings) {  MY_MYSQL   *mysql;  zval    *mysql_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQLI_WARNING  *w;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"O\", &mysql_link, mysqli_link_class_entry) == FAILURE) {   return;  }  MYSQLI_FETCH_RESOURCE(mysql, MY_MYSQL*, &mysql_link, \"mysqli_link\", MYSQLI_STATUS_VALID);   if (mysql_warning_count(mysql->mysql)) {   w = php_get_warnings(mysql->mysql TSRMLS_CC);   } else {   RETURN_FALSE;  }  mysqli_resource = (MYSQLI_RESOURCE *)ecalloc (1, sizeof(MYSQLI_RESOURCE));  mysqli_resource->ptr = mysqli_resource->info = (void *)w;  mysqli_resource->status = MYSQLI_STATUS_VALID;  MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_warning_class_entry);  } /* }}}"
     ],
     "mysqli_info": [
         "string mysqli_info(object link)",
@@ -7303,8 +7176,8 @@ var functionMap = {
         "Prepare a SQL statement for execution"
     ],
     "mysqli_query": [
-        "mixed mysqli_query(object link, string query [,int resultmode]) *\/",
-        "PHP_FUNCTION(mysqli_query) {  MY_MYSQL   *mysql;  zval    *mysql_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQL_RES    *result;  char    *query = NULL;  unsigned int   query_len;  unsigned long   resultmode = MYSQLI_STORE_RESULT;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"Os|l\", &mysql_link, mysqli_link_class_entry, &query, &query_len, &resultmode) == FAILURE) {   return;  }   if (!query_len) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Empty query\");   RETURN_FALSE;  }  if ((resultmode & ~MYSQLI_ASYNC) != MYSQLI_USE_RESULT && (resultmode & ~MYSQLI_ASYNC) != MYSQLI_STORE_RESULT) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Invalid value for resultmode\");   RETURN_FALSE;  }   MYSQLI_FETCH_RESOURCE(mysql, MY_MYSQL*, &mysql_link, \"mysqli_link\", MYSQLI_STATUS_VALID);   MYSQLI_DISABLE_MQ;   #ifdef MYSQLI_USE_MYSQLND  if (resultmode & MYSQLI_ASYNC) {   if (mysqli_async_query(mysql->mysql, query, query_len)) {    MYSQLI_REPORT_MYSQL_ERROR(mysql->mysql);    RETURN_FALSE;   }   mysql->async_result_fetch_type = resultmode & ~MYSQLI_ASYNC;   RETURN_TRUE;  } #endif   if (mysql_real_query(mysql->mysql, query, query_len)) {   MYSQLI_REPORT_MYSQL_ERROR(mysql->mysql);   RETURN_FALSE;  }   if (!mysql_field_count(mysql->mysql)) {   \/* no result set - not a SELECT"
+        "mixed mysqli_query(object link, string query [,int resultmode]) */",
+        "PHP_FUNCTION(mysqli_query) {  MY_MYSQL   *mysql;  zval    *mysql_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQL_RES    *result;  char    *query = NULL;  unsigned int   query_len;  unsigned long   resultmode = MYSQLI_STORE_RESULT;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"Os|l\", &mysql_link, mysqli_link_class_entry, &query, &query_len, &resultmode) == FAILURE) {   return;  }   if (!query_len) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Empty query\");   RETURN_FALSE;  }  if ((resultmode & ~MYSQLI_ASYNC) != MYSQLI_USE_RESULT && (resultmode & ~MYSQLI_ASYNC) != MYSQLI_STORE_RESULT) {   php_error_docref(NULL TSRMLS_CC, E_WARNING, \"Invalid value for resultmode\");   RETURN_FALSE;  }   MYSQLI_FETCH_RESOURCE(mysql, MY_MYSQL*, &mysql_link, \"mysqli_link\", MYSQLI_STATUS_VALID);   MYSQLI_DISABLE_MQ;   #ifdef MYSQLI_USE_MYSQLND  if (resultmode & MYSQLI_ASYNC) {   if (mysqli_async_query(mysql->mysql, query, query_len)) {    MYSQLI_REPORT_MYSQL_ERROR(mysql->mysql);    RETURN_FALSE;   }   mysql->async_result_fetch_type = resultmode & ~MYSQLI_ASYNC;   RETURN_TRUE;  } #endif   if (mysql_real_query(mysql->mysql, query, query_len)) {   MYSQLI_REPORT_MYSQL_ERROR(mysql->mysql);   RETURN_FALSE;  }   if (!mysql_field_count(mysql->mysql)) {   /* no result set - not a SELECT"
     ],
     "mysqli_real_connect": [
         "bool mysqli_real_connect(object link [,string hostname [,string username [,string passwd [,string dbname [,int port [,string socket [,int flags]]]]]]])",
@@ -7419,8 +7292,8 @@ var functionMap = {
         "Buffer result set on client"
     ],
     "mysqli_stmt_get_warnings": [
-        "object mysqli_stmt_get_warnings(object link) *\/",
-        "PHP_FUNCTION(mysqli_stmt_get_warnings) {  MY_STMT    *stmt;  zval    *stmt_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQLI_WARNING  *w;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"O\", &stmt_link, mysqli_stmt_class_entry) == FAILURE) {   return;  }  MYSQLI_FETCH_RESOURCE(stmt, MY_STMT*, &stmt_link, \"mysqli_stmt\", MYSQLI_STATUS_VALID);   if (mysqli_stmt_warning_count(stmt->stmt)) {   w = php_get_warnings(mysqli_stmt_get_connection(stmt->stmt) TSRMLS_CC);   } else {   RETURN_FALSE;  }  mysqli_resource = (MYSQLI_RESOURCE *)ecalloc (1, sizeof(MYSQLI_RESOURCE));  mysqli_resource->ptr = mysqli_resource->info = (void *)w;  mysqli_resource->status = MYSQLI_STATUS_VALID;  MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_warning_class_entry); } \/* }}}"
+        "object mysqli_stmt_get_warnings(object link) */",
+        "PHP_FUNCTION(mysqli_stmt_get_warnings) {  MY_STMT    *stmt;  zval    *stmt_link;  MYSQLI_RESOURCE  *mysqli_resource;  MYSQLI_WARNING  *w;   if (zend_parse_method_parameters(ZEND_NUM_ARGS() TSRMLS_CC, getThis(), \"O\", &stmt_link, mysqli_stmt_class_entry) == FAILURE) {   return;  }  MYSQLI_FETCH_RESOURCE(stmt, MY_STMT*, &stmt_link, \"mysqli_stmt\", MYSQLI_STATUS_VALID);   if (mysqli_stmt_warning_count(stmt->stmt)) {   w = php_get_warnings(mysqli_stmt_get_connection(stmt->stmt) TSRMLS_CC);   } else {   RETURN_FALSE;  }  mysqli_resource = (MYSQLI_RESOURCE *)ecalloc (1, sizeof(MYSQLI_RESOURCE));  mysqli_resource->ptr = mysqli_resource->info = (void *)w;  mysqli_resource->status = MYSQLI_STATUS_VALID;  MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_warning_class_entry); } /* }}}"
     ],
     "mysqli_stmt_init": [
         "mixed mysqli_stmt_init(object link)",
@@ -7652,7 +7525,7 @@ var functionMap = {
     ],
     "ob_implicit_flush": [
         "void ob_implicit_flush([int flag])",
-        "Turn implicit flush on\/off and is equivalent to calling flush() after every output call"
+        "Turn implicit flush on/off and is equivalent to calling flush() after every output call"
     ],
     "ob_list_handlers": [
         "false|array ob_list_handlers()",
@@ -7664,7 +7537,7 @@ var functionMap = {
     ],
     "oci_bind_array_by_name": [
         "bool oci_bind_array_by_name(resource stmt, string name, array &var, int max_table_length [, int max_item_length [, int type ]])",
-        "Bind a PHP array to an Oracle PL\/SQL type by name"
+        "Bind a PHP array to an Oracle PL/SQL type by name"
     ],
     "oci_bind_by_name": [
         "bool oci_bind_by_name(resource stmt, string name, mixed &var, [, int maxlength [, int type]])",
@@ -7828,7 +7701,7 @@ var functionMap = {
     ],
     "oci_lob_is_equal": [
         "bool oci_lob_is_equal( object lob1, object lob2 )",
-        "Tests to see if two LOB\/FILE locators are equal"
+        "Tests to see if two LOB/FILE locators are equal"
     ],
     "oci_lob_load": [
         "string oci_lob_load()",
@@ -7884,7 +7757,7 @@ var functionMap = {
     ],
     "oci_new_descriptor": [
         "object oci_new_descriptor(resource connection [, int type])",
-        "Initialize a new empty descriptor LOB\/FILE (LOB is default)"
+        "Initialize a new empty descriptor LOB/FILE (LOB is default)"
     ],
     "oci_num_fields": [
         "int oci_num_fields(resource stmt)",
@@ -7956,7 +7829,7 @@ var functionMap = {
     ],
     "ocisetbufferinglob": [
         "bool ocisetbufferinglob( boolean flag )",
-        "Enables\/disables buffering for a LOB"
+        "Enables/disables buffering for a LOB"
     ],
     "octdec": [
         "int octdec(string octal_number)",
@@ -8212,7 +8085,7 @@ var functionMap = {
     ],
     "openssl_pkcs7_decrypt": [
         "bool openssl_pkcs7_decrypt(string infilename, string outfilename, mixed recipcert [, mixed recipkey])",
-        "Decrypts the S\/MIME message in the file name infilename and output the results to the file name outfilename.  recipcert is a CERT for one of the recipients. recipkey specifies the private key matching recipcert, if recipcert does not include the key"
+        "Decrypts the S/MIME message in the file name infilename and output the results to the file name outfilename.  recipcert is a CERT for one of the recipients. recipkey specifies the private key matching recipcert, if recipcert does not include the key"
     ],
     "openssl_pkcs7_encrypt": [
         "bool openssl_pkcs7_encrypt(string infile, string outfile, mixed recipcerts, array headers [, long flags [, long cipher]])",
@@ -8220,7 +8093,7 @@ var functionMap = {
     ],
     "openssl_pkcs7_sign": [
         "bool openssl_pkcs7_sign(string infile, string outfile, mixed signcert, mixed signkey, array headers [, long flags [, string extracertsfilename]])",
-        "Signs the MIME message in the file named infile with signcert\/signkey and output the result to file name outfile. headers lists plain text headers to exclude from the signed portion of the message, and should include to, from and subject as a minimum"
+        "Signs the MIME message in the file named infile with signcert/signkey and output the result to file name outfile. headers lists plain text headers to exclude from the signed portion of the message, and should include to, from and subject as a minimum"
     ],
     "openssl_pkcs7_verify": [
         "bool openssl_pkcs7_verify(string filename, long flags [, string signerscerts [, array cainfo [, string extracerts [, string content]]]])",
@@ -8308,7 +8181,7 @@ var functionMap = {
     ],
     "openssl_x509_parse": [
         "array openssl_x509_parse(mixed x509 [, bool shortnames=true])",
-        "Returns an array of the fields\/values of the CERT"
+        "Returns an array of the fields/values of the CERT"
     ],
     "openssl_x509_read": [
         "resource openssl_x509_read(mixed cert)",
@@ -8344,7 +8217,7 @@ var functionMap = {
     ],
     "parse_str": [
         "void parse_str(string encoded_string [, array result])",
-        "Parses GET\/POST\/COOKIE data and sets global variables"
+        "Parses GET/POST/COOKIE data and sets global variables"
     ],
     "parse_url": [
         "mixed parse_url(string url, [int url_component])",
@@ -8504,7 +8377,7 @@ var functionMap = {
     ],
     "pg_escape_string": [
         "string pg_escape_string([resource connection,] string data)",
-        "Escape string for text\/char type"
+        "Escape string for text/char type"
     ],
     "pg_execute": [
         "resource pg_execute([resource connection,] string stmtname, array params)",
@@ -9135,8 +9008,8 @@ var functionMap = {
         "Convert a quoted-printable string to an 8 bit string"
     ],
     "quoted_printable_encode": [
-        "string quoted_printable_encode(string str) *\/",
-        "PHP_FUNCTION(quoted_printable_encode) {  char *str, *new_str;  int str_len;  size_t new_str_len;   if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, \"s\", &str, &str_len) != SUCCESS) {   return;  }   if (!str_len) {   RETURN_EMPTY_STRING();  }   new_str = (char *)php_quot_print_encode((unsigned char *)str, (size_t)str_len, &new_str_len);  RETURN_STRINGL(new_str, new_str_len, 0); } \/* }}}"
+        "string quoted_printable_encode(string str) */",
+        "PHP_FUNCTION(quoted_printable_encode) {  char *str, *new_str;  int str_len;  size_t new_str_len;   if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, \"s\", &str, &str_len) != SUCCESS) {   return;  }   if (!str_len) {   RETURN_EMPTY_STRING();  }   new_str = (char *)php_quot_print_encode((unsigned char *)str, (size_t)str_len, &new_str_len);  RETURN_STRINGL(new_str, new_str_len, 0); } /* }}}"
     ],
     "quotemeta": [
         "string quotemeta(string str)",
@@ -9204,7 +9077,7 @@ var functionMap = {
     ],
     "readline_info": [
         "mixed readline_info([string varname [, string newvalue]])",
-        "Gets\/sets various internal readline variables."
+        "Gets/sets various internal readline variables."
     ],
     "readline_list_history": [
         "array readline_list_history(void)",
@@ -9536,7 +9409,7 @@ var functionMap = {
     ],
     "sinh": [
         "float sinh(float number)",
-        "Returns the hyperbolic sine of the number, defined as (exp(number) - exp(-number))\/2"
+        "Returns the hyperbolic sine of the number, defined as (exp(number) - exp(-number))/2"
     ],
     "sleep": [
         "void sleep(int seconds)",
@@ -9704,11 +9577,11 @@ var functionMap = {
     ],
     "socket_getpeername": [
         "bool socket_getpeername(resource socket, string &addr[, int &port])",
-        "Queries the remote side of the given socket which may either result in host\/port or in a UNIX filesystem path, dependent on its type."
+        "Queries the remote side of the given socket which may either result in host/port or in a UNIX filesystem path, dependent on its type."
     ],
     "socket_getsockname": [
         "bool socket_getsockname(resource socket, string &addr[, int &port])",
-        "Queries the remote side of the given socket which may either result in host\/port or in a UNIX filesystem path, dependent on its type."
+        "Queries the remote side of the given socket which may either result in host/port or in a UNIX filesystem path, dependent on its type."
     ],
     "socket_last_error": [
         "int socket_last_error([resource socket])",
@@ -10000,7 +9873,7 @@ var functionMap = {
     ],
     "str_ireplace": [
         "mixed str_ireplace(mixed search, mixed replace, mixed subject [, int &replace_count])",
-        "Replaces all occurrences of search in haystack with replace \/ case-insensitive"
+        "Replaces all occurrences of search in haystack with replace / case-insensitive"
     ],
     "str_pad": [
         "string str_pad(string input, int pad_length [, string pad_string [, int pad_type]])",
@@ -10048,7 +9921,7 @@ var functionMap = {
     ],
     "strcspn": [
         "int strcspn(string str, string mask [, start [, len]])",
-        "Finds length of initial segment consisting entirely of characters not found in mask. If start or\/and length is provide works like strcspn(substr($s,$start,$len),$bad_chars)"
+        "Finds length of initial segment consisting entirely of characters not found in mask. If start or/and length is provide works like strcspn(substr($s,$start,$len),$bad_chars)"
     ],
     "stream_bucket_append": [
         "void stream_bucket_append(resource brigade, resource bucket)",
@@ -10072,11 +9945,11 @@ var functionMap = {
     ],
     "stream_context_get_default": [
         "resource stream_context_get_default([array options])",
-        "Get a handle on the default file\/stream context and optionally set parameters"
+        "Get a handle on the default file/stream context and optionally set parameters"
     ],
     "stream_context_get_options": [
         "array stream_context_get_options(resource context|resource stream)",
-        "Retrieve options for a stream\/wrapper\/context"
+        "Retrieve options for a stream/wrapper/context"
     ],
     "stream_context_get_params": [
         "array stream_context_get_params(resource context|resource stream)",
@@ -10084,7 +9957,7 @@ var functionMap = {
     ],
     "stream_context_set_default": [
         "resource stream_context_set_default(array options)",
-        "Set default file\/stream context, returns the context as a resource"
+        "Set default file/stream context, returns the context as a resource"
     ],
     "stream_context_set_option": [
         "bool stream_context_set_option(resource context|resource stream, string wrappername, string optionname, mixed value)",
@@ -10128,7 +10001,7 @@ var functionMap = {
     ],
     "stream_get_meta_data": [
         "array stream_get_meta_data(resource fp)",
-        "Retrieves header\/meta data from streams\/file pointers"
+        "Retrieves header/meta data from streams/file pointers"
     ],
     "stream_get_transports": [
         "array stream_get_transports()",
@@ -10152,7 +10025,7 @@ var functionMap = {
     ],
     "stream_set_blocking": [
         "bool stream_set_blocking(resource socket, int mode)",
-        "Set blocking\/non-blocking mode on a socket or stream"
+        "Set blocking/non-blocking mode on a socket or stream"
     ],
     "stream_set_timeout": [
         "bool stream_set_timeout(resource stream, int seconds [, int microseconds])",
@@ -10200,7 +10073,7 @@ var functionMap = {
     ],
     "stream_supports_lock": [
         "bool stream_supports_lock(resource stream)",
-        "Tells wether the stream supports locking through flock()."
+        "Tells whether the stream supports locking through flock()."
     ],
     "stream_wrapper_register": [
         "bool stream_wrapper_register(string protocol, string classname[, integer flags])",
@@ -10216,7 +10089,7 @@ var functionMap = {
     ],
     "strftime": [
         "string strftime(string format [, int timestamp])",
-        "Format a local time\/date according to locale settings"
+        "Format a local time/date according to locale settings"
     ],
     "strip_tags": [
         "string strip_tags(string str [, string allowable_tags])",
@@ -10268,7 +10141,7 @@ var functionMap = {
     ],
     "strptime": [
         "string strptime(string timestamp, string format)",
-        "Parse a time\/date generated with strftime()"
+        "Parse a time/date generated with strftime()"
     ],
     "strrchr": [
         "string strrchr(string haystack, string needle)",
@@ -10288,7 +10161,7 @@ var functionMap = {
     ],
     "strspn": [
         "int strspn(string str, string mask [, start [, len]])",
-        "Finds length of initial segment consisting entirely of characters found in mask. If start or\/and length is provided works like strspn(substr($s,$start,$len),$good_chars)"
+        "Finds length of initial segment consisting entirely of characters found in mask. If start or/and length is provided works like strspn(substr($s,$start,$len),$good_chars)"
     ],
     "strstr": [
         "string strstr(string haystack, string needle[, bool part])",
@@ -10452,7 +10325,7 @@ var functionMap = {
     ],
     "tanh": [
         "float tanh(float number)",
-        "Returns the hyperbolic tangent of the number, defined as sinh(number)\/cosh(number)"
+        "Returns the hyperbolic tangent of the number, defined as sinh(number)/cosh(number)"
     ],
     "tempnam": [
         "string tempnam(string dir, string prefix)",
@@ -10536,7 +10409,7 @@ var functionMap = {
     ],
     "tidy_is_xml": [
         "boolean tidy_is_xml()",
-        "Indicates if the document is a generic (non HTML\/XHTML) XML document."
+        "Indicates if the document is a generic (non HTML/XHTML) XML document."
     ],
     "tidy_parse_file": [
         "boolean tidy_parse_file(string file [, mixed config_options [, string encoding [, bool use_include_path]]])",
@@ -10580,7 +10453,7 @@ var functionMap = {
     ],
     "timezone_location_get": [
         "array timezone_location_get()",
-        "Returns location information for a timezone, including country code, latitude\/longitude and comments"
+        "Returns location information for a timezone, including country code, latitude/longitude and comments"
     ],
     "timezone_name_from_abbr": [
         "string timezone_name_from_abbr(string abbr[, long gmtOffset[, long isdst]])",
@@ -10624,7 +10497,7 @@ var functionMap = {
     ],
     "trigger_error": [
         "void trigger_error(string messsage [, int error_type])",
-        "Generates a user-level error\/warning\/notice message"
+        "Generates a user-level error/warning/notice message"
     ],
     "trim": [
         "string trim(string str [, string character_mask])",
@@ -10740,7 +10613,7 @@ var functionMap = {
     ],
     "variant_date_to_timestamp": [
         "int variant_date_to_timestamp(object variant)",
-        "Converts a variant date\/time value to unix timestamp"
+        "Converts a variant date/time value to unix timestamp"
     ],
     "variant_div": [
         "mixed variant_div(mixed left, mixed right)",
@@ -11068,7 +10941,7 @@ var functionMap = {
     ],
     "xmlwriter_set_indent": [
         "bool xmlwriter_set_indent(resource xmlwriter, bool indent)",
-        "Toggle indentation on\/off - returns FALSE on error"
+        "Toggle indentation on/off - returns FALSE on error"
     ],
     "xmlwriter_set_indent_string": [
         "bool xmlwriter_set_indent_string(resource xmlwriter, string indentString)",
@@ -11184,7 +11057,7 @@ var functionMap = {
     ],
     "xsl_xsltprocessor_import_stylesheet": [
         "void xsl_xsltprocessor_import_stylesheet(domdocument doc);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html# Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html# Since:"
     ],
     "xsl_xsltprocessor_register_php_functions": [
         "void xsl_xsltprocessor_register_php_functions([mixed $restrict]);",
@@ -11199,12 +11072,12 @@ var functionMap = {
         ""
     ],
     "xsl_xsltprocessor_set_profiling": [
-        "bool xsl_xsltprocessor_set_profiling(string filename) *\/",
-        "PHP_FUNCTION(xsl_xsltprocessor_set_profiling) {  zval *id;  xsl_object *intern;  char *filename = NULL;  int filename_len;  DOM_GET_THIS(id);   if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"s!\", &filename, &filename_len) == SUCCESS) {   intern = (xsl_object *)zend_object_store_get_object(id TSRMLS_CC);   if (intern->profiling) {    efree(intern->profiling);   }   if (filename != NULL) {    intern->profiling = estrndup(filename,filename_len);   } else {    intern->profiling = NULL;   }   RETURN_TRUE;  } else {   WRONG_PARAM_COUNT;  } } \/* }}} end xsl_xsltprocessor_set_profiling"
+        "bool xsl_xsltprocessor_set_profiling(string filename) */",
+        "PHP_FUNCTION(xsl_xsltprocessor_set_profiling) {  zval *id;  xsl_object *intern;  char *filename = NULL;  int filename_len;  DOM_GET_THIS(id);   if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, \"s!\", &filename, &filename_len) == SUCCESS) {   intern = (xsl_object *)zend_object_store_get_object(id TSRMLS_CC);   if (intern->profiling) {    efree(intern->profiling);   }   if (filename != NULL) {    intern->profiling = estrndup(filename,filename_len);   } else {    intern->profiling = NULL;   }   RETURN_TRUE;  } else {   WRONG_PARAM_COUNT;  } } /* }}} end xsl_xsltprocessor_set_profiling"
     ],
     "xsl_xsltprocessor_transform_to_doc": [
         "domdocument xsl_xsltprocessor_transform_to_doc(domnode doc);",
-        "URL: http:\/\/www.w3.org\/TR\/2003\/WD-DOM-Level-3-Core-20030226\/DOM3-Core.html# Since:"
+        "URL: http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030226/DOM3-Core.html# Since:"
     ],
     "xsl_xsltprocessor_transform_to_uri": [
         "int xsl_xsltprocessor_transform_to_uri(domdocument doc, string uri);",
@@ -11340,8 +11213,18 @@ var PhpCompletions = function() {
 
         if (!token)
             return [];
-        if (token.type==='identifier')
+        
+        if (token.type==='support.php_tag' && token.value==='<?')
+            return this.getTagCompletions(state, session, pos, prefix);
+        if (token.type==='identifier') {
+            if (token.index > 0) {
+                var prevToken = session.getTokenAt(pos.row, token.start);
+                if (prevToken.type==='support.php_tag') {
+                    return this.getTagCompletions(state, session, pos, prefix);
+                }
+            }
             return this.getFunctionCompletions(state, session, pos, prefix);
+        }
         if (is(token, "variable"))
             return this.getVariableCompletions(state, session, pos, prefix);
         var line = session.getLine(pos.row).substr(0, pos.column);
@@ -11349,6 +11232,20 @@ var PhpCompletions = function() {
             return this.getArrayKeyCompletions(state, session, pos, prefix);
 
         return [];
+    };
+    
+    this.getTagCompletions = function(state, session, pos, prefix) {
+        return [{
+            caption: 'php',
+            value: 'php',
+            meta: "php tag",
+            score: Number.MAX_VALUE
+        }, {
+            caption: '=',
+            value: '=',
+            meta: "php tag",
+            score: Number.MAX_VALUE
+        }];
     };
 
     this.getFunctionCompletions = function(state, session, pos, prefix) {
@@ -11403,363 +11300,6 @@ var PhpCompletions = function() {
 exports.PhpCompletions = PhpCompletions;
 });
 
-ace.define("ace/mode/behaviour/cstyle",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator","ace/lib/lang"], function(require, exports, module) {
-"use strict";
-
-var oop = require("../../lib/oop");
-var Behaviour = require("../behaviour").Behaviour;
-var TokenIterator = require("../../token_iterator").TokenIterator;
-var lang = require("../../lib/lang");
-
-var SAFE_INSERT_IN_TOKENS =
-    ["text", "paren.rparen", "punctuation.operator"];
-var SAFE_INSERT_BEFORE_TOKENS =
-    ["text", "paren.rparen", "punctuation.operator", "comment"];
-
-var context;
-var contextCache = {};
-var initContext = function(editor) {
-    var id = -1;
-    if (editor.multiSelect) {
-        id = editor.selection.index;
-        if (contextCache.rangeCount != editor.multiSelect.rangeCount)
-            contextCache = {rangeCount: editor.multiSelect.rangeCount};
-    }
-    if (contextCache[id])
-        return context = contextCache[id];
-    context = contextCache[id] = {
-        autoInsertedBrackets: 0,
-        autoInsertedRow: -1,
-        autoInsertedLineEnd: "",
-        maybeInsertedBrackets: 0,
-        maybeInsertedRow: -1,
-        maybeInsertedLineStart: "",
-        maybeInsertedLineEnd: ""
-    };
-};
-
-var getWrapped = function(selection, selected, opening, closing) {
-    var rowDiff = selection.end.row - selection.start.row;
-    return {
-        text: opening + selected + closing,
-        selection: [
-                0,
-                selection.start.column + 1,
-                rowDiff,
-                selection.end.column + (rowDiff ? 0 : 1)
-            ]
-    };
-};
-
-var CstyleBehaviour = function() {
-    this.add("braces", "insertion", function(state, action, editor, session, text) {
-        var cursor = editor.getCursorPosition();
-        var line = session.doc.getLine(cursor.row);
-        if (text == '{') {
-            initContext(editor);
-            var selection = editor.getSelectionRange();
-            var selected = session.doc.getTextRange(selection);
-            if (selected !== "" && selected !== "{" && editor.getWrapBehavioursEnabled()) {
-                return getWrapped(selection, selected, '{', '}');
-            } else if (CstyleBehaviour.isSaneInsertion(editor, session)) {
-                if (/[\]\}\)]/.test(line[cursor.column]) || editor.inMultiSelectMode) {
-                    CstyleBehaviour.recordAutoInsert(editor, session, "}");
-                    return {
-                        text: '{}',
-                        selection: [1, 1]
-                    };
-                } else {
-                    CstyleBehaviour.recordMaybeInsert(editor, session, "{");
-                    return {
-                        text: '{',
-                        selection: [1, 1]
-                    };
-                }
-            }
-        } else if (text == '}') {
-            initContext(editor);
-            var rightChar = line.substring(cursor.column, cursor.column + 1);
-            if (rightChar == '}') {
-                var matching = session.$findOpeningBracket('}', {column: cursor.column + 1, row: cursor.row});
-                if (matching !== null && CstyleBehaviour.isAutoInsertedClosing(cursor, line, text)) {
-                    CstyleBehaviour.popAutoInsertedClosing();
-                    return {
-                        text: '',
-                        selection: [1, 1]
-                    };
-                }
-            }
-        } else if (text == "\n" || text == "\r\n") {
-            initContext(editor);
-            var closing = "";
-            if (CstyleBehaviour.isMaybeInsertedClosing(cursor, line)) {
-                closing = lang.stringRepeat("}", context.maybeInsertedBrackets);
-                CstyleBehaviour.clearMaybeInsertedClosing();
-            }
-            var rightChar = line.substring(cursor.column, cursor.column + 1);
-            if (rightChar === '}') {
-                var openBracePos = session.findMatchingBracket({row: cursor.row, column: cursor.column+1}, '}');
-                if (!openBracePos)
-                     return null;
-                var next_indent = this.$getIndent(session.getLine(openBracePos.row));
-            } else if (closing) {
-                var next_indent = this.$getIndent(line);
-            } else {
-                CstyleBehaviour.clearMaybeInsertedClosing();
-                return;
-            }
-            var indent = next_indent + session.getTabString();
-
-            return {
-                text: '\n' + indent + '\n' + next_indent + closing,
-                selection: [1, indent.length, 1, indent.length]
-            };
-        } else {
-            CstyleBehaviour.clearMaybeInsertedClosing();
-        }
-    });
-
-    this.add("braces", "deletion", function(state, action, editor, session, range) {
-        var selected = session.doc.getTextRange(range);
-        if (!range.isMultiLine() && selected == '{') {
-            initContext(editor);
-            var line = session.doc.getLine(range.start.row);
-            var rightChar = line.substring(range.end.column, range.end.column + 1);
-            if (rightChar == '}') {
-                range.end.column++;
-                return range;
-            } else {
-                context.maybeInsertedBrackets--;
-            }
-        }
-    });
-
-    this.add("parens", "insertion", function(state, action, editor, session, text) {
-        if (text == '(') {
-            initContext(editor);
-            var selection = editor.getSelectionRange();
-            var selected = session.doc.getTextRange(selection);
-            if (selected !== "" && editor.getWrapBehavioursEnabled()) {
-                return getWrapped(selection, selected, '(', ')');
-            } else if (CstyleBehaviour.isSaneInsertion(editor, session)) {
-                CstyleBehaviour.recordAutoInsert(editor, session, ")");
-                return {
-                    text: '()',
-                    selection: [1, 1]
-                };
-            }
-        } else if (text == ')') {
-            initContext(editor);
-            var cursor = editor.getCursorPosition();
-            var line = session.doc.getLine(cursor.row);
-            var rightChar = line.substring(cursor.column, cursor.column + 1);
-            if (rightChar == ')') {
-                var matching = session.$findOpeningBracket(')', {column: cursor.column + 1, row: cursor.row});
-                if (matching !== null && CstyleBehaviour.isAutoInsertedClosing(cursor, line, text)) {
-                    CstyleBehaviour.popAutoInsertedClosing();
-                    return {
-                        text: '',
-                        selection: [1, 1]
-                    };
-                }
-            }
-        }
-    });
-
-    this.add("parens", "deletion", function(state, action, editor, session, range) {
-        var selected = session.doc.getTextRange(range);
-        if (!range.isMultiLine() && selected == '(') {
-            initContext(editor);
-            var line = session.doc.getLine(range.start.row);
-            var rightChar = line.substring(range.start.column + 1, range.start.column + 2);
-            if (rightChar == ')') {
-                range.end.column++;
-                return range;
-            }
-        }
-    });
-
-    this.add("brackets", "insertion", function(state, action, editor, session, text) {
-        if (text == '[') {
-            initContext(editor);
-            var selection = editor.getSelectionRange();
-            var selected = session.doc.getTextRange(selection);
-            if (selected !== "" && editor.getWrapBehavioursEnabled()) {
-                return getWrapped(selection, selected, '[', ']');
-            } else if (CstyleBehaviour.isSaneInsertion(editor, session)) {
-                CstyleBehaviour.recordAutoInsert(editor, session, "]");
-                return {
-                    text: '[]',
-                    selection: [1, 1]
-                };
-            }
-        } else if (text == ']') {
-            initContext(editor);
-            var cursor = editor.getCursorPosition();
-            var line = session.doc.getLine(cursor.row);
-            var rightChar = line.substring(cursor.column, cursor.column + 1);
-            if (rightChar == ']') {
-                var matching = session.$findOpeningBracket(']', {column: cursor.column + 1, row: cursor.row});
-                if (matching !== null && CstyleBehaviour.isAutoInsertedClosing(cursor, line, text)) {
-                    CstyleBehaviour.popAutoInsertedClosing();
-                    return {
-                        text: '',
-                        selection: [1, 1]
-                    };
-                }
-            }
-        }
-    });
-
-    this.add("brackets", "deletion", function(state, action, editor, session, range) {
-        var selected = session.doc.getTextRange(range);
-        if (!range.isMultiLine() && selected == '[') {
-            initContext(editor);
-            var line = session.doc.getLine(range.start.row);
-            var rightChar = line.substring(range.start.column + 1, range.start.column + 2);
-            if (rightChar == ']') {
-                range.end.column++;
-                return range;
-            }
-        }
-    });
-
-    this.add("string_dquotes", "insertion", function(state, action, editor, session, text) {
-        if (text == '"' || text == "'") {
-            initContext(editor);
-            var quote = text;
-            var selection = editor.getSelectionRange();
-            var selected = session.doc.getTextRange(selection);
-            if (selected !== "" && selected !== "'" && selected != '"' && editor.getWrapBehavioursEnabled()) {
-                return getWrapped(selection, selected, quote, quote);
-            } else if (!selected) {
-                var cursor = editor.getCursorPosition();
-                var line = session.doc.getLine(cursor.row);
-                var leftChar = line.substring(cursor.column-1, cursor.column);
-                var rightChar = line.substring(cursor.column, cursor.column + 1);
-                
-                var token = session.getTokenAt(cursor.row, cursor.column);
-                var rightToken = session.getTokenAt(cursor.row, cursor.column + 1);
-                if (leftChar == "\\" && token && /escape/.test(token.type))
-                    return null;
-                
-                var stringBefore = token && /string|escape/.test(token.type);
-                var stringAfter = !rightToken || /string|escape/.test(rightToken.type);
-                
-                var pair;
-                if (rightChar == quote) {
-                    pair = stringBefore !== stringAfter;
-                } else {
-                    if (stringBefore && !stringAfter)
-                        return null; // wrap string with different quote
-                    if (stringBefore && stringAfter)
-                        return null; // do not pair quotes inside strings
-                    var wordRe = session.$mode.tokenRe;
-                    wordRe.lastIndex = 0;
-                    var isWordBefore = wordRe.test(leftChar);
-                    wordRe.lastIndex = 0;
-                    var isWordAfter = wordRe.test(leftChar);
-                    if (isWordBefore || isWordAfter)
-                        return null; // before or after alphanumeric
-                    if (rightChar && !/[\s;,.})\]\\]/.test(rightChar))
-                        return null; // there is rightChar and it isn't closing
-                    pair = true;
-                }
-                return {
-                    text: pair ? quote + quote : "",
-                    selection: [1,1]
-                };
-            }
-        }
-    });
-
-    this.add("string_dquotes", "deletion", function(state, action, editor, session, range) {
-        var selected = session.doc.getTextRange(range);
-        if (!range.isMultiLine() && (selected == '"' || selected == "'")) {
-            initContext(editor);
-            var line = session.doc.getLine(range.start.row);
-            var rightChar = line.substring(range.start.column + 1, range.start.column + 2);
-            if (rightChar == selected) {
-                range.end.column++;
-                return range;
-            }
-        }
-    });
-
-};
-
-    
-CstyleBehaviour.isSaneInsertion = function(editor, session) {
-    var cursor = editor.getCursorPosition();
-    var iterator = new TokenIterator(session, cursor.row, cursor.column);
-    if (!this.$matchTokenType(iterator.getCurrentToken() || "text", SAFE_INSERT_IN_TOKENS)) {
-        var iterator2 = new TokenIterator(session, cursor.row, cursor.column + 1);
-        if (!this.$matchTokenType(iterator2.getCurrentToken() || "text", SAFE_INSERT_IN_TOKENS))
-            return false;
-    }
-    iterator.stepForward();
-    return iterator.getCurrentTokenRow() !== cursor.row ||
-        this.$matchTokenType(iterator.getCurrentToken() || "text", SAFE_INSERT_BEFORE_TOKENS);
-};
-
-CstyleBehaviour.$matchTokenType = function(token, types) {
-    return types.indexOf(token.type || token) > -1;
-};
-
-CstyleBehaviour.recordAutoInsert = function(editor, session, bracket) {
-    var cursor = editor.getCursorPosition();
-    var line = session.doc.getLine(cursor.row);
-    if (!this.isAutoInsertedClosing(cursor, line, context.autoInsertedLineEnd[0]))
-        context.autoInsertedBrackets = 0;
-    context.autoInsertedRow = cursor.row;
-    context.autoInsertedLineEnd = bracket + line.substr(cursor.column);
-    context.autoInsertedBrackets++;
-};
-
-CstyleBehaviour.recordMaybeInsert = function(editor, session, bracket) {
-    var cursor = editor.getCursorPosition();
-    var line = session.doc.getLine(cursor.row);
-    if (!this.isMaybeInsertedClosing(cursor, line))
-        context.maybeInsertedBrackets = 0;
-    context.maybeInsertedRow = cursor.row;
-    context.maybeInsertedLineStart = line.substr(0, cursor.column) + bracket;
-    context.maybeInsertedLineEnd = line.substr(cursor.column);
-    context.maybeInsertedBrackets++;
-};
-
-CstyleBehaviour.isAutoInsertedClosing = function(cursor, line, bracket) {
-    return context.autoInsertedBrackets > 0 &&
-        cursor.row === context.autoInsertedRow &&
-        bracket === context.autoInsertedLineEnd[0] &&
-        line.substr(cursor.column) === context.autoInsertedLineEnd;
-};
-
-CstyleBehaviour.isMaybeInsertedClosing = function(cursor, line) {
-    return context.maybeInsertedBrackets > 0 &&
-        cursor.row === context.maybeInsertedRow &&
-        line.substr(cursor.column) === context.maybeInsertedLineEnd &&
-        line.substr(0, cursor.column) == context.maybeInsertedLineStart;
-};
-
-CstyleBehaviour.popAutoInsertedClosing = function() {
-    context.autoInsertedLineEnd = context.autoInsertedLineEnd.substr(1);
-    context.autoInsertedBrackets--;
-};
-
-CstyleBehaviour.clearMaybeInsertedClosing = function() {
-    if (context) {
-        context.maybeInsertedBrackets = 0;
-        context.maybeInsertedRow = -1;
-    }
-};
-
-
-
-oop.inherits(CstyleBehaviour, Behaviour);
-
-exports.CstyleBehaviour = CstyleBehaviour;
-});
-
 ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
@@ -11781,8 +11321,8 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
     
-    this.foldingStartMarker = /(\{|\[)[^\}\]]*$|^\s*(\/\*)/;
-    this.foldingStopMarker = /^[^\[\{]*(\}|\])|^[\s\*]*(\*\/)/;
+    this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
+    this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
     this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/;
     this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/;
@@ -11900,14 +11440,13 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-ace.define("ace/mode/javascript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/javascript_highlight_rules","ace/mode/matching_brace_outdent","ace/range","ace/worker/worker_client","ace/mode/behaviour/cstyle","ace/mode/folding/cstyle"], function(require, exports, module) {
+ace.define("ace/mode/javascript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/javascript_highlight_rules","ace/mode/matching_brace_outdent","ace/worker/worker_client","ace/mode/behaviour/cstyle","ace/mode/folding/cstyle"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
 var TextMode = require("./text").Mode;
 var JavaScriptHighlightRules = require("./javascript_highlight_rules").JavaScriptHighlightRules;
 var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
-var Range = require("../range").Range;
 var WorkerClient = require("../worker/worker_client").WorkerClient;
 var CstyleBehaviour = require("./behaviour/cstyle").CstyleBehaviour;
 var CStyleFoldMode = require("./folding/cstyle").FoldMode;
@@ -11925,6 +11464,7 @@ oop.inherits(Mode, TextMode);
 
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
+    this.$quotes = {'"': '"', "'": "'", "`": "`"};
 
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
@@ -11938,7 +11478,7 @@ oop.inherits(Mode, TextMode);
         }
 
         if (state == "start" || state == "no_regex") {
-            var match = line.match(/^.*(?:\bcase\b.*\:|[\{\(\[])\s*$/);
+            var match = line.match(/^.*(?:\bcase\b.*:|[\{\(\[])\s*$/);
             if (match) {
                 indent += tab;
             }
@@ -12099,7 +11639,7 @@ var CssCompletions = function() {
         }
 
         this.completionsDefined = true;
-    }
+    };
 
     this.getCompletions = function(state, session, pos, prefix) {
         if (!this.completionsDefined) {
@@ -12129,7 +11669,7 @@ var CssCompletions = function() {
         return properties.map(function(property){
             return {
                 caption: property,
-                snippet: property + ': $0',
+                snippet: property + ': $0;',
                 meta: "property",
                 score: Number.MAX_VALUE
             };
@@ -12188,13 +11728,13 @@ var CssBehaviour = function () {
                     return {
                        text: '',
                        selection: [1, 1]
-                    }
+                    };
                 }
                 if (!line.substring(cursor.column).match(/^\s*;/)) {
                     return {
                        text: ':;',
                        selection: [1, 1]
-                    }
+                    };
                 }
             }
         }
@@ -12229,12 +11769,12 @@ var CssBehaviour = function () {
                 return {
                    text: '',
                    selection: [1, 1]
-                }
+                };
             }
         }
     });
 
-}
+};
 oop.inherits(CssBehaviour, CstyleBehaviour);
 
 exports.CssBehaviour = CssBehaviour;
@@ -12386,7 +11926,7 @@ var XmlBehaviour = function () {
 
     this.add("autoclosing", "insertion", function (state, action, editor, session, text) {
         if (text == '>') {
-            var position = editor.getCursorPosition();
+            var position = editor.getSelectionRange().start;
             var iterator = new TokenIterator(session, position.row, position.column);
             var token = iterator.getCurrentToken() || iterator.stepBackward();
             if (!token || !(is(token, "tag-name") || is(token, "tag-whitespace") || is(token, "attribute-name") || is(token, "attribute-equals") || is(token, "attribute-value")))
@@ -12394,16 +11934,24 @@ var XmlBehaviour = function () {
             if (is(token, "reference.attribute-value"))
                 return;
             if (is(token, "attribute-value")) {
-                var firstChar = token.value.charAt(0);
-                if (firstChar == '"' || firstChar == "'") {
-                    var lastChar = token.value.charAt(token.value.length - 1);
-                    var tokenEnd = iterator.getCurrentTokenColumn() + token.value.length;
-                    if (tokenEnd > position.column || tokenEnd == position.column && firstChar != lastChar)
+                var tokenEndColumn = iterator.getCurrentTokenColumn() + token.value.length;
+                if (position.column < tokenEndColumn)
+                    return;
+                if (position.column == tokenEndColumn) {
+                    if (is(iterator.stepForward(), "attribute-value"))
                         return;
+                    iterator.stepBackward();
                 }
             }
+            
+            if (/^\s*>/.test(session.getLine(position.row).slice(position.column)))
+                return;
             while (!is(token, "tag-name")) {
                 token = iterator.stepBackward();
+                if (token.value == "<") {
+                    token = iterator.stepForward();
+                    break;
+                }
             }
 
             var tokenRow = iterator.getCurrentTokenRow();
@@ -12569,7 +12117,7 @@ function is(token, type) {
         var tag = this._getFirstTagInLine(session, row);
 
         if (!tag)
-            return "";
+            return this.getCommentFoldWidget(session, row);
 
         if (tag.closing || (!tag.tagName && tag.selfClosing))
             return foldStyle == "markbeginend" ? "end" : "";
@@ -12581,6 +12129,12 @@ function is(token, type) {
             return "";
 
         return "start";
+    };
+    
+    this.getCommentFoldWidget = function(session, row) {
+        if (/comment/.test(session.getState(row)) && /<!-/.test(session.getLine(row)))
+            return "start";
+        return "";
     };
     this._getFirstTagInLine = function(session, row) {
         var tokens = session.getTokens(row);
@@ -12700,8 +12254,10 @@ function is(token, type) {
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var firstTag = this._getFirstTagInLine(session, row);
         
-        if (!firstTag)
-            return null;
+        if (!firstTag) {
+            return this.getCommentFoldWidget(session, row)
+                && session.getCommentFoldRange(row, session.getLine(row).length);
+        }
         
         var isBackward = firstTag.closing || firstTag.selfClosing;
         var stack = [];
@@ -13042,7 +12598,7 @@ var HtmlCompletions = function() {
         if (is(token, "attribute-value"))
             return this.getAttributeValueCompletions(state, session, pos, prefix);
         var line = session.getLine(pos.row).substr(0, pos.column);
-        if (/&[A-z]*$/i.test(line))
+        if (/&[a-z]*$/i.test(line))
             return this.getHTMLEntityCompletions(state, session, pos, prefix);
 
         return [];
@@ -13218,20 +12774,8 @@ oop.inherits(PhpMode, TextMode);
 
 (function() {
 
-    this.tokenRe = new RegExp("^["
-        + unicode.packages.L
-        + unicode.packages.Mn + unicode.packages.Mc
-        + unicode.packages.Nd
-        + unicode.packages.Pc + "\_]+", "g"
-    );
-
-    this.nonTokenRe = new RegExp("^(?:[^"
-        + unicode.packages.L
-        + unicode.packages.Mn + unicode.packages.Mc
-        + unicode.packages.Nd
-        + unicode.packages.Pc + "\_]|\s])+", "g"
-    );
-
+    this.tokenRe = new RegExp("^[" + unicode.wordChars + "_]+", "g");
+    this.nonTokenRe = new RegExp("^(?:[^" + unicode.wordChars + "_]|\\s])+", "g");
 
     this.lineCommentStart = ["//", "#"];
     this.blockComment = {start: "/*", end: "*/"};
@@ -13248,7 +12792,7 @@ oop.inherits(PhpMode, TextMode);
         }
 
         if (state == "start") {
-            var match = line.match(/^.*[\{\(\[\:]\s*$/);
+            var match = line.match(/^.*[\{\(\[:]\s*$/);
             if (match) {
                 indent += tab;
             }

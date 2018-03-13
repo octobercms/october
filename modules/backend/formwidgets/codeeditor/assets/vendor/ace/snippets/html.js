@@ -81,7 +81,7 @@ snippet doct\n\
 	\"http://www.w3.org/TR/html4/loose.dtd\">\n\
 # HTML Doctype 5\n\
 snippet doct5\n\
-	<!DOCTYPE HTML>\n\
+	<!DOCTYPE html>\n\
 # XHTML Doctype 1.0 Frameset\n\
 snippet docxf\n\
 	<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\"\n\
@@ -98,6 +98,15 @@ snippet docxt\n\
 snippet docx\n\
 	<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n\
 	\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n\
+# html5shiv\n\
+snippet html5shiv\n\
+	<!--[if lte IE 8]>\n\
+		<script src=\"https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js\"></script>\n\
+	<![endif]-->\n\
+snippet html5printshiv\n\
+	<!--[if lte IE 8]>\n\
+		<script src=\"https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js\"></script>\n\
+	<![endif]-->\n\
 # Attributes\n\
 snippet attr\n\
 	${1:attribute}=\"${2:property}\"\n\
@@ -460,6 +469,18 @@ snippet html5\n\
 			${3:body}\n\
 		</body>\n\
 	</html>\n\
+snippet xhtml5\n\
+	<!DOCTYPE html>\n\
+	<html xmlns=\"http://www.w3.org/1999/xhtml\">\n\
+		<head>\n\
+			<meta http-equiv=\"content-type\" content=\"application/xhtml+xml; charset=utf-8\" />\n\
+			<title>${1:`substitute(Filename('', 'Page Title'), '^.', '\\u&', '')`}</title>\n\
+			${2:meta}\n\
+		</head>\n\
+		<body>\n\
+			${3:body}\n\
+		</body>\n\
+	</html>\n\
 snippet i\n\
 	<i>${1}</i>\n\
 snippet iframe\n\
@@ -702,6 +723,12 @@ snippet script\n\
 	</script>\n\
 snippet scriptsrc\n\
 	<script src=\"${1}.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+snippet newscript\n\
+	<script type=\"application/javascript\" charset=\"utf-8\">\n\
+		${1}\n\
+	</script>\n\
+snippet newscriptsrc\n\
+	<script src=\"${1}.js\" type=\"application/javascript\" charset=\"utf-8\"></script>\n\
 snippet section\n\
 	<section>\n\
 		${1}\n\

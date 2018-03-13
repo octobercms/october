@@ -4097,24 +4097,6 @@ Downcoder.map={};Downcoder.chars=[];if(typeof SPECIFIC_MAPS[locale]==='object'){
 for(var i=0;i<ALL_MAPS.length;i++){var lookup=ALL_MAPS[i];for(var c in lookup){if(lookup.hasOwnProperty(c)){Downcoder.map[c]=lookup[c];}}}
 for(var k in Downcoder.map){if(Downcoder.map.hasOwnProperty(k)){Downcoder.chars.push(k);}}
 Downcoder.regex=new RegExp(Downcoder.chars.join('|'),'g');}}
-function toCamel(slug,numChars){Downcoder.Initialize()
-slug=slug.replace(Downcoder.regex,function(m){return Downcoder.map[m]})
-var regex=new RegExp('\\b('+removeList.join('|')+')\\b','gi')
-slug=slug.replace(regex,'')
-slug=slug.toLowerCase()
-slug=slug.replace(/(\b|-)\w/g,function(m){return m.toUpperCase();});slug=slug.replace(/[^-\w\s]/g,'')
-slug=slug.replace(/^\s+|\s+$/g,'')
-slug=slug.replace(/[-\s]+/g,'')
-slug=slug.substr(0,1).toLowerCase()+slug.substr(1);return slug.substring(0,numChars)}
-function slugify(slug,numChars){Downcoder.Initialize()
-slug=slug.replace(Downcoder.regex,function(m){return Downcoder.map[m]})
-var regex=new RegExp('\\b('+removeList.join('|')+')\\b','gi')
-slug=slug.replace(regex,'')
-slug=slug.replace(/[^-\w\s]/g,'')
-slug=slug.replace(/^\s+|\s+$/g,'')
-slug=slug.replace(/[-\s]+/g,'-')
-slug=slug.toLowerCase()
-return slug.substring(0,numChars)}
 var InputPreset=function(element,options){var $el=this.$el=$(element)
 this.options=options||{}
 this.cancelled=false
@@ -4134,15 +4116,32 @@ this.$src.on('paste',function(){if(self.cancelled)
 return
 setTimeout(function(){$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')},100)})
 this.$el.on('change',function(){self.cancelled=true})}
-InputPreset.prototype.formatNamespace=function(){var value=toCamel(this.$src.val())
+InputPreset.prototype.formatNamespace=function(){var value=this.toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}
 InputPreset.prototype.formatValue=function(){if(this.options.inputPresetType=='exact'){return this.$src.val();}
 else if(this.options.inputPresetType=='namespace'){return this.formatNamespace()}
-if(this.options.inputPresetType=='camel'){var value=toCamel(this.$src.val())}
-else{var value=slugify(this.$src.val())}
+if(this.options.inputPresetType=='camel'){var value=this.toCamel(this.$src.val())}
+else{var value=this.slugify(this.$src.val())}
 if(this.options.inputPresetType=='url'){value='/'+value}
 return value.replace(/\s/gi,"-")}
-InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'slug',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined}
+InputPreset.prototype.toCamel=function(slug,numChars){Downcoder.Initialize()
+slug=slug.replace(Downcoder.regex,function(m){return Downcoder.map[m]})
+slug=this.removeStopWords(slug);slug=slug.toLowerCase()
+slug=slug.replace(/(\b|-)\w/g,function(m){return m.toUpperCase();});slug=slug.replace(/[^-\w\s]/g,'')
+slug=slug.replace(/^\s+|\s+$/g,'')
+slug=slug.replace(/[-\s]+/g,'')
+slug=slug.substr(0,1).toLowerCase()+slug.substr(1);return slug.substring(0,numChars)}
+InputPreset.prototype.slugify=function(slug,numChars){Downcoder.Initialize()
+slug=slug.replace(Downcoder.regex,function(m){return Downcoder.map[m]})
+slug=this.removeStopWords(slug);slug=slug.replace(/[^-\w\s]/g,'')
+slug=slug.replace(/^\s+|\s+$/g,'')
+slug=slug.replace(/[-\s]+/g,'-')
+slug=slug.toLowerCase()
+return slug.substring(0,numChars)}
+InputPreset.prototype.removeStopWords=function(str){if(this.options.inputPresetRemoveWords){var regex=new RegExp('\\b('+removeList.join('|')+')\\b','gi')
+str=str.replace(regex,'')}
+return str;}
+InputPreset.DEFAULTS={inputPreset:'',inputPresetType:'slug',inputPresetClosestParent:undefined,inputPresetPrefixInput:undefined,inputPresetRemoveWords:true}
 var old=$.fn.inputPreset
 $.fn.inputPreset=function(option){return this.each(function(){var $this=$(this)
 var data=$this.data('oc.inputPreset')

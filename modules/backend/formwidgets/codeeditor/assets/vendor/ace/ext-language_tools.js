@@ -272,14 +272,14 @@ var SnippetManager = function() {
                 return;
 
             var value = tokens.slice(i + 1, i1);
-            var isNested = value.some(function(t) {return typeof t === "object"});          
+            var isNested = value.some(function(t) {return typeof t === "object";});          
             if (isNested && !ts.value) {
                 ts.value = value;
             } else if (value.length && (!ts.value || typeof ts.value !== "string")) {
                 ts.value = value.join("");
             }
         });
-        tabstops.forEach(function(ts) {ts.length = 0});
+        tabstops.forEach(function(ts) {ts.length = 0;});
         var expanding = {};
         function copyValue(val) {
             var copy = [];
@@ -509,10 +509,10 @@ var SnippetManager = function() {
                 return;
             
             s.startRe = guardedRegexp(s.trigger, s.guard, true);
-            s.triggerRe = new RegExp(s.trigger, "", true);
+            s.triggerRe = new RegExp(s.trigger);
 
             s.endRe = guardedRegexp(s.endTrigger, s.endGuard, true);
-            s.endTriggerRe = new RegExp(s.endTrigger, "", true);
+            s.endTriggerRe = new RegExp(s.endTrigger);
         }
 
         if (snippets && snippets.content)
@@ -1020,7 +1020,7 @@ var AcePopup = function(parentNode) {
         if (selected)
             dom.addCssClass(selected, "ace_selected");
     });
-    var hideHoverMarker = function() { setHoverMarker(-1) };
+    var hideHoverMarker = function() { setHoverMarker(-1); };
     var setHoverMarker = function(row, suppressRedraw) {
         if (row !== hoverMarker.start.row) {
             hoverMarker.start.row = hoverMarker.end.row = row;
@@ -1075,7 +1075,7 @@ var AcePopup = function(parentNode) {
             var maxW = popup.renderer.$size.scrollerWidth / popup.renderer.layerConfig.characterWidth;
             var metaData = data.meta;
             if (metaData.length + data.caption.length > maxW - 2) {
-                metaData = metaData.substr(0, maxW - data.caption.length - 3) + "\u2026"
+                metaData = metaData.substr(0, maxW - data.caption.length - 3) + "\u2026";
             }
             tokens.push({type: "rightAlignedText", value: metaData});
         }
@@ -1087,10 +1087,9 @@ var AcePopup = function(parentNode) {
     popup.session.$computeWidth = function() {
         return this.screenWidth = 0;
     };
-
-    popup.$blockScrolling = Infinity;
     popup.isOpen = false;
     popup.isTopdown = false;
+    popup.autoSelect = true;
 
     popup.data = [];
     popup.setData = function(list) {
@@ -1106,7 +1105,7 @@ var AcePopup = function(parentNode) {
         return selectionMarker.start.row;
     };
     popup.setRow = function(line) {
-        line = Math.max(0, Math.min(this.data.length, line));
+        line = Math.max(this.autoSelect ? 0 : -1, Math.min(this.data.length, line));
         if (selectionMarker.start.row != line) {
             popup.selection.clearSelection();
             selectionMarker.start.row = selectionMarker.end.row = line || 0;
@@ -1333,6 +1332,8 @@ var Autocomplete = function() {
         if (!this.popup)
             this.$init();
 
+	this.popup.autoSelect = this.autoSelect;
+
         this.popup.setData(this.completions.filtered);
 
         editor.keyBinding.addKeyboardHandler(this.keyboardHandler);
@@ -1390,12 +1391,9 @@ var Autocomplete = function() {
     };
 
     this.blurListener = function(e) {
-        if (e.relatedTarget && e.relatedTarget.nodeName == "A" && e.relatedTarget.href) {
-            window.open(e.relatedTarget.href, "_blank");
-        }
         var el = document.activeElement;
         var text = this.editor.textInput.getElement();
-        var fromTooltip = e.relatedTarget && e.relatedTarget == this.tooltipNode;
+        var fromTooltip = e.relatedTarget && this.tooltipNode && this.tooltipNode.contains(e.relatedTarget);
         var container = this.popup && this.popup.container;
         if (el != text && el.parentNode != container && !fromTooltip
             && el != this.tooltipNode && e.relatedTarget != text
@@ -1476,7 +1474,6 @@ var Autocomplete = function() {
         var session = editor.getSession();
         var pos = editor.getCursorPosition();
 
-        var line = session.getLine(pos.row);
         var prefix = util.getCompletionPrefix(editor);
 
         this.base = session.doc.createAnchor(pos.row, pos.column - prefix.length);
@@ -1488,10 +1485,8 @@ var Autocomplete = function() {
             completer.getCompletions(editor, session, pos, prefix, function(err, results) {
                 if (!err && results)
                     matches = matches.concat(results);
-                var pos = editor.getCursorPosition();
-                var line = session.getLine(pos.row);
                 callback(null, {
-                    prefix: prefix,
+                    prefix: util.getCompletionPrefix(editor),
                     matches: matches,
                     finished: (--total === 0)
                 });
@@ -1604,6 +1599,7 @@ var Autocomplete = function() {
             this.tooltipNode.style.pointerEvents = "auto";
             this.tooltipNode.tabIndex = -1;
             this.tooltipNode.onblur = this.blurListener.bind(this);
+            this.tooltipNode.onclick = this.onTooltipClick.bind(this);
         }
 
         var tooltipNode = this.tooltipNode;
@@ -1620,14 +1616,28 @@ var Autocomplete = function() {
         tooltipNode.style.top = popup.container.style.top;
         tooltipNode.style.bottom = popup.container.style.bottom;
 
+        tooltipNode.style.display = "block";
         if (window.innerWidth - rect.right < 320) {
-            tooltipNode.style.right = window.innerWidth - rect.left + "px";
-            tooltipNode.style.left = "";
+            if (rect.left < 320) {
+                if(popup.isTopdown) {
+                    tooltipNode.style.top = rect.bottom + "px";
+                    tooltipNode.style.left = rect.left + "px";
+                    tooltipNode.style.right = "";
+                    tooltipNode.style.bottom = "";
+                } else {
+                    tooltipNode.style.top = popup.container.offsetTop - tooltipNode.offsetHeight + "px";
+                    tooltipNode.style.left = rect.left + "px";
+                    tooltipNode.style.right = "";
+                    tooltipNode.style.bottom = "";
+                }
+            } else {
+                tooltipNode.style.right = window.innerWidth - rect.left + "px";
+                tooltipNode.style.left = "";
+            }
         } else {
             tooltipNode.style.left = (rect.right + 1) + "px";
             tooltipNode.style.right = "";
         }
-        tooltipNode.style.display = "block";
     };
 
     this.hideDocTooltip = function() {
@@ -1639,6 +1649,18 @@ var Autocomplete = function() {
         this.tooltipNode = null;
         if (el.parentNode)
             el.parentNode.removeChild(el);
+    };
+    
+    this.onTooltipClick = function(e) {
+        var a = e.target;
+        while (a && a != this.tooltipNode) {
+            if (a.nodeName == "A" && a.href) {
+                a.rel = "noreferrer";
+                a.target = "_blank";
+                break;
+            }
+            a = a.parentNode;
+        }
     };
 
 }).call(Autocomplete.prototype);
@@ -1699,21 +1721,28 @@ var FilteredList = function(array, filterText) {
             if (this.exactMatch) {
                 if (needle !== caption.substr(0, needle.length))
                     continue loop;
-            }else{
-                for (var j = 0; j < needle.length; j++) {
-                    var i1 = caption.indexOf(lower[j], lastIndex + 1);
-                    var i2 = caption.indexOf(upper[j], lastIndex + 1);
-                    index = (i1 >= 0) ? ((i2 < 0 || i1 < i2) ? i1 : i2) : i2;
-                    if (index < 0)
-                        continue loop;
-                    distance = index - lastIndex - 1;
-                    if (distance > 0) {
-                        if (lastIndex === -1)
-                            penalty += 10;
-                        penalty += distance;
+            } else {
+                var a;
+                if ((a = caption.toLowerCase().indexOf(lower)) > -1) {
+                    for (var k = a; k < a + lower.length; k++) {
+                        matchMask = matchMask | (1 << k);
                     }
-                    matchMask = matchMask | (1 << index);
-                    lastIndex = index;
+                } else {
+                    for (var j = 0; j < needle.length; j++) {
+                        var i1 = caption.indexOf(lower[j], lastIndex + 1);
+                        var i2 = caption.indexOf(upper[j], lastIndex + 1);
+                        index = (i1 >= 0) ? ((i2 < 0 || i1 < i2) ? i1 : i2) : i2;
+                        if (index < 0)
+                            continue loop;
+                        distance = index - lastIndex - 1;
+                        if (distance > 0) {
+                            if (lastIndex === -1)
+                                penalty += 10;
+                            penalty += distance;
+                        }
+                        matchMask = matchMask | (1 << index);
+                        lastIndex = index;
+                    }
                 }
             }
             item.matchMask = matchMask;
@@ -1761,7 +1790,7 @@ ace.define("ace/autocomplete/text_completer",["require","exports","module","ace/
     }
 
     exports.getCompletions = function(editor, session, pos, prefix, callback) {
-        var wordScore = wordDistance(session, pos, prefix);
+        var wordScore = wordDistance(session, pos);
         var wordList = Object.keys(wordScore);
         callback(null, wordList.map(function(word) {
             return {

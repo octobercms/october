@@ -12,10 +12,10 @@ var YamlHighlightRules = function() {
                 regex : "#.*$"
             }, {
                 token : "list.markup",
-                regex : /^(?:-{3}|\.{3})\s*(?=#|$)/     
+                regex : /^(?:-{3}|\.{3})\s*(?=#|$)/
             },  {
                 token : "list.markup",
-                regex : /^\s*[\-?](?:$|\s)/     
+                regex : /^\s*[\-?](?:$|\s)/
             }, {
                 token: "constant",
                 regex: "!![\\w//]+"
@@ -24,10 +24,10 @@ var YamlHighlightRules = function() {
                 regex: "[&\\*][a-zA-Z0-9-_]+"
             }, {
                 token: ["meta.tag", "keyword"],
-                regex: /^(\s*\w.*?)(\:(?:\s+|$))/
+                regex: /^(\s*\w.*?)(:(?=\s|$))/
             },{
                 token: ["meta.tag", "keyword"],
-                regex: /(\w+?)(\s*\:(?:\s+|$))/
+                regex: /(\w+?)(\s*:(?=\s|$))/
             }, {
                 token : "keyword.operator",
                 regex : "<<\\w*:\\w*"
@@ -39,38 +39,73 @@ var YamlHighlightRules = function() {
                 regex : '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
             }, {
                 token : "string", // multi line string start
-                regex : '[|>][-+\\d\\s]*$',
-                next : "qqstring"
+                regex : /[|>][-+\d\s]*$/,
+                onMatch: function(val, state, stack, line) {
+                    var indent = /^\s*/.exec(line)[0];
+                    if (stack.length < 1) {
+                        stack.push(this.next);
+                    } else {
+                        stack[0] = "mlString";
+                    }
+
+                    if (stack.length < 2) {
+                        stack.push(indent.length);
+                    }
+                    else {
+                        stack[1] = indent.length;
+                    }
+                    return this.token;
+                },
+                next : "mlString"
             }, {
                 token : "string", // single quoted string
                 regex : "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"
             }, {
                 token : "constant.numeric", // float
-                regex : /(\b|[+\-\.])[\d_]+(?:(?:\.[\d_]*)?(?:[eE][+\-]?[\d_]+)?)/
+                regex : /(\b|[+\-\.])[\d_]+(?:(?:\.[\d_]*)?(?:[eE][+\-]?[\d_]+)?)(?=[^\d-\w]|$)/
             }, {
                 token : "constant.numeric", // other number
                 regex : /[+\-]?\.inf\b|NaN\b|0x[\dA-Fa-f_]+|0b[10_]+/
             }, {
                 token : "constant.language.boolean",
-                regex : "(?:true|false|TRUE|FALSE|True|False|yes|no)\\b"
+                regex : "\\b(?:true|false|TRUE|FALSE|True|False|yes|no)\\b"
             }, {
                 token : "paren.lparen",
                 regex : "[[({]"
             }, {
                 token : "paren.rparen",
                 regex : "[\\])}]"
+            }, {
+                token : "text",
+                regex : /[^\s,:\[\]\{\}]+/
             }
         ],
-        "qqstring" : [
+        "mlString" : [
             {
-                token : "string",
-                regex : '(?=(?:(?:\\\\.)|(?:[^:]))*?:)',
-                next : "start"
+                token : "indent",
+                regex : /^\s*$/
+            }, {
+                token : "indent",
+                regex : /^\s*/,
+                onMatch: function(val, state, stack) {
+                    var curIndent = stack[1];
+
+                    if (curIndent >= val.length) {
+                        this.next = "start";
+                        stack.splice(0);
+                    }
+                    else {
+                        this.next = "mlString";
+                    }
+                    return this.token;
+                },
+                next : "mlString"
             }, {
                 token : "string",
                 regex : '.+'
             }
         ]};
+    this.normalizeRules();
 
 };
 
@@ -219,12 +254,13 @@ var Mode = function() {
     this.HighlightRules = YamlHighlightRules;
     this.$outdent = new MatchingBraceOutdent();
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
 (function() {
 
-    this.lineCommentStart = "#";
+    this.lineCommentStart = ["#", "//"];
     
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);

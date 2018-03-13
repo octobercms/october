@@ -75,7 +75,7 @@ var ScssHighlightRules = function() {
          "alpha|join|blue|ceil|change_color|comparable|complement|darken|desaturate|" + 
          "floor|grayscale|green|hue|if|invert|join|length|lighten|lightness|mix|" + 
          "nth|opacify|opacity|percentage|quote|red|round|saturate|saturation|" +
-         "scale_color|transparentize|type_of|unit|unitless|unqoute").split("|")
+         "scale_color|transparentize|type_of|unit|unitless|unquote").split("|")
     );
 
     var constants = lang.arrayToMap(
@@ -103,13 +103,35 @@ var ScssHighlightRules = function() {
     );
 
     var colors = lang.arrayToMap(
-        ("aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|" +
-        "purple|red|silver|teal|white|yellow").split("|")
+        ("aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|" +
+        "blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|" +
+        "chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|" +
+        "darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|" +
+        "darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|" +
+        "darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|" +
+        "darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|" +
+        "dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|" +
+        "ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|" +
+        "hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|" +
+        "lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|" +
+        "lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|" +
+        "lightsalmon|lightseagreen|lightskyblue|lightslategray|" +
+        "lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|" +
+        "magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|" +
+        "mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|" +
+        "mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|" +
+        "moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|" +
+        "orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|" +
+        "papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|" +
+        "red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|" +
+        "seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|" +
+        "springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|" +
+        "wheat|white|whitesmoke|yellow|yellowgreen").split("|")
     );
     
     var keywords = lang.arrayToMap(
         ("@mixin|@extend|@include|@import|@media|@debug|@warn|@if|@for|@each|@while|@else|@font-face|@-webkit-keyframes|if|and|!default|module|def|end|declare").split("|")
-    )
+    );
     
     var tags = lang.arrayToMap(
         ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" + 
@@ -216,11 +238,10 @@ var ScssHighlightRules = function() {
         "comment" : [
             {
                 token : "comment", // closing comment
-                regex : ".*?\\*\\/",
+                regex : "\\*\\/",
                 next : "start"
             }, {
-                token : "comment", // comment spanning whole line
-                regex : ".+"
+                defaultToken : "comment"
             }
         ],
         "qqstring" : [
@@ -291,7 +312,7 @@ var SassHighlightRules = function() {
                 }
             }, next: "start"},
             {defaultToken: "comment"}
-        ]
+        ];
     }
 };
 
@@ -399,6 +420,7 @@ var FoldMode = require("./folding/coffee").FoldMode;
 var Mode = function() {
     this.HighlightRules = SassHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
