@@ -646,7 +646,7 @@ class Form extends WidgetBase
         $label = (isset($config['label'])) ? $config['label'] : null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
-        $field = new FormField($fieldName, $label);
+        $field = new FormField($fieldName, $label, $this);
         if ($fieldContext) {
             $field->context = $fieldContext;
         }
