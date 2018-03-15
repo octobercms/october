@@ -9,7 +9,7 @@
     class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
     data-token-separators="<?= $customSeparators ?? ''; ?>"
     data-placeholder="<?= $placeholder ?? ''; ?>"
-    multipletouch
+    multiple
     <?= $field->getAttributes() ?>>
     <?php foreach ($availableOptions as $key => $option): ?>
         <?php if (!strlen($option)) continue ?>
