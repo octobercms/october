@@ -141,13 +141,9 @@ abstract class ImportModel extends Model
             ));
         }
 
-        $result = [];
-        $contents = $reader->fetch();
-        foreach ($contents as $row) {
-            $result[] = $this->processImportRow($row, $matches);
-        }
-
-        return $result;
+        return $reader->fetch(function ($row) use ($matches) {
+            return $this->processImportRow($row, $matches);
+        });
     }
 
     /**
