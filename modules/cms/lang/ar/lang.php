@@ -10,7 +10,6 @@ return [
             'customize_theme' => 'تخصيص القالب'
         ]
     ],
-    'theme' => [
     'page' => [
         'menu_label' => 'الصفحات',
     ],
@@ -28,6 +27,7 @@ return [
     ],
     'editor' => [
         'settings' => 'الإعدادات',
+		],
     'asset' => [
         'menu_label' => 'الأصول',
     ],
