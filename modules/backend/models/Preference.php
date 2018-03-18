@@ -180,7 +180,7 @@ class Preference extends Model
     {
         $localeOptions = [
             'ar' => [Lang::get('system::lang.locale.ar'), 'flag-sa'],
-						'be' => [Lang::get('system::lang.locale.be'), 'flag-by'],
+		    'be' => [Lang::get('system::lang.locale.be'), 'flag-by'],
             'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
             'da' => [Lang::get('system::lang.locale.da'), 'flag-dk'],
             'en' => [Lang::get('system::lang.locale.en'), 'flag-us'],
