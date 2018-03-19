@@ -194,13 +194,13 @@ return [
         'loading' => 'Ladataan...',
         'setup_title' => 'Listan asetukset',
         'setup_help' => 'Käytä valintalaatikkoja valitaksesi sarakkeet, jotka haluat nähdä listassa. Voit muuttaa sarakkeiden järjestystä vetämällä niitä ylös tai alas.',
-        'records_per_page' => 'Tietueita per sivu',
-        'records_per_page_help' => 'Valitse tietueiden määrä per sivu. Huomaathan, että suurempi numero voi vähentää suorituskykyä.',
+        'records_per_page' => 'Kohteita per sivu',
+        'records_per_page_help' => 'Valitse kohteiden määrä per sivu. Huomaathan, että suurempi numero voi vähentää suorituskykyä.',
         'check' => 'Valitse',
         'delete_selected' => 'Poista valitut',
         'delete_selected_empty' => 'Rivejä ei valittu poistettavaksi.',
-        'delete_selected_confirm' => 'Poista valitut tietueet?',
-        'delete_selected_success' => 'Valitut tietueet on poistettu.',
+        'delete_selected_confirm' => 'Poista valitut kohteet?',
+        'delete_selected_success' => 'Valitut kohteet on poistettu.',
         'column_switch_true' => 'Kyllä',
         'column_switch_false' => 'Ei'
     ],
@@ -239,8 +239,8 @@ return [
         'saving_name' => 'Tallennetaan :name...',
         'delete' => 'Poista',
         'deleting' => 'Poistetaan...',
-        'confirm_delete' => 'Poista tietue?',
-        'confirm_delete_multiple' => 'Poista valitut tietueet?',
+        'confirm_delete' => 'Poista kohde?',
+        'confirm_delete_multiple' => 'Poista valitut kohteet?',
         'deleting_name' => 'Poistetaan :name...',
         'reset_default' => 'Palauta oletuksiin',
         'resetting' => 'Palautetaan',
@@ -261,7 +261,7 @@ return [
         'behavior_not_ready' => 'Lomaketta ei ole alustettu, tarkista, että olet kutsunut initForm() ohjaimessasi.',
         'preview_no_files_message' => 'Tiedostoja ei ole ladattu.',
         'preview_no_media_message' => 'Mediaa ei ole valittu.',
-        'preview_no_record_message' => 'Tietueita ei ole valittu.',
+        'preview_no_record_message' => 'Kohteita ei ole valittu.',
         'select' => 'Valitse',
         'select_all' => 'kaikki',
         'select_none' => 'ei mitään',
@@ -274,7 +274,7 @@ return [
         'return_to_list' => 'Palaa listaan'
     ],
     'recordfinder' => [
-        'find_record' => 'Etsi tietue',
+        'find_record' => 'Etsi kohde',
         'cancel' => 'Peruuta',
     ],
     'pagelist' => [
@@ -315,13 +315,13 @@ return [
         'unlink_confirm' => 'Oletko varma?'
     ],
     'reorder' => [
-        'default_title' => 'Uudelleenjärjestä tietueet',
-        'no_records' => 'Tietueita ei ole saatavilla uudelleenjärjestykseen.'
+        'default_title' => 'Uudelleenjärjestä kohteet',
+        'no_records' => 'Kohteita ei ole saatavilla uudelleenjärjestykseen.'
     ],
     'model' => [
         'name' => 'Malli',
         'not_found' => "Mallia ':class' ID:llä :id ei löydy",
-        'missing_id' => 'Mallitietueiden tarkastelemiseen ei ole määritetty ID:tä.',
+        'missing_id' => 'Mallikohteiden tarkastelemiseen ei ole määritetty ID:tä.',
         'missing_relation' => "Malli ':class' ei sisällä määritelmää suhteelle ':relation'.",
         'missing_method' => "Malli ':class' ei sisällä metodia ':method'.",
         'invalid_class' => "Mallia :model luokassa :class ei ole kelvollinen, sen täytyy periä \Model luokka.",
