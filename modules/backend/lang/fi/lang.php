@@ -155,6 +155,20 @@ return [
             'return' => 'Palaa ryhmälistaan',
             'users_count' => 'Käyttäjiä'
         ],
+        'role' => [
+            'name' => 'Roolit',
+            'name_field' => 'Nimi',
+            'name_comment' => 'Nimi näkyy järjestelmänvalvojan lomakkeen rooliluettelossa.',
+            'description_field' => 'Kuvaus',
+            'code_field' => 'Koodi',
+            'code_comment' => 'Syötä uniikki koodi mikäli haluat pääsyn rooliobjektiin APIn kautta.',
+            'menu_label' => 'Hallitse rooleja',
+            'list_title' => 'Hallitse rooleja',
+            'new' => 'Uusi rooli',
+            'delete_confirm' => 'Poista tämä järjestelmänvalvojarooli?',
+            'return' => 'Palaa roolilistaukseen',
+            'users_count' => 'Käyttäjiä'
+        ],
         'preferences' => [
             'not_authenticated' => 'Ei ole käyttäjää kirjautuneena, jolta ladata, tai jolle tallentaa asetuksia.'
         ]
