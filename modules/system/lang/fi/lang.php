@@ -115,8 +115,8 @@ return [
         'php_mail' => 'PHP -sähköposti',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP osoite',
-        'smtp_authorization' => 'SMTP valtuutus vaadittu',
-        'smtp_authorization_comment' => 'Valitse tämä valintaruutu mikäli sinun SMTP-palvelimesi vaatii valtuutusta.',
+        'smtp_authorization' => 'SMTP todennus vaadittu',
+        'smtp_authorization_comment' => 'Valitse tämä valintaruutu mikäli sinun SMTP-palvelimesi vaatii todennusta.',
         'smtp_username' => 'Käyttäjänimi',
         'smtp_password' => 'Salasana',
         'smtp_port' => 'SMTP portti',
@@ -341,7 +341,7 @@ return [
         'preview_title' => 'Tapahtuma'
     ],
     'request_log' => [
-        'hint' => 'Tämä loki näyttää listan selainten pyynnöistä, jotka saattavat vaatia huomiota. Esimerkiksi, jos vierailija avaa CMS sivun, jota ei löydy, tietue lisätään tilakoodilla 404.',
+        'hint' => 'Tämä loki näyttää listan selainten pyynnöistä, jotka saattavat vaatia huomiota. Esimerkiksi, jos vierailija avaa CMS sivun, jota ei löydy, kohde lisätään tilakoodilla 404.',
         'menu_label' => 'Pyyntöloki',
         'menu_description' => 'Tarkastele huonoja tai uudelleenohjattuja pyyntöjä, kuten Sivua ei löydy (404).',
         'empty_link' => 'Tyhjää pyyntöloki',

@@ -150,7 +150,7 @@ return [
         'no_list_records' => 'Sisältötiedostoja ei löydy',
         'delete_confirm_multiple' => 'Poista valitut sisältötiedostot tai hakemistot?',
         'delete_confirm_single' => 'Poista tämä sisältötiedosto?',
-        'new' => 'Uusi sisältötiedosto'
+        'new' => 'Uusi sisältö'
     ],
     'ajax_handler' => [
         'invalid_name' => 'Ajax käsittelijän nimi: :name ei ole kelvollinen.',
