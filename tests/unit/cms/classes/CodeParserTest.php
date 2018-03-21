@@ -168,7 +168,7 @@ class CodeParserTest extends TestCase
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
         $expectedContent = '<?php ' . PHP_EOL;
-        $expectedContent .= 'class ' . $info['className'] . ' extends \Cms\Classes\PageCode' . PHP_EOL;
+        $expectedContent .= 'class ' . $info['className'] . ' extends Cms\Classes\PageCode' . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
         $expectedContent .= '}' . PHP_EOL;
@@ -202,7 +202,7 @@ class CodeParserTest extends TestCase
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
         $expectedContent = '<?php ' . PHP_EOL;
-        $expectedContent .= 'class ' . $info['className'] . ' extends \Cms\Classes\PageCode' . PHP_EOL;
+        $expectedContent .= 'class ' . $info['className'] . ' extends Cms\Classes\PageCode' . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
         $expectedContent .= '}' . PHP_EOL;
@@ -231,7 +231,7 @@ class CodeParserTest extends TestCase
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
         $expectedContent = '<?php ' . PHP_EOL;
-        $expectedContent .= 'class ' . $info['className'] . ' extends \Cms\Classes\PageCode' . PHP_EOL;
+        $expectedContent .= 'class ' . $info['className'] . ' extends Cms\Classes\PageCode' . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
         $expectedContent .= '}' . PHP_EOL;
