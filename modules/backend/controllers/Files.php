@@ -110,6 +110,23 @@ class Files extends Controller
         if (!$file = FileModel::find((int) $id)) {
             throw new ApplicationException('Unable to find file');
         }
+        
+        /**
+         * Ensure that the file model utilized for this request is
+         * the one specified in the relationship configuration
+         */
+        if ($file->attachment) {
+            $fileModel = $file->attachment->{$file->field}()->getRelated();
+
+            /**
+             * Only attempt to get file model through its assigned class
+             * when the assigned class differs from the default one that
+             * the file has already been loaded from
+             */
+            if (get_class($file) !== get_class($fileModel)) {
+                $file = $fileModel->find($file->id);
+            }
+        }
 
         $verifyCode = self::getUniqueCode($file);
         if ($code != $verifyCode) {

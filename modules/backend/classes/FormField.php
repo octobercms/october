@@ -19,6 +19,11 @@ class FormField
     const NO_SAVE_DATA = -1;
 
     /**
+     * @var string A special character in yaml config files to indicate a field higher in hierarchy
+     */
+    const HIERARCHY_UP = '^';
+
+    /**
      * @var string Form field name.
      */
     public $fieldName;
@@ -461,6 +466,12 @@ class FormField
         $triggerField = array_get($this->trigger, 'field');
         $triggerCondition = array_get($this->trigger, 'condition');
 
+        // Check for parent field reference for the trigger condition
+        $triggerFieldParentLevel = $this->getNumberOfPrecedingSymbols($triggerField, self::HIERARCHY_UP);
+        if ($triggerFieldParentLevel > 0) {
+            $triggerField = substr($triggerField, $triggerFieldParentLevel);
+        }
+
         // Apply these to container
         if (in_array($triggerAction, ['hide', 'show']) && $position != 'container') {
             return $attributes;
@@ -471,7 +482,11 @@ class FormField
             return $attributes;
         }
 
-        if ($this->arrayName) {
+        // Reduce the field reference for the trigger condition field
+        if ($this->arrayName && $triggerFieldParentLevel > 0) {
+            $parentFormName = $this->reduceFieldNameHierarchy($this->arrayName, $triggerFieldParentLevel);
+            $fullTriggerField = $parentFormName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
+        } elseif ($this->arrayName) {
             $fullTriggerField = $this->arrayName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
         }
         else {
@@ -487,6 +502,40 @@ class FormField
 
         $attributes = $attributes + $newAttributes;
         return $attributes;
+    }
+
+    /**
+     * Reduces the field name hierarchy depth by $level levels.
+     * country[city][0][street][0] turns into country[city][0] when reduced by 1 level;
+     * country[city][0][street][0] turns into country when reduced by 2 levels;
+     * etc.
+     *
+     * @param string $fieldName
+     * @param int $level
+     * @return string
+     */
+    protected function reduceFieldNameHierarchy($fieldName, $level) {
+        $parentFormName = HtmlHelper::nameToArray($fieldName);
+        $sliceLength = count($parentFormName) - $level * 2;
+        if ($sliceLength <= 1) {
+            return $parentFormName[0];
+        }
+
+        $parentFormName = array_slice($parentFormName, 0, $sliceLength);
+        $parentFormNameFirst = array_shift($parentFormName);
+        return $parentFormNameFirst.'['.implode('][', $parentFormName).']';
+    }
+
+    /**
+     * If $string begins with any number of consecutive symbols,
+     * returns the number, otherwise returns 0
+     *
+     * @param string $string
+     * @param string $symbol
+     * @return int
+     */
+    protected function getNumberOfPrecedingSymbols($string, $symbol) {
+        return strlen($string) - strlen(ltrim($string, $symbol));
     }
 
     /**

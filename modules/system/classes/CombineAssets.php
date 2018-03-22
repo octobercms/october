@@ -245,6 +245,7 @@ class CombineAssets
         header_remove();
         $response = Response::make();
         $response->header('Content-Type', $mime);
+        $response->header('Cache-Control', 'private, max-age=604800');
         $response->setLastModified(new DateTime($lastModifiedTime));
         $response->setEtag($etag);
         $response->setPublic();
