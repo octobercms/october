@@ -148,7 +148,7 @@ class Controller
             $url = Request::path();
         }
 
-        if ('' === $url) {
+        if (empty($url)) {
             $url = '/';
         }
 
