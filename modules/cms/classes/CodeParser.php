@@ -335,7 +335,7 @@ class CodeParser
          * Compile cached file into bytecode cache
          */
         if (Config::get('cms.forceBytecodeInvalidation', false)) {
-            if (function_exists('opcache_invalidate')) {
+            if (function_exists('opcache_invalidate') && (($opcache_restrict_api = trim(ini_get('opcache.restrict_api'))) && mb_stripos(__FILE__, $opcache_restrict_api) === 0)) {
                 opcache_invalidate($path, true);
             }
             elseif (function_exists('apc_compile_file')) {
