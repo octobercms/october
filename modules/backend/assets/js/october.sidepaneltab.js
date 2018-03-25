@@ -164,6 +164,10 @@
     }
 
     SidePanelTab.prototype.updateActiveTab = function() {
+        if (this.$sideNav.length === 0) {
+            return;
+        }
+        
         if (!this.panelVisible && ($(window).width() < this.options.breakpoint || !this.panelFixed())) {
             $.oc.sideNav.unsetActiveItem()
         }
