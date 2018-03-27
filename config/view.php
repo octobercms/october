@@ -13,10 +13,10 @@ return [
     |
     */
 
-    // Default Laravel Blade template location
-    // 'paths' => [
-    //     realpath(base_path('resources/views'))
-    // ],
+    'paths' => [
+        // Default Laravel Blade template location
+        // realpath(base_path('resources/views'))
+    ],
 
     /*
     |--------------------------------------------------------------------------
