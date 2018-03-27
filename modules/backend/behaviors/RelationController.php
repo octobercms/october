@@ -1208,7 +1208,17 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             if ($this->relationType == 'belongsTo') {
                 $this->relationObject->dissociate();
-                $this->relationObject->getParent()->save();
+
+                //no need to save relationObject in deferred mode because real object does not
+                //really exist and saving it may cause unexpected validation errors
+                if (is_null($sessionKey)) {
+                    $this->relationObject->getParent()->save();
+
+                    //model and relation need to be refreshed, because though related object
+                    //was dissociated the model and the relation are in previous state
+                    $this->model->refresh();
+                    $this->initRelation($this->model);
+                }
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $relatedModel->find($recordId)) {
