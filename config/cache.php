@@ -78,4 +78,17 @@ return [
 
     'prefix' => 'october',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Disable Request Cache
+    |--------------------------------------------------------------------------
+    |
+    | The request cache remembers cache retrievals from your cache store
+    | in memory to speed up consecutive retrievals within the same request.
+    | It is recommended you leave this on both in production and development.
+    |
+    */
+
+    'disableRequestCache' => false,
+
 ];
