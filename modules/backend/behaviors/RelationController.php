@@ -1209,12 +1209,12 @@ class RelationController extends ControllerBehavior
             if ($this->relationType == 'belongsTo') {
                 $this->relationObject->dissociate();
 
-                //no need to save relationObject in deferred mode because real object does not
+                //no need to save the relationObject in deferred mode because real object does not
                 //really exist and saving it may cause unexpected validation errors
                 if (is_null($sessionKey)) {
                     $this->relationObject->getParent()->save();
 
-                    //model and relation need to be refreshed, because though related object
+                    //model and relation need to be refreshed, because despite the fact that related object
                     //was dissociated the model and the relation are in previous state
                     $this->model->refresh();
                     $this->initRelation($this->model);
