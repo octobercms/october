@@ -78,4 +78,17 @@ return [
 
     'prefix' => 'october',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Disable Request Cache
+    |--------------------------------------------------------------------------
+    |
+    | The request cache stores cache retrievals from the cache store
+    | in memory to speed up consecutive retrievals within the same request.
+    | Set to true to disable this in-memory request cache.
+    |
+    */
+
+    'disableRequestCache' => false,
+
 ];
