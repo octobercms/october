@@ -24,6 +24,7 @@ use Backend\Classes\Controller;
 use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
+use Cms\Classes\Asset;
 
 /**
  * CMS index
@@ -126,7 +127,7 @@ class Index extends Controller
 
         $this->vars['templatePath'] = Request::input('path');
 
-        if ($type == 'page') {
+        if ($type === 'page') {
             $router = new RainRouter;
             $this->vars['pageUrl'] = $router->urlFromPattern($template->url);
         }
@@ -203,7 +204,7 @@ class Index extends Controller
             'tabTitle'      => $this->getTabTitle($type, $template)
         ];
 
-        if ($type == 'page') {
+        if ($type === 'page') {
             $result['pageUrl'] = Url::to($template->url);
             $router = new Router($this->theme);
             $router->clearCache();
@@ -223,7 +224,7 @@ class Index extends Controller
         $type = Request::input('type');
         $template = $this->createTemplate($type);
 
-        if ($type == 'asset') {
+        if ($type === 'asset') {
             $template->fileName = $this->widget->assetList->getCurrentRelativePath();
         }
 
@@ -306,7 +307,7 @@ class Index extends Controller
         }
 
         // Can only expand components at this stage
-        if ((!$type = post('tokenType')) && $type != 'component') {
+        if ((!$type = post('tokenType')) && $type !== 'component') {
             return;
         }
 
@@ -345,11 +346,11 @@ class Index extends Controller
     protected function resolveTypeClassName($type)
     {
         $types = [
-            'page'    => '\Cms\Classes\Page',
-            'partial' => '\Cms\Classes\Partial',
-            'layout'  => '\Cms\Classes\Layout',
-            'content' => '\Cms\Classes\Content',
-            'asset'   => '\Cms\Classes\Asset'
+            'page'    => Page::class,
+            'partial' => Partial::class,
+            'layout'  => Layout::class,
+            'content' => Content::class,
+            'asset'   => Asset::class
         ];
 
         if (!array_key_exists($type, $types)) {
@@ -388,7 +389,7 @@ class Index extends Controller
 
     protected function getTabTitle($type, $template)
     {
-        if ($type == 'page') {
+        if ($type === 'page') {
             $result = $template->title ?: $template->getFileName();
             if (!$result) {
                 $result = trans('cms::lang.page.new');
@@ -397,7 +398,7 @@ class Index extends Controller
             return $result;
         }
 
-        if ($type == 'partial' || $type == 'layout' || $type == 'content' || $type == 'asset') {
+        if ($type === 'partial' || $type === 'layout' || $type === 'content' || $type === 'asset') {
             $result = in_array($type, ['asset', 'content']) ? $template->getFileName() : $template->getBaseFileName();
             if (!$result) {
                 $result = trans('cms::lang.'.$type.'.new');
@@ -504,8 +505,7 @@ class Index extends Controller
      */
     protected function convertLineEndings($markup)
     {
-        $markup = str_replace("\r\n", "\n", $markup);
-        $markup = str_replace("\r", "\n", $markup);
+        $markup = str_replace(["\r\n", "\r"], "\n", $markup);
 
         return $markup;
     }

@@ -179,6 +179,7 @@ class Preference extends Model
     public function getLocaleOptions()
     {
         $localeOptions = [
+            'ar' => [Lang::get('system::lang.locale.ar'), 'flag-sa'],
             'be' => [Lang::get('system::lang.locale.be'), 'flag-by'],
             'cs' => [Lang::get('system::lang.locale.cs'), 'flag-cz'],
             'da' => [Lang::get('system::lang.locale.da'), 'flag-dk'],

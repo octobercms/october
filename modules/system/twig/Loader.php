@@ -42,7 +42,7 @@ class Loader implements Twig_LoaderInterface
         }
 
         $view = $name;
-        if (File::extension($view) == $this->extension) {
+        if (File::extension($view) === $this->extension) {
             $view = substr($view, 0, -strlen($this->extension));
         }
 

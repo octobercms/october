@@ -574,7 +574,7 @@ class MediaLibrary
             ? $this->getStorageDisk()->size($path)
             : $this->getFolderItemCount($path);
 
-        $publicUrl = $this->storagePath.$relativePath;
+        $publicUrl = $this->getPathUrl($relativePath);
 
         return new MediaLibraryItem($relativePath, $size, $lastModified, $itemType, $publicUrl);
     }

@@ -142,7 +142,7 @@ abstract class ImportModel extends Model
         }
 
         $result = [];
-        $contents = $reader->fetchAll();
+        $contents = $reader->fetch();
         foreach ($contents as $row) {
             $result[] = $this->processImportRow($row, $matches);
         }

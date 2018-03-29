@@ -17,7 +17,7 @@ class MediaLibrary extends SystemMediaLibrary
      */
     protected function init()
     {
-        traceLog('Class Cms\Classes\MediaLibrary has been deprecated, use ' . SystemMediaLibrary::class . ' instead.');
+        traceLog('Class ' . __CLASS__ . ' has been deprecated, use ' . SystemMediaLibrary::class . ' instead.');
         parent::init();
     }
 }

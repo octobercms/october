@@ -5,6 +5,7 @@ use Model;
 use Cms\Classes\Theme as CmsTheme;
 use System\Classes\CombineAssets;
 use Exception;
+use System\Models\File;
 
 /**
  * Customization data used by a theme
@@ -106,11 +107,11 @@ class ThemeData extends Model
                 continue;
             }
 
-            if ($field['type'] == 'repeater') {
+            if ($field['type'] === 'repeater') {
                 $this->jsonable[] = $id;
             }
-            elseif ($field['type'] == 'fileupload') {
-                $this->attachOne[$id] = 'System\Models\File';
+            elseif ($field['type'] === 'fileupload') {
+                $this->attachOne[$id] = File::class;
                 unset($data[$id]);
             }
         }
