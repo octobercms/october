@@ -78,4 +78,15 @@ return [
 
     'prefix' => 'october',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Key for the parsed PHP file information cache
+    |--------------------------------------------------------------------------
+    |
+    | When use one cache store for two or more servers,
+    | to avoid rebuild parsed file information need use different keys
+    |
+    */
+
+    'codeParserDataCacheKey' => 'cms-php-file-data'
 ];
