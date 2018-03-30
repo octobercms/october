@@ -72,11 +72,11 @@ class MailManager
     }
 
     /**
-     * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer` 
+     * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer`
      * class, using the `mailer.beforeAddContent` event.
      * @return bool
      */
-    public function addContentToMailer($message, $code, $data)
+    public function addContentToMailer($message, $code, $data, $plainOnly)
     {
         if (isset($this->templateCache[$code])) {
             $template = $this->templateCache[$code];
@@ -89,7 +89,7 @@ class MailManager
             return false;
         }
 
-        $this->addContentToMailerInternal($message, $template, $data);
+        $this->addContentToMailerInternal($message, $template, $data, $plainOnly);
 
         return true;
     }
@@ -98,7 +98,7 @@ class MailManager
      * Internal method used to share logic between `addRawContentToMailer` and `addContentToMailer`
      * @return void
      */
-    protected function addContentToMailerInternal($message, $template, $data)
+    protected function addContentToMailerInternal($message, $template, $data, $plainOnly)
     {
         /*
          * Start twig transaction
@@ -126,12 +126,14 @@ class MailManager
             'subject' => $swiftMessage->getSubject()
         ];
 
-        /*
-         * HTML contents
-         */
-        $html = $this->renderTemplate($template, $data);
+        if (!$plainOnly) {
+            /*
+             * HTML contents
+             */
+            $html = $this->renderTemplate($template, $data);
 
-        $message->setBody($html, 'text/html');
+            $message->setBody($html, 'text/html');
+        }
 
         /*
          * Text contents

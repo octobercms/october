@@ -330,7 +330,7 @@ class ServiceProvider extends ModuleServiceProvider
          */
         Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data, $raw, $plain) {
             $method = $raw === null ? 'addContentToMailer' : 'addRawContentToMailer';
-            return !MailManager::instance()->$method($message, $raw ?: $view ?: $plain, $data);
+            return !MailManager::instance()->$method($message, $raw ?: $view ?: $plain, $data, $view === null);
         });
     }
 
