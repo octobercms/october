@@ -58,6 +58,7 @@ class MailManager
 
     /**
      * Same as `addContentToMailer` except with raw content.
+     *
      * @return bool
      */
     public function addRawContentToMailer($message, $content, $data)
@@ -74,9 +75,14 @@ class MailManager
     /**
      * This function hijacks the `addContent` method of the `October\Rain\Mail\Mailer`
      * class, using the `mailer.beforeAddContent` event.
+     *
+     * @param \Illuminate\Mail\Message $message
+     * @param string $code
+     * @param array $data
+     * @param bool $plainOnly Add only plain text content to the message
      * @return bool
      */
-    public function addContentToMailer($message, $code, $data, $plainOnly)
+    public function addContentToMailer($message, $code, $data, $plainOnly = false)
     {
         if (isset($this->templateCache[$code])) {
             $template = $this->templateCache[$code];
@@ -96,9 +102,14 @@ class MailManager
 
     /**
      * Internal method used to share logic between `addRawContentToMailer` and `addContentToMailer`
+     *
+     * @param \Illuminate\Mail\Message $message
+     * @param string $template
+     * @param array $data
+     * @param bool $plainOnly Add only plain text content to the message
      * @return void
      */
-    protected function addContentToMailerInternal($message, $template, $data, $plainOnly)
+    protected function addContentToMailerInternal($message, $template, $data, $plainOnly = false)
     {
         /*
          * Start twig transaction
@@ -197,9 +208,8 @@ class MailManager
 
     /**
      * Render the Markdown template into text.
-     *
-     * @param  string  $view
-     * @param  array  $data
+     * @param $content
+     * @param array $data
      * @return string
      */
     public function renderText($content, $data = [])
