@@ -467,6 +467,7 @@ class FormField
         $triggerField = array_get($this->trigger, 'field');
         $triggerCondition = array_get($this->trigger, 'condition');
         $triggerForm = $this->arrayName;
+        $triggerMulti = '';
 
         // Apply these to container
         if (in_array($triggerAction, ['hide', 'show']) && $position != 'container') {
@@ -485,11 +486,18 @@ class FormField
             $triggerForm = HtmlHelper::reduceFieldNameHierarchy($triggerForm, $triggerFieldParentLevel);
         }
 
+        // Preserve multi field types
+        if (Str::endsWith($triggerField, '[]')) {
+            $triggerField = substr($triggerField, 0, -2);
+            $triggerMulti = '[]';
+        }
+
+        // Final compilation
         if ($this->arrayName) {
-            $fullTriggerField = $triggerForm.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
+            $fullTriggerField = $triggerForm.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']'.$triggerMulti;
         }
         else {
-            $fullTriggerField = $triggerField;
+            $fullTriggerField = $triggerField.$triggerMulti;
         }
 
         $newAttributes = [
