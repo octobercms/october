@@ -5,9 +5,9 @@
         <?= $this->renderFieldElement($field) ?>
 
     <?php else: ?>
-        <?php
-            $fieldComment = $field->commentHtml ? trans($field->comment) : e(trans($field->comment));
-        ?>
+        <?php if ($field->comment): ?>
+            <?= $field->commentHtml ? trans($field->comment) : e(trans($field->comment)) ?>
+        <?php endif ?>
 
         <?php if ($field->label): ?>
             <label for="<?= $field->getId() ?>">

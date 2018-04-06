@@ -4,7 +4,9 @@
     $off = isset($field->config['off']) ? $field->config['off'] : 'backend::lang.form.field_off';
 ?>
 <div class="field-switch">
-    <label><?= e(trans($field->label)) ?></label>
+    <?php if ($field->label): ?>
+        <label><?= e(trans($field->label)) ?></label>
+    <?php endif ?>
     <?php if ($field->comment): ?>
         <p class="help-block"><?= $field->commentHtml ? trans($field->comment) : e(trans($field->comment)) ?></p>
     <?php endif ?>
