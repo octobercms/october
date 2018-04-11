@@ -4,6 +4,7 @@ $.oc.mediaManager={}
 var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var MediaManager=function(element,options){this.$el=$(element)
 this.$form=this.$el.closest('form')
+this.lastSelectedItem=null
 this.options=options
 Base.call(this)
 this.selectTimer=null
@@ -34,6 +35,7 @@ this.removeScroll()
 this.$el.removeData('oc.mediaManager')
 this.$el=null
 this.$form=null
+this.lastSelectedItem=null
 this.sidebarPreviewElement=null
 this.itemListElement=null
 this.scrollContentElement=null
@@ -108,13 +110,18 @@ MediaManager.prototype.clearSelectTimer=function(){if(this.selectTimer===null)
 return
 clearTimeout(this.selectTimer)
 this.selectTimer=null}
-MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-for(var i=0,len=items.length;i<len;i++){items[i].setAttribute('class','')}
-node.setAttribute('class','selected')}
+MediaManager.prototype.deselectAll=function(){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
+for(var i=0,len=items.length;i<len;i++){items[i].setAttribute('class','')}}
+MediaManager.prototype.selectNode=function(node){node.setAttribute('class','selected')
+this.lastSelectedItem=node}
+MediaManager.prototype.deselectNode=function(node){node.setAttribute('class','')
+this.lastSelectedItem=null}
+MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){this.deselectAll()
+this.selectNode(node)}
 else{if(node.getAttribute('class')=='selected')
-node.setAttribute('class','')
+this.deselectNode(node)
 else
-node.setAttribute('class','selected')}
+this.selectNode(node)}
 node.focus()
 this.clearSelectTimer()
 if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}
@@ -404,7 +411,14 @@ break;}
 return false}
 MediaManager.prototype.onItemClick=function(ev){if(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control'))
 return
-this.selectItem(ev.currentTarget,ev.shiftKey)}
+if(ev.shiftKey&&this.lastSelectedItem){var $lastItem=$(this.lastSelectedItem),itemsToSelect=false
+if($lastItem.prevAll().filter(ev.currentTarget).length!==0){itemsToSelect=$lastItem.prevUntil(ev.currentTarget).not('.selected').get()}else if($lastItem.nextAll().filter(ev.currentTarget).length!==0){itemsToSelect=$lastItem.nextUntil(ev.currentTarget).not('.selected').get()}
+if(itemsToSelect){itemsToSelect.unshift(ev.currentTarget)
+var currentlySelected=this.getSelectedItems(true)
+for(var i=0,len=currentlySelected.length;i<len;i++){itemsToSelect.push(currentlySelected[i])}
+this.deselectAll()
+for(var i=0,len=itemsToSelect.length;i<len;i++){this.selectItem(itemsToSelect[i],true)}}}
+else{this.selectItem(ev.currentTarget,(ev.ctrlKey||ev.metaKey))}}
 MediaManager.prototype.onItemTouch=function(ev){ev.preventDefault()
 ev.stopPropagation()
 if(this.dblTouchFlag){this.onNavigate(ev)
