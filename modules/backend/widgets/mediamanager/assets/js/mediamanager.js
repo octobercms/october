@@ -18,6 +18,7 @@
     var MediaManager = function(element, options) {
         this.$el = $(element)
         this.$form = this.$el.closest('form')
+        this.lastSelectedItem = null
 
         this.options = options
         Base.call(this)
@@ -61,6 +62,7 @@
         this.$el.removeData('oc.mediaManager')
         this.$el = null
         this.$form = null
+        this.lastSelectedItem = null
 
         this.sidebarPreviewElement = null
         this.itemListElement = null
@@ -239,22 +241,38 @@
         this.selectTimer = null
     }
 
+    MediaManager.prototype.deselectAll = function() {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
+
+        // The class attribute is used only for selecting, it's safe to clear it
+        for (var i = 0, len = items.length; i < len; i++) {
+            items[i].setAttribute('class', '')
+        }
+    }
+
+    MediaManager.prototype.selectNode = function(node) {
+        node.setAttribute('class', 'selected')
+        this.lastSelectedItem = node
+    }
+
+    MediaManager.prototype.deselectNode = function(node) {
+        node.setAttribute('class', '')
+        this.lastSelectedItem = null
+    }
+
     MediaManager.prototype.selectItem = function(node, expandSelection) {
+        // TODO: Add validation to prevent selecting more than the
+        // maxSelectedItems and update status text and disable insert and crop button
+
         if (!expandSelection) {
-            var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
-
-            // The class attribute is used only for selecting, it's safe to clear it
-            for (var i = 0, len = items.length; i < len; i++) {
-                items[i].setAttribute('class', '')
-            }
-
-            node.setAttribute('class', 'selected')
+            this.deselectAll()
+            this.selectNode(node)
         }
         else {
             if (node.getAttribute('class') == 'selected')
-                node.setAttribute('class', '')
+                this.deselectNode(node)
             else
-                node.setAttribute('class', 'selected')
+                this.selectNode(node)
         }
 
         node.focus()
@@ -1113,7 +1131,39 @@
         if (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control'))
             return
 
-        this.selectItem(ev.currentTarget, ev.shiftKey)
+        if (ev.shiftKey && this.lastSelectedItem) {
+            var $lastItem = $(this.lastSelectedItem),
+                itemsToSelect = false
+
+            // Get the items to be selected, ignoring already selected items
+            if ($lastItem.prevAll().filter(ev.currentTarget).length !== 0) {
+                itemsToSelect = $lastItem.prevUntil(ev.currentTarget).not('.selected').get()
+            } else if ($lastItem.nextAll().filter(ev.currentTarget).length !== 0) {
+                itemsToSelect = $lastItem.nextUntil(ev.currentTarget).not('.selected').get()
+            }
+
+            if (itemsToSelect) {
+                // Reattach this item to the items to be selected
+                itemsToSelect.unshift(ev.currentTarget)
+
+                // Retain currently selected items
+                var currentlySelected = this.getSelectedItems(true)
+                for (var i = 0, len = currentlySelected.length; i < len; i++) {
+                    itemsToSelect.push(currentlySelected[i])
+                }
+
+                // Clear all currently selected items
+                this.deselectAll()
+
+                // Select all the desired items
+                for (var i = 0, len = itemsToSelect.length; i < len; i++) {
+                    this.selectItem(itemsToSelect[i], true)
+                }
+            }
+        }
+        else {
+            this.selectItem(ev.currentTarget, (ev.ctrlKey || ev.metaKey))
+        }
     }
 
     MediaManager.prototype.onItemTouch = function(ev) {
