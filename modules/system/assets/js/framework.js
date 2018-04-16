@@ -242,7 +242,7 @@ if (window.jQuery.request !== undefined) {
                 $.each(fields, function focusErrorField(fieldName, fieldMessages) {
                     fieldName = fieldName.replace(/\.(\w+)/g, '[$1]')
 
-                    var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
+                    var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"], [data-field-name="'+fieldName+'"]').filter(':not([disabled])').first()
                     if (fieldElement.length > 0) {
 
                         var _event = jQuery.Event('ajaxInvalidField')
