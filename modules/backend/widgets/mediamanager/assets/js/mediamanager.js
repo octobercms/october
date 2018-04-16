@@ -38,6 +38,7 @@
         this.dblTouchTimer = null
         this.dblTouchFlag = null
         this.itemListPosition = null
+        this.maxSelectedItemsElement = null
 
         //
         // Initialization
@@ -71,6 +72,7 @@
         this.selectionMarker = null
         this.thumbnailQueue = []
         this.navigationAjax = null
+        this.maxSelectedItemsElement = null
 
         BaseProto.dispose.call(this)
     }
@@ -260,6 +262,18 @@
         this.lastSelectedItem = null
     }
 
+    MediaManager.prototype.updateMaxSelectedItemsMessage = function() {
+        var message = this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML
+                        .replace('{selectedItems}', this.getSelectedItems(true).length)
+                        .replace('{maxItems}', this.options.maxSelectedItems)
+
+        if (!this.maxSelectedItemsElement) {
+            this.maxSelectedItemsElement = this.$el.get(0).querySelector('[data-control="max-selected-items"]')
+        }
+
+        this.maxSelectedItemsElement.innerHTML = message
+    }
+
     MediaManager.prototype.selectItem = function(node, expandSelection) {
         // TODO: Add validation to prevent selecting more than the
         // maxSelectedItems and update status text and disable insert and crop button
@@ -269,11 +283,27 @@
             this.selectNode(node)
         }
         else {
+            if (this.options.maxSelectedItems !== false || this.options.maxSelectedItems !== -1) {
+                var selectedItems = this.getSelectedItems(true).length
+                if (selectedItems >= this.options.maxSelectedItems) {
+                    return
+                }
+            }
+
             if (node.getAttribute('class') == 'selected')
                 this.deselectNode(node)
             else
                 this.selectNode(node)
         }
+
+        var selectedItems = this.getSelectedItems(true).length
+        if (selectedItems > 1) {
+            this.$el.find('[data-popup-command="crop-and-insert"]').attr('disabled', 'disabled')
+        } else {
+            this.$el.find('[data-popup-command="crop-and-insert"]').removeAttr('disabled')
+        }
+
+        this.updateMaxSelectedItemsMessage()
 
         node.focus()
 
@@ -1339,7 +1369,8 @@
         selectSingleImage: 'Please select a single image.',
         selectionNotImage: 'The selected item is not an image.',
         bottomToolbar: false,
-        cropAndInsertButton: false
+        cropAndInsertButton: false,
+        maxSelectedItems: false
     }
 
     var old = $.fn.mediaManager
