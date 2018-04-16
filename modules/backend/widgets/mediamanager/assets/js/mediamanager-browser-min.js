@@ -21,6 +21,7 @@ this.navigationAjax=null
 this.dblTouchTimer=null
 this.dblTouchFlag=null
 this.itemListPosition=null
+this.maxSelectedItemsElement=null
 this.init()}
 MediaManager.prototype=Object.create(BaseProto)
 MediaManager.prototype.constructor=MediaManager
@@ -43,6 +44,7 @@ this.sidebarThumbnailAjax=null
 this.selectionMarker=null
 this.thumbnailQueue=[]
 this.navigationAjax=null
+this.maxSelectedItemsElement=null
 BaseProto.dispose.call(this)}
 MediaManager.prototype.getSelectedItems=function(returnNotProcessed,allowRootItem){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),result=[]
 if(!allowRootItem){var filteredItems=[]
@@ -116,12 +118,20 @@ MediaManager.prototype.selectNode=function(node){node.setAttribute('class','sele
 this.lastSelectedItem=node}
 MediaManager.prototype.deselectNode=function(node){node.setAttribute('class','')
 this.lastSelectedItem=null}
+MediaManager.prototype.updateMaxSelectedItemsMessage=function(){var message=this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML.replace('{selectedItems}',this.getSelectedItems(true).length).replace('{maxItems}',this.options.maxSelectedItems)
+if(!this.maxSelectedItemsElement){this.maxSelectedItemsElement=this.$el.get(0).querySelector('[data-control="max-selected-items"]')}
+this.maxSelectedItemsElement.innerHTML=message}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){this.deselectAll()
 this.selectNode(node)}
-else{if(node.getAttribute('class')=='selected')
+else{if(this.options.maxSelectedItems!==false||this.options.maxSelectedItems!==-1){var selectedItems=this.getSelectedItems(true).length
+if(selectedItems>=this.options.maxSelectedItems){return}}
+if(node.getAttribute('class')=='selected')
 this.deselectNode(node)
 else
 this.selectNode(node)}
+var selectedItems=this.getSelectedItems(true).length
+if(selectedItems>1){this.$el.find('[data-popup-command="crop-and-insert"]').attr('disabled','disabled')}else{this.$el.find('[data-popup-command="crop-and-insert"]').removeAttr('disabled')}
+this.updateMaxSelectedItemsMessage()
 node.focus()
 this.clearSelectTimer()
 if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}
@@ -479,7 +489,7 @@ eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
+MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false,maxSelectedItems:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)
