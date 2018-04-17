@@ -29,8 +29,8 @@
     MediaFinder.prototype.constructor = MediaFinder
 
     MediaFinder.prototype.init = function() {
-        if (this.options.isMulti === null) {
-            this.options.isMulti = this.$el.hasClass('is-multi')
+        if (this.options.maxItems !== false) {
+            this.options.isMulti = true
         }
 
         if (this.options.isPreview === null) {
@@ -71,7 +71,7 @@
         this.$findValue = null
         this.$el = null
 
-        // In some cases options could contain callbacks, 
+        // In some cases options could contain callbacks,
         // so it's better to clean them up too.
         this.options = null
 
@@ -96,6 +96,7 @@
         new $.oc.mediaManager.popup({
             alias: 'ocmediamanager',
             cropAndInsertButton: true,
+            maxSelectedItems: this.options.maxItems,
             onInsert: function(items) {
                 if (!items.length) {
                     alert('Please select image(s) to insert.')
@@ -134,7 +135,8 @@
     }
 
     MediaFinder.DEFAULTS = {
-        isMulti: null,
+        maxItems: false,
+        isMulti: false,
         isPreview: null,
         isImage: null
     }

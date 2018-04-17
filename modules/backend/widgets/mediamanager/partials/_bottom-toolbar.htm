@@ -25,6 +25,11 @@
                 class="btn btn-default no-margin-right">
                 <?= e(trans('backend::lang.form.cancel')) ?>
             </button>
+
+            <script type="text/template" data-control="max-selected-items-template">
+                <span>{selectedItems}/{maxItems} items selected</span>
+            </script>
+            <div data-control="max-selected-items"></div>
         </div>
     </div>
 </div>

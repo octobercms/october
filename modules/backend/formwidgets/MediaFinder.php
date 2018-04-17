@@ -10,8 +10,12 @@ use Backend\Classes\FormWidgetBase;
  *
  *    image:
  *        label: Some image
- *        type: media
- *        prompt: Click the %s button to find a user
+ *        type: mediafinder
+ *        mode: image
+ *        maxItems: false
+ *        imageWidth: 200px
+ *        imageHeight: 200px
+ *        prompt: Click the %s button to pick an image
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -31,6 +35,15 @@ class MediaFinder extends FormWidgetBase
      * @var string Display mode for the selection. Values: file, image.
      */
     public $mode = 'file';
+
+    /**
+     * @var mixed Max number of items to select.
+     * Values:
+     *      false (disabled, only one item)
+     *      -1 (infinite number of items - null is not an option because it will be filtered out by getConfig()),
+     *      +integer (number of items to limit selection to)
+     */
+    public $maxItems = false;
 
     /**
      * @var int Preview image width
@@ -59,8 +72,9 @@ class MediaFinder extends FormWidgetBase
         $this->fillFromConfig([
             'mode',
             'prompt',
+            'maxItems',
             'imageWidth',
-            'imageHeight'
+            'imageHeight',
         ]);
 
         if ($this->formField->disabled) {
@@ -92,6 +106,7 @@ class MediaFinder extends FormWidgetBase
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;
+        $this->vars['maxItems'] = $this->maxItems;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['imageHeight'] = $this->imageHeight;
     }
@@ -103,6 +118,10 @@ class MediaFinder extends FormWidgetBase
     {
         if ($this->formField->disabled || $this->formField->hidden) {
             return FormField::NO_SAVE_DATA;
+        }
+
+        if ($this->maxItems !== false) {
+            throw new \Exception("Max Items handling enabled");
         }
 
         return $value;
