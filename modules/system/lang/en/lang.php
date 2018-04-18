@@ -129,7 +129,7 @@ return [
         'unfreeze_success' => 'Successfully enabled updates for the selected plugins.',
         'enable_success' => 'Successfully enabled the selected plugins.',
         'disable_success' => 'Successfully disabled the selected plugins.',
-        'refresh_confirm' => 'Are you sure you want to reset the selected plugins? This will reset each plugin\'s data, restoring it to the intial install state.',
+        'refresh_confirm' => 'Are you sure you want to reset the selected plugins? This will reset each plugin\'s data, restoring it to the initial install state.',
         'refresh_success' => 'Successfully reset the selected plugins.',
         'remove_confirm' => 'Are you sure you want to remove the selected plugins? This will remove all associated data as well.',
         'remove_success' => 'Successfully removed the selected plugins.',
