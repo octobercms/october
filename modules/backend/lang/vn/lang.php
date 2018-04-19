@@ -2,7 +2,7 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area'
+        'title' => 'Khu vực quản trị'
     ],
     'field' => [
         'invalid_type' => 'Loại Field không hợp lệ :type.',
