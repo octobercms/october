@@ -5,8 +5,8 @@ return [
         'title' => 'Administration Area'
     ],
     'field' => [
-        'invalid_type' => 'Field type không hợp lệ :type.',
-        'options_method_invalid_model' => "Thuộc tính ':field' không đưu ra được model hợp lệ. Hãy thử chỉ định phương pháp tùy chọn cho model :model một cách rõ ràng.",
+        'invalid_type' => 'Loại Field không hợp lệ :type.',
+        'options_method_invalid_model' => "Thuộc tính ':field' không đưa ra được model hợp lệ. Hãy thử chỉ định phương pháp tùy chọn cho model :model một cách rõ ràng.",
         'options_method_not_exists' => "Model class :model phải khai báo :method() trả về tùy chọn cho trường ':field'."
     ],
     'widget' => [
@@ -18,12 +18,12 @@ return [
         'access_denied' => [
             'label' => 'Truy cập bị chặn',
             'help' => "Bạn không đủ quyền để xem trang này.",
-            'cms_link' => 'Quay lại trang back-end'
+            'cms_link' => 'Quay lại trang quản trị'
         ],
         'no_database' => [
             'label' => 'Không tìm thấy Database',
-            'help' => "Bắt buộc phải có 1 database để truy cập vào back-end. Kiểm tra lại cấu hình database và migrated trước khi thử lại.",
-            'cms_link' => 'Quay lại homepage'
+            'help' => "Bắt buộc phải có 1 database để truy cập vào trang quản trị. Kiểm tra lại cấu hình database và migrated trước khi thử lại.",
+            'cms_link' => 'Quay lại trang chủ'
         ],
         'invalid_token' => [
             'label' => 'Security token không hợp lệ'
@@ -58,10 +58,10 @@ return [
         'ok' => 'OK'
     ],
     'dashboard' => [
-        'menu_label' => 'Dashboard',
+        'menu_label' => 'Bảng điều khiển chính',
         'widget_label' => 'Widget',
         'widget_width' => 'chiều rộng',
-        'full_width' => 'full width',
+        'full_width' => 'rộng toàn màn hình',
         'manage_widgets' => 'Quản lý widgets',
         'add_widget' => 'Thêm mới widget',
         'widget_inspector_title' => 'Cấu hình widget',
@@ -69,7 +69,7 @@ return [
         'widget_columns_label' => 'Độ rộng :columns',
         'widget_columns_description' => 'Độ rộng của widget, là một số nguyên trong khoảng 1 đến 10.',
         'widget_columns_error' => 'Vui lòng nhập vào độ rộng của widget là một số nguyên trong khoảng 1 đến 10.',
-        'columns' => '{1} column|[2,Inf] columns',
+        'columns' => '{1} cột|[2,Inf] cột',
         'widget_new_row_label' => 'Một hàng mới',
         'widget_new_row_description' => 'Đẩy widget thành 1 hàng mới',
         'widget_title_label' => 'Tên Widget',
@@ -113,9 +113,9 @@ return [
         'list_title' => 'Quản lý Administrators',
         'new' => 'Thêm mới Administrator',
         'login' => 'Tên đăng nhập',
-        'first_name' => 'First Name',
-        'last_name' => 'Last Name',
-        'full_name' => 'Full Name',
+        'first_name' => 'Họ',
+        'last_name' => 'Tên',
+        'full_name' => 'Tên đầy đủ',
         'email' => 'Email',
         'role_field' => 'Role',
         'role_comment' => 'Các Role định nghĩa sẵn một số quyền của người dùng, nó có thể bị ghi đè bởi cấp độ của người dùng trong tab quyền hạn',
