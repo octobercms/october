@@ -209,7 +209,7 @@ class Controller extends Extendable
                 return Response::make(View::make('backend::access_denied'), 403);
             }
         }
-        
+
         /*
          * Extensibility
          */
