@@ -708,7 +708,7 @@
     //
 
     MediaManager.prototype.initUploader = function() {
-        if (!this.itemListElement)
+        if (!this.itemListElement || this.options.readOnly)
             return
 
         var uploaderOptions = {
