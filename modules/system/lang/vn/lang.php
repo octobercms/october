@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'name' => 'QuangtrongOnlineCMS',
+        'name' => 'OctoberCMS',
         'tagline' => 'Getting back to basics'
     ],
     'locale' => [
