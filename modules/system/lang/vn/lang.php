@@ -41,9 +41,9 @@ return [
         'sk' => 'Slovenský',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
-        'vn' => 'Tiếng việt',
         'zh-cn' => '简体中文',
-        'zh-tw' => '繁體中文'
+        'zh-tw' => '繁體中文',
+        'vn' => 'Tiếng việt'
     ],
     'directory' => [
         'create_fail' => 'Không thể tạo danh mục: :name'
