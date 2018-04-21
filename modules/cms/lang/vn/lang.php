@@ -34,8 +34,8 @@ return [
             'not_found' => 'Không tìm thấy theme.',
             'not_match' => "Giao diện này đang trong chế độ chỉnh sửa. Vui lòng tải lại trang"
         ],
-        'settings_menu' => 'Giao diện trang quản trị',
-        'settings_menu_description' => 'Cấu hình giao diện trang quản trị và các tùy chỉnh',
+        'settings_menu' => 'Giao diện website',
+        'settings_menu_description' => 'Cấu hình giao diện website và các tùy chỉnh',
         'default_tab' => 'Các thuộc tính',
         'name_label' => 'Tên',
         'name_create_placeholder' => 'Tên giao diện',
