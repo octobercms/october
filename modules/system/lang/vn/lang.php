@@ -140,9 +140,9 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Cài đặt',
-        'not_found' => 'Không tìm thấy các cài đặt được chỉ định.',
+        'not_found' => 'Không tìm thấy các cấu hình được chỉ định.',
         'missing_model' => 'Không có  Model cho trang cài đặt.',
-        'update_success' => 'Cài đặt :name đã được cài đặt',
+        'update_success' => 'Cấu hình cho :name thành công',
         'return' => 'Trở lại trang cài đặt',
         'search' => 'Tìm kiếm'
     ],
