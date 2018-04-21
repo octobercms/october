@@ -3431,6 +3431,8 @@ var indicator=$('<div class="loading-indicator"></div>')
 indicator.append($('<div></div>').text(this.options.text))
 indicator.append($('<span></span>'))
 if(this.options.opaque!==undefined){indicator.addClass('is-opaque')}
+if(this.options.centered!==undefined){indicator.addClass('indicator-center')}
+if(this.options.size==='small'){indicator.addClass('size-small')}
 this.$el.prepend(indicator)
 this.$el.addClass('in-progress')
 this.tally++}
@@ -3450,7 +3452,7 @@ $.fn.loadIndicator.Constructor=LoadIndicator
 $.fn.loadIndicator.noConflict=function(){$.fn.loadIndicator=old
 return this}
 $(document).on('ajaxPromise','[data-load-indicator]',function(){var
-indicatorContainer=$(this).closest('.loading-indicator-container'),loadingText=$(this).data('load-indicator'),options={opaque:$(this).data('load-indicator-opaque')}
+indicatorContainer=$(this).closest('.loading-indicator-container'),loadingText=$(this).data('load-indicator'),options={opaque:$(this).data('load-indicator-opaque'),centered:$(this).data('load-indicator-centered'),size:$(this).data('load-indicator-size')}
 if(loadingText)
 options.text=loadingText
 indicatorContainer.loadIndicator(options)}).on('ajaxFail ajaxDone','[data-load-indicator]',function(){$(this).closest('.loading-indicator-container').loadIndicator('hide')})}(window.jQuery);+function($){"use strict";if($.oc===undefined)
