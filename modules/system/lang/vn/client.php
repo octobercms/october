@@ -13,31 +13,31 @@ return [
     */
 
     'markdowneditor' => [
-        'formatting' => 'Formatting',
-        'quote' => 'Quote',
+        'formatting' => 'Định dạng',
+        'quote' => 'Đoạn trích dẫn',
         'code' => 'Code',
-        'header1' => 'Header 1',
-        'header2' => 'Header 2',
-        'header3' => 'Header 3',
-        'header4' => 'Header 4',
-        'header5' => 'Header 5',
-        'header6' => 'Header 6',
-        'bold' => 'Bold',
-        'italic' => 'Italic',
-        'unorderedlist' => 'Unordered List',
-        'orderedlist' => 'Ordered List',
+        'header1' => 'Tiêu đề 1',
+        'header2' => 'Tiêu đề 2',
+        'header3' => 'Tiêu đề 3',
+        'header4' => 'Tiêu đề 4',
+        'header5' => 'Tiêu đề 5',
+        'header6' => 'Tiêu đề 6',
+        'bold' => 'Chữ đậm',
+        'italic' => 'Chữ nghiêng',
+        'unorderedlist' => 'Danh sách không thứ tự',
+        'orderedlist' => 'Danh sách có thứ tự',
         'video' => 'Video',
-        'image' => 'Image',
+        'image' => 'Hình ảnh',
         'link' => 'Link',
-        'horizontalrule' => 'Insert Horizontal Rule',
+        'horizontalrule' => 'Chèn dòng kẻ ngang',
         'fullscreen' => 'Toàn màn hình',
         'preview' => 'Xem trước',
     ],
     'mediamanager' => [
-        'insert_link' => 'Chèn Media Link',
-        'insert_image' => 'Chèn Media Image',
-        'insert_video' => 'Chèn Media Video',
-        'insert_audio' => 'Chèn Media Audio',
+        'insert_link' => 'Chèn Link',
+        'insert_image' => 'Chèn hình ảnh',
+        'insert_video' => 'Chèn Video',
+        'insert_audio' => 'Chèn tệp âm thanh',
         'invalid_file_empty_insert' => 'Vui lòng chọn file để chèn vào link.',
         'invalid_file_single_insert' => 'Chọn một file duy nhất.',
         'invalid_image_empty_insert' => 'Chọn một hoặc nhiều ảnh để chèn vào.',
@@ -45,8 +45,8 @@ return [
         'invalid_audio_empty_insert' => 'Chọn tệp tin audio để chèn vào.',
     ],
     'alert' => [
-        'confirm_button_text' => 'OK',
-        'cancel_button_text' => 'Cancel',
+        'confirm_button_text' => 'Đồng ý',
+        'cancel_button_text' => 'Bỏ qua',
         'widget_remove_confirm' => 'Đồng ý xóa widget này?'
     ],
     'datepicker' => [
@@ -57,7 +57,7 @@ return [
         'weekdaysShort' => ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'Chọn',
     ],
     'filter' => [
         'group' => [
@@ -81,19 +81,19 @@ return [
 
     ],
     'eventlog' => [
-        'show_stacktrace' => 'Show the stacktrace',
-        'hide_stacktrace' => 'Hide the stacktrace',
+        'show_stacktrace' => 'Hiển thị ngăn xếp',
+        'hide_stacktrace' => 'Ẩn ngăn xếp',
         'tabs' => [
             'formatted' => 'Đã định dạng',
             'raw' => 'Raw',
         ],
         'editor' => [
-            'title' => 'Source code editor',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
+            'title' => 'Trình soạn thảo code',
+            'description' => 'Hệ thống của bạn cần được cấu hình để hiểu được một trong những cấu trúc URL này',
             'openWith' => 'Mở bằng',
             'remember_choice' => 'Nhớ lựa chọn này cho các lần tiếp theo',
-            'open' => 'Open',
-            'cancel' => 'Cancel'
+            'open' => 'Mở ra',
+            'cancel' => 'Bỏ qua'
         ]
     ]
 ];
