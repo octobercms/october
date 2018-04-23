@@ -41,6 +41,11 @@ class Search extends WidgetBase
      */
     public $scope;
 
+    /**
+     * @var bool Search on every key stroke.
+     */
+    public $everykey = true;
+
     //
     // Object properties
     //
@@ -71,6 +76,7 @@ class Search extends WidgetBase
             'growable',
             'scope',
             'mode',
+            'everykey',
         ]);
 
         /*
@@ -106,6 +112,7 @@ class Search extends WidgetBase
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['placeholder'] = Lang::get($this->prompt);
         $this->vars['value'] = $this->getActiveTerm();
+        $this->vars['everykey'] = $this->everykey;
     }
 
     /**
