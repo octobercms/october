@@ -1,4 +1,6 @@
-<?php namespace Backend\Widgets;
+<?php
+
+namespace Backend\Widgets;
 
 use Lang;
 use Backend\Classes\WidgetBase;
@@ -41,6 +43,11 @@ class Search extends WidgetBase
      */
     public $scope;
 
+    /**
+     * @var bool Search on enter key instead of every key stroke.
+     */
+    public $searchOnEnter = false;
+
     //
     // Object properties
     //
@@ -71,6 +78,7 @@ class Search extends WidgetBase
             'growable',
             'scope',
             'mode',
+            'searchOnEnter',
         ]);
 
         /*
@@ -92,8 +100,7 @@ class Search extends WidgetBase
 
         if ($this->partial) {
             return $this->controller->makePartial($this->partial);
-        }
-        else {
+        } else {
             return $this->makePartial('search');
         }
     }
@@ -106,6 +113,7 @@ class Search extends WidgetBase
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['placeholder'] = Lang::get($this->prompt);
         $this->vars['value'] = $this->getActiveTerm();
+        $this->vars['searchOnEnter'] = $this->searchOnEnter;
     }
 
     /**
@@ -143,8 +151,7 @@ class Search extends WidgetBase
     {
         if (strlen($term)) {
             $this->putSession('term', $term);
-        }
-        else {
+        } else {
             $this->resetSession();
         }
 
