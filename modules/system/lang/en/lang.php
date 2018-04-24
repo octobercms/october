@@ -43,7 +43,8 @@ return [
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
-        'zh-tw' => '繁體中文'
+        'zh-tw' => '繁體中文',
+        'vn' => 'Tiếng việt'
     ],
     'directory' => [
         'create_fail' => 'Cannot create directory: :name'
