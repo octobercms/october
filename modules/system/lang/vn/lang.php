@@ -55,21 +55,21 @@ return [
         'not_found' => "Không tìm thấy combiner file ':name'."
     ],
     'system' => [
-        'name' => 'System',
-        'menu_label' => 'System',
+        'name' => 'Hệ thống',
+        'menu_label' => 'Hệ thống',
         'categories' => [
             'cms' => 'CMS',
             'misc' => 'Misc',
-            'logs' => 'Logs',
+            'logs' => 'Các bản ghi',
             'mail' => 'Mail',
-            'shop' => 'Shop',
+            'shop' => 'Cửa hàng',
             'team' => 'Team',
-            'users' => 'Users',
-            'system' => 'System',
-            'social' => 'Social',
-            'backend' => 'Backend',
-            'events' => 'Events',
-            'customers' => 'Customers',
+            'users' => 'Người dùng',
+            'system' => 'Hệ thống',
+            'social' => 'Mạng xã hội',
+            'backend' => 'Trang quản trị',
+            'events' => 'Sự kiện',
+            'customers' => 'Khách hàng',
             'my_settings' => 'Cài đặt của tôi',
             'notifications' => 'Thông báo'
         ]
