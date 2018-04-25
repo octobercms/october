@@ -375,7 +375,12 @@
     }
 
     CmsPage.prototype.onInspectorShowing = function(ev, data) {
-        $(ev.currentTarget).closest('[data-control="toolbar"]').data('oc.dragScroll').goToElement(ev.currentTarget, data.callback)
+        var $dragScroll = $(ev.currentTarget).closest('[data-control="toolbar"]').data('oc.dragScroll')
+        if ($dragScroll) {
+            $dragScroll.goToElement(ev.currentTarget, data.callback)
+        } else {
+            data.callback();
+        }
 
         ev.stopPropagation()
     }
