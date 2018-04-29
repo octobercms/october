@@ -19,10 +19,12 @@ return [
             'online' => 'online',
             'maintenance' => 'در حال به روز رسانی',
             'manage_themes' => 'مدیریت قالب ها',
+            'customize_theme' => 'سفارشی سازی قالب'
         ]
     ],
     'theme' => [
         'not_found_name' => "یافتن قالبی با نام  ':name یافت نشد.'",
+        'by_author' => 'توسط :name',
         'active' => [
             'not_set' => "قالب فعال انتخاب  نشده است.",
             'not_found' => "قالب فعال یافت نشد",
@@ -45,6 +47,8 @@ return [
         'homepage_placeholder' => 'آدرس سایت مربوط به قالب',
         'code_label' => 'کد',
         'code_placeholder' => 'کد یکتای قالبی که میخواهید ایجاد نمایید',
+        'preview_image_label' => 'پیش نمایش تصویر',
+        'preview_image_placeholder' => 'آدرس تصویر پیش نمایش قالب.',
         'dir_name_label' => 'نام پوشه',
         'dir_name_create_label' => 'نام پوشه قالب در دست تهیه',
         'theme_label' => 'قالب',
@@ -115,7 +119,10 @@ return [
         'delete_confirm_multiple' => 'آیا از حذف صفحات انتخاب شده اطمینان دارید؟',
         'delete_confirm_single' => 'آیا از حذف این صفحه اطمینان دارید؟',
         'no_layout' => '-- بدون طرح بندی --',
-        'cms_page' => 'صفحات مدیریت محتوی'
+        'cms_page' => 'صفحات مدیریت محتوی',
+        'title' => 'عنوان صفحه',
+        'url' => 'آدرس صفحه',
+        'file_name' => 'نام فایل'
     ],
     'layout' => [
         'not_found_name' => "طرح بندی ی ':name' یافت نشد",
@@ -241,7 +248,8 @@ return [
         'not_found' => "قالب درخواست شده یافت نشد.",
         'saved'=> "قالب با موفقیت ذخیره شد.",
         'no_list_records' => 'موردی یافت نشد',
-        'delete_confirm' => 'آیا از حذف قالب های انتخاب شده اطمینان دارید؟'
+        'delete_confirm' => 'آیا از حذف قالب های انتخاب شده اطمینان دارید؟',
+        'order_by' => 'مرتب سازی با'
     ],
     'permissions' => [
         'name' => 'مدیریت محتوی',
@@ -251,5 +259,35 @@ return [
         'manage_layouts' => 'مدیریت طرح بندی ها',
         'manage_partials' => 'مدیریت بخش ها',
         'manage_themes' => 'مدیریت قالب ها',
+        'manage_theme_options' => 'تنظیمات گزینه های شخصی سازی برای قالب فعلی',
+    ],
+    'theme_log' => [
+        'hint' => 'این بخش تمام تغییراتی که توسط مدیریت بر روی قالب انجام شده است را به نمایش در می آورد.',
+        'menu_label' => 'وقایع قالب',
+        'menu_description' => 'نمایش تغییرات انجام شده بر روی قالب فعلی',
+        'empty_link' => 'پاک سازی همه وقایع',
+        'empty_loading' => 'در حال پاک سازی وقایع قالب...',
+        'empty_success' => 'وقایع قالب پاک شدند',
+        'return_link' => 'بازگشت به وقایع قالب',
+        'id' => 'شناسه',
+        'id_label' => 'شناسه واقعه',
+        'created_at' => 'تاریخ و زمان',
+        'user' => 'کاربر',
+        'type' => 'نوع',
+        'type_create' => 'ایجاد',
+        'type_update' => 'به روز رسانی',
+        'type_delete' => 'حذف',
+        'theme_name' => 'قالب',
+        'theme_code' => 'کد قالب',
+        'old_template' => 'قالب (قدیمی)',
+        'new_template' => 'قالب (جدید)',
+        'template' => 'قالب',
+        'diff' => 'تغییرات',
+        'old_value' => 'مقدار قبلی',
+        'new_value' => 'مقدار جدید',
+        'preview_title' => 'تغییرات قالب',
+        'template_updated' => 'قالب به روزرسانی شد',
+        'template_created' => 'قالب جدید ایجاد شد',
+        'template_deleted' => 'قالب جذف شد',
     ],
 ];

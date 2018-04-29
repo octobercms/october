@@ -62,8 +62,8 @@ class EditorSetting extends Model
     ];
 
     protected $defaultHtmlStyleTable = [
-        'oc-table-dashed-borders' => 'Dashed Borders',
-        'oc-table-alternate-rows' => 'Alternate Rows',
+        'oc-dashed-borders' => 'Dashed Borders',
+        'oc-alternate-rows' => 'Alternate Rows',
     ];
 
     protected $defaultHtmlStyleTableCell = [

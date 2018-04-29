@@ -22,7 +22,7 @@ class MediaFinder extends BackendMediaFinder
      */
     public function __construct()
     {
-        traceLog('FormWidget Cms\FormWidgets\MediaFinder has been deprecated, use Backend\FormWidgets\MediaFinder instead.');
+        traceLog('FormWidget Cms\FormWidgets\MediaFinder has been deprecated, use ' . BackendMediaFinder::class . ' instead.');
 
         $this->assetPath = '/modules/backend/formwidgets/mediafinder/assets';
         $this->viewPath = base_path('/modules/backend/formwidgets/mediafinder/partials');

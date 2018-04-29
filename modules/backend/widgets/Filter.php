@@ -370,7 +370,14 @@ class Filter extends WidgetBase
     protected function getOptionsFromModel($scope, $searchQuery = null)
     {
         $model = $this->scopeModels[$scope->scopeName];
+
         $query = $model->newQuery();
+
+        /*
+         * The 'group' scope has trouble supporting more than 500 records at a time
+         * @todo Introduce a more advanced version with robust list support.
+         */
+        $query->limit(500);
 
         /*
          * Extensibility

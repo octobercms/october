@@ -301,7 +301,7 @@ class CmsCompoundObject extends CmsObject
         else {
             foreach ($this->settings['components'] as $name => $settings) {
                 $nameParts = explode(' ', $name);
-                if (count($nameParts > 1)) {
+                if (count($nameParts) > 1) {
                     $name = trim($nameParts[0]);
                 }
 

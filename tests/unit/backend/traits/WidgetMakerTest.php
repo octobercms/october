@@ -41,7 +41,7 @@ class WidgetMakerTest extends TestCase
         $maker = $this->traitObject;
 
         $widget = $maker->makeWidget('Backend\Widgets\Search');
-        $this->assertTrue($widget instanceof \Backend\Widgets\Search);
+        $this->assertInstanceOf('Backend\Widgets\Search', $widget);
     }
 
     public function testMakeWidget()

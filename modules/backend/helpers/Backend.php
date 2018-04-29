@@ -118,6 +118,10 @@ class Backend
             'timeSince' => false,
             'ignoreTimezone' => false,
         ], $options));
+        
+        if(!$dateTime) {
+            return '';
+        }
 
         $carbon = DateTimeHelper::makeCarbon($dateTime);
 

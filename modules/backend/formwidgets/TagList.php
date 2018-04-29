@@ -42,6 +42,11 @@ class TagList extends FormWidgetBase
      */
     public $nameFrom = 'name';
 
+    /**
+     * @var bool Use the key instead of value for saving and reading data.
+     */
+    public $useKey = false;
+
     //
     // Object properties
     //
@@ -62,6 +67,7 @@ class TagList extends FormWidgetBase
             'options',
             'mode',
             'nameFrom',
+            'useKey',
         ]);
     }
 
@@ -71,6 +77,7 @@ class TagList extends FormWidgetBase
     public function render()
     {
         $this->prepareVars();
+
         return $this->makePartial('taglist');
     }
 
@@ -79,6 +86,7 @@ class TagList extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['useKey'] = $this->useKey;
         $this->vars['field'] = $this->formField;
         $this->vars['fieldOptions'] = $this->getFieldOptions();
         $this->vars['selectedValues'] = $this->getLoadValue();

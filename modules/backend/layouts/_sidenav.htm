@@ -22,7 +22,11 @@
                             >
                                 <a href="<?= $item->url ?>">
                                     <span class="nav-icon">
-                                        <i class="<?= $item->icon ?>"></i>
+                                        <?php if ($item->iconSvg): ?>
+                                            <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">
+                                        <?php endif ?>
+
+                                        <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
                                     </span>
                                     <span class="nav-label">
                                         <?= e(trans($item->label)) ?>

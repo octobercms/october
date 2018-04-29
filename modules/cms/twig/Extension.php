@@ -98,11 +98,12 @@ class Extension extends Twig_Extension
      * Renders a partial.
      * @param string $name Specifies the partial name.
      * @param array $parameters A optional list of parameters to pass to the partial.
+     * @param bool $throwException Throw an exception if the partial is not found.
      * @return string Returns the partial contents.
      */
-    public function partialFunction($name, $parameters = [])
+    public function partialFunction($name, $parameters = [], $throwException = false)
     {
-        return $this->controller->renderPartial($name, $parameters);
+        return $this->controller->renderPartial($name, $parameters, $throwException);
     }
 
     /**

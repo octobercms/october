@@ -192,8 +192,10 @@ class CodeParser
 
         if (is_file($path)) {
             if ($className = $this->extractClassFromFile($path)) {
-                $data['className'] = $className;
-                return $data;
+                if (class_exists($className)) {
+                    $data['className'] = $className;
+                    return $data;
+                }
             }
 
             @unlink($path);

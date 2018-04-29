@@ -9,66 +9,84 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
-    'accepted' => 'Het veld :attribute moet worden geaccepteerd.',
-    'active_url' => 'De URL van :attribute is ongeldig.',
-    'after' => 'De datum van :attribute moet een waarde zijn na :date.',
-    'alpha' => 'Het veld :attribute mag enkel uit letters bestaan.',
-    'alpha_dash' => 'Het veld :attribute mag enkel uit letters, cijfers en streepjes bestaan.',
-    'alpha_num' => 'Het veld :attribute mag enkel uit letters en cijfers bestaan.',
-    'array' => 'Het veld :attribute moet een array zijn.',
-    'before' => 'De datum van :attribute moet een waarde zijn voor :date.',
-    'between' => [
-        'numeric' => 'Het veld :attribute moet een waarde hebben tussen :min en :max.',
-        'file' => 'De bestandsgrootte van :attribute moet tussen :min en :max kilobytes zijn.',
-        'string' => 'Het aantal tekens van :attribute moet tussen de :min en :max zijn.',
-        'array' => 'Het veld :attribute moet tussen de :min en :max objecten bevatten.',
+    'accepted'             => ':attribute moet geaccepteerd zijn.',
+    'active_url'           => ':attribute is geen geldige URL.',
+    'after'                => ':attribute moet een datum na :date zijn.',
+    'after_or_equal'       => ':attribute moet een datum na of gelijk aan :date zijn.',
+    'alpha'                => ':attribute mag alleen letters bevatten.',
+    'alpha_dash'           => ':attribute mag alleen letters, nummers, underscores (_) en streepjes (-) bevatten.',
+    'alpha_num'            => ':attribute mag alleen letters en nummers bevatten.',
+    'array'                => ':attribute moet geselecteerde elementen bevatten.',
+    'before'               => ':attribute moet een datum voor :date zijn.',
+    'before_or_equal'      => ':attribute moet een datum voor of gelijk aan :date zijn.',
+    'between'              => [
+        'numeric' => ':attribute moet tussen :min en :max zijn.',
+        'file'    => ':attribute moet tussen :min en :max kilobytes zijn.',
+        'string'  => ':attribute moet tussen :min en :max karakters zijn.',
+        'array'   => ':attribute moet tussen :min en :max items bevatten.',
     ],
-    'confirmed' => 'De bevestiging van :attribute is ongeldig.',
-    'date' => 'De datum van :attribute is ongeldig.',
-    'date_format' => 'Het veld :attribute komt niet overeen met het formaat :format.',
-    'different' => 'De velden :attribute en :other moeten verschillend zijn.',
-    'digits' => 'Het veld :attribute moet uit :digits cijfers bestaan.',
-    'digits_between' => 'Het veld :attribute moet tussen :min en :max tekens lang zijn.',
-    'email' => 'Het e-mailadres van :attribute is ongeldig.',
-    'exists' => 'De waarde van :attribute is ongeldig.',
-    'image' => 'De afbeelding van :attribute is ongeldig.',
-    'in' => 'De gekozen waarde van :attribute is ongeldig.',
-    'integer' => 'De waarde van :attribute moet uit een heel getal bestaan.',
-    'ip' => 'Het IP-adres van :attribute is ongeldig.',
-    'max' => [
-        'numeric' => 'De waarde van :attribute mag niet hoger zijn dan :max.',
-        'file' => 'De bestandsgrootte van :attribute mag niet groter zijn dan :max kilobytes.',
-        'string' => 'Het aantal tekens van :attribute mag niet groter zijn dan :max tekens.',
-        'array' => 'Het veld :attribute mag niet meer dan :max objecten bevatten.',
+    'boolean'              => ':attribute moet ja of nee zijn.',
+    'confirmed'            => ':attribute bevestiging komt niet overeen.',
+    'date'                 => ':attribute moet een datum bevatten.',
+    'date_format'          => ':attribute moet een geldig datum formaat bevatten.',
+    'different'            => ':attribute en :other moeten verschillend zijn.',
+    'digits'               => ':attribute moet bestaan uit :digits cijfers.',
+    'digits_between'       => ':attribute moet bestaan uit minimaal :min en maximaal :max cijfers.',
+    'dimensions'           => ':attribute heeft geen geldige afmetingen voor afbeeldingen.',
+    'distinct'             => ':attribute heeft een dubbele waarde.',
+    'email'                => ':attribute is geen geldig e-mailadres.',
+    'exists'               => ':attribute bestaat niet.',
+    'file'                 => ':attribute moet een bestand zijn.',
+    'filled'               => ':attribute is verplicht.',
+    'image'                => ':attribute moet een afbeelding zijn.',
+    'in'                   => ':attribute is ongeldig.',
+    'in_array'             => ':attribute bestaat niet in :other.',
+    'integer'              => ':attribute moet een getal zijn.',
+    'ip'                   => ':attribute moet een geldig IP-adres zijn.',
+    'ipv4'                 => ':attribute moet een geldig IPv4-adres zijn.',
+    'ipv6'                 => ':attribute moet een geldig IPv6-adres zijn.',
+    'json'                 => ':attribute moet een geldige JSON-string zijn.',
+    'max'                  => [
+        'numeric' => ':attribute mag niet hoger dan :max zijn.',
+        'file'    => ':attribute mag niet meer dan :max kilobytes zijn.',
+        'string'  => ':attribute mag niet uit meer dan :max karakters bestaan.',
+        'array'   => ':attribute mag niet meer dan :max items bevatten.',
     ],
-    'mimes' => 'Het bestand van :attribute mag enkel zijn van het type: :values.',
-    'extensions' => 'Het bestand van :attribute moet een van deze extensies hebben: :values.',
-    'min' => [
-        'numeric' => 'De waarde van :attribute minimaal :min zijn.',
-        'file' => 'De bestandsgrootte van :attribute moet minimaal :min kilobytes zijn.',
-        'string' => 'Het aantal tekens van :attribute moet minimaal :min zijn.',
-        'array' => 'Het veld :attribute moet minimaal :min objecten bevatten.',
+    'mimes'                => ':attribute moet een bestand zijn van het bestandstype :values.',
+    'mimetypes'            => ':attribute moet een bestand zijn van het bestandstype :values.',
+    'min'                  => [
+        'numeric' => ':attribute moet minimaal :min zijn.',
+        'file'    => ':attribute moet minimaal :min kilobytes zijn.',
+        'string'  => ':attribute moet minimaal :min karakters zijn.',
+        'array'   => ':attribute moet minimaal :min items bevatten.',
     ],
-    'not_in' => 'De gekozen waarde van :attribute is ongeldig.',
-    'numeric' => 'De waarde van :attribute moet numeriek zijn.',
-    'regex' => 'De opbouw van :attribute is ongeldig.',
-    'required' => 'Het veld :attribute is verplicht.',
-    'required_if' => 'Het veld :attribute is verplicht wanneer :other is :value.',
-    'required_with' => 'Het veld :attribute is verplicht wanneer :values is gekozen.',
-    'required_without' => 'Het veld :attribute is verplicht wanneer :values niet is gekozen.',
-    'same' => 'De velden :attribute en :other moeten overeen komen.',
-    'size' => [
-        'numeric' => 'De waarde van :attribute moet exact :size zijn.',
-        'file' => 'De bestandsgrootte van :attribute moet exact :size kilobytes zijn.',
-        'string' => 'Het aantal tekens van :attribute moet exact :size zijn.',
-        'array' => 'Het veld :attribute moet exact :size objecten bevatten.',
+    'not_in'               => 'Het formaat van :attribute is ongeldig.',
+    'numeric'              => ':attribute moet een nummer zijn.',
+    'present'              => ':attribute moet bestaan.',
+    'regex'                => ':attribute formaat is ongeldig.',
+    'required'             => ':attribute is verplicht.',
+    'required_if'          => ':attribute is verplicht indien :other gelijk is aan :value.',
+    'required_unless'      => ':attribute is verplicht tenzij :other gelijk is aan :values.',
+    'required_with'        => ':attribute is verplicht i.c.m. :values',
+    'required_with_all'    => ':attribute is verplicht i.c.m. :values',
+    'required_without'     => ':attribute is verplicht als :values niet ingevuld is.',
+    'required_without_all' => ':attribute is verplicht als :values niet ingevuld zijn.',
+    'same'                 => ':attribute en :other moeten overeenkomen.',
+    'size'                 => [
+        'numeric' => ':attribute moet :size zijn.',
+        'file'    => ':attribute moet :size kilobyte zijn.',
+        'string'  => ':attribute moet :size karakters zijn.',
+        'array'   => ':attribute moet :size items bevatten.',
     ],
-    'unique' => 'Het veld :attribute is al toegewezen.',
-    'url' => 'De URL van :attribute is ongeldig.',
+    'string'               => ':attribute moet een tekenreeks zijn.',
+    'timezone'             => ':attribute moet een geldige tijdzone zijn.',
+    'unique'               => ':attribute is al in gebruik.',
+    'uploaded'             => 'Het uploaden van :attribute is mislukt.',
+    'url'                  => ':attribute is geen geldige URL.',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,12 +94,16 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify custom validation messages for attributes using the
-    | convention 'attribute.rule' to name the lines. This makes it quick to
+    | convention "attribute.rule" to name the lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
     */
 
-    'custom' => [],
+    'custom'               => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -90,10 +112,10 @@ return [
     |
     | The following language lines are used to swap attribute place-holders
     | with something more reader friendly such as E-Mail Address instead
-    | of 'email'. This simply helps us make messages a little cleaner.
+    | of "email". This simply helps us make messages a little cleaner.
     |
     */
 
-    'attributes' => [],
+    'attributes'           => [],
 
 ];

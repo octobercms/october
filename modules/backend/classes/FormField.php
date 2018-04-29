@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use Str;
 use Html;
 use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -17,6 +18,11 @@ class FormField
      * @var int Value returned when the form field should not contribute any save data.
      */
     const NO_SAVE_DATA = -1;
+
+    /**
+     * @var string A special character in yaml config files to indicate a field higher in hierarchy
+     */
+    const HIERARCHY_UP = '^';
 
     /**
      * @var string Form field name.
@@ -460,6 +466,8 @@ class FormField
         $triggerAction = array_get($this->trigger, 'action');
         $triggerField = array_get($this->trigger, 'field');
         $triggerCondition = array_get($this->trigger, 'condition');
+        $triggerForm = $this->arrayName;
+        $triggerMulti = '';
 
         // Apply these to container
         if (in_array($triggerAction, ['hide', 'show']) && $position != 'container') {
@@ -471,11 +479,25 @@ class FormField
             return $attributes;
         }
 
+        // Reduce the field reference for the trigger condition field
+        $triggerFieldParentLevel = Str::getPrecedingSymbols($triggerField, self::HIERARCHY_UP);
+        if ($triggerFieldParentLevel > 0) {
+            $triggerField = substr($triggerField, $triggerFieldParentLevel);
+            $triggerForm = HtmlHelper::reduceFieldNameHierarchy($triggerForm, $triggerFieldParentLevel);
+        }
+
+        // Preserve multi field types
+        if (Str::endsWith($triggerField, '[]')) {
+            $triggerField = substr($triggerField, 0, -2);
+            $triggerMulti = '[]';
+        }
+
+        // Final compilation
         if ($this->arrayName) {
-            $fullTriggerField = $this->arrayName.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']';
+            $fullTriggerField = $triggerForm.'['.implode('][', HtmlHelper::nameToArray($triggerField)).']'.$triggerMulti;
         }
         else {
-            $fullTriggerField = $triggerField;
+            $fullTriggerField = $triggerField.$triggerMulti;
         }
 
         $newAttributes = [
@@ -486,6 +508,7 @@ class FormField
         ];
 
         $attributes = $attributes + $newAttributes;
+
         return $attributes;
     }
 
