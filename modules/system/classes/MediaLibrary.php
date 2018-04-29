@@ -324,22 +324,12 @@ class MediaLibrary
         $path = self::validatePath($path);
         $fullPath = $this->getMediaPath($path);
 
-        $temp = tempnam(sys_get_temp_dir(), 'october_');
-        $extension = '.'.pathinfo($path, PATHINFO_EXTENSION);
-        $temp = $temp.$extension;
-
-        $stream = fopen($temp, 'w');
-        fwrite($stream, $contents);
-        fclose($stream);
-
-        list($imageWidth, $imageHeight) = getimagesize($temp);
-
         if (
-            !(
+            (
                 $this->imageQuality ||
-                ($this->imageMaxWidth && $this->imageMaxWidth < $imageWidth) ||
-                ($this->imageMaxHeight && $this->imageMaxHeight < $imageHeight)
-            ) || !(
+                $this->imageMaxWidth ||
+                $this->imageMaxHeight
+            ) && (
                 substr($path, -4) === '.gif' ||
                 substr($path, -4) === '.png' ||
                 substr($path, -4) === '.jpg' ||
@@ -347,13 +337,17 @@ class MediaLibrary
                 substr($path, -5) === '.webp'
             )
         ) {
-            return $this->getStorageDisk()->put($fullPath, $contents);
-        } else {
+            $temp = tempnam(sys_get_temp_dir(), 'october_');
+            $extension = '.'.pathinfo($path, PATHINFO_EXTENSION);
+            rename($temp, $temp.$extension);
+            $temp = $temp.$extension;
+            file_put_contents($temp, $contents);
 
+            list($imageWidth, $imageHeight) = getimagesize($temp);
 
             $options = array();
-            $width = min($this->imageMaxWidth, $imageWidth) ?: false;
-            $height = min($this->imageMaxHeight, $imageHeight) ?: false;
+            $width = $this->imageMaxWidth < $imageWidth ? $this->imageMaxWidth : false;
+            $height = $this->imageMaxHeight < $imageHeight ? $this->imageMaxHeight : false;
 
             if ($this->imageQuality) {
                 $options['quality'] = $this->imageQuality;
@@ -363,11 +357,17 @@ class MediaLibrary
                 $options['mode'] = 'auto';
             }
 
-            Resizer::open($temp)
-                ->resize($width, $height, $options)
-                ->save($temp);
+            if ($width || $height || isset($options['quality'])) {
+                Resizer::open($temp)
+                    ->resize($width, $height, $options)
+                    ->save($temp);
+            }
 
-            return $this->getStorageDisk()->putStream($fullPath, fopen($temp, 'r'));
+            $result = $this->getStorageDisk()->putStream($fullPath, fopen($temp, 'r'));
+            unlink($temp);
+            return $result;
+        } else {
+            return $this->getStorageDisk()->put($fullPath, $contents);
         }
     }
 
