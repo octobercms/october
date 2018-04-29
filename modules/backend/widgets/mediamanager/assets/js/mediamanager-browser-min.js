@@ -274,7 +274,7 @@ this.selectionMarker=document.createElement('div')
 this.selectionMarker.setAttribute('data-control','selection-marker')
 this.scrollContentElement.insertBefore(this.selectionMarker,this.scrollContentElement.firstChild)}
 MediaManager.prototype.doObjectsCollide=function(aTop,aLeft,aWidth,aHeight,bTop,bLeft,bWidth,bHeight){return!(((aTop+aHeight)<(bTop))||(aTop>(bTop+bHeight))||((aLeft+aWidth)<bLeft)||(aLeft>(bLeft+bWidth)))}
-MediaManager.prototype.initUploader=function(){if(!this.itemListElement)
+MediaManager.prototype.initUploader=function(){if(!this.itemListElement||this.options.readOnly)
 return
 var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',headers:{},createImageThumbnails:false}
 if(this.options.uniqueId){uploaderOptions.headers['X-OCTOBER-FILEUPLOAD']=this.options.uniqueId}

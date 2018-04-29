@@ -482,8 +482,9 @@ class FormField
         // Reduce the field reference for the trigger condition field
         $triggerFieldParentLevel = Str::getPrecedingSymbols($triggerField, self::HIERARCHY_UP);
         if ($triggerFieldParentLevel > 0) {
+            // Remove the preceding symbols from the trigger field name
             $triggerField = substr($triggerField, $triggerFieldParentLevel);
-            $triggerForm = HtmlHelper::reduceFieldNameHierarchy($triggerForm, $triggerFieldParentLevel);
+            $triggerForm = HtmlHelper::reduceNameHierarchy($triggerForm, $triggerFieldParentLevel);
         }
 
         // Preserve multi field types

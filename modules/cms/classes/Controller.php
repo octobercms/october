@@ -687,6 +687,28 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+        * @event cms.ajax.beforeRunHandler
+        * Provides an opportunity to modify an AJAX request
+        *
+        * The parameter provided is `$handler` (the requested AJAX handler to be run)
+        *
+        * Example usage (forwards AJAX handlers to a backend widget):
+        *
+        *     $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+        *         if (strpos($handler, '::')) {
+        *             list($componentAlias, $handlerName) = explode('::', $handler);
+        *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+        *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+        *             }
+        *         }
+        *     });
+        *
+        */
+        if ($event = $this->fireSystemEvent('cms.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Component handler
          */

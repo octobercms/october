@@ -214,6 +214,14 @@ class OctoberUtil extends Command
             if (File::isFile($srcPath) && $fallbackPath != $srcPath) {
                 $messages = array_replace_recursive($messages, require $srcPath);
             }
+            
+            /*
+             * Load possible replacements from /lang
+             */
+            $overridePath = base_path() . '/lang/'.$locale.'/system/client.php';
+            if (File::isFile($overridePath)) {
+                $messages = array_replace_recursive($messages, require $overridePath);
+            }
 
             /*
              * Compile from stub and save file

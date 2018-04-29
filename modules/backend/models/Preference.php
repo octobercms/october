@@ -216,6 +216,7 @@ class Preference extends Model
             'zh-tw' => [Lang::get('system::lang.locale.zh-tw'), 'flag-tw'],
             'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'flag-no'],
             'el' => [Lang::get('system::lang.locale.el'), 'flag-gr'],
+            'vn' => [Lang::get('system::lang.locale.vn'), 'flag-vn'],
         ];
 
         $locales = Config::get('app.localeOptions', $localeOptions);

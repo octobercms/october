@@ -26,7 +26,7 @@ abstract class ImportModel extends Model
      * Relations
      */
     public $attachOne = [
-        'import_file' => \System\Models\File::class
+        'import_file' => [\System\Models\File::class, 'public' => false],
     ];
 
     /**

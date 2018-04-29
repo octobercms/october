@@ -197,8 +197,8 @@ trait AssetMaker
     public function combineAssets(array $assets, $localPath = '')
     {
         // Short circuit if no assets actually provided
-	    if (empty($assets)) {
-		    return '';
+        if (empty($assets)) {
+            return '';
         }
         $assetPath = !empty($localPath) ? $localPath : $this->assetPath;
         return Url::to(CombineAssets::combine($assets, $assetPath));
