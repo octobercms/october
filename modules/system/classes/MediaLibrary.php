@@ -324,11 +324,21 @@ class MediaLibrary
         $path = self::validatePath($path);
         $fullPath = $this->getMediaPath($path);
 
+        $temp = tempnam(sys_get_temp_dir(), 'october_');
+        $extension = '.'.pathinfo($path, PATHINFO_EXTENSION);
+        $temp = $temp.$extension;
+
+        $stream = fopen($temp, 'w');
+        fwrite($stream, $contents);
+        fclose($stream);
+
+        list($imageWidth, $imageHeight) = getimagesize($temp);
+
         if (
             !(
                 $this->imageQuality ||
-                $this->imageMaxWidth ||
-                $this->imageMaxHeight
+                ($this->imageMaxWidth && $this->imageMaxWidth < $imageWidth) ||
+                ($this->imageMaxHeight && $this->imageMaxHeight < $imageHeight)
             ) || !(
                 substr($path, -4) === '.gif' ||
                 substr($path, -4) === '.png' ||
@@ -339,17 +349,11 @@ class MediaLibrary
         ) {
             return $this->getStorageDisk()->put($fullPath, $contents);
         } else {
-            $temp = tempnam(sys_get_temp_dir(), 'october_');
-            $extension = '.'.pathinfo($path, PATHINFO_EXTENSION);
-            $temp = $temp.$extension;
 
-            $stream = fopen($temp, 'w');
-            fwrite($stream, $contents);
-            fclose($stream);
 
             $options = array();
-            $width = $this->imageMaxWidth ?: false;
-            $height = $this->imageMaxHeight ?: false;
+            $width = min($this->imageMaxWidth, $imageWidth) ?: false;
+            $height = min($this->imageMaxHeight, $imageHeight) ?: false;
 
             if ($this->imageQuality) {
                 $options['quality'] = $this->imageQuality;
