@@ -7,6 +7,7 @@ use Config;
 use Storage;
 use Request;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
+use October\Rain\Database\Attach\Resizer;
 use ApplicationException;
 use SystemException;
 
@@ -61,6 +62,21 @@ class MediaLibrary
     protected $storageFolderNameLength;
 
     /**
+     * @var int Max image height if resizing on upload (0 = no change)
+     */
+    protected $imageMaxHeight;
+
+    /**
+     * @var int Max image width if resizing on upload (0 = no change)
+     */
+    protected $imageMaxWidth;
+
+    /**
+     * @var int Image quality if changing on upload (0 = no change)
+     */
+    protected $imageQuality;
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
@@ -77,6 +93,10 @@ class MediaLibrary
         $this->ignorePatterns = Config::get('cms.storage.media.ignorePatterns', ['^\..*']);
 
         $this->storageFolderNameLength = strlen($this->storageFolder);
+
+        $this->imageMaxHeight = Config::get('cms.storage.media.imageMaxHeight', 0);
+        $this->imageMaxWidth = Config::get('cms.storage.media.imageMaxWidth', 0);
+        $this->imageQuality = Config::get('cms.storage.media.imageQuality', 0);
     }
 
     /**
@@ -302,7 +322,48 @@ class MediaLibrary
     {
         $path = self::validatePath($path);
         $fullPath = $this->getMediaPath($path);
-        return $this->getStorageDisk()->put($fullPath, $contents);
+
+        if (
+            !(
+                $this->imageQuality ||
+                $this->imageMaxWidth ||
+                $this->imageMaxHeight
+            ) || !(
+                substr($path, -4) === '.gif' ||
+                substr($path, -4) === '.png' ||
+                substr($path, -4) === '.jpg' ||
+                substr($path, -5) === '.jpeg' ||
+                substr($path, -5) === '.webp'
+            )
+        ) {
+            return $this->getStorageDisk()->put($fullPath, $contents);
+        } else {
+            $temp = tempnam(sys_get_temp_dir(), 'october_');
+            $extension = '.'.pathinfo($path, PATHINFO_EXTENSION);
+            $temp = $temp.$extension;
+
+            $stream = fopen($temp, 'w');
+            fwrite($stream, $contents);
+            fclose($stream);
+
+            $options = array();
+            $width = $this->imageMaxWidth ?: false;
+            $height = $this->imageMaxHeight ?: false;
+
+            if ($this->imageQuality) {
+                $options['quality'] = $this->imageQuality;
+            }
+
+            if ($width || $height) {
+                $options['mode'] = 'auto';
+            }
+
+            Resizer::open($temp)
+                ->resize($width, $height, $options)
+                ->save($temp);
+
+            return $this->getStorageDisk()->putStream($fullPath, fopen($temp, 'r'));
+        }
     }
 
     /**
