@@ -252,6 +252,15 @@ return [
     | folder - a folder prefix for storing all generated files inside.
     | path   - the public path relative to the application base URL,
     |          or you can specify a full URL path.
+    |
+    | For the 'media' resource you can also specify:
+    |
+    | imageMaxWidth     - Resize all media manager image uploads to be
+    |                     within this with (in pixels, 0 = ignore)
+    | imageMaxHeight    - Resize all media manager image uploads to be
+    |                     within this height (in pixels, 0 = ignore)
+    | imageQuality      - Set this quality to all media manager image uploads
+    |                     (1-100)
     */
 
     'storage' => [
