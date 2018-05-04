@@ -3,6 +3,7 @@
         class="btn btn-sm btn-secondary oc-icon-trash-o"
         data-request="onRelationButtonDelete"
         data-request-confirm="<?= e(trans('backend::lang.relation.delete_confirm')) ?>"
+        data-request-success="$.oc.relationBehavior.changed('<?= e($this->vars['relationField']) ?>', 'deleted')"
         data-stripe-load-indicator>
         <?= e(trans('backend::lang.relation.delete')) ?>
     </button>
@@ -15,6 +16,7 @@
         disabled="disabled"
         data-request="onRelationButtonDelete"
         data-request-confirm="<?= e(trans('backend::lang.relation.delete_confirm')) ?>"
+        data-request-success="$.oc.relationBehavior.changed('<?= e($this->vars['relationField']) ?>', 'deleted')"
         data-trigger-action="enable"
         data-trigger="#<?= $this->relationGetId('view') ?> .control-list input[type=checkbox]"
         data-trigger-condition="checked"
