@@ -756,7 +756,7 @@ class RelationController extends ControllerBehavior
             if ($this->viewMode == 'single') {
                 $config->showCheckboxes = false;
                 $config->recordOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManageListRecord(:%s, '%s', '%s')",
+                    "$.oc.relationBehavior.clickManageListRecord(':%s', '%s', '%s')",
                     $this->relationModel->getKeyName(),
                     $this->relationGetId(),
                     $this->relationGetSessionKey()
