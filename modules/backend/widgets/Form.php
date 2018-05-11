@@ -911,7 +911,7 @@ class Form extends WidgetBase
         }
 
         $defaultValue = !$this->model->exists
-            ? $field->getDefaultFromData($this->data)
+            ? trans($field->getDefaultFromData($this->data))
             : null;
 
         return $field->getValueFromData($this->data, $defaultValue);
