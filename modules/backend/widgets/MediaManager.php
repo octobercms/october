@@ -41,6 +41,11 @@ class MediaManager extends WidgetBase
     protected $brokenImageHash = null;
 
     /**
+     * @var boolean Determines whether the widget is in readonly mode or not
+     */
+    public $readOnly = false;
+
+    /**
      * @var boolean Determines whether the bottom toolbar is visible.
      */
     public $bottomToolbar = false;
@@ -53,9 +58,10 @@ class MediaManager extends WidgetBase
     /**
      * Constructor.
      */
-    public function __construct($controller, $alias)
+    public function __construct($controller, $alias, $readOnly = false)
     {
         $this->alias = $alias;
+        $this->readOnly = $readOnly;
 
         parent::__construct($controller, []);
 
@@ -71,6 +77,16 @@ class MediaManager extends WidgetBase
     {
         $this->addCss('css/mediamanager.css', 'core');
         $this->addJs('js/mediamanager-browser-min.js', 'core');
+    }
+
+    /**
+     * Abort the request with an access-denied code if readOnly mode is active
+     */
+    protected function abortIfReadOnly()
+    {
+        if ($this->readOnly) {
+            abort(403);
+        }
     }
 
     /**
@@ -230,6 +246,8 @@ class MediaManager extends WidgetBase
 
     public function onDeleteItem()
     {
+        $this->abortIfReadOnly();
+
         $paths = Input::get('paths');
 
         if (!is_array($paths)) {
@@ -290,6 +308,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadRenamePopup()
     {
+        $this->abortIfReadOnly();
+
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
@@ -303,6 +323,8 @@ class MediaManager extends WidgetBase
 
     public function onApplyName()
     {
+        $this->abortIfReadOnly();
+
         $newName = trim(Input::get('name'));
         if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
@@ -352,6 +374,8 @@ class MediaManager extends WidgetBase
 
     public function onCreateFolder()
     {
+        $this->abortIfReadOnly();
+
         $name = trim(Input::get('name'));
         if (!strlen($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
@@ -395,6 +419,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadMovePopup()
     {
+        $this->abortIfReadOnly();
+
         $exclude = Input::get('exclude', []);
         if (!is_array($exclude)) {
             throw new ApplicationException('Invalid input data');
@@ -425,6 +451,8 @@ class MediaManager extends WidgetBase
 
     public function onMoveItems()
     {
+        $this->abortIfReadOnly();
+
         $dest = trim(Input::get('dest'));
         if (!strlen($dest)) {
             throw new ApplicationException(Lang::get('backend::lang.media.please_select_move_dest'));
@@ -498,6 +526,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadImageCropPopup()
     {
+        $this->abortIfReadOnly();
+
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
         $cropSessionKey = md5(FormHelper::getSessionKey());
@@ -521,6 +551,8 @@ class MediaManager extends WidgetBase
 
     public function onEndCroppingSession()
     {
+        $this->abortIfReadOnly();
+
         $cropSessionKey = Input::get('cropSessionKey');
         if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
@@ -531,6 +563,8 @@ class MediaManager extends WidgetBase
 
     public function onCropImage()
     {
+        $this->abortIfReadOnly();
+
         $imageSrcPath = trim(Input::get('img'));
         $selectionData = Input::get('selection');
         $cropSessionKey = Input::get('cropSessionKey');
@@ -562,6 +596,8 @@ class MediaManager extends WidgetBase
 
     public function onResizeImage()
     {
+        $this->abortIfReadOnly();
+
         $cropSessionKey = Input::get('cropSessionKey');
         if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
@@ -589,7 +625,7 @@ class MediaManager extends WidgetBase
     }
 
     //
-    // Methods for th internal use
+    // Methods for internal use
     //
 
     protected function prepareVars()
@@ -1078,6 +1114,10 @@ class MediaManager extends WidgetBase
 
     protected function checkUploadPostback()
     {
+        if ($this->readOnly) {
+            return;
+        }
+
         $fileName = null;
         $quickMode = false;
 

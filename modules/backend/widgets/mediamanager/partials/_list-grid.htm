@@ -17,13 +17,13 @@
                 </tr>
             <?php endif ?>
 
-            <?php foreach ($items as $item): 
+            <?php foreach ($items as $item):
                 $itemType = $item->getFileType();
             ?>
-                <tr data-type="media-item" 
-                    data-item-type="<?= $item->type ?>" 
-                    data-path="<?= e($item->path) ?>" 
-                    data-title="<?= e(basename($item->path)) ?>" 
+                <tr data-type="media-item"
+                    data-item-type="<?= $item->type ?>"
+                    data-path="<?= e($item->path) ?>"
+                    data-title="<?= e(basename($item->path)) ?>"
                     data-size="<?= e($item->sizeToString()) ?>"
                     data-last-modified="<?= e($item->lastModifiedAsString()) ?>"
                     data-last-modified-ts="<?= $item->lastModified ?>"
@@ -36,14 +36,16 @@
                         <div class="item-title no-wrap-text">
                             <i class="<?= $this->itemTypeToIconClass($item, $itemType) ?>"></i> <?= e(basename($item->path)) ?>
 
-                            <a 
-                                href="#" 
-                                data-rename
-                                data-control="popup"
-                                data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
-                                data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
-                                data-z-index="1200"
-                            ><i data-rename-control class="icon-terminal"></i></a>
+                            <?php if (!$this->readOnly) : ?>
+                                <a
+                                    href="#"
+                                    data-rename
+                                    data-control="popup"
+                                    data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
+                                    data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
+                                    data-z-index="1200"
+                                ><i data-rename-control class="icon-terminal"></i></a>
+                            <?php endif; ?>
                         </div>
                     </td>
                     <td><?= e($item->sizeToString()) ?></td>

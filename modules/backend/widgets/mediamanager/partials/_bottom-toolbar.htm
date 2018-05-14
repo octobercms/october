@@ -9,13 +9,15 @@
                 <?= e(trans('backend::lang.media.insert')) ?>
             </button>
 
-            <button
-                type="button"
-                data-command="popup-command"
-                data-popup-command="crop-and-insert"
-                class="btn btn-primary hide">
-                <?= e(trans('backend::lang.media.crop_and_insert')) ?>
-            </button>
+            <?php if (!$this->readOnly) : ?>
+                <button
+                    type="button"
+                    data-command="popup-command"
+                    data-popup-command="crop-and-insert"
+                    class="btn btn-primary hide">
+                    <?= e(trans('backend::lang.media.crop_and_insert')) ?>
+                </button>
+            <?php endif; ?>
 
             <button
                 type="button"
