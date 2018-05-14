@@ -15,6 +15,7 @@ tabs:
             imageHeight: 170
             tab: backend::lang.branding.brand
             span: right
+            fileTypes: jpg,jpeg,bmp,png,webp,gif,svg
 
         app_name:
             label: backend::lang.branding.app_name
