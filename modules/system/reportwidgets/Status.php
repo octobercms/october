@@ -1,6 +1,7 @@
 <?php namespace System\ReportWidgets;
 
 use Lang;
+use Config;
 use BackendAuth;
 use System\Models\Parameter;
 use System\Classes\UpdateManager;
@@ -61,7 +62,7 @@ class Status extends ReportWidgetBase
         $this->vars['coreBuild'] = Parameter::get('system::core.build');
         $this->vars['eventLog'] = EventLog::count();
         $this->vars['requestLog'] = RequestLog::count();
-        $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->pluck('created_at');
+        $this->vars['appBirthday'] = PluginVersion::orderBy('created_at')->value('created_at');
     }
 
     public function onLoadWarningsForm()
@@ -78,7 +79,6 @@ class Status extends ReportWidgetBase
 
         $writablePaths = [
             temp_path(),
-            themes_path(),
             storage_path(),
             storage_path('app'),
             storage_path('logs'),
@@ -88,6 +88,10 @@ class Status extends ReportWidgetBase
             storage_path('cms/twig'),
             storage_path('cms/combiner'),
         ];
+        
+        if (in_array('Cms', Config::get('cms.loadModules', []))) {
+            $writablePaths[] = themes_path();
+        }
 
         $requiredExtensions = [
             'GD' => extension_loaded('gd'),

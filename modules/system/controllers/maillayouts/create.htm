@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('system/mailtemplates') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
+        <li><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
         <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -13,7 +13,7 @@
             <?= $this->formRender() ?>
         </div>
 
-        <div class="form-buttons">
+        <div class="form-buttons p-t">
             <div class="loading-indicator-container">
                 <button
                     type="submit"
@@ -33,7 +33,7 @@
                     <?= e(trans('backend::lang.form.create_and_close')) ?>
                 </button>
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/mailtemplates') ?>"><?= e(trans('backend::lang.form.close')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('backend::lang.form.close')) ?></a>
                 </span>
             </div>
         </div>
@@ -43,6 +43,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('system/mailtemplates') ?>" class="btn btn-default"><?= e(trans('system::lang.mail_templates.return')) ?></a></p>
+    <p><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>" class="btn btn-default"><?= e(trans('system::lang.mail_templates.return')) ?></a></p>
 
 <?php endif ?>

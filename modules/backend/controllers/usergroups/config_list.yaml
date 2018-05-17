@@ -7,7 +7,8 @@ list: ~/modules/backend/models/usergroup/columns.yaml
 modelClass: Backend\Models\UserGroup
 recordUrl: backend/usergroups/update/:id
 noRecordsMessage: backend::lang.list.no_records
-recordsPerPage: 5
+recordsPerPage: 25
+showSetup: true
 
 toolbar:
     buttons: list_toolbar

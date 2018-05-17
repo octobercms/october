@@ -15,7 +15,8 @@
             var
                 navbar = $(this),
                 nav = $('ul.nav', navbar),
-                collapseMode = navbar.hasClass('navbar-mode-collapse')
+                collapseMode = navbar.hasClass('navbar-mode-collapse'),
+                isMobile = $('html').hasClass('mobile')
 
             nav.verticalMenu($('a.menu-toggle', navbar), {
                 breakpoint: collapseMode ? Infinity : 769
@@ -25,6 +26,9 @@
                 container: 'body',
                 placement: 'bottom',
                 template: '<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+            })
+            .on('show.bs.tooltip', function (e) {
+                if (isMobile) e.preventDefault()
             })
 
             $('[data-calculate-width]', navbar).one('oc.widthFixed', function() {

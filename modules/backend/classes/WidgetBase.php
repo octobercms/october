@@ -2,7 +2,6 @@
 
 use Str;
 use File;
-use Session;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Extension\Extendable;
 use stdClass;
@@ -19,7 +18,9 @@ abstract class WidgetBase extends Extendable
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
+    use \Backend\Traits\SessionMaker;
 
     /**
      * @var object Supplied configuration.
@@ -54,7 +55,7 @@ abstract class WidgetBase extends Extendable
 
         /*
          * Apply configuration values to a new config object, if a parent
-         * consutrctor hasn't done it already.
+         * constructor hasn't done it already.
          */
         if ($this->config === null) {
             $this->config = $this->makeConfig($configuration);
@@ -91,7 +92,7 @@ abstract class WidgetBase extends Extendable
     }
 
     /**
-     * Renders the widgets primary contents.
+     * Renders the widget's primary contents.
      * @return string HTML markup supplied by this widget.
      */
     public function render()
@@ -114,7 +115,7 @@ abstract class WidgetBase extends Extendable
     public function bindToController()
     {
         if ($this->controller->widget === null) {
-            $this->controller->widget = new stdClass();
+            $this->controller->widget = new stdClass;
         }
 
         $this->controller->widget->{$this->alias} = $this;
@@ -213,73 +214,5 @@ abstract class WidgetBase extends Extendable
     public function getController()
     {
         return $this->controller;
-    }
-
-    //
-    // Session management
-    //
-
-    /**
-     * Saves a widget related key/value pair in to session data.
-     * @param string $key Unique key for the data store.
-     * @param string $value The value to store.
-     * @return void
-     */
-    protected function putSession($key, $value)
-    {
-        $sessionId = $this->makeSessionId();
-
-        $currentStore = $this->getSession();
-        $currentStore[$key] = $value;
-
-        Session::put($sessionId, base64_encode(serialize($currentStore)));
-    }
-
-    /**
-     * Retrieves a widget related key/value pair from session data.
-     * @param string $key Unique key for the data store.
-     * @param string $default A default value to use when value is not found.
-     * @return string
-     */
-    protected function getSession($key = null, $default = null)
-    {
-        $sessionId = $this->makeSessionId();
-        $currentStore = [];
-
-        if (
-            Session::has($sessionId) &&
-            ($cached = @unserialize(@base64_decode(Session::get($sessionId)))) !== false
-        ) {
-            $currentStore = $cached;
-        }
-
-        if ($key === null) {
-            return $currentStore;
-        }
-
-        return isset($currentStore[$key]) ? $currentStore[$key] : $default;
-    }
-
-    /**
-     * Returns a unique session identifier for this widget and controller action.
-     * @return string
-     */
-    protected function makeSessionId()
-    {
-        // Removes Class name and "Controllers" directory
-        $rootNamespace = Str::getClassId(Str::getClassNamespace(Str::getClassNamespace($this->controller)));
-
-        // The controller action is intentionally omitted, session should be shared for all actions
-        return 'widget.' . $rootNamespace . '-' . class_basename($this->controller) . '-' . $this->getId();
-    }
-
-    /**
-     * Resets all session data related to this widget.
-     * @return void
-     */
-    public function resetSession()
-    {
-        $sessionId = $this->makeSessionId();
-        Session::forget($sessionId);
     }
 }

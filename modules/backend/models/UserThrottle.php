@@ -19,6 +19,6 @@ class UserThrottle extends ThrottleBase
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['Backend\Models\User']
+        'user' => User::class
     ];
 }

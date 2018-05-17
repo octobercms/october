@@ -18,7 +18,11 @@
     <?php if ($showPagination): ?>
         <div class="list-footer">
             <div class="list-pagination">
-                <?= $this->makePartial('list_pagination') ?>
+                <?php if ($showPageNumbers): ?>
+                    <?= $this->makePartial('list_pagination') ?>
+                <?php else: ?>
+                    <?= $this->makePartial('list_pagination_simple') ?>
+                <?php endif ?>
             </div>
         </div>
     <?php endif ?>

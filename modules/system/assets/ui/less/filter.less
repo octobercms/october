@@ -86,6 +86,31 @@
             }
         }
 
+        &.text {
+            padding: 0 10px;
+
+            &, label {
+                margin: 0;
+            }
+
+            .form-control {
+                display: inline;
+                width: auto;
+                height: 30px;
+                margin-left: 10px;
+            }
+
+            &:after {
+                content: '';
+            }
+
+            .loading-indicator {
+                top: -2px;
+                right: 7px;
+                left: auto;
+            }
+        }
+
         &:hover, &.active {
             &, &.custom-checkbox label {
                 color: @color-filter-text-active;
@@ -101,7 +126,7 @@
         }
     }
 
-    > .filter-scope-date {
+    > .filter-has-popover {
         display: inline-block;
         padding: (@padding-standard / 2);
         .filter-label {}
@@ -216,7 +241,7 @@
         li.animate-enter { .animation(fadeInDown .5s); }
     }
 
-    &.control-filter-date-popover {
+    &.control-filter-box-popover {
         min-width: 190px;
 
         .filter-buttons {

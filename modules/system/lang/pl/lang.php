@@ -312,5 +312,9 @@ return [
         'manage_editor' => 'Zarządzaj ustawieniami edytora kodu',
         'view_the_dashboard' => 'Zobacz kokpit',
         'manage_branding' => 'Personalizuj zaplecze'
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Wybrano nieprawidłową ścieżkę pliku: ':path'.",
+        'folder_size_items' => 'element(y)',
+    ],
 ];

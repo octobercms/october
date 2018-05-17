@@ -53,6 +53,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Back-end login remember
+    |--------------------------------------------------------------------------
+    |
+    | Define live duration of backend sessions :
+    |
+    | true  - session never expire (cookie expiration in 5 years)
+    |
+    | false - session have a limited time (see session.lifetime)
+    |
+    | null  - The form login display a checkbox that allow user to choose
+    |         wanted behavior
+    |
+    */
+
+    'backendForceRemember' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Back-end timezone
     |--------------------------------------------------------------------------
     |
@@ -314,7 +332,7 @@ return [
     |
     */
 
-    'enableCsrfProtection' => false,
+    'enableCsrfProtection' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -328,5 +346,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Twig Strict Variables
+    |--------------------------------------------------------------------------
+    |
+    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | variables (variables and or attributes/methods that do not exist) and
+    | replace them with a null value. When enabled, Twig throws an exception
+    | instead. If set to null, it is enabled when debug mode (app.debug) is
+    | enabled.
+    |
+    */
+    
+    'enableTwigStrictVariables' => false,
 
 ];

@@ -38,7 +38,7 @@
   word-wrap: break-word;
   padding: 10px 50px 10px 20px;
   outline: none;
-  font-weight: 500;
+  font-weight: 400;
   color: #405261;
   font-size: 14px;
 }
@@ -58,13 +58,13 @@
 .control-assetlist ul li a.link span.description {
   color: #8f8f8f;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   word-wrap: break-word;
 }
 .control-assetlist p.parent a.link span.description strong,
 .control-assetlist ul li a.link span.description strong {
   color: #405261;
-  font-weight: 500;
+  font-weight: 400;
 }
 .control-assetlist p.parent.directory a.link,
 .control-assetlist ul li.directory a.link,

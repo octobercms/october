@@ -41,29 +41,23 @@ if (window.jQuery.request !== undefined) {
         $triggerEl.trigger(_event, context)
         if (_event.isDefaultPrevented()) return
 
-        var data = [$form.serialize()],
-            loading = options.loading !== undefined ? options.loading : null,
+        var loading = options.loading !== undefined ? options.loading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
-            useFlash = options.flash !== undefined
+            useFlash = options.flash !== undefined,
+            useFiles = options.files !== undefined
 
-        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
-            data.push($.param(paramToObj('data-request-data', $(this).data('request-data'))))
-        })
-
-        if ($el.is(':input') && !$form.length) {
-            var inputName = $el.attr('name')
-            if (inputName !== undefined && options.data[inputName] === undefined)
-                options.data[inputName] = $el.val()
-        }
-
-        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
-            data.push($.param(options.data))
+        if (useFiles && typeof FormData === 'undefined') {
+            console.warn('This browser does not support file uploads via FormData')
+            useFiles = false
         }
 
         if ($.type(loading) == 'string') {
             loading = $(loading)
         }
 
+        /*
+         * Request headers
+         */
         var requestHeaders = {
             'X-OCTOBER-REQUEST-HANDLER': handler,
             'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update)
@@ -73,6 +67,50 @@ if (window.jQuery.request !== undefined) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
         }
 
+        /*
+         * Request data
+         */
+        var requestData,
+            inputName,
+            data = {}
+
+        $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
+            $.extend(data, paramToObj('data-request-data', $(this).data('request-data')))
+        })
+
+        if ($el.is(':input') && !$form.length) {
+            inputName = $el.attr('name')
+            if (inputName !== undefined && options.data[inputName] === undefined) {
+                options.data[inputName] = $el.val()
+            }
+        }
+
+        if (options.data !== undefined && !$.isEmptyObject(options.data)) {
+            $.extend(data, options.data)
+        }
+
+        if (useFiles) {
+            requestData = new FormData($form.length ? $form.get(0) : null)
+
+            if ($el.is(':file') && inputName) {
+                $.each($el.prop('files'), function() {
+                    requestData.append(inputName, this)
+                })
+
+                delete data[inputName]
+            }
+
+            $.each(data, function(key) {
+                requestData.append(key, this)
+            })
+        }
+        else {
+            requestData = [$form.serialize(), $.param(data)].filter(Boolean).join('&')
+        }
+
+        /*
+         * Request options
+         */
         var requestOptions = {
             url: window.location.href,
             crossDomain: false,
@@ -202,6 +240,8 @@ if (window.jQuery.request !== undefined) {
 
                 var isFirstInvalidField = true
                 $.each(fields, function focusErrorField(fieldName, fieldMessages) {
+                    fieldName = fieldName.replace(/\.(\w+)/g, '[$1]')
+
                     var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                     if (fieldElement.length > 0) {
 
@@ -299,6 +339,10 @@ if (window.jQuery.request !== undefined) {
             }
         }
 
+        if (useFiles) {
+            requestOptions.processData = requestOptions.contentType = false
+        }
+
         /*
          * Allow default business logic to be called from user functions
          */
@@ -306,7 +350,7 @@ if (window.jQuery.request !== undefined) {
         context.error = requestOptions.error
         context.complete = requestOptions.complete
         requestOptions = $.extend(requestOptions, options)
-        requestOptions.data = data.join('&')
+        requestOptions.data = requestData
 
         /*
          * Initiate request
@@ -323,14 +367,14 @@ if (window.jQuery.request !== undefined) {
             .fail(function(jqXHR, textStatus, errorThrown) {
                 if (!isRedirect) {
                     $el.trigger('ajaxFail', [context, textStatus, jqXHR])
-                    if (loading) loading.hide()
                 }
+                if (loading) loading.hide()
             })
             .done(function(data, textStatus, jqXHR) {
                 if (!isRedirect) {
                     $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
-                    if (loading) loading.hide()
                 }
+                if (loading) loading.hide()
             })
             .always(function(dataOrXhr, textStatus, xhrOrError) {
                 $el.trigger('ajaxAlways', [context, dataOrXhr, textStatus, xhrOrError])
@@ -344,7 +388,7 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null,
+        evalComplete: null
     }
 
     /*
@@ -377,6 +421,7 @@ if (window.jQuery.request !== undefined) {
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
+            files: $this.data('request-files'),
             form: $this.data('request-form'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
@@ -415,7 +460,7 @@ if (window.jQuery.request !== undefined) {
         }
     }
 
-    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request]', function documentOnChange() {
+    $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {
         $(this).request()
     })
 

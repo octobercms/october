@@ -1,0 +1,13 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    name:
+        label: system::lang.mail_templates.name
+        searchable: true
+
+    code:
+        label: system::lang.mail_templates.code
+        searchable: true

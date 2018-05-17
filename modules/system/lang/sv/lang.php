@@ -296,5 +296,9 @@ return [
         'manage_editor' => 'Hantera inställningar för kodredigerare',
         'view_the_dashboard' => 'Visa kontrollpanelen',
         'manage_branding' => 'Anpassa back-end',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Felaktig filsökväg angiven: ':path'.",
+        'folder_size_items' => 'föremål',
+    ],
 ];

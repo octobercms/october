@@ -2,8 +2,8 @@
 
 return [
     'app' => [
-        'name' => 'October CMS',
-        'tagline' => 'Getting back to basics'
+        'name' => 'OctoberCMS',
+        'tagline' => 'Návrat ke kořenům'
     ],
     'directory' => [
         'create_fail' => 'Nelze vytvořit složku: :name'
@@ -15,21 +15,23 @@ return [
         'not_found' => "Slučující soubor ':name' nebyl nalezen."
     ],
     'system' => [
-        'name' => 'System',
-        'menu_label' => 'System',
+        'name' => 'Systém',
+        'menu_label' => 'Systém',
         'categories' => [
             'cms' => 'CMS',
             'misc' => 'Ostatní',
-            'logs' => 'Záznamy',
+            'logs' => 'Protokoly',
             'mail' => 'E-mail',
             'shop' => 'E-shop',
             'team' => 'Tým',
             'users' => 'Uživatelé',
-            'system' => 'System',
+            'system' => 'Systém',
             'social' => 'Sociální',
+            'backend' => 'Administrace',
             'events' => 'Události',
             'customers' => 'Zákazníci',
-            'my_settings' => 'Moje nastavení'
+            'my_settings' => 'Moje nastavení',
+            'notifications' => 'Oznámení'
         ]
     ],
     'theme' => [
@@ -42,7 +44,7 @@ return [
     ],
     'themes' => [
         'install' => 'Instalace témat',
-        'search' => 'vyhledejte téma k instalaci...',
+        'search' => 'Vyhledat téma k instalaci...',
         'installed' => 'Instalované téma',
         'no_themes' => 'Žádné téma instalované z tržiště.',
         'recommended' => 'Doporučené',
@@ -105,7 +107,7 @@ return [
         'search' => 'Hledat'
     ],
     'mail' => [
-        'log_file' => 'Log file',
+        'log_file' => 'Soubor protokolu',
         'menu_label' => 'Nastavení e-mailů',
         'menu_description' => 'Konfigurace posílání e-mailových zpráv.',
         'general' => 'Obecné',
@@ -136,6 +138,13 @@ return [
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill tajný klíč (secret)',
         'mandrill_secret_comment' => 'Zadejte váš Mandrill API klíč.',
+        'ses' => 'SES',
+        'ses_key' => 'Klíč SES',
+        'ses_key_comment' => 'Zadejte váš SES API klíč',
+        'ses_secret' => 'SES tajný klíč (secret)',
+        'ses_secret_comment' => 'Zadejte váš SES API tajný klíč (secret key)',
+        'ses_region' => 'SES oblast (region)',
+        'ses_region_comment' => 'Zadejte region SES (např. us-east-1)',
         'drivers_hint_header' => 'Ovladač není nainstalovaný',
         'drivers_hint_content' => 'Tato metoda posílání e-mailů vyžaduje nainstalovaný plugin ":plugin" ještě před odesláním první zprávy.'
     ],
@@ -144,9 +153,13 @@ return [
         'menu_description' => 'Úprava e-mailových šablon, které se posílají uživatelům a administrátorům. Úprava e-mailových layoutů.',
         'new_template' => 'Nová šablona',
         'new_layout' => 'Nový layout',
+        'new_partial' => 'Nová dílčí šablona',
         'template' => 'Šablona',
         'templates' => 'Šablony',
+        'partial' => 'Dílčí šablona',
+        'partials' => 'Dílčí šablony',
         'menu_layouts_label' => 'E-mailové layouty',
+        'menu_partials_label' => 'E-mailové dílčí šablony',
         'layout' => 'Layout',
         'layouts' => 'Layouty',
         'no_layout' => '-- žádný layout --',
@@ -162,10 +175,22 @@ return [
         'content_text' => 'Čistý text',
         'test_send' => 'Poslat testovací zprávu',
         'test_success' => 'Testovací zpráva byla úspěšně odeslána.',
-        'return' => 'Zpět na seznam šablon',
-        'test_confirm' => 'Testovací zpráva bude zaslána na :email. Chcete pokračovat?',
+        'test_confirm' => 'Opravdu chcete odeslat testovací zprávu na adresu :email?',
+        'creating' => 'Vytvářím šablonu...',
+        'creating_layout' => 'Vytvářím layout...',
         'saving' => 'Ukládání šablony...',
-        'sending' => 'Posílání testovací zprávy...',
+        'saving_layout' => 'Ukládání layoutu...',
+        'delete_confirm' => 'Opravdu chcete smazat šablonu?',
+        'delete_layout_confirm' => 'Opravdu chcete smazat layout?',
+        'deleting' => 'Mazání šablony...',
+        'deleting_layout' => 'Mazání layoutu...',
+        'return' => 'Zpět na seznam šablon',
+        'saving' => 'Ukládání šablony...',
+        'sending' => 'Odesílání testovací zprávy...',
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Personalizace e-mailu',
+        'menu_description' => 'Změňte barvy a vzhled e-mailových šablon.',
     ],
     'install' => [
         'project_label' => 'Připojit k projektu',
@@ -178,8 +203,8 @@ return [
     ],
     'updates' => [
         'title' => 'Správa aktualizací',
-        'name' => 'Software update',
-        'menu_label' => 'Aktualizace & pluginy',
+        'name' => 'Aktualizace software',
+        'menu_label' => 'Aktualizace a pluginy',
         'menu_description' => 'Aktualizace systému, správa a instalace pluginů a témat.',
         'return_link' => 'Zpět na systémové aktualizace',
         'check_label' => 'Kontrola aktualizací',
@@ -217,7 +242,7 @@ return [
         ],
         'none' => [
             'label' => 'Žádné aktualizace',
-            'help' => 'Nebyly nalezeny žádná aktualizace.'
+            'help' => 'Nebyly nalezeny žádné aktualizace.'
         ],
         'important_action' => [
             'empty' => 'Vyberte akci',
@@ -227,13 +252,18 @@ return [
         ],
         'important_action_required' => 'Je vyžadována akce',
         'important_view_guide' => 'Zobrazit aktualizační příručku',
+        'important_view_release_notes' => 'Zobrazit poznámky k verzi',
         'important_alert_text' => 'Některé aktualizace vyžadují vaší pozornost.',
         'details_title' => 'Detaily pluginu',
         'details_view_homepage' => 'Zobrazit domovskou stránku',
         'details_readme' => 'Dokumentace',
         'details_readme_missing' => 'Není uvedená žádná dokumentace.',
+        'details_changelog' => 'Seznam změn',
+        'details_changelog_missing' => 'Seznam změn není k dispozici.',
         'details_upgrades' => 'Instalační příručka',
         'details_upgrades_missing' => 'Nejsou uvedené žádné aktualizační instrukce.',
+        'details_licence' => 'Licence',
+        'details_licence_missing' => 'Licence není k dispozici.',
         'details_current_version' => 'Stávající verze',
         'details_author' => 'Autor',
     ],
@@ -257,28 +287,28 @@ return [
     ],
     'event_log' => [
         'hint' => 'Záznam potencionálních chyb v aplikaci, jako třeba vyjímky, nebo ladící informace.',
-        'menu_label' => 'Záznam událostí',
-        'menu_description' => 'Zobrazení záznamu události s časem a detaily.',
-        'empty_link' => 'Smazat záznam událostí',
-        'empty_loading' => 'Mazání záznamu událostí...',
-        'empty_success' => 'Záznam událostí úspěšně vymazán.',
-        'return_link' => 'Zpět na záznam událostí',
+        'menu_label' => 'Protokol událostí',
+        'menu_description' => 'Zobrazení seznamu událostí s časem a detaily.',
+        'empty_link' => 'Smazat protokol událostí',
+        'empty_loading' => 'Mazání protokolu událostí...',
+        'empty_success' => 'Protokol událostí úspěšně vymazán.',
+        'return_link' => 'Zpět na protokol událostí',
         'id' => 'ID',
         'id_label' => 'ID události',
-        'created_at' => 'Datum & Čas',
+        'created_at' => 'Datum a čas',
         'message' => 'Zpráva',
         'level' => 'Úroveň'
     ],
     'request_log' => [
         'hint' => 'Tento záznam obsahuje požadavky na vaše stránky, které vyžadují pozornost, například stránky které nebylo možné najít, nebo vrací chybový kód 404.',
-        'menu_label' => 'Záznam požadavků',
-        'menu_description' => 'Záznam špatných požadavků, jako třeba nenalezené stránky (404).',
-        'empty_link' => 'Smazat záznam požadavků',
-        'empty_loading' => 'Mazání záznamu požadavků...',
-        'empty_success' => 'Záznam požadavků úspěšně vymazán.',
+        'menu_label' => 'Protokol požadavků',
+        'menu_description' => 'Seznam špatných požadavků, jako třeba nenalezené stránky (404).',
+        'empty_link' => 'Smazat protokol požadavků',
+        'empty_loading' => 'Mazání protokolu požadavků...',
+        'empty_success' => 'Seznam požadavků úspěšně vymazán.',
         'return_link' => 'Zpět na záznam událostí',
         'id' => 'ID',
-        'id_label' => 'Log ID',
+        'id_label' => 'ID záznamu',
         'count' => 'Počítadlo',
         'referer' => 'Odkaz',
         'url' => 'URL',
@@ -292,7 +322,24 @@ return [
         'manage_mail_templates' => 'Správa e-mailových šablon',
         'manage_mail_settings' => 'Správa posílání e-mailů',
         'manage_other_administrators' => 'Správa ostatních administrátorů',
+        'manage_preferences' => 'Správa nastavení administrace',
+        'manage_editor' => 'Správa nastavení editoru kódu',
         'view_the_dashboard' => 'Zobrazit plochu',
         'manage_branding' => 'Nastavení administrace'
-    ]
+    ],
+    'log' => [
+        'menu_label' => 'Nastavení protokolů',
+        'menu_description' => 'Určete, které oblasti by měly používat protokolování.',
+        'default_tab' => 'Protokolování',
+        'log_events' => 'Zaznamenávat systémové události',
+        'log_events_comment' => 'Ukládat systémové události do databáze a zároveň do souboru protokolu.',
+        'log_requests' => 'Zaznamenávat špatné požadavky',
+        'log_requests_comment' => 'Požadavky prohlížeče, které mohou vyžadovat pozornost, například chyby 404.',
+        'log_theme' => 'Zaznamenávat změny témat',
+        'log_theme_comment' => 'Když dojde ke změně tématu pomocí administrace.',
+    ],
+    'media' => [
+        'invalid_path' => "Chybně zadaná cesta: ':path'.",
+        'folder_size_items' => 'soubor(ů)',
+    ],
 ];

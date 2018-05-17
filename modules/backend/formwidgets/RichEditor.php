@@ -85,6 +85,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
 
+        $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
         $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
         $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');

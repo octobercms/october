@@ -16,18 +16,37 @@ use System\Classes\SettingsManager;
  */
 class Users extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
     ];
 
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
+
+    /**
+     * @var array `ListController` configuration.
+     */
     public $listConfig = 'config_list.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['backend.manage_users'];
 
+    /**
+     * @var string HTML body tag class
+     */
     public $bodyClass = 'compact-container';
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -38,6 +57,36 @@ class Users extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
+    }
+
+    /**
+     * Extends the list query to hide superusers if the current user is not a superuser themselves
+     */
+    public function listExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
+    }
+    
+    /**
+     * Prevents non-superusers from even seeing the is_superuser filter
+     */
+    public function listFilterExtendScopes($filterWidget)
+    {
+        if (!$this->user->isSuperUser()) {
+            $filterWidget->removeScope('is_superuser');
+        }
+    }
+
+    /**
+     * Extends the form query to prevent non-superusers from accessing superusers at all
+     */
+    public function formExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
     }
 
     /**

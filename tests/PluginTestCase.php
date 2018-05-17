@@ -49,15 +49,15 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     public function setUp()
     {
         /*
+         * Force reload of October singletons
+         */
+        PluginManager::forgetInstance();
+        UpdateManager::forgetInstance();
+        
+        /*
          * Create application instance
          */
         parent::setUp();
-
-        /*
-         * Rebind Laravel container in October Singletons
-         */
-        UpdateManager::instance()->bindContainerObjects();
-        PluginManager::instance()->bindContainerObjects();
 
         /*
          * Ensure system is up to date

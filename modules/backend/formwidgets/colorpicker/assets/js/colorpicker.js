@@ -26,6 +26,8 @@
     }
 
     ColorPicker.DEFAULTS = {
+        showAlpha: false,
+        allowEmpty: false,
         dataLocker: null
     }
 
@@ -34,31 +36,52 @@
         this.$dataLocker  = $(this.options.dataLocker, this.$el)
         this.$colorList = $('>ul', this.$el)
         this.$customColor = $('[data-custom-color]', this.$el)
+        this.$customColorSpan = $('>span', this.$customColor)
+        this.originalColor = this.$customColor.data('hexColor')
 
         this.$colorList.on('click', '>li', function(){
             self.selectColor(this)
+            self.$dataLocker.trigger('change')
         })
 
         /*
          * Custom color
          */
         if (this.$customColor.length) {
-            this.$customColor.colpick({
-                layout: 'hex',
-                submit: 0,
+            this.$customColor.spectrum({
+                preferredFormat: 'hex',
+                showInput: true,
+                showAlpha: this.options.showAlpha,
+                allowEmpty: this.options.allowEmpty,
                 color: this.$customColor.data('hexColor'),
-                onShow: function(cal) {
-                    var el = $(cal).data('colpick').el
-                    self.selectColor(el)
+                chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
+                cancelText: '⨯',
+                hide: function(color) {
+                    var hex = color ? color.toHexString() : ''
+                    self.$customColorSpan.css('background', hex)
                 },
-                onChange: function(hsb, hex, rgb, el, bySetColor) {
-                    $('>span', el).css('background', '#'+hex)
-                    $(el).data('hexColor', '#'+hex)
-                    self.setColor('#'+hex)
+                show: function(color) {
+                    self.selectColor(self.$customColor)
+                },
+                move: function(color) {
+                    var hex = color ? color.toHexString() : ''
+                    self.$customColorSpan.css('background', hex)
+                },
+                change: function(color) {
+                    var hex = color ? color.toHexString() : ''
+                    self.setCustomColor(hex)
                 }
             })
         }
+    }
 
+    ColorPicker.prototype.setCustomColor = function(hexColor) {
+        if (this.$customColor.length) {
+            this.$customColor.data('hexColor', hexColor)
+            this.$customColor.spectrum('set', hexColor)
+        }
+
+        this.setColor(hexColor)
     }
 
     ColorPicker.prototype.setColor = function(hexColor) {

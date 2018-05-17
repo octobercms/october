@@ -15,3 +15,9 @@ scopes:
         label: backend::lang.user.last_login
         type: daterange
         conditions: last_login >= ':after' AND last_login <= ':before'
+
+    role_id:
+        label: backend::lang.user.role.name
+        modelClass: Backend\Models\UserRole
+        conditions: role_id in (:filtered)
+        nameFrom: name

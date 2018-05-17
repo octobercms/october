@@ -24,17 +24,19 @@
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
         "october/rain": "~1.0",
         "october/system": "~1.0",
         "october/backend": "~1.0",
         "october/cms": "~1.0",
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.5.*",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "phpunit/phpunit": "~4.0",
+        "fzaninotto/faker": "~1.7",
+        "phpunit/phpunit": "~5.7",
         "phpunit/phpunit-selenium": "~1.2"
     },
     "autoload-dev": {
@@ -47,6 +49,9 @@
     "scripts": {
         "post-create-project-cmd": [
             "php artisan key:generate"
+        ],
+        "post-update-cmd": [
+            "php artisan october:util set build"
         ]
     },
     "config": {

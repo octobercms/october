@@ -1,0 +1,34 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    code:
+        label: system::lang.mail_templates.code
+        comment: system::lang.mail_templates.code_comment
+        span: left
+        context: create
+
+    name@create:
+        label: system::lang.mail_templates.name
+        span: right
+
+    name@update:
+        label: system::lang.mail_templates.name
+
+secondaryTabs:
+    fields:
+
+        content_html:
+            type: codeeditor
+            size: giant
+            tab: system::lang.mail_templates.content_html
+            language: html
+            stretch: true
+
+        content_text:
+            type: textarea
+            size: giant
+            tab: system::lang.mail_templates.content_text
+            stretch: true

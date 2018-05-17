@@ -2,6 +2,7 @@
 
 use App;
 use Lang;
+use View;
 use Event;
 use Config;
 use Backend;
@@ -11,6 +12,7 @@ use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
 use Twig_Loader_String;
+use System\Classes\MailManager;
 use System\Classes\ErrorHandler;
 use System\Classes\MarkupManager;
 use System\Classes\PluginManager;
@@ -25,6 +27,7 @@ use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
+use Illuminate\Support\Facades\Schema;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -53,6 +56,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerMarkupTags();
         $this->registerAssetBundles();
         $this->registerValidator();
+        $this->registerGlobalViewVars();
 
         /*
          * Register other module providers
@@ -81,6 +85,11 @@ class ServiceProvider extends ModuleServiceProvider
      */
     public function boot()
     {
+        // Fix UTF8MB4 support for MariaDB < 10.2 and MySQL < 5.7
+        if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
+            Schema::defaultStringLength(191);
+        }
+        
         /*
          * Boot plugins
          */
@@ -184,6 +193,7 @@ class ServiceProvider extends ModuleServiceProvider
                 'trans'          => ['Lang', 'get'],
                 'transchoice'    => ['Lang', 'choice'],
                 'md'             => ['Markdown', 'parse'],
+                'md_safe'        => ['Markdown', 'parseSafe'],
                 'time_since'     => ['System\Helpers\DateTime', 'timeSince'],
                 'time_tense'     => ['System\Helpers\DateTime', 'timeTense'],
             ]);
@@ -252,9 +262,9 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerLogging()
     {
-        Event::listen('illuminate.log', function ($level, $message, $context) {
+        Event::listen(\Illuminate\Log\Events\MessageLogged::class, function ($event) {
             if (EventLog::useLogging()) {
-                EventLog::add($message, $level);
+                EventLog::add($event->message, $event->level);
             }
         });
     }
@@ -287,6 +297,26 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerMailer()
     {
         /*
+         * Register system layouts
+         */
+        MailManager::instance()->registerCallback(function ($manager) {
+            $manager->registerMailLayouts([
+                'default' => 'system::mail.layout-default',
+                'system' => 'system::mail.layout-system',
+            ]);
+
+            $manager->registerMailPartials([
+                'header' => 'system::mail.partial-header',
+                'footer' => 'system::mail.partial-footer',
+                'button' => 'system::mail.partial-button',
+                'panel' => 'system::mail.partial-panel',
+                'table' => 'system::mail.partial-table',
+                'subcopy' => 'system::mail.partial-subcopy',
+                'promotion' => 'system::mail.partial-promotion',
+            ]);
+        });
+
+        /*
          * Override system mailer with mail settings
          */
         Event::listen('mailer.beforeRegister', function () {
@@ -298,9 +328,9 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Override standard Mailer content with template
          */
-        Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data) {
-            MailTemplate::addContentToMailer($message, $view, $data);
-            return false;
+        Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data, $raw) {
+            $method = $raw === null ? 'addContentToMailer' : 'addRawContentToMailer';
+            return !MailManager::instance()->$method($message, $raw ?: $view, $data);
         });
     }
 
@@ -330,6 +360,18 @@ class ServiceProvider extends ModuleServiceProvider
             'system',
             '~/modules/system/partials/_system_sidebar.htm'
         );
+
+        /*
+         * Remove the October.System.system main menu item if there is no subpages to display
+         */
+        Event::listen('backend.menu.extendItems', function ($manager) {
+            $systemSettingItems = SettingsManager::instance()->listItems('system');
+            $systemMenuItems = $manager->listSideMenuItems('October.System', 'system');
+
+            if (empty($systemSettingItems) && empty($systemMenuItems)) {
+                $manager->removeMainMenuItem('October.System', 'system');
+            }
+        }, -9999);
     }
 
     /*
@@ -338,7 +380,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendReportWidgets()
     {
         WidgetManager::instance()->registerReportWidgets(function ($manager) {
-            $manager->registerReportWidget('System\ReportWidgets\Status', [
+            $manager->registerReportWidget(\System\ReportWidgets\Status::class, [
                 'label'   => 'backend::lang.dashboard.status.widget_title_default',
                 'context' => 'dashboard'
             ]);
@@ -401,15 +443,6 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.manage_users'],
                     'order'       => 400
                 ],
-                'mail_settings' => [
-                    'label'       => 'system::lang.mail.menu_label',
-                    'description' => 'system::lang.mail.menu_description',
-                    'category'    => SettingsManager::CATEGORY_MAIL,
-                    'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSetting',
-                    'permissions' => ['system.manage_mail_settings'],
-                    'order'       => 600
-                ],
                 'mail_templates' => [
                     'label'       => 'system::lang.mail_templates.menu_label',
                     'description' => 'system::lang.mail_templates.menu_description',
@@ -418,6 +451,24 @@ class ServiceProvider extends ModuleServiceProvider
                     'url'         => Backend::url('system/mailtemplates'),
                     'permissions' => ['system.manage_mail_templates'],
                     'order'       => 610
+                ],
+                'mail_settings' => [
+                    'label'       => 'system::lang.mail.menu_label',
+                    'description' => 'system::lang.mail.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-envelope',
+                    'class'       => 'System\Models\MailSetting',
+                    'permissions' => ['system.manage_mail_settings'],
+                    'order'       => 620
+                ],
+                'mail_brand_settings' => [
+                    'label'       => 'system::lang.mail_brand.menu_label',
+                    'description' => 'system::lang.mail_brand.menu_description',
+                    'category'    => SettingsManager::CATEGORY_MAIL,
+                    'icon'        => 'icon-paint-brush',
+                    'url'         => Backend::url('system/mailbrandsettings'),
+                    'permissions' => ['system.manage_mail_settings'],
+                    'order'       => 630
                 ],
                 'event_logs' => [
                     'label'       => 'system::lang.event_log.menu_label',
@@ -472,18 +523,24 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerValidator()
     {
-        /*
-         * Allowed file extensions, as opposed to mime types.
-         * - extensions: png,jpg,txt
-         */
-        Validator::extend('extensions', function ($attribute, $value, $parameters) {
-            $extension = strtolower($value->getClientOriginalExtension());
-            return in_array($extension, $parameters);
-        });
+        $this->app->resolving('validator', function($validator) {
+            /*
+             * Allowed file extensions, as opposed to mime types.
+             * - extensions: png,jpg,txt
+             */
+            $validator->extend('extensions', function ($attribute, $value, $parameters) {
+                $extension = strtolower($value->getClientOriginalExtension());
+                return in_array($extension, $parameters);
+            });
 
-        Validator::replacer('extensions', function ($message, $attribute, $rule, $parameters) {
-            return strtr($message, [':values' => implode(', ', $parameters)]);
+            $validator->replacer('extensions', function ($message, $attribute, $rule, $parameters) {
+                return strtr($message, [':values' => implode(', ', $parameters)]);
+            });
         });
     }
 
+    protected function registerGlobalViewVars()
+    {
+        View::share('appName', Config::get('app.name'));
+    }
 }

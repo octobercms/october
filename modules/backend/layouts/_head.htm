@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
+<meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="app-timezone" content="<?= e(Config::get('app.timezone')) ?>">
 <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
@@ -14,13 +15,13 @@
 <?php
     $coreBuild = System\Models\Parameter::get('system::core.build', 1);
 ?>
-<link href="<?= URL::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+<link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
 <script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
 <script src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= URL::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 
 <script src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
 <script src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>"></script>

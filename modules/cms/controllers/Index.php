@@ -35,8 +35,14 @@ class Index extends Controller
 {
     use \Backend\Traits\InspectableContainer;
 
+    /**
+     * @var Cms\Classes\Theme
+     */
     protected $theme;
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = [
         'cms.manage_content',
         'cms.manage_assets',
