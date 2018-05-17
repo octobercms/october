@@ -35,7 +35,37 @@ trait EventEmitter
      */
     public function fireSystemEvent($event, $params = [], $halt = true)
     {
-        return $this->fireCombinedEvent($event, $params, $halt, true);
+        $result = [];
+
+        $shortEvent = substr($event, strpos($event, '.') + 1);
+
+        $longArgs = array_merge([$this], $params);
+
+        /*
+         * Local event first
+         */
+        if ($response = $this->fireEvent($shortEvent, $params, $halt)) {
+            if ($halt) {
+                return $response;
+            }
+            else {
+                $result = array_merge($result, $response);
+            }
+        }
+
+        /*
+         * Global event second
+         */
+        if ($response = Event::fire($event, $longArgs, $halt)) {
+            if ($halt) {
+                return $response;
+            }
+            else {
+                $result = array_merge($result, $response);
+            }
+        }
+
+        return $result;
     }
 
     /**
