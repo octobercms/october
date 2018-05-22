@@ -62,6 +62,11 @@ class RelationController extends ControllerBehavior
     protected $viewWidget;
 
     /**
+     * @var Backend\Classes\WidgetBase Reference to the filter widget object.
+     */
+    protected $filterWidget;
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for relation management.
      */
     protected $manageWidget;
@@ -256,6 +261,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationToolbarButtons'] = $this->toolbarButtons;
         $this->vars['relationViewMode'] = $this->viewMode;
         $this->vars['relationViewWidget'] = $this->viewWidget;
+        $this->vars['relationFilterWidget'] = $this->filterWidget;
         $this->vars['relationViewModel'] = $this->viewModel;
         $this->vars['relationPivotWidget'] = $this->pivotWidget;
         $this->vars['relationSessionKey'] = $this->relationGetSessionKey();
@@ -620,6 +626,7 @@ class RelationController extends ControllerBehavior
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
+            $config->filter = $this->getConfig('view[filter]', null);
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
@@ -712,6 +719,26 @@ class RelationController extends ControllerBehavior
                         $searchWidget->setActiveTerm(null);
                     }
                 }
+            }
+
+            /*
+             * Prepare the filter widget (optional)
+             */
+            if ($this->getConfig('view[filter]')) {
+                $filterConfig = $this->makeConfig($config->filter);
+                $filterConfig->alias = $this->alias . 'ViewList' . 'Filter';
+                $this->filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
+                $this->filterWidget->bindToController();
+
+                /*
+                 * Filter the list when the scopes are changed
+                 */
+                $this->filterWidget->bindEvent('filter.update', function () use ($widget) {
+                    return $widget->onRefresh();
+                });
+
+                // Apply predefined filter values
+                $widget->addFilter([$this->filterWidget, 'applyAllScopesToQuery']);
             }
         }
         /*
