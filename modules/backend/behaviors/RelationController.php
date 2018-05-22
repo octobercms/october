@@ -724,7 +724,7 @@ class RelationController extends ControllerBehavior
             /*
              * Prepare the filter widget (optional)
              */
-            if ($this->getConfig('view[filter]')) {
+            if ($config->filter) {
                 $filterConfig = $this->makeConfig($config->filter);
                 $filterConfig->alias = $this->alias . 'ViewList' . 'Filter';
                 $this->filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
