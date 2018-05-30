@@ -1237,31 +1237,55 @@ class Controller
      * @param array  $properties  Component properties
      * @param bool   $addToLayout Add to layout, instead of page
      * @return ComponentBase Component object
+     * @throws CmsException
+     * @throws SystemException
      */
     public function addComponent($name, $alias, $properties, $addToLayout = false)
     {
         $manager = ComponentManager::instance();
 
-        if ($addToLayout) {
-            if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
+        if($isSoftComponent = $this->isSoftComponent($name)){
+            $name = $this->parseComponentLabel($name);
+            $alias = $this->parseComponentLabel($alias);
+        }
+        try {
+            if ($addToLayout) {
+                if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
+                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+                }
+
+                $componentObj->alias = $alias;
+                $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
+            } else {
+                if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
+                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+                }
+
+                $componentObj->alias = $alias;
+                $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
             }
 
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
-        }
-        else {
-            if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
+            $this->setComponentPropertiesFromParams($componentObj);
+            $componentObj->init();
+
+            return $componentObj;
+            /**
+             * We catch two exceptions below, as missing plugin can throw both and catch \Exception would be too global.
+             * We also debug-log it, to not be TOO silent about this.
+             */
+        } catch(CmsException $e){
+            \Log::debug('Missing component! '. $e->getMessage() . ' '. $e->getTraceAsString());
+            if(!$isSoftComponent){
+                throw $e;
             }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
+        } catch(SystemException $e){
+            \Log::debug('Missing component! '. $e->getMessage() . ' '. $e->getTraceAsString());
+            if(!$isSoftComponent){
+                throw $e;
+            }
         }
 
-        $this->setComponentPropertiesFromParams($componentObj);
-        $componentObj->init();
-        return $componentObj;
+        return null;
     }
 
     /**
@@ -1410,5 +1434,26 @@ class Controller
             Session::token(),
             $token
         );
+    }
+
+    /**
+     * Removes '@' from soft component name
+     * @param string $label
+     * @return string
+     */
+    private function parseComponentLabel($label){
+        if($this->isSoftComponent($label)){
+            return str_replace('@','',$label);
+        }
+        return $label;
+    }
+
+    /**
+     * Checks if component name has @.
+     * @param string $label
+     * @return bool
+     */
+    private function isSoftComponent($label){
+        return $label[0] === '@';
     }
 }
