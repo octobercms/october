@@ -222,7 +222,7 @@
 
         this.$src = $(options.inputPreset, parent)
 
-        this.$src.on('keyup', function() {
+        this.$src.on('input', function() {
             if (self.cancelled)
                 return
 
