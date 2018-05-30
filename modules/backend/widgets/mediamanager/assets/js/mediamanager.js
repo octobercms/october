@@ -144,7 +144,7 @@
         this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
 
         this.$el.on('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
-        this.$el.on('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
+        this.$el.on('input', '[data-control="search"]', this.proxy(this.onSearchChanged))
         this.$el.on('mediarefresh', this.proxy(this.refresh))
         this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown))
         this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
