@@ -146,7 +146,7 @@ class Extension extends Twig_Extension
      * when creating the URL, set to false to disable this feature.
      * @return string
      */
-    public function pageFilter($name, $parameters = [], $routePersistence = true)
+    public function pageFilter($context, $name, $parameters = [], $routePersistence = true)
     {
         return $context['this']['controller']->pageUrl($name, $parameters, $routePersistence);
     }
@@ -157,7 +157,7 @@ class Extension extends Twig_Extension
      * @param mixed $url Specifies the theme-relative URL
      * @return string
      */
-    public function themeFilter($url)
+    public function themeFilter($context, $url)
     {
         return $context['this']['controller']->themeUrl($url);
     }
