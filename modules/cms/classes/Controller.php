@@ -482,34 +482,8 @@ class Controller
      */
     protected function initTwigEnvironment()
     {
-        $this->loader = new TwigLoader;
-
-        $useCache = !Config::get('cms.twigNoCache');
-        $isDebugMode = Config::get('app.debug', false);
-        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
-        $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
-        $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
-
-        $options = [
-            'auto_reload' => true,
-            'debug' => $isDebugMode,
-            'strict_variables' => $strictVariables,
-        ];
-
-        if ($useCache) {
-            $options['cache'] = new Twig_Cache_Filesystem(
-                storage_path().'/cms/twig',
-                $forceBytecode ? Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION : 0
-            );
-        }
-
-        $this->twig = new Twig_Environment($this->loader, $options);
-        $this->twig->addExtension(new CmsTwigExtension($this));
-        $this->twig->addExtension(new SystemTwigExtension);
-
-        if ($isDebugMode) {
-            $this->twig->addExtension(new DebugExtension($this));
-        }
+        $this->loader = App::make('cms.twig.loader');
+        $this->twig   = App::make('cms.twig.environment');
     }
 
     /**

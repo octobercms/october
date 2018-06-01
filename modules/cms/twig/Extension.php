@@ -20,20 +20,6 @@ use ApplicationException;
 class Extension extends Twig_Extension
 {
     /**
-     * @var \Cms\Classes\Controller A reference to the CMS controller.
-     */
-    protected $controller;
-
-    /**
-     * Creates the extension instance.
-     * @param \Cms\Classes\Controller $controller The CMS controller object.
-     */
-    public function __construct(Controller $controller = null)
-    {
-        $this->controller = $controller;
-    }
-
-    /**
      * Returns a list of functions to add to the existing list.
      *
      * @return array An array of functions
@@ -41,10 +27,10 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new Twig_SimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html'], 'needs_context' => true]),
             new Twig_SimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
         ];
     }
@@ -57,8 +43,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
-            new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html'], 'needs_context' => true]),
         ];
     }
 
@@ -89,9 +75,9 @@ class Extension extends Twig_Extension
      * This function should be used in the layout code to output the requested page.
      * @return string Returns the page contents.
      */
-    public function pageFunction()
+    public function pageFunction($context)
     {
-        return $this->controller->renderPage();
+        return $context['this']['controller']->renderPage();
     }
 
     /**
@@ -103,7 +89,7 @@ class Extension extends Twig_Extension
      */
     public function partialFunction($name, $parameters = [], $throwException = false)
     {
-        return $this->controller->renderPartial($name, $parameters, $throwException);
+        return $context['this']['controller']->renderPartial($name, $parameters, $throwException);
     }
 
     /**
@@ -114,7 +100,7 @@ class Extension extends Twig_Extension
      */
     public function contentFunction($name, $parameters = [])
     {
-        return $this->controller->renderContent($name, $parameters);
+        return $context['this']['controller']->renderContent($name, $parameters);
     }
 
     /**
@@ -125,16 +111,16 @@ class Extension extends Twig_Extension
      */
     public function componentFunction($name, $parameters = [])
     {
-        return $this->controller->renderComponent($name, $parameters);
+        return $context['this']['controller']->renderComponent($name, $parameters);
     }
 
     /**
      * Renders registered assets of a given type
      * @return string Returns the component default contents.
      */
-    public function assetsFunction($type = null)
+    public function assetsFunction($context, $type = null)
     {
-        return $this->controller->makeAssets($type);
+        return $context['this']['controller']->makeAssets($type);
     }
 
     /**
@@ -162,7 +148,7 @@ class Extension extends Twig_Extension
      */
     public function pageFilter($name, $parameters = [], $routePersistence = true)
     {
-        return $this->controller->pageUrl($name, $parameters, $routePersistence);
+        return $context['this']['controller']->pageUrl($name, $parameters, $routePersistence);
     }
 
     /**
@@ -173,7 +159,7 @@ class Extension extends Twig_Extension
      */
     public function themeFilter($url)
     {
-        return $this->controller->themeUrl($url);
+        return $context['this']['controller']->themeUrl($url);
     }
 
     /**

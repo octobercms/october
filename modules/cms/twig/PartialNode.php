@@ -34,7 +34,7 @@ class PartialNode extends Twig_Node
         }
 
         $compiler
-            ->write("echo \$this->env->getExtension('Cms\Twig\Extension')->partialFunction(")
+            ->write("echo \$this->env->getExtension('Cms\Twig\Extension')->partialFunction(\$context,")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", \$context['__cms_partial_params']")
             ->write(", true")

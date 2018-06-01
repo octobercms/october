@@ -19,11 +19,6 @@ class DebugExtension extends Twig_Extension
     const COMPONENT_CAPTION = 'Component variables';
 
     /**
-     * @var \Cms\Classes\Controller A reference to the CMS controller.
-     */
-    protected $controller;
-
-    /**
      * @var integer Helper for rendering table row styles.
      */
     protected $zebra = 1;
@@ -50,15 +45,6 @@ class DebugExtension extends Twig_Extension
         'offsetSet',
         'offsetUnset'
     ];
-
-    /**
-     * Creates the extension instance.
-     * @param \Cms\Classes\Controller $controller The CMS controller object.
-     */
-    public function __construct(Controller $controller)
-    {
-        $this->controller = $controller;
-    }
 
     /**
      * Returns a list of global functions to add to the existing list.

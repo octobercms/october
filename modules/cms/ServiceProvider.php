@@ -1,11 +1,14 @@
 <?php namespace Cms;
 
 use App;
+use Config;
 use Lang;
 use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
+use Twig_Environment;
+use Twig_Cache_Filesystem;
 use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
@@ -15,6 +18,9 @@ use Cms\Classes\Page as CmsPage;
 use Cms\Classes\CmsObject;
 use Cms\Models\ThemeData;
 use Cms\Models\ThemeLog;
+use Cms\Twig\Loader as TwigLoader;
+use Cms\Twig\DebugExtension;
+use Cms\Twig\Extension as CmsTwigExtension;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -27,6 +33,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::register('cms');
 
+        $this->registerTwig();
         $this->registerComponents();
         $this->registerThemeLogging();
         $this->registerCombinerEvents();
@@ -54,6 +61,49 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->bootMenuItemEvents();
         $this->bootRichEditorEvents();
+    }
+
+    /**
+     * Register Twig templating engine.
+     */
+    protected function registerTwig()
+    {
+        App::singleton('cms.twig.loader', function () {
+            return new TwigLoader;
+        });
+
+        App::singleton('cms.twig.environment', function ($app) {
+            $loader = $app->make('cms.twig.loader');
+
+            $useCache = !Config::get('cms.twigNoCache');
+            $isDebugMode = Config::get('app.debug', false);
+            $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+            $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
+            $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
+
+            $options = [
+                'auto_reload' => true,
+                'debug' => $isDebugMode,
+                'strict_variables' => $strictVariables,
+            ];
+
+            if ($useCache) {
+                $options['cache'] = new Twig_Cache_Filesystem(
+                    storage_path().'/cms/twig',
+                    $forceBytecode ? Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION : 0
+                );
+            }
+
+            $twig = new Twig_Environment($loader, $options);
+            $twig->addExtension(new CmsTwigExtension);
+            $twig->addExtension(new SystemTwigExtension);
+
+            if ($isDebugMode) {
+                $twig->addExtension(new DebugExtension);
+            }
+
+            return $twig;
+        });
     }
 
     /**
