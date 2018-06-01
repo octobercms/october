@@ -2740,7 +2740,7 @@ var opts=$this.data()
 if(opts.source){opts.source=paramToObj('data-source',opts.source)}
 $this.autocomplete(opts)})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.keyCode==32)
 e.preventDefault()})
-$(document).on('keyup','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
+$(document).on('input','div.custom-checkbox',function(e){if(e.keyCode==32){var $cb=$('input',this)
 if($cb.data('oc-space-timestamp')==e.timeStamp)
 return
 $cb.get(0).checked=!$cb.get(0).checked
@@ -4111,7 +4111,7 @@ if($el.val().length&&$el.val()!=prefix)
 return
 $el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 this.$src=$(options.inputPreset,parent)
-this.$src.on('keyup',function(){if(self.cancelled)
+this.$src.on('input',function(){if(self.cancelled)
 return
 $el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')})
 this.$src.on('paste',function(){if(self.cancelled)
