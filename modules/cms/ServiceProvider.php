@@ -13,6 +13,7 @@ use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
+use System\Twig\Extension as SystemTwigExtension;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\CmsObject;

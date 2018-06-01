@@ -87,7 +87,7 @@ class Extension extends Twig_Extension
      * @param bool $throwException Throw an exception if the partial is not found.
      * @return string Returns the partial contents.
      */
-    public function partialFunction($name, $parameters = [], $throwException = false)
+    public function partialFunction($context, $name, $parameters = [], $throwException = false)
     {
         return $context['this']['controller']->renderPartial($name, $parameters, $throwException);
     }
@@ -98,7 +98,7 @@ class Extension extends Twig_Extension
      * @param array $parameters A optional list of parameters to pass to the content.
      * @return string Returns the file contents.
      */
-    public function contentFunction($name, $parameters = [])
+    public function contentFunction($context, $name, $parameters = [])
     {
         return $context['this']['controller']->renderContent($name, $parameters);
     }
@@ -109,7 +109,7 @@ class Extension extends Twig_Extension
      * @param array $parameters A optional list of parameters to pass to the component.
      * @return string Returns the component default contents.
      */
-    public function componentFunction($name, $parameters = [])
+    public function componentFunction($context, $name, $parameters = [])
     {
         return $context['this']['controller']->renderComponent($name, $parameters);
     }

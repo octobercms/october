@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use App;
 use Ini;
 use Lang;
 use Cache;
