@@ -93,7 +93,7 @@ return [
         ],
         'welcome'                      => [
             'widget_title_default' => 'Witaj',
-            'welcome_back_name'    => 'Witaj z powrotem to :app, :name.',
+            'welcome_back_name'    => 'Witaj z powrotem w :app, :name.',
             'welcome_to_name'      => 'Witaj w :app, :name.',
             'first_sign_in'        => 'To jest twoje pierwsze logowanie.',
             'last_sign_in'         => 'Data ostatniego logowania',
