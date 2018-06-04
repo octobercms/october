@@ -41,8 +41,9 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
      */
     public function testInvalidPathsOnValidatePath($path)
     {
-        $this->setExpectedException('ApplicationException');
+        $this->expectException('ApplicationException');
         MediaLibrary::validatePath($path);
+
     }
 
     /**
@@ -50,6 +51,7 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
      */
     public function testValidPathsOnValidatePath($path)
     {
-        MediaLibrary::validatePath($path);
+        $result = MediaLibrary::validatePath($path);
+        $this->assertInternalType('string', $result);
     }
 }
