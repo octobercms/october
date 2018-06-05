@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'codeParserDataCacheKey' => 'cms-php-file-data'
+    'codeParserDataCacheKey' => 'cms-php-file-data',
 
     /*
     |--------------------------------------------------------------------------
