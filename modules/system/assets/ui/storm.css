@@ -2184,7 +2184,7 @@ textarea.input-group-sm > .form-control,textarea.input-group-sm > .input-group-a
 .input-group-btn > .btn:hover,.input-group-btn > .btn:focus,.input-group-btn > .btn:active{z-index:10}
 .input-group-btn:first-child > .btn,.input-group-btn:first-child > .btn-group{margin-right:-1px}
 .input-group-btn:last-child > .btn,.input-group-btn:last-child > .btn-group{margin-left:-1px}
-.loading-indicator{padding:20px 20px 20px 60px;color:#999999;font-size:14px;font-weight:500;background:#f9f9f9;text-align:left;z-index:10}
+.loading-indicator{padding:20px 20px 20px 60px;color:#999999;font-size:14px;font-weight:500;text-align:left;z-index:10}
 .loading-indicator > span{background:transparent url('images/loader.gif') no-repeat 0 50%;position:absolute;width:40px;height:40px;top:50%;margin-top:-20px;left:0;display:block}
 .loading-indicator-container{position:relative;min-height:40px}
 .loading-indicator-container .loading-indicator{position:absolute;left:0;top:0;width:100%;height:100%;padding-top:0}
@@ -2665,6 +2665,9 @@ table.table.data tfoot a{color:#666666;text-decoration:none}
 table.table.data tfoot td,table.table.data tfoot th{border-color:#d4d8da;padding:10px 15px}
 table.table.data th.list-cell-type-switch,table.table.data td.list-cell-type-switch{text-align:center}
 table.table.data th.list-cell-type-number,table.table.data td.list-cell-type-number{text-align:right}
+table.table.data th.list-cell-align-left,table.table.data td.list-cell-align-left{text-align:left}
+table.table.data th.list-cell-align-right,table.table.data td.list-cell-align-right{text-align:right}
+table.table.data th.list-cell-align-center,table.table.data td.list-cell-align-center{text-align:center}
 table.table.data .list-badge{display:inline-block;position:relative;top:0;margin:0 5px 0 0;padding:1px 0 0 0;font-size:10px;width:15px;height:15px;text-align:center;border-radius:3px;color:#fff}
 table.table.data .list-badge > i{position:relative;top:-1px}
 table.table.data .list-badge.badge-default{background:#999999}

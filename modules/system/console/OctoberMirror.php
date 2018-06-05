@@ -35,6 +35,7 @@ class OctoberMirror extends Command
         'index.php',
         'favicon.ico',
         'robots.txt',
+        'humans.txt',
         'sitemap.xml',
     ];
 

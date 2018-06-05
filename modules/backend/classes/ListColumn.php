@@ -92,6 +92,11 @@ class ListColumn
     public $path;
 
     /**
+     * @var string Specifies the alignment of this column.
+     */
+    public $align;
+
+    /**
      * @var array Raw field configuration.
      */
     public $config;
@@ -163,6 +168,9 @@ class ListColumn
         if (isset($config['path'])) {
             $this->path = $config['path'];
         }
+        if (isset($config['align']) && \in_array($config['align'], ['left', 'right', 'center'])) {
+            $this->align = $config['align'];
+        }
 
         return $config;
     }
@@ -192,6 +200,15 @@ class ListColumn
         }
 
         return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * Returns the column specific aligment css class.
+     * @return string
+     */
+    public function getAlignClass()
+    {
+        return $this->align ? 'list-cell-align-' . $this->align : '';
     }
 
     /**

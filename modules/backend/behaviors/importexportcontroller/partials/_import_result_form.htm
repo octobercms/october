@@ -61,7 +61,7 @@
                                     <ul>
                                         <?php foreach ($importResults->{$code} as $row => $message): ?>
                                             <li>
-                                                <strong>Row <?= $row + $sourceIndexOffset ?></strong>
+                                                <strong><?= e(trans('backend::lang.import_export.row', ['row' => $row + $sourceIndexOffset])) ?></strong>
                                                 - <?= e($message) ?>
                                             </li>
                                         <?php endforeach ?>

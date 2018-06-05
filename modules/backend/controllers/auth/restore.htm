@@ -27,3 +27,5 @@
         </p>
     </div>
 <?= Form::close() ?>
+
+<?= $this->fireViewEvent('backend.auth.extendRestoreView') ?>

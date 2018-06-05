@@ -446,6 +446,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',
         'import_file' => 'Import file',
+        'row' => 'Row :row',
         'first_row_contains_titles' => 'First row contains column titles',
         'first_row_contains_titles_desc' => 'Leave this checked if the first row in the CSV is used as the column titles.',
         'match_columns' => '2. Match the file columns to database fields',

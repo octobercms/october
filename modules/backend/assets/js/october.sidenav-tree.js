@@ -42,7 +42,7 @@
             return false
         })
 
-        this.$searchInput.on('keyup', function(){
+        this.$searchInput.on('input', function(){
             self.handleSearchChange()
         })
 

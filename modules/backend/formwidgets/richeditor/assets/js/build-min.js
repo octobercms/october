@@ -157,7 +157,7 @@ if(get&&editor.popups.isVisible('link.insert')){update();}});}
 return $popup;}
 function remove(){var link=get();var $current_image=editor.image?editor.image.get():null;if(editor.events.trigger('link.beforeRemove',[link])===false)return false;if($current_image&&link){$current_image.unwrap();editor.image.edit($current_image);}
 else if(link){editor.selection.save();$(link).replaceWith($(link).html());editor.selection.restore();_hideEditPopup();}}
-function _init(){editor.events.on('keyup',function(e){if(e.which!=$.FE.KEYCODE.ESC){_edit(e);}});editor.events.on('window.mouseup',_edit);if(editor.helpers.isMobile()){editor.events.$on(editor.$doc,'selectionchange',_edit);}
+function _init(){editor.events.on('input',function(e){if(e.which!=$.FE.KEYCODE.ESC){_edit(e);}});editor.events.on('window.mouseup',_edit);if(editor.helpers.isMobile()){editor.events.$on(editor.$doc,'selectionchange',_edit);}
 _initInsertPopup(true);if(editor.el.tagName=='A'){editor.$el.addClass('fr-view');}
 editor.events.on('toolbar.esc',function(){if(editor.popups.isVisible('link.edit')){editor.events.disableBlur();editor.events.focus();return false;}},true);}
 function usePredefined(val){var link=editor.opts.linkList[val];var $popup=editor.popups.get('link.insert');var text_inputs=$popup.find('input.fr-link-attr[type="text"]');var check_inputs=$popup.find('input.fr-link-attr[type="checkbox"]');var $input;var i;for(i=0;i<text_inputs.length;i++){$input=$(text_inputs[i]);if(link[$input.attr('name')]){$input.val(link[$input.attr('name')]);}
