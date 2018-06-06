@@ -21,7 +21,7 @@ tabs:
 secondaryTabs:
     stretch: true
     fields:
-        markup:
+        content:
             tab: cms::lang.editor.content
             stretch: true
             type: codeeditor
