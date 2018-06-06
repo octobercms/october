@@ -9,7 +9,7 @@ use Markdown;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Content extends CmsCompoundObject
+class Content extends CmsObject
 {
     /**
      * @var string The container name associated with the model, eg: pages.
@@ -59,13 +59,13 @@ class Content extends CmsCompoundObject
 
         switch ($extension) {
             case 'txt':
-                $result = htmlspecialchars($this->markup);
+                $result = htmlspecialchars($this->content);
                 break;
             case 'md':
-                $result = Markdown::parse($this->markup);
+                $result = Markdown::parse($this->content);
                 break;
             default:
-                $result = $this->markup;
+                $result = $this->content;
         }
 
         return $result;
