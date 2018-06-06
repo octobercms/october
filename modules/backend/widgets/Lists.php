@@ -17,6 +17,8 @@ use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
 use ApplicationException;
 use DateTime;
+use Config;
+use Flash;
 
 /**
  * List Widget
@@ -1299,6 +1301,12 @@ class Lists extends WidgetBase
     public function onSort()
     {
         if ($column = post('sortColumn')) {
+
+            $debug = Config::get('app.debug', false);
+            if (!$debug && !$this->isSortable($column)) {
+                Flash::error('Column not sortable.');
+                return;
+            }
 
             /*
              * Toggle the sort direction and set the sorting column
