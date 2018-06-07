@@ -2186,6 +2186,7 @@ textarea.input-group-sm > .form-control,textarea.input-group-sm > .input-group-a
 .input-group-btn:last-child > .btn,.input-group-btn:last-child > .btn-group{margin-left:-1px}
 .loading-indicator{padding:20px 20px 20px 60px;color:#999999;font-size:14px;font-weight:500;text-align:left;z-index:10}
 .loading-indicator > span{background:transparent url('images/loader.gif') no-repeat 0 50%;position:absolute;width:40px;height:40px;top:50%;margin-top:-20px;left:0;display:block}
+.form-buttons .loading-indicator{background:#f9f9f9}
 .loading-indicator-container{position:relative;min-height:40px}
 .loading-indicator-container .loading-indicator{position:absolute;left:0;top:0;width:100%;height:100%;padding-top:0}
 .loading-indicator-container .loading-indicator > div{position:absolute;top:50%;margin-top:-0.65em}
