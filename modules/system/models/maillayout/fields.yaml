@@ -44,4 +44,4 @@ secondaryTabs:
             label: system::lang.mail_templates.disable_inline_css
             type: checkbox
             tab: system::lang.mail_templates.options
-            default: true
+            default: false
