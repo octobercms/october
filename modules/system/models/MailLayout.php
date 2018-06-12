@@ -142,18 +142,4 @@ class MailLayout extends Model
         return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
 
-    public function getOptionsAttribute($value)
-    {
-        $options = json_decode($value, true);
-
-        // if inline_css is set, we pass the orignal json string
-        if (array_has($options, 'inline_css')) {
-            return $value;
-        }
-
-        //otherwise we set inline_css as true
-        $options['inline_css'] = '1';
-
-        return json_encode($options);
-    }
 }
