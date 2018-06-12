@@ -178,7 +178,7 @@ class MailManager
 
         $css = MailBrandSetting::renderCss();
 
-        $disableInlineCss = true;
+        $disableInlineCss = false;
 
         if ($template->layout) {
 
