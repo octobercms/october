@@ -394,6 +394,11 @@ class VersionManager
          * Execute the database PHP script
          */
         $updateFile = $this->pluginManager->getPluginPath($code) . '/updates/' . $script;
+
+        if (!File::isFile($updateFile)) {
+            $this->note('- <error>v' . $version . ':  Migration file "' . $script . '" not found</error>');
+        }
+
         $this->updater->setUp($updateFile);
 
         Db::table('system_plugin_history')->insert([
