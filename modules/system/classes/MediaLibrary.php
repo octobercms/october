@@ -472,21 +472,28 @@ class MediaLibrary
             return $path;
         }
 
+        /*
+         * Validate folder names
+         */
+        if (!preg_match('/^[0-9a-z@\.\s_\-\/]+$/i', $path)) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
+        }
+
         $regexDirectorySeparator = preg_quote('/', '#');
         $regexDot = preg_quote('.', '#');
         $regex = [
-            // Checks for parent or current directory reference at beginning of path
+            // Beginning of path
             '(^'.$regexDot.'+?'.$regexDirectorySeparator.')',
 
-            // Check for parent or current directory reference in middle of path
+            // Middle of path
             '('.$regexDirectorySeparator.$regexDot.'+?'.$regexDirectorySeparator.')',
 
-            // Check for parent or current directory reference at end of path
+            // End of path
             '('.$regexDirectorySeparator.$regexDot.'+?$)',
         ];
 
         /*
-         * Combine everything to one regex
+         * Validate invalid paths
          */
         $regex = '#'.implode('|', $regex).'#';
         if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {

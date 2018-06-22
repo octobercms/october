@@ -43,7 +43,6 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
     {
         $this->expectException('ApplicationException');
         MediaLibrary::validatePath($path);
-
     }
 
     /**

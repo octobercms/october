@@ -16,6 +16,7 @@
         <script src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>"></script>
         <script src="<?= Url::to('modules/backend/assets/js/october-min.js') ?>"></script>
         <script src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
+        <script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
         <?= $this->makeLayoutPartial('custom_styles') ?>
