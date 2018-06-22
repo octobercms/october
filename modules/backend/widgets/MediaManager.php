@@ -119,7 +119,7 @@ class MediaManager extends WidgetBase
     public function onGoToFolder()
     {
         $path = Input::get('path');
-        
+
         if (Input::get('clearCache')) {
             MediaLibrary::instance()->resetCache();
         }
