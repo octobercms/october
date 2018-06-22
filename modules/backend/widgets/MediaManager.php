@@ -335,6 +335,14 @@ class MediaManager extends WidgetBase
         }
 
         $originalPath = Input::get('originalPath');
+        
+        $segments = explode('/', $originalPath);
+        $regexPath = $segments[count($segments)-1];
+
+        if($originalPath != '/' && !$this->validateFileName($regexPath)) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('originalPath')));
+        }
+        
         $originalPath = MediaLibrary::validatePath($originalPath);
         $newPath = dirname($originalPath).'/'.$newName;
         $type = Input::get('type');
@@ -386,6 +394,14 @@ class MediaManager extends WidgetBase
         }
 
         $path = Input::get('path');
+        
+        $segments = explode('/', $path);
+        $regexPath = $segments[count($segments)-1];
+
+        if($path != '/' && !$this->validateFileName($regexPath)) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
+        }
+        
         $path = MediaLibrary::validatePath($path);
 
         $newFolderPath = $path.'/'.$name;
