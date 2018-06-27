@@ -95,6 +95,11 @@ class UpdateManager
      */
     protected $repository;
 
+    /*
+     * @var boolean Defines if the caché should be cleared.
+     */
+    private $clearCache = false;
+
     /**
      * Initialize this singleton.
      */
@@ -134,6 +139,7 @@ class UpdateManager
     public function update()
     {
         $firstUp = !Schema::hasTable($this->getMigrationTableName());
+
         if ($firstUp) {
             $this->repository->createRepository();
             $this->note('Migration table created');
@@ -143,6 +149,7 @@ class UpdateManager
          * Update modules
          */
         $modules = Config::get('cms.loadModules', []);
+
         foreach ($modules as $module) {
             $this->migrateModule($module);
         }
@@ -151,12 +158,20 @@ class UpdateManager
          * Update plugins
          */
         $plugins = $this->pluginManager->sortByDependencies();
+
         foreach ($plugins as $plugin) {
             $this->updatePlugin($plugin);
         }
 
         Parameter::set('system::update.count', 0);
-        CacheHelper::clear();
+
+        $clearCacheOnUpdateManager = Config::get('cache.clearCacheOnUpdateManager');
+
+        if ($clearCacheOnUpdateManager == true) {
+	        if ( $this->clearCache == true ) {
+		        CacheHelper::clear();
+	        }
+        }
 
         /*
          * Seed modules
@@ -516,9 +531,14 @@ class UpdateManager
 
         $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
 
-        if ($this->versionManager->updatePlugin($plugin) !== false) {
+        $plugin_updated = $this->versionManager->updatePlugin($plugin);
 
-            foreach ($this->versionManager->getNotes() as $note) {
+        if ($plugin_updated !== false) {
+        	//If the plugin is updated we define clearCahe to true to proceed to CacheHelper::clear(); on update() method
+	        if($plugin_updated){
+	        	$this->clearCache = true;
+	        }
+	        foreach ($this->versionManager->getNotes() as $note) {
                 $this->note($note);
             }
         }

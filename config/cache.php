@@ -104,4 +104,8 @@ return [
     */
 
     'disableRequestCache' => false,
+
+	// Enable or disable manual cleaning Cache on Update Manager process.
+	'clearCacheOnUpdateManager' => true,
+
 ];
