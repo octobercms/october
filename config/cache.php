@@ -80,20 +80,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cache Key for the CMS' PHP code parser cache
-    |--------------------------------------------------------------------------
-    |
-    | This option controls the cache key used by the CMS when storing generated
-    | PHP from the theme PHP sections. Recommended to change this when multiple
-    | servers running OctoberCMS are connected to the same cache server to
-    | prevent conflicts.
-    |
-    */
-
-    'codeParserDataCacheKey' => 'cms-php-file-data',
-
-    /*
-    |--------------------------------------------------------------------------
     | Disable Request Cache
     |--------------------------------------------------------------------------
     |
