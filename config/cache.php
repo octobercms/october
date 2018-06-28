@@ -2,109 +2,109 @@
 
 return [
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Cache Store
-	|--------------------------------------------------------------------------
-	|
-	| This option controls the default cache connection that gets used while
-	| using this caching library. This connection is used when another is
-	| not explicitly specified when executing a given caching function.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Default Cache Store
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the default cache connection that gets used while
+    | using this caching library. This connection is used when another is
+    | not explicitly specified when executing a given caching function.
+    |
+    */
 
-	'default' => 'file',
+    'default' => 'file',
 
-	/*
-	|--------------------------------------------------------------------------
-	| Cache Stores
-	|--------------------------------------------------------------------------
-	|
-	| Here you may define all of the cache "stores" for your application as
-	| well as their drivers. You may even define multiple stores for the
-	| same cache driver to group types of items stored in your caches.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Stores
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define all of the cache "stores" for your application as
+    | well as their drivers. You may even define multiple stores for the
+    | same cache driver to group types of items stored in your caches.
+    |
+    */
 
-	'stores' => [
+    'stores' => [
 
-		'apc' => [
-			'driver' => 'apc'
-		],
+        'apc' => [
+            'driver' => 'apc'
+        ],
 
-		'array' => [
-			'driver' => 'array'
-		],
+        'array' => [
+            'driver' => 'array'
+        ],
 
-		'database' => [
-			'driver' => 'database',
-			'table'  => 'cache',
-			'connection' => null,
-		],
+        'database' => [
+            'driver' => 'database',
+            'table'  => 'cache',
+            'connection' => null,
+        ],
 
-		'file' => [
-			'driver' => 'file',
-			'path'   => storage_path('framework/cache'),
-		],
+        'file' => [
+            'driver' => 'file',
+            'path'   => storage_path('framework/cache'),
+        ],
 
-		'memcached' => [
-			'driver'  => 'memcached',
-			'servers' => [
-				[
-					'host'   => '127.0.0.1',
-					'port'   => 11211,
-					'weight' => 100,
-				],
-			],
-		],
+        'memcached' => [
+            'driver'  => 'memcached',
+            'servers' => [
+                [
+                    'host'   => '127.0.0.1',
+                    'port'   => 11211,
+                    'weight' => 100,
+                ],
+            ],
+        ],
 
-		'redis' => [
-			'driver' => 'redis',
-			'connection' => 'default',
-		],
+        'redis' => [
+            'driver' => 'redis',
+            'connection' => 'default',
+        ],
 
-	],
+    ],
 
-	/*
-	|--------------------------------------------------------------------------
-	| Cache Key Prefix
-	|--------------------------------------------------------------------------
-	|
-	| When utilizing a RAM based store such as APC or Memcached, there might
-	| be other applications utilizing the same cache. So, we'll specify a
-	| value to get prefixed to all our keys so we can avoid collisions.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Key Prefix
+    |--------------------------------------------------------------------------
+    |
+    | When utilizing a RAM based store such as APC or Memcached, there might
+    | be other applications utilizing the same cache. So, we'll specify a
+    | value to get prefixed to all our keys so we can avoid collisions.
+    |
+    */
 
-	'prefix' => 'october',
+    'prefix' => 'october',
 
-	/*
-	|--------------------------------------------------------------------------
-	| Cache Key for the CMS' PHP code parser cache
-	|--------------------------------------------------------------------------
-	|
-	| This option controls the cache key used by the CMS when storing generated
-	| PHP from the theme PHP sections. Recommended to change this when multiple
-	| servers running OctoberCMS are connected to the same cache server to
-	| prevent conflicts.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Key for the CMS' PHP code parser cache
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the cache key used by the CMS when storing generated
+    | PHP from the theme PHP sections. Recommended to change this when multiple
+    | servers running OctoberCMS are connected to the same cache server to
+    | prevent conflicts.
+    |
+    */
 
-	'codeParserDataCacheKey' => 'cms-php-file-data',
+    'codeParserDataCacheKey' => 'cms-php-file-data',
 
-	/*
-	|--------------------------------------------------------------------------
-	| Disable Request Cache
-	|--------------------------------------------------------------------------
-	|
-	| The request cache stores cache retrievals from the cache store
-	| in memory to speed up consecutive retrievals within the same request.
-	| Set to true to disable this in-memory request cache.
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Disable Request Cache
+    |--------------------------------------------------------------------------
+    |
+    | The request cache stores cache retrievals from the cache store
+    | in memory to speed up consecutive retrievals within the same request.
+    | Set to true to disable this in-memory request cache.
+    |
+    */
 
-	'disableRequestCache' => false,
+    'disableRequestCache' => false,
 
 	// Enable or disable manual cleaning Cache on Update Manager process.
-	'clearCacheOnUpdateManager' => true,
+    'clearCacheOnUpdateManager' => true,
 ];
