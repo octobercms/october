@@ -475,7 +475,7 @@ class MediaLibrary
         /*
          * Validate folder names
          */
-        if (!preg_match('/^[0-9a-z@\.\s_\-\/]+$/i', $path)) {
+        if (!preg_match('/^[\w@\.\s_\-\/]+$/iu', $path)) {
             throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
         }
 
