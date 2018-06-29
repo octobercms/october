@@ -1194,6 +1194,17 @@ class RelationController extends ControllerBehavior
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
+                /*
+                 * Simulate firing beforeDelete event on pivot models
+                 */
+                foreach ($this->model->{$this->relationName} as $related) {
+                    if (in_array($related->pivot->{$related->pivot->getOtherKey()}, $checkedIds)) {
+                        if (method_exists($related->pivot, "beforeDelete")) {
+                            $related->pivot->beforeDelete();
+                        }
+                    }
+                }
+                
                 $foreignKeyName = $relatedModel->getKeyName();
 
                 $models = $relatedModel->whereIn($foreignKeyName, $checkedIds)->get();
