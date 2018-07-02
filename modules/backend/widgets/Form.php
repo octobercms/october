@@ -159,6 +159,7 @@ class Form extends WidgetBase
      */
     protected function loadAssets()
     {
+        $this->addJs('//unpkg.com/json5@^1.0.0', 'core');
         $this->addJs('js/october.form.js', 'core');
     }
 

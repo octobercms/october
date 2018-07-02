@@ -209,6 +209,7 @@ class RelationController extends ControllerBehavior
     {
         parent::__construct($controller);
 
+        $this->addJs('//unpkg.com/json5@^1.0.0', 'core');
         $this->addJs('js/october.relation.js', 'core');
         $this->addCss('css/relation.css', 'core');
 
