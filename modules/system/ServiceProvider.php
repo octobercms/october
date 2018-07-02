@@ -89,7 +89,7 @@ class ServiceProvider extends ModuleServiceProvider
         if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
             Schema::defaultStringLength(191);
         }
-        
+
         /*
          * Boot plugins
          */
@@ -467,7 +467,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-paint-brush',
                     'url'         => Backend::url('system/mailbrandsettings'),
-                    'permissions' => ['system.manage_mail_settings'],
+                    'permissions' => ['system.manage_mail_templates'],
                     'order'       => 630
                 ],
                 'event_logs' => [
