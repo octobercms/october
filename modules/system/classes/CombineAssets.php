@@ -634,7 +634,7 @@ class CombineAssets
         if ($destination === null) {
             $file = File::name($firstFile);
             $path = dirname($firstFile);
-            $preprocessors = array_except(self::$cssExtensions, 'css');
+            $preprocessors = array_diff(self::$cssExtensions, ['css']);
 
             if (in_array($extension, $preprocessors)) {
                 $cssPath = $path.'/../css';

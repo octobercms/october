@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use System\Classes\CombineAssets;
 use Twig_Node;
 use Twig_Compiler;
 
@@ -28,17 +29,34 @@ class FrameworkNode extends Twig_Node
 
         $compiler
             ->addDebugInfo($this)
-            ->write("echo '<script src=\"'. Request::getBasePath()
-                .'/modules/system/assets/js/framework.js\"></script>'.PHP_EOL;" . PHP_EOL)
-        ;
+            ->write("\$_minify = ".CombineAssets::class."::instance()->useMinify;" . PHP_EOL);
 
         if ($includeExtras) {
             $compiler
-                ->write("echo '<script src=\"'. Request::getBasePath()
+                ->write("if (\$_minify) {" . PHP_EOL)
+                ->indent()
+                    ->write("echo '<script src=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.combined-min.js\"></script>'.PHP_EOL;" . PHP_EOL)
+                ->outdent()
+                ->write("}" . PHP_EOL)
+                ->write("else {" . PHP_EOL)
+                ->indent()
+                    ->write("echo '<script src=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.js\"></script>'.PHP_EOL;" . PHP_EOL)
+                    ->write("echo '<script src=\"'. Request::getBasePath()
                     .'/modules/system/assets/js/framework.extras.js\"></script>'.PHP_EOL;" . PHP_EOL)
+                ->outdent()
+                ->write("}" . PHP_EOL)
                 ->write("echo '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"'. Request::getBasePath()
-                    .'/modules/system/assets/css/framework.extras.css\">'.PHP_EOL;" . PHP_EOL)
+                    .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\">'.PHP_EOL;" . PHP_EOL)
             ;
         }
+        else {
+            $compiler->write("echo '<script src=\"'. Request::getBasePath()
+                .'/modules/system/assets/js/framework'.(\$_minify ? '-min' : '').'.js\"></script>'.PHP_EOL;" . PHP_EOL)
+            ;
+        }
+
+        $compiler->write('unset($_minify);' . PHP_EOL);
     }
 }
