@@ -23,9 +23,7 @@ if(useFiles){requestData=new FormData($form.length?$form.get(0):null)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
-else{requestData=$form.serialize()
-if(requestData)requestData=requestData+'&'
-if(!$.isEmptyObject(data))requestData+=$.param(data)}
+else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
 var requestOptions={url:window.location.href,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
 var _event=jQuery.Event('ajaxBeforeUpdate')
@@ -63,7 +61,8 @@ $(window).trigger(_event,[message])
 if(_event.isDefaultPrevented())return
 if(message)alert(message)},handleValidationMessage:function(message,fields){$triggerEl.trigger('ajaxValidation',[context,message,fields])
 var isFirstInvalidField=true
-$.each(fields,function focusErrorField(fieldName,fieldMessages){var fieldElement=$form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
+$.each(fields,function focusErrorField(fieldName,fieldMessages){fieldName=fieldName.replace(/\.(\w+)/g,'[$1]')
+var fieldElement=$form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
 if(fieldElement.length>0){var _event=jQuery.Event('ajaxInvalidField')
 $(window).trigger(_event,[fieldElement.get(0),fieldName,fieldMessages,isFirstInvalidField])
 if(isFirstInvalidField){if(!_event.isDefaultPrevented())fieldElement.focus()
@@ -122,7 +121,7 @@ $(document).on('keydown','input[type=text][data-request], input[type=submit][dat
 window.clearTimeout(this.dataTrackInputTimer)
 $(this).request()
 return false}})
-$(document).on('keyup','input[data-request][data-track-input]',function documentOnKeyup(e){var
+$(document).on('input','input[data-request][data-track-input]',function documentOnKeyup(e){var
 $el=$(this),lastValue=$el.data('oc.lastvalue')
 if(!$el.is('[type=email],[type=number],[type=password],[type=search],[type=text]'))
 return
