@@ -8,6 +8,7 @@ use SystemException;
 use Exception;
 use Throwable;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Config;
 
 /**
  * View Maker Trait
@@ -194,7 +195,9 @@ trait ViewMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (File::isLocalPath($fileName)) {
+        if (File::isLocalPath($fileName) ||
+            (!Config::get('cms.restrictBaseDir', true) && realpath($fileName) !== false)
+        ) {
             return $fileName;
         }
 
@@ -221,7 +224,10 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) || !File::isFile($filePath) || !File::isLocalPath($filePath)) {
+        if (!strlen($filePath) ||
+            !File::isFile($filePath) ||
+            (!File::isLocalPath($filePath) && Config::get('cms.restrictBaseDir', true))
+        ) {
             return '';
         }
 
