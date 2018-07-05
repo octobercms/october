@@ -55,7 +55,7 @@ abstract class WidgetBase extends Extendable
 
         /*
          * Apply configuration values to a new config object, if a parent
-         * consutrctor hasn't done it already.
+         * constructor hasn't done it already.
          */
         if ($this->config === null) {
             $this->config = $this->makeConfig($configuration);
@@ -92,7 +92,7 @@ abstract class WidgetBase extends Extendable
     }
 
     /**
-     * Renders the widgets primary contents.
+     * Renders the widget's primary contents.
      * @return string HTML markup supplied by this widget.
      */
     public function render()

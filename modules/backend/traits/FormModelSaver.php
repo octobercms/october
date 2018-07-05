@@ -13,7 +13,6 @@ use October\Rain\Database\Model as DatabaseModel;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-
 trait FormModelSaver
 {
     /**
@@ -40,11 +39,15 @@ trait FormModelSaver
     {
         $this->modelsToSave = [];
         $this->setModelAttributes($model, $saveData);
+        $this->modelsToSave = array_reverse($this->modelsToSave);
         return $this->modelsToSave;
     }
 
     /**
-     * Sets a data collection to a model attributes, relations will also be set.
+     * Sets a data collection to a model attributes, relations are also set.
+     *
+     * @param \October\Rain\Database\Model $model Model to fill.
+     * @param array $saveData Attribute values to fill model.
      * @return void
      */
     protected function setModelAttributes($model, $saveData)
@@ -85,6 +88,14 @@ trait FormModelSaver
         }
     }
 
+    /**
+     * Removes an array of attributes from the model. If the model implements
+     * the Purgeable trait, this is preferred over the internal logic.
+     *
+     * @param \October\Rain\Database\Model $model Model to adjust.
+     * @param array $attributesToPurge Attribute values to remove from the model.
+     * @return void
+     */
     protected function deferPurgedSaveAttributes($model, $attributesToPurge)
     {
         if (!is_array($attributesToPurge)) {

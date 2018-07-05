@@ -425,6 +425,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. CSV-Datei hochladen',
         'import_file' => 'Datei importieren',
+        'row' => 'Zeile :row',
         'first_row_contains_titles' => 'Erste Zeile enthält Spaltentitel',
         'first_row_contains_titles_desc' => 'Aktiviert lassen, falls erste Zeile Spaltentitel enthält.',
         'match_columns' => '2. Spalten der Datei den Datenbankfeldern zuordnen',

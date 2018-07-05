@@ -27,6 +27,7 @@ use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
+use Illuminate\Support\Facades\Schema;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -84,6 +85,11 @@ class ServiceProvider extends ModuleServiceProvider
      */
     public function boot()
     {
+        // Fix UTF8MB4 support for MariaDB < 10.2 and MySQL < 5.7
+        if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
+            Schema::defaultStringLength(191);
+        }
+
         /*
          * Boot plugins
          */
@@ -461,7 +467,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-paint-brush',
                     'url'         => Backend::url('system/mailbrandsettings'),
-                    'permissions' => ['system.manage_mail_settings'],
+                    'permissions' => ['system.manage_mail_templates'],
                     'order'       => 630
                 ],
                 'event_logs' => [

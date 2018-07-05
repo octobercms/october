@@ -18,7 +18,7 @@
 
     <?php $index = $url = 0; foreach ($columns as $key => $column): ?>
         <?php $index++; ?>
-        <td class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->clickable ? '' : 'nolink' ?> <?= $column->cssClass ?>">
+        <td class="list-cell-index-<?= $index ?> list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->clickable ? '' : 'nolink' ?> <?= $column->getAlignClass() ?> <?= $column->cssClass ?>">
             <?php if ($column->clickable && !$url && ($url = $this->getRecordUrl($record))): ?>
                 <a <?= $this->getRecordOnClick($record) ?> href="<?= $url ?>">
                     <?= $this->getColumnValue($record, $column) ?>

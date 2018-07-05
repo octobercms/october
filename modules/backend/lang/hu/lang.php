@@ -395,7 +395,7 @@ return [
         'menu_keywords' => 'biztonságos bejelentkezés'
     ],
     'branding' => [
-        'menu_label' => 'Kinézet',
+        'menu_label' => 'Testreszabás',
         'menu_description' => 'Az admin felület megjelenésének egyedivé tétele.',
         'brand' => 'Márka',
         'logo' => 'Logó',

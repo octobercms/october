@@ -71,6 +71,11 @@ class FileUpload extends FormWidgetBase
      */
     public $useCaption = true;
 
+    /**
+     * @var boolean Automatically attaches the uploaded file on upload if the parent record exists instead of using deferred binding to attach on save of the parent record. Defaults to false.
+     */
+    public $attachOnUpload = false;
+
     //
     // Object properties
     //
@@ -92,7 +97,8 @@ class FileUpload extends FormWidgetBase
             'fileTypes',
             'mimeTypes',
             'thumbOptions',
-            'useCaption'
+            'useCaption',
+            'attachOnUpload',
         ]);
 
         if ($this->formField->disabled) {
@@ -394,7 +400,16 @@ class FileUpload extends FormWidgetBase
             $file->is_public = $fileRelation->isPublic();
             $file->save();
 
-            $fileRelation->add($file, $this->sessionKey);
+            /**
+             * Attach directly to the parent model if it exists and attachOnUpload has been set to true
+             * else attach via deferred binding
+             */
+            $parent = $fileRelation->getParent();
+            if ($this->attachOnUpload && $parent && $parent->exists) {
+                $fileRelation->add($file);
+            } else {
+                $fileRelation->add($file, $this->sessionKey);
+            }
 
             $file = $this->decorateFileAttributes($file);
 

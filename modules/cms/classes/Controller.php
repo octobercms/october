@@ -148,7 +148,7 @@ class Controller
             $url = Request::path();
         }
 
-        if (!strlen($url)) {
+        if (empty($url)) {
             $url = '/';
         }
 
@@ -156,10 +156,8 @@ class Controller
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
-        if ($page && $page->is_hidden) {
-            if (!BackendAuth::getUser()) {
-                $page = null;
-            }
+        if ($page && $page->is_hidden && !BackendAuth::getUser()) {
+            $page = null;
         }
 
         /*
@@ -488,11 +486,14 @@ class Controller
 
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+        $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
+            'strict_variables' => $strictVariables,
         ];
 
         if ($useCache) {
@@ -686,6 +687,28 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+        * @event cms.ajax.beforeRunHandler
+        * Provides an opportunity to modify an AJAX request
+        *
+        * The parameter provided is `$handler` (the requested AJAX handler to be run)
+        *
+        * Example usage (forwards AJAX handlers to a backend widget):
+        *
+        *     $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+        *         if (strpos($handler, '::')) {
+        *             list($componentAlias, $handlerName) = explode('::', $handler);
+        *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+        *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+        *             }
+        *         }
+        *     });
+        *
+        */
+        if ($event = $this->fireSystemEvent('cms.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Component handler
          */

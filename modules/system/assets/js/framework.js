@@ -105,9 +105,7 @@ if (window.jQuery.request !== undefined) {
             })
         }
         else {
-            requestData = $form.serialize()
-            if (requestData) requestData = requestData + '&'
-            if (!$.isEmptyObject(data)) requestData += $.param(data)
+            requestData = [$form.serialize(), $.param(data)].filter(Boolean).join('&')
         }
 
         /*
@@ -242,6 +240,8 @@ if (window.jQuery.request !== undefined) {
 
                 var isFirstInvalidField = true
                 $.each(fields, function focusErrorField(fieldName, fieldMessages) {
+                    fieldName = fieldName.replace(/\.(\w+)/g, '[$1]')
+
                     var fieldElement = $form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [name$="['+fieldName+']"], [name$="['+fieldName+'][]"]').filter(':enabled').first()
                     if (fieldElement.length > 0) {
 
@@ -483,7 +483,7 @@ if (window.jQuery.request !== undefined) {
         }
     })
 
-    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
+    $(document).on('input', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')

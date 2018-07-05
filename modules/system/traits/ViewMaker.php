@@ -194,7 +194,7 @@ trait ViewMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+        if (File::isLocalPath($fileName)) {
             return $fileName;
         }
 
@@ -221,7 +221,7 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) || !File::isFile($filePath)) {
+        if (!strlen($filePath) || !File::isFile($filePath) || !File::isLocalPath($filePath)) {
             return '';
         }
 

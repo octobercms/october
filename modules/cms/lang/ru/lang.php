@@ -24,7 +24,7 @@ return [
     ],
     'theme' => [
         'not_found_name' => "Тема ':name' не найдена.",
-        'by_author' => 'By :name',
+        'by_author' => 'Создано :name',
         'active' => [
             'not_set' => 'Активная тема не установлена.',
             'not_found' => 'Активная тема не найдена.'

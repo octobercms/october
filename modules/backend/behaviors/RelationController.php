@@ -341,10 +341,10 @@ class RelationController extends ControllerBehavior
         $this->foreignId = post('foreign_id');
         $this->readOnly = $this->getConfig('readOnly');
         $this->deferredBinding = $this->getConfig('deferredBinding') || !$this->model->exists;
-        $this->toolbarButtons = $this->evalToolbarButtons();
         $this->viewMode = $this->evalViewMode();
         $this->manageMode = $this->evalManageMode();
         $this->manageTitle = $this->evalManageTitle();
+        $this->toolbarButtons = $this->evalToolbarButtons();
 
         /*
          * Toolbar widget
@@ -916,12 +916,14 @@ class RelationController extends ControllerBehavior
     public function onRelationButtonAdd()
     {
         $this->eventTarget = 'button-add';
+
         return $this->onRelationManageForm();
     }
 
     public function onRelationButtonCreate()
     {
         $this->eventTarget = 'button-create';
+
         return $this->onRelationManageForm();
     }
 
@@ -933,6 +935,7 @@ class RelationController extends ControllerBehavior
     public function onRelationButtonLink()
     {
         $this->eventTarget = 'button-link';
+
         return $this->onRelationManageForm();
     }
 
@@ -949,6 +952,7 @@ class RelationController extends ControllerBehavior
     public function onRelationButtonUpdate()
     {
         $this->eventTarget = 'button-update';
+
         return $this->onRelationManageForm();
     }
 
@@ -988,6 +992,7 @@ class RelationController extends ControllerBehavior
         $this->vars['newSessionKey'] = str_random(40);
 
         $view = 'manage_' . $this->manageMode;
+
         return $this->relationMakePartial($view);
     }
 
@@ -1233,6 +1238,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $this->vars['foreignId'] = $this->foreignId ?: post('checked');
+
         return $this->relationMakePartial('pivot_form');
     }
 
@@ -1382,6 +1388,10 @@ class RelationController extends ControllerBehavior
             return $buttons;
         }
 
+        if ($this->manageMode == 'pivot') {
+            return ['add', 'remove'];
+        }
+
         switch ($this->relationType) {
             case 'hasMany':
             case 'morphMany':
@@ -1441,7 +1451,6 @@ class RelationController extends ControllerBehavior
                 else {
                     return 'backend::lang.relation.add_a_new';
                 }
-                break;
             case 'form':
                 if ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
@@ -1452,7 +1461,6 @@ class RelationController extends ControllerBehavior
                 else {
                     return 'backend::lang.relation.create_name';
                 }
-                break;
         }
     }
 
@@ -1486,16 +1494,26 @@ class RelationController extends ControllerBehavior
             case 'morphToMany':
             case 'morphedByMany':
             case 'belongsToMany':
-                if (isset($this->config->pivot)) return 'pivot';
-                elseif ($this->eventTarget == 'list') return 'form';
-                else return 'list';
+                if (isset($this->config->pivot)) {
+                    return 'pivot';
+                }
+                elseif ($this->eventTarget == 'list') {
+                    return 'form';
+                }
+                else {
+                    return 'list';
+                }
 
             case 'hasOne':
             case 'morphOne':
             case 'hasMany':
             case 'morphMany':
-                if ($this->eventTarget == 'button-add') return 'list';
-                else return 'form';
+                if ($this->eventTarget == 'button-add') {
+                    return 'list';
+                }
+                else {
+                    return 'form';
+                }
         }
     }
 

@@ -32,7 +32,7 @@ class CodeParser
     /**
      * @var string Key for the parsed PHP file information cache.
      */
-    protected $dataCacheKey = 'cms-php-file-data';
+    protected $dataCacheKey = '';
 
     /**
      * Creates the class instance
@@ -42,6 +42,7 @@ class CodeParser
     {
         $this->object = $object;
         $this->filePath = $object->getFilePath();
+        $this->dataCacheKey = Config::get('cache.codeParserDataCacheKey', 'cms-php-file-data');
     }
 
     /**
@@ -192,8 +193,10 @@ class CodeParser
 
         if (is_file($path)) {
             if ($className = $this->extractClassFromFile($path)) {
-                $data['className'] = $className;
-                return $data;
+                if (class_exists($className)) {
+                    $data['className'] = $className;
+                    return $data;
+                }
             }
 
             @unlink($path);

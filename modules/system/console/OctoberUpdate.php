@@ -95,7 +95,8 @@ class OctoberUpdate extends Command
 
         if ($coreHash) {
             $this->output->writeln('<info>Unpacking application files</info>');
-            $manager->extractCore($coreHash, $coreBuild);
+            $manager->extractCore();
+            $manager->setBuild($coreBuild, $coreHash);
         }
 
         foreach ($plugins as $code => $plugin) {

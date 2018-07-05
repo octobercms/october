@@ -2,7 +2,7 @@
     "name": "october/cms",
     "type": "october-module",
     "description": "CMS module for October CMS",
-    "homepage": "http://octobercms.com",
+    "homepage": "https://octobercms.com",
     "keywords": ["october cms", "october", "cms"],
     "license": "MIT",
     "authors": [
@@ -13,6 +13,12 @@
         {
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com"
+        },
+        {
+            "name": "Luke Towers",
+            "email": "octobercms@luketowers.ca",
+            "homepage": "https://luketowers.ca",
+            "role": "Maintainer"
         }
     ],
     "require": {

@@ -16,7 +16,7 @@ class Media extends MediaController
      */
     public function __construct()
     {
-        traceLog('Controller Cms\Controllers\Media has been deprecated, use Backend\Controller\Media instead.');
+        traceLog('Controller Cms\Controllers\Media has been deprecated, use ' . MediaController::class . ' instead.');
         parent::__construct();
     }
 }

@@ -55,19 +55,19 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'port'      => '',
+            'port'      => 3306,
             'database'  => 'database',
             'username'  => 'root',
             'password'  => '',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
         ],
 
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => 'localhost',
-            'port'     => '',
+            'port'     => 5432,
             'database' => 'database',
             'username' => 'root',
             'password' => '',
@@ -79,7 +79,7 @@ return [
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => 'localhost',
-            'port'     => '',
+            'port'     => 1433,
             'database' => 'database',
             'username' => 'root',
             'password' => '',
