@@ -1347,7 +1347,7 @@ class Controller
      * @param ComponentBase $component The component object.
      * @param array $parameters Specifies the partial parameters.
      */
-    protected function setComponentPropertiesFromParams($component, $parameters = [])
+    public function setComponentPropertiesFromParams($component, $parameters = [])
     {
         $properties = $component->getProperties();
         $routerParameters = $this->router->getParameters();
