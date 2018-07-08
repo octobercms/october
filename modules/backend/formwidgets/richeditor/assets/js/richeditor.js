@@ -151,7 +151,21 @@
         // File upload
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
-        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = { X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1 }
+        if(this.options.uploadMode == 'mediaManager') {
+            froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
+                X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1
+            }
+        }
+        else if(this.options.uploadMode == 'modelRelation') {
+            froalaOptions.requestHeaders = {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+            froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
+                X_OCTOBER_RICHEDITOR_RELATION_UPLOAD: 1,
+                _session_key: $('input[name="_session_key"]').val(),
+            }
+        }
 
         var placeholder = this.$textarea.attr('placeholder')
         froalaOptions.placeholderText = placeholder ? placeholder : ''

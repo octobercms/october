@@ -7,6 +7,10 @@ use Lang;
 use Request;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
+use Input;
+use Validator;
+use Response;
+use Exception;
 
 /**
  * Rich Editor
@@ -36,6 +40,18 @@ class RichEditor extends FormWidgetBase
      */
     public $readOnly = false;
 
+    /**
+     * @var class name Contains the class name used for file upload
+     *
+     * Supported options:
+     * - mode: mediaManager, modelRelation
+     * - relationName: (name of model relation to use for upload)
+     */
+    public $uploadOptions = [
+        'mode' => 'mediaManager',
+        'relationName' => '',
+    ];
+
     //
     // Object properties
     //
@@ -58,7 +74,11 @@ class RichEditor extends FormWidgetBase
             'fullPage',
             'readOnly',
             'toolbarButtons',
+            'uploadOptions',
         ]);
+
+        $this->evalUploadOptions();
+        $this->checkUploadPostback();
     }
 
     /**
@@ -84,6 +104,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+        $this->vars['uploadMode'] = $this->evalUploadOptions();
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
@@ -96,6 +117,91 @@ class RichEditor extends FormWidgetBase
         $this->vars['paragraphStyles'] = EditorSetting::getConfiguredStyles('html_style_paragraph');
         $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
         $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
+    }
+
+    /*
+    * Determine the uploadMode to use based on config
+    *
+    */
+    protected function evalUploadOptions()
+    {
+        $mode = $this->uploadOptions['mode'];
+        $relationName = $this->uploadOptions['relationName'];
+        if($mode == 'modelRelation' && !empty($relationName)) {
+
+            if($this->model->attachMany[$relationName]
+                &&  $this->model->{$relationName}()->getRelated() instanceof
+                    \October\Rain\Database\Attach\File) {
+                return 'modelRelation';
+            }
+        }
+
+        return 'mediaManager';
+    }
+
+    protected function checkUploadPostback()
+    {
+        if (!post('X_OCTOBER_RICHEDITOR_RELATION_UPLOAD')) {
+            return;
+        }
+
+        $uploadedFileName = null;
+
+        try {
+            $uploadedFile = Input::file('file_data');
+
+            if ($uploadedFile)
+                $uploadedFileName = $uploadedFile->getClientOriginalName();
+
+            $relationName = $this->uploadOptions['relationName'];
+            $relationClass = get_class($this->model->{$relationName}()->getRelated());
+            $validationRules = ['max:'.$relationClass::getMaxFilesize()];
+            $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif';
+
+            $validation = Validator::make(
+                ['file_data' => $uploadedFile],
+                ['file_data' => $validationRules]
+            );
+
+            if ($validation->fails())
+                throw new ValidationException($validation);
+
+            if (!$uploadedFile->isValid())
+                throw new SystemException(Lang::get('cms::lang.asset.file_not_valid'));
+
+            $fileRelation = $this->model->{$relationName}();
+
+            $file = new $relationClass();
+            $file->data = $uploadedFile;
+            $file->is_public = true;
+            $file->save();
+
+            $fileRelation->add($file, $this->sessionKey);
+            $result = [
+                'link' => $file->getPath(),
+                'result' => 'success'
+            ];
+
+            $response = Response::make()->setContent($result);
+            $response->send();
+
+            die();
+        }
+        catch (Exception $ex) {
+            $message = $uploadedFileName
+                ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $uploadedFileName, 'error' => $ex->getMessage()])
+                : $ex->getMessage();
+
+            $result = [
+                'error' => $message,
+                'file' => $uploadedFileName
+            ];
+
+            $response = Response::make()->setContent($result);
+            $response->send();
+
+            die();
+        }
     }
 
     /**
