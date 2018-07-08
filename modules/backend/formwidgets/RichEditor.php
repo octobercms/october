@@ -11,6 +11,8 @@ use Input;
 use Validator;
 use Response;
 use Exception;
+use ValidationException;
+use SystemException;
 
 /**
  * Rich Editor
@@ -41,7 +43,7 @@ class RichEditor extends FormWidgetBase
     public $readOnly = false;
 
     /**
-     * @var class name Contains the class name used for file upload
+     * @var array Contains the options used for file upload
      *
      * Supported options:
      * - mode: mediaManager, modelRelation
