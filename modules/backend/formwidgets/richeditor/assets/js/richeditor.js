@@ -78,7 +78,13 @@
             fullPage: this.options.fullpage,
             pageLinksHandler: this.options.linksHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
-            toolbarSticky: false
+            toolbarSticky: false,
+            pluginsEnabled: [
+                'paragraphStyle', 'fullscreen', 'codeView', 'paragraphFormat', 'align', 'lists',
+                'file', 'image', 'link', 'table','video', 'audio', 'quote', 'fontSize', 'fontFamily',
+                'emoticons', 'colors', 'url', 'lineBreaker', 'entities', 'draggable', 'codeBeautifier',
+                'mediaManager', 'pageLinks', 'figures',
+            ],
         }
 
         if (this.options.toolbarButtons) {
@@ -157,6 +163,10 @@
             }
         }
         else if(this.options.uploadMode == 'modelRelation') {
+            var mediaManagerIndex = froalaOptions.pluginsEnabled.indexOf("mediaManager");
+            if (mediaManagerIndex > -1) {
+                froalaOptions.pluginsEnabled.splice(mediaManagerIndex, 1);
+            }
             froalaOptions.requestHeaders = {
                 'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 'X-Requested-With': 'XMLHttpRequest'
