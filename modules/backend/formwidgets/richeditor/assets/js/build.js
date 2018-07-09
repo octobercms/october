@@ -41,6 +41,7 @@
 =require plugins/mediamanager.js
 =require plugins/pagelinks.js
 =require plugins/figures.js
+=require.plugins/relationupload.js
 =require richeditor.js
 
 */

@@ -162,10 +162,18 @@
             editor.popups.hide('audio.insert')
         }
 
+        function _setOptions() {
+            editor.opts.imageUploadParams = editor.opts.fileUploadParams = {
+                X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1
+            }
+        }
+
         /**
          * Init.
          */
         function _init () {
+            _setOptions();
+
             editor.events.on('destroy', _destroy, true)
 
             editor.events.on('video.linkError', _insertVideoFallback)

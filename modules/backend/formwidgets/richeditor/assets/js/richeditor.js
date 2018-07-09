@@ -83,7 +83,7 @@
                 'paragraphStyle', 'fullscreen', 'codeView', 'paragraphFormat', 'align', 'lists',
                 'file', 'image', 'link', 'table','video', 'audio', 'quote', 'fontSize', 'fontFamily',
                 'emoticons', 'colors', 'url', 'lineBreaker', 'entities', 'draggable', 'codeBeautifier',
-                'mediaManager', 'pageLinks', 'figures',
+                'mediaManager', 'pageLinks', 'figures', 'relationUpload',
             ],
         }
 
@@ -158,22 +158,15 @@
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
         if(this.options.uploadMode == 'mediaManager') {
-            froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
-                X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1
+            var relationUploadIndex = froalaOptions.pluginsEnabled.indexOf("relationUpload");
+            if (relationUploadIndex > -1) {
+                froalaOptions.pluginsEnabled.splice(relationUploadIndex, 1);
             }
         }
-        else if(this.options.uploadMode == 'modelRelation') {
+        else if(this.options.uploadMode == 'relationUpload') {
             var mediaManagerIndex = froalaOptions.pluginsEnabled.indexOf("mediaManager");
             if (mediaManagerIndex > -1) {
                 froalaOptions.pluginsEnabled.splice(mediaManagerIndex, 1);
-            }
-            froalaOptions.requestHeaders = {
-                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-            froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
-                X_OCTOBER_RICHEDITOR_RELATION_UPLOAD: 1,
-                _session_key: $('input[name="_session_key"]').val(),
             }
         }
 
