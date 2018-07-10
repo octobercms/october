@@ -157,13 +157,13 @@
         // File upload
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
-        if(this.options.uploadMode == 'mediaManager') {
+        if(this.options.uploadMode == 'medialibrary') {
             var relationUploadIndex = froalaOptions.pluginsEnabled.indexOf("relationUpload");
             if (relationUploadIndex > -1) {
                 froalaOptions.pluginsEnabled.splice(relationUploadIndex, 1);
             }
         }
-        else if(this.options.uploadMode == 'relationUpload') {
+        else if(this.options.uploadMode == 'relation') {
             var mediaManagerIndex = froalaOptions.pluginsEnabled.indexOf("mediaManager");
             if (mediaManagerIndex > -1) {
                 froalaOptions.pluginsEnabled.splice(mediaManagerIndex, 1);

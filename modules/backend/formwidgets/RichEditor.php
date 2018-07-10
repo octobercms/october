@@ -44,15 +44,14 @@ class RichEditor extends FormWidgetBase
 
     /**
      * @var array Contains the options used for file upload
-     *
      * Supported options:
-     * - mode: mediaManager, relationUpload
-     * - relationName: (name of model relation to use for upload, must be of type attachMany and
-     * the model must inherit from October\Rain\Database\Attach\File)
+     * - mode: [relation | medialibrary]
+     * - relation: Name of relation (relation also needs to be an attachmany relationship where the
+     * attached model inherits from October\Rain\Database\Attach\File)
      */
     public $uploadOptions = [
-        'mode' => 'mediaManager',
-        'relationName' => '',
+        'mode' => 'medialibrary',
+        'relation' => '',
     ];
 
     //
@@ -129,17 +128,17 @@ class RichEditor extends FormWidgetBase
     protected function evalUploadOptions()
     {
         if($this->uploadOptions['mode']
-           && $this->uploadOptions['mode'] == 'relationUpload'
-           && $this->uploadOptions['relationName']
-           && !empty(trim($this->uploadOptions['relationName']))) {
-            if($this->model->getRelationType($this->uploadOptions['relationName']) == 'attachMany'
-               &&  $this->model->{$this->uploadOptions['relationName']}()->getRelated()
+           && $this->uploadOptions['mode'] == 'relation'
+           && $this->uploadOptions['relation']
+           && !empty(trim($this->uploadOptions['relation']))) {
+            if($this->model->getRelationType($this->uploadOptions['relation']) == 'attachMany'
+               &&  $this->model->{$this->uploadOptions['relation']}()->getRelated()
                instanceof \October\Rain\Database\Attach\File) {
-                return 'relationUpload';
+                return 'relation';
             }
         }
 
-        return 'mediaManager';
+        return 'medialibrary';
     }
 
     protected function checkUploadPostback()
