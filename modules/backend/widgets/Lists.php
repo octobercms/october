@@ -301,6 +301,15 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Event handler for changing the filter
+     */
+    public function onFilter()
+    {
+        $this->currentPageNumber = 1;
+        return $this->onRefresh();
+    }
+
+    /**
      * Validate the supplied form model.
      * @return void
      */
