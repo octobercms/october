@@ -45,7 +45,7 @@ class RichEditor extends FormWidgetBase
     /**
      * @var array Contains the options used for file upload
      * Supported options:
-     * - mode: [relation | medialibrary]
+     * - mode: [relation | medialibrary] (method of storing uploaded images)
      * - relation: Name of relation (relation also needs to be an attachmany relationship where the
      * attached model inherits from October\Rain\Database\Attach\File)
      */
