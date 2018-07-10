@@ -141,6 +141,23 @@ class RichEditor extends FormWidgetBase
         return 'medialibrary';
     }
 
+    public function onLoadRelationUploadBrowseForm()
+    {
+        $this->vars['relationUploads'] = $this->getRelationUploads();
+        return $this->makePartial('relation_upload_browse_form');
+    }
+
+    protected function getRelationUploads()
+    {
+        $relationUploads = $this->model->{$this->uploadOptions['relation']}()
+                            ->withDeferred($this->sessionKey)->lists('file_name', 'disk_name');
+        $result = [];
+        foreach($relationUploads as $diskName => $fileName) {
+            $result[] = ['file_name' => $fileName, 'disk_name' => $diskName];
+        }
+        return $result;
+    }
+
     protected function checkUploadPostback()
     {
         if (!post('X_OCTOBER_RICHEDITOR_RELATION_UPLOAD')) {
@@ -155,7 +172,7 @@ class RichEditor extends FormWidgetBase
             if ($uploadedFile)
                 $uploadedFileName = $uploadedFile->getClientOriginalName();
 
-            $relationName = $this->uploadOptions['relationName'];
+            $relationName = $this->uploadOptions['relation'];
             $relationClass = get_class($this->model->{$relationName}()->getRelated());
             $validationRules = ['max:'.$relationClass::getMaxFilesize()];
             $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif';

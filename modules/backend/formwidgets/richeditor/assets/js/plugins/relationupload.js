@@ -18,19 +18,27 @@
         }
 
         function onInsertImage() {
-            console.log('browse upload image');
+            editor.$el.popup({
+                handler: editor.opts.relationUploadBrowseHandler
+            })
         }
 
         function onInsertVideo() {
-            console.log('browse upload video');
+            editor.$el.popup({
+                handler: editor.opts.relationUploadBrowseHandler
+            })
         }
 
         function onInsertAudio() {
-            console.log('browse upload audio');
+            editor.$el.popup({
+                handler: editor.opts.relationUploadBrowseHandler
+            })
         }
 
         function onInsertFile() {
-            console.log('browse upload file');
+            editor.$el.popup({
+                handler: editor.opts.relationUploadBrowseHandler
+            })
         }
 
         /**
