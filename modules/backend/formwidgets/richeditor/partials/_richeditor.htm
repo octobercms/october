@@ -23,8 +23,8 @@
         data-ace-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
         placeholder="<?= e(trans($field->placeholder)) ?>"
         data-control="richeditor"
-        data-upload-mode="<?= $uploadMode ?>">
-        data-relation-upload-handler="<?= $this->getEventHandler('onLoadPageLinksForm') ?>"
+        data-upload-mode="<?= $uploadMode ?>"
+        data-relation-upload-handler="<?= $this->getEventHandler('onLoadRelationUploadBrowseForm') ?>">
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
         <div class="height-indicator"></div>
     </div>

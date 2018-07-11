@@ -6,9 +6,9 @@
     <div class="modal-body">
 
         <div class="form-group">
-            <select name="pagelink" class="form-control custom-select" id="pageLink">
+            <select name="relationupload" class="form-control custom-select" id="relationUpload">
                 <?php foreach ($relationUploads as $relationUpload): ?>
-                    <option value="<?= array_get($link, 'url') ?>"><?= array_get($relationUpload, 'file_name') ?></option>
+                    <option value="<?= array_get($relationUpload, 'disk_name') ?>"><?= array_get($relationUpload, 'file_name') ?></option>
                 <?php endforeach ?>
             </select>
         </div>
