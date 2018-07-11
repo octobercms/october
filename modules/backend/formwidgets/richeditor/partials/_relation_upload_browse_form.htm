@@ -1,18 +1,46 @@
 <?= Form::open(['id' => 'relationUploadBrowseForm']) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
-        <h4 class="modal-title"><?= e(trans('Relation browse')) ?></h4>
+        <h4 class="modal-title"><?= e(trans('Uploaded relational files')) ?></h4>
     </div>
+
     <div class="modal-body">
-
         <div class="form-group">
-            <select name="relationupload" class="form-control custom-select" id="relationUpload">
-                <?php foreach ($relationUploads as $relationUpload): ?>
-                    <option value="<?= array_get($relationUpload, 'disk_name') ?>"><?= array_get($relationUpload, 'file_name') ?></option>
-                <?php endforeach ?>
-            </select>
+            <div class="control-list">
+                <table class="table data">
+                    <thead>
+                        <tr>
+                            <th class=""><a href="#"></a></th>
+                            <th class=""><a href="#">File name</a></th>
+                            <th class=""><a href="#">Disk name</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(!$relationUploads || count($relationUploads) < 1): ?>
+                            <tr class="no-data">
+                                <td colspan="100" class="nolink">
+                                    <p class="no-data">
+                                        There are no records in this view.
+                                    </p>
+                                </td>
+                            </tr>
+                        <?php endif ?>
+                        <?php for($i = 0; $i < $relationUploadsCount; $i++): ?>
+                            <tr>
+                                <td class="list-checkbox nolink">
+                                    <div class="checkbox custom-checkbox nolabel">
+                                        <input id="relation_<?=$i?>" type="checkbox" name="relation[]"/>
+                                        <label for="relation_<?=$i?>">Check</label>
+                                    </div>
+                                </td>
+                                <td><?= array_get($relationUploads[$i], 'file_name') ?></td>
+                                <td><?= array_get($relationUploads[$i], 'disk_name') ?></td>
+                            </tr>
+                        <?php endfor ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
 
     <div class="modal-footer">

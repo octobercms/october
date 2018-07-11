@@ -143,7 +143,9 @@ class RichEditor extends FormWidgetBase
 
     public function onLoadRelationUploadBrowseForm()
     {
-        $this->vars['relationUploads'] = $this->getRelationUploads();
+        $relationUploads = $this->getRelationUploads();
+        $this->vars['relationUploadsCount'] = count($relationUploads);
+        $this->vars['relationUploads'] = $relationUploads;
         return $this->makePartial('relation_upload_browse_form');
     }
 
