@@ -4438,8 +4438,7 @@ $el.attr('data-closable','')
 this.init()}
 Tab.prototype.init=function(){var self=this;this.options.slidable=this.options.slidable!==undefined&&this.options.slidable!==false
 $('> li',this.$tabsContainer).each(function(index){self.initTab(this)})
-this.$el.on('close.oc.tab',function(ev,data){ev.preventDefault()
-var force=(data!==undefined&&data.force!==undefined)?data.force:false;self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'),force)})
+this.$el.on("close.oc.tab",function(t,e){t.preventDefault();var o=void 0!==e&&void 0!==e.force&&e.force;self.closeTab($(t.target).closest("ul.nav-tabs > li, div.tab-content > div"),o)}),this.$el.on("mousedown","li[data-tab-id]",function(t,e){if(2==t.which){t.preventDefault();var o=void 0!==e&&void 0!==e.force&&e.force;self.closeTab($(t.target).closest("ul.nav-tabs > li, div.tab-content > div"),o)}});
 this.$el.on('toggleCollapse.oc.tab',function(ev,data){ev.preventDefault()
 $(ev.target).closest('div.tab-content > div').toggleClass('collapsed')})
 this.$el.on('modified.oc.tab',function(ev){ev.preventDefault()
