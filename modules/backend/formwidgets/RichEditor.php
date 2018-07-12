@@ -143,10 +143,42 @@ class RichEditor extends FormWidgetBase
 
     public function onLoadRelationUploadBrowseForm()
     {
+        $this->setRelationUploadValues();
+        return $this->makePartial('relation_upload_browse_form');
+    }
+
+    public function onDeleteRelationUpload()
+    {
+        $relationDisknamesToDelete = (Input::get('relations') ? Input::get('relations') : []);
+
+        $allRelations = $this->model->{$this->uploadOptions['relation']}()->withDeferred($this->sessionKey)
+		->whereIn('disk_name', $relationDisknamesToDelete)->get();
+
+        $existingRelations = $this->model->{$this->uploadOptions['relation']}()
+        ->whereIn('disk_name', $relationDisknamesToDelete)->get();
+
+        $deferredRelations = $allRelations->diff($existingRelations);
+        foreach($deferredRelations as $relationModel)
+        {
+            $this->model->{$this->uploadOptions['relation']}()->remove($relationModel, $this->sessionKey);
+        }
+
+        foreach($existingRelations as $relationModel)
+        {
+            $relationModel->delete();
+        }
+
+        $this->setRelationUploadValues();
+        return [
+            '#relation-list' => $this->makePartial('relation_list')
+        ];
+    }
+
+    protected function setRelationUploadValues()
+    {
         $relationUploads = $this->getRelationUploads();
         $this->vars['relationUploadsCount'] = count($relationUploads);
         $this->vars['relationUploads'] = $relationUploads;
-        return $this->makePartial('relation_upload_browse_form');
     }
 
     protected function getRelationUploads()
