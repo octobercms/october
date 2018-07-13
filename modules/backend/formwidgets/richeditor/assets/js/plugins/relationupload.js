@@ -87,28 +87,32 @@ function richeditorRelationUploadSelect($form) {
         function onInsertImage() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler
+                handler: editor.opts.relationUploadBrowseHandler,
+                size: 'adaptive'
             })
         }
 
         function onInsertVideo() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler
+                handler: editor.opts.relationUploadBrowseHandler,
+                size: 'adaptive'
             })
         }
 
         function onInsertAudio() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler
+                handler: editor.opts.relationUploadBrowseHandler,
+                size: 'adaptive'
             })
         }
 
         function onInsertFile() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler
+                handler: editor.opts.relationUploadBrowseHandler,
+                size: 'adaptive'
             })
         }
 
