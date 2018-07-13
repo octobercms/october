@@ -13,6 +13,8 @@ use Response;
 use Exception;
 use ValidationException;
 use SystemException;
+use Config;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * Rich Editor
@@ -149,23 +151,36 @@ class RichEditor extends FormWidgetBase
 
     public function onDeleteRelationUpload()
     {
-        $relationDisknamesToDelete = (Input::get('relations') ? Input::get('relations') : []);
+        $relationsToDelete = (Input::get('relations') ? Input::get('relations') : null);
 
-        $allRelations = $this->model->{$this->uploadOptions['relation']}()->withDeferred($this->sessionKey)
-		->whereIn('disk_name', $relationDisknamesToDelete)->get();
-
-        $existingRelations = $this->model->{$this->uploadOptions['relation']}()
-        ->whereIn('disk_name', $relationDisknamesToDelete)->get();
-
-        $deferredRelations = $allRelations->diff($existingRelations);
-        foreach($deferredRelations as $relationModel)
-        {
-            $this->model->{$this->uploadOptions['relation']}()->remove($relationModel, $this->sessionKey);
+        if($relationsToDelete == null || empty($relationsToDelete)){
+            return;
         }
 
-        foreach($existingRelations as $relationModel)
-        {
-            $relationModel->delete();
+        $relationsToDeleteIds = [];
+        foreach($relationsToDelete as $relation) {
+            $relationsToDeleteIds[] = $relation['id'];
+        }
+
+        $relationModelsWithDeferred = $this->model->{$this->uploadOptions['relation']}()
+            ->withDeferred($this->sessionKey)->whereIn('id', $relationsToDeleteIds)->get();
+
+        $relationModels = $this->model->{$this->uploadOptions['relation']}()
+            ->whereIn('id', $relationsToDeleteIds)->get();
+
+        if($relationModelsWithDeferred && $relationModels) {
+            $deferredModels = $relationModelsWithDeferred->diff($relationModels);
+        }
+        elseif($relationModelsWithDeferred) {
+            $deferredModels = $relationModelsWithDeferred;
+        }
+
+        foreach($relationModels as $model) {
+            $model->delete();
+        }
+
+        foreach($deferredModels as $model) {
+            $this->model->{$this->uploadOptions['relation']}()->remove($model, $this->sessionKey);
         }
 
         $this->setRelationUploadValues();
@@ -184,12 +199,39 @@ class RichEditor extends FormWidgetBase
     protected function getRelationUploads()
     {
         $relationUploads = $this->model->{$this->uploadOptions['relation']}()
-                            ->withDeferred($this->sessionKey)->lists('file_name', 'disk_name');
+                            ->withDeferred($this->sessionKey)->get();
         $result = [];
-        foreach($relationUploads as $diskName => $fileName) {
-            $result[] = ['file_name' => $fileName, 'disk_name' => $diskName];
+        foreach($relationUploads as $file) {
+            $result[] = ['id' => $file->id, 'file_name' => $file->file_name,
+                         'disk_name' => $file->disk_name, 'path' => $file->getPath(),
+                         'file_type' => $this->getFileType($file)];
         }
         return $result;
+    }
+
+    public function getFileType($model)
+    {
+        $imageExtensions = array_map('strtolower', Config::get('cms.storage.media.imageExtensions',
+                                                               FileDefinitions::get('imageExtensions')));
+        $videoExtensions = array_map('strtolower', Config::get('cms.storage.media.videoExtensions',
+                                                               FileDefinitions::get('videoExtensions')));
+        $audioExtensions = array_map('strtolower', Config::get('cms.storage.media.audioExtensions',
+                                                               FileDefinitions::get('audioExtensions')));
+
+        $extension = $model->getExtension();
+        if (!strlen($extension)) {
+            return 'document';
+        }
+        if (in_array($extension, $imageExtensions)) {
+            return 'image';
+        }
+        if (in_array($extension, $videoExtensions)) {
+            return 'video';
+        }
+        if (in_array($extension, $audioExtensions)) {
+            return 'audio';
+        }
+        return 'document';
     }
 
     protected function checkUploadPostback()

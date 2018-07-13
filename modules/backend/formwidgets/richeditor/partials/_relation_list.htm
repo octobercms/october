@@ -4,7 +4,7 @@
             <tr>
                 <th class=""><a href="#"></a></th>
                 <th class=""><a href="#">File name</a></th>
-                <th class=""><a href="#">Disk name</a></th>
+                <th class=""><a href="#">Path</a></th>
             </tr>
         </thead>
         <tbody>
@@ -21,12 +21,21 @@
                 <tr>
                     <td class="list-checkbox nolink">
                         <div class="checkbox custom-checkbox nolabel">
-                            <input id="relation_<?=$i?>" type="checkbox" name="relations[]" value="<?= array_get($relationUploads[$i], 'disk_name') ?>"/>
+                            <input id="relation_<?=$i?>" type="checkbox" name="relations[<?=$i?>][id]" value="<?= array_get($relationUploads[$i], 'id') ?>"/>
                             <label for="relation_<?=$i?>">Check</label>
+
+                            <input type="hidden" name="relations[<?=$i?>][file_name]" value="<?= array_get($relationUploads[$i], 'file_name') ?>"
+                            data-trigger-action="enable" data-trigger="#relation_<?=$i?>" data-trigger-condition="checked"/>
+                            <input type="hidden" name="relations[<?=$i?>][disk_name]" value="<?= array_get($relationUploads[$i], 'disk_name') ?>"
+                            data-trigger-action="enable" data-trigger="#relation_<?=$i?>" data-trigger-condition="checked"/>
+                            <input type="hidden" name="relations[<?=$i?>][path]" value="<?= array_get($relationUploads[$i], 'path') ?>"
+                            data-trigger-action="enable" data-trigger="#relation_<?=$i?>" data-trigger-condition="checked"/>
+                            <input type="hidden" name="relations[<?=$i?>][file_type]" value="<?= array_get($relationUploads[$i], 'file_type') ?>"
+                            data-trigger-action="enable" data-trigger="#relation_<?=$i?>" data-trigger-condition="checked"/>
                         </div>
                     </td>
                     <td><?= array_get($relationUploads[$i], 'file_name') ?></td>
-                    <td><?= array_get($relationUploads[$i], 'disk_name') ?></td>
+                    <td><?= array_get($relationUploads[$i], 'path') ?></td>
                 </tr>
             <?php endfor ?>
         </tbody>
