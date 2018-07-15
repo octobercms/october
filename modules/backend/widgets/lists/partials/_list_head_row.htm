@@ -31,7 +31,7 @@
         <?php else: ?>
             <th
                 <?php if ($column->width): ?>style="width: <?= $column->width ?>"<?php endif ?>
-                class="list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?>"
+                class="list-cell-name-<?= $column->getName() ?> list-cell-type-<?= $column->type ?> <?= $column->getAlignClass() ?>"
                 >
                 <span><?= $this->getHeaderValue($column) ?></span>
             </th>
