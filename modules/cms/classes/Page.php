@@ -50,6 +50,11 @@ class Page extends CmsCompoundObject
     ];
 
     /**
+     * @var array
+     */
+    public $translatable = ['title', 'description', 'meta_title', 'meta_description'];
+
+    /**
      * Creates an instance of the object and associates it with a CMS theme.
      * @param array $attributes
      */
