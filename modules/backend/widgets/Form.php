@@ -1024,6 +1024,14 @@ class Form extends WidgetBase
          */
         if (method_exists($this->model, 'filterFields')) {
             $this->model->filterFields((object) $this->allFields, $this->getContext());
+            // Propagate to formWidgets
+            if($this->formWidgets) {
+                foreach($this->formWidgets as $formWidget) {
+                    if(method_exists($formWidget, 'filterFormWidget')) {
+                        $formWidget->filterFormWidget($this->getContext());
+                    }
+                }
+            }
         }
 
         /*

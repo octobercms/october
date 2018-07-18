@@ -65,6 +65,11 @@ class MediaFinder extends FormWidgetBase
             'imageHeight'
         ]);
 
+        $this->filterFormWidget();
+    }
+
+    public function filterFormWidget($context = null)
+    {
         if ($this->formField->disabled) {
             $this->previewMode = true;
         }

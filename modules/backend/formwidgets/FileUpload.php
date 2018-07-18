@@ -101,11 +101,16 @@ class FileUpload extends FormWidgetBase
             'attachOnUpload',
         ]);
 
+        $this->filterFormWidget();
+
+        $this->checkUploadPostback();
+    }
+
+    public function filterFormWidget($context = null)
+    {
         if ($this->formField->disabled) {
             $this->previewMode = true;
         }
-
-        $this->checkUploadPostback();
     }
 
     /**

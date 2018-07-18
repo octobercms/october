@@ -50,15 +50,20 @@ class RichEditor extends FormWidgetBase
      */
     public function init()
     {
-        if ($this->formField->disabled) {
-            $this->readOnly = true;
-        }
+        $this->filterFormWidget();
 
         $this->fillFromConfig([
             'fullPage',
             'readOnly',
             'toolbarButtons',
         ]);
+    }
+
+    public function filterFormWidget($context = null)
+    {
+        if ($this->formField->disabled) {
+            $this->readOnly = true;
+        }
     }
 
     /**
