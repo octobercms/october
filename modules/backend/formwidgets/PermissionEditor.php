@@ -42,9 +42,7 @@ class PermissionEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
-        if ($this->formField->disabled) {
-            $this->previewMode = true;
-        }
+        $this->filterFormWidget();
 
         $permissionsData = $this->formField->getValueFromData($this->model);
         if (!is_array($permissionsData)) {
@@ -56,6 +54,13 @@ class PermissionEditor extends FormWidgetBase
         $this->vars['baseFieldName'] = $this->getFieldName();
         $this->vars['permissionsData'] = $permissionsData;
         $this->vars['field'] = $this->formField;
+    }
+
+    public function filterFormWidget($context = null)
+    {
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
     }
 
     /**

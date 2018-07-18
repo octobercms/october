@@ -91,9 +91,7 @@ class Repeater extends FormWidgetBase
             'maxItems',
         ]);
 
-        if ($this->formField->disabled) {
-            $this->previewMode = true;
-        }
+        $this->filterFormWidget();
 
         $fieldName = $this->formField->getName(false);
         $this->indexInputName = self::INDEX_PREFIX.$fieldName;
@@ -103,6 +101,13 @@ class Repeater extends FormWidgetBase
 
         if (!self::$onAddItemCalled) {
             $this->processExistingItems();
+        }
+    }
+
+    public function filterFormWidget($context = null)
+    {
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
         }
     }
 
@@ -125,7 +130,7 @@ class Repeater extends FormWidgetBase
         if (!self::$onAddItemCalled) {
             $this->processExistingItems();
         }
-        
+
         if ($this->previewMode) {
             foreach ($this->formWidgets as $widget) {
                 $widget->previewMode = true;

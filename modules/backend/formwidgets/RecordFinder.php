@@ -176,9 +176,7 @@ class RecordFinder extends FormWidgetBase
     {
         $this->relationModel = $this->getLoadValue();
 
-        if ($this->formField->disabled) {
-            $this->previewMode = true;
-        }
+        $this->filterFormWidget();
 
         $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;
@@ -188,6 +186,13 @@ class RecordFinder extends FormWidgetBase
         $this->vars['searchWidget'] = $this->searchWidget;
         $this->vars['title'] = $this->title;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-th-list"></i>', e(trans($this->prompt)));
+    }
+
+    public function filterFormWidget($context = null)
+    {
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
     }
 
     /**

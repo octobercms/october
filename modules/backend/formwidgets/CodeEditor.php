@@ -118,9 +118,7 @@ class CodeEditor extends FormWidgetBase
     {
         $this->applyEditorPreferences();
 
-        if ($this->formField->disabled) {
-            $this->readOnly = true;
-        }
+        $this->filterFormWidget();
 
         $this->fillFromConfig([
             'language',
@@ -141,6 +139,13 @@ class CodeEditor extends FormWidgetBase
             'displayIndentGuides',
             'showPrintMargin'
         ]);
+    }
+
+    public function filterFormWidget($context = null)
+    {
+        if ($this->formField->disabled) {
+            $this->readOnly = true;
+        }
     }
 
     /**
