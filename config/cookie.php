@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'unecryptedCookies' => [
+    'unencryptedCookies' => [
         // 'my_cookie',
     ],
 
