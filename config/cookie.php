@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cookies without encryption
+    | Cookies that should not be encrypted
     |--------------------------------------------------------------------------
     |
     | OctoberCMS encrypts/decrypts cookies by default. You can specify cookies
