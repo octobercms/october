@@ -24,7 +24,7 @@
         placeholder="<?= e(trans($field->placeholder)) ?>"
         data-control="richeditor"
         data-upload-mode="<?= $uploadMode ?>"
-        data-relation-upload-handler="<?= $this->getEventHandler('onLoadRelationUploadBrowseForm') ?>">
+        data-relation-records-handler="<?= $this->getEventHandler('onLoadRelationRecords') ?>">
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
         <div class="height-indicator"></div>
     </div>

@@ -1,4 +1,4 @@
-<?= Form::open(['id' => 'relationUploadBrowseForm']) ?>
+<?= Form::open(['id' => 'relationRecordsForm']) ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="popup">&times;</button>
         <h4 class="modal-title"><?= e(trans('Uploaded relational files')) ?></h4>
@@ -14,14 +14,17 @@
         <button
             type="button"
             class="btn btn-danger"
-            data-request="<?= $this->getEventHandler('onDeleteRelationUpload') ?>">
+            data-request="<?= $this->getEventHandler('onDeleteRelationRecord') ?>"
+            data-request-confirm="<?= e(trans('backend::lang.relation.delete_confirm')) ?>"
+            onclick="richeditorRelationUploadSetSelectedRecords($('#relationRecordsForm'))"
+            data-request-success="richeditorRelationUploadRemove()">
             <?= e(trans('backend::lang.form.delete')) ?>
         </button>
         <button
             type="button"
             class="btn btn-primary"
             data-dismiss="popup"
-            onclick="richeditorRelationUploadSelect($('#relationUploadBrowseForm'))">
+            onclick="richeditorRelationUploadSetSelectedRecords($('#relationRecordsForm'));richeditorRelationUploadInsert();">
             <?= e(trans('backend::lang.form.select')) ?>
         </button>
         <button

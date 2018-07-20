@@ -45,16 +45,17 @@ class RichEditor extends FormWidgetBase
     public $readOnly = false;
 
     /**
-     * @var array Contains the options used for file upload
-     * Supported options:
-     * - mode: [relation | medialibrary] (method of storing uploaded images)
-     * - relation: Name of relation (relation also needs to be an attachmany relationship where the
-     * attached model inherits from October\Rain\Database\Attach\File)
+     * @var string Method of storing uploaded files
+     * Supported options: medialibrary | relation
      */
-    public $uploadOptions = [
-        'mode' => 'medialibrary',
-        'relation' => '',
-    ];
+    public $uploadMode = 'medialibrary';
+
+    /**
+     * @var string Name of relation
+     * Relation needs to be an attachmany relationship where the
+     * attached model inherits from October\Rain\Database\Attach\File
+     */
+    public $relation = '';
 
     //
     // Object properties
@@ -78,10 +79,10 @@ class RichEditor extends FormWidgetBase
             'fullPage',
             'readOnly',
             'toolbarButtons',
-            'uploadOptions',
+            'uploadMode',
+            'relation',
         ]);
 
-        $this->evalUploadOptions();
         $this->checkUploadPostback();
     }
 
@@ -108,7 +109,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
-        $this->vars['uploadMode'] = $this->evalUploadOptions();
+        $this->vars['uploadMode'] = $this->evalUploadMode();
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
@@ -127,14 +128,12 @@ class RichEditor extends FormWidgetBase
     * Determine the uploadMode to use based on config
     *
     */
-    protected function evalUploadOptions()
+    protected function evalUploadMode()
     {
-        if($this->uploadOptions['mode']
-           && $this->uploadOptions['mode'] == 'relation'
-           && $this->uploadOptions['relation']
-           && !empty(trim($this->uploadOptions['relation']))) {
-            if($this->model->getRelationType($this->uploadOptions['relation']) == 'attachMany'
-               &&  $this->model->{$this->uploadOptions['relation']}()->getRelated()
+        if($this->uploadMode == 'relation'
+           && $this->relation) {
+            if($this->model->getRelationType($this->relation) == 'attachMany'
+               &&  $this->model->{$this->relation}()->getRelated()
                instanceof \October\Rain\Database\Attach\File) {
                 return 'relation';
             }
@@ -143,13 +142,13 @@ class RichEditor extends FormWidgetBase
         return 'medialibrary';
     }
 
-    public function onLoadRelationUploadBrowseForm()
+    public function onLoadRelationRecords()
     {
-        $this->setRelationUploadValues();
-        return $this->makePartial('relation_upload_browse_form');
+        $this->setRelationRecords();
+        return $this->makePartial('relation_records');
     }
 
-    public function onDeleteRelationUpload()
+    public function onDeleteRelationRecord()
     {
         $relationsToDelete = (Input::get('relations') ? Input::get('relations') : null);
 
@@ -162,10 +161,10 @@ class RichEditor extends FormWidgetBase
             $relationsToDeleteIds[] = $relation['id'];
         }
 
-        $relationModelsWithDeferred = $this->model->{$this->uploadOptions['relation']}()
+        $relationModelsWithDeferred = $this->model->{$this->relation}()
             ->withDeferred($this->sessionKey)->whereIn('id', $relationsToDeleteIds)->get();
 
-        $relationModels = $this->model->{$this->uploadOptions['relation']}()
+        $relationModels = $this->model->{$this->relation}()
             ->whereIn('id', $relationsToDeleteIds)->get();
 
         if($relationModelsWithDeferred && $relationModels) {
@@ -180,25 +179,25 @@ class RichEditor extends FormWidgetBase
         }
 
         foreach($deferredModels as $model) {
-            $this->model->{$this->uploadOptions['relation']}()->remove($model, $this->sessionKey);
+            $this->model->{$this->relation}()->remove($model, $this->sessionKey);
         }
 
-        $this->setRelationUploadValues();
+        $this->setRelationRecords();
         return [
             '#relation-list' => $this->makePartial('relation_list')
         ];
     }
 
-    protected function setRelationUploadValues()
+    protected function setRelationRecords()
     {
-        $relationUploads = $this->getRelationUploads();
+        $relationUploads = $this->getRelationRecords();
         $this->vars['relationUploadsCount'] = count($relationUploads);
         $this->vars['relationUploads'] = $relationUploads;
     }
 
-    protected function getRelationUploads()
+    protected function getRelationRecords()
     {
-        $relationUploads = $this->model->{$this->uploadOptions['relation']}()
+        $relationUploads = $this->model->{$this->relation}()
                             ->withDeferred($this->sessionKey)->get();
         $result = [];
         foreach($relationUploads as $file) {
@@ -248,10 +247,9 @@ class RichEditor extends FormWidgetBase
             if ($uploadedFile)
                 $uploadedFileName = $uploadedFile->getClientOriginalName();
 
-            $relationName = $this->uploadOptions['relation'];
+            $relationName = $this->relation;
             $relationClass = get_class($this->model->{$relationName}()->getRelated());
             $validationRules = ['max:'.$relationClass::getMaxFilesize()];
-            $validationRules[] = 'mimes:jpg,jpeg,bmp,png,gif';
 
             $validation = Validator::make(
                 ['file_data' => $uploadedFile],

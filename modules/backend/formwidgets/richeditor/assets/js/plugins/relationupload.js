@@ -1,7 +1,13 @@
 var richeditorRelationUploadPlugin;
 
-function richeditorRelationUploadSelect($form) {
-    richeditorRelationUploadPlugin.insertFromBrowse($form);
+function richeditorRelationUploadSetSelectedRecords($form) {
+    richeditorRelationUploadPlugin.setSelectedRecords($form);
+}
+function richeditorRelationUploadInsert() {
+    richeditorRelationUploadPlugin.insertSelectedRecords();
+}
+function richeditorRelationUploadRemove() {
+    richeditorRelationUploadPlugin.removeSelectedRecords();
 }
 (function ($) {
     // Add an option for your plugin.
@@ -11,7 +17,8 @@ function richeditorRelationUploadSelect($form) {
 
     $.FroalaEditor.PLUGINS.relationUpload = function (editor) {
 
-        function insertFromBrowse($form) {
+        var selectedRecords;
+        function setSelectedRecords($form) {
             var $selected = $("input[name^='relations'][type='checkbox']:checked, input[name^='relations'][type='hidden']:enabled", $form);
 
             if(!$selected.length) {
@@ -21,7 +28,6 @@ function richeditorRelationUploadSelect($form) {
             var selectedArray = [];
             $($selected).each(function(index) {
                 var name = ($(this).attr('name'));
-                console.log(name);
                 name = name.replace(/]/g, "");
                 var nameArr = name.split("[");
                 var inputIndex = nameArr[1];
@@ -43,20 +49,23 @@ function richeditorRelationUploadSelect($form) {
                     selectedArray[inputIndex].file_type = $(this).val();
                 }
             });
+            selectedRecords = selectedArray;
+        }
 
+        function insertSelectedRecords($form) {
             var i = 0;
-            for(i = 0; i < selectedArray.length; i++){
-                if(selectedArray[i].file_type == "image") {
+            for(i = 0; i < selectedRecords.length; i++){
+                if(selectedRecords[i].file_type == "image") {
                     var $currentImage = editor.image.get();
-                    editor.image.insert(selectedArray[i]['path'], false, {}, $currentImage)
+                    editor.image.insert(selectedRecords[i]['path'], false, {}, $currentImage)
                 }
-                else if(selectedArray[i].file_type == "video") {
+                else if(selectedRecords[i].file_type == "video") {
                     var $richEditorNode = editor.$el.closest('[data-control="richeditor"]');
-                    $richEditorNode.richEditor('insertVideo', selectedArray[i].path, selectedArray[i].file_name);
+                    $richEditorNode.richEditor('insertVideo', selectedRecords[i].path, selectedRecords[i].file_name);
                 }
-                else if(selectedArray[i].file_type == "audio") {
+                else if(selectedRecords[i].file_type == "audio") {
                     var $richEditorNode = editor.$el.closest('[data-control="richeditor"]');
-                    $richEditorNode.richEditor('insertAudio', selectedArray[i].path, selectedArray[i].file_name);
+                    $richEditorNode.richEditor('insertAudio', selectedRecords[i].path, selectedRecords[i].file_name);
                 }
                 else {
                     // Focus in the editor.
@@ -64,13 +73,32 @@ function richeditorRelationUploadSelect($form) {
                     editor.selection.restore();
 
                     // Insert the link.
-                    editor.html.insert('<a href="' + selectedArray[i].path + '" id="fr-inserted-file" class="fr-file">' + selectedArray[i].file_name + '</a>');
+                    editor.html.insert('<a href="' + selectedRecords[i].path + '" id="fr-inserted-file" class="fr-file">' + selectedArray[i].file_name + '</a>');
 
                     // Get the file.
                     var $file = editor.$el.find('#fr-inserted-file');
                     $file.removeAttr('id');
                 }
             }
+
+            selectedRecords = [];
+        }
+
+        function removeSelectedRecords() {
+            var html = editor.html.get();
+            html = $.parseHTML(html);
+            for(i = 0; i < selectedRecords.length; i++){
+                console.log(selectedRecords[i].file_type);
+                if(selectedRecords[i].file_type == 'document'){
+                    $(html).find("a[href='"+selectedRecords[i].path+"']").remove();
+                }
+                else if(selectedRecords[i].file_type == 'image') {
+                    $(html).find("img[src='"+selectedRecords[i].path+"']").remove();
+                }
+            }
+            editor.html.set(html[0].outerHTML);
+
+            selectedRecords = [];
         }
 
         function _setOptions() {
@@ -87,23 +115,7 @@ function richeditorRelationUploadSelect($form) {
         function onInsertImage() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler,
-                size: 'adaptive'
-            })
-        }
-
-        function onInsertVideo() {
-            richeditorRelationUploadPlugin = this;
-            editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler,
-                size: 'adaptive'
-            })
-        }
-
-        function onInsertAudio() {
-            richeditorRelationUploadPlugin = this;
-            editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler,
+                handler: editor.opts.relationRecordsHandler,
                 size: 'adaptive'
             })
         }
@@ -111,7 +123,7 @@ function richeditorRelationUploadSelect($form) {
         function onInsertFile() {
             richeditorRelationUploadPlugin = this;
             editor.$el.popup({
-                handler: editor.opts.relationUploadBrowseHandler,
+                handler: editor.opts.relationRecordsHandler,
                 size: 'adaptive'
             })
         }
@@ -125,10 +137,10 @@ function richeditorRelationUploadSelect($form) {
 
         return {
             _init: _init,
-            insertFromBrowse: insertFromBrowse,
+            setSelectedRecords: setSelectedRecords,
+            insertSelectedRecords: insertSelectedRecords,
+            removeSelectedRecords: removeSelectedRecords,
             insertImage: onInsertImage,
-            insertVideo: onInsertVideo,
-            insertAudio: onInsertAudio,
             insertFile: onInsertFile,
         }
     }
@@ -147,40 +159,6 @@ function richeditorRelationUploadSelect($form) {
 
     // Add the font size icon.
     $.FE.DefineIcon('relationUploadImageManager', {
-        NAME: 'folder'
-    });
-
-    $.FE.DEFAULTS.videoInsertButtons.push('relationUploadVideoManager');
-
-    $.FE.RegisterCommand('relationUploadVideoManager', {
-        title: 'Browse',
-        undo: false,
-        focus: false,
-        callback: function () {
-            this.relationUpload.insertVideo();
-        },
-        plugin: 'relationUpload'
-    })
-
-    // Add the font size icon.
-    $.FE.DefineIcon('relationUploadVideoManager', {
-        NAME: 'folder'
-    });
-
-    $.FE.DEFAULTS.audioInsertButtons.push('relationUploadAudioManager');
-
-    $.FE.RegisterCommand('relationUploadAudioManager', {
-        title: 'Browse',
-        undo: false,
-        focus: false,
-        callback: function () {
-            this.relationUpload.insertAudio();
-        },
-        plugin: 'relationUpload'
-    })
-
-    // Add the font size icon.
-    $.FE.DefineIcon('relationUploadAudioManager', {
         NAME: 'folder'
     });
 

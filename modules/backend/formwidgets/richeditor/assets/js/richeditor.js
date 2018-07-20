@@ -85,7 +85,7 @@
                 'emoticons', 'colors', 'url', 'lineBreaker', 'entities', 'draggable', 'codeBeautifier',
                 'mediaManager', 'pageLinks', 'figures', 'relationUpload',
             ],
-            relationUploadBrowseHandler: this.options.relationUploadHandler
+            relationRecordsHandler: this.options.relationRecordsHandler
         }
 
         if (this.options.toolbarButtons) {
