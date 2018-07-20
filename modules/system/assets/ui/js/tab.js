@@ -8,8 +8,7 @@
  *  - bootstrap/tab
  *  - storm/toolbar
  */
-+function ($) {
-    "use strict";
++function ($) { "use strict";
 
     var Tab = function (element, options) {
 
@@ -17,7 +16,7 @@
         this.options = options || {}
         this.$tabsContainer = $('.nav-tabs:first', $el)
         this.$pagesContainer = $('.tab-content:first', $el)
-        this.tabId = 'tabs' + $el.parents().length + Math.round(Math.random() * 1000);
+        this.tabId = 'tabs' + $el.parents().length + Math.round(Math.random()*1000);
 
         if (this.options.closable !== undefined && this.options.closable !== false)
             $el.attr('data-closable', '')
@@ -25,12 +24,12 @@
         this.init()
     }
 
-    Tab.prototype.init = function () {
+    Tab.prototype.init = function() {
         var self = this;
 
         this.options.slidable = this.options.slidable !== undefined && this.options.slidable !== false
 
-        $('> li', this.$tabsContainer).each(function (index) {
+        $('> li', this.$tabsContainer).each(function(index){
             self.initTab(this)
         })
 
@@ -52,22 +51,22 @@
             }
         })
 
-        this.$el.on('toggleCollapse.oc.tab', function (ev, data) {
+        this.$el.on('toggleCollapse.oc.tab', function(ev, data){
             ev.preventDefault()
             $(ev.target).closest('div.tab-content > div').toggleClass('collapsed')
         })
 
-        this.$el.on('modified.oc.tab', function (ev) {
+        this.$el.on('modified.oc.tab', function(ev){
             ev.preventDefault()
             self.modifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))
         })
 
-        this.$el.on('unmodified.oc.tab', function (ev) {
+        this.$el.on('unmodified.oc.tab', function(ev){
             ev.preventDefault()
             self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))
         })
 
-        this.$tabsContainer.on('shown.bs.tab', 'li', function () {
+        this.$tabsContainer.on('shown.bs.tab', 'li', function(){
             // self.$tabsContainer.dragScroll('fixScrollClasses')
             $(window).trigger('oc.updateUi')
 
@@ -79,8 +78,8 @@
 
         if (this.options.slidable) {
             this.$pagesContainer.touchwipe({
-                wipeRight: function () { self.prev(); },
-                wipeLeft: function () { self.next(); },
+                wipeRight: function(){self.prev();},
+                wipeLeft: function(){self.next();},
                 preventDefaultEvents: false,
                 min_move_x: 60
             });
@@ -93,7 +92,7 @@
         this.updateClasses()
     }
 
-    Tab.prototype.initTab = function (li) {
+    Tab.prototype.initTab = function(li) {
         var
             $tabs = $('>li', this.$tabsContainer),
             tabIndex = $tabs.index(li),
@@ -102,8 +101,8 @@
             $anchor = $('a', li)
 
         $anchor
-            .data('target', '#' + targetId)
-            .attr('data-target', '#' + targetId)
+            .data('target', '#'+targetId)
+            .attr('data-target', '#'+targetId)
             .attr('data-toggle', 'tab')
 
         if (!$anchor.attr('title'))
@@ -114,12 +113,12 @@
         $anchor.html('')
         $anchor
             .append($('<span class="title"></span>')
-                .append($('<span></span>').html(html)))
+            .append($('<span></span>').html(html)))
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
 
         if (!$('span.tab-close', li).length) {
-            $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function () {
+            $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
                 $(this).trigger('close.oc.tab')
                 return false
             }))
@@ -127,10 +126,10 @@
 
         pane.data('tab', li)
 
-        this.$el.trigger('initTab.oc.tab', [{ 'pane': pane, 'tab': li }])
+        this.$el.trigger('initTab.oc.tab', [{'pane': pane, 'tab': li}])
     }
 
-    Tab.prototype.addTab = function (title, content, identifier, tabClass) {
+    Tab.prototype.addTab = function(title, content, identifier, tabClass) {
         var
             processedTitle = this.generateTitleText(title, -1),
             $link = $('<a/>').attr('href', 'javascript:;').text(processedTitle),
@@ -164,7 +163,7 @@
         this.updateClasses()
     }
 
-    Tab.prototype.updateTab = function (tab, title, content) {
+    Tab.prototype.updateTab = function(tab, title, content) {
         var tabIndex = this.findTabIndex(tab)
         if (tabIndex == -1)
             return
@@ -183,18 +182,18 @@
         this.updateClasses()
     }
 
-    Tab.prototype.generateTitleText = function (title, tabIndex) {
+    Tab.prototype.generateTitleText = function(title, tabIndex) {
         var newTitle = title
         if (this.options.titleAsFileNames)
             newTitle = title.replace(/^.*[\\\/]/, '')
 
         if (this.options.maxTitleSymbols && newTitle.length > this.options.maxTitleSymbols)
-            newTitle = '...' + newTitle.substring(newTitle.length - this.options.maxTitleSymbols)
+            newTitle = '...'+newTitle.substring(newTitle.length - this.options.maxTitleSymbols)
 
         return newTitle
     }
 
-    Tab.prototype.closeTab = function (tab, force) {
+    Tab.prototype.closeTab = function(tab, force) {
         var tabIndex = this.findTabIndex(tab)
         if (tabIndex == -1)
             return
@@ -221,7 +220,7 @@
         $tab.remove()
 
         if (isActive)
-            $('> li > a', this.$tabsContainer).eq(tabIndex - 1).tab('show')
+            $('> li > a', this.$tabsContainer).eq(tabIndex-1).tab('show')
 
         if ($('> li > a', this.$tabsContainer).length == 0)
             this.$el.trigger('afterAllClosed.oc.tab')
@@ -232,14 +231,14 @@
         this.updateClasses()
     }
 
-    Tab.prototype.updateClasses = function () {
+    Tab.prototype.updateClasses = function() {
         if (this.$tabsContainer.children().length > 0)
             this.$el.addClass('has-tabs')
         else
             this.$el.removeClass('has-tabs')
     }
 
-    Tab.prototype.modifyTab = function (tab) {
+    Tab.prototype.modifyTab = function(tab) {
         var tabIndex = this.findTabIndex(tab)
         if (tabIndex == -1)
             return
@@ -248,7 +247,7 @@
         $('> div', this.$pagesContainer).eq(tabIndex).attr('data-modified', '')
     }
 
-    Tab.prototype.unmodifyTab = function (tab) {
+    Tab.prototype.unmodifyTab = function(tab) {
         var tabIndex = this.findTabIndex(tab)
         if (tabIndex == -1)
             return
@@ -257,7 +256,7 @@
         $('> div', this.$pagesContainer).eq(tabIndex).removeAttr('data-modified')
     }
 
-    Tab.prototype.findTabIndex = function (tab) {
+    Tab.prototype.findTabIndex = function(tab) {
         var tabToFind = tab
 
         if (tab === undefined)
@@ -271,22 +270,22 @@
         return tabParent.children().index($(tabToFind))
     }
 
-    Tab.prototype.findTabFromPane = function (pane) {
+    Tab.prototype.findTabFromPane = function(pane) {
         var id = '#' + $(pane).attr('id'),
             tab = $('[data-target="' + id + '"]', this.$tabsContainer)
 
         return tab
     }
 
-    Tab.prototype.findPaneFromTab = function (tab) {
+    Tab.prototype.findPaneFromTab = function(tab) {
         var id = $(tab).find('> a').data('target'),
             pane = this.$pagesContainer.find(id)
 
         return pane
     }
 
-    Tab.prototype.goTo = function (identifier) {
-        var $tab = $('[data-tab-id="' + identifier + '" ]', this.$tabsContainer)
+    Tab.prototype.goTo = function(identifier) {
+        var $tab = $('[data-tab-id="'+identifier+'" ]', this.$tabsContainer)
 
         if ($tab.length == 0)
             return false
@@ -302,7 +301,7 @@
         return true
     }
 
-    Tab.prototype.goToPane = function (pane) {
+    Tab.prototype.goToPane = function(pane) {
         var $pane = $(pane),
             $tab = this.findTabFromPane($pane)
 
@@ -323,15 +322,15 @@
         return true
     }
 
-    Tab.prototype.goToElement = function (element) {
+    Tab.prototype.goToElement = function(element) {
         return this.goToPane(element.closest('.tab-pane'))
     }
 
-    Tab.prototype.findByIdentifier = function (identifier) {
-        return $('[data-tab-id="' + identifier + '" ]', this.$tabsContainer);
+    Tab.prototype.findByIdentifier = function(identifier) {
+        return $('[data-tab-id="'+identifier+'" ]', this.$tabsContainer);
     }
 
-    Tab.prototype.updateIdentifier = function (tab, identifier) {
+    Tab.prototype.updateIdentifier = function(tab, identifier) {
         var index = this.findTabIndex(tab)
         if (index == -1)
             return
@@ -339,7 +338,7 @@
         $('> li', this.$tabsContainer).eq(index).attr('data-tab-id', identifier)
     }
 
-    Tab.prototype.updateTitle = function (tab, title) {
+    Tab.prototype.updateTitle = function(tab, title) {
         var index = this.findTabIndex(tab)
         if (index == -1)
             return
@@ -351,24 +350,24 @@
         $link.text(processedTitle)
     }
 
-    Tab.prototype.goToIndex = function (index) {
+    Tab.prototype.goToIndex = function(index) {
         $('> li > a', this.$tabsContainer).eq(index).tab('show')
     }
 
-    Tab.prototype.prev = function () {
+    Tab.prototype.prev = function() {
         var tabIndex = this.findTabIndex()
         if (tabIndex <= 0)
             return
 
-        this.goToIndex(tabIndex - 1)
+        this.goToIndex(tabIndex-1)
     }
 
-    Tab.prototype.next = function () {
+    Tab.prototype.next = function() {
         var tabIndex = this.findTabIndex()
         if (tabIndex == -1)
             return
 
-        this.goToIndex(tabIndex + 1)
+        this.goToIndex(tabIndex+1)
     }
 
     Tab.DEFAULTS = {
@@ -384,19 +383,19 @@
 
         return this.each(function () {
             var $this = $(this)
-            var data = $this.data('oc.tab')
+            var data  = $this.data('oc.tab')
             var options = $.extend({}, Tab.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
             if (!data) $this.data('oc.tab', (data = new Tab(this, options)))
             if (typeof option == 'string') {
                 var methodArgs = [];
-                for (var i = 1; i < args.length; i++)
+                for (var i=1; i<args.length; i++)
                     methodArgs.push(args[i])
 
                 data[option].apply(data, methodArgs)
             }
         })
-    }
+      }
 
     $.fn.ocTab.Constructor = Tab
 
@@ -410,14 +409,14 @@
 
     // TAB DATA-API
     // ============
-    $(document).render(function () {
+    $(document).render(function(){
         $('[data-control=tab]').ocTab()
     })
 
     /*
      * Detect invalid fields, focus the tab
      */
-    $(window).on('ajaxInvalidField', function (event, element, name, messages, isFirst) {
+    $(window).on('ajaxInvalidField', function(event, element, name, messages, isFirst){
         if (!isFirst) return
 
         event.preventDefault()
