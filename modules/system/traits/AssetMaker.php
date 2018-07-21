@@ -19,7 +19,7 @@ trait AssetMaker
     /**
      * @var array Collection of assets to display in the layout.
      */
-    protected $assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
+    protected $assets = ['js'=>[], 'mjs'=>[],'css'=>[], 'atom'=>[], 'rss'=>[]];
 
     /**
      * @var string Specifies a path to the asset directory.
@@ -34,12 +34,12 @@ trait AssetMaker
      */
     public function flushAssets()
     {
-        $this->assets = ['js'=>[], 'css'=>[], 'rss'=>[]];
+        $this->assets = ['js'=>[], 'mjs'=>[],'css'=>[], 'atom'=>[], 'rss'=>[]];
     }
 
     /**
-     * Outputs `<link>` and `<script>` tags to load assets previously added with addJs and addCss method calls
-     * @param string $type Return an asset collection of a given type (css, rss, js) or null for all.
+     * Outputs `<link>` and `<script>` tags to load assets previously added with addJs, addMjs and addCss method calls
+     * @param string $type Return an asset collection of a given type (css, js, mjs, atom, rss) or null for all.
      * @return string
      */
     public function makeAssets($type = null)
@@ -86,6 +86,22 @@ trait AssetMaker
             }
         }
 
+        if ($type == null || $type == 'atom') {
+            foreach ($this->assets['atom'] as $asset) {
+                $attributes = Html::attributes(array_merge(
+                    [
+                        'rel'   => 'alternate',
+                        'href'  => $this->getAssetEntryBuildPath($asset),
+                        'title' => 'Atom',
+                        'type'  => 'application/atom+xml'
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
+
+                $result .= '<link' . $attributes . '>' . PHP_EOL;
+            }
+        }        
+
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
                 $attributes = Html::attributes(array_merge(
@@ -98,6 +114,21 @@ trait AssetMaker
                 $result .= '<script' . $attributes . '></script>' . PHP_EOL;
             }
         }
+
+        if ($type == null || $type == 'mjs') {
+            foreach ($this->assets['mjs'] as $asset) {
+                $attributes = Html::attributes(array_merge(
+                    [
+                        'src'   => $this->getAssetEntryBuildPath($asset),
+                        'type'  => 'module',
+
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
+
+                $result .= '<script' . $attributes . '></script>' . PHP_EOL;
+            }
+        }        
 
         return $result;
     }
@@ -133,6 +164,36 @@ trait AssetMaker
     }
 
     /**
+     * Adds JavaScript Module asset to the asset list. Call $this->makeAssets() in a view
+     * to output corresponding markup.
+     * @param string $name Specifies a path (URL) to the script.
+     * @param array $attributes Adds extra HTML attributes to the asset link.
+     * @return void
+     */
+    public function addMjs($name, $attributes = [])
+    {
+        if (is_array($name)) {
+            $name = $this->combineAssets($name);
+        }
+
+        $mjsPath = $this->getAssetPath($name);
+
+        if (isset($this->controller)) {
+            $this->controller->addMjs($mjsPath, $attributes);
+        }
+
+        if (is_string($attributes)) {
+            $attributes = ['build' => $attributes];
+        }
+
+        $mjsPath = $this->getAssetScheme($mjsPath);
+
+        if (!in_array($mjsPath, $this->assets['mjs'])) {
+            $this->assets['mjs'][] = ['path' => $mjsPath, 'attributes' => $attributes];
+        }
+    }    
+
+    /**
      * Adds StyleSheet asset to the asset list. Call $this->makeAssets() in a view
      * to output corresponding markup.
      * @param string $name Specifies a path (URL) to the script.
@@ -161,6 +222,32 @@ trait AssetMaker
             $this->assets['css'][] = ['path' => $cssPath, 'attributes' => $attributes];
         }
     }
+
+    /**
+     * Adds an Atom link asset to the asset list. Call $this->makeAssets() in a view
+     * to output corresponding markup.
+     * @param string $name Specifies a path (URL) to the Atom channel
+     * @param array $attributes Adds extra HTML attributes to the asset link.
+     * @return void
+     */
+    public function addAtom($name, $attributes = [])
+    {
+        $atomPath = $this->getAssetPath($name);
+
+        if (isset($this->controller)) {
+            $this->controller->addAtom($atomPath, $attributes);
+        }
+
+        if (is_string($attributes)) {
+            $attributes = ['build' => $attributes];
+        }
+
+        $atomPath = $this->getAssetScheme($atomPath);
+
+        if (!in_array($atomPath, $this->assets['atom'])) {
+            $this->assets['atom'][] = ['path' => $atomPath, 'attributes' => $attributes];
+        }
+    }    
 
     /**
      * Adds an RSS link asset to the asset list. Call $this->makeAssets() in a view
