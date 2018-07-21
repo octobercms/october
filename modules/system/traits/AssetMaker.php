@@ -120,7 +120,7 @@ trait AssetMaker
                 $attributes = Html::attributes(array_merge(
                     [
                         'src'   => $this->getAssetEntryBuildPath($asset),
-                        'type'  => 'module',
+                        'type'  => 'module'
 
                     ],
                     array_except($asset['attributes'], $reserved)
