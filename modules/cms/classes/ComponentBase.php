@@ -247,22 +247,6 @@ abstract class ComponentBase extends Extendable
         return $default;
     }
 
-    /**
-     * @param string $componentName
-     * @param string $page
-     * @return ComponentBase|null
-     */
-    public function getComponent(string $componentName, string $page)
-    {
-        $component = Page::load(Theme::getActiveTheme(), $page)->getComponent($componentName);
-
-        if (!is_null($component)) {
-            $this->controller->setComponentPropertiesFromParams($component);
-        }
-
-        return $component;
-    }
-
     //
     // Magic methods
     //
