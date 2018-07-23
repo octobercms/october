@@ -4438,8 +4438,8 @@ $el.attr('data-closable','')
 this.init()}
 Tab.prototype.init=function(){var self=this;this.options.slidable=this.options.slidable!==undefined&&this.options.slidable!==false
 $('> li',this.$tabsContainer).each(function(index){self.initTab(this)})
-this.$el.on('close.oc.tab',function(ev,data){if(2==ev.which){ev.preventDefault();var force=void 0!==data&&void 0!==data.force&&data.force;self.closeTab($(ev.target).closest("ul.nav-tabs > li, div.tab-content > div"),force);}else{ev.preventDefault();var force=(data!==undefined&&data.force!==undefined)?data.force:false;self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'),force)}})
-this.$el.on('toggleCollapse.oc.tab',function(ev,data){ev.preventDefault()
+this.$el.on('close.oc.tab',function(ev,data){ev.preventDefault();var force=(data!==undefined&&data.force!==undefined)?data.force:false;self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'),force)})
+this.$el.on('click',function(ev){if(ev.which===2){$(ev.target).trigger('close.oc.tab');}});this.$el.on('toggleCollapse.oc.tab',function(ev,data){ev.preventDefault()
 $(ev.target).closest('div.tab-content > div').toggleClass('collapsed')})
 this.$el.on('modified.oc.tab',function(ev){ev.preventDefault()
 self.modifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
