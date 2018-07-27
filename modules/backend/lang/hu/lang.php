@@ -26,7 +26,7 @@ return [
             'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
-            'label' => 'Érvénytelen a biztonsági kód.'
+            'label' => 'A biztonsági kód érvényessége lejárt. Töltse be újra az oldalt.'
         ]
     ],
     'partial' => [
@@ -214,7 +214,8 @@ return [
         'upload_file' => 'Fájl feltöltése',
         'upload_error' => 'Feltöltési hiba',
         'remove_confirm' => 'Biztos benne?',
-        'remove_file' => 'Fájl eltávolítása'
+        'remove_file' => 'Fájl eltávolítása',
+        'no_image' => 'A megadott kép nem található!'
     ],
     'form' => [
         'create_title' => 'Új :name',
@@ -270,7 +271,7 @@ return [
         'insert_row_below' => 'Sor beszúrása alá',
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
-        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
+        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy másik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
@@ -446,6 +447,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. CSV fájl',
         'import_file' => 'Fájl feltöltése',
+        'row' => ':row sor',
         'first_row_contains_titles' => 'Az első sor tartalmazza az oszlop neveit',
         'first_row_contains_titles_desc' => 'Hagyja bejelölve, amennyiben a CSV fájl első sora az oszlop neveket tartalmazza.',
         'match_columns' => '2. Oszlopok párosítása',

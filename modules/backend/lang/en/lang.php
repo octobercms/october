@@ -214,7 +214,8 @@ return [
         'upload_file' => 'Upload file',
         'upload_error' => 'Upload error',
         'remove_confirm' => 'Are you sure?',
-        'remove_file' => 'Remove file'
+        'remove_file' => 'Remove file',
+        'no_image' => 'The image is not found!'
     ],
     'form' => [
         'create_title' => 'New :name',

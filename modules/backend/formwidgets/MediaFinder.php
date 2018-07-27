@@ -93,6 +93,10 @@ class MediaFinder extends FormWidgetBase
         $this->vars['mode'] = $this->mode;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['imageHeight'] = $this->imageHeight;
+
+        if ($this->vars['imageUrl'] != '' && !file_exists(str_replace(['modules/backend/formwidgets', '/mediafinder/partials/'], '', __DIR__.$this->vars['imageUrl']))) {
+            $this->vars['imageUrl'] = 'no-image';
+        }
     }
 
     /**

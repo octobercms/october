@@ -23,9 +23,13 @@
     <div class="upload-files-container">
         <?php if ($singleFile): ?>
             <div class="upload-object is-success" data-id="<?= $singleFile->id ?>" data-path="<?= $singleFile->pathUrl ?>">
+                <?php if ($singleFile->thumbUrl != 'no-image'): ?>
                 <div class="icon-container image">
                     <img src="<?= $singleFile->thumbUrl ?>" alt="" />
                 </div>
+                <?php else: ?>
+                <p class="help-block"><?= e(trans('backend::lang.fileupload.no_image')) ?></p>
+                <?php endif; ?>
                 <div class="info">
                     <h4 class="filename">
                         <span data-dz-name><?= e($singleFile->title ?: $singleFile->file_name) ?></span>
