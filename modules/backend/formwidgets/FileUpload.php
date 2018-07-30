@@ -137,10 +137,6 @@ class FileUpload extends FormWidgetBase
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
         $this->vars['prompt'] = $this->getPromptText();
-
-        if ($this->vars['singleFile']->thumbUrl != '' && !file_exists(str_replace(['modules/backend/formwidgets', '/mediafinder/partials/'], '', __DIR__.$this->vars['singleFile']->thumbUrl))) {
-            $this->vars['singleFile']->thumbUrl = 'no-image';
-        }
     }
 
     protected function getFileList()
