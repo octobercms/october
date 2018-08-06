@@ -431,7 +431,7 @@ class Form extends WidgetBase
             $this->fields = [];
         }
 
-        $this->allTabs->outside = new FormTabs(FormTabs::SECTION_OUTSIDE, $this->config);
+        $this->allTabs->outside = new FormTabs(FormTabs::SECTION_OUTSIDE, (array) $this->config);
         $this->addFields($this->fields);
 
         /*
