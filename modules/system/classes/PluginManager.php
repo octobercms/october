@@ -419,6 +419,7 @@ class PluginManager
         $parts = explode('\\', $namespace);
         $slice = array_slice($parts, 1, 2);
         $namespace = implode('.', $slice);
+
         return $namespace;
     }
 
@@ -596,7 +597,9 @@ class PluginManager
                     continue;
                 }
 
-                $missing[] = $require;
+                if (!in_array($require, $missing)) {
+                    $missing[] = $require;
+                }
             }
         }
 
