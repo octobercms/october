@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area'
+        'title' => 'Administration Area',
+        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
