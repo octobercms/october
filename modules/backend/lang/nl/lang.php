@@ -362,6 +362,8 @@ return [
         'no_wrap_comment' => 'Een lijst van tags die niet worden afgebroken.',
         'remove_tags' => 'Te verwijderen HTML-tags',
         'remove_tags_comment' => 'Een lijst van HTML-tags die samen met hun inhoud worden verwijderd.',
+        'line_breaker_tags' => 'Line breaker tags',
+        'line_breaker_tags_comment' => 'Een lijst van HTML-tags waartussen een line breaker element wordt geplaatst.',
         'toolbar_buttons' => 'Toolbar knoppen',
         'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
