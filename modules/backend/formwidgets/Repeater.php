@@ -32,6 +32,11 @@ class Repeater extends FormWidgetBase
     public $sortable = false;
 
     /**
+     * @var string Field name to use for the title of collapsed items
+     */
+    public $titleFrom = false;
+
+    /**
      * @var int Maximum repeated items allowable.
      */
     public $maxItems = null;
@@ -88,6 +93,7 @@ class Repeater extends FormWidgetBase
             'form',
             'prompt',
             'sortable',
+            'titleFrom',
             'maxItems',
         ]);
 
@@ -125,7 +131,7 @@ class Repeater extends FormWidgetBase
         if (!self::$onAddItemCalled) {
             $this->processExistingItems();
         }
-        
+
         if ($this->previewMode) {
             foreach ($this->formWidgets as $widget) {
                 $widget->previewMode = true;
@@ -137,6 +143,7 @@ class Repeater extends FormWidgetBase
 
         $this->vars['prompt'] = $this->prompt;
         $this->vars['formWidgets'] = $this->formWidgets;
+        $this->vars['titleFrom'] = $this->titleFrom;
         $this->vars['maxItems'] = $this->maxItems;
 
         $this->vars['useGroups'] = $this->useGroups;

@@ -181,7 +181,7 @@
         }
 
         if (this.options.titleFrom) {
-            $target = $('[data-field-name="'+this.options.titleFrom+'"]')
+            $target = $('[data-field-name="'+this.options.titleFrom+'"]', $item)
             if (!$target.length) {
                 $target = $item
             }
