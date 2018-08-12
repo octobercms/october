@@ -217,6 +217,10 @@ return [
         'remove_confirm' => 'Are you sure?',
         'remove_file' => 'Remove file'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
+        'max_items_failed' => ':name only allows up to :max items, :items were provided',
+    ],
     'form' => [
         'create_title' => 'New :name',
         'update_title' => 'Edit :name',

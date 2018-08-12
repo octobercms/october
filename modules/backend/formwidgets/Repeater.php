@@ -1,8 +1,9 @@
 <?php namespace Backend\FormWidgets;
 
+use Lang;
+use ApplicationException;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
-use ApplicationException;
 
 /**
  * Repeater Form Widget
@@ -37,7 +38,12 @@ class Repeater extends FormWidgetBase
     public $titleFrom = false;
 
     /**
-     * @var int Maximum repeated items allowable.
+     * @var int Minimum items required. Pre-displays those items when not using groups
+     */
+    public $minItems = null;
+
+    /**
+     * @var int Maximum items permitted
      */
     public $maxItems = null;
 
@@ -94,6 +100,7 @@ class Repeater extends FormWidgetBase
             'prompt',
             'sortable',
             'titleFrom',
+            'minItems',
             'maxItems',
         ]);
 
@@ -144,6 +151,7 @@ class Repeater extends FormWidgetBase
         $this->vars['prompt'] = $this->prompt;
         $this->vars['formWidgets'] = $this->formWidgets;
         $this->vars['titleFrom'] = $this->titleFrom;
+        $this->vars['minItems'] = $this->minItems;
         $this->vars['maxItems'] = $this->maxItems;
 
         $this->vars['useGroups'] = $this->useGroups;
@@ -184,6 +192,13 @@ class Repeater extends FormWidgetBase
             }
         }
 
+        if ($this->minItems && count($value) < $this->minItems) {
+            throw new ApplicationException(Lang::get('backend::lang.repeater.min_items_failed', ['name' => $this->fieldName, 'min' => $this->minItems, 'items' => count($value)]));
+        }
+        if ($this->maxItems && count($value) > $this->maxItems) {
+            throw new ApplicationException(Lang::get('backend::lang.repeater.max_items_failed', ['name' => $this->fieldName, 'max' => $this->maxItems, 'items' => count($value)]));
+        }
+
         return array_values($value);
     }
 
@@ -195,6 +210,21 @@ class Repeater extends FormWidgetBase
     {
         $loadedIndexes = $loadedGroups = [];
         $loadValue = $this->getLoadValue();
+
+        // Ensure that the minimum number of items are preinitialized
+        // ONLY DONE WHEN NOT IN GROUP MODE
+        if (!$this->useGroups && $this->minItems > 0) {
+            if (!is_array($loadValue)) {
+                $loadValue = [];
+                for ($i = 0; $i < $this->minItems; $i++) {
+                    $loadValue[$i] = [];
+                }
+            } elseif (count($loadValue) < $this->minItems) {
+                for ($i = 0; $i < ($this->minItems - count($loadValue)); $i++) {
+                    $loadValue[] = [];
+                }
+            }
+        }
 
         if (is_array($loadValue)) {
             foreach ($loadValue as $index => $loadedValue) {
