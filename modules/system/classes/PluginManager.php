@@ -431,7 +431,7 @@ class PluginManager
      *
      * @return string
      */
-    public function normalizeIdentifier(string $identifier): string
+    public function normalizeIdentifier($identifier)
     {
         foreach ($this->plugins as $id => $object) {
             if (strtolower($id) == strtolower($identifier)) {
