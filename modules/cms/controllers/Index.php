@@ -180,10 +180,10 @@ class Index extends Controller
             $templateData['code'] = $this->convertLineEndings($templateData['code']);
         }
 
-        if (!Request::input('templateForceSave') && $template->mtime) {
-            if (Request::input('templateMtime') != $template->mtime) {
-                throw new ApplicationException('mtime-mismatch');
-            }
+        if (!Request::input('templateForceSave') && $template->mtime
+            && Request::input('templateMtime') != $template->mtime
+        ) {
+            throw new ApplicationException('mtime-mismatch');
         }
 
         $template->attributes = [];

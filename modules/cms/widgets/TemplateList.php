@@ -372,10 +372,8 @@ class TemplateList extends WidgetBase
     {
         $operator = $exact ? 'is' : 'contains';
 
-        if (strlen($item->title)) {
-            if (Str::$operator(Str::lower($item->title), $word)) {
-                return true;
-            }
+        if (strlen($item->title) && Str::$operator(Str::lower($item->title), $word)) {
+            return true;
         }
 
         if (Str::$operator(Str::lower($item->fileName), $word)) {

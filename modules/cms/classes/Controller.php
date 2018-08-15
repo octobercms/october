@@ -828,15 +828,12 @@ class Controller
             /*
              * Component alias is supplied
              */
-            else {
-                if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
-                    if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
-                    }
-                    else {
-                        return false;
-                    }
+            elseif (($componentObj = $this->findComponentByName($componentAlias)) === null) {
+                if ($throwException) {
+                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
                 }
+
+                return false;
             }
 
             $partial = null;
@@ -870,18 +867,15 @@ class Controller
              */
             $this->vars['__SELF__'] = $componentObj;
         }
-        else {
-            /*
-             * Process theme partial
-             */
-            if (($partial = Partial::loadCached($this->theme, $name)) === null) {
-                if ($throwException) {
-                    throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
-                }
-                else {
-                    return false;
-                }
+        /*
+         * Process theme partial
+         */
+        elseif (($partial = Partial::loadCached($this->theme, $name)) === null) {
+            if ($throwException) {
+                throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
             }
+
+            return false;
         }
 
         /*

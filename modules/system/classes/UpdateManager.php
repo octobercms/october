@@ -189,10 +189,11 @@ class UpdateManager
         /*
          * Retry period not passed, skipping.
          */
-        if (!$force && ($retryTimestamp = Parameter::get('system::update.retry'))) {
-            if (Carbon::createFromTimeStamp($retryTimestamp)->isFuture()) {
-                return $oldCount;
-            }
+        if (!$force
+            && ($retryTimestamp = Parameter::get('system::update.retry'))
+            && Carbon::createFromTimeStamp($retryTimestamp)->isFuture()
+        ) {
+            return $oldCount;
         }
 
         try {
@@ -535,11 +536,11 @@ class UpdateManager
         /*
          * Remove the plugin database and version
          */
-        if (!($plugin = $this->pluginManager->findByIdentifier($name))) {
-            if ($this->versionManager->purgePlugin($name)) {
-                $this->note('<info>Purged from database:</info> ' . $name);
-                return $this;
-            }
+        if (!($plugin = $this->pluginManager->findByIdentifier($name))
+            && $this->versionManager->purgePlugin($name)
+        ) {
+            $this->note('<info>Purged from database:</info> ' . $name);
+            return $this;
         }
 
         if ($this->versionManager->removePlugin($plugin)) {

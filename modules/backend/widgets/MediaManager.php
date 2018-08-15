@@ -1039,10 +1039,10 @@ class MediaManager extends WidgetBase
     protected function resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath)
     {
         $thumbnailDir = dirname($fullThumbnailPath);
-        if (!File::isDirectory($thumbnailDir)) {
-            if (File::makeDirectory($thumbnailDir, 0777, true) === false) {
-                throw new SystemException('Error creating thumbnail directory');
-            }
+        if (!File::isDirectory($thumbnailDir)
+            && File::makeDirectory($thumbnailDir, 0777, true) === false
+        ) {
+            throw new SystemException('Error creating thumbnail directory');
         }
 
         $targetDimensions = $this->getTargetDimensions($thumbnailParams['width'], $thumbnailParams['height'], $tempFilePath);
@@ -1080,10 +1080,10 @@ class MediaManager extends WidgetBase
     {
         try {
             $thumbnailDir = dirname($path);
-            if (!File::isDirectory($thumbnailDir)) {
-                if (File::makeDirectory($thumbnailDir, 0777, true) === false)
-                    return;
+            if (!File::isDirectory($thumbnailDir) && File::makeDirectory($thumbnailDir, 0777, true) === false) {
+                return;
             }
+
             File::copy($this->getBrokenImagePath(), $path);
         }
         catch (Exception $ex) {

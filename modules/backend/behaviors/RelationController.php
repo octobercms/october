@@ -379,11 +379,9 @@ class RelationController extends ControllerBehavior
         /*
          * Pivot widget
          */
-        if ($this->manageMode == 'pivot') {
-            if ($this->pivotWidget = $this->makePivotWidget()) {
-                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
-                $this->pivotWidget->bindToController();
-            }
+        if ($this->manageMode == 'pivot' && $this->pivotWidget = $this->makePivotWidget()) {
+            $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
+            $this->pivotWidget->bindToController();
         }
     }
 
@@ -695,22 +693,22 @@ class RelationController extends ControllerBehavior
             /*
              * Constrain the list by the search widget, if available
              */
-            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')) {
-                if ($searchWidget = $this->toolbarWidget->getSearchWidget()) {
-                    $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
-                        $widget->setSearchTerm($searchWidget->getActiveTerm());
-                        return $widget->onRefresh();
-                    });
+            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')
+                && $searchWidget = $this->toolbarWidget->getSearchWidget()
+            ) {
+                $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
+                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                    return $widget->onRefresh();
+                });
 
-                    /*
-                     * Persist the search term across AJAX requests only
-                     */
-                    if (Request::ajax()) {
-                        $widget->setSearchTerm($searchWidget->getActiveTerm());
-                    }
-                    else {
-                        $searchWidget->setActiveTerm(null);
-                    }
+                /*
+                 * Persist the search term across AJAX requests only
+                 */
+                if (Request::ajax()) {
+                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                }
+                else {
+                    $searchWidget->setActiveTerm(null);
                 }
             }
         }
@@ -1524,12 +1522,10 @@ class RelationController extends ControllerBehavior
     {
         $config = isset($this->config->{$mode}) ? $this->config->{$mode} : [];
 
-        if ($context = array_get($config, 'context')) {
-            if (is_array($context)) {
-                $context = $exists
-                    ? array_get($context, 'update')
-                    : array_get($context, 'create');
-            }
+        if (($context = array_get($config, 'context')) && is_array($context)) {
+            $context = $exists
+                ? array_get($context, 'update')
+                : array_get($context, 'create');
         }
 
         if (!$context) {
