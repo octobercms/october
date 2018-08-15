@@ -873,7 +873,7 @@ class Lists extends WidgetBase
             $config['searchable'] = false;
         }
 
-        $columnType = isset($config['type']) ? $config['type'] : null;
+        $columnType = $config['type'] ?? null;
 
         $column = new ListColumn($name, $label);
         $column->displayAs($columnType, $config);
@@ -1220,7 +1220,7 @@ class Lists extends WidgetBase
 
         $dateTime = $this->validateDateTimeValue($value, $column);
 
-        $format = $column->format !== null ? $column->format : 'g:i A';
+        $format = $column->format ?? 'g:i A';
 
         $value = $dateTime->format($format);
 
@@ -1489,9 +1489,7 @@ class Lists extends WidgetBase
             }
             elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
                 $this->sortColumn = $this->defaultSort['column'];
-                $this->sortDirection = (isset($this->defaultSort['direction'])) ?
-                    $this->defaultSort['direction'] :
-                    'desc';
+                $this->sortDirection = $this->defaultSort['direction'] ?? 'desc';
             }
         }
 

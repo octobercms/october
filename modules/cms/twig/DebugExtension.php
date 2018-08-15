@@ -374,7 +374,7 @@ class DebugExtension extends Twig_Extension
         }
 
         $method = $parts[1];
-        return isset($this->commentMap[$method]) ?  $this->commentMap[$method] : null;
+        return $this->commentMap[$method] ?? null;
     }
 
     /**

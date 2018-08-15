@@ -421,7 +421,7 @@ class RelationController extends ControllerBehavior
         /*
          * Determine the partial to use based on the supplied section option
          */
-        $section = isset($options['section']) ? $options['section'] : null;
+        $section = $options['section'] ?? null;
         switch (strtolower($section)) {
             case 'toolbar':
                 return $this->toolbarWidget ? $this->toolbarWidget->render() : null;
@@ -1520,7 +1520,7 @@ class RelationController extends ControllerBehavior
      */
     protected function evalFormContext($mode = 'manage', $exists = false)
     {
-        $config = isset($this->config->{$mode}) ? $this->config->{$mode} : [];
+        $config = $this->config->{$mode} ?? [];
 
         if (($context = array_get($config, 'context')) && is_array($context)) {
             $context = $exists

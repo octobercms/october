@@ -55,7 +55,7 @@ trait SessionMaker
             return $currentStore;
         }
 
-        return isset($currentStore[$key]) ? $currentStore[$key] : $default;
+        return $currentStore[$key] ?? $default;
     }
 
     /**

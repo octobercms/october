@@ -232,6 +232,6 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return isset($this->fields[$offset]) ? $this->fields[$offset] : null;
+        return $this->fields[$offset] ?? null;
     }
 }

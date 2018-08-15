@@ -251,9 +251,9 @@ class UpdateManager
          */
         $plugins = [];
         foreach (array_get($result, 'plugins', []) as $code => $info) {
-            $info['name'] = isset($names[$code]) ? $names[$code] : $code;
-            $info['old_version'] = isset($versions[$code]) ? $versions[$code] : false;
-            $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
+            $info['name'] = $names[$code] ?? $code;
+            $info['old_version'] = $versions[$code] ?? false;
+            $info['icon'] = $icons[$code] ?? false;
 
             /*
              * If a plugin has updates frozen, or cannot be updated,

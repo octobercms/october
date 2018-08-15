@@ -140,7 +140,7 @@ trait ViewMaker
      */
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
-        $layout = $name === null ? $this->layout : $name;
+        $layout = $name ?? $this->layout;
         if ($layout == '') {
             return '';
         }

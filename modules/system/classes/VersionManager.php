@@ -327,9 +327,7 @@ class VersionManager
             ;
         }
 
-        return isset($this->databaseVersions[$code])
-            ? $this->databaseVersions[$code]
-            : self::NO_VERSION_VALUE;
+        return $this->databaseVersions[$code] ?? self::NO_VERSION_VALUE;
     }
 
     /**

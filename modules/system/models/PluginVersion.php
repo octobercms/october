@@ -146,9 +146,7 @@ class PluginVersion extends Model
             self::$versionCache = self::lists('version', 'code');
         }
 
-        return isset(self::$versionCache[$pluginCode])
-            ? self::$versionCache[$pluginCode]
-            : null;
+        return self::$versionCache[$pluginCode] ?? null;
     }
 
     /**

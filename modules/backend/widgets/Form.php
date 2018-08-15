@@ -643,7 +643,7 @@ class Form extends WidgetBase
      */
     protected function makeFormField($name, $config = [])
     {
-        $label = isset($config['label']) ? $config['label'] : null;
+        $label = $config['label'] ?? null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
         $field = new FormField($fieldName, $label);
@@ -671,7 +671,7 @@ class Form extends WidgetBase
          */
         else {
 
-            $fieldType = isset($config['type']) ? $config['type'] : null;
+            $fieldType = $config['type'] ?? null;
             if (!is_string($fieldType) && $fieldType !== null) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.invalid_type',
@@ -714,7 +714,7 @@ class Form extends WidgetBase
              * Defer the execution of option data collection
              */
             $field->options(function () use ($field, $config) {
-                $fieldOptions = isset($config['options']) ? $config['options'] : null;
+                $fieldOptions = $config['options'] ?? null;
                 $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
                 return $fieldOptions;
             });

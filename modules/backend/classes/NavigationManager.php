@@ -466,9 +466,7 @@ class NavigationManager
     {
         $key = $owner.$mainMenuItemCode;
 
-        return array_key_exists($key, $this->contextSidenavPartials)
-            ? $this->contextSidenavPartials[$key]
-            : null;
+        return $this->contextSidenavPartials[$key] ?? null;
     }
 
     /**

@@ -590,9 +590,7 @@ class ImportExportController extends ControllerBehavior
     {
         $lists = $this->controller->makeLists();
 
-        $widget = isset($lists[$definition])
-            ? $lists[$definition]
-            : reset($lists);
+        $widget = $lists[$definition] ?? reset($lists);
 
         /*
          * Parse options

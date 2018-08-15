@@ -484,7 +484,7 @@ class Controller
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
         $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
-        $strictVariables = $strictVariables === null ? $isDebugMode : $strictVariables;
+        $strictVariables = $strictVariables ?? $isDebugMode;
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
@@ -1354,15 +1354,10 @@ class Controller
 
                 if (substr($paramName, 0, 1) == ':') {
                     $routeParamName = substr($paramName, 1);
-                    $newPropertyValue = array_key_exists($routeParamName, $routerParameters)
-                        ? $routerParameters[$routeParamName]
-                        : null;
-
+                    $newPropertyValue = $routerParameters[$routeParamName] ?? null;
                 }
                 else {
-                    $newPropertyValue = array_key_exists($paramName, $parameters)
-                        ? $parameters[$paramName]
-                        : null;
+                    $newPropertyValue = $parameters[$paramName] ?? null;
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);
