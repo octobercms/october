@@ -63,9 +63,8 @@ class OctoberUpdate extends Command
             $this->output->writeln('<info>No new updates found</info>');
             return;
         }
-        else {
-            $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
-        }
+
+        $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
 
         $coreHash = $disableCore ? null : array_get($updateList, 'core.hash');
         $coreBuild = array_get($updateList, 'core.build');

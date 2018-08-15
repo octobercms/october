@@ -91,9 +91,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found_name', ['name' => $partialPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($partialPath, $params);
@@ -151,9 +150,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found_name', ['name' => $layoutPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($layoutPath, $params);

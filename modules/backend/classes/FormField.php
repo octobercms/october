@@ -234,9 +234,8 @@ class FormField
 
             return [];
         }
-        else {
-            $this->options = $value;
-        }
+
+        $this->options = $value;
 
         return $this;
     }
@@ -567,9 +566,8 @@ class FormField
         if ($arrayName) {
             return $arrayName.'['.implode('][', HtmlHelper::nameToArray($this->fieldName)).']';
         }
-        else {
-            return $this->fieldName;
-        }
+
+        return $this->fieldName;
     }
 
     /**

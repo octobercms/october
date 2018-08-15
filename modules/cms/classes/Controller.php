@@ -820,9 +820,8 @@ class Controller
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$partialName]));
                     }
-                    else {
-                        return false;
-                    }
+
+                    return false;
                 }
             }
             /*
@@ -857,9 +856,8 @@ class Controller
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
                 }
-                else {
-                    return false;
-                }
+
+                return false;
             }
 
             /*

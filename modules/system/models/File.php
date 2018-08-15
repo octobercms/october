@@ -54,9 +54,8 @@ class File extends FileBase
         if ($this->isPublic()) {
             return $uploadsFolder . '/public/';
         }
-        else {
-            return $uploadsFolder . '/protected/';
-        }
+
+        return $uploadsFolder . '/protected/';
     }
 
     /**

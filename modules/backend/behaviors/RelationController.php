@@ -1445,9 +1445,8 @@ class RelationController extends ControllerBehavior
                 if ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
-                else {
-                    return 'backend::lang.relation.add_a_new';
-                }
+
+                return 'backend::lang.relation.add_a_new';
             case 'form':
                 if ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
@@ -1508,9 +1507,8 @@ class RelationController extends ControllerBehavior
                 if ($this->eventTarget == 'button-add') {
                     return 'list';
                 }
-                else {
-                    return 'form';
-                }
+
+                return 'form';
         }
     }
 
@@ -1600,9 +1598,8 @@ class RelationController extends ControllerBehavior
             if ($throwException) {
                 throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeConfig($config);

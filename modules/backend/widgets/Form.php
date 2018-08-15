@@ -1163,9 +1163,9 @@ class Form extends WidgetBase
             $key = array_shift($parts);
             if (isset($array[$key])) {
                 return $array[$key];
-            } else {
-                return $default;
             }
+
+            return $default;
         }
 
         foreach ($parts as $segment) {

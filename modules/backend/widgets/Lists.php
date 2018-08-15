@@ -1514,9 +1514,8 @@ class Lists extends WidgetBase
         if ($column === null) {
             return (count($this->getSortableColumns()) > 0);
         }
-        else {
-            return array_key_exists($column, $this->getSortableColumns());
-        }
+
+        return array_key_exists($column, $this->getSortableColumns());
     }
 
     /**

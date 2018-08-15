@@ -54,9 +54,8 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->signin_onSubmit();
             }
-            else {
-                $this->bodyClass .= ' preload';
-            }
+
+            $this->bodyClass .= ' preload';
         }
         catch (Exception $ex) {
             Flash::error($ex->getMessage());

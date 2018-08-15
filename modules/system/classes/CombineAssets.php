@@ -487,9 +487,8 @@ class CombineAssets
         if ($actionExists) {
             return Url::action($combineAction, [$outputFilename], false);
         }
-        else {
-            return '/combine/'.$outputFilename;
-        }
+
+        return '/combine/'.$outputFilename;
     }
 
     /**

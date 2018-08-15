@@ -1303,31 +1303,29 @@ class MediaManager extends WidgetBase
              * If the target dimensions are provided, resize the original image and
              * return its URL and dimensions.
              */
-            else {
 
-                $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
-                if (!File::isFile($originalFilePath)) {
-                    throw new SystemException('The original image is not found in the cropping session directory.');
-                }
-
-                $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
-                $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
-
-                Resizer::open($originalFilePath)
-                    ->resize($params['width'], $params['height'], [
-                        'mode' => 'exact'
-                    ])
-                    ->save($tempFilePath)
-                ;
-
-                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
-                $dimensions = getimagesize($tempFilePath);
-
-                return [
-                    'url' => $url,
-                    'dimensions' => $dimensions
-                ];
+            $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
+            if (!File::isFile($originalFilePath)) {
+                throw new SystemException('The original image is not found in the cropping session directory.');
             }
+
+            $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
+            $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
+
+            Resizer::open($originalFilePath)
+                ->resize($params['width'], $params['height'], [
+                    'mode' => 'exact'
+                ])
+                ->save($tempFilePath)
+            ;
+
+            $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
+            $dimensions = getimagesize($tempFilePath);
+
+            return [
+                'url' => $url,
+                'dimensions' => $dimensions
+            ];
         }
         catch (Exception $ex) {
             if ($sessionDirectoryCreated) {
