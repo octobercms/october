@@ -266,7 +266,7 @@ class OctoberEnv extends Command
             return "'$value'";
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
-        } elseif (is_null($value)) {
+        } elseif ($value === null) {
             return 'null';
         }
 

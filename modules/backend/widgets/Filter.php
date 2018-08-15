@@ -263,7 +263,7 @@ class Filter extends WidgetBase
             case 'text':
                 $values = post('options.value');
 
-                if (!is_null($values) && $values !== '') {
+                if ($values !== null && $values !== '') {
                     list($value) = $values;
                 }
                 else {

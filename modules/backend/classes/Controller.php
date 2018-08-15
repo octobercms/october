@@ -361,7 +361,7 @@ class Controller extends Extendable
         }
 
         // Load the view
-        if (!$this->suppressView && is_null($result)) {
+        if (!$this->suppressView && $result === null) {
             return $this->makeView($actionName);
         }
 

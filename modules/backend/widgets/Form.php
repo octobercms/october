@@ -672,7 +672,7 @@ class Form extends WidgetBase
         else {
 
             $fieldType = isset($config['type']) ? $config['type'] : null;
-            if (!is_string($fieldType) && !is_null($fieldType)) {
+            if (!is_string($fieldType) && $fieldType !== null) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.invalid_type',
                     ['type'=>gettype($fieldType)]

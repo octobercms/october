@@ -115,7 +115,7 @@ class MarkupManager
     {
         $items = $this->transactionMode ? 'transactionItems' : 'items';
 
-        if (is_null($this->$items)) {
+        if ($this->$items === null) {
             $this->$items = [];
         }
 

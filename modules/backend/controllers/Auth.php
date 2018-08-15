@@ -75,7 +75,7 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
-        if (is_null($remember = config('cms.backendForceRemember', true))) {
+        if (($remember = config('cms.backendForceRemember', true)) === null) {
             $remember = (bool) post('remember');
         }
 

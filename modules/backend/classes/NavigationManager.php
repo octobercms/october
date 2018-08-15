@@ -317,7 +317,7 @@ class NavigationManager
     {
         $activeItem = null;
 
-        if (!is_null($owner) && !is_null($code)) {
+        if ($owner !== null && $code !== null) {
             $activeItem = @$this->items[$this->makeItemKey($owner, $code)];
         } else {
             foreach ($this->listMainMenuItems() as $item) {
