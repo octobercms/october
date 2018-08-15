@@ -9,6 +9,7 @@ return [
         'ar' => 'العربية',
         'be' => 'Беларуская',
         'bg' => 'Български',
+        'ca' => 'Català',
         'cs' => 'Čeština',
         'da' => 'Dansk',
         'en' => 'English (United States)',
