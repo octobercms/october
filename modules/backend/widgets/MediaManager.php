@@ -759,7 +759,7 @@ class MediaManager extends WidgetBase
 
         if ($result) {
             if (!isset($result['mode'])) {
-                $result['mode'] = MediaManager::SELECTION_MODE_NORMAL;
+                $result['mode'] = self::SELECTION_MODE_NORMAL;
             }
 
             if (!isset($result['width'])) {
@@ -774,7 +774,7 @@ class MediaManager extends WidgetBase
         }
 
         return [
-            'mode'   => MediaManager::SELECTION_MODE_NORMAL,
+            'mode'   => self::SELECTION_MODE_NORMAL,
             'width'  => null,
             'height' => null
         ];
@@ -783,9 +783,9 @@ class MediaManager extends WidgetBase
     protected function setSelectionParams($selectionMode, $selectionWidth, $selectionHeight)
     {
         if (!in_array($selectionMode, [
-            MediaManager::SELECTION_MODE_NORMAL,
-            MediaManager::SELECTION_MODE_FIXED_RATIO,
-            MediaManager::SELECTION_MODE_FIXED_SIZE
+            self::SELECTION_MODE_NORMAL,
+            self::SELECTION_MODE_FIXED_RATIO,
+            self::SELECTION_MODE_FIXED_SIZE
         ])) {
             throw new ApplicationException('Invalid input data');
         }

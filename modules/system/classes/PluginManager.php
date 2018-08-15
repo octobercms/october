@@ -736,7 +736,7 @@ class PluginManager
         /*
          * Delete from file system
          */
-        if ($pluginPath = PluginManager::instance()->getPluginPath($id)) {
+        if ($pluginPath = self::instance()->getPluginPath($id)) {
             File::deleteDirectory($pluginPath);
         }
     }
