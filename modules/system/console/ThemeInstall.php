@@ -143,13 +143,4 @@ class ThemeInstall extends Command
             ['dirName', InputArgument::OPTIONAL, 'Destination directory name for the theme installation.'],
         ];
     }
-
-    /**
-     * Get the console command options.
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [];
-    }
 }

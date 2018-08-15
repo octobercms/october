@@ -86,14 +86,6 @@ class OctoberInstall extends Command
     }
 
     /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
-    }
-
-    /**
      * Get the console command options.
      */
     protected function getOptions()
