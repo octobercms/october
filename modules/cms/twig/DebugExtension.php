@@ -608,6 +608,6 @@ class DebugExtension extends Twig_Extension
             $strings[] = $key . ': ' . $value;
         }
 
-        return join('; ', $strings);
+        return implode('; ', $strings);
     }
 }
