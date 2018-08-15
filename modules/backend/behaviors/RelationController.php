@@ -421,7 +421,7 @@ class RelationController extends ControllerBehavior
         /*
          * Determine the partial to use based on the supplied section option
          */
-        $section = (isset($options['section'])) ? $options['section'] : null;
+        $section = isset($options['section']) ? $options['section'] : null;
         switch (strtolower($section)) {
             case 'toolbar':
                 return $this->toolbarWidget ? $this->toolbarWidget->render() : null;

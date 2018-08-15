@@ -75,6 +75,6 @@ class File extends FileBase
     protected function copyLocalToStorage($localPath, $storagePath)
     {
         $disk = Storage::disk(Config::get('cms.storage.uploads.disk'));
-        return $disk->put($storagePath, FileHelper::get($localPath), ($this->isPublic()) ? 'public' : null);
+        return $disk->put($storagePath, FileHelper::get($localPath), $this->isPublic() ? 'public' : null);
     }
 }

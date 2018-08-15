@@ -136,7 +136,7 @@ class BackendController extends ControllerBase
             $controller = Str::normalizeClassName($controller);
             $controllerFile = $inPath.strtolower(str_replace('\\', '/', $controller)) . '.php';
             if ($controllerFile = File::existsInsensitive($controllerFile)) {
-                include_once($controllerFile);
+                include_once $controllerFile;
             }
         }
 

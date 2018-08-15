@@ -79,7 +79,7 @@ class VersionManager
      */
     public function updatePlugin($plugin, $stopOnVersion = null)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return false;
@@ -111,7 +111,7 @@ class VersionManager
      */
     public function listNewVersions($plugin)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return [];
@@ -165,7 +165,7 @@ class VersionManager
      */
     public function removePlugin($plugin, $stopOnVersion = null)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return false;
@@ -327,7 +327,7 @@ class VersionManager
             ;
         }
 
-        return (isset($this->databaseVersions[$code]))
+        return isset($this->databaseVersions[$code])
             ? $this->databaseVersions[$code]
             : self::NO_VERSION_VALUE;
     }

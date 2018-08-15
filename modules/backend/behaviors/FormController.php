@@ -472,7 +472,7 @@ class FormController extends ControllerBehavior
             $redirect = Redirect::to($redirectUrl);
         } else {
             // Process relative redirects
-            $redirect = ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+            $redirect = $redirectUrl ? Backend::redirect($redirectUrl) : null;
         }
 
         return $redirect;

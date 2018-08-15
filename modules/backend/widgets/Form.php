@@ -550,7 +550,7 @@ class Form extends WidgetBase
              * Check that the form field matches the active context
              */
             if ($fieldObj->context !== null) {
-                $context = (is_array($fieldObj->context)) ? $fieldObj->context : [$fieldObj->context];
+                $context = is_array($fieldObj->context) ? $fieldObj->context : [$fieldObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
@@ -643,7 +643,7 @@ class Form extends WidgetBase
      */
     protected function makeFormField($name, $config = [])
     {
-        $label = (isset($config['label'])) ? $config['label'] : null;
+        $label = isset($config['label']) ? $config['label'] : null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
         $field = new FormField($fieldName, $label);

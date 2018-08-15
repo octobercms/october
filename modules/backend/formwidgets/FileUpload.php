@@ -207,20 +207,20 @@ class FileUpload extends FormWidgetBase
         $cssDimensions = '';
 
         if ($mode == 'block') {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
-            $cssDimensions .= ($this->imageHeight)
+            $cssDimensions .= $this->imageHeight
                 ? 'height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
         else {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 
-            $cssDimensions .= ($this->imageHeight)
+            $cssDimensions .= $this->imageHeight
                 ? 'height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }

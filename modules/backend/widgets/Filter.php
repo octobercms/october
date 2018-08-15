@@ -524,7 +524,7 @@ class Filter extends WidgetBase
              * Check that the filter scope matches the active context
              */
             if ($scopeObj->context !== null) {
-                $context = (is_array($scopeObj->context)) ? $scopeObj->context : [$scopeObj->context];
+                $context = is_array($scopeObj->context) ? $scopeObj->context : [$scopeObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
@@ -584,7 +584,7 @@ class Filter extends WidgetBase
      */
     protected function makeFilterScope($name, $config)
     {
-        $label = (isset($config['label'])) ? $config['label'] : null;
+        $label = isset($config['label']) ? $config['label'] : null;
         $scopeType = isset($config['type']) ? $config['type'] : null;
 
         $scope = new FilterScope($name, $label);

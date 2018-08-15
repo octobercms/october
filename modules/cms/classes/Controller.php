@@ -332,7 +332,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
-            ($this->verifyCsrfToken()) &&
+            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -717,7 +717,7 @@ class Controller
             if ($componentObj && $componentObj->methodExists($handlerName)) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handlerName);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
         /*
@@ -726,12 +726,12 @@ class Controller
         else {
             if (method_exists($this->pageObj, $handler)) {
                 $result = $this->pageObj->$handler();
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             if (!$this->layout->isFallBack() && method_exists($this->layoutObj, $handler)) {
                 $result = $this->layoutObj->$handler();
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -740,7 +740,7 @@ class Controller
             if (($componentObj = $this->findComponentByHandler($handler)) !== null) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handler);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
 
