@@ -47,14 +47,6 @@ class OctoberEnv extends Command
     protected $connection;
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()

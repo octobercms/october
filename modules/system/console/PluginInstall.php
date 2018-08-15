@@ -29,15 +29,6 @@ class PluginInstall extends Command
     protected $description = 'Install a plugin from the October marketplace.';
 
     /**
-     * Create a new command instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      * @return void
      */

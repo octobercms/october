@@ -30,14 +30,6 @@ class OctoberUpdate extends Command
     protected $description = 'Updates October CMS and all plugins, database and files.';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()

@@ -33,15 +33,6 @@ class ThemeRemove extends Command
     protected $description = 'Delete an existing theme.';
 
     /**
-     * Create a new command instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      * @return void
      */
