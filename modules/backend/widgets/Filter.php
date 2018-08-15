@@ -151,11 +151,11 @@ class Filter extends WidgetBase
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ? $min : '';
-                    $params['min'] = $min ? $min : null;
+                    $params['minStr'] = $min ?: '';
+                    $params['min'] = $min ?: null;
 
-                    $params['maxStr'] = $max ? $max : '∞';
-                    $params['max'] = $max ? $max : null;
+                    $params['maxStr'] = $max ?: '∞';
+                    $params['max'] = $max ?: null;
                 }
 
                 break;

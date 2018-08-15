@@ -118,7 +118,7 @@ class Controller
      */
     public function __construct($theme = null)
     {
-        $this->theme = $theme ? $theme : Theme::getActiveTheme();
+        $this->theme = $theme ?: Theme::getActiveTheme();
         if (!$this->theme) {
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }

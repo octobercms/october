@@ -535,7 +535,7 @@ class MediaManager extends WidgetBase
 
         $urlAndSize = $this->getCropEditImageUrlAndSize($path, $cropSessionKey);
         $width = $urlAndSize['dimensions'][0];
-        $height = $urlAndSize['dimensions'][1] ? $urlAndSize['dimensions'][1] : 1;
+        $height = $urlAndSize['dimensions'][1] ?: 1;
 
         $this->vars['currentSelectionMode'] = $selectionParams['mode'];
         $this->vars['currentSelectionWidth'] = $selectionParams['width'];
