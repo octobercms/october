@@ -3,8 +3,6 @@
 use Str;
 use Lang;
 use Config;
-use Cms\Classes\CodeBase;
-use Cms\Classes\CmsException;
 use October\Rain\Extension\Extendable;
 use BadMethodCallException;
 

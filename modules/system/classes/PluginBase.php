@@ -4,7 +4,6 @@ use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ReflectionClass;
 use SystemException;
 use Yaml;
-use Backend;
 
 /**
  * Plugin base class

@@ -2,8 +2,6 @@
 
 use File;
 use Artisan;
-use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 

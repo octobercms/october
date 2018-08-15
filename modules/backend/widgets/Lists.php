@@ -16,7 +16,6 @@ use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
 use ApplicationException;
-use DateTime;
 
 /**
  * List Widget

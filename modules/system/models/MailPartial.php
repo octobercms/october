@@ -1,6 +1,5 @@
 <?php namespace System\Models;
 
-use Twig;
 use View;
 use Model;
 use Markdown;

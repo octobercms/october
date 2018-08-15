@@ -1,7 +1,6 @@
 <?php namespace Cms\Controllers;
 
 use Flash;
-use Backend;
 use BackendMenu;
 use ApplicationException;
 use Cms\Models\ThemeData;

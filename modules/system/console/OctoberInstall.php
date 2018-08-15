@@ -8,8 +8,6 @@ use PDO;
 use File;
 use Config;
 use Artisan;
-use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 use Backend\Database\Seeds\SeedSetupAdmin;
 use System\Classes\UpdateManager;
 use October\Rain\Config\ConfigWriter;

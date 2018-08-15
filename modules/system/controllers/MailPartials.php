@@ -4,13 +4,11 @@ use Str;
 use Lang;
 use File;
 use Flash;
-use Backend;
 use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use ApplicationException;
 use System\Classes\SettingsManager;
-use Exception;
 
 /**
  * Mail partials controller

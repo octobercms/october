@@ -1,13 +1,10 @@
 <?php namespace System\Classes;
 
-use Twig;
 use Markdown;
 use System\Models\MailPartial;
 use System\Models\MailTemplate;
 use System\Models\MailBrandSetting;
 use System\Helpers\View as ViewHelper;
-use System\Classes\PluginManager;
-use System\Classes\MarkupManager;
 use System\Twig\MailPartialTokenParser;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 

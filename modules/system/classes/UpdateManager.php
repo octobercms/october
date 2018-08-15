@@ -5,7 +5,6 @@ use App;
 use Url;
 use File;
 use Lang;
-use Http;
 use Cache;
 use Schema;
 use Config;
