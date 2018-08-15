@@ -705,6 +705,8 @@ class Filter extends WidgetBase
                     }
                 }
 
+                break;
+
             case 'numberrange':
                 if (is_array($scope->value) && count($scope->value) > 1) {
                     list($min, $max) = array_values($scope->value);
