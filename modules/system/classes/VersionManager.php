@@ -229,7 +229,7 @@ class VersionManager
             $history->delete();
         }
 
-        return (($countHistory + $countVersions) > 0) ? true : false;
+        return ($countHistory + $countVersions) > 0;
     }
 
     //

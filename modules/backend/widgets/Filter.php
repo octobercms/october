@@ -195,7 +195,7 @@ class Filter extends WidgetBase
                 break;
 
             case 'checkbox':
-                $checked = post('value') == 'true' ? true : false;
+                $checked = post('value') == 'true';
                 $this->setScopeValue($scope, $checked);
                 break;
 
