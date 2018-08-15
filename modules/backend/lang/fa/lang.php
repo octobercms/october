@@ -555,8 +555,6 @@ return [
         'direction_asc' => 'صعودی',
         'direction_desc' => 'نزولی',
         'folder' => 'پوشه',
-        'direction_asc' => 'صعودی',
-        'direction_desc' => 'نزولی',
         'no_files_found' => 'فایلی با درخواست شما یافت نشد',
         'delete_empty' => 'لطفا موارد را جهت حذف انتخاب نمایید',
         'delete_confirm' => 'آیا از حذف مورد(های) انتخاب شده اطمینان دارید؟',
