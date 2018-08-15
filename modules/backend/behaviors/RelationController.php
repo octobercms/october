@@ -903,8 +903,7 @@ class RelationController extends ControllerBehavior
             $config->model->setRelation('pivot', $pivotModel);
         }
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $config);
     }
 
     //

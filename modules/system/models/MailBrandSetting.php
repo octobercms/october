@@ -154,8 +154,6 @@ class MailBrandSetting extends Model
 
         $parser->parse(FileHelper::get($basePath . '/custom.less'));
 
-        $css = $parser->getCss();
-
-        return $css;
+        return $parser->getCss();
     }
 }

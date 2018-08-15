@@ -427,9 +427,7 @@ class Index extends Controller
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName()).uniqid();
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     protected function upgradeSettings($settings)

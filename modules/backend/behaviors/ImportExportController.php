@@ -695,8 +695,7 @@ class ImportExportController extends ControllerBehavior
             $widgetConfig->alias = $type.'OptionsForm';
             $widgetConfig->arrayName = ucfirst($type).'Options';
 
-            $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-            return $widget;
+            return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
         }
 
         return null;

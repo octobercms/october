@@ -436,8 +436,7 @@ class FormController extends ControllerBehavior
     protected function createModel()
     {
         $class = $this->config->modelClass;
-        $model = new $class;
-        return $model;
+        return new $class;
     }
 
     /**

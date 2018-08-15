@@ -947,8 +947,7 @@ class Form extends WidgetBase
         }
 
         if ($field->type === 'widget') {
-            $widget = $this->makeFormFieldWidget($field);
-            return $widget->showLabels;
+            return $this->makeFormFieldWidget($field)->showLabels;
         }
 
         return true;

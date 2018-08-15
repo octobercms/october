@@ -246,8 +246,7 @@ class VersionManager
             return self::NO_VERSION_VALUE;
         }
 
-        $latest = trim(key(array_slice($versionInfo, -1, 1)));
-        return $latest;
+        return trim(key(array_slice($versionInfo, -1, 1)));
     }
 
     /**

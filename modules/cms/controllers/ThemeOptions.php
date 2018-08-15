@@ -131,8 +131,7 @@ class ThemeOptions extends Controller
     protected function getThemeData($dirName)
     {
         $theme = $this->findThemeObject($dirName);
-        $model = ThemeData::forTheme($theme);
-        return $model;
+        return ThemeData::forTheme($theme);
     }
 
     protected function findThemeObject($name = null)

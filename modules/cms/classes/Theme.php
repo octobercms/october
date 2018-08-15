@@ -448,8 +448,7 @@ class Theme
     public function __get($name)
     {
         if ($this->hasCustomData()) {
-            $theme = $this->getCustomData();
-            return $theme->{$name};
+            return $this->getCustomData()->{$name};
         }
 
         return null;

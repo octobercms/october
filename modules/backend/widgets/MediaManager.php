@@ -683,9 +683,7 @@ class MediaManager extends WidgetBase
 
     protected function getCurrentFolder()
     {
-        $folder = $this->getSession('media_folder', self::FOLDER_ROOT);
-
-        return $folder;
+        return $this->getSession('media_folder', self::FOLDER_ROOT);
     }
 
     protected function setFilter($filter)
@@ -899,9 +897,7 @@ class MediaManager extends WidgetBase
 
         $partition = implode('/', array_slice(str_split($itemSignature, 3), 0, 3)) . '/';
 
-        $result = $this->getThumbnailDirectory().$partition.$thumbFile;
-
-        return $result;
+        return $this->getThumbnailDirectory().$partition.$thumbFile;
     }
 
     protected function getThumbnailImageUrl($imagePath)

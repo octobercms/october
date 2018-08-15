@@ -182,8 +182,7 @@ trait ConfigMaker
     {
         $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
-        $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
-        return $guessedPath;
+        return $classFile ? $classFile . '/' . $classFolder . $suffix : null;
     }
 
     /**

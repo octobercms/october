@@ -130,8 +130,7 @@ class DateTime
             $replacements['\\'.$from] = '['.$from.']';
         }
 
-        $momentFormat = strtr($format, $replacements);
-        return $momentFormat;
+        return strtr($format, $replacements);
     }
 
 }

@@ -165,8 +165,7 @@ class Settings extends Controller
         }
 
         $class = $item->class;
-        $model = $class::instance();
-        return $model;
+        return $class::instance();
     }
 
     /**
