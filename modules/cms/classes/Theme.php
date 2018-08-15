@@ -34,7 +34,7 @@ class Theme
     /**
      * @var mixed Keeps the cached configuration file values.
      */
-    protected $configCache = null;
+    protected $configCache;
 
     /**
      * @var mixed Active theme cache in memory

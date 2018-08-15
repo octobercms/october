@@ -73,7 +73,7 @@ class CmsCompoundObject extends CmsObject
     /**
      * @var array|null Cache for component properties.
      */
-    protected static $objectComponentPropertyMap = null;
+    protected static $objectComponentPropertyMap;
 
     /**
      * @var mixed Cache store for the getViewBag method.

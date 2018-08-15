@@ -99,12 +99,12 @@ class Controller
     /**
      * @var self Cache of self
      */
-    protected static $instance = null;
+    protected static $instance;
 
     /**
      * @var \Cms\Classes\ComponentBase Object of the active component, used internally.
      */
-    protected $componentContext = null;
+    protected $componentContext;
 
     /**
      * @var array Component partial stack, used internally.

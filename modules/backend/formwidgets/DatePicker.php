@@ -26,25 +26,25 @@ class DatePicker extends FormWidgetBase
     /**
      * @var string Provide an explicit date display format.
      */
-    public $format = null;
+    public $format;
 
     /**
      * @var string the minimum/earliest date that can be selected.
      * eg: 2000-01-01
      */
-    public $minDate = null;
+    public $minDate;
 
     /**
      * @var string the maximum/latest date that can be selected.
      * eg: 2020-12-31
      */
-    public $maxDate = null;
+    public $maxDate;
 
     /**
      * @var string number of years either side or array of upper/lower range
      * eg: 10 or [1900,1999]
      */
-    public $yearRange = null;
+    public $yearRange;
 
     /**
      * @var int first day of the week

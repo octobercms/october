@@ -38,7 +38,7 @@ class MediaManager extends WidgetBase
 
     const FILTER_EVERYTHING = 'everything';
 
-    protected $brokenImageHash = null;
+    protected $brokenImageHash;
 
     /**
      * @var boolean Determines whether the widget is in readonly mode or not

@@ -36,17 +36,17 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Prompt text to display for the upload button.
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $imageWidth;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $imageHeight;
 
     /**
      * @var mixed Collection of acceptable file types.

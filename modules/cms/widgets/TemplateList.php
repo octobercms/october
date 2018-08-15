@@ -63,7 +63,7 @@ class TemplateList extends WidgetBase
     /**
      * @var string Extra CSS class name to apply to the control.
      */
-    public $controlClass = null;
+    public $controlClass;
 
     /**
      * @var string A list of file name patterns to suppress / hide.

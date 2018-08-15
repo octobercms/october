@@ -13,7 +13,7 @@ class PartialStack
     /**
      * @var array The current partial "object" being rendered.
      */
-    public $activePartial = null;
+    public $activePartial;
 
     /**
      * @var array Collection of previously rendered partial "objects".

@@ -39,12 +39,12 @@ class Repeater extends FormWidgetBase
     /**
      * @var int Minimum items required. Pre-displays those items when not using groups
      */
-    public $minItems = null;
+    public $minItems;
 
     /**
      * @var int Maximum items permitted
      */
-    public $maxItems = null;
+    public $maxItems;
 
     //
     // Object properties

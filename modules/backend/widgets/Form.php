@@ -56,7 +56,7 @@ class Form extends WidgetBase
      * @var string The context of this form, fields that do not belong
      * to this context will not be shown.
      */
-    public $context = null;
+    public $context;
 
     /**
      * @var string If the field element names should be contained in an array.

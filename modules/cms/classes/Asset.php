@@ -34,7 +34,7 @@ class Asset extends Extendable
     /**
      * @var string Specifies the file name, the CMS object was loaded from.
      */
-    protected $originalFileName = null;
+    protected $originalFileName;
 
     /**
      * @var string Last modified time.

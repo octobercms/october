@@ -32,7 +32,7 @@ class Filter extends WidgetBase
      * @var string The context of this filter, scopes that do not belong
      * to this context will not be shown.
      */
-    public $context = null;
+    public $context;
 
     //
     // Object properties

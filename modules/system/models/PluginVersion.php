@@ -28,7 +28,7 @@ class PluginVersion extends Model
     /**
      * @var array Cache store for version information
      */
-    protected static $versionCache = null;
+    protected static $versionCache;
 
     /**
      * @var bool Plugin has been disabled by a missing dependency.

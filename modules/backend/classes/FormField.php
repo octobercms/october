@@ -94,12 +94,12 @@ class FormField
     /**
      * @var string Specifies contextual visibility of this form field.
      */
-    public $context = null;
+    public $context;
 
     /**
      * @var bool Specifies if this field is mandatory.
      */
-    public $required = null;
+    public $required;
 
     /**
      * @var bool Specify if the field is read-only or not.
