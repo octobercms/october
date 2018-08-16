@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => "Àrea d'Administració"
+        'title' => "Àrea d'Administració",
+        'invalid_login' => "Els detalls que has introduït no corresponen als nostres registres. Si us plau revisa'ls i torna-ho a intentar."
     ],
     'field' => [
         'invalid_type' => 'El tipus de camp :type utilitzat és invàlid.',
@@ -216,6 +217,10 @@ return [
         'remove_confirm' => 'Segur que ho vols eliminar?',
         'remove_file' => 'Elminar arxiu'
     ],
+    'repeater' => [
+        'min_items_failed' => ":name requereix un mínim de :min elements, només n'hi ha :items",
+        'max_items_failed' => ":name només permet fins a :max elements, n'hi ha :items",
+    ],
     'form' => [
         'create_title' => 'Nou :name',
         'update_title' => 'Editar :name',
@@ -379,6 +384,8 @@ return [
         'no_wrap_comment' => "La llista d'etiquetes que no s'han d'envoltar dins d'etiquetes de bloc.",
         'remove_tags' => 'Eliminar etiquetes',
         'remove_tags_comment' => "La llista d'etiquetes que s'eliminen junt amb el seu contingut.",
+        'line_breaker_tags' => 'Etiquetes de canvi de línia',
+        'line_breaker_tags_comment' => "La llista d'etiquetes que s'utilitzen per introduir un canvi de línia.",
         'toolbar_buttons' => "Botons de la barra d'eines",
         'toolbar_buttons_comment' => "Els botons de la barra d'eines que es mostraran en l'editor de text enriquit per defecte. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]",
     ],
