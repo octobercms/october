@@ -51,7 +51,7 @@ return [
         'create_fail' => 'No es pot crear el directori: :name'
     ],
     'file' => [
-        'create_fail' => "No es pot crear el l'arxiu: :name"
+        'create_fail' => "No es pot crear l'arxiu: :name"
     ],
     'combiner' => [
         'not_found' => "L'arxiu de combinació ':name' no s'ha trobat."
@@ -70,7 +70,7 @@ return [
             'system' => 'Sistema',
             'social' => 'Social',
             'backend' => 'Backend',
-            'events' => 'Events',
+            'events' => 'Esdeveniments',
             'customers' => 'Clients',
             'my_settings' => 'Les meves opcions',
             'notifications' => 'Notificacions'
@@ -110,7 +110,7 @@ return [
         'recommended' => 'Recomanats',
         'plugin_label'  => 'Plugin',
         'unknown_plugin' => "El plugin ha estat eliminat del sistema d'arxius.",
-        'select_label' => 'Sel·leccionar acció...',
+        'select_label' => 'Seleccionar acció...',
         'check_yes' => 'Sí',
         'check_no' => 'No',
         'unfrozen' => 'Actualitzacions habilitades',
@@ -123,18 +123,18 @@ return [
         'remove' => 'eliminar',
         'freeze_label' => 'Deshabilitar actualitzacions',
         'unfreeze_label' => 'Habilitar actualitzacions',
-        'enable_label' => 'Habilitar Plugins',
-        'disable_label' => 'Deshabilitar Plugins',
+        'enable_label' => 'Habilitar plugins',
+        'disable_label' => 'Deshabilitar plugins',
         'refresh_label' => 'Reiniciar dades del plugin',
         'action_confirm' => 'Estàs segur de que vols :action aquests plugins?',
-        'freeze_success' => 'Actualitzacions deshabilitades pels plugins sel·leccionats.',
-        'unfreeze_success' => 'Actualitzacions habilitades pels plugins sel·leccionats.',
-        'enable_success' => 'Plugins sel·leccionats habilitats.',
-        'disable_success' => 'Plugins sel·leccionats deshabilitats.',
-        'refresh_confirm' => "Estàs segur que vols reiniciar els plugins sel·leccionats? Això reiniciarà les dades de cada plugin, restaurant-les a l'estat inicial.",
-        'refresh_success' => 'Plugins sel·leccionats reiniciats.',
-        'remove_confirm' => "Estàs segur que vols eliminar els plugins sel·leccionats? Aixo també n'eliminarà totes les dades associades.",
-        'remove_success' => 'Plugins sel·leccionats eliminats.',
+        'freeze_success' => 'Actualitzacions deshabilitades pels plugins seleccionats.',
+        'unfreeze_success' => 'Actualitzacions habilitades pels plugins seleccionats.',
+        'enable_success' => 'Plugins seleccionats habilitats.',
+        'disable_success' => 'Plugins seleccionats deshabilitats.',
+        'refresh_confirm' => "Estàs segur que vols reiniciar els plugins seleccionats? Això reiniciarà les dades de cada plugin, restaurant-les a l'estat inicial.",
+        'refresh_success' => 'Plugins seleccionats reiniciats.',
+        'remove_confirm' => "Estàs segur que vols eliminar els plugins seleccionats? Aixo també n'eliminarà totes les dades associades.",
+        'remove_success' => 'Plugins seleccionats eliminats.',
     ],
     'project' => [
         'name' => 'Projecte',
@@ -145,7 +145,7 @@ return [
         'id' => [
             'label' => 'ID de projecte',
             'help' => 'Com trobar la teva ID de projecte',
-            'missing' => 'Siusplau indica una ID de projecte.'
+            'missing' => 'Si us plau indica una ID de projecte.'
         ],
         'detach_confirm' => 'Estàs segur que vols desvincular aquest projecte?',
         'unbind_success' => 'El projecte ha estat desvinculat.'
@@ -153,7 +153,7 @@ return [
     'settings' => [
         'menu_label' => 'Opcions',
         'not_found' => "No s'han pogut trobar les opcions especificades.",
-        'missing_model' => 'La pàgina de settings no té una definició de Model.',
+        'missing_model' => "La pàgina d'opcions no té una definició de Model.",
         'update_success' => 'Opcions de :name actualitzades',
         'return' => 'Tornar a les opcions del sistema',
         'search' => 'Cercar'
@@ -172,7 +172,7 @@ return [
         'smtp_authorization' => 'Autorització SMTP requerida',
         'smtp_authorization_comment' => 'Marca aquesta casella si el teu servidor SMTP server requereix autoritzaci.',
         'smtp_username' => "Nom d'usuari",
-        'smtp_password' => 'Contrassenya',
+        'smtp_password' => 'Contrasenya',
         'smtp_port' => 'Port SMTP',
         'smtp_ssl' => 'Connexió SSL requerida',
         'smtp_encryption' => "Protocol d'encriptació SMTP",
@@ -181,10 +181,10 @@ return [
         'smtp_encryption_ssl' => 'SSL',
         'sendmail' => 'Sendmail',
         'sendmail_path' => 'Ruta de sendmail',
-        'sendmail_path_comment' => "Siusplau especificauna ruta per l'executable de sendmail.",
+        'sendmail_path_comment' => "Si us plau especifica una ruta per l'executable de sendmail.",
         'mailgun' => 'Mailgun',
         'mailgun_domain' => 'Domini de Mailgun',
-        'mailgun_domain_comment' => 'Siusplau especifica el nom de domini de Mailgun.',
+        'mailgun_domain_comment' => 'Si us plau especifica el nom de domini de Mailgun.',
         'mailgun_secret' => 'Secret de Mailgun',
         'mailgun_secret_comment' => 'Introdueix la teva clau API de Mailgun.',
         'mandrill' => 'Mandrill',
@@ -294,8 +294,8 @@ return [
         'project_label' => 'Vincular a projecte',
         'plugin_label' => 'Instal·lar plugin',
         'theme_label' => 'Instal·lar tema',
-        'missing_plugin_name' => 'Siusplau indica un nom de plugin per a instal·lar.',
-        'missing_theme_name' => 'Siusplau indica un nom de tema per a instal·lar.',
+        'missing_plugin_name' => 'Si us plau indica un nom de plugin per a instal·lar.',
+        'missing_theme_name' => 'Si us plau indica un nom de tema per a instal·lar.',
         'install_completing' => "Finalitzant el procès d'instal·lació",
         'install_success' => 'Plugin instal·lat correctament'
     ],
@@ -305,7 +305,7 @@ return [
         'menu_label' => 'Actualitzacions i plugins',
         'menu_description' => 'Actualitzar el sistema, gestionar i instal·lar plugins i temes.',
         'return_link' => 'Tornar a les actualitzacions de sistema',
-        'check_label' => 'Comprobar actualitzacions',
+        'check_label' => 'Comprovar actualitzacions',
         'retry_label' => 'Tornar-ho a intentar',
         'plugin_name' => 'Nom',
         'plugin_code' => 'Codi',
@@ -337,14 +337,14 @@ return [
         'force_label' => 'Forçar actualització',
         'found' => [
             'label' => "S'han trobat noves actualitzacions!",
-            'help' => "Clicka Actualitzar software per començar el procès d'actualització."
+            'help' => "Clica 'Actualitzar software' per començar el procès d'actualització."
         ],
         'none' => [
             'label' => 'No hi ha actualitzacions',
             'help' => "No s'han trobat noves actualitzacions."
         ],
         'important_action' => [
-            'empty' => 'Sel·leccionar acció',
+            'empty' => 'Seleccionar acció',
             'confirm' => 'Confirmar actualització',
             'skip' => 'Saltar aquesta actualització (només aquest cop)',
             'ignore' => 'Saltar aquesta actualització (sempre)'
@@ -386,23 +386,23 @@ return [
     ],
     'event_log' => [
         'hint' => "Aquest registre mostra una llista d'errors potencials que ocorren a l'aplicació, com ara excepcions o informació de depuració.",
-        'menu_label' => "Registre d'events",
+        'menu_label' => "Registre d'esdeveniments",
         'menu_description' => 'Veure els missatges de registre del sistema amb les hores i detalls guardats.',
-        'empty_link' => "Buidar registre d'events",
-        'empty_loading' => "Buidant registre d'events...",
-        'empty_success' => "Registre d'events buit",
-        'return_link' => "Tornar al registre d'events",
+        'empty_link' => "Buidar registre d'esdeveniments",
+        'empty_loading' => "Buidant registre d'esdeveniments...",
+        'empty_success' => "Registre d'esdeveniments buit",
+        'return_link' => "Tornar al registre d'esdeveniments",
         'id' => 'ID',
-        'id_label' => "ID d'event",
+        'id_label' => "ID d'esdeveniment",
         'created_at' => 'Data i hora',
         'message' => 'Missatge',
         'level' => 'Nivell',
-        'preview_title' => 'Event'
+        'preview_title' => 'Esdeveniment'
     ],
     'request_log' => [
         'hint' => "Aquest registre mostra una llista de peticions de navegador que podrien requerir atenció. Per exemple, si un visitant obre una pàgina de CMS que no es pot trobar, es crea un registre amb l'estat 404.",
         'menu_label' => 'Registre de peticions',
-        'menu_description' => 'Veure peticions incorrectes o redireccionades, com ara Pàgina no trobada (404).',
+        'menu_description' => 'Veure peticions incorrectes o redirigides, com ara Pàgina no trobada (404).',
         'empty_link' => 'Buidar registre de peticions',
         'empty_loading' => 'Buidant registre de peticions...',
         'empty_success' => 'Registre de peticions buit',
@@ -432,8 +432,8 @@ return [
         'menu_label' => 'Opcions de registre',
         'menu_description' => "Especificar quines àrees s'han de registrar.",
         'default_tab' => 'Registre',
-        'log_events' => 'Registrar events del sistema',
-        'log_events_comment' => 'Guardar events del sistema a la base de dades a més de al fitxer de registre.',
+        'log_events' => 'Registrar esdeveniments del sistema',
+        'log_events_comment' => 'Guardar esdeveniments del sistema a la base de dades a més de al fitxer de registre.',
         'log_requests' => 'Registrar peticions incorrectes',
         'log_requests_comment' => 'Peticions de navegador que poden requerir atenció, com ara errors 404.',
         'log_theme' => 'Registrar canvis del tema',
