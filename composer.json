@@ -38,7 +38,8 @@
         "october/backend": "~1.0",
         "october/cms": "~1.0",
         "laravel/framework": "5.5.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "wikimedia/composer-merge-plugin": "dev-master",
+        "damianlewis/october-laravel-pivot": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
@@ -52,6 +53,12 @@
             "tests/PluginTestCase.php"
         ]
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/damianlewis/october-laravel-pivot.git"
+        }
+    ],
     "scripts": {
         "post-create-project-cmd": [
             "php artisan key:generate"
