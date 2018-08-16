@@ -49,14 +49,14 @@
                     </li>
                 <?php endif ?>
                 <li>
-                    <span class="status-icon"><i class="icon-info"></i></span>
+                    <span class="status-icon"><i class="icon-exclamation-triangle"></i></span>
                     <span class="status-text">
                         <?= e(trans('backend::lang.dashboard.status.event_log')) ?>
                     </span>
                     <a href="<?= Backend::url('system/eventlogs') ?>" class="status-label primary"><?= $eventLog ?></a>
                 </li>
                 <li>
-                    <span class="status-icon"><i class="icon-info"></i></span>
+                    <span class="status-icon"><i class="icon-file-o"></i></span>
                     <span class="status-text">
                         <?= e(trans('backend::lang.dashboard.status.request_log')) ?>
                     </span>
@@ -64,7 +64,7 @@
                 </li>
                 <?php if ($appBirthday): ?>
                     <li>
-                        <span class="status-icon"><i class="icon-info"></i></span>
+                        <span class="status-icon"><i class="icon-calendar"></i></span>
                         <span class="status-text">
                             <?= e(trans('backend::lang.dashboard.status.app_birthday')) ?>
                         </span>
