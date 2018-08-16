@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use Db;
 use App;
 use Str;
 use File;
@@ -492,6 +493,7 @@ class PluginManager
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {
+            $this->populateDisabledPluginsFromDb();
             $this->writeDisabled();
         }
     }
@@ -518,6 +520,23 @@ class PluginManager
     protected function writeDisabled()
     {
         File::put($this->metaFile, json_encode($this->disabledPlugins));
+    }
+
+    /**
+     * Populates information about disabled plugins from database
+     * @return void
+     */
+    protected function populateDisabledPluginsFromDb()
+    {
+        if (!App::hasDatabase()) {
+            return;
+        }
+
+        $disabled = Db::table('system_plugin_versions')->where('is_disabled', '1')->lists('code');
+
+        foreach ($disabled as $code) {
+            $this->disabledPlugins[$code] = true;
+        }
     }
 
     /**
