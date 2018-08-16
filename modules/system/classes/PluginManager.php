@@ -6,9 +6,10 @@ use File;
 use Lang;
 use View;
 use Config;
+use ApplicationException;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use ApplicationException;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Plugin manager
@@ -425,7 +426,9 @@ class PluginManager
 
     /**
      * Takes a human plugin code (acme.blog) and makes it authentic (Acme.Blog)
-     * @param  string $id
+     *
+     * @param string $identifier
+     *
      * @return string
      */
     public function normalizeIdentifier($identifier)
@@ -487,11 +490,12 @@ class PluginManager
             }
         }
 
+        $this->populateDisabledPluginsFromDb();
+
         if (File::exists($path)) {
             $disabled = json_decode(File::get($path), true) ?: [];
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
-        }
-        else {
+        } else {
             $this->writeDisabled();
         }
     }
@@ -751,5 +755,19 @@ class PluginManager
         $manager = UpdateManager::instance();
         $manager->rollbackPlugin($id);
         $manager->updatePlugin($id);
+    }
+
+    /**
+     * Populates information about disabled plugins from DB
+     *
+     * @return void
+     */
+    private function populateDisabledPluginsFromDb(): void
+    {
+        $pluginsData = DB::select('select * from system_plugin_versions where is_disabled = ?', [1]);
+
+        foreach ($pluginsData as $plugin) {
+            $this->disabledPlugins[$plugin->code] = true;
+        }
     }
 }
