@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => 'Admin felület'
+        'title' => 'Admin felület',
+        'invalid_login' => 'A megadott adatok nem egyeznek. Kérjük ellenőrizze őket és próbálja újra.'
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
@@ -26,7 +27,7 @@ return [
             'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
-            'label' => 'Érvénytelen a biztonsági kód.'
+            'label' => 'A biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
         ]
     ],
     'partial' => [
@@ -216,6 +217,10 @@ return [
         'remove_confirm' => 'Biztos benne?',
         'remove_file' => 'Fájl eltávolítása'
     ],
+    'repeater' => [
+        'min_items_failed' => 'A(z) :name mező legalább :max elemből állhat. Jelenleg csak :items mező van megadva.',
+        'max_items_failed' => 'A(z) :name mező legfeljebb :max elemből állhat. Jelenleg :items mező van megadva.',
+    ],
     'form' => [
         'create_title' => 'Új :name',
         'update_title' => ':name szerkesztése',
@@ -270,7 +275,7 @@ return [
         'insert_row_below' => 'Sor beszúrása alá',
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
-        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy máik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
+        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy másik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
@@ -332,7 +337,7 @@ return [
         'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő működése érdekében.',
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
-        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük, hogy telepítse ezt a bővítményt.'
+        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük telepítse ezt a bővítményt.'
     ],
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
@@ -379,6 +384,8 @@ return [
         'no_wrap_comment' => 'Azon HTML elemek, amik tartalma nem tördelhető.',
         'remove_tags' => 'Eltávolítható elemek',
         'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.',
+        'line_breaker_tags' => 'Sortörő elemek',
+        'line_breaker_tags_comment' => 'Azon HTML elemek, amik végén kötelezően egy új sor jelenik meg.',
         'toolbar_buttons' => 'Eszköztár',
         'toolbar_buttons_comment' => 'Használható értékek: [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
@@ -446,6 +453,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. CSV fájl',
         'import_file' => 'Fájl feltöltése',
+        'row' => ':row sor',
         'first_row_contains_titles' => 'Az első sor tartalmazza az oszlop neveit',
         'first_row_contains_titles_desc' => 'Hagyja bejelölve, amennyiben a CSV fájl első sora az oszlop neveket tartalmazza.',
         'match_columns' => '2. Oszlopok párosítása',
