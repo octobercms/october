@@ -1,6 +1,8 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use Lang;
+use ApplicationException;
 
 /**
  * Color picker
@@ -78,10 +80,67 @@ class ColorPicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value = $this->getLoadValue();
-        $this->vars['availableColors'] = $this->availableColors;
+        $this->vars['availableColors'] = $this->getAvailableColors();
         $this->vars['allowEmpty'] = $this->allowEmpty;
         $this->vars['showAlpha'] = $this->showAlpha;
-        $this->vars['isCustomColor'] = !in_array($value, $this->availableColors);
+        $this->vars['isCustomColor'] = !in_array($value, $this->vars['availableColors']);
+
+    }
+
+    /**
+     * Gets the appropriate list of colors.
+     *
+     * @return array
+     */
+    protected function getAvailableColors()
+    {
+        if (is_array($this->availableColors)) {
+            return $this->availableColors;
+        }
+        else {
+            $availableColors = isset($this->availableColors) ? $this->availableColors : null;
+            $availableColors = $this->getColorsFromModel($this->formField, $availableColors);
+            return $availableColors;
+        }
+    }
+
+
+    /**
+     * Looks at the model for defined colors.
+     *
+     * @param $field
+     * @param $fieldAvailableColors
+     * @return array
+     */
+    protected function getColorsFromModel($field, $fieldAvailableColors)
+    {
+        if (is_string($fieldAvailableColors)) {
+            if (!$this->objectMethodExists($this->model, $fieldAvailableColors)) {
+                throw new ApplicationException(Lang::get('backend::lang.field.colors_method_not_exists', [
+                    'model'  => get_class($this->model),
+                    'method' => $fieldAvailableColors,
+                    'field'  => $field->fieldName
+                ]));
+            }
+            $fieldAvailableColors = $this->model->$fieldAvailableColors($field->value, $field->fieldName, $field->config);
+        }
+        return $fieldAvailableColors;
+    }
+
+    /**
+     * Internal helper for method existence checks.
+     *
+     * @param  object $object
+     * @param  string $method
+     * @return boolean
+     */
+    protected function objectMethodExists($object, $method)
+    {
+        if (method_exists($object, 'methodExists')) {
+            return $object->methodExists($method);
+        }
+
+        return method_exists($object, $method);
     }
 
     /**
