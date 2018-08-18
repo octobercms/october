@@ -97,50 +97,20 @@ class ColorPicker extends FormWidgetBase
         if (is_array($this->availableColors)) {
             return $this->availableColors;
         }
-        else {
-            $availableColors = isset($this->availableColors) ? $this->availableColors : null;
-            $availableColors = $this->getColorsFromModel($this->formField, $availableColors);
-            return $availableColors;
-        }
-    }
-
-
-    /**
-     * Looks at the model for defined colors.
-     *
-     * @param $field
-     * @param $fieldAvailableColors
-     * @return array
-     */
-    protected function getColorsFromModel($field, $fieldAvailableColors)
-    {
-        if (is_string($fieldAvailableColors)) {
-            if (!$this->objectMethodExists($this->model, $fieldAvailableColors)) {
+        elseif (is_string($this->availableColors) && !empty($this->availableColors)) {
+            if (!$this->model->methodExists($this->availableColors)) {
                 throw new ApplicationException(Lang::get('backend::lang.field.colors_method_not_exists', [
                     'model'  => get_class($this->model),
-                    'method' => $fieldAvailableColors,
-                    'field'  => $field->fieldName
+                    'method' => $this->availableColors,
+                    'field'  => $this->formField->fieldName
                 ]));
             }
-            $fieldAvailableColors = $this->model->$fieldAvailableColors($field->value, $field->fieldName, $field->config);
+            return $this->model->{$this->availableColors}(
+                $this->formField->fieldName,
+                $this->formField->value,
+                $this->formField->config
+            );
         }
-        return $fieldAvailableColors;
-    }
-
-    /**
-     * Internal helper for method existence checks.
-     *
-     * @param  object $object
-     * @param  string $method
-     * @return boolean
-     */
-    protected function objectMethodExists($object, $method)
-    {
-        if (method_exists($object, 'methodExists')) {
-            return $object->methodExists($method);
-        }
-
-        return method_exists($object, $method);
     }
 
     /**
