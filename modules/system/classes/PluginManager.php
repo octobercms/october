@@ -7,6 +7,7 @@ use File;
 use Lang;
 use View;
 use Config;
+use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ApplicationException;
@@ -529,6 +530,10 @@ class PluginManager
     protected function populateDisabledPluginsFromDb()
     {
         if (!App::hasDatabase()) {
+            return;
+        }
+
+        if (!Schema::hasTable('system_plugin_versions')) {
             return;
         }
 
