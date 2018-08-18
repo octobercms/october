@@ -209,6 +209,11 @@ class ServiceProvider extends ModuleServiceProvider
          * Allow plugins to use the scheduler
          */
         Event::listen('console.schedule', function ($schedule) {
+            // Plugins may access system functionality dependent on DB, so require system migrations to run first
+            if (App::hasDatabase() && !PluginManager::instance()->versionTableExists()) {
+                return;
+            }
+
             $plugins = PluginManager::instance()->getPlugins();
             foreach ($plugins as $plugin) {
                 if (method_exists($plugin, 'registerSchedule')) {

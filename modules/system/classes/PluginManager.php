@@ -10,6 +10,7 @@ use Config;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ApplicationException;
+use Schema;
 
 /**
  * Plugin manager
@@ -532,6 +533,10 @@ class PluginManager
             return;
         }
 
+        if (!$this->versionTableExists()) {
+            return;
+        }
+
         $disabled = Db::table('system_plugin_versions')->where('is_disabled', '1')->lists('code');
 
         foreach ($disabled as $code) {
@@ -560,6 +565,11 @@ class PluginManager
         }
 
         return true;
+    }
+
+    public function versionTableExists()
+    {
+        return Schema::hasTable('system_plugin_versions');
     }
 
     /**
