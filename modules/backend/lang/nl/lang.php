@@ -8,6 +8,7 @@ return [
         'invalid_type' => 'Ongeldig type veld: :type.',
         'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",
         'options_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin opties voor het veld ":field".',
+        'colors_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin html HEX kleurcodes voor het veld ":field".',
     ],
     'widget' => [
         'not_registered' => "Een widget met klassenaam ':name' is niet geregistreerd",

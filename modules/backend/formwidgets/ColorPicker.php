@@ -84,7 +84,6 @@ class ColorPicker extends FormWidgetBase
         $this->vars['allowEmpty'] = $this->allowEmpty;
         $this->vars['showAlpha'] = $this->showAlpha;
         $this->vars['isCustomColor'] = !in_array($value, $this->vars['availableColors']);
-
     }
 
     /**
@@ -98,18 +97,19 @@ class ColorPicker extends FormWidgetBase
             return $this->availableColors;
         }
         elseif (is_string($this->availableColors) && !empty($this->availableColors)) {
-            if (!$this->model->methodExists($this->availableColors)) {
+            if ($this->model->methodExists($this->availableColors)) {
+                return $this->model->{$this->availableColors}(
+                    $this->formField->fieldName,
+                    $this->formField->value,
+                    $this->formField->config
+                );
+            } else {
                 throw new ApplicationException(Lang::get('backend::lang.field.colors_method_not_exists', [
                     'model'  => get_class($this->model),
                     'method' => $this->availableColors,
                     'field'  => $this->formField->fieldName
                 ]));
             }
-            return $this->model->{$this->availableColors}(
-                $this->formField->fieldName,
-                $this->formField->value,
-                $this->formField->config
-            );
         }
     }
 
