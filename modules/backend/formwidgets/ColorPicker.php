@@ -95,10 +95,9 @@ class ColorPicker extends FormWidgetBase
     {
         if (is_array($this->availableColors)) {
             return $this->availableColors;
-        }
-        elseif (is_string($this->availableColors) && !empty($this->availableColors)) {
+        } elseif (is_string($this->availableColors) && !empty($this->availableColors)) {
             if ($this->model->methodExists($this->availableColors)) {
-                return $this->model->{$this->availableColors}(
+                return $this->availableColors = $this->model->{$this->availableColors}(
                     $this->formField->fieldName,
                     $this->formField->value,
                     $this->formField->config
