@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use Db;
 use App;
 use Url;
 use File;

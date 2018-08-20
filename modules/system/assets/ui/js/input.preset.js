@@ -12,6 +12,7 @@
  *   url, file, slug, camel.
  * - data-input-preset-prefix-input: optional, prefixes the converted value with the value found
  *   in the supplied input element using a CSS selector.
+ * - data-input-preset-remove-words: optional, use removeList to filter stop words of source string.
  *
  * Example: <input type="text" id="name" value=""/>
  *          <input type="text"
@@ -77,12 +78,12 @@
         'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д':'d', 'е':'e', 'ё':'yo', 'ж':'zh',
         'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o',
         'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'h', 'ц':'c',
-        'ч':'ch', 'ш':'sh', 'щ':'sh', 'ъ':'', 'ы':'y', 'ь':'', 'э':'e', 'ю':'yu',
+        'ч':'ch', 'ш':'sh', 'щ':'shch', 'ъ':'', 'ы':'y', 'ь':'', 'э':'e', 'ю':'yu',
         'я':'ya',
         'А':'A', 'Б':'B', 'В':'V', 'Г':'G', 'Д':'D', 'Е':'E', 'Ё':'Yo', 'Ж':'Zh',
         'З':'Z', 'И':'I', 'Й':'J', 'К':'K', 'Л':'L', 'М':'M', 'Н':'N', 'О':'O',
         'П':'P', 'Р':'R', 'С':'S', 'Т':'T', 'У':'U', 'Ф':'F', 'Х':'H', 'Ц':'C',
-        'Ч':'Ch', 'Ш':'Sh', 'Щ':'Sh', 'Ъ':'', 'Ы':'Y', 'Ь':'', 'Э':'E', 'Ю':'Yu',
+        'Ч':'Ch', 'Ш':'Sh', 'Щ':'Shch', 'Ъ':'', 'Ы':'Y', 'Ь':'', 'Э':'E', 'Ю':'Yu',
         'Я':'Ya'
     },
     UKRAINIAN_MAP = {
@@ -130,6 +131,9 @@
         'ă':'a', 'â':'a', 'î':'i', 'ș':'s', 'ț':'t',
         'Ă':'A', 'Â':'A', 'Î':'I', 'Ș':'S', 'Ț':'T'
     },
+    BELARUSIAN_MAP = {
+        'ў':'w', 'Ў':'W'
+    },
     SPECIFIC_MAPS = {
         'de': {
             'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE',
@@ -152,7 +156,8 @@
         LITHUANIAN_MAP,
         SERBIAN_MAP,
         AZERBAIJANI_MAP,
-        ROMANIAN_MAP
+        ROMANIAN_MAP,
+        BELARUSIAN_MAP
     ]
 
     var removeList = [
@@ -190,41 +195,7 @@
         }
     }
 
-    function toCamel(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.toLowerCase()
-        slug = slug.replace(/(\b|-)\w/g, function(m) {
-            return m.toUpperCase();
-        });
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '')
-        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
-        return slug.substring(0, numChars)
-    }
-
-    function slugify(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '-')
-        slug = slug.toLowerCase()
-        return slug.substring(0, numChars)
-    }
+    
 
     var InputPreset = function (element, options) {
         var $el = this.$el = $(element)
@@ -251,7 +222,7 @@
 
         this.$src = $(options.inputPreset, parent)
 
-        this.$src.on('keyup', function() {
+        this.$src.on('input', function() {
             if (self.cancelled)
                 return
 
@@ -277,7 +248,7 @@
     }
 
     InputPreset.prototype.formatNamespace = function() {
-        var value = toCamel(this.$src.val())
+        var value = this.toCamel(this.$src.val())
 
         return value.substr(0, 1).toUpperCase() + value.substr(1)
     }
@@ -291,10 +262,10 @@
         }
 
         if (this.options.inputPresetType == 'camel') {
-            var value = toCamel(this.$src.val())
+            var value = this.toCamel(this.$src.val())
         }
         else {
-            var value = slugify(this.$src.val())
+            var value = this.slugify(this.$src.val())
         }
 
         if (this.options.inputPresetType == 'url') {
@@ -304,11 +275,55 @@
         return value.replace(/\s/gi, "-")
     }
 
+    InputPreset.prototype.toCamel = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.toLowerCase()
+        slug = slug.replace(/(\b|-)\w/g, function(m) {
+            return m.toUpperCase();
+        });
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '')
+        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.slugify = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '-')
+        slug = slug.toLowerCase()
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.removeStopWords = function(str) {
+        if (this.options.inputPresetRemoveWords) {
+            var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
+            str = str.replace(regex, '')
+        }
+
+        return str;
+    }
+
     InputPreset.DEFAULTS = {
         inputPreset: '',
         inputPresetType: 'slug',
         inputPresetClosestParent: undefined,
-        inputPresetPrefixInput: undefined
+        inputPresetPrefixInput: undefined,
+        inputPresetRemoveWords: true
     }
 
     // INPUT CONVERTER PLUGIN DEFINITION

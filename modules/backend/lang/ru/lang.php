@@ -33,6 +33,7 @@ return [
         'not_found_name' => 'Не удалось найти шаблон (partial) с именем :name.'
     ],
     'account' => [
+        'signed_in_as' => 'Выполнен вход как :full_name',
         'sign_out' => 'Выйти',
         'login' => 'Вход',
         'reset' => 'Сбросить',
@@ -140,8 +141,8 @@ return [
         'updated_at' => 'Обновлен',
         'group' => [
             'name' => 'Группы',
-            'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'name_field' => 'Название',
+            'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'description_field' => 'Описание',
             'is_new_user_default_field_label' => 'Группа по умолчанию',
             'is_new_user_default_field_comment' => 'Добавлять новых администраторов в эту группу по умолчанию.',
@@ -439,7 +440,8 @@ return [
     'filter' => [
         'all' => 'все',
         'options_method_not_exists' => "Модель класса :model должна определить метод :method() возвращающего варианты для фильтра ':filter'.",
-        'date_all' => 'весь период'
+        'date_all' => 'весь период',
+        'number_all' => 'все номера'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Загрузка CSV-файл',
@@ -544,11 +546,14 @@ return [
         'return_to_parent_label' => 'Подняться на уровень выше ..',
         'nothing_selected' => 'Ничего не выбрано.',
         'multiple_selected' => 'Выбрано несколько объектов.',
-        'uploading_file_num' => 'Загрузка файлов: :number',
+        'uploading_file_num' => 'Загрузка файлов: :number ...',
         'uploading_complete' => 'Загрузка файлов завершена!',
         'uploading_error' => 'Ошибка загрузки',
         'type_blocked' => 'Используемый тип файла блокируется по соображениям безопасности.',
         'order_by' => 'Сортировать по',
+        'direction' => 'Направление сортировки',
+        'direction_asc' => 'По возрастанию',
+        'direction_desc' => 'По убыванию',
         'folder' => 'Папка',
         'no_files_found' => 'Ни один из файлов не удовлетворяет вашему запросу.',
         'delete_empty' => 'Пожалуйста, выберите объекты для удаления.',

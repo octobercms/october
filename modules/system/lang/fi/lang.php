@@ -98,8 +98,8 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Asetukset',
-        'not_found' => 'Unable to find the specified settings.',
-        'missing_model' => 'The settings page is missing a Model definition.',
+        'not_found' => 'Määritettyjä asetuksia ei voitu löytää.',
+        'missing_model' => 'Asetussivulta puuttuu Model määritelmä.',
         'update_success' => ':name asetus päivitetty',
         'return' => 'Palaa järjestelmän asetuksiin',
         'search' => 'Hae'
@@ -115,8 +115,8 @@ return [
         'php_mail' => 'PHP -sähköposti',
         'smtp' => 'SMTP',
         'smtp_address' => 'SMTP osoite',
-        'smtp_authorization' => 'SMTP valtuutus vaadittu',
-        'smtp_authorization_comment' => 'Valitse tämä valintaruutu mikäli sinun SMTP-palvelimesi vaatii valtuutusta.',
+        'smtp_authorization' => 'SMTP todennus vaadittu',
+        'smtp_authorization_comment' => 'Valitse tämä valintaruutu mikäli sinun SMTP-palvelimesi vaatii todennusta.',
         'smtp_username' => 'Käyttäjänimi',
         'smtp_password' => 'Salasana',
         'smtp_port' => 'SMTP portti',
@@ -180,6 +180,57 @@ return [
         'deleting_layout' => 'Poistetaan ulkoasua...',
         'sending' => 'Lähetetään testiviestiä...',
         'return' => 'Palaa mallilistaan'
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Sähköpostin brändäys',
+        'menu_description' => 'Muokkaa sähköpostimallien värejä ja ulkonäköä.',
+        'page_title' => 'Kustomoi sähköpostin ulkonäköä',
+        'sample_template' => [
+            'heading' => 'Otsikko',
+            'paragraph' => 'Tämä leipäteksti sisältää Lorem Ipsumia ja linkin. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Kohde',
+                'description' => 'Kuvaus',
+                'price' => 'Hinta',
+                'centered' => 'Keskitetty',
+                'right_aligned' => 'Tasattu oikealle'
+            ],
+            'buttons' => [
+                'primary' => 'Ensisijainen painike',
+                'positive' => 'Positiivinen painike',
+                'negative' => 'Negatiivinen painike',
+            ],
+            'panel' => 'Kuinka mahtava tämä paneeli on?',
+            'more' => 'Vähän lisää tekstiä',
+            'promotion' => 'Kampanjakoodi: OCTOBER',
+            'subcopy' => 'Tämä on sähköpostin alateksti',
+            'thanks' => 'Kiitos'
+        ],
+        'fields' => [
+            '_section_background' => 'Tausta',
+            'body_bg' => 'Kehon tausta',
+            'content_bg' => 'Sisällön tausta',
+            'content_inner_bg' => 'Keskeisen sisällön tausta',
+            '_section_buttons' => 'Painikkeet',
+            'button_text_color' => 'Painikkeiden tekstin väri',
+            'button_primary_bg' => 'Ensisijaisen painikkeen tausta',
+            'button_positive_bg' => 'Positiivisen painikkeen tausta',
+            'button_negative_bg' => 'Negatiivisen painikkeen tausta',
+            '_section_type' => 'Typografia',
+            'header_color' => 'Taulukko-otsikon väri',
+            'heading_color' => 'Otsikoiden väri',
+            'text_color' => 'Tekstin väri',
+            'link_color' => 'Linkin väri',
+            'footer_color' => 'Alatunnisteen väri',
+            '_section_borders' => 'Reunukset',
+            'body_border_color' => 'Kehon reunuksen väri',
+            'subcopy_border_color' => 'Alatekstin reunuksen väri',
+            'table_border_color' => 'Taulukon reunuksen väri',
+            '_section_components' => 'Komponentit',
+            'panel_bg' => 'Paneelin tausta',
+            'promotion_bg' => 'Kampanjan tausta',
+            'promotion_border_color' => 'Kampanjan reunuksen väri',
+        ]
     ],
     'install' => [
         'project_label' => 'Liitä projektiin',
@@ -283,14 +334,14 @@ return [
         'empty_success' => 'Tapahtumaloki tyhjätty',
         'return_link' => 'Palaa tapahtumalokiin',
         'id' => 'ID',
-        'id_label' => 'Event ID',
+        'id_label' => 'Tapahtuma ID',
         'created_at' => 'Päivämäärä ja aika',
         'message' => 'Viesti',
         'level' => 'Taso',
         'preview_title' => 'Tapahtuma'
     ],
     'request_log' => [
-        'hint' => 'Tämä loki näyttää listan selainten pyynnöistä, jotka saattavat vaatia huomiota. Esimerkiksi, jos vierailija avaa CMS sivun, jota ei löydy, tietue lisätään tilakoodilla 404.',
+        'hint' => 'Tämä loki näyttää listan selainten pyynnöistä, jotka saattavat vaatia huomiota. Esimerkiksi, jos vierailija avaa CMS sivun, jota ei löydy, kohde lisätään tilakoodilla 404.',
         'menu_label' => 'Pyyntöloki',
         'menu_description' => 'Tarkastele huonoja tai uudelleenohjattuja pyyntöjä, kuten Sivua ei löydy (404).',
         'empty_link' => 'Tyhjää pyyntöloki',
@@ -328,5 +379,9 @@ return [
         'log_requests_comment' => 'Selainten pyynnöt, jotka saattavat vaatia huomiota, kuten 404 virheet.',
         'log_theme' => 'Kirjaa teeman muutokset',
         'log_theme_comment' => 'Kun muutos on tehty teemaan käyttäen hallintapaneelia.',
-    ]
+    ],
+    'media' => [
+        'invalid_path' => "Kelvoton tiedostopolku määritetty: ':path'.",
+        'folder_size_items' => 'kohteita',
+    ],
 ];

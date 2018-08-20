@@ -340,7 +340,7 @@ class Theme
         if (is_string($result)) {
             $fileName = File::symbolizePath($result);
 
-            if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+            if (File::isLocalPath($fileName)) {
                 $path = $fileName;
             }
             else {

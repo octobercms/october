@@ -157,7 +157,7 @@ if(get&&editor.popups.isVisible('link.insert')){update();}});}
 return $popup;}
 function remove(){var link=get();var $current_image=editor.image?editor.image.get():null;if(editor.events.trigger('link.beforeRemove',[link])===false)return false;if($current_image&&link){$current_image.unwrap();editor.image.edit($current_image);}
 else if(link){editor.selection.save();$(link).replaceWith($(link).html());editor.selection.restore();_hideEditPopup();}}
-function _init(){editor.events.on('keyup',function(e){if(e.which!=$.FE.KEYCODE.ESC){_edit(e);}});editor.events.on('window.mouseup',_edit);if(editor.helpers.isMobile()){editor.events.$on(editor.$doc,'selectionchange',_edit);}
+function _init(){editor.events.on('input',function(e){if(e.which!=$.FE.KEYCODE.ESC){_edit(e);}});editor.events.on('window.mouseup',_edit);if(editor.helpers.isMobile()){editor.events.$on(editor.$doc,'selectionchange',_edit);}
 _initInsertPopup(true);if(editor.el.tagName=='A'){editor.$el.addClass('fr-view');}
 editor.events.on('toolbar.esc',function(){if(editor.popups.isVisible('link.edit')){editor.events.disableBlur();editor.events.focus();return false;}},true);}
 function usePredefined(val){var link=editor.opts.linkList[val];var $popup=editor.popups.get('link.insert');var text_inputs=$popup.find('input.fr-link-attr[type="text"]');var check_inputs=$popup.find('input.fr-link-attr[type="checkbox"]');var $input;var i;for(i=0;i<text_inputs.length;i++){$input=$(text_inputs[i]);if(link[$input.attr('name')]){$input.val(link[$input.attr('name')]);}
@@ -606,7 +606,7 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
@@ -625,7 +625,7 @@ if(this.options.htmlAllowedEmptyTags){froalaOptions.allowEmptyTags=this.options.
 if(this.options.allowTags){froalaOptions.htmlAllowedTags=this.options.allowTags.split(/[\s,]+/)}
 froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.split(/[\s,]+/):['figure','script','style']
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
-froalaOptions.lineBreakerTags=['figure','table','hr','iframe','form','dl']
+froalaOptions.lineBreakerTags=this.options.lineBreakerTags?this.options.lineBreakerTags.split(/[\s,]+/):['figure,table,hr,iframe,form,dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'

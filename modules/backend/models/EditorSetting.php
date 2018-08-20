@@ -44,6 +44,8 @@ class EditorSetting extends Model
 
     protected $defaultHtmlRemoveTags = 'script, style';
 
+    protected $defaultHtmlLineBreakerTags = 'figure, table, hr, iframe, form, dl';
+
     protected $defaultHtmlStyleImage = [
         'oc-img-rounded' => 'Rounded',
         'oc-img-bordered' => 'Bordered',
@@ -62,8 +64,8 @@ class EditorSetting extends Model
     ];
 
     protected $defaultHtmlStyleTable = [
-        'oc-table-dashed-borders' => 'Dashed Borders',
-        'oc-table-alternate-rows' => 'Alternate Rows',
+        'oc-dashed-borders' => 'Dashed Borders',
+        'oc-alternate-rows' => 'Alternate Rows',
     ];
 
     protected $defaultHtmlStyleTableCell = [
@@ -87,6 +89,7 @@ class EditorSetting extends Model
         $this->html_allow_tags = $this->defaultHtmlAllowTags;
         $this->html_no_wrap_tags = $this->defaultHtmlNoWrapTags;
         $this->html_remove_tags = $this->defaultHtmlRemoveTags;
+        $this->html_line_breaker_tags = $this->defaultHtmlLineBreakerTags;
         $this->html_custom_styles = File::get(base_path().'/modules/backend/models/editorsetting/default_styles.less');
         $this->html_style_image = $this->makeStylesForTable($this->defaultHtmlStyleImage);
         $this->html_style_link = $this->makeStylesForTable($this->defaultHtmlStyleLink);

@@ -112,7 +112,7 @@ class Loader extends LoaderBase implements Twig_LoaderInterface
      */
     protected function validateCmsObject($name)
     {
-        if ($name == $this->obj->getFilePath()) {
+        if ($name === $this->obj->getFilePath()) {
             return true;
         }
 

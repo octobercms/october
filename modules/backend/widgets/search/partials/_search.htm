@@ -5,7 +5,7 @@
         name="<?= $this->getName() ?>"
         value="<?= $value ?>"
         data-request="<?= $this->getEventHandler('onSubmit') ?>"
-        data-track-input
+        <?= !$searchOnEnter ? 'data-track-input' : '' ?>
         data-load-indicator
         data-load-indicator-opaque
         class="form-control <?= $cssClasses ?>"
