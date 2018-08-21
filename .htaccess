@@ -55,5 +55,17 @@
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+    
+	# By default, block access to backup and source files that may be
+	# left by some text editors and can pose a security risk when anyone
+	# has access to them.
+
+	# http://feross.org/cmsploit/
+
+	<IfModule mod_authz_core.c>
+      <FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op]|twig|tpl(\.php)?|xtmpl|yml|yaml)|~)$">
+          Require all denied
+      </FilesMatch>
+	</IfModule>
 
 </IfModule>
