@@ -315,7 +315,7 @@ class Theme
         $config = Yaml::parseFile($path);
 
         /**
-         * @event cms.theme.extendFormConfig
+         * @event cms.theme.extendConfig
          * Extend basic theme configuration supplied by the theme by returning an array.
          *
          * Note if planning on extending form fields, use the `cms.theme.extendFormConfig`
