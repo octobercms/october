@@ -86,7 +86,7 @@ class ThemeOptions extends Controller
     {
         $model = $form->model;
         $theme = $this->findThemeObject($model->theme);
-        $config = $theme->getConfigArray('form');
+        $config = $theme->getFormConfig();
 
         if ($fields = array_get($config, 'fields')) {
             $form->addFields($fields);
