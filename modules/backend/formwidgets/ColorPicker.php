@@ -1,7 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
-use Backend\Classes\FormWidgetBase;
 use Lang;
+use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 
 /**
@@ -80,10 +80,10 @@ class ColorPicker extends FormWidgetBase
     {
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $value = $this->getLoadValue();
-        $this->vars['availableColors'] = $this->getAvailableColors();
+        $this->vars['availableColors'] = $availableColors = $this->getAvailableColors();
         $this->vars['allowEmpty'] = $this->allowEmpty;
         $this->vars['showAlpha'] = $this->showAlpha;
-        $this->vars['isCustomColor'] = !in_array($value, $this->vars['availableColors']);
+        $this->vars['isCustomColor'] = !in_array($value, $availableColors);
     }
 
     /**
@@ -93,11 +93,13 @@ class ColorPicker extends FormWidgetBase
      */
     protected function getAvailableColors()
     {
-        if (is_array($this->availableColors)) {
-            return $this->availableColors;
-        } elseif (is_string($this->availableColors) && !empty($this->availableColors)) {
-            if ($this->model->methodExists($this->availableColors)) {
-                return $this->availableColors = $this->model->{$this->availableColors}(
+        $availableColors = $this->availableColors;
+        if (is_array($availableColors)) {
+            return $availableColors;
+        }
+        elseif (is_string($availableColors) && !empty($availableColors)) {
+            if ($this->model->methodExists($availableColors)) {
+                return $this->availableColors = $this->model->{$availableColors}(
                     $this->formField->fieldName,
                     $this->formField->value,
                     $this->formField->config
@@ -105,7 +107,7 @@ class ColorPicker extends FormWidgetBase
             } else {
                 throw new ApplicationException(Lang::get('backend::lang.field.colors_method_not_exists', [
                     'model'  => get_class($this->model),
-                    'method' => $this->availableColors,
+                    'method' => $availableColors,
                     'field'  => $this->formField->fieldName
                 ]));
             }
