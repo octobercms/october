@@ -10,7 +10,7 @@ return [
         'invalid_file_extension' => 'Invalid file extension: :invalid. Allowed extensions are: :allowed.',
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
-        'file_name_required' => 'The File Name field is required.',
+        'file_name_required' => 'The File name field is required.',
         'safe_mode_enabled' => 'Safe mode is currently enabled.'
     ],
     'dashboard' => [
@@ -168,7 +168,7 @@ return [
         'title' => 'Title',
         'new_title' => 'New page title',
         'url' => 'URL',
-        'filename' => 'File Name',
+        'filename' => 'File name',
         'layout' => 'Layout',
         'description' => 'Description',
         'preview' => 'Preview',
