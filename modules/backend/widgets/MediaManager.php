@@ -277,8 +277,22 @@ class MediaManager extends WidgetBase
                  */
                 $library->deleteFolder($path);
 
-                /*
-                 * Extensibility
+                /**
+                 * @event media.folder.delete
+                 * Called after a folder is deleted
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('media.folder.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 * Or
+                 *
+                 *     $mediaWidget->bindEvent('folder.delete', function ((string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
                  */
                 $this->fireSystemEvent('media.folder.delete', [$path]);
             }
@@ -294,6 +308,23 @@ class MediaManager extends WidgetBase
              * Extensibility
              */
             foreach ($filesToDelete as $path) {
+                /**
+                 * @event media.file.delete
+                 * Called after a file is deleted
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('media.file.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 * Or
+                 *
+                 *     $mediaWidget->bindEvent('file.delete', function ((string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 */
                 $this->fireSystemEvent('media.file.delete', [$path]);
             }
         }
@@ -352,8 +383,22 @@ class MediaManager extends WidgetBase
              */
             MediaLibrary::instance()->moveFile($originalPath, $newPath);
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.rename
+             * Called after a file is renamed / moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.rename', function ((string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.rename', [$originalPath, $newPath]);
         }
@@ -363,8 +408,22 @@ class MediaManager extends WidgetBase
              */
             MediaLibrary::instance()->moveFolder($originalPath, $newPath);
 
-            /*
-             * Extensibility
+            /**
+             * @event media.folder.rename
+             * Called after a folder is renamed / moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.folder.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('folder.rename', function ((string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.folder.rename', [$originalPath, $newPath]);
         }
@@ -403,8 +462,22 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('backend::lang.media.error_creating_folder'));
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event media.folder.create
+         * Called after a folder is created
+         *
+         * Example usage:
+         *
+         *     Event::listen('media.folder.create', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
+         *         \Log::info($newFolderPath . " was created");
+         *     });
+         *
+         * Or
+         *
+         *     $mediaWidget->bindEvent('folder.create', function ((string) $newFolderPath) {
+         *         \Log::info($newFolderPath . " was created");
+         *     });
+         *
          */
         $this->fireSystemEvent('media.folder.create', [$newFolderPath]);
 
@@ -481,8 +554,22 @@ class MediaManager extends WidgetBase
              */
             $library->moveFile($path, $dest.'/'.basename($path));
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.move
+             * Called after a file is moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.rename', function ((string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.move', [$path, $dest]);
         }
@@ -493,8 +580,22 @@ class MediaManager extends WidgetBase
              */
             $library->moveFolder($path, $dest.'/'.basename($path));
 
-            /*
-             * Extensibility
+            /**
+             * @event media.folder.move
+             * Called after a folder is moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.folder.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('folder.rename', function ((string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.folder.move', [$path, $dest]);
         }
@@ -1181,8 +1282,22 @@ class MediaManager extends WidgetBase
                 File::get($realPath)
             );
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.upload
+             * Called after a file is uploaded
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.upload', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *         \Log::info($path . " was upoaded.");
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.upload', function ((string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *         \Log::info($path . " was uploaded");
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
 

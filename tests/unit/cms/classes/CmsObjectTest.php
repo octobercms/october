@@ -197,7 +197,7 @@ class CmsObjectTest extends TestCase
 
     /**
      * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage The File Name field is required
+     * @expectedExceptionMessage The File name field is required
      */
     public function testFillEmptyFileName()
     {

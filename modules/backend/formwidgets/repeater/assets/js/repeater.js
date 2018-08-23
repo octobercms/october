@@ -125,9 +125,9 @@
     Repeater.prototype.togglePrompt = function () {
         if (this.options.minItems && this.options.minItems > 0) {
             var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
-                $removeItemBtn = this.$el.find('> .field-repeater-items > .field-repeater-item > .repeater-item-remove')
+                $removeItemBtn = this.$el.find('> .field-repeater-items > .field-repeater-item > .repeater-item-remove');
 
-            $removeItemBtn.toggle(repeatedItems > this.options.minItems)
+            $removeItemBtn.toggleClass('disabled', !(repeatedItems > this.options.minItems))
         }
 
         if (this.options.maxItems && this.options.maxItems > 0) {
