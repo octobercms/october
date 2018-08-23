@@ -22,6 +22,8 @@
 .field-repeater li.field-repeater-item .repeater-item-collapse a,.field-repeater li.field-repeater-item .repeater-item-collapse button{-webkit-transition:transform 0.3s;transition:transform 0.3s;color:#bdc3c7;line-height:20px;display:block;font-size:12px}
 .field-repeater li.field-repeater-item .repeater-item-collapse a:hover,.field-repeater li.field-repeater-item .repeater-item-collapse button:hover,.field-repeater li.field-repeater-item .repeater-item-collapse a:focus,.field-repeater li.field-repeater-item .repeater-item-collapse button:focus{color:#999;text-decoration:none}
 .field-repeater li.field-repeater-item .repeater-item-remove{position:absolute;top:4px;right:5px;z-index:90}
+.field-repeater li.field-repeater-item .repeater-item-remove.disabled{display:none}
+.field-repeater li.field-repeater-item .repeater-item-remove.disabled + .repeater-item-collapse{right:7px}
 .field-repeater li.field-repeater-item .repeater-item-remove .close{float:none;display:inline-block}
 .field-repeater li.field-repeater-item .repeater-item-collapse,.field-repeater li.field-repeater-item .repeater-item-handle,.field-repeater li.field-repeater-item .repeater-item-remove{width:20px;height:20px;text-align:center}
 .field-repeater li.field-repeater-item:hover .repeater-item-collapse,.field-repeater li.field-repeater-item:active .repeater-item-collapse,.field-repeater li.field-repeater-item:hover .repeater-item-handle,.field-repeater li.field-repeater-item:active .repeater-item-handle,.field-repeater li.field-repeater-item:hover .repeater-item-remove,.field-repeater li.field-repeater-item:active .repeater-item-remove{opacity:1}
