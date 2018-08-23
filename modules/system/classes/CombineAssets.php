@@ -150,8 +150,11 @@ class CombineAssets
          */
         $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
         $this->registerAlias('framework', '~/modules/system/assets/js/framework.js');
+        $this->registerAlias('framework-min', '~/modules/system/assets/js/framework-min.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/js/framework.extras.js');
+        $this->registerAlias('framework.combined-min', '~/modules/system/assets/js/framework.combined-min.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/css/framework.extras.css');
+        $this->registerAlias('framework.extras-min', '~/modules/system/assets/css/framework.extras-min.css');
 
         /*
          * Deferred registration
