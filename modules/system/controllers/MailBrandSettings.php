@@ -4,6 +4,7 @@ use Lang;
 use File;
 use Flash;
 use Config;
+use Backend;
 use Redirect;
 use BackendMenu;
 use ApplicationException;
@@ -13,6 +14,7 @@ use System\Classes\MailManager;
 use Backend\Classes\Controller;
 use System\Models\MailLayout;
 use System\Models\MailTemplate;
+use Exception;
 
 /**
  * Mail brand customization controller

@@ -1,6 +1,7 @@
 <?php namespace Backend;
 
 use App;
+use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;

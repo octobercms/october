@@ -3,6 +3,7 @@
 use File;
 use Lang;
 use Config;
+use Cms\Classes\Theme;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
 use ApplicationException;

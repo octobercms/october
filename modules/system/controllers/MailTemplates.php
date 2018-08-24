@@ -5,6 +5,7 @@ use Lang;
 use File;
 use Mail;
 use Flash;
+use Backend;
 use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;

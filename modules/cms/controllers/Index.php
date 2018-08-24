@@ -21,6 +21,7 @@ use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use Backend\Classes\Controller;
+use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
 use Cms\Classes\Asset;

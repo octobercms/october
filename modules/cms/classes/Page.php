@@ -1,6 +1,8 @@
 <?php namespace Cms\Classes;
 
 use Lang;
+use Cms\Classes\Theme;
+use Cms\Classes\Layout;
 use ApplicationException;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 

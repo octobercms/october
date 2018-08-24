@@ -2,6 +2,7 @@
 
 use Lang;
 use Flash;
+use Backend;
 use Redirect;
 use BackendMenu;
 use System\Classes\SettingsManager;
