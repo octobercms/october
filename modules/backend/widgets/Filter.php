@@ -379,8 +379,26 @@ class Filter extends WidgetBase
          */
         $query->limit(500);
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendQuery
+         * Provides an opportunity to extend the query of the list of options
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendQuery', function((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
+         *         if ($scope->scopeName == 'status') {
+         *             $query->where('status', '<>', 'all');
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendQuery', function ($query, (\Backend\Classes\FilterScope) $scope) {
+         *         if ($scope->scopeName == 'status') {
+         *             $query->where('status', '<>', 'all');
+         *         }
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
@@ -489,8 +507,22 @@ class Filter extends WidgetBase
             return;
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendScopesBefore
+         * Provides an opportunity to interact with the Filter widget before defining the filter scopes
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendScopesBefore', function((\Backend\Widgets\Filter) $filterWidget) {
+         *         // Just in case you really had to do something before scopes are defined
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendScopesBefore', function () use ((\Backend\Widgets\Filter) $filterWidget) {
+         *         // Just in case you really had to do something before scopes are defined
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendScopesBefore');
 
@@ -503,8 +535,26 @@ class Filter extends WidgetBase
 
         $this->addScopes($this->scopes);
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendScopes
+         * Provides an opportunity to interact with the Filter widget & its scopes after the filter scopes have been initialized
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendScopes', function((\Backend\Widgets\Filter) $filterWidget) {
+         *         $filterWidget->addScopes([
+         *             'my_scope' => [
+         *                 'label' => 'My Filter Scope'
+         *             ]
+         *         ]);
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendScopes', function () use ((\Backend\Widgets\Filter) $filterWidget) {
+         *         $filterWidget->removeScope('my_scope');
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendScopes');
 
@@ -594,7 +644,7 @@ class Filter extends WidgetBase
          * Set scope value
          */
         $scope->value = $this->getScopeValue($scope, @$config['default']);
-        
+
         return $scope;
     }
 

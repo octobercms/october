@@ -2456,6 +2456,10 @@ html.cssanimations .cursor-loading-indicator.hide{display:none}
 .custom-checkbox p.help-block,.custom-radio p.help-block{padding-left:6px;margin-bottom:17px}
 .custom-radio label:before{-webkit-border-radius:18px;-moz-border-radius:18px;border-radius:18px}
 .custom-checkbox label:before{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.inline-options .field-checkboxlist:not(.is-scrollable){padding:10px 20px 20px 20px !important}
+.inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox{display:inline-block;margin:0}
+.inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label{margin-bottom:0 !important;padding-top:10px}
+.inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label:before{top:10px}
 .switch-field .field-switch{padding-left:85px;float:left}
 .switch-field .field-switch > label{margin-top:3px}
 .custom-switch{display:block;width:65px;height:26px;position:relative;text-transform:uppercase;border:none;cursor:pointer;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}

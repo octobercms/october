@@ -210,8 +210,8 @@ class FileUpload extends FormWidgetBase
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
-            $cssDimensions .= $this->imageHeight
-                ? 'height: '.$this->imageHeight.'px;'
+            $cssDimensions .= ($this->imageHeight)
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
         else {
@@ -219,8 +219,8 @@ class FileUpload extends FormWidgetBase
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 
-            $cssDimensions .= $this->imageHeight
-                ? 'height: '.$this->imageHeight.'px;'
+            $cssDimensions .= ($this->imageHeight)
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
 

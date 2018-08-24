@@ -170,6 +170,26 @@
     .border-radius(3px);
 }
 
+.inline-options {
+    .field-checkboxlist:not(.is-scrollable) {
+        padding: 10px 20px 20px 20px !important;
+
+        .custom-checkbox {
+            display: inline-block;
+            margin: 0;
+
+            label {
+                margin-bottom: 0 !important;
+                padding-top: 10px;
+
+                &:before {
+                    top: 10px;
+                }
+            }
+        }
+    }
+}
+
 //
 // ON / OFF Switcher
 //
@@ -280,4 +300,3 @@
         }
     }
 }
-
