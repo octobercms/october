@@ -5,7 +5,6 @@ use Str;
 use Lang;
 use Flash;
 use Event;
-use Input;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;

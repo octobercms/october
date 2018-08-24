@@ -2,9 +2,7 @@
 
 use Cms;
 use Url;
-use Str;
 use App;
-use File;
 use View;
 use Lang;
 use Flash;
@@ -22,13 +20,10 @@ use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Models\MaintenanceSetting;
 use System\Models\RequestLog;
 use System\Helpers\View as ViewHelper;
-use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
-use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
-use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 

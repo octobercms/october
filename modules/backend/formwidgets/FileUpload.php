@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Str;
 use Input;
 use Request;
 use Response;

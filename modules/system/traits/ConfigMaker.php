@@ -5,7 +5,6 @@ use File;
 use Lang;
 use Event;
 use SystemException;
-use Backend\Classes\Controller;
 use stdClass;
 use Config;
 

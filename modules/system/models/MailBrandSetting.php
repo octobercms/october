@@ -1,12 +1,9 @@
 <?php namespace System\Models;
 
 use App;
-use Url;
 use Str;
-use Lang;
 use Model;
 use Cache;
-use Config;
 use Less_Parser;
 use Exception;
 use File as FileHelper;

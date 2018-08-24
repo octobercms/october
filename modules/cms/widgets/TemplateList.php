@@ -4,7 +4,6 @@ use Str;
 use File;
 use Input;
 use Request;
-use Response;
 use Cms\Classes\Theme;
 use Backend\Classes\WidgetBase;
 

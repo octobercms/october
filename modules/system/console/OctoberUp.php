@@ -2,8 +2,6 @@
 
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Console command to migrate the database.

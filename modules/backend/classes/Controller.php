@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use App;
 use Lang;
 use View;
 use Flash;

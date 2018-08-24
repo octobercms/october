@@ -1,6 +1,5 @@
 <?php namespace System\Helpers;
 
-use Lang;
 use Carbon\Carbon;
 use DateTime as PhpDateTime;
 use InvalidArgumentException;

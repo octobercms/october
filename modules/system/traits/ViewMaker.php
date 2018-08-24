@@ -2,7 +2,6 @@
 
 use File;
 use Lang;
-use Event;
 use Block;
 use SystemException;
 use Exception;

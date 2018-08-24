@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use Str;
 use File;
 use Yaml;
 use Db;

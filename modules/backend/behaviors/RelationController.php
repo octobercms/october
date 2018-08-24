@@ -2,7 +2,6 @@
 
 use Db;
 use Lang;
-use Event;
 use Request;
 use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;

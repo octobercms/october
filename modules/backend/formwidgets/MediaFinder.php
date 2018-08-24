@@ -1,7 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Lang;
-use ApplicationException;
 use System\Classes\MediaLibrary;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;

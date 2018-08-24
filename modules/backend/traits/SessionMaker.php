@@ -2,7 +2,6 @@
 
 use Str;
 use Session;
-use SystemException;
 
 /**
  * Session Maker Trait

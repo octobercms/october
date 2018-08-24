@@ -1,15 +1,12 @@
 <?php namespace Cms\Controllers;
 
 use File;
-use Yaml;
 use Flash;
-use Config;
 use Backend;
 use Redirect;
 use BackendMenu;
 use ValidationException;
 use ApplicationException;
-use Cms\Models\ThemeData;
 use Cms\Models\ThemeExport;
 use Cms\Models\ThemeImport;
 use Cms\Classes\Theme as CmsTheme;
