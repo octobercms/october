@@ -9,6 +9,7 @@ use Input;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
@@ -232,6 +233,7 @@ class FormController extends ControllerBehavior
 
         $this->initForm($model);
 
+        $this->controller->formSetValidationNames($model);
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeCreate($model);
 
@@ -299,6 +301,7 @@ class FormController extends ControllerBehavior
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
+        $this->controller->formSetValidationNames($model);
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeUpdate($model);
 
@@ -677,6 +680,28 @@ class FormController extends ControllerBehavior
     //
     // Overrides
     //
+
+    /**
+     * Called before the creation or updating form is saved to override the field names for validation using their labels
+     */
+    public function formSetValidationNames($model)
+    {
+        $attributeNames = [];
+        $form = $this->formGetWidget();
+        foreach ($form->getFields() as $field) {
+            $fieldName = implode('.', HtmlHelper::nameToArray($field->fieldName));
+            $attributeNames[$fieldName] = $field->label;
+        }
+        if (!property_exists($model, 'attributeNames')) {
+            $model->addDynamicProperty('attributeNames', $attributeNames);
+            // Clean up after validation to prevent attributeNames from being handled as a model attribute to be saved in the DB
+            $model->bindEvent('model.afterValidate', function () use ($model) {
+                unset($model->attributes['attributeNames']);
+            });
+        } else {
+            $model->attributeNames = array_merge($attributeNames, (array) $model->attributeNames);
+        }
+    }
 
     /**
      * Called before the creation or updating form is saved.
