@@ -837,6 +837,24 @@ class Form extends WidgetBase
          */
         if ($field->required === null && $this->model && method_exists($this->model, 'isAttributeRequired')) {
             $fieldName = implode('.', HtmlHelper::nameToArray($field->fieldName));
+
+            // Check nested fields
+            if ($this->isNested) {
+                // Get the current attribute level
+                $nameArray = HtmlHelper::nameToArray($this->arrayName);
+                unset($nameArray[0]);
+
+                // Convert any numeric indexes to wildcards
+                foreach ($nameArray as $i => $value) {
+                    if (preg_match('/^[0-9]*$/', $value)) {
+                        $nameArray[$i] = '*';
+                    }
+                }
+
+                // Recombine names for full attribute name in rules array
+                $fieldName = implode('.', $nameArray) . ".{$fieldName}";
+            }
+
             $field->required = $this->model->isAttributeRequired($fieldName);
         }
 
