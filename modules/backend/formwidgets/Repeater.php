@@ -108,7 +108,7 @@ class Repeater extends FormWidgetBase
             $this->previewMode = true;
         }
 
-        $fieldName = $this->formField->getName(false);
+        $fieldName = $this->formField->getName(false).'_'.md5($this->formField->getName(true));
         $this->indexInputName = self::INDEX_PREFIX.$fieldName;
         $this->groupInputName = self::GROUP_PREFIX.$fieldName;
 
@@ -172,7 +172,12 @@ class Repeater extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return (array) $this->processSaveValue($value);
+        $formData = [];
+        foreach ($this->formWidgets as $index => $form) {
+            $formData[$index] = $form->getSaveData();
+        }
+        
+        return $this->processSaveValue($formData);
     }
 
     /**
@@ -182,10 +187,6 @@ class Repeater extends FormWidgetBase
      */
     protected function processSaveValue($value)
     {
-        if (!is_array($value) || !$value) {
-            return $value;
-        }
-
         if ($this->useGroups) {
             foreach ($value as $index => &$data) {
                 $data['_group'] = $this->getGroupCodeFromIndex($index);
