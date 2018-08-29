@@ -8,6 +8,7 @@ use Event;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
