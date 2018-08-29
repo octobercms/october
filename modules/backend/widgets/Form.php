@@ -783,9 +783,11 @@ class Form extends WidgetBase
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
         $field = new FormField($fieldName, $label);
+
         if ($fieldContext) {
             $field->context = $fieldContext;
         }
+
         $field->arrayName = $this->arrayName;
         $field->idPrefix = $this->getId();
 
@@ -793,20 +795,17 @@ class Form extends WidgetBase
          * Simple field type
          */
         if (is_string($config)) {
-
             if ($this->isFormWidget($config) !== false) {
                 $field->displayAs('widget', ['widget' => $config]);
             }
             else {
                 $field->displayAs($config);
             }
-
         }
         /*
          * Defined field type
          */
         else {
-
             $fieldType = isset($config['type']) ? $config['type'] : null;
             if (!is_string($fieldType) && !is_null($fieldType)) {
                 throw new ApplicationException(Lang::get(
@@ -824,7 +823,6 @@ class Form extends WidgetBase
             }
 
             $field->displayAs($fieldType, $config);
-
         }
 
         /*
@@ -833,11 +831,18 @@ class Form extends WidgetBase
         $field->value = $this->getFieldValue($field);
 
         /*
+         * Apply the field name to the validation engine
+         */
+        $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
+
+        if ($this->model && method_exists($this->model, 'setValidationAttributeName')) {
+            $this->model->setValidationAttributeName($attrName, $field->label);
+        }
+
+        /*
          * Check model if field is required
          */
         if ($field->required === null && $this->model && method_exists($this->model, 'isAttributeRequired')) {
-            $fieldName = implode('.', HtmlHelper::nameToArray($field->fieldName));
-
             // Check nested fields
             if ($this->isNested) {
                 // Get the current attribute level
@@ -852,10 +857,10 @@ class Form extends WidgetBase
                 }
 
                 // Recombine names for full attribute name in rules array
-                $fieldName = implode('.', $nameArray) . ".{$fieldName}";
+                $attrName = implode('.', $nameArray) . ".{$attrName}";
             }
 
-            $field->required = $this->model->isAttributeRequired($fieldName);
+            $field->required = $this->model->isAttributeRequired($attrName);
         }
 
         /*
