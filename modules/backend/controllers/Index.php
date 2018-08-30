@@ -1,7 +1,6 @@
 <?php namespace Backend\Controllers;
 
 use Redirect;
-use BackendAuth;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\ReportContainer;

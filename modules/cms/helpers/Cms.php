@@ -12,7 +12,7 @@ use Route;
  */
 class Cms
 {
-    protected static $actionExists = null;
+    protected static $actionExists;
 
     /**
      * Returns a URL in context of the Frontend

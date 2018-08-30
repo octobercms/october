@@ -590,9 +590,7 @@ class ImportExportController extends ControllerBehavior
     {
         $lists = $this->controller->makeLists();
 
-        $widget = isset($lists[$definition])
-            ? $lists[$definition]
-            : reset($lists);
+        $widget = $lists[$definition] ?? reset($lists);
 
         /*
          * Parse options
@@ -697,8 +695,7 @@ class ImportExportController extends ControllerBehavior
             $widgetConfig->alias = $type.'OptionsForm';
             $widgetConfig->arrayName = ucfirst($type).'Options';
 
-            $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-            return $widget;
+            return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
         }
 
         return null;

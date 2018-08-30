@@ -5,7 +5,6 @@ use Lang;
 use Flash;
 use Config;
 use Request;
-use Response;
 use Exception;
 use BackendMenu;
 use Cms\Widgets\AssetList;
@@ -21,7 +20,6 @@ use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use Backend\Classes\Controller;
-use Backend\Classes\WidgetManager;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
 use Cms\Classes\Asset;
@@ -181,10 +179,10 @@ class Index extends Controller
             $templateData['code'] = $this->convertLineEndings($templateData['code']);
         }
 
-        if (!Request::input('templateForceSave') && $template->mtime) {
-            if (Request::input('templateMtime') != $template->mtime) {
-                throw new ApplicationException('mtime-mismatch');
-            }
+        if (!Request::input('templateForceSave') && $template->mtime
+            && Request::input('templateMtime') != $template->mtime
+        ) {
+            throw new ApplicationException('mtime-mismatch');
         }
 
         $template->attributes = [];
@@ -428,9 +426,7 @@ class Index extends Controller
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName()).uniqid();
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     protected function upgradeSettings($settings)
@@ -462,9 +458,7 @@ class Index extends Controller
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
-                unset($properties['oc.alias']);
-                unset($properties['inspectorProperty']);
-                unset($properties['inspectorClassName']);
+                unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
                 $settings[$section] = $properties;
             }
         }

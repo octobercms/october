@@ -11,7 +11,6 @@ use Config;
 use Request;
 use Response;
 use Assetic\Asset\FileAsset;
-use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCache;
 use Assetic\Asset\AssetCollection;
 use Assetic\Factory\AssetFactory;
@@ -488,9 +487,8 @@ class CombineAssets
         if ($actionExists) {
             return Url::action($combineAction, [$outputFilename], false);
         }
-        else {
-            return '/combine/'.$outputFilename;
-        }
+
+        return '/combine/'.$outputFilename;
     }
 
     /**

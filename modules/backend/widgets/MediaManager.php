@@ -38,7 +38,7 @@ class MediaManager extends WidgetBase
 
     const FILTER_EVERYTHING = 'everything';
 
-    protected $brokenImageHash = null;
+    protected $brokenImageHash;
 
     /**
      * @var boolean Determines whether the widget is in readonly mode or not
@@ -636,7 +636,7 @@ class MediaManager extends WidgetBase
 
         $urlAndSize = $this->getCropEditImageUrlAndSize($path, $cropSessionKey);
         $width = $urlAndSize['dimensions'][0];
-        $height = $urlAndSize['dimensions'][1] ? $urlAndSize['dimensions'][1] : 1;
+        $height = $urlAndSize['dimensions'][1] ?: 1;
 
         $this->vars['currentSelectionMode'] = $selectionParams['mode'];
         $this->vars['currentSelectionWidth'] = $selectionParams['width'];
@@ -784,9 +784,7 @@ class MediaManager extends WidgetBase
 
     protected function getCurrentFolder()
     {
-        $folder = $this->getSession('media_folder', self::FOLDER_ROOT);
-
-        return $folder;
+        return $this->getSession('media_folder', self::FOLDER_ROOT);
     }
 
     protected function setFilter($filter)
@@ -860,7 +858,7 @@ class MediaManager extends WidgetBase
 
         if ($result) {
             if (!isset($result['mode'])) {
-                $result['mode'] = MediaManager::SELECTION_MODE_NORMAL;
+                $result['mode'] = self::SELECTION_MODE_NORMAL;
             }
 
             if (!isset($result['width'])) {
@@ -875,7 +873,7 @@ class MediaManager extends WidgetBase
         }
 
         return [
-            'mode'   => MediaManager::SELECTION_MODE_NORMAL,
+            'mode'   => self::SELECTION_MODE_NORMAL,
             'width'  => null,
             'height' => null
         ];
@@ -884,9 +882,9 @@ class MediaManager extends WidgetBase
     protected function setSelectionParams($selectionMode, $selectionWidth, $selectionHeight)
     {
         if (!in_array($selectionMode, [
-            MediaManager::SELECTION_MODE_NORMAL,
-            MediaManager::SELECTION_MODE_FIXED_RATIO,
-            MediaManager::SELECTION_MODE_FIXED_SIZE
+            self::SELECTION_MODE_NORMAL,
+            self::SELECTION_MODE_FIXED_RATIO,
+            self::SELECTION_MODE_FIXED_SIZE
         ])) {
             throw new ApplicationException('Invalid input data');
         }
@@ -1000,9 +998,7 @@ class MediaManager extends WidgetBase
 
         $partition = implode('/', array_slice(str_split($itemSignature, 3), 0, 3)) . '/';
 
-        $result = $this->getThumbnailDirectory().$partition.$thumbFile;
-
-        return $result;
+        return $this->getThumbnailDirectory().$partition.$thumbFile;
     }
 
     protected function getThumbnailImageUrl($imagePath)
@@ -1140,10 +1136,10 @@ class MediaManager extends WidgetBase
     protected function resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath)
     {
         $thumbnailDir = dirname($fullThumbnailPath);
-        if (!File::isDirectory($thumbnailDir)) {
-            if (File::makeDirectory($thumbnailDir, 0777, true) === false) {
-                throw new SystemException('Error creating thumbnail directory');
-            }
+        if (!File::isDirectory($thumbnailDir)
+            && File::makeDirectory($thumbnailDir, 0777, true) === false
+        ) {
+            throw new SystemException('Error creating thumbnail directory');
         }
 
         $targetDimensions = $this->getTargetDimensions($thumbnailParams['width'], $thumbnailParams['height'], $tempFilePath);
@@ -1181,10 +1177,10 @@ class MediaManager extends WidgetBase
     {
         try {
             $thumbnailDir = dirname($path);
-            if (!File::isDirectory($thumbnailDir)) {
-                if (File::makeDirectory($thumbnailDir, 0777, true) === false)
-                    return;
+            if (!File::isDirectory($thumbnailDir) && File::makeDirectory($thumbnailDir, 0777, true) === false) {
+                return;
             }
+
             File::copy($this->getBrokenImagePath(), $path);
         }
         catch (Exception $ex) {
@@ -1422,31 +1418,29 @@ class MediaManager extends WidgetBase
              * If the target dimensions are provided, resize the original image and
              * return its URL and dimensions.
              */
-            else {
 
-                $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
-                if (!File::isFile($originalFilePath)) {
-                    throw new SystemException('The original image is not found in the cropping session directory.');
-                }
-
-                $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
-                $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
-
-                Resizer::open($originalFilePath)
-                    ->resize($params['width'], $params['height'], [
-                        'mode' => 'exact'
-                    ])
-                    ->save($tempFilePath)
-                ;
-
-                $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
-                $dimensions = getimagesize($tempFilePath);
-
-                return [
-                    'url' => $url,
-                    'dimensions' => $dimensions
-                ];
+            $originalFilePath = $fullSessionDirectoryPath.'/'.$originalThumbFileName;
+            if (!File::isFile($originalFilePath)) {
+                throw new SystemException('The original image is not found in the cropping session directory.');
             }
+
+            $resizedThumbFileName = 'resized-'.$params['width'].'-'.$params['height'].'.'.$extension;
+            $tempFilePath = $fullSessionDirectoryPath.'/'.$resizedThumbFileName;
+
+            Resizer::open($originalFilePath)
+                ->resize($params['width'], $params['height'], [
+                    'mode' => 'exact'
+                ])
+                ->save($tempFilePath)
+            ;
+
+            $url = $this->getThumbnailImageUrl($sessionDirectoryPath.'/'.$resizedThumbFileName);
+            $dimensions = getimagesize($tempFilePath);
+
+            return [
+                'url' => $url,
+                'dimensions' => $dimensions
+            ];
         }
         catch (Exception $ex) {
             if ($sessionDirectoryCreated) {

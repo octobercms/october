@@ -2,7 +2,6 @@
 
 use File;
 use Lang;
-use Event;
 use Block;
 use SystemException;
 use Exception;
@@ -91,9 +90,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found_name', ['name' => $partialPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($partialPath, $params);
@@ -140,7 +138,7 @@ trait ViewMaker
      */
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
-        $layout = $name === null ? $this->layout : $name;
+        $layout = $name ?? $this->layout;
         if ($layout == '') {
             return '';
         }
@@ -151,9 +149,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found_name', ['name' => $layoutPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($layoutPath, $params);
@@ -300,6 +297,6 @@ trait ViewMaker
         $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
-        return ($isPublic) ? File::localToPublic($guessedPath) : $guessedPath;
+        return $isPublic ? File::localToPublic($guessedPath) : $guessedPath;
     }
 }

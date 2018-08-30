@@ -81,7 +81,7 @@ class ControllerBehavior extends ExtensionBase
         /*
          * Return all config
          */
-        if (is_null($name)) {
+        if ($name === null) {
             return $this->config;
         }
 

@@ -35,7 +35,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
      */
-    public $stretch = null;
+    public $stretch;
 
     /**
      * @var boolean If set to TRUE, fields will not be displayed in tabs.
@@ -232,6 +232,6 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return isset($this->fields[$offset]) ? $this->fields[$offset] : null;
+        return $this->fields[$offset] ?? null;
     }
 }

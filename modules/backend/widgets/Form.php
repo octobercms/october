@@ -56,7 +56,7 @@ class Form extends WidgetBase
      * @var string The context of this form, fields that do not belong
      * to this context will not be shown.
      */
-    public $context = null;
+    public $context;
 
     /**
      * @var string If the field element names should be contained in an array.
@@ -686,7 +686,7 @@ class Form extends WidgetBase
              * Check that the form field matches the active context
              */
             if ($fieldObj->context !== null) {
-                $context = (is_array($fieldObj->context)) ? $fieldObj->context : [$fieldObj->context];
+                $context = is_array($fieldObj->context) ? $fieldObj->context : [$fieldObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
@@ -779,7 +779,7 @@ class Form extends WidgetBase
      */
     protected function makeFormField($name, $config = [])
     {
-        $label = (isset($config['label'])) ? $config['label'] : null;
+        $label = $config['label'] ?? null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
         $field = new FormField($fieldName, $label);
@@ -806,11 +806,11 @@ class Form extends WidgetBase
          * Defined field type
          */
         else {
-            $fieldType = isset($config['type']) ? $config['type'] : null;
-            if (!is_string($fieldType) && !is_null($fieldType)) {
+            $fieldType = $config['type'] ?? null;
+            if (!is_string($fieldType) && $fieldType !== null) {
                 throw new ApplicationException(Lang::get(
                     'backend::lang.field.invalid_type',
-                    ['type'=>gettype($fieldType)]
+                    ['type' => gettype($fieldType)]
                 ));
             }
 
@@ -873,7 +873,7 @@ class Form extends WidgetBase
              * Defer the execution of option data collection
              */
             $field->options(function () use ($field, $config) {
-                $fieldOptions = isset($config['options']) ? $config['options'] : null;
+                $fieldOptions = $config['options'] ?? null;
                 $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
                 return $fieldOptions;
             });
@@ -1106,8 +1106,7 @@ class Form extends WidgetBase
         }
 
         if ($field->type === 'widget') {
-            $widget = $this->makeFormFieldWidget($field);
-            return $widget->showLabels;
+            return $this->makeFormFieldWidget($field)->showLabels;
         }
 
         return true;
@@ -1343,9 +1342,9 @@ class Form extends WidgetBase
             $key = array_shift($parts);
             if (isset($array[$key])) {
                 return $array[$key];
-            } else {
-                return $default;
             }
+
+            return $default;
         }
 
         foreach ($parts as $segment) {

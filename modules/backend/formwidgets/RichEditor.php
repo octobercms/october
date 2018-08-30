@@ -29,7 +29,7 @@ class RichEditor extends FormWidgetBase
     /**
      * @var boolean Determines whether content has HEAD and HTML tags.
      */
-    public $toolbarButtons = null;
+    public $toolbarButtons;
 
     /**
      * @var boolean If true, the editor is set to read-only mode

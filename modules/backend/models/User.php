@@ -96,12 +96,11 @@ class User extends UserBase
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size, $options);
         }
-        else {
-            return '//www.gravatar.com/avatar/' .
-                md5(strtolower(trim($this->email))) .
-                '?s='. $size .
-                '&d='. urlencode($default);
-        }
+
+        return '//www.gravatar.com/avatar/' .
+            md5(strtolower(trim($this->email))) .
+            '?s='. $size .
+            '&d='. urlencode($default);
     }
 
     /**

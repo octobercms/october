@@ -192,11 +192,9 @@ class CodeParser
         $path = array_get($data, 'filePath', $this->getCacheFilePath());
 
         if (is_file($path)) {
-            if ($className = $this->extractClassFromFile($path)) {
-                if (class_exists($className)) {
-                    $data['className'] = $className;
-                    return $data;
-                }
+            if (($className = $this->extractClassFromFile($path)) && class_exists($className)) {
+                $data['className'] = $className;
+                return $data;
             }
 
             @unlink($path);
@@ -271,10 +269,8 @@ class CodeParser
     {
         $cached = $this->getCachedInfo();
 
-        if ($cached !== null) {
-            if (array_key_exists($this->filePath, $cached)) {
-                return $cached[$this->filePath];
-            }
+        if ($cached !== null && array_key_exists($this->filePath, $cached)) {
+            return $cached[$this->filePath];
         }
 
         return null;

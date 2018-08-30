@@ -30,7 +30,7 @@ class TagList extends FormWidgetBase
     /**
      * @var mixed Predefined options settings. Set to true to get from model.
      */
-    public $options = null;
+    public $options;
 
     /**
      * @var string Mode for the return value. Values: string, array, relation.
