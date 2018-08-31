@@ -3,13 +3,9 @@
 use Db;
 use App;
 use Str;
-use Url;
 use PDO;
 use File;
 use Config;
-use Artisan;
-use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 use Backend\Database\Seeds\SeedSetupAdmin;
 use System\Classes\UpdateManager;
 use October\Rain\Config\ConfigWriter;
@@ -85,14 +81,6 @@ class OctoberInstall extends Command
 
         $this->setupMigrateDatabase();
         $this->displayOutro();
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

@@ -2,7 +2,6 @@
 
 use Db;
 use Lang;
-use Event;
 use Request;
 use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
@@ -379,11 +378,9 @@ class RelationController extends ControllerBehavior
         /*
          * Pivot widget
          */
-        if ($this->manageMode == 'pivot') {
-            if ($this->pivotWidget = $this->makePivotWidget()) {
-                $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
-                $this->pivotWidget->bindToController();
-            }
+        if ($this->manageMode == 'pivot' && $this->pivotWidget = $this->makePivotWidget()) {
+            $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
+            $this->pivotWidget->bindToController();
         }
     }
 
@@ -423,7 +420,7 @@ class RelationController extends ControllerBehavior
         /*
          * Determine the partial to use based on the supplied section option
          */
-        $section = (isset($options['section'])) ? $options['section'] : null;
+        $section = $options['section'] ?? null;
         switch (strtolower($section)) {
             case 'toolbar':
                 return $this->toolbarWidget ? $this->toolbarWidget->render() : null;
@@ -695,22 +692,22 @@ class RelationController extends ControllerBehavior
             /*
              * Constrain the list by the search widget, if available
              */
-            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')) {
-                if ($searchWidget = $this->toolbarWidget->getSearchWidget()) {
-                    $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
-                        $widget->setSearchTerm($searchWidget->getActiveTerm());
-                        return $widget->onRefresh();
-                    });
+            if ($this->toolbarWidget && $this->getConfig('view[showSearch]')
+                && $searchWidget = $this->toolbarWidget->getSearchWidget()
+            ) {
+                $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
+                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                    return $widget->onRefresh();
+                });
 
-                    /*
-                     * Persist the search term across AJAX requests only
-                     */
-                    if (Request::ajax()) {
-                        $widget->setSearchTerm($searchWidget->getActiveTerm());
-                    }
-                    else {
-                        $searchWidget->setActiveTerm(null);
-                    }
+                /*
+                 * Persist the search term across AJAX requests only
+                 */
+                if (Request::ajax()) {
+                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                }
+                else {
+                    $searchWidget->setActiveTerm(null);
                 }
             }
         }
@@ -905,8 +902,7 @@ class RelationController extends ControllerBehavior
             $config->model->setRelation('pivot', $pivotModel);
         }
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $config);
     }
 
     //
@@ -1448,9 +1444,8 @@ class RelationController extends ControllerBehavior
                 if ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
-                else {
-                    return 'backend::lang.relation.add_a_new';
-                }
+
+                return 'backend::lang.relation.add_a_new';
             case 'form':
                 if ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
@@ -1511,9 +1506,8 @@ class RelationController extends ControllerBehavior
                 if ($this->eventTarget == 'button-add') {
                     return 'list';
                 }
-                else {
-                    return 'form';
-                }
+
+                return 'form';
         }
     }
 
@@ -1522,14 +1516,12 @@ class RelationController extends ControllerBehavior
      */
     protected function evalFormContext($mode = 'manage', $exists = false)
     {
-        $config = isset($this->config->{$mode}) ? $this->config->{$mode} : [];
+        $config = $this->config->{$mode} ?? [];
 
-        if ($context = array_get($config, 'context')) {
-            if (is_array($context)) {
-                $context = $exists
-                    ? array_get($context, 'update')
-                    : array_get($context, 'create');
-            }
+        if (($context = array_get($config, 'context')) && is_array($context)) {
+            $context = $exists
+                ? array_get($context, 'update')
+                : array_get($context, 'create');
         }
 
         if (!$context) {
@@ -1605,9 +1597,8 @@ class RelationController extends ControllerBehavior
             if ($throwException) {
                 throw new ApplicationException('Missing configuration for '.$mode.'.'.$type.' in RelationController definition '.$this->field);
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeConfig($config);

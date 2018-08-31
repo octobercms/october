@@ -9,7 +9,6 @@ use BackendAuth;
 use DirectoryIterator;
 use DateTime;
 use DateTimeZone;
-use Carbon\Carbon;
 
 /**
  * Backend preferences for the backend user

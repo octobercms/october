@@ -32,7 +32,7 @@ class Filter extends WidgetBase
      * @var string The context of this filter, scopes that do not belong
      * to this context will not be shown.
      */
-    public $context = null;
+    public $context;
 
     //
     // Object properties
@@ -151,11 +151,11 @@ class Filter extends WidgetBase
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ? $min : '';
-                    $params['min'] = $min ? $min : null;
+                    $params['minStr'] = $min ?: '';
+                    $params['min'] = $min ?: null;
 
-                    $params['maxStr'] = $max ? $max : '∞';
-                    $params['max'] = $max ? $max : null;
+                    $params['maxStr'] = $max ?: '∞';
+                    $params['max'] = $max ?: null;
                 }
 
                 break;
@@ -195,7 +195,7 @@ class Filter extends WidgetBase
                 break;
 
             case 'checkbox':
-                $checked = post('value') == 'true' ? true : false;
+                $checked = post('value') == 'true';
                 $this->setScopeValue($scope, $checked);
                 break;
 
@@ -263,7 +263,7 @@ class Filter extends WidgetBase
             case 'text':
                 $values = post('options.value');
 
-                if (!is_null($values) && $values !== '') {
+                if ($values !== null && $values !== '') {
                     list($value) = $values;
                 }
                 else {
@@ -574,7 +574,7 @@ class Filter extends WidgetBase
              * Check that the filter scope matches the active context
              */
             if ($scopeObj->context !== null) {
-                $context = (is_array($scopeObj->context)) ? $scopeObj->context : [$scopeObj->context];
+                $context = is_array($scopeObj->context) ? $scopeObj->context : [$scopeObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
@@ -634,8 +634,8 @@ class Filter extends WidgetBase
      */
     protected function makeFilterScope($name, $config)
     {
-        $label = (isset($config['label'])) ? $config['label'] : null;
-        $scopeType = isset($config['type']) ? $config['type'] : null;
+        $label = $config['label'] ?? null;
+        $scopeType = $config['type'] ?? null;
 
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
@@ -754,6 +754,8 @@ class Filter extends WidgetBase
                         $query->$scopeMethod($scope->value);
                     }
                 }
+
+                break;
 
             case 'numberrange':
                 if (is_array($scope->value) && count($scope->value) > 1) {

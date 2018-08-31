@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Str;
 use Input;
 use Request;
 use Response;
@@ -36,17 +35,17 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Prompt text to display for the upload button.
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $imageWidth;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $imageHeight;
 
     /**
      * @var mixed Collection of acceptable file types.
@@ -207,7 +206,7 @@ class FileUpload extends FormWidgetBase
         $cssDimensions = '';
 
         if ($mode == 'block') {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
@@ -216,7 +215,7 @@ class FileUpload extends FormWidgetBase
                 : 'height: auto;';
         }
         else {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 

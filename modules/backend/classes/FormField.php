@@ -94,12 +94,12 @@ class FormField
     /**
      * @var string Specifies contextual visibility of this form field.
      */
-    public $context = null;
+    public $context;
 
     /**
      * @var bool Specifies if this field is mandatory.
      */
-    public $required = null;
+    public $required;
 
     /**
      * @var bool Specify if the field is read-only or not.
@@ -234,9 +234,8 @@ class FormField
 
             return [];
         }
-        else {
-            $this->options = $value;
-        }
+
+        $this->options = $value;
 
         return $this;
     }
@@ -266,7 +265,7 @@ class FormField
      */
     protected function evalConfig($config)
     {
-        if (is_null($config)) {
+        if ($config === null) {
             $config = [];
         }
 
@@ -567,9 +566,8 @@ class FormField
         if ($arrayName) {
             return $arrayName.'['.implode('][', HtmlHelper::nameToArray($this->fieldName)).']';
         }
-        else {
-            return $this->fieldName;
-        }
+
+        return $this->fieldName;
     }
 
     /**

@@ -27,14 +27,6 @@ class ThemeList extends Command
     protected $description = 'List available themes.';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -63,14 +55,6 @@ class ThemeList extends Command
         }
 
         $this->info(PHP_EOL."[*] Active    [-] Installed    [ ] Not installed");
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

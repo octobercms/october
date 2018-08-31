@@ -54,17 +54,6 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     protected $themeCache;
 
     /**
-     * Create a new CMS object instance.
-     *
-     * @param  array  $attributes
-     * @return void
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
-
-    /**
      * The "booting" method of the model.
      * @return void
      */

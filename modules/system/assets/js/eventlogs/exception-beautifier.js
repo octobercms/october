@@ -61,7 +61,8 @@
          */
         if (source.indexOf('Stack trace:') < 0) {
             source = '{exception-beautifier-message-container}{exception-beautifier-message}' + self.formatMessage(source) + '{/exception-beautifier-message}{/exception-beautifier-message-container}'
-        } else {
+        }
+        else {
             end = source.indexOf('Stack trace:', start)
             markup.message = source.substring(start, end)
 
@@ -112,7 +113,8 @@
             line.number = $.trim(matches[1])
             line.internal = $.trim(matches[2])
             line.function = $.trim(matches[3])
-        } else if (matches = str.match(ExceptionBeautifier.REGEX.defaultLine)) {
+        }
+        else if (matches = str.match(ExceptionBeautifier.REGEX.defaultLine)) {
             line.type = 'default'
             line.number = $.trim(matches[1])
             line.function = $.trim(matches[2])
@@ -173,19 +175,22 @@
                     self.formatFunctionParameters(parameters) +
                     '{exception-beautifier-system-function}){/exception-beautifier-system-function}'
             })
-        } else if (str.match(ExceptionBeautifier.REGEX.closureCall)) {
+        }
+        else if (str.match(ExceptionBeautifier.REGEX.closureCall)) {
             str = str.replace(ExceptionBeautifier.REGEX.closureCall, function (str, parameters) {
                 return '{exception-beautifier-function}{closure}({/exception-beautifier-function}' +
                     self.formatFunctionParameters(parameters) +
                     '{exception-beautifier-function}){/exception-beautifier-function}'
             })
-        } else if (str.match(ExceptionBeautifier.REGEX.functionCall)) {
+        }
+        else if (str.match(ExceptionBeautifier.REGEX.functionCall)) {
             str = str.replace(ExceptionBeautifier.REGEX.functionCall, function (str, functionName, parameters) {
                 return '{exception-beautifier-function}→' + functionName + '({/exception-beautifier-function}' +
                     self.formatFunctionParameters(parameters) +
                     '{exception-beautifier-function}){/exception-beautifier-function}'
             })
-        } else if (str.match(ExceptionBeautifier.REGEX.staticCall)) {
+        }
+        else if (str.match(ExceptionBeautifier.REGEX.staticCall)) {
             str = str.replace(ExceptionBeautifier.REGEX.staticCall, function (str, functionName, parameters) {
                 return '{exception-beautifier-function}::' + functionName + '({/exception-beautifier-function}' +
                     self.formatFunctionParameters(parameters) +
@@ -267,7 +272,8 @@
                     markup += self.buildMarkup(str.substring(end, start < 0 ? undefined : start))
                 }
             }
-        } else {
+        }
+        else {
             markup += $.oc.escapeHtmlString(str)
                 .replace(/\{x-newline\}/g, '<br>')
                 .replace(/\{x-tabulation\}/g, '&nbsp;&nbsp;')
@@ -279,38 +285,33 @@
     ExceptionBeautifier.prototype.finalizeMarkup = function (markup, source) {
         var stacktrace,
             messageContainer,
-            tabs
+            tabs,
+            iframe
 
         markup.find('.beautifier-file').each(function () {
             $(this).find('.beautifier-class').each(function () {
                 var $el = $(this)
-
                 $el.replaceWith($el.text())
             })
         })
 
         markup.find('.beautifier-file+.beautifier-line-number').each(function () {
             var $el = $(this)
-
             $el.appendTo($el.prev())
         })
 
         messageContainer = markup.find('.beautifier-message-container')
-
-        stacktrace = markup.find('.beautifier-stacktrace')
-            .addClass('hidden')
+        stacktrace = markup.find('.beautifier-stacktrace').addClass('hidden')
 
         if (!!stacktrace.length) {
             $('<a class="beautifier-toggle-stacktrace" href="javascript:;"><span>' + $.oc.lang.get('eventlog.show_stacktrace') + '</span></a>')
                 .appendTo(messageContainer)
                 .on('click', function (event) {
-                    var $el = $(this)
-
                     event.preventDefault()
                     event.stopPropagation()
 
+                    var $el = $(this)
                     $('.beautifier-stacktrace', markup).toggleClass('hidden')
-
                     $el.hide()
                 })
         }
@@ -325,17 +326,41 @@
             '</div></div>')
 
         if (source.indexOf('Message-ID:') > 0) {
-            markup = '<div class="beautifier-formatted-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>'
+            markup = source.trim().replace(/(?:^|<\/html>)[^]*?(?:<html|$)/g, function(m) {
+                return m.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;')
+            })
+            iframe = $('<iframe id="#beautifier-tab-formatted-iframe" style="width: 100%; height: 500px; padding: 0" frameborder="0"></iframe>')
         }
 
-        tabs.find('#beautifier-tab-formatted').append(markup)
+        /*
+         * Build tab content
+         */
+        if (iframe) {
+            tabs.find('#beautifier-tab-formatted').append(iframe)
+            iframe.wrap('<div class="beautifier-formatted-content" />')
+            iframe.on('load', function() {
+                var $html = iframe.contents().find('html')
+                $html.html(markup)
+                $html.css({
+                    'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+                    'font-size': '14px',
+                    'color': '#74787e'
+                })
+                iframe.height($html.height() + 1)
+            })
+        }
+        else {
+            tabs.find('#beautifier-tab-formatted').append(markup)
+        }
+
         tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + $.oc.escapeHtmlString(source.trim()).replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
 
-        tabs.ocTab({closable: false})
+        tabs.ocTab({
+            closable: false
+        })
 
         return tabs
     }
-
 
     // EXCEPTION BEAUTIFIER PLUGIN DEFINITION
     // ============================

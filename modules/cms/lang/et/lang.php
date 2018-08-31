@@ -255,7 +255,6 @@ return [
         'name' => 'CMS',
         'manage_content' => 'Halda kodulehe sisufaile',
         'manage_assets' => 'Manage website assets - images, JavaScript files, CSS files',
-        'manage_pages' => 'Create, modify and delete website pages',
         'manage_pages' => 'Loo, muuda ja kustuta kodulehe lehti',
         'manage_layouts' => 'Create, modify and delete CMS layouts',
         'manage_partials' => 'Create, modify and delete CMS partials',

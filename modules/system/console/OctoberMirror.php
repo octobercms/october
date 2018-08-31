@@ -74,14 +74,6 @@ class OctoberMirror extends Command
     protected $destinationPath;
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()

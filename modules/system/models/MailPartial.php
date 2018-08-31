@@ -1,9 +1,7 @@
 <?php namespace System\Models;
 
-use Twig;
 use View;
 use Model;
-use Markdown;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;

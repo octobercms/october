@@ -182,8 +182,6 @@ class EditorSetting extends Model
 
         $parser->parse($customStyles);
 
-        $css = $parser->getCss();
-
-        return $css;
+        return $parser->getCss();
     }
 }

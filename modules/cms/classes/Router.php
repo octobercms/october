@@ -5,7 +5,6 @@ use File;
 use Cache;
 use Config;
 use Event;
-use SystemException;
 use October\Rain\Router\Router as RainRouter;
 use October\Rain\Router\Helper as RouterHelper;
 
@@ -331,14 +330,12 @@ class Router
         $key = $this->getUrlListCacheKey();
         $urlList = Cache::get($key, false);
 
-        if (
-            $urlList &&
-            ($urlList = @unserialize(@base64_decode($urlList))) &&
-            is_array($urlList)
+        if ($urlList
+            && ($urlList = @unserialize(@base64_decode($urlList)))
+            && is_array($urlList)
+            && array_key_exists($url, $urlList)
         ) {
-            if (array_key_exists($url, $urlList)) {
-                return $urlList[$url];
-            }
+            return $urlList[$url];
         }
 
         return null;

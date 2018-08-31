@@ -1,17 +1,11 @@
 <?php namespace Cms\Controllers;
 
-use Str;
 use Lang;
-use File;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use Cms\Models\ThemeLog;
-use Exception;
 
 /**
  * Request Logs controller

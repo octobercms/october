@@ -256,9 +256,8 @@ class PluginBase extends ServiceProviderBase
             if ($exceptionMessage) {
                 throw new SystemException($exceptionMessage);
             }
-            else {
-                $this->loadedYamlConfiguration = [];
-            }
+
+            $this->loadedYamlConfiguration = [];
         }
         else {
             $this->loadedYamlConfiguration = Yaml::parse(file_get_contents($yamlFilePath));
