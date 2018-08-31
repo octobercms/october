@@ -8,7 +8,7 @@ modelClass: System\Models\RequestLog
 recordUrl: system/requestlogs/preview/:id
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 30
-showSetup: true
+showSetup: false
 showCheckboxes: true
 defaultSort:
     column: count
