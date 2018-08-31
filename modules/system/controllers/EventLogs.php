@@ -80,7 +80,10 @@ class EventLogs extends Controller
         return $this->listRefresh();
     }
 
-
+    /**
+     * Preview page action
+     * @return void
+     */
     public function preview($id)
     {
         $this->addCss('/modules/system/assets/css/eventlogs/exception-beautifier.css', 'core');
