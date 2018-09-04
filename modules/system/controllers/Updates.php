@@ -1,12 +1,10 @@
 <?php namespace System\Controllers;
 
-use Str;
 use Lang;
 use Html;
 use Yaml;
 use File;
 use Flash;
-use Config;
 use Backend;
 use Markdown;
 use Redirect;

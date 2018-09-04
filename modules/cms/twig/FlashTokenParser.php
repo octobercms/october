@@ -2,7 +2,6 @@
 
 use Twig_Node;
 use Twig_Token;
-use Twig_Node_Print;
 use Twig_TokenParser;
 
 /**

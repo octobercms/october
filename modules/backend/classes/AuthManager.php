@@ -150,9 +150,7 @@ class AuthManager extends RainAuthManager
         $tabs = [];
 
         foreach ($this->listPermissions() as $permission) {
-            $tab = isset($permission->tab)
-                ? $permission->tab
-                : 'backend::lang.form.undefined_tab';
+            $tab = $permission->tab ?? 'backend::lang.form.undefined_tab';
 
             if (!array_key_exists($tab, $tabs)) {
                 $tabs[$tab] = [];

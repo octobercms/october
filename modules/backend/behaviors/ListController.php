@@ -1,6 +1,5 @@
 <?php namespace Backend\Behaviors;
 
-use Str;
 use Lang;
 use Event;
 use Flash;

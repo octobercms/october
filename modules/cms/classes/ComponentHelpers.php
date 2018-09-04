@@ -106,9 +106,7 @@ class ComponentHelpers
     public static function getComponentName($component)
     {
         $details = $component->componentDetails();
-        $name = (isset($details['name']))
-            ? $details['name']
-            : 'cms::lang.component.unnamed';
+        $name = $details['name'] ?? 'cms::lang.component.unnamed';
 
         return Lang::get($name);
     }
@@ -121,9 +119,7 @@ class ComponentHelpers
     public static function getComponentDescription($component)
     {
         $details = $component->componentDetails();
-        $name = (isset($details['description']))
-            ? $details['description']
-            : 'cms::lang.component.no_description';
+        $name = $details['description'] ?? 'cms::lang.component.no_description';
 
         return Lang::get($name);
     }
