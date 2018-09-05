@@ -90,6 +90,11 @@ class FormController extends ControllerBehavior
     protected $model;
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['create', 'update', 'preview'];
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      */
@@ -102,6 +107,8 @@ class FormController extends ControllerBehavior
          */
         $this->config = $this->makeConfig($controller->formConfig, $this->requiredConfig);
         $this->config->modelClass = Str::normalizeClassName($this->config->modelClass);
+
+        $this->hideUnlistedActions($this->actions);
     }
 
     /**

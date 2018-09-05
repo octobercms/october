@@ -63,6 +63,11 @@ class ReorderController extends ControllerBehavior
     protected $toolbarWidget;
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['reorder'];
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      */
@@ -86,6 +91,8 @@ class ReorderController extends ControllerBehavior
          * Populate from config
          */
         $this->nameFrom = $this->getConfig('nameFrom', $this->nameFrom);
+
+        $this->hideUnlistedActions($this->actions);
     }
 
     //

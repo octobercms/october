@@ -201,6 +201,11 @@ class RelationController extends ControllerBehavior
     public $deferredBinding = false;
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = [];
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      */
@@ -215,6 +220,8 @@ class RelationController extends ControllerBehavior
          * Build configuration
          */
         $this->config = $this->originalConfig = $this->makeConfig($controller->relationConfig, $this->requiredConfig);
+
+        $this->hideUnlistedActions($this->actions);
     }
 
     /**

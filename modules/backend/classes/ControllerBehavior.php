@@ -1,6 +1,8 @@
 <?php namespace Backend\Classes;
 
 use Lang;
+use ReflectionClass;
+use ReflectionMethod;
 use ApplicationException;
 use October\Rain\Extension\ExtensionBase;
 use System\Traits\ViewMaker;
@@ -38,6 +40,11 @@ class ControllerBehavior extends ExtensionBase
     protected $requiredProperties = [];
 
     /**
+     * @var array Default methods which cannot be called as actions in context of the controller.
+     */
+    public $hiddenActions = [];
+
+    /**
      * Constructor.
      */
     public function __construct($controller)
@@ -45,6 +52,8 @@ class ControllerBehavior extends ExtensionBase
         $this->controller = $controller;
         $this->viewPath = $this->configPath = $this->guessViewPath('/partials');
         $this->assetPath = $this->guessViewPath('/assets', true);
+        $this->hideAction($this->hiddenActions);
+        $this->hideUnlistedActions([], self::class);
 
         /*
          * Validate controller properties
@@ -129,6 +138,20 @@ class ControllerBehavior extends ExtensionBase
         }
 
         $this->controller->hiddenActions = array_merge($this->controller->hiddenActions, $methodName);
+    }
+
+    /**
+     * Protects all unlisted public methods from being available as a controller action.
+     * @param array $actions
+     * @param null $class
+     */
+    protected function hideUnlistedActions($actions, $class=null)
+    {
+        if ($class === null) $class = static::class;
+        $reflection = new ReflectionClass($class);
+        $methods = array_pluck($reflection->getMethods(ReflectionMethod::IS_PUBLIC), 'name');
+        $methods = array_diff($methods, $actions, $this->controller->hiddenActions, ['__construct']);
+        $this->hideAction($methods);
     }
 
     /**

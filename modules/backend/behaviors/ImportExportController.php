@@ -35,7 +35,6 @@ use Exception;
  */
 class ImportExportController extends ControllerBehavior
 {
-
     /**
      * @inheritDoc
      */
@@ -92,6 +91,11 @@ class ImportExportController extends ControllerBehavior
     protected $exportOptionsFormWidget;
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['import', 'export', 'download'];
+
+    /**
      * Behavior constructor
      * @param Backend\Classes\Controller $controller
      */
@@ -132,6 +136,8 @@ class ImportExportController extends ControllerBehavior
         if ($this->exportOptionsFormWidget = $this->makeExportOptionsFormWidget()) {
             $this->exportOptionsFormWidget->bindToController();
         }
+
+        $this->hideUnlistedActions($this->actions);
     }
 
     //
