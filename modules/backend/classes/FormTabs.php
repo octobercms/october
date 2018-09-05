@@ -48,6 +48,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $cssClass;
 
     /**
+     * @var string Specifies a CSS class to all tab pane.
+     */
+    public $contentCssClass;
+
+    /**
      * @var array Specifies a CSS class to an individual tab pane.
      */
     public $paneCssClass;
@@ -92,6 +97,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         if (array_key_exists('cssClass', $config)) {
             $this->cssClass = $config['cssClass'];
+        }
+
+        if (array_key_exists('contentCssClass', $config)) {
+            $this->contentCssClass = $config['contentCssClass'];
         }
 
         if (array_key_exists('paneCssClass', $config)) {
