@@ -157,6 +157,11 @@ class FormField
     public $path;
 
     /**
+     * @var string Specifies a mask for text fields.
+     */
+    public $mask;
+
+    /**
      * @var array Raw field configuration.
      */
     public $config;
@@ -288,6 +293,7 @@ class FormField
             'trigger',
             'preset',
             'path',
+            'mask'
         ];
 
         foreach ($applyConfigValues as $value) {
@@ -452,6 +458,10 @@ class FormField
             if ($this->type == 'checkbox' || $this->type == 'switch') {
                 $attributes = $attributes + ['onclick' => 'return false;'];
             }
+        }
+
+        if ($position == 'field' && $this->mask != '' && $this->type == 'text') {
+            $attributes = $attributes + ['data-mask' => $this->mask];
         }
 
         return $attributes;

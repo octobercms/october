@@ -160,6 +160,7 @@ class Form extends WidgetBase
     protected function loadAssets()
     {
         $this->addJs('js/october.form.js', 'core');
+        $this->addJs('/modules/backend/assets/vendor/mask/jquery.mask.min.js', 'core');
     }
 
     /**
@@ -285,7 +286,7 @@ class Form extends WidgetBase
         if (!$this->model) {
             throw new ApplicationException(Lang::get(
                 'backend::lang.form.missing_model',
-                ['class'=>get_class($this->controller)]
+                ['class' => get_class($this->controller)]
             ));
         }
 
@@ -1090,6 +1091,7 @@ class Form extends WidgetBase
 
         $dependsOn = is_array($field->dependsOn) ? $field->dependsOn : [$field->dependsOn];
         $dependsOn = htmlspecialchars(json_encode($dependsOn), ENT_QUOTES, 'UTF-8');
+
         return $dependsOn;
     }
 

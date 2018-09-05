@@ -11,7 +11,6 @@ use October\Rain\Html\Helper as HtmlHelper;
  */
 abstract class FormWidgetBase extends WidgetBase
 {
-
     //
     // Configurable properties
     //
@@ -133,5 +132,4 @@ abstract class FormWidgetBase extends WidgetBase
 
         return $this->formField->getValueFromData($this->data ?: $this->model, $defaultValue);
     }
-
 }
