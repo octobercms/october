@@ -68,6 +68,18 @@ class ServiceProvider extends ModuleServiceProvider
         }
 
         /*
+         * Set execution context
+         */
+        $requestPath = RouterHelper::normalizeUrl(Request::path());
+        $backendUri = RouterHelper::normalizeUrl(Config::get('cms.backendUri', 'backend'));
+        if (starts_with($requestPath, $backendUri)) {
+            App::setExecutionContext('back-end');
+        }
+        else {
+            App::setExecutionContext('front-end');
+        }
+
+        /*
          * Backend specific
          */
         if (App::runningInBackend()) {
