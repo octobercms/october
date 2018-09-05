@@ -121,6 +121,8 @@ return [
         'email' => 'Email',
         'role_field' => 'Role',
         'role_comment' => 'Roles define user permissions, which can be overriden on the user level, on the Permissions tab.',
+        'role_none' => 'None',
+        'role_none_comment' => 'This administrator does not belong to any rules.',
         'groups' => 'Groups',
         'groups_comment' => 'Specify which groups this account should belong to.',
         'avatar' => 'Avatar',

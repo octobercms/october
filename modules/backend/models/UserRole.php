@@ -24,14 +24,14 @@ class UserRole extends RoleBase
      */
     public $rules = [
         'name' => 'required|between:2,128|unique:backend_user_roles',
-        'code' => 'unique:backend_user_roles',
+        'code' => 'unique:backend_user_roles'
     ];
 
     /**
      * @var array Relations
      */
     public $hasMany = [
-        'users' => [User::class, 'key' => 'role_id'],
+        'users'       => [User::class, 'key' => 'role_id'],
         'users_count' => [User::class, 'key' => 'role_id', 'count' => true]
     ];
 

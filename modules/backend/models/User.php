@@ -22,9 +22,9 @@ class User extends UserBase
      * Validation rules
      */
     public $rules = [
-        'email' => 'required|between:6,255|email|unique:backend_users',
-        'login' => 'required|between:2,255|unique:backend_users',
-        'password' => 'required:create|between:4,255|confirmed',
+        'email'                 => 'required|between:6,255|email|unique:backend_users',
+        'login'                 => 'required|between:2,255|unique:backend_users',
+        'password'              => 'required:create|between:4,255|confirmed',
         'password_confirmation' => 'required_with:password|between:4,255'
     ];
 
@@ -133,10 +133,10 @@ class User extends UserBase
     public function sendInvitation()
     {
         $data = [
-            'name' => $this->full_name,
-            'login' => $this->login,
+            'name'     => $this->full_name,
+            'login'    => $this->login,
             'password' => $this->getOriginalHashValue('password'),
-            'link' => Backend::url('backend'),
+            'link'     => Backend::url('backend')
         ];
 
         Mail::send('backend::mail.invite', $data, function ($message) {
@@ -157,7 +157,7 @@ class User extends UserBase
 
     public function getRoleOptions()
     {
-        $result = [];
+        $result[0] = ['backend::lang.user.role_none', 'backend::lang.user.role_none_comment'];
 
         foreach (UserRole::all() as $role) {
             $result[$role->id] = [$role->name, $role->description];

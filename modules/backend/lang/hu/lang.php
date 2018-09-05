@@ -8,7 +8,8 @@ return [
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
-        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
+        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára.",
+        'colors_method_not_exists' => "A(z) :model modell osztálynak egy html HEX színkód :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
     ],
     'widget' => [
         'not_registered' => "A(z) ':name' widget osztálynév regisztrálása nem történt meg.",
@@ -23,7 +24,7 @@ return [
         ],
         'no_database' => [
             'label' => 'Adatbázis nem elérhető',
-            'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
+            'help' => 'Az admin felület használatához adatbázis szükséges. Kérjük ellenőrizze a hozzáférési adatok helyességét, majd töltse be újra az oldalt.',
             'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
@@ -119,7 +120,9 @@ return [
         'full_name' => 'Teljes név',
         'email' => 'E-mail cím',
         'role_field' => 'Szerepkör',
-        'role_comment' => 'Meghatározza a felhasználó jogosultságait. Felülbírálható a felhasználó adatlapján, az Engedélyek fülön.',
+        'role_comment' => 'Meghatározza a jogosultságok körét. Felülbírálható az Engedélyek fülön.',
+        'role_none' => 'Nincs',
+        'role_none_comment' => 'A felhasználó nem tartozik egyik szerepkörhöz sem.',
         'groups' => 'Csoportok',
         'groups_comment' => 'Adja meg, hogy a felhasználó melyik csoport(ok)ba tartozzon.',
         'avatar' => 'Profilkép',
@@ -207,7 +210,7 @@ return [
     ],
     'fileupload' => [
         'attachment' => 'Csatolmány',
-        'help' => 'Adja meg a csatolmány címét és a leírását.',
+        'help' => 'Adja meg a csatolmány címét és leírását.',
         'title_label' => 'Cím',
         'description_label' => 'Leírás',
         'default_prompt' => 'Hozza ide a fájlt vagy kattintson erre: %s',
@@ -284,7 +287,7 @@ return [
     ],
     'pagelist' => [
         'page_link' => 'Lapok',
-        'select_page' => '-- válasszon --'
+        'select_page' => '-- Válasszon --'
     ],
     'relation' => [
         'missing_config' => "A reláció viselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
@@ -592,5 +595,5 @@ return [
         'resize_image' => 'Kép átméretezése',
         'image_size' => 'Kép mérete:',
         'selected_size' => 'Kiválasztva:'
-    ],
+    ]
 ];

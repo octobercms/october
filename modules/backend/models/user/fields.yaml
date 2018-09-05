@@ -51,6 +51,7 @@ tabs:
             label: backend::lang.user.role_field
             commentAbove: backend::lang.user.role_comment
             type: radio
+            default: 0
 
         groups:
             context: [create, update]
