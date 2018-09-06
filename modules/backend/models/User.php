@@ -157,7 +157,9 @@ class User extends UserBase
 
     public function getRoleOptions()
     {
-        $result[0] = ['backend::lang.user.role_none', 'backend::lang.user.role_none_comment'];
+        $result = [
+            0 => ['backend::lang.user.role_none', 'backend::lang.user.role_none_comment']
+        ];
 
         foreach (UserRole::all() as $role) {
             $result[$role->id] = [$role->name, $role->description];
