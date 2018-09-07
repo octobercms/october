@@ -1138,7 +1138,7 @@ class Controller
      * Returns the CMS layout object being processed by the controller.
      * The object is not available on the early stages of the controller
      * initialization.
-     * @return \Cms\Classes\Layout Returns the Page object or null.
+     * @return \Cms\Classes\Layout Returns the Layout object or null.
      */
     public function getLayout()
     {
