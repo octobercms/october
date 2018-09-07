@@ -5,6 +5,7 @@
 columns:
     status_code:
         label: system::lang.request_log.status_code
+        searchable: yes
         invisible: true
 
     url:
