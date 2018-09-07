@@ -46,7 +46,10 @@ class User extends UserBase
     /**
      * Purge attributes from data set.
      */
-    protected $purgeable = ['password_confirmation', 'send_invite'];
+    protected $purgeable = [
+        'password_confirmation',
+        'send_invite'
+    ];
 
     /**
      * @var string Login attribute
@@ -117,6 +120,19 @@ class User extends UserBase
     }
 
     /**
+     * Before save event
+     * @return void
+     */
+    public function beforeSave()
+    {
+        if ($this->role_delete) {
+            $this->role = null;
+        }
+
+        unset($this->role_delete);
+    }
+
+    /**
      * After login event
      * @return void
      */
@@ -157,10 +173,6 @@ class User extends UserBase
 
     public function getRoleOptions()
     {
-        $result = [
-            0 => ['backend::lang.user.role_none', 'backend::lang.user.role_none_comment']
-        ];
-
         foreach (UserRole::all() as $role) {
             $result[$role->id] = [$role->name, $role->description];
         }

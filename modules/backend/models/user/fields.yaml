@@ -51,7 +51,15 @@ tabs:
             label: backend::lang.user.role_field
             commentAbove: backend::lang.user.role_comment
             type: radio
-            default: 0
+
+        role_delete:
+            context: [create, update]
+            label: backend::lang.user.role_delete
+            type: checkbox
+            trigger:
+                action: show
+                field: role
+                condition: checked
 
         groups:
             context: [create, update]
