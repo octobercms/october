@@ -89,7 +89,7 @@ table.table.data {
             td, th { background-color: @color-list-accent; }
         }
         td, th {
-            padding: 12px 15px;
+            padding: 12px 15px 11px;
             color: @color-list-text;
             border-top: 2px solid white;
 
@@ -353,7 +353,7 @@ table.table.data {
     //
 
     .list-checkbox {
-        width: 43px;
+        width: 42px;
         vertical-align: top;
         border-right: 1px solid @color-list-border-light;
         .checkbox {
@@ -362,7 +362,7 @@ table.table.data {
         }
         .custom-checkbox {
             position: relative;
-            top: -14px;
+            top: -15px;
             label {
                 margin-right: 0;
                 margin-bottom: 0;
@@ -372,7 +372,7 @@ table.table.data {
 
     tbody tr td.list-checkbox {
         padding-left: (@padding-standard - 3); // Offset the border
-        padding-right: (@padding-standard - 17); // Offset the checkbox padding
+        padding-right: (@padding-standard - 18); // Offset the checkbox padding
     }
 
     thead tr th.list-checkbox {
@@ -419,6 +419,21 @@ table.table.data {
     .makeTreeLevel(8);
     .makeTreeLevel(9);
     .makeTreeLevel(10);
+}
+
+@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-devicepixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx) {
+    table.table.data {
+        thead {
+            .list-checkbox .custom-checkbox {
+                top: -1.595em;
+            }
+        }
+        .list-checkbox {
+            .custom-checkbox {
+                top: -13px;
+            }
+        }
+    }
 }
 
 //
