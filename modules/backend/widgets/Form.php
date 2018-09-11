@@ -1081,7 +1081,11 @@ class Form extends WidgetBase
      * This should be done when model exists or when explicitly configured
      */
     protected function shouldFetchDefaultValues() {
-        return !$this->model->exists || object_get($this->config, 'shouldFetchDefaultValues');
+        $shouldFetchDefaultValues = object_get($this->config, 'shouldFetchDefaultValues');
+        if ($shouldFetchDefaultValues === false) {
+            return false;
+        }
+        return !$this->model->exists || $shouldFetchDefaultValues;
     }
 
     /**
