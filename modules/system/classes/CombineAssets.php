@@ -241,8 +241,14 @@ class CombineAssets
 
         /*
          * Set 304 Not Modified header, if necessary
+         *
+         * Swoole http server can only run in cli environment, and we cannot use header()
+         * or header_remove() with swoole, or we get errors that headers already sent.
          */
-        header_remove();
+        if (php_sapi_name() != 'cli') {
+            header_remove();
+        }
+
         $response = Response::make();
         $response->header('Content-Type', $mime);
         $response->header('Cache-Control', 'private, max-age=604800');
