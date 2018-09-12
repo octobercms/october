@@ -244,6 +244,7 @@ class CombineAssets
          *
          * Swoole http server can only run in cli environment, and we cannot use header()
          * or header_remove() with swoole, or we get errors that headers already sent.
+         * see: https://github.com/octobercms/october/pull/3773
          */
         if (php_sapi_name() != 'cli') {
             header_remove();
