@@ -487,6 +487,7 @@ class MediaLibrary
             preg_quote(')', '/'),
             preg_quote('[', '/'),
             preg_quote(']', '/'),
+            preg_quote(',', '/'),
             preg_quote('=', '/'),
         ];
 
