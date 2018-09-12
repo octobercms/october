@@ -40,6 +40,18 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::register('system');
 
+        /*
+         * Set execution context
+         */
+        $requestPath = RouterHelper::normalizeUrl(Request::path());
+        $backendUri = RouterHelper::normalizeUrl(Config::get('cms.backendUri', 'backend'));
+        if (starts_with($requestPath, $backendUri)) {
+            App::setExecutionContext('back-end');
+        }
+        else {
+            App::setExecutionContext('front-end');
+        }
+
         $this->registerSingletons();
         $this->registerPrivilegedActions();
 
@@ -65,18 +77,6 @@ class ServiceProvider extends ModuleServiceProvider
             if (strtolower(trim($module)) != 'system') {
                 App::register('\\' . $module . '\ServiceProvider');
             }
-        }
-
-        /*
-         * Set execution context
-         */
-        $requestPath = RouterHelper::normalizeUrl(Request::path());
-        $backendUri = RouterHelper::normalizeUrl(Config::get('cms.backendUri', 'backend'));
-        if (starts_with($requestPath, $backendUri)) {
-            App::setExecutionContext('back-end');
-        }
-        else {
-            App::setExecutionContext('front-end');
         }
 
         /*
