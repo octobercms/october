@@ -26,7 +26,11 @@ class Files extends Controller
     {
         try {
             echo $this->findFileObject($code)->output();
-            exit;
+
+            // Do not kill Swoole http server if we're running that
+            if (php_sapi_name() != "cli") {
+                exit;
+            }
         }
         catch (Exception $ex) {}
 
@@ -44,7 +48,11 @@ class Files extends Controller
                 $height,
                 compact('mode', 'extension')
             );
-            exit;
+
+            // Do not kill Swoole http server if we're running that
+            if (php_sapi_name() != "cli") {
+                exit;
+            }
         }
         catch (Exception $ex) {}
 

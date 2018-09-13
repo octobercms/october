@@ -1572,7 +1572,10 @@ class MediaManager extends WidgetBase
             Response::json($ex->getMessage(), 400)->send();
         }
 
-        exit;
+        // Do not kill Swoole http server if we're running that
+        if (php_sapi_name() != "cli") {
+            exit;
+        }
     }
 
     /**

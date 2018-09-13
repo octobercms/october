@@ -645,7 +645,11 @@ class ImportExportController extends ControllerBehavior
          * Output
          */
         $csv->output($options['fileName']);
-        exit;
+
+        // Do not kill Swoole http server if we're running that
+        if (php_sapi_name() != "cli") {
+            exit;
+        }
     }
 
     //
