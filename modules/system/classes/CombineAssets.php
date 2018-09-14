@@ -242,11 +242,11 @@ class CombineAssets
         /*
          * Set 304 Not Modified header, if necessary
          *
-         * Swoole http server can only run in cli environment, and we cannot use header()
-         * or header_remove() with swoole, or we get errors that headers already sent.
+         * We cannot use header() or header_remove() with swoole,
+         * or we get errors that headers were already sent.
          * see: https://github.com/octobercms/october/pull/3773
          */
-        if (php_sapi_name() != 'cli') {
+        if (!App::serverIsSwoole()) {
             header_remove();
         }
 
