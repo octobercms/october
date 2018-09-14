@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use App;
 use Input;
 use Request;
 use Response;
@@ -426,7 +427,7 @@ class FileUpload extends FormWidgetBase
         }
 
         // Do not kill Swoole http server if we're running that
-        if (php_sapi_name() != "cli") {
+        if (!App::serverIsSwoole()) {
             exit;
         }
     }

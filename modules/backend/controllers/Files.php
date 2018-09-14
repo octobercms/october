@@ -28,7 +28,7 @@ class Files extends Controller
             echo $this->findFileObject($code)->output();
 
             // Do not kill Swoole http server if we're running that
-            if (php_sapi_name() != "cli") {
+            if (!App::serverIsSwoole()) {
                 exit;
             }
         }
@@ -50,7 +50,7 @@ class Files extends Controller
             );
 
             // Do not kill Swoole http server if we're running that
-            if (php_sapi_name() != "cli") {
+            if (!App::serverIsSwoole()) {
                 exit;
             }
         }

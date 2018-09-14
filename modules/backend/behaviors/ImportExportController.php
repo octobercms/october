@@ -1,5 +1,6 @@
 <?php namespace Backend\Behaviors;
 
+use App;
 use Str;
 use Lang;
 use View;
@@ -647,7 +648,7 @@ class ImportExportController extends ControllerBehavior
         $csv->output($options['fileName']);
 
         // Do not kill Swoole http server if we're running that
-        if (php_sapi_name() != "cli") {
+        if (!App::serverIsSwoole()) {
             exit;
         }
     }

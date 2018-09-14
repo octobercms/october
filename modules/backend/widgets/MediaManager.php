@@ -1,5 +1,6 @@
 <?php namespace Backend\Widgets;
 
+use App;
 use Url;
 use Str;
 use Lang;
@@ -1573,7 +1574,7 @@ class MediaManager extends WidgetBase
         }
 
         // Do not kill Swoole http server if we're running that
-        if (php_sapi_name() != "cli") {
+        if (!App::serverIsSwoole()) {
             exit;
         }
     }
