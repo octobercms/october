@@ -58,8 +58,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register all plugins
          */
-        if (!App::runningInConsole() && php_sapi_name() == 'cli') {
-            // We must be running Swoole http server, force register
+        if (App::serverIsSwoole()) {
             PluginManager::instance()->registerAll(true);
         }
         else {
@@ -111,8 +110,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Boot plugins
          */
-        if (!App::runningInConsole() && php_sapi_name() == 'cli') {
-             // We must be running Swoole http server, force boot
+        if (App::serverIsSwoole()) {
              PluginManager::instance()->bootAll(true);
          }
          else {
