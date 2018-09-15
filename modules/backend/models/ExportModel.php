@@ -63,6 +63,8 @@ abstract class ExportModel extends Model
         }
 
         $headers = Response::download($csvPath, $outputName)->headers->all();
+        $headers['Content-Type'][] = 'text/csv';
+
         $result = Response::make(File::get($csvPath), 200, $headers);
 
         @unlink($csvPath);
