@@ -8,7 +8,16 @@ class ExampleExportModel extends ExportModel
 {
     public function exportData($columns, $sessionKey = null)
     {
-        return [];
+        return [
+            [
+                'foo' => 'bar',
+                'bar' => 'foo'
+            ],
+            [
+                'foo' => 'bar2',
+                'bar' => 'foo2'
+            ],
+        ];
     }
 }
 
@@ -46,6 +55,26 @@ class ExportModelTest extends TestCase
         $data = ['art direction', 'roman empire', 'sci-fi'];
         $result = self::callProtectedMethod($model, 'encodeArrayValue', [$data, '-']);
         $this->assertEquals('art direction-roman empire-sci\-fi', $result);
+    }
+
+    public function testExportContentType()
+    {
+        $model = new ExampleExportModel;
+
+        $csvName = $model->export(['foo' => 'title', 'bar' => 'title2'], []);
+
+        $response = $model->download($csvName);
+
+        $requestMock = $this
+            ->getMockBuilder('Illuminate\Http\Request')
+            ->setMethods()
+            ->getMock();
+        $response->prepare($requestMock);
+
+        $this->assertTrue($response->headers->has('Content-Type'), "Response is missing the Content-Type header!");
+        $this->assertTrue($response->headers->contains('Content-Type', 'text/plain'), "Content-Type is not \"text/csv\"!");
+
+        @unlink(temp_path() . '/' . $csvName);
     }
 
 }
