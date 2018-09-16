@@ -182,6 +182,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getPaneCssClass($index = null, $label = null)
     {
+        if (is_string($this->paneCssClass)) {
+            return $this->paneCssClass;
+        }
+
         if ($index !== null && isset($this->paneCssClass[$index])) {
             return $this->paneCssClass[$index];
         }
