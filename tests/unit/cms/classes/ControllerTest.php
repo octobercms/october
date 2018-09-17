@@ -19,7 +19,6 @@ class ControllerTest extends TestCase
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Comments.php';
         include_once base_path() . '/tests/fixtures/plugins/october/tester/classes/Users.php';
-        
     }
 
     public function testThemeUrl()
