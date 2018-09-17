@@ -19,18 +19,19 @@ class ControllerTest extends TestCase
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
         include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Comments.php';
         include_once base_path() . '/tests/fixtures/plugins/october/tester/classes/Users.php';
+        
     }
 
     public function testThemeUrl()
     {
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-
+        
         $url = $controller->themeUrl();
-        $this->assertEquals(config('app.url') . 'themes/test', $url);
+        $this->assertEquals(config('app.url').substr(config('cms.themesPath').'/test', 1), $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals(config('app.url') . '/themes/test/foo/bar.css', $url);
+        $this->assertEquals(config('app.url').substr(config('cms.themesPath'), 1).'/test/foo/bar.css', $url);
 
         //
         // These tests seem to bear different results
@@ -475,7 +476,7 @@ ESC;
     public function testComponentWithOnRender()
     {
         $theme = Theme::load('test');
-        $controller = new Controller($theme);
+        $controller = new Controller($theme); 
         $response = $controller->run('/component-custom-render')->getContent();
 
         $content = <<<ESC
