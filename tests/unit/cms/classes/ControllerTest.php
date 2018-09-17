@@ -475,7 +475,7 @@ ESC;
     public function testComponentWithOnRender()
     {
         $theme = Theme::load('test');
-        $controller = new Controller($theme); 
+        $controller = new Controller($theme);
         $response = $controller->run('/component-custom-render')->getContent();
 
         $content = <<<ESC
