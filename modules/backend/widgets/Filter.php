@@ -932,7 +932,7 @@ class Filter extends WidgetBase
     {
         $processed = [];
         foreach ($options as $id => $result) {
-            $processed[] = ['id' => $id, 'name' => $result];
+            $processed[] = ['id' => $id, 'name' => e(trans($result))];
         }
         return $processed;
     }
