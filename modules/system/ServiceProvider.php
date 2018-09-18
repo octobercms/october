@@ -28,6 +28,8 @@ use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
 use Illuminate\Support\Facades\Schema;
+use System\Helpers\UrlGenerator;
+use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -57,7 +59,9 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerAssetBundles();
         $this->registerValidator();
         $this->registerGlobalViewVars();
-
+        
+        $this->updateUrlHelper();
+        
         /*
          * Register other module providers
          */
@@ -545,5 +549,10 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerGlobalViewVars()
     {
         View::share('appName', Config::get('app.name'));
+    }
+    
+    protected function updateUrlHelper() 
+    {
+        $this->app->bind(UrlGeneratorContract::class, UrlGenerator::class);
     }
 }

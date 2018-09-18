@@ -29,12 +29,12 @@ class ControllerTest extends TestCase
         $configUrl = config('app.url') . '/' . config('cms.themesPath');
         
         $url = $controller->themeUrl();        
-        $compareToUrl = preg_replace('/([^:])(\/{2,})/', '$1/', $configUrl . '/test');
+        $compareToUrl = url($configUrl . '/test');
         
         $this->assertEquals($compareToUrl, $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $compareToUrl = preg_replace('/([^:])(\/{2,})/', '$1/', $configUrl . '/test/foo/bar.css');
+        $compareToUrl = url($configUrl . '/test/foo/bar.css');
         
         $this->assertEquals($compareToUrl, $url);
 
