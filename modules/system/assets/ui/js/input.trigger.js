@@ -57,7 +57,7 @@
             this.updateTarget(!$(this.options.trigger + ':checked', this.triggerParent).length)
         }
         else if (this.triggerCondition == 'value') {
-            var trigger, triggerValue = ''
+            var trigger, triggered = false
 
             trigger = $(this.options.trigger, this.triggerParent)
                 .not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
@@ -67,11 +67,19 @@
                     .not(':not(input[type=checkbox]:checked, input[type=radio]:checked)')
             }
 
-            if (!!trigger.length) {
-                triggerValue = trigger.val()
-            }
+            var self = this
+            trigger.each(function() {
+                var triggerValue = $(this).val();
 
-            this.updateTarget($.inArray(triggerValue, this.triggerConditionValue) != -1)
+                $.each($.isArray(triggerValue) ? triggerValue : [triggerValue], function(key, val) {
+                    triggered = $.inArray(val, self.triggerConditionValue) != -1
+                    return !triggered
+                })
+
+                return !triggered
+            })
+
+            this.updateTarget(triggered)
         }
     }
 
