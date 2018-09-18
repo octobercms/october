@@ -26,11 +26,17 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         
-        $url = $controller->themeUrl();
-        $this->assertEquals(config('app.url').substr(config('cms.themesPath').'/test', 1), $url);
+        $configUrl = config('app.url') . '/' . config('cms.themesPath');
+        
+        $url = $controller->themeUrl();        
+        $compareToUrl = preg_replace('/([^:])(\/{2,})/', '$1/', $configUrl . '/test');
+        
+        $this->assertEquals($compareToUrl, $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals(config('app.url').substr(config('cms.themesPath'), 1).'/test/foo/bar.css', $url);
+        $compareToUrl = preg_replace('/([^:])(\/{2,})/', '$1/', $configUrl . '/test/foo/bar.css');
+        
+        $this->assertEquals($compareToUrl, $url);
 
         //
         // These tests seem to bear different results
