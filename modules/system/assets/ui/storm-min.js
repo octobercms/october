@@ -4170,11 +4170,14 @@ self.onConditionChanged()})
 self.onConditionChanged()}
 TriggerOn.prototype.onConditionChanged=function(){if(this.triggerCondition=='checked'){this.updateTarget(!!$(this.options.trigger+':checked',this.triggerParent).length)}
 else if(this.triggerCondition=='unchecked'){this.updateTarget(!$(this.options.trigger+':checked',this.triggerParent).length)}
-else if(this.triggerCondition=='value'){var trigger,triggerValue=''
+else if(this.triggerCondition=='value'){var trigger,triggered=false
 trigger=$(this.options.trigger,this.triggerParent).not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
 if(!trigger.length){trigger=$(this.options.trigger,this.triggerParent).not(':not(input[type=checkbox]:checked, input[type=radio]:checked)')}
-if(!!trigger.length){triggerValue=trigger.val()}
-this.updateTarget($.inArray(triggerValue,this.triggerConditionValue)!=-1)}}
+var self=this
+trigger.each(function(){var triggerValue=$(this).val();$.each($.isArray(triggerValue)?triggerValue:[triggerValue],function(key,val){triggered=$.inArray(val,self.triggerConditionValue)!=-1
+return!triggered})
+return!triggered})
+this.updateTarget(triggered)}}
 TriggerOn.prototype.updateTarget=function(status){var self=this,actions=this.options.triggerAction.split('|')
 $.each(actions,function(index,action){self.updateTargetAction(action,status)})
 $(window).trigger('resize')
