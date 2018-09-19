@@ -112,7 +112,7 @@ trait AssetMaker
     public function addJs($name, $attributes = [])
     {
         if (is_array($name)) {
-            $name = $this->combineAssets($name);
+            $name = $this->combineAssets($name, base_path($this->assetPath));
         }
 
         $jsPath = $this->getAssetPath($name);
@@ -142,7 +142,7 @@ trait AssetMaker
     public function addCss($name, $attributes = [])
     {
         if (is_array($name)) {
-            $name = $this->combineAssets($name);
+            $name = $this->combineAssets($name, base_path($this->assetPath));
         }
 
         $cssPath = $this->getAssetPath($name);
