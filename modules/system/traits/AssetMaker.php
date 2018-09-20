@@ -112,11 +112,7 @@ trait AssetMaker
     public function addJs($name, $attributes = [])
     {
         if (is_array($name)) {
-	        $assetPath = $this->assetPath;
-	        if (!starts_with($assetPath, [base_path()])) {
-		        $assetPath = base_path($assetPath);
-	        }
-            $name = $this->combineAssets($name, base_path($assetPath));
+            $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
 
         $jsPath = $this->getAssetPath($name);
@@ -146,11 +142,7 @@ trait AssetMaker
     public function addCss($name, $attributes = [])
     {
         if (is_array($name)) {
-	        $assetPath = $this->assetPath;
-	        if (!starts_with($assetPath, [base_path()])) {
-		        $assetPath = base_path($assetPath);
-	        }
-            $name = $this->combineAssets($name, base_path($assetPath));
+            $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
 
         $cssPath = $this->getAssetPath($name);
@@ -331,5 +323,12 @@ trait AssetMaker
             }
 
         }
+    }
+
+    protected function getLocalPath(string $relativePath) {
+        if (!starts_with($relativePath, [base_path()])) {
+            $relativePath = base_path($relativePath);
+        }
+        return $relativePath;
     }
 }
