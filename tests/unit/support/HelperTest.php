@@ -1,10 +1,11 @@
 <?php namespace Tests\Unit\Support;
 
 use TestCase;
+use Config;
 
 class HelperTest extends TestCase
 {
-    public function testThemesUrl()
+    protected function themesUrlTesting() 
     {
         $generated = themes_url('');
         $base = url(implode('/', [config('app.url'), config('cms.themesPath')]));
@@ -15,7 +16,32 @@ class HelperTest extends TestCase
         $this->assertEquals($base, themes_url('/test/assets/js/script1.js'));
     }
     
-    public function testThemeUrl()
+    public function testThemesUrl()
+    {
+        Config::set('app.url', 'http://localhost');
+        
+        Config::set('cms.themesPath', 'themes');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', '/themes');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', '/themes/');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', 'themes/');
+        $this->themesUrlTesting();        
+
+        
+        Config::set('app.url', 'http://localhost/');
+        Config::set('cms.themesPath', 'themes');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', '/themes');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', '/themes/');
+        $this->themesUrlTesting();
+        Config::set('cms.themesPath', 'themes/');
+        $this->themesUrlTesting();
+    }
+    
+    protected function themeUrlTesting() 
     {
         $generated = theme_url('');
         $base = url(implode('/', [config('app.url'), config('cms.themesPath'), config('cms.activeTheme')]));
@@ -24,6 +50,31 @@ class HelperTest extends TestCase
         $base = url($base . '/assets/js/script1.js');
         $this->assertEquals($base, theme_url('/assets/js/script1.js'));
         $this->assertEquals($base, theme_url('assets/js/script1.js'));
+    }
+    
+    public function testThemeUrl()
+    {
+        Config::set('app.url', 'http://localhost');
+        
+        Config::set('cms.themesPath', 'themes');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', '/themes');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', '/themes/');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', 'themes/');
+        $this->themeUrlTesting();        
+
+        
+        Config::set('app.url', 'http://localhost/');
+        Config::set('cms.themesPath', 'themes');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', '/themes');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', '/themes/');
+        $this->themeUrlTesting();
+        Config::set('cms.themesPath', 'themes/');
+        $this->themeUrlTesting();
         
     }
     
