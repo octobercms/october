@@ -162,6 +162,11 @@ class FormField
     public $mask;
 
     /**
+     * @var string Specifies options for mask.
+     */
+    public $maskOptions;
+
+    /**
      * @var array Raw field configuration.
      */
     public $config;
@@ -293,7 +298,8 @@ class FormField
             'trigger',
             'preset',
             'path',
-            'mask'
+            'mask',
+            'maskOptions'
         ];
 
         foreach ($applyConfigValues as $value) {
@@ -455,6 +461,7 @@ class FormField
         if ($position == 'field' && $this->readOnly) {
             $attributes = $attributes + ['readonly' => 'readonly'];
 
+            // https://stackoverflow.com/questions/155291/can-html-checkboxes-be-set-to-readonly
             if ($this->type == 'checkbox' || $this->type == 'switch') {
                 $attributes = $attributes + ['onclick' => 'return false;'];
             }
@@ -462,6 +469,17 @@ class FormField
 
         if ($position == 'field' && $this->mask != '' && $this->type == 'text') {
             $attributes = $attributes + ['data-mask' => $this->mask];
+
+            $maskOptions = $this->maskOptions;
+            if (!is_array($maskOptions)) {
+                $maskOptions = [];
+            }
+
+            $availableOptions = ['reverse', 'clearIfNotMatch', 'selectOnFocus'];
+            foreach ($availableOptions as $name) {
+                $value = in_array($name, $maskOptions) ? 'true' : 'false';
+                $attributes = $attributes + ['data-mask-'.strtolower($name) => $value];
+            }
         }
 
         return $attributes;
