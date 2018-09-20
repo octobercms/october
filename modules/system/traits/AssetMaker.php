@@ -2,6 +2,7 @@
 
 use Url;
 use Html;
+use File;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\CombineAssets;
@@ -326,6 +327,7 @@ trait AssetMaker
     }
 
     protected function getLocalPath(string $relativePath) {
+        $relativePath = File::symbolizePath($relativePath);
         if (!starts_with($relativePath, [base_path()])) {
             $relativePath = base_path($relativePath);
         }
