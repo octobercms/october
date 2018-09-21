@@ -454,11 +454,15 @@ class FormField
         $attributes = $this->filterTriggerAttributes($attributes, $position);
         $attributes = $this->filterPresetAttributes($attributes, $position);
 
-        if ($position == 'field' && $this->disabled) {
+        if ($position != 'field') {
+            return $attributes;
+        }
+
+        if ($this->disabled) {
             $attributes = $attributes + ['disabled' => 'disabled'];
         }
 
-        if ($position == 'field' && $this->readOnly) {
+        if ($this->readOnly) {
             $attributes = $attributes + ['readonly' => 'readonly'];
 
             // https://stackoverflow.com/questions/155291/can-html-checkboxes-be-set-to-readonly
@@ -467,7 +471,7 @@ class FormField
             }
         }
 
-        if ($position == 'field' && $this->mask != '' && $this->type == 'text') {
+        if ($this->mask !== '' && $this->type == 'text') {
             $attributes = $attributes + ['data-mask' => $this->mask];
 
             $maskOptions = $this->maskOptions;
