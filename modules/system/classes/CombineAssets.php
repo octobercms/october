@@ -207,7 +207,7 @@ class CombineAssets
         $this->storagePath = null;
 
         // Prefix all assets
-        if($localPath) {
+        if ($localPath) {
             if (substr($localPath, -1) !== '/') {
                 $localPath = $localPath.'/';
             }
