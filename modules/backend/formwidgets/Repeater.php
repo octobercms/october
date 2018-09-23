@@ -2,8 +2,8 @@
 
 use Lang;
 use ApplicationException;
-use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Repeater Form Widget
@@ -80,6 +80,11 @@ class Repeater extends FormWidgetBase
      * @var bool Stops nested repeaters populating from previous sibling.
      */
     protected static $onAddItemCalled = false;
+
+    /**
+     * @var bool Whether to add post data to existing items. See MLRepeater in RainLab.Translate plugin.
+     */
+    protected static $onlyExistingItems = false;
 
     protected $useGroups = false;
 
@@ -234,8 +239,14 @@ class Repeater extends FormWidgetBase
             }
         }
 
-        $itemIndexes = post($this->indexInputName, $loadedIndexes);
-        $itemGroups = post($this->groupInputName, $loadedGroups);
+        if (self::$onlyExistingItems) {
+            $itemIndexes = $loadedIndexes;
+            $itemGroups = $loadedGroups;
+        }
+        else {
+            $itemIndexes = post($this->indexInputName, $loadedIndexes);
+            $itemGroups = post($this->groupInputName, $loadedGroups);
+        }
 
         if (!count($itemIndexes)) {
             return;
