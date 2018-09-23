@@ -178,11 +178,11 @@ class MailManager
 
         $css = MailBrandSetting::renderCss();
 
-        $disableInlineCss = false;
+        $disableAutoInlineCss = false;
 
         if ($template->layout) {
 
-            $disableInlineCss = array_get($template->layout->options, 'disable_inline_css', $disableInlineCss);
+            $disableAutoInlineCss = array_get($template->layout->options, 'disable_auto_inline_css', $disableAutoInlineCss);
 
             $html = $this->renderTwig($template->layout->content_html, [
                 'content' => $html,
@@ -193,7 +193,7 @@ class MailManager
             $css .= PHP_EOL . $template->layout->content_css;
         }
 
-        if (!$disableInlineCss) {
+        if (!$disableAutoInlineCss) {
             $html = (new CssToInlineStyles)->convert($html, $css);
         }
 

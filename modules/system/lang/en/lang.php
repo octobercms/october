@@ -236,7 +236,7 @@ return [
         'sending' => 'Sending test message...',
         'return' => 'Return to template list',
         'options' => 'Options',
-        'disable_inline_css' => 'Disable inline CSS'
+        'disable_auto_inline_css' => 'Disable automatic inline CSS'
     ],
     'mail_brand' => [
         'menu_label' => 'Mail branding',

@@ -40,8 +40,8 @@ secondaryTabs:
             tab: system::lang.mail_templates.content_text
             stretch: true
 
-        options[disable_inline_css]:
-            label: system::lang.mail_templates.disable_inline_css
+        options[disable_auto_inline_css]:
+            label: system::lang.mail_templates.disable_auto_inline_css
             type: checkbox
             tab: system::lang.mail_templates.options
             default: false
