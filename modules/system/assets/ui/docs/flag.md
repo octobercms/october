@@ -4,7 +4,6 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 
 ## Usage Example
 ```html
-<i class="flag-eu"></i>
 <i class="flag-ad"></i>
 <i class="flag-ae"></i>
 <i class="flag-af"></i>
@@ -30,19 +29,23 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-bh"></i>
 <i class="flag-bi"></i>
 <i class="flag-bj"></i>
+<i class="flag-bl"></i>
 <i class="flag-bm"></i>
 <i class="flag-bn"></i>
 <i class="flag-bo"></i>
+<i class="flag-bq"></i>
 <i class="flag-br"></i>
 <i class="flag-bs"></i>
 <i class="flag-bt"></i>
+<i class="flag-bv"></i>
 <i class="flag-bw"></i>
 <i class="flag-by"></i>
 <i class="flag-bz"></i>
 <i class="flag-ca"></i>
-<i class="flag-cg"></i>
-<i class="flag-cf"></i>
+<i class="flag-cc"></i>
 <i class="flag-cd"></i>
+<i class="flag-cf"></i>
+<i class="flag-cg"></i>
 <i class="flag-ch"></i>
 <i class="flag-ci"></i>
 <i class="flag-ck"></i>
@@ -53,6 +56,8 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-cr"></i>
 <i class="flag-cu"></i>
 <i class="flag-cv"></i>
+<i class="flag-cw"></i>
+<i class="flag-cx"></i>
 <i class="flag-cy"></i>
 <i class="flag-cz"></i>
 <i class="flag-de"></i>
@@ -70,18 +75,15 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-et"></i>
 <i class="flag-fi"></i>
 <i class="flag-fj"></i>
+<i class="flag-fk"></i>
 <i class="flag-fm"></i>
 <i class="flag-fo"></i>
 <i class="flag-fr"></i>
-<i class="flag-bl"></i>
-<i class="flag-cp"></i>
-<i class="flag-mf"></i>
-<i class="flag-yt"></i>
 <i class="flag-ga"></i>
 <i class="flag-gb"></i>
-<i class="flag-sh"></i>
 <i class="flag-gd"></i>
 <i class="flag-ge"></i>
+<i class="flag-gf"></i>
 <i class="flag-gg"></i>
 <i class="flag-gh"></i>
 <i class="flag-gi"></i>
@@ -91,21 +93,23 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-gp"></i>
 <i class="flag-gq"></i>
 <i class="flag-gr"></i>
+<i class="flag-gs"></i>
 <i class="flag-gt"></i>
 <i class="flag-gu"></i>
 <i class="flag-gw"></i>
 <i class="flag-gy"></i>
 <i class="flag-hk"></i>
+<i class="flag-hm"></i>
 <i class="flag-hn"></i>
 <i class="flag-hr"></i>
 <i class="flag-ht"></i>
 <i class="flag-hu"></i>
 <i class="flag-id"></i>
-<i class="flag-mc"></i>
 <i class="flag-ie"></i>
 <i class="flag-il"></i>
 <i class="flag-im"></i>
 <i class="flag-in"></i>
+<i class="flag-io"></i>
 <i class="flag-iq"></i>
 <i class="flag-ir"></i>
 <i class="flag-is"></i>
@@ -137,8 +141,10 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-lv"></i>
 <i class="flag-ly"></i>
 <i class="flag-ma"></i>
+<i class="flag-mc"></i>
 <i class="flag-md"></i>
 <i class="flag-me"></i>
+<i class="flag-mf"></i>
 <i class="flag-mg"></i>
 <i class="flag-mh"></i>
 <i class="flag-mk"></i>
@@ -146,6 +152,7 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-mm"></i>
 <i class="flag-mn"></i>
 <i class="flag-mo"></i>
+<i class="flag-mp"></i>
 <i class="flag-mq"></i>
 <i class="flag-mr"></i>
 <i class="flag-ms"></i>
@@ -159,16 +166,14 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-na"></i>
 <i class="flag-nc"></i>
 <i class="flag-ne"></i>
+<i class="flag-nf"></i>
 <i class="flag-ng"></i>
 <i class="flag-ni"></i>
 <i class="flag-nl"></i>
-<i class="flag-bq"></i>
 <i class="flag-no"></i>
-<i class="flag-bv"></i>
-<i class="flag-nq"></i>
-<i class="flag-sj"></i>
 <i class="flag-np"></i>
 <i class="flag-nr"></i>
+<i class="flag-nu"></i>
 <i class="flag-nz"></i>
 <i class="flag-om"></i>
 <i class="flag-pa"></i>
@@ -178,6 +183,8 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-ph"></i>
 <i class="flag-pk"></i>
 <i class="flag-pl"></i>
+<i class="flag-pm"></i>
+<i class="flag-pn"></i>
 <i class="flag-pr"></i>
 <i class="flag-ps"></i>
 <i class="flag-pt"></i>
@@ -195,22 +202,28 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-sd"></i>
 <i class="flag-se"></i>
 <i class="flag-sg"></i>
+<i class="flag-sh"></i>
 <i class="flag-si"></i>
+<i class="flag-sj"></i>
 <i class="flag-sk"></i>
 <i class="flag-sl"></i>
 <i class="flag-sm"></i>
 <i class="flag-sn"></i>
 <i class="flag-so"></i>
 <i class="flag-sr"></i>
+<i class="flag-ss"></i>
 <i class="flag-st"></i>
 <i class="flag-sv"></i>
+<i class="flag-sx"></i>
 <i class="flag-sy"></i>
 <i class="flag-sz"></i>
 <i class="flag-tc"></i>
 <i class="flag-td"></i>
+<i class="flag-tf"></i>
 <i class="flag-tg"></i>
 <i class="flag-th"></i>
 <i class="flag-tj"></i>
+<i class="flag-tk"></i>
 <i class="flag-tl"></i>
 <i class="flag-tm"></i>
 <i class="flag-tn"></i>
@@ -222,6 +235,7 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-tz"></i>
 <i class="flag-ua"></i>
 <i class="flag-ug"></i>
+<i class="flag-um"></i>
 <i class="flag-us"></i>
 <i class="flag-uy"></i>
 <i class="flag-uz"></i>
@@ -232,16 +246,24 @@ Provides flags of various descriptions using [flag-icon-css](https://github.com/
 <i class="flag-vi"></i>
 <i class="flag-vn"></i>
 <i class="flag-vu"></i>
+<i class="flag-wf"></i>
 <i class="flag-ws"></i>
 <i class="flag-ye"></i>
+<i class="flag-yt"></i>
 <i class="flag-za"></i>
 <i class="flag-zm"></i>
 <i class="flag-zw"></i>
-<i class="flag-sx"></i>
-<i class="flag-cw"></i>
-<i class="flag-ss"></i>
+
+<i class="flag-es-ct"></i>
+<i class="flag-eu"></i>
+<i class="flag-gb-eng"></i>
+<i class="flag-gb-nir"></i>
+<i class="flag-gb-sct"></i>
+<i class="flag-gb-wls"></i>
+<i class="flag-un"></i>
+
 <p>Squared</p>
-<i class="flag-en oc-flag-squared"></i>
+<i class="flag-us oc-flag-squared"></i>
 ```
 
 
