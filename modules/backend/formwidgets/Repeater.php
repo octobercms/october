@@ -113,7 +113,7 @@ class Repeater extends FormWidgetBase
             $this->previewMode = true;
         }
 
-        $fieldName = $this->formField->getName(false).'_'.md5($this->formField->getName(true));
+        $fieldName = implode('_', HtmlHelper::nameToArray($this->formField->getName()));
         $this->indexInputName = self::INDEX_PREFIX.$fieldName;
         $this->groupInputName = self::GROUP_PREFIX.$fieldName;
 
