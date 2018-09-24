@@ -869,8 +869,10 @@ class Filter extends WidgetBase
             $scope = $this->getScope($scope);
         }
 
-        $cacheKey = 'scope-'.$scope->scopeName;
-        $this->putSession($cacheKey, $value);
+        if (!isset($scope->config['session']) || $scope->config['session']) {
+            $cacheKey = 'scope-'.$scope->scopeName;
+            $this->putSession($cacheKey, $value);
+        }
 
         $scope->value = $value;
     }
