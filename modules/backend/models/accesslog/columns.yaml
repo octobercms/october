@@ -23,6 +23,7 @@ columns:
     ip_address:
         label: backend::lang.access_log.ip_address
         searchable: yes
+        invisible: true
 
     login:
         label: backend::lang.access_log.login
