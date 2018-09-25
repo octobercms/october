@@ -11,11 +11,13 @@ class ExampleExportModel extends ExportModel
         return [
             [
                 'foo' => 'bar',
-                'bar' => 'foo'
+                'bar' => 'foo',
+                'foobar' => 'Hello World!',
             ],
             [
                 'foo' => 'bar2',
-                'bar' => 'foo2'
+                'bar' => 'foo2',
+                'foobar' => 'Hello World2!',
             ],
         ];
     }
@@ -57,7 +59,7 @@ class ExportModelTest extends TestCase
         $this->assertEquals('art direction-roman empire-sci\-fi', $result);
     }
 
-    public function testExportContentType()
+    public function testDownload()
     {
         $model = new ExampleExportModel;
 
@@ -65,16 +67,28 @@ class ExportModelTest extends TestCase
 
         $response = $model->download($csvName);
 
-        $requestMock = $this
-            ->getMockBuilder('Illuminate\Http\Request')
-            ->setMethods()
-            ->getMock();
-        $response->prepare($requestMock);
+        $request = new Illuminate\Http\Request();
+
+        $response->prepare($request);
 
         $this->assertTrue($response->headers->has('Content-Type'), "Response is missing the Content-Type header!");
         $this->assertTrue($response->headers->contains('Content-Type', 'text/plain'), "Content-Type is not \"text/plain\"!");
 
-        @unlink(temp_path() . '/' . $csvName);
-    }
+        ob_start();
+        $response->send();
+        $output = ob_get_clean();
 
+        $utf8BOM = chr(239).chr(187).chr(191);
+
+        $this->assertEquals($utf8BOM."title,title2\nbar,foo\nbar2,foo2\n", $output, "CSV is not right!");
+
+        $filePath = temp_path($csvName);
+
+        $fileGotDeleted = !is_file($filePath);
+
+        $this->assertTrue($fileGotDeleted, "Export-CSV doesn't get deleted.");
+        if (!$fileGotDeleted) {
+            unlink($filePath);
+        }
+    }
 }
