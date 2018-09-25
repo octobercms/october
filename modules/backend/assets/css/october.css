@@ -626,7 +626,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 #layout-canvas{min-height:100%;height:100%}
 .control-tabs.primary-tabs > ul.nav-tabs,.control-tabs.primary-tabs > div > ul.nav-tabs,.control-tabs.primary-tabs > div > div > ul.nav-tabs{margin-left:-20px;margin-right:-20px}
 .control-tabs.primary-tabs.tabs-no-inset > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > ul.nav-tabs,.control-tabs.primary-tabs.tabs-no-inset > div > div > ul.nav-tabs{margin-left:0;margin-right:0}
-.layout{display:table;table-layout:fixed;height:100%;width:100%}
+.layout{display:table;table-layout:fixed;height:100%;min-width:100%}
 .layout > .layout-row{display:table-row;vertical-align:top;height:100%}
 .layout > .layout-row > .layout-cell{display:table-cell;vertical-align:top;height:100%}
 .layout > .layout-row > .layout-cell.layout-container,.layout > .layout-row > .layout-cell .layout-container,.layout > .layout-row > .layout-cell.padded-container,.layout > .layout-row > .layout-cell .padded-container{padding:20px 20px 0 20px}
