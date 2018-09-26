@@ -43,7 +43,8 @@
     "require-dev": {
         "fzaninotto/faker": "~1.7",
         "phpunit/phpunit": "~5.7",
-        "phpunit/phpunit-selenium": "~1.2"
+        "phpunit/phpunit-selenium": "~1.2",
+        "meyfa/phpunit-assert-gd": "1.1.0"
     },
     "autoload-dev": {
         "classmap": [
