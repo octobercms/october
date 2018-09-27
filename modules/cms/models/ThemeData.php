@@ -53,19 +53,27 @@ class ThemeData extends Model
     protected static $instances = [];
 
     /**
-     * Before saving the model, strip dynamic attributes applied from config.
+     * Boot the model
      * @return void
      */
-    public function beforeSave()
+    public static function boot()
     {
-        /*
-         * Dynamic attributes are stored in the jsonable attribute 'data'.
-         */
-        $staticAttributes = ['id', 'theme', 'data', 'created_at', 'updated_at'];
-        $dynamicAttributes = array_except($this->getAttributes(), $staticAttributes);
+        static::extend(function ($model) {
+            /**
+             * Before saving the model, strip dynamic attributes applied from config.
+             * @return void
+             */
+            $model->bindEvent('model.saveInternal', function () use ($model) {
+                /*
+                 * Dynamic attributes are stored in the jsonable attribute 'data'.
+                 */
+                $staticAttributes = ['id', 'theme', 'data', 'created_at', 'updated_at'];
+                $dynamicAttributes = array_except($model->getAttributes(), $staticAttributes);
 
-        $this->data = $dynamicAttributes;
-        $this->setRawAttributes(array_only($this->getAttributes(), $staticAttributes));
+                $model->data = $dynamicAttributes;
+                $model->setRawAttributes(array_only($model->getAttributes(), $staticAttributes));
+            });
+        });
     }
 
     /**
