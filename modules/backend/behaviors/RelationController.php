@@ -1036,7 +1036,7 @@ class RelationController extends ControllerBehavior
              * Has one relations will save as part of the add() call.
              */
             if ($this->deferredBinding || $this->relationType != 'hasOne') {
-                $newModel->save();
+                $newModel->save(null, $this->manageWidget->getSessionKey());
             }
 
             $this->relationObject->add($newModel, $sessionKey);
