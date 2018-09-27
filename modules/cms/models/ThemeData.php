@@ -58,6 +58,8 @@ class ThemeData extends Model
      */
     public static function boot()
     {
+        parent::boot();
+        
         static::extend(function ($model) {
             /**
              * Before saving the model, strip dynamic attributes applied from config.
