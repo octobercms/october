@@ -116,6 +116,10 @@ class ThemeData extends Model
          * Repeater form fields store arrays and must be jsonable.
          */
         foreach ($this->getFormFields() as $id => $field) {
+            if ($pos = strpos($id, '[')) {
+                $this->jsonable[] = substr($id, 0, $pos);
+            }
+            
             if (!isset($field['type'])) {
                 continue;
             }
