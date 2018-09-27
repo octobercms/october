@@ -42,9 +42,6 @@
         <?php endforeach ?>
     </div>
 
-    <input type="hidden" name="<?= $indexInputName ?>[]" value="<?= $indexValue ?>" />
-    <?php if ($useGroups): ?>
-        <input type="hidden" name="<?= $groupInputName ?>[]" value="<?= $groupCode ?>" />
-    <?php endif ?>
+    <input type="hidden" name="<?= $indexInputName ?>[<?= $indexValue ?>]" value="<?= $useGroups ? $groupCode : 1 ?>" />
 
 </li>

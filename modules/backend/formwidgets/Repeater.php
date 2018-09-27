@@ -11,7 +11,7 @@ use October\Rain\Html\Helper as HtmlHelper;
 class Repeater extends FormWidgetBase
 {
     const INDEX_PREFIX = '___index_';
-    const GROUP_PREFIX = '___group_';
+    const EXISTS_PREFIX = '___repeater_';
 
     //
     // Configurable properties
@@ -57,7 +57,7 @@ class Repeater extends FormWidgetBase
     protected $defaultAlias = 'repeater';
 
     /**
-     * @var string Form field name for capturing an index.
+     * @var string Form field name for capturing index and group values.
      */
     protected $indexInputName;
 
@@ -89,9 +89,9 @@ class Repeater extends FormWidgetBase
     protected $useGroups = false;
 
     /**
-     * @var string Form field name for capturing an index.
+     * @var string Form field name for capturing field existence in form data
      */
-    protected $groupInputName;
+    protected $existsInputName;
 
     protected $groupDefinitions = [];
 
@@ -115,7 +115,7 @@ class Repeater extends FormWidgetBase
 
         $fieldName = implode('_', HtmlHelper::nameToArray($this->formField->getName()));
         $this->indexInputName = self::INDEX_PREFIX.$fieldName;
-        $this->groupInputName = self::GROUP_PREFIX.$fieldName;
+        $this->existsInputName = self::EXISTS_PREFIX.$fieldName;
 
         $this->processGroupMode();
 
@@ -151,7 +151,7 @@ class Repeater extends FormWidgetBase
         }
 
         $this->vars['indexInputName'] = $this->indexInputName;
-        $this->vars['groupInputName'] = $this->groupInputName;
+        $this->vars['existsInputName'] = $this->existsInputName;
 
         $this->vars['prompt'] = $this->prompt;
         $this->vars['formWidgets'] = $this->formWidgets;
@@ -214,48 +214,38 @@ class Repeater extends FormWidgetBase
      */
     protected function processExistingItems()
     {
-        $loadedIndexes = $loadedGroups = [];
-        $loadValue = $this->getLoadValue();
+        if (self::$onlyExistingItems || !post($this->existsInputName)) {
+            $loadValue = $this->getLoadValue();
 
-        // Ensure that the minimum number of items are preinitialized
-        // ONLY DONE WHEN NOT IN GROUP MODE
-        if (!$this->useGroups && $this->minItems > 0) {
-            if (!is_array($loadValue)) {
-                $loadValue = [];
-                for ($i = 0; $i < $this->minItems; $i++) {
-                    $loadValue[$i] = [];
-                }
-            } elseif (count($loadValue) < $this->minItems) {
-                for ($i = 0; $i < ($this->minItems - count($loadValue)); $i++) {
-                    $loadValue[] = [];
+            // Ensure that the minimum number of items are preinitialized
+            // ONLY DONE WHEN NOT IN GROUP MODE
+            if (!$this->useGroups && $this->minItems > 0) {
+                if (!is_array($loadValue)) {
+                    $loadValue = [];
+                    for ($i = 0; $i < $this->minItems; $i++) {
+                        $loadValue[$i] = [];
+                    }
+                } elseif (count($loadValue) < $this->minItems) {
+                    for ($i = 0; $i < ($this->minItems - count($loadValue)); $i++) {
+                        $loadValue[] = [];
+                    }
                 }
             }
-        }
 
-        if (is_array($loadValue)) {
-            foreach ($loadValue as $index => $loadedValue) {
-                $loadedIndexes[] = $index;
-                $loadedGroups[] = array_get($loadedValue, '_group');
+            $items = [];
+            if (is_array($loadValue)) {
+                foreach ($loadValue as $index => $loadedValue) {
+                    $items[$index] = array_get($loadedValue, '_group');
+                }
             }
-        }
-
-        if (self::$onlyExistingItems) {
-            $itemIndexes = $loadedIndexes;
-            $itemGroups = $loadedGroups;
         }
         else {
-            $itemIndexes = post($this->indexInputName, $loadedIndexes);
-            $itemGroups = post($this->groupInputName, $loadedGroups);
+            $items = post($this->indexInputName, []);
         }
 
-        if (!count($itemIndexes)) {
+        if (!count($items)) {
             return;
         }
-
-        $items = array_combine(
-            (array) $itemIndexes,
-            (array) ($this->useGroups ? $itemGroups : $itemIndexes)
-        );
 
         foreach ($items as $itemIndex => $groupCode) {
             $this->makeItemFormWidget($itemIndex, $groupCode);
