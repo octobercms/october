@@ -589,7 +589,11 @@ class Lists extends WidgetBase
 
                 // Adjust current page number to last available page to avoid broken pagination
                 $recordsCount = $model->count();
-                $maxPageAvailable = $recordsCount % $this->recordsPerPage + 1;
+                $maxPageAvailable = floor($recordsCount / $this->recordsPerPage);
+
+                if (($recordsCount / $this->recordsPerPage - $maxPageAvailable) > 0)
+                    $maxPageAvailable += 1;
+
                 $currentPageNumber = ($currentPageNumber > $maxPageAvailable) ? $maxPageAvailable : $currentPageNumber;
             }
             $records = $model->{$method}($this->recordsPerPage, $currentPageNumber);
