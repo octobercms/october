@@ -104,6 +104,7 @@
         var pikadayOptions = {
             yearRange: this.options.yearRange,
             firstDay: this.options.firstDay,
+            showWeekNumber: this.options.showWeekNumber,
             format: dateFormat,
             setDefaultDate: now,
             onOpen: function() {
@@ -314,7 +315,8 @@
         maxDate: null,
         format: null,
         yearRange: 10,
-        firstDay: 0
+        firstDay: 0,
+        showWeekNumber: false
     }
 
     // PLUGIN DEFINITION

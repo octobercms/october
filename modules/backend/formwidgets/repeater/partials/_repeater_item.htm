@@ -40,6 +40,9 @@
         <?php foreach ($widget->getFields() as $field): ?>
             <?= $widget->renderField($field) ?>
         <?php endforeach ?>
+        <?php if ($useGroups): ?>
+            <input type="hidden" name="<?= $widget->arrayName ?>[_group]" value="<?= $groupCode ?>" />
+        <?php endif ?>
     </div>
 
     <input type="hidden" name="<?= $indexInputName ?>[]" value="<?= $indexValue ?>" />

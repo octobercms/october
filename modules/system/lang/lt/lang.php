@@ -29,7 +29,7 @@ return [
         'lt' => 'Lietuvių',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
-        'pl' => 'Polskie',
+        'pl' => 'Polski',
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română',
         'ru' => 'Русский',
@@ -37,7 +37,8 @@ return [
         'sk' => 'Slovenský',
         'tr' => 'Türk',
         'zh-cn' => '简体中文',
-        'zh-tw' => '繁體中文'
+        'zh-tw' => '繁體中文',
+        'vn' => 'Tiếng việt'
     ],
     'directory' => [
         'create_fail' => 'Negalime sukurti direktorijos: :name'

@@ -6,7 +6,6 @@ use StdClass;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Console command to implement a "public" folder.
@@ -35,6 +34,7 @@ class OctoberMirror extends Command
         'index.php',
         'favicon.ico',
         'robots.txt',
+        'humans.txt',
         'sitemap.xml',
     ];
 

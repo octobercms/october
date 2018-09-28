@@ -37,7 +37,8 @@ return [
         'sk' => 'Esloveno',
         'tr' => 'Turco',
         'zh-cn' => 'Chinês',
-        'zh-tw' => 'Tailandês'
+        'zh-tw' => 'Tailandês',
+        'vn' => 'Tiếng việt'
     ],
     'directory' => [
         'create_fail' => 'Não é possível criar a diretoria: :name',

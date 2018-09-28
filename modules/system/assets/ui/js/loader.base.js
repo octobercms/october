@@ -12,6 +12,8 @@
  * JavaScript API:
  *
  * $('#buttons').loadIndicator({ text: 'Saving...', opaque: true }) - display the indicator in a solid (opaque) state
+ * $('#buttons').loadIndicator({ centered: true }) - display the indicator aligned in the center horizontally
+ * $('#buttons').loadIndicator({ size: small }) - display the indicator in small size
  * $('#buttons').loadIndicator({ text: 'Saving...' }) - display the indicator in a transparent state
  * $('#buttons').loadIndicator('hide') - display the indicator
  */
@@ -46,6 +48,12 @@
         indicator.append($('<span></span>'))
         if (this.options.opaque !== undefined) {
             indicator.addClass('is-opaque')
+        }
+        if (this.options.centered !== undefined) {
+            indicator.addClass('indicator-center')
+        }
+        if (this.options.size === 'small') {
+            indicator.addClass('size-small')
         }
 
         this.$el.prepend(indicator)
@@ -114,7 +122,9 @@
                 indicatorContainer = $(this).closest('.loading-indicator-container'),
                 loadingText = $(this).data('load-indicator'),
                 options = {
-                    opaque: $(this).data('load-indicator-opaque')
+                    opaque: $(this).data('load-indicator-opaque'),
+                    centered: $(this).data('load-indicator-centered'),
+                    size: $(this).data('load-indicator-size')
                 }
 
                 if (loadingText)

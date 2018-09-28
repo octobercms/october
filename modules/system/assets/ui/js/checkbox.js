@@ -10,7 +10,7 @@
             e.preventDefault()
     })
 
-    $(document).on('keyup', 'div.custom-checkbox', function(e) {
+    $(document).on('input', 'div.custom-checkbox', function(e) {
         if (e.keyCode == 32) {
             var $cb = $('input', this)
 

@@ -9,6 +9,7 @@ use Input;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
@@ -788,6 +789,7 @@ class FormController extends ControllerBehavior
     /**
      * Called after the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $fields Array of all defined form field objects (\Backend\Classes\FormField)
      * @return void
      */
     public function formExtendFields($host, $fields)

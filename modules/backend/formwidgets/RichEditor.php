@@ -90,6 +90,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
         $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
         $this->vars['removeTags'] = EditorSetting::getConfigured('html_remove_tags');
+        $this->vars['lineBreakerTags'] = EditorSetting::getConfigured('html_line_breaker_tags');
 
         $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
         $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');

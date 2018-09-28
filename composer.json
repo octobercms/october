@@ -1,7 +1,7 @@
 {
     "name": "october/october",
     "description": "October CMS",
-    "homepage": "http://octobercms.com",
+    "homepage": "https://octobercms.com",
     "keywords": ["october", "cms", "octobercms", "laravel"],
     "license": "MIT",
     "authors": [
@@ -14,12 +14,18 @@
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com",
             "role": "Co-founder"
+        },
+        {
+            "name": "Luke Towers",
+            "email": "octobercms@luketowers.ca",
+            "homepage": "https://luketowers.ca",
+            "role": "Maintainer"
         }
     ],
     "support": {
         "issues": "https://github.com/octobercms/october/issues",
-        "forum": "http://octobercms.com/forum/",
-        "docs": "http://octobercms.com/docs/",
+        "forum": "https://octobercms.com/forum/",
+        "docs": "https://octobercms.com/docs/",
         "irc": "irc://irc.freenode.net/october",
         "source": "https://github.com/octobercms/october"
     },
@@ -55,7 +61,10 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "platform": {
+            "php": "7.0"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -8,6 +8,7 @@ return [
         'invalid_type' => 'Ongeldig type veld: :type.',
         'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",
         'options_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin opties voor het veld ":field".',
+        'colors_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin html HEX kleurcodes voor het veld ":field".',
     ],
     'widget' => [
         'not_registered' => "Een widget met klassenaam ':name' is niet geregistreerd",
@@ -362,6 +363,8 @@ return [
         'no_wrap_comment' => 'Een lijst van tags die niet worden afgebroken.',
         'remove_tags' => 'Te verwijderen HTML-tags',
         'remove_tags_comment' => 'Een lijst van HTML-tags die samen met hun inhoud worden verwijderd.',
+        'line_breaker_tags' => 'Line breaker tags',
+        'line_breaker_tags_comment' => 'Een lijst van HTML-tags waartussen een line breaker element wordt geplaatst.',
         'toolbar_buttons' => 'Toolbar knoppen',
         'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],

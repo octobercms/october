@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area'
+        'title' => 'Administration Area',
+        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+        'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field."
     ],
     'widget' => [
         'not_registered' => "A widget class name ':name' has not been registered",
@@ -216,6 +218,10 @@ return [
         'remove_confirm' => 'Are you sure?',
         'remove_file' => 'Remove file'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
+        'max_items_failed' => ':name only allows up to :max items, :items were provided',
+    ],
     'form' => [
         'create_title' => 'New :name',
         'update_title' => 'Edit :name',
@@ -379,6 +385,8 @@ return [
         'no_wrap_comment' => 'The list of tags that should not be wrapped inside block tags.',
         'remove_tags' => 'Remove tags',
         'remove_tags_comment' => 'The list of tags that are removed together with their content.',
+        'line_breaker_tags' => 'Line breaker tags',
+        'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
         'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
@@ -446,6 +454,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',
         'import_file' => 'Import file',
+        'row' => 'Row :row',
         'first_row_contains_titles' => 'First row contains column titles',
         'first_row_contains_titles_desc' => 'Leave this checked if the first row in the CSV is used as the column titles.',
         'match_columns' => '2. Match the file columns to database fields',

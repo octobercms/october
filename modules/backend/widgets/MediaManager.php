@@ -41,6 +41,11 @@ class MediaManager extends WidgetBase
     protected $brokenImageHash = null;
 
     /**
+     * @var boolean Determines whether the widget is in readonly mode or not
+     */
+    public $readOnly = false;
+
+    /**
      * @var boolean Determines whether the bottom toolbar is visible.
      */
     public $bottomToolbar = false;
@@ -53,9 +58,10 @@ class MediaManager extends WidgetBase
     /**
      * Constructor.
      */
-    public function __construct($controller, $alias)
+    public function __construct($controller, $alias, $readOnly = false)
     {
         $this->alias = $alias;
+        $this->readOnly = $readOnly;
 
         parent::__construct($controller, []);
 
@@ -71,6 +77,16 @@ class MediaManager extends WidgetBase
     {
         $this->addCss('css/mediamanager.css', 'core');
         $this->addJs('js/mediamanager-browser-min.js', 'core');
+    }
+
+    /**
+     * Abort the request with an access-denied code if readOnly mode is active
+     */
+    protected function abortIfReadOnly()
+    {
+        if ($this->readOnly) {
+            abort(403);
+        }
     }
 
     /**
@@ -230,6 +246,8 @@ class MediaManager extends WidgetBase
 
     public function onDeleteItem()
     {
+        $this->abortIfReadOnly();
+
         $paths = Input::get('paths');
 
         if (!is_array($paths)) {
@@ -259,8 +277,22 @@ class MediaManager extends WidgetBase
                  */
                 $library->deleteFolder($path);
 
-                /*
-                 * Extensibility
+                /**
+                 * @event media.folder.delete
+                 * Called after a folder is deleted
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('media.folder.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 * Or
+                 *
+                 *     $mediaWidget->bindEvent('folder.delete', function ((string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
                  */
                 $this->fireSystemEvent('media.folder.delete', [$path]);
             }
@@ -276,6 +308,23 @@ class MediaManager extends WidgetBase
              * Extensibility
              */
             foreach ($filesToDelete as $path) {
+                /**
+                 * @event media.file.delete
+                 * Called after a file is deleted
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('media.file.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 * Or
+                 *
+                 *     $mediaWidget->bindEvent('file.delete', function ((string) $path) {
+                 *         \Log::info($path . " was deleted");
+                 *     });
+                 *
+                 */
                 $this->fireSystemEvent('media.file.delete', [$path]);
             }
         }
@@ -290,6 +339,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadRenamePopup()
     {
+        $this->abortIfReadOnly();
+
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
@@ -303,6 +354,8 @@ class MediaManager extends WidgetBase
 
     public function onApplyName()
     {
+        $this->abortIfReadOnly();
+
         $newName = trim(Input::get('name'));
         if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
@@ -330,8 +383,22 @@ class MediaManager extends WidgetBase
              */
             MediaLibrary::instance()->moveFile($originalPath, $newPath);
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.rename
+             * Called after a file is renamed / moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.rename', function ((string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.rename', [$originalPath, $newPath]);
         }
@@ -341,8 +408,22 @@ class MediaManager extends WidgetBase
              */
             MediaLibrary::instance()->moveFolder($originalPath, $newPath);
 
-            /*
-             * Extensibility
+            /**
+             * @event media.folder.rename
+             * Called after a folder is renamed / moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.folder.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('folder.rename', function ((string) $originalPath, (string) $newPath) {
+             *         \Log::info($originalPath . " was moved to " . $path);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.folder.rename', [$originalPath, $newPath]);
         }
@@ -352,6 +433,8 @@ class MediaManager extends WidgetBase
 
     public function onCreateFolder()
     {
+        $this->abortIfReadOnly();
+
         $name = trim(Input::get('name'));
         if (!strlen($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
@@ -379,8 +462,22 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('backend::lang.media.error_creating_folder'));
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event media.folder.create
+         * Called after a folder is created
+         *
+         * Example usage:
+         *
+         *     Event::listen('media.folder.create', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
+         *         \Log::info($newFolderPath . " was created");
+         *     });
+         *
+         * Or
+         *
+         *     $mediaWidget->bindEvent('folder.create', function ((string) $newFolderPath) {
+         *         \Log::info($newFolderPath . " was created");
+         *     });
+         *
          */
         $this->fireSystemEvent('media.folder.create', [$newFolderPath]);
 
@@ -395,6 +492,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadMovePopup()
     {
+        $this->abortIfReadOnly();
+
         $exclude = Input::get('exclude', []);
         if (!is_array($exclude)) {
             throw new ApplicationException('Invalid input data');
@@ -425,6 +524,8 @@ class MediaManager extends WidgetBase
 
     public function onMoveItems()
     {
+        $this->abortIfReadOnly();
+
         $dest = trim(Input::get('dest'));
         if (!strlen($dest)) {
             throw new ApplicationException(Lang::get('backend::lang.media.please_select_move_dest'));
@@ -453,8 +554,22 @@ class MediaManager extends WidgetBase
              */
             $library->moveFile($path, $dest.'/'.basename($path));
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.move
+             * Called after a file is moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.rename', function ((string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.move', [$path, $dest]);
         }
@@ -465,8 +580,22 @@ class MediaManager extends WidgetBase
              */
             $library->moveFolder($path, $dest.'/'.basename($path));
 
-            /*
-             * Extensibility
+            /**
+             * @event media.folder.move
+             * Called after a folder is moved
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.folder.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('folder.rename', function ((string) $path, (string) $dest) {
+             *         \Log::info($path . " was moved to " . $dest);
+             *     });
+             *
              */
             $this->fireSystemEvent('media.folder.move', [$path, $dest]);
         }
@@ -498,6 +627,8 @@ class MediaManager extends WidgetBase
 
     public function onLoadImageCropPopup()
     {
+        $this->abortIfReadOnly();
+
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
         $cropSessionKey = md5(FormHelper::getSessionKey());
@@ -521,6 +652,8 @@ class MediaManager extends WidgetBase
 
     public function onEndCroppingSession()
     {
+        $this->abortIfReadOnly();
+
         $cropSessionKey = Input::get('cropSessionKey');
         if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
@@ -531,6 +664,8 @@ class MediaManager extends WidgetBase
 
     public function onCropImage()
     {
+        $this->abortIfReadOnly();
+
         $imageSrcPath = trim(Input::get('img'));
         $selectionData = Input::get('selection');
         $cropSessionKey = Input::get('cropSessionKey');
@@ -562,6 +697,8 @@ class MediaManager extends WidgetBase
 
     public function onResizeImage()
     {
+        $this->abortIfReadOnly();
+
         $cropSessionKey = Input::get('cropSessionKey');
         if (!preg_match('/^[0-9a-z]+$/', $cropSessionKey)) {
             throw new ApplicationException('Invalid input data');
@@ -589,7 +726,7 @@ class MediaManager extends WidgetBase
     }
 
     //
-    // Methods for th internal use
+    // Methods for internal use
     //
 
     protected function prepareVars()
@@ -1078,6 +1215,10 @@ class MediaManager extends WidgetBase
 
     protected function checkUploadPostback()
     {
+        if ($this->readOnly) {
+            return;
+        }
+
         $fileName = null;
         $quickMode = false;
 
@@ -1141,8 +1282,22 @@ class MediaManager extends WidgetBase
                 File::get($realPath)
             );
 
-            /*
-             * Extensibility
+            /**
+             * @event media.file.upload
+             * Called after a file is uploaded
+             *
+             * Example usage:
+             *
+             *     Event::listen('media.file.upload', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *         \Log::info($path . " was upoaded.");
+             *     });
+             *
+             * Or
+             *
+             *     $mediaWidget->bindEvent('file.upload', function ((string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *         \Log::info($path . " was uploaded");
+             *     });
+             *
              */
             $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
 
@@ -1165,7 +1320,7 @@ class MediaManager extends WidgetBase
      */
     protected function validateFileName($name)
     {
-        if (!preg_match('/^[0-9a-z@\.\s_\-]+$/i', $name)) {
+        if (!preg_match('/^[\w@\.\s_\-]+$/iu', $name)) {
             return false;
         }
 

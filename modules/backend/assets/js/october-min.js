@@ -1084,7 +1084,7 @@ this.searchCookieName=this.options.treeName+'search'
 this.$searchInput=$(this.options.searchInput)
 this.$el.on('click','li > div.group',function(){self.toggleGroup($(this).closest('li'))
 return false})
-this.$searchInput.on('keyup',function(){self.handleSearchChange()})
+this.$searchInput.on('input',function(){self.handleSearchChange()})
 var searchTerm=$.cookie(this.searchCookieName)
 if(searchTerm!==undefined&&searchTerm.length>0){this.$searchInput.val(searchTerm)
 this.applySearch()}

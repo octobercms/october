@@ -31,7 +31,7 @@ return [
         'lv' => 'Latviešu',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
-        'pl' => 'Polskie',
+        'pl' => 'Polski',
         'pt-br' => 'Português (Brasil)',
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',

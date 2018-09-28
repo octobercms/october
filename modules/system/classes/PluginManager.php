@@ -1,11 +1,13 @@
 <?php namespace System\Classes;
 
+use Db;
 use App;
 use Str;
 use File;
 use Lang;
 use View;
 use Config;
+use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ApplicationException;
@@ -419,6 +421,7 @@ class PluginManager
         $parts = explode('\\', $namespace);
         $slice = array_slice($parts, 1, 2);
         $namespace = implode('.', $slice);
+
         return $namespace;
     }
 
@@ -491,6 +494,7 @@ class PluginManager
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {
+            $this->populateDisabledPluginsFromDb();
             $this->writeDisabled();
         }
     }
@@ -517,6 +521,27 @@ class PluginManager
     protected function writeDisabled()
     {
         File::put($this->metaFile, json_encode($this->disabledPlugins));
+    }
+
+    /**
+     * Populates information about disabled plugins from database
+     * @return void
+     */
+    protected function populateDisabledPluginsFromDb()
+    {
+        if (!App::hasDatabase()) {
+            return;
+        }
+
+        if (!Schema::hasTable('system_plugin_versions')) {
+            return;
+        }
+
+        $disabled = Db::table('system_plugin_versions')->where('is_disabled', 1)->lists('code');
+
+        foreach ($disabled as $code) {
+            $this->disabledPlugins[$code] = true;
+        }
     }
 
     /**
@@ -596,7 +621,9 @@ class PluginManager
                     continue;
                 }
 
-                $missing[] = $require;
+                if (!in_array($require, $missing)) {
+                    $missing[] = $require;
+                }
             }
         }
 

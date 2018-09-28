@@ -34,6 +34,7 @@
         sortableHandle: '.repeater-item-handle',
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
+        minItems: null,
         maxItems: null
     }
 
@@ -122,6 +123,13 @@
     }
 
     Repeater.prototype.togglePrompt = function () {
+        if (this.options.minItems && this.options.minItems > 0) {
+            var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
+                $removeItemBtn = this.$el.find('> .field-repeater-items > .field-repeater-item > .repeater-item-remove');
+
+            $removeItemBtn.toggleClass('disabled', !(repeatedItems > this.options.minItems))
+        }
+
         if (this.options.maxItems && this.options.maxItems > 0) {
             var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
                 $addItemBtn = this.$el.find('> .field-repeater-add-item')
@@ -181,7 +189,7 @@
         }
 
         if (this.options.titleFrom) {
-            $target = $('[data-field-name="'+this.options.titleFrom+'"]')
+            $target = $('[data-field-name="'+this.options.titleFrom+'"]', $item)
             if (!$target.length) {
                 $target = $item
             }

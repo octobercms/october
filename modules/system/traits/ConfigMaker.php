@@ -7,6 +7,7 @@ use Event;
 use SystemException;
 use Backend\Classes\Controller;
 use stdClass;
+use Config;
 
 /**
  * Config Maker Trait
@@ -141,7 +142,9 @@ trait ConfigMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+        if (File::isLocalPath($fileName) ||
+            (!Config::get('cms.restrictBaseDir', true) && realpath($fileName) !== false)
+        ) {
             return $fileName;
         }
 

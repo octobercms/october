@@ -245,6 +245,7 @@ class CombineAssets
         header_remove();
         $response = Response::make();
         $response->header('Content-Type', $mime);
+        $response->header('Cache-Control', 'private, max-age=604800');
         $response->setLastModified(new DateTime($lastModifiedTime));
         $response->setEtag($etag);
         $response->setPublic();
@@ -633,7 +634,7 @@ class CombineAssets
         if ($destination === null) {
             $file = File::name($firstFile);
             $path = dirname($firstFile);
-            $preprocessors = array_except(self::$cssExtensions, 'css');
+            $preprocessors = array_diff(self::$cssExtensions, ['css']);
 
             if (in_array($extension, $preprocessors)) {
                 $cssPath = $path.'/../css';

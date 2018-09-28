@@ -10,11 +10,13 @@
     data-selection-not-image="<?= e(trans('backend::lang.media.selection_not_image')) ?>"
     data-bottom-toolbar="<?= $this->bottomToolbar ? 'true' : 'false' ?>"
     data-crop-and-insert-button="<?= $this->cropAndInsertButton ? 'true' : 'false' ?>"
+    data-read-only="<?= $this->readOnly ? 'true' : 'false'; ?>"
     tabindex="0"
 >
 
     <?= $this->makePartial('toolbar') ?>
-    <?= $this->makePartial('upload-progress') ?>
+
+    <?= (!$this->readOnly) ? $this->makePartial('upload-progress') : '' ?>
 
     <div class="layout-row whiteboard">
         <div class="layout">
