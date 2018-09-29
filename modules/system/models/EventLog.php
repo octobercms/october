@@ -2,7 +2,7 @@
 
 use App;
 use Str;
-use October\Rain\Database\Model;
+use Model;
 use Exception;
 
 /**
