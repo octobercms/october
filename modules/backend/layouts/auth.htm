@@ -12,12 +12,12 @@
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
         <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
         <link href="<?= Url::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
-        <script src="<?= Url::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
-        <script src="<?= Url::to('modules/system/assets/js/framework.js') ?>"></script>
+        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
+        <script data-cfasync="false" src="<?= Url::to('modules/system/assets/js/framework.js') ?>"></script>
         <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>"></script>
         <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/october-min.js') ?>"></script>
-        <script src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
-        <script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
+        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
+        <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
         <?= $this->makeLayoutPartial('custom_styles') ?>
