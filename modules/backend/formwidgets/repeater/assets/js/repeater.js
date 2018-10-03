@@ -140,15 +140,21 @@
 
     Repeater.prototype.toggleCollapse = function(ev) {
         var $item = $(ev.target).closest('.field-repeater-item'),
-            isCollapsed = $item.hasClass('collapsed')
+            isCollapsed = $item.hasClass('collapsed'),
+            timeout = 250,
+            now = new Date,
+            lastClick = $(ev.target).data('clickedAt')
 
         ev.preventDefault()
 
-        if (ev.ctrlKey || ev.metaKey) {
+        if(!lastClick || now - lastClick > timeout) {
+            this.toggleTimeout = setTimeout(function(that) {
+                isCollapsed ? that.expand($item) : that.collapse($item)
+            }, timeout, this);
+            $(ev.target).data('clickedAt', now)
+        } else {
+            clearTimeout(this.toggleTimeout)
             isCollapsed ? this.expandAll() : this.collapseAll()
-        }
-        else {
-            isCollapsed ? this.expand($item) : this.collapse($item)
         }
     }
 
