@@ -223,7 +223,15 @@
         var self = this,
             scopeName = $scope.data('scope-name'),
             data = this.scopeValues[scopeName],
-            isLoaded = true
+            isLoaded = true,
+            container = false
+
+        // If the filter is running in a modal, popovers should be
+        // attached to the modal container. This prevents z-index issues.
+        var modalParent = $scope.parents('.modal-dialog')
+        if (modalParent.length > 0) {
+            container = modalParent[0]
+        }
 
         if (!data) {
             data = { loading: true }
@@ -246,7 +254,8 @@
             modal: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
-            placement: 'bottom'
+            placement: 'bottom',
+            container: container
         })
         
         this.toggleFilterButtons()
