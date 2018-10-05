@@ -207,8 +207,8 @@ class PluginBase extends ServiceProviderBase
      * The templates must be returned in the following format:
      *
      *     return [
-     *         ['acme.blog::mail.welcome' => 'This is a description of the welcome template'],
-     *         ['acme.blog::mail.forgot_password' => 'This is a description of the forgot password template'],
+     *         'acme.blog::mail.welcome',
+     *         'acme.blog::mail.forgot_password',
      *     ];
      *
      * @return array
