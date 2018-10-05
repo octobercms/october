@@ -341,11 +341,14 @@ class MailManager
         $plugins = PluginManager::instance()->getPlugins();
         foreach ($plugins as $pluginId => $pluginObj) {
             $templates = $pluginObj->registerMailTemplates();
-            if (!is_array($templates)) {
-                continue;
+            if (is_array($templates)) {
+                $this->registerMailTemplates($templates);
             }
 
-            $this->registerMailTemplates($templates);
+            $partials = $pluginObj->registerMailPartials();
+            if (is_array($partials)) {
+                $this->registerMailPartials($partials);
+            }
         }
     }
 

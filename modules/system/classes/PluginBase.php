@@ -219,6 +219,22 @@ class PluginBase extends ServiceProviderBase
     }
 
     /**
+     * Registers any mail partials implemented by this plugin.
+     * The partials must be returned in the following format:
+     *
+     *     return [
+     *         'tracking'  => 'acme.blog::partials.tracking',
+     *         'promotion' => 'acme.blog::partials.promotion',
+     *     ];
+     *
+     * @return array
+     */
+    public function registerMailPartials()
+    {
+        return [];
+    }
+
+    /**
      * Registers a new console (artisan) command
      *
      * @param string $key The command name
