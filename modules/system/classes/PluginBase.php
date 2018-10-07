@@ -203,6 +203,22 @@ class PluginBase extends ServiceProviderBase
     }
 
     /**
+     * Registers any mail layouts implemented by this plugin.
+     * The layouts must be returned in the following format:
+     *
+     *     return [
+     *         'marketing'    => 'acme.blog::layouts.marketing',
+     *         'notification' => 'acme.blog::layouts.notification',
+     *     ];
+     *
+     * @return array
+     */
+    public function registerMailLayouts()
+    {
+        return [];
+    }
+
+    /**
      * Registers any mail templates implemented by this plugin.
      * The templates must be returned in the following format:
      *
