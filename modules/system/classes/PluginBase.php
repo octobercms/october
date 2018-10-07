@@ -207,13 +207,29 @@ class PluginBase extends ServiceProviderBase
      * The templates must be returned in the following format:
      *
      *     return [
-     *         ['acme.blog::mail.welcome' => 'This is a description of the welcome template'],
-     *         ['acme.blog::mail.forgot_password' => 'This is a description of the forgot password template'],
+     *         'acme.blog::mail.welcome',
+     *         'acme.blog::mail.forgot_password',
      *     ];
      *
      * @return array
      */
     public function registerMailTemplates()
+    {
+        return [];
+    }
+
+    /**
+     * Registers any mail partials implemented by this plugin.
+     * The partials must be returned in the following format:
+     *
+     *     return [
+     *         'tracking'  => 'acme.blog::partials.tracking',
+     *         'promotion' => 'acme.blog::partials.promotion',
+     *     ];
+     *
+     * @return array
+     */
+    public function registerMailPartials()
     {
         return [];
     }
