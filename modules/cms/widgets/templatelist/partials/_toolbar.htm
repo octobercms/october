@@ -25,7 +25,7 @@
                     </div>
                 <?php endif?>
 
-                <button type="button" class="btn btn-default empty oc-icon-trash-o hide"
+                <button type="button" class="btn btn-danger empty oc-icon-trash-o hide"
                     id="<?= $this->getId('delete-button') ?>"
                     data-control="delete-template"
                     data-confirmation="<?= e(trans($this->deleteConfirmation)) ?>"
@@ -37,7 +37,7 @@
 
         <!-- Template Search -->
         <div class="relative toolbar-item loading-indicator-container size-input-text">
-            <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>" 
+            <input placeholder="<?= e(trans('cms::lang.sidebar.search')) ?>" type="text" name="search" value="<?= e($this->getSearchTerm()) ?>"
                 class="form-control icon search" autocomplete="off"
                 data-track-input
                 data-load-indicator
