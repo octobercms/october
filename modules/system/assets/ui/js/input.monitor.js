@@ -30,8 +30,8 @@
         this.$el.on('pause.oc.changeMonitor', this.proxy(this.pause))
         this.$el.on('resume.oc.changeMonitor', this.proxy(this.resume))
 
-        this.$el.on('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
-        $('input:not([type=hidden]), textarea:not(.ace_text-input)', this.$el).each(function() {
+        this.$el.on('keyup input paste', 'input:not(.ace_search_field), textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
+        $('input:not([type=hidden]):not(.ace_search_field), textarea:not(.ace_text-input)', this.$el).each(function() {
             $(this).data('oldval.oc.changeMonitor', $(this).val());
         })
 
@@ -60,7 +60,7 @@
         this.$el.off('unchange.oc.changeMonitor', this.proxy(this.unchange))
         this.$el.off('pause.oc.changeMonitor ', this.proxy(this.pause))
         this.$el.off('resume.oc.changeMonitor ', this.proxy(this.resume))
-        this.$el.off('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
+        this.$el.off('keyup input paste', 'input:not(.ace_search_field), textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
         this.$el.off('dispose-control', this.proxy(this.dispose))
 
         if (this.options.windowCloseConfirm)
@@ -69,6 +69,9 @@
 
     ChangeMonitor.prototype.change = function(ev, inputChange) {
         if (this.paused)
+            return
+
+        if (ev.target.className === 'ace_search_field')
             return
 
         if (!inputChange) {
