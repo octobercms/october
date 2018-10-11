@@ -76,7 +76,7 @@
 
         if (!inputChange) {
             var type = $(ev.target).attr('type')
-            if (type == 'text' || type == "password")
+            if (type === 'text' || type === 'password')
                 return
         }
 
@@ -101,7 +101,7 @@
             return
 
         var $el = $(ev.target)
-        if ($el.data('oldval.oc.changeMonitor') != $el.val()) {
+        if ($el.data('oldval.oc.changeMonitor') !== $el.val()) {
 
             $el.data('oldval.oc.changeMonitor', $el.val());
             this.change(ev, true);
@@ -134,7 +134,7 @@
         return this.each(function () {
             var $this = $(this)
             var data  = $this.data('oc.changeMonitor')
-            var options = $.extend({}, ChangeMonitor.DEFAULTS, $this.data(), typeof option == 'object' && option)
+            var options = $.extend({}, ChangeMonitor.DEFAULTS, $this.data(), typeof option === 'object' && option)
 
             if (!data) $this.data('oc.changeMonitor', (data = new ChangeMonitor(this, options)))
         })
