@@ -202,8 +202,22 @@ class Index extends Controller
         $template->fill($templateData);
         $template->save();
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.template.save
+         * Fires after a CMS template (page|partial|layout|content|asset) has been saved.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.template.save', function ((\Cms\Controllers\Index) $controller, (mixed) $templateObject, (string) $type) {
+         *         \Log::info("A $type has been saved");
+         *     });
+         *
+         * Or
+         *
+         *     $CmsIndexController->bindEvent('template.save', function ((mixed) $templateObject, (string) $type) {
+         *         \Log::info("A $type has been saved");
+         *     });
+         *
          */
         $this->fireSystemEvent('cms.template.save', [$template, $type]);
 
@@ -287,8 +301,22 @@ class Index extends Controller
             $error = $ex->getMessage();
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.template.delete
+         * Fires after a CMS template (page|partial|layout|content|asset) has been deleted.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.template.delete', function ((\Cms\Controllers\Index) $controller, (string) $type) {
+         *         \Log::info("A $type has been deleted");
+         *     });
+         *
+         * Or
+         *
+         *     $CmsIndexController->bindEvent('template.delete', function ((string) $type) {
+         *         \Log::info("A $type has been deleted");
+         *     });
+         *
          */
         $this->fireSystemEvent('cms.template.delete', [$type]);
 
@@ -312,7 +340,7 @@ class Index extends Controller
         $this->loadTemplate($type, trim(Request::input('templatePath')))->delete();
 
         /*
-         * Extensibility
+         * Extensibility - documented above
          */
         $this->fireSystemEvent('cms.template.delete', [$type]);
     }
@@ -418,8 +446,22 @@ class Index extends Controller
             throw new ApplicationException(trans('cms::lang.template.not_found'));
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.template.processSettingsAfterLoad
+         * Fires immediately after a CMS template (page|partial|layout|content|asset) has been loaded and provides an opportunity to interact with it.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.template.processSettingsAfterLoad', function ((\Cms\Controllers\Index) $controller, (mixed) $templateObject) {
+         *         // Make some modifications to the $template object
+         *     });
+         *
+         * Or
+         *
+         *     $CmsIndexController->bindEvent('template.processSettingsAfterLoad', function ((mixed) $templateObject) {
+         *         // Make some modifications to the $template object
+         *     });
+         *
          */
         $this->fireSystemEvent('cms.template.processSettingsAfterLoad', [$template]);
 
@@ -546,11 +588,25 @@ class Index extends Controller
             $settings['viewBag'] = $viewBag;
         }
 
-        /*
-         * Extensibility
-         */
         $dataHolder = (object) ['settings' => $settings];
 
+        /**
+         * @event cms.template.processSettingsBeforeSave
+         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: array()}
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.template.processSettingsBeforeSave', function ((\Cms\Controllers\Index) $controller, (object) $dataHolder) {
+         *         // Make some modifications to the $dataHolder object
+         *     });
+         *
+         * Or
+         *
+         *     $CmsIndexController->bindEvent('template.processSettingsBeforeSave', function ((object) $dataHolder) {
+         *         // Make some modifications to the $dataHolder object
+         *     });
+         *
+         */
         $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
