@@ -588,8 +588,6 @@ class Index extends Controller
             $settings['viewBag'] = $viewBag;
         }
 
-        $dataHolder = (object) ['settings' => $settings];
-
         /**
          * @event cms.template.processSettingsBeforeSave
          * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: array()}
@@ -607,6 +605,7 @@ class Index extends Controller
          *     });
          *
          */
+        $dataHolder = (object) ['settings' => $settings];
         $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
