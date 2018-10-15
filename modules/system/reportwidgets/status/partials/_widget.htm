@@ -52,6 +52,7 @@
                     <span class="status-icon"><i class="icon-exclamation-triangle"></i></span>
                     <span class="status-text">
                         <?= e(trans('backend::lang.dashboard.status.event_log')) ?>
+                        <?php if ($eventLogMsg): ?>&nbsp;<a href="<?= Backend::url('system/settings/update/october/system/log_settings') ?>"><i class="icon-exclamation-triangle text-warning" title="<?= e(trans('system::lang.updates.disabled')) ?>" data-toggle="tooltip" data-placement="right"></i></a><?php endif ?>
                     </span>
                     <a href="<?= Backend::url('system/eventlogs') ?>" class="status-label primary"><?= $eventLog ?></a>
                 </li>
@@ -59,6 +60,7 @@
                     <span class="status-icon"><i class="icon-file-o"></i></span>
                     <span class="status-text">
                         <?= e(trans('backend::lang.dashboard.status.request_log')) ?>
+                        <?php if ($requestLogMsg): ?>&nbsp;<a href="<?= Backend::url('system/settings/update/october/system/log_settings') ?>"><i class="icon-exclamation-triangle text-warning" title="<?= e(trans('system::lang.updates.disabled')) ?>" data-toggle="tooltip" data-placement="right"></i></a><?php endif ?>
                     </span>
                     <a href="<?= Backend::url('system/requestlogs') ?>" class="status-label primary"><?= $requestLog ?></a>
                 </li>
