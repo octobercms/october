@@ -20,6 +20,7 @@ use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use Backend\Classes\Controller;
+use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
 use Cms\Classes\Asset;
@@ -132,6 +133,7 @@ class Index extends Controller
         $widget = $this->makeTemplateFormWidget($type, $template);
 
         $this->vars['templatePath'] = Request::input('path');
+        $this->vars['lastModified'] = DateTime::makeCarbon($template->mtime);
 
         if ($type === 'page') {
             $router = new RainRouter;
