@@ -36,7 +36,7 @@ return [
     'account' => [
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
-        'reset' => 'Wissen',
+        'reset' => 'Wijzigen',
         'restore' => 'Herstellen',
         'login_placeholder' => 'Gebruikersnaam',
         'password_placeholder' => 'Wachtwoord',

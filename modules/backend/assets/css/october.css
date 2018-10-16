@@ -263,7 +263,6 @@ html.mobile .control-scrollbar{overflow:auto;-webkit-overflow-scrolling:touch}
 .control-filelist.filelist-hero.single-level ul li:active > a{background:#3498db;border-bottom:1px solid #3498db !important}
 .control-filelist.filelist-hero.single-level ul li:active > a span.title,.control-filelist.filelist-hero.single-level ul li:active > a span.description{color:#ffffff !important}
 .control-filelist.filelist-hero.single-level ul li:active > a .list-icon{color:#ffffff !important}
-.touch .control-filelist li:not(.active) a:hover{background:transparent}
 .control-scrollpanel{position:relative;background:#ecf0f1}
 .control-scrollpanel .control-scrollbar.vertical > .scrollbar-scrollbar{right:0}
 .tooltip .tooltip-inner{text-align:left;padding:5px 8px}

@@ -18,10 +18,6 @@ class Layout extends CmsCompoundObject
      */
     protected $dirName = 'layouts';
 
-    protected function parseSettings()
-    {
-    }
-
     /**
      * Initializes the fallback layout.
      * @param \Cms\Classes\Theme $theme Specifies a theme the file belongs to.

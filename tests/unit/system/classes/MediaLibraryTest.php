@@ -33,6 +33,10 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
             ['file.ext'],
             ['file..ext'],
             ['file...ext'],
+            ['one,two.ext'],
+            ['one(two)[].ext'],
+            ['one=(two)[].ext'],
+            ['one_(two)[].ext'],
         ];
     }
 

@@ -475,7 +475,23 @@ class MediaLibrary
         /*
          * Validate folder names
          */
-        if (!preg_match('/^[\w@\.\s_\-\/]+$/iu', $path)) {
+        $regexWhitelist = [
+            '\w', // any word character
+            preg_quote('@', '/'),
+            preg_quote('.', '/'),
+            '\s', // whitespace character
+            preg_quote('-', '/'),
+            preg_quote('_', '/'),
+            preg_quote('/', '/'),
+            preg_quote('(', '/'),
+            preg_quote(')', '/'),
+            preg_quote('[', '/'),
+            preg_quote(']', '/'),
+            preg_quote(',', '/'),
+            preg_quote('=', '/'),
+        ];
+
+        if (!preg_match('/^[' . implode('', $regexWhitelist) . ']+$/iu', $path)) {
             throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
         }
 
@@ -686,21 +702,21 @@ class MediaLibrary
             switch ($sortSettings['by']) {
                 case self::SORT_BY_TITLE:
                     $result = strcasecmp($a->path, $b->path);
-                break;
+                    break;
                 case self::SORT_BY_SIZE:
                     if ($a->size < $b->size) {
                         $result = -1;
                     } else {
                         $result = $a->size > $b->size ? 1 : 0;
                     }
-                break;
+                    break;
                 case self::SORT_BY_MODIFIED:
                     if ($a->lastModified < $b->lastModified) {
                         $result = -1;
                     } else {
                         $result = $a->lastModified > $b->lastModified ? 1 : 0;
                     }
-                break;
+                    break;
             }
 
             // Reverse the polarity of the result to direct sorting in a descending order instead

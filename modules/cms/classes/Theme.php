@@ -225,6 +225,18 @@ class Theme
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
+        /**
+         * @event cms.theme.setActiveTheme
+         * Fires when the active theme has been changed.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *         \Log::info("Theme has been changed to $code");
+         *     });
+         *
+         */
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
@@ -243,6 +255,18 @@ class Theme
             $editTheme = static::getActiveThemeCode();
         }
 
+        /**
+         * @event cms.theme.getEditTheme
+         * Overrides the edit theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getEditTheme', function() {
+         *         return "the-edit-theme-code";
+         *     });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
@@ -323,21 +347,13 @@ class Theme
          *
          * Example usage:
          *
-         *     Event::listen('cms.theme.extendConfig', function ($themeCode, $config) {
+         *     Event::listen('cms.theme.extendConfig', function ($themeCode, &$config) {
          *          $config['name'] = 'October Theme';
          *          $config['description'] = 'Another great theme from October CMS';
-         *          return $config;
          *     });
          *
          */
-        if ($results = Event::fire('cms.theme.extendConfig', [$this->getDirName(), $config])) {
-            foreach ($results as $result) {
-                if (!is_array($result)) {
-                    continue;
-                }
-                $config = array_merge($config, $result);
-            }
-        }
+        Event::fire('cms.theme.extendConfig', [$this->getDirName(), &$config]);
 
         return $this->configCache = $config;
     }
@@ -361,7 +377,7 @@ class Theme
          *
          * Example usage:
          *
-         *     Event::listen('cms.theme.extendFormConfig', function ($themeCode, $config) {
+         *     Event::listen('cms.theme.extendFormConfig', function ($themeCode, &$config) {
          *          array_set($config, 'tabs.fields.header_color', [
          *              'label'           => 'Header Colour',
          *              'type'            => 'colorpicker',
@@ -369,18 +385,10 @@ class Theme
          *              'assetVar'        => 'header-bg',
          *              'tab'             => 'Global'
          *          ]);
-         *          return $config;
          *     });
          *
          */
-        if ($results = Event::fire('cms.theme.extendFormConfig', [$this->getDirName(), $config])) {
-            foreach ($results as $result) {
-                if (!is_array($result)) {
-                    continue;
-                }
-                $config = array_merge($config, $result);
-            }
-        }
+        Event::fire('cms.theme.extendFormConfig', [$this->getDirName(), &$config]);
 
         return $config;
     }
