@@ -102,6 +102,51 @@ These modifiers can be added in addition to the `control-tabs` class:
         </div>
     </div>
 
+### NEW Responsive tabs
+
+```
+<div class="control-tabs responsive-tabs" data-control="tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#contentTabOne">One</a></li>
+        <li><a href="#contentTabTwo">Two</a></li>
+        <li><a href="#contentTabThree">Three</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            Tab one content
+        </div>
+        <div class="tab-pane">
+            Tab two content
+        </div>
+        <div class="tab-pane">
+            Tab three content
+        </div>
+    </div>
+</div>
+```
+
+### NEW Responsive tabs with Icons
+
+```
+<div class="control-tabs responsive-tabs" data-control="tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#contentTabOne"><i class="icon-camera-retro"></i><br>One</a></li>
+        <li><a href="#contentTabTwo"><i class="icon-diamond"></i><br>Two</a></li>
+        <li><a href="#contentTabThree"><i class="icon-crosshairs"></i><br>Three</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            Tab one content
+        </div>
+        <div class="tab-pane">
+            Tab two content
+        </div>
+        <div class="tab-pane">
+            Tab three content
+        </div>
+    </div>
+</div>
+
 
 ### Supported data attributes:
 
