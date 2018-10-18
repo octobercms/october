@@ -1,7 +1,6 @@
 <?php namespace Backend\Middleware;
 
 use Closure;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Response;
 
 /**
@@ -13,8 +12,8 @@ use Response;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class ClearSiteDataSignIn
-{
+ class ClearSiteDataSignIn
+ {
     /**
      * Handle an incoming request.
      *
@@ -22,18 +21,10 @@ class ClearSiteDataSignIn
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-
-        $response = $next($request);
-
-        if (!$response instanceof SymfonyResponse) {
-            $response = new Response($response);
-        }
-
-        $response->headers->set('Clear-Site-Data', 'cache, cookies');
-		
-        return $response;
-
-    }
-}
+     public function handle($request, Closure $next)
+     {
+         $response = $next($request);
+         $response->headers->set('Clear-Site-Data', 'cache, cookies');
+         return $response;
+     }
+ }
