@@ -32,6 +32,10 @@ class Auth extends Controller
     public function __construct()
     {
         parent::__construct();
+		
+		// Add JS File to unistall SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+		$this->addJs('../../../modules/backend/assets/js/auth/unistall-sw.js');
+		
         $this->layout = 'auth';
     }
 
@@ -40,6 +44,9 @@ class Auth extends Controller
      */
     public function index()
     {
+		// Add Middleware to Clear Cache and Cookies before Signin, see github issue: #3707
+		$this->middleware(\Backend\Middleware\ClearSiteDataSignIn::class);
+		
         return Backend::redirect('backend/auth/signin');
     }
 
@@ -105,6 +112,10 @@ class Auth extends Controller
     public function signout()
     {
         BackendAuth::logout();
+		
+		// Add Middleware to Clear Cache all Data after Signout (securiity protection), see github issue: #3707
+		$this->middleware(\Backend\Middleware\ClearSiteDataSignOut::class);		
+		
         return Backend::redirect('backend');
     }
 
