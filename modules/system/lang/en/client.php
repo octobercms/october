@@ -63,6 +63,10 @@ return [
         'group' => [
             'all' => 'all'
         ],
+        'scopes' => [
+            'filter_button_text' => 'Filter',
+            'reset_button_text'  => 'Reset'            
+        ],        
         'dates' => [
             'all' => 'all',
             'filter_button_text' => 'Filter',
