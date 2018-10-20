@@ -231,7 +231,7 @@
         
         data = $.extend({}, data, {
             filter_button_text: this.getLang('filter.scopes.filter_button_text', 'Filter'),
-            reset_button_text: this.getLang('filter.scopes.reset_button_text', 'Clear')
+            reset_button_text: this.getLang('filter.scopes.reset_button_text', 'Reset')
         })
         
         data.scopeName = scopeName
