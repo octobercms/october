@@ -228,7 +228,12 @@
             data = { loading: true }
             isLoaded = false
         }
-
+        
+        data = $.extend({}, data, {
+            filter_button_text: this.getLang('filter.scopes.filter_button_text', 'Filter'),
+            reset_button_text: this.getLang('filter.scopes.reset_button_text', 'Clear')
+        })
+        
         data.scopeName = scopeName
         data.optionsHandler = self.options.optionsHandler
 
