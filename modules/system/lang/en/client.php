@@ -64,8 +64,8 @@ return [
             'all' => 'all'
         ],
         'scopes' => [
-            'filter_button_text' => 'Filter',
-            'reset_button_text'  => 'Reset'            
+            'apply_button_text' => 'Apply',
+            'clear_button_text'  => 'Clear'            
         ],        
         'dates' => [
             'all' => 'all',
