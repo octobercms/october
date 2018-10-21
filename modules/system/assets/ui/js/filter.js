@@ -73,11 +73,11 @@
                                 </ul>                                                                                  \
                             </div>                                                                                     \
                             <div class="filter-buttons">                                                               \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                       \
-                                    {{ filter_button_text }}                                                           \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-trigger="apply">         \
+                                    {{ apply_button_text }}                                                            \
                                 </button>                                                                              \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                      \
-                                    {{ reset_button_text }}                                                            \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-trigger="clear">       \
+                                    {{ clear_button_text }}                                                            \
                                 </button>                                                                              \
                             </div>                                                                                     \
                         </div>                                                                                         \
@@ -146,7 +146,7 @@
             self.filterAvailable(data.scopeName, data.options.available)
         })
         
-        $(document).on('click', '#controlFilterPopover [data-trigger="filter"]', function (e) {
+        $(document).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
             e.preventDefault()
             self.filterScope()  
         })
@@ -230,8 +230,8 @@
         }
         
         data = $.extend({}, data, {
-            filter_button_text: this.getLang('filter.scopes.filter_button_text', 'Filter'),
-            reset_button_text: this.getLang('filter.scopes.reset_button_text', 'Reset')
+            apply_button_text: this.getLang('filter.scopes.apply_button_text', 'Apply'),
+            clear_button_text: this.getLang('filter.scopes.clear_button_text', 'Clear')
         })
         
         data.scopeName = scopeName
