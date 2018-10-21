@@ -386,7 +386,7 @@ return [
         'hint' => 'Tento záznam zobrazuje zoznam potencionálnch chýb v aplikácií, ako napríklad výnimky a ladiace informácie.',
         'menu_label' => 'Záznam udalostí',
         'menu_description' => 'Zobraziť záznam systémových správ s časom a detailami.',
-        'empty_link' => 'Zobraziť záznam udalostí',
+        'empty_link' => 'Zmazať záznam udalostí',
         'empty_loading' => 'Mazanie záznamu udalostí...',
         'empty_success' => 'Záznam udalostí zmazaný',
         'return_link' => 'Späť na záznam udalostí',
