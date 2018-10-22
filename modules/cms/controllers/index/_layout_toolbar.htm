@@ -15,6 +15,7 @@
         data-request-confirm="<?= e(trans('cms::lang.layout.delete_confirm_single')) ?>"
         data-request-success="$.oc.cmsPage.updateTemplateList('layout'); $(this).trigger('close.oc.tab', [{force: true}])"
         data-control="delete-button"></button>
+
     <?php if (isset($lastModified)): ?>
     <span
         class="btn empty oc-icon-calendar"
