@@ -399,7 +399,7 @@
     DragScroll.prototype.dispose = function() {
         this.scrollClassContainer = null
 
-        $(document).off('ready', this.proxy(this.fixScrollClasses))
+        $(document).ready(this.proxy(this.fixScrollClasses))
         $(window).off('resize', this.proxy(this.fixScrollClasses))
         this.el.off('.dragScroll')
 
