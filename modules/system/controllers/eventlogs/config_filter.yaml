@@ -1,0 +1,10 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    created_at:
+        label: backend::lang.access_log.created_at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'

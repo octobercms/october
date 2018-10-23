@@ -170,8 +170,26 @@ class Controller
             $page = Page::loadCached($this->theme, MaintenanceSetting::get('cms_page'));
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeDisplay
+         * Provides an opportunity to swap the page that gets displayed immediately after loading the page assigned to the URL.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeDisplay', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page) {
+         *         if ($url === '/tricked-you') {
+         *             return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeDisplay', function ((string) $url, (\Cms\Classes\Page) $page) {
+         *         if ($url === '/tricked-you') {
+         *             return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *         }
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
@@ -210,8 +228,26 @@ class Controller
          */
         $result = $this->postProcessResult($page, $url, $result);
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.display
+         * Provides an opportunity to modify the response after the page for the URL has been processed. `$result` could be a string representing the HTML to be returned or it could be a Response instance.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.display', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (mixed) $result) {
+         *         if ($url === '/tricked-you') {
+         *             return Response::make('Boo!', 200);
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.display', function ((string) $url, (\Cms\Classes\Page) $page, (mixed) $result) {
+         *         if ($url === '/tricked-you') {
+         *             return Response::make('Boo!', 200);
+         *         }
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
             return $event;
@@ -310,8 +346,22 @@ class Controller
         $this->pageObj->onInit();
         CmsException::unmask();
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.init
+         * Provides an opportunity to return a custom response from Controller->runPage() before AJAX handlers are executed
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.init', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.init', function ((\Cms\Classes\Page) $page) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.init', [$page])) {
             return $event;
@@ -344,8 +394,22 @@ class Controller
             return $cycleResponse;
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderPage
+         * Fires after AJAX handlers are dealt with and provides an opportunity to modify the page contents
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderPage', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page) {
+         *         return 'Custom page contents';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderPage', function ((\Cms\Classes\Page) $page) {
+         *         return 'Custom page contents';
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderPage', [$page])) {
             $this->pageContents = $event;
@@ -389,8 +453,22 @@ class Controller
      */
     protected function execPageCycle()
     {
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.start
+         * Fires before all of the page & layout lifecycle handlers are run
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.start', function ((\Cms\Classes\Controller) $controller) {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.start', function () {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.start')) {
             return $event;
@@ -437,8 +515,22 @@ class Controller
             CmsException::unmask();
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.end
+         * Fires after all of the page & layout lifecycle handlers are run
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.end', function ((\Cms\Classes\Controller) $controller) {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.end', function () {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.end')) {
             return $event;
@@ -459,8 +551,24 @@ class Controller
     {
         $content = MediaViewHelper::instance()->processHtml($content);
 
+        /**
+         * @event cms.page.postprocess
+         * Provides oportunity to hook into the post processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.postprocess', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
+         *         return 'My custom content';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.postprocess', function ((string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
+         *         return 'My custom content';
+         *     });
+         *
+         */
         $dataHolder = (object) ['content' => $content];
-
         $this->fireSystemEvent('cms.page.postprocess', [$url, $page, $dataHolder]);
 
         return $dataHolder->content;
@@ -552,8 +660,22 @@ class Controller
             $this->addComponent($name, $alias, $properties);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.initComponents
+         * Fires after the components for the given page have been initialized
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.initComponents', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page, (\Cms\Classes\Layout) $layout) {
+         *         \Log::info($page->title . ' components have been initialized');
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.initComponents', function ((\Cms\Classes\Page) $page, (\Cms\Classes\Layout) $layout) {
+         *         \Log::info($page->title . ' components have been initialized');
+         *     });
+         *
          */
         $this->fireSystemEvent('cms.page.initComponents', [$this->page, $this->layout]);
     }
@@ -775,8 +897,22 @@ class Controller
     {
         $contents = $this->pageContents;
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.render
+         * Provides an oportunity to manipulate the page's rendered contents
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.render', function ((\Cms\Classes\Controller) $controller, (string) $pageContents) {
+         *         return 'My custom contents';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.render', function ((string) $pageContents) {
+         *         return 'My custom contents';
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.render', [$contents])) {
             return $event;
@@ -805,8 +941,22 @@ class Controller
             $name = '::' . substr($name, 1);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderPartial
+         * Provides an oportunity to manipulate the name of the partial being rendered before it renders
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName) {
+         *         return "path/to/overriding/location/" . $partialName;
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderPartial', function ((string) $partialName) {
+         *         return "path/to/overriding/location/" . $partialName;
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderPartial', [$name])) {
             $partial = $event;
@@ -946,8 +1096,22 @@ class Controller
 
         $this->vars = $vars;
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.renderPartial
+         * Provides an oportunity to manipulate the output of a partial after being rendered
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.renderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName, (string) &$partialContent) {
+         *         return "Overriding content";
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.renderPartial', function ((string) $partialName, (string) &$partialContent) {
+         *         return "Overriding content";
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.renderPartial', [$name, &$partialContent])) {
             return $event;
@@ -965,8 +1129,22 @@ class Controller
      */
     public function renderContent($name, $parameters = [])
     {
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderContent
+         * Provides an oportunity to manipulate the name of the content file being rendered before it renders
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName) {
+         *         return "path/to/overriding/location/" . $contentName;
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderContent', function ((string) $contentName) {
+         *         return "path/to/overriding/location/" . $contentName;
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderContent', [$name])) {
             $content = $event;
@@ -995,8 +1173,22 @@ class Controller
             $fileContent = TextParser::parse($fileContent, $parameters);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.renderContent
+         * Provides an oportunity to manipulate the output of a content file after being rendered
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.renderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName, (string) &$fileContent) {
+         *         return "Overriding content";
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.renderContent', function ((string) $contentName, (string) &$fileContent) {
+         *         return "Overriding content";
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.renderContent', [$name, &$fileContent])) {
             return $event;

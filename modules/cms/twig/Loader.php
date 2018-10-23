@@ -46,11 +46,18 @@ class Loader extends LoaderBase implements Twig_LoaderInterface
 
         $content = $this->obj->getTwigContent();
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.template.processTwigContent
+         * Provides an oportunity to modify Twig content before being processed by Twig. `$dataHolder` = {content: $twigContent}
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.template.processTwigContent', function ((\Cms\Classes\CmsObject) $thisObject, (object) $dataHolder) {
+         *         $dataHolder->content = "NO CONTENT FOR YOU!";
+         *     });
+         *
          */
         $dataHolder = (object) ['content' => $content];
-
         Event::fire('cms.template.processTwigContent', [$this->obj, $dataHolder]);
 
         return new Twig_Source($dataHolder->content, $name);

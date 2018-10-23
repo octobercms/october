@@ -225,6 +225,18 @@ class Theme
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
+        /**
+         * @event cms.theme.setActiveTheme
+         * Fires when the active theme has been changed.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *         \Log::info("Theme has been changed to $code");
+         *     });
+         *
+         */
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
@@ -243,6 +255,18 @@ class Theme
             $editTheme = static::getActiveThemeCode();
         }
 
+        /**
+         * @event cms.theme.getEditTheme
+         * Overrides the edit theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getEditTheme', function() {
+         *         return "the-edit-theme-code";
+         *     });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
