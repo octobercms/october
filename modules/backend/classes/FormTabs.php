@@ -190,7 +190,9 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getIcon($name)
     {
-        return $this->icons[$name];
+        if(!empty($this->icons[$name])) {
+            return $this->icons[$name];
+        }
     }
     
     /**
