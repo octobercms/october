@@ -173,7 +173,23 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         return $tablessFields;
     }
-
+    
+    /**
+     * Returns the first instance of a tab icon in a collection for a tab.
+     * @param string $name
+     * @return string
+     */
+    public function getIcon($name)
+    {
+        foreach ($this->fields as $tab => $fields) {
+            foreach ($fields as $fieldName => $field) {
+                if ($field->tab == $name && !empty($field->tabIcon)) {
+                    return $field->tabIcon;
+                }
+            }
+        }
+    }
+    
     /**
      * Returns a tab pane CSS class.
      * @param string $index
