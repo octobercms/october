@@ -31,7 +31,12 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      * @var string Default tab label to use when none is specified.
      */
     public $defaultTab = 'backend::lang.form.undefined_tab';
-
+    
+    /**
+     * @var string List of icons for their corresponding tabs.
+     */
+    public $icons;
+    
     /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
      */
@@ -81,7 +86,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         if (array_key_exists('defaultTab', $config)) {
             $this->defaultTab = $config['defaultTab'];
         }
-
+        
+        if (array_key_exists('icons', $config)) {
+            $this->icons = $config['icons'];
+        }
+        
         if (array_key_exists('stretch', $config)) {
             $this->stretch = $config['stretch'];
         }
@@ -175,19 +184,13 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     }
     
     /**
-     * Returns the first instance of a tab icon in a collection for a tab.
+     * Returns an icon for the tab based on the tab's name.
      * @param string $name
      * @return string
      */
     public function getIcon($name)
     {
-        foreach ($this->fields as $tab => $fields) {
-            foreach ($fields as $fieldName => $field) {
-                if ($field->tab == $name && !empty($field->tabIcon)) {
-                    return $field->tabIcon;
-                }
-            }
-        }
+        return $this->icons[$name];
     }
     
     /**
