@@ -70,12 +70,7 @@ class FormField
      * @var string Specifies if this field belongs to a tab.
      */
     public $tab;
-    
-    /**
-     * @var string Specifies an icon to use for a tab.
-     */
-    public $tabIcon;
-    
+
     /**
      * @var string Display mode. Text, textarea
      */
@@ -200,16 +195,7 @@ class FormField
         $this->tab = $value;
         return $this;
     }
-    
-    /**
-     * Icon to use for a tab.
-     */
-    public function tabIcon($value)
-    {
-        $this->tabIcon = $value;
-        return $this;
-    }
-    
+
     /**
      * Sets a side of the field on a form.
      * @param string $value Specifies a side. Possible values: left, right, full
@@ -324,9 +310,6 @@ class FormField
         }
         if (isset($config['tab'])) {
             $this->tab($config['tab']);
-        }
-        if (isset($config['tabIcon'])) {
-            $this->tabIcon($config['tabIcon']);
         }
         if (isset($config['commentAbove'])) {
             $this->comment($config['commentAbove'], 'above');
