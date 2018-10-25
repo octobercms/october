@@ -111,6 +111,7 @@ return [
         'plugin_label'  => 'Plugin',
         'unknown_plugin' => 'Plugin has been removed from the file system.',
         'select_label' => 'Select Action...',
+        'bulk_actions_label' => 'Bulk actions',
         'check_yes' => 'Yes',
         'check_no' => 'No',
         'unfrozen' => 'Updates Enabled',
