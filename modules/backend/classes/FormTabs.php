@@ -33,9 +33,9 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $defaultTab = 'backend::lang.form.undefined_tab';
     
     /**
-     * @var string List of icons for their corresponding tabs.
+     * @var array List of icons for their corresponding tabs.
      */
-    public $icons;
+    public $icons = [];
     
     /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
