@@ -115,6 +115,10 @@
          */
         this.reposition()
 
+        $(window).on('resize', function(e) {
+            self.reposition()
+        })
+
         /*
          * Display the popover
          */
