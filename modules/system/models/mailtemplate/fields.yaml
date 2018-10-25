@@ -14,6 +14,8 @@ fields:
         comment: system::lang.mail_templates.code_comment
         span: left
         context: create
+        attributes:
+           autofocus: ''
 
     subject@create:
         label: system::lang.mail_templates.subject

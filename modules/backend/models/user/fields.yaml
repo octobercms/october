@@ -3,6 +3,7 @@
 # ===================================
 
 fields:
+
     is_superuser:
         context: [create, update]
         tab: backend::lang.user.permissions
@@ -13,9 +14,12 @@ fields:
 tabs:
     defaultTab: backend::lang.user.account
     fields:
+
         login:
             span: left
             label: backend::lang.user.login
+            attributes:
+               autofocus: ''
 
         email:
             span: right

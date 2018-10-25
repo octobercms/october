@@ -9,6 +9,8 @@ fields:
         comment: system::lang.mail_templates.code_comment
         span: left
         context: create
+        attributes:
+           autofocus: ''
 
     name@create:
         label: system::lang.mail_templates.name

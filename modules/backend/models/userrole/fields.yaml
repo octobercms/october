@@ -3,10 +3,13 @@
 # ===================================
 
 fields:
+
     name:
         label: backend::lang.user.role.name_field
         commentAbove: backend::lang.user.role.name_comment
         span: auto
+        attributes:
+           autofocus: ''
 
     code:
         label: backend::lang.user.role.code_field
