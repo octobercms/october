@@ -259,6 +259,7 @@ return [
         'manage_layouts' => 'Beheer layouts',
         'manage_partials' => 'Beheer sjablonen',
         'manage_themes' => 'Beheer thema\'s',
+        'manage_theme_options' => 'Beheer maatwerk instellingen voor het huidige thema',
     ],
     'theme_log' => [
         'hint' => 'Dit logboek laat alle wijzigingen in het thema zien die aangebracht zijn door de beheerders in de back-end omgeving.',
