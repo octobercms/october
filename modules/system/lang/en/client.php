@@ -78,7 +78,6 @@ return [
             'min_placeholder' => 'Min',
             'max_placeholder' => 'Max'
         ]
-
     ],
     'eventlog' => [
         'show_stacktrace' => 'Show the stacktrace',
