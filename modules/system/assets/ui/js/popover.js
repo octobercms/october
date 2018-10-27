@@ -41,6 +41,7 @@
     }
 
     Popover.prototype.hidePopover = function() {
+        $(window).off('resize.popoverReposition')
         this.$container.remove();
         if (this.$overlay) this.$overlay.remove()
 
@@ -115,7 +116,7 @@
          */
         this.reposition()
 
-        $(window).on('resize', function(e) {
+        $(window).on('resize.popoverReposition', function() {
             self.reposition()
         })
 
