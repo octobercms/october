@@ -213,6 +213,7 @@
         if (item)
             toItems.push(item)
 
+        this.toggleFilterButtons(items)
         this.updateScopeSetting(this.$activeScope, items.active.length)
         this.isActiveScopeDirty = true
         this.focusSearch()
@@ -247,7 +248,9 @@
             closeOnPageClick: true,
             placement: 'bottom'
         })
-
+        
+        this.toggleFilterButtons()
+        
         // Load options for the first time
         if (!isLoaded) {
             self.loadOptions(scopeName)
@@ -279,6 +282,7 @@
             data: data,
             success: function(data) {
                 self.fillOptions(scopeName, data.options)
+                self.toggleFilterButtons()
             }
         })
     }
@@ -350,6 +354,18 @@
             $ul.append(item)
         })
     }
+
+    FilterWidget.prototype.toggleFilterButtons = function(data)
+    {
+        var items = $('#controlFilterPopover .filter-active-items > ul'),
+            buttonContainer = $('#controlFilterPopover .filter-buttons')
+
+        if(data) {
+            data.active.length > 0 ? buttonContainer.show() : buttonContainer.hide()
+        } else {
+            items.children().length > 0 ? buttonContainer.show() : buttonContainer.hide()
+        }
+    }         
 
     /*
      * Saves the options to the update handler
