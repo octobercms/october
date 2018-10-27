@@ -274,7 +274,6 @@
         // Wait for animations to complete
         var self = this
         setTimeout(function() { self.setBackdrop(false) }, 250)
-        setTimeout(function() { self.hide() }, 500)
     }
 
     Popup.prototype.triggerEvent = function(eventName, params) {
