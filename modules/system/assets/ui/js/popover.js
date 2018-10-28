@@ -117,7 +117,9 @@
         this.reposition()
 
         $(window).on('resize.popoverReposition', function() {
-            self.reposition()
+            if (self.$container) {
+                self.reposition()
+            }
         })
 
         /*
