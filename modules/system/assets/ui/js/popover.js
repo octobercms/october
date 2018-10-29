@@ -115,8 +115,10 @@
          */
         this.reposition()
 
-        $(window).on('resize', function(e) {
-            self.reposition()
+        $(window).on('resize', function() {
+            if (self.$container) {
+                self.reposition()
+            }
         })
 
         /*
