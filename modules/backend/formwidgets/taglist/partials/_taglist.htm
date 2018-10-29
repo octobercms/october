@@ -6,6 +6,7 @@
 <select
     id="<?= $field->getId() ?>"
     name="<?= $field->getName() ?>[]"
+    data-handler="onPaginationMore"
     class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
     <?php if ($customSeparators): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
     multiple

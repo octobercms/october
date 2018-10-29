@@ -47,6 +47,8 @@ class TagList extends FormWidgetBase
      */
     public $useKey = false;
 
+    public $perpage = 10;
+
     //
     // Object properties
     //
@@ -161,7 +163,12 @@ class TagList extends FormWidgetBase
         $options = $this->formField->options();
 
         if (!$options && $this->mode === static::MODE_RELATION) {
-            $options = $this->getRelationModel()->lists($this->nameFrom);
+
+            $options = $this->getRelationModel()
+                            ->where($this->nameFrom, 'like', post('q') .'%')
+                            ->skip( intval(post('page', 1)) * $this->perpage )
+                            ->limit($this->perpage)
+                            ->lists($this->nameFrom);
         }
 
         return $options;
@@ -196,4 +203,18 @@ class TagList extends FormWidgetBase
         }
     }
 
+    public function onPaginationMore() {
+
+        $resp = [ "results" => [], "pagination" => [ "more" => true ] ];
+
+        if( $options = $this->getFieldOptions() ) {
+
+            foreach ($options as $option) {
+
+                $resp["results"][] = [ "id" => $option, "text" => $option ];
+            }
+        }
+
+        return $resp;
+    }
 }
