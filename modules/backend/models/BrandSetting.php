@@ -41,8 +41,11 @@ class BrandSetting extends Model
     public $attachOne = [
         'logo' => \System\Models\File::class
     ];
-
-    const CACHE_KEY = 'backend::brand.custom_css';
+    
+    /**
+     * @var string The key to store rendered CSS in the cache under
+     */
+    public $cacheKey = 'backend::brand.custom_css';
 
     const PRIMARY_COLOR   = '#34495e'; // Wet Asphalt
     const SECONDARY_COLOR = '#e67e22'; // Pumpkin
@@ -79,7 +82,7 @@ class BrandSetting extends Model
 
     public function afterSave()
     {
-        Cache::forget(self::CACHE_KEY);
+        Cache::forget(self::instance()->cacheKey);
     }
 
     public static function getLogo()
@@ -95,13 +98,14 @@ class BrandSetting extends Model
 
     public static function renderCss()
     {
-        if (Cache::has(self::CACHE_KEY)) {
-            return Cache::get(self::CACHE_KEY);
+        $cacheKey = self::instance()->cacheKey;
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
         }
 
         try {
             $customCss = self::compileCss();
-            Cache::forever(self::CACHE_KEY, $customCss);
+            Cache::forever($cacheKey, $customCss);
         }
         catch (Exception $ex) {
             $customCss = '/* ' . $ex->getMessage() . ' */';
