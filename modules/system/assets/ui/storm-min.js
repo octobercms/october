@@ -2982,41 +2982,49 @@ this.activeScopeName=null
 this.isActiveScopeDirty=false
 this.init()}
 FilterWidget.DEFAULTS={optionsHandler:null,updateHandler:null}
-FilterWidget.prototype.getPopoverTemplate=function(){return'                                                                                        \
-                <form>                                                                                  \
-                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                   \
-                    <div id="controlFilterPopover" class="control-filter-popover">                      \
-                        <div class="filter-search loading-indicator-container size-input-text">         \
-                            <button class="close" data-dismiss="popover" type="button">&times;</button> \
-                            <input                                                                      \
-                                type="text"                                                             \
-                                name="search"                                                           \
-                                autocomplete="off"                                                      \
-                                class="filter-search-input form-control icon search popup-allow-focus"  \
-                                data-request="{{ optionsHandler }}"                                     \
-                                data-load-indicator-opaque                                              \
-                                data-load-indicator                                                     \
-                                data-track-input />                                                     \
-                        </div>                                                                          \
-                        <div class="filter-items">                                                      \
-                            <ul>                                                                        \
-                                {{#available}}                                                          \
-                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
-                                {{/available}}                                                          \
-                                {{#loading}}                                                            \
-                                    <li class="loading"><span></span></li>                              \
-                                {{/loading}}                                                            \
-                            </ul>                                                                       \
-                        </div>                                                                          \
-                        <div class="filter-active-items">                                               \
-                            <ul>                                                                        \
-                                {{#active}}                                                             \
-                                    <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>  \
-                                {{/active}}                                                             \
-                            </ul>                                                                       \
-                        </div>                                                                          \
-                    </div>                                                                              \
-                </form>                                                                                 \
+FilterWidget.prototype.getPopoverTemplate=function(){return'                                                                                                       \
+                <form>                                                                                                 \
+                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                                  \
+                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">  \
+                        <div class="filter-search loading-indicator-container size-input-text">                        \
+                            <button class="close" data-dismiss="popover" type="button">&times;</button>                \
+                            <input                                                                                     \
+                                type="text"                                                                            \
+                                name="search"                                                                          \
+                                autocomplete="off"                                                                     \
+                                class="filter-search-input form-control icon search popup-allow-focus"                 \
+                                data-request="{{ optionsHandler }}"                                                    \
+                                data-load-indicator-opaque                                                             \
+                                data-load-indicator                                                                    \
+                                data-track-input />                                                                    \
+                            <div class="filter-items">                                                                 \
+                                <ul>                                                                                   \
+                                    {{#available}}                                                                     \
+                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>             \
+                                    {{/available}}                                                                     \
+                                    {{#loading}}                                                                       \
+                                        <li class="loading"><span></span></li>                                         \
+                                    {{/loading}}                                                                       \
+                                </ul>                                                                                  \
+                            </div>                                                                                     \
+                            <div class="filter-active-items">                                                          \
+                                <ul>                                                                                   \
+                                    {{#active}}                                                                        \
+                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>             \
+                                    {{/active}}                                                                        \
+                                </ul>                                                                                  \
+                            </div>                                                                                     \
+                            <div class="filter-buttons">                                                               \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-trigger="apply">         \
+                                    {{ apply_button_text }}                                                            \
+                                </button>                                                                              \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-trigger="clear">       \
+                                    {{ clear_button_text }}                                                            \
+                                </button>                                                                              \
+                            </div>                                                                                     \
+                        </div>                                                                                         \
+                    </div>                                                                                             \
+                </form>                                                                                                \
             '}
 FilterWidget.prototype.init=function(){var self=this
 this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var $scope=$(this).closest('.filter-scope')
@@ -3038,7 +3046,11 @@ self.$activeScope=null
 setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
 $(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
 $(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
-$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})}
+$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
+$(document).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
+self.filterScope()})
+$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+self.filterScope(true)})}
 FilterWidget.prototype.focusSearch=function(){if(Modernizr.touch)
 return
 var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
@@ -3061,22 +3073,26 @@ else
 this.scopeValues[this.activeScopeName].available=filtered
 if(item)
 toItems.push(item)
+this.toggleFilterButtons(items)
 this.updateScopeSetting(this.$activeScope,items.active.length)
 this.isActiveScopeDirty=true
 this.focusSearch()}
 FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true
 if(!data){data={loading:true}
 isLoaded=false}
+data=$.extend({},data,{apply_button_text:this.getLang('filter.scopes.apply_button_text','Apply'),clear_button_text:this.getLang('filter.scopes.clear_button_text','Clear')})
 data.scopeName=scopeName
 data.optionsHandler=self.options.optionsHandler
 $scope.data('oc.popover',null)
 $scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom'})
+this.toggleFilterButtons()
 if(!isLoaded){self.loadOptions(scopeName)}}
 FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
 var populated=this.$el.data('filterScopes')
 if(populated&&populated[scopeName]){self.fillOptions(scopeName,populated[scopeName])
 return false}
-return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)}})}
+return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)
+self.toggleFilterButtons()}})}
 FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[scopeName])
 return
 if(!data.active)data.active=[]
@@ -3102,6 +3118,9 @@ var container=$('#controlFilterPopover .filter-items > ul').empty()
 self.addItemsToListElement(container,filtered)}
 FilterWidget.prototype.addItemsToListElement=function($ul,items){$.each(items,function(key,obj){var item=$('<li />').data({'item-id':obj.id}).append($('<a />').prop({'href':'javascript:;',}).text(obj.name))
 $ul.append(item)})}
+FilterWidget.prototype.toggleFilterButtons=function(data)
+{var items=$('#controlFilterPopover .filter-active-items > ul'),buttonContainer=$('#controlFilterPopover .filter-buttons')
+if(data){data.active.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
 FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
 return
 var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
@@ -3119,6 +3138,10 @@ if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeNam
 $.oc.stripeLoadIndicator.show()
 $form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',!!switchValue)}
+FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
+if(isReset){this.scopeValues[scopeName]=null
+this.updateScopeSetting(this.$activeScope,0)}
+this.pushOptions(scopeName);this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
 var old=$.fn.filterWidget
@@ -3153,16 +3176,16 @@ self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverRange($scope)}
 else{self.displayPopoverDate($scope)}
 $scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopover [data-trigger="filter"]',function(e){e.preventDefault()
+$(document).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByDate()})
-$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+$(document).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByDate(true)})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover">           \
+                    <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover">       \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
                             <div class="field-datepicker">                                                              \
                                 <div class="input-with-icon right-align">                                               \
@@ -3185,46 +3208,46 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                     </div>                                                                                              \
                 </form>                                                                                                 \
             '}
-FilterWidget.prototype.getPopoverRangeTemplate=function(){return'                                                                                                        \
-                <form>                                                                                                  \
-                    <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">   \
-                        <div class="filter-search loading-indicator-container size-input-text">                         \
-                            <div class="field-datepicker">                                                              \
-                                <div class="input-with-icon right-align">                                               \
-                                    <i class="icon icon-calendar-o"></i>                                                \
-                                    <input                                                                              \
-                                        type="text"                                                                     \
-                                        name="date"                                                                     \
-                                        value="{{ date }}"                                                              \
-                                        class="form-control align-right popup-allow-focus"                              \
-                                        autocomplete="off"                                                              \
-                                        placeholder="{{ after_placeholder }}" />                                        \
-                                </div>                                                                                  \
-                            </div>                                                                                      \
-                            <div class="field-datepicker">                                                              \
-                                <div class="input-with-icon right-align">                                               \
-                                    <i class="icon icon-calendar-o"></i>                                                \
-                                    <input                                                                              \
-                                        type="text"                                                                     \
-                                        name="date"                                                                     \
-                                        value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
-                                        autocomplete="off"                                                              \
-                                        placeholder="{{ before_placeholder }}" />                                       \
-                                </div>                                                                                  \
-                            </div>                                                                                      \
-                            <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
-                                    {{ filter_button_text }}                                                            \
-                                </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
-                                    {{ reset_button_text }}                                                             \
-                                </button>                                                                               \
-                            </div>                                                                                      \
-                        </div>                                                                                          \
-                    </div>                                                                                              \
-                </form>                                                                                                 \
+FilterWidget.prototype.getPopoverRangeTemplate=function(){return'                                                                                                          \
+                <form>                                                                                                    \
+                    <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                      \
+                    <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover --range"> \
+                        <div class="filter-search loading-indicator-container size-input-text">                           \
+                            <div class="field-datepicker">                                                                \
+                                <div class="input-with-icon right-align">                                                 \
+                                    <i class="icon icon-calendar-o"></i>                                                  \
+                                    <input                                                                                \
+                                        type="text"                                                                       \
+                                        name="date"                                                                       \
+                                        value="{{ date }}"                                                                \
+                                        class="form-control align-right popup-allow-focus"                                \
+                                        autocomplete="off"                                                                \
+                                        placeholder="{{ after_placeholder }}" />                                          \
+                                </div>                                                                                    \
+                            </div>                                                                                        \
+                            <div class="field-datepicker">                                                                \
+                                <div class="input-with-icon right-align">                                                 \
+                                    <i class="icon icon-calendar-o"></i>                                                  \
+                                    <input                                                                                \
+                                        type="text"                                                                       \
+                                        name="date"                                                                       \
+                                        value="{{ date }}"                                                                \
+                                        class="form-control align-right"                                                  \
+                                        autocomplete="off"                                                                \
+                                        placeholder="{{ before_placeholder }}" />                                         \
+                                </div>                                                                                    \
+                            </div>                                                                                        \
+                            <div class="filter-buttons">                                                                  \
+                                <button class="btn btn-block btn-primary" data-trigger="filter">                          \
+                                    {{ filter_button_text }}                                                              \
+                                </button>                                                                                 \
+                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                    {{ reset_button_text }}                                                               \
+                                </button>                                                                                 \
+                            </div>                                                                                        \
+                        </div>                                                                                            \
+                    </div>                                                                                                \
+                </form>                                                                                                   \
             '}
 FilterWidget.prototype.displayPopoverDate=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName]
 data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_button_text'),reset_button_text:this.getLang('filter.dates.reset_button_text'),date_placeholder:this.getLang('filter.dates.date_placeholder','Date')})
@@ -3236,13 +3259,13 @@ data=$.extend({},data,{filter_button_text:this.getLang('filter.dates.filter_butt
 data.scopeName=scopeName
 $scope.data('oc.popover',null)
 $scope.ocPopover({content:Mustache.render(this.getPopoverRangeTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',onCheckDocumentClickTarget:function(target){return self.onCheckDocumentClickTargetDatePicker(target)}})}
-FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopover'),data=this.scopeValues[this.activeScopeName]
+FilterWidget.prototype.initDatePickers=function(isRange){var self=this,scopeData=this.$activeScope.data('scope-data'),$inputs=$('.field-datepicker input','#controlFilterPopoverDate'),data=this.scopeValues[this.activeScopeName]
 if(!data){data={dates:isRange?(scopeData.dates?scopeData.dates:[]):(scopeData.date?[scopeData.date]:[])}}
 $inputs.each(function(index,datepicker){var defaultValue='',$datepicker=$(datepicker),defaults={minDate:new Date(scopeData.minDate),maxDate:new Date(scopeData.maxDate),firstDay:scopeData.firstDay,yearRange:scopeData.yearRange,setDefaultDate:''!==defaultValue?defaultValue.toDate():'',format:self.getDateFormat(),i18n:self.getLang('datepicker')}
 if(0<=index&&index<data.dates.length){defaultValue=data.dates[index]?moment.tz(data.dates[index],self.appTimezone).tz(self.timezone):''}
 if(!isRange){defaults.onSelect=function(){self.filterByDate()}}
 datepicker.value=''!==defaultValue?defaultValue.format(self.getDateFormat()):'';$datepicker.pikaday(defaults)})}
-FilterWidget.prototype.clearDatePickers=function(){var $inputs=$('.field-datepicker input','#controlFilterPopover')
+FilterWidget.prototype.clearDatePickers=function(){var $inputs=$('.field-datepicker input','#controlFilterPopoverDate')
 $inputs.each(function(index,datepicker){var $datepicker=$(datepicker)
 $datepicker.data('pikaday').destroy()})}
 FilterWidget.prototype.updateScopeDateSetting=function($scope,dates){var $setting=$scope.find('.filter-setting'),dateFormat=this.getDateFormat(),dateRegex=/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/,reset=false
@@ -3254,7 +3277,7 @@ else if(dates[0]){$setting.text(moment.tz(dates[0],this.appTimezone).tz(this.tim
 else{reset=true}
 if(reset){$setting.text(this.getLang('filter.dates.all','all'));$scope.removeClass('active')}else{$scope.addClass('active')}}
 FilterWidget.prototype.filterByDate=function(isReset){var self=this,dates=[]
-if(!isReset){var datepickers=$('.field-datepicker input','#controlFilterPopover')
+if(!isReset){var datepickers=$('.field-datepicker input','#controlFilterPopoverDate')
 datepickers.each(function(index,datepicker){var date=$(datepicker).data('pikaday').toString('YYYY-MM-DD')
 if(date.match(/\d{4}-\d{2}-\d{2}/)){if(index===0){date+=' 00:00:00'}else if(index===1){date+=' 23:59:59'}
 date=moment.tz(date,self.timezone).tz(self.appTimezone).format('YYYY-MM-DD HH:mm:ss')}else{date=null}
@@ -3546,6 +3569,7 @@ else{this.$overlay=false}
 if(this.options.container){$(this.options.container).append(this.$container)}
 else{$(document.body).append(this.$container)}
 this.reposition()
+$(window).on('resize',function(){if(self.$container){self.reposition()}})
 this.$container.addClass('in')
 if(this.$overlay)this.$overlay.addClass('in')
 $(document.body).addClass('popover-open')
