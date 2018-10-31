@@ -117,7 +117,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public function addField($name, FormField $field, $tab = null)
     {
         if (!$tab) {
-            $tab = trans($this->defaultTab);
+            $tab = $this->defaultTab;
         }
 
         $this->fields[$tab][$name] = $field;
@@ -190,7 +190,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getIcon($name)
     {
-        if(!empty($this->icons[$name])) {
+        if (!empty($this->icons[$name])) {
             return $this->icons[$name];
         }
     }
