@@ -1607,6 +1607,7 @@ to{background-position:0 0}
 .control-tabs > ul.nav-tabs > li a:hover,.control-tabs > div > ul.nav-tabs > li a:hover,.control-tabs > div > div > ul.nav-tabs > li a:hover{background-color:transparent;border-bottom-color:transparent}
 .control-tabs > ul.nav-tabs > li a:before,.control-tabs > div > ul.nav-tabs > li a:before,.control-tabs > div > div > ul.nav-tabs > li a:before{font-size:14px}
 .control-tabs > ul.nav-tabs > li a > span.title > span,.control-tabs > div > ul.nav-tabs > li a > span.title > span,.control-tabs > div > div > ul.nav-tabs > li a > span.title > span{max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block;border-top:2px solid #e0e0e0;margin-top:-4px;padding-top:7px}
+.control-tabs > ul.nav-tabs > li a > span.title > span > span:not([class*="oc-icon"]),.control-tabs > div > ul.nav-tabs > li a > span.title > span > span:not([class*="oc-icon"]),.control-tabs > div > div > ul.nav-tabs > li a > span.title > span > span:not([class*="oc-icon"]){margin-right:8px}
 .control-tabs > ul.nav-tabs > li span.tab-close,.control-tabs > div > ul.nav-tabs > li span.tab-close,.control-tabs > div > div > ul.nav-tabs > li span.tab-close{display:none}
 .control-tabs > ul.nav-tabs > li.active,.control-tabs > div > ul.nav-tabs > li.active,.control-tabs > div > div > ul.nav-tabs > li.active{z-index:10}
 .control-tabs > ul.nav-tabs > li.active a,.control-tabs > div > ul.nav-tabs > li.active a,.control-tabs > div > div > ul.nav-tabs > li.active a{color:#405261}

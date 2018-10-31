@@ -530,7 +530,7 @@ $(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
 $.oc.confirm(message,function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
-$(document).on('ready',function(){if(!window.swal)return
+$(document).ready(function(){if(!window.swal)return
 var swal=window.swal
 window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('alert.confirm_button_text')
 message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('alert.cancel_button_text')}
@@ -690,7 +690,7 @@ if(!data)$this.data('oc.verticalMenu',(data=new VerticalMenu(this,toggleSelector
 if(typeof option=='string')data[option].call($this)})}
 $.fn.verticalMenu.Constructor=VerticalMenu
 $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
-return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
+return this}}(window.jQuery);(function($){$(window).on('load',function(){$('nav.navbar').each(function(){var
 navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse'),isMobile=$('html').hasClass('mobile')
 nav.verticalMenu($('a.menu-toggle',navbar),{breakpoint:collapseMode?Infinity:769})
 $('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'}).on('show.bs.tooltip',function(e){if(isMobile)e.preventDefault()})
@@ -1013,7 +1013,7 @@ if(typeof option=='string')data[option].call(data)})}
 $.fn.sidePanelTab.Constructor=SidePanelTab
 $.fn.sidePanelTab.noConflict=function(){$.fn.sidePanelTab=old
 return this}
-$(window).load(function(){$('[data-control=layout-sidepanel]').sidePanelTab()})
+$(window).on('load',function(){$('[data-control=layout-sidepanel]').sidePanelTab()})
 $(document).ready(function(){if(Modernizr.touch||(typeof(localStorage)!=='undefined')){if(localStorage.ocSidePanelFixed==0){$(document.body).addClass('side-panel-not-fixed')
 $(window).trigger('resize')}
 else if(localStorage.ocSidePanelFixed==1){$(document.body).removeClass('side-panel-not-fixed')
