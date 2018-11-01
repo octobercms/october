@@ -3077,14 +3077,16 @@ this.toggleFilterButtons(items)
 this.updateScopeSetting(this.$activeScope,items.active.length)
 this.isActiveScopeDirty=true
 this.focusSearch()}
-FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true
+FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true,container=false
+var modalParent=$scope.parents('.modal-dialog')
+if(modalParent.length>0){container=modalParent[0]}
 if(!data){data={loading:true}
 isLoaded=false}
 data=$.extend({},data,{apply_button_text:this.getLang('filter.scopes.apply_button_text','Apply'),clear_button_text:this.getLang('filter.scopes.clear_button_text','Clear')})
 data.scopeName=scopeName
 data.optionsHandler=self.options.optionsHandler
 $scope.data('oc.popover',null)
-$scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom'})
+$scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',container:container})
 this.toggleFilterButtons()
 if(!isLoaded){self.loadOptions(scopeName)}}
 FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
