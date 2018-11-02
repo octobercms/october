@@ -1,16 +1,14 @@
 //! moment.js locale configuration
-//! locale : Morocco Central Atlas Tamaziɣt in Latin (tzm-latn)
-//! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
-    var tzm_latn = moment.defineLocale('tzm-latn', {
+    var tzmLatn = moment.defineLocale('tzm-latn', {
         months : 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split('_'),
         monthsShort : 'innayr_brˤayrˤ_marˤsˤ_ibrir_mayyw_ywnyw_ywlywz_ɣwšt_šwtanbir_ktˤwbrˤ_nwwanbir_dwjnbir'.split('_'),
         weekdays : 'asamas_aynas_asinas_akras_akwas_asimwas_asiḍyas'.split('_'),
@@ -36,6 +34,7 @@
             future : 'dadkh s yan %s',
             past : 'yan %s',
             s : 'imik',
+            ss : '%d imik',
             m : 'minuḍ',
             mm : '%d minuḍ',
             h : 'saɛa',
@@ -53,6 +52,6 @@
         }
     });
 
-    return tzm_latn;
+    return tzmLatn;
 
-}));
+})));

@@ -1,13 +1,11 @@
 //! moment.js locale configuration
-//! locale : faroese (fo)
-//! author : Ragnar Johannesen : https://github.com/ragnar123
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var fo = moment.defineLocale('fo', {
@@ -36,6 +34,7 @@
             future : 'um %s',
             past : '%s síðani',
             s : 'fá sekund',
+            ss : '%d sekundir',
             m : 'ein minutt',
             mm : '%d minuttir',
             h : 'ein tími',
@@ -47,7 +46,7 @@
             y : 'eitt ár',
             yy : '%d ár'
         },
-        ordinalParse: /\d{1,2}\./,
+        dayOfMonthOrdinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
@@ -57,4 +56,4 @@
 
     return fo;
 
-}));
+})));

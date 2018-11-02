@@ -1,13 +1,11 @@
 //! moment.js locale configuration
-//! locale : Bahasa Malaysia (ms-MY)
-//! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var ms = moment.defineLocale('ms', {
@@ -60,6 +58,7 @@
             future : 'dalam %s',
             past : '%s yang lepas',
             s : 'beberapa saat',
+            ss : '%d saat',
             m : 'seminit',
             mm : '%d minit',
             h : 'sejam',
@@ -79,4 +78,4 @@
 
     return ms;
 
-}));
+})));

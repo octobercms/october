@@ -1,13 +1,11 @@
 //! moment.js locale configuration
-//! locale : tamil (ta)
-//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var symbolMap = {
@@ -60,6 +58,7 @@
             future : '%s இல்',
             past : '%s முன்',
             s : 'ஒரு சில விநாடிகள்',
+            ss : '%d விநாடிகள்',
             m : 'ஒரு நிமிடம்',
             mm : '%d நிமிடங்கள்',
             h : 'ஒரு மணி நேரம்',
@@ -71,7 +70,7 @@
             y : 'ஒரு வருடம்',
             yy : '%d ஆண்டுகள்'
         },
-        ordinalParse: /\d{1,2}வது/,
+        dayOfMonthOrdinalParse: /\d{1,2}வது/,
         ordinal : function (number) {
             return number + 'வது';
         },
@@ -126,4 +125,4 @@
 
     return ta;
 
-}));
+})));
