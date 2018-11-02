@@ -8,13 +8,14 @@ use Lang;
 use Cache;
 use Event;
 use Config;
-use Cms\Models\ThemeData;
-use System\Models\Parameter;
-use October\Rain\Halcyon\Datasource\FileDatasource;
-use ApplicationException;
+use Exception;
 use SystemException;
 use DirectoryIterator;
-use Exception;
+use ApplicationException;
+use Cms\Models\ThemeData;
+use System\Models\Parameter;
+use October\Rain\Halcyon\Datasource\DbDatasource;
+use October\Rain\Halcyon\Datasource\FileDatasource;
 
 /**
  * This class represents the CMS theme.
@@ -513,7 +514,20 @@ class Theme
         $resolver = App::make('halcyon');
 
         if (!$resolver->hasDatasource($this->dirName)) {
-            $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            $enableDbLayer = Config::get('cms.enableDatabaseLayer', false);
+            if (is_null($enableDbLayer)) {
+                $enableDbLayer = !Config::get('app.debug');
+            }
+
+            if ($enableDbLayer) {
+                $datasource = new AutoDatasource([
+                    new DbDatasource($this->dirName, 'cms_theme_contents'),
+                    new FileDatasource($this->getPath(), App::make('files')),
+                ]);
+            } else {
+                $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            }
+
             $resolver->addDatasource($this->dirName, $datasource);
         }
     }
