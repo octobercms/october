@@ -397,10 +397,10 @@ return [
     | Files that are not modified continue to be loaded from the filesystem.
     | The `theme:sync $themeDir` console command is available to populate the 
     | database from the filesystem with the `--toFile` flag to sync in the
-    | other direction (database to filesystem) and the `--path="/path/to/file.md"
-    | flag to sync only a specific file.
+    | other direction (database to filesystem) and the `--paths="/path/to/file.md,/path/to/file2.md"
+    | flag to sync only specific files.
     |
-    | Files available in the database are cached to indicate that they should
+    | Files modified in the database are cached to indicate that they should
     | be loaded from the database. 
     |
     */
