@@ -519,7 +519,7 @@ class Theme
                 $enableDbLayer = !Config::get('app.debug');
             }
 
-            if ($enableDbLayer) {
+            if ($enableDbLayer && App::hasDatabase()) {
                 $datasource = new AutoDatasource([
                     new DbDatasource($this->dirName, 'cms_theme_contents'),
                     new FileDatasource($this->getPath(), App::make('files')),

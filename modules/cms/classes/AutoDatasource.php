@@ -9,6 +9,8 @@ use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * Datasource that loads from other data sources automatically
+ * 
+ * @Todo: Need to prevent softdeleted DB records from appearing, even if they exist in the filesystem
  */
 class AutoDatasource extends Datasource implements DatasourceInterface
 {
