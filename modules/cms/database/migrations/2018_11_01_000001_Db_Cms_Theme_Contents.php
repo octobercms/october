@@ -15,6 +15,7 @@ class DbCmsThemeContents extends Migration
             $table->longText('content');
             $table->integer('file_size')->unsigned();
             $table->dateTime('updated_at')->nullable();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

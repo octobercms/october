@@ -83,10 +83,19 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         // Default to the last datasource provided
         $datasourceIndex = count($this->datasources) - 1;
 
+        $isDeleted = false;
+
         foreach ($this->pathCache as $i => $paths) {
-            if (in_array($path, $paths)) {
+            if (isset($paths[$path])) {
                 $datasourceIndex = $i;
-            }
+                
+                // Set isDeleted to the inverse of the the path's existance flag 
+                $isDeleted = !$paths[$path];
+            }   
+        }
+
+        if ($isDeleted) {
+            throw new Exception("$path is deleted");
         }
 
         return $this->datasources[$datasourceIndex];
@@ -115,7 +124,13 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function selectOne($dirName, $fileName, $extension)
     {
-        return $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->selectOne($dirName, $fileName, $extension);
+        try {
+            $result = $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->selectOne($dirName, $fileName, $extension);
+        } catch (Exception $ex) {
+            $result = null;
+        }
+        
+        return $result;
     }
 
     /**
