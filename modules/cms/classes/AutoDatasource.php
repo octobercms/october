@@ -91,6 +91,9 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
                 // Set isDeleted to the inverse of the the path's existance flag
                 $isDeleted = !$paths[$path];
+
+                // Break on first datasource that can handle the path
+                break;
             }
         }
 
@@ -230,7 +233,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
-     * Creates a new template.
+     * Creates a new template, only inserts to the first datasource
      *
      * @param  string  $dirName
      * @param  string  $fileName
@@ -240,10 +243,12 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function insert($dirName, $fileName, $extension, $content)
     {
-        // @TODO: Implement this
+        $result = $this->datasources[0]->insert($dirName, $fileName, $extension, $content);
 
         // Refresh the cache
         $this->populateCache(true);
+
+        return $result;
     }
 
     /**
@@ -259,10 +264,19 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function update($dirName, $fileName, $extension, $content, $oldFileName = null, $oldExtension = null)
     {
-        // @TODO: Implement this
+        $searchFileName = $oldFileName ?: $fileName;
+        $searchExt = $oldExtension ?: $oldExtension;
+
+        if (!empty($this->datasources[0]->selectOne($dirName, $searchFileName, $searchExt))) {
+            $result = $this->datasources[0]->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
+        } else {
+            $result = $this->datasources[0]->insert($dirName, $fileName, $extension, $content);
+        }
 
         // Refresh the cache
         $this->populateCache(true);
+
+        return $result;
     }
 
     /**
@@ -291,7 +305,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
                 $record = $this->selectOne($dirName, $fileName, $extension);
 
                 // Insert the current record into the first datasource so we can mark it as deleted
-                $this->datasource[0]->insert($dirName, $fileName, $extension, $record['content']);
+                $this->insert($dirName, $fileName, $extension, $record['content']);
 
                 // Perform the deletion on the newly inserted record
                 $this->delete($dirName, $fileName, $extension);
