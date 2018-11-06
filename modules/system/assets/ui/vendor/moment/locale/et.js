@@ -3,15 +3,14 @@
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, function (moment) { 'use strict';
 
 
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var format = {
             's' : ['mõne sekundi', 'mõni sekund', 'paar sekundit'],
-            'ss': [number + 'sekundi', number + 'sekundit'],
             'm' : ['ühe minuti', 'üks minut'],
             'mm': [number + ' minuti', number + ' minutit'],
             'h' : ['ühe tunni', 'tund aega', 'üks tund'],
@@ -54,7 +53,6 @@
             future : '%s pärast',
             past   : '%s tagasi',
             s      : processRelativeTime,
-            ss     : processRelativeTime,
             m      : processRelativeTime,
             mm     : processRelativeTime,
             h      : processRelativeTime,
@@ -66,7 +64,7 @@
             y      : processRelativeTime,
             yy     : processRelativeTime
         },
-        dayOfMonthOrdinalParse: /\d{1,2}\./,
+        ordinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
@@ -76,4 +74,4 @@
 
     return et;
 
-})));
+}));

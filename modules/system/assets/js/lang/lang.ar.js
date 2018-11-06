@@ -17,9 +17,9 @@ $.oc.langMessages['ar'] = $.extend(
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var symbolMap = {
@@ -63,18 +63,18 @@ $.oc.langMessages['ar'] = $.extend(
             return str.replace(/%d/i, number);
         };
     }, months = [
-        'كانون الثاني يناير',
-        'شباط فبراير',
-        'آذار مارس',
-        'نيسان أبريل',
-        'أيار مايو',
-        'حزيران يونيو',
-        'تموز يوليو',
-        'آب أغسطس',
-        'أيلول سبتمبر',
-        'تشرين الأول أكتوبر',
-        'تشرين الثاني نوفمبر',
-        'كانون الأول ديسمبر'
+        'يناير',
+        'فبراير',
+        'مارس',
+        'أبريل',
+        'مايو',
+        'يونيو',
+        'يوليو',
+        'أغسطس',
+        'سبتمبر',
+        'أكتوبر',
+        'نوفمبر',
+        'ديسمبر'
     ];
 
     var ar = moment.defineLocale('ar', {
@@ -115,6 +115,7 @@ $.oc.langMessages['ar'] = $.extend(
             future : 'بعد %s',
             past : 'منذ %s',
             s : pluralize('s'),
+            ss : pluralize('s'),
             m : pluralize('m'),
             mm : pluralize('m'),
             h : pluralize('h'),
@@ -127,7 +128,7 @@ $.oc.langMessages['ar'] = $.extend(
             yy : pluralize('y')
         },
         preparse: function (string) {
-            return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+            return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
                 return numberMap[match];
             }).replace(/،/g, ',');
         },
@@ -144,4 +145,4 @@ $.oc.langMessages['ar'] = $.extend(
 
     return ar;
 
-}));
+})));

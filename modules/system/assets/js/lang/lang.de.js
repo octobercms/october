@@ -17,9 +17,9 @@ $.oc.langMessages['de'] = $.extend(
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -38,7 +38,7 @@ $.oc.langMessages['de'] = $.extend(
 
     var de = moment.defineLocale('de', {
         months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
-        monthsShort : 'Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+        monthsShort : 'Jan._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
         monthsParseExact : true,
         weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
         weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
@@ -64,6 +64,7 @@ $.oc.langMessages['de'] = $.extend(
             future : 'in %s',
             past : 'vor %s',
             s : 'ein paar Sekunden',
+            ss : '%d Sekunden',
             m : processRelativeTime,
             mm : '%d Minuten',
             h : processRelativeTime,
@@ -75,7 +76,7 @@ $.oc.langMessages['de'] = $.extend(
             y : processRelativeTime,
             yy : processRelativeTime
         },
-        ordinalParse: /\d{1,2}\./,
+        dayOfMonthOrdinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
@@ -85,4 +86,4 @@ $.oc.langMessages['de'] = $.extend(
 
     return de;
 
-}));
+})));

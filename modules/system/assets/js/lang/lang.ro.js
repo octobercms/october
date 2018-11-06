@@ -16,13 +16,14 @@ $.oc.langMessages['ro'] = $.extend(
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     function relativeTimeWithPlural(number, withoutSuffix, key) {
         var format = {
+                'ss': 'secunde',
                 'mm': 'minute',
                 'hh': 'ore',
                 'dd': 'zile',
@@ -63,6 +64,7 @@ $.oc.langMessages['ro'] = $.extend(
             future : 'peste %s',
             past : '%s în urmă',
             s : 'câteva secunde',
+            ss : relativeTimeWithPlural,
             m : 'un minut',
             mm : relativeTimeWithPlural,
             h : 'o oră',
@@ -82,4 +84,4 @@ $.oc.langMessages['ro'] = $.extend(
 
     return ro;
 
-}));
+})));

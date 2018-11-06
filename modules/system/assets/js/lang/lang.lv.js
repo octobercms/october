@@ -16,12 +16,13 @@ $.oc.langMessages['lv'] = $.extend(
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var units = {
+        'ss': 'sekundes_sekundēm_sekunde_sekundes'.split('_'),
         'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
         'mm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
         'h': 'stundas_stundām_stunda_stundas'.split('_'),
@@ -39,11 +40,11 @@ $.oc.langMessages['lv'] = $.extend(
     function format(forms, number, withoutSuffix) {
         if (withoutSuffix) {
             // E.g. "21 minūte", "3 minūtes".
-            return number % 10 === 1 && number !== 11 ? forms[2] : forms[3];
+            return number % 10 === 1 && number % 100 !== 11 ? forms[2] : forms[3];
         } else {
             // E.g. "21 minūtes" as in "pēc 21 minūtes".
             // E.g. "3 minūtēm" as in "pēc 3 minūtēm".
-            return number % 10 === 1 && number !== 11 ? forms[0] : forms[1];
+            return number % 10 === 1 && number % 100 !== 11 ? forms[0] : forms[1];
         }
     }
     function relativeTimeWithPlural(number, withoutSuffix, key) {
@@ -83,6 +84,7 @@ $.oc.langMessages['lv'] = $.extend(
             future : 'pēc %s',
             past : 'pirms %s',
             s : relativeSeconds,
+            ss : relativeTimeWithPlural,
             m : relativeTimeWithSingular,
             mm : relativeTimeWithPlural,
             h : relativeTimeWithSingular,
@@ -94,7 +96,7 @@ $.oc.langMessages['lv'] = $.extend(
             y : relativeTimeWithSingular,
             yy : relativeTimeWithPlural
         },
-        ordinalParse: /\d{1,2}\./,
+        dayOfMonthOrdinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
@@ -104,4 +106,4 @@ $.oc.langMessages['lv'] = $.extend(
 
     return lv;
 
-}));
+})));

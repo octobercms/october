@@ -15,9 +15,9 @@ $.oc.langMessages['fa'] = $.extend(
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var symbolMap = {
@@ -81,7 +81,8 @@ $.oc.langMessages['fa'] = $.extend(
         relativeTime : {
             future : 'در %s',
             past : '%s پیش',
-            s : 'چندین ثانیه',
+            s : 'چند ثانیه',
+            ss : 'ثانیه d%',
             m : 'یک دقیقه',
             mm : '%d دقیقه',
             h : 'یک ساعت',
@@ -103,7 +104,7 @@ $.oc.langMessages['fa'] = $.extend(
                 return symbolMap[match];
             }).replace(/,/g, '،');
         },
-        ordinalParse: /\d{1,2}م/,
+        dayOfMonthOrdinalParse: /\d{1,2}م/,
         ordinal : '%dم',
         week : {
             dow : 6, // Saturday is the first day of the week.
@@ -113,4 +114,4 @@ $.oc.langMessages['fa'] = $.extend(
 
     return fa;
 
-}));
+})));
