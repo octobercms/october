@@ -51,7 +51,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         foreach ($this->datasources as $datasource) {
             // Remove any existing cache data
             if ($refresh) {
-                Cache::forget($datasource->getPathsCacheKey);
+                Cache::forget($datasource->getPathsCacheKey());
             }
 
             // Load the cache
@@ -102,6 +102,49 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
+     * Get all valid paths for the provided directory, removing any paths marked as deleted
+     *
+     * @param string $dirName
+     * @param array $options Array of options, [
+     *                          'extensions' => ['htm', 'md', 'twig'], // Extensions to search for
+     *                          'fileMatch'  => '*gr[ae]y',            // Shell matching pattern to match the filename against using the fnmatch function
+     *                      ];
+     * @return array $paths ["$dirName/path/1.md", "$dirName/path/2.md"]
+     */
+    protected function getValidPaths($dirName, $options)
+    {
+        // Initialize result set
+        $paths = [];
+
+        // Reverse the order of the sources so that earlier 
+        // sources are prioritized over later sources
+        $pathsCache = array_reverse($this->pathCache);
+
+        // Get paths available in the provided dirName, allowing proper prioritization of earlier datasources
+        foreach ($pathsCache as $sourcePaths) {
+            $paths = array_merge($paths, array_filter($sourcePaths, function ($path) use ($dirName, $options) {
+                $basePath = $dirName . '/';
+
+                $inPath = starts_with($path, $basePath);
+
+                // Check the fileMatch if provided as an option
+                $fnMatch = !empty($options['fileMatch']) ? fnmatch($options['fileMatch'], str_after($path, $basePath)) : true;
+
+                // Check the extension if provided as an option
+                $validExt = is_array($options['extensions']) && !empty($options['extensions']) ? in_array(pathinfo($path, PATHINFO_EXTENSION), $options['extensions']) : true;
+
+                return $inPath && $fnMatch && $validExt;
+            }, ARRAY_FILTER_USE_KEY));
+        }
+
+        // Filter out 'deleted' paths:
+        $paths = array_filter($paths, function ($value) { return (bool) $value; });
+
+        // Return just an array of paths
+        return array_keys($paths);
+    }
+
+    /**
      * Helper to make file path.
      * 
      * @param string $dirName
@@ -129,7 +172,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         } catch (Exception $ex) {
             $result = null;
         }
-        
+
         return $result;
     }
 
@@ -149,17 +192,39 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function select($dirName, array $options = [])
     {
-        // Initialize result set
-        $sourceResults = [];
+        // Handle fileName listings through just the cache
+        if (@$options['columns'] === ['fileName']) {
+            // Return just filenames of the valid paths for this directory
+            $results = array_values(array_map(function ($path) use ($dirName) {
+                return ['fileName' => str_after($path, $dirName . '/')];
+            }, $this->getValidPaths($dirName, $options)));
 
-        foreach ($this->datasources as $datasource) {
-            $sourceResults = array_merge($sourceResults, $datasource->select($dirName, $options));
+        // Retrieve full listings from datasources directly
+        } else {
+            // Initialize result set
+            $sourceResults = [];
+
+            // Reverse the order of the sources so that earlier 
+            // sources are prioritized over later sources
+            $datasources = array_reverse($this->datasources);
+
+            foreach ($datasources as $datasource) {
+                $sourceResults = array_merge($sourceResults, $datasource->select($dirName, $options));
+            }
+
+            // Remove duplicate results prioritizing results from earlier datasources
+            $sourceResults = collect($sourceResults)->keyBy('fileName');
+
+            // Get a list of valid filenames from the list of valid paths for this directory
+            $validFiles = array_map(function ($path) use ($dirName) {
+                return str_after($path, $dirName . '/');
+            }, $this->getValidPaths($dirName, $options));
+
+            // Filter out deleted paths 
+            $results = array_values($sourceResults->filter(function ($value, $key) use ($validFiles) {
+                return in_array($key, $validFiles);
+            })->all());
         }
-
-        // Remove duplicate results prioritizing results from earlier datasources
-        // Reverse the order of the source results so that keyBy prioritizes 
-        // earlier results rather than later results
-        $results = array_values(collect(array_reverse($sourceResults))->keyBy('fileName')->all());
 
         return $results;
     }
