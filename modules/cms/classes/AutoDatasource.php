@@ -9,7 +9,7 @@ use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * Datasource that loads from other data sources automatically
- * 
+ *
  * @Todo: Need to prevent softdeleted DB records from appearing, even if they exist in the filesystem
  */
 class AutoDatasource extends Datasource implements DatasourceInterface
@@ -26,7 +26,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
     /**
      * Create a new datasource instance.
-     * 
+     *
      * @param array $datasources Array of datasources to utilize. Lower indexes = higher priority
      * @return void
      */
@@ -35,7 +35,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         $this->datasources = $datasources;
 
         $this->populateCache();
-        
+
         $this->postProcessor = new Processor;
     }
 
@@ -74,7 +74,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
     /**
      * Get the appropriate datasource for the provided path
-     * 
+     *
      * @param string $path
      * @return Datasource
      */
@@ -88,10 +88,10 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         foreach ($this->pathCache as $i => $paths) {
             if (isset($paths[$path])) {
                 $datasourceIndex = $i;
-                
-                // Set isDeleted to the inverse of the the path's existance flag 
+
+                // Set isDeleted to the inverse of the the path's existance flag
                 $isDeleted = !$paths[$path];
-            }   
+            }
         }
 
         if ($isDeleted) {
@@ -111,12 +111,12 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      *                      ];
      * @return array $paths ["$dirName/path/1.md", "$dirName/path/2.md"]
      */
-    protected function getValidPaths($dirName, $options)
+    protected function getValidPaths($dirName, $options = [])
     {
         // Initialize result set
         $paths = [];
 
-        // Reverse the order of the sources so that earlier 
+        // Reverse the order of the sources so that earlier
         // sources are prioritized over later sources
         $pathsCache = array_reverse($this->pathCache);
 
@@ -146,7 +146,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
     /**
      * Helper to make file path.
-     * 
+     *
      * @param string $dirName
      * @param string $fileName
      * @param string $extension
@@ -204,7 +204,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
             // Initialize result set
             $sourceResults = [];
 
-            // Reverse the order of the sources so that earlier 
+            // Reverse the order of the sources so that earlier
             // sources are prioritized over later sources
             $datasources = array_reverse($this->datasources);
 
@@ -220,7 +220,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
                 return str_after($path, $dirName . '/');
             }, $this->getValidPaths($dirName, $options));
 
-            // Filter out deleted paths 
+            // Filter out deleted paths
             $results = array_values($sourceResults->filter(function ($value, $key) use ($validFiles) {
                 return in_array($key, $validFiles);
             })->all());
@@ -241,6 +241,9 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function insert($dirName, $fileName, $extension, $content)
     {
         // @TODO: Implement this
+
+        // Refresh the cache
+        $this->populateCache(true);
     }
 
     /**
@@ -257,10 +260,13 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function update($dirName, $fileName, $extension, $content, $oldFileName = null, $oldExtension = null)
     {
         // @TODO: Implement this
+
+        // Refresh the cache
+        $this->populateCache(true);
     }
 
     /**
-     * Run a delete statement against the datasource.
+     * Run a delete statement against the datasource, only runs delete on first datasource
      *
      * @param  string  $dirName
      * @param  string  $fileName
@@ -269,21 +275,28 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function delete($dirName, $fileName, $extension)
     {
-        // Initial implementation, forces delete on every datasource
-        $exceptionCount = 0;
         try {
-            foreach ($this->datasources as $datasource) {
-                $datasource->delete($dirName, $fileName, $extension);
-            }
+            // Delete from only the first datasource
+            $this->datasources[0]->delete($dirName, $fileName, $extension);
 
             // Refresh the cache
             $this->populateCache(true);
         }
         catch (Exception $ex) {
-            // Only throw exception if content couldn't be removed from any datasource
-            $exceptionCount++;
-            if ($exceptionCount >= count($this->datasources)) {
-                throw (new DeleteFileException)->setInvalidPath($this->makeFilePath($dirName, $fileName, $extension));
+            // Check to see if this is a valid path to delete
+            $path = $this->makeFilePath($dirName, $fileName, $extension);
+
+            if (in_array($path, $this->getValidPaths($dirName))) {
+                // Retrieve the current record
+                $record = $this->selectOne($dirName, $fileName, $extension);
+
+                // Insert the current record into the first datasource so we can mark it as deleted
+                $this->datasource[0]->insert($dirName, $fileName, $extension, $record['content']);
+
+                // Perform the deletion on the newly inserted record
+                $this->delete($dirName, $fileName, $extension);
+            } else {
+                throw (new DeleteFileException)->setInvalidPath($path);
             }
         }
     }
@@ -320,7 +333,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
     /**
      * Generate a paths cache key unique to this datasource
-     * 
+     *
      * @return string
      */
     public function getPathsCacheKey()
@@ -330,7 +343,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
     /**
      * Get all available paths within this datastore
-     * 
+     *
      * @return array $paths ['path/to/file1.md', 'path/to/file2.md']
      */
     public function getAvailablePaths()
