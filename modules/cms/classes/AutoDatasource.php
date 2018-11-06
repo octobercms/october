@@ -344,14 +344,15 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     /**
      * Get all available paths within this datastore
      *
-     * @return array $paths ['path/to/file1.md', 'path/to/file2.md']
+     * @return array $paths ['path/to/file1.md' => true (path can be handled and exists), 'path/to/file2.md' => false (path can be handled but doesn't exist)]
      */
     public function getAvailablePaths()
     {
         $paths = [];
-        foreach ($this->datasources as $datasource) {
+        $datasources = array_reverse($this->datasources);
+        foreach ($datasources as $datasource) {
             $paths = array_merge($paths, $datasource->getAvailablePaths());
         }
-        return array_unique($paths);
+        return $paths;
     }
 }
