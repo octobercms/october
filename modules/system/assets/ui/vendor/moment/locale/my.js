@@ -1,4 +1,4 @@
-//! moment.js locale configuration
+//! moment.js locale configuration v2.22.2
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -56,7 +56,7 @@
             sameElse: 'L'
         },
         relativeTime: {
-            future: 'လာမည့် %s မှာ',
+            future: 'လာမည့် %s မှာ',
             past: 'လွန်ခဲ့သော %s က',
             s: 'စက္ကန်.အနည်းငယ်',
             ss : '%d စက္ကန့်',
