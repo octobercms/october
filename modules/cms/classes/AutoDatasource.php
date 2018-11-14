@@ -265,7 +265,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function update($dirName, $fileName, $extension, $content, $oldFileName = null, $oldExtension = null)
     {
         $searchFileName = $oldFileName ?: $fileName;
-        $searchExt = $oldExtension ?: $oldExtension;
+        $searchExt = $oldExtension ?: $extension;
 
         if (!empty($this->datasources[0]->selectOne($dirName, $searchFileName, $searchExt))) {
             $result = $this->datasources[0]->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
