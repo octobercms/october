@@ -1,15 +1,16 @@
 <?php namespace Backend\Classes;
 
+use Str;
 use App;
-use Closure;
-use Config;
 use File;
+use View;
+use Config;
+use Response;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
-use Response;
-use Str;
+use Closure;
 use System\Classes\PluginManager;
-use View;
+
 
 /**
  * This is the master controller for all back-end pages.
