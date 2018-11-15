@@ -292,9 +292,6 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         try {
             // Delete from only the first datasource
             $this->datasources[0]->delete($dirName, $fileName, $extension);
-
-            // Refresh the cache
-            $this->populateCache(true);
         }
         catch (Exception $ex) {
             // Check to see if this is a valid path to delete
@@ -313,6 +310,9 @@ class AutoDatasource extends Datasource implements DatasourceInterface
                 throw (new DeleteFileException)->setInvalidPath($path);
             }
         }
+
+        // Refresh the cache
+        $this->populateCache(true);
     }
 
     /**
