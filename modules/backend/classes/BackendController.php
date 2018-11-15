@@ -1,14 +1,15 @@
 <?php namespace Backend\Classes;
 
-use Str;
 use App;
-use File;
-use View;
+use Closure;
 use Config;
-use Response;
+use File;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
-use Closure;
+use Response;
+use Str;
+use System\Classes\PluginManager;
+use View;
 
 /**
  * This is the master controller for all back-end pages.
@@ -100,6 +101,12 @@ class BackendController extends ControllerBase
          */
         if (count($params) >= 2) {
             list($author, $plugin) = $params;
+
+            $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
+            if (PluginManager::instance()->isDisabled($pluginCode)) {
+                return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+            }
+
             $controller = $params[2] ?? 'index';
             self::$action = $action = isset($params[3]) ? $this->parseAction($params[3]) : 'index';
             self::$params = $controllerParams = array_slice($params, 4);
