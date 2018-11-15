@@ -3,7 +3,7 @@
         placeholder="<?= $placeholder ?>"
         type="text"
         name="<?= $this->getName() ?>"
-        value="<?= $value ?>"
+        value="<?= e($value) ?>"
         data-request="<?= $this->getEventHandler('onSubmit') ?>"
         <?= !$searchOnEnter ? 'data-track-input' : '' ?>
         data-load-indicator
