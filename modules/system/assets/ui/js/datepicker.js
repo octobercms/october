@@ -188,7 +188,7 @@
     DatePicker.prototype.initTimePicker = function() {
         this.$timePicker.clockpicker({
             autoclose: 'true',
-            placement: 'bottom',
+            placement: 'auto',
             align: 'right',
             twelvehour: this.isTimeTwelveHour()
             // afterDone: this.proxy(this.onSelectTimePicker)
