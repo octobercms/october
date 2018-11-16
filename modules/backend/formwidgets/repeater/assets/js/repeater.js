@@ -192,6 +192,11 @@
             $target = $('[data-field-name="'+this.options.titleFrom+'"]', $item)
             if (!$target.length) {
                 $target = $item
+            } else {
+                var $textLabel = $('> .field-section:first > h4', $target).first()
+                if ($textLabel.length) {
+                    return $textLabel.text()
+                }
             }
         }
         else {
