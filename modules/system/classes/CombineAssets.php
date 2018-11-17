@@ -147,8 +147,7 @@ class CombineAssets
         /*
          * Common Aliases
          */
-        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
-        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery-migrate.min.js');
+        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery-and-migrate.min.js');
         $this->registerAlias('framework', '~/modules/system/assets/js/framework.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/js/framework.extras.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/css/framework.extras.css');
