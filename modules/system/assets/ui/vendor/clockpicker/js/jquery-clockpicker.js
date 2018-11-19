@@ -393,18 +393,18 @@
 			align = this.options.align,
 			styles = {},
 			self = this,
-            viewportHeight = window.innerHeight || document.documentElement.clientHeight,
-            scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+			viewportHeight = window.innerHeight || document.documentElement.clientHeight,
+			scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 
 		popover.show();
 
-        if(placement === 'auto'){
-            if (offset.top + popover.outerHeight() > viewportHeight + scrollTop) {
-                placement = 'top';
-            } else {
-                placement = 'bottom';
-            }
-        }
+		if(placement === 'auto'){
+			if (offset.top + popover.outerHeight() > viewportHeight + scrollTop) {
+				placement = 'top';
+			} else {
+				placement = 'bottom';
+			}
+		}
 
 		// Place the popover
 		switch (placement) {
