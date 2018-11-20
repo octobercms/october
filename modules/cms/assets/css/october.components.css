@@ -226,9 +226,6 @@ div.control-componentlist div.components div.layout-cell > div a.remove:hover {
   filter: alpha(opacity=50);
   text-decoration: none;
 }
-div.control-componentlist div.components div.layout-cell > div:hover a.remove {
-  color: #ffffff;
-}
 div.control-componentlist div.components div.layout-cell.adding > div {
   -webkit-transform: translate(0, -100px) !important;
   -ms-transform: translate(0, -100px) !important;
