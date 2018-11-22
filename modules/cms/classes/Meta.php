@@ -1,6 +1,6 @@
 <?php namespace Cms\Classes;
 
-use YAML;
+use Yaml;
 
 /**
  * The CMS meta file class, used for interacting with YAML files within the Halycon datasources
