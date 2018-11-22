@@ -10,7 +10,8 @@ use October\Rain\Halcyon\Datasource\DatasourceInterface;
 /**
  * Datasource that loads from other data sources automatically
  *
- * @Todo: Need to prevent softdeleted DB records from appearing, even if they exist in the filesystem
+ * @package october\cms
+ * @author Luke Towers
  */
 class AutoDatasource extends Datasource implements DatasourceInterface
 {
@@ -23,6 +24,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @var array Local cache of paths available in the datasources
      */
     protected $pathCache = [];
+
+    /**
+     * @var boolean Flag on whether the cache should respect refresh requests
+     */
+    protected $allowCacheRefreshes = true;
 
     /**
      * Create a new datasource instance.
@@ -50,7 +56,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         $pathCache = [];
         foreach ($this->datasources as $datasource) {
             // Remove any existing cache data
-            if ($refresh) {
+            if ($refresh && $this->allowCacheRefreshes) {
                 Cache::forget($datasource->getPathsCacheKey());
             }
 
@@ -134,7 +140,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
                 $fnMatch = !empty($options['fileMatch']) ? fnmatch($options['fileMatch'], str_after($path, $basePath)) : true;
 
                 // Check the extension if provided as an option
-                $validExt = is_array($options['extensions']) && !empty($options['extensions']) ? in_array(pathinfo($path, PATHINFO_EXTENSION), $options['extensions']) : true;
+                $validExt = !empty($options['extensions']) && is_array($options['extensions']) ? in_array(pathinfo($path, PATHINFO_EXTENSION), $options['extensions']) : true;
 
                 return $inPath && $fnMatch && $validExt;
             }, ARRAY_FILTER_USE_KEY));
@@ -266,6 +272,14 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     {
         $searchFileName = $oldFileName ?: $fileName;
         $searchExt = $oldExtension ?: $extension;
+
+        // Ensure that files that are being renamed have their old names marked as deleted prior to inserting the renamed file
+        // Also ensure that the cache only gets updated at the end of this operation instead of twice, once here and again at the end
+        if ($searchFileName !== $fileName || $searchExt !== $extension) {
+            $this->allowCacheRefreshes = false;
+            $this->delete($dirName, $searchFileName, $searchExt);
+            $this->allowCacheRefreshes = true;
+        }
 
         if (!empty($this->datasources[0]->selectOne($dirName, $searchFileName, $searchExt))) {
             $result = $this->datasources[0]->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
