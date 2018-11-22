@@ -1,0 +1,34 @@
+<button
+    type="button"
+    class="btn btn-danger oc-icon-download <?php if (!$canCommit): ?>hide<?php endif ?>"
+    data-request="onCommit"
+    data-request-confirm="<?= e(trans('cms::lang.editor.commit_confirm')) ?>"
+    data-control="commit-button">
+    <?= e(trans('cms::lang.editor.commit')) ?>
+    </button>
+
+<button
+    type="button"
+    class="btn btn-danger oc-icon-bomb <?php if (!$canReset): ?>hide<?php endif ?>"
+    data-request="onReset"
+    data-request-confirm="<?= e(trans('cms::lang.editor.reset_confirm')) ?>"
+    data-control="reset-button">
+    <?= e(trans('cms::lang.editor.reset')) ?>
+</button>
+
+<button
+    type="button"
+    class="btn btn-danger empty oc-icon-trash-o <?php if (!$templatePath): ?>hide<?php endif ?>"
+    data-request="onDelete"
+    data-request-confirm="<?= e(trans('cms::lang.' . $toolbarSource . '.delete_confirm_single')) ?>"
+    data-request-success="$.oc.cmsPage.updateTemplateList('<?= $toolbarSource ?>'); $(this).trigger('close.oc.tab', [{force: true}])"
+    data-control="delete-button"></button>
+
+<?php if (isset($lastModified)): ?>
+    <span
+        class="btn empty oc-icon-calendar"
+        title="<?= e(trans('backend::lang.media.last_modified')) ?>: <?= $lastModified ?>"
+        data-toggle="tooltip"
+        data-placement="right">
+    </span>
+<?php endif; ?>

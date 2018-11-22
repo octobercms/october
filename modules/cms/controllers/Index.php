@@ -134,6 +134,8 @@ class Index extends Controller
 
         $this->vars['templatePath'] = Request::input('path');
         $this->vars['lastModified'] = DateTime::makeCarbon($template->mtime);
+        $this->vars['canCommit'] = $this->canCommitTemplate($template);
+        $this->vars['canReset'] = $this->canResetTemplate($template);
 
         if ($type === 'page') {
             $router = new RainRouter;
@@ -225,20 +227,7 @@ class Index extends Controller
 
         Flash::success(Lang::get('cms::lang.template.saved'));
 
-        $result = [
-            'templatePath'  => $template->fileName,
-            'templateMtime' => $template->mtime,
-            'tabTitle'      => $this->getTabTitle($type, $template)
-        ];
-
-        if ($type === 'page') {
-            $result['pageUrl'] = Url::to($template->url);
-            $router = new Router($this->theme);
-            $router->clearCache();
-            CmsCompoundObject::clearCache($this->theme);
-        }
-
-        return $result;
+        return $this->getUpdateResponse($template, $type);
     }
 
     /**
@@ -266,6 +255,8 @@ class Index extends Controller
         $widget = $this->makeTemplateFormWidget($type, $template);
 
         $this->vars['templatePath'] = '';
+        $this->vars['canCommit'] = $this->canCommitTemplate($template);
+        $this->vars['canReset'] = $this->canResetTemplate($template);
 
         return [
             'tabTitle' => $this->getTabTitle($type, $template),
@@ -397,9 +388,99 @@ class Index extends Controller
         return $content;
     }
 
+    /**
+     * Commits the DB changes of a template to the filesystem
+     *
+     * @return void
+     */
+    public function onCommit()
+    {
+        $this->validateRequestTheme();
+        $type = Request::input('templateType');
+        $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
+
+        if ($this->canCommitTemplate($template)) {
+
+        }
+
+        return $this->getUpdateResponse($template, $type);
+    }
+
+    /**
+     * Resets a template to the version on the filesystem
+     *
+     * @return void
+     */
+    public function onReset()
+    {
+        $this->validateRequestTheme();
+        $type = Request::input('templateType');
+        $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
+
+        if ($this->canResetTemplate($template)) {
+
+        }
+
+        return $this->getUpdateResponse($template, $type);
+    }
+
     //
-    // Methods for the internal use
+    // Methods for internal use
     //
+
+    /**
+     * Get the response to return in an AJAX request that updates a template
+     *
+     * @param CmsObject $template The template that has been affected
+     * @param string $type The type of template being affected
+     * @return array $result;
+     */
+    protected function getUpdateResponse($template, $type)
+    {
+        $result = [
+            'templatePath'  => $template->fileName,
+            'templateMtime' => $template->mtime,
+            'tabTitle'      => $this->getTabTitle($type, $template)
+        ];
+
+        if ($type === 'page') {
+            $result['pageUrl'] = Url::to($template->url);
+            $router = new Router($this->theme);
+            $router->clearCache();
+            CmsCompoundObject::clearCache($this->theme);
+        }
+
+        $result['canCommit'] = $this->canCommitTemplate($template);
+        $result['canReset'] = $this->canResetTemplate($template);
+
+        return $result;
+    }
+
+    /**
+     * Check to see if the provided template can be committed
+     *
+     * @param CmsObject $template
+     * @return boolean
+     */
+    protected function canCommitTemplate($template)
+    {
+        $result = true;
+
+        return $result;
+    }
+
+    /**
+     * Check to see if the provided template can be reset
+     *
+     * @param CmsObject $template
+     * @return boolean
+     */
+    protected function canResetTemplate($template)
+    {
+        $result = true;
+
+        return $result;
+    }
 
     /**
      * Validate that the current request is within the active theme
