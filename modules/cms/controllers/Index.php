@@ -464,7 +464,11 @@ class Index extends Controller
      */
     protected function canCommitTemplate($template)
     {
-        $result = true;
+        $result = true; // will set to false by default
+
+        if (Theme::databaseLayerEnabled()) {
+
+        }
 
         return $result;
     }
@@ -477,7 +481,11 @@ class Index extends Controller
      */
     protected function canResetTemplate($template)
     {
-        $result = true;
+        $result = true; // will set to false by default
+
+        if (Theme::databaseLayerEnabled()) {
+
+        }
 
         return $result;
     }

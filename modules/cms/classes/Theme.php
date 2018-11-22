@@ -506,6 +506,21 @@ class Theme
     }
 
     /**
+     * Checks to see if the database layer has been enabled
+     *
+     * @return boolean
+     */
+    public static function databaseLayerEnabled()
+    {
+        $enableDbLayer = Config::get('cms.enableDatabaseLayer', false);
+        if (is_null($enableDbLayer)) {
+            $enableDbLayer = !Config::get('app.debug');
+        }
+
+        return $enableDbLayer && App::hasDatabase();
+    }
+
+    /**
      * Ensures this theme is registered as a Halcyon them datasource.
      * @return void
      */
@@ -514,12 +529,7 @@ class Theme
         $resolver = App::make('halcyon');
 
         if (!$resolver->hasDatasource($this->dirName)) {
-            $enableDbLayer = Config::get('cms.enableDatabaseLayer', false);
-            if (is_null($enableDbLayer)) {
-                $enableDbLayer = !Config::get('app.debug');
-            }
-
-            if ($enableDbLayer && App::hasDatabase()) {
+            if (static::databaseLayerEnabled()) {
                 $datasource = new AutoDatasource([
                     new DbDatasource($this->dirName, 'cms_theme_contents'),
                     new FileDatasource($this->getPath(), App::make('files')),
