@@ -421,7 +421,6 @@ class Index extends Controller
     {
         $this->validateRequestTheme();
         $type = Request::input('templateType');
-
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canResetTemplate($template)) {

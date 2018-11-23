@@ -1,22 +1,6 @@
-<button
-    type="button"
-    class="btn btn-danger oc-icon-download <?php if (!$canCommit): ?>hide<?php endif ?>"
-    data-request="onCommit"
-    data-request-confirm="<?= e(trans('cms::lang.editor.commit_confirm')) ?>"
-    data-load-indicator="<?= e(trans('cms::lang.editor.committing')) ?>"
-    data-control="commit-button">
-    <?= e(trans('cms::lang.editor.commit')) ?>
-    </button>
+<?= $this->makePartial('button_commit'); ?>
 
-<button
-    type="button"
-    class="btn btn-danger oc-icon-bomb <?php if (!$canReset): ?>hide<?php endif ?>"
-    data-request="onReset"
-    data-request-confirm="<?= e(trans('cms::lang.editor.reset_confirm')) ?>"
-    data-load-indicator="<?= e(trans('cms::lang.editor.resetting')) ?>"
-    data-control="reset-button">
-    <?= e(trans('cms::lang.editor.reset')) ?>
-</button>
+<?= $this->makePartial('button_reset'); ?>
 
 <button
     type="button"
