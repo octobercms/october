@@ -409,7 +409,7 @@ class Index extends Controller
             Flash::success(Lang::get('cms::lang.editor.commit_success', ['type' => $type]));
         }
 
-        return $this->getUpdateResponse($template, $type);
+        return array_merge($this->getUpdateResponse($template, $type), ['forceReload' => true]);
     }
 
     /**
@@ -421,6 +421,7 @@ class Index extends Controller
     {
         $this->validateRequestTheme();
         $type = Request::input('templateType');
+
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canResetTemplate($template)) {
@@ -431,7 +432,7 @@ class Index extends Controller
             Flash::success(Lang::get('cms::lang.editor.reset_success', ['type' => $type]));
         }
 
-        return $this->getUpdateResponse($template, $type);
+        return array_merge($this->getUpdateResponse($template, $type), ['forceReload' => true]);
     }
 
     //

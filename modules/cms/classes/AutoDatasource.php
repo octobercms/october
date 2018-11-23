@@ -32,6 +32,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     protected $allowCacheRefreshes = true;
 
     /**
+     * @var string The key for the datasource to perform CRUD operations on
+     */
+    protected $activeDatasourceKey = '';
+
+    /**
      * Create a new datasource instance.
      *
      * @param array $datasources Array of datasources to utilize. Lower indexes = higher priority ['datasourceName' => $datasource]
@@ -40,6 +45,8 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function __construct(array $datasources)
     {
         $this->datasources = $datasources;
+
+        $this->activeDatasourceKey = array_keys($datasources)[0];
 
         $this->populateCache();
 
@@ -109,7 +116,23 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function pushToSource(Model $model, string $source)
     {
+        // Set the active datasource to the provided source and retrieve it
+        $originalActiveKey = $this->activeDatasourceKey;
+        $this->activeDatasourceKey = $source;
+        $datasource = $this->getActiveDatasource();
 
+        // Get the path parts
+        $dirName = $model->getObjectTypeDirName();
+        list($fileName, $extension) = $model->getFileNameParts();
+
+        // Get the file content
+        $content = $datasource->getPostProcessor()->processUpdate($model->newQuery(), []);
+
+        // Perform an update on the selected datasource (will insert if it doesn't exist)
+        $this->update($dirName, $fileName, $extension, $content);
+
+        // Restore the original active datasource
+        $this->activeDatasourceKey = $originalActiveKey;
     }
 
     /**
@@ -121,7 +144,20 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function removeFromSource(Model $model, string $source)
     {
+        // Set the active datasource to the provided source and retrieve it
+        $originalActiveKey = $this->activeDatasourceKey;
+        $this->activeDatasourceKey = $source;
+        $datasource = $this->getActiveDatasource();
 
+        // Get the path parts
+        $dirName = $model->getObjectTypeDirName();
+        list($fileName, $extension) = $model->getFileNameParts();
+
+        // Perform a forced delete on the selected datasource to ensure it's removed
+        $this->forceDelete($dirName, $fileName, $extension);
+
+        // Restore the original active datasource
+        $this->activeDatasourceKey = $originalActiveKey;
     }
 
     /**
@@ -168,7 +204,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      *                      ];
      * @return array $paths ["$dirName/path/1.md", "$dirName/path/2.md"]
      */
-    protected function getValidPaths(string $dirName, $options = [])
+    protected function getValidPaths(string $dirName, array $options = [])
     {
         // Initialize result set
         $paths = [];
@@ -215,14 +251,13 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
-     * Get the first datasource for use with CRUD operations
+     * Get the datasource for use with CRUD operations
      *
      * @return DatasourceInterface
      */
-    protected function getFirstDatasource()
+    protected function getActiveDatasource()
     {
-        $keys = array_keys($this->datasources);
-        return $this->datasources[$keys[0]];
+        return $this->datasources[$this->activeDatasourceKey];
     }
 
     /**
@@ -258,7 +293,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      *                      ];
      * @return array
      */
-    public function select(string $dirName, $options = [])
+    public function select(string $dirName, array $options = [])
     {
         // Handle fileName listings through just the cache
         if (@$options['columns'] === ['fileName']) {
@@ -298,7 +333,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
-     * Creates a new template, only inserts to the first datasource
+     * Creates a new template, only inserts to the active datasource
      *
      * @param  string  $dirName
      * @param  string  $fileName
@@ -308,8 +343,8 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function insert(string $dirName, string $fileName, string $extension, string $content)
     {
-        // Insert only on the first datasource
-        $result = $this->getFirstDatasource()->insert($dirName, $fileName, $extension, $content);
+        // Insert only on the active datasource
+        $result = $this->getActiveDatasource()->insert($dirName, $fileName, $extension, $content);
 
         // Refresh the cache
         $this->populateCache(true);
@@ -341,7 +376,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
             $this->allowCacheRefreshes = true;
         }
 
-        $datasource = $this->getFirstDatasource();
+        $datasource = $this->getActiveDatasource();
 
         if (!empty($datasource->selectOne($dirName, $searchFileName, $searchExt))) {
             $result = $datasource->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
@@ -356,7 +391,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
-     * Run a delete statement against the datasource, only runs delete on first datasource
+     * Run a delete statement against the datasource, only runs delete on active datasource
      *
      * @param  string  $dirName
      * @param  string  $fileName
@@ -366,24 +401,31 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function delete(string $dirName, string $fileName, string $extension)
     {
         try {
-            // Delete from only the first datasource
-            $this->getFirstDatasource()->delete($dirName, $fileName, $extension);
+            // Delete from only the active datasource
+            if ($this->forceDeleting) {
+                $this->getActiveDatasource()->forceDelete($dirName, $fileName, $extension);
+            } else {
+                $this->getActiveDatasource()->delete($dirName, $fileName, $extension);
+            }
         }
         catch (Exception $ex) {
-            // Check to see if this is a valid path to delete
-            $path = $this->makeFilePath($dirName, $fileName, $extension);
+            // Only attempt to do an insert-delete when not force deleting the record
+            if (!$this->forceDeleting) {
+                // Check to see if this is a valid path to delete
+                $path = $this->makeFilePath($dirName, $fileName, $extension);
 
-            if (in_array($path, $this->getValidPaths($dirName))) {
-                // Retrieve the current record
-                $record = $this->selectOne($dirName, $fileName, $extension);
+                if (in_array($path, $this->getValidPaths($dirName))) {
+                    // Retrieve the current record
+                    $record = $this->selectOne($dirName, $fileName, $extension);
 
-                // Insert the current record into the first datasource so we can mark it as deleted
-                $this->insert($dirName, $fileName, $extension, $record['content']);
+                    // Insert the current record into the active datasource so we can mark it as deleted
+                    $this->insert($dirName, $fileName, $extension, $record['content']);
 
-                // Perform the deletion on the newly inserted record
-                $this->delete($dirName, $fileName, $extension);
-            } else {
-                throw (new DeleteFileException)->setInvalidPath($path);
+                    // Perform the deletion on the newly inserted record
+                    $this->delete($dirName, $fileName, $extension);
+                } else {
+                    throw (new DeleteFileException)->setInvalidPath($path);
+                }
             }
         }
 

@@ -281,6 +281,12 @@
     CmsPage.prototype.onAjaxSuccess = function(ev, context, data) {
         var element = ev.target
 
+        // Reload the form if the server has requested it
+        if (data.forceReload) {
+            this.reloadForm(element)
+            return;
+        }
+
         // Update the visibilities of the commit & reset buttons
         $('[data-control=commit-button]', element).toggleClass('hide', !data.canCommit)
         $('[data-control=reset-button]', element).toggleClass('hide', !data.canReset)
