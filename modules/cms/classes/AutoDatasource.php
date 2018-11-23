@@ -37,7 +37,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param array $datasources Array of datasources to utilize. Lower indexes = higher priority ['datasourceName' => $datasource]
      * @return void
      */
-    public function __construct($datasources)
+    public function __construct(array $datasources)
     {
         $this->datasources = $datasources;
 
@@ -101,12 +101,36 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
+     * Push the provided model to the specified datasource
+     *
+     * @param Model $model The Halcyon Model to push
+     * @param string $source The string key of the datasource to use
+     * @return void
+     */
+    public function pushToSource(Model $model, string $source)
+    {
+
+    }
+
+    /**
+     * Remove the provided model from the specified datasource
+     *
+     * @param Model $model The Halcyon model to remove
+     * @param string $source The string key of the datasource to use
+     * @return void
+     */
+    public function removeFromSource(Model $model, string $source)
+    {
+
+    }
+
+    /**
      * Get the appropriate datasource for the provided path
      *
      * @param string $path
      * @return Datasource
      */
-    protected function getDatasourceForPath($path)
+    protected function getDatasourceForPath(string $path)
     {
         // Default to the last datasource provided
         $datasourceIndex = count($this->datasources) - 1;
@@ -144,7 +168,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      *                      ];
      * @return array $paths ["$dirName/path/1.md", "$dirName/path/2.md"]
      */
-    protected function getValidPaths($dirName, $options = [])
+    protected function getValidPaths(string $dirName, $options = [])
     {
         // Initialize result set
         $paths = [];
@@ -185,7 +209,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param string $extension
      * @return string
      */
-    protected function makeFilePath($dirName, $fileName, $extension)
+    protected function makeFilePath(string $dirName, string $fileName, string $extension)
     {
         return $dirName . '/' . $fileName . '.' . $extension;
     }
@@ -209,7 +233,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param  string  $extension
      * @return mixed
      */
-    public function selectOne($dirName, $fileName, $extension)
+    public function selectOne(string $dirName, string $fileName, string $extension)
     {
         try {
             $result = $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->selectOne($dirName, $fileName, $extension);
@@ -224,7 +248,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * Returns all templates.
      *
      * @param  string  $dirName
-     * @param array $options Array of options, [
+     * @param  array $options Array of options, [
      *                          'columns'    => ['fileName', 'mtime', 'content'], // Only return specific columns
      *                          'extensions' => ['htm', 'md', 'twig'],            // Extensions to search for
      *                          'fileMatch'  => '*gr[ae]y',                       // Shell matching pattern to match the filename against using the fnmatch function
@@ -234,7 +258,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      *                      ];
      * @return array
      */
-    public function select($dirName, array $options = [])
+    public function select(string $dirName, $options = [])
     {
         // Handle fileName listings through just the cache
         if (@$options['columns'] === ['fileName']) {
@@ -282,7 +306,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param  string  $content
      * @return bool
      */
-    public function insert($dirName, $fileName, $extension, $content)
+    public function insert(string $dirName, string $fileName, string $extension, string $content)
     {
         // Insert only on the first datasource
         $result = $this->getFirstDatasource()->insert($dirName, $fileName, $extension, $content);
@@ -304,7 +328,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param  string  $oldExtension Defaults to null
      * @return int
      */
-    public function update($dirName, $fileName, $extension, $content, $oldFileName = null, $oldExtension = null)
+    public function update(string $dirName, string $fileName, string $extension, string $content, $oldFileName = null, $oldExtension = null)
     {
         $searchFileName = $oldFileName ?: $fileName;
         $searchExt = $oldExtension ?: $extension;
@@ -339,7 +363,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param  string  $extension
      * @return int
      */
-    public function delete($dirName, $fileName, $extension)
+    public function delete(string $dirName, string $fileName, string $extension)
     {
         try {
             // Delete from only the first datasource
@@ -375,7 +399,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @param  string  $extension
      * @return int
      */
-    public function lastModified($dirName, $fileName, $extension)
+    public function lastModified(string $dirName, string $fileName, string $extension)
     {
         return $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->lastModified($dirName, $fileName, $extension);
     }

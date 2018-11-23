@@ -401,7 +401,10 @@ class Index extends Controller
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canCommitTemplate($template)) {
-            // @TODO: Implement commit logic
+            // Populate the filesystem with the template and then remove it from the db
+            $datasource = $this->getThemeDatasource();
+            $datasource->pushToSource($template, 'filesystem');
+            $datasource->removeFromSource($template, 'database');
 
             Flash::success(Lang::get('cms::lang.editor.commit_success', ['type' => $type]));
         }
@@ -421,7 +424,9 @@ class Index extends Controller
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canResetTemplate($template)) {
-            // @TODO: Implement reset logic
+            // Remove the template from the DB
+            $datasource = $this->getThemeDatasource();
+            $datasource->removeFromSource($template, 'database');
 
             Flash::success(Lang::get('cms::lang.editor.reset_success', ['type' => $type]));
         }
@@ -462,6 +467,16 @@ class Index extends Controller
     }
 
     /**
+     * Get the active theme's datasource
+     *
+     * @return \October\Rain\Halcyon\Datasource\DatasourceInterface
+     */
+    protected function getThemeDatasource()
+    {
+        return $this->theme->getDatasource();
+    }
+
+    /**
      * Check to see if the provided template can be committed
      * Only available in debug mode, the DB layer must be enabled, and the template must exist in the database
      *
@@ -474,7 +489,7 @@ class Index extends Controller
 
         if (Config::get('app.debug', false) &&
             Theme::databaseLayerEnabled() &&
-            Theme::getActiveTheme()->getDatasource()->sourceHasModel('database', $template)
+            $this->getThemeDatasource()->sourceHasModel('database', $template)
         ) {
             $result = true;
         }
@@ -494,7 +509,7 @@ class Index extends Controller
         $result = false;
 
         if (Theme::databaseLayerEnabled()) {
-            $datasource = Theme::getActiveTheme()->getDatasource();
+            $datasource = $this->getThemeDatasource();
             $result = $datasource->sourceHasModel('database', $template) && $datasource->sourceHasModel('filesystem', $template);
         }
 
