@@ -16,6 +16,7 @@ use Cms\Classes\Router;
 use Cms\Classes\Layout;
 use Cms\Classes\Partial;
 use Cms\Classes\Content;
+use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
@@ -391,7 +392,7 @@ class Index extends Controller
     /**
      * Commits the DB changes of a template to the filesystem
      *
-     * @return void
+     * @return array $response
      */
     public function onCommit()
     {
@@ -400,7 +401,9 @@ class Index extends Controller
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canCommitTemplate($template)) {
+            // @TODO: Implement commit logic
 
+            Flash::success(Lang::get('cms::lang.editor.commit_success', ['type' => $type]));
         }
 
         return $this->getUpdateResponse($template, $type);
@@ -409,7 +412,7 @@ class Index extends Controller
     /**
      * Resets a template to the version on the filesystem
      *
-     * @return void
+     * @return array $response
      */
     public function onReset()
     {
@@ -418,7 +421,9 @@ class Index extends Controller
         $template = $this->loadTemplate($type, trim(Request::input('templatePath')));
 
         if ($this->canResetTemplate($template)) {
+            // @TODO: Implement reset logic
 
+            Flash::success(Lang::get('cms::lang.editor.reset_success', ['type' => $type]));
         }
 
         return $this->getUpdateResponse($template, $type);
@@ -435,7 +440,7 @@ class Index extends Controller
      * @param string $type The type of template being affected
      * @return array $result;
      */
-    protected function getUpdateResponse($template, $type)
+    protected function getUpdateResponse(CmsObject $template, string $type)
     {
         $result = [
             'templatePath'  => $template->fileName,
@@ -458,16 +463,20 @@ class Index extends Controller
 
     /**
      * Check to see if the provided template can be committed
+     * Only available in debug mode, the DB layer must be enabled, and the template must exist in the database
      *
      * @param CmsObject $template
      * @return boolean
      */
-    protected function canCommitTemplate($template)
+    protected function canCommitTemplate(CmsObject $template)
     {
-        $result = true; // will set to false by default
+        $result = false;
 
-        if (Theme::databaseLayerEnabled()) {
-
+        if (Config::get('app.debug', false) &&
+            Theme::databaseLayerEnabled() &&
+            Theme::getActiveTheme()->getDatasource()->sourceHasModel('database', $template)
+        ) {
+            $result = true;
         }
 
         return $result;
@@ -475,16 +484,18 @@ class Index extends Controller
 
     /**
      * Check to see if the provided template can be reset
+     * Only available when the DB layer is enabled and the template exists in both the DB & Filesystem
      *
      * @param CmsObject $template
      * @return boolean
      */
-    protected function canResetTemplate($template)
+    protected function canResetTemplate(CmsObject $template)
     {
-        $result = true; // will set to false by default
+        $result = false;
 
         if (Theme::databaseLayerEnabled()) {
-
+            $datasource = Theme::getActiveTheme()->getDatasource();
+            $result = $datasource->sourceHasModel('database', $template) && $datasource->sourceHasModel('filesystem', $template);
         }
 
         return $result;

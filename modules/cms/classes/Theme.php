@@ -16,6 +16,7 @@ use Cms\Models\ThemeData;
 use System\Models\Parameter;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
+use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * This class represents the CMS theme.
@@ -514,14 +515,14 @@ class Theme
     {
         $enableDbLayer = Config::get('cms.enableDatabaseLayer', false);
         if (is_null($enableDbLayer)) {
-            $enableDbLayer = !Config::get('app.debug');
+            $enableDbLayer = !Config::get('app.debug', false);
         }
 
         return $enableDbLayer && App::hasDatabase();
     }
 
     /**
-     * Ensures this theme is registered as a Halcyon them datasource.
+     * Ensures this theme is registered as a Halcyon datasource.
      * @return void
      */
     public function registerHalyconDatasource()
@@ -531,8 +532,8 @@ class Theme
         if (!$resolver->hasDatasource($this->dirName)) {
             if (static::databaseLayerEnabled()) {
                 $datasource = new AutoDatasource([
-                    new DbDatasource($this->dirName, 'cms_theme_contents'),
-                    new FileDatasource($this->getPath(), App::make('files')),
+                    'database'   => new DbDatasource($this->dirName, 'cms_theme_contents'),
+                    'filesystem' => new FileDatasource($this->getPath(), App::make('files')),
                 ]);
             } else {
                 $datasource = new FileDatasource($this->getPath(), App::make('files'));
@@ -540,6 +541,17 @@ class Theme
 
             $resolver->addDatasource($this->dirName, $datasource);
         }
+    }
+
+    /**
+     * Get the theme's datasource
+     *
+     * @return DatasourceInterface
+     */
+    public function getDatasource()
+    {
+        $resolver = App::make('halcyon');
+        return $resolver->datasource($this->getDirName());
     }
 
     /**

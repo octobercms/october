@@ -2,6 +2,7 @@
 
 use Cache;
 use Exception;
+use October\Rain\Halcyon\Model;
 use October\Rain\Halcyon\Processors\Processor;
 use October\Rain\Halcyon\Datasource\Datasource;
 use October\Rain\Halcyon\Exception\DeleteFileException;
@@ -33,7 +34,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     /**
      * Create a new datasource instance.
      *
-     * @param array $datasources Array of datasources to utilize. Lower indexes = higher priority
+     * @param array $datasources Array of datasources to utilize. Lower indexes = higher priority ['datasourceName' => $datasource]
      * @return void
      */
     public function __construct($datasources)
@@ -69,13 +70,34 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
-     * Returns the datasource instances being used internally
+     * Check to see if the specified datasource has the provided Halcyon Model
      *
-     * @return array
+     * @param string $source The string key of the datasource to check
+     * @param Model $model The Halcyon Model to check for
+     * @return boolean
      */
-    public function getDatasources()
+    public function sourceHasModel(string $source, Model $model)
     {
-        return $this->datasources;
+        $result = false;
+
+        $keys = array_keys($this->datasources);
+        if (in_array($source, $keys)) {
+            // Get the datasource's cache index key
+            $cacheIndex = array_search($source, $keys);
+
+            // Generate the path
+            list($name, $extension) = $model->getFileNameParts();
+            $path = $this->makeFilePath($model->getObjectTypeDirName(), $name, $extension);
+
+            // Deleted paths are included as being handled by a datasource
+            // The functionality built on this will need to make sure they
+            // include deleted records when actually performing sycning actions
+            if (isset($this->pathCache[$cacheIndex][$path])) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -106,6 +128,8 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         if ($isDeleted) {
             throw new Exception("$path is deleted");
         }
+
+        $datasourceIndex = array_keys($this->datasources)[$datasourceIndex];
 
         return $this->datasources[$datasourceIndex];
     }
@@ -164,6 +188,17 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     protected function makeFilePath($dirName, $fileName, $extension)
     {
         return $dirName . '/' . $fileName . '.' . $extension;
+    }
+
+    /**
+     * Get the first datasource for use with CRUD operations
+     *
+     * @return DatasourceInterface
+     */
+    protected function getFirstDatasource()
+    {
+        $keys = array_keys($this->datasources);
+        return $this->datasources[$keys[0]];
     }
 
     /**
@@ -249,7 +284,8 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function insert($dirName, $fileName, $extension, $content)
     {
-        $result = $this->datasources[0]->insert($dirName, $fileName, $extension, $content);
+        // Insert only on the first datasource
+        $result = $this->getFirstDatasource()->insert($dirName, $fileName, $extension, $content);
 
         // Refresh the cache
         $this->populateCache(true);
@@ -281,10 +317,12 @@ class AutoDatasource extends Datasource implements DatasourceInterface
             $this->allowCacheRefreshes = true;
         }
 
-        if (!empty($this->datasources[0]->selectOne($dirName, $searchFileName, $searchExt))) {
-            $result = $this->datasources[0]->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
+        $datasource = $this->getFirstDatasource();
+
+        if (!empty($datasource->selectOne($dirName, $searchFileName, $searchExt))) {
+            $result = $datasource->update($dirName, $fileName, $extension, $content, $oldFileName, $oldExtension);
         } else {
-            $result = $this->datasources[0]->insert($dirName, $fileName, $extension, $content);
+            $result = $datasource->insert($dirName, $fileName, $extension, $content);
         }
 
         // Refresh the cache
@@ -305,7 +343,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     {
         try {
             // Delete from only the first datasource
-            $this->datasources[0]->delete($dirName, $fileName, $extension);
+            $this->getFirstDatasource()->delete($dirName, $fileName, $extension);
         }
         catch (Exception $ex) {
             // Check to see if this is a valid path to delete
