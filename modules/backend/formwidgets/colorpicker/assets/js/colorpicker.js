@@ -57,24 +57,36 @@
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
                 hide: function(color) {
-                    var hex = color ? color.toHexString() : ''
-                    self.$customColorSpan.css('background', hex)
+                    var customColor = self.covertColor(color)
+                    self.$customColorSpan.css('background', customColor)
                 },
                 show: function(color) {
                     self.selectColor(self.$customColor)
                 },
                 move: function(color) {
-                    var hex = color ? color.toHexString() : ''
-                    self.$customColorSpan.css('background', hex)
+                    var customColor = self.covertColor(color)
+                    self.$customColorSpan.css('background', customColor)
                 },
                 change: function(color) {
-                    var hex = color ? color.toHexString() : ''
-                    self.setCustomColor(hex)
+                    var customColor = self.covertColor(color)
+                    self.setCustomColor(customColor)
                 }
             })
         }
     }
 
+    /**
+     * Convert colour to hex or rgba depnding on alpha (opacity) value
+     */
+    ColorPicker.prototype.covertColor = function(color) {
+        if (color._a < 1 ) {
+            var customColor = color ? color.toRgbString() : ''
+        } else {
+            var customColor = color ? color.toHexString() : ''
+        }
+        return customColor
+    }    
+    
     ColorPicker.prototype.setCustomColor = function(hexColor) {
         if (this.$customColor.length) {
             this.$customColor.data('hexColor', hexColor)
