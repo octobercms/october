@@ -711,7 +711,7 @@ class Updates extends Controller
             $manager = UpdateManager::instance();
             $result = $manager->requestPluginDetails($code);
 
-            if (!isset($result['code']) || !isset($result['hash'])) {
+            if (!isset($result['code'], $result['hash'])) {
                 throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
             }
 
@@ -839,7 +839,7 @@ class Updates extends Controller
             $manager = UpdateManager::instance();
             $result = $manager->requestThemeDetails($code);
 
-            if (!isset($result['code']) || !isset($result['hash'])) {
+            if (!isset($result['code'], $result['hash'])) {
                 throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
             }
 
