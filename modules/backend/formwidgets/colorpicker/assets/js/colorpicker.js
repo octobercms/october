@@ -76,15 +76,10 @@
     }
 
     /**
-     * Convert colour to hex or rgba depnding on alpha (opacity) value
+     * Convert colour to hex or rgba depending on alpha (opacity) value
      */
     ColorPicker.prototype.covertColor = function(color) {
-        if (color._a < 1 ) {
-            var customColor = color ? color.toRgbString() : ''
-        } else {
-            var customColor = color ? color.toHexString() : ''
-        }
-        return customColor
+        return color._a < 1 ? color.toRgbString() : color.toHexString()
     }    
     
     ColorPicker.prototype.setCustomColor = function(hexColor) {
