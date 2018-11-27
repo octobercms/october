@@ -282,7 +282,7 @@ class Filter extends WidgetBase
         $result = $this->fireEvent('filter.update', [$params]);
 
         if ($result && is_array($result)) {
-            return array_merge(...$result);
+            return call_user_func_array('array_merge', $result);
         }
     }
 
