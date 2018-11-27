@@ -210,7 +210,7 @@ class FileUpload extends FormWidgetBase
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
-            $cssDimensions .= ($this->imageHeight)
+            $cssDimensions .= $this->imageHeight
                 ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
@@ -219,7 +219,7 @@ class FileUpload extends FormWidgetBase
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 
-            $cssDimensions .= ($this->imageHeight)
+            $cssDimensions .= $this->imageHeight
                 ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
