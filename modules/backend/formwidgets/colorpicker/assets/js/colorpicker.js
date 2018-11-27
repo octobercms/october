@@ -57,18 +57,18 @@
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
                 hide: function(color) {
-                    var customColor = self.covertColor(color)
+                    var customColor = self.convertColor(color)
                     self.$customColorSpan.css('background', customColor)
                 },
                 show: function(color) {
                     self.selectColor(self.$customColor)
                 },
                 move: function(color) {
-                    var customColor = self.covertColor(color)
+                    var customColor = self.convertColor(color)
                     self.$customColorSpan.css('background', customColor)
                 },
                 change: function(color) {
-                    var customColor = self.covertColor(color)
+                    var customColor = self.convertColor(color)
                     self.setCustomColor(customColor)
                 }
             })
@@ -78,7 +78,7 @@
     /**
      * Convert colour to hex or rgba depending on alpha (opacity) value
      */
-    ColorPicker.prototype.covertColor = function(color) {
+    ColorPicker.prototype.convertColor = function(color) {
         return color._a < 1 ? color.toRgbString() : color.toHexString()
     }    
     
