@@ -130,7 +130,7 @@ class Search extends WidgetBase
         $params = func_get_args();
         $result = $this->fireEvent('search.submit', [$params]);
         if ($result && is_array($result)) {
-            return call_user_func_array('array_merge', $result);
+            return array_merge(...$result);
         }
     }
 
