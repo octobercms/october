@@ -2,7 +2,6 @@
 
 use Event;
 use Twig_Source;
-use Twig_LoaderInterface;
 use Cms\Contracts\CmsObject;
 use System\Twig\Loader as LoaderBase;
 use Cms\Classes\Partial as CmsPartial;
@@ -13,7 +12,7 @@ use Cms\Classes\Partial as CmsPartial;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Loader extends LoaderBase implements Twig_LoaderInterface
+class Loader extends LoaderBase
 {
     /**
      * @var \Cms\Classes\CmsCompoundObject A CMS object to load the template from.
