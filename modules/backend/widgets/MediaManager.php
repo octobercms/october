@@ -1066,7 +1066,7 @@ class MediaManager extends WidgetBase
      */
     protected function setSidebarVisible($visible)
     {
-        $this->putSession('sidebar_visible', !!$visible);
+        $this->putSession('sidebar_visible', (bool)$visible);
     }
 
     /**

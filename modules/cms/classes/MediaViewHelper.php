@@ -87,7 +87,7 @@ class MediaViewHelper
 
         $partial = Partial::loadCached($controller->getTheme(), $name);
 
-        return $this->playerPartialFlags[$name] = !!$partial;
+        return $this->playerPartialFlags[$name] = (bool)$partial;
     }
 
     protected function getDefaultPlayerMarkup($type, $src)

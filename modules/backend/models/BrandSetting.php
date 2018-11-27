@@ -144,7 +144,7 @@ class BrandSetting extends Model
 
     public static function isBaseConfigured()
     {
-        return !!Config::get('brand');
+        return (bool)Config::get('brand');
     }
 
     public static function getDefaultLogo()

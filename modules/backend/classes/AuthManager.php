@@ -195,6 +195,6 @@ class AuthManager extends RainAuthManager
 
     public function hasPermissionsForRole($role)
     {
-        return !!$this->listPermissionsForRole($role, false);
+        return (bool)$this->listPermissionsForRole($role, false);
     }
 }

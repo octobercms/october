@@ -820,7 +820,7 @@ class RelationController extends ControllerBehavior
 
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
-            $config->context = $this->evalFormContext('manage', !!$this->manageId);
+            $config->context = $this->evalFormContext('manage', (bool)$this->manageId);
             $config->alias = $this->alias . 'ManageForm';
 
             /*
@@ -865,7 +865,7 @@ class RelationController extends ControllerBehavior
         $config = $this->makeConfigForMode('pivot', 'form');
         $config->model = $this->relationModel;
         $config->arrayName = class_basename($this->relationModel);
-        $config->context = $this->evalFormContext('pivot', !!$this->manageId);
+        $config->context = $this->evalFormContext('pivot', (bool)$this->manageId);
         $config->alias = $this->alias . 'ManagePivotForm';
 
         $foreignKeyName = $this->relationModel->getQualifiedKeyName();
