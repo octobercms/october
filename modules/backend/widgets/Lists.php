@@ -1687,10 +1687,6 @@ class Lists extends WidgetBase
      */
     protected function isColumnPivot($column)
     {
-        if (!isset($column->relation) || $column->relation != 'pivot') {
-            return false;
-        }
-
-        return true;
+        return !(!isset($column->relation) || $column->relation !== 'pivot');
     }
 }

@@ -591,11 +591,7 @@ class Controller extends Extendable
         /*
          * Generic handler that does nothing
          */
-        if ($handler == 'onAjax') {
-            return true;
-        }
-
-        return false;
+        return $handler === 'onAjax';
     }
 
     /**
