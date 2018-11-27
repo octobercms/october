@@ -42,7 +42,7 @@ trait InspectableContainer
         foreach ($propertyNameParts as $part) {
             $part = trim($part);
 
-            if ($part === '') {
+            if (!strlen($part)) {
                 continue;
             }
 

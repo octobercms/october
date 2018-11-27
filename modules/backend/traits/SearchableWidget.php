@@ -29,7 +29,7 @@ trait SearchableWidget
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if ($word === '') {
+            if (!strlen($word)) {
                 continue;
             }
 

@@ -196,7 +196,7 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $newName = trim(Input::get('name'));
-        if ($newName === '') {
+        if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
         }
 
@@ -251,7 +251,7 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $newName = trim(Input::get('name'));
-        if ($newName === '') {
+        if (!strlen($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
         }
 
@@ -304,12 +304,12 @@ class AssetList extends WidgetBase
         $this->validateRequestTheme();
 
         $selectedList = Input::get('selectedList');
-        if ($selectedList === '') {
+        if (!strlen($selectedList)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.selected_files_not_found'));
         }
 
         $destinationDir = Input::get('dest');
-        if ($destinationDir === '') {
+        if (!strlen($destinationDir)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.select_destination_dir'));
         }
 
@@ -408,7 +408,7 @@ class AssetList extends WidgetBase
 
         $searchTerm = Str::lower($this->getSearchTerm());
 
-        if ($searchTerm === '') {
+        if (!strlen($searchTerm)) {
             $currentPath = $this->getCurrentPath();
             return $this->getDirectoryContents(
                 new DirectoryIterator($currentPath)
@@ -581,7 +581,7 @@ class AssetList extends WidgetBase
     protected function getUpPath()
     {
         $path = $this->getCurrentRelativePath();
-        if (rtrim(ltrim($path, '/'), '/') === '') {
+        if (!strlen(rtrim(ltrim($path, '/'), '/'))) {
             return null;
         }
 
@@ -717,7 +717,7 @@ class AssetList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if ($word === '') {
+            if (!strlen($word)) {
                 continue;
             }
 

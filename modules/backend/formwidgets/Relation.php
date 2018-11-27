@@ -163,7 +163,7 @@ class Relation extends FormWidgetBase
             return FormField::NO_SAVE_DATA;
         }
 
-        if (is_string($value) && $value === '') {
+        if (is_string($value) && !strlen($value)) {
             return null;
         }
 

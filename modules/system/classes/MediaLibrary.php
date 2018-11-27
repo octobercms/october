@@ -286,7 +286,7 @@ class MediaLibrary
 
         foreach ($folders as $folder) {
             $folder = $this->getMediaRelativePath($folder);
-            if ($folder === '') {
+            if (!strlen($folder)) {
                 $folder = '/';
             }
 
@@ -780,7 +780,7 @@ class MediaLibrary
 
         foreach ($words as $word) {
             $word = trim($word);
-            if ($word === '') {
+            if (!strlen($word)) {
                 continue;
             }
 

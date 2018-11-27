@@ -236,7 +236,7 @@ class MailManager
 
         $templateText = $template->content_text;
 
-        if ($template->content_text === '') {
+        if (!strlen($template->content_text)) {
             $templateText = $template->content_html;
         }
 
@@ -264,7 +264,7 @@ class MailManager
             $content = $partial->content_text ?: $partial->content_html;
         }
 
-        if (trim($content) === '') {
+        if (!strlen(trim($content))) {
             return '';
         }
 

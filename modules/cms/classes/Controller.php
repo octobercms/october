@@ -967,7 +967,7 @@ class Controller
             /*
              * Component alias not supplied
              */
-            if ($componentAlias === '') {
+            if (!strlen($componentAlias)) {
                 if ($this->componentContext !== null) {
                     $componentObj = $this->componentContext;
                 }
@@ -1594,7 +1594,7 @@ class Controller
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        if ($token === '') {
+        if (!strlen($token)) {
             return false;
         }
 

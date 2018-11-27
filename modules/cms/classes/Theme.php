@@ -186,7 +186,7 @@ class Theme
             $activeTheme = $apiResult;
         }
 
-        if ($activeTheme === '') {
+        if (!strlen($activeTheme)) {
             throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
         }
 
@@ -272,7 +272,7 @@ class Theme
             $editTheme = $apiResult;
         }
 
-        if ($editTheme === '') {
+        if (!strlen($editTheme)) {
             throw new SystemException(Lang::get('cms::lang.theme.edit.not_set'));
         }
 

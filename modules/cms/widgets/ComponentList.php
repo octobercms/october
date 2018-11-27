@@ -60,7 +60,7 @@ class ComponentList extends WidgetBase
     {
         $searchTerm = Str::lower($this->getSearchTerm());
         $searchWords = [];
-        if ($searchTerm !== '') {
+        if (strlen($searchTerm)) {
             $searchWords = explode(' ', $searchTerm);
         }
 
@@ -214,7 +214,7 @@ class ComponentList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if ($word === '') {
+            if (!strlen($word)) {
                 continue;
             }
 
@@ -232,11 +232,11 @@ class ComponentList extends WidgetBase
             return true;
         }
 
-        if (Str::contains(Str::lower($item->description), $word) && $item->description !== '') {
+        if (Str::contains(Str::lower($item->description), $word) && strlen($item->description)) {
             return true;
         }
 
-        if (Str::contains(Str::lower($item->plugin), $word) && $item->plugin !== '') {
+        if (Str::contains(Str::lower($item->plugin), $word) && strlen($item->plugin)) {
             return true;
         }
 

@@ -443,7 +443,7 @@ class Filter extends WidgetBase
          * Apply the search
          */
         $searchQuery = Str::lower($searchQuery);
-        if ($searchQuery !== '') {
+        if (strlen($searchQuery)) {
             $options = $this->filterOptionsBySearch($options, $searchQuery);
         }
 
@@ -463,7 +463,7 @@ class Filter extends WidgetBase
         $optionMatchesSearch = function ($words, $option) {
             foreach ($words as $word) {
                 $word = trim($word);
-                if ($word === '') {
+                if (!strlen($word)) {
                     continue;
                 }
 

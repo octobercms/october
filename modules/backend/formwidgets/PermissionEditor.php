@@ -81,7 +81,7 @@ class PermissionEditor extends FormWidgetBase
 
     protected function getControlMode()
     {
-        return $this->mode !== '' ? $this->mode : 'radio';
+        return strlen($this->mode) ? $this->mode : 'radio';
     }
 
     /**

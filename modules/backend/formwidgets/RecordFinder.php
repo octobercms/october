@@ -203,7 +203,7 @@ class RecordFinder extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return $value !== '' ? $value : null;
+        return strlen($value) ? $value : null;
     }
 
     /**

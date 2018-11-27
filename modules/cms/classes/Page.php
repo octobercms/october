@@ -91,7 +91,7 @@ class Page extends CmsCompoundObject
                 continue;
             }
 
-            $result[$baseName] = $layout->name !== '' ? $layout->name : $baseName;
+            $result[$baseName] = strlen($layout->name) ? $layout->name : $baseName;
         }
 
         return $result;

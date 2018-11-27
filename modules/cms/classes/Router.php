@@ -169,7 +169,7 @@ class Router
      */
     public function findByFile($fileName, $parameters = [])
     {
-        if (File::extension($fileName) === '') {
+        if (!strlen(File::extension($fileName))) {
             $fileName .= '.htm';
         }
 
