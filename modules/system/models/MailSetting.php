@@ -62,7 +62,7 @@ class MailSetting extends Model
         $this->smtp_port = $config->get('mail.port', 587);
         $this->smtp_user = $config->get('mail.username');
         $this->smtp_password = $config->get('mail.password');
-        $this->smtp_authorization = !!strlen($this->smtp_user);
+        $this->smtp_authorization = (bool)strlen($this->smtp_user);
         $this->smtp_encryption = $config->get('mail.encryption');
     }
 

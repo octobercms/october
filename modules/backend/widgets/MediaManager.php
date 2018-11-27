@@ -401,7 +401,7 @@ class MediaManager extends WidgetBase
         $this->abortIfReadOnly();
 
         $newName = trim(Input::get('name'));
-        if (!strlen($newName)) {
+        if ($newName === '') {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
         }
 
@@ -484,7 +484,7 @@ class MediaManager extends WidgetBase
         $this->abortIfReadOnly();
 
         $name = trim(Input::get('name'));
-        if (!strlen($name)) {
+        if ($name === '') {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
         }
 
@@ -583,7 +583,7 @@ class MediaManager extends WidgetBase
         $this->abortIfReadOnly();
 
         $dest = trim(Input::get('dest'));
-        if (!strlen($dest)) {
+        if ($dest === '') {
             throw new ApplicationException(Lang::get('backend::lang.media.please_select_move_dest'));
         }
 
@@ -748,7 +748,7 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        if (!strlen($imageSrcPath)) {
+        if ($imageSrcPath === '') {
             throw new ApplicationException('Invalid input data');
         }
 
@@ -785,12 +785,12 @@ class MediaManager extends WidgetBase
         }
 
         $width = trim(Input::get('width'));
-        if (!strlen($width) || !ctype_digit($width)) {
+        if ($width === '' || !ctype_digit($width)) {
             throw new ApplicationException('Invalid input data');
         }
 
         $height = trim(Input::get('height'));
-        if (!strlen($height) || !ctype_digit($height)) {
+        if ($height === '' || !ctype_digit($height)) {
             throw new ApplicationException('Invalid input data');
         }
 
@@ -823,7 +823,7 @@ class MediaManager extends WidgetBase
         $sortBy = $this->getSortBy();
         $sortDirection = $this->getSortDirection();
         $searchTerm = $this->getSearchTerm();
-        $searchMode = strlen($searchTerm) > 0;
+        $searchMode = $searchTerm !== '';
 
         if (!$searchMode) {
             $this->vars['items'] = $this->listFolderItems($folder, $filter, ['by' => $sortBy, 'direction' => $sortDirection]);
@@ -1044,11 +1044,11 @@ class MediaManager extends WidgetBase
             throw new ApplicationException('Invalid input data');
         }
 
-        if (strlen($selectionWidth) && !ctype_digit($selectionWidth)) {
+        if ($selectionWidth !== '' && !ctype_digit($selectionWidth)) {
             throw new ApplicationException('Invalid input data');
         }
 
-        if (strlen($selectionHeight) && !ctype_digit($selectionHeight)) {
+        if ($selectionHeight !== '' && !ctype_digit($selectionHeight)) {
             throw new ApplicationException('Invalid input data');
         }
 

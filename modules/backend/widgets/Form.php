@@ -1153,7 +1153,7 @@ class Form extends WidgetBase
                  * Number fields should be converted to integers
                  */
                 if ($field->type === 'number') {
-                    $value = !strlen(trim($value)) ? null : (float) $value;
+                    $value = trim($value) === '' ? null : (float) $value;
                 }
 
                 $this->dataArraySet($result, $parts, $value);

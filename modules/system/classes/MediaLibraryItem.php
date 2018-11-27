@@ -108,7 +108,7 @@ class MediaLibraryItem
         }
 
         $extension = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
-        if (!strlen($extension)) {
+        if ($extension === '') {
             return self::FILE_TYPE_DOCUMENT;
         }
 

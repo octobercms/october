@@ -196,7 +196,7 @@ class FormController extends ControllerBehavior
     public function create($context = null)
     {
         try {
-            $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
+            $this->context = $context !== '' ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
                 "{$this->context}[title]",
                 'backend::lang.form.create_title'
@@ -224,7 +224,7 @@ class FormController extends ControllerBehavior
      */
     public function create_onSave($context = null)
     {
-        $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
+        $this->context = $context !== '' ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
 
         $model = $this->controller->formCreateModelObject();
         $model = $this->controller->formExtendModel($model) ?: $model;
@@ -267,7 +267,7 @@ class FormController extends ControllerBehavior
     public function update($recordId = null, $context = null)
     {
         try {
-            $this->context = strlen($context) ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
+            $this->context = $context !== '' ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
                 "{$this->context}[title]",
                 'backend::lang.form.update_title'
@@ -294,7 +294,7 @@ class FormController extends ControllerBehavior
      */
     public function update_onSave($recordId = null, $context = null)
     {
-        $this->context = strlen($context) ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
+        $this->context = $context !== '' ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
@@ -361,7 +361,7 @@ class FormController extends ControllerBehavior
     public function preview($recordId = null, $context = null)
     {
         try {
-            $this->context = strlen($context) ? $context : $this->getConfig('preview[context]', self::CONTEXT_PREVIEW);
+            $this->context = $context !== '' ? $context : $this->getConfig('preview[context]', self::CONTEXT_PREVIEW);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
                 "{$this->context}[title]",
                 'backend::lang.form.preview_title'
@@ -740,7 +740,7 @@ class FormController extends ControllerBehavior
      */
     public function formFindModelObject($recordId)
     {
-        if (!strlen($recordId)) {
+        if ($recordId === '') {
             throw new ApplicationException($this->getLang('not-found-message', 'backend::lang.form.missing_id'));
         }
 

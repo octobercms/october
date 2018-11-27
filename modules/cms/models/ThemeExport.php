@@ -111,11 +111,11 @@ class ThemeExport extends Model
         }
         catch (Exception $ex) {
 
-            if (strlen($tempPath) && File::isDirectory($tempPath)) {
+            if ($tempPath !== '' && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }
 
-            if (strlen($zipPath) && File::isFile($zipPath)) {
+            if ($zipPath !== '' && File::isFile($zipPath)) {
                 File::delete($zipPath);
             }
 

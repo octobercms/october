@@ -262,7 +262,7 @@ class Controller extends Extendable
      */
     public function actionExists($name, $internal = false)
     {
-        if (!strlen($name) || substr($name, 0, 1) == '_' || !$this->methodExists($name)) {
+        if ($name === '' || substr($name, 0, 1) == '_' || !$this->methodExists($name)) {
             return false;
         }
 
@@ -728,7 +728,7 @@ class Controller extends Extendable
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        if (!strlen($token)) {
+        if ($token === '') {
             return false;
         }
 

@@ -147,7 +147,7 @@ class Search extends WidgetBase
      */
     public function setActiveTerm($term)
     {
-        if (strlen($term)) {
+        if ($term !== '') {
             $this->putSession('term', $term);
         } else {
             $this->resetSession();

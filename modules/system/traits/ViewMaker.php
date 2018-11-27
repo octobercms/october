@@ -221,7 +221,7 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) ||
+        if ($filePath === '' ||
             !File::isFile($filePath) ||
             (!File::isLocalPath($filePath) && Config::get('cms.restrictBaseDir', true))
         ) {

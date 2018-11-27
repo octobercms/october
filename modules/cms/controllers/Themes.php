@@ -136,7 +136,7 @@ class Themes extends Controller
 
         $data = array_except($data, 'dir_name');
 
-        if (!strlen(trim(array_get($data, 'name')))) {
+        if (trim(array_get($data, 'name')) === '') {
             throw new ValidationException(['name' => trans('cms::lang.theme.create_theme_required_name')]);
         }
 

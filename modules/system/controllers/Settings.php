@@ -160,7 +160,7 @@ class Settings extends Controller
      */
     protected function createModel($item)
     {
-        if (!isset($item->class) || !strlen($item->class)) {
+        if (!isset($item->class) || $item->class === '') {
             throw new ApplicationException(Lang::get('system::lang.settings.missing_model'));
         }
 

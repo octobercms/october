@@ -193,7 +193,7 @@ class Asset extends Extendable
             ));
         }
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+        if ($this->originalFileName !== '' && $this->originalFileName !== $this->fileName) {
             $fullPath = $this->getFilePath($this->originalFileName);
 
             if (File::isFile($fullPath)) {
@@ -220,7 +220,7 @@ class Asset extends Extendable
 
         $fileName = trim($fileName);
 
-        if (!strlen($fileName)) {
+        if ($fileName === '') {
             throw new ValidationException(['fileName' =>
                 Lang::get('cms::lang.cms_object.file_name_required', [
                     'allowed' => implode(', ', $this->allowedExtensions),

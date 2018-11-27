@@ -815,7 +815,7 @@ class UpdateManager
 
         if ($result->code != 200) {
             throw new ApplicationException(
-                strlen($result->body)
+                $result->body !== ''
                 ? $result->body
                 : Lang::get('system::lang.server.response_empty')
             );
@@ -830,7 +830,7 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
         }
 
-        if ($resultData === false || (is_string($resultData) && !strlen($resultData))) {
+        if ($resultData === false || (is_string($resultData) && $resultData === '')) {
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
         }
 

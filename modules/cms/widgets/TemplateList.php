@@ -176,7 +176,7 @@ class TemplateList extends WidgetBase
         $filteredItems = [];
         $searchTerm = Str::lower($this->getSearchTerm());
 
-        if (strlen($searchTerm)) {
+        if ($searchTerm !== '') {
             /*
              * Exact
              */
@@ -355,7 +355,7 @@ class TemplateList extends WidgetBase
     {
         foreach ($words as $word) {
             $word = trim($word);
-            if (!strlen($word)) {
+            if ($word === '') {
                 continue;
             }
 
@@ -371,7 +371,7 @@ class TemplateList extends WidgetBase
     {
         $operator = $exact ? 'is' : 'contains';
 
-        if (strlen($item->title) && Str::$operator(Str::lower($item->title), $word)) {
+        if ($item->title !== '' && Str::$operator(Str::lower($item->title), $word)) {
             return true;
         }
 
@@ -379,12 +379,12 @@ class TemplateList extends WidgetBase
             return true;
         }
 
-        if (Str::$operator(Str::lower($item->description), $word) && strlen($item->description)) {
+        if (Str::$operator(Str::lower($item->description), $word) && $item->description !== '') {
             return true;
         }
 
         foreach ($item->descriptions as $value) {
-            if (Str::$operator(Str::lower($value), $word) && strlen($value)) {
+            if (Str::$operator(Str::lower($value), $word) && $value !== '') {
                 return true;
             }
         }

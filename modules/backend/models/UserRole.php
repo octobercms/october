@@ -60,7 +60,7 @@ class UserRole extends RoleBase
 
     public function isSystemRole()
     {
-        if (!$this->code || !strlen(trim($this->code))) {
+        if (!$this->code || trim($this->code) === '') {
             return false;
         }
 

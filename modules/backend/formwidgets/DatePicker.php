@@ -148,7 +148,7 @@ class DatePicker extends FormWidgetBase
             return FormField::NO_SAVE_DATA;
         }
 
-        if (!strlen($value)) {
+        if ($value === '') {
             return null;
         }
 

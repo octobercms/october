@@ -254,7 +254,7 @@ class ImportExportController extends ControllerBehavior
          */
         foreach ($data as $index => $sample) {
             $data[$index] = Str::limit($sample, 100);
-            if (!strlen($data[$index])) {
+            if ($data[$index] === '') {
                 unset($data[$index]);
             }
         }

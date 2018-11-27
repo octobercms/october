@@ -63,7 +63,7 @@ class Table extends WidgetBase
         $this->recordsKeyFrom = $this->getConfig('keyFrom', 'id');
 
         $dataSourceClass = $this->getConfig('dataSource');
-        if (!strlen($dataSourceClass)) {
+        if ($dataSourceClass === '') {
             throw new SystemException('The Table widget data source is not specified in the configuration.');
         }
 

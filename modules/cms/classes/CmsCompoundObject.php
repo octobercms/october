@@ -148,7 +148,7 @@ class CmsCompoundObject extends CmsObject
             $safeMode = !Config::get('app.debug', false);
         }
 
-        if ($safeMode && $this->isDirty('code') && strlen(trim($this->code))) {
+        if ($safeMode && $this->isDirty('code') && trim($this->code) !== '') {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
     }

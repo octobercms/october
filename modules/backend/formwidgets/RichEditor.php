@@ -109,7 +109,7 @@ class RichEditor extends FormWidgetBase
 
         if (is_string($buttons)) {
             $buttons = array_map(function ($button) {
-                return strlen($button) ? $button : '|';
+                return $button !== '' ? $button : '|';
             }, explode('|', $buttons));
         }
 
