@@ -122,7 +122,7 @@ class SettingsModel extends ModelBehavior
     public function set($key, $value = null)
     {
         $data = is_array($key) ? $key : [$key => $value];
-        $obj = self::instance();
+        $obj = $this->instance();
         $obj->fill($data);
         return $obj->save();
     }
