@@ -27,7 +27,7 @@ class ComponentNode extends Twig_Node
 
         $compiler->write("\$context['__cms_component_params'] = [];\n");
 
-        for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
+        for ($i = 1, $iMax = count($this->getNode('nodes')); $i < $iMax; $i++) {
             $compiler->write("\$context['__cms_component_params']['".$this->getAttribute('names')[$i-1]."'] = ");
             $compiler->subcompile($this->getNode('nodes')->getNode($i));
             $compiler->write(";\n");
