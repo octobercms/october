@@ -93,7 +93,7 @@ abstract class ComponentBase extends Extendable
 
         $className = Str::normalizeClassName(get_called_class());
         $this->dirName = strtolower(str_replace('\\', '/', $className));
-        $this->assetPath = Config::get('cms.pluginsPath', '/plugins').dirname(dirname($this->dirName));
+        $this->assetPath = Config::get('cms.pluginsPath', '/plugins') . dirname($this->dirName, 2);
 
         parent::__construct();
     }

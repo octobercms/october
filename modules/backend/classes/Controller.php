@@ -137,7 +137,7 @@ class Controller extends Extendable
         /*
          * Add layout paths from the plugin / module context
          */
-        $relativePath = dirname(dirname(strtolower(str_replace('\\', '/', get_called_class()))));
+        $relativePath = dirname(strtolower(str_replace('\\', '/', get_called_class())), 2);
         $this->layoutPath[] = '~/modules/' . $relativePath . '/layouts';
         $this->layoutPath[] = '~/plugins/' . $relativePath . '/layouts';
 
@@ -303,7 +303,7 @@ class Controller extends Extendable
         }
 
         $class = get_called_class();
-        $uriPath = dirname(dirname(strtolower(str_replace('\\', '/', $class))));
+        $uriPath = dirname(strtolower(str_replace('\\', '/', $class)), 2);
         $controllerName = strtolower(class_basename($class));
 
         $url = $uriPath.'/'.$controllerName.'/'.$action;
