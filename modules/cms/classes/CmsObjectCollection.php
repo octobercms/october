@@ -29,7 +29,7 @@ class CmsObjectCollection extends CollectionBase
                 }
 
                 if ($callback && ($component = $object->getComponent($componentName))) {
-                    $hasComponent = call_user_func($callback, $component) ?: $hasComponent;
+                    $hasComponent = $callback($component) ?: $hasComponent;
                 }
             }
 

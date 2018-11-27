@@ -556,7 +556,7 @@ class ListController extends ControllerBehavior
             if (!is_a($widget->getController(), $calledClass)) {
                 return;
             }
-            call_user_func_array($callback, [$widget, $widget->model]);
+            $callback($widget, $widget->model);
         });
     }
 
@@ -572,7 +572,7 @@ class ListController extends ControllerBehavior
             if (!is_a($widget->getController(), $calledClass)) {
                 return;
             }
-            call_user_func_array($callback, [$widget]);
+            $callback($widget);
         });
     }
 }

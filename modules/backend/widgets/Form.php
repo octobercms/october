@@ -1226,7 +1226,7 @@ class Form extends WidgetBase
          * Advanced usage, supplied options are callable
          */
         if (is_array($fieldOptions) && is_callable($fieldOptions)) {
-            $fieldOptions = call_user_func($fieldOptions, $this, $field);
+            $fieldOptions = $fieldOptions($this, $field);
         }
 
         /*

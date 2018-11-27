@@ -1107,7 +1107,7 @@ class Lists extends WidgetBase
             $callback = $availableTypes[$type];
 
             if (is_callable($callback)) {
-                return call_user_func_array($callback, [$value, $column, $record]);
+                return $callback($value, $column, $record);
             }
         }
 
