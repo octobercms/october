@@ -47,10 +47,10 @@ class PartialStack
      */
     public function addComponent($alias, $componentObj)
     {
-        array_push($this->activePartial['components'], [
+        $this->activePartial['components'][] = [
             'name' => $alias,
-            'obj' => $componentObj
-        ]);
+            'obj' => $componentObj,
+        ];
     }
 
     /**

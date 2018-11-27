@@ -714,7 +714,7 @@ class PluginManager
                  * No dependencies
                  */
                 if (!$depends) {
-                    array_push($result, $code);
+                    $result[] = $code;
                     unset($checklist[$code]);
                     continue;
                 }
@@ -730,7 +730,7 @@ class PluginManager
                 /*
                  * All dependencies are checked
                  */
-                array_push($result, $code);
+                $result[] = $code;
                 unset($checklist[$code]);
             }
 
