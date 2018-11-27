@@ -157,7 +157,8 @@ class Page extends CmsCompoundObject
             $references = [];
 
             foreach ($pages as $page) {
-                $references[$page->getBaseFileName()] = $page->title . ' [' . $page->getBaseFileName() . ']';
+                $baseFilename = $page->getBaseFileName();
+                $references[$baseFilename] = $page->title . ' [' . $baseFilename . ']';
             }
 
             $result = [
