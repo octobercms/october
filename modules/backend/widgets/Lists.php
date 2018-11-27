@@ -971,15 +971,13 @@ class Lists extends WidgetBase
          * so prevent the Model from attempting to load the relation
          * if the value is NULL.
          */
-        else {
-            if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes)) {
-                $value = $record->attributes[$columnName];
-            // Load the value from the relationship counter if useRelationCount is specified
-            } elseif ($column->relation && @$column->config['useRelationCount']) {
-                $value = $record->{"{$column->relation}_count"};
-            } else {
-                $value = $record->{$columnName};
-            }
+        else if ($record->hasRelation($columnName) && array_key_exists($columnName, $record->attributes)) {
+            $value = $record->attributes[$columnName];
+        // Load the value from the relationship counter if useRelationCount is specified
+        } elseif ($column->relation && @$column->config['useRelationCount']) {
+            $value = $record->{"{$column->relation}_count"};
+        } else {
+            $value = $record->{$columnName};
         }
 
         /**
@@ -1480,15 +1478,13 @@ class Lists extends WidgetBase
         /*
          * Supplied default
          */
-        else {
-            if (is_string($this->defaultSort)) {
-                $this->sortColumn = $this->defaultSort;
-                $this->sortDirection = 'desc';
-            }
-            elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
-                $this->sortColumn = $this->defaultSort['column'];
-                $this->sortDirection = $this->defaultSort['direction'] ?? 'desc';
-            }
+        else if (is_string($this->defaultSort)) {
+            $this->sortColumn = $this->defaultSort;
+            $this->sortDirection = 'desc';
+        }
+        elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
+            $this->sortColumn = $this->defaultSort['column'];
+            $this->sortDirection = $this->defaultSort['direction'] ?? 'desc';
         }
 
         /*
