@@ -14,6 +14,7 @@ use League\Csv\Writer as CsvWriter;
 use ApplicationException;
 use SplTempFileObject;
 use Exception;
+use Backend\Widgets\Form;
 
 /**
  * Adds features for importing and exporting data.
@@ -356,7 +357,7 @@ class ImportExportController extends ControllerBehavior
         $widgetConfig->model = $this->importGetModel();
         $widgetConfig->alias = 'importUploadForm';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+        $widget = $this->makeWidget(Form::class, $widgetConfig);
 
         $widget->bindEvent('form.beforeRefresh', function ($holder) {
             $holder->data = [];
@@ -516,7 +517,7 @@ class ImportExportController extends ControllerBehavior
         $widgetConfig->model = $this->exportGetModel();
         $widgetConfig->alias = 'exportUploadForm';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+        $widget = $this->makeWidget(Form::class, $widgetConfig);
 
         $widget->bindEvent('form.beforeRefresh', function ($holder) {
             $holder->data = [];
@@ -697,7 +698,7 @@ class ImportExportController extends ControllerBehavior
             $widgetConfig->alias = $type.'OptionsForm';
             $widgetConfig->arrayName = ucfirst($type).'Options';
 
-            return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+            return $this->makeWidget(Form::class, $widgetConfig);
         }
 
         return null;

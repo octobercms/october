@@ -5,6 +5,9 @@ use Event;
 use Flash;
 use ApplicationException;
 use Backend\Classes\ControllerBehavior;
+use Backend\Widgets\Lists;
+use Backend\Widgets\Toolbar;
+use Backend\Widgets\Filter;
 
 /**
  * Adds features for working with backend lists.
@@ -160,7 +163,7 @@ class ListController extends ControllerBehavior
         /*
          * List Widget with extensibility
          */
-        $widget = $this->makeWidget('Backend\Widgets\Lists', $columnConfig);
+        $widget = $this->makeWidget(Lists::class, $columnConfig);
 
         $widget->bindEvent('list.extendColumns', function () use ($widget) {
             $this->controller->listExtendColumns($widget);
@@ -198,7 +201,7 @@ class ListController extends ControllerBehavior
         if (isset($listConfig->toolbar)) {
             $toolbarConfig = $this->makeConfig($listConfig->toolbar);
             $toolbarConfig->alias = $widget->alias . 'Toolbar';
-            $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+            $toolbarWidget = $this->makeWidget(Toolbar::class, $toolbarConfig);
             $toolbarWidget->bindToController();
             $toolbarWidget->cssClasses[] = 'list-header';
 
@@ -231,7 +234,7 @@ class ListController extends ControllerBehavior
 
             $filterConfig = $this->makeConfig($listConfig->filter);
             $filterConfig->alias = $widget->alias . 'Filter';
-            $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
+            $filterWidget = $this->makeWidget(Filter::class, $filterConfig);
             $filterWidget->bindToController();
 
             /*

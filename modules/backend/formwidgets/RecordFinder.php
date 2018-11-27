@@ -1,6 +1,8 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use Backend\Widgets\Lists;
+use Backend\Widgets\Search;
 
 /**
  * Record Finder
@@ -269,7 +271,7 @@ class RecordFinder extends FormWidgetBase
         $config->showCheckboxes = false;
         $config->recordsPerPage = $this->recordsPerPage;
         $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->keyFrom . "')", $this->getId());
-        $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+        $widget = $this->makeWidget(Lists::class, $config);
 
         $widget->setSearchOptions([
             'mode' => $this->searchMode,
@@ -301,7 +303,7 @@ class RecordFinder extends FormWidgetBase
         $config->alias = $this->alias . 'Search';
         $config->growable = false;
         $config->prompt = 'backend::lang.list.search_prompt';
-        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $widget = $this->makeWidget(Search::class, $config);
         $widget->cssClasses[] = 'recordfinder-search';
         return $widget;
     }

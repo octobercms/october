@@ -24,6 +24,7 @@ use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
 use ApplicationException;
 use Cms\Classes\Asset;
+use Backend\Widgets\Form;
 
 /**
  * CMS index
@@ -540,7 +541,7 @@ class Index extends Controller
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName()).uniqid();
 
-        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
+        return $this->makeWidget(Form::class, $widgetConfig);
     }
 
     /**

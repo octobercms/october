@@ -11,6 +11,7 @@ use Backend\Classes\ControllerBehavior;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
+use Backend\Widgets\Form;
 
 /**
  * Adds features for working with backend forms. This behavior
@@ -136,7 +137,7 @@ class FormController extends ControllerBehavior
         /*
          * Form Widget with extensibility
          */
-        $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
+        $this->formWidget = $this->makeWidget(Form::class, $config);
 
         $this->formWidget->bindEvent('form.extendFieldsBefore', function () {
             $this->controller->formExtendFieldsBefore($this->formWidget);

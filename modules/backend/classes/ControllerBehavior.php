@@ -54,7 +54,7 @@ class ControllerBehavior extends ExtensionBase
                 throw new ApplicationException(Lang::get('system::lang.behavior.missing_property', [
                     'class' => get_class($controller),
                     'property' => $property,
-                    'behavior' => get_called_class()
+                    'behavior' => static::class
                 ]));
             }
         }

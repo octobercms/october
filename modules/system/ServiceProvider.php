@@ -25,6 +25,23 @@ use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
 use Illuminate\Support\Facades\Schema;
+use System\Helpers\DateTime;
+use System\Console\OctoberUp;
+use System\Console\OctoberDown;
+use System\Console\OctoberUpdate;
+use System\Console\OctoberUtil;
+use System\Console\OctoberMirror;
+use System\Console\OctoberFresh;
+use System\Console\OctoberEnv;
+use System\Console\OctoberInstall;
+use System\Console\PluginInstall;
+use System\Console\PluginRemove;
+use System\Console\PluginRefresh;
+use System\Console\ThemeInstall;
+use System\Console\ThemeRemove;
+use System\Console\ThemeList;
+use System\Console\ThemeUse;
+use System\Models\LogSetting;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -191,8 +208,8 @@ class ServiceProvider extends ModuleServiceProvider
                 'transchoice'    => ['Lang', 'choice'],
                 'md'             => ['Markdown', 'parse'],
                 'md_safe'        => ['Markdown', 'parseSafe'],
-                'time_since'     => ['System\Helpers\DateTime', 'timeSince'],
-                'time_tense'     => ['System\Helpers\DateTime', 'timeTense'],
+                'time_since'     => [DateTime::class, 'timeSince'],
+                'time_tense'     => [DateTime::class, 'timeTense'],
             ]);
         });
     }
@@ -224,23 +241,23 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Register console commands
          */
-        $this->registerConsoleCommand('october.up', 'System\Console\OctoberUp');
-        $this->registerConsoleCommand('october.down', 'System\Console\OctoberDown');
-        $this->registerConsoleCommand('october.update', 'System\Console\OctoberUpdate');
-        $this->registerConsoleCommand('october.util', 'System\Console\OctoberUtil');
-        $this->registerConsoleCommand('october.mirror', 'System\Console\OctoberMirror');
-        $this->registerConsoleCommand('october.fresh', 'System\Console\OctoberFresh');
-        $this->registerConsoleCommand('october.env', 'System\Console\OctoberEnv');
-        $this->registerConsoleCommand('october.install', 'System\Console\OctoberInstall');
+        $this->registerConsoleCommand('october.up', OctoberUp::class);
+        $this->registerConsoleCommand('october.down', OctoberDown::class);
+        $this->registerConsoleCommand('october.update', OctoberUpdate::class);
+        $this->registerConsoleCommand('october.util', OctoberUtil::class);
+        $this->registerConsoleCommand('october.mirror', OctoberMirror::class);
+        $this->registerConsoleCommand('october.fresh', OctoberFresh::class);
+        $this->registerConsoleCommand('october.env', OctoberEnv::class);
+        $this->registerConsoleCommand('october.install', OctoberInstall::class);
 
-        $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
-        $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
-        $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
+        $this->registerConsoleCommand('plugin.install', PluginInstall::class);
+        $this->registerConsoleCommand('plugin.remove', PluginRemove::class);
+        $this->registerConsoleCommand('plugin.refresh', PluginRefresh::class);
 
-        $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
-        $this->registerConsoleCommand('theme.remove', 'System\Console\ThemeRemove');
-        $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
-        $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
+        $this->registerConsoleCommand('theme.install', ThemeInstall::class);
+        $this->registerConsoleCommand('theme.remove', ThemeRemove::class);
+        $this->registerConsoleCommand('theme.list', ThemeList::class);
+        $this->registerConsoleCommand('theme.use', ThemeUse::class);
     }
 
     /*
@@ -455,7 +472,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'system::lang.mail.menu_description',
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-envelope',
-                    'class'       => 'System\Models\MailSetting',
+                    'class'       => MailSetting::class,
                     'permissions' => ['system.manage_mail_settings'],
                     'order'       => 620
                 ],
@@ -493,7 +510,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'system::lang.log.menu_description',
                     'category'    => SettingsManager::CATEGORY_LOGS,
                     'icon'        => 'icon-dot-circle-o',
-                    'class'       => 'System\Models\LogSetting',
+                    'class'       => LogSetting::class,
                     'permissions' => ['system.manage_logs'],
                     'order'       => 990
                 ],

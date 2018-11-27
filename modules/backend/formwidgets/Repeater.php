@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Backend\Classes\FormWidgetBase;
+use Backend\Widgets\Form;
 
 /**
  * Repeater Form Widget
@@ -269,7 +270,7 @@ class Repeater extends FormWidgetBase
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+        $widget = $this->makeWidget(Form::class, $config);
         $widget->bindToController();
 
         $this->indexMeta[$index] = [

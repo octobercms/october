@@ -33,7 +33,7 @@ class ModelBehavior extends ModelBehaviorBase
                 throw new ApplicationException(Lang::get('system::lang.behavior.missing_property', [
                     'class' => get_class($model),
                     'property' => $property,
-                    'behavior' => get_called_class()
+                    'behavior' => static::class
                 ]));
             }
         }

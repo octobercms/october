@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Backend\Classes\WidgetBase;
+use Backend\Widgets\Search;
 
 /**
  * Toolbar Widget
@@ -67,7 +68,7 @@ class Toolbar extends WidgetBase
             }
 
             $searchConfig->alias = $this->alias . 'Search';
-            $this->searchWidget = $this->makeWidget('Backend\Widgets\Search', $searchConfig);
+            $this->searchWidget = $this->makeWidget(Search::class, $searchConfig);
             $this->searchWidget->bindToController();
         }
     }

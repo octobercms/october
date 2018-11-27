@@ -62,7 +62,7 @@ trait ConfigMaker
             if (!File::isFile($configFile)) {
                 throw new SystemException(Lang::get(
                     'system::lang.config.not_found',
-                    ['file' => $configFile, 'location' => get_called_class()]
+                    ['file' => $configFile, 'location' => static::class]
                 ));
             }
 
@@ -91,7 +91,7 @@ trait ConfigMaker
             if (!property_exists($config, $property)) {
                 throw new SystemException(Lang::get(
                     'system::lang.config.required',
-                    ['property' => $property, 'location' => get_called_class()]
+                    ['property' => $property, 'location' => static::class]
                 ));
             }
         }
@@ -168,7 +168,7 @@ trait ConfigMaker
      */
     public function guessConfigPath($suffix = '')
     {
-        $class = get_called_class();
+        $class = static::class;
         return $this->guessConfigPathFrom($class, $suffix);
     }
 

@@ -2,6 +2,9 @@
 
 use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
+use Backend\Models\User;
+use Backend\Models\UserGroup;
+use Backend\Models\UserThrottle;
 
 /**
  * Back-end authentication manager.
@@ -15,11 +18,11 @@ class AuthManager extends RainAuthManager
 
     protected $sessionKey = 'admin_auth';
 
-    protected $userModel = 'Backend\Models\User';
+    protected $userModel = User::class;
 
-    protected $groupModel = 'Backend\Models\UserGroup';
+    protected $groupModel = UserGroup::class;
 
-    protected $throttleModel = 'Backend\Models\UserThrottle';
+    protected $throttleModel = UserThrottle::class;
 
     protected $requireActivation = false;
 

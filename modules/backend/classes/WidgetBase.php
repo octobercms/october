@@ -146,7 +146,7 @@ abstract class WidgetBase extends Extendable
      */
     public function getId($suffix = null)
     {
-        $id = class_basename(get_called_class());
+        $id = class_basename(static::class);
 
         if ($this->alias != $this->defaultAlias) {
             $id .= '-' . $this->alias;

@@ -281,7 +281,7 @@ trait ViewMaker
      */
     public function guessViewPath($suffix = '', $isPublic = false)
     {
-        $class = get_called_class();
+        $class = static::class;
         return $this->guessViewPathFrom($class, $suffix, $isPublic);
     }
 

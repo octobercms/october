@@ -30,7 +30,7 @@ class Files extends Controller
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return App::make(\Cms\Classes\Controller::class)->setStatusCode(404)->run('/404');
     }
 
     /**
@@ -48,7 +48,7 @@ class Files extends Controller
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return App::make(\Cms\Classes\Controller::class)->setStatusCode(404)->run('/404');
     }
 
     /**

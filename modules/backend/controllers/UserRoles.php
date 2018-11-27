@@ -5,6 +5,7 @@ use Response;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
+use Backend\FormWidgets\PermissionEditor;
 
 /**
  * Backend user groups controller
@@ -78,7 +79,7 @@ class UserRoles extends Controller
         return [
             'permissions' => [
                 'tab' => 'backend::lang.user.permissions',
-                'type' => 'Backend\FormWidgets\PermissionEditor',
+                'type' => PermissionEditor::class,
                 'mode' => 'checkbox'
             ]
         ];

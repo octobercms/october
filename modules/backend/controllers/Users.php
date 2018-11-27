@@ -6,6 +6,7 @@ use BackendAuth;
 use Backend\Models\UserGroup;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
+use Backend\FormWidgets\PermissionEditor;
 
 /**
  * Backend user controller
@@ -171,7 +172,7 @@ class Users extends Controller
         return [
             'permissions' => [
                 'tab' => 'backend::lang.user.permissions',
-                'type' => 'Backend\FormWidgets\PermissionEditor',
+                'type' => PermissionEditor::class,
                 'trigger' => [
                     'action' => 'disable',
                     'field' => 'is_superuser',

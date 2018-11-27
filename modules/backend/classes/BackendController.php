@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use Closure;
 use System\Classes\PluginManager;
+use Cms\Classes\Controller;
 
 
 /**
@@ -78,7 +79,7 @@ class BackendController extends ControllerBase
         if (!App::hasDatabase()) {
             return Config::get('app.debug', false)
                 ? Response::make(View::make('backend::no_database'), 200)
-                : App::make('Cms\Classes\Controller')->run($url);
+                : App::make(Controller::class)->run($url);
         }
 
         /*
@@ -105,7 +106,7 @@ class BackendController extends ControllerBase
 
             $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
             if (PluginManager::instance()->isDisabled($pluginCode)) {
-                return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+                return App::make(Controller::class)->setStatusCode(404)->run('/404');
             }
 
             $controller = $params[2] ?? 'index';
@@ -124,7 +125,7 @@ class BackendController extends ControllerBase
         /*
          * Fall back on Cms controller
          */
-        return App::make('Cms\Classes\Controller')->run($url);
+        return App::make(Controller::class)->run($url);
     }
 
     /**

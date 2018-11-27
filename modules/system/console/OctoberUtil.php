@@ -54,7 +54,7 @@ class OctoberUtil extends Command
         $command = implode(' ', (array) $this->argument('name'));
         $method = 'util'.studly_case($command);
 
-        $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
+        $methods = preg_grep('/^util/', get_class_methods(static::class));
         $list = array_map(function ($item) {
             return "october:".snake_case($item, " ");
         }, $methods);

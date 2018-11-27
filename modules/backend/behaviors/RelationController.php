@@ -7,6 +7,10 @@ use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
 use October\Rain\Database\Model;
 use ApplicationException;
+use Backend\Widgets\Toolbar;
+use Backend\Widgets\Search;
+use Backend\Widgets\Lists;
+use Backend\Widgets\Form;
 
 /**
  * Uses a combination of lists and forms for managing Model relations.
@@ -572,7 +576,7 @@ class RelationController extends ControllerBehavior
             return;
         }
 
-        $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+        $toolbarWidget = $this->makeWidget(Toolbar::class, $toolbarConfig);
         $toolbarWidget->cssClasses[] = 'list-header';
 
         return $toolbarWidget;
@@ -588,7 +592,7 @@ class RelationController extends ControllerBehavior
         $config->alias = $this->alias . 'ManageSearch';
         $config->growable = false;
         $config->prompt = 'backend::lang.list.search_prompt';
-        $widget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $widget = $this->makeWidget(Search::class, $config);
         $widget->cssClasses[] = 'recordfinder-search';
 
         /*
@@ -641,7 +645,7 @@ class RelationController extends ControllerBehavior
                 $config->noRecordsMessage = $emptyMessage;
             }
 
-            $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+            $widget = $this->makeWidget(Lists::class, $config);
 
             /*
              * Apply defined constraints
@@ -724,7 +728,7 @@ class RelationController extends ControllerBehavior
             $config->context = 'relation';
             $config->alias = $this->alias . 'ViewForm';
 
-            $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+            $widget = $this->makeWidget(Form::class, $config);
             $widget->previewMode = true;
         }
 
@@ -771,7 +775,7 @@ class RelationController extends ControllerBehavior
                 );
             }
 
-            $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+            $widget = $this->makeWidget(Lists::class, $config);
 
             /*
              * Apply defined constraints
@@ -835,7 +839,7 @@ class RelationController extends ControllerBehavior
                 }
             }
 
-            $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+            $widget = $this->makeWidget(Form::class, $config);
         }
 
         if (!$widget) {
@@ -902,7 +906,7 @@ class RelationController extends ControllerBehavior
             $config->model->setRelation('pivot', $pivotModel);
         }
 
-        return $this->makeWidget('Backend\Widgets\Form', $config);
+        return $this->makeWidget(Form::class, $config);
     }
 
     //

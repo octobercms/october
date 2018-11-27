@@ -4,6 +4,7 @@ use Lang;
 use Backend;
 use ApplicationException;
 use Backend\Classes\ControllerBehavior;
+use Backend\Widgets\Toolbar;
 
 /**
  * Used for reordering and sorting records.
@@ -266,7 +267,7 @@ class ReorderController extends ControllerBehavior
     {
         if ($toolbarConfig = $this->getConfig('toolbar')) {
             $toolbarConfig = $this->makeConfig($toolbarConfig);
-            $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+            $toolbarWidget = $this->makeWidget(Toolbar::class, $toolbarConfig);
         }
         else {
             $toolbarWidget = null;

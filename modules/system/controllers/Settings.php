@@ -8,6 +8,7 @@ use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
 use ApplicationException;
 use Exception;
+use Backend\Widgets\Form;
 
 /**
  * Settings controller
@@ -150,7 +151,7 @@ class Settings extends Controller
         $config->arrayName = class_basename($model);
         $config->context = 'update';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+        $widget = $this->makeWidget(Form::class, $config);
         $widget->bindToController();
         $this->formWidget = $widget;
     }

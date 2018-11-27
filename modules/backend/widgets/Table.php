@@ -5,6 +5,8 @@ use Input;
 use Request;
 use Backend\Classes\WidgetBase;
 use SystemException;
+use Backend\Widgets\Table\ServerEventDataSource;
+use Backend\Widgets\Table\ClientMemoryDataSource;
 
 /**
  * Table Widget.
@@ -47,8 +49,8 @@ class Table extends WidgetBase
     protected $recordsKeyFrom;
 
     protected $dataSourceAliases = [
-        'client' => '\Backend\Widgets\Table\ClientMemoryDataSource',
-        'server' => '\Backend\Widgets\Table\ServerEventDataSource'
+        'client' => ClientMemoryDataSource::class,
+        'server' => ServerEventDataSource::class
     ];
 
     /**

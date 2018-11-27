@@ -905,7 +905,7 @@ class Form extends WidgetBase
             return false;
         }
 
-        if (is_subclass_of($widgetClass, 'Backend\Classes\FormWidgetBase')) {
+        if (is_subclass_of($widgetClass, FormWidgetBase::class)) {
             return true;
         }
 

@@ -9,6 +9,20 @@ use System\Classes\MailManager;
 use System\Classes\CombineAssets;
 use System\Classes\SettingsManager;
 use October\Rain\Support\ModuleServiceProvider;
+use Backend\FormWidgets\CodeEditor;
+use Backend\FormWidgets\RichEditor;
+use Backend\FormWidgets\MarkdownEditor;
+use Backend\FormWidgets\Relation;
+use Backend\FormWidgets\FileUpload;
+use Backend\FormWidgets\DatePicker;
+use Backend\FormWidgets\ColorPicker;
+use Backend\FormWidgets\RecordFinder;
+use Backend\FormWidgets\DataTable;
+use Backend\FormWidgets\Repeater;
+use Backend\FormWidgets\TagList;
+use Backend\FormWidgets\MediaFinder;
+use Backend\Models\BrandSetting;
+use Backend\Models\EditorSetting;
 
 class ServiceProvider extends ModuleServiceProvider
 {
@@ -166,19 +180,19 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendWidgets()
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
-            $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
-            $manager->registerFormWidget('Backend\FormWidgets\RichEditor', 'richeditor');
-            $manager->registerFormWidget('Backend\FormWidgets\MarkdownEditor', 'markdown');
-            $manager->registerFormWidget('Backend\FormWidgets\FileUpload', 'fileupload');
-            $manager->registerFormWidget('Backend\FormWidgets\Relation', 'relation');
-            $manager->registerFormWidget('Backend\FormWidgets\DatePicker', 'datepicker');
+            $manager->registerFormWidget(CodeEditor::class, 'codeeditor');
+            $manager->registerFormWidget(RichEditor::class, 'richeditor');
+            $manager->registerFormWidget(MarkdownEditor::class, 'markdown');
+            $manager->registerFormWidget(FileUpload::class, 'fileupload');
+            $manager->registerFormWidget(Relation::class, 'relation');
+            $manager->registerFormWidget(DatePicker::class, 'datepicker');
             $manager->registerFormWidget('Backend\FormWidgets\TimePicker', 'timepicker');
-            $manager->registerFormWidget('Backend\FormWidgets\ColorPicker', 'colorpicker');
-            $manager->registerFormWidget('Backend\FormWidgets\DataTable', 'datatable');
-            $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', 'recordfinder');
-            $manager->registerFormWidget('Backend\FormWidgets\Repeater', 'repeater');
-            $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
-            $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
+            $manager->registerFormWidget(ColorPicker::class, 'colorpicker');
+            $manager->registerFormWidget(DataTable::class, 'datatable');
+            $manager->registerFormWidget(RecordFinder::class, 'recordfinder');
+            $manager->registerFormWidget(Repeater::class, 'repeater');
+            $manager->registerFormWidget(TagList::class, 'taglist');
+            $manager->registerFormWidget(MediaFinder::class, 'mediafinder');
         });
     }
 
@@ -194,7 +208,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.branding.menu_description',
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-paint-brush',
-                    'class'       => 'Backend\Models\BrandSetting',
+                    'class'       => BrandSetting::class,
                     'permissions' => ['backend.manage_branding'],
                     'order'       => 500,
                     'keywords'    => 'brand style'
@@ -204,7 +218,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'backend::lang.editor.menu_description',
                     'category'    => SettingsManager::CATEGORY_SYSTEM,
                     'icon'        => 'icon-code',
-                    'class'       => 'Backend\Models\EditorSetting',
+                    'class'       => EditorSetting::class,
                     'permissions' => ['backend.manage_editor'],
                     'order'       => 500,
                     'keywords'    => 'html code class style'

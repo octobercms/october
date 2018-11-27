@@ -53,7 +53,7 @@ abstract class Skin
         /*
          * Guess the skin path
          */
-        $class = get_called_class();
+        $class = static::class;
         $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $this->skinPath = $classFile
