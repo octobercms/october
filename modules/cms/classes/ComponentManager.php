@@ -224,10 +224,6 @@ class ComponentManager
     public function findComponentPlugin($component)
     {
         $className = Str::normalizeClassName(get_class($component));
-        if (isset($this->pluginMap[$className])) {
-            return $this->pluginMap[$className];
-        }
-
-        return null;
+        return $this->pluginMap[$className] ?? null;
     }
 }

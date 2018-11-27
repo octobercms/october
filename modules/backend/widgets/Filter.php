@@ -1035,10 +1035,6 @@ class Filter extends WidgetBase
      */
     protected function getFilterDateFormat($scope)
     {
-        if (isset($scope->date_format)) {
-            return $scope->date_format;
-        }
-
-        return trans('backend::lang.filter.date.format');
+        return $scope->date_format ?? trans('backend::lang.filter.date.format');
     }
 }

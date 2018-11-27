@@ -330,13 +330,7 @@ class FormField
             $this->attributes($config['containerAttributes'], 'container');
         }
 
-        if (isset($config['valueFrom'])) {
-            $this->valueFrom = $config['valueFrom'];
-        }
-        else {
-            $this->valueFrom = $this->fieldName;
-        }
-
+        $this->valueFrom = $config['valueFrom'] ?? $this->fieldName;
         return $config;
     }
 

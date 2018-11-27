@@ -983,11 +983,7 @@ class Form extends WidgetBase
      */
     public function getFormWidget($field)
     {
-        if (isset($this->formWidgets[$field])) {
-            return $this->formWidgets[$field];
-        }
-
-        return null;
+        return $this->formWidgets[$field] ?? null;
     }
 
     /**
@@ -1008,11 +1004,7 @@ class Form extends WidgetBase
      */
     public function getField($field)
     {
-        if (isset($this->allFields[$field])) {
-            return $this->allFields[$field];
-        }
-
-        return null;
+        return $this->allFields[$field] ?? null;
     }
 
     /**
@@ -1034,11 +1026,7 @@ class Form extends WidgetBase
      */
     public function getTab($tab)
     {
-        if (isset($this->allTabs->$tab)) {
-            return $this->allTabs->$tab;
-        }
-
-        return null;
+        return $this->allTabs->$tab ?? null;
     }
 
     /**
@@ -1344,11 +1332,7 @@ class Form extends WidgetBase
 
         if (count($parts) === 1) {
             $key = array_shift($parts);
-            if (isset($array[$key])) {
-                return $array[$key];
-            }
-
-            return $default;
+            return $array[$key] ?? $default;
         }
 
         foreach ($parts as $segment) {

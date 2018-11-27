@@ -49,10 +49,7 @@ class TranscodeFilter extends php_user_filter
             $this->encodingFrom = $matches[1];
         }
 
-        $this->encodingTo = mb_internal_encoding();
-        if (isset($matches[3])) {
-            $this->encodingTo = $matches[3];
-        }
+        $this->encodingTo = $matches[3] ?? mb_internal_encoding();
 
         $this->params['locale'] = setlocale(LC_CTYPE, '0');
         if (stripos($this->params['locale'], 'UTF-8') === false) {
