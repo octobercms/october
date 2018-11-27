@@ -953,7 +953,10 @@ class Form extends WidgetBase
         if (isset($field->config['options'])) {
             $field->options(function () use ($field) {
                 $fieldOptions = $field->config['options'];
-                if ($fieldOptions === true) $fieldOptions = null;
+                if ($fieldOptions === true) {
+                    $fieldOptions = null;
+                }
+
                 $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
                 return $fieldOptions;
             });

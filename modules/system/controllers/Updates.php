@@ -199,7 +199,9 @@ class Updates extends Controller
     {
         $contents = null;
         foreach ($filenames as $file) {
-            if (!File::exists($path . '/'.$file)) continue;
+            if (!File::exists($path . '/'.$file)) {
+                continue;
+            }
 
             $contents = File::get($path . '/'.$file);
 
@@ -359,7 +361,9 @@ class Updates extends Controller
             $coreImportant = false;
 
             foreach (array_get($result, 'core.updates', []) as $build => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $detailsUrl = '//octobercms.com/support/articles/release-notes';
                 $description = str_replace('!!!', '', $description);
@@ -377,7 +381,9 @@ class Updates extends Controller
             $isImportant = false;
 
             foreach (array_get($plugin, 'updates', []) as $version => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $isImportant = $hasImportantUpdates = true;
                 $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';

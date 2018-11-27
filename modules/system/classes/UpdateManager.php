@@ -670,7 +670,10 @@ class UpdateManager
         $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
 
         foreach ($requestedDetails as $detail) {
-            if ($detail === -1) continue;
+            if ($detail === -1) {
+                continue;
+            }
+
             $result[] = $detail;
         }
 

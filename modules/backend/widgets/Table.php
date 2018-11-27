@@ -168,12 +168,14 @@ class Table extends WidgetBase
         foreach ($this->columns as $key=>$data) {
             $data['key'] = $key;
 
-            if (isset($data['title']))
+            if (isset($data['title'])) {
                 $data['title'] = trans($data['title']);
+            }
 
             if (isset($data['options'])) {
-                foreach ($data['options'] as &$option)
+                foreach ($data['options'] as &$option) {
                     $option = trans($option);
+                }
             }
 
             if (isset($data['validation'])) {

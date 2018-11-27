@@ -213,7 +213,10 @@ class CombineAssets
                 $localPath = $localPath.'/';
             }
             $assets = array_map(function($asset) use ($localPath) {
-                if (substr($asset, 0, 1) === '@') return $asset;
+                if (strpos($asset, '@') === 0) {
+                    return $asset;
+                }
+
                 return $localPath.$asset;
             }, $assets);
         }

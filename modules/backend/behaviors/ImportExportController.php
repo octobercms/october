@@ -398,7 +398,9 @@ class ImportExportController extends ControllerBehavior
 
         $dbColumns = $this->getImportDbColumns();
         foreach ($dbColumns as $column => $label) {
-            if (!$this->importIsColumnRequired($column)) continue;
+            if (!$this->importIsColumnRequired($column)) {
+                continue;
+            }
 
             $found = false;
             foreach ($matches as $matchedColumns) {
