@@ -321,7 +321,7 @@ class CodeParser
         }
 
         while (!@rename($tmpFile, $path)) {
-            usleep(rand(50000, 200000));
+            usleep(random_int(50000, 200000));
 
             if ($count++ > 10) {
                 throw new SystemException(Lang::get('system::lang.file.create_fail', ['name'=>$path]));
@@ -359,7 +359,7 @@ class CodeParser
         }
 
         while (!is_dir($dir) && !@mkdir($dir, 0777, true)) {
-            usleep(rand(50000, 200000));
+            usleep(random_int(50000, 200000));
 
             if ($count++ > 10) {
                 throw new SystemException(Lang::get('system::lang.directory.create_fail', ['name'=>$dir]));
