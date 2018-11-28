@@ -330,6 +330,10 @@ class OctoberUtil extends Command
         }
     }
 
+    /**
+     * Set ProjectId from october.com
+     * Call via: artisan october:util set project --projectId=<id>
+     */
     protected function utilSetProject(){
 
         $projectId = $this->option('projectId');
