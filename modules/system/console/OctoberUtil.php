@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
 use Exception;
+use System\Models\Parameter;
 
 /**
  * Console command for other utility commands.
@@ -98,6 +99,7 @@ class OctoberUtil extends Command
         return [
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
             ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
+            ['projectId', null, InputOption::VALUE_REQUIRED, 'Specify a projectId for set project'],
         ];
     }
 
@@ -326,6 +328,26 @@ class OctoberUtil extends Command
             echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
             echo shell_exec($exec);
         }
+    }
+
+    protected function utilSetProject(){
+
+        $projectId = $this->option('projectId');
+
+        if(null == $projectId){
+            $this->error("No projectId defined, use --projectId=<value> to set a projectId");
+            return;
+        }
+
+        $manager = UpdateManager::instance();
+        $result = $manager->requestProjectDetails($projectId);
+
+        Parameter::set([
+            'system::project.id'    => $projectId,
+            'system::project.name'  => $result['name'],
+            'system::project.owner' => $result['owner'],
+        ]);
+
     }
 
 }
