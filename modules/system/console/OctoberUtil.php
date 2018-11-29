@@ -331,9 +331,6 @@ class OctoberUtil extends Command
         }
     }
 
-    /**
-     * Set ProjectId from october.com
-     */
     protected function utilSetProject()
     {
         $projectId = $this->option('projectId');
