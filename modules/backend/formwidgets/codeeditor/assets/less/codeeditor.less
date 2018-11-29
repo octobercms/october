@@ -1,5 +1,8 @@
 @import "../../../../assets/less/core/boot.less";
 
+@background_color_1: #ddd;
+@border_right_color_1: rgb(203, 203, 203);
+
 .field-codeeditor {
     width: 100%;
     position: relative;
@@ -27,10 +30,22 @@
     }
 
     .editor-toolbar {
-        position: absolute;
-        top: 10px;
+        border-radius: 0px 0px 5px 5px;
         right: 25px;
+        background-color: @background_color_1;
+        border: 1px solid #cbcbcb;
+        border-right-color: @border_right_color_1;
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-top: 0 none;
+        max-width: 125px;
+        overflow: hidden;
+        margin: 0;
+        padding: 4px;
+        position: absolute;
+        top: 0px;
         z-index: @zindex-form;
+        white-space: normal;
         > ul, ul > li { list-style-type: none; padding: 0; margin: 0; }
         > ul > li {
             float: left;
