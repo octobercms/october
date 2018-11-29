@@ -28,6 +28,7 @@ use System\Models\Parameter;
  * - compile scss: Compile registered SCSS files only.
  * - compile lang: Compile registered Language files only.
  * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
+ * - set project --projectId=<id>: Set the projectId for this october instance.
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -332,14 +333,13 @@ class OctoberUtil extends Command
 
     /**
      * Set ProjectId from october.com
-     * Call via: artisan october:util set project --projectId=<id>
      */
-    protected function utilSetProject(){
-
+    protected function utilSetProject()
+    {
         $projectId = $this->option('projectId');
 
-        if(null == $projectId){
-            $this->error("No projectId defined, use --projectId=<value> to set a projectId");
+        if (empty($projectId)){
+            $this->error("No projectId defined, use --projectId=<id> to set a projectId");
             return;
         }
 
