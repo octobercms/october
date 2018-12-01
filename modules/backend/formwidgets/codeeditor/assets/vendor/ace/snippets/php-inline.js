@@ -1,3 +1,4 @@
+/*! This file has been dropped in v1.4.2 and keep for October CMS */
 ace.define("ace/snippets/php",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
