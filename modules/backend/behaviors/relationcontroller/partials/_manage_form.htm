@@ -49,9 +49,7 @@
 
         <?= Form::ajax('onRelationManageCreate', [
             'data-popup-load-indicator' => true,
-            'data-request-success' => "
-                $.oc.relationBehavior.changed('" . e($this->vars['relationField']) . "', 'created')
-            ",
+            'data-request-success' => "$.oc.relationBehavior.changed('" . e($this->vars['relationField']) . "', 'created')",
             'sessionKey' => $newSessionKey
         ]) ?>
 
