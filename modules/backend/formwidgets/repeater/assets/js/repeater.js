@@ -84,7 +84,7 @@
     }
 
     Repeater.prototype.clickAddGroupButton = function(ev) {
-        var  $self = this;
+        var $self = this;
         var templateHtml = $('> [data-group-palette-template]', this.$el).html(),
             $target = $(ev.target),
             $form = this.$el.closest('form'),
