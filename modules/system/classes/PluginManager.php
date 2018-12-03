@@ -11,7 +11,6 @@ use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ApplicationException;
-use System\Models\EventLog;
 
 /**
  * Plugin manager
