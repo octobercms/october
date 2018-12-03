@@ -11,6 +11,7 @@ use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use ApplicationException;
+use System\Models\EventLog;
 
 /**
  * Plugin manager
@@ -121,17 +122,22 @@ class PluginManager
         $className = $namespace.'\Plugin';
         $classPath = $path.'/Plugin.php';
 
-        // Autoloader failed?
-        if (!class_exists($className)) {
-            include_once $classPath;
-        }
+        try {
+            // Autoloader failed?
+            if (!class_exists($className)) {
+                include_once $classPath;
+            }
 
-        // Not a valid plugin!
-        if (!class_exists($className)) {
+            // Not a valid plugin!
+            if (!class_exists($className)) {
+                return;
+            }
+
+            $classObj = new $className($this->app);
+        } catch (\Throwable $e) {
             return;
         }
 
-        $classObj = new $className($this->app);
         $classId = $this->getIdentifier($classObj);
 
         /*
