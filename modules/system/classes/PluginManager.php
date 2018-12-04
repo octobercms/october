@@ -5,6 +5,7 @@ use App;
 use Str;
 use File;
 use Lang;
+use Log;
 use View;
 use Config;
 use Schema;
@@ -134,6 +135,12 @@ class PluginManager
 
             $classObj = new $className($this->app);
         } catch (\Throwable $e) {
+            Log::error('Plugin ' . $className . ' could not be instantiated.', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return;
         }
 
