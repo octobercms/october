@@ -42,7 +42,7 @@ if (window.jQuery.request !== undefined) {
         if (_event.isDefaultPrevented()) return
 
         var loading = options.loading !== undefined ? options.loading : null,
-            loadHide = options.hide !== undefined ? options.hide : null,
+            hideWhileLoading = options.hideWhileLoading !== undefined ? options.hideWhileLoading : null,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
             useFiles = options.files !== undefined
@@ -56,8 +56,8 @@ if (window.jQuery.request !== undefined) {
             loading = $(loading)
         }
         
-        if ($.type(loadHide) == 'string') {
-            loadHide = $(loadHide)
+        if ($.type(hideWhileLoading) == 'string') {
+            hideWhileLoading = $(hideWhileLoading)
         }
 
         /*
@@ -365,7 +365,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (loading) loading.show()
-        if (loadHide) loadHide.hide()
+        if (hideWhileLoading) hideWhileLoading.hide()
         $(window).trigger('ajaxBeforeSend', [context])
         $el.trigger('ajaxPromise', [context])
 
@@ -375,14 +375,14 @@ if (window.jQuery.request !== undefined) {
                     $el.trigger('ajaxFail', [context, textStatus, jqXHR])
                 }
                 if (loading) loading.hide()
-                if (loadHide) loadHide.show()
+                if (hideWhileLoading) hideWhileLoading.show()
             })
             .done(function(data, textStatus, jqXHR) {
                 if (!isRedirect) {
                     $el.trigger('ajaxDone', [context, data, textStatus, jqXHR])
                 }
                 if (loading) loading.hide()
-                if (loadHide) loadHide.show()
+                if (hideWhileLoading) hideWhileLoading.show()
             })
             .always(function(dataOrXhr, textStatus, xhrOrError) {
                 $el.trigger('ajaxAlways', [context, dataOrXhr, textStatus, xhrOrError])
@@ -428,7 +428,7 @@ if (window.jQuery.request !== undefined) {
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
-            hide: $this.data('request-hide'),
+            hideWhileLoading: $this.data('hide-while-loading'),
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
             form: $this.data('request-form'),
