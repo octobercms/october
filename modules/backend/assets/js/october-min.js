@@ -1251,3 +1251,5 @@ fixSidebar()})
 function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
 $el.height($el.parent().height())}
 function fixSidebar(){$('#layout-sidenav').height(Math.max($('#layout-body').innerHeight(),$(window).height()-$('#layout-mainmenu').height()))}}
+/* Slideable Tabs for Code Editor */
+$(function(){var a=$(".tabs-container").tabs();a.find(".ui-tabs-nav").sortable({axis:"x",stop:function(){a.tabs("refresh")}})});
