@@ -11,7 +11,8 @@
         class="form-control <?= $cssClasses ?>"
         autocomplete="off" />
     <button class="clear-input-text" 
-			data-request="<?= $this->getEventHandler('onSubmit') ?>" value="" 
+            value=""
+			data-request="<?= $this->getEventHandler('onSubmit') ?>"
 			data-load-indicator
 			data-load-indicator-opaque
 			data-request-success="$(this).prev().val('');"
