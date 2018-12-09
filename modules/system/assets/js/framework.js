@@ -428,7 +428,7 @@ if (window.jQuery.request !== undefined) {
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
-            hideWhileLoading: $this.data('hide-while-loading'),
+            hideWhileLoading: $this.data('request-hide-while-loading'),
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
             form: $this.data('request-form'),
