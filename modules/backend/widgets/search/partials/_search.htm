@@ -10,4 +10,10 @@
         data-load-indicator-opaque
         class="form-control <?= $cssClasses ?>"
         autocomplete="off" />
+    <button class="clear-input-text" 
+			data-request="<?= $this->getEventHandler('onSubmit') ?>" value="" 
+			data-load-indicator
+			data-load-indicator-opaque
+			data-trigger-action="enable"
+		><i class="icon-times"></i></button>   
 </div>
