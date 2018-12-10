@@ -1251,5 +1251,3 @@ fixSidebar()})
 function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
 $el.height($el.parent().height())}
 function fixSidebar(){$('#layout-sidenav').height(Math.max($('#layout-body').innerHeight(),$(window).height()-$('#layout-mainmenu').height()))}}
-/* Slideable Tabs for Backend */
-$(function(){"use strict";var t=$(".tabs-container").tabs(),s=$(".control-tabs").tabs();t.find(".ui-tabs-nav").sortable({axis:"x",stop:function(){t.tabs("refresh")}}),s.find(".ui-tabs-nav").sortable({axis:"x",stop:function(){s.tabs("refresh")}})});

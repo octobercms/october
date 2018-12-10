@@ -184,6 +184,26 @@ $.oc.escapeHtmlString = function(string) {
 }
 
 /*
+ * Slideable Tabs for Backend.
+ */
+$(function() {
+    "use strict";
+    var t = $(".tabs-container").tabs(),
+        s = $(".control-tabs").tabs();
+    t.find(".ui-tabs-nav").sortable({
+        axis: "x",
+        stop: function() {
+            t.tabs("refresh")
+        }
+    }), s.find(".ui-tabs-nav").sortable({
+        axis: "x",
+        stop: function() {
+            s.tabs("refresh")
+        }
+    })
+});
+
+/*
  * Inverse Click Event (not used)
  *
  * Calls the handler function if the user has clicked outside the object 
