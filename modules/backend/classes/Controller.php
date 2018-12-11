@@ -1,6 +1,5 @@
 <?php namespace Backend\Classes;
 
-use App;
 use Lang;
 use View;
 use Flash;
@@ -361,7 +360,7 @@ class Controller extends Extendable
         }
 
         // Load the view
-        if (!$this->suppressView && is_null($result)) {
+        if (!$this->suppressView && $result === null) {
             return $this->makeView($actionName);
         }
 
@@ -391,7 +390,6 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
-
         if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
@@ -406,6 +404,12 @@ class Controller extends Extendable
                  */
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
+
+                    foreach ($partialList as $partial) {
+                        if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
+                            throw new SystemException(Lang::get('cms::lang.partial.invalid_name', ['name'=>$partial]));
+                        }
+                    }
                 }
                 else {
                     $partialList = [];
@@ -494,6 +498,39 @@ class Controller extends Extendable
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+         * @event backend.ajax.beforeRunHandler
+         * Provides an opportunity to modify an AJAX request
+         *
+         * The parameter provided is `$handler` (the requested AJAX handler to be run)
+         *
+         * Example usage (forwards AJAX handlers to a backend widget):
+         *
+         *     Event::listen('backend.ajax.beforeRunHandler', function((\Backend\Classes\Controller) $controller, (string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $this->controller->bindEvent('ajax.beforeRunHandler', function ((string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         */
+        if ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Widget handler
          */
@@ -515,7 +552,7 @@ class Controller extends Extendable
 
             if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
                 $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
         else {
@@ -526,7 +563,7 @@ class Controller extends Extendable
 
             if ($this->methodExists($pageHandler)) {
                 $result = call_user_func_array([$this, $pageHandler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -534,7 +571,7 @@ class Controller extends Extendable
              */
             if ($this->methodExists($handler)) {
                 $result = call_user_func_array([$this, $handler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -546,7 +583,7 @@ class Controller extends Extendable
             foreach ((array) $this->widget as $widget) {
                 if ($widget->methodExists($handler)) {
                     $result = $this->runAjaxHandlerForWidget($widget, $handler);
-                    return ($result) ?: true;
+                    return $result ?: true;
                 }
             }
         }

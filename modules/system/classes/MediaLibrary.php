@@ -6,6 +6,7 @@ use Cache;
 use Config;
 use Storage;
 use Request;
+use Url;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 use SystemException;
@@ -472,21 +473,44 @@ class MediaLibrary
             return $path;
         }
 
+        /*
+         * Validate folder names
+         */
+        $regexWhitelist = [
+            '\w', // any word character
+            preg_quote('@', '/'),
+            preg_quote('.', '/'),
+            '\s', // whitespace character
+            preg_quote('-', '/'),
+            preg_quote('_', '/'),
+            preg_quote('/', '/'),
+            preg_quote('(', '/'),
+            preg_quote(')', '/'),
+            preg_quote('[', '/'),
+            preg_quote(']', '/'),
+            preg_quote(',', '/'),
+            preg_quote('=', '/'),
+        ];
+
+        if (!preg_match('/^[' . implode('', $regexWhitelist) . ']+$/iu', $path)) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
+        }
+
         $regexDirectorySeparator = preg_quote('/', '#');
         $regexDot = preg_quote('.', '#');
         $regex = [
-            // Checks for parent or current directory reference at beginning of path
+            // Beginning of path
             '(^'.$regexDot.'+?'.$regexDirectorySeparator.')',
 
-            // Check for parent or current directory reference in middle of path
+            // Middle of path
             '('.$regexDirectorySeparator.$regexDot.'+?'.$regexDirectorySeparator.')',
 
-            // Check for parent or current directory reference at end of path
+            // End of path
             '('.$regexDirectorySeparator.$regexDot.'+?$)',
         ];
 
         /*
-         * Combine everything to one regex
+         * Validate invalid paths
          */
         $regex = '#'.implode('|', $regex).'#';
         if (preg_match($regex, $path) !== 0 || strpos($path, '//') !== false) {
@@ -515,7 +539,9 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
-        return $this->storagePath.$path;
+        $fullPath = $this->storagePath.implode("/", array_map("rawurlencode", explode("/", $path)));
+
+        return Url::to($fullPath);
     }
 
     /**
@@ -679,21 +705,21 @@ class MediaLibrary
             switch ($sortSettings['by']) {
                 case self::SORT_BY_TITLE:
                     $result = strcasecmp($a->path, $b->path);
-                break;
+                    break;
                 case self::SORT_BY_SIZE:
                     if ($a->size < $b->size) {
                         $result = -1;
                     } else {
                         $result = $a->size > $b->size ? 1 : 0;
                     }
-                break;
+                    break;
                 case self::SORT_BY_MODIFIED:
                     if ($a->lastModified < $b->lastModified) {
                         $result = -1;
                     } else {
                         $result = $a->lastModified > $b->lastModified ? 1 : 0;
                     }
-                break;
+                    break;
             }
 
             // Reverse the polarity of the result to direct sorting in a descending order instead

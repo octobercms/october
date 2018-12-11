@@ -1,15 +1,11 @@
 <?php namespace Cms\Twig;
 
-use Flash;
 use Block;
 use Event;
 use Twig_Extension;
-use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use Cms\Classes\Controller;
-use Cms\Classes\CmsException;
-use ApplicationException;
 
 /**
  * The CMS Twig extension class implements the basic CMS Twig functions and filters.

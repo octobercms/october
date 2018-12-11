@@ -1,5 +1,10 @@
 @import "../../../../assets/less/core/boot.less";
 
+@color_1: #666;
+@color_2: #fff;
+@background_color_1: #ddd;
+@border_right_color_1: #cbcbcb;
+
 .field-codeeditor {
     width: 100%;
     position: relative;
@@ -28,8 +33,8 @@
 
     .editor-toolbar {
         position: absolute;
-        top: 10px;
-        right: 25px;
+        top: -30px;
+        right: 35px;
         z-index: @zindex-form;
         > ul, ul > li { list-style-type: none; padding: 0; margin: 0; }
         > ul > li {
@@ -74,7 +79,44 @@
         border-width: 0;
         .border-radius(0);
         .editor-code { .border-radius(0); }
-        .editor-toolbar { z-index: @zindex-fullscreen + 2; }
+        .editor-toolbar {
+            z-index: @zindex-fullscreen + 2;
+            border-radius: 0 0 5px 5px;
+            right: 25px;
+            background-color: @background_color_1;
+            border: 1px solid #cbcbcb;
+            border-right-color: @border_right_color_1;
+            border-right-style: solid;
+            border-right-width: 1px;
+            border-top: 0 none;
+            max-width: 125px;
+            overflow: hidden;
+            margin: 0;
+            padding: 4px;
+            position: absolute;
+            top: 0;
+            white-space: normal;
+            >ul {
+                >li {
+                    >a {
+                        color: @color_1;
+                    }
+                }
+            }
+        }
         .ace_search { z-index: @zindex-fullscreen + 3; }
     }
+
+    .secondary-tabs {
+        .editor-toolbar {
+            >ul {
+                >li {
+                    >a {
+                        color: @color_2;
+                    }
+                }
+            }
+        }
+    }
+
 }

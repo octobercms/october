@@ -29,7 +29,7 @@ return [
         'lt' => 'Lietuvių',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
-        'pl' => 'Polskie',
+        'pl' => 'Polski',
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română',
         'ru' => 'Русский',

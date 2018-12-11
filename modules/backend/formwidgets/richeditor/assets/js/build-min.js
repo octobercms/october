@@ -606,7 +606,7 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
@@ -625,7 +625,7 @@ if(this.options.htmlAllowedEmptyTags){froalaOptions.allowEmptyTags=this.options.
 if(this.options.allowTags){froalaOptions.htmlAllowedTags=this.options.allowTags.split(/[\s,]+/)}
 froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.split(/[\s,]+/):['figure','script','style']
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
-froalaOptions.lineBreakerTags=['figure','table','hr','iframe','form','dl']
+froalaOptions.lineBreakerTags=this.options.lineBreakerTags?this.options.lineBreakerTags.split(/[\s,]+/):['figure,table,hr,iframe,form,dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'

@@ -44,6 +44,7 @@
         allowTags: null,
         noWrapTags: null,
         removeTags: null,
+        lineBreakerTags: null,
         imageStyles: null,
         linkStyles: null,
         paragraphStyles: null,
@@ -145,7 +146,10 @@
             froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
         }
 
-        froalaOptions.lineBreakerTags = ['figure', 'table', 'hr', 'iframe', 'form', 'dl']
+        froalaOptions.lineBreakerTags = this.options.lineBreakerTags
+            ? this.options.lineBreakerTags.split(/[\s,]+/)
+            : ['figure, table, hr, iframe, form, dl']
+
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
 
         // File upload

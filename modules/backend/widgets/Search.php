@@ -98,9 +98,9 @@ class Search extends WidgetBase
 
         if ($this->partial) {
             return $this->controller->makePartial($this->partial);
-        } else {
-            return $this->makePartial('search');
         }
+
+        return $this->makePartial('search');
     }
 
     /**

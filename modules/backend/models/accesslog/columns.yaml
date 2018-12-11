@@ -3,11 +3,26 @@
 # ===================================
 
 columns:
+
+    id:
+        label: backend::lang.access_log.id
+        searchable: yes
+        invisible: true
+        width: 75px
+
     created_at:
         label: backend::lang.access_log.created_at
         searchable: yes
         type: timetense
         width: 160px
+
+    type:
+        label: backend::lang.access_log.type
+        invisible: true
+
+    ip_address:
+        label: backend::lang.access_log.ip_address
+        searchable: yes
 
     login:
         label: backend::lang.access_log.login
@@ -15,10 +30,6 @@ columns:
         select: login
         searchable: yes
         sortable: false
-
-    ip_address:
-        label: backend::lang.access_log.ip_address
-        searchable: yes
 
     first_name:
         label: backend::lang.access_log.first_name

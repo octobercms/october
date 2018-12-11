@@ -1,13 +1,11 @@
-//! moment.js locale configuration
-//! locale : Burmese (my)
-//! author : Squar team, mysquar.com
+//! moment.js locale configuration v2.22.2
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, function (moment) { 'use strict';
+}(this, (function (moment) { 'use strict';
 
 
     var symbolMap = {
@@ -58,9 +56,10 @@
             sameElse: 'L'
         },
         relativeTime: {
-            future: 'လာမည့် %s မှာ',
+            future: 'လာမည့် %s မှာ',
             past: 'လွန်ခဲ့သော %s က',
             s: 'စက္ကန်.အနည်းငယ်',
+            ss : '%d စက္ကန့်',
             m: 'တစ်မိနစ်',
             mm: '%d မိနစ်',
             h: 'တစ်နာရီ',
@@ -90,4 +89,4 @@
 
     return my;
 
-}));
+})));

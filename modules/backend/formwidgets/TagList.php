@@ -30,7 +30,7 @@ class TagList extends FormWidgetBase
     /**
      * @var mixed Predefined options settings. Set to true to get from model.
      */
-    public $options = null;
+    public $options;
 
     /**
      * @var string Mode for the return value. Values: string, array, relation.
@@ -46,6 +46,11 @@ class TagList extends FormWidgetBase
      * @var bool Use the key instead of value for saving and reading data.
      */
     public $useKey = false;
+
+    /**
+     * @var string Placeholder for empty TagList widget
+     */
+    public $placeholder = '';
 
     //
     // Object properties
@@ -68,6 +73,7 @@ class TagList extends FormWidgetBase
             'mode',
             'nameFrom',
             'useKey',
+            'placeholder'
         ]);
     }
 
@@ -86,6 +92,7 @@ class TagList extends FormWidgetBase
      */
     public function prepareVars()
     {
+        $this->vars['placeholder'] = $this->placeholder;
         $this->vars['useKey'] = $this->useKey;
         $this->vars['field'] = $this->formField;
         $this->vars['fieldOptions'] = $this->getFieldOptions();

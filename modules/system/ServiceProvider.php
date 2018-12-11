@@ -1,13 +1,11 @@
 <?php namespace System;
 
 use App;
-use Lang;
 use View;
 use Event;
 use Config;
 use Backend;
 use Request;
-use Validator;
 use BackendMenu;
 use BackendAuth;
 use Twig_Environment;
@@ -22,7 +20,6 @@ use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
 use System\Models\EventLog;
 use System\Models\MailSetting;
-use System\Models\MailTemplate;
 use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
@@ -89,7 +86,7 @@ class ServiceProvider extends ModuleServiceProvider
         if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
             Schema::defaultStringLength(191);
         }
-        
+
         /*
          * Boot plugins
          */
@@ -328,9 +325,10 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * Override standard Mailer content with template
          */
-        Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data, $raw) {
+        Event::listen('mailer.beforeAddContent', function ($mailer, $message, $view, $data, $raw, $plain) {
             $method = $raw === null ? 'addContentToMailer' : 'addRawContentToMailer';
-            return !MailManager::instance()->$method($message, $raw ?: $view, $data);
+            $plainOnly = $view === null; // When "plain-text only" email is sent, $view is null, this sets the flag appropriately
+            return !MailManager::instance()->$method($message, $raw ?: $view ?: $plain, $data, $plainOnly);
         });
     }
 
@@ -467,7 +465,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'category'    => SettingsManager::CATEGORY_MAIL,
                     'icon'        => 'icon-paint-brush',
                     'url'         => Backend::url('system/mailbrandsettings'),
-                    'permissions' => ['system.manage_mail_settings'],
+                    'permissions' => ['system.manage_mail_templates'],
                     'order'       => 630
                 ],
                 'event_logs' => [
@@ -515,6 +513,9 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/system/assets/less/styles.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.less');
             $combiner->registerBundle('~/modules/system/assets/ui/storm.js');
+            $combiner->registerBundle('~/modules/system/assets/js/framework.js');
+            $combiner->registerBundle('~/modules/system/assets/js/framework.combined.js');
+            $combiner->registerBundle('~/modules/system/assets/css/framework.extras.css');
         });
     }
 

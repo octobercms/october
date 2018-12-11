@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Str;
 use Input;
 use Request;
 use Response;
@@ -36,17 +35,17 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Prompt text to display for the upload button.
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $imageWidth;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $imageHeight;
 
     /**
      * @var mixed Collection of acceptable file types.
@@ -71,6 +70,11 @@ class FileUpload extends FormWidgetBase
      */
     public $useCaption = true;
 
+    /**
+     * @var boolean Automatically attaches the uploaded file on upload if the parent record exists instead of using deferred binding to attach on save of the parent record. Defaults to false.
+     */
+    public $attachOnUpload = false;
+
     //
     // Object properties
     //
@@ -92,7 +96,8 @@ class FileUpload extends FormWidgetBase
             'fileTypes',
             'mimeTypes',
             'thumbOptions',
-            'useCaption'
+            'useCaption',
+            'attachOnUpload',
         ]);
 
         if ($this->formField->disabled) {
@@ -201,21 +206,21 @@ class FileUpload extends FormWidgetBase
         $cssDimensions = '';
 
         if ($mode == 'block') {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
         else {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
 
@@ -395,10 +400,11 @@ class FileUpload extends FormWidgetBase
             $file->save();
 
             /**
-             * Attach directly to the parent model if it exists,
+             * Attach directly to the parent model if it exists and attachOnUpload has been set to true
              * else attach via deferred binding
              */
-            if (@$fileRelation->getParent()->exists) {
+            $parent = $fileRelation->getParent();
+            if ($this->attachOnUpload && $parent && $parent->exists) {
                 $fileRelation->add($file);
             } else {
                 $fileRelation->add($file, $this->sessionKey);

@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use Twig_Template;
 use Twig_Extension;
 use Twig_Environment;
 use Twig_SimpleFunction;
@@ -360,7 +361,7 @@ class DebugExtension extends Twig_Extension
         }
 
         $method = $parts[1];
-        return isset($this->commentMap[$method]) ?  $this->commentMap[$method] : null;
+        return $this->commentMap[$method] ?? null;
     }
 
     /**
@@ -594,6 +595,6 @@ class DebugExtension extends Twig_Extension
             $strings[] = $key . ': ' . $value;
         }
 
-        return join('; ', $strings);
+        return implode('; ', $strings);
     }
 }

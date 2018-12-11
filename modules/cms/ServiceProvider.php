@@ -2,7 +2,6 @@
 
 use App;
 use Config;
-use Lang;
 use Event;
 use Backend;
 use BackendMenu;

@@ -6,7 +6,6 @@ use StdClass;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Console command to implement a "public" folder.
@@ -73,14 +72,6 @@ class OctoberMirror extends Command
     ];
 
     protected $destinationPath;
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.

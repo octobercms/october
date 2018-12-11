@@ -1,12 +1,9 @@
 <?php namespace System\Models;
 
 use App;
-use Url;
 use Str;
-use Lang;
 use Model;
 use Cache;
-use Config;
 use Less_Parser;
 use Exception;
 use File as FileHelper;
@@ -38,8 +35,11 @@ class MailBrandSetting extends Model
      * @var mixed Settings form field defitions
      */
     public $settingsFields = 'fields.yaml';
-
-    const CACHE_KEY = 'system::mailbrand.custom_css';
+    
+    /**
+     * @var string The key to store rendered CSS in the cache under
+     */
+    public $cacheKey = 'system::mailbrand.custom_css';
 
     const WHITE_COLOR = '#fff';
     const BODY_BG = '#f5f8fa';
@@ -83,18 +83,19 @@ class MailBrandSetting extends Model
 
     public function resetCache()
     {
-        Cache::forget(self::CACHE_KEY);
+        Cache::forget(self::instance()->cacheKey);
     }
 
     public static function renderCss()
     {
-        if (Cache::has(self::CACHE_KEY)) {
-            return Cache::get(self::CACHE_KEY);
+        $cacheKey = self::instance()->cacheKey;
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
         }
 
         try {
             $customCss = self::compileCss();
-            Cache::forever(self::CACHE_KEY, $customCss);
+            Cache::forever($cacheKey, $customCss);
         }
         catch (Exception $ex) {
             $customCss = '/* ' . $ex->getMessage() . ' */';
@@ -154,8 +155,6 @@ class MailBrandSetting extends Model
 
         $parser->parse(FileHelper::get($basePath . '/custom.less'));
 
-        $css = $parser->getCss();
-
-        return $css;
+        return $parser->getCss();
     }
 }

@@ -2,7 +2,7 @@
     <div class="form-control control-simplelist with-icons">
         <ul>
             <?php foreach ((array) $formModel->referer as $referer): ?>
-                <li class="oc-icon-file-o"><?= $referer ?></li>
+                <li class="oc-icon-file-o"><?= e($referer) ?></li>
             <?php endforeach ?>
         </ul>
     </div>

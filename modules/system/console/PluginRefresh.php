@@ -3,7 +3,6 @@
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
@@ -29,15 +28,6 @@ class PluginRefresh extends Command
      * @var string
      */
     protected $description = 'Removes and re-adds an existing plugin.';
-
-    /**
-     * Create a new command instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -77,14 +67,5 @@ class PluginRefresh extends Command
         return [
             ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
         ];
-    }
-
-    /**
-     * Get the console command options.
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [];
     }
 }

@@ -36,41 +36,43 @@ class ComponentHelpers
         }
 
         $properties = $component->defineProperties();
-        foreach ($properties as $name => $params) {
-            $property = [
-                'property'              => $name,
-                'title'                 => array_get($params, 'title', $name),
-                'type'                  => array_get($params, 'type', 'string'),
-                'showExternalParam'     => array_get($params, 'showExternalParam', true)
-            ];
+        if (is_array($properties)) {
+            foreach ($properties as $name => $params) {
+                $property = [
+                    'property'              => $name,
+                    'title'                 => array_get($params, 'title', $name),
+                    'type'                  => array_get($params, 'type', 'string'),
+                    'showExternalParam'     => array_get($params, 'showExternalParam', true)
+                ];
 
-            foreach ($params as $name => $value) {
-                if (isset($property[$name])) {
-                    continue;
+                foreach ($params as $name => $value) {
+                    if (isset($property[$name])) {
+                        continue;
+                    }
+                    $property[$name] = $value;
                 }
-                $property[$name] = $value;
+
+                /*
+                 * Translate human values
+                 */
+                $translate = ['title', 'description', 'options', 'group', 'validationMessage'];
+                foreach ($property as $name => $value) {
+                    if (!in_array($name, $translate)) {
+                        continue;
+                    }
+
+                    if (is_array($value)) {
+                        array_walk($property[$name], function (&$_value, $key) {
+                            $_value = Lang::get($_value);
+                        });
+                    }
+                    else {
+                        $property[$name] = Lang::get($value);
+                    }
+                }
+
+                $result[] = $property;
             }
-
-            /*
-             * Translate human values
-             */
-            $translate = ['title', 'description', 'options', 'group', 'validationMessage'];
-            foreach ($property as $name => $value) {
-                if (!in_array($name, $translate)) {
-                    continue;
-                }
-
-                if (is_array($value)) {
-                    array_walk($property[$name], function (&$_value, $key) {
-                        $_value = Lang::get($_value);
-                    });
-                }
-                else {
-                    $property[$name] = Lang::get($value);
-                }
-            }
-
-            $result[] = $property;
         }
 
         if ($returnArray)
@@ -106,9 +108,7 @@ class ComponentHelpers
     public static function getComponentName($component)
     {
         $details = $component->componentDetails();
-        $name = (isset($details['name']))
-            ? $details['name']
-            : 'cms::lang.component.unnamed';
+        $name = $details['name'] ?? 'cms::lang.component.unnamed';
 
         return Lang::get($name);
     }
@@ -121,9 +121,7 @@ class ComponentHelpers
     public static function getComponentDescription($component)
     {
         $details = $component->componentDetails();
-        $name = (isset($details['description']))
-            ? $details['description']
-            : 'cms::lang.component.no_description';
+        $name = $details['description'] ?? 'cms::lang.component.no_description';
 
         return Lang::get($name);
     }

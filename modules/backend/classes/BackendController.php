@@ -9,6 +9,8 @@ use Response;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use Closure;
+use System\Classes\PluginManager;
+
 
 /**
  * This is the master controller for all back-end pages.
@@ -82,8 +84,8 @@ class BackendController extends ControllerBase
         /*
          * Look for a Module controller
          */
-        $module = isset($params[0]) ? $params[0] : 'backend';
-        $controller = isset($params[1]) ? $params[1] : 'index';
+        $module = $params[0] ?? 'backend';
+        $controller = $params[1] ?? 'index';
         self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
         self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = '\\'.$module.'\Controllers\\'.$controller;
@@ -100,7 +102,13 @@ class BackendController extends ControllerBase
          */
         if (count($params) >= 2) {
             list($author, $plugin) = $params;
-            $controller = isset($params[2]) ? $params[2] : 'index';
+
+            $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
+            if (PluginManager::instance()->isDisabled($pluginCode)) {
+                return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+            }
+
+            $controller = $params[2] ?? 'index';
             self::$action = $action = isset($params[3]) ? $this->parseAction($params[3]) : 'index';
             self::$params = $controllerParams = array_slice($params, 4);
             $controllerClass = '\\'.$author.'\\'.$plugin.'\Controllers\\'.$controller;
@@ -136,7 +144,7 @@ class BackendController extends ControllerBase
             $controller = Str::normalizeClassName($controller);
             $controllerFile = $inPath.strtolower(str_replace('\\', '/', $controller)) . '.php';
             if ($controllerFile = File::existsInsensitive($controllerFile)) {
-                include_once($controllerFile);
+                include_once $controllerFile;
             }
         }
 

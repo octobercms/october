@@ -5,7 +5,6 @@ use Twig_TokenParser;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 use ApplicationException;
-use System\Classes\PluginManager;
 
 /**
  * This class manages Twig functions, token parsers and filters.
@@ -116,7 +115,7 @@ class MarkupManager
     {
         $items = $this->transactionMode ? 'transactionItems' : 'items';
 
-        if (is_null($this->$items)) {
+        if ($this->$items === null) {
             $this->$items = [];
         }
 

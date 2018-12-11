@@ -45,6 +45,15 @@
 }
 
 //
+// Asset List
+//
+
+.control-assetlist ul li.active a:after,
+.control-assetlist ul li.active a.link:after {
+    background: @brand-secondary;
+}
+
+//
 // Outside Layout
 //
 
@@ -151,5 +160,17 @@ div.control-componentlist {
 .stripe-loading-indicator {
     .stripe, .stripe-loaded {
         background: @brand-accent;
+    }
+}
+
+//
+// Balloon Selector
+//
+
+.control-balloon-selector {
+    ul {
+        li.active {
+            background: @brand-secondary !important;
+        }
     }
 }

@@ -2,7 +2,6 @@
 
 use Cache;
 use October\Rain\Database\Model;
-use Exception;
 
 /**
  * Parameters model

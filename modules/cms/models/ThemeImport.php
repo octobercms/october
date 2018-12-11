@@ -1,7 +1,6 @@
 <?php namespace Cms\Models;
 
 use File;
-use Lang;
 use Model;
 use ApplicationException;
 use October\Rain\Filesystem\Zip;

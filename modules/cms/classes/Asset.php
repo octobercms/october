@@ -3,7 +3,7 @@
 use File;
 use Lang;
 use Config;
-use Cms\Classes\Theme;
+use Request;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
 use ApplicationException;
@@ -35,7 +35,7 @@ class Asset extends Extendable
     /**
      * @var string Specifies the file name, the CMS object was loaded from.
      */
-    protected $originalFileName = null;
+    protected $originalFileName;
 
     /**
      * @var string Last modified time.
@@ -208,6 +208,23 @@ class Asset extends Extendable
         $this->originalFileName = $this->fileName;
         $this->exists = true;
     }
+    
+    public function delete()
+    {
+        $fileName = Request::input('fileName');
+        $fullPath = $this->getFilePath($fileName);
+        
+        $this->validateFileName($fileName);
+
+        if (File::exists($fullPath)) {
+            if (!@File::delete($fullPath)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.asset.error_deleting_file',
+                    ['name' => $fileName]
+                ));
+            }            
+        }
+    }    
 
     /**
      * Validate the supplied filename, extension and path.

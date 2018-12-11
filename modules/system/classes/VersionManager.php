@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use Str;
 use File;
 use Yaml;
 use Db;
@@ -79,7 +78,7 @@ class VersionManager
      */
     public function updatePlugin($plugin, $stopOnVersion = null)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return false;
@@ -111,7 +110,7 @@ class VersionManager
      */
     public function listNewVersions($plugin)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return [];
@@ -165,7 +164,7 @@ class VersionManager
      */
     public function removePlugin($plugin, $stopOnVersion = null)
     {
-        $code = (is_string($plugin)) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
         if (!$this->hasVersionFile($code)) {
             return false;
@@ -229,7 +228,7 @@ class VersionManager
             $history->delete();
         }
 
-        return (($countHistory + $countVersions) > 0) ? true : false;
+        return ($countHistory + $countVersions) > 0;
     }
 
     //
@@ -246,8 +245,7 @@ class VersionManager
             return self::NO_VERSION_VALUE;
         }
 
-        $latest = trim(key(array_slice($versionInfo, -1, 1)));
-        return $latest;
+        return trim(key(array_slice($versionInfo, -1, 1)));
     }
 
     /**
@@ -327,9 +325,7 @@ class VersionManager
             ;
         }
 
-        return (isset($this->databaseVersions[$code]))
-            ? $this->databaseVersions[$code]
-            : self::NO_VERSION_VALUE;
+        return $this->databaseVersions[$code] ?? self::NO_VERSION_VALUE;
     }
 
     /**
@@ -394,6 +390,11 @@ class VersionManager
          * Execute the database PHP script
          */
         $updateFile = $this->pluginManager->getPluginPath($code) . '/updates/' . $script;
+
+        if (!File::isFile($updateFile)) {
+            $this->note('- <error>v' . $version . ':  Migration file "' . $script . '" not found</error>');
+        }
+
         $this->updater->setUp($updateFile);
 
         Db::table('system_plugin_history')->insert([
