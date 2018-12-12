@@ -498,6 +498,10 @@ class Lists extends WidgetBase
                     ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")
                     : DbDongle::raw($sqlSelect);
 
+                if ($relationType == 'hasOne') {
+                    $countQuery->limit(1);
+                }
+
                 $joinSql = $countQuery->select($joinSql)->toSql();
 
                 $selects[] = Db::raw("(".$joinSql.") as ".$alias);
