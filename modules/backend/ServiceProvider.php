@@ -177,6 +177,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\DataTable', 'datatable');
             $manager->registerFormWidget('Backend\FormWidgets\RecordFinder', 'recordfinder');
             $manager->registerFormWidget('Backend\FormWidgets\Repeater', 'repeater');
+            $manager->registerFormWidget('Backend\FormWidgets\SubForm', 'subform');
             $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
             $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
         });
