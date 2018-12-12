@@ -31,6 +31,9 @@
         this.itemListElement = null
 
         this.cachedOptionPromises = {}
+        this.searching = false
+        this.searchQuery = null
+        this.searchInterval = null
 
         // Event handlers
         this.itemClickHandler = this.onItemClick.bind(this)
@@ -341,7 +344,7 @@
         if (!this.itemListElement)
             return
 
-        if (ev.keyCode == 32) { // Spacebar
+        if (ev.keyCode == 32 && !this.searching) { // Spacebar
             this.showDropdown()
         } else if (ev.keyCode == 40 || ev.keyCode == 38) { // Up and down arrow keys
             var selected = this.findSelectedItem(),
@@ -370,6 +373,8 @@
             }
 
             return false // Stop propogation of event
+        } else {
+            this.searchByTextInput(ev);
         }
     }
 
@@ -426,6 +431,31 @@
 
         return this.tableObj.parentContainsElement(this.itemListElement, element)
     }
+
+    /*
+     * Provides auto-complete like functionality for typing in a query and selecting
+     * a matching list option
+     */
+    DropdownProcessor.prototype.searchByTextInput = function(ev) {
+        var character = ev.key;
+
+        if (character.length === 1 || character === 'Space') {
+            if (!this.searching) {
+                this.searching = true;
+                this.searchQuery = '';
+            }
+
+            this.searchQuery += (character === 'Space') ? ' ' : character;
+            this.searchInterval = setInterval(this.cancelTextSearch, 1500);
+        }
+    }
+
+    DropdownProcessor.prototype.cancelTextSearch = function() {
+        this.searching = false;
+        this.searchQuery = null;
+        this.searchInterval = null;
+    }
+
 
     $.oc.table.processor.dropdown = DropdownProcessor;
 }(window.jQuery);
