@@ -116,7 +116,7 @@
     }
 
     DropdownProcessor.prototype.buildEditor = function(cellElement, cellContentContainer, isClick) {
-        // Create the select control 
+        // Create the select control
         var currentValue = this.tableObj.getCellValue(cellElement),
             containerPosition = this.getAbsolutePosition(cellContentContainer)
             self = this
@@ -133,7 +133,7 @@
 
         this.fetchOptions(cellElement, function renderCellFetchOptions(options) {
             var listElement = document.createElement('ul')
-    
+
             for (var value  in options) {
                 var itemElement = document.createElement('li')
                 itemElement.setAttribute('data-value', value)
@@ -197,7 +197,7 @@
         }
         else {
             // If options are not provided and not found in the cache,
-            // request them from the server. For dependent drop-downs 
+            // request them from the server. For dependent drop-downs
             // the caching key contains the master column values.
 
             var row = cellElement.parentNode,
@@ -338,8 +338,39 @@
      * for all processors.
      */
     DropdownProcessor.prototype.onKeyDown = function(ev) {
-        if (ev.keyCode == 32)
+        if (!this.itemListElement)
+            return
+
+        if (ev.keyCode == 32) { // Spacebar
             this.showDropdown()
+        } else if (ev.keyCode == 40 || ev.keyCode == 38) { // Up and down arrow keys
+            var selected = this.findSelectedItem(),
+                newSelectedItem;
+
+            if (!selected) {
+                if (ev.keyCode == 38) {
+                    // Only show an initial item when the down array key is pressed
+                    return false
+                }
+                newSelectedItem = this.itemListElement.querySelector('ul li:first-child')
+            } else {
+                newSelectedItem = selected.nextElementSibling
+
+                if (ev.keyCode == 38)
+                    newSelectedItem = selected.previousElementSibling
+            }
+
+            if (newSelectedItem) {
+                if (selected) {
+                    selected.setAttribute('class', '')
+                }
+                newSelectedItem.setAttribute('class', 'selected')
+
+                this.updateCellFromSelectedItem(this.findSelectedItem())
+            }
+
+            return false // Stop propogation of event
+        }
     }
 
     /*
@@ -386,8 +417,8 @@
     }
 
     /*
-     * Determines whether the specified element is some element created by the 
-     * processor. 
+     * Determines whether the specified element is some element created by the
+     * processor.
      */
     DropdownProcessor.prototype.elementBelongsToProcessor = function(element) {
         if (!this.itemListElement)
