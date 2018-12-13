@@ -4,18 +4,18 @@ use Backend\Classes\FormWidgetBase;
 use Backend\Widgets\Form;
 
 /**
- * Sub Form
- * Renders a sub form bound to a jsonable field of a model.
+ * Nested Form
+ * Renders a nested form bound to a jsonable field of a model.
  *
  * @package october\backend
  * @author Sascha Aeppli
  */
-class SubForm extends FormWidgetBase
+class NestedForm extends FormWidgetBase
 {
     /**
      * @inheritDoc
      */
-    protected $defaultAlias = 'subform';
+    protected $defaultAlias = 'nestedform';
 
     /**
      * @var [] Form configuration
@@ -50,7 +50,7 @@ class SubForm extends FormWidgetBase
 
     protected function loadAssets()
     {
-        $this->addCss('css/subform.css', 'core');
+        $this->addCss('css/nestedform.css', 'core');
     }
 
     /**
@@ -59,7 +59,7 @@ class SubForm extends FormWidgetBase
     function render()
     {
         $this->prepareVars();
-        return $this->makePartial('subform');
+        return $this->makePartial('nestedform');
     }
 
     function prepareVars() {
