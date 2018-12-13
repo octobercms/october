@@ -13,7 +13,7 @@
         autocomplete="off" />
     <button class="clear-input-text" 
             value=""
-			style="<?php if($value == '') echo 'display:none' ?>"
+			style="<?= empty($value) ? 'display: none;' : ''; ?>"
 			onclick="$(this).prev().val('');$(this).prev().request();"
 		><i class="icon-times"></i></button> 
 </div>
