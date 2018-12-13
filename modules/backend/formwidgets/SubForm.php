@@ -48,12 +48,21 @@ class SubForm extends FormWidgetBase
         $this->formWidget = $widget;
     }
 
+    protected function loadAssets()
+    {
+        $this->addCss('css/subform.css', 'core');
+    }
+
     /**
      * @inheritdoc
      */
     function render()
     {
+        $this->prepareVars();
+        return $this->makePartial('subform');
+    }
+
+    function prepareVars() {
         $this->formWidget->previewMode = $this->previewMode;
-        return $this->formWidget->render();
     }
 }
