@@ -1760,7 +1760,8 @@ a.control-status-list > ul li .status-text.danger:hover{color:#843534}
 .control-toolbar.scroll-after:after{display:block}
 .control-toolbar:before{left:-10px}
 .control-toolbar:after{right:-8px}
-.control-toolbar .clear-input-text{font-size:large;color:#666666;display:inline-block;position:absolute;right:1px;top:2px;background-color:#fff;padding-left:5px;height:30px;border:0}
+.control-toolbar .clear-input-text{font-size:large;color:#666666;display:inline-block;position:absolute;right:1px;top:2px;background-color:#fff;padding-left:6px;height:30px;border:0}
+.control-toolbar .clear-input-text:focus{outline:none}
 .control-toolbar .toolbar-item{position:relative;white-space:nowrap;display:table-cell;vertical-align:top;padding-right:20px}
 .control-toolbar .toolbar-item:last-child,.control-toolbar .toolbar-item.last{padding-right:0}
 .control-toolbar .toolbar-item:after,.control-toolbar .toolbar-item:before{display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbbbbb}
