@@ -328,12 +328,16 @@
             this.updateCellFromSelectedItem(this.findSelectedItem())
             this.tableObj.navigation.navigateNext(ev)
             this.tableObj.stopEvent(ev)
+            return
         }
 
         if (ev.keyCode == 27) {
             // Esc - hide the drop-down
             this.hideDropdown()
+            return
         }
+
+        this.searchByTextInput(ev);
     }
 
     /*
@@ -446,7 +450,33 @@
             }
 
             this.searchQuery += (character === 'Space') ? ' ' : character;
-            this.searchInterval = setInterval(this.cancelTextSearch, 1500);
+
+            // Search for a valid option in dropdown
+            var validItem = null;
+            var query = this.searchQuery;
+
+            this.itemListElement.querySelectorAll('ul li').forEach(function(item) {
+                if (validItem === null && item.dataset.value && item.dataset.value.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+                    validItem = item;
+                }
+            });
+
+            if (validItem) {
+                // If a valid item is found, select item and allow for fine-tuning the search query
+                this.itemListElement.querySelectorAll('ul li.selected').forEach(function(item) {
+                    item.setAttribute('class', '');
+                });
+                validItem.setAttribute('class', 'selected');
+                this.updateCellFromSelectedItem(this.findSelectedItem());
+
+                if (this.searchInterval) {
+                    clearTimeout(this.searchInterval);
+                }
+
+                this.searchInterval = setTimeout(this.cancelTextSearch.bind(this), 1000);
+            } else {
+                this.cancelTextSearch();
+            }
         }
     }
 
