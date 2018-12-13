@@ -3,8 +3,9 @@
         placeholder="<?= $placeholder ?>"
         type="text"
         name="<?= $this->getName() ?>"
-        value="<?= $value ?>"
+        value="<?= $value ?>"		
         data-request="<?= $this->getEventHandler('onSubmit') ?>"
+		data-request-complete="if($(this).val().length) {$(this).next().show()} else {$(this).next().hide()};"
         <?= !$searchOnEnter ? 'data-track-input' : '' ?>
         data-load-indicator
         data-load-indicator-opaque
@@ -12,9 +13,7 @@
         autocomplete="off" />
     <button class="clear-input-text" 
             value=""
-			data-request="<?= $this->getEventHandler('onSubmit') ?>"
-			data-load-indicator
-			data-load-indicator-opaque
-			data-request-success="$(this).prev().val('');"
+			style="<?php if($value == '') echo 'display:none' ?>"
+			onclick="$(this).prev().val('');$(this).prev().request();"
 		><i class="icon-times"></i></button> 
 </div>
