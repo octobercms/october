@@ -279,7 +279,7 @@ if(ev.keyCode==68&&ev.altKey&&this.options.deleting){this.deleteRecord()
 this.stopEvent(ev)
 return}
 for(var i=0,len=this.options.columns.length;i<len;i++){var column=this.options.columns[i].key
-this.cellProcessors[column].onKeyDown(ev)}
+if(this.cellProcessors[column].onKeyDown(ev)===false){return}}
 if(this.navigation.onKeydown(ev)===false){return}
 if(this.search.onKeydown(ev)===false){return}}
 Table.prototype.onFormSubmit=function(ev,data){if(data.handler==this.options.postbackHandlerName){this.unfocusTable()
@@ -789,6 +789,9 @@ throw new Error("The $.oc.table namespace is not defined. Make sure that the tab
 throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.base,BaseProto=Base.prototype
 var DropdownProcessor=function(tableObj,columnName,columnConfiguration){this.itemListElement=null
 this.cachedOptionPromises={}
+this.searching=false
+this.searchQuery=null
+this.searchInterval=null
 this.itemClickHandler=this.onItemClick.bind(this)
 this.itemKeyDownHandler=this.onItemKeyDown.bind(this)
 Base.call(this,tableObj,columnName,columnConfiguration)}
@@ -893,10 +896,21 @@ this.hideDropdown()
 return}
 if(ev.keyCode==9){this.updateCellFromSelectedItem(this.findSelectedItem())
 this.tableObj.navigation.navigateNext(ev)
-this.tableObj.stopEvent(ev)}
-if(ev.keyCode==27){this.hideDropdown()}}
-DropdownProcessor.prototype.onKeyDown=function(ev){if(ev.keyCode==32)
-this.showDropdown()}
+this.tableObj.stopEvent(ev)
+return}
+if(ev.keyCode==27){this.hideDropdown()
+return}
+this.searchByTextInput(ev);}
+DropdownProcessor.prototype.onKeyDown=function(ev){if(!this.itemListElement)
+return
+if(ev.keyCode==32&&!this.searching){this.showDropdown()}else if(ev.keyCode==40||ev.keyCode==38){var selected=this.findSelectedItem(),newSelectedItem;if(!selected){if(ev.keyCode==38){return false}
+newSelectedItem=this.itemListElement.querySelector('ul li:first-child')}else{newSelectedItem=selected.nextElementSibling
+if(ev.keyCode==38)
+newSelectedItem=selected.previousElementSibling}
+if(newSelectedItem){if(selected){selected.setAttribute('class','')}
+newSelectedItem.setAttribute('class','selected')
+this.updateCellFromSelectedItem(this.findSelectedItem())}
+return false}else{this.searchByTextInput(ev);}}
 DropdownProcessor.prototype.onRowValueChanged=function(columnName,cellElement){if(!this.columnConfiguration.dependsOn)
 return
 var dependsOnColumn=false,dependsOn=this.columnConfiguration.dependsOn
@@ -912,6 +926,10 @@ viewContainer=null})}
 DropdownProcessor.prototype.elementBelongsToProcessor=function(element){if(!this.itemListElement)
 return false
 return this.tableObj.parentContainsElement(this.itemListElement,element)}
+DropdownProcessor.prototype.searchByTextInput=function(ev){var character=ev.key;if(character.length===1||character==='Space'){if(!this.searching){this.searching=true;this.searchQuery='';}
+this.searchQuery+=(character==='Space')?' ':character;var validItem=null;var query=this.searchQuery;this.itemListElement.querySelectorAll('ul li').forEach(function(item){if(validItem===null&&item.dataset.value&&item.dataset.value.toLowerCase().indexOf(query.toLowerCase())===0){validItem=item;}});if(validItem){this.itemListElement.querySelectorAll('ul li.selected').forEach(function(item){item.setAttribute('class','');});validItem.setAttribute('class','selected');this.updateCellFromSelectedItem(this.findSelectedItem());if(this.searchInterval){clearTimeout(this.searchInterval);}
+this.searchInterval=setTimeout(this.cancelTextSearch.bind(this),1000);}else{this.cancelTextSearch();}}}
+DropdownProcessor.prototype.cancelTextSearch=function(){this.searching=false;this.searchQuery=null;this.searchInterval=null;}
 $.oc.table.processor.dropdown=DropdownProcessor;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.string,BaseProto=Base.prototype
