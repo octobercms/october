@@ -1060,17 +1060,15 @@ class RelationController extends ControllerBehavior
         $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
+        $model = $this->manageWidget->model; // RainLab.Translate's MLControl sets internal translatable model state, so the same model instance used for getSaveData() must be saved
 
-        if ($this->viewMode == 'multi') {
-            $model = $this->relationModel->find($this->manageId);
-            $modelsToSave = $this->prepareModelsToSave($model, $saveData);
-            foreach ($modelsToSave as $modelToSave) {
-                $modelToSave->save(null, $this->manageWidget->getSessionKey());
-            }
+        $modelsToSave = $this->prepareModelsToSave($model, $saveData);
+        foreach ($modelsToSave as $modelToSave) {
+            $modelToSave->save(null, $this->manageWidget->getSessionKey());
         }
-        elseif ($this->viewMode == 'single') {
+
+        if ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);
-            $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
 
         return $this->relationRefresh();
