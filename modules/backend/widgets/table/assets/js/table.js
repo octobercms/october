@@ -742,11 +742,15 @@
 
         var target = this.getEventTarget(ev, 'TD')
 
-        if (!target)
-            return
+        if (!target) {
+            this.unfocusTable();
+            return;
+        }
 
-        if (target.tagName != 'TD')
-            return
+        if (target.tagName != 'TD') {
+            this.unfocusTable();
+            return;
+        }
 
         this.focusCell(target, true)
     }
