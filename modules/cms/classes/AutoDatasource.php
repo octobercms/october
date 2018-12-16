@@ -34,7 +34,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     /**
      * @var string The key for the datasource to perform CRUD operations on
      */
-    protected $activeDatasourceKey = '';
+    public $activeDatasourceKey = '';
 
     /**
      * Create a new datasource instance.
@@ -87,11 +87,9 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     {
         $result = false;
 
-        $keys = array_keys($this->datasources);
-        if (in_array($source, $keys)) {
-            // Get the datasource's cache index key
-            $cacheIndex = array_search($source, $keys);
+        $sourcePaths = $this->getSourcePaths($source);
 
+        if (!empty($paths)) {
             // Generate the path
             list($name, $extension) = $model->getFileNameParts();
             $path = $this->makeFilePath($model->getObjectTypeDirName(), $name, $extension);
@@ -99,9 +97,31 @@ class AutoDatasource extends Datasource implements DatasourceInterface
             // Deleted paths are included as being handled by a datasource
             // The functionality built on this will need to make sure they
             // include deleted records when actually performing sycning actions
-            if (isset($this->pathCache[$cacheIndex][$path])) {
+            if (isset($sourcePaths[$path])) {
                 $result = true;
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the available paths for the specified datasource key
+     *
+     * @param string $source The string key of the datasource to check
+     * @return void
+     */
+    public function getSourcePaths(string $source)
+    {
+        $result = [];
+
+        $keys = array_keys($this->datasources);
+        if (in_array($source, $keys)) {
+            // Get the datasource's cache index key
+            $cacheIndex = array_search($source, $keys);
+
+            // Return the available paths
+            $result = $this->pathCache[$cacheIndex];
         }
 
         return $result;
