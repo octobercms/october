@@ -38,6 +38,7 @@
         // Event handlers
         this.itemClickHandler = this.onItemClick.bind(this)
         this.itemKeyDownHandler = this.onItemKeyDown.bind(this)
+        this.itemMouseMoveHandler = this.onItemMouseMove.bind(this)
 
         //
         // Parent constructor
@@ -53,6 +54,7 @@
         this.unregisterListHandlers()
         this.itemClickHandler = null
         this.itemKeyDownHandler = null
+        this.itemMouseMoveHandler = null
         this.itemListElement = null
         this.cachedOptionPromises = null
         BaseProto.dispose.call(this)
@@ -67,6 +69,7 @@
             // body, not to the table.
             this.itemListElement.removeEventListener('click', this.itemClickHandler)
             this.itemListElement.removeEventListener('keydown', this.itemKeyDownHandler)
+            this.itemListElement.removeEventListener('mousemove', this.itemMouseMoveHandler)
         }
     }
 
@@ -128,6 +131,7 @@
 
         this.itemListElement.addEventListener('click', this.itemClickHandler)
         this.itemListElement.addEventListener('keydown', this.itemKeyDownHandler)
+        this.itemListElement.addEventListener('mousemove', this.itemMouseMoveHandler)
 
         this.itemListElement.setAttribute('class', 'table-control-dropdown-list')
         this.itemListElement.style.width = cellContentContainer.offsetWidth + 'px'
@@ -266,9 +270,9 @@
         }
     }
 
-    DropdownProcessor.prototype.updateCellFromSelectedItem = function(selectedItem) {
-        this.tableObj.setCellValue(this.activeCell, selectedItem.getAttribute('data-value'))
-        this.setViewContainerValue(this.activeCell, selectedItem.textContent)
+    DropdownProcessor.prototype.updateCellFromFocusedItem = function() {
+        var focusedItem = this.findFocusedItem();
+        this.setSelectedItem(focusedItem);
     }
 
     DropdownProcessor.prototype.findSelectedItem = function() {
@@ -278,17 +282,34 @@
         return null
     }
 
+    DropdownProcessor.prototype.setSelectedItem = function(item) {
+        if (!this.itemListElement)
+            return null;
+
+        if (item.tagName == 'LI' && this.itemListElement.contains(item)) {
+            this.itemListElement.querySelectorAll('ul li').forEach(function (option) {
+                option.removeAttribute('class');
+            });
+            item.setAttribute('class', 'selected');
+        }
+
+        this.tableObj.setCellValue(this.activeCell, item.getAttribute('data-value'))
+        this.setViewContainerValue(this.activeCell, item.textContent)
+    }
+
+    DropdownProcessor.prototype.findFocusedItem = function() {
+        if (this.itemListElement)
+            return this.itemListElement.querySelector('ul li:focus')
+
+        return null
+    }
+
     DropdownProcessor.prototype.onItemClick = function(ev) {
         var target = this.tableObj.getEventTarget(ev)
 
         if (target.tagName == 'LI') {
-            this.updateCellFromSelectedItem(target)
-
-            var selected = this.findSelectedItem()
-            if (selected)
-                selected.setAttribute('class', '')
-
-            target.setAttribute('class', 'selected')
+            target.focus();
+            this.updateCellFromFocusedItem()
             this.hideDropdown()
         }
     }
@@ -300,16 +321,14 @@
         if (ev.keyCode == 40 || ev.keyCode == 38)
         {
             // Up or down keys - find previous/next list item and select it
-            var selected = this.findSelectedItem(),
-                newSelectedItem = selected.nextElementSibling
+            var focused = this.findFocusedItem(),
+                newFocusedItem = focused.nextElementSibling
 
             if (ev.keyCode == 38)
-                newSelectedItem = selected.previousElementSibling
+                newFocusedItem = focused.previousElementSibling
 
-            if (newSelectedItem) {
-                selected.setAttribute('class', '')
-                newSelectedItem.setAttribute('class', 'selected')
-                newSelectedItem.focus()
+            if (newFocusedItem) {
+                newFocusedItem.focus()
             }
 
             return
@@ -317,15 +336,14 @@
 
         if (ev.keyCode == 13 || ev.keyCode == 32) {
             // Return or space keys - update the selected value and hide the editor
-            this.updateCellFromSelectedItem(this.findSelectedItem())
-
+            this.updateCellFromFocusedItem()
             this.hideDropdown()
             return
         }
 
         if (ev.keyCode == 9) {
             // Tab - update the selected value and pass control to the table navigation
-            this.updateCellFromSelectedItem(this.findSelectedItem())
+            this.updateCellFromFocusedItem()
             this.tableObj.navigation.navigateNext(ev)
             this.tableObj.stopEvent(ev)
             return
@@ -337,7 +355,21 @@
             return
         }
 
-        this.searchByTextInput(ev);
+        this.searchByTextInput(ev, true);
+    }
+
+    /*
+     * Event handler for mouse movements over options in the dropdown menu
+     */
+    DropdownProcessor.prototype.onItemMouseMove = function(ev) {
+        if (!this.itemListElement)
+            return
+
+        var target = this.tableObj.getEventTarget(ev)
+
+        if (target.tagName == 'LI') {
+            target.focus();
+        }
     }
 
     /*
@@ -368,12 +400,7 @@
             }
 
             if (newSelectedItem) {
-                if (selected) {
-                    selected.setAttribute('class', '')
-                }
-                newSelectedItem.setAttribute('class', 'selected')
-
-                this.updateCellFromSelectedItem(this.findSelectedItem())
+                this.setSelectedItem(newSelectedItem);
             }
 
             return false // Stop propogation of event
@@ -440,7 +467,10 @@
      * Provides auto-complete like functionality for typing in a query and selecting
      * a matching list option
      */
-    DropdownProcessor.prototype.searchByTextInput = function(ev) {
+    DropdownProcessor.prototype.searchByTextInput = function(ev, focusOnly) {
+        if (focusOnly === undefined) {
+            focusOnly = false;
+        }
         var character = ev.key;
 
         if (character.length === 1 || character === 'Space') {
@@ -463,11 +493,11 @@
 
             if (validItem) {
                 // If a valid item is found, select item and allow for fine-tuning the search query
-                this.itemListElement.querySelectorAll('ul li.selected').forEach(function(item) {
-                    item.setAttribute('class', '');
-                });
-                validItem.setAttribute('class', 'selected');
-                this.updateCellFromSelectedItem(this.findSelectedItem());
+                if (focusOnly === true) {
+                    validItem.focus();
+                } else {
+                    this.setSelectedItem(validItem);
+                }
 
                 if (this.searchInterval) {
                     clearTimeout(this.searchInterval);
