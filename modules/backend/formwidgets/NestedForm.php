@@ -25,7 +25,7 @@ class NestedForm extends FormWidgetBase
     /**
      * @var bool defines if the nested form is styled like a panel (default true).
      */
-    public $isStyled = true;
+    public $usePanelStyles = true;
 
     /**
      * @var Form form widget reference
@@ -38,7 +38,7 @@ class NestedForm extends FormWidgetBase
     public function init() {
         $this->fillFromConfig([
             'form',
-            'isStyled',
+            'usePanelStyles',
         ]);
 
         $config = $this->makeConfig($this->form);
