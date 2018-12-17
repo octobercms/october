@@ -1123,6 +1123,10 @@ class Lists extends WidgetBase
             $value = implode(', ', $value);
         }
 
+        if (is_string($column->format) && !empty($column->format)) {
+            $value = sprintf($column->format, $value);
+        }
+
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
     }
 
