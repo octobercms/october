@@ -21,3 +21,10 @@ scopes:
         modelClass: Backend\Models\UserRole
         conditions: role_id in (:filtered)
         nameFrom: name
+
+    show_deleted:
+        label: backend::lang.user.show_deleted
+        type: checkbox
+        modelClass: Backend\Models\User
+        scope: withTrashed
+        default: 0

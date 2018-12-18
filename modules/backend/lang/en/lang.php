@@ -141,6 +141,8 @@ return [
         'last_login' => 'Last login',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
+        'deleted_at' => 'Deleted at',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
@@ -173,7 +175,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
-        ]
+        ],
+        'trashed_hint_title' => 'This account has been deleted',
+        'trashed_hint_desc' => 'This account has been deleted and will be unable to be signed in under. To restore it, click the restore user icon in the bottom right',
     ],
     'list' => [
         'default_title' => 'List',
@@ -229,6 +233,7 @@ return [
         'create_success' => ':name created',
         'update_success' => ':name updated',
         'delete_success' => ':name deleted',
+        'restore_success' => ':name restored',
         'reset_success' => 'Reset complete',
         'missing_id' => 'Form record ID has not been specified.',
         'missing_model' => 'Form behavior used in :class does not have a model defined.',
@@ -248,6 +253,9 @@ return [
         'confirm_delete' => 'Delete record?',
         'confirm_delete_multiple' => 'Delete selected records?',
         'deleting_name' => 'Deleting :name...',
+        'restore' => 'Restore',
+        'restoring' => 'Restoring',
+        'confirm_restore' => 'Are you sure you want to restore this record?',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
         'resetting_name' => 'Resetting :name',
