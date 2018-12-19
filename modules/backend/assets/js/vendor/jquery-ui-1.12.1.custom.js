@@ -1,7 +1,7 @@
-/*! WARNING CUSTOM BUILD Select Tabs and Sortable to Build
+/*! WARNING CUSTOM BUILD Select Tabs and Sortable to Build (Also changed sortable into sortable2 to advoid conflict with jquery-sortable)
 * jQuery UI - v1.12.1 - 2018-12-08
 * http://jqueryui.com
-* Includes: widget.js, data.js, keycode.js, scroll-parent.js, unique-id.js, widgets/sortable.js, widgets/mouse.js, widgets/tabs.js
+* Includes: widget.js, data.js, keycode.js, scroll-parent.js, unique-id.js, widgets/sortable2.js, widgets/mouse.js, widgets/tabs.js
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
 
 (function( factory ) {
@@ -1110,13 +1110,13 @@ var widgetsMouse = $.widget( "ui.mouse", {
 //>>label: Sortable
 //>>group: Interactions
 //>>description: Enables items in a list to be sorted using the mouse.
-//>>docs: http://api.jqueryui.com/sortable/
-//>>demos: http://jqueryui.com/sortable/
-//>>css.structure: ../../themes/base/sortable.css
+//>>docs: http://api.jqueryui.com/sortable2/
+//>>demos: http://jqueryui.com/sortable2/
+//>>css.structure: ../../themes/base/sortable2.css
 
 
 
-var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
+var widgetsSortable = $.widget( "ui.sortable2", $.ui.mouse, {
 	version: "1.12.1",
 	widgetEventPrefix: "sort",
 	ready: false,
@@ -1170,7 +1170,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 	_create: function() {
 		this.containerCache = {};
-		this._addClass( "ui-sortable" );
+		this._addClass( "ui-sortable2" );
 
 		//Get the items
 		this.refresh();
@@ -1198,13 +1198,13 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 	_setHandleClassName: function() {
 		var that = this;
-		this._removeClass( this.element.find( ".ui-sortable-handle" ), "ui-sortable-handle" );
+		this._removeClass( this.element.find( ".ui-sortable2-handle" ), "ui-sortable2-handle" );
 		$.each( this.items, function() {
 			that._addClass(
 				this.instance.options.handle ?
 					this.item.find( this.instance.options.handle ) :
 					this.item,
-				"ui-sortable-handle"
+				"ui-sortable2-handle"
 			);
 		} );
 	},
@@ -1403,7 +1403,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 		this.dragging = true;
 
-		this._addClass( this.helper, "ui-sortable-helper" );
+		this._addClass( this.helper, "ui-sortable2-helper" );
 
 		// Execute the drag once - this causes the helper not to be visiblebefore getting its
 		// correct position
@@ -1502,7 +1502,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			// an item from one container to another the
 			// currentContainer is switched before the placeholder is moved.
 			//
-			// Without this, moving items in "sub-sortables" can cause
+			// Without this, moving items in "sub-sortable2s" can cause
 			// the placeholder to jitter between the outer and inner container.
 			if ( item.instance !== this.currentContainer ) {
 				continue;
@@ -1604,7 +1604,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 			if ( this.options.helper === "original" ) {
 				this.currentItem.css( this._storedCSS );
-				this._removeClass( this.currentItem, "ui-sortable-helper" );
+				this._removeClass( this.currentItem, "ui-sortable2-helper" );
 			} else {
 				this.currentItem.show();
 			}
@@ -1628,6 +1628,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				this.placeholder[ 0 ].parentNode.removeChild( this.placeholder[ 0 ] );
 			}
 			if ( this.options.helper !== "original" && this.helper &&
+
 					this.helper[ 0 ].parentNode ) {
 				this.helper.remove();
 			}
@@ -1806,8 +1807,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 						queries.push( [ $.isFunction( inst.options.items ) ?
 							inst.options.items.call( inst.element ) :
 							$( inst.options.items, inst.element )
-								.not( ".ui-sortable-helper" )
-								.not( ".ui-sortable-placeholder" ), inst ] );
+								.not( ".ui-sortable2-helper" )
+								.not( ".ui-sortable2-placeholder" ), inst ] );
 					}
 				}
 			}
@@ -1817,8 +1818,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			this.options.items
 				.call( this.element, null, { options: this.options, item: this.currentItem } ) :
 			$( this.options.items, this.element )
-				.not( ".ui-sortable-helper" )
-				.not( ".ui-sortable-placeholder" ), this ] );
+				.not( ".ui-sortable2-helper" )
+				.not( ".ui-sortable2-placeholder" ), this ] );
 
 		function addItems() {
 			items.push( this );
@@ -1964,9 +1965,9 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 					var nodeName = that.currentItem[ 0 ].nodeName.toLowerCase(),
 						element = $( "<" + nodeName + ">", that.document[ 0 ] );
 
-						that._addClass( element, "ui-sortable-placeholder",
+						that._addClass( element, "ui-sortable2-placeholder",
 								className || that.currentItem[ 0 ].className )
-							._removeClass( element, "ui-sortable-helper" );
+							._removeClass( element, "ui-sortable2-helper" );
 
 					if ( nodeName === "tbody" ) {
 						that._createTrPlaceholder(
@@ -2512,7 +2513,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				}
 			}
 			this.currentItem.css( this._storedCSS );
-			this._removeClass( this.currentItem, "ui-sortable-helper" );
+			this._removeClass( this.currentItem, "ui-sortable2-helper" );
 		} else {
 			this.currentItem.show();
 		}
@@ -2524,7 +2525,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		}
 		if ( ( this.fromOutside ||
 				this.domPosition.prev !==
-				this.currentItem.prev().not( ".ui-sortable-helper" )[ 0 ] ||
+				this.currentItem.prev().not( ".ui-sortable2-helper" )[ 0 ] ||
 				this.domPosition.parent !== this.currentItem.parent()[ 0 ] ) && !noPropagation ) {
 
 			// Trigger update callback if the DOM position has changed
@@ -2958,6 +2959,7 @@ $.widget( "ui.tabs", {
 			// Setting collapsible: false while collapsed; open first panel
 			if ( !value && this.options.active === false ) {
 				this._activate( 0 );
+
 			}
 		}
 

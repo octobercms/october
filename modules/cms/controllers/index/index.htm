@@ -23,6 +23,20 @@
             </div>
             <div class="tab-content layout-row">
             </div>
+            
+            <!-- Allow Tabs to be Slideable -->
+            <script>
+            $(function() {
+                "use strict";
+                var t = $(".tabs-container").tabs()
+                t.find(".ui-tabs-nav").sortable2({
+                    axis: "x",
+                    stop: function() {
+                        t.tabs("refresh")
+                    }
+                })
+            });
+            </script>
 
         </div>
     <?php else: ?>
