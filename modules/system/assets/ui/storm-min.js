@@ -4156,7 +4156,7 @@ case'ctrl':condition.ctrl=true
 break
 case'command':case'cmd':case'meta':condition.cmd=true
 break
-case'alt':condition.alt=true
+case'alt':case'option':condition.alt=true
 break}}
 condition.specific=this.keyMap[keys[keys.length-1]]
 if(typeof(condition.specific)=='undefined')
