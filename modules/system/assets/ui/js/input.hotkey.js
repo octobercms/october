@@ -167,7 +167,7 @@
                 return
 
             if (this.options.callback)
-                return this.options.callback(this.$el, ev.currentTarget)
+                return this.options.callback(this.$el, ev.currentTarget, ev)
         }
     }
 
