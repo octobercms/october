@@ -164,6 +164,10 @@ body {
         textarea {
             height: auto;
         }
+        
+        input + label, textarea + label {
+            background: transparent!important;
+        }
 
         input.fr-not-empty:focus + label, textarea.fr-not-empty:focus + label {
             color: @color-label;
