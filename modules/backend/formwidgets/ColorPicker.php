@@ -43,6 +43,12 @@ class ColorPicker extends FormWidgetBase
      */
     public $showAlpha = false;
 
+    /**
+     * @var string  Append Colorpicker to a parent container
+     * Use css selector to define the container
+     */
+    public $appendTo = 'body';    
+    
     //
     // Object properties
     //
@@ -61,6 +67,7 @@ class ColorPicker extends FormWidgetBase
             'availableColors',
             'allowEmpty',
             'showAlpha',
+            'appendTo',
         ]);
     }
 
@@ -83,6 +90,7 @@ class ColorPicker extends FormWidgetBase
         $this->vars['availableColors'] = $availableColors = $this->getAvailableColors();
         $this->vars['allowEmpty'] = $this->allowEmpty;
         $this->vars['showAlpha'] = $this->showAlpha;
+        $this->vars['appendTo'] = $this->appendTo;
         $this->vars['isCustomColor'] = !in_array($value, $availableColors);
     }
 
