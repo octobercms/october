@@ -429,6 +429,7 @@ return [
         'manage_preferences' => 'Manage backend preferences',
         'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
+        'manage_default_dashboard' => 'Manage the default dashboard',
         'manage_branding' => 'Customize the back-end'
     ],
     'log' => [

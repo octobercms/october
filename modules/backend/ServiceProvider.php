@@ -137,6 +137,10 @@ class ServiceProvider extends ModuleServiceProvider
                     'label' => 'system::lang.permissions.view_the_dashboard',
                     'tab'   => 'system::lang.permissions.name'
                 ],
+                'backend.manage_default_dashboard' => [
+                    'label' => 'system::lang.permissions.manage_default_dashboard',
+                    'tab'   => 'system::lang.permissions.name',
+                ],
                 'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
                     'tab'   => 'system::lang.permissions.name'
