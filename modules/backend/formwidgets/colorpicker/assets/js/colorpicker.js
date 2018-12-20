@@ -28,6 +28,7 @@
     ColorPicker.DEFAULTS = {
         showAlpha: false,
         allowEmpty: false,
+        appendTo: 'body',
         dataLocker: null
     }
 
@@ -53,6 +54,7 @@
                 showInput: true,
                 showAlpha: this.options.showAlpha,
                 allowEmpty: this.options.allowEmpty,
+                appendTo: self.setContainerParent(this.options.appendTo),
                 color: this.$customColor.data('hexColor'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
@@ -75,6 +77,15 @@
         }
     }
 
+    /**
+    * Set a parent element for the ColorPicker (Spectrum) container
+    * If default parent container is body but backend modal found (.control-popup.modal) set the last as a parent to address known Spectrum issue with bootstrap modals
+    * Set a custom parent element when appendTo defined in field.yaml  
+    */
+    ColorPicker.prototype.setContainerParent = function(containerParent){    
+        return ($('.control-popup.modal').length && containerParent == 'body') ? '.control-popup.modal' : containerParent
+    }   
+               
     ColorPicker.prototype.setCustomColor = function(hexColor) {
         if (this.$customColor.length) {
             this.$customColor.data('hexColor', hexColor)
