@@ -86,6 +86,7 @@
                     condition.cmd = true
                     break
                 case 'alt':
+                case 'option':
                     condition.alt = true
                     break
             }
