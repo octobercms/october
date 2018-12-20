@@ -4170,7 +4170,7 @@ return false}
 HotKey.prototype.onKeyDown=function(ev){if(this.testConditions(ev)){if(this.options.hotkeyVisible&&!this.$el.is(':visible'))
 return
 if(this.options.callback)
-return this.options.callback(this.$el,ev.currentTarget)}}
+return this.options.callback(this.$el,ev.currentTarget,ev)}}
 HotKey.DEFAULTS={hotkey:null,hotkeyTarget:'html',hotkeyVisible:true,callback:function(element){element.trigger('click')
 return false}}
 var old=$.fn.hotKey
