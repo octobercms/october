@@ -21,6 +21,7 @@
                     class="btn btn-primary"
                     data-request="onRelationManageAdd"
                     data-dismiss="popup"
+                    data-request-success="$.oc.relationBehavior.changed('<?= e($this->vars['relationField']) ?>', 'added')"
                     data-stripe-load-indicator>
                     <?= e(trans('backend::lang.relation.add_selected')) ?>
                 </button>

@@ -63,7 +63,7 @@ trait FormModelSaver
         }
 
         $attributesToPurge = [];
-        $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
+        $singularTypes = ['belongsTo', 'hasOne', 'morphTo', 'morphOne'];
 
         foreach ($saveData as $attribute => $value) {
             $isNested = $attribute == 'pivot' || (

@@ -274,6 +274,7 @@
         // Wait for animations to complete
         var self = this
         setTimeout(function() { self.setBackdrop(false) }, 250)
+        setTimeout(function() { self.hide() }, 500)
     }
 
     Popup.prototype.triggerEvent = function(eventName, params) {
@@ -307,6 +308,8 @@
     }
 
     Popup.prototype.hide = function() {
+        if (!this.isOpen) return
+
         this.triggerEvent('popupHide') // Deprecated
         this.triggerEvent('hide.oc.popup')
 

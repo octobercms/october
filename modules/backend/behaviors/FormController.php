@@ -463,7 +463,7 @@ class FormController extends ControllerBehavior
         }
 
         if ($model && $redirectUrl) {
-            $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
+            $redirectUrl = RouterHelper::replaceParameters($model, $redirectUrl);
         }
 
         if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {
