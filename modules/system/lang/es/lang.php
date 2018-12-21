@@ -346,7 +346,7 @@ return [
     ],
     'request_log' => [
         'hint' => 'Este registro muestra una lista de las peticiones del navegador que pueden requerir atención. Por ejemplo, si un usuario abre una página que no se puede encontrar, se crea un registro con el código de estado 404.',
-        'menu_label' => 'Registros de acceso',
+        'menu_label' => 'Registros de peticiones',
         'menu_description' => 'Ver listado de redirecciones con errores y Paginas no encontradas (404).',
         'empty_link' => 'Vaciar el registro de acceso',
         'empty_loading' => 'Vaciando los registros...',
