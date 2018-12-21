@@ -178,7 +178,60 @@ return [
         'deleting' => 'Borrando Plantilla...',
         'deleting_layout' => 'Borrando Diseño...',
         'sending' => 'Enviando mensaje de prueba...',
-        'return' => 'Volver a lista de plantillas'
+        'return' => 'Volver a lista de plantillas',
+        'options' => 'Opciones',
+        'disable_auto_inline_css' => 'Deshabilitar CSS en línea automático'
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Branding de Correo',
+        'menu_description' => 'Modificar los colores y apariencia de las plantillas de correo.',
+        'page_title' => 'Personalizar apariencia del correo',
+        'sample_template' => [
+            'heading' => 'Encabezado',
+            'paragraph' => 'Este es un párrafo rellenado con Lorem Ipsum y un enlace. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Item',
+                'description' => 'Descripción',
+                'price' => 'Precio',
+                'centered' => 'Centrado',
+                'right_aligned' => 'Alineado-A-La-Derecha'
+            ],
+            'buttons' => [
+                'primary' => 'Botón Principal',
+                'positive' => 'Botón Positivo',
+                'negative' => 'Botón Negativo',
+            ],
+            'panel' => '¿Este panel es increíble o qué?',
+            'more' => 'Algo más de texto',
+            'promotion' => 'Código de cupón: OCTOBER',
+            'subcopy' => 'Este es el subcopy del correo',
+            'thanks' => 'Gracias'
+        ],
+        'fields' => [
+            '_section_background' => 'Fondo',
+            'body_bg' => 'Fondo del cuerpo',
+            'content_bg' => 'Fondo del contenido',
+            'content_inner_bg' => 'Fondo del contenido interior',
+            '_section_buttons' => 'Botones',
+            'button_text_color' => 'Color del texto del botón',
+            'button_primary_bg' => 'Fondo del botón Principal',
+            'button_positive_bg' => 'Fondo del botón Positivo',
+            'button_negative_bg' => 'Fondo del botón Negativo',
+            '_section_type' => 'Tipografía',
+            'header_color' => 'Color del Enzabezado',
+            'heading_color' => 'Color de Encabezados',
+            'text_color' => 'Color del Texto',
+            'link_color' => 'Color del Enlace',
+            'footer_color' => 'Color del pie de página',
+            '_section_borders' => 'Bordes',
+            'body_border_color' => 'Color del borde del cuerpo',
+            'subcopy_border_color' => 'Color del borde del subcopy',
+            'table_border_color' => 'Color del borde de la tabla',
+            '_section_components' => 'Componentes',
+            'panel_bg' => 'Fondo del Panel',
+            'promotion_bg' => 'Fondo de Promoción',
+            'promotion_border_color' => 'Color del borde de Promoción',
+        ]
     ],
     'install' => [
         'project_label' => 'Adjuntar al proyecto',
