@@ -29,7 +29,8 @@ return [
             'social' => 'Social',
             'events' => 'Eventos',
             'customers' => 'Clientes',
-            'my_settings' => 'Mis Configuraciones'
+            'my_settings' => 'Mis Configuraciones',
+            'notifications' => 'Notificaciones'
         ]
     ],
     'theme' => [
