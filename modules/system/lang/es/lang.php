@@ -365,6 +365,17 @@ return [
         'view_the_dashboard' => 'Ver el Escritorio',
         'manage_branding' => 'Perzonalizar el back-end'
     ],
+    'log' => [
+        'menu_label' => 'Configuración de Logs',
+        'menu_description' => 'Especifique cuáles áreas deben realizar registros.',
+        'default_tab' => 'Registros',
+        'log_events' => 'Registrar eventos de sistema',
+        'log_events_comment' => 'Almacenar eventos de sistema en la base de datos además del registro de archivo.',
+        'log_requests' => 'Registrar malas solicitudes',
+        'log_requests_comment' => 'Solicitudes de navegadores que puedan requerir atención, como errores 404.',
+        'log_theme' => 'Registrar cambios en el tema',
+        'log_theme_comment' => 'Cuando se realizan cambios al tema utilizando el backend.',
+    ],
     'media' => [
         'invalid_path' => "Ruta de archivo especificada no válida: ':path'.",
         'folder_size_items' => 'elemento(s)',
