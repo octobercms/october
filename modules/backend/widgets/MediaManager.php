@@ -1290,72 +1290,81 @@ class MediaManager extends WidgetBase
      */
     protected function generateThumbnail($thumbnailInfo, $thumbnailParams = null)
     {
-        $tempFilePath = null;
-        $fullThumbnailPath = null;
-        $thumbnailPath = null;
         $markup = null;
 
-        try {
-            /*
-             * Get and validate input data
-             */
-            $path = $thumbnailInfo['path'];
-            $width = $thumbnailInfo['width'];
-            $height = $thumbnailInfo['height'];
-            $lastModified = $thumbnailInfo['lastModified'];
-
-            if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
-                throw new ApplicationException('Invalid input data');
-            }
-
-            if (!$thumbnailParams) {
-                $thumbnailParams = $this->getThumbnailParams();
-                $thumbnailParams['width'] = $width;
-                $thumbnailParams['height'] = $height;
-            }
-
-            $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
-            $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
-
-            /*
-             * Save the file locally
-             */
-            $library = MediaLibrary::instance();
-            $tempFilePath = $this->getLocalTempFilePath($path);
-
-            if (!@File::put($tempFilePath, $library->get($path))) {
-                throw new SystemException('Error saving remote file to a temporary location');
-            }
-
-            /*
-             * Resize the thumbnail and save to the thumbnails directory
-             */
-            $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
-
-            /*
-             * Delete the temporary file
-             */
-            File::delete($tempFilePath);
+        if($this->isVector($thumbnailInfo['path'])) {
             $markup = $this->makePartial('thumbnail-image', [
                 'isError' => false,
-                'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
+                'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
             ]);
         }
-        catch (Exception $ex) {
-            if ($tempFilePath) {
+        else {
+            $tempFilePath = null;
+            $fullThumbnailPath = null;
+            $thumbnailPath = null;
+
+            try {
+                /*
+                 * Get and validate input data
+                 */
+                $path = $thumbnailInfo['path'];
+                $width = $thumbnailInfo['width'];
+                $height = $thumbnailInfo['height'];
+                $lastModified = $thumbnailInfo['lastModified'];
+
+                if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
+                    throw new ApplicationException('Invalid input data');
+                }
+
+                if (!$thumbnailParams) {
+                    $thumbnailParams = $this->getThumbnailParams();
+                    $thumbnailParams['width'] = $width;
+                    $thumbnailParams['height'] = $height;
+                }
+
+                $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
+                $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
+
+                /*
+                 * Save the file locally
+                 */
+                $library = MediaLibrary::instance();
+                $tempFilePath = $this->getLocalTempFilePath($path);
+
+                if (!@File::put($tempFilePath, $library->get($path))) {
+                    throw new SystemException('Error saving remote file to a temporary location');
+                }
+
+                /*
+                 * Resize the thumbnail and save to the thumbnails directory
+                 */
+                $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
+
+                /*
+                 * Delete the temporary file
+                 */
                 File::delete($tempFilePath);
+                $markup = $this->makePartial('thumbnail-image', [
+                    'isError' => false,
+                    'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
+                ]);
             }
+            catch (Exception $ex) {
+                if ($tempFilePath) {
+                    File::delete($tempFilePath);
+                }
 
-            if ($fullThumbnailPath) {
-                $this->copyBrokenImage($fullThumbnailPath);
+                if ($fullThumbnailPath) {
+                    $this->copyBrokenImage($fullThumbnailPath);
+                }
+
+                $markup = $this->makePartial('thumbnail-image', ['isError' => true]);
+
+                /*
+                 * @todo We need to log all types of exceptions here
+                 */
+                traceLog($ex->getMessage());
             }
-
-            $markup = $this->makePartial('thumbnail-image', ['isError' => true]);
-
-            /*
-             * @todo We need to log all types of exceptions here
-             */
-            traceLog($ex->getMessage());
         }
 
         if ($markup && ($id = $thumbnailInfo['id'])) {
@@ -1851,4 +1860,14 @@ class MediaManager extends WidgetBase
             'folder' => $targetFolder
         ];
    }
+
+   /**
+    * Detect if image is vector graphic (SVG)
+    * @param string $path
+    * @return boolean
+    */
+    protected function isVector($path)
+    {
+        return (pathinfo($path, PATHINFO_EXTENSION) == 'svg');
+    }
 }
