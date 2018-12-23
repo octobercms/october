@@ -106,7 +106,7 @@
 
         $anchor.html('')
         $anchor
-            .append($('<span class="title"></span>')
+            .append($('<span class="title"><i class="slideable-tabs"></i></span>')
             .append($('<span></span>').html(html)))
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)

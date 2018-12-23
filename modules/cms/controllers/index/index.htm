@@ -31,6 +31,11 @@
                 var t = $(".tabs-container").tabs()
                 t.find(".ui-tabs-nav").sortable2({
                     axis: "x",
+					appendTo: ".tabs-container",
+					cursor: "e-resize",
+					zIndex: 100,
+					containment: $('.tabs-container').parent().parent(),
+					handle: ".slideable-tabs",
                     stop: function() {
                         t.tabs("refresh")
                     }

@@ -4463,7 +4463,7 @@ if(!$anchor.attr('title'))
 $anchor.attr('title',$anchor.text())
 var html=$anchor.html()
 $anchor.html('')
-$anchor.append($('<span class="title"></span>').append($('<span></span>').html(html)))
+$anchor.append($('<span class="title"><i class="slideable-tabs"></i></span>').append($('<span></span>').html(html)))
 var pane=$('> .tab-pane',this.$pagesContainer).eq(tabIndex).attr('id',targetId)
 if(!$('span.tab-close',li).length){$(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){$(this).trigger('close.oc.tab')
 return false}))}

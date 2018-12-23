@@ -131,7 +131,6 @@
         this.$el.appendTo('#layout-canvas')
         this.panelVisible = true
         this.$el.css({
-            left: this.sideNavWidth,
             top: this.mainNavHeight
         })
 
@@ -155,7 +154,7 @@
             this.$el.height($(document).height() - this.mainNavHeight)
         }
         else {
-            this.$el.css('height', '')
+            this.$el.css('height', '100vh')
         }
 
         if (this.panelVisible && $(window).width() > this.options.breakpoint && this.panelFixed()) {
