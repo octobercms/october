@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -49,7 +48,7 @@ exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
 
-define("ace/mode/java_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/java_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -203,7 +202,7 @@ oop.inherits(JavaHighlightRules, TextHighlightRules);
 exports.JavaHighlightRules = JavaHighlightRules;
 });
 
-define("ace/mode/drools_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules","ace/mode/java_highlight_rules","ace/mode/doc_comment_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/drools_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules","ace/mode/java_highlight_rules","ace/mode/doc_comment_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -418,7 +417,7 @@ oop.inherits(DroolsHighlightRules, TextHighlightRules);
 exports.DroolsHighlightRules = DroolsHighlightRules;
 });
 
-define("ace/mode/folding/drools",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode","ace/token_iterator"], function(require, exports, module) {
+ace.define("ace/mode/folding/drools",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode","ace/token_iterator"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -465,7 +464,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-define("ace/mode/drools",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/drools_highlight_rules","ace/mode/folding/drools"], function(require, exports, module) {
+ace.define("ace/mode/drools",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/drools_highlight_rules","ace/mode/folding/drools"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -489,7 +488,7 @@ oop.inherits(Mode, TextMode);
 exports.Mode = Mode;
 
 });                (function() {
-                    window.require(["ace/mode/drools"], function(m) {
+                    ace.require(["ace/mode/drools"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

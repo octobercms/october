@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/ext/whitespace",["require","exports","module","ace/lib/lang"], function(require, exports, module) {
+ace.define("ace/ext/whitespace",["require","exports","module","ace/lib/lang"], function(require, exports, module) {
 "use strict";
 
 var lang = require("../lib/lang");
@@ -201,7 +200,7 @@ exports.commands = [{
 }];
 
 });                (function() {
-                    window.require(["ace/ext/whitespace"], function(m) {
+                    ace.require(["ace/ext/whitespace"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

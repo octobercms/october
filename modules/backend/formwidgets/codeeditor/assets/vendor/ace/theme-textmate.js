@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/theme/textmate",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/textmate",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 "use strict";
 
 exports.isDark = false;
@@ -129,7 +128,7 @@ exports.$id = "ace/theme/textmate";
 var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
 });                (function() {
-                    window.require(["ace/theme/textmate"], function(m) {
+                    ace.require(["ace/theme/textmate"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

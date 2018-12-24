@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/xquery/xquery_lexer",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/mode/xquery/xquery_lexer",["require","exports","module"], function(require, exports, module) {
 module.exports = (function outer (modules, cache, entry) {
     var previousRequire = typeof require == "function" && require;
     function newRequire(name, jumped){
@@ -2085,7 +2084,7 @@ exports.XQueryLexer = function(){ return new Lexer(XQueryTokenizer, Rules); };
 
 });
 
-define("ace/mode/behaviour/xml",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator","ace/lib/lang"], function(require, exports, module) {
+ace.define("ace/mode/behaviour/xml",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator","ace/lib/lang"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -2257,7 +2256,7 @@ oop.inherits(XmlBehaviour, Behaviour);
 exports.XmlBehaviour = XmlBehaviour;
 });
 
-define("ace/mode/behaviour/xquery",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/mode/behaviour/cstyle","ace/mode/behaviour/xml","ace/token_iterator"], function(require, exports, module) {
+ace.define("ace/mode/behaviour/xquery",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/mode/behaviour/cstyle","ace/mode/behaviour/xml","ace/token_iterator"], function(require, exports, module) {
 "use strict";
 
   var oop = require("../../lib/oop");
@@ -2321,7 +2320,7 @@ function hasType(token, type) {
   exports.XQueryBehaviour = XQueryBehaviour;
 });
 
-define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
+ace.define("ace/mode/folding/cstyle",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -2461,7 +2460,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-define("ace/mode/xquery",["require","exports","module","ace/worker/worker_client","ace/lib/oop","ace/mode/text","ace/mode/text_highlight_rules","ace/mode/xquery/xquery_lexer","ace/range","ace/mode/behaviour/xquery","ace/mode/folding/cstyle","ace/anchor"], function(require, exports, module) {
+ace.define("ace/mode/xquery",["require","exports","module","ace/worker/worker_client","ace/lib/oop","ace/mode/text","ace/mode/text_highlight_rules","ace/mode/xquery/xquery_lexer","ace/range","ace/mode/behaviour/xquery","ace/mode/folding/cstyle","ace/anchor"], function(require, exports, module) {
 "use strict";
 
 var WorkerClient = require("../worker/worker_client").WorkerClient;
@@ -2635,7 +2634,7 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/xquery"], function(m) {
+                    ace.require(["ace/mode/xquery"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

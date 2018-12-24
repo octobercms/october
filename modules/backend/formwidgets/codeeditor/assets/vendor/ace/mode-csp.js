@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/csp_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csp_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
     "use strict";
 
     var oop = require("../lib/oop");
@@ -32,7 +31,7 @@ define("ace/mode/csp_highlight_rules",["require","exports","module","ace/lib/oop
     exports.CspHighlightRules = CspHighlightRules;
 });
 
-define("ace/mode/csp",["require","exports","module","ace/mode/text","ace/mode/csp_highlight_rules","ace/lib/oop"], function(require, exports, module) {
+ace.define("ace/mode/csp",["require","exports","module","ace/mode/text","ace/mode/csp_highlight_rules","ace/lib/oop"], function(require, exports, module) {
     "use strict";
 
     var TextMode = require("./text").Mode;
@@ -51,7 +50,7 @@ define("ace/mode/csp",["require","exports","module","ace/mode/text","ace/mode/cs
 
     exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/csp"], function(m) {
+                    ace.require(["ace/mode/csp"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/vbscript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/vbscript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -176,7 +175,7 @@ oop.inherits(VBScriptHighlightRules, TextHighlightRules);
 exports.VBScriptHighlightRules = VBScriptHighlightRules;
 });
 
-define("ace/mode/vbscript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/vbscript_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/vbscript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/vbscript_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -198,7 +197,7 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/vbscript"], function(m) {
+                    ace.require(["ace/mode/vbscript"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

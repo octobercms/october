@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/pascal_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/pascal_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -82,7 +81,7 @@ oop.inherits(PascalHighlightRules, TextHighlightRules);
 exports.PascalHighlightRules = PascalHighlightRules;
 });
 
-define("ace/mode/folding/coffee",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode","ace/range"], function(require, exports, module) {
+ace.define("ace/mode/folding/coffee",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode","ace/range"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../../lib/oop");
@@ -169,7 +168,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 });
 
-define("ace/mode/pascal",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/pascal_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
+ace.define("ace/mode/pascal",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/pascal_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -197,7 +196,7 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/pascal"], function(m) {
+                    ace.require(["ace/mode/pascal"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

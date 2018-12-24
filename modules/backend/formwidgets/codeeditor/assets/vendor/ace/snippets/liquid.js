@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/snippets/liquid",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/snippets/liquid",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
 exports.snippetText = "\n\
@@ -887,7 +886,7 @@ snippet wbr\n\
 exports.scope = "liquid";
 
 });                (function() {
-                    window.require(["ace/snippets/liquid"], function(m) {
+                    ace.require(["ace/snippets/liquid"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

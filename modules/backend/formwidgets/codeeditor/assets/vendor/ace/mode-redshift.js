@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -49,7 +48,7 @@ exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
 
-define("ace/mode/json_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/json_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -125,7 +124,7 @@ oop.inherits(JsonHighlightRules, TextHighlightRules);
 exports.JsonHighlightRules = JsonHighlightRules;
 });
 
-define("ace/mode/redshift_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules","ace/mode/json_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/redshift_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules","ace/mode/json_highlight_rules"], function(require, exports, module) {
 
 var oop = require("../lib/oop");
 var lang = require("../lib/lang");
@@ -323,7 +322,7 @@ oop.inherits(RedshiftHighlightRules, TextHighlightRules);
 exports.RedshiftHighlightRules = RedshiftHighlightRules;
 });
 
-define("ace/mode/redshift",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/redshift_highlight_rules","ace/range"], function(require, exports, module) {
+ace.define("ace/mode/redshift",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/redshift_highlight_rules","ace/range"], function(require, exports, module) {
 
 var oop = require("../lib/oop");
 var TextMode = require("../mode/text").Mode;
@@ -352,7 +351,7 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/redshift"], function(m) {
+                    ace.require(["ace/mode/redshift"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

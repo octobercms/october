@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/ext/modelist",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/ext/modelist",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
 var modes = [];
@@ -224,7 +223,7 @@ module.exports = {
 };
 
 });                (function() {
-                    window.require(["ace/ext/modelist"], function(m) {
+                    ace.require(["ace/ext/modelist"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

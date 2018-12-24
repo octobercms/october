@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/theme/clouds",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/clouds",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = false;
 exports.cssClass = "ace-clouds";
@@ -94,7 +93,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
 });                (function() {
-                    window.require(["ace/theme/clouds"], function(m) {
+                    ace.require(["ace/theme/clouds"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

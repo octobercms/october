@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/mode/csound_preprocessor_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csound_preprocessor_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -273,7 +272,7 @@ oop.inherits(CsoundPreprocessorHighlightRules, TextHighlightRules);
 exports.CsoundPreprocessorHighlightRules = CsoundPreprocessorHighlightRules;
 });
 
-define("ace/mode/csound_score_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/csound_preprocessor_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csound_score_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/csound_preprocessor_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -424,7 +423,7 @@ oop.inherits(CsoundScoreHighlightRules, CsoundPreprocessorHighlightRules);
 exports.CsoundScoreHighlightRules = CsoundScoreHighlightRules;
 });
 
-define("ace/mode/lua_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/lua_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -583,7 +582,7 @@ oop.inherits(LuaHighlightRules, TextHighlightRules);
 exports.LuaHighlightRules = LuaHighlightRules;
 });
 
-define("ace/mode/python_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/python_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -974,7 +973,7 @@ oop.inherits(PythonHighlightRules, TextHighlightRules);
 exports.PythonHighlightRules = PythonHighlightRules;
 });
 
-define("ace/mode/csound_orchestra_highlight_rules",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/mode/csound_preprocessor_highlight_rules","ace/mode/csound_score_highlight_rules","ace/mode/lua_highlight_rules","ace/mode/python_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csound_orchestra_highlight_rules",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/mode/csound_preprocessor_highlight_rules","ace/mode/csound_score_highlight_rules","ace/mode/lua_highlight_rules","ace/mode/python_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var lang = require("../lib/lang");
@@ -2895,7 +2894,7 @@ oop.inherits(CsoundOrchestraHighlightRules, CsoundPreprocessorHighlightRules);
 exports.CsoundOrchestraHighlightRules = CsoundOrchestraHighlightRules;
 });
 
-define("ace/mode/css_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/css_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3090,7 +3089,7 @@ exports.CssHighlightRules = CssHighlightRules;
 
 });
 
-define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3140,7 +3139,7 @@ exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
 
-define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3614,7 +3613,7 @@ function comments(next) {
 exports.JavaScriptHighlightRules = JavaScriptHighlightRules;
 });
 
-define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3817,7 +3816,7 @@ oop.inherits(XmlHighlightRules, TextHighlightRules);
 exports.XmlHighlightRules = XmlHighlightRules;
 });
 
-define("ace/mode/html_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/css_highlight_rules","ace/mode/javascript_highlight_rules","ace/mode/xml_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/html_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/css_highlight_rules","ace/mode/javascript_highlight_rules","ace/mode/xml_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3899,7 +3898,7 @@ oop.inherits(HtmlHighlightRules, XmlHighlightRules);
 exports.HtmlHighlightRules = HtmlHighlightRules;
 });
 
-define("ace/mode/csound_document_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/csound_orchestra_highlight_rules","ace/mode/csound_score_highlight_rules","ace/mode/html_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csound_document_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/csound_orchestra_highlight_rules","ace/mode/csound_score_highlight_rules","ace/mode/html_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3966,7 +3965,7 @@ oop.inherits(CsoundDocumentHighlightRules, TextHighlightRules);
 exports.CsoundDocumentHighlightRules = CsoundDocumentHighlightRules;
 });
 
-define("ace/mode/csound_document",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/csound_document_highlight_rules"], function(require, exports, module) {
+ace.define("ace/mode/csound_document",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/csound_document_highlight_rules"], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3980,7 +3979,7 @@ oop.inherits(Mode, TextMode);
 
 exports.Mode = Mode;
 });                (function() {
-                    window.require(["ace/mode/csound_document"], function(m) {
+                    ace.require(["ace/mode/csound_document"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

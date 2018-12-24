@@ -1,4 +1,3 @@
-/*! Ace Editor v1.4.2 */
 "no use strict";
 !(function(window) {
 if (typeof window.window != "undefined" && window.document)
@@ -218,7 +217,7 @@ window.onmessage = function(e) {
 };
 })(this);
 
-define("ace/lib/oop",[], function(require, exports, module) {
+ace.define("ace/lib/oop",[], function(require, exports, module) {
 "use strict";
 
 exports.inherits = function(ctor, superCtor) {
@@ -246,7 +245,7 @@ exports.implement = function(proto, mixin) {
 
 });
 
-define("ace/range",[], function(require, exports, module) {
+ace.define("ace/range",[], function(require, exports, module) {
 "use strict";
 var comparePoints = function(p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
@@ -485,7 +484,7 @@ Range.comparePoints = function(p1, p2) {
 exports.Range = Range;
 });
 
-define("ace/apply_delta",[], function(require, exports, module) {
+ace.define("ace/apply_delta",[], function(require, exports, module) {
 "use strict";
 
 function throwDeltaError(delta, errorText){
@@ -550,7 +549,7 @@ exports.applyDelta = function(docLines, delta, doNotValidate) {
 };
 });
 
-define("ace/lib/event_emitter",[], function(require, exports, module) {
+ace.define("ace/lib/event_emitter",[], function(require, exports, module) {
 "use strict";
 
 var EventEmitter = {};
@@ -680,7 +679,7 @@ exports.EventEmitter = EventEmitter;
 
 });
 
-define("ace/anchor",[], function(require, exports, module) {
+ace.define("ace/anchor",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("./lib/oop");
@@ -805,7 +804,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
 });
 
-define("ace/document",[], function(require, exports, module) {
+ace.define("ace/document",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("./lib/oop");
@@ -1160,7 +1159,7 @@ var Document = function(textOrLines) {
 exports.Document = Document;
 });
 
-define("ace/lib/lang",[], function(require, exports, module) {
+ace.define("ace/lib/lang",[], function(require, exports, module) {
 "use strict";
 
 exports.last = function(a) {
@@ -1348,7 +1347,7 @@ exports.delayedCall = function(fcn, defaultTimeout) {
 };
 });
 
-define("ace/worker/mirror",[], function(require, exports, module) {
+ace.define("ace/worker/mirror",[], function(require, exports, module) {
 "use strict";
 
 var Range = require("../range").Range;
@@ -1410,7 +1409,7 @@ var Mirror = exports.Mirror = function(sender) {
 
 });
 
-define("ace/mode/javascript/jshint",[], function(require, exports, module) {
+ace.define("ace/mode/javascript/jshint",[], function(require, exports, module) {
 module.exports = (function outer (modules, cache, entry) {
     var previousRequire = typeof require == "function" && require;
     function newRequire(name, jumped){
@@ -11687,7 +11686,7 @@ exports.jasmine = {
 
 });
 
-define("ace/mode/javascript_worker",[], function(require, exports, module) {
+ace.define("ace/mode/javascript_worker",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -11834,7 +11833,7 @@ oop.inherits(JavaScriptWorker, Mirror);
 
 });
 
-define("ace/lib/es5-shim",[], function(require, exports, module) {
+ace.define("ace/lib/es5-shim",[], function(require, exports, module) {
 
 function Empty() {}
 

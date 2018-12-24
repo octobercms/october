@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/snippets/lua",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/snippets/lua",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
 exports.snippetText = "snippet #!\n\
@@ -27,7 +26,7 @@ snippet fori\n\
 exports.scope = "lua";
 
 });                (function() {
-                    window.require(["ace/snippets/lua"], function(m) {
+                    ace.require(["ace/snippets/lua"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

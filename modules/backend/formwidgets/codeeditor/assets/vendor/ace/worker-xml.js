@@ -1,4 +1,3 @@
-/*! Ace Editor v1.4.2 */
 "no use strict";
 !(function(window) {
 if (typeof window.window != "undefined" && window.document)
@@ -218,7 +217,7 @@ window.onmessage = function(e) {
 };
 })(this);
 
-define("ace/lib/oop",[], function(require, exports, module) {
+ace.define("ace/lib/oop",[], function(require, exports, module) {
 "use strict";
 
 exports.inherits = function(ctor, superCtor) {
@@ -246,7 +245,7 @@ exports.implement = function(proto, mixin) {
 
 });
 
-define("ace/lib/lang",[], function(require, exports, module) {
+ace.define("ace/lib/lang",[], function(require, exports, module) {
 "use strict";
 
 exports.last = function(a) {
@@ -434,7 +433,7 @@ exports.delayedCall = function(fcn, defaultTimeout) {
 };
 });
 
-define("ace/range",[], function(require, exports, module) {
+ace.define("ace/range",[], function(require, exports, module) {
 "use strict";
 var comparePoints = function(p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
@@ -673,7 +672,7 @@ Range.comparePoints = function(p1, p2) {
 exports.Range = Range;
 });
 
-define("ace/apply_delta",[], function(require, exports, module) {
+ace.define("ace/apply_delta",[], function(require, exports, module) {
 "use strict";
 
 function throwDeltaError(delta, errorText){
@@ -738,7 +737,7 @@ exports.applyDelta = function(docLines, delta, doNotValidate) {
 };
 });
 
-define("ace/lib/event_emitter",[], function(require, exports, module) {
+ace.define("ace/lib/event_emitter",[], function(require, exports, module) {
 "use strict";
 
 var EventEmitter = {};
@@ -868,7 +867,7 @@ exports.EventEmitter = EventEmitter;
 
 });
 
-define("ace/anchor",[], function(require, exports, module) {
+ace.define("ace/anchor",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("./lib/oop");
@@ -993,7 +992,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
 });
 
-define("ace/document",[], function(require, exports, module) {
+ace.define("ace/document",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("./lib/oop");
@@ -1348,7 +1347,7 @@ var Document = function(textOrLines) {
 exports.Document = Document;
 });
 
-define("ace/worker/mirror",[], function(require, exports, module) {
+ace.define("ace/worker/mirror",[], function(require, exports, module) {
 "use strict";
 
 var Range = require("../range").Range;
@@ -1410,7 +1409,7 @@ var Mirror = exports.Mirror = function(sender) {
 
 });
 
-define("ace/mode/xml/sax",[], function(require, exports, module) {
+ace.define("ace/mode/xml/sax",[], function(require, exports, module) {
 var nameStartChar = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]///\u10000-\uEFFFF
 var nameChar = new RegExp("[\\-\\.0-9"+nameStartChar.source.slice(1,-1)+"\u00B7\u0300-\u036F\\ux203F-\u2040]");
 var tagNamePattern = new RegExp('^'+nameStartChar.source+nameChar.source+'*(?:\:'+nameStartChar.source+nameChar.source+'*)?$');
@@ -1921,7 +1920,7 @@ function split(source,start){
 return XMLReader;
 });
 
-define("ace/mode/xml/dom",[], function(require, exports, module) {
+ace.define("ace/mode/xml/dom",[], function(require, exports, module) {
 
 function copy(src,dest){
 	for(var p in src){
@@ -2923,7 +2922,7 @@ try{
 return DOMImplementation;
 });
 
-define("ace/mode/xml/dom-parser",[], function(require, exports, module) {
+ace.define("ace/mode/xml/dom-parser",[], function(require, exports, module) {
 	'use strict';
 
 	var XMLReader = require('./sax'),
@@ -3129,7 +3128,7 @@ return {
 	 };
 });
 
-define("ace/mode/xml_worker",[], function(require, exports, module) {
+ace.define("ace/mode/xml_worker",[], function(require, exports, module) {
 "use strict";
 
 var oop = require("../lib/oop");
@@ -3192,7 +3191,7 @@ oop.inherits(Worker, Mirror);
 
 });
 
-define("ace/lib/es5-shim",[], function(require, exports, module) {
+ace.define("ace/lib/es5-shim",[], function(require, exports, module) {
 
 function Empty() {}
 

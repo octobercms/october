@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/snippets",["require","exports","module","ace/lib/oop","ace/lib/event_emitter","ace/lib/lang","ace/range","ace/anchor","ace/keyboard/hash_handler","ace/tokenizer","ace/lib/dom","ace/editor"], function(require, exports, module) {
+ace.define("ace/snippets",["require","exports","module","ace/lib/oop","ace/lib/event_emitter","ace/lib/lang","ace/range","ace/anchor","ace/keyboard/hash_handler","ace/tokenizer","ace/lib/dom","ace/editor"], function(require, exports, module) {
 "use strict";
 var oop = require("./lib/oop");
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
@@ -907,7 +906,7 @@ var Editor = require("./editor").Editor;
 
 });
 
-define("ace/autocomplete/popup",["require","exports","module","ace/virtual_renderer","ace/editor","ace/range","ace/lib/event","ace/lib/lang","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/autocomplete/popup",["require","exports","module","ace/virtual_renderer","ace/editor","ace/range","ace/lib/event","ace/lib/lang","ace/lib/dom"], function(require, exports, module) {
 "use strict";
 
 var Renderer = require("../virtual_renderer").VirtualRenderer;
@@ -1228,7 +1227,7 @@ exports.AcePopup = AcePopup;
 
 });
 
-define("ace/autocomplete/util",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/autocomplete/util",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
 exports.parForEach = function(array, fn, callback) {
@@ -1288,7 +1287,7 @@ exports.getCompletionPrefix = function (editor) {
 
 });
 
-define("ace/autocomplete",["require","exports","module","ace/keyboard/hash_handler","ace/autocomplete/popup","ace/autocomplete/util","ace/lib/event","ace/lib/lang","ace/lib/dom","ace/snippets"], function(require, exports, module) {
+ace.define("ace/autocomplete",["require","exports","module","ace/keyboard/hash_handler","ace/autocomplete/popup","ace/autocomplete/util","ace/lib/event","ace/lib/lang","ace/lib/dom","ace/snippets"], function(require, exports, module) {
 "use strict";
 
 var HashHandler = require("./keyboard/hash_handler").HashHandler;
@@ -1768,7 +1767,7 @@ exports.FilteredList = FilteredList;
 
 });
 
-define("ace/autocomplete/text_completer",["require","exports","module","ace/range"], function(require, exports, module) {
+ace.define("ace/autocomplete/text_completer",["require","exports","module","ace/range"], function(require, exports, module) {
     var Range = require("../range").Range;
     
     var splitRegex = /[^a-zA-Z_0-9\$\-\u00C0-\u1FFF\u2C00-\uD7FF\w]+/;
@@ -1812,7 +1811,7 @@ define("ace/autocomplete/text_completer",["require","exports","module","ace/rang
     };
 });
 
-define("ace/ext/language_tools",["require","exports","module","ace/snippets","ace/autocomplete","ace/config","ace/lib/lang","ace/autocomplete/util","ace/autocomplete/text_completer","ace/editor","ace/config"], function(require, exports, module) {
+ace.define("ace/ext/language_tools",["require","exports","module","ace/snippets","ace/autocomplete","ace/config","ace/lib/lang","ace/autocomplete/util","ace/autocomplete/text_completer","ace/editor","ace/config"], function(require, exports, module) {
 "use strict";
 
 var snippetManager = require("../snippets").snippetManager;
@@ -1985,7 +1984,7 @@ require("../config").defineOptions(Editor.prototype, "editor", {
     }
 });
 });                (function() {
-                    window.require(["ace/ext/language_tools"], function(m) {
+                    ace.require(["ace/ext/language_tools"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

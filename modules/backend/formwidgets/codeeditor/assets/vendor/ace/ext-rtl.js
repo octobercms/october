@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/ext/rtl",["require","exports","module","ace/lib/dom","ace/lib/lang","ace/editor","ace/config"], function(require, exports, module) {
+ace.define("ace/ext/rtl",["require","exports","module","ace/lib/dom","ace/lib/lang","ace/editor","ace/config"], function(require, exports, module) {
 "use strict";
 var dom = require("ace/lib/dom");
 var lang = require("ace/lib/lang");
@@ -101,7 +100,7 @@ function clearTextLayer(renderer) {
 }
 
 });                (function() {
-                    window.require(["ace/ext/rtl"], function(m) {
+                    ace.require(["ace/ext/rtl"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

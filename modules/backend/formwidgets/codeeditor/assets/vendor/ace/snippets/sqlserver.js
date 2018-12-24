@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/snippets/sqlserver",["require","exports","module"], function(require, exports, module) {
+ace.define("ace/snippets/sqlserver",["require","exports","module"], function(require, exports, module) {
 "use strict";
 
 exports.snippetText = "# ISNULL\n\
@@ -75,7 +74,7 @@ snippet createfn\n\
 exports.scope = "sqlserver";
 
 });                (function() {
-                    window.require(["ace/snippets/sqlserver"], function(m) {
+                    ace.require(["ace/snippets/sqlserver"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

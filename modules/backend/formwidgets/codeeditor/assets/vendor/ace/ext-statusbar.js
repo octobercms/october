@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/ext/statusbar",["require","exports","module","ace/lib/dom","ace/lib/lang"], function(require, exports, module) {
+ace.define("ace/ext/statusbar",["require","exports","module","ace/lib/dom","ace/lib/lang"], function(require, exports, module) {
 "use strict";
 var dom = require("ace/lib/dom");
 var lang = require("ace/lib/lang");
@@ -48,7 +47,7 @@ var StatusBar = function(editor, parentNode) {
 exports.StatusBar = StatusBar;
 
 });                (function() {
-                    window.require(["ace/ext/statusbar"], function(m) {
+                    ace.require(["ace/ext/statusbar"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

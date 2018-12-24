@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/theme/solarized_light",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/solarized_light",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 
 exports.isDark = false;
 exports.cssClass = "ace-solarized-light";
@@ -90,7 +89,7 @@ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgb
 var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
 });                (function() {
-                    window.require(["ace/theme/solarized_light"], function(m) {
+                    ace.require(["ace/theme/solarized_light"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

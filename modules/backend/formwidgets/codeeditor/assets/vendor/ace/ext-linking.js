@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/ext/linking",["require","exports","module","ace/editor","ace/config"], function(require, exports, module) {
+ace.define("ace/ext/linking",["require","exports","module","ace/editor","ace/config"], function(require, exports, module) {
 
 var Editor = require("ace/editor").Editor;
 
@@ -56,7 +55,7 @@ function onClick(e) {
 }
 
 });                (function() {
-                    window.require(["ace/ext/linking"], function(m) {
+                    ace.require(["ace/ext/linking"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }

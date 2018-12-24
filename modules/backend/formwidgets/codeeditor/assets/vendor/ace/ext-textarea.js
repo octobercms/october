@@ -1,5 +1,4 @@
-/*! Ace Editor v1.4.2 */
-define("ace/theme/textmate",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
+ace.define("ace/theme/textmate",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
 "use strict";
 
 exports.isDark = false;
@@ -130,7 +129,7 @@ var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
 });
 
-define("ace/ext/textarea",["require","exports","module","ace/lib/event","ace/lib/useragent","ace/lib/net","ace/ace","ace/theme/textmate"], function(require, exports, module) {
+ace.define("ace/ext/textarea",["require","exports","module","ace/lib/event","ace/lib/useragent","ace/lib/net","ace/ace","ace/theme/textmate"], function(require, exports, module) {
 "use strict";
 
 var event = require("../lib/event");
@@ -555,7 +554,7 @@ exports.defaultOptions = {
 };
 
 });                (function() {
-                    window.require(["ace/ext/textarea"], function(m) {
+                    ace.require(["ace/ext/textarea"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }
