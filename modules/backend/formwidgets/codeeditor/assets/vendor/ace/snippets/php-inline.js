@@ -1,4 +1,4 @@
-/*! This file has been dropped in v1.4.2 and keep for October CMS */
+/*! Ace Editor v1.4.2 */
 ace.define("ace/snippets/php",["require","exports","module"], function(require, exports, module) {
 "use strict";
 

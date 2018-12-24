@@ -1,5 +1,106 @@
-/*! Ace v1.4.2 */
-define("ace/ext/rtl",["require","exports","module","ace/lib/dom","ace/lib/lang","ace/editor","ace/config"],function(e,t,n){"use strict";function u(e,t){var n=t.getSelection().lead;t.session.$bidiHandler.isRtlLine(n.row)&&n.column===0&&(t.session.$bidiHandler.isMoveLeftOperation&&n.row>0?t.getSelection().moveCursorTo(n.row-1,t.session.getLine(n.row-1).length):t.getSelection().isEmpty()?n.column+=1:n.setPosition(n.row,n.column+1))}function a(e){e.editor.session.$bidiHandler.isMoveLeftOperation=/gotoleft|selectleft|backspace|removewordleft/.test(e.command.name)}function f(e,t){t.$bidiHandler.currentRow=null;if(t.$bidiHandler.isRtlLine(e.start.row)&&e.action==="insert"&&e.lines.length>1)for(var n=e.start.row;n<e.end.row;n++)t.getLine(n+1).charAt(0)!==t.$bidiHandler.RLE&&(t.getDocument().$lines[n+1]=t.$bidiHandler.RLE+t.getLine(n+1))}function l(e,t){var n=t.session,r=n.$bidiHandler,i=t.$textLayer.$lines.cells,s=t.layerConfig.width-t.layerConfig.padding+"px";i.forEach(function(e){var t=e.element.style;r&&r.isRtlLine(e.row)?(t.direction="rtl",t.textAlign="right",t.width=s):(t.direction="",t.textAlign="",t.width="")})}function c(e){function n(e){var t=e.element.style;t.direction=t.textAlign=t.width=""}var t=e.$textLayer.$lines;t.cells.forEach(n),t.cellCache.forEach(n)}var r=e("ace/lib/dom"),i=e("ace/lib/lang"),s=[{name:"leftToRight",bindKey:{win:"Ctrl-Alt-Shift-L",mac:"Command-Alt-Shift-L"},exec:function(e){e.session.$bidiHandler.setRtlDirection(e,!1)},readOnly:!0},{name:"rightToLeft",bindKey:{win:"Ctrl-Alt-Shift-R",mac:"Command-Alt-Shift-R"},exec:function(e){e.session.$bidiHandler.setRtlDirection(e,!0)},readOnly:!0}],o=e("../editor").Editor;e("../config").defineOptions(o.prototype,"editor",{rtlText:{set:function(e){e?(this.on("session",f),this.on("changeSelection",u),this.renderer.on("afterRender",l),this.commands.on("exec",a),this.commands.addCommands(s)):(this.off("session",f),this.off("changeSelection",u),this.renderer.off("afterRender",l),this.commands.off("exec",a),this.commands.removeCommands(s),c(this.renderer)),this.renderer.updateFull()}}})});                (function() {
+/*! Ace Editor v1.4.2 */
+define("ace/ext/rtl",["require","exports","module","ace/lib/dom","ace/lib/lang","ace/editor","ace/config"], function(require, exports, module) {
+"use strict";
+var dom = require("ace/lib/dom");
+var lang = require("ace/lib/lang");
+
+var commands = [{
+    name: "leftToRight",
+    bindKey: { win: "Ctrl-Alt-Shift-L", mac: "Command-Alt-Shift-L" },
+    exec: function(editor) {
+        editor.session.$bidiHandler.setRtlDirection(editor, false);
+    },
+    readOnly: true
+}, {
+    name: "rightToLeft",
+    bindKey: { win: "Ctrl-Alt-Shift-R",  mac: "Command-Alt-Shift-R" },
+    exec: function(editor) {
+        editor.session.$bidiHandler.setRtlDirection(editor, true);
+    },
+    readOnly: true
+}];
+
+var Editor = require("../editor").Editor;
+require("../config").defineOptions(Editor.prototype, "editor", {
+    rtlText: {
+        set: function(val) {
+            if (val) {
+                this.on("session", onChange);
+                this.on("changeSelection", onChangeSelection);
+                this.renderer.on("afterRender", updateLineDirection);
+                this.commands.on("exec", onCommandEmitted);
+                this.commands.addCommands(commands);
+            } else {
+                this.off("session", onChange);
+                this.off("changeSelection", onChangeSelection);
+                this.renderer.off("afterRender", updateLineDirection);
+                this.commands.off("exec", onCommandEmitted);
+                this.commands.removeCommands(commands);
+                clearTextLayer(this.renderer);
+            }
+            this.renderer.updateFull();
+        }
+    }
+});
+function onChangeSelection(e, editor) {
+    var lead = editor.getSelection().lead;
+    if (editor.session.$bidiHandler.isRtlLine(lead.row)) {
+        if (lead.column === 0) {
+            if (editor.session.$bidiHandler.isMoveLeftOperation && lead.row > 0) {
+                editor.getSelection().moveCursorTo(lead.row - 1, editor.session.getLine(lead.row - 1).length);
+            } else {
+                if (editor.getSelection().isEmpty())
+                    lead.column += 1;
+                else
+                    lead.setPosition(lead.row, lead.column + 1);
+            }
+        }
+    }
+}
+
+function onCommandEmitted(commadEvent) {
+    commadEvent.editor.session.$bidiHandler.isMoveLeftOperation = /gotoleft|selectleft|backspace|removewordleft/.test(commadEvent.command.name);
+}
+function onChange(delta, session) {
+    session.$bidiHandler.currentRow = null;
+    if (session.$bidiHandler.isRtlLine(delta.start.row) && delta.action === 'insert' && delta.lines.length > 1) {
+        for (var row = delta.start.row; row < delta.end.row; row++) {
+            if (session.getLine(row + 1).charAt(0) !== session.$bidiHandler.RLE)
+                session.getDocument().$lines[row + 1] = session.$bidiHandler.RLE + session.getLine(row + 1);
+        }
+    }
+}
+
+function updateLineDirection(e, renderer) {
+    var session = renderer.session;
+    var $bidiHandler = session.$bidiHandler;
+    var cells = renderer.$textLayer.$lines.cells;
+    var width = renderer.layerConfig.width - renderer.layerConfig.padding + "px";
+    cells.forEach(function(cell) {
+        var style = cell.element.style;
+        if ($bidiHandler && $bidiHandler.isRtlLine(cell.row)) {
+            style.direction = "rtl";
+            style.textAlign = "right";
+            style.width = width;
+        } else {
+            style.direction = "";
+            style.textAlign = "";
+            style.width = "";
+        }
+    });
+}
+
+function clearTextLayer(renderer) {
+    var lines = renderer.$textLayer.$lines;
+    lines.cells.forEach(clear);
+    lines.cellCache.forEach(clear);
+    function clear(cell) {
+        var style = cell.element.style;
+        style.direction = style.textAlign = style.width = "";
+    }
+}
+
+});                (function() {
                     window.require(["ace/ext/rtl"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;

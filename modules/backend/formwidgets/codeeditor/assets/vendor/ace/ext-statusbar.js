@@ -1,5 +1,53 @@
-/*! Ace v1.4.2 */
-define("ace/ext/statusbar",["require","exports","module","ace/lib/dom","ace/lib/lang"],function(e,t,n){"use strict";var r=e("ace/lib/dom"),i=e("ace/lib/lang"),s=function(e,t){this.element=r.createElement("div"),this.element.className="ace_status-indicator",this.element.style.cssText="display: inline-block;",t.appendChild(this.element);var n=i.delayedCall(function(){this.updateStatus(e)}.bind(this)).schedule.bind(null,100);e.on("changeStatus",n),e.on("changeSelection",n),e.on("keyboardActivity",n)};(function(){this.updateStatus=function(e){function n(e,n){e&&t.push(e,n||"|")}var t=[];n(e.keyBinding.getStatusText(e)),e.commands.recording&&n("REC");var r=e.selection,i=r.lead;if(!r.isEmpty()){var s=e.getSelectionRange();n("("+(s.end.row-s.start.row)+":"+(s.end.column-s.start.column)+")"," ")}n(i.row+":"+i.column," "),r.rangeCount&&n("["+r.rangeCount+"]"," "),t.pop(),this.element.textContent=t.join("")}}).call(s.prototype),t.StatusBar=s});                (function() {
+/*! Ace Editor v1.4.2 */
+define("ace/ext/statusbar",["require","exports","module","ace/lib/dom","ace/lib/lang"], function(require, exports, module) {
+"use strict";
+var dom = require("ace/lib/dom");
+var lang = require("ace/lib/lang");
+
+var StatusBar = function(editor, parentNode) {
+    this.element = dom.createElement("div");
+    this.element.className = "ace_status-indicator";
+    this.element.style.cssText = "display: inline-block;";
+    parentNode.appendChild(this.element);
+
+    var statusUpdate = lang.delayedCall(function(){
+        this.updateStatus(editor);
+    }.bind(this)).schedule.bind(null, 100);
+    
+    editor.on("changeStatus", statusUpdate);
+    editor.on("changeSelection", statusUpdate);
+    editor.on("keyboardActivity", statusUpdate);
+};
+
+(function(){
+    this.updateStatus = function(editor) {
+        var status = [];
+        function add(str, separator) {
+            str && status.push(str, separator || "|");
+        }
+
+        add(editor.keyBinding.getStatusText(editor));
+        if (editor.commands.recording)
+            add("REC");
+        
+        var sel = editor.selection;
+        var c = sel.lead;
+        
+        if (!sel.isEmpty()) {
+            var r = editor.getSelectionRange();
+            add("(" + (r.end.row - r.start.row) + ":"  +(r.end.column - r.start.column) + ")", " ");
+        }
+        add(c.row + ":" + c.column, " ");        
+        if (sel.rangeCount)
+            add("[" + sel.rangeCount + "]", " ");
+        status.pop();
+        this.element.textContent = status.join("");
+    };
+}).call(StatusBar.prototype);
+
+exports.StatusBar = StatusBar;
+
+});                (function() {
                     window.require(["ace/ext/statusbar"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;

@@ -1,5 +1,20 @@
-/*! Ace v1.4.2 */
-define("ace/snippets/maze",["require","exports","module"],function(e,t,n){"use strict";t.snippetText="snippet >\ndescription assignment\nscope maze\n	-> ${1}= ${2}\n\nsnippet >\ndescription if\nscope maze\n	-> IF ${2:**} THEN %${3:L} ELSE %${4:R}\n",t.scope="maze"});                (function() {
+/*! Ace Editor v1.4.2 */
+define("ace/snippets/maze",["require","exports","module"], function(require, exports, module) {
+"use strict";
+
+exports.snippetText = "snippet >\n\
+description assignment\n\
+scope maze\n\
+	-> ${1}= ${2}\n\
+\n\
+snippet >\n\
+description if\n\
+scope maze\n\
+	-> IF ${2:**} THEN %${3:L} ELSE %${4:R}\n\
+";
+exports.scope = "maze";
+
+});                (function() {
                     window.require(["ace/snippets/maze"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
