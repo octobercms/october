@@ -893,7 +893,11 @@
 
         this.clearSearchTrackInputTimer()
 
-        this.searchTrackInputTimer = window.setTimeout(this.proxy(this.updateSearchResults), 300)
+        var regex1 = new RegExp("^((?!" + value + ").)*$")
+        this.$el.find('[data-item-type="file"]').show()
+        this.$el.find('[data-item-type="file"]').filter(function(){
+            return $(this).attr('data-public-url').match(regex1)
+        }).hide()
     }
 
     //
