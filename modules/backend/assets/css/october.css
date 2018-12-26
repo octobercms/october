@@ -814,9 +814,9 @@ body.drag nav#layout-mainmenu.navbar ul.nav li:hover,body.drag .mainmenu-collaps
 #layout-sidenav ul li.active a i,#layout-sidenav ul li a:hover i{color:#ffffff}
 #layout-sidenav ul li span.counter{display:block;position:absolute;top:1.071em;right:1.071em;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#ffffff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty{opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
-@media (max-width: 769px){div#layout-side-panel{top:45px;z-index:10000}
+@media (max-width: 769px){#layout-side-panel{top:45px;z-index:10000}
 }
-@media (min-width: 769px){div#layout-side-panel{top:62px;z-index:10000}
+@media (min-width: 769px){#layout-side-panel{top:62px;z-index:10000}
 }
 html.mobile #layout-sidenav ul{overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,.touch #layout-sidenav.layout-sidenav li:not(.active) a:hover{color:rgba(255,255,255,0.6) !important}
