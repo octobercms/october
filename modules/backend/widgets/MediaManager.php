@@ -1288,92 +1288,89 @@ class MediaManager extends WidgetBase
      * @param array|null $thumbnailParams
      * @return array
      */
-    protected function generateThumbnail($thumbnailInfo, $thumbnailParams = null)
-    {
-        $markup = null;
+     protected function generateThumbnail($thumbnailInfo, $thumbnailParams = null)
+     {
+         $tempFilePath = null;
+         $fullThumbnailPath = null;
+         $thumbnailPath = null;
+         $markup = null;
 
-        if($this->isVector($thumbnailInfo['path'])) {
-            $markup = $this->makePartial('thumbnail-image', [
-                'isError' => false,
-                'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
-            ]);
-        }
-        else {
-            $tempFilePath = null;
-            $fullThumbnailPath = null;
-            $thumbnailPath = null;
+         try {
+             if($this->isVector($thumbnailInfo['path'])) {
+                 $markup = $this->makePartial('thumbnail-image', [
+                     'isError' => false,
+                     'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
+                 ]);
+             } else {
+                 /*
+                  * Get and validate input data
+                  */
+                 $path = $thumbnailInfo['path'];
+                 $width = $thumbnailInfo['width'];
+                 $height = $thumbnailInfo['height'];
+                 $lastModified = $thumbnailInfo['lastModified'];
 
-            try {
-                /*
-                 * Get and validate input data
-                 */
-                $path = $thumbnailInfo['path'];
-                $width = $thumbnailInfo['width'];
-                $height = $thumbnailInfo['height'];
-                $lastModified = $thumbnailInfo['lastModified'];
+                 if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
+                     throw new ApplicationException('Invalid input data');
+                 }
 
-                if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
-                    throw new ApplicationException('Invalid input data');
-                }
+                 if (!$thumbnailParams) {
+                     $thumbnailParams = $this->getThumbnailParams();
+                     $thumbnailParams['width'] = $width;
+                     $thumbnailParams['height'] = $height;
+                 }
 
-                if (!$thumbnailParams) {
-                    $thumbnailParams = $this->getThumbnailParams();
-                    $thumbnailParams['width'] = $width;
-                    $thumbnailParams['height'] = $height;
-                }
+                 $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
+                 $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
 
-                $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
-                $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
+                 /*
+                  * Save the file locally
+                  */
+                 $library = MediaLibrary::instance();
+                 $tempFilePath = $this->getLocalTempFilePath($path);
 
-                /*
-                 * Save the file locally
-                 */
-                $library = MediaLibrary::instance();
-                $tempFilePath = $this->getLocalTempFilePath($path);
+                 if (!@File::put($tempFilePath, $library->get($path))) {
+                     throw new SystemException('Error saving remote file to a temporary location');
+                 }
 
-                if (!@File::put($tempFilePath, $library->get($path))) {
-                    throw new SystemException('Error saving remote file to a temporary location');
-                }
+                 /*
+                  * Resize the thumbnail and save to the thumbnails directory
+                  */
+                 $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
 
-                /*
-                 * Resize the thumbnail and save to the thumbnails directory
-                 */
-                $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
+                 /*
+                  * Delete the temporary file
+                  */
+                 File::delete($tempFilePath);
+                 $markup = $this->makePartial('thumbnail-image', [
+                     'isError' => false,
+                     'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
+                 ]);
+             }
+         } catch (Exception $ex) {
+             if ($tempFilePath) {
+                 File::delete($tempFilePath);
+             }
 
-                /*
-                 * Delete the temporary file
-                 */
-                File::delete($tempFilePath);
-                $markup = $this->makePartial('thumbnail-image', [
-                    'isError' => false,
-                    'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
-                ]);
-            }
-            catch (Exception $ex) {
-                if ($tempFilePath) {
-                    File::delete($tempFilePath);
-                }
+             if ($fullThumbnailPath) {
+                 $this->copyBrokenImage($fullThumbnailPath);
+             }
 
-                if ($fullThumbnailPath) {
-                    $this->copyBrokenImage($fullThumbnailPath);
-                }
+             $markup = $this->makePartial('thumbnail-image', ['isError' => true]);
 
-                $markup = $this->makePartial('thumbnail-image', ['isError' => true]);
+             /*
+              * @todo We need to log all types of exceptions here
+              */
+             traceLog($ex->getMessage());
+         }
 
-                /*
-                 * @todo We need to log all types of exceptions here
-                 */
-                traceLog($ex->getMessage());
-            }
-        }
-
-        if ($markup && ($id = $thumbnailInfo['id'])) {
-            return [
-                'id' => $id,
-                'markup' => $markup
-            ];
-        }
-    }
+         if ($markup && ($id = $thumbnailInfo['id'])) {
+             return [
+                 'id' => $id,
+                 'markup' => $markup
+             ];
+         }
+     }
 
     /**
      * Resize an image
