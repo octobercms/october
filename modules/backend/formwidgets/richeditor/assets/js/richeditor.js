@@ -223,7 +223,8 @@
         $(window).on('resize', this.proxy(this.updateLayout))
         $(window).on('oc.updateUi', this.proxy(this.updateLayout))
         
-        editor.events.on('keydown', this.proxy(this.onKeydown) , true );
+        // Bind the keydown listener here to ensure it gets handled before the Froala handlers
+        editor.events.on('keydown', this.proxy(this.onKeydown), true)
 
         this.$textarea.trigger('init.oc.richeditor', [this])
     }
