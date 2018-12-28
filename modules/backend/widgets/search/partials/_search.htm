@@ -11,12 +11,13 @@
         data-load-indicator-opaque
         class="form-control <?= $cssClasses ?>"
         autocomplete="off" />
-    <button 
-        class="clear-input-text" 
+    <button
+        class="clear-input-text"
+        type="button"
         value=""
         style="<?= empty($value) ? 'display: none;' : ''; ?>"
         onclick="$(this).prev().val('');$(this).prev().request();"
     >
         <i class="icon-times"></i>
-    </button> 
+    </button>
 </div>
