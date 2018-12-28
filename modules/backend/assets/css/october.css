@@ -694,7 +694,7 @@ nav#layout-mainmenu ul li a:active,nav#layout-mainmenu ul li a:focus{text-decora
 nav#layout-mainmenu ul li a i{line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon{height:30px;width:30px;margin-right:10px;position:relative;top:0}
 nav#layout-mainmenu ul.nav{display:inline-block}
-nav#layout-mainmenu .toolbar-item{padding-right:0}
+nav#layout-mainmenu .toolbar-item{padding-right:0;background-color:#000000}
 nav#layout-mainmenu .toolbar-item:before,nav#layout-mainmenu .toolbar-item:after{margin-top:0}
 nav#layout-mainmenu .toolbar-item:before{left:-12px}
 nav#layout-mainmenu .toolbar-item:after{right:-12px}
