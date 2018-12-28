@@ -722,8 +722,8 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:hover:after,nav
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after{content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #3498db}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider{height:1px;width:100%;background-color:#e0e0e0}
 nav#layout-mainmenu.navbar-mode-inline{height:62px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a{height:62px;line-height:62px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account > a{height:62px;line-height:62px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a{height:62px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account > a{height:62px;line-height:60px}
 nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu{top:70px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li{margin:5px 0}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a{padding:10px 15px}
