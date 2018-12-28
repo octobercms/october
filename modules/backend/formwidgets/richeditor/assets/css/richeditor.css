@@ -432,9 +432,10 @@ body .fr-popup .fr-checkbox span{border-color:#d1d6d9}
 .field-richeditor.size-giant .fr-wrapper{height:350px}
 .field-richeditor.size-giant .fr-wrapper .fr-view{min-height:350px}
 .field-richeditor.size-giant .height-indicator{height:350px;display:none}
+.field-richeditor.stretch{margin-bottom:20px}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen){display:block;position:relative;height:100% !important;width:100% !important;border-radius:0 !important;-moz-border-radius:0 !important;-webkit-border-radius:0 !important;-moz-background-clip:padding !important;-webkit-background-clip:padding-box !important;background-clip:padding-box !important;overflow:hidden}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-toolbar{border-radius:0 !important;-moz-border-radius:0 !important;-webkit-border-radius:0 !important;-moz-background-clip:padding !important;-webkit-background-clip:padding-box !important;background-clip:padding-box !important;border-top-color:white}
-.field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-wrapper{width:100% !important;left:0;top:0;bottom:0;position:absolute;height:auto !important}
+.field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-wrapper{width:100% !important;left:0;top:0!important;bottom:0;position:relative;height:auto !important}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-wrapper .fr-view{min-height:0}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-view,.field-richeditor.stretch .fr-box:not(.fr-fullscreen) textarea{height:100%}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-placeholder{top:20px;left:20px}
