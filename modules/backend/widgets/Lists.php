@@ -585,13 +585,8 @@ class Lists extends WidgetBase
         }
         elseif ($this->showPagination) {
             $method            = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
-<<<<<<< HEAD
             $currentPageNumber = $this->getCurrentPageNumber($query);
             $records = $query->{$method}($this->recordsPerPage, $currentPageNumber);
-=======
-            $currentPageNumber = $this->getCurrentPageNumber($model);
-            $records = $model->{$method}($this->recordsPerPage, $currentPageNumber);
->>>>>>> dcb609d1cffa3ba78375ad95a89d4b58d9704612
         }
         else {
             $records = $query->get();
@@ -628,17 +623,10 @@ class Lists extends WidgetBase
      *
      * This will override the current page number provided by the user if it is past the last page of available records.
      *
-<<<<<<< HEAD
      * @param object $query
      * @return int
      */
     protected function getCurrentPageNumber($query)
-=======
-     * @param object $model
-     * @return int
-     */
-    protected function getCurrentPageNumber($model)
->>>>>>> dcb609d1cffa3ba78375ad95a89d4b58d9704612
     {
         $currentPageNumber = $this->currentPageNumber;
 
@@ -650,11 +638,7 @@ class Lists extends WidgetBase
         $currentPageNumber = intval($currentPageNumber);
 
         if ($currentPageNumber > 1) {
-<<<<<<< HEAD
             $count = $query->count();
-=======
-            $count = $model->count();
->>>>>>> dcb609d1cffa3ba78375ad95a89d4b58d9704612
 
             // If the current page number is higher than the amount of available pages, go to the last available page
             if ($count <= (($currentPageNumber - 1) * $this->recordsPerPage)) {
