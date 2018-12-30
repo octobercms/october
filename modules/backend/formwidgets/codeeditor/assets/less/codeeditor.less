@@ -1,5 +1,7 @@
 @import "../../../../assets/less/core/boot.less";
 
+@color_1: #cdc8c8;
+
 .field-codeeditor {
     width: 100%;
     position: relative;
@@ -77,4 +79,18 @@
         .editor-toolbar { z-index: @zindex-fullscreen + 2; }
         .ace_search { z-index: @zindex-fullscreen + 3; }
     }
+}
+
+.secondary-tabs {
+	.field-codeeditor {
+		.editor-toolbar {
+			>ul {
+				>li {
+					>a {
+						color: @color_1;
+					}
+				}
+			}
+		}
+	}
 }

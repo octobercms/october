@@ -21,3 +21,4 @@
 .field-codeeditor.editor-fullscreen .editor-code{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .field-codeeditor.editor-fullscreen .editor-toolbar{z-index:302}
 .field-codeeditor.editor-fullscreen .ace_search{z-index:303}
+.secondary-tabs .field-codeeditor .editor-toolbar >ul >li >a {color: #cdc8c8}
