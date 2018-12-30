@@ -210,7 +210,7 @@ class ImportExportController extends ControllerBehavior
         catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
-        
+
         $this->vars['sourceIndexOffset'] = $this->getImportSourceIndexOffset($importOptions['firstRowTitles']);
 
         return $this->importExportMakePartial('import_result_form');
@@ -334,7 +334,7 @@ class ImportExportController extends ControllerBehavior
 
         return $firstRow;
     }
-    
+
     /**
      * Get the index offset to add to the reported row number in status messages
      *
@@ -627,8 +627,8 @@ class ImportExportController extends ControllerBehavior
             ? 'getColumnValueRaw'
             : 'getColumnValue';
 
-        $model = $widget->prepareModel();
-        $results = $model->get();
+        $query = $widget->prepareQuery();
+        $results = $query->get();
         foreach ($results as $result) {
             $record = [];
             foreach ($columns as $column) {
