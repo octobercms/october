@@ -343,7 +343,7 @@ class Lists extends WidgetBase
     /**
      * Applies any filters to the model.
      */
-    public function prepareModel()
+    public function prepareQuery()
     {
         $query = $this->model->newQuery();
         $primaryTable = $this->model->getTable();
@@ -566,16 +566,22 @@ class Lists extends WidgetBase
         return $query;
     }
 
+    public function prepareModel()
+    {
+        traceLog('Method ' . __METHOD__ . '() has been deprecated, please use the ' . __CLASS__ . '::prepareQuery() method instead.');
+        return $this->prepareQuery();
+    }
+
     /**
      * Returns all the records from the supplied model, after filtering.
      * @return Collection
      */
     protected function getRecords()
     {
-        $model = $this->prepareModel();
+        $query = $this->prepareQuery();
 
         if ($this->showTree) {
-            $records = $model->getNested();
+            $records = $query->getNested();
         }
         elseif ($this->showPagination) {
             $method            = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
@@ -584,10 +590,10 @@ class Lists extends WidgetBase
                 // Restore the last visited page from the session if available.
                 $currentPageNumber = $this->getSession('lastVisitedPage');
             }
-            $records = $model->{$method}($this->recordsPerPage, $currentPageNumber);
+            $records = $query->{$method}($this->recordsPerPage, $currentPageNumber);
         }
         else {
-            $records = $model->get();
+            $records = $query->get();
         }
 
         /**
