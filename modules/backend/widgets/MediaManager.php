@@ -209,7 +209,7 @@ class MediaManager extends WidgetBase
         $thumbnailInfo['lastModified'] = $lastModified;
         $thumbnailInfo['id'] = 'sidebar-thumbnail';
 
-        return $this->generateThumbnail($thumbnailInfo, $thumbnailParams, true);
+        return $this->generateThumbnail($thumbnailInfo, $thumbnailParams);
     }
 
     /**
@@ -1156,8 +1156,7 @@ class MediaManager extends WidgetBase
     protected function getThumbnailParams($viewMode = null)
     {
         $result = [
-            'mode' => 'crop',
-            'ext' => 'png'
+            'mode' => 'crop'
         ];
 
         if ($viewMode) {
@@ -1190,11 +1189,27 @@ class MediaManager extends WidgetBase
             $thumbnailParams['width'] . 'x' .
             $thumbnailParams['height'] . '_' .
             $thumbnailParams['mode'] . '.' .
-            $thumbnailParams['ext'];
+            $this->getThumbnailImageExtension($itemPath);
 
         $partition = implode('/', array_slice(str_split($itemSignature, 3), 0, 3)) . '/';
 
         return $this->getThumbnailDirectory().$partition.$thumbFile;
+    }
+
+    /**
+     * Preferred thumbnail image extension
+     * @param string $itemPath
+     * @return string
+     */
+    protected function getThumbnailImageExtension($itemPath)
+    {
+        $extension = pathinfo($itemPath, PATHINFO_EXTENSION);
+
+        if (in_array($extension, ['png', 'gif', 'webp'])) {
+            return $extension;
+        }
+
+        return 'jpg';
     }
 
     /**
@@ -1296,7 +1311,9 @@ class MediaManager extends WidgetBase
         $markup = null;
 
         try {
-            if($this->isVector($thumbnailInfo['path'])) {
+            $path = $thumbnailInfo['path'];
+
+            if($this->isVector($path)) {
                 $markup = $this->makePartial('thumbnail-image', [
                     'isError' => false,
                     'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
@@ -1305,7 +1322,6 @@ class MediaManager extends WidgetBase
                 /*
                  * Get and validate input data
                  */
-                $path = $thumbnailInfo['path'];
                 $width = $thumbnailInfo['width'];
                 $height = $thumbnailInfo['height'];
                 $lastModified = $thumbnailInfo['lastModified'];
@@ -1858,11 +1874,11 @@ class MediaManager extends WidgetBase
         ];
    }
 
-   /**
-    * Detect if image is vector graphic (SVG)
-    * @param string $path
-    * @return boolean
-    */
+    /**
+     * Detect if image is vector graphic (SVG)
+     * @param string $path
+     * @return boolean
+     */
     protected function isVector($path)
     {
         return (pathinfo($path, PATHINFO_EXTENSION) == 'svg');
