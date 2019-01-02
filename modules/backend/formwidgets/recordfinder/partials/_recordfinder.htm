@@ -1,10 +1,16 @@
+<?php
+    $previewMode = false;
+    if ($this->previewMode || $field->readOnly) {
+        $previewMode = true;
+    }
+?>
 <div
     id="<?= $this->getId() ?>"
     class="field-recordfinder loading-indicator-container size-input-text"
     data-control="recordfinder"
     data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
     data-data-locker="#<?= $field->getId() ?>">
-    <span class="form-control">
+    <span class="form-control" <?= $previewMode ? 'disabled="disabled"' : '' ?>>
         <?php if ($value): ?>
             <span class="primary"><?= e($nameValue) ?: 'Undefined' ?></span>
             <?php if ($descriptionValue): ?>
@@ -15,7 +21,7 @@
         <?php endif ?>
     </span>
 
-    <?php if (!$this->previewMode): ?>
+    <?php if (!$previewMode): ?>
         <?php if ($value): ?>
             <button
                 type="button"

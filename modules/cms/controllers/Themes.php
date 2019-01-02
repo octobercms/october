@@ -1,15 +1,12 @@
 <?php namespace Cms\Controllers;
 
 use File;
-use Yaml;
 use Flash;
-use Config;
 use Backend;
 use Redirect;
 use BackendMenu;
 use ValidationException;
 use ApplicationException;
-use Cms\Models\ThemeData;
 use Cms\Models\ThemeExport;
 use Cms\Models\ThemeImport;
 use Cms\Classes\Theme as CmsTheme;
@@ -17,6 +14,7 @@ use Cms\Classes\ThemeManager;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
 use Exception;
+use Backend\Widgets\Form;
 
 /**
  * Theme selector controller
@@ -57,7 +55,7 @@ class Themes extends Controller
         /*
          * Enable AJAX for Form widgets
          */
-        if (post('mode') == 'import') {
+        if (post('mode') === 'import') {
             $this->makeImportFormWidget($this->findThemeObject())->bindToController();
         }
     }
@@ -116,8 +114,7 @@ class Themes extends Controller
         $widgetConfig->arrayName = 'Theme';
         $widgetConfig->context = 'update';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget(Form::class, $widgetConfig);
     }
 
     //
@@ -174,8 +171,7 @@ class Themes extends Controller
         $widgetConfig->arrayName = 'Theme';
         $widgetConfig->context = 'create';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //
@@ -257,8 +253,7 @@ class Themes extends Controller
         $widgetConfig->model->theme = $theme;
         $widgetConfig->arrayName = 'ThemeExport';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //
@@ -294,8 +289,7 @@ class Themes extends Controller
         $widgetConfig->model->theme = $theme;
         $widgetConfig->arrayName = 'ThemeImport';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //

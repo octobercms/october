@@ -37,14 +37,16 @@
                     <h4 title="<?= e(basename($item->path)) ?>">
                         <?= e(basename($item->path)) ?>
 
-                        <a
-                            href="#"
-                            data-rename
-                            data-control="popup"
-                            data-z-index="1200"
-                            data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
-                            data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
-                        ><i data-rename-control class="icon-terminal"></i></a>
+                        <?php if (!$this->readOnly) : ?>
+                            <a
+                                href="#"
+                                data-rename
+                                data-control="popup"
+                                data-z-index="1200"
+                                data-request-data="path: '<?= e($item->path) ?>', listId: '<?= $listElementId ?>', type: '<?= $item->type ?>'"
+                                data-handler="<?= $this->getEventHandler('onLoadRenamePopup') ?>"
+                            ><i data-rename-control class="icon-terminal"></i></a>
+                        <?php endif; ?>
                     </h4>
                     <p class="size"><?= e($item->sizeToString()) ?></p>
                 </div>

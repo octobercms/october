@@ -1,6 +1,5 @@
 <?php namespace Cms\Controllers;
 
-use Flash;
 use Backend;
 use BackendMenu;
 use ApplicationException;
@@ -86,7 +85,7 @@ class ThemeOptions extends Controller
     {
         $model = $form->model;
         $theme = $this->findThemeObject($model->theme);
-        $config = $theme->getConfigArray('form');
+        $config = $theme->getFormConfig();
 
         if ($fields = array_get($config, 'fields')) {
             $form->addFields($fields);
@@ -132,8 +131,7 @@ class ThemeOptions extends Controller
     protected function getThemeData($dirName)
     {
         $theme = $this->findThemeObject($dirName);
-        $model = ThemeData::forTheme($theme);
-        return $model;
+        return ThemeData::forTheme($theme);
     }
 
     protected function findThemeObject($name = null)

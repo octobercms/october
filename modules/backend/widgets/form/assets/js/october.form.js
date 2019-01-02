@@ -187,7 +187,7 @@
             $('.tab-pane', tabControl).each(function() {
                 $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
                     .closest('li')
-                    .toggle(!!$('.form-group:not(:empty):not(.hide)', $(this)).length)
+                    .toggle(!!$('> .form-group:not(:empty):not(.hide)', $(this)).length)
             })
 
             /*

@@ -30,7 +30,7 @@ class File
     public static function validateExtension($fileName, $allowedExtensions, $allowEmpty = true)
     {
         $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        if (!strlen($extension)) {
+        if (empty($extension)) {
             return $allowEmpty;
         }
 

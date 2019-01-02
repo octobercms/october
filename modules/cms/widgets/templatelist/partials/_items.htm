@@ -3,7 +3,7 @@
         <?php foreach ($items as $item): ?>
             <?php if (property_exists($item, 'items')): ?>
                 <?php if ($item->items): ?>
-                    <li class="group" data-status="<?= $this->getCollapseStatus($item->title) ? 'expanded' : 'collapsed' ?>">
+                    <li class="group" data-status="<?= $this->getCollapseStatus($item->title, false) ? 'expanded' : 'collapsed' ?>">
                         <h4><a href="javascript:;"><?= e($item->title) ?></a></h4>
                         <?= $this->makePartial('items', ['items'=>$item->items, 'nested'=>true]) ?>
                     </li>

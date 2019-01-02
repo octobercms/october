@@ -12,6 +12,11 @@ fields:
 
 tabs:
     defaultTab: backend::lang.user.account
+    icons:
+        backend::lang.user.account: icon-user
+        backend::lang.user.groups: icon-users
+        backend::lang.user.permissions: icon-key
+        
     fields:
         login:
             span: left
@@ -53,6 +58,7 @@ tabs:
             type: radio
 
         groups:
+            context: [create, update]
             label: backend::lang.user.groups
             commentAbove: backend::lang.user.groups_comment
             type: checkboxlist
@@ -66,4 +72,3 @@ secondaryTabs:
             mode: image
             imageHeight: 250
             imageWidth: 250
-

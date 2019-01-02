@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area'
+        'title' => 'Administration Area',
+        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+        'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field."
     ],
     'widget' => [
         'not_registered' => "A widget class name ':name' has not been registered",
@@ -139,6 +141,8 @@ return [
         'last_login' => 'Last login',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
+        'deleted_at' => 'Deleted at',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
@@ -171,7 +175,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
-        ]
+        ],
+        'trashed_hint_title' => 'This account has been deleted',
+        'trashed_hint_desc' => 'This account has been deleted and will be unable to be signed in under. To restore it, click the restore user icon in the bottom right',
     ],
     'list' => [
         'default_title' => 'List',
@@ -216,6 +222,10 @@ return [
         'remove_confirm' => 'Are you sure?',
         'remove_file' => 'Remove file'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
+        'max_items_failed' => ':name only allows up to :max items, :items were provided',
+    ],
     'form' => [
         'create_title' => 'New :name',
         'update_title' => 'Edit :name',
@@ -223,6 +233,7 @@ return [
         'create_success' => ':name created',
         'update_success' => ':name updated',
         'delete_success' => ':name deleted',
+        'restore_success' => ':name restored',
         'reset_success' => 'Reset complete',
         'missing_id' => 'Form record ID has not been specified.',
         'missing_model' => 'Form behavior used in :class does not have a model defined.',
@@ -242,6 +253,9 @@ return [
         'confirm_delete' => 'Delete record?',
         'confirm_delete_multiple' => 'Delete selected records?',
         'deleting_name' => 'Deleting :name...',
+        'restore' => 'Restore',
+        'restoring' => 'Restoring',
+        'confirm_restore' => 'Are you sure you want to restore this record?',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
         'resetting_name' => 'Resetting :name',
@@ -379,6 +393,8 @@ return [
         'no_wrap_comment' => 'The list of tags that should not be wrapped inside block tags.',
         'remove_tags' => 'Remove tags',
         'remove_tags_comment' => 'The list of tags that are removed together with their content.',
+        'line_breaker_tags' => 'Line breaker tags',
+        'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
         'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
@@ -430,7 +446,9 @@ return [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
         'menu_label' => 'Access log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
+        'id' => 'ID',
         'created_at' => 'Date & Time',
+        'type' => 'Type',
         'login' => 'Login',
         'ip_address' => 'IP address',
         'first_name' => 'First name',
@@ -446,6 +464,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',
         'import_file' => 'Import file',
+        'row' => 'Row :row',
         'first_row_contains_titles' => 'First row contains column titles',
         'first_row_contains_titles_desc' => 'Leave this checked if the first row in the CSV is used as the column titles.',
         'match_columns' => '2. Match the file columns to database fields',

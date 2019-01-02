@@ -18,10 +18,6 @@ class Layout extends CmsCompoundObject
      */
     protected $dirName = 'layouts';
 
-    protected function parseSettings()
-    {
-    }
-
     /**
      * Initializes the fallback layout.
      * @param \Cms\Classes\Theme $theme Specifies a theme the file belongs to.
@@ -41,7 +37,7 @@ class Layout extends CmsCompoundObject
      */
     public function isFallBack()
     {
-        return $this->fileName == self::FALLBACK_FILE_NAME;
+        return $this->fileName === self::FALLBACK_FILE_NAME;
     }
 
     /**
@@ -50,6 +46,6 @@ class Layout extends CmsCompoundObject
      */
     public function getCodeClassParent()
     {
-        return '\Cms\Classes\LayoutCode';
+        return LayoutCode::class;
     }
 }

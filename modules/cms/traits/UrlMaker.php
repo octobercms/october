@@ -72,12 +72,12 @@ trait UrlMaker
     /**
      * @var string URL cache
      */
-    protected $url = null;
+    protected $url;
 
     /**
      * @var string Page where detected component is found.
      */
-    protected static $urlPageName = null;
+    protected static $urlPageName;
 
     /**
      * Changes the component used for generating the URLs dynamically.

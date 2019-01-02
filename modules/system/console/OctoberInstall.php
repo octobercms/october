@@ -3,13 +3,9 @@
 use Db;
 use App;
 use Str;
-use Url;
 use PDO;
 use File;
 use Config;
-use Artisan;
-use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 use Backend\Database\Seeds\SeedSetupAdmin;
 use System\Classes\UpdateManager;
 use October\Rain\Config\ConfigWriter;
@@ -78,6 +74,7 @@ class OctoberInstall extends Command
         if ($this->confirm('Configure advanced options?', false)) {
             $this->setupEncryptionKey();
             $this->setupAdvancedValues();
+            $this->askToInstallPlugins();
         }
         else {
             $this->setupEncryptionKey(true);
@@ -85,14 +82,6 @@ class OctoberInstall extends Command
 
         $this->setupMigrateDatabase();
         $this->displayOutro();
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**
@@ -128,6 +117,23 @@ class OctoberInstall extends Command
 
         $debug = (bool) $this->confirm('Enable Debug Mode?', true);
         $this->writeToConfig('app', ['debug' => $debug]);
+    }
+
+    protected function askToInstallPlugins() {
+        if ($this->confirm('Install the October.Drivers plugin?', false)) {
+            $this->output->writeln('<info>Installing plugin October.Drivers</info>');
+            $this->callSilent('plugin:install', [
+                'name' => 'October.Drivers'
+            ]);
+            $this->output->writeln('<info>October.Drivers installed successfully.</info>');
+        }
+        if($this->confirm('Install the Rainlab.Builder plugin?', false)) {
+            $this->output->writeln('<info>Installing plugin Rainlab.Builder</info>');
+            $this->callSilent('plugin:install', [
+                'name' => 'Rainlab.Builder'
+            ]);
+            $this->output->writeln('<info>Rainlab.Builder installed successfully.</info>');
+        }
     }
 
     //

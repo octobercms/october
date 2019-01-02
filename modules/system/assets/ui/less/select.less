@@ -320,14 +320,14 @@
         // Make Multi Select2's choices match default button styles.
         //
         .select2-selection__choice {
-            color: @input-color;
+            color: @color-select-text;
             background: @color-select-choice-bg;
             border: 1px solid @color-select-choice-border;
             border-radius: 4px;
             cursor: default;
             float: left;
-            margin: (@padding-base-vertical - 1) 0 0 @padding-base-horizontal/2;
-            padding: 0 @padding-base-vertical;
+            margin: (@padding-base-vertical - 2) 0 0 @padding-base-horizontal/2;
+            padding: 0 (@padding-base-vertical - 2);
         }
 
         //
@@ -349,7 +349,9 @@
             cursor: pointer;
             display: inline-block;
             font-weight: bold;
-            margin-right: @padding-base-vertical / 2;
+            font-size: 1.2em;
+            float: right;
+            margin: -2px 0 1px 8px;
 
             &:hover {
                 color: #333;
@@ -396,8 +398,8 @@
             .select2-selection__choice {
                 font-size: @font-size-small;
                 line-height: @line-height-small;
-                margin: (@padding-small-vertical - 1) 0 0 @padding-small-horizontal/2;
-                padding: 0 @padding-small-vertical;
+                margin: (@padding-small-vertical - 2) 0 0 @padding-small-horizontal/2;
+                padding: 0 (@padding-small-vertical - 2);
             }
 
             .select2-search--inline .select2-search__field {

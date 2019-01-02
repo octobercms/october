@@ -5,10 +5,10 @@ use Str;
 use Lang;
 use Flash;
 use Event;
-use Input;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
@@ -436,8 +436,7 @@ class FormController extends ControllerBehavior
     protected function createModel()
     {
         $class = $this->config->modelClass;
-        $model = new $class;
-        return $model;
+        return new $class;
     }
 
     /**
@@ -464,10 +463,18 @@ class FormController extends ControllerBehavior
         }
 
         if ($model && $redirectUrl) {
-            $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
+            $redirectUrl = RouterHelper::replaceParameters($model, $redirectUrl);
         }
 
-        return ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+        if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {
+            // Process absolute redirects
+            $redirect = Redirect::to($redirectUrl);
+        } else {
+            // Process relative redirects
+            $redirect = $redirectUrl ? Backend::redirect($redirectUrl) : null;
+        }
+
+        return $redirect;
     }
 
     /**
@@ -780,6 +787,7 @@ class FormController extends ControllerBehavior
     /**
      * Called after the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
+     * @param array $fields Array of all defined form field objects (\Backend\Classes\FormField)
      * @return void
      */
     public function formExtendFields($host, $fields)

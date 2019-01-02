@@ -32,7 +32,7 @@ class Filter extends WidgetBase
      * @var string The context of this filter, scopes that do not belong
      * to this context will not be shown.
      */
-    public $context = null;
+    public $context;
 
     //
     // Object properties
@@ -151,11 +151,11 @@ class Filter extends WidgetBase
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ? $min : '';
-                    $params['min'] = $min ? $min : null;
+                    $params['minStr'] = $min ?: '';
+                    $params['min'] = $min ?: null;
 
-                    $params['maxStr'] = $max ? $max : '∞';
-                    $params['max'] = $max ? $max : null;
+                    $params['maxStr'] = $max ?: '∞';
+                    $params['max'] = $max ?: null;
                 }
 
                 break;
@@ -195,7 +195,7 @@ class Filter extends WidgetBase
                 break;
 
             case 'checkbox':
-                $checked = post('value') == 'true' ? true : false;
+                $checked = post('value') == 'true';
                 $this->setScopeValue($scope, $checked);
                 break;
 
@@ -263,7 +263,7 @@ class Filter extends WidgetBase
             case 'text':
                 $values = post('options.value');
 
-                if (!is_null($values) && $values !== '') {
+                if ($values !== null && $values !== '') {
                     list($value) = $values;
                 }
                 else {
@@ -379,8 +379,26 @@ class Filter extends WidgetBase
          */
         $query->limit(500);
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendQuery
+         * Provides an opportunity to extend the query of the list of options
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendQuery', function((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
+         *         if ($scope->scopeName == 'status') {
+         *             $query->where('status', '<>', 'all');
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendQuery', function ($query, (\Backend\Classes\FilterScope) $scope) {
+         *         if ($scope->scopeName == 'status') {
+         *             $query->where('status', '<>', 'all');
+         *         }
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
@@ -489,8 +507,22 @@ class Filter extends WidgetBase
             return;
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendScopesBefore
+         * Provides an opportunity to interact with the Filter widget before defining the filter scopes
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendScopesBefore', function((\Backend\Widgets\Filter) $filterWidget) {
+         *         // Just in case you really had to do something before scopes are defined
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendScopesBefore', function () use ((\Backend\Widgets\Filter) $filterWidget) {
+         *         // Just in case you really had to do something before scopes are defined
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendScopesBefore');
 
@@ -503,8 +535,26 @@ class Filter extends WidgetBase
 
         $this->addScopes($this->scopes);
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.filter.extendScopes
+         * Provides an opportunity to interact with the Filter widget & its scopes after the filter scopes have been initialized
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.filter.extendScopes', function((\Backend\Widgets\Filter) $filterWidget) {
+         *         $filterWidget->addScopes([
+         *             'my_scope' => [
+         *                 'label' => 'My Filter Scope'
+         *             ]
+         *         ]);
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('filter.extendScopes', function () use ((\Backend\Widgets\Filter) $filterWidget) {
+         *         $filterWidget->removeScope('my_scope');
+         *     });
+         *
          */
         $this->fireSystemEvent('backend.filter.extendScopes');
 
@@ -524,7 +574,7 @@ class Filter extends WidgetBase
              * Check that the filter scope matches the active context
              */
             if ($scopeObj->context !== null) {
-                $context = (is_array($scopeObj->context)) ? $scopeObj->context : [$scopeObj->context];
+                $context = is_array($scopeObj->context) ? $scopeObj->context : [$scopeObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
@@ -584,8 +634,8 @@ class Filter extends WidgetBase
      */
     protected function makeFilterScope($name, $config)
     {
-        $label = (isset($config['label'])) ? $config['label'] : null;
-        $scopeType = isset($config['type']) ? $config['type'] : null;
+        $label = $config['label'] ?? null;
+        $scopeType = $config['type'] ?? null;
 
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
@@ -594,7 +644,7 @@ class Filter extends WidgetBase
          * Set scope value
          */
         $scope->value = $this->getScopeValue($scope, @$config['default']);
-        
+
         return $scope;
     }
 
@@ -704,6 +754,8 @@ class Filter extends WidgetBase
                         $query->$scopeMethod($scope->value);
                     }
                 }
+
+                break;
 
             case 'numberrange':
                 if (is_array($scope->value) && count($scope->value) > 1) {
@@ -882,7 +934,7 @@ class Filter extends WidgetBase
     {
         $processed = [];
         foreach ($options as $id => $result) {
-            $processed[] = ['id' => $id, 'name' => $result];
+            $processed[] = ['id' => $id, 'name' => e(trans($result))];
         }
         return $processed;
     }

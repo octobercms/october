@@ -58,12 +58,21 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('October.Tester', $result);
         $this->assertArrayHasKey('Database.Tester', $result);
         $this->assertArrayHasKey('TestVendor.Test', $result);
+        $this->assertArrayNotHasKey('TestVendor.Goto', $result);
 
         $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
         $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
         $this->assertInstanceOf('October\Tester\Plugin', $result['October.Tester']);
         $this->assertInstanceOf('Database\Tester\Plugin', $result['Database.Tester']);
         $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
+    }
+
+    public function testUnloadablePlugin()
+    {
+        $manager = PluginManager::instance();
+        $pluginNamespaces = $manager->getPluginNamespaces();
+        $result = $manager->loadPlugin('\\testvendor\\goto', $pluginNamespaces['\\testvendor\\goto']);
+        $this->assertNull($result);
     }
 
     public function testGetPluginPath()
@@ -85,6 +94,7 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('October.Tester', $result);
         $this->assertArrayHasKey('Database.Tester', $result);
         $this->assertArrayHasKey('TestVendor.Test', $result);
+        $this->assertArrayNotHasKey('TestVendor.Goto', $result);
 
         $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
         $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
@@ -115,12 +125,13 @@ class PluginManagerTest extends TestCase
         $manager = PluginManager::instance();
         $result = $manager->getPluginNamespaces();
 
-        $this->assertCount(5, $result);
+        $this->assertCount(6, $result);
         $this->assertArrayHasKey('\october\noupdates', $result);
         $this->assertArrayHasKey('\october\sample', $result);
         $this->assertArrayHasKey('\october\tester', $result);
         $this->assertArrayHasKey('\database\tester', $result);
         $this->assertArrayHasKey('\testvendor\test', $result);
+        $this->assertArrayHasKey('\testvendor\goto', $result);
     }
 
     public function testGetVendorAndPluginNames()

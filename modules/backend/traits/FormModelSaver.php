@@ -3,7 +3,6 @@
 use Str;
 use Backend\Classes\FormField;
 use October\Rain\Halcyon\Model as HalcyonModel;
-use October\Rain\Database\Model as DatabaseModel;
 
 /**
  * Implements special logic for processing form data, typically from from postback, and
@@ -64,7 +63,7 @@ trait FormModelSaver
         }
 
         $attributesToPurge = [];
-        $singularTypes = ['belongsTo', 'hasOne', 'morphOne'];
+        $singularTypes = ['belongsTo', 'hasOne', 'morphTo', 'morphOne'];
 
         foreach ($saveData as $attribute => $value) {
             $isNested = $attribute == 'pivot' || (

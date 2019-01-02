@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use Db;
 use App;
 use Url;
 use File;
@@ -190,10 +189,11 @@ class UpdateManager
         /*
          * Retry period not passed, skipping.
          */
-        if (!$force && ($retryTimestamp = Parameter::get('system::update.retry'))) {
-            if (Carbon::createFromTimeStamp($retryTimestamp)->isFuture()) {
-                return $oldCount;
-            }
+        if (!$force
+            && ($retryTimestamp = Parameter::get('system::update.retry'))
+            && Carbon::createFromTimeStamp($retryTimestamp)->isFuture()
+        ) {
+            return $oldCount;
         }
 
         try {
@@ -251,9 +251,9 @@ class UpdateManager
          */
         $plugins = [];
         foreach (array_get($result, 'plugins', []) as $code => $info) {
-            $info['name'] = isset($names[$code]) ? $names[$code] : $code;
-            $info['old_version'] = isset($versions[$code]) ? $versions[$code] : false;
-            $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
+            $info['name'] = $names[$code] ?? $code;
+            $info['old_version'] = $versions[$code] ?? false;
+            $info['icon'] = $icons[$code] ?? false;
 
             /*
              * If a plugin has updates frozen, or cannot be updated,
@@ -536,11 +536,11 @@ class UpdateManager
         /*
          * Remove the plugin database and version
          */
-        if (!($plugin = $this->pluginManager->findByIdentifier($name))) {
-            if ($this->versionManager->purgePlugin($name)) {
-                $this->note('<info>Purged from database:</info> ' . $name);
-                return $this;
-            }
+        if (!($plugin = $this->pluginManager->findByIdentifier($name))
+            && $this->versionManager->purgePlugin($name)
+        ) {
+            $this->note('<info>Purged from database:</info> ' . $name);
+            return $this;
         }
 
         if ($this->versionManager->removePlugin($plugin)) {

@@ -2,8 +2,6 @@
 
 use File;
 use Artisan;
-use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -30,14 +28,6 @@ class OctoberFresh extends Command
     protected $description = 'Removes the demo theme and plugin.';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -57,14 +47,6 @@ class OctoberFresh extends Command
         else {
             $this->error('Demo theme is already removed.');
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php namespace Cms\Components;
 
 use File;
-use Config;
 use Cms\Classes\ComponentBase;
 use System\Classes\CombineAssets;
 
@@ -185,8 +184,7 @@ class Resources extends ComponentBase
         if (File::isDirectory($baseTheme.'/assets')) {
             return $baseTheme.'/assets';
         }
-        else {
-            return $baseTheme.'/resources';
-        }
+
+        return $baseTheme.'/resources';
     }
 }

@@ -25,6 +25,18 @@ class OctoberEnv extends Command
     protected $description = 'Creates .env file with default configuration values.';
 
     /**
+     * @var array The env keys that need to have their original values removed from the config files
+     */
+    protected $protectedKeys = [
+        'APP_KEY',
+        'DB_USERNAME',
+        'DB_PASSWORD',
+        'MAIL_USERNAME',
+        'MAIL_PASSWORD',
+        'REDIS_PASSWORD',
+    ];
+
+    /**
      * The current config cursor.
      */
     protected $config;
@@ -33,14 +45,6 @@ class OctoberEnv extends Command
      * The current database connection cursor.
      */
     protected $connection;
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -184,6 +188,11 @@ class OctoberEnv extends Command
 
             $this->saveEnvSettings($envKey, $value);
 
+            // Remove protected values from the config files
+            if (in_array($envKey, $this->protectedKeys) && !empty($value)) {
+                $value = "''";
+            }
+
             return $this->isEnv($matches[0]) ? $matches[0] : "'$configKey' => env('$envKey', {$value}),";
         };
     }
@@ -257,7 +266,7 @@ class OctoberEnv extends Command
             return "'$value'";
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
-        } elseif (is_null($value)) {
+        } elseif ($value === null) {
             return 'null';
         }
 

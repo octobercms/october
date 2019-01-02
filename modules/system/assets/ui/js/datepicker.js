@@ -104,6 +104,7 @@
         var pikadayOptions = {
             yearRange: this.options.yearRange,
             firstDay: this.options.firstDay,
+            showWeekNumber: this.options.showWeekNumber,
             format: dateFormat,
             setDefaultDate: now,
             onOpen: function() {
@@ -187,7 +188,7 @@
     DatePicker.prototype.initTimePicker = function() {
         this.$timePicker.clockpicker({
             autoclose: 'true',
-            placement: 'bottom',
+            placement: 'auto',
             align: 'right',
             twelvehour: this.isTimeTwelveHour()
             // afterDone: this.proxy(this.onSelectTimePicker)
@@ -314,7 +315,8 @@
         maxDate: null,
         format: null,
         yearRange: 10,
-        firstDay: 0
+        firstDay: 0,
+        showWeekNumber: false
     }
 
     // PLUGIN DEFINITION

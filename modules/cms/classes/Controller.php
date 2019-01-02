@@ -2,9 +2,7 @@
 
 use Cms;
 use Url;
-use Str;
 use App;
-use File;
 use View;
 use Lang;
 use Flash;
@@ -22,13 +20,10 @@ use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Models\MaintenanceSetting;
 use System\Models\RequestLog;
 use System\Helpers\View as ViewHelper;
-use System\Classes\ErrorHandler;
 use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
-use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
-use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
@@ -102,12 +97,12 @@ class Controller
     /**
      * @var self Cache of self
      */
-    protected static $instance = null;
+    protected static $instance;
 
     /**
      * @var \Cms\Classes\ComponentBase Object of the active component, used internally.
      */
-    protected $componentContext = null;
+    protected $componentContext;
 
     /**
      * @var array Component partial stack, used internally.
@@ -121,7 +116,7 @@ class Controller
      */
     public function __construct($theme = null)
     {
-        $this->theme = $theme ? $theme : Theme::getActiveTheme();
+        $this->theme = $theme ?: Theme::getActiveTheme();
         if (!$this->theme) {
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
@@ -148,7 +143,7 @@ class Controller
             $url = Request::path();
         }
 
-        if (!strlen($url)) {
+        if (empty($url)) {
             $url = '/';
         }
 
@@ -156,10 +151,8 @@ class Controller
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
-        if ($page && $page->is_hidden) {
-            if (!BackendAuth::getUser()) {
-                $page = null;
-            }
+        if ($page && $page->is_hidden && !BackendAuth::getUser()) {
+            $page = null;
         }
 
         /*
@@ -177,8 +170,26 @@ class Controller
             $page = Page::loadCached($this->theme, MaintenanceSetting::get('cms_page'));
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeDisplay
+         * Provides an opportunity to swap the page that gets displayed immediately after loading the page assigned to the URL.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeDisplay', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page) {
+         *         if ($url === '/tricked-you') {
+         *             return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeDisplay', function ((string) $url, (\Cms\Classes\Page) $page) {
+         *         if ($url === '/tricked-you') {
+         *             return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *         }
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
@@ -217,8 +228,26 @@ class Controller
          */
         $result = $this->postProcessResult($page, $url, $result);
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.display
+         * Provides an opportunity to modify the response after the page for the URL has been processed. `$result` could be a string representing the HTML to be returned or it could be a Response instance.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.display', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (mixed) $result) {
+         *         if ($url === '/tricked-you') {
+         *             return Response::make('Boo!', 200);
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.display', function ((string) $url, (\Cms\Classes\Page) $page, (mixed) $result) {
+         *         if ($url === '/tricked-you') {
+         *             return Response::make('Boo!', 200);
+         *         }
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
             return $event;
@@ -317,8 +346,22 @@ class Controller
         $this->pageObj->onInit();
         CmsException::unmask();
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.init
+         * Provides an opportunity to return a custom response from Controller->runPage() before AJAX handlers are executed
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.init', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.init', function ((\Cms\Classes\Page) $page) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.init', [$page])) {
             return $event;
@@ -337,7 +380,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
-            ($this->verifyCsrfToken()) &&
+            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -351,8 +394,22 @@ class Controller
             return $cycleResponse;
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderPage
+         * Fires after AJAX handlers are dealt with and provides an opportunity to modify the page contents
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderPage', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page) {
+         *         return 'Custom page contents';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderPage', function ((\Cms\Classes\Page) $page) {
+         *         return 'Custom page contents';
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderPage', [$page])) {
             $this->pageContents = $event;
@@ -396,8 +453,22 @@ class Controller
      */
     protected function execPageCycle()
     {
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.start
+         * Fires before all of the page & layout lifecycle handlers are run
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.start', function ((\Cms\Classes\Controller) $controller) {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.start', function () {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.start')) {
             return $event;
@@ -444,8 +515,22 @@ class Controller
             CmsException::unmask();
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.end
+         * Fires after all of the page & layout lifecycle handlers are run
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.end', function ((\Cms\Classes\Controller) $controller) {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.end', function () {
+         *         return Response::make('Taking over the lifecycle!', 200);
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.end')) {
             return $event;
@@ -466,8 +551,24 @@ class Controller
     {
         $content = MediaViewHelper::instance()->processHtml($content);
 
+        /**
+         * @event cms.page.postprocess
+         * Provides oportunity to hook into the post processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.postprocess', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
+         *         return 'My custom content';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.postprocess', function ((string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
+         *         return 'My custom content';
+         *     });
+         *
+         */
         $dataHolder = (object) ['content' => $content];
-
         $this->fireSystemEvent('cms.page.postprocess', [$url, $page, $dataHolder]);
 
         return $dataHolder->content;
@@ -488,11 +589,14 @@ class Controller
 
         $useCache = !Config::get('cms.twigNoCache');
         $isDebugMode = Config::get('app.debug', false);
+        $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
+        $strictVariables = $strictVariables ?? $isDebugMode;
         $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
         $options = [
             'auto_reload' => true,
             'debug' => $isDebugMode,
+            'strict_variables' => $strictVariables,
         ];
 
         if ($useCache) {
@@ -556,8 +660,22 @@ class Controller
             $this->addComponent($name, $alias, $properties);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.initComponents
+         * Fires after the components for the given page have been initialized
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.initComponents', function ((\Cms\Classes\Controller) $controller, (\Cms\Classes\Page) $page, (\Cms\Classes\Layout) $layout) {
+         *         \Log::info($page->title . ' components have been initialized');
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.initComponents', function ((\Cms\Classes\Page) $page, (\Cms\Classes\Layout) $layout) {
+         *         \Log::info($page->title . ' components have been initialized');
+         *     });
+         *
          */
         $this->fireSystemEvent('cms.page.initComponents', [$this->page, $this->layout]);
     }
@@ -686,6 +804,39 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+         * @event cms.ajax.beforeRunHandler
+         * Provides an opportunity to modify an AJAX request
+         *
+         * The parameter provided is `$handler` (the requested AJAX handler to be run)
+         *
+         * Example usage (forwards AJAX handlers to a backend widget):
+         *
+         *     Event::listen('cms.ajax.beforeRunHandler', function((\Cms\Classes\Controller) $controller, (string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $this->controller->bindEvent('ajax.beforeRunHandler', function ((string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         */
+        if ($event = $this->fireSystemEvent('cms.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Component handler
          */
@@ -697,7 +848,7 @@ class Controller
             if ($componentObj && $componentObj->methodExists($handlerName)) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handlerName);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
         /*
@@ -706,12 +857,12 @@ class Controller
         else {
             if (method_exists($this->pageObj, $handler)) {
                 $result = $this->pageObj->$handler();
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             if (!$this->layout->isFallBack() && method_exists($this->layoutObj, $handler)) {
                 $result = $this->layoutObj->$handler();
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -720,7 +871,7 @@ class Controller
             if (($componentObj = $this->findComponentByHandler($handler)) !== null) {
                 $this->componentContext = $componentObj;
                 $result = $componentObj->runAjaxHandler($handler);
-                return ($result) ?: true;
+                return $result ?: true;
             }
         }
 
@@ -746,8 +897,22 @@ class Controller
     {
         $contents = $this->pageContents;
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.render
+         * Provides an oportunity to manipulate the page's rendered contents
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.render', function ((\Cms\Classes\Controller) $controller, (string) $pageContents) {
+         *         return 'My custom contents';
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.render', function ((string) $pageContents) {
+         *         return 'My custom contents';
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.render', [$contents])) {
             return $event;
@@ -776,8 +941,22 @@ class Controller
             $name = '::' . substr($name, 1);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderPartial
+         * Provides an oportunity to manipulate the name of the partial being rendered before it renders
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName) {
+         *         return "path/to/overriding/location/" . $partialName;
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderPartial', function ((string) $partialName) {
+         *         return "path/to/overriding/location/" . $partialName;
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderPartial', [$name])) {
             $partial = $event;
@@ -800,23 +979,19 @@ class Controller
                     if ($throwException) {
                         throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$partialName]));
                     }
-                    else {
-                        return false;
-                    }
+
+                    return false;
                 }
             }
             /*
              * Component alias is supplied
              */
-            else {
-                if (($componentObj = $this->findComponentByName($componentAlias)) === null) {
-                    if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
-                    }
-                    else {
-                        return false;
-                    }
+            elseif (($componentObj = $this->findComponentByName($componentAlias)) === null) {
+                if ($throwException) {
+                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$componentAlias]));
                 }
+
+                return false;
             }
 
             $partial = null;
@@ -840,9 +1015,8 @@ class Controller
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
                 }
-                else {
-                    return false;
-                }
+
+                return false;
             }
 
             /*
@@ -850,18 +1024,15 @@ class Controller
              */
             $this->vars['__SELF__'] = $componentObj;
         }
-        else {
-            /*
-             * Process theme partial
-             */
-            if (($partial = Partial::loadCached($this->theme, $name)) === null) {
-                if ($throwException) {
-                    throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
-                }
-                else {
-                    return false;
-                }
+        /*
+         * Process theme partial
+         */
+        elseif (($partial = Partial::loadCached($this->theme, $name)) === null) {
+            if ($throwException) {
+                throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
             }
+
+            return false;
         }
 
         /*
@@ -925,8 +1096,22 @@ class Controller
 
         $this->vars = $vars;
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.renderPartial
+         * Provides an oportunity to manipulate the output of a partial after being rendered
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.renderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName, (string) &$partialContent) {
+         *         return "Overriding content";
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.renderPartial', function ((string) $partialName, (string) &$partialContent) {
+         *         return "Overriding content";
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.renderPartial', [$name, &$partialContent])) {
             return $event;
@@ -944,8 +1129,22 @@ class Controller
      */
     public function renderContent($name, $parameters = [])
     {
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.beforeRenderContent
+         * Provides an oportunity to manipulate the name of the content file being rendered before it renders
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.beforeRenderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName) {
+         *         return "path/to/overriding/location/" . $contentName;
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.beforeRenderContent', function ((string) $contentName) {
+         *         return "path/to/overriding/location/" . $contentName;
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.beforeRenderContent', [$name])) {
             $content = $event;
@@ -974,8 +1173,22 @@ class Controller
             $fileContent = TextParser::parse($fileContent, $parameters);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event cms.page.renderContent
+         * Provides an oportunity to manipulate the output of a content file after being rendered
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.page.renderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName, (string) &$fileContent) {
+         *         return "Overriding content";
+         *     });
+         *
+         * Or
+         *
+         *     $CmsController->bindEvent('page.renderContent', function ((string) $contentName, (string) &$fileContent) {
+         *         return "Overriding content";
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('cms.page.renderContent', [$name, &$fileContent])) {
             return $event;
@@ -1111,6 +1324,17 @@ class Controller
     public function getLayoutObject()
     {
         return $this->layoutObj;
+    }
+
+    /**
+     * Returns the CMS layout object being processed by the controller.
+     * The object is not available on the early stages of the controller
+     * initialization.
+     * @return \Cms\Classes\Layout Returns the Layout object or null.
+     */
+    public function getLayout()
+    {
+        return $this->layout;
     }
 
     //
@@ -1340,15 +1564,10 @@ class Controller
 
                 if (substr($paramName, 0, 1) == ':') {
                     $routeParamName = substr($paramName, 1);
-                    $newPropertyValue = array_key_exists($routeParamName, $routerParameters)
-                        ? $routerParameters[$routeParamName]
-                        : null;
-
+                    $newPropertyValue = $routerParameters[$routeParamName] ?? null;
                 }
                 else {
-                    $newPropertyValue = array_key_exists($paramName, $parameters)
-                        ? $parameters[$paramName]
-                        : null;
+                    $newPropertyValue = $parameters[$paramName] ?? null;
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);

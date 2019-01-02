@@ -483,7 +483,7 @@ if (window.jQuery.request !== undefined) {
         }
     })
 
-    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
+    $(document).on('input', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')

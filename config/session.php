@@ -150,4 +150,23 @@ return [
 
     'secure' => false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Same-Site Cookies
+    |--------------------------------------------------------------------------
+    |
+    | This option determines how your cookies behave when cross-site requests
+    | take place, and can be used to mitigate CSRF attacks. By default, we
+    | do not enable this as other CSRF protection services are in place.
+    |
+    | In the strict mode, the cookie is not sent with any cross-site usage
+    | even if the user follows a link to another website. Lax cookies are
+    | only sent with a top-level get request.
+    |
+    | Supported: "lax", "strict"
+    |
+    */
+
+    'same_site' => null,
+
 ];

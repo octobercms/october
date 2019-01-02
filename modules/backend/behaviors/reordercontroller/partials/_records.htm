@@ -7,7 +7,7 @@
     >
         <div class="record">
             <a href="javascript:;" class="move"></a>
-            <span><?= $this->reorderGetRecordName($record) ?></span>
+            <span><?= e($this->reorderGetRecordName($record)) ?></span>
             <input name="record_ids[]" type="hidden" value="<?= $record->getKey() ?>" />
         </div>
 
