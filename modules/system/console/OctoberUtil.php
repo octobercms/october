@@ -4,6 +4,7 @@ use App;
 use Lang;
 use File;
 use Config;
+use System\Models\File as FileModel;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -294,8 +295,47 @@ class OctoberUtil extends Command
         if (!$this->confirmToProceed('This will PERMANENTLY DELETE files in the uploads directory that do not exist in the "system_files" table.')) {
             return;
         }
-
-        // @todo
+        
+        $totalCount = 0;
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app'));
+        $uploadsPath .= '/uploads';
+        
+        /*
+         * Recursive function to scan the directory for files and ensure they exist in system_files.
+         */
+        $purgeFunc = function ($targetDir) use (&$purgeFunc, &$totalCount) {
+            if ($files = File::glob($targetDir.'/*')) {
+                foreach ($files as $file) {
+                    if (!is_file($file)) {
+                        continue;
+                    }
+                    
+                    $model = FileModel::where('disk_name', basename($file));
+                    if ($model->count()) {
+                        continue;
+                    }
+                    
+                    $this->info('Purged: '. basename($file));
+                    $totalCount++;
+                    @unlink($file);
+                }
+            }
+            
+            if ($dirs = File::directories($targetDir)) {
+                foreach ($dirs as $dir) {
+                    $purgeFunc($dir);
+                }
+            }
+        };
+        
+        $purgeFunc($uploadsPath);
+        
+        if ($totalCount > 0) {
+            $this->comment(sprintf('Successfully deleted %s files', $totalCount));
+        }
+        else {
+            $this->comment('No files found to delete');
+        }
     }
 
     protected function utilPurgeOrphans()
