@@ -1,6 +1,7 @@
 ---
 name: "🔒 Security Vulnerabilities"
 about: 'For reporting security-related issues, send an email to hello@octobercms.com'
+
 ---
 
 PLEASE DON'T DISCLOSE SECURITY-RELATED ISSUES PUBLICLY, SEE BELOW.
