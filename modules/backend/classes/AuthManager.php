@@ -165,6 +165,7 @@ class AuthManager extends RainAuthManager
     /**
      * Returns an array of registered permissions belonging to a given role code
      * @param string $role
+     * @param bool $includeOrphans
      * @return array
      */
     public function listPermissionsForRole($role, $includeOrphans = true)
