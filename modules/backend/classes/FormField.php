@@ -511,7 +511,7 @@ class FormField
             'data-trigger' => '[name="'.$fullTriggerField.'"]',
             'data-trigger-action' => $triggerAction,
             'data-trigger-condition' => $triggerCondition,
-            'data-trigger-closest-parent' => 'form'
+            'data-trigger-closest-parent' => 'form, div[data-control="formwidget"]'
         ];
 
         return $attributes + $newAttributes;
