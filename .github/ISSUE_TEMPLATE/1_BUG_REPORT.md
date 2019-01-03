@@ -1,6 +1,6 @@
 ---
 name: "🐛 Bug Report"
-about: Report a general OctoberCMS issue
+about: 'Report a general OctoberCMS issue'
 labels: 'Status: Review Needed', 'Type: Unconfirmed Bug'
 ---
 
