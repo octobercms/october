@@ -1,7 +1,6 @@
 ---
 name: "⚠️ Support Question"
 about: 'This repository is only for reporting bugs or problems. If you need help, see: https://octobercms.com/support'
-
 ---
 
 This repository is only for reporting bugs or problems. If you need support, please use the following options:
