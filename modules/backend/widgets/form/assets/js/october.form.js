@@ -35,6 +35,7 @@
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
         this.bindCollapsibleSections()
+        this.bindValidation()
 
         this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
         this.$el.one('dispose-control', this.proxy(this.dispose))
@@ -219,6 +220,54 @@
             })
             .nextUntil('.section-field').hide()
     }
+
+    /*
+     * Bind validation checks on available fields, triggered when
+     * the fields is blurred or changed
+     */
+    FormWidget.prototype.bindValidation = function () {
+        let fields = this.getFieldElements(),
+            form = this.$form;
+
+        for (let field of fields) {
+            let fieldClasses = field.className.split(/\s+/).map(function (className) {
+                var fieldClass = className.match(/^([a-z\-]+)-field$/);
+                if (fieldClass) {
+                    return fieldClass[1];
+                } else {
+                    return null;
+                }
+            }).filter(function (className) {
+                return (className != null);
+            });
+
+            if (fieldClasses.length === 0) {
+                continue;
+            }
+
+            // Load validator depending on field type
+            switch (fieldClasses[0]) {
+                case 'text':
+                case 'password':
+                    this._validateText(form, field);
+                    break;
+            }
+        }
+    };
+
+    FormWidget.prototype._validateText = function (form, field) {
+        let ele = this.$el;
+
+        field.querySelector('input').addEventListener('blur', function (ev) {
+            $(ele).request('onValidateField', {
+                data: {
+                    fieldId: field.id,
+                    fieldName: field.dataset.fieldName
+                },
+                form: form
+            });
+        });
+    };
 
     FormWidget.DEFAULTS = {
         refreshHandler: null,
