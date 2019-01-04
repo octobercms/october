@@ -226,48 +226,55 @@
      * the fields is blurred or changed
      */
     FormWidget.prototype.bindValidation = function () {
-        let fields = this.getFieldElements(),
-            form = this.$form;
+        var fields = this.getFieldElements(),
+            $form = this.$form
 
-        for (let field of fields) {
-            let fieldClasses = field.className.split(/\s+/).map(function (className) {
-                var fieldClass = className.match(/^([a-z\-]+)-field$/);
+        for (var i in fields) {
+            var field = fields[i]
+
+            if (!field || !field.className) {
+                continue;
+            }
+
+            var fieldClasses = field.className.split(/\s+/).map(function (className) {
+                var fieldClass = className.match(/^([a-z\-]+)-field$/)
                 if (fieldClass) {
-                    return fieldClass[1];
+                    return fieldClass[1]
                 } else {
-                    return null;
+                    return null
                 }
             }).filter(function (className) {
-                return (className != null);
-            });
+                return (className != null)
+            })
 
             if (fieldClasses.length === 0) {
-                continue;
+                continue
             }
 
             // Load validator depending on field type
             switch (fieldClasses[0]) {
                 case 'text':
                 case 'password':
-                    this._validateText(form, field);
-                    break;
+                case 'number':
+                    this._validateText($form, field)
+                    break
             }
         }
-    };
+    }
 
-    FormWidget.prototype._validateText = function (form, field) {
-        let ele = this.$el;
+    FormWidget.prototype._validateText = function ($form, field) {
+        var $elem = this.$el
 
         field.querySelector('input').addEventListener('blur', function (ev) {
-            $(ele).request('onValidateField', {
+            $elem.request('onValidateField', {
                 data: {
                     fieldId: field.id,
                     fieldName: field.dataset.fieldName
                 },
-                form: form
-            });
-        });
-    };
+                form: $form
+            })
+        })
+    }
 
     FormWidget.DEFAULTS = {
         refreshHandler: null,

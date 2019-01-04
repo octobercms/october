@@ -462,7 +462,7 @@ class Form extends WidgetBase
     public function onValidateField()
     {
         $saveData = $this->getSaveData();
-        $field = Input::get('fieldName');
+        $field = input('fieldName');
         $valid = true;
         $message = null;
 
