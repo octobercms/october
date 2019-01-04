@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Lang;
+use Input;
 use Form as FormHelper;
 use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
@@ -240,7 +241,7 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         $this->prepareVars();
-        
+
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
@@ -450,6 +451,50 @@ class Form extends WidgetBase
         }
 
         return $result;
+    }
+
+    /**
+     * Validates a single field in the context of the entire form contents.
+     *
+     * @return array `valid` (bool) whether the field input is valid
+     *               `message` (string) the validation error message, if any
+     */
+    public function onValidateField()
+    {
+        $saveData = $this->getSaveData();
+        $field = Input::get('fieldName');
+        $valid = true;
+        $message = null;
+
+        // Check that the model has a validation method. This should be provided by
+        // the October\Rain\Database\Traits\Validation trait.
+        if (!method_exists($this->model, 'validate')) {
+            return;
+        }
+
+        $className = get_class($this->model);
+        $model = new $className($saveData);
+        try {
+            $success = $model->validate();
+        } catch (\Exception $e) {
+            $success = false;
+        }
+
+        if (!$success) {
+            $errors = $model->errors()->toArray() ?? [
+                $field => $e->getMessage()
+            ];
+
+            if (isset($errors[$field])) {
+                $valid = false;
+                $message = $errors[$field][0];
+            }
+        }
+
+        return [
+            'valid' => $valid,
+            'message' => $message
+        ];
     }
 
     /**
