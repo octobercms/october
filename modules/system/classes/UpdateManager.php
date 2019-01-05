@@ -914,6 +914,7 @@ class UpdateManager
     protected function applyHttpAttributes($http, $postData)
     {
         $postData['protocol_version'] = '1.1';
+        $postData['client'] = 'october';
 
         $postData['server'] = base64_encode(serialize([
             'php'   => PHP_VERSION,
