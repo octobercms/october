@@ -982,7 +982,7 @@ $(window).trigger('resize')}
 SidePanelTab.prototype.displaySidePanel=function(){$(document.body).addClass('display-side-panel')
 this.$el.appendTo('#layout-canvas')
 this.panelVisible=true
-this.$el.css({left:this.sideNavWidth,top:this.mainNavHeight})
+this.$el.css({left:this.sideNavWidth})
 this.updatePanelPosition()
 $(window).trigger('resize')}
 SidePanelTab.prototype.hideSidePanel=function(){$(document.body).removeClass('display-side-panel')
@@ -990,7 +990,7 @@ if(this.$el.next('#layout-body').length==0){$('#layout-body').before(this.$el)}
 this.panelVisible=false
 this.updateActiveTab()}
 SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
-else{this.$el.css('height','')}
+else{this.$el.css('height','100vh')}
 if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
 SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
 else{$.oc.sideNav.setActiveItem(this.visibleItemId)}}
