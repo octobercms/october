@@ -287,8 +287,8 @@
 
 
     FormWidget.prototype.clearFieldError = function ($field) {
-        $field.removeClass('has-error');
-        $field.find('.inline-error').remove();
+        $field.removeClass('has-error')
+        $field.find('.inline-error').remove()
     }
 
     FormWidget.prototype._validateText = function ($form, field) {
