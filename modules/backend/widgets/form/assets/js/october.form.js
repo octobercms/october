@@ -233,7 +233,7 @@
             var field = fields[i]
 
             if (!field || !field.className) {
-                continue;
+                continue
             }
 
             var fieldClasses = field.className.split(/\s+/).map(function (className) {
@@ -302,7 +302,7 @@
         }
 
         innerField.addEventListener('blur', function (ev) {
-            widget.clearFieldError($field);
+            widget.clearFieldError($field)
 
             $elem.request('onValidateField', {
                 data: {
