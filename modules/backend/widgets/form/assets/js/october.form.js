@@ -256,22 +256,58 @@
                 case 'text':
                 case 'password':
                 case 'number':
+                case 'textarea':
                     this._validateText($form, field)
                     break
             }
         }
     }
 
+    FormWidget.prototype.fieldResponseHandler = function ($form, $field, data, status) {
+        if (status !== 'success') {
+            return
+        }
+
+        if (data.valid !== undefined && data.valid === false) {
+            this.showFieldError($field, data.message)
+        }
+    }
+
+    FormWidget.prototype.showFieldError = function ($field, message) {
+        $field.addClass('has-error')
+
+        var $error = $('<div class="inline-error"></div>')
+        var $tooltip = $('<a href="javascript:;" data-toggle="tooltip" data-placement="top" class="text-danger"><i class="icon-exclamation-triangle"></i></a>')
+
+        $tooltip.attr('title', message)
+        $error.append($tooltip)
+        $tooltip.tooltip()
+        $field.append($error)
+    }
+
+
+    FormWidget.prototype.clearFieldError = function ($field) {
+        $field.removeClass('has-error');
+        $field.find('.inline-error').remove();
+    }
+
     FormWidget.prototype._validateText = function ($form, field) {
-        var $elem = this.$el
+        var $elem = this.$el,
+            $field = $(field),
+            widget = this
 
         field.querySelector('input').addEventListener('blur', function (ev) {
+            widget.clearFieldError($field);
+
             $elem.request('onValidateField', {
                 data: {
                     fieldId: field.id,
                     fieldName: field.dataset.fieldName
                 },
-                form: $form
+                form: $form,
+                success: function (data, status, jqXHR) {
+                    widget.fieldResponseHandler($form, $field, data, status, jqXHR);
+                }
             })
         })
     }
