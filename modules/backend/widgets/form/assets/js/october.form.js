@@ -296,7 +296,12 @@
             $field = $(field),
             widget = this
 
-        field.querySelector('input').addEventListener('blur', function (ev) {
+        var innerField = field.querySelector('input,textarea')
+        if (!innerField) {
+            return
+        }
+
+        innerField.addEventListener('blur', function (ev) {
             widget.clearFieldError($field);
 
             $elem.request('onValidateField', {
