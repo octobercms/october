@@ -1,7 +1,6 @@
 <?php namespace Backend\Widgets;
 
 use Lang;
-use Input;
 use Form as FormHelper;
 use Backend\Classes\FormTabs;
 use Backend\Classes\FormField;
