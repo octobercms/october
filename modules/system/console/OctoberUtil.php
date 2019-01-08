@@ -310,8 +310,7 @@ class OctoberUtil extends Command
                         continue;
                     }
                     
-                    $model = FileModel::where('disk_name', basename($file));
-                    if ($model->count()) {
+                    if (FileModel::where('disk_name', basename($file))->count()) {
                         continue;
                     }
                     
