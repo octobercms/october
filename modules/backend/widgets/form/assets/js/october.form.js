@@ -108,7 +108,7 @@
         // Find forms and sections that are marked for inline validation
         if ($form.data('inline-validation') !== undefined && $form.data('inline-validation') !== 0) {
             $form.find('[data-field-name]').not(nestedFields).not('[data-inline-validation="0"]').each(function () {
-                var $field = $(this);
+                var $field = $(this)
 
                 if ($field.data('inline-validation') !== undefined && $field.data('inline-validation') === 0) {
                     return
@@ -118,7 +118,7 @@
             })
         }
 
-        return this.fieldValidationElementCache = fields;
+        return this.fieldValidationElementCache = fields
     }
 
     /*
