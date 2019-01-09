@@ -276,8 +276,8 @@
     FormWidget.prototype.showFieldError = function ($field, message) {
         $field.addClass('has-error')
 
-        var $error = $('<div class="validation-error"></div>');
-        $error.text(message);
+        var $error = $('<div class="validation-error"></div>')
+        $error.text(message)
 
         $field.append($error)
     }
@@ -308,7 +308,7 @@
                 },
                 form: $form,
                 success: function (data, status, jqXHR) {
-                    widget.fieldResponseHandler($form, $field, data, status, jqXHR);
+                    widget.fieldResponseHandler($form, $field, data, status, jqXHR)
                 }
             })
         })
