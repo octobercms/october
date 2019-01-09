@@ -3,6 +3,9 @@
     <?php if ($depends = $this->getFieldDepends($field)): ?>data-field-depends="<?= $depends ?>"<?php endif ?>
     data-field-name="<?= $field->fieldName ?>"
     <?= $field->getAttributes('container') ?>
+    <?php if (isset($field->inlineValidation)): ?>
+    data-inline-validation="<?= ($field->inlineValidation === true) ? 1 : 0 ?>"
+    <?php endif; ?>
     id="<?= $field->getId('group') ?>"><?=
     /* Must be on the same line for :empty selector */
     trim($this->makePartial('field', ['field' => $field]))

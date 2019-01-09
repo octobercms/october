@@ -1,6 +1,9 @@
 <div
     data-control="formwidget"
     data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
+    <?php if (isset($inlineValidation)): ?>
+    data-inline-validation="<?= ($inlineValidation === true) ? 1 : 0 ?>"
+    <?php endif; ?>
     class="layout-row"
     role="form"
     id="<?= $this->getId($renderSection.'Container') ?>">

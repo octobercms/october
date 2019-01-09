@@ -70,6 +70,12 @@ class Form extends WidgetBase
      */
     public $isNested = false;
 
+    /**
+     * @var boolean If set to TRUE, this form or section will use inline validation for
+     * fields.
+     */
+    public $inlineValidation = false;
+
     //
     // Object properties
     //
@@ -134,6 +140,7 @@ class Form extends WidgetBase
             'context',
             'arrayName',
             'isNested',
+            'inlineValidation'
         ]);
 
         $this->widgetManager = WidgetManager::instance();
@@ -204,6 +211,7 @@ class Form extends WidgetBase
 
             $targetPartial = 'section';
             $extraVars['renderSection'] = $section;
+            $extraVars['inlineValidation'] = $this->allTabs->{$section}->inlineValidation ?? false;
         }
 
         /*

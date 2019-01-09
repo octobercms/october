@@ -12,6 +12,7 @@
         this.$el = $(element)
         this.options = options || {}
         this.fieldElementCache = null
+        this.fieldValidationElementCache = null
 
         /*
          * Throttle dependency updating
@@ -88,6 +89,36 @@
             nestedFields = form.find('[data-control="formwidget"] [data-field-name]')
 
         return this.fieldElementCache = form.find('[data-field-name]').not(nestedFields)
+    }
+
+    /*
+     * Get all fields elements that belong to this form or are part of a section of this form that
+     * has inline validation enabled, or have inline validation enabled for the field explicitly.
+     * Strip out any fields that are explicitly not to be validated, or are part of a nested form.
+     */
+    FormWidget.prototype.getFieldElementsToValidate = function() {
+        if (this.fieldValidationElementCache !== null) {
+            return this.fieldValidationElementCache
+        }
+
+        var $form = this.$el,
+            nestedFields = $form.find('[data-control="formwidget"] [data-field-name]'),
+            fields = []
+
+        // Find forms and sections that are marked for inline validation
+        if ($form.data('inline-validation') !== undefined && $form.data('inline-validation') !== 0) {
+            $form.find('[data-field-name]').not(nestedFields).not('[data-inline-validation="0"]').each(function () {
+                var $field = $(this);
+
+                if ($field.data('inline-validation') !== undefined && $field.data('inline-validation') === 0) {
+                    return
+                }
+
+                fields.push(this)
+            })
+        }
+
+        return this.fieldValidationElementCache = fields;
     }
 
     /*
@@ -226,7 +257,7 @@
      * the fields is blurred or changed
      */
     FormWidget.prototype.bindValidation = function () {
-        var fields = this.getFieldElements(),
+        var fields = this.getFieldElementsToValidate(),
             $form = this.$form
 
         for (var i in fields) {

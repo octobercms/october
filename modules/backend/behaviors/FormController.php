@@ -133,6 +133,7 @@ class FormController extends ControllerBehavior
         $config->model = $model;
         $config->arrayName = class_basename($model);
         $config->context = $context;
+        $config->inlineValidation = $this->getConfig("{$context}[inlineValidation]", false);
 
         /*
          * Form Widget with extensibility
