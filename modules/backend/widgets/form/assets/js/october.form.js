@@ -276,19 +276,16 @@
     FormWidget.prototype.showFieldError = function ($field, message) {
         $field.addClass('has-error')
 
-        var $error = $('<div class="inline-error"></div>')
-        var $tooltip = $('<a href="javascript:;" data-toggle="tooltip" data-placement="top" class="text-danger"><i class="icon-exclamation-triangle"></i></a>')
+        var $error = $('<div class="validation-error"></div>');
+        $error.text(message);
 
-        $tooltip.attr('title', message)
-        $error.append($tooltip)
-        $tooltip.tooltip()
         $field.append($error)
     }
 
 
     FormWidget.prototype.clearFieldError = function ($field) {
         $field.removeClass('has-error')
-        $field.find('.inline-error').remove()
+        $field.find('.validation-error').remove()
     }
 
     FormWidget.prototype._validateText = function ($form, field) {

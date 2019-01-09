@@ -207,35 +207,12 @@
         }
     }
 
-    // Inline field errors
-    .inline-error {
+    // Inline field validation errors
+    .validation-error {
         display: block;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-
-        .tooltip {
-            min-width: 200px;
-
-            & > .tooltip-inner {
-                background: @brand-danger;
-                color: #fff;
-                text-align: center;
-            }
-
-            &.top > .tooltip-arrow {
-                border-top-color: @brand-danger;
-            }
-            &.right > .tooltip-arrow {
-                border-right-color: @brand-danger;
-            }
-            &.down > .tooltip-arrow {
-                border-down-color: @brand-danger;
-            }
-            &.left > .tooltip-arrow {
-                border-left-color: @brand-danger;
-            }
-        }
+        margin-top: 5px;
+        color: @state-danger-text;
+        font-size: @label-font-size;
     }
 }
 
