@@ -139,6 +139,11 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
+        // Setup the default preview mode on form initialization if the context is preview
+        if ($config->context === 'preview') {
+            $this->formWidget->previewMode = true;
+        }
+
         $this->formWidget->bindEvent('form.extendFieldsBefore', function () {
             $this->controller->formExtendFieldsBefore($this->formWidget);
         });
