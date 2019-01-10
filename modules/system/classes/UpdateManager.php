@@ -227,10 +227,16 @@ class UpdateManager
         $frozen = $installed->lists('is_frozen', 'code');
         $updatable = $installed->lists('is_updatable', 'code');
         $build = Parameter::get('system::core.build');
+        $themes = [];
+
+        if ($this->themeManager) {
+            $themes = array_keys($this->themeManager->getInstalled());
+        }
 
         $params = [
             'core' => $this->getHash(),
             'plugins' => serialize($versions),
+            'themes' => serialize($themes),
             'build' => $build,
             'force' => $force
         ];
