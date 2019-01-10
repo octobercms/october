@@ -335,7 +335,7 @@ class FormField
             $this->attributes($config['containerAttributes'], 'container');
         }
         if (isset($config['inlineValidation'])) {
-            $this->inlineValidation = boolval($config['inlineValidation']);
+            $this->inlineValidation = (bool) $config['inlineValidation'];
         }
         if (isset($config['valueFrom'])) {
             $this->valueFrom = $config['valueFrom'];

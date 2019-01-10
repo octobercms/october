@@ -105,7 +105,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         }
 
         if (array_key_exists('inlineValidation', $config)) {
-            $this->inlineValidation = boolval($config['inlineValidation']);
+            $this->inlineValidation = (bool) $config['inlineValidation'];
         }
 
         if (array_key_exists('cssClass', $config)) {
