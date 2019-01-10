@@ -240,7 +240,7 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         $this->prepareVars();
-        
+
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
@@ -783,7 +783,7 @@ class Form extends WidgetBase
         $label = $config['label'] ?? null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
-        $field = new FormField($fieldName, $label);
+        $field = new FormField($fieldName, $label, $this);
 
         if ($fieldContext) {
             $field->context = $fieldContext;

@@ -177,14 +177,21 @@ class FormField
     public $preset;
 
     /**
-     * Constructor.
-     * @param string $fieldName
-     * @param string $label
+     * @var Backend\Widgets\Form The form that contains this field
      */
-    public function __construct($fieldName, $label)
+    public $form;
+
+    /**
+     * Constructor.
+     * @param string $fieldName The name of the field
+     * @param string $label The label of the field
+     * @param Backend\Widgets\Form $form The containing form
+     */
+    public function __construct($fieldName, $label, $form)
     {
         $this->fieldName = $fieldName;
         $this->label = $label;
+        $this->form = $form;
     }
 
     /**
