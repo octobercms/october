@@ -177,21 +177,31 @@ class FormField
     public $preset;
 
     /**
-     * @var Backend\Widgets\Form The form that contains this field
+     * @var object The parent object that contains this field
      */
-    public $form;
+    protected $parent = null;
 
     /**
      * Constructor.
      * @param string $fieldName The name of the field
      * @param string $label The label of the field
-     * @param Backend\Widgets\Form $form The containing form
+     * @param object $parent The containing object instance, defaults to null
      */
-    public function __construct($fieldName, $label, $form)
+    public function __construct($fieldName, $label, $parent = null)
     {
         $this->fieldName = $fieldName;
         $this->label = $label;
-        $this->form = $form;
+        $this->parent = $parent;
+    }
+
+    /**
+     * Retrieve the parent object for the field
+     *
+     * @return object|null
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 
     /**
