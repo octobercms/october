@@ -783,7 +783,7 @@ class Form extends WidgetBase
         $label = $config['label'] ?? null;
         list($fieldName, $fieldContext) = $this->getFieldName($name);
 
-        $field = new FormField($fieldName, $label, $this);
+        $field = new FormField($fieldName, $label);
 
         if ($fieldContext) {
             $field->context = $fieldContext;
@@ -934,6 +934,7 @@ class Form extends WidgetBase
         $widgetConfig->previewMode = $this->previewMode;
         $widgetConfig->model = $this->model;
         $widgetConfig->data = $this->data;
+        $widgetConfig->parentForm = $this;
 
         $widgetName = $widgetConfig->widget;
         $widgetClass = $this->widgetManager->resolveFormWidget($widgetName);
