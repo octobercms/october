@@ -290,6 +290,9 @@
                 case 'textarea':
                     this._validateText($form, field)
                     break
+                case 'dropdown':
+                    this._validateDropdown($form, field)
+                    break
             }
         }
     }
@@ -330,6 +333,32 @@
         }
 
         innerField.addEventListener('blur', function (ev) {
+            widget.clearFieldError($field)
+
+            $elem.request('onValidateField', {
+                data: {
+                    fieldId: field.id,
+                    fieldName: field.dataset.fieldName
+                },
+                form: $form,
+                success: function (data, status, jqXHR) {
+                    widget.fieldResponseHandler($form, $field, data, status, jqXHR)
+                }
+            })
+        })
+    }
+
+    FormWidget.prototype._validateDropdown = function ($form, field) {
+        var $elem = this.$el,
+            $field = $(field),
+            widget = this
+
+        var $innerField = $(field.querySelector('select'))
+        if (!$innerField) {
+            return
+        }
+
+        $innerField.on('change', function (ev) {
             widget.clearFieldError($field)
 
             $elem.request('onValidateField', {
