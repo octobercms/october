@@ -185,7 +185,6 @@ class FormField
     {
         $this->fieldName = $fieldName;
         $this->label = $label;
-        $this->parent = $parent;
     }
 
     /**
