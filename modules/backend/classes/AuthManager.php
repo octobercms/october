@@ -183,9 +183,7 @@ class AuthManager extends RainAuthManager
         // Perform the deleted_at check manually since the relevant migrations
         // might not have been run yet during the update to build 444.
         // @see https://github.com/octobercms/october/issues/3999
-        if (array_key_exists('deleted_at', $user->getAttributes())
-            && $user->deleted_at !== null
-            && $user->deleted_at->lt(now())) {
+        if (array_key_exists('deleted_at', $user->getAttributes()) && $user->deleted_at !== null) {
             return false;
         }
 
