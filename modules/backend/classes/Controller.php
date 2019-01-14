@@ -151,10 +151,8 @@ class Controller extends Extendable
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if ($this->user && $this->user->hasAccess('media.*')) {
-            $manager = new MediaManager($this, 'ocmediamanager');
-            $manager->bindToController();
-        }
+        $manager = new MediaManager($this, 'ocmediamanager');
+        $manager->bindToController();
     }
 
     /**
