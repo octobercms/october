@@ -224,6 +224,11 @@ class NavigationManager
 
         $this->items[$itemKey] = $item;
 
+        if (property_exists($item, 'counter') && $item->counter !== null && is_callable($item->counter)) {
+            $item->counter = call_user_func($item->counter, $item);
+            if (empty($item->counter)) $item->counter = null;
+        }
+
         if ($item->sideMenu) {
             $this->addSideMenuItems($owner, $code, $item->sideMenu);
         }
@@ -321,6 +326,7 @@ class NavigationManager
             $activeItem = @$this->items[$this->makeItemKey($owner, $code)];
         } else {
             foreach ($this->listMainMenuItems() as $item) {
+
                 if ($this->isMainMenuItemActive($item)) {
                     $activeItem = $item;
                     break;
@@ -337,6 +343,7 @@ class NavigationManager
         foreach ($items as $item) {
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
+                if (empty($item->counter)) $item->counter = null;
             }
         }
 

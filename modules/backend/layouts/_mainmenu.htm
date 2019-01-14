@@ -1,4 +1,5 @@
 <?php
+    $context = BackendMenu::getContext();
     $activeItem = BackendMenu::getActiveMainMenuItem();
     $mySettings = System\Classes\SettingsManager::instance()->listItems('mysettings');
     $navbarMode = Backend\Models\BrandSetting::get('menu_mode', 'inline');
@@ -16,7 +17,7 @@
             </a>
 
             <ul class="nav mainmenu-nav">
-                <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
+                <?php foreach (BackendMenu::listMainMenuItems() as $itemCode => $item) : ?>
                     <?php
                         $isActive = BackendMenu::isMainMenuItemActive($item);
                     ?>
@@ -33,6 +34,14 @@
                                 <?= e(trans($item->label)) ?>
                             </span>
                         </a>
+                        <span
+                            class="counter <?= (!property_exists($item, 'counter') || $item->counter === null) ? 'empty' : null ?>"
+                            data-menu-id="<?= e($context->mainMenuCode . '/' . $itemCode) ?>"
+                            <?php if (property_exists($item, 'counterLabel') && $item->counterLabel) : ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
+                        >
+                            <?=e(property_exists($item, 'counter')? $item->counter :"" ) ?>
+
+                        </span>
                     </li>
                 <?php endforeach ?>
             </ul>
