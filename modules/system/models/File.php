@@ -26,6 +26,10 @@ class File extends FileBase
     {
         $url = '';
         if (!$this->isPublic() && class_exists('\Backend\Controllers\Files')) {
+            // Ensure that the thumb exists first
+            parent::getThumb($width, $height, $options);
+
+            // Return the Files controller handler for the URL
             $url = \Backend\Controllers\Files::getThumbUrl($this, $width, $height, $options);
         } else {
             $url = parent::getThumb($width, $height, $options);
