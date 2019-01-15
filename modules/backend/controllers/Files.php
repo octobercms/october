@@ -1,7 +1,8 @@
 <?php namespace Backend\Controllers;
 
-use App;
+use View;
 use Backend;
+use Response;
 use System\Models\File as FileModel;
 use Backend\Classes\Controller;
 use ApplicationException;
@@ -30,7 +31,7 @@ class Files extends Controller
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return Response::make(View::make('backend::404'), 404);
     }
 
     /**
@@ -48,7 +49,7 @@ class Files extends Controller
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return Response::make(View::make('backend::404'), 404);
     }
 
     /**
@@ -110,7 +111,7 @@ class Files extends Controller
         if (!$file = FileModel::find((int) $id)) {
             throw new ApplicationException('Unable to find file');
         }
-        
+
         /**
          * Ensure that the file model utilized for this request is
          * the one specified in the relationship configuration
