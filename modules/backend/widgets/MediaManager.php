@@ -11,7 +11,6 @@ use Response;
 use Exception;
 use SystemException;
 use ApplicationException;
-use BackendAuth;
 use Backend\Classes\WidgetBase;
 use System\Classes\MediaLibrary;
 use System\Classes\MediaLibraryItem;
@@ -100,9 +99,6 @@ class MediaManager extends WidgetBase
      */
     public function render()
     {
-        if (! BackendAuth::getUser()->hasAccess('media.manage_media')) {
-            return $this->controller->makePartial('access_denied');
-        }
         $this->prepareVars();
 
         return $this->makePartial('body');
