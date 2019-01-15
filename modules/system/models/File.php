@@ -20,6 +20,36 @@ class File extends FileBase
     protected $table = 'system_files';
 
     /**
+     * {@inheritDoc}
+     */
+    public function getThumb($width, $height, $options = [])
+    {
+        $url = '';
+        if (!$this->isPublic() && class_exists('\Backend\Controllers\Files')) {
+            $url = \Backend\Controllers\Files::getThumbUrl($this, $width, $height, $options);
+        } else {
+            $url = parent::getThumb($width, $height, $options);
+        }
+
+        return $url;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPath()
+    {
+        $url = '';
+        if (!$this->isPublic() && class_exists('\Backend\Controllers\Files')) {
+            $url = \Backend\Controllers\Files::getDownloadUrl($this);
+        } else {
+            $url = parent::getPath();
+        }
+
+        return $url;
+    }
+
+    /**
      * If working with local storage, determine the absolute local path.
      */
     protected function getLocalRootPath()
