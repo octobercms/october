@@ -62,7 +62,7 @@
 .sweet-alert button::-moz-focus-inner {border:0}
 .sweet-overlay {background-color:rgba(0,0,0,0.2);z-index:10499}
 .sweet-alert {text-align:right;border-radius:3px;-webkit-box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22);z-index:10500}
-.sweet-alert h2 {word-break:word-break;word-wrap:break-word;max-height:350px;overflow-y:auto;margin:10px 0 17px 0;color:#2b3e50;text-align:left;font-size:15px;line-height:23px}
+.sweet-alert h2 {word-break:break-word;word-wrap:break-word;max-height:350px;overflow-y:auto;margin:10px 0 17px 0;color:#2b3e50;text-align:left;font-size:15px;line-height:23px}
 .sweet-alert p {margin:0}
 .sweet-alert p.text-muted {margin-bottom:20px;color:#555}
 .control-simplelist {font-size:13px;padding:20px 20px 2px 20px;margin-bottom:20px;background:#fff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
@@ -435,7 +435,7 @@ body.dragging .control-treeview ol.dragging >li >div .custom-checkbox,
 body.dragging .control-treeview ol.dragging ol >li >div .custom-checkbox {-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:0;filter:alpha(opacity=0)}
 body.dragging .control-treeview.treeview-light ol.dragging >li >div,
 body.dragging .control-treeview.treeview-light ol.dragging ol >li >div {background-color:#f9f9f9}
-@media only screen and (-moz-min-device-pixel-ratio:1.5),only screen and (-o-min-device-pixel-ratio:3/2),only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min-devicepixel-ratio:1.5),only screen and (min-resolution:1.5dppx) {.control-treeview ol >li >div:before {background-position:0 -79px;background-size:21px auto }.control-treeview ol >li.has-subitems >div:before {background-position:0 -52px }.control-treeview ol >li.has-subitems >div:hover:before,.control-treeview ol >li.has-subitems >div.popover-highlight:before {background-position:0 -102px }.control-treeview ol >li.dragged >div:before,.control-treeview ol >li.dragged li >div:before,.control-treeview ol >li >div:hover:before,.control-treeview ol >li >div.popover-highlight:before {background-position:0 -129px }.control-treeview ol >li.dragged li.has-subitems >div:before,.control-treeview ol >li.dragged.has-subitems >div:before {background-position:0 -102px }.control-treeview ol >li.drop-target >div:before {background-position:0 -129px }.control-treeview ol >li.drop-target.has-subitems >div:before {background-position:0 -102px }}
+@media only screen and (min--moz-device-pixel-ratio:1.5),only screen and (-o-min-device-pixel-ratio:3/2),only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min-devicepixel-ratio:1.5),only screen and (min-resolution:1.5dppx) {.control-treeview ol >li >div:before {background-position:0 -79px;background-size:21px auto }.control-treeview ol >li.has-subitems >div:before {background-position:0 -52px }.control-treeview ol >li.has-subitems >div:hover:before,.control-treeview ol >li.has-subitems >div.popover-highlight:before {background-position:0 -102px }.control-treeview ol >li.dragged >div:before,.control-treeview ol >li.dragged li >div:before,.control-treeview ol >li >div:hover:before,.control-treeview ol >li >div.popover-highlight:before {background-position:0 -129px }.control-treeview ol >li.dragged li.has-subitems >div:before,.control-treeview ol >li.dragged.has-subitems >div:before {background-position:0 -102px }.control-treeview ol >li.drop-target >div:before {background-position:0 -129px }.control-treeview ol >li.drop-target.has-subitems >div:before {background-position:0 -102px }}
 .sidenav-tree {width:300px}
 .sidenav-tree .control-toolbar {padding:0}
 .sidenav-tree .control-toolbar .toolbar-item {display:block}
@@ -563,7 +563,7 @@ html.svg .svg-icon-container i.svg-replace {display:none}
 @-webkit-keyframes fadeOutUp {0% {opacity:1 }100% {opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0) }}
 @keyframes fadeOutUp {0% {opacity:1 }100% {opacity:0;-webkit-transform:translate3d(0,-100%,0);-ms-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0) }}
 .fadeOutUp {-webkit-animation-name:fadeOutUp;animation-name:fadeOutUp}
-html:not(.mobile) body.drag * {cursor:drag !important;cursor:-webkit-grab !important;cursor:-moz-grab !important}
+html:not(.mobile) body.drag * {cursor:grab !important;cursor:-webkit-grab !important;cursor:-moz-grab !important}
 body.dragging,
 body.dragging * {cursor:move !important}
 body.loading,
