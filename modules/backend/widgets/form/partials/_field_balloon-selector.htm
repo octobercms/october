@@ -5,7 +5,7 @@
 <div
     data-control="balloon-selector"
     id="<?= $field->getId() ?>"
-    class="control-balloon-selector <?= $this->previewMode ? 'control-disabled' : '' ?>"
+    class="control-balloon-selector <?= $this->previewMode || $field->disabled ? 'control-disabled' : '' ?>"
     <?= $field->getAttributes() ?>>
     <ul>
         <?php foreach ($fieldOptions as $value => $text): ?>
