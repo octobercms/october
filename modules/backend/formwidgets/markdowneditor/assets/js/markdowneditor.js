@@ -234,7 +234,7 @@
     }
 
     MarkdownEditor.prototype.makeToolbarButton = function(code, button) {
-        if (!this.options.mediaManager && (code == 'medialink' || code == 'mediaimage')) {
+        if (!this.options.useMediaManager && (code == 'medialink' || code == 'mediaimage')) {
             return
         }
 
@@ -679,7 +679,7 @@
         refreshHandler: null,
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
         viewMode: 'tab',
-        mediaManager: false
+        useMediaManager: false
     }
 
     // PLUGIN DEFINITION

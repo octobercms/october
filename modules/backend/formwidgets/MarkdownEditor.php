@@ -66,7 +66,7 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
-        $this->vars['mediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
+        $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
     }
 
     /**
