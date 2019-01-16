@@ -5,6 +5,7 @@ use Config;
 use File as FileHelper;
 use Storage;
 use October\Rain\Database\Attach\File as FileBase;
+use Backend\Controllers\Files;
 
 /**
  * File attachment model
@@ -25,12 +26,12 @@ class File extends FileBase
     public function getThumb($width, $height, $options = [])
     {
         $url = '';
-        if (!$this->isPublic() && class_exists('\Backend\Controllers\Files')) {
+        if (!$this->isPublic() && class_exists(Files::class)) {
             // Ensure that the thumb exists first
             parent::getThumb($width, $height, $options);
 
             // Return the Files controller handler for the URL
-            $url = \Backend\Controllers\Files::getThumbUrl($this, $width, $height, $options);
+            $url = Files::getThumbUrl($this, $width, $height, $options);
         } else {
             $url = parent::getThumb($width, $height, $options);
         }
@@ -44,8 +45,8 @@ class File extends FileBase
     public function getPath()
     {
         $url = '';
-        if (!$this->isPublic() && class_exists('\Backend\Controllers\Files')) {
-            $url = \Backend\Controllers\Files::getDownloadUrl($this);
+        if (!$this->isPublic() && class_exists(Files::class)) {
+            $url = Files::getDownloadUrl($this);
         } else {
             $url = parent::getPath();
         }
