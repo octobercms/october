@@ -26,7 +26,7 @@ class Files extends Controller
     public function get($code = null)
     {
         try {
-            return $this->findFileObject($code)->getHttpResponse();
+            return $this->findFileObject($code)->output('inline', true);
         }
         catch (Exception $ex) {}
 
@@ -39,10 +39,11 @@ class Files extends Controller
     public function thumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto')
     {
         try {
-            return $this->findFileObject($code)->getThumbHttpResponse(
+            return $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,
-                compact('mode', 'extension')
+                compact('mode', 'extension'),
+                true
             );
         }
         catch (Exception $ex) {}
