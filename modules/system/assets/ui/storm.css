@@ -3087,7 +3087,7 @@ a.control-status-list >ul li .status-text.danger:hover {color:#843534}
 .control-toolbar .toolbar-item .btn-group .dropdown.last >.btn {border-bottom-right-radius:3px !important;border-top-right-radius:3px !important}
 .control-toolbar input.form-control[type=text] {height:auto;padding:6px 13px 6px}
 .control-toolbar.toolbar-padded {padding:20px}
-.clear-input-text {font-size:large;color:#666;display:inline-block;position:absolute;right:1px;top:2px;background-color:#fff;padding-left:7px;height:28px;border:0}
+.clear-input-text {font-size:large;color:#666;display:inline-block;position:absolute;top:0;bottom:0;margin:auto;right:1px;background-color:#fff;padding-left:7px;border:0;height:28px}
 .clear-input-text:focus {outline:none}
 [data-control=toolbar] {white-space:nowrap;width:100%;overflow:hidden}
 html.mobile [data-control=toolbar].is-native-drag {overflow:auto;-webkit-overflow-scrolling:touch}
