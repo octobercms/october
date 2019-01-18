@@ -2,8 +2,8 @@
 
 <?= Form::open() ?>
     <input type="hidden" name="postback" value="1" />
-    <input type="hidden" name="id" value="<?= $id ?>" />
-    <input type="hidden" name="code" value="<?= $code ?>" />
+    <input type="hidden" name="id" value="<?= e($id) ?>" />
+    <input type="hidden" name="code" value="<?= e($code) ?>" />
 
     <div class="form-elements" role="form">
         <div class="form-group text-field horizontal-form october">
