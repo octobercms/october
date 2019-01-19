@@ -299,6 +299,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Find Record',
+        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid',
         'cancel' => 'Cancel',
     ],
     'pagelist' => [
