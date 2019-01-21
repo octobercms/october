@@ -61,6 +61,21 @@ class BackendController extends ControllerBase
     }
 
     /**
+     * Pass unhandled URLs to the CMS Controller, if it exists
+     *
+     * @param string $url
+     * @return Response
+     */
+    protected function passToCmsController($url)
+    {
+        if (class_exists('\Cms\Classes\Controller')) {
+            return App::make('Cms\Classes\Controller')->run($url);
+        } else {
+            return Response::make(View::make('backend::404'), 404);
+        }
+    }
+
+    /**
      * Finds and serves the requested backend controller.
      * If the controller cannot be found, returns the Cms page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
@@ -78,7 +93,7 @@ class BackendController extends ControllerBase
         if (!App::hasDatabase()) {
             return Config::get('app.debug', false)
                 ? Response::make(View::make('backend::no_database'), 200)
-                : App::make('Cms\Classes\Controller')->run($url);
+                : $this->passToCmsController($url);
         }
 
         /*
@@ -105,7 +120,7 @@ class BackendController extends ControllerBase
 
             $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
             if (PluginManager::instance()->isDisabled($pluginCode)) {
-                return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+                return Response::make(View::make('backend::404'), 404);
             }
 
             $controller = $params[2] ?? 'index';
@@ -124,7 +139,7 @@ class BackendController extends ControllerBase
         /*
          * Fall back on Cms controller
          */
-        return App::make('Cms\Classes\Controller')->run($url);
+        return $this->passToCmsController($url);
     }
 
     /**
