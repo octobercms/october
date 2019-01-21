@@ -482,7 +482,9 @@ class Form extends WidgetBase
         }
 
         $className = get_class($this->model);
-        $model = new $className($saveData);
+        $model = new $className;
+        $model->forceFill($saveData);
+
         try {
             $success = $model->validate();
         } catch (\Exception $e) {
