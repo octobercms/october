@@ -1102,8 +1102,8 @@ self.saveGroupStatus($(group).data('group-code'),true)}})}
 SidenavTree.prototype.expandGroup=function(group,duration){var
 $list=$('> ul',group),self=this
 duration=duration===undefined?100:duration
-$list.css({'overflow':'hidden','display':'','height':0})
-$list.animate({'height':$list[0].scrollHeight},{duration:duration,queue:false,complete:function(){$list.css({'overflow':'visible','height':'auto'})
+$list.css({'overflow':'hidden','height':0})
+$list.animate({'height':$list[0].scrollHeight},{duration:duration,queue:false,complete:function(){$list.css({'overflow':'visible','height':'auto','display':''})
 $(group).attr('data-status','expanded')
 $(window).trigger('oc.updateUi')
 self.saveGroupStatus($(group).data('group-code'),false)}})}
