@@ -292,6 +292,9 @@
                 case 'dropdown':
                     this._validateDropdown($form, field)
                     break
+                case 'balloon-selector':
+                    this._validateBalloonSelector($form, field)
+                    break
             }
         }
     }
@@ -357,7 +360,33 @@
             return
         }
 
-        $innerField.on('change', function (ev) {
+        $innerField.on('change', function () {
+            widget.clearFieldError($field)
+
+            $elem.request('onValidateField', {
+                data: {
+                    fieldId: field.id,
+                    fieldName: field.dataset.fieldName
+                },
+                form: $form,
+                success: function (data, status, jqXHR) {
+                    widget.fieldResponseHandler($form, $field, data, status, jqXHR)
+                }
+            })
+        })
+    }
+
+    FormWidget.prototype._validateBalloonSelector = function ($form, field) {
+        var $elem = this.$el,
+            $field = $(field),
+            widget = this
+
+        var $innerField = $(field.querySelector('input'));
+        if (!$innerField) {
+            return
+        }
+
+        $innerField.on('change', function () {
             widget.clearFieldError($field)
 
             $elem.request('onValidateField', {
