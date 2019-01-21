@@ -58,6 +58,11 @@ class FileUpload extends FormWidgetBase
     public $mimeTypes = false;
 
     /**
+     * @var mixed Max file size.
+     */
+    public $maxFilesize = 256;
+
+    /**
      * @var array Options used for generating thumbnails.
      */
     public $thumbOptions = [
@@ -95,6 +100,7 @@ class FileUpload extends FormWidgetBase
             'imageHeight',
             'fileTypes',
             'mimeTypes',
+            'maxFilesize',
             'thumbOptions',
             'useCaption',
             'attachOnUpload',
@@ -132,6 +138,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageHeight'] = $this->imageHeight;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
+        $this->vars['maxFilesize'] = $this->maxFilesize;
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
