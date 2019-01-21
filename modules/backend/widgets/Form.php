@@ -212,6 +212,8 @@ class Form extends WidgetBase
             $targetPartial = 'section';
             $extraVars['renderSection'] = $section;
             $extraVars['inlineValidation'] = $this->allTabs->{$section}->inlineValidation ?? false;
+        } else {
+            $extraVars['inlineValidation'] = $this->inlineValidation ?? false;
         }
 
         /*
@@ -1128,7 +1130,7 @@ class Form extends WidgetBase
             : null;
 
         return $field->getValueFromData(
-            $this->data, 
+            $this->data,
             is_string($defaultValue) ? trans($defaultValue) : $defaultValue
         );
     }

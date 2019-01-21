@@ -105,15 +105,14 @@
             nestedFields = $form.find('[data-control="formwidget"] [data-field-name]'),
             fields = []
 
-        // Find forms and sections that are marked for inline validation
-        if ($form.data('inline-validation') !== undefined && $form.data('inline-validation') !== 0) {
+        if ($form.data('inline-validation') !== undefined && $form.data('inline-validation') === 1) {
+            // Find fields within forms and sections that are marked for inline validation
             $form.find('[data-field-name]').not(nestedFields).not('[data-inline-validation="0"]').each(function () {
-                var $field = $(this)
-
-                if ($field.data('inline-validation') !== undefined && $field.data('inline-validation') === 0) {
-                    return
-                }
-
+                fields.push(this)
+            })
+        } else {
+            // Find individual fields that are marked for inline validation
+            $form.find('[data-field-name][data-inline-validation="1"]').not(nestedFields).each(function () {
                 fields.push(this)
             })
         }
