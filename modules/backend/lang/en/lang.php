@@ -427,6 +427,8 @@ return [
         'brand' => 'Brand',
         'logo' => 'Logo',
         'logo_description' => 'Upload a custom logo to use in the back-end.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Upload a custom favicon to use in the back-end',
         'app_name' => 'App Name',
         'app_name_description' => 'This name is shown in the title area of the back-end.',
         'app_tagline' => 'App Tagline',
