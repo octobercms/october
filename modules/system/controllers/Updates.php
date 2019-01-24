@@ -176,21 +176,28 @@ class Updates extends Controller
         }
     }
 
-    protected function getPluginVersionFile($path, $filename)
+    protected function getPluginVersionFile($path, $filename): array
     {
         $contents = [];
 
         try {
-            $updates = Yaml::parseFile($path.'/'.$filename);
-            $updates = is_array($updates) ? array_reverse($updates) : [];
+            $updates = (array)Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
-                $contents[$version] = is_array($details)
+                $changelogForVersion = is_array($details)
                     ? array_shift($details)
                     : $details;
+
+                $contents[$version] = array_filter(
+                    array_map('trim', explode(';', $changelogForVersion))
+                );
             }
         }
         catch (Exception $ex) {}
+
+        uksort($contents, function ($a, $b) {
+            return version_compare($b, $a);
+        });
 
         return $contents;
     }
