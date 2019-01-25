@@ -63,6 +63,10 @@ return [
         'group' => [
             'all' => 'all'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Apply',
+            'clear_button_text'  => 'Clear'            
+        ],        
         'dates' => [
             'all' => 'all',
             'filter_button_text' => 'Filter',
@@ -78,7 +82,6 @@ return [
             'min_placeholder' => 'Min',
             'max_placeholder' => 'Max'
         ]
-
     ],
     'eventlog' => [
         'show_stacktrace' => 'Show the stacktrace',

@@ -5,7 +5,6 @@ use File;
 use Cache;
 use Config;
 use Event;
-use SystemException;
 use October\Rain\Router\Router as RainRouter;
 use October\Rain\Router\Helper as RouterHelper;
 
@@ -80,6 +79,17 @@ class Router
         $this->url = $url;
         $url = RouterHelper::normalizeUrl($url);
 
+        /**
+         * @event cms.router.beforeRoute
+         * Fires before the CMS Router handles a route
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.router.beforeRoute', function ((string) $url, (\Cms\Classes\Router) $thisRouterInstance) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
+         */
         $apiResult = Event::fire('cms.router.beforeRoute', [$url, $this], true);
         if ($apiResult !== null) {
             return $apiResult;
@@ -331,14 +341,12 @@ class Router
         $key = $this->getUrlListCacheKey();
         $urlList = Cache::get($key, false);
 
-        if (
-            $urlList &&
-            ($urlList = @unserialize(@base64_decode($urlList))) &&
-            is_array($urlList)
+        if ($urlList
+            && ($urlList = @unserialize(@base64_decode($urlList)))
+            && is_array($urlList)
+            && array_key_exists($url, $urlList)
         ) {
-            if (array_key_exists($url, $urlList)) {
-                return $urlList[$url];
-            }
+            return $urlList[$url];
         }
 
         return null;

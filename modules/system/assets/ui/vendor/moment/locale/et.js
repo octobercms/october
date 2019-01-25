@@ -1,7 +1,4 @@
-//! moment.js locale configuration
-//! locale : estonian (et)
-//! author : Henry Kehlmann : https://github.com/madhenry
-//! improvements : Illimar Tambek : https://github.com/ragulka
+//! moment.js locale configuration v2.22.2
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'

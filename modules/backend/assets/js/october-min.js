@@ -530,7 +530,7 @@ $(window).on('ajaxConfirmMessage',function(event,message){if(!message)return
 $.oc.confirm(message,function(isConfirm){isConfirm?event.promise.resolve():event.promise.reject()})
 event.preventDefault()
 return true})
-$(document).on('ready',function(){if(!window.swal)return
+$(document).ready(function(){if(!window.swal)return
 var swal=window.swal
 window.sweetAlert=window.swal=function(message,callback){if(typeof message==='object'){message.confirmButtonText=message.confirmButtonText||$.oc.lang.get('alert.confirm_button_text')
 message.cancelButtonText=message.cancelButtonText||$.oc.lang.get('alert.cancel_button_text')}
@@ -690,7 +690,7 @@ if(!data)$this.data('oc.verticalMenu',(data=new VerticalMenu(this,toggleSelector
 if(typeof option=='string')data[option].call($this)})}
 $.fn.verticalMenu.Constructor=VerticalMenu
 $.fn.verticalMenu.noConflict=function(){$.fn.verticalMenu=old
-return this}}(window.jQuery);(function($){$(window).load(function(){$('nav.navbar').each(function(){var
+return this}}(window.jQuery);(function($){$(window).on('load',function(){$('nav.navbar').each(function(){var
 navbar=$(this),nav=$('ul.nav',navbar),collapseMode=navbar.hasClass('navbar-mode-collapse'),isMobile=$('html').hasClass('mobile')
 nav.verticalMenu($('a.menu-toggle',navbar),{breakpoint:collapseMode?Infinity:769})
 $('li.with-tooltip:not(.active) > a',navbar).tooltip({container:'body',placement:'bottom',template:'<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'}).on('show.bs.tooltip',function(e){if(isMobile)e.preventDefault()})
@@ -740,7 +740,7 @@ $.fn.sideNav.noConflict=function(){$.fn.sideNav=old
 return this}
 $(document).ready(function(){$('[data-control="sidenav"]').sideNav()})}(window.jQuery);+function($){"use strict";var Base=$.oc.foundation.base,BaseProto=Base.prototype
 var Scrollbar=function(element,options){var
-$el=this.$el=$(element),el=$el.get(0),self=this,options=this.options=options||{},sizeName=this.sizeName=options.vertical?'height':'width',isNative=$('html').hasClass('mobile'),isTouch=this.isTouch=Modernizr.touch,isScrollable=this.isScrollable=false,isLocked=this.isLocked=false,eventElementName=options.vertical?'pageY':'pageX',dragStart=0,startOffset=0;$.oc.foundation.controlUtils.markDisposable(element)
+$el=this.$el=$(element),el=$el.get(0),self=this,options=this.options=options||{},sizeName=this.sizeName=options.vertical?'height':'width',isNative=$('html').hasClass('mobile'),isTouch=this.isTouch=Modernizr.touchevents,isScrollable=this.isScrollable=false,isLocked=this.isLocked=false,eventElementName=options.vertical?'pageY':'pageX',dragStart=0,startOffset=0;$.oc.foundation.controlUtils.markDisposable(element)
 Base.call(this)
 this.$el.one('dispose-control',this.proxy(this.dispose))
 if(isNative){return}
@@ -954,12 +954,12 @@ this.$fixButton.click(function(){self.fixPanel()
 return false})
 $('.fix-button-container',this.$el).append(this.$fixButton)
 this.$sideNavItems.click(function(){if($(this).data('no-side-panel')){return}
-if(Modernizr.touch&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
+if(Modernizr.touchevents&&$(window).width()<self.options.breakpoint){if($(this).data('menu-item')==self.visibleItemId&&self.panelVisible){self.hideSidePanel()
 return}
 else{self.displaySidePanel()}}
 self.displayTab(this)
 return false})
-if(!Modernizr.touch){self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
+if(!Modernizr.touchevents){self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
 self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){self.hideSidePanel()
 return}
@@ -989,7 +989,7 @@ SidePanelTab.prototype.hideSidePanel=function(){$(document.body).removeClass('di
 if(this.$el.next('#layout-body').length==0){$('#layout-body').before(this.$el)}
 this.panelVisible=false
 this.updateActiveTab()}
-SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touch){this.$el.height($(document).height()-this.mainNavHeight)}
+SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touchevents){this.$el.height($(document).height()-this.mainNavHeight)}
 else{this.$el.css('height','')}
 if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
 SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
@@ -1013,8 +1013,8 @@ if(typeof option=='string')data[option].call(data)})}
 $.fn.sidePanelTab.Constructor=SidePanelTab
 $.fn.sidePanelTab.noConflict=function(){$.fn.sidePanelTab=old
 return this}
-$(window).load(function(){$('[data-control=layout-sidepanel]').sidePanelTab()})
-$(document).ready(function(){if(Modernizr.touch||(typeof(localStorage)!=='undefined')){if(localStorage.ocSidePanelFixed==0){$(document.body).addClass('side-panel-not-fixed')
+$(window).on('load',function(){$('[data-control=layout-sidepanel]').sidePanelTab()})
+$(document).ready(function(){if(Modernizr.touchevents||(typeof(localStorage)!=='undefined')){if(localStorage.ocSidePanelFixed==0){$(document.body).addClass('side-panel-not-fixed')
 $(window).trigger('resize')}
 else if(localStorage.ocSidePanelFixed==1){$(document.body).removeClass('side-panel-not-fixed')
 $(window).trigger('resize')}}})}(window.jQuery);+function($){"use strict";var SimpleList=function(element,options){var $el=this.$el=$(element)
@@ -1102,8 +1102,8 @@ self.saveGroupStatus($(group).data('group-code'),true)}})}
 SidenavTree.prototype.expandGroup=function(group,duration){var
 $list=$('> ul',group),self=this
 duration=duration===undefined?100:duration
-$list.css({'overflow':'hidden','display':'','height':0})
-$list.animate({'height':$list[0].scrollHeight},{duration:duration,queue:false,complete:function(){$list.css({'overflow':'visible','height':'auto'})
+$list.css({'overflow':'hidden','height':0})
+$list.animate({'height':$list[0].scrollHeight},{duration:duration,queue:false,complete:function(){$list.css({'overflow':'visible','height':'auto','display':''})
 $(group).attr('data-status','expanded')
 $(window).trigger('oc.updateUi')
 self.saveGroupStatus($(group).data('group-code'),false)}})}

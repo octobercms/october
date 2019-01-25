@@ -2,7 +2,6 @@
 
 use Twig_Node;
 use Twig_Compiler;
-use Twig_Node_Expression;
 
 /**
  * Represents a flash node

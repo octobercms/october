@@ -4,6 +4,7 @@ use File;
 use Lang;
 use Flash;
 use Request;
+use BackendAuth;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreference;
@@ -145,6 +146,10 @@ class ReportContainer extends WidgetBase
 
     public function onMakeLayoutDefault()
     {
+        if (!BackendAuth::getUser()->hasAccess('backend.manage_default_dashboard')) {
+            throw new ApplicationException("You do not have permission to do that.");
+        }
+
         $widgets = $this->getWidgetsFromUserPreferences();
 
         SystemParameters::set($this->getSystemParametersKey(), $widgets);
@@ -416,7 +421,7 @@ class ReportContainer extends WidgetBase
             $property = [
                 'property' => $name,
                 'title'    => isset($params['title']) ? Lang::get($params['title']) : $name,
-                'type'     => isset($params['type']) ? $params['type'] : 'string'
+                'type'     => $params['type'] ?? 'string'
             ];
 
             foreach ($params as $name => $value) {

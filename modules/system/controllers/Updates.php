@@ -1,12 +1,10 @@
 <?php namespace System\Controllers;
 
-use Str;
 use Lang;
 use Html;
 use Yaml;
 use File;
 use Flash;
-use Config;
 use Backend;
 use Markdown;
 use Redirect;
@@ -281,7 +279,7 @@ class Updates extends Controller
                 break;
 
             case 'downloadPlugin':
-                $manager->downloadPlugin(post('name'), post('hash'));
+                $manager->downloadPlugin(post('name'), post('hash'), post('install'));
                 break;
 
             case 'downloadTheme':
@@ -441,7 +439,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -536,7 +534,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -555,7 +553,7 @@ class Updates extends Controller
         return $this->makePartial('execute');
     }
 
-    protected function buildUpdateSteps($core, $plugins, $themes)
+    protected function buildUpdateSteps($core, $plugins, $themes, $isInstallationRequest)
     {
         if (!is_array($core)) {
             $core = [null, null];
@@ -597,7 +595,8 @@ class Updates extends Controller
                 'code'  => 'downloadPlugin',
                 'label' => Lang::get('system::lang.updates.plugin_downloading', compact('name')),
                 'name'  => $name,
-                'hash'  => $hash
+                'hash'  => $hash,
+                'install' => $isInstallationRequest ? 1 : 0
             ];
         }
 
@@ -719,7 +718,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, []);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, [], true);
 
             /*
              * Finish up
@@ -847,7 +846,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes, true);
 
             /*
              * Finish up

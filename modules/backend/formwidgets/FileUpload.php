@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Str;
 use Input;
 use Request;
 use Response;
@@ -36,17 +35,17 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Prompt text to display for the upload button.
      */
-    public $prompt = null;
+    public $prompt;
 
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $imageWidth;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $imageHeight;
 
     /**
      * @var mixed Collection of acceptable file types.
@@ -122,6 +121,10 @@ class FileUpload extends FormWidgetBase
      */
     protected function prepareVars()
     {
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         if ($this->previewMode) {
             $this->useCaption = false;
         }
@@ -207,21 +210,21 @@ class FileUpload extends FormWidgetBase
         $cssDimensions = '';
 
         if ($mode == 'block') {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: '.$this->imageHeight.'px;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
         else {
-            $cssDimensions .= ($this->imageWidth)
+            $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
+                ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
         }
 

@@ -3,6 +3,10 @@
 .field-repeater {
     padding-top: 5px;
 
+    .field-repeater-items {
+        counter-reset: repeater-index-counter;
+    }
+
     ul.field-repeater-items,
     li.field-repeater-item {
         padding: 0;
@@ -48,9 +52,12 @@
 
     li.field-repeater-item {
         position: relative;
-        margin-left: 5px;
-        padding-left: 15px;
-        border-left: 1px solid #dbdee0;
+        margin: 0 0 1em 1em !important;
+        padding: 1.5em 1.25em 0 1.25em !important;
+        background: #f5f5f5;
+        border: 1px solid @input-border;
+        border-radius: @border-radius-base;
+        box-shadow: @input-box-shadow;
         min-height: 30px;
 
         &:before {
@@ -58,8 +65,21 @@
             .icon(@circle);
             font-size: 8px;
             position: absolute;
-            left: -4px;
+            left: -18px;
             top: -2px;
+        }
+
+        &:after {
+            counter-increment: repeater-index-counter;
+            content: counter(repeater-index-counter);
+            display: block;
+            position: absolute;
+            font-size: 12px;
+            left: -27px;
+            color: #bdc3c7;
+            top: 10px;
+            width: 24px;
+            text-align: center;
         }
 
         &.collapsed {
@@ -80,9 +100,11 @@
 
         .repeater-item-collapsed-title {
             display: none;
-            top: -5px;
             position: absolute;
             font-size: 13px;
+            top: 50%;
+            left: 10px;
+            .transform(translateY(-50%));
         }
 
         .field-repeater-form {
@@ -94,7 +116,7 @@
         .repeater-item-handle {
             position: absolute;
             top: -6px;
-            left: -10px;
+            left: -25px;
             color: #bdc3c7;
             background: @body-bg;
             cursor: move;
@@ -108,8 +130,8 @@
 
         .repeater-item-collapse {
             position: absolute;
-            top: -9px;
-            right: 22px;
+            top: 5px;
+            right: 30px;
             z-index: 90;
 
             a, button {
@@ -129,9 +151,22 @@
 
         .repeater-item-remove {
             position: absolute;
-            top: -10px;
-            right: 0;
+            top: 4px;
+            right: 5px;
             z-index: 90;
+
+            &.disabled {
+                display: none;
+
+                + .repeater-item-collapse {
+                    right: 7px;
+                }
+            }
+
+            .close {
+                float: none;
+                display: inline-block;
+            }
         }
 
         .repeater-item-collapse,

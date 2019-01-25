@@ -78,17 +78,9 @@ class ComponentList extends WidgetBase
 
             $pluginDetails = $plugin->pluginDetails();
 
-            $pluginName = isset($pluginDetails['name'])
-                ? $pluginDetails['name']
-                : Lang::get('system::lang.plugin.unnamed');
-
-            $pluginIcon = isset($pluginDetails['icon'])
-                ? $pluginDetails['icon']
-                : 'icon-puzzle-piece';
-
-            $pluginDescription = isset($pluginDetails['description'])
-                ? $pluginDetails['description']
-                : null;
+            $pluginName = $pluginDetails['name'] ?? Lang::get('system::lang.plugin.unnamed');
+            $pluginIcon = $pluginDetails['icon'] ?? 'icon-puzzle-piece';
+            $pluginDescription = $pluginDetails['description'] ?? null;
 
             $pluginClass = get_class($plugin);
 

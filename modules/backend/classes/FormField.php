@@ -94,12 +94,12 @@ class FormField
     /**
      * @var string Specifies contextual visibility of this form field.
      */
-    public $context = null;
+    public $context;
 
     /**
      * @var bool Specifies if this field is mandatory.
      */
-    public $required = null;
+    public $required;
 
     /**
      * @var bool Specify if the field is read-only or not.
@@ -178,8 +178,8 @@ class FormField
 
     /**
      * Constructor.
-     * @param string $fieldName
-     * @param string $label
+     * @param string $fieldName The name of the field
+     * @param string $label The label of the field
      */
     public function __construct($fieldName, $label)
     {
@@ -234,9 +234,8 @@ class FormField
 
             return [];
         }
-        else {
-            $this->options = $value;
-        }
+
+        $this->options = $value;
 
         return $this;
     }
@@ -249,6 +248,7 @@ class FormField
      * - radio - creates a set of radio buttons.
      * - checkbox - creates a single checkbox.
      * - checkboxlist - creates a checkbox list.
+     * - switch - creates a switch field.
      * @param string $type Specifies a render mode as described above
      * @param array $config A list of render mode specific config.
      */
@@ -256,6 +256,7 @@ class FormField
     {
         $this->type = strtolower($type) ?: $this->type;
         $this->config = $this->evalConfig($config);
+
         return $this;
     }
 
@@ -266,7 +267,7 @@ class FormField
      */
     protected function evalConfig($config)
     {
-        if (is_null($config)) {
+        if ($config === null) {
             $config = [];
         }
 
@@ -423,6 +424,7 @@ class FormField
     {
         $result = array_get($this->attributes, $position, []);
         $result = $this->filterAttributes($result, $position);
+
         return $htmlBuild ? Html::attributes($result) : $result;
     }
 
@@ -446,6 +448,10 @@ class FormField
 
         if ($position == 'field' && $this->readOnly) {
             $attributes = $attributes + ['readonly' => 'readonly'];
+
+            if ($this->type == 'checkbox' || $this->type == 'switch') {
+                $attributes = $attributes + ['onclick' => 'return false;'];
+            }
         }
 
         return $attributes;
@@ -505,12 +511,10 @@ class FormField
             'data-trigger' => '[name="'.$fullTriggerField.'"]',
             'data-trigger-action' => $triggerAction,
             'data-trigger-condition' => $triggerCondition,
-            'data-trigger-closest-parent' => 'form'
+            'data-trigger-closest-parent' => 'form, div[data-control="formwidget"]'
         ];
 
-        $attributes = $attributes + $newAttributes;
-
-        return $attributes;
+        return $attributes + $newAttributes;
     }
 
     /**
@@ -549,8 +553,7 @@ class FormField
             $newAttributes['data-input-preset-prefix-input'] = $prefixInput;
         }
 
-        $attributes = $attributes + $newAttributes;
-        return $attributes;
+        return $attributes + $newAttributes;
     }
 
     /**
@@ -567,9 +570,8 @@ class FormField
         if ($arrayName) {
             return $arrayName.'['.implode('][', HtmlHelper::nameToArray($this->fieldName)).']';
         }
-        else {
-            return $this->fieldName;
-        }
+
+        return $this->fieldName;
     }
 
     /**

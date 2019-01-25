@@ -29,6 +29,16 @@ tabs:
             tab: backend::lang.branding.brand
             span: left
 
+        favicon:
+            label: backend::lang.branding.favicon
+            type: fileupload
+            commentAbove: backend::lang.branding.favicon_description
+            mode: image
+            imageHeight: 32
+            tab: backend::lang.branding.brand
+            span: right
+            fileTypes: jpg,jpeg,bmp,png,webp,gif,svg,ico
+
         primary_color:
             label: backend::lang.branding.primary_color
             type: colorpicker

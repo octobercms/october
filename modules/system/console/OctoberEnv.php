@@ -47,14 +47,6 @@ class OctoberEnv extends Command
     protected $connection;
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -274,7 +266,7 @@ class OctoberEnv extends Command
             return "'$value'";
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
-        } elseif (is_null($value)) {
+        } elseif ($value === null) {
             return 'null';
         }
 

@@ -39,3 +39,9 @@ secondaryTabs:
             size: giant
             tab: system::lang.mail_templates.content_text
             stretch: true
+
+        options[disable_auto_inline_css]:
+            label: system::lang.mail_templates.disable_auto_inline_css
+            type: checkbox
+            tab: system::lang.mail_templates.options
+            default: false

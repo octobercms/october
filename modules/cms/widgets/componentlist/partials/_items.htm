@@ -4,7 +4,7 @@
         <li class="group" data-status="<?= $this->getCollapseStatus($item->pluginClass, false) ? 'expanded' : 'collapsed' ?>" data-group-id="<?= e($item->pluginClass) ?>">
             <div class="group">
                 <h4><a href="#"><?= e(trans($item->title)) ?></a></h4>
-                <i class="<?= $item->icon ?>"></i>
+                <i class="<?= e($item->icon) ?>"></i>
                 <span class="description"><?= e(trans($item->description)) ?></span>
             </div>
             <?= $this->makePartial('component_list', ['components'=>$item->items]) ?>

@@ -1,11 +1,9 @@
 <?php namespace System\Console;
 
 use Str;
-use Config;
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Console command to perform a system update.
@@ -29,14 +27,6 @@ class OctoberUpdate extends Command
      * The console command description.
      */
     protected $description = 'Updates October CMS and all plugins, database and files.';
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -72,9 +62,8 @@ class OctoberUpdate extends Command
             $this->output->writeln('<info>No new updates found</info>');
             return;
         }
-        else {
-            $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
-        }
+
+        $this->output->writeln(sprintf('<info>Found %s new %s!</info>', $updates, Str::plural('update', $updates)));
 
         $coreHash = $disableCore ? null : array_get($updateList, 'core.hash');
         $coreBuild = array_get($updateList, 'core.build');
@@ -111,14 +100,6 @@ class OctoberUpdate extends Command
          * Run migrations
          */
         $this->call('october:up');
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

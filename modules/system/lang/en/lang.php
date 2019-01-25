@@ -9,6 +9,7 @@ return [
         'ar' => 'العربية',
         'be' => 'Беларуская',
         'bg' => 'Български',
+        'ca' => 'Català',
         'cs' => 'Čeština',
         'da' => 'Dansk',
         'en' => 'English (United States)',
@@ -110,6 +111,7 @@ return [
         'plugin_label'  => 'Plugin',
         'unknown_plugin' => 'Plugin has been removed from the file system.',
         'select_label' => 'Select Action...',
+        'bulk_actions_label' => 'Bulk actions',
         'check_yes' => 'Yes',
         'check_no' => 'No',
         'unfrozen' => 'Updates Enabled',
@@ -236,7 +238,9 @@ return [
         'deleting' => 'Deleting Template...',
         'deleting_layout' => 'Deleting Layout...',
         'sending' => 'Sending test message...',
-        'return' => 'Return to template list'
+        'return' => 'Return to template list',
+        'options' => 'Options',
+        'disable_auto_inline_css' => 'Disable automatic inline CSS'
     ],
     'mail_brand' => [
         'menu_label' => 'Mail branding',
@@ -425,6 +429,7 @@ return [
         'manage_preferences' => 'Manage backend preferences',
         'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
+        'manage_default_dashboard' => 'Manage the default dashboard',
         'manage_branding' => 'Customize the back-end'
     ],
     'log' => [
@@ -441,5 +446,9 @@ return [
     'media' => [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'folder_size_items' => 'item(s)',
+    ],
+    'pagination' => [
+        'previous' => 'Previous',
+        'next' => 'Next',
     ],
 ];

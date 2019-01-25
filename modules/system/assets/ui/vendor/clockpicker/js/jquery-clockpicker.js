@@ -171,7 +171,7 @@
 		}
 
 		// Placement and arrow align - make sure they make sense.
-		if ((options.placement === 'top' || options.placement === 'bottom') && (options.align === 'top' || options.align === 'bottom')) options.align = 'left';
+		if ((options.placement === 'top' || options.placement === 'bottom' || options.placement === 'auto') && (options.align === 'top' || options.align === 'bottom')) options.align = 'left';
 		if ((options.placement === 'left' || options.placement === 'right') && (options.align === 'left' || options.align === 'right')) options.align = 'top';
 
 		popover.addClass(options.placement);
@@ -392,9 +392,19 @@
 			placement = this.options.placement,
 			align = this.options.align,
 			styles = {},
-			self = this;
+			self = this,
+			viewportHeight = window.innerHeight || document.documentElement.clientHeight,
+			scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 
 		popover.show();
+
+		if(placement === 'auto'){
+			if (offset.top + popover.outerHeight() > viewportHeight + scrollTop) {
+				placement = 'top';
+			} else {
+				placement = 'bottom';
+			}
+		}
 
 		// Place the popover
 		switch (placement) {

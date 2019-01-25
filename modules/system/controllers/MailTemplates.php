@@ -1,16 +1,10 @@
 <?php namespace System\Controllers;
 
-use Str;
-use Lang;
-use File;
 use Mail;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use Exception;
 
