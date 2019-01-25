@@ -32,6 +32,8 @@ class Auth extends Controller
     public function __construct()
     {
         parent::__construct();
+        // Add JS File to unistall SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+        $this->addJs('../../../modules/backend/assets/js/auth/unistall-sw.js');
         $this->layout = 'auth';
     }
 
@@ -48,6 +50,9 @@ class Auth extends Controller
      */
     public function signin()
     {
+        // Add HTTP Header to Clear Cache and Cookies before Signin, see github issue: #3707
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+		
         $this->bodyClass = 'signin';
 
         try {
@@ -105,6 +110,8 @@ class Auth extends Controller
     public function signout()
     {
         BackendAuth::logout();
+        // Add HTTP Header to Clear Cache all Data after Signout (securiity protection), see github issue: #3707
+        header("Clear-Site-Data: \"cache\", \"cookies\", \"storage\", \"executionContexts\"");
         return Backend::redirect('backend');
     }
 
