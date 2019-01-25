@@ -94,6 +94,7 @@ class VersionManager
         }
 
         $newUpdates = $this->getNewFileVersions($code, $databaseVersion);
+
         foreach ($newUpdates as $version => $details) {
             $this->applyPluginUpdate($code, $version, $details);
 
@@ -126,11 +127,18 @@ class VersionManager
     protected function applyPluginUpdate($code, $version, $details)
     {
         if (is_array($details)) {
-            $comment = array_shift($details);
-            $scripts = $details;
+            $fileNamePattern = "/^[a-z_\-0-9]*\.php$/i";
+
+            $comments = array_filter($details, function($detail) use ($fileNamePattern) {
+                return !preg_match($fileNamePattern, $detail);
+            });
+
+            $scripts = array_filter($details, function($detail) use ($fileNamePattern) {
+                return preg_match($fileNamePattern, $detail);
+            });
         }
         else {
-            $comment = $details;
+            $comments = (array)$details;
             $scripts = [];
         }
 
@@ -149,12 +157,14 @@ class VersionManager
          * Register the comment and update the version
          */
         if (!$this->hasDatabaseHistory($code, $version)) {
-            $this->applyDatabaseComment($code, $version, $comment);
+            foreach ($comments as $comment) {
+                $this->applyDatabaseComment($code, $version, $comment);
+
+                $this->note(sprintf('- <info>v%s: </info> %s', $version, $comment));
+            }
         }
 
         $this->setDatabaseVersion($code, $version);
-
-        $this->note(sprintf('- <info>v%s: </info> %s', $version, $comment));
     }
 
     /**
@@ -393,6 +403,7 @@ class VersionManager
 
         if (!File::isFile($updateFile)) {
             $this->note('- <error>v' . $version . ':  Migration file "' . $script . '" not found</error>');
+            return;
         }
 
         $this->updater->setUp($updateFile);

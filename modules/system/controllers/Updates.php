@@ -184,13 +184,16 @@ class Updates extends Controller
             $updates = (array)Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
-                $changelogForVersion = is_array($details)
-                    ? array_shift($details)
-                    : $details;
+                if (!is_array($details)) {
+                    $details = (array)$details;
+                }
 
-                $contents[$version] = array_filter(
-                    array_map('trim', explode(';', $changelogForVersion))
-                );
+                //Filter out update scripts
+                $details = array_filter($details, function($string) use ($path) {
+                    return !File::exists($path . '/updates/' . $string);
+                });
+
+                $contents[$version] = $details;
             }
         }
         catch (Exception $ex) {}
