@@ -176,7 +176,7 @@ class Updates extends Controller
         }
     }
 
-    protected function getPluginVersionFile($path, $filename): array
+    protected function getPluginVersionFile($path, $filename)
     {
         $contents = [];
 
