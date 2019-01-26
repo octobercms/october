@@ -51,7 +51,7 @@ class Auth extends Controller
     public function signin()
     {
         // Add HTTP Header to Clear Cache and Cookies before Signin, see github issue: #3707
-        header("Cache-Control: no-cache, no-store, must-revalidate");
+        $this->middleware(\Backend\Middleware\ClearSiteDataSignIn::class);
 		
         $this->bodyClass = 'signin';
 
@@ -111,7 +111,7 @@ class Auth extends Controller
     {
         BackendAuth::logout();
         // Add HTTP Header to Clear Cache all Data after Signout (securiity protection), see github issue: #3707
-        header("Clear-Site-Data: \"cache\", \"cookies\", \"storage\", \"executionContexts\"");
+        $this->middleware(\Backend\Middleware\ClearSiteDataSignOut::class);
         return Backend::redirect('backend');
     }
 
