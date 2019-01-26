@@ -60,7 +60,7 @@ class FileUpload extends FormWidgetBase
     /**
      * @var mixed Max file size.
      */
-    public $maxFilesize = 256;
+    public $maxFilesize;
 
     /**
      * @var array Options used for generating thumbnails.
@@ -94,13 +94,15 @@ class FileUpload extends FormWidgetBase
      */
     public function init()
     {
+        $this->maxFilesize = $this->getUploadMaxFilesize();
+
         $this->fillFromConfig([
             'prompt',
             'imageWidth',
             'imageHeight',
             'fileTypes',
-            'mimeTypes',
             'maxFilesize',
+            'mimeTypes',
             'thumbOptions',
             'useCaption',
             'attachOnUpload',
@@ -468,5 +470,21 @@ class FileUpload extends FormWidgetBase
         $file->thumbUrl = $thumb;
 
         return $file;
+    }
+
+    /**
+     * Return max upload filesize in Mb
+     * @return integer
+     */
+    protected function getUploadMaxFilesize()
+    {
+        $size = ini_get('upload_max_filesize');
+        if (preg_match('/^([\d\.]+)([KMG])$/i', $size, $match)) {
+            $pos = array_search($match[2], ['K', 'M', 'G']);
+            if ($pos !== false) {
+                $size = $match[1] * pow(1024, $pos + 1);
+            }
+        }
+        return floor($size / 1024 / 1024);
     }
 }
