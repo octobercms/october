@@ -3502,7 +3502,8 @@ extraOptions.closeOnSelect=false
 $element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
 $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')})}}
 var placeholder=$element.data('placeholder')
-if(placeholder){extraOptions.placeholder=placeholder}
+if(placeholder){extraOptions.placeholder=placeholder
+extraOptions.allowClear=true}
 $element.select2($.extend({},selectOptions,extraOptions))})})
 $(document).on('disable','select.custom-select',function(event,status){if($(this).data('select2')!=null){$(this).select2('enable',!status)}})})(jQuery);+function($){"use strict";var LoadIndicator=function(element,options){this.$el=$(element)
 this.options=options||{}
