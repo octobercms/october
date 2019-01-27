@@ -190,7 +190,7 @@ class Updates extends Controller
 
                 //Filter out update scripts
                 $details = array_filter($details, function($string) use ($path) {
-                    return !File::exists($path . '/updates/' . $string);
+                    return !preg_match('/^[a-z_\-0-9]*\.php$/i', $string) || !File::exists($path . '/updates/' . $string);
                 });
 
                 $contents[$version] = $details;

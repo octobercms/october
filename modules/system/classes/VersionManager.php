@@ -126,21 +126,7 @@ class VersionManager
      */
     protected function applyPluginUpdate($code, $version, $details)
     {
-        if (is_array($details)) {
-            $fileNamePattern = "/^[a-z_\-0-9]*\.php$/i";
-
-            $comments = array_filter($details, function($detail) use ($fileNamePattern) {
-                return !preg_match($fileNamePattern, $detail);
-            });
-
-            $scripts = array_filter($details, function($detail) use ($fileNamePattern) {
-                return preg_match($fileNamePattern, $detail);
-            });
-        }
-        else {
-            $comments = (array)$details;
-            $scripts = [];
-        }
+        list($comments, $scripts) = $this->extractScriptsAndComments($details);
 
         /*
          * Apply scripts, if any
@@ -535,4 +521,29 @@ class VersionManager
 
         return $this;
     }
+
+    /**
+     * @param $details
+     *
+     * @return array
+     */
+    protected function extractScriptsAndComments($details)
+    {
+        if (is_array($details)) {
+            $fileNamePattern = '/^[a-z_\-0-9]*\.php$/i';
+
+            $comments = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
+                return !preg_match($fileNamePattern, $detail);
+            }));
+
+            $scripts = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
+                return preg_match($fileNamePattern, $detail);
+            }));
+        } else {
+            $comments = (array)$details;
+            $scripts = [];
+        }
+
+        return array($comments, $scripts);
+}
 }

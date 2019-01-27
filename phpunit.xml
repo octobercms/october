@@ -18,6 +18,11 @@
             <directory>./vendor/october/rain/tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./modules/</directory>
+        </whitelist>
+    </filter>
     <php>
         <env name="APP_ENV" value="testing" />
         <env name="CACHE_DRIVER" value="array" />
