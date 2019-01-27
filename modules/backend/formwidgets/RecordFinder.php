@@ -17,6 +17,7 @@ use Backend\Classes\FormWidgetBase;
  *        prompt: Click the Find button to find a user
  *        keyFrom: id
  *        nameFrom: name
+ *        nameFromRelation: null
  *        descriptionFrom: email
  *        conditions: email = "bob@example.com"
  *        scope: whereActive
@@ -45,6 +46,11 @@ class RecordFinder extends FormWidgetBase
      * @var string Relation column to display for the name
      */
     public $nameFrom = 'name';
+
+    /**
+     * @var string Get nameFrom using a model relationship
+     */
+    public $nameFromRelation;
 
     /**
      * @var string Relation column to display for the description
@@ -133,6 +139,7 @@ class RecordFinder extends FormWidgetBase
             'prompt',
             'keyFrom',
             'nameFrom',
+            'nameFromRelation',
             'descriptionFrom',
             'scope',
             'conditions',
@@ -271,6 +278,10 @@ class RecordFinder extends FormWidgetBase
     {
         if (!$this->relationModel || !$this->nameFrom) {
             return null;
+        }
+
+        if ($this->nameFromRelation && $this->relationModel->{$this->nameFromRelation}){
+          return $this->relationModel->{$this->nameFromRelation}->{$this->nameFrom};
         }
 
         return $this->relationModel->{$this->nameFrom};
