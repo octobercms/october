@@ -274,7 +274,7 @@ class RecordFinder extends FormWidgetBase
         }
 
         list($relation,$attribute) = explode('.', $this->nameFrom,2);
-        if (!empty($attribute) && !empty($relation)){
+        if (!empty($attribute) && !empty($this->relationModel->$relation)){
           return $this->relationModel->$relation->$attribute;
         }
 
