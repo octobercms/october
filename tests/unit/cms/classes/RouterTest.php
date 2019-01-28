@@ -149,12 +149,8 @@ class RouterTest extends TestCase
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-category.htm', $page->getFileName());
         $this->assertCount(1, $parameters);
-        //this happens
-        $this->assertEquals(array_keys($parameters)[0], 'category_name?');
-        $this->assertEquals($parameters[array_keys($parameters)[0]], '*');
-        //this should happen
-        //$this->assertEquals(array_keys($parameters)[0], 'category_name');
-        //$this->assertEmpty($parameters[array_keys($parameters)[0]]);
+        $this->assertEquals(array_keys($parameters)[0], 'category_name');
+        $this->assertEmpty($parameters[array_keys($parameters)[0]]);
 
         $page = $router->findByUrl('blog/category-page/categoryName');
         $parameters = $router->getParameters();
