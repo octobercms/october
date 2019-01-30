@@ -42,8 +42,8 @@ class Auth extends Controller
      */
     public function run($action = null, $params = [])
     {
-        return parent::run()->header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    }	
+        return parent::run($action, $params)->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
 
     /**
      * Default route, redirects to signin.
