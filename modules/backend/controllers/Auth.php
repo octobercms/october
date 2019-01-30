@@ -49,7 +49,7 @@ class Auth extends Controller
      * Displays the log in page.
      */
     public function signin()
-    {		
+    {
         $this->bodyClass = 'signin';
 
         try {
