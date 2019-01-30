@@ -1276,7 +1276,7 @@ class Form extends WidgetBase
                 ]));
             }
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
+            $fieldOptions = $this->model->$fieldOptions($field->fieldName, $field->value, $this->data);
         }
 
         return $fieldOptions;
