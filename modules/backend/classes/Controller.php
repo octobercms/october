@@ -249,12 +249,7 @@ class Controller extends Extendable
             return $result;
         }
 		
-        // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707			
-        $response = Response::make($result, $this->statusCode);
-        if ($action === 'signin') {
-            $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
-        }
-        return $response;		
+        return Response::make($result, $this->statusCode);	
 		
     }
 
