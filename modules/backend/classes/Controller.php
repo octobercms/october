@@ -249,7 +249,7 @@ class Controller extends Extendable
             return $result;
         }
 
-        return Response::make($result, $this->statusCode);	
+        return Response::make($result, $this->statusCode);
     }
 
     /**
