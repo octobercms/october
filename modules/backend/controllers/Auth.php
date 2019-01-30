@@ -58,6 +58,13 @@ class Auth extends Controller
      */
     public function signin()
     {
+        $this->middleware(function ($request, $next) {
+            $response = $next($request);
+            // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707			
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            return $response;
+        });	
+	
         $this->bodyClass = 'signin';
 
         try {
@@ -113,10 +120,16 @@ class Auth extends Controller
      * Logs out a backend user.
      */
     public function signout()
-    {   
-        // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707	
+    {
+        $this->middleware(function ($request, $next) {
+            $response = $next($request);
+            // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707		
+            $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+            return $response;
+        });
+		
         BackendAuth::logout();
-        return Backend::redirect('backend')->header('Clear-Site-Data', 'cache, cookies, storage, executionContexts', true);
+        return Backend::redirect('backend');
     }
 
     /**
