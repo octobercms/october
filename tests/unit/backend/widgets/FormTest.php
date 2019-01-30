@@ -5,7 +5,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormTestModel extends Model
 {
-
+    function listOptions($fieldName, $value, $formData) {
+        return [ $fieldName => $value ];
+    }
 }
 
 class FormTest extends TestCase
@@ -37,5 +39,23 @@ class FormTest extends TestCase
 
         $attributes = $form->getField('triggered')->getAttributes('container', false);
         $this->assertEquals('[name="array[trigger][]"]', array_get($attributes, 'data-trigger'));
+    }
+
+    public function testDropdownOptionsCustomMethodArguments()
+    {
+        $form = new Form(null, [
+            'model' => new FormTestModel,
+            'arrayName' => 'array',
+            'fields' => [
+                'myFieldName' => [
+                    'type' => 'dropdown',
+                    'options' => 'listOptions',
+                    'value' => 'myFieldValue',
+                ]
+            ]
+        ]);
+
+        $options = $form->getField('myFieldName')->options();
+        $this->assertEquals(['myFieldName' => 'myFieldValue'], $options);
     }
 }
