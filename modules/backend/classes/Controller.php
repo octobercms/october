@@ -250,7 +250,6 @@ class Controller extends Extendable
         }
 		
         return Response::make($result, $this->statusCode);	
-		
     }
 
     /**

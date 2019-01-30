@@ -36,14 +36,6 @@ class Auth extends Controller
         $this->addJs('../../../modules/backend/assets/js/auth/uninstall-sw.js');
         $this->layout = 'auth';
     }
-	
-    /**
-     * Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
-     */
-    public function run($action = null, $params = [])
-    {
-        return parent::run($action, $params)->header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    }
 
     /**
      * Default route, redirects to signin.
