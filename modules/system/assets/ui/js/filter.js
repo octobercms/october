@@ -145,16 +145,16 @@
         $(document).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
             self.filterAvailable(data.scopeName, data.options.available)
         })
-        
+
         $(document).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
             e.preventDefault()
-            self.filterScope()  
+            self.filterScope()
         })
 
         $(document).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
             e.preventDefault()
             self.filterScope(true)
-        })        
+        })
     }
 
     FilterWidget.prototype.focusSearch = function() {
@@ -237,12 +237,12 @@
             data = { loading: true }
             isLoaded = false
         }
-        
+
         data = $.extend({}, data, {
             apply_button_text: this.getLang('filter.scopes.apply_button_text', 'Apply'),
             clear_button_text: this.getLang('filter.scopes.clear_button_text', 'Clear')
         })
-        
+
         data.scopeName = scopeName
         data.optionsHandler = self.options.optionsHandler
 
@@ -257,9 +257,9 @@
             placement: 'bottom',
             container: container
         })
-        
+
         this.toggleFilterButtons()
-        
+
         // Load options for the first time
         if (!isLoaded) {
             self.loadOptions(scopeName)
@@ -271,8 +271,7 @@
      * otherwise returns a deferred promise object.
      */
     FilterWidget.prototype.loadOptions = function(scopeName) {
-        var $form = this.$el.closest('form'),
-            self = this,
+        var self = this,
             data = { scopeName: scopeName }
 
         /*
@@ -287,7 +286,7 @@
         /*
          * Request options from server
          */
-        return $form.request(this.options.optionsHandler, {
+        return this.$el.request(this.options.optionsHandler, {
             data: data,
             success: function(data) {
                 self.fillOptions(scopeName, data.options)
@@ -374,7 +373,7 @@
         } else {
             items.children().length > 0 ? buttonContainer.show() : buttonContainer.hide()
         }
-    }         
+    }
 
     /*
      * Saves the options to the update handler
@@ -383,14 +382,13 @@
         if (!this.isActiveScopeDirty || !this.options.updateHandler)
             return
 
-        var $form = this.$el.closest('form'),
-            data = {
+        var data = {
                 scopeName: scopeName,
                 options: this.scopeValues[scopeName]
             }
 
         $.oc.stripeLoadIndicator.show()
-        $form.request(this.options.updateHandler, {
+        this.$el.request(this.options.updateHandler, {
             data: data
         }).always(function(){
             $.oc.stripeLoadIndicator.hide()
@@ -405,14 +403,13 @@
         this.scopeValues[scopeName] = isChecked
 
         if (this.options.updateHandler) {
-            var $form = this.$el.closest('form'),
-                data = {
+            var data = {
                     scopeName: scopeName,
                     value: isChecked
                 }
 
             $.oc.stripeLoadIndicator.show()
-            $form.request(this.options.updateHandler, {
+            this.$el.request(this.options.updateHandler, {
                 data: data
             }).always(function(){
                 $.oc.stripeLoadIndicator.hide()
@@ -430,14 +427,13 @@
         this.scopeValues[scopeName] = switchValue
 
         if (this.options.updateHandler) {
-            var $form = this.$el.closest('form'),
-                data = {
+            var data = {
                     scopeName: scopeName,
                     value: switchValue
                 }
 
             $.oc.stripeLoadIndicator.show()
-            $form.request(this.options.updateHandler, {
+            this.$el.request(this.options.updateHandler, {
                 data: data
             }).always(function(){
                 $.oc.stripeLoadIndicator.hide()
@@ -455,9 +451,9 @@
             this.updateScopeSetting(this.$activeScope, 0)
         }
 
-        this.pushOptions(scopeName);      
-        this.isActiveScopeDirty = true;      
-        this.$activeScope.data('oc.popover').hide()     
+        this.pushOptions(scopeName);
+        this.isActiveScopeDirty = true;
+        this.$activeScope.data('oc.popover').hide()
     }
 
     FilterWidget.prototype.getLang = function(name, defaultValue) {
