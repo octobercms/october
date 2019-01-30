@@ -248,7 +248,7 @@ class Controller extends Extendable
         if (!is_string($result)) {
             return $result;
         }
-		
+
         return Response::make($result, $this->statusCode);	
     }
 
