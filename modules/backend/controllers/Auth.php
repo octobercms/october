@@ -39,10 +39,10 @@ class Auth extends Controller
 	
     /**
      * Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
-     */	
+     */
     public function run($action = null, $params = [])
     {
-        return parent::__construct()->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        return parent::run()->header('Cache-Control', 'no-cache, no-store, must-revalidate');
     }	
 
     /**
