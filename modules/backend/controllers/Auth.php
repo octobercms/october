@@ -32,8 +32,8 @@ class Auth extends Controller
     public function __construct()
     {
         parent::__construct();
-        // Add JS File to unistall SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
-        $this->addJs('../../../modules/backend/assets/js/auth/unistall-sw.js');
+        // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+        $this->addJs('../../../modules/backend/assets/js/auth/uninstall-sw.js');
         $this->layout = 'auth';
     }
 	
