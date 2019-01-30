@@ -49,14 +49,7 @@ class Auth extends Controller
      * Displays the log in page.
      */
     public function signin()
-    {
-        $this->middleware(function ($request, $next) {
-            $response = $next($request);
-            // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707			
-            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
-            return $response;
-        });
-		
+    {		
         $this->bodyClass = 'signin';
 
         try {
