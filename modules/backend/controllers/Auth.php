@@ -33,7 +33,7 @@ class Auth extends Controller
     {
         parent::__construct();
         // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
-        $this->addJs('~/../../../../modules/backend/assets/js/auth/unistall-sw.js');
+        $this->addJs('~/../../../../modules/backend/assets/js/auth/uninstall-sw.js');
         $this->layout = 'auth';
     }
 
