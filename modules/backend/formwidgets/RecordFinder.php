@@ -273,12 +273,14 @@ class RecordFinder extends FormWidgetBase
             return null;
         }
 
-        list($relation,$attribute) = array_pad(explode('.', $this->nameFrom,2), 2, null);
-        if (!empty($attribute) && !empty($this->relationModel->$relation)){
-          return $this->relationModel->$relation->$attribute;
+        $name = $this->relationModel;
+        $nameFrom = explode('.', $this->nameFrom);
+        foreach ($nameFrom as $attribute) {
+            if (!empty($name->{$attribute})){
+              $name = $name->{$attribute};
+            }
         }
-
-        return $this->relationModel->{$this->nameFrom};
+        return $name;
     }
 
     public function getDescriptionValue()
