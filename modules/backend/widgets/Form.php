@@ -1071,7 +1071,7 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
-        $defaultValue = !$this->model->exists
+        $defaultValue = $this->shouldFetchDefaultValues()
             ? $field->getDefaultFromData($this->data)
             : null;
 
@@ -1081,6 +1081,18 @@ class Form extends WidgetBase
         );
     }
 
+    /**
+     * Checks if default values should be taken from data.
+     * This should be done when model exists or when explicitly configured
+     */
+    protected function shouldFetchDefaultValues() {
+        $shouldFetchDefaultValues = object_get($this->config, 'shouldFetchDefaultValues');
+        if ($shouldFetchDefaultValues === false) {
+            return false;
+        }
+        return !$this->model->exists || $shouldFetchDefaultValues;
+    }
+    
     /**
      * Returns a HTML encoded value containing the other fields this
      * field depends on
