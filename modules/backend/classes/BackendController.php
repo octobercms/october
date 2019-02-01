@@ -5,12 +5,12 @@ use App;
 use File;
 use View;
 use Config;
+use Request;
 use Response;
+use Closure;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
-use Closure;
 use System\Classes\PluginManager;
-
 
 /**
  * This is the master controller for all back-end pages.
@@ -49,6 +49,21 @@ class BackendController extends ControllerBase
      */
     public function __construct()
     {
+        // Find requested controller to determine if any middleware has been attached
+        $pathParts = explode('/', Request::path());
+        if ($pathParts >= 2) {
+            // Drop off preceding "backend" URL part
+            array_shift($pathParts);
+            $path = implode('/', $pathParts);
+
+            $requestedController = $this->getControllerRequest($path);
+            if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
+                foreach ($requestedController['controller']->getMiddleware() as $middleware) {
+                    $this->middleware($middleware['middleware'], $middleware['options']);
+                }
+            }
+        }
+
         $this->extendableConstruct();
     }
 
@@ -85,8 +100,6 @@ class BackendController extends ControllerBase
      */
     public function run($url = null)
     {
-        $params = RouterHelper::segmentizeUrl($url);
-
         /*
          * Database check
          */
@@ -95,6 +108,24 @@ class BackendController extends ControllerBase
                 ? Response::make(View::make('backend::no_database'), 200)
                 : $this->passToCmsController($url);
         }
+
+        $controllerRequest = $this->getControllerRequest($url);
+        if (!is_null($controllerRequest)) {
+            return $controllerRequest['controller']->run(
+                $controllerRequest['action'],
+                $controllerRequest['params']
+            );
+        }
+
+        /*
+         * Fall back on Cms controller
+         */
+        return $this->passToCmsController($url);
+    }
+
+    protected function getControllerRequest($url)
+    {
+        $params = RouterHelper::segmentizeUrl($url);
 
         /*
          * Look for a Module controller
@@ -109,7 +140,11 @@ class BackendController extends ControllerBase
             $action,
             base_path().'/modules'
         )) {
-            return $controllerObj->run($action, $controllerParams);
+            return [
+                'controller' => $controllerObj,
+                'action' => $action,
+                'params' => $controllerParams
+            ];
         }
 
         /*
@@ -132,14 +167,15 @@ class BackendController extends ControllerBase
                 $action,
                 plugins_path()
             )) {
-                return $controllerObj->run($action, $controllerParams);
+                return [
+                    'controller' => $controllerObj,
+                    'action' => $action,
+                    'params' => $controllerParams
+                ];
             }
         }
 
-        /*
-         * Fall back on Cms controller
-         */
-        return $this->passToCmsController($url);
+        return null;
     }
 
     /**
