@@ -149,8 +149,13 @@ class DataTable extends FormWidgetBase
         $config = $this->makeConfig((array) $this->config);
 
         $config->dataSource = 'client';
-        $config->alias = studly_case(HtmlHelper::nameToId($this->fieldName)) . 'datatable';
-        $config->fieldName = $this->fieldName;
+        if (isset($this->parentForm->arrayName)) {
+            $config->alias = $this->parentForm->arrayName . '[' . studly_case(HtmlHelper::nameToId($this->fieldName)) . 'datatable' . ']';
+            $config->fieldName = $this->parentForm->arrayName . '[' . $this->fieldName . ']';
+        } else {
+            $config->alias = studly_case(HtmlHelper::nameToId($this->fieldName)) . 'datatable';
+            $config->fieldName = $this->fieldName;
+        }
 
         $table = new Table($this->controller, $config);
 
