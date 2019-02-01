@@ -207,6 +207,9 @@ class Repeater extends FormWidgetBase
                 $parts = HtmlHelper::nameToArray($field . '[' . $formField . ']');
 
                 $widgetValue = $widget->getSaveValue($this->dataArrayGet($value, $parts));
+                if (empty($widgetValue) || !count($widgetValue)) {
+                    continue;
+                }
                 $this->dataArraySet($value, $parts, $widgetValue);
             }
         }
