@@ -122,7 +122,7 @@
                 control = $elem.data('control'),
                 widget = $elem.data('oc.' + control)
 
-            if (typeof widget['dispose'] === 'function') {
+            if (widget && typeof widget['dispose'] === 'function') {
                 widget.dispose()
             }
         })
