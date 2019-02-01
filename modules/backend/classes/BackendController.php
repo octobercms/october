@@ -58,9 +58,14 @@ class BackendController extends ControllerBase
 
             $requestedController = $this->getControllerRequest($path);
             if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
-                foreach ($requestedController['controller']->getMiddleware() as $middleware) {
-                    $this->middleware($middleware['middleware'], $middleware['options']);
-                }
+                $action = $requestedController['action'];
+
+                // Collect applicable middleware and insert middleware into pipeline
+                collect($requestedController['controller']->getMiddleware())->reject(function ($data) use ($action) {
+                    return static::methodExcludedByOptions($action, $data['options']);
+                })->pluck('middleware')->map(function ($middleware) {
+                    $this->middleware($middleware);
+                });
             }
         }
 
@@ -224,5 +229,18 @@ class BackendController extends ControllerBase
         }
 
         return $actionName;
+    }
+
+    /**
+     * Determine if the given options exclude a particular method.
+     *
+     * @param  string  $method
+     * @param  array  $options
+     * @return bool
+     */
+    protected static function methodExcludedByOptions($method, array $options)
+    {
+        return (isset($options['only']) && ! in_array($method, (array) $options['only'])) ||
+            (! empty($options['except']) && in_array($method, (array) $options['except']));
     }
 }
