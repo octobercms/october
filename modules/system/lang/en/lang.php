@@ -447,4 +447,8 @@ return [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'folder_size_items' => 'item(s)',
     ],
+    'pagination' => [
+        'previous' => 'Previous',
+        'next' => 'Next',
+    ],
 ];

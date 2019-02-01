@@ -108,7 +108,7 @@
             })
         }
 
-        if (Modernizr.touch) {
+        if (Modernizr.touchevents) {
             $el.on('touchstart.dragScroll', this.options.dragSelector, function(event){
                 var touchEvent = event.originalEvent
                 if (touchEvent.touches.length == 1) {
@@ -135,7 +135,7 @@
             dragStart = event[eventElementName]
             startOffset = self.options.vertical ? $el.scrollTop() : $el.scrollLeft()
 
-            if (Modernizr.touch) {
+            if (Modernizr.touchevents) {
                 $(window).on('touchmove.dragScroll', function(event) {
                     var touchEvent = event.originalEvent
                     moveDrag(touchEvent.touches[0])

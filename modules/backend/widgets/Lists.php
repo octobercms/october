@@ -343,7 +343,7 @@ class Lists extends WidgetBase
     /**
      * Applies any filters to the model.
      */
-    public function prepareModel()
+    public function prepareQuery()
     {
         $query = $this->model->newQuery();
         $primaryTable = $this->model->getTable();
@@ -566,28 +566,30 @@ class Lists extends WidgetBase
         return $query;
     }
 
+    public function prepareModel()
+    {
+        traceLog('Method ' . __METHOD__ . '() has been deprecated, please use the ' . __CLASS__ . '::prepareQuery() method instead.');
+        return $this->prepareQuery();
+    }
+
     /**
      * Returns all the records from the supplied model, after filtering.
      * @return Collection
      */
     protected function getRecords()
     {
-        $model = $this->prepareModel();
+        $query = $this->prepareQuery();
 
         if ($this->showTree) {
-            $records = $model->getNested();
+            $records = $query->getNested();
         }
         elseif ($this->showPagination) {
             $method            = $this->showPageNumbers ? 'paginate' : 'simplePaginate';
-            $currentPageNumber = $this->currentPageNumber;
-            if (!$currentPageNumber && empty($this->searchTerm)) {
-                // Restore the last visited page from the session if available.
-                $currentPageNumber = $this->getSession('lastVisitedPage');
-            }
-            $records = $model->{$method}($this->recordsPerPage, $currentPageNumber);
+            $currentPageNumber = $this->getCurrentPageNumber($query);
+            $records = $query->{$method}($this->recordsPerPage, $currentPageNumber);
         }
         else {
-            $records = $model->get();
+            $records = $query->get();
         }
 
         /**
@@ -614,6 +616,37 @@ class Lists extends WidgetBase
         }
 
         return $this->records = $records;
+    }
+
+    /**
+     * Returns the current page number for the list.
+     *
+     * This will override the current page number provided by the user if it is past the last page of available records.
+     *
+     * @param object $query
+     * @return int
+     */
+    protected function getCurrentPageNumber($query)
+    {
+        $currentPageNumber = $this->currentPageNumber;
+
+        if (!$currentPageNumber && empty($this->searchTerm)) {
+            // Restore the last visited page from the session if available.
+            $currentPageNumber = $this->getSession('lastVisitedPage');
+        }
+
+        $currentPageNumber = intval($currentPageNumber);
+
+        if ($currentPageNumber > 1) {
+            $count = $query->count();
+
+            // If the current page number is higher than the amount of available pages, go to the last available page
+            if ($count <= (($currentPageNumber - 1) * $this->recordsPerPage)) {
+                $currentPageNumber = ceil($count / $this->recordsPerPage);
+            }
+        }
+
+        return $currentPageNumber;
     }
 
     /**

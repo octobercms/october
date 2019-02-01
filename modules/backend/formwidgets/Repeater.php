@@ -268,6 +268,7 @@ class Repeater extends FormWidgetBase
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
+        $config->enableDefaults = self::$onAddItemCalled;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         $widget->bindToController();
