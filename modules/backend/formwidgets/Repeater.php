@@ -419,7 +419,7 @@ class Repeater extends FormWidgetBase
         return array_get($this->groupDefinitions, $groupCode.'.name');
     }
 
-        /**
+    /**
      * Internal helper for method existence checks.
      *
      * @param  object $object
