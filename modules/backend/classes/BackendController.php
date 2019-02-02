@@ -50,7 +50,7 @@ class BackendController extends ControllerBase
     public function __construct()
     {
         // Find requested controller to determine if any middleware has been attached
-        $pathParts = explode('/', Request::path());
+        $pathParts = explode('/', str_replace(Request::root() . '/', '', Request::url()));
         if ($pathParts >= 2) {
             // Drop off preceding "backend" URL part
             array_shift($pathParts);
