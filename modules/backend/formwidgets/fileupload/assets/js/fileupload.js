@@ -180,7 +180,7 @@
             filesize = this.getFilesize(file)
 
         // Change filesize format to match October\Rain\Filesystem\Filesystem::sizeToString() format
-        $(file.previewElement).find('[data-dz-size]').html('<strong>' + filesize.size + '</strong> ' + filesize.units);
+        $(file.previewElement).find('[data-dz-size]').html('<strong>' + filesize.size + '</strong> ' + filesize.units)
 
         // Remove any exisiting objects for single variety
         if (!this.options.isMulti) {
