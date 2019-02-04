@@ -120,7 +120,7 @@ class Auth extends Controller
      * Logs out a backend user.
      */
     public function signout()
-    {		
+    {
         BackendAuth::logout();
         return Backend::redirect('backend');
     }
