@@ -58,7 +58,7 @@ class BackendController extends ControllerBase
             }
             $path = implode('/', $pathParts);
 
-            $requestedController = $this->getControllerRequest($path);
+            $requestedController = $this->getRequestedController($path);
             if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
                 $action = $requestedController['action'];
 
@@ -116,7 +116,7 @@ class BackendController extends ControllerBase
                 : $this->passToCmsController($url);
         }
 
-        $controllerRequest = $this->getControllerRequest($url);
+        $controllerRequest = $this->getRequestedController($url);
         if (!is_null($controllerRequest)) {
             return $controllerRequest['controller']->run(
                 $controllerRequest['action'],
@@ -130,7 +130,7 @@ class BackendController extends ControllerBase
         return $this->passToCmsController($url);
     }
 
-    protected function getControllerRequest($url)
+    protected function getRequestedController($url)
     {
         $params = RouterHelper::segmentizeUrl($url);
 
