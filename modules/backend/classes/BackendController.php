@@ -51,9 +51,11 @@ class BackendController extends ControllerBase
     {
         // Find requested controller to determine if any middleware has been attached
         $pathParts = explode('/', str_replace(Request::root() . '/', '', Request::url()));
-        if ($pathParts >= 2) {
-            // Drop off preceding "backend" URL part
-            array_shift($pathParts);
+        if (count($pathParts)) {
+            // Drop off preceding backend URL part if needed
+            if (!empty(Config::get('cms.backendUri', 'backend'))) {
+                array_shift($pathParts);
+            }
             $path = implode('/', $pathParts);
 
             $requestedController = $this->getControllerRequest($path);
