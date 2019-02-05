@@ -130,6 +130,16 @@ class BackendController extends ControllerBase
         return $this->passToCmsController($url);
     }
 
+    /**
+     * Determines the controller and action to load in the backend via a provided URL.
+     *
+     * If a suitable controller is found, this will return an array with the controller class name as a string, the
+     * action to call as a string and an array of parameters. If a suitable controller and action cannot be found,
+     * this method will return null.
+     *
+     * @param string $url A URL to determine the requested controller and action for
+     * @return array|null A suitable controller and action in array if found, otherwise null.
+     */
     protected function getRequestedController($url)
     {
         $params = RouterHelper::segmentizeUrl($url);
