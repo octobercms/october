@@ -240,7 +240,7 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         $this->prepareVars();
-        
+
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
@@ -1165,6 +1165,11 @@ class Form extends WidgetBase
          */
         foreach ($this->formWidgets as $field => $widget) {
             $parts = HtmlHelper::nameToArray($field);
+
+            if ((isset($widget->config->disabled) && $widget->config->disabled)
+                || (isset($widget->config->hidden) && $widget->config->hidden)) {
+                continue;
+            }
 
             $widgetValue = $widget->getSaveValue($this->dataArrayGet($result, $parts));
             $this->dataArraySet($result, $parts, $widgetValue);
