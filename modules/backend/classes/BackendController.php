@@ -138,7 +138,7 @@ class BackendController extends ControllerBase
      * this method will return null.
      *
      * @param string $url A URL to determine the requested controller and action for
-     * @return array|null A suitable controller and action in array if found, otherwise null.
+     * @return array|null A suitable controller, action and parameters in an array if found, otherwise null.
      */
     protected function getRequestedController($url)
     {
