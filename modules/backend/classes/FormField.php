@@ -690,7 +690,7 @@ class FormField
         foreach ($keyParts as $key) {
 
             if ($result instanceof Model && $result->hasRelation($key)) {
-                if ($key == $lastField) {
+                if ($key == $lastField && ! $this->getConfig('useRelationData', false)) {
                     $result = $result->getRelationValue($key) ?: $default;
                 }
                 else {
