@@ -317,7 +317,7 @@
         yearRange: 10,
         firstDay: 0,
         showWeekNumber: false,
-        mode: 'datetime',
+        mode: 'datetime'
     }
 
     // PLUGIN DEFINITION
