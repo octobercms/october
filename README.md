@@ -56,7 +56,7 @@ The OctoberCMS platform is open-sourced software licensed under the [MIT license
 
 ### Contributing
 
-Before sending a Pull Request, be sure to review the [Contributing Guidelines](CONTRIBUTING.md) first.
+Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first.
 
 ### Coding standards
 
