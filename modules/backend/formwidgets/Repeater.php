@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Repeater Form Widget
@@ -196,6 +197,21 @@ class Repeater extends FormWidgetBase
         }
         if ($this->maxItems && count($value) > $this->maxItems) {
             throw new ApplicationException(Lang::get('backend::lang.repeater.max_items_failed', ['name' => $this->fieldName, 'max' => $this->maxItems, 'items' => count($value)]));
+        }
+
+        /*
+         * Give repeated form field widgets an opportunity to process the data.
+         */
+        foreach ($this->formWidgets as $field => $form) {
+            foreach ($form->getFormWidgets() as $formField => $widget) {
+                $parts = HtmlHelper::nameToArray($field . '[' . $formField . ']');
+
+                $widgetValue = $widget->getSaveValue($this->dataArrayGet($value, $parts));
+                if (empty($widgetValue) || !count($widgetValue)) {
+                    continue;
+                }
+                $this->dataArraySet($value, $parts, $widgetValue);
+            }
         }
 
         return array_values($value);
@@ -402,5 +418,84 @@ class Repeater extends FormWidgetBase
     public function getGroupTitle($groupCode)
     {
         return array_get($this->groupDefinitions, $groupCode.'.name');
+    }
+
+    /**
+     * Internal helper for method existence checks.
+     *
+     * @param  object $object
+     * @param  string $method
+     * @return boolean
+     */
+    protected function objectMethodExists($object, $method)
+    {
+        if (method_exists($object, 'methodExists')) {
+            return $object->methodExists($method);
+        }
+
+        return method_exists($object, $method);
+    }
+
+    /**
+     * Variant to array_get() but preserves dots in key names.
+     *
+     * @param array $array
+     * @param array $parts
+     * @param null $default
+     * @return array|null
+     */
+    protected function dataArrayGet(array $array, array $parts, $default = null)
+    {
+        if ($parts === null) {
+            return $array;
+        }
+
+        if (count($parts) === 1) {
+            $key = array_shift($parts);
+            if (isset($array[$key])) {
+                return $array[$key];
+            }
+
+            return $default;
+        }
+
+        foreach ($parts as $segment) {
+            if (!is_array($array) || !array_key_exists($segment, $array)) {
+                return $default;
+            }
+
+            $array = $array[$segment];
+        }
+
+        return $array;
+    }
+
+    /**
+     * Variant to array_set() but preserves dots in key names.
+     *
+     * @param array $array
+     * @param array $parts
+     * @param string $value
+     * @return array
+     */
+    protected function dataArraySet(array &$array, array $parts, $value)
+    {
+        if ($parts === null) {
+            return $value;
+        }
+
+        while (count($parts) > 1) {
+            $key = array_shift($parts);
+
+            if (!isset($array[$key]) || !is_array($array[$key])) {
+                $array[$key] = [];
+            }
+
+            $array =& $array[$key];
+        }
+
+        $array[array_shift($parts)] = $value;
+
+        return $array;
     }
 }
