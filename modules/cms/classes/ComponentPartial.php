@@ -101,10 +101,10 @@ class ComponentPartial extends Extendable implements CmsObjectContract
      */
     public static function loadOverrideCached($theme, $component, $fileName)
     {
-        $partial = Partial::loadCached($theme, strtolower($component->alias) . '/' . $fileName);
+        $partial = Partial::loadCached($theme, strtolower($component->themePartialOverride()) . '/' . $fileName);
 
         if ($partial === null) {
-            $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
+            $partial = Partial::loadCached($theme, $component->themePartialOverride() . '/' . $fileName);
         }
 
         return $partial;

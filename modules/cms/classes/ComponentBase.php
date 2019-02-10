@@ -112,6 +112,16 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
+     * Returns theme partial override folder name to render process
+     * Default is component alias
+     * @return string
+     */
+     public function themePartialOverride()
+     {
+         return $this->alias;
+     }
+
+    /**
      * Executed when this component is first initialized, before AJAX requests.
      */
     public function init()
