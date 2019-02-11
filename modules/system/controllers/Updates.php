@@ -181,7 +181,7 @@ class Updates extends Controller
         $contents = [];
 
         try {
-            $updates = (array)Yaml::parseFile($path.'/'.$filename);
+            $updates = (array) Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
                 if (!is_array($details)) {
