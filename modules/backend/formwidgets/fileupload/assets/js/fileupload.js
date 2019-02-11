@@ -417,7 +417,7 @@
             units = 'bytes'
         } else if (file.size == 1) {
             size = 1
-            units = 'bytes'
+            units = 'byte'
         }
 
         return {
