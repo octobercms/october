@@ -235,6 +235,8 @@ class ReportContainer extends WidgetBase
             $alias = 'report_container_'.$this->context.'_'.$num;
         }
         while (array_key_exists($alias, $widgets));
+        
+        $widget->alias = $alias;
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
