@@ -14,6 +14,13 @@ class ReportWidgetBase extends WidgetBase
     public function __construct($controller, $properties = [])
     {
         $this->properties = $this->validateProperties($properties);
+        
+        /*
+         * If no alias is set by the backend_user_preferences configuration.
+         */
+        if (!isset($this->alias)) {
+            $this->alias = $properties['alias'] ?? $this->defaultAlias;
+        }
 
         parent::__construct($controller);
     }
