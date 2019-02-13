@@ -2,6 +2,8 @@
 
 use File;
 use Lang;
+use Str;
+use Cms\Classes\ComponentManager;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
@@ -105,6 +107,19 @@ class ComponentPartial extends Extendable implements CmsObjectContract
 
         if ($partial === null) {
             $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
+        }
+        
+        if ($partial === null) {
+            $classes = array_flip(ComponentManager::instance()->listComponents());
+            $default_alias = array_get($classes, Str::normalizeClassName($component->name));
+            
+            if ($default_alias && $default_alias !== $component->alias) {
+                $partial = Partial::loadCached($theme, strtolower($default_alias) . '/' . $fileName);
+                
+                if ($partial === null) {
+                    $partial = Partial::loadCached($theme, $default_alias . '/' . $fileName);
+                }
+            }
         }
 
         return $partial;
