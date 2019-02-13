@@ -149,10 +149,6 @@ nav#layout-mainmenu {
                     top: 0;
                 }
             }
-
-            &.active a {
-                // font-weight: bold;
-            }
         }
 
         &.nav {
@@ -351,7 +347,8 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu {
 // Navbar (Inline mode)
 //
 
-nav#layout-mainmenu.navbar-mode-inline {
+nav#layout-mainmenu.navbar-mode-inline,
+nav#layout-mainmenu.navbar-mode-inline_no_icons {
     .mainmenu-set-height(@mainmenu-mode-inline-height);
 
     ul.mainmenu-nav {
@@ -392,6 +389,13 @@ nav#layout-mainmenu.navbar-mode-inline {
         }
 
     }
+}
+
+//
+// Navbar (Inline no icons mode)
+//
+nav#layout-mainmenu.navbar-mode-inline_no_icons .nav-icon {
+    display: none !important;
 }
 
 //

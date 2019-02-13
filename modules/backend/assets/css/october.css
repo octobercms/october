@@ -703,18 +703,31 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:focus:after,
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #4ea5e0;position:absolute;right:9px;top:-7px;z-index:102}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #3498db}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider {height:1px;width:100%;background-color:#e0e0e0}
-nav#layout-mainmenu.navbar-mode-inline {height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu {top:70px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li {margin:5px 0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a {padding:10px 15px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon {position:relative;top:-1px;margin-right:5px;width:30px;height:30px}
+nav#layout-mainmenu.navbar-mode-inline,
+nav#layout-mainmenu.navbar-mode-inline_no_icons {height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul li .mainmenu-accountmenu {top:70px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li {margin:5px 0}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a {padding:10px 15px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon {position:relative;top:-1px;margin-right:5px;width:30px;height:30px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon i,
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon img {margin:0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label {line-height:30px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child {margin-left:-13px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child {margin-right:0}
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon i,
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon img,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon img {margin:0}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-label {line-height:30px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li:first-child {margin-left:-13px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li:last-child {margin-right:0}
+nav#layout-mainmenu.navbar-mode-inline_no_icons .nav-icon {display:none !important}
 nav#layout-mainmenu.navbar-mode-tile {height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a {height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account >a {height:78px;line-height:78px}
