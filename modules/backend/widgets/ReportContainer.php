@@ -236,6 +236,9 @@ class ReportContainer extends WidgetBase
         }
         while (array_key_exists($alias, $widgets));
 
+        // Ensure that the widget's alias is correctly set for this request
+        $widget->alias = $alias;
+
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
             $sortOrder = max($sortOrder, $widgetInfo['sortOrder']);
