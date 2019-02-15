@@ -159,7 +159,7 @@
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
