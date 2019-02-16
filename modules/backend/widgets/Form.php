@@ -240,7 +240,7 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         $this->prepareVars();
-        
+
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
@@ -1121,6 +1121,7 @@ class Form extends WidgetBase
     public function getSaveData()
     {
         $this->defineFormFields();
+        $this->applyFiltersFromModel();
 
         $result = [];
 
