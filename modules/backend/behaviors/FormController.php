@@ -232,6 +232,8 @@ class FormController extends ControllerBehavior
 
         $this->initForm($model);
 
+        $model->forceFill($this->formWidget->getSaveData());
+
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeCreate($model);
 
