@@ -4285,6 +4285,9 @@ else if(action=='disable'){this.$el.prop('disabled',status).toggleClass('control
 else if(action=='empty'&&status){this.$el.not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]').val('')
 this.$el.not(':not(input[type=checkbox], input[type=radio])').prop('checked',false)
 this.$el.trigger('empty.oc.triggerapi').trigger('change')}
+else if(action=='fill'&&status){this.$el.not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]').val('')
+this.$el.not(':not(input[type=checkbox], input[type=radio])').prop('checked',true)
+this.$el.trigger('empty.oc.triggerapi').trigger('change')}
 if(action=='show'||action=='hide'){this.fixButtonClasses()}}
 TriggerOn.prototype.fixButtonClasses=function(){var group=this.$el.closest('.btn-group')
 if(group.length>0&&this.$el.is(':last-child'))

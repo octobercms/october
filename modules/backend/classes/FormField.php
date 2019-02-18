@@ -481,7 +481,7 @@ class FormField
         }
 
         // Apply these to field/input
-        if (in_array($triggerAction, ['enable', 'disable', 'empty']) && $position != 'field') {
+        if (in_array($triggerAction, ['enable', 'disable', 'empty', 'fill']) && $position != 'field') {
             return $attributes;
         }
 
