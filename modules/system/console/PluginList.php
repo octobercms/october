@@ -58,7 +58,7 @@ class PluginList extends Command
 
             $pluginTable[] = [$plugin->code, $plugin->version, (!$plugin->is_frozen) ? 'Yes': 'No', (!$plugin->is_disabled) ? 'Yes': 'No'];
 
-            if($row < $pluginsCount) {
+            if ($row < $pluginsCount) {
                 $pluginTable[] = $separator;
             }
         }
