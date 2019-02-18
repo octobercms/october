@@ -32,11 +32,10 @@ class PluginList extends Command
     public function handle()
     {
         $allPlugins  = PluginVersion::all();
+        $pluginsCount = count($allPlugins);
 
-        if (count($allPlugins) <= 0 ) {
-
+        if ($pluginsCount <= 0 ) {
             $this->info('No plugin found');
-
             return;
         }
 
@@ -45,7 +44,7 @@ class PluginList extends Command
 
         // Set the table headers.
         $table->setHeaders([
-            'Plugin name', 'Version','Updates enabled', 'Plugin enabled'
+            'Plugin name', 'Version', 'Updates enabled', 'Plugin enabled'
         ]);
 
         // Create a new TableSeparator instance.
@@ -53,9 +52,15 @@ class PluginList extends Command
 
         $pluginTable = [];
 
+        $row = 0;
         foreach ($allPlugins as $plugin) {
+            $row++;
+
             $pluginTable[] = [$plugin->code, $plugin->version, (!$plugin->is_frozen) ? 'Yes': 'No', (!$plugin->is_disabled) ? 'Yes': 'No'];
-            $pluginTable[] = $separator;
+
+            if($row < $pluginsCount) {
+                $pluginTable[] = $separator;
+            }
         }
 
         // Set the contents of the table.
