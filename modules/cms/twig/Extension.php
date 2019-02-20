@@ -4,8 +4,10 @@ use Block;
 use Event;
 use Twig_Extension;
 use Twig_SimpleFilter;
+use Cms\Helpers\Assets;
 use Twig_SimpleFunction;
 use Cms\Classes\Controller;
+use October\Rain\Support\Facades\Config;
 
 /**
  * The CMS Twig extension class implements the basic CMS Twig functions and filters.
@@ -55,6 +57,8 @@ class Extension extends Twig_Extension
         return [
             new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
             new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('themeJs', [$this, 'themeJsFilter'], ['is_safe' => ['html']]),
+            new Twig_SimpleFilter('themeCss', [$this, 'themeCssFilter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -170,6 +174,65 @@ class Extension extends Twig_Extension
     public function themeFilter($url)
     {
         return $this->controller->themeUrl($url);
+    }
+
+    /**
+     * Includes JS assets relative to the theme root
+     *
+     * @param        $url
+     * @param string $type
+     * @param array  $attributes
+     *
+     * @return string
+     */
+    public function themeJsFilter($url, string $type = Assets::JS_TYPE_DEFAULT, array $attributes = [])
+    {
+        if (is_string($url)) {
+            return Assets::renderJsAsset($this->controller->themeUrl($url), $type, $attributes);
+        }
+
+        $urls = (array) $url;
+
+        if (self::$combineAssets ?? (self::$combineAssets = !Config::get('cms.disableAssetCombine', false))) {
+            return Assets::renderJsAsset($this->controller->themeUrl($urls), $type, $attributes);
+        }
+
+        $assets = [];
+
+        foreach ($urls as $singleAsset) {
+            $assets[] = Assets::renderJsAsset($this->controller->themeUrl($singleAsset), $type, $attributes);
+        }
+
+        return implode('', $assets);
+    }
+
+    /**
+     * Includes CSS assets relative to the theme root
+     *
+     * @param       $url
+     * @param array $attributes
+     *
+     * @return string
+     */
+    public function themeCssFilter($url, array $attributes = [])
+    {
+        if (is_string($url)) {
+            return Assets::renderCssAsset($url, $attributes);
+        }
+
+        $urls = (array) $url;
+
+        if (self::$combineAssets ?? (self::$combineAssets = !Config::get('cms.disableAssetCombine', false))) {
+            return Assets::renderCssAsset($this->controller->themeUrl($urls), $attributes);
+        }
+
+        $assets = [];
+
+        foreach ($urls as $singleAsset) {
+            $assets[] = Assets::renderCssAsset($singleAsset, $attributes);
+        }
+
+        return implode('', $assets);
     }
 
     /**

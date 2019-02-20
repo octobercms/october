@@ -199,6 +199,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Determines if the asset combiner is disabled.
+    |--------------------------------------------------------------------------
+    |
+    | If the asset combining is disabled, themeJs, themeCss Twig filters won't
+    | combine arrays of assets into one single file and will leave them as
+    | they are and include assets per file individually. This setting
+    | won't make any effect to the basic Twig theme filter
+    |
+    */
+
+    'disableAssetCombine' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Check import timestamps when combining assets
     |--------------------------------------------------------------------------
     |
@@ -346,20 +360,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Twig Strict Variables
     |--------------------------------------------------------------------------
     |
-    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | If strict_variables is disabled, Twig will silently ignore invalid
     | variables (variables and or attributes/methods that do not exist) and
     | replace them with a null value. When enabled, Twig throws an exception
     | instead. If set to null, it is enabled when debug mode (app.debug) is
     | enabled.
     |
     */
-    
+
     'enableTwigStrictVariables' => false,
 
     /*
