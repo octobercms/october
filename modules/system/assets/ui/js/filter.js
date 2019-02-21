@@ -120,8 +120,31 @@
             $scope.addClass('filter-scope-open')
         })
 
-        this.$el.on('show.oc.popover', 'a.filter-scope', function(){
+        this.$el.on('show.oc.popover', 'a.filter-scope', function(event){
             self.focusSearch()
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-items > ul > li', function(){
+                self.selectItem($(this))
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-active-items > ul > li', function(){
+                self.selectItem($(this), true)
+            })
+
+            $(event.relatedTarget).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
+                self.filterAvailable(data.scopeName, data.options.available)
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
+                e.preventDefault()
+                self.filterScope()
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
+                e.preventDefault()
+                self.filterScope(true)
+            })
+
         })
 
         this.$el.on('hide.oc.popover', 'a.filter-scope', function(){
@@ -132,28 +155,6 @@
 
             // Second click closes the filter scope
             setTimeout(function() { $scope.removeClass('filter-scope-open') }, 200)
-        })
-
-        $(document).on('click', '#controlFilterPopover .filter-items > ul > li', function(){
-            self.selectItem($(this))
-        })
-
-        $(document).on('click', '#controlFilterPopover .filter-active-items > ul > li', function(){
-            self.selectItem($(this), true)
-        })
-
-        $(document).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
-            self.filterAvailable(data.scopeName, data.options.available)
-        })
-
-        $(document).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
-            e.preventDefault()
-            self.filterScope()
-        })
-
-        $(document).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
-            e.preventDefault()
-            self.filterScope(true)
         })
     }
 
