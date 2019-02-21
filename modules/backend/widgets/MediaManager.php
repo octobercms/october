@@ -1582,7 +1582,7 @@ class MediaManager extends WidgetBase
      */
     protected function validateFileName($name)
     {
-        if (!preg_match('/^[\w@\.\s_\-]+$/iu', $name)) {
+        if (!preg_match('/^[[:ascii:]@\.\s_\-]+$/iu', $name)) {
             return false;
         }
 
