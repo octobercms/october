@@ -149,3 +149,12 @@ tabs:
             action: show
             field: send_mode
             condition: value[ses]
+
+        sparkpost_secret:
+          label: system::lang.mail.sparkpost_secret
+          commentAbove: system::lang.mail.sparkpost_secret_comment
+          tab: system::lang.mail.general
+          trigger:
+            action: show
+            field: send_mode
+            condition: value[sparkpost]
