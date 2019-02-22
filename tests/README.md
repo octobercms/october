@@ -4,7 +4,7 @@ Plugin unit tests can be performed by running `phpunit` in the base plugin direc
 
 ### Creating plugin tests
 
-Plugins can be tested by creating a creating a file called `phpunit.xml` in the base directory with the following content, for example, in a file **/plugins/acme/blog/phpunit.xml**:
+Plugins can be tested by creating a file called `phpunit.xml` in the base directory with the following content, for example, in a file **/plugins/acme/blog/phpunit.xml**:
 
     <?xml version="1.0" encoding="UTF-8"?>
     <phpunit backupGlobals="false"
@@ -46,11 +46,43 @@ Then a **tests/** directory can be created to contain the test classes. The file
         }
     }
 
-The test class should extend the base class `PluginTestCase` and this is a special class that will set up the October database stored in memory, as part of the `setUp()` method. It will also refresh the plugin being testing, along with any of the defined dependencies in the plugin registration file. This is the equivalent of running the following before each test:
+The test class should extend the base class `PluginTestCase` and this is a special class that will set up the October database stored in memory, as part of the `setUp` method. It will also refresh the plugin being tested, along with any of the defined dependencies in the plugin registration file. This is the equivalent of running the following before each test:
 
     php artisan october:up
     php artisan plugin:refresh Acme.Blog
     [php artisan plugin:refresh <dependency>, ...]
+    
+> **Note:** If your plugin uses [configuration files](../plugin/settings#file-configuration), then you will need to run `System\Classes\PluginManager::instance()->registerAll(true);` in the `setUp` method of your tests. Below is an example of a base test case class that should be used if you need to test your plugin working with other plugins instead of in isolation.
+
+    use System\Classes\PluginManager;
+        
+    class BaseTestCase extends PluginTestCase
+    {
+        public function setUp()
+        {
+            parent::setUp();
+
+            // Get the plugin manager
+            $pluginManager = PluginManager::instance();
+            
+            // Register the plugins to make features like file configuration available
+            $pluginManager->registerAll(true);
+
+            // Boot all the plugins to test with dependencies of this plugin
+            $pluginManager->bootAll(true);
+        }
+
+        public function tearDown()
+        {
+            parent::tearDown();
+
+            // Get the plugin manager
+            $pluginManager = PluginManager::instance();
+            
+            // Ensure that plugins are registered again for the next test
+            $pluginManager->unregisterAll();
+        }
+    }
 
 #### Changing database engine for plugins tests
 
@@ -70,7 +102,9 @@ If you do not want to use SQLite in memory, you can override any of the paramete
 
 On every plugin test the plugin and defined dependencies will be refreshed as described above.
 
-# System testing
+## System testing
+
+To perform unit testing on the core October files, you should download a development copy using composer or cloning the git repo. This will ensure you have the `tests/` directory.
 
 ### Unit tests
 
