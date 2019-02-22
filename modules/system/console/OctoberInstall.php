@@ -84,12 +84,12 @@ class OctoberInstall extends Command
 
         $this->setupMigrateDatabase();
 
-        foreach($chosenToInstall as $pluginCode) {
-            $this->output->writeln('<info>Installing plugin '.$pluginCode.'</info>');
+        foreach ($chosenToInstall as $pluginCode) {
+            $this->output->writeln('<info>Installing plugin ' . $pluginCode . '</info>');
             $this->callSilent('plugin:install', [
                 'name' => $pluginCode
             ]);
-            $this->output->writeln('<info>'.$pluginCode.' installed successfully.</info>');
+            $this->output->writeln('<info>' . $pluginCode . ' installed successfully.</info>');
         }
 
         $this->displayOutro();
@@ -135,7 +135,7 @@ class OctoberInstall extends Command
         if ($this->confirm('Install the October.Drivers plugin?', false)) {
             $chosenToInstall[] = 'October.Drivers';
         }
-        if($this->confirm('Install the Rainlab.Builder plugin?', false)) {
+        if ($this->confirm('Install the Rainlab.Builder plugin?', false)) {
             $chosenToInstall[] = 'Rainlab.Builder';
         }
         return $chosenToInstall;
