@@ -52,6 +52,24 @@ The test class should extend the base class `PluginTestCase` and this is a speci
     php artisan plugin:refresh Acme.Blog
     [php artisan plugin:refresh <dependency>, ...]
 
+#### Changing database engine for plugins tests
+
+If you do not want to use SQLite in memory, you can override any of the parameters in PHPUnit env parameters in `phpunit.xml` file as follows:
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_DATABASE" value="testing"/>
+        <env name="DB_HOST" value="localhost"/>
+        <env name="DB_USERNAME" value="username"/>
+        <env name="DB_PASSWORD" value="password"/>
+        <env name="DB_PREFIX" value="testing_"/>
+    </php>
+
+On every plugin test the plugin and defined dependencies will be refreshed as described above.
+
 # System testing
 
 ### Unit tests

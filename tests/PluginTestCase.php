@@ -25,13 +25,17 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         $app->setLocale('en');
 
         /*
-         * Store database in memory
+         * Store database in memory by default, use env values to override
          */
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => ''
+        $dbConnection = env('DB_CONNECTION', 'sqlite');
+
+        $app['config']->set('database.default', $dbConnection);
+        $app['config']->set('database.connections.' . $dbConnection, [
+            'driver'   => $dbConnection,
+            'database' => env('DB_DATABASE', ':memory:'),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
+            'prefix'   => env('DB_PREFIX', ''),
         ]);
 
         /*
@@ -53,7 +57,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
          */
         PluginManager::forgetInstance();
         UpdateManager::forgetInstance();
-        
+
         /*
          * Create application instance
          */
@@ -109,7 +113,9 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
     protected function runPluginRefreshCommand($code, $throwException = true)
     {
         if (!preg_match('/^[\w+]*\.[\w+]*$/', $code)) {
-            if (!$throwException) return;
+            if (!$throwException) {
+                return;
+            }
             throw new Exception(sprintf('Invalid plugin code: "%s"', $code));
         }
 
@@ -124,7 +130,9 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
             $path = array_get($manager->getPluginNamespaces(), $namespace);
 
             if (!$path) {
-                if (!$throwException) return;
+                if (!$throwException) {
+                    return;
+                }
                 throw new Exception(sprintf('Unable to find plugin with code: "%s"', $code));
             }
 
@@ -138,8 +146,9 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
 
         if (!empty($plugin->require)) {
             foreach ((array) $plugin->require as $dependency) {
-
-                if (isset($this->pluginTestCaseLoadedPlugins[$dependency])) continue;
+                if (isset($this->pluginTestCaseLoadedPlugins[$dependency])) {
+                    continue;
+                }
 
                 $this->runPluginRefreshCommand($dependency);
             }
