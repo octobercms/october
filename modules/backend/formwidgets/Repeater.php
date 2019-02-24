@@ -202,16 +202,15 @@ class Repeater extends FormWidgetBase
         /*
          * Give repeated form field widgets an opportunity to process the data.
          */
-        foreach ($this->formWidgets as $field => $form) {
-            foreach ($form->getFormWidgets() as $formField => $widget) {
-                $parts = HtmlHelper::nameToArray($field . '[' . $formField . ']');
-
-                $widgetValue = $widget->getSaveValue($this->dataArrayGet($value, $parts));
-                if (empty($widgetValue) || !count($widgetValue)) {
-                    continue;
-                }
-                $this->dataArraySet($value, $parts, $widgetValue);
+        foreach ($this->formWidgets as $form) {
+            $widgetValue = $form->getSaveData();
+            if (!isset($widgetValue) || !count($widgetValue)) {
+                continue;
             }
+
+            $arrayName = HtmlHelper::nameToArray($form->arrayName);
+            $index = end($arrayName);
+            $value[$index] = $widgetValue;
         }
 
         return array_values($value);
