@@ -204,7 +204,7 @@ class Repeater extends FormWidgetBase
          */
         foreach ($this->formWidgets as $form) {
             $widgetValue = $form->getSaveData();
-            if (!isset($widgetValue) || !count($widgetValue)) {
+            if (is_null($widgetValue)) {
                 continue;
             }
 
