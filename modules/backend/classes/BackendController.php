@@ -4,6 +4,7 @@ use Str;
 use App;
 use File;
 use View;
+use Event;
 use Config;
 use Request;
 use Response;
@@ -43,6 +44,11 @@ class BackendController extends ControllerBase
      * @var array Allows early access to page parameters.
      */
     public static $params;
+
+    /**
+     * @var boolean Flag to indicate that the CMS module is handling the current request
+     */
+    protected $cmsHandling = false;
 
     /**
      * Instantiate a new BackendController instance.
@@ -91,6 +97,7 @@ class BackendController extends ControllerBase
     protected function passToCmsController($url)
     {
         if (class_exists('\Cms\Classes\Controller')) {
+            $this->cmsHandling = true;
             return App::make('Cms\Classes\Controller')->run($url);
         } else {
             return Response::make(View::make('backend::404'), 404);
@@ -107,6 +114,15 @@ class BackendController extends ControllerBase
      */
     public function run($url = null)
     {
+        $params = RouterHelper::segmentizeUrl($url);
+
+        // Handle NotFoundHttpExceptions in the backend (usually triggered by abort(404))
+        Event::listen('exception.beforeRender', function ($exception, $httpCode, $request) {
+            if (!$this->cmsHandling && $exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+                return View::make('backend::404');
+            }
+        }, 1);
+
         /*
          * Database check
          */

@@ -229,12 +229,15 @@ class ReportContainer extends WidgetBase
 
         $widgets = $this->getWidgetsFromUserPreferences();
 
-        $num =  count($widgets);
+        $num = count($widgets);
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
         }
         while (array_key_exists($alias, $widgets));
+
+        // Ensure that the widget's alias is correctly set for this request
+        $widget->alias = $alias;
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
@@ -336,7 +339,8 @@ class ReportContainer extends WidgetBase
         $configuration['alias'] = $alias;
 
         $className = $widgetInfo['class'];
-        if (!class_exists($className)) {
+        $availableReportWidgets = array_keys(WidgetManager::instance()->listReportWidgets());
+        if (!class_exists($className) || !in_array($className, $availableReportWidgets)) {
             return;
         }
 
