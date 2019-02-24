@@ -208,6 +208,7 @@ class Repeater extends FormWidgetBase
                 continue;
             }
 
+            // Get correct index for this widget instance to prevent empty values within an array
             $arrayName = HtmlHelper::nameToArray($form->arrayName);
             $index = end($arrayName);
             $value[$index] = $widgetValue;
