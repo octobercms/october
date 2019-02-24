@@ -51,11 +51,11 @@ The test class should extend the base class `PluginTestCase` and this is a speci
     php artisan october:up
     php artisan plugin:refresh Acme.Blog
     [php artisan plugin:refresh <dependency>, ...]
-    
+
 > **Note:** If your plugin uses [configuration files](../plugin/settings#file-configuration), then you will need to run `System\Classes\PluginManager::instance()->registerAll(true);` in the `setUp` method of your tests. Below is an example of a base test case class that should be used if you need to test your plugin working with other plugins instead of in isolation.
 
     use System\Classes\PluginManager;
-        
+
     class BaseTestCase extends PluginTestCase
     {
         public function setUp()
@@ -64,7 +64,7 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
             // Get the plugin manager
             $pluginManager = PluginManager::instance();
-            
+
             // Register the plugins to make features like file configuration available
             $pluginManager->registerAll(true);
 
@@ -78,7 +78,7 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
             // Get the plugin manager
             $pluginManager = PluginManager::instance();
-            
+
             // Ensure that plugins are registered again for the next test
             $pluginManager->unregisterAll();
         }
@@ -86,21 +86,20 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
 #### Changing database engine for plugins tests
 
-If you do not want to use SQLite in memory, you can override any of the parameters in PHPUnit env parameters in `phpunit.xml` file as follows:
+By default OctoberCMS uses SQLite stored in memory for the testing environment. If you want to override the default behavior add the following environmental variable in `phpunit.xml` file:
 
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_DATABASE" value="testing"/>
-        <env name="DB_HOST" value="localhost"/>
-        <env name="DB_USERNAME" value="username"/>
-        <env name="DB_PASSWORD" value="password"/>
-        <env name="DB_PREFIX" value="testing_"/>
-    </php>
+    <env name="DB_OVERRIDE_DEFAULT" value="true"/>
 
-On every plugin test the plugin and defined dependencies will be refreshed as described above.
+When the `APP_ENV` is set to `testing` and the `DB_OVERRIDE_DEFAULT` is set to `true` database parameters will be taken from `/config/database.php`. If you use `.env` file then you can override all the environmental variables in your `phpunit.xml` file as follows:
+
+    <env name="DB_CONNECTION" value="mysql"/>
+    <env name="DB_DATABASE" value="testing"/>
+    <env name="DB_HOST" value="localhost"/>
+    <env name="DB_USERNAME" value="username"/>
+    <env name="DB_PASSWORD" value="password"/>
+    <env name="DB_PREFIX" value=""/>
+
+You can override the `/config/database.php` file as well by creating `/config/testing/database.php`. In this case variables from the latter file will be taken.
 
 ## System testing
 

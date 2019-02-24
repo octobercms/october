@@ -25,18 +25,25 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
         $app->setLocale('en');
 
         /*
-         * Store database in memory by default, use env values to override
+         * Store database in memory by default, if not specified otherwise
          */
-        $dbConnection = env('DB_CONNECTION', 'sqlite');
+        $dbConnection = 'sqlite';
+
+        $dbConnections = [];
+        $dbConnections['sqlite'] = [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => ''
+        ];
+
+        if (env('APP_ENV') === 'testing' && env('DB_OVERRIDE_DEFAULT')) {
+            $dbConnection = Config::get('database.default', 'sqlite');
+
+            $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
+        }
 
         $app['config']->set('database.default', $dbConnection);
-        $app['config']->set('database.connections.' . $dbConnection, [
-            'driver'   => $dbConnection,
-            'database' => env('DB_DATABASE', ':memory:'),
-            'username' => env('DB_USERNAME', ''),
-            'password' => env('DB_PASSWORD', ''),
-            'prefix'   => env('DB_PREFIX', ''),
-        ]);
+        $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
 
         /*
          * Modify the plugin path away from the test context
