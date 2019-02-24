@@ -1076,7 +1076,7 @@ class Form extends WidgetBase
             : null;
 
         return $field->getValueFromData(
-            $this->data, 
+            $this->data,
             is_string($defaultValue) ? trans($defaultValue) : $defaultValue
         );
     }
@@ -1183,6 +1183,9 @@ class Form extends WidgetBase
             $parts = HtmlHelper::nameToArray($field);
 
             $widgetValue = $widget->getSaveValue($this->dataArrayGet($result, $parts));
+            if (!isset($widgetValue) || !count($widgetValue)) {
+                continue;
+            }
             $this->dataArraySet($result, $parts, $widgetValue);
         }
 
