@@ -3,6 +3,7 @@
 use File;
 use Lang;
 use Str;
+use Config;
 use Cms\Classes\ComponentManager;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use Cms\Helpers\File as FileHelper;
@@ -109,7 +110,7 @@ class ComponentPartial extends Extendable implements CmsObjectContract
             $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
         }
         
-        if ($partial === null) {
+        if ($partial === null && Config::get('cms.enableComponentThemeDefaultPartialFallback')) {
             $classes = array_flip(ComponentManager::instance()->listComponents());
             $default_alias = array_get($classes, Str::normalizeClassName($component->name));
             

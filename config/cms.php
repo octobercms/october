@@ -380,5 +380,18 @@ return [
     */
 
     'restrictBaseDir' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Component default partial fallback
+    |--------------------------------------------------------------------------
+    |
+    | Enable using default theme partial for Component fallback where exists.
+    |
+    | If is enabled, especially each snippet not need to have own theme 
+    | override, but uses default one.
+    |
+    */
+    'enableComponentThemeDefaultPartialFallback' => false,
 
 ];
