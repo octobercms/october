@@ -326,7 +326,11 @@ class Repeater extends FormWidgetBase
 
     public function onRemoveItem()
     {
-        // Useful for deleting relations
+        // Remove associated form widget
+        $index = post('_repeater_index');
+        if (isset($this->formWidgets[$index])) {
+            unset($this->formWidgets[$index]);
+        }
     }
 
     public function onRefresh()
