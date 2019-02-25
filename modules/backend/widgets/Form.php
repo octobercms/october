@@ -1183,9 +1183,6 @@ class Form extends WidgetBase
             $parts = HtmlHelper::nameToArray($field);
 
             $widgetValue = $widget->getSaveValue($this->dataArrayGet($result, $parts));
-            if (is_null($widgetValue)) {
-                continue;
-            }
             $this->dataArraySet($result, $parts, $widgetValue);
         }
 

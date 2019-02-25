@@ -124,7 +124,7 @@ class DataTable extends FormWidgetBase
             unset($result[$key]['id']);
         }
 
-        return (count($result)) ? $result : null;
+        return $result;
     }
 
     /*
