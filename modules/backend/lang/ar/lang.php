@@ -51,7 +51,7 @@ return [
         'confirm' => 'تأكيد',
         'ok' => 'موافقة',
         'or' => 'أو',
-				'create_title' => 'إضافة :name',
+		'create_title' => 'إضافة :name',
         'update_title' => 'تعديل :name',
         'preview_title' => 'عرض :name',
         'create_success' => 'تم إنشاء :name بنجاح',
