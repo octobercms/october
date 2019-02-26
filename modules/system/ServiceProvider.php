@@ -238,7 +238,10 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
+        $this->registerConsoleCommand('plugin.disable', 'System\Console\PluginDisable');
+        $this->registerConsoleCommand('plugin.enable', 'System\Console\PluginEnable');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
+        $this->registerConsoleCommand('plugin.list', 'System\Console\PluginList');
 
         $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
         $this->registerConsoleCommand('theme.remove', 'System\Console\ThemeRemove');
