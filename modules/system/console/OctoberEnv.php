@@ -125,7 +125,7 @@ class OctoberEnv extends Command
     {
         foreach ($keys as $envKey => $configKey) {
             $pattern = $this->buildPattern($configKey);
-            
+
             $callback = $this->buildCallback($envKey, $configKey);
 
             if (preg_match($pattern, $line)) {
@@ -246,6 +246,10 @@ class OctoberEnv extends Command
     {
         if ($configKey == 'default') {
             return config('database.default');
+        }
+
+        if ($configKey == 'useConfigForTesting') {
+            return config('database.useConfigForTesting');
         }
 
         if ($this->connection == 'redis') {
