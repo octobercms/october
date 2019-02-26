@@ -86,20 +86,9 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
 #### Changing database engine for plugins tests
 
-By default OctoberCMS uses SQLite stored in memory for the testing environment. If you want to override the default behavior add the following environmental variable in `phpunit.xml` file:
+By default OctoberCMS uses SQLite stored in memory for the plugin testing environment. If you want to override the default behavior set the `useConfigForTesting` config to `true` in your `/config/database.php` file. When the `APP_ENV` is `testing` and the `useConfigForTesting` is `true` database parameters will be taken from `/config/database.php`.
 
-    <env name="DB_OVERRIDE_DEFAULT" value="true"/>
-
-When the `APP_ENV` is set to `testing` and the `DB_OVERRIDE_DEFAULT` is set to `true` database parameters will be taken from `/config/database.php`. If you use `.env` file then you can override all the environmental variables in your `phpunit.xml` file as follows:
-
-    <env name="DB_CONNECTION" value="mysql"/>
-    <env name="DB_DATABASE" value="testing"/>
-    <env name="DB_HOST" value="localhost"/>
-    <env name="DB_USERNAME" value="username"/>
-    <env name="DB_PASSWORD" value="password"/>
-    <env name="DB_PREFIX" value=""/>
-
-You can override the `/config/database.php` file as well by creating `/config/testing/database.php`. In this case variables from the latter file will be taken.
+You can override the `/config/database.php` file by creating `/config/testing/database.php`. In this case variables from the latter file will be taken.
 
 ## System testing
 

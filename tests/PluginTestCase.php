@@ -36,7 +36,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
             'prefix'   => ''
         ];
 
-        if (env('APP_ENV') === 'testing' && env('DB_OVERRIDE_DEFAULT')) {
+        if (env('APP_ENV') === 'testing' && Config::get('database.useConfigForTesting', false)) {
             $dbConnection = Config::get('database.default', 'sqlite');
 
             $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
