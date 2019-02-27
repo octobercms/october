@@ -37,7 +37,7 @@ class SystemController extends ControllerBase
 
         }
         catch (Exception $ex) {
-            return Response::make('/* '.e($ex->getMessage()).' */', 404);
+            return Response::make('/* '.e($ex->getMessage()).' */', 500);
         }
     }
 }
