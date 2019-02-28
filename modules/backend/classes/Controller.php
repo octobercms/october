@@ -4,6 +4,7 @@ use Lang;
 use View;
 use Flash;
 use Config;
+use Closure;
 use Request;
 use Backend;
 use Session;
