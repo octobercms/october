@@ -202,8 +202,8 @@ class Repeater extends FormWidgetBase
         /*
          * Give repeated form field widgets an opportunity to process the data.
          */
-        foreach ($this->formWidgets as $index => $form) {
-            $value[$index] = $form->getSaveData();
+        foreach ($value as $index => $data) {
+            $value[$index] = $this->formWidgets[$index]->getSaveData();
         }
 
         return array_values($value);
@@ -326,11 +326,7 @@ class Repeater extends FormWidgetBase
 
     public function onRemoveItem()
     {
-        // Remove associated form widget
-        $index = post('_repeater_index');
-        if (isset($this->formWidgets[$index])) {
-            unset($this->formWidgets[$index]);
-        }
+        // Useful for deleting relations
     }
 
     public function onRefresh()
