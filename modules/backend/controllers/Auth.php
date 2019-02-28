@@ -41,7 +41,7 @@ class Auth extends Controller
         })->only('signin');
 
 		// Wrapper to run the code only for HTTPs Connection	
-		if(empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] !== "on")
+		if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on")
         {
             $this->middleware(function ($request, $next) {
                 $response = $next($request);
