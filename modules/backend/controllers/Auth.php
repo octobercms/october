@@ -39,14 +39,18 @@ class Auth extends Controller
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
             return $response;
         })->only('signin');
-		
-        $this->middleware(function ($request, $next) {
-            $response = $next($request);
-            // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
-            $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
-            return $response;
-        })->only('signout');		
-		
+
+		// Wrapper to run the code only for HTTPs Connection	
+		if(empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] !== "on")
+        {
+            $this->middleware(function ($request, $next) {
+                $response = $next($request);
+                // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
+                $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+                return $response;
+            })->only('signout');
+        }
+
         // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
         $this->addJs(url("/modules/backend/assets/js/auth/uninstall-sw.js"));
         $this->layout = 'auth';
