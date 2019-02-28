@@ -9,8 +9,6 @@ $.oc.langMessages['ca'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : catalan (ca)
-//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -97,3 +95,4 @@ $.oc.langMessages['ca'] = $.extend(
     return ca;
 
 })));
+

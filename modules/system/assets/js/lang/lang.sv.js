@@ -9,8 +9,6 @@ $.oc.langMessages['sv'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : swedish (sv)
-//! author : Jens Alm : https://github.com/ulmus
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -78,3 +76,4 @@ $.oc.langMessages['sv'] = $.extend(
     return sv;
 
 })));
+

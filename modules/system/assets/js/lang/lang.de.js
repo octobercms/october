@@ -9,10 +9,6 @@ $.oc.langMessages['de'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : german (de)
-//! author : lluchs : https://github.com/lluchs
-//! author: Menelion Elensúle: https://github.com/Oire
-//! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -87,3 +83,4 @@ $.oc.langMessages['de'] = $.extend(
     return de;
 
 })));
+

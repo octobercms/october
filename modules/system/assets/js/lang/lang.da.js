@@ -9,8 +9,6 @@ $.oc.langMessages['da'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : danish (da)
-//! author : Ulrik Nielsen : https://github.com/mrbase
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -69,3 +67,4 @@ $.oc.langMessages['da'] = $.extend(
     return da;
 
 })));
+

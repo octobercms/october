@@ -3296,7 +3296,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
@@ -4284,6 +4284,9 @@ else if(action=='enable'){this.$el.prop('disabled',!status).toggleClass('control
 else if(action=='disable'){this.$el.prop('disabled',status).toggleClass('control-disabled',status).trigger('disable.oc.triggerapi',[status])}
 else if(action=='empty'&&status){this.$el.not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]').val('')
 this.$el.not(':not(input[type=checkbox], input[type=radio])').prop('checked',false)
+this.$el.trigger('empty.oc.triggerapi').trigger('change')}
+else if(action=='fill'&&status){this.$el.not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]').val('')
+this.$el.not(':not(input[type=checkbox], input[type=radio])').prop('checked',true)
 this.$el.trigger('empty.oc.triggerapi').trigger('change')}
 if(action=='show'||action=='hide'){this.fixButtonClasses()}}
 TriggerOn.prototype.fixButtonClasses=function(){var group=this.$el.closest('.btn-group')

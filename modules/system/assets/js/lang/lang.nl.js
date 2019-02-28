@@ -9,8 +9,6 @@ $.oc.langMessages['nl'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : dutch (nl)
-//! author : Joris Röling : https://github.com/jjupiter
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -96,3 +94,4 @@ $.oc.langMessages['nl'] = $.extend(
     return nl;
 
 })));
+
