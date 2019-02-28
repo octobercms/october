@@ -9,9 +9,6 @@ $.oc.langMessages['tr'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : turkish (tr)
-//! authors : Erhan Gundogan : https://github.com/erhangundogan,
-//!           Burak Yiğit Kaya: https://github.com/BYK
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -105,3 +102,4 @@ $.oc.langMessages['tr'] = $.extend(
     return tr;
 
 })));
+

@@ -116,17 +116,6 @@
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
-        // Allow any widgets inside a deleted item to be disposed
-        $(ev.target).closest('.field-repeater-item').find('[data-disposable]').each(function () {
-            var $elem = $(this),
-                control = $elem.data('control'),
-                widget = $elem.data('oc.' + control)
-
-            if (widget && typeof widget['dispose'] === 'function') {
-                widget.dispose()
-            }
-        })
-
         $(ev.target).closest('.field-repeater-item').remove()
         this.togglePrompt()
     }

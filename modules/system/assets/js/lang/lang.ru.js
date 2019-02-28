@@ -9,10 +9,6 @@ $.oc.langMessages['ru'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : russian (ru)
-//! author : Viktorminator : https://github.com/Viktorminator
-//! Author : Menelion Elensúle : https://github.com/Oire
-//! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -193,3 +189,4 @@ $.oc.langMessages['ru'] = $.extend(
     return ru;
 
 })));
+

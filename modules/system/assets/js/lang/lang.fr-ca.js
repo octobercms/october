@@ -9,8 +9,6 @@ $.oc.langMessages['fr-ca'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : canadian french (fr-ca)
-//! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -83,3 +81,4 @@ $.oc.langMessages['fr-ca'] = $.extend(
     return frCa;
 
 })));
+

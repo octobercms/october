@@ -9,8 +9,6 @@ $.oc.langMessages['hu'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : hungarian (hu)
-//! author : Adam Brunner : https://github.com/adambrunner
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -119,3 +117,4 @@ $.oc.langMessages['hu'] = $.extend(
     return hu;
 
 })));
+

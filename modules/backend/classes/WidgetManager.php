@@ -1,7 +1,6 @@
 <?php namespace Backend\Classes;
 
 use Str;
-use BackendAuth;
 use System\Classes\PluginManager;
 use Event;
 
@@ -207,15 +206,6 @@ class WidgetManager
          */
         Event::fire('system.reportwidgets.extendItems', [$this]);
 
-        $user = BackendAuth::getUser();
-        foreach ($this->reportWidgets as $widget => $config) {
-            if (!empty($config['permissions'])) {
-                if (!$user->hasAccess($config['permissions'], false)) {
-                    unset($this->reportWidgets[$widget]);
-                }
-            }
-        }
-
         return $this->reportWidgets;
     }
 
@@ -257,4 +247,5 @@ class WidgetManager
 
         unset($this->reportWidgets[$className]);
     }
+
 }

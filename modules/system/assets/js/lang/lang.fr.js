@@ -9,8 +9,6 @@ $.oc.langMessages['fr'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : french (fr)
-//! author : John Fischer : https://github.com/jfroffice
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -92,3 +90,4 @@ $.oc.langMessages['fr'] = $.extend(
     return fr;
 
 })));
+

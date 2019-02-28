@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Config;
 use Carbon\Carbon;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
@@ -121,14 +120,8 @@ class DatePicker extends FormWidgetBase
         if ($value = $this->getLoadValue()) {
 
             $value = DateTimeHelper::makeCarbon($value, false);
-            if ($this->mode === 'date' ) {
-                $backendTimeZone = \Backend\Models\Preference::get('timezone');
-                $value->setTimezone($backendTimeZone);
-                $value->setTime(0,0,0);
-                $value->setTimezone(Config::get('app.timezone'));
-            }
-            $value = $value->toDateTimeString();
 
+            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
         }
 
         $this->vars['name'] = $this->getFieldName();

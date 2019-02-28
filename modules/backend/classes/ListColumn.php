@@ -250,12 +250,13 @@ class ListColumn
             }
             else {
                 if (is_array($result) && array_key_exists($key, $result)) {
-                    $result = $result[$key];
-                } elseif (!isset($result->{$key})) {
-                    return $default;
-                } else {
-                    $result = $result->{$key};
+                    return $result[$key];
                 }
+                if (!isset($result->{$key})) {
+                    return $default;
+                }
+
+                $result = $result->{$key};
             }
         }
 

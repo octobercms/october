@@ -9,8 +9,6 @@ $.oc.langMessages['es'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : spanish (es)
-//! author : Julio Napurí : https://github.com/julionc
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -101,3 +99,4 @@ $.oc.langMessages['es'] = $.extend(
     return es;
 
 })));
+
