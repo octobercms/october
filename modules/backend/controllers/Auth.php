@@ -41,7 +41,7 @@ class Auth extends Controller
         })->only('signin');
 
 		// Only run on HTTPS connections
-		if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
+		if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
             $this->middleware(function ($request, $next) {
                 $response = $next($request);
                 // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
