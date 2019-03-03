@@ -58,10 +58,15 @@ return [
     ],
     'colorpicker' => [
         'choose' => 'Ok',
+    ],
     'filter' => [
         'group' => [
             'all' => 'kaikki'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Ota käyttöön',
+            'clear_button_text'  => 'Tyhjennä'            
+        ], 
         'dates' => [
             'all' => 'kaikki',
             'filter_button_text' => 'Suodata',
