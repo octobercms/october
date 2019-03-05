@@ -1,1 +1,27 @@
-.field-codeeditor {width:100%;position:relative;border:2px solid #d1d6d9;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px }.field-codeeditor textarea {opacity:0;filter:alpha(opacity=0) }.field-codeeditor.editor-focus {border:2px solid #d1d6d9 }.field-codeeditor.size-tiny {min-height:50px }.field-codeeditor.size-small {min-height:100px }.field-codeeditor.size-large {min-height:200px }.field-codeeditor.size-huge {min-height:250px }.field-codeeditor.size-giant {min-height:350px }.field-codeeditor .ace_search {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:14px;color:#333;z-index:13 }.field-codeeditor .editor-code {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px }.field-codeeditor .editor-toolbar {position:absolute;top:-30px;right:35px;z-index:10 }.field-codeeditor .editor-toolbar >ul,.field-codeeditor .editor-toolbar ul >li {list-style-type:none;padding:0;margin:0 }.field-codeeditor .editor-toolbar >ul >li {float:left }.field-codeeditor .editor-toolbar >ul >li .tooltip.left {margin-right:25px }.field-codeeditor .editor-toolbar >ul >li >a {display:block;height:25px;width:25px;color:#666;font-size:20px;text-align:center;text-decoration:none }.field-codeeditor .editor-toolbar >ul >li >a >abbr {position:absolute;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0 }.field-codeeditor .editor-toolbar >ul >li >a >i {opacity:0.7;filter:alpha(opacity=70);display:block }.field-codeeditor .editor-toolbar >ul >li >a >i:before {font-size:15px }.field-codeeditor .editor-toolbar >ul >li >a:hover >i,.field-codeeditor .editor-toolbar >ul >li >a:focus >i {opacity:1;filter:alpha(opacity=100) }.field-codeeditor.editor-fullscreen {z-index:301;position:fixed !important;top:0;left:0;height:100%;border-width:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0 }.field-codeeditor.editor-fullscreen .editor-code {-webkit-border-radius:0;-moz-border-radius:0;border-radius:0 }.field-codeeditor.editor-fullscreen .editor-toolbar {z-index:302;border-radius:0 0 5px 5px;right:25px;background-color:#ddd;border:1px solid #cbcbcb;border-right-color:#cbcbcb;border-right-style:solid;border-right-width:1px;border-top:0 none;max-width:125px;overflow:hidden;margin:0;padding:4px;position:absolute;top:0;white-space:normal }.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a {color:#666 }.field-codeeditor.editor-fullscreen .ace_search {z-index:303 }.field-codeeditor .secondary-tabs .editor-toolbar >ul >li >a {color:#fff }
+.field-codeeditor {width:100%;position:relative;border:2px solid #d1d6d9;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.field-codeeditor textarea {opacity:0;filter:alpha(opacity=0)}
+.field-codeeditor.editor-focus {border:2px solid #d1d6d9}
+.field-codeeditor.size-tiny {min-height:50px}
+.field-codeeditor.size-small {min-height:100px}
+.field-codeeditor.size-large {min-height:200px}
+.field-codeeditor.size-huge {min-height:250px}
+.field-codeeditor.size-giant {min-height:350px}
+.field-codeeditor .ace_search {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:14px;color:#333;z-index:13}
+.field-codeeditor .editor-code {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.field-codeeditor .editor-toolbar {position:absolute;top:-30px;right:35px;z-index:10}
+.field-codeeditor .editor-toolbar >ul,
+.field-codeeditor .editor-toolbar ul >li {list-style-type:none;padding:0;margin:0}
+.field-codeeditor .editor-toolbar >ul >li {float:left}
+.field-codeeditor .editor-toolbar >ul >li .tooltip.left {margin-right:25px}
+.field-codeeditor .editor-toolbar >ul >li >a {display:block;height:25px;width:25px;color:#666;font-size:20px;text-align:center;text-decoration:none}
+.field-codeeditor .editor-toolbar >ul >li >a >abbr {position:absolute;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
+.field-codeeditor .editor-toolbar >ul >li >a >i {opacity:0.7;filter:alpha(opacity=70);display:block}
+.field-codeeditor .editor-toolbar >ul >li >a >i:before {font-size:15px}
+.field-codeeditor .editor-toolbar >ul >li >a:hover >i,
+.field-codeeditor .editor-toolbar >ul >li >a:focus >i {opacity:1;filter:alpha(opacity=100)}
+.field-codeeditor.editor-fullscreen {z-index:301;position:fixed !important;top:0;left:0;height:100%;border-width:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.field-codeeditor.editor-fullscreen .editor-code {-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.field-codeeditor.editor-fullscreen .editor-toolbar {z-index:302;border-radius:0 0 5px 5px;right:25px;background-color:#ddd;border:1px solid #cbcbcb;border-right-color:#cbcbcb;border-right-style:solid;border-right-width:1px;border-top:0 none;max-width:125px;overflow:hidden;margin:0;padding:4px;position:absolute;top:0;white-space:normal}
+.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a {color:#666}
+.field-codeeditor.editor-fullscreen .ace_search {z-index:303}
+.field-codeeditor .secondary-tabs .editor-toolbar >ul >li >a {color:#fff}

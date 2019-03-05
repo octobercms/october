@@ -42,6 +42,7 @@ if (window.jQuery.request !== undefined) {
         if (_event.isDefaultPrevented()) return
 
         var loading = options.loading !== undefined ? options.loading : null,
+            url = options.url !== undefined ? options.url : window.location.href,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
             useFiles = options.files !== undefined
@@ -112,7 +113,7 @@ if (window.jQuery.request !== undefined) {
          * Request options
          */
         var requestOptions = {
-            url: window.location.href,
+            url: url,
             crossDomain: false,
             context: context,
             headers: requestHeaders,
@@ -423,6 +424,7 @@ if (window.jQuery.request !== undefined) {
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
             form: $this.data('request-form'),
+            url: $this.data('request-url'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
         }

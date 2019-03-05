@@ -7,7 +7,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
         <meta name="csrf-token" content="<?= csrf_token() ?>">
-        <link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
+        <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
         <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
         <link href="<?= Url::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">

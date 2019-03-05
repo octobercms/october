@@ -158,7 +158,7 @@
     }
 
     FilterWidget.prototype.focusSearch = function() {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         var $input = $('#controlFilterPopover input.filter-search-input'),

@@ -17,22 +17,32 @@ return [
     ],
     'page' => [
         'untitled' => 'Untitled',
+        '404' => [
+            'label'     => 'Page Not Found',
+            'help'      => "We searched and searched but the requested URL just couldn't be found. Perhaps you were looking for something else?",
+            'back_link' => 'Go back to the previous page',
+        ],
         'access_denied' => [
             'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
-            'cms_link' => 'Return to the back-end'
+            'cms_link' => 'Return to the back-end',
         ],
         'no_database' => [
             'label' => 'Database missing',
             'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
-            'cms_link' => 'Return to the homepage'
+            'cms_link' => 'Return to the homepage',
         ],
         'invalid_token' => [
-            'label' => 'Invalid security token'
-        ]
+            'label' => 'Invalid security token',
+        ],
     ],
     'partial' => [
-        'not_found_name' => "The partial ':name' is not found."
+        'not_found_name' => "The partial ':name' is not found.",
+        'invalid_name' => 'Invalid partial name: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Invalid AJAX handler name: :name.',
+        'not_found' => "AJAX handler ':name' was not found."
     ],
     'account' => [
         'signed_in_as' => 'Signed in as :full_name',
@@ -289,6 +299,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Find Record',
+        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid',
         'cancel' => 'Cancel',
     ],
     'pagelist' => [
@@ -416,6 +427,8 @@ return [
         'brand' => 'Brand',
         'logo' => 'Logo',
         'logo_description' => 'Upload a custom logo to use in the back-end.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Upload a custom favicon to use in the back-end',
         'app_name' => 'App Name',
         'app_name_description' => 'This name is shown in the title area of the back-end.',
         'app_tagline' => 'App Tagline',
