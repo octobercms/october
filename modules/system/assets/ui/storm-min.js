@@ -3258,7 +3258,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right popup-allow-focus"                              \
+                                        class="form-control align-right"                                                \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ date_placeholder }}" />                                         \
                                 </div>                                                                                  \
