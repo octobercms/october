@@ -3258,7 +3258,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                                         type="text"                                                                     \
                                         name="date"                                                                     \
                                         value="{{ date }}"                                                              \
-                                        class="form-control align-right"                                                \
+                                        class="form-control align-right popup-allow-focus"                              \
                                         autocomplete="off"                                                              \
                                         placeholder="{{ date_placeholder }}" />                                         \
                                 </div>                                                                                  \
@@ -3296,7 +3296,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right popup-allow-focus"                                                  \
+                                        class="form-control align-right"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
