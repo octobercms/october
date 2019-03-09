@@ -27,14 +27,14 @@ return [
         'id' => 'Bahasa Indonesia',
         'it' => 'Italiano',
         'ja' => '日本語',
-		'kr' => '한국어',
+        'kr' => '한국어',
         'lt' => 'Lietuvių',
         'lv' => 'Latviešu',
         'nb-no' => 'Norsk (Bokmål)',
         'nl' => 'Nederlands',
         'pl' => 'Polskie',
         'pt-br' => 'Português (Brasil)',
-		'pt-pt' => 'Português (Portugal)',
+        'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
         'ru' => 'Русский',
         'sv' => 'Svenska',
@@ -198,7 +198,7 @@ return [
         'partial' => 'Sisältöpala',
         'partials' => 'Sisältöpalat',
         'menu_layouts_label' => 'Sähköpostin ulkoasut',
-		'menu_partials_label' => 'Sähköpostin sisältöpalat',
+        'menu_partials_label' => 'Sähköpostin sisältöpalat',
         'layout' => 'Ulkoasu',
         'layouts' => 'Ulkoasut',
         'no_layout' => '-- Ei ulkoasua --',
@@ -428,5 +428,5 @@ return [
         'media' => [
         'invalid_path' => "Virheellinen tiedostopolku: ':path'.",
         'folder_size_items' => 'tiedosto(a)',
-    ],
+    ]
 ];
