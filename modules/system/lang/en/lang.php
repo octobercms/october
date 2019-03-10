@@ -447,6 +447,12 @@ return [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'folder_size_items' => 'item(s)',
     ],
+    'page' => [
+        'custom_error' => [
+            'label' => 'Page error',
+            'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+        ],
+    ],
     'pagination' => [
         'previous' => 'Previous',
         'next' => 'Next',

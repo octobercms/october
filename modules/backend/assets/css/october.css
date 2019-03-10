@@ -610,7 +610,7 @@ body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sa
 .layout >.layout-row >.layout-cell.min-height {height:0}
 .layout >.layout-row >.layout-cell.center {text-align:center}
 .layout >.layout-row >.layout-cell.middle {vertical-align:middle}
-.layout >.layout-row.min-size {height:0}
+.layout >.layout-row.min-size {height:1px}
 .layout >.layout-cell {display:table-cell;vertical-align:top;height:100%}
 .layout >.layout-cell.layout-container,
 .layout >.layout-cell .layout-container,
@@ -656,6 +656,7 @@ body.slim-container .layout .layout-container {padding-left:0 !important;padding
 body.mainmenu-open {overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner {font-size:13px;padding:6px 16px}
 ul.mainmenu-nav {font-size:14px}
+ul.mainmenu-nav li {}
 ul.mainmenu-nav li .svg-icon {-webkit-backface-visibility:hidden;backface-visibility:hidden}
 ul.mainmenu-nav li span.counter {display:block;position:absolute;top:.143em;right:0;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 ul.mainmenu-nav li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
