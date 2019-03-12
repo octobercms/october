@@ -368,7 +368,7 @@ class Repeater extends FormWidgetBase
             return null;
         }
 
-        return ['fields' => $fields];
+        return ['fields' => $fields, 'enableDefaults' => object_get($this->config, 'enableDefaults')];
     }
 
     /**
