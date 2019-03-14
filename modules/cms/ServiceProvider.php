@@ -78,7 +78,7 @@ class ServiceProvider extends ModuleServiceProvider
             $useCache = !Config::get('cms.twigNoCache');
             $isDebugMode = Config::get('app.debug', false);
             $strictVariables = Config::get('cms.enableTwigStrictVariables', false);
-            $strictVariables = is_null($strictVariables) ? $isDebugMode : $strictVariables;
+            $strictVariables = $strictVariables ?? $isDebugMode;
             $forceBytecode = Config::get('cms.forceBytecodeInvalidation', false);
 
             $options = [
