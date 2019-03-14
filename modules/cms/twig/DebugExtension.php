@@ -4,7 +4,6 @@ use Twig_Template;
 use Twig_Extension;
 use Twig_Environment;
 use Twig_SimpleFunction;
-use Cms\Classes\Controller;
 use Cms\Classes\ComponentBase;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
