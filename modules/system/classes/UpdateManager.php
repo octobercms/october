@@ -227,10 +227,16 @@ class UpdateManager
         $frozen = $installed->lists('is_frozen', 'code');
         $updatable = $installed->lists('is_updatable', 'code');
         $build = Parameter::get('system::core.build');
+        $themes = [];
+
+        if ($this->themeManager) {
+            $themes = array_keys($this->themeManager->getInstalled());
+        }
 
         $params = [
             'core' => $this->getHash(),
             'plugins' => serialize($versions),
+            'themes' => serialize($themes),
             'build' => $build,
             'force' => $force
         ];
@@ -557,12 +563,16 @@ class UpdateManager
      * Downloads a plugin from the update server.
      * @param string $name Plugin name.
      * @param string $hash Expected file hash.
+     * @param boolean $installation Indicates whether this is a plugin installation request.
      * @return self
      */
-    public function downloadPlugin($name, $hash)
+    public function downloadPlugin($name, $hash, $installation = false)
     {
         $fileCode = $name . $hash;
-        $this->requestServerFile('plugin/get', $fileCode, $hash, ['name' => $name]);
+        $this->requestServerFile('plugin/get', $fileCode, $hash, [
+            'name' => $name,
+            'installation' => $installation ? 1 : 0
+        ]);
     }
 
     /**
@@ -909,7 +919,14 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
+        $postData['protocol_version'] = '1.1';
+        $postData['client'] = 'october';
+
+        $postData['server'] = base64_encode(serialize([
+            'php'   => PHP_VERSION,
+            'url'   => Url::to('/'),
+            'since' => PluginVersion::orderBy('created_at')->value('created_at')
+        ]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;

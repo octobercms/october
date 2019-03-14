@@ -139,6 +139,11 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
+        // Setup the default preview mode on form initialization if the context is preview
+        if ($config->context === 'preview') {
+            $this->formWidget->previewMode = true;
+        }
+
         $this->formWidget->bindEvent('form.extendFieldsBefore', function () {
             $this->controller->formExtendFieldsBefore($this->formWidget);
         });
@@ -463,7 +468,7 @@ class FormController extends ControllerBehavior
         }
 
         if ($model && $redirectUrl) {
-            $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
+            $redirectUrl = RouterHelper::replaceParameters($model, $redirectUrl);
         }
 
         if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {

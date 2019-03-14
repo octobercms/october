@@ -208,7 +208,6 @@
          */
         this.$el.hotKey({
             hotkey: 'esc',
-            hotkeyMac: 'esc',
             callback: this.proxy(this.onEscape)
         })
 

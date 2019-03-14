@@ -1,0 +1,6 @@
+.nested-form {position:relative;min-height:30px}
+.nested-form .control-tabs.primary-tabs .nav-tabs {margin:0 !important}
+.nested-form.panel-styles {margin-top:5px;padding:1em 1.25em 0 1.25em !important;background:#f5f5f5;border:1px solid #d1d6d9;border-radius:3px;box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5)}
+.nested-form.panel-styles .control-tabs.primary-tabs .nav-tabs >li.active >a:before {background-color:#f5f5f5;border-color:#f5f5f5}
+.nested-form.panel-styles .control-tabs.primary-tabs .nav-tabs >li >a >span.title:before,
+.nested-form.panel-styles .control-tabs.primary-tabs .nav-tabs >li >a >span.title:after {background-color:#f5f5f5}

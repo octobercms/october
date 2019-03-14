@@ -59,6 +59,12 @@ columns:
         invisible: true
         type: datetime
 
+    deleted_at:
+        label: backend::lang.user.deleted_at
+        searchable: true
+        invisible: true
+        type: datetime
+
     is_activated:
         label: backend::lang.user.activated
         invisible: true

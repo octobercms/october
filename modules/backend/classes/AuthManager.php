@@ -163,8 +163,37 @@ class AuthManager extends RainAuthManager
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function createUserModelQuery()
+    {
+        return parent::createUserModelQuery()->withTrashed();
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function validateUserModel($user)
+    {
+        if ( ! $user instanceof $this->userModel) {
+            return false;
+        }
+
+        // Perform the deleted_at check manually since the relevant migrations
+        // might not have been run yet during the update to build 444.
+        // @see https://github.com/octobercms/october/issues/3999
+        if (array_key_exists('deleted_at', $user->getAttributes()) && $user->deleted_at !== null) {
+            return false;
+        }
+
+        return $user;
+    }
+
+    /**
      * Returns an array of registered permissions belonging to a given role code
      * @param string $role
+     * @param bool $includeOrphans
      * @return array
      */
     public function listPermissionsForRole($role, $includeOrphans = true)

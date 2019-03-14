@@ -91,7 +91,7 @@
 
             $clone.data('dragComponents', { x: objX, y: objY })
 
-            if (Modernizr.touch) {
+            if (Modernizr.touchevents) {
                 $(window).on('touchmove.oc.dragcomponents', function(event){
                     var touchEvent = event.originalEvent
                     moveDrag(touchEvent.touches[0])

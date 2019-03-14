@@ -100,13 +100,13 @@
 
         $list.css({
             'overflow': 'hidden',
-            'display': '',
             'height': 0
         })
         $list.animate({'height': $list[0].scrollHeight}, { duration: duration, queue: false, complete: function() {
             $list.css({
                 'overflow': 'visible',
-                'height': 'auto'
+                'height': 'auto',
+                'display': ''
             })
             $(group).attr('data-status', 'expanded')
             $(window).trigger('oc.updateUi')

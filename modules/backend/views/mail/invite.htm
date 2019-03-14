@@ -8,7 +8,7 @@ A user account has been created for you on **{{ appName }}**.
 
 {% partial 'panel' body %}
 - Login: `{{ login ?: 'sample' }}`
-- Password: `{{ password ?: '********' }}`
+- Password: `{{ password ?: '********' | raw }}`
 {% endpartial %}
 
 You can use the following link to sign in:

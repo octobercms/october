@@ -8,7 +8,7 @@ $el.trigger('ajaxSetup',[context])
 var _event=jQuery.Event('oc.beforeRequest')
 $triggerEl.trigger(_event,context)
 if(_event.isDefaultPrevented())return
-var loading=options.loading!==undefined?options.loading:null,isRedirect=options.redirect!==undefined&&options.redirect.length,useFlash=options.flash!==undefined,useFiles=options.files!==undefined
+var loading=options.loading!==undefined?options.loading:null,url=options.url!==undefined?options.url:window.location.href,isRedirect=options.redirect!==undefined&&options.redirect.length,useFlash=options.flash!==undefined,useFiles=options.files!==undefined
 if(useFiles&&typeof FormData==='undefined'){console.warn('This browser does not support file uploads via FormData')
 useFiles=false}
 if($.type(loading)=='string'){loading=$(loading)}
@@ -24,7 +24,7 @@ if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.a
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
-var requestOptions={url:window.location.href,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
+var requestOptions={url:url,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
 var _event=jQuery.Event('ajaxBeforeUpdate')
 $triggerEl.trigger(_event,[context,data,textStatus,jqXHR])
@@ -100,7 +100,7 @@ return result.join('&')}
 var old=$.fn.request
 $.fn.request=function(handler,option){var args=arguments
 var $this=$(this).first()
-var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
+var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
 if(!handler)handler=$this.data('request')
 var options=$.extend(true,{},Request.DEFAULTS,data,typeof option=='object'&&option)
 return new Request($this,handler,options)}
