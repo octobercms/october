@@ -318,6 +318,8 @@ class NavigationManager
 
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
+            } elseif (!empty((int) $item->counter)) {
+                $item->counter = (int) $item->counter;
             } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
