@@ -1076,7 +1076,7 @@ class Form extends WidgetBase
             : null;
 
         return $field->getValueFromData(
-            $this->data, 
+            $this->data,
             is_string($defaultValue) ? trans($defaultValue) : $defaultValue
         );
     }
