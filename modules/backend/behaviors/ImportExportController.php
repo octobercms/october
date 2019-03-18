@@ -799,10 +799,10 @@ class ImportExportController extends ControllerBehavior
         $presetMode = post('format_preset');
 
         $options = [
-            'delimiter' => null,
-            'enclosure' => null,
-            'escape' => null,
-            'encoding' => null
+            'delimiter' => $this->getConfig('formatOptions[delimiter]'),
+            'enclosure' => $this->getConfig('formatOptions[enclosure]'),
+            'escape' => $this->getConfig('formatOptions[escape]'),
+            'encoding' => $this->getConfig('formatOptions[encoding]'),
         ];
 
         if ($presetMode == 'custom') {
