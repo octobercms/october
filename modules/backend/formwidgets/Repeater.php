@@ -109,8 +109,8 @@ class Repeater extends FormWidgetBase
         }
 
         $fieldName = $this->formField->getName(false);
-        $this->indexInputName = self::INDEX_PREFIX.$fieldName;
-        $this->groupInputName = self::GROUP_PREFIX.$fieldName;
+        $this->indexInputName = $this->alias.self::INDEX_PREFIX.$fieldName;
+        $this->groupInputName = $this->alias.self::GROUP_PREFIX.$fieldName;
 
         $this->processGroupMode();
 
