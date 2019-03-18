@@ -597,9 +597,9 @@ class ImportExportController extends ControllerBehavior
          */
         $defaultOptions = [
             'fileName' => $this->exportFileName,
-            'delimiter' => $this->getConfig('formatOptions[delimiter]', ','),
-            'enclosure' => $this->getConfig('formatOptions[enclosure]', '"'),
-            'escape' => $this->getConfig('formatOptions[escape]', '\\'),
+            'delimiter' => $this->getConfig('defaultFormatOptions[delimiter]', ','),
+            'enclosure' => $this->getConfig('defaultFormatOptions[enclosure]', '"'),
+            'escape' => $this->getConfig('defaultFormatOptions[escape]', '\\'),
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -801,10 +801,10 @@ class ImportExportController extends ControllerBehavior
         $presetMode = post('format_preset');
 
         $options = [
-            'delimiter' => $this->getConfig('formatOptions[delimiter]'),
-            'enclosure' => $this->getConfig('formatOptions[enclosure]'),
-            'escape' => $this->getConfig('formatOptions[escape]'),
-            'encoding' => $this->getConfig('formatOptions[encoding]'),
+            'delimiter' => $this->getConfig('defaultFormatOptions[delimiter]'),
+            'enclosure' => $this->getConfig('defaultFormatOptions[enclosure]'),
+            'escape' => $this->getConfig('defaultFormatOptions[escape]'),
+            'encoding' => $this->getConfig('defaultFormatOptions[encoding]'),
         ];
 
         if ($presetMode == 'custom') {
