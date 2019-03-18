@@ -597,8 +597,9 @@ class ImportExportController extends ControllerBehavior
          */
         $defaultOptions = [
             'fileName' => $this->exportFileName,
-            'delimiter' => ',',
-            'enclosure' => '"'
+            'delimiter' => $this->getConfig('formatOptions[delimiter]', ','),
+            'enclosure' => $this->getConfig('formatOptions[enclosure]', '"'),
+            'escape' => $this->getConfig('formatOptions[escape]', '\\'),
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -609,6 +610,7 @@ class ImportExportController extends ControllerBehavior
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
+        $csv->setEscape($options['escape']);
 
         /*
          * Add headers
