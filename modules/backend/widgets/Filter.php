@@ -98,7 +98,7 @@ class Filter extends WidgetBase
      */
     public function renderScopeElement($scope)
     {
-        $params = ['scope' => $scope];
+        $params = ['scope' => $scope, 'alias' => $this->alias];
 
         switch ($scope->type) {
             case 'date':
