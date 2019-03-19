@@ -96,7 +96,10 @@ class BackendController extends ControllerBase
      */
     protected function passToCmsController($url)
     {
-        if (in_array('Cms', Config::get('cms.loadModules', [])))  {
+        if (
+            in_array('Cms', Config::get('cms.loadModules', [])) &&
+            class_exists('\Cms\Classes\Controller')
+        ) {
             $this->cmsHandling = true;
             return App::make('Cms\Classes\Controller')->run($url);
         } else {
