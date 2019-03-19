@@ -66,6 +66,11 @@ class RelationController extends ControllerBehavior
     protected $manageWidget;
 
     /**
+     * @var \Backend\Widgets\Filter Reference to the filter widget.
+     */
+    protected $filterWidget;
+
+    /**
      * @var Backend\Classes\WidgetBase Reference to widget for relations with pivot data.
      */
     protected $pivotWidget;
@@ -249,6 +254,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationField'] = $this->field;
         $this->vars['relationType'] = $this->relationType;
         $this->vars['relationSearchWidget'] = $this->searchWidget;
+        $this->vars['relationFilterWidget'] = $this->filterWidget;
         $this->vars['relationToolbarWidget'] = $this->toolbarWidget;
         $this->vars['relationManageMode'] = $this->manageMode;
         $this->vars['relationManageWidget'] = $this->manageWidget;
@@ -360,6 +366,14 @@ class RelationController extends ControllerBehavior
         }
 
         /*
+         * Filter widget (optional)
+         */
+        if ($this->filterWidget = $this->makeFilterWidget()) {
+            $this->controller->relationExtendFilterWidget($this->filterWidget, $this->field, $this->model);
+            $this->filterWidget->bindToController();
+        }
+
+        /*
          * View widget
          */
         if ($this->viewWidget = $this->makeViewWidget()) {
@@ -374,6 +388,8 @@ class RelationController extends ControllerBehavior
             $this->controller->relationExtendManageWidget($this->manageWidget, $this->field, $this->model);
             $this->manageWidget->bindToController();
         }
+
+
 
         /*
          * Pivot widget
@@ -532,6 +548,34 @@ class RelationController extends ControllerBehavior
     //
     // Widgets
     //
+
+    protected function makeFilterWidget()
+    {
+        if (!$this->getConfig('manage[filter]')) {
+            return null;
+        }
+
+        $filterConfig = $this->makeConfig($this->getConfig('manage[filter]'));
+        $filterConfig->alias = $this->alias . 'Filter';
+        $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
+
+        /*
+         * Filter Widget with extensibility
+         */
+        $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
+            $this->controller->listFilterExtendScopes($filterWidget);
+        });
+
+        /*
+         * Extend the query of the list of options
+         */
+        $filterWidget->bindEvent('filter.extendQuery', function ($query, $scope) {
+            $this->controller->listFilterExtendQuery($query, $scope);
+        });
+
+        return $filterWidget;
+    }
+
 
     protected function makeToolbarWidget()
     {
@@ -807,6 +851,18 @@ class RelationController extends ControllerBehavior
                 if (Request::ajax()) {
                     $widget->setSearchTerm($this->searchWidget->getActiveTerm());
                 }
+            }
+
+            /*
+             * Link the Filter Widget to the List Widget
+             */
+            if ($this->filterWidget) {
+                $this->filterWidget->bindEvent('filter.update', function () use ($widget) {
+                    return $widget->onFilter();
+                });
+
+                // Apply predefined filter values
+                $widget->addFilter([$this->filterWidget, 'applyAllScopesToQuery']);
             }
         }
         /*
@@ -1327,6 +1383,16 @@ class RelationController extends ControllerBehavior
      * @param October\Rain\Database\Model $model
      */
     public function relationExtendPivotWidget($widget, $field, $model)
+    {
+    }
+
+    /**
+     * Provides an opportunity to manipulate the filter widget.
+     * @param \Backend\Widgets\Filter $widget
+     * @param string $field
+     * @param October\Rain\Database\Model $model
+     */
+    public function relationExtendFilterWidget($widget, $field, $model)
     {
     }
 
