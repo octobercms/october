@@ -87,7 +87,18 @@
     }
 
     FilterWidget.prototype.init = function() {
-        this.unregisterHandlers() // Unregister any previously defined handlers
+        var self = this
+
+        this.$el.on('change', '.filter-scope input[type="checkbox"]', function(){
+            var $scope = $(this).closest('.filter-scope')
+
+            if ($scope.hasClass('is-indeterminate')) {
+                self.switchToggle($(this))
+            }
+            else {
+                self.checkboxToggle($(this))
+            }
+        })
 
         $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
             $(this)
@@ -95,17 +106,45 @@
                 .toggleClass('active', $(this).is(':checked'))
         })
 
-        this.registerHandlers()
-    }
+        this.$el.on('click', 'a.filter-scope', function(){
+            var $scope = $(this),
+                scopeName = $scope.data('scope-name')
 
-    FilterWidget.prototype.registerHandlers = function() {
-        var self = this
+            // Second click closes the filter scope
+            if ($scope.hasClass('filter-scope-open')) return
 
-        this.$el.on('change', '.filter-scope input[type="checkbox"]', $.proxy(this.onChangeCheckbox, this))
-        this.$el.on('click', 'a.filter-scope', $.proxy(this.onClickScope, this))
+            self.$activeScope = $scope
+            self.activeScopeName = scopeName
+            self.isActiveScopeDirty = false
+            self.displayPopover($scope)
+            $scope.addClass('filter-scope-open')
+        })
 
-        this.$el.on('show.oc.popover', 'a.filter-scope', function(){
+        this.$el.on('show.oc.popover', 'a.filter-scope', function(event){
             self.focusSearch()
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-items > ul > li', function(){
+                self.selectItem($(this))
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-active-items > ul > li', function(){
+                self.selectItem($(this), true)
+            })
+
+            $(event.relatedTarget).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
+                self.filterAvailable(data.scopeName, data.options.available)
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
+                e.preventDefault()
+                self.filterScope()
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
+                e.preventDefault()
+                self.filterScope(true)
+            })
+
         })
 
         this.$el.on('hide.oc.popover', 'a.filter-scope', function(){
@@ -117,77 +156,6 @@
             // Second click closes the filter scope
             setTimeout(function() { $scope.removeClass('filter-scope-open') }, 200)
         })
-
-        $(document).on('click', '#controlFilterPopover .filter-items > ul > li', $.proxy(this.onSelectItem, this))
-        $(document).on('click', '#controlFilterPopover .filter-active-items > ul > li', $.proxy(this.onUnselectItem, this))
-        $(document).on('ajaxDone', '#controlFilterPopover input.filter-search-input', $.proxy(this.onAjaxDone, this))
-        $(document).on('click', '#controlFilterPopover [data-trigger="apply"]', $.proxy(this.onClickApply, this))
-        $(document).on('click', '#controlFilterPopover [data-trigger="clear"]', $.proxy(this.onClickClear, this))
-    }
-
-    FilterWidget.prototype.unregisterHandlers = function() {
-        this.$el.off('change', '.filter-scope input[type="checkbox"]', $.proxy(this.onChangeCheckbox))
-        this.$el.off('click', 'a.filter-scope', $.proxy(this.onClickScope))
-
-        this.$el.off('show.oc.popover', 'a.filter-scope')
-        this.$el.off('hide.oc.popover', 'a.filter-scope')
-
-        $(document).off('click', '#controlFilterPopover .filter-items > ul > li', $.proxy(this.onSelectItem, this))
-        $(document).off('click', '#controlFilterPopover .filter-active-items > ul > li', $.proxy(this.onUnselectItem, this))
-        $(document).off('ajaxDone', '#controlFilterPopover input.filter-search-input', $.proxy(this.onAjaxDone, this))
-        $(document).off('click', '#controlFilterPopover [data-trigger="apply"]', $.proxy(this.onClickApply, this))
-        $(document).off('click', '#controlFilterPopover [data-trigger="clear"]', $.proxy(this.onClickClear, this))
-    }
-
-    /*
-     * Event handlers
-     */
-
-    FilterWidget.prototype.onChangeCheckbox = function(ev) {
-        var $scope = $(ev.currentTarget).closest('.filter-scope')
-
-        if ($scope.hasClass('is-indeterminate')) {
-            this.switchToggle($(ev.currentTarget))
-        }
-        else {
-            this.checkboxToggle($(ev.currentTarget))
-        }
-    }
-
-    FilterWidget.prototype.onClickScope = function(ev) {
-        var $scope = $(ev.currentTarget), // currentTarget refers to the correct scope here
-            scopeName = $scope.data('scope-name')
-
-        // Second click closes the filter scope
-        if ($scope.hasClass('filter-scope-open')) return
-
-        this.$activeScope = $scope
-        this.activeScopeName = scopeName
-        this.isActiveScopeDirty = false
-        this.displayPopover($scope)
-        $scope.addClass('filter-scope-open')
-    }
-
-    FilterWidget.prototype.onClickApply = function (e) {
-        e.preventDefault()
-        this.filterScope()
-    }
-
-    FilterWidget.prototype.onClickClear = function (e) {
-        e.preventDefault()
-        this.filterScope(true)
-    }
-
-    FilterWidget.prototype.onAjaxDone = function(event, context, data) {
-        this.filterAvailable(data.scopeName, data.options.available)
-    }
-
-    FilterWidget.prototype.onSelectItem = function(ev) {
-        this.selectItem($(ev.currentTarget))
-    }
-
-    FilterWidget.prototype.onUnselectItem = function(ev) {
-        this.selectItem($(ev.currentTarget), true)
     }
 
     FilterWidget.prototype.focusSearch = function() {
@@ -416,9 +384,9 @@
             return
 
         var data = {
-            scopeName: scopeName,
-            options: this.scopeValues[scopeName]
-        }
+                scopeName: scopeName,
+                options: this.scopeValues[scopeName]
+            }
 
         $.oc.stripeLoadIndicator.show()
         this.$el.request(this.options.updateHandler, {
@@ -437,9 +405,9 @@
 
         if (this.options.updateHandler) {
             var data = {
-                scopeName: scopeName,
-                value: isChecked
-            }
+                    scopeName: scopeName,
+                    value: isChecked
+                }
 
             $.oc.stripeLoadIndicator.show()
             this.$el.request(this.options.updateHandler, {
@@ -461,9 +429,9 @@
 
         if (this.options.updateHandler) {
             var data = {
-                scopeName: scopeName,
-                value: switchValue
-            }
+                    scopeName: scopeName,
+                    value: switchValue
+                }
 
             $.oc.stripeLoadIndicator.show()
             this.$el.request(this.options.updateHandler, {
@@ -536,3 +504,4 @@
     })
 
 }(window.jQuery);
+

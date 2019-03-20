@@ -37,15 +37,23 @@
     // =================
 
     FilterWidget.prototype.initFilterNumber = function () {
-        this.unregisterHandlersNumber() // Unregister any previously defined handlers
-        this.registerHandlersNumber()
-    }
-
-    FilterWidget.prototype.registerHandlersNumber = function() {
         var self = this
 
-        this.$el.on('show.oc.popover', 'a.filter-scope-number', function () {
+        this.$el.on('show.oc.popover', 'a.filter-scope-number', function (event) {
             self.initNumberInputs($(this).hasClass('range'))
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+                self.filterByNumber()
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                self.filterByNumber(true)
+            })
         })
 
         this.$el.on('hide.oc.popover', 'a.filter-scope-number', function () {
@@ -60,54 +68,28 @@
             }, 200)
         })
 
-        this.$el.on('click', 'a.filter-scope-number', $.proxy(this.onClickScopeNumber, this))
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', $.proxy(this.onClickFilterNumber, this))
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', $.proxy(this.onClickClearNumber, this))
-    }
+        this.$el.on('click', 'a.filter-scope-number', function () {
+            var $scope = $(this),
+                scopeName = $scope.data('scope-name')
 
-    FilterWidget.prototype.unregisterHandlersNumber = function() {
-        this.$el.off('show.oc.popover', 'a.filter-scope-number')
-        this.$el.off('hide.oc.popover', 'a.filter-scope-number')
+            // Ignore if already opened
+            if ($scope.hasClass('filter-scope-open')) return
 
-        this.$el.off('click', 'a.filter-scope-number', $.proxy(this.onClickScopeNumber, this))
-        $(document).off('click', '#controlFilterPopoverNum [data-trigger="filter"]', $.proxy(this.onClickFilterNumber, this))
-        $(document).off('click', '#controlFilterPopoverNum [data-trigger="clear"]', $.proxy(this.onClickClearNumber, this))
-    }
+            // Ignore if another popover is opened
+            if (null !== self.activeScopeName) return
+            self.$activeScope = $scope
+            self.activeScopeName = scopeName
+            self.isActiveScopeDirty = false
 
-    FilterWidget.prototype.onClickScopeNumber = function (ev) {
-        var $scope = $(ev.currentTarget),
-            scopeName = $scope.data('scope-name')
+            if ($scope.hasClass('range')) {
+                self.displayPopoverNumberRange($scope)
+            }
+            else {
+                self.displayPopoverNumber($scope)
+            }
 
-        // Ignore if already opened
-        if ($scope.hasClass('filter-scope-open')) return
-
-        // Ignore if another popover is opened
-        if (null !== this.activeScopeName) return
-        this.$activeScope = $scope
-        this.activeScopeName = scopeName
-        this.isActiveScopeDirty = false
-
-        if ($scope.hasClass('range')) {
-            this.displayPopoverNumberRange($scope)
-        }
-        else {
-            this.displayPopoverNumber($scope)
-        }
-
-        $scope.addClass('filter-scope-open')
-    }
-
-    FilterWidget.prototype.onClickFilterNumber = function (e) {
-        e.preventDefault()
-        e.stopPropagation()
-        this.filterByNumber()
-    }
-
-    FilterWidget.prototype.onClickClearNumber = function (e) {
-        e.preventDefault()
-        e.stopPropagation()
-
-        this.filterByNumber(true)
+            $scope.addClass('filter-scope-open')
+        })
     }
 
     /*
@@ -237,7 +219,7 @@
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
-            container: this.$el,
+            container: this.$el
         })
     }
 
