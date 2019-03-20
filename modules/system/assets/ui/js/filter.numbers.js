@@ -37,6 +37,11 @@
     // =================
 
     FilterWidget.prototype.initFilterNumber = function () {
+        this.unregisterHandlersNumber() // Unregister any previously defined handlers
+        this.registerHandlersNumber()
+    }
+
+    FilterWidget.prototype.registerHandlersNumber = function() {
         var self = this
 
         this.$el.on('show.oc.popover', 'a.filter-scope-number', function () {
@@ -55,41 +60,54 @@
             }, 200)
         })
 
-        this.$el.on('click', 'a.filter-scope-number', function () {
-            var $scope = $(this),
-                scopeName = $scope.data('scope-name')
+        this.$el.on('click', 'a.filter-scope-number', $.proxy(this.onClickScopeNumber, this))
+        $(document).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', $.proxy(this.onClickFilterNumber, this))
+        $(document).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', $.proxy(this.onClickClearNumber, this))
+    }
 
-            // Ignore if already opened
-            if ($scope.hasClass('filter-scope-open')) return
+    FilterWidget.prototype.unregisterHandlersNumber = function() {
+        this.$el.off('show.oc.popover', 'a.filter-scope-number')
+        this.$el.off('hide.oc.popover', 'a.filter-scope-number')
 
-            // Ignore if another popover is opened
-            if (null !== self.activeScopeName) return
-            self.$activeScope = $scope
-            self.activeScopeName = scopeName
-            self.isActiveScopeDirty = false
+        this.$el.off('click', 'a.filter-scope-number', $.proxy(this.onClickScopeNumber, this))
+        $(document).off('click', '#controlFilterPopoverNum [data-trigger="filter"]', $.proxy(this.onClickFilterNumber, this))
+        $(document).off('click', '#controlFilterPopoverNum [data-trigger="clear"]', $.proxy(this.onClickClearNumber, this))
+    }
 
-            if ($scope.hasClass('range')) {
-                self.displayPopoverNumberRange($scope)
-            }
-            else {
-                self.displayPopoverNumber($scope)
-            }
+    FilterWidget.prototype.onClickScopeNumber = function (ev) {
+        var $scope = $(ev.currentTarget),
+            scopeName = $scope.data('scope-name')
 
-            $scope.addClass('filter-scope-open')
-        })
+        // Ignore if already opened
+        if ($scope.hasClass('filter-scope-open')) return
 
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            self.filterByNumber()
-        })
+        // Ignore if another popover is opened
+        if (null !== this.activeScopeName) return
+        this.$activeScope = $scope
+        this.activeScopeName = scopeName
+        this.isActiveScopeDirty = false
 
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
+        if ($scope.hasClass('range')) {
+            this.displayPopoverNumberRange($scope)
+        }
+        else {
+            this.displayPopoverNumber($scope)
+        }
 
-            self.filterByNumber(true)
-        })
+        $scope.addClass('filter-scope-open')
+    }
+
+    FilterWidget.prototype.onClickFilterNumber = function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.filterByNumber()
+    }
+
+    FilterWidget.prototype.onClickClearNumber = function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        this.filterByNumber(true)
     }
 
     /*
@@ -192,6 +210,7 @@
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
+            container: this.$el
         })
     }
 
@@ -218,6 +237,7 @@
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
+            container: this.$el,
         })
     }
 
