@@ -559,20 +559,6 @@ class RelationController extends ControllerBehavior
         $filterConfig->alias = $this->alias . 'Filter';
         $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
 
-        /*
-         * Filter Widget with extensibility
-         */
-        $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
-            $this->controller->listFilterExtendScopes($filterWidget);
-        });
-
-        /*
-         * Extend the query of the list of options
-         */
-        $filterWidget->bindEvent('filter.extendQuery', function ($query, $scope) {
-            $this->controller->listFilterExtendQuery($query, $scope);
-        });
-
         return $filterWidget;
     }
 

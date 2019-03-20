@@ -191,8 +191,7 @@
             modal: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
-            placement: 'bottom',
-            container: this.$el
+            placement: 'bottom'
         })
     }
 
@@ -218,8 +217,7 @@
             modal: false,
             highlightModalTarget: true,
             closeOnPageClick: true,
-            placement: 'bottom',
-            container: this.$el
+            placement: 'bottom'
         })
     }
 

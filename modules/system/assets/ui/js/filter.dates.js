@@ -200,7 +200,6 @@
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
-            container: this.$el,
             onCheckDocumentClickTarget: function (target) {
                 return self.onCheckDocumentClickTargetDatePicker(target)
             }
@@ -230,7 +229,6 @@
             highlightModalTarget: true,
             closeOnPageClick: true,
             placement: 'bottom',
-            container: this.$el,
             onCheckDocumentClickTarget: function (target) {
                 return self.onCheckDocumentClickTargetDatePicker(target)
             }
