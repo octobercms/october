@@ -270,12 +270,12 @@
             data = { loading: true }
             isLoaded = false
         }
-        
+
         data = $.extend({}, data, {
             apply_button_text: this.getLang('filter.scopes.apply_button_text', 'Apply'),
             clear_button_text: this.getLang('filter.scopes.clear_button_text', 'Clear')
         })
-        
+
         data.scopeName = scopeName
         data.optionsHandler = self.options.optionsHandler
 
@@ -290,9 +290,9 @@
             placement: 'bottom',
             container: container
         })
-        
+
         this.toggleFilterButtons()
-        
+
         // Load options for the first time
         if (!isLoaded) {
             self.loadOptions(scopeName)
@@ -304,8 +304,7 @@
      * otherwise returns a deferred promise object.
      */
     FilterWidget.prototype.loadOptions = function(scopeName) {
-        var $form = this.$el.closest('form'),
-            self = this,
+        var self = this,
             data = { scopeName: scopeName }
 
         /*
@@ -320,7 +319,7 @@
         /*
          * Request options from server
          */
-        return $form.request(this.options.optionsHandler, {
+        return this.$el.request(this.options.optionsHandler, {
             data: data,
             success: function(data) {
                 self.fillOptions(scopeName, data.options)
@@ -416,14 +415,13 @@
         if (!this.isActiveScopeDirty || !this.options.updateHandler)
             return
 
-        var $form = this.$el.closest('form'),
-            data = {
-                scopeName: scopeName,
-                options: this.scopeValues[scopeName]
-            }
+        var data = {
+            scopeName: scopeName,
+            options: this.scopeValues[scopeName]
+        }
 
         $.oc.stripeLoadIndicator.show()
-        $form.request(this.options.updateHandler, {
+        this.$el.request(this.options.updateHandler, {
             data: data
         }).always(function(){
             $.oc.stripeLoadIndicator.hide()
@@ -438,14 +436,13 @@
         this.scopeValues[scopeName] = isChecked
 
         if (this.options.updateHandler) {
-            var $form = this.$el.closest('form'),
-                data = {
-                    scopeName: scopeName,
-                    value: isChecked
-                }
+            var data = {
+                scopeName: scopeName,
+                value: isChecked
+            }
 
             $.oc.stripeLoadIndicator.show()
-            $form.request(this.options.updateHandler, {
+            this.$el.request(this.options.updateHandler, {
                 data: data
             }).always(function(){
                 $.oc.stripeLoadIndicator.hide()
@@ -463,14 +460,13 @@
         this.scopeValues[scopeName] = switchValue
 
         if (this.options.updateHandler) {
-            var $form = this.$el.closest('form'),
-                data = {
-                    scopeName: scopeName,
-                    value: switchValue
-                }
+            var data = {
+                scopeName: scopeName,
+                value: switchValue
+            }
 
             $.oc.stripeLoadIndicator.show()
-            $form.request(this.options.updateHandler, {
+            this.$el.request(this.options.updateHandler, {
                 data: data
             }).always(function(){
                 $.oc.stripeLoadIndicator.hide()
