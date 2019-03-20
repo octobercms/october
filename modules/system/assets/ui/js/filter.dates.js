@@ -38,6 +38,11 @@
     // =================
 
     FilterWidget.prototype.initFilterDate = function () {
+        this.unregisterHandlersDate() // Unregister any previously defined handlers
+        this.registerHandlersDate()
+    }
+
+    FilterWidget.prototype.registerHandlersDate = function() {
         var self = this
 
         this.$el.on('show.oc.popover', 'a.filter-scope-date', function () {
@@ -60,43 +65,62 @@
             }, 200)
         })
 
-        this.$el.on('click', 'a.filter-scope-date', function () {
-            var $scope = $(this),
-                scopeName = $scope.data('scope-name')
+        this.$el.on('click', 'a.filter-scope-date', $.proxy(this.onClickScopeDate, this))
+        $(document).on('click', '#controlFilterPopoverDate [data-trigger="filter"]', $.proxy(this.onClickFilterDate, this))
+        $(document).on('click', '#controlFilterPopoverDate [data-trigger="clear"]', $.proxy(this.onClickClearDate, this))
+    }
 
-            // Ignore if already opened
-            if ($scope.hasClass('filter-scope-open')) return
+    FilterWidget.prototype.unregisterHandlersDate = function() {
+        this.$el.off('show.oc.popover', 'a.filter-scope-date')
+        this.$el.off('hiding.oc.popover', 'a.filter-scope-date')
+        this.$el.off('hide.oc.popover', 'a.filter-scope-date')
 
-            // Ignore if another popover is opened
-            if (null !== self.activeScopeName) return
+        this.$el.off('click', 'a.filter-scope-date', $.proxy(this.onClickScopeDate, this))
+        $(document).off('click', '#controlFilterPopoverDate [data-trigger="filter"]', $.proxy(this.onClickFilterDate, this))
+        $(document).off('click', '#controlFilterPopoverDate [data-trigger="clear"]', $.proxy(this.onClickClearDate, this))
+    }
 
-            self.$activeScope = $scope
-            self.activeScopeName = scopeName
-            self.isActiveScopeDirty = false
+    /*
+     * Event handlers
+     */
 
-            if ($scope.hasClass('range')) {
-                self.displayPopoverRange($scope)
-            }
-            else {
-                self.displayPopoverDate($scope)
-            }
+    FilterWidget.prototype.onClickScopeDate = function (ev) {
+        var $scope = $(ev.currentTarget),
+            scopeName = $scope.data('scope-name')
 
-            $scope.addClass('filter-scope-open')
-        })
+        // Ignore if already opened
+        if ($scope.hasClass('filter-scope-open')) return
 
-        $(document).on('click', '#controlFilterPopoverDate [data-trigger="filter"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
+        // Ignore if another popover is opened
+        if (null !== this.activeScopeName) return
 
-            self.filterByDate()
-        })
+        this.$activeScope = $scope
+        this.activeScopeName = scopeName
+        this.isActiveScopeDirty = false
 
-        $(document).on('click', '#controlFilterPopoverDate [data-trigger="clear"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
+        if ($scope.hasClass('range')) {
+            this.displayPopoverRange($scope)
+        }
+        else {
 
-            self.filterByDate(true)
-        })
+            this.displayPopoverDate($scope)
+        }
+
+        $scope.addClass('filter-scope-open')
+    }
+
+    FilterWidget.prototype.onClickFilterDate = function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        this.filterByDate()
+    }
+
+    FilterWidget.prototype.onClickClearDate = function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        this.filterByDate(true)
     }
 
     /*
