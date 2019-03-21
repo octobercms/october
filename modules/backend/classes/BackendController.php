@@ -63,6 +63,8 @@ class BackendController extends ControllerBase
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            // Process the request before retrieving controller middleware, to allow for the session and auth data
+            // to be made available to the controller's constructor.
             $response = $next($request);
 
             // Find requested controller to determine if any middleware has been attached
