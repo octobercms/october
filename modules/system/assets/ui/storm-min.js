@@ -3100,19 +3100,19 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 self.displayPopover($scope)
 $scope.addClass('filter-scope-open')})
-this.$el.on('show.oc.popover','a.filter-scope',function(){self.focusSearch()})
+this.$el.on('show.oc.popover','a.filter-scope',function(event){self.focusSearch()
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
+$(event.relatedTarget).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
+self.filterScope()})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+self.filterScope(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
-setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
-$(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
-$(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
-$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
-$(document).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
-self.filterScope()})
-$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
-self.filterScope(true)})}
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})}
 FilterWidget.prototype.focusSearch=function(){if(Modernizr.touchevents)
 return
 var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
@@ -3224,7 +3224,13 @@ $(document).render(function(){$('[data-control="filterwidget"]').filterWidget();
 this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-date',function(){self.initDatePickers($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-date',function(event){self.initDatePickers($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate()})
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate(true)})})
 this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()})
 this.$el.on('hide.oc.popover','a.filter-scope-date',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
@@ -3239,13 +3245,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverRange($scope)}
 else{self.displayPopoverDate($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate()})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
@@ -3296,7 +3296,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
@@ -3359,7 +3359,13 @@ if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
 this.initFilterNumber()}
 FilterWidget.prototype.initFilterNumber=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-number',function(){self.initNumberInputs($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-number',function(event){self.initNumberInputs($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber()})
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope-number',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
@@ -3373,13 +3379,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverNumberRange($scope)}
 else{self.displayPopoverNumber($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber()})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverNumberTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
