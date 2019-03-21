@@ -263,7 +263,7 @@ class BackendController extends ControllerBase
         $controllerObj = App::make($controller);
 
         if ($controllerObj->actionExists($action)) {
-            return $this->requestedController= $controllerObj;
+            return $this->requestedController = $controllerObj;
         }
 
         return $this->requestedController = null;
