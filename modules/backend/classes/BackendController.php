@@ -51,31 +51,50 @@ class BackendController extends ControllerBase
     protected $cmsHandling = false;
 
     /**
+     * Stores the requested controller so that the constructor is only run once
+     *
+     * @var Backend\Classes\Controller
+     */
+    protected $requestedController;
+
+    /**
      * Instantiate a new BackendController instance.
      */
     public function __construct()
     {
-        // Find requested controller to determine if any middleware has been attached
-        $pathParts = explode('/', str_replace(Request::root() . '/', '', Request::url()));
-        if (count($pathParts)) {
-            // Drop off preceding backend URL part if needed
-            if (!empty(Config::get('cms.backendUri', 'backend'))) {
-                array_shift($pathParts);
-            }
-            $path = implode('/', $pathParts);
+        $this->middleware(function ($request, $next) {
+            // Process the request before retrieving controller middleware, to allow for the session and auth data
+            // to be made available to the controller's constructor.
+            $response = $next($request);
 
-            $requestedController = $this->getRequestedController($path);
-            if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
-                $action = $requestedController['action'];
+            // Find requested controller to determine if any middleware has been attached
+            $pathParts = explode('/', str_replace(Request::root() . '/', '', Request::url()));
+            if (count($pathParts)) {
+                // Drop off preceding backend URL part if needed
+                if (!empty(Config::get('cms.backendUri', 'backend'))) {
+                    array_shift($pathParts);
+                }
+                $path = implode('/', $pathParts);
 
-                // Collect applicable middleware and insert middleware into pipeline
-                collect($requestedController['controller']->getMiddleware())->reject(function ($data) use ($action) {
-                    return static::methodExcludedByOptions($action, $data['options']);
-                })->pluck('middleware')->map(function ($middleware) {
-                    $this->middleware($middleware);
-                });
+                $requestedController = $this->getRequestedController($path);
+                if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
+                    $action = $requestedController['action'];
+
+                    // Collect applicable middleware and insert middleware into pipeline
+                    $controllerMiddleware = collect($requestedController['controller']->getMiddleware())
+                        ->reject(function ($data) use ($action) {
+                            return static::methodExcludedByOptions($action, $data['options']);
+                        })
+                        ->pluck('middleware');
+
+                    foreach ($controllerMiddleware as $middleware) {
+                        $middleware->call($requestedController['controller'], $request, $response);
+                    }
+                }
             }
-        }
+
+            return $response;
+        });
 
         $this->extendableConstruct();
     }
@@ -224,6 +243,10 @@ class BackendController extends ControllerBase
      */
     protected function findController($controller, $action, $inPath)
     {
+        if (isset($this->requestedController)) {
+            return $this->requestedController;
+        }
+
         /*
          * Workaround: Composer does not support case insensitivity.
          */
@@ -236,16 +259,16 @@ class BackendController extends ControllerBase
         }
 
         if (!class_exists($controller)) {
-            return false;
+            return $this->requestedController = null;
         }
 
         $controllerObj = App::make($controller);
 
         if ($controllerObj->actionExists($action)) {
-            return $controllerObj;
+            return $this->requestedController = $controllerObj;
         }
 
-        return false;
+        return $this->requestedController = null;
     }
 
     /**
