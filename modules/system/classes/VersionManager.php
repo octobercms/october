@@ -545,5 +545,5 @@ class VersionManager
         }
 
         return array($comments, $scripts);
-}
+    }
 }
