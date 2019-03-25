@@ -3808,7 +3808,7 @@ this.$backdrop=null}}
 Popup.prototype.setLoading=function(val){if(!this.$backdrop)
 return;var self=this
 if(val){setTimeout(function(){self.$backdrop.addClass('loading');},100)}
-else{this.$backdrop.removeClass('loading');}}
+else{setTimeout(function(){self.$backdrop.removeClass('loading');},100)}}
 Popup.prototype.setShake=function(){var self=this
 this.$content.addClass('popup-shaking')
 setTimeout(function(){self.$content.removeClass('popup-shaking')},1000)}
