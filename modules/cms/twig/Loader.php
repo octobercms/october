@@ -60,7 +60,7 @@ class Loader extends LoaderBase implements TwigLoaderInterface
         $dataHolder = (object) ['content' => $content];
         Event::fire('cms.template.processTwigContent', [$this->obj, $dataHolder]);
 
-        return new TwigSource($dataHolder->content, $name);
+        return new TwigSource((string) $dataHolder->content, $name);
     }
 
     /**
