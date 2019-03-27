@@ -226,6 +226,11 @@
             if (self.cancelled)
                 return
 
+            var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
+            var targetLocale = $el.attr('data-locale-value')
+            if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
+                return
+
             $el
                 .val(prefix + self.formatValue())
                 .trigger('oc.inputPreset.afterUpdate')
@@ -233,6 +238,11 @@
 
         this.$src.on('paste', function() {
             if (self.cancelled)
+                return
+
+            var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
+            var targetLocale = $el.attr('data-locale-value')
+            if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
                 return
 
             setTimeout(function() {
