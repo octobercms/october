@@ -227,7 +227,7 @@
                 return
 
             var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
-            var targetLocale = $el.attr('data-locale-value')
+            var targetLocale = $el.data('locale-value')
             if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
                 return
 
@@ -241,7 +241,7 @@
                 return
 
             var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
-            var targetLocale = $el.attr('data-locale-value')
+            var targetLocale = $el.data('locale-value')
             if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
                 return
 
