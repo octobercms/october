@@ -238,12 +238,12 @@
                 $el.siblings('.ml-btn[data-active-locale]').text(targetLocale)
 
             setTimeout(function() {
-                $el 
+                $el
                     .val(prefix + self.formatValue())
                     .trigger('oc.inputPreset.afterUpdate')
             }, timeout)
         })
-        
+
         this.$el.on('change', function() {
             self.cancelled = true
         })
