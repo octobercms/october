@@ -230,7 +230,7 @@
     // DATA-API
     // ============
 
-    $(window).on('load', function() {
+    $(document).ready(function(){
         $('[data-control=layout-sidepanel]').sidePanelTab()
     })
 
