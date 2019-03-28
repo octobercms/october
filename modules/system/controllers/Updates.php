@@ -700,6 +700,33 @@ class Updates extends Controller
     }
 
     //
+    // View Changelog
+    //
+
+    /**
+     * Displays changelog information
+     */
+    public function onLoadChangelog()
+    {
+        try {
+            $fetchedContent = UpdateManager::instance()->requestChangelog();
+
+            $changelog = array_get($fetchedContent, 'history');
+
+            if (!$changelog || !is_array($changelog)) {
+                throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+            }
+
+            $this->vars['changelog'] = $changelog;
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
+
+        return $this->makePartial('changelog_list');
+    }
+
+    //
     // Plugin management
     //
 
