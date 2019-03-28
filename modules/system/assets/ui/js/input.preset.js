@@ -228,8 +228,13 @@
 
             var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
             var targetLocale = $el.data('locale-value')
+            var targetActiveLocale = $el.siblings('.ml-btn[data-active-locale]').text()
+            
             if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
                 return
+
+            if (targetLocale && targetActiveLocale && targetActiveLocale !== targetLocale)
+                $el.siblings('.ml-btn[data-active-locale]').text(targetLocale)
 
             $el
                 .val(prefix + self.formatValue())
@@ -242,8 +247,13 @@
 
             var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
             var targetLocale = $el.data('locale-value')
+            var targetActiveLocale = $el.siblings('.ml-btn[data-active-locale]').text()
+
             if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
                 return
+
+            if (targetLocale && targetActiveLocale && targetActiveLocale !== targetLocale)
+                $el.siblings('.ml-btn[data-active-locale]').text(targetLocale)
 
             setTimeout(function() {
                 $el
