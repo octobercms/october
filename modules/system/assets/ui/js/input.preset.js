@@ -243,6 +243,10 @@
                     .trigger('oc.inputPreset.afterUpdate')
             }, timeout)
         })
+        
+        this.$el.on('change', function() {
+            self.cancelled = true
+        })
     }
 
     InputPreset.prototype.formatNamespace = function() {
