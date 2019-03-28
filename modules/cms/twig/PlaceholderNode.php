@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a placeholder node
@@ -9,7 +9,7 @@ use Twig_Compiler;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class PlaceholderNode extends Twig_Node
+class PlaceholderNode extends TwigNode
 {
     public function __construct($name, $paramValues, $body, $lineno, $tag = 'placeholder')
     {
@@ -28,9 +28,9 @@ class PlaceholderNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $hasBody = $this->hasNode('default');
         $varId = '__placeholder_'.$this->getAttribute('name').'_default_contents';

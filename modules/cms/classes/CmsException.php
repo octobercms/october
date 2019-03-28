@@ -1,7 +1,7 @@
 <?php namespace Cms\Classes;
 
 use File;
-use Twig_Error;
+use Twig\Error\Error as TwigError;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Halcyon\Processors\SectionParser;
 use Exception;
@@ -199,7 +199,7 @@ class CmsException extends ApplicationException
     protected function processTwig(Exception $exception)
     {
         // Must be a Twig related exception
-        if (!$exception instanceof Twig_Error) {
+        if (!$exception instanceof TwigError) {
             return false;
         }
 

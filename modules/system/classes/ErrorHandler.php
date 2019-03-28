@@ -24,7 +24,7 @@ class ErrorHandler extends ErrorHandlerBase
     // {
     //     // The Twig runtime error is not very useful
     //     if (
-    //         $proposedException instanceof Twig_Error_Runtime &&
+    //         $proposedException instanceof \Twig\Error\RuntimeError &&
     //         ($previousException = $proposedException->getPrevious()) &&
     //         (!$previousException instanceof CmsException)
     //     ) {
