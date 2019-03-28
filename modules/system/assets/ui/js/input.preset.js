@@ -222,29 +222,11 @@
 
         this.$src = $(options.inputPreset, parent)
 
-        this.$src.on('input', function() {
+        this.$src.on('input paste', function(event) {
             if (self.cancelled)
                 return
 
-            var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
-            var targetLocale = $el.data('locale-value')
-            var targetActiveLocale = $el.siblings('.ml-btn[data-active-locale]').text()
-            
-            if (sourceLocale && targetLocale && sourceLocale !== targetLocale)
-                return
-
-            if (targetLocale && targetActiveLocale && targetActiveLocale !== targetLocale)
-                $el.siblings('.ml-btn[data-active-locale]').text(targetLocale)
-
-            $el
-                .val(prefix + self.formatValue())
-                .trigger('oc.inputPreset.afterUpdate')
-        })
-
-        this.$src.on('paste', function() {
-            if (self.cancelled)
-                return
-
+            var timeout = event.type == 'paste' ? 100 : 0
             var sourceLocale = $(this).siblings('.ml-btn[data-active-locale]').text()
             var targetLocale = $el.data('locale-value')
             var targetActiveLocale = $el.siblings('.ml-btn[data-active-locale]').text()
@@ -256,14 +238,10 @@
                 $el.siblings('.ml-btn[data-active-locale]').text(targetLocale)
 
             setTimeout(function() {
-                $el
+                $el 
                     .val(prefix + self.formatValue())
                     .trigger('oc.inputPreset.afterUpdate')
-            }, 100)
-        })
-
-        this.$el.on('change', function() {
-            self.cancelled = true
+            }, timeout)
         })
     }
 
