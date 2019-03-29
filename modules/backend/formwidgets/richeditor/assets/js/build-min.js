@@ -2208,7 +2208,7 @@ $.FE.DefineIcon('mmFileManager',{NAME:'folder'});$.FE.DEFAULTS.videoInsertButton
 $.FE.DefineIcon('mmVideoManager',{NAME:'folder'});$.FE.DEFAULTS.audioInsertButtons.push('mmAudioManager');$.FE.RegisterCommand('mmAudioManager',{title:'Browse',undo:false,focus:false,callback:function(){this.mediaManager.insertAudio();},plugin:'mediaManager'})
 $.FE.DefineIcon('mmAudioManager',{NAME:'folder'});})(jQuery);var richeditorPageLinksPlugin
 function richeditorPageLinksSelectPage($form){richeditorPageLinksPlugin.setLinkValueFromPopup($form)}
-$.FroalaEditor.DEFAULTS=$.extend($.FroalaEditor.DEFAULTS,{pageLinksHandler:'onLoadPageLinksForm'});$.FroalaEditor.DEFAULTS.key='HHMDUGENKACTMXQL==';(function($){$.FroalaEditor.PLUGINS.pageLinks=function(editor){function setLinkValueFromPopup($form){var $select=$('select[name=pagelink]',$form)
+$.FroalaEditor.DEFAULTS=$.extend($.FroalaEditor.DEFAULTS,{pageLinksHandler:'onLoadPageLinksForm'});$.FroalaEditor.DEFAULTS.key='JA6B2B5A1qB1F1F4D3I1A15A11D3E6B5dVh1VCQWa1EOQFe1NCb1==';(function($){$.FroalaEditor.PLUGINS.pageLinks=function(editor){function setLinkValueFromPopup($form){var $select=$('select[name=pagelink]',$form)
 var link={text:$('option:selected',$select).text().trim(),href:$select.val()}
 setTimeout(function(){editor.popups.show('link.insert')
 setLinkValue(link)},300)}
