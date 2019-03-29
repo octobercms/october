@@ -229,7 +229,6 @@
             var timeout = event.type === 'paste' ? 100 : 0 
             var updateValue = function(self, el, prefix) { 
                 if (el.data('update') === false) {
-                    el.data('update', true)
                     return
                 }
                 el   
