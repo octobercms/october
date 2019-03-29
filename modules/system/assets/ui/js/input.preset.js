@@ -228,8 +228,10 @@
  
             var timeout = event.type === 'paste' ? 100 : 0 
             var updateValue = function(self, el, prefix) { 
-                if (self.cancelled) 
-                    return 
+                if (el.data('update') === false) {
+                    el.data('update', true)
+                    return
+                }
                 el   
                     .val(prefix + self.formatValue()) 
                     .trigger('oc.inputPreset.afterUpdate') 
@@ -237,7 +239,7 @@
  
             var src = $(this) 
             setTimeout(function() { 
-                $el.trigger('oc.inputPreset.beforeUpdate', [self, src]) 
+                $el.trigger('oc.inputPreset.beforeUpdate', [src]) 
                 setTimeout(updateValue, 100, self, $el, prefix) 
             }, timeout) 
         }) 
