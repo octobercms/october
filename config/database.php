@@ -125,4 +125,20 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Use DB configuration for testing
+    |--------------------------------------------------------------------------
+    |
+    | When running plugin tests OctoberCMS by default uses SQLite in memory.
+    | You can override this behavior by setting `useConfigForTesting` to true.
+    |
+    | After that OctoberCMS will take DB parameters from the config.
+    | If file `/config/testing/database.php` exists, config will be read from it,
+    | but remember that when not specified it will use parameters specified in
+    | `/config/database.php`.
+    |
+    */
+
+    'useConfigForTesting' => false,
 ];
