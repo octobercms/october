@@ -189,7 +189,11 @@ class Repeater extends FormWidgetBase
         if ($this->useGroups) {
             foreach ($value as $index => &$data) {
                 $data['_group'] = $this->getGroupCodeFromIndex($index);
+                
             }
+            // Make sure the $data reference is removed from memory so that the next loop won't modify it
+            // which would cause the last item to receive the group code of the second-last item
+            unset($data);
         }
 
         if ($this->minItems && count($value) < $this->minItems) {
@@ -204,7 +208,11 @@ class Repeater extends FormWidgetBase
          */
         foreach ($value as $index => $data) {
             if (isset($this->formWidgets[$index])) {
-                $value[$index] = $this->formWidgets[$index]->getSaveData();
+                if ($this->useGroups) {
+                    $value[$index] = array_merge($this->formWidgets[$index]->getSaveData(), ['_group' => $data['_group']]);
+                } else {
+                    $value[$index] = $this->formWidgets[$index]->getSaveData();
+                }
             }
         }
 
