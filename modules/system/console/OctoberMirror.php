@@ -112,6 +112,10 @@ class OctoberMirror extends Command
             $this->mirrorWildcard($wildcard);
         }
 
+        if ($this->option('copy')) {
+            $this->updateIndexPaths();
+        }
+
         $this->output->writeln('<info>Mirror complete!</info>');
     }
 
@@ -178,7 +182,33 @@ class OctoberMirror extends Command
             }
         }
 
-        symlink($src, $dest);
+        if ($this->option('copy')) {
+            if(File::isFile($src)) {
+                File::copy($src, $dest);
+            } else if(File::isDirectory($src)) {
+                File::copyDirectory($src, $dest);
+            }
+        } else {
+            symlink($src, $dest);
+        }
+    }
+
+    protected function updateIndexPaths()
+    {
+        $this->output->writeln('<info> - Updating index.php paths</info>');
+
+        $dest = $this->getDestinationPath().'/index.php';
+        $contents = File::get($dest);
+
+        $src = base_path().'/bootstrap/app.php';
+        $relativePath = $this->getRelativePath($dest, $src);
+        $contents = str_replace('/bootstrap/app.php', "/$relativePath", $contents);
+
+        $src = base_path().'/bootstrap/autoload.php';
+        $relativePath = $this->getRelativePath($dest, $src);
+        $contents = str_replace('/bootstrap/autoload.php', "/$relativePath", $contents);
+
+        File::put($dest, $contents);
     }
 
     protected function getDestinationPath()
@@ -236,6 +266,7 @@ class OctoberMirror extends Command
     {
         return [
             ['relative', null, InputOption::VALUE_NONE, 'Create symlinks relative to the public directory.'],
+            ['copy', null, InputOption::VALUE_NONE, 'Copy files and directories instead of making symlinks.'],
         ];
     }
 }
