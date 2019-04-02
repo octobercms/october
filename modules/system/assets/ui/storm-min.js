@@ -4201,14 +4201,16 @@ if(prefix===undefined)
 prefix=''
 if($el.val().length&&$el.val()!=prefix)
 return
-$el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 this.$src=$(options.inputPreset,parent)
-this.$src.on('input',function(){if(self.cancelled)
+$el.val(prefix).trigger('oc.inputPreset.afterUpdate')
+this.$src.on('input paste',function(event){if(self.cancelled)
 return
-$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')})
-this.$src.on('paste',function(){if(self.cancelled)
-return
-setTimeout(function(){$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')},100)})
+var timeout=event.type==='paste'?100:0
+var updateValue=function(self,el,prefix){if(el.data('update')===false){return}
+el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')}
+var src=$(this)
+setTimeout(function(){$el.trigger('oc.inputPreset.beforeUpdate',[src])
+setTimeout(updateValue,100,self,$el,prefix)},timeout)})
 this.$el.on('change',function(){self.cancelled=true})}
 InputPreset.prototype.formatNamespace=function(){var value=this.toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}
