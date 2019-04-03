@@ -35,6 +35,8 @@ class NavigationManager
         'label'       => null,
         'icon'        => null,
         'iconSvg'     => null,
+        'counter'     => null,
+        'counterLabel'=> null,
         'url'         => null,
         'permissions' => [],
         'order'       => 500,
@@ -168,17 +170,20 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
-     * - sideMenu - an array of side menu items, optional. If provided, the array items
-     *   should represent the side menu item code, and each value should be an associative
-     *   array with the following keys:
-     * - label - specifies the menu label localization string key, required.
-     * - icon - an icon name from the Font Awesome icon collection, required.
-     * - url - the back-end relative URL the menu item should point to, required.
-     * - attributes - an array of attributes and values to apply to the menu item, optional.
-     * - permissions - an array of permissions the back-end user should have, optional.
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
      * - counterLabel - an optional string value to describe the numeric reference in counter.
+     * - sideMenu - an array of side menu items, optional. If provided, the array items
+     *   should represent the side menu item code, and each value should be an associative
+     *   array with the following keys:
+     *      - label - specifies the menu label localization string key, required.
+     *      - icon - an icon name from the Font Awesome icon collection, required.
+     *      - url - the back-end relative URL the menu item should point to, required.
+     *      - attributes - an array of attributes and values to apply to the menu item, optional.
+     *      - permissions - an array of permissions the back-end user should have, optional.
+     *      - counter - an optional numeric value to output near the menu icon. The value should be
+     *        a number or a callable returning a number.
+     *      - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
@@ -306,6 +311,27 @@ class NavigationManager
             $this->loadItems();
         }
 
+        foreach ($this->items as $item) {
+            if ($item->counter === false) {
+                continue;
+            }
+
+            if ($item->counter !== null && is_callable($item->counter)) {
+                $item->counter = call_user_func($item->counter, $item);
+            } elseif (!empty((int) $item->counter)) {
+                $item->counter = (int) $item->counter;
+            } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
+                $item->counter = 0;
+                foreach ($sideItems as $sideItem) {
+                    $item->counter += $sideItem->counter;
+                }
+            }
+
+            if (empty($item->counter)) {
+                $item->counter = null;
+            }
+        }
+
         return $this->items;
     }
 
@@ -337,6 +363,9 @@ class NavigationManager
         foreach ($items as $item) {
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
+                if (empty($item->counter)) {
+                    $item->counter = null;
+                }
             }
         }
 

@@ -84,8 +84,11 @@ class MediaFinder extends FormWidgetBase
     public function prepareVars()
     {
         $value = $this->getLoadValue();
+        $isImage = $this->mode === 'image';
+
         $this->vars['value'] = $value;
-        $this->vars['imageUrl'] = $value ? MediaLibrary::url($value) : '';
+        $this->vars['imageUrl'] = $isImage && $value ? MediaLibrary::url($value) : '';
+        $this->vars['imageExists'] = $isImage && $value ? MediaLibrary::instance()->exists($value) : '';
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;

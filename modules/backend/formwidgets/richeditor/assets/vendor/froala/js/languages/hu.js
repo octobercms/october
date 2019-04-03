@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Hungarian
  */
@@ -21,7 +47,7 @@ $.FE.LANGUAGE['hu'] = {
 
     // Main buttons
     "Insert": "Beilleszt\u00e9s",
-    "Delete": "T\u00f6r\u00f6l",
+    "Delete": "T\u00f6rl\u00e9s",
     "Cancel": "M\u00e9gse",
     "OK": "Rendben",
     "Back": "Vissza",
@@ -32,12 +58,13 @@ $.FE.LANGUAGE['hu'] = {
 
     // Font
     "Font Family": "Bet\u0171t\u00edpus",
-    "Font Size": "Bet\u0171m\u00e9retek",
+    "Font Size": "Bet\u0171m\u00e9ret",
 
     // Colors
     "Colors": "Sz\u00ednek",
     "Background": "H\u00e1tt\u00e9r",
     "Text": "Sz\u00f6veg",
+    "HEX Color": "Hex színű",
 
     // Paragraphs
     "Paragraph Format": "Form\u00e1tumok",
@@ -62,11 +89,26 @@ $.FE.LANGUAGE['hu'] = {
 
     // Lists
     "Ordered List": "Sz\u00e1moz\u00e1s",
+    "Default": "Alapértelmezett",
+    "Lower Alpha": "Alacsonyabb alfa",
+    "Lower Greek": "Alsó görög",
+    "Lower Roman": "Alacsonyabb római",
+    "Upper Alpha": "Felső alfa",
+    "Upper Roman": "Felső római",
+
     "Unordered List": "Felsorol\u00e1s",
+    "Circle": "Kör",
+    "Disc": "Lemez",
+    "Square": "Négyzet",
+
+    // Line height
+    "Line Height": "Vonal magassága",
+    "Single": "Egyetlen",
+    "Double": "Kettős",
 
     // Indent
-    "Decrease Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
-    "Increase Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
+    "Decrease Indent": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
+    "Increase Indent": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
 
     // Links
     "Insert Link": "Hivatkoz\u00e1s beilleszt\u00e9se",
@@ -80,32 +122,35 @@ $.FE.LANGUAGE['hu'] = {
     "Insert Image": "K\u00e9p beilleszt\u00e9se",
     "Upload Image": "K\u00e9p felt\u00f6lt\u00e9se",
     "By URL": "Webc\u00edm megad\u00e1sa",
-    "Browse": "B\u00f6ng\u00e9sz\u00e9s a M\u00e9di\u00e1ban",
+    "Browse": "B\u00f6ng\u00e9sz\u00e9s",
     "Drop image": "H\u00fazza ide a k\u00e9pet",
     "or click": "vagy kattintson ide",
     "Manage Images": "K\u00e9pek kezel\u00e9se",
     "Loading": "Bet\u00f6lt\u00e9s...",
-    "Deleting": "T\u00f6rl\u00e9se",
+    "Deleting": "T\u00f6rl\u00e9s...",
     "Tags": "C\u00edmk\u00e9k",
-    "Are you sure? Image will be deleted.": "Biztos benne? K\u00e9p t\u00f6rl\u00e9sre ker\u00fcl.",
+    "Are you sure? Image will be deleted.": "Biztos benne? A k\u00e9p t\u00f6rl\u00e9sre ker\u00fcl.",
     "Replace": "Csere",
     "Uploading": "Felt\u00f6lt\u00e9s",
-    "Loading image": "K\u00e9pfelt\u00f6lt\u00e9s",
+    "Loading image": "K\u00e9p bet\u00f6lt\u00e9se",
     "Display": "Kijelz\u0151",
     "Inline": "Sorban",
     "Break Text": "Sz\u00f6veg t\u00f6r\u00e9se",
-    "Alternate Text": "Alternat\u00edv sz\u00f6veg",
+    "Alternative Text": "Alternat\u00edv sz\u00f6veg",
     "Change Size": "M\u00e9ret m\u00f3dos\u00edt\u00e1sa",
     "Width": "Sz\u00e9less\u00e9g",
     "Height": "Magass\u00e1g",
     "Something went wrong. Please try again.": "Valami elromlott. K\u00e9rlek pr\u00f3b\u00e1ld \u00fajra.",
+    "Image Caption": "Képaláírás",
+    "Advanced Edit": "Fejlett szerkesztés",
 
     // Video
     "Insert Video": "Vide\u00f3 beilleszt\u00e9se",
     "Embedded Code": "K\u00f3d bem\u00e1sol\u00e1sa",
-
-    // Audio
-    "Insert Audio": "Audi\u00f3 beilleszt\u00e9se",
+    "Paste in a video URL": "Illessze be a videó URL-címét",
+    "Drop video": "Csepp videót",
+    "Your browser does not support HTML5 video.": "A böngészője nem támogatja a html5 videót.",
+    "Upload Video": "Videó feltöltése",
 
     // Tables
     "Insert Table": "T\u00e1bl\u00e1zat beilleszt\u00e9se",
@@ -138,21 +183,20 @@ $.FE.LANGUAGE['hu'] = {
     // Files
     "Upload File": "F\u00e1jl felt\u00f6lt\u00e9se",
     "Drop file": "H\u00fazza ide a f\u00e1jlt",
-    "Insert File": "F\u00e1jl beilleszt\u00e9se",
 
     // Emoticons
     "Emoticons": "Hangulatjelek",
-    "Grinning face": "Vigyorg\u00f3",
+    "Grinning face": "Vigyorg\u00f3 arc",
     "Grinning face with smiling eyes": "Vigyorg\u00f3 arc mosolyg\u00f3 szemekkel",
     "Face with tears of joy": "Arc \u00e1t az \u00f6r\u00f6m k\u00f6nnyei",
     "Smiling face with open mouth": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal",
-    "Smiling face with open mouth and smiling eyes": "Mosoly g\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s mosolyg\u00f3 szemek",
+    "Smiling face with open mouth and smiling eyes": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s mosolyg\u00f3 szemek",
     "Smiling face with open mouth and cold sweat": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s hideg ver\u00edt\u00e9k",
     "Smiling face with open mouth and tightly-closed eyes": "Mosolyg\u00f3 arc t\u00e1tott sz\u00e1jjal \u00e9s szorosan lehunyt szemmel",
     "Smiling face with halo": "Mosolyg\u00f3 arc dicsf\u00e9nyben",
     "Smiling face with horns": "Mosolyg\u00f3 arc szarvakkal",
     "Winking face": "Kacsint\u00f3s arc",
-    "Smiling face with smiling eyes": "Mosolyg\u00f3 arc mosolyg\u00f3 szemek",
+    "Smiling face with smiling eyes": "Mosolyg\u00f3 arc mosolyg\u00f3 szemekkel",
     "Face savoring delicious food": "Arc \u00edzlelgette \u00edzletes \u00e9telek",
     "Relieved face": "Megk\u00f6nnyebb\u00fclt arc",
     "Smiling face with heart-shaped eyes": "Mosolyg\u00f3 arc sz\u00edv alak\u00fa szemekkel",
@@ -165,7 +209,7 @@ $.FE.LANGUAGE['hu'] = {
     "Pensive face": "T\u00f6preng\u0151 arc",
     "Confused face": "Zavaros arc",
     "Confounded face": "R\u00e1c\u00e1folt arc",
-    "Kissing face": "Cs\u00f3k arc",
+    "Kissing face": "Cs\u00f3kos arc",
     "Face throwing a kiss": "Arcra dobott egy cs\u00f3kot",
     "Kissing face with smiling eyes": "Cs\u00f3kos arc\u00e1t mosolyg\u00f3 szemek",
     "Kissing face with closed eyes": "Cs\u00f3kos arc\u00e1t csukott szemmel",
@@ -179,7 +223,7 @@ $.FE.LANGUAGE['hu'] = {
     "Crying face": "S\u00edr\u00f3 arc",
     "Persevering face": "Kitart\u00f3 arc",
     "Face with look of triumph": "Arc\u00e1t diadalmas pillant\u00e1st",
-    "Disappointed but relieved face": "Csal\u00f3dott, de megk\u00f6nnyebb\u00fclt arccal",
+    "Disappointed but relieved face": "Csal\u00f3dott, de megk\u00f6nnyebb\u00fclt arc",
     "Frowning face with open mouth": "Komor arcb\u00f3l t\u00e1tott sz\u00e1jjal",
     "Anguished face": "Gy\u00f6tr\u0151d\u0151 arc",
     "Fearful face": "F\u00e9lelmetes arc",
@@ -215,6 +259,9 @@ $.FE.LANGUAGE['hu'] = {
     // Clear formatting
     "Clear Formatting": "Form\u00e1z\u00e1s elt\u00e1vol\u00edt\u00e1sa",
 
+    // Save
+    "Save": "\u004d\u0065\u006e\u0074\u00e9\u0073",
+
     // Undo, redo
     "Undo": "Visszavon\u00e1s",
     "Redo": "Ism\u00e9t",
@@ -227,11 +274,63 @@ $.FE.LANGUAGE['hu'] = {
 
     // Quote
     "Quote": "Id\u00e9zet",
-    "Increase": "Beh\u00faz\u00e1s cs\u00f6kkent\u00e9se",
-    "Decrease": "Beh\u00faz\u00e1s n\u00f6vel\u00e9se",
+    "Increase": "N\u00f6vel\u00e9s",
+    "Decrease": "Cs\u00f6kkent\u00e9s",
 
     // Quick Insert
-    "Quick Insert": "Beilleszt\u00e9s"
+    "Quick Insert": "Beilleszt\u00e9s",
+
+    // Spcial Characters
+    "Special Characters": "Speciális karakterek",
+    "Latin": "Latin",
+    "Greek": "Görög",
+    "Cyrillic": "Cirill",
+    "Punctuation": "Központozás",
+    "Currency": "Valuta",
+    "Arrows": "Nyilak",
+    "Math": "Matematikai",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Nyomtatás",
+
+    // Spell Checker.
+    "Spell Checker": "Helyesírás-ellenőrző",
+
+    // Help
+    "Help": "Segítség",
+    "Shortcuts": "Hivatkozások",
+    "Inline Editor": "Inline szerkesztő",
+    "Show the editor": "Mutassa meg a szerkesztőt",
+    "Common actions": "Közös cselekvések",
+    "Copy": "Másolat",
+    "Cut": "Vágott",
+    "Paste": "Paszta",
+    "Basic Formatting": "Alap formázás",
+    "Increase quote level": "Növeli az idézet szintjét",
+    "Decrease quote level": "Csökkenti az árazási szintet",
+    "Image / Video": "Kép / videó",
+    "Resize larger": "Nagyobb átméretezés",
+    "Resize smaller": "Kisebb méretűek",
+    "Table": "Asztal",
+    "Select table cell": "Válasszon táblázatcellát",
+    "Extend selection one cell": "Kiterjesztheti a kiválasztást egy cellára",
+    "Extend selection one row": "Szűkítse ki az egy sort",
+    "Navigation": "Navigáció",
+    "Focus popup / toolbar": "Fókusz felugró ablak / eszköztár",
+    "Return focus to previous position": "Visszaáll az előző pozícióra",
+
+    // Embed.ly
+    "Embed URL": "Beágyazott url",
+    "Paste in a URL to embed": "Beilleszteni egy URL-t a beágyazáshoz",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "A beillesztett tartalom egy microsoft szó dokumentumból származik. szeretné megtartani a formátumot vagy tisztítani?",
+    "Keep": "Tart",
+    "Clean": "Tiszta",
+    "Word Paste Detected": "Szópaszta észlelhető"
   },
   direction: "ltr"
 };
+
+}));

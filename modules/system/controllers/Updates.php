@@ -181,16 +181,26 @@ class Updates extends Controller
         $contents = [];
 
         try {
-            $updates = Yaml::parseFile($path.'/'.$filename);
-            $updates = is_array($updates) ? array_reverse($updates) : [];
+            $updates = (array) Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
-                $contents[$version] = is_array($details)
-                    ? array_shift($details)
-                    : $details;
+                if (!is_array($details)) {
+                    $details = (array)$details;
+                }
+
+                //Filter out update scripts
+                $details = array_filter($details, function($string) use ($path) {
+                    return !preg_match('/^[a-z_\-0-9]*\.php$/i', $string) || !File::exists($path . '/updates/' . $string);
+                });
+
+                $contents[$version] = $details;
             }
         }
         catch (Exception $ex) {}
+
+        uksort($contents, function ($a, $b) {
+            return version_compare($b, $a);
+        });
 
         return $contents;
     }
@@ -687,6 +697,33 @@ class Updates extends Controller
 
         Flash::success(Lang::get('system::lang.project.unbind_success'));
         return Backend::redirect('system/updates');
+    }
+
+    //
+    // View Changelog
+    //
+
+    /**
+     * Displays changelog information
+     */
+    public function onLoadChangelog()
+    {
+        try {
+            $fetchedContent = UpdateManager::instance()->requestChangelog();
+
+            $changelog = array_get($fetchedContent, 'history');
+
+            if (!$changelog || !is_array($changelog)) {
+                throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+            }
+
+            $this->vars['changelog'] = $changelog;
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
+
+        return $this->makePartial('changelog_list');
     }
 
     //

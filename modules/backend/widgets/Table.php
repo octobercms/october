@@ -4,6 +4,7 @@ use Lang;
 use Input;
 use Request;
 use Backend\Classes\WidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 use SystemException;
 
 /**
@@ -79,11 +80,13 @@ class Table extends WidgetBase
 
         if (Request::method() == 'POST' && $this->isClientDataSource()) {
             if (strpos($this->fieldName, '[') === false) {
-                $requestDataField = $this->fieldName.'TableData';
+                $requestDataField = $this->fieldName . 'TableData';
+            } else {
+                $requestDataField = $this->fieldName . '[TableData]';
             }
-            else {
-                $requestDataField = $this->fieldName.'[TableData]';
-            }
+
+            // Use dot notation for request data field
+            $requestDataField = implode('.', HtmlHelper::nameToArray($requestDataField));
 
             if (Request::exists($requestDataField)) {
                 // Load data into the client memory data source on POST

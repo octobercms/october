@@ -13,9 +13,13 @@
 
     <!-- Existing value -->
     <div class="find-object">
-        <div class="icon-container">
-            <img data-find-image src="<?= $imageUrl ?>" alt="" />
-        </div>
+        <?php if ($imageExists): ?>
+            <div class="icon-container">
+                <img data-find-image src="<?= $imageUrl ?>" alt="" />
+            </div>
+        <?php else: ?>
+            <p class="help-block"><?= e(trans('backend::lang.mediafinder.no_image')) ?></p>
+        <?php endif ?>
         <div class="info">
             <h4 class="filename">
                 <span data-find-file-name><?= ltrim($value, '/') ?></span>
