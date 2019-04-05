@@ -198,7 +198,7 @@ class Repeater extends FormWidgetBase
     protected function processItems()
     {
         $indexes = $groups = [];
-        $currentValue = post($this->formField->fieldName, $this->getLoadValue());
+        $currentValue = post($this->formField->getName(), $this->getLoadValue());
 
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
