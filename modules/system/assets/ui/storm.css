@@ -4209,7 +4209,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
-.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;-webkit-box-shadow:none;box-shadow:none}
+.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}
 .help-block {font-size:13px;margin-bottom:0}
