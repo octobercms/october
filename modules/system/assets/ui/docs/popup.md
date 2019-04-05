@@ -97,6 +97,37 @@ Using the `data-ajax` attribute you can refer to an external file or URL directl
 </a>
 ```
 
+The partial for your rendered popup should follow this structure:
+
+```html
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title">
+        <!-- Modal header title goes here -->
+        Send email
+    </h4>
+</div>
+<div class="modal-body">
+    <!-- Any popup content goes here -->
+    <?= $this->customFormWidget->render() ?>
+</div>
+<div class="modal-footer">
+    <!-- Popup action buttons go here -->
+    <button
+        type="submit"
+        class="btn btn-primary oc-icon-send"
+        data-load-indicator="Sending">
+        Send
+    </button>
+    <button
+        type="button"
+        class="btn btn-default"
+        data-dismiss="popup">
+        <?= e(trans('backend::lang.relation.close')) ?>
+    </button>
+</div>
+```
+
 <a name="api-docs"></a>
 ## API documentation
 

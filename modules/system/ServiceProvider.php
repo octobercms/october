@@ -24,6 +24,7 @@ use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 
 class ServiceProvider extends ModuleServiceProvider
@@ -86,6 +87,8 @@ class ServiceProvider extends ModuleServiceProvider
         if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
             Schema::defaultStringLength(191);
         }
+
+        Paginator::defaultSimpleView('system::pagination.simple-default');
 
         /*
          * Boot plugins
@@ -235,7 +238,10 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
+        $this->registerConsoleCommand('plugin.disable', 'System\Console\PluginDisable');
+        $this->registerConsoleCommand('plugin.enable', 'System\Console\PluginEnable');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
+        $this->registerConsoleCommand('plugin.list', 'System\Console\PluginList');
 
         $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
         $this->registerConsoleCommand('theme.remove', 'System\Console\ThemeRemove');

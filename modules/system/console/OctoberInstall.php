@@ -71,15 +71,27 @@ class OctoberInstall extends Command
         $this->setupAdminUser();
         $this->setupCommonValues();
 
+        $chosenToInstall = [];
+
         if ($this->confirm('Configure advanced options?', false)) {
             $this->setupEncryptionKey();
             $this->setupAdvancedValues();
+            $chosenToInstall = $this->askToInstallPlugins();
         }
         else {
             $this->setupEncryptionKey(true);
         }
 
         $this->setupMigrateDatabase();
+
+        foreach ($chosenToInstall as $pluginCode) {
+            $this->output->writeln('<info>Installing plugin ' . $pluginCode . '</info>');
+            $this->callSilent('plugin:install', [
+                'name' => $pluginCode
+            ]);
+            $this->output->writeln('<info>' . $pluginCode . ' installed successfully.</info>');
+        }
+
         $this->displayOutro();
     }
 
@@ -116,6 +128,17 @@ class OctoberInstall extends Command
 
         $debug = (bool) $this->confirm('Enable Debug Mode?', true);
         $this->writeToConfig('app', ['debug' => $debug]);
+    }
+
+    protected function askToInstallPlugins() {
+        $chosenToInstall = [];
+        if ($this->confirm('Install the October.Drivers plugin?', false)) {
+            $chosenToInstall[] = 'October.Drivers';
+        }
+        if ($this->confirm('Install the Rainlab.Builder plugin?', false)) {
+            $chosenToInstall[] = 'Rainlab.Builder';
+        }
+        return $chosenToInstall;
     }
 
     //

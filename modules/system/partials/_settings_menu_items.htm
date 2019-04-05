@@ -15,7 +15,7 @@
                 <h3><?= e(trans($category)) ?></h3>
             </div>
 
-            <ul>
+            <ul <?= $collapsed ? 'style="overflow: visible; height: 0px; display: none;"' : null ?>>
                 <?php foreach ($items as $item): ?>
                     <li class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>" data-keywords="<?= e(trans($item->keywords)) ?>">
                         <a href="<?= $item->url ?>" ontouchstart="">

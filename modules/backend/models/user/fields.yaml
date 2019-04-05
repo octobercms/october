@@ -12,6 +12,11 @@ fields:
 
 tabs:
     defaultTab: backend::lang.user.account
+    icons:
+        backend::lang.user.account: icon-user
+        backend::lang.user.groups: icon-users
+        backend::lang.user.permissions: icon-key
+        
     fields:
         login:
             span: left

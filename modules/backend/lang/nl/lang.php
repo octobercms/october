@@ -3,6 +3,7 @@
 return [
     'auth' => [
         'title' => 'Beheeromgeving',
+        'invalid_login' => 'De ingevoerde gegevens leveren geen resultaat. Controleer je invoer en probeer het opnieuw.'
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
@@ -34,6 +35,7 @@ return [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
     ],
     'account' => [
+        'signed_in_as' => 'Ingelogd als :full_name',
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
         'reset' => 'Wijzigen',
@@ -117,6 +119,8 @@ return [
         'last_name' => 'Achternaam',
         'full_name' => 'Volledige naam',
         'email' => 'E-mailadres',
+        'role_field' => 'Rol',
+        'role_comment' => 'Rollen definiëren gebruikerspermissies die overschreven kunnen worden op gebruikersniveau (zie tabblad Rechten).',
         'groups' => 'Groepen',
         'groups_comment' => 'Selecteer de groepen waar deze gebruiker bij hoort.',
         'avatar' => 'Avatar',
@@ -151,6 +155,20 @@ return [
             'new' => 'Nieuwe beheerdersgroep',
             'delete_confirm' => 'Weet je zeker dat je deze beheerdersgroep wilt verwijderen?',
             'return' => 'Terug naar het groepenoverzicht',
+            'users_count' => 'Gebruikers',
+        ],
+        'role' => [
+            'name' => 'Rol',
+            'name_field' => 'Naam',
+            'name_comment' => 'De naam wordt weergegeven in de rollenlijst in het Beheerders formulier.',
+            'description_field' => 'Omschrijving',
+            'code_field' => 'Code',
+            'code_comment' => 'Voer een unieke code in als je deze met de API wilt gebruiken.',
+            'menu_label' => 'Beheer rollen',
+            'list_title' => 'Beheer rollen',
+            'new' => 'Nieuwe rol',
+            'delete_confirm' => 'Verwijder deze beheerdersrol?',
+            'return' => 'Terug naar het rollenoverzicht',
             'users_count' => 'Gebruikers',
         ],
         'preferences' => [
@@ -199,6 +217,10 @@ return [
         'upload_error' => 'Upload fout',
         'remove_confirm' => 'Weet je het zeker?',
         'remove_file' => 'Verwijder bestand',
+    ],
+    'repeater' => [
+        'min_items_failed' => ':name vereist minimaal :min items, er zijn :items opgegeven',
+        'max_items_failed' => ':name vereist maximaal :max items, er zijn :items opgegeven',
     ],
     'form' => [
         'create_title' => 'Nieuwe :name',
@@ -427,10 +449,12 @@ return [
         'all' => 'alle',
         'options_method_not_exists' => "De model class :model moet de methode :method() gedefinieerd hebben die de opties voor de filter ':filter' teruggeeft.",
         'date_all' => 'alle periodes',
+        'number_all' => 'alle nummers',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Upload een CSV bestand',
         'import_file' => 'Importeer bestand',
+        'row' => 'Rij :row',
         'first_row_contains_titles' => 'De eerste regel bevat kolomtitels',
         'first_row_contains_titles_desc' => 'Vink aan als de eerste regel kolomtitels bevat die gebruikt moeten worden.',
         'match_columns' => '2. Vergelijk de kolommen met de database velden',
@@ -536,6 +560,9 @@ return [
         'uploading_error' => 'Upload mislukt',
         'type_blocked' => 'Het bestandstype is i.v.m. veiligheidsredenen geblokkeerd.',
         'order_by' => 'Sorteer op',
+        'direction' => 'Sorteervolgorde',
+        'direction_asc' => 'Oplopend',
+        'direction_desc' => 'Aflopend',
         'folder' => 'Map',
         'no_files_found' => 'Er zijn geen bestanden gevonden.',
         'delete_empty' => 'Selecteer items om te verwijderen.',

@@ -1,5 +1,4 @@
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
 <meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -8,7 +7,7 @@
 <meta name="backend-timezone" content="<?= e(Backend\Models\Preference::get('timezone')) ?>">
 <meta name="backend-locale" content="<?= e(Backend\Models\Preference::get('locale')) ?>">
 <meta name="csrf-token" content="<?= csrf_token() ?>">
-<link rel="icon" type="image/png" href="<?= Backend::skinAsset('assets/images/favicon.png') ?>">
+<link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>">
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
 </title>
@@ -17,14 +16,16 @@
 ?>
 <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
-<script src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= Url::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
+
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js') ?>?v<?= $coreBuild ?>"></script>
+<script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
 <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
 <script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
+<script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 
-<script src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
-<script src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>"></script>
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>

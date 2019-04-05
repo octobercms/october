@@ -7,7 +7,8 @@
     id="<?= $field->getId() ?>"
     name="<?= $field->getName() ?>[]"
     class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
-    <?php if ($customSeparators): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
+    <?php if (!empty($customSeparators)): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
+    <?php if (!empty($placeholder)): ?>data-placeholder="<?= e(trans($placeholder)) ?>"<?php endif ?>
     multiple
     <?= $field->getAttributes() ?>>
     <?php foreach ($availableOptions as $key => $option): ?>

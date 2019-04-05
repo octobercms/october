@@ -6,7 +6,7 @@
     <div class="modal-body">
 
         <?php if ($this->fatalError): ?>
-            <p class="flash-message static error"><?= $fatalError ?></p>
+            <p class="flash-message static error"><?= e($fatalError) ?></p>
         <?php endif ?>
 
         <div class="form-group">

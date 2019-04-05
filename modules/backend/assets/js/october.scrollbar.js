@@ -26,7 +26,7 @@
             options = this.options = options || {},
             sizeName = this.sizeName = options.vertical ? 'height' : 'width',
             isNative = $('html').hasClass('mobile'),
-            isTouch = this.isTouch = Modernizr.touch,
+            isTouch = this.isTouch = Modernizr.touchevents,
             isScrollable = this.isScrollable = false,
             isLocked = this.isLocked = false,
             eventElementName = options.vertical ? 'pageY' : 'pageX',
