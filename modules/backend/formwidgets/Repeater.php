@@ -322,6 +322,11 @@ class Repeater extends FormWidgetBase
         return $widget->onRefresh();
     }
 
+    public function onReorder()
+    {
+        // Handle reordering of repeater items
+    }
+
     //
     // Group mode
     //

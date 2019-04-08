@@ -35,6 +35,7 @@
 
     Repeater.DEFAULTS = {
         sortableHandle: '.repeater-item-handle',
+        sortableHandler: null,
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
         minItems: null,
@@ -232,13 +233,20 @@
     Repeater.prototype.onSortStart = function($item, container, callback, event) {
         this.sortingStartIndex = $item.index()
 
-        callback($item, container, callback, event);
+        callback($item, container, callback, event)
     }
 
     Repeater.prototype.onSortStop = function($item, container, callback, event) {
         var endIndex = $item.index()
 
-        callback($item, container, callback, event);
+        this.$el.request(this.options.sortableHandler, {
+            data: {
+                _repeater_index: this.sortingStartIndex,
+                _repeater_new_index: endIndex
+            }
+        })
+
+        callback($item, container, callback, event)
     }
 
     // FIELD REPEATER PLUGIN DEFINITION
