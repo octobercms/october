@@ -107,7 +107,7 @@ return [
         'insert_row' => 'إضافة سجل',
         'return_to_list' => 'عودة للقائمة'
     ],
-	'relation' => [
+    'relation' => [
         'help' => 'اضغط على عنصر لإضافته',
         'related_data' => 'بيانات :name المرتبطة',
         'add' => 'إضافة',
