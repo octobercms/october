@@ -233,8 +233,8 @@ class Repeater extends FormWidgetBase
 
         foreach ($items as $index => $groupCode) {
             $this->makeItemFormWidget($index, $groupCode);
-            $this->indexCount = max((int) $index, $this->indexCount);
         }
+        $this->indexCount = max(count($items), $this->indexCount);
     }
 
     /**
@@ -291,8 +291,6 @@ class Repeater extends FormWidgetBase
     {
         self::$onAddItemCalled = true;
 
-        $this->indexCount++;
-
         $groupCode = post('_repeater_group');
 
         $this->prepareVars();
@@ -300,7 +298,13 @@ class Repeater extends FormWidgetBase
         $this->vars['indexValue'] = $this->indexCount;
 
         $itemContainer = '@#'.$this->getId('items');
-        return [$itemContainer => $this->makePartial('repeater_item')];
+
+        // Increase index count after item is created
+        ++$this->indexCount;
+
+        return [
+            $itemContainer => $this->makePartial('repeater_item')
+        ];
     }
 
     public function onRemoveItem()
