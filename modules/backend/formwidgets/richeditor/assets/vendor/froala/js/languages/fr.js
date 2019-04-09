@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * French
  */
@@ -21,26 +47,27 @@ $.FE.LANGUAGE['fr'] = {
 
     // Main buttons
     "Insert": "Ins\u00e9rer",
-    "Delete": "Effacer",
+    "Delete": "Supprimer",
     "Cancel": "Annuler",
     "OK": "Ok",
-    "Back": "Ant\u00e9rieur",
-    "Remove": "Enlever",
+    "Back": "Retour",
+    "Remove": "Supprimer",
     "More": "Plus",
     "Update": "Actualiser",
     "Style": "Style",
 
     // Font
     "Font Family": "Polices de caract\u00e8res",
-    "Font Size": "Taille de la police",
+    "Font Size": "Taille de police",
 
     // Colors
     "Colors": "Couleurs",
     "Background": "Arri\u00e8re-plan",
     "Text": "Texte",
+    "HEX Color": "Couleur hexad\u00e9cimale",
 
     // Paragraphs
-    "Paragraph Format": "Formats",
+    "Paragraph Format": "Format de paragraphe",
     "Normal": "Normal",
     "Code": "Code",
     "Heading 1": "Titre 1",
@@ -57,12 +84,27 @@ $.FE.LANGUAGE['fr'] = {
     "Align Left": "Aligner \u00e0 gauche",
     "Align Center": "Aligner au centre",
     "Align Right": "Aligner \u00e0 droite",
-    "Align Justify": "Justifi\u00e9",
+    "Align Justify": "Justifier",
     "None": "Aucun",
 
     // Lists
     "Ordered List": "Liste ordonn\u00e9e",
+    "Default": "Défaut",
+    "Lower Alpha": "Alpha inférieur",
+    "Lower Greek": "Grec inférieur",
+    "Lower Roman": "Bas romain",
+    "Upper Alpha": "Alpha supérieur",
+    "Upper Roman": "Haut romain",
+
     "Unordered List": "Liste non ordonn\u00e9e",
+    "Circle": "Cercle",
+    "Disc": "Disque",
+    "Square": "Carré",
+
+    // Line height
+    "Line Height": "Hauteur de la ligne",
+    "Single": "Unique",
+    "Double": "Double",
 
     // Indent
     "Decrease Indent": "Diminuer le retrait",
@@ -74,67 +116,73 @@ $.FE.LANGUAGE['fr'] = {
     "Open Link": "Ouvrir le lien",
     "Edit Link": "Modifier le lien",
     "Unlink": "Enlever le lien",
-    "Choose Link": "Choisissez le lien",
+    "Choose Link": "Choisir le lien",
 
     // Images
     "Insert Image": "Ins\u00e9rer une image",
-    "Upload Image": "T\u00e9l\u00e9charger une image",
+    "Upload Image": "T\u00e9l\u00e9verser une image",
     "By URL": "Par URL",
-    "Browse": "Feuilleter",
-    "Drop image": "D\u00e9posez l'image",
-    "or click": "ou cliquez",
-    "Manage Images": "Gestion des images",
+    "Browse": "Parcourir",
+    "Drop image": "D\u00e9poser une image",
+    "or click": "ou cliquer",
+    "Manage Images": "G\u00e9rer les images",
     "Loading": "Chargement",
     "Deleting": "Suppression",
     "Tags": "\u00c9tiquettes",
-    "Are you sure? Image will be deleted.": "Etes-vous s\u00fbr? Image sera supprim\u00e9e.",
+    "Are you sure? Image will be deleted.": "Etes-vous certain? L'image sera supprim\u00e9e.",
     "Replace": "Remplacer",
-    "Uploading": "De t\u00e9l\u00e9chargement d'images",
-    "Loading image": "De t\u00e9l\u00e9chargement d'images",
+    "Uploading": "En t\u00e9l\u00e9versement d'images",
+    "Loading image": "En chargement d'images",
     "Display": "Afficher",
     "Inline": "En ligne",
-    "Break Text": "Texte scission",
-    "Alternate Text": "Texte alternatif",
+    "Break Text": "Rompre le texte",
+    "Alternative Text": "Texte alternatif",
     "Change Size": "Changer la dimension",
     "Width": "Largeur",
     "Height": "Hauteur",
     "Something went wrong. Please try again.": "Quelque chose a mal tourn\u00e9. Veuillez r\u00e9essayer.",
+    "Image Caption": "L\u00e9gende de l'image",
+    "Advanced Edit": "\u00c9dition avanc\u00e9e",
 
     // Video
     "Insert Video": "Ins\u00e9rer une vid\u00e9o",
-    "Embedded Code": "Code embarqu\u00e9",
+    "Embedded Code": "Code int\u00e9gr\u00e9",
+    "Paste in a video URL": "Coller l'URL d'une vid\u00e9o",
+    "Drop video": "D\u00e9poser une vid\u00e9o",
+    "Your browser does not support HTML5 video.": "Votre navigateur ne supporte pas les vid\u00e9os en format HTML5.",
+    "Upload Video": "T\u00e9l\u00e9verser une vid\u00e9o",
 
     // Tables
     "Insert Table": "Ins\u00e9rer un tableau",
     "Table Header": "Ent\u00eate de tableau",
-    "Remove Table": "Effacer le tableau",
+    "Remove Table": "Supprimer le tableau",
     "Table Style": "Style de tableau",
-    "Horizontal Align": "Aligner horizontale",
+    "Horizontal Align": "Alignement horizontal",
     "Row": "Ligne",
-    "Insert row above": "Ins\u00e9rer une ligne avant",
-    "Insert row below": "Ins\u00e9rer une ligne apr\u00e8s",
-    "Delete row": "Effacer la ligne",
+    "Insert row above": "Ins\u00e9rer une ligne au-dessus",
+    "Insert row below": "Ins\u00e9rer une ligne en-dessous",
+    "Delete row": "Supprimer la ligne",
     "Column": "Colonne",
     "Insert column before": "Ins\u00e9rer une colonne avant",
     "Insert column after": "Ins\u00e9rer une colonne apr\u00e8s",
-    "Delete column": "Effacer la colonne",
+    "Delete column": "Supprimer la colonne",
     "Cell": "Cellule",
     "Merge cells": "Fusionner les cellules",
-    "Horizontal split": "Diviser horizontale",
-    "Vertical split": "Diviser verticale",
-    "Cell Background": "Fond de la cellule",
-    "Vertical Align": "Aligner vertical",
+    "Horizontal split": "Diviser horizontalement",
+    "Vertical split": "Diviser verticalement",
+    "Cell Background": "Arri\u00e8re-plan de la cellule",
+    "Vertical Align": "Alignement vertical",
     "Top": "En haut",
-    "Middle": "Milieu",
+    "Middle": "Au centre",
     "Bottom": "En bas",
     "Align Top": "Aligner en haut",
-    "Align Middle": "Aligner au milieu",
+    "Align Middle": "Aligner au centre",
     "Align Bottom": "Aligner en bas",
     "Cell Style": "Style de cellule",
 
     // Files
-    "Upload File": "T\u00e9l\u00e9charger le fichier",
-    "Drop file": "D\u00e9posez le fichier",
+    "Upload File": "T\u00e9l\u00e9verser un fichier",
+    "Drop file": "D\u00e9poser un fichier",
 
     // Emoticons
     "Emoticons": "\u00c9motic\u00f4nes",
@@ -206,10 +254,13 @@ $.FE.LANGUAGE['fr'] = {
     "Fullscreen": "Plein \u00e9cran",
 
     // Horizontal line
-    "Insert Horizontal Line": "Ins\u00e9rez une ligne horizontale",
+    "Insert Horizontal Line": "Ins\u00e9rer une ligne horizontale",
 
     // Clear formatting
-    "Clear Formatting": "Effacer formatage",
+    "Clear Formatting": "Effacer le formatage",
+
+    // Save
+    "Save": "sauvegarder",
 
     // Undo, redo
     "Undo": "Annuler",
@@ -219,15 +270,67 @@ $.FE.LANGUAGE['fr'] = {
     "Select All": "Tout s\u00e9lectionner",
 
     // Code view
-    "Code View": "Vue de code",
+    "Code View": "Mode HTML",
 
     // Quote
-    "Quote": "Citer",
-    "Increase": "Augmentation",
-    "Decrease": "Diminution",
+    "Quote": "Citation",
+    "Increase": "Augmenter",
+    "Decrease": "Diminuer",
 
     // Quick Insert
-    "Quick Insert": "Ins\u00e9rez rapide"
+    "Quick Insert": "Insertion rapide",
+
+    // Spcial Characters
+    "Special Characters": "Caract\u00e8res sp\u00e9ciaux",
+    "Latin": "Latin",
+    "Greek": "Grec",
+    "Cyrillic": "Cyrillique",
+    "Punctuation": "Ponctuation",
+    "Currency": "Devise",
+    "Arrows": "Fl\u00e8ches",
+    "Math": "Math",
+    "Misc": "Divers",
+
+    // Print.
+    "Print": "Imprimer",
+
+    // Spell Checker.
+    "Spell Checker": "Correcteur orthographique",
+
+    // Help
+    "Help": "Aide",
+    "Shortcuts": "Raccourcis",
+    "Inline Editor": "\u00c9diteur en ligne",
+    "Show the editor": "Montrer l'\u00e9diteur",
+    "Common actions": "Actions communes",
+    "Copy": "Copier",
+    "Cut": "Couper",
+    "Paste": "Coller",
+    "Basic Formatting": "Formatage de base",
+    "Increase quote level": "Augmenter le niveau de citation",
+    "Decrease quote level": "Diminuer le niveau de citation",
+    "Image / Video": "Image / vid\u00e9o",
+    "Resize larger": "Redimensionner plus grand",
+    "Resize smaller": "Redimensionner plus petit",
+    "Table": "Table",
+    "Select table cell": "S\u00e9lectionner la cellule du tableau",
+    "Extend selection one cell": "\u00c9tendre la s\u00e9lection d'une cellule",
+    "Extend selection one row": "\u00c9tendre la s\u00e9lection d'une ligne",
+    "Navigation": "Navigation",
+    "Focus popup / toolbar": "Focus popup / toolbar",
+    "Return focus to previous position": "Retourner l'accent sur le poste pr\u00e9c\u00e9dent",
+
+    // Embed.ly
+    "Embed URL": "URL int\u00e9gr\u00e9e",
+    "Paste in a URL to embed": "Coller une URL int\u00e9gr\u00e9e",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Le contenu coll\u00e9 provient d'un document Microsoft Word. Voulez-vous conserver le format ou le nettoyer?",
+    "Keep": "Conserver",
+    "Clean": "Nettoyer",
+    "Word Paste Detected": "Copiage de mots d\u00e9tect\u00e9"
   },
   direction: "ltr"
 };
+
+}));

@@ -105,7 +105,7 @@ return [
         'select_none' => 'إلغاء التحديد',
         'select_placeholder' => 'من فضلك اختار',
         'insert_row' => 'إضافة سجل',
-        'return_to_list' => 'عودة للقائمة'
+        'return_to_list' => 'عودة للقائمة',
     ],
     'relation' => [
         'help' => 'اضغط على عنصر لإضافته',

@@ -1,7 +1,8 @@
 <?php namespace Backend\Controllers;
 
-use App;
+use View;
 use Backend;
+use Response;
 use System\Models\File as FileModel;
 use Backend\Classes\Controller;
 use ApplicationException;
@@ -25,12 +26,11 @@ class Files extends Controller
     public function get($code = null)
     {
         try {
-            echo $this->findFileObject($code)->output();
-            exit;
+            return $this->findFileObject($code)->output('inline', true);
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return Response::make(View::make('backend::404'), 404);
     }
 
     /**
@@ -39,16 +39,16 @@ class Files extends Controller
     public function thumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto')
     {
         try {
-            echo $this->findFileObject($code)->outputThumb(
+            return $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,
-                compact('mode', 'extension')
+                compact('mode', 'extension'),
+                true
             );
-            exit;
         }
         catch (Exception $ex) {}
 
-        return App::make('Cms\Classes\Controller')->setStatusCode(404)->run('/404');
+        return Response::make(View::make('backend::404'), 404);
     }
 
     /**
@@ -110,7 +110,7 @@ class Files extends Controller
         if (!$file = FileModel::find((int) $id)) {
             throw new ApplicationException('Unable to find file');
         }
-        
+
         /**
          * Ensure that the file model utilized for this request is
          * the one specified in the relationship configuration

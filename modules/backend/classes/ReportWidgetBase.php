@@ -15,6 +15,14 @@ class ReportWidgetBase extends WidgetBase
     {
         $this->properties = $this->validateProperties($properties);
 
+        /*
+         * Ensure the provided alias (if present) takes effect as the widget configuration is
+         * not passed to the WidgetBase constructor which would normally take care of that
+         */
+        if (!isset($this->alias)) {
+            $this->alias = $properties['alias'] ?? $this->defaultAlias;
+        }
+
         parent::__construct($controller);
     }
 }

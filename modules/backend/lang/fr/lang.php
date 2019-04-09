@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Zone d’administration'
+        'title' => 'Zone d’administration',
+        'invalid_login' => 'L\'utilisateur saisie ne correspond à aucun utilisateur enregistré. Merci de vérifier votre saisie et de réessayer.'
     ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
         'options_method_invalid_model' => "L’attribut ':field' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle ':model'.",
         'options_method_not_exists' => 'La classe du modèle :model doit définir une méthode :method() renvoyant des options pour le champ ":field" du formulaire.',
+        'colors_method_not_exists' => "La classe du modèle :model doit définir une méthode :method() renvoyant le code html en héxadécimal de la couleur du champ ':field' du formulaire."
     ],
     'widget' => [
         'not_registered' => 'Aucun widget au nom de classe ":name" n’a été enregistré',
@@ -33,6 +35,7 @@ return [
         'not_found_name' => 'Le modèle partiel ":name" est introuvable.'
     ],
     'account' => [
+        'signed_in_as' => 'Connecté en tant que :full_name',
         'sign_out' => 'Déconnexion',
         'login' => 'OK',
         'reset' => 'Réinitialiser',
@@ -116,6 +119,8 @@ return [
         'last_name' => 'Nom',
         'full_name' => 'Nom complet',
         'email' => 'Adresse e-mail',
+        'role_field' => 'Rôle',
+        'role_comment' => 'Les rôles définissent les permissions de l\'utilisateur, elles peuvent être écrasés au niveau de l\'utilisateur dans l\'onglet "Permissions".',
         'groups' => 'Groupes',
         'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir. Les groupes définissent les permissions des utilisateurs, qui peuvent être surchargées au niveau de l’utilisateur, dans l’onglet Permissions.',
         'avatar' => 'Avatar',
@@ -136,6 +141,8 @@ return [
         'last_login' => 'Dernière connexion',
         'created_at' => 'Créé le',
         'updated_at' => 'Mis à jour le',
+        'deleted_at' => 'Supprimé le',
+        'show_deleted' => 'Afficher les supprimés',
         'group' => [
             'name' => 'Groupe',
             'name_comment' => 'Le nom est affiché dans la liste des groupes dans le formulaire de création/modification des administrateurs.',
@@ -152,9 +159,25 @@ return [
             'return' => 'Retour à la liste des groupes',
             'users_count' => 'Utilisateurs'
         ],
+        'role' => [
+            'name' => 'Rôle',
+            'name_field' => 'Nom',
+            'name_comment' => 'Le nom est affiché dans la liste des rôles du formulaire de gestion des Administrateurs.',
+            'description_field' => 'Description',
+            'code_field' => 'Code',
+            'code_comment' => 'Saisir un code d’accès unique si vous souhaitez accéder à ce rôle via l’API.',
+            'menu_label' => 'Gérer les rôles',
+            'list_title' => 'Gérer les rôles',
+            'new' => 'Nouveau rôle',
+            'delete_confirm' => 'Supprimer le rôle administrateur ?',
+            'return' => 'Retourner à la liste des rôles',
+            'users_count' => 'Utilisateurs'
+        ],
         'preferences' => [
             'not_authenticated' => 'Il n’y a aucun utilisateur authentifié pour lequel il est possible de charger ou modifier les préférences.'
-        ]
+        ],
+        'trashed_hint_title' => 'Ce compte a été supprimé',
+        'trashed_hint_desc' => 'Ce compte a été supprimé et il sera impossible de se connecter avec. Pour le récupérer, cliquer sur l\'icône "Utilisateur" en bas à droite.',
     ],
     'list' => [
         'default_title' => 'Liste',
@@ -199,12 +222,17 @@ return [
         'remove_confirm' => 'Confirmer l’action ?',
         'remove_file' => 'Supprimer le fichier',
     ],
+    'repeater' => [
+        'min_items_failed' => ':name nécéssite un minimum de :min choix sélectionné, seulement :items sont sélectionné(s)',
+        'max_items_failed' => ':name accepte un maximum de :max choix sélectionné, :items sont sélectionés',
+    ],
     'form' => [
         'create_title' => 'Créer un(e) :name',
         'update_title' => 'Mise à jour d\'un(e) :name',
         'preview_title' => 'Aperçu d\'un(e) :name',
         'create_success' => ':name créé(e) avec succès',
         'update_success' => ':name modifié(e) avec succès',
+        'restore_success' => ':name récuperé avec succès',
         'delete_success' => ':name supprimé(e) avec succès',
         'reset_success' => 'Réinitialisation terminée',
         'missing_id' => 'L’ID de l’enregistrement du formulaire n’est pas précisé.',
@@ -225,6 +253,9 @@ return [
         'confirm_delete' => 'Supprimer cet enregistrement?',
         'confirm_delete_multiple' => 'Supprimer les enregistrements sélectionnés ?',
         'deleting_name' => 'Suppression d\'un(e) :name en cours…',
+        'restore' => 'Récupérer',
+        'restoring' => 'Récupération',
+        'confirm_restore' => 'Êtes-vous certain de vouloir récupérer cet enregistrement ?',
         'reset_default' => 'Restaurer les valeurs par défaut',
         'resetting' => 'Restauration',
         'resetting_name' => 'Restauration d\'un(e) :name',
@@ -243,6 +274,7 @@ return [
         'confirm_tab_close' => 'Fermer cet onglet ? Les modifications réalisées seront perdues.',
         'behavior_not_ready' => 'Le behavior formulaire n’a pas encore été initialisé, vérifier que la méthode initForm() est appelée par le contrôleur.',
         'preview_no_files_message' => 'Les fichiers ne sont pas envoyés.',
+        'preview_no_media_message' => 'Aucun média sélectionné.',
         'preview_no_record_message' => 'Il n’y a aucun enregistrement sélectionné.',
         'select' => 'Sélectionner',
         'select_all' => 'tout',
@@ -256,7 +288,8 @@ return [
         'return_to_list' => 'Retourner à la liste'
     ],
     'recordfinder' => [
-        'find_record' => 'Trouver un enregistrement'
+        'find_record' => 'Trouver un enregistrement',
+        'cancel' => 'Annuler',
     ],
     'pagelist' => [
         'page_link' => 'Lien de page',
@@ -312,7 +345,8 @@ return [
         'tips' => 'Astuces de configuration du système',
         'tips_description' => 'Il y a des éléments à prendre en compte pour configurer le système correctement.',
         'permissions'  => 'PHP ne peut pas écrire dans le répertoire :name et ses sous-dossiers. Veuillez modifier les permissions en écriture du serveur web pour ce répertoire.',
-        'extension' => 'L’extension PHP :name n’est pas installée. Veuillez installer la librairie et activer l’extension.'
+        'extension' => 'L’extension PHP :name n’est pas installée. Veuillez installer la librairie et activer l’extension.',
+        'plugin_missing' => 'Le plugin :name est une dépendance mais n\'est pas installé. Veuillez installer le plugin.',
     ],
     'editor' => [
         'menu_label' => 'Préférences de l’éditeur de code',
@@ -358,7 +392,11 @@ return [
         'no_wrap' => 'Balises non encadrées',
         'no_wrap_comment' => 'Liste des balises qui ne doivent pas être encadrées dans par des balises de bloc.',
         'remove_tags' => 'Balises supprimées',
-        'remove_tags_comment' => 'Liste des balises qui sont supprimées ainsi que leur contenu.'
+        'remove_tags_comment' => 'Liste des balises qui sont supprimées ainsi que leur contenu.',
+        'line_breaker_tags' => 'Balise de saut de ligne',
+        'line_breaker_tags_comment' => 'La liste des balises qui sont utilisés pour mettre des sauts de ligne.',
+        'toolbar_buttons' => 'Boutons de la barre d\'outils',
+        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Aperçu du site'
@@ -408,7 +446,9 @@ return [
         'hint' => 'Ce journal affiche la liste des tentatives d’authentification réussies des administrateurs. Les données sont sauvegardées pendant :days jours.',
         'menu_label' => 'Journal des accès',
         'menu_description' => 'Affiche la liste des authentifications réussies des utilisateurs de l’interface d’administration.',
+        'id' => 'ID',
         'created_at' => 'Date et heure',
+        'type' => 'Type',
         'login' => 'Identifiant',
         'ip_address' => 'Adresse IP',
         'first_name' => 'Prénom',
@@ -419,10 +459,12 @@ return [
       'all' => 'tous',
       'options_method_not_exists' => "La classe du modèle :model doit définir une méthode :method() qui retourne les options pour le filtre ':filter'.",
       'date_all' => 'toute la période',
+      'number_all' => 'tout les nombres',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Envoyer un fichier CSV',
         'import_file' => 'Importer un fichier',
+        'row' => 'Ligne :row',
         'first_row_contains_titles' => 'La première ligne contient les titres des colonnes',
         'first_row_contains_titles_desc' => 'Laissez coché si la première ligne du fichier CSV contient les titres des colonnes.',
         'match_columns' => '2. Faire correspondre les colonnes du fichier avec les champs du modèle de données',
@@ -528,6 +570,9 @@ return [
         'uploading_error' => 'Le dépôt des fichiers a échoué',
         'type_blocked' => 'Le type de fichier utilisé est bloqué pour des raisons de sécurité.',
         'order_by' => 'Trier par',
+        'direction' => 'Direction',
+        'direction_asc' => 'Ascendant',
+        'direction_desc' => 'Descendant',
         'folder' => 'Répertoire',
         'no_files_found' => 'Aucun fichier trouvé.',
         'delete_empty' => 'Veuillez sélectionner les éléments à supprimer.',

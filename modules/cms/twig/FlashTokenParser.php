@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Node\Node as TwigNode;
+use Twig\Token as TwigToken;
+use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 
 /**
  * Parser for the {% flash %} Twig tag.
@@ -10,35 +10,35 @@ use Twig_TokenParser;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class FlashTokenParser extends Twig_TokenParser
+class FlashTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param Twig_Token $token A Twig_Token instance
+     * @param TwigToken $token A TwigToken instance
      *
-     * @return Twig_Node A Twig_Node instance
+     * @return TwigNode A TwigNode instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(TwigToken $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
-        if ($token = $stream->nextIf(Twig_Token::NAME_TYPE)) {
+        if ($token = $stream->nextIf(TwigToken::NAME_TYPE)) {
             $name = $token->getValue();
         }
         else {
             $name = 'all';
         }
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(TwigToken::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideIfEnd'], true);
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(TwigToken::BLOCK_END_TYPE);
 
         return new FlashNode($name, $body, $lineno, $this->getTag());
     }
 
-    public function decideIfEnd(Twig_Token $token)
+    public function decideIfEnd(TwigToken $token)
     {
         return $token->test(['endflash']);
     }
