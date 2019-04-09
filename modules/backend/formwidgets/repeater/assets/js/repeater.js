@@ -239,12 +239,14 @@
     Repeater.prototype.onSortStop = function($item, container, callback, event) {
         var endIndex = $item.index()
 
-        this.$el.request(this.options.sortableHandler, {
-            data: {
-                _repeater_index: this.sortingStartIndex,
-                _repeater_new_index: endIndex
-            }
-        })
+        if (this.options.sortableHandler) {
+            this.$el.request(this.options.sortableHandler, {
+                data: {
+                    _repeater_index: this.sortingStartIndex,
+                    _repeater_new_index: endIndex
+                }
+            })
+        }
 
         callback($item, container, callback, event)
     }
