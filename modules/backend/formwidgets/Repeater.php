@@ -197,7 +197,7 @@ class Repeater extends FormWidgetBase
      */
     protected function processItems()
     {
-        $indexes = $groups = [];
+        $groups = [];
         $currentValue = post($this->formField->getName(), $this->getLoadValue());
 
         // Ensure that the minimum number of items are preinitialized
@@ -216,25 +216,19 @@ class Repeater extends FormWidgetBase
         }
 
         if (is_array($currentValue)) {
-            foreach ($currentValue as $index => $value) {
-                $indexes[] = $index;
+            foreach ($currentValue as $value) {
                 $groups[] = array_get($value, '_group');
             }
         }
 
-        if (!count($indexes)) {
+        if (!count($groups)) {
             return;
         }
 
-        $items = array_combine(
-            (array) $indexes,
-            (array) ($this->useGroups ? $groups : $indexes)
-        );
-
-        foreach ($items as $index => $groupCode) {
+        foreach ($groups as $index => $groupCode) {
             $this->makeItemFormWidget($index, $groupCode);
         }
-        $this->indexCount = max(count($items), $this->indexCount);
+        $this->indexCount = max(count($groups), $this->indexCount);
     }
 
     /**
