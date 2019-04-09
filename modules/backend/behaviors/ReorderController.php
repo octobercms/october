@@ -1,5 +1,6 @@
 <?php namespace Backend\Behaviors;
 
+use Event;
 use Lang;
 use Backend;
 use ApplicationException;
@@ -153,6 +154,8 @@ class ReorderController extends ControllerBehavior
                     break;
             }
         }
+ 
+        Event::fire('eloquent.reordered: ' . get_class($model), [$model]);
     }
 
     //
