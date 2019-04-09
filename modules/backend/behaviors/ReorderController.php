@@ -153,6 +153,23 @@ class ReorderController extends ControllerBehavior
                     break;
             }
         }
+
+        /**
+         * @event model.afterReorder
+         * Called after the model is reordered
+         *
+         * Example usage:
+         *
+         *     $model->bindEvent('model.afterReorder', function () use (\October\Rain\Database\Model $model) {
+         *         \Log::info("{$model->name} has been reordered!");
+         *     });
+         *
+         */
+        $model->fireEvent('model.afterReorder');
+
+        if ($model->methodExists('afterReorder')) {
+            $model->afterReorder();
+        }
     }
 
     //
