@@ -111,10 +111,6 @@ class ReorderController extends ControllerBehavior
     {
         $model = $this->validateModel();
 
-        if (method_exists($model, 'beforeReorder')) {
-            $model->beforeReorder();
-        }
-
         /*
          * Simple
          */
@@ -156,10 +152,6 @@ class ReorderController extends ControllerBehavior
                     $sourceNode->makeRoot();
                     break;
             }
-        }
-
-        if (method_exists($model, 'afterReorder')) {
-            $model->afterReorder();
         }
     }
 
