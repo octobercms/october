@@ -125,6 +125,7 @@ class OctoberEnv extends Command
     {
         foreach ($keys as $envKey => $configKey) {
             $pattern = $this->buildPattern($configKey);
+
             $callback = $this->buildCallback($envKey, $configKey);
 
             if (preg_match($pattern, $line)) {
@@ -142,7 +143,6 @@ class OctoberEnv extends Command
     private function replaceDbConfigLine($line)
     {
         if ($this->config == 'database') {
-
             foreach ($this->dbConfig() as $connection => $settings) {
                 $this->setCurrentConnection($line, $connection);
 
@@ -183,7 +183,6 @@ class OctoberEnv extends Command
     private function buildCallback($envKey, $configKey)
     {
         return function ($matches) use ($envKey, $configKey) {
-
             $value = $this->envValue($configKey);
 
             $this->saveEnvSettings($envKey, $value);
@@ -247,6 +246,10 @@ class OctoberEnv extends Command
     {
         if ($configKey == 'default') {
             return config('database.default');
+        }
+
+        if ($configKey == 'useConfigForTesting') {
+            return config('database.useConfigForTesting');
         }
 
         if ($this->connection == 'redis') {
@@ -345,6 +348,7 @@ class OctoberEnv extends Command
             ],
             'database' => [
                 'DB_CONNECTION' => 'default',
+                'DB_USE_CONFIG_FOR_TESTING' => 'useConfigForTesting',
             ],
             'cache' => [
                 'CACHE_DRIVER' => 'default',
@@ -402,5 +406,4 @@ class OctoberEnv extends Command
             ],
         ];
     }
-
 }

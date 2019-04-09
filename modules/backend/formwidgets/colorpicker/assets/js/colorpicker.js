@@ -56,6 +56,7 @@
                 color: this.$customColor.data('hexColor'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
+                appendTo: 'parent',
                 hide: function(color) {
                     var hex = color ? color.toHexString() : ''
                     self.$customColorSpan.css('background', hex)

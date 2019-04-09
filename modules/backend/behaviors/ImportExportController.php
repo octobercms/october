@@ -35,7 +35,6 @@ use Exception;
  */
 class ImportExportController extends ControllerBehavior
 {
-
     /**
      * @inheritDoc
      */
@@ -159,7 +158,9 @@ class ImportExportController extends ControllerBehavior
             return $response;
         }
 
-        $this->checkUseListExportMode();
+        if ($response = $this->checkUseListExportMode()) {
+            return $response;
+        }
 
         $this->addJs('js/october.export.js', 'core');
         $this->addCss('css/export.css', 'core');
@@ -387,6 +388,7 @@ class ImportExportController extends ControllerBehavior
     public function importIsColumnRequired($columnName)
     {
         $model = $this->importGetModel();
+
         return $model->isAttributeRequired($columnName);
     }
 
@@ -398,7 +400,9 @@ class ImportExportController extends ControllerBehavior
 
         $dbColumns = $this->getImportDbColumns();
         foreach ($dbColumns as $column => $label) {
-            if (!$this->importIsColumnRequired($column)) continue;
+            if (!$this->importIsColumnRequired($column)) {
+                continue;
+            }
 
             $found = false;
             foreach ($matches as $matchedColumns) {
@@ -577,7 +581,7 @@ class ImportExportController extends ControllerBehavior
             $listDefinition = $useList;
         }
 
-        $this->exportFromList($listDefinition);
+        return $this->exportFromList($listDefinition);
     }
 
     /**
@@ -597,11 +601,14 @@ class ImportExportController extends ControllerBehavior
          */
         $defaultOptions = [
             'fileName' => $this->exportFileName,
-            'delimiter' => ',',
-            'enclosure' => '"'
+            'delimiter' => $this->getConfig('defaultFormatOptions[delimiter]', ','),
+            'enclosure' => $this->getConfig('defaultFormatOptions[enclosure]', '"'),
+            'escape' => $this->getConfig('defaultFormatOptions[escape]', '\\'),
         ];
 
         $options = array_merge($defaultOptions, $options);
+
+        $filename = filter_var($options['fileName'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
 
         /*
          * Prepare CSV
@@ -609,6 +616,7 @@ class ImportExportController extends ControllerBehavior
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
+        $csv->setEscape($options['escape']);
 
         /*
          * Add headers
@@ -629,6 +637,11 @@ class ImportExportController extends ControllerBehavior
 
         $query = $widget->prepareQuery();
         $results = $query->get();
+
+        if ($event = $widget->fireSystemEvent('backend.list.extendRecords', [&$results])) {
+            $results = $event;
+        }
+
         foreach ($results as $result) {
             $record = [];
             foreach ($columns as $column) {
@@ -642,10 +655,14 @@ class ImportExportController extends ControllerBehavior
         }
 
         /*
-         * Output
+         * Response
          */
-        $csv->output($options['fileName']);
-        exit;
+        $response = Response::make();
+        $response->header('Content-Type', 'text/csv');
+        $response->header('Content-Transfer-Encoding', 'binary');
+        $response->header('Content-Disposition', sprintf('%s; filename="%s"', 'attachment', $filename));
+        $response->setContent((string) $csv);
+        return $response;
     }
 
     //
@@ -661,6 +678,7 @@ class ImportExportController extends ControllerBehavior
     public function importExportMakePartial($partial, $params = [])
     {
         $contents = $this->controller->makePartial('import_export_'.$partial, $params + $this->vars, false);
+
         if (!$contents) {
             $contents = $this->makePartial($partial, $params);
         }
@@ -799,10 +817,10 @@ class ImportExportController extends ControllerBehavior
         $presetMode = post('format_preset');
 
         $options = [
-            'delimiter' => null,
-            'enclosure' => null,
-            'escape' => null,
-            'encoding' => null
+            'delimiter' => $this->getConfig('defaultFormatOptions[delimiter]'),
+            'enclosure' => $this->getConfig('defaultFormatOptions[enclosure]'),
+            'escape' => $this->getConfig('defaultFormatOptions[escape]'),
+            'encoding' => $this->getConfig('defaultFormatOptions[encoding]'),
         ];
 
         if ($presetMode == 'custom') {
@@ -814,5 +832,4 @@ class ImportExportController extends ControllerBehavior
 
         return $options;
     }
-
 }

@@ -186,7 +186,9 @@ class Users extends Controller
             $defaultGroupIds = UserGroup::where('is_new_user_default', true)->lists('id');
 
             $groupField = $form->getField('groups');
-            $groupField->value = $defaultGroupIds;
+            if ($groupField) {
+                $groupField->value = $defaultGroupIds;
+            }
         }
     }
 

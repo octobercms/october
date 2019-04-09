@@ -317,11 +317,14 @@ return [
         'plugin_author' => 'Author',
         'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Current build',
+        'core_view_changelog' => 'View Changelog',
         'core_build' => 'Build :build',
         'core_build_help' => 'Latest build is available.',
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'core_set_build' => 'Setting build number',
+        'changelog' => 'Changelog',
+        'changelog_view_details' => 'View details',
         'plugins' => 'Plugins',
         'themes' => 'Themes',
         'disabled' => 'Disabled',
@@ -446,6 +449,12 @@ return [
     'media' => [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'folder_size_items' => 'item(s)',
+    ],
+    'page' => [
+        'custom_error' => [
+            'label' => 'Page error',
+            'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+        ],
     ],
     'pagination' => [
         'previous' => 'Previous',

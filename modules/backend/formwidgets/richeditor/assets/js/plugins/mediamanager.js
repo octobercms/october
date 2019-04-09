@@ -45,12 +45,17 @@
         }
 
         function onInsertImage() {
-            var $currentImage = editor.image.get()
+            var $currentImage = editor.image.get(),
+                selection = editor.selection.get(),
+                range = editor.selection.ranges(0);
 
             new $.oc.mediaManager.popup({
                 alias: 'ocmediamanager',
                 cropAndInsertButton: true,
                 onInsert: function(items) {
+                    editor.selection.clear();
+                    selection.addRange(range);
+                    
                     if (!items.length) {
                         $.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
                         return
