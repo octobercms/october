@@ -197,7 +197,7 @@ class Repeater extends FormWidgetBase
      */
     protected function processItems()
     {
-        $groups = [];
+        $groupMap = [];
         $currentValue = post($this->formField->getName(), $this->getLoadValue());
 
         // Ensure that the minimum number of items are preinitialized
@@ -215,20 +215,20 @@ class Repeater extends FormWidgetBase
             }
         }
 
-        if (is_array($currentValue)) {
+        if (is_array($currentValue) && count($currentValue)) {
             foreach ($currentValue as $value) {
-                $groups[] = array_get($value, '_group');
+                $groupMap[] = array_get($value, '_group');
             }
         }
 
-        if (!count($groups)) {
+        if (!count($groupMap)) {
             return;
         }
 
-        foreach ($groups as $index => $groupCode) {
+        foreach ($groupMap as $index => $groupCode) {
             $this->makeItemFormWidget($index, $groupCode);
         }
-        $this->indexCount = max(count($groups), $this->indexCount);
+        $this->indexCount = max(count($currentValue), $this->indexCount);
     }
 
     /**
