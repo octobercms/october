@@ -78,6 +78,13 @@ class Repeater extends FormWidgetBase
     protected $groupDefinitions = [];
 
     /**
+     * Determines if repeater has been initialised previously
+     *
+     * @var boolean
+     */
+    protected $loaded = false;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -93,6 +100,11 @@ class Repeater extends FormWidgetBase
 
         if ($this->formField->disabled) {
             $this->previewMode = true;
+        }
+
+        // Check for loaded flag in POST
+        if ((bool) post($this->alias . '_loaded') === true) {
+            $this->loaded = true;
         }
 
         $fieldName = $this->formField->getName(false);
@@ -197,8 +209,17 @@ class Repeater extends FormWidgetBase
      */
     protected function processItems()
     {
+        $currentValue = ($this->loaded === true)
+            ? post($this->formField->getName())
+            : $this->getLoadValue();
+
+        if ($currentValue === null) {
+            $this->indexCount = 0;
+            $this->formWidgets = [];
+            return;
+        }
+
         $groupMap = [];
-        $currentValue = post($this->formField->getName(), $this->getLoadValue());
 
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
@@ -269,7 +290,10 @@ class Repeater extends FormWidgetBase
      */
     protected function getValueFromIndex($index)
     {
-        $value = post($this->formField->fieldName, $this->getLoadValue());
+        $value = ($this->loaded === true)
+            ? post($this->formField->getName())
+            : $this->getLoadValue();
+
         if (!is_array($value)) {
             $value = [];
         }
@@ -291,7 +315,7 @@ class Repeater extends FormWidgetBase
         $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount, $groupCode);
         $this->vars['indexValue'] = $this->indexCount;
 
-        $itemContainer = '@#'.$this->getId('items');
+        $itemContainer = '@#' . $this->getId('items');
 
         // Increase index count after item is created
         ++$this->indexCount;
