@@ -78,6 +78,13 @@ class Repeater extends FormWidgetBase
     protected $groupDefinitions = [];
 
     /**
+     * Determines if repeater has been initialised previously
+     *
+     * @var boolean
+     */
+    protected $loaded = false;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -93,6 +100,11 @@ class Repeater extends FormWidgetBase
 
         if ($this->formField->disabled) {
             $this->previewMode = true;
+        }
+
+        // Check for loaded flag in POST
+        if ((bool) post($this->alias . '_loaded') === true) {
+            $this->loaded = true;
         }
 
         $fieldName = $this->formField->getName(false);
@@ -197,8 +209,17 @@ class Repeater extends FormWidgetBase
      */
     protected function processItems()
     {
-        $indexes = $groups = [];
-        $currentValue = post($this->formField->getName(), $this->getLoadValue());
+        $currentValue = ($this->loaded === true)
+            ? post($this->formField->getName())
+            : $this->getLoadValue();
+
+        if ($currentValue === null) {
+            $this->indexCount = 0;
+            $this->formWidgets = [];
+            return;
+        }
+
+        $groupMap = [];
 
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
@@ -215,26 +236,20 @@ class Repeater extends FormWidgetBase
             }
         }
 
-        if (is_array($currentValue)) {
-            foreach ($currentValue as $index => $value) {
-                $indexes[] = $index;
-                $groups[] = array_get($value, '_group');
+        if (is_array($currentValue) && count($currentValue)) {
+            foreach ($currentValue as $value) {
+                $groupMap[] = array_get($value, '_group');
             }
         }
 
-        if (!count($indexes)) {
+        if (!count($groupMap)) {
             return;
         }
 
-        $items = array_combine(
-            (array) $indexes,
-            (array) ($this->useGroups ? $groups : $indexes)
-        );
-
-        foreach ($items as $index => $groupCode) {
+        foreach ($groupMap as $index => $groupCode) {
             $this->makeItemFormWidget($index, $groupCode);
-            $this->indexCount = max((int) $index, $this->indexCount);
         }
+        $this->indexCount = max(count($currentValue), $this->indexCount);
     }
 
     /**
@@ -275,7 +290,10 @@ class Repeater extends FormWidgetBase
      */
     protected function getValueFromIndex($index)
     {
-        $value = post($this->formField->fieldName, $this->getLoadValue());
+        $value = ($this->loaded === true)
+            ? post($this->formField->getName())
+            : $this->getLoadValue();
+
         if (!is_array($value)) {
             $value = [];
         }
@@ -291,16 +309,20 @@ class Repeater extends FormWidgetBase
     {
         self::$onAddItemCalled = true;
 
-        $this->indexCount++;
-
         $groupCode = post('_repeater_group');
 
         $this->prepareVars();
         $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount, $groupCode);
         $this->vars['indexValue'] = $this->indexCount;
 
-        $itemContainer = '@#'.$this->getId('items');
-        return [$itemContainer => $this->makePartial('repeater_item')];
+        $itemContainer = '@#' . $this->getId('items');
+
+        // Increase index count after item is created
+        ++$this->indexCount;
+
+        return [
+            $itemContainer => $this->makePartial('repeater_item')
+        ];
     }
 
     public function onRemoveItem()
