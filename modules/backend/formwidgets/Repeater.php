@@ -3,6 +3,7 @@
 use Lang;
 use ApplicationException;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Repeater Form Widget
@@ -108,8 +109,8 @@ class Repeater extends FormWidgetBase
         }
 
         $fieldName = $this->formField->getName(false);
-        $this->indexInputName = self::INDEX_PREFIX.$fieldName;
-        $this->groupInputName = self::GROUP_PREFIX.$fieldName;
+        $this->indexInputName = $this->alias.self::INDEX_PREFIX.$fieldName;
+        $this->groupInputName = $this->alias.self::GROUP_PREFIX.$fieldName;
 
         $this->processGroupMode();
 
@@ -189,6 +190,9 @@ class Repeater extends FormWidgetBase
             foreach ($value as $index => &$data) {
                 $data['_group'] = $this->getGroupCodeFromIndex($index);
             }
+            // Make sure the $data reference is removed from memory so that the next loop won't modify it
+            // which would cause the last item to receive the group code of the second-last item
+            unset($data);
         }
 
         if ($this->minItems && count($value) < $this->minItems) {
@@ -196,6 +200,19 @@ class Repeater extends FormWidgetBase
         }
         if ($this->maxItems && count($value) > $this->maxItems) {
             throw new ApplicationException(Lang::get('backend::lang.repeater.max_items_failed', ['name' => $this->fieldName, 'max' => $this->maxItems, 'items' => count($value)]));
+        }
+
+        /*
+         * Give repeated form field widgets an opportunity to process the data.
+         */
+        foreach ($value as $index => $data) {
+            if (isset($this->formWidgets[$index])) {
+                if ($this->useGroups) {
+                    $value[$index] = array_merge($this->formWidgets[$index]->getSaveData(), ['_group' => $data['_group']]);
+                } else {
+                    $value[$index] = $this->formWidgets[$index]->getSaveData();
+                }
+            }
         }
 
         return array_values($value);
@@ -268,6 +285,9 @@ class Repeater extends FormWidgetBase
         $config->alias = $this->alias . 'Form'.$index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
+        if (self::$onAddItemCalled || $this->minItems > 0) {
+            $config->enableDefaults = true;
+        }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         $widget->bindToController();
@@ -349,7 +369,7 @@ class Repeater extends FormWidgetBase
             return null;
         }
 
-        return ['fields' => $fields];
+        return ['fields' => $fields, 'enableDefaults' => object_get($this->config, 'enableDefaults')];
     }
 
     /**

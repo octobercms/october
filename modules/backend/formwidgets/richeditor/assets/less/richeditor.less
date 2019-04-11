@@ -26,6 +26,9 @@
 @import "../vendor/froala_drm/less/plugins/line_breaker.less";
 @import "../vendor/froala_drm/less/plugins/draggable.less";
 
+// More testing needed
+//import "../vendor/froala_drm/less/plugins/quick_insert.less";
+
 // Base styles
 @import "_base_styles.less";
 
@@ -200,5 +203,16 @@
         &:before {
             .icon(@volume-up);
         }
+    }
+}
+
+//
+// Quick Insert
+//
+
+.fr-quick-insert {
+    a.fr-floating-btn {
+        color: @btn-text;
+        text-decoration: none;
     }
 }

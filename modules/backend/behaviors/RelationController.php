@@ -753,7 +753,7 @@ class RelationController extends ControllerBehavior
             if ($this->viewMode == 'single') {
                 $config->showCheckboxes = false;
                 $config->recordOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManageListRecord(:%s, '%s', '%s')",
+                    "$.oc.relationBehavior.clickManageListRecord(':%s', '%s', '%s')",
                     $this->relationModel->getKeyName(),
                     $this->relationGetId(),
                     $this->relationGetSessionKey()
@@ -764,7 +764,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($isPivot) {
                 $config->recordOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManagePivotListRecord(:%s, '%s', '%s')",
+                    "$.oc.relationBehavior.clickManagePivotListRecord(':%s', '%s', '%s')",
                     $this->relationModel->getKeyName(),
                     $this->relationGetId(),
                     $this->relationGetSessionKey()
@@ -1062,7 +1062,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationModel->find($this->manageId);
+            $model = $this->manageWidget->model;
             $modelsToSave = $this->prepareModelsToSave($model, $saveData);
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());

@@ -78,8 +78,15 @@
         BaseProto.dispose.call(this)
     }
 
+    MediaFinder.prototype.setValue = function(value) {
+        // set value and trigger change event, so that wrapping implementations
+        // like mlmediafinder can listen for changes.
+        this.$findValue.val(value).trigger('change')
+    }
+
     MediaFinder.prototype.onClickRemoveButton = function() {
-        this.$findValue.val('')
+        this.setValue('')
+
         this.evalIsPopulated()
     }
 
@@ -106,7 +113,7 @@
                     publicUrl = items[i].publicUrl
                 }
 
-                self.$findValue.val(path)
+                self.setValue(path)
 
                 if (self.options.isImage) {
                     $('[data-find-image]', self.$el).attr('src', publicUrl)

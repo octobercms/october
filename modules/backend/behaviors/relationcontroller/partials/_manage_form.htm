@@ -47,7 +47,11 @@
 
     <?php else: ?>
 
-        <?= Form::ajax('onRelationManageCreate', ['data-popup-load-indicator' => true, 'sessionKey' => $newSessionKey]) ?>
+        <?= Form::ajax('onRelationManageCreate', [
+            'data-popup-load-indicator' => true,
+            'data-request-success' => "$.oc.relationBehavior.changed('" . e($this->vars['relationField']) . "', 'created')",
+            'sessionKey' => $newSessionKey
+        ]) ?>
 
             <!-- Passable fields -->
             <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />

@@ -178,8 +178,8 @@ class FormField
 
     /**
      * Constructor.
-     * @param string $fieldName
-     * @param string $label
+     * @param string $fieldName The name of the field
+     * @param string $label The label of the field
      */
     public function __construct($fieldName, $label)
     {
@@ -511,7 +511,7 @@ class FormField
             'data-trigger' => '[name="'.$fullTriggerField.'"]',
             'data-trigger-action' => $triggerAction,
             'data-trigger-condition' => $triggerCondition,
-            'data-trigger-closest-parent' => 'form'
+            'data-trigger-closest-parent' => 'form, div[data-control="formwidget"]'
         ];
 
         return $attributes + $newAttributes;

@@ -119,7 +119,7 @@
     }
 
     ExceptionBeautifier.prototype.initCustomSelect = function (select) {
-        if (Modernizr.touch) {
+        if (Modernizr.touchevents) {
             return
         }
 
