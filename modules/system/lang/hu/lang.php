@@ -275,11 +275,14 @@ return [
         'plugin_author' => 'Fejlesztő',
         'plugin_not_found' => 'A bővítmény nem található',
         'core_current_build' => 'Verziószám',
+        'core_view_changelog' => 'Részletek',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
         'core_downloading' => 'Rendszer letöltése...',
         'core_extracting' => 'Rendszer kicsomagolása...',
         'core_set_build' => 'Rendszer beállítása...',
+        'changelog' => 'Kiadott verziók',
+        'changelog_view_details' => 'Részletek',
         'plugins' => 'Bővítmény',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
@@ -404,6 +407,12 @@ return [
     'media' => [
         'invalid_path' => "Érvénytelen elérési útvonal: ':path'",
         'folder_size_items' => 'fájl'
+    ],
+    'page' => [
+        'custom_error' => [
+            'label' => 'Laphiba',
+            'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
+        ]
     ],
     'pagination' => [
         'previous' => 'Előző',
