@@ -22,9 +22,6 @@
         this.$el       = $(element)
         this.$sortable = $(options.sortableContainer, this.$el)
 
-        // Sortable tracking
-        this.sortingStartIndex = null
-
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
         this.init()
@@ -35,7 +32,6 @@
 
     Repeater.DEFAULTS = {
         sortableHandle: '.repeater-item-handle',
-        sortableHandler: null,
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
         minItems: null,
@@ -81,9 +77,7 @@
     Repeater.prototype.bindSorting = function() {
         var sortableOptions = {
             handle: this.options.sortableHandle,
-            nested: false,
-            onDragStart: this.proxy(this.onSortStart),
-            onDrop: this.proxy(this.onSortStop)
+            nested: false
         }
 
         this.$sortable.sortable(sortableOptions)
@@ -228,27 +222,6 @@
         }
 
         return defaultText
-    }
-
-    Repeater.prototype.onSortStart = function($item, container, callback, event) {
-        this.sortingStartIndex = $item.index()
-
-        callback($item, container, callback, event)
-    }
-
-    Repeater.prototype.onSortStop = function($item, container, callback, event) {
-        var endIndex = $item.index()
-
-        if (this.options.sortableHandler) {
-            this.$el.request(this.options.sortableHandler, {
-                data: {
-                    _repeater_index: this.sortingStartIndex,
-                    _repeater_new_index: endIndex
-                }
-            })
-        }
-
-        callback($item, container, callback, event)
     }
 
     // FIELD REPEATER PLUGIN DEFINITION
