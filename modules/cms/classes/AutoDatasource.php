@@ -85,6 +85,10 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function sourceHasModel(string $source, Model $model)
     {
+        if (!$model->exists) {
+            return false;
+        }
+
         $result = false;
 
         $sourcePaths = $this->getSourcePaths($source);
