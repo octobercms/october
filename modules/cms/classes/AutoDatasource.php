@@ -89,7 +89,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
         $sourcePaths = $this->getSourcePaths($source);
 
-        if (!empty($paths)) {
+        if (!empty($sourcePaths)) {
             // Generate the path
             list($name, $extension) = $model->getFileNameParts();
             $path = $this->makeFilePath($model->getObjectTypeDirName(), $name, $extension);
