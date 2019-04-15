@@ -264,7 +264,9 @@ class RecordFinder extends FormWidgetBase
             return null;
         }
 
-        return $this->relationModel->{$this->keyFrom};
+        return $this->useRelation ?
+            $this->relationModel->{$this->keyFrom} :
+            $this->formField->value;
     }
 
     public function getNameValue()
