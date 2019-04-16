@@ -127,6 +127,21 @@ trait AssetMaker
         }
 
         $jsPath = $this->getAssetScheme($jsPath);
+        // Merge with 'default' attribute(s)
+        $attributes += [
+            'cache' => true
+        ];
+
+        // If needed no cache, prevent Cloudflare Rocker Loader to add additional attributes.
+        // @See https://github.com/octobercms/october/pull/4092
+        if(!$attributes['cache']){
+            $attributes['data-cfasync'] = 'false';
+        }
+
+        // Unset unnecessery attribute(s) to be printed.
+        $attributes = array_except($attributes, [
+            'cache'
+        ]);
 
         if (!in_array($jsPath, $this->assets['js'])) {
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];

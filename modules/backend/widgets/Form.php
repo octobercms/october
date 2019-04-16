@@ -161,7 +161,7 @@ class Form extends WidgetBase
     {
         $this->addJs('js/october.form.js', [
             'build' => 'core',
-            'data-cfasync'  => 'false'
+            'cache'  => 'false'
         ]);
     }
 
