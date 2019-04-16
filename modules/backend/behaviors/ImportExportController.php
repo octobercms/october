@@ -636,7 +636,7 @@ class ImportExportController extends ControllerBehavior
                 if (is_array($value)) {
                     $value = implode('|', $value);
                 }
-                $record[] = $value;
+                $record[] = strip_tags($value);
             }
             $csv->insertOne($record);
         }
