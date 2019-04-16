@@ -413,7 +413,8 @@ class FileUpload extends FormWidgetBase
             $parent = $fileRelation->getParent();
             if ($this->attachOnUpload && $parent && $parent->exists) {
                 $fileRelation->add($file);
-            } else {
+            }
+            else {
                 $fileRelation->add($file, $this->sessionKey);
             }
 
@@ -425,14 +426,14 @@ class FileUpload extends FormWidgetBase
                 'path' => $file->pathUrl
             ];
 
-            Response::json($result, 200)->send();
-
+            $response = Response::make($result, 200);
         }
         catch (Exception $ex) {
-            Response::json($ex->getMessage(), 400)->send();
+            $response = Response::make($ex->getMessage(), 400);
         }
 
-        exit;
+        // Override the controller response
+        $this->controller->setResponse($response);
     }
 
     /**

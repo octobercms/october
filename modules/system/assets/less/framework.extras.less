@@ -36,7 +36,8 @@ body.oc-loading, body.oc-loading * {
     }
 
     .stripe-loaded {
-        width: 0;
+        width: 100%;
+        transform: translate3d(-100%, 0, 0);
         .opacity(0);
     }
 
@@ -44,10 +45,13 @@ body.oc-loading, body.oc-loading * {
         .opacity(0);
         .transition(opacity .4s linear);
         .transition-delay(.3s);
+        .stripe {
+            animation-play-state: paused;
+        }
         .stripe-loaded {
             .opacity(1);
-            .transition(width .3s linear);
-            width: 100% !important;
+            transform: translate3d(0, 0, 0);
+            .transition(transform .3s linear);
         }
     }
 
@@ -192,33 +196,27 @@ a.oc-loading, button.oc-loading, span.oc-loading {
 // Infinite loading animation
 // --------------------------------------------------
 
-@startCount: 1;
-@startVal: 28%;
+@startVal: 100%;
 @start: 0;
 
-.infinite-class (@index, @val, @count) when (@index = 0) {
+.infinite-class (@index, @val) when (@index < 101) {
     @tmpSelector: ~"@{index}%";
-    @{tmpSelector} { width: 0; }
-    .infinite-class(@index + 10, @val + (@val / (@count * 2)), @count + 1);
-}
-.infinite-class (@index, @val, @count) when (@index < 101) and (@index > 9) {
-    @tmpSelector: ~"@{index}%";
-    @{tmpSelector} { width: @val; }
-    .infinite-class(@index + 10, @val + (@val / @count), @count * 2);
+    @{tmpSelector} { transform: translateX(-@val); }
+    .infinite-class(@index + 10, @val - @val / 2);
 }
 
 @-moz-keyframes oc-infinite-loader {
-    .infinite-class(@start, @startVal, @startCount);
+    .infinite-class(@start, @startVal);
 }
 @-webkit-keyframes oc-infinite-loader {
-    .infinite-class(@start, @startVal, @startCount);
+    .infinite-class(@start, @startVal);
 }
 @-o-keyframes oc-infinite-loader {
-    .infinite-class(@start, @startVal, @startCount);
+    .infinite-class(@start, @startVal);
 }
 @-ms-keyframes oc-infinite-loader {
-    .infinite-class(@start, @startVal, @startCount);
+    .infinite-class(@start, @startVal);
 }
 @keyframes oc-infinite-loader {
-    .infinite-class(@start, @startVal, @startCount);
+    .infinite-class(@start, @startVal);
 }

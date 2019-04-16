@@ -2949,7 +2949,7 @@ if(this.options.minDate){pikadayOptions.minDate=new Date(this.options.minDate)}
 if(this.options.maxDate){pikadayOptions.maxDate=new Date(this.options.maxDate)}
 this.$datePicker.pikaday(pikadayOptions)}
 DatePicker.prototype.onSelectDatePicker=function(pickerMoment){var pickerValue=pickerMoment.format(this.dbDateFormat)
-var timeValue=this.getTimePickerValue()
+var timeValue=this.options.mode==='date'?'00:00:00':this.getTimePickerValue()
 var momentObj=moment.tz(pickerValue+' '+timeValue,this.dbDateTimeFormat,this.timezone).tz(this.appTimezone)
 var lockerValue=momentObj.format(this.dbDateTimeFormat)
 this.$dataLocker.val(lockerValue)}
@@ -2991,7 +2991,7 @@ if(this.ignoreTimezone){this.appTimezone='UTC'
 this.timezone='UTC'}}
 DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
-DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0,showWeekNumber:false}
+DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0,showWeekNumber:false,mode:'datetime'}
 var old=$.fn.datePicker
 $.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1),items,result
 items=this.each(function(){var $this=$(this)
@@ -3100,19 +3100,19 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 self.displayPopover($scope)
 $scope.addClass('filter-scope-open')})
-this.$el.on('show.oc.popover','a.filter-scope',function(){self.focusSearch()})
+this.$el.on('show.oc.popover','a.filter-scope',function(event){self.focusSearch()
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
+$(event.relatedTarget).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
+self.filterScope()})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+self.filterScope(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
-setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
-$(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
-$(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
-$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
-$(document).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
-self.filterScope()})
-$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
-self.filterScope(true)})}
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})}
 FilterWidget.prototype.focusSearch=function(){if(Modernizr.touchevents)
 return
 var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
@@ -3151,11 +3151,11 @@ $scope.data('oc.popover',null)
 $scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',container:container})
 this.toggleFilterButtons()
 if(!isLoaded){self.loadOptions(scopeName)}}
-FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
+FilterWidget.prototype.loadOptions=function(scopeName){var self=this,data={scopeName:scopeName}
 var populated=this.$el.data('filterScopes')
 if(populated&&populated[scopeName]){self.fillOptions(scopeName,populated[scopeName])
 return false}
-return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)
+return this.$el.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)
 self.toggleFilterButtons()}})}
 FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[scopeName])
 return
@@ -3187,20 +3187,20 @@ FilterWidget.prototype.toggleFilterButtons=function(data)
 if(data){data.active.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
 FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
 return
-var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
+var data={scopeName:scopeName,options:this.scopeValues[scopeName]}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 FilterWidget.prototype.checkboxToggle=function($el){var isChecked=$el.is(':checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
 this.scopeValues[scopeName]=isChecked
-if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
+if(this.options.updateHandler){var data={scopeName:scopeName,value:isChecked}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',isChecked)}
 FilterWidget.prototype.switchToggle=function($el){var switchValue=$el.data('checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
 this.scopeValues[scopeName]=switchValue
-if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:switchValue}
+if(this.options.updateHandler){var data={scopeName:scopeName,value:switchValue}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',!!switchValue)}
 FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
 if(isReset){this.scopeValues[scopeName]=null
@@ -3224,7 +3224,13 @@ $(document).render(function(){$('[data-control="filterwidget"]').filterWidget();
 this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-date',function(){self.initDatePickers($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-date',function(event){self.initDatePickers($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate()})
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate(true)})})
 this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()})
 this.$el.on('hide.oc.popover','a.filter-scope-date',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
@@ -3239,13 +3245,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverRange($scope)}
 else{self.displayPopoverDate($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate()})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
@@ -3296,7 +3296,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
@@ -3359,7 +3359,13 @@ if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
 this.initFilterNumber()}
 FilterWidget.prototype.initFilterNumber=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-number',function(){self.initNumberInputs($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-number',function(event){self.initNumberInputs($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber()})
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope-number',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
@@ -3373,13 +3379,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverNumberRange($scope)}
 else{self.displayPopoverNumber($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber()})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverNumberTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
@@ -3808,7 +3808,7 @@ this.$backdrop=null}}
 Popup.prototype.setLoading=function(val){if(!this.$backdrop)
 return;var self=this
 if(val){setTimeout(function(){self.$backdrop.addClass('loading');},100)}
-else{this.$backdrop.removeClass('loading');}}
+else{setTimeout(function(){self.$backdrop.removeClass('loading');},100)}}
 Popup.prototype.setShake=function(){var self=this
 this.$content.addClass('popup-shaking')
 setTimeout(function(){self.$content.removeClass('popup-shaking')},1000)}
@@ -4201,14 +4201,16 @@ if(prefix===undefined)
 prefix=''
 if($el.val().length&&$el.val()!=prefix)
 return
-$el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 this.$src=$(options.inputPreset,parent)
-this.$src.on('input',function(){if(self.cancelled)
+$el.val(prefix).trigger('oc.inputPreset.afterUpdate')
+this.$src.on('input paste',function(event){if(self.cancelled)
 return
-$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')})
-this.$src.on('paste',function(){if(self.cancelled)
-return
-setTimeout(function(){$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')},100)})
+var timeout=event.type==='paste'?100:0
+var updateValue=function(self,el,prefix){if(el.data('update')===false){return}
+el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')}
+var src=$(this)
+setTimeout(function(){$el.trigger('oc.inputPreset.beforeUpdate',[src])
+setTimeout(updateValue,100,self,$el,prefix)},timeout)})
 this.$el.on('change',function(){self.cancelled=true})}
 InputPreset.prototype.formatNamespace=function(){var value=this.toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}

@@ -2,9 +2,9 @@
 
 use Block;
 use Event;
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension as TwigExtension;
+use Twig\TwigFilter as TwigSimpleFilter;
+use Twig\TwigFunction as TwigSimpleFunction;
 use Cms\Classes\Controller;
 
 /**
@@ -13,7 +13,7 @@ use Cms\Classes\Controller;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Extension extends Twig_Extension
+class Extension extends TwigExtension
 {
     /**
      * @var \Cms\Classes\Controller A reference to the CMS controller.
@@ -37,11 +37,11 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -53,8 +53,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
-            new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
         ];
     }
 

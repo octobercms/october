@@ -27,7 +27,7 @@
     &:after {
         right: -8px;
     }
-	
+
     .toolbar-item {
         position: relative;
         white-space: nowrap;
@@ -108,22 +108,43 @@ html.mobile {
 }
 
 .clear-input-text {
-     font-size:large;
-     color:#666666;
-     display: inline-block;
-     position: absolute;
-     right: 1px;
-     top: 0;
-     bottom: 0;
-     margin: auto;
-     background-color: #fff;
-     padding-left:7px;
-     height:28px;
-     border: 0;
-}
-    
-.clear-input-text:focus {
-     outline:none;
+    padding: 0 5px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    font-size: (@font-size-base * 1.5);
+    font-weight: @close-font-weight;
+    line-height: 1;
+    color: @close-color;
+    text-shadow: @close-text-shadow;
+    font-family: sans-serif;
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #fff;
+    height: 28px;
+
+    > i {
+        .opacity(.2);
+    }
+
+    &:hover,
+    &:focus {
+        color: @close-color;
+        text-decoration: none;
+        cursor: pointer;
+        > i {
+            .opacity(.5);
+        }
+    }
+
+    &:focus {
+         outline: none;
+    }
 }
 
 //

@@ -2594,7 +2594,7 @@ button.close {padding:0;cursor:pointer;background:transparent;border:0;-webkit-a
 .touch .dropdown-menu .dropdown-container >ul li.first-item a:hover:after {content:'';display:none}
 body.dropdown-open .dropdown-overlay {position:fixed;left:0;top:0;right:0;bottom:0;z-index:599}
 @media (max-width:480px) {body.dropdown-open {overflow:hidden }body.dropdown-open .dropdown-overlay {background:rgba(0,0,0,0.4) }body.dropdown-open .dropdown-menu {overflow:auto;overflow-y:scroll;position:fixed !important;margin:0 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;z-index:600 }body.dropdown-open .dropdown-menu .dropdown-container {padding:10px;height:100% }body.dropdown-open .dropdown-menu .dropdown-container ul {min-height:100%;margin-top:0 }body.dropdown-open .dropdown-menu .dropdown-container ul:before,body.dropdown-open .dropdown-menu .dropdown-container ul:after {display:none }body.dropdown-open .dropdown-menu .dropdown-container ul li.dropdown-title {display:block;padding:8px 15px;border-bottom:1px solid #c9c9c9;color:#39454a;position:relative;cursor:pointer;font-weight:600 }body.dropdown-open .dropdown-menu .dropdown-container ul li.dropdown-title:after {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f00d";position:absolute;top:7px;right:13px;opacity:0.3;filter:alpha(opacity=30) }body.dropdown-open .dropdown-menu .dropdown-container ul li.first-item a:hover:after,body.dropdown-open .dropdown-menu .dropdown-container ul li.first-item :focus:after {content:'';display:none }}
-div.control-popover {position:absolute;background-clip:content-box;left:0;top:0;z-index:599;visibility:hidden}
+div.control-popover {position:absolute;background-clip:content-box;left:0;top:0;z-index:600;visibility:hidden}
 div.control-popover.in,
 div.control-popover.fade {visibility:visible}
 div.control-popover.fade >div {opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.3s,width 0s;transition:all 0.3s,width 0s;-webkit-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}
@@ -3087,10 +3087,15 @@ a.control-status-list >ul li .status-text.danger:hover {color:#843534}
 .control-toolbar .toolbar-item .btn-group .dropdown.last >.btn {border-bottom-right-radius:3px !important;border-top-right-radius:3px !important}
 .control-toolbar input.form-control[type=text] {height:auto;padding:6px 13px 6px}
 .control-toolbar.toolbar-padded {padding:20px}
-.clear-input-text {font-size:large;color:#666;display:inline-block;position:absolute;top:0;bottom:0;margin:auto;right:1px;background-color:#fff;padding-left:7px;border:0;height:28px}
-.clear-input-text:focus {outline:none}
 [data-control=toolbar] {white-space:nowrap;width:100%;overflow:hidden}
 html.mobile [data-control=toolbar].is-native-drag {overflow:auto;-webkit-overflow-scrolling:touch}
+.clear-input-text {padding:0 5px;cursor:pointer;background:transparent;border:0;-webkit-appearance:none;font-size:21px;font-weight:bold;line-height:1;color:#000;text-shadow:0 1px 0 #fff;font-family:sans-serif;display:inline-block;position:absolute;right:3px;top:0;bottom:0;margin:auto;background-color:#fff;height:28px}
+.clear-input-text >i {opacity:0.2;filter:alpha(opacity=20)}
+.clear-input-text:hover,
+.clear-input-text:focus {color:#000;text-decoration:none;cursor:pointer}
+.clear-input-text:hover >i,
+.clear-input-text:focus >i {opacity:0.5;filter:alpha(opacity=50)}
+.clear-input-text:focus {outline:none}
 .control-toolbar.editor-toolbar {padding:0;background:#f2f2f2;border-bottom-right-radius:0;border-bottom-left-radius:0;border-bottom:2px solid #d4d8da}
 .control-toolbar.editor-toolbar .toolbar-item .btn,
 .control-toolbar.editor-toolbar .toolbar-item .btn-group,
@@ -4204,7 +4209,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
-.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;-webkit-box-shadow:none;box-shadow:none}
+.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}
 .help-block {font-size:13px;margin-bottom:0}

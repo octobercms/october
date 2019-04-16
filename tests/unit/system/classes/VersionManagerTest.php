@@ -15,37 +15,6 @@ class VersionManagerTest extends TestCase
     }
 
     //
-    // Helpers
-    //
-
-    protected static function callProtectedMethod($object, $name, $params = [])
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method->invokeArgs($object, $params);
-    }
-
-    public static function getProtectedProperty($object, $name)
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $property = $class->getProperty($name);
-        $property->setAccessible(true);
-        return $property->getValue($object);
-    }
-
-    public static function setProtectedProperty($object, $name, $value)
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $property = $class->getProperty($name);
-        $property->setAccessible(true);
-        return $property->setValue($object, $value);
-    }
-
-    //
     // Tests
     //
 
@@ -119,4 +88,121 @@ class VersionManagerTest extends TestCase
         $this->assertArrayHasKey('1.0.5', $result);
     }
 
+    /**
+     * @dataProvider versionInfoProvider
+     *
+     * @param $versionInfo
+     * @param $expectedComments
+     * @param $expectedScripts
+     */
+    public function testExtractScriptsAndComments($versionInfo, $expectedComments, $expectedScripts)
+    {
+        $manager = VersionManager::instance();
+        list($comments, $scripts) = self::callProtectedMethod($manager, 'extractScriptsAndComments', [$versionInfo]);
+
+        $this->assertInternalType('array', $comments);
+        $this->assertInternalType('array', $scripts);
+
+        $this->assertEquals($expectedComments, $comments);
+        $this->assertEquals($expectedScripts, $scripts);
+    }
+
+    public function versionInfoProvider()
+    {
+        return [
+            [
+                'A single update comment string',
+                [
+                    'A single update comment string'
+                ],
+                []
+            ],
+            [
+                [
+                    'A classic update comment string followed by script',
+                    'update_script.php'
+                ],
+                [
+                    'A classic update comment string followed by script'
+                ],
+                [
+                    'update_script.php'
+                ]
+            ],
+            [
+                [
+                    'scripts_can_go_first.php',
+                    'An update comment string after the script',
+                ],
+                [
+                    'An update comment string after the script'
+                ],
+                [
+                    'scripts_can_go_first.php'
+                ]
+            ],
+            [
+                [
+                    'scripts_can_go_first.php',
+                    'An update comment string after the script',
+                    'scripts_can_go_anywhere.php',
+                ],
+                [
+                    'An update comment string after the script'
+                ],
+                [
+                    'scripts_can_go_first.php',
+                    'scripts_can_go_anywhere.php'
+                ]
+            ],
+            [
+                [
+                    'scripts_can_go_first.php',
+                    'The first update comment',
+                    'scripts_can_go_anywhere.php',
+                    'The second update comment',
+                ],
+                [
+                    'The first update comment',
+                    'The second update comment'
+                ],
+                [
+                    'scripts_can_go_first.php',
+                    'scripts_can_go_anywhere.php'
+                ]
+            ],
+            [
+                [
+                    'file.name.with.dots.php',
+                    'The first update comment',
+                    '1.0.2.scripts_can_go_anywhere.php',
+                    'The second update comment',
+                ],
+                [
+                    'The first update comment',
+                    'The second update comment'
+                ],
+                [
+                    'file.name.with.dots.php',
+                    '1.0.2.scripts_can_go_anywhere.php'
+                ]
+            ],
+            [
+                [
+                    'subdirectory/file.name.with.dots.php',
+                    'The first update comment',
+                    'subdirectory\1.0.2.scripts_can_go_anywhere.php',
+                    'The second update comment',
+                ],
+                [
+                    'The first update comment',
+                    'The second update comment'
+                ],
+                [
+                    'subdirectory/file.name.with.dots.php',
+                    'subdirectory\1.0.2.scripts_can_go_anywhere.php'
+                ]
+            ]
+        ];
+    }
 }
