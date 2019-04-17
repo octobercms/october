@@ -159,7 +159,10 @@ class Form extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addJs('js/october.form.js', 'core');
+        $this->addJs('js/october.form.js', [
+            'build' => 'core',
+            'cache'  => 'false'
+        ]);
     }
 
     /**
