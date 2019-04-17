@@ -347,7 +347,7 @@ class FileUpload extends FormWidgetBase
         $this->addCss('css/fileupload.css', 'core');
         $this->addJs('js/fileupload.js', [
             'build' => 'core',
-            'cache'  => false
+            'cache'  => 'false'
         ]);
     }
 

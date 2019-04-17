@@ -130,7 +130,7 @@ trait AssetMaker
 
         // Prevent CloudFlare's Rocket Loader from breaking stuff
         // @see octobercms/october#4092, octobercms/october#3841, octobercms/october#3839
-        if (isset($attributes['cache']) && $attributes['cache'] == false) {
+        if (isset($attributes['cache']) && $attributes['cache'] == 'false') {
             $attributes['data-cfasync'] = 'false';
             unset($attributes['cache']);
         }
