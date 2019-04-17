@@ -100,12 +100,14 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        try {
-            // Load version updates
-            UpdateManager::instance()->update();
-        }
-        catch (Exception $ex) {
-            Flash::error($ex->getMessage());
+        if (config('cms.runUpdateManagerAfterBackendLogin', true)) {
+            try {
+                // Load version updates
+                UpdateManager::instance()->update();
+            }
+            catch (Exception $ex) {
+                Flash::error($ex->getMessage());
+            }
         }
 
         // Log the sign in event

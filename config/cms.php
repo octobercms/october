@@ -95,6 +95,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Determines if logging in backend should run UpdateManager
+    |--------------------------------------------------------------------------
+    |
+    | If value is true it runs UpdateMananger after login in backend.
+    | It's recommended to set this value to 'false' in production enviroments
+    | because it cleares cache on every login in backend.
+    |
+    */
+
+    'runUpdateManagerAfterBackendLogin' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Determines which modules to load
     |--------------------------------------------------------------------------
     |
