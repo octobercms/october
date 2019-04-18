@@ -1,9 +1,11 @@
 <?php namespace Backend\FormWidgets;
 
+use Db;
 use Input;
 use Request;
 use Response;
 use Validator;
+use Backend\Widgets\Form;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
 use Backend\Controllers\Files as FilesController;
@@ -26,6 +28,7 @@ use Exception;
  */
 class FileUpload extends FormWidgetBase
 {
+    use \Backend\Traits\FormModelSaver;
     use \Backend\Traits\FormModelWidget;
 
     //
@@ -85,6 +88,11 @@ class FileUpload extends FormWidgetBase
     protected $defaultAlias = 'fileupload';
 
     /**
+     * @var Backend\Widgets\Form The embedded form for modifying the properties of the selected file
+     */
+    protected $configFormWidget;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -104,6 +112,7 @@ class FileUpload extends FormWidgetBase
             $this->previewMode = true;
         }
 
+        $this->getConfigFormWidget();
         $this->checkUploadPostback();
     }
 
@@ -140,6 +149,44 @@ class FileUpload extends FormWidgetBase
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
         $this->vars['prompt'] = $this->getPromptText();
+    }
+
+    /**
+     * Get the file record for this request, returns false if none available
+     *
+     * @return System\Models\File|false
+     */
+    protected function getFileRecord()
+    {
+        $record = false;
+
+        if (!empty(post('file_id'))) {
+            $record = $this->getRelationModel()::find(post('file_id')) ?: false;
+        }
+
+        return $record;
+    }
+
+    /**
+     * Get the instantiated config Form widget
+     *
+     * @return void
+     */
+    public function getConfigFormWidget()
+    {
+        if ($this->configFormWidget) {
+            return $this->configFormWidget;
+        }
+
+        $config = $this->makeConfig('~/modules/system/models/file/fields.yaml');
+        $config->model = $this->getFileRecord() ?: $this->getRelationModel();
+        $config->alias = $this->alias . $this->defaultAlias;
+        $config->arrayName = $this->getFieldName();
+
+        $widget = $this->makeWidget(Form::class, $config);
+        $widget->bindToController();
+
+        return $this->configFormWidget = $widget;
     }
 
     protected function getFileList()
@@ -302,7 +349,7 @@ class FileUpload extends FormWidgetBase
     public function onLoadAttachmentConfig()
     {
         $fileModel = $this->getRelationModel();
-        if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
+        if ($file = $this->getFileRecord()) {
             $file = $this->decorateFileAttributes($file);
 
             $this->vars['file'] = $file;
@@ -324,10 +371,15 @@ class FileUpload extends FormWidgetBase
     {
         try {
             $fileModel = $this->getRelationModel();
-            if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
-                $file->title = post('title');
-                $file->description = post('description');
-                $file->save();
+            if ($file = $this->getFileRecord()) {
+                $formWidget = $this->getConfigFormWidget();
+
+                $modelsToSave = $this->prepareModelsToSave($file, $formWidget->getSaveData());
+                Db::transaction(function () use ($modelsToSave, $formWidget) {
+                    foreach ($modelsToSave as $modelToSave) {
+                        $modelToSave->save(null, $formWidget->getSessionKey());
+                    }
+                });
 
                 return ['displayName' => $file->title ?: $file->file_name];
             }
