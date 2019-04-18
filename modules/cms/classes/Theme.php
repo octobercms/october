@@ -48,6 +48,7 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
+    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -336,7 +337,16 @@ class Theme
             return $this->configCache = [];
         }
 
-        $config = Yaml::parseFile($path);
+        try {
+            $config = Cache::remember(self::CONFIG_KEY, 1440, function() use($path) {
+                return Yaml::parseFile($path);
+            });
+        }
+        catch (Exception $ex) {
+            // Cache failed
+            $config = Yaml::parseFile($path);
+        }
+
 
         /**
          * @event cms.theme.extendConfig
@@ -484,6 +494,7 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
+        Cache::forget(self::CONFIG_KEY);
     }
 
     /**
