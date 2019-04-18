@@ -35,11 +35,11 @@
 <link rel="preload" href="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>" as="script">
 <link rel="preload" href="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>" as="script">
 
-<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
-<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>?v<?= $coreBuild ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>?v<?= $coreBuild ?>"></script>
 
-<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>" as="script">
-<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>" as="script">
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>?v<?= $coreBuild ?>" as="script">
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
