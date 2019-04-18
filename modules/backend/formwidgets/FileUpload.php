@@ -370,9 +370,8 @@ class FileUpload extends FormWidgetBase
     public function onSaveAttachmentConfig()
     {
         try {
-            $fileModel = $this->getRelationModel();
-            if ($file = $this->getFileRecord()) {
-                $formWidget = $this->getConfigFormWidget();
+            $formWidget = $this->getConfigFormWidget();
+            if ($file = $formWidget->model) {
 
                 $modelsToSave = $this->prepareModelsToSave($file, $formWidget->getSaveData());
                 Db::transaction(function () use ($modelsToSave, $formWidget) {
