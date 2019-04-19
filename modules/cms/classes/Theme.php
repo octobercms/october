@@ -338,7 +338,7 @@ class Theme
         }
 
         try {
-            $config = Cache::remember(self::CONFIG_KEY, 1440, function() use($path) {
+            $config = Cache::rememberForever(self::CONFIG_KEY, function() use ($path) {
                 return Yaml::parseFile($path);
             });
         }
