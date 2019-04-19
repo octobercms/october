@@ -48,7 +48,7 @@
         this.dataTableContainer = null
 
         // The key of the row which is being edited at the moment.
-        // This key corresponds the data source row key which 
+        // This key corresponds the data source row key which
         // uniquely identifies the row in the data set. When the
         // table grid notices that a cell in another row is edited it commits
         // the previously edited record to the data source.
@@ -556,8 +556,8 @@
     }
 
     Table.prototype.addRecord = function(placement, noFocus) {
-        // If there is no active cell, or the pagination is enabled or 
-        // row sorting is disabled, add the record to the bottom of 
+        // If there is no active cell, or the pagination is enabled or
+        // row sorting is disabled, add the record to the bottom of
         // the table (last page).
 
         if (!this.activeCell || this.navigation.paginationEnabled() || !this.options.rowSorting)
@@ -600,7 +600,7 @@
         ])
 
         this.dataSource.createRecord(recordData, placement, relativeToKey,
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
             function onAddRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
@@ -655,7 +655,7 @@
                     else
                         self.navigation.focusCellInReplacedRow(currentRowIndex, currentCellIndex)
                 }
-                
+
                 self = null
             }
         )
@@ -742,11 +742,15 @@
 
         var target = this.getEventTarget(ev, 'TD')
 
-        if (!target)
-            return
+        if (!target) {
+            this.unfocusTable();
+            return;
+        }
 
-        if (target.tagName != 'TD')
-            return
+        if (target.tagName != 'TD') {
+            this.unfocusTable();
+            return;
+        }
 
         this.focusCell(target, true)
     }
@@ -777,7 +781,9 @@
         for (var i = 0, len = this.options.columns.length; i < len; i++) {
             var column = this.options.columns[i].key
 
-            this.cellProcessors[column].onKeyDown(ev)
+            if (this.cellProcessors[column].onKeyDown(ev) === false) {
+                return
+            }
         }
 
         if (this.navigation.onKeydown(ev) === false) {
@@ -838,7 +844,7 @@
         if (this.parentContainsElement(this.el, target))
             return
 
-        // Request the active cell processor if the clicked 
+        // Request the active cell processor if the clicked
         // element belongs to any extra-table element created
         // by the processor
 
@@ -887,7 +893,7 @@
         // Delete references to the control HTML elements.
         // The script doesn't remove any DOM elements themselves.
         // If it's needed it should be done by the outer script,
-        // we only make sure that the table widget doesn't hold 
+        // we only make sure that the table widget doesn't hold
         // references to the detached DOM tree so that the garbage
         // collector can delete the elements if needed.
         this.disposeScrollbar()
@@ -901,7 +907,7 @@
     }
 
     /*
-     * Updates row values in the table. 
+     * Updates row values in the table.
      * rowIndex is an integer value containing the row index on the current page.
      * The rowValues should be a hash object containing only changed
      * columns.
@@ -999,7 +1005,7 @@
 
         if (el.classList)
             return el.classList.contains(className);
-        
+
         return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
     }
 
@@ -1122,7 +1128,7 @@
     var old = $.fn.table
 
     $.fn.table = function (option) {
-        var args = Array.prototype.slice.call(arguments, 1), 
+        var args = Array.prototype.slice.call(arguments, 1),
             result = undefined
 
         this.each(function () {

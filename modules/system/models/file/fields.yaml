@@ -1,0 +1,14 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    title:
+        type: text
+        placeholder: backend::lang.fileupload.title_label
+        span: full
+    description:
+        type: textarea
+        placeholder: backend::lang.fileupload.description_label
+        span: full
+        size: tiny

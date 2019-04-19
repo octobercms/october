@@ -181,16 +181,26 @@ class Updates extends Controller
         $contents = [];
 
         try {
-            $updates = Yaml::parseFile($path.'/'.$filename);
-            $updates = is_array($updates) ? array_reverse($updates) : [];
+            $updates = (array) Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
-                $contents[$version] = is_array($details)
-                    ? array_shift($details)
-                    : $details;
+                if (!is_array($details)) {
+                    $details = (array)$details;
+                }
+
+                //Filter out update scripts
+                $details = array_filter($details, function($string) use ($path) {
+                    return !preg_match('/^[a-z_\-0-9]*\.php$/i', $string) || !File::exists($path . '/updates/' . $string);
+                });
+
+                $contents[$version] = $details;
             }
         }
         catch (Exception $ex) {}
+
+        uksort($contents, function ($a, $b) {
+            return version_compare($b, $a);
+        });
 
         return $contents;
     }
@@ -279,7 +289,7 @@ class Updates extends Controller
                 break;
 
             case 'downloadPlugin':
-                $manager->downloadPlugin(post('name'), post('hash'));
+                $manager->downloadPlugin(post('name'), post('hash'), post('install'));
                 break;
 
             case 'downloadTheme':
@@ -439,7 +449,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -534,7 +544,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -553,7 +563,7 @@ class Updates extends Controller
         return $this->makePartial('execute');
     }
 
-    protected function buildUpdateSteps($core, $plugins, $themes)
+    protected function buildUpdateSteps($core, $plugins, $themes, $isInstallationRequest)
     {
         if (!is_array($core)) {
             $core = [null, null];
@@ -595,7 +605,8 @@ class Updates extends Controller
                 'code'  => 'downloadPlugin',
                 'label' => Lang::get('system::lang.updates.plugin_downloading', compact('name')),
                 'name'  => $name,
-                'hash'  => $hash
+                'hash'  => $hash,
+                'install' => $isInstallationRequest ? 1 : 0
             ];
         }
 
@@ -689,6 +700,33 @@ class Updates extends Controller
     }
 
     //
+    // View Changelog
+    //
+
+    /**
+     * Displays changelog information
+     */
+    public function onLoadChangelog()
+    {
+        try {
+            $fetchedContent = UpdateManager::instance()->requestChangelog();
+
+            $changelog = array_get($fetchedContent, 'history');
+
+            if (!$changelog || !is_array($changelog)) {
+                throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+            }
+
+            $this->vars['changelog'] = $changelog;
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
+
+        return $this->makePartial('changelog_list');
+    }
+
+    //
     // Plugin management
     //
 
@@ -717,7 +755,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, []);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, [], true);
 
             /*
              * Finish up
@@ -845,7 +883,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes, true);
 
             /*
              * Finish up

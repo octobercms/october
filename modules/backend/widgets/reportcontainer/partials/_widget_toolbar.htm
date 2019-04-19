@@ -19,17 +19,19 @@
             </a>
         </li>
         <li role="separator" class="divider"></li>
-        <li role="presentation">
-            <a
-                role="menuitem"
-                href="javascript:;"
-                class="oc-icon-floppy-o"
-                data-request="<?= $this->getEventHandler('onMakeLayoutDefault') ?>"
-                data-request-confirm="<?= e(trans('backend::lang.dashboard.make_default_confirm')) ?>"
-                tabindex="-1">
-                <?= e(trans('backend::lang.dashboard.make_default')) ?>
-            </a>
-        </li>
+        <?php if (\BackendAuth::getUser()->hasAccess('backend.manage_default_dashboard')) : ?>
+            <li role="presentation">
+                <a
+                    role="menuitem"
+                    href="javascript:;"
+                    class="oc-icon-floppy-o"
+                    data-request="<?= $this->getEventHandler('onMakeLayoutDefault') ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.dashboard.make_default_confirm')) ?>"
+                    tabindex="-1">
+                    <?= e(trans('backend::lang.dashboard.make_default')) ?>
+                </a>
+            </li>
+        <?php endif; ?>
         <li role="presentation">
             <a
                 role="menuitem"

@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Turkish
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['tr'] = {
     "Colors": "Renkler",
     "Background": "Arkaplan",
     "Text": "Metin",
+    "HEX Color": "Altı renkli",
 
     // Paragraphs
     "Paragraph Format": "Bi\u00e7imler",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['tr'] = {
 
     // Lists
     "Ordered List": "S\u0131ral\u0131 liste",
+    "Default": "Varsayılan",
+    "Lower Alpha": "Alt alfa",
+    "Lower Greek": "Alt yunan",
+    "Lower Roman": "Alt roma",
+    "Upper Alpha": "Üst alfa",
+    "Upper Roman": "Üst roma",
+
     "Unordered List": "S\u0131ras\u0131z liste",
+    "Circle": "Daire",
+    "Disc": "Disk",
+    "Square": "Kare",
+
+    // Line height
+    "Line Height": "Satır yüksekliği",
+    "Single": "Tek",
+    "Double": "Çift",
 
     // Indent
     "Decrease Indent": "Girintiyi azalt",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['tr'] = {
     "Display": "G\u00f6stermek",
     "Inline": "\u00c7izgide",
     "Break Text": "K\u0131r\u0131lma metni",
-    "Alternate Text": "Alternatif metin",
+    "Alternative Text": "Alternatif metin",
     "Change Size": "De\u011fi\u015fim boyutu",
     "Width": "Geni\u015flik",
     "Height": "Y\u00fckseklik",
     "Something went wrong. Please try again.": "Bir \u015feyler yanl\u0131\u015f gitti. L\u00fctfen tekrar deneyin.",
+    "Image Caption": "Resim yazısı",
+    "Advanced Edit": "Ileri düzey düzenleme",
 
     // Video
     "Insert Video": "Video ekle",
     "Embedded Code": "G\u00f6m\u00fcl\u00fc kod",
+    "Paste in a video URL": "Bir video URL'sine yapıştırın",
+    "Drop video": "Video bırak",
+    "Your browser does not support HTML5 video.": "Tarayıcınız html5 videoyu desteklemez.",
+    "Upload Video": "Video yükle",
 
     // Tables
     "Insert Table": "Tablo ekle",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['tr'] = {
     // Clear formatting
     "Clear Formatting": "Bi\u00e7imlendirme kald\u0131r",
 
+    // Save
+    "Save": "Kayıt etmek",
+
     // Undo, redo
     "Undo": "Geri Al",
     "Redo": "Yinele",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['tr'] = {
     "Decrease": "Azal\u0131\u015f",
 
     // Quick Insert
-    "Quick Insert": "H\u0131zl\u0131 insert"
+    "Quick Insert": "H\u0131zl\u0131 insert",
+
+    // Spcial Characters
+    "Special Characters": "Özel karakterler",
+    "Latin": "Latince",
+    "Greek": "Yunan",
+    "Cyrillic": "Kiril",
+    "Punctuation": "Noktalama",
+    "Currency": "Para birimi",
+    "Arrows": "Oklar",
+    "Math": "Matematik",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Baskı",
+
+    // Spell Checker.
+    "Spell Checker": "Yazım denetleyicisi",
+
+    // Help
+    "Help": "Yardım et",
+    "Shortcuts": "Kısayollar",
+    "Inline Editor": "Satır içi düzenleyici",
+    "Show the editor": "Editörü gösterin",
+    "Common actions": "Ortak eylemler",
+    "Copy": "Kopya",
+    "Cut": "Kesim",
+    "Paste": "Yapıştırmak",
+    "Basic Formatting": "Temel biçimlendirme",
+    "Increase quote level": "Teklif seviyesini yükselt",
+    "Decrease quote level": "Teklif seviyesini azalt",
+    "Image / Video": "Resim / video",
+    "Resize larger": "Daha büyük yeniden boyutlandır",
+    "Resize smaller": "Daha küçük boyuta getir",
+    "Table": "Tablo",
+    "Select table cell": "Tablo hücresi seç",
+    "Extend selection one cell": "Seçimi bir hücre genişlet",
+    "Extend selection one row": "Seçimi bir sıra genişlet",
+    "Navigation": "Navigasyon",
+    "Focus popup / toolbar": "Odaklanma açılır penceresi / araç çubuğu",
+    "Return focus to previous position": "Odaklamaya önceki konumuna geri dönün",
+
+    // Embed.ly
+    "Embed URL": "URL göm",
+    "Paste in a URL to embed": "Yerleştirmek için bir URL'ye yapıştırın",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Yapıştırılan içerik bir Microsoft Word belgesinden geliyor. Biçimi saklamaya mı yoksa temizlemeyi mi istiyor musun?",
+    "Keep": "Tutmak",
+    "Clean": "Temiz",
+    "Word Paste Detected": "Kelime yapıştırması algılandı"
   },
   direction: "ltr"
 };
+
+}));

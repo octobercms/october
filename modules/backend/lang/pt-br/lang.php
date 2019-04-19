@@ -3,6 +3,7 @@
 return [
     'auth' => [
         'title' => 'Área Administrativa',
+        'invalid_login' => 'Os dados digitados não correspondem aos nossos registros. Por favor, verifique e tente novamente.'
     ],
     'field' => [
         'invalid_type' => 'Tipo de campo inválido :type.',

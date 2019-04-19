@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
 use Event;
-use Twig_Source;
-use Twig_LoaderInterface;
+use Twig\Source as TwigSource;;
+use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Cms\Contracts\CmsObject;
 use System\Twig\Loader as LoaderBase;
 use Cms\Classes\Partial as CmsPartial;
@@ -13,7 +13,7 @@ use Cms\Classes\Partial as CmsPartial;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Loader extends LoaderBase implements Twig_LoaderInterface
+class Loader extends LoaderBase implements TwigLoaderInterface
 {
     /**
      * @var \Cms\Classes\CmsCompoundObject A CMS object to load the template from.
@@ -60,7 +60,7 @@ class Loader extends LoaderBase implements Twig_LoaderInterface
         $dataHolder = (object) ['content' => $content];
         Event::fire('cms.template.processTwigContent', [$this->obj, $dataHolder]);
 
-        return new Twig_Source($dataHolder->content, $name);
+        return new TwigSource((string) $dataHolder->content, $name);
     }
 
     /**

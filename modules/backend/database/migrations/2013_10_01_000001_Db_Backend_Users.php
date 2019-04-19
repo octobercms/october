@@ -24,6 +24,7 @@ class DbBackendUsers extends Migration
             $table->timestamp('activated_at')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

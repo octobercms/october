@@ -93,33 +93,39 @@
   filter: alpha(opacity=100);
 }
 .report-container > ul .item.width-1 {
-  width: 9.95%;
+  width: 8.33%;
 }
 .report-container > ul .item.width-2 {
-  width: 19.95%;
+  width: 16.66%;
 }
 .report-container > ul .item.width-3 {
-  width: 29.95%;
+  width: 24.99%;
 }
 .report-container > ul .item.width-4 {
-  width: 39.95%;
+  width: 33.32%;
 }
 .report-container > ul .item.width-5 {
-  width: 49.95%;
+  width: 41.65%;
 }
 .report-container > ul .item.width-6 {
-  width: 59.95%;
+  width: 49.98%;
 }
 .report-container > ul .item.width-7 {
-  width: 69.95%;
+  width: 58.31%;
 }
 .report-container > ul .item.width-8 {
-  width: 79.95%;
+  width: 66.64%;
 }
 .report-container > ul .item.width-9 {
-  width: 89.95%;
+  width: 74.97%;
 }
 .report-container > ul .item.width-10 {
+  width: 83.3%;
+}
+.report-container > ul .item.width-11 {
+  width: 91.63%;
+}
+.report-container > ul .item.width-12 {
   width: 100%;
 }
 .report-container > ul .item.dragged {

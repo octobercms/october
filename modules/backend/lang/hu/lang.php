@@ -8,7 +8,8 @@ return [
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
-        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára."
+        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a beállításokat.",
+        'colors_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a html HEX kódot."
     ],
     'widget' => [
         'not_registered' => "A(z) ':name' widget osztálynév regisztrálása nem történt meg.",
@@ -16,14 +17,19 @@ return [
     ],
     'page' => [
         'untitled' => 'Névtelen',
+        '404' => [
+            'label' => 'Az oldal nem található',
+            'help' => 'A megadott webcím alatt nem jeleníthető meg tartalom. Kérjük próbálkozzon más címmel.',
+            'back_link' => 'Vissza az előző oldalra',
+        ],
         'access_denied' => [
             'label' => 'Hozzáférés megtagadva',
             'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
         ],
         'no_database' => [
-            'label' => 'Adatbázis nem elérhető',
-            'help' => 'Az admin felület eléréséhez szükséges az adatbázis. Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra.',
+            'label' => 'Az adatbázis nem elérhető',
+            'help' => 'Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra betölteni az oldalt.',
             'cms_link' => 'Vissza a weboldalra'
         ],
         'invalid_token' => [
@@ -31,7 +37,12 @@ return [
         ]
     ],
     'partial' => [
-        'not_found_name' => "A(z) ':name' részlap nem található."
+        'not_found_name' => "A(z) ':name' részlap nem található.",
+        'invalid_name' => 'Helytelen részlap név: :name.'
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Helytelen AJAX handler név: :name.',
+        'not_found' => "A(z) ':name' AJAX handler nem található."
     ],
     'account' => [
         'signed_in_as' => 'Belépve mint :full_name',
@@ -140,6 +151,8 @@ return [
         'last_login' => 'Bejelentkezve',
         'created_at' => 'Létrehozva',
         'updated_at' => 'Módosítva',
+        'deleted_at' => 'Törölve',
+        'show_deleted' => 'Töröltek mutatása',
         'group' => [
             'name' => 'Csoport',
             'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
@@ -172,7 +185,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'Nincs olyan hitelesített felhasználó, aki számára betölthetők vagy menthetők a beállítások.'
-        ]
+        ],
+        'trashed_hint_title' => 'Ez a fiók törölve lett',
+        'trashed_hint_desc' => 'A visszaállításához kattintson a jobb alsó sarokban található ikonra.'
     ],
     'list' => [
         'default_title' => 'Lista',
@@ -228,6 +243,7 @@ return [
         'create_success' => 'A(z) :name létrehozása sikerült',
         'update_success' => 'A(z) :name módosítása sikerült',
         'delete_success' => 'A(z) :name törlése sikerült',
+        'restore_success' => 'A(z) :name visszaállítása sikerült',
         'reset_success' => 'A visszaállítás sikerült',
         'missing_id' => 'Nincs megadva az űrlap rekord azonosítója.',
         'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésének nincs definiált modellje.',
@@ -244,9 +260,12 @@ return [
         'saving_name' => 'A(z) :name mentése...',
         'delete' => 'Törlés',
         'deleting' => 'Törlés...',
-        'confirm_delete' => 'Az elem törölhető?',
-        'confirm_delete_multiple' => 'Az elemek törölhetőek?',
+        'confirm_delete' => 'Biztos, hogy törölhető?',
+        'confirm_delete_multiple' => 'Biztos, hogy mindegyik törölhető?',
         'deleting_name' => 'A(z) :name törlése...',
+        'restore' => 'Visszaállítás',
+        'restoring' => 'Visszaállítás...',
+        'confirm_restore' => 'Biztos, hogy állítsuk vissza?',
         'reset_default' => 'Alaphelyzet',
         'resetting' => 'Visszaállítás',
         'resetting_name' => 'A(z) :name visszaállítása',
@@ -280,6 +299,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Tartalom keresése',
+        'invalid_model_class' => 'A(z) ":modelClass" modell osztály érvénytelen a tartalom kereséshez.',
         'cancel' => 'Mégsem'
     ],
     'pagelist' => [
@@ -387,7 +407,7 @@ return [
         'line_breaker_tags' => 'Sortörő elemek',
         'line_breaker_tags_comment' => 'Azon HTML elemek, amik végén kötelezően egy új sor jelenik meg.',
         'toolbar_buttons' => 'Eszköztár',
-        'toolbar_buttons_comment' => 'Használható értékek: [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Használható értékek: [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
@@ -407,6 +427,8 @@ return [
         'brand' => 'Márka',
         'logo' => 'Logó',
         'logo_description' => 'Legalább közepes méretű legyen.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Egyedi ikon az admin felülethez.',
         'app_name' => 'Név',
         'app_name_description' => 'A honlap megnevezése.',
         'app_tagline' => 'Szlogen',
@@ -420,6 +442,7 @@ return [
         'navigation' => 'Navigáció',
         'menu_mode' => 'Menü stílusa',
         'menu_mode_inline' => 'Egysoros',
+        'menu_mode_inline_no_icons' => 'Egysoros (nincs ikon)',
         'menu_mode_tile' => 'Csempés',
         'menu_mode_collapsed' => 'Összezárt'
     ],
@@ -530,7 +553,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Média',
-        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.'
+        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.',
+        'no_image' => 'A kép nem található'
     ],
     'media' => [
         'menu_label' => 'Média',
