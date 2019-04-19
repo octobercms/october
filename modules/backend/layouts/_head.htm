@@ -14,8 +14,12 @@
 <?php
     $coreBuild = System\Models\Parameter::get('system::core.build', 1);
 ?>
+
 <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
 <link href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
+
+<link rel="preload" href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" as="style">
+<link rel="preload" href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" as="style">
 
 <script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
 <script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js') ?>?v<?= $coreBuild ?>"></script>
@@ -24,8 +28,18 @@
 <script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
 <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 
-<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>"></script>
-<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>"></script>
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Url::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>" as="script">
+
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>?v<?= $coreBuild ?>"></script>
+<script data-cfasync="false" src="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>?v<?= $coreBuild ?>"></script>
+
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.flyout.js') ?>?v<?= $coreBuild ?>" as="script">
+<link rel="preload" href="<?= Backend::skinAsset('assets/js/october.tabformexpandcontrols.js') ?>?v<?= $coreBuild ?>" as="script">
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
