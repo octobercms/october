@@ -9,24 +9,33 @@
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
-        <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
-        <link href="<?= Url::to('modules/backend/assets/css/october.css') ?>?v<?= $coreBuild ?>" rel="stylesheet">
-        <link rel="preload" href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>?v<?= $coreBuild ?>" as="style">
-        <link rel="preload" href="<?= Backend::skinAsset('assets/css/october.css') ?>?v<?= $coreBuild ?>" as="style">
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/vendor/jquery-migrate.min.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/october-min.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>?v<?= $coreBuild ?>"></script>
-        <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
-        <link rel="preload" href="<?= Backend::skinAsset('assets/js/vendor/jquery.min.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Url::asset('modules/system/assets/js/framework.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Backend::skinAsset('assets/js/october-min.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>?v<?= $coreBuild ?>" as="script">
-        <link rel="preload" href="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>" as="script">
+
+        <?php
+            $coreBuild = System\Models\Parameter::get('system::core.build', 1);
+            $styles = [
+                Url::asset('modules/system/assets/ui/storm.css'),
+                Backend::skinAsset('assets/css/october.css'),
+            ];
+            $scripts = [
+                Backend::skinAsset('assets/js/vendor/jquery.min.js'),
+                Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js'),
+                Url::asset('modules/system/assets/js/framework.js'),
+                Url::asset('modules/system/assets/ui/storm-min.js'),
+                Backend::skinAsset('assets/js/october-min.js'),
+                Url::to('modules/backend/assets/js/auth/auth.js'),
+                Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
+            ];
+        ?>
+
+        <?php foreach ($styles as $style) : ?>
+            <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="stylesheet">
+            <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="preload" as="style">
+        <?php endforeach; ?>
+
+        <?php foreach ($scripts as $script) : ?>
+            <script data-cfasync="false" src="<?= $script . '?v=' . $coreBuild; ?>"></script>
+            <link href="<?= $script . '?v=' . $coreBuild; ?>" rel="preload" as="script">
+        <?php endforeach; ?>
 
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>

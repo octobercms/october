@@ -372,7 +372,6 @@ class FileUpload extends FormWidgetBase
         try {
             $formWidget = $this->getConfigFormWidget();
             if ($file = $formWidget->model) {
-
                 $modelsToSave = $this->prepareModelsToSave($file, $formWidget->getSaveData());
                 Db::transaction(function () use ($modelsToSave, $formWidget) {
                     foreach ($modelsToSave as $modelToSave) {
