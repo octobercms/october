@@ -86,6 +86,11 @@ class RelationController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = [];
+
+    /**
      * @var array Original configuration values
      */
     protected $originalConfig;
