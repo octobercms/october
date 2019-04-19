@@ -17,7 +17,7 @@ trait ErrorMaker
     protected $fatalError;
 
     /**
-     * @return boolean Wether a fatal error has been set or not.
+     * @return boolean Whether a fatal error has been set or not.
      */
     public function hasFatalError() 
     {
