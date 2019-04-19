@@ -128,12 +128,12 @@ class ThemeSync extends Command
         $validPaths = [];
 
         /**
-         * @event system.console.theme.sync.getModelClasses
-         * Get the Halcyon model classes to use when filtering the paths to be synced
+         * @event system.console.theme.sync.getAvailableModelClasses
+         * Defines the Halcyon models to be made available to the `theme:sync` tool.
          *
          * Example usage:
          *
-         *     Event::listen('system.console.theme.sync.getModelClasses', function () {
+         *     Event::listen('system.console.theme.sync.getAvailableModelClasses', function () {
          *         return [
          *             Meta::class,
          *             Page::class,
