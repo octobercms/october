@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Estonian
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['et'] = {
     "Colors": "V\u00e4rvid",
     "Background": "Taust",
     "Text": "Tekst",
+    "HEX Color": "Hex värvi",
 
     // Paragraphs
     "Paragraph Format": "Paragrahv formaat",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['et'] = {
 
     // Lists
     "Ordered List": "Tellitud nimekirja",
+    "Default": "Vaikimisi",
+    "Lower Alpha": "Alumine alfa",
+    "Lower Greek": "Alumine kreeklane",
+    "Lower Roman": "Madalam roomlane",
+    "Upper Alpha": "Ülemine alfa",
+    "Upper Roman": "Ülemine rooma",
+
     "Unordered List": "Tavalise nimekirja",
+    "Circle": "Ringi",
+    "Disc": "Plaat",
+    "Square": "Ruut",
+
+    // Line height
+    "Line Height": "Reakõrgus",
+    "Single": "Üksik",
+    "Double": "Topelt",
 
     // Indent
     "Decrease Indent": "V\u00e4henemine taane",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['et'] = {
     "Display": "Kuvama",
     "Inline": "J\u00e4rjekorras",
     "Break Text": "Murdma teksti",
-    "Alternate Text": "Asendusliikme teksti",
+    "Alternative Text": "Asendusliikme teksti",
     "Change Size": "Muuda suurust",
     "Width": "Laius",
     "Height": "K\u00f5rgus",
     "Something went wrong. Please try again.": "Midagi l\u00e4ks valesti. Palun proovi uuesti.",
+    "Image Caption": "Pildi pealkiri",
+    "Advanced Edit": "Täiustatud redigeerimine",
 
     // Video
     "Insert Video": "Lisa video",
     "Embedded Code": "Varjatud koodi",
+    "Paste in a video URL": "Kleebi video URL-i",
+    "Drop video": "Tilk videot",
+    "Your browser does not support HTML5 video.": "Teie brauser ei toeta html5-videot.",
+    "Upload Video": "Video üleslaadimine",
 
     // Tables
     "Insert Table": "Sisesta tabel",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['et'] = {
     // Clear formatting
     "Clear Formatting": "Eemalda formaatimine",
 
+    // Save
+    "Save": "Salvesta",
+
     // Undo, redo
     "Undo": "V\u00f5ta tagasi",
     "Redo": "Tee uuesti",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['et'] = {
     "Decrease": "V\u00e4henda",
 
     // Quick Insert
-    "Quick Insert": "Kiire sisestada"
+    "Quick Insert": "Kiire sisestada",
+
+    // Spcial Characters
+    "Special Characters": "Erimärgid",
+    "Latin": "Latin",
+    "Greek": "Kreeka keel",
+    "Cyrillic": "Kirillitsa",
+    "Punctuation": "Kirjavahemärgid",
+    "Currency": "Valuuta",
+    "Arrows": "Nooled",
+    "Math": "Matemaatika",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Printige",
+
+    // Spell Checker.
+    "Spell Checker": "Õigekirja kontrollija",
+
+    // Help
+    "Help": "Abi",
+    "Shortcuts": "Otseteed",
+    "Inline Editor": "Sisemine redaktor",
+    "Show the editor": "Näita redaktorit",
+    "Common actions": "Ühised meetmed",
+    "Copy": "Koopia",
+    "Cut": "Lõigake",
+    "Paste": "Kleepige",
+    "Basic Formatting": "Põhiline vormindamine",
+    "Increase quote level": "Suurendada tsiteerimise taset",
+    "Decrease quote level": "Langetada tsiteerimise tase",
+    "Image / Video": "Pilt / video",
+    "Resize larger": "Suuruse muutmine suurem",
+    "Resize smaller": "Väiksema suuruse muutmine",
+    "Table": "Laud",
+    "Select table cell": "Vali tabeli lahtrisse",
+    "Extend selection one cell": "Laiendage valikut üks lahtrisse",
+    "Extend selection one row": "Laiendage valikut ühe reana",
+    "Navigation": "Navigeerimine",
+    "Focus popup / toolbar": "Fookuse hüpikakna / tööriistariba",
+    "Return focus to previous position": "Tagasi pöörata tähelepanu eelmisele positsioonile",
+
+    // Embed.ly
+    "Embed URL": "Embed url",
+    "Paste in a URL to embed": "Kleepige URL-i sisestamiseks",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Kleepitud sisu pärineb Microsoft Wordi dokumendist. kas soovite vormi säilitada või puhastada?",
+    "Keep": "Pidage seda",
+    "Clean": "Puhas",
+    "Word Paste Detected": "Avastatud sõna pasta"
   },
   direction: "ltr"
 };
+
+}));

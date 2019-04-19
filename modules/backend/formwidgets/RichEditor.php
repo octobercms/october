@@ -224,6 +224,13 @@ class RichEditor extends FormWidgetBase
                     $linkUrl = substr($linkUrl, strlen($baseUrl));
                 }
 
+                /*
+                 * Root page fallback.
+                 */
+                if (strlen($linkUrl) === 0) {
+                    $linkUrl = '/';
+                }
+
                 $linkName = str_repeat('&nbsp;', $level * 4);
                 $linkName .= is_array($link) ? array_get($link, 'title', '') : $link;
                 $result[] = ['name' => $linkName, 'url' => $linkUrl];

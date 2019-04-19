@@ -76,10 +76,12 @@
                 <div class="plugin-details-content">
                     <?php if ($changelog): ?>
                         <dl>
-                            <?php foreach ($changelog as $version => $comment): ?>
-                                <dt><?= e($version) ?></dt>
-                                <dd><?= e($comment) ?></dd>
-                            <?php endforeach ?>
+                            <?php foreach ($changelog as $version => $comments): ?>
+                                <?php foreach ($comments as $index => $comment): ?>
+                                    <dt><?= !$index ? e($version): '' ?></dt>
+                                    <dd><?= e($comment) ?></dd>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </dl>
                     <?php else: ?>
                         <p><?= e(trans('system::lang.updates.details_changelog_missing')) ?></p>

@@ -17,22 +17,32 @@ return [
     ],
     'page' => [
         'untitled' => 'Untitled',
+        '404' => [
+            'label'     => 'Page Not Found',
+            'help'      => "We searched and searched but the requested URL just couldn't be found. Perhaps you were looking for something else?",
+            'back_link' => 'Go back to the previous page',
+        ],
         'access_denied' => [
             'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
-            'cms_link' => 'Return to the back-end'
+            'cms_link' => 'Return to the back-end',
         ],
         'no_database' => [
             'label' => 'Database missing',
             'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
-            'cms_link' => 'Return to the homepage'
+            'cms_link' => 'Return to the homepage',
         ],
         'invalid_token' => [
-            'label' => 'Invalid security token'
-        ]
+            'label' => 'Invalid security token',
+        ],
     ],
     'partial' => [
-        'not_found_name' => "The partial ':name' is not found."
+        'not_found_name' => "The partial ':name' is not found.",
+        'invalid_name' => 'Invalid partial name: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Invalid AJAX handler name: :name.',
+        'not_found' => "AJAX handler ':name' was not found."
     ],
     'account' => [
         'signed_in_as' => 'Signed in as :full_name',
@@ -141,6 +151,8 @@ return [
         'last_login' => 'Last login',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
+        'deleted_at' => 'Deleted at',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
@@ -173,7 +185,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
-        ]
+        ],
+        'trashed_hint_title' => 'This account has been deleted',
+        'trashed_hint_desc' => 'This account has been deleted and will be unable to be signed in under. To restore it, click the restore user icon in the bottom right',
     ],
     'list' => [
         'default_title' => 'List',
@@ -229,6 +243,7 @@ return [
         'create_success' => ':name created',
         'update_success' => ':name updated',
         'delete_success' => ':name deleted',
+        'restore_success' => ':name restored',
         'reset_success' => 'Reset complete',
         'missing_id' => 'Form record ID has not been specified.',
         'missing_model' => 'Form behavior used in :class does not have a model defined.',
@@ -248,6 +263,9 @@ return [
         'confirm_delete' => 'Delete record?',
         'confirm_delete_multiple' => 'Delete selected records?',
         'deleting_name' => 'Deleting :name...',
+        'restore' => 'Restore',
+        'restoring' => 'Restoring',
+        'confirm_restore' => 'Are you sure you want to restore this record?',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
         'resetting_name' => 'Resetting :name',
@@ -281,6 +299,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Find Record',
+        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid',
         'cancel' => 'Cancel',
     ],
     'pagelist' => [
@@ -408,6 +427,8 @@ return [
         'brand' => 'Brand',
         'logo' => 'Logo',
         'logo_description' => 'Upload a custom logo to use in the back-end.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Upload a custom favicon to use in the back-end',
         'app_name' => 'App Name',
         'app_name_description' => 'This name is shown in the title area of the back-end.',
         'app_tagline' => 'App Tagline',
@@ -421,6 +442,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Menu style',
         'menu_mode_inline' => 'Inline',
+        'menu_mode_inline_no_icons' => 'Inline (no icons)',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_collapsed' => 'Collapsed'
     ],
@@ -438,7 +460,9 @@ return [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
         'menu_label' => 'Access log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
+        'id' => 'ID',
         'created_at' => 'Date & Time',
+        'type' => 'Type',
         'login' => 'Login',
         'ip_address' => 'IP address',
         'first_name' => 'First name',
@@ -529,7 +553,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
-        'default_prompt' => 'Click the %s button to find a media item'
+        'default_prompt' => 'Click the %s button to find a media item',
+        'no_image' => 'The image could not be found'
     ],
     'media' => [
         'menu_label' => 'Media',

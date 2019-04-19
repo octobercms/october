@@ -48,6 +48,7 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
+    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -225,6 +226,18 @@ class Theme
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
+        /**
+         * @event cms.theme.setActiveTheme
+         * Fires when the active theme has been changed.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *         \Log::info("Theme has been changed to $code");
+         *     });
+         *
+         */
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
@@ -243,6 +256,18 @@ class Theme
             $editTheme = static::getActiveThemeCode();
         }
 
+        /**
+         * @event cms.theme.getEditTheme
+         * Overrides the edit theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getEditTheme', function() {
+         *         return "the-edit-theme-code";
+         *     });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
@@ -312,7 +337,16 @@ class Theme
             return $this->configCache = [];
         }
 
-        $config = Yaml::parseFile($path);
+        try {
+            $config = Cache::rememberForever(self::CONFIG_KEY, function() use ($path) {
+                return Yaml::parseFile($path);
+            });
+        }
+        catch (Exception $ex) {
+            // Cache failed
+            $config = Yaml::parseFile($path);
+        }
+
 
         /**
          * @event cms.theme.extendConfig
@@ -431,6 +465,8 @@ class Theme
         $contents = Yaml::render($values);
         File::put($path, $contents);
         $this->configCache = $values;
+
+        self::resetCache();
     }
 
     /**
@@ -460,6 +496,7 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
+        Cache::forget(self::CONFIG_KEY);
     }
 
     /**

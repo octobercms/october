@@ -86,6 +86,11 @@ class RelationController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = [];
+
+    /**
      * @var array Original configuration values
      */
     protected $originalConfig;
@@ -753,7 +758,7 @@ class RelationController extends ControllerBehavior
             if ($this->viewMode == 'single') {
                 $config->showCheckboxes = false;
                 $config->recordOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManageListRecord(:%s, '%s', '%s')",
+                    "$.oc.relationBehavior.clickManageListRecord(':%s', '%s', '%s')",
                     $this->relationModel->getKeyName(),
                     $this->relationGetId(),
                     $this->relationGetSessionKey()
@@ -764,7 +769,7 @@ class RelationController extends ControllerBehavior
             }
             elseif ($isPivot) {
                 $config->recordOnClick = sprintf(
-                    "$.oc.relationBehavior.clickManagePivotListRecord(:%s, '%s', '%s')",
+                    "$.oc.relationBehavior.clickManagePivotListRecord(':%s', '%s', '%s')",
                     $this->relationModel->getKeyName(),
                     $this->relationGetId(),
                     $this->relationGetSessionKey()
@@ -1032,7 +1037,7 @@ class RelationController extends ControllerBehavior
              * Has one relations will save as part of the add() call.
              */
             if ($this->deferredBinding || $this->relationType != 'hasOne') {
-                $newModel->save();
+                $newModel->save(null, $this->manageWidget->getSessionKey());
             }
 
             $this->relationObject->add($newModel, $sessionKey);
@@ -1062,7 +1067,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationModel->find($this->manageId);
+            $model = $this->manageWidget->model;
             $modelsToSave = $this->prepareModelsToSave($model, $saveData);
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());
@@ -1602,5 +1607,23 @@ class RelationController extends ControllerBehavior
         }
 
         return $this->makeConfig($config);
+    }
+
+    /**
+     * Returns the manage widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetManageWidget() {
+        return $this->manageWidget;
+    }
+
+    /**
+     * Returns the view widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetViewWidget() {
+        return $this->viewWidget;
     }
 }

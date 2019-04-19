@@ -147,10 +147,12 @@ class CombineAssets
         /*
          * Common Aliases
          */
-        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery.min.js');
+        $this->registerAlias('jquery', '~/modules/backend/assets/js/vendor/jquery-and-migrate.min.js');
         $this->registerAlias('framework', '~/modules/system/assets/js/framework.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/js/framework.extras.js');
+        $this->registerAlias('framework.extras.js', '~/modules/system/assets/js/framework.extras.js');
         $this->registerAlias('framework.extras', '~/modules/system/assets/css/framework.extras.css');
+        $this->registerAlias('framework.extras.css', '~/modules/system/assets/css/framework.extras.css');
 
         /*
          * Deferred registration
@@ -219,9 +221,11 @@ class CombineAssets
         list($assets, $extension) = $this->prepareAssets($assets);
 
         $rewritePath = File::localToPublic(dirname($destination));
+
         $combiner = $this->prepareCombiner($assets, $rewritePath);
 
         $contents = $combiner->dump();
+
         File::put($destination, $contents);
     }
 
@@ -252,7 +256,6 @@ class CombineAssets
         /*
          * Set 304 Not Modified header, if necessary
          */
-        header_remove();
         $response = Response::make();
         $response->header('Content-Type', $mime);
         $response->header('Cache-Control', 'private, max-age=604800');
@@ -607,12 +610,12 @@ class CombineAssets
         if ($extension === null) {
             return $this->filters;
         }
-        elseif (isset($this->filters[$extension])) {
+
+        if (isset($this->filters[$extension])) {
             return $this->filters[$extension];
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 
     //
@@ -675,12 +678,12 @@ class CombineAssets
         if ($extension === null) {
             return $this->bundles;
         }
-        elseif (isset($this->bundles[$extension])) {
+
+        if (isset($this->bundles[$extension])) {
             return $this->bundles[$extension];
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 
     //
@@ -738,12 +741,12 @@ class CombineAssets
         if ($extension === null) {
             return $this->aliases;
         }
-        elseif (isset($this->aliases[$extension])) {
+
+        if (isset($this->aliases[$extension])) {
             return $this->aliases[$extension];
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 
     //
@@ -766,7 +769,9 @@ class CombineAssets
         }
 
         $this->putCacheIndex($cacheKey);
+
         Cache::forever($cacheKey, base64_encode(serialize($cacheInfo)));
+
         return true;
     }
 

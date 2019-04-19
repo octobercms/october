@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Arabic
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['ar'] = {
     "Colors": "\u0627\u0644\u0623\u0644\u0648\u0627\u0646",
     "Background": "\u0627\u0644\u062e\u0644\u0641\u064a\u0629",
     "Text": "\u0627\u0644\u0646\u0635",
+    "HEX Color": "عرافة اللون",
 
     // Paragraphs
     "Paragraph Format": "\u062a\u0646\u0633\u064a\u0642 \u0627\u0644\u0641\u0642\u0631\u0629",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['ar'] = {
 
     // Lists
     "Ordered List": "\u0642\u0627\u0626\u0645\u0629 \u0645\u0631\u062a\u0628\u0629",
+    "Default": "الافتراضي",
+    "Lower Alpha": "أقل ألفا",
+    "Lower Greek": "أقل اليونانية",
+    "Lower Roman": "انخفاض الروماني",
+    "Upper Alpha": "العلوي ألفا",
+    "Upper Roman": "الروماني العلوي",
+
     "Unordered List": "\u0642\u0627\u0626\u0645\u0629 \u063a\u064a\u0631 \u0645\u0631\u062a\u0628\u0629",
+    "Circle": "دائرة",
+    "Disc": "القرص",
+    "Square": "ميدان",
+
+    // Line height
+    "Line Height": "ارتفاع خط",
+    "Single": "غير مرتبطة",
+    "Double": "مزدوج",
 
     // Indent
     "Decrease Indent": "\u0627\u0646\u062e\u0641\u0627\u0636 \u0627\u0644\u0645\u0633\u0627\u0641\u0629 \u0627\u0644\u0628\u0627\u062f\u0626\u0629",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['ar'] = {
     "Display": "\u0639\u0631\u0636",
     "Inline": "\u0641\u064a \u062e\u0637",
     "Break Text": "\u0646\u0635 \u0627\u0633\u062a\u0631\u0627\u062d\u0629",
-    "Alternate Text": "\u0646\u0635 \u0628\u062f\u064a\u0644",
+    "Alternative Text": "\u0646\u0635 \u0628\u062f\u064a\u0644",
     "Change Size": "\u062a\u063a\u064a\u064a\u0631 \u062d\u062c\u0645",
     "Width": "\u0639\u0631\u0636",
     "Height": "\u0627\u0631\u062a\u0641\u0627\u0639",
     "Something went wrong. Please try again.": ".\u062d\u062f\u062b \u062e\u0637\u0623 \u0645\u0627. \u062d\u0627\u0648\u0644 \u0645\u0631\u0629 \u0627\u062e\u0631\u0649",
+    "Image Caption": "تعليق على الصورة",
+    "Advanced Edit": "تعديل متقدم",
 
     // Video
     "Insert Video": "\u0625\u062f\u0631\u0627\u062c \u0641\u064a\u062f\u064a\u0648",
     "Embedded Code": "\u0627\u0644\u062a\u0639\u0644\u064a\u0645\u0627\u062a \u0627\u0644\u0628\u0631\u0645\u062c\u064a\u0629 \u0627\u0644\u0645\u0636\u0645\u0646\u0629",
+    "Paste in a video URL": "لصق في عنوان ورل للفيديو",
+    "Drop video": "انخفاض الفيديو",
+    "Your browser does not support HTML5 video.": "متصفحك لا يدعم فيديو HTML5.",
+    "Upload Video": "رفع فيديو",
 
     // Tables
     "Insert Table": "\u0625\u062f\u0631\u0627\u062c \u062c\u062f\u0648\u0644",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['ar'] = {
     // Clear formatting
     "Clear Formatting": "\u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u062a\u0646\u0633\u064a\u0642",
 
+    // Save
+    "Save": "\u062d\u0641\u0638",
+
     // Undo, redo
     "Undo": "\u062a\u0631\u0627\u062c\u0639",
     "Redo": "\u0625\u0639\u0627\u062f\u0629",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['ar'] = {
     "Decrease": "\u0627\u0646\u062e\u0641\u0627\u0636",
 
     // Quick Insert
-    "Quick Insert": "\u0625\u062f\u0631\u0627\u062c \u0633\u0631\u064a\u0639"
+    "Quick Insert": "\u0625\u062f\u0631\u0627\u062c \u0633\u0631\u064a\u0639",
+
+    // Spcial Characters
+    "Special Characters": "أحرف خاصة",
+    "Latin": "لاتينية",
+    "Greek": "الإغريقي",
+    "Cyrillic": "السيريلية",
+    "Punctuation": "علامات ترقيم",
+    "Currency": "دقة",
+    "Arrows": "السهام",
+    "Math": "الرياضيات",
+    "Misc": "متفرقات",
+
+    // Print.
+    "Print": "طباعة",
+
+    // Spell Checker.
+    "Spell Checker": "مدقق املائي",
+
+    // Help
+    "Help": "مساعدة",
+    "Shortcuts": "اختصارات",
+    "Inline Editor": "محرر مضمنة",
+    "Show the editor": "عرض المحرر",
+    "Common actions": "الإجراءات المشتركة",
+    "Copy": "نسخ",
+    "Cut": "يقطع",
+    "Paste": "معجون",
+    "Basic Formatting": "التنسيق الأساسي",
+    "Increase quote level": "زيادة مستوى الاقتباس",
+    "Decrease quote level": "انخفاض مستوى الاقتباس",
+    "Image / Video": "صورة / فيديو",
+    "Resize larger": "تغيير حجم أكبر",
+    "Resize smaller": "تغيير حجم أصغر",
+    "Table": "الطاولة",
+    "Select table cell": "حدد خلية الجدول",
+    "Extend selection one cell": "توسيع اختيار خلية واحدة",
+    "Extend selection one row": "تمديد اختيار صف واحد",
+    "Navigation": "التنقل",
+    "Focus popup / toolbar": "التركيز المنبثقة / شريط الأدوات",
+    "Return focus to previous position": "عودة التركيز إلى الموقف السابق",
+
+    // Embed.ly
+    "Embed URL": "تضمين عنوان ورل",
+    "Paste in a URL to embed": "الصق في عنوان ورل لتضمينه",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "المحتوى الذي تم لصقه قادم من وثيقة كلمة ميكروسوفت. هل تريد الاحتفاظ بالتنسيق أو تنظيفه؟",
+    "Keep": "احتفظ",
+    "Clean": "نظيف",
+    "Word Paste Detected": "تم اكتشاف معجون الكلمات"
   },
   direction: "rtl"
 };
+
+}));

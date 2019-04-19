@@ -254,7 +254,7 @@
             setTimeout(function(){ self.$backdrop.addClass('loading'); }, 100)
         }
         else {
-            this.$backdrop.removeClass('loading');
+            setTimeout(function(){ self.$backdrop.removeClass('loading'); }, 100)
         }
     }
 
@@ -308,6 +308,8 @@
     }
 
     Popup.prototype.hide = function() {
+        if (!this.isOpen) return
+
         this.triggerEvent('popupHide') // Deprecated
         this.triggerEvent('hide.oc.popup')
 

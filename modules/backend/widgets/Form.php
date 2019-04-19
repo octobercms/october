@@ -159,7 +159,10 @@ class Form extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addJs('js/october.form.js', 'core');
+        $this->addJs('js/october.form.js', [
+            'build' => 'core',
+            'cache'  => 'false'
+        ]);
     }
 
     /**
@@ -240,7 +243,7 @@ class Form extends WidgetBase
     public function renderField($field, $options = [])
     {
         $this->prepareVars();
-        
+
         if (is_string($field)) {
             if (!isset($this->allFields[$field])) {
                 throw new ApplicationException(Lang::get(
@@ -934,6 +937,7 @@ class Form extends WidgetBase
         $widgetConfig->previewMode = $this->previewMode;
         $widgetConfig->model = $this->model;
         $widgetConfig->data = $this->data;
+        $widgetConfig->parentForm = $this;
 
         $widgetName = $widgetConfig->widget;
         $widgetClass = $this->widgetManager->resolveFormWidget($widgetName);
@@ -1070,11 +1074,26 @@ class Form extends WidgetBase
             $field = $this->allFields[$field];
         }
 
-        $defaultValue = !$this->model->exists
+        $defaultValue = $this->shouldFetchDefaultValues()
             ? $field->getDefaultFromData($this->data)
             : null;
 
-        return $field->getValueFromData($this->data, $defaultValue);
+        return $field->getValueFromData(
+            $this->data,
+            is_string($defaultValue) ? trans($defaultValue) : $defaultValue
+        );
+    }
+
+    /**
+     * Checks if default values should be taken from data.
+     * This should be done when model exists or when explicitly configured
+     */
+    protected function shouldFetchDefaultValues() {
+        $enableDefaults = object_get($this->config, 'enableDefaults');
+        if ($enableDefaults === false) {
+            return false;
+        }
+        return !$this->model->exists || $enableDefaults;
     }
 
     /**
@@ -1165,6 +1184,11 @@ class Form extends WidgetBase
          */
         foreach ($this->formWidgets as $field => $widget) {
             $parts = HtmlHelper::nameToArray($field);
+
+            if ((isset($widget->config->disabled) && $widget->config->disabled)
+                || (isset($widget->config->hidden) && $widget->config->hidden)) {
+                continue;
+            }
 
             $widgetValue = $widget->getSaveValue($this->dataArrayGet($result, $parts));
             $this->dataArraySet($result, $parts, $widgetValue);
