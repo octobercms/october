@@ -329,7 +329,7 @@ class ServiceProvider extends ModuleServiceProvider
     /**
      * Registers the models to be made available to the theme database layer
      */
-    protected function registerDatabaseLayerModels()
+    protected function registerHalcyonModels()
     {
         Event::listen('system.console.theme.sync.getAvailableModelClasses', function () {
             return [
