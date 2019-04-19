@@ -465,6 +465,8 @@ class Theme
         $contents = Yaml::render($values);
         File::put($path, $contents);
         $this->configCache = $values;
+
+        self::resetCache();
     }
 
     /**
