@@ -29,7 +29,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerComponents();
         $this->registerThemeLogging();
         $this->registerCombinerEvents();
-        $this->registerDatabaseLayerModels();
+        $this->registerHalcyonModels();
 
         /*
          * Backend specific
