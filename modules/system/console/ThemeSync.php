@@ -121,6 +121,8 @@ class ThemeSync extends Command
                 }
             }
         }
+        unset($userPaths);
+        unset($themePaths);
 
         // Determine valid paths based on the models made available for syncing
         $validPaths = [];
@@ -203,6 +205,7 @@ class ThemeSync extends Command
                 $this->datasource->pushToSource($entity, $target);
                 $progress->advance();
             }
+            unset($validPaths);
 
             $progress->finish();
             $this->info('');
