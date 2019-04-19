@@ -6,12 +6,6 @@ use Exception;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
 
-use Cms\Classes\Meta;
-use Cms\Classes\Page;
-use Cms\Classes\Layout;
-use Cms\Classes\Content;
-use Cms\Classes\Partial;
-
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -102,86 +96,116 @@ class ThemeSync extends Command
             $source = 'database';
         }
         if (!in_array($target, $availableSources)) {
-            $this->error(sprintf("Provided --target of %s is invalid. Allowed: database, filesystem"), $target);
+            return $this->error(sprintf("Provided --target of %s is invalid. Allowed: database, filesystem", $target));
         }
         $this->source = $source;
         $this->target = $target;
 
-        // Get the paths
-        // @TODO: Use the model classes to call listInTheme instead to get all handled paths instead of the other way round
-        // @TODO: Will probably have to interact directly with the datasources to do the syncing, not sure how much AutoDatasource will be useful here
-        $paths = $this->option('paths') ?: null;
-        if ($paths) {
-            $paths = array_map('trim', explode(',', $paths));
+        // Get the theme paths, taking into account if the user has specified paths
+        $userPaths = $this->option('paths') ?: null;
+        $themePaths = array_keys($theme->getDatasource()->getSourcePaths($source));
+
+        if (!isset($userPaths)) {
+            $paths = $themePaths;
         } else {
-            $paths = $theme->getDatasource()->getSourcePaths($source);
+            $paths = [];
+            $userPaths = array_map('trim', explode(',', $userPaths));
 
-            // Get the Halcyon model classes to use when filtering the paths to be synced
-            $validModels = [];
-            $modelClasses = [
-                Meta::class,
-                Page::class,
-                Layout::class,
-                Content::class,
-                Partial::class,
-            ];
-            /**
-             * @event system.console.theme.sync.getModelClasses
-             * Get the Halcyon model classes to use when filtering the paths to be synced
-             *
-             * Example usage:
-             *
-             *     Event::listen('system.console.theme.sync.getModelClasses', function () {
-             *         return [
-             *             Meta::class,
-             *             Page::class,
-             *             Layout::class,
-             *             Content::class,
-             *             Partial::class,
-             *         ];
-             *     });
-             *
-             */
-            $results = Event::fire('system.console.theme.sync.getAvailableModelClasses');
-            foreach ($results as $result) {
-                $modelClasses += $result;
-            }
-            foreach ($modelClasses as $class) {
-                $validModels[] = new $class;
-            }
+            foreach ($userPaths as $userPath) {
+                foreach ($themePaths as $themePath) {
+                    $pregMatch = '/' . str_replace('/', '\/', $userPath) . '/i';
 
-            foreach ($paths as $path => $exists) {
-                foreach ($validModels as $model) {
-                    if (starts_with($path, $model->getObjectTypeDirName() . '/') &&
-                        in_array(pathinfo($path, PATHINFO_EXTENSION), $model->getAllowedExtensions())
-                    ) {
-                        // Skip to the next path
-                        continue 2;
+                    if ($userPath === $themePath || preg_match($pregMatch, $themePath)) {
+                        $paths[] = $themePath;
                     }
                 }
-
-                // If we've made it here, this path doesn't get to proceed
-                unset($paths[$path]);
             }
-            unset($validModels);
+        }
+        unset($userPaths);
+        unset($themePaths);
+
+        // Determine valid paths based on the models made available for syncing
+        $validPaths = [];
+
+        /**
+         * @event system.console.theme.sync.getAvailableModelClasses
+         * Defines the Halcyon models to be made available to the `theme:sync` tool.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.console.theme.sync.getAvailableModelClasses', function () {
+         *         return [
+         *             Meta::class,
+         *             Page::class,
+         *             Layout::class,
+         *             Content::class,
+         *             Partial::class,
+         *         ];
+         *     });
+         *
+         */
+        $results = Event::fire('system.console.theme.sync.getAvailableModelClasses');
+        $validModels = [];
+
+        foreach ($results as $result) {
+            if (!is_iterable($result)) {
+                continue;
+            }
+
+            foreach ($result as $model) {
+                $class = new $model;
+
+                if ($class instanceof \October\Rain\Halcyon\Model) {
+                    $validModels[] = $class;
+                }
+            }
+            unset($class);
+        }
+        unset($results);
+
+        // Check each path and map it to a corresponding model
+        foreach ($paths as $path) {
+            foreach ($validModels as $model) {
+                if (
+                    starts_with($path, $model->getObjectTypeDirName() . '/')
+                    && in_array(pathinfo($path, PATHINFO_EXTENSION), $model->getAllowedExtensions())
+                    && file_exists($theme->getPath($theme->getDirName()) . '/' . $path)
+                ) {
+                    $validPaths[$path] = get_class($model);
+
+                    // Skip to the next path
+                    continue 2;
+                }
+            }
+        }
+        unset($paths);
+        unset($validModels);
+
+        if (count($validPaths) === 0) {
+            return $this->error(sprintf('No applicable paths found for %s.', $source));
         }
 
         // Confirm with the user
-        if (!$this->confirmToProceed(sprintf('This will OVERWRITE the %s provided paths in "themes/%s" on the %s with content from the %s', count($paths), $themeName, $target, $source), function () { return true; })) {
+        if (!$this->confirmToProceed(sprintf('This will OVERWRITE the %s provided paths in "themes/%s" on the %s with content from the %s', count($validPaths), $themeName, $target, $source), function () { return true; })) {
             return;
         }
 
         try {
             $this->info('Syncing files, please wait...');
-            $progress = $this->output->createProgressBar(count($paths));
+            $progress = $this->output->createProgressBar(count($validPaths));
 
             $this->datasource = $theme->getDatasource();
 
+            foreach ($validPaths as $path => $model) {
+                $entity = $this->getModelForPath($path, $model, $theme);
+                if (!isset($entity)) {
+                    continue;
+                }
 
-            foreach ($paths as $path) {
-                // $this->datasource->pushToSource($this->getModelForPath($path), $target);
+                $this->datasource->pushToSource($entity, $target);
                 $progress->advance();
             }
+            unset($validPaths);
 
             $progress->finish();
             $this->info('');
@@ -194,25 +218,28 @@ class ThemeSync extends Command
 
 
     /**
-     * Get the correct Halcyon model for the provided path from the source datasource
+     * Get the correct Halcyon model for the provided path from the source datasource and load the requested path data.
      *
      * @param string $path
-     * @return void
+     * @param string $model
+     * @param \Cms\Classes\Theme $theme
+     * @return \October\Rain\Halycon\Model
      */
-    protected function getModelForPath(string $path)
+    protected function getModelForPath(string $path, string $model, \Cms\Classes\Theme $theme)
     {
         $originalSource = $this->datasource->activeDatasourceKey;
         $this->datasource->activeDatasourceKey = $this->source;
 
-        // $model::load($this->theme, $fileName);
+        $class = new $model;
+        $entity = $model::load($theme, str_replace($class->getObjectTypeDirName() . '/', '', $path));
+        if (!isset($entity)) {
+            return null;
+        }
 
         $this->datasource->activeDatasourceKey = $originalSource;
 
-        // return $model;
+        return $entity;
     }
-
-
-
 
     /**
      * Get the console command arguments.
@@ -232,7 +259,7 @@ class ThemeSync extends Command
     protected function getOptions()
     {
         return [
-            ['paths', null, InputOption::VALUE_REQUIRED, 'Comma-separated specific paths (relative to provided theme directory) to specificaly sync. Default is all paths'],
+            ['paths', null, InputOption::VALUE_REQUIRED, 'Comma-separated specific paths (relative to provided theme directory) to specificaly sync. Default is all paths. You may use regular expressions.'],
             ['target', null, InputOption::VALUE_REQUIRED, 'The target of the sync, the other will be used as the source. Defaults to "database", can be "filesystem"'],
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
         ];
