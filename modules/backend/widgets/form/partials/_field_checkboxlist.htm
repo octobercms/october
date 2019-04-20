@@ -3,7 +3,7 @@
     $checkedValues = (array) $field->value;
     $isScrollable = count($fieldOptions) > 10;
     $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
-    $quickselectEnabled = $field->getConfig('quickselect');
+    $quickselectEnabled = $field->getConfig('quickselect', $isScrollable);
 ?>
 <!-- Checkbox List -->
 <?php if ($readOnly && $field->value): ?>
@@ -38,7 +38,7 @@
 <?php elseif (!$readOnly && count($fieldOptions)): ?>
 
     <div class="field-checkboxlist <?= $isScrollable ? 'is-scrollable' : '' ?>">
-        <?php if ($quickselectEnabled || $isScrollable): ?>
+        <?php if ($quickselectEnabled): ?>
             <!-- Quick selection -->
             <small>
                 <?= e(trans('backend::lang.form.select')) ?>:

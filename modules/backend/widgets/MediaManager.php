@@ -1563,16 +1563,17 @@ class MediaManager extends WidgetBase
              */
             $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
 
-            Response::json([
+            $response = Response::make([
                 'link' => MediaLibrary::url($filePath),
                 'result' => 'success'
-            ])->send();
+            ]);
         }
         catch (Exception $ex) {
-            Response::json($ex->getMessage(), 400)->send();
+            $response = Response::make($ex->getMessage(), 400);
         }
 
-        exit;
+        // Override the controller response
+        $this->controller->setResponse($response);
     }
 
     /**

@@ -227,10 +227,16 @@ class UpdateManager
         $frozen = $installed->lists('is_frozen', 'code');
         $updatable = $installed->lists('is_updatable', 'code');
         $build = Parameter::get('system::core.build');
+        $themes = [];
+
+        if ($this->themeManager) {
+            $themes = array_keys($this->themeManager->getInstalled());
+        }
 
         $params = [
             'core' => $this->getHash(),
             'plugins' => serialize($versions),
+            'themes' => serialize($themes),
             'build' => $build,
             'force' => $force
         ];
@@ -557,12 +563,16 @@ class UpdateManager
      * Downloads a plugin from the update server.
      * @param string $name Plugin name.
      * @param string $hash Expected file hash.
+     * @param boolean $installation Indicates whether this is a plugin installation request.
      * @return self
      */
-    public function downloadPlugin($name, $hash)
+    public function downloadPlugin($name, $hash, $installation = false)
     {
         $fileCode = $name . $hash;
-        $this->requestServerFile('plugin/get', $fileCode, $hash, ['name' => $name]);
+        $this->requestServerFile('plugin/get', $fileCode, $hash, [
+            'name' => $name,
+            'installation' => $installation ? 1 : 0
+        ]);
     }
 
     /**
@@ -739,6 +749,39 @@ class UpdateManager
     }
 
     //
+    // Changelog
+    //
+
+    /**
+     * Returns the latest changelog information.
+     */
+    public function requestChangelog()
+    {
+        $result = Http::get('https://octobercms.com/changelog?json');
+
+        if ($result->code == 404) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+        }
+
+        if ($result->code != 200) {
+            throw new ApplicationException(
+                strlen($result->body)
+                ? $result->body
+                : Lang::get('system::lang.server.response_empty')
+            );
+        }
+
+        try {
+            $resultData = json_decode($result->body, true);
+        }
+        catch (Exception $ex) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
+        }
+
+        return $resultData;
+    }
+
+    //
     // Notes
     //
 
@@ -909,7 +952,14 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
+        $postData['protocol_version'] = '1.1';
+        $postData['client'] = 'october';
+
+        $postData['server'] = base64_encode(serialize([
+            'php'   => PHP_VERSION,
+            'url'   => Url::to('/'),
+            'since' => PluginVersion::orderBy('created_at')->value('created_at')
+        ]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;
@@ -952,11 +1002,10 @@ class UpdateManager
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
     }
 
-    //
-    // Internals
-    //
-
-    protected function getMigrationTableName()
+    /**
+     * @return string
+     */
+    public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
     }

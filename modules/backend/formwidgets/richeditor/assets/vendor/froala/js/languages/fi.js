@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Finnish
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['fi'] = {
     "Colors": "V\u00e4rit",
     "Background": "Taustan",
     "Text": "Tekstin",
+    "HEX Color": "Heksadesimaali",
 
     // Paragraphs
     "Paragraph Format": "Muotoilut",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['fi'] = {
 
     // Lists
     "Ordered List": "J\u00e4rjestetty lista",
+    "Default": "Oletusarvo",
+    "Lower Alpha": "Alempi alfa",
+    "Lower Greek": "Alempi kreikka",
+    "Lower Roman": "Alempi roomalainen",
+    "Upper Alpha": "Ylempi alfa",
+    "Upper Roman": "Ylempi roomalainen",
+
     "Unordered List": "J\u00e4rjest\u00e4m\u00e4t\u00f6n lista",
+    "Circle": "Ympyrä",
+    "Disc": "Levy",
+    "Square": "Neliö-",
+
+    // Line height
+    "Line Height": "Viivankorkeus",
+    "Single": "Yksittäinen",
+    "Double": "Kaksinkertainen",
 
     // Indent
     "Decrease Indent": "Sisenn\u00e4",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['fi'] = {
     "Display": "N\u00e4ytt\u00e4",
     "Inline": "Linjassa",
     "Break Text": "Rikkoa teksti",
-    "Alternate Text": "Vaihtoehtoinen teksti",
+    "Alternative Text": "Vaihtoehtoinen teksti",
     "Change Size": "Muuta kokoa",
     "Width": "Leveys",
     "Height": "Korkeus",
     "Something went wrong. Please try again.": "Jotain meni pieleen. Yrit\u00e4 uudelleen.",
+    "Image Caption": "Kuva-otsikko",
+    "Advanced Edit": "Edistynyt muokkaus",
 
     // Video
     "Insert Video": "Lis\u00e4\u00e4 video",
     "Embedded Code": "Upotettu koodi",
+    "Paste in a video URL": "Liitä video url",
+    "Drop video": "Pudota video",
+    "Your browser does not support HTML5 video.": "Selaimesi ei tue html5-videota.",
+    "Upload Video": "Lataa video",
 
     // Tables
     "Insert Table": "Lis\u00e4\u00e4 taulukko",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['fi'] = {
     // Clear formatting
     "Clear Formatting": "Poista muotoilu",
 
+    // Save
+    "Save": "Tallentaa",
+
     // Undo, redo
     "Undo": "Peru",
     "Redo": "Tee uudelleen",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['fi'] = {
     "Decrease": "Pienenn\u00e4",
 
     // Quick Insert
-    "Quick Insert": "Nopea insertti"
+    "Quick Insert": "Nopea insertti",
+
+    // Spcial Characters
+    "Special Characters": "Erikoismerkkejä",
+    "Latin": "Latina",
+    "Greek": "Kreikkalainen",
+    "Cyrillic": "Kyrillinen",
+    "Punctuation": "Välimerkit",
+    "Currency": "Valuutta",
+    "Arrows": "Nuolet",
+    "Math": "Matematiikka",
+    "Misc": "Sekalaista",
+
+    // Print.
+    "Print": "Tulosta",
+
+    // Spell Checker.
+    "Spell Checker": "Oikeinkirjoittaja",
+
+    // Help
+    "Help": "Auta",
+    "Shortcuts": "Pikakuvakkeet",
+    "Inline Editor": "Inline-editori",
+    "Show the editor": "Näytä editori",
+    "Common actions": "Yhteisiä toimia",
+    "Copy": "Kopio",
+    "Cut": "Leikata",
+    "Paste": "Tahna",
+    "Basic Formatting": "Perusmuotoilu",
+    "Increase quote level": "Lisää lainaustasoa",
+    "Decrease quote level": "Laskea lainaustasoa",
+    "Image / Video": "Kuva / video",
+    "Resize larger": "Kokoa suurempi",
+    "Resize smaller": "Pienempi koko",
+    "Table": "Pöytä",
+    "Select table cell": "Valitse taulukon solu",
+    "Extend selection one cell": "Laajentaa valinta yhden solun",
+    "Extend selection one row": "Laajenna valinta yksi rivi",
+    "Navigation": "Suunnistus",
+    "Focus popup / toolbar": "Painopistevalo / työkalurivi",
+    "Return focus to previous position": "Palauta tarkennus edelliseen asentoon",
+
+    // Embed.ly
+    "Embed URL": "Upottaa URL-osoite",
+    "Paste in a URL to embed": "Liitä upotettu URL-osoite",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Liitetty sisältö tulee Microsoft Word -asiakirjasta. Haluatko säilyttää muodon tai puhdistaa sen?",
+    "Keep": "Pitää",
+    "Clean": "Puhdas",
+    "Word Paste Detected": "Sana-tahna havaittu"
   },
   direction: "ltr"
 };
+
+}));

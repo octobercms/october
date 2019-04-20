@@ -222,25 +222,26 @@
 
         this.$src = $(options.inputPreset, parent)
 
-        this.$src.on('input', function() {
-            if (self.cancelled)
-                return
-
-            $el
-                .val(prefix + self.formatValue())
-                .trigger('oc.inputPreset.afterUpdate')
-        })
-
-        this.$src.on('paste', function() {
-            if (self.cancelled)
-                return
-
-            setTimeout(function() {
-                $el
-                    .val(prefix + self.formatValue())
-                    .trigger('oc.inputPreset.afterUpdate')
-            }, 100)
-        })
+        this.$src.on('input paste', function(event) { 
+            if (self.cancelled) 
+                return 
+ 
+            var timeout = event.type === 'paste' ? 100 : 0 
+            var updateValue = function(self, el, prefix) { 
+                if (el.data('update') === false) {
+                    return
+                }
+                el   
+                    .val(prefix + self.formatValue()) 
+                    .trigger('oc.inputPreset.afterUpdate') 
+            } 
+ 
+            var src = $(this) 
+            setTimeout(function() { 
+                $el.trigger('oc.inputPreset.beforeUpdate', [src]) 
+                setTimeout(updateValue, 100, self, $el, prefix) 
+            }, timeout) 
+        }) 
 
         this.$el.on('change', function() {
             self.cancelled = true

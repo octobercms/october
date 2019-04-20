@@ -43,7 +43,7 @@ class PluginInstall extends Command
         $hash = array_get($pluginDetails, 'hash');
 
         $this->output->writeln(sprintf('<info>Downloading plugin: %s</info>', $code));
-        $manager->downloadPlugin($code, $hash);
+        $manager->downloadPlugin($code, $hash, true);
 
         $this->output->writeln(sprintf('<info>Unpacking plugin: %s</info>', $code));
         $manager->extractPlugin($code, $hash);
