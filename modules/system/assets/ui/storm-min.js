@@ -4201,8 +4201,8 @@ if(prefix===undefined)
 prefix=''
 if($el.val().length&&$el.val()!=prefix)
 return
-this.$src=$(options.inputPreset,parent)
 $el.val(prefix).trigger('oc.inputPreset.afterUpdate')
+this.$src=$(options.inputPreset,parent)
 this.$src.on('input paste',function(event){if(self.cancelled)
 return
 var timeout=event.type==='paste'?100:0

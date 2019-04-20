@@ -115,6 +115,7 @@ if (window.jQuery.request !== undefined) {
         var requestOptions = {
             url: url,
             crossDomain: false,
+            global: false,
             context: context,
             headers: requestHeaders,
             success: function(data, textStatus, jqXHR) {

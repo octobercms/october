@@ -24,7 +24,7 @@ if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.a
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
-var requestOptions={url:url,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
+var requestOptions={url:url,crossDomain:false,global:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
 var _event=jQuery.Event('ajaxBeforeUpdate')
 $triggerEl.trigger(_event,[context,data,textStatus,jqXHR])
