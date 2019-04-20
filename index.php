@@ -6,6 +6,28 @@
  * @author   Alexey Bobkov, Samuel Georges
  */
 
+define('LARAVEL_START', microtime(true));
+
+/*
+|--------------------------------------------------------------------------
+| Register Core Helpers
+|--------------------------------------------------------------------------
+|
+| We cannot rely on Composer's load order when calculating the weight of
+| each package. This line ensures that the core global helpers are
+| always given priority one status.
+|
+*/
+
+$helperPath = __DIR__.'/vendor/october/rain/src/Support/helpers.php';
+
+if (!file_exists($helperPath)) {
+    echo 'Missing vendor files, try running "composer install" or use the Wizard installer.'.PHP_EOL;
+    exit(1);
+}
+
+require $helperPath;
+
 /*
 |--------------------------------------------------------------------------
 | Register composer
@@ -15,7 +37,7 @@
 |
 */
 
-require __DIR__.'/bootstrap/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
