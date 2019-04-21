@@ -1,8 +1,8 @@
 <?php namespace Cms\Twig;
 
 use System\Classes\CombineAssets;
-use Twig\Node\Node as TwigNode;
-use Twig\Compiler as TwigCompiler;
+use Twig_Node;
+use Twig_Compiler;
 
 /**
  * Represents a "framework" node
@@ -10,7 +10,7 @@ use Twig\Compiler as TwigCompiler;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class FrameworkNode extends TwigNode
+class FrameworkNode extends Twig_Node
 {
     public function __construct($name, $lineno, $tag = 'framework')
     {
@@ -20,9 +20,9 @@ class FrameworkNode extends TwigNode
     /**
      * Compiles the node to PHP.
      *
-     * @param TwigCompiler $compiler A TwigCompiler instance
+     * @param Twig_Compiler $compiler A Twig_Compiler instance
      */
-    public function compile(TwigCompiler $compiler)
+    public function compile(Twig_Compiler $compiler)
     {
         $attrib = $this->getAttribute('name');
         $includeExtras = strtolower(trim($attrib)) == 'extras';
