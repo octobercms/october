@@ -1,5 +1,6 @@
 /**
  * I have combined jquery.Jcrop.js v0.9.15 and jQuery Color Animations v2.0pre together
+ * Line 1753 has custom October CMS Code Fix 
  */
  
 /*!
