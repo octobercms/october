@@ -1081,9 +1081,10 @@
       //}}}
 
       // This is a hack for iOS5 to support drag/move touch functionality
-      $(document).bind('touchstart.jcrop-ios',function(e) {
-        if ($(e.currentTarget).hasClass('jcrop-tracker')) e.stopPropagation();
-      });
+      // Hack OctoberCMS - the event handler was moved to the Touch module.
+      // The closure used before was handling a reference to the target object,
+      // preventing it from removing from DOM after the control is destroyed.
+      $(document).bind('touchstart.jcrop-ios', Touch.fixTouchSupport);
 
       var $track = newTracker().mousedown(createDragger('move')).css({
         cursor: 'move',
