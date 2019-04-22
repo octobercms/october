@@ -338,7 +338,8 @@ class Theme
         }
 
         try {
-            $config = Cache::rememberForever(self::CONFIG_KEY, function() use ($path) {
+            $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
+            $config = Cache::rememberForever($cacheKey, function() use ($path) {
                 return Yaml::parseFile($path);
             });
         }
@@ -496,7 +497,7 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget(self::CONFIG_KEY);
+        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
     }
 
     /**
