@@ -7,6 +7,8 @@
 <meta name="backend-timezone" content="<?= e(Backend\Models\Preference::get('timezone')) ?>">
 <meta name="backend-locale" content="<?= e(Backend\Models\Preference::get('locale')) ?>">
 <meta name="csrf-token" content="<?= csrf_token() ?>">
+<meta http-equiv="Accept-CH" content="Device-Memory, DPR, Width, Viewport-Width">
+<meta http-equiv="Accept-CH-Lifetime" content="3600">
 <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>">
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
