@@ -254,7 +254,7 @@
             setTimeout(function(){ self.$backdrop.addClass('loading'); }, 100)
         }
         else {
-            this.$backdrop.removeClass('loading');
+            setTimeout(function(){ self.$backdrop.removeClass('loading'); }, 100)
         }
     }
 

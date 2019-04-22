@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Russian
  */
@@ -35,9 +61,10 @@ $.FE.LANGUAGE['ru'] = {
     "Font Size": "\u0420\u0430\u0437\u043c\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430",
 
     // Colors
-    "Colors": "\u0446\u0432\u0435\u0442\u0430",
+    "Colors": "\u0426\u0432\u0435\u0442\u0430",
     "Background": "\u0424\u043e\u043d",
     "Text": "\u0422\u0435\u043a\u0441\u0442",
+    "HEX Color": "HEX цвет",
 
     // Paragraphs
     "Paragraph Format": "\u0424\u043e\u0440\u043c\u0430\u0442 \u0430\u0431\u0437\u0430\u0446\u0430",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['ru'] = {
 
     // Lists
     "Ordered List": "\u041d\u0443\u043c\u0435\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a",
+    "Default": "Дефолт",
+    "Lower Alpha": "Низшая альфа",
+    "Lower Greek": "Нижний греческий",
+    "Lower Roman": "Нижний римлянин",
+    "Upper Alpha": "Верхняя альфа",
+    "Upper Roman": "Верховный римлянин",
+
     "Unordered List": "\u041c\u0430\u0440\u043a\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0441\u043f\u0438\u0441\u043e\u043a",
+    "Circle": "Круг",
+    "Disc": "Диск",
+    "Square": "Площадь",
+
+    // Line height
+    "Line Height": "Высота линии",
+    "Single": "Не замужем",
+    "Double": "Двойной",
 
     // Indent
     "Decrease Indent": "\u0423\u043c\u0435\u043d\u044c\u0448\u0438\u0442\u044c \u043e\u0442\u0441\u0442\u0443\u043f",
@@ -81,7 +123,7 @@ $.FE.LANGUAGE['ru'] = {
     "Upload Image": "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
     "By URL": "\u041f\u043e \u0441\u0441\u044b\u043b\u043a\u0435",
     "Browse": "\u0417\u0430\u0433\u0440\u0443\u0436\u0435\u043d\u043d\u044b\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f",
-    "Drop image": "\u041f\u0435\u0440\u0435\u043c\u0435\u0441\u0442\u0438\u0442\u0435 \u0441\u044e\u0434\u0430 \u0444\u0430\u0439\u043b",
+    "Drop image": "\u041f\u0435\u0440\u0435\u043c\u0435\u0441\u0442\u0438\u0442\u0435 \u0441\u044e\u0434\u0430 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
     "or click": "\u0438\u043b\u0438 \u043d\u0430\u0436\u043c\u0438\u0442\u0435",
     "Manage Images": "\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f\u043c\u0438",
     "Loading": "\u0417\u0430\u0433\u0440\u0443\u0437\u043a\u0430",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['ru'] = {
     "Display": "\u041f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
     "Inline": "\u041e\u0431\u0442\u0435\u043a\u0430\u043d\u0438\u0435 \u0442\u0435\u043a\u0441\u0442\u043e\u043c",
     "Break Text": "\u0412\u0441\u0442\u0440\u043e\u0435\u043d\u043d\u043e\u0435 \u0432 \u0442\u0435\u043a\u0441\u0442",
-    "Alternate Text": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442",
+    "Alternative Text": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442",
     "Change Size": "\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u0440\u0430\u0437\u043c\u0435\u0440",
     "Width": "\u0428\u0438\u0440\u0438\u043d\u0430",
     "Height": "\u0412\u044b\u0441\u043e\u0442\u0430",
     "Something went wrong. Please try again.": "\u0427\u0442\u043e\u002d\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a\u002e \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430\u002c \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437\u002e",
+    "Image Caption": "Подпись к изображению",
+    "Advanced Edit": "Расширенное редактирование",
 
     // Video
     "Insert Video": "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0432\u0438\u0434\u0435\u043e",
     "Embedded Code": "\u0048\u0054\u004d\u004c\u002d\u043a\u043e\u0434 \u0434\u043b\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0438",
+    "Paste in a video URL": "Вставить URL-адрес видео",
+    "Drop video": "Вставить видео",
+    "Your browser does not support HTML5 video.": "Ваш браузер не поддерживает html5 видео.",
+    "Upload Video": "Загрузить видео",
 
     // Tables
     "Insert Table": "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0443",
@@ -138,8 +186,8 @@ $.FE.LANGUAGE['ru'] = {
 
     // Emoticons
     "Emoticons": "\u0421\u043c\u0430\u0439\u043b\u0438\u043a\u0438",
-"Grinning face": "",
-    "Grinning face with smiling eyes": "\u0423\u0441\u043c\u0435\u0445\u043d\u0443\u0432\u0448\u0438\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u0443\u043b\u044b\u0431\u0430\u044e\u0449\u0438\u043c\u0438\u0441\u044f \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
+    "Grinning face": "\u0423\u0445\u043c\u044b\u043b\u043a\u0430 \u043d\u0430 \u043b\u0438\u0446\u0435",
+    "Grinning face with smiling eyes": "\u0423\u0441\u043c\u0435\u0445\u043d\u0443\u0432\u0448\u0435\u0435\u0441\u044f \u043b\u0438\u0446\u043e \u0441 \u0443\u043b\u044b\u0431\u0430\u044e\u0449\u0438\u043c\u0438\u0441\u044f \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
     "Face with tears of joy": "\u041b\u0438\u0446\u043e \u0441\u043e \u0441\u043b\u0435\u0437\u0430\u043c\u0438 \u0440\u0430\u0434\u043e\u0441\u0442\u0438",
     "Smiling face with open mouth": "\u0423\u043b\u044b\u0431\u0430\u044e\u0449\u0435\u0435\u0441\u044f \u043b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c",
     "Smiling face with open mouth and smiling eyes": "\u0423\u043b\u044b\u0431\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c \u0438 \u0443\u043b\u044b\u0431\u0430\u044e\u0449\u0438\u0435\u0441\u044f \u0433\u043b\u0430\u0437\u0430",
@@ -149,47 +197,47 @@ $.FE.LANGUAGE['ru'] = {
     "Smiling face with horns": "\u0423\u043b\u044b\u0431\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u0440\u043e\u0433\u0430\u043c\u0438",
     "Winking face": "\u043f\u043e\u0434\u043c\u0438\u0433\u0438\u0432\u0430\u044f \u043b\u0438\u0446\u043e",
     "Smiling face with smiling eyes": "\u0423\u043b\u044b\u0431\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u0443\u043b\u044b\u0431\u0430\u044e\u0449\u0438\u043c\u0438\u0441\u044f \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
-    "Face savoring delicious food": "\u041b\u0438\u0446\u043e \u0441\u043c\u0430\u043a\u0443\u044f \u0432\u043a\u0443\u0441\u043d\u0443\u044e \u0435\u0434\u0443",
+    "Face savoring delicious food": "\u041b\u0438\u0446\u043e \u0441\u043c\u0430\u043a\u0443\u044e\u0449\u0435\u0435 \u0432\u043a\u0443\u0441\u043d\u0443\u044e \u0435\u0434\u0443",
     "Relieved face": "\u041e\u0441\u0432\u043e\u0431\u043e\u0436\u0434\u0435\u043d\u044b \u043b\u0438\u0446\u043e",
     "Smiling face with heart-shaped eyes": "\u0423\u043b\u044b\u0431\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e \u0432 \u0444\u043e\u0440\u043c\u0435 \u0441\u0435\u0440\u0434\u0446\u0430 \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
     "Smiling face with sunglasses": "\u0423\u043b\u044b\u0431\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u043e\u0447\u043a\u0430\u043c\u0438",
     "Smirking face": "\u0423\u0441\u043c\u0435\u0445\u043d\u0443\u0432\u0448\u0438\u0441\u044c \u043b\u0438\u0446\u043e",
     "Neutral face": "\u041e\u0431\u044b\u0447\u043d\u044b\u0439 \u043b\u0438\u0446\u043e",
-    "Expressionless face": "\u043d\u0435\u0432\u044b\u0440\u0430\u0437\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043b\u0438\u0446\u0430",
+    "Expressionless face": "\u041d\u0435\u0432\u044b\u0440\u0430\u0437\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
     "Unamused face": "\u041d\u0435 \u0441\u043c\u0435\u0448\u043d\u043e \u043b\u0438\u0446\u043e",
-    "Face with cold sweat": "\u041b\u0438\u0446\u043e \u0441 \u0445\u043e\u043b\u043e\u0434\u043d\u043e\u0433\u043e \u043f\u043e\u0442\u0430",
+    "Face with cold sweat": "\u041b\u0438\u0446\u043e \u0432 \u0445\u043e\u043b\u043e\u0434\u043d\u043e\u043c \u043f\u043e\u0442\u0443",
     "Pensive face": "\u0417\u0430\u0434\u0443\u043c\u0447\u0438\u0432\u044b\u0439 \u043b\u0438\u0446\u043e",
-    "Confused face": "\u041f\u0443\u0442\u0430\u0442\u044c \u043b\u0438\u0446\u043e",
-    "Confounded face": "\u0414\u0430 \u043f\u043e\u0441\u0442\u044b\u0434\u044f\u0442\u0441\u044f \u043b\u0438\u0446\u043e",
+    "Confused face": "\u0421\u043c\u0443\u0449\u0435\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
+    "Confounded face": "\u041f\u043e\u0441\u0442\u044b\u0434\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
     "Kissing face": "\u041f\u043e\u0446\u0435\u043b\u0443\u0438 \u043b\u0438\u0446\u043e",
-    "Face throwing a kiss": "\u041b\u0438\u0446\u043e \u0431\u0440\u043e\u0441\u0430\u043b\u0438 \u043f\u043e\u0446\u0435\u043b\u0443\u0439",
+    "Face throwing a kiss": "\u041b\u0438\u0446\u043e \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u044e\u0449\u0435\u0435 \u043f\u043e\u0446\u0435\u043b\u0443\u0439",
     "Kissing face with smiling eyes": "\u041f\u043e\u0446\u0435\u043b\u0443\u0438 \u043b\u0438\u0446\u043e \u0441 \u0443\u043b\u044b\u0431\u0430\u044e\u0449\u0438\u043c\u0438\u0441\u044f \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
     "Kissing face with closed eyes": "\u041f\u043e\u0446\u0435\u043b\u0443\u0438 \u043b\u0438\u0446\u043e \u0441 \u0437\u0430\u043a\u0440\u044b\u0442\u044b\u043c\u0438 \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
-    "Face with stuck out tongue": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u043b\u0438 \u044f\u0437\u044b\u043a\u0430",
-    "Face with stuck out tongue and winking eye": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u043b\u0438 \u044f\u0437\u044b\u043a \u0438 \u043f\u043e\u0434\u043c\u0438\u0433\u0438\u0432\u0430\u044f \u0433\u043b\u0430\u0437\u043e\u043c",
-    "Face with stuck out tongue and tightly-closed eyes": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u043b\u0438 \u044f\u0437\u044b\u043a \u0438 \u043f\u043b\u043e\u0442\u043d\u043e \u0437\u0430\u043a\u0440\u044b\u0442\u044b\u043c\u0438 \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
-    "Disappointed face": "\u0420\u0430\u0437\u043e\u0447\u0430\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u043b\u0438\u0446\u043e",
+    "Face with stuck out tongue": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u0449\u0438\u043c \u044f\u0437\u044b\u043a\u043e\u043c",
+    "Face with stuck out tongue and winking eye": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u0449\u0438\u043c \u044f\u0437\u044b\u043a\u043e\u043c \u0438 \u043f\u043e\u0434\u043c\u0438\u0433\u0438\u0432\u0430\u044e\u0449\u0438\u043c \u0433\u043b\u0430\u0437\u043e\u043c",
+    "Face with stuck out tongue and tightly-closed eyes": "\u041b\u0438\u0446\u043e \u0441 \u0442\u043e\u0440\u0447\u0430\u0449\u0438\u043c \u044f\u0437\u044b\u043a\u043e\u043c \u0438 \u043f\u043b\u043e\u0442\u043d\u043e \u0437\u0430\u043a\u0440\u044b\u0442\u044b\u043c\u0438 \u0433\u043b\u0430\u0437\u0430\u043c\u0438",
+    "Disappointed face": "\u0420\u0430\u0437\u043e\u0447\u0430\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
     "Worried face": "\u041e\u0431\u0435\u0441\u043f\u043e\u043a\u043e\u0435\u043d\u043d\u044b\u0439 \u043b\u0438\u0446\u043e",
     "Angry face": "\u0417\u043b\u043e\u0439 \u043b\u0438\u0446\u043e",
     "Pouting face": "\u041f\u0443\u0445\u043b\u044b\u0435 \u043b\u0438\u0446\u043e",
-    "Crying face": "\u041f\u043b\u0430\u0447 \u043b\u0438\u0446\u043e",
+    "Crying face": "\u041f\u043b\u0430\u0447\u0443\u0449\u0435\u0435 \u043b\u0438\u0446\u043e",
     "Persevering face": "\u041d\u0430\u0441\u0442\u043e\u0439\u0447\u0438\u0432\u0430\u044f \u043b\u0438\u0446\u043e",
     "Face with look of triumph": "\u041b\u0438\u0446\u043e \u0441 \u0432\u0438\u0434\u043e\u043c \u0442\u0440\u0438\u0443\u043c\u0444\u0430",
-    "Disappointed but relieved face": "\u0420\u0430\u0437\u043e\u0447\u0430\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439\u002c \u043d\u043e \u043e\u0441\u0432\u043e\u0431\u043e\u0436\u0434\u0435\u043d \u043b\u0438\u0446\u043e",
-    "Frowning face with open mouth": "\u041d\u0430\u0445\u043c\u0443\u0440\u0438\u0432\u0448\u0438\u0441\u044c \u043b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c",
+    "Disappointed but relieved face": "\u0420\u0430\u0437\u043e\u0447\u0430\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435\u002c \u043d\u043e \u0441\u043f\u043e\u043a\u043e\u0439\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
+    "Frowning face with open mouth": "\u041d\u0430\u0445\u043c\u0443\u0440\u0435\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c",
     "Anguished face": "\u043c\u0443\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u043b\u0438\u0446\u043e",
-    "Fearful face": "\u041e\u043f\u0430\u0441\u0430\u044f\u0441\u044c \u043b\u0438\u0446\u043e",
+    "Fearful face": "\u041d\u0430\u043f\u0443\u0433\u0430\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
     "Weary face": "\u0423\u0441\u0442\u0430\u043b\u044b\u0439 \u043b\u0438\u0446\u043e",
     "Sleepy face": "\u0441\u043e\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
     "Tired face": "\u0423\u0441\u0442\u0430\u043b\u0438 \u043b\u0438\u0446\u043e",
-    "Grimacing face": "\u0413\u0440\u0438\u043c\u0430\u0441\u043d\u0438\u0447\u0430\u044f \u043b\u0438\u0446\u043e",
+    "Grimacing face": "\u0413\u0440\u0438\u043c\u0430\u0441\u0430 \u043d\u0430 \u043b\u0438\u0446\u0435",
     "Loudly crying face": "\u0413\u0440\u043e\u043c\u043a\u043e \u043f\u043b\u0430\u0447\u0430 \u043b\u0438\u0446\u043e",
     "Face with open mouth": "\u041b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c",
     "Hushed face": "\u0417\u0430\u0442\u0438\u0445\u0448\u0438\u0439 \u043b\u0438\u0446\u043e",
-    "Face with open mouth and cold sweat": "\u041b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c \u0438 \u0445\u043e\u043b\u043e\u0434\u043d\u044b\u0439 \u043f\u043e\u0442",
-    "Face screaming in fear": "\u041b\u0438\u0446\u043e \u043a\u0440\u0438\u0447\u0430\u0442\u044c \u0432 \u0441\u0442\u0440\u0430\u0445\u0435",
-    "Astonished face": "\u0423\u0434\u0438\u0432\u043b\u0435\u043d\u043d\u044b\u0439 \u043b\u0438\u0446\u043e",
-    "Flushed face": "\u041f\u0440\u0438\u043b\u0438\u0432 \u043a\u0440\u043e\u0432\u0438 \u043a \u043b\u0438\u0446\u0443",
+    "Face with open mouth and cold sweat": "\u041b\u0438\u0446\u043e \u0441 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c \u0440\u0442\u043e\u043c \u0432 \u0445\u043e\u043b\u043e\u0434\u043d\u043e\u043c \u043f\u043e\u0442\u0443",
+    "Face screaming in fear": "\u041b\u0438\u0446\u043e \u043a\u0440\u0438\u0447\u0430\u0449\u0435\u0435 \u043e\u0442 \u0441\u0442\u0440\u0430\u0445\u0430",
+    "Astonished face": "\u0423\u0434\u0438\u0432\u043b\u0435\u043d\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
+    "Flushed face": "\u041f\u043e\u043a\u0440\u0430\u0441\u043d\u0435\u0432\u0448\u0435\u0435 \u043b\u0438\u0446\u043e",
     "Sleeping face": "\u0421\u043f\u044f\u0449\u0430\u044f \u043b\u0438\u0446\u043e",
     "Dizzy face": "\u0414\u0438\u0437\u0437\u0438 \u043b\u0438\u0446\u043e",
     "Face without mouth": "\u041b\u0438\u0446\u043e \u0431\u0435\u0437 \u0440\u0442\u0430",
@@ -211,23 +259,78 @@ $.FE.LANGUAGE['ru'] = {
     // Clear formatting
     "Clear Formatting": "\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0444\u043e\u0440\u043c\u0430\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
 
+    // Save
+    "Save": "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c",
+
     // Undo, redo
     "Undo": "\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c",
     "Redo": "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c",
 
     // Select all
-    "Select All": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0432\u0441\u0435",
+    "Select All": "\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0432\u0441\u0451",
 
     // Code view
     "Code View": "\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0048\u0054\u004d\u004c\u002d\u043a\u043e\u0434\u0430",
 
     // Quote
-    "Quote": "\u0446\u0438\u0442\u0430\u0442\u0430",
+    "Quote": "\u0426\u0438\u0442\u0430\u0442\u0430",
     "Increase": "\u0423\u0432\u0435\u043b\u0438\u0447\u0435\u043d\u0438\u0435",
     "Decrease": "\u0421\u043d\u0438\u0436\u0435\u043d\u0438\u0435",
 
     // Quick Insert
-    "Quick Insert": "\u0411\u044b\u0441\u0442\u0440\u0430\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0430"
+    "Quick Insert": "\u0411\u044b\u0441\u0442\u0440\u0430\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0430",
+
+    // Spcial Characters
+    "Special Characters": "Специальные символы",
+    "Latin": "Латинский",
+    "Greek": "Греческий",
+    "Cyrillic": "Кириллица",
+    "Punctuation": "Пунктуация",
+    "Currency": "Валюта",
+    "Arrows": "Стрелки",
+    "Math": "Математический",
+    "Misc": "Разное",
+
+    // Print.
+    "Print": "Распечатать",
+
+    // Spell Checker.
+    "Spell Checker": "Программа проверки орфографии",
+
+    // Help
+    "Help": "Помощь",
+    "Shortcuts": "Горячие клавищи",
+    "Inline Editor": "Встроенный редактор",
+    "Show the editor": "Показать редактор",
+    "Common actions": "Общие действия",
+    "Copy": "Копировать",
+    "Cut": "Вырезать",
+    "Paste": "Вставить",
+    "Basic Formatting": "Базовое форматирование",
+    "Increase quote level": "Увеличить уровень цитирования",
+    "Decrease quote level": "Уменьшить уровень цитирования",
+    "Image / Video": "Изображение / Видео",
+    "Resize larger": "Изменить размер",
+    "Resize smaller": "Уменьшить размер",
+    "Table": "Таблица",
+    "Select table cell": "Выбрать ячейку таблицы",
+    "Extend selection one cell": "Расширить выделение одной ячейки",
+    "Extend selection one row": "Расширить выделение на одну строку",
+    "Navigation": "Навигация",
+    "Focus popup / toolbar": "Сфокусировать всплывающее окно / панель инструментов",
+    "Return focus to previous position": "Вернуть фокус на предыдущую позицию",
+
+    // Embed.ly
+    "Embed URL": "Вставить URL-адрес",
+    "Paste in a URL to embed": "Вставить URL-адрес для встраивания",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Вы пытаетесь вставить текст из документа Microsoft Word. Вы хотите сохранить или очистить формат?",
+    "Keep": "Оставить",
+    "Clean": "Очистить",
+    "Word Paste Detected": "Обнаружено копирование из Word"
   },
   direction: "ltr"
 };
+
+}));

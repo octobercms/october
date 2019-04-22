@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Spanish
  */
@@ -28,7 +54,7 @@ $.FE.LANGUAGE['es'] = {
     "Remove": "Quitar",
     "More": "M\u00e1s",
     "Update": "Actualizaci\u00f3n",
-    "Style": "",
+    "Style": "Estilo",
 
     // Font
     "Font Family": "Familia de fuentes",
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['es'] = {
     "Colors": "Colores",
     "Background": "Fondo",
     "Text": "Texto",
+    "HEX Color": "Color hexadecimal",
 
     // Paragraphs
     "Paragraph Format": "Formato de p\u00e1rrafo",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['es'] = {
 
     // Lists
     "Ordered List": "Lista ordenada",
+    "Default": "Defecto",
+    "Lower Alpha": "Alfa inferior",
+    "Lower Greek": "Griego inferior",
+    "Lower Roman": "Baja romana",
+    "Upper Alpha": "Alfa superior",
+    "Upper Roman": "Romano superior",
+
     "Unordered List": "Lista desordenada",
+    "Circle": "Circulo",
+    "Disc": "Dto",
+    "Square": "Cuadrado",
+
+    // Line height
+    "Line Height": "Altura de la línea",
+    "Single": "Soltero",
+    "Double": "Doble",
 
     // Indent
     "Decrease Indent": "Reducir sangr\u00eda",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['es'] = {
     "Display": "Mostrar",
     "Inline": "En l\u00ednea",
     "Break Text": "Romper texto",
-    "Alternate Text": "Texto alternativo",
+    "Alternative Text": "Texto alternativo",
     "Change Size": "Cambiar tama\u00f1o",
     "Width": "Ancho",
     "Height": "Altura",
     "Something went wrong. Please try again.": "Algo sali\u00f3 mal. Por favor, vuelva a intentarlo.",
+    "Image Caption": "Captura de imagen",
+    "Advanced Edit": "Edición avanzada",
 
     // Video
     "Insert Video": "Insertar video",
     "Embedded Code": "C\u00f3digo incrustado",
+    "Paste in a video URL": "Pegar en una URL de video",
+    "Drop video": "Soltar video",
+    "Your browser does not support HTML5 video.": "Su navegador no es compatible con video html5.",
+    "Upload Video": "Subir video",
 
     // Tables
     "Insert Table": "Insertar tabla",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['es'] = {
     // Clear formatting
     "Clear Formatting": "Quitar el formato",
 
+    // Save
+    "Save": "Salvar",
+
     // Undo, redo
     "Undo": "Deshacer",
     "Redo": "Rehacer",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['es'] = {
     "Decrease": "Disminuci\u00f3n",
 
     // Quick Insert
-    "Quick Insert": "Inserci\u00f3n r\u00e1pida"
+    "Quick Insert": "Inserci\u00f3n r\u00e1pida",
+
+    // Spcial Characters
+    "Special Characters": "Caracteres especiales",
+    "Latin": "Latín",
+    "Greek": "Griego",
+    "Cyrillic": "Cirílico",
+    "Punctuation": "Puntuación",
+    "Currency": "Moneda",
+    "Arrows": "Flechas",
+    "Math": "Mates",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Impresión",
+
+    // Spell Checker.
+    "Spell Checker": "Corrector ortográfico",
+
+    // Help
+    "Help": "Ayuda",
+    "Shortcuts": "Atajos",
+    "Inline Editor": "Editor en línea",
+    "Show the editor": "Mostrar al editor",
+    "Common actions": "Acciones comunes",
+    "Copy": "Dupdo",
+    "Cut": "Cortar",
+    "Paste": "Pegar",
+    "Basic Formatting": "Formato básico",
+    "Increase quote level": "Aumentar el nivel de cotización",
+    "Decrease quote level": "Disminuir el nivel de cotización",
+    "Image / Video": "Imagen / video",
+    "Resize larger": "Redimensionar más grande",
+    "Resize smaller": "Redimensionar más pequeño",
+    "Table": "Mesa",
+    "Select table cell": "Celda de tabla select",
+    "Extend selection one cell": "Ampliar la selección una celda",
+    "Extend selection one row": "Ampliar la selección una fila",
+    "Navigation": "Navegación",
+    "Focus popup / toolbar": "Focus popup / toolbar",
+    "Return focus to previous position": "Volver al foco a la posición anterior",
+
+    // Embed.ly
+    "Embed URL": "URL de inserción",
+    "Paste in a URL to embed": "Pegar en una url para incrustar",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "El contenido pegado viene de un documento de Microsoft Word. ¿Quieres mantener el formato o limpiarlo?",
+    "Keep": "Guardar",
+    "Clean": "Limpiar",
+    "Word Paste Detected": "Palabra detectada"
   },
   direction: "ltr"
 };
+
+}));

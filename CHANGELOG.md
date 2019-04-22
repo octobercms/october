@@ -1,1 +1,1 @@
-Changelog can be found here: http://octobercms.com/changelog
+View the changelog on the [OctoberCMS website](https://octobercms.com/changelog)

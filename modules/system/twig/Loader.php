@@ -2,8 +2,8 @@
 
 use App;
 use File;
-use Twig_Source;
-use Twig_LoaderInterface;
+use Twig\Source as TwigSource;;
+use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Exception;
 
 /**
@@ -12,7 +12,7 @@ use Exception;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Loader implements Twig_LoaderInterface
+class Loader implements TwigLoaderInterface
 {
     /**
      * @var string Expected file extension
@@ -52,7 +52,7 @@ class Loader implements Twig_LoaderInterface
 
     public function getSourceContext($name)
     {
-        return new Twig_Source(File::get($this->findTemplate($name)), $name);
+        return new TwigSource(File::get($this->findTemplate($name)), $name);
     }
 
     public function getCacheKey($name)

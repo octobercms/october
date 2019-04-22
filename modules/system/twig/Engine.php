@@ -1,6 +1,6 @@
 <?php namespace System\Twig;
 
-use Twig_Environment;
+use Twig\Environment as TwigEnvironment;
 use Illuminate\Contracts\View\Engine as EngineInterface;
 
 /**
@@ -12,14 +12,14 @@ use Illuminate\Contracts\View\Engine as EngineInterface;
 class Engine implements EngineInterface
 {
     /**
-     * @var Twig_Environment
+     * @var TwigEnvironment
      */
     protected $environment;
 
     /**
      * Constructor
      */
-    public function __construct(Twig_Environment $environment)
+    public function __construct(TwigEnvironment $environment)
     {
         $this->environment = $environment;
     }

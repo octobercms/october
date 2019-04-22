@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Thai
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['th'] = {
     "Colors": "\u0e2a\u0e35",
     "Background": "\u0e1e\u0e37\u0e49\u0e19\u0e2b\u0e25\u0e31\u0e07",
     "Text": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21",
+    "HEX Color": "สีฐานสิบหก",
 
     // Paragraphs
     "Paragraph Format": "\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['th'] = {
 
     // Lists
     "Ordered List": "\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e33\u0e14\u0e31\u0e1a\u0e40\u0e25\u0e02",
+    "Default": "ค่าเริ่มต้น",
+    "Lower Alpha": "อัลฟาตอนล่าง",
+    "Lower Greek": "กรีกต่ำกว่า",
+    "Lower Roman": "โรมันล่าง",
+    "Upper Alpha": "อัลฟาตอนบน",
+    "Upper Roman": "โรมันตอนบน",
+
     "Unordered List": "\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e2a\u0e31\u0e0d\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d\u0e22\u0e48\u0e2d\u0e22",
+    "Circle": "วงกลม",
+    "Disc": "จาน",
+    "Square": "สี่เหลี่ยม",
+
+    // Line height
+    "Line Height": "ความสูงของบรรทัด",
+    "Single": "เดียว",
+    "Double": "สอง",
 
     // Indent
     "Decrease Indent": "\u0e25\u0e14\u0e01\u0e32\u0e23\u0e40\u0e22\u0e37\u0e49\u0e2d\u0e07",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['th'] = {
     "Display": "\u0e41\u0e2a\u0e14\u0e07",
     "Inline": "\u0e41\u0e1a\u0e1a\u0e2d\u0e34\u0e19\u0e44\u0e25\u0e19\u0e4c",
     "Break Text": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e2b\u0e22\u0e38\u0e14",
-    "Alternate Text": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e2d\u0e37\u0e48\u0e19",
+    "Alternative Text": "\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e2d\u0e37\u0e48\u0e19",
     "Change Size": "\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e02\u0e19\u0e32\u0e14",
     "Width": "\u0e04\u0e27\u0e32\u0e21\u0e01\u0e27\u0e49\u0e32\u0e07",
     "Height": "\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e39\u0e07",
     "Something went wrong. Please try again.": "\u0e1a\u0e32\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e1c\u0e34\u0e14\u0e1b\u0e01\u0e15\u0e34. \u0e01\u0e23\u0e38\u0e13\u0e32\u0e25\u0e2d\u0e07\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07.",
+    "Image Caption": "คำบรรยายภาพ",
+    "Advanced Edit": "แก้ไขขั้นสูง",
 
     // Video
     "Insert Video": "\u0e41\u0e17\u0e23\u0e01\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d",
     "Embedded Code": "\u0e23\u0e2b\u0e31\u0e2a\u0e2a\u0e21\u0e2d\u0e07\u0e01\u0e25\u0e1d\u0e31\u0e07\u0e15\u0e31\u0e27",
+    "Paste in a video URL": "วางใน URL วิดีโอ",
+    "Drop video": "วางวิดีโอ",
+    "Your browser does not support HTML5 video.": "เบราเซอร์ของคุณไม่สนับสนุนวิดีโอ HTML5",
+    "Upload Video": "อัปโหลดวิดีโอ",
 
     // Tables
     "Insert Table": "\u0e41\u0e17\u0e23\u0e01\u0e15\u0e32\u0e23\u0e32\u0e07",
@@ -186,7 +234,7 @@ $.FE.LANGUAGE['th'] = {
     "Loudly crying face": "\u0e23\u0e49\u0e2d\u0e07\u0e44\u0e2b\u0e49\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e14\u0e31\u0e07\u0e2b\u0e19\u0e49\u0e32",
     "Face with open mouth": "\u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e21\u0e35\u0e1b\u0e32\u0e01\u0e40\u0e1b\u0e34\u0e14",
     "Hushed face": "\u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e07\u0e35\u0e22\u0e1a",
-    "Face with open mouth and cold sweat": "",
+    "Face with open mouth and cold sweat": "หน้ากับปากเปิดและเหงื่อเย็น",
     "Face screaming in fear": "\u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e21\u0e35\u0e1b\u0e32\u0e01\u0e40\u0e1b\u0e34\u0e14\u0e41\u0e25\u0e30\u0e40\u0e2b\u0e07\u0e37\u0e48\u0e2d\u0e40\u0e22\u0e47\u0e19",
     "Astonished face": "\u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e1b\u0e23\u0e30\u0e2b\u0e25\u0e32\u0e14\u0e43\u0e08",
     "Flushed face": "\u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e14\u0e07",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['th'] = {
     // Clear formatting
     "Clear Formatting": "\u0e19\u0e33\u0e01\u0e32\u0e23\u0e08\u0e31\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a",
 
+    // Save
+    "Save": "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01",
+
     // Undo, redo
     "Undo": "\u0e40\u0e25\u0e34\u0e01\u0e17\u0e33",
     "Redo": "\u0e17\u0e4d\u0e32\u0e0b\u0e49\u0e33",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['th'] = {
     "Decrease": "\u0e25\u0e14\u0e25\u0e07",
 
     // Quick Insert
-    "Quick Insert": "\u0e41\u0e17\u0e23\u0e01\u0e14\u0e48\u0e27\u0e19"
+    "Quick Insert": "\u0e41\u0e17\u0e23\u0e01\u0e14\u0e48\u0e27\u0e19",
+
+    // Spcial Characters
+    "Special Characters": "อักขระพิเศษ",
+    "Latin": "ละติน",
+    "Greek": "กรีก",
+    "Cyrillic": "ริลลิก",
+    "Punctuation": "วรรคตอน",
+    "Currency": "เงินตรา",
+    "Arrows": "ลูกศร",
+    "Math": "คณิตศาสตร์",
+    "Misc": "อื่น ๆ",
+
+    // Print.
+    "Print": "พิมพ์",
+
+    // Spell Checker.
+    "Spell Checker": "ตัวตรวจสอบการสะกด",
+
+    // Help
+    "Help": "ช่วยด้วย",
+    "Shortcuts": "ทางลัด",
+    "Inline Editor": "ตัวแก้ไขแบบอินไลน์",
+    "Show the editor": "แสดงตัวแก้ไข",
+    "Common actions": "การกระทำร่วมกัน",
+    "Copy": "สำเนา",
+    "Cut": "ตัด",
+    "Paste": "แปะ",
+    "Basic Formatting": "การจัดรูปแบบพื้นฐาน",
+    "Increase quote level": "ระดับราคาเพิ่มขึ้น",
+    "Decrease quote level": "ระดับราคาลดลง",
+    "Image / Video": "ภาพ / วิดีโอ",
+    "Resize larger": "ปรับขนาดใหญ่ขึ้น",
+    "Resize smaller": "ปรับขนาดเล็กลง",
+    "Table": "ตาราง",
+    "Select table cell": "เลือกเซลล์ตาราง",
+    "Extend selection one cell": "ขยายการเลือกหนึ่งเซลล์",
+    "Extend selection one row": "ขยายการเลือกหนึ่งแถว",
+    "Navigation": "การเดินเรือ",
+    "Focus popup / toolbar": "โฟกัสป๊อปอัพ / แถบเครื่องมือ",
+    "Return focus to previous position": "กลับไปยังตำแหน่งก่อนหน้า",
+
+    // Embed.ly
+    "Embed URL": "ฝัง URL",
+    "Paste in a URL to embed": "วางใน url เพื่อฝัง",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "เนื้อหาที่วางจะมาจากเอกสารคำในแบบ microsoft คุณต้องการเก็บรูปแบบหรือทำความสะอาดหรือไม่?",
+    "Keep": "เก็บ",
+    "Clean": "สะอาด",
+    "Word Paste Detected": "ตรวจพบการวางคำ"
   },
   direction: "ltr"
 };
+
+}));
