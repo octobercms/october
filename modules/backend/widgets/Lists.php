@@ -350,6 +350,7 @@ class Lists extends WidgetBase
         $selects = [$primaryTable.'.*'];
         $joins = [];
         $withs = [];
+        $bindings = [];
 
         /**
          * @event backend.list.extendQueryBefore
@@ -501,6 +502,11 @@ class Lists extends WidgetBase
                 $joinSql = $countQuery->select($joinSql)->toSql();
 
                 $selects[] = Db::raw("(".$joinSql.") as ".$alias);
+                
+                /*
+                 * If this is a polymorphic relation there will be bindings that need to be added to the query
+                 */
+                $bindings = array_merge($bindings, $countQuery->getBindings());
             }
             /*
              * Primary column
@@ -540,6 +546,11 @@ class Lists extends WidgetBase
          * Add custom selects
          */
         $query->addSelect($selects);
+        
+        /*
+         * Add bindings for polymorphic relations
+         */
+        $query->addBinding($bindings, 'select');
 
         /**
          * @event backend.list.extendQuery

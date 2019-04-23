@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Croatian
  */
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['hr'] = {
     "Colors": "Boje",
     "Background": "Pozadina",
     "Text": "Tekst",
+    "HEX Color": "Heksadecimalne boje",
 
     // Paragraphs
     "Paragraph Format": "Format odlomka",
@@ -62,7 +89,22 @@ $.FE.LANGUAGE['hr'] = {
 
     // Lists
     "Ordered List": "Ure\u0111ena lista",
+    "Default": "Zadano",
+    "Lower Alpha": "Niži alfa",
+    "Lower Greek": "Donji grčki",
+    "Lower Roman": "Niži rimski",
+    "Upper Alpha": "Gornja alfa",
+    "Upper Roman": "Gornji rimski",
+
     "Unordered List": "Neure\u0111ena lista",
+    "Circle": "Krug",
+    "Disc": "Disk",
+    "Square": "Kvadrat",
+
+    // Line height
+    "Line Height": "Visina crte",
+    "Single": "Singl",
+    "Double": "Dvostruko",
 
     // Indent
     "Decrease Indent": "Uvuci odlomak",
@@ -94,15 +136,21 @@ $.FE.LANGUAGE['hr'] = {
     "Display": "Prika\u017ei",
     "Inline": "U liniji",
     "Break Text": "Odvojeni tekst",
-    "Alternate Text": "Alternativni tekst",
+    "Alternative Text": "Alternativni tekst",
     "Change Size": "Promjena veli\u010dine",
     "Width": "\u0160irina",
     "Height": "Visina",
     "Something went wrong. Please try again.": "Ne\u0161to je po\u0161lo po zlu. Molimo poku\u0161ajte ponovno.",
+    "Image Caption": "Opis slike",
+    "Advanced Edit": "Napredno uređivanje",
 
     // Video
     "Insert Video": "Umetni video",
     "Embedded Code": "Ugra\u0111eni kod",
+    "Paste in a video URL": "Zalijepite u URL videozapisa",
+    "Drop video": "Ispusti video",
+    "Your browser does not support HTML5 video.": "Vaš preglednik ne podržava HTML video.",
+    "Upload Video": "Prenesi videozapis",
 
     // Tables
     "Insert Table": "Umetni tablicu",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['hr'] = {
     // Clear formatting
     "Clear Formatting": "Ukloni oblikovanje",
 
+    // Save
+    "Save": "\u0055\u0161\u0074\u0065\u0064\u006a\u0065\u0074\u0069",
+
     // Undo, redo
     "Undo": "Korak natrag",
     "Redo": "Korak naprijed",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['hr'] = {
     "Decrease": "Smanji",
 
     // Quick Insert
-    "Quick Insert": "Brzo umetak"
+    "Quick Insert": "Brzo umetak",
+
+    // Spcial Characters
+    "Special Characters": "Posebni znakovi",
+    "Latin": "Latinski",
+    "Greek": "Grčki",
+    "Cyrillic": "Ćirilica",
+    "Punctuation": "Interpunkcija",
+    "Currency": "Valuta",
+    "Arrows": "Strelice",
+    "Math": "Matematika",
+    "Misc": "Razno",
+
+    // Print.
+    "Print": "Otisak",
+
+    // Spell Checker.
+    "Spell Checker": "Provjeritelj pravopisa",
+
+    // Help
+    "Help": "Pomoć",
+    "Shortcuts": "Prečaci",
+    "Inline Editor": "Inline editor",
+    "Show the editor": "Prikaži urednika",
+    "Common actions": "Zajedničke radnje",
+    "Copy": "Kopirati",
+    "Cut": "Rez",
+    "Paste": "Zalijepiti",
+    "Basic Formatting": "Osnovno oblikovanje",
+    "Increase quote level": "Povećati razinu citata",
+    "Decrease quote level": "Smanjite razinu citata",
+    "Image / Video": "Slika / video",
+    "Resize larger": "Promijenite veličinu većeg",
+    "Resize smaller": "Promijenite veličinu manju",
+    "Table": "Stol",
+    "Select table cell": "Odaberite stolnu ćeliju",
+    "Extend selection one cell": "Proširiti odabir jedne ćelije",
+    "Extend selection one row": "Proširite odabir jednog retka",
+    "Navigation": "Navigacija",
+    "Focus popup / toolbar": "Fokus popup / alatnoj traci",
+    "Return focus to previous position": "Vratiti fokus na prethodnu poziciju",
+
+    // Embed.ly
+    "Embed URL": "Uredi url",
+    "Paste in a URL to embed": "Zalijepite URL da biste ga ugradili",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Zalijepi sadržaj dolazi iz Microsoft Word dokumenta. Želite li zadržati format ili očistiti?",
+    "Keep": "Zadržati",
+    "Clean": "Čist",
+    "Word Paste Detected": "Otkrivena je zastavica riječi"
   },
   direction: "ltr"
 };
+
+}));

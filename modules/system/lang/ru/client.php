@@ -63,6 +63,10 @@ return [
         'group' => [
             'all' => 'все'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Применить',
+            'clear_button_text'  => 'Очистить'
+        ],
         'dates' => [
             'all' => 'все',
             'filter_button_text' => 'Фильтр',

@@ -300,7 +300,7 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treeview ol >li >div >span.drag-handle {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:9px;bottom:0;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
 .control-treeview ol >li >div >span.drag-handle:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9";font-size:18px}
 .control-treeview ol >li >div span.borders {font-size:0}
-.control-treeview ol >li >div >ul.submenu {position:absolute;left:20px;bottom:-37px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
+.control-treeview ol >li >div >ul.submenu {position:absolute;left:20px;bottom:-36.9px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
 .control-treeview ol >li >div >ul.submenu:before,
 .control-treeview ol >li >div >ul.submenu:after {background:transparent url(../images/treeview-submenu-tabs.png) no-repeat left top;content:' ';display:block;width:20px;height:37px;position:absolute;top:0}
 .control-treeview ol >li >div >ul.submenu:before {left:-20px}
@@ -610,7 +610,7 @@ body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sa
 .layout >.layout-row >.layout-cell.min-height {height:0}
 .layout >.layout-row >.layout-cell.center {text-align:center}
 .layout >.layout-row >.layout-cell.middle {vertical-align:middle}
-.layout >.layout-row.min-size {height:0}
+.layout >.layout-row.min-size {height:0.1px}
 .layout >.layout-cell {display:table-cell;vertical-align:top;height:100%}
 .layout >.layout-cell.layout-container,
 .layout >.layout-cell .layout-container,
@@ -655,6 +655,11 @@ body.slim-container .layout .layout-container {padding-left:0 !important;padding
 .flex-layout-item.layout-container {max-width:none}
 body.mainmenu-open {overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner {font-size:13px;padding:6px 16px}
+ul.mainmenu-nav {font-size:14px}
+ul.mainmenu-nav li {}
+ul.mainmenu-nav li .svg-icon {-webkit-backface-visibility:hidden;backface-visibility:hidden}
+ul.mainmenu-nav li span.counter {display:block;position:absolute;top:.143em;right:0;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
+ul.mainmenu-nav li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
 nav#layout-mainmenu {background-color:#000;padding:0 0 0 20px;line-height:0;white-space:nowrap;vertical-align:top}
 nav#layout-mainmenu a {text-decoration:none}
 nav#layout-mainmenu a:focus {background:transparent}
@@ -699,18 +704,31 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:focus:after,
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #4ea5e0;position:absolute;right:9px;top:-7px;z-index:102}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #3498db}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider {height:1px;width:100%;background-color:#e0e0e0}
-nav#layout-mainmenu.navbar-mode-inline {height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu {top:70px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li {margin:5px 0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a {padding:10px 15px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon {position:relative;top:-1px;margin-right:5px;width:30px;height:30px}
+nav#layout-mainmenu.navbar-mode-inline,
+nav#layout-mainmenu.navbar-mode-inline_no_icons {height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul li .mainmenu-accountmenu {top:70px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li {margin:5px 0}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a {padding:10px 15px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon {position:relative;top:-1px;margin-right:5px;width:30px;height:30px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon i,
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon img {margin:0}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label {line-height:30px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child {margin-left:-13px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child {margin-right:0}
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon i,
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon img,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-icon img {margin:0}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-label,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li a .nav-label {line-height:30px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:first-child,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li:first-child {margin-left:-13px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li:last-child {margin-right:0}
+nav#layout-mainmenu.navbar-mode-inline_no_icons .nav-icon {display:none !important}
 nav#layout-mainmenu.navbar-mode-tile {height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a {height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account >a {height:78px;line-height:78px}

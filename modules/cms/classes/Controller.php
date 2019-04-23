@@ -12,8 +12,8 @@ use Request;
 use Response;
 use Exception;
 use BackendAuth;
-use Twig_Environment;
-use Twig_Cache_Filesystem;
+use Twig\Environment as TwigEnvironment;
+use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -75,7 +75,7 @@ class Controller
     protected $layoutObj;
 
     /**
-     * @var \Twig_Environment Keeps the Twig environment object.
+     * @var TwigEnvironment Keeps the Twig environment object.
      */
     protected $twig;
 
@@ -203,7 +203,7 @@ class Controller
         /*
          * If the page was not found, render the 404 page - either provided by the theme or the built-in one.
          */
-        if (!$page || $url === '404') {
+        if (!$page || $url === '404' || ($url === 'error' && !Config::get('app.debug', false))) {
             if (!Request::ajax()) {
                 $this->setStatusCode(404);
             }
@@ -600,13 +600,13 @@ class Controller
         ];
 
         if ($useCache) {
-            $options['cache'] = new Twig_Cache_Filesystem(
+            $options['cache'] = new TwigCacheFilesystem(
                 storage_path().'/cms/twig',
-                $forceBytecode ? Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION : 0
+                $forceBytecode ? TwigCacheFilesystem::FORCE_BYTECODE_INVALIDATION : 0
             );
         }
 
-        $this->twig = new Twig_Environment($this->loader, $options);
+        $this->twig = new TwigEnvironment($this->loader, $options);
         $this->twig->addExtension(new CmsTwigExtension($this));
         $this->twig->addExtension(new SystemTwigExtension);
 
@@ -1272,7 +1272,7 @@ class Controller
 
     /**
      * Returns the Twig environment.
-     * @return Twig_Environment
+     * @return TwigEnvironment
      */
     public function getTwig()
     {

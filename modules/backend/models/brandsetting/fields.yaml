@@ -63,6 +63,7 @@ tabs:
             type: radio
             options:
                 inline: backend::lang.branding.menu_mode_inline
+                inline_no_icons: backend::lang.branding.menu_mode_inline_no_icons
                 tile: backend::lang.branding.menu_mode_tile
                 collapse: backend::lang.branding.menu_mode_collapsed
 

@@ -94,6 +94,7 @@ class VersionManager
         }
 
         $newUpdates = $this->getNewFileVersions($code, $databaseVersion);
+
         foreach ($newUpdates as $version => $details) {
             $this->applyPluginUpdate($code, $version, $details);
 
@@ -125,14 +126,7 @@ class VersionManager
      */
     protected function applyPluginUpdate($code, $version, $details)
     {
-        if (is_array($details)) {
-            $comment = array_shift($details);
-            $scripts = $details;
-        }
-        else {
-            $comment = $details;
-            $scripts = [];
-        }
+        list($comments, $scripts) = $this->extractScriptsAndComments($details);
 
         /*
          * Apply scripts, if any
@@ -149,12 +143,14 @@ class VersionManager
          * Register the comment and update the version
          */
         if (!$this->hasDatabaseHistory($code, $version)) {
-            $this->applyDatabaseComment($code, $version, $comment);
+            foreach ($comments as $comment) {
+                $this->applyDatabaseComment($code, $version, $comment);
+
+                $this->note(sprintf('- <info>v%s: </info> %s', $version, $comment));
+            }
         }
 
         $this->setDatabaseVersion($code, $version);
-
-        $this->note(sprintf('- <info>v%s: </info> %s', $version, $comment));
     }
 
     /**
@@ -393,6 +389,7 @@ class VersionManager
 
         if (!File::isFile($updateFile)) {
             $this->note('- <error>v' . $version . ':  Migration file "' . $script . '" not found</error>');
+            return;
         }
 
         $this->updater->setUp($updateFile);
@@ -523,5 +520,30 @@ class VersionManager
         $this->notesOutput = $output;
 
         return $this;
+    }
+
+    /**
+     * @param $details
+     *
+     * @return array
+     */
+    protected function extractScriptsAndComments($details)
+    {
+        if (is_array($details)) {
+            $fileNamePattern = "/^[a-z0-9\_\-\.\/\\\]+\.php$/i";
+
+            $comments = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
+                return !preg_match($fileNamePattern, $detail);
+            }));
+
+            $scripts = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
+                return preg_match($fileNamePattern, $detail);
+            }));
+        } else {
+            $comments = (array)$details;
+            $scripts = [];
+        }
+
+        return array($comments, $scripts);
     }
 }

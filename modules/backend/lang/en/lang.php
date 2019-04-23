@@ -442,6 +442,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Menu style',
         'menu_mode_inline' => 'Inline',
+        'menu_mode_inline_no_icons' => 'Inline (no icons)',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_collapsed' => 'Collapsed'
     ],
@@ -552,7 +553,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
-        'default_prompt' => 'Click the %s button to find a media item'
+        'default_prompt' => 'Click the %s button to find a media item',
+        'no_image' => 'The image could not be found'
     ],
     'media' => [
         'menu_label' => 'Media',

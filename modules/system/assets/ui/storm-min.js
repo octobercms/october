@@ -2949,7 +2949,7 @@ if(this.options.minDate){pikadayOptions.minDate=new Date(this.options.minDate)}
 if(this.options.maxDate){pikadayOptions.maxDate=new Date(this.options.maxDate)}
 this.$datePicker.pikaday(pikadayOptions)}
 DatePicker.prototype.onSelectDatePicker=function(pickerMoment){var pickerValue=pickerMoment.format(this.dbDateFormat)
-var timeValue=this.getTimePickerValue()
+var timeValue=this.options.mode==='date'?'00:00:00':this.getTimePickerValue()
 var momentObj=moment.tz(pickerValue+' '+timeValue,this.dbDateTimeFormat,this.timezone).tz(this.appTimezone)
 var lockerValue=momentObj.format(this.dbDateTimeFormat)
 this.$dataLocker.val(lockerValue)}
@@ -2991,7 +2991,7 @@ if(this.ignoreTimezone){this.appTimezone='UTC'
 this.timezone='UTC'}}
 DatePicker.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
-DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0,showWeekNumber:false}
+DatePicker.DEFAULTS={minDate:null,maxDate:null,format:null,yearRange:10,firstDay:0,showWeekNumber:false,mode:'datetime'}
 var old=$.fn.datePicker
 $.fn.datePicker=function(option){var args=Array.prototype.slice.call(arguments,1),items,result
 items=this.each(function(){var $this=$(this)
@@ -3100,19 +3100,19 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 self.displayPopover($scope)
 $scope.addClass('filter-scope-open')})
-this.$el.on('show.oc.popover','a.filter-scope',function(){self.focusSearch()})
+this.$el.on('show.oc.popover','a.filter-scope',function(event){self.focusSearch()
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
+$(event.relatedTarget).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
+$(event.relatedTarget).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
+self.filterScope()})
+$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+self.filterScope(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
-setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})
-$(document).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
-$(document).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
-$(document).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
-$(document).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
-self.filterScope()})
-$(document).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
-self.filterScope(true)})}
+setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})}
 FilterWidget.prototype.focusSearch=function(){if(Modernizr.touchevents)
 return
 var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
@@ -3151,11 +3151,11 @@ $scope.data('oc.popover',null)
 $scope.ocPopover({content:Mustache.render(self.getPopoverTemplate(),data),modal:false,highlightModalTarget:true,closeOnPageClick:true,placement:'bottom',container:container})
 this.toggleFilterButtons()
 if(!isLoaded){self.loadOptions(scopeName)}}
-FilterWidget.prototype.loadOptions=function(scopeName){var $form=this.$el.closest('form'),self=this,data={scopeName:scopeName}
+FilterWidget.prototype.loadOptions=function(scopeName){var self=this,data={scopeName:scopeName}
 var populated=this.$el.data('filterScopes')
 if(populated&&populated[scopeName]){self.fillOptions(scopeName,populated[scopeName])
 return false}
-return $form.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)
+return this.$el.request(this.options.optionsHandler,{data:data,success:function(data){self.fillOptions(scopeName,data.options)
 self.toggleFilterButtons()}})}
 FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[scopeName])
 return
@@ -3187,20 +3187,20 @@ FilterWidget.prototype.toggleFilterButtons=function(data)
 if(data){data.active.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
 FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
 return
-var $form=this.$el.closest('form'),data={scopeName:scopeName,options:this.scopeValues[scopeName]}
+var data={scopeName:scopeName,options:this.scopeValues[scopeName]}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 FilterWidget.prototype.checkboxToggle=function($el){var isChecked=$el.is(':checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
 this.scopeValues[scopeName]=isChecked
-if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:isChecked}
+if(this.options.updateHandler){var data={scopeName:scopeName,value:isChecked}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',isChecked)}
 FilterWidget.prototype.switchToggle=function($el){var switchValue=$el.data('checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
 this.scopeValues[scopeName]=switchValue
-if(this.options.updateHandler){var $form=this.$el.closest('form'),data={scopeName:scopeName,value:switchValue}
+if(this.options.updateHandler){var data={scopeName:scopeName,value:switchValue}
 $.oc.stripeLoadIndicator.show()
-$form.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 $scope.toggleClass('active',!!switchValue)}
 FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
 if(isReset){this.scopeValues[scopeName]=null
@@ -3224,7 +3224,13 @@ $(document).render(function(){$('[data-control="filterwidget"]').filterWidget();
 this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-date',function(){self.initDatePickers($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-date',function(event){self.initDatePickers($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate()})
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByDate(true)})})
 this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()})
 this.$el.on('hide.oc.popover','a.filter-scope-date',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
@@ -3239,13 +3245,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverRange($scope)}
 else{self.displayPopoverDate($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate()})
-$(document).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByDate(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverDateTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
@@ -3296,7 +3296,7 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                                  \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
@@ -3359,7 +3359,13 @@ if(!this.appTimezone){this.appTimezone='UTC'}
 if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
 this.initFilterNumber()}
 FilterWidget.prototype.initFilterNumber=function(){var self=this
-this.$el.on('show.oc.popover','a.filter-scope-number',function(){self.initNumberInputs($(this).hasClass('range'))})
+this.$el.on('show.oc.popover','a.filter-scope-number',function(event){self.initNumberInputs($(this).hasClass('range'))
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber()})
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
+e.stopPropagation()
+self.filterByNumber(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope-number',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
@@ -3373,13 +3379,7 @@ self.activeScopeName=scopeName
 self.isActiveScopeDirty=false
 if($scope.hasClass('range')){self.displayPopoverNumberRange($scope)}
 else{self.displayPopoverNumber($scope)}
-$scope.addClass('filter-scope-open')})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber()})
-$(document).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
-e.stopPropagation()
-self.filterByNumber(true)})}
+$scope.addClass('filter-scope-open')})}
 FilterWidget.prototype.getPopoverNumberTemplate=function(){return'                                                                                                        \
                 <form>                                                                                                  \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
@@ -3808,7 +3808,7 @@ this.$backdrop=null}}
 Popup.prototype.setLoading=function(val){if(!this.$backdrop)
 return;var self=this
 if(val){setTimeout(function(){self.$backdrop.addClass('loading');},100)}
-else{this.$backdrop.removeClass('loading');}}
+else{setTimeout(function(){self.$backdrop.removeClass('loading');},100)}}
 Popup.prototype.setShake=function(){var self=this
 this.$content.addClass('popup-shaking')
 setTimeout(function(){self.$content.removeClass('popup-shaking')},1000)}
@@ -4183,7 +4183,7 @@ if(typeof option=='string')data[option].apply(data,args)})}
 $.fn.hotKey.Constructor=HotKey
 $.fn.hotKey.noConflict=function(){$.fn.hotKey=old
 return this}
-$(document).render(function(){$('[data-hotkey]').hotKey()})}(window.jQuery);+function($){"use strict";var VIETNAMESE_MAP={'Á':'A','À':'A','Ã':'A','Ả':'A','Ạ':'A','Ắ':'A','Ằ':'A','Ẵ':'A','Ẳ':'A','Ặ':'A','Ấ':'A','Ầ':'A','Ẫ':'A','Ẩ':'A','Ậ':'A','Đ':'D','É':'E','È':'E','Ẽ':'E','Ẻ':'E','Ẹ':'E','Ế':'E','Ề':'E','Ễ':'E','Ể':'E','Ệ':'E','Ó':'O','Ò':'O','Ỏ':'O','Õ':'O','Ọ':'O','Ố':'O','Ồ':'O','Ổ':'O','Ỗ':'O','Ộ':'O','Ớ':'O','Ờ':'O','Ở':'O','Ỡ':'O','Ợ':'O','Í':'I','Ì':'I','Ỉ':'I','Ĩ':'I','Ị':'I','Ú':'U','Ù':'U','Ủ':'U','Ũ':'U','Ụ':'U','Ứ':'U','Ừ':'U','Ử':'U','Ữ':'U','Ự':'U','Ý':'Y','Ỳ':'Y','Ỷ':'Y','Ỹ':'Y','Ỵ':'Y','á':'a','à':'a','ã':'a','ả':'a','ạ':'a','ắ':'a','ằ':'a','ẵ':'a','ẳ':'a','ặ':'a','ấ':'a','ầ':'a','ẫ':'a','ẩ':'a','ậ':'a','đ':'d','é':'e','è':'e','ẽ':'e','ẻ':'e','ẹ':'e','ế':'e','ề':'e','ễ':'e','ể':'e','ệ':'e','ó':'o','ò':'o','ỏ':'o','õ':'o','ọ':'o','ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o','ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o','í':'i','ì':'i','ỉ':'i','ĩ':'i','ị':'i','ú':'u','ù':'u','ủ':'u','ũ':'u','ụ':'u','ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u','ý':'y','ỳ':'y','ỷ':'y','ỹ':'y','ỵ':'y'},LATIN_MAP={'À':'A','Á':'A','Â':'A','Ã':'A','Ä':'A','Å':'A','Æ':'AE','Ç':'C','È':'E','É':'E','Ê':'E','Ë':'E','Ì':'I','Í':'I','Î':'I','Ï':'I','Ð':'D','Ñ':'N','Ò':'O','Ó':'O','Ô':'O','Õ':'O','Ö':'O','Ő':'O','Ø':'O','Ù':'U','Ú':'U','Û':'U','Ü':'U','Ű':'U','Ý':'Y','Þ':'TH','Ÿ':'Y','ß':'ss','à':'a','á':'a','â':'a','ã':'a','ä':'a','å':'a','æ':'ae','ç':'c','è':'e','é':'e','ê':'e','ë':'e','ì':'i','í':'i','î':'i','ï':'i','ð':'d','ñ':'n','ò':'o','ó':'o','ô':'o','õ':'o','ö':'o','ő':'o','ø':'o','ō':'o','œ':'oe','ù':'u','ú':'u','û':'u','ü':'u','ű':'u','ý':'y','þ':'th','ÿ':'y'},LATIN_SYMBOLS_MAP={'©':'(c)'},GREEK_MAP={'α':'a','β':'b','γ':'g','δ':'d','ε':'e','ζ':'z','η':'h','θ':'8','ι':'i','κ':'k','λ':'l','μ':'m','ν':'n','ξ':'3','ο':'o','π':'p','ρ':'r','σ':'s','τ':'t','υ':'y','φ':'f','χ':'x','ψ':'ps','ω':'w','ά':'a','έ':'e','ί':'i','ό':'o','ύ':'y','ή':'h','ώ':'w','ς':'s','ϊ':'i','ΰ':'y','ϋ':'y','ΐ':'i','Α':'A','Β':'B','Γ':'G','Δ':'D','Ε':'E','Ζ':'Z','Η':'H','Θ':'8','Ι':'I','Κ':'K','Λ':'L','Μ':'M','Ν':'N','Ξ':'3','Ο':'O','Π':'P','Ρ':'R','Σ':'S','Τ':'T','Υ':'Y','Φ':'F','Χ':'X','Ψ':'PS','Ω':'W','Ά':'A','Έ':'E','Ί':'I','Ό':'O','Ύ':'Y','Ή':'H','Ώ':'W','Ϊ':'I','Ϋ':'Y'},TURKISH_MAP={'ş':'s','Ş':'S','ı':'i','İ':'I','ç':'c','Ç':'C','ü':'u','Ü':'U','ö':'o','Ö':'O','ğ':'g','Ğ':'G'},RUSSIAN_MAP={'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'j','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'c','ч':'ch','ш':'sh','щ':'shch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya','А':'A','Б':'B','В':'V','Г':'G','Д':'D','Е':'E','Ё':'Yo','Ж':'Zh','З':'Z','И':'I','Й':'J','К':'K','Л':'L','М':'M','Н':'N','О':'O','П':'P','Р':'R','С':'S','Т':'T','У':'U','Ф':'F','Х':'H','Ц':'C','Ч':'Ch','Ш':'Sh','Щ':'Shch','Ъ':'','Ы':'Y','Ь':'','Э':'E','Ю':'Yu','Я':'Ya'},UKRAINIAN_MAP={'Є':'Ye','І':'I','Ї':'Yi','Ґ':'G','є':'ye','і':'i','ї':'yi','ґ':'g'},CZECH_MAP={'č':'c','ď':'d','ě':'e','ň':'n','ř':'r','š':'s','ť':'t','ů':'u','ž':'z','Č':'C','Ď':'D','Ě':'E','Ň':'N','Ř':'R','Š':'S','Ť':'T','Ů':'U','Ž':'Z'},POLISH_MAP={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','Ą':'A','Ć':'C','Ę':'E','Ł':'L','Ń':'N','Ó':'O','Ś':'S','Ź':'Z','Ż':'Z'},LATVIAN_MAP={'ā':'a','č':'c','ē':'e','ģ':'g','ī':'i','ķ':'k','ļ':'l','ņ':'n','š':'s','ū':'u','ž':'z','Ā':'A','Č':'C','Ē':'E','Ģ':'G','Ī':'I','Ķ':'K','Ļ':'L','Ņ':'N','Š':'S','Ū':'U','Ž':'Z'},ARABIC_MAP={'أ':'a','ب':'b','ت':'t','ث':'th','ج':'g','ح':'h','خ':'kh','د':'d','ذ':'th','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'th','ع':'aa','غ':'gh','ف':'f','ق':'k','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'o','ي':'y'},PERSIAN_MAP={'آ':'a','ا':'a','پ':'p','چ':'ch','ژ':'zh','ک':'k','گ':'gh','ی':'y'},LITHUANIAN_MAP={'ą':'a','č':'c','ę':'e','ė':'e','į':'i','š':'s','ų':'u','ū':'u','ž':'z','Ą':'A','Č':'C','Ę':'E','Ė':'E','Į':'I','Š':'S','Ų':'U','Ū':'U','Ž':'Z'},SERBIAN_MAP={'ђ':'dj','ј':'j','љ':'lj','њ':'nj','ћ':'c','џ':'dz','đ':'dj','Ђ':'Dj','Ј':'j','Љ':'Lj','Њ':'Nj','Ћ':'C','Џ':'Dz','Đ':'Dj'},AZERBAIJANI_MAP={'ç':'c','ə':'e','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','Ç':'C','Ə':'E','Ğ':'G','İ':'I','Ö':'O','Ş':'S','Ü':'U'},ROMANIAN_MAP={'ă':'a','â':'a','î':'i','ș':'s','ț':'t','Ă':'A','Â':'A','Î':'I','Ș':'S','Ț':'T'},BELARUSIAN_MAP={'ў':'w','Ў':'W'},SPECIFIC_MAPS={'de':{'Ä':'AE','Ö':'OE','Ü':'UE','ä':'ae','ö':'oe','ü':'ue'}},ALL_MAPS=[VIETNAMESE_MAP,LATIN_MAP,LATIN_SYMBOLS_MAP,GREEK_MAP,TURKISH_MAP,RUSSIAN_MAP,UKRAINIAN_MAP,CZECH_MAP,POLISH_MAP,LATVIAN_MAP,ARABIC_MAP,PERSIAN_MAP,LITHUANIAN_MAP,SERBIAN_MAP,AZERBAIJANI_MAP,ROMANIAN_MAP,BELARUSIAN_MAP]
+$(document).render(function(){$('[data-hotkey]').hotKey()})}(window.jQuery);+function($){"use strict";var VIETNAMESE_MAP={'Á':'A','À':'A','Ã':'A','Ả':'A','Ạ':'A','Ắ':'A','Ằ':'A','Ẵ':'A','Ẳ':'A','Ặ':'A','Ấ':'A','Ầ':'A','Ẫ':'A','Ẩ':'A','Ậ':'A','Đ':'D','É':'E','È':'E','Ẽ':'E','Ẻ':'E','Ẹ':'E','Ế':'E','Ề':'E','Ễ':'E','Ể':'E','Ệ':'E','Ó':'O','Ò':'O','Ỏ':'O','Õ':'O','Ọ':'O','Ố':'O','Ồ':'O','Ổ':'O','Ỗ':'O','Ộ':'O','Ơ':'O','Ớ':'O','Ờ':'O','Ở':'O','Ỡ':'O','Ợ':'O','Í':'I','Ì':'I','Ỉ':'I','Ĩ':'I','Ị':'I','Ú':'U','Ù':'U','Ủ':'U','Ũ':'U','Ụ':'U','Ư':'U','Ứ':'U','Ừ':'U','Ử':'U','Ữ':'U','Ự':'U','Ý':'Y','Ỳ':'Y','Ỷ':'Y','Ỹ':'Y','Ỵ':'Y','á':'a','à':'a','ã':'a','ả':'a','ạ':'a','ắ':'a','ằ':'a','ẵ':'a','ẳ':'a','ặ':'a','ấ':'a','ầ':'a','ẫ':'a','ẩ':'a','ậ':'a','đ':'d','é':'e','è':'e','ẽ':'e','ẻ':'e','ẹ':'e','ế':'e','ề':'e','ễ':'e','ể':'e','ệ':'e','ó':'o','ò':'o','ỏ':'o','õ':'o','ọ':'o','ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o','ơ':'o','ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o','í':'i','ì':'i','ỉ':'i','ĩ':'i','ị':'i','ú':'u','ù':'u','ủ':'u','ũ':'u','ụ':'u','ư':'u','ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u','ý':'y','ỳ':'y','ỷ':'y','ỹ':'y','ỵ':'y'},LATIN_MAP={'À':'A','Á':'A','Â':'A','Ã':'A','Ä':'A','Å':'A','Æ':'AE','Ç':'C','È':'E','É':'E','Ê':'E','Ë':'E','Ì':'I','Í':'I','Î':'I','Ï':'I','Ð':'D','Ñ':'N','Ò':'O','Ó':'O','Ô':'O','Õ':'O','Ö':'O','Ő':'O','Ø':'O','Ù':'U','Ú':'U','Û':'U','Ü':'U','Ű':'U','Ý':'Y','Þ':'TH','Ÿ':'Y','ß':'ss','à':'a','á':'a','â':'a','ã':'a','ä':'a','å':'a','æ':'ae','ç':'c','è':'e','é':'e','ê':'e','ë':'e','ì':'i','í':'i','î':'i','ï':'i','ð':'d','ñ':'n','ò':'o','ó':'o','ô':'o','õ':'o','ö':'o','ő':'o','ø':'o','ō':'o','œ':'oe','ù':'u','ú':'u','û':'u','ü':'u','ű':'u','ý':'y','þ':'th','ÿ':'y'},LATIN_SYMBOLS_MAP={'©':'(c)'},GREEK_MAP={'α':'a','β':'b','γ':'g','δ':'d','ε':'e','ζ':'z','η':'h','θ':'8','ι':'i','κ':'k','λ':'l','μ':'m','ν':'n','ξ':'3','ο':'o','π':'p','ρ':'r','σ':'s','τ':'t','υ':'y','φ':'f','χ':'x','ψ':'ps','ω':'w','ά':'a','έ':'e','ί':'i','ό':'o','ύ':'y','ή':'h','ώ':'w','ς':'s','ϊ':'i','ΰ':'y','ϋ':'y','ΐ':'i','Α':'A','Β':'B','Γ':'G','Δ':'D','Ε':'E','Ζ':'Z','Η':'H','Θ':'8','Ι':'I','Κ':'K','Λ':'L','Μ':'M','Ν':'N','Ξ':'3','Ο':'O','Π':'P','Ρ':'R','Σ':'S','Τ':'T','Υ':'Y','Φ':'F','Χ':'X','Ψ':'PS','Ω':'W','Ά':'A','Έ':'E','Ί':'I','Ό':'O','Ύ':'Y','Ή':'H','Ώ':'W','Ϊ':'I','Ϋ':'Y'},TURKISH_MAP={'ş':'s','Ş':'S','ı':'i','İ':'I','ç':'c','Ç':'C','ü':'u','Ü':'U','ö':'o','Ö':'O','ğ':'g','Ğ':'G'},RUSSIAN_MAP={'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'j','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'c','ч':'ch','ш':'sh','щ':'shch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya','А':'A','Б':'B','В':'V','Г':'G','Д':'D','Е':'E','Ё':'Yo','Ж':'Zh','З':'Z','И':'I','Й':'J','К':'K','Л':'L','М':'M','Н':'N','О':'O','П':'P','Р':'R','С':'S','Т':'T','У':'U','Ф':'F','Х':'H','Ц':'C','Ч':'Ch','Ш':'Sh','Щ':'Shch','Ъ':'','Ы':'Y','Ь':'','Э':'E','Ю':'Yu','Я':'Ya'},UKRAINIAN_MAP={'Є':'Ye','І':'I','Ї':'Yi','Ґ':'G','є':'ye','і':'i','ї':'yi','ґ':'g'},CZECH_MAP={'č':'c','ď':'d','ě':'e','ň':'n','ř':'r','š':'s','ť':'t','ů':'u','ž':'z','Č':'C','Ď':'D','Ě':'E','Ň':'N','Ř':'R','Š':'S','Ť':'T','Ů':'U','Ž':'Z'},POLISH_MAP={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','Ą':'A','Ć':'C','Ę':'E','Ł':'L','Ń':'N','Ó':'O','Ś':'S','Ź':'Z','Ż':'Z'},LATVIAN_MAP={'ā':'a','č':'c','ē':'e','ģ':'g','ī':'i','ķ':'k','ļ':'l','ņ':'n','š':'s','ū':'u','ž':'z','Ā':'A','Č':'C','Ē':'E','Ģ':'G','Ī':'I','Ķ':'K','Ļ':'L','Ņ':'N','Š':'S','Ū':'U','Ž':'Z'},ARABIC_MAP={'أ':'a','ب':'b','ت':'t','ث':'th','ج':'g','ح':'h','خ':'kh','د':'d','ذ':'th','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'th','ع':'aa','غ':'gh','ف':'f','ق':'k','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'o','ي':'y'},PERSIAN_MAP={'آ':'a','ا':'a','پ':'p','چ':'ch','ژ':'zh','ک':'k','گ':'gh','ی':'y'},LITHUANIAN_MAP={'ą':'a','č':'c','ę':'e','ė':'e','į':'i','š':'s','ų':'u','ū':'u','ž':'z','Ą':'A','Č':'C','Ę':'E','Ė':'E','Į':'I','Š':'S','Ų':'U','Ū':'U','Ž':'Z'},SERBIAN_MAP={'ђ':'dj','ј':'j','љ':'lj','њ':'nj','ћ':'c','џ':'dz','đ':'d','Ђ':'Dj','Ј':'j','Љ':'Lj','Њ':'Nj','Ћ':'C','Џ':'Dz','Đ':'D'},AZERBAIJANI_MAP={'ç':'c','ə':'e','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','Ç':'C','Ə':'E','Ğ':'G','İ':'I','Ö':'O','Ş':'S','Ü':'U'},ROMANIAN_MAP={'ă':'a','â':'a','î':'i','ș':'s','ț':'t','Ă':'A','Â':'A','Î':'I','Ș':'S','Ț':'T'},BELARUSIAN_MAP={'ў':'w','Ў':'W'},SPECIFIC_MAPS={'de':{'Ä':'AE','Ö':'OE','Ü':'UE','ä':'ae','ö':'oe','ü':'ue'}},ALL_MAPS=[VIETNAMESE_MAP,LATIN_MAP,LATIN_SYMBOLS_MAP,GREEK_MAP,TURKISH_MAP,RUSSIAN_MAP,UKRAINIAN_MAP,CZECH_MAP,POLISH_MAP,LATVIAN_MAP,ARABIC_MAP,PERSIAN_MAP,LITHUANIAN_MAP,SERBIAN_MAP,AZERBAIJANI_MAP,ROMANIAN_MAP,BELARUSIAN_MAP]
 var removeList=["a","an","as","at","before","but","by","for","from","is","in","into","like","of","off","on","onto","per","since","than","the","this","that","to","up","via","with"]
 var locale=$('meta[name="backend-locale"]').attr('content')
 var Downcoder={Initialize:function(){if(Downcoder.map){return;}
@@ -4203,12 +4203,14 @@ if($el.val().length&&$el.val()!=prefix)
 return
 $el.val(prefix).trigger('oc.inputPreset.afterUpdate')
 this.$src=$(options.inputPreset,parent)
-this.$src.on('input',function(){if(self.cancelled)
+this.$src.on('input paste',function(event){if(self.cancelled)
 return
-$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')})
-this.$src.on('paste',function(){if(self.cancelled)
-return
-setTimeout(function(){$el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')},100)})
+var timeout=event.type==='paste'?100:0
+var updateValue=function(self,el,prefix){if(el.data('update')===false){return}
+el.val(prefix+self.formatValue()).trigger('oc.inputPreset.afterUpdate')}
+var src=$(this)
+setTimeout(function(){$el.trigger('oc.inputPreset.beforeUpdate',[src])
+setTimeout(updateValue,100,self,$el,prefix)},timeout)})
 this.$el.on('change',function(){self.cancelled=true})}
 InputPreset.prototype.formatNamespace=function(){var value=this.toCamel(this.$src.val())
 return value.substr(0,1).toUpperCase()+value.substr(1)}
