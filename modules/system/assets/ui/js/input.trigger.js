@@ -127,7 +127,7 @@
                 .toggleClass('control-disabled', status)
                 .trigger('disable.oc.triggerapi', [status])
         }
-        else if (action == 'empty' || action == 'fill' && status) {
+        else if ((action == 'empty' || action == 'fill') && status) {
             this.$el
                 .not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
                 .val('')
