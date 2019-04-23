@@ -9,8 +9,6 @@ $.oc.langMessages['fa'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : Persian (fa)
-//! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -115,3 +113,4 @@ $.oc.langMessages['fa'] = $.extend(
     return fa;
 
 })));
+

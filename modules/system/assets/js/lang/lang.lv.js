@@ -9,9 +9,6 @@ $.oc.langMessages['lv'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : latvian (lv)
-//! author : Kristaps Karlsons : https://github.com/skakri
-//! author : Jānis Elmeris : https://github.com/JanisE
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -107,3 +104,4 @@ $.oc.langMessages['lv'] = $.extend(
     return lv;
 
 })));
+
