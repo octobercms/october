@@ -127,30 +127,17 @@
                 .toggleClass('control-disabled', status)
                 .trigger('disable.oc.triggerapi', [status])
         }
-        else if (action == 'empty' && status) {
+        else if (action == 'empty' || action == 'fill' && status) {
             this.$el
                 .not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
                 .val('')
 
             this.$el
                 .not(':not(input[type=checkbox], input[type=radio])')
-                .prop('checked', false)
+                .prop('checked', (action == 'fill'))
 
             this.$el
-                .trigger('empty.oc.triggerapi')
-                .trigger('change')
-        }
-        else if (action == 'fill' && status) {
-            this.$el
-                .not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
-                .val('')
-
-            this.$el
-                .not(':not(input[type=checkbox], input[type=radio])')
-                .prop('checked', true)
-
-            this.$el
-                .trigger('empty.oc.triggerapi')
+                .trigger((action == 'fill' ? 'fill.oc.triggerapi' : 'empty.oc.triggerapi'))
                 .trigger('change')
         }
 
