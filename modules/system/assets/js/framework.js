@@ -391,7 +391,7 @@ if (window.jQuery.request !== undefined) {
         evalSuccess: null,
         evalError: null,
         evalComplete: null,
-        ajaxGlobal: true
+        ajaxGlobal: false
     }
 
     /*
