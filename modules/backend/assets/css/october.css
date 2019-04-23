@@ -300,7 +300,7 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treeview ol >li >div >span.drag-handle {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:9px;bottom:0;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
 .control-treeview ol >li >div >span.drag-handle:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9";font-size:18px}
 .control-treeview ol >li >div span.borders {font-size:0}
-.control-treeview ol >li >div >ul.submenu {position:absolute;left:20px;bottom:-37px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
+.control-treeview ol >li >div >ul.submenu {position:absolute;left:20px;bottom:-36.9px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
 .control-treeview ol >li >div >ul.submenu:before,
 .control-treeview ol >li >div >ul.submenu:after {background:transparent url(../images/treeview-submenu-tabs.png) no-repeat left top;content:' ';display:block;width:20px;height:37px;position:absolute;top:0}
 .control-treeview ol >li >div >ul.submenu:before {left:-20px}
@@ -610,7 +610,7 @@ body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sa
 .layout >.layout-row >.layout-cell.min-height {height:0}
 .layout >.layout-row >.layout-cell.center {text-align:center}
 .layout >.layout-row >.layout-cell.middle {vertical-align:middle}
-.layout >.layout-row.min-size {height:0}
+.layout >.layout-row.min-size {height:0.1px}
 .layout >.layout-cell {display:table-cell;vertical-align:top;height:100%}
 .layout >.layout-cell.layout-container,
 .layout >.layout-cell .layout-container,
@@ -667,7 +667,7 @@ nav#layout-mainmenu ul li a:focus {text-decoration:none;color:rgba(255,255,255,0
 nav#layout-mainmenu ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon {height:30px;width:30px;margin-right:10px;position:relative;top:0}
 nav#layout-mainmenu ul.nav {display:inline-block}
-nav#layout-mainmenu .toolbar-item {padding-right:0}
+nav#layout-mainmenu .toolbar-item {padding-right:0;background-color:#000}
 nav#layout-mainmenu .toolbar-item:before,
 nav#layout-mainmenu .toolbar-item:after {margin-top:0}
 nav#layout-mainmenu .toolbar-item:before {left:-12px}
@@ -699,10 +699,10 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:focus:after,
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #4ea5e0;position:absolute;right:9px;top:-7px;z-index:102}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {content:'';display:block;width:0;height:0;border-left:8.5px solid transparent;border-right:8.5px solid transparent;border-bottom:7px solid #3498db}
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider {height:1px;width:100%;background-color:#e0e0e0}
-nav#layout-mainmenu.navbar-mode-inline {height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu {top:70px}
+nav#layout-mainmenu.navbar-mode-inline {height:62px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a {height:62px;line-height:62px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a {height:62px;line-height:62px}
+nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu {top:72px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li {margin:5px 0}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a {padding:10px 15px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li a .nav-icon {position:relative;top:-1px;margin-right:5px;width:30px;height:30px}
@@ -798,8 +798,8 @@ body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
 #layout-sidenav ul li a:hover i {color:#fff}
 #layout-sidenav ul li span.counter {display:block;position:absolute;top:1.071em;right:1.071em;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
-@media (min-width:768px) and (max-width:991px) {#layout-sidenav {font-size:12px }.layout-sidenav-container {width:100px }}
-@media (max-width:767px) {#layout-sidenav {font-size:10px }.layout-sidenav-container {width:80px }}
+@media (max-width:769px) {#layout-side-panel {top:45px }}
+@media (max-width:767px) {#layout-side-panel {top:62px }}
 html.mobile #layout-sidenav ul {overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {color:rgba(255,255,255,0.6) !important}
