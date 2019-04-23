@@ -96,6 +96,11 @@ class RelationController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = [];
+
+    /**
      * @var array Original configuration values
      */
     protected $originalConfig;
@@ -1691,5 +1696,23 @@ class RelationController extends ControllerBehavior
         }
 
         return $this->makeConfig($config);
+    }
+
+    /**
+     * Returns the manage widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetManageWidget() {
+        return $this->manageWidget;
+    }
+
+    /**
+     * Returns the view widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetViewWidget() {
+        return $this->viewWidget;
     }
 }

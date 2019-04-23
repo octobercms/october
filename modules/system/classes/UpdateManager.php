@@ -1002,11 +1002,10 @@ class UpdateManager
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
     }
 
-    //
-    // Internals
-    //
-
-    protected function getMigrationTableName()
+    /**
+     * @return string
+     */
+    public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
     }

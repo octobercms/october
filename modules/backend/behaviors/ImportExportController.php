@@ -46,6 +46,11 @@ class ImportExportController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['import', 'export', 'download'];
+
+    /**
      * @var Model Import model
      */
     public $importModel;

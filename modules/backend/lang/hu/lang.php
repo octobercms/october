@@ -442,6 +442,7 @@ return [
         'navigation' => 'Navigáció',
         'menu_mode' => 'Menü stílusa',
         'menu_mode_inline' => 'Egysoros',
+        'menu_mode_inline_no_icons' => 'Egysoros (nincs ikon)',
         'menu_mode_tile' => 'Csempés',
         'menu_mode_collapsed' => 'Összezárt'
     ],
@@ -552,7 +553,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Média',
-        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.'
+        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.',
+        'no_image' => 'A kép nem található'
     ],
     'media' => [
         'menu_label' => 'Média',
