@@ -53,10 +53,10 @@
                 showInput: true,
                 showAlpha: this.options.showAlpha,
                 allowEmpty: this.options.allowEmpty,
+                clickoutFiresChange: false,
                 color: this.$customColor.data('color'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
-                clickoutFiresChange: false,
                 hide: function(color) {
                     var colorValue = color ? self.convertColor(color) : ''
                     self.$customColorSpan.css('background', colorValue)
