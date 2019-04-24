@@ -37,7 +37,7 @@
         this.$colorList = $('>ul', this.$el)
         this.$customColor = $('[data-custom-color]', this.$el)
         this.$customColorSpan = $('>span', this.$customColor)
-        this.originalColor = this.$customColor.data('hexColor')
+        this.originalColor = this.$customColor.data('color')
 
         this.$colorList.on('click', '>li', function(){
             self.selectColor(this)
@@ -53,23 +53,24 @@
                 showInput: true,
                 showAlpha: this.options.showAlpha,
                 allowEmpty: this.options.allowEmpty,
-                color: this.$customColor.data('hexColor'),
+                color: this.$customColor.data('color'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
+                clickoutFiresChange: false,
                 hide: function(color) {
-                    var customColor = self.convertColor(color)
-                    self.$customColorSpan.css('background', customColor)
+                    var colorValue = color ? self.convertColor(color) : ''
+                    self.$customColorSpan.css('background', colorValue)
                 },
-                show: function(color) {
+                show: function() {
                     self.selectColor(self.$customColor)
                 },
                 move: function(color) {
-                    var customColor = self.convertColor(color)
-                    self.$customColorSpan.css('background', customColor)
+                    var colorValue = color ? self.convertColor(color) : ''
+                    self.$customColorSpan.css('background', colorValue)
                 },
                 change: function(color) {
-                    var customColor = self.convertColor(color)
-                    self.setCustomColor(customColor)
+                    var colorValue = color ? self.convertColor(color) : ''
+                    self.setCustomColor(colorValue)
                 }
             })
         }
@@ -82,17 +83,17 @@
         return color._a < 1 ? color.toRgbString() : color.toHexString()
     }    
     
-    ColorPicker.prototype.setCustomColor = function(hexColor) {
+    ColorPicker.prototype.setCustomColor = function(colorValue) {
         if (this.$customColor.length) {
-            this.$customColor.data('hexColor', hexColor)
-            this.$customColor.spectrum('set', hexColor)
+            this.$customColor.data('color', colorValue)
+            this.$customColor.spectrum('set', colorValue)
         }
 
-        this.setColor(hexColor)
+        this.setColor(colorValue)
     }
 
-    ColorPicker.prototype.setColor = function(hexColor) {
-        this.$dataLocker.val(hexColor)
+    ColorPicker.prototype.setColor = function(colorValue) {
+        this.$dataLocker.val(colorValue)
     }
 
     ColorPicker.prototype.selectColor = function(el) {
@@ -102,7 +103,7 @@
             .addClass('active')
             .siblings().removeClass('active')
 
-        this.setColor($item.data('hexColor'))
+        this.setColor($item.data('color'))
     }
 
     // COLORPICKER PLUGIN DEFINITION
