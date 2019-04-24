@@ -13,14 +13,14 @@
             <?php foreach ($availableColors as $index => $color): ?>
                 <li
                     class="<?= $color == $value ? 'active' : null ?>"
-                    data-hex-color="<?= $color ?>">
+                    data-color="<?= $color ?>">
                     <span style="background: <?= $color ?>"><?= $color ?></span>
                 </li>
             <?php endforeach ?>
 
             <li
                 class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
-                data-hex-color="<?= $isCustomColor ? $value : '#ffffff' ?>"
+                data-color="<?= $isCustomColor ? $value : '#ffffff' ?>"
                 data-custom-color>
                 <span style="background: <?= $isCustomColor ? $value : '#ffffff' ?>"></span>
             </li>
