@@ -21,7 +21,7 @@
                     type="checkbox"
                     id="<?= $checkboxId ?>"
                     name="<?= $field->getName() ?>[]"
-                    value="<?= $value ?>"
+                    value="<?= e($value) ?>"
                     disabled="disabled"
                     checked="checked">
 
@@ -68,7 +68,7 @@
                     type="checkbox"
                     id="<?= $checkboxId ?>"
                     name="<?= $field->getName() ?>[]"
-                    value="<?= $value ?>"
+                    value="<?= e($value) ?>"
                     <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
 
                 <label for="<?= $checkboxId ?>">
