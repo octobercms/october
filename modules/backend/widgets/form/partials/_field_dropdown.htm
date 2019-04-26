@@ -32,7 +32,7 @@
             <option
                 <?= $field->isSelected($value) ? 'selected="selected"' : '' ?>
                 <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
-                value="<?= $value ?>"
+                value="<?= e($value) ?>"
             ><?= e(trans($option[0])) ?></option>
         <?php endforeach ?>
     </select>

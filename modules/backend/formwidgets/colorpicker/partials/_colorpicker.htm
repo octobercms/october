@@ -1,5 +1,5 @@
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= $value ?></div>
+    <div class="form-control"><?= e($value) ?></div>
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
@@ -20,9 +20,9 @@
 
             <li
                 class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
-                data-hex-color="<?= $isCustomColor ? $value : '#ffffff' ?>"
+                data-hex-color="<?= $isCustomColor ? e($value) : '#ffffff' ?>"
                 data-custom-color>
-                <span style="background: <?= $isCustomColor ? $value : '#ffffff' ?>"></span>
+                <span style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
             </li>
         </ul>
 
@@ -30,7 +30,7 @@
             type="hidden"
             id="<?= $this->getId('input') ?>"
             name="<?= $name ?>"
-            value="<?= $value ?>" />
+            value="<?= e($value) ?>" />
     </div>
 
 <?php endif ?>
