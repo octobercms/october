@@ -4600,7 +4600,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .report-widget .table-container table.table.data thead tr th {border-top:none !important}
 .report-widget .table-container table.table.data tbody tr:nth-child(even) td,
 .report-widget .table-container table.table.data tbody tr:nth-child(even) th {background-color:transparent}
-.list-scrollable-container {touch-action:none;position:relative}
+.list-scrollable-container {touch-action:auto;position:relative}
 .list-scrollable-container:after,
 .list-scrollable-container:before {display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#666}
 .list-scrollable-container:before {left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}
