@@ -9,9 +9,6 @@ $.oc.langMessages['ro'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : romanian (ro)
-//! author : Vlad Gurdiga : https://github.com/gurdiga
-//! author : Valentin Agachi : https://github.com/avaly
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -85,3 +82,4 @@ $.oc.langMessages['ro'] = $.extend(
     return ro;
 
 })));
+

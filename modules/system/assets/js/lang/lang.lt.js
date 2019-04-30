@@ -9,8 +9,6 @@ $.oc.langMessages['lt'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : Lithuanian (lt)
-//! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -127,3 +125,4 @@ $.oc.langMessages['lt'] = $.extend(
     return lt;
 
 })));
+

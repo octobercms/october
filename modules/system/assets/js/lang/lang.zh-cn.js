@@ -9,9 +9,6 @@ $.oc.langMessages['zh-cn'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : chinese (zh-cn)
-//! author : suupic : https://github.com/suupic
-//! author : Zeno Zeng : https://github.com/zenozeng
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -120,3 +117,4 @@ $.oc.langMessages['zh-cn'] = $.extend(
     return zhCn;
 
 })));
+

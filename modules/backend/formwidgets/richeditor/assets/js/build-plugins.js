@@ -4,7 +4,7 @@
  * (2) Using CLI command:
  *   php artisan october:util compile assets
  *
- * @see build-oc-plugins-min.js
+ * @see build-plugins-min.js
  *
 
 =require plugins/mediamanager.js

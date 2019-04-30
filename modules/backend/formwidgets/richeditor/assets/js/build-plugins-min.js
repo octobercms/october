@@ -8,8 +8,7 @@ for(var i=0,len=items.length;i<len;i++){var text=textIsEmpty?items[i].title:text
 link=items[i].publicUrl}
 editor.events.focus(true);editor.selection.restore();editor.html.insert('<a href="'+link+'" id="fr-inserted-file" class="fr-file">'+text+'</a>');var $file=editor.$el.find('#fr-inserted-file');$file.removeAttr('id');editor.undo.saveStep()
 this.hide()}})}
-function onInsertImage(){var $currentImage=editor.image.get()
-new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:true,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
+function onInsertImage(){var $currentImage=editor.image.get(),selection=editor.selection.get(),range=editor.selection.ranges(0);new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:true,onInsert:function(items){editor.selection.clear();selection.addRange(range);if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
 return}
 var imagesInserted=0
 for(var i=0,len=items.length;i<len;i++){if(items[i].documentType!=='image'){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_invalid_insert','The file "'+items[i].title+'" is not an image.'))
