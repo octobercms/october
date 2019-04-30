@@ -16,9 +16,16 @@
         <div class="icon-container">
             <img data-find-image src="<?= $imageUrl ?>" alt="" />
         </div>
+
+        <?php if (!$imageExists && !empty($imageUrl)) : ?>
+            <p data-find-error class="help-block">
+                <?= e(trans('backend::lang.mediafinder.no_image')) ?>
+            </p>
+        <?php endif; ?>
+
         <div class="info">
             <h4 class="filename">
-                <span data-find-file-name><?= ltrim($value, '/') ?></span>
+                <span data-find-file-name><?= e(ltrim($value, '/')) ?></span>
                 <a href="javascript:;" class="find-remove-button">
                     <i class="icon-times"></i>
                 </a>

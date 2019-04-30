@@ -9,9 +9,6 @@ $.oc.langMessages['it'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : italian (it)
-//! author : Lorenzo : https://github.com/aliem
-//! author: Mattia Larentis: https://github.com/nostalgiaz
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -79,3 +76,4 @@ $.oc.langMessages['it'] = $.extend(
     return it;
 
 })));
+

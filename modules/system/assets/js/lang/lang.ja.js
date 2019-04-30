@@ -9,8 +9,6 @@ $.oc.langMessages['ja'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : japanese (ja)
-//! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -101,3 +99,4 @@ $.oc.langMessages['ja'] = $.extend(
     return ja;
 
 })));
+

@@ -86,6 +86,11 @@ class RelationController extends ControllerBehavior
     protected $requiredConfig = [];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = [];
+
+    /**
      * @var array Original configuration values
      */
     protected $originalConfig;
@@ -1062,7 +1067,7 @@ class RelationController extends ControllerBehavior
         $saveData = $this->manageWidget->getSaveData();
 
         if ($this->viewMode == 'multi') {
-            $model = $this->relationModel->find($this->manageId);
+            $model = $this->manageWidget->model;
             $modelsToSave = $this->prepareModelsToSave($model, $saveData);
             foreach ($modelsToSave as $modelToSave) {
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());
@@ -1602,5 +1607,23 @@ class RelationController extends ControllerBehavior
         }
 
         return $this->makeConfig($config);
+    }
+
+    /**
+     * Returns the manage widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetManageWidget() {
+        return $this->manageWidget;
+    }
+
+    /**
+     * Returns the view widget used by this behavior.
+     *
+     * @return \Backend\Classes\WidgetBase
+     */
+    public function relationGetViewWidget() {
+        return $this->viewWidget;
     }
 }

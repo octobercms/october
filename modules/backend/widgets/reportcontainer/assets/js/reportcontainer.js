@@ -27,7 +27,7 @@
 
     ReportContainer.DEFAULTS = {
         breakpoint: 768,
-        columns: 10
+        columns: 12
     }
 
     ReportContainer.prototype.init = function() {
@@ -41,7 +41,7 @@
         $(window).resize($.proxy(this.updateWidth, this))
         this.updateWidth()
 
-        if (!Modernizr.touch) {
+        if (!Modernizr.touchevents) {
             this.$el.sortable({
                 vertical: false,
                 handle: '.drag-handle',

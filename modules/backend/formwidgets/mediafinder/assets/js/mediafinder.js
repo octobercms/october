@@ -117,6 +117,7 @@
 
                 if (self.options.isImage) {
                     $('[data-find-image]', self.$el).attr('src', publicUrl)
+                    $('[data-find-error]', self.$el).hide()
                 }
 
                 self.evalIsPopulated()
