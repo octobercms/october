@@ -4595,7 +4595,7 @@ this.$searchboxDisable.on('click.codeeditor','>a',$.proxy(this.toggleSearchbox,t
 this.$replaceboxDisable.hide()
 this.$replaceboxEnable.on('click.codeeditor','>a',$.proxy(this.toggleReplacebox,this))
 this.$replaceboxDisable.on('click.codeeditor','>a',$.proxy(this.toggleReplacebox,this))
-this.$el.hotKey({hotkey:'esc',hotkeyMac:'esc',callback:this.proxy(this.onEscape)})
+this.$el.hotKey({hotkey:'esc',callback:this.proxy(this.onEscape)})
 editor.commands.addCommand({name:'toggleFullscreen',bindKey:{win:'Ctrl+Shift+F',mac:'Ctrl+Shift+F'},exec:$.proxy(this.toggleFullscreen,this),readOnly:true})}
 CodeEditor.prototype.dispose=function(){if(this.$el===null)
 return

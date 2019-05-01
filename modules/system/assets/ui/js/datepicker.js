@@ -141,7 +141,7 @@
     DatePicker.prototype.onSelectDatePicker = function(pickerMoment) {
         var pickerValue = pickerMoment.format(this.dbDateFormat)
 
-        var timeValue = this.getTimePickerValue()
+        var timeValue = this.options.mode === 'date' ? '00:00:00' : this.getTimePickerValue()
 
         var momentObj = moment
             .tz(pickerValue + ' ' + timeValue, this.dbDateTimeFormat, this.timezone)
@@ -316,7 +316,8 @@
         format: null,
         yearRange: 10,
         firstDay: 0,
-        showWeekNumber: false
+        showWeekNumber: false,
+        mode: 'datetime'
     }
 
     // PLUGIN DEFINITION

@@ -29,7 +29,8 @@ return [
             'social' => 'Social',
             'events' => 'Eventos',
             'customers' => 'Clientes',
-            'my_settings' => 'Mis Configuraciones'
+            'my_settings' => 'Mis Configuraciones',
+            'notifications' => 'Notificaciones'
         ]
     ],
     'theme' => [
@@ -98,6 +99,7 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Configuración',
+        'not_found' => 'No se encuentra la configuración especificada.',
         'missing_model' => 'La página de configuración no encuentra una definición del Modelo.',
         'update_success' => 'Los ajustes para :name se han actualizado correctamente.',
         'return' => 'Volver a la configuración del sistema',
@@ -178,7 +180,60 @@ return [
         'deleting' => 'Borrando Plantilla...',
         'deleting_layout' => 'Borrando Diseño...',
         'sending' => 'Enviando mensaje de prueba...',
-        'return' => 'Volver a lista de plantillas'
+        'return' => 'Volver a lista de plantillas',
+        'options' => 'Opciones',
+        'disable_auto_inline_css' => 'Deshabilitar CSS en línea automático'
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Branding de Correo',
+        'menu_description' => 'Modificar los colores y apariencia de las plantillas de correo.',
+        'page_title' => 'Personalizar apariencia del correo',
+        'sample_template' => [
+            'heading' => 'Encabezado',
+            'paragraph' => 'Este es un párrafo rellenado con Lorem Ipsum y un enlace. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Item',
+                'description' => 'Descripción',
+                'price' => 'Precio',
+                'centered' => 'Centrado',
+                'right_aligned' => 'Alineado-A-La-Derecha'
+            ],
+            'buttons' => [
+                'primary' => 'Botón Principal',
+                'positive' => 'Botón Positivo',
+                'negative' => 'Botón Negativo',
+            ],
+            'panel' => '¿Este panel es increíble o qué?',
+            'more' => 'Algo más de texto',
+            'promotion' => 'Código de cupón: OCTOBER',
+            'subcopy' => 'Este es el subcopy del correo',
+            'thanks' => 'Gracias'
+        ],
+        'fields' => [
+            '_section_background' => 'Fondo',
+            'body_bg' => 'Fondo del cuerpo',
+            'content_bg' => 'Fondo del contenido',
+            'content_inner_bg' => 'Fondo del contenido interior',
+            '_section_buttons' => 'Botones',
+            'button_text_color' => 'Color del texto del botón',
+            'button_primary_bg' => 'Fondo del botón Principal',
+            'button_positive_bg' => 'Fondo del botón Positivo',
+            'button_negative_bg' => 'Fondo del botón Negativo',
+            '_section_type' => 'Tipografía',
+            'header_color' => 'Color del Enzabezado',
+            'heading_color' => 'Color de Encabezados',
+            'text_color' => 'Color del Texto',
+            'link_color' => 'Color del Enlace',
+            'footer_color' => 'Color del pie de página',
+            '_section_borders' => 'Bordes',
+            'body_border_color' => 'Color del borde del cuerpo',
+            'subcopy_border_color' => 'Color del borde del subcopy',
+            'table_border_color' => 'Color del borde de la tabla',
+            '_section_components' => 'Componentes',
+            'panel_bg' => 'Fondo del Panel',
+            'promotion_bg' => 'Fondo de Promoción',
+            'promotion_border_color' => 'Color del borde de Promoción',
+        ]
     ],
     'install' => [
         'project_label' => 'Adjuntar al proyecto',
@@ -208,6 +263,7 @@ return [
         'core_build_help' => 'Última versión está disponible.',
         'core_downloading' => 'Descargando archivos de la aplicación',
         'core_extracting' => 'Descomprimiendo archivos de la aplicación',
+        'core_set_build' => 'Estableciendo número de build',
         'plugins' => 'Plugins',
         'themes' => 'Temas',
         'disabled' => 'Desactivado',
@@ -240,13 +296,18 @@ return [
         ],
         'important_action_required' => 'Acción requerida',
         'important_view_guide' => 'Ver guía de actualización',
+        'important_view_release_notes' => 'Ver notas de la versión',
         'important_alert_text' => 'Algunas actualizaciones necesitan su atención.',
         'details_title' => 'Detalles plugin',
         'details_view_homepage' => 'Ver página de inicio',
         'details_readme' => 'Documentación',
         'details_readme_missing' => 'No hay documentación proporcionada.',
+        'details_changelog' => 'Registro de cambios',
+        'details_changelog_missing' => 'No hay registro de cambios proporcionado.',
         'details_upgrades' => 'Guía de actualización',
         'details_upgrades_missing' => 'No hay instrucciones de actualización proporcionadas.',
+        'details_licence' => 'Licencia',
+        'details_licence_missing' => 'No hay licencia proporcionada.',
         'details_current_version' => 'Versión actual',
         'details_author' => 'Autor'
     ],
@@ -285,7 +346,7 @@ return [
     ],
     'request_log' => [
         'hint' => 'Este registro muestra una lista de las peticiones del navegador que pueden requerir atención. Por ejemplo, si un usuario abre una página que no se puede encontrar, se crea un registro con el código de estado 404.',
-        'menu_label' => 'Registros de acceso',
+        'menu_label' => 'Registros de peticiones',
         'menu_description' => 'Ver listado de redirecciones con errores y Paginas no encontradas (404).',
         'empty_link' => 'Vaciar el registro de acceso',
         'empty_loading' => 'Vaciando los registros...',
@@ -311,6 +372,17 @@ return [
         'manage_editor' => 'Gestionar preferencias editor código',
         'view_the_dashboard' => 'Ver el Escritorio',
         'manage_branding' => 'Perzonalizar el back-end'
+    ],
+    'log' => [
+        'menu_label' => 'Configuración de Logs',
+        'menu_description' => 'Especifique cuáles áreas deben realizar registros.',
+        'default_tab' => 'Registros',
+        'log_events' => 'Registrar eventos de sistema',
+        'log_events_comment' => 'Almacenar eventos de sistema en la base de datos además del registro de archivo.',
+        'log_requests' => 'Registrar malas solicitudes',
+        'log_requests_comment' => 'Solicitudes de navegadores que puedan requerir atención, como errores 404.',
+        'log_theme' => 'Registrar cambios en el tema',
+        'log_theme_comment' => 'Cuando se realizan cambios al tema utilizando el backend.',
     ],
     'media' => [
         'invalid_path' => "Ruta de archivo especificada no válida: ':path'.",

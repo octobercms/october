@@ -1,9 +1,9 @@
 <?php namespace System\Classes;
 
 use Str;
-use Twig_TokenParser;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
+use Twig\TwigFilter as TwigSimpleFilter;
+use Twig\TwigFunction as TwigSimpleFunction;
 use ApplicationException;
 
 /**
@@ -243,7 +243,7 @@ class MarkupManager
                 throw new ApplicationException(sprintf('The markup function for %s is not callable.', $name));
             }
 
-            $functions[] = new Twig_SimpleFunction($name, $callable, ['is_safe' => ['html']]);
+            $functions[] = new TwigSimpleFunction($name, $callable, ['is_safe' => ['html']]);
         }
 
         return $functions;
@@ -277,7 +277,7 @@ class MarkupManager
                 throw new ApplicationException(sprintf('The markup filter for %s is not callable.', $name));
             }
 
-            $filters[] = new Twig_SimpleFilter($name, $callable, ['is_safe' => ['html']]);
+            $filters[] = new TwigSimpleFilter($name, $callable, ['is_safe' => ['html']]);
         }
 
         return $filters;
@@ -296,7 +296,7 @@ class MarkupManager
 
         $extraParsers = $this->listTokenParsers();
         foreach ($extraParsers as $obj) {
-            if (!$obj instanceof Twig_TokenParser) {
+            if (!$obj instanceof TwigTokenParser) {
                 continue;
             }
 

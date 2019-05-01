@@ -1,4 +1,4 @@
-<?php if ($formModel->referer && count($formModel->referer) > 0): ?>
+<?php if (is_countable($formModel->referer) && count($formModel->referer) > 0): ?>
     <div class="form-control control-simplelist with-icons">
         <ul>
             <?php foreach ((array) $formModel->referer as $referer): ?>

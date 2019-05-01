@@ -147,7 +147,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @expectedException        Twig_Error_Runtime
+     * @expectedException        \Twig\Error\RuntimeError
      * @expectedExceptionMessage is not found
      */
     public function testPartialNotFound()

@@ -57,6 +57,7 @@
                 color: this.$customColor.data('color'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
+                appendTo: 'parent',
                 hide: function(color) {
                     var colorValue = color ? self.convertColor(color) : ''
                     self.$customColorSpan.css('background', colorValue)

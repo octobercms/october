@@ -23,22 +23,7 @@
         <div class="modal-body">
             <p><?= e(trans('backend::lang.fileupload.help')) ?></p>
 
-            <div class="form-group">
-                <input
-                    type="text"
-                    name="title"
-                    class="form-control"
-                    value="<?= e($file->title) ?>"
-                    placeholder="<?= e(trans('backend::lang.fileupload.title_label')) ?>"
-                    />
-            </div>
-            <div class="form-group">
-                <textarea
-                    name="description"
-                    placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
-                    class="form-control"><?= e($file->description) ?></textarea>
-            </div>
-
+            <?= $this->getConfigFormWidget()->render(); ?>
         </div>
         <div class="modal-footer">
             <a href="<?= $file->pathUrl ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">

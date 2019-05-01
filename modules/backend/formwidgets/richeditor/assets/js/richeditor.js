@@ -155,7 +155,10 @@
         // File upload
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
-        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = { X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1 }
+        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
+            X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        }
 
         var placeholder = this.$textarea.attr('placeholder')
         froalaOptions.placeholderText = placeholder ? placeholder : ''
@@ -172,7 +175,6 @@
 
         this.$textarea.on('froalaEditor.initialized', this.proxy(this.build))
         this.$textarea.on('froalaEditor.contentChanged', this.proxy(this.onChange))
-        this.$textarea.on('froalaEditor.keydown', this.proxy(this.onKeydown))
         this.$textarea.on('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.on('froalaEditor.html.set', this.proxy(this.onSetContent))
         this.$form.on('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
@@ -209,7 +211,6 @@
 
         this.$textarea.off('froalaEditor.initialized', this.proxy(this.build))
         this.$textarea.off('froalaEditor.contentChanged', this.proxy(this.onChange))
-        this.$textarea.off('froalaEditor.keydown', this.proxy(this.onKeydown))
         this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent))
         this.$form.off('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
@@ -224,6 +225,9 @@
 
         $(window).on('resize', this.proxy(this.updateLayout))
         $(window).on('oc.updateUi', this.proxy(this.updateLayout))
+
+        // Bind the keydown listener here to ensure it gets handled before the Froala handlers
+        editor.events.on('keydown', this.proxy(this.onKeydown), true)
 
         this.$textarea.trigger('init.oc.richeditor', [this])
     }

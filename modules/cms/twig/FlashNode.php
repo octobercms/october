@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a flash node
@@ -9,9 +9,9 @@ use Twig_Compiler;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class FlashNode extends Twig_Node
+class FlashNode extends TwigNode
 {
-    public function __construct($name, Twig_Node $body, $lineno, $tag = 'flash')
+    public function __construct($name, TwigNode $body, $lineno, $tag = 'flash')
     {
         parent::__construct(['body' => $body], ['name' => $name], $lineno, $tag);
     }
@@ -19,9 +19,9 @@ class FlashNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $attrib = $this->getAttribute('name');
 

@@ -395,9 +395,7 @@ html.cssanimations .control-table td[data-column-type=dropdown] [data-view-conta
   cursor: pointer;
   outline: none;
 }
-.table-control-dropdown-list li:hover,
-.table-control-dropdown-list li:focus,
-.table-control-dropdown-list li.selected {
+.table-control-dropdown-list li:focus {
   background: #34495e;
   color: white;
 }

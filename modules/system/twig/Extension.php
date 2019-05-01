@@ -1,8 +1,8 @@
 <?php namespace System\Twig;
 
 use Url;
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension as TwigExtension;
+use Twig\TwigFilter as TwigSimpleFilter;
 use System\Classes\MediaLibrary;
 use System\Classes\MarkupManager;
 
@@ -12,9 +12,8 @@ use System\Classes\MarkupManager;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Extension extends Twig_Extension
+class Extension extends TwigExtension
 {
-
     /**
      * @var \System\Classes\MarkupManager A reference to the markup manager instance.
      */
@@ -53,8 +52,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         $filters = [
-            new Twig_SimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
-            new Twig_SimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
         ];
 
         /*

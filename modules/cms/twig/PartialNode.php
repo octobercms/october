@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a partial node
@@ -9,9 +9,9 @@ use Twig_Compiler;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class PartialNode extends Twig_Node
+class PartialNode extends TwigNode
 {
-    public function __construct(Twig_Node $nodes, $paramNames, $lineno, $tag = 'partial')
+    public function __construct(TwigNode $nodes, $paramNames, $lineno, $tag = 'partial')
     {
         parent::__construct(['nodes' => $nodes], ['names' => $paramNames], $lineno, $tag);
     }
@@ -19,9 +19,9 @@ class PartialNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $compiler->addDebugInfo($this);
 

@@ -129,6 +129,7 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+        $this->addJs('js/build-plugins-min.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
         if ($lang = $this->getValidEditorLang()) {
@@ -222,6 +223,13 @@ class RichEditor extends FormWidgetBase
                 $baseUrl = Request::getSchemeAndHttpHost();
                 if (strpos($linkUrl, $baseUrl) === 0) {
                     $linkUrl = substr($linkUrl, strlen($baseUrl));
+                }
+
+                /*
+                 * Root page fallback.
+                 */
+                if (strlen($linkUrl) === 0) {
+                    $linkUrl = '/';
                 }
 
                 $linkName = str_repeat('&nbsp;', $level * 4);

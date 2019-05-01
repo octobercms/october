@@ -39,8 +39,21 @@
     FilterWidget.prototype.initFilterNumber = function () {
         var self = this
 
-        this.$el.on('show.oc.popover', 'a.filter-scope-number', function () {
+        this.$el.on('show.oc.popover', 'a.filter-scope-number', function (event) {
             self.initNumberInputs($(this).hasClass('range'))
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+                self.filterByNumber()
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                self.filterByNumber(true)
+            })
         })
 
         this.$el.on('hide.oc.popover', 'a.filter-scope-number', function () {
@@ -76,19 +89,6 @@
             }
 
             $scope.addClass('filter-scope-open')
-        })
-
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-            self.filterByNumber()
-        })
-
-        $(document).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-
-            self.filterByNumber(true)
         })
     }
 

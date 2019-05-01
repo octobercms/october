@@ -2,14 +2,23 @@
 <?php if ($this->previewMode): ?>
     <span class="form-control"><?= $field->value ? e($field->value) : '&nbsp;' ?></span>
 <?php else: ?>
+    <?php
+        $min = isset($field->config['min']) ? $field->config['min'] : false;
+        $max = isset($field->config['max']) ? $field->config['max'] : false;
+        $step = isset($field->config['step']) ? $field->config['step'] : 'any';
+    ?>
+
     <input
-        type="text"
+        type="number"
+        step="<?= $step ?>"
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
         value="<?= e($field->value) ?>"
         placeholder="<?= e(trans($field->placeholder)) ?>"
         class="form-control"
         autocomplete="off"
+        <?= $min ? 'min="' . $min . '"' : ''; ?>
+        <?= $max ? 'max="' . $max . '"' : ''; ?>
         <?= $field->hasAttribute('pattern') ? '' : 'pattern="-?\d+(\.\d+)?"' ?>
         <?= $field->hasAttribute('maxlength') ? '' : 'maxlength="255"' ?>
         <?= $field->getAttributes() ?>

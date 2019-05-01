@@ -17,7 +17,7 @@
             <input
                 id="<?= $fieldId ?>"
                 name="<?= $field->getName() ?>"
-                value="<?= $value ?>"
+                value="<?= e($value) ?>"
                 type="radio"
                 <?= $field->isSelected($value) ? 'checked="checked"' : '' ?>
                 <?= $this->previewMode ? 'disabled="disabled"' : '' ?>

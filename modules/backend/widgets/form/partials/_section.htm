@@ -22,8 +22,7 @@
         <div
             id="<?= $this->getId($type.'Tabs') ?>"
             class="control-tabs <?= $type ?>-tabs layout <?= $tabs->cssClass ?>"
-            data-control="tab"
-            data-slidable>
+            data-control="tab">
             <?= $this->makePartial('form_tabs', ['tabs' => $tabs]) ?>
         </div>
 

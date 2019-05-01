@@ -149,8 +149,17 @@
                 url: window.location,
                 paramName: 'file_data',
                 previewsContainer: $('<div />').get(0),
-                clickable: $link.get(0)
+                clickable: $link.get(0),
+                headers: {}
             }
+
+        /*
+         * Add CSRF token to headers
+         */
+        var token = $('meta[name="csrf-token"]').attr('content')
+        if (token) {
+            uploaderOptions.headers['X-CSRF-TOKEN'] = token
+        }
 
         var dropzone = new Dropzone($('<div />').get(0), uploaderOptions)
         dropzone.on('error', $.proxy(self.onUploadFail, self))
