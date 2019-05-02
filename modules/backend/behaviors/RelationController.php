@@ -299,6 +299,10 @@ class RelationController extends ControllerBehavior
             $field = post(self::PARAM_FIELD);
         }
 
+        if ($this->initialized) {
+            return;
+        }
+
         $this->config = $this->originalConfig;
         $this->model = $model;
         $this->field = $field;
@@ -387,6 +391,8 @@ class RelationController extends ControllerBehavior
             $this->controller->relationExtendPivotWidget($this->pivotWidget, $this->field, $this->model);
             $this->pivotWidget->bindToController();
         }
+
+        $this->initialized = true;
     }
 
     /**
