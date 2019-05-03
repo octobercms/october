@@ -720,9 +720,10 @@
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
         }
 
-        if (this.options.uniqueId) {
-            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
-        }
+        /*
+         * Add the handler name to headers
+         */
+        uploaderOptions.headers['X-OCTOBER-REQUEST-HANDLER'] = this.options.uploadHandler
 
         /*
          * Add CSRF token to headers
@@ -1281,6 +1282,7 @@
 
     MediaManager.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         alias: '',
         uniqueId: null,
         deleteEmpty: 'Please select files to delete.',

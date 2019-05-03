@@ -67,8 +67,6 @@ class MediaManager extends WidgetBase
         $this->readOnly = $readOnly;
 
         parent::__construct($controller, []);
-
-        $this->checkUploadPostback();
     }
 
     /**
@@ -1472,24 +1470,11 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * Detect the upload post flag
-     * @return void
+     * Upload handler for the server-side processing of uploaded files
      */
-    protected function checkUploadPostback()
+    public function onUpload()
     {
-        if ($this->readOnly) {
-            return;
-        }
-
-        $fileName = null;
-        $quickMode = false;
-
-        if (
-            (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) &&
-            (!$quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD'))
-        ) {
-            return;
-        }
+        $quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD');
 
         try {
             if (!Input::hasFile('file_data')) {
@@ -1501,7 +1486,7 @@ class MediaManager extends WidgetBase
             $fileName = $uploadedFile->getClientOriginalName();
 
             /*
-             * Convert uppcare case file extensions to lower case
+             * Convert upper case file extensions to lower case
              */
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
             $fileName = File::name($fileName).'.'.$extension;
@@ -1572,8 +1557,7 @@ class MediaManager extends WidgetBase
             $response = Response::make($ex->getMessage(), 400);
         }
 
-        // Override the controller response
-        $this->controller->setResponse($response);
+        return $response;
     }
 
     /**

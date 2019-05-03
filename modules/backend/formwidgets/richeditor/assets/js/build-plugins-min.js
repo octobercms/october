@@ -180,7 +180,8 @@ froalaOptions.lineBreakerTags=this.options.lineBreakerTags?this.options.lineBrea
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'
-froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1,_token:$('meta[name="csrf-token"]').attr('content')}
+froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={'X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD':1}
+froalaOptions.requestHeaders={'X-OCTOBER-REQUEST-HANDLER':'ocmediamanager::onUpload','X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),'X-Requested-With':'XMLHttpRequest'}
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()
