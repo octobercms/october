@@ -33,7 +33,7 @@ return [
         'not_found_name' => "Osiota ':name' ei löydy."
     ],
     'account' => [
-	    'signed_in_as' => 'Kirjauduit nimellä :full_name',
+        'signed_in_as' => 'Kirjauduit nimellä :full_name',
         'sign_out' => 'Kirjaudu ulos',
         'login' => 'Kirjaudu',
         'reset' => 'Nollaa',
@@ -381,7 +381,6 @@ return [
         'remove_tags_comment' => 'Lista tageista, jotka poistetaan sisältöineen.',
         'toolbar_buttons' => 'Työkalurivin Nappulat',
         'toolbar_buttons_comment' => 'Työkalurivin nappulat, jotka näytetään editorissa oletuksena. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
-
     ],
     'tooltips' => [
         'preview_website' => 'Esikatsele verkkosivusto'

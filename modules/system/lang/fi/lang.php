@@ -425,7 +425,7 @@ return [
         'log_theme' => 'Kirjaa teeman muutokset',
         'log_theme_comment' => 'Kun muutos on tehty teemaan käyttäen hallintapaneelia.',
     ],
-        'media' => [
+    'media' => [
         'invalid_path' => "Virheellinen tiedostopolku: ':path'.",
         'folder_size_items' => 'tiedosto(a)',
     ]

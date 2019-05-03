@@ -11,7 +11,6 @@ return [
     | To compile this file run: php artisan october:util compile lang
     |
     */
-
     'markdowneditor' => [
         'formatting' => 'Muotoilu',
         'quote' => 'Lainaus',
