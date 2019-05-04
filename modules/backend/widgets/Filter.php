@@ -639,6 +639,7 @@ class Filter extends WidgetBase
 
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
+        $scope->idPrefix = $this->alias;
 
         /*
          * Set scope value
