@@ -113,7 +113,6 @@ class FileUpload extends FormWidgetBase
         }
 
         $this->getConfigFormWidget();
-        $this->checkUploadPostback();
     }
 
     /**
@@ -410,15 +409,10 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
-     * Checks the current request to see if it is a postback containing a file upload
-     * for this particular widget.
+     * Upload handler for the server-side processing of uploaded files
      */
-    protected function checkUploadPostback()
+    public function onUpload()
     {
-        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
-            return;
-        }
-
         try {
             if (!Input::hasFile('file_data')) {
                 throw new ApplicationException('File missing from request');
@@ -482,8 +476,7 @@ class FileUpload extends FormWidgetBase
             $response = Response::make($ex->getMessage(), 400);
         }
 
-        // Override the controller response
-        $this->controller->setResponse($response);
+        return $response;
     }
 
     /**
