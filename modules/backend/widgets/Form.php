@@ -70,6 +70,12 @@ class Form extends WidgetBase
      */
     public $isNested = false;
 
+    /**
+     * @var boolean If set to TRUE, this form or section will use inline validation for
+     * fields.
+     */
+    public $inlineValidation = false;
+
     //
     // Object properties
     //
@@ -134,6 +140,7 @@ class Form extends WidgetBase
             'context',
             'arrayName',
             'isNested',
+            'inlineValidation'
         ]);
 
         $this->widgetManager = WidgetManager::instance();
@@ -207,6 +214,9 @@ class Form extends WidgetBase
 
             $targetPartial = 'section';
             $extraVars['renderSection'] = $section;
+            $extraVars['inlineValidation'] = $this->allTabs->{$section}->inlineValidation ?? false;
+        } else {
+            $extraVars['inlineValidation'] = $this->inlineValidation ?? false;
         }
 
         /*
@@ -453,6 +463,52 @@ class Form extends WidgetBase
         }
 
         return $result;
+    }
+
+    /**
+     * Validates a single field in the context of the entire form contents.
+     *
+     * @return array `valid` (bool) whether the field input is valid
+     *               `message` (string) the validation error message, if any
+     */
+    public function onValidateField()
+    {
+        $saveData = $this->getSaveData();
+        $field = input('fieldName');
+        $valid = true;
+        $message = null;
+
+        // Check that the model has a validation method. This should be provided by
+        // the October\Rain\Database\Traits\Validation trait.
+        if (!method_exists($this->model, 'validate')) {
+            return;
+        }
+
+        $className = get_class($this->model);
+        $model = new $className;
+        $model->forceFill($saveData);
+
+        try {
+            $success = $model->validate();
+        } catch (\Exception $e) {
+            $success = false;
+        }
+
+        if (!$success) {
+            $errors = $model->errors()->toArray() ?? [
+                $field => $e->getMessage()
+            ];
+
+            if (isset($errors[$field])) {
+                $valid = false;
+                $message = $errors[$field][0];
+            }
+        }
+
+        return [
+            'valid' => $valid,
+            'message' => $message
+        ];
     }
 
     /**

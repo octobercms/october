@@ -16,7 +16,8 @@ tabs:
         backend::lang.user.account: icon-user
         backend::lang.user.groups: icon-users
         backend::lang.user.permissions: icon-key
-        
+    inlineValidation: true
+
     fields:
         login:
             span: left

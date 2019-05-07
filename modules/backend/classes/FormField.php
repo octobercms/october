@@ -177,6 +177,11 @@ class FormField
     public $preset;
 
     /**
+     * @var bool Specifies if this field should use inline validation.
+     */
+    public $inlineValidation = null;
+
+    /**
      * Constructor.
      * @param string $fieldName The name of the field
      * @param string $label The label of the field
@@ -329,7 +334,9 @@ class FormField
         if (isset($config['containerAttributes'])) {
             $this->attributes($config['containerAttributes'], 'container');
         }
-
+        if (isset($config['inlineValidation'])) {
+            $this->inlineValidation = (bool) $config['inlineValidation'];
+        }
         if (isset($config['valueFrom'])) {
             $this->valueFrom = $config['valueFrom'];
         }

@@ -31,12 +31,12 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      * @var string Default tab label to use when none is specified.
      */
     public $defaultTab = 'backend::lang.form.undefined_tab';
-    
+
     /**
      * @var array List of icons for their corresponding tabs.
      */
     public $icons = [];
-    
+
     /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
      */
@@ -46,6 +46,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      * @var boolean If set to TRUE, fields will not be displayed in tabs.
      */
     public $suppressTabs = false;
+
+    /**
+     * @var boolean If set to TRUE, this section will use inline validation for fields.
+     */
+    public $inlineValidation = false;
 
     /**
      * @var string Specifies a CSS class to attach to the tab container.
@@ -86,17 +91,21 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         if (array_key_exists('defaultTab', $config)) {
             $this->defaultTab = $config['defaultTab'];
         }
-        
+
         if (array_key_exists('icons', $config)) {
             $this->icons = $config['icons'];
         }
-        
+
         if (array_key_exists('stretch', $config)) {
             $this->stretch = $config['stretch'];
         }
 
         if (array_key_exists('suppressTabs', $config)) {
             $this->suppressTabs = $config['suppressTabs'];
+        }
+
+        if (array_key_exists('inlineValidation', $config)) {
+            $this->inlineValidation = (bool) $config['inlineValidation'];
         }
 
         if (array_key_exists('cssClass', $config)) {
@@ -182,7 +191,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         return $tablessFields;
     }
-    
+
     /**
      * Returns an icon for the tab based on the tab's name.
      * @param string $name
@@ -194,7 +203,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
             return $this->icons[$name];
         }
     }
-    
+
     /**
      * Returns a tab pane CSS class.
      * @param string $index
