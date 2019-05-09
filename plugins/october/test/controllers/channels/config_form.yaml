@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Channel
+
+# Model Form Field configuration
+form: $/october/test/models/channel/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Channel
+
+# Default redirect location
+defaultRedirect: october/test/channels
+
+# Create page
+create:
+    title: Create Channel
+    redirect: october/test/channels/update/:id
+    redirectClose: october/test/channels
+
+# Update page
+update:
+    title: Edit Channel
+    redirect: october/test/channels
+    redirectClose: october/test/channels
+
+# Preview page
+preview:
+    title: Preview Channel

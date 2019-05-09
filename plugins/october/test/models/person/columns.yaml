@@ -1,0 +1,41 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+
+    name:
+        label: Name
+        searchable: true
+
+    bio:
+        label: Bio
+        searchable: true
+        format: I am a user, %s
+
+    expenses:
+        lable: Expenses
+        format: $ %.2f
+        
+    phone:
+        label: Phone
+        relation: phone
+        select: number
+
+    birth:
+        label: Born
+        type: timetense
+
+    birthdate:
+        label: Birth day
+        type: date
+
+    birthtime:
+        label: Birth time
+
+    created_at:
+        label: Created
+        type: timetense

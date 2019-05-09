@@ -1,0 +1,19 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+
+    name:
+        label: Name
+        searchable: true
+
+    pivot[clearance_level]:
+        label: Clearance level
+
+    pivot[is_executive]:
+        label: Executive
+        type: switch

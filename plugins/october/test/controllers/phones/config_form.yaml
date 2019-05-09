@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Phone
+
+# Model Form Field configuration
+form: $/october/test/models/phone/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Phone
+
+# Default redirect location
+defaultRedirect: october/test/phones
+
+# Create page
+create:
+    title: Create Phone
+    redirect: october/test/phones/update/:id
+    redirectClose: october/test/phones
+
+# Update page
+update:
+    title: Edit Phone
+    redirect: october/test/phones
+    redirectClose: october/test/phones
+
+# Preview page
+preview:
+    title: Preview Phone

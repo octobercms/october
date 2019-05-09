@@ -1,0 +1,53 @@
+fields:
+    type:
+        label: Type
+        options:
+            1: Simple
+            2: Complex
+        span: full
+        type: dropdown
+    content:
+        label: Content
+        span: full
+        type: nestedform
+        usePanelStyles: false
+        commentAbove: Everything below is a nested form, with styling disabled.
+        form:
+            tabs:
+                fields:
+                    title:
+                        label: Title
+                        type: text
+                        tab: Content
+                    colors:
+                        label: Colors
+                        type: nestedform
+                        tab: Content
+                        commentAbove: Colors are a nested form inside a nested form
+                        trigger:
+                            action: show
+                            field: ^type
+                            condition: value[2]
+                        form: $/october/test/models/page/colors.yaml
+                    content:
+                        label: Content
+                        type: richeditor
+                        size: huge
+                        tab: Content
+                    meta_description:
+                        label: Description
+                        type: text
+                        tab: SEO
+                        trigger:
+                            action: show
+                            field: ^type
+                            condition: value[2]
+                    meta_tags:
+                        label: Tags
+                        type: taglist
+                        mode: array
+                        tab: SEO
+                        trigger:
+                            action: show
+                            field: ^type
+                            condition: value[2]

@@ -1,0 +1,8 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+phone:
+    label: Phone
+    form: ~/plugins/october/test/models/phone/fields.yaml
+    list: ~/plugins/october/test/models/phone/columns.yaml

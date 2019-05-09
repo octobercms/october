@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Person
+
+# Model Form Field configuration
+form: ~/plugins/october/test/models/person/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Person
+
+# Default redirect location
+defaultRedirect: october/test/people
+
+# Create page
+create:
+    title: Create People
+    redirect: october/test/people/update/:id
+    redirectClose: october/test/people
+
+# Update page
+update:
+    title: Edit People
+    redirect: october/test/people
+    redirectClose: october/test/people
+
+# Preview page
+preview:
+    title: Preview People

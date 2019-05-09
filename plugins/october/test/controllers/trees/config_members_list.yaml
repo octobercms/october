@@ -1,0 +1,40 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+# Model List Column configuration
+list: $/october/test/models/member/columns.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Member
+
+# List Title
+title: Manage Members
+
+# Link URL for each record
+recordUrl: october/test/members/update/:id
+
+# Message to display if the list is empty
+noRecordsMessage: backend::lang.list.no_records
+
+# Records to display per page
+recordsPerPage: 20
+
+# Displays the list column set up button
+showSetup: true
+
+# Show tree
+showTree: true
+treeExpanded: true
+
+# Display checkboxes next to each record
+# showCheckboxes: true
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: list_members_toolbar
+
+    # Search widget configuration
+    search:
+        prompt: backend::lang.list.search_prompt

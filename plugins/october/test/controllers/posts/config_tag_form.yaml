@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Tag
+
+# Model Form Field configuration
+form: ~/plugins/october/test/models/tag/fields_simple.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Tag
+
+# Default redirect location
+defaultRedirect: october/test/posts
+
+# Create page
+create:
+    title: Create Tags
+    redirect: october/test/tags/update/:id
+    redirectClose: october/test/tags
+
+# Update page
+update:
+    title: Edit Tags
+    redirect: october/test/tags
+    redirectClose: october/test/tags
+
+# Preview page
+preview:
+    title: Preview Tags

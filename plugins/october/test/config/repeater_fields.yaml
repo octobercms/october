@@ -1,0 +1,76 @@
+# ===================================
+#  Used by Grouped Repeater
+# ===================================
+
+recurse:
+    name: Recurse
+    description: Repeater recursion
+    icon: icon-refresh
+    fields:
+        children:
+            label: Content
+            prompt: Add content block
+            span: full
+            type: repeater
+
+            groups: $/october/test/config/repeater_fields.yaml
+
+textarea:
+    name: Textarea
+    description: Basic text field
+    icon: icon-file-text-o
+    fields:
+        text_area:
+            label: Text Content
+            type: textarea
+            size: large
+
+quote:
+    name: Quote
+    description: Quote item
+    icon: icon-quote-right
+    fields:
+        quote_position:
+            span: auto
+            label: Quote Position
+            type: radio
+            options:
+                left: Left
+                center: Center
+                right: Right
+        quote_content:
+            span: auto
+            label: Details
+            type: textarea
+
+image:
+    name: Image
+    description: Pick something from the media library
+    icon: icon-photo
+    fields:
+        img_upload:
+            span: auto
+            label: Image
+            type: mediafinder
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
+
+        img_position:
+            span: auto
+            label: Image Position
+            type: radio
+            options:
+                left: Left
+                center: Center
+                right: Right
+
+taglist:
+    name: Tag list
+    description: Tag list in string mode
+    icon: icon-tags
+    fields:
+        tags:
+            label: Tag list
+            type: taglist
+            mode: string

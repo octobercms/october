@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Theme
+
+# Model Form Field configuration
+form: $/october/test/models/theme/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Theme
+
+# Default redirect location
+defaultRedirect: october/test/themes
+
+# Create page
+create:
+    title: Create Theme
+    redirect: october/test/themes/update/:id
+    redirectClose: october/test/themes
+
+# Update page
+update:
+    title: Edit Theme
+    redirect: october/test/themes
+    redirectClose: october/test/themes
+
+# Preview page
+preview:
+    title: Preview Theme

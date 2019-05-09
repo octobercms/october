@@ -1,0 +1,155 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    username:
+        label: Username
+        span: auto
+        type: partial
+        path: field_uppercase_name
+        comment: This username should always appear as uppercase.
+
+    security_code:
+        label: Security Code
+        span: auto
+        type: number
+        comment: This code should appear as a number.
+
+tabs:
+    fields:
+
+        # Relation Controller (Default)
+        roles:
+            context: [create, update, relationcontroller]
+            label: Roles
+            commentAbove: RelationController used as a partial field type.
+            type: partial
+            tab: Standard
+
+        roles_pivot:
+            context: [update, relationcontroller]
+            label: Roles
+            commentAbove: RelationController with pivot data.
+            type: partial
+            tab: Pivot data
+
+        roles_pivot_model:
+            context: [update, relationcontroller]
+            label: Roles
+            commentAbove: RelationController using a custom pivot model with validation.
+            type: partial
+            tab: Pivot model
+
+        # Relation form field
+        roles@relation:
+            label: Roles
+            type: relation
+            commentAbove: Standard relation field, uses validation.
+            tab: Standard
+
+        # Tag List relation mode
+        roles@taglist:
+            label: Roles
+            type: taglist
+            mode: relation
+            customTags: false
+            commentAbove: Tag list relation mode.
+            tab: Standard
+
+secondaryTabs:
+    fields:
+
+        media_file:
+            label: Media Finder
+            span: auto
+            type: mediafinder
+            commentAbove: File selection from the Media Library.
+            tab: Media Manager
+            mode: file
+
+        media_image:
+            label: Media Finder
+            span: auto
+            type: mediafinder
+            commentAbove: Photo selection from the Media Library.
+            tab: Media Manager
+            mode: image
+
+        photo:
+            label: Photo
+            span: auto
+            type: fileupload
+            commentAbove: Single image upload inside a tab.
+            mode: image
+            imageHeight: 150
+            imageWidth: 150
+            tab: Single Image
+
+        photo_secure:
+            label: Photo (Secure)
+            span: auto
+            type: fileupload
+            commentAbove: Single secure image upload inside a tab.
+            mode: image
+            imageHeight: 150
+            imageWidth: 150
+            tab: Single Image
+
+        portfolio:
+            label: Portfolio
+            span: auto
+            type: fileupload
+            commentAbove: Multiple image upload inside a tab.
+            mode: image
+            tab: Multi Image
+
+        portfolio_secure:
+            label: Portfolio (Secure)
+            span: auto
+            type: fileupload
+            commentAbove: Multiple secure image upload inside a tab.
+            mode: image
+            tab: Multi Image
+
+        certificate:
+            label: Certificate
+            span: auto
+            type: fileupload
+            commentAbove: Single file upload inside a tab.
+            mode: file
+            tab: Single File
+
+        certificate_secure:
+            label: Certificate (Secure)
+            span: auto
+            type: fileupload
+            commentAbove: Single secure file upload inside a tab.
+            mode: file
+            tab: Single File
+
+        custom_file:
+            label: Custom file
+            span: auto
+            type: fileupload
+            commentAbove: This file will be uploaded to storage/temp/test-plugin-custom-files.
+            mode: image
+            imageHeight: 150
+            imageWidth: 150
+            tab: Single Image
+
+        files:
+            label: Files
+            span: auto
+            type: fileupload
+            commentAbove: Multiple file upload inside a tab.
+            mode: file
+            tab: Multi File
+
+        files_secure:
+            label: Files (Secure)
+            span: auto
+            type: fileupload
+            commentAbove: Multiple secure file upload inside a tab.
+            mode: file
+            tab: Multi File

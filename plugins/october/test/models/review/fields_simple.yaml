@@ -1,0 +1,26 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    photo:
+        label: Photo
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: left
+        type: fileupload
+
+    content:
+        label: Content
+        type: textarea
+        size: small
+        span: right
+
+    is_positive:
+        label: Positive
+        type: checkbox
+        span: right

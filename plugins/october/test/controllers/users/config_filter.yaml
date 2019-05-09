@@ -1,0 +1,11 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    roles:
+        label: Role
+        scope: applyRoleFilter
+        modelClass: October\Test\Models\Role
+        nameFrom: name

@@ -1,0 +1,25 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: Name
+        span: auto
+
+    status:
+        label: Status
+        type: relation
+        span: auto
+
+    published_at:
+        label: Published date and time
+        type: datepicker
+        span: full
+
+    content_html:
+        label: Content
+        type: richeditor
+        size: huge
+        tab: Rich Editor

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Category
+
+# Model Form Field configuration
+form: $/october/test/models/category/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Category
+
+# Default redirect location
+defaultRedirect: october/test/categories
+
+# Create page
+create:
+    title: Create Category
+    redirect: october/test/categories/update/:id
+    redirectClose: october/test/categories
+
+# Update page
+update:
+    title: Edit Category
+    redirect: october/test/categories
+    redirectClose: october/test/categories
+
+# Preview page
+preview:
+    title: Preview Category

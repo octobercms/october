@@ -1,0 +1,13 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: Name
+
+    code:
+        label: Code
+
+    content:
+        label: Content

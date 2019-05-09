@@ -1,0 +1,25 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    google_button:
+        label: Action
+        type: partial
+        sortable: false
+        clickable: false
+        cssClass: column-button
+        valueFrom: id
+        width: 150px
+
+    name:
+        label: Name
+        searchable: true
+
+    code:
+        label: Code
+        searchable: true
+
+    is_active:
+        label: Active
+        type: switch

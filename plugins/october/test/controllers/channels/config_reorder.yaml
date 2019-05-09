@@ -1,0 +1,17 @@
+# ===================================
+#  Reorder Behavior Config
+# ===================================
+
+# Reorder Title
+title: Reorder Channels
+
+# Attribute name
+nameFrom: title
+
+# Model Class name
+modelClass: October\Test\Models\Channel
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: reorder_toolbar

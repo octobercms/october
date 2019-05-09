@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Review
+
+# Model Form Field configuration
+form: $/october/test/models/review/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Review
+
+# Default redirect location
+defaultRedirect: october/test/reviews
+
+# Create page
+create:
+    title: Create Review
+    redirect: october/test/reviews/update/:id
+    redirectClose: october/test/reviews
+
+# Update page
+update:
+    title: Edit Review
+    redirect: october/test/reviews
+    redirectClose: october/test/reviews
+
+# Preview page
+preview:
+    title: Preview Review

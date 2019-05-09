@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Plugin
+
+# Model Form Field configuration
+form: $/october/test/models/plugin/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Plugin
+
+# Default redirect location
+defaultRedirect: october/test/plugins
+
+# Create page
+create:
+    title: Create Plugin
+    redirect: october/test/plugins/update/:id
+    redirectClose: october/test/plugins
+
+# Update page
+update:
+    title: Edit Plugin
+    redirect: october/test/plugins
+    redirectClose: october/test/plugins
+
+# Preview page
+preview:
+    title: Preview Plugin

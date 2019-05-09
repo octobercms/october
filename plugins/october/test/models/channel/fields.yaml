@@ -1,0 +1,20 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    title:
+        label: Title
+
+    related:
+        label: Related (SQL select)
+        type: relation
+        select: title
+        span: auto
+
+    related_custom:
+        valueFrom: related
+        label: Related (Custom attribute)
+        type: relation
+        nameFrom: custom_title
+        span: auto

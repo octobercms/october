@@ -1,0 +1,12 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    content:
+        label: Content
+        searchable: true
+
+    is_positive:
+        label: Positive
+        type: switch

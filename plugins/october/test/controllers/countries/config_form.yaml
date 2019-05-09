@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Country
+
+# Model Form Field configuration
+form: ~/plugins/october/test/models/country/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Country
+
+# Default redirect location
+defaultRedirect: october/test/countries
+
+# Create page
+create:
+    title: Create Countries
+    redirect: october/test/countries/update/:id
+    redirectClose: october/test/countries
+
+# Update page
+update:
+    title: Edit Countries
+    redirect: october/test/countries
+    redirectClose: october/test/countries
+
+# Preview page
+preview:
+    title: Preview Countries

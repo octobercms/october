@@ -1,0 +1,7 @@
+1.0.1: 'First version of Test'
+1.0.2:
+    - 'Create tables'
+    - create_tables.php
+1.0.3:
+    - 'Seed tables'
+    - seed_tables.php

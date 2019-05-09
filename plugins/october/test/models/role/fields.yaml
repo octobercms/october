@@ -1,0 +1,23 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    photos:
+        label: Photos
+        type: fileupload
+        commentAbove: Photos of someone performing this role
+        mode: image
+        imageHeight: 150
+        imageWidth: 150
+        span: right
+
+    name:
+        label: Name
+        span: left
+
+    description:
+        label: Description
+        type: textarea
+        size: tiny
+        span: left

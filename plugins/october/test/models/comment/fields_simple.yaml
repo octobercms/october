@@ -1,0 +1,21 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    post:
+        type: relation
+        nameFrom: name
+        emptyOption: -- Select Post --
+        comment: This Comment belongs to the Post selected above.
+
+    name:
+        label: Name
+        commentAbove: Text field, inside a popup.
+        span: auto
+
+    error_button:
+        type: partial
+        comment: This button will throw an error
+        span: auto

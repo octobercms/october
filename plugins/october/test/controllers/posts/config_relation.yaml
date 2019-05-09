@@ -1,0 +1,37 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+comments:
+    label: Comment
+    list: ~/plugins/october/test/models/comment/columns.yaml
+    form: ~/plugins/october/test/models/comment/fields.yaml
+    readOnly: true
+    manage:
+        context: relation
+
+status:
+    label: Status
+    form: ~/plugins/october/test/models/attribute/fields.yaml
+    list: ~/plugins/october/test/models/attribute/columns.yaml
+    view:
+        toolbarButtons: link|unlink
+
+galleries:
+    label: Galleries
+    view:
+        list: $/october/test/models/gallery/columns.yaml
+        toolbarButtons: create|link|delete|unlink
+        defaultSort:
+            column: title
+            direction: asc
+    manage:
+        form: $/october/test/models/gallery/fields_simple.yaml
+
+review:
+    label: Review
+    view:
+        form: $/october/test/models/review/fields_simple.yaml
+        toolbarButtons: update
+    manage:
+        form: $/october/test/models/review/fields_simple.yaml

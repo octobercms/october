@@ -1,0 +1,42 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: Name
+
+    number:
+        label: Number
+
+    # Record Finder (Default)
+    person:
+        context: [create, update, recordfinder]
+        label: Record Finder
+        comment: Record finder field.
+        type: recordfinder
+        list: ~/plugins/october/test/models/person/columns.yaml
+        prompt: Click the %s to find an alternative person
+        nameFrom: name
+        descriptionFrom: number
+        searchMode: any
+
+    # Relation Controller
+    person@relationcontroller:
+        label: Relation Controller
+        commentAbove: RelationController used as a partial field type.
+        type: partial
+
+    # Proxy Fields
+    person[name]:
+        context: proxyfields
+        span: auto
+        label: Person Name
+        comment: Proxy text field for Person model.
+
+    person[bio]:
+        context: proxyfields
+        span: auto
+        label: Person Bio
+        comment: Proxy text field for Person model.

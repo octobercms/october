@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Post
+
+# Model Form Field configuration
+form: ~/plugins/october/test/models/post/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Post
+
+# Default redirect location
+defaultRedirect: october/test/posts
+
+# Create page
+create:
+    title: Create Posts
+    redirect: october/test/posts/update/:id
+    redirectClose: october/test/posts
+
+# Update page
+update:
+    title: Edit Posts
+    redirect: october/test/posts
+    redirectClose: october/test/posts
+
+# Preview page
+preview:
+    title: Preview Posts

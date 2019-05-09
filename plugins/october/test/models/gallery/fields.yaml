@@ -1,0 +1,42 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    title:
+        label: Title
+        span: auto
+
+    status:
+        label: Status
+        type: balloon-selector
+        span: auto
+        options:
+            active: Active
+            draft: Draft
+            hidden: Hidden
+
+    party_mode:
+        label: Party mode
+        type: checkbox
+        trigger:
+            field: status
+            condition: value[active]
+            action: show
+
+tabs:
+    fields:
+
+        posts:
+            label: Posts
+            type: partial
+            tab: Posts
+
+        images:
+            label: Images
+            type: fileupload
+            mode: image
+            fileTypes: ['png', 'jpg', 'jpeg']
+            mimeTypes: 'png,jpg,jpeg'
+            tab: Images

@@ -1,0 +1,8 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+person:
+    label: Person
+    list: ~/plugins/october/test/models/person/columns.yaml
+    form: ~/plugins/october/test/models/person/fields.yaml

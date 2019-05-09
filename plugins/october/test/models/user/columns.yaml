@@ -1,0 +1,18 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+
+    username:
+        label: Username
+        searchable: true
+
+    roles_count:
+        label: Roles
+        relation: roles_count
+        valueFrom: count
+        default: 0

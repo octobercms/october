@@ -1,0 +1,20 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    title:
+        label: Title
+        commentAbove: Text field.
+
+tabs:
+    fields:
+
+        images:
+            label: Images
+            type: fileupload
+            mode: image
+            fileTypes: ['png', 'jpg', 'jpeg']
+            mimeTypes: 'png,jpg,jpeg'
+            tab: Images

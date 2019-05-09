@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Comment
+
+# Model Form Field configuration
+form: ~/plugins/october/test/models/comment/fields_simple.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Comment
+
+# Default redirect location
+defaultRedirect: october/test/posts
+
+# Create page
+create:
+    title: Create Comments
+    redirect: october/test/posts/update/:id
+    redirectClose: october/test/posts
+
+# Update page
+update:
+    title: Edit Comments
+    redirect: october/test/posts
+    redirectClose: october/test/posts
+
+# Preview page
+preview:
+    title: Preview Comments

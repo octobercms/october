@@ -1,0 +1,143 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: Name
+        span: auto
+        default: Australia
+
+    code:
+        label: Code
+        span: auto
+        preset:
+            field: name
+            type: slug
+
+    is_active:
+        label: Active
+        comment: Check this box to hide some tabs, using depends and trigger API.
+        type: checkbox
+        default: true
+
+tabs:
+    fields:
+
+        types:
+            tab: Characters
+            label: Class types
+            commentAbove: Character known to spawn in this location
+            type: relation
+
+        language:
+            label: Language
+            tab: Language
+            trigger:
+                field: is_active
+                condition: checked
+                action: hide
+
+        currency:
+            label: Currency
+            tab: Currency
+            dependsOn: is_active
+
+        pages_section:
+            label: Pages
+            tab: Pages
+            comment: This will disappear when a page is selected
+            type: section
+            dependsOn: pages
+
+        pages:
+            tab: Pages
+            type: checkboxlist
+
+        _page_404:
+            tab: Pages
+            commentAbove: This field is enabled when the 404 page is selected
+            trigger:
+                field: pages[]
+                condition: value[404]
+                action: enable
+
+        _page_error:
+            tab: Pages
+            commentAbove: This field is hidden when the error page is selected
+            trigger:
+                field: pages[]
+                condition: value[error]
+                action: hide
+
+        states:
+            tab: States
+            type: repeater
+            form:
+                fields:
+                    title:
+                        label: State
+                    item:
+                        type: repeater
+                        prompt: Add new suburb
+                        form:
+                            fields:
+                                subtitle:
+                                    label: Suburb
+                                    span: full
+                                safety:
+                                    type: datatable
+                                    stretch: 1
+                                    stretch: true
+                                    dynamicHeight: true
+                                    adding: true
+                                    deleting: true
+                                    btnAddRowLabel: Add Crime Type
+                                    btnDeleteRowLabel: Delete Crime Type
+                                    span: full
+                                    columns:
+                                        id:
+                                            title: 
+                                            width: 30px
+                                            readOnly: true
+                                        label: 
+                                            title: Label
+                                            type: string
+                                            validation:
+                                                required:
+                                                    message: Please enter label
+                                        rating:
+                                            title: Rating
+                                            type: string
+                                            validation:
+                                                required:
+                                                    message: Please enter rating
+                                                float:
+                                                    message: Rating should be a float
+        locations:
+            tab: Related
+            label: Locations
+            prompt: Add new location
+            span: full
+            type: repeater
+            form:
+                fields:
+                    country:
+                        label: Country
+                        span: auto
+                        type: dropdown
+                    state:
+                        label: State
+                        span: auto
+                        dependsOn: country
+                        type: dropdown
+
+        content:
+            tab: Content
+            label: Content
+            prompt: Add content block
+            span: full
+            type: repeater
+
+            groups: $/october/test/config/repeater_fields.yaml

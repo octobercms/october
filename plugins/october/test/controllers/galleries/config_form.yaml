@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Gallery
+
+# Model Form Field configuration
+form: $/october/test/models/gallery/fields.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Gallery
+
+# Default redirect location
+defaultRedirect: october/test/galleries
+
+# Create page
+create:
+    title: Create Gallery
+    redirect: october/test/galleries/update/:id
+    redirectClose: october/test/galleries
+
+# Update page
+update:
+    title: Edit Gallery
+    redirect: october/test/galleries
+    redirectClose: october/test/galleries
+
+# Preview page
+preview:
+    title: Preview Gallery

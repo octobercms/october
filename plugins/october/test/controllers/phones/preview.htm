@@ -1,0 +1,20 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('october/test/people') ?>">People</a></li>
+        <li><a href="<?= Backend::url('october/test/phones') ?>">Phones</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="layout-item stretch layout-column form-preview">
+        <?= $this->formRenderPreview() ?>
+    </div>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('october/test/phones') ?>" class="btn btn-default">Return to phones list</a></p>
+
+<?php endif ?>

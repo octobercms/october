@@ -1,0 +1,11 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: Name
+        commentAbove: Text field, <a href="#">required</a>.
+        commentHtml: true
+        span: auto

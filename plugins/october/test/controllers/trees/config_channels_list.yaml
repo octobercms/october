@@ -1,0 +1,37 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+# Model List Column configuration
+list: $/october/test/models/channel/columns.yaml
+
+# Model Class name
+modelClass: October\Test\Models\Channel
+
+# List Title
+title: Manage Channels
+
+# Link URL for each record
+recordUrl: october/test/channels/update/:id
+
+# Message to display if the list is empty
+noRecordsMessage: backend::lang.list.no_records
+
+# Records to display per page
+recordsPerPage: 20
+
+# Displays the list column set up button
+showSetup: true
+
+# Show tree
+showTree: true
+treeExpanded: true
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: list_channels_toolbar
+
+    # Search widget configuration
+    search:
+        prompt: backend::lang.list.search_prompt

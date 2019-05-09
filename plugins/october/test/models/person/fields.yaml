@@ -1,0 +1,116 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+#
+#  These fields explore the use of context; the "phone" field is rendered in
+#  different ways depending on the context used by the form, passed in by 
+#  the URL.
+# ===================================
+
+fields:
+    name:
+        label: Name
+        commentAbove: Text field, required. Given name in the first box, preferred name in the second box.
+
+    # Testing form field with no config
+    preferred_name:
+
+    # Nullable
+    is_married:
+        label: Married
+        type: dropdown
+        emptyOption: Unknown
+        options:
+            '0': No
+            '1': Yes
+
+    # Record Finder (Default)
+    phone:
+        context: [create, update, recordfinder]
+        label: Record Finder
+        comment: Record finder field.
+        type: recordfinder
+        list: ~/plugins/october/test/models/phone/columns.yaml
+        title: Please pick a phone
+        prompt: Click the %s to find an alternative phone
+        nameFrom: name
+        descriptionFrom: number
+        searchScope: customSearch
+
+    # Relation Controller
+    phone@relationcontroller:
+        label: Relation Controller
+        commentAbove: RelationController used as a partial field type.
+        type: partial
+
+    # Proxy Fields
+    phone[name]:
+        context: proxyfields
+        span: auto
+        label: Phone Name
+        comment: Proxy text field for Phone model.
+
+    phone[number]:
+        context: proxyfields
+        span: auto
+        label: Phone Number
+        comment: Proxy text field for Phone model.
+
+    phone[created_at]:
+        context: proxyfields
+        span: left
+        label: Phone Created
+        comment: Proxy date picker field for Phone model.
+        type: datepicker
+
+    phone[picture]:
+        label: Picture
+        context: proxyfields
+        span: right
+        comment: Proxy file upload field for Phone model.
+        type: fileupload
+        mode: image
+        imageHeight: 260
+        imageWidth: 260
+
+    phone[brand]:
+        label: Brand
+        context: proxyfields
+        span: left
+        comment: Proxy dropdown field for Phone model.
+        type: dropdown
+
+tabs:
+
+    fields:
+
+        birth:
+            label: Born (Date Time)
+            type: datepicker
+            tab: Birthday
+            minDate: January 01 2015 11:11
+            comment: Date cannot be before January 2015, formatted as m-Y-d.
+            format: m-Y-d
+
+        birthdate:
+            label: Born (Date)
+            type: datepicker
+            mode: date
+            tab: Birthday
+            minDate: 1984-04-12
+            maxDate: 2014-04-23
+            comment: Date must be between April 1984 - 2014.
+
+        birthtime:
+            label: Born (Time)
+            type: datepicker
+            mode: time
+            tab: Birthday
+            span: auto
+
+        favcolor:
+            label: Favorite color
+            type: colorpicker
+            default: "#27ae60"
+            tab: Birthday
+            span: auto

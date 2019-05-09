@@ -1,0 +1,26 @@
+<div class="form-preview">
+    <div id="<?= $this->getId('container') ?>" class="m-b">
+        <?= $this->makePartial('current_time') ?>
+    </div>
+
+    <a href="javascript:;"
+        class="btn btn-primary"
+        data-request="<?= $this->getEventHandler('onPushUpdateTime') ?>">
+        Push random time
+    </a>
+
+    <a href="javascript:;"
+        class="btn btn-primary"
+        data-request="<?= $this->getEventHandler('onPullImage') ?>"
+        data-request-data="size: '300x300'"
+        data-request-update="big_image: '#<?= $this->getId('container') ?>'">
+        Pull big image (widget)
+    </a>
+
+    <a href="javascript:;"
+        class="btn btn-primary"
+        data-request="<?= $this->getEventHandler('onPullImage') ?>"
+        data-request-update="small_image: '#<?= $this->getId('container') ?>'">
+        Pull small image (controller)
+    </a>
+</div>

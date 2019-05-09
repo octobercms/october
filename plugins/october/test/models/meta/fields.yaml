@@ -1,0 +1,48 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    meta_title:
+        label: Meta Title
+        type: text
+        required: true
+    
+    meta_description:
+        label: Meta Description
+        type: textarea
+        size: tiny
+        required: true
+            
+    meta_keywords:
+        label: Meta Keywords
+        type: textarea
+        size: tiny
+        required: true
+            
+    canonical_url:
+        label: Canonical URL
+        type: text
+        span: left
+    
+    redirect_url:
+        label: Redirect URL
+        type: text
+        span: right
+    
+    robot_index:
+        label: Robot index
+        type: dropdown
+        default: index
+        span: left
+        options:
+            index: Index
+    
+    robot_follow:
+        label: Robot follow
+        type: dropdown
+        default: follow
+        default: index
+        span: right
+        options:
+            follow: Follow
