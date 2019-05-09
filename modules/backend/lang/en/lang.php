@@ -564,6 +564,8 @@ return [
         'add_folder' => 'Add folder',
         'search' => 'Search',
         'display' => 'Display',
+        'selections' => 'Selections',
+        'items_selected' => 'items selected',
         'filter_everything' => 'Everything',
         'filter_images' => 'Images',
         'filter_video' => 'Video',

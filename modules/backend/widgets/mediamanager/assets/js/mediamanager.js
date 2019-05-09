@@ -113,6 +113,13 @@
         return result
     }
 
+    MediaManager.prototype.getSelectedPercent = function() {
+        var itemsSelected = this.getSelectedItems(true).length
+        var itemsMax = this.options.maxSelectedItems
+
+        return Math.floor((itemsSelected / itemsMax) * 100);
+    }
+
     // MEDIA MANAGER INTERNAL METHODS
     // ============================
 
@@ -264,11 +271,16 @@
 
     MediaManager.prototype.updateMaxSelectedItemsMessage = function() {
         var message = this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML
-                        .replace('{selectedItems}', this.getSelectedItems(true).length)
-                        .replace('{maxItems}', this.options.maxSelectedItems)
+                        .replace(/\{selectedItems\}/g, this.getSelectedItems(true).length)
+                        .replace(/\{maxItems\}/g, this.options.maxSelectedItems)
+                        .replace(/\{percent\}/g, this.getSelectedPercent())
 
         if (!this.maxSelectedItemsElement) {
             this.maxSelectedItemsElement = this.$el.get(0).querySelector('[data-control="max-selected-items"]')
+
+            if (!this.maxSelectedItemsElement) {
+                return
+            }
         }
 
         this.maxSelectedItemsElement.innerHTML = message

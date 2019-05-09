@@ -11,7 +11,7 @@
     ];
 ?>
 
-<div class="sidebar-group">
+<div class="sidebar-group<?php if ($this->isMulti): ?> w-md p-r pull-left<?php endif; ?>">
     <h3 class="section"><?= e(trans('backend::lang.media.order_by')) ?></h3>
 
     <select
@@ -28,7 +28,7 @@
     </select>
 </div>
 
-<div class="sidebar-group">
+<div class="sidebar-group<?php if ($this->isMulti): ?> w-md p-l pull-left<?php endif; ?>">
     <h3 class="section"><?= e(trans('backend::lang.media.direction')) ?></h3>
 
     <select

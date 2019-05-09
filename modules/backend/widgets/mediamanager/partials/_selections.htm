@@ -1,0 +1,24 @@
+<div class="sidebar-group">
+    <h3 class="section"><?= e(trans('backend::lang.media.selections')) ?></h3>
+
+    <?php if ($this->maxItems !== -1): ?>
+        <script type="text/template" data-control="max-selected-items-template">
+            <div class="progress m-b-0">
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    aria-valuenow="{selectedItems}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style="width: {percent}%;">
+                </div>
+            </div>
+            <div class="text-center">
+                <small class="text-muted">
+                    {selectedItems} / {maxItems} <?= e(trans('backend::lang.media.items_selected')); ?>
+                </small>
+            </div>
+        </script>
+        <div data-control="max-selected-items"></div>
+    <?php endif; ?>
+</div>

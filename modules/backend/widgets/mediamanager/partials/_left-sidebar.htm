@@ -3,3 +3,7 @@
 </div>
 
 <?= $this->makePartial('sorting') ?>
+
+<?php if ($this->isMulti): ?>
+    <?= $this->makePartial('selections'); ?>
+<?php endif; ?>

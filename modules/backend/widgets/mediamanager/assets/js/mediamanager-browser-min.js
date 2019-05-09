@@ -57,6 +57,9 @@ return items
 for(var i=0,len=items.length;i<len;i++){var item=items[i],itemDetails={itemType:item.getAttribute('data-item-type'),path:item.getAttribute('data-path'),title:item.getAttribute('data-title'),documentType:item.getAttribute('data-document-type'),folder:item.getAttribute('data-folder'),publicUrl:item.getAttribute('data-public-url')}
 result.push(itemDetails)}
 return result}
+MediaManager.prototype.getSelectedPercent=function(){var itemsSelected=this.getSelectedItems(true).length
+var itemsMax=this.options.maxSelectedItems
+return Math.floor((itemsSelected/itemsMax)*100);}
 MediaManager.prototype.init=function(){this.itemListElement=this.$el.find('[data-control="item-list"]').get(0)
 this.scrollContentElement=this.itemListElement.querySelector('.scroll-wrapper')
 if(this.options.bottomToolbar){this.$el.find('[data-control="bottom-toolbar"]').removeClass('hide')
@@ -118,8 +121,9 @@ MediaManager.prototype.selectNode=function(node){node.setAttribute('class','sele
 this.lastSelectedItem=node}
 MediaManager.prototype.deselectNode=function(node){node.setAttribute('class','')
 this.lastSelectedItem=null}
-MediaManager.prototype.updateMaxSelectedItemsMessage=function(){var message=this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML.replace('{selectedItems}',this.getSelectedItems(true).length).replace('{maxItems}',this.options.maxSelectedItems)
-if(!this.maxSelectedItemsElement){this.maxSelectedItemsElement=this.$el.get(0).querySelector('[data-control="max-selected-items"]')}
+MediaManager.prototype.updateMaxSelectedItemsMessage=function(){var message=this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML.replace(/\{selectedItems\}/g,this.getSelectedItems(true).length).replace(/\{maxItems\}/g,this.options.maxSelectedItems).replace(/\{percent\}/g,this.getSelectedPercent())
+if(!this.maxSelectedItemsElement){this.maxSelectedItemsElement=this.$el.get(0).querySelector('[data-control="max-selected-items"]')
+if(!this.maxSelectedItemsElement){return}}
 this.maxSelectedItemsElement.innerHTML=message}
 MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){this.deselectAll()
 this.selectNode(node)}

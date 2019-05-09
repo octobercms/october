@@ -11,6 +11,8 @@
     data-bottom-toolbar="<?= $this->bottomToolbar ? 'true' : 'false' ?>"
     data-crop-and-insert-button="<?= $this->cropAndInsertButton ? 'true' : 'false' ?>"
     data-read-only="<?= $this->readOnly ? 'true' : 'false'; ?>"
+    data-is-multi="<?= $this->isMulti ? 'true' : 'false'; ?>"
+    data-max-selected-items="<?= $this->maxItems; ?>"
     tabindex="0"
 >
 
@@ -21,7 +23,7 @@
     <div class="layout-row whiteboard">
         <div class="layout">
             <div class="layout-row">
-                <div class="layout-cell panel w-200 border-right" data-control="left-sidebar">
+                <div class="layout-cell panel w-<?= ($this->isMulti) ? '350' : '200'; ?> border-right" data-control="left-sidebar">
                     <?= $this->makePartial('left-sidebar') ?>
                 </div>
                 <div class="layout-cell">
