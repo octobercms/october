@@ -27,7 +27,7 @@
 
     ReportContainer.DEFAULTS = {
         breakpoint: 768,
-        columns: 10
+        columns: 12
     }
 
     ReportContainer.prototype.init = function() {

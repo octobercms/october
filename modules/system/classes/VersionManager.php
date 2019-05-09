@@ -530,7 +530,7 @@ class VersionManager
     protected function extractScriptsAndComments($details)
     {
         if (is_array($details)) {
-            $fileNamePattern = '/^[a-z_\-0-9]*\.php$/i';
+            $fileNamePattern = "/^[a-z0-9\_\-\.\/\\\]+\.php$/i";
 
             $comments = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
                 return !preg_match($fileNamePattern, $detail);
@@ -545,5 +545,5 @@ class VersionManager
         }
 
         return array($comments, $scripts);
-}
+    }
 }

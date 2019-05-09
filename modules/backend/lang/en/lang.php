@@ -553,7 +553,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
-        'default_prompt' => 'Click the %s button to find a media item'
+        'default_prompt' => 'Click the %s button to find a media item',
+        'no_image' => 'The image could not be found'
     ],
     'media' => [
         'menu_label' => 'Media',

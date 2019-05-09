@@ -82,6 +82,11 @@ class ListColumn
     public $cssClass;
 
     /**
+     * @var string Specify a CSS class to attach to the list header cell element.
+     */
+    public $headCssClass;
+
+    /**
      * @var string Specify a format or style for the column value, such as a Date.
      */
     public $format;
@@ -137,6 +142,9 @@ class ListColumn
         }
         if (isset($config['cssClass'])) {
             $this->cssClass = $config['cssClass'];
+        }
+        if (isset($config['headCssClass'])) {
+            $this->headCssClass = $config['headCssClass'];
         }
         if (isset($config['searchable'])) {
             $this->searchable = $config['searchable'];

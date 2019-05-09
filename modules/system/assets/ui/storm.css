@@ -3089,7 +3089,12 @@ a.control-status-list >ul li .status-text.danger:hover {color:#843534}
 .control-toolbar.toolbar-padded {padding:20px}
 [data-control=toolbar] {white-space:nowrap;width:100%;overflow:hidden}
 html.mobile [data-control=toolbar].is-native-drag {overflow:auto;-webkit-overflow-scrolling:touch}
-.clear-input-text {font-size:large;color:#666;display:inline-block;position:absolute;right:1px;top:0;bottom:0;margin:auto;background-color:#fff;padding-left:7px;height:28px;border:0}
+.clear-input-text {padding:0 5px;cursor:pointer;background:transparent;border:0;-webkit-appearance:none;font-size:21px;font-weight:bold;line-height:1;color:#000;text-shadow:0 1px 0 #fff;font-family:sans-serif;display:inline-block;position:absolute;right:3px;top:0;bottom:0;margin:auto;background-color:#fff;height:28px}
+.clear-input-text >i {opacity:0.2;filter:alpha(opacity=20)}
+.clear-input-text:hover,
+.clear-input-text:focus {color:#000;text-decoration:none;cursor:pointer}
+.clear-input-text:hover >i,
+.clear-input-text:focus >i {opacity:0.5;filter:alpha(opacity=50)}
 .clear-input-text:focus {outline:none}
 .control-toolbar.editor-toolbar {padding:0;background:#f2f2f2;border-bottom-right-radius:0;border-bottom-left-radius:0;border-bottom:2px solid #d4d8da}
 .control-toolbar.editor-toolbar .toolbar-item .btn,
@@ -4204,7 +4209,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
-.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;-webkit-box-shadow:none;box-shadow:none}
+.form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}
 .help-block {font-size:13px;margin-bottom:0}
@@ -4595,7 +4600,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .report-widget .table-container table.table.data thead tr th {border-top:none !important}
 .report-widget .table-container table.table.data tbody tr:nth-child(even) td,
 .report-widget .table-container table.table.data tbody tr:nth-child(even) th {background-color:transparent}
-.list-scrollable-container {touch-action:none;position:relative}
+.list-scrollable-container {touch-action:auto;position:relative}
 .list-scrollable-container:after,
 .list-scrollable-container:before {display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#666}
 .list-scrollable-container:before {left:-6px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f104"}

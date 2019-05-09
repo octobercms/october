@@ -119,6 +119,11 @@ class Controller extends ControllerBase
     protected $statusCode = 200;
 
     /**
+     * @var mixed Override the standard controller response.
+     */
+    protected $responseOverride = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -279,6 +284,10 @@ class Controller extends ControllerBase
          * Execute page action
          */
         $result = $this->execPageAction($action, $params);
+
+        if ($this->responseOverride !== null) {
+            $result = $this->responseOverride;
+        }
 
         if (!is_string($result)) {
             return $result;
@@ -681,6 +690,17 @@ class Controller extends ControllerBase
     public function setStatusCode($code)
     {
         $this->statusCode = (int) $code;
+        return $this;
+    }
+
+    /**
+     * Sets the response for the current page request cycle, this value takes priority
+     * over the standard response prepared by the controller.
+     * @param mixed $response Response object or string
+     */
+    public function setResponse($response)
+    {
+        $this->responseOverride = $response;
         return $this;
     }
 

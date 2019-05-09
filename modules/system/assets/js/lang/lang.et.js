@@ -9,9 +9,6 @@ $.oc.langMessages['et'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : estonian (et)
-//! author : Henry Kehlmann : https://github.com/madhenry
-//! improvements : Illimar Tambek : https://github.com/ragulka
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -88,3 +85,4 @@ $.oc.langMessages['et'] = $.extend(
     return et;
 
 }));
+

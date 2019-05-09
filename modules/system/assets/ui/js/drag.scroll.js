@@ -15,7 +15,7 @@
  * - vertical - determines if the scroll direction is vertical, true by default
  * - scrollClassContainer - if specified, specifies an element or element selector to apply the 'scroll-before' and 'scroll-after' CSS classes,
  *   depending on whether the scrollable area is in its start or end
- * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con 
+ * - scrollMarkerContainer - if specified, specifies an element or element selector to inject scroll markers (span elements that con
  *   contain the ellipses icon, indicating whether scrolling is possible)
  * - useDrag - determines if dragging is allowed support, true by default
  * - useNative - if native CSS is enabled via "mobile" on the HTML tag, false by default

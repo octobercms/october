@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'edgeUpdates' => false,
+    'edgeUpdates' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'backendTimezone' => 'UTC',
+    'backendTimezone' => 'America/Chicago',
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
     |
     */
 
-    'disableCoreUpdates' => false,
+    'disableCoreUpdates' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +141,7 @@ return [
     |
     */
 
-    'enableRoutesCache' => false,
+    'enableRoutesCache' => env('ROUTES_CACHE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,7 +181,7 @@ return [
     |
     */
 
-    'enableAssetCache' => false,
+    'enableAssetCache' => env('ASSET_CACHE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -296,7 +296,7 @@ return [
     |
     */
 
-    'linkPolicy' => 'detect',
+    'linkPolicy' => env('LINK_POLICY', 'detect'),
 
     /*
     |--------------------------------------------------------------------------
@@ -332,7 +332,7 @@ return [
     |
     */
 
-    'enableCsrfProtection' => true,
+    'enableCsrfProtection' => env('ENABLE_CSRF', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -346,20 +346,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Twig Strict Variables
     |--------------------------------------------------------------------------
     |
-    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | If strict_variables is disabled, Twig will silently ignore invalid
     | variables (variables and or attributes/methods that do not exist) and
     | replace them with a null value. When enabled, Twig throws an exception
     | instead. If set to null, it is enabled when debug mode (app.debug) is
     | enabled.
     |
     */
-    
+
     'enableTwigStrictVariables' => false,
 
     /*

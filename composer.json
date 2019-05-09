@@ -1,50 +1,36 @@
 {
-    "name": "october/october",
-    "description": "October CMS",
-    "homepage": "https://octobercms.com",
-    "keywords": ["october", "cms", "octobercms", "laravel"],
-    "license": "MIT",
+    "name": "larbearrr/larryvel.com",
+    "description": "Example OctoberCMS Proejct",
+    "homepage": "https://larryvel.com",
+    "keywords": [
+        "october",
+        "cms",
+        "octobercms",
+        "laravel"
+    ],
     "authors": [
         {
-            "name": "Alexey Bobkov",
-            "email": "aleksey.bobkov@gmail.com",
-            "role": "Co-founder"
-        },
-        {
-            "name": "Samuel Georges",
-            "email": "daftspunky@gmail.com",
-            "role": "Co-founder"
-        },
-        {
-            "name": "Luke Towers",
-            "email": "octobercms@luketowers.ca",
-            "homepage": "https://luketowers.ca",
-            "role": "Maintainer"
+            "name": "Larry Barker",
+            "email": "lbarker@bgprod.com"
         }
     ],
-    "support": {
-        "issues": "https://github.com/octobercms/october/issues",
-        "forum": "https://octobercms.com/forum/",
-        "docs": "https://octobercms.com/docs/",
-        "irc": "irc://irc.freenode.net/october",
-        "source": "https://github.com/octobercms/october"
-    },
     "require": {
         "php": ">=7.0",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
-        "laravel/framework": "5.5.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "october/rain": "dev-develop as 1.0",
+        "october/system": "dev-develop",
+        "october/backend": "dev-develop",
+        "october/cms": "dev-develop",
+        "laravel/framework": "5.5.*@dev",
+        "wikimedia/composer-merge-plugin": "dev-master",
+        "rainlab/sitemap-plugin": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
         "phpunit/phpunit": "~5.7",
         "phpunit/phpunit-selenium": "~1.2",
-        "meyfa/phpunit-assert-gd": "1.1.0"
+        "rainlab/builder-plugin": "dev-master"
     },
     "autoload-dev": {
         "classmap": [
@@ -62,10 +48,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform": {
-            "php": "7.0"
-        }
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

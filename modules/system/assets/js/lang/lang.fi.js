@@ -9,8 +9,6 @@ $.oc.langMessages['fi'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : finnish (fi)
-//! author : Tarmo Aidantausta : https://github.com/bleadof
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -118,3 +116,4 @@ $.oc.langMessages['fi'] = $.extend(
     return fi;
 
 })));
+

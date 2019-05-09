@@ -309,7 +309,7 @@ class CodeParser
 
     /**
      * Writes content with concurrency support and cache busting
-     * This work is based on the Twig_Cache_Filesystem class
+     * This work is based on the Twig\Cache\FilesystemCache class
      */
     protected function writeContentSafe($path, $content)
     {

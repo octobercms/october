@@ -40,8 +40,22 @@
     FilterWidget.prototype.initFilterDate = function () {
         var self = this
 
-        this.$el.on('show.oc.popover', 'a.filter-scope-date', function () {
+        this.$el.on('show.oc.popover', 'a.filter-scope-date', function (event) {
             self.initDatePickers($(this).hasClass('range'))
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-trigger="filter"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                self.filterByDate()
+            })
+
+            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-trigger="clear"]', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+                self.filterByDate(true)
+            })
         })
 
         this.$el.on('hiding.oc.popover', 'a.filter-scope-date', function () {
@@ -82,20 +96,6 @@
             }
 
             $scope.addClass('filter-scope-open')
-        })
-
-        $(document).on('click', '#controlFilterPopoverDate [data-trigger="filter"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-
-            self.filterByDate()
-        })
-
-        $(document).on('click', '#controlFilterPopoverDate [data-trigger="clear"]', function (e) {
-            e.preventDefault()
-            e.stopPropagation()
-
-            self.filterByDate(true)
         })
     }
 
