@@ -29,7 +29,7 @@
     MediaFinder.prototype.constructor = MediaFinder
 
     MediaFinder.prototype.init = function() {
-        if (this.options.maxItems !== false) {
+        if (this.options.maxItems === -1 || this.options.maxItems > 1) {
             this.options.isMulti = true
         }
 

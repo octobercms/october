@@ -54,7 +54,8 @@
     MediaManagerPopup.prototype.show = function() {
         var data = {
             bottomToolbar: this.options.bottomToolbar ? 1 : 0,
-            cropAndInsertButton: this.options.cropAndInsertButton ? 1 : 0
+            cropAndInsertButton: this.options.cropAndInsertButton ? 1 : 0,
+            maxSelectedItems: this.getMaxSelectedItems()
         }
 
         this.$popupRootElement.popup({
@@ -86,6 +87,14 @@
             this.options.onInsert.call(this, [imageItem])
     }
 
+    MediaManagerPopup.prototype.getMaxSelectedItems = function () {
+        if (!this.options.maxSelectedItems) {
+            return 1
+        }
+
+        return this.options.maxSelectedItems / 1
+    }
+
     // EVENT HANDLERS
     // ============================
 
@@ -96,7 +105,7 @@
         mediaManager.remove()
 
         // Release clickedElement reference inside redactor.js
-        // If we don't do it, the Media Manager popup DOM elements 
+        // If we don't do it, the Media Manager popup DOM elements
         // won't be removed from the memory.
         $(document).trigger('mousedown')
 
@@ -117,10 +126,10 @@
 
     MediaManagerPopup.prototype.onPopupCommand = function(ev, command, param) {
         switch (command) {
-            case 'insert' : 
+            case 'insert' :
                 this.insertMedia()
             break;
-            case 'insert-cropped' : 
+            case 'insert-cropped' :
                 this.insertCroppedImage(param)
             break;
         }
@@ -132,6 +141,7 @@
         alias: undefined,
         bottomToolbar: true,
         cropAndInsertButton: false,
+        maxSelectedItems: false,
         onInsert: undefined,
         onClose: undefined
     }

@@ -59,6 +59,16 @@ class MediaManager extends WidgetBase
     public $cropAndInsertButton = false;
 
     /**
+     * @var boolean Determines whether the widget is in multiple selection mode.
+     */
+    public $isMulti = false;
+
+    /**
+     * @var int Determines the maximum items that can be selected. If -1, this indicates no limit.
+     */
+    public $maxItems = 1;
+
+    /**
      * Constructor.
      */
     public function __construct($controller, $alias, $readOnly = false)
@@ -682,9 +692,19 @@ class MediaManager extends WidgetBase
      */
     public function onLoadPopup()
     {
-        $this->bottomToolbar = Input::get('bottomToolbar', $this->bottomToolbar);
+        $this->bottomToolbar = (bool) post('bottomToolbar', $this->bottomToolbar);
+        $this->cropAndInsertButton = (bool) post('cropAndInsertButton', $this->cropAndInsertButton);
 
-        $this->cropAndInsertButton = Input::get('cropAndInsertButton', $this->cropAndInsertButton);
+        $maxItems = (int) post('maxSelectedItems', $this->maxItems);
+        $this->maxItems = ($maxItems === 0 || $maxItems < -1) ? 1 : $maxItems;
+
+        // Determine if we're in multiple selection mode
+        if ($this->maxItems === -1 || $this->maxItems > 1) {
+            $this->isMulti = true;
+
+            // Crop & Insert is not available in multiple selection mode
+            $this->cropAndInsertButton = false;
+        }
 
         return $this->makePartial('popup-body');
     }
@@ -843,6 +863,7 @@ class MediaManager extends WidgetBase
         $this->vars['searchMode'] = $searchMode;
         $this->vars['searchTerm'] = $searchTerm;
         $this->vars['sidebarVisible'] = $this->getSidebarVisible();
+        $this->vars['isMulti'] = $this->isMulti;
     }
 
     /**
