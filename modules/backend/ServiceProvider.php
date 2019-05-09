@@ -146,6 +146,10 @@ class ServiceProvider extends ModuleServiceProvider
                     'label' => 'system::lang.permissions.manage_other_administrators',
                     'tab'   => 'system::lang.permissions.name'
                 ],
+                'backend.impersonate_users' => [
+                    'label' => 'system::lang.permissions.impersonate_users',
+                    'tab'   => 'system::lang.permissions.name',
+                ],
                 'backend.manage_preferences' => [
                     'label' => 'system::lang.permissions.manage_preferences',
                     'tab'   => 'system::lang.permissions.name'
