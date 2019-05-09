@@ -1,0 +1,6 @@
+plugin:
+    name: 'larry.api::lang.plugin.name'
+    description: 'larry.api::lang.plugin.description'
+    author: Larry
+    icon: oc-icon-bolt
+    homepage: ''
