@@ -234,6 +234,10 @@
     }
 
     MarkdownEditor.prototype.makeToolbarButton = function(code, button) {
+        if (!this.options.useMediaManager && (code == 'medialink' || code == 'mediaimage')) {
+            return
+        }
+
         var $button = $('<button />').attr({
             'type': "button",
             'class': 'btn',
@@ -674,7 +678,8 @@
         vendorPath: '/',
         refreshHandler: null,
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
-        viewMode: 'tab'
+        viewMode: 'tab',
+        useMediaManager: false
     }
 
     // PLUGIN DEFINITION

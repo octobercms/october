@@ -39,6 +39,7 @@
         stylesheet: null,
         fullpage: false,
         editorLang: 'en',
+        useMediaManager: false,
         toolbarButtons: null,
         allowEmptyTags: null,
         allowTags: null,
@@ -166,6 +167,12 @@
         froalaOptions.height = this.$el.hasClass('stretch')
             ? Infinity
             : $('.height-indicator', this.$el).height()
+
+        var enabledPlugins = ['align', 'audio', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'emoticons', 'entities', 'file', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'lineBreaker', 'link', 'lists', 'paragraphFormat', 'paragraphStyle', 'quote', 'table', 'url', 'video', 'pageLinks', 'figures']
+        if (this.options.useMediaManager) {
+            enabledPlugins.push('mediaManager')
+        }
+        froalaOptions.pluginsEnabled = enabledPlugins
 
         $.FroalaEditor.ICON_TEMPLATES = {
             font_awesome: '<i class="icon-[NAME]"></i>',
