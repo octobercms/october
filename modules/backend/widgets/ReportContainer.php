@@ -4,7 +4,6 @@ use File;
 use Lang;
 use Flash;
 use Request;
-use BackendAuth;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreference;
@@ -126,7 +125,7 @@ class ReportContainer extends WidgetBase
     {
         $this->addCss('css/reportcontainer.css', 'core');
         $this->addJs('vendor/isotope/jquery.isotope.min.js', 'core');
-        $this->addJs('js/reportcontainer.js', 'core');
+        //$this->addJs('js/reportcontainer.js', 'core');
     }
 
     //
@@ -146,10 +145,6 @@ class ReportContainer extends WidgetBase
 
     public function onMakeLayoutDefault()
     {
-        if (!BackendAuth::getUser()->hasAccess('backend.manage_default_dashboard')) {
-            throw new ApplicationException("You do not have permission to do that.");
-        }
-
         $widgets = $this->getWidgetsFromUserPreferences();
 
         SystemParameters::set($this->getSystemParametersKey(), $widgets);
@@ -229,15 +224,12 @@ class ReportContainer extends WidgetBase
 
         $widgets = $this->getWidgetsFromUserPreferences();
 
-        $num = count($widgets);
+        $num =  count($widgets);
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
         }
         while (array_key_exists($alias, $widgets));
-
-        // Ensure that the widget's alias is correctly set for this request
-        $widget->alias = $alias;
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
@@ -339,8 +331,7 @@ class ReportContainer extends WidgetBase
         $configuration['alias'] = $alias;
 
         $className = $widgetInfo['class'];
-        $availableReportWidgets = array_keys(WidgetManager::instance()->listReportWidgets());
-        if (!class_exists($className) || !in_array($className, $availableReportWidgets)) {
+        if (!class_exists($className)) {
             return;
         }
 
@@ -408,8 +399,8 @@ class ReportContainer extends WidgetBase
                 8  => '8 ' . Lang::choice('backend::lang.dashboard.columns', 8),
                 9  => '9 ' . Lang::choice('backend::lang.dashboard.columns', 9),
                 10 => '10 ' . Lang::choice('backend::lang.dashboard.columns', 10),
-                11 => '11 ' . Lang::choice('backend::lang.dashboard.columns', 11),
-                12 => '12 ' . Lang::choice('backend::lang.dashboard.columns', 12)
+				11 => '11 ' . Lang::choice('backend::lang.dashboard.columns', 11),
+				12 => '12 ' . Lang::choice('backend::lang.dashboard.columns', 12)
             ]
         ];
         $result[] = $property;

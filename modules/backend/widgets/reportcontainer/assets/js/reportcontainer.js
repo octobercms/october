@@ -41,7 +41,7 @@
         $(window).resize($.proxy(this.updateWidth, this))
         this.updateWidth()
 
-        if (!Modernizr.touchevents) {
+        if (!Modernizr.touch) {
             this.$el.sortable({
                 vertical: false,
                 handle: '.drag-handle',

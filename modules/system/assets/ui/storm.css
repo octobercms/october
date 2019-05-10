@@ -3015,9 +3015,9 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .report-container .title-value span.goal-meter-indicator {height:31px;top:4px;width:15px;margin-right:10px}
 .report-container .title-value span.goal-meter-indicator span {width:15px}
 .control-status-list >ul {margin-bottom:0;padding:0}
-.control-status-list >ul li {margin:0;padding:7px 15px 6px;list-style:none;display:block;font-size:13px;color:#7e8c8d;border-bottom:1px solid #f0f0f0}
+.control-status-list > ul li{margin:0;padding:7px 15px 6px;list-style:none;display:block;overflow:hidden;font-size:1em;color:#6a7677;border-bottom:1px solid #f0f0f0}
 .control-status-list >ul li:last-child {border-bottom:none}
-.control-status-list >ul li a {color:#7e8c8d;text-decoration:none}
+.control-status-list > ul li a{color:#6a7677;text-decoration:none}
 .control-status-list >ul li a:hover {color:#0181b9;text-decoration:none}
 .control-status-list >ul li .status-text {margin:0 5px}
 .control-status-list >ul li .status-text.muted {color:#999}

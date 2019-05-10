@@ -4,7 +4,6 @@
 }
 
 .widget-welcome .welcome-message {
-    margin-left: 220px;
     color: #7e8c8d;
     margin-top: 15px;
 }
@@ -14,9 +13,9 @@
 
 .widget-welcome .welcome-logo {
     background: #f9f9f9;
-    width: 200px;
+    max-width: 200px;
+    width: 100%;
     padding: 15px;
-    float: left;
 }
 
 .widget-welcome .welcome-logo .oc-logo {

@@ -1,7 +1,7 @@
 @import "../../../../assets/less/core/boot.less";
 
 .report-container {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     > ul {
         list-style: none;
         padding: 0;
@@ -10,11 +10,12 @@
         .item {
             float: left;
             overflow: hidden;
-            display: block;
+            padding: 10px;
 
             .content {
-                margin: 5px;
-                position: relative;
+                display: block;
+                overflow: hidden;
+                word-break: break-word;
 
                 .drag-handle {
                     width: 14px;
@@ -96,18 +97,16 @@
                 }
             }
 
-            &.width-1 {width: 8.33%;}
-            &.width-2 {width: 16.66%;}
-            &.width-3 {width: 24.99%;}
-            &.width-4 {width: 33.32%;}
-            &.width-5 {width: 41.65%;}
-            &.width-6 {width: 49.98%;}
-            &.width-7 {width: 58.31%;}
-            &.width-8 {width: 66.64%;}
-            &.width-9 {width: 74.97%;}
-            &.width-10 {width: 83.3%;}
-            &.width-11 {width: 91.63%;}
-            &.width-12 {width: 100%;}			
+            &.width-1 {width: 9.95%;}
+            &.width-2 {width: 19.95%;}
+            &.width-3 {width: 29.95%;}
+            &.width-4 {width: 39.95%;}
+            &.width-5 {width: 49.95%;}
+            &.width-6 {width: 59.95%;}
+            &.width-7 {width: 69.95%;}
+            &.width-8 {width: 79.95%;}
+            &.width-9 {width: 89.95%;}
+            &.width-10 {width: 100%;}
 
             &.dragged {
                 .transition-duration(0s) !important;
@@ -139,7 +138,7 @@
 
     .manage-widgets {
         display: inline-block;
-        color: #bcc3c7;
+        color: #686e71;
         padding: 10px 15px;
         font-size: 14px;
         font-weight: 400;
@@ -195,4 +194,343 @@
             width: 100% !important;
         }
     }
+}
+
+//
+// Keep Dashboard Button out of Dashboard Container Area
+//
+
+#ReportContainer-container-toolbar {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+}
+
+//
+// 12 Column Grid
+//
+
+@media screen and (min-width: 1800px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 8.33%;
+			}
+			.item.width-2 {
+				width: 16.66%;
+			}
+			.item.width-3 {
+				width: 24.99%;
+			}
+			.item.width-4 {
+				width: 33.32%;
+			}
+			.item.width-5 {
+				width: 41.65%;
+			}
+			.item.width-6 {
+				width: 49.98%;
+			}
+			.item.width-7 {
+				width: 58.31%;
+			}
+			.item.width-8 {
+				width: 66.64%;
+			}
+			.item.width-9 {
+				width: 74.97%;
+			}
+			.item.width-10 {
+				width: 83.3%;
+			}
+			.item.width-11 {
+				width: 91.63%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 10 Column Grid
+//
+
+@media screen and (min-width: 1600px) and (max-width: 1800px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 9.95%;
+			}
+			.item.width-2 {
+				width: 19.95%;
+			}
+			.item.width-3 {
+				width: 29.95%;
+			}
+			.item.width-4 {
+				width: 39.95%;
+			}
+			.item.width-5 {
+				width: 49.95%;
+			}
+			.item.width-6 {
+				width: 59.95%;
+			}
+			.item.width-7 {
+				width: 69.95%;
+			}
+			.item.width-8 {
+				width: 79.95%;
+			}
+			.item.width-9 {
+				width: 89.95%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 8 Column Grid
+//
+
+@media screen and (min-width: 1400px) and (max-width: 1600px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 12.5%;
+			}
+			.item.width-2 {
+				width: 25%;
+			}
+			.item.width-3 {
+				width: 37.5%;
+			}
+			.item.width-4 {
+				width: 50%;
+			}
+			.item.width-5 {
+				width: 62.5%;
+			}
+			.item.width-6 {
+				width: 75%;
+			}
+			.item.width-7 {
+				width: 87.5%;
+			}
+			.item.width-8 {
+				width: 100%;
+			}
+			.item.width-9 {
+				width: 100%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 6 Column Grid
+//
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 16.6%;
+			}
+			.item.width-2 {
+				width: 33.2%;
+			}
+			.item.width-3 {
+				width: 49.8%;
+			}
+			.item.width-4 {
+				width: 66.4%;
+			}
+			.item.width-5 {
+				width: 83%;
+			}
+			.item.width-6 {
+				width: 100%;
+			}
+			.item.width-7 {
+				width: 100%;
+			}
+			.item.width-8 {
+				width: 100%;
+			}
+			.item.width-9 {
+				width: 100%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 4 Column Grid
+//
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 25%;
+			}
+			.item.width-2 {
+				width: 50%;
+			}
+			.item.width-3 {
+				width: 75%;
+			}
+			.item.width-4 {
+				width: 100%;
+			}
+			.item.width-5 {
+				width: 100%;
+			}
+			.item.width-6 {
+				width: 100%;
+			}
+			.item.width-7 {
+				width: 100%;
+			}
+			.item.width-8 {
+				width: 100%;
+			}
+			.item.width-9 {
+				width: 100%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 2 Column Grid and 768px matches breakpoint in reportcontainer.js
+//
+
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 50%;
+			}
+			.item.width-2 {
+				width: 100%;
+			}
+			.item.width-3 {
+				width: 100%;
+			}
+			.item.width-4 {
+				width: 100%;
+			}
+			.item.width-5 {
+				width: 100%;
+			}
+			.item.width-6 {
+				width: 100%;
+			}
+			.item.width-7 {
+				width: 100%;
+			}
+			.item.width-8 {
+				width: 100%;
+			}
+			.item.width-9 {
+				width: 100%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
+}
+
+//
+// 1 Column Grid and 768px matches breakpoint in reportcontainer.js
+//
+
+@media screen and (max-width: 768px) {
+	.report-container {
+		>ul {
+			.item.width-1 {
+				width: 100%;
+			}
+			.item.width-2 {
+				width: 100%;
+			}
+			.item.width-3 {
+				width: 100%;
+			}
+			.item.width-4 {
+				width: 100%;
+			}
+			.item.width-5 {
+				width: 100%;
+			}
+			.item.width-6 {
+				width: 100%;
+			}
+			.item.width-7 {
+				width: 100%;
+			}
+			.item.width-8 {
+				width: 100%;
+			}
+			.item.width-9 {
+				width: 100%;
+			}
+			.item.width-10 {
+				width: 100%;
+			}
+			.item.width-11 {
+				width: 100%;
+			}
+			.item.width-12 {
+				width: 100%;
+			}
+		}
+	}
 }

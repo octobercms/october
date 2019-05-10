@@ -255,8 +255,8 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .layout.control-tabs.oc-logo-transparent:not(.has-tabs):after,
 .flex-layout-column.oc-logo-transparent:not(.has-tabs):after,
 .layout-cell.oc-logo-transparent:after {content:'';display:table-cell;position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(249,249,249,0.7)}
-.report-widget {padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;font-size:13px}
-.report-widget h3 {font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:30px}
+.report-widget {padding:15px;background:white;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;font-size:1em;overflow:hidden}
+.report-widget h3 {font-size:14px;color:#697677;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:30px}
 .report-widget .height-100 {height:100px}
 .report-widget .height-200 {height:200px}
 .report-widget .height-300 {height:300px}
@@ -672,7 +672,7 @@ nav#layout-mainmenu ul li a:focus {text-decoration:none;color:rgba(255,255,255,0
 nav#layout-mainmenu ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon {height:30px;width:30px;margin-right:10px;position:relative;top:0}
 nav#layout-mainmenu ul.nav {display:inline-block}
-nav#layout-mainmenu .toolbar-item {padding-right:0}
+nav#layout-mainmenu .toolbar-item{padding-right:0;background-color:#000000}
 nav#layout-mainmenu .toolbar-item:before,
 nav#layout-mainmenu .toolbar-item:after {margin-top:0}
 nav#layout-mainmenu .toolbar-item:before {left:-12px}
