@@ -338,8 +338,7 @@ class Theme
         }
 
         try {
-            $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
-            $config = Cache::rememberForever($cacheKey, function() use ($path) {
+            $config = Cache::rememberForever($this->getConfigCacheKey(), function() use ($path) {
                 return Yaml::parseFile($path);
             });
         }
@@ -485,19 +484,27 @@ class Theme
 
         return Url::asset('modules/cms/assets/images/default-theme-preview.png');
     }
+    /**
+     * Returns theme config cache key
+     * @return string
+     */
+    public function getConfigCacheKey()
+    {
+        return self::CONFIG_KEY.'::'.$this->getDirName();
+    }
 
     /**
      * Resets any memory or cache involved with the active or edit theme.
      * @return void
      */
-    public static function resetCache()
+    public function resetCache()
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
+        Cache::forget($this->getConfigCacheKey());
     }
 
     /**
