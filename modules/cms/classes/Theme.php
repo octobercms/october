@@ -222,7 +222,7 @@ class Theme
      */
     public static function setActiveTheme($code)
     {
-        self::resetCache();
+        $this->resetCache();
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
@@ -466,7 +466,7 @@ class Theme
         File::put($path, $contents);
         $this->configCache = $values;
 
-        self::resetCache();
+        $this->resetCache();
     }
 
     /**
