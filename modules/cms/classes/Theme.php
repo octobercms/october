@@ -220,9 +220,9 @@ class Theme
      * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter.
      * @param string $code Specifies the  active theme code.
      */
-    public static function setActiveTheme($code)
+    public function setActiveTheme($code)
     {
-        self::resetCache($code);
+        $this->resetCache();
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
@@ -466,7 +466,7 @@ class Theme
         File::put($path, $contents);
         $this->configCache = $values;
 
-        self::resetCache();
+        $this->resetCache();
     }
 
     /**
@@ -498,14 +498,14 @@ class Theme
      * Resets any memory or cache involved with the active or edit theme.
      * @return void
      */
-    public static function resetCache($dirName = null)
+    public function resetCache()
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget(self::CONFIG_KEY.'::'.$dirName);
+        Cache::forget($this->getConfigCacheKey());
     }
 
     /**
