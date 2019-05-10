@@ -222,7 +222,7 @@ class Theme
      */
     public static function setActiveTheme($code)
     {
-        self::resetCache();
+        self::resetCache($code);
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
@@ -466,7 +466,7 @@ class Theme
         File::put($path, $contents);
         $this->configCache = $values;
 
-        $this->resetCache();
+        self::resetCache();
     }
 
     /**
@@ -484,6 +484,7 @@ class Theme
 
         return Url::asset('modules/cms/assets/images/default-theme-preview.png');
     }
+
     /**
      * Returns theme config cache key
      * @return string
@@ -497,14 +498,14 @@ class Theme
      * Resets any memory or cache involved with the active or edit theme.
      * @return void
      */
-    public function resetCache()
+    public static function resetCache($dirName = null)
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget($this->getConfigCacheKey());
+        Cache::forget(self::CONFIG_KEY.'::'.$dirName);
     }
 
     /**
