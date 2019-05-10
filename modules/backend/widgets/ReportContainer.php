@@ -224,7 +224,7 @@ class ReportContainer extends WidgetBase
 
         $widgets = $this->getWidgetsFromUserPreferences();
 
-        $num =  count($widgets);
+        $num = count($widgets);
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
@@ -399,8 +399,8 @@ class ReportContainer extends WidgetBase
                 8  => '8 ' . Lang::choice('backend::lang.dashboard.columns', 8),
                 9  => '9 ' . Lang::choice('backend::lang.dashboard.columns', 9),
                 10 => '10 ' . Lang::choice('backend::lang.dashboard.columns', 10),
-				11 => '11 ' . Lang::choice('backend::lang.dashboard.columns', 11),
-				12 => '12 ' . Lang::choice('backend::lang.dashboard.columns', 12)
+                11 => '11 ' . Lang::choice('backend::lang.dashboard.columns', 11),
+                12 => '12 ' . Lang::choice('backend::lang.dashboard.columns', 12)
             ]
         ];
         $result[] = $property;
