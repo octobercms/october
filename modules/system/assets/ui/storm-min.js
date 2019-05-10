@@ -4042,7 +4042,7 @@ $(this).find('td').not('.'+options.excludeClass).click(function(e){if($(document
 if(onclick){onclick.apply(link.get(0))}
 else if(request){link.request()}
 else if(popup){link.popup()}
-else if(e.ctrlKey){window.open(href)}
+else if(e.ctrlKey||e.metaKey){window.open(href)}
 else{window.location=href}})
 $(this).addClass(options.linkedClass)
 link.hide().after(link.html())})}
