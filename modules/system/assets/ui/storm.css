@@ -4147,6 +4147,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-switch input:checked ~ span {background-color:#76a544}
 .custom-switch input:checked ~ span span:first-of-type {color:#FFF;display:block}
 .custom-switch input:checked ~ span span:last-of-type {color:#666;display:none}
+.custom-switch input[disabled] ~ span {background-color:#666 !important}
 .custom-switch >span {display:block;height:100%;position:absolute;left:0;width:100%;background-color:#bb2424;font-size:12px;font-weight:600;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px}
 .custom-switch >span span {z-index:10;display:block;position:absolute;top:2px;left:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .custom-switch >span span:last-child {left:28px;color:#FFF;display:block}
