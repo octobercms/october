@@ -44,6 +44,32 @@ trait ViewMaker
     public $suppressLayout = false;
 
     /**
+     * Prepends a path on the available layout path locations.
+     * @param string|array $path
+     * @return void
+     */
+    public function addLayoutPath($path)
+    {
+        $this->layoutPath = (array) $this->layoutPath;
+
+        if (is_array($path)) {
+            $this->layoutPath = array_merge($path, $this->layoutPath);
+        }
+        else {
+            array_unshift($this->layoutPath, $path);
+        }
+    }
+
+    /**
+     * Returns the active layout path locations.
+     * @return array
+     */
+    public function getLayoutPaths()
+    {
+        return (array) $this->layoutPath;
+    }
+
+    /**
      * Prepends a path on the available view path locations.
      * @param string|array $path
      * @return void
