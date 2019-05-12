@@ -237,8 +237,8 @@ class Repeater extends FormWidgetBase
         }
 
         if (is_array($currentValue) && count($currentValue)) {
-            foreach ($currentValue as $value) {
-                $groupMap[] = array_get($value, '_group');
+            foreach ($currentValue as $index => $value) {
+                $groupMap[$index] = array_get($value, '_group');
             }
         }
 
