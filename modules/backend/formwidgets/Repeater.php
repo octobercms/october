@@ -237,10 +237,7 @@ class Repeater extends FormWidgetBase
         if (!is_array($currentValue)) return;
        
         collect($currentValue)->each(function ($value, $index) {
-            $groupCode = array_get($value, '_group', false);                    
-            if (!$groupCode) return;
-
-            $this->makeItemFormWidget($index, $groupCode);
+            $this->makeItemFormWidget($index, array_get($value, '_group', false));
         });
         
         $this->indexCount = max(count($currentValue), $this->indexCount);
