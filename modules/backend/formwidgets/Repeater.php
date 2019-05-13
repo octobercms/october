@@ -233,6 +233,8 @@ class Repeater extends FormWidgetBase
                 }
             }
         }
+        
+        if (!is_array($currentValue)) return;
        
         collect($currentValue)->each(function ($value, $index) {
             $groupCode = array_get($value, '_group', false);                    
