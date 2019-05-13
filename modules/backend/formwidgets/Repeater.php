@@ -233,9 +233,12 @@ class Repeater extends FormWidgetBase
                 }
             }
         }
-        
+       
         collect($currentValue)->each(function ($value, $index) {
-            $this->makeItemFormWidget($index, array_get($value, '_group'));
+            $groupCode = array_get($value, '_group', false);                    
+            if (!$groupCode) return;
+
+            $this->makeItemFormWidget($index, $groupCode);
         });
         
         $this->indexCount = max(count($currentValue), $this->indexCount);
