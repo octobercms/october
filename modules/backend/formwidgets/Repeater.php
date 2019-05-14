@@ -217,9 +217,7 @@ class Repeater extends FormWidgetBase
             $this->indexCount = 0;
             $this->formWidgets = [];
             return;
-        }
-
-        $groupMap = [];
+        }       
 
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
@@ -235,20 +233,15 @@ class Repeater extends FormWidgetBase
                 }
             }
         }
-
-        if (is_array($currentValue) && count($currentValue)) {
-            foreach ($currentValue as $value) {
-                $groupMap[] = array_get($value, '_group');
-            }
-        }
-
-        if (!count($groupMap)) {
+        
+        if (!is_array($currentValue)) {
             return;
         }
-
-        foreach ($groupMap as $index => $groupCode) {
-            $this->makeItemFormWidget($index, $groupCode);
-        }
+       
+        collect($currentValue)->each(function ($value, $index) {
+            $this->makeItemFormWidget($index, array_get($value, '_group', null));
+        });
+        
         $this->indexCount = max(count($currentValue), $this->indexCount);
     }
 
