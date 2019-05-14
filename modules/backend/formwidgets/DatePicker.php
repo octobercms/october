@@ -117,18 +117,15 @@ class DatePicker extends FormWidgetBase
      */
     public function prepareVars()
     {
-
         if ($value = $this->getLoadValue()) {
-
             $value = DateTimeHelper::makeCarbon($value, false);
-            if ($this->mode === 'date' ) {
+            if ($this->mode === 'date' && !$this->ignoreTimezone) {
                 $backendTimeZone = \Backend\Models\Preference::get('timezone');
                 $value->setTimezone($backendTimeZone);
                 $value->setTime(0,0,0);
                 $value->setTimezone(Config::get('app.timezone'));
             }
             $value = $value->toDateTimeString();
-
         }
 
         $this->vars['name'] = $this->getFieldName();
