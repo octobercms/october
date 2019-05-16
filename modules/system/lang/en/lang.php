@@ -456,6 +456,12 @@ return [
             'label' => 'Page error',
             'help' => "We're sorry, but something went wrong and the page cannot be displayed."
         ],
+        'maintenance' => [
+            'label' => "We'll be right back!",
+            'help' => "We're currently down for maintenance, check back soon!",
+            'message' => "Message:",
+            'available_at' => "Try again after:",
+        ],
     ],
     'pagination' => [
         'previous' => 'Previous',
