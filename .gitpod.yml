@@ -1,0 +1,15 @@
+image:
+  file: .gitpod.dockerfile
+ports:
+  - port: 8001
+    onOpen: open-preview
+  - port: 3306
+    onOpen: ignore
+tasks:
+- init: composer install
+  command: >
+    php artisan october:env;
+    sed -i "/APP_URL=/c APP_URL=$(gp url 8001)" .env;
+    sed -i "/APP_KEY=/c APP_KEY=$(php artisan key:generate --show)" .env;
+    sed -i "/LINK_POLICY=/c LINK_POLICY=secure" .env;
+    apachectl start;
