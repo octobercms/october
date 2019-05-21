@@ -58,6 +58,10 @@ The OctoberCMS platform is open-sourced software licensed under the [MIT license
 
 Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first.
 
+A quick and easy way to open, modify and run source code from this repo is to open it in Gitpod, an online IDE with full PHP and Laravel support.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/octobercms/october)
+
 ### Coding standards
 
 Please follow the following guides and code standards:

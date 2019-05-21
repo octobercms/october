@@ -1,0 +1,21 @@
+image:
+  file: .gitpod/Dockerfile
+  context: .gitpod
+ports:
+  - port: 8080
+    onOpen: open-preview
+tasks:
+- init: |
+    composer install --no-interaction --prefer-dist --no-scripts
+    composer clearcache
+    cp -R /home/gitpod/octobercms-config-docker config/docker
+    echo 'config/docker' >> .git/info/exclude
+    echo 'plugins/october/drivers' >> .git/info/exclude
+    echo "APP_ENV=docker" > .env
+    echo "OCTOBERCMS_DEVELOP_COMMIT=$(git rev-parse HEAD)" >> .env
+    touch storage/database.sqlite
+    chmod 666 storage/database.sqlite
+    php artisan october:up
+    php artisan plugin:install october.drivers
+  command: |
+    apachectl start
