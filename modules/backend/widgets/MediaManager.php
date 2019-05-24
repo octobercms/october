@@ -1313,7 +1313,7 @@ class MediaManager extends WidgetBase
         try {
             $path = $thumbnailInfo['path'];
 
-            if($this->isVector($path)) {
+            if ($this->isVector($path)) {
                 $markup = $this->makePartial('thumbnail-image', [
                     'isError' => false,
                     'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
