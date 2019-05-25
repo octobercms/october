@@ -209,7 +209,7 @@ class MediaManager extends WidgetBase
         $thumbnailInfo['lastModified'] = $lastModified;
         $thumbnailInfo['id'] = 'sidebar-thumbnail';
 
-        return $this->generateThumbnail($thumbnailInfo, $thumbnailParams, true);
+        return $this->generateThumbnail($thumbnailInfo, $thumbnailParams);
     }
 
     /**
@@ -1156,8 +1156,7 @@ class MediaManager extends WidgetBase
     protected function getThumbnailParams($viewMode = null)
     {
         $result = [
-            'mode' => 'crop',
-            'ext' => 'png'
+            'mode' => 'crop'
         ];
 
         if ($viewMode) {
@@ -1190,11 +1189,27 @@ class MediaManager extends WidgetBase
             $thumbnailParams['width'] . 'x' .
             $thumbnailParams['height'] . '_' .
             $thumbnailParams['mode'] . '.' .
-            $thumbnailParams['ext'];
+            $this->getThumbnailImageExtension($itemPath);
 
         $partition = implode('/', array_slice(str_split($itemSignature, 3), 0, 3)) . '/';
 
         return $this->getThumbnailDirectory().$partition.$thumbFile;
+    }
+
+    /**
+     * Preferred thumbnail image extension
+     * @param string $itemPath
+     * @return string
+     */
+    protected function getThumbnailImageExtension($itemPath)
+    {
+        $extension = pathinfo($itemPath, PATHINFO_EXTENSION);
+
+        if (in_array($extension, ['png', 'gif', 'webp'])) {
+            return $extension;
+        }
+
+        return 'jpg';
     }
 
     /**
@@ -1296,52 +1311,59 @@ class MediaManager extends WidgetBase
         $markup = null;
 
         try {
-            /*
-             * Get and validate input data
-             */
             $path = $thumbnailInfo['path'];
-            $width = $thumbnailInfo['width'];
-            $height = $thumbnailInfo['height'];
-            $lastModified = $thumbnailInfo['lastModified'];
 
-            if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
-                throw new ApplicationException('Invalid input data');
+            if ($this->isVector($path)) {
+                $markup = $this->makePartial('thumbnail-image', [
+                    'isError' => false,
+                    'imageUrl' => Url::to(config('cms.storage.media.path') . $thumbnailInfo['path'])
+                ]);
+            } else {
+                /*
+                 * Get and validate input data
+                 */
+                $width = $thumbnailInfo['width'];
+                $height = $thumbnailInfo['height'];
+                $lastModified = $thumbnailInfo['lastModified'];
+
+                if (!is_numeric($width) || !is_numeric($height) || !is_numeric($lastModified)) {
+                    throw new ApplicationException('Invalid input data');
+                }
+
+                if (!$thumbnailParams) {
+                    $thumbnailParams = $this->getThumbnailParams();
+                    $thumbnailParams['width'] = $width;
+                    $thumbnailParams['height'] = $height;
+                }
+
+                $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
+                $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
+
+                /*
+                 * Save the file locally
+                 */
+                $library = MediaLibrary::instance();
+                $tempFilePath = $this->getLocalTempFilePath($path);
+
+                if (!@File::put($tempFilePath, $library->get($path))) {
+                    throw new SystemException('Error saving remote file to a temporary location');
+                }
+
+                /*
+                 * Resize the thumbnail and save to the thumbnails directory
+                 */
+                $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
+
+                /*
+                 * Delete the temporary file
+                 */
+                File::delete($tempFilePath);
+                $markup = $this->makePartial('thumbnail-image', [
+                    'isError' => false,
+                    'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
+                ]);
             }
-
-            if (!$thumbnailParams) {
-                $thumbnailParams = $this->getThumbnailParams();
-                $thumbnailParams['width'] = $width;
-                $thumbnailParams['height'] = $height;
-            }
-
-            $thumbnailPath = $this->getThumbnailImagePath($thumbnailParams, $path, $lastModified);
-            $fullThumbnailPath = temp_path(ltrim($thumbnailPath, '/'));
-
-            /*
-             * Save the file locally
-             */
-            $library = MediaLibrary::instance();
-            $tempFilePath = $this->getLocalTempFilePath($path);
-
-            if (!@File::put($tempFilePath, $library->get($path))) {
-                throw new SystemException('Error saving remote file to a temporary location');
-            }
-
-            /*
-             * Resize the thumbnail and save to the thumbnails directory
-             */
-            $this->resizeImage($fullThumbnailPath, $thumbnailParams, $tempFilePath);
-
-            /*
-             * Delete the temporary file
-             */
-            File::delete($tempFilePath);
-            $markup = $this->makePartial('thumbnail-image', [
-                'isError' => false,
-                'imageUrl' => $this->getThumbnailImageUrl($thumbnailPath)
-            ]);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             if ($tempFilePath) {
                 File::delete($tempFilePath);
             }
@@ -1852,4 +1874,14 @@ class MediaManager extends WidgetBase
             'folder' => $targetFolder
         ];
    }
+
+    /**
+     * Detect if image is vector graphic (SVG)
+     * @param string $path
+     * @return boolean
+     */
+    protected function isVector($path)
+    {
+        return (pathinfo($path, PATHINFO_EXTENSION) == 'svg');
+    }
 }
