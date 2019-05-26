@@ -429,6 +429,7 @@ return [
         'manage_mail_templates' => 'Manage mail templates',
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
+        'impersonate_users' => 'Impersonate users',
         'manage_preferences' => 'Manage backend preferences',
         'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
@@ -454,6 +455,12 @@ return [
         'custom_error' => [
             'label' => 'Page error',
             'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+        ],
+        'maintenance' => [
+            'label' => "We'll be right back!",
+            'help' => "We're currently down for maintenance, check back soon!",
+            'message' => "Message:",
+            'available_at' => "Try again after:",
         ],
     ],
     'pagination' => [

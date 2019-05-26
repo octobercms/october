@@ -7,6 +7,7 @@
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
         <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
+        <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
         <?php if ($toolbarButtons): ?>data-toolbar-buttons="<?= implode(',', $toolbarButtons) ?>"
         <?php elseif ($globalToolbarButtons): ?>data-toolbar-buttons="<?= str_replace(" ", "", $globalToolbarButtons) ?>"<?php endif ?>

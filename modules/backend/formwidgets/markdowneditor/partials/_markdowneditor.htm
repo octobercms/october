@@ -9,6 +9,7 @@
         data-view-mode="<?= $mode ?>"
         data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
         data-media-manager-alias="<?= $mediaManagerAlias ?>"
+        <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
     >
 
         <div class="control-toolbar editor-toolbar"></div>

@@ -114,10 +114,6 @@
             this.uploaderOptions.previewTemplate = $(this.options.template).html()
         }
 
-        if (this.options.uniqueId) {
-            this.uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
-        }
-
         this.uploaderOptions.thumbnailWidth = this.options.thumbnailWidth
             ? this.options.thumbnailWidth : null
 
@@ -192,6 +188,7 @@
 
     FileUpload.prototype.onUploadSending = function(file, xhr, formData) {
         this.addExtraFormData(formData)
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     FileUpload.prototype.onUploadSuccess = function(file, response) {
@@ -428,6 +425,7 @@
 
     FileUpload.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         configHandler: null,
         sortHandler: null,
         uniqueId: null,

@@ -76,7 +76,11 @@
 
                         <li>
                             <a href="<?= Backend::url('backend/auth/signout') ?>">
-                                <?= e(trans('backend::lang.account.sign_out')) ?>
+                                <?php if (\BackendAuth::isImpersonator()) : ?>
+                                    <?= e(trans('backend::lang.account.stop_impersonating')) ?>
+                                <?php else: ?>
+                                    <?= e(trans('backend::lang.account.sign_out')) ?>
+                                <?php endif; ?>
                             </a>
                         </li>
                     </ul>

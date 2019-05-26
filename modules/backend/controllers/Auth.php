@@ -120,7 +120,12 @@ class Auth extends Controller
      */
     public function signout()
     {
-        BackendAuth::logout();
+        if (BackendAuth::isImpersonator()) {
+            BackendAuth::stopImpersonate();
+        } else {
+            BackendAuth::logout();
+        }
+
         return Backend::redirect('backend');
     }
 

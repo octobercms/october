@@ -111,6 +111,7 @@ return [
         'plugin_label'  => 'Plugin',
         'unknown_plugin' => 'Plugin is verwijderd van het bestandssysteem.',
         'select_label' => 'Selecteer actie...',
+        'bulk_actions_label' => 'Bulk acties',
         'check_yes' => 'Ja',
         'check_no' => 'Nee',
         'unfrozen' => 'Updates ingeschakeld',
@@ -267,10 +268,10 @@ return [
             'thanks' => 'Bedankt'
         ],
         'fields' => [
-            '_section_background' => 'Achtergrondkleur',
+            '_section_background' => 'Achtergrond',
             'body_bg' => 'Body',
             'content_bg' => 'Inhoud',
-            'content_inner_bg' => 'Binnenste inhoud ',
+            'content_inner_bg' => 'Binnenste inhoud',
             '_section_buttons' => 'Knoppen',
             'button_text_color' => 'Knoptekst',
             'button_primary_bg' => 'Primaire knop',
@@ -282,13 +283,13 @@ return [
             'text_color' => 'Tekst',
             'link_color' => 'Hyperlinks',
             'footer_color' => 'Footer',
-            '_section_borders' => 'Randkleur',
+            '_section_borders' => 'Randen',
             'body_border_color' => 'Inhoud',
             'subcopy_border_color' => 'Voettekst',
             'table_border_color' => 'Tabellen',
             '_section_components' => 'Componenten',
-            'panel_bg' => 'Paneel',
-            'promotion_bg' => 'Promotie',
+            'panel_bg' => 'Paneel achtergrond',
+            'promotion_bg' => 'Promotie achtergrond',
             'promotion_border_color' => 'Promotie randkleur',
         ]
     ],
@@ -304,7 +305,7 @@ return [
     'updates' => [
         'title' => 'Beheer updates',
         'name' => 'Applicatie-update',
-        'menu_label' => 'Updates',
+        'menu_label' => 'Updates & Plugins',
         'menu_description' => "Update het systeem, beheer en installeer plugins en thema's.",
         'return_link' => 'Terug naar updates',
         'check_label' => 'Controleer op updates',
@@ -428,6 +429,7 @@ return [
         'manage_preferences' => 'Beheer back-end instellingen',
         'manage_editor' => 'Beheer code editor instellingen',
         'view_the_dashboard' => 'Toon dashboard',
+        'manage_default_dashboard' => 'Beheer het standaard dashboard',
         'manage_branding' => 'Back-end aanpassen',
     ],
     'log' => [
@@ -444,5 +446,9 @@ return [
     'media' => [
         'invalid_path' => 'Ongeldig pad opgegeven: \':path\'.',
         'folder_size_items' => 'item(s)',
+    ],
+    'pagination' => [
+        'previous' => 'Vorige',
+        'next' => 'Volgende',
     ],
 ];

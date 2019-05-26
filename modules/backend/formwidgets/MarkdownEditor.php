@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Widgets\MediaManager;
+use BackendAuth;
 use Markdown;
 use Backend\Classes\FormWidgetBase;
 
@@ -75,6 +76,7 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['mediaManagerAlias'] = $this->mediaManagerWidget->alias;
+        $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
     }
 
     /**
