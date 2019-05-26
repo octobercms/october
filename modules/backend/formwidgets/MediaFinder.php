@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Backend\Widgets\MediaManager;
 use System\Classes\MediaLibrary;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
@@ -52,6 +53,11 @@ class MediaFinder extends FormWidgetBase
     protected $defaultAlias = 'media';
 
     /**
+     * @var MediaManager Media manager widget
+     */
+    protected $mediaManagerWidget;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -66,6 +72,9 @@ class MediaFinder extends FormWidgetBase
         if ($this->formField->disabled) {
             $this->previewMode = true;
         }
+
+        $this->mediaManagerWidget = $this->makeMediaManagerWidget();
+        $this->mediaManagerWidget->bindToController();
     }
 
     /**
@@ -94,6 +103,7 @@ class MediaFinder extends FormWidgetBase
         $this->vars['mode'] = $this->mode;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['imageHeight'] = $this->imageHeight;
+        $this->vars['mediaManagerAlias'] = $this->mediaManagerWidget->alias;
     }
 
     /**
@@ -115,5 +125,18 @@ class MediaFinder extends FormWidgetBase
     {
         $this->addJs('js/mediafinder.js', 'core');
         $this->addCss('css/mediafinder.css', 'core');
+    }
+
+    /**
+     * Prepare a media manager widget
+     *
+     * @return MediaManager
+     */
+    protected function makeMediaManagerWidget()
+    {
+        $alias = $this->alias . 'MediaManager';
+        $widget = new MediaManager($this->controller, $alias, $this->formField->readOnly);
+
+        return $widget;
     }
 }

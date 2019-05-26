@@ -51,7 +51,8 @@
         tableStyles: null,
         tableCellStyles: null,
         aceVendorPath: '/',
-        readOnly: false
+        readOnly: false,
+        mediaManagerAlias: null
     }
 
     RichEditor.prototype.init = function() {
@@ -79,7 +80,8 @@
             fullPage: this.options.fullpage,
             pageLinksHandler: this.options.linksHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
-            toolbarSticky: false
+            toolbarSticky: false,
+            mediaManagerAlias: this.options.mediaManagerAlias
         }
 
         if (this.options.toolbarButtons) {
@@ -159,7 +161,7 @@
             'X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD': 1
         }
         froalaOptions.requestHeaders = {
-            'X-OCTOBER-REQUEST-HANDLER': 'ocmediamanager::onUpload',
+            'X-OCTOBER-REQUEST-HANDLER': this.options.mediaManagerAlias + '::onUpload',
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             'X-Requested-With': 'XMLHttpRequest'
         }

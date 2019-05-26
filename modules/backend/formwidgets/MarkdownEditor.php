@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Backend\Widgets\MediaManager;
 use Markdown;
 use Backend\Classes\FormWidgetBase;
 
@@ -36,6 +37,11 @@ class MarkdownEditor extends FormWidgetBase
     protected $defaultAlias = 'markdown';
 
     /**
+     * @var MediaManager Media manager widget
+     */
+    protected $mediaManagerWidget;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -44,6 +50,9 @@ class MarkdownEditor extends FormWidgetBase
             'mode',
             'safe',
         ]);
+
+        $this->mediaManagerWidget = $this->makeMediaManagerWidget();
+        $this->mediaManagerWidget->bindToController();
     }
 
     /**
@@ -65,6 +74,7 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
+        $this->vars['mediaManagerAlias'] = $this->mediaManagerWidget->alias;
     }
 
     /**
@@ -87,5 +97,18 @@ class MarkdownEditor extends FormWidgetBase
         return [
             'preview' => $previewHtml
         ];
+    }
+
+    /**
+     * Prepare a media manager widget
+     *
+     * @return MediaManager
+     */
+    protected function makeMediaManagerWidget()
+    {
+        $alias = $this->alias . 'MediaManager';
+        $widget = new MediaManager($this->controller, $alias, $this->formField->readOnly);
+
+        return $widget;
     }
 }

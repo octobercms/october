@@ -7,7 +7,9 @@
         data-control="markdowneditor"
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-view-mode="<?= $mode ?>"
-        data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">
+        data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
+        data-media-manager-alias="<?= $mediaManagerAlias ?>"
+    >
 
         <div class="control-toolbar editor-toolbar"></div>
 

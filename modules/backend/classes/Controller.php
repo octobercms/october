@@ -158,14 +158,6 @@ class Controller extends ControllerBase
          */
         $this->user = BackendAuth::getUser();
 
-        /*
-         * Media Manager widget is available on all back-end pages
-         */
-        if ($this->user && $this->user->hasAccess('media.*')) {
-            $manager = new MediaManager($this, 'ocmediamanager');
-            $manager->bindToController();
-        }
-
         $this->extendableConstruct();
     }
 

@@ -4,7 +4,7 @@
 
         function onInsertFile() {
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager',
+                alias: editor.opts.mediaManagerAlias,
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
@@ -50,7 +50,7 @@
                 range = editor.selection.ranges(0);
 
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager',
+                alias: editor.opts.mediaManagerAlias,
                 cropAndInsertButton: true,
                 onInsert: function(items) {
                     editor.selection.clear();
@@ -87,7 +87,7 @@
 
         function onInsertVideo() {
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager',
+                alias: editor.opts.mediaManagerAlias,
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {
@@ -118,7 +118,7 @@
 
         function onInsertAudio() {
             new $.oc.mediaManager.popup({
-                alias: 'ocmediamanager',
+                alias: editor.opts.mediaManagerAlias,
                 cropAndInsertButton: false,
                 onInsert: function(items) {
                     if (!items.length) {

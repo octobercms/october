@@ -510,7 +510,7 @@
         var self = this
 
         new $.oc.mediaManager.popup({
-            alias: 'ocmediamanager',
+            alias: this.options.mediaManagerAlias,
             cropAndInsertButton: true,
             onInsert: function(items) {
                 if (!items.length) {
@@ -674,7 +674,8 @@
         vendorPath: '/',
         refreshHandler: null,
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
-        viewMode: 'tab'
+        viewMode: 'tab',
+        mediaManagerAlias: null
     }
 
     // PLUGIN DEFINITION

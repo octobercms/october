@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use App;
+use Backend\Widgets\MediaManager;
 use File;
 use Event;
 use Lang;
@@ -46,6 +47,11 @@ class RichEditor extends FormWidgetBase
     protected $defaultAlias = 'richeditor';
 
     /**
+     * @var MediaManager Media manager widget
+     */
+    protected $mediaManagerWidget;
+
+    /**
      * @inheritDoc
      */
     public function init()
@@ -59,6 +65,9 @@ class RichEditor extends FormWidgetBase
             'readOnly',
             'toolbarButtons',
         ]);
+
+        $this->mediaManagerWidget = $this->makeMediaManagerWidget();
+        $this->mediaManagerWidget->bindToController();
     }
 
     /**
@@ -84,6 +93,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+        $this->vars['mediaManagerAlias'] = $this->mediaManagerWidget->alias;
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
@@ -252,5 +262,18 @@ class RichEditor extends FormWidgetBase
         }
 
         return $links;
+    }
+
+    /**
+     * Prepare a media manager widget
+     *
+     * @return MediaManager
+     */
+    protected function makeMediaManagerWidget()
+    {
+        $alias = $this->alias . 'MediaManager';
+        $widget = new MediaManager($this->controller, $alias, $this->formField->readOnly);
+
+        return $widget;
     }
 }

@@ -1,5 +1,5 @@
 
-(function($){$.FroalaEditor.PLUGINS.mediaManager=function(editor){function onInsertFile(){new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
+(function($){$.FroalaEditor.PLUGINS.mediaManager=function(editor){function onInsertFile(){new $.oc.mediaManager.popup({alias:editor.opts.mediaManagerAlias,cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
 return}
 if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
@@ -8,7 +8,7 @@ for(var i=0,len=items.length;i<len;i++){var text=textIsEmpty?items[i].title:text
 link=items[i].publicUrl}
 editor.events.focus(true);editor.selection.restore();editor.html.insert('<a href="'+link+'" id="fr-inserted-file" class="fr-file">'+text+'</a>');var $file=editor.$el.find('#fr-inserted-file');$file.removeAttr('id');editor.undo.saveStep()
 this.hide()}})}
-function onInsertImage(){var $currentImage=editor.image.get(),selection=editor.selection.get(),range=editor.selection.ranges(0);new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:true,onInsert:function(items){editor.selection.clear();selection.addRange(range);if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
+function onInsertImage(){var $currentImage=editor.image.get(),selection=editor.selection.get(),range=editor.selection.ranges(0);new $.oc.mediaManager.popup({alias:editor.opts.mediaManagerAlias,cropAndInsertButton:true,onInsert:function(items){editor.selection.clear();selection.addRange(range);if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_empty_insert'))
 return}
 var imagesInserted=0
 for(var i=0,len=items.length;i<len;i++){if(items[i].documentType!=='image'){$.oc.alert($.oc.lang.get('mediamanager.invalid_image_invalid_insert','The file "'+items[i].title+'" is not an image.'))
@@ -18,7 +18,7 @@ imagesInserted++
 if(imagesInserted==1){$currentImage=null}}
 if(imagesInserted!==0){this.hide()
 editor.undo.saveStep()}}})}
-function onInsertVideo(){new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_video_empty_insert'))
+function onInsertVideo(){new $.oc.mediaManager.popup({alias:editor.opts.mediaManagerAlias,cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_video_empty_insert'))
 return}
 if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
@@ -28,7 +28,7 @@ return}
 var $richEditorNode=editor.$el.closest('[data-control="richeditor"]')
 $richEditorNode.richEditor('insertVideo',item.publicUrl,item.title)
 this.hide()}})}
-function onInsertAudio(){new $.oc.mediaManager.popup({alias:'ocmediamanager',cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_audio_empty_insert'))
+function onInsertAudio(){new $.oc.mediaManager.popup({alias:editor.opts.mediaManagerAlias,cropAndInsertButton:false,onInsert:function(items){if(!items.length){$.oc.alert($.oc.lang.get('mediamanager.invalid_audio_empty_insert'))
 return}
 if(items.length>1){$.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
 return}
@@ -157,11 +157,11 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false,mediaManagerAlias:null}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
-RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
+RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false,mediaManagerAlias:this.options.mediaManagerAlias}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
 else{froalaOptions.toolbarButtons=$.oc.richEditorButtons}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
@@ -181,7 +181,7 @@ froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','out
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'
 froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={'X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD':1}
-froalaOptions.requestHeaders={'X-OCTOBER-REQUEST-HANDLER':'ocmediamanager::onUpload','X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),'X-Requested-With':'XMLHttpRequest'}
+froalaOptions.requestHeaders={'X-OCTOBER-REQUEST-HANDLER':this.options.mediaManagerAlias+'::onUpload','X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),'X-Requested-With':'XMLHttpRequest'}
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()

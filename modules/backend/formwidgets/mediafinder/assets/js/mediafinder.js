@@ -94,7 +94,7 @@
         var self = this
 
         new $.oc.mediaManager.popup({
-            alias: 'ocmediamanager',
+            alias: this.options.mediaManagerAlias,
             cropAndInsertButton: true,
             onInsert: function(items) {
                 if (!items.length) {
@@ -136,7 +136,8 @@
     MediaFinder.DEFAULTS = {
         isMulti: null,
         isPreview: null,
-        isImage: null
+        isImage: null,
+        mediaManagerAlias: null
     }
 
     // PLUGIN DEFINITION
