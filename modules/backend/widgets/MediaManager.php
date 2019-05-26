@@ -1496,6 +1496,7 @@ class MediaManager extends WidgetBase
      */
     public function onUpload()
     {
+        $this->abortIfReadOnly();
         $quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD');
 
         try {
