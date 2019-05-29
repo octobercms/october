@@ -168,7 +168,7 @@
             ? Infinity
             : $('.height-indicator', this.$el).height()
 
-        if (! this.options.useMediaManager) {
+        if (!this.options.useMediaManager) {
             delete $.FroalaEditor.PLUGINS.mediaManager
         }
 
