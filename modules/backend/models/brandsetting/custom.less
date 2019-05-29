@@ -54,6 +54,14 @@
 }
 
 //
+// Pages List
+//
+
+.control-treeview ol > li.active > div::after {
+    background: @brand-secondary;
+}
+
+//
 // Outside Layout
 //
 
@@ -81,7 +89,7 @@ table.table.data {
     tbody {
         tr.active td {
             &:first-child {
-                border-left: 3px solid @brand-secondary;
+                border-left-color: @brand-secondary;
             }
         }
         // tr:not(.no-data):hover td,
