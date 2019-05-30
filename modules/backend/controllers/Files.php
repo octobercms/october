@@ -1,6 +1,7 @@
 <?php namespace Backend\Controllers;
 
 use View;
+use Cache;
 use Backend;
 use Response;
 use System\Models\File as FileModel;
@@ -52,13 +53,53 @@ class Files extends Controller
     }
 
     /**
+     * Attempt to return a redirect to a temporary URL to the asset instead of streaming the asset - if supported
+     *
+     * @param System|Models\File $file
+     * @param string|null $path Optional, defaults to the getDiskPath() of the file
+     * @return string|null
+     */
+    protected static function getTemporaryUrl($file, $path = null)
+    {
+        // Get the disk and adapter used
+        $url = null;
+        $disk = $file->getDisk();
+        $adapter = $disk->getAdapter();
+        if (is_a($adapter, 'League\Flysystem\Cached\CachedAdapter')) {
+            $adapter = $adapter->getAdapter();
+        }
+
+        if (is_a($adapter, 'League\Flysystem\AwsS3v3\AwsS3Adapter') ||
+            is_a($adapter, 'League\Flysystem\Rackspace\RackspaceAdapter') ||
+            method_exists($adapter, 'getTemporaryUrl')
+        ) {
+            if (empty($path)) {
+                $path = $file->getDiskPath();
+            }
+            $expires = now()->addMinutes(60);
+
+            $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
+                return $disk->temporaryUrl($path, $expires);
+            });
+        }
+
+        return $url;
+    }
+
+    /**
      * Returns the URL for downloading a system file.
      * @param $file System\Models\File
      * @return string
      */
     public static function getDownloadUrl($file)
     {
-        return Backend::url('backend/files/get/' . self::getUniqueCode($file));
+        $url = static::getTemporaryUrl($file);
+
+        if (!empty($url)) {
+            return $url;
+        } else {
+            return Backend::url('backend/files/get/' . self::getUniqueCode($file));
+        }
     }
 
     /**
@@ -71,7 +112,13 @@ class Files extends Controller
      */
     public static function getThumbUrl($file, $width, $height, $options)
     {
-        return Backend::url('backend/files/thumb/' . self::getUniqueCode($file)) . '/' . $width . '/' . $height . '/' . $options['mode'] . '/' . $options['extension'];
+        $url = static::getTemporaryUrl($file, $file->getDiskPath($file->getThumbFilename($width, $height, $options)));
+
+        if (!empty($url)) {
+            return $url;
+        } else {
+            return Backend::url('backend/files/thumb/' . self::getUniqueCode($file)) . '/' . $width . '/' . $height . '/' . $options['mode'] . '/' . $options['extension'];
+        }
     }
 
     /**
