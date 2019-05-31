@@ -1609,6 +1609,16 @@ class Lists extends WidgetBase
     }
 
     /**
+     * Event handler to apply the list set up.
+     */
+    public function onResetSetup()
+    {
+        $this->clearUserPreference('visible');
+        $this->clearUserPreference('per_page');
+        return $this->onRefresh();
+    }
+
+    /**
      * Returns an array of allowable records per page.
      */
     protected function getSetupPerPageOptions()
