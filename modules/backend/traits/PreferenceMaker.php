@@ -24,12 +24,12 @@ trait PreferenceMaker
      * @param mixed $value The value to store.
      * @return void
      */
-    protected function putUserPreference(string $key, $value): void
+    public function putUserPreference(string $key, $value): void
     {
         $preferences = $this->getUserPreferences();
         $preferences[$key] = $value;
 
-        UserPreference::forUser()->set($this->getPreferenceKey(), $preferences);
+        $this->getStorage()::forUser()->set($this->getPreferenceKey(), $preferences);
 
         // Re-cache user preferences
         self::$preferenceCache[$this->getPreferenceKey()] = $preferences;
@@ -42,7 +42,7 @@ trait PreferenceMaker
      * @param mixed $default A default value to use when value is not found.
      * @return mixed
      */
-    protected function getUserPreference(string $key = null, $default = null)
+    public function getUserPreference(string $key = null, $default = null)
     {
         $preferences = $this->getUserPreferences();
 
@@ -58,18 +58,56 @@ trait PreferenceMaker
      *
      * @return array
      */
-    protected function getUserPreferences(): array
+    public function getUserPreferences(): array
     {
         if (isset(self::$preferenceCache[$this->getPreferenceKey()])) {
             return self::$preferenceCache[$this->getPreferenceKey()];
         }
 
-        $preferences = UserPreference::forUser()->get($this->getPreferenceKey(), []);
+        $preferences = $this->getStorage()::forUser()->get($this->getPreferenceKey(), []);
 
         // Cache user preferences
         self::$preferenceCache[$this->getPreferenceKey()] = $preferences;
 
         return $preferences;
+    }
+
+    /**
+     * Clears a single preference key from the user preferences for this controller/widget.
+     *
+     * @param string $key Unique key for the data store.
+     * @return void
+     */
+    public function clearUserPreference(string $key): void
+    {
+        $preferences = $this->getUserPreferences();
+
+        if (isset($preferences[$key])) {
+            unset($preferences[$key]);
+
+            if (count($preferences)) {
+                $this->getStorage()::forUser()->set($this->getPreferenceKey(), $preferences);
+            } else {
+                // Remove record from user preferences
+                $this->clearUserPreferences();
+            }
+        }
+
+        // Re-cache user preferences
+        self::$preferenceCache[$this->getPreferenceKey()] = $preferences;
+    }
+
+    /**
+     * Clears a single preference key from the user preferences for this controller/widget.
+     *
+     * @param string $key Unique key for the data store.
+     * @return void
+     */
+    public function clearUserPreferences(): void
+    {
+        $this->getStorage()::forUser()->reset($this->getPreferenceKey());
+
+        self::$preferenceCache[$this->getPreferenceKey()] = [];
     }
 
     /**
@@ -90,5 +128,10 @@ trait PreferenceMaker
 
         // The controller action is intentionally omitted, session should be shared for all actions
         return $rootNamespace . '::' . strtolower(class_basename($controller)) . '.' . strtolower($uniqueId);
+    }
+
+    protected function getStorage()
+    {
+        return UserPreference::class;
     }
 }
