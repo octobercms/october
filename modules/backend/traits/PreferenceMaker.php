@@ -98,9 +98,8 @@ trait PreferenceMaker
     }
 
     /**
-     * Clears a single preference key from the user preferences for this controller/widget.
+     * Clears all user preferences for this controller/widget.
      *
-     * @param string $key Unique key for the data store.
      * @return void
      */
     public function clearUserPreferences(): void
