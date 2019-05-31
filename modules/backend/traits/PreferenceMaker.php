@@ -29,7 +29,7 @@ trait PreferenceMaker
         $preferences = $this->getUserPreferences();
         $preferences[$key] = $value;
 
-        $this->getStorage()::forUser()->set($this->getPreferenceKey(), $preferences);
+        $this->getPreferenceStorage()->set($this->getPreferenceKey(), $preferences);
 
         // Re-cache user preferences
         self::$preferenceCache[$this->getPreferenceKey()] = $preferences;
@@ -64,7 +64,7 @@ trait PreferenceMaker
             return self::$preferenceCache[$this->getPreferenceKey()];
         }
 
-        $preferences = $this->getStorage()::forUser()->get($this->getPreferenceKey(), []);
+        $preferences = $this->getPreferenceStorage()::forUser()->get($this->getPreferenceKey(), []);
 
         // Cache user preferences
         self::$preferenceCache[$this->getPreferenceKey()] = $preferences;
@@ -86,7 +86,7 @@ trait PreferenceMaker
             unset($preferences[$key]);
 
             if (count($preferences)) {
-                $this->getStorage()::forUser()->set($this->getPreferenceKey(), $preferences);
+                $this->getPreferenceStorage()::forUser()->set($this->getPreferenceKey(), $preferences);
             } else {
                 // Remove record from user preferences
                 $this->clearUserPreferences();
@@ -104,7 +104,7 @@ trait PreferenceMaker
      */
     public function clearUserPreferences(): void
     {
-        $this->getStorage()::forUser()->reset($this->getPreferenceKey());
+        $this->getPreferenceStorage()::forUser()->reset($this->getPreferenceKey());
 
         self::$preferenceCache[$this->getPreferenceKey()] = [];
     }
@@ -129,8 +129,8 @@ trait PreferenceMaker
         return $rootNamespace . '::' . strtolower(class_basename($controller)) . '.' . strtolower($uniqueId);
     }
 
-    protected function getStorage()
+    protected function getPreferenceStorage()
     {
-        return UserPreference::class;
+        return UserPreference::forUser();
     }
 }
