@@ -2,6 +2,7 @@
 
 use View;
 use Cache;
+use Config;
 use Backend;
 use Response;
 use System\Models\File as FileModel;
@@ -65,18 +66,18 @@ class Files extends Controller
         $url = null;
         $disk = $file->getDisk();
         $adapter = $disk->getAdapter();
-        if (is_a($adapter, 'League\Flysystem\Cached\CachedAdapter')) {
+        if ($adapter instanceof \League\Flysystem\Cached\CachedAdapter) {
             $adapter = $adapter->getAdapter();
         }
 
-        if (is_a($adapter, 'League\Flysystem\AwsS3v3\AwsS3Adapter') ||
-            is_a($adapter, 'League\Flysystem\Rackspace\RackspaceAdapter') ||
+        if (($adapter instanceof \League\Flysystem\AwsS3v3\AwsS3Adapter) ||
+            ($adapter instanceof \League\Flysystem\Rackspace\RackspaceAdapter) ||
             method_exists($adapter, 'getTemporaryUrl')
         ) {
             if (empty($path)) {
                 $path = $file->getDiskPath();
             }
-            $expires = now()->addMinutes(60);
+            $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
 
             $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
                 return $disk->temporaryUrl($path, $expires);
