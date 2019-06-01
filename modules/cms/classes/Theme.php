@@ -513,7 +513,7 @@ class Theme
      */
     public static function databaseLayerEnabled()
     {
-        $enableDbLayer = Config::get('cms.enableDatabaseLayer', false);
+        $enableDbLayer = Config::get('cms.databaseTemplates', false);
         if (is_null($enableDbLayer)) {
             $enableDbLayer = !Config::get('app.debug', false);
         }

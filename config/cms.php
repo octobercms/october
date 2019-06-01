@@ -56,7 +56,7 @@ return [
     | Back-end login remember
     |--------------------------------------------------------------------------
     |
-    | Define live duration of backend sessions :
+    | Define live duration of backend sessions:
     |
     | true  - session never expire (cookie expiration in 5 years)
     |
@@ -213,6 +213,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database-driven Themes
+    |--------------------------------------------------------------------------
+    |
+    | Stores theme templates in the database instead of the filesystem.
+    |
+    | false - All theme templates are sourced from the filesystem.
+    |
+    | true  - Source theme templates from the database with fallback to the filesytem.
+    |
+    | null  - Setting equal to the inverse of app.debug: debug enabled, this disabled.
+    |
+    | The database layer stores all modified CMS files in the database. Files that are
+    | not modified continue to be loaded from the filesystem. The `theme:sync $themeDir`
+    | console command is available to populate the database from the filesystem with
+    | the `--toFile` flag to sync in the other direction (database to filesystem) and
+    | the `--paths="/path/to/file.md,/path/to/file2.md" flag to sync only specific files.
+    |
+    | Files modified in the database are cached to indicate that they should be loaded
+    | from the database.
+    |
+    */
+
+    'databaseTemplates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Public plugins path
     |--------------------------------------------------------------------------
     |
@@ -346,20 +372,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Twig Strict Variables
     |--------------------------------------------------------------------------
     |
-    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | If strict_variables is disabled, Twig will silently ignore invalid
     | variables (variables and or attributes/methods that do not exist) and
     | replace them with a null value. When enabled, Twig throws an exception
     | instead. If set to null, it is enabled when debug mode (app.debug) is
     | enabled.
     |
     */
-    
+
     'enableTwigStrictVariables' => false,
 
     /*
@@ -380,31 +406,5 @@ return [
     */
 
     'restrictBaseDir' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | CMS Database Layer
-    |--------------------------------------------------------------------------
-    |
-    | Enables the database layer for the CMS content files. 
-    |
-    | Allowed values:
-    |  - false: Database layer is disabled, the FileDatasource is used
-    |  - true: Database layer is enabled, the AutoDatasource is used 
-    |  - null: Setting equal to the inverse of app.debug: debug enabled, this disabled
-    |
-    | The database layer stores all modified CMS files in the database. 
-    | Files that are not modified continue to be loaded from the filesystem.
-    | The `theme:sync $themeDir` console command is available to populate the 
-    | database from the filesystem with the `--toFile` flag to sync in the
-    | other direction (database to filesystem) and the `--paths="/path/to/file.md,/path/to/file2.md"
-    | flag to sync only specific files.
-    |
-    | Files modified in the database are cached to indicate that they should
-    | be loaded from the database. 
-    |
-    */
-
-    'enableDatabaseLayer' => false,
 
 ];

@@ -72,7 +72,7 @@ class ThemeSync extends Command
 
         // Check to see if the DB layer is enabled
         if (!Theme::databaseLayerEnabled()) {
-            return $this->error("cms.enableDatabaseLayer is not enabled, enable it first and try again.");
+            return $this->error("cms.databaseTemplates is not enabled, enable it first and try again.");
         }
 
         // Check to see if the provided theme exists
