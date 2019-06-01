@@ -1,0 +1,8 @@
+<?php if (isset($lastModified)): ?>
+    <span
+        class="btn empty oc-icon-calendar"
+        title="<?= e(trans('backend::lang.media.last_modified')) ?>: <?= $lastModified ?>"
+        data-toggle="tooltip"
+        data-placement="right">
+    </span>
+<?php endif; ?>
