@@ -3,11 +3,11 @@
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class DbCmsThemeContents extends Migration
+class DbCmsThemeTemplates extends Migration
 {
     public function up()
     {
-        Schema::create('cms_theme_contents', function (Blueprint $table) {
+        Schema::create('cms_theme_templates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('source')->index();
@@ -21,6 +21,6 @@ class DbCmsThemeContents extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cms_theme_contents');
+        Schema::dropIfExists('cms_theme_templates');
     }
 }

@@ -532,7 +532,7 @@ class Theme
         if (!$resolver->hasDatasource($this->dirName)) {
             if (static::databaseLayerEnabled()) {
                 $datasource = new AutoDatasource([
-                    'database'   => new DbDatasource($this->dirName, 'cms_theme_contents'),
+                    'database'   => new DbDatasource($this->dirName, 'cms_theme_templates'),
                     'filesystem' => new FileDatasource($this->getPath(), App::make('files')),
                 ]);
             } else {
