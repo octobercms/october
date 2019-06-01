@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * - name defaults to the currently active theme
  * - --paths defaults to all paths within the theme, otherwise comma-separated list of paths relative to the theme directory
- * - --target defaults to "database", the source will whichever of filesystem vs database is not the target
+ * - --target defaults to "filesystem", the source will whichever of filesystem vs database is not the target
  * - --force bypasses the confirmation request
  *
  * @package october\system
@@ -90,13 +90,13 @@ class ThemeSync extends Command
 
         // Get the target and source datasources
         $availableSources = ['filesystem', 'database'];
-        $target = $this->option('target') ?: 'database';
+        $target = $this->option('target') ?: 'filesystem';
         $source = 'filesystem';
         if ($target === 'filesystem') {
             $source = 'database';
         }
         if (!in_array($target, $availableSources)) {
-            return $this->error(sprintf("Provided --target of %s is invalid. Allowed: database, filesystem", $target));
+            return $this->error(sprintf("Provided --target of %s is invalid. Allowed: filesystem, database", $target));
         }
         $this->source = $source;
         $this->target = $target;
@@ -107,7 +107,8 @@ class ThemeSync extends Command
 
         if (!isset($userPaths)) {
             $paths = $themePaths;
-        } else {
+        }
+        else {
             $paths = [];
             $userPaths = array_map('trim', explode(',', $userPaths));
 
@@ -121,8 +122,6 @@ class ThemeSync extends Command
                 }
             }
         }
-        unset($userPaths);
-        unset($themePaths);
 
         // Determine valid paths based on the models made available for syncing
         $validPaths = [];
@@ -144,24 +143,22 @@ class ThemeSync extends Command
          *     });
          *
          */
-        $results = Event::fire('system.console.theme.sync.getAvailableModelClasses');
+        $eventResults = Event::fire('system.console.theme.sync.getAvailableModelClasses');
         $validModels = [];
 
-        foreach ($results as $result) {
-            if (!is_iterable($result)) {
+        foreach ($eventResults as $result) {
+            if (!is_array($result)) {
                 continue;
             }
 
-            foreach ($result as $model) {
-                $class = new $model;
+            foreach ($result as $modelClass) {
+                $modelObj = new $modelClass;
 
-                if ($class instanceof \October\Rain\Halcyon\Model) {
-                    $validModels[] = $class;
+                if ($modelObj instanceof \October\Rain\Halcyon\Model) {
+                    $validModels[] = $modelObj;
                 }
             }
-            unset($class);
         }
-        unset($results);
 
         // Check each path and map it to a corresponding model
         foreach ($paths as $path) {
@@ -178,8 +175,6 @@ class ThemeSync extends Command
                 }
             }
         }
-        unset($paths);
-        unset($validModels);
 
         if (count($validPaths) === 0) {
             return $this->error(sprintf('No applicable paths found for %s.', $source));
@@ -205,7 +200,6 @@ class ThemeSync extends Command
                 $this->datasource->pushToSource($entity, $target);
                 $progress->advance();
             }
-            unset($validPaths);
 
             $progress->finish();
             $this->info('');
@@ -225,13 +219,18 @@ class ThemeSync extends Command
      * @param \Cms\Classes\Theme $theme
      * @return \October\Rain\Halycon\Model
      */
-    protected function getModelForPath(string $path, string $model, \Cms\Classes\Theme $theme)
+    protected function getModelForPath($path, $modelClass, $theme)
     {
         $originalSource = $this->datasource->activeDatasourceKey;
         $this->datasource->activeDatasourceKey = $this->source;
 
-        $class = new $model;
-        $entity = $model::load($theme, str_replace($class->getObjectTypeDirName() . '/', '', $path));
+        $modelObj = new $modelClass;
+
+        $entity = $modelClass::load(
+            $theme,
+            str_replace($modelObj->getObjectTypeDirName() . '/', '', $path)
+        );
+
         if (!isset($entity)) {
             return null;
         }
@@ -260,7 +259,7 @@ class ThemeSync extends Command
     {
         return [
             ['paths', null, InputOption::VALUE_REQUIRED, 'Comma-separated specific paths (relative to provided theme directory) to specificaly sync. Default is all paths. You may use regular expressions.'],
-            ['target', null, InputOption::VALUE_REQUIRED, 'The target of the sync, the other will be used as the source. Defaults to "database", can be "filesystem"'],
+            ['target', null, InputOption::VALUE_REQUIRED, 'The target of the sync, the other will be used as the source. Defaults to "filesystem", can be "database"'],
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
         ];
     }
