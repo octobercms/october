@@ -86,10 +86,10 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     this.error(jqXHR, textStatus, errorThrown).done(function(){
-                        self.hide()
                         if (self.isLoading) {
-                            self.setLoading(false)
-                            setTimeout(function(){ self.setBackdrop(false) }, 100)
+                            self.hideLoading();
+                        } else {
+                            self.hide()
                         }
                         self.triggerEvent('popupError') // Deprecated
                         self.triggerEvent('error.oc.popup')
