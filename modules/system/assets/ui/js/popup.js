@@ -22,6 +22,7 @@
         this.$modal     = null
         this.$backdrop  = null
         this.isOpen     = false
+        this.isLoading  = false
         this.firstDiv   = null
         this.allowHide  = true
 
@@ -86,6 +87,10 @@
                 error: function(jqXHR, textStatus, errorThrown) {
                     this.error(jqXHR, textStatus, errorThrown).done(function(){
                         self.hide()
+                        if (self.isLoading) {
+                            self.setLoading(false)
+                            setTimeout(function(){ self.setBackdrop(false) }, 100)
+                        }
                         self.triggerEvent('popupError') // Deprecated
                         self.triggerEvent('error.oc.popup')
                     })
@@ -178,7 +183,7 @@
         this.$modal = null
         this.$el = null
 
-        // In some cases options could contain callbacks, 
+        // In some cases options could contain callbacks,
         // so it's better to clean them up too.
         this.options = null
 
@@ -248,6 +253,8 @@
     Popup.prototype.setLoading = function(val) {
         if (!this.$backdrop)
             return;
+
+        this.isLoading = val
 
         var self = this
         if (val) {

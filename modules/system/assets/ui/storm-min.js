@@ -3723,6 +3723,7 @@ this.$container=null
 this.$modal=null
 this.$backdrop=null
 this.isOpen=false
+this.isLoading=false
 this.firstDiv=null
 this.allowHide=true
 this.$container=this.createPopupContainer()
@@ -3744,6 +3745,8 @@ if(this.options.handler){this.$el.request(this.options.handler,{data:paramToObj(
 $(window).trigger('ajaxUpdateComplete',[this,data,textStatus,jqXHR])
 self.triggerEvent('popupComplete')
 self.triggerEvent('complete.oc.popup')})},error:function(jqXHR,textStatus,errorThrown){this.error(jqXHR,textStatus,errorThrown).done(function(){self.hide()
+if(self.isLoading){self.setLoading(false)
+setTimeout(function(){self.setBackdrop(false)},100)}
 self.triggerEvent('popupError')
 self.triggerEvent('error.oc.popup')})}})}
 else if(this.options.ajax){$.ajax({url:this.options.ajax,data:paramToObj('data-extra-data',this.options.extraData),success:function(data){self.setContent(data)},cache:false})}
@@ -3806,7 +3809,8 @@ this.$backdrop.append($('<div class="modal-content popup-loading-indicator" />')
 else if(!val&&this.$backdrop){this.$backdrop.remove()
 this.$backdrop=null}}
 Popup.prototype.setLoading=function(val){if(!this.$backdrop)
-return;var self=this
+return;this.isLoading=val
+var self=this
 if(val){setTimeout(function(){self.$backdrop.addClass('loading');},100)}
 else{setTimeout(function(){self.$backdrop.removeClass('loading');},100)}}
 Popup.prototype.setShake=function(){var self=this
