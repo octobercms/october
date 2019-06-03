@@ -278,14 +278,20 @@ return [
     | folder - a folder prefix for storing all generated files inside.
     | path   - the public path relative to the application base URL,
     |          or you can specify a full URL path.
+    |
+    | Optionally, you can specify how long temporary URLs to protected files
+    | in cloud storage (ex. AWS, RackSpace) are valid for by setting
+    | temporaryUrlTTL to a value in seconds to define a validity period. This
+    | is only used for the 'uploads' config when using a supported cloud disk
     */
 
     'storage' => [
 
         'uploads' => [
-            'disk'   => 'local',
-            'folder' => 'uploads',
-            'path'   => '/storage/app/uploads',
+            'disk'            => 'local',
+            'folder'          => 'uploads',
+            'path'            => '/storage/app/uploads',
+            'temporaryUrlTTL' => 3600,
         ],
 
         'media' => [
