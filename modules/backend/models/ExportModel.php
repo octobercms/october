@@ -7,6 +7,8 @@ use Response;
 use League\Csv\Writer as CsvWriter;
 use ApplicationException;
 use SplTempFileObject;
+use Cache;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Model used for exporting data
@@ -53,16 +55,17 @@ abstract class ExportModel extends Model
      */
     public function download($name, $outputName = null)
     {
-        if (!preg_match('/^oc[0-9a-z]*$/i', $name)) {
-            throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
-        }
-
-        $csvPath = temp_path() . '/' . $name;
-        if (!file_exists($csvPath)) {
-            throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
-        }
-
-        return Response::download($csvPath, $outputName)->deleteFileAfterSend(true);
+        $cachedExport = Cache::get('export::' . $name);
+        return new StreamedResponse(
+            function () use ($cachedExport) {
+                echo $cachedExport;
+            },
+            200,
+            [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="' . $outputName . '"',
+            ]
+        );
     }
 
     /**
@@ -135,13 +138,10 @@ abstract class ExportModel extends Model
         }
 
         /*
-         * Save for download
+         * Save in cache for download
          */
         $csvName = uniqid('oc');
-        $csvPath = temp_path().'/'.$csvName;
-        $output = $csv->__toString();
-
-        File::put($csvPath, $output);
+        Cache::put('export::'.$csvName, $csv->__toString(), 5);
 
         return $csvName;
     }
