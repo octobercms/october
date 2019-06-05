@@ -76,3 +76,7 @@ The October team follows the [developer guidelines](https://octobercms.com/docs/
 #### Escalation process
 
 We do our best to attend to all reported issues. If you have an important issue that requires attention, consider submitting a bounty using the [OctoberCMS Bounty Program](https://www.bountysource.com/teams/october).
+
+## Issue Triage [![Open Source Helpers](https://www.codetriage.com/octobercms/october/badges/users.svg)](https://www.codetriage.com/octobercms/october)
+
+If you would like to contribute, you can triage issues which may include reproducing bug reports or asking for vital information, such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to october on CodeTriage](https://www.codetriage.com/octobercms/october).
