@@ -42,7 +42,7 @@ class Meta extends CmsObject
             $this->content = $this->renderContent();
         });
         $this->bindEvent('model.afterFetch', function () {
-            $this->attributes = array_merge($this->parseContent(), $this->attributes);
+            $this->attributes = array_merge($this->attributes, $this->parseContent());
         });
     }
 
