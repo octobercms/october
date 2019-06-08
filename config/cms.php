@@ -56,7 +56,7 @@ return [
     | Back-end login remember
     |--------------------------------------------------------------------------
     |
-    | Define live duration of backend sessions :
+    | Define live duration of backend sessions:
     |
     | true  - session never expire (cookie expiration in 5 years)
     |
@@ -213,6 +213,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database-driven Themes
+    |--------------------------------------------------------------------------
+    |
+    | Stores theme templates in the database instead of the filesystem.
+    |
+    | false - All theme templates are sourced from the filesystem.
+    |
+    | true  - Source theme templates from the database with fallback to the filesytem.
+    |
+    | null  - Setting equal to the inverse of app.debug: debug enabled, this disabled.
+    |
+    | The database layer stores all modified CMS files in the database. Files that are
+    | not modified continue to be loaded from the filesystem. The `theme:sync $themeDir`
+    | console command is available to populate the database from the filesystem with
+    | the `--toFile` flag to sync in the other direction (database to filesystem) and
+    | the `--paths="/path/to/file.md,/path/to/file2.md" flag to sync only specific files.
+    |
+    | Files modified in the database are cached to indicate that they should be loaded
+    | from the database.
+    |
+    */
+
+    'databaseTemplates' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Public plugins path
     |--------------------------------------------------------------------------
     |
@@ -252,14 +278,20 @@ return [
     | folder - a folder prefix for storing all generated files inside.
     | path   - the public path relative to the application base URL,
     |          or you can specify a full URL path.
+    |
+    | Optionally, you can specify how long temporary URLs to protected files
+    | in cloud storage (ex. AWS, RackSpace) are valid for by setting
+    | temporaryUrlTTL to a value in seconds to define a validity period. This
+    | is only used for the 'uploads' config when using a supported cloud disk
     */
 
     'storage' => [
 
         'uploads' => [
-            'disk'   => 'local',
-            'folder' => 'uploads',
-            'path'   => '/storage/app/uploads',
+            'disk'            => 'local',
+            'folder'          => 'uploads',
+            'path'            => '/storage/app/uploads',
+            'temporaryUrlTTL' => 3600,
         ],
 
         'media' => [
@@ -346,20 +378,20 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Twig Strict Variables
     |--------------------------------------------------------------------------
     |
-    | If strict_variables is disabled, Twig will silently ignore invalid 
+    | If strict_variables is disabled, Twig will silently ignore invalid
     | variables (variables and or attributes/methods that do not exist) and
     | replace them with a null value. When enabled, Twig throws an exception
     | instead. If set to null, it is enabled when debug mode (app.debug) is
     | enabled.
     |
     */
-    
+
     'enableTwigStrictVariables' => false,
 
     /*

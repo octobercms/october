@@ -184,9 +184,7 @@ froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()
-var enabledPlugins=['align','audio','codeBeautifier','codeView','colors','draggable','emoticons','entities','file','fontFamily','fontSize','fullscreen','image','lineBreaker','link','lists','paragraphFormat','paragraphStyle','quote','table','url','video','pageLinks','figures']
-if(this.options.useMediaManager){enabledPlugins.push('mediaManager')}
-froalaOptions.pluginsEnabled=enabledPlugins
+if(!this.options.useMediaManager){delete $.FroalaEditor.PLUGINS.mediaManager}
 $.FroalaEditor.ICON_TEMPLATES={font_awesome:'<i class="icon-[NAME]"></i>',text:'<span style="text-align: center;">[NAME]</span>',image:'<img src=[SRC] alt=[ALT] />'}
 this.$textarea.on('froalaEditor.initialized',this.proxy(this.build))
 this.$textarea.on('froalaEditor.contentChanged',this.proxy(this.onChange))

@@ -1,6 +1,8 @@
 <?php namespace Backend\Controllers;
 
 use View;
+use Cache;
+use Config;
 use Backend;
 use Response;
 use System\Models\File as FileModel;
@@ -52,13 +54,53 @@ class Files extends Controller
     }
 
     /**
+     * Attempt to return a redirect to a temporary URL to the asset instead of streaming the asset - if supported
+     *
+     * @param System|Models\File $file
+     * @param string|null $path Optional, defaults to the getDiskPath() of the file
+     * @return string|null
+     */
+    protected static function getTemporaryUrl($file, $path = null)
+    {
+        // Get the disk and adapter used
+        $url = null;
+        $disk = $file->getDisk();
+        $adapter = $disk->getAdapter();
+        if (class_exists('\League\Flysystem\Cached\CachedAdapter') && $adapter instanceof \League\Flysystem\Cached\CachedAdapter) {
+            $adapter = $adapter->getAdapter();
+        }
+
+        if ((class_exists('\League\Flysystem\AwsS3v3\AwsS3Adapter') && $adapter instanceof \League\Flysystem\AwsS3v3\AwsS3Adapter) ||
+            (class_exists('\League\Flysystem\Rackspace\RackspaceAdapter') && $adapter instanceof \League\Flysystem\Rackspace\RackspaceAdapter) ||
+            method_exists($adapter, 'getTemporaryUrl')
+        ) {
+            if (empty($path)) {
+                $path = $file->getDiskPath();
+            }
+            $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
+
+            $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
+                return $disk->temporaryUrl($path, $expires);
+            });
+        }
+
+        return $url;
+    }
+
+    /**
      * Returns the URL for downloading a system file.
      * @param $file System\Models\File
      * @return string
      */
     public static function getDownloadUrl($file)
     {
-        return Backend::url('backend/files/get/' . self::getUniqueCode($file));
+        $url = static::getTemporaryUrl($file);
+
+        if (!empty($url)) {
+            return $url;
+        } else {
+            return Backend::url('backend/files/get/' . self::getUniqueCode($file));
+        }
     }
 
     /**
@@ -71,7 +113,13 @@ class Files extends Controller
      */
     public static function getThumbUrl($file, $width, $height, $options)
     {
-        return Backend::url('backend/files/thumb/' . self::getUniqueCode($file)) . '/' . $width . '/' . $height . '/' . $options['mode'] . '/' . $options['extension'];
+        $url = static::getTemporaryUrl($file, $file->getDiskPath($file->getThumbFilename($width, $height, $options)));
+
+        if (!empty($url)) {
+            return $url;
+        } else {
+            return Backend::url('backend/files/thumb/' . self::getUniqueCode($file)) . '/' . $width . '/' . $height . '/' . $options['mode'] . '/' . $options['extension'];
+        }
     }
 
     /**

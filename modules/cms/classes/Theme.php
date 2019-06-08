@@ -8,13 +8,15 @@ use Lang;
 use Cache;
 use Event;
 use Config;
-use Cms\Models\ThemeData;
-use System\Models\Parameter;
-use October\Rain\Halcyon\Datasource\FileDatasource;
-use ApplicationException;
+use Exception;
 use SystemException;
 use DirectoryIterator;
-use Exception;
+use ApplicationException;
+use Cms\Models\ThemeData;
+use System\Models\Parameter;
+use October\Rain\Halcyon\Datasource\DbDatasource;
+use October\Rain\Halcyon\Datasource\FileDatasource;
+use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * This class represents the CMS theme.
@@ -519,7 +521,22 @@ class Theme
     }
 
     /**
-     * Ensures this theme is registered as a Halcyon them datasource.
+     * Checks to see if the database layer has been enabled
+     *
+     * @return boolean
+     */
+    public static function databaseLayerEnabled()
+    {
+        $enableDbLayer = Config::get('cms.databaseTemplates', false);
+        if (is_null($enableDbLayer)) {
+            $enableDbLayer = !Config::get('app.debug', false);
+        }
+
+        return $enableDbLayer && App::hasDatabase();
+    }
+
+    /**
+     * Ensures this theme is registered as a Halcyon datasource.
      * @return void
      */
     public function registerHalyconDatasource()
@@ -527,9 +544,28 @@ class Theme
         $resolver = App::make('halcyon');
 
         if (!$resolver->hasDatasource($this->dirName)) {
-            $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            if (static::databaseLayerEnabled()) {
+                $datasource = new AutoDatasource([
+                    'database'   => new DbDatasource($this->dirName, 'cms_theme_templates'),
+                    'filesystem' => new FileDatasource($this->getPath(), App::make('files')),
+                ]);
+            } else {
+                $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            }
+
             $resolver->addDatasource($this->dirName, $datasource);
         }
+    }
+
+    /**
+     * Get the theme's datasource
+     *
+     * @return DatasourceInterface
+     */
+    public function getDatasource()
+    {
+        $resolver = App::make('halcyon');
+        return $resolver->datasource($this->getDirName());
     }
 
     /**
