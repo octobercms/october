@@ -441,11 +441,11 @@ class Index extends Controller
     /**
      * Get the response to return in an AJAX request that updates a template
      *
-     * @param CmsObject $template The template that has been affected
+     * @param object $template The template that has been affected
      * @param string $type The type of template being affected
      * @return array $result;
      */
-    protected function getUpdateResponse(CmsObject $template, string $type)
+    protected function getUpdateResponse($template, string $type)
     {
         $result = [
             'templatePath'  => $template->fileName,
@@ -483,8 +483,12 @@ class Index extends Controller
      * @param CmsObject $template
      * @return boolean
      */
-    protected function canCommitTemplate(CmsObject $template)
+    protected function canCommitTemplate($template)
     {
+        if ($template instanceof Cms\Contracts\CmsObject === false) {
+            return false;
+        }
+
         $result = false;
 
         if (Config::get('app.debug', false) &&
@@ -504,8 +508,12 @@ class Index extends Controller
      * @param CmsObject $template
      * @return boolean
      */
-    protected function canResetTemplate(CmsObject $template)
+    protected function canResetTemplate($template)
     {
+        if ($template instanceof Cms\Contracts\CmsObject === false) {
+            return false;
+        }
+
         $result = false;
 
         if (Theme::databaseLayerEnabled()) {
