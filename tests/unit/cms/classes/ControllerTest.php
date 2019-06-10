@@ -30,7 +30,7 @@ class ControllerTest extends TestCase
         $this->assertEquals(url('/themes/test'), $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals(url('/themes/test').'/foo/bar.css', $url);
+        $this->assertEquals(url('/themes/test/foo/bar.css'), $url);
 
         //
         // These tests seem to bear different results
