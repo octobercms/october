@@ -140,7 +140,7 @@ class CombineAssets
          * Minification filters
          */
         if ($this->useMinify) {
-            $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
+            $this->registerFilter('js', new \Assetic\Filter\JSqueezeFilter);
             $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
