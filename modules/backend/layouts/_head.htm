@@ -11,6 +11,23 @@
 <title data-title-template="<?= empty($this->pageTitleTemplate) ? '%s' : e($this->pageTitleTemplate) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>">
     <?= e(trans($this->pageTitle)) ?> | <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
 </title>
+
+<!-- Inline Javascript to reduce lookups -->
+<script>
+/* Only run on HTTPS connections
+ * Block off Front-end Service Worker from running in the Backend allowing security injections see GitHub #4384
+ */ 
+if (location.protocol === 'https:') {
+    // Unregister all service workers before signing in to prevent cache issues see GitHub #4088
+    navigator.serviceWorker.getRegistrations().then(
+        function(registrations) {
+            for (let registration of registrations) {  
+                registration.unregister();
+            }
+        });
+    }
+</script>
+        
 <?php
     $coreBuild = System\Models\Parameter::get('system::core.build', 1);
     $styles = [
