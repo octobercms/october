@@ -190,7 +190,8 @@ trait UrlMaker
             'mtime'    => @File::lastModified($filePath)
         ];
 
-        Cache::put($key, serialize($cached), Config::get('cms.parsedPageCacheTTL', 1440));
+        $expiresAt = now()->addMinutes(Config::get('cms.parsedPageCacheTTL', 1440));
+        Cache::put($key, serialize($cached), $expiresAt);
 
         return static::$urlPageName = $baseFileName;
     }

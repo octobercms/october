@@ -703,7 +703,8 @@ class UpdateManager
         }
 
         $data = $this->requestServerData($type.'/popular');
-        Cache::put($cacheKey, base64_encode(serialize($data)), 60);
+        $expiresAt = now()->addMinutes(60);
+        Cache::put($cacheKey, base64_encode(serialize($data)), $expiresAt);
 
         foreach ($data as $product) {
             $code = array_get($product, 'code', -1);
