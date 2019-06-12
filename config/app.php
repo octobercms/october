@@ -56,7 +56,7 @@ return [
     | -------- STOP! --------
     | Before you change this value, consider carefully if that is actually
     | what you want to do. It is HIGHLY recommended that this is always set
-    | to UTC (as your server & DB timezone should be as well) and instead you 
+    | to UTC (as your server & DB timezone should be as well) and instead you
     | use cms.backendTimezone to set the default timezone used in the backend
     | to display dates & times.
     |
@@ -104,21 +104,6 @@ return [
     'key' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
 
     'cipher' => 'AES-256-CBC',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => 'single',
 
     /*
     |--------------------------------------------------------------------------
