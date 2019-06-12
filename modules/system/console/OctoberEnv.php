@@ -357,7 +357,7 @@ class OctoberEnv extends Command
                 'SESSION_DRIVER' => 'driver',
             ],
             'queue' => [
-                'QUEUE_DRIVER' => 'default',
+                'QUEUE_CONNECTION' => 'default',
             ],
             'mail' => [
                 'MAIL_DRIVER' => 'driver',
