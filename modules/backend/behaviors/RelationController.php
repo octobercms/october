@@ -320,17 +320,16 @@ class RelationController extends ControllerBehavior
         }
 
         if (!$this->model) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.relation.missing_model',
-                ['class'=>get_class($this->controller)]
-            ));
+            throw new ApplicationException(Lang::get('backend::lang.relation.missing_model', [
+                'class' => get_class($this->controller),
+            ]));
         }
 
         if (!$this->model instanceof Model) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.model.invalid_class',
-                ['model'=>get_class($this->model), 'class'=>get_class($this->controller)]
-            ));
+            throw new ApplicationException(Lang::get('backend::lang.model.invalid_class', [
+                'model' => get_class($this->model),
+                'class' => get_class($this->controller),
+            ]));
         }
 
         if (!$this->getConfig($field)) {
@@ -901,10 +900,13 @@ class RelationController extends ControllerBehavior
              * Existing record
              */
             if ($this->manageId) {
-                $config->model = $config->model->find($this->manageId);
-                if (!$config->model) {
+                $model = $config->model->find($id);
+                if ($model) {
+                    $config->model = $model;
+                } else {
                     throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                        'class' => get_class($config->model), 'id' => $this->manageId
+                        'class' => get_class($config->model),
+                        'id' => $this->manageId,
                     ]));
                 }
             }
@@ -950,10 +952,12 @@ class RelationController extends ControllerBehavior
         if ($this->manageId) {
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
 
-            $config->model = $hydratedModel;
-            if (!$config->model) {
+            if ($hydratedModel) {
+                $config->model = $hydratedModel;
+            } else {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                    'class' => get_class($config->model), 'id' => $this->manageId
+                    'class' => get_class($config->model),
+                    'id' => $this->manageId,
                 ]));
             }
         }
