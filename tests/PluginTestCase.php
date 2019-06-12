@@ -57,7 +57,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
      * Perform test case set up.
      * @return void
      */
-    public function setUp()
+    public function setUp() : void
     {
         /*
          * Force reload of October singletons
@@ -95,7 +95,7 @@ abstract class PluginTestCase extends Illuminate\Foundation\Testing\TestCase
      * Flush event listeners and collect garbage.
      * @return void
      */
-    public function tearDown()
+    public function tearDown() : void
     {
         $this->flushModelEventListeners();
         parent::tearDown();

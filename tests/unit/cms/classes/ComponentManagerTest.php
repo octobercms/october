@@ -9,7 +9,7 @@ use Cms\Classes\ComponentManager;
 
 class ComponentManagerTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

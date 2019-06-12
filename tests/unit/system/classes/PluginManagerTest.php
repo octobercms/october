@@ -5,7 +5,7 @@ use System\Classes\PluginManager;
 class PluginManagerTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

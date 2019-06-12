@@ -5,7 +5,7 @@ use Database\Tester\Models\Author;
 
 class BelongsToManyModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

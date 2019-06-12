@@ -10,7 +10,7 @@ use Cms\Classes\Controller;
 
 class CodeParserTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setup();
 

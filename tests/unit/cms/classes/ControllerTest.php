@@ -6,7 +6,7 @@ use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

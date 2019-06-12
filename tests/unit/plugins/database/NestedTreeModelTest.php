@@ -5,7 +5,7 @@ use Database\Tester\Models\CategoryNested;
 
 class NestedTreeModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

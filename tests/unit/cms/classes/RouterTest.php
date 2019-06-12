@@ -7,7 +7,7 @@ class RouterTest extends TestCase
 {
     protected static $theme = null;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
