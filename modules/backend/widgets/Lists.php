@@ -25,6 +25,7 @@ use ApplicationException;
 class Lists extends WidgetBase
 {
     use Backend\Traits\PreferenceMaker;
+    use Backend\Traits\ModelOptions;
 
     //
     // Configurable properties
@@ -1153,7 +1154,7 @@ class Lists extends WidgetBase
 
         throw new ApplicationException(sprintf('List column type "%s" could not be found.', $type));
     }
-    
+
     /**
      * Process as selectable value types for 'dropdown', 'radio', 'checkboxlist', 'balloon-selector' form field types.
      */
@@ -1164,7 +1165,7 @@ class Lists extends WidgetBase
         $fieldOptions = $this->getOptionsFromModel($record, $fieldOptions, $fieldName);
         return $fieldOptions[$value];
     }
-    
+
 
     /**
      * Process as text, escape the value
@@ -1708,84 +1709,6 @@ class Lists extends WidgetBase
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
         return $this->onRefresh();
-    }
-
-    //
-    // Internal
-    //
-
-    /**
-     * Looks at the model for defined options.
-     *
-     * @param $field
-     * @param $fieldOptions
-     * @return mixed
-     */
-    protected function getOptionsFromModel($field, $fieldOptions, $fieldName)
-    {
-        /*
-         * Advanced usage, supplied options are callable
-         */
-        if (is_array($fieldOptions) && is_callable($fieldOptions)) {
-            $fieldOptions = call_user_func($fieldOptions, $this, $field);
-        }
-
-        /*
-         * Refer to the model method or any of its behaviors
-         */
-        if (!is_array($fieldOptions) && !$fieldOptions) {
-
-            $methodName = 'get'.studly_case($fieldName).'Options';
-            if (
-                !$this->objectMethodExists($this->model, $methodName) &&
-                !$this->objectMethodExists($this->model, 'getDropdownOptions')
-            ) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($this->model),
-                    'method' => $methodName,
-                    'field'  => $field->fieldName
-                ]));
-            }
-
-            if ($this->objectMethodExists($this->model, $methodName)) {
-                $fieldOptions = $this->model->$methodName($field->value, $this->data);
-            }
-            else {
-                $fieldOptions = $this->model->getDropdownOptions($attribute, $field->value, $this->data);
-            }
-        }
-        /*
-         * Field options are an explicit method reference
-         */
-        elseif (is_string($fieldOptions)) {
-            if (!$this->objectMethodExists($this->model, $fieldOptions)) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($this->model),
-                    'method' => $fieldOptions,
-                    'field'  => $field->fieldName
-                ]));
-            }
-
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
-        }
-
-        return $fieldOptions;
-    }
-
-    /**
-     * Internal helper for method existence checks.
-     *
-     * @param  object $object
-     * @param  string $method
-     * @return boolean
-     */
-    protected function objectMethodExists($object, $method)
-    {
-        if (method_exists($object, 'methodExists')) {
-            return $object->methodExists($method);
-        }
-
-        return method_exists($object, $method);
     }
 
     //

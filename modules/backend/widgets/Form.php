@@ -22,6 +22,7 @@ use Exception;
 class Form extends WidgetBase
 {
     use \Backend\Traits\FormModelSaver;
+    use \Backend\Traits\ModelOptions;
 
     //
     // Configurable properties
@@ -452,7 +453,7 @@ class Form extends WidgetBase
             if (!is_array($eventResult)) {
                 continue;
             }
-            
+
             $result = $eventResult + $result;
         }
 
@@ -1242,74 +1243,6 @@ class Form extends WidgetBase
     }
 
     /**
-     * Looks at the model for defined options.
-     *
-     * @param $field
-     * @param $fieldOptions
-     * @return mixed
-     */
-    protected function getOptionsFromModel($field, $fieldOptions)
-    {
-        /*
-         * Advanced usage, supplied options are callable
-         */
-        if (is_array($fieldOptions) && is_callable($fieldOptions)) {
-            $fieldOptions = call_user_func($fieldOptions, $this, $field);
-        }
-
-        /*
-         * Refer to the model method or any of its behaviors
-         */
-        if (!is_array($fieldOptions) && !$fieldOptions) {
-
-            try {
-                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
-            }
-            catch (Exception $ex) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
-                    'model' => get_class($this->model),
-                    'field' => $field->fieldName
-                ]));
-            }
-
-            $methodName = 'get'.studly_case($attribute).'Options';
-            if (
-                !$this->objectMethodExists($model, $methodName) &&
-                !$this->objectMethodExists($model, 'getDropdownOptions')
-            ) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($model),
-                    'method' => $methodName,
-                    'field'  => $field->fieldName
-                ]));
-            }
-
-            if ($this->objectMethodExists($model, $methodName)) {
-                $fieldOptions = $model->$methodName($field->value, $this->data);
-            }
-            else {
-                $fieldOptions = $model->getDropdownOptions($attribute, $field->value, $this->data);
-            }
-        }
-        /*
-         * Field options are an explicit method reference
-         */
-        elseif (is_string($fieldOptions)) {
-            if (!$this->objectMethodExists($this->model, $fieldOptions)) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($this->model),
-                    'method' => $fieldOptions,
-                    'field'  => $field->fieldName
-                ]));
-            }
-
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
-        }
-
-        return $fieldOptions;
-    }
-
-    /**
      * Returns the active session key.
      *
      * @return \Illuminate\Routing\Route|mixed|string
@@ -1335,22 +1268,6 @@ class Form extends WidgetBase
     public function getContext()
     {
         return $this->context;
-    }
-
-    /**
-     * Internal helper for method existence checks.
-     *
-     * @param  object $object
-     * @param  string $method
-     * @return boolean
-     */
-    protected function objectMethodExists($object, $method)
-    {
-        if (method_exists($object, 'methodExists')) {
-            return $object->methodExists($method);
-        }
-
-        return method_exists($object, $method);
     }
 
     /**
