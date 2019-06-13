@@ -10,6 +10,17 @@
         <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
 
+        <!-- Prefecth the Dashboard Resources to speed up loading -->
+        <meta http-equiv="x-dns-prefetch-control" content="on">
+
+        <link rel="prefetch" href="<?= Backend::skinAsset('widgets/mediamanager/assets/css/mediamanager.css') ?>?v<?= $coreBuild ?>" as="style">
+        <link rel="prefetch" href="<?= Backend::skinAsset('assets/css/dashboard/dashboard.css') ?>?v<?= $coreBuild ?>" as="style">
+        <link rel="prefetch" href="<?= Backend::skinAsset('widgets/reportcontainer/assets/css/reportcontainer.css') ?>?v<?= $coreBuild ?>" as="style">
+
+        <link rel="prefetch" href="<?= Backend::skinAsset('widgets/mediamanager/assets/js/mediamanager-browser-min.js') ?>?v<?= $coreBuild ?>" as="script">
+        <link rel="prefetch" href="<?= Backend::skinAsset('widgets/reportcontainer/assets/vendor/isotope/jquery.isotope.min.js') ?>?v<?= $coreBuild ?>" as="script">
+        <link rel="prefetch" href="<?= Backend::skinAsset('widgets/reportcontainer/assets/js/reportcontainer.js') ?>?v<?= $coreBuild ?>" as="script">       
+
         <?php
             $coreBuild = System\Models\Parameter::get('system::core.build', 1);
             $styles = [
