@@ -100,7 +100,7 @@ return [
     |
     | If value is true, UpdateMananger will be run on logging in to the backend.
     | It's recommended to set this value to 'false' in production enviroments
-    | because it cleares cache on every login in backend.
+    | because it clears the cache every time a user logs in to the backend.
     |
     */
 
