@@ -55,10 +55,9 @@ abstract class ExportModel extends Model
      */
     public function download($name, $outputName = null)
     {
-        $cachedExport = Cache::get('export::' . $name);
         return new StreamedResponse(
-            function () use ($cachedExport) {
-                echo $cachedExport;
+            function () use ($name) {
+                echo Cache::get('export::' . $name);
             },
             200,
             [
