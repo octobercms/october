@@ -141,7 +141,7 @@ abstract class ExportModel extends Model
          * Save in cache for download
          */
         $csvName = uniqid('oc');
-        Cache::put('export::'.$csvName, $csv->__toString(), 5);
+        Cache::put('export::' . $csvName, $csv->__toString(), 5);
 
         return $csvName;
     }
