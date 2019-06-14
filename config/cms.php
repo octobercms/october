@@ -98,7 +98,7 @@ return [
     | Determines if logging in backend should run UpdateManager
     |--------------------------------------------------------------------------
     |
-    | If value is true it runs UpdateMananger after login in backend.
+    | If value is true, UpdateMananger will be run on logging in to the backend.
     | It's recommended to set this value to 'false' in production enviroments
     | because it cleares cache on every login in backend.
     |
