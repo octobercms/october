@@ -39,6 +39,11 @@ class UserRoles extends Controller
     public $requiredPermissions = ['backend.manage_users'];
 
     /**
+     * @var Service Worker in backend
+     */
+    protected $serviceworker = config('cms.enableBackendServiceWorkers');	
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -56,6 +61,12 @@ class UserRoles extends Controller
                 return Response::make(View::make('backend::access_denied'), 403);
             }
         });
+
+        // Allow option to turn Service Workers on and off in the backend, see github: #4384
+        if ($serviceworker === 'true') {
+            // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+            $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
+        }		
     }
 
     /**

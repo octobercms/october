@@ -48,6 +48,11 @@ class Users extends Controller
     public $bodyClass = 'compact-container';
 
     /**
+     * @var Service Worker in backend
+     */
+    protected $serviceworker = config('cms.enableBackendServiceWorkers');	
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -60,6 +65,12 @@ class Users extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
+
+        // Allow option to turn Service Workers on and off in the backend, see github: #4384
+        if ($serviceworker === 'true') {
+            // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+            $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
+        }		
     }
 
     /**

@@ -23,6 +23,11 @@ class Index extends Controller
     public $requiredPermissions = [];
 
     /**
+     * @var Service Worker in backend
+     */
+    protected $serviceworker = config('cms.enableBackendServiceWorkers');	
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -32,6 +37,12 @@ class Index extends Controller
         BackendMenu::setContextOwner('October.Backend');
 
         $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
+
+        // Allow option to turn Service Workers on and off in the backend, see github: #4384
+        if ($serviceworker === 'true') {
+            // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
+            $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
+        }		
     }
 
     public function index()
