@@ -70,14 +70,5 @@ class ExportModelTest extends TestCase
         $utf8BOM = chr(239).chr(187).chr(191);
 
         $this->assertEquals($utf8BOM."title,title2\nbar,foo\nbar2,foo2\n", $output, "CSV is not right!");
-
-        $filePath = temp_path($csvName);
-
-        $fileGotDeleted = !is_file($filePath);
-
-        $this->assertTrue($fileGotDeleted, "Export-CSV doesn't get deleted.");
-        if (!$fileGotDeleted) {
-            unlink($filePath);
-        }
     }
 }
