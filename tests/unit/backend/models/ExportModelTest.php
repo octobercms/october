@@ -59,7 +59,7 @@ class ExportModelTest extends TestCase
         $response->prepare($request);
 
         $this->assertTrue($response->headers->has('Content-Type'), "Response is missing the Content-Type header!");
-        $this->assertTrue($response->headers->contains('Content-Type', 'text/csv'), "Content-Type is not \"text/csv\"!");
+        $this->assertTrue($response->headers->contains('Content-Type', 'text/csv; charset=UTF-8'), "Content-Type is not \"text/csv\"!");
 
         ob_start();
         $response->send();
