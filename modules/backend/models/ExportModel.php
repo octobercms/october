@@ -50,11 +50,15 @@ abstract class ExportModel extends Model
     }
 
     /**
-     * Download a previously compiled export file.
+     * Download a previously cached export file.
      * @return void
      */
     public function download($name, $outputName = null)
     {
+        if (!preg_match('/^oc[0-9a-z]*$/i', $name)) {
+            throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
+        }
+        
         return new StreamedResponse(
             function () use ($name) {
                 echo Cache::get('export::' . $name);
