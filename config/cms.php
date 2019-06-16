@@ -391,7 +391,7 @@ return [
     | WARNING: This should always be turned for security reasons as Service
     | Workers can be hijacked and used to run XSS into the backend. Turning
     | this feature on can create a conflict, if you have a front-end Service
-    | Worker running. The'scope' needs to be correctly set and not have a
+    | Worker running. The 'scope' needs to be correctly set and not have a
     | duplicate sub-folder structure on the front-end, otherwise it will run
     | on both the front-end and back-end of your website.	
     |
