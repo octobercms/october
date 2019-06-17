@@ -39,14 +39,23 @@
     <link href="<?= $script . '?v=' . $coreBuild; ?>" rel="preload" as="script">
 <?php endforeach; ?>
 
-<?php
-    // Allow option to turn Service Workers on and off in the backend, see github: #4384
-    $serviceWorker = Config::get('cms.enableBackendServiceWorkers');
-    if (!empty($serviceWorker === 'false')) {
-        // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
-        $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
-    }
-?>
+<?php if (!Config::get('cms.enableBackendServiceWorkers', false)) : ?>
+    <script>
+        "use strict";
+        /* Only run on HTTPS connections
+         * Block off Front-end Service Worker from running in the Backend allowing security injections, see GitHub #4384
+         */
+         if (location.protocol === 'https:') {
+             // Unregister all service workers before signing in to prevent cache issues, see github issue: #3707
+             navigator.serviceWorker.getRegistrations().then(
+                 function(registrations) {
+                     for (let registration of registrations) {  
+                         registration.unregister();
+                     }
+                 });
+         }		
+    </script>
+<?php endif; ?>
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>
