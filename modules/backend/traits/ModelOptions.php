@@ -38,7 +38,7 @@ trait ModelOptions
                     ]));
                 }
             } else {
-                $methodName = 'get'.studly_case($fieldName).'Options';
+                $methodName = 'get' . studly_case($fieldName) . 'Options';
                 $model = $this -> model;
             }
 

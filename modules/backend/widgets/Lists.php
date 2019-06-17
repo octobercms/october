@@ -1162,8 +1162,12 @@ class Lists extends WidgetBase
     {
         $fieldName = $column->columnName;
         $fieldOptions = $column->config['options'] ?? null;
-        $fieldOptions = $this->getOptionsFromModel($record, $fieldOptions, $fieldName);
-        return $fieldOptions[$value];
+        $fieldOptions = $this->getOptionsFromModel(
+            $record,
+            $column->config['options'] ?? null,
+            $column->columnName
+        );
+        return $fieldOptions[$value] ?? null;
     }
 
 
