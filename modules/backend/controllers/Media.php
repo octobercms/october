@@ -29,7 +29,6 @@ class Media extends Controller
 
         $manager = new MediaManager($this, 'manager');
         $manager->bindToController();
-
     }
 
     public function index()

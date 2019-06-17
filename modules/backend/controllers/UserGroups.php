@@ -45,6 +45,5 @@ class UserGroups extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'users');
         SettingsManager::setContext('October.System', 'administrators');
-
     }
 }

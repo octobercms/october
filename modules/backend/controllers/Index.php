@@ -32,7 +32,6 @@ class Index extends Controller
         BackendMenu::setContextOwner('October.Backend');
 
         $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
-
     }
 
     public function index()

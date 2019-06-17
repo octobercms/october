@@ -56,7 +56,6 @@ class UserRoles extends Controller
                 return Response::make(View::make('backend::access_denied'), 403);
             }
         });
-
     }
 
     /**

@@ -44,7 +44,6 @@ class Preferences extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'mysettings');
         SettingsManager::setContext('October.Backend', 'preferences');
-
     }
 
     public function index()
