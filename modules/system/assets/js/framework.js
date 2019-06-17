@@ -91,7 +91,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (useFiles) {
-            requestData = new FormData($form.length ? $form.get(0) : null)
+            requestData = $form.length ? new FormData($form.get(0)) : new FormData()
 
             if ($el.is(':file') && inputName) {
                 $.each($el.prop('files'), function() {
