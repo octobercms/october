@@ -383,7 +383,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Back-end Service Worker
+    | Backend Service Worker
     |--------------------------------------------------------------------------
     |
     | Allow plugins to run Service Workers in the backend.

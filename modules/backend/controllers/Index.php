@@ -25,7 +25,7 @@ class Index extends Controller
     /**
      * @var Service Worker in backend
      */
-    protected $serviceworker = config('cms.enableBackendServiceWorkers');	
+    protected $serviceWorker = config('cms.enableBackendServiceWorkers');
 
     /**
      * Constructor.
@@ -39,7 +39,7 @@ class Index extends Controller
         $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
 
         // Allow option to turn Service Workers on and off in the backend, see github: #4384
-        if ($serviceworker === 'true') {
+        if ($serviceWorker === 'true') {
             // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
             $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
         }		
