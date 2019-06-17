@@ -157,6 +157,10 @@ class VersionManager
      * Removes and packs down a plugin from the system. Files are left intact.
      * If the $stopOnVersion parameter is specified, the process stops after
      * the specified version is rolled back.
+     *
+     * @param $plugin
+     * @param null $stopOnVersion
+     * @return bool
      */
     public function removePlugin($plugin, $stopOnVersion = null)
     {
@@ -173,7 +177,7 @@ class VersionManager
         $newPluginVersion = null;
 
         foreach ($pluginHistory as $history) {
-            if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
+            if ($stopOnNextVersion && $history->version === $stopOnVersion) {
                 // Stop if the $stopOnVersion value was found and
                 // this is a new version. The history could contain
                 // multiple items for a single version (comments and scripts).

@@ -50,17 +50,17 @@ class UpdateManager
     protected $tempDirectory;
 
     /**
-     * @var System\Classes\PluginManager
+     * @var \System\Classes\PluginManager
      */
     protected $pluginManager;
 
     /**
-     * @var Cms\Classes\ThemeManager
+     * @var \Cms\Classes\ThemeManager
      */
     protected $themeManager;
 
     /**
-     * @var System\Classes\VersionManager
+     * @var \System\Classes\VersionManager
      */
     protected $versionManager;
 
@@ -85,12 +85,12 @@ class UpdateManager
     protected $productCache;
 
     /**
-     * @var Illuminate\Database\Migrations\Migrator
+     * @var \Illuminate\Database\Migrations\Migrator
      */
     protected $migrator;
 
     /**
-     * @var Illuminate\Database\Migrations\DatabaseMigrationRepository
+     * @var \Illuminate\Database\Migrations\DatabaseMigrationRepository
      */
     protected $repository;
 
@@ -533,11 +533,14 @@ class UpdateManager
     }
 
     /**
-     * Removes an existing plugin
+     * Rollback an existing plugin
+     *
      * @param string $name Plugin name.
+     * @param null $stopOnVersion If this parameter is specified, the process stops after
+     * the specified version is rolled back.
      * @return self
      */
-    public function rollbackPlugin($name)
+    public function rollbackPlugin($name, $stopOnVersion = null)
     {
         /*
          * Remove the plugin database and version
@@ -549,7 +552,7 @@ class UpdateManager
             return $this;
         }
 
-        if ($this->versionManager->removePlugin($plugin)) {
+        if ($this->versionManager->removePlugin($plugin, $stopOnVersion)) {
             $this->note('<info>Rolled back:</info> ' . $name);
             return $this;
         }
