@@ -77,6 +77,9 @@ class Files extends Controller
             if (empty($path)) {
                 $path = $file->getDiskPath();
             }
+            if (!$disk->exists($path)) {
+                return '';
+            }
             $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
 
             $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
