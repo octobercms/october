@@ -1160,8 +1160,6 @@ class Lists extends WidgetBase
      */
     protected function evalSelectableTypeValue($record, $column, $value)
     {
-        $fieldName = $column->columnName;
-        $fieldOptions = $column->config['options'] ?? null;
         $fieldOptions = $this->getOptionsFromModel(
             $record,
             $column->config['options'] ?? null,
