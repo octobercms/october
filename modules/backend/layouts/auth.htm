@@ -9,6 +9,7 @@
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
+
         <?php
             $coreBuild = System\Models\Parameter::get('system::core.build', 1);
             $styles = [
