@@ -21,7 +21,6 @@ use Exception;
  */
 class Auth extends Controller
 {
-
     /**
      * @var array Public controller actions
      */
