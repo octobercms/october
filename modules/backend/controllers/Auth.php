@@ -21,15 +21,11 @@ use Exception;
  */
 class Auth extends Controller
 {
+
     /**
      * @var array Public controller actions
      */
     protected $publicActions = ['index', 'signin', 'signout', 'restore', 'reset'];
-
-    /**
-     * @var Service Worker in backend
-     */
-    protected $serviceWorker = config('cms.enableBackendServiceWorkers');
 
     /**
      * Constructor.
@@ -52,7 +48,8 @@ class Auth extends Controller
         }
 
         // Allow option to turn Service Workers on and off in the backend, see github: #4384
-        if ($serviceWorker === 'true') {
+        $serviceWorker = config('cms.enableBackendServiceWorkers');
+        if (!empty($serviceWorker === 'true')) {
             // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
             $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
         }
