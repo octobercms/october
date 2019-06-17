@@ -45,12 +45,6 @@ class Preferences extends Controller
         BackendMenu::setContext('October.System', 'system', 'mysettings');
         SettingsManager::setContext('October.Backend', 'preferences');
 
-        // Allow option to turn Service Workers on and off in the backend, see github: #4384
-        $serviceWorker = config('cms.enableBackendServiceWorkers');
-        if (!empty($serviceWorker === 'false')) {
-            // Add JS File to un-install SW to avoid Cookie Cache Issues when Signin, see github issue: #3707
-            $this->addJs(url("/modules/backend/assets/js/october.uninstall-sw.js"));
-        }
     }
 
     public function index()
