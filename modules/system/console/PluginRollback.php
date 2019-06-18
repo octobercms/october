@@ -43,7 +43,7 @@ class PluginRollback extends Command
 
         $manager = UpdateManager::instance()->setNotesOutput($this->output);
 
-        $stopOnVersion = $this->argument('version') ?: null;
+        $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
 
         /*
          * Rollback plugin
@@ -60,7 +60,7 @@ class PluginRollback extends Command
     {
         return [
             ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
-            ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process stops after the specified version is rolled back, if not, go back to the first version Eg: 1.3.9'],
+            ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process stops after the specified version is rolled back, if not, go back to the first version. Eg: 1.3.9'],
         ];
     }
 }

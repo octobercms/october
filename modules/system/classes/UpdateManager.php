@@ -552,8 +552,17 @@ class UpdateManager
             return $this;
         }
 
+        if ($stopOnVersion && !$this->versionManager->hasDatabaseVersion($plugin, $stopOnVersion)) {
+            throw new ApplicationException(Lang::get('system::lang.updates.plugin_version_not_found'));
+        }
+
         if ($this->versionManager->removePlugin($plugin, $stopOnVersion)) {
             $this->note('<info>Rolled back:</info> ' . $name);
+
+            if ($currentVersion = $this->versionManager->getCurrentVersion($plugin)) {
+                $this->note('<info>Current Version:</info> ' . $currentVersion . ' (' . $this->versionManager->getCurrentVersionNote($plugin) . ')');
+            }
+
             return $this;
         }
 
