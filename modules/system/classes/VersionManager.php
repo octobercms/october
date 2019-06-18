@@ -177,7 +177,7 @@ class VersionManager
         $newPluginVersion = null;
 
         foreach ($pluginHistory as $history) {
-            if ($stopOnNextVersion && $history->version === $stopOnVersion) {
+            if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
                 // Stop if the $stopOnVersion value was found and
                 // this is a new version. The history could contain
                 // multiple items for a single version (comments and scripts).
@@ -548,6 +548,54 @@ class VersionManager
             $scripts = [];
         }
 
-        return array($comments, $scripts);
+        return [$comments, $scripts];
+    }
+
+    /**
+     * Get the current version plugin
+     *
+     * @param $plugin
+     * @return int
+     */
+    public function getCurrentVersion($plugin)
+    {
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        return $this->getDatabaseVersion($code);
+    }
+
+    /**
+     * Check exists version in plugin
+     *
+     * @param $plugin
+     * @param $version
+     * @return bool
+     */
+    public function hasDatabaseVersion($plugin, $version): bool
+    {
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $histories = $this->getDatabaseHistory($code);
+        foreach ($histories as $history) {
+            if ($history->version === $version) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get last version note
+     *
+     * @param $plugin
+     * @return string
+     */
+    public function getCurrentVersionNote($plugin)
+    {
+        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $histories = $this->getDatabaseHistory($code);
+        $lastHistory = array_last(array_where($histories, function ($history) {
+            return $history->type === self::HISTORY_TYPE_COMMENT;
+        }));
+        return $lastHistory ? $lastHistory->detail : '';
     }
 }
