@@ -77,14 +77,13 @@ class Files extends Controller
             if (empty($path)) {
                 $path = $file->getDiskPath();
             }
-            if (!$disk->exists($path)) {
-                return '';
+            // The AWS S3 storage drivers will return a valid temporary URL even if the file does not exist
+            if ($disk->exists($path)) {
+                $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
+                $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
+                    return $disk->temporaryUrl($path, $expires);
+                });
             }
-            $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
-
-            $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
-                return $disk->temporaryUrl($path, $expires);
-            });
         }
 
         return $url;
