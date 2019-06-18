@@ -4877,6 +4877,8 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a {padding:5px 12px;whit
 @-moz-keyframes popup-shake {10%,90% {-moz-transform:translate3d(-1px,0,0) }20%,80% {-moz-transform:translate3d(2px,0,0) }30%,50%,70% {-moz-transform:translate3d(-4px,0,0) }40%,60% {-moz-transform:translate3d(4px,0,0) }}
 @-webkit-keyframes popup-shake {10%,90% {-webkit-transform:translate3d(-1px,0,0) }20%,80% {-webkit-transform:translate3d(2px,0,0) }30%,50%,70% {-webkit-transform:translate3d(-4px,0,0) }40%,60% {-webkit-transform:translate3d(4px,0,0) }}
 @keyframes popup-shake {10%,90% {transform:translate3d(-1px,0,0) }20%,80% {transform:translate3d(2px,0,0) }30%,50%,70% {transform:translate3d(-4px,0,0) }40%,60% {transform:translate3d(4px,0,0) }}
+.taglist--preview {overflow:hidden;list-style-type:none;padding-top:0;padding-left:0;margin:0}
+.taglist--preview .taglist__item {color:#515c5d;background:#fff;border:1px solid #ccc;border-radius:4px;cursor:default;float:left;margin:8px 0 0 6.5px;padding:0 6px}
 .pika-single {display:block;position:relative;width:240px;padding:8px;color:#333;background:#fff}
 .pika-single.is-hidden {display:none}
 .pika-single.is-bound {position:absolute;box-shadow:0 5px 15px -5px rgba(0,0,0,0.5)}
