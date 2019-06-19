@@ -14,7 +14,7 @@ use Backend\Widgets\ReportContainer;
  */
 class Index extends Controller
 {
-    use \Backend\Traits\InspectableContainer; 
+    use \Backend\Traits\InspectableContainer;
 
     /**
      * @var array Permissions required to view this page.
@@ -71,7 +71,9 @@ class Index extends Controller
     protected function checkPermissionRedirect()
     {
         if (!$this->user->hasAccess('backend.access_dashboard')) {
-            $true = function () { return true; };
+            $true = function () {
+                return true;
+            };
             if ($first = array_first(BackendMenu::listMainMenuItems(), $true)) {
                 return Redirect::intended($first->url);
             }
