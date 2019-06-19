@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -23,14 +22,29 @@ install:
 before_script: git reset --hard HEAD
 
 stages:
-  - "Linting"
+  - linting
   - test
-  - "Code Quality"
+  - code quality
 
 jobs:
   include:
-    - stage: "Linting"
-      script: sh -c "./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE | grep \".php\")"
-    - stage: "Code Quality"
+    - stage: linting
+      script:
+        - echo $TRAVIS_COMMIT_RANGE
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE | grep ".php")
+      php: 7.1
+    - stage: linting
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE | grep ".php")
+      php: 7.2
+    - stage: linting
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE | grep ".php")
+      php: 7.3
+    - stage: linting
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE | grep ".php")
+      php: nightly
+    - stage: code quality
       php: 7.1
       script: sh -c "./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT_RANGE)"
