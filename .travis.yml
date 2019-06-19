@@ -25,6 +25,7 @@ stages:
   - linting
   - test
   - code quality
+  - code coverage
 
 jobs:
   include:
@@ -72,6 +73,11 @@ jobs:
       if: type = pull_request
       php: 7.1
       script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..})
+    - stage: code coverage
+      php: 7.1
+      script:
+        - ./vendor/bin/phpunit --testsuite "October CMS Test Suite" --coverage-clover=coverage.xml
+        - bash <(curl -s https://codecov.io/bash)
     - stage: code quality
       if: type = push
       php: 7.1
