@@ -19,4 +19,17 @@ install:
 
 before_script: git reset --hard HEAD
 
-script: vendor/bin/phpunit
+stages:
+  - "Linting"
+  - "Tests"
+  - "Code Quality"
+
+jobs:
+  include:
+    - stage: "Linting"
+      script: ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r HEAD | grep ".php")
+    - stage: "Tests"
+      script: ./vendor/bin/phpunit
+    - stage: "Code Quality"
+      php: 7.1
+      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r HEAD)
