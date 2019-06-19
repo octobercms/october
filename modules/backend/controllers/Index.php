@@ -14,7 +14,7 @@ use Backend\Widgets\ReportContainer;
  */
 class Index extends Controller
 {
-    use \Backend\Traits\InspectableContainer;
+    use \Backend\Traits\InspectableContainer; 
 
     /**
      * @var array Permissions required to view this page.
