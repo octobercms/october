@@ -24,53 +24,16 @@ install:
 before_script: git reset --hard HEAD
 
 stages:
-  - linting
   - test
   - code quality
   - code coverage
 
+script:
+  - ./vendor/bin/parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php .
+  - ./vendor/bin/phpunit
+
 jobs:
   include:
-    - stage: linting
-      if: type = pull_request
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
-      php: 7.1
-    - stage: linting
-      if: type = pull_request
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
-      php: 7.2
-    - stage: linting
-      if: type = pull_request
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
-      php: 7.3
-    - stage: linting
-      if: type = pull_request
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
-      php: nightly
-    - stage: linting
-      if: type = push AND (branch = develop OR branch = master)
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
-      php: 7.1
-    - stage: linting
-      if: type = push AND (branch = develop OR branch = master)
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
-      php: 7.2
-    - stage: linting
-      if: type = push AND (branch = develop OR branch = master)
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
-      php: 7.3
-    - stage: linting
-      if: type = push AND (branch = develop OR branch = master)
-      script:
-        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
-      php: nightly
     - stage: code coverage
       if: type = push AND (branch = develop OR branch = master)
       php: 7.1
