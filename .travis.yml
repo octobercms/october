@@ -29,22 +29,50 @@ stages:
 jobs:
   include:
     - stage: linting
+      if: type = pull_request
       script:
-        - echo $TRAVIS_COMMIT_RANGE
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
       php: 7.1
     - stage: linting
+      if: type = pull_request
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
       php: 7.2
     - stage: linting
+      if: type = pull_request
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
       php: 7.3
     - stage: linting
+      if: type = pull_request
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
       php: nightly
+    - stage: linting
+      if: type = push
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
+      php: 7.1
+    - stage: linting
+      if: type = push
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
+      php: 7.2
+    - stage: linting
+      if: type = push
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
+      php: 7.3
+    - stage: linting
+      if: type = push
+      script:
+        - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
+      php: nightly
     - stage: code quality
+      if: type = pull_request
       php: 7.1
       script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..})
+    - stage: code quality
+      if: type = push
+      php: 7.1
+      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT)
