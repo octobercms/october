@@ -27,9 +27,9 @@ stages:
 jobs:
   include:
     - stage: "Linting"
-      script: ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r HEAD | grep ".php")
+      script: ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r develop..HEAD | grep ".php")
     - stage: "Tests"
       script: ./vendor/bin/phpunit
     - stage: "Code Quality"
       php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r HEAD)
+      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r develop..HEAD)
