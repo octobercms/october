@@ -12,6 +12,8 @@ matrix:
 
 sudo: false
 
+if: type = pull_request OR (type = push AND (branch = develop OR branch = master))
+
 cache:
   directories:
     - $HOME/.composer/cache/files
@@ -50,35 +52,36 @@ jobs:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..} | grep ".php")
       php: nightly
     - stage: linting
-      if: type = push
+      if: type = push AND (branch = develop OR branch = master)
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
       php: 7.1
     - stage: linting
-      if: type = push
+      if: type = push AND (branch = develop OR branch = master)
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
       php: 7.2
     - stage: linting
-      if: type = push
+      if: type = push AND (branch = develop OR branch = master)
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
       php: 7.3
     - stage: linting
-      if: type = push
+      if: type = push AND (branch = develop OR branch = master)
       script:
         - ./vendor/bin/parallel-lint $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT | grep ".php")
       php: nightly
-    - stage: code quality
-      if: type = pull_request
-      php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..})
     - stage: code coverage
+      if: type = push AND (branch = develop OR branch = master)
       php: 7.1
       script:
         - ./vendor/bin/phpunit --testsuite "October CMS Test Suite" --coverage-clover=coverage.xml
         - bash <(curl -s https://codecov.io/bash)
     - stage: code quality
-      if: type = push
+      if: type = pull_request
+      php: 7.1
+      script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..})
+    - stage: code quality
+      if: type = push AND (branch = develop OR branch = master)
       php: 7.1
       script: ./vendor/bin/phpcs --colors -nq --report="full" $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT)
