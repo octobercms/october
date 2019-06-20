@@ -566,7 +566,7 @@ class VersionManager
     /**
      * Check exists version in plugin
      *
-     * @param $plugin
+     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @param $version
      * @return bool
      */
