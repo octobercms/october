@@ -557,7 +557,7 @@ class VersionManager
      * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @return int
      */
-    public function getCurrentVersion($plugin)
+    public function getCurrentVersion($plugin): string
     {
         $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
         return $this->getDatabaseVersion($code);
