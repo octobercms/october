@@ -158,7 +158,7 @@ class VersionManager
      * If the $stopOnVersion parameter is specified, the process stops after
      * the specified version is rolled back.
      *
-     * @param $plugin
+     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @param null $stopOnVersion
      * @return bool
      */
