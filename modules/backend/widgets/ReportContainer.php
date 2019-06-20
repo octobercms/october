@@ -450,7 +450,11 @@ class ReportContainer extends WidgetBase
 
         $properties = $widget->defineProperties();
         foreach ($properties as $name => $params) {
-            $result[$name] = Lang::get($widget->property($name));
+            if (is_array($widget->property($name))) {
+                $result[$name] = $widget->property($name);
+            } else {
+                $result[$name] = Lang::get($widget->property($name));
+            }
         }
 
         $result['ocWidgetWidth'] = $widget->property('ocWidgetWidth');
