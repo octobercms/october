@@ -564,7 +564,7 @@ class VersionManager
     }
 
     /**
-     * Check exists version in plugin
+     * Check if a certain version of the plugin exists in the plugin history database.
      *
      * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @param string $version
