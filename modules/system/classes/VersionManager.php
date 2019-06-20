@@ -554,7 +554,7 @@ class VersionManager
     /**
      * Get the current version plugin
      *
-     * @param $plugin
+     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @return int
      */
     public function getCurrentVersion($plugin)
