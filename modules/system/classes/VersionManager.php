@@ -567,7 +567,7 @@ class VersionManager
      * Check exists version in plugin
      *
      * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
-     * @param $version
+     * @param string $version
      * @return bool
      */
     public function hasDatabaseVersion($plugin, $version): bool
