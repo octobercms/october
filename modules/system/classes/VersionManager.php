@@ -159,7 +159,7 @@ class VersionManager
      * the specified version is rolled back.
      *
      * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
-     * @param null $stopOnVersion
+     * @param string $stopOnVersion
      * @return bool
      */
     public function removePlugin($plugin, $stopOnVersion = null)
