@@ -540,7 +540,7 @@ class UpdateManager
      * the specified version is rolled back.
      * @return self
      */
-    public function rollbackPlugin($name, $stopOnVersion = null)
+    public function rollbackPlugin(string $name, string $stopOnVersion = null): self
     {
         /*
          * Remove the plugin database and version
