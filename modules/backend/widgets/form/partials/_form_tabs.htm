@@ -12,9 +12,9 @@
     }
 ?>
 <div class="<?= $navCss ?>">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" role="tablist">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-            <li class="<?= $index++==0?'active':''?>">
+            <li class="<?= $index++==0?'active':''?>" aria-controls="<?php if ($tabs->getIcon($name)): ?> Tab" aria-selected="<?= $index++==0?'true':'false'?>" role="tab" tabindex="0">
                 <a href="#<?= $type.'tab-'.$index ?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
             </li>
         <?php endforeach ?>
