@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class PluginRollback extends Command
 {
-
     /**
      * The console command name.
      * @var string
@@ -49,7 +48,6 @@ class PluginRollback extends Command
          * Rollback plugin
          */
         $manager->rollbackPlugin($pluginName, $stopOnVersion);
-
     }
 
     /**

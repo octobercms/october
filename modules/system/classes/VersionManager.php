@@ -187,8 +187,7 @@ class VersionManager
 
             if ($history->type == self::HISTORY_TYPE_COMMENT) {
                 $this->removeDatabaseComment($code, $history->version);
-            }
-            elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
+            } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
                 $this->removeDatabaseScript($code, $history->version, $history->detail);
             }
 
@@ -213,7 +212,7 @@ class VersionManager
 
     /**
      * Deletes all records from the version and history tables for a plugin.
-     * @param  string $pluginCode Plugin code
+     * @param string $pluginCode Plugin code
      * @return void
      */
     public function purgePlugin($pluginCode)
@@ -321,8 +320,7 @@ class VersionManager
         if (!isset($this->databaseVersions[$code])) {
             $this->databaseVersions[$code] = Db::table('system_plugin_versions')
                 ->where('code', $code)
-                ->value('version')
-            ;
+                ->value('version');
         }
 
         return $this->databaseVersions[$code] ?? self::NO_VERSION_VALUE;
@@ -337,18 +335,16 @@ class VersionManager
 
         if ($version && !$currentVersion) {
             Db::table('system_plugin_versions')->insert([
-                'code' => $code,
-                'version' => $version,
+                'code'       => $code,
+                'version'    => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($version && $currentVersion) {
+        } elseif ($version && $currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->update([
-                'version' => $version,
+                'version'    => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($currentVersion) {
+        } elseif ($currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->delete();
         }
 
@@ -361,10 +357,10 @@ class VersionManager
     protected function applyDatabaseComment($code, $version, $comment)
     {
         Db::table('system_plugin_history')->insert([
-            'code' => $code,
-            'type' => self::HISTORY_TYPE_COMMENT,
-            'version' => $version,
-            'detail' => $comment,
+            'code'       => $code,
+            'type'       => self::HISTORY_TYPE_COMMENT,
+            'version'    => $version,
+            'detail'     => $comment,
             'created_at' => new Carbon
         ]);
     }
@@ -399,10 +395,10 @@ class VersionManager
         $this->updater->setUp($updateFile);
 
         Db::table('system_plugin_history')->insert([
-            'code' => $code,
-            'type' => self::HISTORY_TYPE_SCRIPT,
-            'version' => $version,
-            'detail' => $script,
+            'code'       => $code,
+            'type'       => self::HISTORY_TYPE_SCRIPT,
+            'version'    => $version,
+            'detail'     => $script,
             'created_at' => new Carbon
         ]);
     }
@@ -477,15 +473,14 @@ class VersionManager
 
     /**
      * Raise a note event for the migrator.
-     * @param  string  $message
+     * @param string $message
      * @return void
      */
     protected function note($message)
     {
         if ($this->notesOutput !== null) {
             $this->notesOutput->writeln($message);
-        }
-        else {
+        } else {
             $this->notes[] = $message;
         }
 
@@ -516,7 +511,7 @@ class VersionManager
 
     /**
      * Sets an output stream for writing notes.
-     * @param  Illuminate\Console\Command $output
+     * @param Illuminate\Console\Command $output
      * @return self
      */
     public function setNotesOutput($output)
@@ -531,7 +526,7 @@ class VersionManager
      *
      * @return array
      */
-    protected function extractScriptsAndComments($details)
+    protected function extractScriptsAndComments($details): array
     {
         if (is_array($details)) {
             $fileNamePattern = "/^[a-z0-9\_\-\.\/\\\]+\.php$/i";
@@ -589,7 +584,7 @@ class VersionManager
      * @param $plugin
      * @return string
      */
-    public function getCurrentVersionNote($plugin)
+    public function getCurrentVersionNote($plugin): string
     {
         $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
         $histories = $this->getDatabaseHistory($code);
