@@ -302,10 +302,6 @@
             $this.attr('aria-selected', 'true');
             $this.attr('tabindex', '0');
 
-            // remove aria-hidden on tab linked
-            id_to_show = '#' + $this.attr('aria-controls');
-            $(id_to_show).removeAttr('aria-hidden');
-
             return false;
         }
      );
