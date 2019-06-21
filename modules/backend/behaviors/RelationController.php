@@ -900,7 +900,7 @@ class RelationController extends ControllerBehavior
              * Existing record
              */
             if ($this->manageId) {
-                $model = $config->model->find($id);
+                $model = $config->model->find($this->manageId);
                 if ($model) {
                     $config->model = $model;
                 } else {
