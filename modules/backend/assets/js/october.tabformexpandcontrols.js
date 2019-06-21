@@ -167,7 +167,7 @@
  * Auto update WAI-ARIA when a user updates the tabs
  */
  $(document).ready(function(){
-      // loading aria attribute on pates tabs
+     // loading aria attribute on pates tabs
      $('.nav-tabs').attr('role', 'tablist');         // ul
      $('.nav-tabs li').attr('role', 'presentation'); // li
      $('.nav-tabs a').attr('role', 'tab');           // a
