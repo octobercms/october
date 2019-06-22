@@ -210,10 +210,14 @@ class CmsCompoundObject extends CmsObject
      * Returns a component by its name.
      * This method is used only in the back-end and for internal system needs when
      * the standard way to access components is not an option.
-     * @param string $componentName Specifies the component name.
+     *
+     * @param string    $componentName Specifies the component name.
+     * @param CmsObject $cmsObject
+     *
      * @return \Cms\Classes\ComponentBase Returns the component instance or null.
+     * @throws \SystemException
      */
-    public function getComponent($componentName)
+    public function getComponent($componentName, $cmsObject = null)
     {
         if (!($componentSection = $this->hasComponent($componentName))) {
             return null;
@@ -221,7 +225,7 @@ class CmsCompoundObject extends CmsObject
 
         return ComponentManager::instance()->makeComponent(
             $componentName,
-            null,
+            $cmsObject,
             $this->settings['components'][$componentSection]
         );
     }
