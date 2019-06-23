@@ -1251,3 +1251,31 @@ fixSidebar()})
 function fixMediaManager(){var $el=$('div[data-control="media-manager"] .control-scrollpad')
 $el.height($el.parent().height())}
 function fixSidebar(){$('#layout-sidenav').height(Math.max($('#layout-body').innerHeight(),$(window).height()-$('#layout-mainmenu').height()))}}
+function applyFocusVisiblePolyfill(scope){var hadKeyboardEvent=!0;var hadFocusVisibleRecently=!1;var hadFocusVisibleRecentlyTimeout=null;var inputTypesWhitelist={text:!0,search:!0,url:!0,tel:!0,email:!0,password:!0,number:!0,date:!0,month:!0,week:!0,time:!0,datetime:!0,'datetime-local':!0};function isValidFocusTarget(el){if(el&&el!==document&&el.nodeName!=='HTML'&&el.nodeName!=='BODY'&&'classList' in el&&'contains' in el.classList){return!0}
+return!1}
+function focusTriggersKeyboardModality(el){var type=el.type;var tagName=el.tagName;if(tagName=='INPUT'&&inputTypesWhitelist[type]&&!el.readOnly){return!0}
+if(tagName=='TEXTAREA'&&!el.readOnly){return!0}
+if(el.isContentEditable){return!0}
+return!1}
+function addFocusVisibleClass(el){if(el.classList.contains('focus-visible')){return}
+el.classList.add('focus-visible');el.setAttribute('data-focus-visible-added','')}
+function removeFocusVisibleClass(el){if(!el.hasAttribute('data-focus-visible-added')){return}
+el.classList.remove('focus-visible');el.removeAttribute('data-focus-visible-added')}
+function onKeyDown(e){if(e.metaKey||e.altKey||e.ctrlKey){return}
+if(isValidFocusTarget(scope.activeElement)){addFocusVisibleClass(scope.activeElement)}
+hadKeyboardEvent=!0}
+function onPointerDown(e){hadKeyboardEvent=!1}
+function onFocus(e){if(!isValidFocusTarget(e.target)){return}
+if(hadKeyboardEvent||focusTriggersKeyboardModality(e.target)){addFocusVisibleClass(e.target)}}
+function onBlur(e){if(!isValidFocusTarget(e.target)){return}
+if(e.target.classList.contains('focus-visible')||e.target.hasAttribute('data-focus-visible-added')){hadFocusVisibleRecently=!0;window.clearTimeout(hadFocusVisibleRecentlyTimeout);hadFocusVisibleRecentlyTimeout=window.setTimeout(function(){hadFocusVisibleRecently=!1;window.clearTimeout(hadFocusVisibleRecentlyTimeout)},100);removeFocusVisibleClass(e.target)}}
+function onVisibilityChange(e){if(document.visibilityState=='hidden'){if(hadFocusVisibleRecently){hadKeyboardEvent=!0}
+addInitialPointerMoveListeners()}}
+function addInitialPointerMoveListeners(){document.addEventListener('mousemove',onInitialPointerMove);document.addEventListener('mousedown',onInitialPointerMove);document.addEventListener('mouseup',onInitialPointerMove);document.addEventListener('pointermove',onInitialPointerMove);document.addEventListener('pointerdown',onInitialPointerMove);document.addEventListener('pointerup',onInitialPointerMove);document.addEventListener('touchmove',onInitialPointerMove);document.addEventListener('touchstart',onInitialPointerMove);document.addEventListener('touchend',onInitialPointerMove)}
+function removeInitialPointerMoveListeners(){document.removeEventListener('mousemove',onInitialPointerMove);document.removeEventListener('mousedown',onInitialPointerMove);document.removeEventListener('mouseup',onInitialPointerMove);document.removeEventListener('pointermove',onInitialPointerMove);document.removeEventListener('pointerdown',onInitialPointerMove);document.removeEventListener('pointerup',onInitialPointerMove);document.removeEventListener('touchmove',onInitialPointerMove);document.removeEventListener('touchstart',onInitialPointerMove);document.removeEventListener('touchend',onInitialPointerMove)}
+function onInitialPointerMove(e){if(e.target.nodeName&&e.target.nodeName.toLowerCase()==='html'){return}
+hadKeyboardEvent=!1;removeInitialPointerMoveListeners()}
+document.addEventListener('keydown',onKeyDown,!0);document.addEventListener('mousedown',onPointerDown,!0);document.addEventListener('pointerdown',onPointerDown,!0);document.addEventListener('touchstart',onPointerDown,!0);document.addEventListener('visibilitychange',onVisibilityChange,!0);addInitialPointerMoveListeners();scope.addEventListener('focus',onFocus,!0);scope.addEventListener('blur',onBlur,!0);if(scope.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&scope.host){scope.host.setAttribute('data-js-focus-visible','')}else if(scope.nodeType===Node.DOCUMENT_NODE){document.documentElement.classList.add('js-focus-visible')}}
+if(typeof window!=='undefined'){window.applyFocusVisiblePolyfill=applyFocusVisiblePolyfill;var event;try{event=new CustomEvent('focus-visible-polyfill-ready')}catch(error){event=document.createEvent('CustomEvent');event.initCustomEvent('focus-visible-polyfill-ready',!1,!1,{})}
+window.dispatchEvent(event)}
+if(typeof document!=='undefined'){applyFocusVisiblePolyfill(document)}

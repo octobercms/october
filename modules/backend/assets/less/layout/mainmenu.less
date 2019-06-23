@@ -15,6 +15,11 @@
 // Focus Ring Support for accessibility
 //
 
+-moz-focusring {
+	&:not(.focus-ring) {
+		outline: none;
+	}
+}
 &:focus {
 	&:not(.focus-ring) {
 		outline: none;
@@ -22,7 +27,8 @@
 }
 &:focus-visible {
 	border: .0625rem solid #3578E5;
-	box-shadow: 0 0 0.1875rem 0.125rem #3578E5;
+	-webkit-box-shadow: 0 0 0 .125rem #590000;
+	box-shadow: 0 0 0 .125rem #590000;
 }
 
 body.mainmenu-open {
