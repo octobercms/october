@@ -171,50 +171,49 @@
      if ($('.nav-tabs a[aria-selected]').length == 0) {
          $('.nav-tabs a:first').attr('aria-selected', 'true');
          $('.nav-tabs a:first').attr('tabindex', '0');
-      }
+     }
 
-      /* click on a link */
-      $('.nav-tabs a').click(function() {
-          $this = $(this);
+     /* click on a link */
+     $('.nav-tabs a').click(function() {
+         $this = $(this);
 
-          // remove aria selected on all links + remove focusable
-          $('.nav-tabs a').removeAttr('aria-selected');
-          $('.nav-tabs a').attr('tabindex', '-1');
+         // remove aria selected on all links + remove focusable
+         $('.nav-tabs a').removeAttr('aria-selected');
+         $('.nav-tabs a').attr('tabindex', '-1');
 
-          // add aria selected on $this + focusable
-          $this.attr('aria-selected', 'true');
-          $this.attr('tabindex', '0');
+         // add aria selected on $this + focusable
+         $this.attr('aria-selected', 'true');
+         $this.attr('tabindex', '0');
 
-          return false;
-      });
+         return false;
+     });
 
-      $('body').on('keydown','.nav-tabs', function(event) {
-
-          // strike up or left in the tab
-          if (event.keyCode == 37 || event.keyCode == 38) {
-              // find previous tab
-              // if we are on first => activate last
-              $activated = $('.nav-tabs a[aria-selected="true"]').parent();
-              if ($activated.is('.nav-tabs li:first-child')) {
-                  $('.nav-tabs li:last-child a').click().focus();
-              } else {
-                  // else activate previous
-                  $activated.prev().children('.nav-tabs a').click().focus();
-              }
-              event.preventDefault();
-          }
-          // strike down or right in the tab
-          if (event.keyCode == 40 || event.keyCode == 39) {
-              // find next tab
-              // if we are on last => activate first
-              $activated = $('.nav-tabs a[aria-selected="true"]').parent();
-              if ($activated.is('.nav-tabs li:last-child')) {
-                  $('.nav-tabs li:first-child a').click().focus();
-              } else {
-                  // else activate next
-                  $activated.next().children('.nav-tabs a').click().focus();
-              }
-              event.preventDefault();
-          }
-      });
+     $('body').on('keydown','.nav-tabs', function(event) {
+         // strike up or left in the tab
+         if (event.keyCode == 37 || event.keyCode == 38) {
+             // find previous tab
+             // if we are on first => activate last
+             $activated = $('.nav-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.nav-tabs li:first-child')) {
+                 $('.nav-tabs li:last-child a').click().focus();
+             } else {
+                 // else activate previous
+                 $activated.prev().children('.nav-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+         // strike down or right in the tab
+         if (event.keyCode == 40 || event.keyCode == 39) {
+             // find next tab
+             // if we are on last => activate first
+             $activated = $('.nav-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.nav-tabs li:last-child')) {
+                 $('.nav-tabs li:first-child a').click().focus();
+             } else {
+                 // else activate next
+                 $activated.next().children('.nav-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+     });
  });
