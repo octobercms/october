@@ -167,11 +167,6 @@
  * Auto update WAI-ARIA when a user updates the tabs
  */
  $(document).ready(function(){
-     // loading aria attribute on pates tabs
-     $('.nav-tabs').attr('role', 'tablist');         // ul
-     $('.nav-tabs li').attr('role', 'presentation'); // li
-     $('.nav-tabs a').attr('role', 'tab');           // a
-
      // if no selected => select first
      if ($('.nav-tabs a[aria-selected]').length == 0) {
          $('.nav-tabs a:first').attr('aria-selected', 'true');
