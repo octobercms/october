@@ -44,8 +44,8 @@ jobs:
     - stage: code quality
       if: type = pull_request
       php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT_RANGE/.../..})
+      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only origin/$TRAVIS_BRANCH..HEAD)
     - stage: code quality
       if: type = push AND (branch = develop OR branch = master)
       php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff-tree --no-commit-id --name-only -r $TRAVIS_COMMIT)
+      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only $TRAVIS_COMMIT)
