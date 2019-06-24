@@ -66,7 +66,7 @@
             $('.tab-pane', $primaryPanel).addClass('pane-compact')
         }
 
-        $('.secondary-tabs', $primaryPanel).addClass('master-area')
+        $('.nav-tabs', $primaryPanel).addClass('master-area')
 
         if ($primaryPanel.length > 0) {
             $secondaryPanel.append(this.createPrimaryCollapseIcon())
