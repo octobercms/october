@@ -66,7 +66,7 @@
             $('.tab-pane', $primaryPanel).addClass('pane-compact')
         }
 
-        $('.nav-tabs', $primaryPanel).addClass('master-area')
+        $('.secondary-tabs', $primaryPanel).addClass('master-area')
 
         if ($primaryPanel.length > 0) {
             $secondaryPanel.append(this.createPrimaryCollapseIcon())
@@ -163,42 +163,43 @@
 
 }(window.jQuery);
 
+
 /*
  * Auto update WAI-ARIA when a user updates the tabs
  */
  $(document).ready(function(){
+
+     /* Master Tabs */
+
      // if no selected => select first
-     if ($('.nav-tabs a[aria-selected]').length == 0) {
-         $('.nav-tabs a:first').attr('aria-selected', 'true');
-         $('.nav-tabs a:first').attr('tabindex', '0');
+     if ($('.master-tabs a[aria-selected]').length == 0) {
+         $('.master-tabs a:first').attr('aria-selected', 'true');
+         $('.master-tabs a:first').attr('tabindex', '0');
      }
 
      /* click on a link */
-     $('.nav-tabs a').click(function() {
-         $this = $(this);
-
+     $('.master-tabs a').click(function() {
          // remove aria selected on all links + remove focusable
-         $('.nav-tabs a').removeAttr('aria-selected');
-         $('.nav-tabs a').attr('tabindex', '-1');
+         $('.master-tabs a').attr('aria-selected', 'false');
 
          // add aria selected on $this + focusable
-         $this.attr('aria-selected', 'true');
-         $this.attr('tabindex', '0');
+         $('.master-tabs a.focus-visible').attr('aria-selected', 'true');
 
-         return false;
+         // Important - Must be set to true for October to set class="active" in the <li>
+         return true;
      });
 
-     $('body').on('keydown','.nav-tabs', function(event) {
+     $('body').on('keydown','.master-tabs', function(event) {
          // strike up or left in the tab
          if (event.keyCode == 37 || event.keyCode == 38) {
              // find previous tab
              // if we are on first => activate last
-             $activated = $('.nav-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.nav-tabs li:first-child')) {
-                 $('.nav-tabs li:last-child a').click().focus();
+             $activated = $('.master-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.master-tabs li:first-child')) {
+                 $('.master-tabs li:last-child a').click().focus();
              } else {
                  // else activate previous
-                 $activated.prev().children('.nav-tabs a').click().focus();
+                 $activated.prev().children('.master-tabs a').click().focus();
              }
              event.preventDefault();
          }
@@ -206,14 +207,162 @@
          if (event.keyCode == 40 || event.keyCode == 39) {
              // find next tab
              // if we are on last => activate first
-             $activated = $('.nav-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.nav-tabs li:last-child')) {
-                 $('.nav-tabs li:first-child a').click().focus();
+             $activated = $('.master-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.master-tabs li:last-child')) {
+                 $('.master-tabs li:first-child a').click().focus();
              } else {
                  // else activate next
-                 $activated.next().children('.nav-tabs a').click().focus();
+                 $activated.next().children('.master-tabs a').click().focus();
              }
              event.preventDefault();
          }
      });
+
+     /* Primary Tabs */
+
+     // if no selected => select first
+     if ($('.primary-tabs a[aria-selected]').length == 0) {
+         $('.primary-tabs a:first').attr('aria-selected', 'true');
+         $('.primary-tabs a:first').attr('tabindex', '0');
+     }
+
+     /* click on a link */
+     $('.primary-tabs a').click(function() {
+         // remove aria selected on all links + remove focusable
+         $('.primary-tabs a').attr('aria-selected', 'false');
+
+         // add aria selected on $this + focusable
+         $('.primary-tabs a.focus-visible').attr('aria-selected', 'true');
+
+         // Important - Must be set to true for October to set class="active" in the <li>
+         return true;
+     });
+
+     $('body').on('keydown','.primary-tabs', function(event) {
+         // strike up or left in the tab
+         if (event.keyCode == 37 || event.keyCode == 38) {
+             // find previous tab
+             // if we are on first => activate last
+             $activated = $('.primary-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.primary-tabs li:first-child')) {
+                 $('.primary-tabs li:last-child a').click().focus();
+             } else {
+                 // else activate previous
+                 $activated.prev().children('.primary-tabss a').click().focus();
+             }
+             event.preventDefault();
+         }
+         // strike down or right in the tab
+         if (event.keyCode == 40 || event.keyCode == 39) {
+             // find next tab
+             // if we are on last => activate first
+             $activated = $('.primary-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.primary-tabs li:last-child')) {
+                 $('.primary-tabs li:first-child a').click().focus();
+             } else {
+                 // else activate next
+                 $activated.next().children('.primary-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+     });
+
+     /* Secondary Tabs */
+
+     // if no selected => select first
+     if ($('.secondary-tabs a[aria-selected]').length == 0) {
+         $('.secondary-tabs a:first').attr('aria-selected', 'true');
+         $('.secondary-tabs a:first').attr('tabindex', '0');
+     }
+
+     /* click on a link */
+     $('.secondary-tabs a').click(function() {
+         // remove aria selected on all links + remove focusable
+         $('.secondary-tabs a').attr('aria-selected', 'false');
+
+         // add aria selected on $this + focusable
+         $('.secondary-tabs a.focus-visible').attr('aria-selected', 'true');
+
+         // Important - Must be set to true for October to set class="active" in the <li>
+         return true;
+     });
+
+     $('body').on('keydown','.secondary-tabs', function(event) {
+         // strike up or left in the tab
+         if (event.keyCode == 37 || event.keyCode == 38) {
+             // find previous tab
+             // if we are on first => activate last
+             $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.secondary-tabs li:first-child')) {
+                 $('.secondary-tabs li:last-child a').click().focus();
+             } else {
+                 // else activate previous
+                 $activated.prev().children('.secondary-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+         // strike down or right in the tab
+         if (event.keyCode == 40 || event.keyCode == 39) {
+             // find next tab
+             // if we are on last => activate first
+             $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.secondary-tabs li:last-child')) {
+                 $('.secondary-tabs li:first-child a').click().focus();
+             } else {
+                 // else activate next
+                 $activated.next().children('.secondary-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+     });
+
+     /* Content Tabs */
+
+     // if no selected => select first
+     if ($('.content-tabs a[aria-selected]').length == 0) {
+         $('.content-tabs a:first').attr('aria-selected', 'true');
+         $('.content-tabs a:first').attr('tabindex', '0');
+     }
+
+     /* click on a link */
+     $('.content-tabs a').click(function() {
+         // remove aria selected on all links + remove focusable
+         $('.content-tabs a').attr('aria-selected', 'false');
+
+         // add aria selected on $this + focusable
+         $('.content-tabs a.focus-visible').attr('aria-selected', 'true');
+
+         // Important - Must be set to true for October to set class="active" in the <li>
+         return true;
+     });
+
+     $('body').on('keydown','.content-tabs', function(event) {
+         // strike up or left in the tab
+         if (event.keyCode == 37 || event.keyCode == 38) {
+             // find previous tab
+             // if we are on first => activate last
+             $activated = $('.content-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.content-tabs li:first-child')) {
+                 $('.content-tabs li:last-child a').click().focus();
+             } else {
+                 // else activate previous
+                 $activated.prev().children('.content-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+         // strike down or right in the tab
+         if (event.keyCode == 40 || event.keyCode == 39) {
+             // find next tab
+             // if we are on last => activate first
+             $activated = $('.content-tabs a[aria-selected="true"]').parent();
+             if ($activated.is('.content-tabs li:last-child')) {
+                 $('.content-tabs li:first-child a').click().focus();
+             } else {
+                 // else activate next
+                 $activated.next().children('.content-tabs a').click().focus();
+             }
+             event.preventDefault();
+         }
+     });
+
  });
