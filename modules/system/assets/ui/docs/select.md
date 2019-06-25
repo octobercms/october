@@ -77,10 +77,13 @@ The AJAX handler should return results as an array.
 public function onGetOptions()
 {
     $results = [
-        'key' => 'value',
+        [
+            'id' => 1,
+            'text' => 'Foobar',
+        ],
         ...
     ];
 
-    return ['result' => $results];
+    return ['result' => json_encode($results)];
 }
 ```
