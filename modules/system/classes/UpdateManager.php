@@ -241,7 +241,7 @@ class UpdateManager
         ];
 
         $result = $this->requestServerData('core/update', $params);
-        $updateCount = (int)array_get($result, 'update', 0);
+        $updateCount = (int) array_get($result, 'update', 0);
 
         /*
          * Inject known core build
@@ -775,8 +775,8 @@ class UpdateManager
         if ($result->code != 200) {
             throw new ApplicationException(
                 strlen($result->body)
-                    ? $result->body
-                    : Lang::get('system::lang.server.response_empty')
+                ? $result->body
+                : Lang::get('system::lang.server.response_empty')
             );
         }
 
