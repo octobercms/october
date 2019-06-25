@@ -15,20 +15,24 @@
 // Focus Ring Support for accessibility
 //
 
--moz-focusring {
-	&:not(.focus-ring) {
-		outline: none;
+.js-focus-visible {
+	&:-moz-focusring {
+		&:not(.focus-visible) {
+			outline: none;
+		}
 	}
-}
-&:focus {
-	&:not(.focus-ring) {
-		outline: none;
+	&:focus {
+		&:not(.focus-visible) {
+			outline: none;
+		}
 	}
-}
-&:focus-visible {
-	border: .0625rem solid #3578E5;
-	-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5;
-	box-shadow: 0 0 .1875rem .125rem #3578E5;
+	.focus-visible {
+		border: .0625rem solid #3578E5;
+		-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5;
+		box-shadow: 0 0 .1875rem .125rem #3578E5;
+		z-index: 1;
+		position: relative;
+	}
 }
 
 body.mainmenu-open {
