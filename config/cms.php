@@ -413,4 +413,26 @@ return [
 
     'restrictBaseDir' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Backend Service Worker
+    |--------------------------------------------------------------------------
+    |
+    | Allow plugins to run Service Workers in the backend.
+    |
+    | WARNING: This should always be disabled for security reasons as Service
+    | Workers can be hijacked and used to run XSS into the backend. Turning
+    | this feature on can create a conflict if you have a frontend Service
+    | Worker running. The 'scope' needs to be correctly set and not have a
+    | duplicate subfolder structure on the frontend, otherwise it will run
+    | on both the frontend and backend of your website.	
+    |
+    | true  - allow service workers to run in the backend
+    |
+    | false - disallow service workers to run in the backend
+    |
+    */
+
+    'enableBackendServiceWorkers' => false,	
+
 ];
