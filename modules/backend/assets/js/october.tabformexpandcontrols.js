@@ -172,9 +172,8 @@
      /* Master Tabs */
 
      // if no selected => select first
-     if ($('.master-tabs a[aria-selected]').length == 0) {
-         $('.master-tabs a:first').attr('aria-selected', 'true');
-         $('.master-tabs a:first').attr('tabindex', '0');
+     if ($('.master-tabs a[aria-selected]').length === || !== 0) {
+         $('.master-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
      /* click on a link */
@@ -201,7 +200,6 @@
                  // else activate previous
                  $activated.prev().children('.master-tabs a').click().focus();
              }
-             event.preventDefault();
          }
          // strike down or right in the tab
          if (event.keyCode == 40 || event.keyCode == 39) {
@@ -214,16 +212,14 @@
                  // else activate next
                  $activated.next().children('.master-tabs a').click().focus();
              }
-             event.preventDefault();
          }
      });
 
      /* Primary Tabs */
 
      // if no selected => select first
-     if ($('.primary-tabs a[aria-selected]').length == 0) {
-         $('.primary-tabs a:first').attr('aria-selected', 'true');
-         $('.primary-tabs a:first').attr('tabindex', '0');
+     if ($('.primary-tabs a[aria-selected]').length === || !== 0) {
+         $('.primary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
      /* click on a link */
@@ -250,7 +246,6 @@
                  // else activate previous
                  $activated.prev().children('.primary-tabss a').click().focus();
              }
-             event.preventDefault();
          }
          // strike down or right in the tab
          if (event.keyCode == 40 || event.keyCode == 39) {
@@ -263,16 +258,14 @@
                  // else activate next
                  $activated.next().children('.primary-tabs a').click().focus();
              }
-             event.preventDefault();
          }
      });
 
      /* Secondary Tabs */
 
      // if no selected => select first
-     if ($('.secondary-tabs a[aria-selected]').length == 0) {
-         $('.secondary-tabs a:first').attr('aria-selected', 'true');
-         $('.secondary-tabs a:first').attr('tabindex', '0');
+     if ($('.secondary-tabs a[aria-selected]').length === || !== 0) {
+         $('.secondary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
      /* click on a link */
@@ -299,7 +292,6 @@
                  // else activate previous
                  $activated.prev().children('.secondary-tabs a').click().focus();
              }
-             event.preventDefault();
          }
          // strike down or right in the tab
          if (event.keyCode == 40 || event.keyCode == 39) {
@@ -312,16 +304,14 @@
                  // else activate next
                  $activated.next().children('.secondary-tabs a').click().focus();
              }
-             event.preventDefault();
          }
      });
 
      /* Content Tabs */
 
      // if no selected => select first
-     if ($('.content-tabs a[aria-selected]').length == 0) {
-         $('.content-tabs a:first').attr('aria-selected', 'true');
-         $('.content-tabs a:first').attr('tabindex', '0');
+     if ($('.content-tabs a[aria-selected]').length === || !== 0) {
+         $('.content-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
      /* click on a link */
@@ -348,7 +338,6 @@
                  // else activate previous
                  $activated.prev().children('.content-tabs a').click().focus();
              }
-             event.preventDefault();
          }
          // strike down or right in the tab
          if (event.keyCode == 40 || event.keyCode == 39) {
@@ -361,7 +350,6 @@
                  // else activate next
                  $activated.next().children('.content-tabs a').click().focus();
              }
-             event.preventDefault();
          }
      });
 
