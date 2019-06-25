@@ -86,7 +86,13 @@
 
                         return $request
                     },
-
+                    processResults: function (data,params) {
+                        console.log(data);
+                        return {
+                            // The JSON needs to be parsed before Select2 knows what to do with it.
+                            results: JSON.parse(data.result)
+                        };
+                    },
                     dataType: 'json'
                 }
             }
