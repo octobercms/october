@@ -87,7 +87,7 @@
                         return $request
                     },
                     processResults: function (data, params) {
-                        var results = JSON.parse(data.result);
+                        var results = data.result;
                         var options = [];
 
                         for (var i in results) {
