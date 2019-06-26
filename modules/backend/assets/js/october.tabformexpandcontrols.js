@@ -190,7 +190,7 @@
 
      $('body').on('keydown','.master-tabs', function(event) {
          // strike up or left in the tab
-         if (event.keyCode == 37 || event.keyCode == 38) {
+         if (event.keyCode === 37 || event.keyCode === 38) {
              // find previous tab
              // if we are on first => activate last
              $activated = $('.master-tabs a[aria-selected="true"]').parent();
@@ -202,7 +202,7 @@
              }
          }
          // strike down or right in the tab
-         if (event.keyCode == 40 || event.keyCode == 39) {
+         if (event.keyCode === 40 || event.keyCode === 39) {
              // find next tab
              // if we are on last => activate first
              $activated = $('.master-tabs a[aria-selected="true"]').parent();
@@ -236,7 +236,7 @@
 
      $('body').on('keydown','.primary-tabs', function(event) {
          // strike up or left in the tab
-         if (event.keyCode == 37 || event.keyCode == 38) {
+         if (event.keyCode === 37 || event.keyCode === 38) {
              // find previous tab
              // if we are on first => activate last
              $activated = $('.primary-tabs a[aria-selected="true"]').parent();
@@ -248,7 +248,7 @@
              }
          }
          // strike down or right in the tab
-         if (event.keyCode == 40 || event.keyCode == 39) {
+         if (event.keyCode === 40 || event.keyCode === 39) {
              // find next tab
              // if we are on last => activate first
              $activated = $('.primary-tabs a[aria-selected="true"]').parent();
@@ -282,7 +282,7 @@
 
      $('body').on('keydown','.secondary-tabs', function(event) {
          // strike up or left in the tab
-         if (event.keyCode == 37 || event.keyCode == 38) {
+         if (event.keyCode === 37 || event.keyCode === 38) {
              // find previous tab
              // if we are on first => activate last
              $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
@@ -294,7 +294,7 @@
              }
          }
          // strike down or right in the tab
-         if (event.keyCode == 40 || event.keyCode == 39) {
+         if (event.keyCode === 40 || event.keyCode === 39) {
              // find next tab
              // if we are on last => activate first
              $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
@@ -328,7 +328,7 @@
 
      $('body').on('keydown','.content-tabs', function(event) {
          // strike up or left in the tab
-         if (event.keyCode == 37 || event.keyCode == 38) {
+         if (event.keyCode === 37 || event.keyCode === 38) {
              // find previous tab
              // if we are on first => activate last
              $activated = $('.content-tabs a[aria-selected="true"]').parent();
@@ -340,7 +340,7 @@
              }
          }
          // strike down or right in the tab
-         if (event.keyCode == 40 || event.keyCode == 39) {
+         if (event.keyCode === 40 || event.keyCode === 39) {
              // find next tab
              // if we are on last => activate first
              $activated = $('.content-tabs a[aria-selected="true"]').parent();
