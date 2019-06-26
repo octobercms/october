@@ -86,7 +86,23 @@
 
                         return $request
                     },
+                    processResults: function (data, params) {
+                        var results = JSON.parse(data.result);
+                        var options = [];
 
+                        for (var i in results) {
+                            if (results.hasOwnProperty(i)) {
+                                options.push({
+                                    id: i,
+                                    text: results[i],
+                                });
+                            };
+                        };
+
+                        return {
+                            results: options,
+                        };
+                    },
                     dataType: 'json'
                 }
             }
