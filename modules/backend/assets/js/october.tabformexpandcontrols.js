@@ -172,7 +172,7 @@
      /* Master Tabs */
 
      // if no selected => select first
-     if ($('.master-tabs a[aria-selected]').length === || !== 0) {
+     if ($('.master-tabs a[aria-selected]').length === 0) {
          $('.master-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
@@ -218,7 +218,7 @@
      /* Primary Tabs */
 
      // if no selected => select first
-     if ($('.primary-tabs a[aria-selected]').length === || !== 0) {
+     if ($('.primary-tabs a[aria-selected]').length === 0) {
          $('.primary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
@@ -264,7 +264,7 @@
      /* Secondary Tabs */
 
      // if no selected => select first
-     if ($('.secondary-tabs a[aria-selected]').length === || !== 0) {
+     if ($('.secondary-tabs a[aria-selected]').length === 0) {
          $('.secondary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
@@ -310,7 +310,7 @@
      /* Content Tabs */
 
      // if no selected => select first
-     if ($('.content-tabs a[aria-selected]').length === || !== 0) {
+     if ($('.content-tabs a[aria-selected]').length === 0) {
          $('.content-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
      }
 
