@@ -24,6 +24,7 @@
 =require vendor/pikaday/js/pikaday.jquery.js
 =require vendor/clockpicker/js/jquery-clockpicker.js
 =require vendor/focus-visible/focus-visible.js
+=require vendor/keyboardevent-key-polyfill/index.js
 
 =require js/foundation.baseclass.js
 =require js/foundation.element.js
