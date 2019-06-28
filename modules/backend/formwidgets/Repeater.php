@@ -293,7 +293,6 @@ class Repeater extends FormWidgetBase
 
         $groupCode = post('_repeater_group');
 
-        // Gets the next available index number
         $index = $this->getNextIndex();
 
         $this->prepareVars();
@@ -322,6 +321,11 @@ class Repeater extends FormWidgetBase
         return $widget->onRefresh();
     }
 
+    /**
+     * Determines the next available index number for assigning to a new repeater item.
+     *
+     * @return int
+     */
     protected function getNextIndex()
     {
         if ($this->loaded === true) {
