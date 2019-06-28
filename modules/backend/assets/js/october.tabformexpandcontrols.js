@@ -163,7 +163,6 @@
 
 }(window.jQuery);
 
-
 /*
  * Auto update WAI-ARIA when a user updates the tabs
  */
