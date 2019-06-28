@@ -167,190 +167,100 @@
 /*
  * Auto update WAI-ARIA when a user updates the tabs
  */
- $(document).ready(function(){
+ $(document).ready(function() {
 
-     /* Master Tabs */
-
-     // if no selected => select first
+     /* If no selected => select first */
      if ($('.master-tabs a[aria-selected]').length === 0) {
-         $('.master-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
+         $('.master-tabs a:first').attr({
+             'aria-selected': 'true',
+             'tabindex': '0'
+         });
+     } else if ($('.primary-tabs a[aria-selected]').length === 0) {
+         $('.primary-tabs a:first').attr({
+             'aria-selected': 'true',
+             'tabindex': '0'
+         });
+     } else if ($('.secondary-tabs a[aria-selected]').length === 0) {
+         $('.secondary-tabs a:first').attr({
+             'aria-selected': 'true',
+             'tabindex': '0'
+         });
+     } else if ($('.content-tabs a[aria-selected]').length === 0) {
+         $('.content-tabs a:first').attr({
+             'aria-selected': 'true',
+             'tabindex': '0'
+         });
      }
+     // else if ($('.vertical-tabs a[aria-selected]').length === 0) {
+     //     $('.vertical-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0'});
+     //     $('.vertical-tabs ul').attr('aria-orientation':'vertical');
+     // }
 
-     /* click on a link */
-     $('.master-tabs a').click(function() {
+     /* Click on a link */
+     $('body').on('click', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) { // Can add ,.vertical-tabs
+
+         let $target = $(event.target);
+         let tabNameClick = '';
+
+         if ($target.hasClass('master-tabs')) {
+             tabNameClick = '.master-tabs';
+         } else if ($target.hasClass('primary-tabs')) {
+             tabNameClick = '.primary-tabs';
+         } else if ($target.hasClass('secondary-tabs')) {
+             tabNameClick = '.secondary-tabs';
+         } else if ($target.hasClass('content-tabs')) {
+             tabNameClick = '.content-tabs';
+         }
+         // else if($target.hasClass('vertical-tabs')) {
+         //     tabNameClick = '.vertical-tabs';
+         // }
+
          // remove aria selected on all links + remove focusable
-         $('.master-tabs a').attr('aria-selected', 'false');
+         $(tabName + ' a').attr('aria-selected', 'false');
 
          // add aria selected on $this + focusable
-         $('.master-tabs a.focus-visible').attr('aria-selected', 'true');
+         $(tabName + ' a.focus-visible').attr('aria-selected', 'true');
 
          // Important - Must be set to true for October to set class="active" in the <li>
          return true;
      });
 
-     $('body').on('keydown','.master-tabs', function(event) {
-         // strike up or left in the tab
-         if (event.keyCode === 37 || event.keyCode === 38) {
-             // find previous tab
-             // if we are on first => activate last
-             $activated = $('.master-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.master-tabs li:first-child')) {
-                 $('.master-tabs li:last-child a').click().focus();
+     /* Keyboard arrow selection */
+     $('body').on('keydown', '.primary-tabs,.secondary-tabs,.master-tabs,.content-tabs', function(event) { // Can add ,.vertical-tabs
+
+         let $target = $(event.target);
+         let tabNameKey = '';
+
+         if ($target.hasClass('primary-tabs')) {
+             tabNameKey = '.primary-tabs';
+         } else if ($target.hasClass('secondary-tabs')) {
+             tabNameKey = '.secondary-tabs';
+         } else if ($target.hasClass('secondary-tabs')) {
+             tabNameKey = '.secondary-tabs';
+         } else if ($target.hasClass('secondary-tabs')) {
+             tabNameKey = '.content-tabs';
+         }
+         // else if($target.hasClass('vertical-tabs')) {
+         //     tabNameKey = '.vertical-tabs';
+         // }
+
+         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
+         if (strikeUpOrRightTab || strikeDownOrLeftTab) {
+             event.preventDefault();
+
+             var postition = strikeUpOrRightTab ? 'first-child' : 'last-child';
+             $activated = $(tabNameKey + ' a[aria-selected="true"]').parent();
+             if ($activated.is(tabNameKey + ' li:' + position)) {
+                 $(tabNameKey + ' li:' + position + ' a').click().focus();
              } else {
                  // else activate previous
-                 $activated.prev().children('.master-tabs a').click().focus();
+                 $activated.prev().children(tabNameKey + ' a').click().focus();
              }
          }
-         // strike down or right in the tab
-         if (event.keyCode === 40 || event.keyCode === 39) {
-             // find next tab
-             // if we are on last => activate first
-             $activated = $('.master-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.master-tabs li:last-child')) {
-                 $('.master-tabs li:first-child a').click().focus();
-             } else {
-                 // else activate next
-                 $activated.next().children('.master-tabs a').click().focus();
-             }
-         }
-     });
-
-     /* Primary Tabs */
-
-     // if no selected => select first
-     if ($('.primary-tabs a[aria-selected]').length === 0) {
-         $('.primary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
-     }
-
-     /* click on a link */
-     $('.primary-tabs a').click(function() {
-         // remove aria selected on all links + remove focusable
-         $('.primary-tabs a').attr('aria-selected', 'false');
-
-         // add aria selected on $this + focusable
-         $('.primary-tabs a.focus-visible').attr('aria-selected', 'true');
 
          // Important - Must be set to true for October to set class="active" in the <li>
          return true;
-     });
-
-     $('body').on('keydown','.primary-tabs', function(event) {
-         // strike up or left in the tab
-         if (event.keyCode === 37 || event.keyCode === 38) {
-             // find previous tab
-             // if we are on first => activate last
-             $activated = $('.primary-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.primary-tabs li:first-child')) {
-                 $('.primary-tabs li:last-child a').click().focus();
-             } else {
-                 // else activate previous
-                 $activated.prev().children('.primary-tabss a').click().focus();
-             }
-         }
-         // strike down or right in the tab
-         if (event.keyCode === 40 || event.keyCode === 39) {
-             // find next tab
-             // if we are on last => activate first
-             $activated = $('.primary-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.primary-tabs li:last-child')) {
-                 $('.primary-tabs li:first-child a').click().focus();
-             } else {
-                 // else activate next
-                 $activated.next().children('.primary-tabs a').click().focus();
-             }
-         }
-     });
-
-     /* Secondary Tabs */
-
-     // if no selected => select first
-     if ($('.secondary-tabs a[aria-selected]').length === 0) {
-         $('.secondary-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
-     }
-
-     /* click on a link */
-     $('.secondary-tabs a').click(function() {
-         // remove aria selected on all links + remove focusable
-         $('.secondary-tabs a').attr('aria-selected', 'false');
-
-         // add aria selected on $this + focusable
-         $('.secondary-tabs a.focus-visible').attr('aria-selected', 'true');
-
-         // Important - Must be set to true for October to set class="active" in the <li>
-         return true;
-     });
-
-     $('body').on('keydown','.secondary-tabs', function(event) {
-         // strike up or left in the tab
-         if (event.keyCode === 37 || event.keyCode === 38) {
-             // find previous tab
-             // if we are on first => activate last
-             $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.secondary-tabs li:first-child')) {
-                 $('.secondary-tabs li:last-child a').click().focus();
-             } else {
-                 // else activate previous
-                 $activated.prev().children('.secondary-tabs a').click().focus();
-             }
-         }
-         // strike down or right in the tab
-         if (event.keyCode === 40 || event.keyCode === 39) {
-             // find next tab
-             // if we are on last => activate first
-             $activated = $('.secondary-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.secondary-tabs li:last-child')) {
-                 $('.secondary-tabs li:first-child a').click().focus();
-             } else {
-                 // else activate next
-                 $activated.next().children('.secondary-tabs a').click().focus();
-             }
-         }
-     });
-
-     /* Content Tabs */
-
-     // if no selected => select first
-     if ($('.content-tabs a[aria-selected]').length === 0) {
-         $('.content-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0' });
-     }
-
-     /* click on a link */
-     $('.content-tabs a').click(function() {
-         // remove aria selected on all links + remove focusable
-         $('.content-tabs a').attr('aria-selected', 'false');
-
-         // add aria selected on $this + focusable
-         $('.content-tabs a.focus-visible').attr('aria-selected', 'true');
-
-         // Important - Must be set to true for October to set class="active" in the <li>
-         return true;
-     });
-
-     $('body').on('keydown','.content-tabs', function(event) {
-         // strike up or left in the tab
-         if (event.keyCode === 37 || event.keyCode === 38) {
-             // find previous tab
-             // if we are on first => activate last
-             $activated = $('.content-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.content-tabs li:first-child')) {
-                 $('.content-tabs li:last-child a').click().focus();
-             } else {
-                 // else activate previous
-                 $activated.prev().children('.content-tabs a').click().focus();
-             }
-         }
-         // strike down or right in the tab
-         if (event.keyCode === 40 || event.keyCode === 39) {
-             // find next tab
-             // if we are on last => activate first
-             $activated = $('.content-tabs a[aria-selected="true"]').parent();
-             if ($activated.is('.content-tabs li:last-child')) {
-                 $('.content-tabs li:first-child a').click().focus();
-             } else {
-                 // else activate next
-                 $activated.next().children('.content-tabs a').click().focus();
-             }
-         }
      });
 
  });
