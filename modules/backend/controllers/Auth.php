@@ -11,6 +11,7 @@ use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
 use Exception;
+use Config;
 
 /**
  * Authentication controller
@@ -72,8 +73,7 @@ class Auth extends Controller
             }
 
             $this->bodyClass .= ' preload';
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -90,8 +90,8 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
-        if (($remember = config('cms.backendForceRemember', true)) === null) {
-            $remember = (bool) post('remember');
+        if (($remember = Config::get('cms.backendForceRemember', true)) === null) {
+            $remember = (bool)post('remember');
         }
 
         // Authenticate user
@@ -100,12 +100,11 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        if (config('cms.runMigrationsOnLogin', true)) {
+        if (Config::get('cms.runMigrationsOnLogin', true)) {
             try {
                 // Load version updates
                 UpdateManager::instance()->update();
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 Flash::error($ex->getMessage());
             }
         }
@@ -135,8 +134,7 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->restore_onSubmit();
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -162,7 +160,7 @@ class Auth extends Controller
         Flash::success(trans('backend::lang.account.restore_success'));
 
         $code = $user->getResetPasswordCode();
-        $link = Backend::url('backend/auth/reset/'.$user->id.'/'.$code);
+        $link = Backend::url('backend/auth/reset/' . $user->id . '/' . $code);
 
         $data = [
             'name' => $user->full_name,
@@ -189,8 +187,7 @@ class Auth extends Controller
             if (!$userId || !$code) {
                 throw new ApplicationException(trans('backend::lang.account.reset_error'));
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
 
