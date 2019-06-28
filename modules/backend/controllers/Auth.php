@@ -100,7 +100,7 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        if (config('cms.runUpdateManagerAfterBackendLogin', true)) {
+        if (config('cms.runMigrationsOnLogin', true)) {
             try {
                 // Load version updates
                 UpdateManager::instance()->update();
