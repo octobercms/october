@@ -359,7 +359,7 @@ return [
     */
 
     'forceBytecodeInvalidation' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Twig Strict Variables
@@ -372,7 +372,7 @@ return [
     | enabled.
     |
     */
-    
+
     'enableTwigStrictVariables' => false,
 
     /*
