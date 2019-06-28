@@ -1,5 +1,7 @@
 /*
  * @deprecated, remove if year >= 2021.
+ * Remove this Polyfill when Edge fixes this issue: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11509049/
+ * and October CMS decides to drop IE11 Support.
  * Polyfill for KeyboardEvent.prototype.key Version V1.1.0
  * Release URL: https://github.com/cvan/keyboardevent-key-polyfill/releases
  * This will still enable KeyboardEvent.prototype.key in environments where it may not yet be available.
