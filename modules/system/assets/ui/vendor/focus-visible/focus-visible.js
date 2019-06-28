@@ -58,11 +58,11 @@ function applyFocusVisiblePolyfill(scope) {
     var type = el.type;
     var tagName = el.tagName;
 
-    if (tagName == 'INPUT' && inputTypesWhitelist[type] && !el.readOnly) {
+    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !el.readOnly) {
       return true;
     }
 
-    if (tagName == 'TEXTAREA' && !el.readOnly) {
+    if (tagName === 'TEXTAREA' && !el.readOnly) {
       return true;
     }
 
