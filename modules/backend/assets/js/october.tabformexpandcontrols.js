@@ -216,10 +216,10 @@
          // }
 
          // remove aria selected on all links + remove focusable
-         $(tabName + ' a').attr('aria-selected', 'false');
+         $(tabNameClick + ' a').attr('aria-selected', 'false');
 
          // add aria selected on $this + focusable
-         $(tabName + ' a.focus-visible').attr('aria-selected', 'true');
+         $(tabNameClick + ' a.focus-visible').attr('aria-selected', 'true');
 
          // Important - Must be set to true for October to set class="active" in the <li>
          return true;
