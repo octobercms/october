@@ -95,7 +95,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Determines if logging in backend should run UpdateManager
+    | Automatically run migrations on login
     |--------------------------------------------------------------------------
     |
     | If value is true, UpdateMananger will be run on logging in to the backend.
