@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'runUpdateManagerAfterBackendLogin' => true,
+    'runMigrationsOnLogin' => true,
 
     /*
     |--------------------------------------------------------------------------
