@@ -535,6 +535,10 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
+        if (Config::get('cms.storage.media.disk') === 'local') {
+            return $this->storagePath . $path;
+        }
+
         $fullPath = $this->storagePath.implode("/", array_map("rawurlencode", explode("/", $path)));
 
         return Url::to($fullPath);
