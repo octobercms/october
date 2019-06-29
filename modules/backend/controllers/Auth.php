@@ -91,7 +91,7 @@ class Auth extends Controller
         }
 
         if (($remember = Config::get('cms.backendForceRemember', true)) === null) {
-            $remember = (bool)post('remember');
+            $remember = (bool) post('remember');
         }
 
         // Authenticate user
