@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'runMigrationsOnLogin' => true,
+    'runMigrationsOnLogin' => null,
 
     /*
     |--------------------------------------------------------------------------

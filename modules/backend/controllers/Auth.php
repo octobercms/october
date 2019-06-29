@@ -100,7 +100,13 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        if (Config::get('cms.runMigrationsOnLogin', true)) {
+
+        $runMigrationsOnLogin = Config::get('cms.runMigrationsOnLogin', null);
+        if ($runMigrationsOnLogin === null) {
+            $runMigrationsOnLogin = Config::get('app.debug', false);
+        }
+
+        if ($runMigrationsOnLogin) {
             try {
                 // Load version updates
                 UpdateManager::instance()->update();
