@@ -92,10 +92,17 @@
 
                         for (var i in results) {
                             if (results.hasOwnProperty(i)) {
-                                options.push({
-                                    id: i,
-                                    text: results[i],
-                                });
+                                if (Array.isArray(i)) {
+                                    options.push({
+                                        id: results[i]['id'],
+                                        text: results[i]['text'],
+                                    });
+                                } else {
+                                    options.push({
+                                        id: i,
+                                        text: results[i],
+                                    });
+                                };
                             };
                         };
 
