@@ -6,7 +6,7 @@ class PluginManagerTest extends TestCase
 {
     public $manager;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,7 +22,7 @@ class PluginManagerTest extends TestCase
     // Tests
     //
 
-    public function testLoadPlugins()
+    public function testLoadPlugins(): void
     {
         $result = $this->manager->loadPlugins();
 
@@ -50,21 +50,21 @@ class PluginManagerTest extends TestCase
         $this->assertInstanceOf('DependencyTest\Dependency\Plugin', $result['DependencyTest.Dependency']);
     }
 
-    public function testUnloadablePlugin()
+    public function testUnloadablePlugin(): void
     {
         $pluginNamespaces = $this->manager->getPluginNamespaces();
         $result = $this->manager->loadPlugin('\\testvendor\\goto', $pluginNamespaces['\\testvendor\\goto']);
         $this->assertNull($result);
     }
 
-    public function testGetPluginPath()
+    public function testGetPluginPath(): void
     {
         $result = $this->manager->getPluginPath('October\Tester');
         $basePath = str_replace('\\', '/', base_path());
         $this->assertEquals($basePath . '/tests/fixtures/plugins/october/tester', $result);
     }
 
-    public function testGetPlugins()
+    public function testGetPlugins(): void
     {
         $result = $this->manager->getPlugins();
 
@@ -91,13 +91,13 @@ class PluginManagerTest extends TestCase
         $this->assertInstanceOf('DependencyTest\Dependency\Plugin', $result['DependencyTest.Dependency']);
     }
 
-    public function testFindByNamespace()
+    public function testFindByNamespace(): void
     {
         $result = $this->manager->findByNamespace('October\Tester');
         $this->assertInstanceOf('October\Tester\Plugin', $result);
     }
 
-    public function testHasPlugin()
+    public function testHasPlugin(): void
     {
         $result = $this->manager->hasPlugin('October\Tester');
         $this->assertTrue($result);
@@ -124,7 +124,7 @@ class PluginManagerTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testGetPluginNamespaces()
+    public function testGetPluginNamespaces(): void
     {
         $result = $this->manager->getPluginNamespaces();
 
@@ -141,7 +141,7 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('\dependencytest\dependency', $result);
     }
 
-    public function testGetVendorAndPluginNames()
+    public function testGetVendorAndPluginNames(): void
     {
         $vendors = $this->manager->getVendorAndPluginNames();
 
@@ -165,7 +165,7 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('dependency', $vendors['dependencytest']);
     }
 
-    public function testPluginDetails()
+    public function testPluginDetails(): void
     {
         $testPlugin = $this->manager->findByNamespace('October\XXXXX');
         $this->assertNull($testPlugin);
@@ -179,7 +179,7 @@ class PluginManagerTest extends TestCase
         $this->assertEquals('Alexey Bobkov, Samuel Georges', $pluginDetails['author']);
     }
 
-    public function testUnregisterall()
+    public function testUnregisterall(): void
     {
         $result = $this->manager->getPlugins();
         $this->assertCount(8, $result);
@@ -188,7 +188,7 @@ class PluginManagerTest extends TestCase
         $this->assertEmpty($this->manager->getPlugins());
     }
 
-    public function testGetDependencies()
+    public function testGetDependencies(): void
     {
         $result = $this->manager->getDependencies('DependencyTest.Found');
         $this->assertCount(1, $result);
@@ -203,7 +203,7 @@ class PluginManagerTest extends TestCase
         $this->assertContains('DependencyTest.Missing', $result);
     }
 
-    public function testIsDisabled()
+    public function testIsDisabled(): void
     {
         $result = $this->manager->isDisabled('DependencyTest.Found');
         $this->assertFalse($result);
