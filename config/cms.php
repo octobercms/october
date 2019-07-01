@@ -99,8 +99,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | If value is true, UpdateMananger will be run on logging in to the backend.
-    | It's recommended to set this value to 'false' in production enviroments
+    | It's recommended to set this value to 'null' in production enviroments
     | because it clears the cache every time a user logs in to the backend.
+    | If set to null, this setting is enabled when debug mode (app.debug) is enabled.
     |
     */
 
