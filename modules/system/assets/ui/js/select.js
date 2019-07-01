@@ -92,17 +92,12 @@
 
                         for (var i in results) {
                             if (results.hasOwnProperty(i)) {
-                                if (typeof i === 'object' && Array.isArray(i) === false) {
-                                    options.push({
-                                        id: results[i].id,
-                                        text: results[i].text,
-                                    });
-                                } else {
-                                    options.push({
-                                        id: i,
-                                        text: results[i],
-                                    });
-                                };
+                                var isObject = i != null && i.constructor.name === 'Object';
+                                
+                                options.push({
+                                    id: isObject ? results[i].id : i,
+                                    text: isObject ? results[i].text : results[i],
+                                });
                             };
                         };
 
