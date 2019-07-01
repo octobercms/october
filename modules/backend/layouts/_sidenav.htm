@@ -14,9 +14,9 @@
                     class="layout-sidenav bg-p"
                     data-active-class="active"
                     data-control="sidenav">
-                    <ul class="nav">
+                    <ul class="nav" role="list">
                         <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
-                            <li
+                            <li role="listitem"
                                 class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
                                 <?= Html::attributes($item->attributes) ?>
                             >
