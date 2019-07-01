@@ -34,17 +34,12 @@ function applyFocusVisiblePolyfill(scope) {
    * @param {Element} el
    */
   function isValidFocusTarget(el) {
-    if (
-      el &&
-      el !== document &&
-      el.nodeName !== 'HTML' &&
-      el.nodeName !== 'BODY' &&
-      'classList' in el &&
-      'contains' in el.classList
-    ) {
-      return true;
-    }
-    return false;
+      return !!(el &&
+          el !== document &&
+          el.nodeName !== 'HTML' &&
+          el.nodeName !== 'BODY' &&
+          'classList' in el &&
+          'contains' in el.classList);
   }
 
   /**
