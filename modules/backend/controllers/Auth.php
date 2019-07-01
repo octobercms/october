@@ -90,7 +90,7 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
-        if (($remember = Config::get('cms.backendForceRemember', true)) === null) {
+        if (is_null($remember = Config::get('cms.backendForceRemember', true)) {
             $remember = (bool) post('remember');
         }
 
@@ -100,9 +100,7 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-
-        $runMigrationsOnLogin = Config::get('cms.runMigrationsOnLogin', null);
-        if ($runMigrationsOnLogin === null) {
+        if (is_null($runMigrationsOnLogin = Config::get('cms.runMigrationsOnLogin', null))) {
             $runMigrationsOnLogin = Config::get('app.debug', false);
         }
 
