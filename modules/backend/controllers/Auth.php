@@ -90,7 +90,7 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
-        if (is_null($remember = Config::get('cms.backendForceRemember', true)) {
+        if (is_null($remember = Config::get('cms.backendForceRemember', true))) {
             $remember = (bool) post('remember');
         }
 
