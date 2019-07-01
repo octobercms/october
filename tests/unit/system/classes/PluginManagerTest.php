@@ -1,5 +1,4 @@
 <?php
-
 use System\Classes\PluginManager;
 
 class PluginManagerTest extends TestCase
@@ -214,5 +213,4 @@ class PluginManagerTest extends TestCase
         $result = $this->manager->isDisabled('DependencyTest.NotFound');
         $this->assertTrue($result);
     }
-
 }

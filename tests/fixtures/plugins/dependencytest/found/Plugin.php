@@ -16,5 +16,4 @@ class Plugin extends PluginBase
             'author' => 'Ben Thomson'
         ];
     }
-
 }
