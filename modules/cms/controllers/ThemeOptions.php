@@ -67,7 +67,15 @@ class ThemeOptions extends Controller
     public function update_onSave($dirName = null)
     {
         $model = $this->getThemeData($this->getDirName($dirName));
-        $this->asExtension('FormController')->update_onSave($model->id);
+        $result = $this->asExtension('FormController')->update_onSave($model->id);
+
+        // Redirect close requests to the settings index when user doesn't have access
+        // to go back to the theme selection page
+        if (!$this->user->hasAccess('cms.manage_themes') && input('close')) {
+            $result = Backend::redirect('system/settings');
+        }
+
+        return $result;
     }
 
     public function update_onResetDefault($dirName = null)

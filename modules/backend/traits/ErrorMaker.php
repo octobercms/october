@@ -17,6 +17,22 @@ trait ErrorMaker
     protected $fatalError;
 
     /**
+     * @return boolean Whether a fatal error has been set or not.
+     */
+    public function hasFatalError() 
+    {
+        return !is_null($this->fatalError); 
+    }
+    
+    /**
+     * @return string The fatal error message
+     */
+    public function getFatalError() 
+    {
+       return $this->fatalError;
+    }
+    
+    /**
      * Sets standard page variables in the case of a controller error.
      */
     public function handleError($exception)

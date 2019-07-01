@@ -91,7 +91,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (useFiles) {
-            requestData = new FormData($form.length ? $form.get(0) : null)
+            requestData = new FormData($form.length ? $form.get(0) : undefined)
 
             if ($el.is(':file') && inputName) {
                 $.each($el.prop('files'), function() {
@@ -507,7 +507,10 @@ if (window.jQuery.request !== undefined) {
 
         var self = this
         this.dataTrackInputTimer = window.setTimeout(function() {
-            $(self).request()
+            if (self.lastDataTrackInputRequest) {
+                self.lastDataTrackInputRequest.abort();
+            }
+            self.lastDataTrackInputRequest = $(self).request();
         }, interval)
     })
 

@@ -2,42 +2,47 @@
 
 return [
     'auth' => [
-        'title' => 'Yönetim Paneli'
+        'title' => 'Yönetim Paneli',
+        'invalid_login' => 'Girdiğiniz bilgiler kayıtlarla eşleşmiyor. Lütfen kontrol edip tekrar deneyin.',
     ],
     'field' => [
         'invalid_type' => 'Geçersiz alan tipi :type.',
-        'options_method_not_exists' => ':model Model\'i ":field" formuna geri dönüş için bir :method() metod tanımlamalıdır.'
+        'options_method_invalid_model' => "':field' metodu, geçerli bir model ile eşleşmiyor. :model Model'i için options metodu tanımlamalısınız.",
+        'options_method_not_exists' => ":model Model'i içerisinde ':field' formuna geri dönüş için bir :method() metodu tanımlanmalıdır.",
+        'colors_method_not_exists' => ":model Model'i içerisinde ':field' form alanı için html renk HEX kodu üreten :method() metodu tanımlanmalıdır.",
     ],
     'widget' => [
         'not_registered' => "':name' isimli widget sınıfı sistemde kayıtlı değil",
-        'not_bound' => "':name' isimli widget sınıfı controllerda tanımlanmamış"
+        'not_bound' => "':name' isimli widget sınıfı controllerda tanımlanmamış",
     ],
     'page' => [
         'untitled' => "Başlıksız",
         'access_denied' => [
             'label' => "Giriş engellendi",
             'help' => "Bu sayfayı görüntülemek için gerekli izinlere sahip değilsiniz.",
-            'cms_link' => "Ana sayfaya dön"
+            'cms_link' => "Ana sayfaya dön",
         ],
         'no_database' => [
             'label' => 'Veritabanı yapılandırılmamış',
             'help' => "Yönetim paneline erişebilmeniz için geçerli bir veritabanı yapılandırması yapmalısınız. Lütfen ayarların kontrol edin.",
-            'cms_link' => 'Anasayfaya dön'
+            'cms_link' => 'Anasayfaya dön',
         ],
         'invalid_token' => [
             'label' => 'Geçersiz güvenlik anahtarı'
-        ]
+        ],
     ],
     'partial' => [
-        'not_found_name' => "':name' bölümü bulunamadı."
+        'not_found_name' => "':name' bölümü bulunamadı.",
     ],
     'account' => [
+        'signed_in_as' => ':full_name olarak giriş yapıldı',
         'sign_out' => 'Çıkış',
         'login' => 'Giriş',
         'reset' => 'Sıfırla',
         'restore' => 'Geri yükle',
         'login_placeholder' => 'kullanıcı adı',
         'password_placeholder' => 'şifre',
+        'remember_me' => 'Beni hatırla',
         'forgot_password' => "Şifrenizi mi unuttunuz?",
         'enter_email' => "Email adresinizi girin",
         'enter_login' => "Kullanıcı adınızı girin",
@@ -52,7 +57,7 @@ return [
         'apply' => 'Onayla',
         'cancel' => 'İptal',
         'delete' => 'Sil',
-        'ok' => 'Tamam'
+        'ok' => 'Tamam',
     ],
     'dashboard' => [
         'menu_label' => 'Anasayfa',
@@ -77,6 +82,8 @@ return [
         'make_default' => 'Öntanımlı yap',
         'make_default_confirm' => 'Şuan kullanılan şablonu öntanımlı yapmak istediğinize emin misiniz?',
         'make_default_success' => 'Geçerli şablon öntanımlı olarak ayarlandı',
+        'collapse_all' => 'Tümünü daralt',
+        'expand_all' => 'Tümünü genişlet',
         'status' => [
             'widget_title_default' => 'Sistem durumu',
             'update_available' => '{0} güncelleme var!|{1} güncelleme var!|[2,Inf] güncelleme var!',
@@ -99,7 +106,7 @@ return [
             'last_sign_in' => 'En yakın giriş yaptığınız tarih',
             'view_access_logs' => 'Erişim günlüğüne göz at',
             'nice_message' => 'İyi çalışmalar dileriz!',
-        ]
+        ],
     ],
     'user' => [
         'name' => 'Yönetici',
@@ -112,6 +119,8 @@ return [
         'last_name' => "Soyisim",
         'full_name' => "Tam Adı",
         'email' => "Email",
+        'role_field' => 'Roller',
+        'role_comment' => 'Roller kullanıcı izinlerini tanımlar. Bu roller, izinler sekmesinden kullanıcı düzeyinde değiştirilebilir.',
         'groups' => "Gruplar",
         'groups_comment' => "Kullanıcının hangi gruba bağlı olduğunu belirleyin.",
         'avatar' => "Avatar",
@@ -132,6 +141,8 @@ return [
         'last_login' => 'Son giriş',
         'created_at' => 'Oluşturulma',
         'updated_at' => 'Güncellenme',
+        'deleted_at' => 'Silinme',
+        'show_deleted' => 'Silinenleri göster',
         'group' => [
             'name' => 'Grup',
             'name_comment' => 'Grup ismi, grup listesinde Yönetici Ekleme/Düzenleme formunda görüntülenecek.',
@@ -146,11 +157,27 @@ return [
             'new' => 'Yeni Yönetici Grubu',
             'delete_confirm' => 'Bu yönetici grubunu silmek istiyor musunuz?',
             'return' => 'Grup listesine dön',
-            'users_count' => 'Users'
+            'users_count' => 'Kişiler',
+        ],
+        'role' => [
+            'name' => 'Rol',
+            'name_field' => 'İsim',
+            'name_comment' => 'Rol ismi, Yönetici formundaki rol listesinde görüntülenir.',
+            'description_field' => 'Açıklama',
+            'code_field' => 'Kod',
+            'code_comment' => 'API ile rol nesnesine erişmek istiyorsanız, eşsiz bir kod girin.',
+            'menu_label' => 'Rolleri Yönet',
+            'list_title' => 'Rolleri Yönet',
+            'new' => 'Yeni Rol',
+            'delete_confirm' => 'Bu yönetici rolü silinsin mi?',
+            'return' => 'Rol listesine dön',
+            'users_count' => 'Kişiler',
         ],
         'preferences' => [
             'not_authenticated' => 'Ayarları görüntülemek veya düzenlemek için yetkili bir kullanıcı yok.'
-        ]
+        ],
+        'trashed_hint_title' => 'Bu hesap silindi',
+        'trashed_hint_desc' => 'Bu hesap silindi ve oturum açılamadı. Tekrar aktifleştirmek için sağ alt kısımdaki kullanıcıyı aktifleştir simgesine tıklayın.',
     ],
     'list' => [
         'default_title' => 'Liste',
@@ -164,6 +191,8 @@ return [
         'behavior_not_ready' => 'Liste oluşturulamadı, controller da makeLists() metodunu kontrol edin.',
         'invalid_column_datetime' => "':column' için sütun değeri DateTime nesnesi değil, Model kısmında \$dates referansını unutmuş olabilir misiniz?",
         'pagination' => 'Gösterilen kayıtlar: :from-:to Toplam: :total',
+        'first_page' => 'İlk sayfa',
+        'last_page' => 'Son sayfa',
         'prev_page' => 'Önceki sayfa',
         'next_page' => 'Sonraki sayfa',
         'refresh' => 'Yenile',
@@ -179,7 +208,7 @@ return [
         'delete_selected_confirm' => 'Seçili kayıtları silmek istediğize emin misiniz?',
         'delete_selected_success' => 'Seçili kayıtlar başarıyla silindi.',
         'column_switch_true' => 'Evet',
-        'column_switch_false' => 'Hayır'
+        'column_switch_false' => 'Hayır',
     ],
     'fileupload' => [
         'attachment' => 'Dosya Eki',
@@ -191,7 +220,11 @@ return [
         'upload_file' => 'Dosya yükle',
         'upload_error' => 'Dosya yükleme hatası',
         'remove_confirm' => 'Emin misiniz?',
-        'remove_file' => 'Dosyayı sil'
+        'remove_file' => 'Dosyayı sil',
+    ],
+    'repeater' => [
+        'min_items_failed' => ':name için en az :min nesne gerekli, sadece :items nesne tanımlandı',
+        'max_items_failed' => ':name için en fazla :max nesne tanımlanabilir, :items nesne tanımlandı',
     ],
     'form' => [
         'create_title' => ":name Oluştur",
@@ -200,6 +233,7 @@ return [
         'create_success' => ':name başarıyla oluşturuldu',
         'update_success' => ':name başarıyla güncellendi',
         'delete_success' => ':name başarıyla silindi',
+        'restore_success' => ':name geri yüklendi',
         'reset_success' => 'Sıfırlama başarılı',
         'missing_id' => "Form kayıt ID'si belirtilmedi.",
         'missing_model' => ':class da kullanılan form için model değeri tanımlanmamış.',
@@ -219,6 +253,9 @@ return [
         'confirm_delete' => 'Bu kaydı silmek istediğinize emin misiniz?',
         'confirm_delete_multiple' => 'Seçilen kayıtları silmek istediğinize emin misiniz?',
         'deleting_name' => 'Siliniyor :name...',
+        'restore' => 'Geri yükle',
+        'restoring' => 'Geri yükleniyor',
+        'confirm_restore' => 'Bu kaydı geri yüklemek istediğinize emin misiniz?',
         'reset_default' => 'Ön Tanımlı Ayarlara Dön!',
         'resetting' => 'İşleniyor',
         'resetting_name' => ':name İşleniyor',
@@ -237,6 +274,7 @@ return [
         'confirm_tab_close' => 'Bu sekmeyi kapatmak istediğinize emin misiniz? Kaydedilmemiş değişiklikleri kaybedeceksiniz.',
         'behavior_not_ready' => 'Form oluşturulamadı, controller da initForm() metodunu kontrol edin.',
         'preview_no_files_message' => 'Dosyalar yüklenmedi',
+        'preview_no_media_message' => 'Seçilmiş medya yok.',
         'preview_no_record_message' => 'Seçili kayıt yok.',
         'select' => 'Seç',
         'select_all' => 'tümü',
@@ -247,10 +285,15 @@ return [
         'delete_row' => 'Kayıt Sil',
         'concurrency_file_changed_title' => 'Dosya değiştirildi',
         'concurrency_file_changed_description' => "Düzenlemeye çalıştığınız dosya disk üzerinde başka bir kullanıcı tarafından değiştirilmiş. Dosyayı yeniden yükleyebilir ve değişiklikleri kaybedersiniz ya da diskteki dosyayı kendi düzenlediğiniz hali ile değiştirebilirsiniz.",
-        'return_to_list' => 'Listeye dön'
+        'return_to_list' => 'Listeye dön',
     ],
     'recordfinder' => [
-        'find_record' => 'Kayıt Bul'
+        'find_record' => 'Kayıt Bul',
+        'cancel' => 'İptal',
+    ],
+    'pagelist' => [
+        'page_link' => 'Sayfa bağlantısı',
+        'select_page' => 'Sayfa seçin...',
     ],
     'relation' => [
         'missing_config' => "İlişki ':config' için bir yapılandırma ayarı içermiyor.",
@@ -283,7 +326,7 @@ return [
         'link_name' => ':name bağla',
         'unlink' => 'Bağlamayı kaldır',
         'unlink_name' => ':name bağlamasını kaldır',
-        'unlink_confirm' => 'Emin misiniz?'
+        'unlink_confirm' => 'Emin misiniz?',
     ],
     'reorder' => [
         'default_title' => 'Kayıtları yeniden sırala',
@@ -302,7 +345,8 @@ return [
         'tips' => 'Sistem ayar ipuçları',
         'tips_description' => 'Sistemin düzgün çalışabilmesi için dikkat etmeniz gereken sorunlar var.',
         'permissions'  => ':name dizini ve alt dizinleri PHP tarafından yazılabilir değil. Lütfen bu dizindeki webserver için gerekli yazma izinlerini verin.',
-        'extension' => ':name PHP eklentisi sistemde yüklü değil. Lütfen kütüphaneyi kurun ve eklentiyi aktifleştirin.'
+        'extension' => ':name PHP eklentisi sistemde yüklü değil. Lütfen kütüphaneyi kurun ve eklentiyi aktifleştirin.',
+        'plugin_missing' => ':name isimli eklenti gerekli, fakat yüklenmemiş. Lütfen bu eklentiyi yükleyin.',
     ],
     'editor' => [
         'menu_label' => 'Editör ayarları',
@@ -348,19 +392,23 @@ return [
         'no_wrap' => 'Tagları sarmalama',
         'no_wrap_comment' => 'Tag blokları içinde sarmalanmayacak taglar listesi.',
         'remove_tags' => 'Silinecek taglar',
-        'remove_tags_comment' => 'İçeriği ile birlikte silinecek taglar listesi.'
+        'remove_tags_comment' => 'İçeriği ile birlikte silinecek taglar listesi.',
+        'line_breaker_tags' => 'Satır atlatma etiketleri',
+        'line_breaker_tags_comment' => 'Aralarına bir satır atlatma öğesi yerleştirmek için kullanılan etiketlerin listesi.',
+        'toolbar_buttons' => 'Araç Çubuğu Düğmeleri',
+        'toolbar_buttons_comment' => 'Rich Editor\'de varsayılan olarak görüntülenecek Araç Çubuğu düğmeleri. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
-        'preview_website' => 'Websiteyi Önizle'
+        'preview_website' => 'Websiteyi Önizle',
     ],
     'mysettings' => [
         'menu_label' => 'Ayarlarım',
-        'menu_description' => 'Yönetim hesabı ile ilgili ayarlar'
+        'menu_description' => 'Yönetim hesabı ile ilgili ayarlar',
     ],
     'myaccount' => [
         'menu_label' => 'Kişisel Bilgilerim',
         'menu_description' => 'Hesabınızın ismi, email adresi ve şifresi gibi bilgilerini düzenleyebilirsiniz.',
-        'menu_keywords' => 'güvenli oturum açma'
+        'menu_keywords' => 'güvenli oturum açma',
     ],
     'branding' => [
         'menu_label' => 'Yönetim paneli ayarlarını düzenle',
@@ -382,7 +430,7 @@ return [
         'menu_mode' => 'Menü stili',
         'menu_mode_inline' => 'Sıralı',
         'menu_mode_tile' => 'Mozaik',
-        'menu_mode_collapsed' => 'Katlanmış'
+        'menu_mode_collapsed' => 'Katlanmış',
     ],
     'backend_preferences' => [
         'menu_label' => 'Panel Ayarları',
@@ -392,27 +440,31 @@ return [
         'timezone' => 'Zaman Dilimi',
         'timezone_comment' => 'Tarihleri bu zaman dilimine göre göster.',
         'locale' => 'Dil',
-        'locale_comment' => 'Yönetim Paneli dil seçiminizi belirleyin.'
+        'locale_comment' => 'Yönetim Paneli dil seçiminizi belirleyin.',
     ],
     'access_log' => [
         'hint' => 'Bu kayıtlar yöneticiler tarafından başarılı şekilde yapılan girişleri gösterir. Kayıtlar :days gün boyunca saklanır.',
         'menu_label' => 'Yönetim paneli erişim kayıtları',
         'menu_description' => 'Yönetim paneline başarılı şekilde yapılan girişleri görüntüler.',
+        'id' => 'ID',
         'created_at' => 'Tarih & Saat',
+        'type' => 'Tipi',
         'login' => 'Giriş',
         'ip_address' => 'IP adres',
         'first_name' => 'İsim',
         'last_name' => 'Soyisim',
-        'email' => 'Email'
+        'email' => 'Email',
     ],
     'filter' => [
         'all' => 'tümü',
         'options_method_not_exists' => ":model modelinde :method() metodu bulunmalı ve ':filter' filtresi için uygun seçenekleri döndermelidir.",
-        'date_all' => 'tüm periyotlar'
+        'date_all' => 'tüm periyotlar',
+        'number_all' => 'Tüm numaralar',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Bir CSV dosyası yükleyin',
         'import_file' => 'Dosya İçeri Aktar',
+        'row' => 'Satır :row',
         'first_row_contains_titles' => 'İlk satır, sütun isimlerini içermelidir',
         'first_row_contains_titles_desc' => 'Eğer CSV dosyanızda ilk satır, sütun isimlerini içeriyorsa bu seçeneği işaretleyin.',
         'match_columns' => '2. Veritabanı sütunları ile dosyanızdaki verileri eşleştirin',
@@ -479,14 +531,15 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic Dili)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Euro işareti revizyonlu Batı Avrupa)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)'
-        ]
+            'windows_1252' => 'Windows-1252 (CP1252)',
+        ],
     ],
     'permissions' => [
-        'manage_media' => 'Medyaları düzenleyebilsin'
+        'manage_media' => 'Medyaları düzenleyebilsin',
     ],
     'mediafinder' => [
-        'default_prompt' => 'Bir medya öğesi bulmak için %s butonuna tıklayın'
+        'label' => 'Medya Bulucu',
+        'default_prompt' => 'Bir medya öğesi bulmak için %s butonuna tıklayın',
     ],
     'media' => [
         'menu_label' => 'Medya',
@@ -517,6 +570,9 @@ return [
         'uploading_error' => 'Yükleme hatası',
         'type_blocked' => 'Seçilen dosya türünü güvenlik nedenleriyle izin verilmiyor.',
         'order_by' => 'Sırala',
+        'direction' => 'Yön',
+        'direction_asc' => 'Artan',
+        'direction_desc' => 'Azalan',
         'folder' => 'Klasör',
         'no_files_found' => 'İsteğiniz doğrultusunda hiçbir dosya bulunamadı.',
         'delete_empty' => 'Lütfen silinecek öğeleri seçiniz.',
@@ -546,6 +602,6 @@ return [
         'selection_mode' => 'Seçim modu',
         'resize_image' => 'Resimi yeniden boyutlandırs',
         'image_size' => 'Resim boyutu:',
-        'selected_size' => 'Seçili:'
-    ]
+        'selected_size' => 'Seçili:',
+    ],
 ];

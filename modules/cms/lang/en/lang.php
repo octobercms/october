@@ -185,7 +185,15 @@ return [
         'open_searchbox' => 'Open Search box',
         'close_searchbox'  => 'Close Search box',
         'open_replacebox' => 'Open Replace box',
-        'close_replacebox'  => 'Close Replace box'
+        'close_replacebox'  => 'Close Replace box',
+        'commit' => 'Commit',
+        'reset' => 'Reset',
+        'commit_confirm' => 'Are you sure you want to commit your changes to this file to the filesystem? This will overwrite the existing file on the filesystem',
+        'reset_confirm' => 'Are you sure you want to reset this file to the copy that is on the filesystem? This will completely replace it with the file that is on the filesystem',
+        'committing' => 'Committing',
+        'resetting' => 'Resetting',
+        'commit_success' => 'The :type has been committed to the filesystem',
+        'reset_success' => 'The :type has been reset to the filesystem version',
     ],
     'asset' => [
         'menu_label' => 'Assets',

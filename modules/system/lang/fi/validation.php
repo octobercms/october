@@ -12,7 +12,6 @@ return [
     | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-
     "accepted"         => "Kenttä :attribute täytyy hyväksyä.",
     "active_url"       => "Kenttä :attribute ei ole kelvollinen URL.",
     "after"            => "Kentän :attribute täytyy olla päivämäärä :date jälkeen.",

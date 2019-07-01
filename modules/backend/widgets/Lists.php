@@ -24,6 +24,8 @@ use ApplicationException;
  */
 class Lists extends WidgetBase
 {
+    use Backend\Traits\PreferenceMaker;
+
     //
     // Configurable properties
     //
@@ -207,7 +209,7 @@ class Lists extends WidgetBase
         /*
          * Configure the list widget
          */
-        $this->recordsPerPage = $this->getSession('per_page', $this->recordsPerPage);
+        $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
@@ -350,6 +352,7 @@ class Lists extends WidgetBase
         $selects = [$primaryTable.'.*'];
         $joins = [];
         $withs = [];
+        $bindings = [];
 
         /**
          * @event backend.list.extendQueryBefore
@@ -501,6 +504,11 @@ class Lists extends WidgetBase
                 $joinSql = $countQuery->select($joinSql)->toSql();
 
                 $selects[] = Db::raw("(".$joinSql.") as ".$alias);
+
+                /*
+                 * If this is a polymorphic relation there will be bindings that need to be added to the query
+                 */
+                $bindings = array_merge($bindings, $countQuery->getBindings());
             }
             /*
              * Primary column
@@ -540,6 +548,11 @@ class Lists extends WidgetBase
          * Add custom selects
          */
         $query->addSelect($selects);
+
+        /*
+         * Add bindings for polymorphic relations
+         */
+        $query->addBinding($bindings, 'select');
 
         /**
          * @event backend.list.extendQuery
@@ -714,7 +727,7 @@ class Lists extends WidgetBase
          * Supplied column list
          */
         if ($this->columnOverride === null) {
-            $this->columnOverride = $this->getSession('visible', null);
+            $this->columnOverride = $this->getUserPreference('visible', null);
         }
 
         if ($this->columnOverride && is_array($this->columnOverride)) {
@@ -1586,12 +1599,22 @@ class Lists extends WidgetBase
     {
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
             $this->columnOverride = $visibleColumns;
-            $this->putSession('visible', $this->columnOverride);
+            $this->putUserPreference('visible', $this->columnOverride);
         }
 
         $this->recordsPerPage = post('records_per_page', $this->recordsPerPage);
         $this->putSession('order', post('column_order'));
-        $this->putSession('per_page', $this->recordsPerPage);
+        $this->putUserPreference('per_page', $this->recordsPerPage);
+        return $this->onRefresh();
+    }
+
+    /**
+     * Event handler to apply the list set up.
+     */
+    public function onResetSetup()
+    {
+        $this->clearUserPreference('visible');
+        $this->clearUserPreference('per_page');
         return $this->onRefresh();
     }
 

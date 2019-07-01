@@ -11,7 +11,6 @@ return [
     | To compile this file run: php artisan october:util compile lang
     |
     */
-
     'markdowneditor' => [
         'formatting' => 'Muotoilu',
         'quote' => 'Lainaus',
@@ -22,38 +21,38 @@ return [
         'header4' => 'Otsikko 4',
         'header5' => 'Otsikko 5',
         'header6' => 'Otsikko 6',
-        'bold' => 'Lihavoi',
-        'italic' => 'Kursivoi',
+        'bold' => 'Lihavointi',
+        'italic' => 'Kursivointi',
         'unorderedlist' => 'Järjestämätön lista',
         'orderedlist' => 'Järjestetty lista',
         'video' => 'Video',
         'image' => 'Kuva',
         'link' => 'Linkki',
-        'horizontalrule' => 'Aseta vaakasuuntainen viiva',
-        'fullscreen' => 'Koko näyttö',
+        'horizontalrule' => 'Lisää horisontaalinen jakaja',
+        'fullscreen' => 'Kokonäyttö',
         'preview' => 'Esikatsele',
     ],
     'mediamanager' => [
-        'insert_link' => 'Aseta medialinkki',
-        'insert_image' => 'Aseta Media kuva',
-        'insert_video' => 'Aseta Media video',
-        'insert_audio' => 'Aseta Media audio',
-        'invalid_file_empty_insert' => 'Valitse linkitettävä tiedosto.',
-        'invalid_file_single_insert' => 'Valitse yksi tiedosto.',
-        'invalid_image_empty_insert' => 'Valitse liitettävä(t) kuva(t).',
-        'invalid_video_empty_insert' => 'Valitse liitettävä videotiedosto.',
-        'invalid_audio_empty_insert' => 'Valitse liitettävä audiotiedosto.',
+        'insert_link' => 'Lisää linkki Mediaan',
+        'insert_image' => 'Lisää kuva',
+        'insert_video' => 'Lisää video',
+        'insert_audio' => 'Lisää äänitiedosto',
+        'invalid_file_empty_insert' => 'Valitse liitettävä tiedosto.',
+        'invalid_file_single_insert' => 'Valitse vain yksi tiedosto.',
+        'invalid_image_empty_insert' => 'Valitse linkitettävä(t) kuva(t).',
+        'invalid_video_empty_insert' => 'Valitse linkitettävä videotiedosto.',
+        'invalid_audio_empty_insert' => 'Valitse linkitettävä äänitiedosto.',
     ],
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Peruuta',
-        'widget_remove_confirm' => 'Poista tämä vekotin?'
+        'widget_remove_confirm' => 'Poista tämä vimpain?'
     ],
     'datepicker' => [
         'previousMonth' => 'Edellinen kuukausi',
         'nextMonth' => 'Seuraava kuukausi',
-        'months' => ['tammikuu', 'helmikuu', 'maaliskuu', 'huhtikuu', 'toukokuu', 'kesäkuu', 'heinäkuu', 'elokuu', 'toukokuu', 'lokakuu', 'marraskuu', 'joulukuu'],
-        'weekdays' => ['Sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'],
+        'months' => ['tammikuu', 'helmikuu', 'maaliskuu', 'huhtikuu', 'toukokuu', 'kesäkuu', 'heinäkuu', 'elokuu', 'syyskuu', 'lokakuu', 'marraskuu', 'joulukuu'],
+        'weekdays' => ['sunnutai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'],
         'weekdaysShort' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la']
     ],
     'colorpicker' => [
@@ -63,6 +62,10 @@ return [
         'group' => [
             'all' => 'kaikki'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Ota käyttöön',
+            'clear_button_text'  => 'Tyhjennä'            
+        ], 
         'dates' => [
             'all' => 'kaikki',
             'filter_button_text' => 'Suodata',
@@ -75,8 +78,8 @@ return [
             'all' => 'kaikki',
             'filter_button_text' => 'Suodata',
             'reset_button_text'  => 'Palauta',
-            'min_placeholder' => 'Vähintään',
-            'max_placeholder' => 'Enintään'
+            'min_placeholder' => 'Väh.',
+            'max_placeholder' => 'Enint.'
         ]
     ],
     'eventlog' => [
@@ -89,8 +92,8 @@ return [
         'editor' => [
             'title' => 'Lähdekoodieditori',
             'description' => 'Käyttöjärjestelmäsi pitäisi olla määritetty kuuntelemaan jotain näistä URL osoitteista.',
-            'openWith' => 'Avaa sovelluksella',
-            'remember_choice' => 'Muista valittu vaihtoehto tälle istunnolle',
+            'openWith' => 'Avaa sovelluksessa',
+            'remember_choice' => 'Muista valittu vaihtoehto istunnon ajan',
             'open' => 'Avaa',
             'cancel' => 'Peruuta'
         ]

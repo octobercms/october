@@ -3,13 +3,13 @@
         <?= e(trans($scope->label)) ?>:
         <input type="text"
                name="options[value][]"
-               data-request="listFilter::onFilterUpdate"
+               data-request="<?= $this->getEventHandler('onFilterUpdate') ?>"
                data-request-data="'scopeName':'<?= $scope->scopeName ?>'"
                data-track-input
                data-load-indicator
                data-load-indicator-opaque
                size="<?= $size ?>"
-               value="<?= isset($value) ? $value:''; ?>"
+               value="<?= isset($value) ? e($value):''; ?>"
                class="form-control"/>
     </label>
 </div>

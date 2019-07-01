@@ -19,7 +19,7 @@ $.each($el.parents('[data-request-data]').toArray().reverse(),function extendReq
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
 if(inputName!==undefined&&options.data[inputName]===undefined){options.data[inputName]=$el.val()}}
 if(options.data!==undefined&&!$.isEmptyObject(options.data)){$.extend(data,options.data)}
-if(useFiles){requestData=new FormData($form.length?$form.get(0):null)
+if(useFiles){requestData=new FormData($form.length?$form.get(0):undefined)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
@@ -134,7 +134,8 @@ var interval=$(this).data('track-input')
 if(!interval)
 interval=300
 var self=this
-this.dataTrackInputTimer=window.setTimeout(function(){$(self).request()},interval)})
+this.dataTrackInputTimer=window.setTimeout(function(){if(self.lastDataTrackInputRequest){self.lastDataTrackInputRequest.abort();}
+self.lastDataTrackInputRequest=$(self).request();},interval)})
 $(document).on('submit','[data-request]',function documentOnSubmit(){$(this).request()
 return false})
 $(window).on('beforeunload',function documentOnBeforeUnload(){window.ocUnloading=true})

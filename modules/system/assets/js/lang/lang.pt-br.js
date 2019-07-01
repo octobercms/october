@@ -9,8 +9,6 @@ $.oc.langMessages['pt-br'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : brazilian portuguese (pt-br)
-//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -70,3 +68,4 @@ $.oc.langMessages['pt-br'] = $.extend(
     return ptBr;
 
 })));
+

@@ -69,6 +69,11 @@ class ListController extends ControllerBehavior
     protected $requiredConfig = ['modelClass', 'list'];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['index'];
+
+    /**
      * Behavior constructor
      * @param \Backend\Classes\Controller $controller
      */

@@ -3,16 +3,58 @@
 return [
     'app' => [
         'name' => 'OctoberCMS',
-        'tagline' => 'Sadeliğe dönüş...'
+        'tagline' => 'Sadeliğe dönüş...',
+    ],
+    'locale' => [
+        'ar' => 'العربية',
+        'be' => 'Беларуская',
+        'bg' => 'Български',
+        'ca' => 'Català',
+        'cs' => 'Čeština',
+        'da' => 'Dansk',
+        'en' => 'English (United States)',
+        'en-au' => 'English (Australia)',
+        'en-ca' => 'English (Canada)',
+        'en-gb' => 'English (United Kingdom)',
+        'et' => 'Eesti',
+        'de' => 'Deutsch',
+        'el' => 'Ελληνικά',
+        'es' => 'Español',
+        'es-ar' => 'Español (Argentina)',
+        'fa' => 'فارسی',
+        'fr' => 'Français',
+        'fr-ca' => 'Français (Canada)',
+        'hu' => 'Magyar',
+        'id' => 'Bahasa Indonesia',
+        'it' => 'Italiano',
+        'ja' => '日本語',
+        'kr' => '한국어',
+        'lt' => 'Lietuvių',
+        'lv' => 'Latviešu',
+        'nb-no' => 'Norsk (Bokmål)',
+        'nl' => 'Nederlands',
+        'pl' => 'Polski',
+        'pt-br' => 'Português (Brasil)',
+        'pt-pt' => 'Português (Portugal)',
+        'ro' => 'Română',
+        'ru' => 'Русский',
+        'fi' => 'Suomi',
+        'sv' => 'Svenska',
+        'sk' => 'Slovenský',
+        'tr' => 'Türkçe',
+        'uk' => 'Українська мова',
+        'zh-cn' => '简体中文',
+        'zh-tw' => '繁體中文',
+        'vn' => 'Tiếng việt',
     ],
     'directory' => [
-        'create_fail' => "Klasör oluşturulamıyor: :name"
+        'create_fail' => "Klasör oluşturulamıyor: :name",
     ],
     'file' => [
-        'create_fail' => "Dosya oluşturulamıyor: :name"
+        'create_fail' => "Dosya oluşturulamıyor: :name",
     ],
     'combiner' => [
-        'not_found' => "Kombine dosyası: ':name' bulunamadı."
+        'not_found' => "Kombine dosyası: ':name' bulunamadı.",
     ],
     'system' => [
         'name' => 'Sistem',
@@ -27,17 +69,19 @@ return [
             'users' => 'Kullanıcılar',
             'system' => 'Sistem',
             'social' => 'Sosyal',
+            'backend' => 'Backend',
             'events' => 'Olaylar',
             'customers' => 'Müşteriler',
-            'my_settings' => 'Ayarlarım'
-        ]
+            'my_settings' => 'Ayarlarım',
+            'notifications' => 'Bildirimler',
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'İsimsiz tema',
         'name' => [
             'label' => 'Tema Adı',
-            'help' => 'Temaya benzersiz bir isim verin. Örn: RainLab.Vanilla'
+            'help' => 'Temaya benzersiz bir isim verin. Örn: RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -46,41 +90,52 @@ return [
         'installed' => 'Yüklü temalar',
         'no_themes' => 'Mağazadan yüklenmiş bir tema bulunmamaktadır.',
         'recommended' => 'Tavsiye edilen',
-        'remove_confirm' => 'Bu temayı silmek istediğinize emin misiniz?'
+        'remove_confirm' => 'Bu temayı silmek istediğinize emin misiniz?',
     ],
     'plugin' => [
         'label' => 'Eklenti',
         'unnamed' => 'İsimsiz eklenti',
         'name' => [
             'label' => 'Eklenti Adı',
-            'help' => 'Eklenti adı eşsiz olmalıdır. Örneğin, RainLab.Blog'
-        ]
+            'help' => 'Eklenti adı eşsiz olmalıdır. Örneğin, RainLab.Blog',
+        ],
     ],
     'plugins' => [
         'manage' => 'Eklentileri yönet',
-        'enable_or_disable' => 'Aktifleştir veya Pasifleştir',
-        'enable_or_disable_title' => 'Eklentileri Aktifleştir veya Pasifleştir',
         'install' => 'Eklentileri yükle',
         'install_products' => 'Ürünleri yükle',
         'search' => 'eklenti ara...',
         'installed' => 'Yüklü eklentiler',
         'no_plugins' => 'Mağazadan yüklenmiş bir eklenti bulunmamaktadır.',
         'recommended' => 'Tavsiye edilen',
+        'plugin_label'  => 'Eklenti',
+        'unknown_plugin' => 'Eklenti sistemden kaldırıldı.',
+        'select_label' => 'Eylem Seçin...',
+        'bulk_actions_label' => 'Toplu eylemler',
+        'check_yes' => 'Evet',
+        'check_no' => 'Hayır',
+        'unfrozen' => 'Güncellemeler Aktif',
+        'enabled' => 'Eklenti Aktif',
+        'freeze' => 'için güncellemeleri devre dışı bırak',
+        'unfreeze' => 'için güncellemeleri aktifleştir',
+        'enable' => 'aktifleştir',
+        'disable' => 'pasifleştir',
+        'refresh' => 'yenile',
         'remove' => 'Kaldır',
-        'refresh' => 'Yenile',
-        'disabled_label' => 'Pasif',
-        'disabled_help' => 'Pasifleştirilmiş eklentiler, uygulama tarafından göz ardı edilir.',
-        'frozen_label' => 'Güncelleştirmeleri dondur',
-        'frozen_help' => 'Dondurulmuş eklentiler güncelleme işlemi sırasında görmezden gelinecek ve güncellenmeyecektir.',
-        'selected_amount' => 'Seçilen eklentiler: :amount',
-        'remove_confirm' => 'Emin misiniz?',
-        'remove_success' => 'Eklentiler sistemden başarıyla kaldırıldı.',
-        'refresh_confirm' => 'Emin misiniz?',
+        'freeze_label' => 'Güncellemeleri Pasifleştir',
+        'unfreeze_label' => 'Güncellemeleri Aktifleştir',
+        'enable_label' => 'Eklentileri Aktifleştir',
+        'disable_label' => 'Eklentileri Pasifleştir',
+        'refresh_label' => 'Eklenti Verilerini Sıfırla',
+        'action_confirm' => 'Seçili eklentileri :action etmek istediğinize emin misiniz?',
+        'freeze_success' => 'Seçilen eklentiler için güncellemeler pasifleştirildi.',
+        'unfreeze_success' => 'Seçilen eklentiler için güncellemeler aktifleştirildi.',
+        'enable_success' => 'Seçilen eklentiler etkinleştirildi.',
+        'disable_success' => 'Seçilen eklentiler pasifleştirildi.',
+        'refresh_confirm' => 'Seçili eklentileri sıfırlamak istediğinize emin misiniz? Bu işlem, her eklentinin verilerini sıfırlayarak ilk yükleme durumuna geri getirir.',
         'refresh_success' => 'Eklentiler başarıyla yenilendi.',
-        'disable_confirm' => 'Are you sure?',
-        'disable_success' => 'Eklentiler başarıyla pasifleştirildi.',
-        'enable_success' => 'Eklentiler başarıyla aktifleştirildi.',
-        'unknown_plugin' => 'Eklenti sistemden başarıyla kaldırıldı.'
+        'remove_confirm' => 'Seçili eklentileri kaldırmak istediğinize emin misiniz? Bu işlem, ilişkili tüm verileri de kaldıracaktır.',
+        'remove_success' => 'Eklentiler sistemden başarıyla kaldırıldı.',
     ],
     'project' => [
         'name' => 'Proje',
@@ -94,7 +149,7 @@ return [
             'missing' => 'Lütfen kullanılacak Proje ID\'sini belirleyin.',
         ],
         'detach_confirm' => 'Bu projeyi ayırmak istediğinizden emin misiniz?',
-        'unbind_success' => 'Proje ayırma işlemi tamamlandı.'
+        'unbind_success' => 'Proje ayırma işlemi tamamlandı.',
     ],
     'settings' => [
         'menu_label' => 'Ayarlar',
@@ -102,7 +157,7 @@ return [
         'missing_model' => 'Ayarlar sayfasında Model tanımı eksik.',
         'update_success' => ':name için ayarlar güncellendi.',
         'return' => 'Sistem ayarları sayfasına dön',
-        'search' => 'Ara'
+        'search' => 'Ara',
     ],
     'mail' => [
         'log_file' => 'Günlük kayıt dosyası',
@@ -144,16 +199,20 @@ return [
         'ses_region' => 'SES bölgesi',
         'ses_region_comment' => 'SES bölgenizi girin (örnek: us-east-1)',
         'drivers_hint_header' => 'Sürücüler yüklenmemiş',
-        'drivers_hint_content' => 'Bu eposta yöntemiyle eposta gönderebilmeniz için ":plugin" eklentisinin kurulmuş olması gerekir.'
+        'drivers_hint_content' => 'Bu eposta yöntemiyle eposta gönderebilmeniz için ":plugin" eklentisinin kurulmuş olması gerekir.',
     ],
     'mail_templates' => [
         'menu_label' => 'Mail şablonları',
         'menu_description' => 'Kullanıcılar ve yöneticiler için gönderilen e-posta şablonları düzenleyin.',
         'new_template' => 'Yeni Şablon',
         'new_layout' => 'Yeni Layout',
+        'new_partial' => 'Yeni Partial',
         'template' => 'Şablon',
         'templates' => 'Şablonlar',
+        'partial' => 'Partial',
+        'partials' => 'Partialler',
         'menu_layouts_label' => 'Mail Layoutları',
+        'menu_partials_label' => 'Mail Partialleri',
         'layout' => 'Layout',
         'layouts' => 'Layoutlar',
         'no_layout' => '-- Şablon Yok --',
@@ -179,7 +238,60 @@ return [
         'deleting' => 'Şablon Siliniyor...',
         'deleting_layout' => 'Layout Siliniyor...',
         'sending' => 'Deneme mesajı gönderiliyor...',
-        'return' => 'Şablon listesine geri dön'
+        'return' => 'Şablon listesine geri dön',
+        'options' => 'Seçenekler',
+        'disable_auto_inline_css' => 'Otomatik satır içi CSS\'yi devre dışı bırak',
+    ],
+    'mail_brand' => [
+        'menu_label' => 'Mail yapılandırma',
+        'menu_description' => 'Posta şablonlarının renklerini ve görünümünü değiştirin.',
+        'page_title' => 'Posta görünümünü özelleştir',
+        'sample_template' => [
+            'heading' => 'Başlık',
+            'paragraph' => 'Bu Lorem Ipsum ile doldurulmuş bir paragraf ve bir linktir. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Nesne',
+                'description' => 'Açıklama',
+                'price' => 'Fiyat',
+                'centered' => 'Ortalanmış',
+                'right_aligned' => 'Sağa Hizalı',
+            ],
+            'buttons' => [
+                'primary' => 'Ana buton',
+                'positive' => 'Positif buton',
+                'negative' => 'Negatif buton',
+            ],
+            'panel' => 'Bu panel ne kadar harika..',
+            'more' => 'Biraz daha metin',
+            'promotion' => 'Kupon Kodu: OCTOBER',
+            'subcopy' => 'Bu e-postanın alt yazısıdır',
+            'thanks' => 'Teşekkürler',
+        ],
+        'fields' => [
+            '_section_background' => 'Arkaplan',
+            'body_bg' => 'Body arkaplanı',
+            'content_bg' => 'İçerik arkaplanı',
+            'content_inner_bg' => 'İç içerik arkaplanı',
+            '_section_buttons' => 'Butonlar',
+            'button_text_color' => 'Buton metni rengi',
+            'button_primary_bg' => 'Ana düğme arkaplanı',
+            'button_positive_bg' => 'Positif düğme arkaplanı',
+            'button_negative_bg' => 'Negatif düğme arkaplanı',
+            '_section_type' => 'Tipografi',
+            'header_color' => 'Başlık rengi',
+            'heading_color' => 'Başlıkların rengi',
+            'text_color' => 'Metin rengi',
+            'link_color' => 'Link rengi',
+            'footer_color' => 'Footer rengi',
+            '_section_borders' => 'Borderlar',
+            'body_border_color' => 'Body border rengi',
+            'subcopy_border_color' => 'Altyazı border rengi',
+            'table_border_color' => 'Tablo border rengi',
+            '_section_components' => 'Eklentiler',
+            'panel_bg' => 'Panel arkaplanı',
+            'promotion_bg' => 'Promosyon arkaplanı',
+            'promotion_border_color' => 'Promosyon border rengi',
+        ],
     ],
     'install' => [
         'project_label' => 'Projeye bağla',
@@ -188,7 +300,7 @@ return [
         'missing_plugin_name' => 'Yüklemek istediğiniz eklentinin adını giriniz.',
         'missing_theme_name' => 'Lütfen yüklemek için bir tema ismi giriniz.',
         'install_completing' => 'Kurulumu tamamla',
-        'install_success' => 'Eklenti kurulumu tamamlandı.'
+        'install_success' => 'Eklenti kurulumu tamamlandı.',
     ],
     'updates' => [
         'title' => 'Güncellemeleri Yönet',
@@ -209,6 +321,7 @@ return [
         'core_build_help' => 'Son versiyon kullanılabilir.',
         'core_downloading' => 'Uygulama dosyaları indiriliyor',
         'core_extracting' => 'Uygulama dosyaları çıkarılıyor',
+        'core_set_build' => 'Build numarası güncelleniyor',
         'plugins' => 'Modüller',
         'themes' => 'Temalar',
         'disabled' => 'Devre dışı',
@@ -227,11 +340,11 @@ return [
         'force_label' => 'Güncellemeye zorla',
         'found' => [
             'label' => 'Güncellemeler bulundu!',
-            'help' => 'Sistemi güncelleye tıklayarak güncelleme işlemini başlatabilirsiniz.'
+            'help' => 'Sistemi güncelleye tıklayarak güncelleme işlemini başlatabilirsiniz.',
         ],
         'none' => [
             'label' => 'Güncelleme yok',
-            'help' => 'Yeni güncelleme bulunamadı.'
+            'help' => 'Yeni güncelleme bulunamadı.',
         ],
         'important_action' => [
             'empty' => 'Eylem seçin',
@@ -241,15 +354,20 @@ return [
         ],
         'important_action_required' => 'Eylem gerekli',
         'important_view_guide' => 'Yükseltme kılavuzuna göz atın',
+        'important_view_release_notes' => 'Sürüm notlarını göster',
         'important_alert_text' => 'Bazı eklentiler işlem gerektirebilir.',
         'details_title' => 'Eklenti detayları',
         'details_view_homepage' => 'Anasayfa',
         'details_readme' => 'Kılavuz',
         'details_readme_missing' => 'Herhangi bir kılavuz bulunamadı.',
+        'details_changelog' => 'Değişiklikler',
+        'details_changelog_missing' => 'Değişiklik geçmişi yok.',
         'details_upgrades' => 'Yükseltme Kılavuzu',
         'details_upgrades_missing' => 'Yükseltme talimatı bulunamadı.',
+        'details_licence' => 'Lisans',
+        'details_licence_missing' => 'Lisans bilgisi yok.',
         'details_current_version' => 'Mevcut sürüm',
-        'details_author' => 'Yazar',
+        'details_author' => 'Geliştirici',
     ],
     'server' => [
         'connect_error' => 'Sunucuyla bağlantı kurulamadı.',
@@ -257,17 +375,17 @@ return [
         'response_invalid' => 'Sunucudan hatalı cevap geldi.',
         'response_empty' => 'Sunucudan boş cevap geldi.',
         'file_error' => 'Paket teslim edilirken sunucuda hata meydana geldi.',
-        'file_corrupt' => 'Sunucudaki dosya bozulmuş.'
+        'file_corrupt' => 'Sunucudaki dosya bozulmuş.',
     ],
     'behavior' => [
-        'missing_property' => ':class sınıfı :behavior davranışı tarafından kullanılan $:property özelliğini tanımlamalı.'
+        'missing_property' => ':class sınıfı :behavior davranışı tarafından kullanılan $:property özelliğini tanımlamalı.',
     ],
     'config' => [
         'not_found' => ':location için tanımlanan :file adlı ayar dosyası bulunamadı.',
-        'required' => ':location konumunda kullanılan :property ayarı bir değer içermelidir.'
+        'required' => ':location konumunda kullanılan :property ayarı bir değer içermelidir.',
     ],
     'zip' => [
-        'extract_failed' => "':file' adlı çekirdek dosyası dosya paketinden çıkarılamadı."
+        'extract_failed' => "':file' adlı çekirdek dosyası dosya paketinden çıkarılamadı.",
     ],
     'event_log' => [
         'hint' => 'Bu kayıtlar, uygulamada ortaya çıkan potansiyel hataları, istisnaları ve hata ayıklama bilgilerini görüntüler.',
@@ -282,7 +400,7 @@ return [
         'created_at' => 'Tarih & Saat',
         'message' => 'Mesaj',
         'level' => 'Seviye',
-        'preview_title' => 'Olay'
+        'preview_title' => 'Olay',
     ],
     'request_log' => [
         'hint' => 'Bu günlük dikkat edilmesi gereken tarayıcı isteklerinin bir listesini görüntüler. Örneğin, bir ziyaretçi bulunmayan bir CMS sayfasını açarsa 404 kodu ile bir kayıt oluşturulur.',
@@ -298,7 +416,7 @@ return [
         'referer' => 'Referer',
         'url' => 'URL',
         'status_code' => 'Durum',
-        'preview_title' => 'İstek'
+        'preview_title' => 'İstek',
     ],
     'permissions' => [
         'name' => 'Sistem',
@@ -311,7 +429,19 @@ return [
         'manage_preferences' => 'Yönetim paneli seçeneklerini düzenleyebilir',
         'manage_editor' => 'Kod editör ayarlarını düzenleyebilir',
         'view_the_dashboard' => 'Panoyu görüntüleyebilir',
-        'manage_branding' => 'Yönetim Panelini özelleştirebilsin'
+        'manage_default_dashboard' => 'Varsayılan kontrol panelini yönetebilir',
+        'manage_branding' => 'Yönetim Panelini özelleştirebilir',
+    ],
+    'log' => [
+        'menu_label' => 'Log ayarları',
+        'menu_description' => 'Hangi alanlar için log kayıtları tutulacağını belirtin.',
+        'default_tab' => 'Log kaydetme',
+        'log_events' => 'Sistem olaylarını kaydet',
+        'log_events_comment' => 'Dosya tabanlı loglara ek olarak, sistem olaylarını veritabanında da tutar.',
+        'log_requests' => 'Hatalı istekleri kaydet',
+        'log_requests_comment' => '404 hataları gibi dikkat gerektirebilecek tarayıcı istekleri.',
+        'log_theme' => 'Tema değişikliklerini kaydet',
+        'log_theme_comment' => 'Tema dosyalarında backend üzerinden bir değişiklik yapıldığında tutulan kayıtlar.',
     ],
     'media' => [
         'invalid_path' => "Geçersiz dosya dizini belirtildi: ':path'.",

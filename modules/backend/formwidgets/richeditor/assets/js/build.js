@@ -7,7 +7,8 @@
  * @see build-min.js
  *
 
-=require ../vendor/froala_drm/js/froala_editor.min.js
+// Cannot be minified twice
+=require ../vendor/froala_drm/js/froala_editor.js
 
 // Buttons
 =require ../vendor/froala_drm/js/plugins/paragraph_style.min.js
@@ -18,6 +19,8 @@
 =require ../vendor/froala_drm/js/plugins/lists.min.js
 =require ../vendor/froala_drm/js/plugins/file_extended.js
 =require ../vendor/froala_drm/js/plugins/image.min.js
+=require ../vendor/froala_drm/js/plugins/inline_style.min.js
+=require ../vendor/froala_drm/js/plugins/inline_class.min.js
 
 // Cannot be minified twice
 =require ../vendor/froala_drm/js/plugins/link.js
@@ -38,9 +41,7 @@
 =require ../vendor/froala_drm/js/plugins/draggable.min.js
 =require ../vendor/froala_drm/js/plugins/code_beautifier.min.js
 
-=require plugins/mediamanager.js
-=require plugins/pagelinks.js
-=require plugins/figures.js
-=require richeditor.js
+// More testing needed
+//require ../vendor/froala_drm/js/plugins/quick_insert.js
 
 */

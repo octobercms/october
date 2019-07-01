@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.3 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2017 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Korean
  */
@@ -24,7 +50,7 @@ $.FE.LANGUAGE['ko'] = {
     "Delete": "\uc0ad\uc81c",
     "Cancel": "\ucde8\uc18c",
     "OK": "\uc2b9\uc778",
-    "Back": "\ubc31",
+    "Back": "\ub4a4\ub85c",
     "Remove": "\uc81c\uac70",
     "More": "\ub354",
     "Update": "\uc5c5\ub370\uc774\ud2b8",
@@ -38,6 +64,7 @@ $.FE.LANGUAGE['ko'] = {
     "Colors": "\uc0c9\uc0c1",
     "Background": "\ubc30\uacbd",
     "Text": "\ud14d\uc2a4\ud2b8",
+    "HEX Color": "\ud5e5\uc2a4 \uc0c9\uc0c1",
 
     // Paragraphs
     "Paragraph Format": "\ub2e8\ub77d",
@@ -61,8 +88,23 @@ $.FE.LANGUAGE['ko'] = {
     "None": "\uc5c6\uc74c",
 
     // Lists
-    "Ordered List": "\uc22b\uc790\ub9ac\uc2a4\ud2b8",
+    "Ordered List": "\uc22b\uc790 \ub9ac\uc2a4\ud2b8",
+    "Default": "태만",
+    "Lower Alpha": "낮은 알파",
+    "Lower Greek": "낮은 그리스어",
+    "Lower Roman": "로마자 낮은",
+    "Upper Alpha": "상단 알파",
+    "Upper Roman": "상층 로마자",
+
     "Unordered List": "\uc810 \ub9ac\uc2a4\ud2b8",
+    "Circle": "원",
+    "Disc": "디스크",
+    "Square": "광장",
+
+    // Line height
+    "Line Height": "라인 높이",
+    "Single": "단일",
+    "Double": "더블",
 
     // Indent
     "Decrease Indent": "\ub0b4\uc5b4\uc4f0\uae30",
@@ -81,7 +123,7 @@ $.FE.LANGUAGE['ko'] = {
     "Upload Image": "\uc774\ubbf8\uc9c0 \uc5c5\ub85c\ub4dc",
     "By URL": "URL \ub85c",
     "Browse": "\uac80\uc0c9",
-    "Drop image": "\uc774\ubbf8\uc9c0\ub97c \ub4dc\ub86d",
+    "Drop image": "\uc774\ubbf8\uc9c0\ub97c \ub4dc\ub798\uadf8&\ub4dc\ub86d",
     "or click": "\ub610\ub294 \ud074\ub9ad",
     "Manage Images": "\uc774\ubbf8\uc9c0 \uad00\ub9ac",
     "Loading": "\ub85c\ub4dc",
@@ -90,51 +132,57 @@ $.FE.LANGUAGE['ko'] = {
     "Are you sure? Image will be deleted.": "\ud655\uc2e4\ud55c\uac00\uc694? \uc774\ubbf8\uc9c0\uac00 \uc0ad\uc81c\ub429\ub2c8\ub2e4.",
     "Replace": "\uad50\uccb4",
     "Uploading": "\uc5c5\ub85c\ub4dc",
-    "Loading image": "\ub85c\ub4dc \uc774\ubbf8\uc9c0",
+    "Loading image": "\uc774\ubbf8\uc9c0 \ub85c\ub4dc \uc911",
     "Display": "\ub514\uc2a4\ud50c\ub808\uc774",
     "Inline": "\uc778\ub77c\uc778",
     "Break Text": "\uad6c\ubd84 \ud14d\uc2a4\ud2b8",
-    "Alternate Text": "\ub300\uccb4 \ud14d\uc2a4\ud2b8",
+    "Alternative Text": "\ub300\uccb4 \ud14d\uc2a4\ud2b8",
     "Change Size": "\ud06c\uae30 \ubcc0\uacbd",
     "Width": "\ud3ed",
-    "Height": "\uc2e0\uc7a5",
+    "Height": "\ub192\uc774",
     "Something went wrong. Please try again.": "\ubb38\uc81c\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4. \ub2e4\uc2dc \uc2dc\ub3c4\ud558\uc2ed\uc2dc\uc624.",
+    "Image Caption": "\uc774\ubbf8\uc9c0 \ucea1\uc158",
+    "Advanced Edit": "\uace0\uae09 \ud3b8\uc9d1",
 
     // Video
-    "Insert Video": "\ube44\ub514\uc624 \uc0bd\uc785",
+    "Insert Video": "\ub3d9\uc601\uc0c1 \uc0bd\uc785",
     "Embedded Code": "\uc784\ubca0\ub514\ub4dc \ucf54\ub4dc",
+    "Paste in a video URL": "\ub3d9\uc601\uc0c1 URL\uc5d0 \ubd99\uc5ec \ub123\uae30",
+    "Drop video": "\ub3d9\uc601\uc0c1\uc744 \ub4dc\ub798\uadf8&\ub4dc\ub86d",
+    "Your browser does not support HTML5 video.": "\uadc0\ud558\uc758 \ube0c\ub77c\uc6b0\uc800\ub294 html5 video\ub97c \uc9c0\uc6d0\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",
+    "Upload Video": "\ub3d9\uc601\uc0c1 \uc5c5\ub85c\ub4dc",
 
     // Tables
-    "Insert Table": "\ud14c\uc774\ube14 \uc0bd\uc785",
-    "Table Header": "\ud14c\uc774\ube14 \ud5e4\ub354",
-    "Remove Table": "\ud14c\uc774\ube14\uc744 \uc81c\uac70",
+    "Insert Table": "\ud45c \uc0bd\uc785",
+    "Table Header": "\ud45c \ud5e4\ub354",
+    "Remove Table": "\ud45c \uc81c\uac70",
     "Table Style": "\ud45c \uc2a4\ud0c0\uc77c",
     "Horizontal Align": "\uc218\ud3c9 \uc815\ub82c",
-    "Row": "\uc5f4",
-    "Insert row above": "\uc55e\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
-    "Insert row below": "\ub4a4\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
-    "Delete row": "\uc5f4 \uc0ad\uc81c",
-    "Column": "\ud589",
-    "Insert column before": "\uc55e\uc5d0 \ud589\uc744 \uc0bd\uc785",
-    "Insert column after": "\ub4a4\uc5d0 \ud589\uc744 \uc0bd\uc785",
-    "Delete column": "\ud589 \uc0ad\uc81c",
+    "Row": "\ud589",
+    "Insert row above": "\uc55e\uc5d0 \ud589\uc744 \uc0bd\uc785",
+    "Insert row below": "\ub4a4\uc5d0 \ud589\uc744 \uc0bd\uc785",
+    "Delete row": "\ud589 \uc0ad\uc81c",
+    "Column": "\uc5f4",
+    "Insert column before": "\uc55e\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
+    "Insert column after": "\ub4a4\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
+    "Delete column": "\uc5f4 \uc0ad\uc81c",
     "Cell": "\uc140",
     "Merge cells": "\uc140 \ud569\uce58\uae30",
     "Horizontal split": "\uc218\ud3c9 \ubd84\ud560",
     "Vertical split": "\uc218\uc9c1 \ubd84\ud560",
     "Cell Background": "\uc140 \ubc30\uacbd",
     "Vertical Align": "\uc218\uc9c1 \uc815\ub82c",
-    "Top": "\uc0c1\ub2e8",
-    "Middle": "\uc911\uac04",
-    "Bottom": "\ubc14\ub2e5",
-    "Align Top": "\uc0c1\ub2e8\uc744 \ub9de \ucda5\ub2c8 \ub2e4",
-    "Align Middle": "\uc911\uac04 \uc815\ub82c",
-    "Align Bottom": "\ubc14\ub2e5\uc744 \ub9de \ucda5\ub2c8 \ub2e4",
+    "Top": "\uc704\ucabd \uc815\ub82c",
+    "Middle": "\uac00\uc6b4\ub370 \uc815\ub82c",
+    "Bottom": "\uc544\ub798\ucabd \uc815\ub82c",
+    "Align Top": "\uc704\ucabd\uc73c\ub85c \uc815\ub82c\ud569\ub2c8\ub2e4.",
+    "Align Middle": "\uac00\uc6b4\ub370\ub85c \uc815\ub82c\ud569\ub2c8\ub2e4.",
+    "Align Bottom": "\uc544\ub798\ucabd\uc73c\ub85c \uc815\ub82c\ud569\ub2c8\ub2e4.",
     "Cell Style": "\uc140 \uc2a4\ud0c0\uc77c",
 
     // Files
     "Upload File": "\ud30c\uc77c \ucca8\ubd80",
-    "Drop file": "\ud30c\uc77c\uc744 \ub4dc\ub86d",
+    "Drop file": "\ud30c\uc77c\uc744 \ub4dc\ub798\uadf8&\ub4dc\ub86d",
 
     // Emoticons
     "Emoticons": "\uc774\ubaa8\ud2f0\ucf58",
@@ -211,6 +259,9 @@ $.FE.LANGUAGE['ko'] = {
     // Clear formatting
     "Clear Formatting": "\uc11c\uc2dd \uc81c\uac70",
 
+    // Save
+    "Save": "\uad6c\ud558\ub2e4",
+
     // Undo, redo
     "Undo": "\uc2e4\ud589 \ucde8\uc18c",
     "Redo": "\ub418\ub3cc\ub9ac\uae30",
@@ -227,7 +278,59 @@ $.FE.LANGUAGE['ko'] = {
     "Decrease": "\uac10\uc18c",
 
     // Quick Insert
-    "Quick Insert": "\ube60\ub978 \uc0bd\uc785"
+    "Quick Insert": "\ube60\ub978 \uc0bd\uc785",
+
+    // Spcial Characters
+    "Special Characters": "\ud2b9\uc218 \ubb38\uc790",
+    "Latin": "\ub77c\ud2f4\uc5b4",
+    "Greek": "\uadf8\ub9ac\uc2a4\uc5b4",
+    "Cyrillic": "\ud0a4\ub9b4 \ubb38\uc790",
+    "Punctuation": "\ubb38\uc7a5\ubd80\ud638",
+    "Currency": "\ud1b5\ud654",
+    "Arrows": "\ud654\uc0b4\ud45c",
+    "Math": "\uc218\ud559",
+    "Misc": "\uadf8 \uc678",
+
+    // Print.
+    "Print": "\uc778\uc1c4",
+
+    // Spell Checker.
+    "Spell Checker": "\ub9de\ucda4\ubc95 \uac80\uc0ac\uae30",
+
+    // Help
+    "Help": "\ub3c4\uc6c0\ub9d0",
+    "Shortcuts": "\ub2e8\ucd95\ud0a4",
+    "Inline Editor": "\uc778\ub77c\uc778 \uc5d0\ub514\ud130",
+    "Show the editor": "\uc5d0\ub514\ud130 \ubcf4\uae30",
+    "Common actions": "\uc77c\ubc18 \ub3d9\uc791",
+    "Copy": "\ubcf5\uc0ac\ud558\uae30",
+    "Cut": "\uc798\ub77c\ub0b4\uae30",
+    "Paste": "\ubd99\uc5ec\ub123\uae30",
+    "Basic Formatting": "\uae30\ubcf8 \uc11c\uc2dd",
+    "Increase quote level": "\uc778\uc6a9 \uc99d\uac00",
+    "Decrease quote level": "\uc778\uc6a9 \uac10\uc18c",
+    "Image / Video": "\uc774\ubbf8\uc9c0 / \ub3d9\uc601\uc0c1",
+    "Resize larger": "\ud06c\uae30\ub97c \ub354 \ud06c\uac8c \uc870\uc815",
+    "Resize smaller": "\ud06c\uae30\ub97c \ub354 \uc791\uac8c \uc870\uc815",
+    "Table": "\ud45c",
+    "Select table cell": "\ud45c \uc140 \uc120\ud0dd",
+    "Extend selection one cell": "\uc140\uc758 \uc120\ud0dd \ubc94\uc704\ub97c \ud655\uc7a5",
+    "Extend selection one row": "\ud589\uc758 \uc120\ud0dd \ubc94\uc704\ub97c \ud655\uc7a5",
+    "Navigation": "\ub124\ube44\uac8c\uc774\uc158",
+    "Focus popup / toolbar": "\ud31d\uc5c5 / \ud234\ubc14\ub97c \ud3ec\ucee4\uc2a4",
+    "Return focus to previous position": "\uc774\uc804 \uc704\uce58\ub85c \ud3ec\ucee4\uc2a4 \ub418\ub3cc\ub9ac\uae30",
+
+    // Embed.ly
+    "Embed URL": "\uc784\ubca0\ub4dc URL",
+    "Paste in a URL to embed": "\uc784\ubca0\ub4dc URL\uc5d0 \ubd99\uc5ec \ub123\uae30",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "\ubd99\uc5ec\ub123\uc740 \ubb38\uc11c\ub294 \ub9c8\uc774\ud06c\ub85c\uc18c\ud504\ud2b8 \uc6cc\ub4dc\uc5d0\uc11c \uac00\uc838\uc654\uc2b5\ub2c8\ub2e4. \ud3ec\ub9f7\uc744 \uc720\uc9c0\ud558\uac70\ub098 \uc815\ub9ac \ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?",
+    "Keep": "\uc720\uc9c0",
+    "Clean": "\uc815\ub9ac",
+    "Word Paste Detected": "\uc6cc\ub4dc \ubd99\uc5ec \ub123\uae30\uac00 \uac80\ucd9c \ub418\uc5c8\uc2b5\ub2c8\ub2e4."
   },
   direction: "ltr"
 };
+
+}));
