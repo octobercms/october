@@ -248,8 +248,8 @@
          if (strikeUpOrRightTab || strikeDownOrLeftTab) {
              event.preventDefault();
 
-             var postition = strikeUpOrRightTab ? 'first-child' : 'last-child';
-             $activated = $(tabNameKey + ' a[aria-selected="true"]').parent();
+             var position = strikeUpOrRightTab ? 'first-child' : 'last-child';
+             var $activated = $(tabNameKey + ' a[aria-selected="true"]').parent();
              if ($activated.is(tabNameKey + ' li:' + position)) {
                  $(tabNameKey + ' li:' + position + ' a').click().focus();
              } else {
