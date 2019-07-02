@@ -50,6 +50,14 @@
     <div class="modal-footer">
         <button
             type="button"
+            class="btn btn-link pull-left"
+            data-request="<?= $this->getEventHandler('onResetSetup') ?>"
+            data-dismiss="popup"
+            data-stripe-load-indicator>
+            <?= e(trans('backend::lang.form.reset_default')) ?>
+        </button>
+        <button
+            type="button"
             class="btn btn-primary"
             data-request="<?= $this->getEventHandler('onApplySetup') ?>"
             data-dismiss="popup"

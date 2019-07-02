@@ -948,13 +948,13 @@ class Controller
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderPartial', function ((string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          */
@@ -1136,13 +1136,13 @@ class Controller
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderContent', function ((string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          */
