@@ -745,7 +745,6 @@ class PluginManager
                 array_push($result, $code);
                 unset($checklist[$code]);
             }
-
         }
         return $result;
     }
