@@ -709,13 +709,11 @@ class PluginManager
 
         $loopCount = 0;
         while (count($checklist)) {
-
             if (++$loopCount > 999) {
                 throw new ApplicationException('Too much recursion');
             }
 
             foreach ($checklist as $code => $plugin) {
-
                 /*
                  * Get dependencies and remove any aliens
                  */
@@ -749,7 +747,6 @@ class PluginManager
             }
 
         }
-
         return $result;
     }
 
