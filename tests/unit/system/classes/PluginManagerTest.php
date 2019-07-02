@@ -117,10 +117,10 @@ class PluginManagerTest extends TestCase
          * Test case for https://github.com/octobercms/october/pull/4337
          */
         $result = $this->manager->hasPlugin('dependencyTest\Wrongcase');
-        $this->assertFalse($result);
+        $this->assertTrue($result);
 
         $result = $this->manager->hasPlugin('dependencyTest.Wrongcase');
-        $this->assertFalse($result);
+        $this->assertTrue($result);
     }
 
     public function testGetPluginNamespaces()
