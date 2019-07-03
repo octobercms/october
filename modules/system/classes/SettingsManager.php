@@ -365,6 +365,10 @@ class SettingsManager
      */
     protected function filterItemPermissions($user, array $items)
     {
+        if (!$user) {
+            return $items;
+        }
+        
         $items = array_filter($items, function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;
