@@ -28,41 +28,35 @@
                         <?php endif ?>
 
                         <!-- Side Navigation -->
-                        <aside role="complementary" aria-label="Side Navigation">
-                            <?= $this->makeLayoutPartial('sidenav') ?>
-                        </aside>
+                        <?= $this->makeLayoutPartial('sidenav') ?>
 
                         <!-- Side panel -->
-                        <aside role="complementary" aria-label="Side panel">
-                            <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                                <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
-                                    <?= $sidePanelContent ?>
-                                </div>
-                            <?php endif ?>
-                        <aside>
+                        <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
+                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel" aria-label="Side panel">
+                                <?= $sidePanelContent ?>
+                            </div>
+                        <?php endif ?>
 
                         <!-- Content Body -->
-                        <main role="main" aria-label="Content Body">
-                            <div class="layout-cell layout-container" id="layout-body">
-                                <div class="layout-relative">
+                        <div class="layout-cell layout-container" id="layout-body">
+                            <div class="layout-relative">
 
-                                    <div class="layout">
-                                        <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
-                                            <!-- Breadcrumb -->
-                                            <div class="control-breadcrumb">
-                                                <?= $breadcrumbContent ?>
-                                            </div>
-                                        <?php endif ?>
-
-                                        <!-- Content -->
-                                        <div class="layout-row">
-                                            <?= Block::placeholder('body') ?>
+                                <div class="layout">
+                                    <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                                        <!-- Breadcrumb -->
+                                        <div class="control-breadcrumb" aria-label="Breadcrumb Navigation">
+                                            <?= $breadcrumbContent ?>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
 
+                                    <!-- Content -->
+                                    <div class="layout-row" aria-label="Main Content Body">
+                                        <?= Block::placeholder('body') ?>
+                                    </div>                                     
                                 </div>
+
                             </div>
-                        </main>
+                        </div>
 
                     </div>
                 </div>
