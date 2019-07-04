@@ -12,9 +12,6 @@
     }
 ?>
 <div class="<?= $navCss ?>">
-    <!-- Code change to add vertical tabs
-    <ul class="nav nav-tabs" role="tablist" aria-orientation="<?= $navCss=='vertical-tabs'?'vertical':'horizontal'?>" aria-label="Tabs">
-    -->
     <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
             <li class="<?= $index++==0?'active':''?>" role="presentation">
