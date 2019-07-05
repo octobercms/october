@@ -123,6 +123,18 @@ class Relation extends FormWidgetBase
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
 
+            // Remove sorting on columns of joined tables including pivots
+            $pivotColumns = $this->model->$relationType[$relationObject->getRelationName()]['pivot'] ?? [];
+
+            $query->getQuery()->getQuery()->orders = array_filter(
+                $query->getQuery()->getQuery()->orders,
+                function ($order) use ($relationModel, $pivotColumns) {
+                    // keep table own columns and ignore pivot columns
+                    return explode('.', $order['column'])[0] === $relationModel->getTable() ||
+                    !in_array($order['column'], $pivotColumns);
+                }
+            );
+
             // Determine if the model uses a tree trait
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];
             $usesTree = count(array_intersect($treeTraits, class_uses($relationModel))) > 0;
