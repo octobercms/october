@@ -115,7 +115,7 @@ class Repeater extends FormWidgetBase
             $this->loaded = true;
         }
 
-        $this->checkAjaxRequest();
+        $this->checkAddItemRequest();
         $this->processGroupMode();
 
         if (!self::$onAddItemCalled) {
@@ -364,17 +364,24 @@ class Repeater extends FormWidgetBase
     }
 
     /**
-     * Determines the repeater that has triggered an AJAX request.
+     * Determines the repeater that has triggered an AJAX request to add an item.
      *
      * @return void
      */
-    protected function checkAjaxRequest()
+    protected function checkAddItemRequest()
     {
         $handler = $this->getParentForm()
             ->getController()
             ->getAjaxHandler();
 
-        list($widgetName) = explode('::', $handler);
+        if ($handler === null || strpos($handler, '::') === false) {
+            return;
+        }
+
+        list($widgetName, $handlerName) = explode('::', $handler);
+        if ($handlerName !== 'onAddItem') {
+            return;
+        }
 
         if ($this->alias === $widgetName) {
             // This repeater has made the AJAX request
