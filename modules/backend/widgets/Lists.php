@@ -936,6 +936,10 @@ class Lists extends WidgetBase
             $total++;
         }
 
+        if ($this->showTree) {
+            $total++;
+        }
+
         return $total;
     }
 
