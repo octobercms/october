@@ -410,7 +410,6 @@ class Lists extends WidgetBase
          * Prepare related eager loads (withs) and custom selects (joins)
          */
         foreach ($this->getVisibleColumns() as $column) {
-
             // If useRelationCount is enabled, eager load the count of the relation into $relation_count
             if ($column->relation && @$column->config['useRelationCount']) {
                 $query->withCount($column->relation);
@@ -464,7 +463,6 @@ class Lists extends WidgetBase
                     }
                 }
             }
-
         });
 
         /*
@@ -481,7 +479,6 @@ class Lists extends WidgetBase
              * Relation column
              */
             if (isset($column->relation)) {
-
                 // @todo Find a way...
                 $relationType = $this->model->getRelationType($column->relation);
                 if ($relationType == 'morphTo') {
@@ -731,7 +728,6 @@ class Lists extends WidgetBase
         }
 
         if ($this->columnOverride && is_array($this->columnOverride)) {
-
             $invalidColumns = array_diff($this->columnOverride, array_keys($definitions));
             if (!count($definitions)) {
                 throw new ApplicationException(Lang::get(
@@ -1478,7 +1474,6 @@ class Lists extends WidgetBase
     public function onSort()
     {
         if ($column = post('sortColumn')) {
-
             /*
              * Toggle the sort direction and set the sorting column
              */
@@ -1544,7 +1539,9 @@ class Lists extends WidgetBase
          */
         if ($this->sortColumn === null || !$this->isSortable($this->sortColumn)) {
             $columns = $this->visibleColumns ?: $this->getVisibleColumns();
-            $columns = array_filter($columns, function ($column) { return $column->sortable; });
+            $columns = array_filter($columns, function ($column) {
+                return $column->sortable;
+            });
             $this->sortColumn = key($columns);
             $this->sortDirection = 'desc';
         }
