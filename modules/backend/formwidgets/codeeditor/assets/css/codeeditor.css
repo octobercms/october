@@ -25,3 +25,4 @@
 .field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a {color:#666}
 .field-codeeditor.editor-fullscreen .ace_search {z-index:303}
 .field-codeeditor .secondary-tabs .editor-toolbar >ul >li >a {color:#fff}
+#cms-master-tabs .field-codeeditor .editor-toolbar >ul >li >a {color: #919898}
