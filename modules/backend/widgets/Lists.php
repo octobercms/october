@@ -1150,8 +1150,13 @@ class Lists extends WidgetBase
                 return call_user_func_array($callback, [$value, $column, $record]);
             }
         }
+        
+        $customMessage = '';
+        if ($type === 'relation') {
+            $message = 'Type: relation is not supported, instead use the relation property to specify a relationship to pull the value from and set the type to the type of the value expected.';
+        }
 
-        throw new ApplicationException(sprintf('List column type "%s" could not be found.', $type));
+        throw new ApplicationException(sprintf('List column type "%s" could not be found. %s', $type, $customMessage));
     }
 
     /**
@@ -1175,16 +1180,6 @@ class Lists extends WidgetBase
      */
     protected function evalNumberTypeValue($record, $column, $value)
     {
-        return $this->evalTextTypeValue($record, $column, $value);
-    }
-
-    /**
-     * Common mistake, relation is not a valid list column.
-     * @deprecated Remove if year >= 2018
-     */
-    protected function evalRelationTypeValue($record, $column, $value)
-    {
-        traceLog(sprintf('Warning: List column type "relation" for class "%s" is not valid.', get_class($record)));
         return $this->evalTextTypeValue($record, $column, $value);
     }
 
