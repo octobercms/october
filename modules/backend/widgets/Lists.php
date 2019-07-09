@@ -1153,7 +1153,7 @@ class Lists extends WidgetBase
         
         $customMessage = '';
         if ($type === 'relation') {
-            $message = 'Type: relation is not supported, instead use the relation property to specify a relationship to pull the value from and set the type to the type of the value expected.';
+            $customMessage = 'Type: relation is not supported, instead use the relation property to specify a relationship to pull the value from and set the type to the type of the value expected.';
         }
 
         throw new ApplicationException(sprintf('List column type "%s" could not be found. %s', $type, $customMessage));
