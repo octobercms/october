@@ -4,5 +4,5 @@
     data-handler="onRelationButtonCreate"
     href="javascript:;"
     class="btn btn-sm btn-secondary oc-icon-file">
-    <?= e(trans('backend::lang.relation.create_name', ['name'=>trans($relationLabel)])) ?>
+    <?= e(trans($relationToolbarButtonText && array_key_exists('create', $relationToolbarButtonText) ? $relationToolbarButtonText['create'] : 'backend::lang.relation.create_name', ['name' => trans($relationLabel)])) ?>
 </a>
