@@ -5,5 +5,5 @@
     data-request-data="manage_id: '<?= $relationManageId ?>'"
     href="javascript:;"
     class="btn btn-sm btn-secondary oc-icon-pencil">
-    <?= e(trans('backend::lang.relation.update_name', ['name'=>trans($relationLabel)])) ?>
+    <?= e(trans($relationToolbarButtonText && array_key_exists('update', $relationToolbarButtonText) ? $relationToolbarButtonText['update'] : 'backend::lang.relation.update_name', ['name' => trans($relationLabel)])) ?>
 </a>
