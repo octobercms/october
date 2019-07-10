@@ -261,15 +261,7 @@ class Filter extends WidgetBase
                 break;
 
             case 'text':
-                $values = post('options.value');
-
-                if ($values !== null && $values !== '') {
-                    list($value) = $values;
-                }
-                else {
-                    $value = null;
-                }
-
+                $value = post('options.value.' . $scope->scopeName) ?: null;
                 $this->setScopeValue($scope, $value);
                 break;
         }

@@ -2,7 +2,7 @@
     <label class="filter-label">
         <?= e(trans($scope->label)) ?>:
         <input type="text"
-               name="options[value][]"
+               name="options[value][<?= $scope->scopeName ?>]"
                data-request="<?= $this->getEventHandler('onFilterUpdate') ?>"
                data-request-data="'scopeName':'<?= $scope->scopeName ?>'"
                data-track-input
