@@ -893,13 +893,16 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form') {
+            
             if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
                 return null;
             }
+            
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = $this->evalFormContext('manage', !!$this->manageId);
             $config->alias = $this->alias . 'ManageForm';
+            
             /*
              * Existing record
              */
@@ -914,11 +917,14 @@ class RelationController extends ControllerBehavior
                     ]));
                 }
             }
+            
             $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         }
+        
         if (!$widget) {
             return null;
         }
+        
         /*
          * Exclude existing relationships
          */
@@ -942,6 +948,7 @@ class RelationController extends ControllerBehavior
         $config->arrayName = class_basename($this->relationModel);
         $config->context = $this->evalFormContext('pivot', !!$this->manageId);
         $config->alias = $this->alias . 'ManagePivotForm';
+        
         $foreignKeyName = $this->relationModel->getQualifiedKeyName();
         /*
          * Existing record
@@ -965,27 +972,34 @@ class RelationController extends ControllerBehavior
                 $foreignModel = $this->relationModel
                     ->whereIn($foreignKeyName, (array) $this->foreignId)
                     ->first();
+                
                 if ($foreignModel) {
                     $foreignModel->exists = false;
                     $config->model = $foreignModel;
                 }
             }
+            
             $pivotModel = $this->relationObject->newPivot();
             $config->model->setRelation('pivot', $pivotModel);
         }
+        
         return $this->makeWidget('Backend\Widgets\Form', $config);
     }
+    
     //
     // AJAX (Buttons)
     //
     public function onRelationButtonAdd()
     {
         $this->eventTarget = 'button-add';
+        
         return $this->onRelationManageForm();
     }
+    
     public function onRelationButtonCreate()
     {
         $this->eventTarget = 'button-create';
+        
         return $this->onRelationManageForm();
     }
 
@@ -1193,7 +1207,6 @@ class RelationController extends ControllerBehavior
          * Add
          */
         if ($this->viewMode == 'multi') {
-
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1209,14 +1222,12 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->add($model, $sessionKey);
                 }
             }
-
         }
         /*
          * Link
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
-
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
 
@@ -1230,7 +1241,6 @@ class RelationController extends ControllerBehavior
                         $parentModel->save();
                     }
                 }
-
             }
         }
 
@@ -1252,7 +1262,6 @@ class RelationController extends ControllerBehavior
          * Remove
          */
         if ($this->viewMode == 'multi') {
-
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1695,7 +1704,8 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetManageWidget() {
+    public function relationGetManageWidget()
+    {
         return $this->manageWidget;
     }
 
@@ -1704,7 +1714,8 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetViewWidget() {
+    public function relationGetViewWidget()
+    {
         return $this->viewWidget;
     }
 }
