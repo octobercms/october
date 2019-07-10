@@ -939,8 +939,10 @@ class RelationController extends ControllerBehavior
                 }
             });
         }
+        
         return $widget;
     }
+    
     protected function makePivotWidget()
     {
         $config = $this->makeConfigForMode('pivot', 'form');
@@ -950,11 +952,13 @@ class RelationController extends ControllerBehavior
         $config->alias = $this->alias . 'ManagePivotForm';
         
         $foreignKeyName = $this->relationModel->getQualifiedKeyName();
+        
         /*
          * Existing record
          */
         if ($this->manageId) {
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
+            
             if ($hydratedModel) {
                 $config->model = $hydratedModel;
             } else {
@@ -989,6 +993,7 @@ class RelationController extends ControllerBehavior
     //
     // AJAX (Buttons)
     //
+    
     public function onRelationButtonAdd()
     {
         $this->eventTarget = 'button-add';
