@@ -3493,7 +3493,7 @@ if($element.hasClass('select-hide-selected')){extraOptions.dropdownCssClass+=' s
 var source=$element.data('handler');if(source){extraOptions.ajax={transport:function(params,success,failure){var $request=$element.request(source,{data:params.data})
 $request.done(success)
 $request.fail(failure)
-return $request},dataType:'json'}}
+return $request},processResults:function(data,params){var results=data.result;var options=[];for(var i in results){if(results.hasOwnProperty(i)){var isObject=i!=null&&i.constructor.name==='Object';options.push({id:isObject?results[i].id:i,text:isObject?results[i].text:results[i],});};};return{results:options,};},dataType:'json'}}
 var separators=$element.data('token-separators')
 if(separators){extraOptions.tags=true
 extraOptions.tokenSeparators=separators.split('|')
@@ -3723,6 +3723,7 @@ this.$container=null
 this.$modal=null
 this.$backdrop=null
 this.isOpen=false
+this.isLoading=false
 this.firstDiv=null
 this.allowHide=true
 this.$container=this.createPopupContainer()
@@ -3743,7 +3744,7 @@ if(!this.options.content){this.setLoading(true)}
 if(this.options.handler){this.$el.request(this.options.handler,{data:paramToObj('data-extra-data',this.options.extraData),success:function(data,textStatus,jqXHR){this.success(data,textStatus,jqXHR).done(function(){self.setContent(data.result)
 $(window).trigger('ajaxUpdateComplete',[this,data,textStatus,jqXHR])
 self.triggerEvent('popupComplete')
-self.triggerEvent('complete.oc.popup')})},error:function(jqXHR,textStatus,errorThrown){this.error(jqXHR,textStatus,errorThrown).done(function(){self.hide()
+self.triggerEvent('complete.oc.popup')})},error:function(jqXHR,textStatus,errorThrown){this.error(jqXHR,textStatus,errorThrown).done(function(){if(self.isLoading){self.hideLoading();}else{self.hide()}
 self.triggerEvent('popupError')
 self.triggerEvent('error.oc.popup')})}})}
 else if(this.options.ajax){$.ajax({url:this.options.ajax,data:paramToObj('data-extra-data',this.options.extraData),success:function(data){self.setContent(data)},cache:false})}
@@ -3806,7 +3807,8 @@ this.$backdrop.append($('<div class="modal-content popup-loading-indicator" />')
 else if(!val&&this.$backdrop){this.$backdrop.remove()
 this.$backdrop=null}}
 Popup.prototype.setLoading=function(val){if(!this.$backdrop)
-return;var self=this
+return;this.isLoading=val
+var self=this
 if(val){setTimeout(function(){self.$backdrop.addClass('loading');},100)}
 else{setTimeout(function(){self.$backdrop.removeClass('loading');},100)}}
 Popup.prototype.setShake=function(){var self=this

@@ -143,6 +143,26 @@ class RouterTest extends TestCase
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-archive.htm', $page->getFileName());
         $this->assertCount(1, $parameters);
+
+        $page = $router->findByUrl('blog/category-page');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
+        $this->assertEquals(array_keys($parameters)[0], 'category_name');
+        $this->assertEmpty($parameters[array_keys($parameters)[0]]);
+
+        $page = $router->findByUrl('blog/category-page/categoryName');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
+
+        $page = $router->findByUrl('blog/category-page/categoryName/subCategoryName');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
     }
 
     public function testFindPageFromSubdirectory()
