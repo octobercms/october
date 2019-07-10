@@ -326,17 +326,16 @@ class RelationController extends ControllerBehavior
         }
 
         if (!$this->model) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.relation.missing_model',
-                ['class'=>get_class($this->controller)]
-            ));
+            throw new ApplicationException(Lang::get('backend::lang.relation.missing_model', [
+                'class' => get_class($this->controller),
+            ]));
         }
 
         if (!$this->model instanceof Model) {
-            throw new ApplicationException(Lang::get(
-                'backend::lang.model.invalid_class',
-                ['model'=>get_class($this->model), 'class'=>get_class($this->controller)]
-            ));
+            throw new ApplicationException(Lang::get('backend::lang.model.invalid_class', [
+                'model' => get_class($this->model),
+                'class' => get_class($this->controller),
+            ]));
         }
 
         if (!$this->getConfig($field)) {
@@ -894,35 +893,32 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form') {
-
             if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
                 return null;
             }
-
             $config->model = $this->relationModel;
             $config->arrayName = class_basename($this->relationModel);
             $config->context = $this->evalFormContext('manage', !!$this->manageId);
             $config->alias = $this->alias . 'ManageForm';
-
             /*
              * Existing record
              */
             if ($this->manageId) {
-                $config->model = $config->model->find($this->manageId);
-                if (!$config->model) {
+                $model = $config->model->find($this->manageId);
+                if ($model) {
+                    $config->model = $model;
+                } else {
                     throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                        'class' => get_class($config->model), 'id' => $this->manageId
+                        'class' => get_class($config->model),
+                        'id' => $this->manageId,
                     ]));
                 }
             }
-
             $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         }
-
         if (!$widget) {
             return null;
         }
-
         /*
          * Exclude existing relationships
          */
@@ -937,10 +933,8 @@ class RelationController extends ControllerBehavior
                 }
             });
         }
-
         return $widget;
     }
-
     protected function makePivotWidget()
     {
         $config = $this->makeConfigForMode('pivot', 'form');
@@ -948,19 +942,18 @@ class RelationController extends ControllerBehavior
         $config->arrayName = class_basename($this->relationModel);
         $config->context = $this->evalFormContext('pivot', !!$this->manageId);
         $config->alias = $this->alias . 'ManagePivotForm';
-
         $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-
         /*
          * Existing record
          */
         if ($this->manageId) {
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
-
-            $config->model = $hydratedModel;
-            if (!$config->model) {
+            if ($hydratedModel) {
+                $config->model = $hydratedModel;
+            } else {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                    'class' => get_class($config->model), 'id' => $this->manageId
+                    'class' => get_class($config->model),
+                    'id' => $this->manageId,
                 ]));
             }
         }
@@ -972,35 +965,27 @@ class RelationController extends ControllerBehavior
                 $foreignModel = $this->relationModel
                     ->whereIn($foreignKeyName, (array) $this->foreignId)
                     ->first();
-
                 if ($foreignModel) {
                     $foreignModel->exists = false;
                     $config->model = $foreignModel;
                 }
             }
-
             $pivotModel = $this->relationObject->newPivot();
             $config->model->setRelation('pivot', $pivotModel);
         }
-
         return $this->makeWidget('Backend\Widgets\Form', $config);
     }
-
     //
     // AJAX (Buttons)
     //
-
     public function onRelationButtonAdd()
     {
         $this->eventTarget = 'button-add';
-
         return $this->onRelationManageForm();
     }
-
     public function onRelationButtonCreate()
     {
         $this->eventTarget = 'button-create';
-
         return $this->onRelationManageForm();
     }
 
