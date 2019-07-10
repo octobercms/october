@@ -156,6 +156,11 @@ class RelationController extends ControllerBehavior
     protected $toolbarButtons;
 
     /**
+     * @var array The text used for the set of toolbar buttons.
+     */
+    protected $toolbarButtonText;
+
+    /**
      * @var Model Reference to the model used for viewing (form only).
      */
     protected $viewModel;
@@ -270,6 +275,7 @@ class RelationController extends ControllerBehavior
         $this->vars['relationManageMode'] = $this->manageMode;
         $this->vars['relationManageWidget'] = $this->manageWidget;
         $this->vars['relationToolbarButtons'] = $this->toolbarButtons;
+        $this->vars['relationToolbarButtonText'] = $this->toolbarButtonText;
         $this->vars['relationViewMode'] = $this->viewMode;
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationViewModel'] = $this->viewModel;
@@ -320,16 +326,17 @@ class RelationController extends ControllerBehavior
         }
 
         if (!$this->model) {
-            throw new ApplicationException(Lang::get('backend::lang.relation.missing_model', [
-                'class' => get_class($this->controller),
-            ]));
+            throw new ApplicationException(Lang::get(
+                'backend::lang.relation.missing_model',
+                ['class'=>get_class($this->controller)]
+            ));
         }
 
         if (!$this->model instanceof Model) {
-            throw new ApplicationException(Lang::get('backend::lang.model.invalid_class', [
-                'model' => get_class($this->model),
-                'class' => get_class($this->controller),
-            ]));
+            throw new ApplicationException(Lang::get(
+                'backend::lang.model.invalid_class',
+                ['model'=>get_class($this->model), 'class'=>get_class($this->controller)]
+            ));
         }
 
         if (!$this->getConfig($field)) {
@@ -360,6 +367,7 @@ class RelationController extends ControllerBehavior
         $this->manageMode = $this->evalManageMode();
         $this->manageTitle = $this->evalManageTitle();
         $this->toolbarButtons = $this->evalToolbarButtons();
+        $this->toolbarButtonText = $this->getConfig('view[toolbarButtonText]');
 
         /*
          * Toolbar widget
@@ -900,13 +908,10 @@ class RelationController extends ControllerBehavior
              * Existing record
              */
             if ($this->manageId) {
-                $model = $config->model->find($this->manageId);
-                if ($model) {
-                    $config->model = $model;
-                } else {
+                $config->model = $config->model->find($this->manageId);
+                if (!$config->model) {
                     throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                        'class' => get_class($config->model),
-                        'id' => $this->manageId,
+                        'class' => get_class($config->model), 'id' => $this->manageId
                     ]));
                 }
             }
@@ -952,12 +957,10 @@ class RelationController extends ControllerBehavior
         if ($this->manageId) {
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
 
-            if ($hydratedModel) {
-                $config->model = $hydratedModel;
-            } else {
+            $config->model = $hydratedModel;
+            if (!$config->model) {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                    'class' => get_class($config->model),
-                    'id' => $this->manageId,
+                    'class' => get_class($config->model), 'id' => $this->manageId
                 ]));
             }
         }
