@@ -1089,10 +1089,14 @@ class MediaManager extends WidgetBase
         }
 
         switch ($itemType) {
-            case MediaLibraryItem::FILE_TYPE_IMAGE: return "icon-picture-o";
-            case MediaLibraryItem::FILE_TYPE_VIDEO: return "icon-video-camera";
-            case MediaLibraryItem::FILE_TYPE_AUDIO: return "icon-volume-up";
-            default: return "icon-file";
+            case MediaLibraryItem::FILE_TYPE_IMAGE:
+                return "icon-picture-o";
+            case MediaLibraryItem::FILE_TYPE_VIDEO:
+                return "icon-video-camera";
+            case MediaLibraryItem::FILE_TYPE_AUDIO:
+                return "icon-volume-up";
+            default:
+                return "icon-file";
         }
     }
 
@@ -1759,7 +1763,7 @@ class MediaManager extends WidgetBase
     /**
      * Business logic to crop a media library image
      * @param string $imageSrcPath
-     * @param string $selectionData
+     * @param array $selectionData
      * @param string $cropSessionKey
      * @param string $path
      * @return array
@@ -1858,7 +1862,7 @@ class MediaManager extends WidgetBase
             'title' => $targetImageName,
             'folder' => $targetFolder
         ];
-   }
+    }
 
     /**
      * Detect if image is vector graphic (SVG)
