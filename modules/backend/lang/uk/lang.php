@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'прохідна стежка',
         'main_content'  => 'основний район',
         'tabs'          => 'вкладки',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Неправильний тип поля :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",

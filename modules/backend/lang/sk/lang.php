@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'chodník',
         'main_content'  => 'oblasti',
         'tabs'          => 'karty',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',
         'options_method_invalid_model' => "Vlastnosť ':field' nezodpovedá platnému modelu. Skúste špecifikovať metódu možností pre triedu modelu :model explicitne.",

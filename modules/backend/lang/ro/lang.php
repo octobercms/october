@@ -11,7 +11,7 @@ return [
         'breadcrumb'    => 'traseu de pescuit',
         'main_content'  => 'zona principală',
         'tabs'          => 'file',
-    ],	
+    ],
     'widget' => [
         'not_registered' => "Un nume de clasa de widget ':name' nu a fost inregistrat",
         'not_bound' => "Un widget cu numele de clasa ':name' nu a fost mapat la controller",

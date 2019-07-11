@@ -7,7 +7,7 @@ return [
         'breadcrumb'    => 'migaja de pan',
         'main_content'  => 'área principal',
         'tabs'          => 'pestañas',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'La clase del modelo :model debe definir un método :method() que devuelva opciones para el campo ":field".',

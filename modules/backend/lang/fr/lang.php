@@ -11,7 +11,7 @@ return [
         'breadcrumb'    => 'miette de pain',
         'main_content'  => 'Zone principale',
         'tabs'          => 'onglets',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
         'options_method_invalid_model' => "L’attribut ':field' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle ':model'.",

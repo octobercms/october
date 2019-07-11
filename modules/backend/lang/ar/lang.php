@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'التفصيلي',
         'main_content'  => 'المجال الرئيسي',
         'tabs'          => 'علامات التبويب',
-    ],	
+    ],
     'page' => [
         'access_denied' => [
             'label' => 'ممنوع الوصول',

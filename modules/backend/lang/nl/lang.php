@@ -11,7 +11,7 @@ return [
         'breadcrumb'    => 'broodkruimel spoor',
         'main_content'  => 'hoofdgebied',
         'tabs'          => 'klikt op',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
         'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",

@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'trilha de migalhas',
         'main_content'  => 'área principal',
         'tabs'          => 'guias',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "O atributo ':field' não é resolvido para um modelo válidol. Tente especificar o método de opções para a classe de modelo :model explicitamente.",

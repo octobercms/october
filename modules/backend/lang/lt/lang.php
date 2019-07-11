@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'kirtimo takas',
         'main_content'  => 'pagrindinė sritis',
         'tabs'          => 'skirtukus',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Netinkamas laukelio tipas :type.',
         'options_method_invalid_model' => "Artributas ':field' nenuskaito tinkamo modelio. Bandykite nurodyti parinkties metodą išskirtinai modelio klasei :model",

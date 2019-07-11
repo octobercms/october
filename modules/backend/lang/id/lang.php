@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'remah roti',
         'main_content'  => 'area utama',
         'tabs'          => 'tab',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Jenis medan tidak valid digunakan :type.',
         'options_method_not_exists' => "Kelas model :model harus menentukan metode :method() yang mengembalikan opsi untuk borang medan ':field'."

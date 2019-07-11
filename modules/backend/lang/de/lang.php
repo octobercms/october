@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'Semmelbrösel',
         'main_content'  => 'Hauptbereich',
         'tabs'          => 'Registerkarten auf',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
         'options_method_invalid_model' => 'Das Attribut ":field" löst sich nicht zu einen gültigen Model auf. Probiere die options Methode der Model-Klasse :model explicit zu definieren.',

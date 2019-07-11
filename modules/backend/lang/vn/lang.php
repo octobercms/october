@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'đường mòn bánh mì',
         'main_content'  => 'khu vực chính',
         'tabs'          => 'tab',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Loại Field không hợp lệ :type.',
         'options_method_invalid_model' => "Thuộc tính ':field' không đưa ra được model hợp lệ. Hãy thử chỉ định phương pháp tùy chọn cho model :model một cách rõ ràng.",

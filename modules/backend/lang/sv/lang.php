@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'breadcrumb trail',
         'main_content'  => 'huvudområde',
         'tabs'          => 'flikar',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Felaktig fälttyp använd :type.',
         'options_method_not_exists' => 'Modellklassen :model måste definera en metod :method() som returnerar villkor för formfältet ":field"',

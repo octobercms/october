@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => '面包屑踪迹',
         'main_content'  => '主要区域',
         'tabs'          => '标签',
-    ],	
+    ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
         'options_method_invalid_model' => "属性 ':field' 不能解析为有效模型. 请尝试为模型类:model指定一个可选方法.",

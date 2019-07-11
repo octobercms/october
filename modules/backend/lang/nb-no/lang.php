@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'breadcrumb sti',
         'main_content'  => 'hovedområde',
         'tabs'          => 'faner',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'Ugyldig felttype brukt :type.',
         'options_method_not_exists' => "Modellklassen :model må definere en metode :method() som returnerer vilkår for formfeltet ':field'."

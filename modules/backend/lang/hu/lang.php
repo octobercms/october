@@ -11,7 +11,7 @@ return [
         'breadcrumb'    => 'kenyérmorzsa',
         'main_content'  => 'fő terület',
         'tabs'          => 'lap',
-    ],	
+    ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",

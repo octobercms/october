@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => 'szlak nawigacyjny',
         'main_content'  => 'główna strefa',
         'tabs'          => 'zakładki na',
-    ],	
+    ],
     'field'               => [
         'invalid_type'              => 'Użyto nieprawidłowego typu pola :type.',
         'options_method_not_exists' => "Model :model musi definiować metodę :method() zwracając opcję z pola ':field' formularza.",
