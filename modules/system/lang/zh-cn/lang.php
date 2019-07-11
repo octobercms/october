@@ -212,7 +212,7 @@ return [
         'none' => [
             'label' => '没有更新',
             'help' => '没有发现新的更新.'
-    ],
+        ],
         'important_action' => [
             'empty' => '选择操作',
             'confirm' => '确认更新',
@@ -309,7 +309,7 @@ return [
         'log_theme' => '主题变更日志',
         'log_theme_comment' => '保存后台对主题文件的修改日志.'
     ],
-   'media' => [
+    'media' => [
         'invalid_path' => "不合法的路径: ':path'.",
         'folder_size_items' => '个数',
     ],
