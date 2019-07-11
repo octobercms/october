@@ -841,7 +841,6 @@ class Controller
          * Process Component handler
          */
         if (strpos($handler, '::')) {
-
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
@@ -965,7 +964,6 @@ class Controller
          * Process Component partial
          */
         elseif (strpos($name, '::') !== false) {
-
             list($componentAlias, $partialName) = explode('::', $name);
 
             /*

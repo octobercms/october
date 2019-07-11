@@ -423,7 +423,6 @@ class ReportContainer extends WidgetBase
 
         $result[] = $property;
         foreach ($properties as $name => $params) {
-
             $property = [
                 'property' => $name,
                 'title'    => isset($params['title']) ? Lang::get($params['title']) : $name,

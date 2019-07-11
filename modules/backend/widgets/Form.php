@@ -408,7 +408,6 @@ class Form extends WidgetBase
          * If an array of fields is supplied, update specified fields individually.
          */
         if (($updateFields = post('fields')) && is_array($updateFields)) {
-
             foreach ($updateFields as $field) {
                 if (!isset($this->allFields[$field])) {
                     continue;
@@ -452,7 +451,7 @@ class Form extends WidgetBase
             if (!is_array($eventResult)) {
                 continue;
             }
-            
+
             $result = $eventResult + $result;
         }
 
@@ -686,7 +685,6 @@ class Form extends WidgetBase
     public function addFields(array $fields, $addToArea = null)
     {
         foreach ($fields as $name => $config) {
-
             $fieldObj = $this->makeFormField($name, $config);
             $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
 
@@ -875,8 +873,8 @@ class Form extends WidgetBase
          * Get field options from model
          */
         $optionModelTypes = ['dropdown', 'radio', 'checkboxlist', 'balloon-selector'];
-        if (in_array($field->type, $optionModelTypes, false)) {
 
+        if (in_array($field->type, $optionModelTypes, false)) {
             /*
              * Defer the execution of option data collection
              */
@@ -961,7 +959,9 @@ class Form extends WidgetBase
         if (isset($field->config['options'])) {
             $field->options(function () use ($field) {
                 $fieldOptions = $field->config['options'];
-                if ($fieldOptions === true) $fieldOptions = null;
+                if ($fieldOptions === true) {
+                    $fieldOptions = null;
+                }
                 $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
                 return $fieldOptions;
             });
@@ -1092,7 +1092,8 @@ class Form extends WidgetBase
      * Checks if default values should be taken from data.
      * This should be done when model exists or when explicitly configured
      */
-    protected function shouldFetchDefaultValues() {
+    protected function shouldFetchDefaultValues()
+    {
         $enableDefaults = object_get($this->config, 'enableDefaults');
         if ($enableDefaults === false) {
             return false;
@@ -1171,7 +1172,6 @@ class Form extends WidgetBase
              */
             $parts = HtmlHelper::nameToArray($field->fieldName);
             if (($value = $this->dataArrayGet($data, $parts)) !== null) {
-
                 /*
                  * Number fields should be converted to integers
                  */
@@ -1261,7 +1261,6 @@ class Form extends WidgetBase
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($fieldOptions) && !$fieldOptions) {
-
             try {
                 list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
             }

@@ -38,7 +38,8 @@ class FrameworkNode extends TwigNode
                     ->write("echo '<script async src=\"'. Request::getBasePath()
                     .'/modules/system/assets/js/framework.combined-min.js\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
                     ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
-                    .'/modules/system/assets/js/framework.combined-min.js\" as=\"script\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)					
+                    .'/modules/system/assets/js/framework.combined-min.js\" as=\"script\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
+
                 ->outdent()
                 ->write("}" . PHP_EOL)
                 ->write("else {" . PHP_EOL)
@@ -50,13 +51,14 @@ class FrameworkNode extends TwigNode
                     ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
                     .'/modules/system/assets/js/framework.js\" as=\"script\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
                     ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
-                    .'/modules/system/assets/js/framework.extras.js\" as=\"script\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)					
+                    .'/modules/system/assets/js/framework.extras.js\" as=\"script\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
+
                 ->outdent()
                 ->write("}" . PHP_EOL)
                 ->write("echo '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"'. Request::getBasePath()
                     .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
                 ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
-                    .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" as=\"style\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)					
+                    .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" as=\"style\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
             ;
         }
         else {

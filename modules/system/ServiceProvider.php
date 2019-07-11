@@ -536,7 +536,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerValidator()
     {
-        $this->app->resolving('validator', function($validator) {
+        $this->app->resolving('validator', function ($validator) {
             /*
              * Allowed file extensions, as opposed to mime types.
              * - extensions: png,jpg,txt

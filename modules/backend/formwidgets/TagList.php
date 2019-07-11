@@ -198,9 +198,10 @@ class TagList extends FormWidgetBase
     protected function getSeparatorCharacter()
     {
         switch (strtolower($this->separator)) {
-            case 'comma': return ',';
-            case 'space': return ' ';
+            case 'comma':
+                return ',';
+            case 'space':
+                return ' ';
         }
     }
-
 }

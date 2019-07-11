@@ -93,7 +93,6 @@ class DebugExtension extends TwigExtension
 
         $count = func_num_args();
         if ($count == 2) {
-
             $this->variablePrefix = true;
             $vars = [];
             foreach ($context as $key => $value) {
@@ -103,13 +102,10 @@ class DebugExtension extends TwigExtension
             }
 
             $result .= $this->dump($vars, static::PAGE_CAPTION);
-
         }
         else {
-
             $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
-
                 $var = func_get_arg($i);
 
                 if ($var instanceof ComponentBase) {
@@ -127,7 +123,6 @@ class DebugExtension extends TwigExtension
 
                 $result .= $this->dump($var, $caption);
             }
-
         }
 
         return $result;

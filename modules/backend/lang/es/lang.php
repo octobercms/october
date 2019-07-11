@@ -474,7 +474,7 @@ return [
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'        
+        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'
     ],
     'mediafinder' => [
         'label' => 'Buscador de multimedia',

@@ -19,19 +19,19 @@ trait ErrorMaker
     /**
      * @return boolean Whether a fatal error has been set or not.
      */
-    public function hasFatalError() 
+    public function hasFatalError()
     {
-        return !is_null($this->fatalError); 
+        return !is_null($this->fatalError);
     }
-    
+
     /**
      * @return string The fatal error message
      */
-    public function getFatalError() 
+    public function getFatalError()
     {
-       return $this->fatalError;
+        return $this->fatalError;
     }
-    
+
     /**
      * Sets standard page variables in the case of a controller error.
      */

@@ -425,7 +425,7 @@ return [
     | this feature on can create a conflict if you have a frontend Service
     | Worker running. The 'scope' needs to be correctly set and not have a
     | duplicate subfolder structure on the frontend, otherwise it will run
-    | on both the frontend and backend of your website.	
+    | on both the frontend and backend of your website.
     |
     | true  - allow service workers to run in the backend
     |
@@ -433,6 +433,6 @@ return [
     |
     */
 
-    'enableBackendServiceWorkers' => false,	
+    'enableBackendServiceWorkers' => false,
 
 ];

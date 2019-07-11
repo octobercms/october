@@ -94,7 +94,7 @@ return [
             'request_log' => 'Request Log',
             'app_birthday' => 'Online seit',
         ],
-       'welcome' => [
+        'welcome' => [
             'widget_title_default' => 'Willkommen',
             'welcome_back_name' => 'Willkommen zurück zu :app, :name.',
             'welcome_to_name' => 'Willkommen zu :app, :name.',
@@ -134,7 +134,7 @@ return [
         'activated' => 'Aktiviert',
         'last_login' => 'Letzer login',
         'created_at' => 'Erstellt am',
-        'updated_at' => 'Aktualisiert am',        
+        'updated_at' => 'Aktualisiert am',
         'group' => [
             'name' => 'Gruppe',
             'name_comment' => 'Der Name, der angezeigt wird wenn  name is displayed in the group list on the Create/Edit Administrator form.',
@@ -262,7 +262,7 @@ return [
     'pagelist' => [
         'page_link' => 'Seitenlink',
         'select_page' => 'Wähle eine Seite...'
-    ],    
+    ],
     'relation' => [
         'missing_config' => "Verhalten (behaviour) der Verbindung hat keine Konfiguration für ':config'.",
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
