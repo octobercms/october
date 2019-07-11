@@ -24,12 +24,14 @@ return [
             'mail' => '邮件',
             'shop' => '商铺',
             'team' => '团队',
-            'articles' => '用户',
+            'users' => '用户',
             'system' => '系统',
             'social' => '社交',
+            'backend' => '后台',
             'events' => '事件',
             'customers' => '自定义',
-            'my_settings' => '我的设置'
+            'my_settings' => '我的设置',
+            'notifications' => '通知'
         ]
     ],
     'theme' => [

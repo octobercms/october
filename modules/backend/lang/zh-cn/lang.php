@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => '管理'
+        'title' => '管理',
+        'invalid_login' => '无法匹配到您输入的相关内容，请检查后重试。'
     ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
         'options_method_invalid_model' => "属性 ':field' 不能解析为有效模型. 请尝试为模型类:model指定一个可选方法.",
-        'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。"
+        'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。",
+        'colors_method_not_exists' => "模型 :model 必须定义一个返回十六进制格式的颜色值 ':field' 字段的 :method() 方法。 "
     ],
     'widget' => [
         'not_registered' => "未注册部件 ':name' ",
@@ -15,6 +17,11 @@ return [
     ],
     'page' => [
         'untitled' => '未命名',
+        '404' => [
+            'label'     => '找不到页面',
+            'help'      => "无法访问到您请求的URL资源，试试其它的？",
+            'back_link' => '返回上个页面'
+        ],
         'access_denied' => [
             'label' => '拒绝访问',
             'help' => "您没有访问该页面所需的权限.",
@@ -30,15 +37,22 @@ return [
         ]
     ],
     'partial' => [
-        'not_found_name' => "未找到部件 ':name' "
+        'not_found_name' => "未找到部件 ':name' ",
+        'invalid_name' => '未知的部件名称 :name '
+    ],
+    'ajax_handler' => [
+        'invalid_name' => '未知的AJAX处理方法 :name.',
+        'not_found' => "无法找到AJAX处理方法 ':name' "
     ],
     'account' => [
+        'signed_in_as' => '使用 :full_name 登录',
         'sign_out' => '登出',
         'login' => '登录',
         'reset' => '重置',
         'restore' => '还原',
         'login_placeholder' => '登录',
         'password_placeholder' => '密码',
+        'remember_me' => '保持登录状态',
         'forgot_password' => '忘记密码?',
         'enter_email' => '输入邮件地址',
         'enter_login' => '输入账号',
@@ -115,6 +129,8 @@ return [
         'last_name' => '姓',
         'full_name' => '全名',
         'email' => '邮件',
+        'role_field' => '角色',
+        'role_comment' => '角色指定了用户的权限，您可以在权限栏中进行修改。',
         'groups' => '团队',
         'groups_comment' => '指定成员所归属的组.',
         'avatar' => '头像',
@@ -135,6 +151,8 @@ return [
         'last_login' => '最后登陆',
         'created_at' => '创建时间',
         'updated_at' => '更新时间',
+        'deleted_at' => '删除时间',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => '组',
             'name_comment' => '该名字将在群组列表中展示',
