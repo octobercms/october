@@ -10,7 +10,7 @@ return [
         'breadcrumb'    => '面包屑踪迹',
         'main_content'  => '主要区域',
         'tabs'          => '标签',
-    ],	
+    ],
     'field' => [
         'invalid_type' => '錯誤的字串類型 :type',
         'options_method_not_exists' => "模型 :model 必須定義一個返回 ':field' 表單字串選項的方法 :method()。"
