@@ -893,7 +893,6 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form') {
-            
             if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
                 return null;
             }
