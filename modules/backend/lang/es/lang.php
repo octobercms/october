@@ -214,8 +214,8 @@ return [
         'resetting' => 'Restableciendo',
         'resetting_name' => 'Restableciendo :name',
         'undefined_tab' => 'Varios',
-        'field_off' => 'Off',
-        'field_on' => 'On',
+        'field_off' => 'Apagar',
+        'field_on' => 'Encender',
         'add' => 'Agregar',
         'apply' => 'Aplicar',
         'cancel' => 'Cancelar',
@@ -394,7 +394,7 @@ return [
         'ip_address' => 'IP',
         'first_name' => 'Nombre',
         'last_name' => 'Apellido',
-        'email' => 'Email'
+        'email' => 'Correo electrónico'
     ],
     'filter' => [
         'all' => 'todo',
@@ -481,7 +481,7 @@ return [
         'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia',
     ],
     'media' => [
-        'menu_label' => 'Media',
+        'menu_label' => 'Medios',
         'upload' => 'Subir',
         'move' => 'Mover',
         'delete' => 'Eliminar',
