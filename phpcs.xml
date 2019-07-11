@@ -13,9 +13,10 @@
 
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
         <!--
-        Migration files do not need a namespace defined
+        Migration files and tests do not need a namespace defined
         -->
         <exclude-pattern>*/database/migrations/*\.php</exclude-pattern>
+        <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 
     <file>bootstrap/</file>
