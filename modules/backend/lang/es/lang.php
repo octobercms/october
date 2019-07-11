@@ -394,7 +394,7 @@ return [
         'ip_address' => 'IP',
         'first_name' => 'Nombre',
         'last_name' => 'Apellido',
-        'email' => 'Correo electrónico'
+        'email' => 'Correo'
     ],
     'filter' => [
         'all' => 'todo',
