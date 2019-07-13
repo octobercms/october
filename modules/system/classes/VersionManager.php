@@ -178,7 +178,6 @@ class VersionManager
         $newPluginVersion = null;
 
         foreach ($pluginHistory as $history) {
-
             if ($stopCurrentVersion && $stopOnVersion === $history->version) {
                 $newPluginVersion = $history->version;
                 break;
