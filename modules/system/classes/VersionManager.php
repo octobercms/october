@@ -160,9 +160,10 @@ class VersionManager
      *
      * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @param string $stopOnVersion
+     * @param bool $stopCurrentVersion
      * @return bool
      */
-    public function removePlugin($plugin, $stopOnVersion = null)
+    public function removePlugin($plugin, $stopOnVersion = null, $stopCurrentVersion = false)
     {
         $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
@@ -177,6 +178,12 @@ class VersionManager
         $newPluginVersion = null;
 
         foreach ($pluginHistory as $history) {
+
+            if ($stopCurrentVersion && $stopOnVersion === $history->version) {
+                $newPluginVersion = $history->version;
+                break;
+            }
+
             if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
                 // Stop if the $stopOnVersion value was found and
                 // this is a new version. The history could contain

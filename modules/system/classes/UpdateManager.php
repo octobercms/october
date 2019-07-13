@@ -554,7 +554,7 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.updates.plugin_version_not_found'));
         }
 
-        if ($this->versionManager->removePlugin($plugin, $stopOnVersion)) {
+        if ($this->versionManager->removePlugin($plugin, $stopOnVersion, true)) {
             $this->note('<info>Rolled back:</info> ' . $name);
 
             if ($currentVersion = $this->versionManager->getCurrentVersion($plugin)) {

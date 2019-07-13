@@ -1,6 +1,7 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputArgument;
@@ -31,23 +32,25 @@ class PluginRollback extends Command
      */
     public function handle()
     {
-        /*
-         * Lookup plugin
-         */
-        $pluginName = $this->argument('name');
-        $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
-        if (!PluginManager::instance()->exists($pluginName)) {
-            throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
+        if ($this->option('confirm') || $this->confirm('Do you wish to continue? This option is nonreversible. [yes|no]')) {
+            /*
+            * Lookup plugin
+            */
+            $pluginName = $this->argument('name');
+            $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
+            if (!PluginManager::instance()->exists($pluginName)) {
+                throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
+            }
+
+            $manager = UpdateManager::instance()->setNotesOutput($this->output);
+
+            $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
+
+            /*
+             * Rollback plugin
+             */
+            $manager->rollbackPlugin($pluginName, $stopOnVersion);
         }
-
-        $manager = UpdateManager::instance()->setNotesOutput($this->output);
-
-        $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
-
-        /*
-         * Rollback plugin
-         */
-        $manager->rollbackPlugin($pluginName, $stopOnVersion);
     }
 
     /**
@@ -59,6 +62,13 @@ class PluginRollback extends Command
         return [
             ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
             ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process stops after the specified version is rolled back, if not, go back to the first version. Eg: 1.3.9'],
+        ];
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ['confirm', 'y', InputOption::VALUE_NONE, 'Confirm rollback', null],
         ];
     }
 }
