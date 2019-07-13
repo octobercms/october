@@ -376,7 +376,7 @@ class UpdateManager
 
         $result = $this->requestServerData('ping', $postData);
 
-        $build = (int)array_get($result, 'pong', 420);
+        $build = (int) array_get($result, 'pong', 420);
 
         $this->setBuild($build);
 
@@ -656,7 +656,7 @@ class UpdateManager
             $type = 'plugin';
         }
 
-        $codes = (array)$codes;
+        $codes = (array) $codes;
         $this->loadProductDetailCache();
 
         /*
@@ -866,8 +866,8 @@ class UpdateManager
         if ($result->code != 200) {
             throw new ApplicationException(
                 strlen($result->body)
-                    ? $result->body
-                    : Lang::get('system::lang.server.response_empty')
+                ? $result->body
+                : Lang::get('system::lang.server.response_empty')
             );
         }
 
