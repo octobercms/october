@@ -192,7 +192,7 @@
      }
 
      /* Update wai-aria on navigation */
-     $('body').on('click keydown', '.master-tabs li a,.primary-tabs li a,.secondary-tabs li a,.content-tabs li a', function(event) {
+     $('body').on('click keydown', '.master-tabs a,.primary-tabs a,.secondary-tabs a,.content-tabs a', function(event) {
 
          let $target = $(event.currentTarget);
          let tabName = '';
