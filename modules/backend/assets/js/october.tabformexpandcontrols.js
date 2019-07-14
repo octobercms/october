@@ -256,6 +256,14 @@
                  // else activate previous
                  $activated.prev().children(tabNameKey + ' a').click().focus();
              }
+         } else if (event.key === 'Home') {
+             event.preventDefault();
+
+			 $(tabNameKey + ' li ' + ' a').first().click().focus();
+         } else if (event.key === 'End') {
+             event.preventDefault();
+
+			 $(tabNameKey + ' li ' + ' a').end().click().focus();
          }
 
          // Important - Must be set to true for October to set class="active" in the <li>
