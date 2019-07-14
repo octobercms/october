@@ -32,7 +32,7 @@ class PluginRollback extends Command
      */
     public function handle()
     {
-        if ($this->option('confirm') || $this->confirm('Do you wish to continue? This option is nonreversible. [yes|no]')) {
+        if ($this->option('force') || $this->confirm('Do you wish to continue? This option is nonreversible. [yes|no]')) {
             /*
             * Lookup plugin
             */
@@ -68,7 +68,7 @@ class PluginRollback extends Command
     protected function getOptions()
     {
         return [
-            ['confirm', 'y', InputOption::VALUE_NONE, 'Confirm rollback', null],
+            ['force', 'f', InputOption::VALUE_NONE, 'Force rollback', null],
         ];
     }
 }
