@@ -192,7 +192,7 @@
      }
 
      /* Update wai-aria on navigation */
-     $('body').on('click keydown', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) {
+     $('body').on('click keydown', '.master-tabs li a,.primary-tabs li a,.secondary-tabs li a,.content-tabs li a', function(event) {
 
          let $target = $(event.currentTarget);
          let tabName = '';
@@ -211,7 +211,7 @@
          $(tabName + ' a').attr('aria-selected', 'false');
 
          // Add wai-aria selected on the active tab
-         $(tabName + ' li.active a').attr('aria-selected', 'true');
+         $($target).attr('aria-selected', 'true');
 
          let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
          let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
