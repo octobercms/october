@@ -190,13 +190,9 @@
              'tabindex': '0'
          });
      }
-     // else if ($('.vertical-tabs a[aria-selected]').length === 0) {
-     //     $('.vertical-tabs a:first').attr({'aria-selected':'true', 'tabindex':'0'});
-     //     $('.vertical-tabs ul').attr('aria-orientation':'vertical');
-     // }
 
      /* Click on a link */
-     $('body').on('click', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) { // Can add ,.vertical-tabs
+     $('body').on('click', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) {
 
          let $target = $(event.target);
          let tabNameClick = '';
@@ -210,9 +206,6 @@
          } else if ($target.hasClass('content-tabs')) {
              tabNameClick = '.content-tabs';
          }
-         // else if($target.hasClass('vertical-tabs')) {
-         //     tabNameClick = '.vertical-tabs';
-         // }
 
          // remove aria selected on all links + remove focusable
          $(tabNameClick + ' a').attr('aria-selected', 'false');
@@ -225,7 +218,7 @@
      });
 
      /* Keyboard arrow selection */
-     $('body').on('keydown', '.primary-tabs,.secondary-tabs,.master-tabs,.content-tabs', function(event) { // Can add ,.vertical-tabs
+     $('body').on('keydown', '.primary-tabs,.secondary-tabs,.master-tabs,.content-tabs', function(event) {
 
          let $target = $(event.target);
          let tabNameKey = '';
@@ -239,9 +232,6 @@
          } else if ($target.hasClass('secondary-tabs')) {
              tabNameKey = '.content-tabs';
          }
-         // else if($target.hasClass('vertical-tabs')) {
-         //     tabNameKey = '.vertical-tabs';
-         // }
 
          let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
          let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
