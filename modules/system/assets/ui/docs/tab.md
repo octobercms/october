@@ -19,10 +19,10 @@ These modifiers can be added in addition to the `control-tabs` class:
 ### Master tabs
 
     <div class="control-tabs master-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#primaryTabOne">One</a></li>
-            <li><a href="#primaryTabTwo">Two</a></li>
-            <li><a href="#primaryTabThree">Three</a></li>
+        <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
+            <li role="presentation" class="active"><a href="#primaryTabOne" role="tab" aria-selected="true" tabindex="0">One</a></li>
+            <li role="presentation"><a href="#primaryTabTwo" role="tab" aria-selected="false" tabindex="0">Two</a></li>
+            <li role="presentation"><a href="#primaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">
@@ -40,10 +40,10 @@ These modifiers can be added in addition to the `control-tabs` class:
 ### Primary tabs
 
     <div class="control-tabs primary-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#primaryTabOne">One</a></li>
-            <li><a href="#primaryTabTwo">Two</a></li>
-            <li><a href="#primaryTabThree">Three</a></li>
+        <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
+            <li role="presentation" class="active"><a href="#primaryTabOne" role="tab" aria-selected="true" tabindex="0">One</a></li>
+            <li role="presentation"><a href="#primaryTabTwo" role="tab" aria-selected="false" tabindex="0">Two</a></li>
+            <li role="presentation"><a href="#primaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">
@@ -63,10 +63,10 @@ These modifiers can be added in addition to the `control-tabs` class:
 ### Secondary tabs
 
     <div class="control-tabs secondary-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#secondaryTabOne">One</a></li>
-            <li><a href="#secondaryTabTwo">Two</a></li>
-            <li><a href="#secondaryTabThree">Three</a></li>
+        <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
+            <li role="presentation" class="active"><a href="#secondaryTabOne" role="tab" aria-selected="true" tabindex="0">One</a></li>
+            <li role="presentation"><a href="#secondaryTabTwo" role="tab" aria-selected="false" tabindex="0">Two</a></li>
+            <li role="presentation"><a href="#secondaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">
@@ -84,10 +84,10 @@ These modifiers can be added in addition to the `control-tabs` class:
 ### Content tabs
 
     <div class="control-tabs content-tabs" data-control="tab">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#contentTabOne">One</a></li>
-            <li><a href="#contentTabTwo">Two</a></li>
-            <li><a href="#contentTabThree">Three</a></li>
+        <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
+            <li role="presentation" class="active"><a href="#contentTabOne" role="tab" aria-selected="true" tabindex="0">One</a></li>
+            <li role="presentation"><a href="#contentTabTwo" role="tab" aria-selected="false" tabindex="0">Two</a></li>
+            <li role="presentation"><a href="#contentTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">
@@ -112,8 +112,8 @@ These modifiers can be added in addition to the `control-tabs` class:
 Example with data attributes (data-control="tab"):
 
     <div class="control-tabs master" data-control="tab" data-closable>
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#home">Home</a></li>
+        <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="Tabs">
+            <li role="presentation" class="active"><a href="#home" role="tab" aria-selected="true" tabindex="0">Home</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active">Home</div>
