@@ -191,47 +191,27 @@
          });
      }
 
-     /* Click on a link */
-     $('body').on('click', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) {
+     /* Update wai-aria on navigation */
+     $('body').on('click keydown', '.master-tabs,.primary-tabs,.secondary-tabs,.content-tabs', function(event) {
 
-         let $target = $(event.target);
-         let tabNameClick = '';
+         let $target = $(event.currentTarget);
+         let tabName = '';
 
          if ($target.hasClass('master-tabs')) {
-             tabNameClick = '.master-tabs';
+             tabName = '.master-tabs';
          } else if ($target.hasClass('primary-tabs')) {
-             tabNameClick = '.primary-tabs';
+             tabName = '.primary-tabs';
          } else if ($target.hasClass('secondary-tabs')) {
-             tabNameClick = '.secondary-tabs';
+             tabName = '.secondary-tabs';
          } else if ($target.hasClass('content-tabs')) {
-             tabNameClick = '.content-tabs';
+             tabName = '.content-tabs';
          }
 
-         // remove aria selected on all links + remove focusable
-         $(tabNameClick + ' a').attr('aria-selected', 'false');
+         // Remove wai-aria selected on all tabs
+         $(tabName + ' a').attr('aria-selected', 'false');
 
-         // add aria selected on $this + focusable
-         $(tabNameClick + ' a.focus-visible').attr('aria-selected', 'true');
-
-         // Important - Must be set to true for October to set class="active" in the <li>
-         return true;
-     });
-
-     /* Keyboard arrow selection */
-     $('body').on('keydown', '.primary-tabs,.secondary-tabs,.master-tabs,.content-tabs', function(event) {
-
-         let $target = $(event.target);
-         let tabNameKey = '';
-
-         if ($target.hasClass('primary-tabs')) {
-             tabNameKey = '.primary-tabs';
-         } else if ($target.hasClass('secondary-tabs')) {
-             tabNameKey = '.secondary-tabs';
-         } else if ($target.hasClass('secondary-tabs')) {
-             tabNameKey = '.secondary-tabs';
-         } else if ($target.hasClass('secondary-tabs')) {
-             tabNameKey = '.content-tabs';
-         }
+         // Add wai-aria selected on the active tab
+         $(tabName + ' li.active a').attr('aria-selected', 'true');
 
          let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
          let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
@@ -239,21 +219,21 @@
              event.preventDefault();
 
              var position = strikeUpOrRightTab ? 'first-child' : 'last-child';
-             var $activated = $(tabNameKey + ' a[aria-selected="true"]').parent();
-             if ($activated.is(tabNameKey + ' li:' + position)) {
-                 $(tabNameKey + ' li:' + position + ' a').click().focus();
+             var $activated = $(tabName + ' a[aria-selected="true"]').parent();
+             if ($activated.is(tabName + ' li:' + position)) {
+                 $(tabName + ' li:' + position + ' a').click().focus();
              } else {
                  // else activate previous
-                 $activated.prev().children(tabNameKey + ' a').click().focus();
+                 $activated.prev().children(tabName + ' a').click().focus();
              }
          } else if (event.key === 'Home') {
              event.preventDefault();
 
-			 $(tabNameKey + ' li ' + ' a').first().click().focus();
+			 $(tabName + ' li ' + ' a').first().click().focus();
          } else if (event.key === 'End') {
              event.preventDefault();
 
-			 $(tabNameKey + ' li ' + ' a').end().click().focus();
+			 $(tabName + ' li ' + ' a').end().click().focus();
          }
 
          // Important - Must be set to true for October to set class="active" in the <li>
