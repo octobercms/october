@@ -194,7 +194,7 @@ $(document).ready(function() {
             'Spacebar',
             ' '
         ];
-        if (event.shiftKey && event.key === 'Tab' || event.type === 'keydown' && !whitelist.includes(event.key)) {
+        if ((event.shiftKey && event.key === 'Tab') || (event.type === 'keydown' && !whitelist.includes(event.key))) {
             return;
         }
 
@@ -212,10 +212,10 @@ $(document).ready(function() {
         }
 
         // Remove wai-aria selected on all tabs
-        $(tabName + ' a').attr({'aria-selected':'false', 'tabindex': '-1'});
+        $(tabName + ' a').attr('aria-selected', 'false');
 
         // Add wai-aria selected on the active tab
-        $($target).attr({'aria-selected':'true', 'tabindex': '0'});
+        $($target).attr('aria-selected', 'true');
 
         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
