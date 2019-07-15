@@ -23,7 +23,7 @@
 
 <div class="tab-content <?= $contentCss ?>">
     <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-        <div tabindex="0" role="tabpanel" <?= $index==0?'':'hidden="hidden"'?>
+        <div tabindex="0" role="tabpanel" <?= $index==0?'':'hidden="hidden"'?> aria-label="<?= e(trans($name)) ?>"
             class="tab-pane <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $index++==0?'active':''?> <?= $paneCss ?>"
             id="<?= $type.'tab-'.$index ?>">
             <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
