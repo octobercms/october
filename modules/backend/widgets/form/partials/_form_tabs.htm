@@ -14,8 +14,8 @@
 <div class="<?= $navCss ?>">
     <ul class="nav nav-tabs" role="tablist" aria-orientation="horizontal" aria-label="<?= e(trans('system::lang.aria-label.tabs')) ?>">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-            <li class="<?= $index++==0?'active':''?>" role="presentation">
-                <a href="#<?= $type.'tab-'.$index ?>" role="tab" aria-selected="<?= $index++==0?'true':'false'?>" tabindex="0"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
+            <li class="<?= $index==0?'active':''?>" role="presentation">
+                <a href="#<?= $type.'tab-'.$index ?>" role="tab" aria-selected="<?= $index==0?'true':'false'?>" tabindex="<?= $index++==0?'0':'-1'?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
             </li>
         <?php endforeach ?>
     </ul>
