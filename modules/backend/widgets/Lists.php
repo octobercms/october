@@ -1156,7 +1156,7 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Process as selectable value types for 'dropdown', 'radio', 'checkboxlist', 'balloon-selector' form field types.
+     * Process as selectable value types for 'dropdown', 'radio', 'balloon-selector' form field types.
      */
     protected function evalSelectableTypeValue($record, $column, $value)
     {
