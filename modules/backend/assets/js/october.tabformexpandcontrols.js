@@ -201,7 +201,7 @@ $(document).ready(function() {
         * Space bar - Select that tab (MAC)
         * Home - First tab
         * End - Last tab
-        * Arrow Keys - scroll through the tabs
+        * Arrow Keys - Scroll through the tabs
         */
         var whitelist = [
             'ArrowLeft',
