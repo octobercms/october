@@ -166,78 +166,105 @@
 /*
  * Auto update WAI-ARIA when a user updates the tabs
  */
- $(document).ready(function() {
+$(document).ready(function() {
 
-     /* If no selected => select first */
-     if ($('.master-tabs a[aria-selected]').length === 0) {
-         $('.master-tabs a:first').attr({
-             'aria-selected': 'true',
-             'tabindex': '0'
-         });
-     } else if ($('.primary-tabs a[aria-selected]').length === 0) {
-         $('.primary-tabs a:first').attr({
-             'aria-selected': 'true',
-             'tabindex': '0'
-         });
-     } else if ($('.secondary-tabs a[aria-selected]').length === 0) {
-         $('.secondary-tabs a:first').attr({
-             'aria-selected': 'true',
-             'tabindex': '0'
-         });
-     } else if ($('.content-tabs a[aria-selected]').length === 0) {
-         $('.content-tabs a:first').attr({
-             'aria-selected': 'true',
-             'tabindex': '0'
-         });
-     }
+    /* If no selected => select first */
+    if ($('.master-tabs a[aria-selected]').length === 0) {
+        $('.master-tabs a:first').attr({
+            'aria-selected': 'true',
+            'tabindex': '0'
+        });
+    } else if ($('.primary-tabs a[aria-selected]').length === 0) {
+        $('.primary-tabs a:first').attr({
+            'aria-selected': 'true',
+            'tabindex': '0'
+        });
+    } else if ($('.secondary-tabs a[aria-selected]').length === 0) {
+        $('.secondary-tabs a:first').attr({
+            'aria-selected': 'true',
+            'tabindex': '0'
+        });
+    } else if ($('.content-tabs a[aria-selected]').length === 0) {
+        $('.content-tabs a:first').attr({
+            'aria-selected': 'true',
+            'tabindex': '0'
+        });
+    }
 
-     /* Update wai-aria on navigation */
-     $('body').on('click keydown', '.master-tabs a,.primary-tabs a,.secondary-tabs a,.content-tabs a', function(event) {
+    /* Update wai-aria on navigation */
+    $('body').on('click keydown', '.master-tabs a,.primary-tabs a,.secondary-tabs a,.content-tabs a', function(event) {
 
-         let $target = $(event.currentTarget);
-         let tabName = '';
+       /*
+        * Tab - Move forwards
+        * Shift and Tab - Move backwards
+        * Enter - Select that tab (PC)
+        * Space bar - Select that tab (MAC)
+        * Home - First tab
+        * End - Last tab
+        * Arrow Keys - scroll through the tabs
+        */
+        var whitelist = [
+            'ArrowLeft',
+            'ArrowUp',
+            'ArrowDown',
+            'ArrowRight',
+            'Home',
+            'End',
+            'Tab',
+            'Shift',
+            'Enter',
+            '(Space character)',
+            'Spacebar',
+            ' '
+        ];
+        if (event.type === 'keydown' && !whitelist.includes(event.key)) {
+            return;
+        }
 
-         if ($target.hasClass('master-tabs')) {
-             tabName = '.master-tabs';
-         } else if ($target.hasClass('primary-tabs')) {
-             tabName = '.primary-tabs';
-         } else if ($target.hasClass('secondary-tabs')) {
-             tabName = '.secondary-tabs';
-         } else if ($target.hasClass('content-tabs')) {
-             tabName = '.content-tabs';
-         }
+        let $target = $(event.currentTarget);
+        let tabName = '';
 
-         // Remove wai-aria selected on all tabs
-         $(tabName + ' a').attr('aria-selected', 'false');
+        if ($target.hasClass('master-tabs')) {
+            tabName = '.master-tabs';
+        } else if ($target.hasClass('primary-tabs')) {
+            tabName = '.primary-tabs';
+        } else if ($target.hasClass('secondary-tabs')) {
+            tabName = '.secondary-tabs';
+        } else if ($target.hasClass('content-tabs')) {
+            tabName = '.content-tabs';
+        }
 
-         // Add wai-aria selected on the active tab
-         $($target).attr('aria-selected', 'true');
+        // Remove wai-aria selected on all tabs
+        $(tabName + ' a').attr('aria-selected', 'false');
 
-         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
-         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
-         if (strikeUpOrRightTab || strikeDownOrLeftTab) {
-             event.preventDefault();
+        // Add wai-aria selected on the active tab
+        $($target).attr('aria-selected', 'true');
 
-             var position = strikeUpOrRightTab ? 'first-child' : 'last-child';
-             var $activated = $(tabName + ' a[aria-selected="true"]').parent();
-             if ($activated.is(tabName + ' li:' + position)) {
-                 $(tabName + ' li:' + position + ' a').click().focus();
-             } else {
-                 // else activate previous
-                 $activated.prev().children(tabName + ' a').click().focus();
-             }
-         } else if (event.key === 'Home') {
-             event.preventDefault();
+        let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+        let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
+        if (strikeUpOrRightTab || strikeDownOrLeftTab) {
+            event.preventDefault();
 
-			 $(tabName + ' li ' + ' a').first().click().focus();
-         } else if (event.key === 'End') {
-             event.preventDefault();
+            var position = strikeUpOrRightTab ? 'first-child' : 'last-child';
+            var $activated = $(tabName + ' a[aria-selected="true"]').parent();
+            if ($activated.is(tabName + ' li:' + position)) {
+                $(tabName + ' li:' + position + ' a').click().focus();
+            } else {
+                // else activate previous
+                $activated.prev().children(tabName + ' a').click().focus();
+            }
+        } else if (event.key === 'Home') {
+            event.preventDefault();
 
-			 $(tabName + ' li ' + ' a').end().click().focus();
-         }
+            $(tabName + ' li ' + ' a').first().click().focus();
+        } else if (event.key === 'End') {
+            event.preventDefault();
 
-         // Important - Must be set to true for October to set class="active" in the <li>
-         return true;
-     });
+            $(tabName + ' li ' + ' a').end().click().focus();
+        }
 
- });
+        // Important - Must be set to true for October to set class="active" in the <li>
+        return true;
+    });
+
+});
