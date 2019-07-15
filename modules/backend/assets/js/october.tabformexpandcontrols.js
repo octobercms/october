@@ -212,10 +212,10 @@ $(document).ready(function() {
         }
 
         // Remove wai-aria selected on all tabs
-        $(tabName + ' a').attr('aria-selected', 'false');
+        $(tabName + ' a').attr({'aria-selected':'false', 'tabindex': '-1'});
 
         // Add wai-aria selected on the active tab
-        $($target).attr('aria-selected', 'true');
+        $($target).attr({'aria-selected':'true', 'tabindex': '0'});
 
         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
