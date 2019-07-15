@@ -32,8 +32,7 @@ trait ModelOptions
          * Refer to the model method or any of its behaviors
          */
         if (!is_array($options) && !$options) {
-
-            if(empty($fieldName)) {
+            if (empty($fieldName)) {
                 try {
                     list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
                     $fieldName = $field->fieldName;
