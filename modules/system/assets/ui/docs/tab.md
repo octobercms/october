@@ -25,13 +25,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li role="presentation"><a href="#primaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" tabindex="0" role="tabpanel">
+            <div class="tab-pane active" tabindex="0" role="tabpanel" aria-label="Tab one content">
                 Tab one content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab two content">
                 Tab two content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab three content">
                 Tab three content
             </div>
         </div>
@@ -46,13 +46,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li role="presentation"><a href="#primaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" tabindex="0" role="tabpanel">
+            <div class="tab-pane active" tabindex="0" role="tabpanel" aria-label="Tab one content">
                 Tab one content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab two content">
                 Tab two content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab three content">
                 Tab three content
             </div>
         </div>
@@ -69,13 +69,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li role="presentation"><a href="#secondaryTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane active" tabindex="0" role="tabpanel" aria-label="Tab one content">
                 Tab one content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab two content">
                 Tab two content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab three content">
                 Tab three content
             </div>
         </div>
@@ -90,13 +90,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li role="presentation"><a href="#contentTabThree" role="tab" aria-selected="false" tabindex="0">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane active" tabindex="0" role="tabpanel" aria-label="Tab one content">
                 Tab one content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab two content">
                 Tab two content
             </div>
-            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden">
+            <div class="tab-pane" tabindex="0" role="tabpanel" hidden="hidden" aria-label="Tab three content">
                 Tab three content
             </div>
         </div>
@@ -116,7 +116,7 @@ Example with data attributes (data-control="tab"):
             <li role="presentation" class="active"><a href="#home" role="tab" aria-selected="true" tabindex="0">Home</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" tabindex="0" role="tabpanel">Home</div>
+            <div class="tab-pane active" tabindex="0" role="tabpanel" aria-label="Home">Home</div>
         </div>
     </div>
 
