@@ -168,31 +168,8 @@
  */
 $(document).ready(function() {
 
-    /* If no selected => select first */
-    if ($('.master-tabs a[aria-selected]').length === 0) {
-        $('.master-tabs a:first').attr({
-            'aria-selected': 'true',
-            'tabindex': '0'
-        });
-    } else if ($('.primary-tabs a[aria-selected]').length === 0) {
-        $('.primary-tabs a:first').attr({
-            'aria-selected': 'true',
-            'tabindex': '0'
-        });
-    } else if ($('.secondary-tabs a[aria-selected]').length === 0) {
-        $('.secondary-tabs a:first').attr({
-            'aria-selected': 'true',
-            'tabindex': '0'
-        });
-    } else if ($('.content-tabs a[aria-selected]').length === 0) {
-        $('.content-tabs a:first').attr({
-            'aria-selected': 'true',
-            'tabindex': '0'
-        });
-    }
-
     /* Update wai-aria on navigation */
-    $('body').on('click keydown', '.master-tabs a,.primary-tabs a,.secondary-tabs a,.content-tabs a', function(event) {
+    $('body').on('click keydown', '.master-tabs a[role="tab"],.primary-tabs a[role="tab"],.secondary-tabs a[role="tab"],.content-tabs a[role="tab"]', function(event) {
 
        /*
         * Tab - Move forwards
@@ -217,7 +194,7 @@ $(document).ready(function() {
             'Spacebar',
             ' '
         ];
-        if (event.type === 'keydown' && !whitelist.includes(event.key)) {
+        if (event.shiftKey && event.key === 'Tab' || event.type === 'keydown' && !whitelist.includes(event.key)) {
             return;
         }
 
