@@ -198,9 +198,9 @@ $(document).ready(function() {
             return;
         }
 
-        let $target = $(event.currentTarget);
-        let tabName = '';
-        let $tabPanel = $target.attr('data-target');
+        var $target = $(event.currentTarget);
+        var tabName = '';
+        var tabPanel = $target.attr('data-target');
 
         if ($target.closest('.master-tabs').length) {
             tabName = '.master-tabs';
@@ -220,10 +220,10 @@ $(document).ready(function() {
         // Add wai-aria selected on the active tab
         $($target).attr('aria-selected', 'true');
         // Remove hidden attribute on active tab panel
-        $($tabPanel).attr('hidden', false);
+        $(tabPanel).attr('hidden', false);
 
-        let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
-        let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
+        var strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+        var strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
         if (strikeUpOrRightTab || strikeDownOrLeftTab) {
             event.preventDefault();
 
