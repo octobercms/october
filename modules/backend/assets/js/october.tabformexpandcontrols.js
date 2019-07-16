@@ -200,15 +200,15 @@ $(document).ready(function() {
 
         let $target = $(event.currentTarget);
         let tabName = '';
-        let $tabPanel = $($target).attr('data-target');
+        let $tabPanel = $target.attr('data-target');
 
-        if ($($target).closest('.master-tabs').length) {
+        if ($target.closest('.master-tabs').length) {
             tabName = '.master-tabs';
-        } else if ($($target).closest('.primary-tabs').length) {
+        } else if ($target.closest('.primary-tabs').length) {
             tabName = '.primary-tabs';
-        } else if ($($target).closest('.secondary-tabs').length) {
+        } else if ($target.closest('.secondary-tabs').length) {
             tabName = '.secondary-tabs';
-        } else if ($($target).closest('.content-tabs').length) {
+        } else if ($target.closest('.content-tabs').length) {
             tabName = '.content-tabs';
         }
 
@@ -218,9 +218,9 @@ $(document).ready(function() {
         $(tabName + ' div.tab-pane').attr('hidden', 'hidden');
 
         // Add wai-aria selected on the active tab
-        $($target).attr('aria-selected', 'true');
+        $target.attr('aria-selected', 'true');
         // Remove hidden attribute on active tab panel
-        $($tabPanel).attr('hidden', false);
+        $tabPanel.attr('hidden', false);
 
         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
