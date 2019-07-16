@@ -201,17 +201,17 @@ $(document).ready(function() {
         let $target = $(event.currentTarget);
         let tabName = '';
 
-        if ($target.hasClass('master-tabs')) {
+        if ($($target).closest('.master-tabs').length) {
             tabName = '.master-tabs';
-        } else if ($target.hasClass('primary-tabs')) {
+        } else if ($($target).closest('.primary-tabs').length) {
             tabName = '.primary-tabs';
-        } else if ($target.hasClass('secondary-tabs')) {
+        } else if ($($target).closest('.secondary-tabs').length) {
             tabName = '.secondary-tabs';
-        } else if ($target.hasClass('content-tabs')) {
+        } else if ($($target).closest('.content-tabs').length) {
             tabName = '.content-tabs';
         }
 
-        // Remove wai-aria selected on all tabs
+        // Set all tabs to false
         $(tabName + ' a').attr('aria-selected', 'false');
 
         // Add wai-aria selected on the active tab
