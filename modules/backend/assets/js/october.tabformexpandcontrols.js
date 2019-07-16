@@ -200,7 +200,7 @@ $(document).ready(function() {
 
         let $target = $(event.currentTarget);
         let tabName = '';
-        let $tabPanel = $($target).attr('data-target');
+        let $tabPanel = $target.attr('data-target');
 
         if ($target.closest('.master-tabs').length) {
             tabName = '.master-tabs';
