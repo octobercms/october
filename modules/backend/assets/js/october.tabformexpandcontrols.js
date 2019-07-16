@@ -200,6 +200,7 @@ $(document).ready(function() {
 
         let $target = $(event.currentTarget);
         let tabName = '';
+        let $tabPanel = $($target).attr('data-target');
 
         if ($($target).closest('.master-tabs').length) {
             tabName = '.master-tabs';
@@ -213,9 +214,13 @@ $(document).ready(function() {
 
         // Set all tabs to false
         $(tabName + ' a').attr('aria-selected', 'false');
+        // Set all tab panels to hidden
+        $(tabName + ' div.tab-pane').attr('hidden', 'hidden');
 
         // Add wai-aria selected on the active tab
         $($target).attr('aria-selected', 'true');
+        // Remove hidden attribute on active tab panel
+        $($tabPanel).attr('hidden', false);
 
         let strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
         let strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
