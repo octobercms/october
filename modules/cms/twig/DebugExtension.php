@@ -164,9 +164,11 @@ class DebugExtension extends TwigExtension
             $output[] = $this->makeTableHeader($caption);
         }
 
+        $output[] = '<tbody>';
         foreach ($variables as $key => $item) {
             $output[] = $this->makeTableRow($key, $item);
         }
+        $output[] = '</tbody>';
         $output[] = '</table>';
 
         $html = implode(PHP_EOL, $output);
@@ -186,16 +188,18 @@ class DebugExtension extends TwigExtension
         }
 
         $output = [];
+        $output[] = '<thead>';
         $output[] = '<tr>';
-        $output[] = '<th colspan="3" colspan="100" style="'.$this->getHeaderCss().'">';
+        $output[] = '<th colspan="3" style="'.$this->getHeaderCss().'">';
         $output[] = $caption;
 
         if (isset($subcaption)) {
             $output[] = '<div style="'.$this->getSubheaderCss().'">'.$subcaption.'</div>';
         }
 
-        $output[] = '</td>';
+        $output[] = '</th>';
         $output[] = '</tr>';
+        $output[] = '</thead>';
         return implode(PHP_EOL, $output);
     }
 
