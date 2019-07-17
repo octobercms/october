@@ -160,6 +160,7 @@
     }
 
     $.oc.tabFormExpandControls = TabFormExpandControls
+
 }(window.jQuery);
 
 /*
