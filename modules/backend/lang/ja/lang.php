@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'システム管理者領域'
     ],
+    'aria-label' => [
+        'footer'        => 'フッター',
+        'side_panel'    => 'サイドパネル',
+        'breadcrumb'    => 'パン粉',
+        'main_content'  => 'メインエリア',
+        'tabs'          => 'タブ',
+    ],
     'field' => [
         'invalid_type' => '無効なフィールドタイプ :type が使用されています。',
         'options_method_not_exists' => 'モデルクラスの:modelは、":field"フォームフィールドのためにオプションを返す、:method()メソッドを定義しなくてはなりません。',
