@@ -9,18 +9,38 @@
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <link rel="icon" type="image/png" href="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>">
         <title><?= e(trans('backend::lang.auth.title')) ?></title>
-        <link href="<?= Url::asset('modules/system/assets/ui/storm.css') ?>" rel="stylesheet">
-        <link href="<?= Url::to('modules/backend/assets/css/october.css') ?>" rel="stylesheet">
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/vendor/jquery.min.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/vendor/jquery-migrate.min.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/system/assets/js/framework.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/ui/storm-min.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/october-min.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::to('modules/backend/assets/js/auth/auth.js') ?>"></script>
-        <script data-cfasync="false" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
+
+        <?php
+            $coreBuild = System\Models\Parameter::get('system::core.build', 1);
+            $styles = [
+                Url::asset('modules/system/assets/ui/storm.css'),
+                Backend::skinAsset('assets/css/october.css'),
+            ];
+            $scripts = [
+                Backend::skinAsset('assets/js/vendor/jquery.min.js'),
+                Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js'),
+                Url::asset('modules/system/assets/js/framework.js'),
+                Url::asset('modules/system/assets/ui/storm-min.js'),
+                Backend::skinAsset('assets/js/october-min.js'),
+                Url::to('modules/backend/assets/js/auth/auth.js'),
+                Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
+            ];
+        ?>
+
+        <?php foreach ($styles as $style) : ?>
+            <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="stylesheet">
+            <link href="<?= $style . '?v=' . $coreBuild; ?>" rel="preload" as="style">
+        <?php endforeach; ?>
+
+        <?php foreach ($scripts as $script) : ?>
+            <script data-cfasync="false" src="<?= $script . '?v=' . $coreBuild; ?>"></script>
+            <link href="<?= $script . '?v=' . $coreBuild; ?>" rel="preload" as="script">
+        <?php endforeach; ?>
+
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>
         <?= $this->makeLayoutPartial('custom_styles') ?>
+        <?= $this->fireViewEvent('backend.layout.extendHead', ['layout' => 'auth.htm']) ?>
     </head>
     <body class="outer <?= $this->bodyClass ?>">
         <div id="layout-canvas">

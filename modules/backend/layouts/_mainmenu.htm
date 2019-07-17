@@ -33,6 +33,13 @@
                                 <?= e(trans($item->label)) ?>
                             </span>
                         </a>
+                        <span
+                            class="counter <?= $item->counter === null ? 'empty' : null ?>"
+                            data-menu-id="<?= e($item->code) ?>"
+                            <?php if ($item->counterLabel): ?>title="<?= e(trans($item->counterLabel)) ?>"<?php endif ?>
+                        >
+                            <?= e($item->counter) ?>
+                        </span>
                     </li>
                 <?php endforeach ?>
             </ul>
@@ -69,7 +76,11 @@
 
                         <li>
                             <a href="<?= Backend::url('backend/auth/signout') ?>">
-                                <?= e(trans('backend::lang.account.sign_out')) ?>
+                                <?php if (\BackendAuth::isImpersonator()) : ?>
+                                    <?= e(trans('backend::lang.account.stop_impersonating')) ?>
+                                <?php else: ?>
+                                    <?= e(trans('backend::lang.account.sign_out')) ?>
+                                <?php endif; ?>
                             </a>
                         </li>
                     </ul>

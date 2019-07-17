@@ -9,8 +9,6 @@ $.oc.langMessages['cs'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : czech (cs)
-//! author : petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -188,3 +186,4 @@ $.oc.langMessages['cs'] = $.extend(
     return cs;
 
 })));
+

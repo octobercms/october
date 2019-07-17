@@ -80,6 +80,11 @@ class FormController extends ControllerBehavior
     protected $requiredConfig = ['modelClass', 'form'];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['create', 'update', 'preview'];
+
+    /**
      * @var string The context to pass to the form widget.
      */
     protected $context;
@@ -536,11 +541,12 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderField('field_name') ?>
      *
      * @param string $name Field name
+     * @param array $options (e.g. ['useContainer'=>false])
      * @return string HTML markup
      */
-    public function formRenderField($name)
+    public function formRenderField($name, $options = [])
     {
-        return $this->formWidget->renderField($name);
+        return $this->formWidget->renderField($name, $options);
     }
 
     /**

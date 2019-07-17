@@ -507,7 +507,10 @@ if (window.jQuery.request !== undefined) {
 
         var self = this
         this.dataTrackInputTimer = window.setTimeout(function() {
-            $(self).request()
+            if (self.lastDataTrackInputRequest) {
+                self.lastDataTrackInputRequest.abort();
+            }
+            self.lastDataTrackInputRequest = $(self).request();
         }, interval)
     })
 

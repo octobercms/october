@@ -131,6 +131,24 @@ class Users extends Controller
     }
 
     /**
+     * Impersonate this user
+     */
+    public function update_onImpersonateUser($recordId)
+    {
+        if (!$this->user->hasAccess('backend.impersonate_users')) {
+            return Response::make(Lang::get('backend::lang.page.access_denied.label'), 403);
+        }
+
+        $model = $this->formFindModelObject($recordId);
+
+        BackendAuth::impersonate($model);
+
+        Flash::success(Lang::get('backend::lang.account.impersonate_success'));
+
+        return Backend::redirect('backend/users/myaccount');
+    }
+
+    /**
      * My Settings controller
      */
     public function myaccount()
@@ -186,7 +204,9 @@ class Users extends Controller
             $defaultGroupIds = UserGroup::where('is_new_user_default', true)->lists('id');
 
             $groupField = $form->getField('groups');
-            $groupField->value = $defaultGroupIds;
+            if ($groupField) {
+                $groupField->value = $defaultGroupIds;
+            }
         }
     }
 

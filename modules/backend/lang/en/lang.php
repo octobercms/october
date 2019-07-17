@@ -45,6 +45,12 @@ return [
         'not_found' => "AJAX handler ':name' was not found."
     ],
     'account' => [
+        'impersonate' => 'Impersonate user',
+        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.',
+        'impersonate_success' => 'You are now impersonating this user',
+        'impersonate_working' => 'Impersonating...',
+        'impersonating' => 'Impersonating :full_name',
+        'stop_impersonating' => 'Stop impersonating',
         'signed_in_as' => 'Signed in as :full_name',
         'sign_out' => 'Sign out',
         'login' => 'Login',
@@ -442,6 +448,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Menu style',
         'menu_mode_inline' => 'Inline',
+        'menu_mode_inline_no_icons' => 'Inline (no icons)',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_collapsed' => 'Collapsed'
     ],
@@ -552,7 +559,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
-        'default_prompt' => 'Click the %s button to find a media item'
+        'default_prompt' => 'Click the %s button to find a media item',
+        'no_image' => 'The image could not be found'
     ],
     'media' => [
         'menu_label' => 'Media',

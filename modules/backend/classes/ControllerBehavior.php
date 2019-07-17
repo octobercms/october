@@ -38,6 +38,11 @@ class ControllerBehavior extends ExtensionBase
     protected $requiredProperties = [];
 
     /**
+     * @var array Visible actions in context of the controller. Only takes effect if it is an array
+     */
+    protected $actions;
+
+    /**
      * Constructor.
      */
     public function __construct($controller)
@@ -57,6 +62,11 @@ class ControllerBehavior extends ExtensionBase
                     'behavior' => get_called_class()
                 ]));
             }
+        }
+
+        // Hide all methods that aren't explicitly listed as actions
+        if (is_array($this->actions)) {
+            $this->hideAction(array_diff(get_class_methods(get_class($this)), $this->actions));
         }
     }
 

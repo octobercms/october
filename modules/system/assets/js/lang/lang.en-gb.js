@@ -9,8 +9,6 @@ $.oc.langMessages['en-gb'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : great britain english (en-gb)
-//! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -76,3 +74,4 @@ $.oc.langMessages['en-gb'] = $.extend(
     return enGb;
 
 })));
+

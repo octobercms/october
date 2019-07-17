@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title"><?= e(trans('system::lang.updates.changelog')) ?></h4>
+</div>
+<div class="modal-body">
+
+    <?php if ($this->fatalError): ?>
+        <p class="flash-message static error"><?= e($fatalError) ?></p>
+    <?php else: ?>
+        <div class="control-updatelist">
+            <div class="control-scrollbar" style="height:400px" data-control="scrollbar">
+                <div class="update-item">
+                    <dl>
+                        <?php foreach ($changelog as $item): ?>
+                            <?php
+                                $description = array_get($item, 'description');
+                                $build = array_get($item, 'build');
+                                $linkUrl = array_get($item, 'link_url');
+                            ?>
+                            <dt><?= e(trans('system::lang.updates.core_build', ['build'=>$build])) ?></dt>
+                            <?php if ($linkUrl): ?>
+                                <dd>
+                                    <?= e($description) ?>
+                                    <a href="<?= $linkUrl ?>" target="_blank">
+                                        <?= e(trans('system::lang.updates.changelog_view_details')) ?>
+                                        <i class="icon-external-link"></i>
+                                    </a>
+                                </dd>
+                            <?php else: ?>
+                                <dd><?= e($description) ?></dd>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+</div>
+
+<div class="modal-footer">
+    <button
+        type="button"
+        class="btn btn-default"
+        data-dismiss="popup">
+        <?= e(trans('backend::lang.form.close')) ?>
+    </button>
+</div>

@@ -4,6 +4,7 @@ use Lang;
 use View;
 use Flash;
 use Config;
+use Closure;
 use Request;
 use Backend;
 use Session;
@@ -18,9 +19,9 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller as ControllerBase;
 
 /**
  * The Backend base controller class, used by Backend controllers.
@@ -29,7 +30,7 @@ use Illuminate\Http\RedirectResponse;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends Extendable
+class Controller extends ControllerBase
 {
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
@@ -37,6 +38,12 @@ class Controller extends Extendable
     use \System\Traits\EventEmitter;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
+    use \October\Rain\Extension\ExtendableTrait;
+
+    /**
+     * @var array Behaviors implemented by this controller.
+     */
+    public $implement;
 
     /**
      * @var object Reference the logged in admin user.
@@ -112,6 +119,11 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
+     * @var mixed Override the standard controller response.
+     */
+    protected $responseOverride = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -146,8 +158,6 @@ class Controller extends Extendable
          */
         $this->user = BackendAuth::getUser();
 
-        parent::__construct();
-
         /*
          * Media Manager widget is available on all back-end pages
          */
@@ -155,6 +165,36 @@ class Controller extends Extendable
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }
+
+        $this->extendableConstruct();
+    }
+
+    /**
+     * Extend this object properties upon construction.
+     */
+    public static function extend(Closure $callback)
+    {
+        self::extendableExtendCallback($callback);
+    }
+
+    public function __get($name)
+    {
+        return $this->extendableGet($name);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->extendableSet($name, $value);
+    }
+
+    public function __call($name, $params)
+    {
+        return $this->extendableCall($name, $params);
+    }
+
+    public static function __callStatic($name, $params)
+    {
+        return self::extendableCallStatic($name, $params);
     }
 
     /**
@@ -244,6 +284,10 @@ class Controller extends Extendable
          * Execute page action
          */
         $result = $this->execPageAction($action, $params);
+
+        if ($this->responseOverride !== null) {
+            $result = $this->responseOverride;
+        }
 
         if (!is_string($result)) {
             return $result;
@@ -646,6 +690,17 @@ class Controller extends Extendable
     public function setStatusCode($code)
     {
         $this->statusCode = (int) $code;
+        return $this;
+    }
+
+    /**
+     * Sets the response for the current page request cycle, this value takes priority
+     * over the standard response prepared by the controller.
+     * @param mixed $response Response object or string
+     */
+    public function setResponse($response)
+    {
+        $this->responseOverride = $response;
         return $this;
     }
 
