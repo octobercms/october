@@ -133,6 +133,12 @@ abstract class ExportModel extends Model
             foreach ($chunk as $result) {
                 $data = $this->matchDataToColumns($result, $columns);
                 $csv->insertOne($data);
+            }
+
+            // flush cache
+            if ($offset % $flushThreshold === 0) {
+                flush();
+            }
         }
 
         /*
