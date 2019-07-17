@@ -123,7 +123,6 @@ class DebugExtension extends TwigExtension
 
                 $result .= $this->dump($var, $caption);
             }
-
         }
         return $result;
     }
