@@ -160,7 +160,6 @@
     }
 
     $.oc.tabFormExpandControls = TabFormExpandControls
-
 }(window.jQuery);
 
 /*
@@ -218,7 +217,7 @@ $(document).ready(function() {
         $(tabName + ' div.tab-pane').attr('hidden', 'hidden');
 
         // Add wai-aria selected on the active tab
-        $($target).attr('aria-selected', 'true');
+        $target.attr('aria-selected', 'true');
         // Remove hidden attribute on active tab panel
         $(tabPanel).attr('hidden', false);
 
