@@ -128,9 +128,11 @@ abstract class ExportModel extends Model
         /*
          * Add records
          */
-        foreach ($results as $result) {
-            $data = $this->matchDataToColumns($result, $columns);
-            $csv->insertOne($data);
+        $flushThreshold = 1000;
+        foreach (collect($results)->chunk(50) as $offset => $chunk) {
+            foreach ($chunk as $result) {
+                $data = $this->matchDataToColumns($result, $columns);
+                $csv->insertOne($data);
         }
 
         /*
