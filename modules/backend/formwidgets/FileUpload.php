@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Db;
+use Lang;
 use Input;
 use Request;
 use Response;
@@ -143,6 +144,10 @@ class FileUpload extends FormWidgetBase
 
         if ($this->previewMode) {
             $this->useCaption = false;
+        }
+
+        if ($this->maxFilesize > $this->getUploadMaxFilesize()) {
+            throw new ApplicationException('Maximum allowed size for uploaded files: ' . $this->getUploadMaxFilesize());
         }
 
         $this->vars['fileList'] = $fileList = $this->getFileList();
