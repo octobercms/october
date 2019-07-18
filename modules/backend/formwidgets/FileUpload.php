@@ -1,7 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
 use Db;
-use Lang;
 use Input;
 use Request;
 use Response;
