@@ -124,7 +124,6 @@ class MarkupManager
         }
 
         foreach ($definitions as $name => $definition) {
-
             switch ($type) {
                 case self::EXTENSION_TOKEN_PARSER:
                     $this->$items[$type][] = $definition;
@@ -227,7 +226,6 @@ class MarkupManager
         }
 
         foreach ($this->listFunctions() as $name => $callable) {
-
             /*
              * Handle a wildcard function
              */
@@ -261,7 +259,6 @@ class MarkupManager
         }
 
         foreach ($this->listFilters() as $name => $callable) {
-
             /*
              * Handle a wildcard function
              */

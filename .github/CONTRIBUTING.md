@@ -69,6 +69,8 @@ Please ensure that your Pull Request satisfies the following coding standards:
 - [PSR 1 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 - [PSR 0 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
 
+To validate your changes against our coding standards, you may run `./vendor/bin/phpcs -nq --extensions="php"` in your development folder.
+
 #### Team rules
 
 The October team follows the [developer guidelines](https://octobercms.com/docs/help/developer-guide) as much as possible.

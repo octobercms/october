@@ -306,7 +306,8 @@ abstract class ComponentBase extends Extendable
         try {
             return parent::__call($method, $parameters);
         }
-        catch (BadMethodCallException $ex) {}
+        catch (BadMethodCallException $ex) {
+        }
 
         if (method_exists($this->controller, $method)) {
             return call_user_func_array([$this->controller, $method], $parameters);

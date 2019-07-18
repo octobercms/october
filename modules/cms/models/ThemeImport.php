@@ -88,8 +88,7 @@ class ThemeImport extends Model
         $this->theme = $theme;
         $this->fill($data);
 
-        try
-        {
+        try {
             $file = $this->uploaded_file()->withDeferred($sessionKey)->first();
             if (!$file) {
                 throw new ApplicationException('There is no file attached to import!');
@@ -125,7 +124,6 @@ class ThemeImport extends Model
             $file->delete();
         }
         catch (Exception $ex) {
-
             if (!empty($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }

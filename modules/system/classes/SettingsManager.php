@@ -171,7 +171,6 @@ class SettingsManager
     {
         $filteredItems = [];
         foreach ($items as $categoryName => $category) {
-
             $filteredCategory = [];
             foreach ($category as $item) {
                 $itemContext = is_array($item->context) ? $item->context : [$item->context];

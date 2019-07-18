@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
 use Event;
-use Twig\Source as TwigSource;;
+use Twig\Source as TwigSource;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Cms\Contracts\CmsObject;
 use System\Twig\Loader as LoaderBase;
