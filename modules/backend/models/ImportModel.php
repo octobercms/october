@@ -143,8 +143,17 @@ abstract class ImportModel extends Model
 
         $result = [];
         $contents = $reader->fetch();
-        foreach ($contents as $row) {
-            $result[] = $this->processImportRow($row, $matches);
+
+        $flushThreshold = 1000;
+        foreach (collect($contents)->chunk(50) as $offset => $chunk) {
+            foreach ($chunk as $row) {
+                $result[] = $this->processImportRow($row, $matches);
+            }
+
+            // flush memory
+            if ($offset % $flushThreshold === 0) {
+                flush();
+            }
         }
 
         return $result;

@@ -135,7 +135,7 @@ abstract class ExportModel extends Model
                 $csv->insertOne($data);
             }
 
-            // flush cache
+            // flush memory
             if ($offset % $flushThreshold === 0) {
                 flush();
             }
