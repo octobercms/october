@@ -822,8 +822,6 @@ body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
 #layout-sidenav ul li a:hover i {color:#fff}
 #layout-sidenav ul li span.counter {display:block;position:absolute;top:1.071em;right:1.071em;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
-@media (min-width:768px) and (max-width:991px) {#layout-sidenav {font-size:14px }.layout-sidenav-container {width:120px }}
-@media (max-width:767px) {#layout-sidenav {font-size:14px }.layout-sidenav-container {width:120px }}
 html.mobile #layout-sidenav ul {overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {color:rgba(255,255,255,0.6) !important}
