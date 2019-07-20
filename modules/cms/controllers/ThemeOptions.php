@@ -95,6 +95,10 @@ class ThemeOptions extends Controller
         $theme = $this->findThemeObject($model->theme);
         $config = $theme->getFormConfig();
 
+        if ($fields = array_get($config, 'tabs.icons')) {
+            $form->addTabIcons($fields);
+        }
+
         if ($fields = array_get($config, 'fields')) {
             $form->addFields($fields);
         }

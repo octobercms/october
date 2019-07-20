@@ -711,6 +711,18 @@ class Form extends WidgetBase
             }
         }
     }
+    /**
+     * Add tab icons
+     *
+     * @param array $icons
+     * @return void
+     */
+    public function addTabIcons(array $icons)
+    {
+        $this->allTabs->primary->icons = $icons;
+        $this->allTabs->secondary->icons = $icons;
+        $this->allTabs->outside->icons = $icons;
+    }
 
     /**
      * Add tab fields.
