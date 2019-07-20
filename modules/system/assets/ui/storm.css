@@ -4197,6 +4197,17 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.span-full {width:100%;float:left}
 .form-group.span-left {float:left;width:48.5%;clear:left}
 .form-group.span-right {float:right;width:48.5%;clear:right}
+.form-group.span-3-1 {position:relative;float:left;width:32%;margin-right:1%;clear:left}
+.form-group.span-3-2 {position:relative;float:left;width:32%;margin:0 1%}
+.form-group.span-3-3 {position:relative;float:right;width:32%;clear:right}
+.form-group.span-4-1 {position:relative;float:left;width:23.5%;margin-right:1%;clear:left}
+.form-group.span-4-2 {position:relative;float:left;width:23.5%;margin:0 1%}
+.form-group.span-4-3 {position:relative;float:left;width:23.5%;margin:0 1%}
+.form-group.span-4-4 {position:relative;float:right;width:23.5%;clear:right}
+.form-group.span-75-left {position:relative;float:left;width:74.5%;margin-right:1%;clear:left}
+.form-group.span-25-right {position:relative;float:right;width:23.5%;clear:right}
+.form-group.span-75-right {position:relative;float:right;width:74.5%;clear:right}
+.form-group.span-25-left {position:relative;float:left;width:23.5%;clear:left}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
 .form-group.number-field >.form-control {text-align:right}
@@ -4210,6 +4221,8 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
+@media (min-width: 769px) and (max-width: 1200px) {.span-4-1,.span-4-3{float:left;width:48.5%;clear:left}.span-4-2,.span-4-4{float:right;width:48.5%;clear:right}.span-4-2{margin-right:0}.span-4-3{margin-left:0 }}
+@media (max-width: 769px) {.span-3-1,.span-3-2,.span-3-3,.span-4-1,.span-4-2,.span-4-3,.span-4-4,.span-25-left,.span-25-right,.span-75-left,.span-75-right{float:left;width:100%;margin:0;clear:right }}
 .form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}

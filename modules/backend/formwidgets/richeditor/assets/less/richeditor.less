@@ -129,9 +129,9 @@
         .fr-wrapper {
             width: 100% !important;
             left: 0;
-            top: 0;
+            top: 0 !important;
             bottom: 0;
-            position: absolute;
+            position: relative;
             height: auto !important;
             .fr-view {
                 min-height: 0;
@@ -147,6 +147,19 @@
             left: 20px;
         }
     }
+}
+
+.stretch {
+    height: calc(100% - 50px) !important;
+}
+
+//
+// Grow
+//
+
+.grow.fr-wrapper {
+    min-height: 100px;
+    height: auto !important;
 }
 
 //
