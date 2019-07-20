@@ -117,11 +117,6 @@ class FormField
     public $hidden = false;
 
     /**
-     * @var bool Specifies if this field stretch to fit the page height.
-     */
-    public $stretch = false;
-
-    /**
      * @var string Specifies a dynamic height. Possible values: nothing, stretch and grow.
      */
     public $dynamic = 'nothing';
@@ -297,7 +292,6 @@ class FormField
             'readOnly',
             'disabled',
             'cssClass',
-            'stretch',
             'context',
             'hidden',
             'trigger',
