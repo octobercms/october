@@ -436,7 +436,6 @@ body.dragging .control-treeview ol.dragging ol >li >div .custom-checkbox {-webki
 body.dragging .control-treeview.treeview-light ol.dragging >li >div,
 body.dragging .control-treeview.treeview-light ol.dragging ol >li >div {background-color:#f9f9f9}
 @media only screen and (min--moz-device-pixel-ratio:1.5),only screen and (-o-min-device-pixel-ratio:3/2),only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min-devicepixel-ratio:1.5),only screen and (min-resolution:1.5dppx) {.control-treeview ol >li >div:before {background-position:0 -79px;background-size:21px auto }.control-treeview ol >li.has-subitems >div:before {background-position:0 -52px }.control-treeview ol >li.has-subitems >div:hover:before,.control-treeview ol >li.has-subitems >div.popover-highlight:before {background-position:0 -102px }.control-treeview ol >li.dragged >div:before,.control-treeview ol >li.dragged li >div:before,.control-treeview ol >li >div:hover:before,.control-treeview ol >li >div.popover-highlight:before {background-position:0 -129px }.control-treeview ol >li.dragged li.has-subitems >div:before,.control-treeview ol >li.dragged.has-subitems >div:before {background-position:0 -102px }.control-treeview ol >li.drop-target >div:before {background-position:0 -129px }.control-treeview ol >li.drop-target.has-subitems >div:before {background-position:0 -102px }}
-.sidenav-tree {width:300px}
 .sidenav-tree .control-toolbar {padding:0}
 .sidenav-tree .control-toolbar .toolbar-item {display:block}
 .sidenav-tree .control-toolbar input.form-control {border:none;outline:none;padding:12px 13px 13px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:inset -3px 0 3px rgba(0,0,0,0.1);box-shadow:inset -3px 0 3px rgba(0,0,0,0.1)}
@@ -467,10 +466,10 @@ body.dragging .control-treeview.treeview-light ol.dragging ol >li >div {backgrou
 .sidenav-tree ul.top-level >li >ul li.active a span.header {color:#fff}
 .sidenav-tree ul.top-level >li >ul li.active a span.description {color:rgba(255,255,255,0.91)}
 .sidenav-tree .back-link {display:none}
-@media (min-width:768px) {.sidenav-tree-root .sidenav-tree {width:600px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul {font-size:0;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:stretch;align-content:stretch }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {display:inline-block;width:300px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li a {height:100% }}
-@media (min-width:768px) and (max-width:991px) {.sidenav-tree-root .sidenav-tree {width:100% }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {width:50% }}
+@media (min-width:768px) {.sidenav-tree-root .sidenav-tree ul.top-level >li >ul {font-size:0;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:stretch;align-content:stretch }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {display:inline-block;width:300px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li a {height:100% }}
+@media (min-width:768px) and (max-width:991px) {.sidenav-tree-root .sidenav-tree {width:600px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {width:50% }}
 @media (min-width:1200px) {.sidenav-tree-root .sidenav-tree {width:900px }}
-@media (max-width:768px) {.sidenav-tree {width:100%;height:auto !important;display:block !important }.sidenav-tree >.layout {display:none }.sidenav-tree-root .sidenav-tree {width:100% !important;height:100% !important;display:table-cell !important }.sidenav-tree-root .sidenav-tree .back-link {display:none !important }.sidenav-tree-root .sidenav-tree >.layout {display:table !important }.sidenav-tree-root #layout-body {display:none }body.has-sidenav-tree .sidenav-tree .back-link {display:block;padding:13px 15px;background:#2b3e50;color:#bdc3c7;font-size:14px;line-height:14px;text-transform:uppercase }body.has-sidenav-tree .sidenav-tree .back-link i {display:inline-block;margin-right:10px }body.has-sidenav-tree .sidenav-tree .back-link:hover {text-decoration:none }body.has-sidenav-tree #layout-body {display:block !important }}
+@media (max-width:768px) {.sidenav-tree {width:250px;height:auto !important;display:block !important }.sidenav-tree >.layout {display:none }.sidenav-tree-root .sidenav-tree {width:250px !important;height:100% !important;display:table-cell !important }.sidenav-tree-root .sidenav-tree .back-link {display:none !important }.sidenav-tree-root .sidenav-tree >.layout {display:table !important }.sidenav-tree-root #layout-body {display:none }body.has-sidenav-tree .sidenav-tree .back-link {display:block;padding:13px 15px;background:#2b3e50;color:#bdc3c7;font-size:14px;line-height:14px;text-transform:uppercase }body.has-sidenav-tree .sidenav-tree .back-link i {display:inline-block;margin-right:10px }body.has-sidenav-tree .sidenav-tree .back-link:hover {text-decoration:none }body.has-sidenav-tree #layout-body {display:block !important }}
 div.panel {padding:20px}
 div.panel.no-padding {padding:0}
 div.panel.no-padding-bottom {padding-bottom:0}
@@ -807,7 +806,7 @@ body.drag nav#layout-mainmenu.navbar ul.nav li:hover,
 body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
 @media (max-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:45px;max-height:45px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px;vertical-align:top }}
 @media (min-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:60px;max-height:60px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:60px;vertical-align:top }}
-.layout-sidenav-container {min-width:120px;max-width:120px}
+.layout-sidenav-container {width:120px}
 #layout-sidenav {position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:14px}
 #layout-sidenav ul {position:relative;margin:0;padding:0;height:100%;overflow:hidden}
 #layout-sidenav ul li {display:block;text-align:center;position:relative}
