@@ -297,7 +297,7 @@ class FormField
             'readOnly',
             'disabled',
             'cssClass',
-            'stretch',			
+            'stretch',
             'context',
             'hidden',
             'trigger',
