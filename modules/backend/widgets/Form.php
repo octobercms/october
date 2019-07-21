@@ -880,7 +880,11 @@ class Form extends WidgetBase
              */
             $field->options(function () use ($field, $config) {
                 $fieldOptions = $config['options'] ?? null;
-                $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
+                $fieldOptions = $this->getOptionsFromModel(
+                    $this->getField($field->fieldName),
+                    $fieldOptions,
+                    $field->fieldName
+                );
                 return $fieldOptions;
             });
         }
@@ -962,7 +966,11 @@ class Form extends WidgetBase
                 if ($fieldOptions === true) {
                     $fieldOptions = null;
                 }
-                $fieldOptions = $this->getOptionsFromModel($field, $fieldOptions);
+                $fieldOptions = $this->getOptionsFromModel(
+                    $this->getField($field->fieldName),
+                    $fieldOptions,
+                    $field->fieldName
+                );
                 return $fieldOptions;
             });
         }

@@ -19,8 +19,6 @@ trait ModelOptions
      */
     protected function getOptionsFromModel($field, $options, $fieldName = '')
     {
-        $model = $this->model;
-
         /*
          * Advanced usage, supplied options are callable
          */
@@ -34,12 +32,12 @@ trait ModelOptions
         if (!is_array($options) && !$options) {
             if (empty($fieldName)) {
                 try {
-                    list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+                    list($this->model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
                     $fieldName = $field->fieldName;
                 }
                 catch (Exception $ex) {
                     throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
-                        'model' => get_class($model),
+                        'model' => get_class($this->model),
                         'field' => $field->fieldName
                     ]));
                 }
@@ -48,34 +46,34 @@ trait ModelOptions
             $methodName = 'get' . studly_case($fieldName) . 'Options';
 
             if (
-                !$this->objectMethodExists($model, $methodName) &&
-                !$this->objectMethodExists($model, 'getDropdownOptions')
+                !$this->objectMethodExists($this->model, $methodName) &&
+                !$this->objectMethodExists($this->model, 'getDropdownOptions')
             ) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($model),
+                    'model'  => get_class($this->model),
                     'method' => $methodName,
                     'field'  => $fieldName
                 ]));
             }
-            if ($this->objectMethodExists($model, $methodName)) {
-                $options = $model->$methodName($field->value, $this->data);
+            if ($this->objectMethodExists($this->model, $methodName)) {
+                $options = $this->model->$methodName($field->getValueFromData($this->data), $this->data);
             }
             else {
-                $options = $model->getDropdownOptions($fieldName, $field->value, $this->data);
+                $options = $this->model->getDropdownOptions($fieldName, $field->getValueFromData($this->data), $this->data);
             }
         }
         /*
          * Field options are an explicit method reference
          */
         elseif (is_string($options)) {
-            if (!$this->objectMethodExists($model, $options)) {
+            if (!$this->objectMethodExists($this->model, $options)) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($model),
+                    'model'  => get_class($this->model),
                     'method' => $options,
                     'field'  => $field->fieldName
                 ]));
             }
-            $options = $model->$options($field->value, $field->fieldName, $this->data);
+            $options = $this->model->$options($field->getValueFromData($this->data), $fieldName, $this->data);
         }
         return $options;
     }
