@@ -25,13 +25,12 @@ class FrameworkNode extends TwigNode
     public function compile(TwigCompiler $compiler)
     {
         $attrib = $this->getAttribute('name');
-        $includeExtras = strtolower(trim($attrib)) == 'extras';
 
         $compiler
             ->addDebugInfo($this)
             ->write("\$_minify = ".CombineAssets::class."::instance()->useMinify;" . PHP_EOL);
 
-        if ($includeExtras) {
+        if (strtolower(trim($attrib)) === 'extras') {
             $compiler
                 ->write("if (\$_minify) {" . PHP_EOL)
                 ->indent()
@@ -59,6 +58,34 @@ class FrameworkNode extends TwigNode
                     .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
                 ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
                     .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" as=\"style\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
+            ;
+        }
+        elseif (strtolower(trim($attrib)) === 'extras_optimized') {
+            $compiler
+                ->write("if (\$_minify) {" . PHP_EOL)
+                ->indent()
+                    ->write("echo '<script async src=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.combined-min.js\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
+                    ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.combined-min.js\" as=\"script\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)					
+                ->outdent()
+                ->write("}" . PHP_EOL)
+                ->write("else {" . PHP_EOL)
+                ->indent()
+                    ->write("echo '<script async src=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.js\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
+                    ->write("echo '<script async src=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.extras.js\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
+                    ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.js\" as=\"script\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)
+                    ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
+                    .'/modules/system/assets/js/framework.extras.js\" as=\"script\" importance=\"low\"></script>'.PHP_EOL;" . PHP_EOL)					
+                ->outdent()
+                ->write("}" . PHP_EOL)
+                ->write("echo '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"'. Request::getBasePath()
+                    .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
+                ->write("echo '<link rel=\"preload\" href=\"'. Request::getBasePath()
+                    .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" as=\"style\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)					
             ;
         }
         else {
