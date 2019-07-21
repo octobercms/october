@@ -1,20 +1,19 @@
 <!-- Textarea -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control <?= $field->$stretch?'layout-relative':'' ?> <?= $field->$grow?'layout-relative':'' ?>"><?= nl2br(e($field->value)) ?></div>
+    <div class="form-control <?= $field->$grow?'layout-relative':'' ?> "><?= nl2br(e($field->value)) ?></div>
 <?php else: ?>
     <textarea
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
         autocomplete="off"
-        class="form-control field-textarea size-<?= $field->size ?>"
-        placeholder="<?= e(trans($field->placeholder)) ?>"
+        class="form-control field-textarea <?php foreach($this->fields as $heightField){ $stretchField = $heightField['stretch'] ?? ''; $growField = $heightField['grow'] ?? ''; } if($stretchField == '1') { ?>stretch<?php } if($growField == '1') { ?>grow<?php } ?> size-<?= $field->size ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
 <?php endif?>
 
 <script>
 $(document).ready(function() {
     /* Grow */
-    $('.grow textarea.form-control').each(function() {
+    $('.form-group textarea.grow').each(function() {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
     }).on('input', function() {
         this.style.height = 'auto';
