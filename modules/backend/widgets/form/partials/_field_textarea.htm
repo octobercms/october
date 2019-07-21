@@ -19,5 +19,14 @@ $(document).ready(function() {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
+	
+    /* Stretch */
+    var $textareaHeight = $(".form-group textarea.stretch").parent().height(),
+        $textareaParentHeight = $(".form-group textarea.stretch").parent().parent().height(),
+        $textareaParentContainer = $(".form-group textarea.stretch").closest('.stretch-parent').height();
+        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+
+	$(".form-group textarea.stretch").css("height", $stretchHeight + 'px');
+
 });
 </script>
