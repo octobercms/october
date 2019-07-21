@@ -16,15 +16,15 @@
             }
             /* Primary tabs */
             foreach($this->tabs as $heightField){
-                $tabsName = $heightField['textarea1'] ?? '';
-                $stretchPrimaryTabs = $tabsName['stretch'] ?? '';
-                $growPrimaryTabs = $tabsName['grow'] ?? '';
+                $primaryTabsName = $heightField['textarea1'] ?? '';
+                $stretchPrimaryTabs = $primaryTabsName['stretch'] ?? '';
+                $growPrimaryTabs = $primaryTabsName['grow'] ?? '';
             }
             /* Secondary tabs */
             foreach($this->secondaryTabs as $heightField){
-                $tabsName = $heightField['textarea1'] ?? '';
-                $stretchSecondaryTabs = $tabsName['stretch'] ?? '';
-                $growSecondaryTabs = $tabsName['grow'] ?? '';
+                $secondaryTabsName = $heightField['textarea1'] ?? '';
+                $stretchSecondaryTabs = $secondaryTabsName['stretch'] ?? '';
+                $growSecondaryTabs = $secondaryTabsName['grow'] ?? '';
             }
             if($stretchField == '1' || $stretchPrimaryTabs == '1' || $stretchSecondaryTabs == '1') { ?>stretch<?php } if($growField == '1' || $growPrimaryTabs == '1' || $growSecondaryTabs == '1') { ?>grow<?php } ?> size-<?= $field->size ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
