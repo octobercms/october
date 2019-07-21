@@ -1,12 +1,32 @@
 <!-- Textarea -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control <?= $field->$grow?'layout-relative':'' ?> "><?= nl2br(e($field->value)) ?></div>
+    <div class="form-control"><?= nl2br(e($field->value)) ?></div>
 <?php else: ?>
     <textarea
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
         autocomplete="off"
-        class="form-control field-textarea <?php foreach($this->fields as $heightField){ $stretchField = $heightField['stretch'] ?? ''; $growField = $heightField['grow'] ?? ''; } if($stretchField == '1') { ?>stretch<?php } if($growField == '1') { ?>grow<?php } ?> size-<?= $field->size ?>"
+        class="form-control field-textarea
+        <?php
+            $fieldName = $field->fieldName ?? '';
+            /* Outside tabs */
+            foreach($this->fields as $heightField){
+                $stretchField = $heightField['stretch'] ?? '';
+                $growField = $heightField['grow'] ?? '';
+            }
+            /* Primary tabs */
+            foreach($this->tabs as $heightField){
+                $tabsName = $heightField['textarea1'] ?? '';
+                $stretchPrimaryTabs = $tabsName['stretch'] ?? '';
+                $growPrimaryTabs = $tabsName['grow'] ?? '';
+            }
+            /* Secondary tabs */
+            foreach($this->secondaryTabs as $heightField){
+                $tabsName = $heightField['textarea1'] ?? '';
+                $stretchSecondaryTabs = $tabsName['stretch'] ?? '';
+                $growSecondaryTabs = $tabsName['grow'] ?? '';
+            }
+            if($stretchField == '1' || $stretchPrimaryTabs == '1' || $stretchSecondaryTabs == '1') { ?>stretch<?php } if($growField == '1' || $growPrimaryTabs == '1' || $growSecondaryTabs == '1') { ?>grow<?php } ?> size-<?= $field->size ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
 <?php endif?>
 
