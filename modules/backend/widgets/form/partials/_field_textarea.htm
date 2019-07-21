@@ -10,3 +10,15 @@
         placeholder="<?= e(trans($field->placeholder)) ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
 <?php endif?>
+
+<script>
+$(document).ready(function() {
+    /* Grow */
+    $('.grow textarea.form-control').each(function() {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+});
+</script>
