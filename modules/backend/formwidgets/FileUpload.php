@@ -61,6 +61,11 @@ class FileUpload extends FormWidgetBase
     public $mimeTypes = false;
 
     /**
+     * @var mixed Max file size.
+     */
+    public $maxFilesize;
+
+    /**
      * @var array Options used for generating thumbnails.
      */
     public $thumbOptions = [
@@ -97,11 +102,14 @@ class FileUpload extends FormWidgetBase
      */
     public function init()
     {
+        $this->maxFilesize = $this->getUploadMaxFilesize();
+
         $this->fillFromConfig([
             'prompt',
             'imageWidth',
             'imageHeight',
             'fileTypes',
+            'maxFilesize',
             'mimeTypes',
             'thumbOptions',
             'useCaption',
@@ -113,7 +121,6 @@ class FileUpload extends FormWidgetBase
         }
 
         $this->getConfigFormWidget();
-        $this->checkUploadPostback();
     }
 
     /**
@@ -138,6 +145,10 @@ class FileUpload extends FormWidgetBase
             $this->useCaption = false;
         }
 
+        if ($this->maxFilesize > $this->getUploadMaxFilesize()) {
+            throw new ApplicationException('Maximum allowed size for uploaded files: ' . $this->getUploadMaxFilesize());
+        }
+
         $this->vars['fileList'] = $fileList = $this->getFileList();
         $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
@@ -145,6 +156,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['imageHeight'] = $this->imageHeight;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
+        $this->vars['maxFilesize'] = $this->maxFilesize;
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
@@ -410,15 +422,10 @@ class FileUpload extends FormWidgetBase
     }
 
     /**
-     * Checks the current request to see if it is a postback containing a file upload
-     * for this particular widget.
+     * Upload handler for the server-side processing of uploaded files
      */
-    protected function checkUploadPostback()
+    public function onUpload()
     {
-        if (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) {
-            return;
-        }
-
         try {
             if (!Input::hasFile('file_data')) {
                 throw new ApplicationException('File missing from request');
@@ -482,8 +489,7 @@ class FileUpload extends FormWidgetBase
             $response = Response::make($ex->getMessage(), 400);
         }
 
-        // Override the controller response
-        $this->controller->setResponse($response);
+        return $response;
     }
 
     /**
@@ -519,5 +525,21 @@ class FileUpload extends FormWidgetBase
         $file->thumbUrl = $thumb;
 
         return $file;
+    }
+
+    /**
+     * Return max upload filesize in Mb
+     * @return integer
+     */
+    protected function getUploadMaxFilesize()
+    {
+        $size = ini_get('upload_max_filesize');
+        if (preg_match('/^([\d\.]+)([KMG])$/i', $size, $match)) {
+            $pos = array_search($match[2], ['K', 'M', 'G']);
+            if ($pos !== false) {
+                $size = $match[1] * pow(1024, $pos + 1);
+            }
+        }
+        return floor($size / 1024 / 1024);
     }
 }

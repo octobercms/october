@@ -275,7 +275,6 @@ class Preference extends Model
 
         // Iterate through the themes
         foreach ($themeDir as $node) {
-
             // If this file is a theme (starting by "theme-")
             if (!$node->isDir() && substr($node->getFileName(), 0, 6) == 'theme-') {
                 // Remove the theme- prefix and the .js suffix, create an user friendly and capitalized name
@@ -287,7 +286,6 @@ class Preference extends Model
                     $themes[$themeId] = $themeName;
                 }
             }
-
         }
 
         // Sort the theme alphabetically, and push the default theme

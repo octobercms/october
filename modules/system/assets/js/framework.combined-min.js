@@ -19,12 +19,12 @@ $.each($el.parents('[data-request-data]').toArray().reverse(),function extendReq
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
 if(inputName!==undefined&&options.data[inputName]===undefined){options.data[inputName]=$el.val()}}
 if(options.data!==undefined&&!$.isEmptyObject(options.data)){$.extend(data,options.data)}
-if(useFiles){requestData=new FormData($form.length?$form.get(0):null)
+if(useFiles){requestData=new FormData($form.length?$form.get(0):undefined)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
-var requestOptions={url:url,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
+var requestOptions={url:url,crossDomain:false,global:options.ajaxGlobal,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
 var _event=jQuery.Event('ajaxBeforeUpdate')
 $triggerEl.trigger(_event,[context,data,textStatus,jqXHR])
@@ -92,7 +92,7 @@ $el.trigger('ajaxPromise',[context])
 return $.ajax(requestOptions).fail(function(jqXHR,textStatus,errorThrown){if(!isRedirect){$el.trigger('ajaxFail',[context,textStatus,jqXHR])}
 if(loading)loading.hide()}).done(function(data,textStatus,jqXHR){if(!isRedirect){$el.trigger('ajaxDone',[context,data,textStatus,jqXHR])}
 if(loading)loading.hide()}).always(function(dataOrXhr,textStatus,xhrOrError){$el.trigger('ajaxAlways',[context,dataOrXhr,textStatus,xhrOrError])})}
-Request.DEFAULTS={update:{},type:'POST',beforeUpdate:function(data,textStatus,jqXHR){},evalBeforeUpdate:null,evalSuccess:null,evalError:null,evalComplete:null}
+Request.DEFAULTS={update:{},type:'POST',beforeUpdate:function(data,textStatus,jqXHR){},evalBeforeUpdate:null,evalSuccess:null,evalError:null,evalComplete:null,ajaxGlobal:false}
 Request.prototype.extractPartials=function(update){var result=[]
 for(var partial in update)
 result.push(partial)
@@ -100,7 +100,7 @@ return result.join('&')}
 var old=$.fn.request
 $.fn.request=function(handler,option){var args=arguments
 var $this=$(this).first()
-var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
+var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
 if(!handler)handler=$this.data('request')
 var options=$.extend(true,{},Request.DEFAULTS,data,typeof option=='object'&&option)
 return new Request($this,handler,options)}

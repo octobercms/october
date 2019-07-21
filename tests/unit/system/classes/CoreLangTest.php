@@ -35,7 +35,9 @@ class CoreLangTest extends TestCase
             foreach ($locales as $locale) {
                 foreach ($files as $file) {
                     $srcPath = base_path() . '/modules/'.$module.'/lang/'.$locale.'/'.$file;
-                    if (!file_exists($srcPath)) continue;
+                    if (!file_exists($srcPath)) {
+                        continue;
+                    }
                     $messages = require $srcPath;
                     $this->assertNotEmpty($messages);
                     $this->assertNotCount(0, $messages);

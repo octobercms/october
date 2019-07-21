@@ -5,6 +5,13 @@ return [
         'title' => 'Yönetim Paneli',
         'invalid_login' => 'Girdiğiniz bilgiler kayıtlarla eşleşmiyor. Lütfen kontrol edip tekrar deneyin.',
     ],
+    'aria-label' => [
+        'footer'        => 'altbilgi menüsü',
+        'side_panel'    => 'yan panel',
+        'breadcrumb'    => 'kırıntı izi',
+        'main_content'  => 'ana alan',
+        'tabs'          => 'sekmeler',
+    ],
     'field' => [
         'invalid_type' => 'Geçersiz alan tipi :type.',
         'options_method_invalid_model' => "':field' metodu, geçerli bir model ile eşleşmiyor. :model Model'i için options metodu tanımlamalısınız.",

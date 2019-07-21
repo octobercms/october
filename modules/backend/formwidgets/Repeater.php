@@ -3,7 +3,6 @@
 use Lang;
 use ApplicationException;
 use Backend\Classes\FormWidgetBase;
-use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Repeater Form Widget
@@ -54,11 +53,6 @@ class Repeater extends FormWidgetBase
     protected $defaultAlias = 'repeater';
 
     /**
-     * @var int Count of repeated items.
-     */
-    protected $indexCount = 0;
-
-    /**
      * @var array Meta data associated to each field, organised by index
      */
     protected $indexMeta = [];
@@ -106,8 +100,6 @@ class Repeater extends FormWidgetBase
         if ((bool) post($this->alias . '_loaded') === true) {
             $this->loaded = true;
         }
-
-        $fieldName = $this->formField->getName(false);
 
         $this->processGroupMode();
 
@@ -214,12 +206,9 @@ class Repeater extends FormWidgetBase
             : $this->getLoadValue();
 
         if ($currentValue === null) {
-            $this->indexCount = 0;
             $this->formWidgets = [];
             return;
         }
-
-        $groupMap = [];
 
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
@@ -236,20 +225,13 @@ class Repeater extends FormWidgetBase
             }
         }
 
-        if (is_array($currentValue) && count($currentValue)) {
-            foreach ($currentValue as $value) {
-                $groupMap[] = array_get($value, '_group');
-            }
-        }
-
-        if (!count($groupMap)) {
+        if (!is_array($currentValue)) {
             return;
         }
 
-        foreach ($groupMap as $index => $groupCode) {
-            $this->makeItemFormWidget($index, $groupCode);
-        }
-        $this->indexCount = max(count($currentValue), $this->indexCount);
+        collect($currentValue)->each(function ($value, $index) {
+            $this->makeItemFormWidget($index, array_get($value, '_group', null));
+        });
     }
 
     /**
@@ -311,14 +293,13 @@ class Repeater extends FormWidgetBase
 
         $groupCode = post('_repeater_group');
 
+        $index = $this->getNextIndex();
+
         $this->prepareVars();
-        $this->vars['widget'] = $this->makeItemFormWidget($this->indexCount, $groupCode);
-        $this->vars['indexValue'] = $this->indexCount;
+        $this->vars['widget'] = $this->makeItemFormWidget($index, $groupCode);
+        $this->vars['indexValue'] = $index;
 
         $itemContainer = '@#' . $this->getId('items');
-
-        // Increase index count after item is created
-        ++$this->indexCount;
 
         return [
             $itemContainer => $this->makePartial('repeater_item')
@@ -338,6 +319,30 @@ class Repeater extends FormWidgetBase
         $widget = $this->makeItemFormWidget($index, $group);
 
         return $widget->onRefresh();
+    }
+
+    /**
+     * Determines the next available index number for assigning to a new repeater item.
+     *
+     * @return int
+     */
+    protected function getNextIndex()
+    {
+        if ($this->loaded === true) {
+            $data = post($this->formField->getName());
+
+            if (is_array($data) && count($data)) {
+                return (max(array_keys($data)) + 1);
+            }
+        } else {
+            $data = $this->getLoadValue();
+
+            if (is_array($data)) {
+                return count($data);
+            }
+        }
+
+        return 0;
     }
 
     //

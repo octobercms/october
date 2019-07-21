@@ -63,6 +63,10 @@ return [
         'group' => [
             'all' => 'alle'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Toepassen',
+            'clear_button_text'  => 'Resetten'
+        ],
         'dates' => [
             'all' => 'alle',
             'filter_button_text' => 'Filteren',

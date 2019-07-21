@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Administrace'
     ],
+    'aria-label' => [
+        'footer'        => 'zápatí',
+        'side_panel'    => 'boční panel',
+        'breadcrumb'    => 'strouhanka',
+        'main_content'  => 'hlavní oblasty',
+        'tabs'          => 'karty',
+    ],
     'field' => [
         'invalid_type' => 'Byl použitý špatný typ :type.',
         'options_method_invalid_model' => "Vlastnost ':field' neodpovídá platnému modelu. Zkuste specifikovat metodu voleb pro modelovou třídu :model explicitně.",

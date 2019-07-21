@@ -192,5 +192,4 @@ class DataTable extends FormWidgetBase
 
         return $result;
     }
-
 }

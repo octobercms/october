@@ -2,7 +2,7 @@
 
 use App;
 use File;
-use Twig\Source as TwigSource;;
+use Twig\Source as TwigSource;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Exception;
 

@@ -118,8 +118,8 @@ class Backend
             'timeSince' => false,
             'ignoreTimezone' => false,
         ], $options));
-        
-        if(!$dateTime) {
+
+        if (!$dateTime) {
             return '';
         }
 
@@ -156,5 +156,4 @@ class Backend
 
         return '<time'.Html::attributes($attributes).'>'.e($defaultValue).'</time>'.PHP_EOL;
     }
-
 }

@@ -9,9 +9,6 @@ $.oc.langMessages['sk'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : slovak (sk)
-//! author : Martin Minka : https://github.com/k2s
-//! based on work of petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -166,3 +163,4 @@ $.oc.langMessages['sk'] = $.extend(
     return sk;
 
 })));
+
