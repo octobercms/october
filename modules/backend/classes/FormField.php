@@ -122,7 +122,7 @@ class FormField
     public $stretch = false;
 	
     /**
-     * @var bool Specifies if this field stretch to fit the page height.
+     * @var bool Specifies if this field can have auto height based on content.
      */
     public $grow = false;	
 
