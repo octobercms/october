@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'لوحة الإدارة'
     ],
+    'aria-label' => [
+        'footer'        => 'تذييل',
+        'side_panel'    => 'لوحة جانبية',
+        'breadcrumb'    => 'التفصيلي',
+        'main_content'  => 'المجال الرئيسي',
+        'tabs'          => 'علامات التبويب',
+    ],
     'page' => [
         'access_denied' => [
             'label' => 'ممنوع الوصول',

@@ -102,7 +102,7 @@ abstract class ExportModel extends Model
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
-        
+
         $csv->setOutputBOM(CsvWriter::BOM_UTF8);
 
         if ($options['delimiter'] !== null) {
@@ -204,8 +204,7 @@ abstract class ExportModel extends Model
         foreach ($data as $value) {
             if (is_array($value)) {
                 $newData[] = 'Array';
-            }
-            else {
+            } else {
                 $newData[] = str_replace($delimeter, '\\'.$delimeter, $value);
             }
         }

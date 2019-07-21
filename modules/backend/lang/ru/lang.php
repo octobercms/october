@@ -5,6 +5,13 @@ return [
         'title' => 'Панель управления',
         'invalid_login' => 'Вы ввели некорректные данные. Пожалуйста, перепроверьте их и попробуйте ещё раз.'
     ],
+    'aria-label' => [
+        'footer'        => 'меню нижнего колонтитула',
+        'side_panel'    => 'боковая панель',
+        'breadcrumb'    => 'след крошки',
+        'main_content'  => 'основная площадь',
+        'tabs'          => 'вкладки',
+    ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",

@@ -340,10 +340,14 @@ class Theme
         }
 
         try {
-            $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
-            $config = Cache::rememberForever($cacheKey, function() use ($path) {
-                return Yaml::parseFile($path);
-            });
+            if (Config::get('app.debug', false)) {
+                $config = Yaml::parseFile($path);
+            } else {
+                $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
+                $config = Cache::rememberForever($cacheKey, function () use ($path) {
+                    return Yaml::parseFile($path);
+                });
+            }
         }
         catch (Exception $ex) {
             // Cache failed

@@ -95,6 +95,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Automatically run migrations on login
+    |--------------------------------------------------------------------------
+    |
+    | If value is true, UpdateMananger will be run on logging in to the backend.
+    | It's recommended to set this value to 'null' in production enviroments
+    | because it clears the cache every time a user logs in to the backend.
+    | If set to null, this setting is enabled when debug mode (app.debug) is enabled
+    | and disabled when debug mode is disabled.
+    |
+    */
+
+    'runMigrationsOnLogin' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Determines which modules to load
     |--------------------------------------------------------------------------
     |
@@ -412,5 +427,27 @@ return [
     */
 
     'restrictBaseDir' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backend Service Worker
+    |--------------------------------------------------------------------------
+    |
+    | Allow plugins to run Service Workers in the backend.
+    |
+    | WARNING: This should always be disabled for security reasons as Service
+    | Workers can be hijacked and used to run XSS into the backend. Turning
+    | this feature on can create a conflict if you have a frontend Service
+    | Worker running. The 'scope' needs to be correctly set and not have a
+    | duplicate subfolder structure on the frontend, otherwise it will run
+    | on both the frontend and backend of your website.
+    |
+    | true  - allow service workers to run in the backend
+    |
+    | false - disallow service workers to run in the backend
+    |
+    */
+
+    'enableBackendServiceWorkers' => false,
 
 ];

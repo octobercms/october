@@ -49,7 +49,7 @@ class Themes extends Controller
         /*
          * Custom redirect for unauthorized request
          */
-        $this->bindEvent('page.beforeDisplay', function() {
+        $this->bindEvent('page.beforeDisplay', function () {
             if (!$this->user->hasAccess('cms.manage_themes')) {
                 return Backend::redirect('cms/themeoptions/update');
             }

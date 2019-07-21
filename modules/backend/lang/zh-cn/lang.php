@@ -2,12 +2,21 @@
 
 return [
     'auth' => [
-        'title' => '管理'
+        'title' => '管理',
+        'invalid_login' => '无法匹配到您输入的相关内容，请检查后重试。'
+    ],
+    'aria-label' => [
+        'footer'        => '页脚菜单',
+        'side_panel'    => '侧板',
+        'breadcrumb'    => '面包屑踪迹',
+        'main_content'  => '主要区域',
+        'tabs'          => '标签',
     ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
         'options_method_invalid_model' => "属性 ':field' 不能解析为有效模型. 请尝试为模型类:model指定一个可选方法.",
-        'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。"
+        'options_method_not_exists' => "模型 :model 必须定义一个返回 ':field' 表单字段选项的方法 :method()。",
+        'colors_method_not_exists' => "模型 :model 必须定义一个返回十六进制格式的颜色值 ':field' 字段的 :method() 方法。 "
     ],
     'widget' => [
         'not_registered' => "未注册部件 ':name' ",
@@ -15,6 +24,11 @@ return [
     ],
     'page' => [
         'untitled' => '未命名',
+        '404' => [
+            'label'     => '找不到页面',
+            'help'      => "无法访问到您请求的URL资源，试试其它的？",
+            'back_link' => '返回上个页面'
+        ],
         'access_denied' => [
             'label' => '拒绝访问',
             'help' => "您没有访问该页面所需的权限.",
@@ -30,15 +44,22 @@ return [
         ]
     ],
     'partial' => [
-        'not_found_name' => "未找到部件 ':name' "
+        'not_found_name' => "未找到部件 ':name' ",
+        'invalid_name' => '未知的部件名称 :name '
+    ],
+    'ajax_handler' => [
+        'invalid_name' => '未知的AJAX处理方法 :name.',
+        'not_found' => "无法找到AJAX处理方法 ':name' "
     ],
     'account' => [
+        'signed_in_as' => '使用 :full_name 登录',
         'sign_out' => '登出',
         'login' => '登录',
         'reset' => '重置',
         'restore' => '还原',
         'login_placeholder' => '登录',
         'password_placeholder' => '密码',
+        'remember_me' => '保持登录状态',
         'forgot_password' => '忘记密码?',
         'enter_email' => '输入邮件地址',
         'enter_login' => '输入账号',
@@ -115,6 +136,8 @@ return [
         'last_name' => '姓',
         'full_name' => '全名',
         'email' => '邮件',
+        'role_field' => '角色',
+        'role_comment' => '角色指定了用户的权限，您可以在权限栏中进行修改。',
         'groups' => '团队',
         'groups_comment' => '指定成员所归属的组.',
         'avatar' => '头像',
@@ -135,6 +158,8 @@ return [
         'last_login' => '最后登陆',
         'created_at' => '创建时间',
         'updated_at' => '更新时间',
+        'deleted_at' => '删除时间',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => '组',
             'name_comment' => '该名字将在群组列表中展示',
@@ -145,15 +170,31 @@ return [
             'code_field' => '代码',
             'code_comment' => '如果若您想访问 API, 请输入唯一代码。',
             'menu_label' => '群组',
-            'list_title' => '管理群组',
+            'list_title' => '群组管理',
             'new' => '新管理组',
             'delete_confirm' => '您真的想要删除这个管理组?',
             'return' => '返回组列表',
             'users_count' => '用户'
         ],
+        'role' => [
+            'name' => '角色',
+            'name_field' => '角色名',
+            'name_comment' => '角色列表将会在管理员后台列表展示',
+            'description_field' => '描述',
+            'code_field' => '唯一标识',
+            'code_comment' => '给角色定义一个唯一标识以方便API使用',
+            'menu_label' => '角色管理',
+            'list_title' => '角色管理',
+            'new' => '新建角色',
+            'delete_confirm' => '确定删除角色?',
+            'return' => '返回角色列表',
+            'users_count' => '用户'
+        ],
         'preferences' => [
             'not_authenticated' => '无认证用户加载或保存设置.'
-        ]
+        ],
+        'trashed_hint_title' => '该账户已经被删除',
+        'trashed_hint_desc' => '该账户已经被删除而无法登录。你可以点击右下角的恢复按钮进行恢复。'
     ],
     'list' => [
         'default_title' => '列表',
@@ -198,6 +239,10 @@ return [
         'remove_confirm' => '你确定吗？',
         'remove_file' => '删除文件'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name 需要大于 :min ',
+        'max_items_failed' => ':name 需要小于 :max '
+    ],
     'form' => [
         'create_title' => '新 :name',
         'update_title' => '编辑 :name',
@@ -205,7 +250,8 @@ return [
         'create_success' => '成功创建 :name',
         'update_success' => '成功更新 :name',
         'delete_success' => '成功删除 :name',
-        'reset_success' => '成功恢复默认',
+        'restore_success' => '恢复 :name',
+        'reset_success' => '重置成功',
         'missing_id' => '未指定表单记录ID.',
         'missing_model' => ':class 中使用的表单无定义模型.',
         'missing_definition' => "表单无字段 ':field'.",
@@ -223,8 +269,11 @@ return [
         'deleting' => '删除中...',
         'confirm_delete' => '您确定删除记录?',
         'confirm_delete_multiple' => '确认删除选中的的记录?',
-        'deleting_name' => '删除 :name...',
-        'reset_default' => '重置默认',
+        'deleting_name' => '删除 :name 中...',
+        'restore' => '恢复',
+        'restoring' => '恢复中',
+        'confirm_restore' => '你确定恢复这条记录?',
+        'reset_default' => '重置为默认',
         'resetting' => '重置',
         'resetting_name' => '重置 :name',
         'undefined_tab' => '杂项',
@@ -257,6 +306,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => '查找记录',
+        'invalid_model_class' => '提供的 ":modelClass" 不可用',
         'cancel' => '取消',
     ],
     'pagelist' => [
@@ -360,7 +410,9 @@ return [
         'no_wrap' => '无法包裹标签',
         'no_wrap_comment' => '所列标签无法包裹于快级标签中.',
         'remove_tags' => '移除标签',
-        'remove_tags_comment' => '所列标签将与其包裹的内容一起删除.'
+        'remove_tags_comment' => '所列标签将与其包裹的内容一起删除.',
+        'toolbar_buttons' => '工具栏按钮',
+        'toolbar_buttons_comment' => '默认在富文本编辑器中显示的工具栏按钮。例如： [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
     'tooltips' => [
         'preview_website' => '预览网站'
@@ -380,6 +432,8 @@ return [
         'brand' => '品牌',
         'logo' => '图标',
         'logo_description' => '上传自定义图标到后台.',
+        'favicon' => '浏览器favicon',
+        'favicon_description' => '上传自定义后台浏览器的favicon',
         'app_name' => '站点名称',
         'app_name_description' => '这个名称显示在后台的标题区域.',
         'app_tagline' => '站点标语',
@@ -392,7 +446,8 @@ return [
         'custom_stylesheet' => '自定样式',
         'navigation' => '导航',
         'menu_mode' => '菜单样式',
-        'menu_mode_inline' => '行内',
+        'menu_mode_inline' => '单行显示',
+        'menu_mode_inline_no_icons' => '单行显示 (不显示图标)',
         'menu_mode_tile' => '标题',
         'menu_mode_collapsed' => '已折叠'
     ],
@@ -410,8 +465,10 @@ return [
         'hint' => '此日志显示管理员成功登录信息。记录将保存 :days 天。',
         'menu_label' => '访问日志',
         'menu_description' => '查看已登陆的后台用户日志。',
+        'id' => 'ID',
         'created_at' => '日期 & 时间',
         'login' => '登录',
+        'type' => '类型',
         'ip_address' => 'IP地址',
         'first_name' => '名',
         'last_name' => '姓',
@@ -420,11 +477,13 @@ return [
     'filter' => [
         'all' => '全部',
         'options_method_not_exists' => "模型 :model 必须定义方法 :method() 并为过滤器 ':filter'返回可选项.",
-        'date_all' => '所有日期'
+        'date_all' => '所有日期',
+        'number_all' => '任意数值'
     ],
     'import_export' => [
         'upload_csv_file' => '1. 上传一个 CSV 文件',
         'import_file' => '导入文件',
+        'row' => ':row 行',
         'first_row_contains_titles' => '第一行包含列标题',
         'first_row_contains_titles_desc' => '若 CSV 首行作为栏标题使用，请点选此项。',
         'match_columns' => '2. 将文件列与数据库字段匹配',
@@ -501,7 +560,7 @@ return [
         'label' => '媒体查找器',
         'default_prompt' => '点击 %s 按钮查找媒体项'
     ],
-   'media' => [
+    'media' => [
         'menu_label' => '媒体',
         'upload' => '上传',
         'move' => '移动',
@@ -527,7 +586,12 @@ return [
         'multiple_selected' => '多选.',
         'uploading_file_num' => '上传 :number 文件...',
         'uploading_complete' => '上传完毕',
+        'uploading_error' => '上传失败',
+        'type_blocked' => '该文件类型因安全问题被禁止使用。',
         'order_by' => '排序',
+        'direction' => '升降序',
+        'direction_asc' => '升序',
+        'direction_desc' => '降序',
         'folder' => '文件夹',
         'no_files_found' => '未找到您所请求的文件.',
         'delete_empty' => '请选择删除项.',

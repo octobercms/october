@@ -231,7 +231,6 @@ class Controller extends ControllerBase
          * Check that user is logged in and has permission to view this page
          */
         if (!$isPublicAction) {
-
             /*
              * Not logged in, redirect to login screen or show ajax error.
              */

@@ -36,7 +36,7 @@
 
                     <input type="hidden" name="template[<?= e($item->fileName) ?>]" value="0" />
                     <div class="checkbox custom-checkbox nolabel">
-                        <?php $cbId = 'cb'.md5($item->fileName) ?>
+                        <?php $cbId = 'cb' . md5($this->itemType . '/' . $item->fileName) ?>
                         <input
                             id="<?= $cbId ?>"
                             type="checkbox"

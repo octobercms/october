@@ -2,7 +2,9 @@
 
 use Backend\Models\ExportModel;
 
-if (!class_exists('Model')) class_alias('October\Rain\Database\Model', 'Model');
+if (!class_exists('Model')) {
+    class_alias('October\Rain\Database\Model', 'Model');
+}
 
 class ExampleExportModel extends ExportModel
 {

@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => '시스템관리자영역'
     ],
+    'aria-label' => [
+        'footer'        => '보행인',
+        'side_panel'    => '측면 패널',
+        'breadcrumb'    => '빵 부스러기 흔적',
+        'main_content'  => '주요 지역',
+        'tabs'          => '탭',
+    ],
     'field' => [
         'invalid_type' => '유효하지 않은 필드타입 사용 :type ',
         'options_method_invalid_model' => "':field' 속성은 리졸브 될 수 없습니다. :model 모델 클래스의 특정 옵션 메소드를 명시적으로 사용해 보세요.",
