@@ -1,6 +1,6 @@
 <!-- Textarea -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control <?php if($field->$dynamic === 'stretch') { ?>stretch<?php } elseif($field->$dynamic === 'grow') { ?>grow<?php } ?>"><?= nl2br(e($field->value)) ?></div>
+    <div class="form-control <?= $field->$stretch?'layout-relative':'' ?> <?= $field->$grow?'layout-relative':'' ?>"><?= nl2br(e($field->value)) ?></div>
 <?php else: ?>
     <textarea
         name="<?= $field->getName() ?>"

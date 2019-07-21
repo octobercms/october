@@ -82,7 +82,7 @@ class FormField
     public $options;
 
     /**
-     * @var string Specifies a side. Possible values: auto, left, right, full, 3-1, 3-2, 3-3, 4-1, 4-2, 4-3, 4-4, left-75, right-75, left-25 and right-25.
+     * @var string Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
      */
     public $span = 'full';
 
@@ -117,9 +117,14 @@ class FormField
     public $hidden = false;
 
     /**
-     * @var string Specifies a dynamic height. Possible values: nothing, stretch and grow.
+     * @var bool Specifies if this field stretch to fit the page height.
      */
-    public $dynamic = 'nothing';
+    public $stretch = false;
+	
+    /**
+     * @var bool Specifies if this field stretch to fit the page height.
+     */
+    public $grow = false;	
 
     /**
      * @var string Specifies a comment to accompany the field
@@ -198,7 +203,7 @@ class FormField
 
     /**
      * Sets a side of the field on a form.
-     * @param string $value Specifies a side. Possible values: auto, left, right, full, 3-1, 3-2, 3-3, 4-1, 4-2, 4-3, 4-4, left-75, right-75, left-25 and right-25.
+     * @param string $value Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
      */
     public function span($value = 'full')
     {
@@ -292,6 +297,8 @@ class FormField
             'readOnly',
             'disabled',
             'cssClass',
+            'stretch',
+            'grow',			
             'context',
             'hidden',
             'trigger',
@@ -313,9 +320,6 @@ class FormField
         }
         if (isset($config['span'])) {
             $this->span($config['span']);
-        }
-        if (isset($config['dynamic'])) {
-            $this->dynamic($config['dynamic']);
         }		
         if (isset($config['size'])) {
             $this->size($config['size']);
