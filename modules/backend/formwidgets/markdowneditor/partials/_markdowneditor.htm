@@ -3,7 +3,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-markdowneditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?> <?= $grow?'layout-relative':'' ?>"
+        class="field-markdowneditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?> <?= $grow?'layout-relative grow':'' ?>"
         data-control="markdowneditor"
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-view-mode="<?= $mode ?>"
