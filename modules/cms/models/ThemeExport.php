@@ -110,7 +110,6 @@ class ThemeExport extends Model
             File::deleteDirectory($tempPath);
         }
         catch (Exception $ex) {
-
             if (strlen($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }

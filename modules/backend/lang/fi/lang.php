@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Ylläpitoalue'
     ],
+    'aria-label' => [
+        'footer'        => 'alatunniste',
+        'side_panel'    => 'sivupaneeli',
+        'breadcrumb'    => 'leivänmuru',
+        'main_content'  => 'pääalue',
+        'tabs'          => 'välilehdet',
+    ],
     'field' => [
         'invalid_type' => 'Kentän tyyppi :type ei ole sallittu.',
         'options_method_invalid_model' => "Attribuutti ':field' ratkaise kelvollista mallia. Spesifioit vaihtoehtoinen metodi mallille :model explisiittisesti.",

@@ -192,7 +192,6 @@ class MailManager
         $disableAutoInlineCss = false;
 
         if ($template->layout) {
-
             $disableAutoInlineCss = array_get($template->layout->options, 'disable_auto_inline_css', $disableAutoInlineCss);
 
             $html = $this->renderTwig($template->layout->content_html, [

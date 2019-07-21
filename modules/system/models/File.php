@@ -27,6 +27,7 @@ class File extends FileBase
     {
         $url = '';
         if (!$this->isPublic() && class_exists(Files::class)) {
+            $options = $this->getDefaultThumbOptions($options);
             // Ensure that the thumb exists first
             parent::getThumb($width, $height, $options);
 
@@ -42,13 +43,13 @@ class File extends FileBase
     /**
      * {@inheritDoc}
      */
-    public function getPath()
+    public function getPath($fileName = null)
     {
         $url = '';
         if (!$this->isPublic() && class_exists(Files::class)) {
             $url = Files::getDownloadUrl($this);
         } else {
-            $url = parent::getPath();
+            $url = parent::getPath($fileName);
         }
 
         return $url;
@@ -103,12 +104,11 @@ class File extends FileBase
     }
 
     /**
-     * Copy the local file to Storage
-     * @return bool True on success, false on failure.
+     * Returns the storage disk the file is stored on
+     * @return FilesystemAdapter
      */
-    protected function copyLocalToStorage($localPath, $storagePath)
+    public function getDisk()
     {
-        $disk = Storage::disk(Config::get('cms.storage.uploads.disk'));
-        return $disk->put($storagePath, FileHelper::get($localPath), $this->isPublic() ? 'public' : null);
+        return Storage::disk(Config::get('cms.storage.uploads.disk'));
     }
 }

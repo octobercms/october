@@ -2,7 +2,7 @@
  * List Widget
  *
  * Dependences:
- * - Row Link Plugin (october.rowlink.js)
+ * - Row Link Plugin (system/assets/ui/js/list.rowlink.js)
  */
 +function ($) { "use strict";
 

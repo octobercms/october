@@ -35,7 +35,8 @@ class NestedForm extends FormWidgetBase
     /**
      * @inheritDoc
      */
-    public function init() {
+    public function init()
+    {
         $this->fillFromConfig([
             'form',
             'usePanelStyles',
@@ -62,13 +63,14 @@ class NestedForm extends FormWidgetBase
     /**
      * @inheritdoc
      */
-    function render()
+    public function render()
     {
         $this->prepareVars();
         return $this->makePartial('nestedform');
     }
 
-    function prepareVars() {
+    public function prepareVars()
+    {
         $this->formWidget->previewMode = $this->previewMode;
     }
 }

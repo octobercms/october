@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'بخش مدیریت',
     ],
+    'aria-label' => [
+        'footer'        => 'پاورقی',
+        'side_panel'    => 'پنل کناری',
+        'breadcrumb'    => 'پودرهای سوخاری',
+        'main_content'  => 'منطقه اصلی',
+        'tabs'          => 'زبانه ها',
+    ],
     'field' => [
         'invalid_type' => 'نوع فیلد :type نا معتبر می باشد.',
         'options_method_invalid_model' => "خصیصه ':field' به مدل معتبری اشاره نمی کند. گزینه مورد نظر را در مدل :model ایجاد نمایید.",

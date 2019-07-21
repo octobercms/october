@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Administrationsområde'
     ],
+    'aria-label' => [
+        'footer'        => 'sidefod',
+        'side_panel'    => 'sidepanel',
+        'breadcrumb'    => 'brødkrummer',
+        'main_content'  => 'hovedområdey',
+        'tabs'          => 'faner',
+    ],
     'field' => [
         'invalid_type' => 'Ugyldig felttype :type.',
         'options_method_not_exists' => "Model klassen :model skal implementere :method() som returnerer valgmuligheder for feltet ':field'."

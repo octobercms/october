@@ -231,9 +231,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->suppressTabs
-            ? $this->getAllFields()
-            : $this->getFields()
+        return new ArrayIterator(
+            $this->suppressTabs
+                ? $this->getAllFields()
+                : $this->getFields()
         );
     }
 

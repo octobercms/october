@@ -5,6 +5,13 @@ return [
         'title' => 'Administration Area',
         'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
+    'aria-label' => [
+        'footer'        => 'Footer Section',
+        'side_panel'    => 'Side panel',
+        'breadcrumb'    => 'Breadcrumb Navigation',
+        'main_content'  => 'Main Content Body',
+        'tabs'          => 'Tabs',
+    ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
@@ -45,6 +52,12 @@ return [
         'not_found' => "AJAX handler ':name' was not found."
     ],
     'account' => [
+        'impersonate' => 'Impersonate user',
+        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.',
+        'impersonate_success' => 'You are now impersonating this user',
+        'impersonate_working' => 'Impersonating...',
+        'impersonating' => 'Impersonating :full_name',
+        'stop_impersonating' => 'Stop impersonating',
         'signed_in_as' => 'Signed in as :full_name',
         'sign_out' => 'Sign out',
         'login' => 'Login',

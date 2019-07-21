@@ -32,7 +32,7 @@
 
                         <!-- Side panel -->
                         <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel" aria-label="<?= e(trans('system::lang.aria-label.side_panel')) ?>">
                                 <?= $sidePanelContent ?>
                             </div>
                         <?php endif ?>
@@ -44,13 +44,13 @@
                                 <div class="layout">
                                     <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
                                         <!-- Breadcrumb -->
-                                        <div class="control-breadcrumb">
+                                        <div class="control-breadcrumb" aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
                                             <?= $breadcrumbContent ?>
                                         </div>
                                     <?php endif ?>
 
                                     <!-- Content -->
-                                    <div class="layout-row">
+                                    <div class="layout-row" aria-label="<?= e(trans('system::lang.aria-label.main_content')) ?>">
                                         <?= Block::placeholder('body') ?>
                                     </div>
                                 </div>

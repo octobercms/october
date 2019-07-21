@@ -5,6 +5,13 @@ return [
         'invalid_type' => 'Tipul campului folosit este invalid - :type.',
         'options_method_not_exists' => 'Clasa model :model trebuie sa defineasca o metoda :method() returnand optiuni pentru campul ":field".',
     ],
+    'aria-label' => [
+        'footer'        => 'subsol meniu',
+        'side_panel'    => 'panou lateral',
+        'breadcrumb'    => 'traseu de pescuit',
+        'main_content'  => 'zona principală',
+        'tabs'          => 'file',
+    ],
     'widget' => [
         'not_registered' => "Un nume de clasa de widget ':name' nu a fost inregistrat",
         'not_bound' => "Un widget cu numele de clasa ':name' nu a fost mapat la controller",

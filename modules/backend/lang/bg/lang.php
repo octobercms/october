@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Администраторски Панел'
     ],
+    'aria-label' => [
+        'footer'        => 'долния',
+        'side_panel'    => 'страничен панел',
+        'breadcrumb'    => 'галета',
+        'main_content'  => 'основната зона',
+        'tabs'          => 'разделите',
+    ],
     'field' => [
         'invalid_type' => 'Използвано невалиден тип поле :type.',
         'options_method_not_exists' => "Моделът клас :model трябва да се определя метод :method() връщайки настройки за ':field' поле."

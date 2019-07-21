@@ -34,7 +34,7 @@ class PluginList extends Command
         $allPlugins  = PluginVersion::all();
         $pluginsCount = count($allPlugins);
 
-        if ($pluginsCount <= 0 ) {
+        if ($pluginsCount <= 0) {
             $this->info('No plugin found');
             return;
         }

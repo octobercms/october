@@ -67,6 +67,10 @@ tabs:
 
 secondaryTabs:
     fields:
+        btn_impersonate:
+            label: ''
+            context: [update]
+            type: partial
         avatar:
             label: backend::lang.user.avatar
             type: fileupload

@@ -54,7 +54,7 @@
                 else if (popup) {
                     link.popup()
                 }
-                else if (e.ctrlKey) {
+                else if (e.ctrlKey || e.metaKey) {
                     window.open(href)
                 }
                 else {

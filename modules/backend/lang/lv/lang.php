@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Administrācijas vide'
     ],
+    'aria-label' => [
+        'footer'        => 'kājene',
+        'side_panel'    => 'sānu panelis',
+        'breadcrumb'    => 'maizes taku',
+        'main_content'  => 'galvenā joma',
+        'tabs'          => 'cilnes',
+    ],
     'field' => [
         'invalid_type' => 'Nederīgs lauka tips :type.',
         'options_method_not_exists' => "Moduļa klasei :model jādefinē metodi :method() atgrieztās vērtības ':field' formas laukam."

@@ -138,9 +138,8 @@ class Table extends WidgetBase
         $isClientDataSource = $this->isClientDataSource();
 
         $this->vars['clientDataSourceClass'] = $isClientDataSource ? 'client' : 'server';
-        $this->vars['data'] = json_encode($isClientDataSource
-            ? $this->dataSource->getAllRecords()
-            : []
+        $this->vars['data'] = json_encode(
+            $isClientDataSource ? $this->dataSource->getAllRecords() : []
         );
     }
 
@@ -168,15 +167,17 @@ class Table extends WidgetBase
     {
         $result = [];
 
-        foreach ($this->columns as $key=>$data) {
+        foreach ($this->columns as $key => $data) {
             $data['key'] = $key;
 
-            if (isset($data['title']))
+            if (isset($data['title'])) {
                 $data['title'] = trans($data['title']);
+            }
 
             if (isset($data['options'])) {
-                foreach ($data['options'] as &$option)
+                foreach ($data['options'] as &$option) {
                     $option = trans($option);
+                }
             }
 
             if (isset($data['validation'])) {

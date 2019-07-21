@@ -5,6 +5,13 @@ return [
         'title' => 'Admin felület',
         'invalid_login' => 'A megadott adatok nem egyeznek. Kérjük ellenőrizze őket és próbálja újra.'
     ],
+    'aria-label' => [
+        'footer'        => 'Lábjegyzet',
+        'side_panel'    => 'oldalsó panel',
+        'breadcrumb'    => 'kenyérmorzsa',
+        'main_content'  => 'fő terület',
+        'tabs'          => 'lap',
+    ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",

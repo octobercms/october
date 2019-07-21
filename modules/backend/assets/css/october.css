@@ -653,6 +653,8 @@ body.slim-container .layout .layout-container {padding-left:0 !important;padding
 .flex-layout-item.center {-webkit-align-self:center;-moz-align-self:center;-ms-align-self:center;align-self:center}
 .flex-layout-item.relative {position:relative}
 .flex-layout-item.layout-container {max-width:none}
+.js-focus-visible :focus:not(.focus-ring) {outline:none}
+.js-focus-visible .focus-visible {border:.0625rem solid #3578E5;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5;box-shadow:0 0 .1875rem .125rem #3578E5;z-index:1;position:relative}
 body.mainmenu-open {overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner {font-size:13px;padding:6px 16px}
 ul.mainmenu-nav {font-size:14px}

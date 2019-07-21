@@ -162,7 +162,9 @@ class FormController extends ControllerBehavior
 
         $this->formWidget->bindEvent('form.beforeRefresh', function ($holder) {
             $result = $this->controller->formExtendRefreshData($this->formWidget, $holder->data);
-            if (is_array($result)) $holder->data = $result;
+            if (is_array($result)) {
+                $holder->data = $result;
+            }
         });
 
         $this->formWidget->bindEvent('form.refreshFields', function ($fields) {
