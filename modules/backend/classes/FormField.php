@@ -320,7 +320,7 @@ class FormField
         }
         if (isset($config['span'])) {
             $this->span($config['span']);
-        }		
+        }
         if (isset($config['size'])) {
             $this->size($config['size']);
         }

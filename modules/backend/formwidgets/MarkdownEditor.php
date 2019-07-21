@@ -62,7 +62,8 @@ class MarkdownEditor extends FormWidgetBase
     public function prepareVars()
     {
         $this->vars['mode'] = $this->mode;
-        $this->vars['dynamic'] = $this->formField->dynamic;
+        $this->vars['stretch'] = $this->formField->stretch;
+        $this->vars['grow'] = $this->formField->grow;		
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
