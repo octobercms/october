@@ -212,16 +212,6 @@ class FormField
     }
 
     /**
-     * Sets a dynamic height for the field on a form.
-     * @param string $value Specifies a side. Possible values: nothing, stretch and grow.
-     */
-    public function dynamic($value = 'nothing')
-    {
-        $this->dynamic = $value;
-        return $this;
-    }
-
-    /**
      * Sets a side of the field on a form.
      * @param string $value Specifies a size. Possible values: tiny, small, large, huge, giant
      */
