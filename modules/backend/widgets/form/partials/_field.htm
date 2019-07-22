@@ -61,6 +61,7 @@
                 }
             }
 
+            // Process quarter fields
             if(typeof parentQuarter !== "undefined" && typeof quarterPosLeft !== "undefined") {
                 // Calculate quarter right position
                 var quarterPosRight = Number(quarterPosLeft.left) + Number(quarterWidth);
@@ -77,6 +78,7 @@
                 }
             }
 
+            // Process three-quarters fields
             if(typeof parentThreeQuarters !== "undefined" && typeof threequartersPosLeft !== "undefined") {
                 // Calculate percentage positions for three-quarters
                 var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
