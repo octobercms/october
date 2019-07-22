@@ -25,6 +25,72 @@
             <p class="help-block"><?= $fieldComment ?></p>
         <?php endif ?>
 
+        <script>
+        $(document).ready(function() {
+
+            "use strict";
+
+            // Parent widths
+            var parentThird = $(".form-group.span-third#<?= $field->getId() ?>-group").parent().width(),
+                parentQuarter = $(".form-group.span-quarter#<?= $field->getId() ?>-group").parent().width(),
+                parentThreeQuarters = $(".form-group.span-three-quarters#<?= $field->getId() ?>-group").parent().width();
+
+            // Field left positions
+            var thirdPosLeft = $(".form-group.span-third#<?= $field->getId() ?>-group").position(),
+                quarterPosLeft = $(".form-group.span-quarter#<?= $field->getId() ?>-group").position(),
+                threequartersPosLeft = $(".form-group.span-three-quarters#<?= $field->getId() ?>-group").position();
+
+            // Field widths
+            var thirdWidth = $(".form-group.span-third#<?= $field->getId() ?>-group").outerWidth(),
+                quarterWidth = $(".form-group.span-quarter#<?= $field->getId() ?>-group").outerWidth();
+
+            // Process third fields
+            if(typeof parentThird !== "undefined" && typeof thirdPosLeft !== "undefined") {
+                // Calculate right position for third
+                var thirdPosRight = Number(thirdPosLeft.left) + Number(thirdWidth);
+                // Calculate percentage positions for third
+                var percentThirdLeft = (100 / parentThird) * thirdPosLeft.left,
+                percentThirdRight = (100 / parentThird) * thirdPosRight;
+                // Add left offset class
+                if (percentThirdLeft < 10) {
+                    $(".form-group.span-third#<?= $field->getId() ?>-group").addClass("span-position-left");
+                } else if (percentThirdRight > 90) {
+                    $(".form-group.span-third#<?= $field->getId() ?>-group").addClass("span-position-right");
+                } else {
+                    $(".form-group.span-third#<?= $field->getId() ?>-group").addClass("span-position-middle");
+                }
+            }
+
+            if(typeof parentQuarter !== "undefined" && typeof quarterPosLeft !== "undefined") {
+                // Calculate quarter right position
+                var quarterPosRight = Number(quarterPosLeft.left) + Number(quarterWidth);
+                // Calculate percentage positions for quarter
+                var percentQuarterLeft = (100 / parentQuarter) * quarterPosLeft.left,
+                percentQuarterRight = (100 / parentQuarter) * quarterPosRight;
+                // Add left offset class
+                if (percentQuarterLeft < 10) {
+                    $(".form-group.span-quarter#<?= $field->getId() ?>-group").addClass("span-position-left");
+                } else if (percentQuarterRight > 90) {
+                    $(".form-group.span-quarter#<?= $field->getId() ?>-group").addClass("span-position-right");
+                } else {
+                    $(".form-group.span-quarter#<?= $field->getId() ?>-group").addClass("span-position-middle");
+                }
+            }
+
+            if(typeof parentThreeQuarters !== "undefined" && typeof threequartersPosLeft !== "undefined") {
+                // Calculate percentage positions for three-quarters
+                var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
+                // Add left offset class
+                if (percentThreeQuartersLeft < 10) {
+                    $(".form-group.span-three-quarters#<?= $field->getId() ?>-group").addClass("span-position-left");
+                } else {
+                    $(".form-group.span-three-quarters#<?= $field->getId() ?>-group").addClass("span-position-right");
+                }
+            }
+
+        });
+        </script>
+
     <?php endif ?>
 
 <?php endif ?>
