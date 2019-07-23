@@ -44,7 +44,7 @@ $(function() {
     // Only run if not empty
     if(($textareaParentContainer || $textareaParentContainer === 0)  &&  ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
         $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
-	}
+    }
     if (typeof $stretchHeight !== "undefined") {
         $(".form-group.hint-field .stretch").css("height", $stretchHeight + 'px');
     }
