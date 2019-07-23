@@ -25,7 +25,7 @@
     }
 
     SidenavTree.DEFAULTS = {
-        treeName: 'sidenav_tree'r
+        treeName: 'sidenav_tree'
     }
 
     SidenavTree.prototype.init = function (){
