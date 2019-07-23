@@ -45,8 +45,10 @@ $(function() {
         $textareaParentHeight = $(".form-group textarea.stretch").parent().parent().height(),
         $textareaParentContainer = $(".form-group textarea.stretch").closest('.stretch-parent').height();
         $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
-
-	$(".form-group textarea.stretch").css("height", $stretchHeight + 'px');
+    // Only run if not empty
+    if ($stretchHeight) {
+        $(".form-group textarea.stretch").css("height", $stretchHeight + 'px');
+	}
 
 });
 </script>
