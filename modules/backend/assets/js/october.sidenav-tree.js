@@ -25,7 +25,7 @@
     }
 
     SidenavTree.DEFAULTS = {
-        treeName: 'sidenav_tree'
+        treeName: 'sidenav_tree'r
     }
 
     SidenavTree.prototype.init = function (){
@@ -261,7 +261,7 @@
     // SIDENAVTREE DATA-API
     // ===============
 
-    $(document).ready(function () {
+    $(function() {
         $('[data-control=sidenav-tree]').sidenavTree()
     })
 

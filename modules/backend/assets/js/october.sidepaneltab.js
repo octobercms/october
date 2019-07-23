@@ -230,14 +230,14 @@
     // DATA-API
     // ============
 
-    $(document).ready(function(){
+    $(function() {
         $('[data-control=layout-sidepanel]').sidePanelTab()
     })
 
     // STORED PREFERENCES
     // ====================
 
-    $(document).ready(function() {
+    $(function() {
         if (Modernizr.touchevents || (typeof(localStorage) !== 'undefined')) {
             if (localStorage.ocSidePanelFixed == 0) {
                 $(document.body).addClass('side-panel-not-fixed')

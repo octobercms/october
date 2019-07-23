@@ -22,7 +22,7 @@
         this.stripe = this.indicator.find('.stripe')
         this.animationTimer = null
 
-        $(document).ready(function(){
+        $(function() {
             $(document.body).append(self.indicator)
         })
     }
