@@ -96,9 +96,9 @@ $(function() {
             var percentThirdLeft = (100 / parentThird) * thirdPosLeft.left,
                 percentThirdRight = (100 / parentThird) * thirdPosRight;
             // Add left offset class
-            if (percentThirdLeft < 10) {
+            if (percentThirdLeft < 25) {
                 $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-left");
-            } else if (percentThirdRight > 90) {
+            } else if (percentThirdRight > 75) {
                 $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-right");
             } else {
                 $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-middle");
@@ -113,9 +113,9 @@ $(function() {
             var percentQuarterLeft = (100 / parentQuarter) * quarterPosLeft.left,
                 percentQuarterRight = (100 / parentQuarter) * quarterPosRight;
             // Add left offset class
-            if (percentQuarterLeft < 10) {
+            if (percentQuarterLeft < 25) {
                 $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-left");
-            } else if (percentQuarterRight > 90) {
+            } else if (percentQuarterRight > 75) {
                 $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-right");
             } else {
                 $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-middle");
@@ -127,7 +127,7 @@ $(function() {
             // Calculate percentage positions for three-quarters
             var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
             // Add left offset class
-            if (percentThreeQuartersLeft < 10) {
+            if (percentThreeQuartersLeft < 25) {
                 $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-left");
             } else {
                 $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-right");
