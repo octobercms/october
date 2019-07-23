@@ -8,3 +8,138 @@
     <?= $this->makePartial('form') ?>
 
 </div>
+
+<?php 
+// Create empty array
+$formFieldArray = [];
+
+// Outside tabs
+if ($outsideTabs->hasFields()) {
+    foreach($outsideTabs->fields as $fields) {
+        foreach($fields as $field) {
+            $formFieldArray[] = "Form-field-$field->arrayName-$field->fieldName-group";
+        }
+    }
+}
+
+// Primary tabs
+if ($primaryTabs->hasFields()) {
+    foreach($primaryTabs->fields as $fields) {
+        foreach($fields as $field) {
+            $formFieldArray[] = "Form-field-$field->arrayName-$field->fieldName-group";
+        }
+    }
+}
+
+// Secondary tabs
+if ($secondaryTabs->hasFields()) {
+    foreach($secondaryTabs->fields as $fields) {
+        foreach($fields as $field) {
+            $formFieldArray[] = "Form-field-$field->arrayName-$field->fieldName-group";
+        }
+    }
+}
+?>
+
+<script>
+$(document).ready(function() {
+
+    "use strict";
+
+    /*
+     * Debounced resize function
+     */
+    var debounced;
+
+    window.onresize = function() {
+        clearTimeout(debounced);
+        // Remove old third offset classes
+        $(".form-group.span-third").removeClass("span-position-left");
+        $(".form-group.span-third").removeClass("span-position-right");
+        $(".form-group.span-third").removeClass("span-position-middle");
+        // Remove old quarter offset classes
+        $(".form-group.span-quarter").removeClass("span-position-left");
+        $(".form-group.span-quarter").removeClass("span-position-right");
+        $(".form-group.span-quarter").removeClass("span-position-middle");
+        // Remove old three-quarters offset classes
+        $(".form-group.span-three-quarters").removeClass("span-position-left");
+        $(".form-group.span-three-quarters").removeClass("span-position-right");
+        debounced = setTimeout(resizeColumns, 150);
+    };
+
+    /*
+     * Resize columns function
+     */
+    function resizeColumns() {
+
+        <?php foreach($formFieldArray as $formFields) { ?>
+
+        // Parent widths
+        var parentThird = $(".form-group.span-third#<?= e($formFields) ?>").parent().width(),
+            parentQuarter = $(".form-group.span-quarter#<?= e($formFields) ?>").parent().width(),
+            parentThreeQuarters = $(".form-group.span-three-quarters#<?= e($formFields) ?>").parent().width();
+
+        // Field left positions
+        var thirdPosLeft = $(".form-group.span-third#<?= e($formFields) ?>").position(),
+            quarterPosLeft = $(".form-group.span-quarter#<?= e($formFields) ?>").position(),
+            threequartersPosLeft = $(".form-group.span-three-quarters#<?= e($formFields) ?>").position();
+
+        // Field widths
+        var thirdWidth = $(".form-group.span-third#<?= e($formFields) ?>").outerWidth(),
+            quarterWidth = $(".form-group.span-quarter#<?= e($formFields) ?>").outerWidth();
+
+        // Process third fields
+        if (typeof parentThird !== "undefined" && typeof thirdPosLeft !== "undefined") {
+            // Calculate right position for third
+            var thirdPosRight = Number(thirdPosLeft.left) + Number(thirdWidth);
+            // Calculate percentage positions for third
+            var percentThirdLeft = (100 / parentThird) * thirdPosLeft.left,
+                percentThirdRight = (100 / parentThird) * thirdPosRight;
+            // Add left offset class
+            if (percentThirdLeft < 10) {
+                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-left");
+            } else if (percentThirdRight > 90) {
+                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-right");
+            } else {
+                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-middle");
+            }
+        }
+
+        // Process quarter fields
+        if (typeof parentQuarter !== "undefined" && typeof quarterPosLeft !== "undefined") {
+            // Calculate quarter right position
+            var quarterPosRight = Number(quarterPosLeft.left) + Number(quarterWidth);
+            // Calculate percentage positions for quarter
+            var percentQuarterLeft = (100 / parentQuarter) * quarterPosLeft.left,
+                percentQuarterRight = (100 / parentQuarter) * quarterPosRight;
+            // Add left offset class
+            if (percentQuarterLeft < 10) {
+                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-left");
+            } else if (percentQuarterRight > 90) {
+                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-right");
+            } else {
+                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-middle");
+            }
+        }
+
+        // Process three-quarters fields
+        if (typeof parentThreeQuarters !== "undefined" && typeof threequartersPosLeft !== "undefined") {
+            // Calculate percentage positions for three-quarters
+            var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
+            // Add left offset class
+            if (percentThreeQuartersLeft < 10) {
+                $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-left");
+            } else {
+                $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-right");
+            }
+        }
+
+        <?php } ?>
+
+    }
+
+    // Run the resize columns function for the first time
+    resizeColumns();
+
+});
+</script>
