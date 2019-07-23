@@ -44,8 +44,11 @@ $(function() {
     var $textareaHeight = $(".form-group textarea.stretch").parent().height(),
         $textareaParentHeight = $(".form-group textarea.stretch").parent().parent().height(),
         $textareaParentContainer = $(".form-group textarea.stretch").closest('.stretch-parent').height();
-        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+
     // Only run if not empty
+    if($textareaParentContainer  &&  $textareaParentHeight && $textareaHeight) {
+        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+	}
     if ($stretchHeight) {
         $(".form-group textarea.stretch").css("height", $stretchHeight + 'px');
 	}

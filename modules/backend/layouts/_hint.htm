@@ -40,8 +40,11 @@ $(function() {
     var $textareaHeight = $(".form-group.hint-field .stretch").parent().outerHeight(),
         $textareaParentHeight = $(".form-group.hint-field .stretch").closest('.hint-field').parent().height(),
         $textareaParentContainer = $(".form-group.hint-field .stretch").closest('.stretch-parent').height();
-        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+
     // Only run if not empty
+    if($textareaParentContainer  &&  $textareaParentHeight && $textareaHeight) {
+        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+	}
     if ($stretchHeight) {
         $(".form-group.hint-field .stretch").css("height", $stretchHeight + 'px');
 	}
