@@ -141,5 +141,13 @@ $(function() {
     // Run the resize columns function for the first time
     resizeColumns();
 
+    /* Stretch for partial fields */
+    var $textareaHeight = $(".form-group.partial-field .stretch").parent().outerHeight(),
+        $textareaParentHeight = $(".form-group.partial-field .stretch").closest('.partial-field').parent().height(),
+        $textareaParentContainer = $(".form-group.partial-field .stretch").closest('.stretch-parent').height();
+        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+
+	$(".form-group.partial-field .stretch").css("height", $stretchHeight + 'px');
+
 });
 </script>
