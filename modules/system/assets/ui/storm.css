@@ -4215,7 +4215,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
 .span-position-left {margin-right:1%}
 .span-position-middle {margin:0 1%}
-.span-position-right {margin-left:1%}
+.span-position-right {margin-left:1%;float:right !important}
 @media (max-width: 769px) {.span-third {width:100% !important}.span-quarter {width:100% !important}.span-three-quarters {width:100% !important}.span-position-left {margin:0 !important}.span-position-middle {margin:0 !important}.span-position-right {margin:0 !important }}
 .form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
