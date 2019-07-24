@@ -142,14 +142,14 @@
         padding: @padding-standard 0 0 0;
 
         > div.tab-pane {
-            /* Use opacity:0, height:0 and overflow:hidden do not change and use display none javascript needs to calculate the columns */
+            /* Use opacity:0, height:0 and overflow:hidden do not change and use display:none javascript needs to calculate the columns */
             opacity: 0;
             height: 0;
             overflow: hidden;
             .clearfix();
 
             &.active {
-                /* Use opacity:1 and height:100% do not change use display block javascript needs to calculate the columns */				
+                /* Use opacity:1 and height:100% do not change use display:block javascript needs to calculate the columns */				
                 opacity: 1;
                 height: 100%
 
