@@ -4193,7 +4193,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.layout-item {padding-bottom:20px !important;margin-bottom:0}
 .form-group.is-required >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
 .form-group.span-full {width:100%}
-.form-group.span-left {width:48.5%;margin-right: auto}
+.form-group.span-left {width:48.5%}
 .form-group.span-right {width:48.5%}
 .form-group.span-third {width:32%}
 .form-group.span-quarter {width:22.9%}
