@@ -536,6 +536,13 @@
     }
 }
 
+//
+// Important - Styling to preload for tabs for the javascript
+// The following code is using opacity:0 and height:0 to not show the hidden tabs
+// October calculates all the hidden tab fields before a user opens
+// the hidden tab, do not change the code below or you will break October.
+//
+
 #Form-primaryTabs {
     >div.tab-content {
         >div.tab-pane.active {
