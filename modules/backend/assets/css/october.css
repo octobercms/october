@@ -633,7 +633,7 @@ body.compact-container .layout.layout-container,
 body.compact-container .layout .layout-container {padding:0 !important}
 body.slim-container .layout.layout-container,
 body.slim-container .layout .layout-container {padding-left:0 !important;padding-right:0 !important}
-.backend-container {display:flex;flex-direction:column;height:100%;width:100%}
+.backend-container {display:flex;flex-direction:column;height:100%;width:100%;overflow:hidden}
 .content-cont {display:block;height:100%;width:100%}
 @media (max-width:768px) {.layout .hide-on-small {display:none }.layout.responsive-sidebar >.layout-cell:first-child {display:table-footer-group;height:auto }.layout.responsive-sidebar >.layout-cell:first-child .control-breadcrumb {display:none }.layout.responsive-sidebar >.layout-cell:last-child {display:table-header-group;width:auto;height:auto }.layout.responsive-sidebar >.layout-cell:last-child .layout-absolute {position:static }}
 .flex-layout-column {display:-webkit-box;display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:-ms-flex;display:flex;-webkit-flex-direction:column;-moz-flex-direction:column;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column}
