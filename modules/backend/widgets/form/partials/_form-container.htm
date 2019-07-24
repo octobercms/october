@@ -64,6 +64,9 @@ $(function() {
         // Remove old three-quarters offset classes
         $(".form-group.span-three-quarters").removeClass("span-position-left");
         $(".form-group.span-three-quarters").removeClass("span-position-right");
+        // Remove old right offset classes
+        $(".form-group.span-right").removeClass("span-position-far-right");
+        $(".form-group.span-right").removeClass("span-position-right");
         debounced = setTimeout(resizeColumns, 150);
     };
 
@@ -77,12 +80,14 @@ $(function() {
         // Parent widths
         var parentThird = $(".form-group.span-third#<?= e($formFields) ?>").parent().width(),
             parentQuarter = $(".form-group.span-quarter#<?= e($formFields) ?>").parent().width(),
-            parentThreeQuarters = $(".form-group.span-three-quarters#<?= e($formFields) ?>").parent().width();
+            parentThreeQuarters = $(".form-group.span-three-quarters#<?= e($formFields) ?>").parent().width(),
+            parentRight = $(".form-group.span-right#<?= e($formFields) ?>").parent().width();
 
         // Field left positions
         var thirdPosLeft = $(".form-group.span-third#<?= e($formFields) ?>").position(),
             quarterPosLeft = $(".form-group.span-quarter#<?= e($formFields) ?>").position(),
-            threequartersPosLeft = $(".form-group.span-three-quarters#<?= e($formFields) ?>").position();
+            threequartersPosLeft = $(".form-group.span-three-quarters#<?= e($formFields) ?>").position(),
+            rightPosLeft = $(".form-group.span-right#<?= e($formFields) ?>").position();
 
         // Field widths
         var thirdWidth = $(".form-group.span-third#<?= e($formFields) ?>").outerWidth(),
@@ -131,6 +136,18 @@ $(function() {
                 $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-left");
             } else {
                 $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-right");
+            }
+        }
+
+        // Process right fields
+        if (typeof parentRight !== "undefined" && typeof rightPosLeft !== "undefined") {
+            // Calculate percentage positions for right
+            var percentRightLeft = (100 / parentRight) * rightPosLeft.left;
+            // Add left offset class
+            if (percentRightLeft < 20) {
+                $(".form-group.span-right#<?= e($formFields) ?>").addClass("span-position-far-right");
+            } else {
+                $(".form-group.span-right#<?= e($formFields) ?>").addClass("span-position-right");
             }
         }
 
