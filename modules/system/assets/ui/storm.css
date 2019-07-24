@@ -2963,6 +2963,7 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .hide-tabs .control-tabs ul.nav-tabs {display:none}
 .hide-tabs .control-tabs >div.tab-content >div.tab-pane {padding-top:0}
 .form-sidebar .control-tabs.secondary >div >ul.nav-tabs >li a {background:transparent}
+#cms-master-tabs .control-tabs >div.tab-content {padding:0}
 .control-chart {text-align:left}
 .control-chart div.canvas {display:inline-block;margin-right:20px;margin-bottom:20px;position:relative}
 .control-chart div.canvas span.center {position:absolute;display:block;text-align:center;width:100%;top:50%;margin-top:-21px;font-size:30px;font-weight:100;color:#666;z-index:9}
