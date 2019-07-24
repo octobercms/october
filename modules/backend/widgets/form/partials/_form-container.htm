@@ -53,6 +53,13 @@ $(function() {
 
     window.onresize = function() {
         clearTimeout(debounced);
+        debounced = setTimeout(resetColumns, 150);
+    };
+
+    /*
+     * Reset columns function
+     */
+    function resetColumns() {
         // Remove old third offset classes
         $(".form-group.span-third").removeClass("span-position-left");
         $(".form-group.span-third").removeClass("span-position-right");
@@ -67,7 +74,8 @@ $(function() {
         // Remove old right offset classes
         $(".form-group.span-right").removeClass("span-position-far-right");
         $(".form-group.span-right").removeClass("span-position-right");
-        debounced = setTimeout(resizeColumns, 150);
+        // Now the resize columns
+        resizeColumns();
     };
 
     /*
