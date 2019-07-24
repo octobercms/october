@@ -102,7 +102,6 @@
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
             $.oc.stripeLoadIndicator.hide()
         })
 
