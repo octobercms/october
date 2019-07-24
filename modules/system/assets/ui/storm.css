@@ -4274,7 +4274,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-buttons .pull-right {margin-right:0;margin-left:10px}
 .form-buttons.buttons-offset {padding-left:20px}
 body.slim-container .form-buttons {padding:0 20px 20px}
-@media (max-width:769px) {.form-group.span-left,.form-group.span-right {width:100%;clear:none }}
+@media (max-width:769px) {.form-group.span-left,.form-group.span-right {width:100%;margin:0 }}
 .select2-container--default .select2-selection--single .select2-selection__arrow b {border:none}
 .select2-dropdown {z-index:10400}
 [data-control=toolbar] .form-control {display:inline-block;margin-right:15px}
