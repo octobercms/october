@@ -5,6 +5,7 @@ use Lang;
 use Config;
 use October\Rain\Extension\Extendable;
 use BadMethodCallException;
+use Cache;
 
 /**
  * Component base class
@@ -37,6 +38,11 @@ abstract class ComponentBase extends Extendable
      * @var boolean Determines whether the component is hidden from the back-end UI.
      */
     public $isHidden = false;
+
+    /**
+     * @var int Determines if component should cache default partial in onRender hook. Uses minutes.
+     */
+    public $cacheTTL = null;
 
     /**
      * @var string Icon of the plugin that defines the component.
@@ -131,6 +137,11 @@ abstract class ComponentBase extends Extendable
      */
     public function onRender()
     {
+        if ($this->cacheTTL) {
+            return Cache::remember($this->getCacheKey(), now()->addMinutes($this->cacheTTL), function () {
+                return $this->renderPartial('@default');
+            });
+        }
     }
 
     /**
@@ -325,5 +336,13 @@ abstract class ComponentBase extends Extendable
     public function __toString()
     {
         return $this->alias;
+    }
+
+    /**
+     * Returns the component's cache key
+     */
+    public function getCacheKey()
+    {
+        return 'component::' . $this->dirName;
     }
 }
