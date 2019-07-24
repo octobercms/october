@@ -139,13 +139,19 @@
     }
 
     > div.tab-content {
+        padding: @padding-standard 0 0 0;
+
         > div.tab-pane {
-            padding: @padding-standard 0 0 0;
-            display: none;
+            /* Use opacity:0, height:0 and overflow:hidden do not change and use display none javascript needs to calculate the columns */
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
             .clearfix();
 
             &.active {
-                display: block;
+                /* Use opacity:1 and height:100% do not change use display block javascript needs to calculate the columns */				
+                opacity: 1;
+                height: 100%
 
                 &.layout-cell {
                    display: table-cell;
@@ -389,12 +395,6 @@
                     margin-right: 0;
                     padding-right: 0;
                 }
-            }
-        }
-
-        > div.tab-content {
-            > div.tab-pane {
-                padding-top: 15px;
             }
         }
     }

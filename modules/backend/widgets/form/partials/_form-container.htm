@@ -53,7 +53,7 @@ $(function() {
 
     window.onresize = function() {
         clearTimeout(debounced);
-        debounced = setTimeout(resetColumns, 150);
+        debounced = setTimeout(resetColumns, 100);
     };
 
     /*
@@ -166,7 +166,9 @@ $(function() {
     // Run the resize columns function for the first time
     resizeColumns();
 
-    /* Stretch for partial fields */
+    /*
+     * Stretch for partial fields
+     */
     var $textareaHeight = $(".form-group.partial-field .stretch").parent().outerHeight(),
         $textareaParentHeight = $(".form-group.partial-field .stretch").closest('.partial-field').parent().height(),
         $textareaParentContainer = $(".form-group.partial-field .stretch").closest('.stretch-parent').height();
