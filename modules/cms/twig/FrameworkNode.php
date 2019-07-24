@@ -38,7 +38,7 @@ class FrameworkNode extends TwigNode
                 .'/modules/backend/assets/js/vendor/jquery-migrate.min.js\" integrity=\"sha384-w5FBDpYZssTSnIDL59XH9TYLpEJ2dDP4RPhSPtJd2iLxUY5L8AATkjOsbM4Ohmax\" crossorigin=\"anonymous\"></script>'.PHP_EOL;" . PHP_EOL)
             ;
         }
-        elseif (strtolower(trim($attrib)) === 'jquery_optimized') {
+        elseif (strtolower(trim($attrib)) === 'jquery optimized') {
             $compiler
                 ->write("echo '<script src=\"'. Request::getBasePath()
                 .'/modules/backend/assets/js/vendor/jquery.min.js\" integrity=\"sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6\" crossorigin=\"anonymous\" importance=\"high\"></script>'.PHP_EOL;" . PHP_EOL)
@@ -80,7 +80,7 @@ class FrameworkNode extends TwigNode
                     .'/modules/system/assets/css/framework.extras'.(\$_minify ? '-min' : '').'.css\" as=\"style\" importance=\"low\">'.PHP_EOL;" . PHP_EOL)
             ;
         }
-        elseif (strtolower(trim($attrib)) === 'extras_optimized') {
+        elseif (strtolower(trim($attrib)) === 'extras optimized') {
             $compiler
                 ->write("if (\$_minify) {" . PHP_EOL)
                 ->indent()
