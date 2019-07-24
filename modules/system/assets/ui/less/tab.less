@@ -139,19 +139,13 @@
     }
 
     > div.tab-content {
-        padding: @padding-standard 0 0 0;
 
         > div.tab-pane {
-            /* Use opacity:0, height:0 and overflow:hidden do not change and use display:none javascript needs to calculate the columns */
-            opacity: 0;
-            height: 0;
-            overflow: hidden;
-            .clearfix();
+            display: none;
 
             &.active {
-                /* Use opacity:1 and height:100% do not change use display:block javascript needs to calculate the columns */				
-                opacity: 1;
-                height: 100%
+                padding: @padding-standard 0 0 0;
+                display: block;
 
                 &.layout-cell {
                    display: table-cell;
@@ -538,6 +532,86 @@
     &.control-tabs
         >div.tab-content {
             padding: 0;
+        }
+    }
+}
+
+#Form-primaryTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-secondaryTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-contentTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-masterTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
         }
     }
 }
