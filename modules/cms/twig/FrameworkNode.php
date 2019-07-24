@@ -30,15 +30,7 @@ class FrameworkNode extends TwigNode
             ->addDebugInfo($this)
             ->write("\$_minify = ".CombineAssets::class."::instance()->useMinify;" . PHP_EOL);
 
-        if (strtolower(trim($attrib)) === 'jquery') {
-            $compiler
-                ->write("echo '<script src=\"'. Request::getBasePath()
-                .'/modules/backend/assets/js/vendor/jquery.min.js\" integrity=\"sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6\" crossorigin=\"anonymous\"></script>'.PHP_EOL;" . PHP_EOL)
-                ->write("echo '<script src=\"'. Request::getBasePath()
-                .'/modules/backend/assets/js/vendor/jquery-migrate.min.js\" integrity=\"sha384-w5FBDpYZssTSnIDL59XH9TYLpEJ2dDP4RPhSPtJd2iLxUY5L8AATkjOsbM4Ohmax\" crossorigin=\"anonymous\"></script>'.PHP_EOL;" . PHP_EOL)
-            ;
-        }
-        elseif (strtolower(trim($attrib)) === 'extras') {
+        if (strtolower(trim($attrib)) === 'extras') {
             $compiler
                 ->write("if (\$_minify) {" . PHP_EOL)
                 ->indent()
