@@ -4194,12 +4194,12 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group,
 .form-group.layout-item {padding-bottom:20px !important;margin-bottom:0}
 .form-group.is-required >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
-.form-group.span-full {min-width:100%}
-.form-group.span-left {min-width:48.5%;margin-right: auto}
-.form-group.span-right {min-width:48.5%}
-.form-group.span-third {min-width:32%}
-.form-group.span-quarter {min-width:22.9%}
-.form-group.span-three-quarters {min-width:74.5%}
+.form-group.span-full {width:100%}
+.form-group.span-left {width:48.5%;margin-right: auto}
+.form-group.span-right {width:48.5%}
+.form-group.span-third {width:32%}
+.form-group.span-quarter {width:22.9%}
+.form-group.span-three-quarters {width:74.5%}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
 .form-group.number-field >.form-control {text-align:right}
@@ -4213,7 +4213,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
-div#Form-outsideTabs {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap}
+.stretch-parent .form-tabless-fields, .stretch-parent .tab-pane, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap}
 .span-position-left {margin-right:auto}
 .span-position-middle {margin:0 auto}
 .span-position-right {margin-left:auto}
