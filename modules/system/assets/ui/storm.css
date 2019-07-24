@@ -2825,6 +2825,12 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs >div >div >ul.nav-tabs >li.active:after {width:100%;height:3px;bottom:0;background:#d0d0d0}
 .control-tabs >div.tab-content {padding: 20px 0 0 0}
 .control-tabs >div.tab-content >div.tab-pane {opacity:0;height:0;overflow:hidden}
+.control-tabs >div.tab-content >div.tab-pane:before,
+.control-tabs >div.tab-content >div.tab-pane:after {content:" ";display:table}
+.control-tabs >div.tab-content >div.tab-pane:after {clear:both}
+.control-tabs >div.tab-content >div.tab-pane:before,
+.control-tabs >div.tab-content >div.tab-pane:after {content:" ";display:table}
+.control-tabs >div.tab-content >div.tab-pane:after {clear:both}
 .control-tabs >div.tab-content >div.tab-pane.active {opacity:1;height:100%}
 .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:table-cell}
 .control-tabs >div.tab-content >div.tab-pane.pane-compact {padding:0}
@@ -4158,6 +4164,18 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-preview .control-tabs.primary-tabs >ul.nav-tabs >li.active a:before,
 .form-preview .control-tabs.primary-tabs >div >ul.nav-tabs >li.active a:before,
 .form-preview .control-tabs.primary-tabs >div >div >ul.nav-tabs >li.active a:before {background-color:white}
+.form-elements:before,
+.form-tabless-fields:before,
+.form-elements:after,
+.form-tabless-fields:after {content:" ";display:table}
+.form-elements:after,
+.form-tabless-fields:after {clear:both}
+.form-elements:before,
+.form-tabless-fields:before,
+.form-elements:after,
+.form-tabless-fields:after {content:" ";display:table}
+.form-elements:after,
+.form-tabless-fields:after {clear:both}
 .form-control {position:relative;-webkit-appearance:none;border:1px solid #d1d6d9;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5)}
 .form-control:focus {border:1px solid #d1d6d9}
 .form-control.icon {background-repeat:no-repeat;background-position:right -2px;padding-right:30px !important;background-image:url('images/bitmap-icons.png')}
