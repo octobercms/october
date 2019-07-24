@@ -138,41 +138,28 @@
     }
 
     &.span-full {
-        width: 100%;
-        float: left;
+        min-width: 100%;
     }
 
     &.span-left {
-        float: left;
-        width: 48.5%;
-        clear: left;
+        min-width: 48.5%;
+        margin-right: auto;
     }
 
     &.span-right {
-        float: right;
-        width: 48.5%;
-        clear: right;
+        min-width: 48.5%;
     }
 
     &.span-third {
-        position: relative;
-        float: left;
-        width: 32%;
-        clear: right;
+        min-width: 32%;
     }
 
     &.span-quarter {
-        position: relative;
-        float: left;
-        width: 23.5%;
-        clear: right;
+        min-width: 22.9%;
     }
 
     &.span-three-quarters {
-        position: relative;
-        float: left;
-        width: 74.5%;
-        clear: right;
+        min-width: 74.5%;
     }
 
     &.layout-relative {
@@ -229,35 +216,39 @@
     }
 }
 
-.span-position-left {
-    margin-right: 1%;
-}
-.span-position-middle {
-    margin: 0 1%;
-}
-.span-position-right {
-    margin-left: 1%;
-    float: right !important;
+div#Form-outsideTabs {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: justify;
+     -ms-flex-pack: justify;
+     justify-content: space-between;
+     -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
 }
 
-@media (max-width: 769px) {
-    .span-third {
-        width: 100% !important;
+ .span-position-left {
+     margin-right: auto;
+}
+ .span-position-middle {
+     margin: 0 auto;
+}
+ .span-position-right {
+     margin-left: auto;
+}
+ .span-position-far-right {
+     margin-left: 51.5%;
+}
+
+ @media (max-width: 769px) {
+     .span-third {
+         width: 100% !important;
     }
-    .span-quarter {
-        width: 100% !important;
+     .span-quarter {
+         width: 100% !important;
     }
-    .span-three-quarters {
-        width: 100% !important;
-    }
-    .span-position-left {
-        margin: 0 !important;
-    }
-    .span-position-middle {
-        margin: 0 !important;
-    }
-    .span-position-right {
-        margin: 0 !important;
+     .span-three-quarters {
+         width: 100% !important;
     }
 }
 
