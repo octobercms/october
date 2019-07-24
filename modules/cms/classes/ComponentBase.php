@@ -40,7 +40,7 @@ abstract class ComponentBase extends Extendable
     public $isHidden = false;
 
     /**
-     * @var int Determines if component should cache default partial in onRender hook. Uses minutes.
+     * @var int Determines if component should cache default partial in onRender hook. Supports seconds or datetime.
      */
     public $cacheTTL = null;
 
@@ -138,7 +138,7 @@ abstract class ComponentBase extends Extendable
     public function onRender()
     {
         if ($this->cacheTTL) {
-            return Cache::remember($this->getCacheKey(), now()->addMinutes($this->cacheTTL), function () {
+            return Cache::remember($this->getCacheKey(), $this->cacheTTL, function () {
                 return $this->renderPartial('@default');
             });
         }
@@ -343,6 +343,6 @@ abstract class ComponentBase extends Extendable
      */
     public function getCacheKey()
     {
-        return 'component::' . $this->dirName;
+        return 'component::' . $this->dirName . $this->alias . $this->name;
     }
 }
