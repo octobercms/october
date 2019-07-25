@@ -344,6 +344,6 @@ abstract class ComponentBase extends Extendable
      */
     public function getCacheKey()
     {
-        return 'component::' . $this->dirName . $this->alias . $this->name;
+        return 'component::' . $this->dirName . '-' . $this->page->getFilePath() . '-' . $this->alias;
     }
 }
