@@ -170,7 +170,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['language'] = $this->language;
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
-        $this->vars['grow'] = $this->formField->grow;	
+        $this->vars['grow'] = $this->formField->grow;
         $this->vars['size'] = $this->formField->size;
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['autocompletion'] = $this->autocompletion;

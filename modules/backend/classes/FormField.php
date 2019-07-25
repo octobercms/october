@@ -120,11 +120,11 @@ class FormField
      * @var bool Specifies if this field stretch to fit the page height.
      */
     public $stretch = false;
-	
+
     /**
      * @var bool Specifies if this field can have auto height based on content.
      */
-    public $grow = false;	
+    public $grow = false;
 
     /**
      * @var string Specifies a comment to accompany the field
@@ -288,7 +288,7 @@ class FormField
             'disabled',
             'cssClass',
             'stretch',
-            'grow',			
+            'grow',
             'context',
             'hidden',
             'trigger',
