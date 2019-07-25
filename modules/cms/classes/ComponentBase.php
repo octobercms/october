@@ -40,7 +40,7 @@ abstract class ComponentBase extends Extendable
     public $isHidden = false;
 
     /**
-     * @var int Determines if component should cache default partial in onRender hook. Supports seconds or datetime.
+     * @var integer|DateTime Determines if component should cache default partial in onRender hook. Supports seconds or datetime.
      */
     public $cacheTTL = null;
 
