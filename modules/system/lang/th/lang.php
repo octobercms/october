@@ -155,7 +155,6 @@ return [
     'settings' => [
         'menu_label' => 'การตั้งค่า',
         'not_found' => 'ไม่พบค่าที่กำหนด',
-        'missing_model' => 'The settings page is missing a Model definition.',
         'update_success' => ':name อัพเดทการตั้งค่าแล้ว',
         'return' => 'กลับสู่หน้าการตั้งค่าระบบ',
         'search' => 'ค้นหา',

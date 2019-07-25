@@ -92,7 +92,6 @@ return [
         ],
         'editor' => [
             'title' => 'ตัวแก้ไขซอร์สโค้ด',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
             'openWith' => 'เปิดด้วย',
             'remember_choice' => 'จำตัวเลือกที่เลือกไว้',
             'open' => 'เปิด',
