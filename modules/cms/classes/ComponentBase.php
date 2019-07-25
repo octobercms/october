@@ -138,7 +138,8 @@ abstract class ComponentBase extends Extendable
     public function onRender()
     {
         if ($this->cacheTTL) {
-            return Cache::remember($this->getCacheKey(), $this->cacheTTL, function () {
+            $expires = is_integer($this->cacheTTL) ? now()->addSeconds($this->cacheTTL) : $this->cacheTTL;
+            return Cache::remember($this->getCacheKey(), $expires, function () {
                 return $this->renderPartial('@default');
             });
         }
