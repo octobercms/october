@@ -25,7 +25,7 @@
         // State properties
         //
 
-        this.focusTimeoutHandler = this.onFocusTimeout.bind(this)
+        this.focusTimeoutHandler = this.onFocusTimeout.on(this)
 
         //
         // Parent constructor

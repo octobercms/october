@@ -594,10 +594,10 @@ var TabstopManager = function(editor) {
     if (editor.tabstopManager)
         return editor.tabstopManager;
     editor.tabstopManager = this;
-    this.$onChange = this.onChange.bind(this);
-    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.bind(this)).schedule;
-    this.$onChangeSession = this.onChangeSession.bind(this);
-    this.$onAfterExec = this.onAfterExec.bind(this);
+    this.$onChange = this.onChange.on(this);
+    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.on(this)).schedule;
+    this.$onChangeSession = this.onChangeSession.on(this);
+    this.$onAfterExec = this.onAfterExec.on(this);
     this.attach(editor);
 };
 (function() {
@@ -1271,9 +1271,9 @@ exports.getCompletionPrefix = function (editor) {
             completer.identifierRegexps.forEach(function(identifierRegex) {
                 if (!prefix && identifierRegex)
                     prefix = this.retrievePrecedingIdentifier(line, pos.column, identifierRegex);
-            }.bind(this));
+            }.on(this));
         }
-    }.bind(this));
+    }.on(this));
     return prefix || this.retrievePrecedingIdentifier(line, pos.column);
 };
 
@@ -1298,16 +1298,16 @@ var Autocomplete = function() {
     this.keyboardHandler = new HashHandler();
     this.keyboardHandler.bindKeys(this.commands);
 
-    this.blurListener = this.blurListener.bind(this);
-    this.changeListener = this.changeListener.bind(this);
-    this.mousedownListener = this.mousedownListener.bind(this);
-    this.mousewheelListener = this.mousewheelListener.bind(this);
+    this.blurListener = this.blurListener.on(this);
+    this.changeListener = this.changeListener.on(this);
+    this.mousedownListener = this.mousedownListener.on(this);
+    this.mousewheelListener = this.mousewheelListener.on(this);
 
     this.changeTimer = lang.delayedCall(function() {
         this.updateCompletions(true);
-    }.bind(this));
+    }.on(this));
 
-    this.tooltipTimer = lang.delayedCall(this.updateDocTooltip.bind(this), 50);
+    this.tooltipTimer = lang.delayedCall(this.updateDocTooltip.on(this), 50);
 };
 
 (function() {
@@ -1317,11 +1317,11 @@ var Autocomplete = function() {
         this.popup.on("click", function(e) {
             this.insertMatch();
             e.stop();
-        }.bind(this));
-        this.popup.focus = this.editor.focus.bind(this.editor);
-        this.popup.on("show", this.tooltipTimer.bind(null, null));
-        this.popup.on("select", this.tooltipTimer.bind(null, null));
-        this.popup.on("changeHoverMarker", this.tooltipTimer.bind(null, null));
+        }.on(this));
+        this.popup.focus = this.editor.focus.on(this.editor);
+        this.popup.on("show", this.tooltipTimer.on(null, null));
+        this.popup.on("select", this.tooltipTimer.on(null, null));
+        this.popup.on("changeHoverMarker", this.tooltipTimer.on(null, null));
         return this.popup;
     };
 
@@ -1542,7 +1542,7 @@ var Autocomplete = function() {
             var detachIfFinished = function() {
                 if (!results.finished) return;
                 return this.detach();
-            }.bind(this);
+            }.on(this);
 
             var prefix = results.prefix;
             var matches = results && results.matches;
@@ -1567,7 +1567,7 @@ var Autocomplete = function() {
                 return this.insertMatch(filtered[0]);
 
             this.openPopup(this.editor, prefix, keepPopupPosition);
-        }.bind(this));
+        }.on(this));
     };
 
     this.cancelContextMenu = function() {
@@ -1603,7 +1603,7 @@ var Autocomplete = function() {
             this.tooltipNode.style.margin = 0;
             this.tooltipNode.style.pointerEvents = "auto";
             this.tooltipNode.tabIndex = -1;
-            this.tooltipNode.onblur = this.blurListener.bind(this);
+            this.tooltipNode.onblur = this.blurListener.on(this);
         }
 
         var tooltipNode = this.tooltipNode;

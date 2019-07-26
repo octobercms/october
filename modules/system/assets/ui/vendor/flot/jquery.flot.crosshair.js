@@ -40,7 +40,7 @@ The plugin also adds four public methods:
     Example usage:
 
 	var myFlot = $.plot( $("#graph"), ..., { crosshair: { mode: "x" } } };
-	$("#graph").bind( "plothover", function ( evt, position, item ) {
+	$("#graph").on( "plothover", function ( evt, position, item ) {
 		if ( item ) {
 			// Lock the crosshair to the data point being hovered
 			myFlot.lockCrosshair({

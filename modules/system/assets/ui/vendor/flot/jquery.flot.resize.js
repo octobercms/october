@@ -49,7 +49,7 @@ can just fix the size of their placeholders.
         function bindEvents(plot, eventHolder) {
             //plot.getPlaceholder().resize(onResize);
 
-            $(window).bind('resize', onResize)
+            $(window).on('resize', onResize)
         }
 
         function shutdown(plot, eventHolder) {

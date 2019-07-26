@@ -883,7 +883,7 @@
         }).addClass('ord-'+ord);
 
         if (Touch.support) {
-          jq.bind('touchstart.jcrop', Touch.createDragger(ord));
+          jq.on('touchstart.jcrop', Touch.createDragger(ord));
         }
 
         $hdl_holder.append(jq);
@@ -1087,7 +1087,7 @@
       // Hack OctoberCMS - the event handler was moved to the Touch module.
       // The closure used before was handling a reference to the target object,
       // preventing it from removing from DOM after the control is destroyed.
-      $(document).bind('touchstart.jcrop-ios', Touch.fixTouchSupport);
+      $(document).on('touchstart.jcrop-ios', Touch.fixTouchSupport);
 
       var $track = newTracker().mousedown(createDragger('move')).css({
         cursor: 'move',
@@ -1096,7 +1096,7 @@
       });
 
       if (Touch.support) {
-        $track.bind('touchstart.jcrop', Touch.createDragger('move'));
+        $track.on('touchstart.jcrop', Touch.createDragger('move'));
       }
 
       $img_holder.append($track);
@@ -1140,13 +1140,13 @@
 
         if (touch)
           $(document)
-            .bind('touchmove.jcrop', trackTouchMove)
-            .bind('touchend.jcrop', trackTouchEnd);
+            .on('touchmove.jcrop', trackTouchMove)
+            .on('touchend.jcrop', trackTouchEnd);
 
         else if (trackDoc)
           $(document)
-            .bind('mousemove.jcrop',trackMove)
-            .bind('mouseup.jcrop',trackUp);
+            .on('mousemove.jcrop',trackMove)
+            .on('mouseup.jcrop',trackUp);
       } 
       //}}}
       function toBack() //{{{
@@ -1539,7 +1539,7 @@
     //}}}
     //}}}
 
-    if (Touch.support) $trk.bind('touchstart.jcrop', Touch.newSelection);
+    if (Touch.support) $trk.on('touchstart.jcrop', Touch.newSelection);
 
     $hdl_holder.hide();
     interfaceUpdate(true);
@@ -1581,7 +1581,7 @@
       }
     };
 
-    if (is_msie) $div.bind('selectstart', function () { return false; });
+    if (is_msie) $div.on('selectstart', function () { return false; });
 
     $origimg.data('Jcrop', api);
     return api;
@@ -1632,8 +1632,8 @@
     }
 
     $img
-      .bind('load.jcloader',completeCheck)
-      .bind('error.jcloader',function(e){
+      .on('load.jcloader',completeCheck)
+      .on('error.jcloader',function(e){
         $img.unbind('.jcloader');
         if ($.isFunction(error)) error.call(img);
       });
