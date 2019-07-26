@@ -20,7 +20,7 @@ Licensed under the MIT license.
  *
  *   $.color.parse("#fff").scale('rgb', 0.25).add('a', -0.5).toString()
  *   var c = $.color.extract($("#mydiv"), 'background-color');
- *   console.log(c.r, c.g, c.b, c.a);
+ *   console.log(c.r, c.g, c.b, c.a);c
  *   $.color.make(100, 50, 25, 0.4).toString() // returns "rgba(100,50,25,0.4)"
  *
  * Note that .scale() and .add() return the same modified object
@@ -1295,7 +1295,7 @@ Licensed under the MIT license.
             }
 
             if (options.grid.clickable)
-                eventHolder.click(onClick);
+                eventHolder.on("click", onClick);
 
             executeHooks(hooks.bindEvents, [eventHolder]);
         }
