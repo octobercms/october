@@ -2,7 +2,7 @@
     <ul>
         <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
         <li><a href="<?= Backend::url('backend/userroles') ?>"><?= e(trans('backend::lang.user.role.menu_label')) ?></a></li>
-        <li aria-current="page"><?= e(trans($this->pageTitle)) ?></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
 
