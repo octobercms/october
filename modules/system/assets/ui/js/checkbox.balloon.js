@@ -15,7 +15,7 @@
         this.options = options || {};
 
         var self = this;
-        $('li', this.$el).click(function(){
+        $('li', this.$el).on("click", function(){
             if (self.$el.hasClass('control-disabled')) {
                 return
             }
