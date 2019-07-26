@@ -10,7 +10,7 @@
 
     UpdateDetails.prototype.init = function() {
 
-        $(function() {
+        $(document).ready(function() {
             $('.plugin-details-content pre').addClass('prettyprint')
             prettyPrint()
         })

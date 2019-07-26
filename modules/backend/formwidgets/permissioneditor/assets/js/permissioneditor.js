@@ -66,7 +66,7 @@
     // INITIALIZATION
     // ============================
 
-    $(function() {
+    $(document).ready(function(){
         new PermissionEditor()
     })
 

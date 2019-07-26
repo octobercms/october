@@ -21,7 +21,7 @@
     CmsPage.prototype.constructor = CmsPage
 
     CmsPage.prototype.init = function() {
-        $(this.proxy(this.registerHandlers))
+        $(document).ready(this.proxy(this.registerHandlers))
     }
 
     CmsPage.prototype.updateTemplateList = function(type) {

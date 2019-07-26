@@ -130,7 +130,7 @@
                             .append($('<div />').addClass('stripe-loaded'))
         this.stripe = this.indicator.find('.stripe')
 
-        $(function() {
+        $(document).ready(function() {
             $(document.body).append(self.indicator)
         })
     }

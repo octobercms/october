@@ -70,7 +70,7 @@
 
     $.oc.layout = new OctoberLayout()
 
-    $(function() {
+    $(document).ready(function(){
         $.oc.layout.updateLayout()
 
         window.setTimeout($.oc.layout.updateLayout, 100)

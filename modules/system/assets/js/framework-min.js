@@ -139,6 +139,6 @@ self.lastDataTrackInputRequest=$(self).request();},interval)})
 $(document).on('submit','[data-request]',function documentOnSubmit(){$(this).request()
 return false})
 $(window).on('beforeunload',function documentOnBeforeUnload(){window.ocUnloading=true})
-$(function triggerRenderOnReady() {$(document).trigger('render')})
+$(document).ready(function triggerRenderOnReady(){$(document).trigger('render')})
 $(window).on('ajaxUpdateComplete',function triggerRenderOnAjaxUpdateComplete(){$(document).trigger('render')})
 $.fn.render=function(callback){$(document).on('render',callback)}}(window.jQuery);
