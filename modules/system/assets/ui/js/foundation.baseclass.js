@@ -71,7 +71,7 @@
         if (this.proxiedMethods[method.ocProxyId] !== undefined)
             return this.proxiedMethods[method.ocProxyId]
 
-        this.proxiedMethods[method.ocProxyId] = method.bind(this)
+        this.proxiedMethods[method.ocProxyId] = method.on(this)
         return this.proxiedMethods[method.ocProxyId]
     }
 

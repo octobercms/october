@@ -144,7 +144,7 @@
         })
 
         this.docClickHandler = $.proxy(this.onDocumentClick, this)
-        $(document).bind('mousedown', this.docClickHandler);
+        $(document)on('mousedown', this.docClickHandler);
 
         if (this.options.closeOnEsc) {
             $(document).on('keyup.oc.popover', function(e){
