@@ -1154,7 +1154,7 @@
         $trk.css({
           zIndex: 290
         });
-        $(document).unbind('.jcrop');
+        $(document).off('.jcrop');
       } 
       //}}}
       function trackMove(e) //{{{
@@ -1429,7 +1429,7 @@
     //}}}
     function destroy() //{{{
     {
-      $(document).unbind('touchstart.jcrop-ios', Touch.fixTouchSupport);
+      $(document).off('touchstart.jcrop-ios', Touch.fixTouchSupport);
       $div.remove();
       $origimg.show();
       $origimg.css('visibility','visible');
@@ -1625,7 +1625,7 @@
 
     function completeCheck(){
       if (img.complete) {
-        $img.unbind('.jcloader');
+        $img.off('.jcloader');
         if ($.isFunction(success)) success.call(img);
       }
       else window.setTimeout(completeCheck,50);
@@ -1634,12 +1634,12 @@
     $img
       .bind('load.jcloader',completeCheck)
       .bind('error.jcloader',function(e){
-        $img.unbind('.jcloader');
+        $img.off('.jcloader');
         if ($.isFunction(error)) error.call(img);
       });
 
     if (img.complete && $.isFunction(success)){
-      $img.unbind('.jcloader');
+      $img.off('.jcloader');
       success.call(img);
     }
   };

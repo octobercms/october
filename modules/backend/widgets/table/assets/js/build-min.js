@@ -59,7 +59,7 @@ this.el.removeEventListener('keydown',this.keydownHandler);this.keydownHandler=n
 var toolbar=this.getToolbar()
 if(toolbar)
 toolbar.removeEventListener('click',this.toolbarClickHandler);this.toolbarClickHandler=null
-if(this.formSubmitHandler){this.$el.closest('form').unbind('oc.beforeRequest',this.formSubmitHandler)
+if(this.formSubmitHandler){this.$el.closest('form').off('oc.beforeRequest',this.formSubmitHandler)
 this.formSubmitHandler=null}}
 Table.prototype.initCellProcessors=function(){for(var i=0,len=this.options.columns.length;i<len;i++){var columnConfiguration=this.options.columns[i],column=columnConfiguration.key,columnType=columnConfiguration.type
 if(columnType===undefined){columnType='string'

@@ -53,7 +53,7 @@
         this.$el.data('oc.popover', null)
         $(document.body).removeClass('popover-open')
 
-        $(document).unbind('mousedown', this.docClickHandler);
+        $(document).off('mousedown', this.docClickHandler);
         $(document).off('.oc.popover')
 
         this.docClickHandler = null
