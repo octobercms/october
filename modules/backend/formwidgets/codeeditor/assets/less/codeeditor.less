@@ -26,6 +26,18 @@
         font-size: 14px;
         color: @text-color;
         z-index: @zindex-form + 3;
+
+        .ace_search_form.ace_nomatch {
+            outline: none !important;
+
+            .ace_search_field {
+                border: .0625rem solid red;
+                -webkit-box-shadow: 0 0 .1875rem .125rem red;
+                box-shadow: 0 0 .1875rem .125rem red;
+                z-index: 1;
+                position: relative;
+            }
+        }
     }
 
     .editor-code {
@@ -122,6 +134,6 @@
 
 }
 
-#cms-master-tabs .field-codeeditor .editor-toolbar > ul  > li  > a { 
-    color: @color_3; 
-} 
+#cms-master-tabs .field-codeeditor .editor-toolbar > ul  > li  > a {
+    color: @color_3;
+}
