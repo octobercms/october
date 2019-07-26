@@ -402,6 +402,7 @@ address {margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .w-lg {width:75% !important}
 .w-full {width:100% !important}
 .w-50 {width:50px !important}
+
 .w-100 {width:100px !important}
 .w-120 {width:120px !important}
 .w-130 {width:130px !important}
@@ -490,6 +491,7 @@ fieldset[disabled] .btn {cursor:not-allowed;pointer-events:none;opacity:0.65;fil
 .btn-default[disabled]:hover,
 .btn-default.disabled:focus,
 .btn-default[disabled]:focus,
+
 .btn-default.disabled:active,
 .btn-default[disabled]:active,
 .btn-default.disabled.active,
@@ -2208,6 +2210,7 @@ input[type="button"].btn-block {width:100%}
 .oc-icon-hand-lizard-o:before,
 .icon-hand-lizard-o:before {content:"\f258"}
 .oc-icon-hand-spock-o:before,
+
 .icon-hand-spock-o:before {content:"\f259"}
 .oc-icon-hand-pointer-o:before,
 .icon-hand-pointer-o:before {content:"\f25a"}
@@ -4243,7 +4246,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {margin-top:0}
 .field-recordfinder {background-color:#fff;border:1px solid #d1d6d9;overflow:hidden;position:relative;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-recordfinder .form-control {background:transparent;border-color:transparent;height:auto;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding:7px 30px 7px 11px;-webkit-box-shadow:none;box-shadow:none}
-.field-recordfinder .btn {background:transparent;position:absolute;right:-2px;top:50%;margin-top:-43px;height:88px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px}
+.field-recordfinder .btn {background:transparent;position:absolute;right:1px;top:1px;height:36px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px;-webkit-box-shadow:none;box-shadow:none}
 .field-recordfinder .btn.clear-record {right:30px;margin-top:-44px}
 .field-recordfinder .btn i {font-size:14px}
 .field-recordfinder .btn:hover {color:#333}
@@ -4403,6 +4406,7 @@ table th[class*="col-"] {position:static;float:none;display:table-cell}
 .table-hover >tbody >tr.danger:hover >th {background-color:#ebcccc}
 @media (max-width:767px) {.table-responsive {width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:scroll;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch }.table-responsive >.table {margin-bottom:0 }.table-responsive >.table >thead >tr >th,.table-responsive >.table >tbody >tr >th,.table-responsive >.table >tfoot >tr >th,.table-responsive >.table >thead >tr >td,.table-responsive >.table >tbody >tr >td,.table-responsive >.table >tfoot >tr >td {white-space:nowrap }.table-responsive >.table-bordered {border:0 }.table-responsive >.table-bordered >thead >tr >th:first-child,.table-responsive >.table-bordered >tbody >tr >th:first-child,.table-responsive >.table-bordered >tfoot >tr >th:first-child,.table-responsive >.table-bordered >thead >tr >td:first-child,.table-responsive >.table-bordered >tbody >tr >td:first-child,.table-responsive >.table-bordered >tfoot >tr >td:first-child {border-left:0 }.table-responsive >.table-bordered >thead >tr >th:last-child,.table-responsive >.table-bordered >tbody >tr >th:last-child,.table-responsive >.table-bordered >tfoot >tr >th:last-child,.table-responsive >.table-bordered >thead >tr >td:last-child,.table-responsive >.table-bordered >tbody >tr >td:last-child,.table-responsive >.table-bordered >tfoot >tr >td:last-child {border-right:0 }.table-responsive >.table-bordered >tbody >tr:last-child >th,.table-responsive >.table-bordered >tfoot >tr:last-child >th,.table-responsive >.table-bordered >tbody >tr:last-child >td,.table-responsive >.table-bordered >tfoot >tr:last-child >td {border-bottom:0 }}
 table.table.data {font-size:13px;border-bottom:1px solid #d4d8da}
+
 table.table.data.no-offset-bottom {margin-bottom:0 !important}
 table.table.data thead {background:#fff}
 table.table.data thead td,
