@@ -37,8 +37,12 @@ float: left;\
 margin-bottom: 4px;\
 overflow: hidden;\
 }\
-.ace_search_form.ace_nomatch {\
-outline: 1px solid red;\
+.ace_search_form.ace_nomatch input.ace_search_field {\
+border: .0625rem solid red;\
+-webkit-box-shadow: 0 0 .1875rem .125rem red;\
+box-shadow: 0 0 .1875rem .125rem red;\
+z-index: 1;\
+position: relative;\
 }\
 .ace_search_field {\
 background-color: white;\
