@@ -162,7 +162,7 @@
     // FILELIST DATA-API
     // ===============
 
-    $(document).ready(function () {
+    $(function() {
         $('[data-control=filelist]').fileList()
     })
 
