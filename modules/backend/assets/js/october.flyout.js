@@ -218,7 +218,7 @@
 
     // Currently flyouts don't use the document render event
     // and can't be created dynamically (performance considerations).
-    $(document).ready(function(){
+    $(function() {
         $('div[data-control=flyout]').flyout()
     })
 }(window.jQuery);
