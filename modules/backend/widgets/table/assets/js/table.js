@@ -174,7 +174,7 @@
         this.toolbarClickHandler = null
 
         if (this.formSubmitHandler) {
-            this.$el.closest('form').unbind('oc.beforeRequest', this.formSubmitHandler)
+            this.$el.closest('form').off('oc.beforeRequest', this.formSubmitHandler)
             this.formSubmitHandler = null
         }
     }

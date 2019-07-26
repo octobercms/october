@@ -53,8 +53,8 @@ can just fix the size of their placeholders.
         }
 
         function shutdown(plot, eventHolder) {
-            //plot.getPlaceholder().unbind("resize", onResize);
-            $(window).unbind('resize', onResize)
+            //plot.getPlaceholder().off("resize", onResize);
+            $(window).off('resize', onResize)
         }
         
         plot.hooks.bindEvents.push(bindEvents);

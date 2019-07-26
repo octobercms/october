@@ -46,7 +46,7 @@
     }
 
     TreeListWidget.prototype.dispose = function() {
-        this.unbind()
+        this.off()
         BaseProto.dispose.call(this)
     }
 

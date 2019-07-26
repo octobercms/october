@@ -335,11 +335,11 @@ The plugin allso adds the following methods to the plot object:
         });
         
         plot.hooks.shutdown.push(function (plot, eventHolder) {
-            eventHolder.unbind("mousemove", onMouseMove);
-            eventHolder.unbind("mousedown", onMouseDown);
+            eventHolder.off("mousemove", onMouseMove);
+            eventHolder.off("mousedown", onMouseDown);
             
             if (mouseUpHandler)
-                $(document).unbind("mouseup", mouseUpHandler);
+                $(document).off("mouseup", mouseUpHandler);
         });
 
     }

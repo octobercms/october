@@ -162,8 +162,8 @@ The plugin also adds four public methods:
         });
 
         plot.hooks.shutdown.push(function (plot, eventHolder) {
-            eventHolder.unbind("mouseout", onMouseOut);
-            eventHolder.unbind("mousemove", onMouseMove);
+            eventHolder.off("mouseout", onMouseOut);
+            eventHolder.off("mousemove", onMouseMove);
         });
     }
     
