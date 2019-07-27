@@ -63,7 +63,7 @@
     this.$body.addClass('modal-open')
 
     this.escape()
-    this.resize()
+    this.trigger('resize')
 
     this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
 
@@ -118,7 +118,7 @@
     this.isShown = false
 
     this.escape()
-    this.resize()
+    this.trigger('resize')
 
     $(document).off('focusin.bs.modal')
 
@@ -158,13 +158,13 @@
     }
   }
 
-  Modal.prototype.resize = function () {
+  Modal.prototype.on('resize', function() {
     if (this.isShown) {
       $(window).on('resize.bs.modal', $.proxy(this.handleUpdate, this))
     } else {
       $(window).off('resize.bs.modal')
     }
-  }
+  })
 
   Modal.prototype.hideModal = function () {
     var that = this

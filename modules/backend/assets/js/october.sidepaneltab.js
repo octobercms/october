@@ -89,7 +89,7 @@
                 clearTimeout(self.tabOpenTimeout)
             })
 
-            $(window).resize(function() {
+            $(window).on('resize', function() {
                 self.updatePanelPosition()
                 self.updateActiveTab()
             })

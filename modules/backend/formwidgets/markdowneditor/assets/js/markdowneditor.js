@@ -156,7 +156,7 @@
     }
 
     MarkdownEditor.prototype.onResize = function() {
-        this.editor.resize()
+        this.editor.trigger('resize')
     }
 
     MarkdownEditor.prototype.onBlur = function() {
@@ -353,7 +353,7 @@
         editor.renderer.setScrollMargin(this.editorPadding, this.editorPadding, 0, 0)
 
         setTimeout(function() {
-            editor.resize()
+            editor.trigger('resize')
         }, 100)
     }
 
@@ -488,7 +488,7 @@
             $('body, html').css('overflow', '')
 
             $(window).off('resize', this.proxy(this.updateFullscreen))
-            this.editor.resize()
+            this.editor.trigger('resize')
         }
 
         $(window).trigger('oc.updateUi')
@@ -503,7 +503,7 @@
 
         this.$preview.css(fullscreenCss)
         this.$write.css(fullscreenCss)
-        this.editor.resize()
+        this.editor.trigger('resize')
     }
 
     //
