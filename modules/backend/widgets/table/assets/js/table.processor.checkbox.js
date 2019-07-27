@@ -68,7 +68,7 @@
      * for all processors.
      */
     CheckboxProcessor.prototype.onKeyDown = function(ev) {
-        if (ev.keyCode == 32)
+        if (ev.key === '(Space character)' || ev.key === 'Spacebar' || ev.key === ' ')
             this.onClick(ev)
     }
 

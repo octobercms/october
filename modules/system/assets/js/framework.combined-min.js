@@ -117,7 +117,7 @@ $(document).on('click','a[data-request], button[data-request], input[type=button
 $(this).request()
 if($(this).is('[type=submit]'))
 return false})
-$(document).on('keydown','input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]',function documentOnKeydown(e){if(e.keyCode==13){if(this.dataTrackInputTimer!==undefined)
+$(document).on('keydown','input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]',function documentOnKeydown(e){if(e.key==='Enter'){if(this.dataTrackInputTimer!==undefined)
 window.clearTimeout(this.dataTrackInputTimer)
 $(this).request()
 return false}})

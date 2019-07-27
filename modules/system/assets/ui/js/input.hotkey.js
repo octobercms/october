@@ -149,11 +149,11 @@
         for (var i = 0, len = this.keyConditions.length; i < len; i++) {
             var condition = this.keyConditions[i]
 
-            if (ev.which == condition.specific
-                && ev.originalEvent.shiftKey == condition.shift
-                && ev.originalEvent.ctrlKey == condition.ctrl
-                && ev.originalEvent.metaKey == condition.cmd
-                && ev.originalEvent.altKey == condition.alt) {
+            if (ev.key === condition.specific
+                && ev.originalEvent.shiftKey === condition.shift
+                && ev.originalEvent.ctrlKey === condition.ctrl
+                && ev.originalEvent.metaKey === condition.cmd
+                && ev.originalEvent.altKey === condition.alt) {
                 return true
             }
         }
