@@ -89,3 +89,14 @@
         </ul>
     </div>
 </nav>
+
+<script>
+/* Hide any blank menu items */
+$(function() {
+    $('.mainmenu-nav a').each(function(){    
+        if (!$(this).attr('href')) {
+            $(this).parent().css("display", "none");
+        }
+    });
+});
+</script>
