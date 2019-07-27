@@ -633,7 +633,7 @@ body.compact-container .layout.layout-container,
 body.compact-container .layout .layout-container {padding:0 !important}
 body.slim-container .layout.layout-container,
 body.slim-container .layout .layout-container {padding-left:0 !important;padding-right:0 !important}
-.backend-container {display:flex;flex-direction:column;height:100%;width:100%}
+.backend-container {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;height:100%;width:100%}
 .content-cont {display:block;height:100%;width:100%}
 div#layout-body {overflow:hidden}
 @media (max-width:768px) {.layout .hide-on-small {display:none }.layout.responsive-sidebar >.layout-cell:first-child {display:table-footer-group;height:auto }.layout.responsive-sidebar >.layout-cell:first-child .control-breadcrumb {display:none }.layout.responsive-sidebar >.layout-cell:last-child {display:table-header-group;width:auto;height:auto }.layout.responsive-sidebar >.layout-cell:last-child .layout-absolute {position:static }}
