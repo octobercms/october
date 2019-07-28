@@ -93,4 +93,5 @@
 =require js/inspector.validator.length.js
 =require js/inspector.externalparametereditor.js
 =require js/list.sortable.js
+=require js/waiaria.js
 */
