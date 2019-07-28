@@ -19,8 +19,9 @@
                 name="<?= $field->getName() ?>"
                 value="<?= e($value) ?>"
                 type="radio"
-                <?= $field->isSelected($value) ? 'checked="checked"' : '' ?>
-                <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
+                role="radio"
+                <?= $field->isSelected($value) ? 'tabindex="0" aria-checked="true" checked="checked"' : '' ?>
+                <?= $this->previewMode ? 'tabindex="-1" aria-checked="false" disabled="disabled"' : '' ?>
                 <?= $field->getAttributes() ?>>
 
             <label for="<?= $fieldId ?>">

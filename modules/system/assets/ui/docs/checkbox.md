@@ -11,17 +11,19 @@ Allows a user to select from a small set of binary options.
 
 ### Radio
 
-    <div class="radio custom-radio">
-        <input name="radio" value="1" type="radio" id="radio_1" />
-        <label for="radio_1">Paris</label>
-    </div>
-    <div class="radio custom-radio">
-        <input checked="checked" name="radio" value="2" type="radio" id="radio_2" />
-        <label for="radio_2">Dubai</label>
-    </div>
-    <div class="radio custom-radio">
-        <input name="radio" value="3" type="radio" id="radio_3" />
-        <label for="radio_3">New Zealand</label>
+    <div class="radio-field" role="radiogroup" aria-labelledby="Radio button group">
+        <div class="radio custom-radio">
+            <input name="radio" value="1" type="radio" role="radio" tabindex="-1" id="radio_1" aria-checked="false" />
+            <label for="radio_1">Paris</label>
+        </div>
+        <div class="radio custom-radio">
+            <input name="radio" value="2" type="radio" role="radio" tabindex="0" id="radio_2" aria-checked="true" checked="checked" />
+            <label for="radio_2">Dubai</label>
+        </div>
+        <div class="radio custom-radio">
+            <input name="radio" value="3" type="radio" role="radio" tabindex="-1" id="radio_3" aria-checked="false" />
+            <label for="radio_3">New Zealand</label>
+        </div>
     </div>
 
 ### Slider
