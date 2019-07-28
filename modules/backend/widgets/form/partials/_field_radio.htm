@@ -21,7 +21,7 @@
                 type="radio"
                 role="radio"
                 <?= $field->isSelected($value) ? 'tabindex="0" aria-checked="true" checked="checked"' : 'tabindex="-1" aria-checked="false"' ?>
-                <?= $this->previewMode ? ' disabled="disabled"' : '' ?>
+                <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
                 <?= $field->getAttributes() ?>>
 
             <label for="<?= $fieldId ?>">
