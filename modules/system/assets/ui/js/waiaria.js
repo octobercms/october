@@ -71,11 +71,9 @@
         // Run whitelist checker
         whiteList();
 
-        var $target = $(event.currentTarget);
-
-        var $target = $(event.currentTarget);
-        var tabName = '';
-        var tabPanel = $target.attr('data-target');
+        var $target = $(event.currentTarget),
+            tabName = '',
+            tabPanel = $target.attr('data-target');
 
         if ($target.closest('.master-tabs').length) {
             tabName = '.master-tabs';
