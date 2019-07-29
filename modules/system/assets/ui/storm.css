@@ -3682,7 +3682,7 @@ legend {display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;lin
 label {display:inline-block;margin-bottom:5px;font-weight:normal;font-size:13px;color:#2a3e51}
 input[type="search"] {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 input[type="radio"],
-input[type="checkbox"] {margin:4px 0 0;margin-top:1px \9;line-height:normal}
+input[type="checkbox"] {line-height:normal}
 input[type="file"] {display:block}
 input[type="range"] {display:block;width:100%}
 select[multiple],
@@ -4142,13 +4142,13 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-switch label,
 .custom-switch >span {line-height:23px;vertical-align:middle}
 .custom-switch label {z-index:8;width:100%;display:block;position:relative}
-.custom-switch input {z-index:10;position:absolute;left:0;top:0;opacity:0;filter:alpha(opacity=0)}
+.custom-switch input {z-index:10;position:absolute;left:0;top:0;width:65px;height:26px;opacity:0;filter:alpha(opacity=0)}
 .custom-switch input:checked ~ .slide-button {right:4px}
 .custom-switch input:checked ~ span {background-color:#76a544}
 .custom-switch input:checked ~ span span:first-of-type {color:#FFF;display:block}
 .custom-switch input:checked ~ span span:last-of-type {color:#666;display:none}
 .custom-switch input[disabled] ~ span {background-color:#666 !important}
-.custom-switch >span {display:block;height:100%;position:absolute;left:0;width:100%;background-color:#bb2424;font-size:12px;font-weight:600;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px}
+.custom-switch >span {display:block;height:100%;position:absolute;left:0;top:0;width:100%;background-color:#bb2424;font-size:12px;font-weight:600;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px}
 .custom-switch >span span {z-index:10;display:block;position:absolute;top:2px;left:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .custom-switch >span span:last-child {left:28px;color:#FFF;display:block}
 .custom-switch >span span:first-of-type {padding-left:13px;display:none;color:#666}
