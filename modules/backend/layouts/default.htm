@@ -6,16 +6,17 @@
     </head>
     <body class="<?= $this->bodyClass ?>">
         <div id="layout-canvas">
-            <div class="layout">
+            <div class="backend-container">
 
                 <!-- Main Menu -->
-                <div class="layout-row min-size">
+                <div class="menu-cont layout-row min-size">
                     <?= $this->makeLayoutPartial('mainmenu') ?>
                 </div>
 
                 <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
 
-                <div class="layout-row">
+                <!-- Main Content -->
+                <div class="content-cont layout-row">
                     <div class="layout flyout-container"
                         <?php if ($flyoutContent): ?>
                             data-control="flyout"
@@ -32,7 +33,7 @@
 
                         <!-- Side panel -->
                         <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel" aria-label="<?= e(trans('system::lang.aria-label.side_panel')) ?>">
+                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
                                 <?= $sidePanelContent ?>
                             </div>
                         <?php endif ?>
@@ -44,13 +45,15 @@
                                 <div class="layout">
                                     <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
                                         <!-- Breadcrumb -->
-                                        <div class="control-breadcrumb" aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
-                                            <?= $breadcrumbContent ?>
+                                        <div class="control-breadcrumb">
+                                            <nav aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
+                                                <?= $breadcrumbContent ?>
+                                            </nav>
                                         </div>
                                     <?php endif ?>
 
                                     <!-- Content -->
-                                    <div class="layout-row" aria-label="<?= e(trans('system::lang.aria-label.main_content')) ?>">
+                                    <div class="layout-row">
                                         <?= Block::placeholder('body') ?>
                                     </div>
                                 </div>
