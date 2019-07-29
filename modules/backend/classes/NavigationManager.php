@@ -3,6 +3,8 @@
 use Event;
 use BackendAuth;
 use System\Classes\PluginManager;
+use Validator;
+use SystemException;
 
 /**
  * Manages the backend navigation.
@@ -193,6 +195,19 @@ class NavigationManager
     {
         if (!$this->items) {
             $this->items = [];
+        }
+
+        $validator = Validator::make($definitions, [
+            '*.label' => 'required',
+            '*.icon' => 'required',
+            '*.url' => 'required',
+            '*.sideMenu.*.label' => 'nullable|required',
+            '*.sideMenu.*.icon' => 'nullable|required',
+            '*.sideMenu.*.url' => 'nullable|required',
+        ]);
+
+        if ($validator->fails()) {
+            throw new SystemException('Error parsing navigation menu in plugin ' . $owner . ' (' . $validator->errors()->first() . ')');
         }
 
         $this->addMainMenuItems($owner, $definitions);
