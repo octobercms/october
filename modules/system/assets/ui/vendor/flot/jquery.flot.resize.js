@@ -41,20 +41,20 @@ can just fix the size of their placeholders.
             if (placeholder.width() == 0 || placeholder.height() == 0)
                 return;
 
-            plot.trigger('resize');
+            plot.trigger('debouncedresize');
             plot.setupGrid();
             plot.draw();
         }
         
         function bindEvents(plot, eventHolder) {
-            //plot.getPlaceholder().on('resize', onResize);
+            //plot.getPlaceholder().on('debouncedresize', onResize);
 
-            $(window).on('resize', onResize)
+            $(window).on('debouncedresize', onResize)
         }
 
         function shutdown(plot, eventHolder) {
             //plot.getPlaceholder().off('resize', onResize);
-            $(window).off('resize', onResize)
+            $(window).off('debouncedresize', onResize)
         }
         
         plot.hooks.bindEvents.push(bindEvents);

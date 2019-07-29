@@ -33,5 +33,5 @@ function createPreviewContainer(el, content) {
      * Auto adjust height
      */
     $(document).render(adjustPreviewHeight)
-    $(window).on('resize', adjustPreviewHeight);
+    $(window).on('debouncedresize', adjustPreviewHeight);
 }

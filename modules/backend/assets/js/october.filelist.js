@@ -74,7 +74,7 @@
                 'display': 'none'
             })
             $(group).attr('data-status', 'collapsed')
-            $(window).trigger('resize')
+            $(window).trigger('debouncedresize')
         } })
 
         this.sendGroupStatusRequest(group, 0);
@@ -96,7 +96,7 @@
                 'height': 'auto'
             })
             $(group).attr('data-status', 'expanded')
-            $(window).trigger('resize')
+            $(window).trigger('debouncedresize')
         } })
 
         this.sendGroupStatusRequest(group, 1);

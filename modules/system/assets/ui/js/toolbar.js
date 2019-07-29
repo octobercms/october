@@ -58,7 +58,7 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         function update() {
-            $(window).trigger('resize')
+            $(window).trigger('debouncedresize')
         }
     }
 

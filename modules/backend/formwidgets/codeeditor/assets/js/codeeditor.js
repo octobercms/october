@@ -119,7 +119,7 @@
 
         editor.on('change', this.proxy(this.onChange))
         $form.on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
-        $(window).on('resize', this.proxy(this.onResize))
+        $(window).on('debouncedresize', this.proxy(this.onResize))
         $(window).on('oc.updateUi', this.proxy(this.onResize))
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
@@ -271,7 +271,7 @@
 
         this.$el.off('dispose-control', this.proxy(this.dispose))
 
-        $(window).off('resize', this.proxy(this.onResize))
+        $(window).off('debouncedresize', this.proxy(this.onResize))
         $(window).off('oc.updateUi', this.proxy(this.onResize))
     }
 

@@ -89,7 +89,7 @@
                 clearTimeout(self.tabOpenTimeout)
             })
 
-            $(window).on('resize', function() {
+            $(window).on('debouncedresize', function() {
                 self.updatePanelPosition()
                 self.updateActiveTab()
             })
@@ -122,7 +122,7 @@
             $el.toggleClass('hide', $el.data('content-id') != menuItemId)
         })
 
-        $(window).trigger('resize')
+        $(window).trigger('debouncedresize')
     }
 
     SidePanelTab.prototype.displaySidePanel = function() {
@@ -136,7 +136,7 @@
         })
 
         this.updatePanelPosition()
-        $(window).trigger('resize')
+        $(window).trigger('debouncedresize')
     }
 
     SidePanelTab.prototype.hideSidePanel = function() {
@@ -241,11 +241,11 @@
         if (Modernizr.touchevents || (typeof(localStorage) !== 'undefined')) {
             if (localStorage.ocSidePanelFixed == 0) {
                 $(document.body).addClass('side-panel-not-fixed')
-                $(window).trigger('resize')
+                $(window).trigger('debouncedresize')
             }
             else if (localStorage.ocSidePanelFixed == 1) {
                 $(document.body).removeClass('side-panel-not-fixed')
-                $(window).trigger('resize')
+                $(window).trigger('debouncedresize')
             }
         }
     })

@@ -63,7 +63,7 @@
     this.$body.addClass('modal-open')
 
     this.escape()
-    this.trigger('resize')
+    this.trigger('debouncedresize')
 
     this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
 
@@ -118,7 +118,7 @@
     this.isShown = false
 
     this.escape()
-    this.trigger('resize')
+    this.trigger('debouncedresize')
 
     $(document).off('focusin.bs.modal')
 
