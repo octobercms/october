@@ -285,7 +285,7 @@
     }
 
     CodeEditor.prototype.onResize = function() {
-        this.editor.trigger('resize')
+        this.editor.resize()
     }
 
     CodeEditor.prototype.onBlur = function() {
@@ -369,7 +369,7 @@
             $('body').css({ overflow: 'inherit' })
         }
 
-        this.editor.trigger('resize')
+        this.editor.resize()
         this.editor.focus()
     }
     
@@ -379,7 +379,7 @@
         
         this.editor.execCommand("find")
 
-        this.editor.trigger('resize')
+        this.editor.resize()
         this.editor.focus()
     }
 
@@ -389,7 +389,7 @@
         
         this.editor.execCommand("replace")
 
-        this.editor.trigger('resize')
+        this.editor.resize()
         this.editor.focus()
     }
 
