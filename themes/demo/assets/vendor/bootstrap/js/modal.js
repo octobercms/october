@@ -118,7 +118,7 @@
     this.isShown = false
 
     this.escape()
-    this.trigger('debouncedresize')
+    this.resize()
 
     $(document).off('focusin.bs.modal')
 
@@ -164,7 +164,7 @@
     } else {
       $(window).off('resize.bs.modal')
     }
-  })
+  }
 
   Modal.prototype.hideModal = function () {
     var that = this

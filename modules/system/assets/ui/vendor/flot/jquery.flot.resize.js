@@ -53,7 +53,7 @@ can just fix the size of their placeholders.
         }
 
         function shutdown(plot, eventHolder) {
-            //plot.getPlaceholder().off('resize', onResize);
+            //plot.getPlaceholder().off('debouncedresize', onResize);
             $(window).off('debouncedresize', onResize)
         }
         
