@@ -29,8 +29,14 @@ Allows a user to select from a small set of binary options.
 ### Slider
 
     <label class="custom-switch">
-        <input type="checkbox" />
-        <span><span>On</span><span>Off</span></span>
+        <input type="checkbox" role="checkbox" tabindex="0" aria-checked="false" />
+        <span tabindex="-1"><span>On</span><span>Off</span></span>
+        <a class="slide-button"></a>
+    </label>
+
+    <label class="custom-switch">
+        <input type="checkbox" role="checkbox" tabindex="0" aria-checked="true" checked="checked" />
+        <span tabindex="-1"><span>On</span><span>Off</span></span>
         <a class="slide-button"></a>
     </label>
 
