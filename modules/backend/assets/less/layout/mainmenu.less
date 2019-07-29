@@ -172,13 +172,11 @@ nav#layout-mainmenu {
 
         &.nav {
             display: inline-block;
-            max-height: @mainmenu-mode-inline-height;
         }
     }
 
     .toolbar-item {
         padding-right: 0;
-        background-color: #000;
 
         &:before, &:after {
             margin-top: 0;
@@ -224,7 +222,7 @@ nav#layout-mainmenu {
             margin-right: 0;
 
             > a {
-                padding: 0 0 0 10px;
+                padding: 0 15px 0 10px;
                 font-size: @font-size-base - 1;
                 position: relative;
             }
@@ -687,42 +685,4 @@ body.drag {
             color: @color-mainmenu-inactive;
         }
     }
-}
-
-@media (max-width: 769px) {
-	.menu-cont {
-		display: block;
-		overflow: hidden;
-		min-height: 45px;
-		max-height: 45px;
-	}
-	nav#layout-mainmenu {
-		ul.mainmenu-toolbar {
-			li.mainmenu-account {
-				img.account-avatar {
-					width: 45px;
-					vertical-align: top;
-				}
-			}
-		}
-	}
-}
-
-@media (min-width: 769px) {
-	.menu-cont {
-		display: block;
-		overflow: hidden;
-		min-height: 60px;
-		max-height: 60px;
-	}
-	nav#layout-mainmenu {
-		ul.mainmenu-toolbar {
-			li.mainmenu-account {
-				img.account-avatar {
-					width: 60px;
-					vertical-align: top;
-				}
-			}
-		}
-	}
 }

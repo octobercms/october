@@ -80,7 +80,6 @@ class RichEditor extends FormWidgetBase
         $this->vars['editorLang'] = $this->getValidEditorLang();
         $this->vars['fullPage'] = $this->fullPage;
         $this->vars['stretch'] = $this->formField->stretch;
-        $this->vars['grow'] = $this->formField->grow;
         $this->vars['size'] = $this->formField->size;
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['name'] = $this->getFieldName();

@@ -129,10 +129,10 @@
         .fr-wrapper {
             width: 100% !important;
             left: 0;
-            top: 0 !important;
+            top: 0;
             bottom: 0;
-            position: relative;
-            height: 100% !important;
+            position: absolute;
+            height: auto !important;
             .fr-view {
                 min-height: 0;
             }
@@ -147,25 +147,6 @@
             left: 20px;
         }
     }
-}
-
-.stretch {
-    height: calc(100% - 50px) !important;
-}
-
-//
-// Grow
-//
-
-.grow {
-    .fr-wrapper {
-        min-height: 100px;
-        height: auto !important;
-    }
-}
-
-.field-richeditor.grow {
-	height: auto !important;
 }
 
 //

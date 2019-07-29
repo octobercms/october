@@ -83,6 +83,24 @@
     }
 }
 
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    #layout-sidenav {
+        font-size: 12px;
+    }
+    .layout-sidenav-container {
+        width: 100px;
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    #layout-sidenav {
+        font-size: 10px;
+    }
+    .layout-sidenav-container {
+        width: 80px;
+    }
+}
+
 html.mobile {
     #layout-sidenav ul {
         overflow: auto;

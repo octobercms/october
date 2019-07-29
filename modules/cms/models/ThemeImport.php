@@ -59,6 +59,16 @@ class ThemeImport extends Model
         ]
     ];
 
+    /**
+     * Import / Export model classes are helpers and are not to write to the database
+     *
+     * @return void
+     */
+    public function save()
+    {
+        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+    }
+
     public function getFoldersOptions()
     {
         return [

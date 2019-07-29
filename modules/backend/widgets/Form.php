@@ -688,14 +688,19 @@ class Form extends WidgetBase
             $fieldObj = $this->makeFormField($name, $config);
             $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
 
-            /*
-             * Check that the form field matches the active context
-             */
+            // Check that the form field matches the active context
             if ($fieldObj->context !== null) {
                 $context = is_array($fieldObj->context) ? $fieldObj->context : [$fieldObj->context];
                 if (!in_array($this->getContext(), $context)) {
                     continue;
                 }
+            }
+
+            // Apply the field name to the validation engine
+            $attrName = implode('.', HtmlHelper::nameToArray($fieldObj->fieldName));
+
+            if ($this->model && method_exists($this->model, 'setValidationAttributeName')) {
+                $this->model->setValidationAttributeName($attrName, $fieldObj->label);
             }
 
             $this->allFields[$name] = $fieldObj;
@@ -794,6 +799,7 @@ class Form extends WidgetBase
             $field->context = $fieldContext;
         }
 
+        $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
         $field->arrayName = $this->arrayName;
         $field->idPrefix = $this->getId();
 
@@ -835,15 +841,6 @@ class Form extends WidgetBase
          * Set field value
          */
         $field->value = $this->getFieldValue($field);
-
-        /*
-         * Apply the field name to the validation engine
-         */
-        $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
-
-        if ($this->model && method_exists($this->model, 'setValidationAttributeName')) {
-            $this->model->setValidationAttributeName($attrName, $field->label);
-        }
 
         /*
          * Check model if field is required

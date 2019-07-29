@@ -7,7 +7,6 @@
             <?php if ($this->user->hasAccess('cms.manage_pages')): ?>
                 <!-- Pages -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="pages"
                     data-template-type="page"
@@ -19,7 +18,6 @@
             <?php if ($this->user->hasAccess('cms.manage_partials')): ?>
                 <!-- Partials -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="partials"
                     data-template-type="partial"
@@ -31,7 +29,6 @@
             <?php if ($this->user->hasAccess('cms.manage_layouts')): ?>
                 <!-- Layouts -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="layouts"
                     data-template-type="layout"
@@ -43,7 +40,6 @@
             <?php if ($this->user->hasAccess('cms.manage_content')): ?>
                 <!-- Content -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="content"
                     data-template-type="content"
@@ -55,7 +51,6 @@
             <?php if ($this->user->hasAccess('cms.manage_assets')): ?>
                 <!-- Assets -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="assets"
                     data-template-type="asset"
@@ -67,7 +62,6 @@
             <?php if ($this->user->hasAccess(['cms.manage_pages', 'cms.manage_layouts', 'cms.manage_partials'])): ?>
                 <!-- Components -->
                 <form
-                    role="form"
                     class="layout <?= ++$visibleCount == 1 ? '' : 'hide' ?>"
                     data-content-id="components"
                     onsubmit="return false"

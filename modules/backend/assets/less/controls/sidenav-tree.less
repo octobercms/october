@@ -1,4 +1,6 @@
 .sidenav-tree {
+    width: 300px;
+
     .control-toolbar {
         padding: 0;
 
@@ -170,6 +172,8 @@
 
 @media (min-width: @screen-sm-min) {
     .sidenav-tree-root .sidenav-tree {
+        width: 600px;
+
         ul.top-level > li > ul {
             font-size: 0;
             display: flex;
@@ -194,7 +198,7 @@
 
 @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
     .sidenav-tree-root .sidenav-tree {
-        width: 300px;
+        width: 100%;
 
         ul.top-level > li > ul > li {
             width: 50%;
@@ -204,13 +208,13 @@
 
 @media (min-width: @screen-lg-min) {
     .sidenav-tree-root .sidenav-tree {
-        width: 300px;
+        width: 900px;
     }
 }
 
 @media (max-width: @screen-sm) {
     .sidenav-tree {
-        width: 80vw;
+        width: 100%;
         height: auto !important;
         display: block !important;
 
@@ -221,7 +225,7 @@
 
     .sidenav-tree-root {
         .sidenav-tree {
-            width: 80vw !important;
+            width: 100% !important;
             height: 100% !important;
             display: table-cell !important;
 

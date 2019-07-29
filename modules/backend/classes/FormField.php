@@ -82,7 +82,7 @@ class FormField
     public $options;
 
     /**
-     * @var string Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
+     * @var string Specifies a side. Possible values: auto, left, right, full.
      */
     public $span = 'full';
 
@@ -120,11 +120,6 @@ class FormField
      * @var bool Specifies if this field stretch to fit the page height.
      */
     public $stretch = false;
-
-    /**
-     * @var bool Specifies if this field can have auto height based on content.
-     */
-    public $grow = false;
 
     /**
      * @var string Specifies a comment to accompany the field
@@ -203,7 +198,7 @@ class FormField
 
     /**
      * Sets a side of the field on a form.
-     * @param string $value Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
+     * @param string $value Specifies a side. Possible values: left, right, full
      */
     public function span($value = 'full')
     {
@@ -288,7 +283,6 @@ class FormField
             'disabled',
             'cssClass',
             'stretch',
-            'grow',
             'context',
             'hidden',
             'trigger',

@@ -60,6 +60,10 @@
 // Nice forms
 //
 
+.form-elements, .form-tabless-fields {
+    .clearfix();
+}
+
 .form-control {
     position: relative;
     -webkit-appearance: none;
@@ -113,7 +117,7 @@
     }
 
     &, &.layout-item {
-        padding-bottom: @padding-standard; /* Warning do not add a !important to this */
+        padding-bottom: @padding-standard;
         margin-bottom: 0;
     }
 
@@ -135,26 +139,19 @@
 
     &.span-full {
         width: 100%;
+        float: left;
     }
 
     &.span-left {
+        float: left;
         width: 48.5%;
+        clear: left;
     }
 
     &.span-right {
+        float: right;
         width: 48.5%;
-    }
-
-    &.span-third {
-        width: 32%;
-    }
-
-    &.span-quarter {
-        width: 22.9%;
-    }
-
-    &.span-three-quarters {
-       width: 74.5%;
+        clear: right;
     }
 
     &.layout-relative {
@@ -208,78 +205,6 @@
                 outline: none;
             }
         }
-    }
-}
-
-.stretch-parent {
-    &.form-tabless-fields {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    }
-    &.tab-pane {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    }
-    &.control-tabs {
-        >div.tab-content {
-            >div.tab-pane.active {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
-                justify-content: space-between;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-            }
-            >div.tab-pane.active.layout-cell {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
-                justify-content: space-between;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-            }
-        }
-    }
-}
-
-.span-position-left {
-    margin-right: auto;
-}
-.span-position-middle {
-    margin: 0 auto;
-}
-.span-position-right {
-    margin-left: auto;
-}
-.span-position-far-right {
-    margin-left: 51.5%;
-}
-
-@media (max-width: 769px) {
-    .span-third {
-        width: 100% !important;
-    }
-    .span-quarter {
-        width: 100% !important;
-    }
-    .span-three-quarters {
-        width: 100% !important;
     }
 }
 
@@ -444,15 +369,14 @@
     .btn {
         background: transparent;
         position: absolute;
-        right: 1px;
-        top: 1px;
-        height: 36px;
+        right: -2px;
+        top: 50%;
+        margin-top: -43px;
+        height: 88px;
         color: lighten(@color-form-field-recordfinder-btn, 15%);
         text-shadow: none;
         padding-left: 15px;
         padding-right: 15px;
-        -webkit-box-shadow: none;
-        box-shadow: none;
 
         &.clear-record {
             right: 30px;
@@ -536,7 +460,7 @@ body.slim-container {
     .form-group {
         &.span-left, &.span-right {
             width: 100%;
-            margin: 0;
+            clear: none;
         }
     }
 }

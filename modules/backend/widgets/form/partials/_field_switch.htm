@@ -28,10 +28,9 @@
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
         value="1"
-        tabindex="-1"
         <?= $previewMode ? 'readonly="readonly"' : '' ?>
         <?= $field->value == 1 ? 'checked="checked"' : '' ?>
         <?= $field->getAttributes() ?>>
-    <span tabindex="0"><span><?= e(trans($on)) ?></span><span><?= e(trans($off)) ?></span></span>
+    <span><span><?= e(trans($on)) ?></span><span><?= e(trans($off)) ?></span></span>
     <a class="slide-button"></a>
 </label>

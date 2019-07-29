@@ -49,6 +49,10 @@ class NestedForm extends FormWidgetBase
         $config->arrayName = $this->getFieldName();
         $config->isNested = true;
 
+        if (object_get($this->getParentForm()->config, 'enableDefaults') === true) {
+            $config->enableDefaults = true;
+        }
+
         $widget = $this->makeWidget(Form::class, $config);
         $widget->bindToController();
 

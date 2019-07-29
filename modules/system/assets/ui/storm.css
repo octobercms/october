@@ -2774,6 +2774,8 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .nav-tabs-justified >.active >a:hover,
 .nav-tabs-justified >.active >a:focus {border:1px solid #ddd}
 @media (min-width:768px) {.nav-tabs-justified >li >a {border-bottom:1px solid #ddd;border-radius:3px 3px 0 0 }.nav-tabs-justified >.active >a,.nav-tabs-justified >.active >a:hover,.nav-tabs-justified >.active >a:focus {border-bottom-color:#f9f9f9 }}
+.tab-content >.tab-pane {display:none}
+.tab-content >.active {display:block}
 .nav-tabs .dropdown-menu {margin-top:-1px;border-top-right-radius:0;border-top-left-radius:0}
 .control-tabs {position:relative;margin-bottom:20px}
 .control-tabs:last-child {margin-bottom:0}
@@ -2823,8 +2825,14 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs >ul.nav-tabs >li.active:after,
 .control-tabs >div >ul.nav-tabs >li.active:after,
 .control-tabs >div >div >ul.nav-tabs >li.active:after {width:100%;height:3px;bottom:0;background:#d0d0d0}
-.control-tabs >div.tab-content >div.tab-pane {display:none}
-.control-tabs >div.tab-content >div.tab-pane.active {padding:20px 0 0 0;display:block}
+.control-tabs >div.tab-content >div.tab-pane {padding:20px 0 0 0;display:none}
+.control-tabs >div.tab-content >div.tab-pane:before,
+.control-tabs >div.tab-content >div.tab-pane:after {content:" ";display:table}
+.control-tabs >div.tab-content >div.tab-pane:after {clear:both}
+.control-tabs >div.tab-content >div.tab-pane:before,
+.control-tabs >div.tab-content >div.tab-pane:after {content:" ";display:table}
+.control-tabs >div.tab-content >div.tab-pane:after {clear:both}
+.control-tabs >div.tab-content >div.tab-pane.active {display:block}
 .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:table-cell}
 .control-tabs >div.tab-content >div.tab-pane.pane-compact {padding:0}
 .control-tabs >div.tab-content >div.tab-pane.pane-padded {padding:20px 20px 0 20px}
@@ -2928,6 +2936,7 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs.secondary-tabs >ul.nav-tabs >li:last-child,
 .control-tabs.secondary-tabs >div >ul.nav-tabs >li:last-child,
 .control-tabs.secondary-tabs >div >div >ul.nav-tabs >li:last-child {border-right:none;margin-right:0;padding-right:0}
+.control-tabs.secondary-tabs >div.tab-content >div.tab-pane {padding-top:15px}
 .control-tabs.content-tabs >ul.nav-tabs {position:relative}
 .control-tabs.content-tabs >ul.nav-tabs:before {content:' ';position:absolute;bottom:0;left:0;width:100%;height:1px;background:#e3e5e7}
 .control-tabs.content-tabs >ul.nav-tabs li {margin-right:0;border-top:1px solid #e3e5e7;border-right:1px solid #e3e5e7}
@@ -2956,15 +2965,6 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .hide-tabs .control-tabs ul.nav-tabs {display:none}
 .hide-tabs .control-tabs >div.tab-content >div.tab-pane {padding-top:0}
 .form-sidebar .control-tabs.secondary >div >ul.nav-tabs >li a {background:transparent}
-#cms-master-tabs .control-tabs >div.tab-content {padding:0}
-#Form-primaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-primaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-secondaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-secondaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-contentTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-contentTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-masterTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-masterTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
 .control-chart {text-align:left}
 .control-chart div.canvas {display:inline-block;margin-right:20px;margin-bottom:20px;position:relative}
 .control-chart div.canvas span.center {position:absolute;display:block;text-align:center;width:100%;top:50%;margin-top:-21px;font-size:30px;font-weight:100;color:#666;z-index:9}
@@ -4166,6 +4166,18 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-preview .control-tabs.primary-tabs >ul.nav-tabs >li.active a:before,
 .form-preview .control-tabs.primary-tabs >div >ul.nav-tabs >li.active a:before,
 .form-preview .control-tabs.primary-tabs >div >div >ul.nav-tabs >li.active a:before {background-color:white}
+.form-elements:before,
+.form-tabless-fields:before,
+.form-elements:after,
+.form-tabless-fields:after {content:" ";display:table}
+.form-elements:after,
+.form-tabless-fields:after {clear:both}
+.form-elements:before,
+.form-tabless-fields:before,
+.form-elements:after,
+.form-tabless-fields:after {content:" ";display:table}
+.form-elements:after,
+.form-tabless-fields:after {clear:both}
 .form-control {position:relative;-webkit-appearance:none;border:1px solid #d1d6d9;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5)}
 .form-control:focus {border:1px solid #d1d6d9}
 .form-control.icon {background-repeat:no-repeat;background-position:right -2px;padding-right:30px !important;background-image:url('images/bitmap-icons.png')}
@@ -4182,12 +4194,9 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group,
 .form-group.layout-item {padding-bottom:20px;margin-bottom:0}
 .form-group.is-required >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
-.form-group.span-full {width:100%}
-.form-group.span-left {width:48.5%}
-.form-group.span-right {width:48.5%}
-.form-group.span-third {width:32%}
-.form-group.span-quarter {width:22.9%}
-.form-group.span-three-quarters {width:74.5%}
+.form-group.span-full {width:100%;float:left}
+.form-group.span-left {float:left;width:48.5%;clear:left}
+.form-group.span-right {float:right;width:48.5%;clear:right}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
 .form-group.number-field >.form-control {text-align:right}
@@ -4201,12 +4210,6 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control {position:absolute;right:8px;top:34px;font-size:16px;color:#c4c4c4}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
-.stretch-parent .form-tabless-fields, .stretch-parent .tab-pane, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap}
-.span-position-left {margin-right:auto}
-.span-position-middle {margin:0 auto}
-.span-position-right {margin-left:auto}
-.span-position-far-right {margin-left:51.5%}
-@media (max-width: 769px) {.span-third, .span-quarter, .span-three-quarters {width:100% !important }}
 .form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}
@@ -4240,7 +4243,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {margin-top:0}
 .field-recordfinder {background-color:#fff;border:1px solid #d1d6d9;overflow:hidden;position:relative;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-recordfinder .form-control {background:transparent;border-color:transparent;height:auto;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding:7px 30px 7px 11px;-webkit-box-shadow:none;box-shadow:none}
-.field-recordfinder .btn {background:transparent;position:absolute;right:1px;top:1px;height:36px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px;-webkit-box-shadow:none;box-shadow:none}
+.field-recordfinder .btn {background:transparent;position:absolute;right:-2px;top:50%;margin-top:-43px;height:88px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px}
 .field-recordfinder .btn.clear-record {right:30px;margin-top:-44px}
 .field-recordfinder .btn i {font-size:14px}
 .field-recordfinder .btn:hover {color:#333}
@@ -4262,7 +4265,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-buttons .pull-right {margin-right:0;margin-left:10px}
 .form-buttons.buttons-offset {padding-left:20px}
 body.slim-container .form-buttons {padding:0 20px 20px}
-@media (max-width:769px) {.form-group.span-left,.form-group.span-right {width:100%;margin:0 }}
+@media (max-width:769px) {.form-group.span-left,.form-group.span-right {width:100%;clear:none }}
 .select2-container--default .select2-selection--single .select2-selection__arrow b {border:none}
 .select2-dropdown {z-index:10400}
 [data-control=toolbar] .form-control {display:inline-block;margin-right:15px}
