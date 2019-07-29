@@ -488,7 +488,7 @@
             $('body, html').css('overflow', '')
 
             $(window).off('debouncedresize', this.proxy(this.updateFullscreen))
-            this.editor.trigger('debouncedresize')
+            this.editor.resize()
         }
 
         $(window).trigger('oc.updateUi')
@@ -503,7 +503,7 @@
 
         this.$preview.css(fullscreenCss)
         this.$write.css(fullscreenCss)
-        this.editor.trigger('debouncedresize')
+        this.editor.resize()
     }
 
     //
