@@ -156,7 +156,7 @@
     }
 
     MarkdownEditor.prototype.onResize = function() {
-        this.editor.trigger('debouncedresize')
+        this.editor.resize()
     }
 
     MarkdownEditor.prototype.onBlur = function() {
