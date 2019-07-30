@@ -207,7 +207,7 @@ class NavigationManager
         ]);
 
         if ($validator->fails()) {
-            throw new SystemException('Error parsing navigation menu in plugin ' . $owner . ' (' . $validator->errors()->first() . ')');
+            throw new SystemException('Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')');
         }
 
         $this->addMainMenuItems($owner, $definitions);
