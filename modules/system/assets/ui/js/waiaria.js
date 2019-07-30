@@ -3,7 +3,7 @@
  *
  * - Adds keyboard navigation controls to form fields
  */
-+ function($) {
+$(function() {
     "use strict";
 
     /*
@@ -34,7 +34,7 @@
         if ((event.shiftKey && event.key === 'Tab') || (event.type === 'keydown' && !whitelist.includes(event.key))) {
             return;
         }
-    };
+    }
 
     // Add WAI-ARIA role group for radio buttons
     $('.radio-field').attr('role', 'radiogroup');
@@ -62,6 +62,29 @@
             'tabindex': '0',
             'checked': true
         });
+    });
+
+    /*
+     * Slider switch buttons
+     */
+    $('body').on('change', '.switch-field input[role="checkbox"]', function () {
+        // Run whitelist checker
+        whiteList();
+
+        // Get current switch
+        var self = $(this);
+
+        if (self.is(":checked")) {
+            self.attr({
+                'aria-checked': true,
+                'checked': true
+            });
+        } else {
+            self.attr({
+                'aria-checked': false,
+                'checked': false
+            });
+        }
     });
 
     /*
@@ -122,4 +145,4 @@
         return true;
     });
 
-}(window.jQuery);
+});
