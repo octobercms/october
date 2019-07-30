@@ -5,6 +5,8 @@ use BackendAuth;
 use System\Classes\PluginManager;
 use Validator;
 use SystemException;
+use Log;
+use Config;
 
 /**
  * Manages the backend navigation.
@@ -207,7 +209,12 @@ class NavigationManager
         ]);
 
         if ($validator->fails()) {
-            throw new SystemException('Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')');
+            $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
+            if (Config::get('app.debug', false)) {
+                throw new SystemException($errorMessage);
+            } else {
+                Log::error($errorMessage);
+            }
         }
 
         $this->addMainMenuItems($owner, $definitions);
