@@ -311,7 +311,7 @@ class VersionManager
     protected function getDatabaseVersion($code)
     {
         if ($this->databaseVersions === null) {
-            $this->databaseVersions = Db::table('system_plugin_versions')->lists('version', 'code');
+            $this->databaseVersions = Db::table('system_plugin_versions')->pluck('version', 'code');
         }
 
         if (!isset($this->databaseVersions[$code])) {
