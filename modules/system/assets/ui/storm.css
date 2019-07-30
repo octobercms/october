@@ -4282,6 +4282,10 @@ tr.rowlink td {cursor:pointer}
 tr.rowlink td.nolink {cursor:auto}
 .table tbody tr.rowlink:hover td {background-color:#f5f5f5}
 a.rowlink {color:inherit;font:inherit;text-decoration:inherit}
+tr.rowlink.focus-visible td {border-top:2px solid #3578E5!important;border-bottom:2px solid #3578E5!important}
+tr.rowlink.focus-visible td:first-child {border-left:2px solid #3578E5!important}
+tr.rowlink.focus-visible td:last-child {border-right:2px solid #3578E5!important}
+tr.rowlink.focus-visible {-webkit-box-shadow:none!important;box-shadow:none!important}
 table {max-width:100%;background-color:transparent}
 th {text-align:left}
 .table {width:100%;margin-bottom:20px;border-collapse:separate}

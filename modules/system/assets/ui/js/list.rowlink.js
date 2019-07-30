@@ -65,7 +65,8 @@
             $(this).addClass(options.linkedClass)
             link.hide().after(link.html())
         })
-
+        // Add Keyboard Navigation to list rows
+        $('tr.rowlink').attr('tabindex', 0)
     }
 
     RowLink.DEFAULTS = {

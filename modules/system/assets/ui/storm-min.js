@@ -4049,7 +4049,8 @@ else if(popup){link.popup()}
 else if(e.ctrlKey||e.metaKey){window.open(href)}
 else{window.location=href}})
 $(this).addClass(options.linkedClass)
-link.hide().after(link.html())})}
+link.hide().after(link.html())})
+$('tr.rowlink').attr('tabindex',0)}
 RowLink.DEFAULTS={target:'a',excludeClass:'nolink',linkedClass:'rowlink'}
 var old=$.fn.rowLink
 $.fn.rowLink=function(option){var args=Array.prototype.slice.call(arguments,1)
