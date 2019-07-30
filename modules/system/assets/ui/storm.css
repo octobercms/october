@@ -4152,6 +4152,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-switch >span span {z-index:10;display:block;position:absolute;top:2px;left:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .custom-switch >span span:last-child {left:28px;color:#FFF;display:block}
 .custom-switch >span span:first-of-type {padding-left:13px;display:none;color:#666}
+.custom-switch .focus-visible + span {border:.0625rem solid #3578E5;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5;box-shadow:0 0 .1875rem .125rem #3578E5}
 .form-preview {padding:20px;margin-bottom:20px;background:white;border:1px solid #eee}
 .form-preview >.form-group:last-child {padding-bottom:0}
 .form-preview >.form-group:last-child .radio,
