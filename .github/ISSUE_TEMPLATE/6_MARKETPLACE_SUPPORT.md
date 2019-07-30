@@ -1,5 +1,5 @@
 ---
-name: "⚠️ Marketplace Support"
+name: "🛒 Marketplace Support"
 about: 'For reporting any marketplace issues, send an email to hello@octobercms.com'
 ---
 
