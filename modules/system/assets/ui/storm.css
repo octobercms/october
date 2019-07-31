@@ -402,7 +402,6 @@ address {margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .w-lg {width:75% !important}
 .w-full {width:100% !important}
 .w-50 {width:50px !important}
-
 .w-100 {width:100px !important}
 .w-120 {width:120px !important}
 .w-130 {width:130px !important}
@@ -491,7 +490,6 @@ fieldset[disabled] .btn {cursor:not-allowed;pointer-events:none;opacity:0.65;fil
 .btn-default[disabled]:hover,
 .btn-default.disabled:focus,
 .btn-default[disabled]:focus,
-
 .btn-default.disabled:active,
 .btn-default[disabled]:active,
 .btn-default.disabled.active,
@@ -2210,7 +2208,6 @@ input[type="button"].btn-block {width:100%}
 .oc-icon-hand-lizard-o:before,
 .icon-hand-lizard-o:before {content:"\f258"}
 .oc-icon-hand-spock-o:before,
-
 .icon-hand-spock-o:before {content:"\f259"}
 .oc-icon-hand-pointer-o:before,
 .icon-hand-pointer-o:before {content:"\f25a"}
@@ -4591,7 +4588,6 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .list-preview .control-list:last-child {margin-bottom:0}
 .list-preview .control-list:last-child >table {border-bottom:none}
 .list-flush table.table.data thead tr th {border-top:none !important}
-
 .list-with-sidebar table.table.data {border-left:1px solid #d4d8da}
 .control-list {margin-bottom:20px}
 .control-list p.no-data {padding:18px 20px;margin:0 20px;color:#555;font-size:13px;text-align:center;font-weight:300;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
