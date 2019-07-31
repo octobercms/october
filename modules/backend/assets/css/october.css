@@ -575,7 +575,7 @@ body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sa
 #layout-canvas {min-height:100%;height:100%}
 .control-tabs.primary-tabs >ul.nav-tabs,
 .control-tabs.primary-tabs >div >ul.nav-tabs,
-.control-tabs.primary-tabs >div >div >ul.nav-tabs {margin-left:-20px;margin-right:-20px}
+.control-tabs.primary-tabs >div >div >ul.nav-tabs {margin-left:-20px;margin-right:-20px;padding-top:3px}
 .control-tabs.primary-tabs.tabs-no-inset >ul.nav-tabs,
 .control-tabs.primary-tabs.tabs-no-inset >div >ul.nav-tabs,
 .control-tabs.primary-tabs.tabs-no-inset >div >div >ul.nav-tabs {margin-left:0;margin-right:0}
@@ -655,6 +655,8 @@ body.slim-container .layout .layout-container {padding-left:0 !important;padding
 .flex-layout-item.layout-container {max-width:none}
 .js-focus-visible:focus:not(.focus-visible) {outline:none}
 .js-focus-visible .focus-visible {border:.0625rem solid #3578E5;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5;box-shadow:0 0 .1875rem .125rem #3578E5}
+.control-tabs.master-tabs .nav-tabs a, .control-tabs.primary-tabs .nav-tabs a, .control-tabs.secondary-tabs .nav-tabs a, .control-tabs.content-tabs .nav-tabs a {outline:none}
+.primary-tabs li.focus-visible-tabs {-webkit-box-shadow:0 0 0.1875rem 0.125rem #3578E5;box-shadow:0 0 0.1875rem 0.125rem #3578E5;z-index:99999 !important}
 body.mainmenu-open {overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner {font-size:13px;padding:6px 16px}
 ul.mainmenu-nav {font-size:14px}

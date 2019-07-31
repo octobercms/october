@@ -88,10 +88,24 @@ $(function() {
             });
         }
     });
+    
+    /*
+     * Turn off custom tab focus ring
+     * Important - 'keydown' selects the form and 'keyup' selects the form field.
+     * 'keydown' must be used.       
+     */
+    $('body').on('click keydown', '.form-widget', function() {
+        // Run whitelist checker
+        whiteList();
+
+        // Remove all custom tab focus rings
+        $('.master-tabs li, .primary-tabs li, .secondary-tabs li, .content-tabs li').removeClass('focus-visible-tabs');
+    });
 
     /*
      * Tabs
-     * Important - 'keydown' using previous tab selection and 'keyup' uses current tab selection
+     * Important - 'keydown' using previous tab selection and 'keyup' uses current tab selection.
+     * 'keyup' must be used.     
      */
     $('body').on('click keyup', '.master-tabs a[role="tab"],.primary-tabs a[role="tab"],.secondary-tabs a[role="tab"],.content-tabs a[role="tab"]', function(event) {
         // Run whitelist checker
@@ -101,14 +115,22 @@ $(function() {
             tabName = '',
             tabPanel = $target.attr('data-target');
 
-        if ($target.closest('.master-tabs')) {
+        if ($target.closest('.master-tabs').length) {
             tabName = '.master-tabs';
-        } else if ($target.closest('.primary-tabs')) {
+        } else if ($target.closest('.primary-tabs').length) {
             tabName = '.primary-tabs';
-        } else if ($target.closest('.secondary-tabs')) {
+        } else if ($target.closest('.secondary-tabs').length) {
             tabName = '.secondary-tabs';
-        } else if ($target.closest('.content-tabs')) {
+        } else if ($target.closest('.content-tabs').length) {
             tabName = '.content-tabs';
+        }
+
+        // Remove all custom tab focus rings
+        $('.master-tabs li, .primary-tabs li, .secondary-tabs li, .content-tabs li').removeClass('focus-visible-tabs');
+
+        // Add custom focus ring to current tab
+        if ($(tabName + ' a[role="tab"]').hasClass('focus-visible')) {
+            $target.closest(tabName + ' li').addClass('focus-visible-tabs');
         }
 
         // Set all tabs to false
