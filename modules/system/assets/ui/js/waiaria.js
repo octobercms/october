@@ -91,8 +91,9 @@ $(function() {
 
     /*
      * Tabs
+     * Important - 'keydown' using previous tab selection and 'keyup' uses current tab selection
      */
-    $('body').on('click keydown', '.master-tabs a[role="tab"],.primary-tabs a[role="tab"],.secondary-tabs a[role="tab"],.content-tabs a[role="tab"]', function(event) {
+    $('body').on('click keyup', '.master-tabs a[role="tab"],.primary-tabs a[role="tab"],.secondary-tabs a[role="tab"],.content-tabs a[role="tab"]', function(event) {
         // Run whitelist checker
         whiteList();
 
