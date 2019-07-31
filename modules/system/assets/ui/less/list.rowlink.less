@@ -18,3 +18,22 @@ a.rowlink {
     font: inherit;
     text-decoration: inherit;
 }
+
+//
+// Styling for focus ring for the list fields
+//
+
+tr.rowlink.focus-visible {
+    td {
+        border-top: 2px solid #3578E5 !important;
+        border-bottom: 2px solid #3578E5 !important;
+        &:first-child {
+            border-left: 2px solid #3578E5 !important;
+        }
+        &:last-child {
+            border-right: 2px solid #3578E5 !important;
+        }
+    }
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}

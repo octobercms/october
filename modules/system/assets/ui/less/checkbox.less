@@ -248,6 +248,8 @@
         position: absolute;
         left: 0;
         top: 0;
+        width: 65px;
+        height: 26px;
         .opacity(0);
         &:checked {
             ~ .slide-button {
@@ -275,6 +277,7 @@
         height: 100%;
         position: absolute;
         left: 0;
+        top: 0;
         width: 100%;
         background-color: @color-checkbox-switch-off;
         font-size: 12px;
@@ -299,6 +302,16 @@
                 display: none;
                 color: #666666;
             }
+        }
+    }
+}
+
+.custom-switch {
+    .focus-visible {
+        &+span {
+            border: .0625rem solid #3578E5;
+            -webkit-box-shadow: 0 0 0.1875rem 0.125rem #3578E5;
+            box-shadow: 0 0 0.1875rem 0.125rem #3578E5;
         }
     }
 }

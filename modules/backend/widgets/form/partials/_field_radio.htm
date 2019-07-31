@@ -19,7 +19,8 @@
                 name="<?= $field->getName() ?>"
                 value="<?= e($value) ?>"
                 type="radio"
-                <?= $field->isSelected($value) ? 'checked="checked"' : '' ?>
+                role="radio"
+                <?= $field->isSelected($value) ? 'tabindex="0" aria-checked="true" checked="checked"' : 'tabindex="-1" aria-checked="false"' ?>
                 <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
                 <?= $field->getAttributes() ?>>
 

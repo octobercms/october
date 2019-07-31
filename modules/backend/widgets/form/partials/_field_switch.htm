@@ -25,12 +25,14 @@
 <label class="custom-switch" <?= $previewMode ? 'onclick="return false"' : '' ?>>
     <input
         type="checkbox"
+        role="checkbox"
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>"
         value="1"
+        tabindex="0"
         <?= $previewMode ? 'readonly="readonly"' : '' ?>
-        <?= $field->value == 1 ? 'checked="checked"' : '' ?>
+        <?= $field->value == 1 ? 'aria-checked="true" checked="checked"' : 'aria-checked="false"' ?>
         <?= $field->getAttributes() ?>>
-    <span><span><?= e(trans($on)) ?></span><span><?= e(trans($off)) ?></span></span>
+    <span tabindex="-1"><span><?= e(trans($on)) ?></span><span><?= e(trans($off)) ?></span></span>
     <a class="slide-button"></a>
 </label>

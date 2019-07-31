@@ -402,6 +402,7 @@ address {margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .w-lg {width:75% !important}
 .w-full {width:100% !important}
 .w-50 {width:50px !important}
+
 .w-100 {width:100px !important}
 .w-120 {width:120px !important}
 .w-130 {width:130px !important}
@@ -490,6 +491,7 @@ fieldset[disabled] .btn {cursor:not-allowed;pointer-events:none;opacity:0.65;fil
 .btn-default[disabled]:hover,
 .btn-default.disabled:focus,
 .btn-default[disabled]:focus,
+
 .btn-default.disabled:active,
 .btn-default[disabled]:active,
 .btn-default.disabled.active,
@@ -2208,6 +2210,7 @@ input[type="button"].btn-block {width:100%}
 .oc-icon-hand-lizard-o:before,
 .icon-hand-lizard-o:before {content:"\f258"}
 .oc-icon-hand-spock-o:before,
+
 .icon-hand-spock-o:before {content:"\f259"}
 .oc-icon-hand-pointer-o:before,
 .icon-hand-pointer-o:before {content:"\f25a"}
@@ -3682,7 +3685,7 @@ legend {display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;lin
 label {display:inline-block;margin-bottom:5px;font-weight:normal;font-size:13px;color:#2a3e51}
 input[type="search"] {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 input[type="radio"],
-input[type="checkbox"] {margin:4px 0 0;margin-top:1px \9;line-height:normal}
+input[type="checkbox"] {line-height:normal}
 input[type="file"] {display:block}
 input[type="range"] {display:block;width:100%}
 select[multiple],
@@ -4142,16 +4145,17 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-switch label,
 .custom-switch >span {line-height:23px;vertical-align:middle}
 .custom-switch label {z-index:8;width:100%;display:block;position:relative}
-.custom-switch input {z-index:10;position:absolute;left:0;top:0;opacity:0;filter:alpha(opacity=0)}
+.custom-switch input {z-index:10;position:absolute;left:0;top:0;width:65px;height:26px;opacity:0;filter:alpha(opacity=0)}
 .custom-switch input:checked ~ .slide-button {right:4px}
 .custom-switch input:checked ~ span {background-color:#76a544}
 .custom-switch input:checked ~ span span:first-of-type {color:#FFF;display:block}
 .custom-switch input:checked ~ span span:last-of-type {color:#666;display:none}
 .custom-switch input[disabled] ~ span {background-color:#666 !important}
-.custom-switch >span {display:block;height:100%;position:absolute;left:0;width:100%;background-color:#bb2424;font-size:12px;font-weight:600;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px}
+.custom-switch >span {display:block;height:100%;position:absolute;left:0;top:0;width:100%;background-color:#bb2424;font-size:12px;font-weight:600;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px}
 .custom-switch >span span {z-index:10;display:block;position:absolute;top:2px;left:-1px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .custom-switch >span span:last-child {left:28px;color:#FFF;display:block}
 .custom-switch >span span:first-of-type {padding-left:13px;display:none;color:#666}
+.custom-switch .focus-visible + span {border:.0625rem solid #3578E5;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5;box-shadow:0 0 .1875rem .125rem #3578E5}
 .form-preview {padding:20px;margin-bottom:20px;background:white;border:1px solid #eee}
 .form-preview >.form-group:last-child {padding-bottom:0}
 .form-preview >.form-group:last-child .radio,
@@ -4243,7 +4247,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {margin-top:0}
 .field-recordfinder {background-color:#fff;border:1px solid #d1d6d9;overflow:hidden;position:relative;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .field-recordfinder .form-control {background:transparent;border-color:transparent;height:auto;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;padding:7px 30px 7px 11px;-webkit-box-shadow:none;box-shadow:none}
-.field-recordfinder .btn {background:transparent;position:absolute;right:-2px;top:50%;margin-top:-43px;height:88px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px}
+.field-recordfinder .btn {background:transparent;position:absolute;right:1px;top:1px;height:36px;color:#595959;text-shadow:none;padding-left:15px;padding-right:15px;-webkit-box-shadow:none;box-shadow:none}
 .field-recordfinder .btn.clear-record {right:30px;margin-top:-44px}
 .field-recordfinder .btn i {font-size:14px}
 .field-recordfinder .btn:hover {color:#333}
@@ -4281,6 +4285,10 @@ tr.rowlink td {cursor:pointer}
 tr.rowlink td.nolink {cursor:auto}
 .table tbody tr.rowlink:hover td {background-color:#f5f5f5}
 a.rowlink {color:inherit;font:inherit;text-decoration:inherit}
+tr.rowlink.focus-visible td {border-top:2px solid #3578E5!important;border-bottom:2px solid #3578E5!important}
+tr.rowlink.focus-visible td:first-child {border-left:2px solid #3578E5!important}
+tr.rowlink.focus-visible td:last-child {border-right:2px solid #3578E5!important}
+tr.rowlink.focus-visible {-webkit-box-shadow:none!important;box-shadow:none!important}
 table {max-width:100%;background-color:transparent}
 th {text-align:left}
 .table {width:100%;margin-bottom:20px;border-collapse:separate}
@@ -4582,6 +4590,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .list-preview .control-list:last-child {margin-bottom:0}
 .list-preview .control-list:last-child >table {border-bottom:none}
 .list-flush table.table.data thead tr th {border-top:none !important}
+
 .list-with-sidebar table.table.data {border-left:1px solid #d4d8da}
 .control-list {margin-bottom:20px}
 .control-list p.no-data {padding:18px 20px;margin:0 20px;color:#555;font-size:13px;text-align:center;font-weight:300;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
