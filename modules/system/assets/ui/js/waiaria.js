@@ -100,13 +100,13 @@ $(function() {
             tabName = '',
             tabPanel = $target.attr('data-target');
 
-        if ($target.closest('.master-tabs').length) {
+        if ($target.closest('.master-tabs')) {
             tabName = '.master-tabs';
-        } else if ($target.closest('.primary-tabs').length) {
+        } else if ($target.closest('.primary-tabs')) {
             tabName = '.primary-tabs';
-        } else if ($target.closest('.secondary-tabs').length) {
+        } else if ($target.closest('.secondary-tabs')) {
             tabName = '.secondary-tabs';
-        } else if ($target.closest('.content-tabs').length) {
+        } else if ($target.closest('.content-tabs')) {
             tabName = '.content-tabs';
         }
 
