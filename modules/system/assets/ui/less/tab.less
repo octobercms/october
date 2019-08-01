@@ -7,7 +7,7 @@
 
 //
 // Tabs control
-// - The control supports 3 basic CSS classes: master, primary and secondary.
+// - The control supports 4 basic CSS classes: master, primary, secondary and content.
 // --------------------------------------------------
 
 @import "tab.base.less";
@@ -139,12 +139,12 @@
     }
 
     > div.tab-content {
+
         > div.tab-pane {
-            padding: @padding-standard 0 0 0;
             display: none;
-            .clearfix();
 
             &.active {
+                padding: @padding-standard 0 0 0;
                 display: block;
 
                 &.layout-cell {
@@ -391,12 +391,6 @@
                 }
             }
         }
-
-        > div.tab-content {
-            > div.tab-pane {
-                padding-top: 15px;
-            }
-        }
     }
 
     //
@@ -530,6 +524,102 @@
     .control-tabs.secondary {
         > div > ul.nav-tabs > li a {
             background: transparent;
+        }
+    }
+}
+
+#cms-master-tabs
+    &.control-tabs
+        >div.tab-content {
+            padding: 0;
+        }
+    }
+}
+
+//
+// Important - Styling to preload the tabs for the javascript.
+// The following code below is using opacity:0 and height:0 to not show the hidden tabs
+// October calculates all the hidden tab fields before a user opens
+// the hidden tab, do not change the code below or you will break October.
+// For more info see commit: https://github.com/octobercms/october/commit/0f43155fb805cd558a793aca0c61350f450ae3dc
+//
+
+#Form-primaryTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-secondaryTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-contentTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#Form-masterTabs {
+    >div.tab-content {
+        >div.tab-pane.active {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 1;
+            height: 100%;
+        }
+        >div.tab-pane {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
         }
     }
 }
