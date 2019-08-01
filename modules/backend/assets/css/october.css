@@ -467,10 +467,10 @@ body.dragging .control-treeview.treeview-light ol.dragging ol >li >div {backgrou
 .sidenav-tree ul.top-level >li >ul li.active a span.header {color:#fff}
 .sidenav-tree ul.top-level >li >ul li.active a span.description {color:rgba(255,255,255,0.91)}
 .sidenav-tree .back-link {display:none}
-@media (min-width:768px) {.sidenav-tree-root .sidenav-tree {width:600px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul {font-size:0;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:stretch;align-content:stretch }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {display:inline-block;width:300px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li a {height:100% }}
-@media (min-width:768px) and (max-width:991px) {.sidenav-tree-root .sidenav-tree {width:100% }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {width:50% }}
-@media (min-width:1200px) {.sidenav-tree-root .sidenav-tree {width:900px }}
-@media (max-width:768px) {.sidenav-tree {width:100%;height:auto !important;display:block !important }.sidenav-tree >.layout {display:none }.sidenav-tree-root .sidenav-tree {width:100% !important;height:100% !important;display:table-cell !important }.sidenav-tree-root .sidenav-tree .back-link {display:none !important }.sidenav-tree-root .sidenav-tree >.layout {display:table !important }.sidenav-tree-root #layout-body {display:none }body.has-sidenav-tree .sidenav-tree .back-link {display:block;padding:13px 15px;background:#2b3e50;color:#bdc3c7;font-size:14px;line-height:14px;text-transform:uppercase }body.has-sidenav-tree .sidenav-tree .back-link i {display:inline-block;margin-right:10px }body.has-sidenav-tree .sidenav-tree .back-link:hover {text-decoration:none }body.has-sidenav-tree #layout-body {display:block !important }}
+@media (min-width:768px) {.sidenav-tree-root .sidenav-tree ul.top-level >li >ul {font-size:0;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:stretch;align-content:stretch }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {display:inline-block;width:300px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li a {height:100% }}
+@media (min-width:768px) and (max-width:991px) {.sidenav-tree-root .sidenav-tree {width:300px }.sidenav-tree-root .sidenav-tree ul.top-level >li >ul >li {width:50% }}
+@media (min-width:1200px) {.sidenav-tree-root .sidenav-tree {width:300px }}
+@media (max-width:768px) {.sidenav-tree {width:80vw;height:auto !important;display:block !important }.sidenav-tree >.layout {display:none }.sidenav-tree-root .sidenav-tree {width:80vw !important;height:100% !important;display:table-cell !important }.sidenav-tree-root .sidenav-tree .back-link {display:none !important }.sidenav-tree-root .sidenav-tree >.layout {display:table !important }.sidenav-tree-root #layout-body {display:none }body.has-sidenav-tree .sidenav-tree .back-link {display:block;padding:13px 15px;background:#2b3e50;color:#bdc3c7;font-size:14px;line-height:14px;text-transform:uppercase }body.has-sidenav-tree .sidenav-tree .back-link i {display:inline-block;margin-right:10px }body.has-sidenav-tree .sidenav-tree .back-link:hover {text-decoration:none }body.has-sidenav-tree #layout-body {display:block !important }}
 div.panel {padding:20px}
 div.panel.no-padding {padding:0}
 div.panel.no-padding-bottom {padding-bottom:0}
@@ -673,8 +673,8 @@ nav#layout-mainmenu ul li a:active,
 nav#layout-mainmenu ul li a:focus {text-decoration:none;color:rgba(255,255,255,0.6)}
 nav#layout-mainmenu ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon {height:30px;width:30px;margin-right:10px;position:relative;top:0}
-nav#layout-mainmenu ul.nav {display:inline-block}
-nav#layout-mainmenu .toolbar-item {padding-right:0}
+nav#layout-mainmenu ul.nav {display:inline-block;max-height:60px}
+nav#layout-mainmenu .toolbar-item {padding-right:0;background-color:#000}
 nav#layout-mainmenu .toolbar-item:before,
 nav#layout-mainmenu .toolbar-item:after {margin-top:0}
 nav#layout-mainmenu .toolbar-item:before {left:-12px}
@@ -685,7 +685,7 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview {margin:0 0 0 21px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i {font-size:20px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a {position:relative;padding:0 10px;top:-1px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account {margin-right:0}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 15px 0 10px;font-size:13px;position:relative}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 0 0 10px;font-size:13px;position:relative}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight >a {z-index:600}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account .account-name {margin-right:15px}
@@ -803,6 +803,8 @@ nav#layout-mainmenu.navbar ul li:hover,
 .mainmenu-collapsed li:hover {color:#fff;background:transparent}
 body.drag nav#layout-mainmenu.navbar ul.nav li:hover,
 body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
+@media (max-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:45px;max-height:45px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px;vertical-align:top }}
+@media (min-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:60px;max-height:60px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:60px;vertical-align:top }}
 .layout-sidenav-container {width:120px}
 #layout-sidenav {position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:14px}
 #layout-sidenav ul {position:relative;margin:0;padding:0;height:100%;overflow:hidden}
