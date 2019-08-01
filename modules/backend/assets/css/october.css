@@ -673,7 +673,7 @@ nav#layout-mainmenu ul li a:active,
 nav#layout-mainmenu ul li a:focus {text-decoration:none;color:rgba(255,255,255,0.6)}
 nav#layout-mainmenu ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon {height:30px;width:30px;margin-right:10px;position:relative;top:0}
-nav#layout-mainmenu ul.nav {display:inline-block;max-height:60px}
+nav#layout-mainmenu ul.nav {display:inline-block}
 nav#layout-mainmenu .toolbar-item {padding-right:0;background-color:#000}
 nav#layout-mainmenu .toolbar-item:before,
 nav#layout-mainmenu .toolbar-item:after {margin-top:0}
@@ -687,7 +687,6 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a {position:relative
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account {margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 0 0 10px;font-size:13px;position:relative}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight >a {z-index:600}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account .account-name {margin-right:15px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul {line-height:23px}
 html.svg nav#layout-mainmenu img.svg-icon,
@@ -803,8 +802,16 @@ nav#layout-mainmenu.navbar ul li:hover,
 .mainmenu-collapsed li:hover {color:#fff;background:transparent}
 body.drag nav#layout-mainmenu.navbar ul.nav li:hover,
 body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
-@media (max-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:45px;max-height:45px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:45px;vertical-align:top }}
-@media (min-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:60px;max-height:60px}nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{width:60px;vertical-align:top }}
+@media (max-width: 769px) {.menu-cont{display:block;overflow:hidden;min-height:45px;max-height:45px}
+nav.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account img.account-avatar,nav.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-account img.account-avatar,nav.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account img.account-avatar,nav.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{height:45px;width:45px;vertical-align:top}
+nav.navbar-mode-inline [data-control=toolbar],nav.navbar-mode-inline_no_icons [data-control=toolbar],nav.navbar-mode-tile [data-control=toolbar],nav.navbar-mode-collapse [data-control=toolbar]{max-height:45px} }
+@media (min-width: 769px) {.menu-cont{display:block;overflow:hidden}
+nav.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account img.account-avatar,nav.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{height:60px;width:60px;vertical-align:top}
+nav.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{height:78px;width:78px;vertical-align:top}
+nav.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account img.account-avatar{height:45px;width:45px;vertical-align:top}
+nav.navbar-mode-inline [data-control=toolbar],nav.navbar-mode-inline_no_icons [data-control=toolbar]{max-height:60px}
+nav.navbar-mode-tile [data-control=toolbar]{max-height:78px}
+nav.navbar-mode-collapse [data-control=toolbar]{max-height:45px} }
 .layout-sidenav-container {width:120px}
 #layout-sidenav {position:absolute;height:100%;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:14px}
 #layout-sidenav ul {position:relative;margin:0;padding:0;height:100%;overflow:hidden}
@@ -820,8 +827,6 @@ body.drag .mainmenu-collapsed ul li:hover {color:rgba(255,255,255,0.6)}
 #layout-sidenav ul li a:hover i {color:#fff}
 #layout-sidenav ul li span.counter {display:block;position:absolute;top:1.071em;right:1.071em;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 #layout-sidenav ul li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
-@media (min-width:768px) and (max-width:991px) {#layout-sidenav {font-size:12px }.layout-sidenav-container {width:100px }}
-@media (max-width:767px) {#layout-sidenav {font-size:10px }.layout-sidenav-container {width:80px }}
 html.mobile #layout-sidenav ul {overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover {color:rgba(255,255,255,0.6) !important}

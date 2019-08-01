@@ -172,7 +172,6 @@ nav#layout-mainmenu {
 
         &.nav {
             display: inline-block;
-            max-height: @mainmenu-mode-inline-height;
         }
     }
 
@@ -231,10 +230,6 @@ nav#layout-mainmenu {
 
             &.highlight > a {
                 z-index: @zindex-popover;
-            }
-
-            img.account-avatar {
-                width: 45px;
             }
 
             .account-name {
@@ -689,40 +684,134 @@ body.drag {
     }
 }
 
+//
+// Top navigation styling
+//
+
 @media (max-width: 769px) {
-	.menu-cont {
-		display: block;
-		overflow: hidden;
-		min-height: 45px;
-		max-height: 45px;
-	}
-	nav#layout-mainmenu {
-		ul.mainmenu-toolbar {
-			li.mainmenu-account {
-				img.account-avatar {
-					width: 45px;
-					vertical-align: top;
-				}
-			}
-		}
-	}
+    .menu-cont {
+        display: block;
+        overflow: hidden;
+        min-height: 45px;
+        max-height: 45px;
+    }
+    nav.navbar-mode-inline {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 45px;
+                    width: 45px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 45px;
+        }
+    }
+    nav.navbar-mode-inline_no_icons {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 45px;
+                    width: 45px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 45px;
+        }
+    }
+    nav.navbar-mode-tile {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 45px;
+                    width: 45px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 45px;
+        }
+    }
+    nav.navbar-mode-collapse {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 45px;
+                    width: 45px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 45px;
+        }
+    }
 }
 
 @media (min-width: 769px) {
-	.menu-cont {
-		display: block;
-		overflow: hidden;
-		min-height: 60px;
-		max-height: 60px;
-	}
-	nav#layout-mainmenu {
-		ul.mainmenu-toolbar {
-			li.mainmenu-account {
-				img.account-avatar {
-					width: 60px;
-					vertical-align: top;
-				}
-			}
-		}
-	}
+    .menu-cont {
+        display: block;
+        overflow: hidden;
+    }
+    nav.navbar-mode-inline {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 60px;
+                    width: 60px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 60px;
+        }
+    }
+    nav.navbar-mode-inline_no_icons {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 60px;
+                    width: 60px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 60px;
+        }
+    }
+    nav.navbar-mode-tile {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 78px;
+                    width: 78px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 78px;
+        }
+    }
+    nav.navbar-mode-collapse {
+        ul.mainmenu-toolbar {
+            li.mainmenu-account {
+                img.account-avatar {
+                    height: 45px;
+                    width: 45px;
+                    vertical-align: top;
+                }
+            }
+        }
+        [data-control=toolbar] {
+            max-height: 45px;
+        }
+    }
 }
