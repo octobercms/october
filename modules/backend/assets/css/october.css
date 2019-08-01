@@ -885,6 +885,7 @@ body.breadcrumb-fancy .control-breadcrumb li:last-child:before,
 .fancy-layout .tab-collapse-icon:hover {text-decoration:none;opacity:1;filter:alpha(opacity=100)}
 .fancy-layout .tab-collapse-icon.primary {color:#475354;bottom:-25px;z-index:100;-webkit-transform:scale(1,-1);-moz-transform:scale(1,-1);-ms-transform:scale(1,-1);-o-transform:scale(1,-1);transform:scale(1,-1)}
 .fancy-layout .tab-collapse-icon.primary i {position:relative;display:block}
+.fancy-layout .control-tabs.master-tabs >div >div.tabs-container,.fancy-layout.control-tabs.master-tabs >div >div.tabs-container{background-color:#bf5d07}
 .fancy-layout .control-tabs.master-tabs,
 .fancy-layout.control-tabs.master-tabs {overflow:hidden}
 .fancy-layout .control-tabs.master-tabs:before,
