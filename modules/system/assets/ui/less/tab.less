@@ -398,16 +398,58 @@
             }
         }
     }
+}
 
-    //
-    // Content tabs
-    //
+//
+// Content tabs
+//
 
-    &.content-tabs {
-
-        > ul.nav-tabs {
+.control-tabs.content-tabs {
+    >ul.nav-tabs {
+        position: relative;
+        &:before {
+            content: ' ';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #e3e5e7;
+        }
+        li {
+            margin-right: 0;
+            border-top: 1px solid #e3e5e7;
+            border-right: 1px solid #e3e5e7;
+            a {
+                padding: 10px;
+                margin: 5px;
+                border: none;
+                text-transform: uppercase;
+                background: transparent;
+                font-weight: 500;
+                span.title {
+                    span {
+                        border-top: none;
+                    }
+                }
+            }
+            &:first-child {
+                border-left: 1px solid #e3e5e7;
+            }
+            &:last-child {
+                border-right: 1px solid #e3e5e7;
+            }
+        }
+        li.active {
+            background: #fff;
+            a {
+                font-weight: 600;
+            }
+        }
+    }
+    >div {
+        >ul.nav-tabs {
             position: relative;
-
             &:before {
                 content: ' ';
                 position: absolute;
@@ -415,102 +457,230 @@
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background: @color-tab-content-border;
+                background: #e3e5e7;
             }
-
             li {
                 margin-right: 0;
-                border-top: 1px solid @color-tab-content-border;
-                border-right: 1px solid @color-tab-content-border;
-
+                border-top: 1px solid #e3e5e7;
+                border-right: 1px solid #e3e5e7;
                 a {
-                    font-size: 12px;
-                    padding: 11px 20px;
-                    margin: 0;
+                    padding: 10px;
+                    margin: 5px;
                     border: none;
                     text-transform: uppercase;
                     background: transparent;
                     font-weight: 500;
-
                     span.title {
                         span {
                             border-top: none;
                         }
                     }
                 }
-
                 &:first-child {
-                    border-left: 1px solid @color-tab-content-border;
+                    border-left: 1px solid #e3e5e7;
                 }
-
                 &:last-child {
-                    border-right: 1px solid @color-tab-content-border;
+                    border-right: 1px solid #e3e5e7;
                 }
-
-                &.active {
-                    background: @color-tab-content-active-bg;
+            }
+            li.active {
+                background: #fff;
+                a {
+                    font-weight: 600;
+                }
+            }
+        }
+        >div {
+            >ul.nav-tabs {
+                position: relative;
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background: #e3e5e7;
+                }
+                li {
+                    margin-right: 0;
+                    border-top: 1px solid #e3e5e7;
+                    border-right: 1px solid #e3e5e7;
+                    a {
+                        padding: 10px;
+                        margin: 5px;
+                        border: none;
+                        text-transform: uppercase;
+                        background: transparent;
+                        font-weight: 500;
+                        span.title {
+                            span {
+                                border-top: none;
+                            }
+                        }
+                    }
+                    &:first-child {
+                        border-left: 1px solid #e3e5e7;
+                    }
+                    &:last-child {
+                        border-right: 1px solid #e3e5e7;
+                    }
+                }
+                li.active {
+                    background: #fff;
                     a {
                         font-weight: 600;
                     }
                 }
             }
         }
-
-        // Tab divider to sit inset the standard padding (20px)
-        &.tabs-inset {
-            > ul.nav-tabs, > div > ul.nav-tabs, > div > div > ul.nav-tabs {
-                margin-left: -20px;
-                margin-right: -20px;
-                li:first-child {
-                    margin-left: 20px;
-                }
-            }
-        }
-
-        // Tabs to sit in by the standard offset (20px)
-        &.tabs-offset {
-            > ul.nav-tabs {
-                li:first-child {
-                    margin-left: 20px;
-                }
-            }
-        }
-
-        // Tabs to sit flush to the element above
-        &.tabs-flush {
-            > ul.nav-tabs {
-                li {
-                    border-top: none;
-                }
-                li:last-child {
-                    border-right: 1px solid transparent;
-                }
-                li:first-child {
-                    border-left: 1px solid transparent;
-                }
-                li.active:last-child {
-                    border-right: 1px solid @color-tab-content-border;
-                }
-            }
-        }
-
-        > .tab-content > .tab-pane {
+    }
+    .tab-content {
+        .tab-pane {
             padding-top: 0;
-
-            div.list-header,
-            div.padded-container,
-            div.toolbar-widget {
-                background: @color-tab-content-active-bg;
+            div.list-header {
+                background: #fff;
                 padding-top: 20px;
             }
-
-            // Pane to sit inset the standard padding (20px)
-            &.pane-inset {
-                margin-left: -20px;
-                margin-right: -20px;
+            div.padded-container {
+                background: #fff;
+                padding-top: 20px;
+            }
+            div.toolbar-widget {
+                background: #fff;
+                padding-top: 20px;
             }
         }
+        .tab-pane.pane-inset {
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+    }
+}
 
+.control-tabs.content-tabs.tabs-inset {
+    >ul.nav-tabs {
+        margin-left: -20px;
+        margin-right: -20px;
+        li {
+            &:first-child {
+                margin-left: 20px;
+            }
+        }
+    }
+    >div {
+        >ul.nav-tabs {
+            margin-left: -20px;
+            margin-right: -20px;
+            li {
+                &:first-child {
+                    margin-left: 20px;
+                }
+            }
+        }
+        >div {
+            >ul.nav-tabs {
+                margin-left: -20px;
+                margin-right: -20px;
+                li {
+                    &:first-child {
+                        margin-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.control-tabs.content-tabs.tabs-offset {
+    >ul.nav-tabs {
+        li {
+            &:first-child {
+                margin-left: 20px;
+            }
+        }
+    }
+    >div {
+        >ul.nav-tabs {
+            li {
+                &:first-child {
+                    margin-left: 20px;
+                }
+            }
+        }
+        >div {
+            >ul.nav-tabs {
+                li {
+                    &:first-child {
+                        margin-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.control-tabs.content-tabs.tabs-flush {
+    >ul.nav-tabs {
+        li {
+            border-top: none;
+            &:last-child {
+                border-right: 1px solid transparent;
+            }
+            &:first-child {
+                border-left: 1px solid transparent;
+            }
+        }
+        li.active {
+            &:last-child {
+                border-right: 1px solid #e3e5e7;
+            }
+        }
+    }
+    >div {
+        >ul.nav-tabs {
+            li {
+                border-top: none;
+                &:last-child {
+                    border-right: 1px solid transparent;
+                }
+                &:first-child {
+                    border-left: 1px solid transparent;
+                }
+            }
+            li.active {
+                &:last-child {
+                    border-right: 1px solid #e3e5e7;
+                }
+            }
+        }
+        >div {
+            >ul.nav-tabs {
+                li {
+                    border-top: none;
+                    &:last-child {
+                        border-right: 1px solid transparent;
+                    }
+                    &:first-child {
+                        border-left: 1px solid transparent;
+                    }
+                }
+                li.active {
+                &:last-child {
+                    border-right: 1px solid #e3e5e7;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-widget {
+    .control-tabs.content-tabs {
+        ul.nav.nav-tabs {
+            margin-right: -20px;
+            margin-bottom: 20px;
+        }
     }
 }
 

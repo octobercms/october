@@ -2937,31 +2937,60 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs.secondary-tabs >div >ul.nav-tabs >li:last-child,
 .control-tabs.secondary-tabs >div >div >ul.nav-tabs >li:last-child {border-right:none;margin-right:0;padding-right:0}
 .control-tabs.secondary-tabs >div.tab-content >div.tab-pane {padding-top:15px}
-.control-tabs.content-tabs >ul.nav-tabs {position:relative}
-.control-tabs.content-tabs >ul.nav-tabs:before {content:' ';position:absolute;bottom:0;left:0;width:100%;height:1px;background:#e3e5e7}
-.control-tabs.content-tabs >ul.nav-tabs li {margin-right:0;border-top:1px solid #e3e5e7;border-right:1px solid #e3e5e7}
-.control-tabs.content-tabs >ul.nav-tabs li a {font-size:12px;padding:11px 20px;margin:0;border:none;text-transform:uppercase;background:transparent;font-weight:500}
-.control-tabs.content-tabs >ul.nav-tabs li a span.title span {border-top:none}
-.control-tabs.content-tabs >ul.nav-tabs li:first-child {border-left:1px solid #e3e5e7}
-.control-tabs.content-tabs >ul.nav-tabs li:last-child {border-right:1px solid #e3e5e7}
-.control-tabs.content-tabs >ul.nav-tabs li.active {background:#fff}
-.control-tabs.content-tabs >ul.nav-tabs li.active a {font-weight:600}
+.control-tabs.content-tabs >ul.nav-tabs,
+.control-tabs.content-tabs >div >ul.nav-tabs,
+.control-tabs.content-tabs >div >div >ul.nav-tabs {position:relative}
+.control-tabs.content-tabs >ul.nav-tabs:before,
+.control-tabs.content-tabs >div >ul.nav-tabs:before,
+.control-tabs.content-tabs >div >div >ul.nav-tabs:before {content:' ';position:absolute;bottom:0;left:0;width:100%;height:1px;background:#e3e5e7}
+.control-tabs.content-tabs >ul.nav-tabs li,
+.control-tabs.content-tabs >div >ul.nav-tabs li,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li {margin-right:0;border-top:1px solid #e3e5e7;border-right:1px solid #e3e5e7}
+.control-tabs.content-tabs >ul.nav-tabs li a,
+.control-tabs.content-tabs >div >ul.nav-tabs li a,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li a {padding:10px;margin:5px;border:none;text-transform:uppercase;background:transparent;font-weight:500}
+.control-tabs.content-tabs >ul.nav-tabs li a span.title span,
+.control-tabs.content-tabs >div >ul.nav-tabs li a span.title span,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li a span.title span {border-top:none}
+.control-tabs.content-tabs >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs >div >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li:first-child {border-left:1px solid #e3e5e7}
+.control-tabs.content-tabs >ul.nav-tabs li:last-child,
+.control-tabs.content-tabs >div >ul.nav-tabs li:last-child,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li:last-child {border-right:1px solid #e3e5e7}
+.control-tabs.content-tabs >ul.nav-tabs li.active,
+.control-tabs.content-tabs >div >ul.nav-tabs li.active,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li.active {background:#fff}
+.control-tabs.content-tabs >ul.nav-tabs li.active a,
+.control-tabs.content-tabs >div >ul.nav-tabs li.active a,
+.control-tabs.content-tabs >div >div >ul.nav-tabs li.active a {font-weight:600}
 .control-tabs.content-tabs.tabs-inset >ul.nav-tabs,
 .control-tabs.content-tabs.tabs-inset >div >ul.nav-tabs,
 .control-tabs.content-tabs.tabs-inset >div >div >ul.nav-tabs {margin-left:-20px;margin-right:-20px}
 .control-tabs.content-tabs.tabs-inset >ul.nav-tabs li:first-child,
 .control-tabs.content-tabs.tabs-inset >div >ul.nav-tabs li:first-child,
 .control-tabs.content-tabs.tabs-inset >div >div >ul.nav-tabs li:first-child {margin-left:20px}
-.control-tabs.content-tabs.tabs-offset >ul.nav-tabs li:first-child {margin-left:20px}
-.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li {border-top:none}
-.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li:last-child {border-right:1px solid transparent}
-.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li:first-child {border-left:1px solid transparent}
-.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li.active:last-child {border-right:1px solid #e3e5e7}
-.control-tabs.content-tabs >.tab-content >.tab-pane {padding-top:0}
-.control-tabs.content-tabs >.tab-content >.tab-pane div.list-header,
-.control-tabs.content-tabs >.tab-content >.tab-pane div.padded-container,
-.control-tabs.content-tabs >.tab-content >.tab-pane div.toolbar-widget {background:#fff;padding-top:20px}
-.control-tabs.content-tabs >.tab-content >.tab-pane.pane-inset {margin-left:-20px;margin-right:-20px}
+.control-tabs.content-tabs.tabs-offset >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs.tabs-offset >div >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs.tabs-offset >div >div >ul.nav-tabs li:first-child {margin-left:20px}
+.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li,
+.control-tabs.content-tabs.tabs-flush >div >ul.nav-tabs li,
+.control-tabs.content-tabs.tabs-flush >div >div >ul.nav-tabs li {border-top:none}
+.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li:last-child,
+.control-tabs.content-tabs.tabs-flush >div >ul.nav-tabs li:last-child,
+.control-tabs.content-tabs.tabs-flush >div >div >ul.nav-tabs li:last-child {border-right:1px solid transparent}
+.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs.tabs-flush >div >ul.nav-tabs li:first-child,
+.control-tabs.content-tabs.tabs-flush >div >div >ul.nav-tabs li:first-child {border-left:1px solid transparent}
+.control-tabs.content-tabs.tabs-flush >ul.nav-tabs li.active:last-child,
+.control-tabs.content-tabs.tabs-flush >div >ul.nav-tabs li.active:last-child,
+.control-tabs.content-tabs.tabs-flush >div >div >ul.nav-tabs li.active:last-child {border-right:1px solid #e3e5e7}
+.control-tabs.content-tabs .tab-content .tab-pane {padding-top:0}
+.control-tabs.content-tabs .tab-content .tab-pane div.list-header,
+.control-tabs.content-tabs .tab-content .tab-pane div.padded-container,
+.control-tabs.content-tabs .tab-content .tab-pane div.toolbar-widget {background:#fff;padding-top:20px}
+.control-tabs.content-tabs .tab-content .tab-pane.pane-inset {margin-left:-20px;margin-right:-20px}
+.form-widget .control-tabs.content-tabs ul.nav.nav-tabs {margin-right:-20px;margin-bottom:20px}
 .hide-tabs .control-tabs ul.nav-tabs {display:none}
 .hide-tabs .control-tabs >div.tab-content >div.tab-pane {padding-top:0}
 .form-sidebar .control-tabs.secondary >div >ul.nav-tabs >li a {background:transparent}
