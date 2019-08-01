@@ -1,4 +1,4 @@
-<div id="<?= $this->getId('popup') ?>" class="recordfinder-popup">
+<div id="<?= $this->getId('popup') ?>" class="recordfinder-popup" role="dialog" aria-modal="true" aria-label="<?= e(trans($title)) ?>">
     <?= Form::open() ?>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="popup">&times;</button>
