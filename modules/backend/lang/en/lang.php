@@ -120,7 +120,7 @@ return [
             'event_log' => 'Event log',
             'request_log' => 'Request log',
             'app_birthday' => 'Online since',
-            'debug_warning' => 'Debug mode is enabled! It\'s recommended to disable it on production.'
+            'debug_warning' => 'Debug mode is enabled. This is not recommended for production installations.'
         ],
         'welcome' => [
             'widget_title_default' => 'Welcome',
