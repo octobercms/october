@@ -156,11 +156,6 @@ class RelationController extends ControllerBehavior
     protected $toolbarButtons;
 
     /**
-     * @var array The text used for the set of toolbar buttons.
-     */
-    protected $toolbarButtonText;
-
-    /**
      * @var Model Reference to the model used for viewing (form only).
      */
     protected $viewModel;
@@ -275,7 +270,6 @@ class RelationController extends ControllerBehavior
         $this->vars['relationManageMode'] = $this->manageMode;
         $this->vars['relationManageWidget'] = $this->manageWidget;
         $this->vars['relationToolbarButtons'] = $this->toolbarButtons;
-        $this->vars['relationToolbarButtonText'] = $this->toolbarButtonText;
         $this->vars['relationViewMode'] = $this->viewMode;
         $this->vars['relationViewWidget'] = $this->viewWidget;
         $this->vars['relationViewModel'] = $this->viewModel;
@@ -326,16 +320,17 @@ class RelationController extends ControllerBehavior
         }
 
         if (!$this->model) {
-            throw new ApplicationException(Lang::get('backend::lang.relation.missing_model', [
-                'class' => get_class($this->controller),
-            ]));
+            throw new ApplicationException(Lang::get(
+                'backend::lang.relation.missing_model',
+                ['class'=>get_class($this->controller)]
+            ));
         }
 
         if (!$this->model instanceof Model) {
-            throw new ApplicationException(Lang::get('backend::lang.model.invalid_class', [
-                'model' => get_class($this->model),
-                'class' => get_class($this->controller),
-            ]));
+            throw new ApplicationException(Lang::get(
+                'backend::lang.model.invalid_class',
+                ['model'=>get_class($this->model), 'class'=>get_class($this->controller)]
+            ));
         }
 
         if (!$this->getConfig($field)) {
@@ -366,7 +361,6 @@ class RelationController extends ControllerBehavior
         $this->manageMode = $this->evalManageMode();
         $this->manageTitle = $this->evalManageTitle();
         $this->toolbarButtons = $this->evalToolbarButtons();
-        $this->toolbarButtonText = $this->getConfig('view[toolbarButtonText]');
 
         /*
          * Toolbar widget
@@ -893,6 +887,7 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form') {
+
             if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
                 return null;
             }
@@ -906,13 +901,10 @@ class RelationController extends ControllerBehavior
              * Existing record
              */
             if ($this->manageId) {
-                $model = $config->model->find($this->manageId);
-                if ($model) {
-                    $config->model = $model;
-                } else {
+                $config->model = $config->model->find($this->manageId);
+                if (!$config->model) {
                     throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                        'class' => get_class($config->model),
-                        'id' => $this->manageId,
+                        'class' => get_class($config->model), 'id' => $this->manageId
                     ]));
                 }
             }
@@ -958,12 +950,10 @@ class RelationController extends ControllerBehavior
         if ($this->manageId) {
             $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
 
-            if ($hydratedModel) {
-                $config->model = $hydratedModel;
-            } else {
+            $config->model = $hydratedModel;
+            if (!$config->model) {
                 throw new ApplicationException(Lang::get('backend::lang.model.not_found', [
-                    'class' => get_class($config->model),
-                    'id' => $this->manageId,
+                    'class' => get_class($config->model), 'id' => $this->manageId
                 ]));
             }
         }
@@ -1211,6 +1201,7 @@ class RelationController extends ControllerBehavior
          * Add
          */
         if ($this->viewMode == 'multi') {
+
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1226,12 +1217,14 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->add($model, $sessionKey);
                 }
             }
+
         }
         /*
          * Link
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
+
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
 
@@ -1245,6 +1238,7 @@ class RelationController extends ControllerBehavior
                         $parentModel->save();
                     }
                 }
+
             }
         }
 
@@ -1266,6 +1260,7 @@ class RelationController extends ControllerBehavior
          * Remove
          */
         if ($this->viewMode == 'multi') {
+
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1473,33 +1468,79 @@ class RelationController extends ControllerBehavior
     {
         $buttons = $this->getConfig('view[toolbarButtons]');
 
-        if ($buttons === false) {
-            return null;
-        }
-        elseif (is_string($buttons)) {
-            return array_map('trim', explode('|', $buttons));
-        }
-        elseif (is_array($buttons)) {
-            return $buttons;
+        if (! is_array($buttons)) {
+            if ($buttons === false) {
+                return null;
+            }
+            elseif (is_string($buttons)) {
+                $buttons = array_map('trim', explode('|', $buttons));
+            }
+            elseif (is_array($buttons)) {
+                $buttons = $buttons;
+            }
+            elseif ($this->manageMode == 'pivot') {
+                $buttons = ['add', 'remove'];
+            }
+            else {
+                switch ($this->relationType) {
+                    case 'hasMany':
+                    case 'morphMany':
+                    case 'morphToMany':
+                    case 'morphedByMany':
+                    case 'belongsToMany':
+                        return ['create', 'add', 'delete', 'remove'];
+
+                    case 'hasOne':
+                    case 'morphOne':
+                    case 'belongsTo':
+                        return ['create', 'update', 'link', 'delete', 'unlink'];
+                }
+            }
         }
 
-        if ($this->manageMode == 'pivot') {
-            return ['add', 'remove'];
+        $buttonText = array();
+
+        foreach ($buttons as $type => $text) {
+            if (is_numeric($type) || ! $text) {
+                if (is_numeric($type) && $text) {
+                    $type = $text;
+                }
+
+                switch ($type) {
+                    case 'add':
+                        $text = 'backend::lang.relation.add_name';
+                        break;
+
+                    case 'create':
+                        $text = 'backend::lang.relation.create_name';
+                        break;
+
+                    case 'delete':
+                        $text = 'backend::lang.relation.delete';
+                        break;
+
+                    case 'link':
+                        $text = 'backend::lang.relation.link_name';
+                        break;
+
+                    case 'remove':
+                        $text = 'backend::lang.relation.remove';
+                        break;
+                        
+                    case 'unlink':
+                        $text = 'backend::lang.relation.unlink';
+                        break;
+
+                    case 'update':
+                        $text = 'backend::lang.relation.update_name';
+                        break;
+                }
+            }
+
+            $buttonText[$type] = $text;
         }
 
-        switch ($this->relationType) {
-            case 'hasMany':
-            case 'morphMany':
-            case 'morphToMany':
-            case 'morphedByMany':
-            case 'belongsToMany':
-                return ['create', 'add', 'delete', 'remove'];
-
-            case 'hasOne':
-            case 'morphOne':
-            case 'belongsTo':
-                return ['create', 'update', 'link', 'delete', 'unlink'];
-        }
+        return $buttonText;
     }
 
     /**
@@ -1533,28 +1574,45 @@ class RelationController extends ControllerBehavior
      */
     protected function evalManageTitle()
     {
-        if ($customTitle = $this->getConfig('manage[title]')) {
+        $customTitle = $this->getConfig('manage[title]');
+
+        if (is_string($customTitle)) {
             return $customTitle;
         }
 
+        $customTitles = is_array($customTitle) ? $customTitle : array();
+
         switch ($this->manageMode) {
             case 'pivot':
+                if (array_key_exists('pivot', $customTitles)) {
+                    return $customTitles['pivot'];
+                }
+                elseif ($this->eventTarget == 'button-link') {
+                    return 'backend::lang.relation.link_a_new';
+                }
+
+                return 'backend::lang.relation.add_a_new';
             case 'list':
-                if ($this->eventTarget == 'button-link') {
+                if (array_key_exists('list', $customTitles)) {
+                    return $customTitles['list'];
+                }
+                elseif ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
                 return 'backend::lang.relation.add_a_new';
             case 'form':
-                if ($this->readOnly) {
+                if (array_key_exists('form', $customTitles)) {
+                    return $customTitles['form'];
+                }
+                elseif ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
                 }
                 elseif ($this->manageId) {
                     return 'backend::lang.relation.update_name';
                 }
-                else {
-                    return 'backend::lang.relation.create_name';
-                }
+                
+                return 'backend::lang.relation.create_name';
         }
     }
 
@@ -1708,8 +1766,7 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetManageWidget()
-    {
+    public function relationGetManageWidget() {
         return $this->manageWidget;
     }
 
@@ -1718,8 +1775,7 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetViewWidget()
-    {
+    public function relationGetViewWidget() {
         return $this->viewWidget;
     }
 }
