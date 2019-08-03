@@ -155,6 +155,14 @@ class CodeBase extends Extendable implements ArrayAccess
      */
     public function __isset($name)
     {
-        return isset($this->page->{$name});
+        if (isset($this->page->components[$name]) || isset($this->layout->components[$name])) {
+            return true;
+        }
+
+        if (isset($this->page->{$name})) {
+            return $value;
+        }
+
+        return array_key_exists($name, $this->controller->vars);
     }
 }
