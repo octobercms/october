@@ -247,6 +247,10 @@ class FormController extends ControllerBehavior
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeCreate($model);
 
+        if (method_exists($model, 'filterFields')) {
+            $model->filterFields((object) $this->formWidget->getFields(), $this->context);
+        }
+
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
         Db::transaction(function () use ($modelsToSave) {
             foreach ($modelsToSave as $modelToSave) {
@@ -313,6 +317,10 @@ class FormController extends ControllerBehavior
 
         $this->controller->formBeforeSave($model);
         $this->controller->formBeforeUpdate($model);
+
+        if (method_exists($model, 'filterFields')) {
+            $model->filterFields((object) $this->formWidget->getFields(), $this->context);
+        }
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
         Db::transaction(function () use ($modelsToSave) {
