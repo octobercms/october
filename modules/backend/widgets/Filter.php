@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
+use BackendAuth;
 
 /**
  * Filter Widget
@@ -560,6 +561,12 @@ class Filter extends WidgetBase
     {
         foreach ($scopes as $name => $config) {
             $scopeObj = $this->makeFilterScope($name, $config);
+
+            // Check if user has permission to show this filter
+            $permission = array_get($config, 'permission');
+            if ($permission && !BackendAuth::getUser()->hasAccess($permission)) {
+                continue;
+            }
 
             /*
              * Check that the filter scope matches the active context
