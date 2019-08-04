@@ -168,7 +168,7 @@
             var valuesStr = $.trim($valuesField.val())
 
             try {
-                return valuesStr.length === 0 ? {} : $.parseJSON(valuesStr)
+                return valuesStr.length === 0 ? {} : JSON.parse(valuesStr)
             }
             catch (err) {
                 throw new Error('Error parsing Inspector field values. ' + err)
@@ -338,7 +338,7 @@
             }
 
             try {
-               return $.parseJSON(configuration)
+               return JSON.parse(configuration)
             }
             catch(err) {
                 throw new Error('Error parsing Inspector configuration. ' + err)

@@ -397,7 +397,7 @@
 
     CmsPage.prototype.onInspectorHidden = function(ev) {
         var element = ev.target,
-            values = $.parseJSON($('[data-inspector-values]', element).val())
+            values = JSON.parse($('[data-inspector-values]', element).val())
 
         $('[name="component_aliases[]"]', element).val(values['oc.alias'])
         $('span.alias', element).text(values['oc.alias'])
@@ -405,7 +405,7 @@
 
     CmsPage.prototype.onInspectorHiding = function(ev, values) {
         var element = ev.target,
-            values = $.parseJSON($('[data-inspector-values]', element).val()),
+            values = JSON.parse($('[data-inspector-values]', element).val()),
             alias = values['oc.alias'],
             $componentList = $('#cms-master-tabs > div.tab-content > .tab-pane.active .control-componentlist .layout'),
             $cell = $(ev.target).parent()
