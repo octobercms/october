@@ -77,7 +77,7 @@
         var option = document.createElement('option')
 
         if (title !== null) {
-            if (!$.isArray(title)) {
+            if (!Array.isArray(title)) {
                 option.textContent = title
             }
             else {

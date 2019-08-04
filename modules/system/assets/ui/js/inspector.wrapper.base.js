@@ -247,7 +247,7 @@
             for (var property in values) {
                 var value = values[property]
 
-                if ($.isArray(value) ||$.isPlainObject(value)) {
+                if (Array.isArray(value) ||$.isPlainObject(value)) {
                     throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: ' + property)
                 }
 
@@ -332,7 +332,7 @@
     }
 
     BaseWrapper.prototype.parseConfiguration = function(configuration) {
-        if (!$.isArray(configuration) && !$.isPlainObject(configuration)) {
+        if (!Array.isArray(configuration) && !$.isPlainObject(configuration)) {
             if ($.trim(configuration) === 0) {
                 return {}
             }

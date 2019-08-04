@@ -89,7 +89,7 @@
     AutocompleteEditor.prototype.prepareItems = function(items) {
         var result = {}
 
-        if ($.isArray(items)) {
+        if (Array.isArray(items)) {
             for (var i = 0, len = items.length; i < len; i++) {
                 result[items[i]] = items[i]
             }

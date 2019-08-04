@@ -79,7 +79,7 @@
             trigger.each(function() {
                 var triggerValue = $(this).val();
 
-                $.each($.isArray(triggerValue) ? triggerValue : [triggerValue], function(key, val) {
+                $.each(Array.isArray(triggerValue) ? triggerValue : [triggerValue], function(key, val) {
                     triggered = self.triggerConditionValue.indexOf(val) != -1
                     return !triggered
                 })

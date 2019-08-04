@@ -4276,7 +4276,7 @@ else if(this.triggerCondition=='value'){var trigger,triggered=false
 trigger=$(this.options.trigger,this.triggerParent).not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
 if(!trigger.length){trigger=$(this.options.trigger,this.triggerParent).not(':not(input[type=checkbox]:checked, input[type=radio]:checked)')}
 var self=this
-trigger.each(function(){var triggerValue=$(this).val();$.each($.isArray(triggerValue)?triggerValue:[triggerValue],function(key,val){triggered=self.triggerConditionValue.indexOf(val)!=-1
+trigger.each(function(){var triggerValue=$(this).val();$.each(Array.isArray(triggerValue)?triggerValue:[triggerValue],function(key,val){triggered=self.triggerConditionValue.indexOf(val)!=-1
 return!triggered})
 return!triggered})
 this.updateTarget(triggered)}}
@@ -5109,7 +5109,7 @@ for(var property in existingValues){if(values.hasOwnProperty(property)){filtered
 values=filteredValues}
 if($valuesField.length>0){$valuesField.val(JSON.stringify(values))}
 else{for(var property in values){var value=values[property]
-if($.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
+if(Array.isArray(value)||$.isPlainObject(value)){throw new Error('Inspector data-property-xxx attributes do not support complex values. Property: '+property)}
 this.$element.attr('data-property-'+property,value)}}
 if(liveUpdateMode){this.$element.trigger('livechange')}
 else{var hasChanges=false
@@ -5130,7 +5130,7 @@ return}
 var $form=this.$element.closest('form'),data=this.$element.data(),self=this
 $.oc.stripeLoadIndicator.show()
 $form.request('onGetInspectorConfiguration',{data:data}).done(function inspectorConfigurationRequestDoneClosure(data){self.onConfigurartionRequestDone(data,result)}).always(function(){$.oc.stripeLoadIndicator.hide()})}
-BaseWrapper.prototype.parseConfiguration=function(configuration){if(!$.isArray(configuration)&&!$.isPlainObject(configuration)){if($.trim(configuration)===0){return{}}
+BaseWrapper.prototype.parseConfiguration=function(configuration){if(!Array.isArray(configuration)&&!$.isPlainObject(configuration)){if($.trim(configuration)===0){return{}}
 try{return $.parseJSON(configuration)}
 catch(err){throw new Error('Error parsing Inspector configuration. '+err)}}
 else{return configuration}}
@@ -5585,7 +5585,7 @@ if(iconClass){return'<i class="select-icon '+iconClass+'"></i> '+state.text}
 if(imageSrc){return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text}
 return state.text}
 DropdownEditor.prototype.createOption=function(select,title,value){var option=document.createElement('option')
-if(title!==null){if(!$.isArray(title)){option.textContent=title}
+if(title!==null){if(!Array.isArray(title)){option.textContent=title}
 else{if(title[1].indexOf('.')!==-1){option.setAttribute('data-image',title[1])}
 else{option.setAttribute('data-icon',title[1])}
 option.textContent=title[0]}}
@@ -6330,7 +6330,7 @@ StringListAutocomplete.prototype.removeAutocomplete=function(input){var $input=$
 if(!$input.data('autocomplete')){return}
 $input.autocomplete('destroy')}
 StringListAutocomplete.prototype.prepareItems=function(items){var result={}
-if($.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
+if(Array.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
 else{result=items}
 return result}
 StringListAutocomplete.prototype.loadDynamicItems=function(){if(this.isDisposed()){return}
@@ -6574,7 +6574,7 @@ else{autocomplete.source=this.prepareItems(items)}}
 AutocompleteEditor.prototype.removeAutocomplete=function(){var input=this.getInput()
 $(input).autocomplete('destroy')}
 AutocompleteEditor.prototype.prepareItems=function(items){var result={}
-if($.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
+if(Array.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
 else{result=items}
 return result}
 AutocompleteEditor.prototype.supportsExternalParameterEditor=function(){return false}
