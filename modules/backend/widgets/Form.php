@@ -11,6 +11,7 @@ use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
 use Exception;
+use BackendAuth;
 
 /**
  * Form Widget
@@ -687,6 +688,12 @@ class Form extends WidgetBase
         foreach ($fields as $name => $config) {
             $fieldObj = $this->makeFormField($name, $config);
             $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
+
+            // Check if user has permission to show this field
+            $permission = array_get($config, 'permission');
+            if ($permission && !BackendAuth::getUser()->hasAccess($permission)) {
+                continue;
+            }
 
             // Check that the form field matches the active context
             if ($fieldObj->context !== null) {
