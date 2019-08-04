@@ -195,7 +195,7 @@ $.fn.extend({
         var $this = this;
 
         $('body').on('click', function(event) {
-            if (exceptions && $.inArray(event.target, exceptions) > -1) {
+            if (exceptions && exceptions.indexOf(event.target) > -1) {
                 return;
             } else if ($.contains($this[0], event.target)) {
                 return;

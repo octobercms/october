@@ -2761,7 +2761,7 @@ break
 case 40:e.preventDefault()
 this.next()
 break}
-e.stopPropagation()},keydown:function(e){this.suppressKeyPressRepeat=~$.inArray(e.keyCode,[40,38,9,13,27])
+e.stopPropagation()},keydown:function(e){this.suppressKeyPressRepeat=~[40,38,9,13,27].indexOf(e.keyCode)
 this.move(e)},keypress:function(e){if(this.suppressKeyPressRepeat)return
 this.move(e)},keyup:function(e){switch(e.keyCode){case 40:case 38:case 16:case 17:case 18:break
 case 9:case 13:if(!this.shown)return
@@ -3178,7 +3178,7 @@ var
 self=this,filtered=[],items=this.scopeValues[scopeName]
 if(items.active.length){var activeIds=[]
 $.each(items.active,function(key,obj){activeIds.push(obj.id)})
-filtered=$.grep(available,function(item){return $.inArray(item.id,activeIds)===-1})}
+filtered=$.grep(available,function(item){return activeIds.indexOf(item.id)===-1})}
 else{filtered=available}
 var container=$('#controlFilterPopover .filter-items > ul').empty()
 self.addItemsToListElement(container,filtered)}
@@ -4276,7 +4276,7 @@ else if(this.triggerCondition=='value'){var trigger,triggered=false
 trigger=$(this.options.trigger,this.triggerParent).not('input[type=checkbox], input[type=radio], input[type=button], input[type=submit]')
 if(!trigger.length){trigger=$(this.options.trigger,this.triggerParent).not(':not(input[type=checkbox]:checked, input[type=radio]:checked)')}
 var self=this
-trigger.each(function(){var triggerValue=$(this).val();$.each($.isArray(triggerValue)?triggerValue:[triggerValue],function(key,val){triggered=$.inArray(val,self.triggerConditionValue)!=-1
+trigger.each(function(){var triggerValue=$(this).val();$.each($.isArray(triggerValue)?triggerValue:[triggerValue],function(key,val){triggered=self.triggerConditionValue.indexOf(val)!=-1
 return!triggered})
 return!triggered})
 this.updateTarget(triggered)}}

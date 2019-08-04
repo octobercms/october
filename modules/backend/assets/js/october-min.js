@@ -1127,12 +1127,12 @@ if(self.textContainsWords($('div.group h3',$li).text(),words)){visibleGroups.pus
 $('ul li',$li).each(function(){visibleItems.push(this)})}
 else{$('ul li',$li).each(function(){if(self.textContainsWords($(this).text(),words)||self.textContainsWords($(this).data('keywords'),words)){visibleGroups.push($li.get(0))
 visibleItems.push(this)}})}})
-$('ul.top-level > li',this.$el).each(function(){var $li=$(this),groupIsVisible=$.inArray(this,visibleGroups)!==-1
+$('ul.top-level > li',this.$el).each(function(){var $li=$(this),groupIsVisible=visibleGroups.indexOf(this)!==-1
 $li.toggleClass('hidden',!groupIsVisible)
 if(groupIsVisible)
 self.expandGroup($li,0)
 $('ul li',$li).each(function(){var $itemLi=$(this)
-$itemLi.toggleClass('hidden',$.inArray(this,visibleItems)==-1)})})
+$itemLi.toggleClass('hidden',visibleItems.indexOf(this)==-1)})})
 return false}
 SidenavTree.prototype.textContainsWords=function(text,words){text=text.toLowerCase()
 for(var i=0;i<words.length;i++){if(text.indexOf(words[i])===-1)
