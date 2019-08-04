@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Area di Amministrazione'
     ],
+    'aria-label' => [
+        'footer'        => 'menu a piè di pagina',
+        'side_panel'    => 'pannello laterale',
+        'breadcrumb'    => 'elenco dei breadcrumb',
+        'main_content'  => 'area principale',
+        'tabs'          => 'schede',
+    ],
     'field' => [
         'invalid_type' => 'Il tipo di campo :type non è valido.',
         'options_method_not_exists' => 'La classe :model deve definire un metodo :method() che ritorni le opzioni per il campo ":field".'

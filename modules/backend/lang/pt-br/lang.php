@@ -5,9 +5,18 @@ return [
         'title' => 'Área Administrativa',
         'invalid_login' => 'Os dados digitados não correspondem aos nossos registros. Por favor, verifique e tente novamente.'
     ],
+    'aria-label' => [
+        'footer'        => 'Menu de Rodapé',
+        'side_panel'    => 'painel lateral',
+        'breadcrumb'    => 'trilha de migalhas',
+        'main_content'  => 'área principal',
+        'tabs'          => 'guias',
+    ],
     'field' => [
         'invalid_type' => 'Tipo de campo inválido :type.',
+        'options_method_invalid_model' => 'O atributo ":field" não resolve a classe. Tente especificar as opções do método para o modelo :model.',
         'options_method_not_exists' => 'A classe :model deve definir um método :method() retornando opções para o campo ":field".',
+        'colors_method_not_exists' => 'A classe de modelo :model deve definir um método :method() retornando códigos HEX de cor html para o campo de formulário ":field".'
     ],
     'widget' => [
         'not_registered' => 'Uma classe de widget com o nome ":name" não foi definida',
@@ -15,10 +24,20 @@ return [
     ],
     'page' => [
         'untitled' => 'Sem Título',
+        '404' => [
+            'label'     => 'Página não encontrada',
+            'help'      => "Pesquisamos e pesquisamos, mas a URL solicitada simplesmente não foi encontrada. Será que você estava procurando outra coisa?",
+            'back_link' => 'Volte para a página anterior',
+        ],
         'access_denied' => [
             'label' => 'Acesso negado',
             'help' => 'Você não tem as permissões necessárias para visualizar esta página.',
             'cms_link' => 'Retornar à área administrativa',
+        ],
+        'no_database' => [
+            'label' => 'Banco de dados ausente',
+            'help' => "Um banco de dados é necessário para acessar o back-end. Verifique se o banco de dados está configurado e migrou antes de tentar novamente.",
+            'cms_link' => 'Retornar para a página inicial',
         ],
         'invalid_token' => [
             'label' => 'Token de segurança inválido'
@@ -26,8 +45,21 @@ return [
     ],
     'partial' => [
         'not_found_name' => 'O bloco ":name" não foi encontrado.',
+        'invalid_name' => 'Nome do bloco é inválido: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Nome do manipulador AJAX inválido: :name.',
+        'not_found' => "Manipulador AJAX ':name' não foi encontrado."
     ],
     'account' => [
+        'impersonate' => 'Representar usuário',
+        'impersonate_confirm' => 'Tem certeza de que deseja se passar por esse usuário? Você pode reverter para o seu estado original fazendo logout.',
+        'impersonate_success' => 'Você está se passando por esse usuário',
+        'impersonate_working' => 'Representando...',
+        'impersonating' => 'Representando :full_name',
+        'stop_impersonating' => 'Pare de representar',
+        'signed_in_as' => 'Assinado como :full_name',
+        'remember_me' => 'Permaneça logado',
         'sign_out' => 'Sair',
         'login' => 'Entrar',
         'reset' => 'Redefinir',
@@ -73,6 +105,8 @@ return [
         'make_default' => 'Definir como padrão',
         'make_default_confirm' => 'Definir o painel atual como padrão?',
         'make_default_success' => 'Painel atual agora é o padrão',
+        'collapse_all' => 'Recolher tudo',
+        'expand_all' => 'Expandir tudo',
         'status' => [
             'widget_title_default' => 'Status do Sistema',
             'update_available' => '{0} atualizações disponíveis!|{1} atualização disponível!|[2,Inf] atualizações disponíveis!',
@@ -108,6 +142,8 @@ return [
         'last_name' => 'Sobrenome',
         'full_name' => 'Nome Completo',
         'email' => 'E-mail',
+        'role_field' => 'Função',
+        'role_comment' => 'As funções definem as permissões do usuário, que podem ser substituídas no nível do usuário, na guia Permissões.',
         'groups' => 'Grupos',
         'groups_comment' => 'Defina a quais grupos essa pessoa pertence.',
         'avatar' => 'Foto',
@@ -124,6 +160,12 @@ return [
         'allow' => 'Permitir',
         'inherit' => 'Herdar',
         'deny' => 'Negar',
+        'activated' => 'Ativado',
+        'last_login' => 'Último login',
+        'created_at' => 'Criado em',
+        'updated_at' => 'Atualizado em',
+        'deleted_at' => 'Excluído em',
+        'show_deleted' => 'Mostrar excluído',
         'group' => [
             'name' => 'Grupo',
             'name_comment' => 'O nome é exibido na lista de grupos ao se criar/alterar um administrador.',
@@ -140,9 +182,25 @@ return [
             'return' => 'Voltar para a lista de grupos',
             'users_count' => 'Usuários'
         ],
+        'role' => [
+            'name' => 'Função',
+            'name_field' => 'Nome',
+            'name_comment' => 'O nome é exibido na lista de funções no formulário Administrador.',
+            'description_field' => 'Descrição',
+            'code_field' => 'Código',
+            'code_comment' => 'Digite um código exclusivo se quiser acessar o objeto de função com a API.',
+            'menu_label' => 'Gerenciar Funções',
+            'list_title' => 'Gerenciar Funções',
+            'new' => 'Nova Função',
+            'delete_confirm' => 'Excluir esta função de administrador?',
+            'return' => 'Retornar para lista de funções',
+            'users_count' => 'Usuários'
+        ],
         'preferences' => [
             'not_authenticated' => 'Nenhum usuário autenticado para carregar as preferências.',
         ],
+        'trashed_hint_title' => 'Esta conta foi excluída',
+        'trashed_hint_desc' => 'Esta conta foi excluida e não poderá ser acessada. Para restaurá-la, clique no ícone de restauração do usuário no canto inferior direito',
     ],
     'list' => [
         'default_title' => 'Lista',
@@ -156,6 +214,8 @@ return [
         'behavior_not_ready' => 'Lista não foi inicializada. Confira se você chamou makeLists() no controller.',
         'invalid_column_datetime' => 'Valor da coluna ":column" não é um objeto DateTime, você esqueceu registrar \$dates no Model?',
         'pagination' => 'Registros exibidos: :from-:to de :total',
+        'first_page' => 'Primeira página',
+        'last_page' => 'Última página',
         'prev_page' => 'Anterior',
         'next_page' => 'Próxima',
         'refresh' => 'Atualizar',
@@ -185,6 +245,10 @@ return [
         'remove_confirm' => 'Você tem certeza?',
         'remove_file' => 'Remover arquivo'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name requer um mínimo de :min itens, apenas :items foram fornecidos',
+        'max_items_failed' => ':name requer um máximo de :max itens, apenas :items foram fornecidos',
+    ],
     'form' => [
         'create_title' => 'Novo :name',
         'update_title' => 'Editar :name',
@@ -211,6 +275,9 @@ return [
         'confirm_delete' => 'Você realmente deseja apagar este registro?',
         'confirm_delete_multiple' => 'Você realmente deseja apagar os registros selecionados?',
         'deleting_name' => 'Apagando :name...',
+        'restore' => 'Restaurar',
+        'restoring' => 'Restaurando',
+        'confirm_restore' => 'Tem certeza de que deseja restaurar este registro?',
         'reset_default' => 'Redefinir para o padrão',
         'resetting' => 'Redefinindo',
         'resetting_name' => 'Redefinindo :name',
@@ -229,6 +296,7 @@ return [
         'confirm_tab_close' => 'Tem certeza que deseja fechar essa aba? As alterações que não foram salvas serão perdidas',
         'behavior_not_ready' => 'O formulário não foi inicializado. Confira se você chamou initForm() no controller.',
         'preview_no_files_message' => 'Os arquivos não foram carregados',
+        'preview_no_media_message' => 'Não há mídia selecionada.',
         'preview_no_record_message' => 'Nenhum registro selecionado.',
         'select' => 'Selecionar',
         'select_all' => 'todos',
@@ -242,7 +310,9 @@ return [
         'return_to_list' => 'Retornar à lista',
     ],
     'recordfinder' => [
-        'find_record' => 'Localizar Registro'
+        'find_record' => 'Localizar Registro',
+        'invalid_model_class' => 'A classe de modelo fornecida ":modelClass" para o recordfinder é inválida',
+        'cancel' => 'Cancelar',
     ],
     'relation' => [
         'missing_config' => 'Comportamento relation não tem uma configuração para ":config".',
@@ -295,6 +365,7 @@ return [
         'tips_description' => 'Há itens que demandam atenção para configurar o sistema corretamente.',
         'permissions'  => 'Diretório :name ou seus subdiretórios não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor neste diretório.',
         'extension' => 'A extensão PHP :name não está instalada. Por favor, instale esta biblioteca para ativar a extensão.',
+        'plugin_missing' => 'O plugin :name é uma dependência, mas não está instalado. Por favor, instale este plugin.',
     ],
     'editor' => [
         'menu_label' => 'Definições do Editor',
@@ -341,6 +412,10 @@ return [
         'remove_tags' => 'Excluir etiqueta',
         'remove_tags_comment' => 'Lista de etiquetas que serão exclídas juntas com seu conteúdo.',
         'theme' => 'Esquema de cores',
+        'line_breaker_tags' => 'Tags de quebra de linha',
+        'line_breaker_tags_comment' => 'A lista de tags usadas para colocar um elemento em quebra de linha.',
+        'toolbar_buttons' => 'Botões da barra de ferramentas',
+        'toolbar_buttons_comment' => 'Os botões da barra de ferramentas a serem exibidos no Rich Editor por padrão. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Visualizar a página'
@@ -360,6 +435,8 @@ return [
         'brand' => 'Marca',
         'logo' => 'Logo',
         'logo_description' => 'Fazer upload de uma logo para usar na área administrativa.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Carregar um favicon personalizado para usar no back-end',
         'app_name' => 'Nome do Aplicativo',
         'app_name_description' => 'Este nome é mostrado no título da área administrativa.',
         'app_tagline' => 'Slogan do Aplicativo',
@@ -373,6 +450,7 @@ return [
         'navigation' => 'Navegação',
         'menu_mode' => 'Estilo de menu',
         'menu_mode_inline' => 'Em linha',
+        'menu_mode_inline_no_icons' => 'Em linha (sem ícones)',
         'menu_mode_tile' => 'Blocos',
         'menu_mode_collapsed' => 'Colapsados'
     ],
@@ -390,7 +468,9 @@ return [
         'hint' => 'Este registro mostra a lista de acessos dos administradores. Os registros são mantidos por um período de :days dias.',
         'menu_label' => 'Registro de Acesso',
         'menu_description' => 'Veja a lista de acessos à administração.',
+        'id' => 'ID',
         'created_at' => 'Data & Hora',
+        'type' => 'Tipo',
         'login' => 'Login',
         'ip_address' => 'Endereço IP',
         'first_name' => 'Nome',
@@ -400,11 +480,13 @@ return [
     'filter' => [
         'all' => 'todos',
         'options_method_not_exists' => "A classe modelo :model deve definir um método :method() retornando opções para o filtro ':filter'.",
-        'date_all' => 'todo o período'
+        'date_all' => 'todo o período',
+        'number_all' => 'todos os números',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Enviar arquivo CSV',
         'import_file' => 'Importar arquivo',
+        'row' => 'Linha :row',
         'first_row_contains_titles' => 'Primeira linha contém títulos das colunas',
         'first_row_contains_titles_desc' => 'Deixe marcado se primeira linha do CSV é utilizada como títulos das colunas.',
         'match_columns' => '2. Associar as colunas do arquivo a campos do banco de dados',
@@ -478,7 +560,9 @@ return [
         'manage_media' => 'Gerenciar mídias'
     ],
     'mediafinder' => [
-        'default_prompt' => 'Clique no botão %s para localizar um arquivo de mídia'
+        'label' => 'Localizador de Mídia',
+        'default_prompt' => 'Clique no botão %s para localizar um arquivo de mídia',
+        'no_image' => 'A imagem não foi encontrada'
     ],
     'media' => [
         'menu_label' => 'Mídias',
@@ -509,6 +593,9 @@ return [
         'uploading_error' => 'Falha no envio',
         'type_blocked' => 'O tipo de arquivo utilizado é bloqueado por motivos de segurança.',
         'order_by' => 'Ordenar por',
+        'direction' => 'Direção',
+        'direction_asc' => 'Ascendente',
+        'direction_desc' => 'Descendente',
         'folder' => 'Pasta',
         'no_files_found' => 'Nenhum arquivo encontrado.',
         'delete_empty' => 'Por favor, selecione um item para excluir.',

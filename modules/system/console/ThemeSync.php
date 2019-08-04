@@ -181,7 +181,7 @@ class ThemeSync extends Command
         }
 
         // Confirm with the user
-        if (!$this->confirmToProceed(sprintf('This will OVERWRITE the %s provided paths in "themes/%s" on the %s with content from the %s', count($validPaths), $themeName, $target, $source), function () { return true; })) {
+        if (!$this->confirmToProceed(sprintf('This will OVERWRITE the %s provided paths in "themes/%s" on the %s with content from the %s', count($validPaths), $themeName, $target, $source), true)) {
             return;
         }
 

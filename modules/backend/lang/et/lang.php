@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Haldusliides'
     ],
+    'aria-label' => [
+        'footer'        => 'jalus',
+        'side_panel'    => 'kõrvalpaneel',
+        'breadcrumb'    => 'riivsai',
+        'main_content'  => 'peamine ala',
+        'tabs'          => 'vahekaardid',
+    ],
     'field' => [
         'invalid_type' => 'Välja tüüpi :type pole olemas.',
         'options_method_invalid_model' => "Atribuut ':field' ei vasta ühelegi olemasolevale andmemudelile. Palun defineeri valikväärtuste funktioon :model andmemudelis.",

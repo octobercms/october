@@ -485,5 +485,4 @@ Custom output: And tell him about his brush strokes?
 ESC;
         $this->assertEquals($content, $response);
     }
-
 }

@@ -5,6 +5,13 @@ return [
         'title' => 'Beheeromgeving',
         'invalid_login' => 'De ingevoerde gegevens leveren geen resultaat. Controleer je invoer en probeer het opnieuw.'
     ],
+    'aria-label' => [
+        'footer'        => 'voettekst navigatie',
+        'side_panel'    => 'zijpaneel',
+        'breadcrumb'    => 'broodkruimel spoor',
+        'main_content'  => 'hoofdgebied',
+        'tabs'          => 'klikt op',
+    ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
         'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",

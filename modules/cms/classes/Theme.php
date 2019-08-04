@@ -344,7 +344,7 @@ class Theme
                 $config = Yaml::parseFile($path);
             } else {
                 $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
-                $config = Cache::rememberForever($cacheKey, function() use ($path) {
+                $config = Cache::rememberForever($cacheKey, function () use ($path) {
                     return Yaml::parseFile($path);
                 });
             }

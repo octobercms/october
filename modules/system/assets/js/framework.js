@@ -115,6 +115,7 @@ if (window.jQuery.request !== undefined) {
         var requestOptions = {
             url: url,
             crossDomain: false,
+            global: options.ajaxGlobal,
             context: context,
             headers: requestHeaders,
             success: function(data, textStatus, jqXHR) {
@@ -389,7 +390,8 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null
+        evalComplete: null,
+        ajaxGlobal: false
     }
 
     /*
@@ -418,6 +420,7 @@ if (window.jQuery.request !== undefined) {
             evalSuccess: $this.data('request-success'),
             evalError: $this.data('request-error'),
             evalComplete: $this.data('request-complete'),
+            ajaxGlobal: $this.data('request-ajax-global'),
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),

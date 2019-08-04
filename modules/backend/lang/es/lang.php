@@ -4,6 +4,13 @@ return [
     'auth' => [
         'title' => 'Area de Administración'
     ],
+    'aria-label' => [
+        'footer'        => 'pie de página',
+        'side_panel'    => 'panel lateral',
+        'breadcrumb'    => 'migaja de pan',
+        'main_content'  => 'área principal',
+        'tabs'          => 'pestañas',
+    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'El modelo clase: model debe definir un método: method() opciones recurrentes para el ":field" desde campo.'
@@ -214,8 +221,8 @@ return [
         'resetting' => 'Restableciendo',
         'resetting_name' => 'Restableciendo :name',
         'undefined_tab' => 'Varios',
-        'field_off' => 'Off',
-        'field_on' => 'On',
+        'field_off' => 'Apagar',
+        'field_on' => 'Encender',
         'add' => 'Agregar',
         'apply' => 'Aplicar',
         'cancel' => 'Cancelar',
@@ -394,7 +401,7 @@ return [
         'ip_address' => 'IP',
         'first_name' => 'Nombre',
         'last_name' => 'Apellido',
-        'email' => 'Email'
+        'email' => 'Correo'
     ],
     'filter' => [
         'all' => 'todo',
@@ -474,14 +481,14 @@ return [
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'        
+        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'
     ],
     'mediafinder' => [
         'label' => 'Buscador de multimedia',
         'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia',
     ],
     'media' => [
-        'menu_label' => 'Media',
+        'menu_label' => 'Medios',
         'upload' => 'Subir',
         'move' => 'Mover',
         'delete' => 'Eliminar',

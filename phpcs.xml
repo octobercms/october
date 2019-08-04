@@ -19,11 +19,24 @@
         <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <!--
+        Test fixtures and cases can have multiple classes defined, only if they are directly related to the test, or are
+        extended classes
+        -->
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+
     <file>bootstrap/</file>
     <file>config/</file>
     <file>modules/</file>
     <file>plugins/october/demo/</file>
     <file>tests/</file>
 
+    <!-- Ignore vendor files -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <!-- Ignore this view file as fixing the issues in here will break the template -->
+    <exclude-pattern>modules/system/views/exception.php</exclude-pattern>
+    <!-- Ignore this test case completely as it's testing a parse error -->
+    <exclude-pattern>tests/fixtures/plugins/testvendor/goto/Plugin.php</exclude-pattern>
 </ruleset>

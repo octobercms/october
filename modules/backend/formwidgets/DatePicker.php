@@ -122,7 +122,7 @@ class DatePicker extends FormWidgetBase
             if ($this->mode === 'date' && !$this->ignoreTimezone) {
                 $backendTimeZone = \Backend\Models\Preference::get('timezone');
                 $value->setTimezone($backendTimeZone);
-                $value->setTime(0,0,0);
+                $value->setTime(0, 0, 0);
                 $value->setTimezone(Config::get('app.timezone'));
             }
             $value = $value->toDateTimeString();

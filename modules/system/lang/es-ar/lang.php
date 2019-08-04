@@ -128,7 +128,7 @@ return [
         'install_completing' => 'Finalizó el proceso de instalación',
         'install_success' => 'El plugin se ha instalado correctamente.',
     ],
-  'updates' => [
+    'updates' => [
         'title' => 'Administrar actualizaciones',
         'name' => 'Actualizaciones de software',
         'menu_label' => 'Actualizaciones',
@@ -174,7 +174,7 @@ return [
         'file_error' => 'El servidor no pudo entregar el paquete.',
         'file_corrupt' => 'El archivo se encuentra dañado.',
     ],
-   'behavior' => [
+    'behavior' => [
         'missing_property' => 'Clase :class debe definir la propiedad $:property utilizada por :behavior comportamiento.',
     ],
     'config' => [

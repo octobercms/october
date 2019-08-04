@@ -5,6 +5,13 @@ return [
         'title' => "Àrea d'Administració",
         'invalid_login' => "Els detalls que has introduït no corresponen als nostres registres. Si us plau revisa'ls i torna-ho a intentar."
     ],
+    'aria-label' => [
+        'footer'        => 'Peu de pàgina',
+        'side_panel'    => 'panell lateral',
+        'breadcrumb'    => 'Pa ratllat',
+        'main_content'  => 'àrea principal',
+        'tabs'          => 'pestanyes',
+    ],
     'field' => [
         'invalid_type' => 'El tipus de camp :type utilitzat és invàlid.',
         'options_method_invalid_model' => "L'atribut ':field' no resol a un model vàlid. Intenta especificar explícitament el mètode d'opcions per la classe de model :model.",

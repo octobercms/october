@@ -5,6 +5,13 @@ return [
         'title' => 'Zone d’administration',
         'invalid_login' => 'L\'utilisateur saisie ne correspond à aucun utilisateur enregistré. Merci de vérifier votre saisie et de réessayer.'
     ],
+    'aria-label' => [
+        'footer'        => 'bas de page',
+        'side_panel'    => 'panneau latéral',
+        'breadcrumb'    => 'miette de pain',
+        'main_content'  => 'Zone principale',
+        'tabs'          => 'onglets',
+    ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',
         'options_method_invalid_model' => "L’attribut ':field' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle ':model'.",
