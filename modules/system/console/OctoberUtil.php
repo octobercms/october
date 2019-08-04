@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
 use Exception;
+use System\Models\File as FileModel;
 use System\Models\Parameter;
 
 /**
@@ -294,7 +295,57 @@ class OctoberUtil extends Command
             return;
         }
 
-        // @todo
+        $totalCount = 0;
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app')) . '/uploads';
+
+        // Recursive function to scan the directory for files and ensure they exist in system_files.
+        $purgeFunc = function ($targetDir) use (&$purgeFunc, &$totalCount, $uploadsPath) {
+            if ($files = File::glob($targetDir.'/*')) {
+                if ($dirs = File::directories($targetDir)) {
+                    foreach ($dirs as $dir) {
+                        $purgeFunc($dir);
+
+                        if (File::isDirectoryEmpty($dir) && is_writeable($dir)) {
+                            rmdir($dir);
+                            $this->info('Removed folder: '. str_replace($uploadsPath, '', $dir));
+                        }
+                    }
+                }
+
+                foreach ($files as $file) {
+                    if (!is_file($file)) {
+                        continue;
+                    }
+
+                    if (!is_writeable($file)) {
+                        $this->warn('Unable to purge file: ' . str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    if (FileModel::where('disk_name', basename($file))->count()) {
+                        $this->warn('Skipped file in use: '. str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    // Skip .gitignore files
+                    if ($file === '.gitignore') {
+                        continue;
+                    }
+
+                    $this->info('Purged: '. str_replace($uploadsPath, '', $file));
+                    $totalCount++;
+                    unlink($file);
+                }
+            }
+        };
+
+        $purgeFunc($uploadsPath);
+
+        if ($totalCount > 0) {
+            $this->comment(sprintf('Successfully deleted %d file(s).', $totalCount));
+        } else {
+            $this->comment('No files found to purge.');
+        }
     }
 
     protected function utilPurgeOrphans()
