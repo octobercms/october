@@ -197,7 +197,7 @@
          */
         $('ul.top-level > li', this.$el).each(function() {
             var $li = $(this),
-                groupIsVisible = visibleGroups.indexOf(this) !== -1
+                groupIsVisible = visibleGroups && visibleGroups.indexOf(this) !== -1
 
             $li.toggleClass('hidden', !groupIsVisible)
             if (groupIsVisible)

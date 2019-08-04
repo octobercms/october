@@ -344,7 +344,7 @@
             })
 
             filtered = $.grep(available, function(item) {
-                return activeIds.indexOf(item.id) === -1
+                return activeIds && activeIds.indexOf(item.id) === -1
             })
         }
         else {
