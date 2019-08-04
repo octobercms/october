@@ -149,9 +149,9 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
-     * This will check if a property isset on the CMS Page object.
-     * @param  string  $name
-     * @return void
+     * This will check if a property is set on the CMS Page object.
+     * @param string $name
+     * @return bool
      */
     public function __isset($name)
     {
