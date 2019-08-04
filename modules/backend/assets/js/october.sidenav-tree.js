@@ -206,7 +206,7 @@
             $('ul li', $li).each(function(){
                 var $itemLi = $(this)
 
-                $itemLi.toggleClass('hidden', visibleItems.indexOf(this) == -1)
+                $itemLi.toggleClass('hidden', visibleItems && visibleItems.indexOf(this) === -1)
             })
         })
 
