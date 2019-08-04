@@ -15,8 +15,8 @@
 
                 <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
 
-                <div class="layout-row">
-                    <div class="layout flyout-container"
+                <div class="content-container">
+                    <div class="content-container2 layout flyout-container"
                         <?php if ($flyoutContent): ?>
                             data-control="flyout"
                             data-flyout-width="400"
@@ -32,13 +32,16 @@
 
                         <!-- Side panel -->
                         <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                            <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel" aria-label="<?= e(trans('system::lang.aria-label.side_panel')) ?>">
+                            <div class="layout-cell hide-on-small split-a2" id="layout-side-panel" data-control="layout-sidepanel" aria-label="<?= e(trans('system::lang.aria-label.side_panel')) ?>">
                                 <?= $sidePanelContent ?>
+                            </div>
+                            <div id="sidebar-thumb">
+                                <span class="fix-button"><i class="icon-thumb-tack"></i></span>
                             </div>
                         <?php endif ?>
 
                         <!-- Content Body -->
-                        <div class="layout-cell layout-container" id="layout-body">
+                        <div class="layout-cell layout-container split-b" id="layout-body">
                             <div class="layout-relative">
 
                                 <div class="layout">
@@ -66,6 +69,10 @@
 
         <!-- Flash Messages -->
         <div id="layout-flash-messages"><?= $this->makeLayoutPartial('flash_messages') ?></div>
+
+        <!-- Load async javascript -->
+        <link rel="preload" href="<?= Url::asset('modules/backend/assets/js/october-bottom-min.js') ?>" as="script" importance="low">
+        <script async src="<?= Url::asset('modules/backend/assets/js/october-bottom-min.js') ?>" importance="low"></script>
 
     </body>
 </html>

@@ -26,11 +26,12 @@
 =require october.scrollbar.js
 =require october.filelist.js
 =require october.layout.js
-=require october.sidepaneltab.js
 =require october.simplelist.js
 =require october.treelist.js
 =require october.sidenav-tree.js
 =require october.datetime.js
 
 =require backend.js
+
+=require october.dragbar.js
 */

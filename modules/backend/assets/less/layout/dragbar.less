@@ -1,0 +1,52 @@
+//
+// Dragbar
+// --------------------------------------------------
+
+.content-container {
+    display: block;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.content-container2 {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.gutter {
+    height: 100%;
+    min-width: 15px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAhCAQAAABOpSL+AAAAIklEQVR4AWMwbb/PdR+JZDD9f1/oPhI5sgVGBSruc9xHIgGdSQqqQJGkRgAAAABJRU5ErkJggg==) center center no-repeat #535353;
+    cursor: col-resize;
+}
+
+.split-a1 {
+    height: 100%;
+    min-width: 300px;
+}
+
+.split-a2 {
+    height: 100%;
+}
+
+.split-a3 {
+    height: 100%;
+}
+
+.split-full {
+    width: 100% !important;
+}
+
+.split-b {
+    height: 100%;
+}
+
+@media only screen and (max-width: 400px) {
+    .gutter {
+        display: none;
+    }
+}

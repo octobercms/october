@@ -1,57 +1,45 @@
 .sidenav-tree {
-    width: 300px;
-
     .control-toolbar {
         padding: 0;
-
         .toolbar-item {
             display: block;
         }
-
         input.form-control {
             border: none;
             outline: none;
             padding: 12px 13px 13px;
             .border-radius(0);
             .box-shadow(inset -3px 0 3px rgba(0,0,0,0.1));
-
             &.search {
                 background-position: right -78px;
             }
         }
     }
-
     ul {
         padding: 0;
         margin: 0;
         list-style: none;
     }
-
     div.scrollbar-thumb {
         background: rgba(0,0,0,.2) !important;
     }
-
     ul.top-level > li {
         &[data-status=collapsed] {
             > div.group {
                 h3:before {
                     .transform(~'rotate(0deg) translate(2px, -2px)');
                 }
-
                 // Hide triangle
                 &:before, &:after {
                     display: none;
                 }
             }
-
             ul {
                 display: none;
             }
         }
-
         > div.group {
             position: relative;
-
             h3 {
                 background: @color-sidebarnav-tree-group-bg;
                 color: @color-sidebarnav-tree-group;
@@ -62,7 +50,6 @@
                 position: relative;
                 cursor: pointer;
                 font-weight: 400;
-
                 &:before {
                     display: block;
                     position: absolute;
@@ -77,7 +64,6 @@
                     font-size: 16px;
                 }
             }
-
             // Use two triangles to achieve the darkening effect
             &:before,
             &:after {
@@ -87,15 +73,12 @@
                 bottom: -8px;
                 z-index: 101;
             }
-
             &:after {
                 .triangle(down, 15px, 8px, @color-sidebarnav-tree-group-bg);
             }
         }
-
         > ul {
             li {
-
                 a {
                     display: block;
                     position: relative;
@@ -105,66 +88,54 @@
                     color: @color-sidebarnav-tree-inactive-text;
                     text-decoration: none !important;
                     .opacity(.65);
-
                     &:active,
                     &:hover {
                         .opacity(1);
                         text-decoration: none;
                     }
-
                     i {
                         position: absolute;
                         left: 16px;
                         top: 18px;
                         font-size: 22px;
                     }
-
                     span {
                         display: block;
                         line-height: 150%;
-
                         &.header {
                             color: @color-sidebarnav-tree-inactive-header;
                             font-size: @font-size-base + 1;
                             margin-bottom: 5px;
                         }
-
                         &.description {
                             color: @color-sidebarnav-tree-inactive-desc;
                             font-size: @font-size-base - 1;
                         }
                     }
                 }
-
                 &:hover a,
                 &.active a {
                     .opacity(1);
                 }
-
                 &.active {
                     border-left: 5px solid @brand-secondary;
-
                     a {
                         color: @color-sidebarnav-tree-active-text;
                         padding-right: 20px;
-
                         span.header {
                             color: @color-sidebarnav-tree-active-header;
                         }
-
                         span.description {
                             color: @color-sidebarnav-tree-active-text;
                         }
                     }
                 }
-
                 // &:last-child a {
                 //     border-bottom: none;
                 // }
             }
         }
     }
-
     .back-link {
         display: none;
     }
@@ -172,22 +143,21 @@
 
 @media (min-width: @screen-sm-min) {
     .sidenav-tree-root .sidenav-tree {
-        width: 600px;
-
         ul.top-level > li > ul {
             font-size: 0;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: row;
             flex-direction: row;
+            -ms-flex-wrap: wrap;
             flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: stretch;
-            align-content: stretch;
-
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
             > li {
-                display: inline-block;
-                // flex-grow: 1;
-                width: 300px;
-
                 a {
                     height: 100%;
                 }
@@ -196,53 +166,25 @@
     }
 }
 
-@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-    .sidenav-tree-root .sidenav-tree {
-        width: 100%;
-
-        ul.top-level > li > ul > li {
-            width: 50%;
-        }
-    }
-}
-
-@media (min-width: @screen-lg-min) {
-    .sidenav-tree-root .sidenav-tree {
-        width: 900px;
-    }
-}
-
 @media (max-width: @screen-sm) {
     .sidenav-tree {
-        width: 100%;
-        height: auto !important;
-        display: block !important;
-
         > .layout {
             display: none;
         }
     }
-
     .sidenav-tree-root {
         .sidenav-tree {
-            width: 100% !important;
-            height: 100% !important;
-            display: table-cell !important;
-
             .back-link {
                 display: none !important;
             }
-
             > .layout {
                 display: table !important;
             }
         }
-
         #layout-body {
             display: none;
         }
     }
-
     body.has-sidenav-tree {
         .sidenav-tree {
             .back-link {
@@ -262,9 +204,24 @@
                 }
             }
         }
-
         #layout-body {
             display: block !important;
         }
+    }
+}
+
+//
+// Settings page sidebar styling
+//
+
+@media only screen and (min-width: 400px) {
+    .sidenav-tree {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .sidenav-tree {
+        width: 80vw;
     }
 }
