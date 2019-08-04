@@ -160,7 +160,7 @@ class CodeBase extends Extendable implements ArrayAccess
         }
 
         if (isset($this->page->{$name})) {
-            return $value;
+            return true;
         }
 
         return array_key_exists($name, $this->controller->vars);
