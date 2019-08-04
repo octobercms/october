@@ -3178,7 +3178,7 @@ var
 self=this,filtered=[],items=this.scopeValues[scopeName]
 if(items.active.length){var activeIds=[]
 $.each(items.active,function(key,obj){activeIds.push(obj.id)})
-filtered=$.grep(available,function(item){return activeIds.indexOf(item.id)===-1})}
+filtered=$.grep(available,function(item){return activeIds&&activeIds.indexOf(item.id)===-1})}
 else{filtered=available}
 var container=$('#controlFilterPopover .filter-items > ul').empty()
 self.addItemsToListElement(container,filtered)}
