@@ -14,6 +14,7 @@ use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
 use ApplicationException;
+use BackendAuth;
 
 /**
  * List Widget
@@ -852,6 +853,12 @@ class Lists extends WidgetBase
          * Build a final collection of list column objects
          */
         foreach ($columns as $columnName => $config) {
+            // Check if user has permission to show this column
+            $permission = array_get($config, 'permission');
+            if ($permission && !BackendAuth::getUser()->hasAccess($permission)) {
+                continue;
+            }
+
             $this->allColumns[$columnName] = $this->makeListColumn($columnName, $config);
         }
     }
