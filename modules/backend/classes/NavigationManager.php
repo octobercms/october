@@ -202,11 +202,9 @@ class NavigationManager
         $validator = Validator::make($definitions, [
             '*.label' => 'required',
             '*.icon' => 'required_without:*.iconSvg',
-            '*.iconSvg' => 'required_without:*.icon',
             '*.url' => 'required',
             '*.sideMenu.*.label' => 'nullable|required',
             '*.sideMenu.*.icon' => 'nullable|required_without:*.sideMenu.*.iconSvg',
-            '*.sideMenu.*.iconSvg' => 'nullable|required_without:*.sideMenu.*.icon',
             '*.sideMenu.*.url' => 'nullable|required',
         ]);
 
