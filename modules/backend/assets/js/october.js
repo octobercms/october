@@ -32,6 +32,4 @@
 =require october.datetime.js
 
 =require backend.js
-
-=require october.dragbar.js
 */
