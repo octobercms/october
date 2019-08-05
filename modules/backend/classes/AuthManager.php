@@ -106,12 +106,14 @@ class AuthManager extends RainAuthManager
         }
 
         $ownerPermissions = array_filter($this->permissions, function ($permission) use ($owner) {
-            return $permission->owner == $owner;
+            return $permission->owner === $owner;
         });
 
-        $permissionKey = array_search($code, array_column($ownerPermissions, 'code'));
-
-        unset($this->permissions[$permissionKey]);
+        foreach ($ownerPermissions as $key => $permission) {
+            if ($permission->code === $code) {
+                unset($this->permissions[$key]);
+            }
+        }
     }
 
     /**
