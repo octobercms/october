@@ -102,7 +102,7 @@ class AuthManager extends RainAuthManager
     public function deregisterPermission($owner, $code)
     {
         if (!$this->permissions) {
-            throw new SystemException('Unable to remove permissions before they are loaded.');
+            throw new SystemException('Unable to deregister permissions before they are loaded.');
         }
 
         $ownerPermissions = array_filter($this->permissions, function ($permission) use ($owner) {
