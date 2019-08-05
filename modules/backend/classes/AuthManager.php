@@ -97,9 +97,9 @@ class AuthManager extends RainAuthManager
     }
 
     /**
-     * Removes a single back-end permission
+     * Deregisters a single back-end permission
      */
-    public function removePermission($owner, $code)
+    public function deregisterPermission($owner, $code)
     {
         if (!$this->permissions) {
             throw new SystemException('Unable to remove permissions before they are loaded.');
