@@ -2,6 +2,7 @@
 
 use Str;
 use BackendAuth;
+use SystemException;
 use System\Classes\PluginManager;
 use Event;
 
@@ -33,7 +34,7 @@ class WidgetManager
     /**
      * @var array An array of report widgets.
      */
-    protected $reportWidgets;
+    public $reportWidgets;
 
     /**
      * @var array Cache of report widget registration callbacks.
