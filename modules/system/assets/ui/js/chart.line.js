@@ -80,7 +80,7 @@
 
         var parsedOptions = {}
         try {
-            parsedOptions = JSON.parse(JSON.stringify(eval("({" + options.chartOptions + "})")));
+            parsedOptions = octoberJSON.parse("{" + value + "}");
         } catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }
