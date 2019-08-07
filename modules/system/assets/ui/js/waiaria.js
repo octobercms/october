@@ -143,19 +143,20 @@ $(function() {
         // Remove hidden attribute on active tab panel
         $(tabPanel).attr('hidden', false);
 
-        var strikeUpOrRightTab = event.key === 'ArrowLeft';
-        var strikeDownOrLeftTab = event.key === 'ArrowRight';
-        if (strikeUpOrRightTab || strikeDownOrLeftTab) {
+        if (event.key === 'ArrowLeft') {
             event.preventDefault();
 
-            var position = strikeUpOrRightTab ? 'first-child' : 'last-child';
-            var $activated = $(tabName + ' a[aria-selected="true"]').parent();
-            if ($activated.is(tabName + ' li:' + position)) {
-                $(tabName + ' li:' + position + ' a').click().focus();
-            } else {
-                // else activate previous
-                $activated.prev().children(tabName + ' a').click().focus();
-            }
+            var position = event.key === 'ArrowLeft' ? 'first-child' : 'last-child',
+                $activated = $(tabName + ' a[aria-selected="true"]').parent();
+
+            $activated.prev().children(tabName + ' a').click().focus();
+        } else if (event.key === 'ArrowRight') {
+            event.preventDefault();
+
+            var position = event.key === 'ArrowRight' ? 'first-child' : 'last-child',
+                $activated = $(tabName + ' a[aria-selected="true"]').parent();
+
+            $activated.next().children(tabName + ' a').click().focus();
         } else if (event.key === 'Home') {
             event.preventDefault();
 
@@ -163,7 +164,7 @@ $(function() {
         } else if (event.key === 'End') {
             event.preventDefault();
 
-            $(tabName + ' li ' + ' a').end().click().focus();
+            $(tabName + ' li ' + ' a').last().click().focus();
         }
 
         // Important - Must be set to true for October to set class="active" in the <li>
