@@ -143,8 +143,8 @@ $(function() {
         // Remove hidden attribute on active tab panel
         $(tabPanel).attr('hidden', false);
 
-        var strikeUpOrRightTab = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
-        var strikeDownOrLeftTab = event.key === 'ArrowDown' || event.key === 'ArrowRight';
+        var strikeUpOrRightTab = event.key === 'ArrowLeft';
+        var strikeDownOrLeftTab = event.key === 'ArrowRight';
         if (strikeUpOrRightTab || strikeDownOrLeftTab) {
             event.preventDefault();
 
