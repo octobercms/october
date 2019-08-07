@@ -533,6 +533,8 @@ class Theme
         if ($this->hasCustomData()) {
             return $this->getCustomData()->delete();
         }
+
+        return true;
     }
 
     /**
