@@ -2651,8 +2651,9 @@ div.popover-overlay {position:fixed;left:0;top:0;right:0;bottom:0;background:rgb
 .control-breadcrumb {margin:-20px -20px 20px -20px;background-color:#d0d9dd}
 .control-breadcrumb ul {padding:0;margin:0;font-size:0}
 .control-breadcrumb li {font-size:14px;list-style:none;margin:0;padding:12px 10px 12px 30px;display:inline-block;position:relative;color:#000000;background-color:#9098a2}
-.control-breadcrumb li a {display:inline-block;color:#000000;text-decoration:none}
+.control-breadcrumb li a {display:inline-block;color:#fff;text-decoration:none}
 .control-breadcrumb li a:hover {text-decoration:underline}
+.control-breadcrumb li a.focus-visible {padding:5px;margin:-6px}
 .control-breadcrumb li:before,
 .control-breadcrumb li:after {top:0;right:-14px;position:absolute;z-index:10}
 .control-breadcrumb li:after {content:'';display:block;width:0;height:0;border-top:22.5px solid transparent;border-bottom:22.5px solid transparent;border-left:15px solid #9098a2}
@@ -2661,6 +2662,7 @@ div.popover-overlay {position:fixed;left:0;top:0;right:0;bottom:0;background:rgb
 .control-breadcrumb li:last-child:after {content:''}
 .control-breadcrumb li:last-child {background-color:transparent;color:#2a3e51}
 .control-breadcrumb li:last-child:after {display:none}
+.control-breadcrumb li:last-child a {background-color:transparent;color:#2a3e51}
 body.breadcrumb-flush .control-breadcrumb,
 .control-breadcrumb.breadcrumb-flush {margin-bottom:0}
 body.slim-container .control-breadcrumb {margin-left:0;margin-right:0}

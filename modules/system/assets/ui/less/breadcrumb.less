@@ -9,7 +9,7 @@
 // Breadcrumb
 // --------------------------------------------------
 
-@color-breadcrumb-text:                      #000000;
+@color-breadcrumb-text:                      #FFFFFF;
 @color-breadcrumb-active-text:               #2A3E51;
 @color-breadcrumb-background:                #d0d9dd;
 @color-breadcrumb-inactive-background:       #9098a2;
@@ -40,6 +40,10 @@
             color: @color-breadcrumb-text;
             text-decoration: none;
             &:hover { text-decoration: underline; }
+            &.focus-visible {
+                padding: 5px;
+                margin: -6px;
+            }
         }
 
         &:before, &:after {
@@ -73,6 +77,11 @@
 
             &:after {
                 display: none;
+            }
+
+            a {
+            background-color: transparent;
+            color: @color-breadcrumb-active-text;
             }
         }
     }
