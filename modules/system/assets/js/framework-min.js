@@ -1,3 +1,4 @@
+
 if(window.jQuery===undefined){throw new Error('The jQuery library is not loaded. The OctoberCMS framework cannot be initialized.');}
 if(window.jQuery.request!==undefined){throw new Error('The OctoberCMS framework is already loaded.');}
 +function($){"use strict";var Request=function(element,handler,options){var $el=this.$el=$(element);this.options=options||{};if(handler===undefined){throw new Error('The request handler name is not specified.')}
