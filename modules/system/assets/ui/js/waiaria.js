@@ -53,7 +53,7 @@ $(function() {
     }
 
     // Add WAI-ARIA role group for radio buttons
-    $('.radio-field').attr('role', 'radiogroup');
+    $('.radio-field').attr({'role': 'radiogroup', 'aria-label': 'Radio button group'});
 
     /*
      * Radio buttons
