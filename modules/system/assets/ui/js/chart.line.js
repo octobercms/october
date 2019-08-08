@@ -80,7 +80,7 @@
 
         var parsedOptions = {}
         try {
-            parsedOptions = octoberJSON.parse("{" + value + "}");
+            parsedOptions = $.oc.JSON.parse("{" + value + "}");
         } catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }

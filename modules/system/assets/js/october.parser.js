@@ -339,7 +339,7 @@
         }
     }
 
-    var g = (typeof exports === "undefined") ? (window.octoberJSON = {}) : exports;
+    var g = (typeof exports === "undefined") ? ($.ocJSON = {}) : exports;
 
     /*
      * parse October JSON string into JSON object

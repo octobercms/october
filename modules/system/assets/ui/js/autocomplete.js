@@ -378,7 +378,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return octoberJSON.parse("{" + value + "}")
+            return $.oc.JSON.parse("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
