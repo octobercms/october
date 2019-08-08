@@ -43,7 +43,7 @@ $(function() {
      */
     if ($('.control-breadcrumb nav').not().length == 0) {
         $('.control-breadcrumb ul').wrap('<nav>');
-        $('.control-breadcrumb nav').attr({'role': 'navigation', 'aria-label': '<?= e(trans(\'system::lang.aria-label.breadcrumb\')) ?>'});
+        $('.control-breadcrumb nav').attr({'role': 'navigation', 'aria-label': 'breadcrumb'});
         $('.control-breadcrumb li').last().attr('aria-current', 'page');
         $('.control-breadcrumb li[aria-current="page"] a').attr('href', 'javascript:;');
     }
