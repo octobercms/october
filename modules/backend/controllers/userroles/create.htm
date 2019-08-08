@@ -1,5 +1,5 @@
 <?php Block::put('breadcrumb') ?>
-    <nav aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
+    <nav role="navigation" aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
         <ul>
             <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
             <li><a href="<?= Backend::url('backend/userroles') ?>"><?= e(trans('backend::lang.user.role.menu_label')) ?></a></li>

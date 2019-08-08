@@ -4,7 +4,7 @@ Display a breadcrumb on the page.
 
     <div style="padding: 20px">
         <div class="control-breadcrumb">
-            <nav aria-label="Breadcrumb"
+            <nav role="navigation" aria-label="Breadcrumb"
                 <ul>
                     <li><a href="#">Dash Board</a></li>
                     <li><a href="#">Blog Posts</a></li>

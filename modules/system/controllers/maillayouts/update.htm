@@ -1,5 +1,5 @@
 <?php Block::put('breadcrumb') ?>
-    <nav aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
+    <nav role="navigation" aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
         <ul>
             <li><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
             <li aria-current="page"><a href="javascript:;"<?= e(trans($this->pageTitle)) ?></a></li>
