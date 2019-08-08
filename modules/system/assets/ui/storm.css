@@ -2650,9 +2650,9 @@ div.popover-overlay {position:fixed;left:0;top:0;right:0;bottom:0;background:rgb
 .autocomplete.dropdown-menu li a {padding:3px 12px}
 .control-breadcrumb {margin:-20px -20px 20px -20px;background-color:#d0d9dd}
 .control-breadcrumb ul {padding:0;margin:0;font-size:0}
-.control-breadcrumb li {font-size:14px;list-style:none;margin:0;padding:12px 10px 12px 30px;display:inline-block;position:relative;color:#fff;background-color:#9098a2}
-.control-breadcrumb li a {display:inline-block;color:#fff;text-decoration:none}
-.control-breadcrumb li a:hover {color:#fff}
+.control-breadcrumb li {font-size:14px;list-style:none;margin:0;padding:12px 10px 12px 30px;display:inline-block;position:relative;color:#000000;background-color:#9098a2}
+.control-breadcrumb li a {display:inline-block;color:#000000;text-decoration:none}
+.control-breadcrumb li a:hover {text-decoration:underline}
 .control-breadcrumb li:before,
 .control-breadcrumb li:after {top:0;right:-14px;position:absolute;z-index:10}
 .control-breadcrumb li:after {content:'';display:block;width:0;height:0;border-top:22.5px solid transparent;border-bottom:22.5px solid transparent;border-left:15px solid #9098a2}

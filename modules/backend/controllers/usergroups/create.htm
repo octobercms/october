@@ -1,9 +1,11 @@
 <?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
-        <li><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
-        <li><?= e(trans($this->pageTitle)) ?></li>
-    </ul>
+    <nav aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
+        <ul>
+            <li><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
+            <li><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
+            <li aria-current="page"><a href="<?= e($this->page) ?>"<?= e(trans($this->pageTitle)) ?></a></li>
+        </ul>
+    </nav>
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
