@@ -11,7 +11,7 @@ Allows a user to select from a small set of binary options.
 
 ### Radio
 
-    <div class="radio-field" role="radiogroup" aria-labelledby="Radio button group">
+    <div class="radio-field" role="radiogroup" aria-label="Radio button group">
         <div class="radio custom-radio">
             <input name="radio" value="1" type="radio" role="radio" tabindex="-1" id="radio_1" aria-checked="false" />
             <label for="radio_1">Paris</label>
