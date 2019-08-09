@@ -80,7 +80,7 @@
 
         var parsedOptions = {}
         try {
-            parsedOptions = $.oc.JSON.parse("{" + value + "}");
+            parsedOptions = $.oc.JSON("{" + value + "}");
         } catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }

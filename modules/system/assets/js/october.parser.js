@@ -339,15 +339,17 @@
         }
     }
 
-    var g = (typeof exports === "undefined") ? (window.$.oc.JSON = {}) : exports;
-
     /*
      * parse October JSON string into JSON object
      * @param json
      * @returns {*}
      */
-    g.parse = function(json) {
+    if ($.oc === undefined)
+        $.oc = {}
+
+    $.oc.JSON = function(json) {
         var jsonString = parse(json);
         return JSON.parse(jsonString);
     };
+
 })();
