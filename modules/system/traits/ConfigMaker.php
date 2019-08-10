@@ -7,7 +7,6 @@ use Event;
 use SystemException;
 use stdClass;
 use Config;
-use Cache;
 
 /**
  * Config Maker Trait
