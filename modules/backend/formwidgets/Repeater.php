@@ -277,6 +277,7 @@ class Repeater extends FormWidgetBase
         }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+        $widget->previewMode = $this->previewMode;
         $widget->bindToController();
 
         $this->indexMeta[$index] = [
