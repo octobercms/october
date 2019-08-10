@@ -66,14 +66,7 @@ trait ConfigMaker
                 ));
             }
 
-            // Cache parsed yaml file if debug mode is disabled
-            if (!Config::get('app.debug', false)) {
-                $config = Cache::rememberForever('configmaker::' . $configFile, function () use ($configFile) {
-                    return Yaml::parse(File::get($configFile));
-                });
-            } else {
-                $config = Yaml::parse(File::get($configFile));
-            }
+            $config = Yaml::parseFile($configFile);
 
             /*
              * Extensibility
