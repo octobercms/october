@@ -25,6 +25,7 @@
 =require vendor/clockpicker/js/jquery-clockpicker.js
 =require vendor/focus-visible/focus-visible.js
 =require vendor/keyboardevent-key-polyfill/index.js
+=require vendor/jquery-smartresize/jquery.debouncedresize.js
 
 =require js/foundation.baseclass.js
 =require js/foundation.element.js
@@ -93,5 +94,4 @@
 =require js/inspector.validator.length.js
 =require js/inspector.externalparametereditor.js
 =require js/list.sortable.js
-=require js/jquery.debouncedresize.js
 */
