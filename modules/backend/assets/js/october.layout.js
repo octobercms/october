@@ -75,7 +75,7 @@
 
         window.setTimeout($.oc.layout.updateLayout, 100)
     })
-   $(window).on('debouncedresize', function() {
+    $(window).on('debouncedresize', function() {
         $.oc.layout.updateLayout()
     })
     $(window).on('oc.updateUi', function() {
