@@ -17,16 +17,16 @@ this.editedRowKey=null
 this.dataTable=null
 this.headerTable=null
 this.toolbar=null
-this.clickHandler=this.onClick.bind(this)
-this.keydownHandler=this.onKeydown.bind(this)
-this.documentClickHandler=this.onDocumentClick.bind(this)
-this.toolbarClickHandler=this.onToolbarClick.bind(this)
+this.clickHandler=this.onClick.on(this)
+this.keydownHandler=this.onKeydown.on(this)
+this.documentClickHandler=this.onDocumentClick.on(this)
+this.toolbarClickHandler=this.onToolbarClick.on(this)
 if(this.options.postback&&this.options.clientDataSourceClass=='client')
-this.formSubmitHandler=this.onFormSubmit.bind(this)
+this.formSubmitHandler=this.onFormSubmit.on(this)
 this.navigation=null
 this.search=null
 this.recordsAddedOrDeleted=0
-this.disposeBound=this.dispose.bind(this)
+this.disposeBound=this.dispose.on(this)
 this.init()
 $.oc.foundation.controlUtils.markDisposable(element)}
 Table.prototype.init=function(){this.createDataSource()
@@ -49,7 +49,7 @@ this.el.addEventListener('keydown',this.keydownHandler)
 this.$el.one('dispose-control',this.disposeBound)
 document.addEventListener('click',this.documentClickHandler)
 if(this.options.postback&&this.options.clientDataSourceClass=='client')
-this.$el.closest('form').bind('oc.beforeRequest',this.formSubmitHandler)
+this.$el.closest('form').on('oc.beforeRequest',this.formSubmitHandler)
 var toolbar=this.getToolbar()
 if(toolbar)
 toolbar.addEventListener('click',this.toolbarClickHandler);}
@@ -59,7 +59,7 @@ this.el.removeEventListener('keydown',this.keydownHandler);this.keydownHandler=n
 var toolbar=this.getToolbar()
 if(toolbar)
 toolbar.removeEventListener('click',this.toolbarClickHandler);this.toolbarClickHandler=null
-if(this.formSubmitHandler){this.$el.closest('form').unbind('oc.beforeRequest',this.formSubmitHandler)
+if(this.formSubmitHandler){this.$el.closest('form').off('oc.beforeRequest',this.formSubmitHandler)
 this.formSubmitHandler=null}}
 Table.prototype.initCellProcessors=function(){for(var i=0,len=this.options.columns.length;i<len;i++){var columnConfiguration=this.options.columns[i],column=columnConfiguration.key,columnType=columnConfiguration.type
 if(columnType===undefined){columnType='string'
@@ -686,7 +686,7 @@ return message}}
 $.oc.table.processor.base=Base}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)
 throw new Error("The $.oc.table.processor namespace is not defined. Make sure that the table.processor.base.js script is loaded.");var Base=$.oc.table.processor.base,BaseProto=Base.prototype
-var StringProcessor=function(tableObj,columnName,columnConfiguration){this.focusTimeoutHandler=this.onFocusTimeout.bind(this)
+var StringProcessor=function(tableObj,columnName,columnConfiguration){this.focusTimeoutHandler=this.onFocusTimeout.on(this)
 Base.call(this,tableObj,columnName,columnConfiguration)}
 StringProcessor.prototype=Object.create(BaseProto)
 StringProcessor.prototype.constructor=StringProcessor
@@ -790,9 +790,9 @@ this.cachedOptionPromises={}
 this.searching=false
 this.searchQuery=null
 this.searchInterval=null
-this.itemClickHandler=this.onItemClick.bind(this)
-this.itemKeyDownHandler=this.onItemKeyDown.bind(this)
-this.itemMouseMoveHandler=this.onItemMouseMove.bind(this)
+this.itemClickHandler=this.onItemClick.on(this)
+this.itemKeyDownHandler=this.onItemKeyDown.on(this)
+this.itemMouseMoveHandler=this.onItemMouseMove.on(this)
 Base.call(this,tableObj,columnName,columnConfiguration)}
 DropdownProcessor.prototype=Object.create(BaseProto)
 DropdownProcessor.prototype.constructor=DropdownProcessor
@@ -934,7 +934,7 @@ DropdownProcessor.prototype.searchByTextInput=function(ev,focusOnly){if(focusOnl
 var character=ev.key;if(character.length===1||character==='Space'){if(!this.searching){this.searching=true;this.searchQuery='';}
 this.searchQuery+=(character==='Space')?' ':character;var validItem=null;var query=this.searchQuery;this.itemListElement.querySelectorAll('ul li').forEach(function(item){if(validItem===null&&item.dataset.value&&item.dataset.value.toLowerCase().indexOf(query.toLowerCase())===0){validItem=item;}});if(validItem){if(focusOnly===true){validItem.focus();}else{this.setSelectedItem(validItem);}
 if(this.searchInterval){clearTimeout(this.searchInterval);}
-this.searchInterval=setTimeout(this.cancelTextSearch.bind(this),1000);}else{this.cancelTextSearch();}}}
+this.searchInterval=setTimeout(this.cancelTextSearch.on(this),1000);}else{this.cancelTextSearch();}}}
 DropdownProcessor.prototype.cancelTextSearch=function(){this.searching=false;this.searchQuery=null;this.searchInterval=null;}
 $.oc.table.processor.dropdown=DropdownProcessor;}(window.jQuery);+function($){"use strict";if($.oc.table===undefined)
 throw new Error("The $.oc.table namespace is not defined. Make sure that the table.js script is loaded.");if($.oc.table.processor===undefined)

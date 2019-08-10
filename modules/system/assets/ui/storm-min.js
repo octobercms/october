@@ -6991,3 +6991,4 @@ $.fn.listSortable.Constructor=ListSortable
 $.fn.listSortable.noConflict=function(){$.fn.listSortable=old
 return this}
 $(document).render(function(){$('[data-control=list-sortable]').listSortable()})}(window.jQuery);
+!function(e){var r,s,d=e.event;r=d.special.debouncedresize={setup:function(){e(this).on("resize",r.handler)},teardown:function(){e(this).off("resize",r.handler)},handler:function(e,n){function t(){e.type="debouncedresize",d.dispatch.apply(i,o)}var i=this,o=arguments;s&&clearTimeout(s),n?t():s=setTimeout(t,r.threshold)},threshold:150}}(jQuery); 

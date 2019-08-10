@@ -53,7 +53,7 @@
         this.$el.data('oc.popover', null)
         $(document.body).removeClass('popover-open')
 
-        $(document).unbind('mousedown', this.docClickHandler);
+        $(document).off('mousedown', this.docClickHandler);
         $(document).off('.oc.popover')
 
         this.docClickHandler = null
@@ -144,7 +144,7 @@
         })
 
         this.docClickHandler = $.proxy(this.onDocumentClick, this)
-        $(document).bind('mousedown', this.docClickHandler);
+        $(document).on('mousedown', this.docClickHandler);
 
         if (this.options.closeOnEsc) {
             $(document).on('keyup.oc.popover', function(e){

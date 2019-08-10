@@ -1265,7 +1265,7 @@ Licensed under the MIT license.
             octx = overlay.context;
 
             // define which element we're listening for events on
-            eventHolder = $(overlay.element).unbind();
+            eventHolder = $(overlay.element).off();
 
             // If we're re-using a plot object, shut down the old one
 
@@ -1295,7 +1295,7 @@ Licensed under the MIT license.
             }
 
             if (options.grid.clickable)
-                eventHolder.click(onClick);
+                eventHolder.on("click", onClick);
 
             executeHooks(hooks.bindEvents, [eventHolder]);
         }
@@ -1304,9 +1304,9 @@ Licensed under the MIT license.
             if (redrawTimeout)
                 clearTimeout(redrawTimeout);
 
-            eventHolder.unbind("mousemove", onMouseMove);
-            eventHolder.unbind("mouseleave", onMouseLeave);
-            eventHolder.unbind("click", onClick);
+            eventHolder.off("mousemove", onMouseMove);
+            eventHolder.off("mouseleave", onMouseLeave);
+            eventHolder.off("click", onClick);
 
             executeHooks(hooks.shutdown, [eventHolder]);
         }

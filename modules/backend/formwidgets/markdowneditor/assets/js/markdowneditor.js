@@ -58,7 +58,7 @@
         this.$toolbar.off('click', '.btn, .md-dropdown-button', this.proxy(this.onClickToolbarButton))
         this.$form.off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
         this.editor.off('change', this.proxy(this.onEditorChange))
-        $(window).off('resize', this.proxy(this.updateFullscreen))
+        $(window).off('debouncedresize', this.proxy(this.updateFullscreen))
 
         this.$el.removeData('oc.markdownEditor')
 
@@ -353,7 +353,7 @@
         editor.renderer.setScrollMargin(this.editorPadding, this.editorPadding, 0, 0)
 
         setTimeout(function() {
-            editor.resize()
+            editor.trigger('resize')
         }, 100)
     }
 
@@ -478,7 +478,7 @@
             $('body, html').css('overflow', 'hidden')
             this.updateFullscreen()
             this.setViewMode('split')
-            $(window).on('resize', this.proxy(this.updateFullscreen))
+            $(window).on('debouncedresize', this.proxy(this.updateFullscreen))
         }
         else {
             this.setViewMode(this.options.viewMode)
@@ -487,7 +487,7 @@
             this.$write.css('height', '')
             $('body, html').css('overflow', '')
 
-            $(window).off('resize', this.proxy(this.updateFullscreen))
+            $(window).off('debouncedresize', this.proxy(this.updateFullscreen))
             this.editor.resize()
         }
 

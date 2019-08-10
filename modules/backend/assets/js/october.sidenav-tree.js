@@ -261,7 +261,7 @@
     // SIDENAVTREE DATA-API
     // ===============
 
-    $(document).ready(function () {
+    $(function() {
         $('[data-control=sidenav-tree]').sidenavTree()
     })
 

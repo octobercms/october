@@ -24,13 +24,13 @@
         this.visibleItemId = false
         this.$fixButton = $('<a href="#" class="fix-button"><i class="icon-thumb-tack"></i></a>')
 
-        this.$fixButton.click(function() {
+        this.$fixButton.on("click", function() {
             self.fixPanel()
             return false
         })
         $('.fix-button-container', this.$el).append(this.$fixButton)
 
-        this.$sideNavItems.click(function() {
+        this.$sideNavItems.on("click", function() {
             if ($(this).data('no-side-panel')) {
                 return
             }
@@ -89,13 +89,13 @@
                 clearTimeout(self.tabOpenTimeout)
             })
 
-            $(window).resize(function() {
+            $(window).on('debouncedresize', function() {
                 self.updatePanelPosition()
                 self.updateActiveTab()
             })
         }
         else {
-            $('#layout-body').click(function() {
+            $('#layout-body').on("click", function() {
                 if (self.panelVisible) {
                     self.hideSidePanel()
                     return false
@@ -122,7 +122,7 @@
             $el.toggleClass('hide', $el.data('content-id') != menuItemId)
         })
 
-        $(window).trigger('resize')
+        $(window).trigger('debouncedresize')
     }
 
     SidePanelTab.prototype.displaySidePanel = function() {
@@ -136,7 +136,7 @@
         })
 
         this.updatePanelPosition()
-        $(window).trigger('resize')
+        $(window).trigger('debouncedresize')
     }
 
     SidePanelTab.prototype.hideSidePanel = function() {
@@ -230,22 +230,22 @@
     // DATA-API
     // ============
 
-    $(document).ready(function(){
+    $(function() {
         $('[data-control=layout-sidepanel]').sidePanelTab()
     })
 
     // STORED PREFERENCES
     // ====================
 
-    $(document).ready(function() {
+    $(function() {
         if (Modernizr.touchevents || (typeof(localStorage) !== 'undefined')) {
             if (localStorage.ocSidePanelFixed == 0) {
                 $(document.body).addClass('side-panel-not-fixed')
-                $(window).trigger('resize')
+                $(window).trigger('debouncedresize')
             }
             else if (localStorage.ocSidePanelFixed == 1) {
                 $(document.body).removeClass('side-panel-not-fixed')
-                $(window).trigger('resize')
+                $(window).trigger('debouncedresize')
             }
         }
     })

@@ -594,10 +594,10 @@ var TabstopManager = function(editor) {
     if (editor.tabstopManager)
         return editor.tabstopManager;
     editor.tabstopManager = this;
-    this.$onChange = this.onChange.bind(this);
-    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.bind(this)).schedule;
-    this.$onChangeSession = this.onChangeSession.bind(this);
-    this.$onAfterExec = this.onAfterExec.bind(this);
+    this.$onChange = this.onChange.on(this);
+    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.on(this)).schedule;
+    this.$onChangeSession = this.onChangeSession.on(this);
+    this.$onAfterExec = this.onAfterExec.on(this);
     this.attach(editor);
 };
 (function() {
@@ -1128,7 +1128,7 @@ exports.runEmmetCommand = function runEmmetCommand(editor) {
         var result = actions.run(this.action, editorProxy);
     } catch(e) {
         if (!emmet) {
-            load(runEmmetCommand.bind(this, editor));
+            load(runEmmetCommand.on(this, editor));
             return true;
         }
         editor._signal("changeStatus", typeof e == "string" ? e : e.message);
