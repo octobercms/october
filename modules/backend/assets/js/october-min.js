@@ -1132,7 +1132,7 @@ $li.toggleClass('hidden',!groupIsVisible)
 if(groupIsVisible)
 self.expandGroup($li,0)
 $('ul li',$li).each(function(){var $itemLi=$(this)
-$itemLi.toggleClass('hidden',visibleItems&&visibleItems.indexOf(this)===-1)})})
+$itemLi.toggleClass('hidden',visibleItems.indexOf(this)==-1)})})
 return false}
 SidenavTree.prototype.textContainsWords=function(text,words){text=text.toLowerCase()
 for(var i=0;i<words.length;i++){if(text.indexOf(words[i])===-1)
