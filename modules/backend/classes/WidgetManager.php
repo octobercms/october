@@ -34,7 +34,7 @@ class WidgetManager
     /**
      * @var array An array of report widgets.
      */
-    public $reportWidgets;
+    protected $reportWidgets;
 
     /**
      * @var array Cache of report widget registration callbacks.
@@ -217,6 +217,15 @@ class WidgetManager
             }
         }
 
+        return $this->reportWidgets;
+    }
+
+    /**
+     * Returns the raw array of registered report widgets.
+     * @return array Array keys are class names.
+     */
+    public function getReportWidgets()
+    {
         return $this->reportWidgets;
     }
 
