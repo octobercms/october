@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'پودرهای سوخاری',
         'main_content'  => 'منطقه اصلی',
         'tabs'          => 'زبانه ها',
+        'sidebar_menu'  => 'منوی نوار کناری'
     ],
     'field' => [
         'invalid_type' => 'نوع فیلد :type نا معتبر می باشد.',

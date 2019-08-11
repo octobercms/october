@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'strouhanka',
         'main_content'  => 'hlavní oblasty',
         'tabs'          => 'karty',
+        'sidebar_menu'  => 'Nabídka postranního panelu'
     ],
     'field' => [
         'invalid_type' => 'Byl použitý špatný typ :type.',

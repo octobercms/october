@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'kırıntı izi',
         'main_content'  => 'ana alan',
         'tabs'          => 'sekmeler',
+        'sidebar_menu'  => 'Kenar çubuğu menüsü'
     ],
     'field' => [
         'invalid_type' => 'Geçersiz alan tipi :type.',

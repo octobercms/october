@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'прохідна стежка',
         'main_content'  => 'основний район',
         'tabs'          => 'вкладки',
+        'sidebar_menu'  => 'Меню бічної панелі'
     ],
     'field' => [
         'invalid_type' => 'Неправильний тип поля :type.',

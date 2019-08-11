@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'riivsai',
         'main_content'  => 'peamine ala',
         'tabs'          => 'vahekaardid',
+        'sidebar_menu'  => 'Külgriba menüü'
     ],
     'field' => [
         'invalid_type' => 'Välja tüüpi :type pole olemas.',

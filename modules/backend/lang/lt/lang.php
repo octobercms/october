@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'kirtimo takas',
         'main_content'  => 'pagrindinė sritis',
         'tabs'          => 'skirtukus',
+        'sidebar_menu'  => 'Šoninės juostos meniu'
     ],
     'field' => [
         'invalid_type' => 'Netinkamas laukelio tipas :type.',

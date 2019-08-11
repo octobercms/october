@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'remah roti',
         'main_content'  => 'area utama',
         'tabs'          => 'tab',
+        'sidebar_menu'  => 'Menu bilah samping'
     ],
     'field' => [
         'invalid_type' => 'Jenis medan tidak valid digunakan :type.',

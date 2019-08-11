@@ -1,16 +1,17 @@
 <?php
 
 return [
-    'field' => [
-        'invalid_type' => 'Tipul campului folosit este invalid - :type.',
-        'options_method_not_exists' => 'Clasa model :model trebuie sa defineasca o metoda :method() returnand optiuni pentru campul ":field".',
-    ],
     'aria-label' => [
         'footer'        => 'subsol meniu',
         'side_panel'    => 'panou lateral',
         'breadcrumb'    => 'traseu de pescuit',
         'main_content'  => 'zona principală',
         'tabs'          => 'file',
+        'sidebar_menu'  => 'Meniul Bara laterală'
+    ],
+    'field' => [
+        'invalid_type' => 'Tipul campului folosit este invalid - :type.',
+        'options_method_not_exists' => 'Clasa model :model trebuie sa defineasca o metoda :method() returnand optiuni pentru campul ":field".',
     ],
     'widget' => [
         'not_registered' => "Un nume de clasa de widget ':name' nu a fost inregistrat",

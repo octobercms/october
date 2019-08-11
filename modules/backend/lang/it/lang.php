@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'elenco dei breadcrumb',
         'main_content'  => 'area principale',
         'tabs'          => 'schede',
+        'sidebar_menu'  => 'Menu della barra laterale'
     ],
     'field' => [
         'invalid_type' => 'Il tipo di campo :type non è valido.',

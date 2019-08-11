@@ -7,20 +7,22 @@
         $sideMenuItems = BackendMenu::listSideMenuItems();
     ?>
     <?php if ($sideMenuItems): ?>
-        <div class="layout-cell layout-sidenav-container" aria-label="Side Navigation">
+        <div class="layout-cell layout-sidenav-container">
             <div class="layout-relative">
                 <nav
                     id="layout-sidenav"
                     class="layout-sidenav bg-p"
                     data-active-class="active"
-                    data-control="sidenav">
-                    <ul class="nav" role="list">
+                    data-control="sidenav"
+                    role="toolbar"
+                    aria-label="<?= e(trans('backend::lang.aria-label.sidebar_menu')) ?>">
+                    <ul class="nav">
                         <?php foreach ($sideMenuItems as $sideItemCode => $item): ?>
-                            <li role="listitem"
+                            <li
                                 class="<?= BackendMenu::isSideMenuItemActive($item) ? 'active' : null ?>"
                                 <?= Html::attributes($item->attributes) ?>
                             >
-                                <a href="<?= $item->url ?>">
+                                <a role="button" tabindex="0" aria-label="<?= e(trans($item->label)) ?>" rel="category" href="<?= $item->url ?>">
                                     <span class="nav-icon">
                                         <?php if ($item->iconSvg): ?>
                                             <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">

@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'chodník',
         'main_content'  => 'oblasti',
         'tabs'          => 'karty',
+        'sidebar_menu'  => 'Bočný pane'
     ],
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',

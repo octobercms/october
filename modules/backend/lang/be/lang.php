@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'сухар',
         'main_content'  => 'Асноўная плошча',
         'tabs'          => 'ўкладкі',
+        'sidebar_menu'  => 'Меню бакавой панэлі'
     ],
     'field' => [
         'invalid_type' => "Выкарыстаны няправільны тып поля: \":type\"",

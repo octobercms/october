@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'maizes taku',
         'main_content'  => 'galvenā joma',
         'tabs'          => 'cilnes',
+        'sidebar_menu'  => 'Sānjoslas izvēlne'
     ],
     'field' => [
         'invalid_type' => 'Nederīgs lauka tips :type.',

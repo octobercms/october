@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'след крошки',
         'main_content'  => 'основная площадь',
         'tabs'          => 'вкладки',
+        'sidebar_menu'  => 'Боковое меню'
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',

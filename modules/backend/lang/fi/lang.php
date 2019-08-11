@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'leivänmuru',
         'main_content'  => 'pääalue',
         'tabs'          => 'välilehdet',
+        'sidebar_menu'  => 'Sivupalkki-valikko'
     ],
     'field' => [
         'invalid_type' => 'Kentän tyyppi :type ei ole sallittu.',

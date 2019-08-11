@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'migaja de pan',
         'main_content'  => 'área principal',
         'tabs'          => 'pestañas',
+        'sidebar_menu'  => 'Menú de la barra lateral'
     ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
@@ -221,8 +222,8 @@ return [
         'resetting' => 'Restableciendo',
         'resetting_name' => 'Restableciendo :name',
         'undefined_tab' => 'Varios',
-        'field_off' => 'Apagar',
-        'field_on' => 'Encender',
+        'field_off' => 'Off',
+        'field_on' => 'On',
         'add' => 'Agregar',
         'apply' => 'Aplicar',
         'cancel' => 'Cancelar',
@@ -401,7 +402,7 @@ return [
         'ip_address' => 'IP',
         'first_name' => 'Nombre',
         'last_name' => 'Apellido',
-        'email' => 'Correo'
+        'email' => 'Email'
     ],
     'filter' => [
         'all' => 'todo',
@@ -488,7 +489,7 @@ return [
         'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia',
     ],
     'media' => [
-        'menu_label' => 'Medios',
+        'menu_label' => 'Media',
         'upload' => 'Subir',
         'move' => 'Mover',
         'delete' => 'Eliminar',

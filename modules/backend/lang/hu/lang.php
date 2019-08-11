@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'kenyérmorzsa',
         'main_content'  => 'fő terület',
         'tabs'          => 'lap',
+        'sidebar_menu'  => 'Oldalsáv menü'
     ],
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',

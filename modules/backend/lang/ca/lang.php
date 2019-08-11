@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'Pa ratllat',
         'main_content'  => 'àrea principal',
         'tabs'          => 'pestanyes',
+        'sidebar_menu'  => 'Menú de la barra lateral'
     ],
     'field' => [
         'invalid_type' => 'El tipus de camp :type utilitzat és invàlid.',

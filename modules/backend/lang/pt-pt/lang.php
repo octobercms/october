@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'trilha de migalhas',
         'main_content'  => 'área principal',
         'tabs'          => 'guias',
+        'sidebar_menu'  => 'Menu da barra lateral'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',

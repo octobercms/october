@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => '빵 부스러기 흔적',
         'main_content'  => '주요 지역',
         'tabs'          => '탭',
+        'sidebar_menu'  => '사이드 바 메뉴'
     ],
     'field' => [
         'invalid_type' => '유효하지 않은 필드타입 사용 :type ',

@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'đường mòn bánh mì',
         'main_content'  => 'khu vực chính',
         'tabs'          => 'tab',
+        'sidebar_menu'  => 'Menu thanh bên'
     ],
     'field' => [
         'invalid_type' => 'Loại Field không hợp lệ :type.',

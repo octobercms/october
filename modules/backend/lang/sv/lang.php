@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'breadcrumb trail',
         'main_content'  => 'huvudområde',
         'tabs'          => 'flikar',
+        'sidebar_menu'  => 'Meni stranske vrstice'
     ],
     'field' => [
         'invalid_type' => 'Felaktig fälttyp använd :type.',

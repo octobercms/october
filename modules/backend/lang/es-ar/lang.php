@@ -7,6 +7,7 @@ return [
         'breadcrumb'    => 'migaja de pan',
         'main_content'  => 'área principal',
         'tabs'          => 'pestañas',
+        'sidebar_menu'  => 'Menú de la barra lateral'
     ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',

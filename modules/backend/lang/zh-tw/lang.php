@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => '面包屑踪迹',
         'main_content'  => '主要区域',
         'tabs'          => '标签',
+        'sidebar_menu'  => '边栏菜单'
     ],
     'field' => [
         'invalid_type' => '錯誤的字串類型 :type',
@@ -313,7 +314,7 @@ return [
         'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
-    'media' => [
+   'media' => [
         'menu_label' => '媒體',
         'upload' => '上傳',
         'move' => '移動',

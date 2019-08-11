@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'miette de pain',
         'main_content'  => 'Zone principale',
         'tabs'          => 'onglets',
+        'sidebar_menu'  => 'Menu de la barre latérale'
     ],
     'field' => [
         'invalid_type' => 'Type de champ invalide :type.',

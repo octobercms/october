@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'szlak nawigacyjny',
         'main_content'  => 'główna strefa',
         'tabs'          => 'zakładki na',
+        'sidebar_menu'  => 'Menu paska bocznego'
     ],
     'field'               => [
         'invalid_type'              => 'Użyto nieprawidłowego typu pola :type.',

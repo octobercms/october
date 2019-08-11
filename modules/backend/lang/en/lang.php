@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'Breadcrumb Navigation',
         'main_content'  => 'Main Content Body',
         'tabs'          => 'Tabs',
+        'sidebar_menu'  => 'Sidebar menu'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',

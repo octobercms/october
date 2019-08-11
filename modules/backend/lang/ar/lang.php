@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'التفصيلي',
         'main_content'  => 'المجال الرئيسي',
         'tabs'          => 'علامات التبويب',
+        'sidebar_menu'  => 'قائمة الشريط الجانبي'
     ],
     'page' => [
         'access_denied' => [

@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'breadcrumb sti',
         'main_content'  => 'hovedområde',
         'tabs'          => 'faner',
+        'sidebar_menu'  => 'Sidefeltmeny'
     ],
     'field' => [
         'invalid_type' => 'Ugyldig felttype brukt :type.',

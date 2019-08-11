@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'パン粉',
         'main_content'  => 'メインエリア',
         'tabs'          => 'タブ',
+        'sidebar_menu'  => 'サイドバーメニュー'
     ],
     'field' => [
         'invalid_type' => '無効なフィールドタイプ :type が使用されています。',

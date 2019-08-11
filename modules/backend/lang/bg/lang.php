@@ -10,6 +10,7 @@ return [
         'breadcrumb'    => 'галета',
         'main_content'  => 'основната зона',
         'tabs'          => 'разделите',
+        'sidebar_menu'  => 'Меню на страничната лента'
     ],
     'field' => [
         'invalid_type' => 'Използвано невалиден тип поле :type.',

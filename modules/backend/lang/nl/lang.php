@@ -11,6 +11,7 @@ return [
         'breadcrumb'    => 'broodkruimel spoor',
         'main_content'  => 'hoofdgebied',
         'tabs'          => 'klikt op',
+        'sidebar_menu'  => 'Zijbalkmenu'
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
