@@ -197,7 +197,7 @@
          */
         $('ul.top-level > li', this.$el).each(function() {
             var $li = $(this),
-                groupIsVisible = visibleGroups.indexOf(this) !== -1
+                groupIsVisible = $.inArray(this, visibleGroups) !== -1
 
             $li.toggleClass('hidden', !groupIsVisible)
             if (groupIsVisible)
@@ -206,7 +206,7 @@
             $('ul li', $li).each(function(){
                 var $itemLi = $(this)
 
-                $itemLi.toggleClass('hidden', visibleItems.indexOf(this) == -1)
+                $itemLi.toggleClass('hidden', $.inArray(this, visibleItems) == -1)
             })
         })
 

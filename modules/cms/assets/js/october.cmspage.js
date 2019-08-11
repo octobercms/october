@@ -479,7 +479,7 @@
             existingAliases.push($(this).val())
         })
 
-        while(existingAliases.indexOf(alias) !== -1) {
+        while($.inArray(alias, existingAliases) !== -1) {
             alias = originalAlias + counter
             counter++
         }
