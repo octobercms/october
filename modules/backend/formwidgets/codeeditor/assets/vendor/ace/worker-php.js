@@ -2630,7 +2630,6 @@ PHP.Parser.prototype.parseEscapeSequences = function( str, quote ) {
 
     var replacements = {
         '\\': '\\',
-
         '$':  '$',
         'n': "\n",
         'r': "\r",

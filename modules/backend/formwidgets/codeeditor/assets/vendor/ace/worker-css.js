@@ -5000,7 +5000,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
         }
 
         if (cssEscape.length == 3 && /\s/.test(c) ||
-
             cssEscape.length == 7 || cssEscape.length == 1){
                 reader.read();
         } else {
@@ -7216,7 +7215,6 @@ CSSLint.addRule({
     browsers: "IE",
     init: function(parser, reporter) {
         var rule = this, count = 0;
-
 
         parser.addListener("startrule", function(event) {
             count += event.selectors.length;

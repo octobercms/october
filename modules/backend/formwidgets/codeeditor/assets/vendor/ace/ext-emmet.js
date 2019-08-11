@@ -594,10 +594,10 @@ var TabstopManager = function(editor) {
     if (editor.tabstopManager)
         return editor.tabstopManager;
     editor.tabstopManager = this;
-    this.$onChange = this.onChange.on(this);
-    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.on(this)).schedule;
-    this.$onChangeSession = this.onChangeSession.on(this);
-    this.$onAfterExec = this.onAfterExec.on(this);
+    this.$onChange = this.onChange.bind(this);
+    this.$onChangeSelection = lang.delayedCall(this.onChangeSelection.bind(this)).schedule;
+    this.$onChangeSession = this.onChangeSession.bind(this);
+    this.$onAfterExec = this.onAfterExec.bind(this);
     this.attach(editor);
 };
 (function() {
@@ -609,10 +609,10 @@ var TabstopManager = function(editor) {
         this.selectedTabstop = null;
 
         this.editor = editor;
-        this.editor.bind("change", this.$onChange);
-        this.editor.bind("changeSelection", this.$onChangeSelection);
-        this.editor.bind("changeSession", this.$onChangeSession);
-        this.editor.commands.bind("afterExec", this.$onAfterExec);
+        this.editor.on("change", this.$onChange);
+        this.editor.on("changeSelection", this.$onChangeSelection);
+        this.editor.on("changeSession", this.$onChangeSession);
+        this.editor.commands.on("afterExec", this.$onAfterExec);
         this.editor.keyBinding.addKeyboardHandler(this.keyboardHandler);
     };
     this.detach = function() {

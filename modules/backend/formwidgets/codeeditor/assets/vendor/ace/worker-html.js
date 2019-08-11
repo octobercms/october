@@ -4604,7 +4604,6 @@ function TreeBuilder() {
 		if (tree.openElements.inButtonScope('p'))
 			this.endTagP('p');
 		tree.insertElement(name, attributes);
-
 		tree.tokenizer.setState(Tokenizer.PLAINTEXT);
 	};
 
