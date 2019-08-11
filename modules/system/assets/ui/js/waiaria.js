@@ -39,7 +39,7 @@ $(function() {
     }
 
    /*
-    * Set various WAI-ARIA options on web page load 
+    * Set various WAI-ARIA options on web page initial load 
     */
     function waiariaStartup() {
         // Add WAI-ARIA role group for radio buttons
