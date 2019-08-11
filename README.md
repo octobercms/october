@@ -2,7 +2,7 @@
     <img src="https://github.com/octobercms/october/blob/master/themes/demo/assets/images/october.png?raw=true" alt="October" width="25%" height="25%" />
 </p>
 
-[October](http://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again. It was born out of frustration with existing systems. We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied. We want to turn you around to the simpler side and get back to basics.
+[October](http://octobercms.com) is a Content Management Framework (CMF) and web platform whose sole purpose is to make your development workflow simple again. It was born out of frustration with existing systems. We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied. We want to turn you around to the simpler side and get back to basics.
 
 October's mission is to show the world that web development is not rocket science.
 
@@ -13,7 +13,7 @@ October's mission is to show the world that web development is not rocket scienc
 
 The best place to learn October is by [reading the documentation](https://octobercms.com/docs) or [following some tutorials](https://octobercms.com/support/articles/tutorials).
 
-You may also watch these introductory videos for [beginners](https://vimeo.com/79963873) and [advanced users](https://vimeo.com/172202661).
+You may also watch these introductory videos for [beginners](https://vimeo.com/79963873) and [advanced users](https://vimeo.com/172202661). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
 
 ### Installing October
 
@@ -35,7 +35,7 @@ php artisan october:install
 
 ### Development Team
 
-October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/), who (along with [Luke Towers](https://luketowers.ca/)) continue to develop the platform.
+October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/). The core maintainer is [Luke Towers](https://luketowers.ca/) and other maintainers include [Ben Thomson](https://github.com/bennothommo) and [Denis Denisov](https://github.com/w20k).
 
 ### Foundation library
 
@@ -47,8 +47,8 @@ You can communicate with us using the following mediums:
 
 * [Follow us on Twitter](https://twitter.com/octobercms) for announcements and updates.
 * [Follow us on Facebook](https://facebook.com/octobercms) for announcements and updates.
-* [Join us on IRC](https://octobercms.com/chat) to chat with us.
 * [Join us on Slack](https://octobercms-slack.herokuapp.com/) to chat with us.
+* [Join us on IRC](https://octobercms.com/chat) to chat with us.
 
 ### License
 

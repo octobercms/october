@@ -2590,6 +2590,7 @@ var cx=Math.sin(radian)*radius,cy=-Math.cos(radian)*radius;this.hand.setAttribut
 this.input.prop('value',value);if(value!==last){this.input.triggerHandler('change');if(!this.isInput){this.element.trigger('change');}}
 if(this.options.autoclose){this.input.trigger('blur');}
 raiseCallback(this.options.afterDone);};ClockPicker.prototype.remove=function(){this.element.removeData('clockpicker');this.input.off('focus.clockpicker click.clockpicker');this.addon.off('click.clockpicker');if(this.isShown){this.hide();}
+<<<<<<< HEAD
 if(this.isAppended){$win.off('resize.clockpicker'+this.id);this.popover.remove();}};$.fn.clockpicker=function(option){var args=Array.prototype.slice.call(arguments,1);return this.each(function(){var $this=$(this),data=$this.data('clockpicker');if(!data){var options=$.extend({},ClockPicker.DEFAULTS,$this.data(),typeof option=='object'&&option);$this.data('clockpicker',new ClockPicker($this,options));}else{if(typeof data[option]==='function'){data[option].apply(data,args);}}});};}());function applyFocusVisiblePolyfill(scope){var hadKeyboardEvent=true;var hadFocusVisibleRecently=false;var hadFocusVisibleRecentlyTimeout=null;var inputTypesWhitelist={text:true,search:true,url:true,tel:true,email:true,password:true,number:true,date:true,month:true,week:true,time:true,datetime:true,'datetime-local':true};function isValidFocusTarget(el){return!!(el&&el!==document&&el.nodeName!=='HTML'&&el.nodeName!=='BODY'&&'classList'in el&&'contains'in el.classList);}
 function focusTriggersKeyboardModality(el){var type=el.type;var tagName=el.tagName;if(tagName==='INPUT'&&inputTypesWhitelist[type]&&!el.readOnly){return true;}
 if(tagName==='TEXTAREA'&&!el.readOnly){return true;}
@@ -2622,6 +2623,9 @@ function polyfill(){var isEdgeOrIE=(navigator.userAgent.indexOf("MSIE ")>0||!!na
 var proto={get:function(x){var key=keyboardeventKeyPolyfill.keys[this.which||this.keyCode];if(Array.isArray(key)){key=key[+this.shiftKey];}
 return key;},enumerable:true,configurable:true};Object.defineProperty(KeyboardEvent.prototype,'key',proto);return proto;}
 if(typeof define==='function'&&define.amd){define('keyboardevent-key-polyfill',keyboardeventKeyPolyfill);}else if(typeof exports!=='undefined'&&typeof module!=='undefined'){module.exports=keyboardeventKeyPolyfill;}else if(window){window.keyboardeventKeyPolyfill=keyboardeventKeyPolyfill;}})();keyboardeventKeyPolyfill.polyfill();+function($){"use strict";if($.oc===undefined)
+=======
+if(this.isAppended){$win.off('resize.clockpicker'+this.id);this.popover.remove();}};$.fn.clockpicker=function(option){var args=Array.prototype.slice.call(arguments,1);return this.each(function(){var $this=$(this),data=$this.data('clockpicker');if(!data){var options=$.extend({},ClockPicker.DEFAULTS,$this.data(),typeof option=='object'&&option);$this.data('clockpicker',new ClockPicker($this,options));}else{if(typeof data[option]==='function'){data[option].apply(data,args);}}});};}());+function($){"use strict";if($.oc===undefined)
+>>>>>>> a9072b0d97d96d718667d3b3d6c55375ab2d8dd8
 $.oc={}
 if($.oc.foundation===undefined)
 $.oc.foundation={}
