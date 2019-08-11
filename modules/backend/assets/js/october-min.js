@@ -1127,11 +1127,7 @@ if(self.textContainsWords($('div.group h3',$li).text(),words)){visibleGroups.pus
 $('ul li',$li).each(function(){visibleItems.push(this)})}
 else{$('ul li',$li).each(function(){if(self.textContainsWords($(this).text(),words)||self.textContainsWords($(this).data('keywords'),words)){visibleGroups.push($li.get(0))
 visibleItems.push(this)}})}})
-<<<<<<< HEAD
-$('ul.top-level > li',this.$el).each(function(){var $li=$(this),groupIsVisible=visibleGroups&&visibleGroups.indexOf(this)!==-1
-=======
 $('ul.top-level > li',this.$el).each(function(){var $li=$(this),groupIsVisible=$.inArray(this,visibleGroups)!==-1
->>>>>>> parent of 5ba194cc... Replace use of inArray with indexOf
 $li.toggleClass('hidden',!groupIsVisible)
 if(groupIsVisible)
 self.expandGroup($li,0)
