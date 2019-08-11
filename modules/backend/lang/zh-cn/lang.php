@@ -5,13 +5,6 @@ return [
         'title' => '管理',
         'invalid_login' => '无法匹配到您输入的相关内容，请检查后重试。'
     ],
-    'aria-label' => [
-        'footer'        => '页脚菜单',
-        'side_panel'    => '侧板',
-        'breadcrumb'    => '面包屑踪迹',
-        'main_content'  => '主要区域',
-        'tabs'          => '标签',
-    ],
     'field' => [
         'invalid_type' => '不合法的字段类型 :type.',
         'options_method_invalid_model' => "属性 ':field' 不能解析为有效模型. 请尝试为模型类:model指定一个可选方法.",
