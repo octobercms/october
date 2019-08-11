@@ -134,7 +134,7 @@
 
         $.request(handler).done(function(data){
             var result = data.result
-            if (!Array.isArray(result)) return
+            if (!$.isArray(result)) return
             self.renderSuggested(el, result)
         })
     }

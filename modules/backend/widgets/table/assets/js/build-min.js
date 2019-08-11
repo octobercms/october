@@ -979,7 +979,7 @@ if(!input){return}
 if(items===undefined){items=[]}
 $(input).autocomplete({source:this.prepareItems(items),matchWidth:true,menu:'<ul class="autocomplete dropdown-menu table-widget-autocomplete"></ul>',bodyContainer:true})}
 AutocompleteProcessor.prototype.prepareItems=function(items){var result={}
-if(Array.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
+if($.isArray(items)){for(var i=0,len=items.length;i<len;i++){result[items[i]]=items[i]}}
 else{result=items}
 return result}
 AutocompleteProcessor.prototype.removeAutocomplete=function(){var input=this.getInput()
