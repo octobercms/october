@@ -78,6 +78,7 @@ class CmsObjectQueryTest extends TestCase
             "no-component-class",
             "no-layout",
             "no-partial",
+            "no-soft-component-class",
             "optional-full-php-tags",
             "optional-short-php-tags",
             "throw-php",

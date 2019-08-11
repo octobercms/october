@@ -381,6 +381,15 @@ ESC;
         $response = $controller->run('/no-component-class')->getContent();
     }
 
+    public function testSoftComponentClassNotFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/no-soft-component-class')->getContent();
+
+        $this->assertEquals('<p>Hey</p>', $response);
+    }
+
     public function testComponentNotFound()
     {
         //
