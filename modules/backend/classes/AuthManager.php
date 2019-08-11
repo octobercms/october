@@ -98,6 +98,9 @@ class AuthManager extends RainAuthManager
 
     /**
      * Removes a single back-end permission
+     * @param string $owner Specifies the menu item's owner plugin or module in the format Vendor/Module.
+     * @param string $code The code of the permission to remove
+     * @return void
      */
     public function removePermission($owner, $code)
     {
