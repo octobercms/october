@@ -12,6 +12,7 @@ use Closure;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Classes\PluginManager;
+use System\Models\PluginVersion;
 
 /**
  * This is the master controller for all back-end pages.
@@ -205,8 +206,26 @@ class BackendController extends ControllerBase
         /*
          * Look for a Plugin controller
          */
-        if (count($params) >= 2) {
-            list($author, $plugin) = $params;
+        if (count($params) >= 1) {
+            $pluginVersions = PluginVersion::applyEnabled()
+                ->where('code', ucfirst($params[0]) . '.' . ucfirst($params[1]))
+                ->orWhere('code', 'like', '%' . ucfirst($params[0]))
+                ->get();
+
+            $pluginVersion = count($pluginVersions) === 1 ? $pluginVersions->first() : null;
+
+            if ($pluginVersion) {
+                $pluginVersionCode = explode('.', $pluginVersion->code, 2);
+
+                $author = strtolower($pluginVersionCode[0]);
+                $plugin = strtolower($pluginVersionCode[1]);
+
+                if ($params[0] != $author) {
+                    array_unshift($params, $author);
+                }
+            } else {
+                list($author, $plugin) = $params;
+            }
 
             $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
             if (PluginManager::instance()->isDisabled($pluginCode)) {

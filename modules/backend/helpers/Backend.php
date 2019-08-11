@@ -8,6 +8,7 @@ use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
+use System\Models\PluginVersion;
 
 /**
  * Backend Helper
@@ -31,6 +32,27 @@ class Backend
      */
     public function url($path = null, $parameters = [], $secure = null)
     {
+        $path = explode('/', $path);
+
+        if (count($path) >= 2) {
+            $pluginVersions = PluginVersion::applyEnabled()
+                ->where('code', ucfirst($path[0]) . '.' . ucfirst($path[1]))
+                ->orWhere('code', 'like', '%' . ucfirst($path[0]))
+                ->get();
+
+            $pluginVersion = count($pluginVersions) === 1 ? $pluginVersions->first() : null;
+
+            if ($pluginVersion) {
+                $author = strtolower(explode('.', $pluginVersion->code, 2)[0]);
+
+                if ($path[0] == $author) {
+                    array_shift($path);
+                }
+            }
+        }
+
+        $path = implode('/', $path);
+
         return Url::to($this->uri() . '/' . $path, $parameters, $secure);
     }
 
