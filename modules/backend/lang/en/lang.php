@@ -120,7 +120,6 @@ return [
             'event_log' => 'Event log',
             'request_log' => 'Request log',
             'app_birthday' => 'Online since',
-            'debug_warning' => 'Debug mode is enabled. This is not recommended for production installations.'
         ],
         'welcome' => [
             'widget_title_default' => 'Welcome',
@@ -372,6 +371,7 @@ return [
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
         'plugin_missing' => 'The plugin :name is a dependency but is not installed. Please install this plugin.',
+        'debug' => 'Debug mode is enabled. This is not recommended for production installations.'
     ],
     'editor' => [
         'menu_label' => 'Editor settings',

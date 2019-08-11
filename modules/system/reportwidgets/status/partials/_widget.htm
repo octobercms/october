@@ -4,14 +4,6 @@
     <?php if (!isset($error)): ?>
         <div class="control-status-list">
             <ul>
-                <?php if ($debugEnabled): ?>
-                    <li>
-                        <span class="status-icon warning"><i class="icon-exclamation"></i></span>
-                        <span class="status-text warning">
-                            <?= e(trans('backend::lang.dashboard.status.debug_warning')) ?>
-                        </span>
-                    </li>
-                <?php endif ?>
                 <li>
                     <?php if ($updates): ?>
                         <span class="status-icon warning"><i class="icon-exclamation"></i></span>

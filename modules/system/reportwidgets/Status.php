@@ -58,7 +58,6 @@ class Status extends ReportWidgetBase
     {
         $manager = UpdateManager::instance();
 
-        $this->vars['debugEnabled'] = Config::get('app.debug');
         $this->vars['canUpdate'] = BackendAuth::getUser()->hasAccess('system.manage_updates');
         $this->vars['updates']   = $manager->check();
         $this->vars['warnings']  = $this->getSystemWarnings();
@@ -98,6 +97,10 @@ class Status extends ReportWidgetBase
 
         if (in_array('Cms', Config::get('cms.loadModules', []))) {
             $writablePaths[] = themes_path();
+        }
+
+        if (Config::get('app.debug', true)) {
+            $warnings[] = Lang::get('backend::lang.warnings.debug');
         }
 
         $requiredExtensions = [
