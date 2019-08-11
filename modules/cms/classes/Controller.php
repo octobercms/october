@@ -1443,7 +1443,7 @@ class Controller
     {
         $manager = ComponentManager::instance();
 
-        if($isSoftComponent = $this->isSoftComponent($name)){
+        if ($isSoftComponent = $this->isSoftComponent($name)){
             $name = $this->parseComponentLabel($name);
             $alias = $this->parseComponentLabel($alias);
         }
@@ -1472,14 +1472,12 @@ class Controller
              * We catch two exceptions below, as missing plugin can throw both and catch \Exception would be too global.
              * We also debug-log it, to not be TOO silent about this.
              */
-        } catch(CmsException $e){
-            \Log::debug('Missing component! '. $e->getMessage() . ' '. $e->getTraceAsString());
-            if(!$isSoftComponent){
+        } catch (CmsException $e){
+            if (!$isSoftComponent){
                 throw $e;
             }
-        } catch(SystemException $e){
-            \Log::debug('Missing component! '. $e->getMessage() . ' '. $e->getTraceAsString());
-            if(!$isSoftComponent){
+        } catch (SystemException $e){
+            if (!$isSoftComponent){
                 throw $e;
             }
         }
@@ -1635,9 +1633,9 @@ class Controller
      * @param string $label
      * @return string
      */
-    private function parseComponentLabel($label){
-        if($this->isSoftComponent($label)){
-            return str_replace('@','',$label);
+    protected function parseComponentLabel($label){
+        if ($this->isSoftComponent($label)){
+            return str_replace('@', '', $label);
         }
         return $label;
     }
@@ -1647,7 +1645,7 @@ class Controller
      * @param string $label
      * @return bool
      */
-    private function isSoftComponent($label){
+    protected function isSoftComponent($label){
         return $label[0] === '@';
     }
 }
