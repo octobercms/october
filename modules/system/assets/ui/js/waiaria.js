@@ -3,7 +3,8 @@
  *
  * - Adds keyboard navigation controls to radio button form fields
  * - Adds keyboard navigation controls to slider switch button form fields
- * - Adds keyboard navigation controls to tabs 
+ * - Adds keyboard navigation controls to tabs
+ * - Adds keyboard navigation controls to sidebar menus
  */
 $(function() {
     "use strict";
