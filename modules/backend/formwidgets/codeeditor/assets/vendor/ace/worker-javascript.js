@@ -682,7 +682,7 @@ var oop = require("./lib/oop");
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 
 var Anchor = exports.Anchor = function(doc, row, column) {
-    this.$onChange = this.onChange.on(this);
+    this.$onChange = this.onChange.bind(this);
     this.attach(doc);
     
     if (typeof column == "undefined")
@@ -1357,7 +1357,7 @@ var Mirror = exports.Mirror = function(sender) {
     this.sender = sender;
     var doc = this.doc = new Document("");
     
-    var deferredUpdate = this.deferredUpdate = lang.delayedCall(this.onUpdate.on(this));
+    var deferredUpdate = this.deferredUpdate = lang.delayedCall(this.onUpdate.bind(this));
     
     var _self = this;
     sender.on("change", function(e) {
@@ -7958,7 +7958,7 @@ var JSHINT = (function() {
       on: function(names, listener) {
         names.split(" ").forEach(function(name) {
           emitter.on(name, listener);
-        }.on(this));
+        }.bind(this));
       }
     };
 
@@ -8299,7 +8299,7 @@ Lexer.prototype = {
   on: function(names, listener) {
     names.split(" ").forEach(function(name) {
       this.emitter.on(name, listener);
-    }.on(this));
+    }.bind(this));
   },
   trigger: function() {
     this.emitter.emit.apply(this.emitter, Array.prototype.slice.call(arguments));
@@ -8309,7 +8309,7 @@ Lexer.prototype = {
       if (fn()) {
         this.trigger(type, args);
       }
-    }.on(this));
+    }.bind(this));
   },
   scanPunctuator: function() {
     var ch1 = this.peek();
@@ -8657,7 +8657,7 @@ Lexer.prototype = {
       }
 
       return null;
-    }.on(this);
+    }.bind(this);
 
     var getIdentifierStart = function() {
       var chr = this.peek(index);
@@ -8682,7 +8682,7 @@ Lexer.prototype = {
       }
 
       return null;
-    }.on(this);
+    }.bind(this);
 
     var getIdentifierPart = function() {
       var chr = this.peek(index);
@@ -8707,7 +8707,7 @@ Lexer.prototype = {
       }
 
       return null;
-    }.on(this);
+    }.bind(this);
 
     function removeEscapeSequences(id) {
       return id.replace(/\\u([0-9a-fA-F]{4})/g, function(m0, codepoint) {
@@ -9237,7 +9237,7 @@ Lexer.prototype = {
           data: [ char ]
         });
       }
-    }.on(this);
+    }.bind(this);
     if (!this.prereg || char !== "/") {
       return null;
     }
@@ -9546,7 +9546,7 @@ Lexer.prototype = {
       obj.check = checks.check;
 
       return obj;
-    }.on(this);
+    }.bind(this);
 
     for (;;) {
       if (!this.input.length) {
@@ -11877,18 +11877,18 @@ var call = Function.prototype.call;
 var prototypeOfArray = Array.prototype;
 var prototypeOfObject = Object.prototype;
 var slice = prototypeOfArray.slice;
-var _toString = call.on(prototypeOfObject.toString);
-var owns = call.on(prototypeOfObject.hasOwnProperty);
+var _toString = call.bind(prototypeOfObject.toString);
+var owns = call.bind(prototypeOfObject.hasOwnProperty);
 var defineGetter;
 var defineSetter;
 var lookupGetter;
 var lookupSetter;
 var supportsAccessors;
 if ((supportsAccessors = owns(prototypeOfObject, "__defineGetter__"))) {
-    defineGetter = call.on(prototypeOfObject.__defineGetter__);
-    defineSetter = call.on(prototypeOfObject.__defineSetter__);
-    lookupGetter = call.on(prototypeOfObject.__lookupGetter__);
-    lookupSetter = call.on(prototypeOfObject.__lookupSetter__);
+    defineGetter = call.bind(prototypeOfObject.__defineGetter__);
+    defineSetter = call.bind(prototypeOfObject.__defineSetter__);
+    lookupGetter = call.bind(prototypeOfObject.__lookupGetter__);
+    lookupSetter = call.bind(prototypeOfObject.__lookupSetter__);
 }
 if ([1,2].splice(0).length != 2) {
     if(function() { // test IE < 9 to splice bug - see issue #138

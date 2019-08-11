@@ -665,9 +665,9 @@
             if (!visible || flat) { return; }
             visible = false;
 
-            $(doc).off("keydown.spectrum", onkeydown);
-            $(doc).off("click.spectrum", clickout);
-            $(window).off("resize.spectrum", resize);
+            $(doc).unbind("keydown.spectrum", onkeydown);
+            $(doc).unbind("click.spectrum", clickout);
+            $(window).unbind("resize.spectrum", resize);
 
             replacer.removeClass("sp-active");
             container.addClass("sp-hidden");
@@ -909,7 +909,7 @@
 
         function destroy() {
             boundElement.show();
-            offsetElement.off("click.spectrum touchstart.spectrum");
+            offsetElement.unbind("click.spectrum touchstart.spectrum");
             container.remove();
             replacer.remove();
             spectrums[spect.id] = null;
@@ -1103,7 +1103,7 @@
 
         function stop() {
             if (dragging) {
-                $(doc).off(duringDragEvents);
+                $(doc).unbind(duringDragEvents);
                 $(doc.body).removeClass("sp-dragging");
 
                 // Wait a tick before notifying observers to allow the click event

@@ -883,7 +883,7 @@
         }).addClass('ord-'+ord);
 
         if (Touch.support) {
-          jq.on('touchstart.jcrop', Touch.createDragger(ord));
+          jq.bind('touchstart.jcrop', Touch.createDragger(ord));
         }
 
         $hdl_holder.append(jq);
@@ -1087,7 +1087,7 @@
       // Hack OctoberCMS - the event handler was moved to the Touch module.
       // The closure used before was handling a reference to the target object,
       // preventing it from removing from DOM after the control is destroyed.
-      $(document).on('touchstart.jcrop-ios', Touch.fixTouchSupport);
+      $(document).bind('touchstart.jcrop-ios', Touch.fixTouchSupport);
 
       var $track = newTracker().mousedown(createDragger('move')).css({
         cursor: 'move',
@@ -1096,7 +1096,7 @@
       });
 
       if (Touch.support) {
-        $track.on('touchstart.jcrop', Touch.createDragger('move'));
+        $track.bind('touchstart.jcrop', Touch.createDragger('move'));
       }
 
       $img_holder.append($track);
@@ -1140,13 +1140,13 @@
 
         if (touch)
           $(document)
-            .on('touchmove.jcrop', trackTouchMove)
-            .on('touchend.jcrop', trackTouchEnd);
+            .bind('touchmove.jcrop', trackTouchMove)
+            .bind('touchend.jcrop', trackTouchEnd);
 
         else if (trackDoc)
           $(document)
-            .on('mousemove.jcrop',trackMove)
-            .on('mouseup.jcrop',trackUp);
+            .bind('mousemove.jcrop',trackMove)
+            .bind('mouseup.jcrop',trackUp);
       } 
       //}}}
       function toBack() //{{{
@@ -1154,7 +1154,7 @@
         $trk.css({
           zIndex: 290
         });
-        $(document).off('.jcrop');
+        $(document).unbind('.jcrop');
       } 
       //}}}
       function trackMove(e) //{{{
@@ -1429,7 +1429,7 @@
     //}}}
     function destroy() //{{{
     {
-      $(document).off('touchstart.jcrop-ios', Touch.fixTouchSupport);
+      $(document).unbind('touchstart.jcrop-ios', Touch.fixTouchSupport);
       $div.remove();
       $origimg.show();
       $origimg.css('visibility','visible');
@@ -1539,7 +1539,7 @@
     //}}}
     //}}}
 
-    if (Touch.support) $trk.on('touchstart.jcrop', Touch.newSelection);
+    if (Touch.support) $trk.bind('touchstart.jcrop', Touch.newSelection);
 
     $hdl_holder.hide();
     interfaceUpdate(true);
@@ -1581,7 +1581,7 @@
       }
     };
 
-    if (is_msie) $div.on('selectstart', function () { return false; });
+    if (is_msie) $div.bind('selectstart', function () { return false; });
 
     $origimg.data('Jcrop', api);
     return api;
@@ -1625,21 +1625,21 @@
 
     function completeCheck(){
       if (img.complete) {
-        $img.off('.jcloader');
+        $img.unbind('.jcloader');
         if ($.isFunction(success)) success.call(img);
       }
       else window.setTimeout(completeCheck,50);
     }
 
     $img
-      .on('load.jcloader',completeCheck)
-      .on('error.jcloader',function(e){
-        $img.off('.jcloader');
+      .bind('load.jcloader',completeCheck)
+      .bind('error.jcloader',function(e){
+        $img.unbind('.jcloader');
         if ($.isFunction(error)) error.call(img);
       });
 
     if (img.complete && $.isFunction(success)){
-      $img.off('.jcloader');
+      $img.unbind('.jcloader');
       success.call(img);
     }
   };
