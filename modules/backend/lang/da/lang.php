@@ -169,6 +169,7 @@ return [
         'invalid_column_datetime' => "Kolonneværdien ':column' er ikke et DateTime objekt: Mangler du en \$dates reference i Modellen?",
         'pagination' => 'Viste records: :from-:to af :total',
         'prev_page' => 'Forrige side',
+
         'next_page' => 'Næste side',
         'refresh' => 'Opdater',
         'updating' => 'Opdaterer...',

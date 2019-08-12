@@ -334,6 +334,7 @@ return [
         'invalid_class' => "Model :model použitý ve třídě :class není validní, musí dědit ze třídy Model.",
         'mass_assignment_failed' => "Hromadné přiřazení selhalo pro vlastnost ':attribute'."
     ],
+
     'warnings' => [
         'tips' => 'Tipy pro konfiguraci systému',
         'tips_description' => 'Existují problémy, které vyžadují vaši pozornost, aby byl systém správně nakonfigurován.',

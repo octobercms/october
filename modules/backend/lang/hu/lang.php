@@ -464,6 +464,7 @@ return [
         'locale' => 'Nyelv',
         'locale_comment' => 'Válassza ki az alapértelmezett nyelvet.'
     ],
+
     'access_log' => [
         'hint' => 'Ez a napló a felhasználók sikeres bejelentkezési kísérleteit listázza ki. A bejegyzéseket :days napig őrzi meg a rendszer.',
         'menu_label' => 'Hozzáférés napló',

@@ -543,10 +543,12 @@ return [
             'iso_8859_5' => 'ISO-8859-5 (Latin, Cyrillic)',
             'iso_8859_6' => 'ISO-8859-6 (Latin, Arabic)',
             'iso_8859_7' => 'ISO-8859-7 (Latin, Greek)',
+
             'iso_8859_8' => 'ISO-8859-8 (Latin, Hebrew)',
             'iso_8859_0' => 'ISO-8859-9 (Latin-5, Turkish)',
             'iso_8859_10' => 'ISO-8859-10 (Latin-6, Nordic)',
             'iso_8859_11' => 'ISO-8859-11 (Latin, Thai)',
+
             'iso_8859_13' => 'ISO-8859-13 (Latin-7, Baltic Rim)',
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',

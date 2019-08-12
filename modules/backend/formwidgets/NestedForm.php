@@ -42,6 +42,10 @@ class NestedForm extends FormWidgetBase
             'usePanelStyles',
         ]);
 
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
+
         $config = $this->makeConfig($this->form);
         $config->model = $this->model;
         $config->data = $this->getLoadValue();
@@ -54,6 +58,7 @@ class NestedForm extends FormWidgetBase
         }
 
         $widget = $this->makeWidget(Form::class, $config);
+        $widget->previewMode = $this->previewMode;
         $widget->bindToController();
 
         $this->formWidget = $widget;
