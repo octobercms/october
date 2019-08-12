@@ -115,10 +115,9 @@ class WidgetManager
     }
 
     /**
-     * Manually registers form widget for consideration.
-     * Usage:
+     * Manually registers form widget for consideration. Usage:
      *
-     *     WidgetManager::registerFormWidgets(function($manager){
+     *     WidgetManager::registerFormWidgets(function($manager) {
      *         $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
      *     });
      *
@@ -228,10 +227,9 @@ class WidgetManager
     }
 
     /**
-     * Manually registers report widget for consideration.
-     * Usage:
+     * Manually registers report widget for consideration. Usage:
      *
-     *     WidgetManager::registerReportWidgets(function($manager){
+     *     WidgetManager::registerReportWidgets(function($manager) {
      *         $manager->registerReportWidget('RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview', [
      *             'name' => 'Google Analytics traffic overview',
      *             'context' => 'dashboard'
