@@ -74,7 +74,7 @@ class ComponentManager
     /**
      * Manually registers a component for consideration. Usage:
      *
-     *     ComponentManager::registerComponents(function($manager) {
+     *     ComponentManager::registerComponents(function ($manager) {
      *         $manager->registerComponent('October\Demo\Components\Test', 'testComponent');
      *     });
      *
