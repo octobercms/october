@@ -5,13 +5,6 @@ return [
         'title' => 'Área Administrativa',
         'invalid_login' => 'Os dados digitados não correspondem aos nossos registros. Por favor, verifique e tente novamente.'
     ],
-    'aria-label' => [
-        'footer'        => 'Menu de Rodapé',
-        'side_panel'    => 'painel lateral',
-        'breadcrumb'    => 'trilha de migalhas',
-        'main_content'  => 'área principal',
-        'tabs'          => 'guias',
-    ],
     'field' => [
         'invalid_type' => 'Tipo de campo inválido :type.',
         'options_method_invalid_model' => 'O atributo ":field" não resolve a classe. Tente especificar as opções do método para o modelo :model.',
