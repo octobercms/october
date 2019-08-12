@@ -1630,14 +1630,14 @@ class Controller
     }
 
     /**
-     * Removes '@' from soft component name
+     * Removes prefixed '@' from soft component name
      * @param string $label
      * @return string
      */
     protected function parseComponentLabel($label)
     {
         if ($this->isSoftComponent($label)) {
-            return str_replace('@', '', $label);
+            return ltrim($label, '@');
         }
         return $label;
     }
