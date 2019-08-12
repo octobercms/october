@@ -77,7 +77,11 @@ class BackendController extends ControllerBase
                 $path = implode('/', $pathParts);
 
                 $requestedController = $this->getRequestedController($path);
-                if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
+                if (
+                    !is_null($requestedController)
+                    && is_array($requestedController)
+                    && count($requestedController['controller']->getMiddleware())
+                ) {
                     $action = $requestedController['action'];
 
                     // Collect applicable middleware and insert middleware into pipeline
