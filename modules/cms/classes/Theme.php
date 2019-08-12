@@ -181,7 +181,9 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getActiveTheme', function () { return 'mytheme'; });
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
          *
          */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
