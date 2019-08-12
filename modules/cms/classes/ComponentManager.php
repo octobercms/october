@@ -210,7 +210,7 @@ class ComponentManager
             ));
         }
 
-        if ($className && class_exists($className)) {
+        if (class_exists($className)) {
             $component = App::make($className, [$cmsObject, $properties]);
             $component->name = $name;
 
