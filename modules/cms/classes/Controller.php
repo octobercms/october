@@ -1443,7 +1443,8 @@ class Controller
     {
         $manager = ComponentManager::instance();
 
-        if ($isSoftComponent = $this->isSoftComponent($name)) {
+        $isSoftComponent = $this->isSoftComponent($name);
+        if ($isSoftComponent) {
             $name = $this->parseComponentLabel($name);
             $alias = $this->parseComponentLabel($alias);
         }
