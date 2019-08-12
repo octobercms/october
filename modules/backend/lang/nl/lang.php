@@ -610,7 +610,6 @@ return [
         'move_dest_src_match' => 'Selecteer een andere doelmap.',
         'empty_library' => 'De media bibliotheek is leeg. Upload bestanden of maak mappen aan om te beginnen.',
         'insert' => 'Invoegen',
-
         'crop_and_insert' => 'Uitsnijden & Invoegen',
         'select_single_image' => 'Selecteer één afbeelding.',
         'selection_not_image' => 'Het geselecteerde item is geen afbeelding.',

@@ -253,7 +253,6 @@ return [
         'missing_relation' => "Modellen ':class' saknar en definition för ':relation'",
         'missing_method' => "Modellen ':class' innehåller inte metoden ':method'.",
         'invalid_class' => "Modellen :model i klass :class är inte giltig. Den måste ärva från \Model-klassen",
-
         'mass_assignment_failed' => "Massuppdraget misslyckades för Modell-attributet ':attribute'.",
     ],
     'warnings' => [
