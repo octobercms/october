@@ -6,6 +6,8 @@ Thank you for your interest in contributing to the OctoberCMS project!
 
 **Please don't use the main GitHub for reporting issues with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](https://octobercms.com/plugins).
 
+>**NOTE**: If you're reporting an issue that you intend to fix yourself, you can skip the Issue step and just submit a Pull Request that fixes the issue (along with a detailed description of the original problem) instead.
+
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
 - **Summary**: Make sure your summary reflects what the problem is and where it is. Provide as much detail as possible, the more information we have to work with the more likely it is that your problem can be solved.
