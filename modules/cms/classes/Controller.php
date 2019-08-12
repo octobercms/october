@@ -1443,7 +1443,7 @@ class Controller
     {
         $manager = ComponentManager::instance();
 
-        if ($isSoftComponent = $this->isSoftComponent($name)){
+        if ($isSoftComponent = $this->isSoftComponent($name)) {
             $name = $this->parseComponentLabel($name);
             $alias = $this->parseComponentLabel($alias);
         }
@@ -1471,12 +1471,12 @@ class Controller
         /**
          * We catch two exceptions below, as missing plugin can throw both and catch \Exception would be too global.
          */
-        } catch (CmsException $e){
-            if (!$isSoftComponent){
+        } catch (CmsException $e) {
+            if (!$isSoftComponent) {
                 throw $e;
             }
-        } catch (SystemException $e){
-            if (!$isSoftComponent){
+        } catch (SystemException $e) {
+            if (!$isSoftComponent) {
                 throw $e;
             }
         }
@@ -1632,8 +1632,9 @@ class Controller
      * @param string $label
      * @return string
      */
-    protected function parseComponentLabel($label){
-        if ($this->isSoftComponent($label)){
+    protected function parseComponentLabel($label)
+    {
+        if ($this->isSoftComponent($label)) {
             return str_replace('@', '', $label);
         }
         return $label;
@@ -1644,7 +1645,8 @@ class Controller
      * @param string $label
      * @return bool
      */
-    protected function isSoftComponent($label){
+    protected function isSoftComponent($label)
+    {
         return $label[0] === '@';
     }
 }
