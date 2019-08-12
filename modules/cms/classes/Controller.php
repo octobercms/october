@@ -1435,8 +1435,7 @@ class Controller
      * @param string $alias       Alias to give the component
      * @param array  $properties  Component properties
      * @param bool   $addToLayout Add to layout, instead of page
-     * @return ComponentBase Component object
-     * @return null when a soft component is used but not found
+     * @return ComponentBase|null Component object. Will return `null` if a soft component is used but not found.
      * @throws CmsException
      * @throws SystemException
      */
