@@ -1449,14 +1449,14 @@ class Controller
         }
         try {
             if ($addToLayout) {
-                if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
+                if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties, $isSoftComponent)) {
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
                 }
 
                 $componentObj->alias = $alias;
                 $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
             } else {
-                if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
+                if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties, $isSoftComponent)) {
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
                 }
 
@@ -1468,10 +1468,9 @@ class Controller
             $componentObj->init();
 
             return $componentObj;
-            /**
-             * We catch two exceptions below, as missing plugin can throw both and catch \Exception would be too global.
-             * We also debug-log it, to not be TOO silent about this.
-             */
+        /**
+         * We catch two exceptions below, as missing plugin can throw both and catch \Exception would be too global.
+         */
         } catch (CmsException $e){
             if (!$isSoftComponent){
                 throw $e;
