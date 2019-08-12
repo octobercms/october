@@ -63,6 +63,28 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 Thank you for your contributions!
 
+### How to fix/update your develop branch
+
+When you see a conflict with the `develop` branch you can do the following to resolve the error. Add the core October repo as a remote (ie. `upstream`) and when working on my own branch, I had to ensure that the changes from the core were included in my fork.
+
+You could try the following:
+
+```
+git remote add upstream git@github.com:octobercms/october.git
+git fetch upstream
+git checkout develop
+git pull upstream develop
+```
+
+This ensures that your local `develop` branch matches October. Then:
+
+```
+git checkout <your branch>
+git merge develop
+```
+
+This would merge all the latest changes from the October `develop` branch into your development branch. If there's a merge conflict, this will probably appear on your local copy now, but it should be easy enough to then merge in what you can, and then re-compile the assets using `php artisan october:util compile assets` which should hopefully generate the correct compiled file that won't conflict with October's core repo.
+
 #### PSR Coding standards
 
 Please ensure that your Pull Request satisfies the following coding standards:
