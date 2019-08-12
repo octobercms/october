@@ -211,11 +211,11 @@
             $target = $item
         }
 
-        var $textInput = $('input[type=text]:first, select:first', $target).eq(0);
+        var $textInput = $('input[type=text]:first, select:first', $target).first();
         if ($textInput.length) {
             switch($textInput.prop("tagName")) {
                 case 'SELECT':
-                    return $textInput.children('option:selected').text();
+                    return $textInput.find('option:selected').text();
                 default:
                     return $textInput.val();
             }
