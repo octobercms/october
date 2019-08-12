@@ -1648,6 +1648,6 @@ class Controller
      */
     protected function isSoftComponent($label)
     {
-        return $label[0] === '@';
+        return substr($label[0], 0, 1) === '@';
     }
 }
