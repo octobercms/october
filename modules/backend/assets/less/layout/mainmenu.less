@@ -11,6 +11,24 @@
 @mainmenu-tile-label-height: 20px;
 @mainmenu-tile-label-width: 100px;
 
+//
+// Focus Ring Support for accessibility
+// .focus-visible elements must be '!important' to override dom elements
+//
+
+.js-focus-visible {
+	&:focus {
+		&:not(.focus-visible) {
+			outline: none;
+		}
+	}
+	.focus-visible {
+		border: .0625rem solid #3578E5 !important;
+		-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5 !important;
+		box-shadow: 0 0 .1875rem .125rem #3578E5 !important;
+	}
+}
+
 /* Turn off focus ring for mouse clicking tabs */
 .control-tabs.master-tabs {
 	.nav-tabs {
