@@ -654,9 +654,9 @@ body.slim-container .layout .layout-container {padding-left:0 !important;padding
 .flex-layout-item.relative {position:relative}
 .flex-layout-item.layout-container {max-width:none}
 .js-focus-visible:focus:not(.focus-visible) {outline:none}
-.js-focus-visible .focus-visible {border:.0625rem solid #3578E5;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5;box-shadow:0 0 .1875rem .125rem #3578E5}
+.js-focus-visible .focus-visible {border:.0625rem solid #3578E5 !important;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5 !important;box-shadow:0 0 .1875rem .125rem #3578E5 !important}
 .control-tabs.master-tabs .nav-tabs a, .control-tabs.primary-tabs .nav-tabs a, .control-tabs.secondary-tabs .nav-tabs a, .control-tabs.content-tabs .nav-tabs a {outline:none}
-.primary-tabs li.focus-visible-tabs {-webkit-box-shadow:0 0 0.1875rem 0.125rem #3578E5;box-shadow:0 0 0.1875rem 0.125rem #3578E5;z-index:99999 !important}
+.primary-tabs li.focus-visible-tabs {-webkit-box-shadow:0 0 0.1875rem 0.125rem #3578E5 !important;box-shadow:0 0 0.1875rem 0.125rem #3578E5 !important;z-index:99999 !important}
 body.mainmenu-open {overflow:hidden;position:fixed}
 .mainmenu-tooltip .tooltip-inner {font-size:13px;padding:6px 16px}
 ul.mainmenu-nav {font-size:14px}

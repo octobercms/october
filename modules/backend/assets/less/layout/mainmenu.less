@@ -11,25 +11,6 @@
 @mainmenu-tile-label-height: 20px;
 @mainmenu-tile-label-width: 100px;
 
-//
-// Focus Ring Support for accessibility
-//
-
-.js-focus-visible {
-	&:focus {
-		&:not(.focus-visible) {
-			outline: none;
-		}
-	}
-	.focus-visible {
-		border: .0625rem solid #3578E5;
-		-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5;
-		box-shadow: 0 0 .1875rem .125rem #3578E5;
-		z-index: 1;
-		position: relative;
-	}
-}
-
 /* Turn off focus ring for mouse clicking tabs */
 .control-tabs.master-tabs {
 	.nav-tabs {
@@ -63,8 +44,8 @@
 /* Add custom focus ring to the primary tabs */
 .primary-tabs {
 	li.focus-visible-tabs {
-		-webkit-box-shadow: 0 0 0.1875rem 0.125rem #3578E5;
-		box-shadow: 0 0 0.1875rem 0.125rem #3578E5;
+		-webkit-box-shadow: 0 0 0.1875rem 0.125rem #3578E5 !important;
+		box-shadow: 0 0 0.1875rem 0.125rem #3578E5 !important;
 		z-index: 99999 !important;
 	}
 }
