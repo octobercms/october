@@ -15,12 +15,12 @@
                 </span>
             </a>
 
-            <ul class="nav mainmenu-nav" role="list">
+            <ul class="nav mainmenu-nav">
                 <?php foreach (BackendMenu::listMainMenuItems() as $item): ?>
                     <?php
                         $isActive = BackendMenu::isMainMenuItemActive($item);
                     ?>
-                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects" role="listitem">
+                    <li class="<?= $isActive ? 'active' : null ?> svg-icon-container svg-active-effects">
                         <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
@@ -46,8 +46,8 @@
         </div>
     </div>
     <div class="toolbar-item" data-calculate-width>
-        <ul class="mainmenu-toolbar" role="list">
-            <li class="mainmenu-preview with-tooltip" role="listitem">
+        <ul class="mainmenu-toolbar">
+            <li class="mainmenu-preview with-tooltip">
                 <a
                     href="<?= Url::to('/') ?>"
                     target="_blank"
@@ -55,17 +55,17 @@
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
-            <li class="mainmenu-account with-tooltip" role="listitem">
+            <li class="mainmenu-account with-tooltip">
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
                     title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
                     <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
                 <div class="mainmenu-accountmenu">
-                    <ul role="presentation">
+                    <ul>
                         <?php foreach ($mySettings as $category => $items): ?>
                             <?php foreach ($items as $item): ?>
-                                <li role="listitem">
+                                <li>
                                     <a href="<?= $item->url ?>">
                                         <?= e(trans($item->label)) ?>
                                     </a>
@@ -74,7 +74,7 @@
                             <li class="divider"></li>
                         <?php endforeach ?>
 
-                        <li role="listitem">
+                        <li>
                             <a href="<?= Backend::url('backend/auth/signout') ?>">
                                 <?php if (\BackendAuth::isImpersonator()) : ?>
                                     <?= e(trans('backend::lang.account.stop_impersonating')) ?>

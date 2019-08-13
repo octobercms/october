@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Area de Administración'
     ],
-    'aria-label' => [
-        'footer'        => 'pie de página',
-        'side_panel'    => 'panel lateral',
-        'breadcrumb'    => 'migaja de pan',
-        'main_content'  => 'área principal',
-        'tabs'          => 'pestañas',
-    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'El modelo clase: model debe definir un método: method() opciones recurrentes para el ":field" desde campo.'
