@@ -63,11 +63,11 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 Thank you for your contributions!
 
-### How to fix/update your develop branch
+#### Best practices
 
-When you see a conflict with the `develop` branch you can do the following to resolve the error. Add the core October repo as a remote (ie. `upstream`) and when working on my own branch, I had to ensure that the changes from the core were included in my fork.
+It is ideal to keep your development branch or fork synchronised with the core October `develop` branch when submitting pull requests, as this minimises the possibility of merge conflicts.
 
-You could try the following:
+To keep in sync with October, add the core October repository as a Git remote (ie. `upstream`) and pull changes from the October repository into your local `develop` branch:
 
 ```
 git remote add upstream git@github.com:octobercms/october.git
@@ -76,14 +76,19 @@ git checkout develop
 git pull upstream develop
 ```
 
-This ensures that your local `develop` branch matches October. Then:
+This ensures that your local `develop` branch matches October. When developing a pull request, it is best to use your own development branch. For example, creating a fix to improve spelling on a language file could be made into a branch called `lang-en-spelling-fixes`, which can be branched off from the `develop` branch.
 
 ```
-git checkout <your branch>
+git checkout -b lang-en-spelling-fixes develop
+```
+
+When you wish to update your development branch with the latest changes from the `develop` branch, it is just a simple merge:
+
+```
 git merge develop
 ```
 
-This would merge all the latest changes from the October `develop` branch into your development branch. If there's a merge conflict, this will probably appear on your local copy now, but it should be easy enough to then merge in what you can, and then re-compile the assets using `php artisan october:util compile assets` which should hopefully generate the correct compiled file that won't conflict with October's core repo.
+This will merge all the latest changes from the October `develop` branch into your development branch. If there's a merge conflict, this will probably appear on your local copy now. You will need to resolve these conflicts locally - once done, this should allow your pull request to proceed without issue.
 
 #### PSR Coding standards
 
