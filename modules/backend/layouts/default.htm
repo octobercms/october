@@ -47,8 +47,10 @@
                                 <div class="layout">
                                     <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
                                         <!-- Breadcrumb -->
-                                        <div class="control-breadcrumb" aria-label="<?= e(trans('backend::lang.aria-label.breadcrumb')) ?>">
-                                            <?= $breadcrumbContent ?>
+                                        <div class="control-breadcrumb">
+                                            <nav aria-label="<?= e(trans('system::lang.aria-label.breadcrumb')) ?>">
+                                                <?= $breadcrumbContent ?>
+                                            </nav>
                                         </div>
                                     <?php endif ?>
 
