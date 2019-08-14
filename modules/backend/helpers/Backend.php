@@ -8,7 +8,7 @@ use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
-use System\Models\PluginVersion;
+use System\Classes\PluginManager;
 
 /**
  * Backend Helper
@@ -35,15 +35,20 @@ class Backend
         $path = explode('/', $path);
 
         if (count($path) >= 2) {
-            $pluginVersions = PluginVersion::applyEnabled()
-                ->where('code', ucfirst($path[0]) . '.' . ucfirst($path[1]))
-                ->orWhere('code', 'like', '%' . ucfirst($path[0]))
-                ->get();
+            $plugins = array();
 
-            $pluginVersion = count($pluginVersions) === 1 ? $pluginVersions->first() : null;
+            foreach (PluginManager::instance()->getPlugins() as $pluginCode => $plugin) {
+                if ($pluginCode === ucfirst($path[0]) . '.' . ucfirst($path[1])) {
+                    $plugins[] = $pluginCode;
+                } elseif (substr($pluginCode, -strlen($path[0])) === ucfirst($path[0])) {
+                    $plugins[] = $pluginCode;
+                }
+            }
 
-            if ($pluginVersion) {
-                $author = strtolower(explode('.', $pluginVersion->code, 2)[0]);
+            $plugin = count($plugins) === 1 ? $plugins[0] : null;
+
+            if ($plugin) {
+                $author = strtolower(explode('.', $plugin, 2)[0]);
 
                 if ($path[0] == $author) {
                     array_shift($path);

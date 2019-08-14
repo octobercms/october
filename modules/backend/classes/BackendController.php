@@ -207,18 +207,23 @@ class BackendController extends ControllerBase
          * Look for a Plugin controller
          */
         if (count($params) >= 1) {
-            $pluginVersions = PluginVersion::applyEnabled()
-                ->where('code', ucfirst($params[0]) . '.' . ucfirst($params[1]))
-                ->orWhere('code', 'like', '%' . ucfirst($params[0]))
-                ->get();
+            $plugins = array();
 
-            $pluginVersion = count($pluginVersions) === 1 ? $pluginVersions->first() : null;
+            foreach (PluginManager::instance()->getPlugins() as $pluginCode => $plugin) {
+                if ($pluginCode === ucfirst($params[0]) . '.' . ucfirst($params[1])) {
+                    $plugins[] = $pluginCode;
+                } elseif (substr($pluginCode, -strlen($params[0])) === ucfirst($params[0])) {
+                    $plugins[] = $pluginCode;
+                }
+            }
 
-            if ($pluginVersion) {
-                $pluginVersionCode = explode('.', $pluginVersion->code, 2);
+            $plugin = count($plugins) === 1 ? $plugins[0] : null;
 
-                $author = strtolower($pluginVersionCode[0]);
-                $plugin = strtolower($pluginVersionCode[1]);
+            if ($plugin) {
+                $pluginCode = explode('.', $plugin, 2);
+
+                $author = strtolower($pluginCode[0]);
+                $plugin = strtolower($pluginCode[1]);
 
                 if ($params[0] != $author) {
                     array_unshift($params, $author);
