@@ -207,7 +207,7 @@ class BackendController extends ControllerBase
          * Look for a Plugin controller
          */
         if (count($params) >= 1) {
-            $plugins = array();
+            $plugins = [];
 
             foreach (PluginManager::instance()->getPlugins() as $pluginCode => $plugin) {
                 if ($pluginCode === ucfirst($params[0]) . '.' . ucfirst($params[1])) {
