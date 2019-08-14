@@ -17,7 +17,7 @@
 .field-codeeditor .editor-toolbar >ul >li .tooltip.left {margin-right:25px}
 .field-codeeditor .editor-toolbar >ul >li >a {display:block;height:25px;width:25px;color:#666;font-size:20px;text-align:center;text-decoration:none}
 .field-codeeditor .editor-toolbar >ul >li >a >abbr {position:absolute;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
-.field-codeeditor .editor-toolbar >ul >li >a >i {opacity:0.7;filter:alpha(opacity=70);display:block}
+.field-codeeditor .editor-toolbar >ul >li >a >i {display:block}
 .field-codeeditor .editor-toolbar >ul >li >a >i:before {font-size:15px}
 .field-codeeditor .editor-toolbar >ul >li >a:hover >i,
 .field-codeeditor .editor-toolbar >ul >li >a:focus >i {opacity:1;filter:alpha(opacity=100)}
