@@ -2,6 +2,10 @@
 
 Thank you for your interest in contributing to the OctoberCMS project!
 
+## Security Vulnerabilities
+
+Please review [our security policy](https://github.com/octobercms/october/security/policy) on how to report security vulnerabilities.
+
 ## Reporting an issue with OctoberCMS
 
 **Please don't use the main GitHub for reporting issues with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](https://octobercms.com/plugins).
