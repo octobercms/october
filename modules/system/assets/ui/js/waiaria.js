@@ -5,6 +5,7 @@
  * - Adds keyboard navigation controls to slider switch button form fields
  * - Adds keyboard navigation controls to tabs
  * - Adds keyboard navigation controls to sidebar menus
+ * - Adds keyboard navigation controls to preview and account button tooltips
  */
 $(function() {
     "use strict";
@@ -54,7 +55,7 @@ $(function() {
     }
 
     /*
-     * Top navigation menu - preview and account button tooltips.
+     * Top navigation menu - preview and account button tooltips
      */
     $('body').on('click keydown', '.mainmenu-preview a.tooltip-position, .mainmenu-account a.tooltip-position', function(event) {
         // Run whitelist checker
