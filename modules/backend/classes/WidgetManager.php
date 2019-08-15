@@ -2,6 +2,7 @@
 
 use Str;
 use BackendAuth;
+use SystemException;
 use System\Classes\PluginManager;
 use Event;
 
@@ -215,6 +216,15 @@ class WidgetManager
             }
         }
 
+        return $this->reportWidgets;
+    }
+
+    /**
+     * Returns the raw array of registered report widgets.
+     * @return array Array keys are class names.
+     */
+    public function getReportWidgets()
+    {
         return $this->reportWidgets;
     }
 
