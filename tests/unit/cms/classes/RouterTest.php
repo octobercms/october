@@ -60,12 +60,12 @@ class RouterTest extends TestCase
     {
         $router = new Router(self::$theme);
         $method = self::getMethod('getCachedUrlFileName');
-        $urlList = array();
+        $urlList = [];
 
         /*
          * The first time the page should be loaded from the disk.
          */
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertNull($result);
 
         /*
@@ -78,14 +78,14 @@ class RouterTest extends TestCase
         /*
          * The second time the page should be loaded from the cache.
          */
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertEquals('index.htm', $result);
 
         /*
          * Clear the cache
          */
         $router->clearCache();
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertNull($result);
     }
 

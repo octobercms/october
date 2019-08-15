@@ -797,10 +797,10 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        $params = array(
+        $params = [
             'width' => $width,
             'height' => $height
-        );
+        ];
 
         return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }

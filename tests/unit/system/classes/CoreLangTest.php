@@ -10,8 +10,8 @@ class CoreLangTest extends TestCase
         $translator->setLocale('en');
 
         $validator = Validator::make(
-            array('name' => 'me'),
-            array('name' => 'required|min:5')
+            ['name' => 'me'],
+            ['name' => 'required|min:5']
         );
 
         $this->assertTrue($validator->fails());
