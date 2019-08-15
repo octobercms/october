@@ -26,7 +26,7 @@
         Backend::skinAsset('assets/js/vendor/jquery-migrate.min.js'),
         Url::asset('modules/system/assets/js/framework.js')
     ];
-    if (Config::get('cms.decompileBackendAssets', false)) {
+    if (Config::get('develop.decompileBackendAssets', false)) {
         $scripts = array_merge($scripts, Backend::decompileAsset('modules/system/assets/ui/storm.js'));
         $scripts = array_merge($scripts, Backend::decompileAsset('assets/js/october.js', true));
     } else {
