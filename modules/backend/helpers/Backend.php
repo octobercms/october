@@ -201,11 +201,15 @@ class Backend
         $directory = str_replace(basename($file), '', $file);
 
         return array_map(function ($match) use ($directory, $skinAsset) {
+            // Resolve relative asset paths
             if ($skinAsset) {
-                return $this->skinAsset($directory . $match[1]);
+                $assetPath = base_path(substr(Skin::getActive()->getPath($directory . $match[1], true), 1));
+            } else {
+                $assetPath = base_path($directory . $match[1]);
             }
+            $realPath = str_replace(base_path(), '', realpath($assetPath));
 
-            return Url::asset($directory . $match[1]);
+            return Url::asset($realPath);
         }, $matches);
     }
 }
