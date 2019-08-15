@@ -525,6 +525,19 @@ class Theme
     }
 
     /**
+     * Remove data specific to this theme
+     * @return bool
+     */
+    public function removeCustomData()
+    {
+        if ($this->hasCustomData()) {
+            return $this->getCustomData()->delete();
+        }
+
+        return true;
+    }
+
+    /**
      * Checks to see if the database layer has been enabled
      *
      * @return boolean
