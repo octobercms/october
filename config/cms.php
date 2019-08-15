@@ -467,6 +467,6 @@ return [
     |
     */
 
-    'decompileBackendAssets' => true,
+    'decompileBackendAssets' => false,
 
 ];
