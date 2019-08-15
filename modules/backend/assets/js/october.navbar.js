@@ -25,7 +25,7 @@
             $('li.with-tooltip:not(.active) > a', navbar).tooltip({
                 container: 'body',
                 placement: 'bottom',
-                template: '<div class="tooltip mainmenu-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+                template: '<div class="tooltip mainmenu-tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" role="tooltip" hidden></div></div>'
             })
             .on('show.bs.tooltip', function (e) {
                 if (isMobile) e.preventDefault()

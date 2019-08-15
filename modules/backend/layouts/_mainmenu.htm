@@ -51,6 +51,9 @@
                 <a
                     href="<?= Url::to('/') ?>"
                     target="_blank"
+                    rel="nofollow external noopener noreferrer"
+                    class="tooltip-position"
+                    aria-label="<?= e(trans('backend::lang.tooltips.preview_website')) ?>"
                     title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
                 </a>
@@ -58,6 +61,8 @@
             <li class="mainmenu-account with-tooltip">
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
+                    class="tooltip-position"
+                    aria-label="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>"
                     title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
                     <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
                 </a>
