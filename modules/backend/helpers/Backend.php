@@ -8,7 +8,7 @@ use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
-use Exception;
+use Backend\Helpers\Exception\DecompileException;
 
 /**
  * Backend Helper
@@ -166,6 +166,7 @@ class Backend
      *
      * @param string $file The compilation asset file to decompile
      * @param boolean $skinAsset If true, will load decompiled assets from the "skins" directory.
+     * @throws DecompileException If the compilation file cannot be decompiled
      * @return array
      */
     public function decompileAsset(string $file, bool $skinAsset = false)
@@ -177,23 +178,23 @@ class Backend
         }
 
         if (!file_exists($assetFile)) {
-            throw new Exception('File ' . $file . ' does not exist to be decompiled.');
+            throw new DecompileException('File ' . $file . ' does not exist to be decompiled.');
         }
         if (!is_readable($assetFile)) {
-            throw new Exception('File ' . $file . ' cannot be decompiled. Please allow read access to the file.');
+            throw new DecompileException('File ' . $file . ' cannot be decompiled. Please allow read access to the file.');
         }
 
         $contents = file_get_contents($assetFile);
 
         if (!preg_match('/^=require/m', $contents)) {
-            throw new Exception('File ' . $file . ' does not appear to be a compiled asset.');
+            throw new DecompileException('File ' . $file . ' does not appear to be a compiled asset.');
         }
 
         // Find all assets that are compiled in this file
         preg_match_all('/^=require\s+([A-z0-9-_+\.\/]+)$/m', $contents, $matches, PREG_SET_ORDER);
 
         if (!count($matches)) {
-            throw new Exception('Unable to extract any asset paths when decompiled file ' . $file . '.');
+            throw new DecompileException('Unable to extract any asset paths when decompiled file ' . $file . '.');
         }
 
         // Determine correct asset path
