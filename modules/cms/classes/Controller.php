@@ -544,7 +544,7 @@ class Controller
      * Note for pre-processing see cms.template.processTwigContent event.
      * @param \Cms\Classes\Page $page Specifies the current CMS page.
      * @param string $url Specifies the current URL.
-     * @param string $content The page markup to post processs.
+     * @param string $content The page markup to post-process.
      * @return string Returns the updated result string.
      */
     protected function postProcessResult($page, $url, $content)
@@ -553,7 +553,7 @@ class Controller
 
         /**
          * @event cms.page.postprocess
-         * Provides oportunity to hook into the post processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
+         * Provides opportunity to hook into the post-processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
          *
          * Example usage:
          *
@@ -898,7 +898,7 @@ class Controller
 
         /**
          * @event cms.page.render
-         * Provides an oportunity to manipulate the page's rendered contents
+         * Provides an opportunity to manipulate the page's rendered contents
          *
          * Example usage:
          *
@@ -942,7 +942,7 @@ class Controller
 
         /**
          * @event cms.page.beforeRenderPartial
-         * Provides an oportunity to manipulate the name of the partial being rendered before it renders
+         * Provides an opportunity to manipulate the name of the partial being rendered before it renders
          *
          * Example usage:
          *
@@ -1096,7 +1096,7 @@ class Controller
 
         /**
          * @event cms.page.renderPartial
-         * Provides an oportunity to manipulate the output of a partial after being rendered
+         * Provides an opportunity to manipulate the output of a partial after being rendered
          *
          * Example usage:
          *
@@ -1129,7 +1129,7 @@ class Controller
     {
         /**
          * @event cms.page.beforeRenderContent
-         * Provides an oportunity to manipulate the name of the content file being rendered before it renders
+         * Provides an opportunity to manipulate the name of the content file being rendered before it renders
          *
          * Example usage:
          *
@@ -1173,7 +1173,7 @@ class Controller
 
         /**
          * @event cms.page.renderContent
-         * Provides an oportunity to manipulate the output of a content file after being rendered
+         * Provides an opportunity to manipulate the output of a content file after being rendered
          *
          * Example usage:
          *
