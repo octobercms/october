@@ -154,7 +154,7 @@ class NavigationManager
      * `registerMenuItems` method. The manager instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     BackendMenu::registerCallback(function($manager){
+     *     BackendMenu::registerCallback(function ($manager) {
      *         $manager->registerMenuItems([...]);
      *     });
      *

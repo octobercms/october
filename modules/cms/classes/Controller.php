@@ -812,7 +812,7 @@ class Controller
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('cms.ajax.beforeRunHandler', function((\Cms\Classes\Controller) $controller, (string) $handler) {
+         *     Event::listen('cms.ajax.beforeRunHandler', function ((\Cms\Classes\Controller) $controller, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {

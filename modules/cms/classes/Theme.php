@@ -181,7 +181,9 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
          *
          */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
@@ -235,7 +237,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *     Event::listen('cms.theme.setActiveTheme', function ($code) {
          *         \Log::info("Theme has been changed to $code");
          *     });
          *
@@ -265,7 +267,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the edit
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getEditTheme', function() {
+         *     Event::listen('cms.theme.getEditTheme', function () {
          *         return "the-edit-theme-code";
          *     });
          *
