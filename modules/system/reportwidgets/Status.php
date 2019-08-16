@@ -103,6 +103,10 @@ class Status extends ReportWidgetBase
             $warnings[] = Lang::get('backend::lang.warnings.debug');
         }
 
+        if (Config::get('develop.decompileBackendAssets', false)) {
+            $warnings[] = Lang::get('backend::lang.warnings.decompileBackendAssets');
+        }
+
         $requiredExtensions = [
             'GD'       => extension_loaded('gd'),
             'fileinfo' => extension_loaded('fileinfo'),
