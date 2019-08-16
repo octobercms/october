@@ -231,7 +231,6 @@ class Controller extends ControllerBase
          * Check that user is logged in and has permission to view this page
          */
         if (!$isPublicAction) {
-
             /*
              * Not logged in, redirect to login screen or show ajax error.
              */
@@ -554,7 +553,7 @@ class Controller extends ControllerBase
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('backend.ajax.beforeRunHandler', function((\Backend\Classes\Controller) $controller, (string) $handler) {
+         *     Event::listen('backend.ajax.beforeRunHandler', function ((\Backend\Classes\Controller) $controller, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {

@@ -2,9 +2,15 @@
 
 Thank you for your interest in contributing to the OctoberCMS project!
 
+## Security Vulnerabilities
+
+Please review [our security policy](https://github.com/octobercms/october/security/policy) on how to report security vulnerabilities.
+
 ## Reporting an issue with OctoberCMS
 
 **Please don't use the main GitHub for reporting issues with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](https://octobercms.com/plugins).
+
+>**NOTE**: If you're reporting an issue that you intend to fix yourself, you can skip the Issue step and just submit a Pull Request that fixes the issue (along with a detailed description of the original problem) instead.
 
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
@@ -61,6 +67,33 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 Thank you for your contributions!
 
+#### Best practices
+
+It is ideal to keep your development branch or fork synchronised with the core October `develop` branch when submitting pull requests, as this minimises the possibility of merge conflicts.
+
+To keep in sync with October, add the core October repository as a Git remote (ie. `upstream`) and pull changes from the October repository into your local `develop` branch:
+
+```
+git remote add upstream git@github.com:octobercms/october.git
+git fetch upstream
+git checkout develop
+git pull upstream develop
+```
+
+This ensures that your local `develop` branch matches October. When developing a pull request, it is best to use your own development branch. For example, creating a fix to improve spelling on a language file could be made into a branch called `lang-en-spelling-fixes`, which can be branched off from the `develop` branch.
+
+```
+git checkout -b lang-en-spelling-fixes develop
+```
+
+When you wish to update your development branch with the latest changes from the `develop` branch, it is just a simple merge:
+
+```
+git merge develop
+```
+
+This will merge all the latest changes from the October `develop` branch into your development branch. If there's a merge conflict, this will probably appear on your local copy now. You will need to resolve these conflicts locally - once done, this should allow your pull request to proceed without issue.
+
 #### PSR Coding standards
 
 Please ensure that your Pull Request satisfies the following coding standards:
@@ -68,6 +101,8 @@ Please ensure that your Pull Request satisfies the following coding standards:
 - [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 - [PSR 1 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 - [PSR 0 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+
+To validate your changes against our coding standards, you may run `./vendor/bin/phpcs -nq --extensions="php"` in your development folder.
 
 #### Team rules
 

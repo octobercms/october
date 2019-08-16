@@ -3,7 +3,7 @@
 use Db;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
-use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
+use October\Rain\Database\Relations\Relation as RelationBase;
 
 /**
  * Form Relationship

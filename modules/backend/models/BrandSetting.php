@@ -43,7 +43,7 @@ class BrandSetting extends Model
         'favicon' => \System\Models\File::class,
         'logo' => \System\Models\File::class
     ];
-    
+
     /**
      * @var string The key to store rendered CSS in the cache under
      */
@@ -181,5 +181,4 @@ class BrandSetting extends Model
 
         return null;
     }
-
 }

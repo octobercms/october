@@ -63,6 +63,7 @@ class CmsObjectQueryTest extends TestCase
             "authors",
             "b/b-page",
             "blog-archive",
+            "blog-category",
             "blog-post",
             "code-namespaces",
             "code-namespaces-aliases",

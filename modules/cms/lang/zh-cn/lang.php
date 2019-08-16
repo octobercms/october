@@ -15,12 +15,16 @@ return [
     ],
     'dashboard' => [
         'active_theme' => [
+            'widget_title_default' => 'Website',
             'online' => '在线',
             'maintenance' => '维护',
+            'manage_themes' => '网站主题管理',
+            'customize_theme' => '自定义主题'
         ]
     ],
     'theme' => [
         'not_found_name' => "未找到主题 ':name'",
+        'by_author' => '作者 :name',
         'active' => [
             'not_set' => '未设置活动主题',
             'not_found' => '无法找到活动主题'
@@ -43,6 +47,8 @@ return [
         'homepage_placeholder' => '网站地址',
         'code_label' => '代码',
         'code_placeholder' => '主题发行唯一码',
+        'preview_image_label' => '预览图',
+        'preview_image_placeholder' => '预览图路径.',
         'dir_name_label' => '目录名',
         'dir_name_create_label' => '目标主题目录',
         'theme_label' => '主题',
@@ -112,7 +118,11 @@ return [
         'invalid_url' => '不合法的URL格式. URL可以以正斜杠开头, 包含数字, 拉丁字母和下面的字符: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => '真的想要删除选择的页面吗?',
         'delete_confirm_single' => '真的想要删除这个页面吗?',
-        'no_layout' => '-- 无布局 --'
+        'no_layout' => '-- 无布局 --',
+        'cms_page' => 'CMS 页面',
+        'title' => '页面标题',
+        'url' => '页面URL',
+        'file_name' => '页面文件名'
     ],
     'layout' => [
         'not_found_name' => "布局 ':name' 找不到",
@@ -171,7 +181,19 @@ return [
         'hidden' => '隐藏',
         'hidden_comment' => '隐藏页面只能被已登录的后台用户访问.',
         'enter_fullscreen' => '进入全屏模式',
-        'exit_fullscreen' => '退出全屏模式'
+        'exit_fullscreen' => '退出全屏模式',
+        'open_searchbox' => '打开搜索框',
+        'close_searchbox'  => '关闭搜索框',
+        'open_replacebox' => '打开替换框',
+        'close_replacebox'  => '关闭替换框',
+        'commit' => '提交',
+        'reset' => '重置',
+        'commit_confirm' => '您是否确认保存对文件的修改?这将会对原有的文件内容进行覆盖',
+        'reset_confirm' => '您是否确认重置对文件的修改?这将会完全恢复文件到原来的内容',
+        'committing' => '提交中...',
+        'resetting' => '重置中...',
+        'commit_success' => ' :type 保存成功',
+        'reset_success' => ' :type 重置成功',
     ],
     'asset' => [
         'menu_label' => '资源',
@@ -213,6 +235,8 @@ return [
         'error_moving_file' => '移动文件 :file 错误',
         'error_moving_directory' => '移动目录 :dir 错误',
         'error_deleting_directory' => '删除原始目录 :dir 错误',
+        'no_list_records' => '资源文件为空',
+        'delete_confirm' => '确定删除选中的文件或文件夹?',
         'path' => '路径'
     ],
     'component' => [
@@ -230,7 +254,10 @@ return [
     'template' => [
         'invalid_type' => '未知模板类型.',
         'not_found' => '无法找到所请求的模板',
-        'saved'=> '模板保存成功.'
+        'saved'=> '模板保存成功.',
+        'no_list_records' => '模板文件为空',
+        'delete_confirm' => '确认删除选中的模板?',
+        'order_by' => '排序方式'
     ],
     'permissions' => [
         'name' => 'CMS',
@@ -240,5 +267,35 @@ return [
         'manage_layouts' => '管理布局',
         'manage_partials' => '管理部件',
         'manage_themes' => '管理主题',
+        'manage_theme_options' => '管理主题的自定义选项',
+    ],
+    'theme_log' => [
+        'hint' => '显示管理员在后台对主题的所有操作日志',
+        'menu_label' => '主题操作日志',
+        'menu_description' => '查看对激活主题的操作日志.',
+        'empty_link' => '清空操作日志',
+        'empty_loading' => '清空主题操作日志中...',
+        'empty_success' => '主题操作日志清空成功',
+        'return_link' => '返回主题操作日志',
+        'id' => '序号',
+        'id_label' => '日志 序号',
+        'created_at' => '日志生成时间',
+        'user' => '用户名',
+        'type' => '操作类型',
+        'type_create' => '创建',
+        'type_update' => '更新',
+        'type_delete' => '删除',
+        'theme_name' => '主题名',
+        'theme_code' => '主题code',
+        'old_template' => '文件名 (Old)',
+        'new_template' => '文件名 (New)',
+        'template' => '文件名',
+        'diff' => '文件修改对比',
+        'old_value' => '文件修改前',
+        'new_value' => '文件修改后',
+        'preview_title' => '文件修改详情',
+        'template_updated' => '文件已更新',
+        'template_created' => '文件已创建',
+        'template_deleted' => '文件已删除',
     ],
 ];

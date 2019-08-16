@@ -21,6 +21,8 @@ columns:
 
     any_template:
         label: cms::lang.theme_log.template
+        searchable: false
+        sortable: false
 
     template:
         label: cms::lang.theme_log.new_template
