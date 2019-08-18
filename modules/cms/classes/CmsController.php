@@ -47,6 +47,6 @@ class CmsController extends ControllerBase
      */
     public function run($url = '/')
     {
-        return App::make('Cms\Classes\Controller')->run($url);
+        return App::make(Controller::class)->run($url);
     }
 }

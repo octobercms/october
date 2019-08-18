@@ -3,7 +3,6 @@
 use Event;
 use Backend;
 use BackendAuth;
-use System\Classes\PluginManager;
 use SystemException;
 
 /**
@@ -172,7 +171,6 @@ class SettingsManager
     {
         $filteredItems = [];
         foreach ($items as $categoryName => $category) {
-
             $filteredCategory = [];
             foreach ($category as $item) {
                 $itemContext = is_array($item->context) ? $item->context : [$item->context];
@@ -193,10 +191,9 @@ class SettingsManager
      * Registers a callback function that defines setting items.
      * The callback function should register setting items by calling the manager's
      * registerSettingItems() function. The manager instance is passed to the
-     * callback function as an argument.
-     * Usage:
+     * callback function as an argument. Usage:
      *
-     *     SettingsManager::registerCallback(function($manager){
+     *     SettingsManager::registerCallback(function ($manager) {
      *         $manager->registerSettingItems([...]);
      *     });
      *
@@ -264,9 +261,9 @@ class SettingsManager
         ]));
 
         /*
-         * Link to the generic settings page
+         * Link to the generic settings page if a URL is not provided
          */
-        if (isset($item['class'])) {
+        if (isset($item['class']) && !isset($item['url'])) {
             $uri = [];
 
             if (strpos($owner, '.') !== null) {

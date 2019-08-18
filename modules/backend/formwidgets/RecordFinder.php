@@ -12,10 +12,18 @@ use Backend\Classes\FormWidgetBase;
  *        label: User
  *        type: recordfinder
  *        list: ~/plugins/rainlab/user/models/user/columns.yaml
+ *        recordsPerPage: 10
  *        title: Find Record
  *        prompt: Click the Find button to find a user
+ *        keyFrom: id
  *        nameFrom: name
  *        descriptionFrom: email
+ *        conditions: email = "bob@example.com"
+ *        scope: whereActive
+ *        searchMode: all
+ *        searchScope: searchUsers
+ *        useRelation: false
+ *        modelClass: RainLab\User\Models\User
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -36,7 +44,7 @@ class RecordFinder extends FormWidgetBase
     /**
      * @var string Relation column to display for the name
      */
-    public $nameFrom;
+    public $nameFrom = 'name';
 
     /**
      * @var string Relation column to display for the description
@@ -81,6 +89,16 @@ class RecordFinder extends FormWidgetBase
      */
     public $searchScope;
 
+    /**
+     * @var boolean Flag for using the name of the field as a relation name to interact with directly on the parent model. Default: true. Disable to return just the selected model's ID
+     */
+    public $useRelation = true;
+
+    /**
+     * @var string Class of the model to use for listing records when useRelation = false
+     */
+    public $modelClass;
+
     //
     // Object properties
     //
@@ -121,7 +139,13 @@ class RecordFinder extends FormWidgetBase
             'searchMode',
             'searchScope',
             'recordsPerPage',
+            'useRelation',
+            'modelClass',
         ]);
+
+        if (!$this->useRelation && !class_exists($this->modelClass)) {
+            throw new ApplicationException(Lang::get('backend::lang.recordfinder.invalid_model_class', ['modelClass' => $this->modelClass]));
+        }
 
         if (post('recordfinder_flag')) {
             $this->listWidget = $this->makeListWidget();
@@ -153,8 +177,13 @@ class RecordFinder extends FormWidgetBase
 
     public function onRefresh()
     {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        $model->{$attribute} = post($this->getFieldName());
+        $value = post($this->getFieldName());
+        if ($this->useRelation) {
+            list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+            $model->{$attribute} = $value;
+        } else {
+            $this->formField->value = $value;
+        }
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
@@ -162,8 +191,12 @@ class RecordFinder extends FormWidgetBase
 
     public function onClearRecord()
     {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
-        $model->{$attribute} = null;
+        if ($this->useRelation) {
+            list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+            $model->{$attribute} = null;
+        } else {
+            $this->formField->value = null;
+        }
 
         $this->prepareVars();
         return ['#'.$this->getId('container') => $this->makePartial('recordfinder')];
@@ -211,13 +244,18 @@ class RecordFinder extends FormWidgetBase
      */
     public function getLoadValue()
     {
-        list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+        $value = null;
 
-        if (!is_null($model)) {
-            return $model->{$attribute};
+        if ($this->useRelation) {
+            list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
+            if ($model !== null) {
+                $value = $model->{$attribute};
+            }
+        } else {
+            $value = $this->modelClass::find(parent::getLoadValue());
         }
 
-        return null;
+        return $value;
     }
 
     public function getKeyValue()
@@ -226,7 +264,9 @@ class RecordFinder extends FormWidgetBase
             return null;
         }
 
-        return $this->relationModel->{$this->keyFrom};
+        return $this->useRelation ?
+            $this->relationModel->{$this->keyFrom} :
+            $this->formField->value;
     }
 
     public function getNameValue()
@@ -265,7 +305,13 @@ class RecordFinder extends FormWidgetBase
     protected function makeListWidget()
     {
         $config = $this->makeConfig($this->getConfig('list'));
-        $config->model = $this->getRelationModel();
+
+        if ($this->useRelation) {
+            $config->model = $this->getRelationModel();
+        } else {
+            $config->model = new $this->modelClass;
+        }
+
         $config->alias = $this->alias . 'List';
         $config->showSetup = false;
         $config->showCheckboxes = false;
@@ -289,9 +335,11 @@ class RecordFinder extends FormWidgetBase
             });
         }
         else {
-            $widget->bindEvent('list.extendQueryBefore', function ($query) {
-                $this->getRelationObject()->addDefinedConstraintsToQuery($query);
-            });
+            if ($this->useRelation) {
+                $widget->bindEvent('list.extendQueryBefore', function ($query) {
+                    $this->getRelationObject()->addDefinedConstraintsToQuery($query);
+                });
+            }
         }
 
         return $widget;

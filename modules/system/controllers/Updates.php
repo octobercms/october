@@ -1,12 +1,10 @@
 <?php namespace System\Controllers;
 
-use Str;
 use Lang;
 use Html;
 use Yaml;
 use File;
 use Flash;
-use Config;
 use Backend;
 use Markdown;
 use Redirect;
@@ -183,16 +181,27 @@ class Updates extends Controller
         $contents = [];
 
         try {
-            $updates = Yaml::parseFile($path.'/'.$filename);
-            $updates = is_array($updates) ? array_reverse($updates) : [];
+            $updates = (array) Yaml::parseFile($path.'/'.$filename);
 
             foreach ($updates as $version => $details) {
-                $contents[$version] = is_array($details)
-                    ? array_shift($details)
-                    : $details;
+                if (!is_array($details)) {
+                    $details = (array)$details;
+                }
+
+                //Filter out update scripts
+                $details = array_filter($details, function ($string) use ($path) {
+                    return !preg_match('/^[a-z_\-0-9]*\.php$/i', $string) || !File::exists($path . '/updates/' . $string);
+                });
+
+                $contents[$version] = $details;
             }
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
+
+        uksort($contents, function ($a, $b) {
+            return version_compare($b, $a);
+        });
 
         return $contents;
     }
@@ -201,7 +210,9 @@ class Updates extends Controller
     {
         $contents = null;
         foreach ($filenames as $file) {
-            if (!File::exists($path . '/'.$file)) continue;
+            if (!File::exists($path . '/'.$file)) {
+                continue;
+            }
 
             $contents = File::get($path . '/'.$file);
 
@@ -281,7 +292,7 @@ class Updates extends Controller
                 break;
 
             case 'downloadPlugin':
-                $manager->downloadPlugin(post('name'), post('hash'));
+                $manager->downloadPlugin(post('name'), post('hash'), post('install'));
                 break;
 
             case 'downloadTheme':
@@ -361,7 +372,9 @@ class Updates extends Controller
             $coreImportant = false;
 
             foreach (array_get($result, 'core.updates', []) as $build => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $detailsUrl = '//octobercms.com/support/articles/release-notes';
                 $description = str_replace('!!!', '', $description);
@@ -379,7 +392,9 @@ class Updates extends Controller
             $isImportant = false;
 
             foreach (array_get($plugin, 'updates', []) as $version => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $isImportant = $hasImportantUpdates = true;
                 $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';
@@ -441,7 +456,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -511,7 +526,11 @@ class Updates extends Controller
             $pluginActions = (array) post('plugin_actions');
             foreach ($plugins as $code => $hash) {
                 $_code = $this->encodeCode($code);
-                if (!array_key_exists($_code, $pluginActions)) continue;
+
+                if (!array_key_exists($_code, $pluginActions)) {
+                    continue;
+                }
+
                 $pluginAction = $pluginActions[$_code];
 
                 if (!$pluginAction) {
@@ -532,7 +551,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps($core, $plugins, $themes, false);
 
             /*
              * Finish up
@@ -551,7 +570,7 @@ class Updates extends Controller
         return $this->makePartial('execute');
     }
 
-    protected function buildUpdateSteps($core, $plugins, $themes)
+    protected function buildUpdateSteps($core, $plugins, $themes, $isInstallationRequest)
     {
         if (!is_array($core)) {
             $core = [null, null];
@@ -593,7 +612,8 @@ class Updates extends Controller
                 'code'  => 'downloadPlugin',
                 'label' => Lang::get('system::lang.updates.plugin_downloading', compact('name')),
                 'name'  => $name,
-                'hash'  => $hash
+                'hash'  => $hash,
+                'install' => $isInstallationRequest ? 1 : 0
             ];
         }
 
@@ -687,6 +707,33 @@ class Updates extends Controller
     }
 
     //
+    // View Changelog
+    //
+
+    /**
+     * Displays changelog information
+     */
+    public function onLoadChangelog()
+    {
+        try {
+            $fetchedContent = UpdateManager::instance()->requestChangelog();
+
+            $changelog = array_get($fetchedContent, 'history');
+
+            if (!$changelog || !is_array($changelog)) {
+                throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+            }
+
+            $this->vars['changelog'] = $changelog;
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+        }
+
+        return $this->makePartial('changelog_list');
+    }
+
+    //
     // Plugin management
     //
 
@@ -715,7 +762,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, []);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, [], true);
 
             /*
              * Finish up
@@ -736,37 +783,13 @@ class Updates extends Controller
     }
 
     /**
-     * Rollback and remove plugins from the system.
-     * @return void
-     */
-    public function onRemovePlugins()
-    {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
-                    continue;
-                }
-
-                PluginManager::instance()->deletePlugin($object->code);
-            }
-
-            Flash::success(Lang::get('system::lang.plugins.remove_success'));
-        }
-
-        return $this->listRefresh('manage');
-    }
-
-    /**
      * Rollback and remove a single plugin from the system.
      * @return void
      */
     public function onRemovePlugin()
     {
         if ($pluginCode = post('code')) {
-
             PluginManager::instance()->deletePlugin($pluginCode);
-
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
         }
 
@@ -774,73 +797,68 @@ class Updates extends Controller
     }
 
     /**
-     * Rebuilds plugin database migrations.
+     * Perform a bulk action on the provided plugins
      * @return void
      */
-    public function onRefreshPlugins()
+    public function onBulkAction()
     {
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
-                    continue;
-                }
-
-                PluginManager::instance()->refreshPlugin($object->code);
-            }
-
-            Flash::success(Lang::get('system::lang.plugins.refresh_success'));
-        }
-
-        return $this->listRefresh('manage');
-    }
-
-    public function onLoadDisableForm()
-    {
-        try {
-            $this->vars['checked'] = post('checked');
-        }
-        catch (Exception $ex) {
-            $this->handleError($ex);
-        }
-        return $this->makePartial('disable_form');
-    }
-
-    public function onDisablePlugins()
-    {
-        $disable = post('disable', false);
-        $freeze = post('freeze', false);
-        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
+        if (($bulkAction = post('action')) &&
+            ($checkedIds = post('checked')) &&
+            is_array($checkedIds) &&
+            count($checkedIds)
+        ) {
             $manager = PluginManager::instance();
 
-            foreach ($checkedIds as $objectId) {
-                if (!$object = PluginVersion::find($objectId)) {
+            foreach ($checkedIds as $pluginId) {
+                if (!$plugin = PluginVersion::find($pluginId)) {
                     continue;
                 }
 
-                if ($disable) {
-                    $manager->disablePlugin($object->code, true);
-                }
-                else {
-                    $manager->enablePlugin($object->code, true);
+                $savePlugin = true;
+                switch ($bulkAction) {
+                    // Enables plugin's updates.
+                    case 'freeze':
+                        $plugin->is_frozen = 1;
+                        break;
+
+                    // Disables plugin's updates.
+                    case 'unfreeze':
+                        $plugin->is_frozen = 0;
+                        break;
+
+                    // Disables plugin on the system.
+                    case 'disable':
+                        $plugin->is_disabled = 1;
+                        $manager->disablePlugin($plugin->code, true);
+                        break;
+
+                    // Enables plugin on the system.
+                    case 'enable':
+                        $plugin->is_disabled = 0;
+                        $manager->enablePlugin($plugin->code, true);
+                        break;
+
+                    // Rebuilds plugin database migrations.
+                    case 'refresh':
+                        $savePlugin = false;
+                        $manager->refreshPlugin($plugin->code);
+                        break;
+
+                    // Rollback and remove plugins from the system.
+                    case 'remove':
+                        $savePlugin = false;
+                        $manager->deletePlugin($plugin->code);
+                        break;
                 }
 
-                $object->is_disabled = $disable;
-                $object->is_frozen = $freeze;
-                $object->save();
+                if ($savePlugin) {
+                    $plugin->save();
+                }
             }
-
         }
 
-        if ($disable) {
-            Flash::success(Lang::get('system::lang.plugins.disable_success'));
-        }
-        else {
-            Flash::success(Lang::get('system::lang.plugins.enable_success'));
-        }
-
-        return Backend::redirect('system/updates/manage');
+        Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
+        return $this->listRefresh('manage');
     }
 
     //
@@ -872,7 +890,7 @@ class Updates extends Controller
             /*
              * Update steps
              */
-            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes);
+            $updateSteps = $this->buildUpdateSteps(null, $plugins, $themes, true);
 
             /*
              * Finish up
@@ -899,7 +917,6 @@ class Updates extends Controller
     public function onRemoveTheme()
     {
         if ($themeCode = post('code')) {
-
             ThemeManager::instance()->deleteTheme($themeCode);
 
             Flash::success(trans('cms::lang.theme.delete_theme_success'));

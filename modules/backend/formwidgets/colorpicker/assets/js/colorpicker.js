@@ -56,6 +56,7 @@
                 color: this.$customColor.data('hexColor'),
                 chooseText: $.oc.lang.get('colorpicker.choose', 'Ok'),
                 cancelText: '⨯',
+                appendTo: 'parent',
                 hide: function(color) {
                     var hex = color ? color.toHexString() : ''
                     self.$customColorSpan.css('background', hex)
@@ -96,6 +97,10 @@
             .siblings().removeClass('active')
 
         this.setColor($item.data('hexColor'))
+
+        if($item.data('hexColor').length > 0) {
+            $item.addClass('sp-clear-display')
+        }
     }
 
     // COLORPICKER PLUGIN DEFINITION

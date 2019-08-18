@@ -5,10 +5,10 @@ use Str;
 use Lang;
 use Flash;
 use Event;
-use Input;
 use Redirect;
 use Backend;
 use Backend\Classes\ControllerBehavior;
+use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use Exception;
@@ -80,6 +80,11 @@ class FormController extends ControllerBehavior
     protected $requiredConfig = ['modelClass', 'form'];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['create', 'update', 'preview'];
+
+    /**
      * @var string The context to pass to the form widget.
      */
     protected $context;
@@ -127,17 +132,7 @@ class FormController extends ControllerBehavior
         /*
          * Each page can supply a unique form definition, if desired
          */
-        $formFields = $this->config->form;
-
-        if ($context == self::CONTEXT_CREATE) {
-            $formFields = $this->getConfig('create[form]', $formFields);
-        }
-        elseif ($context == self::CONTEXT_UPDATE) {
-            $formFields = $this->getConfig('update[form]', $formFields);
-        }
-        elseif ($context == self::CONTEXT_PREVIEW) {
-            $formFields = $this->getConfig('preview[form]', $formFields);
-        }
+        $formFields = $this->getConfig("{$context}[form]", $this->config->form);
 
         $config = $this->makeConfig($formFields);
         $config->model = $model;
@@ -149,6 +144,11 @@ class FormController extends ControllerBehavior
          */
         $this->formWidget = $this->makeWidget('Backend\Widgets\Form', $config);
 
+        // Setup the default preview mode on form initialization if the context is preview
+        if ($config->context === 'preview') {
+            $this->formWidget->previewMode = true;
+        }
+
         $this->formWidget->bindEvent('form.extendFieldsBefore', function () {
             $this->controller->formExtendFieldsBefore($this->formWidget);
         });
@@ -159,7 +159,9 @@ class FormController extends ControllerBehavior
 
         $this->formWidget->bindEvent('form.beforeRefresh', function ($holder) {
             $result = $this->controller->formExtendRefreshData($this->formWidget, $holder->data);
-            if (is_array($result)) $holder->data = $result;
+            if (is_array($result)) {
+                $holder->data = $result;
+            }
         });
 
         $this->formWidget->bindEvent('form.refreshFields', function ($fields) {
@@ -209,7 +211,7 @@ class FormController extends ControllerBehavior
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('create[context]', self::CONTEXT_CREATE);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
-                'create[title]',
+                "{$this->context}[title]",
                 'backend::lang.form.create_title'
             );
 
@@ -255,7 +257,7 @@ class FormController extends ControllerBehavior
         $this->controller->formAfterSave($model);
         $this->controller->formAfterCreate($model);
 
-        Flash::success($this->getLang('create[flashSave]', 'backend::lang.form.create_success'));
+        Flash::success($this->getLang("{$this->context}[flashSave]", 'backend::lang.form.create_success'));
 
         if ($redirect = $this->makeRedirect('create', $model)) {
             return $redirect;
@@ -280,7 +282,7 @@ class FormController extends ControllerBehavior
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('update[context]', self::CONTEXT_UPDATE);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
-                'update[title]',
+                "{$this->context}[title]",
                 'backend::lang.form.update_title'
             );
 
@@ -322,7 +324,7 @@ class FormController extends ControllerBehavior
         $this->controller->formAfterSave($model);
         $this->controller->formAfterUpdate($model);
 
-        Flash::success($this->getLang('update[flashSave]', 'backend::lang.form.update_success'));
+        Flash::success($this->getLang("{$this->context}[flashSave]", 'backend::lang.form.update_success'));
 
         if ($redirect = $this->makeRedirect('update', $model)) {
             return $redirect;
@@ -349,7 +351,7 @@ class FormController extends ControllerBehavior
 
         $this->controller->formAfterDelete($model);
 
-        Flash::success($this->getLang('update[flashDelete]', 'backend::lang.form.delete_success'));
+        Flash::success($this->getLang("{$this->context}[flashDelete]", 'backend::lang.form.delete_success'));
 
         if ($redirect = $this->makeRedirect('delete', $model)) {
             return $redirect;
@@ -374,7 +376,7 @@ class FormController extends ControllerBehavior
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('preview[context]', self::CONTEXT_PREVIEW);
             $this->controller->pageTitle = $this->controller->pageTitle ?: $this->getLang(
-                'preview[title]',
+                "{$this->context}[title]",
                 'backend::lang.form.preview_title'
             );
 
@@ -446,8 +448,7 @@ class FormController extends ControllerBehavior
     protected function createModel()
     {
         $class = $this->config->modelClass;
-        $model = new $class;
-        return $model;
+        return new $class;
     }
 
     /**
@@ -474,10 +475,18 @@ class FormController extends ControllerBehavior
         }
 
         if ($model && $redirectUrl) {
-            $redirectUrl = RouterHelper::parseValues($model, array_keys($model->getAttributes()), $redirectUrl);
+            $redirectUrl = RouterHelper::replaceParameters($model, $redirectUrl);
         }
 
-        return ($redirectUrl) ? Backend::redirect($redirectUrl) : null;
+        if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {
+            // Process absolute redirects
+            $redirect = Redirect::to($redirectUrl);
+        } else {
+            // Process relative redirects
+            $redirect = $redirectUrl ? Backend::redirect($redirectUrl) : null;
+        }
+
+        return $redirect;
     }
 
     /**
@@ -489,16 +498,17 @@ class FormController extends ControllerBehavior
      */
     protected function getRedirectUrl($context = null)
     {
-        $redirects = [
-            'default'      => $this->getConfig('defaultRedirect', ''),
-            'create'       => $this->getConfig('create[redirect]', ''),
-            'create-close' => $this->getConfig('create[redirectClose]', ''),
-            'update'       => $this->getConfig('update[redirect]', ''),
-            'update-close' => $this->getConfig('update[redirectClose]', ''),
-            'preview'      => $this->getConfig('preview[redirect]', ''),
-        ];
+        $redirectContext = explode('-', $context, 2)[0];
+        $redirectSource = ends_with($context, '-close') ? 'redirectClose' : 'redirect';
 
-        if (!isset($redirects[$context])) {
+        // Get the redirect for the provided context
+        $redirects = [$context => $this->getConfig("{$redirectContext}[{$redirectSource}]", '')];
+
+        // Assign the default redirect afterwards to prevent the
+        // source for the default redirect being default[redirect]
+        $redirects['default'] = $this->getConfig('defaultRedirect', '');
+
+        if (empty($redirects[$context])) {
             return $redirects['default'];
         }
 
@@ -533,11 +543,12 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderField('field_name') ?>
      *
      * @param string $name Field name
+     * @param array $options (e.g. ['useContainer'=>false])
      * @return string HTML markup
      */
-    public function formRenderField($name)
+    public function formRenderField($name, $options = [])
     {
-        return $this->formWidget->renderField($name);
+        return $this->formWidget->renderField($name, $options);
     }
 
     /**
@@ -789,7 +800,7 @@ class FormController extends ControllerBehavior
     /**
      * Called after the form fields are defined.
      * @param Backend\Widgets\Form $host The hosting form widget
-     * @param array All form fields in the form of ['fieldName' => $fieldObject]
+     * @param array $fields Array of all defined form field objects (\Backend\Classes\FormField)
      * @return void
      */
     public function formExtendFields($host, $fields)

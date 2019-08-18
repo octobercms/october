@@ -22,7 +22,7 @@
         $.oc = {}
 
     var CursorLoadIndicator = function () {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter = 0
@@ -31,7 +31,7 @@
     }
 
     CursorLoadIndicator.prototype.show = function(event) {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter++
@@ -58,7 +58,7 @@
     }
 
     CursorLoadIndicator.prototype.hide = function(force) {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter--

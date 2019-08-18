@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
 use Exception;
+use System\Models\Parameter;
 
 /**
  * Console command for other utility commands.
@@ -27,6 +28,7 @@ use Exception;
  * - compile scss: Compile registered SCSS files only.
  * - compile lang: Compile registered Language files only.
  * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
+ * - set project --projectId=<id>: Set the projectId for this october instance.
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -45,14 +47,6 @@ class OctoberUtil extends Command
      * The console command description.
      */
     protected $description = 'Utility commands for October';
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -106,6 +100,7 @@ class OctoberUtil extends Command
         return [
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
             ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
+            ['projectId', null, InputOption::VALUE_REQUIRED, 'Specify a projectId for set project'],
         ];
     }
 
@@ -165,7 +160,7 @@ class OctoberUtil extends Command
         $combiner = CombineAssets::instance();
         $bundles = $combiner->getBundles($type);
 
-        if (!$bundles){
+        if (!$bundles) {
             $this->comment('Nothing to compile!');
             return;
         }
@@ -203,7 +198,6 @@ class OctoberUtil extends Command
         $stub = base_path() . '/modules/system/assets/js/lang/lang.stub';
 
         foreach ($locales as $locale) {
-
             /*
              * Generate messages
              */
@@ -213,6 +207,14 @@ class OctoberUtil extends Command
             $messages = require $fallbackPath;
             if (File::isFile($srcPath) && $fallbackPath != $srcPath) {
                 $messages = array_replace_recursive($messages, require $srcPath);
+            }
+
+            /*
+             * Load possible replacements from /lang
+             */
+            $overridePath = base_path() . '/lang/'.$locale.'/system/client.php';
+            if (File::isFile($overridePath)) {
+                $messages = array_replace_recursive($messages, require $overridePath);
             }
 
             /*
@@ -311,7 +313,10 @@ class OctoberUtil extends Command
     {
         foreach (File::directories(plugins_path()) as $authorDir) {
             foreach (File::directories($authorDir) as $pluginDir) {
-                if (!File::isDirectory($pluginDir.'/.git')) continue;
+                if (!File::isDirectory($pluginDir.'/.git')) {
+                    continue;
+                }
+
                 $exec = 'cd ' . $pluginDir . ' && ';
                 $exec .= 'git pull 2>&1';
                 echo 'Updating plugin: '. basename(dirname($pluginDir)) .'.'. basename($pluginDir) . PHP_EOL;
@@ -320,7 +325,10 @@ class OctoberUtil extends Command
         }
 
         foreach (File::directories(themes_path()) as $themeDir) {
-            if (!File::isDirectory($themeDir.'/.git')) continue;
+            if (!File::isDirectory($themeDir.'/.git')) {
+                continue;
+            }
+
             $exec = 'cd ' . $themeDir . ' && ';
             $exec .= 'git pull 2>&1';
             echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
@@ -328,4 +336,22 @@ class OctoberUtil extends Command
         }
     }
 
+    protected function utilSetProject()
+    {
+        $projectId = $this->option('projectId');
+
+        if (empty($projectId)) {
+            $this->error("No projectId defined, use --projectId=<id> to set a projectId");
+            return;
+        }
+
+        $manager = UpdateManager::instance();
+        $result = $manager->requestProjectDetails($projectId);
+
+        Parameter::set([
+            'system::project.id'    => $projectId,
+            'system::project.name'  => $result['name'],
+            'system::project.owner' => $result['owner'],
+        ]);
+    }
 }

@@ -4,8 +4,16 @@
     $emptyOption = $field->getConfig('emptyOption', $field->placeholder);
 ?>
 <!-- Dropdown -->
-<?php if ($this->previewMode): ?>
-    <div class="form-control"><?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?></div>
+<?php if ($this->previewMode || $field->readOnly): ?>
+    <div class="form-control" <?= $field->readOnly ? 'disabled="disabled"' : ''; ?>>
+        <?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?>
+    </div>
+    <?php if ($field->readOnly): ?>
+        <input
+             type="hidden"
+             name="<?= $field->getName() ?>"
+             value="<?= $field->value ?>">
+    <?php endif; ?>
 <?php else: ?>
     <select
         id="<?= $field->getId() ?>"
@@ -24,7 +32,7 @@
             <option
                 <?= $field->isSelected($value) ? 'selected="selected"' : '' ?>
                 <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
-                value="<?= $value ?>"
+                value="<?= e($value) ?>"
             ><?= e(trans($option[0])) ?></option>
         <?php endforeach ?>
     </select>

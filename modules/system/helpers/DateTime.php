@@ -1,6 +1,5 @@
 <?php namespace System\Helpers;
 
-use Lang;
 use Carbon\Carbon;
 use DateTime as PhpDateTime;
 use InvalidArgumentException;
@@ -69,7 +68,8 @@ class DateTime
         else {
             try {
                 $value = Carbon::parse($value);
-            } catch (Exception $ex) {}
+            } catch (Exception $ex) {
+            }
         }
 
         if (!$value instanceof Carbon && $throwException) {
@@ -130,8 +130,6 @@ class DateTime
             $replacements['\\'.$from] = '['.$from.']';
         }
 
-        $momentFormat = strtr($format, $replacements);
-        return $momentFormat;
+        return strtr($format, $replacements);
     }
-
 }

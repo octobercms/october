@@ -94,7 +94,7 @@ class CodeBase extends Extendable implements ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return isset($this->controller->vars[$offset]) ? $this->controller->vars[$offset] : null;
+        return $this->controller->vars[$offset] ?? null;
     }
 
     /**
@@ -149,12 +149,20 @@ class CodeBase extends Extendable implements ArrayAccess
     }
 
     /**
-     * This will check if a property isset on the CMS Page object.
-     * @param  string  $name
-     * @return void
+     * This will check if a property is set on the CMS Page object.
+     * @param string $name
+     * @return bool
      */
     public function __isset($name)
     {
-        return isset($this->page->{$name});
+        if (isset($this->page->components[$name]) || isset($this->layout->components[$name])) {
+            return true;
+        }
+
+        if (isset($this->page->{$name})) {
+            return true;
+        }
+
+        return array_key_exists($name, $this->controller->vars);
     }
 }

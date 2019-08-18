@@ -5,18 +5,13 @@ use Url;
 use File;
 use Lang;
 use Input;
-use Config;
 use Request;
 use Response;
-use Validator;
 use Cms\Classes\Theme;
 use Cms\Classes\Asset;
 use Backend\Classes\WidgetBase;
-use System\Classes\PluginManager;
 use ApplicationException;
-use ValidationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
@@ -60,6 +55,7 @@ class AssetList extends WidgetBase
         $this->assetExtensions = FileDefinitions::get('assetExtensions');
 
         parent::__construct($controller, []);
+
         $this->bindToController();
 
         $this->checkUploadPostback();
@@ -102,6 +98,7 @@ class AssetList extends WidgetBase
         }
 
         $this->putSession('currentPath', $path);
+
         return [
             '#'.$this->getId('asset-list') => $this->makePartial('items', ['items' => $this->getData()])
         ];
@@ -667,15 +664,18 @@ class AssetList extends WidgetBase
              */
             $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
 
-            die('success');
+            $response = Response::make('success');
         }
         catch (Exception $ex) {
             $message = $fileName !== null
                 ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $fileName, 'error' => $ex->getMessage()])
                 : $ex->getMessage();
 
-            die($message);
+            $response = Response::make($message);
         }
+
+        // Override the controller response
+        $this->controller->setResponse($response);
     }
 
     protected function setSearchTerm($term)

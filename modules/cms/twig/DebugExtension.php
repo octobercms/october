@@ -1,8 +1,9 @@
 <?php namespace Cms\Twig;
 
-use Twig_Extension;
-use Twig_Environment;
-use Twig_SimpleFunction;
+use Twig\Template as TwigTemplate;
+use Twig\Extension\AbstractExtension as TwigExtension;
+use Twig\Environment as TwigEnvironment;
+use Twig\TwigFunction as TwigSimpleFunction;
 use Cms\Classes\Controller;
 use Cms\Classes\ComponentBase;
 use Illuminate\Pagination\Paginator;
@@ -11,7 +12,7 @@ use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use October\Rain\Database\Model;
 
-class DebugExtension extends Twig_Extension
+class DebugExtension extends TwigExtension
 {
     const PAGE_CAPTION = 'Page variables';
     const ARRAY_CAPTION = 'Array variables';
@@ -67,7 +68,7 @@ class DebugExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('dump', [$this, 'runDump'], [
+            new TwigSimpleFunction('dump', [$this, 'runDump'], [
                 'is_safe' => ['html'],
                 'needs_context' => true,
                 'needs_environment' => true
@@ -78,11 +79,11 @@ class DebugExtension extends Twig_Extension
     /**
      * Processes the dump variables, if none is supplied, all the twig
      * template variables are used
-     * @param  Twig_Environment $env
+     * @param  TwigEnvironment $env
      * @param  array            $context
      * @return string
      */
-    public function runDump(Twig_Environment $env, $context)
+    public function runDump(TwigEnvironment $env, $context)
     {
         if (!$env->isDebug()) {
             return;
@@ -92,23 +93,19 @@ class DebugExtension extends Twig_Extension
 
         $count = func_num_args();
         if ($count == 2) {
-
             $this->variablePrefix = true;
             $vars = [];
             foreach ($context as $key => $value) {
-                if (!$value instanceof Twig_Template) {
+                if (!$value instanceof TwigTemplate) {
                     $vars[$key] = $value;
                 }
             }
 
             $result .= $this->dump($vars, static::PAGE_CAPTION);
-
         }
         else {
-
             $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
-
                 $var = func_get_arg($i);
 
                 if ($var instanceof ComponentBase) {
@@ -126,9 +123,7 @@ class DebugExtension extends Twig_Extension
 
                 $result .= $this->dump($var, $caption);
             }
-
         }
-
         return $result;
     }
 
@@ -163,9 +158,11 @@ class DebugExtension extends Twig_Extension
             $output[] = $this->makeTableHeader($caption);
         }
 
+        $output[] = '<tbody>';
         foreach ($variables as $key => $item) {
             $output[] = $this->makeTableRow($key, $item);
         }
+        $output[] = '</tbody>';
         $output[] = '</table>';
 
         $html = implode(PHP_EOL, $output);
@@ -185,16 +182,18 @@ class DebugExtension extends Twig_Extension
         }
 
         $output = [];
+        $output[] = '<thead>';
         $output[] = '<tr>';
-        $output[] = '<th colspan="3" colspan="100" style="'.$this->getHeaderCss().'">';
+        $output[] = '<th colspan="3" style="'.$this->getHeaderCss().'">';
         $output[] = $caption;
 
         if (isset($subcaption)) {
             $output[] = '<div style="'.$this->getSubheaderCss().'">'.$subcaption.'</div>';
         }
 
-        $output[] = '</td>';
+        $output[] = '</th>';
         $output[] = '</tr>';
+        $output[] = '</thead>';
         return implode(PHP_EOL, $output);
     }
 
@@ -374,7 +373,7 @@ class DebugExtension extends Twig_Extension
         }
 
         $method = $parts[1];
-        return isset($this->commentMap[$method]) ?  $this->commentMap[$method] : null;
+        return $this->commentMap[$method] ?? null;
     }
 
     /**
@@ -608,6 +607,6 @@ class DebugExtension extends Twig_Extension
             $strings[] = $key . ': ' . $value;
         }
 
-        return join('; ', $strings);
+        return implode('; ', $strings);
     }
 }

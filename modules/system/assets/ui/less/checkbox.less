@@ -170,6 +170,26 @@
     .border-radius(3px);
 }
 
+.inline-options {
+    .field-checkboxlist:not(.is-scrollable) {
+        padding: 10px 20px 20px 20px !important;
+
+        .custom-checkbox {
+            display: inline-block;
+            margin: 0;
+
+            label {
+                margin-bottom: 0 !important;
+                padding-top: 10px;
+
+                &:before {
+                    top: 10px;
+                }
+            }
+        }
+    }
+}
+
 //
 // ON / OFF Switcher
 //
@@ -245,6 +265,9 @@
                 }
             }
         }
+        &[disabled] {
+            ~ span { background-color: #666666 !important; }
+        }
     }
 
     > span {
@@ -262,7 +285,6 @@
         span {
             z-index: @zindex-checkbox;
             display: block;
-            width: 50%;
             position: absolute;
             top: 2px;
             left: -1px;
@@ -280,4 +302,3 @@
         }
     }
 }
-

@@ -1,7 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Lang;
-use ApplicationException;
 use System\Classes\MediaLibrary;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
@@ -37,12 +35,12 @@ class MediaFinder extends FormWidgetBase
     /**
      * @var int Preview image width
      */
-    public $imageWidth = null;
+    public $imageWidth;
 
     /**
      * @var int Preview image height
      */
-    public $imageHeight = null;
+    public $imageHeight;
 
     //
     // Object properties
@@ -86,8 +84,11 @@ class MediaFinder extends FormWidgetBase
     public function prepareVars()
     {
         $value = $this->getLoadValue();
+        $isImage = $this->mode === 'image';
+
         $this->vars['value'] = $value;
-        $this->vars['imageUrl'] = $value ? MediaLibrary::url($value) : '';
+        $this->vars['imageUrl'] = $isImage && $value ? MediaLibrary::url($value) : '';
+        $this->vars['imageExists'] = $isImage && $value ? MediaLibrary::instance()->exists($value) : '';
         $this->vars['field'] = $this->formField;
         $this->vars['prompt'] = str_replace('%s', '<i class="icon-folder"></i>', trans($this->prompt));
         $this->vars['mode'] = $this->mode;

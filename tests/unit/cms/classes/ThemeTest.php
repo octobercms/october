@@ -21,8 +21,9 @@ class ThemeTest extends TestCase
         $it->rewind();
 
         while ($it->valid()) {
-            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm')
+            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm') {
                 $result++;
+            }
 
             $it->next();
         }
@@ -46,7 +47,7 @@ class ThemeTest extends TestCase
         $this->assertInternalType('array', $pages);
 
         $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/themes/test/pages');
-        $this->assertEquals($expectedPageNum, count($pages));
+        $this->assertCount($expectedPageNum, $pages);
 
         $this->assertInstanceOf('\Cms\Classes\Page', $pages[0]);
         $this->assertNotEmpty($pages[0]->url);
@@ -75,7 +76,9 @@ class ThemeTest extends TestCase
     public function testApiTheme()
     {
         Event::flush('cms.theme.getActiveTheme');
-        Event::listen('cms.theme.getActiveTheme', function () { return 'apitest'; });
+        Event::listen('cms.theme.getActiveTheme', function () {
+            return 'apitest';
+        });
 
         $activeTheme = Theme::getActiveTheme();
         $this->assertNotNull($activeTheme);

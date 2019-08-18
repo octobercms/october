@@ -1,17 +1,11 @@
 <?php namespace Cms\Controllers;
 
-use Str;
 use Lang;
-use File;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use Cms\Models\ThemeLog;
-use Exception;
 
 /**
  * Request Logs controller
@@ -70,9 +64,10 @@ class ThemeLogs extends Controller
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = ThemeLog::find($recordId)) continue;
+                if (!$record = ThemeLog::find($recordId)) {
+                    continue;
+                }
                 $record->delete();
             }
 

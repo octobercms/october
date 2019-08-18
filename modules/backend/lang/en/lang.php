@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Administration Area'
+        'title' => 'Administration Area',
+        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field."
+        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+        'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field."
     ],
     'widget' => [
         'not_registered' => "A widget class name ':name' has not been registered",
@@ -15,24 +17,40 @@ return [
     ],
     'page' => [
         'untitled' => 'Untitled',
+        '404' => [
+            'label'     => 'Page Not Found',
+            'help'      => "We searched and searched but the requested URL just couldn't be found. Perhaps you were looking for something else?",
+            'back_link' => 'Go back to the previous page',
+        ],
         'access_denied' => [
             'label' => 'Access denied',
             'help' => "You don't have the required permissions to view this page.",
-            'cms_link' => 'Return to the back-end'
+            'cms_link' => 'Return to the back-end',
         ],
         'no_database' => [
             'label' => 'Database missing',
             'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
-            'cms_link' => 'Return to the homepage'
+            'cms_link' => 'Return to the homepage',
         ],
         'invalid_token' => [
-            'label' => 'Invalid security token'
-        ]
+            'label' => 'Invalid security token',
+        ],
     ],
     'partial' => [
-        'not_found_name' => "The partial ':name' is not found."
+        'not_found_name' => "The partial ':name' is not found.",
+        'invalid_name' => 'Invalid partial name: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Invalid AJAX handler name: :name.',
+        'not_found' => "AJAX handler ':name' was not found."
     ],
     'account' => [
+        'impersonate' => 'Impersonate user',
+        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.',
+        'impersonate_success' => 'You are now impersonating this user',
+        'impersonate_working' => 'Impersonating...',
+        'impersonating' => 'Impersonating :full_name',
+        'stop_impersonating' => 'Stop impersonating',
         'signed_in_as' => 'Signed in as :full_name',
         'sign_out' => 'Sign out',
         'login' => 'Login',
@@ -139,6 +157,8 @@ return [
         'last_login' => 'Last login',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
+        'deleted_at' => 'Deleted at',
+        'show_deleted' => 'Show deleted',
         'group' => [
             'name' => 'Group',
             'name_field' => 'Name',
@@ -171,7 +191,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
-        ]
+        ],
+        'trashed_hint_title' => 'This account has been deleted',
+        'trashed_hint_desc' => 'This account has been deleted and will be unable to be signed in under. To restore it, click the restore user icon in the bottom right',
     ],
     'list' => [
         'default_title' => 'List',
@@ -216,6 +238,10 @@ return [
         'remove_confirm' => 'Are you sure?',
         'remove_file' => 'Remove file'
     ],
+    'repeater' => [
+        'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
+        'max_items_failed' => ':name only allows up to :max items, :items were provided',
+    ],
     'form' => [
         'create_title' => 'New :name',
         'update_title' => 'Edit :name',
@@ -223,6 +249,7 @@ return [
         'create_success' => ':name created',
         'update_success' => ':name updated',
         'delete_success' => ':name deleted',
+        'restore_success' => ':name restored',
         'reset_success' => 'Reset complete',
         'missing_id' => 'Form record ID has not been specified.',
         'missing_model' => 'Form behavior used in :class does not have a model defined.',
@@ -242,6 +269,9 @@ return [
         'confirm_delete' => 'Delete record?',
         'confirm_delete_multiple' => 'Delete selected records?',
         'deleting_name' => 'Deleting :name...',
+        'restore' => 'Restore',
+        'restoring' => 'Restoring',
+        'confirm_restore' => 'Are you sure you want to restore this record?',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
         'resetting_name' => 'Resetting :name',
@@ -275,6 +305,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Find Record',
+        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid',
         'cancel' => 'Cancel',
     ],
     'pagelist' => [
@@ -333,6 +364,8 @@ return [
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
         'plugin_missing' => 'The plugin :name is a dependency but is not installed. Please install this plugin.',
+        'debug' => 'Debug mode is enabled. This is not recommended for production installations.',
+        'decompileBackendAssets' => 'Assets in the Backend are currently decompiled. This is not recommended for production installations.',
     ],
     'editor' => [
         'menu_label' => 'Editor settings',
@@ -379,6 +412,8 @@ return [
         'no_wrap_comment' => 'The list of tags that should not be wrapped inside block tags.',
         'remove_tags' => 'Remove tags',
         'remove_tags_comment' => 'The list of tags that are removed together with their content.',
+        'line_breaker_tags' => 'Line breaker tags',
+        'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
         'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
@@ -400,6 +435,8 @@ return [
         'brand' => 'Brand',
         'logo' => 'Logo',
         'logo_description' => 'Upload a custom logo to use in the back-end.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Upload a custom favicon to use in the back-end',
         'app_name' => 'App Name',
         'app_name_description' => 'This name is shown in the title area of the back-end.',
         'app_tagline' => 'App Tagline',
@@ -413,6 +450,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Menu style',
         'menu_mode_inline' => 'Inline',
+        'menu_mode_inline_no_icons' => 'Inline (no icons)',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_collapsed' => 'Collapsed'
     ],
@@ -430,7 +468,9 @@ return [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
         'menu_label' => 'Access log',
         'menu_description' => 'View a list of successful back-end user sign ins.',
+        'id' => 'ID',
         'created_at' => 'Date & Time',
+        'type' => 'Type',
         'login' => 'Login',
         'ip_address' => 'IP address',
         'first_name' => 'First name',
@@ -446,6 +486,7 @@ return [
     'import_export' => [
         'upload_csv_file' => '1. Upload a CSV file',
         'import_file' => 'Import file',
+        'row' => 'Row :row',
         'first_row_contains_titles' => 'First row contains column titles',
         'first_row_contains_titles_desc' => 'Leave this checked if the first row in the CSV is used as the column titles.',
         'match_columns' => '2. Match the file columns to database fields',
@@ -520,7 +561,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
-        'default_prompt' => 'Click the %s button to find a media item'
+        'default_prompt' => 'Click the %s button to find a media item',
+        'no_image' => 'The image could not be found'
     ],
     'media' => [
         'menu_label' => 'Media',

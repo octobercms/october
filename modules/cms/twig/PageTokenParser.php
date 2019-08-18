@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Token as TwigToken;
+use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 
 /**
  * Parser for the `{% page %}` Twig tag.
@@ -11,18 +11,18 @@ use Twig_TokenParser;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class PageTokenParser extends Twig_TokenParser
+class PageTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param Twig_Token $token A Twig_Token instance
-     * @return Twig_Node A Twig_Node instance
+     * @param TwigToken $token A TwigToken instance
+     * @return Twig\Node\Node A Twig\Node\Node instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(TwigToken $token)
     {
         $stream = $this->parser->getStream();
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(TwigToken::BLOCK_END_TYPE);
         return new PageNode($token->getLine(), $this->getTag());
     }
 

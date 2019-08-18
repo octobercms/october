@@ -52,6 +52,14 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
+    |
+    | -------- STOP! --------
+    | Before you change this value, consider carefully if that is actually
+    | what you want to do. It is HIGHLY recommended that this is always set
+    | to UTC (as your server & DB timezone should be as well) and instead you
+    | use cms.backendTimezone to set the default timezone used in the backend
+    | to display dates & times.
+    |
     */
 
     'timezone' => 'UTC',

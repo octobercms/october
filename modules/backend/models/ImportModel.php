@@ -26,7 +26,7 @@ abstract class ImportModel extends Model
      * Relations
      */
     public $attachOne = [
-        'import_file' => \System\Models\File::class
+        'import_file' => [\System\Models\File::class, 'public' => false],
     ];
 
     /**
@@ -142,7 +142,7 @@ abstract class ImportModel extends Model
         }
 
         $result = [];
-        $contents = $reader->fetchAll();
+        $contents = $reader->fetch();
         foreach ($contents as $row) {
             $result[] = $this->processImportRow($row, $matches);
         }
@@ -174,7 +174,9 @@ abstract class ImportModel extends Model
      */
     protected function decodeArrayValue($value, $delimeter = '|')
     {
-        if (strpos($value, $delimeter) === false) return [$value];
+        if (strpos($value, $delimeter) === false) {
+            return [$value];
+        }
 
         $data = preg_split('~(?<!\\\)' . preg_quote($delimeter, '~') . '~', $value);
         $newData = [];

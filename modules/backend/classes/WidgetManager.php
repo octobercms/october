@@ -1,6 +1,8 @@
 <?php namespace Backend\Classes;
 
 use Str;
+use BackendAuth;
+use SystemException;
 use System\Classes\PluginManager;
 use Event;
 
@@ -103,7 +105,7 @@ class WidgetManager
             $widgetInfo = ['code' => $widgetInfo];
         }
 
-        $widgetCode = isset($widgetInfo['code']) ? $widgetInfo['code'] : null;
+        $widgetCode = $widgetInfo['code'] ?? null;
 
         if (!$widgetCode) {
             $widgetCode = Str::getClassId($className);
@@ -114,10 +116,9 @@ class WidgetManager
     }
 
     /**
-     * Manually registers form widget for consideration.
-     * Usage:
+     * Manually registers form widget for consideration. Usage:
      *
-     *     WidgetManager::registerFormWidgets(function($manager){
+     *     WidgetManager::registerFormWidgets(function ($manager) {
      *         $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
      *     });
      *
@@ -199,13 +200,31 @@ class WidgetManager
          *
          * Example usage:
          *
-         *     Event::listen('system.reportwidgets.extendItems', function($manager) {
+         *     Event::listen('system.reportwidgets.extendItems', function ($manager) {
          *          $manager->removeReportWidget('Acme\ReportWidgets\YourWidget');
          *     });
          *
          */
         Event::fire('system.reportwidgets.extendItems', [$this]);
 
+        $user = BackendAuth::getUser();
+        foreach ($this->reportWidgets as $widget => $config) {
+            if (!empty($config['permissions'])) {
+                if (!$user->hasAccess($config['permissions'], false)) {
+                    unset($this->reportWidgets[$widget]);
+                }
+            }
+        }
+
+        return $this->reportWidgets;
+    }
+
+    /**
+     * Returns the raw array of registered report widgets.
+     * @return array Array keys are class names.
+     */
+    public function getReportWidgets()
+    {
         return $this->reportWidgets;
     }
 
@@ -218,10 +237,9 @@ class WidgetManager
     }
 
     /**
-     * Manually registers report widget for consideration.
-     * Usage:
+     * Manually registers report widget for consideration. Usage:
      *
-     *     WidgetManager::registerReportWidgets(function($manager){
+     *     WidgetManager::registerReportWidgets(function ($manager) {
      *         $manager->registerReportWidget('RainLab\GoogleAnalytics\ReportWidgets\TrafficOverview', [
      *             'name' => 'Google Analytics traffic overview',
      *             'context' => 'dashboard'
@@ -247,5 +265,4 @@ class WidgetManager
 
         unset($this->reportWidgets[$className]);
     }
-
 }

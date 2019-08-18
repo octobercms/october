@@ -52,8 +52,8 @@ class ViewBag extends ComponentBase
 
     /**
      * Determine if an attribute exists on the object.
-     * @param  string  $key
-     * @return void
+     * @param  string $key
+     * @return bool
      */
     public function __isset($key)
     {

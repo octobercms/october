@@ -8,13 +8,15 @@ use Lang;
 use Cache;
 use Event;
 use Config;
-use Cms\Models\ThemeData;
-use System\Models\Parameter;
-use October\Rain\Halcyon\Datasource\FileDatasource;
-use ApplicationException;
+use Exception;
 use SystemException;
 use DirectoryIterator;
-use Exception;
+use ApplicationException;
+use Cms\Models\ThemeData;
+use System\Models\Parameter;
+use October\Rain\Halcyon\Datasource\DbDatasource;
+use October\Rain\Halcyon\Datasource\FileDatasource;
+use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * This class represents the CMS theme.
@@ -34,7 +36,7 @@ class Theme
     /**
      * @var mixed Keeps the cached configuration file values.
      */
-    protected $configCache = null;
+    protected $configCache;
 
     /**
      * @var mixed Active theme cache in memory
@@ -48,6 +50,7 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
+    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -178,7 +181,9 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
          *
          */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
@@ -225,6 +230,18 @@ class Theme
 
         Parameter::set(self::ACTIVE_KEY, $code);
 
+        /**
+         * @event cms.theme.setActiveTheme
+         * Fires when the active theme has been changed.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.setActiveTheme', function ($code) {
+         *         \Log::info("Theme has been changed to $code");
+         *     });
+         *
+         */
         Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
@@ -243,6 +260,18 @@ class Theme
             $editTheme = static::getActiveThemeCode();
         }
 
+        /**
+         * @event cms.theme.getEditTheme
+         * Overrides the edit theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getEditTheme', function () {
+         *         return "the-edit-theme-code";
+         *     });
+         *
+         */
         $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
@@ -312,7 +341,75 @@ class Theme
             return $this->configCache = [];
         }
 
-        return $this->configCache = Yaml::parseFile($path);
+        try {
+            if (Config::get('app.debug', false)) {
+                $config = Yaml::parseFile($path);
+            } else {
+                $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
+                $config = Cache::rememberForever($cacheKey, function () use ($path) {
+                    return Yaml::parseFile($path);
+                });
+            }
+        }
+        catch (Exception $ex) {
+            // Cache failed
+            $config = Yaml::parseFile($path);
+        }
+
+
+        /**
+         * @event cms.theme.extendConfig
+         * Extend basic theme configuration supplied by the theme by returning an array.
+         *
+         * Note if planning on extending form fields, use the `cms.theme.extendFormConfig`
+         * event instead.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendConfig', function ($themeCode, &$config) {
+         *          $config['name'] = 'October Theme';
+         *          $config['description'] = 'Another great theme from October CMS';
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendConfig', [$this->getDirName(), &$config]);
+
+        return $this->configCache = $config;
+    }
+
+    /**
+     * Themes have a dedicated `form` option that provide form fields
+     * for customization, this is an immutable accessor for that and
+     * also an solid anchor point for extension.
+     * @return array
+     */
+    public function getFormConfig()
+    {
+        $config = $this->getConfigArray('form');
+
+        /**
+         * @event cms.theme.extendFormConfig
+         * Extend form field configuration supplied by the theme by returning an array.
+         *
+         * Note if you are planning on using `assetVar` to inject CSS variables from a
+         * plugin registration file, make sure the plugin has elevated permissions.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendFormConfig', function ($themeCode, &$config) {
+         *          array_set($config, 'tabs.fields.header_color', [
+         *              'label'           => 'Header Colour',
+         *              'type'            => 'colorpicker',
+         *              'availableColors' => [#34495e, #708598, #3498db],
+         *              'assetVar'        => 'header-bg',
+         *              'tab'             => 'Global'
+         *          ]);
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendFormConfig', [$this->getDirName(), &$config]);
+
+        return $config;
     }
 
     /**
@@ -340,7 +437,7 @@ class Theme
         if (is_string($result)) {
             $fileName = File::symbolizePath($result);
 
-            if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+            if (File::isLocalPath($fileName)) {
                 $path = $fileName;
             }
             else {
@@ -377,6 +474,8 @@ class Theme
         $contents = Yaml::render($values);
         File::put($path, $contents);
         $this->configCache = $values;
+
+        self::resetCache();
     }
 
     /**
@@ -406,6 +505,7 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
+        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
     }
 
     /**
@@ -427,7 +527,35 @@ class Theme
     }
 
     /**
-     * Ensures this theme is registered as a Halcyon them datasource.
+     * Remove data specific to this theme
+     * @return bool
+     */
+    public function removeCustomData()
+    {
+        if ($this->hasCustomData()) {
+            return $this->getCustomData()->delete();
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks to see if the database layer has been enabled
+     *
+     * @return boolean
+     */
+    public static function databaseLayerEnabled()
+    {
+        $enableDbLayer = Config::get('cms.databaseTemplates', false);
+        if (is_null($enableDbLayer)) {
+            $enableDbLayer = !Config::get('app.debug', false);
+        }
+
+        return $enableDbLayer && App::hasDatabase();
+    }
+
+    /**
+     * Ensures this theme is registered as a Halcyon datasource.
      * @return void
      */
     public function registerHalyconDatasource()
@@ -435,9 +563,28 @@ class Theme
         $resolver = App::make('halcyon');
 
         if (!$resolver->hasDatasource($this->dirName)) {
-            $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            if (static::databaseLayerEnabled()) {
+                $datasource = new AutoDatasource([
+                    'database'   => new DbDatasource($this->dirName, 'cms_theme_templates'),
+                    'filesystem' => new FileDatasource($this->getPath(), App::make('files')),
+                ]);
+            } else {
+                $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            }
+
             $resolver->addDatasource($this->dirName, $datasource);
         }
+    }
+
+    /**
+     * Get the theme's datasource
+     *
+     * @return DatasourceInterface
+     */
+    public function getDatasource()
+    {
+        $resolver = App::make('halcyon');
+        return $resolver->datasource($this->getDirName());
     }
 
     /**
@@ -448,8 +595,7 @@ class Theme
     public function __get($name)
     {
         if ($this->hasCustomData()) {
-            $theme = $this->getCustomData();
-            return $theme->{$name};
+            return $this->getCustomData()->{$name};
         }
 
         return null;

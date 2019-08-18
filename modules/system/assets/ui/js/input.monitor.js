@@ -30,8 +30,8 @@
         this.$el.on('pause.oc.changeMonitor', this.proxy(this.pause))
         this.$el.on('resume.oc.changeMonitor', this.proxy(this.resume))
 
-        this.$el.on('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
-        $('input:not([type=hidden]), textarea:not(.ace_text-input)', this.$el).each(function() {
+        this.$el.on('keyup input paste', 'input:not(.ace_search_field), textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
+        $('input:not([type=hidden]):not(.ace_search_field), textarea:not(.ace_text-input)', this.$el).each(function() {
             $(this).data('oldval.oc.changeMonitor', $(this).val());
         })
 
@@ -60,7 +60,7 @@
         this.$el.off('unchange.oc.changeMonitor', this.proxy(this.unchange))
         this.$el.off('pause.oc.changeMonitor ', this.proxy(this.pause))
         this.$el.off('resume.oc.changeMonitor ', this.proxy(this.resume))
-        this.$el.off('keyup input paste', 'input, textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
+        this.$el.off('keyup input paste', 'input:not(.ace_search_field), textarea:not(.ace_text-input)', this.proxy(this.onInputChange))
         this.$el.off('dispose-control', this.proxy(this.dispose))
 
         if (this.options.windowCloseConfirm)
@@ -71,9 +71,12 @@
         if (this.paused)
             return
 
+        if (ev.target.className === 'ace_search_field')
+            return
+
         if (!inputChange) {
             var type = $(ev.target).attr('type')
-            if (type == 'text' || type == "password")
+            if (type === 'text' || type === 'password')
                 return
         }
 
@@ -98,7 +101,7 @@
             return
 
         var $el = $(ev.target)
-        if ($el.data('oldval.oc.changeMonitor') != $el.val()) {
+        if ($el.data('oldval.oc.changeMonitor') !== $el.val()) {
 
             $el.data('oldval.oc.changeMonitor', $el.val());
             this.change(ev, true);
@@ -131,7 +134,7 @@
         return this.each(function () {
             var $this = $(this)
             var data  = $this.data('oc.changeMonitor')
-            var options = $.extend({}, ChangeMonitor.DEFAULTS, $this.data(), typeof option == 'object' && option)
+            var options = $.extend({}, ChangeMonitor.DEFAULTS, $this.data(), typeof option === 'object' && option)
 
             if (!data) $this.data('oc.changeMonitor', (data = new ChangeMonitor(this, options)))
         })

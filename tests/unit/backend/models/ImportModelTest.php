@@ -2,7 +2,9 @@
 
 use Backend\Models\ImportModel;
 
-if (!class_exists('Model')) class_alias('October\Rain\Database\Model', 'Model');
+if (!class_exists('Model')) {
+    class_alias('October\Rain\Database\Model', 'Model');
+}
 
 class ExampleImportModel extends ImportModel
 {
@@ -16,19 +18,6 @@ class ExampleImportModel extends ImportModel
 
 class ImportModelTest extends TestCase
 {
-
-    //
-    // Helpers
-    //
-
-    protected static function callProtectedMethod($object, $name, $params = [])
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method->invokeArgs($object, $params);
-    }
 
     //
     // Tests
@@ -49,5 +38,4 @@ class ImportModelTest extends TestCase
         $result = self::callProtectedMethod($model, 'decodeArrayValue', [$data, '-']);
         $this->assertEquals(['art direction', 'roman empire', 'sci-fi'], $result);
     }
-
 }

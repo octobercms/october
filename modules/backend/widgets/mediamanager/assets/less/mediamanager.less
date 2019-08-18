@@ -198,6 +198,7 @@ div[data-control="media-manager"] {
                 width: 260px;
                 border: 1px solid #ecf0f1;
                 background: #f6f8f9;
+                box-sizing: content-box;
             }
 
             li .icon-container {
@@ -205,6 +206,10 @@ div[data-control="media-manager"] {
                 width: 75px;
                 height: 75px;
                 float: left;
+
+                img {
+                    max-height: 75px;
+                }
 
                 i {
                     font-size: 35px;
@@ -269,12 +274,17 @@ div[data-control="media-manager"] {
             }
 
             li .icon-container {
-                width: 167px;
-                height: 167px;
+                width: 165px;
+                height: 165px;
                 .border-radius(3px);
                 border: 1px solid #ecf0f1;
                 overflow: hidden;
                 background: #f6f8f9;
+                box-sizing: content-box;
+
+                img {
+                    max-height: 165px;
+                }
 
                 i {
                     font-size: 55px;
@@ -319,6 +329,7 @@ div[data-control="media-manager"] {
         vertical-align: middle;
         text-align: center;
         border-bottom: 1px solid #ecf0f1;
+        box-sizing: content-box;
 
         &[data-loading] {
             background: #ecf0f1;
@@ -343,6 +354,7 @@ div[data-control="media-manager"] {
 
         img {
             max-width: 100%;
+            max-height: 225px;
         }
     }
 

@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'Tam Ekran',
         'preview' => 'Önizleme',
     ],
-
     'mediamanager' => [
         'insert_link' => "Medya Linki Ekle",
         'insert_image' => "Medya Resim Ekle",
@@ -45,24 +44,28 @@ return [
         'invalid_video_empty_insert' => "Lütfen eklenecek video dosyasını seçin.",
         'invalid_audio_empty_insert' => "Lütfen eklenecek ses dosyasını seçin.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'Evet',
         'cancel_button_text' => 'İptal',
-        'widget_remove_confirm' => 'Bu eklentiyi kaldırma istediğinize emin misiniz?'
+        'widget_remove_confirm' => 'Bu eklentiyi kaldırma istediğinize emin misiniz?',
     ],
-
     'datepicker' => [
         'previousMonth' => 'Önceki Ay',
         'nextMonth' => 'Sonraki Ay',
         'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
         'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
-        'weekdaysShort' => ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt']
+        'weekdaysShort' => ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
     ],
-
+    'colorpicker' => [
+        'choose' => 'Seç',
+    ],
     'filter' => [
         'group' => [
-            'all' => 'tümü'
+            'all' => 'tümü',
+        ],
+        'scopes' => [
+            'apply_button_text' => 'Uygula',
+            'clear_button_text'  => 'Temizle',
         ],
         'dates' => [
             'all' => 'tümü',
@@ -70,10 +73,16 @@ return [
             'reset_button_text'  => 'Sıfırla',
             'date_placeholder' => 'Tarih',
             'after_placeholder' => 'Sonra',
-            'before_placeholder' => 'Önce'
-        ]
+            'before_placeholder' => 'Önce',
+        ],
+        'numbers' => [
+            'all' => 'all',
+            'filter_button_text' => 'Filtrele',
+            'reset_button_text'  => 'Sıfırla',
+            'min_placeholder' => 'Min',
+            'max_placeholder' => 'Max',
+        ],
     ],
-
     'eventlog' => [
         'show_stacktrace' => 'Veri yığınını göster',
         'hide_stacktrace' => 'Veri yığınını gizle',
@@ -87,7 +96,7 @@ return [
             'openWith' => 'Birlikte aç',
             'remember_choice' => 'Bu oturum için seçenekleri hatırla',
             'open' => 'Aç',
-            'cancel' => 'İptal'
-        ]
-    ]
+            'cancel' => 'İptal',
+        ],
+    ],
 ];

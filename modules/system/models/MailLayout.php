@@ -41,6 +41,13 @@ class MailLayout extends Model
         'content_html'          => 'required',
     ];
 
+    /**
+     * @var array Options array
+     */
+    protected $jsonable = [
+        'options'
+    ];
+
     public static $codeCache;
 
     public function beforeDelete()

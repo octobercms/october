@@ -5,6 +5,7 @@ use File;
 use Event;
 use Lang;
 use Request;
+use BackendAuth;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
 
@@ -29,7 +30,7 @@ class RichEditor extends FormWidgetBase
     /**
      * @var boolean Determines whether content has HEAD and HTML tags.
      */
-    public $toolbarButtons = null;
+    public $toolbarButtons;
 
     /**
      * @var boolean If true, the editor is set to read-only mode
@@ -84,12 +85,14 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+        $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
         $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
         $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
         $this->vars['removeTags'] = EditorSetting::getConfigured('html_remove_tags');
+        $this->vars['lineBreakerTags'] = EditorSetting::getConfigured('html_line_breaker_tags');
 
         $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
         $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');
@@ -128,6 +131,7 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+        $this->addJs('js/build-plugins-min.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
         if ($lang = $this->getValidEditorLang()) {
@@ -213,14 +217,21 @@ class RichEditor extends FormWidgetBase
 
         $iterator = function ($links, $level = 0) use (&$iterator) {
             $result = [];
-            foreach ($links as $linkUrl => $link) {
 
+            foreach ($links as $linkUrl => $link) {
                 /*
                  * Remove scheme and host from URL
                  */
                 $baseUrl = Request::getSchemeAndHttpHost();
                 if (strpos($linkUrl, $baseUrl) === 0) {
                     $linkUrl = substr($linkUrl, strlen($baseUrl));
+                }
+
+                /*
+                 * Root page fallback.
+                 */
+                if (strlen($linkUrl) === 0) {
+                    $linkUrl = '/';
                 }
 
                 $linkName = str_repeat('&nbsp;', $level * 4);

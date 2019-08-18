@@ -27,14 +27,6 @@ class ThemeList extends Command
     protected $description = 'List available themes.';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -50,7 +42,6 @@ class ThemeList extends Command
         }
 
         if ($this->option('include-marketplace')) {
-
             // @todo List everything in the marketplace - not just popular.
 
             $popularThemes = $updateManager->requestPopularProducts('theme');
@@ -63,14 +54,6 @@ class ThemeList extends Command
         }
 
         $this->info(PHP_EOL."[*] Active    [-] Installed    [ ] Not installed");
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

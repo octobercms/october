@@ -73,7 +73,7 @@ class ThemeLog extends Model
         $newContent = $template->toCompiled();
         $oldContent = $template->getOriginal('content');
 
-        if ($newContent === $oldContent && !$isDelete) {
+        if ($newContent === $oldContent && $templateName === $oldTemplateName && !$isDelete) {
             traceLog($newContent, $oldContent);
             traceLog('Content not dirty for: '. $template->getObjectTypeDirName().'/'.$template->fileName);
             return;
@@ -94,7 +94,8 @@ class ThemeLog extends Model
         try {
             $record->save();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return $record;
     }

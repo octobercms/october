@@ -1,8 +1,6 @@
 <?php namespace Cms\Classes;
 
 use Lang;
-use Cms\Classes\Theme;
-use Cms\Classes\Layout;
 use ApplicationException;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 
@@ -62,17 +60,13 @@ class Page extends CmsCompoundObject
         ];
     }
 
-    protected function parseSettings()
-    {
-    }
-
     /**
      * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
      * @return mixed Returns the class name or null.
      */
     public function getCodeClassParent()
     {
-        return '\Cms\Classes\PageCode';
+        return PageCode::class;
     }
 
     /**
@@ -112,7 +106,7 @@ class Page extends CmsCompoundObject
         $result = [];
         $pages = self::sortBy('baseFileName')->all();
         foreach ($pages as $page) {
-            $result[$page->baseFileName] = $page->title.' ('.$page->baseFileName.')';
+            $result[$page->baseFileName] = $page->title . ' (' . $page->baseFileName . ')';
         }
 
         return $result;
@@ -124,7 +118,7 @@ class Page extends CmsCompoundObject
      * @param array $params Route parameters to consider in the URL.
      * @return string
      */
-    public static function url($page, $params = [])
+    public static function url($page, array $params = [])
     {
         /*
          * Reuse existing controller or create a new one,
@@ -153,16 +147,17 @@ class Page extends CmsCompoundObject
      * @param string $type Specifies the menu item type
      * @return array Returns an array
      */
-    public static function getMenuTypeInfo($type)
+    public static function getMenuTypeInfo(string $type)
     {
         $result = [];
 
-        if ($type == 'cms-page') {
+        if ($type === 'cms-page') {
             $theme = Theme::getActiveTheme();
             $pages = self::listInTheme($theme, true);
+            $references = [];
 
             foreach ($pages as $page) {
-                $references[$page->getBaseFileName()] = $page->title . ' ['.$page->getBaseFileName().']';
+                $references[$page->getBaseFileName()] = $page->title . ' [' . $page->getBaseFileName() . ']';
             }
 
             $result = [
@@ -192,11 +187,11 @@ class Page extends CmsCompoundObject
      * The URL is specified relative to the website root, it includes the subdirectory name, if any.
      * @return mixed Returns an array. Returns null if the item cannot be resolved.
      */
-    public static function resolveMenuItem($item, $url, $theme)
+    public static function resolveMenuItem($item, string $url, Theme $theme)
     {
         $result = null;
 
-        if ($item->type == 'cms-page') {
+        if ($item->type === 'cms-page') {
             if (!$item->reference) {
                 return;
             }
@@ -220,11 +215,11 @@ class Page extends CmsCompoundObject
      * @param string $type Specifies the page link type
      * @return array
      */
-    public static function getRichEditorTypeInfo($type)
+    public static function getRichEditorTypeInfo(string $type)
     {
         $result = [];
 
-        if ($type == 'cms-page') {
+        if ($type === 'cms-page') {
             $theme = Theme::getActiveTheme();
             $pages = self::listInTheme($theme, true);
 

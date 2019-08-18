@@ -33,8 +33,11 @@ class EditorSetting extends Model
      * @var mixed Settings form field defitions
      */
     public $settingsFields = 'fields.yaml';
-
-    const CACHE_KEY = 'backend::editor.custom_css';
+    
+    /**
+     * @var string The key to store rendered CSS in the cache under
+     */
+    public $cacheKey = 'backend::editor.custom_css';
 
     protected $defaultHtmlAllowEmptyTags = 'textarea, a, iframe, object, video, style, script';
 
@@ -43,6 +46,8 @@ class EditorSetting extends Model
     protected $defaultHtmlNoWrapTags = 'figure, script, style';
 
     protected $defaultHtmlRemoveTags = 'script, style';
+
+    protected $defaultHtmlLineBreakerTags = 'figure, table, hr, iframe, form, dl';
 
     protected $defaultHtmlStyleImage = [
         'oc-img-rounded' => 'Rounded',
@@ -87,6 +92,7 @@ class EditorSetting extends Model
         $this->html_allow_tags = $this->defaultHtmlAllowTags;
         $this->html_no_wrap_tags = $this->defaultHtmlNoWrapTags;
         $this->html_remove_tags = $this->defaultHtmlRemoveTags;
+        $this->html_line_breaker_tags = $this->defaultHtmlLineBreakerTags;
         $this->html_custom_styles = File::get(base_path().'/modules/backend/models/editorsetting/default_styles.less');
         $this->html_style_image = $this->makeStylesForTable($this->defaultHtmlStyleImage);
         $this->html_style_link = $this->makeStylesForTable($this->defaultHtmlStyleLink);
@@ -97,7 +103,7 @@ class EditorSetting extends Model
 
     public function afterSave()
     {
-        Cache::forget(self::CACHE_KEY);
+        Cache::forget(self::instance()->cacheKey);
     }
 
     protected function makeStylesForTable($arr)
@@ -154,13 +160,14 @@ class EditorSetting extends Model
 
     public static function renderCss()
     {
-        if (Cache::has(self::CACHE_KEY)) {
-            return Cache::get(self::CACHE_KEY);
+        $cacheKey = self::instance()->cacheKey;
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
         }
 
         try {
             $customCss = self::compileCss();
-            Cache::forever(self::CACHE_KEY, $customCss);
+            Cache::forever($cacheKey, $customCss);
         }
         catch (Exception $ex) {
             $customCss = '/* ' . $ex->getMessage() . ' */';
@@ -179,8 +186,6 @@ class EditorSetting extends Model
 
         $parser->parse($customStyles);
 
-        $css = $parser->getCss();
-
-        return $css;
+        return $parser->getCss();
     }
 }

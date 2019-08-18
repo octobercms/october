@@ -1,18 +1,12 @@
 <?php namespace System\Controllers;
 
 use App;
-use Str;
 use Lang;
-use File;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use System\Models\EventLog;
-use Exception;
 
 /**
  * Event Logs controller
@@ -71,9 +65,10 @@ class EventLogs extends Controller
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = EventLog::find($recordId)) continue;
+                if (!$record = EventLog::find($recordId)) {
+                    continue;
+                }
                 $record->delete();
             }
 
@@ -86,7 +81,10 @@ class EventLogs extends Controller
         return $this->listRefresh();
     }
 
-
+    /**
+     * Preview page action
+     * @return void
+     */
     public function preview($id)
     {
         $this->addCss('/modules/system/assets/css/eventlogs/exception-beautifier.css', 'core');

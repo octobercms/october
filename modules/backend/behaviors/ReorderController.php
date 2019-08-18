@@ -36,6 +36,11 @@ class ReorderController extends ControllerBehavior
     protected $requiredConfig = ['modelClass'];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['reorder'];
+
+    /**
      * @var Model Import model
      */
     public $model;
@@ -55,7 +60,7 @@ class ReorderController extends ControllerBehavior
      * - simple: October\Rain\Database\Traits\Sortable
      * - nested: October\Rain\Database\Traits\NestedTree
      */
-    protected $sortMode = null;
+    protected $sortMode;
 
     /**
      * @var Backend\Classes\WidgetBase Reference to the widget used for the toolbar.
@@ -115,8 +120,12 @@ class ReorderController extends ControllerBehavior
          * Simple
          */
         if ($this->sortMode == 'simple') {
-            if (!$ids = post('record_ids')) return;
-            if (!$orders = post('sort_orders')) return;
+            if (
+                (!$ids = post('record_ids')) ||
+                (!$orders = post('sort_orders'))
+            ) {
+                return;
+            }
 
             $model->setSortableOrder($ids, $orders);
         }
@@ -127,7 +136,9 @@ class ReorderController extends ControllerBehavior
             $sourceNode = $model->find(post('sourceNode'));
             $targetNode = post('targetNode') ? $model->find(post('targetNode')) : null;
 
-            if ($sourceNode == $targetNode) return;
+            if ($sourceNode == $targetNode) {
+                return;
+            }
 
             switch (post('position')) {
                 case 'before':
@@ -177,6 +188,7 @@ class ReorderController extends ControllerBehavior
         }
 
         $modelClass = $this->getConfig('modelClass');
+
         if (!$modelClass) {
             throw new ApplicationException('Please specify the modelClass property for reordering');
         }
@@ -202,10 +214,10 @@ class ReorderController extends ControllerBehavior
         $model = $this->controller->reorderGetModel();
         $modelTraits = class_uses($model);
 
-        if (isset($modelTraits['October\Rain\Database\Traits\Sortable'])) {
+        if (isset($modelTraits[\October\Rain\Database\Traits\Sortable::class])) {
             $this->sortMode = 'simple';
         }
-        elseif (isset($modelTraits['October\Rain\Database\Traits\NestedTree'])) {
+        elseif (isset($modelTraits[\October\Rain\Database\Traits\NestedTree::class])) {
             $this->sortMode = 'nested';
             $this->showTree = true;
         }
@@ -280,12 +292,16 @@ class ReorderController extends ControllerBehavior
      */
     public function reorderMakePartial($partial, $params = [])
     {
-        $contents = $this->controller->makePartial('reorder_'.$partial, $params + $this->vars, false);
+        $contents = $this->controller->makePartial(
+            'reorder_' . $partial,
+            $params + $this->vars,
+            false
+        );
+
         if (!$contents) {
             $contents = $this->makePartial($partial, $params);
         }
 
         return $contents;
     }
-
 }

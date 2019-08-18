@@ -42,6 +42,7 @@ if (window.jQuery.request !== undefined) {
         if (_event.isDefaultPrevented()) return
 
         var loading = options.loading !== undefined ? options.loading : null,
+            url = options.url !== undefined ? options.url : window.location.href,
             isRedirect = options.redirect !== undefined && options.redirect.length,
             useFlash = options.flash !== undefined,
             useFiles = options.files !== undefined
@@ -90,7 +91,7 @@ if (window.jQuery.request !== undefined) {
         }
 
         if (useFiles) {
-            requestData = new FormData($form.length ? $form.get(0) : null)
+            requestData = new FormData($form.length ? $form.get(0) : undefined)
 
             if ($el.is(':file') && inputName) {
                 $.each($el.prop('files'), function() {
@@ -112,8 +113,9 @@ if (window.jQuery.request !== undefined) {
          * Request options
          */
         var requestOptions = {
-            url: window.location.href,
+            url: url,
             crossDomain: false,
+            global: options.ajaxGlobal,
             context: context,
             headers: requestHeaders,
             success: function(data, textStatus, jqXHR) {
@@ -388,7 +390,8 @@ if (window.jQuery.request !== undefined) {
         evalBeforeUpdate: null,
         evalSuccess: null,
         evalError: null,
-        evalComplete: null
+        evalComplete: null,
+        ajaxGlobal: false
     }
 
     /*
@@ -417,12 +420,14 @@ if (window.jQuery.request !== undefined) {
             evalSuccess: $this.data('request-success'),
             evalError: $this.data('request-error'),
             evalComplete: $this.data('request-complete'),
+            ajaxGlobal: $this.data('request-ajax-global'),
             confirm: $this.data('request-confirm'),
             redirect: $this.data('request-redirect'),
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
             form: $this.data('request-form'),
+            url: $this.data('request-url'),
             update: paramToObj('data-request-update', $this.data('request-update')),
             data: paramToObj('data-request-data', $this.data('request-data'))
         }
@@ -483,7 +488,7 @@ if (window.jQuery.request !== undefined) {
         }
     })
 
-    $(document).on('keyup', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
+    $(document).on('input', 'input[data-request][data-track-input]', function documentOnKeyup(e) {
         var
             $el = $(this),
             lastValue = $el.data('oc.lastvalue')
@@ -505,7 +510,10 @@ if (window.jQuery.request !== undefined) {
 
         var self = this
         this.dataTrackInputTimer = window.setTimeout(function() {
-            $(self).request()
+            if (self.lastDataTrackInputRequest) {
+                self.lastDataTrackInputRequest.abort();
+            }
+            self.lastDataTrackInputRequest = $(self).request();
         }, interval)
     })
 

@@ -1,6 +1,5 @@
 <?php namespace Backend\Behaviors;
 
-use Str;
 use Lang;
 use Event;
 use Flash;
@@ -68,6 +67,11 @@ class ListController extends ControllerBehavior
      * - list: List column definitions
      */
     protected $requiredConfig = ['modelClass', 'list'];
+
+    /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['index'];
 
     /**
      * Behavior constructor
@@ -239,7 +243,7 @@ class ListController extends ControllerBehavior
              * Filter the list when the scopes are changed
              */
             $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
-                return $widget->onRefresh();
+                return $widget->onFilter();
             });
 
             /*

@@ -94,5 +94,4 @@ class SoftDeleteModelTest extends PluginTestCase
 
         $this->assertNotNull(SoftDeleteAuthor::find($authorId));
     }
-
 }

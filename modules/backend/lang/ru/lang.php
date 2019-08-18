@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Панель управления'
+        'title' => 'Панель управления',
+        'invalid_login' => 'Вы ввели некорректные данные. Пожалуйста, перепроверьте их и попробуйте ещё раз.'
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
+        'colors_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий HTML цвет в HEX для поля формы ':field'."
     ],
     'widget' => [
         'not_registered' => "Класс виджета ':name' не зарегистрирован.",
@@ -33,6 +35,7 @@ return [
         'not_found_name' => 'Не удалось найти шаблон (partial) с именем :name.'
     ],
     'account' => [
+        'signed_in_as' => 'Выполнен вход как :full_name',
         'sign_out' => 'Выйти',
         'login' => 'Вход',
         'reset' => 'Сбросить',
@@ -140,8 +143,8 @@ return [
         'updated_at' => 'Обновлен',
         'group' => [
             'name' => 'Группы',
-            'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'name_field' => 'Название',
+            'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'description_field' => 'Описание',
             'is_new_user_default_field_label' => 'Группа по умолчанию',
             'is_new_user_default_field_comment' => 'Добавлять новых администраторов в эту группу по умолчанию.',
@@ -214,6 +217,10 @@ return [
         'upload_error' => 'Ошибка загрузки',
         'remove_confirm' => 'Вы уверены?',
         'remove_file' => 'Удалить файл'
+    ],
+    'repeater' => [
+        'min_items_failed' => ':name требует минимум :min объектов, было передано только :items',
+        'max_items_failed' => ':name позволяет передать максимум :max объектов, было передано :items',
     ],
     'form' => [
         'create_title' => 'Создание :name',
@@ -378,6 +385,8 @@ return [
         'no_wrap_comment' => 'Список тегов, которые не должны быть обернуты в блочные элементы.',
         'remove_tags' => 'Удаляемые теги',
         'remove_tags_comment' => 'Список тегов, которые будут удалены вместе с их содержанием.',
+        'line_breaker_tags' => 'Теги с переводом строки',
+        'line_breaker_tags_comment' => 'Список тегов, в которых будет использоваться тег перевода строки',
         'toolbar_buttons' => 'Кнопки панели инструментов',
         'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
     ],
@@ -439,11 +448,13 @@ return [
     'filter' => [
         'all' => 'все',
         'options_method_not_exists' => "Модель класса :model должна определить метод :method() возвращающего варианты для фильтра ':filter'.",
-        'date_all' => 'весь период'
+        'date_all' => 'весь период',
+        'number_all' => 'все номера'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Загрузка CSV-файл',
         'import_file' => 'Импорт файла',
+        'row' => 'Строка :row',
         'first_row_contains_titles' => 'Первая строка содержит заголовки столбцов',
         'first_row_contains_titles_desc' => 'Выберите эту опцию, если первая строка в CSV-файле используется как заголовки для столбцов.',
         'match_columns' => '2. Применение столбцов файла к полям базы данных',
@@ -544,11 +555,14 @@ return [
         'return_to_parent_label' => 'Подняться на уровень выше ..',
         'nothing_selected' => 'Ничего не выбрано.',
         'multiple_selected' => 'Выбрано несколько объектов.',
-        'uploading_file_num' => 'Загрузка файлов: :number',
+        'uploading_file_num' => 'Загрузка файлов: :number ...',
         'uploading_complete' => 'Загрузка файлов завершена!',
         'uploading_error' => 'Ошибка загрузки',
         'type_blocked' => 'Используемый тип файла блокируется по соображениям безопасности.',
         'order_by' => 'Сортировать по',
+        'direction' => 'Направление сортировки',
+        'direction_asc' => 'По возрастанию',
+        'direction_desc' => 'По убыванию',
         'folder' => 'Папка',
         'no_files_found' => 'Ни один из файлов не удовлетворяет вашему запросу.',
         'delete_empty' => 'Пожалуйста, выберите объекты для удаления.',

@@ -1,8 +1,6 @@
 <?php namespace Backend\Models;
 
-use Exception;
 use BackendAuth;
-use October\Rain\Database\Model;
 use SystemException;
 use October\Rain\Auth\Models\Preferences as PreferencesBase;
 

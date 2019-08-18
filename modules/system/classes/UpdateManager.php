@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use Db;
 use App;
 use Url;
 use File;
@@ -190,10 +189,11 @@ class UpdateManager
         /*
          * Retry period not passed, skipping.
          */
-        if (!$force && ($retryTimestamp = Parameter::get('system::update.retry'))) {
-            if (Carbon::createFromTimeStamp($retryTimestamp)->isFuture()) {
-                return $oldCount;
-            }
+        if (!$force
+            && ($retryTimestamp = Parameter::get('system::update.retry'))
+            && Carbon::createFromTimeStamp($retryTimestamp)->isFuture()
+        ) {
+            return $oldCount;
         }
 
         try {
@@ -227,10 +227,16 @@ class UpdateManager
         $frozen = $installed->lists('is_frozen', 'code');
         $updatable = $installed->lists('is_updatable', 'code');
         $build = Parameter::get('system::core.build');
+        $themes = [];
+
+        if ($this->themeManager) {
+            $themes = array_keys($this->themeManager->getInstalled());
+        }
 
         $params = [
             'core' => $this->getHash(),
             'plugins' => serialize($versions),
+            'themes' => serialize($themes),
             'build' => $build,
             'force' => $force
         ];
@@ -251,9 +257,9 @@ class UpdateManager
          */
         $plugins = [];
         foreach (array_get($result, 'plugins', []) as $code => $info) {
-            $info['name'] = isset($names[$code]) ? $names[$code] : $code;
-            $info['old_version'] = isset($versions[$code]) ? $versions[$code] : false;
-            $info['icon'] = isset($icons[$code]) ? $icons[$code] : false;
+            $info['name'] = $names[$code] ?? $code;
+            $info['old_version'] = $versions[$code] ?? false;
+            $info['icon'] = $icons[$code] ?? false;
 
             /*
              * If a plugin has updates frozen, or cannot be updated,
@@ -517,7 +523,6 @@ class UpdateManager
         $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
 
         if ($this->versionManager->updatePlugin($plugin) !== false) {
-
             foreach ($this->versionManager->getNotes() as $note) {
                 $this->note($note);
             }
@@ -536,11 +541,11 @@ class UpdateManager
         /*
          * Remove the plugin database and version
          */
-        if (!($plugin = $this->pluginManager->findByIdentifier($name))) {
-            if ($this->versionManager->purgePlugin($name)) {
-                $this->note('<info>Purged from database:</info> ' . $name);
-                return $this;
-            }
+        if (!($plugin = $this->pluginManager->findByIdentifier($name))
+            && $this->versionManager->purgePlugin($name)
+        ) {
+            $this->note('<info>Purged from database:</info> ' . $name);
+            return $this;
         }
 
         if ($this->versionManager->removePlugin($plugin)) {
@@ -557,12 +562,16 @@ class UpdateManager
      * Downloads a plugin from the update server.
      * @param string $name Plugin name.
      * @param string $hash Expected file hash.
+     * @param boolean $installation Indicates whether this is a plugin installation request.
      * @return self
      */
-    public function downloadPlugin($name, $hash)
+    public function downloadPlugin($name, $hash, $installation = false)
     {
         $fileCode = $name . $hash;
-        $this->requestServerFile('plugin/get', $fileCode, $hash, ['name' => $name]);
+        $this->requestServerFile('plugin/get', $fileCode, $hash, [
+            'name' => $name,
+            'installation' => $installation ? 1 : 0
+        ]);
     }
 
     /**
@@ -670,7 +679,9 @@ class UpdateManager
         $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
 
         foreach ($requestedDetails as $detail) {
-            if ($detail === -1) continue;
+            if ($detail === -1) {
+                continue;
+            }
             $result[] = $detail;
         }
 
@@ -736,6 +747,39 @@ class UpdateManager
         }
 
         $this->productCache[$type][$code] = $data;
+    }
+
+    //
+    // Changelog
+    //
+
+    /**
+     * Returns the latest changelog information.
+     */
+    public function requestChangelog()
+    {
+        $result = Http::get('https://octobercms.com/changelog?json');
+
+        if ($result->code == 404) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+        }
+
+        if ($result->code != 200) {
+            throw new ApplicationException(
+                strlen($result->body)
+                ? $result->body
+                : Lang::get('system::lang.server.response_empty')
+            );
+        }
+
+        try {
+            $resultData = json_decode($result->body, true);
+        }
+        catch (Exception $ex) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
+        }
+
+        return $resultData;
     }
 
     //
@@ -909,7 +953,14 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['server'] = base64_encode(serialize(['php' => PHP_VERSION, 'url' => Url::to('/')]));
+        $postData['protocol_version'] = '1.1';
+        $postData['client'] = 'october';
+
+        $postData['server'] = base64_encode(serialize([
+            'php'   => PHP_VERSION,
+            'url'   => Url::to('/'),
+            'since' => PluginVersion::orderBy('created_at')->value('created_at')
+        ]));
 
         if ($projectId = Parameter::get('system::project.id')) {
             $postData['project'] = $projectId;
@@ -952,11 +1003,10 @@ class UpdateManager
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
     }
 
-    //
-    // Internals
-    //
-
-    protected function getMigrationTableName()
+    /**
+     * @return string
+     */
+    public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
     }

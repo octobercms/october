@@ -1,5 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
+use Config;
 use Carbon\Carbon;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
@@ -26,31 +27,36 @@ class DatePicker extends FormWidgetBase
     /**
      * @var string Provide an explicit date display format.
      */
-    public $format = null;
+    public $format;
 
     /**
      * @var string the minimum/earliest date that can be selected.
      * eg: 2000-01-01
      */
-    public $minDate = null;
+    public $minDate;
 
     /**
      * @var string the maximum/latest date that can be selected.
      * eg: 2020-12-31
      */
-    public $maxDate = null;
+    public $maxDate;
 
     /**
      * @var string number of years either side or array of upper/lower range
      * eg: 10 or [1900,1999]
      */
-    public $yearRange = null;
+    public $yearRange;
 
     /**
      * @var int first day of the week
      * eg: 0 (Sunday), 1 (Monday), 2 (Tuesday), etc.
      */
     public $firstDay = 0;
+
+    /**
+     * @var bool show week numbers at head of row
+     */
+    public $showWeekNumber = false;
 
     /**
      * @var bool change datetime exactly as is in database
@@ -78,19 +84,20 @@ class DatePicker extends FormWidgetBase
             'maxDate',
             'yearRange',
             'firstDay',
+            'showWeekNumber',
             'ignoreTimezone',
         ]);
 
         $this->mode = strtolower($this->mode);
 
         if ($this->minDate !== null) {
-            $this->minDate = is_integer($this->minDate)
+            $this->minDate = is_int($this->minDate)
                 ? Carbon::createFromTimestamp($this->minDate)
                 : Carbon::parse($this->minDate);
         }
 
         if ($this->maxDate !== null) {
-            $this->maxDate = is_integer($this->maxDate)
+            $this->maxDate = is_int($this->maxDate)
                 ? Carbon::createFromTimestamp($this->maxDate)
                 : Carbon::parse($this->maxDate);
         }
@@ -110,12 +117,15 @@ class DatePicker extends FormWidgetBase
      */
     public function prepareVars()
     {
-
         if ($value = $this->getLoadValue()) {
-
             $value = DateTimeHelper::makeCarbon($value, false);
-
-            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
+            if ($this->mode === 'date' && !$this->ignoreTimezone) {
+                $backendTimeZone = \Backend\Models\Preference::get('timezone');
+                $value->setTimezone($backendTimeZone);
+                $value->setTime(0, 0, 0);
+                $value->setTimezone(Config::get('app.timezone'));
+            }
+            $value = $value->toDateTimeString();
         }
 
         $this->vars['name'] = $this->getFieldName();
@@ -126,6 +136,7 @@ class DatePicker extends FormWidgetBase
         $this->vars['maxDate'] = $this->maxDate;
         $this->vars['yearRange'] = $this->yearRange;
         $this->vars['firstDay'] = $this->firstDay;
+        $this->vars['showWeekNumber'] = $this->showWeekNumber;
         $this->vars['ignoreTimezone'] = $this->ignoreTimezone;
         $this->vars['format'] = $this->format;
         $this->vars['formatMoment'] = $this->getDateFormatMoment();

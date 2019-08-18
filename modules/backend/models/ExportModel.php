@@ -62,12 +62,7 @@ abstract class ExportModel extends Model
             throw new ApplicationException(Lang::get('backend::lang.import_export.file_not_found_error'));
         }
 
-        $headers = Response::download($csvPath, $outputName)->headers->all();
-        $result = Response::make(File::get($csvPath), 200, $headers);
-
-        @unlink($csvPath);
-
-        return $result;
+        return Response::download($csvPath, $outputName)->deleteFileAfterSend(true);
     }
 
     /**
@@ -101,7 +96,7 @@ abstract class ExportModel extends Model
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
-        
+
         $csv->setOutputBOM(CsvWriter::BOM_UTF8);
 
         if ($options['delimiter'] !== null) {
@@ -198,8 +193,7 @@ abstract class ExportModel extends Model
         foreach ($data as $value) {
             if (is_array($value)) {
                 $newData[] = 'Array';
-            }
-            else {
+            } else {
                 $newData[] = str_replace($delimeter, '\\'.$delimeter, $value);
             }
         }

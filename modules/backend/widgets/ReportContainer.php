@@ -4,6 +4,7 @@ use File;
 use Lang;
 use Flash;
 use Request;
+use BackendAuth;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreference;
@@ -49,7 +50,7 @@ class ReportContainer extends WidgetBase
      *         sortOrder: 1
      *         configuration:
      *             title: 'Traffic overview'
-     *             ocWidgetWidth: 10
+     *             ocWidgetWidth: 12
      */
     public $defaultWidgets = [];
 
@@ -145,6 +146,10 @@ class ReportContainer extends WidgetBase
 
     public function onMakeLayoutDefault()
     {
+        if (!BackendAuth::getUser()->hasAccess('backend.manage_default_dashboard')) {
+            throw new ApplicationException("You do not have permission to do that.");
+        }
+
         $widgets = $this->getWidgetsFromUserPreferences();
 
         SystemParameters::set($this->getSystemParametersKey(), $widgets);
@@ -177,8 +182,8 @@ class ReportContainer extends WidgetBase
     public function onLoadAddPopup()
     {
         $sizes = [];
-        for ($i = 1; $i <= 10; $i++) {
-            $sizes[$i] = $i < 10 ? $i : $i.' (' . Lang::get('backend::lang.dashboard.full_width') . ')';
+        for ($i = 1; $i <= 12; $i++) {
+            $sizes[$i] = $i < 12 ? $i : $i.' (' . Lang::get('backend::lang.dashboard.full_width') . ')';
         }
 
         $this->vars['sizes'] = $sizes;
@@ -224,12 +229,15 @@ class ReportContainer extends WidgetBase
 
         $widgets = $this->getWidgetsFromUserPreferences();
 
-        $num =  count($widgets);
+        $num = count($widgets);
         do {
             $num++;
             $alias = 'report_container_'.$this->context.'_'.$num;
         }
         while (array_key_exists($alias, $widgets));
+
+        // Ensure that the widget's alias is correctly set for this request
+        $widget->alias = $alias;
 
         $sortOrder = 0;
         foreach ($widgets as $widgetInfo) {
@@ -331,7 +339,8 @@ class ReportContainer extends WidgetBase
         $configuration['alias'] = $alias;
 
         $className = $widgetInfo['class'];
-        if (!class_exists($className)) {
+        $availableReportWidgets = array_keys(WidgetManager::instance()->listReportWidgets());
+        if (!class_exists($className) || !in_array($className, $availableReportWidgets)) {
             return;
         }
 
@@ -383,7 +392,7 @@ class ReportContainer extends WidgetBase
 
         $property = [
             'property'          => 'ocWidgetWidth',
-            'title'             => Lang::get('backend::lang.dashboard.widget_columns_label', ['columns' => '(1-10)']),
+            'title'             => Lang::get('backend::lang.dashboard.widget_columns_label', ['columns' => '(1-12)']),
             'description'       => Lang::get('backend::lang.dashboard.widget_columns_description'),
             'type'              => 'dropdown',
             'validationPattern' => '^[0-9]+$',
@@ -398,7 +407,9 @@ class ReportContainer extends WidgetBase
                 7  => '7 ' . Lang::choice('backend::lang.dashboard.columns', 7),
                 8  => '8 ' . Lang::choice('backend::lang.dashboard.columns', 8),
                 9  => '9 ' . Lang::choice('backend::lang.dashboard.columns', 9),
-                10 => '10 ' . Lang::choice('backend::lang.dashboard.columns', 10)
+                10 => '10 ' . Lang::choice('backend::lang.dashboard.columns', 10),
+                11 => '11 ' . Lang::choice('backend::lang.dashboard.columns', 11),
+                12 => '12 ' . Lang::choice('backend::lang.dashboard.columns', 12)
             ]
         ];
         $result[] = $property;
@@ -412,11 +423,10 @@ class ReportContainer extends WidgetBase
 
         $result[] = $property;
         foreach ($properties as $name => $params) {
-
             $property = [
                 'property' => $name,
                 'title'    => isset($params['title']) ? Lang::get($params['title']) : $name,
-                'type'     => isset($params['type']) ? $params['type'] : 'string'
+                'type'     => $params['type'] ?? 'string'
             ];
 
             foreach ($params as $name => $value) {
@@ -439,7 +449,11 @@ class ReportContainer extends WidgetBase
 
         $properties = $widget->defineProperties();
         foreach ($properties as $name => $params) {
-            $result[$name] = Lang::get($widget->property($name));
+            $value = $widget->property($name);
+            if (is_string($value)) {
+                $value = Lang::get($value);
+            }
+            $result[$name] = $value;
         }
 
         $result['ocWidgetWidth'] = $widget->property('ocWidgetWidth');

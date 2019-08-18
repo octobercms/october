@@ -5,6 +5,7 @@ use Model;
 use Cms\Classes\Theme as CmsTheme;
 use System\Classes\CombineAssets;
 use Exception;
+use System\Models\File;
 
 /**
  * Customization data used by a theme
@@ -51,6 +52,10 @@ class ThemeData extends Model
      */
     protected static $instances = [];
 
+    /**
+     * Before saving the model, strip dynamic attributes applied from config.
+     * @return void
+     */
     public function beforeSave()
     {
         /*
@@ -63,12 +68,17 @@ class ThemeData extends Model
         $this->setRawAttributes(array_only($this->getAttributes(), $staticAttributes));
     }
 
+    /**
+     * Clear asset cache after saving to ensure `assetVar` form fields take
+     * immediate effect.
+     */
     public function afterSave()
     {
         try {
             CombineAssets::resetCache();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
     }
 
     /**
@@ -84,16 +94,21 @@ class ThemeData extends Model
         }
 
         try {
-            $themeData = ThemeData::firstOrCreate(['theme' => $dirName]);
+            $themeData = self::firstOrCreate(['theme' => $dirName]);
         }
         catch (Exception $ex) {
             // Database failed
-            $themeData = new ThemeData(['theme' => $dirName]);
+            $themeData = new self(['theme' => $dirName]);
         }
 
         return self::$instances[$dirName] = $themeData;
     }
 
+    /**
+     * After fetching the model, intiialize model relationships based
+     * on form field definitions.
+     * @return void
+     */
     public function afterFetch()
     {
         $data = (array) $this->data + $this->getDefaultValues();
@@ -106,11 +121,11 @@ class ThemeData extends Model
                 continue;
             }
 
-            if ($field['type'] == 'repeater') {
+            if ($field['type'] === 'repeater') {
                 $this->jsonable[] = $id;
             }
-            elseif ($field['type'] == 'fileupload') {
-                $this->attachOne[$id] = 'System\Models\File';
+            elseif ($field['type'] === 'fileupload') {
+                $this->attachOne[$id] = File::class;
                 unset($data[$id]);
             }
         }
@@ -121,6 +136,10 @@ class ThemeData extends Model
         $this->setRawAttributes((array) $this->getAttributes() + $data, true);
     }
 
+    /**
+     * Before model is validated, set the default values.
+     * @return void
+     */
     public function beforeValidate()
     {
         if (!$this->exists) {
@@ -133,7 +152,6 @@ class ThemeData extends Model
      */
     public function initFormFields()
     {
-
     }
 
     /**
@@ -148,6 +166,7 @@ class ThemeData extends Model
 
     /**
      * Gets default values for this model based on form field definitions.
+     * @return array
      */
     public function getDefaultValues()
     {
@@ -174,7 +193,7 @@ class ThemeData extends Model
             throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
         }
 
-        $config = $theme->getConfigArray('form');
+        $config = $theme->getFormConfig();
 
         return array_get($config, 'fields', []) +
             array_get($config, 'tabs.fields', []) +
@@ -208,7 +227,7 @@ class ThemeData extends Model
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (!$theme){
+        if (!$theme) {
             return;
         }
 

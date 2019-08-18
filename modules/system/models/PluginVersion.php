@@ -28,7 +28,7 @@ class PluginVersion extends Model
     /**
      * @var array Cache store for version information
      */
-    protected static $versionCache = null;
+    protected static $versionCache;
 
     /**
      * @var bool Plugin has been disabled by a missing dependency.
@@ -146,9 +146,7 @@ class PluginVersion extends Model
             self::$versionCache = self::lists('version', 'code');
         }
 
-        return isset(self::$versionCache[$pluginCode])
-            ? self::$versionCache[$pluginCode]
-            : null;
+        return self::$versionCache[$pluginCode] ?? null;
     }
 
     /**

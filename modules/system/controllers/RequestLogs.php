@@ -1,17 +1,11 @@
 <?php namespace System\Controllers;
 
-use Str;
 use Lang;
-use File;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use System\Models\RequestLog;
-use Exception;
 
 /**
  * Request Logs controller
@@ -69,9 +63,10 @@ class RequestLogs extends Controller
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = RequestLog::find($recordId)) continue;
+                if (!$record = RequestLog::find($recordId)) {
+                    continue;
+                }
                 $record->delete();
             }
 

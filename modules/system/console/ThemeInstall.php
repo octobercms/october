@@ -31,15 +31,6 @@ class ThemeInstall extends Command
     protected $description = 'Install a theme from the October marketplace.';
 
     /**
-     * Create a new command instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      * @return void
      */
@@ -142,14 +133,5 @@ class ThemeInstall extends Command
             ['name', InputArgument::REQUIRED, 'The name of the theme. Eg: AuthorName.ThemeName'],
             ['dirName', InputArgument::OPTIONAL, 'Destination directory name for the theme installation.'],
         ];
-    }
-
-    /**
-     * Get the console command options.
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [];
     }
 }

@@ -12,6 +12,7 @@
  *   url, file, slug, camel.
  * - data-input-preset-prefix-input: optional, prefixes the converted value with the value found
  *   in the supplied input element using a CSS selector.
+ * - data-input-preset-remove-words: optional, use removeList to filter stop words of source string.
  *
  * Example: <input type="text" id="name" value=""/>
  *          <input type="text"
@@ -28,19 +29,19 @@
         'A', 'Ẳ': 'A', 'Ặ': 'A', 'Ấ': 'A', 'Ầ': 'A', 'Ẫ': 'A', 'Ẩ': 'A', 'Ậ': 'A',
         'Đ': 'D', 'É': 'E', 'È': 'E', 'Ẽ': 'E', 'Ẻ': 'E', 'Ẹ': 'E', 'Ế': 'E', 'Ề':
         'E', 'Ễ': 'E', 'Ể': 'E', 'Ệ': 'E', 'Ó': 'O', 'Ò': 'O', 'Ỏ': 'O', 'Õ': 'O',
-        'Ọ': 'O', 'Ố': 'O', 'Ồ': 'O', 'Ổ': 'O', 'Ỗ': 'O', 'Ộ': 'O', 'Ớ': 'O', 'Ờ':
-        'O', 'Ở': 'O', 'Ỡ': 'O', 'Ợ': 'O', 'Í': 'I', 'Ì': 'I', 'Ỉ': 'I', 'Ĩ': 'I',
-        'Ị': 'I', 'Ú': 'U', 'Ù': 'U', 'Ủ': 'U', 'Ũ': 'U', 'Ụ': 'U', 'Ứ': 'U', 'Ừ':
-        'U', 'Ử': 'U', 'Ữ': 'U', 'Ự': 'U', 'Ý': 'Y', 'Ỳ': 'Y', 'Ỷ': 'Y', 'Ỹ': 'Y',
-        'Ỵ': 'Y', 'á': 'a', 'à': 'a', 'ã': 'a', 'ả': 'a', 'ạ': 'a', 'ắ': 'a', 'ằ':
-        'a', 'ẵ': 'a', 'ẳ': 'a', 'ặ': 'a', 'ấ': 'a', 'ầ': 'a', 'ẫ': 'a', 'ẩ': 'a',
-        'ậ': 'a','đ': 'd', 'é': 'e', 'è': 'e', 'ẽ': 'e', 'ẻ': 'e', 'ẹ': 'e', 'ế': 
-        'e', 'ề':'e', 'ễ': 'e', 'ể': 'e', 'ệ': 'e', 'ó': 'o', 'ò': 'o', 'ỏ': 'o',
-        'õ': 'o', 'ọ': 'o', 'ố': 'o', 'ồ': 'o', 'ổ': 'o', 'ỗ': 'o', 'ộ': 'o', 'ớ':
-        'o', 'ờ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o', 'í': 'i', 'ì': 'i', 'ỉ': 'i',
-        'ĩ': 'i', 'ị': 'i', 'ú': 'u', 'ù': 'u', 'ủ': 'u', 'ũ': 'u', 'ụ': 'u', 'ứ':
-        'u', 'ừ': 'u', 'ử': 'u', 'ữ': 'u', 'ự': 'u', 'ý': 'y', 'ỳ': 'y', 'ỷ': 'y', 
-        'ỹ': 'y', 'ỵ': 'y'
+        'Ọ': 'O', 'Ố': 'O', 'Ồ': 'O', 'Ổ': 'O', 'Ỗ': 'O', 'Ộ': 'O', 'Ơ': 'O', 'Ớ':
+        'O', 'Ờ': 'O', 'Ở': 'O', 'Ỡ': 'O', 'Ợ': 'O', 'Í': 'I', 'Ì': 'I', 'Ỉ': 'I',
+        'Ĩ': 'I', 'Ị': 'I', 'Ú': 'U', 'Ù': 'U', 'Ủ': 'U', 'Ũ': 'U', 'Ụ': 'U', 'Ư':
+        'U', 'Ứ': 'U', 'Ừ': 'U', 'Ử': 'U', 'Ữ': 'U', 'Ự': 'U', 'Ý': 'Y', 'Ỳ': 'Y',
+        'Ỷ': 'Y', 'Ỹ': 'Y', 'Ỵ': 'Y', 'á': 'a', 'à': 'a', 'ã': 'a', 'ả': 'a', 'ạ':
+        'a', 'ắ': 'a', 'ằ': 'a', 'ẵ': 'a', 'ẳ': 'a', 'ặ': 'a', 'ấ': 'a', 'ầ': 'a',
+        'ẫ': 'a', 'ẩ': 'a', 'ậ': 'a', 'đ': 'd', 'é': 'e', 'è': 'e', 'ẽ': 'e', 'ẻ': 
+        'e', 'ẹ': 'e', 'ế': 'e', 'ề': 'e', 'ễ': 'e', 'ể': 'e', 'ệ': 'e', 'ó': 'o', 
+        'ò': 'o', 'ỏ': 'o', 'õ': 'o', 'ọ': 'o', 'ố': 'o', 'ồ': 'o', 'ổ': 'o', 'ỗ': 
+        'o', 'ộ': 'o', 'ơ': 'o', 'ớ': 'o', 'ờ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o', 
+        'í': 'i', 'ì': 'i', 'ỉ': 'i', 'ĩ': 'i', 'ị': 'i', 'ú': 'u', 'ù': 'u', 'ủ': 
+        'u', 'ũ': 'u', 'ụ': 'u', 'ư': 'u', 'ứ': 'u', 'ừ': 'u', 'ử': 'u', 'ữ': 'u', 
+        'ự': 'u', 'ý': 'y', 'ỳ': 'y', 'ỷ': 'y', 'ỹ': 'y', 'ỵ': 'y'
     },
     LATIN_MAP = {
         'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE', 'Ç':
@@ -77,12 +78,12 @@
         'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д':'d', 'е':'e', 'ё':'yo', 'ж':'zh',
         'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o',
         'п':'p', 'р':'r', 'с':'s', 'т':'t', 'у':'u', 'ф':'f', 'х':'h', 'ц':'c',
-        'ч':'ch', 'ш':'sh', 'щ':'sh', 'ъ':'', 'ы':'y', 'ь':'', 'э':'e', 'ю':'yu',
+        'ч':'ch', 'ш':'sh', 'щ':'shch', 'ъ':'', 'ы':'y', 'ь':'', 'э':'e', 'ю':'yu',
         'я':'ya',
         'А':'A', 'Б':'B', 'В':'V', 'Г':'G', 'Д':'D', 'Е':'E', 'Ё':'Yo', 'Ж':'Zh',
         'З':'Z', 'И':'I', 'Й':'J', 'К':'K', 'Л':'L', 'М':'M', 'Н':'N', 'О':'O',
         'П':'P', 'Р':'R', 'С':'S', 'Т':'T', 'У':'U', 'Ф':'F', 'Х':'H', 'Ц':'C',
-        'Ч':'Ch', 'Ш':'Sh', 'Щ':'Sh', 'Ъ':'', 'Ы':'Y', 'Ь':'', 'Э':'E', 'Ю':'Yu',
+        'Ч':'Ch', 'Ш':'Sh', 'Щ':'Shch', 'Ъ':'', 'Ы':'Y', 'Ь':'', 'Э':'E', 'Ю':'Yu',
         'Я':'Ya'
     },
     UKRAINIAN_MAP = {
@@ -119,8 +120,8 @@
         'Ž':'Z'
     },
     SERBIAN_MAP = {
-        'ђ':'dj', 'ј':'j', 'љ':'lj', 'њ':'nj', 'ћ':'c', 'џ':'dz', 'đ':'dj',
-        'Ђ':'Dj', 'Ј':'j', 'Љ':'Lj', 'Њ':'Nj', 'Ћ':'C', 'Џ':'Dz', 'Đ':'Dj'
+        'ђ':'dj', 'ј':'j', 'љ':'lj', 'њ':'nj', 'ћ':'c', 'џ':'dz', 'đ':'d',
+        'Ђ':'Dj', 'Ј':'j', 'Љ':'Lj', 'Њ':'Nj', 'Ћ':'C', 'Џ':'Dz', 'Đ':'D'
     },
     AZERBAIJANI_MAP = {
         'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
@@ -129,6 +130,9 @@
     ROMANIAN_MAP = {
         'ă':'a', 'â':'a', 'î':'i', 'ș':'s', 'ț':'t',
         'Ă':'A', 'Â':'A', 'Î':'I', 'Ș':'S', 'Ț':'T'
+    },
+    BELARUSIAN_MAP = {
+        'ў':'w', 'Ў':'W'
     },
     SPECIFIC_MAPS = {
         'de': {
@@ -152,7 +156,8 @@
         LITHUANIAN_MAP,
         SERBIAN_MAP,
         AZERBAIJANI_MAP,
-        ROMANIAN_MAP
+        ROMANIAN_MAP,
+        BELARUSIAN_MAP
     ]
 
     var removeList = [
@@ -190,41 +195,7 @@
         }
     }
 
-    function toCamel(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.toLowerCase()
-        slug = slug.replace(/(\b|-)\w/g, function(m) {
-            return m.toUpperCase();
-        });
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '')
-        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
-        return slug.substring(0, numChars)
-    }
-
-    function slugify(slug, numChars) {
-
-        Downcoder.Initialize()
-        slug = slug.replace(Downcoder.regex, function(m) {
-            return Downcoder.map[m]
-        })
-
-        var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
-        slug = slug.replace(regex, '')
-        slug = slug.replace(/[^-\w\s]/g, '')
-        slug = slug.replace(/^\s+|\s+$/g, '')
-        slug = slug.replace(/[-\s]+/g, '-')
-        slug = slug.toLowerCase()
-        return slug.substring(0, numChars)
-    }
+    
 
     var InputPreset = function (element, options) {
         var $el = this.$el = $(element)
@@ -251,25 +222,26 @@
 
         this.$src = $(options.inputPreset, parent)
 
-        this.$src.on('keyup', function() {
-            if (self.cancelled)
-                return
-
-            $el
-                .val(prefix + self.formatValue())
-                .trigger('oc.inputPreset.afterUpdate')
-        })
-
-        this.$src.on('paste', function() {
-            if (self.cancelled)
-                return
-
-            setTimeout(function() {
-                $el
-                    .val(prefix + self.formatValue())
-                    .trigger('oc.inputPreset.afterUpdate')
-            }, 100)
-        })
+        this.$src.on('input paste', function(event) { 
+            if (self.cancelled) 
+                return 
+ 
+            var timeout = event.type === 'paste' ? 100 : 0 
+            var updateValue = function(self, el, prefix) { 
+                if (el.data('update') === false) {
+                    return
+                }
+                el   
+                    .val(prefix + self.formatValue()) 
+                    .trigger('oc.inputPreset.afterUpdate') 
+            } 
+ 
+            var src = $(this) 
+            setTimeout(function() { 
+                $el.trigger('oc.inputPreset.beforeUpdate', [src]) 
+                setTimeout(updateValue, 100, self, $el, prefix) 
+            }, timeout) 
+        }) 
 
         this.$el.on('change', function() {
             self.cancelled = true
@@ -277,7 +249,7 @@
     }
 
     InputPreset.prototype.formatNamespace = function() {
-        var value = toCamel(this.$src.val())
+        var value = this.toCamel(this.$src.val())
 
         return value.substr(0, 1).toUpperCase() + value.substr(1)
     }
@@ -291,10 +263,10 @@
         }
 
         if (this.options.inputPresetType == 'camel') {
-            var value = toCamel(this.$src.val())
+            var value = this.toCamel(this.$src.val())
         }
         else {
-            var value = slugify(this.$src.val())
+            var value = this.slugify(this.$src.val())
         }
 
         if (this.options.inputPresetType == 'url') {
@@ -304,11 +276,55 @@
         return value.replace(/\s/gi, "-")
     }
 
+    InputPreset.prototype.toCamel = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.toLowerCase()
+        slug = slug.replace(/(\b|-)\w/g, function(m) {
+            return m.toUpperCase();
+        });
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '')
+        slug = slug.substr(0, 1).toLowerCase() + slug.substr(1);
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.slugify = function(slug, numChars) {
+
+        Downcoder.Initialize()
+        slug = slug.replace(Downcoder.regex, function(m) {
+            return Downcoder.map[m]
+        })
+
+        slug = this.removeStopWords(slug);
+        slug = slug.replace(/[^-\w\s]/g, '')
+        slug = slug.replace(/^\s+|\s+$/g, '')
+        slug = slug.replace(/[-\s]+/g, '-')
+        slug = slug.toLowerCase()
+        return slug.substring(0, numChars)
+    }
+
+    InputPreset.prototype.removeStopWords = function(str) {
+        if (this.options.inputPresetRemoveWords) {
+            var regex = new RegExp('\\b(' + removeList.join('|') + ')\\b', 'gi')
+            str = str.replace(regex, '')
+        }
+
+        return str;
+    }
+
     InputPreset.DEFAULTS = {
         inputPreset: '',
         inputPresetType: 'slug',
         inputPresetClosestParent: undefined,
-        inputPresetPrefixInput: undefined
+        inputPresetPrefixInput: undefined,
+        inputPresetRemoveWords: true
     }
 
     // INPUT CONVERTER PLUGIN DEFINITION

@@ -1,7 +1,6 @@
 <?php
 
 use System\Models\MailLayout;
-use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 class DbSystemMailLayoutRename extends Migration
@@ -14,7 +13,8 @@ class DbSystemMailLayoutRename extends Migration
                 $layout->content_text = preg_replace("/({{\s*message\s*[|]raw\s*}})/i", "{{ content|raw }}", $layout->content_text);
                 $layout->forceSave();
             }
-            catch (Exception $ex) {}
+            catch (Exception $ex) {
+            }
         }
     }
 

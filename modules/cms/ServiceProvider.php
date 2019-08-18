@@ -1,7 +1,6 @@
 <?php namespace Cms;
 
 use App;
-use Lang;
 use Event;
 use Backend;
 use BackendMenu;
@@ -10,7 +9,6 @@ use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
-use System\Classes\CombineAssets;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\CmsObject;
@@ -31,6 +29,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerComponents();
         $this->registerThemeLogging();
         $this->registerCombinerEvents();
+        $this->registerHalcyonModels();
 
         /*
          * Backend specific
@@ -242,7 +241,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerBackendWidgets()
     {
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
-            $manager->registerFormWidget('Cms\FormWidgets\Components');
+            $manager->registerFormWidget(FormWidgets\Components::class);
         });
     }
 
@@ -267,7 +266,7 @@ class ServiceProvider extends ModuleServiceProvider
                     'description' => 'cms::lang.maintenance.settings_menu_description',
                     'category'    => SettingsManager::CATEGORY_CMS,
                     'icon'        => 'icon-plug',
-                    'class'       => 'Cms\Models\MaintenanceSetting',
+                    'class'       => Models\MaintenanceSetting::class,
                     'permissions' => ['cms.manage_themes'],
                     'order'       => 300
                 ],
@@ -297,13 +296,13 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         Event::listen('pages.menuitem.getTypeInfo', function ($type) {
-            if ($type == 'cms-page') {
+            if ($type === 'cms-page') {
                 return CmsPage::getMenuTypeInfo($type);
             }
         });
 
         Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme) {
-            if ($type == 'cms-page') {
+            if ($type === 'cms-page') {
                 return CmsPage::resolveMenuItem($item, $url, $theme);
             }
         });
@@ -321,9 +320,25 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         Event::listen('backend.richeditor.getTypeInfo', function ($type) {
-            if ($type == 'cms-page') {
+            if ($type === 'cms-page') {
                 return CmsPage::getRichEditorTypeInfo($type);
             }
+        });
+    }
+
+    /**
+     * Registers the models to be made available to the theme database layer
+     */
+    protected function registerHalcyonModels()
+    {
+        Event::listen('system.console.theme.sync.getAvailableModelClasses', function () {
+            return [
+                Classes\Meta::class,
+                Classes\Page::class,
+                Classes\Layout::class,
+                Classes\Content::class,
+                Classes\Partial::class
+            ];
         });
     }
 }

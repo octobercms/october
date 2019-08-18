@@ -1,5 +1,7 @@
 <div class="field-repeater"
      data-control="fieldrepeater"
+     <?= $titleFrom ? 'data-title-from="'.$titleFrom.'"' : '' ?>
+     <?= $minItems ? 'data-min-items="'.$minItems.'"' : '' ?>
      <?= $maxItems ? 'data-max-items="'.$maxItems.'"' : '' ?>
      data-sortable-container="#<?= $this->getId('items') ?>"
      data-sortable-handle=".<?= $this->getId('items') ?>-handle">
@@ -32,6 +34,8 @@
                 </a>
             <?php endif ?>
         </div>
+
+        <input type="hidden" name="<?= $this->alias; ?>_loaded" value="1">
     <?php endif ?>
 
     <script type="text/template" data-group-palette-template>

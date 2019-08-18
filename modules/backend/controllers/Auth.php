@@ -11,6 +11,7 @@ use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
 use Exception;
+use Config;
 
 /**
  * Authentication controller
@@ -32,6 +33,20 @@ class Auth extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->middleware(function ($request, $response) {
+            // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        })->only('signin');
+
+        // Only run on HTTPS connections
+        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
+            $this->middleware(function ($request, $response) {
+                // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
+                $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+            })->only('signout');
+        }
+
         $this->layout = 'auth';
     }
 
@@ -54,11 +69,9 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->signin_onSubmit();
             }
-            else {
-                $this->bodyClass .= ' preload';
-            }
-        }
-        catch (Exception $ex) {
+
+            $this->bodyClass .= ' preload';
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -75,7 +88,7 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
-        if (is_null($remember = config('cms.backendForceRemember', true))) {
+        if (is_null($remember = Config::get('cms.backendForceRemember', true))) {
             $remember = (bool) post('remember');
         }
 
@@ -85,12 +98,17 @@ class Auth extends Controller
             'password' => post('password')
         ], $remember);
 
-        try {
-            // Load version updates
-            UpdateManager::instance()->update();
+        if (is_null($runMigrationsOnLogin = Config::get('cms.runMigrationsOnLogin', null))) {
+            $runMigrationsOnLogin = Config::get('app.debug', false);
         }
-        catch (Exception $ex) {
-            Flash::error($ex->getMessage());
+
+        if ($runMigrationsOnLogin) {
+            try {
+                // Load version updates
+                UpdateManager::instance()->update();
+            } catch (Exception $ex) {
+                Flash::error($ex->getMessage());
+            }
         }
 
         // Log the sign in event
@@ -105,7 +123,12 @@ class Auth extends Controller
      */
     public function signout()
     {
-        BackendAuth::logout();
+        if (BackendAuth::isImpersonator()) {
+            BackendAuth::stopImpersonate();
+        } else {
+            BackendAuth::logout();
+        }
+
         return Backend::redirect('backend');
     }
 
@@ -118,8 +141,7 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->restore_onSubmit();
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -145,7 +167,7 @@ class Auth extends Controller
         Flash::success(trans('backend::lang.account.restore_success'));
 
         $code = $user->getResetPasswordCode();
-        $link = Backend::url('backend/auth/reset/'.$user->id.'/'.$code);
+        $link = Backend::url('backend/auth/reset/' . $user->id . '/' . $code);
 
         $data = [
             'name' => $user->full_name,
@@ -172,8 +194,7 @@ class Auth extends Controller
             if (!$userId || !$code) {
                 throw new ApplicationException(trans('backend::lang.account.reset_error'));
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
 

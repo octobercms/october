@@ -153,7 +153,7 @@ table.table.data {
             }
         }
 
-        tr.rowlink:hover td, tr:not(.no-data).selected td, {
+        tr.rowlink:hover td, tr:not(.no-data).selected td {
             background: @color-list-hover-bg !important;
             color: @highlight-hover-text;
 
@@ -288,6 +288,21 @@ table.table.data {
     th.list-cell-type-number,
     td.list-cell-type-number {
         text-align: right;
+    }
+
+    th.list-cell-align-left,
+    td.list-cell-align-left {
+        text-align: left;
+    }
+
+    th.list-cell-align-right,
+    td.list-cell-align-right {
+        text-align: right;
+    }
+
+    th.list-cell-align-center,
+    td.list-cell-align-center {
+        text-align: center;
     }
 
     //
@@ -558,6 +573,7 @@ table.table.data {
 //
 
 .list-scrollable-container {
+    touch-action: auto;
     position: relative;
 
     .horizontal-scroll-indicators(@color-list-text-head);

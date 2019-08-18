@@ -2,6 +2,7 @@
 
 use Url;
 use Html;
+use File;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\CombineAssets;
@@ -54,7 +55,6 @@ trait AssetMaker
 
         if ($type == null || $type == 'css') {
             foreach ($this->assets['css'] as $asset) {
-
                 /*
                  * Prevent duplicates
                  */
@@ -112,7 +112,7 @@ trait AssetMaker
     public function addJs($name, $attributes = [])
     {
         if (is_array($name)) {
-            $name = $this->combineAssets($name);
+            $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
 
         $jsPath = $this->getAssetPath($name);
@@ -126,6 +126,13 @@ trait AssetMaker
         }
 
         $jsPath = $this->getAssetScheme($jsPath);
+
+        // Prevent CloudFlare's Rocket Loader from breaking stuff
+        // @see octobercms/october#4092, octobercms/october#3841, octobercms/october#3839
+        if (isset($attributes['cache']) && $attributes['cache'] == 'false') {
+            $attributes['data-cfasync'] = 'false';
+            unset($attributes['cache']);
+        }
 
         if (!in_array($jsPath, $this->assets['js'])) {
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
@@ -142,7 +149,7 @@ trait AssetMaker
     public function addCss($name, $attributes = [])
     {
         if (is_array($name)) {
-            $name = $this->combineAssets($name);
+            $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
 
         $cssPath = $this->getAssetPath($name);
@@ -197,8 +204,8 @@ trait AssetMaker
     public function combineAssets(array $assets, $localPath = '')
     {
         // Short circuit if no assets actually provided
-	    if (empty($assets)) {
-		    return '';
+        if (empty($assets)) {
+            return '';
         }
         $assetPath = !empty($localPath) ? $localPath : $this->assetPath;
         return Url::to(CombineAssets::combine($assets, $assetPath));
@@ -306,10 +313,8 @@ trait AssetMaker
     protected function removeDuplicates()
     {
         foreach ($this->assets as $type => &$collection) {
-
             $pathCache = [];
             foreach ($collection as $key => $asset) {
-
                 if (!$path = array_get($asset, 'path')) {
                     continue;
                 }
@@ -321,7 +326,15 @@ trait AssetMaker
 
                 $pathCache[$path] = true;
             }
-
         }
+    }
+
+    protected function getLocalPath(string $relativePath)
+    {
+        $relativePath = File::symbolizePath($relativePath);
+        if (!starts_with($relativePath, [base_path()])) {
+            $relativePath = base_path($relativePath);
+        }
+        return $relativePath;
     }
 }

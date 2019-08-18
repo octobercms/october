@@ -1,7 +1,6 @@
 <?php namespace Cms\Models;
 
 use File;
-use Lang;
 use Model;
 use Response;
 use ApplicationException;
@@ -54,6 +53,16 @@ class ThemeExport extends Model
             'content'  => true,
         ]
     ];
+
+    /**
+     * Import / Export model classes are helpers and are not to write to the database
+     *
+     * @return void
+     */
+    public function save()
+    {
+        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+    }
 
     public function getFoldersOptions()
     {
@@ -111,7 +120,6 @@ class ThemeExport extends Model
             File::deleteDirectory($tempPath);
         }
         catch (Exception $ex) {
-
             if (strlen($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }

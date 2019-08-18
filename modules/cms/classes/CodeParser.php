@@ -32,7 +32,7 @@ class CodeParser
     /**
      * @var string Key for the parsed PHP file information cache.
      */
-    protected $dataCacheKey = 'cms-php-file-data';
+    protected $dataCacheKey = '';
 
     /**
      * Creates the class instance
@@ -42,6 +42,7 @@ class CodeParser
     {
         $this->object = $object;
         $this->filePath = $object->getFilePath();
+        $this->dataCacheKey = Config::get('cache.codeParserDataCacheKey', 'cms-php-file-data');
     }
 
     /**
@@ -191,7 +192,7 @@ class CodeParser
         $path = array_get($data, 'filePath', $this->getCacheFilePath());
 
         if (is_file($path)) {
-            if ($className = $this->extractClassFromFile($path)) {
+            if (($className = $this->extractClassFromFile($path)) && class_exists($className)) {
                 $data['className'] = $className;
                 return $data;
             }
@@ -268,10 +269,8 @@ class CodeParser
     {
         $cached = $this->getCachedInfo();
 
-        if ($cached !== null) {
-            if (array_key_exists($this->filePath, $cached)) {
-                return $cached[$this->filePath];
-            }
+        if ($cached !== null && array_key_exists($this->filePath, $cached)) {
+            return $cached[$this->filePath];
         }
 
         return null;
@@ -310,7 +309,7 @@ class CodeParser
 
     /**
      * Writes content with concurrency support and cache busting
-     * This work is based on the Twig_Cache_Filesystem class
+     * This work is based on the Twig\Cache\FilesystemCache class
      */
     protected function writeContentSafe($path, $content)
     {
@@ -335,7 +334,7 @@ class CodeParser
          * Compile cached file into bytecode cache
          */
         if (Config::get('cms.forceBytecodeInvalidation', false)) {
-            if (function_exists('opcache_invalidate')) {
+            if (function_exists('opcache_invalidate') && ini_get('opcache.enable')) {
                 opcache_invalidate($path, true);
             }
             elseif (function_exists('apc_compile_file')) {

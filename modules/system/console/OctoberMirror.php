@@ -6,7 +6,6 @@ use StdClass;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Console command to implement a "public" folder.
@@ -35,6 +34,7 @@ class OctoberMirror extends Command
         'index.php',
         'favicon.ico',
         'robots.txt',
+        'humans.txt',
         'sitemap.xml',
     ];
 
@@ -74,14 +74,6 @@ class OctoberMirror extends Command
     protected $destinationPath;
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -101,7 +93,7 @@ class OctoberMirror extends Command
          *
          * Example usage:
          *
-         *     Event::listen('system.console.mirror.extendPaths', function($paths) {
+         *     Event::listen('system.console.mirror.extendPaths', function ($paths) {
          *          $paths->directories = array_merge($paths->directories, ['plugins/myauthor/myplugin/public']);
          *     });
          *

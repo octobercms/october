@@ -82,6 +82,11 @@ class ListColumn
     public $cssClass;
 
     /**
+     * @var string Specify a CSS class to attach to the list header cell element.
+     */
+    public $headCssClass;
+
+    /**
      * @var string Specify a format or style for the column value, such as a Date.
      */
     public $format;
@@ -90,6 +95,11 @@ class ListColumn
      * @var string Specifies a path for partial-type fields.
      */
     public $path;
+
+    /**
+     * @var string Specifies the alignment of this column.
+     */
+    public $align;
 
     /**
      * @var array Raw field configuration.
@@ -133,6 +143,9 @@ class ListColumn
         if (isset($config['cssClass'])) {
             $this->cssClass = $config['cssClass'];
         }
+        if (isset($config['headCssClass'])) {
+            $this->headCssClass = $config['headCssClass'];
+        }
         if (isset($config['searchable'])) {
             $this->searchable = $config['searchable'];
         }
@@ -163,6 +176,9 @@ class ListColumn
         if (isset($config['path'])) {
             $this->path = $config['path'];
         }
+        if (isset($config['align']) && \in_array($config['align'], ['left', 'right', 'center'])) {
+            $this->align = $config['align'];
+        }
 
         return $config;
     }
@@ -192,6 +208,15 @@ class ListColumn
         }
 
         return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * Returns the column specific aligment css class.
+     * @return string
+     */
+    public function getAlignClass()
+    {
+        return $this->align ? 'list-cell-align-' . $this->align : '';
     }
 
     /**
@@ -233,13 +258,12 @@ class ListColumn
             }
             else {
                 if (is_array($result) && array_key_exists($key, $result)) {
-                    return $result[$key];
-                }
-                if (!isset($result->{$key})) {
+                    $result = $result[$key];
+                } elseif (!isset($result->{$key})) {
                     return $default;
+                } else {
+                    $result = $result->{$key};
                 }
-
-                $result = $result->{$key};
             }
         }
 

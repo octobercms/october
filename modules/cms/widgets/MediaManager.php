@@ -16,7 +16,7 @@ class MediaManager extends BackendMediaManager
      */
     public function __construct()
     {
-        traceLog('Widget Cms\Widgets\MediaManager has been deprecated, use Backend\Widgets\MediaManager instead.');
+        traceLog('Widget Cms\Widgets\MediaManager has been deprecated, use ' . BackendMediaManager::class . ' instead.');
 
         $this->assetPath = '/modules/backend/widgets/mediamanager/assets';
         $this->viewPath = base_path('/modules/backend/widgets/mediamanager/partials');

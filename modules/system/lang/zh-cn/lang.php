@@ -24,12 +24,14 @@ return [
             'mail' => '邮件',
             'shop' => '商铺',
             'team' => '团队',
-            'articles' => '用户',
+            'users' => '用户',
             'system' => '系统',
             'social' => '社交',
+            'backend' => '后台',
             'events' => '事件',
             'customers' => '自定义',
-            'my_settings' => '我的设置'
+            'my_settings' => '我的设置',
+            'notifications' => '通知'
         ]
     ],
     'theme' => [
@@ -210,7 +212,7 @@ return [
         'none' => [
             'label' => '没有更新',
             'help' => '没有发现新的更新.'
-    ],
+        ],
         'important_action' => [
             'empty' => '选择操作',
             'confirm' => '确认更新',
@@ -224,8 +226,12 @@ return [
         'details_view_homepage' => '查看主页',
         'details_readme' => '文档',
         'details_readme_missing' => '没有提供文档',
+        'details_changelog' => '更新日志',
+        'details_changelog_missing' => '没有更新日志.',
         'details_upgrades' => '升级指引',
-        'details_upgrades_missing' => '没有提供升级指引。',
+        'details_upgrades_missing' => '没有提供升级指引.',
+        'details_licence' => 'Licence',
+        'details_licence_missing' => '没有Licence.',
         'details_current_version' => '当前版本',
         'details_author' => '作者',
     ],
@@ -259,7 +265,8 @@ return [
         'id_label' => '事件 ID',
         'created_at' => '时间和日期',
         'message' => '消息',
-        'level' => '级别'
+        'level' => '级别',
+        'preview_title' => '事件详情'
     ],
     'request_log' => [
         'hint' => '这个日志显示了需要注意的浏览器请求. 比如如果一个访问者打开一个没有的CMS页面, 一条返回状态404的记录被创建。',
@@ -288,10 +295,32 @@ return [
         'manage_preferences' => '管理后台偏好设置',
         'manage_editor' => '管理代码编辑器偏好设置',
         'view_the_dashboard' => '查看仪表盘',
+        'manage_default_dashboard' => '管理默认的仪表盘面板',
         'manage_branding' => '自定义后台'
     ],
-   'media' => [
+    'log' => [
+        'menu_label' => '日志设置',
+        'menu_description' => '设置需要被记录的日志类别',
+        'default_tab' => '日志',
+        'log_events' => '系统日志',
+        'log_events_comment' => '保存系统日志到数据库和日志文件',
+        'log_requests' => '异常请求日志',
+        'log_requests_comment' => '保存需要注意的浏览器访问日志, 例如404错误等.',
+        'log_theme' => '主题变更日志',
+        'log_theme_comment' => '保存后台对主题文件的修改日志.'
+    ],
+    'media' => [
         'invalid_path' => "不合法的路径: ':path'.",
         'folder_size_items' => '个数',
+    ],
+    'page' => [
+        'custom_error' => [
+            'label' => '页面错误',
+            'help' => "抱歉，页面因为一些错误导致无法显示"
+        ],
+    ],
+    'pagination' => [
+        'previous' => '上一页',
+        'next' => '下一页'
     ],
 ];

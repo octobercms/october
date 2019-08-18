@@ -33,9 +33,14 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $defaultTab = 'backend::lang.form.undefined_tab';
 
     /**
+     * @var array List of icons for their corresponding tabs.
+     */
+    public $icons = [];
+
+    /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
      */
-    public $stretch = null;
+    public $stretch;
 
     /**
      * @var boolean If set to TRUE, fields will not be displayed in tabs.
@@ -82,6 +87,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
             $this->defaultTab = $config['defaultTab'];
         }
 
+        if (array_key_exists('icons', $config)) {
+            $this->icons = $config['icons'];
+        }
+
         if (array_key_exists('stretch', $config)) {
             $this->stretch = $config['stretch'];
         }
@@ -108,7 +117,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public function addField($name, FormField $field, $tab = null)
     {
         if (!$tab) {
-            $tab = trans($this->defaultTab);
+            $tab = $this->defaultTab;
         }
 
         $this->fields[$tab][$name] = $field;
@@ -175,6 +184,18 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     }
 
     /**
+     * Returns an icon for the tab based on the tab's name.
+     * @param string $name
+     * @return string
+     */
+    public function getIcon($name)
+    {
+        if (!empty($this->icons[$name])) {
+            return $this->icons[$name];
+        }
+    }
+
+    /**
      * Returns a tab pane CSS class.
      * @param string $index
      * @param string $label
@@ -182,6 +203,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getPaneCssClass($index = null, $label = null)
     {
+        if (is_string($this->paneCssClass)) {
+            return $this->paneCssClass;
+        }
+
         if ($index !== null && isset($this->paneCssClass[$index])) {
             return $this->paneCssClass[$index];
         }
@@ -197,9 +222,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->suppressTabs
-            ? $this->getAllFields()
-            : $this->getFields()
+        return new ArrayIterator(
+            $this->suppressTabs
+                ? $this->getAllFields()
+                : $this->getFields()
         );
     }
 
@@ -232,6 +258,6 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function offsetGet($offset)
     {
-        return isset($this->fields[$offset]) ? $this->fields[$offset] : null;
+        return $this->fields[$offset] ?? null;
     }
 }

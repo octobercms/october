@@ -34,6 +34,7 @@
         sortableHandle: '.repeater-item-handle',
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
+        minItems: null,
         maxItems: null
     }
 
@@ -83,6 +84,7 @@
     }
 
     Repeater.prototype.clickAddGroupButton = function(ev) {
+        var $self = this;
         var templateHtml = $('> [data-group-palette-template]', this.$el).html(),
             $target = $(ev.target),
             $form = this.$el.closest('form'),
@@ -106,6 +108,7 @@
 
                 $form.one('ajaxComplete', function() {
                     $loadContainer.loadIndicator('hide')
+                    $self.togglePrompt()
                 })
             })
 
@@ -113,6 +116,17 @@
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
+        // Allow any widgets inside a deleted item to be disposed
+        $(ev.target).closest('.field-repeater-item').find('[data-disposable]').each(function () {
+            var $elem = $(this),
+                control = $elem.data('control'),
+                widget = $elem.data('oc.' + control)
+
+            if (widget && typeof widget['dispose'] === 'function') {
+                widget.dispose()
+            }
+        })
+
         $(ev.target).closest('.field-repeater-item').remove()
         this.togglePrompt()
     }
@@ -122,6 +136,13 @@
     }
 
     Repeater.prototype.togglePrompt = function () {
+        if (this.options.minItems && this.options.minItems > 0) {
+            var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
+                $removeItemBtn = this.$el.find('> .field-repeater-items > .field-repeater-item > .repeater-item-remove');
+
+            $removeItemBtn.toggleClass('disabled', !(repeatedItems > this.options.minItems))
+        }
+
         if (this.options.maxItems && this.options.maxItems > 0) {
             var repeatedItems = this.$el.find('> .field-repeater-items > .field-repeater-item').length,
                 $addItemBtn = this.$el.find('> .field-repeater-add-item')
@@ -181,7 +202,7 @@
         }
 
         if (this.options.titleFrom) {
-            $target = $('[data-field-name="'+this.options.titleFrom+'"]')
+            $target = $('[data-field-name="'+this.options.titleFrom+'"]', $item)
             if (!$target.length) {
                 $target = $item
             }
@@ -190,9 +211,14 @@
             $target = $item
         }
 
-        var $textInput = $('input[type=text]:first', $target)
+        var $textInput = $('input[type=text]:first, select:first', $target).first();
         if ($textInput.length) {
-            return $textInput.val()
+            switch($textInput.prop("tagName")) {
+                case 'SELECT':
+                    return $textInput.find('option:selected').text();
+                default:
+                    return $textInput.val();
+            }
         } else {
             var $disabledTextInput = $('.text-field:first > .form-control', $target)
             if ($disabledTextInput.length) {
