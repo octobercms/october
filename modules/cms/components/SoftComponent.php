@@ -12,13 +12,12 @@ class SoftComponent extends ComponentBase
     /**
      * @inheritDoc
      */
-    public function __construct($cmsObject, $properties, $message)
+    public function __construct($properties)
     {
-        $this->message = $message;
         $this->componentCssClass = 'warning-component';
         $this->inspectorEnabled = false;
 
-        parent::__construct($cmsObject, $properties);
+        parent::__construct(null, $properties);
     }
 
     /**
@@ -28,7 +27,7 @@ class SoftComponent extends ComponentBase
     {
         return [
             'name'        => 'Soft component',
-            'description' => $this->message
+            'description' => 'This component is missing but optional.'
         ];
     }
 }
