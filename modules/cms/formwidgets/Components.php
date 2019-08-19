@@ -40,34 +40,34 @@ class Components extends FormWidgetBase
         foreach ($this->model->settings['components'] as $name => $properties) {
             list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
 
-            if ($name[0] === '@') {
-                $componentObj = new SoftComponent($properties);
+            try {
+                $componentObj = $manager->makeComponent($name, null, $properties);
+
                 $componentObj->alias = $alias;
-                $componentObj->pluginIcon = 'icon-flag';
-            } else {
-                try {
-                    $componentObj = $manager->makeComponent($name, null, $properties);
-    
-                    $componentObj->alias = $alias;
-                    $componentObj->pluginIcon = 'icon-puzzle-piece';
-    
-                    /*
-                     * Look up the plugin hosting this component
-                     */
-                    $plugin = $manager->findComponentPlugin($componentObj);
-                    if ($plugin) {
-                        $pluginDetails = $plugin->pluginDetails();
-                        if (isset($pluginDetails['icon'])) {
-                            $componentObj->pluginIcon = $pluginDetails['icon'];
-                        }
+                $componentObj->pluginIcon = 'icon-puzzle-piece';
+
+                /*
+                 * Look up the plugin hosting this component
+                 */
+                $plugin = $manager->findComponentPlugin($componentObj);
+                if ($plugin) {
+                    $pluginDetails = $plugin->pluginDetails();
+                    if (isset($pluginDetails['icon'])) {
+                        $componentObj->pluginIcon = $pluginDetails['icon'];
                     }
                 }
-                catch (Exception $ex) {
+            }
+            catch (Exception $ex) {
+                if ($name[0] === '@') {
+                    $componentObj = new SoftComponent($properties);
+                    $componentObj->alias = $alias;
+                    $componentObj->pluginIcon = 'icon-flag';
+                } else {
                     $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
                     $componentObj->alias = $alias;
                     $componentObj->pluginIcon = 'icon-bug';
                 }
-            };
+            }
 
             $result[] = $componentObj;
         }
