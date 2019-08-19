@@ -48,7 +48,7 @@ return [
     'settings' => [
         'menu_label' => 'الإعدادات',
     ],
-	'pagination' => [
+    'pagination' => [
         'previous' => 'السابق',
         'next' => 'التالي',
     ],
