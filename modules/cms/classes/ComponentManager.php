@@ -193,13 +193,23 @@ class ComponentManager
      * @param array $properties The properties set by the Page or Layout.
      * @return ComponentBase The component object.
      */
-    public function makeComponent($name, $cmsObject = null, $properties = [], $isSoftComponent = false)
+    public function makeComponent($name, $cmsObject = null, $properties = [])
     {
-        $className = $this->resolve($name);
+        $isSoftComponent = $name[0] === '@';
+
+        $className = $this->resolve(ltrim($name, '@'));
+
         if (!$className && !$isSoftComponent) {
             throw new SystemException(sprintf(
                 'Class name is not registered for the component "%s". Check the component plugin.',
                 $name
+            ));
+        }
+
+        if (!$className && $isSoftComponent) {
+            throw new SystemException(sprintf(
+                'The component "%s" is missing but optional.',
+                ltrim($name, '@')
             ));
         }
 

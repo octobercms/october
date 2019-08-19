@@ -3,6 +3,7 @@
 use Backend\Classes\FormWidgetBase;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentHelpers;
+use Cms\Components\SoftComponent;
 use Cms\Components\UnknownComponent;
 use Exception;
 
@@ -57,9 +58,15 @@ class Components extends FormWidgetBase
                 }
             }
             catch (Exception $ex) {
-                $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
-                $componentObj->alias = $alias;
-                $componentObj->pluginIcon = 'icon-bug';
+                if ($name[0] === '@') {
+                    $componentObj = new SoftComponent(null, $properties, $ex->getMessage());
+                    $componentObj->alias = $alias;
+                    $componentObj->pluginIcon = 'icon-flag';
+                } else {
+                    $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
+                    $componentObj->alias = $alias;
+                    $componentObj->pluginIcon = 'icon-bug';
+                }
             }
 
             $result[] = $componentObj;
