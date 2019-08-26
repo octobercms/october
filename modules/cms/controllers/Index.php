@@ -171,7 +171,7 @@ class Index extends Controller
         $templateData = [];
 
         $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
-        $settings = $this->upgradeSettings($settings);
+        $settings = $this->upgradeSettings($settings, $template->settings);
 
         if ($settings) {
             $templateData['settings'] = $settings;
@@ -671,7 +671,7 @@ class Index extends Controller
      * @param array $settings
      * @return array
      */
-    protected function upgradeSettings($settings)
+    protected function upgradeSettings($settings, $oldSettings)
     {
         /*
          * Handle component usage
@@ -694,7 +694,9 @@ class Index extends Controller
                 $componentName = $componentNames[$index];
                 $componentAlias = $componentAliases[$index];
 
-                if ($componentAlias[0] === '@') {
+                $isSoftComponent = $componentAlias[0] === '@';
+
+                if ($isSoftComponent) {
                     $section = $componentAlias;
                 } elseif ($componentAlias != $componentName) {
                     $section = $componentName.' '.$componentAlias;
@@ -702,7 +704,15 @@ class Index extends Controller
 
                 $properties = json_decode($componentProperties[$index], true);
                 unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
-                $settings[$section] = $properties;
+
+                if (! $properties) {
+                    $oldComponentSettings = array_key_exists($section, $oldSettings['components']) ? $oldSettings['components'][$section] : null;
+                    if ($isSoftComponent && $oldComponentSettings) {
+                        $settings[$section] = $oldComponentSettings;
+                    }
+                } else {
+                    $settings[$section] = $properties;
+                }
             }
         }
 
