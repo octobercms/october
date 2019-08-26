@@ -35,18 +35,6 @@ class ErrorHandler extends ErrorHandlerBase
     // }
 
     /**
-     * We are about to display an error page to the user,
-     * if it is an ApplicationException, this event should be logged.
-     * @return void
-     */
-    public function beforeHandleError($exception)
-    {
-        if ($exception instanceof ApplicationException) {
-            Log::error($exception);
-        }
-    }
-
-    /**
      * Looks up an error page using the CMS route "/error". If the route does not
      * exist, this function will use the error view found in the Cms module.
      * @return mixed Error page contents.
