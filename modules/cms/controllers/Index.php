@@ -694,9 +694,10 @@ class Index extends Controller
                 $componentName = $componentNames[$index];
                 $componentAlias = $componentAliases[$index];
 
-                $section = $componentName;
-                if ($componentAlias != $componentName) {
-                    $section .= ' '.$componentAlias;
+                if ($componentAlias[0] === '@') {
+                    $section = $componentAlias;
+                } elseif ($componentAlias != $componentName) {
+                    $section = $componentName.' '.$componentAlias;
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
