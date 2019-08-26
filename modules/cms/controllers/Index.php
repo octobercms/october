@@ -536,7 +536,7 @@ class Index extends Controller
     }
 
     /**
-     * Reolves a template type to its class name
+     * Resolves a template type to its class name
      * @param string $type
      * @return string
      */
