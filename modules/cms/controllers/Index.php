@@ -709,6 +709,8 @@ class Index extends Controller
                     $oldComponentSettings = array_key_exists($section, $oldSettings['components']) ? $oldSettings['components'][$section] : null;
                     if ($isSoftComponent && $oldComponentSettings) {
                         $settings[$section] = $oldComponentSettings;
+                    } else {
+                        $settings[$section] = $properties;
                     }
                 } else {
                     $settings[$section] = $properties;
