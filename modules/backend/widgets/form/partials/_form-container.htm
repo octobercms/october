@@ -92,27 +92,36 @@ $(function() {
         <?php foreach($formFieldArray as $formFields) { ?>
 
         // Parent widths
-        var parentThird = $(".form-group.span-third#<?= e($formFields) ?>").parent().width(),
-            parentTwoThirds = $(".form-group.span-two-thirds#<?= e($formFields) ?>").parent().width(),
-            parentQuarter = $(".form-group.span-quarter#<?= e($formFields) ?>").parent().width(),
-            parentThreeQuarters = $(".form-group.span-three-quarters#<?= e($formFields) ?>").parent().width(),
-            parentRight = $(".form-group.span-right#<?= e($formFields) ?>").parent().width(),
-            parentLeft = $(".form-group.span-left#<?= e($formFields) ?>").parent().width();
+        var parentThird = $('.form-group.span-third#<?= e($formFields) ?>').parent().width(),
+            parentTwoThirds = $('.form-group.span-two-thirds#<?= e($formFields) ?>').parent().width(),
+            parentQuarter = $('.form-group.span-quarter#<?= e($formFields) ?>').parent().width(),
+            parentThreeQuarters = $('.form-group.span-three-quarters#<?= e($formFields) ?>').parent().width(),
+            parentRight = $('.form-group.span-right#<?= e($formFields) ?>').parent().width(),
+            parentLeft = $('.form-group.span-left#<?= e($formFields) ?>').parent().width();
 
         // Field left positions
-        var thirdPosLeft = $(".form-group.span-third#<?= e($formFields) ?>").position(),
-            twothirdsPosLeft = $(".form-group.span-two-thirds#<?= e($formFields) ?>").position(),
-            quarterPosLeft = $(".form-group.span-quarter#<?= e($formFields) ?>").position(),
-            threequartersPosLeft = $(".form-group.span-three-quarters#<?= e($formFields) ?>").position(),
-            rightPosLeft = $(".form-group.span-right#<?= e($formFields) ?>").position(),
-            leftPosLeft = $(".form-group.span-left#<?= e($formFields) ?>").position();
+        var thirdPosLeft = $('.form-group.span-third#<?= e($formFields) ?>').position(),
+            twothirdsPosLeft = $('.form-group.span-two-thirds#<?= e($formFields) ?>').position(),
+            quarterPosLeft = $('.form-group.span-quarter#<?= e($formFields) ?>').position(),
+            threequartersPosLeft = $('.form-group.span-three-quarters#<?= e($formFields) ?>').position(),
+            rightPosLeft = $('.form-group.span-right#<?= e($formFields) ?>').position(),
+            leftPosLeft = $('.form-group.span-left#<?= e($formFields) ?>').position();
 
         // Field widths
-        var thirdWidth = $(".form-group.span-third#<?= e($formFields) ?>").outerWidth(),
-            quarterWidth = $(".form-group.span-quarter#<?= e($formFields) ?>").outerWidth();
+        var thirdWidth = $('.form-group.span-third#<?= e($formFields) ?>').outerWidth(),
+            quarterWidth = $('.form-group.span-quarter#<?= e($formFields) ?>').outerWidth();
+
+        // Process line break fields
+        if ($('.form-group#<?= e($formFields) ?>').hasClass('line-break')) {
+            // Check to see if the injected HTML exists or not
+            if (!$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                // Inject HTML in front of the field
+                $('<div class="line-break-field"></div>').insertBefore('.form-group#<?= e($formFields) ?>');
+            }
+        }
 
         // Process third fields
-        if (typeof parentThird !== "undefined" && typeof thirdPosLeft !== "undefined") {
+        if (typeof parentThird !== 'undefined' && typeof thirdPosLeft !== 'undefined') {
             // Calculate right position for third
             var thirdPosRight = Number(thirdPosLeft.left) + Number(thirdWidth);
             // Calculate percentage positions for third
@@ -120,16 +129,16 @@ $(function() {
                 percentThirdRight = (100 / parentThird) * thirdPosRight;
             // Add left offset class
             if (percentThirdLeft < 20) {
-                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-left");
-            } else if (percentThirdRight > 80) {
-                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-right");
-            } else {
-                $(".form-group.span-third#<?= e($formFields) ?>").addClass("span-position-middle");
+                $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-left');
+            } else if (percentThirdRight > 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-right');
+            } else if (percentThirdLeft >= 20 && percentThirdRight <= 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-middle');
             }
         }
 
         // Process quarter fields
-        if (typeof parentQuarter !== "undefined" && typeof quarterPosLeft !== "undefined") {
+        if (typeof parentQuarter !== 'undefined' && typeof quarterPosLeft !== 'undefined') {
             // Calculate quarter right position
             var quarterPosRight = Number(quarterPosLeft.left) + Number(quarterWidth);
             // Calculate percentage positions for quarter
@@ -137,61 +146,60 @@ $(function() {
                 percentQuarterRight = (100 / parentQuarter) * quarterPosRight;
             // Add left offset class
             if (percentQuarterLeft < 20) {
-                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-left");
-            } else if (percentQuarterRight > 80) {
-                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-right");
-            } else {
-                $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-middle");
+                $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-left');
+            } else if (percentQuarterRight > 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-right');
+            } else if (percentQuarterLeft >= 20 && percentQuarterRight <= 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-middle');
             }
         }
 
         // Process two-thirds fields
-        if (typeof parentTwoThirds !== "undefined" && typeof twothirdsPosLeft !== "undefined") {
+        if (typeof parentTwoThirds !== 'undefined' && typeof twothirdsPosLeft !== 'undefined') {
             // Calculate percentage positions for two-thirds
             var percentTwoThirdsLeft = (100 / parentTwoThirds) * twothirdsPosLeft.left;
             // Add left offset class.
-            // Maths: 32% is the third field in October (which includes it's subtracted offset value).
-            // A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
+            // Maths: 32% is a third. A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
             if (percentTwoThirdsLeft < 28) {
-                $(".form-group.span-two-thirds#<?= e($formFields) ?>").addClass("span-position-left");
-            } else {
-                $(".form-group.span-two-thirds#<?= e($formFields) ?>").addClass("span-position-right");
+                $('.form-group.span-two-thirds#<?= e($formFields) ?>').addClass('span-position-left');
+            } else if (percentTwoThirdsLeft >= 28 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-two-thirds#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
 
         // Process three-quarters fields
-        if (typeof parentThreeQuarters !== "undefined" && typeof threequartersPosLeft !== "undefined") {
+        if (typeof parentThreeQuarters !== 'undefined' && typeof threequartersPosLeft !== 'undefined') {
             // Calculate percentage positions for three-quarters
             var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
             // Add left offset class
             if (percentThreeQuartersLeft < 20) {
-                $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-left");
-            } else {
-                $(".form-group.span-three-quarters#<?= e($formFields) ?>").addClass("span-position-right");
+                $('.form-group.span-three-quarters#<?= e($formFields) ?>').addClass('span-position-left');
+            } else if (percentThreeQuartersLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-three-quarters#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
 
         // Process right fields
-        if (typeof parentRight !== "undefined" && typeof rightPosLeft !== "undefined") {
+        if (typeof parentRight !== 'undefined' && typeof rightPosLeft !== 'undefined') {
             // Calculate percentage positions for right
             var percentRightLeft = (100 / parentRight) * rightPosLeft.left;
             // Add left offset class
             if (percentRightLeft < 20) {
-                $(".form-group.span-right#<?= e($formFields) ?>").addClass("span-position-far-right");
-            } else {
-                $(".form-group.span-right#<?= e($formFields) ?>").addClass("span-position-right");
+                $('.form-group.span-right#<?= e($formFields) ?>').addClass('span-position-far-right');
+            } else if (percentRightLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-right#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
 
         // Process left and auto fields
-        if (typeof parentLeft !== "undefined" && typeof leftPosLeft !== "undefined") {
+        if (typeof parentLeft !== 'undefined' && typeof leftPosLeft !== 'undefined') {
             // Calculate percentage positions for right
             var percentLeft = (100 / parentLeft) * leftPosLeft.left;
             // Add left offset class
             if (percentLeft < 20) {
-                $(".form-group.span-left#<?= e($formFields) ?>").addClass("span-position-left");
-            } else {
-                $(".form-group.span-left#<?= e($formFields) ?>").addClass("span-position-right");
+                $('.form-group.span-left#<?= e($formFields) ?>').addClass('span-position-left');
+            } else if (percentLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                $('.form-group.span-left#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
 
@@ -205,16 +213,16 @@ $(function() {
     /*
      * Stretch for partial fields
      */
-    var $textareaHeight = $(".form-group.partial-field .stretch").parent().outerHeight(),
-        $textareaParentHeight = $(".form-group.partial-field .stretch").closest('.partial-field').parent().height(),
-        $textareaParentContainer = $(".form-group.partial-field .stretch").closest('.stretch-parent').height();
+    var $textareaHeight = $('.form-group.partial-field .stretch').parent().outerHeight(),
+        $textareaParentHeight = $('.form-group.partial-field .stretch').closest('.partial-field').parent().height(),
+        $textareaParentContainer = $('.form-group.partial-field .stretch').closest('.stretch-parent').height();
 
     // Only run if not empty
     if(($textareaParentContainer || $textareaParentContainer === 0)  &&  ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
         $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
     }
-    if (typeof $stretchHeight !== "undefined") {
-        $(".form-group.partial-field .stretch").css("height", $stretchHeight + 'px');
+    if (typeof $stretchHeight !== 'undefined') {
+        $('.form-group.partial-field .stretch').css('height', $stretchHeight + 'px');
     }
 
 });
