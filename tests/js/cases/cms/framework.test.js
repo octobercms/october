@@ -9,11 +9,12 @@ describe('framework.js', function () {
             xhr,
             requests = []
 
-        this.timeout(3000)
+        this.timeout(1000)
 
         beforeEach(() => {
             // Load framework.js in the fake DOM
             dom = fakeDom(
+                '<div id="partialId" class="partialClass">Initial content</div>' +
                 '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
                 '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>',
                 {
@@ -24,6 +25,13 @@ describe('framework.js', function () {
                             requests.push(request)
                         }
                         window.XMLHttpRequest = xhr
+
+                        // Allow window.location.assign() to be stubbed
+                        delete window.location
+                        window.location = {
+                            href: 'https://october.example.org/',
+                            assign: sinon.stub()
+                        }
                     }
                 }
             )
@@ -53,10 +61,14 @@ describe('framework.js', function () {
                     }
                 })
 
-                assert(
-                    requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
-                    'Incorrect October request handler'
-                )
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
 
                 // Mock a successful response from the server
                 requests[1].respond(
@@ -71,7 +83,7 @@ describe('framework.js', function () {
             }
         })
 
-        it('can make a unsuccessful AJAX request', function (done) {
+        it('can make an unsuccessful AJAX request', function (done) {
             window.frameworkScript.onload = () => {
                 window.$.request('test::onTest', {
                     success: function () {
@@ -82,10 +94,14 @@ describe('framework.js', function () {
                     }
                 })
 
-                assert(
-                    requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
-                    'Incorrect October request handler'
-                )
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
 
                 // Mock a 404 Not Found response from the server
                 requests[1].respond(
@@ -97,21 +113,156 @@ describe('framework.js', function () {
                 )
             }
         })
+
+        it('can update a partial via an ID selector', function (done) {
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    complete: function () {
+                        let partialContent = dom.window.document.getElementById('partialId').textContent
+                        try {
+                            assert(
+                                partialContent === 'Content passed through AJAX',
+                                'Partial content incorrect - ' +
+                                'expected "Content passed through AJAX", ' +
+                                'found "' + partialContent + '"'
+                            )
+                            done()
+                        } catch (e) {
+                            done(e)
+                        }
+                    }
+                });
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        '#partialId': 'Content passed through AJAX'
+                    })
+                )
+            }
+        })
+
+        it('can update a partial via a class selector', function (done) {
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    complete: function () {
+                        let partialContent = dom.window.document.getElementById('partialId').textContent
+                        try {
+                            assert(
+                                partialContent === 'Content passed through AJAX',
+                                'Partial content incorrect - ' +
+                                'expected "Content passed through AJAX", ' +
+                                'found "' + partialContent + '"'
+                            )
+                            done()
+                        } catch (e) {
+                            done(e)
+                        }
+                    }
+                });
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        '.partialClass': 'Content passed through AJAX'
+                    })
+                )
+            }
+        })
+
+        it('can redirect after a successful AJAX request', function (done) {
+            // Detect a redirect
+            window.location.assign.callsFake((url) => {
+                try {
+                    assert(
+                        url === '/test/success',
+                        'Non-matching redirect URL'
+                    )
+                    done()
+                } catch (e) {
+                    done(e)
+                }
+            })
+
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    redirect: '/test/success',
+                });
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
+            }
+        })
     })
 
     describe('ajaxRequests through HTML attributes', function () {
         let dom,
             window,
             xhr,
-            alertPromise,
             requests = []
 
-        this.timeout(3000)
+        this.timeout(1000)
 
         beforeEach(() => {
             // Load framework.js in the fake DOM
             dom = fakeDom(
-                '<a href="javascript:;" data-request="test::onTest"></a>' +
+                '<a ' +
+                    'id="standard" ' +
+                    'href="javascript:;" ' +
+                    'data-request="test::onTest" ' +
+                    'data-request-success="test(\'success\')" ' +
+                    'data-request-error="test(\'failure\')" ' +
+                '></a>' +
+                '<a ' +
+                    'id="redirect" ' +
+                    'href="javascript:;" ' +
+                    'data-request="test::onTest" ' +
+                    'data-request-redirect="/test/success" ' +
+                '></a>' +
+                '<div id="partialId" class="partialClass">Initial content</div>' +
                 '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
                 '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>',
                 {
@@ -123,14 +274,18 @@ describe('framework.js', function () {
                         }
                         window.XMLHttpRequest = xhr
 
-                        // Mock alert
-                        alertPromise = new Promise(function (resolve) {
-                            sinon.stub(window, 'alert').callsFake((text) => {
-                                console.log('Hi')
-                                resolve(text)
-                            })
-                        })
+                        // Add a stub for the request handlers
+                        window.test = sinon.stub()
 
+                        // Stub out window.alert
+                        window.alert = sinon.stub()
+
+                        // Allow window.location.assign() to be stubbed
+                        delete window.location
+                        window.location = {
+                            href: 'https://october.example.org/',
+                            assign: sinon.stub()
+                        }
                     }
                 }
             )
@@ -150,14 +305,22 @@ describe('framework.js', function () {
         })
 
         it('can make a successful AJAX request', function (done) {
-            console.log(alertPromise)
-
-            alertPromise.then((text) => {
-                console.log(text)
-            })
-
             window.frameworkScript.onload = () => {
-                window.$('a').click()
+                window.test.callsFake((response) => {
+                    assert(response === 'success', 'Response handler was not "success"')
+                    done()
+                })
+
+                window.$('a#standard').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
 
                 // Mock a successful response from the server
                 requests[1].respond(
@@ -172,9 +335,23 @@ describe('framework.js', function () {
             }
         })
 
-        it('can make a unsuccessful AJAX request', function (done) {
+        it('can make an unsuccessful AJAX request', function (done) {
             window.frameworkScript.onload = () => {
-                window.$('a').click()
+                window.test.callsFake((response) => {
+                    assert(response === 'failure', 'Response handler was not "failure"')
+                    done()
+                })
+
+                window.$('a#standard').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
 
                 // Mock a 404 Not Found response from the server
                 requests[1].respond(
@@ -183,6 +360,128 @@ describe('framework.js', function () {
                         'Content-Type': 'text/html'
                     },
                     ''
+                )
+            }
+        })
+
+
+        it('can update a partial via an ID selector', function (done) {
+            window.frameworkScript.onload = () => {
+                window.test.callsFake(() => {
+                    let partialContent = dom.window.document.getElementById('partialId').textContent
+                    try {
+                        assert(
+                            partialContent === 'Content passed through AJAX',
+                            'Partial content incorrect - ' +
+                            'expected "Content passed through AJAX", ' +
+                            'found "' + partialContent + '"'
+                        )
+                        done()
+                    } catch (e) {
+                        done(e)
+                    }
+                })
+
+                window.$('a#standard').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        '#partialId': 'Content passed through AJAX'
+                    })
+                )
+            }
+        })
+
+        it('can update a partial via a class selector', function (done) {
+            window.frameworkScript.onload = () => {
+                window.test.callsFake(() => {
+                    let partialContent = dom.window.document.getElementById('partialId').textContent
+                    try {
+                        assert(
+                            partialContent === 'Content passed through AJAX',
+                            'Partial content incorrect - ' +
+                            'expected "Content passed through AJAX", ' +
+                            'found "' + partialContent + '"'
+                        )
+                        done()
+                    } catch (e) {
+                        done(e)
+                    }
+                })
+
+                window.$('a#standard').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        '.partialClass': 'Content passed through AJAX'
+                    })
+                )
+            }
+        })
+
+        it('can redirect after a successful AJAX request', function (done) {
+            // Detect a redirect
+            window.location.assign.callsFake((url) => {
+                try {
+                    assert(
+                        url === '/test/success',
+                        'Non-matching redirect URL'
+                    )
+                    done()
+                } catch (e) {
+                    done(e)
+                }
+            })
+
+            window.frameworkScript.onload = () => {
+                window.$('a#redirect').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'succesful': true
+                    })
                 )
             }
         })
