@@ -15,17 +15,21 @@ describe('framework.js', function () {
             // Load framework.js in the fake DOM
             dom = fakeDom(
                 '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
-                '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>'
+                '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>',
+                {
+                    beforeParse: (window) => {
+                        // Mock XHR for tests below
+                        xhr = sinon.useFakeXMLHttpRequest()
+                        xhr.onCreate = (request) => {
+                            requests.push(request)
+                        }
+                        window.XMLHttpRequest = xhr
+                    }
+                }
             )
             window = dom.window
 
-            // Mock XHR for tests below
-            xhr = sinon.useFakeXMLHttpRequest()
-            xhr.onCreate = (request) => {
-                requests.push(request)
-            }
-            window.XMLHttpRequest = xhr
-
+            // Enable CORS on jQuery
             window.jqueryScript.onload = () => {
                 window.jQuery.support.cors = true
             }
@@ -95,75 +99,92 @@ describe('framework.js', function () {
         })
     })
 
-    // describe('ajaxRequests through HTML attributes', function () {
-    //     let dom,
-    //         window,
-    //         xhr,
-    //         alertStub,
-    //         requests = []
+    describe('ajaxRequests through HTML attributes', function () {
+        let dom,
+            window,
+            xhr,
+            alertPromise,
+            requests = []
 
-    //     this.timeout(3000)
+        this.timeout(3000)
 
-    //     beforeEach(() => {
-    //         // Load framework.js in the fake DOM
-    //         dom = fakeDom(
-    //             '<a href="javascript:;" data-request="test::onTest"></a>' +
-    //             '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
-    //             '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>'
-    //         )
-    //         window = dom.window
+        beforeEach(() => {
+            // Load framework.js in the fake DOM
+            dom = fakeDom(
+                '<a href="javascript:;" data-request="test::onTest"></a>' +
+                '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
+                '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>',
+                {
+                    beforeParse: (window) => {
+                        // Mock XHR for tests below
+                        xhr = sinon.useFakeXMLHttpRequest()
+                        xhr.onCreate = (request) => {
+                            requests.push(request)
+                        }
+                        window.XMLHttpRequest = xhr
 
-    //         // Mock XHR for tests below
-    //         xhr = sinon.useFakeXMLHttpRequest()
-    //         xhr.onCreate = (request) => {
-    //             requests.push(request)
-    //         }
-    //         window.XMLHttpRequest = xhr
+                        // Mock alert
+                        alertPromise = new Promise(function (resolve) {
+                            sinon.stub(window, 'alert').callsFake((text) => {
+                                console.log('Hi')
+                                resolve(text)
+                            })
+                        })
 
-    //         window.jqueryScript.onload = () => {
-    //             window.jQuery.support.cors = true
-    //         }
-    //     })
+                    }
+                }
+            )
+            window = dom.window
 
-    //     afterEach(() => {
-    //         // Close window and restore XHR functionality to default
-    //         window.XMLHttpRequest = sinon.xhr.XMLHttpRequest
-    //         window.close()
-    //         requests = []
-    //     })
+            // Enable CORS on jQuery
+            window.jqueryScript.onload = () => {
+                window.jQuery.support.cors = true
+            }
+        })
 
-    //     it('can make a successful AJAX request', function (done) {
-    //         window.frameworkScript.onload = () => {
-    //             window.$('a').click()
+        afterEach(() => {
+            // Close window and restore XHR functionality to default
+            window.XMLHttpRequest = sinon.xhr.XMLHttpRequest
+            window.close()
+            requests = []
+        })
 
-    //             console.log(requests)
+        it('can make a successful AJAX request', function (done) {
+            console.log(alertPromise)
 
-    //             // Mock a successful response from the server
-    //             requests[1].respond(
-    //                 200,
-    //                 {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 JSON.stringify({
-    //                     'successful': true
-    //                 })
-    //             )
-    //         }
-    //     })
+            alertPromise.then((text) => {
+                console.log(text)
+            })
 
-    //     it('can make a unsuccessful AJAX request', function (done) {
-    //         window.frameworkScript.onload = () => {
-    //             window.$('a').click()
+            window.frameworkScript.onload = () => {
+                window.$('a').click()
 
-    //             // Mock a 404 Not Found response from the server
-    //             requests[1].respond(
-    //                 404,
-    //                 {
-    //                     'Content-Type': 'text/html'
-    //                 },
-    //                 ''
-    //             )
-    //         }
-    //     })
-    // })
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
+            }
+        })
+
+        it('can make a unsuccessful AJAX request', function (done) {
+            window.frameworkScript.onload = () => {
+                window.$('a').click()
+
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    404,
+                    {
+                        'Content-Type': 'text/html'
+                    },
+                    ''
+                )
+            }
+        })
+    })
 })

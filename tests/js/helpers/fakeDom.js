@@ -7,7 +7,8 @@ const defaults = {
     head: '<!DOCTYPE html><html><head><title>Fake document</title></head>',
     bodyStart: '<body>',
     bodyEnd: '</body>',
-    foot: '</html>'
+    foot: '</html>',
+    beforeParse: null
 }
 
 const fakeDom = (content, options) => {
@@ -26,7 +27,10 @@ const fakeDom = (content, options) => {
             includeNodeLocations: true,
             runScripts: 'dangerously',
             resources: 'usable',
-            pretendToBeVisual: true
+            pretendToBeVisual: true,
+            beforeParse: (typeof settings.beforeParse === 'function')
+                ? settings.beforeParse
+                : undefined
         }
     )
 
