@@ -2,7 +2,7 @@ import { assert } from 'chai'
 import fakeDom from 'helpers/fakeDom'
 import sinon from 'sinon'
 
-describe('framework.js', function () {
+describe('modules/system/assets/js/framework.js', function () {
     describe('ajaxRequests through JS', function () {
         let dom,
             window,
