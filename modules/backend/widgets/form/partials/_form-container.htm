@@ -117,6 +117,8 @@ $(function() {
             if (!$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
                 // Inject HTML in front of the field
                 $('<div class="line-break-field"></div>').insertBefore('.form-group#<?= e($formFields) ?>');
+                // Add the offset to the right side of the field
+                $('.form-group#<?= e($formFields) ?>').addClass('span-position-left');
             }
         }
 
