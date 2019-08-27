@@ -2,11 +2,14 @@ import { assert } from 'chai'
 import fakeDom from 'helpers/fakeDom'
 import sinon from 'sinon'
 
-describe('framework.js', () => {
-    describe('ajaxRequests through JS', () => {
+describe('framework.js', function () {
+    describe('ajaxRequests through JS', function () {
         let dom,
             window,
-            xhr
+            xhr,
+            requests = []
+
+        this.timeout(3000)
 
         beforeEach(() => {
             // Load framework.js in the fake DOM
@@ -18,32 +21,26 @@ describe('framework.js', () => {
 
             // Mock XHR for tests below
             xhr = sinon.useFakeXMLHttpRequest()
-            console.log(window.XMLHttpRequest)
+            xhr.onCreate = (request) => {
+                requests.push(request)
+            }
+            window.XMLHttpRequest = xhr
+
+            window.jqueryScript.onload = () => {
+                window.jQuery.support.cors = true
+            }
         })
 
         afterEach(() => {
             // Close window and restore XHR functionality to default
             window.XMLHttpRequest = sinon.xhr.XMLHttpRequest
             window.close()
-            xhr.restore()
+            requests = []
         })
 
         it('can make a successful AJAX request', function (done) {
-            this.timeout(8000)
-
-            // Mock a successful response from the server
-            xhr.onCreate = (request) => {
-                request.respond(
-                    200,
-                    {
-                        'Content-Type': 'application/json'
-                    },
-                    '{"success": true}'
-                )
-            }
-
             window.frameworkScript.onload = () => {
-                window.$.request('onTest', {
+                window.$.request('test::onTest', {
                     success: function () {
                         done()
                     },
@@ -51,74 +48,121 @@ describe('framework.js', () => {
                         done(new Error('AJAX call failed'))
                     }
                 })
+
+                assert(
+                    requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                    'Incorrect October request handler'
+                )
+
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
             }
         })
 
-        // it('can make a unsuccessful AJAX request', function (done) {
-        //     this.timeout(4000)
+        it('can make a unsuccessful AJAX request', function (done) {
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    success: function () {
+                        done(new Error('AJAX call succeeded'))
+                    },
+                    error: function () {
+                        done()
+                    }
+                })
 
-        //     window.frameworkScript.onload = () => {
-        //         sinon.stub(window.$, 'ajax').callsFake((options) => {
-        //             const ajaxMock = window.$.Deferred()
+                assert(
+                    requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                    'Incorrect October request handler'
+                )
 
-        //             ajaxMock.resolve({success: false})
-        //             options.error()
-        //             return ajaxMock.promise()
-        //         })
-
-        //         window.$.request('onTest', {
-        //             success: function () {
-        //                 assert(true, 'AJAX call succeeded')
-        //                 done()
-        //             },
-        //             error: function () {
-        //                 assert(true)
-        //                 done()
-        //             }
-        //         })
-        //     }
-        // })
+                // Mock a 404 Not Found response from the server
+                requests[1].respond(
+                    404,
+                    {
+                        'Content-Type': 'text/html'
+                    },
+                    ''
+                )
+            }
+        })
     })
 
-    // describe('ajaxRequests through HTML attributes', () => {
-    //     let dom, window
+    // describe('ajaxRequests through HTML attributes', function () {
+    //     let dom,
+    //         window,
+    //         xhr,
+    //         alertStub,
+    //         requests = []
+
+    //     this.timeout(3000)
 
     //     beforeEach(() => {
+    //         // Load framework.js in the fake DOM
     //         dom = fakeDom(
     //             '<a href="javascript:;" data-request="test::onTest"></a>' +
-    //             '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>' +
+    //             '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
     //             '<script src="file://./modules/system/assets/js/framework.js" id="frameworkScript"></script>'
     //         )
     //         window = dom.window
+
+    //         // Mock XHR for tests below
+    //         xhr = sinon.useFakeXMLHttpRequest()
+    //         xhr.onCreate = (request) => {
+    //             requests.push(request)
+    //         }
+    //         window.XMLHttpRequest = xhr
+
+    //         window.jqueryScript.onload = () => {
+    //             window.jQuery.support.cors = true
+    //         }
     //     })
 
     //     afterEach(() => {
+    //         // Close window and restore XHR functionality to default
+    //         window.XMLHttpRequest = sinon.xhr.XMLHttpRequest
     //         window.close()
+    //         requests = []
     //     })
 
     //     it('can make a successful AJAX request', function (done) {
-    //         this.timeout(4000)
-
     //         window.frameworkScript.onload = () => {
-    //             const xhr =
-
     //             window.$('a').click()
+
+    //             console.log(requests)
+
+    //             // Mock a successful response from the server
+    //             requests[1].respond(
+    //                 200,
+    //                 {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 JSON.stringify({
+    //                     'successful': true
+    //                 })
+    //             )
     //         }
     //     })
 
     //     it('can make a unsuccessful AJAX request', function (done) {
-    //         this.timeout(4000)
-
     //         window.frameworkScript.onload = () => {
-    //             sinon.stub(window.$, 'ajax').callsFake((options) => {
-    //                 const ajaxMock = window.$.Deferred()
-
-    //                 ajaxMock.resolve({success: false})
-    //                 options.error()
-    //                 done()
-    //             })
-
     //             window.$('a').click()
+
+    //             // Mock a 404 Not Found response from the server
+    //             requests[1].respond(
+    //                 404,
+    //                 {
+    //                     'Content-Type': 'text/html'
+    //                 },
+    //                 ''
+    //             )
     //         }
     //     })
     // })
