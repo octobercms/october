@@ -40,6 +40,7 @@
     "@babel/register": "^7.5.5",
     "babel-plugin-module-resolver": "^3.2.0",
     "chai": "^4.2.0",
+    "jquery": "^3.4.1",
     "jsdom": "^15.1.1",
     "mocha": "^6.2.0",
     "sinon": "^7.4.1"

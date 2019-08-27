@@ -26,6 +26,7 @@ const fakeDom = (content, options) => {
             includeNodeLocations: true,
             runScripts: 'dangerously',
             resources: 'usable',
+            pretendToBeVisual: true
         }
     )
 
