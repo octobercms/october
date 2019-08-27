@@ -131,7 +131,7 @@ describe('modules/system/assets/js/framework.js', function () {
                             done(e)
                         }
                     }
-                });
+                })
 
                 try {
                     assert(
@@ -172,7 +172,7 @@ describe('modules/system/assets/js/framework.js', function () {
                             done(e)
                         }
                     }
-                });
+                })
 
                 try {
                     assert(
@@ -213,7 +213,7 @@ describe('modules/system/assets/js/framework.js', function () {
             window.frameworkScript.onload = () => {
                 window.$.request('test::onTest', {
                     redirect: '/test/success',
-                });
+                })
 
                 try {
                     assert(
