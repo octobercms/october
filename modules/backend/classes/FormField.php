@@ -82,7 +82,7 @@ class FormField
     public $options;
 
     /**
-     * @var string Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
+     * @var string Specifies a side. Possible values: auto, left, right, full, third, quarter, two-thirds and three-quarters.
      */
     public $span = 'full';
 
@@ -203,7 +203,7 @@ class FormField
 
     /**
      * Sets a side of the field on a form.
-     * @param string $value Specifies a side. Possible values: auto, left, right, full, third, quarter and three-quarters.
+     * @param string $value Specifies a side. Possible values: auto, left, right, full, third, quarter, two-thirds and three-quarters.
      */
     public function span($value = 'full')
     {

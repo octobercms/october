@@ -64,6 +64,9 @@ $(function() {
         $(".form-group.span-third").removeClass("span-position-left");
         $(".form-group.span-third").removeClass("span-position-right");
         $(".form-group.span-third").removeClass("span-position-middle");
+        // Remove old two-thirds offset classes
+        $(".form-group.span-two-thirds").removeClass("span-position-left");
+        $(".form-group.span-two-thirds").removeClass("span-position-right");        
         // Remove old quarter offset classes
         $(".form-group.span-quarter").removeClass("span-position-left");
         $(".form-group.span-quarter").removeClass("span-position-right");
@@ -90,6 +93,7 @@ $(function() {
 
         // Parent widths
         var parentThird = $(".form-group.span-third#<?= e($formFields) ?>").parent().width(),
+            parentTwoThirds = $(".form-group.span-two-thirds#<?= e($formFields) ?>").parent().width(),
             parentQuarter = $(".form-group.span-quarter#<?= e($formFields) ?>").parent().width(),
             parentThreeQuarters = $(".form-group.span-three-quarters#<?= e($formFields) ?>").parent().width(),
             parentRight = $(".form-group.span-right#<?= e($formFields) ?>").parent().width(),
@@ -97,6 +101,7 @@ $(function() {
 
         // Field left positions
         var thirdPosLeft = $(".form-group.span-third#<?= e($formFields) ?>").position(),
+            twothirdsPosLeft = $(".form-group.span-two-thirds#<?= e($formFields) ?>").position(),
             quarterPosLeft = $(".form-group.span-quarter#<?= e($formFields) ?>").position(),
             threequartersPosLeft = $(".form-group.span-three-quarters#<?= e($formFields) ?>").position(),
             rightPosLeft = $(".form-group.span-right#<?= e($formFields) ?>").position(),
@@ -137,6 +142,19 @@ $(function() {
                 $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-right");
             } else {
                 $(".form-group.span-quarter#<?= e($formFields) ?>").addClass("span-position-middle");
+            }
+        }
+
+        // Process two-thirds fields
+        if (typeof parentTwoThirds !== "undefined" && typeof twothirdsPosLeft !== "undefined") {
+            // Calculate percentage positions for two-thirds
+            var percentTwoThirdsLeft = (100 / parentTwoThirds) * twothirdsPosLeft.left;
+            // Add left offset class.
+            // Maths: 32% is a third. A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
+            if (percentTwoThirdsLeft < 28) {
+                $(".form-group.span-two-thirds#<?= e($formFields) ?>").addClass("span-position-left");
+            } else {
+                $(".form-group.span-two-thirds#<?= e($formFields) ?>").addClass("span-position-right");
             }
         }
 
