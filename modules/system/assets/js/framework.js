@@ -267,7 +267,7 @@ if (window.jQuery.request !== undefined) {
              * Custom function, redirect the browser to another location
              */
             handleRedirectResponse: function(url) {
-                window.location.href = url
+                window.location.assign(url)
             },
 
             /*
