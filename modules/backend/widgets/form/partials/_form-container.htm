@@ -150,7 +150,8 @@ $(function() {
             // Calculate percentage positions for two-thirds
             var percentTwoThirdsLeft = (100 / parentTwoThirds) * twothirdsPosLeft.left;
             // Add left offset class.
-            // Maths: 32% is a third. A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
+            // Maths: 32% is the third field in October (which includes it's subtracted offset value).
+            // A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
             if (percentTwoThirdsLeft < 28) {
                 $(".form-group.span-two-thirds#<?= e($formFields) ?>").addClass("span-position-left");
             } else {
