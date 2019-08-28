@@ -87,9 +87,9 @@ class FormField
     public $span = 'full';
 
     /**
-     * @var string Specifies a line break. Possible values: left, right and none.
+     * @var bool Specifies a line break. Possible values: true and false.
      */
-    public $lineBreak = 'none';
+    public $newLine = false;
 
     /**
      * @var string Specifies a size. Possible values: tiny, small, large, huge, giant.
@@ -218,11 +218,11 @@ class FormField
 
     /**
      * Sets a line break before the field on a form.
-     * @param string $value Specifies a side. Possible values: left, right and none.
+     * @param bool $value Specifies a side. Possible values: true and false.
      */
-    public function lineBreak($value = 'none')
+    public function newLine($value = 'false')
     {
-        $this->lineBreak = $value;
+        $this->newLine = $value;
         return $this;
     }
 
@@ -326,8 +326,8 @@ class FormField
         if (isset($config['span'])) {
             $this->span($config['span']);
         }
-        if (isset($config['lineBreak'])) {
-            $this->lineBreak($config['lineBreak']);
+        if (isset($config['newLine'])) {
+            $this->newLine($config['newLine']);
         }
         if (isset($config['size'])) {
             $this->size($config['size']);
