@@ -33,6 +33,10 @@ If you plan on using a database, run this command:
 php artisan october:install
 ```
 
+### Help and support this project
+
+You can also help the project by reviewing & testing open Pull Requests with the "**Status: Testing Needed**" tag, read more [https://github.com/octobercms/october/blob/master/.github/CONTRIBUTING.md#testing-pull-requests](link to contributing)
+
 ### Development Team
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/). The core maintainer is [Luke Towers](https://luketowers.ca/) and other maintainers include [Ben Thomson](https://github.com/bennothommo) and [Denis Denisov](https://github.com/w20k).
