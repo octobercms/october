@@ -1,3 +1,5 @@
+sudo: required
+dist: xenial
 language: php
 
 php:
@@ -11,8 +13,6 @@ matrix:
   allow_failures:
     - php: nightly
 
-sudo: false
-
 if: type = pull_request OR (type = push AND (branch = develop OR branch = master))
 
 cache:
@@ -20,12 +20,13 @@ cache:
     - $HOME/.composer/cache/files
 
 install:
-  - travis_retry composer install --no-interaction --no-progress --no-suggest
+  - composer install --no-interaction --no-progress --no-suggest
 
 before_script: git reset --hard HEAD
 
 stages:
   - test
+  - frontend tests
   - code quality
   - code coverage
 
@@ -35,6 +36,13 @@ script:
 
 jobs:
   include:
+    - stage: frontend tests
+      if: type = pull_request
+      php: 7.1
+      before_script:
+        - npm install
+      script:
+        - npm run test
     - stage: code coverage
       if: type = push AND (branch = develop OR branch = master)
       php: 7.1
