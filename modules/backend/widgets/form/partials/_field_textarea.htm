@@ -8,6 +8,8 @@
         autocomplete="off"
         class="form-control field-textarea
         <?php
+            $stretchField = '';
+            $growField = '';
             $fieldName = $field->fieldName ?? '';
             /* Outside tabs */
             foreach($this->fields as $heightField){
