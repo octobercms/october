@@ -4185,9 +4185,9 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.span-full {width:100%}
 .form-group.span-left {width:48.5%}
 .form-group.span-right {width:48.5%}
+.form-group.span-quarter {width:22.9%}
 .form-group.span-third {width:32%}
 .form-group.span-two-thirds {width:64%}
-.form-group.span-quarter {width:22.9%}
 .form-group.span-three-quarters {width:74.5%}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
@@ -4208,7 +4208,11 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .span-position-right {margin-left:auto}
 .span-position-far-right {margin-left:51.5%}
 .line-break-field {display:block;width:100%}
-@media (max-width: 769px) {.span-third, .span-quarter, .span-two-thirds, .span-three-quarters {width:100% !important }}
+.span-position-right-quarter {margin-left:77.1%}
+.span-position-right-third {margin-left:68%}
+.span-position-right-two-thirds {margin-left:36%}
+.span-position-right-three-quarters {margin-left:25.5%}
+@media (max-width: 769px) {.span-third, .span-two-thirds, .span-quarter, .span-three-quarters{width:100%!important}.span-position-right-quarter, .span-position-right-third, .span-position-right-two-thirds, .span-position-right-three-quarters{margin-left:unset }}
 .form-group-preview .form-control {background-color:#f6f6f6;color:#555;height:auto;min-height:38px;border-color:#eee;word-break:break-word;-webkit-box-shadow:none;box-shadow:none}
 .form-group-preview .custom-checkbox label,
 .form-group-preview .custom-radio label {cursor:default}

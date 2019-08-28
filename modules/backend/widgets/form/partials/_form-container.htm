@@ -111,8 +111,8 @@ $(function() {
         var thirdWidth = $('.form-group.span-third#<?= e($formFields) ?>').outerWidth(),
             quarterWidth = $('.form-group.span-quarter#<?= e($formFields) ?>').outerWidth();
 
-        // Process line break fields
-        if ($('.form-group#<?= e($formFields) ?>').hasClass('line-break')) {
+        // Process line break fields and set to left margin
+        if ($('.form-group#<?= e($formFields) ?>').hasClass('line-break-left')) {
             // Check to see if the injected HTML exists or not
             if (!$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
                 // Inject HTML in front of the field
@@ -122,6 +122,35 @@ $(function() {
             }
         }
 
+        // Process line break fields and set to right margin
+        if ($('.form-group#<?= e($formFields) ?>').hasClass('line-break-right')) {
+            // Check to see if the injected HTML exists or not
+            if (!$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+                // Inject HTML in front of the field
+                $('<div class="line-break-field"></div>').insertBefore('.form-group#<?= e($formFields) ?>');
+                // Process offset for quarter field
+                if ($('.form-group#<?= e($formFields) ?>').hasClass('span-quarter')) {
+                    $('.form-group#<?= e($formFields) ?>').addClass('span-position-right-quarter');
+                }
+                // Process offset for third field
+                else if ($('.form-group#<?= e($formFields) ?>').hasClass('span-third')) {
+                    $('.form-group#<?= e($formFields) ?>').addClass('span-position-right-third');
+                }
+                // Process offset for two-thirds field
+                else if ($('.form-group#<?= e($formFields) ?>').hasClass('span-two-thirds')) {
+                    $('.form-group#<?= e($formFields) ?>').addClass('span-position-right-two-thirds');
+                }
+                // Process offset for three-quarters field
+                else if ($('.form-group#<?= e($formFields) ?>').hasClass('span-three-quarters')) {
+                    $('.form-group#<?= e($formFields) ?>').addClass('span-position-right-three-quarters');
+                }
+            }
+        }
+
+        // Set left and right line break variables
+        var lineBreakLeft = !$('.form-group#<?= e($formFields) ?>').hasClass('line-break-left'),
+            lineBreakRight = !$('.form-group#<?= e($formFields) ?>').hasClass('line-break-right');
+
         // Process third fields
         if (typeof parentThird !== 'undefined' && typeof thirdPosLeft !== 'undefined') {
             // Calculate right position for third
@@ -130,11 +159,11 @@ $(function() {
             var percentThirdLeft = (100 / parentThird) * thirdPosLeft.left,
                 percentThirdRight = (100 / parentThird) * thirdPosRight;
             // Add left offset class
-            if (percentThirdLeft < 20) {
+            if (percentThirdLeft < 20 && lineBreakRight) {
                 $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-left');
-            } else if (percentThirdRight > 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentThirdRight > 80 && lineBreakLeft) {
                 $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-right');
-            } else if (percentThirdLeft >= 20 && percentThirdRight <= 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentThirdLeft >= 20 && percentThirdRight <= 80 && lineBreakLeft && lineBreakRight) {
                 $('.form-group.span-third#<?= e($formFields) ?>').addClass('span-position-middle');
             }
         }
@@ -147,11 +176,11 @@ $(function() {
             var percentQuarterLeft = (100 / parentQuarter) * quarterPosLeft.left,
                 percentQuarterRight = (100 / parentQuarter) * quarterPosRight;
             // Add left offset class
-            if (percentQuarterLeft < 20) {
+            if (percentQuarterLeft < 20 && lineBreakRight) {
                 $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-left');
-            } else if (percentQuarterRight > 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentQuarterRight > 80 && lineBreakLeft) {
                 $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-right');
-            } else if (percentQuarterLeft >= 20 && percentQuarterRight <= 80 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentQuarterLeft >= 20 && percentQuarterRight <= 80 && lineBreakLeft && lineBreakRight) {
                 $('.form-group.span-quarter#<?= e($formFields) ?>').addClass('span-position-middle');
             }
         }
@@ -162,9 +191,9 @@ $(function() {
             var percentTwoThirdsLeft = (100 / parentTwoThirds) * twothirdsPosLeft.left;
             // Add left offset class.
             // Maths: 32% is a third. A full set times 3 = 96%. 100% - 96% = 4%. 32% (third) - 4% (offset) = 28
-            if (percentTwoThirdsLeft < 28) {
+            if (percentTwoThirdsLeft < 28 && lineBreakRight) {
                 $('.form-group.span-two-thirds#<?= e($formFields) ?>').addClass('span-position-left');
-            } else if (percentTwoThirdsLeft >= 28 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentTwoThirdsLeft >= 28 && lineBreakLeft) {
                 $('.form-group.span-two-thirds#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
@@ -174,9 +203,9 @@ $(function() {
             // Calculate percentage positions for three-quarters
             var percentThreeQuartersLeft = (100 / parentThreeQuarters) * threequartersPosLeft.left;
             // Add left offset class
-            if (percentThreeQuartersLeft < 20) {
+            if (percentThreeQuartersLeft < 20 && lineBreakRight) {
                 $('.form-group.span-three-quarters#<?= e($formFields) ?>').addClass('span-position-left');
-            } else if (percentThreeQuartersLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentThreeQuartersLeft >= 20 && lineBreakLeft) {
                 $('.form-group.span-three-quarters#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
@@ -186,9 +215,9 @@ $(function() {
             // Calculate percentage positions for right
             var percentRightLeft = (100 / parentRight) * rightPosLeft.left;
             // Add left offset class
-            if (percentRightLeft < 20) {
+            if (percentRightLeft < 20 && lineBreakRight) {
                 $('.form-group.span-right#<?= e($formFields) ?>').addClass('span-position-far-right');
-            } else if (percentRightLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentRightLeft >= 20 && lineBreakLeft) {
                 $('.form-group.span-right#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
@@ -198,9 +227,9 @@ $(function() {
             // Calculate percentage positions for right
             var percentLeft = (100 / parentLeft) * leftPosLeft.left;
             // Add left offset class
-            if (percentLeft < 20) {
+            if (percentLeft < 20 && lineBreakRight) {
                 $('.form-group.span-left#<?= e($formFields) ?>').addClass('span-position-left');
-            } else if (percentLeft >= 20 && !$('.form-group#<?= e($formFields) ?>').prev().hasClass('line-break-field')) {
+            } else if (percentLeft >= 20 && lineBreakLeft) {
                 $('.form-group.span-left#<?= e($formFields) ?>').addClass('span-position-right');
             }
         }
