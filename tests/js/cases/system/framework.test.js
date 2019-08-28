@@ -142,7 +142,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a response from the server that includes a partial change via ID
                 requests[1].respond(
                     200,
                     {
@@ -183,7 +183,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a response from the server that includes a partial change via a class
                 requests[1].respond(
                     200,
                     {
@@ -197,6 +197,8 @@ describe('modules/system/assets/js/framework.js', function () {
         })
 
         it('can redirect after a successful AJAX request', function (done) {
+            this.timeout(2000)
+
             // Detect a redirect
             window.location.assign.callsFake((url) => {
                 try {
@@ -224,7 +226,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a successful response from the server
                 requests[1].respond(
                     200,
                     {
@@ -393,7 +395,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a response from the server that includes a partial change via ID
                 requests[1].respond(
                     200,
                     {
@@ -434,7 +436,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a response from the server that includes a partial change via a class
                 requests[1].respond(
                     200,
                     {
@@ -448,6 +450,8 @@ describe('modules/system/assets/js/framework.js', function () {
         })
 
         it('can redirect after a successful AJAX request', function (done) {
+            this.timeout(2000)
+
             // Detect a redirect
             window.location.assign.callsFake((url) => {
                 try {
@@ -473,7 +477,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     done(e)
                 }
 
-                // Mock a 404 Not Found response from the server
+                // Mock a successful response from the server
                 requests[1].respond(
                     200,
                     {
