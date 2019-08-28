@@ -1,7 +1,8 @@
 {
     "name": "october/october",
-    "description": "October CMS",
+    "description": "OctoberCMS",
     "homepage": "https://octobercms.com",
+    "type": "project",
     "keywords": ["october", "cms", "octobercms", "laravel"],
     "license": "MIT",
     "authors": [

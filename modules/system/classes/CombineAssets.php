@@ -400,7 +400,7 @@ class CombineAssets
             $this->putCache($cacheKey, $cacheInfo);
         }
 
-        return $this->getCombinedUrl($cacheInfo['version']);
+        return $this->getCombinedUrl($cacheInfo['version'] . '.' . $extension);
     }
 
     /**
@@ -542,7 +542,7 @@ class CombineAssets
      * `registerBundle` method. This instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     CombineAssets::registerCallback(function($combiner){
+     *     CombineAssets::registerCallback(function ($combiner) {
      *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
      *     });
      *

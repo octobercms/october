@@ -3,6 +3,10 @@
 use Event;
 use BackendAuth;
 use System\Classes\PluginManager;
+use Validator;
+use SystemException;
+use Log;
+use Config;
 
 /**
  * Manages the backend navigation.
@@ -150,7 +154,7 @@ class NavigationManager
      * `registerMenuItems` method. The manager instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     BackendMenu::registerCallback(function($manager){
+     *     BackendMenu::registerCallback(function ($manager) {
      *         $manager->registerMenuItems([...]);
      *     });
      *
@@ -193,6 +197,24 @@ class NavigationManager
     {
         if (!$this->items) {
             $this->items = [];
+        }
+
+        $validator = Validator::make($definitions, [
+            '*.label' => 'required',
+            '*.icon' => 'required_without:*.iconSvg',
+            '*.url' => 'required',
+            '*.sideMenu.*.label' => 'nullable|required',
+            '*.sideMenu.*.icon' => 'nullable|required_without:*.sideMenu.*.iconSvg',
+            '*.sideMenu.*.url' => 'nullable|required',
+        ]);
+
+        if ($validator->fails()) {
+            $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
+            if (Config::get('app.debug', false)) {
+                throw new SystemException($errorMessage);
+            } else {
+                Log::error($errorMessage);
+            }
         }
 
         $this->addMainMenuItems($owner, $definitions);

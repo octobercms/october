@@ -401,7 +401,7 @@ class MailManager
      * registerMailTemplates() function. Thi instance is passed to the
      * callback function as an argument. Usage:
      *
-     *     MailManager::registerCallback(function($manager) {
+     *     MailManager::registerCallback(function ($manager) {
      *         $manager->registerMailTemplates([...]);
      *     });
      *
