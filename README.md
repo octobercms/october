@@ -57,7 +57,7 @@ In order to ensure that the OctoberCMS community is welcoming to all, please rev
 
 Please review [our security policy](https://github.com/octobercms/october/security/policy) on how to report security vulnerabilities.
 
-### Development Team
+## Development Team
 
 October was created by [Alexey Bobkov](http://ca.linkedin.com/pub/aleksey-bobkov/2b/ba0/232) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/). The core maintainer is [Luke Towers](https://luketowers.ca/) and other maintainers include [Ben Thomson](https://github.com/bennothommo) and [Denis Denisov](https://github.com/w20k).
 
