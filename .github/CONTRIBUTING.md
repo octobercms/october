@@ -91,6 +91,14 @@ In this example let's say a user called `qwerty123` has created a pull request `
 
 At this point, you should have a working copy of the pull request ready to test.
 
+### Branch conflicts
+
+Your local `develop` branch is probably was out of sync with the `develop` branch in October. 
+
+You can first try doing this: `$ git merge develop` or `$ git merge origin/develop`
+
+However, if you added the October repo as `upstream`, you would need to do `git merge upstream/develop` instead.
+
 #### Best practices
 
 It is ideal to keep your development branch or fork synchronised with the core October `develop` branch when submitting pull requests, as this minimises the possibility of merge conflicts.
