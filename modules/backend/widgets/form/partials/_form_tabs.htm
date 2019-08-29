@@ -21,7 +21,7 @@
     </ul>
 </div>
 
-<div class="tab-content">
+<div class="tab-content <?= $contentCss ?>">
     <?php $index = 0; foreach ($tabs as $name => $fields): ?>
         <div
             class="tab-pane <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $index++==0?'active':''?> <?= $paneCss ?>"
