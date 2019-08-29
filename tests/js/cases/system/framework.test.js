@@ -238,6 +238,48 @@ describe('modules/system/assets/js/framework.js', function () {
                 )
             }
         })
+
+
+
+        it('can send extra data with the AJAX request', function (done) {
+            this.timeout(2000)
+
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    data: {
+                        test1: 'First',
+                        test2: 'Second'
+                    },
+                    success: function () {
+                        done()
+                    }
+                });
+
+                try {
+                    assert(
+                        requests[1].requestBody === 'test1=First&test2=Second',
+                        'Data incorrect or not included in request'
+                    )
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
+            }
+        })
     })
 
     describe('ajaxRequests through HTML attributes', function () {
@@ -256,13 +298,20 @@ describe('modules/system/assets/js/framework.js', function () {
                     'href="javascript:;" ' +
                     'data-request="test::onTest" ' +
                     'data-request-success="test(\'success\')" ' +
-                    'data-request-error="test(\'failure\')" ' +
+                    'data-request-error="test(\'failure\')"' +
                 '></a>' +
                 '<a ' +
                     'id="redirect" ' +
                     'href="javascript:;" ' +
                     'data-request="test::onTest" ' +
-                    'data-request-redirect="/test/success" ' +
+                    'data-request-redirect="/test/success"' +
+                '></a>' +
+                '<a ' +
+                    'id="dataLink" ' +
+                    'href="javascript:;" ' +
+                    'data-request="test::onTest" ' +
+                    'data-request-data="test1: \'First\', test2: \'Second\'"' +
+                    'data-request-success="test(\'success\')" ' +
                 '></a>' +
                 '<div id="partialId" class="partialClass">Initial content</div>' +
                 '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
@@ -467,6 +516,39 @@ describe('modules/system/assets/js/framework.js', function () {
 
             window.frameworkScript.onload = () => {
                 window.$('a#redirect').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'succesful': true
+                    })
+                )
+            }
+        })
+
+        it('can send extra data with the AJAX request', function (done) {
+            this.timeout(2000)
+
+            window.frameworkScript.onload = () => {
+                window.test.callsFake((response) => {
+                    assert(response === 'success', 'Response handler was not "success"')
+                    done()
+                })
+
+                window.$('a#dataLink').click()
 
                 try {
                     assert(
