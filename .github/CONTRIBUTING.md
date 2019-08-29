@@ -93,7 +93,7 @@ At this point, you should have a working copy of the pull request ready to test.
 
 ### Branch conflicts
 
-Your local `develop` branch is probably was out of sync with the `develop` branch in October. 
+Your local `develop` branch is probably out of sync with the `develop` branch in October. 
 
 You can first try doing this: `$ git merge develop` or `$ git merge origin/develop`
 
