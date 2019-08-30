@@ -23,7 +23,6 @@ $(function() {
     /* Stretch */
     var $textareaHeight = $('textarea#<?= $field->getId() ?>.stretch').closest('.textarea-field').height(),
         $textareaParentHeight = $('textarea#<?= $field->getId() ?>.stretch').parent().parent().height(),
-        
         $textareaParentContainer = $('textarea#<?= $field->getId() ?>.stretch').closest('.stretch-parent').height();
 
     // Only run if not empty
@@ -33,7 +32,5 @@ $(function() {
     if (typeof $stretchHeight !== 'undefined') {
         $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight + 'px');
     }
-
-   
 });
 </script>
