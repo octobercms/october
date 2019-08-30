@@ -3,7 +3,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-markdowneditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'layout-relative grow' : '' ?>"
+        class="field-markdowneditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
         data-control="markdowneditor"
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-view-mode="<?= $mode ?>"
@@ -13,7 +13,7 @@
         <div class="control-toolbar editor-toolbar"></div>
 
         <div class="editor-write layout-cell">
-            <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
+            <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>" class="<?= $grow ? 'grow' : '' ?>"><?= e($value) ?></textarea>
         </div>
 
         <div class="editor-preview layout-cell"></div>

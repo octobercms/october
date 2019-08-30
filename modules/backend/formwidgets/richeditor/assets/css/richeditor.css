@@ -552,8 +552,7 @@ body .fr-popup .fr-checkbox span {border-color:#d1d6d9}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-view,
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) textarea {height:100%}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-placeholder {top:20px;left:20px}
-.stretch {height:calc(100% - 50px)!important}
-.grow .fr-wrapper {min-height:100px;height:auto!important}
+.grow :not(.fr-fullscreen) .fr-wrapper {min-height:100px;height:auto !important}
 .field-richeditor.grow {height:auto!important}
 .control-richeditor figure[data-ui-block] {display:inline-block;width:100%;margin:0 0 15px 0;padding:10px 10px 10px 36px;border:2px dotted #bdc3c7;background:white;position:relative;cursor:pointer;color:#6c7071;font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-weight:500;line-height:150%;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;-moz-background-clip:padding;-webkit-background-clip:padding-box;background-clip:padding-box}
 .control-richeditor figure[data-ui-block]:focus,

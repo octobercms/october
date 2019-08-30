@@ -346,6 +346,14 @@
         editor.on('blur', this.proxy(this.onBlur))
         editor.on('focus', this.proxy(this.onFocus))
 
+        // Grow limit 
+        if ((this.$textarea).hasClass('grow')) {
+            editor.setOptions({
+                autoScrollEditorIntoView: true,
+                maxLines: 250
+            });
+        }
+
         // Set the vendor path for Ace's require path
         ace.require('ace/config').set('basePath', this.options.vendorPath)
 

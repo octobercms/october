@@ -5,7 +5,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-codeeditor size-<?= $size ?> <?= $stretch ? 'layout-relative' : '' ?> <?= $grow ? 'layout-relative' : '' ?>"
+        class="field-codeeditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
         data-control="codeeditor"
         data-font-size="<?= $fontSize ?>"
         data-word-wrap="<?= $wordWrap ?>"
@@ -65,6 +65,6 @@
                 </li>
             </ul>
         </div>
-        <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>"><?= e($value) ?></textarea>
+        <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>" class="<?= $grow ? 'grow' : '' ?>"><?= e($value) ?></textarea>
     </div>
 <?php endif ?>

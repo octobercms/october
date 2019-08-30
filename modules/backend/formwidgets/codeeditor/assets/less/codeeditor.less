@@ -91,7 +91,10 @@
         height: 100%;
         border-width: 0;
         .border-radius(0);
-        .editor-code { .border-radius(0); }
+        .editor-code {
+            .border-radius(0);
+            height: 100% !important;
+        }
         .editor-toolbar {
             z-index: @zindex-fullscreen + 2;
             border-radius: 0 0 5px 5px;
@@ -118,6 +121,11 @@
             }
         }
         .ace_search { z-index: @zindex-fullscreen + 3; }
+    }
+
+    &.grow {
+        .ace_editor {min-height:inherit}
+        .ace_scrollbar.ace_scrollbar-v { display: none; }
     }
 
     .secondary-tabs {

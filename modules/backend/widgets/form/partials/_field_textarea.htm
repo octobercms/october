@@ -6,36 +6,14 @@
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
         autocomplete="off"
-        class="form-control field-textarea
-        <?php
-            $stretchField = '';
-            $growField = '';
-            $fieldName = $field->fieldName ?? '';
-            /* Outside tabs */
-            foreach($this->fields as $heightField){
-                $stretchField = $heightField['stretch'] ?? '';
-                $growField = $heightField['grow'] ?? '';
-            }
-            /* Primary tabs */
-            foreach($this->tabs as $heightField){
-                $primaryTabsName = $heightField['textarea1'] ?? '';
-                $stretchPrimaryTabs = $primaryTabsName['stretch'] ?? '';
-                $growPrimaryTabs = $primaryTabsName['grow'] ?? '';
-            }
-            /* Secondary tabs */
-            foreach($this->secondaryTabs as $heightField){
-                $secondaryTabsName = $heightField['textarea1'] ?? '';
-                $stretchSecondaryTabs = $secondaryTabsName['stretch'] ?? '';
-                $growSecondaryTabs = $secondaryTabsName['grow'] ?? '';
-            }
-            if($stretchField == '1' || $stretchPrimaryTabs == '1' || $stretchSecondaryTabs == '1') { ?>stretch<?php } if($growField == '1' || $growPrimaryTabs == '1' || $growSecondaryTabs == '1') { ?>grow<?php } ?> size-<?= $field->size ?>"
+        class="form-control field-textarea <?= $field->stretch ? 'layout-relative stretch' : '' ?> <?= $field->grow ? 'grow' : '' ?> size-<?= $field->size ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
 <?php endif?>
 
 <script>
 $(function() {
     /* Grow */
-    $('.form-group textarea.grow').each(function() {
+    $('textarea#<?= $field->getId() ?>.grow').each(function() {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
     }).on('input', function() {
         this.style.height = 'auto';
@@ -43,17 +21,19 @@ $(function() {
     });
 	
     /* Stretch */
-    var $textareaHeight = $(".form-group textarea.stretch").parent().height(),
-        $textareaParentHeight = $(".form-group textarea.stretch").parent().parent().height(),
-        $textareaParentContainer = $(".form-group textarea.stretch").closest('.stretch-parent').height();
+    var $textareaHeight = $('textarea#<?= $field->getId() ?>.stretch').closest('.textarea-field').height(),
+        $textareaParentHeight = $('textarea#<?= $field->getId() ?>.stretch').parent().parent().height(),
+        
+        $textareaParentContainer = $('textarea#<?= $field->getId() ?>.stretch').closest('.stretch-parent').height();
 
     // Only run if not empty
-    if(($textareaParentContainer || $textareaParentContainer === 0)  &&  ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
+    if (($textareaParentContainer || $textareaParentContainer === 0) && ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
         $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
     }
-    if (typeof $stretchHeight !== "undefined") {
-        $(".form-group textarea.stretch").css("height", $stretchHeight + 'px');
+    if (typeof $stretchHeight !== 'undefined') {
+        $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight + 'px');
     }
 
+   
 });
 </script>

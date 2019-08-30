@@ -149,18 +149,16 @@
     }
 }
 
-.stretch {
-    height: calc(100% - 50px) !important;
-}
-
 //
 // Grow
 //
 
 .grow {
-    .fr-wrapper {
-        min-height: 100px;
-        height: auto !important;
+    &:not(.fr-fullscreen) {
+        .fr-wrapper {
+            min-height: 100px;
+            height: auto !important;
+        }
     }
 }
 

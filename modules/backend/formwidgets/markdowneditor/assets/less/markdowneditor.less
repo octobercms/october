@@ -24,6 +24,10 @@
 
     &.editor-focus { border: 1px solid @color-form-field-border-focus; }
 
+    &.grow {
+        .ace_scrollbar.ace_scrollbar-v { display: none; }
+    }
+
     &.size-tiny {
         .editor-write { min-height: @size-tiny; }
         .editor-preview { height: @size-tiny; }
@@ -168,10 +172,15 @@
         top: 0;
         left: 0;
         width: 100%;
+        height: 100% !important;
 
         &, .editor-toolbar {
             border-radius: 0 !important;
             border: none;
+        }
+
+        .editor-code {
+            height: 100% !important;
         }
     }
 }

@@ -4203,6 +4203,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
 .stretch-parent .form-tabless-fields, .stretch-parent .tab-pane, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap}
+.form-group.textarea-field textarea.stretch {margin-bottom:25px}
 .span-position-left {margin-right:auto}
 .span-position-middle {margin:0 auto}
 .span-position-right {margin-left:auto}

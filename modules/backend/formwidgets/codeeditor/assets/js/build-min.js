@@ -4582,6 +4582,7 @@ editor.setFontSize(options.fontSize)
 editor.on('blur',this.proxy(this.onBlur))
 editor.on('focus',this.proxy(this.onFocus))
 this.setWordWrap(options.wordWrap)
+if((this.$textarea).hasClass('grow')){editor.setOptions({autoScrollEditorIntoView:true,maxLines:250})}
 ace.require('ace/config').set('basePath',this.options.vendorPath)
 editor.setOptions({enableEmmet:options.enableEmmet,enableBasicAutocompletion:options.autocompletion==='basic',enableSnippets:options.enableSnippets,enableLiveAutocompletion:options.autocompletion==='live'})
 editor.renderer.setScrollMargin(options.margin,options.margin,0,0)
