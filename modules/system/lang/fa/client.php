@@ -49,7 +49,7 @@ return [
         'cancel_button_text' => 'انصراف',
         'widget_remove_confirm' => 'این ابزارک حذف شود؟'
     ],
-'datepicker' => [
+    'datepicker' => [
         'previousMonth' => 'ماه قبل',
         'nextMonth' => 'ماه بعد',
         'months' => ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],

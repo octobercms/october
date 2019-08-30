@@ -9,8 +9,6 @@ $.oc.langMessages['bg'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : bulgarian (bg)
-//! author : Krasen Borisov : https://github.com/kraz
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -99,3 +97,4 @@ $.oc.langMessages['bg'] = $.extend(
     return bg;
 
 })));
+

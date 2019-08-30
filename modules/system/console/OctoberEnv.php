@@ -372,6 +372,7 @@ class OctoberEnv extends Command
                 'ASSET_CACHE' => 'enableAssetCache',
                 'LINK_POLICY' => 'linkPolicy',
                 'ENABLE_CSRF' => 'enableCsrfProtection',
+                'DATABASE_TEMPLATES' => 'databaseTemplates'
             ],
         ];
     }

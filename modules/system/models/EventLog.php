@@ -2,7 +2,7 @@
 
 use App;
 use Str;
-use October\Rain\Database\Model;
+use Model;
 use Exception;
 
 /**
@@ -58,7 +58,8 @@ class EventLog extends Model
         try {
             $record->save();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return $record;
     }

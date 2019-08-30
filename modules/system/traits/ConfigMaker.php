@@ -51,7 +51,6 @@ trait ConfigMaker
          * Process config from file contents
          */
         else {
-
             if (isset($this->controller) && method_exists($this->controller, 'getConfigPath')) {
                 $configFile = $this->controller->getConfigPath($configFile);
             }
@@ -100,8 +99,8 @@ trait ConfigMaker
     }
 
     /**
-     * Makes a config object from an array, making the first level keys properties a new object.
-     * Property values are converted to camelCase and are not set if one already exists.
+     * Makes a config object from an array, making the first level keys properties of a new object.
+     *
      * @param array $configArray Config array.
      * @return stdClass The config object
      */
@@ -114,8 +113,7 @@ trait ConfigMaker
         }
 
         foreach ($configArray as $name => $value) {
-            $_name = camel_case($name);
-            $object->{$name} = $object->{$_name} = $value;
+            $object->{$name} = $value;
         }
 
         return $object;

@@ -36,6 +36,11 @@ class ReorderController extends ControllerBehavior
     protected $requiredConfig = ['modelClass'];
 
     /**
+     * @var array Visible actions in context of the controller
+     */
+    protected $actions = ['reorder'];
+
+    /**
      * @var Model Import model
      */
     public $model;

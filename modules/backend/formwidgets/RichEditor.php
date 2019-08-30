@@ -5,6 +5,7 @@ use File;
 use Event;
 use Lang;
 use Request;
+use BackendAuth;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
 
@@ -84,6 +85,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+        $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
@@ -129,6 +131,7 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
+        $this->addJs('js/build-plugins-min.js', 'core');
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
         if ($lang = $this->getValidEditorLang()) {
@@ -214,14 +217,21 @@ class RichEditor extends FormWidgetBase
 
         $iterator = function ($links, $level = 0) use (&$iterator) {
             $result = [];
-            foreach ($links as $linkUrl => $link) {
 
+            foreach ($links as $linkUrl => $link) {
                 /*
                  * Remove scheme and host from URL
                  */
                 $baseUrl = Request::getSchemeAndHttpHost();
                 if (strpos($linkUrl, $baseUrl) === 0) {
                     $linkUrl = substr($linkUrl, strlen($baseUrl));
+                }
+
+                /*
+                 * Root page fallback.
+                 */
+                if (strlen($linkUrl) === 0) {
+                    $linkUrl = '/';
                 }
 
                 $linkName = str_repeat('&nbsp;', $level * 4);

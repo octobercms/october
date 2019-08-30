@@ -55,7 +55,6 @@ trait AssetMaker
 
         if ($type == null || $type == 'css') {
             foreach ($this->assets['css'] as $asset) {
-
                 /*
                  * Prevent duplicates
                  */
@@ -127,6 +126,13 @@ trait AssetMaker
         }
 
         $jsPath = $this->getAssetScheme($jsPath);
+
+        // Prevent CloudFlare's Rocket Loader from breaking stuff
+        // @see octobercms/october#4092, octobercms/october#3841, octobercms/october#3839
+        if (isset($attributes['cache']) && $attributes['cache'] == 'false') {
+            $attributes['data-cfasync'] = 'false';
+            unset($attributes['cache']);
+        }
 
         if (!in_array($jsPath, $this->assets['js'])) {
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
@@ -307,10 +313,8 @@ trait AssetMaker
     protected function removeDuplicates()
     {
         foreach ($this->assets as $type => &$collection) {
-
             $pathCache = [];
             foreach ($collection as $key => $asset) {
-
                 if (!$path = array_get($asset, 'path')) {
                     continue;
                 }
@@ -322,7 +326,6 @@ trait AssetMaker
 
                 $pathCache[$path] = true;
             }
-
         }
     }
 

@@ -27,10 +27,10 @@ class ControllerTest extends TestCase
         $controller = new Controller($theme);
 
         $url = $controller->themeUrl();
-        $this->assertEquals('http://localhost/themes/test', $url);
+        $this->assertEquals(url('/themes/test'), $url);
 
         $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals('http://localhost/themes/test/foo/bar.css', $url);
+        $this->assertEquals(url('/themes/test/foo/bar.css'), $url);
 
         //
         // These tests seem to bear different results
@@ -147,7 +147,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @expectedException        Twig_Error_Runtime
+     * @expectedException        \Twig\Error\RuntimeError
      * @expectedExceptionMessage is not found
      */
     public function testPartialNotFound()
@@ -170,13 +170,13 @@ class ControllerTest extends TestCase
         $requestMock = $this
             ->getMockBuilder('Illuminate\Http\Request')
             ->disableOriginalConstructor()
-            ->setMethods(array('ajax', 'method', 'header'))
+            ->setMethods(['ajax', 'method', 'header'])
             ->getMock();
 
-        $map = array(
-            array('X_OCTOBER_REQUEST_HANDLER', null, $handler),
-            array('X_OCTOBER_REQUEST_PARTIALS', null, $partials),
-        );
+        $map = [
+            ['X_OCTOBER_REQUEST_HANDLER', null, $handler],
+            ['X_OCTOBER_REQUEST_PARTIALS', null, $partials],
+        ];
 
         $requestMock->expects($this->any())
             ->method('ajax')
@@ -485,5 +485,4 @@ Custom output: And tell him about his brush strokes?
 ESC;
         $this->assertEquals($content, $response);
     }
-
 }

@@ -67,7 +67,15 @@ class ThemeOptions extends Controller
     public function update_onSave($dirName = null)
     {
         $model = $this->getThemeData($this->getDirName($dirName));
-        $this->asExtension('FormController')->update_onSave($model->id);
+        $result = $this->asExtension('FormController')->update_onSave($model->id);
+
+        // Redirect close requests to the settings index when user doesn't have access
+        // to go back to the theme selection page
+        if (!$this->user->hasAccess('cms.manage_themes') && input('close')) {
+            $result = Backend::redirect('system/settings');
+        }
+
+        return $result;
     }
 
     public function update_onResetDefault($dirName = null)
@@ -81,23 +89,12 @@ class ThemeOptions extends Controller
     /**
      * Add form fields defined in theme.yaml
      */
-    public function formExtendFields($form)
+    public function formExtendFieldsBefore($form)
     {
         $model = $form->model;
         $theme = $this->findThemeObject($model->theme);
-        $config = $theme->getFormConfig();
-
-        if ($fields = array_get($config, 'fields')) {
-            $form->addFields($fields);
-        }
-
-        if ($fields = array_get($config, 'tabs.fields')) {
-            $form->addTabFields($fields);
-        }
-
-        if ($fields = array_get($config, 'secondaryTabs.fields')) {
-            $form->addSecondaryTabFields($fields);
-        }
+        $form->config = $this->mergeConfig($form->config, $theme->getFormConfig());
+        $form->init();
     }
 
     //

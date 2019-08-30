@@ -9,9 +9,6 @@ $.oc.langMessages['uk'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : ukrainian (uk)
-//! author : zemlanin : https://github.com/zemlanin
-//! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -161,3 +158,4 @@ $.oc.langMessages['uk'] = $.extend(
     return uk;
 
 })));
+

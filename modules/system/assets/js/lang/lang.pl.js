@@ -9,8 +9,6 @@ $.oc.langMessages['pl'] = $.extend(
 );
 
 //! moment.js locale configuration v2.22.2
-//! locale : polish (pl)
-//! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
@@ -135,3 +133,4 @@ $.oc.langMessages['pl'] = $.extend(
     return pl;
 
 })));
+

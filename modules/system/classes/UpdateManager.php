@@ -523,7 +523,6 @@ class UpdateManager
         $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
 
         if ($this->versionManager->updatePlugin($plugin) !== false) {
-
             foreach ($this->versionManager->getNotes() as $note) {
                 $this->note($note);
             }
@@ -680,7 +679,9 @@ class UpdateManager
         $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
 
         foreach ($requestedDetails as $detail) {
-            if ($detail === -1) continue;
+            if ($detail === -1) {
+                continue;
+            }
             $result[] = $detail;
         }
 
@@ -746,6 +747,39 @@ class UpdateManager
         }
 
         $this->productCache[$type][$code] = $data;
+    }
+
+    //
+    // Changelog
+    //
+
+    /**
+     * Returns the latest changelog information.
+     */
+    public function requestChangelog()
+    {
+        $result = Http::get('https://octobercms.com/changelog?json');
+
+        if ($result->code == 404) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_empty'));
+        }
+
+        if ($result->code != 200) {
+            throw new ApplicationException(
+                strlen($result->body)
+                ? $result->body
+                : Lang::get('system::lang.server.response_empty')
+            );
+        }
+
+        try {
+            $resultData = json_decode($result->body, true);
+        }
+        catch (Exception $ex) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
+        }
+
+        return $resultData;
     }
 
     //
@@ -969,11 +1003,10 @@ class UpdateManager
         return base64_encode(hash_hmac('sha512', http_build_query($data, '', '&'), base64_decode($secret), true));
     }
 
-    //
-    // Internals
-    //
-
-    protected function getMigrationTableName()
+    /**
+     * @return string
+     */
+    public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
     }

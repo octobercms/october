@@ -99,9 +99,18 @@ return [
     |
     | The request cache stores cache retrievals from the cache store
     | in memory to speed up consecutive retrievals within the same request.
-    | Set to true to disable this in-memory request cache.
+    |
+    | true  - always disable this in-memory request cache
+    |
+    | false - always enable; be aware that long-running console commands
+    |         (including queue workers) may retain cache entries in memory that
+    |         have been changed in other processes or would have otherwise
+    |         expired, causing issues with the `queue:restart` command, for
+    |         example
+    |
+    | null  - enable for HTTP requests, disable when running in CLI
     |
     */
 
-    'disableRequestCache' => false,
+    'disableRequestCache' => null,
 ];

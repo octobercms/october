@@ -170,6 +170,38 @@ class VersionManagerTest extends TestCase
                     'scripts_can_go_first.php',
                     'scripts_can_go_anywhere.php'
                 ]
+            ],
+            [
+                [
+                    'file.name.with.dots.php',
+                    'The first update comment',
+                    '1.0.2.scripts_can_go_anywhere.php',
+                    'The second update comment',
+                ],
+                [
+                    'The first update comment',
+                    'The second update comment'
+                ],
+                [
+                    'file.name.with.dots.php',
+                    '1.0.2.scripts_can_go_anywhere.php'
+                ]
+            ],
+            [
+                [
+                    'subdirectory/file.name.with.dots.php',
+                    'The first update comment',
+                    'subdirectory\1.0.2.scripts_can_go_anywhere.php',
+                    'The second update comment',
+                ],
+                [
+                    'The first update comment',
+                    'The second update comment'
+                ],
+                [
+                    'subdirectory/file.name.with.dots.php',
+                    'subdirectory\1.0.2.scripts_can_go_anywhere.php'
+                ]
             ]
         ];
     }
