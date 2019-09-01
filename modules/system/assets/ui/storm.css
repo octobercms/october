@@ -2957,14 +2957,14 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .hide-tabs .control-tabs >div.tab-content >div.tab-pane {padding-top:0}
 .form-sidebar .control-tabs.secondary >div >ul.nav-tabs >li a {background:transparent}
 #cms-master-tabs .control-tabs >div.tab-content {padding:0}
-#Form-primaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-primaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-secondaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-secondaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-contentTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-contentTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
-#Form-masterTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%}
-#Form-masterTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;height:0;overflow:hidden}
+#Form-primaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%;position:relative}
+#Form-primaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;overflow:hidden;position:absolute}
+#Form-secondaryTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%;position:relative}
+#Form-secondaryTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;overflow:hidden;position:absolute}
+#Form-contentTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%;position:relative}
+#Form-contentTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;overflow:hidden;position:absolute}
+#Form-masterTabs >div.tab-content >div.tab-pane.active {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:1;height:100%;position:relative}
+#Form-masterTabs >div.tab-content >div.tab-pane {display:-webkit-box;display:-ms-flexbox;display:flex;opacity:0;overflow:hidden;position:absolute}
 .control-chart {text-align:left}
 .control-chart div.canvas {display:inline-block;margin-right:20px;margin-bottom:20px;position:relative}
 .control-chart div.canvas span.center {position:absolute;display:block;text-align:center;width:100%;top:50%;margin-top:-21px;font-size:30px;font-weight:100;color:#666;z-index:9}
@@ -4203,7 +4203,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.input-sidebar-control .sidebar-control:hover,
 .form-group.input-sidebar-control .sidebar-control:focus {text-decoration:none;color:#0181b9;outline:none}
 .stretch-parent .form-tabless-fields, .stretch-parent .tab-pane, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active, .stretch-parent .control-tabs >div.tab-content >div.tab-pane.active.layout-cell {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap}
-.form-group.textarea-field textarea.stretch {margin-bottom:25px}
+.form-group.stretch-bottom {padding-bottom:0 !important}
 .span-position-left {margin-right:auto}
 .span-position-middle {margin:0 auto}
 .span-position-right {margin-left:auto}

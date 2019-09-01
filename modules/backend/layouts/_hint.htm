@@ -24,7 +24,7 @@
                 <?php if (!empty($subtitle)): ?><p><?= $subtitle ?></p><?php endif ?>
             </div>
         <?php endif ?>
-        <div class="content">
+        <div class="content <?= $field->stretch ? 'stretch' : '' ?>">
             <?php if ($hintContent): ?>
                 <?= $hintContent ?>
             <?php else: ?>
@@ -34,20 +34,44 @@
     </div>
 <?php endif ?>
 
+<?php 
+// Create and clean field id for javascript parser
+$hintIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $field->getId('group'));
+?>
+
 <script>
-$(function() {	
-    /* Stretch */
-    var $textareaHeight = $(".form-group.hint-field .stretch").parent().outerHeight(),
-        $textareaParentHeight = $(".form-group.hint-field .stretch").closest('.hint-field').parent().height(),
-        $textareaParentContainer = $(".form-group.hint-field .stretch").closest('.stretch-parent').height();
+$(function() {
 
-    // Only run if not empty
-    if(($textareaParentContainer || $textareaParentContainer === 0)  &&  ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
-        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
-    }
-    if (typeof $stretchHeight !== "undefined") {
-        $(".form-group.hint-field .stretch").css("height", $stretchHeight + 'px');
+    "use strict";
+
+    /*
+     * Stretch feature for hint
+     * $hintHeight - height of the div container for the hint.
+     * $hintParentHeight - height of the tab area or outside tab area.
+     * $hintTabNavHeight - height of the tab navigation area.
+     * $hintParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $hintHeight<?= e($hintIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.hint-field .content.stretch').closest('.hint-field').outerHeight(),
+        $hintParentHeight<?= e($hintIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.hint-field .content.stretch').closest('.hint-field').parent().height(),
+        $hintTabNavHeight<?= e($hintIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.hint-field .content.stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $hintParentContainer<?= e($hintIdTag) ?> = $('.stretch-parent').height();
+
+    // If hint is outside the tab area then the tab navigation height will be zero
+    if (typeof $hintTabNavHeight<?= e($hintIdTag) ?> === 'undefined') {
+        var $hintTabNavHeight<?= e($hintIdTag) ?> = 0;
     }
 
+    /*
+     * Only run if all three variables are not undefined and the div container for the hint
+     * is greater than zero in height (when the hint is inside a hidden tab its height is zero).
+     */
+    if (typeof $hintParentContainer<?= e($hintIdTag) ?> !== 'undefined' && typeof $hintParentHeight<?= e($hintIdTag) ?> !== 'undefined' && typeof $hintHeight<?= e($hintIdTag) ?> !== 'undefined' && $hintHeight<?= e($hintIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $hintCalc<?= e($hintIdTag) ?> = ($hintParentHeight<?= e($hintIdTag) ?> + $hintTabNavHeight<?= e($hintIdTag) ?>) - ($hintHeight<?= e($hintIdTag) ?>);
+        // hint padding-top:10px + hint padding-bottom:10px + form area margin-bottom:30px + form area margin-top:20px = 70
+        var $stretchHeight<?= e($hintIdTag) ?> = (($hintParentContainer<?= e($hintIdTag) ?> - 70) - $hintCalc<?= e($hintIdTag) ?>);
+        // Ready to inject the css styling to the hint
+        $('div#<?= $field->getId('group') ?>.form-group.hint-field .content.stretch').css('height', $stretchHeight<?= e($hintIdTag) ?> + 'px');        
+    }
 });
 </script>

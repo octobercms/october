@@ -6,31 +6,68 @@
         name="<?= $field->getName() ?>"
         id="<?= $field->getId() ?>"
         autocomplete="off"
-        class="form-control field-textarea <?= $field->stretch ? 'layout-relative stretch' : '' ?> <?= $field->grow ? 'grow' : '' ?> size-<?= $field->size ?>"
+        class="form-control field-textarea <?= $field->stretch ? 'stretch' : '' ?> <?= $field->grow ? 'grow' : '' ?> size-<?= $field->size ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
 <?php endif?>
 
+<?php 
+// Create and clean field id for javascript parser
+$textareaIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $field->fieldName);
+?>
+
 <script>
 $(function() {
-    /* Grow */
+
+    "use strict";
+
+    /*
+     * Grow feature for textarea
+     */
     $('textarea#<?= $field->getId() ?>.grow').each(function() {
         this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
     }).on('input', function() {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
-	
-    /* Stretch */
-    var $textareaHeight = $('textarea#<?= $field->getId() ?>.stretch').closest('.textarea-field').height(),
-        $textareaParentHeight = $('textarea#<?= $field->getId() ?>.stretch').parent().parent().height(),
-        $textareaParentContainer = $('textarea#<?= $field->getId() ?>.stretch').closest('.stretch-parent').height();
 
-    // Only run if not empty
-    if (($textareaParentContainer || $textareaParentContainer === 0) && ($textareaParentHeight || $textareaParentHeight === 0) && ($textareaHeight || $textareaHeight === 0)) {
-        $stretchHeight = ($textareaParentContainer - 30) - ($textareaParentHeight - $textareaHeight);
+    /*
+     * Stretch feature for textarea
+     * $textareaHeight - height of the div container for the textarea.
+     * $textareaParentHeight - height of the tab area or outside tab area.
+     * $textareaTabNavHeight - height of the tab navigation area.
+     * $textareaParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $textareaHeight<?= e($textareaIdTag) ?> = $('.form-group.textarea-field textarea#<?= $field->getId() ?>.stretch').closest('.textarea-field').outerHeight(),
+        $textareaParentHeight<?= e($textareaIdTag) ?> = $('.form-group.textarea-field textarea#<?= $field->getId() ?>.stretch').closest('.textarea-field').parent().height(),
+        $textareaTabNavHeight<?= e($textareaIdTag) ?> = $('.form-group.textarea-field textarea#<?= $field->getId() ?>.stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $textareaParentContainer<?= e($textareaIdTag) ?> = $('.stretch-parent').height();
+
+    // If textarea is outside the tab area then the tab navigation height will be zero
+    if (typeof $textareaTabNavHeight<?= e($textareaIdTag) ?> === 'undefined') {
+        var $textareaTabNavHeight<?= e($textareaIdTag) ?> = 0;
     }
-    if (typeof $stretchHeight !== 'undefined') {
-        $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight + 'px');
+
+    /*
+     * Only run if all three variables are not undefined and the div container for the textarea
+     * is greater than zero in height (when the textarea is inside a hidden tab its height is zero).
+     */
+    if (typeof $textareaParentContainer<?= e($textareaIdTag) ?> !== 'undefined' && typeof $textareaParentHeight<?= e($textareaIdTag) ?> !== 'undefined' && typeof $textareaHeight<?= e($textareaIdTag) ?> !== 'undefined' && $textareaHeight<?= e($textareaIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $textareaCalc<?= e($textareaIdTag) ?> = ($textareaParentHeight<?= e($textareaIdTag) ?> + $textareaTabNavHeight<?= e($textareaIdTag) ?>) - ($textareaHeight<?= e($textareaIdTag) ?>);
+        // textarea padding-top:10px + textarea padding-bottom:10px + form area margin-bottom:30px + form area margin-top:20px = 70
+        var $stretchHeight<?= e($textareaIdTag) ?> = (($textareaParentContainer<?= e($textareaIdTag) ?> - 70) - $textareaCalc<?= e($textareaIdTag) ?>);
+        // Ready to inject the css styling to the textarea
+        $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight<?= e($textareaIdTag) ?> + 'px');
+
+/*    
+console.log('Textarea DIV: ' + $textareaHeight<?= e($textareaIdTag) ?>);
+console.log('Tab Panel Area: ' + $textareaParentHeight<?= e($textareaIdTag) ?>);
+console.log('Tab Nav Area: ' + $textareaTabNavHeight<?= e($textareaIdTag) ?>);
+console.log('Form Area: ' + $textareaParentContainer<?= e($textareaIdTag) ?>);
+console.log('Result: '+ $stretchHeight<?= e($textareaIdTag) ?>);
+console.log(' ');
+*/      
     }
+
 });
 </script>

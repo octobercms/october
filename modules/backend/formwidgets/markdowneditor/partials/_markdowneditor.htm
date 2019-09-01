@@ -3,7 +3,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-markdowneditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
+        class="field-markdowneditor size-<?= $size ?> <?= $stretch ? 'stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
         data-control="markdowneditor"
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-view-mode="<?= $mode ?>"
@@ -20,3 +20,45 @@
 
     </div>
 <?php endif ?>
+
+<?php 
+// Create and clean field id for javascript parser
+$markdowneditorIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $this->getId('textarea'));
+?>
+
+<script>
+$(function() {
+
+    "use strict";
+
+    /*
+     * Stretch feature for markdowneditor
+     * $markdowneditorHeight - height of the div container for the markdowneditor.
+     * $markdowneditorParentHeight - height of the tab area or outside tab area.
+     * $markdowneditorTabNavHeight - height of the tab navigation area.
+     * $markdowneditorParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $markdowneditorHeight<?= e($markdowneditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-markdowneditor.stretch').outerHeight(),
+        $markdowneditorParentHeight<?= e($markdowneditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-markdowneditor.stretch').parent().parent().height(),
+        $markdowneditorTabNavHeight<?= e($markdowneditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-markdowneditor.stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $markdowneditorParentContainer<?= e($markdowneditorIdTag) ?> = $('.stretch-parent').height();
+
+    // If markdowneditor is outside the tab area then the tab navigation height will be zero
+    if (typeof $markdowneditorTabNavHeight<?= e($markdowneditorIdTag) ?> === 'undefined') {
+        var $markdowneditorTabNavHeight<?= e($markdowneditorIdTag) ?> = 0;
+    }
+
+    /*
+     * Only run if all three variables are not undefined and the div container for the markdowneditor
+     * is greater than zero in height (when the markdowneditor is inside a hidden tab its height is zero).
+     */
+    if (typeof $markdowneditorParentContainer<?= e($markdowneditorIdTag) ?> !== 'undefined' && typeof $markdowneditorParentHeight<?= e($markdowneditorIdTag) ?> !== 'undefined' && typeof $markdowneditorHeight<?= e($markdowneditorIdTag) ?> !== 'undefined' && $markdowneditorHeight<?= e($markdowneditorIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $markdowneditorCalc<?= e($markdowneditorIdTag) ?> = ($markdowneditorParentHeight<?= e($markdowneditorIdTag) ?> + $markdowneditorTabNavHeight<?= e($markdowneditorIdTag) ?>) - ($markdowneditorHeight<?= e($markdowneditorIdTag) ?>);
+        // form area margin-bottom:30px + form area margin-top:20px = 50
+        var $stretchHeight<?= e($markdowneditorIdTag) ?> = (($markdowneditorParentContainer<?= e($markdowneditorIdTag) ?> - 50) - $markdowneditorCalc<?= e($markdowneditorIdTag) ?>);
+        // Ready to inject the css styling to the markdowneditor
+        $('.form-group.widget-field div#<?= $this->getId() ?>.field-markdowneditor.stretch').css('height', $stretchHeight<?= e($markdowneditorIdTag) ?> + 'px');        
+    }
+});
+</script>

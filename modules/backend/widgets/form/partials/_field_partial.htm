@@ -1,3 +1,4 @@
+<div class="<?= $field->stretch ? 'stretch' : '' ?>">
 <?= $this->controller->makePartial($field->path ?: $field->fieldName, [
     'formModel' => $formModel,
     'formField' => $field,
@@ -6,3 +7,46 @@
     'field'     => $field,
     'value'     => $field->value
 ]) ?>
+</div>
+
+<?php 
+// Create and clean field id for javascript parser
+$partialIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $field->fieldName);
+?>
+
+<script>
+$(function() {
+
+    "use strict";
+
+    /*
+     * Stretch feature for partial
+     * $partialHeight - height of the div container for the partial.
+     * $partialParentHeight - height of the tab area or outside tab area.
+     * $partialTabNavHeight - height of the tab navigation area.
+     * $partialParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $partialHeight<?= e($partialIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.partial-field .stretch').closest('.partial-field').outerHeight(),
+        $partialParentHeight<?= e($partialIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.partial-field .stretch').closest('.partial-field').parent().height(),
+        $partialTabNavHeight<?= e($partialIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.partial-field .stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $partialParentContainer<?= e($partialIdTag) ?> = $('.stretch-parent').height();
+
+    // If partial is outside the tab area then the tab navigation height will be zero
+    if (typeof $partialTabNavHeight<?= e($partialIdTag) ?> === 'undefined') {
+        var $partialTabNavHeight<?= e($partialIdTag) ?> = 0;
+    }
+
+    /*
+     * Only run if all three variables are not undefined and the div container for the partial
+     * is greater than zero in height (when the partial is inside a hidden tab its height is zero).
+     */
+    if (typeof $partialParentContainer<?= e($partialIdTag) ?> !== 'undefined' && typeof $partialParentHeight<?= e($partialIdTag) ?> !== 'undefined' && typeof $partialHeight<?= e($partialIdTag) ?> !== 'undefined' && $partialHeight<?= e($partialIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $partialCalc<?= e($partialIdTag) ?> = ($partialParentHeight<?= e($partialIdTag) ?> + $partialTabNavHeight<?= e($partialIdTag) ?>) - ($partialHeight<?= e($partialIdTag) ?>);
+        // partial padding-top:10px + partial padding-bottom:10px + form area margin-bottom:30px + form area margin-top:20px = 70
+        var $stretchHeight<?= e($partialIdTag) ?> = (($partialParentContainer<?= e($partialIdTag) ?> - 70) - $partialCalc<?= e($partialIdTag) ?>);
+        // Ready to inject the css styling to the partial
+        $('div#<?= $field->getId('group') ?>.form-group.partial-field .stretch').css('height', $stretchHeight<?= e($partialIdTag) ?> + 'px');
+    }
+});
+</script>

@@ -538,10 +538,9 @@
 
 //
 // Important - Styling to preload the tabs for the javascript.
-// The following code below is using opacity:0 and height:0 to not show the hidden tabs
-// October calculates all the hidden tab fields before a user opens
-// the hidden tab, do not change the code below or you will break October.
-// For more info see commit: https://github.com/octobercms/october/commit/0f43155fb805cd558a793aca0c61350f450ae3dc
+// The following code below is using opacity:0 and position:absolute to not show the hidden tabs
+// and opacity:1, height:100% and position:relative to show the active tab.
+// This is needed for October to calculate any stretch fields that are being loaded in hidden tabs.
 //
 
 #Form-primaryTabs {
@@ -552,14 +551,15 @@
             display: flex;
             opacity: 1;
             height: 100%;
+            position: relative;
         }
         >div.tab-pane {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             opacity: 0;
-            height: 0;
             overflow: hidden;
+            position: absolute;
         }
     }
 }
@@ -572,14 +572,15 @@
             display: flex;
             opacity: 1;
             height: 100%;
+            position: relative;
         }
         >div.tab-pane {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             opacity: 0;
-            height: 0;
             overflow: hidden;
+            position: absolute;
         }
     }
 }
@@ -592,14 +593,15 @@
             display: flex;
             opacity: 1;
             height: 100%;
+            position: relative;
         }
         >div.tab-pane {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             opacity: 0;
-            height: 0;
             overflow: hidden;
+            position: absolute;
         }
     }
 }
@@ -612,14 +614,15 @@
             display: flex;
             opacity: 1;
             height: 100%;
+            position: relative;
         }
         >div.tab-pane {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             opacity: 0;
-            height: 0;
             overflow: hidden;
+            position: absolute;
         }
     }
 }

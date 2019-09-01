@@ -4,7 +4,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-richeditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
+        class="field-richeditor size-<?= $size ?> <?= $stretch ? 'stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
         <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
         <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
@@ -32,3 +32,45 @@
             <div class="height-indicator"></div>
     </div>
 <?php endif ?>
+
+<?php 
+// Create and clean field id for javascript parser
+$richeditorIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $field->getId('group'));
+?>
+
+<script>
+$(function() {
+
+    "use strict";
+
+    /*
+     * Stretch feature for richeditor
+     * $richeditorHeight - height of the div container for the richeditor.
+     * $richeditorParentHeight - height of the tab area or outside tab area.
+     * $richeditorTabNavHeight - height of the tab navigation area.
+     * $richeditorParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $richeditorHeight<?= e($richeditorIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.widget-field .field-richeditor.stretch').outerHeight(),
+        $richeditorParentHeight<?= e($richeditorIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.widget-field .field-richeditor.stretch').parent().parent().height(),
+        $richeditorTabNavHeight<?= e($richeditorIdTag) ?> = $('div#<?= $field->getId('group') ?>.form-group.widget-field .field-richeditor.stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $richeditorParentContainer<?= e($richeditorIdTag) ?> = $('.stretch-parent').height();
+
+    // If richeditor is outside the tab area then the tab navigation height will be zero
+    if (typeof $richeditorTabNavHeight<?= e($richeditorIdTag) ?> === 'undefined') {
+        var $richeditorTabNavHeight<?= e($richeditorIdTag) ?> = 0;
+    }
+
+    /*
+     * Only run if all three variables are not undefined and the div container for the richeditor
+     * is greater than zero in height (when the richeditor is inside a hidden tab its height is zero).
+     */
+    if (typeof $richeditorParentContainer<?= e($richeditorIdTag) ?> !== 'undefined' && typeof $richeditorParentHeight<?= e($richeditorIdTag) ?> !== 'undefined' && typeof $richeditorHeight<?= e($richeditorIdTag) ?> !== 'undefined' && $richeditorHeight<?= e($richeditorIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $richeditorCalc<?= e($richeditorIdTag) ?> = ($richeditorParentHeight<?= e($richeditorIdTag) ?> + $richeditorTabNavHeight<?= e($richeditorIdTag) ?>) - ($richeditorHeight<?= e($richeditorIdTag) ?>);
+        // form area margin-bottom:30px + form area margin-top:20px = 50
+        var $stretchHeight<?= e($richeditorIdTag) ?> = (($richeditorParentContainer<?= e($richeditorIdTag) ?> - 50) - $richeditorCalc<?= e($richeditorIdTag) ?>);
+        // Ready to inject the css styling to the richeditor
+        $('div#<?= $field->getId('group') ?>.form-group.widget-field .field-richeditor.stretch').css('height', $stretchHeight<?= e($richeditorIdTag) ?> + 'px');
+    }
+});
+</script>

@@ -5,7 +5,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-codeeditor size-<?= $size ?> <?= $stretch ? 'layout-relative stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
+        class="field-codeeditor size-<?= $size ?> <?= $stretch ? 'stretch' : '' ?> <?= $grow ? 'grow' : '' ?>"
         data-control="codeeditor"
         data-font-size="<?= $fontSize ?>"
         data-word-wrap="<?= $wordWrap ?>"
@@ -68,3 +68,45 @@
         <textarea name="<?= $name ?>" id="<?= $this->getId('textarea') ?>" class="<?= $grow ? 'grow' : '' ?>"><?= e($value) ?></textarea>
     </div>
 <?php endif ?>
+
+<?php 
+// Create and clean field id for javascript parser
+$codeeditorIdTag = preg_replace("/[^A-Za-z0-9 ]/", '', $this->getId('textarea'));
+?>
+
+<script>
+$(function() {
+
+    "use strict";
+
+    /*
+     * Stretch feature for codeeditor
+     * $codeeditorHeight - height of the div container for the codeeditor.
+     * $codeeditorParentHeight - height of the tab area or outside tab area.
+     * $codeeditorTabNavHeight - height of the tab navigation area.
+     * $codeeditorParentContainer - height of the whole form area (including tab and/or outside tab area).
+     */
+    var $codeeditorHeight<?= e($codeeditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-codeeditor.stretch').outerHeight(),
+        $codeeditorParentHeight<?= e($codeeditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-codeeditor.stretch').parent().parent().height(),
+        $codeeditorTabNavHeight<?= e($codeeditorIdTag) ?> = $('.form-group.widget-field div#<?= $this->getId() ?>.field-codeeditor.stretch').closest('.control-tabs').find('.stretch-nav').outerHeight(),
+        $codeeditorParentContainer<?= e($codeeditorIdTag) ?> = $('.stretch-parent').height();
+
+    // If codeeditor is outside the tab area then the tab navigation height will be zero
+    if (typeof $codeeditorTabNavHeight<?= e($codeeditorIdTag) ?> === 'undefined') {
+        var $codeeditorTabNavHeight<?= e($codeeditorIdTag) ?> = 0;
+    }
+
+    /*
+     * Only run if all three variables are not undefined and the div container for the codeeditor
+     * is greater than zero in height (when the codeeditor is inside a hidden tab its height is zero).
+     */
+    if (typeof $codeeditorParentContainer<?= e($codeeditorIdTag) ?> !== 'undefined' && typeof $codeeditorParentHeight<?= e($codeeditorIdTag) ?> !== 'undefined' && typeof $codeeditorHeight<?= e($codeeditorIdTag) ?> !== 'undefined' && $codeeditorHeight<?= e($codeeditorIdTag) ?> > 0) {
+        // Amount of form area to be removed from total form height
+        var $codeeditorCalc<?= e($codeeditorIdTag) ?> = ($codeeditorParentHeight<?= e($codeeditorIdTag) ?> + $codeeditorTabNavHeight<?= e($codeeditorIdTag) ?>) - ($codeeditorHeight<?= e($codeeditorIdTag) ?>);
+        // form area margin-bottom:30px + form area margin-top:20px = 50
+        var $stretchHeight<?= e($codeeditorIdTag) ?> = (($codeeditorParentContainer<?= e($codeeditorIdTag) ?> - 50) - $codeeditorCalc<?= e($codeeditorIdTag) ?>);
+        // Ready to inject the css styling to the codeeditor
+        $('.form-group.widget-field div#<?= $this->getId() ?>.field-codeeditor.stretch').css('height', $stretchHeight<?= e($codeeditorIdTag) ?> + 'px');        
+    }
+});
+</script>
