@@ -18,7 +18,7 @@ $(function() {
      * End - Last tab
      * Arrow Keys - Scroll through the tabs
      */
-    function whiteList() {
+    function whiteList(key) {
         var whitelist = [
             'ArrowLeft',
             'ArrowUp',
@@ -34,8 +34,10 @@ $(function() {
             ' '
         ];
 
-        if ((event.shiftKey && event.key === 'Tab') || (event.type === 'keydown' && !whitelist.includes(event.key))) {
+        if ((event.shiftKey && key === 'Tab') || (whitelist.includes(key))) {
             return;
+        } else {
+            event.preventDefault();
         }
     }
 
@@ -59,7 +61,7 @@ $(function() {
      */
     $('body').on('click keydown', '#layout-sidenav a[role="button"]', function(event) {
         // Run whitelist checker
-        whiteList();
+        whiteList(event.key);
 
         var $target = $(event.currentTarget);
 
@@ -116,7 +118,7 @@ $(function() {
      */
     $('body').on('click keydown', '.custom-radio input[role="radio"]', function(event) {
         // Run whitelist checker
-        whiteList();
+        whiteList(event.key);
 
         var $target = $(event.currentTarget),
             parentContainer = $target.closest('.radio-field');
@@ -141,7 +143,7 @@ $(function() {
      */
     $('body').on('change', '.switch-field input[role="checkbox"]', function () {
         // Run whitelist checker
-        whiteList();
+        whiteList(event.key);
 
         // Get current switch
         var self = $(this);
@@ -166,7 +168,7 @@ $(function() {
      */
     $('body').on('click keydown', '.form-widget', function() {
         // Run whitelist checker
-        whiteList();
+        whiteList(event.key);
 
         // Remove all custom tab focus rings
         $('.master-tabs li, .primary-tabs li, .secondary-tabs li, .content-tabs li').removeClass('focus-visible-tabs');
@@ -179,7 +181,7 @@ $(function() {
      */
     $('body').on('click keyup', '.master-tabs a[role="tab"],.primary-tabs a[role="tab"],.secondary-tabs a[role="tab"],.content-tabs a[role="tab"]', function(event) {
         // Run whitelist checker
-        whiteList();
+        whiteList(event.key);
 
         var $target = $(event.currentTarget),
             tabName = '',
