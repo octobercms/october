@@ -4083,6 +4083,8 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group .control-balloon-selector ul {margin-bottom:0}
 .custom-checkbox.nolabel label,
 .custom-radio.nolabel label {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
+.checkbox.custom-checkbox.focus-visible {border:none !important;-webkit-box-shadow:none !important;box-shadow:none !important}
+.custom-checkbox.focus-visible label::before {border:.0625rem solid #3578E5 !important;-webkit-box-shadow:0 0 .1875rem .125rem #3578E5 !important;box-shadow:0 0 .1875rem .125rem #3578E5 !important}
 .custom-checkbox,
 .custom-radio {padding-left:23px;margin-top:0}
 .custom-checkbox input[type=radio],

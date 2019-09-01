@@ -11,7 +11,7 @@
         name="<?= $field->getName() ?>"
         value="1"
         <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
-        <?= $field->isSelected() ? 'checked="checked"' : '' ?>
+        <?= $field->isSelected() ? 'checked="checked" aria-checked="true"' : 'aria-checked="false"' ?>
         <?= $field->getAttributes() ?>>
 
     <label for="<?= $field->getId() ?>">

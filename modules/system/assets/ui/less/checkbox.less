@@ -23,6 +23,8 @@
 @color-label-green:                             @color-checkbox-switch-on;
 @color-label-red:                               @color-checkbox-switch-off;
 
+@focus-ring:                                    #3578E5;
+
 //
 // Checkbox
 // --------------------------------------------------
@@ -30,6 +32,25 @@
 .custom-checkbox.nolabel label,
 .custom-radio.nolabel label {
     .text-hide();
+}
+
+//
+// Focus ring for checkboxes
+//
+
+.checkbox.custom-checkbox.focus-visible {
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.custom-checkbox.focus-visible {
+    label {
+        &::before {
+            border: .0625rem solid @focus-ring;
+            -webkit-box-shadow: 0 0 0.1875rem 0.125rem @focus-ring;
+            box-shadow: 0 0 0.1875rem 0.125rem @focus-ring;
+        }
+    }
 }
 
 //

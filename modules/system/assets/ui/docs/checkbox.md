@@ -4,9 +4,13 @@
 
 Allows a user to select from a small set of binary options.
 
-    <div class="checkbox custom-checkbox">
-        <input name="checkbox" value="1" type="checkbox" id="checkbox1" />
+    <div class="checkbox custom-checkbox" tabindex="0">
+        <input name="checkbox" value="1" type="checkbox" id="checkbox1" checked="checked" aria-checked="true" />
         <label for="checkbox1">Checkbox</label>
+    </div>
+    <div class="checkbox custom-checkbox" tabindex="0">
+        <input name="checkbox" value="1" type="checkbox" id="checkbox2" aria-checked="false" />
+        <label for="checkbox2">Checkbox</label>
     </div>
 
 ### Radio

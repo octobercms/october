@@ -16,14 +16,15 @@
                 if (!in_array($value, $checkedValues)) continue;
                 if (is_string($option)) $option = [$option];
             ?>
-            <div class="checkbox custom-checkbox">
+            <div class="checkbox custom-checkbox" tabindex="0">
                 <input
                     type="checkbox"
                     id="<?= $checkboxId ?>"
                     name="<?= $field->getName() ?>[]"
                     value="<?= e($value) ?>"
                     disabled="disabled"
-                    checked="checked">
+                    checked="checked"
+                    aria-checked="true">
 
                 <label for="<?= $checkboxId ?>">
                     <?= e(trans($option[0])) ?>
@@ -63,13 +64,13 @@
                 $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
                 if (is_string($option)) $option = [$option];
             ?>
-            <div class="checkbox custom-checkbox">
+            <div class="checkbox custom-checkbox" tabindex="0">
                 <input
                     type="checkbox"
                     id="<?= $checkboxId ?>"
                     name="<?= $field->getName() ?>[]"
                     value="<?= e($value) ?>"
-                    <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
+                    <?= in_array($value, $checkedValues) ? 'checked="checked" aria-checked="true"' : 'aria-checked="false"' ?>>
 
                 <label for="<?= $checkboxId ?>">
                     <?= e(trans($option[0])) ?>
