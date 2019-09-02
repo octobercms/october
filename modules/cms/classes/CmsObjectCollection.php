@@ -19,11 +19,9 @@ class CmsObjectCollection extends CollectionBase
     public function withComponent($components, $callback = null)
     {
         return $this->filter(function ($object) use ($components, $callback) {
-
             $hasComponent = false;
 
             foreach ((array) $components as $componentName) {
-
                 if (!$callback && $object->hasComponent($componentName)) {
                     $hasComponent = true;
                 }
@@ -73,7 +71,6 @@ class CmsObjectCollection extends CollectionBase
             $hasComponent = false;
 
             foreach ((array) $components as $componentName) {
-
                 if (!$componentAlias = $object->hasComponent($componentName)) {
                     continue;
                 }
@@ -101,5 +98,4 @@ class CmsObjectCollection extends CollectionBase
             return $hasComponent;
         });
     }
-
 }

@@ -97,6 +97,10 @@
             .siblings().removeClass('active')
 
         this.setColor($item.data('hexColor'))
+
+        if($item.data('hexColor').length > 0) {
+            $item.addClass('sp-clear-display')
+        }
     }
 
     // COLORPICKER PLUGIN DEFINITION

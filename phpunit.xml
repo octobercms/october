@@ -18,6 +18,23 @@
             <directory>./vendor/october/rain/tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./modules/</directory>
+
+            <exclude>
+                <file>./modules/backend/routes.php</file>
+                <file>./modules/cms/routes.php</file>
+                <file>./modules/system/routes.php</file>
+
+                <directory suffix=".php">./modules/backend/database</directory>
+                <directory suffix=".php">./modules/cms/database</directory>
+                <directory suffix=".php">./modules/system/database</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
     <php>
         <env name="APP_ENV" value="testing" />
         <env name="CACHE_DRIVER" value="array" />

@@ -75,8 +75,9 @@ class ComponentHelpers
             }
         }
 
-        if ($returnArray)
+        if ($returnArray) {
             return $result;
+        }
 
         return json_encode($result);
     }

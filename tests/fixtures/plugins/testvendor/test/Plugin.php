@@ -4,7 +4,6 @@ use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
-
     public function pluginDetails()
     {
         return [
@@ -23,5 +22,4 @@ class Plugin extends PluginBase
             ]
         ];
     }
-
 }

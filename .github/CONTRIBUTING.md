@@ -6,6 +6,8 @@ Thank you for your interest in contributing to the OctoberCMS project!
 
 **Please don't use the main GitHub for reporting issues with plugins.** If you have found a bug in a plugin, the best place to report it is with the [plugin author](https://octobercms.com/plugins).
 
+>**NOTE**: If you're reporting an issue that you intend to fix yourself, you can skip the Issue step and just submit a Pull Request that fixes the issue (along with a detailed description of the original problem) instead.
+
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
 - **Summary**: Make sure your summary reflects what the problem is and where it is. Provide as much detail as possible, the more information we have to work with the more likely it is that your problem can be solved.
@@ -61,6 +63,28 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 Thank you for your contributions!
 
+### How to fix/update your develop branch
+
+When you see a conflict with the `develop` branch you can do the following to resolve the error. Add the core October repo as a remote (ie. `upstream`) and when working on my own branch, I had to ensure that the changes from the core were included in my fork.
+
+You could try the following:
+
+```
+git remote add upstream git@github.com:octobercms/october.git
+git fetch upstream
+git checkout develop
+git pull upstream develop
+```
+
+This ensures that your local `develop` branch matches October. Then:
+
+```
+git checkout <your branch>
+git merge develop
+```
+
+This would merge all the latest changes from the October `develop` branch into your development branch. If there's a merge conflict, this will probably appear on your local copy now, but it should be easy enough to then merge in what you can, and then re-compile the assets using `php artisan october:util compile assets` which should hopefully generate the correct compiled file that won't conflict with October's core repo.
+
 #### PSR Coding standards
 
 Please ensure that your Pull Request satisfies the following coding standards:
@@ -68,6 +92,8 @@ Please ensure that your Pull Request satisfies the following coding standards:
 - [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 - [PSR 1 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 - [PSR 0 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+
+To validate your changes against our coding standards, you may run `./vendor/bin/phpcs -nq --extensions="php"` in your development folder.
 
 #### Team rules
 

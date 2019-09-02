@@ -218,7 +218,7 @@ return [
         'none' => [
             'label' => 'Inga uppdateringar',
             'help' => 'Inga nya uppdateringar hittades.'
-    ],
+        ],
         'important_action' => [
             'empty' => 'Välj åtgärd',
             'confirm' => 'Bekräfta uppdatering',

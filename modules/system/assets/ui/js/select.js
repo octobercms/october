@@ -86,7 +86,25 @@
 
                         return $request
                     },
+                    processResults: function (data, params) {
+                        var results = data.result;
+                        var options = [];
 
+                        for (var i in results) {
+                            if (results.hasOwnProperty(i)) {
+                                var isObject = i != null && i.constructor.name === 'Object';
+                                
+                                options.push({
+                                    id: isObject ? results[i].id : i,
+                                    text: isObject ? results[i].text : results[i],
+                                });
+                            };
+                        };
+
+                        return {
+                            results: options,
+                        };
+                    },
                     dataType: 'json'
                 }
             }
