@@ -9,13 +9,13 @@ $(function() {
     "use strict";
 
     /*
-     * Tab - Move forwards
-     * Shift and Tab - Move backwards
-     * Enter - Select that tab (PC)
-     * Space bar - Select that tab (MAC)
-     * Home - First tab
-     * End - Last tab
-     * Arrow Keys - Scroll through the tabs
+     * Tab - move forwards
+     * Shift and Tab - move backwards
+     * Enter - select that tab (PC)
+     * Space bar - select that tab (MAC)
+     * Home - first tab
+     * End - last tab
+     * Arrow keys - scroll through the tabs
      */
     function whiteList(key) {
         var whitelist = [
@@ -71,7 +71,7 @@ $(function() {
     /*
      * Slider switch buttons
      */
-    $('body').on('change', '.switch-field input[role="checkbox"]', function () {
+    $('body').on('change', '.switch-field input[role="checkbox"]', function (event) {
         // Run whitelist checker
         whiteList(event.key);
 
@@ -96,7 +96,7 @@ $(function() {
      * Important - 'keydown' selects the form and 'keyup' selects the form field.
      * 'keydown' must be used.       
      */
-    $('body').on('click keydown', '.form-widget', function() {
+    $('body').on('click keydown', '.form-widget', function(event) {
         // Run whitelist checker
         whiteList(event.key);
 
@@ -169,7 +169,7 @@ $(function() {
             $(tabName + ' li ' + ' a').last().click().focus();
         }
 
-        // Important - Must be set to true for October to set class="active" in the <li>
+        // Important - must be set to true for October to set class="active" in the <li>
         return true;
     });
 
