@@ -715,7 +715,7 @@ class Index extends Controller
 
         /**
          * @event cms.template.processSettingsBeforeSave
-         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: array()}
+         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: []}
          *
          * Example usage:
          *

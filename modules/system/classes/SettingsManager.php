@@ -191,10 +191,9 @@ class SettingsManager
      * Registers a callback function that defines setting items.
      * The callback function should register setting items by calling the manager's
      * registerSettingItems() function. The manager instance is passed to the
-     * callback function as an argument.
-     * Usage:
+     * callback function as an argument. Usage:
      *
-     *     SettingsManager::registerCallback(function($manager){
+     *     SettingsManager::registerCallback(function ($manager) {
      *         $manager->registerSettingItems([...]);
      *     });
      *

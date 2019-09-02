@@ -43,11 +43,6 @@
     $fonts = [
         Url::asset('modules/system/assets/ui/font/fontawesome-webfont.woff?v=1.0.1'),
     ];
-
-    // Images
-    $images = [
-        Url::asset('modules/backend/assets/images/favicon.png'),
-    ];
 ?>
 
 <?php foreach ($styles as $style) : ?>
@@ -62,10 +57,6 @@
 
 <?php foreach ($fonts as $font) : ?>
     <link href="<?= $font; ?>" rel="preload" as="font" type="font/woff2" crossorigin importance="high">
-<?php endforeach; ?>
-
-<?php foreach ($images as $image) : ?>
-    <link href="<?= $image; ?>" rel="preload" as="image" importance="high">
 <?php endforeach; ?>
 
 <?php if (!Config::get('cms.enableBackendServiceWorkers', false)) : ?>
