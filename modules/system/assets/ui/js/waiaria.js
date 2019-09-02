@@ -12,13 +12,13 @@ $(function() {
     "use strict";
 
     /*
-     * Tab - Move forwards
-     * Shift and Tab - Move backwards
-     * Enter - Select that tab (PC)
-     * Space bar - Select that tab (MAC)
-     * Home - First tab
-     * End - Last tab
-     * Arrow Keys - Scroll through the tabs
+     * Tab - move forwards
+     * Shift and Tab - move backwards
+     * Enter - select that tab (PC)
+     * Space bar - select that tab (MAC)
+     * Home - first tab
+     * End - last tab
+     * Arrow keys - scroll through the tabs
      */
     function whiteList(key) {
         var whitelist = [
@@ -75,7 +75,7 @@ $(function() {
     });
 
     /*
-     * Sidebar menu for cms and plugin pages - Toolbar (setup for vertical orientation)
+     * Sidebar menu for cms and plugin pages - toolbar (setup for vertical orientation)
      * Important - 'keydown' must be used to prevent webpage scrolling issues. 
      */
     $('body').on('click keydown', '#layout-sidenav a[role="button"]', function(event) {
@@ -160,7 +160,7 @@ $(function() {
     /*
      * Slider switch buttons
      */
-    $('body').on('change', '.switch-field input[role="checkbox"]', function () {
+    $('body').on('change', '.switch-field input[role="checkbox"]', function (event) {
         // Run whitelist checker
         whiteList(event.key);
 
@@ -185,7 +185,7 @@ $(function() {
      * Important - 'keydown' selects the form and 'keyup' selects the form field.
      * 'keydown' must be used.       
      */
-    $('body').on('click keydown', '.form-widget', function() {
+    $('body').on('click keydown', '.form-widget', function(event) {
         // Run whitelist checker
         whiteList(event.key);
 
@@ -258,13 +258,13 @@ $(function() {
             $(tabName + ' li ' + ' a').last().click().focus();
         }
 
-        // Important - Must be set to true for October to set class="active" in the <li>
+        // Important - must be set to true for October to set class="active" in the <li>
         return true;
     });
     
     /*
      * Checkbox and checkbox list - keyboard control
-     * Important - 'keydown' selects the form and 'keyup' selects the form field.
+     * Important - 'keydown' selects the checkbox straight away and 'keyup' selects it later
      * 'keydown' must be used.
      */
     $('body').on('keydown', '.checkbox.custom-checkbox', function(event) {
@@ -314,7 +314,7 @@ $(function() {
             });
         }
 
-        // Important - Must be set to true for October to be able to update the checkbox
+        // Important - must be set to true for October to be able to update the checkbox
         return true;
     });
 
