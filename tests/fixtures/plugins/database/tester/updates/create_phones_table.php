@@ -8,8 +8,7 @@ class CreatePhonesTable extends Migration
 
     public function up()
     {
-        Schema::create('database_tester_phones', function ($table)
-        {
+        Schema::create('database_tester_phones', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('number')->nullable();
@@ -22,5 +21,4 @@ class CreatePhonesTable extends Migration
     {
         Schema::dropIfExists('database_tester_phones');
     }
-
 }

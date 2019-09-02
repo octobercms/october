@@ -39,6 +39,7 @@
         stylesheet: null,
         fullpage: false,
         editorLang: 'en',
+        useMediaManager: false,
         toolbarButtons: null,
         allowEmptyTags: null,
         allowTags: null,
@@ -166,6 +167,10 @@
         froalaOptions.height = this.$el.hasClass('stretch')
             ? Infinity
             : $('.height-indicator', this.$el).height()
+
+        if (!this.options.useMediaManager) {
+            delete $.FroalaEditor.PLUGINS.mediaManager
+        }
 
         $.FroalaEditor.ICON_TEMPLATES = {
             font_awesome: '<i class="icon-[NAME]"></i>',

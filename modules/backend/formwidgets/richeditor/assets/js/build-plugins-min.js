@@ -157,7 +157,7 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
@@ -184,6 +184,7 @@ froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()
+if(!this.options.useMediaManager){delete $.FroalaEditor.PLUGINS.mediaManager}
 $.FroalaEditor.ICON_TEMPLATES={font_awesome:'<i class="icon-[NAME]"></i>',text:'<span style="text-align: center;">[NAME]</span>',image:'<img src=[SRC] alt=[ALT] />'}
 this.$textarea.on('froalaEditor.initialized',this.proxy(this.build))
 this.$textarea.on('froalaEditor.contentChanged',this.proxy(this.onChange))

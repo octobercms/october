@@ -103,6 +103,7 @@
             clickable: this.$uploadButton.get(0),
             previewsContainer: this.$filesContainer.get(0),
             maxFiles: !this.options.isMulti ? 1 : null,
+            maxFilesize: this.options.maxFilesize,
             headers: {}
         }
 
@@ -112,10 +113,6 @@
 
         if (this.options.template) {
             this.uploaderOptions.previewTemplate = $(this.options.template).html()
-        }
-
-        if (this.options.uniqueId) {
-            this.uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
         }
 
         this.uploaderOptions.thumbnailWidth = this.options.thumbnailWidth
@@ -192,6 +189,7 @@
 
     FileUpload.prototype.onUploadSending = function(file, xhr, formData) {
         this.addExtraFormData(formData)
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     FileUpload.prototype.onUploadSuccess = function(file, response) {
@@ -428,12 +426,14 @@
 
     FileUpload.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         configHandler: null,
         sortHandler: null,
         uniqueId: null,
         extraData: {},
         paramName: 'file_data',
         fileTypes: null,
+        maxFilesize: 256,
         template: null,
         errorTemplate: null,
         isMulti: null,

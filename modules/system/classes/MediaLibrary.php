@@ -735,8 +735,9 @@ class MediaLibrary
      */
     protected function filterItemList(&$itemList, $filter)
     {
-        if (!$filter)
+        if (!$filter) {
             return;
+        }
 
         $result = [];
         foreach ($itemList as $item) {

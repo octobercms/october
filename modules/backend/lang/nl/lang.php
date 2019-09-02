@@ -17,6 +17,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Naamloos',
+        '404' => [
+            'label'     => 'Sorry, we kunnen deze pagina niet meer vinden.',
+            'help'      => "We hebben ons best gedaan, maar het lijkt erop dat deze pagina niet (meer) bestaat of misschien verhuisd is.",
+            'back_link' => 'Terug naar de homepagina.',
+        ],
         'access_denied' => [
             'label' => 'Toegang geweigerd',
             'help' => 'Je hebt niet de benodigde rechten om deze pagina te bekijken.',
@@ -33,6 +38,11 @@ return [
     ],
     'partial' => [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
+        'invalid_name' => 'Ongeldige sjabloon (partial) naam: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Ongeldige AJAX verzoek met naam: :name.',
+        'not_found' => "Het AJAX verzoek ':name' kon niet worden gevonden."
     ],
     'account' => [
         'signed_in_as' => 'Ingelogd als :full_name',
@@ -141,10 +151,12 @@ return [
         'last_login' => 'Laatste login',
         'created_at' => 'Aangemaakt op',
         'updated_at' => 'Gewijzigd op',
+        'deleted_at' => 'Verwijderd op',
+        'show_deleted' => 'Toon verwijderd',
         'group' => [
             'name' => 'Groep',
-            'name_comment' => 'De naam die wordt weergegeven in de groepenlijst bij het aanmaken of bewerken van een beheerder.',
             'name_field' => 'Naam',
+            'name_comment' => 'De naam die wordt weergegeven in de groepenlijst bij het aanmaken of bewerken van een beheerder.',
             'description_field' => 'Omschrijving',
             'is_new_user_default_field_label' => 'Standaard groep',
             'is_new_user_default_field_comment' => 'Voeg nieuwe beheerders automatisch toe aan deze groep.',
@@ -174,6 +186,8 @@ return [
         'preferences' => [
             'not_authenticated' => 'Er is geen geauthenticeerde gebruiker om gegevens voor te laden of op te slaan.',
         ],
+        'trashed_hint_title' => 'Dit account is verwijderd',
+        'trashed_hint_desc' => 'Dit account is verwijderd en kan dus niet meer op ingelogd worden. Klik op het icoontje rechts onderin als je het account te herstellen.',
     ],
     'list' => [
         'default_title' => 'Lijst',
@@ -229,6 +243,7 @@ return [
         'create_success' => ':name is succesvol aangemaakt',
         'update_success' => ':name is succesvol bijgewerkt',
         'delete_success' => ':name is succesvol verwijderd',
+        'restore_success' => ':name is succesvol hersteld',
         'reset_success' => 'Resetten voltooid',
         'missing_id' => 'Record ID van het formulier is niet opgegeven.',
         'missing_model' => 'Geen model opgegeven voor het gedrag (behavior) van het formulier gebruikt in :class.',
@@ -248,6 +263,9 @@ return [
         'confirm_delete' => 'Weet je zeker dat je dit record wilt verwijderen?',
         'confirm_delete_multiple' => 'Weet je zeker dat je de geselecteerde records wilt verwijderen?',
         'deleting_name' => ':name verwijderen...',
+        'restore' => 'Herstellen',
+        'restoring' => 'Herstellen...',
+        'confirm_restore' => 'Weet je zeker dat je dit record wil herstellen?',
         'reset_default' => 'Terug naar standaard instellingen',
         'resetting' => 'Bezig met terugzetten',
         'resetting_name' => ':name terugzetten',
@@ -281,6 +299,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Zoek record',
+        'invalid_model_class' => 'Het opgegeven model klasse ":modelClass" voor de recordfinder is ongeldig',
         'cancel' => 'Annuleren',
     ],
     'pagelist' => [
@@ -408,6 +427,8 @@ return [
         'brand' => 'Uitstraling',
         'logo' => 'Logo',
         'logo_description' => 'Upload een logo om te gebruiken in de beheeromgeving.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Upload een favicon om te gebruiken in de beheeromgeving',
         'app_name' => 'Applicatie naam',
         'app_name_description' => 'Deze naam wordt weergegeven bij de titel van de beheeromgeving.',
         'app_tagline' => 'Applicatie slogan',
@@ -438,7 +459,9 @@ return [
         'hint' => 'Dit logboek toont een lijst met succesvolle inlogpogingen door beheerders. Registraties blijven :days dagen bewaard.',
         'menu_label' => 'Toegangslogboek',
         'menu_description' => 'Bekijk een lijst met succesvolle inlogpogingen van gebruikers.',
+        'id' => 'ID',
         'created_at' => 'Datum & tijd',
+        'type' => 'Type',
         'login' => 'Gebruikersnaam',
         'ip_address' => 'IP-adres',
         'first_name' => 'Voornaam',

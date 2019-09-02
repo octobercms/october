@@ -1,5 +1,6 @@
 <?php namespace Backend\Traits;
 
+use Lang;
 use Request;
 use ApplicationException;
 
@@ -62,7 +63,7 @@ trait InspectableContainer
          */
         $optionsArray = [];
         foreach ((array) $options as $value => $title) {
-            $optionsArray[] = ['value' => $value, 'title' => $title];
+            $optionsArray[] = ['value' => $value, 'title' => Lang::get($title)];
         }
 
         return [
