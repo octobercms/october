@@ -59,7 +59,7 @@
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
                     title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
-                    <img role="img" loading="lazy" src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" alt="<?= e(trans($this->user->full_name)) ?>" class="account-avatar" width="78" height="78" />
+                    <img role="img" loading="lazy" src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" alt="<?= e($this->user->full_name) ?>" class="account-avatar" width="78" height="78" />
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>
