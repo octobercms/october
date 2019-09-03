@@ -57,16 +57,7 @@ $(function() {
         // textarea padding-top:10px + textarea padding-bottom:10px + form area margin-bottom:30px + form area margin-top:20px = 70
         var $stretchHeight<?= e($textareaIdTag) ?> = (($textareaParentContainer<?= e($textareaIdTag) ?> - 70) - $textareaCalc<?= e($textareaIdTag) ?>);
         // Ready to inject the css styling to the textarea
-        $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight<?= e($textareaIdTag) ?> + 'px');
-
-/*    
-console.log('Textarea DIV: ' + $textareaHeight<?= e($textareaIdTag) ?>);
-console.log('Tab Panel Area: ' + $textareaParentHeight<?= e($textareaIdTag) ?>);
-console.log('Tab Nav Area: ' + $textareaTabNavHeight<?= e($textareaIdTag) ?>);
-console.log('Form Area: ' + $textareaParentContainer<?= e($textareaIdTag) ?>);
-console.log('Result: '+ $stretchHeight<?= e($textareaIdTag) ?>);
-console.log(' ');
-*/      
+        $('textarea#<?= $field->getId() ?>.stretch').css('height', $stretchHeight<?= e($textareaIdTag) ?> + 'px');     
     }
 
 });
