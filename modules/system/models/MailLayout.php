@@ -141,5 +141,4 @@ class MailLayout extends Model
     {
         return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
-
 }

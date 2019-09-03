@@ -217,8 +217,8 @@ class RichEditor extends FormWidgetBase
 
         $iterator = function ($links, $level = 0) use (&$iterator) {
             $result = [];
-            foreach ($links as $linkUrl => $link) {
 
+            foreach ($links as $linkUrl => $link) {
                 /*
                  * Remove scheme and host from URL
                  */

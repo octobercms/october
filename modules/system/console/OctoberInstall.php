@@ -130,7 +130,8 @@ class OctoberInstall extends Command
         $this->writeToConfig('app', ['debug' => $debug]);
     }
 
-    protected function askToInstallPlugins() {
+    protected function askToInstallPlugins()
+    {
         $chosenToInstall = [];
         if ($this->confirm('Install the October.Drivers plugin?', false)) {
             $chosenToInstall[] = 'October.Drivers';

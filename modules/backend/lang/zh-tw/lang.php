@@ -306,7 +306,7 @@ return [
         'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
-   'media' => [
+    'media' => [
         'menu_label' => '媒體',
         'upload' => '上傳',
         'move' => '移動',

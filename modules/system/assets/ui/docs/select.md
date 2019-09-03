@@ -68,10 +68,27 @@ Use the `data-handler` attribute to source the select options from an AJAX handl
     data-minimum-input-length="2"
     data-ajax--delay="300"
     data-request-data="foo: 'bar'"
-    ></select>
+></select>
 ```
 
 The AJAX handler should return results as an array.
+
+```php
+public function onGetOptions()
+{
+    $results = [
+        [
+            'id' => 1,
+            'text' => 'Foobar',
+        ],
+        ...
+    ];
+
+    return ['result' => $results];
+}
+```
+
+Due to the fact that JavaScript reorders numeric keys when interpreting the JSON data received by the AJAX handler, we suggest the method above for defining `results`. Support for the original `results` array format is however retained to ensure backwards compatibility.
 
 ```php
 public function onGetOptions()

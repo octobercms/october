@@ -688,7 +688,6 @@ class FormField
          * relation value, all others will look up the relation object as normal.
          */
         foreach ($keyParts as $key) {
-
             if ($result instanceof Model && $result->hasRelation($key)) {
                 if ($key == $lastField) {
                     $result = $result->getRelationValue($key) ?: $default;
@@ -709,7 +708,6 @@ class FormField
                 }
                 $result = $result->{$key};
             }
-
         }
 
         return $result;

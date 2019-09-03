@@ -68,7 +68,8 @@ class DateTime
         else {
             try {
                 $value = Carbon::parse($value);
-            } catch (Exception $ex) {}
+            } catch (Exception $ex) {
+            }
         }
 
         if (!$value instanceof Carbon && $throwException) {
@@ -131,5 +132,4 @@ class DateTime
 
         return strtr($format, $replacements);
     }
-
 }

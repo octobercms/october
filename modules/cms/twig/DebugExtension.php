@@ -93,7 +93,6 @@ class DebugExtension extends TwigExtension
 
         $count = func_num_args();
         if ($count == 2) {
-
             $this->variablePrefix = true;
             $vars = [];
             foreach ($context as $key => $value) {
@@ -103,13 +102,10 @@ class DebugExtension extends TwigExtension
             }
 
             $result .= $this->dump($vars, static::PAGE_CAPTION);
-
         }
         else {
-
             $this->variablePrefix = false;
             for ($i = 2; $i < $count; $i++) {
-
                 $var = func_get_arg($i);
 
                 if ($var instanceof ComponentBase) {
@@ -127,9 +123,7 @@ class DebugExtension extends TwigExtension
 
                 $result .= $this->dump($var, $caption);
             }
-
         }
-
         return $result;
     }
 
@@ -164,9 +158,11 @@ class DebugExtension extends TwigExtension
             $output[] = $this->makeTableHeader($caption);
         }
 
+        $output[] = '<tbody>';
         foreach ($variables as $key => $item) {
             $output[] = $this->makeTableRow($key, $item);
         }
+        $output[] = '</tbody>';
         $output[] = '</table>';
 
         $html = implode(PHP_EOL, $output);
@@ -186,16 +182,18 @@ class DebugExtension extends TwigExtension
         }
 
         $output = [];
+        $output[] = '<thead>';
         $output[] = '<tr>';
-        $output[] = '<th colspan="3" colspan="100" style="'.$this->getHeaderCss().'">';
+        $output[] = '<th colspan="3" style="'.$this->getHeaderCss().'">';
         $output[] = $caption;
 
         if (isset($subcaption)) {
             $output[] = '<div style="'.$this->getSubheaderCss().'">'.$subcaption.'</div>';
         }
 
-        $output[] = '</td>';
+        $output[] = '</th>';
         $output[] = '</tr>';
+        $output[] = '</thead>';
         return implode(PHP_EOL, $output);
     }
 

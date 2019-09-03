@@ -1,151 +1,36 @@
-.field-colorpicker > ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  margin-top: -8px;
-}
-.field-colorpicker > ul li {
-  float: left;
-  text-indent: -9999px;
-  padding: 3px;
-  margin: 14px 14px 0 0;
-  cursor: pointer;
-  border-radius: 3px;
-}
-.field-colorpicker > ul li span {
-  display: block;
-  width: 25px;
-  height: 25px;
-  border: 1px solid #cecece;
-}
-.field-colorpicker > ul li:hover,
-.field-colorpicker > ul li.active {
-  background-color: #cecece;
-}
-.field-colorpicker > ul li:hover span,
-.field-colorpicker > ul li.active span {
-  border: 1px solid #ffffff;
-}
-.field-colorpicker > ul li.custom-color {
-  position: relative;
-}
-.field-colorpicker > ul li.custom-color span {
-  border-style: dashed;
-}
-.field-colorpicker > ul li.custom-color:hover span,
-.field-colorpicker > ul li.custom-color.active span {
-  border-style: solid;
-}
-.field-colorpicker > ul li.custom-color:before {
-  text-indent: 0;
-  font-family: FontAwesome;
-  font-weight: normal;
-  font-style: normal;
-  text-decoration: inherit;
-  -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
-  content: "\f0d8";
-  display: block;
-  text-align: center;
-  color: #000;
-  background: #e0e0e0;
-  font-size: 9px;
-  height: 9px;
-  line-height: 9px;
-  width: 9px;
-  position: absolute;
-  bottom: 3px;
-  right: 3px;
-}
+.field-colorpicker >ul {list-style-type:none;padding:0;margin:0;margin-top:-8px}
+.field-colorpicker >ul li {float:left;text-indent:-9999px;padding:3px;margin:14px 14px 0 0;cursor:pointer;border-radius:3px}
+.field-colorpicker >ul li span {display:block;width:25px;height:25px;border:1px solid #cecece}
+.field-colorpicker >ul li:hover,
+.field-colorpicker >ul li.active {background-color:#cecece}
+.field-colorpicker >ul li:hover span,
+.field-colorpicker >ul li.active span {border:1px solid #fff}
+.field-colorpicker >ul li.custom-color {position:relative}
+.field-colorpicker >ul li.custom-color span {border-style:dashed}
+.field-colorpicker >ul li.custom-color:hover span,
+.field-colorpicker >ul li.custom-color.active span {border-style:solid}
+.field-colorpicker >ul li.custom-color:before {text-indent:0;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0d8";display:block;text-align:center;color:#000;background:#e0e0e0;font-size:9px;height:9px;line-height:9px;width:9px;position:absolute;bottom:3px;right:3px}
 .sp-hue,
-.sp-slider {
-  cursor: row-resize;
-}
+.sp-slider {cursor:row-resize}
 .sp-color,
-.sp-dragger {
-  cursor: crosshair;
-}
+.sp-dragger {cursor:crosshair}
 .sp-alpha-inner,
-.sp-alpha-handle {
-  cursor: col-resize;
-}
-.sp-hue {
-  left: 90%;
-}
-.sp-color {
-  right: 15%;
-}
-.sp-container {
-  border: none;
-  border-radius: 3px;
-  z-index: 10100;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-.sp-picker-container {
-  border: none;
-}
-.sp-alpha-handle {
-  background-color: #ccc;
-  border: 1px solid #666;
-  width: 4px;
-}
+.sp-alpha-handle {cursor:col-resize}
+.sp-hue {left:90%}
+.sp-color {right:15%}
+.sp-container {border:none;border-radius:3px;z-index:10100;-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);box-shadow:0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.24);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}
+.sp-picker-container {border:none}
+.sp-alpha-handle {background-color:#ccc;border:1px solid #666;width:4px}
 .sp-color,
-.sp-hue {
-  border: 1px solid #ccc;
-}
-.sp-slider {
-  background-color: #ccc;
-  border: 1px solid #666;
-  height: 3px;
-  left: -4px;
-  width: 22px;
-}
-.sp-dragger {
-  background: transparent;
-  box-shadow: 0 0 0 1px #111;
-}
-.sp-input {
-  outline: none !important;
-  -webkit-appearance: none;
-  border: 1px solid #d1d6d9;
-  -webkit-box-shadow: inset 0 1px 0 rgba(209, 214, 217, 0.25), 0 1px 0 rgba(255,255,255,.5);
-  box-shadow: inset 0 1px 0 rgba(209, 214, 217, 0.25), 0 1px 0 rgba(255,255,255,.5);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-.sp-input:focus {
-  border: 1px solid #d1d6d9;
-}
-.sp-button-container {
-  width: 100%;
-  position: relative;
-  text-align: right;
-  padding-top: 4px;
-}
+.sp-hue {border:1px solid #ccc}
+.sp-slider {background-color:#ccc;border:1px solid #666;height:3px;left:-4px;width:22px}
+.sp-dragger {background:transparent;box-shadow:0 0 0 1px #111}
+.sp-input {outline:none !important;-webkit-appearance:none;border:1px solid #d1d6d9;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.sp-input:focus {border:1px solid #d1d6d9}
+.sp-button-container {width:100%;position:relative;text-align:right;padding-top:4px}
 .sp-container button,
 .sp-container button:hover,
-.sp-container button:active {
-  text-shadow: none;
-  font-size: 13px;
-  text-align: left;
-  outline: none !important;
-  font-weight: normal;
-  -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.15);
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,.15);
-  border: 1px solid transparent;
-  color: #ffffff;
-  border: none;
-  background: #656d79;
-  padding: 1px 7.5px;
-  font-size: 12px;
-  line-height: 1.5;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
+.sp-container button:active {text-shadow:none;font-size:13px;text-align:left;outline:none !important;font-weight:normal;-webkit-box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);border:1px solid transparent;color:#fff;border:none;background:#656d79;padding:1px 7.5px;font-size:12px;line-height:1.5;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .sp-container button:hover,
 .sp-container button:hover:hover,
 .sp-container button:active:hover,
@@ -160,11 +45,7 @@
 .sp-container button:active.active,
 .open .dropdown-toggle.sp-container button,
 .open .dropdown-toggle.sp-container button:hover,
-.open .dropdown-toggle.sp-container button:active {
-  color: #ffffff;
-  background: #1681ba;
-  border-color: #1681ba;
-}
+.open .dropdown-toggle.sp-container button:active {color:#fff;background:#1681ba;border-color:#1681ba}
 .sp-container button:active,
 .sp-container button:hover:active,
 .sp-container button:active:active,
@@ -173,18 +54,10 @@
 .sp-container button:active.active,
 .open .dropdown-toggle.sp-container button,
 .open .dropdown-toggle.sp-container button:hover,
-.open .dropdown-toggle.sp-container button:active {
-  background: #126896;
-  border-color: #105b83;
-  background-image: none;
-}
+.open .dropdown-toggle.sp-container button:active {background:#126896;border-color:#105b83;background-image:none}
 .sp-container button.on,
 .sp-container button:hover.on,
-.sp-container button:active.on {
-  background: #494f58;
-  border-color: #40454d;
-  background-image: none;
-}
+.sp-container button:active.on {background:#494f58;border-color:#40454d;background-image:none}
 .sp-container button.disabled,
 .sp-container button:hover.disabled,
 .sp-container button:active.disabled,
@@ -214,48 +87,16 @@
 .sp-container button:active.disabled.active,
 .sp-container button[disabled].active,
 .sp-container button:hover[disabled].active,
-.sp-container button:active[disabled].active {
-  background: #656d79;
-  border-color: #656d79;
-}
+.sp-container button:active[disabled].active {background:#656d79;border-color:#656d79}
 .sp-container button .badge,
 .sp-container button:hover .badge,
-.sp-container button:active .badge {
-  color: #656d79;
-  background: #ffffff;
-}
-.sp-cancel {
-  bottom: -3px;
-  left: 0;
-  position: absolute;
-  text-decoration: none;
-  font-family: serif;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  color: #000000 !important;
-  text-shadow: 0 1px 0 #ffffff;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-}
+.sp-container button:active .badge {color:#656d79;background:#fff}
+.sp-cancel {bottom:-3px;left:0;position:absolute;text-decoration:none;font-family:serif;font-size:21px;font-weight:bold;line-height:1;color:#000 !important;text-shadow:0 1px 0 #fff;opacity:0.2;filter:alpha(opacity=20)}
 .sp-cancel:hover,
-.sp-cancel:focus {
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-.sp-palette-container {
-  border: none;
-  float: none;
-  margin: 0;
-  padding: 5px 10px 0;
-}
+.sp-cancel:focus {text-decoration:none;cursor:pointer;opacity:0.5;filter:alpha(opacity=50)}
+.sp-palette-container {border:none;float:none;margin:0;padding:5px 10px 0}
 .sp-palette .sp-thumb-el,
-.sp-palette .sp-thumb-el:hover {
-  border: 1px solid rgba(0, 0, 0, 0.9);
-}
+.sp-palette .sp-thumb-el:hover {border:1px solid rgba(0,0,0,0.9)}
 .sp-palette .sp-thumb-el:hover,
-.sp-palette .sp-thumb-el.sp-thumb-active {
-  border-color: rgba(0, 0, 0, 0.9);
-}
+.sp-palette .sp-thumb-el.sp-thumb-active {border-color:rgba(0,0,0,0.9)}
+.sp-clear-enabled .sp-clear {left:88%;height:24px;margin-right:-4px}
