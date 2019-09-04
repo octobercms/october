@@ -4,6 +4,7 @@ Thank you for your interest in contributing to the OctoberCMS project. We apprec
 
 - [Reporting a Security Vulnerability](#reporting-a-security-vulnerability)
 - [Reporting an issue with OctoberCMS](#reporting-an-issue-with-octobercms)
+  - [Reporting an issue with an OctoberCMS plugin](#reporting-an-issue-with-an-octobercms-plugin)
 - [Making a Feature Request](#making-a-feature-request)
 - [Making a Pull Request](#making-a-pull-request)
 - [Testing Pull Requests](#testing-a-pull-request)
