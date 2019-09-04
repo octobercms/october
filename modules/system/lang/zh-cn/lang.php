@@ -56,7 +56,8 @@ return [
         'name' => [
             'label' => '插件名称',
             'help' => '插件的唯一名称，例如：RainLab.Blog'
-        ]
+        ],
+        'by_author' => '作者 :name'
     ],
     'plugins' => [
         'manage' => '管理插件',

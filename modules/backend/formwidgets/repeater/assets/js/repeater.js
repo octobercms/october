@@ -211,9 +211,14 @@
             $target = $item
         }
 
-        var $textInput = $('input[type=text]:first', $target)
+        var $textInput = $('input[type=text]:first, select:first', $target).first();
         if ($textInput.length) {
-            return $textInput.val()
+            switch($textInput.prop("tagName")) {
+                case 'SELECT':
+                    return $textInput.find('option:selected').text();
+                default:
+                    return $textInput.val();
+            }
         } else {
             var $disabledTextInput = $('.text-field:first > .form-control', $target)
             if ($disabledTextInput.length) {

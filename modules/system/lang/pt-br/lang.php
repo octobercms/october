@@ -56,6 +56,7 @@ return [
             'label' => 'Nome do Plugin',
             'help' => 'Nomeie o plugin pelo seu código exclusivo. Por exemplo, RainLab.Blog',
         ],
+        'by_author' => 'Por :name'
     ],
     'plugins' => [
         'manage' => 'Gerenciar plugins',

@@ -32,6 +32,10 @@
                     else {
                         $isChecked = array_key_exists($permission->code, $permissionsData);
                     }
+
+                    $allowId = $this->getId('permission-' . $globalIndex . '-allow');
+                    $inheritId = $this->getId('permission-' . $globalIndex . '-inherit');
+                    $denyId = $this->getId('permission-' . $globalIndex . '-deny');
                 ?>
                 <tr class="<?= $lastIndex == $index ? 'last-section-row' : '' ?>
                         <?= $checkboxMode ? 'mode-checkbox' : 'mode-radio' ?>
@@ -47,7 +51,7 @@
                         <?php if (!$checkboxMode): ?>
                             <div class="radio custom-radio">
                                  <input
-                                    id="<?= 'permission-'.$globalIndex.'-allow' ?>"
+                                    id="<?= $allowId ?>"
                                     name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
                                     value="1"
                                     type="radio"
@@ -55,19 +59,19 @@
                                     data-radio-color="green"
                                 >
 
-                                <label for="<?= 'permission-'.$globalIndex.'-allow' ?>"><span>Allow</span></label>
+                                <label for="<?= $allowId ?>"><span>Allow</span></label>
                             </div>
                         <?php else: ?>
                             <div class="checkbox custom-checkbox">
                                  <input
-                                    id="<?= 'permission-'.$globalIndex.'-allow' ?>"
+                                    id="<?= $allowId ?>"
                                     name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
                                     value="1"
                                     type="checkbox"
                                     <?= $isChecked ? 'checked="checked"' : '' ?>
                                 >
 
-                                <label for="<?= 'permission-'.$globalIndex.'-allow' ?>"><span>Allow</span></label>
+                                <label for="<?= $allowId ?>"><span>Allow</span></label>
                             </div>
                         <?php endif?>
                     </td>
@@ -76,20 +80,20 @@
                         <td class="permission-value">
                             <div class="radio custom-radio">
                                  <input
-                                    id="<?= 'permission-'.$globalIndex.'-inherit' ?>"
+                                    id="<?= $inheritId ?>"
                                     name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
                                     value="0"
                                     <?= $permissionValue == 0 ? 'checked="checked"' : '' ?>
                                     type="radio"
                                 >
 
-                                <label for="<?= 'permission-'.$globalIndex.'-inherit' ?>"><span>Inherit</span></label>
+                                <label for="<?= $inheritId ?>"><span>Inherit</span></label>
                             </div>
                         </td>
                         <td class="permission-value">
                             <div class="radio custom-radio">
                                  <input
-                                    id="<?= 'permission-'.$globalIndex.'-deny' ?>"
+                                    id="<?= $denyId ?>"
                                     name="<?= e($baseFieldName) ?>[<?= e($permission->code) ?>]"
                                     value="-1"
                                     <?= $permissionValue == -1 ? 'checked="checked"' : '' ?>
@@ -97,7 +101,7 @@
                                     data-radio-color="red"
                                 >
 
-                                <label for="<?= 'permission-'.$globalIndex.'-deny' ?>"><span>Deny</span></label>
+                                <label for="<?= $denyId ?>"><span>Deny</span></label>
                             </div>
                         </td>
                     <?php endif ?>
