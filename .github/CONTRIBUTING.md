@@ -3,7 +3,7 @@
 Thank you for your interest in contributing to the OctoberCMS project. We appreciate any assistance that community members and users of OctoberCMS are willing to provide. You can contribute to the project in several different ways:
 
 - [Reporting a Security Vulnerability](#reporting-a-security-vulnerability)
-- [Reporting an issue with OctoberCMS](#reporting-an-issue-with-october)
+- [Reporting an issue with OctoberCMS](#reporting-an-issue-with-octobercms)
 - [Making a Feature Request](#making-a-feature-request)
 - [Making a Pull Request](#making-a-pull-request)
 - [Testing Pull Requests](#testing-a-pull-request)
