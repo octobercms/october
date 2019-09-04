@@ -136,7 +136,7 @@ The October team follows the [developer guidelines](https://octobercms.com/docs/
 
 Although we aim to test all pull requests made to the October repository, the maintainers of October are volunteers and may not be able to promptly attend to all pull requests.
 
-To help speed things up, any assistance with testing Pull Requests and fixes will be very appreciated.
+To help speed things up, any assistance with testing Pull Requests and fixes will be very appreciated. The best Pull Requests to test are those that are tagged as [**Testing Needed**](https://github.com/octobercms/october/pulls?q=is%3Apr+is%3Aopen+label%3A%22Testing+Needed%22) in the repository.
 
 To test a Pull Request, you can use the steps below in a terminal or command-line interface to create a fresh installation of October with the changes made in the Pull Request, ready to test. In this example, we have a user called `qwerty123` that has created a pull request with an ID of `#4509`.
 
