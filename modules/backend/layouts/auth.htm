@@ -37,7 +37,7 @@
             <link href="<?= $script . '?v=' . $coreBuild; ?>" rel="preload" as="script" importance="high">
         <?php endforeach; ?>
 
-            <link href="<?php Url::asset('modules/system/assets/ui/font/fontawesome-webfont.woff?v=1.0.1'); ?>" rel="preload" as="font" type="font/woff" crossorigin importance="high">
+        <link href="<?php Url::asset('modules/system/assets/ui/font/fontawesome-webfont.woff?v=1.0.1'); ?>" rel="preload" as="font" type="font/woff" crossorigin importance="high">
 
         <?php if (!Config::get('cms.enableBackendServiceWorkers', false)) : ?>
             <script>
