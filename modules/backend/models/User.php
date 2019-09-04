@@ -3,6 +3,7 @@
 use Mail;
 use Event;
 use Backend;
+use October\Rain\Network\Http;
 use October\Rain\Auth\Models\User as UserBase;
 
 /**
@@ -109,6 +110,26 @@ class User extends UserBase
 
         // If no custom avatar then display the default (Mystery man) image
         return 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgICAgJCAkKCgkNDgwODRMREBARExwUFhQWFBwrGx8bGx8bKyYuJSMlLiZENS8vNUROQj5CTl9VVV93cXecnNEBCAgICAkICQoKCQ0ODA4NExEQEBETHBQWFBYUHCsbHxsbHxsrJi4lIyUuJkQ1Ly81RE5CPkJOX1VVX3dxd5yc0f/CABEIAFoAWgMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAAAQYDBAUCB//aAAgBAQAAAAD6KBEiAmCSDJYujrVzUElk6pipkAuWwKbrgtPQPFKggz23P5q/OJh7s3SNerasxKz9MMNO8G3bwOBxDvdwDQqhYuukNamv/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAhAAAAAAAAAAD//EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQMQAAAAAAAAAA//xAAyEAACAQEGAwYDCQAAAAAAAAABAgMEAAURICExEiJREBMwQWFxcoGhIyQyMzRAU5Gx/9oACAEBAAE/AP3ccbyuqIuLG1NdUEYBl53+gsIYAMBEgHThFp7upJVPIFbqmlqujlpX4W1U/hYbHwLppwkJmI5nOnooyVNOk8DxtuRy+hsQQSCNc9IAKWnw/jXLVhRVVHDt3jf7nuucS0qoTrGcD7HJNKsMbu2yizMWZmO5OJz09RJTyiRPmOotBMJ4g4Vl9GHYTgCddOmtq+teduAKVRTsdyfXPGjyOqIuLG1Jd0UADOA8nXyGSppIKhMHXm8n87VdJJSylH1Hkw2Oa7aQQRCRh9o/0HTsxyVFPHUwNG2+4PraSNo3ZGGDA4HJQwd9Uxqdhq3sPAvqALIkq+Y4W9xkuSMfeJD0Cj5+BeaB6OTquDD+8ly/ky/HY9nSwyVv6Of4T2//xAAUEQEAAAAAAAAAAAAAAAAAAABQ/9oACAECAQE/ABP/xAAUEQEAAAAAAAAAAAAAAAAAAABQ/9oACAEDAQE/ABP/2Q==';
+    }
+    
+    /**
+     * After save event
+     * @return void
+     */
+    public function afterSave()
+    {
+        if ($this->avatar()->exists()) {
+           return;
+        }
+
+        $avatarRequest = Http::get('http://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=' . $size . '&d=404');
+
+        if ($avatarRequest->code === 200) {
+             $avatar = new System\Models\File();
+             $avatar->fromData($avatarRequest->body, $this->email . '-gravatar.jpg');
+             $avatar->save();
+             $this->avatar()->attach($avatar);
+        }
     }
 
     /**
