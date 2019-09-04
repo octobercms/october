@@ -24,7 +24,7 @@
                         <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
-                                    <img loading="lazy" class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>" alt="<?= e(trans($item->label)) ?>" width="30" height="30">
+                                    <img loading="lazy" class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>" width="30" height="30">
                                 <?php endif ?>
 
                                 <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -51,15 +51,17 @@
                 <a
                     href="<?= Url::to('/') ?>"
                     target="_blank"
-                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
+                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>"
+                    aria-label="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
                 </a>
             </li>
             <li class="mainmenu-account with-tooltip">
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
-                    title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
-                    <img loading="lazy" src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" alt="<?= e($this->user->full_name) ?>" class="account-avatar" width="78" height="78" />
+                    title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>"
+                    aria-label="<?= e(trans('backend::lang.account.settings')) ?>">
+                    <img loading="lazy" src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" width="78" height="78" />
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

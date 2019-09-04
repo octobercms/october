@@ -73,7 +73,8 @@ return [
         'apply' => 'Apply',
         'cancel' => 'Cancel',
         'delete' => 'Delete',
-        'ok' => 'OK'
+        'ok' => 'OK',
+        'settings' => 'Account settings',
     ],
     'dashboard' => [
         'menu_label' => 'Dashboard',
