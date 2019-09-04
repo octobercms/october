@@ -39,7 +39,8 @@ Before sending a Pull Request, be sure to review the [Contributing Guidelines](.
 
 ### Help and support this project
 
-You can also help the project by reviewing and testing open Pull Requests with the "**Status: Testing Needed**" tag, read more [https://github.com/octobercms/october/blob/master/.github/CONTRIBUTING.md#testing-pull-requests](link to contributing)
+You can also help the project by reviewing and testing open Pull Requests with the "**Status: Testing Needed**" tag.
+([Read more...](https://github.com/octobercms/october/blob/master/.github/CONTRIBUTING.md#testing-pull-requests)).
 
 ## Coding standards
 
