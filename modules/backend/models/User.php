@@ -116,7 +116,7 @@ class User extends UserBase
      * After save event
      * @return void
      */
-    public function afterSave()
+    public function afterSave($size = 25)
     {
         if ($this->avatar()->exists()) {
            return;
