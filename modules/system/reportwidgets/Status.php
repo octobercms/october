@@ -99,6 +99,14 @@ class Status extends ReportWidgetBase
             $writablePaths[] = themes_path();
         }
 
+        if (Config::get('app.debug', true)) {
+            $warnings[] = Lang::get('backend::lang.warnings.debug');
+        }
+
+        if (Config::get('develop.decompileBackendAssets', false)) {
+            $warnings[] = Lang::get('backend::lang.warnings.decompileBackendAssets');
+        }
+
         $requiredExtensions = [
             'GD'       => extension_loaded('gd'),
             'fileinfo' => extension_loaded('fileinfo'),

@@ -365,7 +365,7 @@ class Form extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.form.beforeRefresh', function((\Backend\Widgets\Form) $formWidget, (stdClass) $dataHolder) {
+         *     Event::listen('backend.form.beforeRefresh', function ((\Backend\Widgets\Form) $formWidget, (stdClass) $dataHolder) {
          *         $dataHolder->data = $arrayOfSaveDataToReplaceExistingDataWith;
          *     });
          *
@@ -392,7 +392,7 @@ class Form extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.form.refreshFields', function((\Backend\Widgets\Form) $formWidget, (array) $allFields) {
+         *     Event::listen('backend.form.refreshFields', function ((\Backend\Widgets\Form) $formWidget, (array) $allFields) {
          *         $allFields['name']->required = false;
          *     });
          *
@@ -433,7 +433,7 @@ class Form extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.form.refresh', function((\Backend\Widgets\Form) $formWidget, (array) $result) {
+         *     Event::listen('backend.form.refresh', function ((\Backend\Widgets\Form) $formWidget, (array) $result) {
          *         $result['#my-partial-id' => $formWidget->makePartial('$/path/to/custom/backend/partial.htm')];
          *         return $result;
          *     });
@@ -477,7 +477,7 @@ class Form extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.form.extendFieldsBefore', function((\Backend\Widgets\Form) $formWidget) {
+         *     Event::listen('backend.form.extendFieldsBefore', function ((\Backend\Widgets\Form) $formWidget) {
          *         // You should always check to see if you're extending correct model/controller
          *         if (!$widget->model instanceof \Foo\Example\Models\Bar) {
          *             return;
@@ -550,7 +550,7 @@ class Form extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.form.extendFields', function((\Backend\Widgets\Form) $formWidget) {
+         *     Event::listen('backend.form.extendFields', function ((\Backend\Widgets\Form) $formWidget) {
          *         // Only for the User controller
          *         if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
          *             return;

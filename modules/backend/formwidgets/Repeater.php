@@ -67,6 +67,20 @@ class Repeater extends FormWidgetBase
      */
     protected static $onAddItemCalled = false;
 
+    /**
+     * Determines if a child repeater has made an AJAX request to add an item
+     *
+     * @var bool
+     */
+    protected $childAddItemCalled = false;
+
+    /**
+     * Determines which child index has made the AJAX request to add an item
+     *
+     * @var int
+     */
+    protected $childIndexCalled;
+
     protected $useGroups = false;
 
     protected $groupDefinitions = [];
@@ -101,6 +115,7 @@ class Repeater extends FormWidgetBase
             $this->loaded = true;
         }
 
+        $this->checkAddItemRequest();
         $this->processGroupMode();
 
         if (!self::$onAddItemCalled) {
@@ -205,9 +220,14 @@ class Repeater extends FormWidgetBase
             ? post($this->formField->getName())
             : $this->getLoadValue();
 
-        if ($currentValue === null) {
+        if (!$this->childAddItemCalled && $currentValue === null) {
             $this->formWidgets = [];
             return;
+        }
+
+        if ($this->childAddItemCalled && !isset($currentValue[$this->childIndexCalled])) {
+            // If no value is available but a child repeater has added an item, add a "stub" repeater item
+            $this->makeItemFormWidget($this->childIndexCalled);
         }
 
         // Ensure that the minimum number of items are preinitialized
@@ -257,6 +277,7 @@ class Repeater extends FormWidgetBase
         }
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
+        $widget->previewMode = $this->previewMode;
         $widget->bindToController();
 
         $this->indexMeta[$index] = [
@@ -289,8 +310,6 @@ class Repeater extends FormWidgetBase
 
     public function onAddItem()
     {
-        self::$onAddItemCalled = true;
-
         $groupCode = post('_repeater_group');
 
         $index = $this->getNextIndex();
@@ -343,6 +362,41 @@ class Repeater extends FormWidgetBase
         }
 
         return 0;
+    }
+
+    /**
+     * Determines the repeater that has triggered an AJAX request to add an item.
+     *
+     * @return void
+     */
+    protected function checkAddItemRequest()
+    {
+        $handler = $this->getParentForm()
+            ->getController()
+            ->getAjaxHandler();
+
+        if ($handler === null || strpos($handler, '::') === false) {
+            return;
+        }
+
+        list($widgetName, $handlerName) = explode('::', $handler);
+        if ($handlerName !== 'onAddItem') {
+            return;
+        }
+
+        if ($this->alias === $widgetName) {
+            // This repeater has made the AJAX request
+            self::$onAddItemCalled = true;
+        } else if (strpos($widgetName, $this->alias) === 0) {
+            // A child repeater has made the AJAX request
+
+            // Get index from AJAX handler
+            $handlerSuffix = str_replace($this->alias . 'Form', '', $widgetName);
+            preg_match('/^[0-9]+/', $handlerSuffix, $matches);
+
+            $this->childAddItemCalled = true;
+            $this->childIndexCalled = (int) $matches[0];
+        }
     }
 
     //
