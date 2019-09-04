@@ -14,7 +14,7 @@ Please review [our security policy](https://github.com/octobercms/october/securi
 
 ## Reporting an issue with OctoberCMS
 
->**NOTE:** If your issue is related to an OctoberCMS plugin, please see the [Reporting an issue with an OctoberCMS plugin](#reporting-an-issue-with-an-october-plugin) section below.
+>**NOTE:** If your issue is related to an OctoberCMS plugin, please see the [Reporting an issue with an OctoberCMS plugin](#reporting-an-issue-with-an-octobercms-plugin) section below.
 
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
