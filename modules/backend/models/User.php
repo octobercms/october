@@ -119,7 +119,7 @@ class User extends UserBase
     public function afterSave($size = 25)
     {
         if ($this->avatar()->exists()) {
-           return;
+            return;
         }
 
         $avatarRequest = Http::get('http://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=' . $size . '&d=404');
