@@ -29,7 +29,7 @@ Allows a user to select from a list of binary options.
                 <p class="help-block">Do not send new comment notifications.</p>
             </div>
             <div class="checkbox custom-checkbox" tabindex="0">
-                <input checked="checked" id="checkbox-example2" name="checkbox" value="2" type="checkbox" aria-checked="false" />
+                <input id="checkbox-example2" name="checkbox" value="2" type="checkbox" aria-checked="false" />
                 <label class="choice" for="checkbox-example2"> GM Corvette </label>
                 <p class="help-block">Send new comment notifications only to post author.</p>
             </div>
