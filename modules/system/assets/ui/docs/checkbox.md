@@ -13,7 +13,7 @@ Allows a user to select from a small set of binary options.
 
 Allows a user to select from a list of binary options.
 
-    <div class="form-group checkboxlist-field span-left">
+    <div class="form-group checkboxlist-field">
         <label>Checkbox list (hard-coded) example</label>
         <div class="field-checkboxlist">
             <!-- Quick selection (start) -->
