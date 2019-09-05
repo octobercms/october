@@ -40,12 +40,12 @@
     <div class="field-checkboxlist <?= $isScrollable ? 'is-scrollable' : '' ?>">
         <?php if ($quickselectEnabled): ?>
             <!-- Quick selection -->
-            <small>
-                <?= e(trans('backend::lang.form.select')) ?>:
-                <a href="javascript:;" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>,
-                <a href="javascript:;" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
-            </small>
+            <div class="checkboxlist-controls">
+                <a href="javascript:;" class="btn btn-primary" data-field-checkboxlist-all><?= e(trans('backend::lang.form.select_all')) ?></a>
+                <a href="javascript:;" class="btn btn-primary" data-field-checkboxlist-none><?= e(trans('backend::lang.form.select_none')) ?></a>
+            </div>
         <?php endif ?>
+
         <?php if ($isScrollable): ?>          
             <!-- Scrollable Checkbox list -->
             <div class="field-checkboxlist-scrollable">
