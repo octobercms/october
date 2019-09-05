@@ -4153,7 +4153,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-switch >span span:last-child {left:28px;color:#FFF;display:block}
 .custom-switch >span span:first-of-type {padding-left:13px;display:none;color:#666}
 .checkboxlist-controls a{margin-right:15px;margin-bottom:15px}
-@media only screen and (max-width: 435px) {.checkboxlist-controls a{margin-right:0;width:100% }}
+@media only screen and (max-width: 500px) {.checkboxlist-controls a{margin-right:0;width:100% }}
 .form-preview {padding:20px;margin-bottom:20px;background:white;border:1px solid #eee}
 .form-preview >.form-group:last-child {padding-bottom:0}
 .form-preview >.form-group:last-child .radio,
