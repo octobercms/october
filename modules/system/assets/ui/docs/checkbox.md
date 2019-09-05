@@ -25,17 +25,17 @@ Allows a user to select from a list of binary options.
             <p class="help-block before-field">What cars would you like in your garage?</p>
             <div class="checkbox custom-checkbox" tabindex="0">
                 <input id="checkbox-example1" name="checkbox" value="1" type="checkbox" checked="checked" aria-checked="true" />
-                <label class="choice" for="checkbox-example1"> Dodge Viper </label>
+                <label for="checkbox-example1"> Dodge Viper </label>
                 <p class="help-block">Do not send new comment notifications.</p>
             </div>
             <div class="checkbox custom-checkbox" tabindex="0">
                 <input id="checkbox-example2" name="checkbox" value="2" type="checkbox" aria-checked="false" />
-                <label class="choice" for="checkbox-example2"> GM Corvette </label>
+                <label for="checkbox-example2"> GM Corvette </label>
                 <p class="help-block">Send new comment notifications only to post author.</p>
             </div>
             <div class="checkbox custom-checkbox" tabindex="0">
                 <input id="checkbox-example3" name="checkbox" value="3" type="checkbox" aria-checked="mixed" />
-                <label class="choice" for="checkbox-example3"> Porsche Boxter </label>
+                <label for="checkbox-example3"> Porsche Boxter </label>
                 <p class="help-block">Notify all users who have permissions to receive blog notifications.</p>
             </div>
         </div>
