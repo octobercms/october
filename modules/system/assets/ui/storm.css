@@ -3705,7 +3705,7 @@ input[type="search"] {-webkit-appearance:none}
 input[type="date"] {line-height:38px}
 .form-group {margin-bottom:15px}
 .radio,
-.checkbox {display:block;min-height:20px;margin-top:10px;margin-bottom:10px;padding-left:20px}
+.checkbox {display:block;min-height:20px;margin-top:10px;margin-bottom:16px;padding-left:20px}
 .radio label,
 .checkbox label {display:inline;font-weight:normal;cursor:pointer}
 .radio input[type="radio"],
