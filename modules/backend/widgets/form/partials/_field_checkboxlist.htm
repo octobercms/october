@@ -4,6 +4,8 @@
     $isScrollable = count($fieldOptions) > 10;
     $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
     $quickselectEnabled = $field->getConfig('quickselect', $isScrollable);
+    $hintBefore = $field->getConfig('hintBefore') ?? '';
+    $hintAfter = $field->getConfig('hintAfter') ?? '';
 ?>
 <!-- Checkbox List -->
 <?php if ($readOnly && $field->value): ?>
@@ -57,6 +59,10 @@
             name="<?= $field->getName() ?>"
             value="0" />
 
+        <?php if ($hintBefore): ?>
+            <p class="help-block before-field"><?= e($hintBefore) ?></p>
+        <?php endif ?>
+
         <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
             <?php
                 $index++;
@@ -79,6 +85,10 @@
                 <?php endif ?>
             </div>
         <?php endforeach ?>
+
+        <?php if ($hintAfter): ?>
+            <p class="help-block before-field"><?= e($hintAfter) ?></p>
+        <?php endif ?>
 
         <?php if ($isScrollable): ?>
                 </div>
