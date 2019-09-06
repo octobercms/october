@@ -18,8 +18,8 @@ Allows a user to select from a list of binary options.
         <div class="field-checkboxlist">
             <!-- Quick selection (start) -->
             <div class="checkboxlist-controls">
-                <a href="javascript:;" class="btn btn-primary" data-field-checkboxlist-all>Select all</a>
-                <a href="javascript:;" class="btn btn-primary" data-field-checkboxlist-none>Select none</a>
+                <a href="javascript:;" class="btn btn-default" data-field-checkboxlist-all>Select all</a>
+                <a href="javascript:;" class="btn btn-default" data-field-checkboxlist-none>Select none</a>
             </div>
             <!-- Quick selection (end) -->
             <p class="help-block before-field">What cars would you like in your garage?</p>
