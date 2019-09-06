@@ -58,6 +58,16 @@ trait AssetMaker
                 /*
                  * Prevent duplicates
                  */
+                $attributesPreload = Html::attributes(array_merge(
+                    [
+                        'href'        => $this->getAssetEntryBuildPath($asset),
+                        'rel'         => 'preload',
+                        'as'          => 'style',
+                        'importance'  => 'high'
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
+
                 $attributes = Html::attributes(array_merge(
                     [
                         'rel'  => 'stylesheet',
@@ -66,6 +76,7 @@ trait AssetMaker
                     array_except($asset['attributes'], $reserved)
                 ));
 
+                $result .= '<link' . $attributesPreload . '>' . PHP_EOL;
                 $result .= '<link' . $attributes . '>' . PHP_EOL;
             }
         }
@@ -88,6 +99,16 @@ trait AssetMaker
 
         if ($type == null || $type == 'js') {
             foreach ($this->assets['js'] as $asset) {
+                $attributesPreload = Html::attributes(array_merge(
+                    [
+                        'href'        => $this->getAssetEntryBuildPath($asset),
+                        'rel'         => 'preload',
+                        'as'          => 'script',
+                        'importance'  => 'high'
+                    ],
+                    array_except($asset['attributes'], $reserved)
+                ));
+
                 $attributes = Html::attributes(array_merge(
                     [
                         'src' => $this->getAssetEntryBuildPath($asset)
@@ -95,6 +116,7 @@ trait AssetMaker
                     array_except($asset['attributes'], $reserved)
                 ));
 
+                $result .= '<link' . $attributesPreload . '>' . PHP_EOL;
                 $result .= '<script' . $attributes . '></script>' . PHP_EOL;
             }
         }
