@@ -14,7 +14,7 @@ class FormTest extends TestCase
     {
         // Act as a super user
         $user = factory(Backend\Models\User::class)
-            ->create();
+            ->make();
         $this->actingAs($user);
 
         $form = $this->restrictedFormFixture();
@@ -27,7 +27,7 @@ class FormTest extends TestCase
     {
         // Act as a super user
         $user = factory(Backend\Models\User::class)
-            ->create([
+            ->make([
                 'permissions' => [
                     'test.wrong_permission' => 1
                 ]
@@ -44,7 +44,7 @@ class FormTest extends TestCase
     {
         // Act as a super user
         $user = factory(Backend\Models\User::class)
-            ->create([
+            ->make([
                 'permissions' => [
                     'test.access_field' => 1
                 ]
@@ -61,7 +61,7 @@ class FormTest extends TestCase
     {
         // Act as a super user
         $user = factory(Backend\Models\User::class)
-            ->create([
+            ->make([
                 'permissions' => [
                     'test.access_field' => 1
                 ]
@@ -93,7 +93,7 @@ class FormTest extends TestCase
         // Act as a super user
         $user = factory(Backend\Models\User::class)
             ->states('superuser')
-            ->create();
+            ->make();
         $this->actingAs($user);
 
         $form = $this->restrictedFormFixture();
