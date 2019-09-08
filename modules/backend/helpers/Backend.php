@@ -207,9 +207,21 @@ class Backend
             } else {
                 $assetPath = base_path($directory . $match[1]);
             }
-            $realPath = str_replace(base_path(), '', realpath($assetPath));
 
-            return Url::asset($realPath);
+            // Determine if we have another compiled asset
+            try {
+                $paths = $this->decompileAsset($assetPath);
+            } catch (DecompileException $e) {
+                $paths = [];
+            }
+
+            if (!count($paths)) {
+                $realPath = str_replace(base_path(), '', realpath($assetPath));
+
+                return Url::asset($realPath);
+            } else {
+                return $paths;
+            }
         }, $matches);
     }
 }
