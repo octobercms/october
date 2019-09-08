@@ -259,9 +259,16 @@
         }
     }
 
-    MediaManager.prototype.selectNode = function(node) {
+    MediaManager.prototype.selectNode = function(node, setLastSelected) {
+        if (setLastSelected === undefined) {
+            setLastSelected = true;
+        }
+
         node.setAttribute('class', 'selected')
-        this.lastSelectedItem = node
+
+        if (setLastSelected) {
+            this.lastSelectedItem = node
+        }
     }
 
     MediaManager.prototype.deselectNode = function(node) {
@@ -286,26 +293,40 @@
         this.maxSelectedItemsElement.innerHTML = message
     }
 
-    MediaManager.prototype.selectItem = function(node, expandSelection) {
+    MediaManager.prototype.selectItem = function(node, ctrlKey, shiftKey) {
         // TODO: Add validation to prevent selecting more than the
         // maxSelectedItems and update status text and disable insert and crop button
 
-        if (!expandSelection) {
+        if (ctrlKey === false && shiftKey === false) {
             this.deselectAll()
             this.selectNode(node)
-        }
-        else {
-            if (this.options.maxSelectedItems !== false || this.options.maxSelectedItems !== -1) {
-                var selectedItems = this.getSelectedItems(true).length
-                if (selectedItems >= this.options.maxSelectedItems) {
-                    return
+        } else if (ctrlKey === true) {
+            if (node.getAttribute('class') == 'selected') {
+                this.deselectNode(node)
+            } else {
+                this.selectNode(node)
+            }
+        } else {
+            var startIndex = $(this.lastSelectedItem).index(),
+                endIndex = $(node).index()
+
+            this.deselectAll()
+
+            if (startIndex > endIndex) {
+                for (var nextIndex = startIndex; nextIndex >= endIndex; nextIndex -= 1) {
+                    this.selectNode(
+                        this.itemListElement.querySelector('[data-type="media-item"]:nth-child(' + (nextIndex + 1) + ')'),
+                        false
+                    )
+                }
+            } else {
+                for (var nextIndex = startIndex; nextIndex <= endIndex; nextIndex += 1) {
+                    this.selectNode(
+                        this.itemListElement.querySelector('[data-type="media-item"]:nth-child(' + (nextIndex + 1) + ')'),
+                        false
+                    )
                 }
             }
-
-            if (node.getAttribute('class') == 'selected')
-                this.deselectNode(node)
-            else
-                this.selectNode(node)
         }
 
         var selectedItems = this.getSelectedItems(true).length
@@ -315,7 +336,9 @@
             this.$el.find('[data-popup-command="crop-and-insert"]').removeAttr('disabled')
         }
 
-        this.updateMaxSelectedItemsMessage()
+        if (this.isMulti) {
+            this.updateMaxSelectedItemsMessage()
+        }
 
         node.focus()
 
@@ -328,7 +351,7 @@
         }
 
         // Disable delete and move buttons
-        if (node.hasAttribute('data-root') && !expandSelection) {
+        if (node.hasAttribute('data-root') && (!ctrlKey && !shiftKey)) {
             this.toggleMoveAndDelete(true)
         }
         else {
@@ -336,7 +359,7 @@
         }
 
         // Always unselect root when selecting multiples
-        if (expandSelection) {
+        if (ctrlKey || shiftKey) {
             this.unselectRoot()
         }
     }
@@ -368,11 +391,11 @@
     MediaManager.prototype.selectFirstItem = function() {
         var firstItem = this.itemListElement.querySelector('[data-type="media-item"]:first-child')
         if (firstItem) {
-            this.selectItem(firstItem)
+            this.selectItem(firstItem, false, false)
         }
     }
 
-    MediaManager.prototype.selectRelative = function(next, expandSelection) {
+    MediaManager.prototype.selectRelative = function(next, ctrlKey, shiftKey) {
         var currentSelection = this.getSelectedItems(true, true)
 
         if (currentSelection.length == 0) {
@@ -396,7 +419,7 @@
         }
 
         if (itemToSelect)
-            this.selectItem(itemToSelect, expandSelection)
+            this.selectItem(itemToSelect, ctrlKey, shiftKey)
     }
 
     //
@@ -1173,39 +1196,7 @@
         if (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control'))
             return
 
-        if (ev.shiftKey && this.lastSelectedItem) {
-            var $lastItem = $(this.lastSelectedItem),
-                itemsToSelect = false
-
-            // Get the items to be selected, ignoring already selected items
-            if ($lastItem.prevAll().filter(ev.currentTarget).length !== 0) {
-                itemsToSelect = $lastItem.prevUntil(ev.currentTarget).not('.selected').get()
-            } else if ($lastItem.nextAll().filter(ev.currentTarget).length !== 0) {
-                itemsToSelect = $lastItem.nextUntil(ev.currentTarget).not('.selected').get()
-            }
-
-            if (itemsToSelect) {
-                // Reattach this item to the items to be selected
-                itemsToSelect.unshift(ev.currentTarget)
-
-                // Retain currently selected items
-                var currentlySelected = this.getSelectedItems(true)
-                for (var i = 0, len = currentlySelected.length; i < len; i++) {
-                    itemsToSelect.push(currentlySelected[i])
-                }
-
-                // Clear all currently selected items
-                this.deselectAll()
-
-                // Select all the desired items
-                for (var i = 0, len = itemsToSelect.length; i < len; i++) {
-                    this.selectItem(itemsToSelect[i], true)
-                }
-            }
-        }
-        else {
-            this.selectItem(ev.currentTarget, (ev.ctrlKey || ev.metaKey))
-        }
+        this.selectItem(ev.currentTarget, (ev.ctrlKey || ev.metaKey), (ev.shiftKey))
     }
 
     MediaManager.prototype.onItemTouch = function(ev) {
@@ -1342,22 +1333,22 @@
     MediaManager.prototype.onKeyDown = function(ev) {
         var eventHandled = false
 
-        switch (ev.which) {
-            case 13:
+        switch (ev.key) {
+            case 'Enter':
                 var items = this.getSelectedItems(true, true)
                 if (items.length > 0)
                     this.navigateToItem($(items[0]))
 
                 eventHandled = true
             break;
-            case 39:
-            case 40:
-                this.selectRelative(true, ev.shiftKey)
+            case 'ArrowRight':
+            case 'ArrowDown':
+                this.selectRelative(true, (ev.ctrlKey || ev.metaKey), ev.shiftKey)
                 eventHandled = true
             break;
-            case 37:
-            case 38:
-                this.selectRelative(false, ev.shiftKey)
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                this.selectRelative(false, (ev.ctrlKey || ev.metaKey), ev.shiftKey)
                 eventHandled = true
             break;
         }
@@ -1382,6 +1373,7 @@
         selectionNotImage: 'The selected item is not an image.',
         bottomToolbar: false,
         cropAndInsertButton: false,
+        isMulti: false,
         maxSelectedItems: false
     }
 
