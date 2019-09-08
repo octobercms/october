@@ -83,12 +83,14 @@ trait InteractsWithAuthentication
         $this->assertNotNull($expected, 'The current user is not authenticated.');
 
         $this->assertInstanceOf(
-            get_class($expected), $user,
+            get_class($expected),
+            $user,
             'The currently authenticated user is not who was expected'
         );
 
         $this->assertSame(
-            $expected->getAuthIdentifier(), $user->getAuthIdentifier(),
+            $expected->getAuthIdentifier(),
+            $user->getAuthIdentifier(),
             'The currently authenticated user is not who was expected'
         );
 
@@ -105,7 +107,8 @@ trait InteractsWithAuthentication
     public function assertCredentials(array $credentials, $guard = null)
     {
         $this->assertTrue(
-            $this->hasCredentials($credentials, $guard), 'The given credentials are invalid.'
+            $this->hasCredentials($credentials, $guard),
+            'The given credentials are invalid.'
         );
 
         return $this;
@@ -121,7 +124,8 @@ trait InteractsWithAuthentication
     public function assertInvalidCredentials(array $credentials, $guard = null)
     {
         $this->assertFalse(
-            $this->hasCredentials($credentials, $guard), 'The given credentials are valid.'
+            $this->hasCredentials($credentials, $guard),
+            'The given credentials are valid.'
         );
 
         return $this;
