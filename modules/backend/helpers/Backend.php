@@ -200,7 +200,9 @@ class Backend
         // Determine correct asset path
         $directory = str_replace(basename($file), '', $file);
 
-        return array_map(function ($match) use ($directory, $skinAsset) {
+        $assetPaths = [];
+
+        foreach ($matches as $match) {
             // Resolve relative asset paths
             if ($skinAsset) {
                 $assetPath = base_path(substr(Skin::getActive()->getPath($directory . $match[1], true), 1));
@@ -209,19 +211,23 @@ class Backend
             }
 
             // Determine if we have another compiled asset
+            $realPath = str_replace(base_path() . '/', '', realpath($assetPath));
+
             try {
-                $paths = $this->decompileAsset($assetPath);
+                $paths = $this->decompileAsset($realPath);
             } catch (DecompileException $e) {
                 $paths = [];
             }
 
             if (!count($paths)) {
-                $realPath = str_replace(base_path(), '', realpath($assetPath));
-
-                return Url::asset($realPath);
+                $assetPaths[] = Url::asset($realPath);
             } else {
-                return $paths;
+                foreach ($paths as $path) {
+                    $assetPaths[] = Url::asset($path);
+                }
             }
-        }, $matches);
+        }
+
+        return $assetPaths;
     }
 }
