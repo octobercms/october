@@ -273,7 +273,10 @@
 
     MediaManager.prototype.deselectNode = function(node) {
         node.setAttribute('class', '')
-        this.lastSelectedItem = null
+        var items = this.itemListElement.querySelectorAll('[data-type="media-item"].selected');
+        if (items === 0) {
+            this.lastSelectedItem = null
+        }
     }
 
     MediaManager.prototype.updateMaxSelectedItemsMessage = function() {
@@ -304,7 +307,7 @@
             if (node.getAttribute('class') == 'selected') {
                 this.deselectNode(node)
             } else {
-                this.selectNode(node)
+                this.selectNode(node, false)
             }
         } else {
             var startIndex = $(this.lastSelectedItem).index(),
