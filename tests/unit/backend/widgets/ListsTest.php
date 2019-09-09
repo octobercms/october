@@ -16,10 +16,10 @@ class ListsTest extends TestCase
             ->make();
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture();
+        $list = $this->restrictedListsFixture();
 
-        $form->render();
-        $this->assertNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnWithUserWithWrongPermissions()
@@ -32,10 +32,10 @@ class ListsTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture();
+        $list = $this->restrictedListsFixture();
 
-        $form->render();
-        $this->assertNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnWithUserWithRightPermissions()
@@ -48,10 +48,10 @@ class ListsTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture();
+        $list = $this->restrictedListsFixture();
 
-        $form->render();
-        $this->assertNotNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNotNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnWithUserWithRightWildcardPermissions()
@@ -64,7 +64,7 @@ class ListsTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = new Lists(null, [
+        $list = new Lists(null, [
             'model' => new ListsTestModel,
             'arrayName' => 'array',
             'columns' => [
@@ -80,8 +80,8 @@ class ListsTest extends TestCase
             ]
         ]);
 
-        $form->render();
-        $this->assertNotNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNotNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnWithSuperuser()
@@ -91,10 +91,10 @@ class ListsTest extends TestCase
             ->make();
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture();
+        $list = $this->restrictedListsFixture();
 
-        $form->render();
-        $this->assertNotNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNotNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnSinglePermissionWithUserWithWrongPermissions()
@@ -107,10 +107,10 @@ class ListsTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture(true);
+        $list = $this->restrictedListsFixture(true);
 
-        $form->render();
-        $this->assertNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNull($list->getColumn('testRestricted'));
     }
 
     public function testRestrictedColumnSinglePermissionWithUserWithRightPermissions()
@@ -123,10 +123,10 @@ class ListsTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedListsFixture(true);
+        $list = $this->restrictedListsFixture(true);
 
-        $form->render();
-        $this->assertNotNull($form->getColumn('testRestricted'));
+        $list->render();
+        $this->assertNotNull($list->getColumn('testRestricted'));
     }
 
     protected function restrictedListsFixture(bool $singlePermission = false)

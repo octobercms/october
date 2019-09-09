@@ -16,10 +16,10 @@ class FilterTest extends TestCase
             ->make();
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture();
+        $filter = $this->restrictedFilterFixture();
 
-        $form->render();
-        $this->assertNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeWithUserWithWrongPermissions()
@@ -32,10 +32,10 @@ class FilterTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture();
+        $filter = $this->restrictedFilterFixture();
 
-        $form->render();
-        $this->assertNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeWithUserWithRightPermissions()
@@ -48,10 +48,10 @@ class FilterTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture();
+        $filter = $this->restrictedFilterFixture();
 
-        $form->render();
-        $this->assertNotNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNotNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeWithUserWithRightWildcardPermissions()
@@ -64,7 +64,7 @@ class FilterTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = new Filter(null, [
+        $filter = new Filter(null, [
             'model' => new FilterTestModel,
             'arrayName' => 'array',
             'scopes' => [
@@ -80,8 +80,8 @@ class FilterTest extends TestCase
             ]
         ]);
 
-        $form->render();
-        $this->assertNotNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNotNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeWithSuperuser()
@@ -91,10 +91,10 @@ class FilterTest extends TestCase
             ->make();
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture();
+        $filter = $this->restrictedFilterFixture();
 
-        $form->render();
-        $this->assertNotNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNotNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeSinglePermissionWithUserWithWrongPermissions()
@@ -107,10 +107,10 @@ class FilterTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture(true);
+        $filter = $this->restrictedFilterFixture(true);
 
-        $form->render();
-        $this->assertNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNull($filter->getScope('testRestricted'));
     }
 
     public function testRestrictedScopeSinglePermissionWithUserWithRightPermissions()
@@ -123,10 +123,10 @@ class FilterTest extends TestCase
             ]);
         $this->actingAs($user);
 
-        $form = $this->restrictedFilterFixture(true);
+        $filter = $this->restrictedFilterFixture(true);
 
-        $form->render();
-        $this->assertNotNull($form->getScope('testRestricted'));
+        $filter->render();
+        $this->assertNotNull($filter->getScope('testRestricted'));
     }
 
     protected function restrictedFilterFixture(bool $singlePermission = false)
