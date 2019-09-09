@@ -38,6 +38,8 @@
         this.dblTouchTimer = null
         this.dblTouchFlag = null
         this.itemListPosition = null
+        this.maxItems = this.options.maxSelectedItems
+        this.isMulti = this.options.isMulti
         this.maxSelectedItemsElement = null
 
         //
@@ -75,49 +77,6 @@
         this.maxSelectedItemsElement = null
 
         BaseProto.dispose.call(this)
-    }
-
-    MediaManager.prototype.getSelectedItems = function(returnNotProcessed, allowRootItem) {
-        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
-            result = []
-
-        if (!allowRootItem) {
-            var filteredItems = []
-
-            for (var i=0, len=items.length; i < len; i++) {
-                var item = items[i]
-                if (!item.hasAttribute('data-root'))
-                    filteredItems.push(item)
-            }
-
-            items = filteredItems
-        }
-
-        if (returnNotProcessed === true)
-            return items
-
-        for (var i=0, len=items.length; i < len; i++) {
-            var item = items[i],
-                itemDetails = {
-                    itemType: item.getAttribute('data-item-type'),
-                    path: item.getAttribute('data-path'),
-                    title: item.getAttribute('data-title'),
-                    documentType: item.getAttribute('data-document-type'),
-                    folder: item.getAttribute('data-folder'),
-                    publicUrl: item.getAttribute('data-public-url')
-                }
-
-            result.push(itemDetails)
-        }
-
-        return result
-    }
-
-    MediaManager.prototype.getSelectedPercent = function() {
-        var itemsSelected = this.getSelectedItems(true).length
-        var itemsMax = this.options.maxSelectedItems
-
-        return Math.floor((itemsSelected / itemsMax) * 100);
     }
 
     // MEDIA MANAGER INTERNAL METHODS
@@ -261,7 +220,7 @@
 
     MediaManager.prototype.selectNode = function(node, setLastSelected) {
         if (setLastSelected === undefined) {
-            setLastSelected = true;
+            setLastSelected = true
         }
 
         node.setAttribute('class', 'selected')
@@ -273,16 +232,71 @@
 
     MediaManager.prototype.deselectNode = function(node) {
         node.setAttribute('class', '')
-        var items = this.itemListElement.querySelectorAll('[data-type="media-item"].selected');
+        var items = this.itemListElement.querySelectorAll('[data-type="media-item"].selected')
         if (items === 0) {
             this.lastSelectedItem = null
         }
     }
 
+    MediaManager.prototype.getSelectedItems = function(returnNotProcessed, allowRootItem) {
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
+            result = []
+
+        if (!allowRootItem) {
+            var filteredItems = []
+
+            for (var i=0, len=items.length; i < len; i++) {
+                var item = items[i]
+                if (!item.hasAttribute('data-root'))
+                    filteredItems.push(item)
+            }
+
+            items = filteredItems
+        }
+
+        if (returnNotProcessed === true)
+            return items
+
+        for (var i=0, len=items.length; i < len; i++) {
+            var item = items[i],
+                itemDetails = {
+                    itemType: item.getAttribute('data-item-type'),
+                    path: item.getAttribute('data-path'),
+                    title: item.getAttribute('data-title'),
+                    documentType: item.getAttribute('data-document-type'),
+                    folder: item.getAttribute('data-folder'),
+                    publicUrl: item.getAttribute('data-public-url')
+                }
+
+            result.push(itemDetails)
+        }
+
+        return result
+    }
+
+    MediaManager.prototype.countSelected = function () {
+        return this.itemListElement.querySelectorAll('[data-type="media-item"][data-item-type="file"].selected').length;
+    }
+
+    MediaManager.prototype.selectionsLeft = function () {
+        var itemCount = this.countSelected(),
+            maxItems = (this.isMulti) ? this.maxItems : null
+
+        if (maxItems === null || maxItems === -1) {
+            return null
+        }
+
+        return maxItems - itemCount;
+    }
+
+    MediaManager.prototype.getSelectedPercent = function() {
+        return Math.floor((this.countSelected() / this.maxItems) * 100)
+    }
+
     MediaManager.prototype.updateMaxSelectedItemsMessage = function() {
         var message = this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML
-                        .replace(/\{selectedItems\}/g, this.getSelectedItems(true).length)
-                        .replace(/\{maxItems\}/g, this.options.maxSelectedItems)
+                        .replace(/\{selectedItems\}/g, this.countSelected())
+                        .replace(/\{maxItems\}/g, this.maxItems)
                         .replace(/\{percent\}/g, this.getSelectedPercent())
 
         if (!this.maxSelectedItemsElement) {
@@ -307,6 +321,10 @@
             if (node.getAttribute('class') == 'selected') {
                 this.deselectNode(node)
             } else {
+                if (this.selectionsLeft() === 0) {
+                    return
+                }
+
                 this.selectNode(node, false)
             }
         } else {
@@ -314,9 +332,14 @@
                 endIndex = $(node).index()
 
             this.deselectAll()
+            var shiftSelections = 0;
 
             if (startIndex > endIndex) {
                 for (var nextIndex = startIndex; nextIndex >= endIndex; nextIndex -= 1) {
+                    if (this.selectionsLeft() === 0) {
+                        break
+                    }
+
                     this.selectNode(
                         this.itemListElement.querySelector('[data-type="media-item"]:nth-child(' + (nextIndex + 1) + ')'),
                         false
@@ -324,6 +347,10 @@
                 }
             } else {
                 for (var nextIndex = startIndex; nextIndex <= endIndex; nextIndex += 1) {
+                    if (this.selectionsLeft() === 0) {
+                        break
+                    }
+
                     this.selectNode(
                         this.itemListElement.querySelector('[data-type="media-item"]:nth-child(' + (nextIndex + 1) + ')'),
                         false
@@ -548,13 +575,13 @@
             switch (documentType) {
                 case 'audio' :
                     template = previewPanel.querySelector('[data-control="audio-template"]').innerHTML
-                break;
+                break
                 case 'video' :
                     template = previewPanel.querySelector('[data-control="video-template"]').innerHTML
-                break;
+                break
                 case 'image' :
                     template = previewPanel.querySelector('[data-control="image-template"]').innerHTML
-                break;
+                break
             }
 
             previewContainer.innerHTML = template
@@ -897,16 +924,16 @@
             successTemplate = fileNumberLabel.getAttribute('data-' + templateName + '-template'),
             progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
 
-        fileNumberLabel.innerHTML = successTemplate;
+        fileNumberLabel.innerHTML = successTemplate
         progressBar.setAttribute('class', classNames)
     }
 
     MediaManager.prototype.uploadSuccess = function() {
-        this.updateUploadBar('success', 'progress-bar progress-bar-success');
+        this.updateUploadBar('success', 'progress-bar progress-bar-success')
     }
 
     MediaManager.prototype.uploadError = function(file, message) {
-        this.updateUploadBar('error', 'progress-bar progress-bar-danger');
+        this.updateUploadBar('error', 'progress-bar progress-bar-danger')
 
         if (!message) {
             message = 'Error uploading file'
@@ -1007,7 +1034,7 @@
         for (var i=0, len=items.length; i<len; i++) {
             // Skip the 'return to parent' item
             if (items[i].hasAttribute('data-root')) {
-                continue;
+                continue
             }
             paths.push({
                 'path': items[i].getAttribute('data-path'),
@@ -1156,31 +1183,31 @@
         switch (command) {
             case 'refresh':
                 this.refresh()
-            break;
+            break
             case 'change-view':
                 this.changeView($(ev.currentTarget).data('view'))
-            break;
+            break
             case 'cancel-uploading':
                 this.uploadCancelAll()
-            break;
+            break
             case 'close-uploader':
                 this.hideUploadUi()
-            break;
+            break
             case 'set-filter':
                 this.setFilter($(ev.currentTarget).data('filter'))
-            break;
+            break
             case 'delete':
                 this.deleteItems()
-            break;
+            break
             case 'create-folder':
                 this.createFolder(ev)
-            break;
+            break
             case 'move':
                 this.moveItems(ev)
-            break;
+            break
             case 'toggle-sidebar':
                 this.toggleSidebar(ev)
-            break;
+            break
             case 'popup-command':
                 var popupCommand = $(ev.currentTarget).data('popup-command')
 
@@ -1188,7 +1215,7 @@
                     this.$el.trigger('popupcommand', [popupCommand])
                 else
                     this.cropSelectedImage(this.proxy(this.onImageCropped))
-            break;
+            break
         }
 
         return false
@@ -1325,7 +1352,7 @@
             }
 
         if ($target.data('sort') == 'by') {
-            data.sortBy = $target.val();
+            data.sortBy = $target.val()
         } else if ($target.data('sort') == 'direction') {
             data.sortDirection = $target.val()
         }
@@ -1343,17 +1370,17 @@
                     this.navigateToItem($(items[0]))
 
                 eventHandled = true
-            break;
+            break
             case 'ArrowRight':
             case 'ArrowDown':
                 this.selectRelative(true, (ev.ctrlKey || ev.metaKey), ev.shiftKey)
                 eventHandled = true
-            break;
+            break
             case 'ArrowLeft':
             case 'ArrowUp':
                 this.selectRelative(false, (ev.ctrlKey || ev.metaKey), ev.shiftKey)
                 eventHandled = true
-            break;
+            break
         }
 
         if (eventHandled) {

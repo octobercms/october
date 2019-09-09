@@ -14,9 +14,18 @@
                 </div>
             </div>
             <div class="text-center">
-                <small class="text-muted">
+                <span class="text-muted">
                     {selectedItems} / {maxItems} <?= e(trans('backend::lang.media.items_selected')); ?>
-                </small>
+                </span>
+            </div>
+        </script>
+        <div data-control="max-selected-items"></div>
+    <?php else: ?>
+        <script type="text/template" data-control="max-selected-items-template">
+            <div class="text-left">
+                <span class="text-muted">
+                    {selectedItems} <?= e(trans('backend::lang.media.items_selected')); ?>
+                </span>
             </div>
         </script>
         <div data-control="max-selected-items"></div>
