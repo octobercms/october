@@ -65,7 +65,7 @@ class FilterTest extends TestCase
         $this->actingAs($user);
 
         $form = new Filter(null, [
-            'model' => new FormTestModel,
+            'model' => new FilterTestModel,
             'arrayName' => 'array',
             'scopes' => [
                 'testField' => [

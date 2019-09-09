@@ -65,7 +65,7 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $form = new Lists(null, [
-            'model' => new FormTestModel,
+            'model' => new ListsTestModel,
             'arrayName' => 'array',
             'columns' => [
                 'testField' => [
@@ -132,7 +132,7 @@ class ListsTest extends TestCase
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [
-            'model' => new FormTestModel,
+            'model' => new ListsTestModel,
             'arrayName' => 'array',
             'columns' => [
                 'testField' => [
