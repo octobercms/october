@@ -562,9 +562,9 @@ class Filter extends WidgetBase
         foreach ($scopes as $name => $config) {
             $scopeObj = $this->makeFilterScope($name, $config);
 
-            // Check if user has permission to show this filter
-            $permission = array_get($config, 'permission');
-            if ($permission && !BackendAuth::getUser()->hasAccess($permission)) {
+            // Check if user has permissions to show this filter
+            $permissions = array_get($config, 'permissions');
+            if ($permissions && !BackendAuth::getUser()->hasAccess($permissions)) {
                 continue;
             }
 

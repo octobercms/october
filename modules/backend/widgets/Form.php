@@ -689,7 +689,7 @@ class Form extends WidgetBase
             $fieldObj = $this->makeFormField($name, $config);
             $fieldTab = is_array($config) ? array_get($config, 'tab') : null;
 
-            // Check if user has permission to show this field
+            // Check if user has permissions to show this field
             $permissions = array_get($config, 'permissions');
             if ($permissions && !BackendAuth::getUser()->hasAccess($permissions)) {
                 continue;
