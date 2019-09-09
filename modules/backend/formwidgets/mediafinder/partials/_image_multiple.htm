@@ -13,17 +13,26 @@
     </a>
 
     <!-- Existing value -->
-    <div class="find-object">
-        <div class="icon-container">
-            <img data-find-image src="<?= $imageUrl ?>" alt="" />
-        </div>
-        <div class="info">
-            <h4 class="filename">
-                <span data-find-file-name><?= ltrim($value, '/') ?></span>
-                <a href="javascript:;" class="find-remove-button">
-                    <i class="icon-times"></i>
-                </a>
-            </h4>
+    <div class="find-files-container">
+        <div class="find-object">
+            <div class="icon-container image">
+                <img data-thumbnail alt="" />
+            </div>
+            <div class="info">
+                <h4 class="filename">
+                    <span data-name></span>
+                    <a
+                        href="javascript:;"
+                        class="remove-button"
+                        data-remove-item
+                        ><i class="icon-times"></i></a>
+                </h4>
+                <p class="size" data-dz-size></p>
+            </div>
+            <div class="meta">
+                <a href="javascript:;" class="drag-handle"><i class="icon-bars"></i></a>
+                <div class="error-message"><span data-dz-errormessage></span></div>
+            </div>
         </div>
     </div>
 
@@ -36,3 +45,27 @@
         data-find-value
         />
 </div>
+
+<!-- Template for new files -->
+<script type="text/template" id="<?= $this->getId('template') ?>">
+    <div class="upload-object">
+        <div class="icon-container image">
+            <img data-thumbnail alt="" />
+        </div>
+        <div class="info">
+            <h4 class="filename">
+                <span data-name></span>
+                <a
+                    href="javascript:;"
+                    class="remove-button"
+                    data-remove-item
+                    ><i class="icon-times"></i></a>
+            </h4>
+            <p class="size" data-dz-size></p>
+        </div>
+        <div class="meta">
+            <a href="javascript:;" class="drag-handle"><i class="icon-bars"></i></a>
+            <div class="error-message"><span data-dz-errormessage></span></div>
+        </div>
+    </div>
+</script>

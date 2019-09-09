@@ -177,32 +177,58 @@
   color: #31ac5f;
   color: rgba(0, 0, 0, 0.2);
 }
+.field-mediafinder.style-image-multiple .find-button,
 .field-mediafinder.style-image-multiple .find-object {
-  display: none;
-  padding-bottom: 39px;
+  margin: 0 10px 10px 0;
+}
+.field-mediafinder.style-image-multiple .find-object {
+  background: #fff;
+  border: 1px solid #ecf0f1;
+  width: 260px;
 }
 .field-mediafinder.style-image-multiple .find-object .icon-container {
-  display: block;
-  border: 1px solid #f6f8f9;
-  background: rgba(255, 255, 255, 0.5);
+  border-right: 1px solid #f6f8f9;
+  display: inline-block;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
 }
-.field-mediafinder.style-image-multiple .find-object .icon-container img {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  display: block;
-  max-width: 100%;
-  height: auto;
+.field-mediafinder.style-image-multiple .find-object .icon-container i {
+  font-size: 35px;
+}
+.field-mediafinder.style-image-multiple .find-object .icon-container.image img {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  width: auto;
 }
 .field-mediafinder.style-image-multiple .find-object .info {
+  margin-left: 90px;
+}
+.field-mediafinder.style-image-multiple .find-object .info h4 {
+  padding-right: 15px;
+}
+.field-mediafinder.style-image-multiple .find-object .info h4 a {
+  right: 15px;
+}
+.field-mediafinder.style-image-multiple .find-object .meta {
   position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: 39px;
+  margin: 0 15px 0 90px;
+}
+.field-mediafinder.style-image-multiple .find-object .meta a.drag-handle {
+  bottom: 15px;
+}
+.field-mediafinder.style-image-multiple .find-object.find-placeholder {
+  height: 75px;
+  background-color: transparent;
+}
+.field-mediafinder.style-image-multiple .find-object.find-placeholder:after {
+  opacity: 0;
 }
 .field-mediafinder.style-image-multiple .find-object:hover h4 {
-  padding-right: 20px;
+  padding-right: 35px;
 }
 .field-mediafinder.style-image-multiple.is-populated .find-button {
   display: none;

@@ -4,7 +4,7 @@
 
 <?php else: ?>
 
-    <?php $plurality = ($maxItems === false) ? 'single' : 'multiple'; ?>
+    <?php $plurality = ($maxItems === false || $maxItems === 1) ? 'single' : 'multiple'; ?>
     <?= $this->makePartial("{$mode}_{$plurality}"); ?>
 
 <?php endif ?>

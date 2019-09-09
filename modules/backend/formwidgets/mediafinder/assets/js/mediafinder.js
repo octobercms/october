@@ -31,6 +31,9 @@
     MediaFinder.prototype.init = function() {
         if (this.options.maxItems === -1 || this.options.maxItems > 1) {
             this.options.isMulti = true
+        } else {
+            this.options.maxItems = 1
+            this.options.isMulti = false
         }
 
         if (this.options.isPreview === null) {
@@ -99,12 +102,20 @@
             maxSelectedItems: this.options.maxItems,
             onInsert: function(items) {
                 if (!items.length) {
-                    alert('Please select image(s) to insert.')
+                    alert('Please select file(s) to insert.')
                     return
                 }
 
-                if (items.length > 1) {
-                    alert('Please select a single item.')
+                if (items.length > this.options.maxItems) {
+                    alert(
+                        'You may only select a ' +
+                        (
+                            (this.options.maxItems === 1)
+                                ? 'single file'
+                                : 'maximum of ' + this.options.maxItems + ' files'
+                        ) +
+                        '.'
+                    )
                     return
                 }
 

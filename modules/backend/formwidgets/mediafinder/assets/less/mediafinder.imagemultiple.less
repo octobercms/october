@@ -8,31 +8,64 @@
         min-width: 100px;
     }
 
+    .find-button,
     .find-object {
-        display: none;
-        padding-bottom: 39px;
+        margin: 0 10px 10px 0;
+    }
+
+    .find-object {
+        background: #fff;
+        border: 1px solid #ecf0f1;
+        width: 260px;
 
         .icon-container {
-            display: block;
-            border: 1px solid #f6f8f9;
-            background: rgba(255,255,255,.5);
+            border-right: 1px solid #f6f8f9;
+            display: inline-block;
+            overflow: hidden;
+            width: 75px;
+            height: 75px;
 
-            img {
-                .border-radius(3px);
-                .img-responsive();
+            i {
+                font-size: 35px;
+            }
+
+            &.image img {
+                .border-left-radius(3px);
+                width: auto;
             }
         }
 
         .info {
+            margin-left: 90px;
+
+            h4 {
+                padding-right: 15px;
+                a {
+                    right: 15px;
+                }
+            }
+        }
+
+        .meta {
             position: absolute;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            height: 39px;
+            margin: 0 15px 0 90px;
+
+            a.drag-handle {
+                bottom: 15px;
+            }
+        }
+
+        &.find-placeholder {
+            height: 75px;
+            background-color: transparent;
+            &:after { opacity: 0; }
         }
 
         &:hover {
-            h4 { padding-right: 20px; }
+            h4 { padding-right: 35px; }
         }
     }
 
