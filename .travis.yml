@@ -46,8 +46,8 @@ jobs:
       php: 7.1
       script:
         - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch
-        - ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only HEAD origin/$TRAVIS_BRANCH)
+        - ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only --diff-filter=ACMR HEAD origin/$TRAVIS_BRANCH)
     - stage: code quality
       if: type = push AND (branch = develop OR branch = master)
       php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" $TRAVIS_COMMIT)
+      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR $TRAVIS_COMMIT)
