@@ -1587,7 +1587,7 @@ class MediaManager extends WidgetBase
              *     });
              *
              */
-            $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
+            $this->fireSystemEvent('media.file.upload', [&$filePath, $uploadedFile]);
 
             $response = Response::make([
                 'link' => MediaLibrary::url($filePath),
