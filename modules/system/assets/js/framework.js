@@ -479,7 +479,7 @@ if (window.jQuery.request !== undefined) {
     })
 
     $(document).on('keydown', 'input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]', function documentOnKeydown(e) {
-        if (e.keyCode == 13) {
+        if (e.key === 'Enter') {
             if (this.dataTrackInputTimer !== undefined)
                 window.clearTimeout(this.dataTrackInputTimer)
 
