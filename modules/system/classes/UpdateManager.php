@@ -365,20 +365,28 @@ class UpdateManager
     }
 
     /**
-     * Asks the gateway for the lastest build number and stores it.
+     * Asks the composer/gateway for the lastest build number and stores it.
      * @return void
      */
     public function setBuildNumberManually()
     {
-        $postData = [];
+        // Use package.json to detect latest version
+        $composerInstalled = base_path('vendor/composer/installed.json');
+        if (file_exists($composerInstalled)) {
+            $packages = json_decode(file_get_contents($composerInstalled), true);
+            $packageIndex = array_search('october/cms', array_column($packages, 'name'));
+            $build = str_replace('v', '', array_get($packages[$packageIndex], 'version', 420));
+        } else {
+            // If composer doesnt exists ping gateway
+            $postData = [];
 
-        if (Config::get('cms.edgeUpdates', false)) {
-            $postData['edge'] = 1;
+            if (Config::get('cms.edgeUpdates', false)) {
+                $postData['edge'] = 1;
+            }
+
+            $result = $this->requestServerData('ping', $postData);
+            $build = (int) array_get($result, 'pong', 420);
         }
-
-        $result = $this->requestServerData('ping', $postData);
-
-        $build = (int) array_get($result, 'pong', 420);
 
         $this->setBuild($build);
 
