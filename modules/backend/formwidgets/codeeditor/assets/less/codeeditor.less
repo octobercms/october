@@ -1,12 +1,5 @@
 @import "../../../../assets/less/core/boot.less";
 
-@color_1: #666;
-@color_2: #fff;
-@color_3: #919898;
-@background_color_1: #ddd;
-@border_right_color_1: #cbcbcb;
-@fullscreen_icons_color_1: #191919;
-
 .field-codeeditor {
     width: 100%;
     position: relative;
@@ -28,6 +21,7 @@
         color: @text-color;
         z-index: @zindex-form + 3;
 
+        // Fixes double focus on search box
         .ace_search_form.ace_nomatch {
             outline: none !important;
 
@@ -47,9 +41,13 @@
 
     .editor-toolbar {
         position: absolute;
-        top: -30px;
-        right: 35px;
+        padding: 0 5px;
+        bottom: 10px;
+        right: 25px;
         z-index: @zindex-form;
+        background: rgba(0,0,0,.8);
+        border-radius: 5px;
+
         > ul, ul > li { list-style-type: none; padding: 0; margin: 0; }
         > ul > li {
             float: left;
@@ -66,6 +64,8 @@
             font-size: 20px;
             text-align: center;
             text-decoration: none;
+            text-shadow: 0 0 5px #000;
+
             > abbr {
                 position: absolute;
                 .text-hide();
@@ -78,69 +78,26 @@
                 }
             }
             &:hover, &:focus {
-                > i { 
+                > i {
                     .opacity(1);
-                    color: @color_2;
+                    color: #fff;
                 }
             }
-
         }
     }
 
     &.editor-fullscreen {
         z-index: @zindex-fullscreen + 1;
-        position: fixed!important;
+        position: fixed !important;
         top: 0;
         left: 0;
         height: 100%;
         border-width: 0;
         .border-radius(0);
-        .editor-code { .border-radius(0); }
         .editor-toolbar {
             z-index: @zindex-fullscreen + 2;
-            border-radius: 0 0 5px 5px;
-            right: 25px;
-            background-color: @background_color_1;
-            border: 1px solid #cbcbcb;
-            border-right-color: @border_right_color_1;
-            border-right-style: solid;
-            border-right-width: 1px;
-            border-top: 0 none;
-            max-width: 125px;
-            overflow: hidden;
-            margin: 0;
-            padding: 4px;
-            position: absolute;
-            top: 0;
-            white-space: normal;
-            >ul {
-                >li {
-                    >a {
-                        color: @color_1;
-                        &:hover, &:focus {
-                            color: @fullscreen_icons_color_1;
-                        }
-                    }
-                }
-            }
         }
+        .editor-code { .border-radius(0); }
         .ace_search { z-index: @zindex-fullscreen + 3; }
     }
-
-    .secondary-tabs {
-        .editor-toolbar {
-            >ul {
-                >li {
-                    >a {
-                        color: @color_2;
-                    }
-                }
-            }
-        }
-    }
-
-}
-
-#cms-master-tabs .field-codeeditor .editor-toolbar > ul  > li  > a {
-    color: @color_3;
 }
