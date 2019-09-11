@@ -25,8 +25,8 @@
 .field-codeeditor.editor-fullscreen .editor-code {-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .field-codeeditor.editor-fullscreen .editor-toolbar {z-index:302;border-radius:0 0 5px 5px;right:25px;background-color:#ddd;border:1px solid #cbcbcb;border-right-color:#cbcbcb;border-right-style:solid;border-right-width:1px;border-top:0 none;max-width:125px;overflow:hidden;margin:0;padding:4px;position:absolute;top:0;white-space:normal}
 .field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a {color:#666}
-.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a:hover >i,
-.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a:focus >i {color:#191919}
+.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a:hover,
+.field-codeeditor.editor-fullscreen .editor-toolbar >ul >li >a:focus {color:#191919}
 .field-codeeditor.editor-fullscreen .ace_search {z-index:303}
 .field-codeeditor .secondary-tabs .editor-toolbar >ul >li >a {color:#fff}
 #cms-master-tabs .field-codeeditor .editor-toolbar >ul >li >a {color:#919898}
