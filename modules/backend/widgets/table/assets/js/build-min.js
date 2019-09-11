@@ -909,7 +909,7 @@ var target=this.tableObj.getEventTarget(ev)
 if(target.tagName=='LI'){target.focus();}}
 DropdownProcessor.prototype.onKeyDown=function(ev){if(!this.itemListElement)
 return
-if((ev.key==='(Space character)'||ev.key==='Spacebar'||ev.key===' ')&&!this.searching){this.showDropdown()}else if(ev.key==='ArrowDown'||ev.key==='ArrowUp'){var selected=this.findSelectedItem(),newSelectedItem;if(!selected){if(ev.key=='ArrowUp'){return false}
+if((ev.key==='(Space character)'||ev.key==='Spacebar'||ev.key===' ')&&!this.searching){this.showDropdown()}else if(ev.key==='ArrowDown'||ev.key==='ArrowUp'){var selected=this.findSelectedItem(),newSelectedItem;if(!selected){if(ev.key==='ArrowUp'){return false}
 newSelectedItem=this.itemListElement.querySelector('ul li:first-child')}else{newSelectedItem=selected.nextElementSibling
 if(ev.key==='ArrowUp')
 newSelectedItem=selected.previousElementSibling}
