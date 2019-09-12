@@ -370,7 +370,7 @@ class UpdateManager
      */
     public function setBuildNumberManually()
     {
-        // Use package.json to detect latest version
+        // Use installed.json to detect latest version
         $composerInstalled = base_path('vendor/composer/installed.json');
         if (file_exists($composerInstalled)) {
             $packages = json_decode(file_get_contents($composerInstalled), true);
