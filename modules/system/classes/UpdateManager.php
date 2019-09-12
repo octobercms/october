@@ -374,7 +374,7 @@ class UpdateManager
         $composerInstalled = base_path('vendor/composer/installed.json');
         if (file_exists($composerInstalled)) {
             $packages = json_decode(file_get_contents($composerInstalled), true);
-            $packageIndex = array_search('october/cms', array_column($packages, 'name'));
+            $packageIndex = array_search('october/system', array_column($packages, 'name'));
             $build = str_replace('v', '', array_get($packages[$packageIndex], 'version', 420));
         } else {
             // If composer doesnt exists ping gateway
