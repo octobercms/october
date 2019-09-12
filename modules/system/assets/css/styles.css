@@ -70,7 +70,7 @@ fieldset {border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}
 legend {border:0;padding:0}
 textarea {overflow:auto}
 optgroup {font-weight:bold}
-table {border-collapse:collapse;border-spacing:0;table-layout:auto;word-wrap:break-word;word-break:break-all}
+table {border-collapse:collapse;border-spacing:0;table-layout:auto}
 td,
 th {padding:0}
 *,
