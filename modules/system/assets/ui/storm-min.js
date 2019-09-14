@@ -5097,7 +5097,7 @@ BaseWrapper.prototype.cleanupAfterSwitch=function(){this.switched=true
 this.dispose()}
 BaseWrapper.prototype.loadValues=function(configuration){var $valuesField=this.getElementValuesInput()
 if($valuesField.length>0){var valuesStr=$.trim($valuesField.val())
-try{return valuesStr.length===0?{}:$.parseJSON(valuesStr)}
+try{return valuesStr.length===0?{}:JSON.parse(valuesStr)}
 catch(err){throw new Error('Error parsing Inspector field values. '+err)}}
 var values={},attributes=this.$element.get(0).attributes
 for(var i=0,len=attributes.length;i<len;i++){var attribute=attributes[i],matches=[]
@@ -5134,7 +5134,7 @@ var $form=this.$element.closest('form'),data=this.$element.data(),self=this
 $.oc.stripeLoadIndicator.show()
 $form.request('onGetInspectorConfiguration',{data:data}).done(function inspectorConfigurationRequestDoneClosure(data){self.onConfigurartionRequestDone(data,result)}).always(function(){$.oc.stripeLoadIndicator.hide()})}
 BaseWrapper.prototype.parseConfiguration=function(configuration){if(!$.isArray(configuration)&&!$.isPlainObject(configuration)){if($.trim(configuration)===0){return{}}
-try{return $.parseJSON(configuration)}
+try{return JSON.parse(configuration)}
 catch(err){throw new Error('Error parsing Inspector configuration. '+err)}}
 else{return configuration}}
 BaseWrapper.prototype.configurationLoaded=function(configuration){var values=this.loadValues(configuration.properties)
@@ -6009,7 +6009,7 @@ $.oc.foundation.element.addClass(row,'active')
 this.createInspectorForRow(row,inspectorContainer)}
 ObjectListEditor.prototype.createInspectorForRow=function(row,inspectorContainer){var dataStr=row.getAttribute('data-inspector-values')
 if(dataStr===undefined||typeof dataStr!=='string'){throw new Error('Values not found for the selected row.')}
-var properties=this.propertyDefinition.itemProperties,values=$.parseJSON(dataStr),options={enableExternalParameterEditor:false,onChange:this.proxy(this.onInspectorDataChange),inspectorClass:this.inspector.options.inspectorClass}
+var properties=this.propertyDefinition.itemProperties,values=JSON.parse(dataStr),options={enableExternalParameterEditor:false,onChange:this.proxy(this.onInspectorDataChange),inspectorClass:this.inspector.options.inspectorClass}
 this.currentRowInspector=new $.oc.inspector.surface(inspectorContainer,properties,values,$.oc.inspector.helpers.generateElementUniqueId(inspectorContainer),options)}
 ObjectListEditor.prototype.disposeInspector=function(){$.oc.foundation.controlUtils.disposeControls(this.popup.querySelector('[data-inspector-container]'))
 this.currentRowInspector=null}
@@ -6054,7 +6054,7 @@ ObjectListEditor.prototype.applyDataToParentInspector=function(){var selectedRow
 if(selectedRow){if(!this.validateKeyValue()){return}
 if(this.currentRowInspector){if(!this.currentRowInspector.validate()){return}}
 this.applyDataToRow(selectedRow)}
-for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=$.parseJSON(dataRow.getAttribute('data-inspector-values'))
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=JSON.parse(dataRow.getAttribute('data-inspector-values'))
 if(!this.isKeyValueMode()){result.push(rowData)}
 else{var rowKey=rowData[this.propertyDefinition.keyProperty]
 result[rowKey]=this.removeKeyProperty(rowData)}}
@@ -6071,7 +6071,7 @@ if(typeof keyPropertyValue!=='string'){throw new Error('Key property ('+keyPrope
 if($.trim(keyPropertyValue).length===0){$.oc.flashMsg({text:'The value of key property '+keyPropertyTitle+' cannot be empty.','class':'error','interval':3})
 return false}
 var selectedRow=this.getSelectedRow(),tbody=this.getTableBody(),dataRows=tbody.querySelectorAll('tr[data-inspector-values]')
-for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=$.parseJSON(dataRow.getAttribute('data-inspector-values'))
+for(var i=0,len=dataRows.length;i<len;i++){var dataRow=dataRows[i],rowData=JSON.parse(dataRow.getAttribute('data-inspector-values'))
 if(selectedRow==dataRow){continue}
 if(rowData[keyProperty]==keyPropertyValue){$.oc.flashMsg({text:'The value of key property '+keyPropertyTitle+' should be unique.','class':'error','interval':3})
 return false}}
