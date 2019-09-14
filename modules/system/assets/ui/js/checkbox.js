@@ -5,14 +5,9 @@
 
 (function($) {
 
-    $(document).on('keydown', 'div.custom-checkbox', function(e) {
-        if (e.key === '(Space character)' || e.key === 'Spacebar' || e.key === ' ')
-            e.preventDefault()
-    })
-
-    $(document).on('input', 'div.custom-checkbox', function(e) {
+    $(document).on('keypress', 'div.custom-checkbox', function(e) {
         if (e.key === '(Space character)' || e.key === 'Spacebar' || e.key === ' ') {
-            var $cb = $('input', this)
+            var $cb = $('input[type=checkbox]', this)
 
             if ($cb.data('oc-space-timestamp') == e.timeStamp)
                 return
