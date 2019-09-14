@@ -2800,9 +2800,7 @@ $(document).on('focus.autocomplete.data-api','[data-control="autocomplete"]',fun
 if($this.data('autocomplete'))return
 var opts=$this.data()
 if(opts.source){opts.source=paramToObj('data-source',opts.source)}
-$this.autocomplete(opts)})}(window.jQuery);(function($){$(document).on('keydown','div.custom-checkbox',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' ')
-e.preventDefault()})
-$(document).on('input','div.custom-checkbox',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){var $cb=$('input',this)
+$this.autocomplete(opts)})}(window.jQuery);(function($){$(document).on('keypress','div.custom-checkbox',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){var $cb=$('input[type=checkbox]',this)
 if($cb.data('oc-space-timestamp')==e.timeStamp)
 return
 $cb.get(0).checked=!$cb.get(0).checked
