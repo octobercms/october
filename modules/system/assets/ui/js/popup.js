@@ -395,7 +395,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return $.oc.JSON("{" + value + "}")
+            return ocJSON("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)

@@ -2797,7 +2797,7 @@ $.fn.autocomplete.noConflict=function(){$.fn.autocomplete=old
 return this}
 function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
-try{return $.oc.JSON("{"+value+"}")}
+try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
 $(document).on('focus.autocomplete.data-api','[data-control="autocomplete"]',function(e){var $this=$(this)
 if($this.data('autocomplete'))return
@@ -3856,7 +3856,7 @@ $.fn.popup.noConflict=function(){$.fn.popup=old
 return this}
 function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
-try{return $.oc.JSON("{"+value+"}")}
+try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
 $(document).on('click.oc.popup','[data-control="popup"]',function(event){event.preventDefault()
 $(this).popup()});$(document).on('ajaxPromise','[data-popup-load-indicator]',function(event,context){if($(this).data('request')!=context.handler)return
@@ -3899,7 +3899,7 @@ $.oc.chartUtils=new ChartUtils();}(window.jQuery);+function($){"use strict";var 
 this.chartOptions={xaxis:{mode:"time",tickLength:5},selection:{mode:"x"},grid:{markingsColor:"rgba(0,0,0, 0.02)",backgroundColor:{colors:["#fff","#fff"]},borderColor:"#7bafcc",borderWidth:0,color:"#ddd",hoverable:true,clickable:true,labelMargin:10},series:{lines:{show:true,fill:true},points:{show:true}},tooltip:true,tooltipOpts:{defaultTheme:false,content:"%x: <strong>%y</strong>",dateFormat:"%y-%0m-%0d",shifts:{x:10,y:20}},legend:{show:true,noColumns:2}}
 this.defaultDataSetOptions={shadowSize:0}
 var parsedOptions={}
-try{parsedOptions=$.oc.JSON("{"+value+"}");}catch(e){throw new Error('Error parsing the data-chart-options attribute value. '+e);}
+try{parsedOptions=ocJSON("{"+value+"}");}catch(e){throw new Error('Error parsing the data-chart-options attribute value. '+e);}
 this.chartOptions=$.extend({},this.chartOptions,parsedOptions)
 this.options=options
 this.$el=$(element)

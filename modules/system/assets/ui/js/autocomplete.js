@@ -1,6 +1,6 @@
 /*
  * The autcomplete plugin, a forked version of Bootstrap's original typeahead plugin.
- * 
+ *
  * Data attributes:
  * - data-control="autocomplete" - enables the autocomplete plugin
  *
@@ -378,7 +378,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return $.oc.JSON("{" + value + "}")
+            return ocJSON("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
