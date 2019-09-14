@@ -4038,14 +4038,18 @@ var tr=this.$el.prop('tagName')=='TR'?this.$el:this.$el.find('tr:has(td)')
 tr.each(function(){var link=$(this).find(options.target).filter(function(){return!$(this).closest('td').hasClass(options.excludeClass)&&!$(this).hasClass(options.excludeClass)}).first()
 if(!link.length)return
 var href=link.attr('href'),onclick=(typeof link.get(0).onclick=="function")?link.get(0).onclick:null,popup=link.is('[data-control=popup]'),request=link.is('[data-request]')
-$(this).find('td').not('.'+options.excludeClass).click(function(e){if($(document.body).hasClass('drag')){return}
+function handleClick(e){if($(document.body).hasClass('drag')){return}
 if(onclick){onclick.apply(link.get(0))}
 else if(request){link.request()}
 else if(popup){link.popup()}
 else if(e.ctrlKey||e.metaKey){window.open(href)}
-else{window.location=href}})
+else{window.location=href}}
+$(this).find('td').not('.'+options.excludeClass).click(function(e){handleClick(e)})
+$(this).on('keypress',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){handleClick(e)
+return false}})
 $(this).addClass(options.linkedClass)
-link.hide().after(link.html())})}
+link.hide().after(link.html())})
+$('tr.rowlink').attr('tabindex',0)}
 RowLink.DEFAULTS={target:'a',excludeClass:'nolink',linkedClass:'rowlink'}
 var old=$.fn.rowLink
 $.fn.rowLink=function(option){var args=Array.prototype.slice.call(arguments,1)
