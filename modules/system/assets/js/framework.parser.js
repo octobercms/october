@@ -1,16 +1,13 @@
-/*
- * October CMS JSON Parser
- */
-"use strict";
+/* ========================================================================
+ * OctoberCMS: front-end JavaScript parser
+ * http://octobercms.com
+ *
+ * (Note: This lib is included manually in the framework.js file)
+ * ========================================================================
+ * Copyright 2016-2020 Alexey Bobkov, Samuel Georges
+ * ======================================================================== */
 
-(function() {
-    /**
-     * parse key
-     * @param str
-     * @param pos
-     * @param quote
-     * @returns {string}
-     */
++function(window) { "use strict";
     function parseKey(str, pos, quote) {
         var key = "";
         for (var i = pos; i < str.length; i++) {
@@ -30,12 +27,6 @@
         throw new Error("Broken JSON syntax near " + key);
     }
 
-    /*
-     * get body
-     * @param str
-     * @param pos
-     * @returns {*}
-     */
     function getBody(str, pos) {
         // parse string body
         if (str[pos] === "\"" || str[pos] === "'") {
@@ -155,11 +146,6 @@
         throw new Error("Broken JSON body near " + str.substr((pos - 5 >= 0) ? pos - 5 : 0, 50));
     }
 
-    /*
-     * This is a char can be key head
-     * @param ch
-     * @returns {boolean}
-     */
     function canBeKeyHead(ch) {
         if (ch[0] === "\\") return false;
         if ((ch[0] >= 'a' && ch[0] <= 'z') || (ch[0] >= 'A' && ch[0] <= 'Z') || ch[0] === '_') return true;
@@ -173,10 +159,6 @@
         return ch === " " || ch === "\n" || ch === "\t";
     }
 
-    /*
-     * parse JSON
-     * @param str
-     */
     function parse(str) {
         str = str.trim();
         if (!str.length) throw new Error("Broken JSON object.");
@@ -339,17 +321,10 @@
         }
     }
 
-    /*
-     * parse October JSON string into JSON object
-     * @param json
-     * @returns {*}
-     */
-    if ($.oc === undefined)
-        $.oc = {}
-
-    $.oc.JSON = function(json) {
+    // Global function
+    window.ocJSON = function(json) {
         var jsonString = parse(json);
         return JSON.parse(jsonString);
     };
 
-})();
+}(window);
