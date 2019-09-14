@@ -378,7 +378,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+            return $.oc.JSON("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
