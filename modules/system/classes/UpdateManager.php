@@ -365,7 +365,7 @@ class UpdateManager
     }
 
     /**
-     * Asks the composer/gateway for the lastest build number and stores it.
+     * Asks the gateway (or Composer) for the latest build number and stores it in the database.
      * @return void
      */
     public function setBuildNumberManually()
