@@ -19,10 +19,12 @@ return [
             'online' => 'Online',
             'maintenance' => 'W konserwacji',
             'manage_themes' => 'Zarządzaj motywami',
+            'customize_theme' => 'Dostosuj motyw'
         ]
     ],
     'theme' => [
         'not_found_name' => "Motyw ':name' nie został odnaleziony.",
+        'by_author' => 'Autor: :name',
         'active' => [
             'not_set' => 'Brak aktywnego motywu.',
             'not_found' => 'Aktywny motyw nie został odnaleziony.'
@@ -45,6 +47,8 @@ return [
         'homepage_placeholder' => 'URL strony domowej',
         'code_label' => 'Kod',
         'code_placeholder' => 'Unikalny kod motywu używany do dystrybucji',
+        'preview_image_label' => 'Obrazek poglądowy',
+        'preview_image_placeholder' => 'Ścieżka do obrazka poglądowego motywu.',
         'dir_name_label' => 'Nazwa katalogu',
         'dir_name_create_label' => 'Docelowy katalog motywu',
         'theme_label' => 'Motyw',
@@ -114,7 +118,11 @@ return [
         'invalid_url' => 'Nieprawidłowy format URL. Powinien rozpoczynać się od ukośnika (/) i może zawierać cyfry, znaki oraz następujące symbole: ._-[]:?|/+*^$',
         'delete_confirm_multiple' => 'Czy na pewno chcesz usunąć zaznaczone strony?',
         'delete_confirm_single' => 'Czy na pewno chcesz usunąć tę stronę?',
-        'no_layout' => '-- brak układu --'
+        'no_layout' => '-- brak układu --',
+        'cms_page' => 'Strona CMS',
+        'title' => 'Tytuł strony',
+        'url' => 'Adres URL strony',
+        'file_name' => 'Nazwa pliku strony'
     ],
     'layout' => [
         'not_found_name' => "Nie znaleziono układu ':name'",
@@ -145,8 +153,8 @@ return [
         'new' => 'Nowy plik treści'
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Nieprawidłowa nazwa handlera AJAX: :name.',
-        'not_found' => "Handler AJAX ':name' nie został znaleziony."
+        'invalid_name' => 'Nieprawidłowa nazwa modułu obsługi AJAX: :name.',
+        'not_found' => "Moduł obsługi AJAX ':name' nie został znaleziony."
     ],
     'cms' => [
         'menu_label' => 'CMS'
@@ -177,7 +185,15 @@ return [
         'open_searchbox' => 'Otwórz wyszukiwanie',
         'close_searchbox'  => 'Zamknij wyszukiwanie',
         'open_replacebox' => 'Otwórz zamienianie tekstu',
-        'close_replacebox'  => 'Zamknij zamienianie tekstu'
+        'close_replacebox'  => 'Zamknij zamienianie tekstu',
+        'commit' => 'Zapisz',
+        'reset' => 'Resetuj',
+        'commit_confirm' => 'Na pewno chcesz zapisać swoje zmiany do pliku? Nadpisze to jego istniejącą zawartość',
+        'reset_confirm' => 'Na pewno chcesz zresetować ten plik do kopii istniejącej w systemie plików? Zamieni to jego zawartość na tą z pliku kopii',
+        'committing' => 'Zapisywanie',
+        'resetting' => 'Resetowanie',
+        'commit_success' => ':type został pomyślnie zapisany do systemu plików',
+        'reset_success' => ':type został zresetowany do kopii z systemu plików'
     ],
     'asset' => [
         'menu_label' => 'Zasoby',
@@ -219,6 +235,8 @@ return [
         'error_moving_file' => 'Błąd przy przenoszeniu pliku :file',
         'error_moving_directory' => 'Błąd przy przenoszeniu folderu :dir',
         'error_deleting_directory' => 'Błąd przy usuwaniu oryginalnego folderu :dir',
+        'no_list_records' => 'Nie znaleziono plików',
+        'delete_confirm' => 'Usunąć zaznaczone pliki i foldery?',
         'path' => 'Ścieżka'
     ],
     'component' => [
@@ -236,15 +254,48 @@ return [
     'template' => [
         'invalid_type' => 'Nieznany typ szablonu.',
         'not_found' => 'Szablon nie został znaleziony.',
-        'saved'=> 'Szablon został zapisany pomyślnie.'
+        'saved'=> 'Szablon został zapisany pomyślnie.',
+        'no_list_records' => 'Nie znaleziono rekordów',
+        'delete_confirm' => 'Usunąć zaznaczone szablony?',
+        'order_by' => 'Sortuj wg'
     ],
     'permissions' => [
-        'name' => 'Cms',
+        'name' => 'CMS',
         'manage_content' => 'Zarządzaj treścią',
         'manage_assets' => 'Zarządzaj zasobami',
         'manage_pages' => 'Zarządzaj stronami',
         'manage_layouts' => 'Zarządzaj układami',
-        'manage_partials' => 'Zarządzaj blokami',
+        'manage_partials' => 'Zarządzaj fragmentami',
         'manage_themes' => 'Zarządzaj motywami',
+        'manage_theme_options' => 'Zarządzaj opcjami aktywnego motywu'
     ],
+    'theme_log' => [
+        'hint' => 'Log wyświetla wszelkie zmiany wprowadzone do motywu przez administratorów w backendzie.',
+        'menu_label' => 'Log motywu',
+        'menu_description' => 'Zobacz zmiany wprowadzone do aktywnego motywu.',
+        'empty_link' => 'Wyczyść log motywu',
+        'empty_loading' => 'Czyszczenie logu motywu...',
+        'empty_success' => 'Wyczyszczono log motywu',
+        'return_link' => 'Powróć do logu motywu',
+        'id' => 'ID',
+        'id_label' => 'ID Logu',
+        'created_at' => 'Data i czas',
+        'user' => 'Użytkownik',
+        'type' => 'Typ',
+        'type_create' => 'Utwórz',
+        'type_update' => 'Aktualizuj',
+        'type_delete' => 'Usuń',
+        'theme_name' => 'Motyw',
+        'theme_code' => 'Kod motywu',
+        'old_template' => 'Motyw (stary)',
+        'new_template' => 'Motyw (nowy)',
+        'template' => 'Motyw',
+        'diff' => 'Zmiany',
+        'old_value' => 'Stara wartość',
+        'new_value' => 'Nowa wartość',
+        'preview_title' => 'Zmiany w motywie',
+        'template_updated' => 'Szablon został zaktualizowany',
+        'template_created' => 'Szablon został utworzony',
+        'template_deleted' => 'Szablon został usunięty',
+    ]
 ];
