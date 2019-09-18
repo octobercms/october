@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'Pełny ekran',
         'preview' => 'Podgląd',
     ],
-
     'mediamanager' => [
         'insert_link' => "Wstaw Link",
         'insert_image' => "Wstaw Obraz",
@@ -45,12 +44,11 @@ return [
         'invalid_video_empty_insert' => "Prosimy wybrać wideo do wstawienia.",
         'invalid_audio_empty_insert' => "Prosimy wybrać audio do wstawienia.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Anuluj',
+        'widget_remove_confirm' => 'Usunąć ten widżet?'
     ],
-
     'datepicker' => [
         'previousMonth' => 'Poprzedni miesiąc',
         'nextMonth' => 'Następny miesiąc',
@@ -58,10 +56,16 @@ return [
         'weekdays' => ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
         'weekdaysShort' => ['Nie', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'So']
     ],
-
+    'colorpicker' => [
+        'choose' => 'Ok',
+    ],
     'filter' => [
         'group' => [
             'all' => 'wszystkie'
+        ],
+        'scopes' => [
+            'apply_button_text' => 'Zastosuj',
+            'clear_button_text' => 'Wyczyść'
         ],
         'dates' => [
             'all' => 'wszystkie',
@@ -70,9 +74,15 @@ return [
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Po',
             'before_placeholder' => 'Przed'
+        ],
+        'numbers' => [
+            'all' => 'wszystkie',
+            'filter_button_text' => 'Filtruj',
+            'reset_button_text'  => 'Resetuj',
+            'min_placeholder' => 'Minimum',
+            'max_placeholder' => 'Maksimum'
         ]
     ],
-
     'eventlog' => [
         'show_stacktrace' => 'Pokaż stos wywołań',
         'hide_stacktrace' => 'Ukryj stos wywołań',
