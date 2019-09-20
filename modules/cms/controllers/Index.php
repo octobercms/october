@@ -667,11 +667,12 @@ class Index extends Controller
     }
 
     /**
-     * Processes the component settings so they are ready to be saved
-     * @param array $settings
+     * Processes the component settings so they are ready to be saved.
+     * @param array $settings The new settings for this template.
+     * @param array $prevSettings The previous settings for this template.
      * @return array
      */
-    protected function upgradeSettings($settings, $oldSettings)
+    protected function upgradeSettings($settings, $prevSettings)
     {
         /*
          * Handle component usage
@@ -697,6 +698,11 @@ class Index extends Controller
                 if (substr($componentAlias, 0, 1) === '@') {
                     $componentAlias = substr($componentAlias, 1);
                     $isSoftComponent = true;
+
+                    if (empty($componentName)) {
+                        // Missing soft component - let's find the original name
+                        $componentName = $this->findComponentByAlias($componentAlias, $prevSettings['components'])['name'] ?? '';
+                    }
                 } else {
                     $isSoftComponent = false;
                 }
@@ -714,8 +720,8 @@ class Index extends Controller
                 unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
 
                 if (!$properties) {
-                    $oldComponentSettings = array_key_exists($section, $oldSettings['components'])
-                        ? $oldSettings['components'][$section]
+                    $oldComponentSettings = array_key_exists($section, $prevSettings['components'])
+                        ? $prevSettings['components'][$section]
                         : null;
                     if ($isSoftComponent && $oldComponentSettings) {
                         $settings[$section] = $oldComponentSettings;
@@ -757,6 +763,35 @@ class Index extends Controller
         $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
+    }
+
+    /**
+     * Finds a given component by its alias.
+     *
+     * If found, this will return the component's name, alias and properties.
+     *
+     * @param string $aliasQuery The alias to search for
+     * @param array $components The array of components to look within.
+     * @return array|null
+     */
+    protected function findComponentByAlias(string $aliasQuery, array $components = [])
+    {
+        $found = null;
+
+        foreach ($components as $name => $properties) {
+            list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
+
+            if (ltrim($alias, '@') === ltrim($aliasQuery, '@')) {
+                $found = [
+                    'name' => ltrim($name, '@'),
+                    'alias' => $alias,
+                    'properties' => $properties
+                ];
+                break;
+            }
+        }
+
+        return $found;
     }
 
     /**
