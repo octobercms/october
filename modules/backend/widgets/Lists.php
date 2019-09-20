@@ -360,7 +360,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendQueryBefore', function($listWidget, $query) {
+         *     Event::listen('backend.list.extendQueryBefore', function ($listWidget, $query) {
          *         $query->whereNull('deleted_at');
          *     });
          *
@@ -557,7 +557,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendQuery', function($listWidget, $query) {
+         *     Event::listen('backend.list.extendQuery', function ($listWidget, $query) {
          *         $newQuery = MyModel::newQuery();
          *         return $newQuery;
          *     });
@@ -608,7 +608,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendRecords', function($listWidget, $records) {
+         *     Event::listen('backend.list.extendRecords', function ($listWidget, $records) {
          *         $model = MyModel::where('always_include', true)->first();
          *         $records->prepend($model);
          *     });
@@ -776,7 +776,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendColumns', function($listWidget) {
+         *     Event::listen('backend.list.extendColumns', function ($listWidget) {
          *         // Only for the User controller
          *         if (!$listWidget->getController() instanceof \Backend\Controllers\Users) {
          *             return;
@@ -953,7 +953,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideHeaderValue', function($listWidget, $column, &$value) {
+         *     Event::listen('backend.list.overrideHeaderValue', function ($listWidget, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1029,7 +1029,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the raw value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideColumnValueRaw', function($listWidget, $record, $column, &$value) {
+         *     Event::listen('backend.list.overrideColumnValueRaw', function ($listWidget, $record, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1076,7 +1076,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideColumnValue', function($listWidget, $record, $column, &$value) {
+         *     Event::listen('backend.list.overrideColumnValue', function ($listWidget, $record, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1110,7 +1110,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the row class.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.injectRowClass', function($listWidget, $record, &$value) {
+         *     Event::listen('backend.list.injectRowClass', function ($listWidget, $record, &$value) {
          *         $value .= '-modified';
          *     });
          *

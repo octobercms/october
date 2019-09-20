@@ -146,7 +146,7 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
          * Example usage (filters all pages except for the 404 page on the CMS Maintenance mode settings page):
          *
          *     // Extend only the Settings Controller
-         *     \System\Controllers\Settings::extend(function($controller) {
+         *     \System\Controllers\Settings::extend(function ($controller) {
          *         // Listen for the cms.object.listInTheme event
          *         \Event::listen('cms.object.listInTheme', function ($cmsObject, $objectList) {
          *             // Get the current context of the Settings Manager to ensure we only affect what we need to affect

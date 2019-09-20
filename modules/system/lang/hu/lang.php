@@ -56,7 +56,8 @@ return [
         'name' => [
             'label' => 'Bővítmény neve',
             'help' => 'Nevezze meg egyedi kódja alapján a bővítményt. Például: RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Fejlesztő: :name'
     ],
     'plugins' => [
         'manage' => 'Bővítmények kezelése',

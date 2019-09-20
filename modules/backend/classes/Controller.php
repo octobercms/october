@@ -553,7 +553,7 @@ class Controller extends ControllerBase
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('backend.ajax.beforeRunHandler', function((\Backend\Classes\Controller) $controller, (string) $handler) {
+         *     Event::listen('backend.ajax.beforeRunHandler', function ((\Backend\Classes\Controller) $controller, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {
@@ -786,7 +786,7 @@ class Controller extends ControllerBase
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        if (!strlen($token)) {
+        if (!strlen($token) || !strlen(Session::token())) {
             return false;
         }
 

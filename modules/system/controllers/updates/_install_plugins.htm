@@ -2,6 +2,7 @@
 
     <!-- Search -->
     <form
+        role="form"
         id="installPluginsForm"
         data-handler="onInstallPlugin"
         onsubmit="$.oc.installProcess.searchSubmit(this); return false">
@@ -45,7 +46,7 @@
                                 </div>
                                 <div class="details">
                                     <h4><?= $plugin['name'] ?></h4>
-                                    <p><?= e(trans('cms::lang.theme.by_author', ['name' => $plugin['author']])) ?></p>
+                                    <p><?= e(trans('system::lang.plugin.by_author', ['name' => $plugin['author']])) ?></p>
                                 </div>
                                 <button
                                     type="button"

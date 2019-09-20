@@ -5,13 +5,6 @@ return [
         'title' => 'Administration Area',
         'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
     ],
-    'aria-label' => [
-        'footer'        => 'Footer Section',
-        'side_panel'    => 'Side panel',
-        'breadcrumb'    => 'Breadcrumb Navigation',
-        'main_content'  => 'Main Content Body',
-        'tabs'          => 'Tabs',
-    ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
@@ -371,6 +364,8 @@ return [
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
         'plugin_missing' => 'The plugin :name is a dependency but is not installed. Please install this plugin.',
+        'debug' => 'Debug mode is enabled. This is not recommended for production installations.',
+        'decompileBackendAssets' => 'Assets in the Backend are currently decompiled. This is not recommended for production installations.',
     ],
     'editor' => [
         'menu_label' => 'Editor settings',
