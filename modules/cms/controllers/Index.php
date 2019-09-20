@@ -691,22 +691,32 @@ class Index extends Controller
             }
 
             for ($index = 0; $index < $count; $index++) {
-                $componentName = $componentNames[$index];
+                $componentName = ltrim($componentNames[$index], '@');
                 $componentAlias = $componentAliases[$index];
 
-                $isSoftComponent = $componentAlias[0] === '@';
+                if (substr($componentAlias, 0, 1) === '@') {
+                    $componentAlias = substr($componentAlias, 1);
+                    $isSoftComponent = true;
+                } else {
+                    $isSoftComponent = false;
+                }
 
+                if ($componentAlias != $componentName) {
+                    $section = $componentName . ' ' . $componentAlias;
+                } else {
+                    $section = $componentName;
+                }
                 if ($isSoftComponent) {
-                    $section = $componentAlias;
-                } elseif ($componentAlias != $componentName) {
-                    $section = $componentName.' '.$componentAlias;
+                    $section = '@' . $section;
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
                 unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
 
-                if (! $properties) {
-                    $oldComponentSettings = array_key_exists($section, $oldSettings['components']) ? $oldSettings['components'][$section] : null;
+                if (!$properties) {
+                    $oldComponentSettings = array_key_exists($section, $oldSettings['components'])
+                        ? $oldSettings['components'][$section]
+                        : null;
                     if ($isSoftComponent && $oldComponentSettings) {
                         $settings[$section] = $oldComponentSettings;
                     } else {
