@@ -26,9 +26,8 @@ install:
   # Replace October library with `develop` branch
   - rm -rf ./vendor/october/rain
   - wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
-  - unzip ./vendor/october/develop.zip
-  - ls -la ./vendor/october/
-  - mv ./vendor/october/library-develop/ ./vendor/october/rain
+  - unzip ./vendor/october/develop.zip -d ./vendor/october
+  - mv ./vendor/october/library-develop ./vendor/october/rain
   # Dump autoload
   - composer dump-autoload
 
