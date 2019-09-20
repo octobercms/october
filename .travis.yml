@@ -27,7 +27,8 @@ install:
   - rm -rf ./vendor/october/rain
   - wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
   - unzip ./vendor/october/develop.zip
-  - mv ./vendor/october/library-develop ./vendor/october/rain
+  - ls -la ./vendor/october/
+  - mv ./vendor/october/library-develop/ ./vendor/october/rain
   # Dump autoload
   - composer dump-autoload
 
