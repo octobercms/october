@@ -43,7 +43,7 @@ class Components extends FormWidgetBase
             try {
                 $componentObj = $manager->makeComponent($name, null, $properties);
 
-                $componentObj->alias = $alias;
+                $componentObj->alias = ((substr($name, 0, 1) === '@' && $alias !== $name) ? '@' : '') . $alias;
                 $componentObj->pluginIcon = 'icon-puzzle-piece';
 
                 /*
