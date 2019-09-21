@@ -96,7 +96,8 @@ return [
         'name' => [
             'label' => 'Tên plugin',
             'help' => 'Tên của plugin không được trùng lặp. For example, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Tạo bởi :name'
     ],
     'plugins' => [
         'manage' => 'Quản lý các plugin',

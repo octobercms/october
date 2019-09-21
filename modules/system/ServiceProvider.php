@@ -88,6 +88,13 @@ class ServiceProvider extends ModuleServiceProvider
             Schema::defaultStringLength(191);
         }
 
+        // Fix use of Storage::url() for local disks that haven't been configured correctly
+        foreach (Config::get('filesystems.disks') as $key => $config) {
+            if ($config['driver'] === 'local' && ends_with($config['root'], '/storage/app') && empty($config['url'])) {
+                Config::set("filesystems.disks.$key.url", '/storage/app');
+            }
+        }
+
         Paginator::defaultSimpleView('system::pagination.simple-default');
 
         /*
@@ -252,6 +259,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('theme.remove', 'System\Console\ThemeRemove');
         $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
         $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
+        $this->registerConsoleCommand('theme.sync', 'System\Console\ThemeSync');
     }
 
     /*
@@ -535,7 +543,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerValidator()
     {
-        $this->app->resolving('validator', function($validator) {
+        $this->app->resolving('validator', function ($validator) {
             /*
              * Allowed file extensions, as opposed to mime types.
              * - extensions: png,jpg,txt

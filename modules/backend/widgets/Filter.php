@@ -116,7 +116,7 @@ class Filter extends WidgetBase
                     $after = $scope->value[0]->format('Y-m-d H:i:s');
                     $before = $scope->value[1]->format('Y-m-d H:i:s');
 
-                    if(strcasecmp($after, '0000-00-00 00:00:00') > 0) {
+                    if (strcasecmp($after, '0000-00-00 00:00:00') > 0) {
                         $params['afterStr'] = Backend::dateTime($scope->value[0], ['formatAlias' => 'dateMin']);
                         $params['after']    = $after;
                     }
@@ -125,7 +125,7 @@ class Filter extends WidgetBase
                         $params['after']    = null;
                     }
 
-                    if(strcasecmp($before, '2999-12-31 23:59:59') < 0) {
+                    if (strcasecmp($before, '2999-12-31 23:59:59') < 0) {
                         $params['beforeStr'] = Backend::dateTime($scope->value[1], ['formatAlias' => 'dateMin']);
                         $params['before']    = $before;
                     }
@@ -261,15 +261,7 @@ class Filter extends WidgetBase
                 break;
 
             case 'text':
-                $values = post('options.value');
-
-                if ($values !== null && $values !== '') {
-                    list($value) = $values;
-                }
-                else {
-                    $value = null;
-                }
-
+                $value = post('options.value.' . $scope->scopeName) ?: null;
                 $this->setScopeValue($scope, $value);
                 break;
         }
@@ -385,7 +377,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendQuery', function((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
+         *     Event::listen('backend.filter.extendQuery', function ((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
          *         if ($scope->scopeName == 'status') {
          *             $query->where('status', '<>', 'all');
          *         }
@@ -513,7 +505,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendScopesBefore', function((\Backend\Widgets\Filter) $filterWidget) {
+         *     Event::listen('backend.filter.extendScopesBefore', function ((\Backend\Widgets\Filter) $filterWidget) {
          *         // Just in case you really had to do something before scopes are defined
          *     });
          *
@@ -541,7 +533,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendScopes', function((\Backend\Widgets\Filter) $filterWidget) {
+         *     Event::listen('backend.filter.extendScopes', function ((\Backend\Widgets\Filter) $filterWidget) {
          *         $filterWidget->addScopes([
          *             'my_scope' => [
          *                 'label' => 'My Filter Scope'
@@ -567,7 +559,6 @@ class Filter extends WidgetBase
     public function addScopes(array $scopes)
     {
         foreach ($scopes as $name => $config) {
-
             $scopeObj = $this->makeFilterScope($name, $config);
 
             /*
@@ -715,7 +706,6 @@ class Filter extends WidgetBase
                     list($after, $before) = array_values($scope->value);
 
                     if ($after && $after instanceof Carbon && $before && $before instanceof Carbon) {
-
                         /*
                          * Condition
                          */
@@ -763,7 +753,6 @@ class Filter extends WidgetBase
                     list($min, $max) = array_values($scope->value);
 
                     if ($min && $max) {
-
                         /*
                          * Condition
                          *
@@ -811,7 +800,6 @@ class Filter extends WidgetBase
                  * Condition
                  */
                 if ($scopeConditions = $scope->conditions) {
-
                     /*
                      * Switch scope: multiple conditions, value either 1 or 2
                      */
@@ -976,7 +964,7 @@ class Filter extends WidgetBase
 
         if (null !== $ajaxDates) {
             if (!is_array($ajaxDates)) {
-                if(preg_match($dateRegex, $ajaxDates)) {
+                if (preg_match($dateRegex, $ajaxDates)) {
                     $dates = [$ajaxDates];
                 }
             } else {
@@ -984,7 +972,7 @@ class Filter extends WidgetBase
                     if (preg_match($dateRegex, $date)) {
                         $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
                     } elseif (empty($date)) {
-                        if($i == 0) {
+                        if ($i == 0) {
                             $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '0000-00-00 00:00:00');
                         } else {
                             $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', '2999-12-31 23:59:59');

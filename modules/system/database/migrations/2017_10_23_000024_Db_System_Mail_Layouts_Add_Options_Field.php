@@ -11,11 +11,11 @@ class DbSystemMailLayoutsAddOptionsField extends Migration
             $table->text('options')->nullable()->after('is_locked');
         });
     }
-    
+
     public function down()
     {
         Schema::table('system_mail_layouts', function (Blueprint $table) {
-           $table->dropColumn('options');
+            $table->dropColumn('options');
         });
     }
 }

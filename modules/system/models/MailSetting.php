@@ -88,7 +88,6 @@ class MailSetting extends Model
         $config->set('mail.from.address', $settings->sender_email);
 
         switch ($settings->send_mode) {
-
             case self::MODE_SMTP:
                 $config->set('mail.host', $settings->smtp_address);
                 $config->set('mail.port', $settings->smtp_port);
@@ -127,9 +126,7 @@ class MailSetting extends Model
                 $config->set('services.ses.region', $settings->ses_region);
                 break;
         }
-
     }
-
 
     /**
      * @return array smtp_encryption options values

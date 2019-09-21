@@ -61,7 +61,6 @@ div.control-componentlist div.components div.layout-cell > div:after {
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f12e";
 }
 .draggable-component-item > div:hover:after,
@@ -272,7 +271,6 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f12e";
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);

@@ -61,7 +61,7 @@ class AuthManager extends RainAuthManager
      * registerPermissions() function. The manager instance is passed to the
      * callback function as an argument. Usage:
      *
-     *     BackendAuth::registerCallback(function($manager){
+     *     BackendAuth::registerCallback(function ($manager) {
      *         $manager->registerPermissions([...]);
      *     });
      *

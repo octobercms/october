@@ -55,7 +55,6 @@ trait AssetMaker
 
         if ($type == null || $type == 'css') {
             foreach ($this->assets['css'] as $asset) {
-
                 /*
                  * Prevent duplicates
                  */
@@ -314,10 +313,8 @@ trait AssetMaker
     protected function removeDuplicates()
     {
         foreach ($this->assets as $type => &$collection) {
-
             $pathCache = [];
             foreach ($collection as $key => $asset) {
-
                 if (!$path = array_get($asset, 'path')) {
                     continue;
                 }
@@ -329,7 +326,6 @@ trait AssetMaker
 
                 $pathCache[$path] = true;
             }
-
         }
     }
 

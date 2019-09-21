@@ -8,6 +8,7 @@ use Redirect;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use Backend\Classes\Skin;
+use Backend\Helpers\Exception\DecompileException;
 
 /**
  * Backend Helper
@@ -118,8 +119,8 @@ class Backend
             'timeSince' => false,
             'ignoreTimezone' => false,
         ], $options));
-        
-        if(!$dateTime) {
+
+        if (!$dateTime) {
             return '';
         }
 
@@ -157,4 +158,58 @@ class Backend
         return '<time'.Html::attributes($attributes).'>'.e($defaultValue).'</time>'.PHP_EOL;
     }
 
+    /**
+     * Decompiles the compilation asset files
+     *
+     * This is used to load each individual asset file, as opposed to using the compilation assets. This is useful only
+     * for development, to allow developers to test changes without having to re-compile assets.
+     *
+     * @param string $file The compilation asset file to decompile
+     * @param boolean $skinAsset If true, will load decompiled assets from the "skins" directory.
+     * @throws DecompileException If the compilation file cannot be decompiled
+     * @return array
+     */
+    public function decompileAsset(string $file, bool $skinAsset = false)
+    {
+        if ($skinAsset) {
+            $assetFile = base_path(substr(Skin::getActive()->getPath($file, true), 1));
+        } else {
+            $assetFile = base_path($file);
+        }
+
+        if (!file_exists($assetFile)) {
+            throw new DecompileException('File ' . $file . ' does not exist to be decompiled.');
+        }
+        if (!is_readable($assetFile)) {
+            throw new DecompileException('File ' . $file . ' cannot be decompiled. Please allow read access to the file.');
+        }
+
+        $contents = file_get_contents($assetFile);
+
+        if (!preg_match('/^=require/m', $contents)) {
+            throw new DecompileException('File ' . $file . ' does not appear to be a compiled asset.');
+        }
+
+        // Find all assets that are compiled in this file
+        preg_match_all('/^=require\s+([A-z0-9-_+\.\/]+)$/m', $contents, $matches, PREG_SET_ORDER);
+
+        if (!count($matches)) {
+            throw new DecompileException('Unable to extract any asset paths when decompiled file ' . $file . '.');
+        }
+
+        // Determine correct asset path
+        $directory = str_replace(basename($file), '', $file);
+
+        return array_map(function ($match) use ($directory, $skinAsset) {
+            // Resolve relative asset paths
+            if ($skinAsset) {
+                $assetPath = base_path(substr(Skin::getActive()->getPath($directory . $match[1], true), 1));
+            } else {
+                $assetPath = base_path($directory . $match[1]);
+            }
+            $realPath = str_replace(base_path(), '', realpath($assetPath));
+
+            return Url::asset($realPath);
+        }, $matches);
+    }
 }

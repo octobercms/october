@@ -544,7 +544,7 @@ class Controller
      * Note for pre-processing see cms.template.processTwigContent event.
      * @param \Cms\Classes\Page $page Specifies the current CMS page.
      * @param string $url Specifies the current URL.
-     * @param string $content The page markup to post processs.
+     * @param string $content The page markup to post-process.
      * @return string Returns the updated result string.
      */
     protected function postProcessResult($page, $url, $content)
@@ -553,7 +553,7 @@ class Controller
 
         /**
          * @event cms.page.postprocess
-         * Provides oportunity to hook into the post processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
+         * Provides opportunity to hook into the post-processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
          *
          * Example usage:
          *
@@ -812,7 +812,7 @@ class Controller
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('cms.ajax.beforeRunHandler', function((\Cms\Classes\Controller) $controller, (string) $handler) {
+         *     Event::listen('cms.ajax.beforeRunHandler', function ((\Cms\Classes\Controller) $controller, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {
@@ -841,7 +841,6 @@ class Controller
          * Process Component handler
          */
         if (strpos($handler, '::')) {
-
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
@@ -899,7 +898,7 @@ class Controller
 
         /**
          * @event cms.page.render
-         * Provides an oportunity to manipulate the page's rendered contents
+         * Provides an opportunity to manipulate the page's rendered contents
          *
          * Example usage:
          *
@@ -943,18 +942,18 @@ class Controller
 
         /**
          * @event cms.page.beforeRenderPartial
-         * Provides an oportunity to manipulate the name of the partial being rendered before it renders
+         * Provides an opportunity to manipulate the name of the partial being rendered before it renders
          *
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderPartial', function ((string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          */
@@ -965,7 +964,6 @@ class Controller
          * Process Component partial
          */
         elseif (strpos($name, '::') !== false) {
-
             list($componentAlias, $partialName) = explode('::', $name);
 
             /*
@@ -1098,7 +1096,7 @@ class Controller
 
         /**
          * @event cms.page.renderPartial
-         * Provides an oportunity to manipulate the output of a partial after being rendered
+         * Provides an opportunity to manipulate the output of a partial after being rendered
          *
          * Example usage:
          *
@@ -1131,18 +1129,18 @@ class Controller
     {
         /**
          * @event cms.page.beforeRenderContent
-         * Provides an oportunity to manipulate the name of the content file being rendered before it renders
+         * Provides an opportunity to manipulate the name of the content file being rendered before it renders
          *
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderContent', function ((string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          */
@@ -1175,7 +1173,7 @@ class Controller
 
         /**
          * @event cms.page.renderContent
-         * Provides an oportunity to manipulate the output of a content file after being rendered
+         * Provides an opportunity to manipulate the output of a content file after being rendered
          *
          * Example usage:
          *
@@ -1598,7 +1596,7 @@ class Controller
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        if (!strlen($token)) {
+        if (!strlen($token) || !strlen(Session::token())) {
             return false;
         }
 

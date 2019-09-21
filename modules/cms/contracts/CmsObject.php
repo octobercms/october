@@ -2,7 +2,6 @@
 
 interface CmsObject
 {
-
     /**
      * Loads the template.
      *
@@ -59,5 +58,4 @@ interface CmsObject
      * @return string
      */
     public function getTwigCacheKey();
-
 }

@@ -19,6 +19,8 @@
 =require ../vendor/froala_drm/js/plugins/lists.min.js
 =require ../vendor/froala_drm/js/plugins/file_extended.js
 =require ../vendor/froala_drm/js/plugins/image.min.js
+=require ../vendor/froala_drm/js/plugins/inline_style.min.js
+=require ../vendor/froala_drm/js/plugins/inline_class.min.js
 
 // Cannot be minified twice
 =require ../vendor/froala_drm/js/plugins/link.js
