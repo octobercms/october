@@ -316,7 +316,6 @@
 }
 
 .field-checkboxlist:not(.is-scrollable) {
-    padding: 20px 20px 2px 20px;
     .border-radius(@border-radius-base);
     background: @color-form-checkboxlist-background;
     border: 1px solid @color-form-checkboxlist-border;
@@ -329,6 +328,42 @@
 .field-checkboxlist.is-scrollable {
     small {
         color: @text-muted;
+    }
+}
+
+.field-checkboxlist {
+    .checkboxlist-controls {
+        padding: 15px 15px 0 15px;
+        border-bottom: 1px solid #e2e2e2;
+        color: @color-label;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+        a {
+            margin-right: 15px;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: @color-label;
+        }
+        >div {
+            padding-right: 15px;
+            padding-bottom: 15px;
+        }
+
+        .search-input-wrap {
+            margin-left: auto;
+        }
+    }
+}
+
+.field-checkboxlist-container {
+    &:not(.is-scrollable) {
+        padding: 20px 20px 2px 20px;
     }
 }
 
