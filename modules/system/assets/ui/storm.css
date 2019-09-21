@@ -2872,7 +2872,7 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs.primary-tabs >div >div >ul.nav-tabs {position:relative;margin-left:0;margin-right:0}
 .control-tabs.primary-tabs >ul.nav-tabs:before,
 .control-tabs.primary-tabs >div >ul.nav-tabs:before,
-.control-tabs.primary-tabs >div >div >ul.nav-tabs:before {position:absolute;bottom:0;height:1px;width:100%;z-index:9;content:' ';border-bottom:2px solid #d0d0d0}
+.control-tabs.primary-tabs >div >div >ul.nav-tabs:before {position:absolute;bottom:0;height:1px;width:100vw;z-index:9;content:' ';border-bottom:2px solid #d0d0d0}
 .control-tabs.primary-tabs >ul.nav-tabs >li,
 .control-tabs.primary-tabs >div >ul.nav-tabs >li,
 .control-tabs.primary-tabs >div >div >ul.nav-tabs >li {padding-right:0;padding-left:0;margin-left:0;margin-right:-20px;background:transparent}
