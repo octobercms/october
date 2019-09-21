@@ -4618,7 +4618,8 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .list-scrollable-container:before {left:0}
 .list-scrollable-container:after {right:0}
 .list-scrollable-container >.list-scrollable {overflow:hidden}
-.list-scrollable-container.scroll-after th a {cursor:grab}
+.list-scrollable-container.scroll-after th a,
+.list-scrollable-container.scroll-before th a {cursor:grab}
 .inspector-fields {min-width:220px;border-collapse:collapse;width:100%;table-layout:fixed;border-bottom-right-radius:2px;border-bottom-left-radius:2px}
 .inspector-fields td,
 .inspector-fields th {padding:5px 12px;font-size:12px;width:50%;border-bottom:1px solid #c8cccd;text-align:left}
