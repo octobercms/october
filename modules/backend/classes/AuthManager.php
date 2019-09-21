@@ -2,6 +2,7 @@
 
 use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
+use October\Rain\Exception\SystemException;
 
 /**
  * Back-end authentication manager.
