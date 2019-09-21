@@ -597,6 +597,9 @@ table.table.data {
     > .list-scrollable {
         overflow: hidden;
     }
-}
 
-.list-scrollable-container.scroll-after th a { cursor: grab; }
+    &.scroll-after th a,
+    &.scroll-before th a {
+        cursor: grab;
+    }
+}
