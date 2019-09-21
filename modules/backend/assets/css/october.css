@@ -685,7 +685,7 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a {position:relative
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account {margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 15px 0 10px;font-size:13px;position:relative}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight >a {z-index:600}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px;height:45px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account .account-name {margin-right:15px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul {line-height:23px}
 html.svg nav#layout-mainmenu img.svg-icon,
