@@ -42,17 +42,21 @@
             <!-- Quick selection -->
             <div class="checkboxlist-controls">
                 <div>
-                    <a href="javascript:;" data-field-checkboxlist-all><i class="icon-check-square"></i> <?= e(trans('backend::lang.form.select_all')) ?></a>
+                    <a href="javascript:;" data-field-checkboxlist-all>
+                        <i class="icon-check-square"></i> <?= e(trans('backend::lang.form.select_all')) ?>
+                    </a>
                 </div>
                 <div>
-                    <a href="javascript:;" data-field-checkboxlist-none><i class="icon-eraser"></i> <?= e(trans('backend::lang.form.select_none')) ?></a>
+                    <a href="javascript:;" data-field-checkboxlist-none>
+                        <i class="icon-eraser"></i> <?= e(trans('backend::lang.form.select_none')) ?>
+                    </a>
                 </div>
             </div>
         <?php endif ?>
 
-        <div class="field-checkboxlist-container <?= $isScrollable ? 'is-scrollable' : '' ?>">
+        <div class="field-checkboxlist-inner">
 
-            <?php if ($isScrollable): ?>          
+            <?php if ($isScrollable): ?>
                 <!-- Scrollable Checkbox list -->
                 <div class="field-checkboxlist-scrollable">
                     <div class="control-scrollbar" data-control="scrollbar">

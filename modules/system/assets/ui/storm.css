@@ -2872,7 +2872,7 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 .control-tabs.primary-tabs >div >div >ul.nav-tabs {position:relative;margin-left:0;margin-right:0}
 .control-tabs.primary-tabs >ul.nav-tabs:before,
 .control-tabs.primary-tabs >div >ul.nav-tabs:before,
-.control-tabs.primary-tabs >div >div >ul.nav-tabs:before {position:absolute;bottom:0;height:1px;width:100vw;z-index:9;content:' ';border-bottom:2px solid #d0d0d0}
+.control-tabs.primary-tabs >div >div >ul.nav-tabs:before {position:absolute;bottom:0;height:1px;width:100%;z-index:9;content:' ';border-bottom:2px solid #d0d0d0}
 .control-tabs.primary-tabs >ul.nav-tabs >li,
 .control-tabs.primary-tabs >div >ul.nav-tabs >li,
 .control-tabs.primary-tabs >div >div >ul.nav-tabs >li {padding-right:0;padding-left:0;margin-left:0;margin-right:-20px;background:transparent}
@@ -3705,7 +3705,7 @@ input[type="search"] {-webkit-appearance:none}
 input[type="date"] {line-height:38px}
 .form-group {margin-bottom:15px}
 .radio,
-.checkbox {display:block;min-height:20px;margin-top:10px;margin-bottom:15px;padding-left:20px}
+.checkbox {display:block;min-height:20px;margin-top:10px;margin-bottom:10px;padding-left:20px}
 .radio label,
 .checkbox label {display:inline;font-weight:normal;cursor:pointer}
 .radio input[type="radio"],
@@ -4237,12 +4237,12 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .field-textarea.size-huge {min-height:250px}
 .field-textarea.size-giant {min-height:350px}
 .field-checkboxlist:not(.is-scrollable) {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fff;border:1px solid #e2e2e2}
-.field-checkboxlist.is-scrollable small {color:#999}
-.field-checkboxlist .checkboxlist-controls {padding:15px 15px 0;border-bottom:1px solid #e2e2e2;color:#2a3e51;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}
-.field-checkboxlist .checkboxlist-controls a {margin-right:15px;margin-bottom:15px;text-decoration:none;color:#2a3e51}
-.field-checkboxlist .checkboxlist-controls > div {padding-right:15px;padding-bottom:15px}
-.field-checkboxlist .checkboxlist-controls .search-input-wrap {margin-left: auto}
-.field-checkboxlist-container:not(.is-scrollable) {padding: 20px 20px 2px 20px}
+.field-checkboxlist:not(.is-scrollable) .field-checkboxlist-inner {padding:20px 20px 2px 20px}
+.field-checkboxlist .checkboxlist-controls {display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}
+.field-checkboxlist .checkboxlist-controls >div {padding-bottom:7px}
+.field-checkboxlist .checkboxlist-controls >div >a {font-size:13px;margin-right:20px;text-decoration:none}
+.field-checkboxlist .checkboxlist-controls >div >a >i {color:#999;margin:0 4px}
+.field-checkboxlist .checkboxlist-controls >div >a:hover >i {color:#2a3e51}
 .field-checkboxlist-scrollable {background:#fff;border:1px solid #e2e2e2;padding-left:15px;height:300px}
 .field-checkboxlist-scrollable .checkbox {margin-top:15px;margin-bottom:5px}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {margin-top:0}
