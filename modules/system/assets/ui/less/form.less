@@ -315,27 +315,18 @@
     &.size-giant { min-height: @size-giant; }
 }
 
-.field-checkboxlist:not(.is-scrollable) {
-    .border-radius(@border-radius-base);
-    background: @color-form-checkboxlist-background;
-    border: 1px solid @color-form-checkboxlist-border;
-
-    //.checkbox:last-of-type {
-    //    margin-bottom: 0;
-    //}
-}
-
-.field-checkboxlist.is-scrollable {
-    small {
-        color: @text-muted;
-    }
-}
-
 .field-checkboxlist {
+    &:not(.is-scrollable) {
+        .border-radius(@border-radius-base);
+        background: @color-form-checkboxlist-background;
+        border: 1px solid @color-form-checkboxlist-border;
+
+        .field-checkboxlist-inner {
+            padding: 20px 20px 2px 20px;
+        }
+    }
+
     .checkboxlist-controls {
-        padding: 15px 15px 0 15px;
-        border-bottom: 1px solid #e2e2e2;
-        color: @color-label;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -344,28 +335,26 @@
         -webkit-box-align: baseline;
         -ms-flex-align: baseline;
         align-items: baseline;
-        a {
-            margin-right: 15px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: @color-label;
-        }
-        >div {
-            padding-right: 15px;
-            padding-bottom: 15px;
-        }
+        > div {
+            padding-bottom: 7px;
 
-        .search-input-wrap {
-            margin-left: auto;
+            > a {
+                font-size: 13px;
+                margin-right: 20px;
+                text-decoration: none;
+                > i {
+                    color: @text-muted;
+                    margin: 0 4px;
+                }
+
+                &:hover > i {
+                    color: @color-label;
+                }
+            }
         }
     }
 }
 
-.field-checkboxlist-container {
-    &:not(.is-scrollable) {
-        padding: 20px 20px 2px 20px;
-    }
-}
 
 .field-checkboxlist-scrollable {
     background: @color-form-checkboxlist-background;
