@@ -197,7 +197,7 @@ describe('modules/system/assets/js/framework.js', function () {
         })
 
         it('can redirect after a successful AJAX request', function (done) {
-            this.timeout(2000)
+            this.timeout(1000)
 
             // Detect a redirect
             window.location.assign.callsFake((url) => {
@@ -239,10 +239,8 @@ describe('modules/system/assets/js/framework.js', function () {
             }
         })
 
-
-
         it('can send extra data with the AJAX request', function (done) {
-            this.timeout(2000)
+            this.timeout(1000)
 
             window.frameworkScript.onload = () => {
                 window.$.request('test::onTest', {
@@ -253,7 +251,7 @@ describe('modules/system/assets/js/framework.js', function () {
                     success: function () {
                         done()
                     }
-                });
+                })
 
                 try {
                     assert(
@@ -278,6 +276,52 @@ describe('modules/system/assets/js/framework.js', function () {
                         'successful': true
                     })
                 )
+            }
+        })
+
+        it('can call a beforeUpdate handler', function (done) {
+            const beforeUpdate = function (data, status, jqXHR) {
+            }
+            const beforeUpdateSpy = sinon.spy(beforeUpdate)
+
+            window.frameworkScript.onload = () => {
+                window.$.request('test::onTest', {
+                    beforeUpdate: beforeUpdateSpy
+                })
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
+
+                try {
+                    assert(
+                        beforeUpdateSpy.withArgs(
+                            {
+                                'successful': true
+                            },
+                            'success'
+                        ).calledOnce
+                    )
+                    done()
+                } catch (e) {
+                    done(e)
+                }
             }
         })
     })
@@ -310,8 +354,9 @@ describe('modules/system/assets/js/framework.js', function () {
                     'id="dataLink" ' +
                     'href="javascript:;" ' +
                     'data-request="test::onTest" ' +
-                    'data-request-data="test1: \'First\', test2: \'Second\'"' +
+                    'data-request-data="test1: \'First\', test2: \'Second\'" ' +
                     'data-request-success="test(\'success\')" ' +
+                    'data-request-before-update="beforeUpdateSpy($el.get(), data, textStatus)"' +
                 '></a>' +
                 '<div id="partialId" class="partialClass">Initial content</div>' +
                 '<script src="file://./node_modules/jquery/dist/jquery.js" id="jqueryScript"></script>' +
@@ -327,6 +372,11 @@ describe('modules/system/assets/js/framework.js', function () {
 
                         // Add a stub for the request handlers
                         window.test = sinon.stub()
+
+                        // Add a spy for the beforeUpdate handler
+                        window.beforeUpdate = function (element, data, status) {
+                        }
+                        window.beforeUpdateSpy = sinon.spy(window.beforeUpdate)
 
                         // Stub out window.alert
                         window.alert = sinon.stub()
@@ -499,7 +549,7 @@ describe('modules/system/assets/js/framework.js', function () {
         })
 
         it('can redirect after a successful AJAX request', function (done) {
-            this.timeout(2000)
+            this.timeout(1000)
 
             // Detect a redirect
             window.location.assign.callsFake((url) => {
@@ -540,7 +590,7 @@ describe('modules/system/assets/js/framework.js', function () {
         })
 
         it('can send extra data with the AJAX request', function (done) {
-            this.timeout(2000)
+            this.timeout(1000)
 
             window.frameworkScript.onload = () => {
                 window.test.callsFake((response) => {
@@ -569,6 +619,54 @@ describe('modules/system/assets/js/framework.js', function () {
                         'succesful': true
                     })
                 )
+            }
+        })
+
+        it('can call a beforeUpdate handler', function (done) {
+            this.timeout(1000)
+
+            window.frameworkScript.onload = () => {
+                window.test.callsFake((response) => {
+                    assert(response === 'success', 'Response handler was not "success"')
+                })
+
+                window.$('a#dataLink').click()
+
+                try {
+                    assert(
+                        requests[1].requestHeaders['X-OCTOBER-REQUEST-HANDLER'] === 'test::onTest',
+                        'Incorrect October request handler'
+                    )
+                } catch (e) {
+                    done(e)
+                }
+
+                // Mock a successful response from the server
+                requests[1].respond(
+                    200,
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    JSON.stringify({
+                        'successful': true
+                    })
+                )
+
+                try {
+                    assert(
+                        window.beforeUpdateSpy.withArgs(
+                            window.$('a#dataLink').get(),
+                            {
+                                'successful': true
+                            },
+                            'success'
+                        ).calledOnce,
+                        'beforeUpdate handler never called, or incorrect arguments provided'
+                    )
+                    done()
+                } catch (e) {
+                    done(e)
+                }
             }
         })
     })
