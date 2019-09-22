@@ -698,3 +698,15 @@ body:not(.no-select) {
         }
     }
 }
+
+//
+// Important - The right sidebar panel needs to be displayed and not hidden
+// for the scrollbar to work. In this case I have overwritten the hide class
+// for display:none and used opacity: 0 see github issue: https://github.com/octobercms/october/issues/4601
+//
+#right-sidebar-mediamanager.hide {
+	display: table-cell !important;
+	opacity: 0;
+	width: 0px !important;
+	overflow: hidden;
+}

@@ -127,3 +127,4 @@ body:not(.no-select) div[data-control="media-manager"] .media-list li:hover h4 a
 @media (max-width:1024px) {div[data-control="media-manager"] .media-list.list li {display:block;width:auto }}
 @media (max-width:768px) {div[data-control="media-manager"] [data-control="preview-sidebar"],div[data-control="media-manager"] [data-command="toggle-sidebar"] {display:none !important }div[data-control="media-manager"] .media-list.list {padding:0 }div[data-control="media-manager"] .media-list.list li {-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;margin:0;border-right:none;border-left:none;border-bottom:none }}
 @media (max-width:480px) {div[data-control="media-manager"] [data-control="left-sidebar"] {display:none !important }}
+#right-sidebar-mediamanager.hide {display:table-cell !important;opacity:0;width:0 !important;overflow:hidden}
