@@ -119,7 +119,7 @@
 .control-scrollbar >div {-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
 .control-scrollbar >.scrollbar-scrollbar {position:absolute;z-index:100}
 .control-scrollbar >.scrollbar-scrollbar .scrollbar-track {background-color:transparent;position:relative;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
-.control-scrollbar >.scrollbar-scrollbar .scrollbar-track .scrollbar-thumb {background-color:rgba(0,0,0,0.35);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;overflow:hidden;position:absolute}
+.control-scrollbar >.scrollbar-scrollbar .scrollbar-track .scrollbar-thumb {background-color:rgba(0,0,0,0.35);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;overflow:hidden;position:sticky}
 .control-scrollbar >.scrollbar-scrollbar.disabled {display:none !important}
 .control-scrollbar.vertical >.scrollbar-scrollbar {right:0;margin-right:5px;width:6px}
 .control-scrollbar.vertical >.scrollbar-scrollbar .scrollbar-track {height:100%;width:6px}
