@@ -562,6 +562,6 @@ body .fr-popup .fr-checkbox span {border-color:#d1d6d9}
 .control-richeditor figure[data-audio]:after {content:attr(data-label)}
 .control-richeditor figure[data-video]:before,
 .control-richeditor figure[data-audio]:before {position:static;margin-right:8px}
-.control-richeditor figure[data-video]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f03d"}
-.control-richeditor figure[data-audio]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f028"}
+.control-richeditor figure[data-video]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f03d"}
+.control-richeditor figure[data-audio]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f028"}
 .fr-quick-insert a.fr-floating-btn {color:rgba(64,82,97,0.8);text-decoration:none}

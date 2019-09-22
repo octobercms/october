@@ -21,8 +21,15 @@ cache:
 
 install:
   - composer install --no-interaction --no-progress --no-suggest
-
-before_script: git reset --hard HEAD
+  # Reset October modules back to Git source
+  - git reset --hard HEAD
+  # Replace October library with `develop` branch
+  - rm -rf ./vendor/october/rain
+  - wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
+  - unzip ./vendor/october/develop.zip -d ./vendor/october
+  - mv ./vendor/october/library-develop ./vendor/october/rain
+  # Dump autoload
+  - composer dump-autoload
 
 stages:
   - test
@@ -54,8 +61,8 @@ jobs:
       php: 7.1
       script:
         - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch
-        - ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only HEAD origin/$TRAVIS_BRANCH)
+        - ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only --diff-filter=ACMR HEAD origin/$TRAVIS_BRANCH)
     - stage: code quality
       if: type = push AND (branch = develop OR branch = master)
       php: 7.1
-      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" $TRAVIS_COMMIT)
+      script: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR $TRAVIS_COMMIT)

@@ -95,7 +95,8 @@ return [
         'name' => [
             'label' => 'نام افزونه',
             'help' => 'یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog',
-        ]
+        ],
+        'by_author' => 'توسط :name'
     ],
     'plugins' => [
         'manage' => 'مدیریت افزونه ها',
