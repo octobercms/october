@@ -14,8 +14,9 @@
         BaseProto = Base.prototype
 
     var HotKey = function (element, options) {
-        if (!options.hotkey)
+        if (!options.hotkey) {
             throw new Error('No hotkey has been defined.');
+        }
 
         this.$el = $(element)
         this.$target = $(options.hotkeyTarget)
@@ -34,8 +35,9 @@
     HotKey.prototype.constructor = HotKey
 
     HotKey.prototype.dispose = function() {
-        if (this.$el === null)
+        if (this.$el === null) {
             return
+        }
 
         this.unregisterHandlers()
 
@@ -94,8 +96,9 @@
 
         condition.specific = this.keyMap[keys[keys.length-1]]
 
-        if (typeof (condition.specific) == 'undefined')
+        if (typeof (condition.specific) == 'undefined') {
             condition.specific = keys[keys.length-1].toUpperCase().charCodeAt()
+        }
 
         return condition
     }
@@ -149,11 +152,11 @@
         for (var i = 0, len = this.keyConditions.length; i < len; i++) {
             var condition = this.keyConditions[i]
 
-            if (ev.which == condition.specific
-                && ev.originalEvent.shiftKey == condition.shift
-                && ev.originalEvent.ctrlKey == condition.ctrl
-                && ev.originalEvent.metaKey == condition.cmd
-                && ev.originalEvent.altKey == condition.alt) {
+            if (ev.which === condition.specific
+                && ev.originalEvent.shiftKey === condition.shift
+                && ev.originalEvent.ctrlKey === condition.ctrl
+                && ev.originalEvent.metaKey === condition.cmd
+                && ev.originalEvent.altKey === condition.alt) {
                 return true
             }
         }
@@ -163,11 +166,13 @@
 
     HotKey.prototype.onKeyDown = function(ev) {
         if (this.testConditions(ev)) {
-            if (this.options.hotkeyVisible && !this.$el.is(':visible'))
+            if (this.options.hotkeyVisible && !this.$el.is(':visible')) {
                 return
+            }
 
-            if (this.options.callback)
+            if (this.options.callback) {
                 return this.options.callback(this.$el, ev.currentTarget, ev)
+            }
         }
     }
 
