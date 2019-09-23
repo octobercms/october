@@ -1576,18 +1576,18 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.upload', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *     Event::listen('media.file.upload', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) &$path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
              *         \Log::info($path . " was upoaded.");
              *     });
              *
              * Or
              *
-             *     $mediaWidget->bindEvent('file.upload', function ((string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *     $mediaWidget->bindEvent('file.upload', function ((string) &$path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
              *         \Log::info($path . " was uploaded");
              *     });
              *
              */
-            $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
+            $this->fireSystemEvent('media.file.upload', [&$filePath, $uploadedFile]);
 
             $response = Response::make([
                 'link' => MediaLibrary::url($filePath),

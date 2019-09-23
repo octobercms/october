@@ -169,9 +169,9 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-filelist ul li.group >h4 a:after,
 .control-filelist ul li.group >div.group >h4 a:after {width:10px;height:10px;display:block;position:absolute;top:1px}
 .control-filelist ul li.group >h4 a:after,
-.control-filelist ul li.group >div.group >h4 a:after {left:33px;top:9px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f07b";color:#a1aab1;font-size:16px}
+.control-filelist ul li.group >div.group >h4 a:after {left:33px;top:9px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f07b";color:#a1aab1;font-size:16px}
 .control-filelist ul li.group >h4 a:before,
-.control-filelist ul li.group >div.group >h4 a:before {left:20px;top:9px;color:#cfcfcf;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";-webkit-transform:rotate(90deg) translate(5px,0);-ms-transform:rotate(90deg) translate(5px,0);transform:rotate(90deg) translate(5px,0);-webkit-transition:all 0.1s ease;transition:all 0.1s ease}
+.control-filelist ul li.group >div.group >h4 a:before {left:20px;top:9px;color:#cfcfcf;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f0da";-webkit-transform:rotate(90deg) translate(5px,0);-ms-transform:rotate(90deg) translate(5px,0);transform:rotate(90deg) translate(5px,0);-webkit-transition:all 0.1s ease;transition:all 0.1s ease}
 .control-filelist ul li.group >ul >li >a {padding-left:52px}
 .control-filelist ul li.group >ul >li.group {padding-left:20px}
 .control-filelist ul li.group >ul >li.group >ul >li >a {padding-left:324px;margin-left:-270px}
@@ -276,10 +276,10 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treelist >ol >li >div.record:before {display:none}
 .control-treelist li {margin:0;padding:0}
 .control-treelist li >div.record {margin:0;font-size:12px;margin-bottom:5px;position:relative;display:block}
-.control-treelist li >div.record:before {color:#bdc3c7;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f111";font-size:6px;position:absolute;left:-18px;top:11px}
+.control-treelist li >div.record:before {color:#bdc3c7;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f111";font-size:6px;position:absolute;left:-18px;top:11px}
 .control-treelist li >div.record >a.move {display:inline-block;padding:7px 0 7px 10px;text-decoration:none;color:#bdc3c7}
 .control-treelist li >div.record >a.move:hover {color:#4ea5e0}
-.control-treelist li >div.record >a.move:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9"}
+.control-treelist li >div.record >a.move:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f0c9"}
 .control-treelist li >div.record >span {color:#666;display:inline-block;padding:7px 15px 7px 5px}
 .control-treelist li.dragged {position:absolute;z-index:2000;width:auto !important;height:auto !important}
 .control-treelist li.dragged >div.record {opacity:0.5;filter:alpha(opacity=50);background:#4ea5e0 !important}
@@ -287,7 +287,7 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treelist li.dragged >div.record >span {color:white}
 .control-treelist li.dragged >div.record:before {display:none}
 .control-treelist li.placeholder {display:inline-block;position:relative;background:#4ea5e0 !important;height:25px;margin-bottom:5px}
-.control-treelist li.placeholder:before {display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f053";color:#d35714;left:-10px;top:8px;z-index:2000}
+.control-treelist li.placeholder:before {display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f053";color:#d35714;left:-10px;top:8px;z-index:2000}
 .control-treeview {margin-bottom:40px}
 .control-treeview ol {margin:0;padding:0;list-style:none;background:#fff}
 .control-treeview ol >li {-webkit-transition:width 1s;transition:width 1s}
@@ -296,9 +296,9 @@ html.mobile .control-scrollbar {overflow:auto;-webkit-overflow-scrolling:touch}
 .control-treeview ol >li >div:before {content:' ';background-image:url(../images/treeview-icons.png);background-position:0 -28px;background-repeat:no-repeat;background-size:42px auto;position:absolute;width:21px;height:22px;left:28px;top:15px}
 .control-treeview ol >li >div span.comment {display:block;font-weight:400;color:#95a5a6;font-size:13px;margin-top:2px;overflow:hidden;text-overflow:ellipsis}
 .control-treeview ol >li >div >span.expand {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;display:none;position:absolute;width:20px;height:20px;top:19px;left:2px;cursor:pointer;color:#bdc3c7;-webkit-transition:transform 0.1s ease;transition:transform 0.1s ease}
-.control-treeview ol >li >div >span.expand:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0da";line-height:100%;font-size:15px;position:relative;left:8px;top:2px}
+.control-treeview ol >li >div >span.expand:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f0da";line-height:100%;font-size:15px;position:relative;left:8px;top:2px}
 .control-treeview ol >li >div >span.drag-handle {font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;-webkit-transition:opacity 0.4s;transition:opacity 0.4s;position:absolute;right:9px;bottom:0;width:18px;height:19px;cursor:move;color:#bdc3c7;opacity:0;filter:alpha(opacity=0)}
-.control-treeview ol >li >div >span.drag-handle:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f0c9";font-size:18px}
+.control-treeview ol >li >div >span.drag-handle:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f0c9";font-size:18px}
 .control-treeview ol >li >div span.borders {font-size:0}
 .control-treeview ol >li >div >ul.submenu {position:absolute;left:20px;bottom:-36.9px;padding:0;list-style:none;z-index:200;height:37px;display:none;margin-left:15px;background:transparent url(../images/treeview-submenu-tabs.png) repeat-x left -39px}
 .control-treeview ol >li >div >ul.submenu:before,
@@ -449,7 +449,7 @@ body.dragging .control-treeview.treeview-light ol.dragging ol >li >div {backgrou
 .sidenav-tree ul.top-level >li[data-status=collapsed] ul {display:none}
 .sidenav-tree ul.top-level >li >div.group {position:relative}
 .sidenav-tree ul.top-level >li >div.group h3 {background:rgba(0,0,0,0.15);color:#ecf0f1;text-transform:uppercase;font-size:15px;padding:15px 15px 15px 40px;margin:0;position:relative;cursor:pointer;font-weight:400}
-.sidenav-tree ul.top-level >li >div.group h3:before {display:block;position:absolute;width:10px;height:10px;left:16px;top:15px;color:#cfcfcf;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105";-webkit-transform:rotate(90deg) translate(5px,-3px);-ms-transform:rotate(90deg) translate(5px,-3px);transform:rotate(90deg) translate(5px,-3px);-webkit-transition:all 0.1s ease;transition:all 0.1s ease;font-size:16px}
+.sidenav-tree ul.top-level >li >div.group h3:before {display:block;position:absolute;width:10px;height:10px;left:16px;top:15px;color:#cfcfcf;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f105";-webkit-transform:rotate(90deg) translate(5px,-3px);-ms-transform:rotate(90deg) translate(5px,-3px);transform:rotate(90deg) translate(5px,-3px);-webkit-transition:all 0.1s ease;transition:all 0.1s ease;font-size:16px}
 .sidenav-tree ul.top-level >li >div.group:before,
 .sidenav-tree ul.top-level >li >div.group:after {content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #34495e;border-bottom-width:0;position:absolute;left:15px;bottom:-8px;z-index:101}
 .sidenav-tree ul.top-level >li >div.group:after {content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid rgba(0,0,0,0.15);border-bottom-width:0}
@@ -495,7 +495,7 @@ div.panel >label {margin-bottom:5px}
 div.panel .nav.selector-group {margin:0 -20px 20px -20px}
 ul.tree-path {list-style:none;padding:0;margin-bottom:0}
 ul.tree-path li {display:inline-block;margin-right:1px;font-size:13px}
-ul.tree-path li:after {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f105";display:inline-block;font-size:13px;margin-left:5px;position:relative;top:1px;color:#95a5a6}
+ul.tree-path li:after {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f105";display:inline-block;font-size:13px;margin-left:5px;position:relative;top:1px;color:#95a5a6}
 ul.tree-path li:last-child a {cursor:default}
 ul.tree-path li:last-child:after {display:none}
 ul.tree-path li.go-up {font-size:12px;margin-right:7px}
@@ -685,7 +685,7 @@ nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a {position:relative
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account {margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 15px 0 10px;font-size:13px;position:relative}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight >a {z-index:600}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account img.account-avatar {width:45px;height:45px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account .account-name {margin-right:15px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account ul {line-height:23px}
 html.svg nav#layout-mainmenu img.svg-icon,
@@ -778,7 +778,7 @@ nav#layout-mainmenu.navbar-mode-collapse .menu-toggle {display:inline-block;colo
 .mainmenu-collapsed >div ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 .mainmenu-collapsed >div ul li a img.svg-icon {height:30px;width:30px;position:relative;top:0}
 .mainmenu-collapsed .scroll-marker {position:absolute;left:0;width:100%;height:10px;display:none}
-.mainmenu-collapsed .scroll-marker:after {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f141";display:block;position:absolute;left:50%;margin-left:-3px;top:0;height:9px;font-size:10px;color:rgba(255,255,255,0.6)}
+.mainmenu-collapsed .scroll-marker:after {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f141";display:block;position:absolute;left:50%;margin-left:-3px;top:0;height:9px;font-size:10px;color:rgba(255,255,255,0.6)}
 .mainmenu-collapsed .scroll-marker.before {top:0}
 .mainmenu-collapsed .scroll-marker.after {bottom:3px}
 .mainmenu-collapsed .scroll-marker.after:after {top:2px}
@@ -940,7 +940,7 @@ body.breadcrumb-fancy .control-breadcrumb li:last-child:before,
 .fancy-layout .control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li[data-modified] span.tab-close i,
 .fancy-layout.control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li[data-modified] span.tab-close i {top:5px;font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
 .fancy-layout .control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li[data-modified] span.tab-close i:before,
-.fancy-layout.control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li[data-modified] span.tab-close i:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f111";font-size:9px}
+.fancy-layout.control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li[data-modified] span.tab-close i:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f111";font-size:9px}
 .fancy-layout .control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li:first-child,
 .fancy-layout.control-tabs.master-tabs >div >div.tabs-container >ul.nav-tabs >li:first-child {margin-left:0}
 .fancy-layout .control-tabs.master-tabs[data-closable] >div >div.tabs-container >ul.nav-tabs >li a >span.title,

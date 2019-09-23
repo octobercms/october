@@ -16,7 +16,7 @@
 .field-fileupload .upload-object .icon-container:after {background-image:url('../../../../../system/assets/ui/images/loader-transparent.svg');position:absolute;content:' ';width:40px;height:40px;left:50%;top:50%;margin-top:-20px;margin-left:-20px;display:block;background-size:40px 40px;background-position:50% 50%;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}
 .field-fileupload .upload-object.is-success .icon-container {opacity:1}
 .field-fileupload .upload-object.is-success .icon-container:after {opacity:0;-webkit-transition:opacity 0.3s ease;transition:opacity 0.3s ease}
-.field-fileupload .upload-object.is-error .icon-container:after {content:"";background:none;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f071";-webkit-animation:none;animation:none;font-size:40px;color:#ab2a1c;margin-top:-20px;margin-left:-20px;text-shadow:2px 2px 0 #fff}
+.field-fileupload .upload-object.is-error .icon-container:after {content:"";background:none;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f071";-webkit-animation:none;animation:none;font-size:40px;color:#ab2a1c;margin-top:-20px;margin-left:-20px;text-shadow:2px 2px 0 #fff}
 .field-fileupload .upload-object.is-loading .icon-container {opacity:.6}
 .field-fileupload .upload-object.is-loading .icon-container:after {opacity:1;-webkit-transition:opacity 0.3s ease;transition:opacity 0.3s ease}
 .field-fileupload .upload-object.is-success {cursor:pointer}
