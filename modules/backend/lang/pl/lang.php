@@ -212,7 +212,7 @@ return [
         'update_title'                         => 'Edytuj :name',
         'preview_title'                        => 'Podgląd :name',
         'create_success'                       => ':name został stworzony pomyślnie',
-        'update_success'                       => ':name został stworzony pomyślnie',
+        'update_success'                       => ':name został zaktualizowany pomyślnie',
         'delete_success'                       => ':name został usunięty pomyślnie',
         'reset_success'                        => 'Resetowanie zostało zakończone',
         'missing_id'                           => 'ID rekordu formularza nie zostało znalezione.',
