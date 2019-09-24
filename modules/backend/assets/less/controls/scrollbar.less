@@ -8,6 +8,26 @@
 
 @scrollbar-thumb-size: 6px;
 
+//
+// IE11 Hack to bypass position:sticky on line 37
+//
+@media all and (-ms-high-contrast:none) {
+    * {
+        &::-ms-backdrop {
+            position: absolute !important;
+        }
+    }
+    .control-scrollbar {
+        >.scrollbar-scrollbar {
+            .scrollbar-track {
+                .scrollbar-thumb {
+                    position: absolute !important;
+                }
+            }
+        }
+    }
+}
+
 .control-scrollbar {
     position: relative;
     overflow: hidden;

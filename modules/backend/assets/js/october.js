@@ -31,7 +31,6 @@
 =require october.treelist.js
 =require october.sidenav-tree.js
 =require october.datetime.js
-=require october.sticky-polyfill.js
 
 =require backend.js
 */
