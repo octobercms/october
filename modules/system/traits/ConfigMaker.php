@@ -65,7 +65,7 @@ trait ConfigMaker
                 ));
             }
 
-            $config = Yaml::parse(File::get($configFile));
+            $config = Yaml::parseFile($configFile);
 
             /*
              * Extensibility
