@@ -51,7 +51,6 @@ trait ConfigMaker
          * Process config from file contents
          */
         else {
-
             if (isset($this->controller) && method_exists($this->controller, 'getConfigPath')) {
                 $configFile = $this->controller->getConfigPath($configFile);
             }
@@ -66,7 +65,7 @@ trait ConfigMaker
                 ));
             }
 
-            $config = Yaml::parse(File::get($configFile));
+            $config = Yaml::parseFile($configFile);
 
             /*
              * Extensibility
@@ -101,7 +100,7 @@ trait ConfigMaker
 
     /**
      * Makes a config object from an array, making the first level keys properties of a new object.
-     * 
+     *
      * @param array $configArray Config array.
      * @return stdClass The config object
      */

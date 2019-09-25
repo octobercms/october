@@ -95,7 +95,8 @@ return [
         'name' => [
             'label' => 'Lisäosan nimi',
             'help' => 'Anna lisäosalle uniikkikoodi. Esimerkiksi: RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Tekijä: :name'
     ],
     'plugins' => [
         'manage' => 'Hallinnoi lisäosia',

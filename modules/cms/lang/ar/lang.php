@@ -27,7 +27,7 @@ return [
     ],
     'editor' => [
         'settings' => 'الإعدادات',
-		],
+    ],
     'asset' => [
         'menu_label' => 'الأصول',
     ],

@@ -76,6 +76,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/fileupload/assets/less/fileupload.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/nestedform/assets/less/nestedform.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build-plugins.js');
+            $combiner->registerBundle('~/modules/backend/formwidgets/colorpicker/assets/less/colorpicker.less');
 
             /*
              * Rich Editor is protected by DRM

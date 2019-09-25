@@ -50,8 +50,9 @@ class PluginBase extends ServiceProviderBase
 
         if (!array_key_exists('plugin', $configuration)) {
             throw new SystemException(sprintf(
-                'The plugin configuration file plugin.yaml should contain the "plugin" section: %s.', $thisClass)
-            );
+                'The plugin configuration file plugin.yaml should contain the "plugin" section: %s.',
+                $thisClass
+            ));
         }
 
         return $configuration['plugin'];

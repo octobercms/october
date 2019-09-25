@@ -386,17 +386,17 @@
         // The navigation object uses the table's keydown handler
         // and doesn't register own handler.
 
-        if (ev.keyCode == 40)
+        if (ev.key === 'ArrowDown')
             return this.navigateDown(ev)
-        else if (ev.keyCode == 38)
+        else if (ev.key === 'ArrowUp')
             return this.navigateUp(ev)
-        else if (ev.keyCode == 37)
+        else if (ev.key === 'ArrowLeft')
             return this.navigateLeft(ev)
 
-        if (ev.keyCode == 39)
+        if (ev.key === 'ArrowRight')
             return this.navigateRight(ev)
 
-        if (ev.keyCode == 9)
+        if (ev.key === 'Tab')
             return this.navigateNext(ev)
     }
 

@@ -69,7 +69,7 @@ class ThemeData extends Model
     }
 
     /**
-     * Clear asset cache after saving to ensure `assetVar` form fields take 
+     * Clear asset cache after saving to ensure `assetVar` form fields take
      * immediate effect.
      */
     public function afterSave()
@@ -77,7 +77,8 @@ class ThemeData extends Model
         try {
             CombineAssets::resetCache();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
     }
 
     /**
@@ -151,7 +152,6 @@ class ThemeData extends Model
      */
     public function initFormFields()
     {
-
     }
 
     /**
@@ -227,7 +227,7 @@ class ThemeData extends Model
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (!$theme){
+        if (!$theme) {
             return;
         }
 
