@@ -13,13 +13,13 @@ class MailSetting extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
-    const MODE_LOG      = 'log';
-    const MODE_MAIL     = 'mail';
-    const MODE_SENDMAIL = 'sendmail';
-    const MODE_SMTP     = 'smtp';
-    const MODE_MAILGUN  = 'mailgun';
-    const MODE_MANDRILL = 'mandrill';
-    const MODE_SES      = 'ses';
+    const MODE_LOG       = 'log';
+    const MODE_MAIL      = 'mail';
+    const MODE_SENDMAIL  = 'sendmail';
+    const MODE_SMTP      = 'smtp';
+    const MODE_MAILGUN   = 'mailgun';
+    const MODE_MANDRILL  = 'mandrill';
+    const MODE_SES       = 'ses';
     const MODE_SPARKPOST = 'sparkpost';
 
     /**
