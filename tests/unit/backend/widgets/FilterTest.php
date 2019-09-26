@@ -5,6 +5,8 @@ use Backend\Models\User;
 
 class FilterTest extends TestCase
 {
+    public $enableFullTesting = true;
+
     public function testRestrictedScopeWithUserWithNoPermissions()
     {
         $user = factory(User::class)

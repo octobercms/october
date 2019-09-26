@@ -6,6 +6,8 @@ use October\Rain\Exception\ApplicationException;
 
 class ListsTest extends TestCase
 {
+    public $enableFullTesting = true;
+
     public function testRestrictedColumnWithUserWithNoPermissions()
     {
         $user = factory(User::class)

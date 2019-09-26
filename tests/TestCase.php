@@ -10,6 +10,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     use InteractsWithAuthentication;
 
     /**
+     * If `true`, this will load the full application test suite, including running
+     * migrations, allowing authentication, plugins and updates.
+     *
+     * By default, this is false to speed up the tests.
+     *
+     * @var bool
+     */
+    public $enableFullTesting = false;
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
@@ -18,37 +28,41 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->singleton('auth', function ($app) {
-            $app['auth.loaded'] = true;
+        if ($this->enableFullTesting) {
+            $app->singleton('auth', function ($app) {
+                $app['auth.loaded'] = true;
 
-            return AuthManager::instance();
-        });
+                return AuthManager::instance();
+            });
+        }
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
         $app['cache']->setDefaultDriver('array');
         $app->setLocale('en');
 
-        /*
-         * Store database in memory by default, if not specified otherwise
-         */
-        $dbConnection = 'sqlite';
+        if ($this->enableFullTesting) {
+            /*
+            * Store database in memory by default, if not specified otherwise
+            */
+            $dbConnection = 'sqlite';
 
-        $dbConnections = [];
-        $dbConnections['sqlite'] = [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => ''
-        ];
+            $dbConnections = [];
+            $dbConnections['sqlite'] = [
+                'driver'   => 'sqlite',
+                'database' => ':memory:',
+                'prefix'   => ''
+            ];
 
-        if (env('APP_ENV') === 'testing' && Config::get('database.useConfigForTesting', false)) {
-            $dbConnection = Config::get('database.default', 'sqlite');
+            if (env('APP_ENV') === 'testing' && Config::get('database.useConfigForTesting', false)) {
+                $dbConnection = Config::get('database.default', 'sqlite');
 
-            $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
+                $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
+            }
+
+            $app['config']->set('database.default', $dbConnection);
+            $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
         }
-
-        $app['config']->set('database.default', $dbConnection);
-        $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
 
         return $app;
     }
@@ -59,26 +73,30 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function setUp()
     {
-        /*
-         * Force reload of October singletons
-         */
-        PluginManager::forgetInstance();
-        UpdateManager::forgetInstance();
+        if ($this->enableFullTesting) {
+            /*
+            * Force reload of October singletons
+            */
+            PluginManager::forgetInstance();
+            UpdateManager::forgetInstance();
+        }
 
         /*
          * Create application instance
          */
         parent::setUp();
 
-        /*
-         * Ensure system is up to date
-         */
-        $this->runOctoberUpCommand();
+        if ($this->enableFullTesting) {
+            /*
+            * Ensure system is up to date
+            */
+            $this->runOctoberUpCommand();
 
-        /*
-         * Disable mailer
-         */
-        Mail::pretend();
+            /*
+            * Disable mailer
+            */
+            Mail::pretend();
+        }
     }
 
     /**

@@ -10,6 +10,8 @@ class FormTestModel extends Model
 
 class FormTest extends TestCase
 {
+    public $enableFullTesting = true;
+
     public function testRestrictedFieldWithUserWithNoPermissions()
     {
         $user = factory(Backend\Models\User::class)
