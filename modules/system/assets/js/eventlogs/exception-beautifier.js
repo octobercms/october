@@ -275,7 +275,7 @@
         }
         else {
             // Allow HTML entities
-            str = str.replace(/&amp;([^\s]+);/g, '&$1;')
+            str = str.replace(/&amp;([^\s]+?);/g, '&$1;')
 
             markup += str
                 .replace(/\{x-newline\}/g, '<br>')
