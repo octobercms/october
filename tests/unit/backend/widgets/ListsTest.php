@@ -1,30 +1,31 @@
 <?php
 
+use Backend\Models\User;
 use Backend\Widgets\Lists;
-use Illuminate\Database\Eloquent\Model;
-
-class ListsTestModel extends Model
-{
-
-}
+use October\Rain\Exception\ApplicationException;
 
 class ListsTest extends TestCase
 {
     public function testRestrictedColumnWithUserWithNoPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make();
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture();
-
         $list->render();
-        $this->assertNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+
+        // Expect an exception
+        $this->expectException(ApplicationException::class);
+        $this->expectExceptionMessage('No definition for column email');
+        $column = $list->getColumn('email');
     }
 
     public function testRestrictedColumnWithUserWithWrongPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make([
                 'permissions' => [
                     'test.wrong_permission' => 1
@@ -33,14 +34,19 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture();
-
         $list->render();
-        $this->assertNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+
+        // Expect an exception
+        $this->expectException(ApplicationException::class);
+        $this->expectExceptionMessage('No definition for column email');
+        $column = $list->getColumn('email');
     }
 
     public function testRestrictedColumnWithUserWithRightPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make([
                 'permissions' => [
                     'test.access_field' => 1
@@ -49,14 +55,15 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture();
-
         $list->render();
-        $this->assertNotNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
     }
 
     public function testRestrictedColumnWithUserWithRightWildcardPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make([
                 'permissions' => [
                     'test.access_field' => 1
@@ -65,41 +72,43 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $list = new Lists(null, [
-            'model' => new ListsTestModel,
+            'model' => new User,
             'arrayName' => 'array',
             'columns' => [
-                'testField' => [
+                'id' => [
                     'type' => 'text',
-                    'label' => 'Test 1'
+                    'label' => 'ID'
                 ],
-                'testRestricted' => [
+                'email' => [
                     'type' => 'text',
-                    'label' => 'Test 2',
+                    'label' => 'Email',
                     'permission' => 'test.*'
                 ]
             ]
         ]);
-
         $list->render();
-        $this->assertNotNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
     }
 
     public function testRestrictedColumnWithSuperuser()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->states('superuser')
             ->make();
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture();
-
         $list->render();
-        $this->assertNotNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
     }
 
     public function testRestrictedColumnSinglePermissionWithUserWithWrongPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make([
                 'permissions' => [
                     'test.wrong_permission' => 1
@@ -108,14 +117,19 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture(true);
-
         $list->render();
-        $this->assertNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+
+        // Expect an exception
+        $this->expectException(ApplicationException::class);
+        $this->expectExceptionMessage('No definition for column email');
+        $column = $list->getColumn('email');
     }
 
     public function testRestrictedColumnSinglePermissionWithUserWithRightPermissions()
     {
-        $user = factory(Backend\Models\User::class)
+        $user = factory(User::class)
             ->make([
                 'permissions' => [
                     'test.access_field' => 1
@@ -124,24 +138,25 @@ class ListsTest extends TestCase
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture(true);
-
         $list->render();
-        $this->assertNotNull($list->getColumn('testRestricted'));
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
     }
 
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [
-            'model' => new ListsTestModel,
+            'model' => new User,
             'arrayName' => 'array',
             'columns' => [
-                'testField' => [
+                'id' => [
                     'type' => 'text',
-                    'label' => 'Test 1'
+                    'label' => 'ID'
                 ],
-                'testRestricted' => [
+                'email' => [
                     'type' => 'text',
-                    'label' => 'Test 2',
+                    'label' => 'Email',
                     'permissions' => ($singlePermission) ? 'test.access_field' : [
                         'test.access_field'
                     ]

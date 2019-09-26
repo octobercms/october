@@ -710,6 +710,10 @@ class Lists extends WidgetBase
      */
     public function getColumn($column)
     {
+        if (!isset($this->allColumns[$column])) {
+            throw new ApplicationException('No definition for column ' . $column);
+        }
+
         return $this->allColumns[$column];
     }
 
@@ -1157,7 +1161,7 @@ class Lists extends WidgetBase
                 return call_user_func_array($callback, [$value, $column, $record]);
             }
         }
-        
+
         $customMessage = '';
         if ($type === 'relation') {
             $customMessage = 'Type: relation is not supported, instead use the relation property to specify a relationship to pull the value from and set the type to the type of the value expected.';
