@@ -553,7 +553,7 @@ return [
         'label' => '媒体查找器',
         'default_prompt' => '点击 %s 按钮查找媒体项'
     ],
-   'media' => [
+    'media' => [
         'menu_label' => '媒体',
         'upload' => '上传',
         'move' => '移动',
