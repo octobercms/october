@@ -400,7 +400,7 @@ class CombineAssets
             $this->putCache($cacheKey, $cacheInfo);
         }
 
-        return $this->getCombinedUrl($cacheInfo['version']);
+        return $this->getCombinedUrl($cacheInfo['version'] . '.' . $extension);
     }
 
     /**

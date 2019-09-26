@@ -99,6 +99,7 @@ return [
             'label' => 'Plugin naam',
             'help' => 'Gebruik bij het invoeren van de naam de unieke code van de plugin. Bijvoorbeeld: RainLab.Blog',
         ],
+        'by_author' => 'Door :name'
     ],
     'plugins' => [
         'manage' => 'Beheer plugins',
