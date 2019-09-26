@@ -40,7 +40,7 @@
                 popup = link.is('[data-control=popup]'),
                 request = link.is('[data-request]')
 
-            $(this).find('td').not('.' + options.excludeClass).click(function(e) {
+            function handleClick(e) {
                 if ($(document.body).hasClass('drag')) {
                     return
                 }
@@ -60,12 +60,25 @@
                 else {
                     window.location = href
                 }
+            }
+
+            $(this).find('td').not('.' + options.excludeClass).click(function(e) {
+                handleClick(e)
+            })
+
+            $(this).on('keypress', function(e) {
+                if (e.key === '(Space character)' || e.key === 'Spacebar' || e.key === ' ') {
+                    handleClick(e)
+                    return false
+                }
             })
 
             $(this).addClass(options.linkedClass)
             link.hide().after(link.html())
         })
 
+        // Add Keyboard Navigation to list rows
+        $('tr.rowlink').attr('tabindex', 0)
     }
 
     RowLink.DEFAULTS = {

@@ -29,6 +29,10 @@ return [
         'region' => 'us-east-1',
     ],
 
+    'sparkpost' => [
+        'secret' => '',
+    ],
+
     'stripe' => [
         'model'  => 'User',
         'secret' => '',

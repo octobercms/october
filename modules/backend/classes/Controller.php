@@ -786,7 +786,7 @@ class Controller extends ControllerBase
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
-        if (!strlen($token)) {
+        if (!strlen($token) || !strlen(Session::token())) {
             return false;
         }
 

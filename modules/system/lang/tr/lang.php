@@ -99,6 +99,7 @@ return [
             'label' => 'Eklenti Adı',
             'help' => 'Eklenti adı eşsiz olmalıdır. Örneğin, RainLab.Blog',
         ],
+        'by_author' => ':name ile filtrele'
     ],
     'plugins' => [
         'manage' => 'Eklentileri yönet',

@@ -99,7 +99,8 @@ return [
         'name' => [
             'label' => 'Plugin Name',
             'help' => 'Name the plugin by its unique code. For example, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'By :name'
     ],
     'plugins' => [
         'manage' => 'Manage plugins',
@@ -197,6 +198,9 @@ return [
         'ses_key_comment' => 'Enter your SES API key',
         'ses_secret' => 'SES secret',
         'ses_secret_comment' => 'Enter your SES API secret key',
+        'sparkpost' => 'SparkPost',
+        'sparkpost_secret' => 'SparkPost secret',
+        'sparkpost_secret_comment' => 'Enter your SparkPost API secret key',
         'ses_region' => 'SES region',
         'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
