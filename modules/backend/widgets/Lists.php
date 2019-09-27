@@ -859,7 +859,7 @@ class Lists extends WidgetBase
         foreach ($columns as $columnName => $config) {
             // Check if user has permissions to show this column
             $permissions = array_get($config, 'permissions');
-            if ($permissions && !BackendAuth::getUser()->hasAccess($permissions)) {
+            if ($permissions && !BackendAuth::getUser()->hasAccess($permissions, false)) {
                 continue;
             }
 
