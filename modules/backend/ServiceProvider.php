@@ -5,7 +5,6 @@ use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Classes\WidgetManager;
-use Illuminate\Database\Eloquent\Factory;
 use System\Classes\MailManager;
 use System\Classes\CombineAssets;
 use System\Classes\SettingsManager;
@@ -24,7 +23,6 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->registerMailer();
         $this->registerAssetBundles();
-        $this->registerFactories();
 
         /*
          * Backend specific
@@ -88,14 +86,6 @@ class ServiceProvider extends ModuleServiceProvider
                 $combiner->registerBundle('~/modules/backend/formwidgets/richeditor/assets/js/build.js');
             }
         });
-    }
-
-    /**
-     * Register database factories
-     */
-    protected function registerFactories()
-    {
-        App::make(Factory::class)->load(__DIR__ . '/factories');
     }
 
     /*

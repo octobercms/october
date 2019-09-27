@@ -1,24 +1,6 @@
 <?php
-
-use System\Classes\UpdateManager;
-use System\Classes\PluginManager;
-use Backend\Classes\AuthManager;
-use October\Tests\Concerns\InteractsWithAuthentication;
-
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    use InteractsWithAuthentication;
-
-    /**
-     * If `true`, this will load the full application test suite, including running
-     * migrations, allowing authentication, plugins and updates.
-     *
-     * By default, this is false to speed up the tests.
-     *
-     * @var bool
-     */
-    public $enableFullTesting = false;
-
     /**
      * Creates the application.
      *
@@ -28,84 +10,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        if ($this->enableFullTesting) {
-            $app->singleton('auth', function ($app) {
-                $app['auth.loaded'] = true;
-
-                return AuthManager::instance();
-            });
-        }
-
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
         $app['cache']->setDefaultDriver('array');
         $app->setLocale('en');
 
-        if ($this->enableFullTesting) {
-            /*
-            * Store database in memory by default, if not specified otherwise
-            */
-            $dbConnection = 'sqlite';
-
-            $dbConnections = [];
-            $dbConnections['sqlite'] = [
-                'driver'   => 'sqlite',
-                'database' => ':memory:',
-                'prefix'   => ''
-            ];
-
-            if (env('APP_ENV') === 'testing' && Config::get('database.useConfigForTesting', false)) {
-                $dbConnection = Config::get('database.default', 'sqlite');
-
-                $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
-            }
-
-            $app['config']->set('database.default', $dbConnection);
-            $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
-        }
-
         return $app;
-    }
-
-    /**
-     * Perform test case set up.
-     * @return void
-     */
-    public function setUp()
-    {
-        if ($this->enableFullTesting) {
-            /*
-            * Force reload of October singletons
-            */
-            PluginManager::forgetInstance();
-            UpdateManager::forgetInstance();
-        }
-
-        /*
-         * Create application instance
-         */
-        parent::setUp();
-
-        if ($this->enableFullTesting) {
-            /*
-            * Ensure system is up to date
-            */
-            $this->runOctoberUpCommand();
-
-            /*
-            * Disable mailer
-            */
-            Mail::pretend();
-        }
-    }
-
-    /**
-     * Migrate database using october:up command.
-     * @return void
-     */
-    protected function runOctoberUpCommand()
-    {
-        Artisan::call('october:up');
     }
 
     //

@@ -2,20 +2,18 @@
 
 use Backend\Widgets\Form;
 use Illuminate\Database\Eloquent\Model;
+use October\Tests\Fixtures\Backend\Models\UserFixture;
 
 class FormTestModel extends Model
 {
 
 }
 
-class FormTest extends TestCase
+class FormTest extends PluginTestCase
 {
-    public $enableFullTesting = true;
-
     public function testRestrictedFieldWithUserWithNoPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make();
+        $user = new UserFixture;
         $this->actingAs($user);
 
         $form = $this->restrictedFormFixture();
@@ -26,13 +24,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldWithUserWithWrongPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $form = $this->restrictedFormFixture();
 
@@ -42,13 +35,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldWithUserWithRightPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $form = $this->restrictedFormFixture();
 
@@ -58,13 +46,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldWithUserWithRightWildcardPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $form = new Form(null, [
             'model' => new FormTestModel,
@@ -88,10 +71,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldWithSuperuser()
     {
-        $user = factory(Backend\Models\User::class)
-            ->states('superuser')
-            ->make();
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->asSuperUser());
 
         $form = $this->restrictedFormFixture();
 
@@ -101,13 +82,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldSinglePermissionWithUserWithWrongPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $form = $this->restrictedFormFixture(true);
 
@@ -117,13 +93,8 @@ class FormTest extends TestCase
 
     public function testRestrictedFieldSinglePermissionWithUserWithRightPermissions()
     {
-        $user = factory(Backend\Models\User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $form = $this->restrictedFormFixture(true);
 

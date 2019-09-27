@@ -3,15 +3,13 @@
 use Backend\Models\User;
 use Backend\Widgets\Lists;
 use October\Rain\Exception\ApplicationException;
+use October\Tests\Fixtures\Backend\Models\UserFixture;
 
-class ListsTest extends TestCase
+class ListsTest extends PluginTestCase
 {
-    public $enableFullTesting = true;
-
     public function testRestrictedColumnWithUserWithNoPermissions()
     {
-        $user = factory(User::class)
-            ->make();
+        $user = new UserFixture;
         $this->actingAs($user);
 
         $list = $this->restrictedListsFixture();
@@ -27,13 +25,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnWithUserWithWrongPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $list = $this->restrictedListsFixture();
         $list->render();
@@ -48,13 +41,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnWithUserWithRightPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $list = $this->restrictedListsFixture();
         $list->render();
@@ -65,13 +53,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnWithUserWithRightWildcardPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $list = new Lists(null, [
             'model' => new User,
@@ -96,10 +79,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnWithSuperuser()
     {
-        $user = factory(User::class)
-            ->states('superuser')
-            ->make();
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->asSuperUser());
 
         $list = $this->restrictedListsFixture();
         $list->render();
@@ -110,13 +91,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnSinglePermissionWithUserWithWrongPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $list = $this->restrictedListsFixture(true);
         $list->render();
@@ -131,13 +107,8 @@ class ListsTest extends TestCase
 
     public function testRestrictedColumnSinglePermissionWithUserWithRightPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $list = $this->restrictedListsFixture(true);
         $list->render();

@@ -52,6 +52,7 @@
     "autoload-dev": {
         "classmap": [
             "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
             "tests/UiTestCase.php",
             "tests/PluginTestCase.php"

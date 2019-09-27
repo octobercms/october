@@ -2,15 +2,13 @@
 
 use Backend\Widgets\Filter;
 use Backend\Models\User;
+use October\Tests\Fixtures\Backend\Models\UserFixture;
 
-class FilterTest extends TestCase
+class FilterTest extends PluginTestCase
 {
-    public $enableFullTesting = true;
-
     public function testRestrictedScopeWithUserWithNoPermissions()
     {
-        $user = factory(User::class)
-            ->make();
+        $user = new UserFixture;
         $this->actingAs($user);
 
         $filter = $this->restrictedFilterFixture();
@@ -26,13 +24,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeWithUserWithWrongPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $filter = $this->restrictedFilterFixture();
         $filter->render();
@@ -47,13 +40,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeWithUserWithRightPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $filter = $this->restrictedFilterFixture();
         $filter->render();
@@ -64,13 +52,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeWithUserWithRightWildcardPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $filter = new Filter(null, [
             'model' => new User,
@@ -95,10 +78,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeWithSuperuser()
     {
-        $user = factory(User::class)
-            ->states('superuser')
-            ->make();
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->asSuperUser());
 
         $filter = $this->restrictedFilterFixture();
         $filter->render();
@@ -109,13 +90,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeSinglePermissionWithUserWithWrongPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.wrong_permission' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.wrong_permission', true));
 
         $filter = $this->restrictedFilterFixture(true);
         $filter->render();
@@ -130,13 +106,8 @@ class FilterTest extends TestCase
 
     public function testRestrictedScopeSinglePermissionWithUserWithRightPermissions()
     {
-        $user = factory(User::class)
-            ->make([
-                'permissions' => [
-                    'test.access_field' => 1
-                ]
-            ]);
-        $this->actingAs($user);
+        $user = new UserFixture;
+        $this->actingAs($user->withPermission('test.access_field', true));
 
         $filter = $this->restrictedFilterFixture(true);
         $filter->render();
