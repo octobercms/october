@@ -564,7 +564,7 @@ class Filter extends WidgetBase
 
             // Check if user has permissions to show this filter
             $permissions = array_get($config, 'permissions');
-            if ($permissions && !BackendAuth::getUser()->hasAccess($permissions, false)) {
+            if (!empty($permissions) && !BackendAuth::getUser()->hasAccess($permissions, false)) {
                 continue;
             }
 
