@@ -89,6 +89,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database-driven Themes
+    |--------------------------------------------------------------------------
+    |
+    | Stores theme templates in the database instead of the filesystem.
+    |
+    | false - All theme templates are sourced from the filesystem.
+    |
+    | true  - Source theme templates from the database with fallback to the filesytem.
+    |
+    | null  - Setting equal to the inverse of app.debug: debug enabled, this disabled.
+    |
+    | The database layer stores all modified CMS files in the database. Files that are
+    | not modified continue to be loaded from the filesystem. The `theme:sync $themeDir`
+    | console command is available to populate the database from the filesystem with
+    | the `--toFile` flag to sync in the other direction (database to filesystem) and
+    | the `--paths="/path/to/file.md,/path/to/file2.md" flag to sync only specific files.
+    |
+    | Files modified in the database are cached to indicate that they should be loaded
+    | from the database.
+    |
+    */
+
+    'databaseTemplates' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Local plugins path
     |--------------------------------------------------------------------------
     |
