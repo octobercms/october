@@ -88,8 +88,6 @@ class AutoDatasourceTest extends PluginTestCase
             ->keyBy('fileName')
             ->toArray();
 
-        dump(array_keys($results));
-
         // Should be 14 partials in filesystem (tests/fixtures/themes/test), and 1 created directly in database.
         // 1 of the filesystem partials should be marked deleted in database.
         $this->assertCount(14, $results);
