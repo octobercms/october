@@ -151,6 +151,8 @@ class User extends UserBase
             'password' => $this->getOriginalHashValue('password'),
             'link' => Backend::url('backend'),
         ];
+        
+        Event::fire('backend.user.beforeSendInvite', [$this, &$data]);
 
         Mail::send('backend::mail.invite', $data, function ($message) {
             $message->to($this->email, $this->full_name);
