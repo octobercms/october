@@ -998,9 +998,7 @@ class Controller
             /*
              * Check if the theme has an override
              */
-            if (strpos($partialName, '/') === false) {
-                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
-            }
+            $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
 
             /*
              * Check the component partial

@@ -1,5 +1,8 @@
 <?php namespace Cms\Helpers;
 
+use October\Rain\Filesystem\Filesystem;
+use Config;
+
 /**
  * Defines some file-system helpers for the CMS system.
  *
@@ -64,6 +67,26 @@ class File
             if (!self::validateName($segment)) {
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates a CMS object path is inside the application's base directory.
+     * @param string $filePath Specifies a path to validate
+     * @return boolean Returns true if the file path is local. Otherwise returns false.
+     */
+    public static function validateIsLocalFile($filePath)
+    {
+        $restrictBaseDir = Config::get('cms.restrictBaseDir', true);
+
+        if ($restrictBaseDir && !app(Filesystem::class)->isLocalPath($filePath)) {
+            return false;
+        }
+
+        if (!$restrictBaseDir && realpath($filePath) === false) {
+            return false;
         }
 
         return true;

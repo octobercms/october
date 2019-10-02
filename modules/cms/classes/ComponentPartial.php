@@ -107,6 +107,10 @@ class ComponentPartial extends Extendable implements CmsObjectContract
             $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
         }
 
+        if ($partial !== null) {
+            static::ensureValidPartialPath($partial->getFileName(), $partial->getFilePath(), null);
+        }
+
         return $partial;
     }
 
@@ -160,17 +164,34 @@ class ComponentPartial extends Extendable implements CmsObjectContract
      */
     protected function validateFileName($fileName)
     {
-        if (!FileHelper::validatePath($fileName, $this->maxNesting)) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', [
-                'name' => $fileName
-            ]));
-        }
-
         if (!strlen(File::extension($fileName))) {
             $fileName .= '.'.$this->defaultExtension;
         }
 
+        static::ensureValidPartialPath($fileName, $this->getFilePath($fileName), $this->maxNesting);
+
         return $fileName;
+    }
+
+    /**
+     * Ensures that a partial path is valid and local to the application.
+     *
+     * @param string $fileName
+     * @param        $realpath
+     * @param int    $maxNesting
+     *
+     * @return bool
+     * @throws ApplicationException
+     */
+    protected static function ensureValidPartialPath($fileName, $realpath, $maxNesting = 2)
+    {
+        if (FileHelper::validatePath($fileName, $maxNesting) && FileHelper::validateIsLocalFile($realpath)) {
+            return true;
+        }
+
+        throw new ApplicationException(Lang::get('cms::lang.cms_object.invalid_file', [
+            'name' => $fileName,
+        ]));
     }
 
     /**
