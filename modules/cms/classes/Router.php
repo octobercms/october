@@ -304,7 +304,7 @@ class Router
      */
     public function getParameter($name, $default = null)
     {
-        if (isset($this->parameters[$name]) && !empty($this->parameters[$name])) {
+        if (array_key_exists($name, $this->parameters)) {
             return $this->parameters[$name];
         }
 
