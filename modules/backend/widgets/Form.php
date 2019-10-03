@@ -459,6 +459,23 @@ class Form extends WidgetBase
     }
 
     /**
+     * Renders all fields of a tab in the target tab-pane.
+     *
+     * @return array
+     */
+    public function onLazyLoadTab()
+    {
+        $target  = post('target');
+        $tabName = post('name');
+
+        $fields = array_get(optional($this->getTab('primary'))->fields, $tabName);
+
+        return [
+            $target => $this->makePartial('form_fields', ['fields' => $fields]),
+        ];
+    }
+
+    /**
      * Creates a flat array of form fields from the configuration.
      * Also slots fields in to their respective tabs.
      *
