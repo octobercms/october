@@ -36,6 +36,7 @@ class NavigationManager
         'icon'        => null,
         'iconSvg'     => null,
         'counter'     => null,
+        'counterClass'=> null,
         'counterLabel'=> null,
         'url'         => null,
         'permissions' => [],
@@ -50,6 +51,7 @@ class NavigationManager
         'url'         => null,
         'iconSvg'     => null,
         'counter'     => null,
+        'counterClass'=> null,
         'counterLabel'=> null,
         'order'       => -1,
         'attributes'  => [],
@@ -170,8 +172,9 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
-     * - counter - an optional numeric value to output near the menu icon. The value should be
+     * - counter - an optional value to output near the menu icon. Can be a number or string, or a callable returning a number or string. If the value is numeric, it will display the sum of all numeric counters for the main menu item's side menu items. If the value is a string, it will simply display the string. Setting this value to false will disable the counter for this item alltogether.
      *   a number or a callable returning a number.
+     * - counterClass - an optional class applied to the menu item's counter. Can be used to change counter's color.
      * - counterLabel - an optional string value to describe the numeric reference in counter.
      * - sideMenu - an array of side menu items, optional. If provided, the array items
      *   should represent the side menu item code, and each value should be an associative
@@ -181,8 +184,8 @@ class NavigationManager
      *      - url - the back-end relative URL the menu item should point to, required.
      *      - attributes - an array of attributes and values to apply to the menu item, optional.
      *      - permissions - an array of permissions the back-end user should have, optional.
-     *      - counter - an optional numeric value to output near the menu icon. The value should be
-     *        a number or a callable returning a number.
+     *      - counter - Can be a number or string, or a callable returning a number or string. If the value is numeric and the side menu's parent menu item is numeric, the sum of these values will be displayed in the main menu item's counter.
+     *      - counterClass - an optional CSS class applied to the side menu item. Can be used to change the counter's color.
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
@@ -312,7 +315,7 @@ class NavigationManager
         }
 
         foreach ($this->items as $item) {
-            if ($item->counter === false) {
+            if ($item->counter === false || is_string($item->counter)) {
                 continue;
             }
 
