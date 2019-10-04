@@ -18,8 +18,8 @@
         foreach ($tabs as $name => $fields):
             $lazy = in_array($name, $tabs->lazy);
         ?>
-            <li class="<?= $index++==0?'active':''?> <?= $lazy ? 'tab-lazy' : '' ?>">
-                <a href="#<?= $type.'tab-'.$index ?>" data-tab-name="<?= e($name) ?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
+            <li class="<?= ($index++ === 0) ? 'active' : '' ?> <?= $lazy ? 'tab-lazy' : '' ?>">
+                <a href="#<?= $type . 'tab-' . $index ?>" data-tab-name="<?= e($name) ?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
             </li>
         <?php endforeach ?>
     </ul>
@@ -32,8 +32,8 @@
         $lazy = in_array($name, $tabs->lazy);
     ?>
             <div
-                class="tab-pane <?= $lazy ? 'lazy' : '' ?> <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $index++==0?'active':''?> <?= $paneCss ?>"
-                id="<?= $type.'tab-'.$index ?>">
+                class="tab-pane <?= $lazy ? 'lazy' : '' ?> <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= ($index++ === 0) ? 'active' : '' ?> <?= $paneCss ?>"
+                id="<?= $type . 'tab-' . $index ?>">
                 <?php if ($lazy): ?>
                     <div class="loading-indicator-container m-t">
                         <div class="loading-indicator indicator-center">
