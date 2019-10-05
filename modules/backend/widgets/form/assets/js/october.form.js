@@ -176,6 +176,15 @@
                 success: function(data) {
                     this.success(data)
                     $el.parent().removeClass('tab-lazy')
+                    // Trigger all input presets to populate new fields.
+                    setTimeout(function() {
+                        $('[data-input-preset]').each(function() {
+                            var preset = $(this).data('oc.inputPreset')
+                            if (preset) {
+                                preset.$src.trigger('input')
+                            }
+                        })
+                    }, 0)
                 }
             })
         })

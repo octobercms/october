@@ -40,6 +40,15 @@
                             <span></span>
                         </div>
                     </div>
+                    <?php foreach ($fields as $field): ?>
+                        <input
+                                type="hidden"
+                                name="<?= $field->getName() ?>"
+                                id="<?= $field->getId() ?>"
+                                value="<?= e($field->value) ?>"
+                                <?= $field->getAttributes() ?>
+                        />
+                    <?php endforeach ?>
                 <?php else: ?>
                     <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
                 <?php endif ?>
