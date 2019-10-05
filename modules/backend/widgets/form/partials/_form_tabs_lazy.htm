@@ -1,0 +1,28 @@
+<div class="loading-indicator-container m-t">
+    <div class="loading-indicator indicator-center">
+        <span></span>
+    </div>
+</div>
+<?php
+// Do not create a hidden field for these field types since
+// they don't contain any form data.
+$ignoredTypes = ['section'];
+
+foreach ($fields as $field):
+    if (in_array($field->type, $ignoredTypes)) continue;
+
+    $isArray = is_array($field->value);
+    foreach (array_wrap($field->value) as $index => $value):
+        // Change the field id and names if the field value is an array.
+        $fieldId   = $isArray ? 'checkbox_' . $field->getId() . '_' . $index : $field->getId();
+        $fieldName = $isArray ? $field->getName() . '[]' : $field->getName();
+?>
+    <input
+            type="hidden"
+            name="<?= $fieldName ?>"
+            id="<?= $fieldId ?>"
+            value="<?= e($value) ?>"
+            <?= $field->getAttributes() ?>
+    />
+    <?php endforeach ?>
+<?php endforeach ?>

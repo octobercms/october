@@ -35,20 +35,7 @@
                 class="tab-pane <?= $lazy ? 'lazy' : '' ?> <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= ($index++ === 0) ? 'active' : '' ?> <?= $paneCss ?>"
                 id="<?= $type . 'tab-' . $index ?>">
                 <?php if ($lazy): ?>
-                    <div class="loading-indicator-container m-t">
-                        <div class="loading-indicator indicator-center">
-                            <span></span>
-                        </div>
-                    </div>
-                    <?php foreach ($fields as $field): ?>
-                        <input
-                                type="hidden"
-                                name="<?= $field->getName() ?>"
-                                id="<?= $field->getId() ?>"
-                                value="<?= e($field->value) ?>"
-                                <?= $field->getAttributes() ?>
-                        />
-                    <?php endforeach ?>
+                    <?= $this->makePartial('form_tabs_lazy', ['fields' => $fields]) ?>
                 <?php else: ?>
                     <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
                 <?php endif ?>

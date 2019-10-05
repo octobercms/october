@@ -180,7 +180,7 @@
                     setTimeout(function() {
                         $('[data-input-preset]').each(function() {
                             var preset = $(this).data('oc.inputPreset')
-                            if (preset) {
+                            if (preset && preset.$src) {
                                 preset.$src.trigger('input')
                             }
                         })
