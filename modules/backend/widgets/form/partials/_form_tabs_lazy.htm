@@ -13,7 +13,7 @@ foreach ($fields as $field):
 
     $isArray = is_array($field->value);
     foreach (array_wrap($field->value) as $index => $value):
-        // Change the field id and names if the field value is an array.
+        // Change the field id and name if the field value is an array.
         $fieldId   = $isArray ? 'checkbox_' . $field->getId() . '_' . $index : $field->getId();
         $fieldName = $isArray ? $field->getName() . '[]' : $field->getName();
 ?>
