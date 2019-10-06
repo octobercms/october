@@ -4195,7 +4195,8 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group:empty {display:none}
 .form-group,
 .form-group.layout-item {padding-bottom:20px;margin-bottom:0}
-.form-group.is-required >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
+.form-group.is-required >label:not(.custom-switch):after,
+.form-group.is-required >.field-switch >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
 .form-group.span-full {width:100%;float:left}
 .form-group.span-left {float:left;width:48.5%;clear:left}
 .form-group.span-right {float:right;width:48.5%;clear:right}

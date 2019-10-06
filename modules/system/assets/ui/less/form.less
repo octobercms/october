@@ -124,7 +124,8 @@
     .box-sizing(border-box);
 
     &.is-required {
-        > label:after {
+        > label:not(.custom-switch):after,
+        > .field-switch > label:after {
             background-color: @color-form-required-asterisk;
             width: 5px;
             height: 5px;
