@@ -4133,6 +4133,8 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox {display:inline-block;margin:0}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label {margin-bottom:0 !important;padding-top:10px}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label:before {top:10px}
+.inline-options.radio-field >label {display:block}
+.inline-options.radio-field .custom-radio {display:inline-block;margin-bottom:0}
 .switch-field .field-switch {padding-left:85px;float:left}
 .switch-field .field-switch >label {margin-top:3px}
 .custom-switch {display:block;width:65px;height:26px;position:relative;text-transform:uppercase;border:none;cursor:pointer;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
