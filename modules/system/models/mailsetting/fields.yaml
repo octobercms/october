@@ -13,6 +13,7 @@ tabs:
         sender_email:
             label: system::lang.mail.sender_email
             span: auto
+            type: email
             tab: system::lang.mail.general
 
         send_mode:
