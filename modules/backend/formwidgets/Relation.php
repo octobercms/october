@@ -145,7 +145,8 @@ class Relation extends FormWidgetBase
             if ($this->sqlSelect) {
                 $nameFrom = 'selection';
                 $selectColumn = $usesTree ? '*' : $relationModel->getKeyName();
-                $result = $query->select($selectColumn, Db::raw($this->sqlSelect . ' AS ' . $nameFrom));
+                $select = $this->getPortableSqlSelect($this->sqlSelect);
+                $result = $query->select($selectColumn, Db::raw($select . ' AS ' . $nameFrom));
             }
             else {
                 $nameFrom = $this->nameFrom;
@@ -164,6 +165,25 @@ class Relation extends FormWidgetBase
 
             return $field;
         });
+    }
+    
+    /**
+     * Converts CONCAT() into Sqlite's syntax if applicable
+     */
+    protected function getPortableSqlSelect($sql)
+    {
+        switch(config("database.connections.".config('database.default').".driver"))
+        {
+            case 'sqlite':
+                $sql = preg_replace_callback(
+                    '|concat\s*\((.*)\)|',
+                    function ($matches) {
+                        return implode(' || ', array_map('trim', explode(',', $matches[1])));
+                    },
+                    $sql
+                );
+        }
+        return $sql;
     }
 
     /**
