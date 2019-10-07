@@ -172,7 +172,7 @@ class Relation extends FormWidgetBase
      */
     protected function getPortableSqlSelect($sql)
     {
-        switch(config("database.connections.".config('database.default').".driver"))
+        switch (config("database.connections.".config('database.default').".driver"))
         {
             case 'sqlite':
                 $sql = preg_replace_callback(
