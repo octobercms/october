@@ -194,8 +194,7 @@ class Controller
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
-            }
-            else {
+            } else {
                 return $event;
             }
         }
@@ -380,7 +379,6 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
-            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -804,6 +802,13 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
+        /*
+         * Check security token.
+         */
+        if (!$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
+        }
+
         /**
          * @event cms.ajax.beforeRunHandler
          * Provides an opportunity to modify an AJAX request

@@ -46,6 +46,11 @@ return [
     'file' => [
         'create_fail' => 'Não é possível criar o ficheiro: :name',
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido',
+        ],
+    ],
     'combiner' => [
         'not_found' => 'O ficheiro combinador ":name" não foi encontrado.',
     ],

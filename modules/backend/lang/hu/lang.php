@@ -32,9 +32,6 @@ return [
             'help' => 'Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra betölteni az oldalt.',
             'cms_link' => 'Vissza a weboldalra'
         ],
-        'invalid_token' => [
-            'label' => 'A biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
-        ]
     ],
     'partial' => [
         'not_found_name' => "A(z) ':name' részlap nem található.",

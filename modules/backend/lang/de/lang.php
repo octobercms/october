@@ -25,9 +25,6 @@ return [
             'help' => "Eine Datenbank wird benötigt um Zugriff auf das Backend zu haben. Überprüfe die Datenbankkonfiguration und migriere die Datenbank bevor du es noch einmal probierst.",
             'cms_link' => 'Zurück zur Homepage'
         ],
-        'invalid_token' => [
-            'label' => 'Ungültiges Sicherheitstoken'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",

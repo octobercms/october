@@ -11,6 +11,11 @@ return [
     'file'           => [
         'create_fail' => 'Nie można stworzyć pliku: :name',
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Nieprawidłowy żeton bezpieczeństwa',
+        ],
+    ],
     'combiner'       => [
         'not_found' => "Połączony plik ':name' nie istnieje.",
     ],

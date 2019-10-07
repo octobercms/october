@@ -53,6 +53,11 @@ return [
     'file' => [
         'create_fail' => 'Bestand aanmaken mislukt: :name',
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Ongeldig token',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Het samenvoegbestand ':name' is niet gevonden.",
     ],

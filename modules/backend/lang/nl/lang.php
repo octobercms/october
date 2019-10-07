@@ -32,9 +32,6 @@ return [
             'help' => 'Een database is nodig om toegang te krijgen tot de back-end. Controleer of de database juist is geconfigureerd en probeer het opnieuw.',
             'cms_link' => 'Terug naar homepagina',
         ],
-        'invalid_token' => [
-            'label' => 'Ongeldig token',
-        ],
     ],
     'partial' => [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",

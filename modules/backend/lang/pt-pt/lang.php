@@ -25,9 +25,6 @@ return [
             'help' => "Uma base de dados é necessária para acesso ao back-end. Verifique se a base dados se encontra configurada e migrada antes de tentar novamente.",
             'cms_link' => 'Regressar á página inicial'
         ],
-        'invalid_token' => [
-            'label' => 'Token de segurança inválido'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'O bloco ":name" não foi encontrado.',
