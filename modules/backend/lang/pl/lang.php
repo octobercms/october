@@ -24,9 +24,6 @@ return [
             'help'     => 'Baza danych jest wymagana do dostępu do panelu administracyjnego. Sprawdz czy baza danych jest prawidłowo skonfigurowana i zmigrowana przed ponowną próbą.',
             'cms_link' => 'Powrót do strony głównej',
         ],
-        'invalid_token' => [
-            'label' => 'Nieprawidłowy żeton bezpieczeństwa',
-        ],
     ],
     'partial'             => [
         'not_found_name' => "Blok ':name' nie został odnaleziony.",

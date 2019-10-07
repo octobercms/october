@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => "Impossible de créer le fichier : :name",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'La clé de sécurité est invalide',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Le fichier combiné ':name' est introuvable.",
     ],

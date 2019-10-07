@@ -19,9 +19,6 @@ return [
             'help' => "Jums nav piekļuves tiesību, lai skatītu šo lapu.",
             'cms_link' => 'Atgriezties back-end'
         ],
-        'invalid_token' => [
-            'label' => 'Nederīga drošības atslēga'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Daļa ':name' nav atrasta."

@@ -19,9 +19,6 @@ return [
             'help' => 'No tiene permisos necesarios para ver esta página.',
             'cms_link' => 'Volver al panel de administración'
         ],
-        'invalid_token' => [
-            'label' => 'Token de seguridad invalido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "El parcial ':name' no se encuentra."

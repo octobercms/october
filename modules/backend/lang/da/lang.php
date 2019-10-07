@@ -24,9 +24,6 @@ return [
             'help' => "En database er påkrævet for at kunne tilgå backenden. Kontroller om databasen er konfigureret og migreret, inden du prøver igen.",
             'cms_link' => 'Tilbage til hjemmesiden'
         ],
-        'invalid_token' => [
-            'label' => 'Ugyldig sikkerhedstoken'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Partialen ':name' kunne ikke findes."

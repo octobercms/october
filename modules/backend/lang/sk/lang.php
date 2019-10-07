@@ -25,9 +25,6 @@ return [
             'help' => "Pre prístup do administrácie je potrebná databáza. Zkontrolujte, či je databáza nakonfigurovaná a zmigrovaná a skúste to znova.",
             'cms_link' => 'Späť na úvodnú stránku'
         ],
-        'invalid_token' => [
-            'label' => 'Neplatný bezpečnostný token'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Čiastočná šablona ':name' nebola nájdená."

@@ -32,9 +32,6 @@ return [
             'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
             'cms_link' => 'Return to the homepage',
         ],
-        'invalid_token' => [
-            'label' => 'Invalid security token',
-        ],
     ],
     'partial' => [
         'not_found_name' => "The partial ':name' is not found.",

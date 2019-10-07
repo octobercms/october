@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => "파일 ':name'을 작성할 수 없습니다.",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => '잘못된 보안 토큰',
+        ],
+    ],
     'combiner' => [
         'not_found' => "combiner파일 ':name'을 발견할 수 없습니다.",
     ],

@@ -413,7 +413,10 @@ return [
         'custom_error' => [
             'label' => 'Laphiba',
             'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
-        ]
+        ],
+        'invalid_token' => [
+            'label' => 'A biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.',
+        ],
     ],
     'pagination' => [
         'previous' => 'Előző',
