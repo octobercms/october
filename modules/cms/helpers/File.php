@@ -1,7 +1,7 @@
 <?php namespace Cms\Helpers;
 
-use October\Rain\Filesystem\Filesystem;
 use Config;
+use File as Filesystem;
 
 /**
  * Defines some file-system helpers for the CMS system.
@@ -81,7 +81,7 @@ class File
     {
         $restrictBaseDir = Config::get('cms.restrictBaseDir', true);
 
-        if ($restrictBaseDir && !app(Filesystem::class)->isLocalPath($filePath)) {
+        if ($restrictBaseDir && !Filesystem::isLocalPath($filePath)) {
             return false;
         }
 
