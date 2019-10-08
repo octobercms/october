@@ -177,7 +177,25 @@ class Relation extends FormWidgetBase
                 $sql = preg_replace_callback(
                     '|concat\s*\((.*)\)|',
                     function ($matches) {
-                        return implode(' || ', array_map('trim', explode(',', $matches[1])));
+                        // Change \' to '' because Sqlite doesn't support them
+                        $matches[1] = str_replace("\'", "''", $matches[1]);
+
+                        // Split by SQL strings
+                        $parts = preg_split("#('.*(?<!')')#U", $matches[1], null, PREG_SPLIT_DELIM_CAPTURE);
+
+                        // Join everything back together
+                        $return = '';
+                        foreach ($parts as $part) {
+                            // First character is a quote, so it is a string
+                            if (substr($part, 0, 1) == "'") {
+                                $return .= $part;
+                            }
+                            // It is not a string, so explode on commas
+                            else {
+                                $return .= implode(' || ', array_map('trim', explode(',', $part)));
+                            }
+                        }
+                        return $return;
                     },
                     $sql
                 );
