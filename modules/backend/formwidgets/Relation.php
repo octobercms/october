@@ -26,7 +26,9 @@ class Relation extends FormWidgetBase
     public $nameFrom = 'name';
 
     /**
-     * @var string Custom SQL column selection to use for the name reference
+     * @var mixed Custom SQL column selection to use for the name reference
+     * If array, values will be concatenated together. If string, it will be
+     * be used directly in the query.
      */
     public $sqlSelect;
 
@@ -39,11 +41,6 @@ class Relation extends FormWidgetBase
      * @var string Use a custom scope method for the list query.
      */
     public $scope;
-
-    /**
-     * @var string Define the order of the list query.
-     */
-    public $order;
 
     //
     // Object properties
@@ -68,11 +65,14 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'emptyOption',
             'scope',
-            'order',
         ]);
 
         if (isset($this->config->select)) {
             $this->sqlSelect = $this->config->select;
+        }
+
+        if (isset($this->config->selectConcat)) {
+            $this->selectConcat = $this->config->selectConcat;
         }
     }
 
@@ -115,12 +115,6 @@ class Relation extends FormWidgetBase
                 $field->type = 'dropdown';
             }
 
-            // Order query by the configured option.
-            if ($this->order) {
-                // Using "raw" to allow authors to use a string to define the order clause.
-                $query->orderByRaw($this->order);
-            }
-
             // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relationModel))) {
@@ -145,7 +139,7 @@ class Relation extends FormWidgetBase
             if ($this->sqlSelect) {
                 $nameFrom = 'selection';
                 $selectColumn = $usesTree ? '*' : $relationModel->getKeyName();
-                $select = $this->getPortableSqlSelect($this->sqlSelect);
+                $select = is_array($this->sqlSelect) ? $this->getConcat($this->sqlSelect) : $this->sqlSelect;
                 $result = $query->select($selectColumn, Db::raw($select . ' AS ' . $nameFrom));
             }
             else {
@@ -166,41 +160,19 @@ class Relation extends FormWidgetBase
             return $field;
         });
     }
-    
+
     /**
-     * Converts CONCAT() into Sqlite's syntax if applicable
+     * Gets a concatenation string to be used in a query depending on database driver
+     * @var array Values to be concatenated together
      */
-    protected function getPortableSqlSelect($sql)
+    protected function getConcat($values)
     {
         switch (config("database.connections.".config('database.default').".driver")) {
             case 'sqlite':
-                $sql = preg_replace_callback(
-                    '|concat\s*\((.*)\)|',
-                    function ($matches) {
-                        // Change \' to '' because Sqlite doesn't support them
-                        $matches[1] = str_replace("\'", "''", $matches[1]);
-
-                        // Split by SQL strings
-                        $parts = preg_split("#('.*(?<!')')#U", $matches[1], null, PREG_SPLIT_DELIM_CAPTURE);
-
-                        // Join everything back together
-                        $return = '';
-                        foreach ($parts as $part) {
-                            // First character is a quote, so it is a string
-                            if (substr($part, 0, 1) == "'") {
-                                $return .= $part;
-                            }
-                            // It is not a string, so explode on commas
-                            else {
-                                $return .= implode(' || ', array_map('trim', explode(',', $part)));
-                            }
-                        }
-                        return $return;
-                    },
-                    $sql
-                );
+                return implode(' || ', $values);
+            default:
+                return 'CONCAT(' . implode(', ', $values) . ')';
         }
-        return $sql;
     }
 
     /**
