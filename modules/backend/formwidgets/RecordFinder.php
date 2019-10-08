@@ -299,7 +299,67 @@ class RecordFinder extends FormWidgetBase
             $this->searchWidget->setActiveTerm(null);
         }
 
+        $this->setParentFormPostKeysToPreserve();
         return $this->makePartial('recordfinder_form');
+    }
+
+    /**
+     * If elements from the parent Repeated don't get initialized, this RecordFinder is not initialize,
+     * which means that the searchWidget is not initialized and will not work from a repeated. If values
+     * and keys can be preserved from the parent RecordFinder form when calling the searchWidget, the
+     * RecordFinder will get initialized and will work
+     * @return void
+     */
+    protected function setParentFormPostKeysToPreserve()
+    {
+        $arrayName = $this->formField->arrayName;
+        $arrayNameLen = strlen($arrayName);
+        $preservePosts = [];
+        $idPrefix = $this->formField->idPrefix;
+
+        $flatPost = $this->flattenPost(post());
+        foreach ($flatPost as $key => $value) {
+            // preserve parent form
+            if (substr($key, 0, $arrayNameLen) === $arrayName) {
+                $preservePosts[$key] = $value;
+            }
+
+            // preserve repeater's _loaded var
+            if (substr($key, -7) === '_loaded' &&
+                strpos($idPrefix, substr($key, 0, -7)) !== false
+            ) {
+                $preservePosts[$key] = $value;
+            }
+        }
+
+        $this->vars['preservePosts'] = $preservePosts;
+    }
+
+    /**
+     * Credit: BryanErwin
+     * @param array $postData
+     * @param string $prefix
+     * @return string
+     */
+    protected function flattenPost(array $postData, string $prefix = '')
+    {
+        $result = [];
+        foreach ($postData as $key => $value) {
+            if (is_array($value)) {
+                if ($prefix === '') {
+                    $result = $result + $this->flattenPost($value, $prefix . $key);
+                } else {
+                    $result = $result + $this->flattenPost($value, $prefix . '[' . $key . ']');
+                }
+            } else {
+                if ($prefix === '') {
+                    $result[$prefix . $key] = $value;
+                } else {
+                    $result[$prefix . '[' . $key . ']'] = $value;
+                }
+            }
+        }
+        return $result;
     }
 
     protected function makeListWidget()
