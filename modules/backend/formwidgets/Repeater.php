@@ -220,6 +220,21 @@ class Repeater extends FormWidgetBase
             ? post($this->formField->getName())
             : $this->getLoadValue();
 
+        // Detect when a child widget is trying to run an AJAX handler
+        // outside of the form element that contains all the repeater
+        // fields that would normally be used to identify that case
+        $handler = $this->controller->getAjaxHandler();
+        if (!$this->loaded && starts_with($handler, $this->alias . 'Form')) {
+            // Attempt to get the index of the repeater
+            $handler = str_after($handler, $this->alias . 'Form');
+            preg_match("~^(\d+)~", $handler, $matches);
+
+            if (isset($matches[1])) {
+                $index = $matches[1];
+                $this->makeItemFormWidget($index);
+            }
+        }
+
         if (!$this->childAddItemCalled && $currentValue === null) {
             $this->formWidgets = [];
             return;
@@ -269,7 +284,7 @@ class Repeater extends FormWidgetBase
         $config = $this->makeConfig($configDefinition);
         $config->model = $this->model;
         $config->data = $this->getValueFromIndex($index);
-        $config->alias = $this->alias . 'Form'.$index;
+        $config->alias = $this->alias . 'Form' . $index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
         if (self::$onAddItemCalled || $this->minItems > 0) {
