@@ -4,7 +4,6 @@ use App;
 use Event;
 use Exception;
 use Cms\Classes\Theme;
-use Cms\Classes\ThemeManager;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -55,11 +54,6 @@ class ThemeSync extends Command
     protected $source;
 
     /**
-     * @var array Models
-     */
-    protected $halyconModels = [];
-
-    /**
      * Execute the console command.
      * @return void
      */
@@ -76,7 +70,6 @@ class ThemeSync extends Command
         }
 
         // Check to see if the provided theme exists
-        $themeManager = ThemeManager::instance();
         $themeName = $this->argument('name') ?: Theme::getActiveThemeCode();
         $themeExists = Theme::exists($themeName);
         if (!$themeExists) {
@@ -91,13 +84,12 @@ class ThemeSync extends Command
         // Get the target and source datasources
         $availableSources = ['filesystem', 'database'];
         $target = $this->option('target') ?: 'filesystem';
-        $source = 'filesystem';
-        if ($target === 'filesystem') {
-            $source = 'database';
-        }
+        $source = ($target === 'filesystem') ? 'database' : 'filesystem';
+
         if (!in_array($target, $availableSources)) {
             return $this->error(sprintf("Provided --target of %s is invalid. Allowed: filesystem, database", $target));
         }
+
         $this->source = $source;
         $this->target = $target;
 
@@ -107,8 +99,7 @@ class ThemeSync extends Command
 
         if (!isset($userPaths)) {
             $paths = $themePaths;
-        }
-        else {
+        } else {
             $paths = [];
             $userPaths = array_map('trim', explode(',', $userPaths));
 
@@ -166,7 +157,6 @@ class ThemeSync extends Command
                 if (
                     starts_with($path, $model->getObjectTypeDirName() . '/')
                     && in_array(pathinfo($path, PATHINFO_EXTENSION), $model->getAllowedExtensions())
-                    && file_exists($theme->getPath($theme->getDirName()) . '/' . $path)
                 ) {
                     $validPaths[$path] = get_class($model);
 
