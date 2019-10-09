@@ -3,6 +3,7 @@
 use Url;
 use Html;
 use File;
+use Event;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\CombineAssets;
@@ -111,6 +112,9 @@ trait AssetMaker
      */
     public function addJs($name, $attributes = [])
     {
+        // Disable Cloudflare's cache for backend
+        $this->modifyAttributes($attributes);
+
         if (is_array($name)) {
             $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
@@ -127,13 +131,6 @@ trait AssetMaker
 
         $jsPath = $this->getAssetScheme($jsPath);
 
-        // Prevent CloudFlare's Rocket Loader from breaking stuff
-        // @see octobercms/october#4092, octobercms/october#3841, octobercms/october#3839
-        if (isset($attributes['cache']) && $attributes['cache'] == 'false') {
-            $attributes['data-cfasync'] = 'false';
-            unset($attributes['cache']);
-        }
-
         if (!in_array($jsPath, $this->assets['js'])) {
             $this->assets['js'][] = ['path' => $jsPath, 'attributes' => $attributes];
         }
@@ -148,6 +145,9 @@ trait AssetMaker
      */
     public function addCss($name, $attributes = [])
     {
+        // Disable Cloudflare's cache for backend
+        $this->modifyAttributes($attributes);
+
         if (is_array($name)) {
             $name = $this->combineAssets($name, $this->getLocalPath($this->assetPath));
         }
@@ -193,6 +193,16 @@ trait AssetMaker
         if (!in_array($rssPath, $this->assets['rss'])) {
             $this->assets['rss'][] = ['path' => $rssPath, 'attributes' => $attributes];
         }
+    }
+
+    /**
+     * This event ignores Cloudflare's cache modification.
+     * assets will be load as synchronous on backend.
+     * @param array $attributes HTML attributes to the asset link.
+     */
+    public function modifyAttributes($attributes)
+    {
+        Event::fire('system.assets.modifyAttributes', [&$attributes]);
     }
 
     /**
