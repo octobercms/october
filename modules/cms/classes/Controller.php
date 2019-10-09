@@ -24,6 +24,7 @@ use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
@@ -1004,7 +1005,14 @@ class Controller
              * Check the component partial
              */
             if ($partial === null) {
-                $partial = ComponentPartial::loadCached($componentObj, $partialName);
+                try {
+                    $partial = ComponentPartial::loadCached($componentObj, $partialName);
+                } catch (ApplicationException $e) {
+                    if ($throwException) {
+                        throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name' => $name]));
+                    }
+                    return false;
+                }
             }
 
             if ($partial === null) {
