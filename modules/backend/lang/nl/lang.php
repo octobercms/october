@@ -362,7 +362,7 @@ return [
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
         'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
         'debug' => 'Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.',
-        'decompileBackendAssets' => 'Assets van de back-end worden momenteel gedecompileerd. Dit wordt aanbevolen op een productie-omgeving.',
+        'decompileBackendAssets' => 'Assets van de back-end worden momenteel gedecompileerd. Dit wordt niet aanbevolen op een productie-omgeving.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
