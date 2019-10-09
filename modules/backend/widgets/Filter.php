@@ -560,13 +560,15 @@ class Filter extends WidgetBase
     public function addScopes(array $scopes)
     {
         foreach ($scopes as $name => $config) {
-            $scopeObj = $this->makeFilterScope($name, $config);
-
-            // Check if user has permissions to show this filter
+            /*
+             * Check if user has permissions to show this filter
+             */
             $permissions = array_get($config, 'permissions');
             if (!empty($permissions) && !BackendAuth::getUser()->hasAccess($permissions, false)) {
                 continue;
             }
+
+            $scopeObj = $this->makeFilterScope($name, $config);
 
             /*
              * Check that the filter scope matches the active context
