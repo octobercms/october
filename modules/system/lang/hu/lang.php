@@ -419,13 +419,13 @@ return [
             'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
         ],
         'invalid_token' => [
-            'label' => 'A biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.',
+            'label' => 'Biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
         ],
         'maintenance' => [
             'label' => 'Hamarosan visszatérünk!',
             'help' => 'A weboldal karbantartás alatt áll. Látogasson vissza később!',
             'message' => 'Üzenet:',
-            'available_at' => 'Újrapróbálás:',
+            'available_at' => 'Újrapróbálás:'
         ]
     ],
     'pagination' => [
