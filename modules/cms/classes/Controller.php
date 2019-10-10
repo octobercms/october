@@ -1009,7 +1009,7 @@ class Controller
                     $partial = ComponentPartial::loadCached($componentObj, $partialName);
                 } catch (ApplicationException $e) {
                     if ($throwException) {
-                        throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name' => $name]));
+                        throw $e;
                     }
                     return false;
                 }
