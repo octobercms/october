@@ -77,6 +77,15 @@ tabs:
                 follow: FOLLOW
                 nofollow: NOFOLLOW
 
+        settings[meta_robots_archive]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_robots_archive
+            span: auto
+            type: dropdown
+            options:
+                archive: ARCHIVE
+                noarchive: NOARCHIVE
+
         settings[is_hidden]:
             tab: cms::lang.editor.settings
             label: cms::lang.editor.hidden

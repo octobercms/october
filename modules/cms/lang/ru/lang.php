@@ -177,6 +177,7 @@ return [
         'meta_description' => 'Описание (meta description)',
         'meta_robots_index' => 'Индексирование страницы (meta robots index)',
         'meta_robots_follow' => 'Следование по ссылкам на странице (meta robots follow)',
+        'meta_robots_archive' => 'Архивирование страницы (meta robots archive)',
         'markup' => 'Разметка',
         'code' => 'Код',
         'content' => 'Содержание',

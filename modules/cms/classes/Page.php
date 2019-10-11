@@ -31,6 +31,7 @@ class Page extends CmsCompoundObject
         'meta_title',
         'meta_robots_index',
         'meta_robots_follow',
+        'meta_robots_archive',
         'markup',
         'settings',
         'code'
