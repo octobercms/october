@@ -175,6 +175,8 @@ return [
         'meta' => 'Meta',
         'meta_title' => 'Meta Title',
         'meta_description' => 'Meta Description',
+        'meta_robots_index' => 'Meta Robots index',
+        'meta_robots_follow' => 'Meta Robots follow',
         'markup' => 'Markup',
         'code' => 'Code',
         'content' => 'Content',

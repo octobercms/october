@@ -28,6 +28,9 @@ class Page extends CmsCompoundObject
         'is_hidden',
         'meta_title',
         'meta_description',
+        'meta_title',
+        'meta_robots_index',
+        'meta_robots_follow',
         'markup',
         'settings',
         'code'

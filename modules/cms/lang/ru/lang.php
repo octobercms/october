@@ -175,6 +175,8 @@ return [
         'meta' => 'Метатеги',
         'meta_title' => 'Заголовок (meta title)',
         'meta_description' => 'Описание (meta description)',
+        'meta_robots_index' => 'Индексирование страницы (meta robots index)',
+        'meta_robots_follow' => 'Следование по ссылкам на странице (meta robots follow)',
         'markup' => 'Разметка',
         'code' => 'Код',
         'content' => 'Содержание',
