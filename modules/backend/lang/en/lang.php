@@ -239,6 +239,7 @@ return [
         'remove_file' => 'Remove file'
     ],
     'repeater' => [
+        'add_new_item' => 'Add new item',
         'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
         'max_items_failed' => ':name only allows up to :max items, :items were provided',
     ],

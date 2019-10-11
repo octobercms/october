@@ -21,7 +21,7 @@ class Repeater extends FormWidgetBase
     /**
      * @var string Prompt text for adding new items.
      */
-    public $prompt = 'Add new item';
+    public $prompt;
 
     /**
      * @var bool Items can be sorted.
@@ -97,6 +97,8 @@ class Repeater extends FormWidgetBase
      */
     public function init()
     {
+        $this->prompt = Lang::get('backend::lang.repeater.add_new_item');
+        
         $this->fillFromConfig([
             'form',
             'prompt',
