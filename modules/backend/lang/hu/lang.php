@@ -31,7 +31,7 @@ return [
             'label' => 'Az adatbázis nem elérhető',
             'help' => 'Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra betölteni az oldalt.',
             'cms_link' => 'Vissza a weboldalra'
-        ]
+        ],
     ],
     'partial' => [
         'not_found_name' => "A(z) ':name' részlap nem található.",
