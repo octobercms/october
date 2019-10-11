@@ -3,7 +3,7 @@
 return [
     'auth' => [
         'title' => 'Área Administrativa',
-        'invalid_login' => 'As credenciais que introduziu não são válidas. Por favor verifique os seus dados e tente novamente.'
+        'invalid_login' => 'As credenciais que introduziu não são válidas. Por favor verifique os seus dados e tente novamente.',
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
@@ -30,7 +30,7 @@ return [
         'no_database' => [
             'label' => 'Base de dados não existente',
             'help' => "Uma base de dados é necessária para acesso ao back-end. Verifique se a base dados se encontra configurada e migrada antes de tentar novamente.",
-            'cms_link' => 'Regressar á página inicial'
+            'cms_link' => 'Regressar á página inicial',
         ],
     ],
     'partial' => [
@@ -170,7 +170,7 @@ return [
             'new' => 'Novo grupo administrador',
             'delete_confirm' => 'Você realmente deseja apagar este grupo?',
             'return' => 'Voltar para a lista de grupos',
-            'users_count' => 'Utilizadores'
+            'users_count' => 'Utilizadores',
         ],
         'role' => [
             'name' => 'Papel',
@@ -184,7 +184,7 @@ return [
             'new' => 'Novo Papel',
             'delete_confirm' => 'Você realmente deseja apagar este papel?',
             'return' => 'Voltar para a lista de papéis',
-            'users_count' => 'Utilizadores'
+            'users_count' => 'Utilizadores',
         ],
         'preferences' => [
             'not_authenticated' => 'Nenhum utilizador autenticado para carregar as preferências.',
@@ -221,7 +221,7 @@ return [
         'delete_selected_confirm' => 'Apagar os registos selecionados?',
         'delete_selected_success' => 'Registos seleccionados apagados com sucesso.',
         'column_switch_true' => 'Sim',
-        'column_switch_false' => 'Não'
+        'column_switch_false' => 'Não',
     ],
     'fileupload' => [
         'attachment' => 'Anexo',
@@ -233,7 +233,7 @@ return [
         'upload_file' => 'Enviar ficheiro',
         'upload_error' => 'Erro ao enviar',
         'remove_confirm' => 'Tem a certeza?',
-        'remove_file' => 'Remover ficheiro'
+        'remove_file' => 'Remover ficheiro',
     ],
     'repeater' => [
         'min_items_failed' => ':name requer no mínimo :min itens, apenas :items foram introduzidos',
@@ -307,7 +307,7 @@ return [
     ],
     'pagelist' => [
         'page_link' => 'Ligação de página',
-        'select_page' => 'Escolha uma página...'
+        'select_page' => 'Escolha uma página...',
     ],
     'relation' => [
         'missing_config' => 'Comportamento da relação não tem uma configuração para ":config".',
@@ -415,7 +415,7 @@ return [
         'toolbar_buttons_comment' => 'Botões da barra de ferramentas do editor rico a serem mostradas por defeito. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
-        'preview_website' => 'Prévisualizar a página'
+        'preview_website' => 'Prévisualizar a página',
     ],
     'mysettings' => [
         'menu_label' => 'As minhas configurações',
@@ -424,7 +424,7 @@ return [
     'myaccount' => [
         'menu_label' => 'Minha Conta',
         'menu_description' => 'Actualizar detalhes da sua conta, como nome, e-mail e senha.',
-        'menu_keywords' => 'login de segurança'
+        'menu_keywords' => 'login de segurança',
     ],
     'branding' => [
         'menu_label' => 'Personalização',
@@ -449,7 +449,7 @@ return [
         'menu_mode_inline' => 'Em linha',
         'menu_mode_inline_no_icons' => 'Em linha (sem icons)',
         'menu_mode_tile' => 'Blocos',
-        'menu_mode_collapsed' => 'Colapsados'
+        'menu_mode_collapsed' => 'Colapsados',
     ],
     'backend_preferences' => [
         'menu_label' => 'Preferências da Administração',
@@ -467,7 +467,7 @@ return [
         'menu_description' => 'Veja a lista de acessos à administração.',
         'id' => 'ID',
         'created_at' => 'Data & Hora',
-        'type' => 'Tipo'
+        'type' => 'Tipo',
         'login' => 'Entrada',
         'ip_address' => 'Endereço IP',
         'first_name' => 'Nome',
@@ -550,16 +550,16 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)'
-        ]
+            'windows_1252' => 'Windows-1252 (CP1252)',
+        ],
     ],
     'permissions' => [
-        'manage_media' => 'Gerir conteúdo multimédia'
+        'manage_media' => 'Gerir conteúdo multimédia',
     ],
     'mediafinder' => [
         'label' => 'Localizador de multimédia',
         'default_prompt' => 'Clique no botão %s para localizar um ficheiro multimédia',
-        'no_image' => 'A imagem não foi encontrada'
+        'no_image' => 'A imagem não foi encontrada',
     ],
     'media' => [
         'menu_label' => 'Conteúdos',
@@ -622,6 +622,6 @@ return [
         'selection_mode' => 'Modo de seleção',
         'resize_image' => 'Redimensionar imagem',
         'image_size' => 'Tamanho da imagem:',
-        'selected_size' => 'Selecionado:'
+        'selected_size' => 'Selecionado:',
     ],
 ];
