@@ -1096,7 +1096,11 @@ class RelationController extends ControllerBehavior
 
             $modelsToSave = $this->prepareModelsToSave($newModel, $saveData);
             foreach ($modelsToSave as $modelToSave) {
+                if ($this->controller->methodExists('relationBeforeSave')) $this->controller->relationBeforeSave($modelToSave, $this->relationName, $this->relationObject);
+                if ($this->controller->methodExists('relationBeforeCreate')) $this->controller->relationBeforeCreate($modelToSave, $this->relationName, $this->relationObject);
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());
+                if ($this->controller->methodExists('relationAfterSave')) $this->controller->relationAfterSave($modelToSave, $this->relationName, $this->relationObject);
+                if ($this->controller->methodExists('relationAfterCreate')) $this->controller->relationAfterCreate($modelToSave, $this->relationName, $this->relationObject);
             }
 
             $this->relationObject->add($newModel, $sessionKey);
@@ -1104,6 +1108,8 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $newModel = $this->viewModel;
             $this->viewWidget->setFormValues($saveData);
+            if ($this->controller->methodExists('relationBeforeSave')) $this->controller->relationBeforeSave($newModel, $this->relationName, $this->relationObject);
+            if ($this->controller->methodExists('relationBeforeCreate')) $this->controller->relationBeforeCreate($newModel, $this->relationName, $this->relationObject);
 
             /*
              * Has one relations will save as part of the add() call.
@@ -1124,6 +1130,8 @@ class RelationController extends ControllerBehavior
                     $parentModel->save();
                 }
             }
+            if ($this->controller->methodExists('relationAfterSave')) $this->controller->relationAfterSave($newModel, $this->relationName, $this->relationObject);
+            if ($this->controller->methodExists('relationAfterCreate')) $this->controller->relationAfterCreate($newModel, $this->relationName, $this->relationObject);
         }
 
         return $this->relationRefresh();
@@ -1142,12 +1150,20 @@ class RelationController extends ControllerBehavior
             $model = $this->manageWidget->model;
             $modelsToSave = $this->prepareModelsToSave($model, $saveData);
             foreach ($modelsToSave as $modelToSave) {
+                if ($this->controller->methodExists('relationBeforeSave')) $this->controller->relationBeforeSave($modelToSave, $this->relationName, $this->relationObject);
+                if ($this->controller->methodExists('relationBeforeUpdate')) $this->controller->relationBeforeUpdate($modelToSave, $this->relationName, $this->relationObject);
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());
+                if ($this->controller->methodExists('relationAfterSave')) $this->controller->relationAfterSave($modelToSave, $this->relationName, $this->relationObject);
+                if ($this->controller->methodExists('relationAfterUpdate')) $this->controller->relationAfterUpdate($modelToSave, $this->relationName, $this->relationObject);
             }
         }
         elseif ($this->viewMode == 'single') {
             $this->viewWidget->setFormValues($saveData);
+            if ($this->controller->methodExists('relationBeforeSave')) $this->controller->relationBeforeSave($this->viewModel, $this->relationName, $this->relationObject);
+            if ($this->controller->methodExists('relationBeforeUpdate')) $this->controller->relationBeforeUpdate($this->viewModel, $this->relationName, $this->relationObject);
             $this->viewModel->save(null, $this->manageWidget->getSessionKey());
+            if ($this->controller->methodExists('relationAfterSave')) $this->controller->relationAfterSave($this->viewModel, $this->relationName, $this->relationObject);
+            if ($this->controller->methodExists('relationAfterUpdate')) $this->controller->relationAfterUpdate($this->viewModel, $this->relationName, $this->relationObject);
         }
 
         return $this->relationRefresh();
@@ -1170,7 +1186,9 @@ class RelationController extends ControllerBehavior
                         continue;
                     }
 
+                    if ($this->controller->methodExists('relationBeforeDelete')) $this->controller->relationBeforeDelete($obj, $this->relationName, $this->relationObject);
                     $obj->delete();
+                    if ($this->controller->methodExists('relationAfterDelete')) $this->controller->relationAfterDelete($obj, $this->relationName, $this->relationObject);
                 }
             }
         }
@@ -1180,7 +1198,9 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $relatedModel = $this->viewModel;
             if ($relatedModel->exists) {
+                if ($this->controller->methodExists('relationBeforeDelete')) $this->controller->relationBeforeDelete($relatedModel, $this->relationName, $this->relationObject);
                 $relatedModel->delete();
+                if ($this->controller->methodExists('relationAfterDelete')) $this->controller->relationAfterDelete($relatedModel, $this->relationName, $this->relationObject);
             }
 
             $this->viewWidget->setFormValues([]);
@@ -1216,7 +1236,9 @@ class RelationController extends ControllerBehavior
 
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
+                    if ($this->controller->methodExists('relationBeforeAdd')) $this->controller->relationBeforeAdd($model, $this->relationName, $this->relationObject);
                     $this->relationObject->add($model, $sessionKey);
+                    if ($this->controller->methodExists('relationAfterAdd')) $this->controller->relationAfterAdd($model, $this->relationName, $this->relationObject);
                 }
             }
         }
@@ -1225,6 +1247,7 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
+                if ($this->controller->methodExists('relationBeforeAdd')) $this->controller->relationBeforeAdd($model, $this->relationName, $this->relationObject);
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
 
@@ -1238,6 +1261,7 @@ class RelationController extends ControllerBehavior
                         $parentModel->save();
                     }
                 }
+                if ($this->controller->methodExists('relationAfterAdd')) $this->controller->relationAfterAdd($model, $this->relationName, $this->relationObject);
             }
         }
 
@@ -1266,7 +1290,9 @@ class RelationController extends ControllerBehavior
 
                 $models = $relatedModel->whereIn($foreignKeyName, $checkedIds)->get();
                 foreach ($models as $model) {
+                    if ($this->controller->methodExists('relationBeforeRemove')) $this->controller->relationBeforeRemove($model, $this->relationName, $this->relationObject);
                     $this->relationObject->remove($model, $sessionKey);
+                    if ($this->controller->methodExists('relationAfterRemove')) $this->controller->relationAfterRemove($model, $this->relationName, $this->relationObject);
                 }
             }
         }
@@ -1280,10 +1306,14 @@ class RelationController extends ControllerBehavior
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $relatedModel->find($recordId)) {
+                    if ($this->controller->methodExists('relationBeforeRemove')) $this->controller->relationBeforeRemove($obj, $this->relationName, $this->relationObject);
                     $this->relationObject->remove($obj, $sessionKey);
+                    if ($this->controller->methodExists('relationAfterRemove')) $this->controller->relationAfterRemove($obj, $this->relationName, $this->relationObject);
                 }
                 elseif ($this->viewModel->exists) {
+                    if ($this->controller->methodExists('relationBeforeRemove')) $this->controller->relationBeforeRemove($this->viewModel, $this->relationName, $this->relationObject);
                     $this->relationObject->remove($this->viewModel, $sessionKey);
+                    if ($this->controller->methodExists('relationAfterRemove')) $this->controller->relationAfterRemove($this->viewModel, $this->relationName, $this->relationObject);
                 }
             }
 
