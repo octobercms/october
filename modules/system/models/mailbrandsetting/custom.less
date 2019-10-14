@@ -13,11 +13,10 @@ body {
     line-height: 1.4;
     margin: 0;
     -moz-hyphens: auto;
-    -ms-word-break: break-all;
+    -ms-word-break: break-word;
     width: 100% !important;
     -webkit-hyphens: auto;
     -webkit-text-size-adjust: none;
-    word-break: break-all;
     word-break: break-word;
 }
 
@@ -75,6 +74,7 @@ code {
     color: @text-color;
     font-size: 16px;
     line-height: 1.5em;
+    word-break: break-all;
 }
 
 p.sub {
@@ -83,6 +83,10 @@ p.sub {
 
 img {
     max-width: 100%;
+}
+
+.break-all, .break-all * {
+    word-break: break-all;
 }
 
 /* Layout */
