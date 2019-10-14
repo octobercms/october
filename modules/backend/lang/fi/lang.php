@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Ylläpitoalue'
     ],
-    'aria-label' => [
-        'footer'        => 'alatunniste',
-        'side_panel'    => 'sivupaneeli',
-        'breadcrumb'    => 'leivänmuru',
-        'main_content'  => 'pääalue',
-        'tabs'          => 'välilehdet',
-    ],
     'field' => [
         'invalid_type' => 'Kentän tyyppi :type ei ole sallittu.',
         'options_method_invalid_model' => "Attribuutti ':field' ratkaise kelvollista mallia. Spesifioit vaihtoehtoinen metodi mallille :model explisiittisesti.",
@@ -32,9 +25,6 @@ return [
             'help' => "Tietokanta on pakollinen. Varmista, että tietokanta on olemassa ja pystyssä kunnes kokeilet uudelleen.",
             'cms_link' => 'Palaa kotisivulle'
         ],
-        'invalid_token' => [
-            'label' => 'Token on virheellinen'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Osiota ':name' ei löydy."
@@ -270,8 +260,8 @@ return [
         'preview_no_media_message' => 'Ei valittua mediaa.',
         'preview_no_record_message' => 'Ei valittua tietuetta.',
         'select' => 'Valitse',
-        'select_all' => 'kaikki',
-        'select_none' => 'ei yhtään',
+        'select_all' => 'Valitse kaikki',
+        'select_none' => 'Älä valitse mitään',
         'select_placeholder' => 'ole hyvä ja valitse',
         'insert_row' => 'Lisää rivi',
         'insert_row_below' => 'Lisää rivi alapuolelle',

@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'بخش مدیریت',
     ],
-    'aria-label' => [
-        'footer'        => 'پاورقی',
-        'side_panel'    => 'پنل کناری',
-        'breadcrumb'    => 'پودرهای سوخاری',
-        'main_content'  => 'منطقه اصلی',
-        'tabs'          => 'زبانه ها',
-    ],
     'field' => [
         'invalid_type' => 'نوع فیلد :type نا معتبر می باشد.',
         'options_method_invalid_model' => "خصیصه ':field' به مدل معتبری اشاره نمی کند. گزینه مورد نظر را در مدل :model ایجاد نمایید.",
@@ -32,9 +25,6 @@ return [
             'help' => "جهت استفاده از بخش مدیریت به یک پایگاه داده نیاز دارید. تنظیمات پایگاه داده را بررسی نموده و از نصب جدولها در آن اطمینان حاصل کنید.",
             'cms_link' => 'Return to the homepage'
         ],
-        'invalid_token' => [
-            'label' => 'کلید امنیتی معتبر نمی باشد'
-        ]
     ],
     'partial' => [
         'not_found_name' => "بخشی با نام ':name' یافت نشد.",
@@ -270,8 +260,8 @@ return [
         'preview_no_media_message' => 'رسانه ای انتخاب نشده است.',
         'preview_no_record_message' => 'موردی انتخاب نشده است.',
         'select' => 'انتخاب',
-        'select_all' => 'همه',
-        'select_none' => 'هیچ',
+        'select_all' => 'انتخاب همه',
+        'select_none' => 'هیچ کدام را انتخاب نکنید',
         'select_placeholder' => 'لطفا انتخاب نمایید',
         'insert_row' => 'افزودن سطر',
         'insert_row_below' => 'افزودن سطر بعد از',

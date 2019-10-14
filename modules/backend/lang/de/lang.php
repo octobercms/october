@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Admin-Bereich'
     ],
-    'aria-label' => [
-        'footer'        => 'Fußzeile',
-        'side_panel'    => 'Seitenwand',
-        'breadcrumb'    => 'Semmelbrösel',
-        'main_content'  => 'Hauptbereich',
-        'tabs'          => 'Registerkarten auf',
-    ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
         'options_method_invalid_model' => 'Das Attribut ":field" löst sich nicht zu einen gültigen Model auf. Probiere die options Methode der Model-Klasse :model explicit zu definieren.',
@@ -32,9 +25,6 @@ return [
             'help' => "Eine Datenbank wird benötigt um Zugriff auf das Backend zu haben. Überprüfe die Datenbankkonfiguration und migriere die Datenbank bevor du es noch einmal probierst.",
             'cms_link' => 'Zurück zur Homepage'
         ],
-        'invalid_token' => [
-            'label' => 'Ungültiges Sicherheitstoken'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
@@ -252,8 +242,8 @@ return [
         'preview_no_media_message' => 'Es wurde keine Media-Datei ausgewählt.',
         'preview_no_record_message' => 'Es ist kein Eintrag ausgewählt.',
         'select' => 'Auswählen',
-        'select_all' => 'Alle',
-        'select_none' => 'Keine',
+        'select_all' => 'Wählen Sie Alle',
+        'select_none' => 'nichts ausgewählt',
         'select_placeholder' => 'Bitte auswählen',
         'insert_row' => 'Reihe einfügen',
         'insert_row_below' => 'Neue Reihe darunter einfügen',

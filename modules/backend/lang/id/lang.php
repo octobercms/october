@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Area Administrasi'
     ],
-    'aria-label' => [
-        'footer'        => 'menu footer',
-        'side_panel'    => 'panel samping',
-        'breadcrumb'    => 'remah roti',
-        'main_content'  => 'area utama',
-        'tabs'          => 'tab',
-    ],
     'field' => [
         'invalid_type' => 'Jenis medan tidak valid digunakan :type.',
         'options_method_not_exists' => "Kelas model :model harus menentukan metode :method() yang mengembalikan opsi untuk borang medan ':field'."
@@ -187,8 +180,8 @@ return [
         'behavior_not_ready' => 'Behavior borang belum diinisialisasi, periksa apakah Anda telah memanggil initForm() pada controller Anda.',
         'preview_no_files_message' => 'Berkas tidak terunggah',
         'select' => 'Pilih',
-        'select_all' => 'semua',
-        'select_none' => 'tiada',
+        'select_all' => 'Pilih Semua',
+        'select_none' => 'Pilih tidak ada',
         'select_placeholder' => 'silakan pilih',
         'insert_row' => 'Sisipkan Baris',
         'delete_row' => 'Hapus Baris',

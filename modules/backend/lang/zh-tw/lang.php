@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => '管理介面'
     ],
-    'aria-label' => [
-        'footer'        => '页脚菜单',
-        'side_panel'    => '侧板',
-        'breadcrumb'    => '面包屑踪迹',
-        'main_content'  => '主要区域',
-        'tabs'          => '标签',
-    ],
     'field' => [
         'invalid_type' => '錯誤的字串類型 :type',
         'options_method_not_exists' => "模型 :model 必須定義一個返回 ':field' 表單字串選項的方法 :method()。"
@@ -188,8 +181,8 @@ return [
         'behavior_not_ready' => '表單還沒初始化, 確保您調用了控制器中的 initForm()',
         'preview_no_files_message' => '檔案沒有上傳',
         'select' => '選擇',
-        'select_all' => 'all',
-        'select_none' => 'none',
+        'select_all' => '全選',
+        'select_none' => '選擇無',
         'select_placeholder' => '請選擇',
         'insert_row' => '插入行',
         'delete_row' => '刪除行',

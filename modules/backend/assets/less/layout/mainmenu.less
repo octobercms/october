@@ -11,25 +11,6 @@
 @mainmenu-tile-label-height: 20px;
 @mainmenu-tile-label-width: 100px;
 
-//
-// Focus Ring Support for accessibility
-//
-
-.js-focus-visible {
-	&:focus {
-		&:not(.focus-visible) {
-			outline: none;
-		}
-	}
-	.focus-visible {
-		border: .0625rem solid #3578E5;
-		-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5;
-		box-shadow: 0 0 .1875rem .125rem #3578E5;
-		z-index: 1;
-		position: relative;
-	}
-}
-
 body.mainmenu-open {
     overflow: hidden;
     position: fixed;
@@ -233,6 +214,7 @@ nav#layout-mainmenu {
 
             img.account-avatar {
                 width: 45px;
+                height: 45px;
             }
 
             .account-name {

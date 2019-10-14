@@ -5,13 +5,6 @@ return [
         'invalid_type' => 'Tipul campului folosit este invalid - :type.',
         'options_method_not_exists' => 'Clasa model :model trebuie sa defineasca o metoda :method() returnand optiuni pentru campul ":field".',
     ],
-    'aria-label' => [
-        'footer'        => 'subsol meniu',
-        'side_panel'    => 'panou lateral',
-        'breadcrumb'    => 'traseu de pescuit',
-        'main_content'  => 'zona principală',
-        'tabs'          => 'file',
-    ],
     'widget' => [
         'not_registered' => "Un nume de clasa de widget ':name' nu a fost inregistrat",
         'not_bound' => "Un widget cu numele de clasa ':name' nu a fost mapat la controller",
@@ -156,8 +149,8 @@ return [
         'behavior_not_ready' => 'Setarile initiale ale formularului nu au fost definite, verificati existenta functiei initForm() in controller.',
         'preview_no_files_message' => 'Fisierele nu au fost incarcate',
         'select' => 'Selectare',
-        'select_all' => 'toate',
-        'select_none' => 'niciunul',
+        'select_all' => 'Selectează tot',
+        'select_none' => 'Selectați niciuna',
     ],
     'relation' => [
         'missing_definition' => "Relatia nu contine definitii pentru campul ':field'.",

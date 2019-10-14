@@ -51,6 +51,11 @@ return [
     'file' => [
         'create_fail' => 'Nie je možné vytvoriť súbor: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Neplatný bezpečnostný token',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Zlučujúci súbor ':name' nebol nájdený."
     ],
@@ -96,7 +101,8 @@ return [
         'name' => [
             'label' => 'Názov pluginu',
             'help' => 'Názov pluginu podľa jeho unikátneho kódu. Napríklad, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Vytvoril :name'
     ],
     'plugins' => [
         'manage' => 'Správa pluginov',

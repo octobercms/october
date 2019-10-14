@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => 'No es posible crear el archivo: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Token de seguridad invalido',
+        ],
+    ],
     'combiner' => [
         'not_found' => "El archivo combinador ':name' no se encuentra."
     ],

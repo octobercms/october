@@ -14,6 +14,7 @@ use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
 use ApplicationException;
+use BackendAuth;
 
 /**
  * List Widget
@@ -360,7 +361,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendQueryBefore', function($listWidget, $query) {
+         *     Event::listen('backend.list.extendQueryBefore', function ($listWidget, $query) {
          *         $query->whereNull('deleted_at');
          *     });
          *
@@ -557,7 +558,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendQuery', function($listWidget, $query) {
+         *     Event::listen('backend.list.extendQuery', function ($listWidget, $query) {
          *         $newQuery = MyModel::newQuery();
          *         return $newQuery;
          *     });
@@ -608,7 +609,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendRecords', function($listWidget, $records) {
+         *     Event::listen('backend.list.extendRecords', function ($listWidget, $records) {
          *         $model = MyModel::where('always_include', true)->first();
          *         $records->prepend($model);
          *     });
@@ -709,6 +710,10 @@ class Lists extends WidgetBase
      */
     public function getColumn($column)
     {
+        if (!isset($this->allColumns[$column])) {
+            throw new ApplicationException('No definition for column ' . $column);
+        }
+
         return $this->allColumns[$column];
     }
 
@@ -776,7 +781,7 @@ class Lists extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.list.extendColumns', function($listWidget) {
+         *     Event::listen('backend.list.extendColumns', function ($listWidget) {
          *         // Only for the User controller
          *         if (!$listWidget->getController() instanceof \Backend\Controllers\Users) {
          *             return;
@@ -852,6 +857,12 @@ class Lists extends WidgetBase
          * Build a final collection of list column objects
          */
         foreach ($columns as $columnName => $config) {
+            // Check if user has permissions to show this column
+            $permissions = array_get($config, 'permissions');
+            if (!empty($permissions) && !BackendAuth::getUser()->hasAccess($permissions, false)) {
+                continue;
+            }
+
             $this->allColumns[$columnName] = $this->makeListColumn($columnName, $config);
         }
     }
@@ -953,7 +964,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideHeaderValue', function($listWidget, $column, &$value) {
+         *     Event::listen('backend.list.overrideHeaderValue', function ($listWidget, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1029,7 +1040,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the raw value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideColumnValueRaw', function($listWidget, $record, $column, &$value) {
+         *     Event::listen('backend.list.overrideColumnValueRaw', function ($listWidget, $record, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1076,7 +1087,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the provided column.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.overrideColumnValue', function($listWidget, $record, $column, &$value) {
+         *     Event::listen('backend.list.overrideColumnValue', function ($listWidget, $record, $column, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1110,7 +1121,7 @@ class Lists extends WidgetBase
          * If a value is returned from this event, it will be used as the value for the row class.
          * `$value` is passed by reference so modifying the variable in place is also supported. Example usage:
          *
-         *     Event::listen('backend.list.injectRowClass', function($listWidget, $record, &$value) {
+         *     Event::listen('backend.list.injectRowClass', function ($listWidget, $record, &$value) {
          *         $value .= '-modified';
          *     });
          *
@@ -1150,7 +1161,7 @@ class Lists extends WidgetBase
                 return call_user_func_array($callback, [$value, $column, $record]);
             }
         }
-        
+
         $customMessage = '';
         if ($type === 'relation') {
             $customMessage = 'Type: relation is not supported, instead use the relation property to specify a relationship to pull the value from and set the type to the type of the value expected.';

@@ -1,7 +1,8 @@
 {
     "name": "october/october",
-    "description": "October CMS",
+    "description": "OctoberCMS",
     "homepage": "https://octobercms.com",
+    "type": "project",
     "keywords": ["october", "cms", "octobercms", "laravel"],
     "license": "MIT",
     "authors": [
@@ -50,6 +51,8 @@
     },
     "autoload-dev": {
         "classmap": [
+            "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
             "tests/UiTestCase.php",
             "tests/PluginTestCase.php"

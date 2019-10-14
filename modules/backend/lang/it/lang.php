@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Area di Amministrazione'
     ],
-    'aria-label' => [
-        'footer'        => 'menu a piè di pagina',
-        'side_panel'    => 'pannello laterale',
-        'breadcrumb'    => 'elenco dei breadcrumb',
-        'main_content'  => 'area principale',
-        'tabs'          => 'schede',
-    ],
     'field' => [
         'invalid_type' => 'Il tipo di campo :type non è valido.',
         'options_method_not_exists' => 'La classe :model deve definire un metodo :method() che ritorni le opzioni per il campo ":field".'
@@ -26,9 +19,6 @@ return [
             'help' => "Non hai le autorizzazioni necessarie per accedere a questa pagina.",
             'cms_link' => 'Ritorna al pannello di controllo'
         ],
-        'invalid_token' => [
-            'label' => 'Token di protezione non valido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "La vista parziale ':name' non è stata trovata."
@@ -237,8 +227,8 @@ return [
         'preview_no_files_message' => 'Non ci sono file caricati.',
         'preview_no_record_message' => 'Nessun record selezionato.',
         'select' => 'Seleziona',
-        'select_all' => 'tutti',
-        'select_none' => 'nessuno',
+        'select_all' => 'seleziona tutto',
+        'select_none' => 'non selezionare niente',
         'select_placeholder' => 'seleziona',
         'insert_row' => 'Inserisci riga',
         'insert_row_below' => 'Inserisci riga sotto',

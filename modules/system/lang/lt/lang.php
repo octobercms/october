@@ -46,6 +46,11 @@ return [
     'file' => [
         'create_fail' => 'Negalime sukurti failo: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Netinkama saugos žyma',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Bendrintojo failas ':name' nerastas."
     ],

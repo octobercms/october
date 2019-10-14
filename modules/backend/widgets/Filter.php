@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Backend\Classes\WidgetBase;
 use Backend\Classes\FilterScope;
 use ApplicationException;
+use BackendAuth;
 
 /**
  * Filter Widget
@@ -377,7 +378,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendQuery', function((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
+         *     Event::listen('backend.filter.extendQuery', function ((\Backend\Widgets\Filter) $filterWidget, $query, (\Backend\Classes\FilterScope) $scope) {
          *         if ($scope->scopeName == 'status') {
          *             $query->where('status', '<>', 'all');
          *         }
@@ -505,7 +506,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendScopesBefore', function((\Backend\Widgets\Filter) $filterWidget) {
+         *     Event::listen('backend.filter.extendScopesBefore', function ((\Backend\Widgets\Filter) $filterWidget) {
          *         // Just in case you really had to do something before scopes are defined
          *     });
          *
@@ -533,7 +534,7 @@ class Filter extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.filter.extendScopes', function((\Backend\Widgets\Filter) $filterWidget) {
+         *     Event::listen('backend.filter.extendScopes', function ((\Backend\Widgets\Filter) $filterWidget) {
          *         $filterWidget->addScopes([
          *             'my_scope' => [
          *                 'label' => 'My Filter Scope'
@@ -559,6 +560,14 @@ class Filter extends WidgetBase
     public function addScopes(array $scopes)
     {
         foreach ($scopes as $name => $config) {
+            /*
+             * Check if user has permissions to show this filter
+             */
+            $permissions = array_get($config, 'permissions');
+            if (!empty($permissions) && !BackendAuth::getUser()->hasAccess($permissions, false)) {
+                continue;
+            }
+
             $scopeObj = $this->makeFilterScope($name, $config);
 
             /*

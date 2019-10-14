@@ -18,8 +18,8 @@ return [
             'widget_title_default' => 'Website',
             'online' => '在线',
             'maintenance' => '维护',
-            'manage_themes' => '网站主题管理',
-            'customize_theme' => '自定义主题'
+            'manage_themes' => '管理主题',
+            'customize_theme' => '自定义主题',
         ]
     ],
     'theme' => [

@@ -50,7 +50,6 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
-    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -151,8 +150,12 @@ class Theme
     public static function getActiveThemeCode()
     {
         $activeTheme = Config::get('cms.activeTheme');
+        $themes = static::all();
+        $havingMoreThemes = count($themes) > 1;
+        $themeHasChanged = !empty($themes[0]) && $themes[0]->dirName !== $activeTheme;
+        $checkDatabase = $havingMoreThemes || $themeHasChanged;
 
-        if (App::hasDatabase()) {
+        if ($checkDatabase && App::hasDatabase()) {
             try {
                 try {
                     $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
@@ -181,7 +184,9 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
          *
          */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
@@ -235,7 +240,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *     Event::listen('cms.theme.setActiveTheme', function ($code) {
          *         \Log::info("Theme has been changed to $code");
          *     });
          *
@@ -265,7 +270,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the edit
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getEditTheme', function() {
+         *     Event::listen('cms.theme.getEditTheme', function () {
          *         return "the-edit-theme-code";
          *     });
          *
@@ -339,21 +344,7 @@ class Theme
             return $this->configCache = [];
         }
 
-        try {
-            if (Config::get('app.debug', false)) {
-                $config = Yaml::parseFile($path);
-            } else {
-                $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
-                $config = Cache::rememberForever($cacheKey, function () use ($path) {
-                    return Yaml::parseFile($path);
-                });
-            }
-        }
-        catch (Exception $ex) {
-            // Cache failed
-            $config = Yaml::parseFile($path);
-        }
-
+        $config = Yaml::parseFile($path);
 
         /**
          * @event cms.theme.extendConfig
@@ -503,7 +494,6 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
     }
 
     /**
@@ -522,6 +512,19 @@ class Theme
     public function getCustomData()
     {
         return ThemeData::forTheme($this);
+    }
+
+    /**
+     * Remove data specific to this theme
+     * @return bool
+     */
+    public function removeCustomData()
+    {
+        if ($this->hasCustomData()) {
+            return $this->getCustomData()->delete();
+        }
+
+        return true;
     }
 
     /**

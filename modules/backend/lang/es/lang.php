@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Area de Administración'
     ],
-    'aria-label' => [
-        'footer'        => 'pie de página',
-        'side_panel'    => 'panel lateral',
-        'breadcrumb'    => 'migaja de pan',
-        'main_content'  => 'área principal',
-        'tabs'          => 'pestañas',
-    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'El modelo clase: model debe definir un método: method() opciones recurrentes para el ":field" desde campo.'
@@ -26,9 +19,6 @@ return [
             'help' => 'No tiene permisos necesarios para ver esta página.',
             'cms_link' => 'Volver al panel de administración'
         ],
-        'invalid_token' => [
-            'label' => 'Token de seguridad invalido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "El parcial ':name' no se encuentra."
@@ -237,8 +227,8 @@ return [
         'preview_no_files_message' => 'Los archivos no se han subido',
         'preview_no_record_message' => 'No hay ningún registro seleccionado.',
         'select' => 'Seleccionar',
-        'select_all' => 'todos',
-        'select_none' => 'ninguno',
+        'select_all' => 'seleccionar todo',
+        'select_none' => 'no seleccionar ninguno',
         'select_placeholder' => 'por favor seleccione',
         'insert_row' => 'Agregar Fila',
         'insert_row_below' => 'Insertar fila debajo',

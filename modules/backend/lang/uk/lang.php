@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Зона адміністрування'
     ],
-    'aria-label' => [
-        'footer'        => 'меню нижнього колонтитула',
-        'side_panel'    => 'бічну панель',
-        'breadcrumb'    => 'прохідна стежка',
-        'main_content'  => 'основний район',
-        'tabs'          => 'вкладки',
-    ],
     'field' => [
         'invalid_type' => 'Неправильний тип поля :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
@@ -31,9 +24,6 @@ return [
             'label' => 'База данних відсутня',
             'help' => 'Для доступу до back-end - потрібна база данних. Перевірте, налаштування та міграції бази данних, перш ніж спробувати знову.',
             'cms_link' => 'Повернутися на домашню сторінку'
-        ],
-        'invalid_token' => [
-            'label' => 'Неправильний токен безпеки'
         ],
     ],
     'partial' => [
@@ -269,8 +259,8 @@ return [
         'preview_no_media_message' => 'Немає обраного файла.',
         'preview_no_record_message' => 'Немає обраних записів.',
         'select' => 'Обрати',
-        'select_all' => 'всі',
-        'select_none' => 'жоден',
+        'select_all' => 'вибрати все',
+        'select_none' => 'вибрати жоден',
         'select_placeholder' => 'будь ласка, оберіть',
         'insert_row' => 'Вставити рядок',
         'insert_row_below' => 'Вставити рядок нижче',

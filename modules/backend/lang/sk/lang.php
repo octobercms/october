@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Administrácia'
     ],
-    'aria-label' => [
-        'footer'        => 'zápätie',
-        'side_panel'    => 'bočný panel',
-        'breadcrumb'    => 'chodník',
-        'main_content'  => 'oblasti',
-        'tabs'          => 'karty',
-    ],
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',
         'options_method_invalid_model' => "Vlastnosť ':field' nezodpovedá platnému modelu. Skúste špecifikovať metódu možností pre triedu modelu :model explicitne.",
@@ -32,9 +25,6 @@ return [
             'help' => "Pre prístup do administrácie je potrebná databáza. Zkontrolujte, či je databáza nakonfigurovaná a zmigrovaná a skúste to znova.",
             'cms_link' => 'Späť na úvodnú stránku'
         ],
-        'invalid_token' => [
-            'label' => 'Neplatný bezpečnostný token'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Čiastočná šablona ':name' nebola nájdená."
@@ -270,8 +260,8 @@ return [
         'preview_no_media_message' => 'Žiadne médium nebolo vybrané.',
         'preview_no_record_message' => 'Žiadny záznam nie je vybraný',
         'select' => 'Vybrať',
-        'select_all' => 'všetko',
-        'select_none' => 'nič',
+        'select_all' => 'vybrať všetko',
+        'select_none' => 'nevyber nič',
         'select_placeholder' => 'prosím vyberte',
         'insert_row' => 'Vložiť riadok',
         'insert_row_below' => 'Vložiť riadok pod',

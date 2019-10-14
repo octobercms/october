@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Administrationsområde'
     ],
-    'aria-label' => [
-        'footer'        => 'footer-menyn',
-        'side_panel'    => 'sidopanel',
-        'breadcrumb'    => 'breadcrumb trail',
-        'main_content'  => 'huvudområde',
-        'tabs'          => 'flikar',
-    ],
     'field' => [
         'invalid_type' => 'Felaktig fälttyp använd :type.',
         'options_method_not_exists' => 'Modellklassen :model måste definera en metod :method() som returnerar villkor för formfältet ":field"',
@@ -25,9 +18,6 @@ return [
             'label' => "Nekat tillträde",
             'help' => "Du har inte behörighet att visa den här sidan.",
             'cms_link' => "Gå till CMS backend",
-        ],
-        'invalid_token' => [
-            'label' => 'Ogiltig säkerhetstoken'
         ],
     ],
     'partial' => [
@@ -200,8 +190,8 @@ return [
         'preview_no_files_message' => 'Filen är inte uppladdad',
         'preview_no_record_message' => 'Ingen rad är vald.',
         'select' => 'Välj',
-        'select_all' => 'alla',
-        'select_none' => 'ingen',
+        'select_all' => 'Välj alla',
+        'select_none' => 'Välj ingen',
         'select_placeholder' => 'Vänligen välj',
         'insert_row' => 'Lägg till rad',
         'delete_row' => 'Radera rad',

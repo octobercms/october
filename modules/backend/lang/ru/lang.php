@@ -5,13 +5,6 @@ return [
         'title' => 'Панель управления',
         'invalid_login' => 'Вы ввели некорректные данные. Пожалуйста, перепроверьте их и попробуйте ещё раз.'
     ],
-    'aria-label' => [
-        'footer'        => 'меню нижнего колонтитула',
-        'side_panel'    => 'боковая панель',
-        'breadcrumb'    => 'след крошки',
-        'main_content'  => 'основная площадь',
-        'tabs'          => 'вкладки',
-    ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
@@ -33,9 +26,6 @@ return [
             'label' => 'Отсутствует база данных',
             'help' => "Для доступа к серверу требуется база данных. Проверьте, что база данных настроена и перенесена, прежде чем повторять попытку.",
             'cms_link' => 'Вернуться на главную страницу'
-        ],
-        'invalid_token' => [
-            'label' => 'Неверный токен безопасности'
         ],
     ],
     'partial' => [
@@ -276,8 +266,8 @@ return [
         'preview_no_media_message' => 'Нет выбраного медиа.',
         'preview_no_record_message' => 'Нет выбранных записей.',
         'select' => 'Выбрать',
-        'select_all' => 'все',
-        'select_none' => 'ничего',
+        'select_all' => 'выбрать все',
+        'select_none' => 'выберите ни одного',
         'select_placeholder' => 'Пожалуйста, выберите',
         'insert_row' => 'Вставить строку',
         'insert_row_below' => 'Вставить строку ниже',

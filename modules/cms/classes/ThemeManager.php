@@ -107,6 +107,8 @@ class ThemeManager
             throw new ApplicationException(trans('cms::lang.theme.delete_active_theme_failed'));
         }
 
+        $theme->removeCustomData();
+
         /*
          * Delete from file system
          */

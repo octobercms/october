@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Khu vực quản trị'
     ],
-    'aria-label' => [
-        'footer'        => 'menu chân trang',
-        'side_panel'    => 'bảng điều khiển bên',
-        'breadcrumb'    => 'đường mòn bánh mì',
-        'main_content'  => 'khu vực chính',
-        'tabs'          => 'tab',
-    ],
     'field' => [
         'invalid_type' => 'Loại Field không hợp lệ :type.',
         'options_method_invalid_model' => "Thuộc tính ':field' không đưa ra được model hợp lệ. Hãy thử chỉ định phương pháp tùy chọn cho model :model một cách rõ ràng.",
@@ -32,9 +25,6 @@ return [
             'help' => "Bắt buộc phải có 1 database để truy cập vào trang quản trị. Kiểm tra lại cấu hình database và migrated trước khi thử lại.",
             'cms_link' => 'Quay lại trang chủ'
         ],
-        'invalid_token' => [
-            'label' => 'Security token không hợp lệ'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Không tìm thấy partial ':name'."
@@ -270,8 +260,8 @@ return [
         'preview_no_media_message' => 'Không có file media nào được chọn.',
         'preview_no_record_message' => 'Không có bản ghi nào được chọn.',
         'select' => 'Select',
-        'select_all' => 'Tất cả',
-        'select_none' => 'none',
+        'select_all' => 'chọn tất cả',
+        'select_none' => 'không chọn',
         'select_placeholder' => 'Vui lòng lựa chọn',
         'insert_row' => 'Thêm mới Row',
         'insert_row_below' => 'Thêm Row dưới đây',

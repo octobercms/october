@@ -5,13 +5,6 @@ return [
         'title' => "Àrea d'Administració",
         'invalid_login' => "Els detalls que has introduït no corresponen als nostres registres. Si us plau revisa'ls i torna-ho a intentar."
     ],
-    'aria-label' => [
-        'footer'        => 'Peu de pàgina',
-        'side_panel'    => 'panell lateral',
-        'breadcrumb'    => 'Pa ratllat',
-        'main_content'  => 'àrea principal',
-        'tabs'          => 'pestanyes',
-    ],
     'field' => [
         'invalid_type' => 'El tipus de camp :type utilitzat és invàlid.',
         'options_method_invalid_model' => "L'atribut ':field' no resol a un model vàlid. Intenta especificar explícitament el mètode d'opcions per la classe de model :model.",
@@ -275,8 +268,8 @@ return [
         'preview_no_media_message' => 'No hi ha medis seleccionats.',
         'preview_no_record_message' => 'No hi ha cap registre seleccionat.',
         'select' => 'Seleccionar',
-        'select_all' => 'tots',
-        'select_none' => 'cap',
+        'select_all' => 'seleccionar tot',
+        'select_none' => 'no selecciona cap',
         'select_placeholder' => 'si us plau selecciona',
         'insert_row' => 'Inserir fila',
         'insert_row_below' => 'Inserir fila a sota',

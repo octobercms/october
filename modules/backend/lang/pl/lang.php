@@ -4,13 +4,6 @@ return [
     'auth'                => [
         'title' => 'Panel Administracyjny',
     ],
-    'aria-label' => [
-        'footer'        => 'stopka',
-        'side_panel'    => 'panel boczny',
-        'breadcrumb'    => 'szlak nawigacyjny',
-        'main_content'  => 'główna strefa',
-        'tabs'          => 'zakładki na',
-    ],
     'field'               => [
         'invalid_type'              => 'Użyto nieprawidłowego typu pola :type.',
         'options_method_not_exists' => "Model :model musi definiować metodę :method() zwracając opcję z pola ':field' formularza.",
@@ -30,9 +23,6 @@ return [
             'label'    => 'Brak bazy danych',
             'help'     => 'Baza danych jest wymagana do dostępu do panelu administracyjnego. Sprawdz czy baza danych jest prawidłowo skonfigurowana i zmigrowana przed ponowną próbą.',
             'cms_link' => 'Powrót do strony głównej',
-        ],
-        'invalid_token' => [
-            'label' => 'Nieprawidłowy żeton bezpieczeństwa',
         ],
     ],
     'partial'             => [
@@ -219,7 +209,7 @@ return [
         'update_title'                         => 'Edytuj :name',
         'preview_title'                        => 'Podgląd :name',
         'create_success'                       => ':name został stworzony pomyślnie',
-        'update_success'                       => ':name został stworzony pomyślnie',
+        'update_success'                       => ':name został zaktualizowany pomyślnie',
         'delete_success'                       => ':name został usunięty pomyślnie',
         'reset_success'                        => 'Resetowanie zostało zakończone',
         'missing_id'                           => 'ID rekordu formularza nie zostało znalezione.',
@@ -260,8 +250,8 @@ return [
         'preview_no_files_message'             => 'Brak wgranych plików.',
         'preview_no_record_message'            => 'Brak zaznaczonych elementów.',
         'select'                               => 'Zaznacz',
-        'select_all'                           => 'wszystkie',
-        'select_none'                          => 'żadne',
+        'select_all'                           => 'Zaznacz wszystko',
+        'select_none'                          => 'Wybierz brak',
         'select_placeholder'                   => 'proszę zaznacz',
         'insert_row'                           => 'Wstaw wiersz',
         'insert_row_below'                     => 'Wstaw wiersz poniżej',
