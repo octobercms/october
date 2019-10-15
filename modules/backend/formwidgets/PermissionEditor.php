@@ -7,6 +7,22 @@ use BackendAuth;
  * User/group permission editor
  * This widget is used by the system internally on the System / Administrators pages.
  *
+ * Available Modes:
+ * - radio: Default mode, used by user-level permissions.
+ *   Provides three-state control over each available permission. States are
+ *      -1: Explicitly deny the permission
+ *      0: Inherit the permission's value from a parent source (User inherits from Role)
+ *      1: Explicitly grant the permission
+ * - checkbox: Used to define permissions for roles. Intended to define a base of what permissions are available
+ *   Provides two state control over each available permission. States are
+ *      1: Explicitly allow the permission
+ *      null: If the checkbox is not ticked, the permission will not be sent to the server and will not be stored.
+ *      This is interpreted as the permission not being present and thus not allowed
+ * - switch: Used to define overriding permissions in a simpler UX than the radio.
+ *   Provides two state control over each available permission. States are
+ *      1: Explicitly allow the permission
+ *      -1: Explicitly deny the permission
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -14,7 +30,10 @@ class PermissionEditor extends FormWidgetBase
 {
     protected $user;
 
-    public $mode;
+    /**
+     * @var string Mode to display the permission editor with. Available options: radio, checkbox, switch
+     */
+    public $mode = 'radio';
 
     /**
      * @inheritDoc
@@ -51,7 +70,7 @@ class PermissionEditor extends FormWidgetBase
             $permissionsData = [];
         }
 
-        $this->vars['checkboxMode'] = $this->getControlMode() === 'checkbox';
+        $this->vars['mode'] = $this->mode;
         $this->vars['permissions'] = $this->getFilteredPermissions();
         $this->vars['baseFieldName'] = $this->getFieldName();
         $this->vars['permissionsData'] = $permissionsData;
@@ -77,11 +96,6 @@ class PermissionEditor extends FormWidgetBase
     {
         $this->addCss('css/permissioneditor.css', 'core');
         $this->addJs('js/permissioneditor.js', 'core');
-    }
-
-    protected function getControlMode()
-    {
-        return strlen($this->mode) ? $this->mode : 'radio';
     }
 
     /**
@@ -117,7 +131,7 @@ class PermissionEditor extends FormWidgetBase
     /**
      * Returns the available permissions; removing those that the logged-in user does not have access to
      *
-     * @return array The permissions that the logged-in user does have access to
+     * @return array The permissions that the logged-in user does have access to ['permission-tab' => $arrayOfAllowedPermissionObjects]
      */
     protected function getFilteredPermissions()
     {
