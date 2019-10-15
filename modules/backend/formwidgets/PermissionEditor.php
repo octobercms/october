@@ -23,6 +23,10 @@ use BackendAuth;
  *      1: Explicitly allow the permission
  *      -1: Explicitly deny the permission
  *
+ * Available permissions can be defined in the form of an array of permission codes to allow:
+ * NOTE: Users are still not allowed to modify permissions that they themselves do not have access to
+ *     availablePermissions: ['some.author.permission', 'some.other.permission', 'etc.some.system.permission']
+ *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -36,12 +40,18 @@ class PermissionEditor extends FormWidgetBase
     public $mode = 'radio';
 
     /**
+     * @var array Permission codes to allow to be interacted with through this widget
+     */
+    public $availablePermissions;
+
+    /**
      * @inheritDoc
      */
     public function init()
     {
         $this->fillFromConfig([
-            'mode'
+            'mode',
+            'availablePermissions',
         ]);
 
         $this->user = BackendAuth::getUser();
@@ -137,13 +147,13 @@ class PermissionEditor extends FormWidgetBase
     {
         $permissions = BackendAuth::listTabbedPermissions();
 
-        if ($this->user->isSuperUser()) {
-            return $permissions;
-        }
-
         foreach ($permissions as $tab => $permissionsArray) {
             foreach ($permissionsArray as $index => $permission) {
-                if (!$this->user->hasAccess($permission->code)) {
+                if (!$this->user->hasAccess($permission->code) ||
+                    (
+                        is_array($this->availablePermissions) &&
+                        !in_array($permission->code, $this->availablePermissions)
+                    )) {
                     unset($permissionsArray[$index]);
                 }
             }
