@@ -63,28 +63,20 @@ tabs:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_robots_index
             span: auto
-            type: dropdown
-            options:
-                index: INDEX
-                noindex: NOINDEX
-
-        settings[meta_robots_follow]:
-            tab: cms::lang.editor.meta
-            label: cms::lang.editor.meta_robots_follow
-            span: auto
-            type: dropdown
-            options:
-                follow: FOLLOW
-                nofollow: NOFOLLOW
+            type: switch
+            comment: cms::lang.editor.meta_robots_index_comment
 
         settings[meta_robots_archive]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_robots_archive
             span: auto
-            type: dropdown
-            options:
-                archive: ARCHIVE
-                noarchive: NOARCHIVE
+            type: switch
+
+        settings[meta_robots_follow]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_robots_follow
+            span: auto
+            type: switch
 
         settings[is_hidden]:
             tab: cms::lang.editor.settings

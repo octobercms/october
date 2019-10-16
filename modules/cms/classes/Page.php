@@ -28,7 +28,6 @@ class Page extends CmsCompoundObject
         'is_hidden',
         'meta_title',
         'meta_description',
-        'meta_title',
         'meta_robots_index',
         'meta_robots_follow',
         'meta_robots_archive',
@@ -117,10 +116,24 @@ class Page extends CmsCompoundObject
     }
 
     /**
+     * Helper that returns formatted robots tags.
+     * @return string
+     */
+    public function getMetaRobotsAttribute()
+    {
+        $options = [];
+        $options[] = $this->meta_robots_index ? 'noindex' : 'index';
+        $options[] = $this->meta_robots_follow ? 'nofollow' : 'follow';
+        $options[] = $this->meta_robots_archive ? 'noarchive' : 'archive';
+        return implode(',', $options);
+    }
+
+    /**
      * Helper that makes a URL for a page in the active theme.
      * @param mixed $page Specifies the Cms Page file name.
      * @param array $params Route parameters to consider in the URL.
      * @return string
+     * @throws CmsException
      */
     public static function url($page, array $params = [])
     {
@@ -190,6 +203,7 @@ class Page extends CmsCompoundObject
      * @param \Cms\Classes\Theme $theme Specifies the current theme.
      * The URL is specified relative to the website root, it includes the subdirectory name, if any.
      * @return mixed Returns an array. Returns null if the item cannot be resolved.
+     * @throws CmsException
      */
     public static function resolveMenuItem($item, string $url, Theme $theme)
     {
@@ -218,6 +232,7 @@ class Page extends CmsCompoundObject
      * Returns a menu item type information. The type information is returned as array
      * @param string $type Specifies the page link type
      * @return array
+     * @throws CmsException
      */
     public static function getRichEditorTypeInfo(string $type)
     {
