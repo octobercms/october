@@ -32,9 +32,6 @@ return [
             'help' => "需要数据库以访问后端。请在再次尝试之前检查数据库的配置和迁移。",
             'cms_link' => '返回首页'
         ],
-        'invalid_token' => [
-            'label' => '非法安全令牌'
-        ]
     ],
     'partial' => [
         'not_found_name' => "未找到部件 ':name' ",

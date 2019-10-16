@@ -27,9 +27,6 @@ return [
             'help' => 'Une base de données est requise pour l’accès à l’interface d’administration. Veuillez vérifier que la base de données existe et que les migrations ont été effectuées avant de ré-essayer.',
             'cms_link' => 'Retour à l’accueil'
         ],
-        'invalid_token' => [
-            'label' => 'La clé de sécurité est invalide'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'Le modèle partiel ":name" est introuvable.'

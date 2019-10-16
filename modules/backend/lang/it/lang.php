@@ -19,9 +19,6 @@ return [
             'help' => "Non hai le autorizzazioni necessarie per accedere a questa pagina.",
             'cms_link' => 'Ritorna al pannello di controllo'
         ],
-        'invalid_token' => [
-            'label' => 'Token di protezione non valido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "La vista parziale ':name' non è stata trovata."

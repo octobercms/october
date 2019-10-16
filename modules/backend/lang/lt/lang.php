@@ -25,9 +25,6 @@ return [
             'help' => "Duomenų bazė reikalinga administracijos prieigai. Patikrinkite duomenų bazės konfigūraciją bei migracijas ir bandykite dar kartą.",
             'cms_link' => 'Grįžti į svetainę'
         ],
-        'invalid_token' => [
-            'label' => 'Netinkama saugos žyma'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Priedėlis ':name' nerastas."

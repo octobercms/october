@@ -15,7 +15,14 @@
     <ul class="nav nav-tabs">
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
             <li class="<?= $index++ == 0 ? 'active' : '' ?>">
-                <a href="#<?= $type . 'tab-' . $index ?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
+                <a href="#<?= $type . 'tab-' . $index ?>">
+                    <span class="title">
+                        <span>
+                            <?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?>
+                            <?= e(trans($name)) ?>
+                        </span>
+                    </span>
+                </a>
             </li>
         <?php endforeach ?>
     </ul>
