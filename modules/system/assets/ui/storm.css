@@ -3127,6 +3127,7 @@ html.mobile [data-control=toolbar].is-native-drag {overflow:auto;-webkit-overflo
 .compact-toolbar div.control-toolbar input.form-control.icon.search {background-position:right -78px}
 #layout-side-panel div.control-toolbar div.loading-indicator-container.size-input-text .loading-indicator,
 .compact-toolbar div.control-toolbar div.loading-indicator-container.size-input-text .loading-indicator {top:6px}
+.toolbar-item.toolbar-primary.scroll-before button, .toolbar-item.toolbar-primary.scroll-before a {cursor:grab !important}
 div.scoreboard {position:relative;padding:0}
 div.scoreboard:after,
 div.scoreboard:before {display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#bbb}
