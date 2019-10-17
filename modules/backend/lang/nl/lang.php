@@ -42,6 +42,12 @@ return [
         'not_found' => "Het AJAX verzoek ':name' kon niet worden gevonden."
     ],
     'account' => [
+        'impersonate' => 'Inloggen als',
+        'impersonate_confirm' => 'Je gaat inloggen als deze gebruiker. Weet je het zeker? Keer terug door uit te loggen.',
+        'impersonate_success' => 'Je bent nu ingelogd als deze gebruiker',
+        'impersonate_working' => 'Inloggen als...',
+        'impersonating' => 'Inloggen als :full_name',
+        'stop_impersonating' => 'Terugkeren',
         'signed_in_as' => 'Ingelogd als :full_name',
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
@@ -355,6 +361,8 @@ return [
         'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
         'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
+        'debug' => 'Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.',
+        'decompileBackendAssets' => 'Assets van de back-end worden momenteel gedecompileerd. Dit wordt aanbevolen op een productie-omgeving.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
@@ -439,6 +447,7 @@ return [
         'navigation' => 'Navigatie',
         'menu_mode' => 'Menustijl',
         'menu_mode_inline' => 'Inline-mode',
+        'menu_mode_inline_no_icons' => 'Inline-mode (zonder iconen)',
         'menu_mode_tile' => 'Tegels',
         'menu_mode_collapsed' => 'Ingeklapt',
     ],
@@ -550,6 +559,7 @@ return [
     'mediafinder' => [
         'label' => 'Media zoeker',
         'default_prompt' => 'Klik op de %s knop om een media item te vinden',
+        'no_image' => 'De afbeelding kan niet gevonden worden',
     ],
     'media' => [
         'menu_label' => 'Media',
