@@ -17,6 +17,7 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
 use Exception;
+use Config;
 
 /**
  * CMS asset list widget.
@@ -663,6 +664,8 @@ class AssetList extends WidgetBase
              * Accept the uploaded file
              */
             $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
+
+            @chmod($this->getCurrentPath().'/'.$uploadedFile->getClientOriginalName(), octdec(Config::get('cms.defaultMask.file')));
 
             $response = Response::make('success');
         }
