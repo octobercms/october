@@ -62,6 +62,8 @@ tabs:
         settings[meta_robots_index]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_robots_index
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
             span: auto
             type: switch
             comment: cms::lang.editor.meta_robots_index_comment
@@ -69,12 +71,16 @@ tabs:
         settings[meta_robots_archive]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_robots_archive
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
             span: auto
             type: switch
 
         settings[meta_robots_follow]:
             tab: cms::lang.editor.meta
             label: cms::lang.editor.meta_robots_follow
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
             span: auto
             type: switch
 
