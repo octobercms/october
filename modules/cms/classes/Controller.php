@@ -8,6 +8,7 @@ use Lang;
 use Flash;
 use Config;
 use Session;
+use Cookie;
 use Request;
 use Response;
 use Exception;
@@ -256,7 +257,13 @@ class Controller
             return $result;
         }
 
-        return Response::make($result, $this->statusCode);
+        $response = Response::make($result, $this->statusCode);
+
+        if (Config::get('cms.enableCsrfProtection')) {
+            $this->addCsrfCookie($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -1582,6 +1589,28 @@ class Controller
     //
     // Security
     //
+
+    /**
+     * Adds anti-CSRF cookie.
+     *
+     * Adds a cookie with a token for CSRF checks to the response.
+     *
+     * @return void
+     */
+    protected function addCsrfCookie(\Illuminate\Http\Response $response)
+    {
+        $response->withCookie(Cookie::make(
+            'csrfToken',
+            Session::token(),
+            60,
+            null,
+            null,
+            false,
+            false,
+            false,
+            'strict'
+        ));
+    }
 
     /**
      * Checks the request data / headers for a valid CSRF token.
