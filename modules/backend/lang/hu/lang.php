@@ -412,7 +412,7 @@ return [
         'line_breaker_tags' => 'Sortörő elemek',
         'line_breaker_tags_comment' => 'Azon HTML elemek, amik végén kötelezően egy új sor jelenik meg.',
         'toolbar_buttons' => 'Eszköztár',
-        'toolbar_buttons_comment' => 'Használható értékek: [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => 'Használható értékek:'
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
