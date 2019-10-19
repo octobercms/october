@@ -56,4 +56,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
+    ##
+    ## Prevent Cross-Site Tracing (XST)
+    ##
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+    RewriteRule .* - [F]
+
 </IfModule>
