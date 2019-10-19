@@ -15,6 +15,7 @@ if (window.jQuery.request !== undefined) {
 +function ($) { "use strict";
 
     var Request = function (element, handler, options) {
+        var csrfToken;
         var $el = this.$el = $(element);
         this.options = options || {};
 
@@ -27,6 +28,14 @@ if (window.jQuery.request !== undefined) {
 
         if (!handler.match(/^(?:\w+\:{2})?on*/)) {
             throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')
+        }
+
+        if (document.cookie) {
+            // Retrieve CSRF cookie
+            var exists = new RegExp("(?:^|;\\s*)" + encodeURIComponent('csrfToken').replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")
+            if (exists.test(document.cookie)) {
+                csrfToken = decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent('csrfToken').replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null
+            }
         }
 
         /*
@@ -66,6 +75,10 @@ if (window.jQuery.request !== undefined) {
 
         if (useFlash) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
+        }
+
+        if (csrfToken) {
+            requestHeaders['X-CSRF-TOKEN'] = csrfToken
         }
 
         /*
