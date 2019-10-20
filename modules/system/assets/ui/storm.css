@@ -4200,6 +4200,9 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group.span-full {width:100%;float:left}
 .form-group.span-left {float:left;width:48.5%;clear:left}
 .form-group.span-right {float:right;width:48.5%;clear:right}
+.form-group.clear-full {clear:both}
+.form-group.clear-left {clear:left}
+.form-group.clear-right {clear:right}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
 .form-group.number-field >.form-control {text-align:right}
