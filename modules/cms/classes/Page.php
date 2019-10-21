@@ -28,9 +28,9 @@ class Page extends CmsCompoundObject
         'is_hidden',
         'meta_title',
         'meta_description',
-        'meta_robots_index',
-        'meta_robots_follow',
-        'meta_robots_archive',
+        'meta_robots_noindex',
+        'meta_robots_nofollow',
+        'meta_robots_noarchive',
         'markup',
         'settings',
         'code'
@@ -122,9 +122,9 @@ class Page extends CmsCompoundObject
     public function getMetaRobotsAttribute()
     {
         $options = [];
-        $options[] = $this->meta_robots_index ? 'noindex' : 'index';
-        $options[] = $this->meta_robots_follow ? 'nofollow' : 'follow';
-        $options[] = $this->meta_robots_archive ? 'noarchive' : 'archive';
+        $options[] = $this->meta_robots_noindex ? 'noindex' : 'index';
+        $options[] = $this->meta_robots_nofollow ? 'nofollow' : 'follow';
+        $options[] = $this->meta_robots_noarchive ? 'noarchive' : 'archive';
         return implode(',', $options);
     }
 
