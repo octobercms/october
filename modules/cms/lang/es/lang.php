@@ -175,7 +175,7 @@ return [
         'meta_title' => 'Meta Título',
         'meta_description' => 'Meta Descripción',
         'meta_robots_noindex' => '¿Deshabilitar los motores de búsqueda para indexar esta página?',
-        'meta_robots_noindex_comment' => 'Los usuarios habituales visitarán la página que se ha ocultado de los motores de búsqueda',
+        'meta_robots_noindex_comment' => 'Los usuarios habituales visitarán la página que se ha ocultado de los motores de búsqueda'.,
         'meta_robots_nofollow' => '¿Deshabilitar los motores de búsqueda sigue los enlaces en esta página?',
         'meta_robots_noarchive' => '¿Proporcionar un archivo de página de motor de búsqueda?',
         'markup' => 'Marcado',
