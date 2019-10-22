@@ -46,7 +46,7 @@
             self.handleSearchChange()
         })
 
-        var searchTerm = $.cookie(this.searchCookieName)
+        var searchTerm = Cookies.get(this.searchCookieName)
         if (searchTerm !== undefined && searchTerm.length > 0) {
             this.$searchInput.val(searchTerm)
             this.applySearch()
