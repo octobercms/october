@@ -24,8 +24,6 @@ class ServiceProvider extends ModuleServiceProvider
      */
     public function register()
     {
-        parent::register('cms');
-
         $this->registerComponents();
         $this->registerThemeLogging();
         $this->registerCombinerEvents();
