@@ -19,4 +19,3 @@ Route::any('{slug}', 'Cms\Classes\CmsController@run')->where('slug', '(.*)?')->m
 * Extensibility
 */
 Event::fire('cms.route');
-

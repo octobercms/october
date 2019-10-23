@@ -29,3 +29,4 @@ Route::any(Config::get('cms.backendUri', 'backend'), 'Backend\Classes\BackendCon
 * Extensibility
 */
 Event::fire('backend.route');
+ 
