@@ -3,6 +3,10 @@
 use Event;
 use BackendAuth;
 use System\Classes\PluginManager;
+use Validator;
+use SystemException;
+use Log;
+use Config;
 
 /**
  * Manages the backend navigation.
@@ -36,8 +40,8 @@ class NavigationManager
         'icon'        => null,
         'iconSvg'     => null,
         'counter'     => null,
-        'counterClass'=> null,
         'counterLabel'=> null,
+        'badge'       => null,
         'url'         => null,
         'permissions' => [],
         'order'       => 500,
@@ -51,8 +55,8 @@ class NavigationManager
         'url'         => null,
         'iconSvg'     => null,
         'counter'     => null,
-        'counterClass'=> null,
         'counterLabel'=> null,
+        'badge'       => null,
         'order'       => -1,
         'attributes'  => [],
         'permissions' => []
@@ -126,7 +130,9 @@ class NavigationManager
              */
             $orderCount = 0;
             foreach ($item->sideMenu as $sideMenuItem) {
-                if ($sideMenuItem->order !== -1) continue;
+                if ($sideMenuItem->order !== -1) {
+                    continue;
+                }
                 $sideMenuItem->order = ($orderCount += 100);
             }
 
@@ -150,7 +156,7 @@ class NavigationManager
      * `registerMenuItems` method. The manager instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     BackendMenu::registerCallback(function($manager){
+     *     BackendMenu::registerCallback(function ($manager) {
      *         $manager->registerMenuItems([...]);
      *     });
      *
@@ -172,9 +178,8 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
-     * - counter - an optional value to output near the menu icon. Can be a number or string, or a callable returning a number or string. If the value is numeric, it will display the sum of all numeric counters for the main menu item's side menu items. If the value is a string, it will simply display the string. Setting this value to false will disable the counter for this item alltogether.
+     * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
-     * - counterClass - an optional class applied to the menu item's counter. Can be used to change counter's color.
      * - counterLabel - an optional string value to describe the numeric reference in counter.
      * - sideMenu - an array of side menu items, optional. If provided, the array items
      *   should represent the side menu item code, and each value should be an associative
@@ -184,9 +189,11 @@ class NavigationManager
      *      - url - the back-end relative URL the menu item should point to, required.
      *      - attributes - an array of attributes and values to apply to the menu item, optional.
      *      - permissions - an array of permissions the back-end user should have, optional.
-     *      - counter - Can be a number or string, or a callable returning a number or string. If the value is numeric and the side menu's parent menu item is numeric, the sum of these values will be displayed in the main menu item's counter.
-     *      - counterClass - an optional CSS class applied to the side menu item. Can be used to change the counter's color.
+     *      - counter - an optional numeric value to output near the menu icon. The value should be
+     *        a number or a callable returning a number.
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
+     *      - badge - an optional string value to output near the menu icon. The value should be
+     *        a string. This value will override the counter if set.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
@@ -194,6 +201,24 @@ class NavigationManager
     {
         if (!$this->items) {
             $this->items = [];
+        }
+
+        $validator = Validator::make($definitions, [
+            '*.label' => 'required',
+            '*.icon' => 'required_without:*.iconSvg',
+            '*.url' => 'required',
+            '*.sideMenu.*.label' => 'nullable|required',
+            '*.sideMenu.*.icon' => 'nullable|required_without:*.sideMenu.*.iconSvg',
+            '*.sideMenu.*.url' => 'nullable|required',
+        ]);
+
+        if ($validator->fails()) {
+            $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
+            if (Config::get('app.debug', false)) {
+                throw new SystemException($errorMessage);
+            } else {
+                Log::error($errorMessage);
+            }
         }
 
         $this->addMainMenuItems($owner, $definitions);
@@ -315,7 +340,8 @@ class NavigationManager
         }
 
         foreach ($this->items as $item) {
-            if ($item->counter === false || is_string($item->counter)) {
+            if ($item->badge) {
+                $item->counter = $item->badge;
                 continue;
             }
 
@@ -326,6 +352,9 @@ class NavigationManager
             } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
+                    if ($sideItem->badge) {
+                        continue;
+                    }
                     $item->counter += $sideItem->counter;
                 }
             }
@@ -364,6 +393,10 @@ class NavigationManager
         $items = $activeItem->sideMenu;
 
         foreach ($items as $item) {
+            if ($item->badge) {
+                $item->counter = (string) $item->badge;
+                continue;
+            }
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
                 if (empty($item->counter)) {
