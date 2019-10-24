@@ -90,6 +90,7 @@
                         var results = data.result || data.results,
                             options = []
 
+                        delete(data.result)
                         if (results[0] && results[0].id) { // Already in Select2 format
                             options = results
                         }

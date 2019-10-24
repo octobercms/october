@@ -3498,6 +3498,7 @@ var source=$element.data('handler');if(source){extraOptions.ajax={transport:func
 $request.done(success)
 $request.fail(failure)
 return $request},processResults:function(data,params){var results=data.result||data.results,options=[]
+delete(data.result)
 if(results[0]&&results[0].id){options=results}
 else{for(var i in results){if(results.hasOwnProperty(i)){options.push({id:i,text:results[i],})}}}
 data.results=options

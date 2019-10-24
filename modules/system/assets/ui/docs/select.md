@@ -80,6 +80,27 @@ public function onGetOptions()
         'results' => [
             [
                 'id' => 1,
+                'text' => 'Foo'
+            ],
+            [
+                'id' => 2,
+                'text' => 'Bar'
+            ]
+            ...
+        ]
+    ];
+}
+```
+
+Or a more full-featured example:
+
+```php
+public function onGetOptions()
+{
+    return [
+        'results' => [
+            [
+                'id' => 1,
                 'text' => 'Foo',
                 'disabled' => true
             ],
