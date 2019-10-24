@@ -14,6 +14,8 @@ useFiles=false}
 if($.type(loading)=='string'){loading=$(loading)}
 var requestHeaders={'X-OCTOBER-REQUEST-HANDLER':handler,'X-OCTOBER-REQUEST-PARTIALS':this.extractPartials(options.update)}
 if(useFlash){requestHeaders['X-OCTOBER-REQUEST-FLASH']=1}
+var csrfToken=getCSRFToken()
+if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}
 var requestData,inputName,data={}
 $.each($el.parents('[data-request-data]').toArray().reverse(),function extendRequest(){$.extend(data,paramToObj('data-request-data',$(this).data('request-data')))})
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
@@ -112,6 +114,12 @@ function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
 try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
+function getCSRFToken(){var cookieValue=null
+if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';')
+for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i])
+if(cookie.substring(0,11)==('XSRF-TOKEN'+'=')){cookieValue=decodeURIComponent(cookie.substring(11))
+break}}}
+return cookieValue}
 $(document).on('change','select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]',function documentOnChange(){$(this).request()})
 $(document).on('click','a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]',function documentOnClick(e){e.preventDefault()
 $(this).request()
