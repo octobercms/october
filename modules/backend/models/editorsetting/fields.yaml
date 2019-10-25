@@ -1,0 +1,114 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        html_custom_styles:
+            label: backend::lang.editor.custom_styles
+            commentAbove: backend::lang.editor.custom styles_comment
+            tab: backend::lang.editor.markup_styles
+            type: codeeditor
+            size: giant
+            language: css
+
+        html_style_paragraph:
+            label: backend::lang.editor.paragraph
+            tab: backend::lang.editor.markup_classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: backend::lang.editor.label
+                class_name:
+                    title: backend::lang.editor.class_name
+
+        html_style_link:
+            label: backend::lang.editor.link
+            tab: backend::lang.editor.markup_classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: backend::lang.editor.label
+                class_name:
+                    title: backend::lang.editor.class_name
+
+        html_style_table:
+            label: backend::lang.editor.table
+            tab: backend::lang.editor.markup_classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: backend::lang.editor.label
+                class_name:
+                    title: backend::lang.editor.class_name
+
+        html_style_table_cell:
+            label: backend::lang.editor.table_cell
+            tab: backend::lang.editor.markup_classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: backend::lang.editor.label
+                class_name:
+                    title: backend::lang.editor.class_name
+
+        html_style_image:
+            label: backend::lang.editor.image
+            tab: backend::lang.editor.markup_classes
+            span: auto
+            type: datatable
+            columns:
+                class_label:
+                    title: backend::lang.editor.label
+                class_name:
+                    title: backend::lang.editor.class_name
+
+        html_allow_tags:
+            label: backend::lang.editor.allowed_tags
+            comment: backend::lang.editor.allowed_tags_comment
+            tab: backend::lang.editor.markup_tags
+            type: textarea
+
+        html_allow_empty_tags:
+            label: backend::lang.editor.allowed_empty_tags
+            comment: backend::lang.editor.allowed_empty_tags_comment
+            tab: backend::lang.editor.markup_tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_no_wrap_tags:
+            label: backend::lang.editor.no_wrap
+            comment: backend::lang.editor.no_wrap_comment
+            tab: backend::lang.editor.markup_tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_remove_tags:
+            label: backend::lang.editor.remove_tags
+            comment: backend::lang.editor.remove_tags_comment
+            tab: backend::lang.editor.markup_tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_line_breaker_tags:
+            label: backend::lang.editor.line_breaker_tags
+            comment: backend::lang.editor.line_breaker_tags_comment
+            tab: backend::lang.editor.markup_tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_toolbar_buttons:
+            label: backend::lang.editor.toolbar_buttons
+            comment: backend::lang.editor.toolbar_buttons_comment
+            tab: backend::lang.editor.toolbar_buttons
+            type: textarea
+            span: auto

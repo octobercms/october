@@ -1,31 +1,28 @@
 <?php namespace Cms\Twig;
 
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Token as TwigToken;
+use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 
 /**
- * Parser for the {% styles %} Twig tag.
+ * Parser for the `{% styles %}` Twig tag.
  *
- * <pre>
- *  {% styles %}
- * </pre>
+ *     {% styles %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class StylesTokenParser extends Twig_TokenParser
+class StylesTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param Twig_Token $token A Twig_Token instance
-     *
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @param TwigToken $token A TwigToken instance
+     * @return Twig\Node\Node A Twig\Node\Node instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(TwigToken $token)
     {
         $stream = $this->parser->getStream();
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(TwigToken::BLOCK_END_TYPE);
         return new StylesNode($token->getLine(), $this->getTag());
     }
 

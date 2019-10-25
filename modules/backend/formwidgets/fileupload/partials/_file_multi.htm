@@ -1,35 +1,37 @@
 <div
     id="<?= $this->getId() ?>"
-    class="field-fileupload style-file-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?>"
+    class="field-fileupload style-file-multi is-sortable is-multi <?= count($fileList) ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="fileupload"
+    data-upload-handler="<?= $this->getEventHandler('onUpload') ?>"
     data-template="#<?= $this->getId('template') ?>"
     data-error-template="#<?= $this->getId('errorTemplate') ?>"
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
     data-unique-id="<?= $this->getId() ?>"
+    data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
 >
 
     <!-- Upload Button -->
-    <button type="button" class="btn btn-sm btn-primary oc-icon-upload upload-button">
-        Upload file
+    <button type="button" class="btn btn-sm btn-secondary oc-icon-upload upload-button">
+        <?= $prompt ?>
     </button>
 
     <!-- Existing files -->
     <div class="upload-files-container">
         <?php foreach ($fileList as $file): ?>
-            <div class="upload-object is-success" data-id="<?= $file->id ?>" data-path="<?= $file->path ?>">
+            <div class="upload-object is-success" data-id="<?= $file->id ?>" data-path="<?= $file->pathUrl ?>">
                 <div class="icon-container">
                     <i class="icon-file"></i>
                 </div>
                 <div class="info">
                     <h4 class="filename">
-                        <span data-dz-name><?= $file->title ?: $file->file_name ?></span>
+                        <span data-dz-name><?= e($file->title ?: $file->file_name) ?></span>
                         <a
                             href="javascript:;"
                             class="upload-remove-button"
                             data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                            data-request-confirm="Are you sure?"
+                            data-request-confirm="<?= e(trans('backend::lang.fileupload.remove_confirm')) ?>"
                             data-request-data="file_id: <?= $file->id ?>"
                             ><i class="icon-times"></i></a>
                     </h4>
@@ -48,7 +50,7 @@
     <div class="upload-object dz-preview dz-file-preview">
         <div class="icon-container">
             <i class="icon-file"></i>
-            <img data-dz-thumbnail />
+            <img data-dz-thumbnail alt="" />
         </div>
         <div class="info">
             <h4 class="filename">
@@ -57,7 +59,7 @@
                     href="javascript:;"
                     class="upload-remove-button"
                     data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                    data-request-confirm="Are you sure?"
+                    data-request-confirm="<?= e(trans('backend::lang.fileupload.remove_confirm')) ?>"
                     ><i class="icon-times"></i></a>
             </h4>
             <p class="size" data-dz-size></p>

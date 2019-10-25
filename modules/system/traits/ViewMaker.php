@@ -4,15 +4,18 @@ use File;
 use Lang;
 use Block;
 use SystemException;
+use Exception;
+use Throwable;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Config;
 
 /**
  * View Maker Trait
  * Adds view based methods to a class
  *
- * @package october\backend
+ * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-
 trait ViewMaker
 {
     /**
@@ -21,7 +24,7 @@ trait ViewMaker
     public $vars = [];
 
     /**
-     * @var string Specifies a path to the views directory.
+     * @var string|array Specifies a path to the views directory.
      */
     protected $viewPath;
 
@@ -41,6 +44,32 @@ trait ViewMaker
     public $suppressLayout = false;
 
     /**
+     * Prepends a path on the available view path locations.
+     * @param string|array $path
+     * @return void
+     */
+    public function addViewPath($path)
+    {
+        $this->viewPath = (array) $this->viewPath;
+
+        if (is_array($path)) {
+            $this->viewPath = array_merge($path, $this->viewPath);
+        }
+        else {
+            array_unshift($this->viewPath, $path);
+        }
+    }
+
+    /**
+     * Returns the active view path locations.
+     * @return array
+     */
+    public function getViewPaths()
+    {
+        return (array) $this->viewPath;
+    }
+
+    /**
      * Render a partial file contents located in the views folder.
      * @param string $partial The view to load.
      * @param array $params Parameter variables to pass to the view.
@@ -49,7 +78,8 @@ trait ViewMaker
      */
     public function makePartial($partial, $params = [], $throwException = true)
     {
-        if (!File::isPathSymbol($partial) && realpath($partial) === false) {
+        $notRealPath = realpath($partial) === false || is_dir($partial) === true;
+        if (!File::isPathSymbol($partial) && $notRealPath) {
             $folder = strpos($partial, '/') !== false ? dirname($partial) . '/' : '';
             $partial = $folder . '_' . strtolower(basename($partial)).'.htm';
         }
@@ -60,9 +90,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('backend::lang.partial.not_found_name', ['name' => $partialPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($partialPath, $params);
@@ -71,7 +100,8 @@ trait ViewMaker
     /**
      * Loads a view with the name specified. Applies layout if its name is provided by the parent object.
      * The view file must be situated in the views directory, and has the extension "htm".
-     * @param string $view Specifies the view name, without extension. Eg: "index". 
+     * @param string $view Specifies the view name, without extension. Eg: "index".
+     * @return string
      */
     public function makeView($view)
     {
@@ -83,9 +113,8 @@ trait ViewMaker
     /**
      * Renders supplied contents inside a layout.
      * @param string $contents The inner contents as a string.
-     * @param string $name Specifies the layout name.
-     * If this parameter is omitted, the $layout property will be used.
-     * @return string The layout contents
+     * @param string $layout Specifies the layout name.
+     * @return string
      */
     public function makeViewContent($contents, $layout = null)
     {
@@ -96,7 +125,7 @@ trait ViewMaker
         // Append any undefined block content to the body block
         Block::set('undefinedBlock', $contents);
         Block::append('body', Block::get('undefinedBlock'));
-        return $this->makeLayout();
+        return $this->makeLayout($layout);
     }
 
     /**
@@ -105,13 +134,13 @@ trait ViewMaker
      * If this parameter is omitted, the $layout property will be used.
      * @param array $params Parameter variables to pass to the view.
      * @param bool $throwException Throw an exception if the layout is not found
-     * @return string The layout contents
+     * @return mixed The layout contents, or false.
      */
     public function makeLayout($name = null, $params = [], $throwException = true)
     {
-        $layout = ($name === null) ? $this->layout : $name;
+        $layout = $name ?? $this->layout;
         if ($layout == '') {
-            return;
+            return '';
         }
 
         $layoutPath = $this->getViewPath($layout . '.htm', $this->layoutPath);
@@ -120,9 +149,8 @@ trait ViewMaker
             if ($throwException) {
                 throw new SystemException(Lang::get('cms::lang.layout.not_found_name', ['name' => $layoutPath]));
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
 
         return $this->makeFileContents($layoutPath, $params);
@@ -145,9 +173,9 @@ trait ViewMaker
     }
 
     /**
-     * Locates a file based on it's definition. If the file starts with
-     * an "at symbol", it will be returned in context of the application base path,
-     * otherwise it will be returned in context of the view path.
+     * Locates a file based on its definition. The file name can be prefixed with a
+     * symbol (~|$) to return in context of the application or plugin base path,
+     * otherwise it will be returned in context of this object view path.
      * @param string $fileName File to load.
      * @param mixed $viewPath Explicitly define a view path.
      * @return string Full path to the view file.
@@ -164,7 +192,9 @@ trait ViewMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+        if (File::isLocalPath($fileName) ||
+            (!Config::get('cms.restrictBaseDir', true) && realpath($fileName) !== false)
+        ) {
             return $fileName;
         }
 
@@ -175,11 +205,11 @@ trait ViewMaker
         foreach ($viewPath as $path) {
             $_fileName = File::symbolizePath($path) . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return $fileName;
     }
 
     /**
@@ -191,8 +221,11 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) || !File::isFile($filePath)) {
-            return;
+        if (!strlen($filePath) ||
+            !File::isFile($filePath) ||
+            (!File::isLocalPath($filePath) && Config::get('cms.restrictBaseDir', true))
+        ) {
+            return '';
         }
 
         if (!is_array($extraParams)) {
@@ -201,10 +234,43 @@ trait ViewMaker
 
         $vars = array_merge($this->vars, $extraParams);
 
+        $obLevel = ob_get_level();
+
         ob_start();
+
         extract($vars);
-        include $filePath;
+
+        // We'll evaluate the contents of the view inside a try/catch block so we can
+        // flush out any stray output that might get out before an error occurs or
+        // an exception is thrown. This prevents any partial views from leaking.
+        try {
+            include $filePath;
+        }
+        catch (Exception $e) {
+            $this->handleViewException($e, $obLevel);
+        }
+        catch (Throwable $e) {
+            $this->handleViewException(new FatalThrowableError($e), $obLevel);
+        }
+
         return ob_get_clean();
+    }
+
+    /**
+     * Handle a view exception.
+     *
+     * @param  \Exception  $e
+     * @param  int  $obLevel
+     * @return void
+     *
+     */
+    protected function handleViewException($e, $obLevel)
+    {
+        while (ob_get_level() > $obLevel) {
+            ob_end_clean();
+        }
+
+        throw $e;
     }
 
     /**
@@ -231,6 +297,6 @@ trait ViewMaker
         $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
         $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
-        return ($isPublic) ? File::localToPublic($guessedPath) : $guessedPath;
+        return $isPublic ? File::localToPublic($guessedPath) : $guessedPath;
     }
 }

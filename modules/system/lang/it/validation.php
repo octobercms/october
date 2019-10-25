@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -21,12 +21,12 @@ return array(
     "alpha_num"        => ":attribute può contenere solo lettere e numeri.",
     "array"            => ":attribute deve essere un array.",
     "before"           => ":attribute deve essere una data minore di :date.",
-    "between"          => array(
+    "between"          => [
         "numeric" => ":attribute deve essere compreso tra :min e :max.",
         "file"    => ":attribute deve essere compreso tra :min e :max kilobytes.",
         "string"  => ":attribute deve essere compreso tra :min e :max caratteri.",
         "array"   => ":attribute deve avere tra :min e :max elementi.",
-    ),
+    ],
     "confirmed"        => "La conferma :attribute non corrisponde.",
     "date"             => ":attribute non è una data valida.",
     "date_format"      => ":attribute non corrisponde al formato :format.",
@@ -39,19 +39,20 @@ return array(
     "in"               => "Il valore di  :attribute non è valido.",
     "integer"          => ":attribute deve essere un numero interno.",
     "ip"               => ":attribute deve essere un indirizzo IP valido.",
-    "max"              => array(
+    "max"              => [
         "numeric" => ":attribute non può essere maggiore di :max.",
         "file"    => ":attribute non può essere maggiore di :max kilobytes.",
         "string"  => ":attribute non può essere maggiore di :max caratteri.",
         "array"   => ":attribute non può avere più di :max elementi.",
-    ),
+    ],
     "mimes"            => ":attribute deve essere un file di tipo: :values.",
-    "min"              => array(
+    "extensions"       => ":attribute deve avere un estensione: :values.",
+    "min"              => [
         "numeric" => ":attribute deve essere almeno :min.",
         "file"    => ":attribute deve essere almeno :min kilobytes.",
         "string"  => ":attribute deve essere almeno :min caratteri.",
         "array"   => ":attribute deve avere almeno :min elementi.",
-    ),
+    ],
     "not_in"           => "Il valore di :attribute non è valido.",
     "numeric"          => ":attribute deve essere un numero.",
     "regex"            => "Il formato di :attribute non è valido.",
@@ -60,12 +61,12 @@ return array(
     "required_with"    => "Il campo :attribute è obbligatorio quando :values è presente.",
     "required_without" => "Il campo :attribute è obbligatorio quando :values non è presente.",
     "same"             => ":attribute e :other devono corrispondere.",
-    "size"             => array(
+    "size"             => [
         "numeric" => ":attribute deve essere :size.",
         "file"    => ":attribute deve essere :size kilobytes.",
         "string"  => ":attribute deve essere :size caratteri.",
         "array"   => ":attribute deve contenere :size elementi.",
-    ),
+    ],
     "unique"           => ":attribute è già presente.",
     "url"              => "Il formato di :attribute non è valido.",
 
@@ -80,7 +81,7 @@ return array(
     |
     */
 
-    'custom' => array(),
+    'custom' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -93,6 +94,6 @@ return array(
     |
     */
 
-    'attributes' => array(),
+    'attributes' => [],
 
-);
+];

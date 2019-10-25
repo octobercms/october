@@ -10,11 +10,38 @@ class WidgetManagerTest extends TestCase
         $manager = WidgetManager::instance();
         $widgets = $manager->listFormWidgets();
 
-        $this->assertArrayHasKey('Backend\FormWidgets\CodeEditor', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\RichEditor', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\FileUpload', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\Relation', $widgets);
-        $this->assertArrayHasKey('Backend\FormWidgets\DatePicker', $widgets);
-        $this->assertArrayHasKey('Cms\FormWidgets\Components', $widgets);
+        $this->assertArrayHasKey('TestVendor\Test\FormWidgets\Sample', $widgets);
+        $this->assertArrayHasKey('October\Tester\FormWidgets\Preview', $widgets);
+    }
+
+    public function testIfWidgetsCanBeExtended()
+    {
+        $manager = WidgetManager::instance();
+        $manager->registerReportWidget('Acme\Fake\ReportWidget\HelloWorld', [
+            'name' => 'Hello World Test',
+            'context' => 'dashboard'
+        ]);
+        $widgets = $manager->listReportWidgets();
+
+        $this->assertArrayHasKey('Acme\Fake\ReportWidget\HelloWorld', $widgets);
+    }
+
+    public function testIfWidgetsCanBeRemoved()
+    {
+        $manager = WidgetManager::instance();
+        $manager->registerReportWidget('Acme\Fake\ReportWidget\HelloWorld', [
+            'name' => 'Hello World Test',
+            'context' => 'dashboard'
+        ]);
+        $manager->registerReportWidget('Acme\Fake\ReportWidget\ByeWorld', [
+            'name' => 'Hello World Bye',
+            'context' => 'dashboard'
+        ]);
+
+        $manager->removeReportWidget('Acme\Fake\ReportWidget\ByeWorld');
+
+        $widgets = $manager->listReportWidgets();
+
+        $this->assertCount(1, $widgets);
     }
 }

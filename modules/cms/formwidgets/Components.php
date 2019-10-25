@@ -1,10 +1,9 @@
 <?php namespace Cms\FormWidgets;
 
-use Lang;
 use Backend\Classes\FormWidgetBase;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentHelpers;
-use Cms\Classes\UnknownComponent;
+use Cms\Components\UnknownComponent;
 use Exception;
 
 /**
@@ -17,7 +16,7 @@ use Exception;
 class Components extends FormWidgetBase
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {

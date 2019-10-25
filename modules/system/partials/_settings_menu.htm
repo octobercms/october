@@ -1,10 +1,4 @@
 <?php
     $systemItems = System\Classes\SettingsManager::instance()->listItems('system');
-
-    // @todo Trialing the removal of this due to the new account menu
-    // @deprecated Remove if year >= 2016
-    $mySettingItems = []; //System\Classes\SettingsManager::instance()->listItems('mysettings');
 ?>
-<?php /* @deprecated Remove if year >= 2016 */ ?>
-<?= $this->makePartial('~/modules/system/partials/_settings_menu_items.htm', ['items' => $mySettingItems]); ?>
 <?= $this->makePartial('~/modules/system/partials/_settings_menu_items.htm', ['items' => $systemItems]); ?>

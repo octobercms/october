@@ -1,6 +1,6 @@
 <?= Form::open([
     'data-request' => $this->getEventHandler('onAddWidget'),
-    'data-request-success' => "\$(this).trigger('close.oc.popup'); \$(window).trigger('oc.report-widget-added')",
+    'data-request-success' => "\$(this).trigger('close.oc.popup'); \$(window).trigger('oc.reportWidgetAdded')",
     'data-popup-load-indicator' => 1
 ]) ?>
     <div class="modal-header">
@@ -23,7 +23,7 @@
             <select class="form-control custom-select" name="size">
                 <option></option>
                 <?php foreach ($sizes as $size => $name):?>
-                    <option value="<?= e($size) ?>" <?= $size == 10 ? 'selected' : null ?>><?= e($name) ?></option>
+                    <option value="<?= e($size) ?>" <?= $size == 12 ? 'selected' : null ?>><?= e($name) ?></option>
                 <?php endforeach ?>
             </select>
         </div>

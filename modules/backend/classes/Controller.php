@@ -1,11 +1,10 @@
 <?php namespace Backend\Classes;
 
-use App;
-use Log;
 use Lang;
 use View;
 use Flash;
-use Event;
+use Config;
+use Closure;
 use Request;
 use Backend;
 use Session;
@@ -13,17 +12,16 @@ use Redirect;
 use Response;
 use Exception;
 use BackendAuth;
-use Backend\Models\UserPreferences;
-use Backend\Models\BackendPreferences;
-use Cms\Widgets\MediaManager;
-use System\Classes\ErrorHandler;
+use Backend\Models\UserPreference;
+use Backend\Models\Preference as BackendPreference;
+use Backend\Widgets\MediaManager;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controller as ControllerBase;
 
 /**
  * The Backend base controller class, used by Backend controllers.
@@ -32,18 +30,20 @@ use Illuminate\Http\RedirectResponse;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends Extendable
+class Controller extends ControllerBase
 {
+    use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
-    use \System\Traits\ViewMaker;
+    use \System\Traits\EventEmitter;
+    use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
-    use \October\Rain\Support\Traits\Emitter;
+    use \October\Rain\Extension\ExtendableTrait;
 
     /**
-     * @var string Object used for storing a fatal error.
+     * @var array Behaviors implemented by this controller.
      */
-    protected $fatalError;
+    public $implement;
 
     /**
      * @var object Reference the logged in admin user.
@@ -119,6 +119,11 @@ class Controller extends Extendable
     protected $statusCode = 200;
 
     /**
+     * @var mixed Override the standard controller response.
+     */
+    protected $responseOverride = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -148,13 +153,48 @@ class Controller extends Extendable
         $this->layoutPath[] = '~/modules/' . $relativePath . '/layouts';
         $this->layoutPath[] = '~/plugins/' . $relativePath . '/layouts';
 
-        parent::__construct();
+        /*
+         * Create a new instance of the admin user
+         */
+        $this->user = BackendAuth::getUser();
 
         /*
          * Media Manager widget is available on all back-end pages
          */
-        $manager = new MediaManager($this, 'ocmediamanager');
-        $manager->bindToController();
+        if ($this->user && $this->user->hasAccess('media.*')) {
+            $manager = new MediaManager($this, 'ocmediamanager');
+            $manager->bindToController();
+        }
+
+        $this->extendableConstruct();
+    }
+
+    /**
+     * Extend this object properties upon construction.
+     */
+    public static function extend(Closure $callback)
+    {
+        self::extendableExtendCallback($callback);
+    }
+
+    public function __get($name)
+    {
+        return $this->extendableGet($name);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->extendableSet($name, $value);
+    }
+
+    public function __call($name, $params)
+    {
+        return $this->extendableCall($name, $params);
+    }
+
+    public static function __callStatic($name, $params)
+    {
+        return self::extendableCallStatic($name, $params);
     }
 
     /**
@@ -169,13 +209,17 @@ class Controller extends Extendable
         $this->params = $params;
 
         /*
-         * Extensibility
+         * Check security token.
          */
-        if (
-            ($event = $this->fireEvent('page.beforeDisplay', [$action, $params], true)) ||
-            ($event = Event::fire('backend.page.beforeDisplay', [$this, $action, $params], true))
-        ) {
-            return $event;
+        if (!$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+        }
+
+        /*
+         * Check forced HTTPS protocol.
+         */
+        if (!$this->verifyForceSecure()) {
+            return Redirect::secure(Request::path());
         }
 
         /*
@@ -183,14 +227,10 @@ class Controller extends Extendable
          */
         $isPublicAction = in_array($action, $this->publicActions);
 
-        // Create a new instance of the admin user
-        $this->user = BackendAuth::getUser();
-
         /*
          * Check that user is logged in and has permission to view this page
          */
         if (!$isPublicAction) {
-
             /*
              * Not logged in, redirect to login screen or show ajax error.
              */
@@ -209,15 +249,17 @@ class Controller extends Extendable
         }
 
         /*
+         * Extensibility
+         */
+        if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
+            return $event;
+        }
+
+        /*
          * Set the admin preference locale
          */
-        if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
-        }
-        elseif ($this->user && ($locale = BackendPreferences::get('locale'))) {
-            Session::put('locale', $locale);
-            App::setLocale($locale);
-        }
+        BackendPreference::setAppLocale();
+        BackendPreference::setAppFallbackLocale();
 
         /*
          * Execute AJAX event
@@ -241,6 +283,10 @@ class Controller extends Extendable
          * Execute page action
          */
         $result = $this->execPageAction($action, $params);
+
+        if ($this->responseOverride !== null) {
+            $result = $this->responseOverride;
+        }
 
         if (!is_string($result)) {
             return $result;
@@ -291,6 +337,27 @@ class Controller extends Extendable
     }
 
     /**
+     * Returns a URL for this controller and supplied action.
+     */
+    public function actionUrl($action = null, $path = null)
+    {
+        if ($action === null) {
+            $action = $this->action;
+        }
+
+        $class = get_called_class();
+        $uriPath = dirname(dirname(strtolower(str_replace('\\', '/', $class))));
+        $controllerName = strtolower(class_basename($class));
+
+        $url = $uriPath.'/'.$controllerName.'/'.$action;
+        if ($path) {
+            $url .= '/'.$path;
+        }
+
+        return Backend::url($url);
+    }
+
+    /**
      * Invokes the current controller action without rendering a view,
      * used by AJAX handler that may rely on the logic inside the action.
      */
@@ -315,11 +382,15 @@ class Controller extends Extendable
         $result = null;
 
         if (!$this->actionExists($actionName)) {
-            throw new SystemException(sprintf(
-                "Action %s is not found in the controller %s",
-                $actionName,
-                get_class($this)
-            ));
+            if (Config::get('app.debug', false)) {
+                throw new SystemException(sprintf(
+                    "Action %s is not found in the controller %s",
+                    $actionName,
+                    get_class($this)
+                ));
+            } else {
+                Response::make(View::make('backend::404'), 404);
+            }
         }
 
         // Execute the action
@@ -336,11 +407,28 @@ class Controller extends Extendable
         }
 
         // Load the view
-        if (!$this->suppressView && is_null($result)) {
+        if (!$this->suppressView && $result === null) {
             return $this->makeView($actionName);
         }
 
         return $this->makeViewContent($result);
+    }
+
+    /**
+     * Returns the AJAX handler for the current request, if available.
+     * @return string
+     */
+    public function getAjaxHandler()
+    {
+        if (!Request::ajax() || Request::method() != 'POST') {
+            return null;
+        }
+
+        if ($handler = Request::header('X_OCTOBER_REQUEST_HANDLER')) {
+            return trim($handler);
+        }
+
+        return null;
     }
 
     /**
@@ -349,13 +437,13 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
-        if ($handler = trim(Request::header('X_OCTOBER_REQUEST_HANDLER'))) {
+        if ($handler = $this->getAjaxHandler()) {
             try {
                 /*
                  * Validate the handler name
                  */
                 if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
-                    throw new SystemException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>$handler]));
+                    throw new SystemException(Lang::get('backend::lang.ajax_handler.invalid_name', ['name'=>$handler]));
                 }
 
                 /*
@@ -364,15 +452,11 @@ class Controller extends Extendable
                 if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
                     $partialList = explode('&', $partialList);
 
-                    // @todo Do we need to validate backend partials?
-                    // foreach ($partialList as $partial) {
-                    //     if (!preg_match('/^(?:\w+\:{2}|@)?[a-z0-9\_\-\.\/]+$/i', $partial)) {
-                    //         throw new SystemException(Lang::get(
-                    //             'cms::lang.partial.invalid_name',
-                    //             ['name' => $partial]
-                    //         ));
-                    //     }
-                    // }
+                    foreach ($partialList as $partial) {
+                        if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
+                            throw new SystemException(Lang::get('backend::lang.partial.invalid_name', ['name'=>$partial]));
+                        }
+                    }
                 }
                 else {
                     $partialList = [];
@@ -384,18 +468,7 @@ class Controller extends Extendable
                  * Execute the handler
                  */
                 if (!$result = $this->runAjaxHandler($handler)) {
-                    throw new ApplicationException(Lang::get('cms::lang.ajax_handler.not_found', ['name'=>$handler]));
-                }
-
-                /*
-                 * If the handler returned an array, we should add it to output for rendering.
-                 * If it is a string, add it to the array with the key "result".
-                 */
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
+                    throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>$handler]));
                 }
 
                 /*
@@ -406,11 +479,12 @@ class Controller extends Extendable
                 }
 
                 /*
-                 * If the handler returned a redirect, process it so framework.js knows to redirect
-                 * the browser and not the request!
+                 * If the handler returned a redirect, process the URL and dispose of it so
+                 * framework.js knows to redirect the browser and not the request!
                  */
                 if ($result instanceof RedirectResponse) {
                     $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
+                    $result = null;
                 }
                 /*
                  * No redirect is used, look for any flash messages
@@ -424,6 +498,21 @@ class Controller extends Extendable
                  */
                 if ($this->hasAssetsDefined()) {
                     $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
+                }
+
+                /*
+                 * If the handler returned an array, we should add it to output for rendering.
+                 * If it is a string, add it to the array with the key "result".
+                 * If an object, pass it to Laravel as a response object.
+                 */
+                if (is_array($result)) {
+                    $responseContents = array_merge($responseContents, $result);
+                }
+                elseif (is_string($result)) {
+                    $responseContents['result'] = $result;
+                }
+                elseif (is_object($result)) {
+                    return $result;
                 }
 
                 return Response::make()->setContent($responseContents);
@@ -456,6 +545,39 @@ class Controller extends Extendable
      */
     protected function runAjaxHandler($handler)
     {
+        /**
+         * @event backend.ajax.beforeRunHandler
+         * Provides an opportunity to modify an AJAX request
+         *
+         * The parameter provided is `$handler` (the requested AJAX handler to be run)
+         *
+         * Example usage (forwards AJAX handlers to a backend widget):
+         *
+         *     Event::listen('backend.ajax.beforeRunHandler', function ((\Backend\Classes\Controller) $controller, (string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $this->controller->bindEvent('ajax.beforeRunHandler', function ((string) $handler) {
+         *         if (strpos($handler, '::')) {
+         *             list($componentAlias, $handlerName) = explode('::', $handler);
+         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+         *             }
+         *         }
+         *     });
+         *
+         */
+        if ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
+            return $event;
+        }
+
         /*
          * Process Widget handler
          */
@@ -475,9 +597,9 @@ class Controller extends Extendable
                 throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
             }
 
-            if (($widget = $this->widget->{$widgetName}) && method_exists($widget, $handlerName)) {
-                $result = call_user_func_array([$widget, $handlerName], $this->params);
-                return ($result) ?: true;
+            if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
+                $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
+                return $result ?: true;
             }
         }
         else {
@@ -488,7 +610,7 @@ class Controller extends Extendable
 
             if ($this->methodExists($pageHandler)) {
                 $result = call_user_func_array([$this, $pageHandler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -496,7 +618,7 @@ class Controller extends Extendable
              */
             if ($this->methodExists($handler)) {
                 $result = call_user_func_array([$this, $handler], $this->params);
-                return ($result) ?: true;
+                return $result ?: true;
             }
 
             /*
@@ -506,14 +628,45 @@ class Controller extends Extendable
             $this->execPageAction($this->action, $this->params);
 
             foreach ((array) $this->widget as $widget) {
-                if (method_exists($widget, $handler)) {
-                    $result = call_user_func_array([$widget, $handler], $this->params);
-                    return ($result) ?: true;
+                if ($widget->methodExists($handler)) {
+                    $result = $this->runAjaxHandlerForWidget($widget, $handler);
+                    return $result ?: true;
                 }
             }
         }
 
+        /*
+         * Generic handler that does nothing
+         */
+        if ($handler == 'onAjax') {
+            return true;
+        }
+
         return false;
+    }
+
+    /**
+     * Specific code for executing an AJAX handler for a widget.
+     * This will append the widget view paths to the controller and merge the vars.
+     * @return mixed
+     */
+    protected function runAjaxHandlerForWidget($widget, $handler)
+    {
+        $this->addViewPath($widget->getViewPaths());
+
+        $result = call_user_func_array([$widget, $handler], $this->params);
+
+        $this->vars = $widget->vars + $this->vars;
+
+        return $result;
+    }
+
+    /**
+     * Returns the controllers public actions.
+     */
+    public function getPublicActions()
+    {
+        return $this->publicActions;
     }
 
     /**
@@ -540,13 +693,14 @@ class Controller extends Extendable
     }
 
     /**
-     * Sets standard page variables in the case of a controller error.
+     * Sets the response for the current page request cycle, this value takes priority
+     * over the standard response prepared by the controller.
+     * @param mixed $response Response object or string
      */
-    public function handleError($exception)
+    public function setResponse($response)
     {
-        $errorMessage = ErrorHandler::getDetailedMessage($exception);
-        $this->fatalError = $errorMessage;
-        $this->vars['fatalError'] = $errorMessage;
+        $this->responseOverride = $response;
+        return $this;
     }
 
     //
@@ -555,21 +709,28 @@ class Controller extends Extendable
 
     /**
      * Renders a hint partial, used for displaying informative information that
-     * can be hidden by the user.
+     * can be hidden by the user. If you don't want to render a partial, you can
+     * supply content via the 'content' key of $params.
      * @param  string $name    Unique key name
      * @param  string $partial Reference to content (partial name)
      * @param  array  $params  Extra parameters
      * @return string
      */
-    public function makeHintPartial($name, $partial = null, array $params = [])
+    public function makeHintPartial($name, $partial = null, $params = [])
     {
+        if (is_array($partial)) {
+            $params = $partial;
+            $partial = null;
+        }
+
         if (!$partial) {
-            $partial = $name;
+            $partial = array_get($params, 'partial', $name);
         }
 
         return $this->makeLayoutPartial('hint', [
             'hintName'    => $name,
             'hintPartial' => $partial,
+            'hintContent' => array_get($params, 'content'),
             'hintParams'  => $params
         ] + $params);
     }
@@ -585,7 +746,7 @@ class Controller extends Extendable
             throw new ApplicationException('Missing a hint name.');
         }
 
-        $preferences = UserPreferences::forUser();
+        $preferences = UserPreference::forUser();
         $hiddenHints = $preferences->get('backend::hints.hidden', []);
         $hiddenHints[$name] = 1;
 
@@ -599,7 +760,58 @@ class Controller extends Extendable
      */
     public function isBackendHintHidden($name)
     {
-        $hiddenHints = UserPreferences::forUser()->get('backend::hints.hidden', []);
+        $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
+    }
+
+    //
+    // Security
+    //
+
+    /**
+     * Checks the request data / headers for a valid CSRF token.
+     * Returns false if a valid token is not found. Override this
+     * method to disable the check.
+     * @return bool
+     */
+    protected function verifyCsrfToken()
+    {
+        if (!Config::get('cms.enableCsrfProtection')) {
+            return true;
+        }
+
+        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+
+        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!strlen($token) || !strlen(Session::token())) {
+            return false;
+        }
+
+        return hash_equals(
+            Session::token(),
+            $token
+        );
+    }
+
+    /**
+     * Checks if the back-end should force a secure protocol (HTTPS) enabled by config.
+     * @return bool
+     */
+    protected function verifyForceSecure()
+    {
+        if (Request::secure() || Request::ajax()) {
+            return true;
+        }
+
+        // @todo if year >= 2018 change default from false to null
+        $forceSecure = Config::get('cms.backendForceSecure', false);
+        if ($forceSecure === null) {
+            $forceSecure = !Config::get('app.debug', false);
+        }
+
+        return !$forceSecure;
     }
 }

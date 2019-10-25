@@ -37,10 +37,18 @@
         this.isFullscreen = false
         this.$fullscreenEnable = this.$toolbar.find('li.fullscreen-enable')
         this.$fullscreenDisable = this.$toolbar.find('li.fullscreen-disable')
+        this.isSearchbox = false
+        this.$searchboxEnable = this.$toolbar.find('li.searchbox-enable')
+        this.$searchboxDisable = this.$toolbar.find('li.searchbox-disable')
+        this.isReplacebox = false
+        this.$replaceboxEnable = this.$toolbar.find('li.replacebox-enable')
+        this.$replaceboxDisable = this.$toolbar.find('li.replacebox-disable')
 
         $.oc.foundation.controlUtils.markDisposable(element)
 
         this.init();
+
+        this.$el.trigger('oc.codeEditorReady')
     }
 
     CodeEditor.prototype = Object.create(BaseProto)
@@ -50,6 +58,7 @@
         fontSize: 12,
         wordWrap: 'off',
         codeFolding: 'manual',
+        autocompletion: 'manual',
         tabSize: 4,
         theme: 'textmate',
         showInvisibles: true,
@@ -61,7 +70,7 @@
         language: 'php',
         margin: 0,
         vendorPath: '/',
-        showPrintMargin: true,
+        showPrintMargin: false,
         highlightSelectedWord: false,
         hScrollBarAlwaysVisible: false,
         readOnly: false
@@ -100,6 +109,9 @@
             options = this.options,
             $form = this.$el.closest('form');
 
+        // Fixes a weird notice about scrolling
+        editor.$blockScrolling = Infinity
+
         this.$form = $form
 
         this.$textarea.hide();
@@ -112,17 +124,17 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         /*
-         * Set language and theme
+         * Set theme, anticipated languages should be preloaded
          */
         assetManager.load({
             js:[
-                options.vendorPath + '/mode-' + options.language + '.js',
+                // options.vendorPath + '/mode-' + options.language + '.js',
                 options.vendorPath + '/theme-' + options.theme + '.js'
             ]
         }, function(){
             editor.setTheme('ace/theme/' + options.theme)
             var inline = options.language === 'php'
-            editor.getSession().setMode({path: 'ace/mode/'+options.language, inline: inline})
+            editor.getSession().setMode({ path: 'ace/mode/'+options.language, inline: inline })
         })
 
         /*
@@ -136,7 +148,7 @@
         editor.renderer.setShowPrintMargin(options.showPrintMargin)
         editor.setHighlightSelectedWord(options.highlightSelectedWord)
         editor.renderer.setHScrollBarAlwaysVisible(options.hScrollBarAlwaysVisible)
-        editor.setOption('enableEmmet', options.enableEmmet)
+        editor.setDisplayIndentGuides(options.displayIndentGuides)
         editor.getSession().setUseSoftTabs(options.useSoftTabs)
         editor.getSession().setTabSize(options.tabSize)
         editor.setReadOnly(options.readOnly)
@@ -146,8 +158,18 @@
         editor.on('focus', this.proxy(this.onFocus))
         this.setWordWrap(options.wordWrap)
 
+        // Set the vendor path for Ace's require path
+        ace.require('ace/config').set('basePath', this.options.vendorPath)
+
+        editor.setOptions({
+            enableEmmet: options.enableEmmet,
+            enableBasicAutocompletion: options.autocompletion === 'basic',
+            enableSnippets: options.enableSnippets,
+            enableLiveAutocompletion: options.autocompletion === 'live'
+        })
+
         editor.renderer.setScrollMargin(options.margin, options.margin, 0, 0)
-        editor.renderer.setPadding(options.margin) 
+        editor.renderer.setPadding(options.margin)
 
         /*
          * Toolbar
@@ -164,7 +186,7 @@
             })
             .tooltip({
                 delay: 500,
-                placement: 'left',
+                placement: 'bottom',
                 html: true
             })
         ;
@@ -173,12 +195,19 @@
         this.$fullscreenEnable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
         this.$fullscreenDisable.on('click.codeeditor', '>a', $.proxy(this.toggleFullscreen, this))
 
+        this.$searchboxDisable.hide()
+        this.$searchboxEnable.on('click.codeeditor', '>a', $.proxy(this.toggleSearchbox, this))
+        this.$searchboxDisable.on('click.codeeditor', '>a', $.proxy(this.toggleSearchbox, this))
+
+        this.$replaceboxDisable.hide()
+        this.$replaceboxEnable.on('click.codeeditor', '>a', $.proxy(this.toggleReplacebox, this))
+        this.$replaceboxDisable.on('click.codeeditor', '>a', $.proxy(this.toggleReplacebox, this))      
+
         /*
          * Hotkeys
          */
         this.$el.hotKey({
             hotkey: 'esc',
-            hotkeyMac: 'esc',
             callback: this.proxy(this.onEscape)
         })
 
@@ -203,6 +232,10 @@
         this.$code = null
         this.$fullscreenEnable = null
         this.$fullscreenDisable = null
+        this.$searchboxEnable = null
+        this.$searchboxDisable = null
+        this.$replaceboxEnable = null
+        this.$replaceboxDisable = null
         this.$form = null
         this.options = null
 
@@ -306,6 +339,14 @@
         })
     }
 
+    CodeEditor.prototype.getContent = function() {
+        return this.editor.getSession().getValue()
+    }
+
+    CodeEditor.prototype.setContent = function(html) {
+        this.editor.getSession().setValue(html)
+    }
+
     CodeEditor.prototype.getEditorObject = function() {
         return this.editor
     }
@@ -331,6 +372,26 @@
         this.editor.resize()
         this.editor.focus()
     }
+    
+    CodeEditor.prototype.toggleSearchbox = function() {
+        this.$searchboxEnable.toggle()
+        this.$searchboxDisable.toggle()
+        
+        this.editor.execCommand("find")
+
+        this.editor.resize()
+        this.editor.focus()
+    }
+
+    CodeEditor.prototype.toggleReplacebox = function() {
+        this.$replaceboxEnable.toggle()
+        this.$replaceboxDisable.toggle()
+        
+        this.editor.execCommand("replace")
+
+        this.editor.resize()
+        this.editor.focus()
+    }
 
     // CODEEDITOR PLUGIN DEFINITION
     // ============================
@@ -343,10 +404,7 @@
             var $this   = $(this)
             var data    = $this.data('oc.codeEditor')
             var options = $.extend({}, CodeEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) {
-                $this.data('oc.codeEditor', (data = new CodeEditor(this, options)))
-                $this.trigger('oc.codeEditorReady')
-            }
+            if (!data) $this.data('oc.codeEditor', (data = new CodeEditor(this, options)))
             if (typeof option == 'string') result = data[option].apply(data, args)
             if (typeof result != 'undefined') return false 
         })
@@ -383,6 +441,24 @@
     // ===============
     $(document).render(function () {
         $('[data-control="codeeditor"]').codeEditor()
-    })
+    });
+
+    // FIX EMMET HTML WHEN SYNTAX IS TWIG
+    // ==================================
+
+    +function (exports) {
+        if (exports.ace && typeof exports.ace.require == 'function') {
+            var emmetExt = exports.ace.require('ace/ext/emmet')
+
+            if (emmetExt && emmetExt.AceEmmetEditor && emmetExt.AceEmmetEditor.prototype.getSyntax) {
+                var coreGetSyntax = emmetExt.AceEmmetEditor.prototype.getSyntax
+
+                emmetExt.AceEmmetEditor.prototype.getSyntax = function () {
+                    var $syntax = $.proxy(coreGetSyntax, this)()
+                    return $syntax == 'twig' ? 'html' : $syntax
+                };
+            }
+        }
+    }(window)
 
 }(window.jQuery);

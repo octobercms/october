@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Schema\Blueprint;
+use October\Rain\Database\Updates\Migration;
 
 class DbBackendUsers extends Migration
 {
@@ -20,9 +20,11 @@ class DbBackendUsers extends Migration
             $table->string('reset_password_code')->nullable()->index('reset_code_index');
             $table->text('permissions')->nullable();
             $table->boolean('is_activated')->default(0);
+            $table->integer('role_id')->unsigned()->nullable()->index('admin_role_index');
             $table->timestamp('activated_at')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

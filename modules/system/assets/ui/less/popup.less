@@ -12,25 +12,6 @@
 
 @import "popup.base.less";
 
-@color-popup-header-bg:                      #d35400;
-@color-popup-header-text:                    #ECF0F1;
-@color-popup-footer-bg:                      transparent;
-@color-popup-content-bg:                     @body-bg;
-
-@modal-inner-padding:         20px;
-@modal-title-padding:         15px;
-@modal-title-line-height:     @line-height-base;
-@modal-content-bg:                             #fff;
-@modal-content-border-color:                   rgba(0,0,0,.2);
-@modal-content-fallback-border-color:          #999;
-@modal-backdrop-bg:           #000;
-@modal-backdrop-opacity:      .5;
-@modal-header-border-color:   #e5e5e5;
-@modal-footer-border-color:   @modal-header-border-color;
-@modal-lg:                    900px;
-@modal-md:                    600px;
-@modal-sm:                    300px;
-
 //
 // Popup
 // --------------------------------------------------
@@ -42,21 +23,29 @@
 @popup-size-tiny: 300px;
 
 .modal-content {
-    .box-shadow(none);
-    .border-radius(2px);
+    .box-shadow(@popup-box-shadow);
+    .border-radius(@border-radius-base);
     border: none;
     background: @color-popup-content-bg;
-    .close {color: #fff;}
+}
+
+.modal-content.popup-shaking {
+    .animation(popup-shake 0.82s cubic-bezier(.36,.07,.19,.97) both);
+    .transform(translate3d(0, 0, 0));
+    .backface-visibility(hidden);
+    .perspective(1000px);
 }
 
 .modal-header {
     background: @color-popup-header-bg;
     color: @color-popup-header-text;
+    .border-top-radius(@border-radius-base);
+    padding: @modal-title-padding @padding-standard;
     border: none;
 
     h4 {
-        font-weight: 600;
-        font-size: 16px;
+        font-weight: normal;
+        font-size: 18px;
     }
 }
 
@@ -64,14 +53,23 @@
     background: @color-popup-footer-bg;
     border: none;
     margin-top: 0;
-    padding: 0 20px 20px 20px;
+    padding: 0 @padding-standard @padding-standard @padding-standard;
 }
 
 .modal-body {
+    padding-top: 0;
     padding-bottom: 0;
 
     > p:last-child {
         margin-bottom: 20px;
+    }
+
+    &.modal-no-header {
+        padding-top: @padding-standard;
+    }
+
+    &.modal-no-footer {
+        padding-bottom: @padding-standard;
     }
 }
 
@@ -138,7 +136,6 @@
     left: 0;
     z-index: (@zindex-modal-background - 10);
     background-color: @modal-backdrop-bg;
-    background-color: rgba(0,0,0,.2);
     .opacity(1);
 
     .popup-loading-indicator {
@@ -176,4 +173,28 @@
 
 .mac body.modal-open {
     margin-right: 0;
+}
+
+// Popup animations
+// -------------------------
+
+@-moz-keyframes popup-shake {
+    10%, 90% { -moz-transform: translate3d(-1px, 0, 0); }
+    20%, 80% { -moz-transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { -moz-transform: translate3d(-4px, 0, 0); }
+    40%, 60% { -moz-transform: translate3d(4px, 0, 0); }
+}
+
+@-webkit-keyframes popup-shake {
+    10%, 90% { -webkit-transform: translate3d(-1px, 0, 0); }
+    20%, 80% { -webkit-transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { -webkit-transform: translate3d(-4px, 0, 0); }
+    40%, 60% { -webkit-transform: translate3d(4px, 0, 0); }
+}
+
+@keyframes popup-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
 }

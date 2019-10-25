@@ -47,10 +47,9 @@
 // Actual modal
 .modal-content {
     position: relative;
-    background-color: @modal-content-bg;
     border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
     border: 1px solid @modal-content-border-color;
-    border-radius: @border-radius-large;
+    .border-radius(@border-radius-large);
     .box-shadow(0 3px 9px rgba(0,0,0,.5));
     background-clip: padding-box;
     // Remove focus outline from opened modal
@@ -74,7 +73,7 @@
 // Modal header
 // Top section of the modal w/ title and dismiss
 .modal-header {
-    padding: @modal-title-padding;
+    padding: @modal-title-padding @padding-standard;
     border-bottom: 1px solid @modal-header-border-color;
     min-height: (@modal-title-padding + @modal-title-line-height);
 }
@@ -93,7 +92,7 @@
 // Where all modal content resides (sibling of .modal-header and .modal-footer)
 .modal-body {
     position: relative;
-    padding: @modal-inner-padding;
+    padding: @modal-inner-padding @padding-standard;
 }
 
 // Footer (for actions)
@@ -124,7 +123,7 @@
     // Automatically set modal's width for larger viewports
     .modal-dialog {
         width: @modal-md;
-        margin: 30px auto;
+        margin: 80px auto 30px auto; // The top margin is increased to avoid overlapping with flash messages
     }
     .modal-content {
         .box-shadow(0 5px 15px rgba(0,0,0,.5));

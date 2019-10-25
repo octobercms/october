@@ -30,7 +30,7 @@ class Toolbar extends WidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'toolbar';
 
@@ -58,7 +58,6 @@ class Toolbar extends WidgetBase
          * Prepare the search widget (optional)
          */
         if (isset($this->search)) {
-
             if (is_string($this->search)) {
                 $searchConfig = $this->makeConfig(['partial' => $this->search]);
             }

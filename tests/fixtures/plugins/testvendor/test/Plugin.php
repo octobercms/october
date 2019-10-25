@@ -4,7 +4,6 @@ use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
-
     public function pluginDetails()
     {
         return [
@@ -14,4 +13,13 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerFormWidgets()
+    {
+        return [
+            'TestVendor\Test\FormWidgets\Sample' => [
+                'label' => 'Sample',
+                'code'  => 'sample'
+            ]
+        ];
+    }
 }

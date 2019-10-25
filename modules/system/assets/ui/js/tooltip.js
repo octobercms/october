@@ -1,9 +1,4 @@
 /*
-=require ../vendor/bootstrap/js/transition.js
-=require ../vendor/bootstrap/js/tooltip.js
-*/
-
-/*
  * Implement the tooltip control automatically
  *
  * Usage:
@@ -15,12 +10,16 @@
  *       title="Tooltip content">
  *       Some link
  *   </a>
+ *
+ * Require:
+ *  - bootstrap/transition
+ *  - bootstrap/tooltip
  */
 
 (function($){
 
     $(document).render(function(){
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-control="tooltip"], [data-toggle="tooltip"]').tooltip()
     })
 
 })(jQuery);

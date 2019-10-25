@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Mallarna är nu raderade: :count.',
         'file_name_required' => 'Filnamnsfältet är obligatoriskt.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'online',
+            'maintenance' => 'i underhåll',
+        ]
+    ],
     'theme' => [
         'not_found_name' => "Kunde inte hitta temat ':name'.",
         'active' => [
@@ -25,6 +31,7 @@ return [
         ],
         'settings_menu' => 'Front-end tema',
         'settings_menu_description' => 'Förhandsgranska listan av installerade teman och välj ett aktivt tema.',
+        'default_tab' => 'Egenskaper',
         'name_label' => 'Namn',
         'name_create_placeholder' => 'Nytt tema namn',
         'author_label' => 'Författare',
@@ -38,8 +45,10 @@ return [
         'dir_name_label' => 'Katalognamn',
         'dir_name_create_label' => 'Destinationen för temakatalogen',
         'theme_label' => 'Tema',
+        'theme_title' => 'Teman',
         'activate_button' => 'Aktivera',
         'active_button' => 'Aktivera',
+        'customize_theme' => 'Anpassa tema',
         'customize_button' => 'Anpassa',
         'duplicate_button' => 'Duplicera',
         'duplicate_title' => 'Duplicera temat',
@@ -75,6 +84,7 @@ return [
         'dir_name_invalid' => 'Namn kan bara innehålla siffror, latinska bokstäver och följande symboler: _-',
         'dir_name_taken' => 'Den önskade temakatalogen finns redan.',
         'find_more_themes' => 'Hitta fler teman på OctoberCMS Theme Marketplace',
+        'saving' => 'Sparar tema...',
         'return' => 'Återvänd till temalistan',
     ],
     'maintenance' => [
@@ -227,6 +237,6 @@ return [
         'manage_pages' => 'Hantera sidor',
         'manage_layouts' => 'Hantera layouts',
         'manage_partials' => 'Hantera partials',
-        'manage_themes' => 'Hantera teman'
-    ]
+        'manage_themes' => 'Hantera teman',
+    ],
 ];

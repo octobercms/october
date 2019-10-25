@@ -62,6 +62,8 @@
         //
 
         this.init()
+
+        $.oc.foundation.controlUtils.markDisposable(element)
     }
 
     Scrollpad.prototype = Object.create(BaseProto)
@@ -113,6 +115,9 @@
     Scrollpad.prototype.registerHandlers = function() {
         this.$el.on('mouseenter', this.proxy(this.onMouseEnter))
         this.$el.on('mouseleave', this.proxy(this.onMouseLeave))
+
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+
         this.scrollContentElement.addEventListener('scroll', this.proxy(this.onScroll))
         this.dragHandleElement.addEventListener('mousedown', this.proxy(this.onStartDrag))
     }
@@ -120,6 +125,7 @@
     Scrollpad.prototype.unregisterHandlers = function() {
         this.$el.off('mouseenter', this.proxy(this.onMouseEnter))
         this.$el.off('mouseleave', this.proxy(this.onMouseLeave))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
         this.scrollContentElement.removeEventListener('scroll', this.proxy(this.onScroll))
         this.dragHandleElement.removeEventListener('mousedown', this.proxy(this.onStartDrag))
 

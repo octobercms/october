@@ -102,7 +102,6 @@
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
             $.oc.stripeLoadIndicator.hide()
         })
 
@@ -118,8 +117,9 @@
 
         ev.preventDefault()
 
-        var $panel = element.closest('.form-tabless-fields.collapsed'),
-            $primaryPanel = element.closest('.control-tabs.primary.collapsed')
+        var $el = $(element),
+            $panel = $el.closest('.form-tabless-fields.collapsed'),
+            $primaryPanel = $el.closest('.control-tabs.primary-tabs.collapsed')
 
         if ($panel.length > 0)
             $panel.removeClass('collapsed')
@@ -128,12 +128,12 @@
             $primaryPanel.removeClass('collapsed')
 
             var pane = $primaryPanel.closest('.tab-pane'),
-                $secondaryPanel = $('.control-tabs.secondary', pane)
+                $secondaryPanel = $('.control-tabs.secondary-tabs', pane)
 
             $secondaryPanel.removeClass('primary-collapsed')
         }
 
-        element.focus()
+        $el.focus()
     }
 
     CmsPage.prototype.onTabClosed = function(ev) {
@@ -172,7 +172,7 @@
         var dataId = $target.closest('li').attr('data-tab-id'),
             title = $target.attr('title'),
             $sidePanel = $('#cms-side-panel')
-        
+
         if (title)
             this.setPageTitle(title)
 
@@ -207,11 +207,8 @@
         })
 
         var $primaryCollapseIcon = $('<a href="javascript:;" class="tab-collapse-icon primary"><i class="icon-chevron-down"></i></a>'),
-            $primaryPanel = $('.control-tabs.primary', data.pane),
-            $secondaryPanel = $('.control-tabs.secondary', data.pane),
-            $primaryTabContainer = $('.nav-tabs', $primaryPanel)
-
-        $primaryTabContainer.addClass('master-area')
+            $primaryPanel = $('.control-tabs.primary-tabs', data.pane),
+            $secondaryPanel = $('.control-tabs.secondary-tabs', data.pane)
 
         if ($primaryPanel.length > 0) {
             $secondaryPanel.append($primaryCollapseIcon);
@@ -252,6 +249,8 @@
 
         $form.on('changed.oc.changeMonitor', function() {
             $panel.trigger('modified.oc.tab')
+            $panel.find('[data-control=commit-button]').addClass('hide');
+            $panel.find('[data-control=reset-button]').addClass('hide');
             self.updateModifiedCounter()
         })
 
@@ -280,6 +279,10 @@
 
     CmsPage.prototype.onAjaxSuccess = function(ev, context, data) {
         var element = ev.target
+
+        // Update the visibilities of the commit & reset buttons
+        $('[data-control=commit-button]', element).toggleClass('hide', !data.canCommit)
+        $('[data-control=reset-button]', element).toggleClass('hide', !data.canReset)
 
         if (data.templatePath !== undefined) {
             $('input[name=templatePath]', element).val(data.templatePath)
@@ -315,9 +318,14 @@
         if (context.handler == 'onSave' && (!data['X_OCTOBER_ERROR_FIELDS'] && !data['X_OCTOBER_ERROR_MESSAGE'])) {
             $(element).trigger('unchange.oc.changeMonitor')
         }
+
+        // Reload the form if the server has requested it
+        if (data.forceReload) {
+            this.reloadForm(element)
+        }
     }
 
-    CmsPage.prototype.onAjaxError = function(ev, context, data, jqXHR) {
+    CmsPage.prototype.onAjaxError = function(ev, context, message, data, jqXHR) {
         if (context.handler == 'onSave') {
             if (jqXHR.responseText == 'mtime-mismatch') {
                 ev.preventDefault()
@@ -361,7 +369,7 @@
         }).done(function(data) {
             var tabs = $('#cms-master-tabs').data('oc.tab');
             $.each(data.deleted, function(index, path){
-                var 
+                var
                     tabId = templateType + '-' + data.theme + '-' + path,
                     tab = tabs.findByIdentifier(tabId)
 
@@ -377,7 +385,12 @@
     }
 
     CmsPage.prototype.onInspectorShowing = function(ev, data) {
-        $(ev.currentTarget).closest('[data-control="toolbar"]').data('oc.dragScroll').goToElement(ev.currentTarget, data.callback)
+        var $dragScroll = $(ev.currentTarget).closest('[data-control="toolbar"]').data('oc.dragScroll')
+        if ($dragScroll) {
+            $dragScroll.goToElement(ev.currentTarget, data.callback)
+        } else {
+            data.callback();
+        }
 
         ev.stopPropagation()
     }
@@ -510,7 +523,7 @@
 
     CmsPage.prototype.updateComponentListClass = function(pane) {
         var $componentList = $('.control-componentlist', pane),
-            $primaryPanel = $('.control-tabs.primary', pane),
+            $primaryPanel = $('.control-tabs.primary-tabs', pane),
             $primaryTabContainer = $('.nav-tabs', $primaryPanel),
             hasComponents = $('.layout', $componentList).children(':not(.hidden)').length > 0
 
@@ -553,11 +566,11 @@
 
     CmsPage.prototype.updateModifiedCounter = function() {
         var counters = {
-            page: {menu: 'pages', count: 0},
-            partial: {menu: 'partials', count: 0},
-            layout: {menu: 'layouts', count: 0},
-            content: {menu: 'content', count: 0},
-            asset:{menu: 'assets', count: 0}
+            page: { menu: 'pages', count: 0 },
+            partial: { menu: 'partials', count: 0 },
+            layout: { menu: 'layouts', count: 0 },
+            content: { menu: 'content', count: 0 },
+            asset: { menu: 'assets', count:  0}
         }
 
         $('> div.tab-content > div.tab-pane[data-modified]', '#cms-master-tabs').each(function(){
@@ -642,7 +655,7 @@
     }
 
     CmsPage.prototype.reloadForm = function(form) {
-        var 
+        var
             $form = $(form),
             data = {
                 type: $('[name=templateType]', $form).val(),
@@ -684,7 +697,7 @@
         $(form).request('onGetTemplateList', {
             success: function(data) {
                 $('#cms-master-tabs > .tab-content select[name="settings[layout]"]').each(function(){
-                    var 
+                    var
                         $select = $(this),
                         value = $select.val()
 

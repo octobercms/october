@@ -1,0 +1,39 @@
+@import "../../../../assets/less/core/boot.less";
+
+@panel-bg-grey: #f5f5f5;
+
+.nested-form {
+    position: relative;
+    min-height: 30px;
+
+    .control-tabs.primary-tabs {
+        .nav-tabs {
+            margin: 0 !important;
+        }
+    }
+
+    &.panel-styles {
+        margin-top: 5px;
+        padding: 1em 1.25em 0 1.25em !important;
+        background: @panel-bg-grey;
+        border: 1px solid @input-border;
+        border-radius: @border-radius-base;
+        box-shadow: @input-box-shadow;
+
+        .control-tabs.primary-tabs {
+            .nav-tabs {
+                > li.active > a:before {
+                    background-color: @panel-bg-grey;
+                    border-color: @panel-bg-grey;
+                }
+
+                > li > a > span.title {
+                    &:before, &:after {
+                        background-color: @panel-bg-grey;
+                    }
+                }
+            }
+
+        }
+    }
+}

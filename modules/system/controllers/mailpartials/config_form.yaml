@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: system::lang.mail_templates.partial
+form: ~/modules/system/models/mailpartial/fields.yaml
+modelClass: System\Models\MailPartial
+defaultRedirect: system/mailtemplates/index/partials
+
+create:
+    redirect: system/mailpartials/update/:id
+    redirectClose: system/mailtemplates/index/partials
+
+update:
+    redirect: system/mailtemplates/index/partials
+    redirectClose: system/mailtemplates/index/partials

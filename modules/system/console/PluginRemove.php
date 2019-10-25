@@ -7,6 +7,15 @@ use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Console command to remove a plugin.
+ *
+ * This completely deletes an existing plugin, including database tables, files
+ * and directories.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class PluginRemove extends Command
 {
 
@@ -25,19 +34,10 @@ class PluginRemove extends Command
     protected $description = 'Removes an existing plugin.';
 
     /**
-     * Create a new command instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $pluginManager = PluginManager::instance();
         $pluginName = $this->argument('name');
@@ -54,12 +54,8 @@ class PluginRemove extends Command
         /*
          * Rollback plugin
          */
-        $manager = UpdateManager::instance()->resetNotes();
+        $manager = UpdateManager::instance()->setNotesOutput($this->output);
         $manager->rollbackPlugin($pluginName);
-
-        foreach ($manager->getNotes() as $note) {
-            $this->output->writeln($note);
-        }
 
         /*
          * Delete from file system

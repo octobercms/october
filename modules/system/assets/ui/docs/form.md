@@ -1,6 +1,25 @@
-Renders a form
+# Form
 
-# Example
+## Types
+
+    <form class="form-elements" role="form">
+        <div class="form-group span-left">
+            <label>First name</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+
+        <div class="form-group span-right">
+            <label>Last name</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+
+        <div class="form-group span-full">
+            <label>Address</label>
+            <input type="text" name="" value="" class="form-control" />
+        </div>
+    </form>
+
+### Complete example
 
     <!-- Form Elements -->
     <form class="form-elements" role="form">
@@ -8,14 +27,14 @@ Renders a form
         <!-- Text Input (Left) -->
         <div class="form-group text-field span-left is-required">
             <label>Input Left</label>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
              <p class="help-block">Example below help text here.</p>
         </div>
 
         <!-- Text Input (Right) -->
         <div class="form-group text-field span-right is-required">
             <label>Input Right</label>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
             <p class="help-block">Example below help text here.</p>
         </div>
 
@@ -23,7 +42,7 @@ Renders a form
         <div class="form-group text-field span-full is-required">
             <label>Input Full</label>
             <p class="help-block before-field">Example above help text here.</p>
-            <input type="text" name="" value="" class="form-control" autocomplete="off" maxlength="255" />
+            <input type="text" name="" value="" class="form-control" />
         </div>
 
         <!-- Drop down -->
@@ -40,7 +59,6 @@ Renders a form
         <div class="form-group dropdown-field span-right">
             <label>Grouped Drop Down</label>
             <select class="form-control custom-select">
-                <option value=""></option>
                 <optgroup label="NFC EAST">
                     <option>Dallas Cowboys</option>
                     <option>New York Giants</option>
@@ -107,7 +125,7 @@ Renders a form
                 <label>Would you like fries with that?</label>
                 <p class="help-block">Use this checkbox to enable the Googie Berry power-up specifically for this page. You can configure the Googie Berry power-up on the System Settings and Dashboard page.</p>
             </div>
-            <label class="custom-switch" onclick="">
+            <label class="custom-switch">
                 <input type="checkbox" />
                 <span><span>On</span><span>Off</span></span>
                 <a class="slide-button"></a>
@@ -118,7 +136,7 @@ Renders a form
         <div class="form-group radio-field span-left is-required">
             <label>Radio List</label>
             <p class="help-block before-field">Where should you propose to your beautiful girl?</p>
-            
+
             <div class="radio custom-radio">
                 <input name="radio" value="1" type="radio" id="radio_1">
                 <label for="radio_1">Paris</label>
@@ -158,11 +176,5 @@ Renders a form
             </div>
         </div>
 
-        <!-- Textarea -->
-        <div class="form-group textarea-field span-right is-required">
-            <label>Textarea</label>
-            <p class="help-block before-field">Plain as Jane multi line text input</p>
-            <textarea autocomplete="off" class="form-control field-textarea size-large" name="comment" placeholder=""></textarea>
-        </div>
-
     </form>
+

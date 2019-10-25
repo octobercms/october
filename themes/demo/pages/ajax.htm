@@ -5,9 +5,9 @@ layout = "default"
 <?php
 function onTest()
 {
-    $value1 = post('value1');
-    $value2 = post('value2');
-    $operation = post('operation');
+    $value1 = input('value1');
+    $value2 = input('value2');
+    $operation = input('operation');
 
     switch ($operation) {
         case '+' :
@@ -44,7 +44,7 @@ function onTest()
             <h3 class="panel-title">Calculator</h3>
         </div>
         <div class="panel-body">
-            <form class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
+            <form role="form" class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
                 <input type="text" class="form-control" value="15" name="value1" style="width:100px">
                 <select class="form-control" name="operation" style="width: 70px">
                     <option>+</option>
@@ -53,7 +53,7 @@ function onTest()
                     <option>/</option>
                 </select>
                 <input type="text" class="form-control" value="5" name="value2" style="width:100px">
-                <button type="submit" class="btn btn btn-primary">Calculate</button>
+                <button type="submit" class="btn btn btn-primary" data-attach-loading>Calculate</button>
             </form>
         </div>
         <div class="panel-footer" id="result">

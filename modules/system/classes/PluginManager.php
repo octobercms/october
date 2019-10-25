@@ -1,14 +1,16 @@
 <?php namespace System\Classes;
 
+use Db;
 use App;
 use Str;
 use File;
 use Lang;
+use Log;
 use View;
 use Config;
+use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use Illuminate\Container\Container;
 use ApplicationException;
 
 /**
@@ -57,6 +59,11 @@ class PluginManager
     protected $disabledPlugins = [];
 
     /**
+     * @var array Cache of registration method results.
+     */
+    protected $registrationMethodCache = [];
+
+    /**
      * @var boolean Prevent all plugins from registering or booting
      */
     public static $noInit = false;
@@ -67,10 +74,13 @@ class PluginManager
     protected function init()
     {
         $this->bindContainerObjects();
-        $this->metaFile = storage_path() . '/cms/disabled.json';
+        $this->metaFile = storage_path('cms/disabled.json');
         $this->loadDisabled();
         $this->loadPlugins();
-        $this->loadDependencies();
+
+        if ($this->app->runningInBackend()) {
+            $this->loadDependencies();
+        }
     }
 
     /**
@@ -112,17 +122,28 @@ class PluginManager
         $className = $namespace.'\Plugin';
         $classPath = $path.'/Plugin.php';
 
-        // Autoloader failed?
-        if (!class_exists($className)) {
-            include_once $classPath;
-        }
+        try {
+            // Autoloader failed?
+            if (!class_exists($className)) {
+                include_once $classPath;
+            }
 
-        // Not a valid plugin!
-        if (!class_exists($className)) {
+            // Not a valid plugin!
+            if (!class_exists($className)) {
+                return;
+            }
+
+            $classObj = new $className($this->app);
+        } catch (\Throwable $e) {
+            Log::error('Plugin ' . $className . ' could not be instantiated.', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return;
         }
 
-        $classObj = new $className($this->app);
         $classId = $this->getIdentifier($classObj);
 
         /*
@@ -142,9 +163,9 @@ class PluginManager
      * Runs the register() method on all plugins. Can only be called once.
      * @return void
      */
-    public function registerAll()
+    public function registerAll($force = false)
     {
-        if ($this->registered) {
+        if ($this->registered && !$force) {
             return;
         }
 
@@ -153,6 +174,16 @@ class PluginManager
         }
 
         $this->registered = true;
+    }
+
+    /**
+     * Unregisters all plugins: the negative of registerAll().
+     * @return void
+     */
+    public function unregisterAll()
+    {
+        $this->registered = false;
+        $this->plugins = [];
     }
 
     /**
@@ -167,7 +198,7 @@ class PluginManager
             $pluginId = $this->getIdentifier($plugin);
         }
 
-        if (!$plugin || $plugin->disabled) {
+        if (!$plugin) {
             return;
         }
 
@@ -175,23 +206,27 @@ class PluginManager
         $pluginNamespace = strtolower($pluginId);
 
         /*
-         * Register plugin class autoloaders
-         */
-        $autoloadPath = $pluginPath . '/vendor/autoload.php';
-        if (File::isFile($autoloadPath)) {
-            require_once $autoloadPath;
-        }
-
-        if (!self::$noInit || $plugin->elevated) {
-            $plugin->register();
-        }
-
-        /*
          * Register language namespaces
          */
         $langPath = $pluginPath . '/lang';
         if (File::isDirectory($langPath)) {
             Lang::addNamespace($pluginNamespace, $langPath);
+        }
+
+        if ($plugin->disabled) {
+            return;
+        }
+
+        /*
+         * Register plugin class autoloaders
+         */
+        $autoloadPath = $pluginPath . '/vendor/autoload.php';
+        if (File::isFile($autoloadPath)) {
+            ComposerManager::instance()->autoload($pluginPath . '/vendor');
+        }
+
+        if (!self::$noInit || $plugin->elevated) {
+            $plugin->register();
         }
 
         /*
@@ -230,9 +265,9 @@ class PluginManager
     /**
      * Runs the boot() method on all plugins. Can only be called once.
      */
-    public function bootAll()
+    public function bootAll($force = false)
     {
-        if ($this->booted) {
+        if ($this->booted && !$force) {
             return;
         }
 
@@ -279,9 +314,7 @@ class PluginManager
      */
     public function exists($id)
     {
-        return (!$this->findByIdentifier($id) || $this->isDisabled($id))
-            ? false
-            : true;
+        return !(!$this->findByIdentifier($id) || $this->isDisabled($id));
     }
 
     /**
@@ -303,6 +336,7 @@ class PluginManager
         }
 
         $classId = $this->getIdentifier($namespace);
+
         return $this->plugins[$classId];
     }
 
@@ -328,7 +362,10 @@ class PluginManager
     public function hasPlugin($namespace)
     {
         $classId = $this->getIdentifier($namespace);
-        return isset($this->plugins[$classId]);
+
+        $normalized = $this->normalizeIdentifier($classId);
+
+        return isset($this->plugins[$normalized]);
     }
 
     /**
@@ -361,7 +398,9 @@ class PluginManager
             return $plugins;
         }
 
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath));
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dirPath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
+        );
         $it->setMaxDepth(2);
         $it->rewind();
 
@@ -380,7 +419,7 @@ class PluginManager
     }
 
     /**
-     * Returns a plugin identifier from a Plugin class name or object
+     * Resolves a plugin identifier from a plugin class name or object.
      * @param mixed Plugin class name or object
      * @return string Identifier in format of Vendor.Plugin
      */
@@ -394,6 +433,7 @@ class PluginManager
         $parts = explode('\\', $namespace);
         $slice = array_slice($parts, 1, 2);
         $namespace = implode('.', $slice);
+
         return $namespace;
     }
 
@@ -411,6 +451,31 @@ class PluginManager
         }
 
         return $identifier;
+    }
+
+    /**
+     * Spins over every plugin object and collects the results of a method call.
+     * @param  string $methodName
+     * @return array
+     */
+    public function getRegistrationMethodValues($methodName)
+    {
+        if (isset($this->registrationMethodCache[$methodName])) {
+            return $this->registrationMethodCache[$methodName];
+        }
+
+        $results = [];
+        $plugins = $this->getPlugins();
+
+        foreach ($plugins as $id => $plugin) {
+            if (!method_exists($plugin, $methodName)) {
+                continue;
+            }
+
+            $results[$id] = $plugin->{$methodName}();
+        }
+
+        return $this->registrationMethodCache[$methodName] = $results;
     }
 
     //
@@ -437,10 +502,11 @@ class PluginManager
         }
 
         if (File::exists($path)) {
-            $disabled = json_decode(File::get($path), true);
+            $disabled = json_decode(File::get($path), true) ?: [];
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {
+            $this->populateDisabledPluginsFromDb();
             $this->writeDisabled();
         }
     }
@@ -453,9 +519,12 @@ class PluginManager
     public function isDisabled($id)
     {
         $code = $this->getIdentifier($id);
+
         if (array_key_exists($code, $this->disabledPlugins)) {
             return true;
         }
+
+        return false;
     }
 
     /**
@@ -463,14 +532,35 @@ class PluginManager
      */
     protected function writeDisabled()
     {
-        $path = $this->metaFile;
-        File::put($path, json_encode($this->disabledPlugins));
+        File::put($this->metaFile, json_encode($this->disabledPlugins));
+    }
+
+    /**
+     * Populates information about disabled plugins from database
+     * @return void
+     */
+    protected function populateDisabledPluginsFromDb()
+    {
+        if (!App::hasDatabase()) {
+            return;
+        }
+
+        if (!Schema::hasTable('system_plugin_versions')) {
+            return;
+        }
+
+        $disabled = Db::table('system_plugin_versions')->where('is_disabled', 1)->lists('code');
+
+        foreach ($disabled as $code) {
+            $this->disabledPlugins[$code] = true;
+        }
     }
 
     /**
      * Disables a single plugin in the system.
      * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if disabled by the user
+     * @param bool $isUser Set to true if disabled by the user
+     * @return bool
      */
     public function disablePlugin($id, $isUser = false)
     {
@@ -492,7 +582,8 @@ class PluginManager
     /**
      * Enables a single plugin in the system.
      * @param string $id Plugin code/namespace
-     * @param bool $user Set to true if enabled by the user
+     * @param bool $isUser Set to true if enabled by the user
+     * @return bool
      */
     public function enablePlugin($id, $isUser = false)
     {
@@ -521,8 +612,12 @@ class PluginManager
     //
 
     /**
-     * Scans the system plugins to locate any dependencies
-     * that are not currently installed.
+     * Scans the system plugins to locate any dependencies that are not currently
+     * installed. Returns an array of plugin codes that are needed.
+     *
+     *     PluginManager::instance()->findMissingDependencies();
+     *
+     * @return array
      */
     public function findMissingDependencies()
     {
@@ -538,7 +633,9 @@ class PluginManager
                     continue;
                 }
 
-                $missing[] = $require;
+                if (!in_array($require, $missing)) {
+                    $missing[] = $require;
+                }
             }
         }
 
@@ -548,6 +645,7 @@ class PluginManager
     /**
      * Cross checks all plugins and their dependancies, if not met plugins
      * are disabled and vice versa.
+     * @return void
      */
     protected function loadDependencies()
     {
@@ -557,11 +655,12 @@ class PluginManager
             }
 
             $disable = false;
+
             foreach ($required as $require) {
-                if (!$this->hasPlugin($require)) {
+                if (!$pluginObj = $this->findByIdentifier($require)) {
                     $disable = true;
                 }
-                elseif (($pluginObj = $this->findByIdentifier($require)) && $pluginObj->disabled) {
+                elseif ($pluginObj->disabled) {
                     $disable = true;
                 }
             }
@@ -610,13 +709,11 @@ class PluginManager
 
         $loopCount = 0;
         while (count($checklist)) {
-
             if (++$loopCount > 999) {
                 throw new ApplicationException('Too much recursion');
             }
 
             foreach ($checklist as $code => $plugin) {
-
                 /*
                  * Get dependencies and remove any aliens
                  */
@@ -648,9 +745,7 @@ class PluginManager
                 array_push($result, $code);
                 unset($checklist[$code]);
             }
-
         }
-
         return $result;
     }
 
@@ -673,7 +768,7 @@ class PluginManager
         /*
          * Delete from file system
          */
-        if ($pluginPath = PluginManager::instance()->getPluginPath($id)) {
+        if ($pluginPath = self::instance()->getPluginPath($id)) {
             File::deleteDirectory($pluginPath);
         }
     }

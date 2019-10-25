@@ -6,6 +6,14 @@ use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
 use System\Classes\UpdateManager;
 
+/**
+ * Console command to list themes.
+ *
+ * This lists all the available themes in the system. It also shows the active theme.
+ *
+ * @package october\system
+ * @author Alexey Bobkov, Samuel Georges
+ */
 class ThemeList extends Command
 {
     /**
@@ -19,17 +27,9 @@ class ThemeList extends Command
     protected $description = 'List available themes.';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $themeManager = ThemeManager::instance();
         $updateManager = UpdateManager::instance();
@@ -42,7 +42,6 @@ class ThemeList extends Command
         }
 
         if ($this->option('include-marketplace')) {
-
             // @todo List everything in the marketplace - not just popular.
 
             $popularThemes = $updateManager->requestPopularProducts('theme');
@@ -55,14 +54,6 @@ class ThemeList extends Command
         }
 
         $this->info(PHP_EOL."[*] Active    [-] Installed    [ ] Not installed");
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments()
-    {
-        return [];
     }
 
     /**

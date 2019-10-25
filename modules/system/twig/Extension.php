@@ -1,11 +1,9 @@
 <?php namespace System\Twig;
 
-use URL;
-use Twig_Extension;
-use Twig_TokenParser;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
-use ApplicationException;
+use Url;
+use Twig\Extension\AbstractExtension as TwigExtension;
+use Twig\TwigFilter as TwigSimpleFilter;
+use System\Classes\MediaLibrary;
 use System\Classes\MarkupManager;
 
 /**
@@ -14,9 +12,8 @@ use System\Classes\MarkupManager;
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
-class Extension extends Twig_Extension
+class Extension extends TwigExtension
 {
-
     /**
      * @var \System\Classes\MarkupManager A reference to the markup manager instance.
      */
@@ -28,16 +25,6 @@ class Extension extends Twig_Extension
     public function __construct()
     {
         $this->markupManager = MarkupManager::instance();
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'System';
     }
 
     /**
@@ -65,7 +52,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         $filters = [
-            new Twig_SimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
         ];
 
         /*
@@ -100,6 +88,16 @@ class Extension extends Twig_Extension
      */
     public function appFilter($url)
     {
-        return URL::to($url);
+        return Url::to($url);
+    }
+
+    /**
+     * Converts supplied file to a URL relative to the media library.
+     * @param string $file Specifies the media-relative file
+     * @return string
+     */
+    public function mediaFilter($file)
+    {
+        return MediaLibrary::url($file);
     }
 }

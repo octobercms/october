@@ -25,7 +25,7 @@
 // --------------------------------------------------
 
 .callout {
-    font-size: 14px;
+    font-size: @font-size-base - 1;
     margin-bottom: @line-height-computed;
 
     &.fade {
@@ -48,7 +48,10 @@
             background: @callout-danger-header-bg;
             i { color: @callout-danger-icon; }
         }
-        > .content { background: @callout-danger-content-bg; }
+        > .content {
+            background: white;
+            border: 2px solid @callout-danger-content-bg;
+        }
     }
 
     &.callout-info {
@@ -56,7 +59,10 @@
             background: @callout-info-header-bg;
             i { color: @callout-info-icon; }
         }
-        > .content { background: @callout-info-content-bg; }
+        > .content {
+            background: white;
+            border: 2px solid @callout-info-content-bg;
+        }
     }
 
     &.callout-success {
@@ -64,7 +70,10 @@
             background: @callout-success-header-bg;
             i { color: @callout-success-icon; }
         }
-        > .content { background: @callout-success-content-bg; }
+        > .content {
+            background: white;
+            border: 2px solid @callout-success-content-bg;
+        }
     }
 
     &.callout-warning {
@@ -72,7 +81,14 @@
             background: @callout-warning-header-bg;
             i { color: @callout-warning-icon; }
         }
-        > .content { background: @callout-warning-content-bg; }
+        > .content {
+            background: white;
+            border: 2px solid @callout-warning-content-bg;
+        }
+    }
+
+    > .header + .content {
+        border-top: none;
     }
 
     > .header {
@@ -84,12 +100,16 @@
         h3 {
             letter-spacing: 0;
             margin: 0 0 7px 0;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: @font-size-base - 1;
+            font-weight: 700;
         }
 
-        h3, p {
+        h3, p, ul, ol {
             margin-left: 35px;
+        }
+
+        ul, ol {
+            padding-left: @padding-standard;
         }
 
         *:last-child {
@@ -129,6 +149,8 @@
         }
 
         ul, ol {
+            padding-left: @padding-standard;
+
             li {
                 margin-bottom: 5px;
             }
@@ -141,7 +163,7 @@
 
     &.no-icon {
         > .header {
-            h3, p {
+            h3, p, ul, ol {
                 margin-left: 0;
             }
         }
@@ -154,4 +176,8 @@
             }
         }
     }
+}
+
+.form-group > .callout {
+    margin-bottom: 0;
 }

@@ -2,9 +2,49 @@
 
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
+use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        Model::clearBootedModels();
+        Model::flushEventListeners();
+
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Archive.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Post.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/MainMenu.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/components/Comments.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/classes/Users.php';
+    }
+
+    public function testThemeUrl()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+
+        $url = $controller->themeUrl();
+        $this->assertEquals(url('/themes/test'), $url);
+
+        $url = $controller->themeUrl('foo/bar.css');
+        $this->assertEquals(url('/themes/test/foo/bar.css'), $url);
+
+        //
+        // These tests seem to bear different results
+        //
+
+        // $url = $controller->themeUrl(['assets/css/style1.css', 'assets/css/style2.css']);
+        // $url = substr($url, 0, strpos($url, '-'));
+        // $this->assertEquals('/combine/88634b8fa6f4f6442ce830d38296640a', $url);
+
+        // $url = $controller->themeUrl(['assets/js/script1.js', 'assets/js/script2.js']);
+        // $url = substr($url, 0, strpos($url, '-'));
+        // $this->assertEquals('/combine/860afc990164a60a8e90682d04da27ee', $url);
+    }
+
     public function test404()
     {
         /*
@@ -107,7 +147,7 @@ class ControllerTest extends TestCase
     }
 
     /**
-     * @expectedException        Cms\Classes\CmsException
+     * @expectedException        \Twig\Error\RuntimeError
      * @expectedExceptionMessage is not found
      */
     public function testPartialNotFound()
@@ -127,19 +167,28 @@ class ControllerTest extends TestCase
 
     protected function configAjaxRequestMock($handler, $partials = false)
     {
-        $requestMock = $this->getMock('Illuminate\Http\Request', array('header'));
+        $requestMock = $this
+            ->getMockBuilder('Illuminate\Http\Request')
+            ->disableOriginalConstructor()
+            ->setMethods(['ajax', 'method', 'header'])
+            ->getMock();
 
-        $requestMock->expects($this->at(0))
+        $map = [
+            ['X_OCTOBER_REQUEST_HANDLER', null, $handler],
+            ['X_OCTOBER_REQUEST_PARTIALS', null, $partials],
+        ];
+
+        $requestMock->expects($this->any())
+            ->method('ajax')
+            ->will($this->returnValue(true));
+
+        $requestMock->expects($this->any())
+            ->method('method')
+            ->will($this->returnValue('POST'));
+
+        $requestMock->expects($this->any())
             ->method('header')
-            ->with($this->stringContains('X_OCTOBER_REQUEST_HANDLER'), $this->anything())
-            ->will($this->returnValue($handler));
-
-        if ($partials !== false) {
-            $requestMock->expects($this->at(1))
-                ->method('header')
-                ->with($this->stringContains('X_OCTOBER_REQUEST_PARTIALS'), $this->anything())
-                ->will($this->returnValue($partials));
-        }
+            ->will($this->returnValueMap($map));
 
         return $requestMock;
     }
@@ -155,17 +204,6 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $controller->run('/ajax-test');
-
-        //
-        // This was the old approach, can remove this comment block if year >= 2017
-        //
-
-        // $response = $controller->run('/ajax-test');
-        // $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
-
-        // $this->assertInternalType('string', $response->getOriginalContent());
-        // $this->assertEquals(500, $response->getStatusCode());
-        // $this->assertEquals("AJAX handler 'onNoHandler' was not found.", $response->getOriginalContent());
     }
 
     /**
@@ -265,7 +303,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component')->getContent();
-        $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -293,7 +331,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-components')->getContent();
-        $page = PHPUnit_Framework_Assert::readAttribute($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
 
         $this->assertArrayHasKey('firstAlias', $page->components);
         $this->assertArrayHasKey('secondAlias', $page->components);
@@ -332,28 +370,119 @@ ESC;
         $this->assertEquals('page', $content['ajax-result']);
     }
 
-    public function testThemeUrl()
+    /**
+     * @expectedException        October\Rain\Exception\SystemException
+     * @expectedExceptionMessage is not registered for the component
+     */
+    public function testComponentClassNotFound()
     {
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-
-        $url = $controller->themeUrl();
-        $this->assertEquals('http://localhost/themes/test', $url);
-
-        $url = $controller->themeUrl('foo/bar.css');
-        $this->assertEquals('http://localhost/themes/test/foo/bar.css', $url);
-
-        //
-        // These tests seem to bear different results
-        //
-
-        // $url = $controller->themeUrl(['assets/css/style1.css', 'assets/css/style2.css']);
-        // $url = substr($url, 0, strpos($url, '-'));
-        // $this->assertEquals('/combine/88634b8fa6f4f6442ce830d38296640a', $url);
-
-        // $url = $controller->themeUrl(['assets/js/script1.js', 'assets/js/script2.js']);
-        // $url = substr($url, 0, strpos($url, '-'));
-        // $this->assertEquals('/combine/860afc990164a60a8e90682d04da27ee', $url);
+        $response = $controller->run('/no-component-class')->getContent();
     }
 
+    public function testComponentNotFound()
+    {
+        //
+        // This test should probably be throwing an exception... -sg
+        //
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/no-component')->getContent();
+
+        $this->assertEquals('<p>Hey</p>', $response);
+    }
+
+    public function testComponentPartial()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial')->getContent();
+
+        $this->assertEquals('<p>DEFAULT MARKUP: I am a post yay</p>', $response);
+    }
+
+    public function testComponentPartialAliasOverride()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial-alias-override')->getContent();
+
+        //
+        // Testing case sensitivity
+        //
+        // Component alias: overRide1
+        // Target path: partials\override1\default.htm
+        //
+        $this->assertEquals('<p>I am an override alias partial! Yay</p>', $response);
+    }
+
+    public function testComponentPartialOverride()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial-override')->getContent();
+
+        //
+        // Testing case sensitivity
+        //
+        // Component code: testPost
+        // Target path: partials\testpost\default.htm
+        //
+        $this->assertEquals('<p>I am an override partial! Yay</p>', $response);
+    }
+
+    public function testComponentPartialNesting()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-partial-nesting')->getContent();
+
+        $content = <<<ESC
+<h1>Level 1</h1>
+<ul>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+    <strong>Home</strong>
+    <strong>Blog</strong>
+    <strong>About</strong>
+    <strong>Contact</strong>
+</ul>
+
+<h1>Level 2</h1>
+<p>DEFAULT MARKUP: I am a post yay</p><p>I am another post, deep down</p>
+
+<h1>Level 3</h1>
+<h4>DEFAULT MARKUP: Menu</h4>
+<ul>
+    <li>DEFAULT: Home</li>
+    <li>DEFAULT: Blog</li>
+    <li>DEFAULT: About</li>
+    <li>DEFAULT: Contact</li>
+</ul>
+<p>Insert post here</p>
+ESC;
+
+        $this->assertEquals($content, $response);
+    }
+
+    public function testComponentWithOnRender()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/component-custom-render')->getContent();
+
+        $content = <<<ESC
+Pass
+Custom output: Would you look over Picasso's shoulder
+Custom output: And tell him about his brush strokes?
+ESC;
+        $this->assertEquals($content, $response);
+    }
 }

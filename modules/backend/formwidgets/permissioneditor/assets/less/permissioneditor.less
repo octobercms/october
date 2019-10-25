@@ -1,0 +1,138 @@
+@import "../../../../assets/less/core/boot.less";
+
+@color-permissioneditor-section-border:         #DBE1E3;
+@color-permissioneditor-permission-border:      #ECF0F1;
+
+.permissioneditor {
+    position: relative;
+
+    margin: 0 -(@padding-standard);
+
+    &.control-disabled {
+        .permissions-overlay {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.01);
+            cursor: not-allowed;
+        }
+
+        table {
+            .opacity(0.5);
+        }
+    }
+
+    table {
+        width: 100%;
+
+        th {
+            padding: 30px 4px 8px 4px;
+            color: @color-label;
+            font-weight: normal;
+            border-bottom: 1px solid @color-permissioneditor-section-border; 
+
+            &.tab {
+                font-size: @font-size-base - 1;
+            }
+
+            &.permission-type {
+                text-transform: uppercase;
+                font-size: @font-size-base - 3;
+                text-align: center;
+            }
+        }
+
+        td {
+            padding: 10px 4px;
+            vertical-align: top;
+            border-bottom: 1px solid @color-permissioneditor-permission-border; 
+            .user-select(none);
+
+            &.permission-value{
+                text-align: center;
+            }
+
+            &.permission-name {
+                font-size: @font-size-base - 1;
+                cursor: pointer;
+                color: @color-help-block-text;
+            }
+
+            p.comment {
+                margin-top: 5px;
+                margin-bottom: 0;
+
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+
+        tr:hover {
+            td {
+                background: @color-list-hover-bg;
+
+                &.permission-name {
+                    color: #ffffff !important;
+                }
+            }
+        }
+
+        th, td {
+            &:first-child {
+                padding-left: @padding-standard;
+            }
+
+            &:last-child {
+                padding-right: 5px;
+            }
+        }
+
+        .custom-radio,
+        .custom-checkbox {
+            display: inline-block;;
+            padding-left: 0;
+
+            &, label {
+                margin-bottom: 0;
+            }
+
+            label {
+                padding: 0 0 0 14px;
+                margin: 0;
+                top: 0;
+
+                span {
+                    text-indent: -10000em;
+                    display: block;
+                }
+
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:first-child th {
+            padding-top: 0;
+        }
+
+        tr.disabled {
+            td.permission-name {
+                color: #AAA;
+            }
+        }
+
+        tr.last-section-row {
+            td {
+                border-bottom: none;
+            }
+        }
+    }
+}

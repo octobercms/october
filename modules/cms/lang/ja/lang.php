@@ -12,6 +12,12 @@ return [
         'delete_success' => ':count個のテンプレートを削除しました。',
         'file_name_required' => 'ファイル名フィールドが必要です。',
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'オンライン',
+            'maintenance' => 'メンテナンスモード',
+        ]
+    ],
     'theme' => [
         'active' => [
             'not_set' => "アクティブなテーマが設定されていません。",

@@ -1,3 +1,0 @@
-/*
-=require list.rowlink.js
-*/

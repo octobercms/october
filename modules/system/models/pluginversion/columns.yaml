@@ -19,5 +19,3 @@ columns:
     author:
         label: system::lang.updates.plugin_author
         sortable: false
-        type: partial
-        path: column_author

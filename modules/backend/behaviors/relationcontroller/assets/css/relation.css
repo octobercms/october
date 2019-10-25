@@ -14,7 +14,6 @@
 .relation-behavior .control-toolbar .toolbar-item .form-control.search {
   padding-top: 5px;
   padding-bottom: 5px;
-  background-position: right -86px;
 }
 .relation-behavior .control-toolbar .loading-indicator-container.size-input-text {
   min-height: 0;
@@ -27,6 +26,13 @@
 }
 .relation-behavior .control-list:last-child > table {
   margin-bottom: 0;
+}
+.relation-flush .control-list {
+  border-top: none;
+}
+.relation-inset {
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .form-group > .relation-behavior .control-toolbar {
   padding: 0 0 10px 0;

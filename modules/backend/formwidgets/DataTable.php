@@ -3,6 +3,7 @@
 use Lang;
 use Backend\Widgets\Table;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
 
 /**
@@ -34,7 +35,7 @@ class DataTable extends FormWidgetBase
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'datatable';
 
@@ -44,7 +45,7 @@ class DataTable extends FormWidgetBase
     protected $table;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
@@ -66,7 +67,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -86,7 +87,7 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLoadValue()
     {
@@ -102,12 +103,12 @@ class DataTable extends FormWidgetBase
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getSaveValue($value)
     {
-        // TODO: provide a streaming implementation of saving 
-        // data to the model. The current implementation returns 
+        // TODO: provide a streaming implementation of saving
+        // data to the model. The current implementation returns
         // all records at once. -ab
 
         $dataSource = $this->table->getDataSource();
@@ -133,7 +134,7 @@ class DataTable extends FormWidgetBase
     {
         $dataSource = $this->table->getDataSource();
 
-        // TODO: provide a streaming implementation of loading 
+        // TODO: provide a streaming implementation of loading
         // data from the model. The current implementation loads
         // all records at once. -ab
 
@@ -146,14 +147,15 @@ class DataTable extends FormWidgetBase
     protected function makeTableWidget()
     {
         $config = $this->makeConfig((array) $this->config);
-        $config->dataSource = 'client';
 
-        // It's safe to use the field name as an alias
-        // as field names do not repeat in forms. This
-        // approach lets to access the table data by the 
-        // field name in POST requests directly (required
-        // in some edge cases).
-        $config->alias = $this->fieldName;
+        $config->dataSource = 'client';
+        if (isset($this->getParentForm()->arrayName)) {
+            $config->alias = studly_case(HtmlHelper::nameToId($this->getParentForm()->arrayName . '[' . $this->fieldName . ']')) . 'datatable';
+            $config->fieldName = $this->getParentForm()->arrayName . '[' . $this->fieldName . ']';
+        } else {
+            $config->alias = studly_case(HtmlHelper::nameToId($this->fieldName)) . 'datatable';
+            $config->fieldName = $this->fieldName;
+        }
 
         $table = new Table($this->controller, $config);
 
@@ -190,5 +192,4 @@ class DataTable extends FormWidgetBase
 
         return $result;
     }
-
 }

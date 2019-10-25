@@ -11,13 +11,13 @@
         name="<?= $field->getName() ?>"
         value="1"
         <?= $this->previewMode ? 'disabled="disabled"' : '' ?>
-        <?= $field->value == 1 ? 'checked="checked"' : '' ?>
+        <?= $field->isSelected() ? 'checked="checked"' : '' ?>
         <?= $field->getAttributes() ?>>
 
     <label for="<?= $field->getId() ?>">
         <?= e(trans($field->label)) ?>
     </label>
     <?php if ($field->comment): ?>
-        <p class="help-block"><?= e(trans($field->comment)) ?></p>
+        <p class="help-block"><?= $field->commentHtml ? trans($field->comment) : e(trans($field->comment)) ?></p>
     <?php endif ?>
 </div>

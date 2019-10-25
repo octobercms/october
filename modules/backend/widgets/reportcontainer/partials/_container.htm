@@ -1,26 +1,16 @@
 <div class="report-container">
+    <input type="hidden" value="<?= $this->alias ?>" data-container-alias />
+
     <ul
         id="<?= $this->getId('container-list') ?>"
         class="<?= $this->canAddAndDelete ? 'add-delete' : null ?>"
         data-control="report-container">
-
-        <?php foreach ($widgets as $widgetAlias=>$widgetInfo): ?>
-            <?= $this->makePartial('widget', [
-                'widgetAlias' => $widgetAlias,
-                'widget' => $widgetInfo['widget'],
-                'sortOrder' => $widgetInfo['sortOrder']
-            ]) ?>
-        <?php endforeach ?>
-
+        <?= $this->makePartial('widget_list') ?>
     </ul>
-    <input type="hidden" value="<?= $this->alias ?>" data-container-alias />
+
     <?php if ($this->canAddAndDelete): ?>
-        <a
-            href="javascript:;"
-            class="add-widget"
-            data-control="popup"
-            data-handler="<?= $this->getEventHandler('onLoadAddPopup') ?>">
-            <i class="icon-plus"></i> <?= e(trans('backend::lang.dashboard.add_widget')) ?>
-        </a>
+        <div id="<?= $this->getId('container-toolbar') ?>" data-container-toolbar>
+            <?= $this->makePartial('widget_toolbar') ?>
+        </div>
     <?php endif ?>
 </div>

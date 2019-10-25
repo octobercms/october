@@ -1,0 +1,135 @@
+.plugin-exception-beautifier .beautifier-message-container {
+    display: block;
+    padding: 20px;
+    background: #fff;
+}
+
+.plugin-exception-beautifier .beautifier-message {
+    display: block;
+    font-size: 1.1em;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.plugin-exception-beautifier .beautifier-toggle-stacktrace {
+    background: #ecf0f1;
+    color: #2b3e50;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.plugin-exception-beautifier .beautifier-toggle-stacktrace:hover {
+    background: #0181b9;
+    color: white;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line {
+    display: block;
+    padding: 10px 0;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line > * {
+    margin-left: 55px;
+    display: block;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-number {
+    float: left;
+    width: 40px;
+    margin-left: 0;
+    margin-right: 15px;
+    text-align: right;
+    color: #000000;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-internal {
+    color: #2C3E50;
+}
+
+.plugin-exception-beautifier .beautifier-stacktrace-line-function {
+    display: block;
+    margin-left: 55px;
+}
+
+.plugin-exception-beautifier .beautifier-file {
+    color: #204bff;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.plugin-exception-beautifier .beautifier-line-number {
+    color: #af0016;
+}
+
+.plugin-exception-beautifier .beautifier-string,
+.plugin-exception-beautifier .beautifier-number,
+.plugin-exception-beautifier .beautifier-class,
+.plugin-exception-beautifier .beautifier-code,
+.plugin-exception-beautifier .beautifier-function,
+.plugin-exception-beautifier .beautifier-system-function {
+    font-family: monospace;
+}
+
+.plugin-exception-beautifier .beautifier-class,
+.plugin-exception-beautifier .beautifier-function,
+.plugin-exception-beautifier .beautifier-system-function {
+    font-weight: bold;
+}
+
+.plugin-exception-beautifier .beautifier-class {
+    color: #252623;
+}
+
+.plugin-exception-beautifier .beautifier-function {
+    color: #cc204d;
+}
+
+.plugin-exception-beautifier .beautifier-system-function {
+    color: #e33a37;
+}
+
+.plugin-exception-beautifier .beautifier-code {
+    color: #736b88;
+}
+
+.plugin-exception-beautifier .beautifier-string {
+    color: #0EA804;
+}
+
+.plugin-exception-beautifier .beautifier-number {
+    color: #2196F3;
+}
+
+.plugin-exception-beautifier .beautifier-formatted-content,
+.plugin-exception-beautifier .beautifier-raw-content {
+    background: #fff;
+    padding: 20px;
+}
+
+.plugin-exception-beautifier .beautifier-raw-content {
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: auto;
+    width: 100%;
+}
+
+.plugin-exception-beautifier .beautifier-raw-content br {
+    content: '';
+    display: block;
+    margin-bottom: 15px;
+}

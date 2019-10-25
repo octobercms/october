@@ -1,6 +1,6 @@
 /*
  * The bar chart plugin.
- * 
+ *
  * Data attributes:
  * - data-control="chart-bar" - enables the bar chart plugin
  * - data-height="200" - optional, height of the graph
@@ -9,19 +9,17 @@
  * JavaScript API:
  * $('.scoreboard .chart').barChart()
  *
- * Dependences: 
+ * Dependences:
  * - Raphaël (raphael-min.js)
- * - October chart utilities (october.chartutils.js)
  */
 +function ($) { "use strict";
 
     var BarChart = function (element, options) {
-        this.options = options || {};
+        this.options = options || {}
 
         var 
             $el = this.$el = $(element),
             size = this.size = $el.height(),
-            total = 0,
             self = this,
             values = $.oc.chartUtils.loadListValues($('ul', $el)),
             $legend = $.oc.chartUtils.createLegend($('ul', $el)),
@@ -36,7 +34,7 @@
         $el.toggleClass('full-width', isFullWidth)
 
         Raphael($canvas.get(0), isFullWidth ? '100%' : chartWidth, chartHeight, function(){
-            self.paper = this;
+            self.paper = this
             self.bars = this.set()
 
             self.paper.customAttributes.bar = function (start, height) {
@@ -52,7 +50,7 @@
             }
 
             // Add bars
-            var start = 0;
+            var start = 0
             $.each(values.values, function(index, valueInfo) {
                 var color = valueInfo.color !== undefined ? valueInfo.color : $.oc.chartUtils.getColor(index),
                     path = self.paper.path().attr({"stroke-width": 0}).attr({bar: [start, 0]}).attr({fill: color})
@@ -72,28 +70,28 @@
             // Animate bars
             start = 0
             $.each(values.values, function(index, valueInfo) {
-                var height = chartHeight/values.max * valueInfo.value;
+                var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0
 
                 self.bars[index].animate({bar: [start, height]}, 1000, "bounce")
-                start += barWidth + self.options.gap;
+                start += barWidth + self.options.gap
             })
 
             // Update the full-width chart when the window is redized
             if (isFullWidth) {
                 $(window).on('resize', function(){
-                    chartWidth = self.$el.width(),
+                    chartWidth = self.$el.width()
                     barWidth = (chartWidth - (values.values.length-1)*self.options.gap)/values.values.length
 
                     var start = 0
                     $.each(values.values, function(index, valueInfo) {
-                        var height = chartHeight/values.max * valueInfo.value;
+                        var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0
 
                         self.bars[index].animate({bar: [start, height]}, 10, "bounce")
-                        start += barWidth + self.options.gap;
+                        start += barWidth + self.options.gap
                     })
                 })
             }
-        });
+        })
     }
 
     BarChart.prototype.isFullWidth = function() {
@@ -116,9 +114,9 @@
             var options = $.extend({}, BarChart.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
             if (!data)
-                $this.data('oc.barChart', (data = new BarChart(this, options)))
+                $this.data('oc.barChart', new BarChart(this, options))
         })
-      }
+    }
 
     $.fn.barChart.Constructor = BarChart
 
@@ -137,4 +135,4 @@
         $('[data-control=chart-bar]').barChart()
     })
 
-}(window.jQuery);
+}(window.jQuery)

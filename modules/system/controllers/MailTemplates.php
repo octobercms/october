@@ -1,16 +1,10 @@
 <?php namespace System\Controllers;
 
-use Str;
-use Lang;
-use File;
 use Mail;
 use Flash;
-use Backend;
-use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
-use ApplicationException;
 use System\Classes\SettingsManager;
 use Exception;
 
@@ -22,16 +16,36 @@ use Exception;
  */
 class MailTemplates extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
     ];
 
-    public $requiredPermissions = ['system.manage_mail_templates'];
-
-    public $listConfig = ['templates' => 'config_templates_list.yaml', 'layouts' => 'config_layouts_list.yaml'];
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var array `ListController` configuration.
+     */
+    public $listConfig = [
+        'templates' => 'config_templates_list.yaml',
+        'layouts' => 'config_layouts_list.yaml',
+        'partials' => 'config_partials_list.yaml'
+    ];
+
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = ['system.manage_mail_templates'];
+
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -40,16 +54,18 @@ class MailTemplates extends Controller
         SettingsManager::setContext('October.System', 'mail_templates');
     }
 
-    public function index()
+    public function index($tab = null)
     {
         MailTemplate::syncAll();
         $this->asExtension('ListController')->index();
         $this->bodyClass = 'compact-container';
+
+        $this->vars['activeTab'] = $tab ?: 'templates';
     }
 
     public function formBeforeSave($model)
     {
-        $model->is_custom = true;
+        $model->is_custom = 1;
     }
 
     public function onTest($recordId)
@@ -60,7 +76,7 @@ class MailTemplates extends Controller
 
             Mail::sendTo([$user->email => $user->full_name], $model->code);
 
-            Flash::success('The test message has been successfully sent.');
+            Flash::success(trans('system::lang.mail_templates.test_success'));
         }
         catch (Exception $ex) {
             Flash::error($ex->getMessage());

@@ -6,3 +6,5 @@ fields:
 
     message:
         type: textarea
+        containerAttributes:
+            data-plugin: exception-beautifier

@@ -1,10 +1,33 @@
-.sweet-alert {
-    text-align: left;
+//
+// Custom alerts (Based on Sweet Alert)
+// --------------------------------------------------
 
-    h4 {
-        margin: 10px 0 20px 0;
+.sweet-overlay {
+    background-color: @overlay-background;
+    z-index: @zindex-alert - 1;
+}
+
+.sweet-alert {
+    text-align: right;
+    border-radius: @border-radius-base;
+    .box-shadow(@popup-box-shadow);
+    z-index: @zindex-alert;
+
+    h2 {
+        word-break: break-word;
+        word-wrap: break-word;
+        max-height: 350px;
+        overflow-y: auto;
+
+        margin: 10px 0 17px 0;
         color: #2b3e50;
-        font-size: 18px;
+        text-align: left;
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    p {
+        margin: 0;
     }
 
     p.text-muted {

@@ -1,7 +1,6 @@
 <?php namespace Cms\Models;
 
 use File;
-use Lang;
 use Model;
 use Response;
 use ApplicationException;
@@ -55,6 +54,16 @@ class ThemeExport extends Model
         ]
     ];
 
+    /**
+     * Import / Export model classes are helpers and are not to write to the database
+     *
+     * @return void
+     */
+    public function save(array $options = null, $sessionKey = null)
+    {
+        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+    }
+
     public function getFoldersOptions()
     {
         return [
@@ -68,7 +77,9 @@ class ThemeExport extends Model
 
     public function setThemeAttribute($theme)
     {
-        if (!$theme instanceof CmsTheme) return;
+        if (!$theme instanceof CmsTheme) {
+            return;
+        }
 
         $this->attributes['themeName'] = $theme->getConfigValue('name', $theme->getDirName());
         $this->attributes['dirName'] = $theme->getDirName();
@@ -86,17 +97,22 @@ class ThemeExport extends Model
             $zipName = uniqid('oc');
             $zipPath = temp_path().'/'.$zipName;
 
-            if (!@mkdir($tempPath))
+            if (!File::makeDirectory($tempPath)) {
                 throw new ApplicationException('Unable to create directory '.$tempPath);
+            }
 
-            if (!@mkdir($metaPath = $tempPath . '/meta'))
+            if (!File::makeDirectory($metaPath = $tempPath . '/meta')) {
                 throw new ApplicationException('Unable to create directory '.$metaPath);
+            }
 
             File::copy($themePath.'/theme.yaml', $tempPath.'/theme.yaml');
             File::copyDirectory($themePath.'/meta', $metaPath);
 
             foreach ($this->folders as $folder) {
-                if (!array_key_exists($folder, $this->getFoldersOptions())) continue;
+                if (!array_key_exists($folder, $this->getFoldersOptions())) {
+                    continue;
+                }
+
                 File::copyDirectory($themePath.'/'.$folder, $tempPath.'/'.$folder);
             }
 
@@ -104,7 +120,6 @@ class ThemeExport extends Model
             File::deleteDirectory($tempPath);
         }
         catch (Exception $ex) {
-
             if (strlen($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }
@@ -133,9 +148,8 @@ class ThemeExport extends Model
         $headers = Response::download($zipPath, $outputName)->headers->all();
         $result = Response::make(File::get($zipPath), 200, $headers);
 
-        @unlink($zipPath);
+        @File::delete($zipPath);
 
         return $result;
     }
-
 }

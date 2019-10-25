@@ -19,7 +19,7 @@
 
         this.dataSet = {}
 
-        $(document).ready(function(){
+        $(document).ready(function() {
 
             self.bindSearch('#pluginSearchInput')
             self.bindSearch('#themeSearchInput')

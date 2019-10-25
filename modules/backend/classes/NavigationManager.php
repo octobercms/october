@@ -3,6 +3,10 @@
 use Event;
 use BackendAuth;
 use System\Classes\PluginManager;
+use Validator;
+use SystemException;
+use Log;
+use Config;
 
 /**
  * Manages the backend navigation.
@@ -34,6 +38,9 @@ class NavigationManager
         'code'        => null,
         'label'       => null,
         'icon'        => null,
+        'iconSvg'     => null,
+        'counter'     => null,
+        'counterLabel'=> null,
         'url'         => null,
         'permissions' => [],
         'order'       => 500,
@@ -45,6 +52,7 @@ class NavigationManager
         'label'       => null,
         'icon'        => null,
         'url'         => null,
+        'iconSvg'     => null,
         'counter'     => null,
         'counterLabel'=> null,
         'order'       => -1,
@@ -100,7 +108,7 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        usort($this->items, function ($a, $b) {
+        uasort($this->items, function ($a, $b) {
             return $a->order - $b->order;
         });
 
@@ -120,14 +128,16 @@ class NavigationManager
              */
             $orderCount = 0;
             foreach ($item->sideMenu as $sideMenuItem) {
-                if ($sideMenuItem->order !== -1) continue;
+                if ($sideMenuItem->order !== -1) {
+                    continue;
+                }
                 $sideMenuItem->order = ($orderCount += 100);
             }
 
             /*
              * Sort side menu items
              */
-            usort($item->sideMenu, function ($a, $b) {
+            uasort($item->sideMenu, function ($a, $b) {
                 return $a->order - $b->order;
             });
 
@@ -141,13 +151,13 @@ class NavigationManager
     /**
      * Registers a callback function that defines menu items.
      * The callback function should register menu items by calling the manager's
-     * registerMenuItems() function. The manager instance is passed to the
-     * callback function as an argument. Usage:
-     * <pre>
-     *   BackendMenu::registerCallback(function($manager){
-     *       $manager->registerMenuItems([...]);
-     *   });
-     * </pre>
+     * `registerMenuItems` method. The manager instance is passed to the callback
+     * function as an argument. Usage:
+     *
+     *     BackendMenu::registerCallback(function ($manager) {
+     *         $manager->registerMenuItems([...]);
+     *     });
+     *
      * @param callable $callback A callable function.
      */
     public function registerCallback(callable $callback)
@@ -166,17 +176,20 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
-     * - sideMenu - an array of side menu items, optional. If provided, the array items
-     *   should represent the side menu item code, and each value should be an associative
-     *   array with the following keys:
-     * - label - specifies the menu label localization string key, required.
-     * - icon - an icon name from the Font Awesome icon collection, required.
-     * - url - the back-end relative URL the menu item should point to, required.
-     * - attributes - an array of attributes and values to apply to the menu item, optional.
-     * - permissions - an array of permissions the back-end user should have, optional.
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
      * - counterLabel - an optional string value to describe the numeric reference in counter.
+     * - sideMenu - an array of side menu items, optional. If provided, the array items
+     *   should represent the side menu item code, and each value should be an associative
+     *   array with the following keys:
+     *      - label - specifies the menu label localization string key, required.
+     *      - icon - an icon name from the Font Awesome icon collection, required.
+     *      - url - the back-end relative URL the menu item should point to, required.
+     *      - attributes - an array of attributes and values to apply to the menu item, optional.
+     *      - permissions - an array of permissions the back-end user should have, optional.
+     *      - counter - an optional numeric value to output near the menu icon. The value should be
+     *        a number or a callable returning a number.
+     *      - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      */
@@ -186,25 +199,25 @@ class NavigationManager
             $this->items = [];
         }
 
-        foreach ($definitions as $code => $definition) {
-            $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
-                'code'  => $code,
-                'owner' => $owner
-            ]));
+        $validator = Validator::make($definitions, [
+            '*.label' => 'required',
+            '*.icon' => 'required_without:*.iconSvg',
+            '*.url' => 'required',
+            '*.sideMenu.*.label' => 'nullable|required',
+            '*.sideMenu.*.icon' => 'nullable|required_without:*.sideMenu.*.iconSvg',
+            '*.sideMenu.*.url' => 'nullable|required',
+        ]);
 
-            foreach ($item->sideMenu as $sideMenuItemCode => $sideMenuDefinition) {
-                $item->sideMenu[$sideMenuItemCode] = (object) array_merge(
-                    self::$sideItemDefaults,
-                    array_merge($sideMenuDefinition, [
-                        'code'  => $sideMenuItemCode,
-                        'owner' => $owner
-                    ])
-                );
+        if ($validator->fails()) {
+            $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
+            if (Config::get('app.debug', false)) {
+                throw new SystemException($errorMessage);
+            } else {
+                Log::error($errorMessage);
             }
-
-            $itemKey = $this->makeItemKey($owner, $code);
-            $this->items[$itemKey] = $item;
         }
+
+        $this->addMainMenuItems($owner, $definitions);
     }
 
     /**
@@ -227,9 +240,8 @@ class NavigationManager
      */
     public function addMainMenuItem($owner, $code, array $definition)
     {
-        $sideMenu = isset($definition['sideMenu']) ? $definition['sideMenu'] : null;
-
         $itemKey = $this->makeItemKey($owner, $code);
+
         if (isset($this->items[$itemKey])) {
             $definition = array_merge((array) $this->items[$itemKey], $definition);
         }
@@ -241,9 +253,18 @@ class NavigationManager
 
         $this->items[$itemKey] = $item;
 
-        if ($sideMenu !== null) {
-            $this->addSideMenuItems($owner, $code, $sideMenu);
+        if ($item->sideMenu) {
+            $this->addSideMenuItems($owner, $code, $item->sideMenu);
         }
+    }
+
+    /**
+     * Removes a single main menu item
+     */
+    public function removeMainMenuItem($owner, $code)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+        unset($this->items[$itemKey]);
     }
 
     /**
@@ -255,7 +276,7 @@ class NavigationManager
     public function addSideMenuItems($owner, $code, array $definitions)
     {
         foreach ($definitions as $sideCode => $definition) {
-            $this->addSideMenuItem($owner, $code, $sideCode, $definition);
+            $this->addSideMenuItem($owner, $code, $sideCode, (array) $definition);
         }
     }
 
@@ -269,17 +290,39 @@ class NavigationManager
     public function addSideMenuItem($owner, $code, $sideCode, array $definition)
     {
         $itemKey = $this->makeItemKey($owner, $code);
+
         if (!isset($this->items[$itemKey])) {
             return false;
         }
 
         $mainItem = $this->items[$itemKey];
+
+        $definition = array_merge($definition, [
+            'code'  => $sideCode,
+            'owner' => $owner
+        ]);
+
         if (isset($mainItem->sideMenu[$sideCode])) {
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);
         }
 
         $item = (object) array_merge(self::$sideItemDefaults, $definition);
+
         $this->items[$itemKey]->sideMenu[$sideCode] = $item;
+    }
+
+    /**
+     * Removes a single main menu item
+     */
+    public function removeSideMenuItem($owner, $code, $sideCode)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+        if (!isset($this->items[$itemKey])) {
+            return false;
+        }
+
+        $mainItem = $this->items[$itemKey];
+        unset($mainItem->sideMenu[$sideCode]);
     }
 
     /**
@@ -292,6 +335,27 @@ class NavigationManager
             $this->loadItems();
         }
 
+        foreach ($this->items as $item) {
+            if ($item->counter === false) {
+                continue;
+            }
+
+            if ($item->counter !== null && is_callable($item->counter)) {
+                $item->counter = call_user_func($item->counter, $item);
+            } elseif (!empty((int) $item->counter)) {
+                $item->counter = (int) $item->counter;
+            } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
+                $item->counter = 0;
+                foreach ($sideItems as $sideItem) {
+                    $item->counter += $sideItem->counter;
+                }
+            }
+
+            if (empty($item->counter)) {
+                $item->counter = null;
+            }
+        }
+
         return $this->items;
     }
 
@@ -299,14 +363,18 @@ class NavigationManager
      * Returns a list of side menu items for the currently active main menu item.
      * The currently active main menu item is set with the setContext methods.
      */
-    public function listSideMenuItems()
+    public function listSideMenuItems($owner = null, $code = null)
     {
         $activeItem = null;
 
-        foreach ($this->listMainMenuItems() as $item) {
-            if ($this->isMainMenuItemActive($item)) {
-                $activeItem = $item;
-                break;
+        if ($owner !== null && $code !== null) {
+            $activeItem = @$this->items[$this->makeItemKey($owner, $code)];
+        } else {
+            foreach ($this->listMainMenuItems() as $item) {
+                if ($this->isMainMenuItemActive($item)) {
+                    $activeItem = $item;
+                    break;
+                }
             }
         }
 
@@ -319,6 +387,9 @@ class NavigationManager
         foreach ($items as $item) {
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
+                if (empty($item->counter)) {
+                    $item->counter = null;
+                }
             }
         }
 
@@ -448,9 +519,7 @@ class NavigationManager
     {
         $key = $owner.$mainMenuItemCode;
 
-        return array_key_exists($key, $this->contextSidenavPartials)
-            ? $this->contextSidenavPartials[$key]
-            : null;
+        return $this->contextSidenavPartials[$key] ?? null;
     }
 
     /**
@@ -461,6 +530,10 @@ class NavigationManager
      */
     protected function filterItemPermissions($user, array $items)
     {
+        if (!$user) {
+            return $items;
+        }
+
         $items = array_filter($items, function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;

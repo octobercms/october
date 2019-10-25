@@ -1,0 +1,53 @@
+//
+// "Windex" Z-Index Window Manager
+// --------------------------------------------------
+
+//
+// Z-Index frequencies:
+//
+// 0-100      - Primary layer (body / content)
+// 100-200    - Primary menus / dropdowns
+//
+// 300-400    - Secondary layer (full screen)
+// 400-500    - Secondary menus / dropdowns
+//
+// 500-600    - Tertiary layer (popups)
+// 600-700    - Tertiary menus / dropdowns
+//
+// 1000-10000 - Reserved for frequency manager
+//
+// 10000+     - Always on top
+//
+
+//
+// Z-Indexes
+// --------------------------------------------------
+
+// Primary
+@zindex-filter:            10;
+@zindex-button:            10;
+@zindex-form:              10;
+@zindex-checkbox:          10;
+@zindex-breadcrumb:        10;
+@zindex-chart:             10;
+@zindex-tab:               10;
+@zindex-loader:            10;
+@zindex-navbar:            100;
+@zindex-navbar-fixed:      110;
+
+// Secondary
+@zindex-fullscreen:        300;
+
+// Tertiary
+@zindex-modal-background:  500;
+@zindex-modal:             600;
+@zindex-popover:           600;
+@zindex-dropdown:          600;
+
+// Always on top
+@zindex-inspector:         10000;
+@zindex-datepicker:        10100;
+@zindex-tooltip:           10200;
+@zindex-flashmessage:      10300;
+@zindex-select:            10400;
+@zindex-alert:             10500;

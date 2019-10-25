@@ -1,0 +1,49 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: cms::lang.theme_log.id
+        searchable: yes
+        invisible: true
+        width: 75px
+
+    created_at:
+        label: cms::lang.theme_log.created_at
+        searchable: yes
+        width: 160px
+        type: timetense
+
+    type:
+        label: cms::lang.theme_log.type
+        invisible: true
+
+    any_template:
+        label: cms::lang.theme_log.template
+        searchable: false
+        sortable: false
+
+    template:
+        label: cms::lang.theme_log.new_template
+        searchable: true
+        invisible: true
+
+    old_template:
+        label: cms::lang.theme_log.old_template
+        searchable: true
+        invisible: true
+
+    user:
+        label: cms::lang.theme_log.user
+        relation: user
+        select: concat(first_name, ' ', last_name)
+
+    theme_name:
+        label: cms::lang.theme_log.theme_name
+        sortable: false
+
+    theme:
+        label: cms::lang.theme_log.theme_code
+        searchable: true
+        invisible: true

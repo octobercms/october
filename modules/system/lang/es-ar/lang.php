@@ -5,21 +5,6 @@ return [
         'name' => 'October CMS',
         'tagline' => 'Getting back to basics',
     ],
-    'locale' => [
-        'en' => 'Inglés',
-        'nl' => 'Holandés',
-        'ja' => 'Japonés',
-        'se' => 'Suizo',
-        'tr' => 'Turco',
-        'de' => 'Alemán',
-        'ru' => 'Ruso',
-        'fr' => 'Frances',
-        'it' => 'Italiano',
-        'ro' => 'Romana',
-        'pt-br' => 'Portugués Brasilero',
-        'es-Ar' => 'Español Argentino',
-        'nb-no' => 'Noruego (Bokmål)'
-    ],
     'directory' => [
         'create_fail' => "No se puede crear el directorio: :name",
     ],
@@ -143,7 +128,7 @@ return [
         'install_completing' => 'Finalizó el proceso de instalación',
         'install_success' => 'El plugin se ha instalado correctamente.',
     ],
-  'updates' => [
+    'updates' => [
         'title' => 'Administrar actualizaciones',
         'name' => 'Actualizaciones de software',
         'menu_label' => 'Actualizaciones',
@@ -154,18 +139,15 @@ return [
         'plugin_description' => 'Descripción',
         'plugin_version' => 'Versión',
         'plugin_author' => 'Autor',
-        'core_build' => 'Versión actual',
-        'core_build_old' => 'Versión actual :build',
-        'core_build_new' => 'Versión :build',
-        'core_build_new_help' => 'Última versión está disponible.',
+        'plugin_not_found' => 'Plugin not found',
+        'core_current_build' => 'Versión actual',
+        'core_build' => 'Versión :build',
+        'core_build_help' => 'Última versión está disponible.',
         'core_downloading' => 'Descargando archivos de la aplicación',
         'core_extracting' => 'Descomprimiendo archivos de la aplicación',
         'plugin_downloading' => 'Descargando plugin: :name',
         'plugin_extracting' => 'Descomprimiendo plugin: :name',
         'plugin_version_none' => 'Nuevo plugin',
-        'plugin_version_old' => 'Actual v:version',
-        'plugin_version_new' => 'v:version',
-        'theme_label' => 'Tema',
         'theme_new_install' => 'Intalación de nuevo tema.',
         'theme_downloading' => 'Descargando tema: :name',
         'theme_extracting' => 'Descomprimiendo tema: :name',
@@ -192,7 +174,7 @@ return [
         'file_error' => 'El servidor no pudo entregar el paquete.',
         'file_corrupt' => 'El archivo se encuentra dañado.',
     ],
-   'behavior' => [
+    'behavior' => [
         'missing_property' => 'Clase :class debe definir la propiedad $:property utilizada por :behavior comportamiento.',
     ],
     'config' => [

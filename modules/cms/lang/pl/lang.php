@@ -8,49 +8,112 @@ return [
         'error_saving' => "Błąd przy zapisywaniu pliku ':name'. Proszę sprawdzić uprawnienia zapisu/modyfikacji.",
         'error_creating_directory' => 'Błąd przy tworzeniu folderu :name. Proszę sprawdzić uprawnienia zapisu/modyfikacji.',
         'invalid_file_extension' => 'Nieprawidłowe rozszerzenie pliku: :invalid. Dozwolone rozszerzenia to: :allowed.',
-        'error_deleting' => "Błąd przy kasowaniu pliku szablonu ':name'. Proszę sprawdzić uprawnienia zapisu/modyfikacji.",
+        'error_deleting' => "Błąd przy usuwaniu pliku szablonu ':name'. Proszę sprawdzić uprawnienia zapisu/modyfikacji.",
         'delete_success' => 'Szablony zostały prawidłowo usunięte: :count.',
-        'file_name_required' => 'Pole Nazwa Pliku jest wymagane.'
+        'file_name_required' => 'Pole Nazwa Pliku jest wymagane.',
+        'safe_mode_enabled' => 'Safe mode jest obecnie włączony.',
+    ],
+    'dashboard' => [
+        'active_theme' => [
+            'widget_title_default' => 'Strona',
+            'online' => 'Online',
+            'maintenance' => 'W konserwacji',
+            'manage_themes' => 'Zarządzaj motywami',
+        ]
     ],
     'theme' => [
+        'not_found_name' => "Motyw ':name' nie został odnaleziony.",
         'active' => [
             'not_set' => 'Brak aktywnego motywu.',
             'not_found' => 'Aktywny motyw nie został odnaleziony.'
         ],
         'edit' => [
-            'not_set' => 'The edit theme is not set.',
-            'not_found' => 'The edit theme is not found.',
-            'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
+            'not_set' => 'Edytowany motyw nie jest ustawiony.',
+            'not_found' => 'Edytowany motyw nie został znaleziony.',
+            'not_match' => "Obiekt który próbujesz edytować nie należy do wybranego motywu. Proszę przeładować stronę."
         ],
-        'settings_menu' => 'Motyw strony (Front-end theme)',
+        'settings_menu' => 'Motyw strony',
         'settings_menu_description' => 'Zobacz listę zainstalowanych motywów i wybierz, który aktywować.',
-        'find_more_themes' => 'Znajdź więcej motywów na OctoberCMS Theme Marketplace.',
+        'default_tab' => 'Właściwości',
+        'name_label' => 'Nazwa',
+        'name_create_placeholder' => 'Nowa nazwa motywu',
+        'author_label' => 'Autor',
+        'author_placeholder' => 'Osoba lub nazwa firmy',
+        'description_label' => 'Opis',
+        'description_placeholder' => 'Opis motywu',
+        'homepage_label' => 'Strona domowa',
+        'homepage_placeholder' => 'URL strony domowej',
+        'code_label' => 'Kod',
+        'code_placeholder' => 'Unikalny kod motywu używany do dystrybucji',
+        'dir_name_label' => 'Nazwa katalogu',
+        'dir_name_create_label' => 'Docelowy katalog motywu',
+        'theme_label' => 'Motyw',
+        'theme_title' => 'Motywy',
         'activate_button' => 'Aktywuj',
         'active_button' => 'Aktywuj',
-        'customize_button' => 'Personalizuj'
+        'customize_theme' => 'Personalizuj Motyw',
+        'customize_button' => 'Personalizuj',
+        'duplicate_button' => 'Duplikuj',
+        'duplicate_title' => 'Duplikuj motyw',
+        'duplicate_theme_success' => 'Pomyślnie utworzono kopię motywu!',
+        'manage_button' => 'Zarządzaj',
+        'manage_title' => 'Zarządzaj motywem',
+        'edit_properties_title' => 'Motyw',
+        'edit_properties_button' => 'Edytuj właściwości',
+        'save_properties' => 'Zapisz właściwości',
+        'import_button' => 'Zaimportuj',
+        'import_title' => 'Zaimportuj motyw',
+        'import_theme_success' => 'Pomyślnie zaimportowano motyw!',
+        'import_uploaded_file' => 'Plik archiwum motywu',
+        'import_overwrite_label' => 'Nadpisz istniejące pliki',
+        'import_overwrite_comment' => 'Odznacz aby zaimportować tylko nowe pliki',
+        'import_folders_label' => 'Foldery',
+        'import_folders_comment' => 'Proszę zaznaczyć foldery do importu',
+        'export_button' => 'Eksportuj',
+        'export_title' => 'Eksportuj motyw',
+        'export_folders_label' => 'Foldery',
+        'export_folders_comment' => 'Proszę zaznaczyć foldery do eksportu',
+        'delete_button' => 'Usuń',
+        'delete_confirm' => 'Czy na pewno usunąć ten motyw? Tej operacji nie można cofnąć!',
+        'delete_active_theme_failed' => 'Nie można usunąć aktywnego motywu. Spróbuj zmienić aktywny motyw na inny.',
+        'delete_theme_success' => 'Pomyślnie usunięto motyw!',
+        'create_title' => 'Utwórz motyw',
+        'create_button' => 'Utwórz',
+        'create_new_blank_theme' => 'Utwórz nowy pusty motyw',
+        'create_theme_success' => 'Pomyślnie utworzono motyw!',
+        'create_theme_required_name' => 'Proszę podać nazwę nowego motywu.',
+        'new_directory_name_label' => 'Katalog motywu',
+        'new_directory_name_comment' => 'Podaj nazwę nowego katalogu dla kopii motywu.',
+        'dir_name_invalid' => 'Nazwa może zawierać tylko cyfry, znaki łacińskie oraz następujące znaki: _-',
+        'dir_name_taken' => 'Żądany katalog motywu już istnieje.',
+        'find_more_themes' => 'Znajdź więcej motywów',
+        'saving' => 'Zapisywanie motywu...',
+        'return' => 'Wróć do listy motywów',
     ],
     'maintenance' => [
-        'settings_menu' => 'Tryb konserwacji (Maintenance mode)',
+        'settings_menu' => 'Tryb konserwacji',
         'settings_menu_description' => 'Konfiguruj oraz włącz tryb konserwacji strony.',
         'is_enabled' => 'Włącz tryb konserwacji',
-        'is_enabled_comment' => 'Kiedy włączony odwiedzający zamiast normalnej strony zobaczą stronę wybraną poniżej.'
+        'is_enabled_comment' => 'Kiedy włączony odwiedzający zamiast normalnej strony zobaczą stronę wybraną poniżej.',
+        'hint' => 'Tryb konserwacji wyświetli stronę konserwacji dla odwiedzających, którzy nie są zalogowani do panelu administracyjnego.',
     ],
     'page' => [
+        'not_found_name' => "Strona ':name' nie została znaleziona",
         'not_found' => [
             'label' => 'Nie znaleziono strony',
             'help' => 'Żądana strona nie została znaleziona.'
         ],
         'custom_error' => [
             'label' => 'Błąd strony',
-            'help' => "Bardzo Przepraszamy, jednak coś poszło nie tak i strona nie może zostać wyświetlona."
+            'help' => "Bardzo przepraszamy, jednak coś poszło nie tak i strona nie może zostać wyświetlona."
         ],
         'menu_label' => 'Strony',
         'unsaved_label' => 'Niezapisane strony',
         'no_list_records' => 'Nie znaleziono stron',
         'new' => 'Nowa strona',
-        'invalid_url' => 'Nieprawidłowy format URL. Powinien rozpoczynać się od slasha / może zawierać cyfry, znaki oraz symbole: ._-[]:?|/+*^$',
-        'delete_confirm_multiple' => 'Czy na pewno chcesz chcesz skasować wszystkie wybrane strony?',
-        'delete_confirm_single' => 'Czy na pewno chcesz chcesz skasować tą stronę?',
+        'invalid_url' => 'Nieprawidłowy format URL. Powinien rozpoczynać się od ukośnika (/) i może zawierać cyfry, znaki oraz następujące symbole: ._-[]:?|/+*^$',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz usunąć zaznaczone strony?',
+        'delete_confirm_single' => 'Czy na pewno chcesz usunąć tę stronę?',
         'no_layout' => '-- brak układu --'
     ],
     'layout' => [
@@ -59,8 +122,8 @@ return [
         'unsaved_label' => 'Niezapisane układy',
         'no_list_records' => 'Nie znaleziono układów',
         'new' => 'Nowy układ',
-        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane układy?',
-        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten układ?'
+        'delete_confirm_multiple' => 'Czy na pewno chcesz usunąć zaznaczone układy?',
+        'delete_confirm_single' => 'Czy na pewno chcesz usunąć ten układ?'
     ],
     'partial' => [
         'not_found_name' => "Fragment ':name' nie został znaleziony.",
@@ -68,8 +131,8 @@ return [
         'menu_label' => 'Fragmenty',
         'unsaved_label' => 'Niezapisane fragmenty',
         'no_list_records' => 'Nie znaleziono fragmentów',
-        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane fragmenty?',
-        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten fragment?',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz usunąć zaznaczone fragmenty?',
+        'delete_confirm_single' => 'Czy na pewno chcesz usunąć ten fragment?',
         'new' => 'Nowy fragment'
     ],
     'content' => [
@@ -77,8 +140,8 @@ return [
         'menu_label' => 'Treść',
         'unsaved_label' => 'Niezapisana treść',
         'no_list_records' => 'Nie znaleziono plików treści',
-        'delete_confirm_multiple' => 'Czy na pewno chcesz skasować wszystkie wybrane pliki treści?',
-        'delete_confirm_single' => 'Czy na pewno chcesz skasować ten plik treści?',
+        'delete_confirm_multiple' => 'Czy na pewno chcesz usunąć zaznaczone pliki treści?',
+        'delete_confirm_single' => 'Czy na pewno chcesz usunąć ten plik treści?',
         'new' => 'Nowy plik treści'
     ],
     'ajax_handler' => [
@@ -102,15 +165,19 @@ return [
         'description' => 'Opis',
         'preview' => 'Podgląd',
         'meta' => 'Meta',
-        'meta_title' => 'Tytuł Meta',
-        'meta_description' => 'Opis Meta',
+        'meta_title' => 'SEO Tytuł',
+        'meta_description' => 'SEO Opis',
         'markup' => 'Markup',
         'code' => 'Kod',
         'content' => 'Treść',
         'hidden' => 'Ukryta',
         'hidden_comment' => 'Ukryte strony są widoczne tylko dla użytkowników panelu administracyjnego, którzy są zalogowani.',
         'enter_fullscreen' => 'Włącz tryb pełnoekranowy',
-        'exit_fullscreen' => 'Wyłącz tryb pełnoekranowy'
+        'exit_fullscreen' => 'Wyłącz tryb pełnoekranowy',
+        'open_searchbox' => 'Otwórz wyszukiwanie',
+        'close_searchbox'  => 'Zamknij wyszukiwanie',
+        'open_replacebox' => 'Otwórz zamienianie tekstu',
+        'close_replacebox'  => 'Zamknij zamienianie tekstu'
     ],
     'asset' => [
         'menu_label' => 'Zasoby',
@@ -123,7 +190,7 @@ return [
         'directory_popup_title' => 'Nowy folder',
         'directory_name' => 'Nazwa folderu',
         'rename' => 'Zmień nazwę',
-        'delete' => 'Skasuj',
+        'delete' => 'Usuń',
         'move' => 'Przenieś',
         'select' => 'Wybierz',
         'new' => 'Nowy plik',
@@ -164,11 +231,11 @@ return [
         'invalid_request' => 'The template cannot be saved because of invalid component data.',
         'no_records' => 'Nie znaleziono komponentów',
         'not_found' => "Komponent ':name' nie został znaleziony.",
-        'method_not_found' => "Kompnent ':name' nie zawiera metody ':method'."
+        'method_not_found' => "Komponent ':name' nie zawiera metody ':method'."
     ],
     'template' => [
-        'invalid_type' => 'Nie znany typ szablonu.',
-        'not_found' => 'Żądany szablon nie został znaleziony.',
+        'invalid_type' => 'Nieznany typ szablonu.',
+        'not_found' => 'Szablon nie został znaleziony.',
         'saved'=> 'Szablon został zapisany pomyślnie.'
     ],
     'permissions' => [
@@ -178,6 +245,6 @@ return [
         'manage_pages' => 'Zarządzaj stronami',
         'manage_layouts' => 'Zarządzaj układami',
         'manage_partials' => 'Zarządzaj blokami',
-        'manage_themes' => 'Zarządzaj motywami'
-    ]
+        'manage_themes' => 'Zarządzaj motywami',
+    ],
 ];

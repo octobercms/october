@@ -1,0 +1,13 @@
+url = "/code-namespaces"
+==
+<?php
+
+use Cms\Classes\Theme as MyTheme;
+use Cms\Classes\Router as MyRouter;
+
+function onStart() {
+    $this['pageStartVar'] = 3;
+}
+?>
+==
+<p>Page</p>

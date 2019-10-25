@@ -5,8 +5,8 @@ use File;
 use Lang;
 use Event;
 use SystemException;
-use Backend\Classes\Controller;
 use stdClass;
+use Config;
 
 /**
  * Config Maker Trait
@@ -25,6 +25,9 @@ trait ConfigMaker
 
     /**
      * Reads the contents of the supplied file and applies it to this object.
+     * @param array $configFile
+     * @param array $requiredConfig
+     * @return array|stdClass
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
@@ -48,7 +51,6 @@ trait ConfigMaker
          * Process config from file contents
          */
         else {
-
             if (isset($this->controller) && method_exists($this->controller, 'getConfigPath')) {
                 $configFile = $this->controller->getConfigPath($configFile);
             }
@@ -97,22 +99,21 @@ trait ConfigMaker
     }
 
     /**
-     * Makes a config object from an array, making the first level keys properties a new object. 
-     * Property values are converted to camelCase and are not set if one already exists.
+     * Makes a config object from an array, making the first level keys properties of a new object.
+     *
      * @param array $configArray Config array.
-     * @return stdObject The config object
+     * @return stdClass The config object
      */
     public function makeConfigFromArray($configArray = [])
     {
-        $object = new stdClass();
+        $object = new stdClass;
 
         if (!is_array($configArray)) {
             return $object;
         }
 
         foreach ($configArray as $name => $value) {
-            $_name = camel_case($name);
-            $object->{$name} = $object->{$_name} = $value;
+            $object->{$name} = $value;
         }
 
         return $object;
@@ -120,7 +121,7 @@ trait ConfigMaker
 
     /**
      * Locates a file based on it's definition. If the file starts with
-     * an "at symbol", it will be returned in context of the application base path,
+     * the ~ symbol it will be returned in context of the application base path,
      * otherwise it will be returned in context of the config path.
      * @param string $fileName File to load.
      * @param mixed $configPath Explicitly define a config path.
@@ -138,7 +139,9 @@ trait ConfigMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (File::isLocalPath($fileName) || realpath($fileName) !== false) {
+        if (File::isLocalPath($fileName) ||
+            (!Config::get('cms.restrictBaseDir', true) && realpath($fileName) !== false)
+        ) {
             return $fileName;
         }
 
@@ -149,11 +152,11 @@ trait ConfigMaker
         foreach ($configPath as $path) {
             $_fileName = $path . '/' . $fileName;
             if (File::isFile($_fileName)) {
-                break;
+                return $_fileName;
             }
         }
 
-        return $_fileName;
+        return $fileName;
     }
 
     /**
@@ -177,7 +180,22 @@ trait ConfigMaker
     {
         $classFolder = strtolower(class_basename($class));
         $classFile = realpath(dirname(File::fromClass($class)));
-        $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
-        return $guessedPath;
+        return $classFile ? $classFile . '/' . $classFolder . $suffix : null;
+    }
+
+    /**
+     * Merges two configuration sources, either prepared or not, and returns
+     * them as a single configuration object.
+     * @param mixed $configA
+     * @param mixed $configB
+     * @return stdClass The config object
+     */
+    public function mergeConfig($configA, $configB)
+    {
+        $configA = $this->makeConfig($configA);
+
+        $configB = $this->makeConfig($configB);
+
+        return (object) array_merge((array) $configA, (array) $configB);
     }
 }

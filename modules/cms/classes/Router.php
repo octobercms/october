@@ -5,7 +5,6 @@ use File;
 use Cache;
 use Config;
 use Event;
-use SystemException;
 use October\Rain\Router\Router as RainRouter;
 use October\Rain\Router\Helper as RouterHelper;
 
@@ -21,11 +20,11 @@ use October\Rain\Router\Helper as RouterHelper;
  * <pre>/blog/:post_id?/comments - although the :post_id parameter is marked as optional,
  * it will be processed as required.</pre>
  * Optional parameters can have default values which are used as fallback values in case if the real
- * parameter value is not presented in the URL. Default values cannot contain the pipe symbols and question marks. 
+ * parameter value is not presented in the URL. Default values cannot contain the pipe symbols and question marks.
  * Specify the default value after the question mark:
  * <pre>/blog/category/:category_id?10 - The category_id parameter would be 10 for this URL: /blog/category</pre>
  * You can also add regular expression validation to parameters. To add a validation expression
- * add the pipe symbol after the parameter name (or the question mark) and specify the expression. 
+ * add the pipe symbol after the parameter name (or the question mark) and specify the expression.
  * The forward slash symbol is not allowed in the expressions. Examples:
  * <pre>/blog/:post_id|^[0-9]+$/comments - this will match /blog/post/10/comments
  * /blog/:post_id|^[0-9]+$ - this will match /blog/post/3
@@ -54,12 +53,12 @@ class Router
     /**
      * @var array Contains the URL map - the list of page file names and corresponding URL patterns.
      */
-    protected static $urlMap = [];
+    protected $urlMap = [];
 
     /**
      * October\Rain\Router\Router Router object with routes preloaded.
      */
-    protected static $routerObj;
+    protected $routerObj;
 
     /**
      * Creates the router instance.
@@ -80,7 +79,18 @@ class Router
         $this->url = $url;
         $url = RouterHelper::normalizeUrl($url);
 
-        $apiResult = Event::fire('cms.router.beforeRoute', [$url], true);
+        /**
+         * @event cms.router.beforeRoute
+         * Fires before the CMS Router handles a route
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.router.beforeRoute', function ((string) $url, (\Cms\Classes\Router) $thisRouterInstance) {
+         *         return \Cms\Classes\Page::loadCached('trick-theme-code', 'page-file-name');
+         *     });
+         *
+         */
+        $apiResult = Event::fire('cms.router.beforeRoute', [$url, $this], true);
         if ($apiResult !== null) {
             return $apiResult;
         }
@@ -117,7 +127,11 @@ class Router
                             : $fileName;
 
                         $key = $this->getUrlListCacheKey();
-                        Cache::put($key, serialize($urlList), Config::get('cms.urlCacheTtl', 1));
+                        Cache::put(
+                            $key,
+                            base64_encode(serialize($urlList)),
+                            Config::get('cms.urlCacheTtl', 1)
+                        );
                     }
                 }
             }
@@ -169,8 +183,8 @@ class Router
      */
     protected function getRouterObject()
     {
-        if (self::$routerObj !== null) {
-            return self::$routerObj;
+        if ($this->routerObj !== null) {
+            return $this->routerObj;
         }
 
         /*
@@ -186,7 +200,7 @@ class Router
          */
         $router->sortRules();
 
-        return self::$routerObj = $router;
+        return $this->routerObj = $router;
     }
 
     /**
@@ -195,17 +209,17 @@ class Router
      */
     protected function getUrlMap()
     {
-        if (!count(self::$urlMap)) {
+        if (!count($this->urlMap)) {
             $this->loadUrlMap();
         }
 
-        return self::$urlMap;
+        return $this->urlMap;
     }
 
     /**
      * Loads the URL map - a list of page file names and corresponding URL patterns.
      * The URL map can is cached. The clearUrlMap() method resets the cache. By default
-     * the map is updated every time when a page is saved in the back-end, or 
+     * the map is updated every time when a page is saved in the back-end, or
      * when the interval defined with the cms.urlCacheTtl expires.
      * @return boolean Returns true if the URL map was loaded from the cache. Otherwise returns false.
      */
@@ -221,7 +235,7 @@ class Router
             $cached = false;
         }
 
-        if (!$cached || ($unserialized = @unserialize($cached)) === false) {
+        if (!$cached || ($unserialized = @unserialize(@base64_decode($cached))) === false) {
             /*
              * The item doesn't exist in the cache, create the map
              */
@@ -235,15 +249,15 @@ class Router
                 $map[] = ['file' => $page->getFileName(), 'pattern' => $page->url];
             }
 
-            self::$urlMap = $map;
+            $this->urlMap = $map;
             if ($cacheable) {
-                Cache::put($key, serialize($map), Config::get('cms.urlCacheTtl', 1));
+                Cache::put($key, base64_encode(serialize($map)), Config::get('cms.urlCacheTtl', 1));
             }
 
             return false;
         }
 
-        self::$urlMap = $unserialized;
+        $this->urlMap = $unserialized;
         return true;
     }
 
@@ -304,7 +318,7 @@ class Router
      */
     protected function getCacheKey($keyName)
     {
-        return crc32($this->theme->getPath()).$keyName;
+        return md5($this->theme->getPath()).$keyName.Lang::getLocale();
     }
 
     /**
@@ -327,10 +341,12 @@ class Router
         $key = $this->getUrlListCacheKey();
         $urlList = Cache::get($key, false);
 
-        if ($urlList && ($urlList = @unserialize($urlList)) && is_array($urlList)) {
-            if (array_key_exists($url, $urlList)) {
-                return $urlList[$url];
-            }
+        if ($urlList
+            && ($urlList = @unserialize(@base64_decode($urlList)))
+            && is_array($urlList)
+            && array_key_exists($url, $urlList)
+        ) {
+            return $urlList[$url];
         }
 
         return null;

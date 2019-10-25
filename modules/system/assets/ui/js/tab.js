@@ -1,79 +1,21 @@
 /*
-=require ../vendor/bootstrap/js/transition.js
-=require ../vendor/bootstrap/js/tab.js
-*/
-
-/*
- * Tab control.
+ * Tab control
  *
- * This plugin is a wrapper for the Twitter Bootstrap Tab component. It provides the following features:
- * - Adding tabs
- * - Optional close icons with 2 states (modified / unmodified). The icon state can be changed by
- *   triggering the modified.oc.tab/unmodified.oc.tab events on any element within tab, or on the tab itself.
- * - Removing tabs with the Close icon, or with triggering an event from inside a tab pane or tab. 
- *   The removing can be canceled if the confirm.oc.tab event handler returns false.
- * - Scrolling tabs if they do not fit the screen
- * - Collapsible tabs
+ * Documentation: ../docs/tab.md
  *
- * Data attributes:
- * - data-control="tab" - creates the tab control from an element
- * - data-closable - enables the Close Tab feature
- * - data-pane-classes - a list of CSS classes to apply new pane elements
- *
- * Example with data attributes (data-control="tab"):
- *
- *  <div class="control-tabs master" data-control="tab" data-closable>
- *      <ul class="nav nav-tabs">
- *          <li class="active"><a href="#home">Home</a></li>
- *      </ul>
- *      <div class="tab-content">
- *          <div class="tab-pane active">Home</div>
- *      </div>
- *  </div>
- *
- * JavaScript methods:
- * - $('#mytabs').ocTab({closable: true, closeConfirmation: 'Do you really want to close this tab? Unsaved data will be lost.'})
- * - $('#mytabs').ocTab('addTab', 'Tab title', 'Tab content', identifier) - adds tab. The optional identifier parameter allows to
-     associate a identifier with a tab. The identifier can be used with the goTo() method to find and open a tab by it's identifier.
- * - $('#mytabs').ocTab('closeTab', '.nav-tabs > li.active', true) - closes a tab. The second argument can point to a tab or tab pane. 
-     The thrid argument determines whether the tab should be closed without the user confirmation. The default value is false.
- * - $('.nav-tabs > li.active').trigger('close.oc.tab') - another way to close a tab. The event can be triggered on a tab, tab pane
- *   or any element inside a tab or tab pane.
- * - $('#mytabs').ocTab('modifyTab', '.nav-tabs > li.active') - marks a tab as modified. Use the 'unmodifyTab' to mark a tab as unmodified.
- * - $('.nav-tabs > li.active').trigger('modified.oc.tab') - another way to mark a tab as modified. The event can be triggered on a tab, tab pane
- *   or any element inside a tab or tab pane. Use the 'unmodified.oc.tab' to mark a tab as unmodified.
- * - $('#mytabs').ocTab('goTo', 'someidentifier') - Finds a tab by it's identifier and opens it.
- * - $('#mytabs').ocTab('goToPane', '.tab-content .tab-pane:first') - Opens a tab in context of it's content (pane element)
- *
- * Supported options:
- *  - closable - adds the "close" icon to the tab and lets users to close tabs. Corresponds the data-closable attribute.
- *  - closeConfirmation - a confirmation to show when a user tries to close a modified tab. Corresponds the data-close-confirmation 
- *    attribute. The confirmation is displayed only if the tab was modified.
- *  - slidable - allows the tabs to be switched with the swipe gesture on touch devices. Corresponds the data-slidable attribute.
- *  - paneClasses - a list of CSS classes to apply new pane elements. Corresponds to the data-pane-classes attribute.
- *  - maxTitleSymbols - the maximum number of characters in tab titles.
- *  - titleAsFileNames - treat tab titles as file names. In this mode only the file name part is displayed in the tab, and the directory part
- *    is hidden.
- *
- * Events:
- * - beforeClose.oc.tab - triggered on a tab pane element before tab is closed by the user. Call the event's 
- *   preventDefault() method to cancel the action.
- * - afterAllClosed.oc.tab - triggered after all tabs have been closed
- * 
- * Dependences:
- * - DragScroll (october.dragscroll.js)
- * - Toolbar (october.toolbar.js)
- * - Touchwipe (jquery.touchwipe.min.js)
+ * Require:
+ *  - bootstrap/transition
+ *  - bootstrap/tab
+ *  - storm/toolbar
  */
-
 +function ($) { "use strict";
 
     var Tab = function (element, options) {
 
         var $el = this.$el = $(element);
         this.options = options || {}
-        this.$tabsContainer = $('.nav-tabs', $el)
-        this.$pagesContainer = $('.tab-content', $el)
+        this.$tabsContainer = $('.nav-tabs:first', $el)
+        this.$pagesContainer = $('.tab-content:first', $el)
         this.tabId = 'tabs' + $el.parents().length + Math.round(Math.random()*1000);
 
         if (this.options.closable !== undefined && this.options.closable !== false)
@@ -95,6 +37,12 @@
             ev.preventDefault()
             var force = (data !== undefined && data.force !== undefined) ? data.force : false;
             self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'), force)
+        })
+		
+		this.$el.on('mousedown', "li[data-tab-id]", function (ev) {
+            if (ev.which === 2) {
+                $(ev.target).trigger('close.oc.tab');
+            }
         })
 
         this.$el.on('toggleCollapse.oc.tab', function(ev, data){
@@ -144,22 +92,31 @@
             tabIndex = $tabs.index(li),
             time = new Date().getTime(),
             targetId = this.tabId + '-tab-' + tabIndex + time,
-            $a = $('a', li)
+            $anchor = $('a', li)
 
-        $a.attr('data-target', '#'+targetId).attr('data-toggle', 'tab')
-        if (!$a.attr('title'))
-            $a.attr('title', $a.text())
+        $anchor
+            .data('target', '#'+targetId)
+            .attr('data-target', '#'+targetId)
+            .attr('data-toggle', 'tab')
 
-        var html = $a.html()
+        if (!$anchor.attr('title'))
+            $anchor.attr('title', $anchor.text())
 
-        $a.html('')
-        $a.append($('<span class="title"></span>').append($('<span></span>').html(html)))
+        var html = $anchor.html()
+
+        $anchor.html('')
+        $anchor
+            .append($('<span class="title"></span>')
+            .append($('<span></span>').html(html)))
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
-        $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
-            $(this).trigger('close.oc.tab')
-            return false
-        }))
+
+        if (!$('span.tab-close', li).length) {
+            $(li).append($('<span class="tab-close"><i>&times;</i></span>').click(function(){
+                $(this).trigger('close.oc.tab')
+                return false
+            }))
+        }
 
         pane.data('tab', li)
 
@@ -251,6 +208,8 @@
         if (e.isDefaultPrevented())
             return
 
+        $.oc.foundation.controlUtils.disposeControls($pane.get(0))
+
         $pane.remove()
         $tab.remove()
 
@@ -260,7 +219,7 @@
         if ($('> li > a', this.$tabsContainer).length == 0)
             this.$el.trigger('afterAllClosed.oc.tab')
 
-        this.$el.trigger('closed.oc.tab', [$tab])
+        this.$el.trigger('closed.oc.tab', [$tab, $pane])
 
         $(window).trigger('resize')
         this.updateClasses()
@@ -310,6 +269,13 @@
             tab = $('[data-target="' + id + '"]', this.$tabsContainer)
 
         return tab
+    }
+
+    Tab.prototype.findPaneFromTab = function(tab) {
+        var id = $(tab).find('> a').data('target'),
+            pane = this.$pagesContainer.find(id)
+
+        return pane
     }
 
     Tab.prototype.goTo = function(identifier) {
@@ -446,9 +412,12 @@
      */
     $(window).on('ajaxInvalidField', function(event, element, name, messages, isFirst){
         if (!isFirst) return
+
         event.preventDefault()
-        element.closest('[data-control=tab]').ocTab('goToElement', element)
-        element.focus()
+
+        var $el = $(element)
+        $el.closest('[data-control=tab]').ocTab('goToElement', $el)
+        $el.focus()
     })
 
 }(window.jQuery);

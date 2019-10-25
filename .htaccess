@@ -11,11 +11,16 @@
     ## if you have installed to a subdirectory, enter the name here also.
     ##
     # RewriteBase /
+    
+    ##
+    ## Uncomment following lines to force HTTPS.
+    ##
+    # RewriteCond %{HTTPS} off
+    # RewriteRule (.*) https://%{SERVER_NAME}/$1 [R,L]
 
     ##
-    ## Black list protected files
+    ## Black listed folders
     ##
-    RewriteRule ^themes/.*/(layouts|pages|partials)/.*.htm index.php [L,NC]
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
@@ -26,44 +31,24 @@
     RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
 
     ##
-    ## White listed folders and files
+    ## White listed folders
     ##
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteCond %{REQUEST_URI} !\.js
-    RewriteCond %{REQUEST_URI} !\.map
-    RewriteCond %{REQUEST_URI} !\.ico
-    RewriteCond %{REQUEST_URI} !\.jpg
-    RewriteCond %{REQUEST_URI} !\.jpeg
-    RewriteCond %{REQUEST_URI} !\.bmp
-    RewriteCond %{REQUEST_URI} !\.png
-    RewriteCond %{REQUEST_URI} !\.gif
-    RewriteCond %{REQUEST_URI} !\.svg
-    RewriteCond %{REQUEST_URI} !\.css
-    RewriteCond %{REQUEST_URI} !\.less
-    RewriteCond %{REQUEST_URI} !\.scss
-    RewriteCond %{REQUEST_URI} !\.pdf
-    RewriteCond %{REQUEST_URI} !\.swf
-    RewriteCond %{REQUEST_URI} !\.txt
-    RewriteCond %{REQUEST_URI} !\.xml
-    RewriteCond %{REQUEST_URI} !\.xls
-    RewriteCond %{REQUEST_URI} !\.eot
-    RewriteCond %{REQUEST_URI} !\.woff
-    RewriteCond %{REQUEST_URI} !\.woff2
-    RewriteCond %{REQUEST_URI} !\.ttf
-    RewriteCond %{REQUEST_URI} !\.flv
-    RewriteCond %{REQUEST_URI} !\.wmv
-    RewriteCond %{REQUEST_URI} !\.mp3
-    RewriteCond %{REQUEST_URI} !\.ogg
-    RewriteCond %{REQUEST_URI} !\.wav
-    RewriteCond %{REQUEST_URI} !\.avi
-    RewriteCond %{REQUEST_URI} !\.mov
-    RewriteCond %{REQUEST_URI} !\.mp4
-    RewriteCond %{REQUEST_URI} !\.mpeg
-    RewriteCond %{REQUEST_URI} !\.webm
-    RewriteCond %{REQUEST_URI} !\.mkv
-    RewriteCond %{REQUEST_URI} !docs/.*
-    RewriteCond %{REQUEST_URI} !themes/.*
-    RewriteRule ^ index.php [L,NC]
+    RewriteCond %{REQUEST_FILENAME} !/.well-known/*
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/temp/public/.*
+    RewriteCond %{REQUEST_FILENAME} !/themes/.*/(assets|resources)/.*
+    RewriteCond %{REQUEST_FILENAME} !/plugins/.*/(assets|resources)/.*
+    RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
+    RewriteRule !^index.php index.php [L,NC]
+
+    ##
+    ## Block all PHP files, except index
+    ##
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteRule !^index.php index.php [L,NC]
 
     ##
     ## Standard routes

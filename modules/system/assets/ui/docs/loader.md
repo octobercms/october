@@ -8,9 +8,9 @@ A loading indicator used in a container.
     <div class="loading-indicator-container">
         <div class="loading-indicator">
             <span></span>
-            <p>This is some content inside the container</p>
-            <p>The loading indicator must be prepended to it</p>
         </div>
+        <p>This is some content inside the container</p>
+        <p>The loading indicator must be prepended to it</p>
     </div>
 
 #### Text Loading Indicator
@@ -44,6 +44,15 @@ A loading indicator can be aligned to the center by adding `indicator-center` to
         </div>
     </div>
 
+You may add some optional text:
+
+    <div class="loading-indicator-container">
+        <div class="loading-indicator indicator-center">
+            <span></span>
+            <div>Loading...</div>
+        </div>
+    </div>
+
 # Example
 
     <div class="loading-indicator-container">
@@ -58,6 +67,13 @@ A loading indicator can be aligned to the center by adding `indicator-center` to
         <div class="loading-indicator">
             <span></span>
             <div>Loading...</div>
+        </div>
+    </div>
+
+    <div class="loading-indicator-container">
+        <div class="loading-indicator indicator-inset">
+            <span></span>
+            <div>Loading (inset)</div>
         </div>
     </div>
 

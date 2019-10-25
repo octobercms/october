@@ -11,10 +11,8 @@
 
     .upload-button {
         .uploader-block-button();
-        &, > table {
-            min-height: 100px;
-            min-width: 100px;
-        }
+        min-height: 100px;
+        min-width: 100px;
     }
 
     .upload-object {
@@ -27,6 +25,12 @@
             &.image img {
                 .border-radius(3px);
                 .img-responsive();
+
+                // This is needed when the image is very large and
+                // being processed by dropzone on the client-side
+                // the image has no height or width.
+                min-height: 100px;
+                min-width: 100px;
             }
         }
 

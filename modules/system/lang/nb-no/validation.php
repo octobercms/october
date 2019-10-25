@@ -46,6 +46,7 @@ return [
         "array"   => ":attribute kan ikke ha mer enn :max elementer.",
     ],
     "mimes"            => ":attribute må være av filtype: :values.",
+    "extensions"       => ":attribute må ha filendelse: :values.",
     "min"              => [
         "numeric" => ":attribute må være minst :min.",
         "file"    => ":attribute må være minst :min kilobytes.",

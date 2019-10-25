@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a page node
@@ -9,7 +9,7 @@ use Twig_Compiler;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class PageNode extends Twig_Node
+class PageNode extends TwigNode
 {
     public function __construct($lineno, $tag = 'page')
     {
@@ -19,13 +19,13 @@ class PageNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("echo \$this->env->getExtension('CMS')->pageFunction();\n")
+            ->write("echo \$this->env->getExtension('Cms\Twig\Extension')->pageFunction();\n")
         ;
     }
 }

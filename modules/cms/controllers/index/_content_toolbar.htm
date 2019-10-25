@@ -8,11 +8,5 @@
         <?= e(trans('backend::lang.form.save')) ?>
     </a>
 
-    <button
-        type="button"
-        class="btn btn-default empty oc-icon-trash-o <?php if (!$templatePath): ?>hide<?php endif ?>"
-        data-request="onDelete"
-        data-request-confirm="<?= e(trans('cms::lang.content.delete_confirm_single')) ?>"
-        data-request-success="$.oc.cmsPage.updateTemplateList('content'); $(this).trigger('close.oc.tab', [{force: true}])"
-        data-control="delete-button"></button>
+    <?= $this->makePartial('common_toolbar_actions', ['toolbarSource' => 'content']); ?>
 </div>

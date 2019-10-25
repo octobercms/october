@@ -23,6 +23,7 @@
         this.$el = $(element)
 
         this.options = options
+        this.disposed = false
 
         //
         // State properties
@@ -47,7 +48,7 @@
         this.dataTableContainer = null
 
         // The key of the row which is being edited at the moment.
-        // This key corresponds the data source row key which 
+        // This key corresponds the data source row key which
         // uniquely identifies the row in the data set. When the
         // table grid notices that a cell in another row is edited it commits
         // the previously edited record to the data source.
@@ -74,14 +75,22 @@
         // Navigation helper
         this.navigation = null
 
+        // Search helper
+        this.search = null
+
         // Number of records added or deleted during the session
         this.recordsAddedOrDeleted = 0
+
+        // Bound reference to dispose() - ideally the class should use the October foundation library base class
+        this.disposeBound = this.dispose.bind(this)
 
         //
         // Initialization
         //
 
         this.init()
+
+        $.oc.foundation.controlUtils.markDisposable(element)
     }
 
     // INTERNAL METHODS
@@ -96,6 +105,7 @@
 
         // Initialize helpers
         this.navigation = new $.oc.table.helper.navigation(this)
+        this.search = new $.oc.table.helper.search(this)
 
         // Create the UI
         this.buildUi()
@@ -136,6 +146,8 @@
     Table.prototype.registerHandlers = function() {
         this.el.addEventListener('click', this.clickHandler)
         this.el.addEventListener('keydown', this.keydownHandler)
+        this.$el.one('dispose-control', this.disposeBound)
+
         document.addEventListener('click', this.documentClickHandler)
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client')
@@ -196,8 +208,9 @@
         this.tableContainer.setAttribute('class', 'table-container')
 
         // Build the toolbar
-        if (this.options.toolbar)
+        if (this.options.toolbar) {
             this.buildToolbar()
+        }
 
         // Build the headers table
         this.tableContainer.appendChild(this.buildHeaderTable())
@@ -205,53 +218,42 @@
         // Append the table container to the element
         this.el.insertBefore(this.tableContainer, this.el.children[0])
 
-        if (!this.options.height)
+        if (!this.options.height) {
             this.dataTableContainer = this.tableContainer
-        else 
+        }
+        else {
             this.dataTableContainer = this.buildScrollbar()
+        }
 
         // Build the data table
         this.updateDataTable()
     }
 
     Table.prototype.buildToolbar = function() {
-        if (!this.options.adding && !this.options.deleting)
+        if (!this.options.adding && !this.options.deleting) {
             return
+        }
 
-        this.toolbar = document.createElement('div')
-        this.toolbar.setAttribute('class', 'toolbar')
+        this.toolbar = $($('[data-table-toolbar]', this.el).html()).appendTo(this.tableContainer).get(0)
 
-        if (this.options.adding) {
-            var addBelowButton = document.createElement('a')
-            addBelowButton.setAttribute('class', 'btn add-table-row-below')
-            addBelowButton.setAttribute('data-cmd', 'record-add-below')
-            this.toolbar.appendChild(addBelowButton)
-
+        if (!this.options.adding) {
+            $('[data-cmd^="record-add"]', this.toolbar).remove()
+        }
+        else {
             if (this.navigation.paginationEnabled() || !this.options.rowSorting) {
                 // When the pagination is enabled, or sorting is disabled,
                 // new records can only be added to the bottom of the
-                // table.
-                addBelowButton.textContent = 'Add row'
-            } else {
-                addBelowButton.textContent = 'Add row below'
-
-                var addAboveButton = document.createElement('a')
-                addAboveButton.setAttribute('class', 'btn add-table-row-above')
-                addAboveButton.textContent = 'Add row above'
-                addAboveButton.setAttribute('data-cmd', 'record-add-above')
-                this.toolbar.appendChild(addAboveButton)
+                // table, so just show the general "Add row" button.
+                $('[data-cmd=record-add-below], [data-cmd=record-add-above]', this.toolbar).remove()
+            }
+            else {
+                $('[data-cmd=record-add]', this.toolbar).remove()
             }
         }
 
-        if (this.options.deleting) {
-            var deleteButton = document.createElement('a')
-            deleteButton.setAttribute('class', 'btn delete-table-row')
-            deleteButton.textContent = 'Delete row'
-            deleteButton.setAttribute('data-cmd', 'record-delete')
-            this.toolbar.appendChild(deleteButton)
+        if (!this.options.deleting) {
+            $('[data-cmd="record-delete"]', this.toolbar).remove()
         }
-
-        this.tableContainer.appendChild(this.toolbar)
     }
 
     Table.prototype.buildScrollbar = function() {
@@ -303,7 +305,7 @@
 
         this.unfocusTable()
 
-        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount){
+        this.fetchRecords(function onUpdateDataTableSuccess(records, totalCount) {
             self.buildDataTable(records, totalCount)
 
             if (onSuccess)
@@ -311,6 +313,11 @@
 
             if (totalCount == 0)
                 self.addRecord('above', true)
+
+            self.$el.trigger('oc.tableUpdateData', [
+                records,
+                totalCount
+            ])
 
             self = null
         })
@@ -353,9 +360,7 @@
 
                 dataContainer.setAttribute('type', 'hidden')
                 dataContainer.setAttribute('data-container', 'data-container')
-                dataContainer.value = records[i][columnName] !== undefined
-                    ? records[i][columnName]
-                    : ""
+                dataContainer.value = this.formatDataContainerValue(records[i][columnName])
 
                 cellContentContainer.setAttribute('class', 'content-container')
 
@@ -387,20 +392,45 @@
 
         // Update the pagination links
         this.navigation.buildPagination(totalCount)
+
+        // Update the search form
+        this.search.buildSearchForm()
+    }
+
+    Table.prototype.formatDataContainerValue = function(value) {
+        if (value === undefined) {
+            return ''
+        }
+
+        if (typeof value === 'boolean') {
+            return value ? 1 : ''
+        }
+
+        return value
     }
 
     Table.prototype.fetchRecords = function(onSuccess) {
-        this.dataSource.getRecords(
-            this.navigation.getPageFirstRowOffset(),
-            this.options.recordsPerPage,
-            onSuccess
-        )
+        if (this.search.hasQuery()) {
+            this.dataSource.searchRecords(
+                this.search.getQuery(),
+                this.navigation.getPageFirstRowOffset(),
+                this.options.recordsPerPage,
+                onSuccess
+            )
+        }
+        else {
+            this.dataSource.getRecords(
+                this.navigation.getPageFirstRowOffset(),
+                this.options.recordsPerPage,
+                onSuccess
+            )
+        }
     }
 
     Table.prototype.updateScrollbar = function() {
         if (!this.options.height)
             return
-    
+
         $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()
     }
 
@@ -433,7 +463,7 @@
     Table.prototype.commitEditedRow = function() {
         if (this.editedRowKey === null)
             return
-        
+
         var editedRow = this.dataTable.querySelector('tr[data-row="'+this.editedRowKey+'"]')
         if (!editedRow)
             return
@@ -506,7 +536,7 @@
                 this.elementAddClass(this.activeCell, 'active')
         }
 
-        // If the cell belongs to other row than the currently edited, 
+        // If the cell belongs to other row than the currently edited,
         // commit currently edited row to the data source. Update the
         // currently edited row key.
         var rowKey = this.getCellRowKey(cellElement)
@@ -526,8 +556,8 @@
     }
 
     Table.prototype.addRecord = function(placement, noFocus) {
-        // If there is no active cell, or the pagination is enabled or 
-        // row sorting is disabled, add the record to the bottom of 
+        // If there is no active cell, or the pagination is enabled or
+        // row sorting is disabled, add the record to the bottom of
         // the table (last page).
 
         if (!this.activeCell || this.navigation.paginationEnabled() || !this.options.rowSorting)
@@ -563,10 +593,14 @@
             recordData = {},
             self = this
 
-        recordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        recordData[keyColumn] = -1 * this.recordsAddedOrDeleted
+
+        this.$el.trigger('oc.tableNewRow', [
+            recordData
+        ])
 
         this.dataSource.createRecord(recordData, placement, relativeToKey,
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
             function onAddRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
@@ -603,11 +637,12 @@
         var keyColumn = this.options.keyColumn,
             newRecordData = {}
 
-        newRecordData[keyColumn] = -1*this.recordsAddedOrDeleted
+        newRecordData[keyColumn] = -1 * this.recordsAddedOrDeleted
 
-        this.dataSource.deleteRecord(key, 
+        this.dataSource.deleteRecord(
+            key,
             newRecordData,
-            this.navigation.getPageFirstRowOffset(), 
+            this.navigation.getPageFirstRowOffset(),
             this.options.recordsPerPage,
             function onDeleteRecordDataTableSuccess(records, totalCount) {
                 self.buildDataTable(records, totalCount)
@@ -620,7 +655,7 @@
                     else
                         self.navigation.focusCellInReplacedRow(currentRowIndex, currentCellIndex)
                 }
-                
+
                 self = null
             }
         )
@@ -696,6 +731,9 @@
         if (this.navigation.onClick(ev) === false)
             return
 
+        if (this.search.onClick(ev) === false)
+            return
+
         for (var i = 0, len = this.options.columns.length; i < len; i++) {
             var column = this.options.columns[i].key
 
@@ -704,11 +742,15 @@
 
         var target = this.getEventTarget(ev, 'TD')
 
-        if (!target)
-            return
+        if (!target) {
+            this.unfocusTable();
+            return;
+        }
 
-        if (target.tagName != 'TD')
-            return
+        if (target.tagName != 'TD') {
+            this.unfocusTable();
+            return;
+        }
 
         this.focusCell(target, true)
     }
@@ -718,7 +760,8 @@
             if (!ev.shiftKey) {
                 // alt+a - add record below
                 this.addRecord('below')
-            } else {    
+            }
+            else {
                 // alt+shift+a - add record above
                 this.addRecord('above')
             }
@@ -738,11 +781,18 @@
         for (var i = 0, len = this.options.columns.length; i < len; i++) {
             var column = this.options.columns[i].key
 
-            this.cellProcessors[column].onKeyDown(ev)
+            if (this.cellProcessors[column].onKeyDown(ev) === false) {
+                return
+            }
         }
 
-        if (this.navigation.onKeydown(ev) === false)
+        if (this.navigation.onKeydown(ev) === false) {
             return
+        }
+
+        if (this.search.onKeydown(ev) === false) {
+            return
+        }
     }
 
     Table.prototype.onFormSubmit = function(ev, data) {
@@ -754,9 +804,9 @@
                 return
             }
 
-            var fieldName = this.options.alias.indexOf('[') > -1 ? 
-                this.options.alias + '[TableData]' :
-                this.options.alias + 'TableData';
+            var fieldName = this.options.fieldName.indexOf('[') > -1
+                ? this.options.fieldName + '[TableData]'
+                : this.options.fieldName + 'TableData'
 
             data.options.data[fieldName] = this.dataSource.getAllData()
         }
@@ -766,7 +816,12 @@
         var target = this.getEventTarget(ev),
             cmd = target.getAttribute('data-cmd')
 
+        if (!cmd) {
+            return
+        }
+
         switch (cmd) {
+            case 'record-add':
             case 'record-add-below':
                 this.addRecord('below')
             break
@@ -789,7 +844,7 @@
         if (this.parentContainsElement(this.el, target))
             return
 
-        // Request the active cell processor if the clicked 
+        // Request the active cell processor if the clicked
         // element belongs to any extra-table element created
         // by the processor
 
@@ -803,6 +858,16 @@
     // ============================
 
     Table.prototype.dispose = function() {
+        if (this.disposed) {
+            // Prevent errors when legacy code executes the dispose() method
+            // directly, bypassing $.oc.foundation.controlUtils.disposeControls(container)
+            return
+        }
+
+        this.disposed = true
+
+        this.disposeBound = true
+
         // Remove an editor and commit the data if needed
         this.unfocusTable()
 
@@ -828,7 +893,7 @@
         // Delete references to the control HTML elements.
         // The script doesn't remove any DOM elements themselves.
         // If it's needed it should be done by the outer script,
-        // we only make sure that the table widget doesn't hold 
+        // we only make sure that the table widget doesn't hold
         // references to the detached DOM tree so that the garbage
         // collector can delete the elements if needed.
         this.disposeScrollbar()
@@ -839,6 +904,45 @@
 
         // Delete references to other DOM elements
         this.activeCell = null
+    }
+
+    /*
+     * Updates row values in the table.
+     * rowIndex is an integer value containing the row index on the current page.
+     * The rowValues should be a hash object containing only changed
+     * columns.
+     * Returns false if the row wasn't found. Otherwise returns true.
+     */
+    Table.prototype.setRowValues = function(rowIndex, rowValues) {
+        var row = this.findRowByIndex(rowIndex)
+
+        if (!row) {
+            return false
+        }
+
+        var dataUpdated = false
+
+        for (var i = 0, len = row.children.length; i < len; i++) {
+            var cell = row.children[i],
+                cellColumnName = this.getCellColumnName(cell)
+
+            for (var rowColumnName in rowValues) {
+                if (rowColumnName == cellColumnName) {
+                    this.setCellValue(cell, rowValues[rowColumnName], true)
+                    dataUpdated = true
+                }
+            }
+        }
+
+        if (dataUpdated) {
+            var originalEditedRowKey = this.editedRowKey
+
+            this.editedRowKey = this.getRowKey(row)
+            this.commitEditedRow()
+            this.editedRowKey = originalEditedRowKey
+        }
+
+        return true
     }
 
     // HELPER METHODS
@@ -901,7 +1005,7 @@
 
         if (el.classList)
             return el.classList.contains(className);
-        
+
         return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
     }
 
@@ -942,6 +1046,10 @@
         return parseInt(cellElement.parentNode.getAttribute('data-row'))
     }
 
+    Table.prototype.getRowKey = function(rowElement) {
+        return parseInt(rowElement.getAttribute('data-row'))
+    }
+
     Table.prototype.findRowByKey = function(key) {
         return this.dataTable.querySelector('tbody tr[data-row="'+key+'"]')
     }
@@ -974,7 +1082,11 @@
         return result
     }
 
-    Table.prototype.setCellValue = function(cellElement, value) {
+    Table.prototype.getCellColumnName = function(cellElement) {
+        return cellElement.getAttribute('data-column')
+    }
+
+    Table.prototype.setCellValue = function(cellElement, value, suppressEvents) {
         var dataContainer = cellElement.querySelector('[data-container]')
 
         if (dataContainer.value != value) {
@@ -983,6 +1095,14 @@
             this.markCellRowDirty(cellElement)
 
             this.notifyRowProcessorsOnChange(cellElement)
+
+            if (suppressEvents === undefined || !suppressEvents) {
+                this.$el.trigger('oc.tableCellChanged', [
+                    this.getCellColumnName(cellElement),
+                    value,
+                    this.getCellRowIndex(cellElement)
+                ])
+            }
         }
     }
 
@@ -996,6 +1116,7 @@
         adding: true,
         deleting: true,
         toolbar: true,
+        searching: false,
         rowSorting: false,
         height: false,
         dynamicHeight: false
@@ -1007,7 +1128,7 @@
     var old = $.fn.table
 
     $.fn.table = function (option) {
-        var args = Array.prototype.slice.call(arguments, 1), 
+        var args = Array.prototype.slice.call(arguments, 1),
             result = undefined
 
         this.each(function () {
@@ -1018,7 +1139,7 @@
             if (typeof option == 'string') result = data[option].apply(data, args)
             if (typeof result != 'undefined') return false
         })
-        
+
         return result ? result : this
     }
 

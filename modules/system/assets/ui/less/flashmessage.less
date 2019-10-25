@@ -23,12 +23,15 @@
     position: fixed;
     width: 500px;
     left: 50%;
-    top: 13px;
+    top: 50px;
     margin-left: -250px;
     color: @color-flash-text;
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px 30px 10px 15px;
-    z-index: 10000;
+    z-index: @zindex-flashmessage;
+    word-wrap: break-word;
+    text-align: center;
+    .box-shadow(@overlay-box-shadow);
     .border-radius(@border-radius-base);
 
     &.fade {
@@ -54,16 +57,19 @@
         top: 8px;
         color: white;
 
+        outline: none;
+
         &:hover {
             color: white
         }
     }
 
     &.static {
-        position: static!important;
-        width: auto!important;
-        display: block!important;
-        margin-left: 0!important;
+        position: static !important;
+        width: auto !important;
+        display: block !important;
+        margin-left: 0 !important;
+        .box-shadow(none);
     }
 }
 

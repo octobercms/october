@@ -13,37 +13,6 @@ class MarkupManagerTest extends TestCase
     }
 
     //
-    // Helpers
-    //
-
-    protected static function callProtectedMethod($object, $name, $params = [])
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method->invokeArgs($object, $params);
-    }
-
-    public static function getProtectedProperty($object, $name)
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $property = $class->getProperty($name);
-        $property->setAccessible(true);
-        return $property->getValue($object);
-    }
-
-    public static function setProtectedProperty($object, $name, $value)
-    {
-        $className = get_class($object);
-        $class = new ReflectionClass($className);
-        $property = $class->getProperty($name);
-        $property->setAccessible(true);
-        return $property->setValue($object, $value);
-    }
-
-    //
     // Tests
     //
 
@@ -62,7 +31,9 @@ class MarkupManagerTest extends TestCase
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable]);
         $this->assertFalse($result);
 
-        $callable = function() { return 'O, Hai!'; };
+        $callable = function () {
+            return 'O, Hai!';
+        };
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable]);
         $this->assertFalse($result);
 
@@ -84,8 +55,8 @@ class MarkupManagerTest extends TestCase
         $this->assertTrue($result);
 
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable, 'bar']);
-        $this->assertTrue(isset($result[0]));
-        $this->assertTrue(isset($result[1]));
+        $this->assertArrayHasKey(0, $result);
+        $this->assertArrayHasKey(1, $result);
         $this->assertEquals('Class', $result[0]);
         $this->assertEquals('foo_bar', $result[1]);
 
@@ -94,8 +65,8 @@ class MarkupManagerTest extends TestCase
         $this->assertTrue($result);
 
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable, 'Class']);
-        $this->assertTrue(isset($result[0]));
-        $this->assertTrue(isset($result[1]));
+        $this->assertArrayHasKey(0, $result);
+        $this->assertArrayHasKey(1, $result);
         $this->assertEquals('MyClass', $result[0]);
         $this->assertEquals('method', $result[1]);
 
@@ -104,10 +75,9 @@ class MarkupManagerTest extends TestCase
         $this->assertTrue($result);
 
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable, 'Food']);
-        $this->assertTrue(isset($result[0]));
-        $this->assertTrue(isset($result[1]));
+        $this->assertArrayHasKey(0, $result);
+        $this->assertArrayHasKey(1, $result);
         $this->assertEquals('MyFood', $result[0]);
         $this->assertEquals('myFood', $result[1]);
     }
-
 }

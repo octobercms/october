@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use October\Rain\Database\Model;
 use October\Rain\Html\Helper as HtmlHelper;
 
 /**
@@ -42,14 +43,24 @@ class ListColumn
     public $sortable = true;
 
     /**
+     * @var bool If set to false, disables the default click behavior when the column is clicked.
+     */
+    public $clickable = true;
+
+    /**
      * @var string Model attribute to use for the display value, this will
-     * override any $sqlSelect definition.
+     * override any `$sqlSelect` definition.
      */
     public $valueFrom;
 
     /**
+     * @var string Specifies a default value when value is empty.
+     */
+    public $defaults;
+
+    /**
      * @var string Custom SQL for selecting this record display value,
-     * the @ symbol is replaced with the table name.
+     * the `@` symbol is replaced with the table name.
      */
     public $sqlSelect;
 
@@ -71,6 +82,11 @@ class ListColumn
     public $cssClass;
 
     /**
+     * @var string Specify a CSS class to attach to the list header cell element.
+     */
+    public $headCssClass;
+
+    /**
      * @var string Specify a format or style for the column value, such as a Date.
      */
     public $format;
@@ -79,6 +95,11 @@ class ListColumn
      * @var string Specifies a path for partial-type fields.
      */
     public $path;
+
+    /**
+     * @var string Specifies the alignment of this column.
+     */
+    public $align;
 
     /**
      * @var array Raw field configuration.
@@ -122,17 +143,26 @@ class ListColumn
         if (isset($config['cssClass'])) {
             $this->cssClass = $config['cssClass'];
         }
+        if (isset($config['headCssClass'])) {
+            $this->headCssClass = $config['headCssClass'];
+        }
         if (isset($config['searchable'])) {
             $this->searchable = $config['searchable'];
         }
         if (isset($config['sortable'])) {
             $this->sortable = $config['sortable'];
         }
+        if (isset($config['clickable'])) {
+            $this->clickable = $config['clickable'];
+        }
         if (isset($config['invisible'])) {
             $this->invisible = $config['invisible'];
         }
         if (isset($config['valueFrom'])) {
             $this->valueFrom = $config['valueFrom'];
+        }
+        if (isset($config['default'])) {
+            $this->defaults = $config['default'];
         }
         if (isset($config['select'])) {
             $this->sqlSelect = $config['select'];
@@ -145,6 +175,9 @@ class ListColumn
         }
         if (isset($config['path'])) {
             $this->path = $config['path'];
+        }
+        if (isset($config['align']) && \in_array($config['align'], ['left', 'right', 'center'])) {
+            $this->align = $config['align'];
         }
 
         return $config;
@@ -175,5 +208,65 @@ class ListColumn
         }
 
         return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * Returns the column specific aligment css class.
+     * @return string
+     */
+    public function getAlignClass()
+    {
+        return $this->align ? 'list-cell-align-' . $this->align : '';
+    }
+
+    /**
+     * Returns this columns value from a supplied data set, which can be
+     * an array or a model or another generic collection.
+     * @param mixed $data
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getValueFromData($data, $default = null)
+    {
+        $columnName = $this->valueFrom ?: $this->columnName;
+        return $this->getColumnNameFromData($columnName, $data, $default);
+    }
+
+    /**
+     * Internal method to extract the value of a column name from a data set.
+     * @param string $columnName
+     * @param mixed $data
+     * @param mixed $default
+     * @return mixed
+     */
+    protected function getColumnNameFromData($columnName, $data, $default = null)
+    {
+        /*
+         * Array column name, eg: column[key][key2][key3]
+         */
+        $keyParts = HtmlHelper::nameToArray($columnName);
+        $result = $data;
+
+        /*
+         * Loop the column key parts and build a value.
+         * To support relations only the last column should return the
+         * relation value, all others will look up the relation object as normal.
+         */
+        foreach ($keyParts as $key) {
+            if ($result instanceof Model && $result->hasRelation($key)) {
+                $result = $result->{$key};
+            }
+            else {
+                if (is_array($result) && array_key_exists($key, $result)) {
+                    $result = $result[$key];
+                } elseif (!isset($result->{$key})) {
+                    return $default;
+                } else {
+                    $result = $result->{$key};
+                }
+            }
+        }
+
+        return $result;
     }
 }

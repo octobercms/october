@@ -1,6 +1,8 @@
 <?php namespace System\Helpers;
 
+use App;
 use File;
+use Cache as CacheFacade;
 use Config;
 
 class Cache
@@ -11,6 +13,12 @@ class Cache
      * Execute the console command.
      */
     public static function clear()
+    {
+        CacheFacade::flush();
+        self::clearInternal();
+    }
+
+    public static function clearInternal()
     {
         $instance = self::instance();
         $instance->clearCombiner();
@@ -31,7 +39,6 @@ class Cache
         foreach (File::directories(storage_path().'/cms/combiner') as $directory) {
             File::deleteDirectory($directory);
         }
-
     }
 
     /*
@@ -60,5 +67,7 @@ class Cache
     public function clearMeta()
     {
         File::delete(storage_path().'/cms/disabled.json');
+        File::delete(App::getCachedCompilePath());
+        File::delete(App::getCachedServicesPath());
     }
 }

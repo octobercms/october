@@ -1,0 +1,110 @@
+.permissioneditor {
+  position: relative;
+  margin: 0 -20px;
+}
+.permissioneditor.control-disabled .permissions-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.01);
+  cursor: not-allowed;
+}
+.permissioneditor.control-disabled table {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.permissioneditor table {
+  width: 100%;
+}
+.permissioneditor table th {
+  padding: 30px 4px 8px 4px;
+  color: #2a3e51;
+  font-weight: normal;
+  border-bottom: 1px solid #dbe1e3;
+}
+.permissioneditor table th.tab {
+  font-size: 13px;
+}
+.permissioneditor table th.permission-type {
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: center;
+}
+.permissioneditor table td {
+  padding: 10px 4px;
+  vertical-align: top;
+  border-bottom: 1px solid #ecf0f1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.permissioneditor table td.permission-value {
+  text-align: center;
+}
+.permissioneditor table td.permission-name {
+  font-size: 13px;
+  cursor: pointer;
+  color: #777777;
+}
+.permissioneditor table td p.comment {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+.permissioneditor table td p.comment:empty {
+  display: none;
+}
+.permissioneditor table tr:hover td {
+  background: #4da7e8;
+}
+.permissioneditor table tr:hover td.permission-name {
+  color: #ffffff !important;
+}
+.permissioneditor table th:first-child,
+.permissioneditor table td:first-child {
+  padding-left: 20px;
+}
+.permissioneditor table th:last-child,
+.permissioneditor table td:last-child {
+  padding-right: 5px;
+}
+.permissioneditor table .custom-radio,
+.permissioneditor table .custom-checkbox {
+  display: inline-block;
+  padding-left: 0;
+}
+.permissioneditor table .custom-radio,
+.permissioneditor table .custom-checkbox,
+.permissioneditor table .custom-radio label,
+.permissioneditor table .custom-checkbox label {
+  margin-bottom: 0;
+}
+.permissioneditor table .custom-radio label,
+.permissioneditor table .custom-checkbox label {
+  padding: 0 0 0 14px;
+  margin: 0;
+  top: 0;
+}
+.permissioneditor table .custom-radio label span,
+.permissioneditor table .custom-checkbox label span {
+  text-indent: -10000em;
+  display: block;
+}
+.permissioneditor table .custom-radio label:before,
+.permissioneditor table .custom-checkbox label:before {
+  margin-right: 0;
+}
+.permissioneditor table tr:last-child td {
+  border-bottom: none;
+}
+.permissioneditor table tr:first-child th {
+  padding-top: 0;
+}
+.permissioneditor table tr.disabled td.permission-name {
+  color: #AAA;
+}
+.permissioneditor table tr.last-section-row td {
+  border-bottom: none;
+}

@@ -7,41 +7,19 @@ description = "Default layout"
         <title>October CMS - {{ this.page.title }}</title>
         <meta name="description" content="{{ this.page.meta_description }}">
         <meta name="title" content="{{ this.page.meta_title }}">
-        <meta name="author" content="October CMS">
+        <meta name="author" content="OctoberCMS">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}" />
+        <meta name="generator" content="OctoberCMS">
+        <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
+        <link href="{{ 'assets/css/vendor.css'|theme }}" rel="stylesheet">
+        <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
         {% styles %}
-        <link href="{{ [
-            'assets/css/theme.css'
-        ]|theme }}" rel="stylesheet">
     </head>
     <body>
 
         <!-- Header -->
         <header id="layout-header">
-
-            <!-- Nav -->
-            <nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ 'home'|page }}">October Demo</a>
-                    </div>
-                    <div class="collapse navbar-collapse navbar-main-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic concepts</a></li>
-                            <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX framework</a></li>
-                            <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">Plugin components</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
+            {% partial 'site/header' %}
         </header>
 
         <!-- Content -->
@@ -51,26 +29,13 @@ description = "Default layout"
 
         <!-- Footer -->
         <footer id="layout-footer">
-            {% partial "footer" %}
+            {% partial 'site/footer' %}
         </footer>
 
         <!-- Scripts -->
-        <script src="{{ [
-            'assets/javascript/jquery.js',
-            'assets/vendor/bootstrap/js/transition.js',
-            'assets/vendor/bootstrap/js/alert.js',
-            'assets/vendor/bootstrap/js/button.js',
-            'assets/vendor/bootstrap/js/carousel.js',
-            'assets/vendor/bootstrap/js/collapse.js',
-            'assets/vendor/bootstrap/js/dropdown.js',
-            'assets/vendor/bootstrap/js/modal.js',
-            'assets/vendor/bootstrap/js/tooltip.js',
-            'assets/vendor/bootstrap/js/popover.js',
-            'assets/vendor/bootstrap/js/scrollspy.js',
-            'assets/vendor/bootstrap/js/tab.js',
-            'assets/vendor/bootstrap/js/affix.js',
-            'assets/javascript/app.js'
-        ]|theme }}"></script>
+        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
 

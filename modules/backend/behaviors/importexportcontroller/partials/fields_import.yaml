@@ -1,0 +1,95 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    step1_section:
+        label: backend::lang.import_export.upload_csv_file
+        type: section
+
+    import_file:
+        label: backend::lang.import_export.import_file
+        type: fileupload
+        mode: file
+        span: left
+        fileTypes: csv
+        useCaption: false
+
+    format_preset:
+        label: backend::lang.import_export.file_format
+        type: dropdown
+        default: standard
+        options:
+            standard: backend::lang.import_export.standard_format
+            custom: backend::lang.import_export.custom_format
+        span: right
+
+    format_delimiter:
+        label: backend::lang.import_export.delimiter_char
+        default: ','
+        span: left
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    format_enclosure:
+        label: backend::lang.import_export.enclosure_char
+        span: auto
+        default: '"'
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    format_escape:
+        label: backend::lang.import_export.escape_char
+        span: auto
+        default: '\'
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    format_encoding:
+        label: backend::lang.import_export.encoding_format
+        span: auto
+        default: UTF-8
+        type: dropdown
+        trigger:
+            action: show
+            condition: value[custom]
+            field: format_preset
+
+    first_row_titles:
+        label: backend::lang.import_export.first_row_contains_titles
+        comment: backend::lang.import_export.first_row_contains_titles_desc
+        type: checkbox
+        default: true
+        span: left
+
+    step2_section:
+        label: backend::lang.import_export.match_columns
+        type: section
+
+    column_control_panel:
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_toolbar.htm
+
+    import_file_columns:
+        label: backend::lang.import_export.file_columns
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_file_columns.htm
+        dependsOn: [import_file, first_row_titles, format_delimiter, format_enclosure, format_escape, format_encoding]
+        span: left
+
+    import_db_columns:
+        label: backend::lang.import_export.database_fields
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_import_db_columns.htm
+        dependsOn: [import_file, first_row_titles, format_delimiter, format_enclosure, format_escape, format_encoding]
+        span: right
+
+    step3_section:
+        label: backend::lang.import_export.set_import_options
+        type: section

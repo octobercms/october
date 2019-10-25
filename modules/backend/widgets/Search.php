@@ -31,12 +31,27 @@ class Search extends WidgetBase
      */
     public $partial;
 
+    /**
+     * @var string Defines the search mode. Commonly passed to the searchWhere() query.
+     */
+    public $mode;
+
+    /**
+     * @var string Custom scope method name. Commonly passed to the query.
+     */
+    public $scope;
+
+    /**
+     * @var bool Search on enter key instead of every key stroke.
+     */
+    public $searchOnEnter = false;
+
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'search';
 
@@ -59,6 +74,9 @@ class Search extends WidgetBase
             'prompt',
             'partial',
             'growable',
+            'scope',
+            'mode',
+            'searchOnEnter',
         ]);
 
         /*
@@ -81,9 +99,8 @@ class Search extends WidgetBase
         if ($this->partial) {
             return $this->controller->makePartial($this->partial);
         }
-        else {
-            return $this->makePartial('search');
-        }
+
+        return $this->makePartial('search');
     }
 
     /**
@@ -94,6 +111,7 @@ class Search extends WidgetBase
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['placeholder'] = Lang::get($this->prompt);
         $this->vars['value'] = $this->getActiveTerm();
+        $this->vars['searchOnEnter'] = $this->searchOnEnter;
     }
 
     /**
@@ -131,8 +149,7 @@ class Search extends WidgetBase
     {
         if (strlen($term)) {
             $this->putSession('term', $term);
-        }
-        else {
+        } else {
             $this->resetSession();
         }
 

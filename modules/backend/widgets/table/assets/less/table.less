@@ -4,7 +4,7 @@
  * General control styling
  */
 
-@table-active-border: #808c8d;
+@table-active-border: #e0e0e0;
 @table-inactive-border: #e0e0e0;
 
 .control-table {
@@ -57,9 +57,9 @@
 
         th {
             padding: 7px 10px;
-            font-size: 13px;
+            font-weight: normal;
             text-transform: uppercase;
-            font-weight: 600;
+            font-size: @font-size-base - 3;
             color: #333333;
             background: white;
             border-right: 1px solid #ecf0f1;
@@ -118,7 +118,7 @@
             }
         }
 
-        tr { 
+        tr {
             background-color: white;
 
             &.error {
@@ -126,7 +126,7 @@
 
                 td.active.error {
                     border-color: #ec0000!important;
-    
+
                     .content-container {
                         border-color: #ec0000!important;
                         &:before, &:after {
@@ -177,25 +177,38 @@
         background: white;
         border-bottom: 1px solid @table-inactive-border;
 
-        a {
+        a.btn {
             color: #323e50;
-            padding: 10px;
+            padding: 8px 10px;
             .opacity(0.5);
+            .box-shadow(none) !important;
+            text-shadow: none;
 
             &:hover {
                 .opacity(1);
             }
+        }
 
+        .table-search {
+            float: right;
+            margin: 3px 3px 0 0;
+
+            .table-search-input {
+                height: auto;
+                padding: 5px 13px 5px;
+            }
+        }
+
+        a.table-icon {
             &:before {
                 display: inline-block;
                 content: ' ';
                 width: 16px;
                 height: 16px;
                 margin-right: 8px;
-                position: relative; 
+                position: relative;
                 top: 3px;
-                background: transparent url(../images/table-icons.gif) no-repeat;
-                background-position: 0 0;
+                background: transparent url(../images/table-icons.gif) no-repeat 0 0;
                 background-size: 32px auto;
             }
 
@@ -234,7 +247,7 @@
                 }
 
                 &.active {
-                    background: @brand-primary;
+                    background: @brand-accent;
 
                     a {color: #ffffff;}
                 }
@@ -263,19 +276,55 @@
 }
 
 /*
- * String editor
+ * String and autocomplete editors
  */
 
 .control-table {
-    td[data-column-type=string] {
+    td[data-column-type=string],
+    td[data-column-type=autocomplete] {
         input[type=text] {
             width: 100%;
             height: 100%;
             display: block;
             outline: none;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 10px 7px;
         }
+    }
+}
+
+html.chrome {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 6px 10px 7px!important;
+            }
+        }
+    }
+}
+
+html.safari, html.gecko {
+    .control-table {
+        td[data-column-type=string],
+        td[data-column-type=autocomplete] {
+            input[type=text] {
+                padding: 5px 10px 5px;
+            }
+        }
+    }
+}
+
+ul.table-widget-autocomplete {
+    background: white;
+    font-size: 13px;
+    margin-top: 0;
+    border: 1px solid #808c8d;
+    border-top: 1px solid #ecf0f1;
+    .border-bottom-radius(4px);
+
+    li a {
+        padding: 5px 10px;
     }
 }
 
@@ -349,7 +398,7 @@
             }
 
             &:hover:after {
-                color: @color-link;
+                color: @link-color;
             }
         }
 
@@ -366,12 +415,28 @@
     }
 }
 
+/* Frameless control styles start */
+
+.widget-field.frameless .control-table {
+    .table-container {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        .border-radius(0);
+    }
+
+    .toolbar {
+        background: transparent;
+    }
+}
+
+/* Frameless control styles end */
+
 html.cssanimations {
     .control-table td[data-column-type=dropdown] {
         [data-view-container].loading:after {
-            background-image:url(../../../../assets/images/loader-transparent.svg);
+            background: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg') 50% 50%;
             background-size: 15px 15px;
-            background-position: 50% 50%;
             position: absolute;
             width: 15px;
             height: 15px;
@@ -411,9 +476,7 @@ html.cssanimations {
         cursor: pointer;
         outline: none;
 
-        &:hover,
-        &:focus,
-        &.selected {
+        &:focus {
             background: @color-focus;
             color: white;
         }

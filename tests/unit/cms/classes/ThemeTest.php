@@ -9,7 +9,7 @@ class ThemeTest extends TestCase
         parent::setUp();
 
         Config::set('cms.activeTheme', 'test');
-        Event::flush('cms.activeTheme');
+        Event::flush('cms.theme.getActiveTheme');
         Theme::resetCache();
     }
 
@@ -21,8 +21,9 @@ class ThemeTest extends TestCase
         $it->rewind();
 
         while ($it->valid()) {
-            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm')
+            if (!$it->isDot() && !$it->isDir() && $it->getExtension() == 'htm') {
                 $result++;
+            }
 
             $it->next();
         }
@@ -34,18 +35,19 @@ class ThemeTest extends TestCase
     {
         $theme = Theme::load('test');
 
-        $this->assertEquals(base_path().'/tests/fixtures/themes/test', $theme->getPath());
+        $this->assertEquals(base_path('tests/fixtures/themes/test'), $theme->getPath());
     }
 
     public function testListPages()
     {
         $theme = Theme::load('test');
 
-        $pages = $theme->listPages();
+        $pageCollection = $theme->listPages();
+        $pages = array_values($pageCollection->all());
         $this->assertInternalType('array', $pages);
 
         $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/themes/test/pages');
-        $this->assertEquals($expectedPageNum, count($pages));
+        $this->assertCount($expectedPageNum, $pages);
 
         $this->assertInstanceOf('\Cms\Classes\Page', $pages[0]);
         $this->assertNotEmpty($pages[0]->url);
@@ -73,8 +75,10 @@ class ThemeTest extends TestCase
 
     public function testApiTheme()
     {
-        Event::flush('cms.activeTheme');
-        Event::listen('cms.activeTheme', function() { return 'apitest'; });
+        Event::flush('cms.theme.getActiveTheme');
+        Event::listen('cms.theme.getActiveTheme', function () {
+            return 'apitest';
+        });
 
         $activeTheme = Theme::getActiveTheme();
         $this->assertNotNull($activeTheme);

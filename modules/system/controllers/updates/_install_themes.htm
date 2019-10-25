@@ -1,8 +1,8 @@
-
 <div>
 
     <!-- Search -->
     <form
+        role="form"
         id="installThemesForm"
         data-handler="onInstallTheme"
         onsubmit="$.oc.installProcess.searchSubmit(this); return false">
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="details">
                                     <h4><?= $theme['name'] ?></h4>
-                                    <p>by <?= $theme['author'] ?></p>
+                                    <p><?= e(trans('cms::lang.theme.by_author', ['name' => $theme['author']])) ?></p>
                                 </div>
                                 <button
                                     type="button"

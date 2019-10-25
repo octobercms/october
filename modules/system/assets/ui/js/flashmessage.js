@@ -1,17 +1,10 @@
 /*
-=require ../vendor/bootstrap/js/transition.js
-*/
-
-/*
- * The flash message. 
- * 
- * The default hide interval is 2 seconds. The interval option is not required.
+ * The flash message.
  *
- * Data attributes API:
- * <p data-control="flash-message" class="success" data-interval="5">The record has been successfully saved.</p>
+ * Documentation: ../docs/flashmessage.md
  *
- * JavaScript API:
- * $.oc.flashMsg({text: 'The record has been successfully saved.', 'class': 'success', 'interval': 3})
+ * Require:
+ *  - bootstrap/transition
  */
 +function ($) { "use strict";
 
@@ -22,8 +15,9 @@
 
         $('body > p.flash-message').remove()
 
-        if ($element.length == 0)
-            $element = $('<p/>').addClass(options.class).html(options.text)
+        if ($element.length == 0) {
+            $element = $('<p />').addClass(options.class).html(options.text)
+        }
 
         $element.addClass('flash-message fade')
         $element.attr('data-control', null)
@@ -33,11 +27,11 @@
 
         $(document.body).append($element)
 
-        setTimeout(function(){
+        setTimeout(function() {
             $element.addClass('in')
-        }, 1)
+        }, 100)
 
-        var timer = window.setTimeout(remove, options.interval*1000)
+        var timer = window.setTimeout(remove, options.interval * 1000)
 
         function removeElement() {
             $element.remove()
@@ -47,18 +41,18 @@
             window.clearInterval(timer)
 
             $element.removeClass('in')
-            $.support.transition && $element.hasClass('fade') ?
-                $element
+            $.support.transition && $element.hasClass('fade')
+                ? $element
                     .one($.support.transition.end, removeElement)
-                    .emulateTransitionEnd(500) :
-                removeElement()
+                    .emulateTransitionEnd(500)
+                : removeElement()
         }
     }
 
     FlashMessage.DEFAULTS = {
         class: 'success',
         text: 'Default text',
-        interval: 2
+        interval: 5
     }
 
     // FLASH MESSAGE PLUGIN DEFINITION

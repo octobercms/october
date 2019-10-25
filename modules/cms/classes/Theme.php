@@ -1,18 +1,22 @@
 <?php namespace Cms\Classes;
 
-use URL;
+use App;
+use Url;
 use File;
 use Yaml;
 use Lang;
 use Cache;
 use Event;
 use Config;
-use DbDongle;
+use Exception;
 use SystemException;
-use ApplicationException;
-use System\Models\Parameters;
-use Cms\Models\ThemeData;
 use DirectoryIterator;
+use ApplicationException;
+use Cms\Models\ThemeData;
+use System\Models\Parameter;
+use October\Rain\Halcyon\Datasource\DbDatasource;
+use October\Rain\Halcyon\Datasource\FileDatasource;
+use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * This class represents the CMS theme.
@@ -32,7 +36,7 @@ class Theme
     /**
      * @var mixed Keeps the cached configuration file values.
      */
-    protected $configCache = null;
+    protected $configCache;
 
     /**
      * @var mixed Active theme cache in memory
@@ -46,6 +50,7 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
+    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -55,6 +60,8 @@ class Theme
     {
         $theme = new static;
         $theme->setDirName($dirName);
+        $theme->registerHalyconDatasource();
+
         return $theme;
     }
 
@@ -130,13 +137,70 @@ class Theme
     public function isActiveTheme()
     {
         $activeTheme = self::getActiveTheme();
+
         return $activeTheme && $activeTheme->getDirName() == $this->getDirName();
     }
 
     /**
-     * Returns the active theme.
+     * Returns the active theme code.
      * By default the active theme is loaded from the cms.activeTheme parameter,
-     * but this behavior can be overridden by the cms.activeTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getActiveTheme event listener.
+     * @return string
+     * If the theme doesn't exist, returns null.
+     */
+    public static function getActiveThemeCode()
+    {
+        $activeTheme = Config::get('cms.activeTheme');
+
+        if (App::hasDatabase()) {
+            try {
+                try {
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
+                        return Parameter::applyKey(self::ACTIVE_KEY)->value('value');
+                    });
+                }
+                catch (Exception $ex) {
+                    // Cache failed
+                    $dbResult = Parameter::applyKey(self::ACTIVE_KEY)->value('value');
+                }
+            }
+            catch (Exception $ex) {
+                // Database failed
+                $dbResult = null;
+            }
+
+            if ($dbResult !== null && static::exists($dbResult)) {
+                $activeTheme = $dbResult;
+            }
+        }
+
+        /**
+         * @event cms.theme.getActiveTheme
+         * Overrides the active theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
+         *
+         */
+        $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
+        if ($apiResult !== null) {
+            $activeTheme = $apiResult;
+        }
+
+        if (!strlen($activeTheme)) {
+            throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
+        }
+
+        return $activeTheme;
+    }
+
+
+    /**
+     * Returns the active theme object.
      * @return \Cms\Classes\Theme Returns the loaded theme object.
      * If the theme doesn't exist, returns null.
      */
@@ -146,28 +210,7 @@ class Theme
             return self::$activeThemeCache;
         }
 
-        $activeTheme = Config::get('cms.activeTheme');
-
-        if (DbDongle::hasDatabase()) {
-            $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function() {
-                return Parameters::findRecord(self::ACTIVE_KEY)->pluck('value');
-            });
-
-            if ($dbResult !== null && static::exists($dbResult)) {
-                $activeTheme = $dbResult;
-            }
-        }
-
-        $apiResult = Event::fire('cms.activeTheme', [], true);
-        if ($apiResult !== null) {
-            $activeTheme = $apiResult;
-        }
-
-        if (!strlen($activeTheme)) {
-            throw new SystemException(Lang::get('cms::lang.theme.active.not_set'));
-        }
-
-        $theme = static::load($activeTheme);
+        $theme = static::load(static::getActiveThemeCode());
 
         if (!File::isDirectory($theme->getPath())) {
             return self::$activeThemeCache = null;
@@ -178,36 +221,58 @@ class Theme
 
     /**
      * Sets the active theme.
-     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter. 
+     * The active theme code is stored in the database and overrides the configuration cms.activeTheme parameter.
      * @param string $code Specifies the  active theme code.
      */
     public static function setActiveTheme($code)
     {
         self::resetCache();
-        Parameters::set(self::ACTIVE_KEY, $code);
+
+        Parameter::set(self::ACTIVE_KEY, $code);
+
+        /**
+         * @event cms.theme.setActiveTheme
+         * Fires when the active theme has been changed.
+         *
+         * If a value is returned from this halting event, it will be used as the active
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.setActiveTheme', function ($code) {
+         *         \Log::info("Theme has been changed to $code");
+         *     });
+         *
+         */
+        Event::fire('cms.theme.setActiveTheme', compact('code'));
     }
 
     /**
-     * Returns the edit theme.
+     * Returns the edit theme code.
      * By default the edit theme is loaded from the cms.editTheme parameter,
-     * but this behavior can be overridden by the cms.editTheme event listeners.
+     * but this behavior can be overridden by the cms.theme.getEditTheme event listeners.
      * If the edit theme is not defined in the configuration file, the active theme
      * is returned.
-     * @return \Cms\Classes\Theme Returns the loaded theme object.
-     * If the theme doesn't exist, returns null.
+     * @return string
      */
-    public static function getEditTheme()
+    public static function getEditThemeCode()
     {
-        if (self::$editThemeCache !== false) {
-            return self::$editThemeCache;
-        }
-
         $editTheme = Config::get('cms.editTheme');
         if (!$editTheme) {
-            $editTheme = static::getActiveTheme()->getDirName();
+            $editTheme = static::getActiveThemeCode();
         }
 
-        $apiResult = Event::fire('cms.editTheme', [], true);
+        /**
+         * @event cms.theme.getEditTheme
+         * Overrides the edit theme code.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * theme code. Example usage:
+         *
+         *     Event::listen('cms.theme.getEditTheme', function () {
+         *         return "the-edit-theme-code";
+         *     });
+         *
+         */
+        $apiResult = Event::fire('cms.theme.getEditTheme', [], true);
         if ($apiResult !== null) {
             $editTheme = $apiResult;
         }
@@ -216,7 +281,20 @@ class Theme
             throw new SystemException(Lang::get('cms::lang.theme.edit.not_set'));
         }
 
-        $theme = static::load($editTheme);
+        return $editTheme;
+    }
+
+    /**
+     * Returns the edit theme.
+     * @return \Cms\Classes\Theme Returns the loaded theme object.
+     */
+    public static function getEditTheme()
+    {
+        if (self::$editThemeCache !== false) {
+            return self::$editThemeCache;
+        }
+
+        $theme = static::load(static::getEditThemeCode());
 
         if (!File::isDirectory($theme->getPath())) {
             return self::$editThemeCache = null;
@@ -263,7 +341,75 @@ class Theme
             return $this->configCache = [];
         }
 
-        return $this->configCache = Yaml::parseFile($path);
+        try {
+            if (Config::get('app.debug', false)) {
+                $config = Yaml::parseFile($path);
+            } else {
+                $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
+                $config = Cache::rememberForever($cacheKey, function () use ($path) {
+                    return Yaml::parseFile($path);
+                });
+            }
+        }
+        catch (Exception $ex) {
+            // Cache failed
+            $config = Yaml::parseFile($path);
+        }
+
+
+        /**
+         * @event cms.theme.extendConfig
+         * Extend basic theme configuration supplied by the theme by returning an array.
+         *
+         * Note if planning on extending form fields, use the `cms.theme.extendFormConfig`
+         * event instead.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendConfig', function ($themeCode, &$config) {
+         *          $config['name'] = 'October Theme';
+         *          $config['description'] = 'Another great theme from October CMS';
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendConfig', [$this->getDirName(), &$config]);
+
+        return $this->configCache = $config;
+    }
+
+    /**
+     * Themes have a dedicated `form` option that provide form fields
+     * for customization, this is an immutable accessor for that and
+     * also an solid anchor point for extension.
+     * @return array
+     */
+    public function getFormConfig()
+    {
+        $config = $this->getConfigArray('form');
+
+        /**
+         * @event cms.theme.extendFormConfig
+         * Extend form field configuration supplied by the theme by returning an array.
+         *
+         * Note if you are planning on using `assetVar` to inject CSS variables from a
+         * plugin registration file, make sure the plugin has elevated permissions.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.theme.extendFormConfig', function ($themeCode, &$config) {
+         *          array_set($config, 'tabs.fields.header_color', [
+         *              'label'           => 'Header Colour',
+         *              'type'            => 'colorpicker',
+         *              'availableColors' => [#34495e, #708598, #3498db],
+         *              'assetVar'        => 'header-bg',
+         *              'tab'             => 'Global'
+         *          ]);
+         *     });
+         *
+         */
+        Event::fire('cms.theme.extendFormConfig', [$this->getDirName(), &$config]);
+
+        return $config;
     }
 
     /**
@@ -276,6 +422,36 @@ class Theme
     public function getConfigValue($name, $default = null)
     {
         return array_get($this->getConfig(), $name, $default);
+    }
+
+    /**
+     * Returns an array value from the theme configuration file by its name.
+     * If the value is a string, it is treated as a YAML file and loaded.
+     * @param string $name Specifies the configuration parameter name.
+     * @return array
+     */
+    public function getConfigArray($name)
+    {
+        $result = array_get($this->getConfig(), $name, []);
+
+        if (is_string($result)) {
+            $fileName = File::symbolizePath($result);
+
+            if (File::isLocalPath($fileName)) {
+                $path = $fileName;
+            }
+            else {
+                $path = $this->getPath().'/'.$result;
+            }
+
+            if (!File::exists($path)) {
+                throw new ApplicationException('Path does not exist: '.$path);
+            }
+
+            $result = Yaml::parseFile($path);
+        }
+
+        return (array) $result;
     }
 
     /**
@@ -298,6 +474,8 @@ class Theme
         $contents = Yaml::render($values);
         File::put($path, $contents);
         $this->configCache = $values;
+
+        self::resetCache();
     }
 
     /**
@@ -307,12 +485,13 @@ class Theme
      */
     public function getPreviewImageUrl()
     {
-        $previewPath = '/assets/images/theme-preview.png';
-        if (File::exists($this->getPath().$previewPath)) {
-            return URL::asset('themes/'.$this->getDirName().$previewPath);
+        $previewPath = $this->getConfigValue('previewImage', 'assets/images/theme-preview.png');
+
+        if (File::exists($this->getPath().'/'.$previewPath)) {
+            return Url::asset('themes/'.$this->getDirName().'/'.$previewPath);
         }
 
-        return URL::asset('modules/cms/assets/images/default-theme-preview.png');
+        return Url::asset('modules/cms/assets/images/default-theme-preview.png');
     }
 
     /**
@@ -323,8 +502,10 @@ class Theme
     {
         self::$activeThemeCache = false;
         self::$editThemeCache = false;
+
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
+        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
     }
 
     /**
@@ -337,6 +518,76 @@ class Theme
     }
 
     /**
+     * Returns data specific to this theme
+     * @return Cms\Models\ThemeData
+     */
+    public function getCustomData()
+    {
+        return ThemeData::forTheme($this);
+    }
+
+    /**
+     * Remove data specific to this theme
+     * @return bool
+     */
+    public function removeCustomData()
+    {
+        if ($this->hasCustomData()) {
+            return $this->getCustomData()->delete();
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks to see if the database layer has been enabled
+     *
+     * @return boolean
+     */
+    public static function databaseLayerEnabled()
+    {
+        $enableDbLayer = Config::get('cms.databaseTemplates', false);
+        if (is_null($enableDbLayer)) {
+            $enableDbLayer = !Config::get('app.debug', false);
+        }
+
+        return $enableDbLayer && App::hasDatabase();
+    }
+
+    /**
+     * Ensures this theme is registered as a Halcyon datasource.
+     * @return void
+     */
+    public function registerHalyconDatasource()
+    {
+        $resolver = App::make('halcyon');
+
+        if (!$resolver->hasDatasource($this->dirName)) {
+            if (static::databaseLayerEnabled()) {
+                $datasource = new AutoDatasource([
+                    'database'   => new DbDatasource($this->dirName, 'cms_theme_templates'),
+                    'filesystem' => new FileDatasource($this->getPath(), App::make('files')),
+                ]);
+            } else {
+                $datasource = new FileDatasource($this->getPath(), App::make('files'));
+            }
+
+            $resolver->addDatasource($this->dirName, $datasource);
+        }
+    }
+
+    /**
+     * Get the theme's datasource
+     *
+     * @return DatasourceInterface
+     */
+    public function getDatasource()
+    {
+        $resolver = App::make('halcyon');
+        return $resolver->datasource($this->getDirName());
+    }
+
+    /**
      * Implements the getter functionality.
      * @param  string  $name
      * @return void
@@ -344,8 +595,7 @@ class Theme
     public function __get($name)
     {
         if ($this->hasCustomData()) {
-            $theme = ThemeData::forTheme($this);
-            return $theme->{$name};
+            return $this->getCustomData()->{$name};
         }
 
         return null;
@@ -359,11 +609,10 @@ class Theme
     public function __isset($key)
     {
         if ($this->hasCustomData()) {
-            $theme = ThemeData::forTheme($this);
-            return isset($theme->{$key});
+            $theme = $this->getCustomData();
+            return $theme->offsetExists($key);
         }
 
         return false;
     }
-
 }

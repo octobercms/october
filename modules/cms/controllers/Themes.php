@@ -1,15 +1,12 @@
 <?php namespace Cms\Controllers;
 
 use File;
-use Yaml;
 use Flash;
-use Config;
 use Backend;
 use Redirect;
 use BackendMenu;
 use ValidationException;
 use ApplicationException;
-use Cms\Models\ThemeData;
 use Cms\Models\ThemeExport;
 use Cms\Models\ThemeImport;
 use Cms\Classes\Theme as CmsTheme;
@@ -17,6 +14,7 @@ use Cms\Classes\ThemeManager;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
 use Exception;
+use Backend\Widgets\Form;
 
 /**
  * Theme selector controller
@@ -27,13 +25,13 @@ use Exception;
  */
 class Themes extends Controller
 {
-    public $implement = [
-        'Backend.Behaviors.FormController'
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = [
+        'cms.manage_themes',
+        'cms.manage_theme_options',
     ];
-
-    public $formConfig = 'config_form.yaml';
-
-    public $requiredPermissions = ['cms.manage_themes'];
 
     /**
      * Constructor.
@@ -49,9 +47,18 @@ class Themes extends Controller
         SettingsManager::setContext('October.Cms', 'theme');
 
         /*
+         * Custom redirect for unauthorized request
+         */
+        $this->bindEvent('page.beforeDisplay', function () {
+            if (!$this->user->hasAccess('cms.manage_themes')) {
+                return Backend::redirect('cms/themeoptions/update');
+            }
+        });
+
+        /*
          * Enable AJAX for Form widgets
          */
-        if (post('mode') == 'import') {
+        if (post('mode') === 'import') {
             $this->makeImportFormWidget($this->findThemeObject())->bindToController();
         }
     }
@@ -110,8 +117,7 @@ class Themes extends Controller
         $widgetConfig->arrayName = 'Theme';
         $widgetConfig->context = 'update';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget(Form::class, $widgetConfig);
     }
 
     //
@@ -168,8 +174,7 @@ class Themes extends Controller
         $widgetConfig->arrayName = 'Theme';
         $widgetConfig->context = 'create';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //
@@ -206,63 +211,6 @@ class Themes extends Controller
 
         Flash::success(trans('cms::lang.theme.duplicate_theme_success'));
         return Redirect::refresh();
-    }
-
-    //
-    // Theme customization
-    //
-
-    public function update($dirName)
-    {
-        try {
-            $model = $this->getThemeData($dirName);
-            $this->asExtension('FormController')->update($model->id);
-        }
-        catch (Exception $ex) {
-            $this->handleError($ex);
-        }
-    }
-
-    public function update_onSave($dirName)
-    {
-        $model = $this->getThemeData($dirName);
-        $this->asExtension('FormController')->update_onSave($model->id);
-    }
-
-    public function update_onResetDefault($dirName)
-    {
-        $model = $this->getThemeData($dirName);
-        $model->delete();
-
-        return Backend::redirect('cms/themes/update/'.$dirName);
-    }
-
-    protected function getThemeData($dirName)
-    {
-        $theme = $this->findThemeObject($dirName);
-        $model = ThemeData::forTheme($theme);
-        return $model;
-    }
-
-    /**
-     * Add form fields defined in theme.yaml
-     */
-    protected function formExtendFields($form)
-    {
-        $model = $form->model;
-        $theme = $this->findThemeObject($model->theme);
-
-        if ($fields = $theme->getConfigValue('form.fields')) {
-            $form->addFields($fields);
-        }
-
-        if ($fields = $theme->getConfigValue('form.tabs.fields')) {
-            $form->addTabFields($fields);
-        }
-
-        if ($fields = $theme->getConfigValue('form.secondaryTabs.fields')) {
-            $form->addSecondaryTabFields($fields);
-        }
     }
 
     //
@@ -308,8 +256,7 @@ class Themes extends Controller
         $widgetConfig->model->theme = $theme;
         $widgetConfig->arrayName = 'ThemeExport';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //
@@ -345,8 +292,7 @@ class Themes extends Controller
         $widgetConfig->model->theme = $theme;
         $widgetConfig->arrayName = 'ThemeImport';
 
-        $widget = $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
-        return $widget;
+        return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     //
@@ -365,5 +311,4 @@ class Themes extends Controller
 
         return $theme;
     }
-
 }

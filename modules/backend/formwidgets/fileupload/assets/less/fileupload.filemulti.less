@@ -92,7 +92,7 @@
             width: 15%;
 
             a.drag-handle {
-                top: 0;
+                top: -2px;
                 bottom: auto;
                 line-height: 150%;
                 padding: 10px 0;
@@ -140,7 +140,22 @@
 // Media
 //
 
-@media (max-width: 1024px) {
+@media (max-width: @screen-md-max) {
+    .field-fileupload.style-file-multi {
+        .info {
+            margin-right: 20% !important;
+            p.size {
+                width: 20% !important;
+            }
+        }
+
+        .meta {
+            width: 20% !important;
+        }
+    }
+}
+
+@media (max-width: @screen-sm-max) {
     .field-fileupload.style-file-multi {
         .upload-object {
             h4 { padding-right: 35px !important; }

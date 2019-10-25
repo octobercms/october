@@ -1,0 +1,30 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    is_superuser:
+        label: backend::lang.user.superuser
+        type: switch
+        conditions:
+            - is_superuser = false
+            - is_superuser = true
+
+    login_date:
+        label: backend::lang.user.last_login
+        type: daterange
+        conditions: last_login >= ':after' AND last_login <= ':before'
+
+    role_id:
+        label: backend::lang.user.role.name
+        modelClass: Backend\Models\UserRole
+        conditions: role_id in (:filtered)
+        nameFrom: name
+
+    show_deleted:
+        label: backend::lang.user.show_deleted
+        type: checkbox
+        modelClass: Backend\Models\User
+        scope: withTrashed
+        default: 0

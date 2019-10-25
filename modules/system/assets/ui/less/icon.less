@@ -2,8 +2,6 @@
 // Icon
 // --------------------------------------------------
 
-@import "icon.variables.less";
-@import "icon.mixins.less";
 @import "icon.icons.less";
 @import "icon.close.less";
 
@@ -69,3 +67,18 @@
         margin-right: 0;
     }
 }
+
+//
+// Icon Sizes
+//
+
+// Makes the font 33% larger relative to the icon container
+.icon-lg {
+  font-size: (4em / 3);
+  line-height: (3em / 4);
+  vertical-align: -15%;
+}
+.icon-2x { font-size: 2em; }
+.icon-3x { font-size: 3em; }
+.icon-4x { font-size: 4em; }
+.icon-5x { font-size: 5em; }

@@ -3,7 +3,7 @@
 /**
  * Property container trait
  *
- * Adds properties and methods for classes that could define properties, 
+ * Adds properties and methods for classes that could define properties,
  * like components or report widgets.
  *
  * @package october\system
@@ -25,18 +25,20 @@ trait PropertyContainer
      */
     public function validateProperties(array $properties)
     {
-        $definedProperties = $this->defineProperties();
+        $definedProperties = $this->defineProperties() ?: [];
 
-        // Determine and implement default values
+        /*
+         * Determine and implement default values
+         */
         $defaultProperties = [];
+
         foreach ($definedProperties as $name => $information) {
             if (array_key_exists('default', $information)) {
                 $defaultProperties[$name] = $information['default'];
             }
         }
-        $properties = array_merge($defaultProperties, $properties);
 
-        // @todo Check required properties
+        $properties = array_merge($defaultProperties, $properties);
 
         return $properties;
     }
@@ -52,22 +54,28 @@ trait PropertyContainer
 
     /**
      * Sets multiple properties.
+     * @param array $properties
+     * @return void
      */
     public function setProperties($properties)
     {
-        return $this->properties = $this->validateProperties($properties);
+        $this->properties = $this->validateProperties($properties);
     }
 
     /**
      * Sets a property value
+     * @param string $name
+     * @param mixed $value
+     * @return void
      */
     public function setProperty($name, $value)
     {
-        return $this->properties[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     /**
      * Returns all properties.
+     * @return array
      */
     public function getProperties()
     {

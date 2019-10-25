@@ -31,7 +31,7 @@
 </div>
 
 <script>
-    $('#checkUpdatesPopup').on('popupComplete', function(){
-        $('#updateForm').request('onCheckForUpdates')
+    $('#checkUpdatesPopup').on('popupComplete', function() {
+        $.oc.updateProcess.check()
     })
 </script>

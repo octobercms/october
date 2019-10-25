@@ -12,6 +12,12 @@ return [
         'delete_success' => 'Acuan: :count berhasil dihapus.',
         'file_name_required' => 'Bidang nama berkas diperlukan.'
     ],
+    'dashboard' => [
+        'active_theme' => [
+            'online' => 'daring',
+            'maintenance' => 'dalam perawatan',
+        ]
+    ],
     'theme' => [
         'active' => [
             'not_set' => 'Tema aktif tidak diatur.',

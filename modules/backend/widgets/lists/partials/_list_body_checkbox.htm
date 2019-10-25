@@ -5,6 +5,6 @@
             name="checked[]"
             id="<?= $this->getId('checkbox-' . $record->getKey()) ?>"
             value="<?= $record->getKey() ?>" />
-        <label for="<?= $this->getId('checkbox-' . $record->getKey()) ?>">Check</label>
+        <label for="<?= $this->getId('checkbox-' . $record->getKey()) ?>"><?= e(trans('backend::lang.list.check')) ?></label>
     </div>
 </td>

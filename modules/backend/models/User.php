@@ -1,6 +1,7 @@
 <?php namespace Backend\Models;
 
 use Mail;
+use Event;
 use Backend;
 use October\Rain\Auth\Models\User as UserBase;
 
@@ -12,6 +13,8 @@ use October\Rain\Auth\Models\User as UserBase;
  */
 class User extends UserBase
 {
+    use \October\Rain\Database\Traits\SoftDelete;
+
     /**
      * @var string The database table used by the model.
      */
@@ -21,21 +24,36 @@ class User extends UserBase
      * Validation rules
      */
     public $rules = [
-        'login' => 'required|between:2,24|unique:backend_users',
-        'email' => 'required|between:3,64|email|unique:backend_users',
-        'password' => 'required:create|between:4,64|confirmed',
-        'password_confirmation' => 'required_with:password|between:4,64'
+        'email' => 'required|between:6,255|email|unique:backend_users',
+        'login' => 'required|between:2,255|unique:backend_users',
+        'password' => 'required:create|between:4,255|confirmed',
+        'password_confirmation' => 'required_with:password|between:4,255'
+    ];
+
+    /**
+     * @var array Attributes that should be cast to dates
+     */
+    protected $dates = [
+        'activated_at',
+        'last_login',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
      * Relations
      */
     public $belongsToMany = [
-        'groups' => ['Backend\Models\UserGroup', 'table' => 'backend_users_groups']
+        'groups' => [UserGroup::class, 'table' => 'backend_users_groups']
+    ];
+
+    public $belongsTo = [
+        'role' => UserRole::class
     ];
 
     public $attachOne = [
-        'avatar' => ['System\Models\File']
+        'avatar' => \System\Models\File::class
     ];
 
     /**
@@ -91,14 +109,17 @@ class User extends UserBase
         if ($this->avatar) {
             return $this->avatar->getThumb($size, $size, $options);
         }
-        else {
-            return '//www.gravatar.com/avatar/' .
-                md5(strtolower(trim($this->email))) .
-                '?s='. $size .
-                '&d='. urlencode($default);
-        }
+
+        return '//www.gravatar.com/avatar/' .
+            md5(strtolower(trim($this->email))) .
+            '?s='. $size .
+            '&d='. urlencode($default);
     }
 
+    /**
+     * After create event
+     * @return void
+     */
     public function afterCreate()
     {
         $this->restorePurgedValues();
@@ -108,6 +129,20 @@ class User extends UserBase
         }
     }
 
+    /**
+     * After login event
+     * @return void
+     */
+    public function afterLogin()
+    {
+        parent::afterLogin();
+        Event::fire('backend.user.login', [$this]);
+    }
+
+    /**
+     * Sends an invitation to the user using template "backend::mail.invite".
+     * @return void
+     */
     public function sendInvitation()
     {
         $data = [
@@ -125,9 +160,22 @@ class User extends UserBase
     public function getGroupsOptions()
     {
         $result = [];
+
         foreach (UserGroup::all() as $group) {
             $result[$group->id] = [$group->name, $group->description];
         }
+
+        return $result;
+    }
+
+    public function getRoleOptions()
+    {
+        $result = [];
+
+        foreach (UserRole::all() as $role) {
+            $result[$role->id] = [$role->name, $role->description];
+        }
+
         return $result;
     }
 }

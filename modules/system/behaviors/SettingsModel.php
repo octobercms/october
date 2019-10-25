@@ -1,20 +1,20 @@
 <?php namespace System\Behaviors;
 
+use App;
+use Artisan;
 use Cache;
-use DbDongle;
+use Log;
+use Exception;
 use System\Classes\ModelBehavior;
-use ApplicationException;
 
 /**
  * Settings model extension
  *
- * Usage:
+ * Add this the model class definition:
  *
- * In the model class definition:
- *
- *   public $implement = ['System.Behaviors.SettingsModel'];
- *   public $settingsCode = 'author_plugin_code';
- *   public $settingsFields = 'fields.yaml';
+ *     public $implement = ['System.Behaviors.SettingsModel'];
+ *     public $settingsCode = 'author_plugin_code';
+ *     public $settingsFields = 'fields.yaml';
  *
  */
 class SettingsModel extends ModelBehavior
@@ -25,10 +25,13 @@ class SettingsModel extends ModelBehavior
     protected $fieldConfig;
     protected $fieldValues = [];
 
+    /**
+     * @var array Internal cache of model objects.
+     */
     private static $instances = [];
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $requiredProperties = ['settingsFields', 'settingsCode'];
 
@@ -39,16 +42,11 @@ class SettingsModel extends ModelBehavior
     {
         parent::__construct($model);
 
-        $this->model->table = 'system_settings';
-        $this->model->jsonable = ['value'];
-        $this->model->guarded = [];
+        $this->model->setTable('system_settings');
+        $this->model->jsonable(['value']);
+        $this->model->guard([]);
         $this->model->timestamps = false;
 
-        // Option A: (@todo Determine which is faster by benchmark)
-        // $relativePath = strtolower(str_replace('\\', '/', get_class($model)));
-        // $this->configPath = ['modules/' . $relativePath, 'plugins/' . $relativePath];
-
-        // Option B:
         $this->configPath = $this->guessConfigPathFrom($model);
 
         /*
@@ -63,7 +61,6 @@ class SettingsModel extends ModelBehavior
         /*
          * Parse the config
          */
-        $this->fieldConfig = $this->makeConfig($this->model->settingsFields);
         $this->recordCode = $this->model->settingsCode;
     }
 
@@ -98,10 +95,11 @@ class SettingsModel extends ModelBehavior
 
     /**
      * Checks if the model has been set up previously, intended as a static method
+     * @return bool
      */
     public function isConfigured()
     {
-        return DbDongle::hasDatabase() && $this->getSettingsRecord() !== null;
+        return App::hasDatabase() && $this->getSettingsRecord() !== null;
     }
 
     /**
@@ -125,7 +123,8 @@ class SettingsModel extends ModelBehavior
     {
         $data = is_array($key) ? $key : [$key => $value];
         $obj = self::instance();
-        return $obj->save($data);
+        $obj->fill($data);
+        return $obj->save();
     }
 
     /**
@@ -145,7 +144,7 @@ class SettingsModel extends ModelBehavior
             return $this->fieldValues[$key];
         }
 
-        return $default;
+        return array_get($this->fieldValues, $key, $default);
     }
 
     /**
@@ -199,12 +198,19 @@ class SettingsModel extends ModelBehavior
     }
 
     /**
-     * After the model is saved, clear the cached query entry.
+     * After the model is saved, clear the cached query entry
+     * and restart queue workers so they have the latest settings
      * @return void
      */
     public function afterModelSave()
     {
         Cache::forget($this->getCacheKey());
+
+        try {
+            Artisan::call('queue:restart');
+        } catch (Exception $e) {
+            Log::warning($e->getMessage());
+        }
     }
 
     /**
@@ -235,7 +241,11 @@ class SettingsModel extends ModelBehavior
      */
     public function getFieldConfig()
     {
-        return $this->fieldConfig;
+        if ($this->fieldConfig !== null) {
+            return $this->fieldConfig;
+        }
+
+        return $this->fieldConfig = $this->makeConfig($this->model->settingsFields);
     }
 
     /**
@@ -244,5 +254,14 @@ class SettingsModel extends ModelBehavior
     protected function getCacheKey()
     {
         return 'system::settings.'.$this->recordCode;
+    }
+
+    /**
+     * Clears the internal memory cache of model instances.
+     * @return void
+     */
+    public static function clearInternalCache()
+    {
+        static::$instances = [];
     }
 }

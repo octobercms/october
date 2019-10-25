@@ -3,17 +3,15 @@
 use Mail;
 use Flash;
 use Backend;
-use Redirect;
 use Validator;
 use BackendAuth;
-use BackendMenu;
-use Backend\Models\User;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
 use Exception;
+use Config;
 
 /**
  * Authentication controller
@@ -24,11 +22,31 @@ use Exception;
  */
 class Auth extends Controller
 {
+    /**
+     * @var array Public controller actions
+     */
     protected $publicActions = ['index', 'signin', 'signout', 'restore', 'reset'];
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
+
+        $this->middleware(function ($request, $response) {
+            // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        })->only('signin');
+
+        // Only run on HTTPS connections
+        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
+            $this->middleware(function ($request, $response) {
+                // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
+                $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+            })->only('signout');
+        }
+
         $this->layout = 'auth';
     }
 
@@ -51,11 +69,9 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->signin_onSubmit();
             }
-            else {
-                $this->bodyClass .= ' preload';
-            }
-        }
-        catch (Exception $ex) {
+
+            $this->bodyClass .= ' preload';
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -63,8 +79,8 @@ class Auth extends Controller
     public function signin_onSubmit()
     {
         $rules = [
-            'login'    => 'required|min:2|max:32',
-            'password' => 'required|min:2'
+            'login'    => 'required|between:2,255',
+            'password' => 'required|between:4,255'
         ];
 
         $validation = Validator::make(post(), $rules);
@@ -72,14 +88,28 @@ class Auth extends Controller
             throw new ValidationException($validation);
         }
 
+        if (is_null($remember = Config::get('cms.backendForceRemember', true))) {
+            $remember = (bool) post('remember');
+        }
+
         // Authenticate user
         $user = BackendAuth::authenticate([
             'login' => post('login'),
             'password' => post('password')
-        ], true);
+        ], $remember);
 
-        // Load version updates
-        UpdateManager::instance()->update();
+        if (is_null($runMigrationsOnLogin = Config::get('cms.runMigrationsOnLogin', null))) {
+            $runMigrationsOnLogin = Config::get('app.debug', false);
+        }
+
+        if ($runMigrationsOnLogin) {
+            try {
+                // Load version updates
+                UpdateManager::instance()->update();
+            } catch (Exception $ex) {
+                Flash::error($ex->getMessage());
+            }
+        }
 
         // Log the sign in event
         AccessLog::add($user);
@@ -93,10 +123,15 @@ class Auth extends Controller
      */
     public function signout()
     {
-        BackendAuth::logout();
+        if (BackendAuth::isImpersonator()) {
+            BackendAuth::stopImpersonate();
+        } else {
+            BackendAuth::logout();
+        }
+
         return Backend::redirect('backend');
     }
-    
+
     /**
      * Request a password reset verification code.
      */
@@ -106,8 +141,7 @@ class Auth extends Controller
             if (post('postback')) {
                 return $this->restore_onSubmit();
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
     }
@@ -115,7 +149,7 @@ class Auth extends Controller
     public function restore_onSubmit()
     {
         $rules = [
-            'login' => 'required|min:2|max:32'
+            'login' => 'required|between:2,255'
         ];
 
         $validation = Validator::make(post(), $rules);
@@ -133,7 +167,7 @@ class Auth extends Controller
         Flash::success(trans('backend::lang.account.restore_success'));
 
         $code = $user->getResetPasswordCode();
-        $link = Backend::url('backend/auth/reset/'.$user->id.'/'.$code);
+        $link = Backend::url('backend/auth/reset/' . $user->id . '/' . $code);
 
         $data = [
             'name' => $user->full_name,
@@ -160,8 +194,7 @@ class Auth extends Controller
             if (!$userId || !$code) {
                 throw new ApplicationException(trans('backend::lang.account.reset_error'));
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
 
@@ -176,7 +209,7 @@ class Auth extends Controller
         }
 
         $rules = [
-            'password' => 'required|min:2'
+            'password' => 'required|between:4,255'
         ];
 
         $validation = Validator::make(post(), $rules);

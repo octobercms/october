@@ -1,5 +1,5 @@
 /*
- * SimpleList control. 
+ * SimpleList control.
  *
  * Data attributes:
  * - data-control="simplelist" - enables the simplelist plugin
@@ -7,7 +7,7 @@
  * JavaScript API:
  * $('#simplelist').simplelist()
  *
- * Dependences: 
+ * Dependences:
  * - Sortable (jquery-sortable.js)
  */
 +function ($) { "use strict";

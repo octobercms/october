@@ -1,12 +1,14 @@
 <div class="fileupload-config-form">
     <?= Form::open() ?>
         <input type="hidden" name="file_id" value="<?= $file->id ?>" />
+        <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
+        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
 
         <?php if (starts_with($displayMode, 'image')): ?>
             <div class="file-upload-modal-image-header">
                 <button type="button" class="close" data-dismiss="popup">&times;</button>
                 <img
-                    src="<?= $file->thumb ?>"
+                    src="<?= $file->thumbUrl ?>"
                     class="img-responsive center-block"
                     alt=""
                     title="<?= e(trans('backend::lang.fileupload.attachment')) ?>: <?= e($file->file_name) ?>"
@@ -21,26 +23,11 @@
         <div class="modal-body">
             <p><?= e(trans('backend::lang.fileupload.help')) ?></p>
 
-            <div class="form-group">
-                <input
-                    type="text"
-                    name="title"
-                    class="form-control"
-                    value="<?= $file->title ?>"
-                    placeholder="<?= e(trans('backend::lang.fileupload.title_label')) ?>"
-                    />
-            </div>
-            <div class="form-group">
-                <textarea
-                    name="description"
-                    placeholder="<?= e(trans('backend::lang.fileupload.description_label')) ?>"
-                    class="form-control"><?= $file->description ?></textarea>
-            </div>
-
+            <?= $this->getConfigFormWidget()->render(); ?>
         </div>
         <div class="modal-footer">
-            <a href="<?= $file->path ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">
-                <i class="oc-icon-link"></i>Attachment URL
+            <a href="<?= $file->pathUrl ?>" class="pull-left btn btn-link fileupload-url-button" target="_blank">
+                <i class="oc-icon-link"></i><?= e(trans('backend::lang.fileupload.attachment_url')) ?>
             </a>
             <button
                 type="submit"

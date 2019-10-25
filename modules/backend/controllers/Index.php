@@ -1,7 +1,6 @@
 <?php namespace Backend\Controllers;
 
 use Redirect;
-use BackendAuth;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\ReportContainer;
@@ -18,6 +17,7 @@ class Index extends Controller
     use \Backend\Traits\InspectableContainer;
 
     /**
+     * @var array Permissions required to view this page.
      * @see checkPermissionRedirect()
      */
     public $requiredPermissions = [];
@@ -30,18 +30,38 @@ class Index extends Controller
         parent::__construct();
 
         BackendMenu::setContextOwner('October.Backend');
-        if (BackendAuth::check()) {
-            new ReportContainer($this);
-        }
+
+        $this->addCss('/modules/backend/assets/css/dashboard/dashboard.css', 'core');
     }
 
     public function index()
     {
-        if ($redirect = $this->checkPermissionRedirect())
+        if ($redirect = $this->checkPermissionRedirect()) {
             return $redirect;
+        }
+
+        $this->initReportContainer();
 
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
+
         BackendMenu::setContextMainMenu('dashboard');
+    }
+
+    public function index_onInitReportContainer()
+    {
+        $this->initReportContainer();
+
+        return ['#dashReportContainer' => $this->widget->reportContainer->render()];
+    }
+
+    /**
+     * Prepare the report widget used by the dashboard
+     * @param Model $model
+     * @return void
+     */
+    protected function initReportContainer()
+    {
+        new ReportContainer($this, 'config_dashboard.yaml');
     }
 
     /**
@@ -51,7 +71,9 @@ class Index extends Controller
     protected function checkPermissionRedirect()
     {
         if (!$this->user->hasAccess('backend.access_dashboard')) {
-            $true = function(){ return true; };
+            $true = function () {
+                return true;
+            };
             if ($first = array_first(BackendMenu::listMainMenuItems(), $true)) {
                 return Redirect::intended($first->url);
             }

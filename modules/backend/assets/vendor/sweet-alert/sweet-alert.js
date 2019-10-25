@@ -12,12 +12,16 @@
         type: null,
         allowOutsideClick: false,
         showCancelButton: false,
+        showConfirmButton: true,
         closeOnConfirm: true,
         closeOnCancel: true,
         confirmButtonText: 'OK',
         confirmButtonClass: 'btn-primary',
         cancelButtonText: 'Cancel',
         cancelButtonClass: 'btn-default',
+        containerClass: '',
+        titleClass: '',
+        textClass: '',
         imageUrl: null,
         imageSize: null,
         timer: null
@@ -38,7 +42,7 @@
       return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
     },
     addClass = function(elem, className) {
-      if (!hasClass(elem, className)) {
+      if (className && !hasClass(elem, className)) {
         elem.className += ' ' + className;
       }
     },
@@ -177,7 +181,7 @@
    */
 
   window.sweetAlertInitialize = function() {
-    var sweetHTML = '<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h4>Title</h4><p class="text-muted">Text</p><p><button class="cancel btn" tabIndex="2">Cancel</button> <button class="confirm btn" tabIndex="1">OK</button></p></div>',
+    var sweetHTML = '<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn" tabIndex="2">Cancel</button> <button class="confirm btn" tabIndex="1">OK</button></p></div>',
         sweetWrap = document.createElement('div');
 
     sweetWrap.innerHTML = sweetHTML;
@@ -227,6 +231,7 @@
         params.type               = arguments[0].type || defaultParams.type;
         params.allowOutsideClick  = arguments[0].allowOutsideClick || defaultParams.allowOutsideClick;
         params.showCancelButton   = arguments[0].showCancelButton !== undefined ? arguments[0].showCancelButton : defaultParams.showCancelButton;
+        params.showConfirmButton  = arguments[0].showConfirmButton !== undefined ? arguments[0].showConfirmButton : defaultParams.showConfirmButton;
         params.closeOnConfirm     = arguments[0].closeOnConfirm !== undefined ? arguments[0].closeOnConfirm : defaultParams.closeOnConfirm;
         params.closeOnCancel      = arguments[0].closeOnCancel !== undefined ? arguments[0].closeOnCancel : defaultParams.closeOnCancel;
         params.timer              = arguments[0].timer || defaultParams.timer;
@@ -234,9 +239,12 @@
         // Show "Confirm" instead of "OK" if cancel button is visible
         params.confirmButtonText  = (defaultParams.showCancelButton) ? 'Confirm' : defaultParams.confirmButtonText;
         params.confirmButtonText  = arguments[0].confirmButtonText || defaultParams.confirmButtonText;
-        params.confirmButtonClass = arguments[0].confirmButtonClass || defaultParams.confirmButtonClass;
+        params.confirmButtonClass = arguments[0].confirmButtonClass || (arguments[0].type ? 'btn-' + arguments[0].type : null) || defaultParams.confirmButtonClass;
         params.cancelButtonText   = arguments[0].cancelButtonText || defaultParams.cancelButtonText;
         params.cancelButtonClass  = arguments[0].cancelButtonClass || defaultParams.cancelButtonClass;
+        params.containerClass     = arguments[0].containerClass || defaultParams.containerClass;
+        params.titleClass         = arguments[0].titleClass || defaultParams.titleClass;
+        params.textClass          = arguments[0].textClass || defaultParams.textClass;
         params.imageUrl           = arguments[0].imageUrl || defaultParams.imageUrl;
         params.imageSize          = arguments[0].imageSize || defaultParams.imageSize;
         params.doneFunction       = arguments[1] || null;
@@ -386,7 +394,14 @@
     function handleOnBlur(e) {
       var $targetElement = e.target || e.srcElement,
           $focusElement = e.relatedTarget,
-          modalIsVisible = hasClass(modal, 'visible');
+          modalIsVisible = hasClass(modal, 'visible'),
+          bootstrapModalIsVisible = document.querySelector('.control-popup.modal') || false;
+
+      if (bootstrapModalIsVisible) {
+        // Bootstrap will enforce focus on the existing model, so don't
+        // do anything here to prevent infinite loop.
+        return;
+      }
 
       if (modalIsVisible) {
         var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
@@ -442,6 +457,13 @@
     extend(defaultParams, userParams);
   };
 
+  /**
+   * Closes the current modal
+   */
+  window.swal.close = function() {
+    closeModal();
+  }
+
   /*
    * Set type, text and actions on modal
    */
@@ -449,7 +471,7 @@
   function setParameters(params) {
     var modal = getModal();
 
-    var $title = modal.querySelector('h4'),
+    var $title = modal.querySelector('h2'),
         $text = modal.querySelector('p'),
         $cancelBtn = modal.querySelector('button.cancel'),
         $confirmBtn = modal.querySelector('button.confirm');
@@ -536,6 +558,15 @@
     } else {
       hide($cancelBtn);
     }
+    
+    // Confirm button
+    modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
+    if (params.showConfirmButton) {
+      $confirmBtn.style.display = 'inline-block';
+    } else {
+      hide($confirmBtn);
+    }
+    
 
     // Edit text on cancel and confirm buttons
     if (params.cancelButtonText) {
@@ -548,11 +579,20 @@
     // Reset confirm buttons to default class (Ugly fix)
     $confirmBtn.className = 'confirm btn'
 
+    // Attach selected class to the sweet alert modal
+    addClass(modal, params.containerClass);
+
     // Set confirm button to selected class
     addClass($confirmBtn, params.confirmButtonClass);
 
     // Set cancel button to selected class
     addClass($cancelBtn, params.cancelButtonClass);
+
+    // Set title to selected class
+    addClass($title, params.titleClass);
+
+    // Set text to selected class
+    addClass($text, params.textClass);
 
     // Allow outside click?
     modal.setAttribute('data-allow-ouside-click', params.allowOutsideClick);
@@ -693,14 +733,14 @@
       sweetAlertInitialize();
     } else {
       if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', function factorial() {
-          document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+        document.addEventListener('DOMContentLoaded', function handler() {
+          document.removeEventListener('DOMContentLoaded', handler, false);
           sweetAlertInitialize();
         }, false);
       } else if (document.attachEvent) {
-        document.attachEvent('onreadystatechange', function() {
+        document.attachEvent('onreadystatechange', function handler() {
           if (document.readyState === 'complete') {
-            document.detachEvent('onreadystatechange', arguments.callee);
+            document.detachEvent('onreadystatechange', handler);
             sweetAlertInitialize();
           }
         });

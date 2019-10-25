@@ -1,0 +1,117 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('system/updates') ?>"><?= e(trans('system::lang.updates.menu_label')) ?></a></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <div class="scoreboard-item title-value">
+                <h4><?= e(trans('system::lang.plugin.label')) ?></h4>
+                <p class="oc-<?= $pluginIcon ?>"><?= e(trans($pluginName)) ?></p>
+                <?php if ($pluginHomepage): ?>
+                    <p class="description">
+                        <a href="<?= e($pluginHomepage) ?>" target="_blank">
+                            <?= e(trans('system::lang.updates.details_view_homepage')) ?>
+                        </a>
+                    </p>
+                <?php endif ?>
+            </div>
+            <div class="scoreboard-item title-value">
+                <h4><?= e(trans('system::lang.updates.details_current_version')) ?></h4>
+                <p><?= e($pluginVersion) ?></p>
+            </div>
+            <div class="scoreboard-item title-value">
+                <h4><?= e(trans('system::lang.updates.details_author')) ?></h4>
+                <p><?= e(trans($pluginAuthor)) ?></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-tabs primary-tabs" data-control="tab">
+        <ul class="nav nav-tabs">
+            <li class="<?= $activeTab == 'readme' ? 'active' : '' ?>">
+                <a
+                    href="#readme"
+                    data-tab-url="<?= Backend::url('system/updates/details/'.$urlCode.'/readme') ?>">
+                    <?= e(trans('system::lang.updates.details_readme')) ?>
+                </a>
+            </li>
+            <li class="<?= $activeTab == 'changelog' ? 'active' : '' ?>">
+                <a
+                    href="#changelog"
+                    data-tab-url="<?= Backend::url('system/updates/details/'.$urlCode.'/changelog') ?>">
+                    <?= e(trans('system::lang.updates.details_changelog')) ?>
+                </a>
+            </li>
+            <li class="<?= $activeTab == 'upgrades' ? 'active' : '' ?>">
+                <a
+                    href="#upgrades"
+                    data-tab-url="<?= Backend::url('system/updates/details/'.$urlCode.'/upgrades') ?>">
+                    <?= e(trans('system::lang.updates.details_upgrades')) ?>
+                </a>
+            </li>
+            <li class="<?= $activeTab == 'licence' ? 'active' : '' ?>">
+                <a
+                    href="#licence"
+                    data-tab-url="<?= Backend::url('system/updates/details/'.$urlCode.'/licence') ?>">
+                    <?= e(trans('system::lang.updates.details_licence')) ?>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane <?= $activeTab == 'readme' ? 'active' : '' ?>">
+                <div class="plugin-details-content">
+                    <?php if ($readme): ?>
+                        <?= $readme ?>
+                    <?php else: ?>
+                        <p><?= e(trans('system::lang.updates.details_readme_missing')) ?></p>
+                    <?php endif ?>
+                </div>
+            </div>
+            <div class="tab-pane <?= $activeTab == 'changelog' ? 'active' : '' ?>">
+                <div class="plugin-details-content">
+                    <?php if ($changelog): ?>
+                        <dl>
+                            <?php foreach ($changelog as $version => $comments): ?>
+                                <?php foreach ($comments as $index => $comment): ?>
+                                    <dt><?= !$index ? e($version): '' ?></dt>
+                                    <dd><?= e($comment) ?></dd>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </dl>
+                    <?php else: ?>
+                        <p><?= e(trans('system::lang.updates.details_changelog_missing')) ?></p>
+                    <?php endif ?>
+                </div>
+            </div>
+            <div class="tab-pane <?= $activeTab == 'upgrades' ? 'active' : '' ?>">
+                <div class="plugin-details-content">
+                    <?php if ($upgrades): ?>
+                        <?= $upgrades ?>
+                    <?php else: ?>
+                        <p><?= e(trans('system::lang.updates.details_upgrades_missing')) ?></p>
+                    <?php endif ?>
+                </div>
+            </div>
+            <div class="tab-pane <?= $activeTab == 'licence' ? 'active' : '' ?>">
+                <div class="plugin-details-content">
+                    <?php if ($licence): ?>
+                        <?= $licence ?>
+                    <?php else: ?>
+                        <p><?= e(trans('system::lang.updates.details_licence_missing')) ?></p>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php else: ?>
+
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+    <p><a href="<?= Backend::url('system/updates') ?>" class="btn btn-default"><?= e(trans('system::lang.settings.return')) ?></a></p>
+
+<?php endif ?>

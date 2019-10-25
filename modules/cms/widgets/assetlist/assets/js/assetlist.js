@@ -39,6 +39,7 @@
         else
             $container.addClass('goForward')
 
+        $.oc.stripeLoadIndicator.show()
         this.$form.request(this.alias+'::onOpenDirectory', {
             data: {
                 path: path,
@@ -52,6 +53,8 @@
                 $container.removeClass('goForward goBackward')
                 alert(jqXHR.responseText.length ? jqXHR.responseText : jqXHR.statusText)
             }
+        }).always(function(){
+            $.oc.stripeLoadIndicator.hide()
         })
     }
 
@@ -79,14 +82,20 @@
         this.updateUi()
     }
 
-    AssetList.prototype.onUploadFail = function(file, error) {
-        alert('Error uploading file: ' + error)
+    AssetList.prototype.onUploadFail = function(file, message) {
+        if (!message) {
+            message = 'Error uploading file'
+        }
+
+        $.oc.alert(message)
+
         this.refresh()
     }
 
     AssetList.prototype.onUploadSuccess = function(file, data) {
-        if (data !== 'success')
-            alert(data)
+        if (data !== 'success') {
+            $.oc.alert(data)
+        }
     }
 
     AssetList.prototype.onUploadComplete = function(file, data) {
@@ -140,8 +149,17 @@
                 url: window.location,
                 paramName: 'file_data',
                 previewsContainer: $('<div />').get(0),
-                clickable: $link.get(0)
+                clickable: $link.get(0),
+                headers: {}
             }
+
+        /*
+         * Add CSRF token to headers
+         */
+        var token = $('meta[name="csrf-token"]').attr('content')
+        if (token) {
+            uploaderOptions.headers['X-CSRF-TOKEN'] = token
+        }
 
         var dropzone = new Dropzone($('<div />').get(0), uploaderOptions)
         dropzone.on('error', $.proxy(self.onUploadFail, self))

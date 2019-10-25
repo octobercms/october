@@ -1,0 +1,48 @@
+.flyout-container {
+    > .flyout {
+        overflow: hidden;
+        width: 0;
+        left: 0!important;
+        .transition(width 0.1s);
+    }
+}
+
+.flyout-overlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 5000;
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    .transition(background-color 0.3s);
+}
+
+.flyout-toggle {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 23px;
+    height: 25px;
+    background: #2b3e50;
+    cursor: pointer;
+    .border-right-radius(4px);
+    color: #bdc3c7;
+    font-size: 10px;
+
+    i {
+        margin: 7px 0 0 6px;
+        display: inline-block;
+    }
+
+    &:hover i {
+        color: #ffffff;
+    }
+}
+
+body.flyout-visible {
+    overflow: hidden;
+
+    .flyout-overlay {
+        background-color: rgba(0,0,0,0.3);
+    }
+}

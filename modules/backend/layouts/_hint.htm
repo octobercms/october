@@ -1,8 +1,13 @@
-<?php
-    $type = !empty($type) ? $type : 'info';
-?>
 <?php if (empty($hintName) || !$this->isBackendHintHidden($hintName)): ?>
-    <div class="callout callout-<?= $type ?> fade in <?=empty($icon)?'no-icon':''?> <?=empty($subtitle)?'no-subheader':''?>">
+    <?php
+        $type = !empty($type) ? $type : 'info';
+        $cssClasses = ['callout fade in'];
+        $cssClasses[] = 'callout-'.$type;
+        if (empty($icon)) $cssClasses[] = 'no-icon';
+        if (empty($subtitle)) $cssClasses[] = 'no-subheader';
+        if (!empty($cssClass)) $cssClasses[] = $cssClass;
+    ?>
+    <div class="<?= implode(' ', $cssClasses) ?>">
         <?php if (!empty($hintName)): ?>
             <button
                 type="button"
@@ -20,7 +25,11 @@
             </div>
         <?php endif ?>
         <div class="content">
-            <?= $this->makePartial($hintPartial, $hintParams) ?>
+            <?php if ($hintContent): ?>
+                <?= $hintContent ?>
+            <?php else: ?>
+                <?= $this->makePartial($hintPartial, $hintParams) ?>
+            <?php endif ?>
         </div>
     </div>
 <?php endif ?>

@@ -48,8 +48,9 @@
         checkbox.setAttribute('data-checkbox-element', 'true')
         checkbox.setAttribute('tabindex', '0')
 
-        if (value && value != 0 && value != "false")
+        if (value && value != 0 && value != "false") {
             checkbox.setAttribute('class', 'checked')
+        }
 
         cellContentContainer.appendChild(checkbox)
     }
@@ -79,7 +80,15 @@
         var target = this.tableObj.getEventTarget(ev, 'DIV')
 
         if (target.getAttribute('data-checkbox-element')) {
+            // The method is called for all processors, but we should
+            // update only the checkbox in the clicked column.
+            var container = this.getCheckboxContainerNode(target)
+            if (container.getAttribute('data-column') !== this.columnName) {
+                return
+            }
+
             this.changeState(target)
+            $(ev.target).trigger('change')
         }
     }
 
@@ -89,9 +98,33 @@
         if (divElement.getAttribute('class') == 'checked') {
             divElement.setAttribute('class', '')
             this.tableObj.setCellValue(cell, 0)
-        } else {
+        } 
+        else {
             divElement.setAttribute('class', 'checked')
             this.tableObj.setCellValue(cell, 1)
+        }
+    }
+
+    CheckboxProcessor.prototype.getCheckboxContainerNode = function(checkbox) {
+        return checkbox.parentNode.parentNode
+    } 
+
+    /*
+     * This method is called when a cell value in the row changes.
+     */
+    CheckboxProcessor.prototype.onRowValueChanged = function(columnName, cellElement) {
+        if (columnName != this.columnName) {
+            return
+        }
+
+        var checkbox = cellElement.querySelector('div[data-checkbox-element]'),
+            value = this.tableObj.getCellValue(cellElement)
+
+        if (value && value != 0 && value != "false") {
+            checkbox.setAttribute('class', 'checked')
+        }
+        else {
+            checkbox.setAttribute('class', '')
         }
     }
 

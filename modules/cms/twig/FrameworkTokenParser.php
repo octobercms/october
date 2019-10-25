@@ -1,38 +1,35 @@
 <?php namespace Cms\Twig;
 
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Token as TwigToken;
+use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 
 /**
- * Parser for the {% framework %} Twig tag.
+ * Parser for the `{% framework %}` Twig tag.
  *
- * <pre>
- *  {% framework %}
- * </pre>
+ *     {% framework %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class FrameworkTokenParser extends Twig_TokenParser
+class FrameworkTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param Twig_Token $token A Twig_Token instance
-     *
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @param TwigToken $token A TwigToken instance
+     * @return Twig\Node\Node A Twig\Node\Node instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(TwigToken $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
         $name = null;
-        if ($token = $stream->nextIf(Twig_Token::NAME_TYPE)) {
+        if ($token = $stream->nextIf(TwigToken::NAME_TYPE)) {
             $name = $token->getValue();
         }
 
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(TwigToken::BLOCK_END_TYPE);
         return new FrameworkNode($name, $lineno, $this->getTag());
     }
 

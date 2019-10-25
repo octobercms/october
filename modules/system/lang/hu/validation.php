@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -14,19 +14,19 @@ return array(
     */
 
     'accepted'         => 'A(z) :attribute-t el kell fogadni.',
-    'active_url'       => 'A(z) :attribute nem érvényes URL cím.',
+    'active_url'       => 'A(z) :attribute nem érvényes webcím.',
     'after'            => 'A(z) :attribute :date utáni dátum kell, hogy legyen.',
     'alpha'            => 'A(z) :attribute csak betűket tartalmazhat.',
     'alpha_dash'       => 'A(z) :attribute csak betűket, számokat és kötőjeleket tartalmazhat.',
     'alpha_num'        => 'A(z) :attribute csak betűket és számokat tartalmazhat.',
     'array'            => 'A(z) :attribute tömb kell, hogy legyen.',
     'before'           => 'A(z) :attribute :date előtti dátum kell, hogy legyen.',
-    'between'          => array(
+    'between'          => [
         'numeric' => 'A(z) :attribute :min - :max között kell, hogy legyen.',
         'file'    => 'A(z) :attribute :min - :max kilobájt között kell, hogy legyen.',
         'string'  => 'A(z) :attribute :min - :max karakter között kell, hogy legyen.',
         'array'   => 'A(z) :attribute :min - :max elem között kell, hogy legyen.',
-    ),
+    ],
     'confirmed'        => 'A(z) :attribute megerősítés nem egyezik.',
     'date'             => 'A(z) :attribute nem érvényes dátum.',
     'date_format'      => 'A(z) :attribute nem egyezik a(z) :format formátummal.',
@@ -39,33 +39,34 @@ return array(
     'in'               => 'A kiválasztott :attribute érvénytelen.',
     'integer'          => 'A(z) :attribute egész szám kell, hogy legyen.',
     'ip'               => 'A(z) :attribute érvényes IP cím kell, legyen.',
-    'max'              => array(
+    'max'              => [
         'numeric' => 'A(z) :attribute nem lehet nagyobb, mint :max.',
         'file'    => 'A(z) :attribute nem lehet nagyobb :max kilobájtnál.',
         'string'  => 'A(z) :attribute nem lehet nagyobb :max karakternél.',
         'array'   => 'A(z) :attribute tömbnek nem lehet több, mint :max eleme.',
-    ),
+    ],
     'mimes'            => 'A(z) :attribute fájltípus kell, hogy legyen: :values.',
-    'min'              => array(
+    "extensions"       => 'A(z) :attribute kiterjesztés kell, hogy legyen: :values.',
+    'min'              => [
         'numeric' => 'A(z) :attribute legalább :min kell, hogy legyen.',
         'file'    => 'A(z) :attribute legalább :min kilobájt kell, hogy legyen.',
         'string'  => 'A(z) :attribute legalább :min karakter kell, hogy legyen.',
         'array'   => 'A(z) :attribute tömbnek legalább :min eleme kell, hogy legyen.',
-    ),
+    ],
     'not_in'           => 'A kiválasztott :attribute érvénytelen.',
     'numeric'          => 'A(z) :attribute szám kell, hogy legyen.',
     'regex'            => 'A(z) :attribute formátuma érvénytelen.',
-    'required'         => 'A(z) :attribute mező kötelező.',
-    'required_if'      => 'A(z) :attribute mező kötelező, ha a(z) :other :value.',
-    'required_with'    => 'A(z) :attribute mező kötelező, ha a(z) :values jelen van.',
-    'required_without' => 'A(z) :attribute mező kötelező, ha a(z) :values nincs jelen.',
+    'required'         => 'A(z) :attribute megadása kötelező.',
+    'required_if'      => 'A(z) :attribute megadása kötelező, ha a(z) :other :value.',
+    'required_with'    => 'A(z) :attribute megadása kötelező, ha a(z) :values jelen van.',
+    'required_without' => 'A(z) :attribute megadása kötelező, ha a(z) :values nincs jelen.',
     'same'             => 'A(z) :attribute és a(z) :other egyező kell, hogy legyen.',
-    'size'             => array(
+    'size'             => [
         'numeric' => 'A(z) :attribute :size kell, hogy legyen.',
         'file'    => 'A(z) :attribute :size kilobájt kell, hogy legyen.',
         'string'  => 'A(z) :attribute :size karakter kell, hogy legyen.',
         'array'   => 'A(z) :attribute :size elemeket kell, hogy tartalmazzon.',
-    ),
+    ],
     'unique'           => 'A(z) :attribute már foglalt.',
     'url'              => 'A(z) :attribute formátuma érvénytelen.',
 
@@ -80,7 +81,7 @@ return array(
     |
     */
 
-    'custom' => array(),
+    'custom' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -93,6 +94,16 @@ return array(
     |
     */
 
-    'attributes' => array()
+    'attributes' => [
+        'name'    => 'név',
+        'title'   => 'cím',
+        'slug'    => 'webcím',
+        'image'   => 'kép',
+        'content' => 'tartalom',
+        'summary' => 'összegzés',
+        'email'   => 'e-mail cím',
+        'subject' => 'tárgy',
+        'message' => 'üzenet',
+    ],
 
-);
+];

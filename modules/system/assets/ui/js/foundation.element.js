@@ -26,13 +26,19 @@
         },
 
         addClass: function(el, className) {
-            if (this.hasClass(el, className))
-                return
+            var classes = className.split(' ')
 
-            if (el.classList)
-                el.classList.add(className);
-            else
-                el.className += ' ' + className;
+            for (var i = 0, len = classes.length; i < len; i++) {
+                var currentClass = classes[i].trim()
+
+                if (this.hasClass(el, currentClass))
+                    return
+
+                if (el.classList)
+                    el.classList.add(currentClass);
+                else
+                    el.className += ' ' + currentClass;
+            }
         },
 
         removeClass: function(el, className) {
@@ -40,6 +46,27 @@
                 el.classList.remove(className);
             else
                 el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        },
+
+        toggleClass: function(el, className, add) {
+            if (add === undefined) {
+                if (this.hasClass(el, className)) {
+                    this.removeClass(el, className)
+                }
+                else {
+                    this.addClass(el, className)
+                }
+            }
+
+            if (add && !this.hasClass(el, className)) {
+                this.addClass(el, className)
+                return
+            }
+
+            if (!add && this.hasClass(el, className)) {
+                this.removeClass(el, className)
+                return
+            }
         },
 
         /*
@@ -104,6 +131,15 @@
                     input = null
                 }, 0)
             }
+        },
+
+        elementContainsPoint: function(element, point) {
+            var elementPosition = $.oc.foundation.element.absolutePosition(element),
+                elementRight = elementPosition.left + element.offsetWidth,
+                elementBottom = elementPosition.top + element.offsetHeight
+
+            return point.x >= elementPosition.left && point.x <= elementRight 
+                    && point.y >= elementPosition.top && point.y <= elementBottom
         }
     }
 

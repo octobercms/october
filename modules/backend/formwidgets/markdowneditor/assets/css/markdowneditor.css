@@ -1,0 +1,224 @@
+.field-markdowneditor {
+  width: 100%;
+  position: relative;
+  border: 1px solid #d1d6d9;
+  background: #fff;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.field-markdowneditor textarea {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.field-markdowneditor .editor-toolbar {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.field-markdowneditor.editor-focus {
+  border: 1px solid #d1d6d9;
+}
+.field-markdowneditor.size-tiny .editor-write {
+  min-height: 50px;
+}
+.field-markdowneditor.size-tiny .editor-preview {
+  height: 50px;
+}
+.field-markdowneditor.size-tiny.stretch {
+  min-height: 90px;
+}
+.field-markdowneditor.size-small .editor-write {
+  min-height: 100px;
+}
+.field-markdowneditor.size-small .editor-preview {
+  height: 100px;
+}
+.field-markdowneditor.size-small.stretch {
+  min-height: 140px;
+}
+.field-markdowneditor.size-large .editor-write {
+  min-height: 200px;
+}
+.field-markdowneditor.size-large .editor-preview {
+  height: 200px;
+}
+.field-markdowneditor.size-large.stretch {
+  min-height: 240px;
+}
+.field-markdowneditor.size-huge .editor-write {
+  min-height: 250px;
+}
+.field-markdowneditor.size-huge .editor-preview {
+  height: 250px;
+}
+.field-markdowneditor.size-huge.stretch {
+  min-height: 290px;
+}
+.field-markdowneditor.size-giant .editor-write {
+  min-height: 350px;
+}
+.field-markdowneditor.size-giant .editor-preview {
+  height: 350px;
+}
+.field-markdowneditor.size-giant.stretch {
+  min-height: 390px;
+}
+.field-markdowneditor .editor-write {
+  position: relative;
+}
+.field-markdowneditor .editor-preview {
+  padding: 15px;
+  overflow: auto;
+}
+.field-markdowneditor .editor-preview-loader {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin-top: 40px;
+  background-image: url('../../../../../system/assets/ui/images/loader-transparent.svg');
+  background-size: 20px 20px;
+  background-position: 50% 50%;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+.field-markdowneditor.mode-tab .editor-preview {
+  display: none;
+}
+.field-markdowneditor.mode-tab.is-preview .editor-write {
+  display: none;
+}
+.field-markdowneditor.mode-tab.is-preview .editor-preview {
+  display: block;
+}
+.field-markdowneditor.mode-split {
+  overflow: hidden;
+}
+.field-markdowneditor.mode-split .editor-preview {
+  float: right;
+  width: 50%;
+}
+.field-markdowneditor.mode-split .editor-write {
+  float: left;
+  width: 50%;
+}
+.field-markdowneditor.mode-split .editor-write .editor-code {
+  border-right: 2px solid #808C8D;
+}
+.field-markdowneditor.stretch,
+.field-markdowneditor.stretch .editor-toolbar {
+  border-radius: 0 !important;
+}
+.field-markdowneditor.stretch .editor-toolbar {
+  height: auto;
+}
+.field-markdowneditor.stretch .editor-write {
+  float: none;
+  height: calc(100% - 40px);
+  position: relative;
+  min-height: 0;
+}
+.field-markdowneditor.stretch .editor-preview {
+  float: none;
+  height: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: 40px;
+}
+.field-markdowneditor.stretch.mode-split .editor-preview {
+  left: auto;
+}
+.field-markdowneditor.stretch.mode-split .editor-write {
+  right: auto;
+}
+.field-markdowneditor.is-fullscreen {
+  z-index: 300;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.field-markdowneditor.is-fullscreen,
+.field-markdowneditor.is-fullscreen .editor-toolbar {
+  border-radius: 0 !important;
+  border: none;
+}
+.field-markdowneditor .editor-preview {
+  color: #515c5d;
+  font-family: "Helvetica", sans-serif;
+  line-height: 180%;
+}
+.field-markdowneditor .editor-preview h1,
+.field-markdowneditor .editor-preview h2,
+.field-markdowneditor .editor-preview h3,
+.field-markdowneditor .editor-preview h4,
+.field-markdowneditor .editor-preview h5,
+.field-markdowneditor .editor-preview h6 {
+  margin-top: 20px;
+  font-weight: bold;
+}
+.field-markdowneditor .editor-preview h1:first-child,
+.field-markdowneditor .editor-preview h2:first-child,
+.field-markdowneditor .editor-preview h3:first-child,
+.field-markdowneditor .editor-preview h4:first-child,
+.field-markdowneditor .editor-preview h5:first-child,
+.field-markdowneditor .editor-preview h6:first-child {
+  margin-top: 0;
+}
+.field-markdowneditor .editor-preview *:last-child {
+  margin-bottom: 0;
+}
+.field-markdowneditor .editor-preview h1 {
+  font-size: 30px;
+}
+.field-markdowneditor .editor-preview h2 {
+  font-size: 26px;
+}
+.field-markdowneditor .editor-preview h3 {
+  font-size: 24px;
+}
+.field-markdowneditor .editor-preview h4 {
+  font-size: 22px;
+}
+.field-markdowneditor .editor-preview h5 {
+  font-size: 20px;
+}
+.field-markdowneditor .editor-preview h6 {
+  font-size: 18px;
+}
+.field-markdowneditor .editor-preview p,
+.field-markdowneditor .editor-preview ol,
+.field-markdowneditor .editor-preview ul {
+  font-size: 14px;
+}
+.field-markdowneditor .editor-preview h1,
+.field-markdowneditor .editor-preview h2,
+.field-markdowneditor .editor-preview h3,
+.field-markdowneditor .editor-preview h4,
+.field-markdowneditor .editor-preview h5,
+.field-markdowneditor .editor-preview h6,
+.field-markdowneditor .editor-preview p,
+.field-markdowneditor .editor-preview ol,
+.field-markdowneditor .editor-preview ul {
+  margin-bottom: 15px;
+}
+.field-markdowneditor .editor-preview pre.prettyprint {
+  border-width: 0;
+  padding: 13px 16px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  line-height: 130%;
+}
+.field-markdowneditor .editor-preview img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

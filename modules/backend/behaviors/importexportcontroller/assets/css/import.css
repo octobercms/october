@@ -1,0 +1,164 @@
+.import-behavior ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.import-behavior ul li {
+  font-size: 13px;
+}
+.import-behavior ul li.placeholder {
+  display: block;
+  position: relative;
+}
+.import-behavior ul li.dragged {
+  position: absolute;
+  z-index: 2000;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+}
+.import-behavior .import-file-columns,
+.import-behavior .import-db-columns {
+  height: 400px;
+  background: #f0f0f0;
+  padding: 5px;
+  overflow: auto;
+}
+.import-behavior .import-file-columns .upload-prompt {
+  display: block;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: -10px;
+}
+.import-behavior .import-column-bindings > ul > li,
+.import-behavior .import-db-columns > ul > li {
+  cursor: pointer;
+}
+.import-behavior ul li.dragged,
+.import-behavior .import-file-columns > ul > li,
+.import-behavior .import-db-columns > ul > li {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+.import-behavior ul li.dragged div.import-column-name > span,
+.import-behavior .import-file-columns > ul > li div.import-column-name > span,
+.import-behavior .import-db-columns > ul > li div.import-column-name > span,
+.import-behavior ul li.dragged > span,
+.import-behavior .import-file-columns > ul > li > span,
+.import-behavior .import-db-columns > ul > li > span {
+  display: block;
+  padding: 8px;
+  padding-left: 12px;
+}
+.import-behavior .import-db-columns > ul > li .column-icon {
+  color: #ccc;
+  position: relative;
+  left: -3px;
+}
+.import-behavior .import-db-columns > ul > li:hover .column-icon {
+  color: #4da7e8;
+}
+.import-behavior .import-db-columns > ul > li.is-required .column-icon {
+  color: #ab2a1c;
+}
+.import-behavior .import-file-columns > ul > li:before,
+.import-behavior .import-file-columns > ul > li:after {
+  content: " ";
+  display: table;
+}
+.import-behavior .import-file-columns > ul > li:after {
+  clear: both;
+}
+.import-behavior .import-file-columns > ul > li.is-ignored {
+  display: none;
+}
+.import-behavior .import-file-columns > ul > li .column-success-icon {
+  display: none;
+  position: relative;
+  left: -2px;
+  width: 15px;
+}
+.import-behavior .import-file-columns > ul > li.is-matched .column-success-icon {
+  display: inline-block;
+}
+.import-behavior .import-file-columns > ul > li.is-matched .column-ignore-button {
+  display: none !important;
+}
+.import-behavior .import-file-columns > ul div.import-column-name {
+  float: left;
+  width: 45%;
+}
+.import-behavior .import-file-columns > ul div.import-column-name > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.import-behavior .import-file-columns > ul div.import-column-name a.column-label {
+  color: #333;
+}
+.import-behavior .import-file-columns > ul div.import-column-name a.column-ignore-button {
+  color: #fff;
+  background: #ccc;
+  font-size: 10px;
+  border-radius: 15px;
+  display: inline-block;
+  text-decoration: none;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  position: relative;
+  top: -1px;
+  left: -3px;
+}
+.import-behavior .import-file-columns > ul div.import-column-name a.column-ignore-button:hover {
+  background: #ab2a1c;
+}
+.import-behavior .import-file-columns > ul .import-column-bindings > ul {
+  float: right;
+  width: 55%;
+}
+.import-behavior .import-column-bindings > ul {
+  background: #dadedf;
+  position: relative;
+  min-height: 34px;
+}
+.import-behavior .import-column-bindings > ul:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 18px solid #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.import-behavior .import-column-bindings > ul:before {
+  position: absolute;
+  padding: 8px;
+  padding-left: 28px;
+  content: attr(data-empty-text);
+  color: rgba(0, 0, 0, 0.5);
+}
+.import-behavior .import-column-bindings > ul > li .column-icon {
+  color: #595959;
+  float: right;
+  margin: 3px;
+}
+.import-behavior .import-column-bindings > ul > li:hover .column-icon {
+  color: #333333;
+}
+.import-behavior .import-column-bindings > ul > li:not(.dragged) {
+  background: #e8eaeb;
+  position: relative;
+}
+.import-behavior .import-column-bindings > ul > li:not(.dragged) > span {
+  display: block;
+  padding: 8px;
+  padding-left: 28px;
+}

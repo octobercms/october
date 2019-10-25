@@ -191,6 +191,7 @@ return [
         'code_folding' => 'Code folding',
         'word_wrap' => 'Word wrap',
         'highlight_active_line' => 'Evidentiere linie activa',
+        'auto_closing' => 'Inchide automat tag-uri si caractere speciale',
         'show_invisibles' => 'Arata caractere invizibile',
         'show_gutter' => 'Afiseaza panou',
         'theme' => 'Schema culori',

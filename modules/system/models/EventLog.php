@@ -1,5 +1,6 @@
 <?php namespace System\Models;
 
+use App;
 use Str;
 use Model;
 use Exception;
@@ -23,6 +24,21 @@ class EventLog extends Model
     protected $jsonable = ['details'];
 
     /**
+     * Returns true if this logger should be used.
+     * @return bool
+     */
+    public static function useLogging()
+    {
+        return (
+            class_exists('Model') &&
+            Model::getConnectionResolver() &&
+            App::hasDatabase() &&
+            !defined('OCTOBER_NO_EVENT_LOGGING') &&
+            LogSetting::get('log_events')
+        );
+    }
+
+    /**
      * Creates a log record
      * @param string $message Specifies the message text
      * @param string $level Specifies the logging level
@@ -42,7 +58,8 @@ class EventLog extends Model
         try {
             $record->save();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return $record;
     }

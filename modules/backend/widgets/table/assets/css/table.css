@@ -13,7 +13,7 @@
   margin-bottom: 0;
 }
 .control-table.active .table-container {
-  border-color: #808c8d;
+  border-color: #e0e0e0;
 }
 .control-table table {
   width: 100%;
@@ -45,9 +45,9 @@
 }
 .control-table table.headers th {
   padding: 7px 10px;
-  font-size: 13px;
+  font-weight: normal;
   text-transform: uppercase;
-  font-weight: 600;
+  font-size: 11px;
   color: #333333;
   background: white;
   border-right: 1px solid #ecf0f1;
@@ -62,7 +62,7 @@
   border-right: none;
 }
 .control-table.active table.headers:after {
-  border-bottom-color: #808c8d;
+  border-bottom-color: #e0e0e0;
 }
 .control-table table.data td {
   border: 1px solid #ecf0f1;
@@ -72,16 +72,16 @@
   padding: 1px;
 }
 .control-table table.data td.active {
-  border-color: #5fb6f5 !important;
+  border-color: #34495e !important;
 }
 .control-table table.data td.active .content-container {
   padding: 0;
-  border: 1px solid #5fb6f5;
+  border: 1px solid #34495e;
 }
 .control-table table.data td.active .content-container:before,
 .control-table table.data td.active .content-container:after {
   content: ' ';
-  background: #5fb6f5;
+  background: #34495e;
   position: absolute;
   left: -2px;
   top: -2px;
@@ -137,17 +137,28 @@
   background: white;
   border-bottom: 1px solid #e0e0e0;
 }
-.control-table .toolbar a {
+.control-table .toolbar a.btn {
   color: #323e50;
-  padding: 10px;
+  padding: 8px 10px;
   opacity: 0.5;
   filter: alpha(opacity=50);
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  text-shadow: none;
 }
-.control-table .toolbar a:hover {
+.control-table .toolbar a.btn:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.control-table .toolbar a:before {
+.control-table .toolbar .table-search {
+  float: right;
+  margin: 3px 3px 0 0;
+}
+.control-table .toolbar .table-search .table-search-input {
+  height: auto;
+  padding: 5px 13px 5px;
+}
+.control-table .toolbar a.table-icon:before {
   display: inline-block;
   content: ' ';
   width: 16px;
@@ -155,18 +166,17 @@
   margin-right: 8px;
   position: relative;
   top: 3px;
-  background: transparent url(../images/table-icons.gif) no-repeat;
-  background-position: 0 0;
+  background: transparent url(../images/table-icons.gif) no-repeat 0 0;
   background-size: 32px auto;
 }
-.control-table .toolbar a.add-table-row-above:before {
+.control-table .toolbar a.table-icon.add-table-row-above:before {
   background-position: 0 -56px;
 }
-.control-table .toolbar a.delete-table-row:before {
+.control-table .toolbar a.table-icon.delete-table-row:before {
   background-position: 0 -113px;
 }
 .control-table.active .toolbar {
-  border-bottom-color: #808c8d;
+  border-bottom-color: #e0e0e0;
 }
 .control-table .pagination ul {
   padding: 0;
@@ -189,7 +199,7 @@
   color: #95a5a6;
 }
 .control-table .pagination ul li.active {
-  background: #5fb6f5;
+  background: #3498db;
 }
 .control-table .pagination ul li.active a {
   color: #ffffff;
@@ -207,14 +217,37 @@
   }
 }
 /*
- * String editor
+ * String and autocomplete editors
  */
-.control-table td[data-column-type=string] input[type=text] {
+.control-table td[data-column-type=string] input[type=text],
+.control-table td[data-column-type=autocomplete] input[type=text] {
   width: 100%;
   height: 100%;
   display: block;
   outline: none;
   border: none;
+  padding: 6px 10px 7px;
+}
+html.chrome .control-table td[data-column-type=string] input[type=text],
+html.chrome .control-table td[data-column-type=autocomplete] input[type=text] {
+  padding: 6px 10px 7px!important;
+}
+html.safari .control-table td[data-column-type=string] input[type=text],
+html.gecko .control-table td[data-column-type=string] input[type=text],
+html.safari .control-table td[data-column-type=autocomplete] input[type=text],
+html.gecko .control-table td[data-column-type=autocomplete] input[type=text] {
+  padding: 5px 10px 5px;
+}
+ul.table-widget-autocomplete {
+  background: white;
+  font-size: 13px;
+  margin-top: 0;
+  border: 1px solid #808c8d;
+  border-top: 1px solid #ecf0f1;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+ul.table-widget-autocomplete li a {
   padding: 5px 10px;
 }
 /*
@@ -223,7 +256,7 @@
 .control-table td[data-column-type=checkbox] div[data-checkbox-element] {
   width: 16px;
   height: 16px;
-  border-radius: 2px;
+  border-radius: 3px;
   background-color: #FFFFFF;
   border: 1px solid #999999;
   margin: 5px 5px 5px 10px;
@@ -254,7 +287,7 @@
   top: -4px;
 }
 .control-table td[data-column-type=checkbox] div[data-checkbox-element]:focus {
-  border-color: #5fb6f5;
+  border-color: #34495e;
   outline: none;
 }
 /*
@@ -304,10 +337,22 @@
 .control-table td[data-column-type=dropdown] .content-container {
   outline: none;
 }
+/* Frameless control styles start */
+.widget-field.frameless .control-table .table-container {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.widget-field.frameless .control-table .toolbar {
+  background: transparent;
+}
+/* Frameless control styles end */
 html.cssanimations .control-table td[data-column-type=dropdown] [data-view-container].loading:after {
-  background-image: url(../../../../assets/images/loader-transparent.svg);
+  background: url('../../../../../../modules/system/assets/ui/images/loader-transparent.svg') 50% 50%;
   background-size: 15px 15px;
-  background-position: 50% 50%;
   position: absolute;
   width: 15px;
   height: 15px;
@@ -324,7 +369,7 @@ html.cssanimations .control-table td[data-column-type=dropdown] [data-view-conta
   user-select: none;
   position: absolute;
   background: white;
-  border: 1px solid #808c8d;
+  border: 1px solid #e0e0e0;
   border-top: none;
   padding-top: 1px;
   overflow: hidden;
@@ -350,9 +395,7 @@ html.cssanimations .control-table td[data-column-type=dropdown] [data-view-conta
   cursor: pointer;
   outline: none;
 }
-.table-control-dropdown-list li:hover,
-.table-control-dropdown-list li:focus,
-.table-control-dropdown-list li.selected {
-  background: #5fb6f5;
+.table-control-dropdown-list li:focus {
+  background: #34495e;
   color: white;
 }

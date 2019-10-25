@@ -80,11 +80,10 @@ abstract class Skin
                 ? $this->publicSkinPath . $path
                 : $this->skinPath . $path;
         }
-        else {
-            return $isPublic
-                ? $this->defaultPublicSkinPath . $path
-                : $this->defaultSkinPath . $path;
-        }
+
+        return $isPublic
+            ? $this->defaultPublicSkinPath . $path
+            : $this->defaultSkinPath . $path;
     }
 
     /**

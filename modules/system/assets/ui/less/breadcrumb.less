@@ -9,49 +9,71 @@
 // Breadcrumb
 // --------------------------------------------------
 
-@color-breadcrumb-text-active:               #9da3a7;
-@color-breadcrumb-text:                      #ecf0f1;
-@color-breadcrumb-background:                #2b343d;
+@color-breadcrumb-text:                      #FFFFFF;
+@color-breadcrumb-active-text:               #2A3E51;
+@color-breadcrumb-background:                #d0d9dd;
+@color-breadcrumb-inactive-background:       #9098a2;
+@color-breadcrumb-active-background:         #1F99DC;
 
 .control-breadcrumb {
-    font-size: 12px;
-    text-transform: uppercase;
-    padding: 15px 20px;
-    margin: -20px -20px 20px -20px;
+    margin: -(@padding-standard) -(@padding-standard) @padding-standard -(@padding-standard);
     background-color: @color-breadcrumb-background;
 
     ul {
         padding: 0;
         margin: 0;
+        font-size: 0;
     }
 
     li {
+        font-size: @font-size-base;
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding:  12px 10px 12px 30px;
         display: inline-block;
-        color: @color-breadcrumb-text-active;
-        letter-spacing: 0.05em;
+        position: relative;
+        color: @color-breadcrumb-text;
+        background-color: @color-breadcrumb-inactive-background;
 
         a {
+            display: inline-block;
             color: @color-breadcrumb-text;
             text-decoration: none;
             &:hover { color: @color-breadcrumb-text; }
         }
 
+        &:before, &:after {
+            top: 0;
+            right: -14px;
+            position: absolute;
+            z-index: @zindex-breadcrumb;
+        }
+
         &:after {
-            font-size: 14px;
-            line-height: 14px;
-            display: inline-block;
-            margin-left: 6px;
-            margin-right: 2px;
-            vertical-align: baseline;
-            color: @color-breadcrumb-text-active;
-            .icon(@angle-right);
+            .triangle(right, 15px, 45px, @color-breadcrumb-inactive-background);
+        }
+
+        &:before {
+            right: -15px;
+            z-index: @zindex-breadcrumb - 1;
+            .triangle(right, 15px, 45px, @color-breadcrumb-background);
+        }
+
+        &:first-child {
+            padding-left: 20px;
         }
 
         &:last-child:after {
             content:'';
+        }
+
+        &:last-child {
+            background-color: transparent;
+            color: @color-breadcrumb-active-text;
+
+            &:after {
+                display: none;
+            }
         }
     }
 }

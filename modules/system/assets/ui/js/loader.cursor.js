@@ -13,13 +13,16 @@
  *
  * The event parameter in the show() method is optional. If it is passed, the initial cursor position
  * will be loaded from it.
+ *
+ * Require:
+ *  - modernizr/modernizr
  */
 +function ($) { "use strict";
     if ($.oc === undefined)
         $.oc = {}
 
     var CursorLoadIndicator = function () {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter = 0
@@ -28,7 +31,7 @@
     }
 
     CursorLoadIndicator.prototype.show = function(event) {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter++
@@ -36,9 +39,7 @@
         if (this.counter > 1)
             return
 
-        var self = this,
-            $window = $(window);
-
+        var self = this;
 
         if (event !== undefined && event.clientY !== undefined) {
             self.indicator.css({
@@ -57,7 +58,7 @@
     }
 
     CursorLoadIndicator.prototype.hide = function(force) {
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             return
 
         this.counter--
@@ -70,7 +71,7 @@
         }
     }
 
-    $(document).ready(function(){
+    $(document).ready(function() {
         $.oc.cursorLoadIndicator = new CursorLoadIndicator();
     })
 

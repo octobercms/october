@@ -8,37 +8,24 @@
  */
 class Layout extends CmsCompoundObject
 {
+    /**
+     * Fallback layout name.
+     */
     const FALLBACK_FILE_NAME = 'fallback';
 
     /**
-     * @var array These properties will be available as regular properties,
-     * by looking the settings and viewBag values.
+     * @var string The container name associated with the model, eg: pages.
      */
-    protected $visible = [
-        'description'
-    ];
-
-    protected function parseSettings()
-    {
-    }
-
-    /**
-     * Returns the directory name corresponding to the object type.
-     * For pages the directory name is "pages", for layouts - "layouts", etc.
-     * @return string
-     */
-    public static function getObjectTypeDirName()
-    {
-        return 'layouts';
-    }
+    protected $dirName = 'layouts';
 
     /**
      * Initializes the fallback layout.
-     * @param \Cms\ClassesTheme $theme Specifies a theme the file belongs to.
+     * @param \Cms\Classes\Theme $theme Specifies a theme the file belongs to.
+     * @return \Cms\Classes\Layout
      */
     public static function initFallback($theme)
     {
-        $obj = new self($theme);
+        $obj = self::inTheme($theme);
         $obj->markup = '{% page %}';
         $obj->fileName = self::FALLBACK_FILE_NAME;
         return $obj;
@@ -50,7 +37,7 @@ class Layout extends CmsCompoundObject
      */
     public function isFallBack()
     {
-        return $this->fileName == self::FALLBACK_FILE_NAME;
+        return $this->fileName === self::FALLBACK_FILE_NAME;
     }
 
     /**
@@ -59,6 +46,6 @@ class Layout extends CmsCompoundObject
      */
     public function getCodeClassParent()
     {
-        return '\Cms\Classes\LayoutCode';
+        return LayoutCode::class;
     }
 }

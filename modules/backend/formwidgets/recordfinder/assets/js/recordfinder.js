@@ -14,13 +14,41 @@
 
 +function ($) { "use strict";
 
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
+
     // RECORDFINDER CLASS DEFINITION
     // ============================
 
     var RecordFinder = function(element, options) {
-        var self       = this
-        this.options   = options
         this.$el       = $(element)
+        this.options   = options || {}
+
+        $.oc.foundation.controlUtils.markDisposable(element)
+        Base.call(this)
+        this.init()
+    }
+
+    RecordFinder.prototype = Object.create(BaseProto)
+    RecordFinder.prototype.constructor = RecordFinder
+
+    RecordFinder.prototype.init = function() {
+        this.$el.on('dblclick', this.proxy(this.onDoubleClick))
+        this.$el.one('dispose-control', this.proxy(this.dispose))
+    }
+
+    RecordFinder.prototype.dispose = function() {
+        this.$el.off('dblclick', this.proxy(this.onDoubleClick))
+        this.$el.off('dispose-control', this.proxy(this.dispose))
+        this.$el.removeData('oc.recordfinder')
+
+        this.$el = null
+
+        // In some cases options could contain callbacks, 
+        // so it's better to clean them up too.
+        this.options = null
+
+        BaseProto.dispose.call(this)
     }
 
     RecordFinder.DEFAULTS = {
@@ -28,16 +56,25 @@
         dataLocker: null
     }
 
+    RecordFinder.prototype.onDoubleClick = function(linkEl, recordId) {
+        $('.btn.find-record', this.$el).trigger('click')
+    }
+
     RecordFinder.prototype.updateRecord = function(linkEl, recordId) {
         if (!this.options.dataLocker) return
-        var self = this
-        $(this.options.dataLocker).val(recordId)
+
+        // Selector name must be used because by the time success runs
+        // - this.options will be disposed
+        // - $locker element will be replaced
+        var locker = this.options.dataLocker
+
+        $(locker).val(recordId)
 
         this.$el.loadIndicator({ opaque: true })
         this.$el.request(this.options.refreshHandler, {
             success: function(data) {
                 this.success(data)
-                $(self.options.dataLocker).trigger('change')
+                $(locker).trigger('change')
             }
         })
 

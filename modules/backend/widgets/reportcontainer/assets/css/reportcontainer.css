@@ -1,5 +1,5 @@
 .report-container {
-  /**** Isotope CSS3 transitions ****/
+  margin-bottom: 15px;
 }
 .report-container > ul {
   list-style: none;
@@ -33,7 +33,6 @@
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f0c9";
   color: #b6b6b6;
 }
@@ -93,39 +92,45 @@
   filter: alpha(opacity=100);
 }
 .report-container > ul .item.width-1 {
-  width: 9.95%;
+  width: 8.33%;
 }
 .report-container > ul .item.width-2 {
-  width: 19.95%;
+  width: 16.66%;
 }
 .report-container > ul .item.width-3 {
-  width: 29.95%;
+  width: 24.99%;
 }
 .report-container > ul .item.width-4 {
-  width: 39.95%;
+  width: 33.32%;
 }
 .report-container > ul .item.width-5 {
-  width: 49.95%;
+  width: 41.65%;
 }
 .report-container > ul .item.width-6 {
-  width: 59.95%;
+  width: 49.98%;
 }
 .report-container > ul .item.width-7 {
-  width: 69.95%;
+  width: 58.31%;
 }
 .report-container > ul .item.width-8 {
-  width: 79.95%;
+  width: 66.64%;
 }
 .report-container > ul .item.width-9 {
-  width: 89.95%;
+  width: 74.97%;
 }
 .report-container > ul .item.width-10 {
+  width: 83.3%;
+}
+.report-container > ul .item.width-11 {
+  width: 91.63%;
+}
+.report-container > ul .item.width-12 {
   width: 100%;
 }
 .report-container > ul .item.dragged {
-  -webkit-transition-duration: 0!important;
-  -moz-transition-duration: 0!important;
-  transition-duration: 0!important;
+  -webkit-transition-duration: 0s !important;
+  -moz-transition-duration: 0s !important;
+  transition-duration: 0s !important;
   -webkit-transform: translate3d(0, 0, 0) !important;
   transform: translate3d(0, 0, 0) !important;
   position: absolute;
@@ -142,25 +147,30 @@
   right: 30px;
 }
 .report-container > ul.wrapped .item {
-  width: 100%!important;
+  width: 100% !important;
 }
-.report-container .add-widget {
+.report-container .manage-widgets {
   display: inline-block;
   color: #bcc3c7;
   padding: 10px 15px;
   font-size: 14px;
   font-weight: 400;
   border: 1px dashed #bcc3c7;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   margin-left: 5px;
-  margin-bottom: 15px;
 }
-.report-container .add-widget i {
+.report-container .manage-widgets i {
   margin-right: 5px;
 }
-.report-container .add-widget:hover {
+.report-container .manage-widgets:hover {
+  text-decoration: none;
+  background-color: #0181b9;
+  color: white;
+  border: 1px solid #0181b9;
+}
+.report-container .dropdown.open .manage-widgets {
   text-decoration: none;
   background-color: #0181b9;
   color: white;

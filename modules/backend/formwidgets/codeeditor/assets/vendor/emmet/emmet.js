@@ -614,11 +614,11 @@ var _ = (function() {
     // Retrieve the names of an object's properties.
     // Delegates to **ECMAScript 5**'s native `Object.keys`
     _.keys = nativeKeys || function(obj) {
-        if (obj !== Object(obj)) throw new TypeError('Invalid object');
-        var keys = [];
-        for (var key in obj) if (_.has(obj, key)) keys[keys.length] = key;
-        return keys;
-    };
+            if (obj !== Object(obj)) throw new TypeError('Invalid object');
+            var keys = [];
+            for (var key in obj) if (_.has(obj, key)) keys[keys.length] = key;
+            return keys;
+        };
 
     // Retrieve the values of an object's properties.
     _.values = function(obj) {
@@ -788,8 +788,8 @@ var _ = (function() {
     // Is a given value an array?
     // Delegates to ECMA5's native Array.isArray
     _.isArray = nativeIsArray || function(obj) {
-        return toString.call(obj) == '[object Array]';
-    };
+            return toString.call(obj) == '[object Array]';
+        };
 
     // Is a given variable an object?
     _.isObject = function(obj) {
@@ -975,8 +975,8 @@ var _ = (function() {
         if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
 
         source = "var __p='';" +
-        "var print=function(){__p+=Array.prototype.join.call(arguments, '')};\n" +
-        source + "return __p;\n";
+            "var print=function(){__p+=Array.prototype.join.call(arguments, '')};\n" +
+            source + "return __p;\n";
 
         var render = new Function(settings.variable || 'obj', '_', source);
         if (data) return render(data, _);
@@ -987,7 +987,7 @@ var _ = (function() {
         // Provide the compiled function source as a convenience for build time
         // precompilation.
         template.source = 'function(' + (settings.variable || 'obj') + '){\n' +
-        source + '}';
+            source + '}';
 
         return template;
     };
@@ -1144,7 +1144,7 @@ var emmet = (function(global) {
     var moduleLoader = null;
 
     /**
-     * Generic Emmet module loader (actually, it doesnât load anything, just
+     * Generic Emmet module loader (actually, it doesn’t load anything, just
      * returns module reference). Not using `require` name to avoid conflicts
      * with Node.js and RequireJS
      */
@@ -1395,7 +1395,7 @@ emmet.define('abbreviationParser', function(require, _) {
         },
 
         /**
-         * Removes current node from parentâs child list
+         * Removes current node from parent‘s child list
          * @returns {AbbreviationNode} Current node itself
          */
         remove: function() {
@@ -1407,7 +1407,7 @@ emmet.define('abbreviationParser', function(require, _) {
         },
 
         /**
-         * Replaces current node in parentâs children list with passed nodes
+         * Replaces current node in parent‘s children list with passed nodes
          * @param {AbbreviationNode} node Replacement node or array of nodes
          */
         replace: function() {
@@ -1572,7 +1572,7 @@ emmet.define('abbreviationParser', function(require, _) {
         },
 
         /**
-         * Returns index of current node in parentâs children list
+         * Returns index of current node in parent‘s children list
          * @returns {Number}
          */
         index: function() {
@@ -1739,7 +1739,7 @@ emmet.define('abbreviationParser', function(require, _) {
 
     /**
      * Returns stripped string: a string without first and last character.
-     * Used for âunquotingâ strings
+     * Used for “unquoting” strings
      * @param {String} str
      * @returns {String}
      */
@@ -2027,7 +2027,7 @@ emmet.define('abbreviationParser', function(require, _) {
     }
 
     /**
-     * âUn-rollsâ contents of current node: recursively replaces all repeating
+     * “Un-rolls“ contents of current node: recursively replaces all repeating
      * children with their repeated clones
      * @param {AbbreviationNode} node
      * @returns {AbbreviationNode}
@@ -2110,7 +2110,7 @@ emmet.define('abbreviationParser', function(require, _) {
             var tree = parseAbbreviation(abbr);
 
             if (options.contextNode) {
-                // add info about context node â
+                // add info about context node –
                 // a parent XHTML node in editor inside which abbreviation is 
                 // expanded
                 tree._name = options.contextNode.name;
@@ -2244,7 +2244,7 @@ emmet.exec(function(require, _) {
             if (_.isString(r)) {
                 child.data('resource', elements.create('snippet', r));
             } else if (elements.is(r, 'reference')) {
-                // itâs a reference to another abbreviation:
+                // it’s a reference to another abbreviation:
                 // parse it and insert instead of current child
                 /** @type AbbreviationNode */
                 var subtree = parser.parse(r.data, {
@@ -2264,7 +2264,7 @@ emmet.exec(function(require, _) {
                     });
                 }
 
-                // move childâs children into the deepest child of new subtree
+                // move child‘s children into the deepest child of new subtree
                 var deepestChild = subtree.deepestChild();
                 if (deepestChild) {
                     _.each(child.children, function(c) {
@@ -2301,7 +2301,7 @@ emmet.exec(function(require, _) {
 });/**
  * Pasted content abbreviation processor. A pasted content is a content that
  * should be inserted into implicitly repeated abbreviation nodes.
- * This processor powers âWrap With Abbreviationâ action
+ * This processor powers “Wrap With Abbreviation” action
  * @param {Function} require
  * @param {Underscore} _
  */
@@ -2357,7 +2357,7 @@ emmet.exec(function(require, _) {
     }
 
     /**
-     * Check if parsed node contains output placeholder â a target where
+     * Check if parsed node contains output placeholder – a target where
      * pasted content should be inserted
      * @param {AbbreviationNode} node
      * @returns {Boolean}
@@ -4226,7 +4226,7 @@ emmet.define('handlerList', function(require, _) {
          * Adds function handler
          * @param {Function} fn Handler
          * @param {Object} options Handler options. Possible values are:<br><br>
-         * <b>order</b> : (<code>Number</code>) â order in handler list. Handlers
+         * <b>order</b> : (<code>Number</code>) – order in handler list. Handlers
          * with higher order value will be executed earlier.
          */
         add: function(fn, options) {
@@ -4527,8 +4527,8 @@ emmet.define('stringStream', function(require, _) {
         },
 
         /**
-         * Act like a multi-character <code>eat</code>âif <code>consume</code> is true or
-         * not givenâor a look-ahead that doesn't update the stream positionâif
+         * Act like a multi-character <code>eat</code>—if <code>consume</code> is true or
+         * not given—or a look-ahead that doesn't update the stream position—if
          * it is false. <code>pattern</code> can be either a string or a
          * regular expression starting with ^. When it is a string,
          * <code>caseInsensitive</code> can be set to true to make the match
@@ -4883,7 +4883,6 @@ emmet.define('resources', function(require, _) {
                     sectionKey = section['extends'];
                 } while (sectionKey && !_.include(memo, sectionKey));
 
-
                 cache[cacheKey] = _.extend.apply(_, stack.reverse());
             }
 
@@ -4900,15 +4899,15 @@ emmet.define('actions', function(require, _, zc) {
     var actions = {};
 
     /**
-     * âHumanizesâ action name, makes it more readable for people
+     * “Humanizes” action name, makes it more readable for people
      * @param {String} name Action name (like 'expand_abbreviation')
      * @return Humanized name (like 'Expand Abbreviation')
      */
     function humanizeActionName(name) {
         return require('utils').trim(name.charAt(0).toUpperCase()
-        + name.substring(1).replace(/_[a-z]/g, function(str) {
-            return ' ' + str.charAt(1).toUpperCase();
-        }));
+            + name.substring(1).replace(/_[a-z]/g, function(str) {
+                return ' ' + str.charAt(1).toUpperCase();
+            }));
     }
 
     return {
@@ -4917,9 +4916,9 @@ emmet.define('actions', function(require, _, zc) {
          * @param {String} name Action name
          * @param {Function} fn Action function
          * @param {Object} options Custom action options:<br>
-         * <b>label</b> : (<code>String</code>) â Human-readable action name.
+         * <b>label</b> : (<code>String</code>) – Human-readable action name.
          * May contain '/' symbols as submenu separators<br>
-         * <b>hidden</b> : (<code>Boolean</code>) â Indicates whether action
+         * <b>hidden</b> : (<code>Boolean</code>) – Indicates whether action
          * should be displayed in menu (<code>getMenu()</code> method)
          *
          * @memberOf actions
@@ -5575,7 +5574,7 @@ emmet.define('actionUtils', function(require, _) {
         },
 
         /**
-         * Common syntax detection method for editors that doesnât provide any
+         * Common syntax detection method for editors that doesn’t provide any
          * info about current syntax scope.
          * @param {IEmmetEditor} editor Current editor
          * @param {String} hint Any syntax hint that editor can provide
@@ -5882,7 +5881,7 @@ emmet.define('base64', function(require, _) {
 });/**
  * HTML matcher: takes string and searches for HTML tag pairs for given position
  *
- * Unlike âclassicâ matchers, it parses content from the specified
+ * Unlike “classic” matchers, it parses content from the specified
  * position, not from the start, so it may work even outside HTML documents
  * (for example, inside strings of programming languages like JavaScript, Python
  * etc.)
@@ -6234,23 +6233,23 @@ emmet.define('tabStops', function(require, _) {
          * @param {String} text Text to process
          * @param {Object} options List of processor options:<br>
          *
-         * <b>replaceCarets</b> : <code>Boolean</code> â replace all default
+         * <b>replaceCarets</b> : <code>Boolean</code> — replace all default
          * caret placeholders (like <i>{%::emmet-caret::%}</i>) with <i>${0:caret}</i><br>
          *
-         * <b>escape</b> : <code>Function</code> â function that handle escaped
+         * <b>escape</b> : <code>Function</code> — function that handle escaped
          * characters (mostly '$'). By default, it returns the character itself
          * to be displayed as is in output, but sometimes you will use
          * <code>extract</code> method as intermediate solution for further
          * processing and want to keep character escaped. Thus, you should override
          * <code>escape</code> method to return escaped symbol (e.g. '\\$')<br>
          *
-         * <b>tabstop</b> : <code>Function</code> â a tabstop handler. Receives
-         * a single argument â an object describing token: its position, number
+         * <b>tabstop</b> : <code>Function</code> – a tabstop handler. Receives
+         * a single argument – an object describing token: its position, number
          * group, placeholder and token itself. Should return a replacement
          * string that will appear in final output
          *
-         * <b>variable</b> : <code>Function</code> â variable handler. Receives
-         * a single argument â an object describing token: its position, name
+         * <b>variable</b> : <code>Function</code> – variable handler. Receives
+         * a single argument – an object describing token: its position, name
          * and original token itself. Should return a replacement
          * string that will appear in final output
          *
@@ -6439,7 +6438,7 @@ emmet.define('tabStops', function(require, _) {
             var placeholderMemo = {};
             var res = require('resources');
             return function(str, varName) {
-                // do not mark `child` variable as placeholder â itâs a reserved
+                // do not mark `child` variable as placeholder – it‘s a reserved
                 // variable name
                 if (varName == 'child')
                     return str;
@@ -6938,13 +6937,13 @@ emmet.define('elements', function(require, _) {
     return result;
 });/**
  * Abstract implementation of edit tree interface.
- * Edit tree is a named container of editable âname-valueâ child elements,
+ * Edit tree is a named container of editable “name-value” child elements,
  * parsed from <code>source</code>. This container provides convenient methods
  * for editing/adding/removing child elements. All these update actions are
  * instantly reflected in the <code>source</code> code with respect of formatting.
  * <br><br>
  * For example, developer can create an edit tree from CSS rule and add or
- * remove properties from itâall changes will be immediately reflected in the
+ * remove properties from it–all changes will be immediately reflected in the
  * original source.
  * <br><br>
  * All classes defined in this module should be extended the same way as in
@@ -7114,7 +7113,7 @@ emmet.define('editTree', function(require, _, core) {
                 return element.value(value);
 
             if (!_.isUndefined(value)) {
-                // no such element â create it
+                // no such element — create it
                 return this.add(name, value, pos);
             }
         },
@@ -7479,7 +7478,7 @@ emmet.define('cssEditTree', function(require, _) {
             if (token.type == '}' || token.type == ';') {
                 // found value end
                 trimWhitespaceTokens(tokens, WHITESPACE_REMOVE_FROM_START
-                | (token.type == '}' ? WHITESPACE_REMOVE_FROM_END : 0));
+                    | (token.type == '}' ? WHITESPACE_REMOVE_FROM_END : 0));
 
                 if (tokens.length) {
                     start = tokens[0].start;
@@ -7634,7 +7633,7 @@ emmet.define('cssEditTree', function(require, _) {
                 // characters between rules may lead to undesired behavior,
                 // especially when current rule is duplicated or used as a donor
                 // to create new rule.
-                // To solve this issue, weâll take only last newline indentation
+                // To solve this issue, we‘ll take only last newline indentation
                 var lines = utils.splitByLines(p.styleBefore);
                 if (lines.length > 1) {
                     p.styleBefore = '\n' + _.last(lines);
@@ -7982,7 +7981,7 @@ emmet.define('xmlEditTree', function(require, _) {
             var attribute = new XMLEditElement(this,
                 editTree.createToken(start + styles.styleBefore.length, name),
                 editTree.createToken(start + styles.styleBefore.length + name.length
-                + styles.styleSeparator.length, value)
+                    + styles.styleSeparator.length, value)
             );
 
             _.extend(attribute, styles);
@@ -8350,7 +8349,7 @@ emmet.define('wrapWithAbbreviation', function(require, _) {
 });/**
  * Toggles HTML and CSS comments depending on current caret context. Unlike
  * the same action in most editors, this action toggles comment on currently
- * matched itemâHTML tag or CSS selectorâwhen nothing is selected.
+ * matched item—HTML tag or CSS selector—when nothing is selected.
  *
  * @param {Function} require
  * @param {Underscore} _
@@ -8424,7 +8423,7 @@ emmet.exec(function(require, _) {
         return _.find(rule.list(), function(item) {
             if (item.range().end === relPos) {
                 // at the end of property, but outside of it
-                // if thereâs a space character at current position,
+                // if there’s a space character at current position,
                 // use current property
                 return reSafeChar.test(rule.source.charAt(relPos));
             }
@@ -8514,9 +8513,9 @@ emmet.exec(function(require, _) {
             // should add comment
             // make sure that there's no comment inside selection
             newContent = commentStart + ' ' +
-            range.substring(content)
-                .replace(new RegExp(utils.escapeForRegexp(commentStart) + '\\s*|\\s*' + utils.escapeForRegexp(commentEnd), 'g'), '') +
-            ' ' + commentEnd;
+                range.substring(content)
+                    .replace(new RegExp(utils.escapeForRegexp(commentStart) + '\\s*|\\s*' + utils.escapeForRegexp(commentEnd), 'g'), '') +
+                ' ' + commentEnd;
 
             // adjust caret position
             caretPos += commentStart.length + 1;
@@ -8569,7 +8568,7 @@ emmet.exec(function(require, _) {
     /**
      * Search for new caret insertion point
      * @param {IEmmetEditor} editor Editor instance
-     * @param {Number} inc Search increment: -1 â search left, 1 â search right
+     * @param {Number} inc Search increment: -1 — search left, 1 — search right
      * @param {Number} offset Initial offset relative to current caret position
      * @return {Number} Returns -1 if insertion point wasn't found
      */
@@ -8949,9 +8948,9 @@ emmet.exec(function(require, _) {
 
         // locate parts of complex values.
         // some examples:
-        // â 1px solid red: 3 parts
-        // â arial, sans-serif: enumeration, 2 parts
-        // â url(image.png): function value part
+        // – 1px solid red: 3 parts
+        // – arial, sans-serif: enumeration, 2 parts
+        // – url(image.png): function value part
         var value = property.value();
         _.each(property.valueParts(), function(r) {
             // add absolute range
@@ -9277,8 +9276,8 @@ emmet.exec(function(require, _) {
 });
 /**
  * Splits or joins tag, e.g. transforms it into a short notation and vice versa:<br>
- * &lt;div&gt;&lt;/div&gt; â &lt;div /&gt; : join<br>
- * &lt;div /&gt; â &lt;div&gt;&lt;/div&gt; : split
+ * &lt;div&gt;&lt;/div&gt; → &lt;div /&gt; : join<br>
+ * &lt;div /&gt; → &lt;div&gt;&lt;/div&gt; : split
  * @param {Function} require
  * @param {Underscore} _
  * @memberOf __splitJoinTagAction
@@ -9435,7 +9434,7 @@ emmet.define('reflectCSSValue', function(require, _) {
      * Returns value that should be reflected for <code>refName</code> CSS property
      * from <code>curName</code> property. This function is used for special cases,
      * when the same result must be achieved with different properties for different
-     * browsers. For example: opĐ°city:0.5; â filter:alpha(opacity=50);<br><br>
+     * browsers. For example: opаcity:0.5; → filter:alpha(opacity=50);<br><br>
      *
      * This function does value conversion between different CSS properties
      *
@@ -9629,10 +9628,10 @@ emmet.exec(function(require, _) {
     prefs.define('css.closeBraceIndentation', '\n',
         'Indentation before closing brace of CSS rule. Some users prefere '
         + 'indented closing brace of CSS rule for better readability. '
-        + 'This preferenceâs value will be automatically inserted before '
+        + 'This preference’s value will be automatically inserted before '
         + 'closing brace when user adds newline in newly created CSS rule '
-        + '(e.g. when âInsert formatted linebreakâ action will be performed '
-        + 'in CSS file). If youâre such user, you may want to write put a value '
+        + '(e.g. when “Insert formatted linebreak” action will be performed '
+        + 'in CSS file). If you’re such user, you may want to write put a value '
         + 'like <code>\\n\\t</code> in this preference.');
 
     /**
@@ -9872,7 +9871,7 @@ emmet.exec(function(require, _) {
             }
 
             b64 = 'data:' + (actionUtils.mimeTypes[String(file.getExt(realImgPath))] || defaultMimeType) +
-            ';base64,' + b64;
+                ';base64,' + b64;
 
             editor.replaceContent('$0' + b64, pos, pos + imgPath.length);
         });
@@ -10002,7 +10001,7 @@ emmet.exec(function(require, _) {
     }
 
     require('actions').add('update_image_size', function(editor) {
-        // this action will definitely wonât work in SASS dialect,
+        // this action will definitely won’t work in SASS dialect,
         // but may work in SCSS or LESS
         if (_.include(['css', 'less', 'scss'], String(editor.getSyntax()))) {
             updateImageSizeCSS(editor);
@@ -10134,23 +10133,23 @@ emmet.define('cssResolver', function(require, _) {
         'Automatically generate vendor-prefixed copies of expanded CSS '
         + 'property. By default, Emmet will generate vendor-prefixed '
         + 'properties only when you put dash before abbreviation '
-        + '(e.g. <code>-bxsh</code>). With this option enabled, you donât '
+        + '(e.g. <code>-bxsh</code>). With this option enabled, you don’t '
         + 'need dashes before abbreviations: Emmet will produce '
         + 'vendor-prefixed properties for you.');
 
     var descTemplate = _.template('A comma-separated list of CSS properties that may have '
-    + '<code><%= vendor %></code> vendor prefix. This list is used to generate '
-    + 'a list of prefixed properties when expanding <code>-property</code> '
-    + 'abbreviations. Empty list means that all possible CSS values may '
-    + 'have <code><%= vendor %></code> prefix.');
+        + '<code><%= vendor %></code> vendor prefix. This list is used to generate '
+        + 'a list of prefixed properties when expanding <code>-property</code> '
+        + 'abbreviations. Empty list means that all possible CSS values may '
+        + 'have <code><%= vendor %></code> prefix.');
 
     var descAddonTemplate = _.template('A comma-separated list of <em>additional</em> CSS properties '
-    + 'for <code>css.<%= vendor %>Preperties</code> preference. '
-    + 'You should use this list if you want to add or remove a few CSS '
-    + 'properties to original set. To add a new property, simply write its name, '
-    + 'to remove it, precede property with hyphen.<br>'
-    + 'For example, to add <em>foo</em> property and remove <em>border-radius</em> one, '
-    + 'the preference value will look like this: <code>foo, -border-radius</code>.');
+        + 'for <code>css.<%= vendor %>Preperties</code> preference. '
+        + 'You should use this list if you want to add or remove a few CSS '
+        + 'properties to original set. To add a new property, simply write its name, '
+        + 'to remove it, precede property with hyphen.<br>'
+        + 'For example, to add <em>foo</em> property and remove <em>border-radius</em> one, '
+        + 'the preference value will look like this: <code>foo, -border-radius</code>.');
 
     // properties list is created from cssFeatures.html file
     var props = {
@@ -10166,7 +10165,7 @@ emmet.define('cssResolver', function(require, _) {
     });
 
     prefs.define('css.unitlessProperties', 'z-index, line-height, opacity, font-weight, zoom',
-        'The list of properties whose values ââmust not contain units.');
+        'The list of properties whose values ​​must not contain units.');
 
     prefs.define('css.intUnit', 'px', 'Default unit for integer values');
     prefs.define('css.floatUnit', 'em', 'Default unit for float values');
@@ -10391,8 +10390,8 @@ emmet.define('cssResolver', function(require, _) {
     function formatProperty(property, syntax) {
         var ix = property.indexOf(':');
         property = property.substring(0, ix).replace(/\s+$/, '')
-        + getSyntaxPreference('valueSeparator', syntax)
-        + require('utils').trim(property.substring(ix + 1));
+            + getSyntaxPreference('valueSeparator', syntax)
+            + require('utils').trim(property.substring(ix + 1));
 
         return property.replace(/\s*;\s*$/, getSyntaxPreference('propertyEnd', syntax));
     }
@@ -10776,7 +10775,7 @@ emmet.define('cssResolver', function(require, _) {
             }
 
             if (!snippet && prefs.get('css.fuzzySearch')) {
-                // letâs try fuzzy search
+                // let’s try fuzzy search
                 snippet = resources.fuzzyFindSnippet(syntax, abbrData.property, parseFloat(prefs.get('css.fuzzySearchMinScore')));
             }
 
@@ -10794,8 +10793,8 @@ emmet.define('cssResolver', function(require, _) {
             var result = [];
             if (!value && abbrData.values) {
                 value = _.map(abbrData.values, function(val) {
-                    return this.normalizeValue(val, snippetObj.name);
-                }, this).join(' ') + ';';
+                        return this.normalizeValue(val, snippetObj.name);
+                    }, this).join(' ') + ';';
             }
 
             snippetObj.value = value || snippetObj.value;
@@ -11085,7 +11084,7 @@ emmet.define('cssGradient', function(require, _) {
         direction = textualDirection(direction);
 
         if(reDeg.test(direction))
-            throw "The direction is an angle that canât be converted.";
+            throw "The direction is an angle that can’t be converted.";
 
         var v = function(pos) {
             return ~direction.indexOf(pos) ? '100%' : '0';
@@ -11330,7 +11329,7 @@ emmet.define('cssGradient', function(require, _) {
             cssProp = cssRule.itemFromPosition(pos, true);
             if (!cssProp) {
                 // in case user just started writing CSS property
-                // and didn't include semicolonâtry another approach
+                // and didn't include semicolon–try another approach
                 cssProp = _.find(cssRule.list(), function(elem) {
                     return elem.range(true).end == pos;
                 });
@@ -11672,7 +11671,7 @@ emmet.define('tagName', function(require, _) {
         },
 
         /**
-         * Adds new parentâchild mapping
+         * Adds new parent–child mapping
          * @param {String} parent
          * @param {String} child
          */
@@ -11735,11 +11734,11 @@ emmet.define('tagName', function(require, _) {
  */
 emmet.exec(function(require, _) {
     var prefs = require('preferences');
-    prefs.define('bem.elementSeparator', '__', 'Class nameâs element separator.');
-    prefs.define('bem.modifierSeparator', '_', 'Class nameâs modifier separator.');
+    prefs.define('bem.elementSeparator', '__', 'Class name’s element separator.');
+    prefs.define('bem.modifierSeparator', '_', 'Class name’s modifier separator.');
     prefs.define('bem.shortElementPrefix', '-',
-        'Symbol for describing short âblock-elementâ notation. Class names '
-        + 'prefixed with this symbol will be treated as element name for parentâs '
+        'Symbol for describing short “block-element” notation. Class names '
+        + 'prefixed with this symbol will be treated as element name for parent‘s '
         + 'block name. Each symbol instance traverses one level up in parsed '
         + 'tree for block name lookup. Empty value will disable short notation.');
 
@@ -11778,8 +11777,8 @@ emmet.exec(function(require, _) {
         if (!item.__bem.block) {
             reBlockName = /^[a-z]/i;
             item.__bem.block = _.find(classNames, function(name) {
-                return reBlockName.test(name);
-            }) || '';
+                    return reBlockName.test(name);
+                }) || '';
         }
 
         classNames = _.chain(classNames)
@@ -11937,16 +11936,16 @@ emmet.exec(function(require, _) {
      * It does several things:<br>
      * <ul>
      * <li>Expands complex class name (according to BEM symbol semantics):
-     * .block__elem_modifier â .block.block__elem.block__elem_modifier
+     * .block__elem_modifier → .block.block__elem.block__elem_modifier
      * </li>
      * <li>Inherits block name on child elements:
-     * .b-block > .__el > .__el â .b-block > .b-block__el > .b-block__el__el
+     * .b-block > .__el > .__el → .b-block > .b-block__el > .b-block__el__el
      * </li>
      * <li>Treats first dash symbol as '__'</li>
-     * <li>Double underscore (or typographic 'â') is also treated as an element
-     * level lookup, e.g. ____el will search for element definition in parentâs
+     * <li>Double underscore (or typographic '–') is also treated as an element
+     * level lookup, e.g. ____el will search for element definition in parent’s
      * parent element:
-     * .b-block > .__el1 > .____el2 â .b-block > .b-block__el1 > .b-block__el2
+     * .b-block > .__el1 > .____el2 → .b-block > .b-block__el1 > .b-block__el2
      * </li>
      * </ul>
      *
@@ -12003,16 +12002,16 @@ emmet.exec(function(require, _) {
         + 'the following properties and functions are availabe:\n'
         + '<ul>'
 
-        + '<li><code>attr(name, before, after)</code> â a function that outputs'
+        + '<li><code>attr(name, before, after)</code> – a function that outputs'
         + 'specified attribute value concatenated with <code>before</code> '
         + 'and <code>after</code> strings. If attribute doesn\'t exists, the '
         + 'empty string will be returned.</li>'
 
-        + '<li><code>node</code> â current node (instance of <code>AbbreviationNode</code>)</li>'
+        + '<li><code>node</code> – current node (instance of <code>AbbreviationNode</code>)</li>'
 
-        + '<li><code>name</code> â name of current tag</li>'
+        + '<li><code>name</code> – name of current tag</li>'
 
-        + '<li><code>padding</code> â current string padding, can be used '
+        + '<li><code>padding</code> – current string padding, can be used '
         + 'for formatting</li>'
 
         +'</ul>');
@@ -12223,7 +12222,7 @@ emmet.exec(function(require, _){
     function processSnippet(item, profile, level) {
         item.start = item.end = '';
         if (!isVeryFirstChild(item) && profile.tag_nl !== false && shouldAddLineBreak(item, profile)) {
-            // check if weâre not inside inline element
+            // check if we’re not inside inline element
             if (isRoot(item.parent) || !require('abbreviationUtils').isInline(item.parent)) {
                 item.start = require('utils').getNewline() + item.start;
             }
@@ -12658,11 +12657,11 @@ emmet.exec(function(require, _) {
  * https://code.djangoproject.com/browser/django/trunk/django/contrib/webdesign/lorem_ipsum.py
  * <br><br>
  * Examples to test:<br>
- * <code>lipsum</code> â generates 30 words text.<br>
- * <code>lipsum*6</code> â generates 6 paragraphs (autowrapped with &lt;p&gt; element) of text.<br>
- * <code>ol>lipsum10*5</code> â generates ordered list with 5 list items (autowrapped with &lt;li&gt; tag)
+ * <code>lipsum</code> – generates 30 words text.<br>
+ * <code>lipsum*6</code> – generates 6 paragraphs (autowrapped with &lt;p&gt; element) of text.<br>
+ * <code>ol>lipsum10*5</code> — generates ordered list with 5 list items (autowrapped with &lt;li&gt; tag)
  * with text of 10 words on each line<br>
- * <code>span*3>lipsum20</code> â generates 3 paragraphs of 20-words text, each wrapped with &lt;span&gt; element .
+ * <code>span*3>lipsum20</code> – generates 3 paragraphs of 20-words text, each wrapped with &lt;span&gt; element .
  * Each paragraph phrase is unique
  * @param {Function} require
  * @param {Underscore} _
@@ -12704,33 +12703,33 @@ emmet.define('lorem', function(require, _) {
                 'maxime', 'corrupti']
         },
         ru: {
-            common: ['Đ´Đ°ĐťĐľĐşĐž-Đ´Đ°ĐťĐľĐşĐž', 'ĐˇĐ°', 'ŃĐťĐžĐ˛ĐľŃĐ˝ŃĐźĐ¸', 'ĐłĐžŃĐ°ĐźĐ¸', 'Đ˛ ŃŃŃĐ°Đ˝Đľ', 'ĐłĐťĐ°ŃĐ˝ŃŃ', 'Đ¸ ŃĐžĐłĐťĐ°ŃĐ˝ŃŃ', 'ĐśĐ¸Đ˛ŃŃ', 'ŃŃĐąĐ˝ŃĐľ', 'ŃĐľĐşŃŃŃ'],
-            words: ['Đ˛Đ´Đ°ĐťĐ¸', 'ĐžŃ Đ˛ŃĐľŃ', 'ĐžĐ˝Đ¸', 'ĐąŃĐşĐ˛ĐľĐ˝Đ˝ŃŃ', 'Đ´ĐžĐźĐ°Ń', 'Đ˝Đ° ĐąĐľŃĐľĐłŃ', 'ŃĐľĐźĐ°Đ˝ŃĐ¸ĐşĐ°',
-                'ĐąĐžĐťŃŃĐžĐłĐž', 'ŃĐˇŃĐşĐžĐ˛ĐžĐłĐž', 'ĐžĐşĐľĐ°Đ˝Đ°', 'ĐźĐ°ĐťĐľĐ˝ŃĐşĐ¸Đš', 'ŃŃŃĐľĐľĐş', 'Đ´Đ°ĐťŃ',
-                'ĐśŃŃŃĐ¸Ń', 'ĐżĐž Đ˛ŃĐľĐš', 'ĐžĐąĐľŃĐżĐľŃĐ¸Đ˛Đ°ĐľŃ', 'ĐľĐľ','Đ˛ŃĐľĐźĐ¸', 'Đ˝ĐľĐžĐąŃĐžĐ´Đ¸ĐźŃĐźĐ¸',
-                'ĐżŃĐ°Đ˛Đ¸ĐťĐ°ĐźĐ¸', 'ŃŃĐ°', 'ĐżĐ°ŃĐ°Đ´Đ¸ĐłĐźĐ°ŃĐ¸ŃĐľŃĐşĐ°Ń', 'ŃŃŃĐ°Đ˝Đ°', 'ĐşĐžŃĐžŃĐžĐš', 'ĐśĐ°ŃĐľĐ˝Đ˝ŃĐľ',
-                'ĐżŃĐľĐ´ĐťĐžĐśĐľĐ˝Đ¸Ń', 'ĐˇĐ°ĐťĐľŃĐ°ŃŃ', 'ĐżŃŃĐźĐž', 'ŃĐžŃ', 'Đ´Đ°ĐśĐľ', 'Đ˛ŃĐľĐźĐžĐłŃŃĐ°Ń',
-                'ĐżŃĐ˝ĐşŃŃĐ°ŃĐ¸Ń', 'Đ˝Đľ', 'Đ¸ĐźĐľĐľŃ', 'Đ˛ĐťĐ°ŃŃĐ¸', 'Đ˝Đ°Đ´', 'ŃŃĐąĐ˝ŃĐźĐ¸', 'ŃĐľĐşŃŃĐ°ĐźĐ¸',
-                'Đ˛ĐľĐ´ŃŃĐ¸ĐźĐ¸', 'ĐąĐľĐˇĐžŃŃĐžĐłŃĐ°ŃĐ¸ŃĐ˝ŃĐš', 'ĐžĐąŃĐ°Đˇ', 'ĐśĐ¸ĐˇĐ˝Đ¸', 'ĐžĐ´Đ˝Đ°ĐśĐ´Ń', 'ĐžĐ´Đ˝Đ°',
-                'ĐźĐ°ĐťĐľĐ˝ŃĐşĐ°Ń', 'ŃŃŃĐžŃĐşĐ°','ŃŃĐąĐ˝ĐžĐłĐž', 'ŃĐľĐşŃŃĐ°', 'Đ¸ĐźĐľĐ˝Đ¸', 'lorem', 'ipsum',
-                'ŃĐľŃĐ¸ĐťĐ°', 'Đ˛ŃĐšŃĐ¸', 'ĐąĐžĐťŃŃĐžĐš', 'ĐźĐ¸Ń', 'ĐłŃĐ°ĐźĐźĐ°ŃĐ¸ĐşĐ¸', 'Đ˛ĐľĐťĐ¸ĐşĐ¸Đš', 'ĐžĐşŃĐźĐžĐşŃ',
-                'ĐżŃĐľĐ´ŃĐżŃĐľĐśĐ´Đ°Đť', 'Đž', 'ĐˇĐťŃŃ', 'ĐˇĐ°ĐżŃŃŃŃ', 'Đ´Đ¸ĐşĐ¸Ń', 'ĐˇĐ˝Đ°ĐşĐ°Ń', 'Đ˛ĐžĐżŃĐžŃĐ°',
-                'ĐşĐžĐ˛Đ°ŃĐ˝ŃŃ', 'ŃĐžŃĐşĐ°Ń', 'ĐˇĐ°ĐżŃŃĐžĐš', 'Đ˝Đž', 'ŃĐľĐşŃŃ', 'Đ´Đ°Đť', 'ŃĐąĐ¸ŃŃ',
-                'ŃĐľĐąŃ', 'ŃĐžĐťĐşŃ', 'ĐžĐ˝', 'ŃĐžĐąŃĐ°Đť', 'ŃĐľĐźŃ', 'ŃĐ˛ĐžĐ¸Ń', 'ĐˇĐ°ĐłĐťĐ°Đ˛Đ˝ŃŃ', 'ĐąŃĐşĐ˛',
-                'ĐżĐžĐ´ĐżĐžŃŃĐ°Đť', 'Đ¸Đ˝Đ¸ŃĐ¸Đ°Đť', 'ĐˇĐ°', 'ĐżĐžŃŃ', 'ĐżŃŃŃĐ¸ĐťŃŃ', 'Đ´ĐžŃĐžĐłŃ',
-                'Đ˛ĐˇĐžĐąŃĐ°Đ˛ŃĐ¸ŃŃ', 'ĐżĐľŃĐ˛ŃŃ', 'Đ˛ĐľŃŃĐ¸Đ˝Ń', 'ĐşŃŃŃĐ¸Đ˛Đ˝ŃŃ', 'ĐłĐžŃ', 'ĐąŃĐžŃĐ¸Đť',
-                'ĐżĐžŃĐťĐľĐ´Đ˝Đ¸Đš', 'Đ˛ĐˇĐłĐťŃĐ´', 'Đ˝Đ°ĐˇĐ°Đ´', 'ŃĐ¸ĐťŃŃŃ', 'ŃĐ˛ĐžĐľĐłĐž', 'ŃĐžĐ´Đ˝ĐžĐłĐž', 'ĐłĐžŃĐžĐ´Đ°',
-                'ĐąŃĐşĐ˛ĐžĐłŃĐ°Đ´', 'ĐˇĐ°ĐłĐžĐťĐžĐ˛ĐžĐş', 'Đ´ĐľŃĐľĐ˛Đ˝Đ¸', 'Đ°ĐťŃĐ°Đ˛Đ¸Ń', 'ĐżĐžĐ´ĐˇĐ°ĐłĐžĐťĐžĐ˛ĐžĐş', 'ŃĐ˛ĐžĐľĐłĐž',
-                'ĐżĐľŃĐľŃĐťĐşĐ°', 'ĐłŃŃŃŃĐ˝ŃĐš', 'ŃĐľŃĐžŃĐ¸ŃĐľŃĐşĐ¸Đš', 'Đ˛ĐžĐżŃĐžŃ', 'ŃĐşĐ°ŃĐ¸ĐťŃŃ', 'ĐľĐłĐž',
-                'ŃĐľĐşĐľ', 'ĐżŃĐžĐ´ĐžĐťĐśĐ¸Đť', 'ŃĐ˛ĐžĐš', 'ĐżŃŃŃ', 'Đ´ĐžŃĐžĐłĐľ', 'Đ˛ŃŃŃĐľŃĐ¸Đť', 'ŃŃĐşĐžĐżĐ¸ŃŃ',
-                'ĐžĐ˝Đ°', 'ĐżŃĐľĐ´ŃĐżŃĐľĐ´Đ¸ĐťĐ°',  'ĐźĐžĐľĐš', 'Đ˛ŃĐľ', 'ĐżĐľŃĐľĐżĐ¸ŃŃĐ˛Đ°ĐľŃŃŃ', 'Đ˝ĐľŃĐşĐžĐťŃĐşĐž',
-                'ŃĐ°Đˇ', 'ĐľĐ´Đ¸Đ˝ŃŃĐ˛ĐľĐ˝Đ˝ĐžĐľ', 'ŃŃĐž', 'ĐźĐľĐ˝Ń', 'ĐžŃŃĐ°ĐťĐžŃŃ', 'ŃŃĐž', 'ĐżŃĐ¸ŃŃĐ°Đ˛ĐşĐ°',
-                'Đ˛ĐžĐˇĐ˛ŃĐ°ŃĐ°ĐšŃŃ', 'ŃŃ', 'ĐťŃŃŃĐľ', 'ŃĐ˛ĐžŃ', 'ĐąĐľĐˇĐžĐżĐ°ŃĐ˝ŃŃ', 'ŃŃŃĐ°Đ˝Ń', 'ĐżĐžŃĐťŃŃĐ°Đ˛ŃĐ¸ŃŃ',
-                'ŃŃĐşĐžĐżĐ¸ŃĐ¸', 'Đ˝Đ°Ń', 'ĐżŃĐžĐ´ĐžĐťĐśĐ¸Đť', 'ŃĐ˛ĐžĐš', 'ĐżŃŃŃ', 'Đ˛ŃĐşĐžŃĐľ', 'ĐľĐźŃ',
-                'ĐżĐžĐ˛ŃŃŃĐľŃĐ°ĐťŃŃ', 'ĐşĐžĐ˛Đ°ŃĐ˝ŃĐš', 'ŃĐžŃŃĐ°Đ˛Đ¸ŃĐľĐťŃ', 'ŃĐľĐşĐťĐ°ĐźĐ˝ŃŃ', 'ŃĐľĐşŃŃĐžĐ˛',
-                'Đ˝Đ°ĐżĐžĐ¸Đ˛ŃĐ¸Đš', 'ŃĐˇŃĐşĐžĐź', 'ŃĐľŃŃŃ', 'ĐˇĐ°ĐźĐ°Đ˝Đ¸Đ˛ŃĐ¸Đš', 'ŃĐ˛ĐžĐľ', 'Đ°ĐłĐľĐ˝ŃŃĐ˛Đž',
-                'ĐşĐžŃĐžŃĐžĐľ', 'Đ¸ŃĐżĐžĐťŃĐˇĐžĐ˛Đ°ĐťĐž', 'ŃĐ˝ĐžĐ˛Đ°', 'ŃĐ˝ĐžĐ˛Đ°', 'ŃĐ˛ĐžĐ¸Ń', 'ĐżŃĐžĐľĐşŃĐ°Ń',
-                'ĐľŃĐťĐ¸', 'ĐżĐľŃĐľĐżĐ¸ŃĐ°ĐťĐ¸', 'ŃĐž', 'ĐśĐ¸Đ˛ĐľŃ', 'ŃĐ°Đź', 'Đ´Đž', 'ŃĐ¸Ń', 'ĐżĐžŃ']
+            common: ['далеко-далеко', 'за', 'словесными', 'горами', 'в стране', 'гласных', 'и согласных', 'живут', 'рыбные', 'тексты'],
+            words: ['вдали', 'от всех', 'они', 'буквенных', 'домах', 'на берегу', 'семантика',
+                'большого', 'языкового', 'океана', 'маленький', 'ручеек', 'даль',
+                'журчит', 'по всей', 'обеспечивает', 'ее','всеми', 'необходимыми',
+                'правилами', 'эта', 'парадигматическая', 'страна', 'которой', 'жаренные',
+                'предложения', 'залетают', 'прямо', 'рот', 'даже', 'всемогущая',
+                'пунктуация', 'не', 'имеет', 'власти', 'над', 'рыбными', 'текстами',
+                'ведущими', 'безорфографичный', 'образ', 'жизни', 'однажды', 'одна',
+                'маленькая', 'строчка','рыбного', 'текста', 'имени', 'lorem', 'ipsum',
+                'решила', 'выйти', 'большой', 'мир', 'грамматики', 'великий', 'оксмокс',
+                'предупреждал', 'о', 'злых', 'запятых', 'диких', 'знаках', 'вопроса',
+                'коварных', 'точках', 'запятой', 'но', 'текст', 'дал', 'сбить',
+                'себя', 'толку', 'он', 'собрал', 'семь', 'своих', 'заглавных', 'букв',
+                'подпоясал', 'инициал', 'за', 'пояс', 'пустился', 'дорогу',
+                'взобравшись', 'первую', 'вершину', 'курсивных', 'гор', 'бросил',
+                'последний', 'взгляд', 'назад', 'силуэт', 'своего', 'родного', 'города',
+                'буквоград', 'заголовок', 'деревни', 'алфавит', 'подзаголовок', 'своего',
+                'переулка', 'грустный', 'реторический', 'вопрос', 'скатился', 'его',
+                'щеке', 'продолжил', 'свой', 'путь', 'дороге', 'встретил', 'рукопись',
+                'она', 'предупредила',  'моей', 'все', 'переписывается', 'несколько',
+                'раз', 'единственное', 'что', 'меня', 'осталось', 'это', 'приставка',
+                'возвращайся', 'ты', 'лучше', 'свою', 'безопасную', 'страну', 'послушавшись',
+                'рукописи', 'наш', 'продолжил', 'свой', 'путь', 'вскоре', 'ему',
+                'повстречался', 'коварный', 'составитель', 'рекламных', 'текстов',
+                'напоивший', 'языком', 'речью', 'заманивший', 'свое', 'агенство',
+                'которое', 'использовало', 'снова', 'снова', 'своих', 'проектах',
+                'если', 'переписали', 'то', 'живет', 'там', 'до', 'сих', 'пор']
         }
     };
 

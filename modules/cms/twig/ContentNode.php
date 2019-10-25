@@ -1,8 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
-use Twig_NodeInterface;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a content node
@@ -10,9 +9,9 @@ use Twig_NodeInterface;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class ContentNode extends Twig_Node
+class ContentNode extends TwigNode
 {
-    public function __construct(Twig_NodeInterface $nodes, $paramNames, $lineno, $tag = 'content')
+    public function __construct(TwigNode $nodes, $paramNames, $lineno, $tag = 'content')
     {
         parent::__construct(['nodes' => $nodes], ['names' => $paramNames], $lineno, $tag);
     }
@@ -20,9 +19,9 @@ class ContentNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $compiler->addDebugInfo($this);
 
@@ -37,7 +36,7 @@ class ContentNode extends Twig_Node
         }
 
         $compiler
-            ->write("echo \$this->env->getExtension('CMS')->contentFunction(")
+            ->write("echo \$this->env->getExtension('Cms\Twig\Extension')->contentFunction(")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", \$context['__cms_content_params']")
             ->write(");\n")

@@ -1,7 +1,7 @@
 <?php namespace System\Twig;
 
-use Twig_Environment;
-use Illuminate\View\Engines\EngineInterface;
+use Twig\Environment as TwigEnvironment;
+use Illuminate\Contracts\View\Engine as EngineInterface;
 
 /**
  * View engine used by the system, used for converting .htm files to twig.
@@ -12,14 +12,14 @@ use Illuminate\View\Engines\EngineInterface;
 class Engine implements EngineInterface
 {
     /**
-     * @var Twig_Environment
+     * @var TwigEnvironment
      */
     protected $environment;
 
     /**
      * Constructor
      */
-    public function __construct(Twig_Environment $environment)
+    public function __construct(TwigEnvironment $environment)
     {
         $this->environment = $environment;
     }

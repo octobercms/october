@@ -1,0 +1,151 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        sender_name:
+            label: system::lang.mail.sender_name
+            span: auto
+            tab: system::lang.mail.general
+
+        sender_email:
+            label: system::lang.mail.sender_email
+            span: auto
+            tab: system::lang.mail.general
+
+        send_mode:
+            label: system::lang.mail.method
+            type: dropdown
+            tab: system::lang.mail.general
+
+        drivers_hint:
+            type: partial
+            path: ~/modules/system/models/mailsetting/_drivers_hint.htm
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mandrill][mailgun][ses]
+
+        smtp_address:
+            label: system::lang.mail.smtp_address
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_port:
+            label: system::lang.mail.smtp_port
+            tab: system::lang.mail.general
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_encryption:
+            type: dropdown
+            label: system::lang.mail.smtp_encryption
+            tab: system::lang.mail.general
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_authorization:
+            type: checkbox
+            label: system::lang.mail.smtp_authorization
+            tab: system::lang.mail.general
+            comment: system::lang.mail.smtp_authorization_comment
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_user:
+            label: system::lang.mail.smtp_username
+            tab: system::lang.mail.general
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_password:
+            label: system::lang.mail.smtp_password
+            tab: system::lang.mail.general
+            span: right
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        sendmail_path:
+            label: system::lang.mail.sendmail_path
+            commentAbove: system::lang.mail.sendmail_path_comment
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[sendmail]
+
+        mailgun_domain:
+            label: system::lang.mail.mailgun_domain
+            commentAbove: system::lang.mail.mailgun_domain_comment
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mailgun]
+
+        mailgun_secret:
+            label: system::lang.mail.mailgun_secret
+            commentAbove: system::lang.mail.mailgun_secret_comment
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mailgun]
+
+        mandrill_secret:
+            label: system::lang.mail.mandrill_secret
+            commentAbove: system::lang.mail.mandrill_secret_comment
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mandrill]
+
+        ses_key:
+          label: system::lang.mail.ses_key
+          commentAbove: system::lang.mail.ses_key_comment
+          tab: system::lang.mail.general
+          span: left
+          trigger:
+            action: show
+            field: send_mode
+            condition: value[ses]
+
+        ses_secret:
+          label: system::lang.mail.ses_secret
+          commentAbove: system::lang.mail.ses_secret_comment
+          tab: system::lang.mail.general
+          span: right
+          trigger:
+            action: show
+            field: send_mode
+            condition: value[ses]
+
+        ses_region:
+          label: system::lang.mail.ses_region
+          commentAbove: system::lang.mail.ses_region_comment
+          tab: system::lang.mail.general
+          span: left
+          trigger:
+            action: show
+            field: send_mode
+            condition: value[ses]

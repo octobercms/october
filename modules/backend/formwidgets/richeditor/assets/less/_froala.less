@@ -1,0 +1,183 @@
+//
+// Mods to Froala Editor
+//
+
+// Give soft priority to all styles
+body {
+
+    //
+    // Wrapper
+    //
+
+    .fr-box.fr-basic.fr-top .fr-wrapper,
+    .fr-box.fr-basic.fr-bottom .fr-wrapper {
+        .box-shadow(none);
+    }
+
+    //
+    // Code mode
+    //
+
+    .fr-box {
+        .ace_editor {
+            display: none;
+        }
+        .ace_editor {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+        }
+
+        &.fr-code-view .ace_editor {
+            display: block;
+        }
+    }
+
+    //
+    // Full screen
+    //
+
+    .fr-command.fr-btn[data-cmd=fullscreen] {
+        float: right;
+    }
+
+    .fr-box.fr-fullscreen {
+        z-index: @zindex-fullscreen !important;
+    }
+
+    //
+    // Toolbar
+    //
+
+    .fr-toolbar {
+        border-top-color: transparent;
+        background: #f2f2f2;
+    }
+
+    .fr-popup.fr-desktop,
+    .fr-toolbar.fr-inline.fr-desktop {
+        .fr-arrow {
+            top: -@arrow-size;
+        }
+
+        &.fr-above {
+            .fr-arrow {
+               bottom: -@arrow-size;
+            }
+        }
+    }
+
+    // Command button.
+    .fr-toolbar, .fr-popup {
+        .fr-command.fr-btn {
+            // Dropdown is visible.
+            &.fr-dropdown.fr-active {
+                color: @btn-active-text;
+            }
+        }
+    }
+
+    .fr-toolbar.fr-bottom,
+    .fr-toolbar.fr-top {
+        border-bottom: 2px solid @color-list-border;
+        .box-shadow(none);
+    }
+
+    //
+    // Popup Buttons
+    //
+
+    .fr-popup .fr-action-buttons {
+        button.fr-command {
+            .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+            .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border; @btn-primary-bg; @btn-primary-bg);
+
+            margin-top: 6px;
+
+            font-size: @font-size-base - 1;
+            text-align: left;
+            height: auto;
+            outline: none !important;
+            .box-shadow(~"inset 0 -2px 0 rgba(0,0,0,.15)");
+
+            &[disabled] {
+                color: rgba(255,255,255,.6);
+            }
+
+            &.active,
+            &:active {
+                .box-shadow(inset 0 1px 0 rgba(0,0,0,.3));
+            }
+        }
+    }
+
+    //
+    // Popup Toolbar
+    //
+
+    .fr-popup .fr-buttons {
+        border-bottom: 2px solid @color-list-border;
+        .box-shadow(none);
+    }
+
+    //
+    // Dropdown
+    //
+
+    .fr-command.fr-btn + .fr-dropdown-menu {
+        .fr-dropdown-wrapper .fr-dropdown-content ul.fr-dropdown-list li {
+            font-size: @font-size-base;
+            a {
+                color: #666666;
+            }
+        }
+    }
+
+    //
+    // Inputs
+    //
+
+    .fr-popup .fr-input-line {
+
+        input[type="text"], textarea {
+            -webkit-appearance: none;
+            border: 1px solid @input-border;
+            background-color: @input-bg;
+            color: @input-color;
+            margin-bottom: 0;
+            .box-shadow(@input-box-shadow);
+            .input-size(@input-height-small; @padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+            .transition(margin @transition-timing);
+
+            &:focus {
+                border: 1px solid @input-border;
+            }
+
+            &.fr-not-empty {
+                margin-top: 12px;
+            }
+        }
+
+        textarea {
+            height: auto;
+        }
+        
+        input + label, textarea + label {
+            background: transparent!important;
+        }
+
+        input.fr-not-empty:focus + label, textarea.fr-not-empty:focus + label {
+            color: @color-label;
+        }
+    }
+
+    .fr-popup .fr-checkbox {
+        span {
+            border-color: @input-border;
+        }
+    }
+
+}

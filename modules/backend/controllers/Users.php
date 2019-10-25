@@ -1,5 +1,7 @@
 <?php namespace Backend\Controllers;
 
+use Lang;
+use Flash;
 use Backend;
 use Redirect;
 use BackendMenu;
@@ -17,18 +19,37 @@ use System\Classes\SettingsManager;
  */
 class Users extends Controller
 {
+    /**
+     * @var array Extensions implemented by this controller.
+     */
     public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController'
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\ListController::class
     ];
 
+    /**
+     * @var array `FormController` configuration.
+     */
     public $formConfig = 'config_form.yaml';
+
+    /**
+     * @var array `ListController` configuration.
+     */
     public $listConfig = 'config_list.yaml';
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = ['backend.manage_users'];
 
+    /**
+     * @var string HTML body tag class
+     */
     public $bodyClass = 'compact-container';
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -42,6 +63,49 @@ class Users extends Controller
     }
 
     /**
+     * Extends the list query to hide superusers if the current user is not a superuser themselves
+     */
+    public function listExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
+    }
+
+    /**
+     * Prevents non-superusers from even seeing the is_superuser filter
+     */
+    public function listFilterExtendScopes($filterWidget)
+    {
+        if (!$this->user->isSuperUser()) {
+            $filterWidget->removeScope('is_superuser');
+        }
+    }
+
+    /**
+     * Strike out deleted records
+     */
+    public function listInjectRowClass($record, $definition = null)
+    {
+        if ($record->trashed()) {
+            return 'strike';
+        }
+    }
+
+    /**
+     * Extends the form query to prevent non-superusers from accessing superusers at all
+     */
+    public function formExtendQuery($query)
+    {
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+        }
+
+        // Ensure soft-deleted records can still be managed
+        $query->withTrashed();
+    }
+
+    /**
      * Update controller
      */
     public function update($recordId, $context = null)
@@ -52,6 +116,36 @@ class Users extends Controller
         }
 
         return $this->asExtension('FormController')->update($recordId, $context);
+    }
+
+    /**
+     * Handle restoring users
+     */
+    public function update_onRestore($recordId)
+    {
+        $this->formFindModelObject($recordId)->restore();
+
+        Flash::success(Lang::get('backend::lang.form.restore_success', ['name' => Lang::get('backend::lang.user.name')]));
+
+        return Redirect::refresh();
+    }
+
+    /**
+     * Impersonate this user
+     */
+    public function update_onImpersonateUser($recordId)
+    {
+        if (!$this->user->hasAccess('backend.impersonate_users')) {
+            return Response::make(Lang::get('backend::lang.page.access_denied.label'), 403);
+        }
+
+        $model = $this->formFindModelObject($recordId);
+
+        BackendAuth::impersonate($model);
+
+        Flash::success(Lang::get('backend::lang.account.impersonate_success'));
+
+        return Backend::redirect('backend/users/myaccount');
     }
 
     /**
@@ -88,16 +182,20 @@ class Users extends Controller
      * Add available permission fields to the User form.
      * Mark default groups as checked for new Users.
      */
-    protected function formExtendFields($form)
+    public function formExtendFields($form)
     {
         if ($form->getContext() == 'myaccount') {
             return;
         }
 
+        if (!$this->user->isSuperUser()) {
+            $form->removeField('is_superuser');
+        }
+
         /*
          * Add permissions tab
          */
-        $form->addTabFields($this->generatePermissionFields());
+        $form->addTabFields($this->generatePermissionsField());
 
         /*
          * Mark default groups
@@ -106,57 +204,28 @@ class Users extends Controller
             $defaultGroupIds = UserGroup::where('is_new_user_default', true)->lists('id');
 
             $groupField = $form->getField('groups');
-            $groupField->value = $defaultGroupIds;
+            if ($groupField) {
+                $groupField->value = $defaultGroupIds;
+            }
         }
     }
 
     /**
-     * Generates an array of form fields to assign permissions provided
-     * by the system.
+     * Adds the permissions editor widget to the form.
      * @return array
      */
-    protected function generatePermissionFields()
+    protected function generatePermissionsField()
     {
-        $permissionFields = [];
-
-        foreach (BackendAuth::listTabbedPermissions() as $tab => $permissions) {
-
-            $fieldName = 'permissions_'.snake_case($tab).'_section';
-            $fieldConfig = [
-                'label' => $tab,
-                'type' => 'section',
+        return [
+            'permissions' => [
                 'tab' => 'backend::lang.user.permissions',
-                'containerAttributes' => [
-                    'data-field-collapsible' => 1
-                ],
-            ];
-
-            $permissionFields[$fieldName] = $fieldConfig;
-
-            foreach ($permissions as $permission) {
-                $fieldName = 'permissions['.$permission->code.']';
-                $fieldConfig = [
-                    'label' => $permission->label,
-                    'comment' => $permission->comment,
-                    'type' => 'balloon-selector',
-                    'options' => [
-                        1 => 'backend::lang.user.allow',
-                        0 => 'backend::lang.user.inherit',
-                        -1 => 'backend::lang.user.deny',
-                    ],
-                    'trigger' => [
-                        'action' => 'disable',
-                        'field' => 'permissions[superuser]',
-                        'condition' => 'checked'
-                    ],
-                    'span' => 'auto',
-                    'tab' => 'backend::lang.user.permissions',
-                ];
-
-                $permissionFields[$fieldName] = $fieldConfig;
-            }
-        }
-
-        return $permissionFields;
+                'type' => 'Backend\FormWidgets\PermissionEditor',
+                'trigger' => [
+                    'action' => 'disable',
+                    'field' => 'is_superuser',
+                    'condition' => 'checked'
+                ]
+            ]
+        ];
     }
 }

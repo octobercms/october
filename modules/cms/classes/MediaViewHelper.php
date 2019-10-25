@@ -1,5 +1,7 @@
 <?php namespace Cms\Classes;
 
+use ApplicationException;
+
 /**
  * Helper class for processing video and audio tags inserted by the Media Manager.
  *
@@ -26,7 +28,7 @@ class MediaViewHelper
         $mediaTags = $this->extractMediaTags($html);
         foreach ($mediaTags as $tagInfo) {
             $pattern = preg_quote($tagInfo['declaration']);
-            $generatedMarkup = $this->generateMediaTagaMarkup($tagInfo['type'], $tagInfo['src']);
+            $generatedMarkup = $this->generateMediaTagMarkup($tagInfo['type'], $tagInfo['src']);
             $html = mb_ereg_replace($pattern, $generatedMarkup, $html);
         }
 
@@ -61,7 +63,7 @@ class MediaViewHelper
         return $result;
     }
 
-    protected function generateMediaTagaMarkup($type, $src)
+    protected function generateMediaTagMarkup($type, $src)
     {
         $partialName = $type == 'audio' ? 'oc-audio-player' : 'oc-video-player';
 
@@ -80,7 +82,7 @@ class MediaViewHelper
 
         $controller = Controller::getController();
         if (!$controller) {
-            throw new Phpr_ApplicationException('Media tags can only be processed for front-end requests.');
+            throw new ApplicationException('Media tags can only be processed for front-end requests.');
         }
 
         $partial = Partial::loadCached($controller->getTheme(), $name);
@@ -92,13 +94,12 @@ class MediaViewHelper
     {
         switch ($type) {
             case 'video':
-                return '<video src="'.e($src).'" controls></video>';
+                return '<video src="'.e($src).'" controls preload="metadata"></video>';
             break;
 
             case 'audio':
-                return '<audio src="'.e($src).'" controls></audio>';
+                return '<audio src="'.e($src).'" controls preload="metadata"></audio>';
             break;
         }
     }
-
 }

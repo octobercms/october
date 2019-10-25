@@ -3,7 +3,6 @@
 use Lang;
 use Flash;
 use Backend;
-use Redirect;
 use BackendMenu;
 use System\Classes\SettingsManager;
 use Backend\Classes\Controller;
@@ -24,14 +23,20 @@ class Settings extends Controller
      */
     protected $formWidget;
 
+    /**
+     * @var array Permissions required to view this page.
+     */
     public $requiredPermissions = [];
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
 
-        if ($this->action == 'mysettings') {
-            $this->requiredPermissions = null;
+        if ($this->action == 'backend_preferences') {
+            $this->requiredPermissions = ['backend.manage_preferences'];
         }
 
         $this->addCss('/modules/system/assets/css/settings/settings.css', 'core');
@@ -117,6 +122,8 @@ class Settings extends Controller
         $model = $this->createModel($item);
         $model->resetDefault();
 
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
+
         return Backend::redirect('system/settings/update/'.$author.'/'.$plugin.'/'.$code);
     }
 
@@ -158,8 +165,7 @@ class Settings extends Controller
         }
 
         $class = $item->class;
-        $model = $class::instance();
-        return $model;
+        return $class::instance();
     }
 
     /**

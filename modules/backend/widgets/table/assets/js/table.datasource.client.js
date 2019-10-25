@@ -49,7 +49,8 @@
         if (!count) {
             // Return all records
             onSuccess(this.data, this.data.length)
-        } else {
+        }
+        else {
             // Return a subset of records
             onSuccess(this.data.slice(offset, offset+count), this.data.length)
         }
@@ -115,7 +116,7 @@
      *
      * The onSuccess callback parameters: records, totalCount.
      */
-    Base.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
+    Client.prototype.deleteRecord = function(key, newRecordData, offset, count, onSuccess) {
         var recordIndex = this.getIndexOfKey(key)
 
         if (recordIndex !== -1) {

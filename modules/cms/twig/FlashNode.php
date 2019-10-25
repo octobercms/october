@@ -1,9 +1,7 @@
 <?php namespace Cms\Twig;
 
-use Twig_Node;
-use Twig_Compiler;
-use Twig_NodeInterface;
-use Twig_Node_Expression;
+use Twig\Node\Node as TwigNode;
+use Twig\Compiler as TwigCompiler;
 
 /**
  * Represents a flash node
@@ -11,9 +9,9 @@ use Twig_Node_Expression;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class FlashNode extends Twig_Node
+class FlashNode extends TwigNode
 {
-    public function __construct($name, Twig_NodeInterface $body, $lineno, $tag = 'flash')
+    public function __construct($name, TwigNode $body, $lineno, $tag = 'flash')
     {
         parent::__construct(['body' => $body], ['name' => $name], $lineno, $tag);
     }
@@ -21,9 +19,9 @@ class FlashNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler $compiler A Twig_Compiler instance
+     * @param TwigCompiler $compiler A TwigCompiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(TwigCompiler $compiler)
     {
         $attrib = $this->getAttribute('name');
 
@@ -35,11 +33,15 @@ class FlashNode extends Twig_Node
         if ($attrib == 'all') {
             $compiler
                 ->addDebugInfo($this)
-                ->write('foreach (Flash::all() as $type => $message) {'.PHP_EOL)
+                ->write('foreach (Flash::getMessages() as $type => $messages) {'.PHP_EOL)
                 ->indent()
-                    ->write('$context["type"] = $type;')
-                    ->write('$context["message"] = $message;')
-                    ->subcompile($this->getNode('body'))
+                    ->write('foreach ($messages as $message) {'.PHP_EOL)
+                    ->indent()
+                        ->write('$context["type"] = $type;')
+                        ->write('$context["message"] = $message;')
+                        ->subcompile($this->getNode('body'))
+                    ->outdent()
+                    ->write('}'.PHP_EOL)
                 ->outdent()
                 ->write('}'.PHP_EOL)
             ;

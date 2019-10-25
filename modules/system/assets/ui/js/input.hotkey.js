@@ -1,15 +1,12 @@
 /*
-=require foundation.js
-*/
-/*
  * Hot key binding.
- * 
+ *
  * Data attributes:
  * - data-hotkey="ctrl+s, cmd+s" - enables the hotkey plugin
  *
  * JavaScript API:
  *
- * $('html').hotKey({ hotkey: 'ctrl+s, cmd+s', callback: doSomething);
+ * $('html').hotKey({ hotkey: 'ctrl+s, cmd+s', hotkeyVisible: false, callback: doSomething });
  */
 +function ($) { "use strict";
 
@@ -53,9 +50,6 @@
     }
 
     HotKey.prototype.init = function() {
-        if (this.options.hotkeyMac) 
-            this.options.hotkey += ', ' + this.options.hotkeyMac // @todo deprecated
-
         this.initKeyMap()
 
         var keys = this.options.hotkey.toLowerCase().split(',')
@@ -92,6 +86,7 @@
                     condition.cmd = true
                     break
                 case 'alt':
+                case 'option':
                     condition.alt = true
                     break
             }
@@ -172,13 +167,12 @@
                 return
 
             if (this.options.callback)
-                return this.options.callback(this.$el, ev.currentTarget)
+                return this.options.callback(this.$el, ev.currentTarget, ev)
         }
     }
 
     HotKey.DEFAULTS = {
         hotkey: null,
-        hotkeyMac: null, // @todo deprecated
         hotkeyTarget: 'html',
         hotkeyVisible: true,
         callback: function(element) {
@@ -202,7 +196,7 @@
             if (!data) $this.data('oc.hotkey', (data = new HotKey(this, options)))
             if (typeof option == 'string') data[option].apply(data, args)
         })
-      }
+    }
 
     $.fn.hotKey.Constructor = HotKey
 
@@ -216,8 +210,8 @@
 
     // HOTKEY DATA-API
     // ==============
-    
-    $(document).render(function(){
+
+    $(document).render(function() {
         $('[data-hotkey]').hotKey()
     })
 

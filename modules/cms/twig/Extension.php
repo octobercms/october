@@ -1,16 +1,11 @@
 <?php namespace Cms\Twig;
 
-use URL;
-use Flash;
 use Block;
 use Event;
-use Twig_Extension;
-use Twig_TokenParser;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension as TwigExtension;
+use Twig\TwigFilter as TwigSimpleFilter;
+use Twig\TwigFunction as TwigSimpleFunction;
 use Cms\Classes\Controller;
-use Cms\Classes\CmsException;
-use ApplicationException;
 
 /**
  * The CMS Twig extension class implements the basic CMS Twig functions and filters.
@@ -18,7 +13,7 @@ use ApplicationException;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class Extension extends Twig_Extension
+class Extension extends TwigExtension
 {
     /**
      * @var \Cms\Classes\Controller A reference to the CMS controller.
@@ -35,16 +30,6 @@ class Extension extends Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'CMS';
-    }
-
-    /**
      * Returns a list of functions to add to the existing list.
      *
      * @return array An array of functions
@@ -52,11 +37,11 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('page', [$this, 'pageFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('partial', [$this, 'partialFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('content', [$this, 'contentFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('component', [$this, 'componentFunction'], ['is_safe' => ['html']]),
+            new TwigSimpleFunction('placeholder', [$this, 'placeholderFunction'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -68,9 +53,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
-            new Twig_SimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
-            new Twig_SimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('page', [$this, 'pageFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('theme', [$this, 'themeFilter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -110,11 +94,12 @@ class Extension extends Twig_Extension
      * Renders a partial.
      * @param string $name Specifies the partial name.
      * @param array $parameters A optional list of parameters to pass to the partial.
+     * @param bool $throwException Throw an exception if the partial is not found.
      * @return string Returns the partial contents.
      */
-    public function partialFunction($name, $parameters = [])
+    public function partialFunction($name, $parameters = [], $throwException = false)
     {
-        return $this->controller->renderPartial($name, $parameters);
+        return $this->controller->renderPartial($name, $parameters, $throwException);
     }
 
     /**
@@ -188,16 +173,6 @@ class Extension extends Twig_Extension
     }
 
     /**
-     * Converts supplied file to a URL relative to the media library.
-     * @param string $file Specifies the media-relative file
-     * @return string
-     */
-    public function mediaFilter($file)
-    {
-        return $this->controller->mediaUrl($file);
-    }
-
-    /**
      * Opens a layout block.
      * @param string $name Specifies the block name
      */
@@ -218,8 +193,9 @@ class Extension extends Twig_Extension
             return $default;
         }
 
-        if ($event = Event::fire('cms.block.render', [$name, $result], true))
+        if ($event = Event::fire('cms.block.render', [$name, $result], true)) {
             $result = $event;
+        }
 
         $result = str_replace('<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->', trim($default), $result);
         return $result;

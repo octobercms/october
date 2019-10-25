@@ -1,0 +1,9 @@
+<?php 
+use Cms\Classes\Theme as MyTheme;
+use Cms\Classes\Router as MyRouter;
+class {className} extends Cms\Classes\PageCode
+{
+public function onStart() {
+    $this['pageStartVar'] = 3;
+}
+}

@@ -1,13 +1,13 @@
 .control-assetlist p.no-data {
-  padding: 18px;
+  padding: 22px;
   margin: 0;
   color: #666666;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   font-weight: 400;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .control-assetlist p.parent,
 .control-assetlist ul li {
@@ -38,9 +38,9 @@
   word-wrap: break-word;
   padding: 10px 50px 10px 20px;
   outline: none;
-  font-weight: 500;
+  font-weight: 400;
   color: #405261;
-  font-size: 12px;
+  font-size: 14px;
 }
 .control-assetlist p.parent a.link:hover,
 .control-assetlist ul li a.link:hover,
@@ -58,13 +58,13 @@
 .control-assetlist ul li a.link span.description {
   color: #8f8f8f;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   word-wrap: break-word;
 }
 .control-assetlist p.parent a.link span.description strong,
 .control-assetlist ul li a.link span.description strong {
   color: #405261;
-  font-weight: 500;
+  font-weight: 400;
 }
 .control-assetlist p.parent.directory a.link,
 .control-assetlist ul li.directory a.link,
@@ -87,7 +87,6 @@
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f07b";
   color: #a1aab1;
   font-size: 14px;
@@ -97,6 +96,17 @@
   padding-left: 41px;
   background-color: #ffffff;
   word-wrap: break-word;
+}
+.control-assetlist p.parent.parent a.link:before,
+.control-assetlist ul li.parent a.link:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: #ecf0f1;
 }
 .control-assetlist p.parent.parent a.link:after,
 .control-assetlist ul li.parent a.link:after {
@@ -113,7 +123,6 @@
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f053";
 }
 .control-assetlist p.parent a.link:hover {
@@ -122,6 +131,9 @@
 .control-assetlist p.parent a.link:hover:after {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.control-assetlist p.parent a.link:hover:before {
+  display: none;
 }
 .control-assetlist ul {
   padding: 0;
@@ -201,8 +213,8 @@
 }
 .control-assetlist ul li .checkbox {
   position: absolute;
-  top: 13px;
-  right: 17px;
+  top: -5px;
+  right: -5px;
 }
 .control-assetlist ul li .checkbox label {
   margin-right: 0;
@@ -221,15 +233,12 @@
   transition: all 0.2s ease;
 }
 .control-assetlist div.list-container.goForward ul {
-  -webkit-transform: translate(-300px, 0);
-  -ms-transform: translate(-300px, 0);
-  transform: translate(-300px, 0);
+  -webkit-transform: translate(-350px, 0);
+  -ms-transform: translate(-350px, 0);
+  transform: translate(-350px, 0);
 }
 .control-assetlist div.list-container.goBackward ul {
-  -webkit-transform: translate(300px, 0);
-  -ms-transform: translate(300px, 0);
-  transform: translate(300px, 0);
-}
-input[type="file"].asset-list-upload-field {
-  display: none;
+  -webkit-transform: translate(350px, 0);
+  -ms-transform: translate(350px, 0);
+  transform: translate(350px, 0);
 }

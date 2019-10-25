@@ -1,0 +1,244 @@
+@import "../../../../assets/less/core/boot.less";
+
+@color-markdowneditor-toolbar:                   #dddddd;
+@color-markdowneditor-toolbar-btn-color:         #404040;
+@color-markdowneditor-toolbar-btn-bg-hover:      #999999;
+@color-markdowneditor-toolbar-btn-bg-active:     #404040;
+@color-markdowneditor-toolbar-btn-color-hover:   #ffffff;
+
+@markdowneditor-toolbar-height: 40px;
+
+.field-markdowneditor {
+    width: 100%;
+    position: relative;
+    border: 1px solid @color-form-field-border;
+    background: #fff;
+
+    textarea { .opacity(0); }
+    .transition(@input-transition);
+
+    .border-radius(5px);
+    .editor-toolbar {
+        .border-top-radius(5px);
+    }
+
+    &.editor-focus { border: 1px solid @color-form-field-border-focus; }
+
+    &.size-tiny {
+        .editor-write { min-height: @size-tiny; }
+        .editor-preview { height: @size-tiny; }
+        &.stretch { min-height: @size-tiny + @markdowneditor-toolbar-height; }
+    }
+    &.size-small {
+        .editor-write { min-height: @size-small; }
+        .editor-preview { height: @size-small; }
+        &.stretch { min-height: @size-small + @markdowneditor-toolbar-height; }
+    }
+    &.size-large {
+        .editor-write { min-height: @size-large; }
+        .editor-preview { height: @size-large; }
+        &.stretch { min-height: @size-large + @markdowneditor-toolbar-height; }
+    }
+    &.size-huge {
+        .editor-write { min-height: @size-huge; }
+        .editor-preview { height: @size-huge; }
+        &.stretch { min-height: @size-huge + @markdowneditor-toolbar-height; }
+    }
+    &.size-giant {
+        .editor-write { min-height: @size-giant; }
+        .editor-preview { height: @size-giant; }
+        &.stretch { min-height: @size-giant + @markdowneditor-toolbar-height; }
+    }
+
+    //
+    // Code
+    //
+
+    .editor-write {
+        position: relative;
+    }
+
+    //
+    // Preview
+    //
+
+    .editor-preview {
+        padding: 15px;
+        overflow: auto;
+    }
+
+    .editor-preview-loader {
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        margin-top: @markdowneditor-toolbar-height;
+        background-image:url('../../../../../system/assets/ui/images/loader-transparent.svg');
+        background-size: 20px 20px;
+        background-position: 50% 50%;
+        .animation(spin 1s linear infinite);
+    }
+
+    //
+    // Mode: Tab
+    //
+
+    &.mode-tab {
+
+        .editor-preview {
+            display: none;
+        }
+
+        &.is-preview {
+            .editor-write { display: none; }
+            .editor-preview { display: block; }
+        }
+
+    }
+
+    //
+    // Mode: Split
+    //
+
+    &.mode-split {
+        overflow: hidden; // clearfix
+
+        .editor-preview {
+            float: right;
+            width: 50%;
+        }
+
+        .editor-write {
+            float: left;
+            width: 50%;
+
+            .editor-code {
+                border-right: 2px solid #808C8D;
+            }
+        }
+    }
+
+    // Stretch
+    &.stretch {
+        &, .editor-toolbar {
+            border-radius: 0 !important;
+        }
+
+        .editor-toolbar {
+            height: auto;
+        }
+
+        .editor-write {
+            float: none;
+            height: ~"calc(100% - @{markdowneditor-toolbar-height})";
+            position: relative;
+            min-height: 0;
+        }
+
+        .editor-preview {
+            float: none;
+            height: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin-top: @markdowneditor-toolbar-height;
+        }
+
+        &.mode-split {
+            .editor-preview {
+                left: auto;
+            }
+            .editor-write {
+                right: auto;
+            }
+        }
+    }
+
+    //
+    // Full screen
+    //
+
+    &.is-fullscreen {
+        z-index: @zindex-dropdown;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        &, .editor-toolbar {
+            border-radius: 0 !important;
+            border: none;
+        }
+    }
+}
+
+//
+// Default theme
+
+.field-markdowneditor .editor-preview {
+    color: #515c5d;
+    font-family: "Helvetica", sans-serif;
+    line-height: 180%;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 20px;
+        font-weight: bold;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    *:last-child {
+        margin-bottom: 0;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    h4 {
+        font-size: 22px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+    h6 {
+        font-size: 18px;
+    }
+
+    p, ol, ul {
+        font-size: 14px;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, ol, ul {
+        margin-bottom: 15px;
+    }
+
+    pre.prettyprint {
+        border-width: 0;
+        padding: 13px 16px;
+        .border-radius(3px);
+        line-height: 130%;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+}

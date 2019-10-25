@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Schema\Blueprint;
+use October\Rain\Database\Updates\Migration;
 
 class DbSystemSettings extends Migration
 {

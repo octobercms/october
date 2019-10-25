@@ -2,7 +2,7 @@
     "name": "october/system",
     "type": "october-module",
     "description": "System module for October CMS",
-    "homepage": "http://octobercms.com",
+    "homepage": "https://octobercms.com",
     "keywords": ["october cms", "october", "system"],
     "license": "MIT",
     "authors": [
@@ -13,10 +13,16 @@
         {
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com"
+        },
+        {
+            "name": "Luke Towers",
+            "email": "octobercms@luketowers.ca",
+            "homepage": "https://luketowers.ca",
+            "role": "Maintainer"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0",
         "composer/installers": "~1.0",
         "october/rain": "~1.0"
     },

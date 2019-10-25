@@ -1,6 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
-use Backend\Models\EditorPreferences;
+use Backend\Models\Preference as BackendPreference;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -63,25 +63,64 @@ class CodeEditor extends FormWidgetBase
     public $margin = 0;
 
     /**
-     * @var $theme Ace Editor theme to use.
+     * @var string Ace Editor theme to use.
      */
     public $theme = 'twilight';
+
+    /**
+     * @var bool Show invisible characters.
+     */
+    public $showInvisibles = false;
+
+    /**
+     * @var bool Highlight the active line.
+     */
+    public $highlightActiveLine = true;
+
+    /**
+     * @var boolean If true, the editor is set to read-only mode
+     */
+    public $readOnly = false;
+
+    /**
+     * @var string Autocomplete mode: manual, basic, live.
+     */
+    public $autocompletion = 'manual';
+
+    /**
+     * @var boolean If true, the editor activate use Snippets
+     */
+    public $enableSnippets = true;
+
+    /**
+     * @var boolean If true, the editor show Indent Guides
+     */
+    public $displayIndentGuides = true;
+
+    /**
+     * @var boolean If true, the editor show Print Margin
+     */
+    public $showPrintMargin = false;
 
     //
     // Object properties
     //
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected $defaultAlias = 'codeeditor';
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function init()
     {
         $this->applyEditorPreferences();
+
+        if ($this->formField->disabled) {
+            $this->readOnly = true;
+        }
 
         $this->fillFromConfig([
             'language',
@@ -94,11 +133,18 @@ class CodeEditor extends FormWidgetBase
             'fontSize',
             'margin',
             'theme',
+            'showInvisibles',
+            'highlightActiveLine',
+            'readOnly',
+            'autocompletion',
+            'enableSnippets',
+            'displayIndentGuides',
+            'showPrintMargin'
         ]);
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function render()
     {
@@ -125,22 +171,24 @@ class CodeEditor extends FormWidgetBase
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
-        $this->vars['name'] = $this->formField->getName();
+        $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['autocompletion'] = $this->autocompletion;
+        $this->vars['enableSnippets'] = $this->enableSnippets;
+        $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
+        $this->vars['showPrintMargin'] = $this->showPrintMargin;
 
         // Double encode when escaping
         $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
+        $this->vars['name'] = $this->getFieldName();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
-    public function loadAssets()
+    protected function loadAssets()
     {
         $this->addCss('css/codeeditor.css', 'core');
-        $this->addJs('vendor/emmet/emmet.js', 'core');
-        $this->addJs('vendor/ace/ace.js', 'core');
-        $this->addJs('vendor/ace/ext-emmet.js', 'core');
-        $this->addJs('js/codeeditor.js', 'core');
+        $this->addJs('js/build-min.js', 'core');
     }
 
     /**
@@ -150,18 +198,21 @@ class CodeEditor extends FormWidgetBase
     protected function applyEditorPreferences()
     {
         // Load the editor system settings
-        $editorSettings = EditorPreferences::instance();
+        $preferences = BackendPreference::instance();
 
-        $this->fontSize = $editorSettings->font_size;
-        $this->wordWrap = $editorSettings->word_wrap;
-        $this->codeFolding = $editorSettings->code_folding;
-        $this->autoClosing = $editorSettings->auto_closing;
-        $this->tabSize = $editorSettings->tab_size;
-        $this->theme = $editorSettings->theme;
-        $this->showInvisibles = $editorSettings->show_invisibles;
-        $this->highlightActiveLine = $editorSettings->highlight_active_line;
-        $this->useSoftTabs = !$editorSettings->use_hard_tabs;
-        $this->showGutter = $editorSettings->show_gutter;
+        $this->fontSize = $preferences->editor_font_size;
+        $this->wordWrap = $preferences->editor_word_wrap;
+        $this->codeFolding = $preferences->editor_code_folding;
+        $this->autoClosing = $preferences->editor_auto_closing;
+        $this->tabSize = $preferences->editor_tab_size;
+        $this->theme = $preferences->editor_theme;
+        $this->showInvisibles = $preferences->editor_show_invisibles;
+        $this->highlightActiveLine = $preferences->editor_highlight_active_line;
+        $this->useSoftTabs = !$preferences->editor_use_hard_tabs;
+        $this->showGutter = $preferences->editor_show_gutter;
+        $this->autocompletion = $preferences->editor_autocompletion;
+        $this->enableSnippets = $preferences->editor_enable_snippets;
+        $this->displayIndentGuides = $preferences->editor_display_indent_guides;
+        $this->showPrintMargin = $preferences->editor_show_print_margin;
     }
-
 }

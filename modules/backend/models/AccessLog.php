@@ -20,7 +20,7 @@ class AccessLog extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'user' => ['Backend\Models\User']
+        'user' => User::class
     ];
 
     /**
@@ -36,5 +36,27 @@ class AccessLog extends Model
         $record->save();
 
         return $record;
+    }
+
+    /**
+     * Returns a recent entry, latest entry is not considered recent
+     * if the creation day is the same as today.
+     * @return self
+     */
+    public static function getRecent($user)
+    {
+        $records = static::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(2)
+            ->get()
+        ;
+
+        if (!count($records)) {
+            return null;
+        }
+
+        $first = $records->first();
+
+        return !$first->created_at->isToday() ? $first : $records->pop();
     }
 }

@@ -1,11 +1,10 @@
 <?php namespace System\Models;
 
-use App;
-use File;
 use View;
 use Model;
+use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
-use System\Classes\PluginManager;
+use File as FileHelper;
 
 /**
  * Mail template
@@ -22,6 +21,19 @@ class MailTemplate extends Model
      */
     protected $table = 'system_mail_templates';
 
+    /**
+     * @var array Guarded fields
+     */
+    protected $guarded = [];
+
+    /**
+     * @var array Fillable fields
+     */
+    protected $fillable = [];
+
+    /**
+     * @var array Validation rules
+     */
     public $rules = [
         'code'                  => 'required|unique:system_mail_templates',
         'subject'               => 'required',
@@ -30,32 +42,56 @@ class MailTemplate extends Model
     ];
 
     public $belongsTo = [
-        'layout' => ['System\Models\MailLayout']
+        'layout' => MailLayout::class
     ];
 
     /**
-     * @var array A cache of customised mail templates.
+     * Returns an array of template codes and descriptions.
+     * @return array
      */
-    protected static $cache = [];
+    public static function listAllTemplates()
+    {
+        $fileTemplates = (array) MailManager::instance()->listRegisteredTemplates();
+        $dbTemplates = (array) self::lists('code', 'code');
+        $templates = $fileTemplates + $dbTemplates;
+        ksort($templates);
+        return $templates;
+    }
 
     /**
-     * @var array Cache of registration callbacks.
+     * Returns a list of all mail templates.
+     * @return array Returns an array of the MailTemplate objects.
      */
-    private static $callbacks = [];
+    public static function allTemplates()
+    {
+        $result = [];
+        $codes = array_keys(self::listAllTemplates());
 
-    protected static $registeredTemplates;
+        foreach ($codes as $code) {
+            $result[] = self::findOrMakeTemplate($code);
+        }
 
+        return $result;
+    }
+
+    /**
+     * Syncronise all file templates to the database.
+     * @return void
+     */
     public static function syncAll()
     {
-        $templates = self::make()->listRegisteredTemplates();
+        MailLayout::createLayouts();
+        MailPartial::createPartials();
+
+        $templates = MailManager::instance()->listRegisteredTemplates();
         $dbTemplates = self::lists('is_custom', 'code');
         $newTemplates = array_diff_key($templates, $dbTemplates);
 
         /*
          * Clean up non-customized templates
          */
-        foreach ($dbTemplates as $code => $is_custom) {
-            if ($is_custom) {
+        foreach ($dbTemplates as $code => $isCustom) {
+            if ($isCustom) {
                 continue;
             }
 
@@ -67,19 +103,16 @@ class MailTemplate extends Model
         /*
          * Create new templates
          */
-        if (count($newTemplates)) {
-            $categories = MailLayout::lists('id', 'code');
-        }
-
-        foreach ($newTemplates as $code => $description) {
+        foreach ($newTemplates as $code) {
             $sections = self::getTemplateSections($code);
             $layoutCode = array_get($sections, 'settings.layout', 'default');
+            $description = array_get($sections, 'settings.description');
 
             $template = self::make();
             $template->code = $code;
             $template->description = $description;
-            $template->is_custom = false;
-            $template->layout_id = isset($categories[$layoutCode]) ? $categories[$layoutCode] : null;
+            $template->is_custom = 0;
+            $template->layout_id = MailLayout::getIdFromCode($layoutCode);
             $template->forceSave();
         }
     }
@@ -87,131 +120,55 @@ class MailTemplate extends Model
     public function afterFetch()
     {
         if (!$this->is_custom) {
-            $sections = self::getTemplateSections($this->code);
-            $this->content_html = $sections['html'];
-            $this->content_text = $sections['text'];
-            $this->subject = array_get($sections, 'settings.subject', 'No subject');
+            $this->fillFromView($this->code);
         }
+    }
+
+    public function fillFromContent($content)
+    {
+        $this->fillFromSections(MailParser::parse($content));
+    }
+
+    public function fillFromView($path)
+    {
+        $this->fillFromSections(self::getTemplateSections($path));
+    }
+
+    protected function fillFromSections($sections)
+    {
+        $this->content_html = $sections['html'];
+        $this->content_text = $sections['text'];
+        $this->subject = array_get($sections, 'settings.subject', 'No subject');
+
+        $layoutCode = array_get($sections, 'settings.layout', 'default');
+        $this->layout_id = MailLayout::getIdFromCode($layoutCode);
     }
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(File::get(View::make($code)->getPath()));
+        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
 
-    public static function addContentToMailer($message, $code, $data)
+    public static function findOrMakeTemplate($code)
     {
-        if (!isset(self::$cache[$code])) {
-            if (!$template = self::whereCode($code)->first()) {
-                return false;
-            }
+        $template = self::whereCode($code)->first();
 
-            self::$cache[$code] = $template;
-        }
-        else {
-            $template = self::$cache[$code];
+        if (!$template && View::exists($code)) {
+            $template = new self;
+            $template->code = $code;
+            $template->fillFromView($code);
         }
 
-        /*
-         * Get Twig to load from a string
-         */
-        $twig = App::make('twig.string');
-        $message->subject($twig->render($template->subject, $data));
-
-        /*
-         * HTML contents
-         */
-        $html = $twig->render($template->content_html, $data);
-        if ($template->layout) {
-            $html = $twig->render($template->layout->content_html, [
-                'content' => $html,
-                'css' => $template->layout->content_css
-            ] + (array) $data);
-        }
-
-        $message->setBody($html, 'text/html');
-
-        /*
-         * Text contents
-         */
-        if (strlen($template->content_text)) {
-            $text = $twig->render($template->content_text, $data);
-            if ($template->layout) {
-                $text = $twig->render($template->layout->content_text, [
-                    'content' => $text
-                ] + (array) $data);
-            }
-
-            $message->addPart($text, 'text/plain');
-        }
-
-        return true;
-    }
-
-    //
-    // Registration
-    //
-
-    /**
-     * Loads registered mail templates from modules and plugins
-     * @return void
-     */
-    public function loadRegisteredTemplates()
-    {
-        foreach (static::$callbacks as $callback) {
-            $callback($this);
-        }
-
-        $plugins = PluginManager::instance()->getPlugins();
-        foreach ($plugins as $pluginId => $pluginObj) {
-            $templates = $pluginObj->registerMailTemplates();
-            if (!is_array($templates)) {
-                continue;
-            }
-
-            $this->registerMailTemplates($templates);
-        }
+        return $template;
     }
 
     /**
-     * Returns a list of the registered templates.
-     * @return array
-     */
-    public function listRegisteredTemplates()
-    {
-        if (self::$registeredTemplates === null) {
-            $this->loadRegisteredTemplates();
-        }
-
-        return self::$registeredTemplates;
-    }
-
-    /**
-     * Registers a callback function that defines mail templates.
-     * The callback function should register templates by calling the manager's
-     * registerMailTemplates() function. Thi instance is passed to the
-     * callback function as an argument. Usage:
-     * <pre>
-     *   MailTemplate::registerCallback(function($template){
-     *       $template->registerMailTemplates([...]);
-     *   });
-     * </pre>
-     * @param callable $callback A callable function.
+     * @deprecated see System\Classes\MailManager::registerCallback
+     * Remove if year >= 2019
      */
     public static function registerCallback(callable $callback)
     {
-        self::$callbacks[] = $callback;
-    }
-
-    /**
-     * Registers mail views and manageable templates.
-     */
-    public function registerMailTemplates(array $definitions)
-    {
-        if (!static::$registeredTemplates) {
-            static::$registeredTemplates = [];
-        }
-
-        static::$registeredTemplates = array_merge(static::$registeredTemplates, $definitions);
+        traceLog('MailTemplate::registerCallback is deprecated, use ' . MailManager::class . '::registerCallback instead');
+        MailManager::instance()->registerCallback($callback);
     }
 }

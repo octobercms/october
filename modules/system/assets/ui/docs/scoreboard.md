@@ -1,17 +1,30 @@
 # Scoreboard
 
-Scoreboard
+### Scoreboard
 
-# Example
+    <div class="scoreboard">
+        <div data-control="toolbar">
+            <div class="scoreboard-item title-value">
+                <h4>Weight</h4>
+                <p>100</p>
+                <p class="description">unit: kg</p>
+            </div>
 
+            <div class="scoreboard-item title-value">
+                <h4>Comments</h4>
+                <p class="positive">44</p>
+                <p class="description">previous month: 32</p>
+            </div>
 
-<script src="/assets/js/october.goalmeter.js"></script>
-<script src="/assets/js/vendor/raphael-min.js"></script>
-<script src="/assets/js/october.chartutils.js"></script>
-<script src="/assets/js/october.chartpie.js"></script>
-<script src="/assets/js/october.chartbar.js"></script>
-<script src="/assets/js/october.dragscroll.js"></script>
-<script src="/assets/js/october.toolbar.js"></script>
+            <div class="scoreboard-item title-value">
+                <h4>Latest commenter</h4>
+                <p class="oc-icon-star">John Smith</p>
+                <p class="description">registered: yes</p>
+            </div>
+        </div>
+    </div>
+
+### Complete example
 
     <div class="scoreboard">
         <div data-control="toolbar">
@@ -60,5 +73,12 @@ Scoreboard
                 <p>88%</p>
                 <p class="description">37 posts remain</p>
             </div>
+
+            <div class="scoreboard-item title-value goal-meter-inverse" data-control="goal-meter" data-value="88">
+                <h4>goal meter</h4>
+                <p>88%</p>
+                <p class="description">37 posts remain</p>
+            </div>
         </div>
     </div>
+
