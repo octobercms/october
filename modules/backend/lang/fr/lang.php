@@ -17,6 +17,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Sans titre',
+        '404' => [
+            'label'     => 'Page non trouvée',
+            'help'      => "Nous avons cherché et cherché, mais l'URL demandée est tout simplement introuvable. Peut-être cherchiez-vous autre chose?",
+            'back_link' => 'Retournez à la page précédente',
+        ],
         'access_denied' => [
             'label' => 'Accès refusé',
             'help' => 'Vous n’êtes pas autorisé à consulter cette page.',
@@ -32,9 +37,20 @@ return [
         ]
     ],
     'partial' => [
-        'not_found_name' => 'Le modèle partiel ":name" est introuvable.'
+        'not_found_name' => 'Le modèle partiel ":name" est introuvable.',
+        'invalid_name' => 'Nom de modèle partiel invalide : :name.',
+    ],
+    'ajax_handler' => [
+      'invalid_name' => 'Nom du gestionnaire AJAX invalide : :name.',
+      'not_found' => 'Le gestionnaire AJAX ":name" est introuvable.'
     ],
     'account' => [
+        'impersonate' => "Usurper l'identité d'un utilisateur",
+        'impersonate_confirm' => "Êtes-vous sûr de vouloir usurper l'identité de cet utilisateur? Vous pouvez revenir à votre état d'origine en vous déconnectant.",
+        'impersonate_success' => "Vous usurper maintenant l'identité cet utilisateur",
+        'impersonate_working' => 'En usurpation...',
+        'impersonating' => "Vous usurpez l'identité de :full_name",
+        'stop_impersonating' => "Arrêter l'usurpation",
         'signed_in_as' => 'Connecté en tant que :full_name',
         'sign_out' => 'Déconnexion',
         'login' => 'OK',
@@ -289,6 +305,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Trouver un enregistrement',
+        'invalid_model_class' => 'La classe de modèle fournie ":modelClass" pour le recordfinder est invalide',
         'cancel' => 'Annuler',
     ],
     'pagelist' => [
@@ -347,6 +364,8 @@ return [
         'permissions'  => 'PHP ne peut pas écrire dans le répertoire :name et ses sous-dossiers. Veuillez modifier les permissions en écriture du serveur web pour ce répertoire.',
         'extension' => 'L’extension PHP :name n’est pas installée. Veuillez installer la librairie et activer l’extension.',
         'plugin_missing' => 'Le plugin :name est une dépendance mais n\'est pas installé. Veuillez installer le plugin.',
+        'debug' => "Le mode de débogage est activé. Ceci n'est pas recommandé pour les installations de production.",
+        'decompileBackendAssets' => "Les assets du backend sont actuellement décompilés. Ceci n'est pas recommandé pour les installations de production.",
     ],
     'editor' => [
         'menu_label' => 'Préférences de l’éditeur de code',
@@ -416,6 +435,8 @@ return [
         'brand' => 'Marque',
         'logo' => 'Logo',
         'logo_description' => 'Envoyer un logo personnalisé à utiliser dans l’interface d’administration.',
+        'favicon' => 'Favicon',
+        'favicon_description' => "Télécharger un favicon personnalisé à utiliser dans l'interface d'administration",
         'app_name' => 'Nom de l’application',
         'app_name_description' => 'Ce nom est affiché comme titre dans l’interface d’administration.',
         'app_tagline' => 'Slogan de l’application',
@@ -429,6 +450,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Style du menu',
         'menu_mode_inline' => 'Horizontal',
+        'menu_mode_inline_no_icons' => 'Horizontal (sans icônes)',
         'menu_mode_tile' => 'Tuiles',
         'menu_mode_collapsed' => 'Replié',
     ],
@@ -539,7 +561,8 @@ return [
     ],
     'mediafinder' => [
         'label' => 'Galerie média',
-        'default_prompt' => 'Cliquez sur le bouton %s pour trouver un élément média'
+        'default_prompt' => 'Cliquez sur le bouton %s pour trouver un élément média',
+        'no_image' => "L'image n'a pas pu être trouvée"
     ],
     'media' => [
         'menu_label' => 'Média',
