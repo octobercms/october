@@ -50,6 +50,11 @@ return [
     'file' => [
         'create_fail' => 'مشکلی در ایجاد فایل :name به وجود آمده است',
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'کلید امنیتی معتبر نمی باشد',
+        ],
+    ],
     'combiner' => [
         'not_found' => "فایل ترکیب کننده ':name' یافت نشد.",
     ],

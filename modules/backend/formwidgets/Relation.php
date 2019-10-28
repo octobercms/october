@@ -40,6 +40,11 @@ class Relation extends FormWidgetBase
      */
     public $scope;
 
+    /**
+     * @var string Define the order of the list query.
+     */
+    public $order;
+
     //
     // Object properties
     //
@@ -63,6 +68,7 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'emptyOption',
             'scope',
+            'order',
         ]);
 
         if (isset($this->config->select)) {
@@ -107,6 +113,12 @@ class Relation extends FormWidgetBase
             }
             elseif (in_array($relationType, ['belongsTo', 'hasOne'])) {
                 $field->type = 'dropdown';
+            }
+
+            // Order query by the configured option.
+            if ($this->order) {
+                // Using "raw" to allow authors to use a string to define the order clause.
+                $query->orderByRaw($this->order);
             }
 
             // It is safe to assume that if the model and related model are of

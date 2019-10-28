@@ -162,6 +162,57 @@ return [
         'test_success' => '测试消息已经成功发送.',
         'return' => '返回模板列表'
     ],
+    'mail_brand' => [
+        'menu_label' => '自定义邮件模板',
+        'menu_description' => '修改邮件模板的颜色和外观。',
+        'page_title' => '定制邮件外观',
+        'sample_template' => [
+            'heading' => 'Heading',
+            'paragraph' => 'This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
+            'table' => [
+                'item' => 'Item',
+                'description' => 'Description',
+                'price' => 'Price',
+                'centered' => 'Centered',
+                'right_aligned' => 'Right-Aligned'
+            ],
+            'buttons' => [
+                'primary' => 'Primary button',
+                'positive' => 'Positive button',
+                'negative' => 'Negative button',
+            ],
+            'panel' => 'How awesome is this panel?',
+            'more' => 'Some more text',
+            'promotion' => 'Coupon code: OCTOBER',
+            'subcopy' => 'This is the subcopy of the email',
+            'thanks' => 'Thanks'
+        ],
+        'fields' => [
+            '_section_background' => '背景',
+            'body_bg' => 'Body 背景',
+            'content_bg' => '内容背景',
+            'content_inner_bg' => 'Inner content background',
+            '_section_buttons' => '按钮',
+            'button_text_color' => '按钮文本颜色',
+            'button_primary_bg' => 'Primary 按钮背景色',
+            'button_positive_bg' => 'Positive 按钮背景色',
+            'button_negative_bg' => 'Negative 按钮背景色',
+            '_section_type' => '排版',
+            'header_color' => '顶部区域颜色',
+            'heading_color' => '标题颜色',
+            'text_color' => '文字颜色',
+            'link_color' => '链接颜色',
+            'footer_color' => '底部区域颜色',
+            '_section_borders' => '边框',
+            'body_border_color' => 'Body 边框颜色',
+            'subcopy_border_color' => 'Subcopy 边框颜色',
+            'table_border_color' => 'Table 边框颜色',
+            '_section_components' => '组件',
+            'panel_bg' => 'Panel 背景色',
+            'promotion_bg' => 'Promotion 背景色',
+            'promotion_border_color' => 'Promotion 边框颜色',
+        ]
+    ],
     'install' => [
         'project_label' => '加入项目',
         'plugin_label' => '安装插件',
@@ -230,7 +281,7 @@ return [
         'details_changelog' => '更新日志',
         'details_changelog_missing' => '没有更新日志.',
         'details_upgrades' => '升级指引',
-        'details_upgrades_missing' => '没有提供升级指引.',
+        'details_upgrades_missing' => '没有提供升级指引。',
         'details_licence' => 'Licence',
         'details_licence_missing' => '没有Licence.',
         'details_current_version' => '当前版本',
@@ -306,9 +357,9 @@ return [
         'log_events' => '系统日志',
         'log_events_comment' => '保存系统日志到数据库和日志文件',
         'log_requests' => '异常请求日志',
-        'log_requests_comment' => '保存需要注意的浏览器访问日志, 例如404错误等.',
+        'log_requests_comment' => '保存需要注意的浏览器访问日志, 例如 404 错误等。',
         'log_theme' => '主题变更日志',
-        'log_theme_comment' => '保存后台对主题文件的修改日志.'
+        'log_theme_comment' => '保存后台对主题文件的修改日志。',
     ],
     'media' => [
         'invalid_path' => "不合法的路径: ':path'.",
@@ -318,6 +369,9 @@ return [
         'custom_error' => [
             'label' => '页面错误',
             'help' => "抱歉，页面因为一些错误导致无法显示"
+        ],
+        'invalid_token' => [
+            'label' => '非法安全令牌',
         ],
     ],
     'pagination' => [

@@ -32,9 +32,6 @@ return [
             'help' => "Um banco de dados é necessário para acessar o back-end. Verifique se o banco de dados está configurado e migrou antes de tentar novamente.",
             'cms_link' => 'Retornar para a página inicial',
         ],
-        'invalid_token' => [
-            'label' => 'Token de segurança inválido'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'O bloco ":name" não foi encontrado.',

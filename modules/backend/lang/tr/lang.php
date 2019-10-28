@@ -27,9 +27,6 @@ return [
             'help' => "Yönetim paneline erişebilmeniz için geçerli bir veritabanı yapılandırması yapmalısınız. Lütfen ayarların kontrol edin.",
             'cms_link' => 'Anasayfaya dön',
         ],
-        'invalid_token' => [
-            'label' => 'Geçersiz güvenlik anahtarı'
-        ],
     ],
     'partial' => [
         'not_found_name' => "':name' bölümü bulunamadı.",

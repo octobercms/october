@@ -212,7 +212,7 @@ class Controller extends ControllerBase
          * Check security token.
          */
         if (!$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
         /*

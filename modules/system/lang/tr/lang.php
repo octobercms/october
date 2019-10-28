@@ -53,6 +53,11 @@ return [
     'file' => [
         'create_fail' => "Dosya oluşturulamıyor: :name",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Geçersiz güvenlik anahtarı',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Kombine dosyası: ':name' bulunamadı.",
     ],

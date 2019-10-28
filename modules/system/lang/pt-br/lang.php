@@ -418,6 +418,9 @@ return [
             'label' => 'Erro de página',
             'help' => "Desculpe, mas algo deu errado e a página não pode ser exibida."
         ],
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido',
+        ],
     ],
     'pagination' => [
         'previous' => 'Anterior',
