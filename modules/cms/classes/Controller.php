@@ -136,11 +136,29 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
+     * * If the parameter is omitted, the current URL used.
+     *
      * @param string $url Specifies the requested page URL.
-     * If the parameter is omitted, the current URL used.
-     * @return string Returns the processed page content.
+     * @return Response Returns the processed page content.
      */
     public function run($url = '/')
+    {
+        $response = $this->runInternal($url);
+
+        if (Config::get('cms.enableCsrfProtection') && $response instanceof \Symfony\Component\HttpFoundation\Response) {
+            $this->addXsrfCookie($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Process the request internally
+     *
+     * @param string $url Specifies the requested page URL.
+     * @return Response Returns the processed page content.
+     */
+    protected function runInternal($url = '/')
     {
         if ($url === null) {
             $url = Request::path();
@@ -266,13 +284,7 @@ class Controller
             return $result;
         }
 
-        $response = Response::make($result, $this->statusCode);
-
-        if (Config::get('cms.enableCsrfProtection')) {
-            $this->addXsrfCookie($response);
-        }
-
-        return $response;
+        return Response::make($result, $this->statusCode);
     }
 
     /**
