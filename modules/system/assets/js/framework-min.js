@@ -14,7 +14,7 @@ useFiles=false}
 if($.type(loading)=='string'){loading=$(loading)}
 var requestHeaders={'X-OCTOBER-REQUEST-HANDLER':handler,'X-OCTOBER-REQUEST-PARTIALS':this.extractPartials(options.update)}
 if(useFlash){requestHeaders['X-OCTOBER-REQUEST-FLASH']=1}
-var csrfToken=getCSRFToken()
+var csrfToken=getXSRFToken()
 if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}
 var requestData,inputName,data={}
 $.each($el.parents('[data-request-data]').toArray().reverse(),function extendRequest(){$.extend(data,paramToObj('data-request-data',$(this).data('request-data')))})
@@ -114,7 +114,7 @@ function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
 try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
-function getCSRFToken(){var cookieValue=null
+function getXSRFToken(){var cookieValue=null
 if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';')
 for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i])
 if(cookie.substring(0,11)==('XSRF-TOKEN'+'=')){cookieValue=decodeURIComponent(cookie.substring(11))
