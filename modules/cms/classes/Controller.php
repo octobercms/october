@@ -6,12 +6,14 @@ use App;
 use View;
 use Lang;
 use Flash;
+use Crypt;
 use Config;
 use Session;
 use Request;
 use Response;
 use Exception;
 use BackendAuth;
+use Carbon\Carbon;
 use Twig\Environment as TwigEnvironment;
 use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
 use Cms\Twig\Loader as TwigLoader;
@@ -25,6 +27,7 @@ use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Parse\Bracket as TextParser;
+use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Http\RedirectResponse;
 
 /**
@@ -133,11 +136,29 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
+     * * If the parameter is omitted, the current URL used.
+     *
      * @param string $url Specifies the requested page URL.
-     * If the parameter is omitted, the current URL used.
-     * @return string Returns the processed page content.
+     * @return Response Returns the processed page content.
      */
     public function run($url = '/')
+    {
+        $response = $this->runInternal($url);
+
+        if (Config::get('cms.enableCsrfProtection') && $response instanceof \Symfony\Component\HttpFoundation\Response) {
+            $this->addXsrfCookie($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Process the request internally
+     *
+     * @param string $url Specifies the requested page URL.
+     * @return Response Returns the processed page content.
+     */
+    protected function runInternal($url = '/')
     {
         if ($url === null) {
             $url = Request::path();
@@ -145,6 +166,13 @@ class Controller
 
         if (empty($url)) {
             $url = '/';
+        }
+
+        /*
+         * Check security token.
+         */
+        if (!$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
         /*
@@ -802,13 +830,6 @@ class Controller
      */
     protected function runAjaxHandler($handler)
     {
-        /*
-         * Check security token.
-         */
-        if (!$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
-        }
-
         /**
          * @event cms.ajax.beforeRunHandler
          * Provides an opportunity to modify an AJAX request
@@ -1584,6 +1605,32 @@ class Controller
     //
 
     /**
+     * Adds anti-CSRF cookie.
+     * Adds a cookie with a token for CSRF checks to the response.
+     * @return Response
+     */
+    protected function addXsrfCookie(\Illuminate\Http\Response $response)
+    {
+        $config = Config::get('session');
+
+        $response->headers->setCookie(
+            new Cookie(
+                'XSRF-TOKEN',
+                Session::token(),
+                Carbon::now()->addMinutes((int) $config['lifetime'])->getTimestamp(),
+                $config['path'],
+                $config['domain'],
+                $config['secure'],
+                false,
+                false,
+                $config['same_site'] ?? null
+            )
+        );
+
+        return $response;
+    }
+
+    /**
      * Checks the request data / headers for a valid CSRF token.
      * Returns false if a valid token is not found. Override this
      * method to disable the check.
@@ -1600,6 +1647,10 @@ class Controller
         }
 
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
+
+        if (!$token && $header = Request::header('X-XSRF-TOKEN')) {
+            $token = Crypt::decrypt($header);
+        }
 
         if (!strlen($token) || !strlen(Session::token())) {
             return false;
