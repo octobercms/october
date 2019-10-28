@@ -129,7 +129,7 @@ class EditorSetting extends Model
 
         if (is_array($value)) {
             $value = array_filter(array_build($value, function ($key, $value) {
-                if (array_has($value, 'class_name') && array_has($value, 'class_label')) {
+                if (array_has($value, ['class_name', 'class_label'])) {
                     return [
                         array_get($value, 'class_name'),
                         array_get($value, 'class_label')
