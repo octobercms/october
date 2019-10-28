@@ -1096,7 +1096,9 @@ class RelationController extends ControllerBehavior
 
             $modelsToSave = $this->prepareModelsToSave($newModel, $saveData);
             foreach ($modelsToSave as $modelToSave) {
-                $modelToSave->save(null, $this->manageWidget->getSessionKey());
+                if (get_class($modelToSave) !== get_class($newModel)) {
+                    $modelToSave->save(null, $this->manageWidget->getSessionKey());
+                }
             }
 
             $this->relationObject->add($newModel, $sessionKey);
