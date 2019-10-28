@@ -269,7 +269,7 @@ class Controller
         $response = Response::make($result, $this->statusCode);
 
         if (Config::get('cms.enableCsrfProtection')) {
-            $this->addCsrfCookie($response);
+            $this->addXsrfCookie($response);
         }
 
         return $response;
@@ -1595,9 +1595,9 @@ class Controller
     /**
      * Adds anti-CSRF cookie.
      * Adds a cookie with a token for CSRF checks to the response.
-     * @return void
+     * @return Response
      */
-    protected function addCsrfCookie(\Illuminate\Http\Response $response)
+    protected function addXsrfCookie(\Illuminate\Http\Response $response)
     {
         $config = Config::get('session');
 
@@ -1605,7 +1605,7 @@ class Controller
             new Cookie(
                 'XSRF-TOKEN',
                 Session::token(),
-                Carbon::now()->addSeconds(60 * $config['lifetime'])->getTimestamp(),
+                Carbon::now()->addMinutes((int) $config['lifetime'])->getTimestamp(),
                 $config['path'],
                 $config['domain'],
                 $config['secure'],

@@ -68,7 +68,7 @@ if (window.jQuery.request !== undefined) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
         }
 
-        var csrfToken = getCSRFToken()
+        var csrfToken = getXSRFToken()
         if (csrfToken) {
             requestHeaders['X-XSRF-TOKEN'] = csrfToken
         }
@@ -470,7 +470,7 @@ if (window.jQuery.request !== undefined) {
         }
     }
 
-    function getCSRFToken() {
+    function getXSRFToken() {
         var cookieValue = null
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';')
