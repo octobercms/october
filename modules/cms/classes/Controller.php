@@ -1609,7 +1609,7 @@ class Controller
      * Adds a cookie with a token for CSRF checks to the response.
      * @return Response
      */
-    protected function addXsrfCookie(\Illuminate\Http\Response $response)
+    protected function addXsrfCookie(\Symfony\Component\HttpFoundation\Response $response)
     {
         $config = Config::get('session');
 
