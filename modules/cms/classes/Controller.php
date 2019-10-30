@@ -29,6 +29,7 @@ use October\Rain\Exception\ValidationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 /**
  * The CMS controller class.
@@ -124,7 +125,7 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
+        $this->assetPath = Config::get('cms.themesPath', '/themes') . '/' . $this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->partialStack = new PartialStack;
         $this->initTwigEnvironment();
@@ -136,16 +137,21 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
-     * * If the parameter is omitted, the current URL used.
+     * If the parameter is null, the current URL used. If it is not
+     * provided then '/' is used
      *
-     * @param string $url Specifies the requested page URL.
-     * @return Response Returns the processed page content.
+     * @param string|null $url Specifies the requested page URL.
+     * @return BaseResponse Returns the response to the provided URL
      */
     public function run($url = '/')
     {
         $response = $this->runInternal($url);
 
-        if (Config::get('cms.enableCsrfProtection') && $response instanceof \Symfony\Component\HttpFoundation\Response) {
+        if (
+            Config::get('cms.enableCsrfProtection', true) &&
+            Config::get('cms.enableXsrfCookies', true) &&
+            $response instanceof BaseResponse
+        ) {
             $this->addXsrfCookie($response);
         }
 
@@ -156,7 +162,7 @@ class Controller
      * Process the request internally
      *
      * @param string $url Specifies the requested page URL.
-     * @return Response Returns the processed page content.
+     * @return BaseResponse Returns the response to the provided URL
      */
     protected function runInternal($url = '/')
     {
@@ -1607,9 +1613,11 @@ class Controller
     /**
      * Adds anti-CSRF cookie.
      * Adds a cookie with a token for CSRF checks to the response.
-     * @return Response
+     *
+     * @param BaseResponse $response The response object to add the cookie to
+     * @return BaseResponse
      */
-    protected function addXsrfCookie(\Symfony\Component\HttpFoundation\Response $response)
+    protected function addXsrfCookie(BaseResponse $response)
     {
         $config = Config::get('session');
 
@@ -1638,7 +1646,7 @@ class Controller
      */
     protected function verifyCsrfToken()
     {
-        if (!Config::get('cms.enableCsrfProtection')) {
+        if (!Config::get('cms.enableCsrfProtection', true)) {
             return true;
         }
 
