@@ -40,14 +40,6 @@ class Auth extends Controller
         //     $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
         // })->only('signin');
 
-        // // Only run on HTTPS connections
-        // if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
-        //     $this->middleware(function ($request, $response) {
-        //         // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
-        //         $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
-        //     })->only('signout');
-        // }
-
         $this->layout = 'auth';
     }
 
