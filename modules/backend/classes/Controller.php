@@ -232,24 +232,24 @@ class Controller extends Extendable
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers()) {
-            return $ajaxResponse;
+            $result = $ajaxResponse;
         }
-
         /*
          * Execute postback handler
          */
-        if (
+        elseif (
             ($handler = post('_handler')) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
-            return $handlerResponse;
+            $result = $handlerResponse;
         }
-
         /*
          * Execute page action
          */
-        $result = $this->execPageAction($action, $params);
+        else {
+            $result = $this->execPageAction($action, $params);
+        }
 
         /*
          * Prepare and return response
