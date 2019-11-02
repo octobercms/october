@@ -1657,7 +1657,7 @@ class Controller
         $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
 
         if (!$token && $header = Request::header('X-XSRF-TOKEN')) {
-            $token = Crypt::decrypt($header);
+            $token = Crypt::decrypt($header, false);
         }
 
         if (!strlen($token) || !strlen(Session::token())) {
