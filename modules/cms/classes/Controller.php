@@ -39,6 +39,7 @@ class Controller
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
     use \System\Traits\SecurityController;
 
     /**
@@ -90,11 +91,6 @@ class Controller
      * @var array A list of variables to pass to the page.
      */
     public $vars = [];
-
-    /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
 
     /**
      * @var self Cache of self
@@ -174,6 +170,7 @@ class Controller
 
         /*
          * Check security token.
+         * @see \System\Traits\SecurityController
          */
         if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
@@ -284,11 +281,11 @@ class Controller
             return $event;
         }
 
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -1252,32 +1249,8 @@ class Controller
     }
 
     //
-    // Setters
-    //
-
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     * @return self
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    //
     // Getters
     //
-
-     /**
-     * Returns the status code for the current web response.
-     * @return int Status code
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
 
     /**
      * Returns an existing instance of the controller.
