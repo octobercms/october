@@ -35,11 +35,6 @@ class Auth extends Controller
     {
         parent::__construct();
 
-        // $this->middleware(function ($request, $response) {
-        //     // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
-        //     $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
-        // })->only('signin');
-
         $this->layout = 'auth';
     }
 
@@ -57,6 +52,9 @@ class Auth extends Controller
     public function signin()
     {
         $this->bodyClass = 'signin';
+
+        // Clear Cache and any previous data to fix invalid security token issue
+        $this->setResponseHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
         try {
             if (post('postback')) {
@@ -122,14 +120,12 @@ class Auth extends Controller
             BackendAuth::logout();
         }
 
-        $redirect = Backend::redirect('backend');
-
         // Add HTTP Header 'Clear Site Data' to purge all sensitive data upon signout
         if (Request::secure()) {
-            $redirect->header('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+            $this->setResponseHeader('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
         }
 
-        return $redirect;
+        return Backend::redirect('backend');
     }
 
     /**
