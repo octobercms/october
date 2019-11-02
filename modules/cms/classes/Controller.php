@@ -26,7 +26,6 @@ use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 /**
  * The CMS controller class.
