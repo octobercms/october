@@ -1172,6 +1172,7 @@ class Lists extends WidgetBase
 
     /**
      * Process as text, escape the value
+     * @return string
      */
     protected function evalTextTypeValue($record, $column, $value)
     {
@@ -1188,6 +1189,7 @@ class Lists extends WidgetBase
 
     /**
      * Process as number, proxy to text
+     * @return string
      */
     protected function evalNumberTypeValue($record, $column, $value)
     {
