@@ -152,6 +152,8 @@ class Controller extends Extendable
          */
         $this->user = BackendAuth::getUser();
 
+        parent::__construct();
+
         /*
          * Media Manager widget is available on all back-end pages
          */

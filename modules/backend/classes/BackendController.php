@@ -8,10 +8,10 @@ use Event;
 use Config;
 use Request;
 use Response;
-use Closure;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Classes\PluginManager;
+use Closure;
 
 /**
  * This is the master controller for all back-end pages.
@@ -49,13 +49,6 @@ class BackendController extends ControllerBase
      * @var boolean Flag to indicate that the CMS module is handling the current request
      */
     protected $cmsHandling = false;
-
-    /**
-     * Stores the requested controller so that the constructor is only run once
-     *
-     * @var Backend\Classes\Controller
-     */
-    protected $requestedController;
 
     /**
      * Instantiate a new BackendController instance.
