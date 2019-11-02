@@ -1,7 +1,7 @@
 <?php namespace System\Traits;
 
 use Response;
-use Symfony\Component\HttpFoundation\HeaderBag;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 /**
@@ -24,7 +24,7 @@ trait ResponseMaker
     protected $responseOverride = null;
 
     /**
-     * @var Symfony\Component\HttpFoundation\HeaderBag
+     * @var Symfony\Component\HttpFoundation\ResponseHeaderBag
      */
     protected $responseHeaderBag = null;
 
@@ -36,6 +36,7 @@ trait ResponseMaker
     public function setStatusCode($code)
     {
         $this->statusCode = (int) $code;
+
         return $this;
     }
 
@@ -57,6 +58,7 @@ trait ResponseMaker
     public function setResponse($response)
     {
         $this->responseOverride = $response;
+
         return $this;
     }
 
@@ -71,7 +73,7 @@ trait ResponseMaker
     public function setResponseHeader($key, $values, $replace = true)
     {
         if ($this->responseHeaderBag === null) {
-            $this->responseHeaderBag = new HeaderBag;
+            $this->responseHeaderBag = new ResponseHeaderBag;
         }
 
         $this->responseHeaderBag->set($key, $values, $replace);
@@ -88,7 +90,7 @@ trait ResponseMaker
     public function setResponseCookie($cookie)
     {
         if ($this->responseHeaderBag === null) {
-            $this->responseHeaderBag = new HeaderBag;
+            $this->responseHeaderBag = new ResponseHeaderBag;
         }
 
         if (is_string($cookie) && function_exists('cookie')) {
@@ -98,6 +100,15 @@ trait ResponseMaker
         $this->responseHeaderBag->setCookie($cookie);
 
         return $this;
+    }
+
+    /**
+     * Get the header response bag
+     * @return Symfony\Component\HttpFoundation\ResponseHeaderBag|null
+     */
+    public function getResponseHeaders()
+    {
+        return $this->responseHeaderBag;
     }
 
     /**
@@ -112,11 +123,12 @@ trait ResponseMaker
         }
 
         if (is_string($contents)) {
-            $contents = Response::make($contents, $this->statusCode);
+            $contents = Response::make($contents, $this->getStatusCode());
         }
 
-        if ($contents instanceof BaseResponse && $this->responseHeaderBag !== null) {
-            $contents = $contents->withHeaders($this->responseHeaderBag);
+        $responseHeaders = $this->getResponseHeaders();
+        if ($responseHeaders && $contents instanceof BaseResponse) {
+            $contents = $contents->withHeaders($responseHeaders);
         }
 
         return $contents;

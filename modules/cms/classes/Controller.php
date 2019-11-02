@@ -139,27 +139,6 @@ class Controller
      */
     public function run($url = '/')
     {
-        $response = $this->runInternal($url);
-
-        if (
-            Config::get('cms.enableCsrfProtection', true) &&
-            Config::get('cms.enableXsrfCookies', true) &&
-            $response instanceof BaseResponse
-        ) {
-            $this->addXsrfCookie($response);
-        }
-
-        return $response;
-    }
-
-    /**
-     * Process the request internally
-     *
-     * @param string $url Specifies the requested page URL.
-     * @return BaseResponse Returns the response to the provided URL
-     */
-    protected function runInternal($url = '/')
-    {
         if ($url === null) {
             $url = Request::path();
         }
@@ -174,6 +153,13 @@ class Controller
          */
         if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
+        }
+
+        if (
+            Config::get('cms.enableCsrfProtection', true) &&
+            Config::get('cms.enableXsrfCookies', true)
+        ) {
+            $this->setResponseCookie($this->makeXsrfCookie());
         }
 
         /*
