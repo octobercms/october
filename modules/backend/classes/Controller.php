@@ -36,6 +36,7 @@ class Controller extends ControllerBase
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\SecurityController;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Extension\ExtendableTrait;
@@ -762,56 +763,5 @@ class Controller extends ControllerBase
     {
         $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
-    }
-
-    //
-    // Security
-    //
-
-    /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
-     * @return bool
-     */
-    protected function verifyCsrfToken()
-    {
-        if (!Config::get('cms.enableCsrfProtection')) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!strlen($token) || !strlen(Session::token())) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
-    }
-
-    /**
-     * Checks if the back-end should force a secure protocol (HTTPS) enabled by config.
-     * @return bool
-     */
-    protected function verifyForceSecure()
-    {
-        if (Request::secure() || Request::ajax()) {
-            return true;
-        }
-
-        // @todo if year >= 2018 change default from false to null
-        $forceSecure = Config::get('cms.backendForceSecure', false);
-        if ($forceSecure === null) {
-            $forceSecure = !Config::get('app.debug', false);
-        }
-
-        return !$forceSecure;
     }
 }
