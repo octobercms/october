@@ -3,6 +3,7 @@
 use Mail;
 use Flash;
 use Backend;
+use Request;
 use Validator;
 use BackendAuth;
 use Backend\Models\AccessLog;
@@ -34,18 +35,18 @@ class Auth extends Controller
     {
         parent::__construct();
 
-        $this->middleware(function ($request, $response) {
-            // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
-            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
-        })->only('signin');
+        // $this->middleware(function ($request, $response) {
+        //     // Clear Cache and any previous data to fix Invalid security token issue, see github: #3707
+        //     $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        // })->only('signin');
 
-        // Only run on HTTPS connections
-        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
-            $this->middleware(function ($request, $response) {
-                // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
-                $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
-            })->only('signout');
-        }
+        // // Only run on HTTPS connections
+        // if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
+        //     $this->middleware(function ($request, $response) {
+        //         // Add HTTP Header 'Clear Site Data' to remove all Sensitive Data when signout, see github issue: #3707
+        //         $response->headers->set('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+        //     })->only('signout');
+        // }
 
         $this->layout = 'auth';
     }
@@ -129,7 +130,14 @@ class Auth extends Controller
             BackendAuth::logout();
         }
 
-        return Backend::redirect('backend');
+        $redirect = Backend::redirect('backend');
+
+        // Add HTTP Header 'Clear Site Data' to purge all sensitive data upon signout
+        if (Request::secure()) {
+            $redirect->header('Clear-Site-Data', 'cache, cookies, storage, executionContexts');
+        }
+
+        return $redirect;
     }
 
     /**
@@ -146,6 +154,9 @@ class Auth extends Controller
         }
     }
 
+    /**
+     * Submits the restore form.
+     */
     public function restore_onSubmit()
     {
         $rules = [
@@ -202,6 +213,9 @@ class Auth extends Controller
         $this->vars['id'] = $userId;
     }
 
+    /**
+     * Submits the reset form.
+     */
     public function reset_onSubmit()
     {
         if (!post('id') || !post('code')) {
