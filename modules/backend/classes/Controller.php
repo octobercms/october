@@ -36,6 +36,7 @@ class Controller extends Extendable
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
     use \System\Traits\SecurityController;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
@@ -109,16 +110,6 @@ class Controller extends Extendable
     protected $guarded = [];
 
     /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
-
-    /**
-     * @var mixed Override the standard controller response.
-     */
-    protected $responseOverride = null;
-
-    /**
      * Constructor.
      */
     public function __construct()
@@ -177,6 +168,7 @@ class Controller extends Extendable
 
         /*
          * Check security token.
+         * @see \System\Traits\SecurityController
          */
         if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
@@ -184,6 +176,7 @@ class Controller extends Extendable
 
         /*
          * Check forced HTTPS protocol.
+         * @see \System\Traits\SecurityController
          */
         if (!$this->verifyForceSecure()) {
             return Redirect::secure(Request::path());
@@ -251,15 +244,11 @@ class Controller extends Extendable
          */
         $result = $this->execPageAction($action, $params);
 
-        if ($this->responseOverride !== null) {
-            $result = $this->responseOverride;
-        }
-
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -647,27 +636,6 @@ class Controller extends Extendable
         }
 
         return $id;
-    }
-
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    /**
-     * Sets the response for the current page request cycle, this value takes priority
-     * over the standard response prepared by the controller.
-     * @param mixed $response Response object or string
-     */
-    public function setResponse($response)
-    {
-        $this->responseOverride = $response;
-        return $this;
     }
 
     //
