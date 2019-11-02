@@ -6,14 +6,12 @@ use App;
 use View;
 use Lang;
 use Flash;
-use Crypt;
 use Config;
 use Session;
 use Request;
 use Response;
 use Exception;
 use BackendAuth;
-use Carbon\Carbon;
 use Twig\Environment as TwigEnvironment;
 use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
 use Cms\Twig\Loader as TwigLoader;
@@ -27,7 +25,6 @@ use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Parse\Bracket as TextParser;
-use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
@@ -42,6 +39,7 @@ class Controller
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\SecurityController;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -1604,69 +1602,5 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
-    }
-
-    //
-    // Security
-    //
-
-    /**
-     * Adds anti-CSRF cookie.
-     * Adds a cookie with a token for CSRF checks to the response.
-     *
-     * @param BaseResponse $response The response object to add the cookie to
-     * @return BaseResponse
-     */
-    protected function addXsrfCookie(BaseResponse $response)
-    {
-        $config = Config::get('session');
-
-        $response->headers->setCookie(
-            new Cookie(
-                'XSRF-TOKEN',
-                Session::token(),
-                Carbon::now()->addMinutes((int) $config['lifetime'])->getTimestamp(),
-                $config['path'],
-                $config['domain'],
-                $config['secure'],
-                false,
-                false,
-                $config['same_site'] ?? null
-            )
-        );
-
-        return $response;
-    }
-
-    /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
-     * @return bool
-     */
-    protected function verifyCsrfToken()
-    {
-        if (!Config::get('cms.enableCsrfProtection', true)) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!$token && $header = Request::header('X-XSRF-TOKEN')) {
-            $token = Crypt::decrypt($header, false);
-        }
-
-        if (!strlen($token) || !strlen(Session::token())) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
     }
 }
