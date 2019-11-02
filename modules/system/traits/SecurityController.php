@@ -21,28 +21,23 @@ trait SecurityController
      * Adds anti-CSRF cookie.
      * Adds a cookie with a token for CSRF checks to the response.
      *
-     * @param BaseResponse $response The response object to add the cookie to
-     * @return BaseResponse
+     * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    protected function addXsrfCookie(BaseResponse $response)
+    protected function makeXsrfCookie()
     {
         $config = Config::get('session');
 
-        $response->headers->setCookie(
-            new Cookie(
-                'XSRF-TOKEN',
-                Session::token(),
-                Carbon::now()->addMinutes((int) $config['lifetime'])->getTimestamp(),
-                $config['path'],
-                $config['domain'],
-                $config['secure'],
-                false,
-                false,
-                $config['same_site'] ?? null
-            )
+        return new Cookie(
+            'XSRF-TOKEN',
+            Session::token(),
+            Carbon::now()->addMinutes((int) $config['lifetime'])->getTimestamp(),
+            $config['path'],
+            $config['domain'],
+            $config['secure'],
+            false,
+            false,
+            $config['same_site'] ?? null
         );
-
-        return $response;
     }
 
     /**
