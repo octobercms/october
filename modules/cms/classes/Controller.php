@@ -263,7 +263,7 @@ class Controller
          *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
-            return $event;
+            $result = $event;
         }
 
         /*
