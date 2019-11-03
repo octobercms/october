@@ -148,17 +148,13 @@ class Controller
 
         /*
          * Check security token.
+         *
+         * Note: Ignore AJAX requests until a CSRF policy introduced.
+         *
          * @see \System\Traits\SecurityController
          */
-        if (!$this->verifyCsrfToken()) {
+        if (!Request::ajax() && !$this->verifyCsrfToken()) {
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
-        }
-
-        if (
-            Config::get('cms.enableCsrfProtection', true) &&
-            Config::get('cms.enableXsrfCookies', true)
-        ) {
-            $this->setResponseCookie($this->makeXsrfCookie());
         }
 
         /*

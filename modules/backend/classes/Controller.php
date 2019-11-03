@@ -174,13 +174,6 @@ class Controller extends Extendable
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
-        if (
-            Config::get('cms.enableCsrfProtection', true) &&
-            Config::get('cms.enableXsrfCookies', true)
-        ) {
-            $this->setResponseCookie($this->makeXsrfCookie());
-        }
-
         /*
          * Check forced HTTPS protocol.
          * @see \System\Traits\SecurityController
