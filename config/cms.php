@@ -383,19 +383,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Automatic XSRF Cookies
-    |--------------------------------------------------------------------------
-    |
-    | Automatically provide and process an XSRF cookie to the browser to
-    | support CSRF protection on all AJAX requests without having to add
-    | an explicit CSRF token to the frontend markup
-    |
-    */
-
-    'enableXsrfCookies' => true,
-
-    /*
-    |--------------------------------------------------------------------------
     | Force bytecode invalidation
     |--------------------------------------------------------------------------
     |
