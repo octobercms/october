@@ -129,10 +129,12 @@
 
         $(ev.target).closest('.field-repeater-item').remove()
         this.togglePrompt()
+        $(ev.target).closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     Repeater.prototype.onAddItemSuccess = function(ev) {
         this.togglePrompt()
+        $(ev.target).closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     Repeater.prototype.togglePrompt = function () {
