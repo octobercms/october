@@ -83,8 +83,13 @@
             return this.fieldElementCache
         }
 
-        var form = this.$el,
-            nestedFields = form.find('[data-control="formwidget"] [data-field-name]')
+        var form = this.$el
+
+        if (!form) {
+            return;
+        }
+
+        var nestedFields = form.find('[data-control="formwidget"] [data-field-name]')
 
         return this.fieldElementCache = form.find('[data-field-name]').not(nestedFields)
     }
@@ -117,13 +122,12 @@
                 fieldMap[depend].fields.push(name)
             })
         })
-
+        
         /*
          * When a master is updated, refresh its slaves
          */
         $.each(fieldMap, function(fieldName, toRefresh){
-            fieldElements.filter('[data-field-name="'+fieldName+'"]')
-                .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
+            $(document).on('change.oc.formwidget', '[data-field-name="' + fieldName + '"]', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh));
         })
     }
 
@@ -137,6 +141,10 @@
             formEl = this.$form,
             fieldElements = this.getFieldElements()
 
+        if (!form) {
+            return;
+        }
+        
         if (this.dependantUpdateTimers[fieldName] !== undefined) {
             window.clearTimeout(this.dependantUpdateTimers[fieldName])
         }
