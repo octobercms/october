@@ -148,13 +148,17 @@ class Controller
 
         /*
          * Check security token.
-         *
-         * Note: Ignore AJAX requests until a CSRF policy introduced.
-         *
          * @see \System\Traits\SecurityController
          */
-        if (!Request::ajax() && !$this->verifyCsrfToken()) {
+        if (!$this->verifyCsrfToken()) {
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
+        }
+
+        if (
+            Config::get('cms.enableCsrfProtection', true) &&
+            Config::get('cms.enableXsrfCookies', true)
+        ) {
+            $this->setResponseCookie($this->makeXsrfCookie());
         }
 
         /*
@@ -259,7 +263,7 @@ class Controller
          *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
-            $result = $event;
+            return $event;
         }
 
         /*
@@ -1063,6 +1067,7 @@ class Controller
                     : [$component, $component];
 
                 if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
+
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
                 }
 

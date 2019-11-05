@@ -174,6 +174,13 @@ class Controller extends Extendable
             return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
+        if (
+            Config::get('cms.enableCsrfProtection', true) &&
+            Config::get('cms.enableXsrfCookies', true)
+        ) {
+            $this->setResponseCookie($this->makeXsrfCookie());
+        }
+
         /*
          * Check forced HTTPS protocol.
          * @see \System\Traits\SecurityController
@@ -225,24 +232,24 @@ class Controller extends Extendable
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers()) {
-            $result = $ajaxResponse;
+            return $ajaxResponse;
         }
+
         /*
          * Execute postback handler
          */
-        elseif (
+        if (
             ($handler = post('_handler')) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
-            $result = $handlerResponse;
+            return $handlerResponse;
         }
+
         /*
          * Execute page action
          */
-        else {
-            $result = $this->execPageAction($action, $params);
-        }
+        $result = $this->execPageAction($action, $params);
 
         /*
          * Prepare and return response
