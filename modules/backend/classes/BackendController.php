@@ -80,8 +80,7 @@ class BackendController extends ControllerBase
         ) {
             $this->cmsHandling = true;
             return App::make('Cms\Classes\Controller')->run($url);
-        }
-        else {
+        } else {
             return Response::make(View::make('backend::404'), 404);
         }
     }
