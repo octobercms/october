@@ -1,0 +1,11 @@
+<!-- Clear scope -->
+<a
+    class="filter-scope-clear btn btn-sm btn-secondary oc-icon-eraser"
+    href="javascript:;"
+    data-request="<?= $this->getEventHandler('onFilterUpdate') ?>"
+    data-request-data="'scopeName':'<?= $scope->scopeName ?>'"
+    data-scope-name="<?= $scope->scopeName ?>"
+    data-stripe-load-indicator
+    >
+    <span class="filter-label"><?= e(trans($scope->label)) ?></span>
+</a>

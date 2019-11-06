@@ -264,6 +264,14 @@ class Filter extends WidgetBase
                 $value = post('options.value.' . $scope->scopeName) ?: null;
                 $this->setScopeValue($scope, $value);
                 break;
+				
+            case 'clear':
+                foreach($this->getScopes() as $scope) {
+                    $this->setScopeValue($scope, null);
+                }
+
+                return ['.control-filter' => $this->render()];
+                break;
         }
 
         /*
