@@ -1184,7 +1184,7 @@ class RelationController extends ControllerBehavior
             }
 
             $this->initRelation($this->model);
-            
+
             $this->viewWidget->setFormValues([]);
             $this->viewModel = $this->relationModel;
         }
@@ -1281,12 +1281,9 @@ class RelationController extends ControllerBehavior
                 $this->relationObject->getParent()->save();
 
                 if (is_null($sessionKey)) {
-                    $this->relationObject->getParent()->save();
                     $this->model->refresh();
                     $this->initRelation($this->model);
                 }
-
-                $this->relationObject->getParent()->save();
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $relatedModel->find($recordId)) {
