@@ -1497,7 +1497,7 @@ class Lists extends WidgetBase
     /**
      * Returns the current sorting column, saved in a session or cached.
      */
-    protected function getSortColumn()
+    public function getSortColumn()
     {
         if (!$this->isSortable()) {
             return false;
@@ -1542,6 +1542,13 @@ class Lists extends WidgetBase
         }
 
         return $this->sortColumn;
+    }
+
+    /*
+     * Returns the current sort direction or default of 'asc'
+     */
+    public function getSortDirection () {
+        return $this->sortDirection = $this->sortDirection ?: 'asc';
     }
 
     /**
