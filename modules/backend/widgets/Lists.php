@@ -1549,7 +1549,7 @@ class Lists extends WidgetBase
      */
     public function getSortDirection()
     {
-        return $this->sortDirection = $this->sortDirection ?: 'asc';
+        return $this->sortDirection ?? 'asc';
     }
 
     /**
