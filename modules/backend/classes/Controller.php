@@ -150,8 +150,6 @@ class Controller extends ControllerBase
          */
         $this->user = BackendAuth::getUser();
 
-        parent::__construct();
-
         /*
          * Media Manager widget is available on all back-end pages
          */
@@ -170,18 +168,22 @@ class Controller extends ControllerBase
     {
         self::extendableExtendCallback($callback);
     }
+
     public function __get($name)
     {
         return $this->extendableGet($name);
     }
+
     public function __set($name, $value)
     {
         $this->extendableSet($name, $value);
     }
+
     public function __call($name, $params)
     {
         return $this->extendableCall($name, $params);
     }
+
     public static function __callStatic($name, $params)
     {
         return self::extendableCallStatic($name, $params);
