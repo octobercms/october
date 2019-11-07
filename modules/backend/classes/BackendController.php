@@ -51,6 +51,13 @@ class BackendController extends ControllerBase
     protected $cmsHandling = false;
 
     /**
+     * Stores the requested controller so that the constructor is only run once
+     *
+     * @var Backend\Classes\Controller
+     */
+    protected $requestedController;
+
+    /**
      * Instantiate a new BackendController instance.
      */
     public function __construct()
