@@ -82,8 +82,7 @@ trait SecurityController
             return true;
         }
 
-        // @todo if year >= 2018 change default from false to null
-        $forceSecure = Config::get('cms.backendForceSecure', false);
+        $forceSecure = Config::get('cms.backendForceSecure', null);
         if ($forceSecure === null) {
             $forceSecure = !Config::get('app.debug', false);
         }
