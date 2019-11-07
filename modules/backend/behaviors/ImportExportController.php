@@ -640,7 +640,8 @@ class ImportExportController extends ControllerBehavior
             ? 'getColumnValueRaw'
             : 'getColumnValue';
 
-        $query = $widget->prepareQuery();
+        $query = $this->controller->methodExists('prepareQuery') ? $this->controller->prepareQuery()
+            : $widget->prepareQuery();
         $results = $query->get();
 
         if ($event = $widget->fireSystemEvent('backend.list.extendRecords', [&$results])) {
