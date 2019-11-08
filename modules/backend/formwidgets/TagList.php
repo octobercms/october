@@ -174,7 +174,7 @@ class TagList extends FormWidgetBase
         if (!$options) {
             $methodName = 'get'.studly_case($this->fieldName).'Options';
             if ($this->objectMethodExists($this->model, $methodName)) {
-                $options = $this->model->$methodName($this->data);
+                $options = $this->model->$methodName($this->data[$this->fieldName], $this->data);
             };
         }
 
