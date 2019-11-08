@@ -1,7 +1,6 @@
 <?php namespace Backend\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use October\Rain\Database\Relations\Relation as RelationBase;
 
 /**
  * Tag List Form Widget
@@ -161,7 +160,7 @@ class TagList extends FormWidgetBase
     }
 
     /**
-     * Returns defined field options, or from the relation if available.
+     * Returns defined field options from the form configuration, model method, or from the relation if available.
      * @return array
      */
     public function getFieldOptions()
@@ -169,15 +168,14 @@ class TagList extends FormWidgetBase
         $options = $this->formField->options();
 
         if (!$options && $this->mode === static::MODE_RELATION) {
-            $options = RelationBase::noConstraints(function () {
-                $query = $this->getRelationObject()->newQuery();
+            $options = $this->getRelationModel()->lists($this->nameFrom);
+        }
 
-                // Even though "no constraints" is applied, belongsToMany constrains the query
-                // by joining its pivot table. Remove all joins from the query.
-                $query->getQuery()->getQuery()->joins = [];
-
-                return $query->lists($this->nameFrom);
-            });
+        if (!$options) {
+            $methodName = 'get'.studly_case($this->fieldName).'Options';
+            if ($this->objectMethodExists($this->model, $methodName)) {
+                $options = $this->model->$methodName($this->data);
+            };
         }
 
         return $options;
@@ -212,5 +210,21 @@ class TagList extends FormWidgetBase
             case 'space':
                 return ' ';
         }
+    }
+
+    /**
+     * Internal helper for method existence checks.
+     *
+     * @param  object $object
+     * @param  string $method
+     * @return boolean
+     */
+    protected function objectMethodExists($object, $method)
+    {
+        if (method_exists($object, 'methodExists')) {
+            return $object->methodExists($method);
+        }
+
+        return method_exists($object, $method);
     }
 }
