@@ -32,9 +32,6 @@ return [
             'help' => 'Een database is nodig om toegang te krijgen tot de back-end. Controleer of de database juist is geconfigureerd en probeer het opnieuw.',
             'cms_link' => 'Terug naar homepagina',
         ],
-        'invalid_token' => [
-            'label' => 'Ongeldig token',
-        ],
     ],
     'partial' => [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
@@ -45,6 +42,12 @@ return [
         'not_found' => "Het AJAX verzoek ':name' kon niet worden gevonden."
     ],
     'account' => [
+        'impersonate' => 'Inloggen als',
+        'impersonate_confirm' => 'Je gaat inloggen als deze gebruiker. Weet je het zeker? Keer terug door uit te loggen.',
+        'impersonate_success' => 'Je bent nu ingelogd als deze gebruiker',
+        'impersonate_working' => 'Inloggen als...',
+        'impersonating' => 'Inloggen als :full_name',
+        'stop_impersonating' => 'Terugkeren',
         'signed_in_as' => 'Ingelogd als :full_name',
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
@@ -287,8 +290,8 @@ return [
         'preview_no_media_message' => 'Er zijn geen media geselecteerd.',
         'preview_no_record_message' => 'Er zijn geen records geselecteerd.',
         'select' => 'Selecteer',
-        'select_all' => 'alles',
-        'select_none' => 'niets',
+        'select_all' => 'selecteer alles',
+        'select_none' => 'selecteer niets',
         'select_placeholder' => 'selecteer',
         'insert_row' => 'Rij invoegen',
         'insert_row_below' => 'Rij onder invoegen',
@@ -358,6 +361,8 @@ return [
         'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
         'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
+        'debug' => 'Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.',
+        'decompileBackendAssets' => 'Assets van de back-end worden momenteel gedecompileerd. Dit wordt aanbevolen op een productie-omgeving.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
@@ -442,6 +447,7 @@ return [
         'navigation' => 'Navigatie',
         'menu_mode' => 'Menustijl',
         'menu_mode_inline' => 'Inline-mode',
+        'menu_mode_inline_no_icons' => 'Inline-mode (zonder iconen)',
         'menu_mode_tile' => 'Tegels',
         'menu_mode_collapsed' => 'Ingeklapt',
     ],
@@ -553,6 +559,7 @@ return [
     'mediafinder' => [
         'label' => 'Media zoeker',
         'default_prompt' => 'Klik op de %s knop om een media item te vinden',
+        'no_image' => 'De afbeelding kan niet gevonden worden',
     ],
     'media' => [
         'menu_label' => 'Media',

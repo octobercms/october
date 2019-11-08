@@ -24,7 +24,7 @@ trait PreferenceMaker
      * @param mixed $value The value to store.
      * @return void
      */
-    public function putUserPreference(string $key, $value): void
+    public function putUserPreference(string $key, $value)
     {
         $preferences = $this->getUserPreferences();
         $preferences[$key] = $value;
@@ -74,7 +74,7 @@ trait PreferenceMaker
      * @param string $key Unique key for the data store.
      * @return void
      */
-    public function clearUserPreference(string $key): void
+    public function clearUserPreference(string $key)
     {
         $preferences = $this->getUserPreferences();
 
@@ -100,7 +100,7 @@ trait PreferenceMaker
      *
      * @return void
      */
-    public function clearUserPreferences(): void
+    public function clearUserPreferences()
     {
         $this->getPreferenceStorage()->reset($this->getPreferenceKey());
 

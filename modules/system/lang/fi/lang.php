@@ -50,6 +50,11 @@ return [
     'file' => [
         'create_fail' => 'Ei voida luoda tiedostoa: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Token on virheellinen',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Yhdistelmätiedostoa ':name' ei löydy."
     ],
@@ -95,7 +100,8 @@ return [
         'name' => [
             'label' => 'Lisäosan nimi',
             'help' => 'Anna lisäosalle uniikkikoodi. Esimerkiksi: RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Tekijä: :name'
     ],
     'plugins' => [
         'manage' => 'Hallinnoi lisäosia',

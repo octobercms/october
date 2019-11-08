@@ -56,6 +56,7 @@ return [
             'label' => 'Nome do Plugin',
             'help' => 'Nomeie o plugin pelo seu código exclusivo. Por exemplo, RainLab.Blog',
         ],
+        'by_author' => 'Por :name'
     ],
     'plugins' => [
         'manage' => 'Gerenciar plugins',
@@ -416,6 +417,9 @@ return [
         'custom_error' => [
             'label' => 'Erro de página',
             'help' => "Desculpe, mas algo deu errado e a página não pode ser exibida."
+        ],
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido',
         ],
     ],
     'pagination' => [

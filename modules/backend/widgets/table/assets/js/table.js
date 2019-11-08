@@ -756,7 +756,7 @@
     }
 
     Table.prototype.onKeydown = function(ev) {
-        if (ev.keyCode == 65 && ev.altKey && this.options.adding) {
+        if ((ev.key === 'a' || ev.key === 'A') && ev.altKey && this.options.adding) {
             if (!ev.shiftKey) {
                 // alt+a - add record below
                 this.addRecord('below')
@@ -770,7 +770,7 @@
             return
         }
 
-        if (ev.keyCode == 68 && ev.altKey && this.options.deleting) {
+        if ((ev.key === 'd' || ev.key === 'D') && ev.altKey && this.options.deleting) {
             // alt+d - delete record
             this.deleteRecord()
 

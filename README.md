@@ -37,6 +37,11 @@ You may also watch these introductory videos for [beginners](https://vimeo.com/7
 
 Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first.
 
+### Help and support this project
+
+You can also help the project by reviewing and testing open Pull Requests with the "**Status: Testing Needed**" tag.
+[Read more...](https://github.com/octobercms/october/blob/master/.github/CONTRIBUTING.md#testing-pull-requests)
+
 ## Coding standards
 
 Please follow the following guides and code standards:

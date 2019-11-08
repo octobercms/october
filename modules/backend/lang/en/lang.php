@@ -32,9 +32,6 @@ return [
             'help' => "A database is required to access the back-end. Check the database is configured and migrated before trying again.",
             'cms_link' => 'Return to the homepage',
         ],
-        'invalid_token' => [
-            'label' => 'Invalid security token',
-        ],
     ],
     'partial' => [
         'not_found_name' => "The partial ':name' is not found.",
@@ -239,6 +236,7 @@ return [
         'remove_file' => 'Remove file'
     ],
     'repeater' => [
+        'add_new_item' => 'Add new item',
         'min_items_failed' => ':name requires a minimum of :min items, only :items were provided',
         'max_items_failed' => ':name only allows up to :max items, :items were provided',
     ],
@@ -293,8 +291,8 @@ return [
         'preview_no_media_message' => 'There is no media selected.',
         'preview_no_record_message' => 'There is no record selected.',
         'select' => 'Select',
-        'select_all' => 'all',
-        'select_none' => 'none',
+        'select_all' => 'Select all',
+        'select_none' => 'Select none',
         'select_placeholder' => 'please select',
         'insert_row' => 'Insert Row',
         'insert_row_below' => 'Insert Row Below',

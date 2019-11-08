@@ -47,6 +47,11 @@ return [
     'file' => [
         'create_fail' => 'Faili :name ei õnnestunud luua'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Vigane turvamärk',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Ühendaja faili ':name' ei leitud."
     ],
@@ -90,7 +95,8 @@ return [
         'name' => [
             'label' => 'Plugina nimi',
             'help' => 'Anna pluginale nimi selle unikaalse koodi järgi. Nt RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Autor: :name'
     ],
     'plugins' => [
         'manage' => 'Halda pluginaid',

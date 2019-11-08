@@ -70,7 +70,7 @@ fieldset {border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}
 legend {border:0;padding:0}
 textarea {overflow:auto}
 optgroup {font-weight:bold}
-table {border-collapse:collapse;border-spacing:0;table-layout:auto;word-wrap:break-word;word-break:break-all}
+table {border-collapse:collapse;border-spacing:0;table-layout:auto}
 td,
 th {padding:0}
 *,
@@ -1937,7 +1937,7 @@ address {margin-bottom:20px;font-style:normal;line-height:1.42857143}
 button.close {padding:0;cursor:pointer;background:transparent;border:0;-webkit-appearance:none}
 @font-face {font-family:'FontAwesome';src:url('../ui/font/fontawesome-webfont.eot?v=1.0.1');src:url('../ui/font/fontawesome-webfont.eot?#iefix&v=1.0.1') format('embedded-opentype'),url('../ui/font/fontawesome-webfont.woff?v=1.0.1') format('woff'),url('../ui/font/fontawesome-webfont.ttf?v=1.0.1') format('truetype'),url('../ui/font/fontawesome-webfont.svg#fontawesomeregular?v=1.0.1') format('svg');font-weight:normal;font-style:normal}
 [class^="icon-"],
-[class*=" icon-"] {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0}
+[class*=" icon-"] {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0}
 [class^="icon-"]:before,
 [class*=" icon-"]:before {text-decoration:inherit;display:inline-block;speak:none}
 [class^="icon-"].pull-left,
@@ -1945,7 +1945,7 @@ button.close {padding:0;cursor:pointer;background:transparent;border:0;-webkit-a
 [class^="icon-"].pull-right,
 [class*=" icon-"].pull-right {margin-left:.3em}
 [class^="oc-icon-"]:before,
-[class*=" oc-icon-"]:before {display:inline-block;margin-right:8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;vertical-align:baseline}
+[class*=" oc-icon-"]:before {display:inline-block;margin-right:8px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;vertical-align:baseline}
 [class^="oc-icon-"].empty:before,
 [class*=" oc-icon-"].empty:before {margin-right:0}
 .icon-lg {font-size:1.33333333em;line-height:0.75em;vertical-align:-15%}
