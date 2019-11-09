@@ -38,7 +38,7 @@
             var force = (data !== undefined && data.force !== undefined) ? data.force : false;
             self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'), force)
         })
-		
+
 		this.$el.on('mousedown', "li[data-tab-id]", function (ev) {
             if (ev.key === '2') {
                 $(ev.target).trigger('close.oc.tab');
@@ -84,6 +84,10 @@
         })
 
         this.updateClasses()
+
+        if (this.$tabsContainer.is('[data-linkable]') && location.hash) {
+            $('li > a[data-tab-url=' + location.hash + ']', this.$tabsContainer).tab('show')
+        }
     }
 
     Tab.prototype.initTab = function(li) {

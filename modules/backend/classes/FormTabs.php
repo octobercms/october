@@ -58,6 +58,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $paneCssClass;
 
     /**
+     * @var array Each tab gets url fragment to be linkable.
+     */
+    public $linkable;
+
+    /**
      * Constructor.
      * Specifies a tabs rendering section. Supported sections are:
      * - outside - stores a section of "tabless" fields.
@@ -105,6 +110,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         if (array_key_exists('paneCssClass', $config)) {
             $this->paneCssClass = $config['paneCssClass'];
+        }
+
+        if (array_key_exists('linkable', $config)) {
+            $this->linkable = (bool) $config['linkable'];
         }
     }
 
