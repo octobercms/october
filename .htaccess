@@ -60,7 +60,6 @@
     ## Standard routes, remove index.php and redirect to /
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{THE_REQUEST} ^.*/index\.php
-    RewriteRule ^index.php(.*)$ /$1 [R=301,L]
+    RewriteRule ^ index.php [L]
 
 </IfModule>
