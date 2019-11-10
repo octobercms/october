@@ -57,7 +57,7 @@
     RewriteRule !^index.php index.php [L,NC]
 
     ##
-    ## Standard routes and remove index.php and redirect to /
+    ## Standard routes, remove index.php and redirect to /
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{THE_REQUEST} ^.*/index\.php
