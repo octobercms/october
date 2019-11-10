@@ -29,6 +29,9 @@
     RewriteRule ^storage/framework/.* index.php [L,NC]
     RewriteRule ^storage/temp/protected/.* index.php [L,NC]
     RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
+    
+    ## Disable PHP in Storage Folder
+    RewriteRule ^storage/.*\.(?:php[1-6]?)$ - [NC,F]
 
     ##
     ## White listed folders
@@ -42,6 +45,9 @@
     RewriteCond %{REQUEST_FILENAME} !/plugins/.*/(assets|resources)/.*
     RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
     RewriteRule !^index.php index.php [L,NC]
+    
+	# Whitelist the Favicon.ico File
+	RewriteCond %{REQUEST_FILENAME} !/favicon\.ico
 
     ##
     ## Block all PHP files, except index
@@ -51,9 +57,10 @@
     RewriteRule !^index.php index.php [L,NC]
 
     ##
-    ## Standard routes
+    ## Standard routes and remove index.php and redirect to /
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteCond %{THE_REQUEST} ^.*/index\.php
+    RewriteRule ^index.php(.*)$ /$1 [R=301,L]
 
 </IfModule>
