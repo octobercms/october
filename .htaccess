@@ -46,7 +46,7 @@
     RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
     RewriteRule !^index.php index.php [L,NC]
     
-    # Whitelist the favicon.ico file in root
+    ## Whitelist the favicon.ico file in root
     RewriteCond %{REQUEST_FILENAME} !/favicon\.ico
 
     ##
