@@ -30,7 +30,9 @@
     RewriteRule ^storage/temp/protected/.* index.php [L,NC]
     RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
     
+    ##
     ## Disable PHP in storage folder
+    ##
     RewriteRule ^storage/.*\.(?:php[1-6]?)$ - [NC,F]
 
     ##
@@ -46,7 +48,9 @@
     RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
     RewriteRule !^index.php index.php [L,NC]
     
+    ##
     ## Whitelist the favicon.ico file in root
+    ##
     RewriteCond %{REQUEST_FILENAME} !/favicon\.ico
 
     ##
