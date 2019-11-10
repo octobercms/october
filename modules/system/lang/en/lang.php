@@ -204,7 +204,12 @@ return [
         'ses_region' => 'SES region',
         'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
-        'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.'
+        'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.',
+        'smtp_hint_header' => 'Common port settings',
+        'smtp_port_1' => 'Port 465 is for SSL connections.',
+        'smtp_port_2' => 'Port 587 is for TLS connections.',
+        'smtp_port_3' => 'Port 25 is for standard connections (many internet service providers block port 25).',
+        'smtp_port_4' => 'Port 2525 allows insecure connections.',
     ],
     'mail_templates' => [
         'menu_label' => 'Mail templates',

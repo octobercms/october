@@ -30,9 +30,16 @@ tabs:
                 field: send_mode
                 condition: value[mandrill][mailgun][ses]
 
+        smtp_hint:
+            type: hint
+            span: full
+            tab: system::lang.mail.general
+            path: ~/modules/system/models/mailsetting/_smtp_hint.htm
+
         smtp_address:
             label: system::lang.mail.smtp_address
             tab: system::lang.mail.general
+            span: auto
             trigger:
                 action: show
                 field: send_mode
@@ -61,6 +68,7 @@ tabs:
             type: checkbox
             label: system::lang.mail.smtp_authorization
             tab: system::lang.mail.general
+            span: auto
             comment: system::lang.mail.smtp_authorization_comment
             trigger:
                 action: show
