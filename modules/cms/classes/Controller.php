@@ -148,8 +148,8 @@ class Controller
 
         /*
          * Check security token.
-         *	
-         * Note: Ignore AJAX requests until a CSRF policy introduced.	
+         *
+         * Note: Ignore AJAX requests until a CSRF policy introduced.
          *
          * @see \System\Traits\SecurityController
          */
