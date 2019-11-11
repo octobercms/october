@@ -1067,6 +1067,7 @@ class Controller
                     : [$component, $component];
 
                 if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
+
                     throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
                 }
 

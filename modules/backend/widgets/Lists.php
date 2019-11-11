@@ -537,7 +537,6 @@ class Lists extends WidgetBase
 
         /*
          * Apply filters
-
          */
         foreach ($this->filterCallbacks as $callback) {
             $callback($query);
