@@ -275,7 +275,8 @@ class FileUpload extends FormWidgetBase
             $cssDimensions .= ($this->imageHeight)
                 ? 'max-height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
-        } else {
+        }
+        else {
             $cssDimensions .= $this->imageWidth
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
@@ -393,7 +394,8 @@ class FileUpload extends FormWidgetBase
             }
 
             throw new ApplicationException('Unable to find file, it may no longer exist');
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -464,7 +466,8 @@ class FileUpload extends FormWidgetBase
             $parent = $fileRelation->getParent();
             if ($this->attachOnUpload && $parent && $parent->exists) {
                 $fileRelation->add($file);
-            } else {
+            }
+            else {
                 $fileRelation->add($file, $this->sessionKey);
             }
 
@@ -477,7 +480,8 @@ class FileUpload extends FormWidgetBase
             ];
 
             $response = Response::make($result, 200);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex) {
             $response = Response::make($ex->getMessage(), 400);
         }
 
