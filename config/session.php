@@ -109,7 +109,10 @@ return [
     |
     */
 
-    'cookie' => 'october_session',
+    'cookie' => env(
+        'october_session',
+        Str::slug(env('APP_NAME', 'october'), '_').'_session'
+    ),
 
     /*
     |--------------------------------------------------------------------------
