@@ -15,7 +15,7 @@
     <ul class="nav nav-tabs" <?= $tabs->linkable ? 'data-linkable' : '' ?>>
         <?php $index = 0; foreach ($tabs as $name => $fields): ?>
             <li class="<?= $index++ == 0 ? 'active' : '' ?>">
-                <a href="#<?= $type . 'tab-' . $index ?>" <?= $tabs->linkable ? 'data-tab-url="#' . str_slug(trans($name)) . '"' : '' ?>>
+                <a href="#<?= $type . 'tab-' . $index ?>" <?= $tabs->linkable ? 'data-tab-url="#' . str_slug($name) . '"' : '' ?>>
                     <span class="title">
                         <span>
                             <?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?>
