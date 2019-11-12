@@ -667,16 +667,6 @@ class Filter extends WidgetBase
         $scope = new FilterScope($name, $label);
         $scope->displayAs($scopeType, $config);
         $scope->idPrefix = $this->alias;
-
-        /*
-         * Set scope value
-         */
-        if ($scope->type === 'group') {
-
-        }
-
-
-
         $scope->value = $this->getScopeValue($scope, @$config['default']);
 
         return $scope;
