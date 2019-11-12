@@ -163,10 +163,15 @@ return [
     | even if the user follows a link to another website. Lax cookies are
     | only sent with a top-level get request.
     |
-    | Supported: "lax", "strict"
+    | First-party cookies that match the domain, be set to 'Strict' or 'Lax'.
+    |
+    | Third-party cookies from other domains, be set to 'None' and need
+    | the Secure set to true.
+    |
+    | Supported: "lax", "strict" and "none"
     |
     */
 
-    'same_site' => null,
+    'same_site' => 'Strict',
 
 ];
