@@ -168,7 +168,7 @@ return [
     | Third-party cookies from other domains, be set to 'None' and need
     | the Secure set to true.
     |
-    | Supported: "lax", "strict" and "none"
+    | Supported: "Lax", "Strict" and "None"
     |
     */
 
