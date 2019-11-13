@@ -1183,6 +1183,7 @@ class RelationController extends ControllerBehavior
                 $relatedModel->delete();
             }
 
+            // Reinitialise the form with a blank model
             $this->initRelation($this->model);
 
             $this->viewWidget->setFormValues([]);
@@ -1280,6 +1281,7 @@ class RelationController extends ControllerBehavior
                 $this->relationObject->dissociate();
                 $this->relationObject->getParent()->save();
 
+                // If the relation manager isn't using deferred binding, reinitialise the form with a blank model
                 if (is_null($sessionKey)) {
                     $this->model->refresh();
                     $this->initRelation($this->model);
