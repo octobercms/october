@@ -3046,6 +3046,8 @@ this.scopeValues={}
 this.$activeScope=null
 this.activeScopeName=null
 this.isActiveScopeDirty=false
+this.dependantUpdateInterval=300
+this.dependantUpdateTimers={}
 this.init()}
 FilterWidget.DEFAULTS={optionsHandler:null,updateHandler:null}
 FilterWidget.prototype.getPopoverTemplate=function(){return'                                                                                                       \
@@ -3093,6 +3095,7 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
                 </form>                                                                                                \
             '}
 FilterWidget.prototype.init=function(){var self=this
+this.bindDependants()
 this.$el.on('change','.filter-scope input[type="checkbox"]',function(){var $scope=$(this).closest('.filter-scope')
 if($scope.hasClass('is-indeterminate')){self.switchToggle($(this))}
 else{self.checkboxToggle($(this))}})
@@ -3117,6 +3120,20 @@ self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
 setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})}
+FilterWidget.prototype.bindDependants=function(){if(!$('[data-scope-depends]',this.$el).length){return;}
+var self=this,scopeMap={},scopeElements=this.$el.find('.filter-scope')
+scopeElements.filter('[data-scope-depends]').each(function(){var name=$(this).data('scope-name'),depends=$(this).data('scope-depends')
+$.each(depends,function(index,depend){if(!scopeMap[depend]){scopeMap[depend]={scopes:[]}}
+scopeMap[depend].scopes.push(name)})})
+$.each(scopeMap,function(scopeName,toRefresh){scopeElements.filter('[data-scope-name="'+scopeName+'"]').on('change.oc.filterScope',$.proxy(self.onRefreshDependants,self,scopeName,toRefresh))})}
+FilterWidget.prototype.onRefreshDependants=function(scopeName,toRefresh){var self=this,scopeElements=this.$el.find('.filter-scope')
+if(this.dependantUpdateTimers[scopeName]!==undefined){window.clearTimeout(this.dependantUpdateTimers[scopeName])}
+this.dependantUpdateTimers[scopeName]=window.setTimeout(function(){$.each(toRefresh.scopes,function(index,dependantScope){self.scopeValues[dependantScope]=null
+var $scope=self.$el.find('[data-scope-name="'+dependantScope+'"]')
+self.$el.request(self.options.optionsHandler,{data:{scopeName:dependantScope},success:function(data){self.fillOptions(dependantScope,data.options)
+self.updateScopeSetting($scope,data.options.active.length)
+$scope.loadIndicator('hide')}})})},this.dependantUpdateInterval)
+$.each(toRefresh.scopes,function(index,scope){scopeElements.filter('[data-scope-name="'+scope+'"]').addClass('loading-indicator-container').loadIndicator()})}
 FilterWidget.prototype.focusSearch=function(){if(Modernizr.touchevents)
 return
 var $input=$('#controlFilterPopover input.filter-search-input'),length=$input.val().length
@@ -3191,9 +3208,9 @@ FilterWidget.prototype.toggleFilterButtons=function(data)
 if(data){data.active.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
 FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
 return
-var data={scopeName:scopeName,options:this.scopeValues[scopeName]}
+var self=this,data={scopeName:scopeName,options:this.scopeValues[scopeName]}
 $.oc.stripeLoadIndicator.show()
-this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()})}
+this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(function(){self.$el.find('[data-scope-name="'+scopeName+'"]').trigger('change.oc.filterScope')})}
 FilterWidget.prototype.checkboxToggle=function($el){var isChecked=$el.is(':checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
 this.scopeValues[scopeName]=isChecked
 if(this.options.updateHandler){var data={scopeName:scopeName,value:isChecked}
@@ -3902,7 +3919,7 @@ $.oc.chartUtils=new ChartUtils();}(window.jQuery);+function($){"use strict";var 
 this.chartOptions={xaxis:{mode:"time",tickLength:5},selection:{mode:"x"},grid:{markingsColor:"rgba(0,0,0, 0.02)",backgroundColor:{colors:["#fff","#fff"]},borderColor:"#7bafcc",borderWidth:0,color:"#ddd",hoverable:true,clickable:true,labelMargin:10},series:{lines:{show:true,fill:true},points:{show:true}},tooltip:true,tooltipOpts:{defaultTheme:false,content:"%x: <strong>%y</strong>",dateFormat:"%y-%0m-%0d",shifts:{x:10,y:20}},legend:{show:true,noColumns:2}}
 this.defaultDataSetOptions={shadowSize:0}
 var parsedOptions={}
-try{parsedOptions=ocJSON("{"+value+"}");}catch(e){throw new Error('Error parsing the data-chart-options attribute value. '+e);}
+try{parsedOptions=ocJSON("{"+options.chartOptions+"}");}catch(e){throw new Error('Error parsing the data-chart-options attribute value. '+e);}
 this.chartOptions=$.extend({},this.chartOptions,parsedOptions)
 this.options=options
 this.$el=$(element)

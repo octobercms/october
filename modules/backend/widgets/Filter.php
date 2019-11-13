@@ -317,7 +317,7 @@ class Filter extends WidgetBase
         } else {
             // Ensure that only valid values are set on the current scope
             $active = $this->filterActiveOptions($activeKeys, $available);
-            $this->setScopeValue($scope, array_keys($active));
+            $this->setScopeValue($scope, $active);
         }
 
         return [
@@ -690,6 +690,15 @@ class Filter extends WidgetBase
         $this->defineFilterScopes();
 
         foreach ($this->allScopes as $scope) {
+            // Ensure that only valid values are set scopes of type: group
+            if ($scope->type === 'group') {
+                $activeKeys = $scope->value ? array_keys($scope->value) : [];
+                $available = $this->getAvailableOptions($scope);
+                $active = $this->filterActiveOptions($activeKeys, $available);
+                $value = !empty($active) ? $active : null;
+                $this->setScopeValue($scope, $value);
+            }
+
             $this->applyScopeToQuery($scope, $query);
         }
 
@@ -831,6 +840,10 @@ class Filter extends WidgetBase
 
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
+
+                if (empty($value)) {
+                    break;
+                }
 
                 /*
                  * Condition

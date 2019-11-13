@@ -55,6 +55,27 @@
             .transition(color 0.6s);
         }
 
+        &.loading-indicator-container.in-progress {
+            pointer-events: none;
+            cursor: default;
+
+            .loading-indicator {
+                background: transparent;
+
+                > span {
+                    left: unset;
+                    right: 0;
+                    top: 10px;
+                    background-color: @color-filter-bg;
+                    border-radius: 50%;
+                    margin-top: 0;
+                    width: 20px;
+                    height: 20px;
+                    background-size: 15px 15px;
+                }
+            }
+        }
+
         &:after {
             font-size: 14px;
             .icon(@angle-down);
