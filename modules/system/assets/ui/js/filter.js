@@ -221,8 +221,27 @@
         this.dependantUpdateTimers[scopeName] = window.setTimeout(function() {
             $.each(toRefresh.scopes, function (index, dependantScope) {
                 self.scopeValues[dependantScope] = null
+                var $scope = self.$el.find('[data-scope-name="'+dependantScope+'"]')
+
+                /*
+                 * Request options from server
+                 */
+                self.$el.request(self.options.optionsHandler, {
+                    data: { scopeName: dependantScope },
+                    success: function(data) {
+                        self.fillOptions(dependantScope, data.options)
+                        self.updateScopeSetting($scope, data.options.active.length)
+                        $scope.loadIndicator('hide')
+                    }
+                })
             })
         }, this.dependantUpdateInterval)
+
+        $.each(toRefresh.scopes, function(index, scope) {
+            scopeElements.filter('[data-scope-name="'+scope+'"]')
+                .addClass('loading-indicator-container')
+                .loadIndicator()
+        })
     }
 
     FilterWidget.prototype.focusSearch = function() {
