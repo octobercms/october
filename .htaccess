@@ -11,19 +11,6 @@
     ## if you have installed to a subdirectory, enter the name here also.
     ##
     # RewriteBase /
-    
-    ##
-    ## Uncomment following lines to force HTTPS.
-    ##
-    # RewriteCond %{HTTPS} !=on
-    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-    ##
-    ## Uncomment following lines, turn on HSTS when using HTTPS.
-    ##
-    # <IfModule mod_headers.c>
-    #     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
-    # </IfModule>
 
     ##
     ## Black listed folders
