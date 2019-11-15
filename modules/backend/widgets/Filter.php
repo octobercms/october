@@ -171,6 +171,22 @@ class Filter extends WidgetBase
         return $this->makePartial('scope_'.$scope->type, $params);
     }
 
+    /**
+     * Returns a HTML encoded value containing the other scopes this scope depends on
+     * @param  \Backend\Classes\FilterScope $scope
+     * @return string
+     */
+    protected function getScopeDepends($scope)
+    {
+        if (!$scope->dependsOn) {
+            return '';
+        }
+
+        $dependsOn = is_array($scope->dependsOn) ? $scope->dependsOn : [$scope->dependsOn];
+        $dependsOn = htmlspecialchars(json_encode($dependsOn), ENT_QUOTES, 'UTF-8');
+        return $dependsOn;
+    }
+
     //
     // AJAX
     //
@@ -295,7 +311,14 @@ class Filter extends WidgetBase
         $scope = $this->getScope($scopeName);
         $activeKeys = $scope->value ? array_keys($scope->value) : [];
         $available = $this->getAvailableOptions($scope, $searchQuery);
-        $active = $searchQuery ? [] : $this->filterActiveOptions($activeKeys, $available);
+
+        if ($searchQuery) {
+            $active = [];
+        } else {
+            // Ensure that only valid values are set on the current scope
+            $active = $this->filterActiveOptions($activeKeys, $available);
+            $this->setScopeValue($scope, $active);
+        }
 
         return [
             'scopeName' => $scopeName,
@@ -426,7 +449,11 @@ class Filter extends WidgetBase
                 ]));
             }
 
-            $options = $model->$methodName();
+            if (!empty($scope->dependsOn)) {
+                $options = $model->$methodName($this->getScopes());
+            } else {
+                $options = $model->$methodName();
+            }
         }
         elseif (!is_array($options)) {
             $options = [];
@@ -663,6 +690,15 @@ class Filter extends WidgetBase
         $this->defineFilterScopes();
 
         foreach ($this->allScopes as $scope) {
+            // Ensure that only valid values are set scopes of type: group
+            if ($scope->type === 'group') {
+                $activeKeys = $scope->value ? array_keys($scope->value) : [];
+                $available = $this->getAvailableOptions($scope);
+                $active = $this->filterActiveOptions($activeKeys, $available);
+                $value = !empty($active) ? $active : null;
+                $this->setScopeValue($scope, $value);
+            }
+
             $this->applyScopeToQuery($scope, $query);
         }
 
@@ -804,6 +840,10 @@ class Filter extends WidgetBase
 
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
+
+                if (empty($value)) {
+                    break;
+                }
 
                 /*
                  * Condition
