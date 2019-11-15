@@ -1,0 +1,21 @@
+name: Wrong Branch
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  checkForTestingNeeded:
+    runs-on: ubuntu-latest
+    name: Check if Testing Needed
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v1
+      - name: Install PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.2
+      - name: Run Label Changes Script
+        run: |
+          export ISSUE_NUMBER=$(echo '${{ github.ref }}' | cut -d'/' -f3)
+          php ./.github/workflows/scripts/testing-needed.php $ISSUE_NUMBER ${{ secrets.GITHUB_TOKEN }}
