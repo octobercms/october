@@ -311,14 +311,7 @@ class Filter extends WidgetBase
         $scope = $this->getScope($scopeName);
         $activeKeys = $scope->value ? array_keys($scope->value) : [];
         $available = $this->getAvailableOptions($scope, $searchQuery);
-
-        if ($searchQuery) {
-            $active = [];
-        } else {
-            // Ensure that only valid values are set on the current scope
-            $active = $this->filterActiveOptions($activeKeys, $available);
-            $this->setScopeValue($scope, $active);
-        }
+        $active = $searchQuery ? [] : $this->filterActiveOptions($activeKeys, $available);
 
         return [
             'scopeName' => $scopeName,
