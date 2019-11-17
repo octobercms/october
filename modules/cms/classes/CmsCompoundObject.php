@@ -95,7 +95,7 @@ class CmsCompoundObject extends CmsObject
      * Triggered when the model is saved.
      * @return void
      */
-    public function beforeUpdate()
+    public function beforeSave()
     {
         $this->checkSafeMode();
     }
