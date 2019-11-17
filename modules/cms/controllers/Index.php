@@ -60,7 +60,7 @@ class Index extends Controller
     {
         parent::__construct();
 
-        Event::listen('backend.form.extendFieldsBefore', function($widget) {
+        Event::listen('backend.form.extendFieldsBefore', function ($widget) {
             if (!$widget->getController() instanceof Index) {
                 return;
             }
