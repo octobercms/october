@@ -95,7 +95,7 @@ class CmsCompoundObject extends CmsObject
      * Triggered when the model is saved.
      * @return void
      */
-    public function beforeSave()
+    public function beforeUpdate()
     {
         $this->checkSafeMode();
     }
@@ -143,14 +143,18 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
+        if (self::isSafeMode() && $this->isDirty('code') && strlen(trim($this->code))) {
+            throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
+        }
+    }
+
+    public static function isSafeMode()
+    {
         $safeMode = Config::get('cms.enableSafeMode', null);
         if ($safeMode === null) {
             $safeMode = !Config::get('app.debug', false);
         }
-
-        if ($safeMode && $this->isDirty('code') && strlen(trim($this->code))) {
-            throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
-        }
+        return $safeMode;
     }
 
     //
