@@ -143,6 +143,11 @@ class Index extends Controller
             $this->vars['pageUrl'] = $router->urlFromPattern($template->url);
         }
 
+        // enable readOnly mode for code field if safeMode is enabled
+        if (key_exists('code', $widget->secondaryTabs['fields']) && CmsCompoundObject::isSafeMode()) {
+            $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+        }
+
         return [
             'tabTitle' => $this->getTabTitle($type, $template),
             'tab'      => $this->makePartial('form_page', [
