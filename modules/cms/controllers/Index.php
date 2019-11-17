@@ -4,6 +4,7 @@ use Url;
 use Lang;
 use Flash;
 use Config;
+use Event;
 use Request;
 use Exception;
 use BackendMenu;
@@ -58,6 +59,18 @@ class Index extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Event::listen('backend.form.extendFieldsBefore', function($widget) {
+            if (!$widget->getController() instanceof Index) {
+                return;
+            }
+            if (!$widget->model instanceof CmsCompoundObject) {
+                return;
+            }
+            if (key_exists('code', $widget->secondaryTabs['fields']) && $widget->model->isSafeMode()) {
+                $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+            };
+        });
 
         BackendMenu::setContext('October.Cms', 'cms', true);
 
@@ -662,12 +675,6 @@ class Index extends Controller
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->exists ? $template->getFileName() : uniqid());
-
-
-        // enable readOnly mode for code field if safeMode is enabled
-        if (key_exists('code', $widgetConfig->secondaryTabs['fields']) && CmsCompoundObject::isSafeMode()) {
-            $widgetConfig->secondaryTabs['fields']['code']['readOnly'] = true;
-        }
 
         return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
