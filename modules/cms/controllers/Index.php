@@ -73,7 +73,6 @@ class Index extends Controller
                 $widget->secondaryTabs['fields']['code']['codeHint'] = $this->makePartial('code_hint', [
                     'title' => e(trans('cms::lang.cms_object.safe_mode_enabled')),
                     'subtitle' => 'ref. https://octobercms.com/docs/setup/configuration#safe-mode',
-                    'icon' => 'icon-info',
                 ]);
             };
         });
