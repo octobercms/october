@@ -45,5 +45,4 @@ class Cms
         }
         return $safeMode;
     }
-
 }
