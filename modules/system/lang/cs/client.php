@@ -33,7 +33,6 @@ return [
         'fullscreen' => 'Celá obrazovka',
         'preview' => 'Náhled',
     ],
-
     'mediamanager' => [
         'insert_link' => "Vložit odkaz",
         'insert_image' => "Vložit obrázek",
@@ -45,7 +44,6 @@ return [
         'invalid_video_empty_insert' => "Vyberte video soubor pro vložení.",
         'invalid_audio_empty_insert' => "Vyberte audio soubor pro vložení.",
     ],
-
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Zrušit',
@@ -65,6 +63,10 @@ return [
         'group' => [
             'all' => 'Vše'
         ],
+        'scopes' => [
+            'apply_button_text' => 'Filtrovat',
+            'clear_button_text'  => 'Zrušit'
+        ],
         'dates' => [
             'all' => 'Vše',
             'filter_button_text' => 'Filtrovat',
@@ -72,6 +74,13 @@ return [
             'date_placeholder' => 'Datum',
             'after_placeholder' => 'Po',
             'before_placeholder' => 'Před'
+        ],
+        'numbers' => [
+            'all' => 'Vše',
+            'filter_button_text' => 'Filtrovat',
+            'reset_button_text'  => 'Zrušit',
+            'min_placeholder' => 'Minimum',
+            'max_placeholder' => 'Maximum'
         ]
     ],
     'eventlog' => [
