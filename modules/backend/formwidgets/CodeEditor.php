@@ -167,6 +167,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['highlightActiveLine'] = $this->highlightActiveLine;
         $this->vars['useSoftTabs'] = $this->useSoftTabs;
         $this->vars['showGutter'] = $this->showGutter;
+        $this->vars['safeMode'] = $this->parentForm->model->isSafeMode();
         $this->vars['language'] = $this->language;
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
