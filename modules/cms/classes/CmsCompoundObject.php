@@ -7,6 +7,7 @@ use Config;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Components\ViewBag;
+use Cms\Helpers\Cms as CmsHelpers;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Halcyon\Processors\SectionParser;
 use Twig\Source as TwigSource;
@@ -143,18 +144,9 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        if ($this->isSafeMode() && $this->isDirty('code') && strlen(trim($this->code))) {
+        if (CmsHelpers::isSafeMode() && $this->isDirty('code') && strlen(trim($this->code))) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
-    }
-
-    public function isSafeMode()
-    {
-        $safeMode = Config::get('cms.enableSafeMode', null);
-        if ($safeMode === null) {
-            $safeMode = !Config::get('app.debug', false);
-        }
-        return $safeMode;
     }
 
     //

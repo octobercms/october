@@ -21,6 +21,7 @@ use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
+use Cms\Helpers\Cms as CmsHelpers;
 use Backend\Classes\Controller;
 use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
@@ -67,7 +68,7 @@ class Index extends Controller
             if (!$widget->model instanceof CmsCompoundObject) {
                 return;
             }
-            if (key_exists('code', $widget->secondaryTabs['fields']) && $widget->model->isSafeMode()) {
+            if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::isSafeMode()) {
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
             };
         });
