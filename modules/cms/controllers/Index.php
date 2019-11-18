@@ -70,6 +70,11 @@ class Index extends Controller
             }
             if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::isSafeMode()) {
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+                $widget->secondaryTabs['fields']['code']['codeHint'] = $this->makePartial('code_hint', [
+                    'title' => e(trans('cms::lang.cms_object.safe_mode_enabled')),
+                    'subtitle' => 'ref. https://octobercms.com/docs/setup/configuration#safe-mode',
+                    'icon' => 'icon-info',
+                ]);
             };
         });
 

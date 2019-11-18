@@ -102,6 +102,11 @@ class CodeEditor extends FormWidgetBase
      */
     public $showPrintMargin = false;
 
+    /**
+     * @var string Hint to show above the code editor
+     */
+    public $codeHint = '';
+
     //
     // Object properties
     //
@@ -136,10 +141,11 @@ class CodeEditor extends FormWidgetBase
             'showInvisibles',
             'highlightActiveLine',
             'readOnly',
+            'codeHint',
             'autocompletion',
             'enableSnippets',
             'displayIndentGuides',
-            'showPrintMargin'
+            'showPrintMargin',
         ]);
     }
 
@@ -167,12 +173,12 @@ class CodeEditor extends FormWidgetBase
         $this->vars['highlightActiveLine'] = $this->highlightActiveLine;
         $this->vars['useSoftTabs'] = $this->useSoftTabs;
         $this->vars['showGutter'] = $this->showGutter;
-        $this->vars['safeMode'] = $this->parentForm->model->isSafeMode();
         $this->vars['language'] = $this->language;
         $this->vars['margin'] = $this->margin;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['codeHint'] = $this->codeHint;
         $this->vars['autocompletion'] = $this->autocompletion;
         $this->vars['enableSnippets'] = $this->enableSnippets;
         $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
