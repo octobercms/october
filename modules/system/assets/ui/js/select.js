@@ -87,23 +87,26 @@
                         return $request
                     },
                     processResults: function (data, params) {
-                        var results = data.result;
-                        var options = [];
+                        var results = data.result || data.results,
+                            options = []
 
-                        for (var i in results) {
-                            if (results.hasOwnProperty(i)) {
-                                var isObject = i != null && i.constructor.name === 'Object';
-                                
-                                options.push({
-                                    id: isObject ? results[i].id : i,
-                                    text: isObject ? results[i].text : results[i],
-                                });
-                            };
-                        };
+                        delete(data.result)
+                        if (results[0] && typeof(results[0]) === 'object') { // Pass through Select2 format
+                            options = results
+                        }
+                        else { // Key-value map
+                            for (var i in results) {
+                                if (results.hasOwnProperty(i)) {
+                                    options.push({
+                                        id: i,
+                                        text: results[i],
+                                    })
+                                }
+                            }
+                        }
 
-                        return {
-                            results: options,
-                        };
+                        data.results = options
+                        return data
                     },
                     dataType: 'json'
                 }
