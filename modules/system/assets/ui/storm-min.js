@@ -3514,7 +3514,12 @@ if($element.hasClass('select-hide-selected')){extraOptions.dropdownCssClass+=' s
 var source=$element.data('handler');if(source){extraOptions.ajax={transport:function(params,success,failure){var $request=$element.request(source,{data:params.data})
 $request.done(success)
 $request.fail(failure)
-return $request},processResults:function(data,params){var results=data.result;var options=[];for(var i in results){if(results.hasOwnProperty(i)){var isObject=i!=null&&i.constructor.name==='Object';options.push({id:isObject?results[i].id:i,text:isObject?results[i].text:results[i],});};};return{results:options,};},dataType:'json'}}
+return $request},processResults:function(data,params){var results=data.result||data.results,options=[]
+delete(data.result)
+if(results[0]&&typeof(results[0])==='object'){options=results}
+else{for(var i in results){if(results.hasOwnProperty(i)){options.push({id:i,text:results[i],})}}}
+data.results=options
+return data},dataType:'json'}}
 var separators=$element.data('token-separators')
 if(separators){extraOptions.tags=true
 extraOptions.tokenSeparators=separators.split('|')
