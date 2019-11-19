@@ -139,7 +139,7 @@ class CodeEditor extends FormWidgetBase
             'autocompletion',
             'enableSnippets',
             'displayIndentGuides',
-            'showPrintMargin',
+            'showPrintMargin'
         ]);
     }
 
