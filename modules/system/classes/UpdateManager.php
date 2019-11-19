@@ -624,7 +624,7 @@ class UpdateManager
         $fileCode = $name . $hash;
         $filePath = $this->getFilePath($fileCode);
 
-        if (!Zip::extract($filePath, App::themesPath())) {
+        if (!Zip::extract($filePath, themes_path())) {
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
