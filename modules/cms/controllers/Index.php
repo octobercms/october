@@ -69,7 +69,7 @@ class Index extends Controller
                 return;
             }
             if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
-                $widget->secondaryTabs['fields']['notice']['hidden'] = false;
+                $widget->secondaryTabs['fields']['safemode_notice']['hidden'] = false;
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
             };
         });

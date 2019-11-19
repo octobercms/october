@@ -74,11 +74,10 @@ secondaryTabs:
             type: codeeditor
             language: twig
 
-        notice:
+        safemode_notice:
             tab: cms::lang.editor.code
             type: partial
             hidden: true
-            path: ~/modules/cms/controllers/index/_notice_field.htm
             cssClass: p-b-0
 
         code:
