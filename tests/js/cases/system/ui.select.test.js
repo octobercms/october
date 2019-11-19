@@ -95,5 +95,17 @@ describe('modules/system/assets/ui/js/select.js', function () {
             let result = processResults({ results: select2ResultFormat, pagination: { more: true }, other: 'value' })
             assert.deepInclude(result, { pagination: { more: true }, other: 'value' })
         })
+
+        it('passes through the Select2 format with a group as the first entry', function() {
+            let data = [
+                {
+                    text: 'Label',
+                    children: select2ResultFormat
+                }
+            ]
+
+            let result = processResults({ results: data })
+            assert.deepEqual(result, { results: data })
+        })
     })
 })

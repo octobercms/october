@@ -3499,7 +3499,7 @@ $request.done(success)
 $request.fail(failure)
 return $request},processResults:function(data,params){var results=data.result||data.results,options=[]
 delete(data.result)
-if(results[0]&&results[0].id){options=results}
+if(results[0]&&typeof(results[0])==='object'){options=results}
 else{for(var i in results){if(results.hasOwnProperty(i)){options.push({id:i,text:results[i],})}}}
 data.results=options
 return data},dataType:'json'}}

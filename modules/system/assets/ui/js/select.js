@@ -91,10 +91,10 @@
                             options = []
 
                         delete(data.result)
-                        if (results[0] && results[0].id) { // Already in Select2 format
+                        if (results[0] && typeof(results[0]) === 'object') { // Pass through Select2 format
                             options = results
                         }
-                        else {
+                        else { // Key-value map
                             for (var i in results) {
                                 if (results.hasOwnProperty(i)) {
                                     options.push({
