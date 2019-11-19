@@ -69,19 +69,7 @@ class Index extends Controller
                 return;
             }
             if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
-                // save code field config
-                $codeField = $widget->secondaryTabs['fields']['code'];
-                unset($widget->secondaryTabs['fields']['code']);
-
-                // add hint field first
-                $widget->secondaryTabs['fields']['hint'] = [
-                    'tab' => 'cms::lang.editor.code',
-                    'type' => 'hint',
-                    'path' => '~/modules/cms/controllers/index/_hint_field.htm',
-                    'cssClass' => 'p-b-0',
-                ];
-                // re-add saved field config
-                $widget->secondaryTabs['fields']['code'] = $codeField;
+                $widget->secondaryTabs['fields']['notice']['hidden'] = false;
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
             };
         });

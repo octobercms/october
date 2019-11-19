@@ -74,6 +74,13 @@ secondaryTabs:
             type: codeeditor
             language: twig
 
+        notice:
+            tab: cms::lang.editor.code
+            type: partial
+            hidden: true
+            path: ~/modules/cms/controllers/index/_notice_field.htm
+            cssClass: p-b-0
+
         code:
             tab: cms::lang.editor.code
             stretch: true
