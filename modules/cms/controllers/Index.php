@@ -68,7 +68,7 @@ class Index extends Controller
             if (!$widget->model instanceof CmsCompoundObject) {
                 return;
             }
-            if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::isSafeMode()) {
+            if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
                 $widget->secondaryTabs['fields']['code']['codeHint'] = $this->makePartial('code_hint', [
                     'title' => e(trans('cms::lang.cms_object.safe_mode_enabled')),

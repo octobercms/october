@@ -144,7 +144,7 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        if (CmsHelpers::isSafeMode() && $this->isDirty('code') && strlen(trim($this->code))) {
+        if (CmsHelpers::safeModeEnabled() && $this->isDirty('code') && strlen(trim($this->code))) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
     }

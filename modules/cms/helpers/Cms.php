@@ -37,7 +37,7 @@ class Cms
         return Url::to($path);
     }
 
-    public static function isSafeMode()
+    public static function safeModeEnabled()
     {
         $safeMode = Config::get('cms.enableSafeMode', null);
         if ($safeMode === null) {
