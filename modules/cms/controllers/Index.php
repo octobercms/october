@@ -78,6 +78,7 @@ class Index extends Controller
                     'tab' => 'cms::lang.editor.code',
                     'type' => 'hint',
                     'path' => '~/modules/cms/controllers/index/_hint_field.htm',
+                    'cssClass' => 'p-b-0',
                 ];
                 // re-add saved field config
                 $widget->secondaryTabs['fields']['code'] = $codeField;
