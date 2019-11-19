@@ -47,25 +47,25 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Zrušit',
-        'widget_remove_confirm' => 'Odstranit widget?'
+        'widget_remove_confirm' => 'Odstranit widget?',
     ],
     'datepicker' => [
         'previousMonth' => 'Předchozí měsíc',
         'nextMonth' => 'Následující měsíc',
         'months' => ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
         'weekdays' => ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
-        'weekdaysShort' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So']
+        'weekdaysShort' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
     ],
     'colorpicker' => [
         'choose' => 'Ok',
     ],
     'filter' => [
         'group' => [
-            'all' => 'Vše'
+            'all' => 'Vše',
         ],
         'scopes' => [
             'apply_button_text' => 'Filtrovat',
-            'clear_button_text'  => 'Zrušit'
+            'clear_button_text'  => 'Zrušit',
         ],
         'dates' => [
             'all' => 'Vše',
@@ -73,15 +73,15 @@ return [
             'reset_button_text'  => 'Zrušit',
             'date_placeholder' => 'Datum',
             'after_placeholder' => 'Po',
-            'before_placeholder' => 'Před'
+            'before_placeholder' => 'Před',
         ],
         'numbers' => [
             'all' => 'Vše',
             'filter_button_text' => 'Filtrovat',
             'reset_button_text'  => 'Zrušit',
             'min_placeholder' => 'Minimum',
-            'max_placeholder' => 'Maximum'
-        ]
+            'max_placeholder' => 'Maximum',
+        ],
     ],
     'eventlog' => [
         'show_stacktrace' => 'Zobrazit stacktrace',
@@ -96,7 +96,7 @@ return [
             'openWith' => 'Otevřít v',
             'remember_choice' => 'Zapamatovat si vybranou volbu pro tuto relaci',
             'open' => 'Otevřít',
-            'cancel' => 'Zrušit'
-        ]
-    ]
+            'cancel' => 'Zrušit',
+        ],
+    ],
 ];
