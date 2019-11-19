@@ -69,11 +69,19 @@ class Index extends Controller
                 return;
             }
             if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
+                // save code field config
+                $codeField = $widget->secondaryTabs['fields']['code'];
+                unset($widget->secondaryTabs['fields']['code']);
+
+                // add hint field first
+                $widget->secondaryTabs['fields']['hint'] = [
+                    'tab' => 'cms::lang.editor.code',
+                    'type' => 'hint',
+                    'path' => '~/modules/cms/controllers/index/_hint_field.htm',
+                ];
+                // re-add saved field config
+                $widget->secondaryTabs['fields']['code'] = $codeField;
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
-                $widget->secondaryTabs['fields']['code']['codeHint'] = $this->makePartial('code_hint', [
-                    'title' => e(trans('cms::lang.cms_object.safe_mode_enabled')),
-                    'subtitle' => 'ref. https://octobercms.com/docs/setup/configuration#safe-mode',
-                ]);
             };
         });
 

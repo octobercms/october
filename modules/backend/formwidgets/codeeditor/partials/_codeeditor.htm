@@ -3,9 +3,6 @@
         <pre><?= e($value) ?></pre>
     </div>
 <?php else: ?>
-    <?php if ($codeHint): ?>
-        <?= $codeHint ?>
-    <?php endif ?>
     <div
         id="<?= $this->getId() ?>"
         class="field-codeeditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?>"
