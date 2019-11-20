@@ -1084,8 +1084,8 @@ $(document).ready(function(){if(Modernizr.touchevents||(typeof(localStorage)!=='
 $(window).trigger('resize')}
 else if(localStorage.ocSidePanelFixed==1){$(document.body).removeClass('side-panel-not-fixed')
 $(window).trigger('resize')}}})}(window.jQuery);+function($){"use strict";var SimpleList=function(element,options){var $el=this.$el=$(element)
-var isMobile=$('html').hasClass('mobile');this.options=options||{}
-if($el.hasClass('is-sortable')&&!isMobile){var sortableOptions={distance:10}
+this.options=options||{}
+if($el.hasClass('is-sortable')&&!$('html').hasClass('mobile')){var sortableOptions={distance:10}
 if(this.options.sortableHandle)
 sortableOptions[handle]=this.options.sortableHandle
 $el.find('> ul, > ol').sortable(sortableOptions)}
