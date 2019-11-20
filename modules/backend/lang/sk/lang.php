@@ -294,7 +294,7 @@ return [
         'cancel' => 'Zrušiť',
         'close' => 'Zatvoriť',
         'add_name' => 'Pridať :name',
-        'create' => 'Vytvorť',
+        'create' => 'Vytvoriť',
         'create_name' => 'Vytvoriť :name',
         'update' => 'Upraviť',
         'update_name' => 'Upraviť :name',
