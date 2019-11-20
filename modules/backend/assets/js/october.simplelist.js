@@ -15,11 +15,11 @@
     var SimpleList = function (element, options) {
 
         var $el = this.$el = $(element)
-        var is_mobile = /Mobi/.test(navigator.userAgent);
+        var isMobile = $('html').hasClass('mobile');
 
         this.options = options || {}
 
-        if ($el.hasClass('is-sortable') && !is_mobile) {
+        if ($el.hasClass('is-sortable') && !isMobile) {
 
             /*
              * Make each list inside sortable
