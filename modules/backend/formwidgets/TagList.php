@@ -208,7 +208,7 @@ class TagList extends FormWidgetBase
     {
         switch (strtolower($this->separator)) {
             case 'comma':
-                return ',';
+                return ', ';
             case 'space':
                 return ' ';
         }
