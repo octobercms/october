@@ -661,7 +661,7 @@ class Index extends Controller
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
         $widgetConfig->model = $template;
-        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName());
+        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->exists ? $template->getFileName() : uniqid());
 
         return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
@@ -715,7 +715,7 @@ class Index extends Controller
 
         /**
          * @event cms.template.processSettingsBeforeSave
-         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: array()}
+         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: []}
          *
          * Example usage:
          *

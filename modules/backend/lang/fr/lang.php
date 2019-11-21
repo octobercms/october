@@ -27,9 +27,6 @@ return [
             'help' => 'Une base de données est requise pour l’accès à l’interface d’administration. Veuillez vérifier que la base de données existe et que les migrations ont été effectuées avant de ré-essayer.',
             'cms_link' => 'Retour à l’accueil'
         ],
-        'invalid_token' => [
-            'label' => 'La clé de sécurité est invalide'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'Le modèle partiel ":name" est introuvable.'
@@ -277,8 +274,8 @@ return [
         'preview_no_media_message' => 'Aucun média sélectionné.',
         'preview_no_record_message' => 'Il n’y a aucun enregistrement sélectionné.',
         'select' => 'Sélectionner',
-        'select_all' => 'tout',
-        'select_none' => 'aucun',
+        'select_all' => 'tout sélectionner',
+        'select_none' => 'Ne rien sélectionner',
         'select_placeholder' => 'Sélectionner une valeur',
         'insert_row' => 'Insérer une ligne',
         'insert_row_below' => 'Insérer une ligne dessous',

@@ -52,6 +52,11 @@ class FilterScope
     public $options;
 
     /**
+     * @var array Other scope names this scope depends on, when the other scopes are modified, this scope will update.
+     */
+    public $dependsOn;
+
+    /**
      * @var string Specifies contextual visibility of this form scope.
      */
     public $context;
@@ -113,33 +118,32 @@ class FilterScope
      */
     protected function evalConfig($config)
     {
-        if (isset($config['options'])) {
-            $this->options = $config['options'];
+        if ($config === null) {
+            $config = [];
         }
-        if (isset($config['context'])) {
-            $this->context = $config['context'];
+
+        /*
+         * Standard config:property values
+         */
+        $applyConfigValues = [
+            'options',
+            'dependsOn',
+            'context',
+            'default',
+            'conditions',
+            'scope',
+            'cssClass',
+            'nameFrom',
+            'descriptionFrom',
+            'disabled',
+        ];
+
+        foreach ($applyConfigValues as $value) {
+            if (array_key_exists($value, $config)) {
+                $this->{$value} = $config[$value];
+            }
         }
-        if (isset($config['default'])) {
-            $this->defaults = $config['default'];
-        }
-        if (isset($config['conditions'])) {
-            $this->conditions = $config['conditions'];
-        }
-        if (isset($config['scope'])) {
-            $this->scope = $config['scope'];
-        }
-        if (isset($config['cssClass'])) {
-            $this->cssClass = $config['cssClass'];
-        }
-        if (isset($config['nameFrom'])) {
-            $this->nameFrom = $config['nameFrom'];
-        }
-        if (isset($config['descriptionFrom'])) {
-            $this->descriptionFrom = $config['descriptionFrom'];
-        }
-        if (array_key_exists('disabled', $config)) {
-            $this->disabled = $config['disabled'];
-        }
+
         return $config;
     }
 

@@ -30,7 +30,8 @@ class Files extends Controller
         try {
             return $this->findFileObject($code)->output('inline', true);
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return Response::make(View::make('backend::404'), 404);
     }
@@ -48,7 +49,8 @@ class Files extends Controller
                 true
             );
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return Response::make(View::make('backend::404'), 404);
     }
@@ -77,11 +79,18 @@ class Files extends Controller
             if (empty($path)) {
                 $path = $file->getDiskPath();
             }
-            $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
 
-            $url = Cache::remember('backend.file:' . $path, $expires, function () use ($disk, $path, $expires) {
-                return $disk->temporaryUrl($path, $expires);
-            });
+            // Check to see if the URL has already been generated
+            $pathKey = 'backend.file:' . $path;
+            $url = Cache::get($pathKey);
+
+            // The AWS S3 storage drivers will return a valid temporary URL even if the file does not exist
+            if (is_null($url) && $disk->exists($path)) {
+                $expires = now()->addSeconds(Config::get('cms.storage.uploads.temporaryUrlTTL', 3600));
+                $url = Cache::remember($pathKey, $expires, function () use ($disk, $path, $expires) {
+                    return $disk->temporaryUrl($path, $expires);
+                });
+            }
         }
 
         return $url;

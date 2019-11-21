@@ -208,12 +208,12 @@ class Asset extends Extendable
         $this->originalFileName = $this->fileName;
         $this->exists = true;
     }
-    
+
     public function delete()
     {
         $fileName = Request::input('fileName');
         $fullPath = $this->getFilePath($fileName);
-        
+
         $this->validateFileName($fileName);
 
         if (File::exists($fullPath)) {
@@ -222,9 +222,9 @@ class Asset extends Extendable
                     'cms::lang.asset.error_deleting_file',
                     ['name' => $fileName]
                 ));
-            }            
+            }
         }
-    }    
+    }
 
     /**
      * Validate the supplied filename, extension and path.

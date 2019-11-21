@@ -172,7 +172,7 @@
     }
 
     Flyout.prototype.onDocumentKeydown = function(ev) {
-        if (ev.which == 27) {
+        if (ev.key === 'Escape') {
             this.hide();
         }
     }

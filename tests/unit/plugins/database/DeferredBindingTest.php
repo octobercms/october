@@ -105,5 +105,4 @@ class DeferredBindingTest extends PluginTestCase
         $author->commitDeferred($sessionKey);
         $this->assertEquals(0, DeferredBinding::count());
     }
-
 }

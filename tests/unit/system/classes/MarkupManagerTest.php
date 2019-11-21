@@ -31,7 +31,9 @@ class MarkupManagerTest extends TestCase
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable]);
         $this->assertFalse($result);
 
-        $callable = function () { return 'O, Hai!'; };
+        $callable = function () {
+            return 'O, Hai!';
+        };
         $result = self::callProtectedMethod($manager, 'isWildCallable', [$callable]);
         $this->assertFalse($result);
 
@@ -78,5 +80,4 @@ class MarkupManagerTest extends TestCase
         $this->assertEquals('MyFood', $result[0]);
         $this->assertEquals('myFood', $result[1]);
     }
-
 }

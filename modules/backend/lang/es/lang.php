@@ -19,9 +19,6 @@ return [
             'help' => 'No tiene permisos necesarios para ver esta página.',
             'cms_link' => 'Volver al panel de administración'
         ],
-        'invalid_token' => [
-            'label' => 'Token de seguridad invalido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "El parcial ':name' no se encuentra."
@@ -214,8 +211,8 @@ return [
         'resetting' => 'Restableciendo',
         'resetting_name' => 'Restableciendo :name',
         'undefined_tab' => 'Varios',
-        'field_off' => 'Off',
-        'field_on' => 'On',
+        'field_off' => 'Apagar',
+        'field_on' => 'Encender',
         'add' => 'Agregar',
         'apply' => 'Aplicar',
         'cancel' => 'Cancelar',
@@ -230,8 +227,8 @@ return [
         'preview_no_files_message' => 'Los archivos no se han subido',
         'preview_no_record_message' => 'No hay ningún registro seleccionado.',
         'select' => 'Seleccionar',
-        'select_all' => 'todos',
-        'select_none' => 'ninguno',
+        'select_all' => 'seleccionar todo',
+        'select_none' => 'no seleccionar ninguno',
         'select_placeholder' => 'por favor seleccione',
         'insert_row' => 'Agregar Fila',
         'insert_row_below' => 'Insertar fila debajo',
@@ -394,7 +391,7 @@ return [
         'ip_address' => 'IP',
         'first_name' => 'Nombre',
         'last_name' => 'Apellido',
-        'email' => 'Email'
+        'email' => 'Correo'
     ],
     'filter' => [
         'all' => 'todo',
@@ -474,14 +471,14 @@ return [
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'        
+        'manage_media' => 'Subir y gestionar contenidos multimedia - imágenes, vídeos, sonidos y documentos'
     ],
     'mediafinder' => [
         'label' => 'Buscador de multimedia',
         'default_prompt' => 'Haga clic en el botón %s para buscar un elemento multimedia',
     ],
     'media' => [
-        'menu_label' => 'Media',
+        'menu_label' => 'Medios',
         'upload' => 'Subir',
         'move' => 'Mover',
         'delete' => 'Eliminar',

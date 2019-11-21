@@ -181,8 +181,8 @@ return [
         'behavior_not_ready' => '表單還沒初始化, 確保您調用了控制器中的 initForm()',
         'preview_no_files_message' => '檔案沒有上傳',
         'select' => '選擇',
-        'select_all' => 'all',
-        'select_none' => 'none',
+        'select_all' => '全選',
+        'select_none' => '選擇無',
         'select_placeholder' => '請選擇',
         'insert_row' => '插入行',
         'delete_row' => '刪除行',
@@ -306,7 +306,7 @@ return [
         'label' => 'Media Finder',
         'default_prompt' => 'Click the %s button to find a media item'
     ],
-   'media' => [
+    'media' => [
         'menu_label' => '媒體',
         'upload' => '上傳',
         'move' => '移動',

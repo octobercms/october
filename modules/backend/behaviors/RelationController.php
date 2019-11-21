@@ -886,7 +886,6 @@ class RelationController extends ControllerBehavior
          * Form
          */
         elseif ($this->manageMode == 'form') {
-
             if (!$config = $this->makeConfigForMode('manage', 'form', false)) {
                 return null;
             }
@@ -900,7 +899,7 @@ class RelationController extends ControllerBehavior
              * Existing record
              */
             if ($this->manageId) {
-                $model = $config->model->find($id);
+                $model = $config->model->find($this->manageId);
                 if ($model) {
                     $config->model = $model;
                 } else {
@@ -1205,7 +1204,6 @@ class RelationController extends ControllerBehavior
          * Add
          */
         if ($this->viewMode == 'multi') {
-
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1221,14 +1219,12 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->add($model, $sessionKey);
                 }
             }
-
         }
         /*
          * Link
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
-
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
 
@@ -1242,7 +1238,6 @@ class RelationController extends ControllerBehavior
                         $parentModel->save();
                     }
                 }
-
             }
         }
 
@@ -1264,7 +1259,6 @@ class RelationController extends ControllerBehavior
          * Remove
          */
         if ($this->viewMode == 'multi') {
-
             $checkedIds = $recordId ? [$recordId] : post('checked');
 
             if (is_array($checkedIds)) {
@@ -1707,7 +1701,8 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetManageWidget() {
+    public function relationGetManageWidget()
+    {
         return $this->manageWidget;
     }
 
@@ -1716,7 +1711,8 @@ class RelationController extends ControllerBehavior
      *
      * @return \Backend\Classes\WidgetBase
      */
-    public function relationGetViewWidget() {
+    public function relationGetViewWidget()
+    {
         return $this->viewWidget;
     }
 }

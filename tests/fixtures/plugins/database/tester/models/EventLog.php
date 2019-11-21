@@ -27,5 +27,4 @@ class EventLog extends Model
     public $morphTo = [
         'related' => []
     ];
-
 }

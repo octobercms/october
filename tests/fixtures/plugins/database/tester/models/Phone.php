@@ -26,5 +26,4 @@ class Phone extends Model
     public $belongsTo = [
         'author' => 'Database\Tester\Models\Author',
     ];
-
 }

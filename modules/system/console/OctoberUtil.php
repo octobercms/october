@@ -160,7 +160,7 @@ class OctoberUtil extends Command
         $combiner = CombineAssets::instance();
         $bundles = $combiner->getBundles($type);
 
-        if (!$bundles){
+        if (!$bundles) {
             $this->comment('Nothing to compile!');
             return;
         }
@@ -198,7 +198,6 @@ class OctoberUtil extends Command
         $stub = base_path() . '/modules/system/assets/js/lang/lang.stub';
 
         foreach ($locales as $locale) {
-
             /*
              * Generate messages
              */
@@ -209,7 +208,7 @@ class OctoberUtil extends Command
             if (File::isFile($srcPath) && $fallbackPath != $srcPath) {
                 $messages = array_replace_recursive($messages, require $srcPath);
             }
-            
+
             /*
              * Load possible replacements from /lang
              */
@@ -314,7 +313,10 @@ class OctoberUtil extends Command
     {
         foreach (File::directories(plugins_path()) as $authorDir) {
             foreach (File::directories($authorDir) as $pluginDir) {
-                if (!File::isDirectory($pluginDir.'/.git')) continue;
+                if (!File::isDirectory($pluginDir.'/.git')) {
+                    continue;
+                }
+
                 $exec = 'cd ' . $pluginDir . ' && ';
                 $exec .= 'git pull 2>&1';
                 echo 'Updating plugin: '. basename(dirname($pluginDir)) .'.'. basename($pluginDir) . PHP_EOL;
@@ -323,7 +325,10 @@ class OctoberUtil extends Command
         }
 
         foreach (File::directories(themes_path()) as $themeDir) {
-            if (!File::isDirectory($themeDir.'/.git')) continue;
+            if (!File::isDirectory($themeDir.'/.git')) {
+                continue;
+            }
+
             $exec = 'cd ' . $themeDir . ' && ';
             $exec .= 'git pull 2>&1';
             echo 'Updating theme: '. basename($themeDir) . PHP_EOL;
@@ -335,7 +340,7 @@ class OctoberUtil extends Command
     {
         $projectId = $this->option('projectId');
 
-        if (empty($projectId)){
+        if (empty($projectId)) {
             $this->error("No projectId defined, use --projectId=<id> to set a projectId");
             return;
         }
@@ -348,7 +353,5 @@ class OctoberUtil extends Command
             'system::project.name'  => $result['name'],
             'system::project.owner' => $result['owner'],
         ]);
-
     }
-
 }

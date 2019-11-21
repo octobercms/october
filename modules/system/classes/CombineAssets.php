@@ -202,7 +202,7 @@ class CombineAssets
      * @param string $localPath Prefix all assets with this path (optional)
      * @return void
      */
-    public function combineToFile($assets = [], $destination, $localPath = null)
+    public function combineToFile($assets, $destination, $localPath = null)
     {
         // Disable cache always
         $this->storagePath = null;
@@ -212,8 +212,10 @@ class CombineAssets
             if (substr($localPath, -1) !== '/') {
                 $localPath = $localPath.'/';
             }
-            $assets = array_map(function($asset) use ($localPath) {
-                if (substr($asset, 0, 1) === '@') return $asset;
+            $assets = array_map(function ($asset) use ($localPath) {
+                if (substr($asset, 0, 1) === '@') {
+                    return $asset;
+                }
                 return $localPath.$asset;
             }, $assets);
         }
@@ -398,7 +400,7 @@ class CombineAssets
             $this->putCache($cacheKey, $cacheInfo);
         }
 
-        return $this->getCombinedUrl($cacheInfo['version']);
+        return $this->getCombinedUrl($cacheInfo['version'] . '.' . $extension);
     }
 
     /**
@@ -540,7 +542,7 @@ class CombineAssets
      * `registerBundle` method. This instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     CombineAssets::registerCallback(function($combiner){
+     *     CombineAssets::registerCallback(function ($combiner) {
      *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
      *     });
      *

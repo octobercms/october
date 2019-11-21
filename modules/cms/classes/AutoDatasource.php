@@ -100,7 +100,7 @@ class AutoDatasource extends Datasource implements DatasourceInterface
 
             // Deleted paths are included as being handled by a datasource
             // The functionality built on this will need to make sure they
-            // include deleted records when actually performing sycning actions
+            // include deleted records when actually performing syncing actions
             if (isset($sourcePaths[$path])) {
                 $result = true;
             }
@@ -255,7 +255,9 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         }
 
         // Filter out 'deleted' paths:
-        $paths = array_filter($paths, function ($value) { return (bool) $value; });
+        $paths = array_filter($paths, function ($value) {
+            return (bool) $value;
+        });
 
         // Return just an array of paths
         return array_keys($paths);

@@ -237,7 +237,6 @@ class CmsCompoundObject extends CmsObject
         $componentName = $componentManager->resolve($componentName);
 
         foreach ($this->settings['components'] as $sectionName => $values) {
-
             $result = $sectionName;
 
             if ($sectionName == $componentName) {
@@ -257,7 +256,6 @@ class CmsCompoundObject extends CmsObject
             if ($sectionName == $componentName) {
                 return $result;
             }
-
         }
 
         return false;
