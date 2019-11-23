@@ -3083,10 +3083,10 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
                                 </ul>                                                                                  \
                             </div>                                                                                     \
                             <div class="filter-buttons">                                                               \
-                                <button class="btn btn-block btn-primary oc-icon-filter" data-trigger="apply">         \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-filter-action="apply">   \
                                     {{ apply_button_text }}                                                            \
                                 </button>                                                                              \
-                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-trigger="clear">       \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-filter-action="clear"> \
                                     {{ clear_button_text }}                                                            \
                                 </button>                                                                              \
                             </div>                                                                                     \
@@ -3111,9 +3111,9 @@ this.$el.on('show.oc.popover','a.filter-scope',function(event){self.focusSearch(
 $(event.relatedTarget).on('click','#controlFilterPopover .filter-items > ul > li',function(){self.selectItem($(this))})
 $(event.relatedTarget).on('click','#controlFilterPopover .filter-active-items > ul > li',function(){self.selectItem($(this),true)})
 $(event.relatedTarget).on('ajaxDone','#controlFilterPopover input.filter-search-input',function(event,context,data){self.filterAvailable(data.scopeName,data.options.available)})
-$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="apply"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="apply"]',function(e){e.preventDefault()
 self.filterScope()})
-$(event.relatedTarget).on('click','#controlFilterPopover [data-trigger="clear"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="clear"]',function(e){e.preventDefault()
 self.filterScope(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
@@ -3246,10 +3246,10 @@ this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
 this.$el.on('show.oc.popover','a.filter-scope-date',function(event){self.initDatePickers($(this).hasClass('range'))
-$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="filter"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-filter-action="filter"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByDate()})
-$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-trigger="clear"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopoverDate [data-filter-action="clear"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByDate(true)})})
 this.$el.on('hiding.oc.popover','a.filter-scope-date',function(){self.clearDatePickers()})
@@ -3285,7 +3285,7 @@ FilterWidget.prototype.getPopoverDateTemplate=function(){return'                
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                 \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -3317,16 +3317,16 @@ FilterWidget.prototype.getPopoverRangeTemplate=function(){return'               
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right popup-allow-focus"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
                             </div>                                                                                        \
                             <div class="filter-buttons">                                                                  \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                          \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                    \
                                     {{ filter_button_text }}                                                              \
                                 </button>                                                                                 \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                   \
                                     {{ reset_button_text }}                                                               \
                                 </button>                                                                                 \
                             </div>                                                                                        \
@@ -3381,10 +3381,10 @@ if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use stric
 this.initFilterNumber()}
 FilterWidget.prototype.initFilterNumber=function(){var self=this
 this.$el.on('show.oc.popover','a.filter-scope-number',function(event){self.initNumberInputs($(this).hasClass('range'))
-$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="filter"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-filter-action="filter"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByNumber()})
-$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-trigger="clear"]',function(e){e.preventDefault()
+$(event.relatedTarget).on('click','#controlFilterPopoverNum [data-filter-action="clear"]',function(e){e.preventDefault()
 e.stopPropagation()
 self.filterByNumber(true)})})
 this.$el.on('hide.oc.popover','a.filter-scope-number',function(){var $scope=$(this)
@@ -3416,10 +3416,10 @@ FilterWidget.prototype.getPopoverNumberTemplate=function(){return'              
                                     placeholder="{{ number_placeholder }}" />                                           \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                  \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                 \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -3456,10 +3456,10 @@ FilterWidget.prototype.getPopoverNumberRangeTemplate=function(){return'         
                                 </div>                                                                                      \
                             </div>                                                                                          \
                             <div class="filter-buttons">                                                                    \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                            \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                      \
                                     {{ filter_button_text }}                                                                \
                                 </button>                                                                                   \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                           \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                     \
                                     {{ reset_button_text }}                                                                 \
                                 </button>                                                                                   \
                             </div>                                                                                          \

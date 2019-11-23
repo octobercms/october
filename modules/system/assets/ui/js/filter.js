@@ -78,10 +78,10 @@
                                 </ul>                                                                                  \
                             </div>                                                                                     \
                             <div class="filter-buttons">                                                               \
-                                <button class="btn btn-block btn-primary oc-icon-filter" data-trigger="apply">         \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-filter-action="apply">   \
                                     {{ apply_button_text }}                                                            \
                                 </button>                                                                              \
-                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-trigger="clear">       \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-filter-action="clear"> \
                                     {{ clear_button_text }}                                                            \
                                 </button>                                                                              \
                             </div>                                                                                     \
@@ -146,12 +146,12 @@
                 self.filterAvailable(data.scopeName, data.options.available)
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="apply"]', function (e) {
                 e.preventDefault()
                 self.filterScope()
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="clear"]', function (e) {
                 e.preventDefault()
                 self.filterScope(true)
             })
