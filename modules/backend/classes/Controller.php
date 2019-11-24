@@ -255,7 +255,7 @@ class Controller extends ControllerBase
          *
          * Or
          *
-         *     $backendController->bindEvent('page.beforeDisplay', function ((string) $action, (array) $param) {
+         *     $backendController->bindEvent('page.beforeDisplay', function ((string) $action, (array) $params) {
          *         trace_log('redirect all backend pages to google');
          *         return \Redirect::to('https://google.com');
          *     });
