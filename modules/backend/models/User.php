@@ -136,6 +136,7 @@ class User extends UserBase
     public function afterLogin()
     {
         parent::afterLogin();
+
         /**
          * @event backend.user.login
          * Provides an opportunity to interact with the Backend User model after the user has logged in
