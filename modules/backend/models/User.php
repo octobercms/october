@@ -143,7 +143,7 @@ class User extends UserBase
          * Example usage:
          *
          *     Event::listen('backend.user.login', function ((\Backend\Models\User) $user) {
-         *         // your code here
+         *         Flash::success(sprintf('Welcome %s!', $user->getFullNameAttribute()));
          *     });
          *
          */
