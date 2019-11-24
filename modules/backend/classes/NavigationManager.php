@@ -102,7 +102,7 @@ class NavigationManager
 
         /**
          * @event backend.menu.extendItems
-         * Provides an opportunity to add more menu items
+         * Provides an opportunity to manipulate the backend navigation
          *
          * Example usage:
          *
