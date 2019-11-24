@@ -111,7 +111,7 @@ class SettingsManager
 
         /**
          * @event system.settings.extendItems
-         * Provides an opportunity to add interact with the system settings manager
+         * Provides an opportunity to manipulate the system settings manager
          *
          * Example usage:
          *
