@@ -67,8 +67,16 @@ trait ConfigMaker
 
             $config = Yaml::parseFile($configFile);
 
-            /*
-             * Extensibility
+            /**
+             * @event system.extendConfigFile
+             * Provides an opportunity to modify config files
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.extendConfigFile', function ((File) $publicFile, (array) $config) {
+             *         // your code here
+             *     });
+             *
              */
             $publicFile = File::localToPublic($configFile);
             if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {

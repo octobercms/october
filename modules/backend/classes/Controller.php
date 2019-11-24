@@ -242,8 +242,22 @@ class Controller extends ControllerBase
             }
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.page.beforeDisplay
+         * Called before the backend page is displayed
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.page.beforeDisplay', function ((\Backend\Classes\Controller) $backendController, (string) $action, (array) $param) {
+         *         // your code here
+         *     });
+         *
+         * Or
+         *
+         *     $backendController->bindEvent('page.beforeDisplay', function ((string) $action, (array) $param) {
+         *         // your code here
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
             return $event;
