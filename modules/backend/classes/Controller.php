@@ -244,18 +244,20 @@ class Controller extends ControllerBase
 
         /**
          * @event backend.page.beforeDisplay
-         * Called before the backend page is displayed
+         * Provides an opportunity to override backend page content
          *
          * Example usage:
          *
          *     Event::listen('backend.page.beforeDisplay', function ((\Backend\Classes\Controller) $backendController, (string) $action, (array) $param) {
-         *         // your code here
+         *         trace_log('redirect all backend pages to google');
+         *         return \Redirect::to('https://google.com');
          *     });
          *
          * Or
          *
          *     $backendController->bindEvent('page.beforeDisplay', function ((string) $action, (array) $param) {
-         *         // your code here
+         *         trace_log('redirect all backend pages to google');
+         *         return \Redirect::to('https://google.com');
          *     });
          *
          */
