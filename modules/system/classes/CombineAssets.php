@@ -821,7 +821,7 @@ class CombineAssets
 
         /**
          * @event cms.combiner.getCacheKey
-         * Provides an opportunity to modify the $dataHolder->key property in place
+         * Provides an opportunity to modify the asset combiner's cache key
          *
          * Example usage:
          *
