@@ -248,7 +248,7 @@ class Controller extends ControllerBase
          *
          * Example usage:
          *
-         *     Event::listen('backend.page.beforeDisplay', function ((\Backend\Classes\Controller) $backendController, (string) $action, (array) $param) {
+         *     Event::listen('backend.page.beforeDisplay', function ((\Backend\Classes\Controller) $backendController, (string) $action, (array) $params) {
          *         trace_log('redirect all backend pages to google');
          *         return \Redirect::to('https://google.com');
          *     });
