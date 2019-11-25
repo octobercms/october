@@ -109,8 +109,17 @@ class SettingsManager
             $this->registerSettingItems($id, $items);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event system.settings.extendItems
+         * Provides an opportunity to manipulate the system settings manager
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.settings.extendItems', function ((\System\Classes\SettingsManager) $settingsManager) {
+         *         $settingsManager->addSettingItem(...)
+         *         $settingsManager->removeSettingItem(...)
+         *     });
+         *
          */
         Event::fire('system.settings.extendItems', [$this]);
 
