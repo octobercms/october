@@ -115,7 +115,7 @@ class SettingsManager
          *
          * Example usage:
          *
-         *     Event::listen(system.settings.extendItems', function ((\System\Classes\SettingsManager) $settingsManager) {
+         *     Event::listen('system.settings.extendItems', function ((\System\Classes\SettingsManager) $settingsManager) {
          *         $settingsManager->addSettingItem(...)
          *         $settingsManager->removeSettingItem(...)
          *     });
