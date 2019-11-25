@@ -74,7 +74,7 @@ trait ConfigMaker
              * Example usage:
              *
              *     Event::listen('system.extendConfigFile', function ((string) $path, (array) $config) {
-             *         if ($publicFile === '/plugins/author/plugin-name/controllers/mycontroller/config_relation.yaml') {
+             *         if ($path === '/plugins/author/plugin-name/controllers/mycontroller/config_relation.yaml') {
              *             unset($config['property_value']['view']['recordUrl']);
              *             return $config;
              *         }
