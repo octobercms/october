@@ -145,18 +145,19 @@ class Filter extends WidgetBase
                 break;
 
             case 'numberrange':
-                if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
-                    $scope->value[0] &&
-                    $scope->value[1]
+                if (
+                    $scope->value
+                    && (is_array($scope->value) && count($scope->value) === 2)
+                    && (isset($scope->value[0]) || isset($scope->value[1]))
                 ) {
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ?: '';
-                    $params['min'] = $min ?: null;
+                    $params['minStr'] = $min ?? '∞';
+                    $params['min'] = $min ?? null;
 
-                    $params['maxStr'] = $max ?: '∞';
-                    $params['max'] = $max ?: null;
+                    $params['maxStr'] = $max ?? '∞';
+                    $params['max'] = $max ?? null;
                 }
 
                 break;
@@ -790,7 +791,7 @@ class Filter extends WidgetBase
                 if (is_array($scope->value) && count($scope->value) > 1) {
                     list($min, $max) = array_values($scope->value);
 
-                    if ($min && $max) {
+                    if (isset($min) || isset($max)) {
                         /*
                          * Condition
                          *
@@ -1049,8 +1050,7 @@ class Filter extends WidgetBase
                     if (preg_match($numberRegex, $number)) {
                         $numbers[] = $number;
                     } else {
-                        $numbers = [];
-                        break;
+                        $numbers[] = null;
                     }
                 }
             }
