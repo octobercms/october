@@ -17,7 +17,8 @@
 =require vendor/flot/jquery.flot.time.js
 =require vendor/select2/js/select2.full.js
 =require vendor/mousewheel/mousewheel.js
-=require vendor/sortable/jquery-sortable.js
+=require vendor/sortable/Sortable.js
+=require vendor/sortable/jquery-sortablejs.js
 =require vendor/moment/moment.js
 =require vendor/moment/moment-timezone-with-data.js
 =require vendor/pikaday/js/pikaday.js
@@ -57,7 +58,6 @@
 =require js/input.preset.js
 =require js/input.trigger.js
 =require js/drag.value.js
-=require js/drag.sort.js
 =require js/drag.scroll.js
 =require js/tab.js
 =require js/inspector.surface.js
