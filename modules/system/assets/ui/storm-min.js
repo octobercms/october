@@ -3485,7 +3485,7 @@ numberinput.value=''!==defaultValue?defaultValue:'';})}
 FilterWidget.prototype.updateScopeNumberSetting=function($scope,numbers){var $setting=$scope.find('.filter-setting'),numberRegex=/\d*/,reset=false
 if(numbers&&numbers.length){numbers[0]=numbers[0]&&numbers[0].match(numberRegex)?numbers[0]:null
 if(numbers.length>1){numbers[1]=numbers[1]&&numbers[1].match(numberRegex)?numbers[1]:null
-if(numbers[0]||numbers[1]){var min=numbers[0]?numbers[0]:'',max=numbers[1]?numbers[1]:'∞'
+if(numbers[0]||numbers[1]){var min=numbers[0]?numbers[0]:'∞',max=numbers[1]?numbers[1]:'∞'
 $setting.text(min+' → '+max)}else{reset=true}}
 else if(numbers[0]){$setting.text(numbers[0])}else{reset=true}}
 else{reset=true}
