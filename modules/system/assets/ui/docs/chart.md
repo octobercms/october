@@ -25,13 +25,11 @@ The pie chart outputs information as a circle diagram, with optional label in th
 The next example shows a line chart markup. Data sets are defined with the SPAN elements inside the chart element.
 
     <div class="report-widget">
-        <?php if (!isset($error)): ?>
-            <div 
-                data-control="chart-line" 
-                data-time-mode="weeks"
-                data-chart-options="xaxis: {mode: 'time'}"
-                class="height-200"
-            >
+        <div 
+            data-control="chart-line" 
+            data-time-mode="weeks"
+            data-chart-options="xaxis: {mode: 'time'}"
+            class="height-200">
 
                 <span 
                     data-chart="dataset" 
@@ -39,10 +37,7 @@ The next example shows a line chart markup. Data sets are defined with the SPAN 
                     data-set-data="[1477857082000, 400], [1477943482000, 380], [1478029882000, 340], [1478116282000, 540], [1478202682000, 440], [1478289082000, 360], [1478375482000, 220]"
                     data-set-name="Visits"></span>
 
-            </div>
-        <?php else: ?>
-            <p class="flash-message static warning">There is a problem loading the line chart.</p>
-        <?php endif ?>
+        </div>
     </div>
 
 ![image](https://github.com/octobercms/docs/blob/master/images/line-chart.png?raw=true) {.img-responsive .frame}
