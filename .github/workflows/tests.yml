@@ -23,6 +23,7 @@ jobs:
         uses: shivammathur/setup-php@master
         with:
           php-version: ${{ matrix.phpVersions }}
+          extension-csv: mbstring, intl
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --no-suggest
       - name: Reset October modules and library
