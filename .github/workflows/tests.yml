@@ -25,7 +25,7 @@ jobs:
           php-version: ${{ matrix.phpVersions }}
           extension-csv: mbstring, intl
       - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
       - name: Reset October modules and library
         run: |
           git reset --hard HEAD
@@ -34,6 +34,10 @@ jobs:
           unzip ./vendor/october/develop.zip -d ./vendor/october
           mv ./vendor/october/library-develop ./vendor/october/rain
           composer dump-autoload
+      - name: Run post-update Composer scripts
+        run: |
+          php artisan october:util set build
+          php artisan package:discover
       - name: Run Linting and Tests
         run: |
           ./vendor/bin/parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php .
