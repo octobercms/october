@@ -11,6 +11,7 @@ return [
     | To compile this file run: php artisan october:util compile lang
     |
     */
+
     'markdowneditor' => [
         'formatting'     => 'Oblikovanje',
         'quote'          => 'Citat',
