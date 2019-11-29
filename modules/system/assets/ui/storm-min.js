@@ -2964,7 +2964,7 @@ DatePicker.prototype.getDateFormat=function(){var format='YYYY-MM-DD'
 if(this.options.format){format=this.options.format}
 else if(this.locale){format=moment().locale(this.locale).localeData().longDateFormat('l')}
 return format}
-DatePicker.prototype.initTimePicker=function(){this.$timePicker.clockpicker({autoclose:'true',placement:'auto',align:'right',twelvehour:this.isTimeTwelveHour()})
+DatePicker.prototype.initTimePicker=function(){this.$timePicker.clockpicker({autoclose:'true',placement:'auto',align:'right',twelvehour:this.isTimeTwelveHour(),afterDone:this.proxy(this.onChangeTimePicker)})
 this.$timePicker.val(this.getDataLockerValue(this.getTimeFormat()))}
 DatePicker.prototype.onSelectTimePicker=function(){var pickerValue=this.$timePicker.val()
 var timeValue=moment(pickerValue,this.getTimeFormat()).format(this.dbTimeFormat)
@@ -2972,6 +2972,7 @@ var dateValue=this.getDatePickerValue()
 var momentObj=moment.tz(dateValue+' '+timeValue,this.dbDateTimeFormat,this.timezone).tz(this.appTimezone)
 var lockerValue=momentObj.format(this.dbDateTimeFormat)
 this.$dataLocker.val(lockerValue)}
+DatePicker.prototype.onChangeTimePicker=function(){this.$timePicker.trigger('change')}
 DatePicker.prototype.getTimePickerValue=function(){var value=this.$timePicker.val()
 if(!this.hasTime||!value){return moment.tz(this.appTimezone).tz(this.timezone).format(this.dbTimeFormat)}
 return moment(value,this.getTimeFormat()).format(this.dbTimeFormat)}
