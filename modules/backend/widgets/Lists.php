@@ -1496,14 +1496,20 @@ class Lists extends WidgetBase
 
             $this->sortColumn = $sortOptions['column'] = $column;
 
-            $this->putSession('sort', $sortOptions);
-
             /*
              * Persist the page number
              */
             $this->currentPageNumber = post('page');
 
-            return $this->onRefresh();
+            /*
+             * Try to refresh the list with the new sortOptions. Put the
+             * new sortOptions in to the session if the query succeeded.
+             */
+            $result = $this->onRefresh();
+
+            $this->putSession('sort', $sortOptions);
+
+            return $result;
         }
     }
 
