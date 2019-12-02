@@ -34,6 +34,11 @@
     ## Disable PHP in storage folder
     ##
     RewriteRule ^storage/.*\.(?:php[1-6]?)$ - [NC,F]
+    
+    ##
+    ## Whitelist the favicon.ico file in root
+    ##
+    RewriteCond %{REQUEST_FILENAME} !/favicon\.ico
 
     ##
     ## White listed folders
@@ -47,11 +52,6 @@
     RewriteCond %{REQUEST_FILENAME} !/plugins/.*/(assets|resources)/.*
     RewriteCond %{REQUEST_FILENAME} !/modules/.*/(assets|resources)/.*
     RewriteRule !^index.php index.php [L,NC]
-    
-    ##
-    ## Whitelist the favicon.ico file in root
-    ##
-    RewriteCond %{REQUEST_FILENAME} !/favicon\.ico
 
     ##
     ## Block all PHP files, except index
