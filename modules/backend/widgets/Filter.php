@@ -794,12 +794,11 @@ class Filter extends WidgetBase
                     if (isset($min) || isset($max)) {
                         /*
                          * Condition
-                         *
                          */
                         if ($scopeConditions = $scope->conditions) {
                             $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
-                                ':min'  => $min,
-                                ':max'  => $max
+                                ':min'  => $min === null ? -999999999 : $min,
+                                ':max'  => $max === null ? 999999999 : $max
                             ])));
                         }
                         /*
