@@ -532,6 +532,7 @@ class Lists extends WidgetBase
                 $sortColumn = $column->relation . '_count';
             }
 
+            $query->getQuery()->orders = [];
             $query->orderBy($sortColumn, $this->sortDirection);
         }
 
