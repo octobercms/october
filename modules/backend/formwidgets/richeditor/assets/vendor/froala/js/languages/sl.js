@@ -89,12 +89,12 @@ $.FE.LANGUAGE['sl'] = {
 
     // Lists
     "Ordered List": "Številčni seznam",
-    "Default": "",
-    "Lower Alpha": "Alfa male črke",
-    "Lower Greek": "Grške male črke",
-    "Lower Roman": "Rimske male črke",
-    "Upper Alpha": "Alfa velike črke",
-    "Upper Roman": "Rimske velike črke",
+    "Default": "Privzeto",
+    "Lower Alpha": "Latinica male",
+    "Lower Greek": "Grške male",
+    "Lower Roman": "Rimske male",
+    "Upper Alpha": "Latinica velike",
+    "Upper Roman": "Rimske velike",
 
     "Unordered List": "Neštevilčni seznam",
     "Circle": "Krog",
@@ -149,7 +149,7 @@ $.FE.LANGUAGE['sl'] = {
     "Embedded Code": "Vdelana koda",
     "Paste in a video URL": "Prilepite URL video posnetka",
     "Drop video": "Spustite video posnetek sem",
-    "Your browser does not support HTML5 video.": "Vaš brskalnik ne podpira videov HTML5.",
+    "Your browser does not support HTML5 video.": "Vaš brskalnik ne podpira HTML5 video funkcionalnosti.",
     "Upload Video": "Naloži video posnetek",
 
     // Tables
@@ -226,7 +226,7 @@ $.FE.LANGUAGE['sl'] = {
 
     // Special Characters
     "Special Characters": "Posebni znaki",
-    "Latin": "Latinščina",
+    "Latin": "Latinica",
     "Greek": "Grščina",
     "Cyrillic": "Cirilica",
     "Punctuation": "Ločila",
