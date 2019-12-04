@@ -39,7 +39,7 @@ if (window.jQuery.request !== undefined) {
         /*
          * Validate the form client-side
          */
-        if (!$form[0].checkValidity()) {
+        if ($form[0] && !$form[0].checkValidity()) {
             $form[0].reportValidity();
             return false;
         }
