@@ -124,7 +124,8 @@
     .box-sizing(border-box);
 
     &.is-required {
-        > label:after {
+        > label:not(.custom-switch):after,
+        > .field-switch > label:after {
             background-color: @color-form-required-asterisk;
             width: 5px;
             height: 5px;
@@ -151,6 +152,18 @@
     &.span-right {
         float: right;
         width: 48.5%;
+        clear: right;
+    }
+
+    &.clear-full {
+        clear: both;
+    }
+
+    &.clear-left {
+        clear: left;
+    }
+
+    &.clear-right {
         clear: right;
     }
 
@@ -315,22 +328,46 @@
     &.size-giant { min-height: @size-giant; }
 }
 
-.field-checkboxlist:not(.is-scrollable) {
-    padding: 20px 20px 2px 20px;
-    .border-radius(@border-radius-base);
-    background: @color-form-checkboxlist-background;
-    border: 1px solid @color-form-checkboxlist-border;
+.field-checkboxlist {
+    &:not(.is-scrollable) {
+        .border-radius(@border-radius-base);
+        background: @color-form-checkboxlist-background;
+        border: 1px solid @color-form-checkboxlist-border;
 
-    //.checkbox:last-of-type {
-    //    margin-bottom: 0;
-    //}
-}
+        .field-checkboxlist-inner {
+            padding: 20px 20px 2px 20px;
+        }
+    }
 
-.field-checkboxlist.is-scrollable {
-    small {
-        color: @text-muted;
+    .checkboxlist-controls {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+        > div {
+            padding-bottom: 7px;
+
+            > a {
+                font-size: 13px;
+                margin-right: 20px;
+                text-decoration: none;
+                > i {
+                    color: @text-muted;
+                    margin: 0 4px;
+                }
+
+                &:hover > i {
+                    color: @color-label;
+                }
+            }
+        }
     }
 }
+
 
 .field-checkboxlist-scrollable {
     background: @color-form-checkboxlist-background;

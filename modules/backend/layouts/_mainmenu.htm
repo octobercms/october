@@ -24,7 +24,9 @@
                         <a href="<?= $item->url ?>">
                             <span class="nav-icon">
                                 <?php if ($item->iconSvg): ?>
-                                    <img class="svg-icon" src="<?= Url::asset($item->iconSvg) ?>">
+                                    <img
+                                        src="<?= Url::asset($item->iconSvg) ?>"
+                                        class="svg-icon" loading="lazy" width="30" height="30" />
                                 <?php endif ?>
 
                                 <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -51,6 +53,7 @@
                 <a
                     href="<?= Url::to('/') ?>"
                     target="_blank"
+                    rel="noopener noreferrer"
                     title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
                     <i class="icon-crosshairs"></i>
                 </a>
@@ -59,7 +62,9 @@
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
                     title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
-                    <img src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>" class="account-avatar" />
+                    <img
+                        src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>"
+                        class="account-avatar" loading="lazy" width="90" height="90" />
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

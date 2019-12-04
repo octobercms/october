@@ -51,6 +51,11 @@ return [
     'file' => [
         'create_fail' => 'Không thể tạo file: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Security token không hợp lệ',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Không tìm thấy combiner file ':name'."
     ],

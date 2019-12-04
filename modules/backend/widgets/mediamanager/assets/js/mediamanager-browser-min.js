@@ -454,13 +454,13 @@ MediaManager.prototype.onSortingChanged=function(ev){var $target=$(ev.target),da
 if($target.data('sort')=='by'){data.sortBy=$target.val();}else if($target.data('sort')=='direction'){data.sortDirection=$target.val()}
 this.execNavigationRequest('onSetSorting',data)}
 MediaManager.prototype.onKeyDown=function(ev){var eventHandled=false
-switch(ev.which){case 13:var items=this.getSelectedItems(true,true)
+switch(ev.key){case'Enter':var items=this.getSelectedItems(true,true)
 if(items.length>0)
 this.navigateToItem($(items[0]))
 eventHandled=true
-break;case 39:case 40:this.selectRelative(true,ev.shiftKey)
+break;case'ArrowRight':case'ArrowDown':this.selectRelative(true,ev.shiftKey)
 eventHandled=true
-break;case 37:case 38:this.selectRelative(false,ev.shiftKey)
+break;case'ArrowLeft':case'ArrowUp':this.selectRelative(false,ev.shiftKey)
 eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()

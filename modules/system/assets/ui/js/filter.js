@@ -19,7 +19,6 @@
 +function ($) { "use strict";
 
     var FilterWidget = function (element, options) {
-
         this.$el = $(element);
 
         this.options = options || {}
@@ -27,6 +26,12 @@
         this.$activeScope = null
         this.activeScopeName = null
         this.isActiveScopeDirty = false
+
+        /*
+         * Throttle dependency updating
+         */
+        this.dependantUpdateInterval = 300
+        this.dependantUpdateTimers = {}
 
         this.init()
     }
@@ -73,10 +78,10 @@
                                 </ul>                                                                                  \
                             </div>                                                                                     \
                             <div class="filter-buttons">                                                               \
-                                <button class="btn btn-block btn-primary oc-icon-filter" data-trigger="apply">         \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-filter-action="apply">   \
                                     {{ apply_button_text }}                                                            \
                                 </button>                                                                              \
-                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-trigger="clear">       \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-filter-action="clear"> \
                                     {{ clear_button_text }}                                                            \
                                 </button>                                                                              \
                             </div>                                                                                     \
@@ -89,6 +94,9 @@
     FilterWidget.prototype.init = function() {
         var self = this
 
+        this.bindDependants()
+
+        // Setup event handler on type: checkbox scopes
         this.$el.on('change', '.filter-scope input[type="checkbox"]', function(){
             var $scope = $(this).closest('.filter-scope')
 
@@ -100,12 +108,14 @@
             }
         })
 
+        // Apply classes to type: checkbox scopes that are active from the server
         $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
             $(this)
                 .closest('.filter-scope')
                 .toggleClass('active', $(this).is(':checked'))
         })
 
+        // Setup click handler on type: group scopes
         this.$el.on('click', 'a.filter-scope', function(){
             var $scope = $(this),
                 scopeName = $scope.data('scope-name')
@@ -120,6 +130,7 @@
             $scope.addClass('filter-scope-open')
         })
 
+        // Setup event handlers on type: group scopes' controls
         this.$el.on('show.oc.popover', 'a.filter-scope', function(event){
             self.focusSearch()
 
@@ -135,18 +146,18 @@
                 self.filterAvailable(data.scopeName, data.options.available)
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="apply"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="apply"]', function (e) {
                 e.preventDefault()
                 self.filterScope()
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-trigger="clear"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="clear"]', function (e) {
                 e.preventDefault()
                 self.filterScope(true)
             })
-
         })
 
+        // Setup event handler to apply selected options when closing the type: group scope popup
         this.$el.on('hide.oc.popover', 'a.filter-scope', function(){
             var $scope = $(this)
             self.pushOptions(self.activeScopeName)
@@ -155,6 +166,81 @@
 
             // Second click closes the filter scope
             setTimeout(function() { $scope.removeClass('filter-scope-open') }, 200)
+        })
+    }
+
+    /*
+     * Bind dependant scopes
+     */
+    FilterWidget.prototype.bindDependants = function() {
+        if (!$('[data-scope-depends]', this.$el).length) {
+            return;
+        }
+
+        var self = this,
+            scopeMap = {},
+            scopeElements = this.$el.find('.filter-scope')
+
+        /*
+         * Map master and slave scope
+         */
+        scopeElements.filter('[data-scope-depends]').each(function() {
+            var name = $(this).data('scope-name'),
+                depends = $(this).data('scope-depends')
+
+            $.each(depends, function(index, depend){
+                if (!scopeMap[depend]) {
+                    scopeMap[depend] = { scopes: [] }
+                }
+
+                scopeMap[depend].scopes.push(name)
+            })
+        })
+
+        /*
+         * When a master is updated, refresh its slaves
+         */
+        $.each(scopeMap, function(scopeName, toRefresh){
+            scopeElements.filter('[data-scope-name="'+scopeName+'"]')
+                .on('change.oc.filterScope', $.proxy(self.onRefreshDependants, self, scopeName, toRefresh))
+        })
+    }
+
+    /*
+     * Refresh a dependancy scope
+     * Uses a throttle to prevent duplicate calls and click spamming
+     */
+    FilterWidget.prototype.onRefreshDependants = function(scopeName, toRefresh) {
+        var self = this,
+            scopeElements = this.$el.find('.filter-scope')
+
+        if (this.dependantUpdateTimers[scopeName] !== undefined) {
+            window.clearTimeout(this.dependantUpdateTimers[scopeName])
+        }
+
+        this.dependantUpdateTimers[scopeName] = window.setTimeout(function() {
+            $.each(toRefresh.scopes, function (index, dependantScope) {
+                self.scopeValues[dependantScope] = null
+                var $scope = self.$el.find('[data-scope-name="'+dependantScope+'"]')
+
+                /*
+                 * Request options from server
+                 */
+                self.$el.request(self.options.optionsHandler, {
+                    data: { scopeName: dependantScope },
+                    success: function(data) {
+                        self.fillOptions(dependantScope, data.options)
+                        self.updateScopeSetting($scope, data.options.active.length)
+                        $scope.loadIndicator('hide')
+                    }
+                })
+            })
+        }, this.dependantUpdateInterval)
+
+        $.each(toRefresh.scopes, function(index, scope) {
+            scopeElements.filter('[data-scope-name="'+scope+'"]')
+                .addClass('loading-indicator-container')
+                .loadIndicator()
         })
     }
 
@@ -369,7 +455,7 @@
         var items = $('#controlFilterPopover .filter-active-items > ul'),
             buttonContainer = $('#controlFilterPopover .filter-buttons')
 
-        if(data) {
+        if (data) {
             data.active.length > 0 ? buttonContainer.show() : buttonContainer.hide()
         } else {
             items.children().length > 0 ? buttonContainer.show() : buttonContainer.hide()
@@ -383,16 +469,21 @@
         if (!this.isActiveScopeDirty || !this.options.updateHandler)
             return
 
-        var data = {
+        var self = this,
+            data = {
                 scopeName: scopeName,
                 options: this.scopeValues[scopeName]
             }
 
         $.oc.stripeLoadIndicator.show()
+
         this.$el.request(this.options.updateHandler, {
             data: data
-        }).always(function(){
+        }).always(function () {
             $.oc.stripeLoadIndicator.hide()
+        }).done(function () {
+            // Trigger dependsOn updates on successful requests
+            self.$el.find('[data-scope-name="'+scopeName+'"]').trigger('change.oc.filterScope')
         })
     }
 

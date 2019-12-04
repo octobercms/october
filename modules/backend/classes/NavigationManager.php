@@ -100,8 +100,18 @@ class NavigationManager
             $this->registerMenuItems($id, $items);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.menu.extendItems
+         * Provides an opportunity to manipulate the backend navigation
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.menu.extendItems', function ((\Backend\Classes\NavigationManager) $navigationManager) {
+         *         $navigationManager->addMainMenuItems(...)
+         *         $navigationManager->addSideMenuItems(...)
+         *         $navigationManager->removeMainMenuItem(...)
+         *     });
+         *
          */
         Event::fire('backend.menu.extendItems', [$this]);
 

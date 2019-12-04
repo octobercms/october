@@ -51,6 +51,11 @@ return [
     'file' => [
         'create_fail' => 'Nie je možné vytvoriť súbor: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Neplatný bezpečnostný token',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Zlučujúci súbor ':name' nebol nájdený."
     ],

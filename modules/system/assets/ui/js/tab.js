@@ -40,7 +40,7 @@
         })
 		
 		this.$el.on('mousedown', "li[data-tab-id]", function (ev) {
-            if (ev.which === 2) {
+            if (ev.key === '2') {
                 $(ev.target).trigger('close.oc.tab');
             }
         })
@@ -102,12 +102,14 @@
         if (!$anchor.attr('title'))
             $anchor.attr('title', $anchor.text())
 
-        var html = $anchor.html()
-
-        $anchor.html('')
-        $anchor
-            .append($('<span class="title"></span>')
-            .append($('<span></span>').html(html)))
+        // Setup the required tabs markup if it does not exist already.
+        if ($anchor.find('> span.title > span').length < 1) {
+            var html = $anchor.html()
+            $anchor
+                .html('')
+                .append($('<span class="title"></span>')
+                .append($('<span></span>').html(html)))
+        }
 
         var pane = $('> .tab-pane', this.$pagesContainer).eq(tabIndex).attr('id', targetId)
 

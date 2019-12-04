@@ -32,9 +32,6 @@ return [
             'help' => "需要数据库以访问后端。请在再次尝试之前检查数据库的配置和迁移。",
             'cms_link' => '返回首页'
         ],
-        'invalid_token' => [
-            'label' => '非法安全令牌'
-        ]
     ],
     'partial' => [
         'not_found_name' => "未找到部件 ':name' ",
@@ -45,7 +42,7 @@ return [
         'not_found' => "无法找到AJAX处理方法 ':name' "
     ],
     'account' => [
-        'signed_in_as' => '使用 :full_name 登录',
+        'signed_in_as' => '以 :full_name 身份登陆',
         'sign_out' => '登出',
         'login' => '登录',
         'reset' => '重置',
@@ -152,7 +149,7 @@ return [
         'created_at' => '创建时间',
         'updated_at' => '更新时间',
         'deleted_at' => '删除时间',
-        'show_deleted' => 'Show deleted',
+        'show_deleted' => '显示已删除',
         'group' => [
             'name' => '组',
             'name_comment' => '该名字将在群组列表中展示',
@@ -163,7 +160,7 @@ return [
             'code_field' => '代码',
             'code_comment' => '如果若您想访问 API, 请输入唯一代码。',
             'menu_label' => '群组',
-            'list_title' => '群组管理',
+            'list_title' => '管理群组',
             'new' => '新管理组',
             'delete_confirm' => '您真的想要删除这个管理组?',
             'return' => '返回组列表',
@@ -171,15 +168,15 @@ return [
         ],
         'role' => [
             'name' => '角色',
-            'name_field' => '角色名',
-            'name_comment' => '角色列表将会在管理员后台列表展示',
+            'name_field' => '名称',
+            'name_comment' => '名称会显示在管理员菜单下的角色列表中',
             'description_field' => '描述',
-            'code_field' => '唯一标识',
-            'code_comment' => '给角色定义一个唯一标识以方便API使用',
-            'menu_label' => '角色管理',
-            'list_title' => '角色管理',
+            'code_field' => '角色代码',
+            'code_comment' => '如果你想通过 API 访问角色对象，请输入一个唯一的角色代码',
+            'menu_label' => '管理角色',
+            'list_title' => '管理角色',
             'new' => '新建角色',
-            'delete_confirm' => '确定删除角色?',
+            'delete_confirm' => '确定删除该角色?',
             'return' => '返回角色列表',
             'users_count' => '用户'
         ],
@@ -243,7 +240,7 @@ return [
         'create_success' => '成功创建 :name',
         'update_success' => '成功更新 :name',
         'delete_success' => '成功删除 :name',
-        'restore_success' => '恢复 :name',
+        'restore_success' => '成功恢复 :name',
         'reset_success' => '重置成功',
         'missing_id' => '未指定表单记录ID.',
         'missing_model' => ':class 中使用的表单无定义模型.',
@@ -262,7 +259,7 @@ return [
         'deleting' => '删除中...',
         'confirm_delete' => '您确定删除记录?',
         'confirm_delete_multiple' => '确认删除选中的的记录?',
-        'deleting_name' => '删除 :name 中...',
+        'deleting_name' => '删除 :name...',
         'restore' => '恢复',
         'restoring' => '恢复中',
         'confirm_restore' => '你确定恢复这条记录?',
@@ -287,8 +284,8 @@ return [
         'preview_no_media_message' => '无选中媒体.',
         'preview_no_record_message' => '无选择记录。',
         'select' => '选择',
-        'select_all' => '全部',
-        'select_none' => '无',
+        'select_all' => '全选',
+        'select_none' => '选择无',
         'select_placeholder' => '请选择',
         'insert_row' => '插入行',
         'insert_row_below' => '在下面插入行',
@@ -439,8 +436,8 @@ return [
         'custom_stylesheet' => '自定样式',
         'navigation' => '导航',
         'menu_mode' => '菜单样式',
-        'menu_mode_inline' => '单行显示',
-        'menu_mode_inline_no_icons' => '单行显示 (不显示图标)',
+        'menu_mode_inline' => '行内',
+        'menu_mode_inline_no_icons' => '行内（无图标）',
         'menu_mode_tile' => '标题',
         'menu_mode_collapsed' => '已折叠'
     ],

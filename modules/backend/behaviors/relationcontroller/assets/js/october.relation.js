@@ -70,7 +70,7 @@
 
         /*
          * This function transfers the supplied variables as hidden form inputs,
-         * to any popup that is spawned within the supplied container. The spawned 
+         * to any popup that is spawned within the supplied container. The spawned
          * popup must contain a form element.
          */
         this.bindToPopups = function(container, vars) {
@@ -87,7 +87,7 @@
             if (typeof value == 'object') return value
 
             try {
-                return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+                return ocJSON("{" + value + "}")
             }
             catch (e) {
                 throw new Error('Error parsing the '+name+' attribute value. '+e)

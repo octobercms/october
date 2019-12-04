@@ -155,6 +155,9 @@ return [
         'ses_key_comment' => 'Adja meg az API kulcsot',
         'ses_secret' => 'SES kód',
         'ses_secret_comment' => 'Adja meg az API titkos kulcsot',
+        'sparkpost' => 'SparkPost',
+        'sparkpost_secret' => 'SparkPost kód',
+        'sparkpost_secret_comment' => 'Adja meg az API titkos kulcsot',
         'ses_region' => 'SES régió',
         'ses_region_comment' => 'Adja meg a régiót (pl. us-east-1)',
         'drivers_hint_header' => 'Hiányzó komponens',
@@ -388,6 +391,7 @@ return [
         'manage_mail_templates' => 'Levél sablonok kezelése',
         'manage_mail_settings' => 'Levelezési beállítások kezelése',
         'manage_other_administrators' => 'Adminisztrátorok kezelése',
+        'impersonate_users' => 'Átjelentkezés felhasználók fiókjába',
         'manage_preferences' => 'Saját beállítások kezelése',
         'manage_editor' => 'Kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult elérése',
@@ -413,6 +417,15 @@ return [
         'custom_error' => [
             'label' => 'Laphiba',
             'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
+        ],
+        'invalid_token' => [
+            'label' => 'Biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
+        ],
+        'maintenance' => [
+            'label' => 'Hamarosan visszatérünk!',
+            'help' => 'A weboldal karbantartás alatt áll. Látogasson vissza később!',
+            'message' => 'Üzenet:',
+            'available_at' => 'Újrapróbálás:'
         ]
     ],
     'pagination' => [

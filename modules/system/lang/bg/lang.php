@@ -13,6 +13,11 @@ return [
     'combiner' => [
         'not_found' => "Комбинираният файл ':name' не е намерен."
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Невалиден код за сигурност (token)',
+        ],
+    ],
     'system' => [
         'name' => 'Система',
         'menu_label' => 'Система',

@@ -165,25 +165,35 @@ class DataTable extends FormWidgetBase
     }
 
     /**
+     * Dropdown/autocomplete option callback handler
+     *
      * Looks at the model for getXXXDataTableOptions or getDataTableOptions methods
-     * to obtain values for autocomplete field types.
-     * @param  string $field Table field name
-     * @param  string $data  Data for the entire table
-     * @return array
+     * to obtain values for autocomplete and dropdown column types.
+     *
+     * @param string $columnName The name of the column to pass through to the callback.
+     * @param array $rowData The data provided for the current row in the datatable.
+     * @return array The options to make available to the dropdown or autocomplete, in format ["value" => "label"]
      */
-    public function getDataTableOptions($field, $data)
+    public function getDataTableOptions($columnName, $rowData)
     {
-        $methodName = 'get'.studly_case($this->fieldName).'DataTableOptions';
+        $methodName = 'get' . studly_case($this->fieldName) . 'DataTableOptions';
 
         if (!$this->model->methodExists($methodName) && !$this->model->methodExists('getDataTableOptions')) {
-            throw new ApplicationException(Lang::get('backend::lang.model.missing_method', ['class' => get_class($this->model), 'method' => 'getDataTableOptions']));
+            throw new ApplicationException(
+                Lang::get(
+                    'backend::lang.model.missing_method',
+                    [
+                        'class' => get_class($this->model),
+                        'method' => 'getDataTableOptions'
+                    ]
+                )
+            );
         }
 
         if ($this->model->methodExists($methodName)) {
-            $result = $this->model->$methodName($field, $data);
-        }
-        else {
-            $result = $this->model->getDataTableOptions($this->fieldName, $field, $data);
+            $result = $this->model->$methodName($columnName, $rowData);
+        } else {
+            $result = $this->model->getDataTableOptions($this->fieldName, $columnName, $rowData);
         }
 
         if (!is_array($result)) {

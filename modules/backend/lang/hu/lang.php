@@ -24,7 +24,7 @@ return [
         ],
         'access_denied' => [
             'label' => 'Hozzáférés megtagadva',
-            'help' => 'Ön nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
+            'help' => 'Nem rendelkezik a szükséges engedélyekkel ennek a lapnak a megtekintéséhez.',
             'cms_link' => 'Vissza a látogatói oldalra'
         ],
         'no_database' => [
@@ -32,9 +32,6 @@ return [
             'help' => 'Kérjük ellenőrizze a hozzáférési adatok helyességét majd próbálja újra betölteni az oldalt.',
             'cms_link' => 'Vissza a weboldalra'
         ],
-        'invalid_token' => [
-            'label' => 'A biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
-        ]
     ],
     'partial' => [
         'not_found_name' => "A(z) ':name' részlap nem található.",
@@ -45,6 +42,12 @@ return [
         'not_found' => "A(z) ':name' AJAX handler nem található."
     ],
     'account' => [
+        'impersonate' => 'Átjelentkezés a fiókba',
+        'impersonate_confirm' => 'Biztos benne, hogy átjelentkezik a felhasználó saját fiókjába? Ezáltal a jelenlegi munkamenetből ki lesz jelentkeztetve.',
+        'impersonate_success' => 'Sikeresen átjelentkezett a másik fiókba',
+        'impersonate_working' => 'Átjelentkezés...',
+        'impersonating' => 'Átjelentkezve mint :full_name',
+        'stop_impersonating' => 'Visszajelentkezés',
         'signed_in_as' => 'Belépve mint :full_name',
         'sign_out' => 'Kijelentkezés',
         'login' => 'Belépés',
@@ -137,12 +140,12 @@ return [
         'password' => 'Jelszó',
         'password_confirmation' => 'Jelszó megerősítése',
         'permissions' => 'Engedélyek',
-        'account' => 'Fiók',
+        'account' => 'Profil',
         'superuser' => 'Szuperadmin',
         'superuser_comment' => 'Korlátlan hozzáférést biztosít az admin felülethez.',
         'send_invite' => 'Meghívó küldése e-mailben',
         'send_invite_comment' => 'Csak a belépéshez szükséges adatokat tartalmazza.',
-        'delete_confirm' => 'Valóban törölni akarja az admint?',
+        'delete_confirm' => 'Valóban törölni akarja ezt a felhasználót?',
         'return' => 'Vissza az adminokhoz',
         'allow' => 'Engedélyezés',
         'inherit' => 'Öröklés',
@@ -283,18 +286,18 @@ return [
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
         'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Kérjük ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
-        'preview_no_files_message' => 'Nincsenek feltöltve fájlok.',
-        'preview_no_media_message' => 'Nincs kiválasztva média.',
-        'preview_no_record_message' => 'Nincs kiválasztva mező.',
+        'preview_no_files_message' => 'Nincs megadva fájl.',
+        'preview_no_media_message' => 'Nincs megadva kép.',
+        'preview_no_record_message' => 'Nincs megadva mező.',
         'select' => 'Kiválaszt',
-        'select_all' => 'mind',
+        'select_all' => 'mindegyik',
         'select_none' => 'egyik sem',
         'select_placeholder' => 'válasszon',
         'insert_row' => 'Sor beszúrása',
         'insert_row_below' => 'Sor beszúrása alá',
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
-        'concurrency_file_changed_description' => 'Az Ön által szerkesztett fájlt már egy másik felhasználó módosította. Újratöltheti a fájlt és elveszti a változtatásait, vagy felülírja a fájlt.',
+        'concurrency_file_changed_description' => 'A jelenleg szerkesztett fájlt egy másik felhasználó már módosította. Újratöltheti és elveszti a változtatásait, vagy felülírja a fájlt.',
         'return_to_list' => 'Vissza a listához'
     ],
     'recordfinder' => [
@@ -353,11 +356,13 @@ return [
         'mass_assignment_failed' => "A tömeges hozzárendelés a(z) ':attribute' modell attribútumhoz nem sikerült."
     ],
     'warnings' => [
-        'tips' => 'Rendszer beállítási tippek',
-        'tips_description' => 'Olyan problémák vannak, melyekre figyeljen oda a rendszer megfelelő működése érdekében.',
+        'tips' => 'Beállítási tippek',
+        'tips_description' => 'Az alábbi dolgokra figyeljen oda a rendszer megfelelő működése érdekében.',
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
-        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük telepítse ezt a bővítményt.'
+        'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük telepítse ezt a bővítményt.',
+        'debug' => 'A hibakeresési mód engedélyezve van. Ez nem ajánlott éles weboldal esetén.',
+        'decompileBackendAssets' => 'Az admin felülethez tartozó fájlok nem véglegesek. Ez nem ajánlott éles weboldal esetén.'
     ],
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
@@ -618,5 +623,5 @@ return [
         'resize_image' => 'Kép átméretezése',
         'image_size' => 'Kép mérete:',
         'selected_size' => 'Kiválasztva:'
-    ],
+    ]
 ];

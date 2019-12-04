@@ -36,6 +36,8 @@ class Controller extends ControllerBase
     use \System\Traits\AssetMaker;
     use \System\Traits\ConfigMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
+    use \System\Traits\SecurityController;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \October\Rain\Extension\ExtendableTrait;
@@ -112,16 +114,6 @@ class Controller extends ControllerBase
      * @var array Controller specified methods which cannot be called as actions.
      */
     protected $guarded = [];
-
-    /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
-
-    /**
-     * @var mixed Override the standard controller response.
-     */
-    protected $responseOverride = null;
 
     /**
      * Constructor.
@@ -210,13 +202,15 @@ class Controller extends ControllerBase
 
         /*
          * Check security token.
+         * @see \System\Traits\SecurityController
          */
         if (!$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('backend::lang.page.invalid_token.label'), 403);
+            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
         /*
          * Check forced HTTPS protocol.
+         * @see \System\Traits\SecurityController
          */
         if (!$this->verifyForceSecure()) {
             return Redirect::secure(Request::path());
@@ -248,8 +242,24 @@ class Controller extends ControllerBase
             }
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event backend.page.beforeDisplay
+         * Provides an opportunity to override backend page content
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.page.beforeDisplay', function ((\Backend\Classes\Controller) $backendController, (string) $action, (array) $params) {
+         *         trace_log('redirect all backend pages to google');
+         *         return \Redirect::to('https://google.com');
+         *     });
+         *
+         * Or
+         *
+         *     $backendController->bindEvent('page.beforeDisplay', function ((string) $action, (array) $params) {
+         *         trace_log('redirect all backend pages to google');
+         *         return \Redirect::to('https://google.com');
+         *     });
+         *
          */
         if ($event = $this->fireSystemEvent('backend.page.beforeDisplay', [$action, $params])) {
             return $event;
@@ -265,34 +275,30 @@ class Controller extends ControllerBase
          * Execute AJAX event
          */
         if ($ajaxResponse = $this->execAjaxHandlers()) {
-            return $ajaxResponse;
+            $result = $ajaxResponse;
         }
-
         /*
          * Execute postback handler
          */
-        if (
+        elseif (
             ($handler = post('_handler')) &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
-            return $handlerResponse;
+            $result = $handlerResponse;
         }
-
         /*
          * Execute page action
          */
-        $result = $this->execPageAction($action, $params);
-
-        if ($this->responseOverride !== null) {
-            $result = $this->responseOverride;
+        else {
+            $result = $this->execPageAction($action, $params);
         }
 
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -682,27 +688,6 @@ class Controller extends ControllerBase
         return $id;
     }
 
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    /**
-     * Sets the response for the current page request cycle, this value takes priority
-     * over the standard response prepared by the controller.
-     * @param mixed $response Response object or string
-     */
-    public function setResponse($response)
-    {
-        $this->responseOverride = $response;
-        return $this;
-    }
-
     //
     // Hints
     //
@@ -762,56 +747,5 @@ class Controller extends ControllerBase
     {
         $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
-    }
-
-    //
-    // Security
-    //
-
-    /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
-     * @return bool
-     */
-    protected function verifyCsrfToken()
-    {
-        if (!Config::get('cms.enableCsrfProtection')) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!strlen($token) || !strlen(Session::token())) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
-    }
-
-    /**
-     * Checks if the back-end should force a secure protocol (HTTPS) enabled by config.
-     * @return bool
-     */
-    protected function verifyForceSecure()
-    {
-        if (Request::secure() || Request::ajax()) {
-            return true;
-        }
-
-        // @todo if year >= 2018 change default from false to null
-        $forceSecure = Config::get('cms.backendForceSecure', false);
-        if ($forceSecure === null) {
-            $forceSecure = !Config::get('app.debug', false);
-        }
-
-        return !$forceSecure;
     }
 }

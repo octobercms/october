@@ -198,6 +198,9 @@ return [
         'ses_key_comment' => 'Enter your SES API key',
         'ses_secret' => 'SES secret',
         'ses_secret_comment' => 'Enter your SES API secret key',
+        'sparkpost' => 'SparkPost',
+        'sparkpost_secret' => 'SparkPost secret',
+        'sparkpost_secret_comment' => 'Enter your SparkPost API secret key',
         'ses_region' => 'SES region',
         'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
@@ -457,6 +460,9 @@ return [
         'custom_error' => [
             'label' => 'Page error',
             'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+        ],
+        'invalid_token' => [
+            'label' => 'Invalid security token',
         ],
         'maintenance' => [
             'label' => "We'll be right back!",

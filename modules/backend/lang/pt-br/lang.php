@@ -32,9 +32,6 @@ return [
             'help' => "Um banco de dados é necessário para acessar o back-end. Verifique se o banco de dados está configurado e migrou antes de tentar novamente.",
             'cms_link' => 'Retornar para a página inicial',
         ],
-        'invalid_token' => [
-            'label' => 'Token de segurança inválido'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'O bloco ":name" não foi encontrado.',
@@ -292,8 +289,8 @@ return [
         'preview_no_media_message' => 'Não há mídia selecionada.',
         'preview_no_record_message' => 'Nenhum registro selecionado.',
         'select' => 'Selecionar',
-        'select_all' => 'todos',
-        'select_none' => 'nenhum',
+        'select_all' => 'Selecionar tudo',
+        'select_none' => 'Selecione nenhum',
         'select_placeholder' => 'por favor, selecione',
         'insert_row' => 'Inserir linha',
         'insert_row_below' => 'Inserir linha abaixo',
