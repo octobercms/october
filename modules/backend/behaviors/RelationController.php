@@ -706,8 +706,11 @@ class RelationController extends ControllerBehavior
                 });
             }
             else {
-                $widget->bindEvent('list.extendQueryBefore', function ($query) {
+                $widget->bindEvent('list.extendQueryBefore', function ($query) use ($widget) {
                     $this->relationObject->addDefinedConstraintsToQuery($query);
+                    if ($widget->getSortColumn()) {
+                        $query->getQuery()->orders = [];
+                    }
                 });
             }
 
