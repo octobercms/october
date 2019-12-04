@@ -621,6 +621,13 @@ class Controller
         if ($isDebugMode) {
             $this->twig->addExtension(new DebugExtension($this));
         }
+
+        /*
+         * Register CMS Twig environment
+         */
+        App::singleton('twig.environment', function ($app) {
+            return $this->twig;
+        });
     }
 
     /**
