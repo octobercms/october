@@ -304,8 +304,13 @@
         if (!value) {
             return false
         }
-
-        return value.indexOf(checkboxValue) > -1
+        /**
+         * Fix to getting set list. Needed for comonent property type support
+         * from: value.indexOf(checkboxValue) > -1
+         * to:  value.indexOf(checkboxValue.toString()) > -1
+         * 2019-12-07
+         */
+        return value.indexOf(checkboxValue.toString()) > -1
     }
 
     SetEditor.prototype.setPropertyValue = function(checkboxValue, isChecked) {
@@ -327,7 +332,13 @@
             items = this.getItemsSource()
             
         for (var itemValue in items) {
-            if (itemValue !== checkboxValue) {
+            /**
+             * Fix to adding set list. Needed for component property type support
+             * from: if (itemValue !== checkboxValue) {
+             * to:  if (itemValue.toString() !== checkboxValue.toString()) {
+             * 2019-12-07
+             */
+            if (itemValue.toString() !== checkboxValue.toString()) {
                 if (currentValue.indexOf(itemValue) !== -1) {
                     resultValue.push(itemValue)
                 }
