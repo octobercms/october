@@ -13,7 +13,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         days-before-stale: 30
         days-before-close: 3
-        stale-issue-message: 'This issue will be closed and archived in 3 days, as there has been no activity in the last 30 days. If this issue is still relevant or you would like to see action on it, please respond and we will get the ball rolling.'
+        stale-issue-message: 'This issue will be closed and archived in 3 days, as there has been no activity in the last 30 days. If this issue is still relevant or you would like to see it actioned, please respond and we will re-open this issue.'
         stale-pr-message: 'This pull request will be closed and archived in 3 days, as there has been no activity in the last 30 days. If this is still being worked on, please respond and we will re-open this pull request.'
         stale-issue-label: 'Status: Archived'
         stale-pr-label: 'Status: Archived'
