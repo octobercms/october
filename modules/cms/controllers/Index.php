@@ -4,6 +4,7 @@ use Url;
 use Lang;
 use Flash;
 use Config;
+use Event;
 use Request;
 use Exception;
 use BackendMenu;
@@ -20,6 +21,7 @@ use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
+use Cms\Helpers\Cms as CmsHelpers;
 use Backend\Classes\Controller;
 use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
@@ -58,6 +60,19 @@ class Index extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Event::listen('backend.form.extendFieldsBefore', function ($widget) {
+            if (!$widget->getController() instanceof Index) {
+                return;
+            }
+            if (!$widget->model instanceof CmsCompoundObject) {
+                return;
+            }
+            if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
+                $widget->secondaryTabs['fields']['safemode_notice']['hidden'] = false;
+                $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+            };
+        });
 
         BackendMenu::setContext('October.Cms', 'cms', true);
 
