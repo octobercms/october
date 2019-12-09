@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 /*
  * This file is part of the phpunit-mock-objects package.
  *
