@@ -457,6 +457,35 @@ class Form extends WidgetBase
     }
 
     /**
+     * Renders all fields of a tab in the target tab-pane.
+     *
+     * @return array
+     */
+    public function onLazyLoadTab()
+    {
+        $target  = post('target');
+        $tabName = post('name');
+
+        $fields = array_get(optional($this->getTab('primary'))->fields, $tabName);
+
+        return [
+            $target => $this->makePartial('form_fields', ['fields' => $fields]),
+        ];
+    }
+
+    /**
+     * Helper method to convert a field name to a valid ID attribute.
+     *
+     * @param $input
+     *
+     * @return string
+     */
+    public function nameToId($input)
+    {
+        return HtmlHelper::nameToId($input);
+    }
+
+    /**
      * Creates a flat array of form fields from the configuration.
      * Also slots fields in to their respective tabs.
      *
@@ -935,7 +964,7 @@ class Form extends WidgetBase
         }
 
         $widgetConfig = $this->makeConfig($field->config);
-        $widgetConfig->alias = $this->alias . studly_case(HtmlHelper::nameToId($field->fieldName));
+        $widgetConfig->alias = $this->alias . studly_case($this->nameToId($field->fieldName));
         $widgetConfig->sessionKey = $this->getSessionKey();
         $widgetConfig->previewMode = $this->previewMode;
         $widgetConfig->model = $this->model;
