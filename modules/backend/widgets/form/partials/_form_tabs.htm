@@ -18,7 +18,7 @@
                 $lazy = in_array($name, $tabs->lazy);
             ?>
             <li class="<?= ($index++ === 0) ? 'active' : '' ?> <?= $lazy ? 'tab-lazy' : '' ?>">
-                <a href="#<?= $type . 'tab-' . $index ?>">
+                <a href="#<?= $type . 'tab-' . $index ?>" data-tab-name="<?= e($name) ?>">
                     <span class="title">
                         <span>
                             <?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?>
