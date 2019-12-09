@@ -147,17 +147,6 @@ class Controller
         }
 
         /*
-         * Check security token.
-         *
-         * Note: Ignore AJAX requests until a CSRF policy introduced.
-         *
-         * @see \System\Traits\SecurityController
-         */
-        if (!Request::ajax() && !$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
-        }
-
-        /*
          * Hidden page
          */
         $page = $this->router->findByUrl($url);
@@ -389,6 +378,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
+            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
