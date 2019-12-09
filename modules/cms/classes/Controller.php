@@ -38,6 +38,8 @@ class Controller
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
+    use \System\Traits\SecurityController;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -90,11 +92,6 @@ class Controller
     public $vars = [];
 
     /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
-
-    /**
      * @var self Cache of self
      */
     protected static $instance;
@@ -121,7 +118,7 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
+        $this->assetPath = Config::get('cms.themesPath', '/themes') . '/' . $this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->partialStack = new PartialStack;
         $this->initTwigEnvironment();
@@ -133,9 +130,11 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
-     * @param string $url Specifies the requested page URL.
-     * If the parameter is omitted, the current URL used.
-     * @return string Returns the processed page content.
+     * If the parameter is null, the current URL used. If it is not
+     * provided then '/' is used
+     *
+     * @param string|null $url Specifies the requested page URL.
+     * @return BaseResponse Returns the response to the provided URL
      */
     public function run($url = '/')
     {
@@ -145,6 +144,17 @@ class Controller
 
         if (empty($url)) {
             $url = '/';
+        }
+
+        /*
+         * Check security token.
+         *
+         * Note: Ignore AJAX requests until a CSRF policy introduced.
+         *
+         * @see \System\Traits\SecurityController
+         */
+        if (!Request::ajax() && !$this->verifyCsrfToken()) {
+            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
         /*
@@ -194,8 +204,7 @@ class Controller
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
-            }
-            else {
+            } else {
                 return $event;
             }
         }
@@ -250,14 +259,14 @@ class Controller
          *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
-            return $event;
+            $result = $event;
         }
 
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -380,7 +389,6 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
-            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -1222,32 +1230,8 @@ class Controller
     }
 
     //
-    // Setters
-    //
-
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     * @return self
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    //
     // Getters
     //
-
-     /**
-     * Returns the status code for the current web response.
-     * @return int Status code
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
 
     /**
      * Returns an existing instance of the controller.
@@ -1572,37 +1556,5 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
-    }
-
-    //
-    // Security
-    //
-
-    /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
-     * @return bool
-     */
-    protected function verifyCsrfToken()
-    {
-        if (!Config::get('cms.enableCsrfProtection')) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!strlen($token) || !strlen(Session::token())) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
     }
 }

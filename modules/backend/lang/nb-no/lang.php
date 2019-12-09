@@ -24,9 +24,6 @@ return [
             'help' => "En database kreves for å koble til backend. Sjekk at databasetilgang er konfigurert og migrert før du prøver igjen.",
             'cms_link' => 'Tilbake til hovedsiden'
         ],
-        'invalid_token' => [
-            'label' => 'Ugyldig sikkerhets-token'
-        ]
     ],
     'partial' => [
         'not_found_name' => "En partial ved navn ':name' ble ikke funnet."

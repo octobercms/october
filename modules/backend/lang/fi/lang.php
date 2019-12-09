@@ -25,9 +25,6 @@ return [
             'help' => "Tietokanta on pakollinen. Varmista, että tietokanta on olemassa ja pystyssä kunnes kokeilet uudelleen.",
             'cms_link' => 'Palaa kotisivulle'
         ],
-        'invalid_token' => [
-            'label' => 'Token on virheellinen'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Osiota ':name' ei löydy."

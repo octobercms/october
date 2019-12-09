@@ -420,6 +420,9 @@ return [
             'message' => "ข้อความ:",
             'available_at' => "ลองใหม่อีกครั้งหลังจาก:",
         ],
+        'invalid_token' => [
+            'label' => 'โทเค็นความปลอดภัยไม่ถูกต้อง',
+        ],
     ],
     'pagination' => [
         'previous' => 'ก่อนหน้า',

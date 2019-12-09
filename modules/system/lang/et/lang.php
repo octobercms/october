@@ -47,6 +47,11 @@ return [
     'file' => [
         'create_fail' => 'Faili :name ei õnnestunud luua'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Vigane turvamärk',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Ühendaja faili ':name' ei leitud."
     ],

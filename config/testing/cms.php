@@ -109,4 +109,16 @@ return [
 
     'themesPathLocal' => base_path('tests/fixtures/themes'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cross Site Request Forgery (CSRF) Protection
+    |--------------------------------------------------------------------------
+    |
+    | If the CSRF protection is enabled, all "postback" requests are checked
+    | for a valid security token.
+    |
+    */
+
+    'enableCsrfProtection' => false
+
 ];

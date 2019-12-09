@@ -370,6 +370,9 @@ return [
             'label' => '页面错误',
             'help' => "抱歉，页面因为一些错误导致无法显示"
         ],
+        'invalid_token' => [
+            'label' => '非法安全令牌',
+        ],
     ],
     'pagination' => [
         'previous' => '上一页',

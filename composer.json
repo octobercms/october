@@ -31,7 +31,7 @@
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.0.8",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "october/rain": "~1.0",
@@ -51,6 +51,8 @@
     },
     "autoload-dev": {
         "classmap": [
+            "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
             "tests/UiTestCase.php",
             "tests/PluginTestCase.php"
@@ -69,7 +71,7 @@
     "config": {
         "preferred-install": "dist",
         "platform": {
-            "php": "7.0"
+            "php": "7.0.8"
         }
     },
     "minimum-stability": "dev",

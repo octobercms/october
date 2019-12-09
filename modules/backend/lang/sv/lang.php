@@ -19,9 +19,6 @@ return [
             'help' => "Du har inte behörighet att visa den här sidan.",
             'cms_link' => "Gå till CMS backend",
         ],
-        'invalid_token' => [
-            'label' => 'Ogiltig säkerhetstoken'
-        ],
     ],
     'partial' => [
         'not_found_name' => "En partial med namn ':name' kunde inte hittas",

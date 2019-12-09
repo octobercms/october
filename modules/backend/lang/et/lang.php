@@ -25,9 +25,6 @@ return [
             'help' => "Haldusliidese kasutamiseks peab olemas seadistatud andmebaas. Enne jätkamist palun kontrolli andmebaasi seadistust.",
             'cms_link' => 'Tagasi kodulehele'
         ],
-        'invalid_token' => [
-            'label' => 'Vigane turvamärk'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Koodiblokki ':name' ei leitud."

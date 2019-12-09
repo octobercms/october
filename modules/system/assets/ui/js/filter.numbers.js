@@ -42,13 +42,13 @@
         this.$el.on('show.oc.popover', 'a.filter-scope-number', function (event) {
             self.initNumberInputs($(this).hasClass('range'))
 
-            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="filter"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-filter-action="filter"]', function (e) {
                 e.preventDefault()
                 e.stopPropagation()
                 self.filterByNumber()
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-trigger="clear"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopoverNum [data-filter-action="clear"]', function (e) {
                 e.preventDefault()
                 e.stopPropagation()
 
@@ -111,10 +111,10 @@
                                     placeholder="{{ number_placeholder }}" />                                           \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                        \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                  \
                                     {{ filter_button_text }}                                                            \
                                 </button>                                                                               \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                 \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -157,10 +157,10 @@
                                 </div>                                                                                      \
                             </div>                                                                                          \
                             <div class="filter-buttons">                                                                    \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                            \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                      \
                                     {{ filter_button_text }}                                                                \
                                 </button>                                                                                   \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                           \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                     \
                                     {{ reset_button_text }}                                                                 \
                                 </button>                                                                                   \
                             </div>                                                                                          \
@@ -257,7 +257,7 @@
                 numbers[1] = numbers[1] && numbers[1].match(numberRegex) ? numbers[1] : null
 
                 if(numbers[0] || numbers[1]) {
-                    var min = numbers[0] ? numbers[0] : '',
+                    var min = numbers[0] ? numbers[0] : '∞',
                         max = numbers[1] ? numbers[1] : '∞'
 
                     $setting.text(min + ' → ' + max)

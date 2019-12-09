@@ -4133,6 +4133,8 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox {display:inline-block;margin:0}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label {margin-bottom:0 !important;padding-top:10px}
 .inline-options .field-checkboxlist:not(.is-scrollable) .custom-checkbox label:before {top:10px}
+.inline-options.radio-field >label {display:block}
+.inline-options.radio-field .custom-radio {display:inline-block;margin-bottom:0}
 .switch-field .field-switch {padding-left:85px;float:left}
 .switch-field .field-switch >label {margin-top:3px}
 .custom-switch {display:block;width:65px;height:26px;position:relative;text-transform:uppercase;border:none;cursor:pointer;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
@@ -4193,10 +4195,14 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .form-group:empty {display:none}
 .form-group,
 .form-group.layout-item {padding-bottom:20px;margin-bottom:0}
-.form-group.is-required >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
+.form-group.is-required >label:not(.custom-switch):after,
+.form-group.is-required >.field-switch >label:after {background-color:#c20a0a;width:5px;height:5px;margin-left:3px;vertical-align:super;font-size:60%;content:"";display:inline-block;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}
 .form-group.span-full {width:100%;float:left}
 .form-group.span-left {float:left;width:48.5%;clear:left}
 .form-group.span-right {float:right;width:48.5%;clear:right}
+.form-group.clear-full {clear:both}
+.form-group.clear-left {clear:left}
+.form-group.clear-right {clear:right}
 .form-group.layout-relative {padding-bottom:0}
 .form-group.checkbox-field {padding-bottom:5px}
 .form-group.number-field >.form-control {text-align:right}
@@ -4780,6 +4786,9 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a {padding:5px 12px;whit
 .control-filter >.filter-scope {display:inline-block;padding:10px}
 .control-filter >.filter-scope .filter-label {margin-right:5px}
 .control-filter >.filter-scope .filter-setting {display:inline-block;margin-right:5px;-webkit-transition:color 0.6s;transition:color 0.6s}
+.control-filter >.filter-scope.loading-indicator-container.in-progress {pointer-events:none;cursor:default}
+.control-filter >.filter-scope.loading-indicator-container.in-progress .loading-indicator {background:transparent}
+.control-filter >.filter-scope.loading-indicator-container.in-progress .loading-indicator >span {left:unset;right:0;top:10px;background-color:#ecf0f1;border-radius:50%;margin-top:0;width:20px;height:20px;background-size:15px 15px}
 .control-filter >.filter-scope:after {font-size:14px;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f107"}
 .control-filter >.filter-scope.active .filter-setting {padding-left:5px;padding-right:5px;color:#FFF;background-color:#6aab55;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-transition:color 1s,background-color 1s;transition:color 1s,background-color 1s}
 .control-filter >.filter-scope.checkbox {padding-left:35px}
