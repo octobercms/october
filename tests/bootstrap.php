@@ -19,3 +19,14 @@ $loader->addDirectories([
     'modules',
     'plugins'
 ]);
+
+/*
+ * Monkey patch PHPUnit\Framework\MockObject\Generator to avoid
+ * "Function ReflectionType::__toString() is deprecated" warnings
+ */
+$generatorPatchPath = __DIR__ . '/resources/patches/php-generator-7.php';
+$generatorSourcePath = __DIR__ . '/../vendor/phpunit/phpunit-mock-objects/src/Generator.php';
+
+if (file_exists($generatorSourcePath)) {
+    file_put_contents($generatorSourcePath, file_get_contents($generatorPatchPath));
+}
