@@ -666,6 +666,7 @@ class RelationController extends ControllerBehavior
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);
+            $config->customViewPath = $this->getConfig('view[customViewPath]', null);
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
