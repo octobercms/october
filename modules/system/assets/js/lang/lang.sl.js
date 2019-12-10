@@ -11,218 +11,103 @@ $.oc.langMessages['sl'] = $.extend(
 //! moment.js locale configuration v2.22.2
 
 ;(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined'
-    && typeof require === 'function' ? factory(require('../moment')) :
-        typeof define === 'function' && define.amd ? define(['../moment'], factory) :
-            factory(global.moment)
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
 }(this, (function (moment) { 'use strict';
 
-    function translate(number, withoutSuffix, key, isFuture) {
+
+    function processRelativeTime(number, withoutSuffix, key, isFuture) {
         var result = number + ' ';
         switch (key) {
-            case 's':  // a few seconds / in a few seconds / a few seconds ago
-                return (withoutSuffix || isFuture) ? 'nekaj sekund' : 'nekaj sekundami';
-            case 'ss': // 9 seconds / in 9 seconds / 9 seconds ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'sekunda';
-                    } else if (number == 2) {
-                        return result + 'sekundi';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'sekunde';
-                    } else {
-                        return result + 'sekund';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'sekundo';
-                    } else if (number == 2) {
-                        return result + 'sekundi';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'sekunde';
-                    } else {
-                        return result + 'sekund';
-                    }
+            case 's':
+                return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';
+            case 'ss':
+                if (number === 1) {
+                    result += withoutSuffix ? 'sekundo' : 'sekundi';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'sekundi' : 'sekundah';
+                } else if (number < 5) {
+                    result += withoutSuffix || isFuture ? 'sekunde' : 'sekundah';
                 } else {
-                    if (number == 1) {
-                        return result + 'sekundo';
-                    } else if (number == 2) {
-                        return result + 'sekundama';
-                    } else {
-                        return result + 'sekundami';
-                    }
+                    result += withoutSuffix || isFuture ? 'sekund' : 'sekund';
                 }
-                break;
-            case 'm':  // a minute / in a minute / a minute ago
-                return withoutSuffix ? 'minuta' : 'minuto';
-            case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'minuta';
-                    } else if (number == 2) {
-                        return result + 'minuti';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'minute';
-                    } else {
-                        return result + 'minut';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'minuto';
-                    } else if (number == 2) {
-                        return result + 'minuti';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'minute';
-                    } else {
-                        return result + 'minut';
-                    }
+                return result;
+            case 'm':
+                return withoutSuffix ? 'ena minuta' : 'eno minuto';
+            case 'mm':
+                if (number === 1) {
+                    result += withoutSuffix ? 'minuta' : 'minuto';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'minuti' : 'minutama';
+                } else if (number < 5) {
+                    result += withoutSuffix || isFuture ? 'minute' : 'minutami';
                 } else {
-                    if (number == 1) {
-                        return result + 'minuto';
-                    } else if (number == 2) {
-                        return result + 'minutama';
-                    } else {
-                        return result + 'minutami';
-                    }
+                    result += withoutSuffix || isFuture ? 'minut' : 'minutami';
                 }
-                break;
-            case 'h':  // an hour / in an hour / an hour ago
-                return withoutSuffix ? 'ura' : 'eno uro';
-            case 'hh': // 9 hours / in 9 hours / 9 hours ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'ura';
-                    } else if (number == 2) {
-                        return result + 'uri';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'ure';
-                    } else {
-                        return result + 'ur';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'uro';
-                    } else if (number == 2) {
-                        return result + 'uri';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'ure';
-                    } else {
-                        return result + 'ur';
-                    }
+                return result;
+            case 'h':
+                return withoutSuffix ? 'ena ura' : 'eno uro';
+            case 'hh':
+                if (number === 1) {
+                    result += withoutSuffix ? 'ura' : 'uro';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'uri' : 'urama';
+                } else if (number < 5) {
+                    result += withoutSuffix || isFuture ? 'ure' : 'urami';
                 } else {
-                    if (number == 1) {
-                        return result + 'uro';
-                    } else if (number == 2) {
-                        return result + 'urama';
-                    } else {
-                        return result + 'urami';
-                    }
+                    result += withoutSuffix || isFuture ? 'ur' : 'urami';
                 }
-                break;
-            case 'd':  // a day / in a day / a day ago
-                return withoutSuffix ? 'dan' : (isFuture ? 'en dan' : 'enim dnem');
-            case 'dd': // 9 days / in 9 days / 9 days ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'dan';
-                    } else if (number == 2) {
-                        return result + 'dneva';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'dnevi';
-                    } else {
-                        return result + 'dni';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'dan';
-                    } else {
-                        return result + 'dni';
-                    }
+                return result;
+            case 'd':
+                return withoutSuffix || isFuture ? 'en dan' : 'enim dnem';
+            case 'dd':
+                if (number === 1) {
+                    result += withoutSuffix || isFuture ? 'dan' : 'dnem';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'dni' : 'dnevoma';
                 } else {
-                    if (number == 1) {
-                        return result + 'dnevom';
-                    } else if (number == 2) {
-                        return result + 'dnevoma';
-                    } else {
-                        return result + 'dnevi';
-                    }
+                    result += withoutSuffix || isFuture ? 'dni' : 'dnevi';
                 }
-                break;
-            case 'M':  // a month / in a month / a month ago
-                return withoutSuffix ? 'mesec' : (isFuture ? 'en mesec' : 'enim mesecem');
-            case 'MM': // 9 months / in 9 months / 9 months ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'mesec';
-                    } else if (number == 2) {
-                        return result + 'meseca';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'meseci';
-                    } else {
-                        return result + 'mesecev';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'mesec';
-                    } else if (number == 2) {
-                        return result + 'meseca';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'mesece';
-                    } else {
-                        return result + 'mesecev';
-                    }
+                return result;
+            case 'M':
+                return withoutSuffix || isFuture ? 'en mesec' : 'enim mesecem';
+            case 'MM':
+                if (number === 1) {
+                    result += withoutSuffix || isFuture ? 'mesec' : 'mesecem';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'meseca' : 'mesecema';
+                } else if (number < 5) {
+                    result += withoutSuffix || isFuture ? 'mesece' : 'meseci';
                 } else {
-                    if (number == 1) {
-                        return result + 'mesecom';
-                    } else if (number == 2) {
-                        return result + 'mesecema';
-                    } else {
-                        return result + 'meseci';
-                    }
+                    result += withoutSuffix || isFuture ? 'mesecev' : 'meseci';
                 }
-                break;
-            case 'y':  // a year / in a year / a year ago
-                return withoutSuffix ? 'leto' : (isFuture ? 'eno leto' : 'enim letom');
-            case 'yy': // 9 years / in 9 years / 9 years ago
-                if (withoutSuffix) {
-                    if (number == 1) {
-                        return result + 'leto';
-                    } else if (number == 2) {
-                        return result + 'leti';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'leta';
-                    } else {
-                        return result + 'let';
-                    }
-                } else if (isFuture) {
-                    if (number == 1) {
-                        return result + 'leto';
-                    } else if (number == 2) {
-                        return result + 'leti';
-                    } else if (number == 3 || number == 4) {
-                        return result + 'leta';
-                    } else {
-                        return result + 'let';
-                    }
+                return result;
+            case 'y':
+                return withoutSuffix || isFuture ? 'eno leto' : 'enim letom';
+            case 'yy':
+                if (number === 1) {
+                    result += withoutSuffix || isFuture ? 'leto' : 'letom';
+                } else if (number === 2) {
+                    result += withoutSuffix || isFuture ? 'leti' : 'letoma';
+                } else if (number < 5) {
+                    result += withoutSuffix || isFuture ? 'leta' : 'leti';
                 } else {
-                    if (number == 1) {
-                        return result + 'letom';
-                    } else if (number == 2) {
-                        return result + 'letoma';
-                    } else {
-                        return result + 'leti';
-                    }
+                    result += withoutSuffix || isFuture ? 'let' : 'leti';
                 }
-                break;
+                return result;
         }
     }
 
     var sl = moment.defineLocale('sl', {
         months : 'januar_februar_marec_april_maj_junij_julij_avgust_september_oktober_november_december'.split('_'),
-        monthsShort : 'jan_feb_mar_apr_maj_jun_jul_avg_sep_okt_nov_dec'.split('_'),
-        weekdays : 'nedelja_ponedeljek_torek_sreda_\u010detrtek_petek_sobota'.split('_'),
-        weekdaysShort : 'ned_pon_tor_sre_\u010det_pet_sob'.split('_'),
-        weekdaysMin : 'ne_po_to_sr_\u010de_pe_so'.split('_'),
+        monthsShort : 'jan._feb._mar._apr._maj._jun._jul._avg._sep._okt._nov._dec.'.split('_'),
+        monthsParseExact: true,
+        weekdays : 'nedelja_ponedeljek_torek_sreda_četrtek_petek_sobota'.split('_'),
+        weekdaysShort : 'ned._pon._tor._sre._čet._pet._sob.'.split('_'),
+        weekdaysMin : 'ne_po_to_sr_če_pe_so'.split('_'),
+        weekdaysParseExact : true,
         longDateFormat : {
             LT : 'H:mm',
             LTS : 'H:mm:ss',
@@ -232,64 +117,63 @@ $.oc.langMessages['sl'] = $.extend(
             LLLL : 'dddd, D. MMMM YYYY H:mm'
         },
         calendar : {
-            sameDay : '[danes ob] LT',
-            nextDay : '[jutri ob] LT',
-            nextWeek: function () {
+            sameDay  : '[danes ob] LT',
+            nextDay  : '[jutri ob] LT',
+
+            nextWeek : function () {
                 switch (this.day()) {
                     case 0:
-                        return '[v nedeljo ob] LT';
+                        return '[v] [nedeljo] [ob] LT';
+                    case 3:
+                        return '[v] [sredo] [ob] LT';
+                    case 6:
+                        return '[v] [soboto] [ob] LT';
                     case 1:
                     case 2:
-                        return '[v] dddd [ob] LT';
-                    case 3:
-                        return '[v sredo ob] LT';
                     case 4:
                     case 5:
                         return '[v] dddd [ob] LT';
-                    case 6:
-                        return '[v soboto ob] LT';
                 }
             },
-            lastDay : '[včeraj ob] LT',
-            lastWeek: function () {
+            lastDay  : '[včeraj ob] LT',
+            lastWeek : function () {
                 switch (this.day()) {
                     case 0:
-                        return '[prej\u0161njo nedeljo ob] LT';
+                        return '[prejšnjo] [nedeljo] [ob] LT';
+                    case 3:
+                        return '[prejšnjo] [sredo] [ob] LT';
+                    case 6:
+                        return '[prejšnjo] [soboto] [ob] LT';
                     case 1:
                     case 2:
-                        return '[prej\u0161nji] dddd [ob] LT';
-                    case 3:
-                        return '[prej\u0161njo sredo ob] LT';
                     case 4:
                     case 5:
-                        return '[prej\u0161nji] dddd [ob] LT';
-                    case 6:
-                        return '[prej\u0161njo soboto ob] LT';
+                        return '[prejšnji] dddd [ob] LT';
                 }
             },
             sameElse : 'L'
         },
         relativeTime : {
-            future : '\u010dez %s',
-            past : 'pred %s',
-            s : translate,
-            ss : translate,
-            m : translate,
-            mm : translate,
-            h : translate,
-            hh : translate,
-            d : translate,
-            dd : translate,
-            M : translate,
-            MM : translate,
-            y : translate,
-            yy : translate
+            future : 'čez %s',
+            past   : 'pred %s',
+            s      : processRelativeTime,
+            ss     : processRelativeTime,
+            m      : processRelativeTime,
+            mm     : processRelativeTime,
+            h      : processRelativeTime,
+            hh     : processRelativeTime,
+            d      : processRelativeTime,
+            dd     : processRelativeTime,
+            M      : processRelativeTime,
+            MM     : processRelativeTime,
+            y      : processRelativeTime,
+            yy     : processRelativeTime
         },
         dayOfMonthOrdinalParse: /\d{1,2}\./,
         ordinal : '%d.',
         week : {
             dow : 1, // Monday is the first day of the week.
-            doy : 4  // The week that contains Jan 4th is the first week of the year.
+            doy : 7  // The week that contains Jan 1st is the first week of the year.
         }
     });
 
