@@ -629,7 +629,7 @@ class ImportExportController extends ControllerBehavior
         $headers = [];
         $columns = $widget->getVisibleColumns();
         foreach ($columns as $column) {
-            $headers[] = Lang::get($column->label);
+            $headers[] = $widget->getHeaderValue($column);
         }
         $csv->insertOne($headers);
 
