@@ -43,6 +43,12 @@ tabs:
             type: dropdown
             options: getLayoutOptions
 
+        settings[contentType]:
+            tab: cms::lang.editor.settings
+            span: left
+            label: cms::lang.editor.contenttype
+            comment: cms::lang.editor.contenttype_comment
+
         settings[description]:
             tab: cms::lang.editor.settings
             label: cms::lang.editor.description

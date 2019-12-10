@@ -194,6 +194,8 @@ return [
         'resetting' => 'Resetting',
         'commit_success' => 'The :type has been committed to the filesystem',
         'reset_success' => 'The :type has been reset to the filesystem version',
+        'contenttype' => 'Content Type',
+        'contenttype_comment' => 'If not set defaults to "text/html".'
     ],
     'asset' => [
         'menu_label' => 'Assets',

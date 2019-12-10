@@ -252,6 +252,13 @@ class Controller
         }
 
         /*
+         * Apply custom content type header
+         */
+        if ($page->contentType) {
+            $this->setResponseHeader('Content-Type', $page->contentType);
+        }
+
+        /*
          * Prepare and return response
          * @see \System\Traits\ResponseMaker
          */
