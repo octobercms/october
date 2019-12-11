@@ -203,7 +203,7 @@ class PluginManager
         }
 
         $pluginPath = $this->getPluginPath($plugin);
-        $pluginNamespace = strtolower($pluginId);
+        $pluginNamespace = mb_strtolower($pluginId);
 
         /*
          * Register language namespaces
@@ -251,6 +251,14 @@ class PluginManager
         $initFile = $pluginPath . '/init.php';
         if (!self::$noInit && File::exists($initFile)) {
             require $initFile;
+        }
+
+        /*
+         * Add helpers
+         */
+        $helpersFile = $pluginPath . '/helpers.php';
+        if (File::exists($helpersFile)) {
+            require $helpersFile;
         }
 
         /*
@@ -405,7 +413,7 @@ class PluginManager
         $it->rewind();
 
         while ($it->valid()) {
-            if (($it->getDepth() > 1) && $it->isFile() && (strtolower($it->getFilename()) == "plugin.php")) {
+            if (($it->getDepth() > 1) && $it->isFile() && (mb_strtolower($it->getFilename()) == "plugin.php")) {
                 $filePath = dirname($it->getPathname());
                 $pluginName = basename($filePath);
                 $vendorName = basename(dirname($filePath));
@@ -445,7 +453,7 @@ class PluginManager
     public function normalizeIdentifier($identifier)
     {
         foreach ($this->plugins as $id => $object) {
-            if (strtolower($id) == strtolower($identifier)) {
+            if (mb_strtolower($id) == mb_strtolower($identifier)) {
                 return $id;
             }
         }
