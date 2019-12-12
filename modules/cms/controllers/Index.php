@@ -68,7 +68,12 @@ class Index extends Controller
             if (!$widget->model instanceof CmsCompoundObject) {
                 return;
             }
-            if (key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
+
+            if (empty($widget->secondaryTabs['fields'])) {
+                return;
+            }
+
+            if (array_key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
                 $widget->secondaryTabs['fields']['safemode_notice']['hidden'] = false;
                 $widget->secondaryTabs['fields']['code']['readOnly'] = true;
             };
