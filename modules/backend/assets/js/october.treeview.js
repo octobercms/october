@@ -317,7 +317,6 @@
 
         this.$el.children('ol').each(function() {
             var sortable = $(this).data('oc.sortable')
-
             sortable.refresh()
             sortable.cursorAdjustment.top += changed // Keep cursor adjustment in sync with scroll
         });
@@ -372,7 +371,6 @@
 
         this.$el.children('ol').each(function() {
             var sortable = $(this).data('oc.sortable')
-
             sortable.refresh()
             sortable.cursorAdjustment.top -= changed // Keep cursor adjustment in sync with scroll
         });
