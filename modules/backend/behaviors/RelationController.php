@@ -1099,7 +1099,9 @@ class RelationController extends ControllerBehavior
                 $modelToSave->save(null, $this->manageWidget->getSessionKey());
             }
 
-            $this->relationObject->add($newModel, $sessionKey);
+            if (!$this->model->{$this->relationName}->contains($newModel)) {
+                $this->relationObject->add($newModel, $sessionKey);
+            }
         }
         elseif ($this->viewMode == 'single') {
             $newModel = $this->viewModel;
