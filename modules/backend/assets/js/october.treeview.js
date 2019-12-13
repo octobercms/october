@@ -86,7 +86,7 @@
     }
 
     TreeView.prototype.unregisterHandlers = function() {
-        this.$scrollbar.on('oc.scrollEnd', this.proxy(this.onScroll))
+        this.$scrollbar.off('oc.scrollEnd', this.proxy(this.onScroll))
         this.$el.off('.treeview')
         this.$el.off('move.oc.treelist', this.proxy(this.onNodeMove))
         this.$el.off('aftermove.oc.treelist', this.proxy(this.onAfterNodeMove))
