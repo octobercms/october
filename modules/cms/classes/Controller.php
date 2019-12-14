@@ -1003,14 +1003,7 @@ class Controller
              * Check the component partial
              */
             if ($partial === null) {
-                try {
-                    $partial = ComponentPartial::loadCached($componentObj, $partialName);
-                } catch (ApplicationException $e) {
-                    if ($throwException) {
-                        throw $e;
-                    }
-                    return false;
-                }
+                $partial = ComponentPartial::loadCached($componentObj, $partialName);
             }
 
             if ($partial === null) {
@@ -1035,6 +1028,15 @@ class Controller
             }
 
             return false;
+        }
+
+        /*
+         * Security check
+         */
+        if (!\Cms\Helpers\File::validateIsLocalFile($partial->getFilePath())) {
+            throw new CmsException(Lang::get('cms::lang.cms_object.invalid_file', [
+                'name' => $partial->getFileName()
+            ]));
         }
 
         /*
