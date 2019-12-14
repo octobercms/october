@@ -328,6 +328,13 @@
     &.size-giant { min-height: @size-giant; }
 }
 
+.field-checkboxlist.is-scrollable {
+    .checkboxlist-controls {
+        background: #fff;
+        border: 1px solid #e2e2e2;
+    }
+}
+
 .field-checkboxlist {
     &:not(.is-scrollable) {
         .border-radius(@border-radius-base);
@@ -348,8 +355,12 @@
         -webkit-box-align: baseline;
         -ms-flex-align: baseline;
         align-items: baseline;
+        padding:15px 15px 0;
+        border-bottom:1px solid #e2e2e2;
+        color:#2a3e51;
         > div {
-            padding-bottom: 7px;
+            padding-right: 15px;
+            padding-bottom: 15px;
 
             > a {
                 font-size: 13px;
@@ -365,6 +376,9 @@
                 }
             }
         }
+        .search-input-wrap {
+            margin-left: auto;
+        }
     }
 }
 
@@ -372,13 +386,12 @@
 .field-checkboxlist-scrollable {
     background: @color-form-checkboxlist-background;
     border: 1px solid @color-form-checkboxlist-border;
-    padding-left: 15px;
+    padding: 20px 0 2px 20px;
     height: @size-large + 100;
 
     // First checkbox
     .checkbox {
-        margin-top: 15px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     // All others
