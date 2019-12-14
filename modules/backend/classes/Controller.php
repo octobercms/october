@@ -277,6 +277,7 @@ class Controller extends ControllerBase
         if ($ajaxResponse = $this->execAjaxHandlers()) {
             $result = $ajaxResponse;
         }
+
         /*
          * Execute postback handler
          */
@@ -287,6 +288,7 @@ class Controller extends ControllerBase
         ) {
             $result = $handlerResponse;
         }
+
         /*
          * Execute page action
          */
