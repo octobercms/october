@@ -118,7 +118,7 @@
                  * When the dropdown is hidden, force the first option to be selected always.
                  */
                 if ($element.hasClass('select-no-dropdown')) {
-                    extraOptions.selectOnClose = true
+                    extraOptions.selectOnClose = !$element.hasClass('taglist')
                     extraOptions.closeOnSelect = false
 
                     $element.on('select2:closing', function() {
