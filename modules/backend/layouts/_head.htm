@@ -56,15 +56,14 @@
         /* Only run on HTTPS connections
          * Block off Front-end Service Worker from running in the Backend allowing security injections, see GitHub #4384
          */
-        if (location.protocol === 'https:') {
+        if ((location.protocol === 'https:') && ('serviceWorker' in navigator)) {
             // Unregister all service workers before signing in to prevent cache issues, see github issue: #3707
-            navigator.serviceWorker.getRegistrations().then(
-                function(registrations) {
-                    for (let registration of registrations) {
-                        registration.unregister();
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for (var key in registrations) {
+                        var registration = registrations[key]
+                        registration.unregister({ immediate: true });
                     }
-                }
-            );
+            });
         }
     </script>
 <?php endif; ?>
