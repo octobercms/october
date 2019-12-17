@@ -203,7 +203,7 @@ class PluginManager
         }
 
         $pluginPath = $this->getPluginPath($plugin);
-        $pluginNamespace = mb_strtolower($pluginId);
+        $pluginNamespace = strtolower($pluginId);
 
         /*
          * Register language namespaces
@@ -413,7 +413,7 @@ class PluginManager
         $it->rewind();
 
         while ($it->valid()) {
-            if (($it->getDepth() > 1) && $it->isFile() && (mb_strtolower($it->getFilename()) == "plugin.php")) {
+            if (($it->getDepth() > 1) && $it->isFile() && (strtolower($it->getFilename()) == "plugin.php")) {
                 $filePath = dirname($it->getPathname());
                 $pluginName = basename($filePath);
                 $vendorName = basename(dirname($filePath));
@@ -453,7 +453,7 @@ class PluginManager
     public function normalizeIdentifier($identifier)
     {
         foreach ($this->plugins as $id => $object) {
-            if (mb_strtolower($id) == mb_strtolower($identifier)) {
+            if (strtolower($id) == strtolower($identifier)) {
                 return $id;
             }
         }
