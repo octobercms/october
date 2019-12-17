@@ -1187,6 +1187,9 @@ class RelationController extends ControllerBehavior
                 $relatedModel->delete();
             }
 
+            // Reinitialise the form with a blank model
+            $this->initRelation($this->model);
+
             $this->viewWidget->setFormValues([]);
             $this->viewModel = $this->relationModel;
         }
@@ -1281,6 +1284,12 @@ class RelationController extends ControllerBehavior
             if ($this->relationType == 'belongsTo') {
                 $this->relationObject->dissociate();
                 $this->relationObject->getParent()->save();
+
+                // If the relation manager isn't using deferred binding, reinitialise the form with a blank model
+                if (is_null($sessionKey)) {
+                    $this->model->refresh();
+                    $this->initRelation($this->model);
+                }
             }
             elseif ($this->relationType == 'hasOne' || $this->relationType == 'morphOne') {
                 if ($obj = $relatedModel->find($recordId)) {
