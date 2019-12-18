@@ -59,6 +59,31 @@ tabs:
             type: textarea
             size: tiny
 
+        settings[meta_robots_noindex]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_robots_noindex
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
+            span: auto
+            type: switch
+            comment: cms::lang.editor.meta_robots_noindex_comment
+
+        settings[meta_robots_noarchive]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_robots_noarchive
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
+            span: auto
+            type: switch
+
+        settings[meta_robots_nofollow]:
+            tab: cms::lang.editor.meta
+            label: cms::lang.editor.meta_robots_nofollow
+            on: backend::lang.list.column_switch_true
+            off: backend::lang.list.column_switch_false
+            span: auto
+            type: switch
+
         settings[is_hidden]:
             tab: cms::lang.editor.settings
             label: cms::lang.editor.hidden
