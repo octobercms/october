@@ -28,9 +28,6 @@ class Page extends CmsCompoundObject
         'is_hidden',
         'meta_title',
         'meta_description',
-        'meta_robots_noindex',
-        'meta_robots_nofollow',
-        'meta_robots_noarchive',
         'markup',
         'settings',
         'code'
@@ -113,19 +110,6 @@ class Page extends CmsCompoundObject
         }
 
         return $result;
-    }
-
-    /**
-     * Helper that returns formatted robots tags.
-     * @return string
-     */
-    public function getMetaRobotsAttribute()
-    {
-        $options = [];
-        $options[] = $this->meta_robots_noindex ? 'noindex' : 'index';
-        $options[] = $this->meta_robots_nofollow ? 'nofollow' : 'follow';
-        $options[] = $this->meta_robots_noarchive ? 'noarchive' : 'archive';
-        return implode(',', $options);
     }
 
     /**
