@@ -1,7 +1,7 @@
 <?php namespace October\Demo\Components;
 
 use Cms\Classes\ComponentBase;
-use ApplicationException;
+use October\Rain\Exception\ApplicationException;
 
 class Todo extends ComponentBase
 {
