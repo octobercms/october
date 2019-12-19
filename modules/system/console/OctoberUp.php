@@ -2,6 +2,7 @@
 
 use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Console command to migrate the database.
@@ -32,7 +33,17 @@ class OctoberUp extends Command
 
         UpdateManager::instance()
             ->setNotesOutput($this->output)
-            ->update()
+            ->update(!$this->option('no-seed'))
         ;
+    }
+
+    /**
+     * Get the console command options.
+     */
+    protected function getOptions()
+    {
+        return [
+            ['no-seed', null, InputOption::VALUE_NONE, 'Do not seed tables.'],
+        ];
     }
 }

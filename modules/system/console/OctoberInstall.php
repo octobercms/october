@@ -101,7 +101,8 @@ class OctoberInstall extends Command
     protected function getOptions()
     {
         return [
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run.'],
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run'],
+            ['no-seed', null, InputOption::VALUE_NONE, 'Do not seed tables'],
         ];
     }
 
@@ -306,8 +307,7 @@ class OctoberInstall extends Command
 
             UpdateManager::instance()
                 ->setNotesOutput($this->output)
-                ->update()
-            ;
+                ->update(!$this->option('no-seed'));
         }
         catch (Exception $ex) {
             $this->error($ex->getMessage());

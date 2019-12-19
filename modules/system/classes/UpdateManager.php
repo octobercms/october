@@ -128,9 +128,10 @@ class UpdateManager
 
     /**
      * Creates the migration table and updates
+     * @param bool $seed If true, the tables will also be seeded.
      * @return self
      */
-    public function update()
+    public function update(bool $seed = true)
     {
         $firstUp = !Schema::hasTable($this->getMigrationTableName());
         if ($firstUp) {
@@ -160,7 +161,7 @@ class UpdateManager
         /*
          * Seed modules
          */
-        if ($firstUp) {
+        if ($firstUp && $seed) {
             $modules = Config::get('cms.loadModules', []);
             foreach ($modules as $module) {
                 $this->seedModule($module);
