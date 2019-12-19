@@ -71,24 +71,4 @@ class File
 
         return true;
     }
-
-    /**
-     * Validates a CMS object path is inside the application's base directory.
-     * @param string $filePath Specifies a path to validate
-     * @return boolean Returns true if the file path is local. Otherwise returns false.
-     */
-    public static function validateIsLocalFile($filePath)
-    {
-        $restrictBaseDir = Config::get('cms.restrictBaseDir', true);
-
-        if ($restrictBaseDir && !Filesystem::isLocalPath($filePath)) {
-            return false;
-        }
-
-        if (!$restrictBaseDir && realpath($filePath) === false) {
-            return false;
-        }
-
-        return true;
-    }
 }

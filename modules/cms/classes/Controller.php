@@ -1031,15 +1031,6 @@ class Controller
         }
 
         /*
-         * Security check
-         */
-        if (!\Cms\Helpers\File::validateIsLocalFile($partial->getFilePath())) {
-            throw new CmsException(Lang::get('cms::lang.cms_object.invalid_file', [
-                'name' => $partial->getFileName()
-            ]));
-        }
-
-        /*
          * Run functions for CMS partials only (Cms\Classes\Partial)
          */
         if ($partial instanceof Partial) {
