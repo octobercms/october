@@ -78,7 +78,7 @@ class PluginManagerTest extends TestCase
         $this->assertArrayHasKey('DependencyTest.Dependency', $result);
 
         $this->assertArrayNotHasKey('DependencyTest.NotFound', $result);
-        $this->assertArrayNotHasKey('TestVendor.Goto', $result);
+        $this->assertArrayNotHasKey('TestVendorGoto', $result);
 
         $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
         $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
