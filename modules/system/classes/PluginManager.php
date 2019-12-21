@@ -487,7 +487,7 @@ class PluginManager
     }
 
     /**
-     * Loads all disables plugins from the meta file.
+     * Loads all disabled plugins from the meta file.
      */
     protected function loadDisabled()
     {
@@ -495,12 +495,14 @@ class PluginManager
 
         if (($configDisabled = Config::get('cms.disablePlugins')) && is_array($configDisabled)) {
             foreach ($configDisabled as $disabled) {
-                $this->disabledPlugins[$disabled] = true;
+                $code = $this->getIdentifier($disabled);
+                $this->disabledPlugins[$code] = true;
             }
         }
 
         if (File::exists($path)) {
             $disabled = json_decode(File::get($path), true) ?: [];
+            //TODO: need to normalize $disabled array keys before merging with $this->disabledPlugins
             $this->disabledPlugins = array_merge($this->disabledPlugins, $disabled);
         }
         else {
