@@ -363,9 +363,7 @@ class PluginManager
     {
         $classId = $this->getIdentifier($namespace);
 
-        $normalized = $this->normalizeIdentifier($classId);
-
-        return isset($this->plugins[$normalized]);
+        return isset($this->plugins[$classId]);
     }
 
     /**
@@ -427,30 +425,30 @@ class PluginManager
     {
         $namespace = Str::normalizeClassName($namespace);
         if (strpos($namespace, '\\') === null) {
-            return $namespace;
+            return strtoupper($namespace);
         }
 
         $parts = explode('\\', $namespace);
         $slice = array_slice($parts, 1, 2);
         $namespace = implode('.', $slice);
 
-        return $namespace;
+        return strtoupper($namespace);
     }
 
     /**
-     * Takes a human plugin code (acme.blog) and makes it authentic (Acme.Blog)
-     * @param  string $id
+     * @param  string $identifier
      * @return string
      */
     public function normalizeIdentifier($identifier)
     {
+        $code = strtoupper($identifier);
         foreach ($this->plugins as $id => $object) {
-            if (strtolower($id) == strtolower($identifier)) {
-                return $id;
+            if ($id == $code) {
+                $code = $id;
             }
         }
 
-        return $identifier;
+        return $code;
     }
 
     /**
@@ -552,6 +550,7 @@ class PluginManager
         $disabled = Db::table('system_plugin_versions')->where('is_disabled', 1)->lists('code');
 
         foreach ($disabled as $code) {
+            $code = $this->getIdentifier($code);
             $this->disabledPlugins[$code] = true;
         }
     }
