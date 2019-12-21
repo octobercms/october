@@ -4242,14 +4242,14 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .field-textarea.size-large {min-height:200px}
 .field-textarea.size-huge {min-height:250px}
 .field-textarea.size-giant {min-height:350px}
-.field-checkboxlist:not(.is-scrollable) {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fff;border:1px solid #e2e2e2}
-.field-checkboxlist:not(.is-scrollable) .field-checkboxlist-inner {padding:20px 20px 2px 20px}
+.field-checkboxlist .field-checkboxlist-inner {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fff;border:1px solid #e2e2e2}
+.field-checkboxlist:not(.is-scrollable) .field-checkboxlist-inner {padding:15px 15px 2px 15px}
 .field-checkboxlist .checkboxlist-controls {display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}
 .field-checkboxlist .checkboxlist-controls >div {padding-bottom:7px}
 .field-checkboxlist .checkboxlist-controls >div >a {font-size:13px;margin-right:20px;text-decoration:none}
 .field-checkboxlist .checkboxlist-controls >div >a >i {color:#999;margin:0 4px}
 .field-checkboxlist .checkboxlist-controls >div >a:hover >i {color:#2a3e51}
-.field-checkboxlist-scrollable {background:#fff;border:1px solid #e2e2e2;padding-left:15px;height:300px}
+.field-checkboxlist-scrollable {padding-left:15px;height:300px}
 .field-checkboxlist-scrollable .checkbox {margin-top:15px;margin-bottom:5px}
 .field-checkboxlist-scrollable .checkbox ~ .checkbox {margin-top:0}
 .field-recordfinder {background-color:#fff;border:1px solid #d1d6d9;overflow:hidden;position:relative;-webkit-box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(209,214,217,0.25),0 1px 0 rgba(255,255,255,.5);-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
