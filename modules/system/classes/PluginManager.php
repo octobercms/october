@@ -419,7 +419,7 @@ class PluginManager
     /**
      * Resolves a plugin identifier from a plugin class name or object.
      * @param mixed Plugin class name or object
-     * @return string Identifier in format of Vendor.Plugin
+     * @return string Identifier in format of VENDOR.PLUGIN
      */
     public function getIdentifier($namespace)
     {
