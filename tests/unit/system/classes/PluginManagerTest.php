@@ -39,6 +39,7 @@ class PluginManagerTest extends TestCase
 
         $this->assertCount(9, $result);
         foreach ($this->plugins as $code => $class) {
+            $code = strtoupper($code);
             $this->assertArrayHasKey($code, $result);
             $this->assertInstanceOf($class, $result[$code]);
         }
@@ -66,6 +67,7 @@ class PluginManagerTest extends TestCase
 
         $this->assertCount(8, $result);
         foreach ($this->plugins as $code => $class) {
+            $code = strtoupper($code);
             $this->assertArrayHasKey($code, $result);
             $this->assertInstanceOf($class, $result[$code]);
         }
