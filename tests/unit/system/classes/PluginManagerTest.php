@@ -5,6 +5,18 @@ class PluginManagerTest extends TestCase
 {
     public $manager;
 
+    public $plugins = [
+        'October.NoUpdates' => 'October\NoUpdates\Plugin',
+        'October.Sample' => 'October\Sample\Plugin',
+        'October.Tester' => 'October\Tester\Plugin',
+        'Database.Tester' => 'Database\Tester\Plugin',
+        'TestVendor.Test' => 'TestVendor\Test\Plugin',
+        'DependencyTest.Found' => 'DependencyTest\Found\Plugin',
+        'DependencyTest.NotFound' => 'DependencyTest\NotFound\Plugin',
+        'DependencyTest.WrongCase' => 'DependencyTest\WrongCase\Plugin',
+        'DependencyTest.Dependency' => 'DependencyTest\Dependency\Plugin',
+    ];
+
     public function setUp()
     {
         parent::setUp();
@@ -26,27 +38,12 @@ class PluginManagerTest extends TestCase
         $result = $this->manager->loadPlugins();
 
         $this->assertCount(9, $result);
-        $this->assertArrayHasKey('October.NoUpdates', $result);
-        $this->assertArrayHasKey('October.Sample', $result);
-        $this->assertArrayHasKey('October.Tester', $result);
-        $this->assertArrayHasKey('Database.Tester', $result);
-        $this->assertArrayHasKey('TestVendor.Test', $result);
-        $this->assertArrayHasKey('DependencyTest.Found', $result);
-        $this->assertArrayHasKey('DependencyTest.NotFound', $result);
-        $this->assertArrayHasKey('DependencyTest.WrongCase', $result);
-        $this->assertArrayHasKey('DependencyTest.Dependency', $result);
+        foreach ($this->plugins as $code => $class) {
+            $this->assertArrayHasKey($code, $result);
+            $this->assertInstanceOf($class, $result[$code]);
+        }
 
         $this->assertArrayNotHasKey('TestVendor.Goto', $result);
-
-        $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
-        $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
-        $this->assertInstanceOf('October\Tester\Plugin', $result['October.Tester']);
-        $this->assertInstanceOf('Database\Tester\Plugin', $result['Database.Tester']);
-        $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
-        $this->assertInstanceOf('DependencyTest\Found\Plugin', $result['DependencyTest.Found']);
-        $this->assertInstanceOf('DependencyTest\NotFound\Plugin', $result['DependencyTest.NotFound']);
-        $this->assertInstanceOf('DependencyTest\WrongCase\Plugin', $result['DependencyTest.WrongCase']);
-        $this->assertInstanceOf('DependencyTest\Dependency\Plugin', $result['DependencyTest.Dependency']);
     }
 
     public function testUnloadablePlugin()
@@ -68,26 +65,13 @@ class PluginManagerTest extends TestCase
         $result = $this->manager->getPlugins();
 
         $this->assertCount(8, $result);
-        $this->assertArrayHasKey('October.NoUpdates', $result);
-        $this->assertArrayHasKey('October.Sample', $result);
-        $this->assertArrayHasKey('October.Tester', $result);
-        $this->assertArrayHasKey('Database.Tester', $result);
-        $this->assertArrayHasKey('TestVendor.Test', $result);
-        $this->assertArrayHasKey('DependencyTest.Found', $result);
-        $this->assertArrayHasKey('DependencyTest.WrongCase', $result);
-        $this->assertArrayHasKey('DependencyTest.Dependency', $result);
+        foreach ($this->plugins as $code => $class) {
+            $this->assertArrayHasKey($code, $result);
+            $this->assertInstanceOf($class, $result[$code]);
+        }
 
         $this->assertArrayNotHasKey('DependencyTest.NotFound', $result);
         $this->assertArrayNotHasKey('TestVendor.Goto', $result);
-
-        $this->assertInstanceOf('October\NoUpdates\Plugin', $result['October.NoUpdates']);
-        $this->assertInstanceOf('October\Sample\Plugin', $result['October.Sample']);
-        $this->assertInstanceOf('October\Tester\Plugin', $result['October.Tester']);
-        $this->assertInstanceOf('Database\Tester\Plugin', $result['Database.Tester']);
-        $this->assertInstanceOf('TestVendor\Test\Plugin', $result['TestVendor.Test']);
-        $this->assertInstanceOf('DependencyTest\Found\Plugin', $result['DependencyTest.Found']);
-        $this->assertInstanceOf('DependencyTest\WrongCase\Plugin', $result['DependencyTest.WrongCase']);
-        $this->assertInstanceOf('DependencyTest\Dependency\Plugin', $result['DependencyTest.Dependency']);
     }
 
     public function testFindByNamespace()
