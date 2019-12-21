@@ -348,7 +348,8 @@ class PluginManager
     public function findByIdentifier($identifier)
     {
         if (!isset($this->plugins[$identifier])) {
-            $identifier = $this->normalizeIdentifier($identifier);
+            $code = $this->getIdentifier($identifier);
+            $identifier = $this->normalizeIdentifier($code);
         }
 
         if (!isset($this->plugins[$identifier])) {
@@ -524,11 +525,7 @@ class PluginManager
 
         $normalized = $this->normalizeIdentifier($code);
 
-        if (array_key_exists($normalized, $this->disabledPlugins)) {
-            return true;
-        }
-
-        return false;
+        return isset($this->disabledPlugins[$normalized]);
     }
 
     /**
