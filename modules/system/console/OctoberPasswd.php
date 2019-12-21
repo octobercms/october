@@ -17,23 +17,17 @@ use Symfony\Component\Console\Question\Question;
 class OctoberPasswd extends Command
 {
     /**
-     * The console command name.
-     *
-     * @var string
+     * @var string The console command name.
      */
     protected $name = 'october:passwd';
 
     /**
-     * The console command description.
-     *
-     * @var string
+     * @var string The console command description.
      */
     protected $description = 'Change the password of a Backend user.';
 
     /**
-     * Was the password automatically generated?
-     *
-     * @var bool
+     * @var bool Was the password automatically generated?
      */
     protected $generatedPassword = false;
 
@@ -43,14 +37,14 @@ class OctoberPasswd extends Command
     public function handle()
     {
         // Must be in CLI environment
-        if (php_sapi_name() !== 'cli') {
+        if (!App::runningInConsole()) {
             $this->error('This command may only be run through the command-line.');
             exit(1);
         }
 
         $username = $this->argument('username')
             ?? $this->ask(
-                'Which user would you like to change the password for'
+                'Which user would you like to change the password for?'
             );
 
         // Check that the user exists
@@ -76,13 +70,10 @@ class OctoberPasswd extends Command
         $user->password = $password;
         $user->forceSave();
 
-        if (!$this->generatedPassword) {
-            $this->info('Password successfully changed.');
-            exit(0);
-        }
-
         $this->info('Password successfully changed.');
-        $this->output->writeLn('The new password is <info>' . $password . '</info>.');
+        if (!$this->generatedPassword) {
+            $this->output->writeLn('The new password is <info>' . $password . '</info>.');
+        }
         exit(0);
     }
 
