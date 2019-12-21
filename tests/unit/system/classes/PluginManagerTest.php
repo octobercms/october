@@ -217,9 +217,9 @@ class PluginManagerTest extends TestCase
          * Test case for https://github.com/octobercms/october/pull/4838
          */
         $result = $this->manager->isDisabled('dependencyTest\Wrongcase');
-        $this->assertTrue($result);
+        $this->assertFalse($result);
 
         $result = $this->manager->isDisabled('dependencyTest.Wrongcase');
-        $this->assertTrue($result);
+        $this->assertFalse($result);
     }
 }
