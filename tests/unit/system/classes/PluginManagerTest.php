@@ -221,5 +221,8 @@ class PluginManagerTest extends TestCase
 
         $result = $this->manager->isDisabled('dependencyTest.Wrongcase');
         $this->assertFalse($result);
+
+        $result = $this->manager->isDisabled('dependencytest.notfound');
+        $this->assertTrue($result);
     }
 }
