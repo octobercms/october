@@ -522,7 +522,9 @@ class PluginManager
     {
         $code = $this->getIdentifier($id);
 
-        if (array_key_exists($code, $this->disabledPlugins)) {
+        $normalized = $this->normalizeIdentifier($code);
+
+        if (array_key_exists($normalized, $this->disabledPlugins)) {
             return true;
         }
 
