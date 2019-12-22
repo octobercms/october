@@ -172,6 +172,7 @@
                 data: {
                     target: $el.data('target'),
                     name: $el.data('tab-name'),
+                    section: $el.data('tab-section'),
                 },
                 success: function(data) {
                     this.success(data)
