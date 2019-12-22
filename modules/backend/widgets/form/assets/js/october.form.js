@@ -167,11 +167,14 @@
      */
     FormWidget.prototype.bindLazyTabs = function() {
         this.$el.on('click', '.tab-lazy [data-toggle="tab"]', function() {
-            var $el = $(this)
-            $.request('form::onLazyLoadTab', {
+            var $el = $(this),
+                handlerName = $el.data('tab-lazy-handler')
+
+            $.request(handlerName, {
                 data: {
                     target: $el.data('target'),
                     name: $el.data('tab-name'),
+                    section: $el.data('tab-section'),
                 },
                 success: function(data) {
                     this.success(data)

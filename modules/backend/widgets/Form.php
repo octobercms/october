@@ -465,8 +465,9 @@ class Form extends WidgetBase
     {
         $target  = post('target');
         $tabName = post('name');
+        $tabSection = post('section');
 
-        $fields = array_get(optional($this->getTab('primary'))->fields, $tabName);
+        $fields = array_get(optional($this->getTab($tabSection))->fields, $tabName);
 
         return [
             $target => $this->makePartial('form_fields', ['fields' => $fields]),
