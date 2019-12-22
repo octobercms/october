@@ -10,8 +10,6 @@ use Symfony\Component\Console\Question\Question;
 /**
  * Console command to change the password of a Backend user via CLI.
  *
- * This command may only be run through CLI.
- *
  * @package october\system
  */
 class OctoberPasswd extends Command
@@ -36,12 +34,6 @@ class OctoberPasswd extends Command
      */
     public function handle()
     {
-        // Must be in CLI environment
-        if (!App::runningInConsole()) {
-            $this->error('This command may only be run through the command-line.');
-            exit(1);
-        }
-
         $username = $this->argument('username')
             ?? $this->ask(
                 'Which user would you like to change the password for?'
