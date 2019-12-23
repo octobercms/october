@@ -107,6 +107,6 @@ class OctoberPasswd extends Command
     {
         $this->generatedPassword = true;
 
-        return Str::random(14);
+        return Str::random(22);
     }
 }
