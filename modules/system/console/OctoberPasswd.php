@@ -61,7 +61,7 @@ class OctoberPasswd extends Command
         $user->forceSave();
 
         $this->info('Password successfully changed.');
-        if (!$this->generatedPassword) {
+        if ($this->generatedPassword) {
             $this->output->writeLn('Password set to <info>' . $password . '</info>.');
         }
         exit(0);
