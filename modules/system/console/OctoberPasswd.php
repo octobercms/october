@@ -35,9 +35,7 @@ class OctoberPasswd extends Command
     public function handle()
     {
         $username = $this->argument('username')
-            ?? $this->ask(
-                'Which user would you like to change the password for?'
-            );
+            ?? $this->ask('Username to reset');
 
         // Check that the user exists
         try {
@@ -52,7 +50,7 @@ class OctoberPasswd extends Command
         $password = $this->argument('password')
             ?? (
                 $this->optionalSecret(
-                    'Enter in a new password, or press ENTER to use a generated password',
+                    'Enter new password (leave blank for generated password)',
                     false,
                     false
                 ) ?: $this->generatePassword()
@@ -64,7 +62,7 @@ class OctoberPasswd extends Command
 
         $this->info('Password successfully changed.');
         if (!$this->generatedPassword) {
-            $this->output->writeLn('The new password is <info>' . $password . '</info>.');
+            $this->output->writeLn('Password set to <info>' . $password . '</info>.');
         }
         exit(0);
     }
