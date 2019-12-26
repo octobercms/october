@@ -4,19 +4,19 @@
 
 defaultWidgets:
 
-   welcome:
+    welcome:
         class: Backend\ReportWidgets\Welcome
         sortOrder: 50
         configuration:
             ocWidgetWidth: 7
 
-   systemStatus:
+    systemStatus:
         class: System\ReportWidgets\Status
         sortOrder: 60
         configuration:
             ocWidgetWidth: 7
 
-   activeTheme:
+    activeTheme:
         class: Cms\ReportWidgets\ActiveTheme
         sortOrder: 70
         configuration:

@@ -6,6 +6,6 @@
 junk:
     - JUNK JUNK JUNK
     - Some more comments that shouldn't be here
-1.0.*: 
+1.0.*:
     - Create blog settings table
     - create_blog_settings_table.php
