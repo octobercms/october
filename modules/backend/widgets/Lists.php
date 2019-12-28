@@ -671,11 +671,48 @@ class Lists extends WidgetBase
             return 'javascript:;';
         }
 
-        if (!isset($this->recordUrl)) {
+        $recordUrl = $this->recordUrl;
+
+        /**
+         * @event backend.list.recordUrl
+         * Provides an opportunity to define the URL for a particular record in a list.
+         *
+         * You may either return a string to define a custom URL for a record, or you may define `false` to force the
+         * record to have no URL, and thus become unclickable.
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.list.recordUrl', function ($listWidget, $record, string &$url) {
+         *         // Only for the User controller
+         *         if (!$listWidget->getController() instanceof \Backend\Controllers\Users) {
+         *             return;
+         *         }
+         *
+         *         // Only for the User model
+         *         if (!$listWidget->model instanceof \Backend\Models\User) {
+         *             return;
+         *         }
+         *
+         *         // If record is soft-deleted, make it unclickable.
+         *         if ($record->trashed()) {
+         *             $url = false;
+         *             // Return false to halt the event and prevent other plugins from modifying the URL.
+         *             return false;
+         *         }
+         *
+         *         // Define custom URL for banned records - this URL could potentially be overriden by other plugins.
+         *         if ($record->is_banned) {
+         *             $url = '/users/banned';
+         *         }
+         *     });
+         */
+        $this->fireSystemEvent('backend.list.recordUrl', [$record, &$recordUrl]);
+
+        if (!is_string($recordUrl) || empty($recordUrl)) {
             return null;
         }
 
-        $url = RouterHelper::replaceParameters($record, $this->recordUrl);
+        $url = RouterHelper::replaceParameters($record, $recordUrl);
         return Backend::url($url);
     }
 
