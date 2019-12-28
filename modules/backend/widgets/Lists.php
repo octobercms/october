@@ -677,8 +677,8 @@ class Lists extends WidgetBase
          * @event backend.list.recordUrl
          * Provides an opportunity to define the URL for a particular record in a list.
          *
-         * You may either return a string to define a custom URL for a record, or you may define `false` to force the
-         * record to have no URL, and thus become unclickable.
+         * You may either override the $url parameter with a string to define a custom URL for a record, or you may
+         * override it with `false` to specify the record to have no URL and thus become unclickable.
          *
          * Example usage:
          *
