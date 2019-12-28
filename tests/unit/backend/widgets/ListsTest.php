@@ -1,6 +1,6 @@
 <?php
 
-use Backend;
+use Backend\Helpers\Backend;
 use Backend\Models\User;
 use Backend\Widgets\Lists;
 use October\Rain\Exception\ApplicationException;
