@@ -1,5 +1,6 @@
 <?php
 
+use Backend;
 use Backend\Models\User;
 use Backend\Widgets\Lists;
 use October\Rain\Exception\ApplicationException;
@@ -117,11 +118,36 @@ class ListsTest extends PluginTestCase
         $this->assertNotNull($list->getColumn('email'));
     }
 
+    public function testEventOverrideRecordUrl()
+    {
+        $user = new UserFixture;
+        $list = $this->restrictedListsFixture();
+
+        $originalUrl = $list->getRecordUrl($user);
+
+        Event::listen('backend.list.recordUrl', function ($listWidget, $record, &$url) {
+            $url = false;
+        });
+
+        $newUrl = $list->getRecordUrl($user);
+
+        $this->assertEquals(Backend::url('users/email/testuser%40test.com'), $originalUrl);
+        $this->assertNull($newUrl);
+
+        Event::listen('backend.list.recordUrl', function ($listWidget, $record, &$url) {
+            $url = 'users/login-as/:email';
+        });
+
+        $newUrl = $list->getRecordUrl($user);
+
+        $this->assertEquals(Backend::url('users/login-as/testuser%40test.com'), $newUrl);
+    }
+
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [
             'model' => new User,
-            'arrayName' => 'array',
+            'recordUrl' => 'users/email/:email',
             'columns' => [
                 'id' => [
                     'type' => 'text',
