@@ -1,5 +1,6 @@
 <?php namespace System;
 
+use Db;
 use App;
 use View;
 use Event;
@@ -84,9 +85,7 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         // Fix UTF8MB4 support for MariaDB < 10.2 and MySQL < 5.7
-        if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
-            Schema::defaultStringLength(191);
-        }
+        $this->applyDatabaseDefaultStringLength();
 
         // Fix use of Storage::url() for local disks that haven't been configured correctly
         foreach (Config::get('filesystems.disks') as $key => $config) {
@@ -563,5 +562,25 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerGlobalViewVars()
     {
         View::share('appName', Config::get('app.name'));
+    }
+
+    /**
+     * Fix UTF8MB4 support for old versions of MariaDB (<10.2) and MySQL (<5.7)
+     */
+    protected function applyDatabaseDefaultStringLength()
+    {
+        if (Db::getDriverName() !== 'mysql') {
+            return;
+        }
+
+        $defaultStrLen = Db::getConfig('varcharmax', null);
+
+        if ($defaultStrLen === null && Db::getConfig('charset') === 'utf8mb4') {
+            $defaultStrLen = 191;
+        }
+
+        if ($defaultStrLen !== null) {
+            Schema::defaultStringLength((int) $defaultStrLen);
+        }
     }
 }
