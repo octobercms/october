@@ -290,6 +290,10 @@ class RelationController extends ControllerBehavior
         }
 
         $this->controller->pageAction();
+        if ($fatalError = $this->controller->getFatalError()) {
+            throw new ApplicationException($fatalError);
+        }
+
         $this->validateField();
         $this->prepareVars();
         $this->initialized = true;
