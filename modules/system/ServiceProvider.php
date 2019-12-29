@@ -573,7 +573,7 @@ class ServiceProvider extends ModuleServiceProvider
             return;
         }
 
-        $defaultStrLen = Db::getConfig('varcharmax', null);
+        $defaultStrLen = Db::getConfig('varcharmax');
 
         if ($defaultStrLen === null && Db::getConfig('charset') === 'utf8mb4') {
             $defaultStrLen = 191;
