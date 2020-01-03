@@ -112,3 +112,15 @@ tabs:
             tab: backend::lang.editor.toolbar_buttons
             type: textarea
             span: auto
+
+        html_paragraph_formats:
+            label: backend::lang.editor.paragraph_formats
+            comment: backend::lang.editor.paragraph_formats_comment
+            tab: backend::lang.editor.paragraph_formats
+            type: datatable
+            span: auto
+            columns:
+                format_tag:
+                    title: backend::lang.editor.markup_tag
+                format_label:
+                    title: backend::lang.editor.label

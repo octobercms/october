@@ -402,6 +402,7 @@ return [
         'label' => 'Label',
         'class_name' => 'Class name',
         'markup_tags' => 'Markup Tags',
+        'markup_tag' => 'Markup Tag',
         'allowed_empty_tags' => 'Allowed empty tags',
         'allowed_empty_tags_comment' => 'The list of tags that are not removed when they have no content inside.',
         'allowed_tags' => 'Allowed tags',
@@ -414,6 +415,8 @@ return [
         'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
         'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'paragraph_formats' => 'Paragraph Formats',
+        'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown from the Rich Editor toolbar.',
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website'
