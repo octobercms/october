@@ -84,10 +84,9 @@ class EventLog extends Model
         if (preg_match("/with message '(.+)' in/", $this->message, $match)) {
             return $match[1];
         }
-        elseif (preg_match("/^(.*|\n)/im", trim($this->message), $match)) {
+        elseif (preg_match("/^(.*|\r\n|\r|\n)/im", trim($this->message), $match)) {
             return str_replace('<br>', '', $match[1]);
         }
-
         return Str::limit($this->message, 100);
     }
 }
