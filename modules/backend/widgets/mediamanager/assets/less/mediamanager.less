@@ -395,6 +395,10 @@ div[data-control="media-manager"] {
         position: absolute;
         left: 0;
         top: 0;
+
+        // Prevents erratic rendering issues when the height is
+        // sometimes calculated as 0 then repeatedly redrawn
+        min-height: 300px;
     }
 
     .scroll-wrapper {

@@ -28,6 +28,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $fields = [];
 
     /**
+     * @var array Names of tabs to lazy load.
+     */
+    public $lazy = [];
+
+    /**
      * @var string Default tab label to use when none is specified.
      */
     public $defaultTab = 'backend::lang.form.undefined_tab';
@@ -114,6 +119,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         if (array_key_exists('linkable', $config)) {
             $this->linkable = (bool) $config['linkable'];
+        }
+      
+        if (array_key_exists('lazy', $config)) {
+            $this->lazy = $config['lazy'];
         }
     }
 

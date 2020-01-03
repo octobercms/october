@@ -24,6 +24,7 @@ use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
@@ -144,17 +145,6 @@ class Controller
 
         if (empty($url)) {
             $url = '/';
-        }
-
-        /*
-         * Check security token.
-         *
-         * Note: Ignore AJAX requests until a CSRF policy introduced.
-         *
-         * @see \System\Traits\SecurityController
-         */
-        if (!Request::ajax() && !$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
         }
 
         /*
@@ -389,6 +379,7 @@ class Controller
         if (
             $useAjax &&
             ($handler = post('_handler')) &&
+            $this->verifyCsrfToken() &&
             ($handlerResponse = $this->runAjaxHandler($handler)) &&
             $handlerResponse !== true
         ) {
@@ -1006,9 +997,7 @@ class Controller
             /*
              * Check if the theme has an override
              */
-            if (strpos($partialName, '/') === false) {
-                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
-            }
+            $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
 
             /*
              * Check the component partial

@@ -34,6 +34,7 @@
         this.bindDependants()
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
+        this.bindLazyTabs()
         this.bindCollapsibleSections()
 
         this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
@@ -162,6 +163,37 @@
     }
 
     /*
+     * Render tab form fields once a lazy tab is selected.
+     */
+    FormWidget.prototype.bindLazyTabs = function() {
+        this.$el.on('click', '.tab-lazy [data-toggle="tab"]', function() {
+            var $el = $(this),
+                handlerName = $el.data('tab-lazy-handler')
+
+            $.request(handlerName, {
+                data: {
+                    target: $el.data('target'),
+                    name: $el.data('tab-name'),
+                    section: $el.data('tab-section'),
+                },
+                success: function(data) {
+                    this.success(data)
+                    $el.parent().removeClass('tab-lazy')
+                    // Trigger all input presets to populate new fields.
+                    setTimeout(function() {
+                        $('[data-input-preset]').each(function() {
+                            var preset = $(this).data('oc.inputPreset')
+                            if (preset && preset.$src) {
+                                preset.$src.trigger('input')
+                            }
+                        })
+                    }, 0)
+                }
+            })
+        })
+    }
+
+    /*
      * Hides tabs that have no content, it is possible this can be
      * called multiple times in a single cycle due to input.trigger.
      */
@@ -184,7 +216,7 @@
             /*
              * Check each tab pane for form field groups
              */
-            $('.tab-pane', tabControl).each(function() {
+            $('.tab-pane:not(.lazy)', tabControl).each(function() {
                 $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
                     .closest('li')
                     .toggle(!!$('> .form-group:not(:empty):not(.hide)', $(this)).length)

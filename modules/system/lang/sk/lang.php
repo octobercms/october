@@ -39,6 +39,7 @@ return [
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -398,7 +399,7 @@ return [
         'return_link' => 'Späť na záznam udalostí',
         'id' => 'ID',
         'id_label' => 'ID udalosti',
-        'created_at' => 'D8tum a čas',
+        'created_at' => 'Dátum a čas',
         'message' => 'Správa',
         'level' => 'Úroveň',
         'preview_title' => 'Udalosť'
