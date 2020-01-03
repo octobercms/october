@@ -45,49 +45,49 @@
      * Get popover template
      */
     FilterWidget.prototype.getPopoverTemplate = function() {
-        return '                                                                                                       \
-                <form id="filterPopover-{{ scopeName }}">                                                              \
-                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                                  \
-                    <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">  \
-                        <div class="filter-search loading-indicator-container size-input-text">                        \
-                            <button class="close" data-dismiss="popover" type="button">&times;</button>                \
-                            <input                                                                                     \
-                                type="text"                                                                            \
-                                name="search"                                                                          \
-                                autocomplete="off"                                                                     \
-                                class="filter-search-input form-control icon search popup-allow-focus"                 \
-                                data-request="{{ optionsHandler }}"                                                    \
-                                data-load-indicator-opaque                                                             \
-                                data-load-indicator                                                                    \
-                                data-track-input />                                                                    \
-                            <div class="filter-items">                                                                 \
-                                <ul>                                                                                   \
-                                    {{#available}}                                                                     \
-                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>             \
-                                    {{/available}}                                                                     \
-                                    {{#loading}}                                                                       \
-                                        <li class="loading"><span></span></li>                                         \
-                                    {{/loading}}                                                                       \
-                                </ul>                                                                                  \
-                            </div>                                                                                     \
-                            <div class="filter-active-items">                                                          \
-                                <ul>                                                                                   \
-                                    {{#active}}                                                                        \
-                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>             \
-                                    {{/active}}                                                                        \
-                                </ul>                                                                                  \
-                            </div>                                                                                     \
-                            <div class="filter-buttons">                                                               \
-                                <button class="btn btn-block btn-primary oc-icon-filter" data-filter-action="apply">   \
-                                    {{ apply_button_text }}                                                            \
-                                </button>                                                                              \
-                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-filter-action="clear"> \
-                                    {{ clear_button_text }}                                                            \
-                                </button>                                                                              \
-                            </div>                                                                                     \
-                        </div>                                                                                         \
-                    </div>                                                                                             \
-                </form>                                                                                                \
+        return '                                                                                                                       \
+                <form>                                                                                                                 \
+                    <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                                                  \
+                    <div id="controlFilterPopover-{{ scopeName }}" class="control-filter-popover control-filter-box-popover --range">  \
+                        <div class="filter-search loading-indicator-container size-input-text">                                        \
+                            <button class="close" data-dismiss="popover" type="button">&times;</button>                                \
+                            <input                                                                                                     \
+                                type="text"                                                                                            \
+                                name="search"                                                                                          \
+                                autocomplete="off"                                                                                     \
+                                class="filter-search-input form-control icon search popup-allow-focus"                                 \
+                                data-request="{{ optionsHandler }}"                                                                    \
+                                data-load-indicator-opaque                                                                             \
+                                data-load-indicator                                                                                    \
+                                data-track-input />                                                                                    \
+                            <div class="filter-items">                                                                                 \
+                                <ul>                                                                                                   \
+                                    {{#available}}                                                                                     \
+                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>                             \
+                                    {{/available}}                                                                                     \
+                                    {{#loading}}                                                                                       \
+                                        <li class="loading"><span></span></li>                                                         \
+                                    {{/loading}}                                                                                       \
+                                </ul>                                                                                                  \
+                            </div>                                                                                                     \
+                            <div class="filter-active-items">                                                                          \
+                                <ul>                                                                                                   \
+                                    {{#active}}                                                                                        \
+                                        <li data-item-id="{{id}}"><a href="javascript:;">{{name}}</a></li>                             \
+                                    {{/active}}                                                                                        \
+                                </ul>                                                                                                  \
+                            </div>                                                                                                     \
+                            <div class="filter-buttons">                                                                               \
+                                <button class="btn btn-block btn-primary oc-icon-filter" data-filter-action="apply">                   \
+                                    {{ apply_button_text }}                                                                            \
+                                </button>                                                                                              \
+                                <button class="btn btn-block btn-secondary oc-icon-eraser" data-filter-action="clear">                 \
+                                    {{ clear_button_text }}                                                                            \
+                                </button>                                                                                              \
+                            </div>                                                                                                     \
+                        </div>                                                                                                         \
+                    </div>                                                                                                             \
+                </form>                                                                                                                \
             '
     }
 
@@ -134,24 +134,24 @@
         this.$el.on('show.oc.popover', 'a.filter-scope', function(event){
             self.focusSearch()
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-items > ul > li', function(){
+            $(event.relatedTarget).on('click', '#controlFilterPopover-' + scopeName + ' .filter-items > ul > li', function(){
                 self.selectItem($(this))
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover .filter-active-items > ul > li', function(){
+            $(event.relatedTarget).on('click', '#controlFilterPopover-' + scopeName + ' .filter-active-items > ul > li', function(){
                 self.selectItem($(this), true)
             })
 
-            $(event.relatedTarget).on('ajaxDone', '#controlFilterPopover input.filter-search-input', function(event, context, data){
+            $(event.relatedTarget).on('ajaxDone', '#controlFilterPopover-' + scopeName + ' input.filter-search-input', function(event, context, data){
                 self.filterAvailable(data.scopeName, data.options.available)
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="apply"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover-' + scopeName + ' [data-filter-action="apply"]', function (e) {
                 e.preventDefault()
                 self.filterScope()
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopover [data-filter-action="clear"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopover-' + scopeName + ' [data-filter-action="clear"]', function (e) {
                 e.preventDefault()
                 self.filterScope(true)
             })
@@ -248,7 +248,7 @@
         if (Modernizr.touchevents)
             return
 
-        var $input = $('#controlFilterPopover input.filter-search-input'),
+        var $input = $('#controlFilterPopover-' + scopeName + ' input.filter-search-input'),
             length = $input.val().length
 
         $input.focus()
@@ -398,13 +398,13 @@
         /*
          * Inject available
          */
-        var container = $('#controlFilterPopover .filter-items > ul').empty()
+        var container = $('#controlFilterPopover-' + scopeName + ' .filter-items > ul').empty()
         this.addItemsToListElement(container, data.available)
 
         /*
          * Inject active
          */
-        var container = $('#controlFilterPopover .filter-active-items > ul')
+        var container = $('#controlFilterPopover-' + scopeName + ' .filter-active-items > ul')
         this.addItemsToListElement(container, data.active)
     }
 
@@ -437,7 +437,7 @@
             filtered = available
         }
 
-        var container = $('#controlFilterPopover .filter-items > ul').empty()
+        var container = $('#controlFilterPopover-' + scopeName + ' .filter-items > ul').empty()
         self.addItemsToListElement(container, filtered)
     }
 
@@ -452,8 +452,8 @@
 
     FilterWidget.prototype.toggleFilterButtons = function(data)
     {
-        var items = $('#controlFilterPopover .filter-active-items > ul'),
-            buttonContainer = $('#controlFilterPopover .filter-buttons')
+        var items = $('#controlFilterPopover-' + scopeName + ' .filter-active-items > ul'),
+            buttonContainer = $('#controlFilterPopover-' + scopeName + ' .filter-buttons')
 
         if (data) {
             data.active.length > 0 ? buttonContainer.show() : buttonContainer.hide()
