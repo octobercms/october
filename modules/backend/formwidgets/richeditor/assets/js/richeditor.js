@@ -125,9 +125,6 @@
               'PRE': 'Code'
             }
 
-        console.log("froalaOptions:", froalaOptions.paragraphFormat);
-        console.log("options:", this.options.paragraphFormat);
-
         froalaOptions.tableStyles = this.options.tableStyles
             ? this.options.tableStyles
             : {
