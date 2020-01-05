@@ -85,7 +85,7 @@
 
         this.updateClasses()
 
-        if (this.$tabsContainer.is('[data-linkable]') && location.hash) {
+        if (location.hash && this.$tabsContainer.is('[data-linkable]')) {
             $('li > a[data-tab-url=' + location.hash + ']', this.$tabsContainer).tab('show')
         }
     }
