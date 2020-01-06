@@ -4883,6 +4883,7 @@ ul.autocomplete.dropdown-menu.inspector-autocomplete li a {padding:5px 12px;whit
 @media (min-width:768px) {.modal-dialog.size-tiny {width:300px }.modal-dialog.size-small {width:400px }}
 @media (min-width:992px) {.modal-dialog.size-large {width:750px }.modal-dialog.size-huge {width:900px }.modal-dialog.size-giant {width:982px }}
 @media (max-width:768px) {.modal-dialog.size-adaptive {width:auto;padding:5px 0;margin:0 }}
+.control-popup.fade:not(.in) {pointer-events:none}
 .control-popup.fade .modal-dialog {opacity:0;filter:alpha(opacity=0);-webkit-transition:all 0.3s,width 0s;transition:all 0.3s,width 0s;-webkit-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}
 .control-popup.fade.in .modal-dialog {opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}
 .popup-backdrop {position:fixed;top:0;right:0;bottom:0;left:0;z-index:490;background-color:rgba(0,0,0,0.2);opacity:1;filter:alpha(opacity=100)}
