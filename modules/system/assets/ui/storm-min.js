@@ -3527,8 +3527,8 @@ extraOptions.tokenSeparators=separators.split('|')
 if($element.hasClass('select-no-dropdown')){extraOptions.selectOnClose=true
 extraOptions.closeOnSelect=false
 extraOptions.minimumInputLength=1
-$element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
-$('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')})}}
+$element.on('select2:closing',function(){if($('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').length>0){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
+$('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')}})}}
 var placeholder=$element.data('placeholder')
 if(placeholder){extraOptions.placeholder=placeholder
 extraOptions.allowClear=true}

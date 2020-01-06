@@ -126,8 +126,10 @@
                     extraOptions.minimumInputLength = 1
 
                     $element.on('select2:closing', function() {
-                        $('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
-                        $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')
+                        if ($('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').length > 0) {
+                            $('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
+                            $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')
+                        }
                     })
                 }
             }
