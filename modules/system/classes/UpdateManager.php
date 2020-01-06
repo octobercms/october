@@ -95,6 +95,11 @@ class UpdateManager
     protected $repository;
 
     /**
+     * @var array An array of messages returned by migrations / seeders. Returned at the end of the update process.
+     */
+    protected $messages = [];
+
+    /**
      * Initialize this singleton.
      */
     protected function init()
@@ -166,6 +171,9 @@ class UpdateManager
                 $this->seedModule($module);
             }
         }
+
+        // Print messages returned by migrations / seeders
+        $this->printMessages();
 
         return $this;
     }
@@ -429,7 +437,11 @@ class UpdateManager
         }
 
         $seeder = App::make($className);
-        $seeder->run();
+        $return = $seeder->run();
+
+        if (isset($return) && (is_string($return) || is_array($return))) {
+            $this->addMessage($className, $return);
+        }
 
         $this->note(sprintf('<info>Seeded %s</info> ', $module));
         return $this;
@@ -1009,5 +1021,51 @@ class UpdateManager
     public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
+    }
+
+    /**
+     * Adds a message from a specific migration or seeder.
+     *
+     * @param string|object $class
+     * @param string|array $message
+     * @return void
+     */
+    protected function addMessage($class, $message)
+    {
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+        if (!isset($this->messages[$class])) {
+            $this->messages[$class] = [];
+        }
+
+        if (is_string($message)) {
+            $this->messages[$class][] = $message;
+        } else if (is_array($message)) {
+            array_merge($this->messages[$class], $message);
+        }
+    }
+
+    /**
+     * Prints collated messages from the migrations and seeders
+     *
+     * @return void
+     */
+    protected function printMessages()
+    {
+        if (!count($this->messages)) {
+            return;
+        }
+
+        // Add a line break
+        $this->note('');
+
+        foreach ($this->messages as $class => $messages) {
+            $this->note(sprintf('<info>%s reported:</info>', $class));
+
+            foreach ($messages as $message) {
+                $this->note(' - ' . (string) $message);
+            }
+        }
     }
 }
