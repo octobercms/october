@@ -89,7 +89,7 @@ class VersionManager
 
         // No updates needed
         if ($currentVersion == $databaseVersion) {
-            $this->note('- <info>Nothing to update.</info>');
+            $this->note(' - <info>Nothing to update.</info>');
             return;
         }
 
@@ -146,7 +146,7 @@ class VersionManager
             foreach ($comments as $comment) {
                 $this->applyDatabaseComment($code, $version, $comment);
 
-                $this->note(sprintf('- <info>v%s: </info> %s', $version, $comment));
+                $this->note(sprintf(' - <info>v%s: </info> %s', $version, $comment));
             }
         }
 
