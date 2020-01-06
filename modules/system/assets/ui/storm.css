@@ -4288,8 +4288,8 @@ body.slim-container .form-buttons {padding:0 20px 20px}
 [data-control=toolbar] .select2-container .select2-selection__rendered {line-height:17px}
 [data-control=toolbar] .select2-container .select2-selection--single {height:36px}
 [data-control=toolbar] select.form-control.custom-select {display:none}
-tr.rowlink td {cursor:pointer}
-tr.rowlink td.nolink {cursor:auto}
+tr.rowlink:not(.nolink) td {cursor:pointer}
+tr.rowlink:not(.nolink) td.nolink {cursor:auto}
 .table tbody tr.rowlink:hover td {background-color:#f5f5f5}
 a.rowlink {color:inherit;font:inherit;text-decoration:inherit}
 table {max-width:100%;background-color:transparent}
@@ -4472,15 +4472,15 @@ table.table.data tbody tr:last-child td {border-bottom-width:0}
 table.table.data tbody tr td:first-child {border-left:3px solid transparent;padding-left:22px}
 table.table.data tbody tr.active td {color:#000}
 table.table.data tbody tr.active td:first-child {border-left:3px solid #f93}
-table.table.data tbody tr.rowlink:hover td,
+table.table.data tbody tr.rowlink:not(.nolink):hover td,
 table.table.data tbody tr:not(.no-data).selected td {background:#4ea5e0 !important;color:#fff}
-table.table.data tbody tr.rowlink:hover td a:not(.btn),
+table.table.data tbody tr.rowlink:not(.nolink):hover td a:not(.btn),
 table.table.data tbody tr:not(.no-data).selected td a:not(.btn),
-table.table.data tbody tr.rowlink:hover td span,
+table.table.data tbody tr.rowlink:not(.nolink):hover td span,
 table.table.data tbody tr:not(.no-data).selected td span,
-table.table.data tbody tr.rowlink:hover td i[class^="icon-"],
+table.table.data tbody tr.rowlink:not(.nolink):hover td i[class^="icon-"],
 table.table.data tbody tr:not(.no-data).selected td i[class^="icon-"] {color:#fff}
-table.table.data tbody tr.rowlink:active td {background:#3498db !important;color:#fff}
+table.table.data tbody tr.rowlink:not(.nolink):active td {background:#3498db !important;color:#fff}
 table.table.data tbody tr.hidden td,
 table.table.data tbody tr.hidden th,
 table.table.data tbody tr.hidden td a,
