@@ -81,12 +81,15 @@ class EventLog extends Model
      */
     public function getSummaryAttribute()
     {
-        if (preg_match("/with message '(.+)' in/", $this->message, $match)) {
-            return $match[1];
+        if (Config::get('develop.limitEventLogSummary', true)) {
+            if (preg_match("/with message '(.+)' in/", $this->message, $match)) {
+                return $match[1];
+            }
+            return Str::limit($this->message, 100);
+        } else {
+            if (preg_match("/^(.*|\r\n|\r|\n)/im", trim($this->message), $match)) {
+                return str_replace('<br>', '', $match[1]);
+            }
         }
-        elseif (preg_match("/^(.*|\r\n|\r|\n)/im", trim($this->message), $match)) {
-            return str_replace('<br>', '', $match[1]);
-        }
-        return Str::limit($this->message, 100);
     }
 }

@@ -20,5 +20,21 @@ return [
     */
 
     'decompileBackendAssets' => false,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Limit event log summary
+    |--------------------------------------------------------------------------
+    |
+    | Enabling this will limit the event log summary to a length of 100
+    | characters.
+    |
+    | true  - limits the summary to 100 characters
+    |
+    | false - displays the whole first sentence summary
+    |
+    */
+
+    'limitEventLogSummary' => false,
 
 ];
