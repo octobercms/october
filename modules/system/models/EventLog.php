@@ -84,11 +84,14 @@ class EventLog extends Model
         if (Config::get('develop.limitEventLogSummary', true)) {
             if (preg_match("/with message '(.+)' in/", $this->message, $match)) {
                 return $match[1];
+            } else {
+                return Str::limit($this->message, 100);
             }
-            return Str::limit($this->message, 100);
         } else {
             if (preg_match("/^(.*|\r\n|\r|\n)/im", trim($this->message), $match)) {
                 return str_replace('<br>', '', $match[1]);
+            } else {
+                return Str::limit($this->message, 100);
             }
         }
     }
