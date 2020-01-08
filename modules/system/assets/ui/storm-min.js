@@ -3526,8 +3526,9 @@ if(separators){extraOptions.tags=true
 extraOptions.tokenSeparators=separators.split('|')
 if($element.hasClass('select-no-dropdown')){extraOptions.selectOnClose=true
 extraOptions.closeOnSelect=false
-$element.on('select2:closing',function(){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
-$('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')})}}
+extraOptions.minimumInputLength=1
+$element.on('select2:closing',function(){if($('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').length>0){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
+$('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')}})}}
 var placeholder=$element.data('placeholder')
 if(placeholder){extraOptions.placeholder=placeholder
 extraOptions.allowClear=true}
@@ -4073,8 +4074,8 @@ else if(request){link.request()}
 else if(popup){link.popup()}
 else if(e.ctrlKey||e.metaKey){window.open(href)}
 else{window.location=href}}
-$(this).find('td').not('.'+options.excludeClass).click(function(e){handleClick(e)})
-$(this).on('keypress',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){handleClick(e)
+$(this).not('.'+options.excludeClass).find('td').not('.'+options.excludeClass).click(function(e){handleClick(e)})
+$(this).not('.'+options.excludeClass).on('keypress',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){handleClick(e)
 return false}})
 $(this).addClass(options.linkedClass)
 link.hide().after(link.html())})
