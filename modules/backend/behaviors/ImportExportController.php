@@ -619,6 +619,7 @@ class ImportExportController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
         $csv->setEscape($options['escape']);
