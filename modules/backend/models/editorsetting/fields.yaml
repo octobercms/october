@@ -106,17 +106,10 @@ tabs:
             size: small
             span: auto
 
-        html_toolbar_buttons:
-            label: backend::lang.editor.toolbar_buttons
-            comment: backend::lang.editor.toolbar_buttons_comment
-            tab: backend::lang.editor.toolbar_buttons
-            type: textarea
-            span: auto
-
         html_paragraph_formats:
             label: backend::lang.editor.paragraph_formats
             comment: backend::lang.editor.paragraph_formats_comment
-            tab: backend::lang.editor.paragraph_formats
+            tab: backend::lang.editor.markup_tags
             type: datatable
             span: auto
             columns:
@@ -124,3 +117,10 @@ tabs:
                     title: backend::lang.editor.markup_tag
                 format_label:
                     title: backend::lang.editor.label
+
+        html_toolbar_buttons:
+            label: backend::lang.editor.toolbar_buttons
+            comment: backend::lang.editor.toolbar_buttons_comment
+            tab: backend::lang.editor.toolbar_buttons
+            type: textarea
+            span: auto
