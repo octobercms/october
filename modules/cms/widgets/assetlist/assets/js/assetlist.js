@@ -150,6 +150,7 @@
                 paramName: 'file_data',
                 previewsContainer: $('<div />').get(0),
                 clickable: $link.get(0),
+                timeout: 0,
                 headers: {}
             }
 
