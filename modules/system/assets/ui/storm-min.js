@@ -4588,7 +4588,7 @@ Tab.prototype.initTab=function(li){var
 $tabs=$('>li',this.$tabsContainer),tabIndex=$tabs.index(li),time=new Date().getTime(),targetId=this.tabId+'-tab-'+tabIndex+time,$anchor=$('a',li)
 $anchor.data('target','#'+targetId).attr('data-target','#'+targetId).attr('data-toggle','tab')
 if(!$anchor.attr('title'))
-$anchor.attr('title',$anchor.text())
+$anchor.attr('title',$anchor.text().trim())
 if($anchor.find('> span.title > span').length<1){var html=$anchor.html()
 $anchor.html('').append($('<span class="title"></span>').append($('<span></span>').html(html)))}
 var pane=$('> .tab-pane',this.$pagesContainer).eq(tabIndex).attr('id',targetId)
