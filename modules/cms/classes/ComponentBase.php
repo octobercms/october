@@ -5,6 +5,7 @@ use Lang;
 use Config;
 use October\Rain\Extension\Extendable;
 use BadMethodCallException;
+use System\Classes\DependenciesResolver;
 
 /**
  * Component base class
@@ -77,6 +78,11 @@ abstract class ComponentBase extends Extendable
     protected $externalPropertyNames = [];
 
     /**
+     * @var DependenciesResolver Used to resolve dependencies for ajaxHandlers
+     */
+    private $dependenciesResolver;
+
+    /**
      * Component constructor. Takes in the page or layout code section object
      * and properties set by the page or layout.
      * @param null|CodeBase $cmsObject
@@ -94,6 +100,8 @@ abstract class ComponentBase extends Extendable
         $className = Str::normalizeClassName(get_called_class());
         $this->dirName = strtolower(str_replace('\\', '/', $className));
         $this->assetPath = Config::get('cms.pluginsPath', '/plugins').dirname(dirname($this->dirName));
+
+        $this->dependenciesResolver = resolve(DependenciesResolver::class);
 
         parent::__construct();
     }
@@ -184,7 +192,10 @@ abstract class ComponentBase extends Extendable
             return $event;
         }
 
-        $result = $this->$handler();
+        $result = call_user_func_array(
+            [$this, $handler],
+            $this->dependenciesResolver->resolveForExtendableObject($this, [], $handler)
+        );
 
         /**
          * @event cms.component.runAjaxHandler

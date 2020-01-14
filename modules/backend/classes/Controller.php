@@ -22,6 +22,7 @@ use October\Rain\Exception\ApplicationException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller as ControllerBase;
+use System\Classes\DependenciesResolver;
 
 /**
  * The Backend base controller class, used by Backend controllers.
@@ -116,6 +117,11 @@ class Controller extends ControllerBase
     protected $guarded = [];
 
     /**
+     * @var DependenciesResolver Used to resolve dependencies for ajaxHandlers and controller actions
+     */
+    private $dependenciesResolver;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -157,6 +163,8 @@ class Controller extends ControllerBase
             $manager = new MediaManager($this, 'ocmediamanager');
             $manager->bindToController();
         }
+
+        $this->dependenciesResolver = resolve(DependenciesResolver::class);
 
         $this->extendableConstruct();
     }
@@ -402,7 +410,10 @@ class Controller extends ControllerBase
         }
 
         // Execute the action
-        $result = call_user_func_array([$this, $actionName], $parameters);
+        $result = call_user_func_array(
+            [$this, $actionName],
+            $this->dependenciesResolver->resolveForExtendableObject($this, $parameters, $actionName)
+        );
 
         // Expecting \Response and \RedirectResponse
         if ($result instanceof \Symfony\Component\HttpFoundation\Response) {
@@ -617,7 +628,10 @@ class Controller extends ControllerBase
             $pageHandler = $this->action . '_' . $handler;
 
             if ($this->methodExists($pageHandler)) {
-                $result = call_user_func_array([$this, $pageHandler], $this->params);
+                $result = call_user_func_array(
+                    [$this, $pageHandler],
+                    $this->dependenciesResolver->resolveForExtendableObject($this, $this->params, $pageHandler)
+                );
                 return $result ?: true;
             }
 
@@ -625,7 +639,10 @@ class Controller extends ControllerBase
              * Process page global handler (onSomething)
              */
             if ($this->methodExists($handler)) {
-                $result = call_user_func_array([$this, $handler], $this->params);
+                $result = call_user_func_array(
+                    [$this, $handler],
+                    $this->dependenciesResolver->resolveForExtendableObject($this, $this->params, $handler)
+                );
                 return $result ?: true;
             }
 
@@ -662,7 +679,10 @@ class Controller extends ControllerBase
     {
         $this->addViewPath($widget->getViewPaths());
 
-        $result = call_user_func_array([$widget, $handler], $this->params);
+        $result = call_user_func_array(
+            [$widget, $handler],
+            $this->dependenciesResolver->resolveForExtendableObject($widget, $this->params, $handler)
+        );
 
         $this->vars = $widget->vars + $this->vars;
 
