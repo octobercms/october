@@ -100,7 +100,7 @@
             .attr('data-toggle', 'tab')
 
         if (!$anchor.attr('title'))
-            $anchor.attr('title', $anchor.text())
+            $anchor.attr('title', $anchor.text().trim())
 
         // Setup the required tabs markup if it does not exist already.
         if ($anchor.find('> span.title > span').length < 1) {
