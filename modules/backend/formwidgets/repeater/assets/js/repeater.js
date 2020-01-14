@@ -166,7 +166,7 @@
             return
         }
 
-        if ((ev.ctrlKey || ev.metaKey)) {
+        if (ev.ctrlKey || ev.metaKey) {
             isCollapsed ? this.expandAll() : this.collapseAll()
         }
         else {
