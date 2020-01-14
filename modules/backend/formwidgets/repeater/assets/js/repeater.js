@@ -35,7 +35,8 @@
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
         minItems: null,
-        maxItems: null
+        maxItems: null,
+        style: 'default',
     }
 
     Repeater.prototype.init = function() {
@@ -49,6 +50,7 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         this.togglePrompt()
+        this.setStyle()
     }
 
     Repeater.prototype.dispose = function() {
@@ -157,7 +159,14 @@
 
         ev.preventDefault()
 
-        if (ev.ctrlKey || ev.metaKey) {
+        if (this.getStyle() === 'accordion') {
+            if (isCollapsed) {
+                this.expand($item)
+            }
+            return
+        }
+
+        if ((ev.ctrlKey || ev.metaKey)) {
             isCollapsed ? this.expandAll() : this.collapseAll()
         }
         else {
@@ -189,6 +198,9 @@
     }
 
     Repeater.prototype.expand = function($item) {
+        if (this.getStyle() === 'accordion') {
+            this.collapseAll()
+        }
         $item.removeClass('collapsed')
     }
 
@@ -227,6 +239,36 @@
         }
 
         return defaultText
+    }
+
+    Repeater.prototype.getStyle = function() {
+        var style = 'default';
+
+        // Validate style
+        if (this.options.style && ['collapsed', 'accordion'].indexOf(this.options.style) !== -1) {
+            style = this.options.style
+        }
+
+        return style;
+    }
+
+    Repeater.prototype.setStyle = function() {
+        var style = this.getStyle(),
+            self = this,
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
+
+        $.each(items, function(key, item) {
+            switch (style) {
+                case 'collapsed':
+                    self.collapse($(item))
+                    break
+                case 'accordion':
+                    if (key !== 0) {
+                        self.collapse($(item))
+                    }
+                    break
+            }
+        })
     }
 
     // FIELD REPEATER PLUGIN DEFINITION
