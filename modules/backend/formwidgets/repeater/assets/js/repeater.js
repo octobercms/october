@@ -176,7 +176,7 @@
 
     Repeater.prototype.collapseAll = function() {
         var self = this,
-            items = $('.field-repeater-item', this.$el)
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
 
         $.each(items, function(key, item){
             self.collapse($(item))
@@ -185,7 +185,7 @@
 
     Repeater.prototype.expandAll = function() {
         var self = this,
-            items = $('.field-repeater-item', this.$el)
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
 
         $.each(items, function(key, item){
             self.expand($(item))
