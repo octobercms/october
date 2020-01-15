@@ -30,7 +30,7 @@ class DependenciesResolver
      * @param string $method
      * @return array
      */
-    public function resolveForExtendableObject(object $object, array $parameters, string $method): array
+    public function resolveForExtendableObject($object, array $parameters, string $method): array
     {
         if (method_exists($object, $method)) {
             try {
