@@ -12,7 +12,7 @@ class DependenciesResolver
     /**
      * @var Container
      */
-    private Container $container;
+    private $container;
 
     /**
      * @param Container $container
