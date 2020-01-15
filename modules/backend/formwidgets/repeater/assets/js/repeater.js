@@ -50,7 +50,7 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         this.togglePrompt()
-        this.setStyle()
+        this.applyStyle()
     }
 
     Repeater.prototype.dispose = function() {
@@ -252,7 +252,7 @@
         return style;
     }
 
-    Repeater.prototype.setStyle = function() {
+    Repeater.prototype.applyStyle = function() {
         var style = this.getStyle(),
             self = this,
             items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
