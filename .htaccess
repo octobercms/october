@@ -59,8 +59,8 @@
     ##
     ## Block browser access to log files
     ##
-	<Files  ~ "\.log$">
-  		Require all denied
-	</Files>
+    <Files ~ "\.log$">
+        Require all denied
+    </Files>
 
 </IfModule>
