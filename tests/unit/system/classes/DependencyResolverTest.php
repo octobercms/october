@@ -49,7 +49,7 @@ class DependencyResolverTest extends TestCase
         );
 
         $this->assertInstanceOf(Request::class, $result[0]);
-        $this->assertInstanceOf('test', $result[1]);
+        $this->assertEquals('test', $result[1]);
     }
 
     ///
@@ -88,6 +88,6 @@ class DependencyResolverTest extends TestCase
 //        );
 //
 //        $this->assertInstanceOf(Request::class, $result[0]);
-//        $this->assertInstanceOf('test', $result[1]);
+//        $this->assertEquals('test', $result[1]);
 //    }
 }
