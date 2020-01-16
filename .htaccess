@@ -21,6 +21,7 @@
     ##
     ## Black listed folders
     ##
+    RewriteRule .log$ index.php [L,NC]
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
     RewriteRule ^vendor/.* index.php [L,NC]
@@ -55,12 +56,5 @@
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    
-    ##
-    ## Block browser access to log files
-    ##
-    <Files ~ "\.log$">
-        Require all denied
-    </Files>
 
 </IfModule>
