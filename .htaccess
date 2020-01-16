@@ -55,5 +55,12 @@
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+    
+    ##
+    ## Block browser access to log files
+    ##
+	<Files  ~ "\.log$">
+  		Require all denied
+	</Files>
 
 </IfModule>
