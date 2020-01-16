@@ -1,6 +1,7 @@
 <?php namespace October\Tester\Components;
 
 use Cms\Classes\ComponentBase;
+use Illuminate\Http\Request;
 
 class Archive extends ComponentBase
 {
@@ -37,5 +38,10 @@ class Archive extends ComponentBase
     public function onTestAjax()
     {
         $this->page['var'] = 'page';
+    }
+
+    public function onTestDependencyInjection(Request $request)
+    {
+        return $request->method();
     }
 }

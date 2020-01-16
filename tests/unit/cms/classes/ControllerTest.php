@@ -370,6 +370,20 @@ ESC;
         $this->assertEquals('page', $content['ajax-result']);
     }
 
+    public function testComponentAjaxDependencyInjection()
+    {
+        Request::swap($this->configAjaxRequestMock('testArchive::onTestDependencyInjection'));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-component');
+        $content = $response->getOriginalContent();
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertArrayHasKey('result', $content);
+        $this->assertEquals('POST', $content['result']);
+    }
+
     /**
      * @expectedException        October\Rain\Exception\SystemException
      * @expectedExceptionMessage is not registered for the component
