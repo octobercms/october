@@ -88,6 +88,6 @@ class EventLog extends Model
         // Get first line of message
         preg_match('/^([^\n\r]+)/m', $this->message, $matches);
 
-        return Str::limit($matches[1], 500);
+        return Str::limit($matches[1] ?? '', 500);
     }
 }
