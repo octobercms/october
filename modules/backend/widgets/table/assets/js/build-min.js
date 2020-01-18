@@ -871,7 +871,8 @@ return cachingKey}
 DropdownProcessor.prototype.getAbsolutePosition=function(element){var top=document.body.scrollTop,left=0
 do{top+=element.offsetTop||0;top-=element.scrollTop||0;left+=element.offsetLeft||0;element=element.offsetParent;}while(element)
 return{top:top,left:left}}
-DropdownProcessor.prototype.updateCellFromFocusedItem=function(){var focusedItem=this.findFocusedItem();this.setSelectedItem(focusedItem);}
+DropdownProcessor.prototype.updateCellFromFocusedItem=function(focusedItem){if(!focusedItem){focusedItem=this.findFocusedItem();}
+this.setSelectedItem(focusedItem);}
 DropdownProcessor.prototype.findSelectedItem=function(){if(this.itemListElement)
 return this.itemListElement.querySelector('ul li.selected')
 return null}
@@ -883,7 +884,7 @@ DropdownProcessor.prototype.findFocusedItem=function(){if(this.itemListElement)
 return this.itemListElement.querySelector('ul li:focus')
 return null}
 DropdownProcessor.prototype.onItemClick=function(ev){var target=this.tableObj.getEventTarget(ev)
-if(target.tagName=='LI'){target.focus();this.updateCellFromFocusedItem()
+if(target.tagName=='LI'){target.focus();this.updateCellFromFocusedItem(target)
 this.hideDropdown()}}
 DropdownProcessor.prototype.onItemKeyDown=function(ev){if(!this.itemListElement)
 return

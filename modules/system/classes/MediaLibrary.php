@@ -487,6 +487,8 @@ class MediaLibrary
             preg_quote(']', '/'),
             preg_quote(',', '/'),
             preg_quote('=', '/'),
+            preg_quote("'", '/'),
+            preg_quote('&', '/'),
         ];
 
         if (!preg_match('/^[' . implode('', $regexWhitelist) . ']+$/iu', $path)) {

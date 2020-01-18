@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ReflectionClass;
 use SystemException;
@@ -148,7 +149,7 @@ class PluginBase extends ServiceProviderBase
     /**
      * Registers scheduled tasks that are executed on a regular basis.
      *
-     * @param string $schedule
+     * @param Schedule $schedule
      * @return void
      */
     public function registerSchedule($schedule)

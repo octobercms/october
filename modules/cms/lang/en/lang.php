@@ -11,7 +11,7 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled.'
+        'safe_mode_enabled' => 'Safe mode is currently enabled. Editing the PHP code of CMS templates is disabled.'
     ],
     'dashboard' => [
         'active_theme' => [

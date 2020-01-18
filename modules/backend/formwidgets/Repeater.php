@@ -98,7 +98,7 @@ class Repeater extends FormWidgetBase
     public function init()
     {
         $this->prompt = Lang::get('backend::lang.repeater.add_new_item');
-        
+
         $this->fillFromConfig([
             'form',
             'prompt',
@@ -404,15 +404,15 @@ class Repeater extends FormWidgetBase
         if ($this->alias === $widgetName) {
             // This repeater has made the AJAX request
             self::$onAddItemCalled = true;
-        } else if (strpos($widgetName, $this->alias) === 0) {
+        } else if (strpos($widgetName, $this->alias . 'Form') === 0) {
             // A child repeater has made the AJAX request
 
             // Get index from AJAX handler
             $handlerSuffix = str_replace($this->alias . 'Form', '', $widgetName);
-            preg_match('/^[0-9]+/', $handlerSuffix, $matches);
-
-            $this->childAddItemCalled = true;
-            $this->childIndexCalled = (int) $matches[0];
+            if (preg_match('/^[0-9]+/', $handlerSuffix, $matches)) {
+                $this->childAddItemCalled = true;
+                $this->childIndexCalled = (int) $matches[0];
+            }
         }
     }
 
