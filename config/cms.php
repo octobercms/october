@@ -44,12 +44,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Use this setting to force a secure protocol when accessing any back-end
-    | pages, including the authentication pages. If set to null, this setting
-    | is enabled when debug mode (app.debug) is disabled.
+    | pages, including the authentication pages. This is usually handled by
+    | web server config, but can be handled by the app for added security.
     |
     */
 
-    'backendForceSecure' => null,
+    'backendForceSecure' => false,
 
     /*
     |--------------------------------------------------------------------------

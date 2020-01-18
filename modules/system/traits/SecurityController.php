@@ -82,11 +82,6 @@ trait SecurityController
             return true;
         }
 
-        $forceSecure = Config::get('cms.backendForceSecure', null);
-        if ($forceSecure === null) {
-            $forceSecure = !Config::get('app.debug', false);
-        }
-
-        return !$forceSecure;
+        return !Config::get('cms.backendForceSecure', false);
     }
 }
