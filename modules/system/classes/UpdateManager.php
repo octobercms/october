@@ -348,9 +348,11 @@ class UpdateManager
          * Rollback modules
          */
         while (true) {
-            $rolledBack = $this->migrator
-                ->setOutput($this->notesOutput)
-                ->rollback($paths, ['pretend' => false]);
+            if (isset($this->notesOutput)) {
+                $this->migrator->setOutput($this->notesOutput);
+            }
+
+            $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
 
             if (count($rolledBack) == 0) {
                 break;
@@ -405,9 +407,11 @@ class UpdateManager
     {
         $this->note($module);
 
-        $this->migrator
-            ->setOutput($this->notesOutput)
-            ->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
+        if (isset($this->notesOutput)) {
+            $this->migrator->setOutput($this->notesOutput);
+        }
+
+        $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         return $this;
     }
