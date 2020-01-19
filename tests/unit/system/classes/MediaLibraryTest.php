@@ -60,6 +60,6 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
     public function testValidPathsOnValidatePath($path)
     {
         $result = MediaLibrary::validatePath($path);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
 }

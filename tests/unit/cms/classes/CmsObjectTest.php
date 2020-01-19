@@ -148,12 +148,11 @@ class CmsObjectTest extends TestCase
         $this->assertNull($obj->something);
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileNameSymbol()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -164,12 +163,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileNamePath()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -180,12 +178,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileSlash()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -196,12 +193,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage The File Name field is required
-     */
     public function testFillEmptyFileName()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('The File Name field is required');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -266,11 +262,12 @@ class CmsObjectTest extends TestCase
 
     /**
      * @depends testRename
-     * @expectedException        \October\Rain\Exception\ApplicationException
-     * @expectedExceptionMessage already exists
      */
     public function testRenameToExistingFile()
     {
+        $this->expectException(\October\Rain\Exception\ApplicationException::class);
+        $this->expectExceptionMessageMatches('/already\sexists/');
+
         $theme = Theme::load('apitest');
 
         $srcFilePath = $theme->getPath().'/testobjects/anotherobj.htm';

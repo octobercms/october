@@ -43,7 +43,7 @@ class RouterTest extends TestCase
         $this->assertFalse($value);
         $map = $property->getValue($router);
 
-        $this->assertInternalType('array', $map);
+        $this->assertIsArray($map);
         $this->assertGreaterThanOrEqual(4, count($map));
 
         /*
@@ -52,7 +52,7 @@ class RouterTest extends TestCase
         $value = $method->invoke($router);
         $this->assertTrue($value);
         $map = $property->getValue($router);
-        $this->assertInternalType('array', $map);
+        $this->assertIsArray($map);
         $this->assertGreaterThanOrEqual(4, count($map));
     }
 
