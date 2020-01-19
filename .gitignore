@@ -1,24 +1,32 @@
-/bootstrap/compiled.php
+# Composer ignores
 /vendor
 composer.phar
-.DS_Store
-.idea
+composer.lock
+
+# Framework ignores
 .env
 .env.*.php
 .env.php
+selenium.php
+/bootstrap/compiled.php
+.phpunit.result.cache
+
+# Hosting ignores
 php_errors.log
 nginx-error.log
 nginx-access.log
 nginx-ssl.access.log
 nginx-ssl.error.log
-php-errors.log
 sftp-config.json
 .ftpconfig
-selenium.php
-composer.lock
-package-lock.json
-/node_modules
+
+# Editor ignores
+nbproject
+.idea
+.vscode
 _ide_helper.php
 
-# for netbeans
-nbproject
+# Other ignores
+.DS_Store
+package-lock.json
+/node_modules

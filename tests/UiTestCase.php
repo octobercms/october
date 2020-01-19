@@ -1,6 +1,6 @@
 <?php
 
-class UiTestCase extends PHPUnit_Extensions_SeleniumTestCase
+class UiTestCase extends PHPUnit\Extensions\Selenium2TestCase
 {
     protected function setUp()
     {

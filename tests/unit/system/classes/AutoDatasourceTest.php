@@ -30,7 +30,7 @@ class AutoDatasourceTest extends PluginTestCase
      */
     public $datasource;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -73,7 +73,7 @@ class AutoDatasourceTest extends PluginTestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         foreach ($this->fixtures as $fixture) {
             $fixture->delete();

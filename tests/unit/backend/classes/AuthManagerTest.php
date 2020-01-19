@@ -4,7 +4,7 @@ use October\Rain\Exception\SystemException;
 
 class AuthManagerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->createApplication();
 
@@ -23,7 +23,7 @@ class AuthManagerTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         AuthManager::forgetInstance();
     }
