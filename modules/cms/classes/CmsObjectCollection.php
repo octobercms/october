@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use ApplicationException;
 use October\Rain\Support\Collection as CollectionBase;
 
 /**
@@ -37,12 +38,36 @@ class CmsObjectCollection extends CollectionBase
 
     /**
      * Returns objects whose properties match the supplied value.
+     *
+     * This is a wrapper for our custom `filterWhere` method, as the signature of this method changed in Laravel 6.0.
+     *
+     * @param  string  $key
+     * @param  mixed  $operator
+     * @param  mixed  $value
+     * @return static
+     */
+    public function where($key, $operator = null, $value = null)
+    {
+        if (empty($operator) || !is_string($operator)) {
+            throw new ApplicationException('You must provide a string value to compare with when executing a "where" '
+             . 'query for CMS object collections.');
+        }
+
+        if (!isset($value) || !is_bool($value)) {
+            $value = true;
+        }
+
+        return $this->applyWhereFilter($key, $operator, $value);
+    }
+
+    /**
+     * Returns objects whose properties match the supplied value.
      * @param string $property
      * @param string $value
      * @param bool $strict
      * @return static
      */
-    public function where($property, $value, $strict = true)
+    protected function applyWhereFilter($property, $value, $strict = true)
     {
         return $this->filter(function ($object) use ($property, $value, $strict) {
 
