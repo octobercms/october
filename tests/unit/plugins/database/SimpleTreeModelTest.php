@@ -165,12 +165,11 @@ class SimpleTreeModelTest extends PluginTestCase
         ], $array);
     }
 
-    /**
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Column mismatch in listsNested method
-     */
     public function testListsNestedUnknownColumn()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Column mismatch in listsNested method');
+
         CategorySimple::listsNested('custom_name', 'id');
     }
 
