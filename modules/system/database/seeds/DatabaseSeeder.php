@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Eloquent::unguard();
-
-        $this->call('System\Database\Seeds\SeedSetupMailLayouts');
+        Eloquent::unguarded(function () {
+            $this->call('System\Database\Seeds\SeedSetupMailLayouts');
+        });
     }
 }
