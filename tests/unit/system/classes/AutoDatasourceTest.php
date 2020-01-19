@@ -7,7 +7,7 @@ use October\Rain\Halcyon\Datasource\FileDatasource;
 
 class CmsThemeTemplateFixture extends Model
 {
-    protected $fillable = ['*'];
+    protected $guarded = [];
 
     public $timestamps = false;
 
