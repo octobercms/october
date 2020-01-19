@@ -31,21 +31,19 @@
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=7.0.8",
+        "php": "^7.2",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
-        "laravel/framework": "^5.5.40",
+        "october/rain": "dev-wip/laravel-5.9",
+        "laravel/framework": "^6.0",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.7",
-        "phpunit/phpunit": "~6.5",
-        "phpunit/phpunit-selenium": "~1.2",
-        "meyfa/phpunit-assert-gd": "1.1.0",
+        "fzaninotto/faker": "^1.9",
+        "phpunit/phpunit": "^8.0|^9.0",
+        "phpunit/phpunit-selenium": "dev-master",
+        "dms/phpunit-arraysubset-asserts": "^0.1.0",
+        "meyfa/phpunit-assert-gd": "^2.0",
         "squizlabs/php_codesniffer": "3.*",
         "jakub-onderka/php-parallel-lint": "^1.0"
     },
@@ -69,10 +67,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform": {
-            "php": "7.0.8"
-        }
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
