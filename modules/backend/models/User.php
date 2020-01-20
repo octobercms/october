@@ -24,10 +24,10 @@ class User extends UserBase
      * Validation rules
      */
     public $rules = [
-        'email' => 'required|between:6,191|email|unique:backend_users',
-        'login' => 'required|between:2,191|unique:backend_users',
-        'password' => 'required:create|between:8,191|confirmed',
-        'password_confirmation' => 'required_with:password|between:8,191'
+        'email' => 'required|min:6|email|unique:backend_users',
+        'login' => 'required|min:2|unique:backend_users',
+        'password' => 'required:create|min:8|confirmed',
+        'password_confirmation' => 'required_with:password|min:8'
     ];
 
     /**
