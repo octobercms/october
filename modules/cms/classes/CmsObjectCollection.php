@@ -39,7 +39,7 @@ class CmsObjectCollection extends CollectionBase
     /**
      * Returns objects whose properties match the supplied value.
      *
-     * This is a wrapper for our custom `filterWhere` method, as the signature of this method changed in Laravel 6.0.
+     * This is a wrapper for our custom `applyWhereFilter` method, as the signature of this method changed in Laravel 6.
      *
      * @param  string  $key
      * @param  mixed  $operator
