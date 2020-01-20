@@ -39,38 +39,31 @@ class CmsObjectCollection extends CollectionBase
     /**
      * Returns objects whose properties match the supplied value.
      *
-     * This is a wrapper for our custom `applyWhereFilter` method, as the signature of this method changed in Laravel 6.
+     * Note that this deviates from Laravel 6's Illuminate\Support\Traits\EnumeratesValues::where() method signature,
+     * which uses ($key, $operator = null, $value = null) as parameters and that this class extends.
      *
-     * @param  string  $key
-     * @param  mixed  $operator
-     * @param  mixed  $value
+     * To ensure backwards compatibility with our current Halcyon functionality, this method retains the original
+     * parameters and functions the same way as before, with handling for the $value and $strict parameters to ensure
+     * they match the previously expected formats. This means that you cannot use operators for "where" queries on
+     * CMS object collections.
+     *
+     * @param  string  $property
+     * @param  string  $value
+     * @param  bool  $strict
      * @return static
      */
-    public function where($key, $operator = null, $value = null)
+    public function where($property, $value = null, $strict = null)
     {
-        if (empty($operator) || !is_string($operator)) {
+        if (empty($value) || !is_string($value)) {
             throw new ApplicationException('You must provide a string value to compare with when executing a "where" '
              . 'query for CMS object collections.');
         }
 
-        if (!isset($value) || !is_bool($value)) {
-            $value = true;
+        if (!isset($strict) || !is_bool($strict)) {
+            $strict = true;
         }
 
-        return $this->applyWhereFilter($key, $operator, $value);
-    }
-
-    /**
-     * Returns objects whose properties match the supplied value.
-     * @param string $property
-     * @param string $value
-     * @param bool $strict
-     * @return static
-     */
-    protected function applyWhereFilter($property, $value, $strict = true)
-    {
         return $this->filter(function ($object) use ($property, $value, $strict) {
-
             if (!array_key_exists($property, $object->settings)) {
                 return false;
             }
