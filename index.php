@@ -10,37 +10,15 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
-| Register Core Helpers
+| Bootstrap dependencies
 |--------------------------------------------------------------------------
 |
-| We cannot rely on Composer's load order when calculating the weight of
-| each package. This line ensures that the core global helpers are
-| always given priority one status.
+| We use a custom bootstrap autoloader to load some October dependencies
+| first, before bringing in all dependencies from Composer.
 |
 */
 
-$helperPath = __DIR__.'/vendor/october/rain/src/Support/helpers.php';
-
-if (!file_exists($helperPath)) {
-    echo 'Missing vendor files, try running "composer install" or use the Wizard installer.'.PHP_EOL;
-    exit(1);
-}
-
-require $helperPath;
-
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| Composer provides a convenient, automatically generated class loader for
-| our application. We just need to utilize it! We'll simply require it
-| into the script here so that we don't have to worry about manual
-| loading any of our classes later on. It feels great to relax.
-|
-*/
-
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
