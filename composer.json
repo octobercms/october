@@ -28,6 +28,7 @@
         "forum": "https://octobercms.com/forum/",
         "docs": "https://octobercms.com/docs/",
         "irc": "irc://irc.freenode.net/october",
+        "chat": "https://discord.gg/gEKgwSZ",
         "source": "https://github.com/octobercms/october"
     },
     "require": {
