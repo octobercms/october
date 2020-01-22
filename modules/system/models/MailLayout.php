@@ -68,13 +68,13 @@ class MailLayout extends Model
 
     public static function getIdFromCode($code)
     {
-        $styleId = array_get(self::listCodes(), $code);
-        if ($styleId === null) {
+        $layoutId = array_get(self::listCodes(), $code);
+        if ($layoutId === null) {
             self::createLayouts();
             self::$codeCache = null;
-            $styleId = array_get(self::listCodes(), $code);
+            $layoutId = array_get(self::listCodes(), $code);
         }
-        return $styleId;
+        return $layoutId;
     }
 
     /**
