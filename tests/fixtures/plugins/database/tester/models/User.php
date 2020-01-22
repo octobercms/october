@@ -17,6 +17,19 @@ class User extends Model
     /**
      * @var array Relations
      */
+    public $hasOne = [
+        'author' => [
+            'Database\Tester\Models\Author',
+        ]
+    ];
+
+    public $hasOneThrough = [
+        'phone' => [
+            'Database\Tester\Models\Phone',
+            'through' => 'Database\Tester\Models\Author',
+        ],
+    ];
+
     public $attachOne = [
         'avatar' => 'System\Models\File'
     ];
