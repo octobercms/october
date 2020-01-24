@@ -52,7 +52,6 @@
 
     ##
     ## Standard routes
-    ## Add any custom rules above this line, anything below this line won't take effect
     ##
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
