@@ -74,11 +74,13 @@ class MailLayout extends Model
     public static function findOrMakeLayout($code)
     {
         $layout = self::whereCode($code)->first();
+
         if (!$layout && View::exists($code)) {
             $layout = new self;
             $layout->code = $code;
             $layout->fillFromView($code);
         }
+
         return $layout;
     }
 
