@@ -35,8 +35,11 @@
         "php": "^7.2",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "october/rain": "dev-wip/laravel-6",
-        "laravel/framework": "^6.0",
+        "october/rain": "dev-wip/laravel-6 as 1.0",
+        "october/system": "dev-wip/laravel-6",
+        "october/backend": "dev-wip/laravel-6",
+        "october/cms": "dev-wip/laravel-6",
+        "laravel/framework": "~6.0",
         "wikimedia/composer-merge-plugin": "dev-master"
     },
     "require-dev": {
