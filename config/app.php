@@ -73,6 +73,12 @@ return [
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
     |
+    | WARNING: Avoid setting this to a locale that is not supported by the
+    | backend yet, as this can cause issues in the backend.
+    |
+    | Currently supported backend locales are listed in
+    | Backend\Models\Preference->getLocaleOptions())
+    |
     */
 
     'locale' => 'en',
