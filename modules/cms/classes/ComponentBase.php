@@ -264,6 +264,28 @@ abstract class ComponentBase extends Extendable
     }
 
     /**
+     * Sets an variable for component and page
+     * @param string $name Variable name
+     * @param mixed $value Value of variable
+     * @return mixed
+     */
+    protected function setVar($name, $value)
+    {
+        return $this->$name = $this->page[$name] = $value;
+    }
+
+    /**
+     * Sets an variable for page
+     * @param string $name Variable name
+     * @param mixed $value Value of variable
+     * @return mixed
+     */
+    protected function setPageVar($name, $value)
+    {
+        return $this->page[$name] = $value;
+    }
+
+    /**
      * Returns the external property name when the property value is an external property reference.
      * Otherwise the default value specified is returned.
      * @param string $name The property name
