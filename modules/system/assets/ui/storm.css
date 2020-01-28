@@ -4119,9 +4119,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-checkbox input[type=checkbox]:indeterminate + label:before,
 .custom-radio input[type=checkbox]:indeterminate + label:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f068"}
 .custom-checkbox input:disabled + label:before,
-.custom-radio input:disabled + label:before {border:1px solid #d1d6d9 !important}
-.custom-checkbox input:disabled:checked + label:before,
-.custom-radio input:disabled:checked + label:before {background-color:#999}
+.custom-radio input:disabled + label:before {background-color:#999 !important;border:1px solid #d1d6d9 !important}
 .custom-checkbox:focus,
 .custom-radio:focus {outline:none}
 .custom-checkbox:focus label:before,
