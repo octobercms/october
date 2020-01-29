@@ -262,11 +262,7 @@ class PluginBase extends ServiceProviderBase
     public function registerConsoleCommand($key, $class)
     {
         $key = 'command.'.$key;
-
-        $this->app->singleton($key, function ($app) use ($class) {
-            return new $class;
-        });
-
+        $this->app->singleton($key, $class);
         $this->commands($key);
     }
 
