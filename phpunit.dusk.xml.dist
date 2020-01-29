@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+>
+    <testsuites>
+        <testsuite name="October CMS Browser Test Suite">
+            <directory suffix="Test.php">./tests/browser/backend</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./modules/</directory>
+
+            <exclude>
+                <file>./modules/backend/routes.php</file>
+                <file>./modules/cms/routes.php</file>
+                <file>./modules/system/routes.php</file>
+
+                <directory suffix=".php">./modules/backend/database</directory>
+                <directory suffix=".php">./modules/cms/database</directory>
+                <directory suffix=".php">./modules/system/database</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
