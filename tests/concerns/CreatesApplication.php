@@ -91,7 +91,7 @@ trait CreatesApplication
         /**
          * Modify the plugin path away from the test context
          */
-        $app->setPluginsPath(realpath(base_path().Config::get('cms.pluginsPath')));
+        $app->setPluginsPath(realpath(base_path() . Config::get('cms.pluginsPath')));
 
         return $app;
     }

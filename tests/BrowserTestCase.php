@@ -5,15 +5,17 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as DuskTestCase;
-use October\Core\Tests\Concerns\RunsMigrations;
 use October\Core\Tests\Concerns\CreatesApplication;
-use System\Classes\UpdateManager;
-use System\Classes\PluginManager;
+use October\Core\Tests\Concerns\InteractsWithAuthentication;
+use October\Core\Tests\Concerns\RunsMigrations;
+use October\Core\Tests\Concerns\TestsPlugins;
 
 abstract class BrowserTestCase extends DuskTestCase
 {
     use CreatesApplication;
+    use InteractsWithAuthentication;
     use RunsMigrations;
+    use TestsPlugins;
 
     /**
      * Prepare for Dusk test execution.
@@ -50,20 +52,17 @@ abstract class BrowserTestCase extends DuskTestCase
 
     public function setUp(): void
     {
-        /*
-         * Force reload of October singletons
-         */
-        PluginManager::forgetInstance();
-        UpdateManager::forgetInstance();
+        $this->resetManagers();
 
         parent::setUp();
-
-        $this->createApplication();
 
         // Ensure system is up to date
         if ($this->usingTestDatabase) {
             $this->runOctoberUpCommand();
         }
+
+        // Detect a plugin and autoload it, if necessary
+        $this->detectPlugin();
 
         // Disable mailer
         \Mail::pretend();
@@ -117,54 +116,6 @@ abstract class BrowserTestCase extends DuskTestCase
 
         if ($clickOk) {
             $this->click("xpath=(//div[@class='sweet-alert showSweetAlert visible']//button[@class='confirm btn btn-primary'])[1]");
-        }
-    }
-
-    //
-    // Selenium helpers
-    //
-
-    protected function waitForElementPresent($target, $timeout = 60)
-    {
-        $second = 0;
-
-        while (true) {
-            if ($second >= $timeout) {
-                $this->fail('timeout');
-            }
-
-            try {
-                if ($this->isElementPresent($target)) {
-                    break;
-                }
-            }
-            catch (Exception $e) {
-            }
-
-            sleep(1);
-            ++$second;
-        }
-    }
-
-    protected function waitForElementNotPresent($target, $timeout = 60)
-    {
-        $second = 0;
-
-        while (true) {
-            if ($second >= $timeout) {
-                $this->fail('timeout');
-            }
-
-            try {
-                if (!$this->isElementPresent($target)) {
-                    break;
-                }
-            }
-            catch (Exception $e) {
-            }
-
-            sleep(1);
-            ++$second;
         }
     }
 }
