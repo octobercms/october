@@ -11,6 +11,14 @@ class FormTestModel extends Model
 
 class FormTest extends \October\Core\Tests\PluginTestCase
 {
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        include_once base_path() . '/tests/fixtures/backend/models/UserFixture.php';
+    }
+
+
     public function testRestrictedFieldWithUserWithNoPermissions()
     {
         $user = new UserFixture;

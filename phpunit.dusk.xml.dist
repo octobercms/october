@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="October CMS Browser Test Suite">
-            <directory suffix="Test.php">./tests/browser/backend</directory>
+            <directory suffix="Test.php">./tests/Browser/Backend</directory>
         </testsuite>
     </testsuites>
 

@@ -7,6 +7,13 @@ use October\Core\Tests\Fixtures\Backend\Models\UserFixture;
 
 class ListsTest extends \October\Core\Tests\PluginTestCase
 {
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        include_once base_path() . '/tests/fixtures/backend/models/UserFixture.php';
+    }
+
     public function testRestrictedColumnWithUserWithNoPermissions()
     {
         $user = new UserFixture;

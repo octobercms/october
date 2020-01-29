@@ -68,8 +68,8 @@ abstract class BrowserTestCase extends DuskTestCase
         \Mail::pretend();
 
         Browser::$baseUrl = $this->baseUrl();
-        Browser::$storeScreenshotsAt = base_path('tests/browser/screenshots');
-        Browser::$storeConsoleLogAt = base_path('tests/browser/console');
+        Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
+        Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
         Browser::$userResolver = function () {
             return $this->user();
         };

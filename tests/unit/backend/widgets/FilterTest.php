@@ -6,6 +6,13 @@ use October\Core\Tests\Fixtures\Backend\Models\UserFixture;
 
 class FilterTest extends \October\Core\Tests\PluginTestCase
 {
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        include_once base_path() . '/tests/fixtures/backend/models/UserFixture.php';
+    }
+
     public function testRestrictedScopeWithUserWithNoPermissions()
     {
         $user = new UserFixture;

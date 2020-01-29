@@ -12,5 +12,4 @@ $loader->register();
 $loader->addDirectories([
     'modules',
     'plugins',
-    ['tests' => 'October\\Core\\Tests\\']
 ]);

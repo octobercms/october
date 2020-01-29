@@ -1,56 +1,9 @@
 <?php namespace System\Console;
 
 use Laravel\Dusk\Console\DuskCommand as BaseDuskCommand;
-use Symfony\Component\Finder\Finder;
 
 class Dusk extends BaseDuskCommand
 {
-    /**
-     * Purge the failure screenshots.
-     *
-     * @return void
-     */
-    protected function purgeScreenshots()
-    {
-        $path = base_path('tests/browser/screenshots');
-
-        if (!is_dir($path)) {
-            return;
-        }
-
-        $files = Finder::create()
-            ->files()
-            ->in($path)
-            ->name('failure-*');
-
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
-    }
-
-    /**
-     * Purge the console logs.
-     *
-     * @return void
-     */
-    protected function purgeConsoleLogs()
-    {
-        $path = base_path('tests/browser/console');
-
-        if (!is_dir($path)) {
-            return;
-        }
-
-        $files = Finder::create()
-            ->files()
-            ->in($path)
-            ->name('*.log');
-
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
-    }
-
     /**
      * Setup the Dusk environment.
      *

@@ -52,6 +52,11 @@
         "jakub-onderka/php-parallel-lint": "^1.0",
         "laravel/dusk": "^5.8"
     },
+    "autoload-dev": {
+        "psr-4": {
+            "October\\Core\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "post-create-project-cmd": [
             "php artisan key:generate",
