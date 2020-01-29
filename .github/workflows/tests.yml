@@ -8,6 +8,20 @@ on:
   pull_request:
 
 jobs:
+  frontendTests:
+    runs-on: ubuntu-latest
+    name: JavaScript
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v1
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+            node-version: 8
+      - name: Install Node dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test
   phpUnitTests:
     runs-on: ubuntu-latest
     strategy:
@@ -15,7 +29,7 @@ jobs:
       matrix:
         phpVersions: ['7.2', '7.3', '7.4']
       fail-fast: false
-    name: PHP ${{ matrix.phpVersions }}
+    name: Unit Tests / PHP ${{ matrix.phpVersions }}
     steps:
       - name: Checkout changes
         uses: actions/checkout@v1
@@ -36,7 +50,7 @@ jobs:
           ./vendor/bin/phpunit --prepend ./vendor/october/rain/src/Support/helpers.php
   duskTests:
     runs-on: ubuntu-latest
-    name: PHP 7.3
+    name: Browser Tests
     steps:
       - name: Checkout changes
         uses: actions/checkout@v1
