@@ -44,6 +44,10 @@ jobs:
         run: |
           php artisan october:util set build
           php artisan package:discover
+      - name: Reset October modules
+        run: |
+          git reset --hard HEAD
+          composer dumpautoload
       - name: Run Linting and Tests
         run: |
           ./vendor/bin/parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php .
@@ -65,6 +69,10 @@ jobs:
         run: |
           php artisan october:util set build
           php artisan package:discover
+      - name: Reset October modules
+        run: |
+          git reset --hard HEAD
+          composer dumpautoload
       - name: Install Chrome driver
         run: php artisan dusk:chrome-driver
       - name: Start Chrome driver
