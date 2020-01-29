@@ -2,7 +2,7 @@
 
 use Cms\Classes\PartialStack;
 
-class PartialStackTest extends TestCase
+class PartialStackTest extends \October\Core\Tests\TestCase
 {
 
     public function testStackPartials()

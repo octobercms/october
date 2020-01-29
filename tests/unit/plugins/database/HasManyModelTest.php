@@ -4,7 +4,7 @@ use Database\Tester\Models\Author;
 use Database\Tester\Models\Post;
 use October\Rain\Database\Collection;
 
-class HasManyModelTest extends PluginTestCase
+class HasManyModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

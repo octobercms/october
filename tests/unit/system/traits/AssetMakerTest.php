@@ -6,7 +6,7 @@ class AssetMakerStub
     use System\Traits\ViewMaker; // Needed for guessViewPath(), which is used to set default assetPath
 }
 
-class AssetMakerTest extends TestCase
+class AssetMakerTest extends \October\Core\Tests\TestCase
 {
     private $stub;
 

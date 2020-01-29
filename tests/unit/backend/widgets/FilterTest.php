@@ -2,9 +2,9 @@
 
 use Backend\Widgets\Filter;
 use Backend\Models\User;
-use October\Tests\Fixtures\Backend\Models\UserFixture;
+use October\Core\Tests\Fixtures\Backend\Models\UserFixture;
 
-class FilterTest extends PluginTestCase
+class FilterTest extends \October\Core\Tests\PluginTestCase
 {
     public function testRestrictedScopeWithUserWithNoPermissions()
     {

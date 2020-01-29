@@ -28,7 +28,7 @@ class TestTemporaryCmsCompoundObject extends CmsCompoundObject
     }
 }
 
-class CmsCompoundObjectTest extends TestCase
+class CmsCompoundObjectTest extends \October\Core\Tests\TestCase
 {
     public function setUp() : void
     {

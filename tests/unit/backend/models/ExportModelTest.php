@@ -25,7 +25,7 @@ class ExampleExportModel extends ExportModel
     }
 }
 
-class ExportModelTest extends TestCase
+class ExportModelTest extends \October\Core\Tests\TestCase
 {
 
     //

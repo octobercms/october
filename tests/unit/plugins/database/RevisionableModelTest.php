@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Database\Tester\Models\RevisionablePost;
 
-class RevisionableModelTest extends PluginTestCase
+class RevisionableModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

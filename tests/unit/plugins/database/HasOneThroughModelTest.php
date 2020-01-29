@@ -4,7 +4,7 @@ use Database\Tester\Models\Author;
 use Database\Tester\Models\Phone;
 use Database\Tester\Models\User;
 
-class HasOneThroughModelTest extends PluginTestCase
+class HasOneThroughModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

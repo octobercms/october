@@ -5,7 +5,7 @@ use Database\Tester\Models\User;
 use Database\Tester\Models\SoftDeleteUser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class AttachOneModelTest extends PluginTestCase
+class AttachOneModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

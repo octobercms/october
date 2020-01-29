@@ -8,7 +8,7 @@ use Database\Tester\Models\UserWithSoftAuthor;
 use Database\Tester\Models\UserWithAuthorAndSoftDelete;
 use Database\Tester\Models\UserWithSoftAuthorAndSoftDelete;
 
-class SoftDeleteModelTest extends PluginTestCase
+class SoftDeleteModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

@@ -2,14 +2,14 @@
 
 use Backend\Widgets\Form;
 use Illuminate\Database\Eloquent\Model;
-use October\Tests\Fixtures\Backend\Models\UserFixture;
+use October\Core\Tests\Fixtures\Backend\Models\UserFixture;
 
 class FormTestModel extends Model
 {
 
 }
 
-class FormTest extends PluginTestCase
+class FormTest extends \October\Core\Tests\PluginTestCase
 {
     public function testRestrictedFieldWithUserWithNoPermissions()
     {

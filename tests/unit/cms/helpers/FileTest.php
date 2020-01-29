@@ -2,7 +2,7 @@
 
 use Cms\Helpers\File as FileHelper;
 
-class FileTest extends TestCase
+class FileTest extends \October\Core\Tests\TestCase
 {
     public function testValidateName()
     {

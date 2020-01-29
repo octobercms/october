@@ -1,13 +1,14 @@
-<?php
+<?php namespace October\Core\Tests;
 
-use Backend\Classes\AuthManager;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use October\Rain\Database\Model as ActiveRecord;
-use October\Tests\Concerns\InteractsWithAuthentication;
+use October\Core\Tests\Concerns\CreatesApplication;
+use October\Core\Tests\Concerns\InteractsWithAuthentication;
 
 abstract class PluginTestCase extends TestCase
 {
+    use CreatesApplication;
     use InteractsWithAuthentication;
 
     /**
@@ -15,53 +16,6 @@ abstract class PluginTestCase extends TestCase
      * and refreshed.
      */
     protected $pluginTestCaseLoadedPlugins = [];
-
-    /**
-     * Creates the application.
-     * @return Symfony\Component\HttpKernel\HttpKernelInterface
-     */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-        $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
-
-        $app['cache']->setDefaultDriver('array');
-        $app->setLocale('en');
-
-        $app->singleton('auth', function ($app) {
-            $app['auth.loaded'] = true;
-
-            return AuthManager::instance();
-        });
-
-        /*
-         * Store database in memory by default, if not specified otherwise
-         */
-        $dbConnection = 'sqlite';
-
-        $dbConnections = [];
-        $dbConnections['sqlite'] = [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => ''
-        ];
-
-        if (env('APP_ENV') === 'testing' && Config::get('database.useConfigForTesting', false)) {
-            $dbConnection = Config::get('database.default', 'sqlite');
-
-            $dbConnections[$dbConnection] = Config::get('database.connections' . $dbConnection, $dbConnections['sqlite']);
-        }
-
-        $app['config']->set('database.default', $dbConnection);
-        $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
-
-        /*
-         * Modify the plugin path away from the test context
-         */
-        $app->setPluginsPath(realpath(base_path().Config::get('cms.pluginsPath')));
-
-        return $app;
-    }
 
     /**
      * Perform test case set up.
@@ -98,7 +52,7 @@ abstract class PluginTestCase extends TestCase
         /*
          * Disable mailer
          */
-        Mail::pretend();
+        \Mail::pretend();
     }
 
     /**
@@ -118,7 +72,7 @@ abstract class PluginTestCase extends TestCase
      */
     protected function runOctoberUpCommand()
     {
-        Artisan::call('october:up');
+        \Artisan::call('october:up');
     }
 
     /**
@@ -133,7 +87,7 @@ abstract class PluginTestCase extends TestCase
             if (!$throwException) {
                 return;
             }
-            throw new Exception(sprintf('Invalid plugin code: "%s"', $code));
+            throw new \Exception(sprintf('Invalid plugin code: "%s"', $code));
         }
 
         $manager = PluginManager::instance();
@@ -150,7 +104,7 @@ abstract class PluginTestCase extends TestCase
                 if (!$throwException) {
                     return;
                 }
-                throw new Exception(sprintf('Unable to find plugin with code: "%s"', $code));
+                throw new \Exception(sprintf('Unable to find plugin with code: "%s"', $code));
             }
 
             $plugin = $manager->loadPlugin($namespace, $path);
@@ -174,7 +128,7 @@ abstract class PluginTestCase extends TestCase
         /*
          * Execute the command
          */
-        Artisan::call('plugin:refresh', ['name' => $code]);
+        \Artisan::call('plugin:refresh', ['name' => $code]);
     }
 
     /**
@@ -205,7 +159,7 @@ abstract class PluginTestCase extends TestCase
                 continue;
             }
 
-            $reflectClass = new ReflectionClass($class);
+            $reflectClass = new \ReflectionClass($class);
             if (
                 !$reflectClass->isInstantiable() ||
                 !$reflectClass->isSubclassOf('October\Rain\Database\Model') ||
@@ -226,7 +180,7 @@ abstract class PluginTestCase extends TestCase
      */
     protected function guessPluginCodeFromTest()
     {
-        $reflect = new ReflectionClass($this);
+        $reflect = new \ReflectionClass($this);
         $path = $reflect->getFilename();
         $basePath = $this->app->pluginsPath();
 
