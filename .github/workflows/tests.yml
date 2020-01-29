@@ -81,3 +81,9 @@ jobs:
         run: php artisan serve > /dev/null 2>&1 &
       - name: Run Dusk Tests
         run: php artisan dusk
+      - name: Upload Dusk Screenshots
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: dusk-screenshots
+          path: ./tests/Browser/screenshots
