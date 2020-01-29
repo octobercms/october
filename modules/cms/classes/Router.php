@@ -306,7 +306,8 @@ class Router
      */
     public function getParameter(string $name, string $default = null)
     {
-        return $this->parameters[$name] ?? $default;
+        $value = $this->parameters[$name] ?? '';
+        return $value !== '' ? $value : $default;
     }
 
     /**
