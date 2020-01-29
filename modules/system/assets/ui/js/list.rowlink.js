@@ -62,7 +62,7 @@
                 }
             }
 
-            $(this).not('.' + options.excludeClass).find('td').not('.' + options.excludeClass).click( function (e) {
+            $(this).not('.' + options.excludeClass).find('td').not('.' + options.excludeClass).click(function (e) {
                 handleClick(e)
             }).mousedown(function (e) {
                 if (e.which == 2) {
