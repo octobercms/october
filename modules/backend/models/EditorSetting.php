@@ -111,6 +111,13 @@ class EditorSetting extends Model
         $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
     }
 
+    public function afterFetch()
+    {
+        if (!isset($this->value['html_paragraph_formats'])) {
+            $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
+        }
+    }
+
     public function afterSave()
     {
         Cache::forget(self::instance()->cacheKey);
