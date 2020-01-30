@@ -12,6 +12,7 @@ class AuthTest extends \October\Core\Tests\BrowserTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit(new Login)
+                ->pause(500)
                 ->type('@loginField', 'admin')
                 ->type('@passwordField', 'admin1234')
                 ->click('@submitButton');
@@ -31,7 +32,9 @@ class AuthTest extends \October\Core\Tests\BrowserTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->visit(new Login)
-                ->click('@forgotPasswordLink');
+                ->pause(500)
+                ->click('@forgotPasswordLink')
+                ->screenshot('after-click');
 
             $browser
                 ->on(new ForgotPassword)

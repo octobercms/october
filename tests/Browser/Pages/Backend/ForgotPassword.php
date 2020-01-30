@@ -26,6 +26,7 @@ class ForgotPassword extends Page
         $browser
             ->assertTitle('Administration Area')
             ->assertPresent('@loginField')
+            ->assertMissing('input[name="password"]')
             ->assertPresent('@submitButton')
             ->assertPresent('@cancelLink')
             ->assertSeeIn('@submitButton', 'Restore');
