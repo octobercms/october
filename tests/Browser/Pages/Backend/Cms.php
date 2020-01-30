@@ -3,7 +3,7 @@
 use Laravel\Dusk\Browser;
 use October\Core\Tests\Browser\Pages\BackendPage;
 
-class Dashboard extends BackendPage
+class Cms extends BackendPage
 {
     /**
      * Get the URL for the page.
@@ -12,7 +12,7 @@ class Dashboard extends BackendPage
      */
     public function url()
     {
-        return '/backend';
+        return '/backend/cms';
     }
 
     /**
@@ -24,10 +24,9 @@ class Dashboard extends BackendPage
     public function assert(Browser $browser)
     {
         $browser
-            ->assertTitleContains('Dashboard |')
+            ->assertTitleContains('CMS |')
             ->assertPresent('@mainMenu')
-            ->assertPresent('@accountMenu')
-            ->waitFor('.report-widget')
-            ->assertSee('Welcome');
+            ->assertPresent('@sideNav')
+            ->assertPresent('@accountMenu');
     }
 }

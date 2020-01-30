@@ -12,6 +12,10 @@ abstract class BackendPage extends Page
         return [
             '@mainMenu' => '#layout-mainmenu',
             '@accountMenu' => '#layout-mainmenu .mainmenu-account > a',
+
+            '@sideNav' => '#layout-sidenav > ul',
+            '@sidePanel' => '#layout-side-panel',
+            '@sidePanelFixButton' => '#layout-side-panel a.fix-button',
         ];
     }
 }
