@@ -30,15 +30,4 @@ class Dashboard extends BackendPage
             ->waitFor('.report-widget')
             ->assertSee('Welcome');
     }
-
-    /**
-     * Get the global element shortcuts for the site.
-     *
-     * @return array
-     */
-    public function elements()
-    {
-        return [
-        ];
-    }
 }

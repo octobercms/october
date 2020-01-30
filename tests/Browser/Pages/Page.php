@@ -11,7 +11,6 @@ abstract class Page extends BasePage
      */
     public static function siteElements()
     {
-        return [
-        ];
+        return [];
     }
 }
