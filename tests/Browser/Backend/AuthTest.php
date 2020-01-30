@@ -1,7 +1,6 @@
 <?php namespace October\Core\Tests\Browser\Backend;
 
 use Laravel\Dusk\Browser;
-use October\Core\Tests\Browser\Pages\Backend\Dashboard;
 use October\Core\Tests\Browser\Pages\Backend\ForgotPassword;
 use October\Core\Tests\Browser\Pages\Backend\Login;
 
@@ -11,14 +10,7 @@ class AuthTest extends \October\Core\Tests\BrowserTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser
-                ->visit(new Login)
-                ->pause(500)
-                ->type('@loginField', 'admin')
-                ->type('@passwordField', 'admin1234')
-                ->click('@submitButton');
-
-            $browser
-                ->on(new Dashboard)
+                ->signInToBackend()
                 ->click('@accountMenu')
                 ->clickLink('Sign out');
 
@@ -33,8 +25,7 @@ class AuthTest extends \October\Core\Tests\BrowserTestCase
             $browser
                 ->visit(new Login)
                 ->pause(500)
-                ->click('@forgotPasswordLink')
-                ->screenshot('after-click');
+                ->click('@forgotPasswordLink');
 
             $browser
                 ->on(new ForgotPassword)
