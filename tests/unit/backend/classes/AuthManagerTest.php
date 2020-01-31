@@ -10,12 +10,12 @@ class AuthManagerTest extends \October\Core\Tests\TestCase
 
         $this->instance = AuthManager::instance();
         $this->instance->registerPermissions('October.TestCase', [
-            'test.permission_fail_one' => [
+            'test.permission_one' => [
                 'label' => 'Test Permission 1',
                 'tab' => 'Test',
                 'order' => 200
             ],
-            'test.permission_fail_two' => [
+            'test.permission_two' => [
                 'label' => 'Test Permission 2',
                 'tab' => 'Test',
                 'order' => 300
