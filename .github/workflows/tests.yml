@@ -72,7 +72,7 @@ jobs:
         with:
           php-version: '7.3'
           extensions: mbstring, intl, gd, xml, sqlite
-      - name: Setup problem matchers for PHPUnit
+      - name: Setup problem matcher for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
       - name: Set Composer cache
         id: composer-cache

@@ -15,6 +15,8 @@ jobs:
         with:
           php-version: '7.3'
           tools: phpcs
+      - name: Setup problem matcher for PHPCS
+        run: echo "::add-matcher::${{ github.workspace }}/.github/workflows/matchers/phpcs-matcher.json"
       - name: Run code quality checks
         run: |
           git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch
