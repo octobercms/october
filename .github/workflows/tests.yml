@@ -37,13 +37,22 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.phpVersions }}
-          extension-csv: mbstring, intl, gd, xml, sqlite
+          extensions: mbstring, intl, gd, xml, sqlite
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Set Composer cache
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache Composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --no-suggest --no-scripts
       - name: Run post-update Composer scripts
-        run: |
-          php artisan october:util set build
-          php artisan package:discover
+        run: php artisan package:discover
       - name: Reset October modules
         run: |
           git reset --hard HEAD
@@ -62,13 +71,22 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.3'
-          extension-csv: mbstring, intl, gd, xml, sqlite
+          extensions: mbstring, intl, gd, xml, sqlite
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Set Composer cache
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache Composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --no-suggest --no-scripts
       - name: Run post-update Composer scripts
-        run: |
-          php artisan october:util set build
-          php artisan package:discover
+        run: php artisan package:discover
       - name: Reset October modules
         run: |
           git reset --hard HEAD
