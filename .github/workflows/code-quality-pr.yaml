@@ -20,4 +20,4 @@ jobs:
       - name: Run code quality checks
         run: |
           git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch
-          phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only --diff-filter=ACMR origin/${{ github.base_ref }} HEAD)
+          phpcs --colors -nq --report="checkstyle" --extensions="php" $(git diff --name-only --diff-filter=ACMR origin/${{ github.base_ref }} HEAD)

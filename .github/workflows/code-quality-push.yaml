@@ -21,4 +21,4 @@ jobs:
       - name: Setup problem matcher for PHPCS
         run: echo "::add-matcher::${{ github.workspace }}/.github/workflows/matchers/phpcs-matcher.json"
       - name: Run code quality checks
-        run: phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR ${{ github.sha }})
+        run: phpcs --colors -nq --report="checkstyle" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR ${{ github.sha }})
