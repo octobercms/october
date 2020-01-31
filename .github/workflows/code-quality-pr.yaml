@@ -6,7 +6,7 @@ on:
 jobs:
   codeQuality:
     runs-on: ubuntu-latest
-    name: PHP
+    name: PHPCS
     steps:
       - name: Checkout changes
         uses: actions/checkout@v1

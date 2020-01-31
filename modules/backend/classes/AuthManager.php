@@ -10,7 +10,8 @@ use October\Rain\Exception\SystemException;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class AuthManager extends RainAuthManager {
+class AuthManager extends RainAuthManager
+{
     protected static $instance;
 
     protected $sessionKey = 'admin_auth';
