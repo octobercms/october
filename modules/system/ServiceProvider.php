@@ -263,7 +263,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('theme.sync', 'System\Console\ThemeSync');
 
         $this->registerConsoleCommand('dusk', 'System\Console\Dusk');
-        $this->registerConsoleCommand('dusk:fails', 'System\Console\DuskFails');
+        $this->registerConsoleCommand('dusk.fails', 'System\Console\DuskFails');
     }
 
     /*
