@@ -4074,7 +4074,7 @@ else if(request){link.request()}
 else if(popup){link.popup()}
 else if(e.ctrlKey||e.metaKey){window.open(href)}
 else{window.location=href}}
-$(this).not('.'+options.excludeClass).find('td').not('.'+options.excludeClass).click(function(e){handleClick(e)})
+$(this).not('.'+options.excludeClass).find('td').not('.'+options.excludeClass).click(function(e){handleClick(e)}).mousedown(function(e){if(e.which==2){window.open(href)}})
 $(this).not('.'+options.excludeClass).on('keypress',function(e){if(e.key==='(Space character)'||e.key==='Spacebar'||e.key===' '){handleClick(e)
 return false}})
 $(this).addClass(options.linkedClass)
