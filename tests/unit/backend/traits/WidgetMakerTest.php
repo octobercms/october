@@ -12,7 +12,7 @@ class ExampleTraitClass
     }
 }
 
-class WidgetMakerTest extends TestCase
+class WidgetMakerTest extends \October\Core\Tests\TestCase
 {
     /**
      * The object under test.

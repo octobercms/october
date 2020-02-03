@@ -49,16 +49,13 @@
         "dms/phpunit-arraysubset-asserts": "^0.1.0",
         "meyfa/phpunit-assert-gd": "^2.0",
         "squizlabs/php_codesniffer": "3.*",
-        "jakub-onderka/php-parallel-lint": "^1.0"
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "laravel/dusk": "^5.8"
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/concerns/InteractsWithAuthentication.php",
-            "tests/fixtures/backend/models/UserFixture.php",
-            "tests/TestCase.php",
-            "tests/UiTestCase.php",
-            "tests/PluginTestCase.php"
-        ]
+        "psr-4": {
+            "October\\Core\\Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-create-project-cmd": [
@@ -92,6 +89,11 @@
             "recurse": true,
             "replace": false,
             "merge-dev": false
+        },
+        "laravel": {
+            "dont-discover": [
+                "laravel/dusk"
+            ]
         }
     }
 }

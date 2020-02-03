@@ -1,5 +1,6 @@
-<?php
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+<?php namespace October\Core\Tests;
+
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
      * Creates the application.
@@ -21,11 +22,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     //
     // Helpers
     //
-
     protected static function callProtectedMethod($object, $name, $params = [])
     {
         $className = get_class($object);
-        $class = new ReflectionClass($className);
+        $class = new \ReflectionClass($className);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method->invokeArgs($object, $params);
@@ -34,7 +34,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public static function getProtectedProperty($object, $name)
     {
         $className = get_class($object);
-        $class = new ReflectionClass($className);
+        $class = new \ReflectionClass($className);
         $property = $class->getProperty($name);
         $property->setAccessible(true);
         return $property->getValue($object);
@@ -43,7 +43,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public static function setProtectedProperty($object, $name, $value)
     {
         $className = get_class($object);
-        $class = new ReflectionClass($className);
+        $class = new \ReflectionClass($className);
         $property = $class->getProperty($name);
         $property->setAccessible(true);
         return $property->setValue($object, $value);

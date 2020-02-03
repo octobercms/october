@@ -3,10 +3,17 @@
 use Backend\Models\User;
 use Backend\Widgets\Lists;
 use October\Rain\Exception\ApplicationException;
-use October\Tests\Fixtures\Backend\Models\UserFixture;
+use October\Core\Tests\Fixtures\Backend\Models\UserFixture;
 
-class ListsTest extends PluginTestCase
+class ListsTest extends \October\Core\Tests\PluginTestCase
 {
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        include_once base_path() . '/tests/fixtures/backend/models/UserFixture.php';
+    }
+
     public function testRestrictedColumnWithUserWithNoPermissions()
     {
         $user = new UserFixture;

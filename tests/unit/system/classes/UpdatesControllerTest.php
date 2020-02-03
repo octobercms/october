@@ -2,7 +2,7 @@
 
 use System\Controllers\Updates;
 
-class UpdatesControllerTest extends TestCase
+class UpdatesControllerTest extends \October\Core\Tests\TestCase
 {
 
     //

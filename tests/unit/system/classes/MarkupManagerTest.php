@@ -2,7 +2,7 @@
 
 use System\Classes\MarkupManager;
 
-class MarkupManagerTest extends TestCase
+class MarkupManagerTest extends \October\Core\Tests\TestCase
 {
 
     public function setUp() : void

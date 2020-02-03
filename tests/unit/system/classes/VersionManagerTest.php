@@ -2,7 +2,7 @@
 
 use System\Classes\VersionManager;
 
-class VersionManagerTest extends TestCase
+class VersionManagerTest extends \October\Core\Tests\TestCase
 {
 
     public function setUp() : void

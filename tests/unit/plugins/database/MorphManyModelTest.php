@@ -4,7 +4,7 @@ use Database\Tester\Models\Author;
 use Database\Tester\Models\EventLog;
 use October\Rain\Database\Collection;
 
-class MorphManyModelTest extends PluginTestCase
+class MorphManyModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

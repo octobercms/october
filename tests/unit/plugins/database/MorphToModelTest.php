@@ -4,7 +4,7 @@ use Database\Tester\Models\Post;
 use Database\Tester\Models\Author;
 use Database\Tester\Models\EventLog;
 
-class MorphToModelTest extends PluginTestCase
+class MorphToModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

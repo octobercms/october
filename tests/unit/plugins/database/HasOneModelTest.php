@@ -3,7 +3,7 @@
 use Database\Tester\Models\Author;
 use Database\Tester\Models\Phone;
 
-class HasOneModelTest extends PluginTestCase
+class HasOneModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

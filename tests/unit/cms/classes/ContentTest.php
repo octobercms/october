@@ -3,7 +3,7 @@
 use Cms\Classes\Theme;
 use Cms\Classes\Content;
 
-class ContentTest extends TestCase
+class ContentTest extends \October\Core\Tests\TestCase
 {
 
     public function testMarkdownContent()

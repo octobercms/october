@@ -9,23 +9,16 @@ on:
 jobs:
   codeQuality:
     runs-on: ubuntu-latest
-    name: PHP
+    name: PHPCS
     steps:
       - name: Checkout changes
         uses: actions/checkout@v1
-      - name: Install PHP
-        uses: shivammathur/setup-php@master
+      - name: Install PHP and PHP Code Sniffer
+        uses: shivammathur/setup-php@v1
         with:
-          php-version: 7.2
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --no-suggest
-      - name: Reset October modules and library
-        run: |
-          git reset --hard HEAD
-          rm -rf ./vendor/october/rain
-          wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
-          unzip ./vendor/october/develop.zip -d ./vendor/october
-          mv ./vendor/october/library-develop ./vendor/october/rain
-          composer dump-autoload
+          php-version: '7.3'
+          tools: phpcs
+      - name: Setup problem matcher for PHPCS
+        run: echo "::add-matcher::${{ github.workspace }}/.github/workflows/matchers/phpcs-matcher.json"
       - name: Run code quality checks
-        run: ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR ${{ github.sha }})
+        run: phpcs --colors -nq --report="checkstyle" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR ${{ github.sha }})

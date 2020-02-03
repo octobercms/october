@@ -2,7 +2,7 @@
 
 use Database\Tester\Models\ValidationPost;
 
-class ValidationModelTest extends PluginTestCase
+class ValidationModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

@@ -1,6 +1,4 @@
-<?php
-
-namespace October\Tests\Concerns;
+<?php namespace October\Core\Tests\Concerns;
 
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 

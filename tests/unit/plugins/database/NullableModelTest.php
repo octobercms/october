@@ -2,7 +2,7 @@
 
 use Database\Tester\Models\NullablePost;
 
-class NullableModelTest extends PluginTestCase
+class NullableModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

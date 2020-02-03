@@ -5,7 +5,7 @@ use Database\Tester\Models\Country;
 use Database\Tester\Models\Post;
 use October\Rain\Database\Collection;
 
-class HasManyThroughModelTest extends PluginTestCase
+class HasManyThroughModelTest extends \October\Core\Tests\PluginTestCase
 {
     public function setUp() : void
     {

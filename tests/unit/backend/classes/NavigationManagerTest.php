@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use Backend\Classes\NavigationManager;
 
-class NavigationManagerTest extends TestCase
+class NavigationManagerTest extends \October\Core\Tests\TestCase
 {
     public function testRegisterMenuItems()
     {

@@ -7,7 +7,7 @@ use Cms\Classes\Controller;
 use Cms\Classes\CodeParser;
 use Cms\Classes\ComponentManager;
 
-class ComponentManagerTest extends TestCase
+class ComponentManagerTest extends \October\Core\Tests\TestCase
 {
     public function setUp() : void
     {
