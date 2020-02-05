@@ -1,7 +1,9 @@
 <?php namespace Backend\Classes;
 
+use Backend\Models\User;
 use Event;
 use BackendAuth;
+use October\Rain\Support\Traits\Singleton;
 use System\Classes\PluginManager;
 use Validator;
 use SystemException;
@@ -16,7 +18,7 @@ use Config;
  */
 class NavigationManager
 {
-    use \October\Rain\Support\Traits\Singleton;
+    use Singleton;
 
     /**
      * @var array Cache of registration callbacks.
@@ -24,7 +26,7 @@ class NavigationManager
     protected $callbacks = [];
 
     /**
-     * @var array List of registered items.
+     * @var MainMenuItem[] List of registered items.
      */
     protected $items;
 
@@ -61,7 +63,7 @@ class NavigationManager
     ];
 
     /**
-     * @var System\Classes\PluginManager
+     * @var PluginManager
      */
     protected $pluginManager;
 
@@ -76,6 +78,7 @@ class NavigationManager
     /**
      * Loads the menu items from modules and plugins
      * @return void
+     * @throws SystemException
      */
     protected function loadItems()
     {
@@ -118,7 +121,7 @@ class NavigationManager
         /*
          * Sort menu items
          */
-        uasort($this->items, function ($a, $b) {
+        uasort($this->items, static function ($a, $b) {
             return $a->order - $b->order;
         });
 
@@ -147,14 +150,14 @@ class NavigationManager
             /*
              * Sort side menu items
              */
-            uasort($item->sideMenu, function ($a, $b) {
+            uasort($item->sideMenu, static function ($a, $b) {
                 return $a->order - $b->order;
             });
 
             /*
              * Filter items user lacks permission for
              */
-            $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
+            $item->sideMenu = $this->filterItemPermissions($user, $item->getSideMenu());
         }
     }
 
@@ -202,6 +205,7 @@ class NavigationManager
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
+     * @throws SystemException
      */
     public function registerMenuItems($owner, array $definitions)
     {
@@ -222,9 +226,9 @@ class NavigationManager
             $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
             if (Config::get('app.debug', false)) {
                 throw new SystemException($errorMessage);
-            } else {
-                Log::error($errorMessage);
             }
+
+            Log::error($errorMessage);
         }
 
         $this->addMainMenuItems($owner, $definitions);
@@ -246,7 +250,7 @@ class NavigationManager
      * Dynamically add a single main menu item
      * @param string $owner
      * @param string $code
-     * @param array  $definitions
+     * @param array  $definition
      */
     public function addMainMenuItem($owner, $code, array $definition)
     {
@@ -256,20 +260,39 @@ class NavigationManager
             $definition = array_merge((array) $this->items[$itemKey], $definition);
         }
 
-        $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
+        $item = array_merge($definition, [
             'code'  => $code,
             'owner' => $owner
-        ]));
+        ]);
 
-        $this->items[$itemKey] = $item;
+        $this->items[$itemKey] = MainMenuItem::createFromArray($item);
 
-        if ($item->sideMenu) {
-            $this->addSideMenuItems($owner, $code, $item->sideMenu);
+        if (array_key_exists('sideMenu', $item)) {
+            $this->addSideMenuItems($owner, $code, $item['sideMenu']);
         }
     }
 
     /**
+     * @param string $owner
+     * @param string $code
+     * @return MainMenuItem
+     * @throws SystemException
+     */
+    public function getMainMenuItem(string $owner, string $code): MainMenuItem
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+
+        if (!array_key_exists($itemKey, $this->items)) {
+            throw new SystemException('No main menu item found with key ' . $itemKey);
+        }
+
+        return $this->items[$itemKey];
+    }
+
+    /**
      * Removes a single main menu item
+     * @param $owner
+     * @param $code
      */
     public function removeMainMenuItem($owner, $code)
     {
@@ -295,9 +318,10 @@ class NavigationManager
      * @param string $owner
      * @param string $code
      * @param string $sideCode
-     * @param array  $definitions
+     * @param array $definition
+     * @return bool
      */
-    public function addSideMenuItem($owner, $code, $sideCode, array $definition)
+    public function addSideMenuItem($owner, $code, $sideCode, array $definition): bool
     {
         $itemKey = $this->makeItemKey($owner, $code);
 
@@ -316,15 +340,20 @@ class NavigationManager
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);
         }
 
-        $item = (object) array_merge(self::$sideItemDefaults, $definition);
+        $item = SideMenuItem::createFromArray($definition);
 
-        $this->items[$itemKey]->sideMenu[$sideCode] = $item;
+        $this->items[$itemKey]->addSideMenuItem($item);
+        return true;
     }
 
     /**
      * Removes a single main menu item
+     * @param string $owner
+     * @param string $code
+     * @param string $sideCode
+     * @return bool
      */
-    public function removeSideMenuItem($owner, $code, $sideCode)
+    public function removeSideMenuItem($owner, $code, $sideCode): bool
     {
         $itemKey = $this->makeItemKey($owner, $code);
         if (!isset($this->items[$itemKey])) {
@@ -332,12 +361,14 @@ class NavigationManager
         }
 
         $mainItem = $this->items[$itemKey];
-        unset($mainItem->sideMenu[$sideCode]);
+        $mainItem->removeSideMenuItem($sideCode);
+        return true;
     }
 
     /**
      * Returns a list of the main menu items.
      * @return array
+     * @throws SystemException
      */
     public function listMainMenuItems()
     {
@@ -346,23 +377,23 @@ class NavigationManager
         }
 
         foreach ($this->items as $item) {
-            if ($item->counter === false) {
+            if ($item->getCounter() === false) {
                 continue;
             }
 
-            if ($item->counter !== null && is_callable($item->counter)) {
-                $item->counter = call_user_func($item->counter, $item);
-            } elseif (!empty((int) $item->counter)) {
-                $item->counter = (int) $item->counter;
-            } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
+            if ($item->getCounter() !== null && is_callable($item->getCounter())) {
+                $item->setCounter(call_user_func($item->getCounter(), $item));
+            } elseif (!empty((int) $item->getCounter())) {
+                $item->setCounter((int) $item->getCounter());
+            } elseif (!empty($sideItems = $this->listSideMenuItems($item->getOwner(), $item->getCode()))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
                     $item->counter += $sideItem->counter;
                 }
             }
 
-            if (empty($item->counter)) {
-                $item->counter = null;
+            if (empty($item->getCounter())) {
+                $item->setCounter(null);
             }
         }
 
@@ -372,8 +403,12 @@ class NavigationManager
     /**
      * Returns a list of side menu items for the currently active main menu item.
      * The currently active main menu item is set with the setContext methods.
+     * @param null $owner
+     * @param null $code
+     * @return SideMenuItem[]
+     * @throws SystemException
      */
-    public function listSideMenuItems($owner = null, $code = null)
+    public function listSideMenuItems($owner = null, $code = null): array
     {
         $activeItem = null;
 
@@ -392,13 +427,13 @@ class NavigationManager
             return [];
         }
 
-        $items = $activeItem->sideMenu;
+        $items = $activeItem->getSideMenu();
 
         foreach ($items as $item) {
-            if ($item->counter !== null && is_callable($item->counter)) {
-                $item->counter = call_user_func($item->counter, $item);
-                if (empty($item->counter)) {
-                    $item->counter = null;
+            if ($item->getCounter() !== null && is_callable($item->getCounter())) {
+                $item->setCounter(call_user_func($item->getCounter(), $item));
+                if (empty($item->getCounter())) {
+                    $item->setCounter(null);
                 }
             }
         }
@@ -467,17 +502,18 @@ class NavigationManager
 
     /**
      * Determines if a main menu item is active.
-     * @param mixed $item Specifies the item object.
+     * @param MainMenuItem $item Specifies the item object.
      * @return boolean Returns true if the menu item is active.
      */
-    public function isMainMenuItemActive($item)
+    public function isMainMenuItemActive($item): bool
     {
-        return $this->contextOwner == $item->owner && $this->contextMainMenuItemCode == $item->code;
+        return $this->contextOwner === $item->getOwner() && $this->contextMainMenuItemCode === $item->getCode();
     }
 
     /**
      * Returns the currently active main menu item
-     * @param mixed $item Returns the item object or null.
+     * @return null|MainMenuItem $item Returns the item object or null.
+     * @throws SystemException
      */
     public function getActiveMainMenuItem()
     {
@@ -492,17 +528,17 @@ class NavigationManager
 
     /**
      * Determines if a side menu item is active.
-     * @param mixed $item Specifies the item object.
+     * @param SideMenuItem $item Specifies the item object.
      * @return boolean Returns true if the side item is active.
      */
-    public function isSideMenuItemActive($item)
+    public function isSideMenuItemActive($item): bool
     {
         if ($this->contextSideMenuItemCode === true) {
             $this->contextSideMenuItemCode = null;
             return true;
         }
 
-        return $this->contextOwner == $item->owner && $this->contextSideMenuItemCode == $item->code;
+        return $this->contextOwner === $item->getOwner() && $this->contextSideMenuItemCode === $item->getCode();
     }
 
     /**
@@ -535,21 +571,21 @@ class NavigationManager
     /**
      * Removes menu items from an array if the supplied user lacks permission.
      * @param User $user A user object
-     * @param array $items A collection of menu items
+     * @param MainMenuItem[]|SideMenuItem[] $items A collection of menu items
      * @return array The filtered menu items
      */
-    protected function filterItemPermissions($user, array $items)
+    protected function filterItemPermissions($user, array $items): array
     {
         if (!$user) {
             return $items;
         }
 
-        $items = array_filter($items, function ($item) use ($user) {
-            if (!$item->permissions || !count($item->permissions)) {
+        $items = array_filter($items, static function ($item) use ($user) {
+            if (!$item->getPermissions() || !count($item->getPermissions())) {
                 return true;
             }
 
-            return $user->hasAnyAccess($item->permissions);
+            return $user->hasAnyAccess($item->getPermissions());
         });
 
         return $items;
@@ -557,10 +593,11 @@ class NavigationManager
 
     /**
      * Internal method to make a unique key for an item.
-     * @param  object $item
+     * @param string $owner
+     * @param string $code
      * @return string
      */
-    protected function makeItemKey($owner, $code)
+    protected function makeItemKey($owner, $code): string
     {
         return strtoupper($owner).'.'.strtoupper($code);
     }
