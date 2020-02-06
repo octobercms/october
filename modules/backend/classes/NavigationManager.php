@@ -157,7 +157,7 @@ class NavigationManager
             /*
              * Filter items user lacks permission for
              */
-            $item->sideMenu = $this->filterItemPermissions($user, $item->getSideMenu());
+            $item->sideMenu = $this->filterItemPermissions($user, $item->sideMenu);
         }
     }
 
@@ -377,23 +377,23 @@ class NavigationManager
         }
 
         foreach ($this->items as $item) {
-            if ($item->getCounter() === false) {
+            if ($item->counter === false) {
                 continue;
             }
 
-            if ($item->getCounter() !== null && is_callable($item->getCounter())) {
-                $item->setCounter(call_user_func($item->getCounter(), $item));
-            } elseif (!empty((int) $item->getCounter())) {
-                $item->setCounter((int) $item->getCounter());
-            } elseif (!empty($sideItems = $this->listSideMenuItems($item->getOwner(), $item->getCode()))) {
+            if ($item->counter !== null && is_callable($item->counter)) {
+                $item->counter = call_user_func($item->counter, $item);
+            } elseif (!empty((int) $item->counter)) {
+                $item->counter = (int) $item->counter;
+            } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
                     $item->counter += $sideItem->counter;
                 }
             }
 
-            if (empty($item->getCounter())) {
-                $item->setCounter(null);
+            if (empty($item->counter)) {
+                $item->counter = null;
             }
         }
 
@@ -427,13 +427,13 @@ class NavigationManager
             return [];
         }
 
-        $items = $activeItem->getSideMenu();
+        $items = $activeItem->sideMenu;
 
         foreach ($items as $item) {
-            if ($item->getCounter() !== null && is_callable($item->getCounter())) {
-                $item->setCounter(call_user_func($item->getCounter(), $item));
-                if (empty($item->getCounter())) {
-                    $item->setCounter(null);
+            if ($item->counter !== null && is_callable($item->counter)) {
+                $item->counter = call_user_func($item->counter, $item);
+                if (empty($item->counter)) {
+                    $item->counter = null;
                 }
             }
         }
@@ -507,7 +507,7 @@ class NavigationManager
      */
     public function isMainMenuItemActive($item): bool
     {
-        return $this->contextOwner === $item->getOwner() && $this->contextMainMenuItemCode === $item->getCode();
+        return $this->contextOwner === $item->owner && $this->contextMainMenuItemCode === $item->code;
     }
 
     /**
@@ -538,7 +538,7 @@ class NavigationManager
             return true;
         }
 
-        return $this->contextOwner === $item->getOwner() && $this->contextSideMenuItemCode === $item->getCode();
+        return $this->contextOwner === $item->owner && $this->contextSideMenuItemCode === $item->code;
     }
 
     /**
@@ -581,11 +581,11 @@ class NavigationManager
         }
 
         $items = array_filter($items, static function ($item) use ($user) {
-            if (!$item->getPermissions() || !count($item->getPermissions())) {
+            if (!$item->permissions || !count($item->permissions)) {
                 return true;
             }
 
-            return $user->hasAnyAccess($item->getPermissions());
+            return $user->hasAnyAccess($item->permissions);
         });
 
         return $items;

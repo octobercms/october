@@ -65,150 +65,6 @@ class MainMenuItem
     public $sideMenu = [];
 
     /**
-     * @return string
-     */
-    public function getCode(): string
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     */
-    public function setCode(string $code)
-    {
-        $this->code = $code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOwner(): string
-    {
-        return $this->owner;
-    }
-
-    /**
-     * @param string $owner
-     */
-    public function setOwner(string $owner)
-    {
-        $this->owner = $owner;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param string $label
-     */
-    public function setLabel(string $label)
-    {
-        $this->label = $label;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIcon()
-    {
-        return $this->icon;
-    }
-
-    /**
-     * @param string|null $icon
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIconSvg()
-    {
-        return $this->iconSvg;
-    }
-
-    /**
-     * @param string|null $iconSvg
-     */
-    public function setIconSvg($iconSvg)
-    {
-        $this->iconSvg = $iconSvg;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCounter()
-    {
-        return $this->counter;
-    }
-
-    /**
-     * @param mixed $counter
-     */
-    public function setCounter($counter)
-    {
-        $this->counter = $counter;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCounterLabel()
-    {
-        return $this->counterLabel;
-    }
-
-    /**
-     * @param string|null $counterLabel
-     */
-    public function setCounterLabel($counterLabel)
-    {
-        $this->counterLabel = $counterLabel;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $url
-     */
-    public function setUrl(string $url)
-    {
-        $this->url = $url;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPermissions(): array
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * @param array $permissions
-     */
-    public function setPermissions(array $permissions)
-    {
-        $this->permissions = $permissions;
-    }
-
-    /**
      * @param string $permission
      * @param array $definition
      */
@@ -218,35 +74,11 @@ class MainMenuItem
     }
 
     /**
-     * @return int
-     */
-    public function getOrder(): int
-    {
-        return $this->order;
-    }
-
-    /**
-     * @param int $order
-     */
-    public function setOrder(int $order)
-    {
-        $this->order = $order;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSideMenu(): array
-    {
-        return $this->sideMenu;
-    }
-
-    /**
      * @param SideMenuItem $sideMenu
      */
     public function addSideMenuItem(SideMenuItem $sideMenu)
     {
-        $this->sideMenu[$sideMenu->getCode()] = $sideMenu;
+        $this->sideMenu[$sideMenu->code] = $sideMenu;
     }
 
     /**
