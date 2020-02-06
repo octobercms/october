@@ -1,9 +1,7 @@
 <?php namespace Backend\Classes;
 
-use Backend\Models\User;
 use Event;
 use BackendAuth;
-use October\Rain\Support\Traits\Singleton;
 use System\Classes\PluginManager;
 use Validator;
 use SystemException;
@@ -18,7 +16,7 @@ use Config;
  */
 class NavigationManager
 {
-    use Singleton;
+    use \October\Rain\Support\Traits\Singleton;
 
     /**
      * @var array Cache of registration callbacks.
@@ -570,7 +568,7 @@ class NavigationManager
 
     /**
      * Removes menu items from an array if the supplied user lacks permission.
-     * @param User $user A user object
+     * @param \Backend\Models\User $user A user object
      * @param MainMenuItem[]|SideMenuItem[] $items A collection of menu items
      * @return array The filtered menu items
      */
