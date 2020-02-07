@@ -4,7 +4,7 @@ use Database\Tester\Models\Author;
 use Database\Tester\Models\Post;
 use Database\Tester\Models\Meta;
 
-class MorphOneModelTest extends \October\Core\Tests\PluginTestCase
+class MorphOneModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

@@ -1,7 +1,7 @@
 <?php
 use System\Classes\PluginManager;
 
-class PluginManagerTest extends \October\Core\Tests\TestCase
+class PluginManagerTest extends TestCase
 {
     public $manager;
 

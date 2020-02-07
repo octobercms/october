@@ -8,7 +8,7 @@ use Cms\Classes\Layout;
 use Cms\Classes\CodeParser;
 use Cms\Classes\Controller;
 
-class CodeParserTest extends \October\Core\Tests\TestCase
+class CodeParserTest extends TestCase
 {
     public function setUp() : void
     {

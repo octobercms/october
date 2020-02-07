@@ -9,7 +9,7 @@ use Cms\Classes\CmsException;
 use Cms\Classes\CodeParser;
 use October\Rain\Exception\SystemException;
 
-class CmsExceptionTest extends \October\Core\Tests\TestCase
+class CmsExceptionTest extends TestCase
 {
     //
     // Tests

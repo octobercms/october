@@ -2,7 +2,7 @@
 
 use Database\Tester\Models\Post;
 
-class ModelTest extends \October\Core\Tests\PluginTestCase
+class ModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

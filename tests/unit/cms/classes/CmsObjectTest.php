@@ -13,7 +13,7 @@ class TestTemporaryCmsObject extends CmsObject
     protected $dirName = 'temporary';
 }
 
-class CmsObjectTest extends \October\Core\Tests\TestCase
+class CmsObjectTest extends TestCase
 {
     public function testLoad()
     {

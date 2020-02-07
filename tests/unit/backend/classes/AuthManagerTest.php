@@ -2,7 +2,7 @@
 use Backend\Classes\AuthManager;
 use October\Rain\Exception\SystemException;
 
-class AuthManagerTest extends \October\Core\Tests\TestCase
+class AuthManagerTest extends TestCase
 {
     public function setUp(): void
     {

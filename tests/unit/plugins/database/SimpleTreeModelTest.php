@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Database\Tester\Models\CategorySimple;
 
-class SimpleTreeModelTest extends \October\Core\Tests\PluginTestCase
+class SimpleTreeModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

@@ -3,7 +3,7 @@
 use Backend\Helpers\Backend;
 use Backend\Helpers\Exception\DecompileException;
 
-class BackendHelperTest extends \October\Core\Tests\TestCase
+class BackendHelperTest extends TestCase
 {
     public function testDecompileAssets()
     {

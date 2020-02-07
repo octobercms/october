@@ -261,15 +261,6 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('theme.list', 'System\Console\ThemeList');
         $this->registerConsoleCommand('theme.use', 'System\Console\ThemeUse');
         $this->registerConsoleCommand('theme.sync', 'System\Console\ThemeSync');
-
-        if (!App::isProduction() && class_exists('Laravel\Dusk\Dusk')) {
-            $this->registerConsoleCommand('dusk', 'System\Console\Dusk');
-            $this->registerConsoleCommand('dusk.fails', 'System\Console\DuskFails');
-
-            $this->commands([
-                \Laravel\Dusk\Console\ChromeDriverCommand::class,
-            ]);
-        }
     }
 
     /*

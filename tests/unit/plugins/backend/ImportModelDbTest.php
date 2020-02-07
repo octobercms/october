@@ -13,7 +13,7 @@ class ExampleDbImportModel extends ImportModel
     }
 }
 
-class ImportModelDbTest extends \October\Core\Tests\PluginTestCase
+class ImportModelDbTest extends PluginTestCase
 {
     public function testGetImportFilePath()
     {

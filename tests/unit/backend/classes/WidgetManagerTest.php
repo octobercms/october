@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use Backend\Classes\WidgetManager;
 
-class WidgetManagerTest extends \October\Core\Tests\TestCase
+class WidgetManagerTest extends TestCase
 {
     public function testListFormWidgets()
     {

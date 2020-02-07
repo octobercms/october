@@ -4,7 +4,7 @@ use Cms\Classes\Theme;
 use Cms\Classes\Controller;
 use October\Rain\Halcyon\Model;
 
-class ControllerTest extends \October\Core\Tests\TestCase
+class ControllerTest extends TestCase
 {
     public function setUp() : void
     {

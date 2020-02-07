@@ -2,7 +2,7 @@
 
 use System\Classes\PluginManager;
 
-class CoreLangTest extends \October\Core\Tests\TestCase
+class CoreLangTest extends TestCase
 {
     public function testValidationTranslator()
     {

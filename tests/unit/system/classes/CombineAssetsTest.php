@@ -3,7 +3,7 @@
 use Cms\Classes\Theme;
 use System\Classes\CombineAssets;
 
-class CombineAssetsTest extends \October\Core\Tests\TestCase
+class CombineAssetsTest extends TestCase
 {
     public function setUp() : void
     {

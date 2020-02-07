@@ -3,7 +3,7 @@
 use Cms\Classes\Router;
 use Cms\Classes\Theme;
 
-class RouterTest extends \October\Core\Tests\TestCase
+class RouterTest extends TestCase
 {
     protected static $theme = null;
 

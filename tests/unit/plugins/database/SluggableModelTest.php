@@ -2,7 +2,7 @@
 
 use Database\Tester\Models\SluggablePost;
 
-class SluggableModelTest extends \October\Core\Tests\PluginTestCase
+class SluggableModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

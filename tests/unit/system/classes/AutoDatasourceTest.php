@@ -14,7 +14,7 @@ class CmsThemeTemplateFixture extends Model
     public $table = 'cms_theme_templates';
 }
 
-class AutoDatasourceTest extends \October\Core\Tests\PluginTestCase
+class AutoDatasourceTest extends PluginTestCase
 {
     /**
      * Array of model fixtures.

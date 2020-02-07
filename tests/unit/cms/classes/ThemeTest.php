@@ -2,7 +2,7 @@
 
 use Cms\Classes\Theme;
 
-class ThemeTest extends \October\Core\Tests\TestCase
+class ThemeTest extends TestCase
 {
     public function setUp() : void
     {

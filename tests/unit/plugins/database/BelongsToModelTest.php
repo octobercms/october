@@ -3,7 +3,7 @@
 use Database\Tester\Models\Post;
 use Database\Tester\Models\Author;
 
-class BelongsToModelTest extends \October\Core\Tests\PluginTestCase
+class BelongsToModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

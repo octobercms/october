@@ -4,7 +4,7 @@ use Database\Tester\Models\Post;
 use Database\Tester\Models\Author;
 use October\Rain\Database\Models\DeferredBinding;
 
-class DeferredBindingTest extends \October\Core\Tests\PluginTestCase
+class DeferredBindingTest extends PluginTestCase
 {
     public function setUp() : void
     {

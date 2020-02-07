@@ -3,7 +3,7 @@
 use System\Models\File as FileModel;
 use Database\Tester\Models\User;
 
-class AttachManyModelTest extends \October\Core\Tests\PluginTestCase
+class AttachManyModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Database\Tester\Models\CategoryNested;
 
-class NestedTreeModelTest extends \October\Core\Tests\PluginTestCase
+class NestedTreeModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

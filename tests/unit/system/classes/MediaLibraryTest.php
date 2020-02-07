@@ -2,7 +2,7 @@
 
 use System\Classes\MediaLibrary;
 
-class MediaLibraryTest extends \October\Core\Tests\TestCase // @codingStandardsIgnoreLine
+class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
     public function invalidPathsProvider()
     {

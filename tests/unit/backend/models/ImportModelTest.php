@@ -16,7 +16,7 @@ class ExampleImportModel extends ImportModel
     }
 }
 
-class ImportModelTest extends \October\Core\Tests\TestCase
+class ImportModelTest extends TestCase
 {
 
     //

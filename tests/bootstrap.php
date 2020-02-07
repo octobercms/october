@@ -11,5 +11,5 @@ $loader = new October\Rain\Support\ClassLoader(
 $loader->register();
 $loader->addDirectories([
     'modules',
-    'plugins',
+    'plugins'
 ]);
