@@ -109,7 +109,7 @@ class MainMenuItem
      */
     public static function createFromArray(array $data): self
     {
-        $instance = new self();
+        $instance = new static();
         $instance->code = $data['code'];
         $instance->owner = $data['owner'];
         $instance->label = $data['label'];
