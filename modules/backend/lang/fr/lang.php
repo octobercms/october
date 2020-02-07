@@ -89,7 +89,7 @@ return [
             'updates_link' => 'Mettre à jour',
             'warnings_pending' => 'Certaines anomalies méritent votre attention',
             'warnings_nil' => 'Aucun avertissement à afficher',
-            'warnings_link' => 'Vue',
+            'warnings_link' => 'Voir',
             'core_build' => 'Version du système',
             'event_log' => 'Journal des évènements',
             'request_log' => 'Journal des requêtes',
