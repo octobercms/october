@@ -640,9 +640,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-
-        if (!$currentPageNumber) {
-            // Restore the last visited page from the session if available.
+        if (empty($this->currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
@@ -1415,7 +1413,6 @@ class Lists extends WidgetBase
             $this->showTree = false;
         }
 
-        $this->currentPageNumber = 1;
         $this->searchTerm = $term;
     }
 
