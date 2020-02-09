@@ -1403,6 +1403,17 @@ class Lists extends WidgetBase
     //
 
     /**
+     * Applies a search term to the list results, same as setSearchTerm method does
+     * but it will reset pagination to page 1 after new submited search term.
+     * @param string $term
+     */
+    public function submitSearchTerm($term)
+    {
+        $this->setSearchTerm($term);
+        $this->currentPageNumber = 1;
+    }
+
+    /**
      * Applies a search term to the list results, searching will disable tree
      * view if a value is supplied.
      * @param string $term

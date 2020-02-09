@@ -212,7 +212,7 @@ class ListController extends ControllerBehavior
              */
             if ($searchWidget = $toolbarWidget->getSearchWidget()) {
                 $searchWidget->bindEvent('search.submit', function () use ($widget, $searchWidget) {
-                    $widget->setSearchTerm($searchWidget->getActiveTerm());
+                    $widget->submitSearchTerm($searchWidget->getActiveTerm());
                     return $widget->onRefresh();
                 });
 
