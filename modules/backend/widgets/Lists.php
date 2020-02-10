@@ -640,7 +640,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-        if (empty($this->currentPageNumber)) {
+        if (empty($currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
