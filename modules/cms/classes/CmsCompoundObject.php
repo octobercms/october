@@ -144,9 +144,33 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        if (CmsHelpers::safeModeEnabled() && $this->isDirty('code') && strlen(trim($this->code))) {
+        if (CmsHelpers::safeModeEnabled() && $this->isCodeDirty() && strlen(trim($this->code))) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
+    }
+
+    /**
+     * Checks for a "dirty" state on the code field.
+     *
+     * This strips all pre-and-post whitespace on the code field, to allow slight changes to the surrounding line
+     * endings to not fall afoul of the safe mode check. Any changes to the code itself will still trigger an error in
+     * safe mode. It also converts all line endings to "unix" line endings just for dirty checking, so that different
+     * environments don't cause false positives too.
+     *
+     * Refs: https://github.com/octobercms/october/issues/3551
+     *
+     * @return boolean
+     */
+    protected function isCodeDirty()
+    {
+        if (!$this->exists) {
+            return strlen(trim($this->code));
+        }
+
+        $originalCode = str_replace(["\r\n", "\r"], "\n", $this->getOriginal('code'));
+        $newCode = str_replace(["\r\n", "\r"], "\n", $this->code);
+
+        return trim($originalCode) !== trim($newCode);
     }
 
     //
