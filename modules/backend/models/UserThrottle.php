@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use Config;
 use October\Rain\Auth\Models\Throttle as ThrottleBase;
 
 /**
@@ -16,19 +17,18 @@ class UserThrottle extends ThrottleBase
     protected $table = 'backend_user_throttle';
 
     /**
-     * @var int Attempt limit.
-     */
-    protected $attemptLimit = Config::get('auth.attemptLimit', 5);
-
-    /**
-     * @var int Suspension time in minutes.
-     */
-    protected $suspensionTime = Config::get('auth.suspensionTime', 15);
-
-    /**
      * @var array Relations
      */
     public $belongsTo = [
         'user' => User::class
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        static::$attemptLimit = Config::get('auth.attemptLimit', 5);
+        static::$suspensionTime = Config::get('auth.suspensionTime', 15);
+    }
+
 }
