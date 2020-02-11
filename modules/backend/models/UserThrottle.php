@@ -16,6 +16,16 @@ class UserThrottle extends ThrottleBase
     protected $table = 'backend_user_throttle';
 
     /**
+     * @var int Attempt limit.
+     */
+    protected $attemptLimit = Config::get('auth.attemptLimit', 5);
+
+    /**
+     * @var int Suspension time in minutes.
+     */
+    protected $suspensionTime = Config::get('auth.suspensionTime', 15);
+
+    /**
      * @var array Relations
      */
     public $belongsTo = [

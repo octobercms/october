@@ -24,6 +24,8 @@ class AuthManager extends RainAuthManager
 
     protected $requireActivation = false;
 
+    protected $useThrottle = Config::get('auth.useThrottle', true);
+
     //
     // Permission management
     //
