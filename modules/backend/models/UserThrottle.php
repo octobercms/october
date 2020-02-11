@@ -30,5 +30,4 @@ class UserThrottle extends ThrottleBase
         static::$attemptLimit = Config::get('auth.attemptLimit', 5);
         static::$suspensionTime = Config::get('auth.suspensionTime', 15);
     }
-
 }
