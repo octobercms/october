@@ -146,6 +146,7 @@ class ListController extends ControllerBehavior
             'recordOnClick',
             'recordsPerPage',
             'showPageNumbers',
+            'showPagination',
             'noRecordsMessage',
             'defaultSort',
             'showSorting',
