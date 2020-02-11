@@ -2,6 +2,7 @@
 
 use Cache;
 use Exception;
+use October\Rain\Exception\ApplicationException;
 use October\Rain\Halcyon\Model;
 use October\Rain\Halcyon\Processors\Processor;
 use October\Rain\Halcyon\Datasource\Datasource;
@@ -35,6 +36,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @var string The key for the datasource to perform CRUD operations on
      */
     public $activeDatasourceKey = '';
+
+    /**
+     * @var string Force operations on a selected datasource
+     */
+    protected $forcedDatasourceKey = null;
 
     /**
      * Create a new datasource instance.
@@ -192,6 +198,10 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     protected function getDatasourceForPath(string $path)
     {
+        if (isset($this->forcedDatasourceKey)) {
+            return $this->datasources[$this->forcedDatasourceKey];
+        }
+
         // Default to the last datasource provided
         $datasourceIndex = count($this->datasources) - 1;
 
@@ -238,7 +248,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         $pathsCache = array_reverse($this->pathCache);
 
         // Get paths available in the provided dirName, allowing proper prioritization of earlier datasources
-        foreach ($pathsCache as $sourcePaths) {
+        foreach ($pathsCache as $i => $sourcePaths) {
+            if (isset($this->forcedDatasourceKey) && $i !== $this->forcedDatasourceKey) {
+                continue;
+            }
+
             $paths = array_merge($paths, array_filter($sourcePaths, function ($path) use ($dirName, $options) {
                 $basePath = $dirName . '/';
 
@@ -283,6 +297,10 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     protected function getActiveDatasource()
     {
+        if (isset($this->forcedDatasourceKey)) {
+            return $this->datasources[$this->forcedDatasourceKey];
+        }
+
         return $this->datasources[$this->activeDatasourceKey];
     }
 
@@ -512,5 +530,23 @@ class AutoDatasource extends Datasource implements DatasourceInterface
             $paths = array_merge($paths, $datasource->getAvailablePaths());
         }
         return $paths;
+    }
+
+    /**
+     * Forces all operations in a provided closure to run within a selected datasource.
+     *
+     * @return mixed
+     */
+    public function withSource(string $source, \Closure $closure)
+    {
+        if (!array_key_exists($source, $this->datasources)) {
+            throw new ApplicationException('Invalid datasource specified.');
+        }
+
+        $this->forcedDatasourceKey = $source;
+        $return = $closure->call($this);
+        $this->forcedDatasourceKey = null;
+
+        return $return;
     }
 }

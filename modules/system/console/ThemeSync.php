@@ -182,7 +182,7 @@ class ThemeSync extends Command
             $this->datasource = $theme->getDatasource();
 
             foreach ($validPaths as $path => $model) {
-                $entity = $this->getModelForPath($path, $model, $theme);
+                $entity = $this->getModelForPath($source, $path, $model, $theme);
                 if (!isset($entity)) {
                     continue;
                 }
@@ -204,30 +204,27 @@ class ThemeSync extends Command
     /**
      * Get the correct Halcyon model for the provided path from the source datasource and load the requested path data.
      *
+     * @param string $source
      * @param string $path
      * @param string $model
      * @param \Cms\Classes\Theme $theme
      * @return \October\Rain\Halycon\Model
      */
-    protected function getModelForPath($path, $modelClass, $theme)
+    protected function getModelForPath($source, $path, $modelClass, $theme)
     {
-        $originalSource = $this->datasource->activeDatasourceKey;
-        $this->datasource->activeDatasourceKey = $this->source;
+        return $this->datasource->withSource($source, function () use ($path, $modelClass, $theme) {
+            $modelObj = new $modelClass;
+            $entity = $modelClass::load(
+                $theme,
+                str_replace($modelObj->getObjectTypeDirName() . '/', '', $path)
+            );
 
-        $modelObj = new $modelClass;
+            if (!isset($entity)) {
+                return null;
+            }
 
-        $entity = $modelClass::load(
-            $theme,
-            str_replace($modelObj->getObjectTypeDirName() . '/', '', $path)
-        );
-
-        if (!isset($entity)) {
-            return null;
-        }
-
-        $this->datasource->activeDatasourceKey = $originalSource;
-
-        return $entity;
+            return $entity;
+        });
     }
 
     /**
