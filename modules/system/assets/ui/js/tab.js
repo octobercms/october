@@ -189,6 +189,23 @@
         return newTitle
     }
 
+    Tab.prototype.anchorTitleText = function (anchortitle) {
+        var tabtitle = anchortitle.substring(anchortitle.lastIndexOf('-') + 1);
+        var returntitle = '';
+        if (tabtitle.indexOf('_') !== -1) {
+            var titlearr = tabtitle.split('_');
+            var lastseg = titlearr.length, segcnt = 1, spacestr;
+            titlearr.map(function(titleseg){
+                spacestr = segcnt < lastseg ? ' ' : '';
+                returntitle += titleseg.charAt(0).toUpperCase() + titleseg.slice(1) + spacestr;
+                segcnt++;
+            });
+        } else {
+            returntitle = tabtitle.charAt(0).toUpperCase() + tabtitle.slice(1)
+        }
+        return returntitle;
+    }
+
     Tab.prototype.closeTab = function(tab, force) {
         var tabIndex = this.findTabIndex(tab)
         if (tabIndex == -1)
@@ -326,6 +343,32 @@
         return $('[data-tab-id="'+identifier+'" ]', this.$tabsContainer);
     }
 
+    Tab.prototype.findByAnchorTitle = function(title) {
+        return this.$tabsContainer.find($('li a[title="' + title +'"]'))
+    }
+
+    Tab.prototype.validHashAnchor = function(anchor) {
+        var regex = /^(?!.*_$)(#[a-z]+\b[-][a-z0-9_]+\b$)/;
+
+        if (anchor.length && regex.test(anchor)) {
+            var anchorobj = {};
+
+            if (anchor.indexOf('primarytab') !== -1) {
+                if (anchor.indexOf('_') === -1)
+                    anchorobj.type = 'index'; //#primarytab-X
+            }
+            else if (anchor.indexOf('tab-') !== -1) {
+                anchorobj.type = 'title'; //#tab-titlehere
+            }
+
+            if (typeof anchorobj.type !== 'undefined') {
+                anchorobj.anchor = anchor;
+                return anchorobj;
+            }
+        }
+        return false;
+    }
+
     Tab.prototype.updateIdentifier = function(tab, identifier) {
         var index = this.findTabIndex(tab)
         if (index == -1)
@@ -390,6 +433,24 @@
 
                 data[option].apply(data, methodArgs)
             }
+
+            var validanchor = data.validHashAnchor(location.hash);
+            if (typeof option === 'undefined' && validanchor !== false) {
+                var tabli, tabtitle;
+                if (validanchor.type === 'index') { //#primarytab-X
+                    var tabnum = parseInt(validanchor.anchor.substring(validanchor.anchor.lastIndexOf('-') + 1));
+                    !isNaN(tabnum) && data.goToIndex((tabnum - 1))
+
+                } else if (validanchor.type === 'title') { //#tab-titlehere
+                    tabtitle = data.anchorTitleText(validanchor.anchor);
+                    tabli = data.findByAnchorTitle(tabtitle).first().closest('li');
+                    data.goToPane(data.findPaneFromTab(tabli))
+
+                }
+                //anchor is no longer needed - remove it
+               history.pushState("", document.title, location.href.replace( /#.*/, ""));
+            }
+
         })
       }
 
