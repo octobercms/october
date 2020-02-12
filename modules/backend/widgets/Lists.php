@@ -642,9 +642,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-
-        if (!$currentPageNumber && empty($this->searchTerm)) {
-            // Restore the last visited page from the session if available.
+        if (empty($currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
@@ -1410,11 +1408,16 @@ class Lists extends WidgetBase
      * Applies a search term to the list results, searching will disable tree
      * view if a value is supplied.
      * @param string $term
+     * @param boolean $resetPagination
      */
-    public function setSearchTerm($term)
+    public function setSearchTerm($term, $resetPagination = false)
     {
         if (!empty($term)) {
             $this->showTree = false;
+        }
+
+        if ($resetPagination) {
+            $this->currentPageNumber = 1;
         }
 
         $this->searchTerm = $term;
