@@ -163,4 +163,4 @@ URL hashtags can be used when loading a backend controller to set a tab active d
 
   Example URL containing the tab title with a space 'More info':  `/backend/acme/example/tabexample/update/1#tab-more_info`
 
-Note: Using these hashtags only effects the parent widget's tabs
+Note: Using these hashtags only effects the parent form widget's tabs
