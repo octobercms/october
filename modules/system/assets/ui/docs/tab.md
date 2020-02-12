@@ -7,6 +7,7 @@ This plugin is a wrapper for the Twitter Bootstrap Tab component. It provides th
 - Removing tabs with the Close icon, or with triggering an event from inside a tab pane or tab. The removing can be canceled if the confirm.oc.tab event handler returns false.
 - Scrolling tabs if they do not fit the screen
 - Collapsible tabs
+- Backend active tab on render using a URL hashtag (#tab-[title] OR #primarytab-[index])
 
 ### Supported CSS modifiers
 
@@ -147,3 +148,19 @@ Example with data attributes (data-control="tab"):
 - beforeClose.oc.tab - triggered on a tab pane element before tab is closed by the user. Call the event's 
   preventDefault() method to cancel the action.
 - afterAllClosed.oc.tab - triggered after all tabs have been closed
+  
+
+### Backend active tab on render using a URL hashtag:
+
+URL hashtags can be used when loading a backend controller to set a tab active during the render event.  When using either hashtag below, the hashtag will be automatically removed from the URL as soon as the tab is made active. The hashtags are as follows:
+
+- **#primarytab-[index]** - Add this hashtag to the end of the backend URL to set active tab by numeric index. For example, using the example URL `/backend/acme/example/tabexample/update/1#primarytab-2`, sets the tab with index equal to 2 active by default when loading the tabexample controller in update context
+
+- **#tab-[title]** -  Add this hashtag to the end of the backend URL to set active tab by a tab's title.  For example, a tab with the title 'Information' can be set active by default (see example URL below). 
+  Example URL: `/backend/acme/example/tabexample/update/1#tab-information` 
+
+  All tab titles must be converted to lowercase when using hashtags and spaces should be replaced by underscores "_" (without quotes)
+
+  Example URL containing the tab title with a space 'More info':  `/backend/acme/example/tabexample/update/1#tab-more_info`
+
+Note: Using these hashtags only effects the parent widget's tabs
