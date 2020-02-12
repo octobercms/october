@@ -4,13 +4,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Throttle Failed Authentication Attempts
+    | Enable throttling of Backend authentication attempts
     |--------------------------------------------------------------------------
     |
-    | Setting to enable/disable the AuthManager's throttling mechanism.
+    | If set to true, users will be given a limited number of attempts to sign 
+    | in to the Backend before being blocked for a specified number of minutes.
     |
      */
-    'useThrottle' => true,
+    'throttleEnabled' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -27,8 +28,8 @@ return [
     | Suspension Time
     |--------------------------------------------------------------------------
     |
-    | Time for which Authentications are rejected after $attemptLimit has been
-    | reached.
+    | The number of minutes to suspend further attempts on authentication once 
+    | the attempt limit is reached.
     |
      */
     'suspensionTime' => 15,
