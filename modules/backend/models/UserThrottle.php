@@ -27,7 +27,7 @@ class UserThrottle extends ThrottleBase
     {
         parent::__construct();
 
-        static::$attemptLimit = Config::get('auth.attemptLimit', 5);
-        static::$suspensionTime = Config::get('auth.suspensionTime', 15);
+        static::$attemptLimit = Config::get('throttle.attemptLimit', 5);
+        static::$suspensionTime = Config::get('throttle.suspensionTime', 15);
     }
 }

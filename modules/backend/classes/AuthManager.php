@@ -59,7 +59,7 @@ class AuthManager extends RainAuthManager
 
     protected function init()
     {
-        $this->useThrottle = Config::get('auth.useThrottle', true);
+        $this->useThrottle = Config::get('throttle.useThrottle', true);
     }
 
     /**
