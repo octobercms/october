@@ -90,7 +90,7 @@ jobs:
             unzip rainlab-dusk.zip -d plugins/rainlab
             mv plugins/rainlab/dusk-plugin-master plugins/rainlab/dusk
       - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
+        run: composer install --no-interaction --no-progress --no-suggest
       - name: Run post-update Composer scripts
         run: php artisan package:discover
       - name: Reset October modules
