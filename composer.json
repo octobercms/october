@@ -52,9 +52,13 @@
         "laravel/dusk": "^5.8"
     },
     "autoload-dev": {
-        "psr-4": {
-            "October\\Core\\Tests\\": "tests/"
-        }
+        "classmap": [
+            "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
+            "tests/TestCase.php",
+            "tests/UiTestCase.php",
+            "tests/PluginTestCase.php"
+        ]
     },
     "scripts": {
         "post-create-project-cmd": [
