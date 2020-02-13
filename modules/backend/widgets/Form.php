@@ -1294,6 +1294,9 @@ class Form extends WidgetBase
         if (!is_array($fieldOptions) && !$fieldOptions) {
             try {
                 list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+                if (!$model) {
+                    throw new Exception();
+                }
             }
             catch (Exception $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
