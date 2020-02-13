@@ -83,6 +83,12 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
+      - name: Install Dusk plugin
+        run: |
+            curl -fLs https://github.com/rainlab/dusk-plugin/archive/master.zip -o rainlab-dusk.zip
+            mkdir -p plugins/rainlab
+            unzip rainlab-dusk.zip -d plugins/rainlab
+            mv plugins/rainlab/dusk-plugin-master plugins/rainlab/dusk
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --no-suggest --no-scripts
       - name: Run post-update Composer scripts
@@ -91,12 +97,6 @@ jobs:
         run: |
           git reset --hard HEAD
           composer dumpautoload
-      - name: Install Dusk plugin
-        run: |
-          curl -fLs https://github.com/rainlab/dusk-plugin/archive/master.zip -o rainlab-dusk.zip
-          mkdir -p plugins/rainlab
-          unzip rainlab-dusk.zip -d plugins/rainlab
-          mv plugins/rainlab/dusk-plugin-master plugins/rainlab/dusk
       - name: Install Chrome driver
         run: php artisan dusk:chrome-driver
       - name: Start Chrome driver
