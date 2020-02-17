@@ -3496,13 +3496,12 @@ if(!isReset){var numberinputs=$('.field-number input','#controlFilterPopoverNum'
 numberinputs.each(function(index,numberinput){var number=$(numberinput).val()
 numbers.push(number)})}
 this.updateScopeNumberSetting(this.$activeScope,numbers);this.scopeValues[this.activeScopeName]={numbers:numbers}
-this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}}(window.jQuery);(function($){$(document).render(function(){var formatSelectOption=function(state){if(!state.id)
-return state.text;var $option=$(state.element),iconClass=state.icon?state.icon:$option.data('icon'),imageSrc=state.image?state.image:$option.data('image')
-if(iconClass)
-return'<i class="select-icon '+iconClass+'"></i> '+state.text
-if(imageSrc)
-return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+state.text
-return state.text}
+this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}}(window.jQuery);(function($){$(document).render(function(){var formatSelectOption=function(state){var text=$('<span>').text(state.text).html()
+if(!state.id){return text}
+var $option=$(state.element),iconClass=state.icon?state.icon:$option.data('icon'),imageSrc=state.image?state.image:$option.data('image')
+if(iconClass){return'<i class="select-icon '+iconClass+'"></i> '+text}
+if(imageSrc){return'<img class="select-image" src="'+imageSrc+'" alt="" /> '+text}
+return text}
 var selectOptions={templateResult:formatSelectOption,templateSelection:formatSelectOption,escapeMarkup:function(m){return m},width:'style'}
 $('select.custom-select').each(function(){var $element=$(this),extraOptions={dropdownCssClass:'',containerCssClass:''}
 if($element.data('select2')!=null){return true;}
