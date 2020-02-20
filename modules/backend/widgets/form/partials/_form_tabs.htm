@@ -18,8 +18,7 @@
         ?>
             <li class="<?= ($index++ === 0) ? 'active' : '' ?> <?= $lazy ? 'tab-lazy' : '' ?>">
                 <a
-                    href="#<?= $type . 'tab-' . $index ?>"
-                    <?= $tabs->linkable ? 'data-tab-url="#' . str_slug($name) . '"' : '' ?>
+                    href="#<?= $type . 'tab-' . ($tabs->linkable ? str_slug($name) : $index) ?>"
                     <?php if ($lazy): ?>
                         data-tab-name="<?= e($name) ?>"
                         data-tab-section="<?= $type ?>"

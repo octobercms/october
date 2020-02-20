@@ -65,6 +65,9 @@
             $(window).trigger('oc.updateUi')
 
             var tabUrl = $('> a', this).data('tabUrl')
+            if (!tabUrl && $(this).parent('ul').is('[data-linkable]')) {
+            	tabUrl = $('> a', this).attr('href')
+            }
             if (tabUrl) {
                 window.history.replaceState({}, 'Tab link reference', tabUrl)
             }
@@ -86,7 +89,7 @@
         this.updateClasses()
 
         if (location.hash && this.$tabsContainer.is('[data-linkable]')) {
-            $('li > a[data-tab-url=' + location.hash + ']', this.$tabsContainer).tab('show')
+            $('li > a[href=' + location.hash + ']', this.$tabsContainer).tab('show')
         }
     }
 
