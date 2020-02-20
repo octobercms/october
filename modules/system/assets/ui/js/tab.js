@@ -65,6 +65,9 @@
             $(window).trigger('oc.updateUi')
 
             var tabUrl = $('> a', this).data('tabUrl')
+            if (!tabUrl && $(this).parent('ul').is('[data-linkable]')) {
+            	tabUrl = $('> a', this).attr('href')
+            }
             if (tabUrl) {
                 window.history.replaceState({}, 'Tab link reference', tabUrl)
             }
