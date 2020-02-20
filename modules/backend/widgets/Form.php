@@ -506,14 +506,14 @@ class Form extends WidgetBase
          *
          *     Event::listen('backend.form.extendFieldsBefore', function ((\Backend\Widgets\Form) $formWidget) {
          *         // You should always check to see if you're extending correct model/controller
-         *         if (!$widget->model instanceof \Foo\Example\Models\Bar) {
+         *         if (!$formWidget->model instanceof \Foo\Example\Models\Bar) {
          *             return;
          *         }
          *
          *         // Here you can't use addFields() because it will throw you an exception because form is not yet created
          *         // and it does not have tabs and fields
          *         // For this example we will pretend that we want to add a new field named example_field
-         *         $widget->fields['example_field'] = [
+         *         $formWidget->fields['example_field'] = [
          *             'label' => 'Example field',
          *             'comment' => 'Your example field',
          *             'type' => 'text',
@@ -524,14 +524,14 @@ class Form extends WidgetBase
          *
          *     $formWidget->bindEvent('form.extendFieldsBefore', function () use ((\Backend\Widgets\Form $formWidget)) {
          *         // You should always check to see if you're extending correct model/controller
-         *         if (!$widget->model instanceof \Foo\Example\Models\Bar) {
+         *         if (!$formWidget->model instanceof \Foo\Example\Models\Bar) {
          *             return;
          *         }
          *
          *         // Here you can't use addFields() because it will throw you an exception because form is not yet created
          *         // and it does not have tabs and fields
          *         // For this example we will pretend that we want to add a new field named example_field
-         *         $widget->fields['example_field'] = [
+         *         $formWidget->fields['example_field'] = [
          *             'label' => 'Example field',
          *             'comment' => 'Your example field',
          *             'type' => 'text',
@@ -579,17 +579,17 @@ class Form extends WidgetBase
          *
          *     Event::listen('backend.form.extendFields', function ((\Backend\Widgets\Form) $formWidget) {
          *         // Only for the User controller
-         *         if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
+         *         if (!$formWidget->getController() instanceof \RainLab\User\Controllers\Users) {
          *             return;
          *         }
          *
          *         // Only for the User model
-         *         if (!$widget->model instanceof \RainLab\User\Models\User) {
+         *         if (!$formWidget->model instanceof \RainLab\User\Models\User) {
          *             return;
          *         }
          *
          *         // Add an extra birthday field
-         *         $widget->addFields([
+         *         $formWidget->addFields([
          *             'birthday' => [
          *                 'label'   => 'Birthday',
          *                 'comment' => 'Select the users birthday',
@@ -598,24 +598,24 @@ class Form extends WidgetBase
          *         ]);
          *
          *         // Remove a Surname field
-         *         $widget->removeField('surname');
+         *         $formWidget->removeField('surname');
          *     });
          *
          * Or
          *
          *     $formWidget->bindEvent('form.extendFields', function () use ((\Backend\Widgets\Form $formWidget)) {
          *         // Only for the User controller
-         *         if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
+         *         if (!$formWidget->getController() instanceof \RainLab\User\Controllers\Users) {
          *             return;
          *         }
          *
          *         // Only for the User model
-         *         if (!$widget->model instanceof \RainLab\User\Models\User) {
+         *         if (!$formWidget->model instanceof \RainLab\User\Models\User) {
          *             return;
          *         }
          *
          *         // Add an extra birthday field
-         *         $widget->addFields([
+         *         $formWidget->addFields([
          *             'birthday' => [
          *                 'label'   => 'Birthday',
          *                 'comment' => 'Select the users birthday',
@@ -624,7 +624,7 @@ class Form extends WidgetBase
          *         ]);
          *
          *         // Remove a Surname field
-         *         $widget->removeField('surname');
+         *         $formWidget->removeField('surname');
          *     });
          *
          */
@@ -1294,6 +1294,9 @@ class Form extends WidgetBase
         if (!is_array($fieldOptions) && !$fieldOptions) {
             try {
                 list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+                if (!$model) {
+                    throw new Exception();
+                }
             }
             catch (Exception $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
