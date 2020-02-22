@@ -441,6 +441,19 @@ class FormController extends ControllerBehavior
     }
 
     /**
+     * Returns a URL based on supplied context. Relative URLs are treated as
+     * backend URLs.
+     *
+     * @param string $context Redirect context, eg: create, update, delete
+     * @param Model $model The active model.
+     * @return string
+     */
+    public function formGetRedirectUrl($context = null, $model = null)
+    {
+        return '';
+    }
+
+    /**
      * Internal method used to prepare the form model object.
      *
      * @return October\Rain\Database\Model
@@ -476,6 +489,11 @@ class FormController extends ControllerBehavior
 
         if ($model && $redirectUrl) {
             $redirectUrl = RouterHelper::replaceParameters($model, $redirectUrl);
+        }
+
+        $url = $this->controller->formGetRedirectUrl($context, $model);
+        if ($url) {
+            $redirectUrl = $url;
         }
 
         if (starts_with($redirectUrl, 'http://') || starts_with($redirectUrl, 'https://')) {
