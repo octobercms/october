@@ -97,8 +97,8 @@ jobs:
         run: |
           git reset --hard HEAD
           composer dumpautoload
-      - name: Install Chrome 78 driver
-        run: php artisan dusk:chrome-driver 78
+      - name: Install Chrome driver
+        run: php artisan dusk:chrome-driver
       - name: Start Chrome driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
       - name: Run Laravel Server
