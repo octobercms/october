@@ -13,20 +13,25 @@
      */
     $(document).render(function(){
         var formatSelectOption = function(state) {
-            if (!state.id)
-                return state.text; // optgroup
+            var text = $('<span>').text(state.text).html()
+
+            if (!state.id) {
+                return text // optgroup
+            }
 
             var $option = $(state.element),
                 iconClass = state.icon ? state.icon : $option.data('icon'),
                 imageSrc = state.image ? state.image : $option.data('image')
 
-            if (iconClass)
-                return '<i class="select-icon '+iconClass+'"></i> ' + state.text
+            if (iconClass) {
+                return '<i class="select-icon '+iconClass+'"></i> ' + text
+            }
 
-            if (imageSrc)
-                return '<img class="select-image" src="'+imageSrc+'" alt="" /> ' + state.text
+            if (imageSrc) {
+                return '<img class="select-image" src="'+imageSrc+'" alt="" /> ' + text
+            }
 
-            return state.text
+            return text
         }
 
         var selectOptions = {

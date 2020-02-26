@@ -139,7 +139,7 @@
   right: auto;
 }
 .field-markdowneditor.is-fullscreen {
-  z-index: 300;
+  z-index: 600;
   position: fixed !important;
   top: 0;
   left: 0;
