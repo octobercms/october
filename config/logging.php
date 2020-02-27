@@ -1,8 +1,5 @@
 <?php
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\SyslogUdpHandler;
-
 return [
 
     /*
@@ -16,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'single'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +53,7 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'username' => 'October CMS Log',
             'emoji' => ':boom:',
             'level' => 'critical',
         ],
@@ -64,7 +61,7 @@ return [
         'papertrail' => [
             'driver' => 'monolog',
             'level' => 'debug',
-            'handler' => SyslogUdpHandler::class,
+            'handler' => \Monolog\Handler\SyslogUdpHandler::class,
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
@@ -73,7 +70,7 @@ return [
 
         'stderr' => [
             'driver' => 'monolog',
-            'handler' => StreamHandler::class,
+            'handler' => \Monolog\Handler\StreamHandler::class,
             'formatter' => env('LOG_STDERR_FORMATTER'),
             'with' => [
                 'stream' => 'php://stderr',
