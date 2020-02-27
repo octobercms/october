@@ -17,7 +17,6 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class OctoberUpdate extends Command
 {
-
     /**
      * The console command name.
      */

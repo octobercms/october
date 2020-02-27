@@ -124,7 +124,7 @@ class FormField
     /**
      * @var string Specifies a comment to accompany the field
      */
-    public $comment;
+    public $comment = '';
 
     /**
      * @var string Specifies the comment position.
@@ -139,7 +139,7 @@ class FormField
     /**
      * @var string Specifies a message to display when there is no value supplied (placeholder).
      */
-    public $placeholder;
+    public $placeholder = '';
 
     /**
      * @var array Contains a list of attributes specified in the field configuration.
