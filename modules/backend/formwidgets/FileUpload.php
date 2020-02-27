@@ -8,7 +8,6 @@ use Validator;
 use Backend\Widgets\Form;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
-use Backend\Controllers\Files as FilesController;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 use ValidationException;
@@ -497,25 +496,10 @@ class FileUpload extends FormWidgetBase
      */
     protected function decorateFileAttributes($file)
     {
-        /*
-         * File is protected, create a secure public path
-         */
-        if (!$file->isPublic()) {
-            $path = $thumb = FilesController::getDownloadUrl($file);
+        $path = $thumb = $file->getPath();
 
-            if ($this->imageWidth || $this->imageHeight) {
-                $thumb = FilesController::getThumbUrl($file, $this->imageWidth, $this->imageHeight, $this->thumbOptions);
-            }
-        }
-        /*
-         * Otherwise use public paths
-         */
-        else {
-            $path = $thumb = $file->getPath();
-
-            if ($this->imageWidth || $this->imageHeight) {
-                $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
-            }
+        if ($this->imageWidth || $this->imageHeight) {
+            $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
         }
 
         $file->pathUrl = $path;

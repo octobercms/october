@@ -181,7 +181,7 @@
    */
 
   window.sweetAlertInitialize = function() {
-    var sweetHTML = '<div class="sweet-overlay" tabIndex="-1"></div><div class="sweet-alert" tabIndex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn" tabIndex="2">Cancel</button> <button class="confirm btn" tabIndex="1">OK</button></p></div>',
+    var sweetHTML = '<div class="sweet-overlay"></div><div class="sweet-alert"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn" tabIndex="2">Cancel</button> <button class="confirm btn" tabIndex="1">OK</button></p></div>',
         sweetWrap = document.createElement('div');
 
     sweetWrap.innerHTML = sweetHTML;
@@ -558,7 +558,7 @@
     } else {
       hide($cancelBtn);
     }
-    
+
     // Confirm button
     modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
     if (params.showConfirmButton) {
@@ -566,7 +566,7 @@
     } else {
       hide($confirmBtn);
     }
-    
+
 
     // Edit text on cancel and confirm buttons
     if (params.cancelButtonText) {

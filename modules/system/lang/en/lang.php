@@ -41,6 +41,7 @@ return [
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'th' => 'ไทย',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',

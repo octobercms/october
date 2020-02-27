@@ -44,12 +44,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Use this setting to force a secure protocol when accessing any back-end
-    | pages, including the authentication pages. If set to null, this setting
-    | is enabled when debug mode (app.debug) is disabled.
+    | pages, including the authentication pages. This is usually handled by
+    | web server config, but can be handled by the app for added security.
     |
     */
 
-    'backendForceSecure' => null,
+    'backendForceSecure' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
     | Automatically run migrations on login
     |--------------------------------------------------------------------------
     |
-    | If value is true, UpdateMananger will be run on logging in to the backend.
+    | If value is true, UpdateManager will be run on logging in to the backend.
     | It's recommended to set this value to 'null' in production enviroments
     | because it clears the cache every time a user logs in to the backend.
     | If set to null, this setting is enabled when debug mode (app.debug) is enabled
@@ -374,8 +374,8 @@ return [
     | Cross Site Request Forgery (CSRF) Protection
     |--------------------------------------------------------------------------
     |
-    | If the CSRF protection is enabled, all "postback" requests are checked
-    | for a valid security token.
+    | If the CSRF protection is enabled, all "postback" & AJAX requests are
+    | checked for a valid security token.
     |
     */
 
