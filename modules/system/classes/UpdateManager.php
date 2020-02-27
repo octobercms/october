@@ -30,11 +30,6 @@ class UpdateManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
-     * @var array The notes for the current operation.
-     */
-    protected $notes = [];
-
-    /**
      * @var \Illuminate\Console\OutputStyle
      */
     protected $notesOutput;
@@ -347,11 +342,11 @@ class UpdateManager
         /*
          * Rollback modules
          */
-        while (true) {
-            if (isset($this->notesOutput)) {
-                $this->migrator->setOutput($this->notesOutput);
-            }
+        if (isset($this->notesOutput)) {
+            $this->migrator->setOutput($this->notesOutput);
+        }
 
+        while (true) {
             $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
 
             if (count($rolledBack) == 0) {
@@ -405,11 +400,11 @@ class UpdateManager
      */
     public function migrateModule($module)
     {
-        $this->note($module);
-
         if (isset($this->notesOutput)) {
             $this->migrator->setOutput($this->notesOutput);
         }
+
+        $this->note($module);
 
         $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
@@ -520,13 +515,9 @@ class UpdateManager
 
         $this->note($name);
 
-        $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
+        $this->versionManager->setNotesOutput($this->notesOutput);
 
-        if ($this->versionManager->updatePlugin($plugin) !== false) {
-            foreach ($this->versionManager->getNotes() as $note) {
-                $this->note($note);
-            }
-        }
+        $this->versionManager->updatePlugin($plugin);
 
         return $this;
     }
@@ -797,31 +788,6 @@ class UpdateManager
         if ($this->notesOutput !== null) {
             $this->notesOutput->writeln($message);
         }
-        else {
-            $this->notes[] = $message;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get the notes for the last operation.
-     * @return array
-     */
-    public function getNotes()
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Resets the notes store.
-     * @return self
-     */
-    public function resetNotes()
-    {
-        $this->notesOutput = null;
-
-        $this->notes = [];
 
         return $this;
     }
