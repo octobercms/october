@@ -115,8 +115,7 @@
 .control-simplelist.is-selectable-box li a:hover .image >i {color:rgba(0,0,0,0.45)}
 .list-preview .control-simplelist.is-selectable ul {margin-bottom:0}
 .drag-noselect {-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-.control-scrollbar {position:relative;overflow:hidden;height:100%;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
-.control-scrollbar >div {-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
+.control-scrollbar {position:relative;overflow:hidden;height:100%}
 .control-scrollbar >.scrollbar-scrollbar {position:absolute;z-index:100}
 .control-scrollbar >.scrollbar-scrollbar .scrollbar-track {background-color:transparent;position:relative;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
 .control-scrollbar >.scrollbar-scrollbar .scrollbar-track .scrollbar-thumb {background-color:rgba(0,0,0,0.35);-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;overflow:hidden;position:absolute}

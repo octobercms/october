@@ -16,11 +16,11 @@
         <?php if ($noWrapTags): ?>data-no-wrap-tags="<?= e($noWrapTags) ?>"<?php endif ?>
         <?php if ($removeTags): ?>data-remove-tags="<?= e($removeTags) ?>"<?php endif ?>
         <?php if ($lineBreakerTags): ?>data-line-breaker-tags="<?= e($lineBreakerTags) ?>"<?php endif ?>
-        <?php if ($imageStyles): ?>data-image-styles="<?= e(json_encode($imageStyles)) ?>"<?php endif ?>
-        <?php if ($linkStyles): ?>data-link-styles="<?= e(json_encode($linkStyles)) ?>"<?php endif ?>
-        <?php if ($paragraphStyles): ?>data-paragraph-styles="<?= e(json_encode($paragraphStyles)) ?>"<?php endif ?>
-        <?php if ($tableStyles): ?>data-table-styles="<?= e(json_encode($tableStyles)) ?>"<?php endif ?>
-        <?php if ($tableCellStyles): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
+        <?php if (isset($imageStyles)): ?>data-image-styles="<?= e(json_encode($imageStyles)) ?>"<?php endif ?>
+        <?php if (isset($linkStyles)): ?>data-link-styles="<?= e(json_encode($linkStyles)) ?>"<?php endif ?>
+        <?php if (isset($paragraphStyles)): ?>data-paragraph-styles="<?= e(json_encode($paragraphStyles)) ?>"<?php endif ?>
+        <?php if (isset($tableStyles)): ?>data-table-styles="<?= e(json_encode($tableStyles)) ?>"<?php endif ?>
+        <?php if (isset($tableCellStyles)): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
         data-links-handler="<?= $this->getEventHandler('onLoadPageLinksForm') ?>"
         data-ace-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
         data-control="richeditor">

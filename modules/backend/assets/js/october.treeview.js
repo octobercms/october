@@ -4,13 +4,13 @@
  * Data attributes:
  * - data-group-status-handler - AJAX handler to execute when an item is collapsed or expanded by a user
  * - data-reorder-handler - AJAX handler to execute when items are reordered
- * 
+ *
  * Events
  * - open.oc.treeview - this event is triggered on the list element when an item is clicked.
- * 
+ *
  * Dependences:
  * - Tree list (october.treelist.js)
- * 
+ *
  */
 +function ($) { "use strict";
     var Base = $.oc.foundation.base,
@@ -65,8 +65,11 @@
          * Mark previously active item, if it was set
          */
         var dataId = this.$el.data('oc.active-item')
-        if (dataId !== undefined)
+        if (dataId !== undefined) {
             this.markActive(dataId)
+        }
+
+        this.$scrollbar.on('oc.scrollEnd', this.proxy(this.onScroll))
     }
 
     TreeView.prototype.dispose = function() {
@@ -83,6 +86,7 @@
     }
 
     TreeView.prototype.unregisterHandlers = function() {
+        this.$scrollbar.off('oc.scrollEnd', this.proxy(this.onScroll))
         this.$el.off('.treeview')
         this.$el.off('move.oc.treelist', this.proxy(this.onNodeMove))
         this.$el.off('aftermove.oc.treelist', this.proxy(this.onAfterNodeMove))
@@ -163,9 +167,9 @@
     TreeView.prototype.toggleGroup = function(group) {
         var $group = $(group);
 
-        $group.attr('data-status') == 'expanded' ?
-            this.collapseGroup($group) : 
-            this.expandGroup($group)
+        $group.attr('data-status') == 'expanded'
+            ? this.collapseGroup($group)
+            : this.expandGroup($group)
     }
 
     TreeView.prototype.sendGroupStatusRequest = function($group, status) {
@@ -229,7 +233,7 @@
     }
 
     // It seems the method is not used anymore as we re-create the control
-    // instead of updating it. Remove later if nothing weird is noticed. 
+    // instead of updating it. Remove later if nothing weird is noticed.
     // -ab Apr 26 2015
     //
     TreeView.prototype.update = function() {
@@ -238,8 +242,9 @@
         //this.initSortable()
 
         var dataId = this.$el.data('oc.active-item')
-        if (dataId !== undefined)
+        if (dataId !== undefined) {
             this.markActive(dataId)
+        }
     }
 
     TreeView.prototype.handleMovedNode = function() {
@@ -250,11 +255,13 @@
     }
 
     TreeView.prototype.tweakCursorAdjustment = function(adjustment) {
-        if (!adjustment)
+        if (!adjustment) {
             return adjustment
+        }
 
-        if (this.$scrollbar.length > 0)
+        if (this.$scrollbar.length > 0) {
             adjustment.top -= this.$scrollbar.scrollTop()
+        }
 
         return adjustment
     }
@@ -297,60 +304,84 @@
         this.toggleGroup($(ev.currentTarget).closest('li'))
         return false
     }
-    
+
     // TREEVIEW SCROLL ON DRAG
     // ============================
-    
+
+    TreeView.prototype.onScroll = function () {
+        if (!$('body').hasClass('dragging')) {
+            return
+        }
+
+        var changed = this.lastScrollPos - this.$scrollbar.scrollTop()
+
+        this.$el.children('ol').each(function() {
+            var sortable = $(this).data('oc.sortable')
+            sortable.refresh()
+            sortable.cursorAdjustment.top += changed // Keep cursor adjustment in sync with scroll
+        });
+
+        this.dragCallback()
+
+        this.lastScrollPos = this.$scrollbar.scrollTop()
+    }
+
     TreeView.prototype.onDrag = function ($item, position, _super, event) {
-        
+        this.lastScrollPos = this.$scrollbar.scrollTop()
+
         this.dragCallback = function() {
             _super($item, position, null, event)
         };
-        
+
         this.clearScrollTimeout()
         this.dragCallback()
-        
+
         if (!this.$scrollbar || this.$scrollbar.length === 0)
             return
-        
-        if (position.top < 0)
+
+        if (position.top < 0) {
             this.scrollOffset = -10 + Math.floor(position.top / 5)
-        else if (position.top > this.$scrollbar.height())
+        }
+        else if (position.top > this.$scrollbar.height()) {
             this.scrollOffset = 10 + Math.ceil((position.top - this.$scrollbar.height()) / 5)
-        else
+        }
+        else {
             return
-        
-        this.scrollMax = function() {
-            return this.$el.height() - this.$scrollbar.height()
-        };
-        
+        }
+
         this.dragScroll()
     }
-    
+
+    TreeView.prototype.scrollMax = function() {
+        return this.$el.height() - this.$scrollbar.height()
+    }
+
     TreeView.prototype.dragScroll = function() {
         var startScrollTop = this.$scrollbar.scrollTop()
         var changed
 
         this.scrollTimeout = null
 
-        this.$scrollbar.scrollTop( Math.min(startScrollTop + this.scrollOffset, this.scrollMax()) )
+        this.$scrollbar.scrollTop(Math.min(startScrollTop + this.scrollOffset, this.scrollMax()))
+
         changed = this.$scrollbar.scrollTop() - startScrollTop
-        if (changed === 0)
+        if (changed === 0) {
             return
+        }
 
         this.$el.children('ol').each(function() {
             var sortable = $(this).data('oc.sortable')
-
             sortable.refresh()
             sortable.cursorAdjustment.top -= changed // Keep cursor adjustment in sync with scroll
         });
 
         this.dragCallback()
+
         this.$scrollbar.data('oc.scrollbar').setThumbPosition() // Update scrollbar position
-        
+
         this.scrollTimeout = window.setTimeout(this.proxy(this.dragScroll), 100)
     }
-    
+
     TreeView.prototype.clearScrollTimeout = function() {
         if (this.scrollTimeout) {
             window.clearTimeout(this.scrollTimeout)
@@ -372,7 +403,7 @@
             var options = $.extend({}, TreeView.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.treeView', (data = new TreeView(this, options)))
 
-            if (typeof option == 'string' && data) { 
+            if (typeof option == 'string' && data) {
                 var methodArgs = [];
                 for (var i=1; i<args.length; i++)
                     methodArgs.push(args[i])
