@@ -22,7 +22,7 @@
     <select
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>[]"
-        class="form-control custom-select taglist <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
+        class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
         <?php if (!empty($customSeparators)): ?>data-token-separators="<?= $customSeparators ?>"<?php endif ?>
         <?php if (!empty($placeholder)): ?>data-placeholder="<?= e(trans($placeholder)) ?>"<?php endif ?>
         multiple
