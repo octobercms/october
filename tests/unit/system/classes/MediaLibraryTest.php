@@ -37,6 +37,11 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
             ['one(two)[].ext'],
             ['one=(two)[].ext'],
             ['one_(two)[].ext'],
+            /*
+            Example of a unicode-based filename with a single quote
+            @see: https://github.com/octobercms/october/pull/4564
+            */
+            ['BG中国通讯期刊(Blend\'r)创刊号.pdf'],
         ];
     }
 

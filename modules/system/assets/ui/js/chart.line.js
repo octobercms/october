@@ -80,7 +80,7 @@
 
         var parsedOptions = {}
         try {
-            parsedOptions = ocJSON("{" + value + "}");
+            parsedOptions = ocJSON("{" + options.chartOptions + "}");
         } catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }

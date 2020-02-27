@@ -33,7 +33,7 @@ class EditorSetting extends Model
      * @var mixed Settings form field defitions
      */
     public $settingsFields = 'fields.yaml';
-    
+
     /**
      * @var string The key to store rendered CSS in the cache under
      */
@@ -128,9 +128,14 @@ class EditorSetting extends Model
         $defaultValue = $instance->getDefaultValue($key);
 
         if (is_array($value)) {
-            $value = array_build($value, function ($key, $value) {
-                return [array_get($value, 'class_name'), array_get($value, 'class_label')];
-            });
+            $value = array_filter(array_build($value, function ($key, $value) {
+                if (array_has($value, ['class_name', 'class_label'])) {
+                    return [
+                        array_get($value, 'class_name'),
+                        array_get($value, 'class_label')
+                    ];
+                }
+            }));
         }
 
         return $value != $defaultValue ? $value : $default;

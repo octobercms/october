@@ -29,7 +29,8 @@
         <select
             disabled
             name="page"
-            class="form-control input-sm custom-select select-no-search">
+            class="form-control input-sm custom-select select-no-search"
+            autocomplete="off">
                 <option value="<?= $pageCurrent ?>" selected><?= $pageCurrent ?></option>
         </select>
         <?php if ($hasMorePages): ?>

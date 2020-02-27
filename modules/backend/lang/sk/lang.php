@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => 'Administrácia'
+        'title' => 'Administrácia',
+        'invalid_login' => 'Údaje, ktoré ste zadali sú nesprávne. Prosím skontrolujte údaje a skúste to znova.'
     ],
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',
@@ -15,6 +16,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Bez názvu',
+        '404' => [
+            'label'     => 'Stránka nenájdená',
+            'help'      => "Hľadali sme a hľadali, ale požadovanú adresu URL jednoducho nebolo možné nájsť. Možno ste hľadali niečo iné?",
+            'back_link' => 'Späť na predchodzú stránku',
+        ],
         'access_denied' => [
             'label' => 'Prístup odmietnutý',
             'help' => "Nemáte potrebné oprávnenia na zobrazenie tejto stránky.",
@@ -294,7 +300,7 @@ return [
         'cancel' => 'Zrušiť',
         'close' => 'Zatvoriť',
         'add_name' => 'Pridať :name',
-        'create' => 'Vytvorť',
+        'create' => 'Vytvoriť',
         'create_name' => 'Vytvoriť :name',
         'update' => 'Upraviť',
         'update_name' => 'Upraviť :name',
