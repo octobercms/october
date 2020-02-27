@@ -1,4 +1,10 @@
 <?php
+
+/*
+ * October autoloader
+ */
+require __DIR__ . '/../bootstrap/autoload.php';
+
 /*
  * Fallback autoloader
  */
