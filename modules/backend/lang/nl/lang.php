@@ -236,6 +236,7 @@ return [
         'remove_file' => 'Verwijder bestand',
     ],
     'repeater' => [
+        'add_new_item' => 'Nieuw item toevoegen',
         'min_items_failed' => ':name vereist minimaal :min items, er zijn :items opgegeven',
         'max_items_failed' => ':name vereist maximaal :max items, er zijn :items opgegeven',
     ],
@@ -307,7 +308,7 @@ return [
     ],
     'pagelist' => [
         'page_link' => 'Pagina link',
-        'select_page' => 'Selecteer een pagina...'
+        'select_page' => 'Selecteer een pagina...',
     ],
     'relation' => [
         'missing_config' => "Het gedrag (behavior) van deze relatie bevat geen instellingen voor ':config'.",
