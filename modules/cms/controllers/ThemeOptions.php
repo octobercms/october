@@ -1,8 +1,11 @@
 <?php namespace Cms\Controllers;
 
+use File;
+use Lang;
 use Backend;
 use BackendMenu;
 use ApplicationException;
+use Cms\Classes\Theme;
 use Cms\Models\ThemeData;
 use Cms\Classes\Theme as CmsTheme;
 use System\Classes\SettingsManager;
@@ -43,6 +46,7 @@ class ThemeOptions extends Controller
         parent::__construct();
 
         $this->pageTitle = 'cms::lang.theme.settings_menu';
+        $this->registerLocalization($this->getDirName());
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.Cms', 'theme');
@@ -103,8 +107,12 @@ class ThemeOptions extends Controller
 
     /**
      * Default to the active theme if user doesn't have access to manage all themes
+     *
+     * @param string $dirName
+     *
+     * @return string
      */
-    protected function getDirName($dirName = null)
+    protected function getDirName(string $dirName = null): string
     {
         /*
          * Only the active theme can be managed without this permission
@@ -142,5 +150,23 @@ class ThemeOptions extends Controller
         }
 
         return $theme;
+    }
+
+    /**
+     * Register language namespace if available for the theme
+     *
+     * @param string $dirName
+     *
+     * @throws ApplicationException
+     */
+    protected function registerLocalization(string $dirName)
+    {
+        /** @var Theme $theme */
+        $theme = $this->findThemeObject($dirName);
+
+        $langPath = $theme->getPath() . '/lang';
+        if (File::isDirectory($langPath)) {
+            Lang::addNamespace("theme.$dirName", $langPath);
+        }
     }
 }
