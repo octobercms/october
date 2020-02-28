@@ -71,7 +71,7 @@ class PluginBase extends ServiceProviderBase
     /**
      * Boot method, called right before the request route.
      *
-     * @return array
+     * @return void
      */
     public function boot()
     {
