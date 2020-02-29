@@ -63,9 +63,9 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $paneCssClass;
 
     /**
-     * @var array Each tab gets url fragment to be linkable.
+     * @var bool Each tab gets url fragment to be linkable.
      */
-    public $linkable;
+    public $linkable = true;
 
     /**
      * Constructor.
@@ -120,7 +120,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         if (array_key_exists('linkable', $config)) {
             $this->linkable = (bool) $config['linkable'];
         }
-      
+
         if (array_key_exists('lazy', $config)) {
             $this->lazy = $config['lazy'];
         }
