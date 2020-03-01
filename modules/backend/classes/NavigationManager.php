@@ -34,32 +34,6 @@ class NavigationManager
     protected $contextMainMenuItemCode;
     protected $contextSideMenuItemCode;
 
-    protected static $mainItemDefaults = [
-        'code'        => null,
-        'label'       => null,
-        'icon'        => null,
-        'iconSvg'     => null,
-        'counter'     => null,
-        'counterLabel'=> null,
-        'url'         => null,
-        'permissions' => [],
-        'order'       => 500,
-        'sideMenu'    => []
-    ];
-
-    protected static $sideItemDefaults = [
-        'code'        => null,
-        'label'       => null,
-        'icon'        => null,
-        'url'         => null,
-        'iconSvg'     => null,
-        'counter'     => null,
-        'counterLabel'=> null,
-        'order'       => -1,
-        'attributes'  => [],
-        'permissions' => []
-    ];
-
     /**
      * @var PluginManager
      */
@@ -276,7 +250,7 @@ class NavigationManager
      * @return MainMenuItem
      * @throws SystemException
      */
-    public function getMainMenuItem(string $owner, string $code): MainMenuItem
+    public function getMainMenuItem(string $owner, string $code)
     {
         $itemKey = $this->makeItemKey($owner, $code);
 
@@ -319,7 +293,7 @@ class NavigationManager
      * @param array $definition
      * @return bool
      */
-    public function addSideMenuItem($owner, $code, $sideCode, array $definition): bool
+    public function addSideMenuItem($owner, $code, $sideCode, array $definition)
     {
         $itemKey = $this->makeItemKey($owner, $code);
 
@@ -351,7 +325,7 @@ class NavigationManager
      * @param string $sideCode
      * @return bool
      */
-    public function removeSideMenuItem($owner, $code, $sideCode): bool
+    public function removeSideMenuItem($owner, $code, $sideCode)
     {
         $itemKey = $this->makeItemKey($owner, $code);
         if (!isset($this->items[$itemKey])) {
@@ -406,7 +380,7 @@ class NavigationManager
      * @return SideMenuItem[]
      * @throws SystemException
      */
-    public function listSideMenuItems($owner = null, $code = null): array
+    public function listSideMenuItems($owner = null, $code = null)
     {
         $activeItem = null;
 
@@ -503,7 +477,7 @@ class NavigationManager
      * @param MainMenuItem $item Specifies the item object.
      * @return boolean Returns true if the menu item is active.
      */
-    public function isMainMenuItemActive($item): bool
+    public function isMainMenuItemActive($item)
     {
         return $this->contextOwner === $item->owner && $this->contextMainMenuItemCode === $item->code;
     }
@@ -529,7 +503,7 @@ class NavigationManager
      * @param SideMenuItem $item Specifies the item object.
      * @return boolean Returns true if the side item is active.
      */
-    public function isSideMenuItemActive($item): bool
+    public function isSideMenuItemActive($item)
     {
         if ($this->contextSideMenuItemCode === true) {
             $this->contextSideMenuItemCode = null;
@@ -572,7 +546,7 @@ class NavigationManager
      * @param MainMenuItem[]|SideMenuItem[] $items A collection of menu items
      * @return array The filtered menu items
      */
-    protected function filterItemPermissions($user, array $items): array
+    protected function filterItemPermissions($user, array $items)
     {
         if (!$user) {
             return $items;
@@ -595,7 +569,7 @@ class NavigationManager
      * @param string $code
      * @return string
      */
-    protected function makeItemKey($owner, $code): string
+    protected function makeItemKey($owner, $code)
     {
         return strtoupper($owner).'.'.strtoupper($code);
     }

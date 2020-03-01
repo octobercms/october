@@ -98,7 +98,7 @@ class SideMenuItem
      * @param array $data
      * @return static
      */
-    public static function createFromArray(array $data): self
+    public static function createFromArray(array $data)
     {
         $instance = new static();
         $instance->code = $data['code'];

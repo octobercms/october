@@ -86,7 +86,7 @@ class MainMenuItem
      * @return SideMenuItem
      * @throws SystemException
      */
-    public function getSideMenuItem(string $code): SideMenuItem
+    public function getSideMenuItem(string $code)
     {
         if (!array_key_exists($code, $this->sideMenu)) {
             throw new SystemException('No sidenavigation item available with code ' . $code);
