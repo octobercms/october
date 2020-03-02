@@ -1,10 +1,12 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
+use Lang;
 use Symfony\Component\Console\Input\InputOption;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use Symfony\Component\Console\Input\InputArgument;
+use System\Classes\VersionManager;
 
 /**
  * Console command to rollback a plugin.
@@ -32,24 +34,37 @@ class PluginRollback extends Command
      */
     public function handle()
     {
-        if ($this->option('force') || $this->confirm('Do you wish to continue? This option is nonreversible. [yes|no]')) {
-            /*
+        /*
             * Lookup plugin
             */
-            $pluginName = $this->argument('name');
-            $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
-            if (!PluginManager::instance()->exists($pluginName)) {
-                throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
+        $pluginName = $this->argument('name');
+        $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
+        if (!PluginManager::instance()->exists($pluginName)) {
+            throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
+        }
+
+        $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
+
+        if ($stopOnVersion) {
+            if (!VersionManager::instance()->hasDatabaseVersion($pluginName, $stopOnVersion)) {
+                throw new \InvalidArgumentException(Lang::get('system::lang.updates.plugin_version_not_found'));
             }
+            $confirmQuestion = 'Do you want to continue reverting to version ' . $stopOnVersion . '? This option is nonreversible. [yes|no]';
+        } else {
+            $confirmQuestion = 'Do you wish to continue reverting all versions? This option is nonreversible. [yes|no]';
+        }
 
+        if ($this->option('force') || $this->confirm($confirmQuestion)) {
             $manager = UpdateManager::instance()->setNotesOutput($this->output);
-
             $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
 
-            /*
-             * Rollback plugin
-             */
-            $manager->rollbackPlugin($pluginName, $stopOnVersion);
+            try {
+                $manager->rollbackPlugin($pluginName, $stopOnVersion);
+            } catch (\Exception $exception) {
+                $lastVersion = VersionManager::instance()->getCurrentVersion($pluginName);
+                $this->output->writeln(sprintf("<comment>An exception occurred during the rollback, and the plugin was stopped in version v%s.</comment>", $lastVersion));
+                throw $exception;
+            }
         }
     }
 

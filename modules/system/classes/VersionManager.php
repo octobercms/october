@@ -197,6 +197,11 @@ class VersionManager
                 $this->removeDatabaseScript($code, $history->version, $history->detail);
             }
 
+            $lastHistory = $this->getLastHistory($code);
+            if ($lastHistory) {
+                $this->setDatabaseVersion($code, $lastHistory->version);
+            }
+
             if ($stopOnVersion === $history->version) {
                 $stopOnNextVersion = true;
             }
@@ -444,6 +449,19 @@ class VersionManager
             ->all();
 
         return $this->databaseHistory[$code] = $historyInfo;
+    }
+
+    /**
+     * Returns the last update history for a plugin.
+     * @param $code
+     * @return mixed
+     */
+    protected function getLastHistory($code)
+    {
+        return Db::table('system_plugin_history')
+            ->where('code', $code)
+            ->orderBy('id', 'DESC')
+            ->first();
     }
 
     /**
