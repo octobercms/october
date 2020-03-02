@@ -40,7 +40,7 @@ class PluginRollback extends Command
         $pluginName = $this->argument('name');
         $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
         if (!PluginManager::instance()->exists($pluginName)) {
-            throw new \InvalidArgumentException(sprintf('Plugin "%s" not found.', $pluginName));
+            throw new \InvalidArgumentException(Lang::get('system::lang.updates.plugin_not_found'));
         }
 
         $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
