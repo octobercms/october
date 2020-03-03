@@ -29,6 +29,8 @@
     FilterWidget.prototype.init = function () {
         overloaded_init.apply(this)
 
+        this.ignoreTimezone = this.$el.children().get(0).hasAttribute('data-ignore-timezone');
+
         this.initRegion()
         this.initFilterDate()
     }
@@ -394,6 +396,12 @@
         }
 
         if (!this.timezone) {
+            this.timezone = 'UTC'
+        }
+
+        // Set both timezones to UTC to disable converting between them
+        if (this.ignoreTimezone) {
+            this.appTimezone = 'UTC'
             this.timezone = 'UTC'
         }
     }

@@ -622,6 +622,7 @@ class Filter extends WidgetBase
                         'maxDate'   => '2099-12-31',
                         'firstDay'  => 0,
                         'yearRange' => 10,
+                        'ignoreTimezone' => false,
                     ];
 
                     break;
