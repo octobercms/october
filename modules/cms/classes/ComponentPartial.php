@@ -111,8 +111,7 @@ class ComponentPartial extends Extendable implements CmsObjectContract
         }
         
         if ($partial === null && Config::get('cms.enableComponentThemeDefaultPartialFallback')) {
-            $classes = array_flip(ComponentManager::instance()->listComponents());
-            $default_alias = array_get($classes, Str::normalizeClassName($component->name));
+            $defaultAlias = array_search(ComponentManager::instance()->listComponents(), Str::normalizeClassName($component->name));
             
             if ($default_alias && $default_alias !== $component->alias) {
                 $partial = Partial::loadCached($theme, strtolower($default_alias) . '/' . $fileName);
