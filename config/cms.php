@@ -383,7 +383,7 @@ return [
     
     /*
      |--------------------------------------------------------------------------
-     | Component default partial fallback
+     | Allow default alias fallback for component partials
      |--------------------------------------------------------------------------
      |
      | Enable using default theme partial for Component fallback where exists.
