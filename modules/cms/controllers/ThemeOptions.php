@@ -155,7 +155,6 @@ class ThemeOptions extends Controller
      * Register language namespace if available for the theme
      *
      * @param string $dirName
-     *
      * @throws ApplicationException
      */
     protected function registerLocalization(string $dirName)
