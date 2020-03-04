@@ -71,8 +71,8 @@
 
         if (this.options.postback && this.options.clientDataSourceClass == 'client') {
             if (!this.options.postbackHandlerName) {
-                var formHandler = this.$el.closest('form').data('request');
-                this.options.postbackHandlerName = formHandler || 'onSave';
+                var formHandler = this.$el.closest('form').data('request')
+                this.options.postbackHandlerName = formHandler || 'onSave'
             }
             this.formSubmitHandler = this.onFormSubmit.bind(this)
         }

@@ -21,7 +21,8 @@ this.clickHandler=this.onClick.bind(this)
 this.keydownHandler=this.onKeydown.bind(this)
 this.documentClickHandler=this.onDocumentClick.bind(this)
 this.toolbarClickHandler=this.onToolbarClick.bind(this)
-if(this.options.postback&&this.options.clientDataSourceClass=='client'){if(!this.options.postbackHandlerName){var formHandler=this.$el.closest('form').data('request');this.options.postbackHandlerName=formHandler||'onSave';}
+if(this.options.postback&&this.options.clientDataSourceClass=='client'){if(!this.options.postbackHandlerName){var formHandler=this.$el.closest('form').data('request')
+this.options.postbackHandlerName=formHandler||'onSave'}
 this.formSubmitHandler=this.onFormSubmit.bind(this)}
 this.navigation=null
 this.search=null
