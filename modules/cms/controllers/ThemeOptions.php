@@ -159,7 +159,6 @@ class ThemeOptions extends Controller
      */
     protected function registerLocalization(string $dirName)
     {
-        /** @var Theme $theme */
         $theme = $this->findThemeObject($dirName);
 
         $langPath = $theme->getPath() . '/lang';
