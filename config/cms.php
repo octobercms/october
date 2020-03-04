@@ -386,10 +386,12 @@ return [
      | Allow default alias fallback for component partials
      |--------------------------------------------------------------------------
      |
-     | Enable using default theme partial for Component fallback where exists.
+     | If set to true, the default alias for a component will also be used to find
+     | theme-overridden partials for components.
      |
-     | If is enabled, especially each snippet not need to have own theme
-     | override, but uses default one.
+     | eg. a component with a default alias of "blogPost" but with an assigned
+     | alias of "blogPost1" will be checked to see if a partial exists for "blogPost1"
+     | in the theme, before checking for a partial for "blogPost".
      |
      */
     
