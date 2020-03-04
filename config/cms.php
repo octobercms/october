@@ -393,6 +393,6 @@ return [
      |
      */
     
-    'enableComponentThemeDefaultPartialFallback' => false,
+    'defaultAliasPartialFallback' => false,
 
 ];
