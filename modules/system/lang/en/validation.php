@@ -40,6 +40,7 @@ return [
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',
+    'extensions'           => 'The :attribute must be one of the following types: :value',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
     'image'                => 'The :attribute must be an image.',
