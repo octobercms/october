@@ -21,8 +21,9 @@ this.clickHandler=this.onClick.bind(this)
 this.keydownHandler=this.onKeydown.bind(this)
 this.documentClickHandler=this.onDocumentClick.bind(this)
 this.toolbarClickHandler=this.onToolbarClick.bind(this)
-if(this.options.postback&&this.options.clientDataSourceClass=='client')
-this.formSubmitHandler=this.onFormSubmit.bind(this)
+if(this.options.postback&&this.options.clientDataSourceClass=='client'){if(!this.options.postbackHandlerName){var formHandler=this.$el.closest('form').data('request')
+this.options.postbackHandlerName=formHandler||'onSave'}
+this.formSubmitHandler=this.onFormSubmit.bind(this)}
 this.navigation=null
 this.search=null
 this.recordsAddedOrDeleted=0
@@ -383,7 +384,7 @@ if(dataContainer.value!=value){dataContainer.value=value
 this.markCellRowDirty(cellElement)
 this.notifyRowProcessorsOnChange(cellElement)
 if(suppressEvents===undefined||!suppressEvents){this.$el.trigger('oc.tableCellChanged',[this.getCellColumnName(cellElement),value,this.getCellRowIndex(cellElement)])}}}
-Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:'onSave',adding:true,deleting:true,toolbar:true,searching:false,rowSorting:false,height:false,dynamicHeight:false}
+Table.DEFAULTS={clientDataSourceClass:'client',keyColumn:'id',recordsPerPage:false,data:null,postback:true,postbackHandlerName:null,adding:true,deleting:true,toolbar:true,searching:false,rowSorting:false,height:false,dynamicHeight:false}
 var old=$.fn.table
 $.fn.table=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)
