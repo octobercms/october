@@ -1,16 +1,16 @@
 <?php namespace Backend\Behaviors;
 
+use Db;
+use Str;
+use Lang;
+use Flash;
+use Event;
+use Redirect;
+use Backend;
 use Backend\Classes\ControllerBehavior;
-use Backend\Facades\Backend;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Redirect;
-use October\Rain\Exception\ApplicationException;
 use October\Rain\Router\Helper as RouterHelper;
-use October\Rain\Support\Facades\Flash;
-use October\Rain\Support\Str;
+use ApplicationException;
+use Exception;
 
 /**
  * Adds features for working with backend forms. This behavior
