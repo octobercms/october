@@ -303,7 +303,7 @@ class FormController extends ControllerBehavior
      * @param int $recordId Record identifier
      * @param string $context Form context
      * @return \Illuminate\Http\RedirectResponse|void
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function update_onSave($recordId = null, $context = null)
     {
@@ -340,7 +340,7 @@ class FormController extends ControllerBehavior
      *
      * @param int $recordId Record identifier
      * @return \Illuminate\Http\RedirectResponse|void
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      * @throws Exception
      */
     public function update_onDelete($recordId = null)
@@ -408,7 +408,7 @@ class FormController extends ControllerBehavior
      * @see \Backend\Widgets\Form
      * @param array $options Render options
      * @return string Rendered HTML for the form.
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formRender($options = [])
     {
@@ -560,7 +560,7 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderPreview() ?>
      *
      * @return string The form HTML markup.
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formRenderPreview()
     {
@@ -589,7 +589,7 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderOutsideFields() ?>
      *
      * @return string HTML markup
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formRenderOutsideFields()
     {
@@ -618,7 +618,7 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderPrimaryTabs() ?>
      *
      * @return string HTML markup
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formRenderPrimaryTabs()
     {
@@ -647,7 +647,7 @@ class FormController extends ControllerBehavior
      *     <?= $this->formRenderPrimaryTabs() ?>
      *
      * @return string HTML markup
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formRenderSecondaryTabs()
     {
@@ -758,7 +758,7 @@ class FormController extends ControllerBehavior
      * can be changed by overriding it in the controller.
      * @param string $recordId
      * @return \October\Rain\Database\Model
-     * @throws ApplicationException
+     * @throws \October\Rain\Exception\ApplicationException
      */
     public function formFindModelObject($recordId)
     {
