@@ -76,7 +76,7 @@ class EventLog extends Model
 
     /**
      * Creates a shorter version of the message attribute,
-     * extracts the exception message or limits by 100 characters.
+     * extracts the exception message or limits by 500 characters.
      * @return string
      */
     public function getSummaryAttribute()
@@ -85,6 +85,9 @@ class EventLog extends Model
             return $match[1];
         }
 
-        return Str::limit($this->message, 100);
+        // Get first line of message
+        preg_match('/^([^\n\r]+)/m', $this->message, $matches);
+
+        return Str::limit($matches[1] ?? '', 500);
     }
 }

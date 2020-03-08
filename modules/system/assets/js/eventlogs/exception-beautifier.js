@@ -301,20 +301,7 @@
         })
 
         messageContainer = markup.find('.beautifier-message-container')
-        stacktrace = markup.find('.beautifier-stacktrace').addClass('hidden')
-
-        if (!!stacktrace.length) {
-            $('<a class="beautifier-toggle-stacktrace" href="javascript:;"><span>' + $.oc.lang.get('eventlog.show_stacktrace') + '</span></a>')
-                .appendTo(messageContainer)
-                .on('click', function (event) {
-                    event.preventDefault()
-                    event.stopPropagation()
-
-                    var $el = $(this)
-                    $('.beautifier-stacktrace', markup).toggleClass('hidden')
-                    $el.hide()
-                })
-        }
+        stacktrace = markup.find('.beautifier-stacktrace')
 
         tabs = $('<div class="control-tabs content-tabs tabs-inset">' +
             '<ul class="nav nav-tabs">' +
