@@ -11,7 +11,7 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled. Editing the PHP code of CMS templates is disabled.'
+        'safe_mode_enabled' => 'Safe mode is currently enabled. Editing the PHP code of CMS templates is disabled. To disable safe mode, set the `cms.enableSafeMode` configuration value to `false`.',
     ],
     'dashboard' => [
         'active_theme' => [
@@ -19,20 +19,20 @@ return [
             'online' => 'Online',
             'maintenance' => 'In maintenance',
             'manage_themes' => 'Manage themes',
-            'customize_theme' => 'Customize theme'
-        ]
+            'customize_theme' => 'Customize theme',
+        ],
     ],
     'theme' => [
         'not_found_name' => "The theme ':name' is not found.",
         'by_author' => 'By :name',
         'active' => [
             'not_set' => 'The active theme is not set.',
-            'not_found' => 'The active theme is not found.'
+            'not_found' => 'The active theme is not found.',
         ],
         'edit' => [
             'not_set' => 'The edit theme is not set.',
             'not_found' => 'The edit theme is not found.',
-            'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page."
+            'not_match' => "The object you're trying to access doesn't belong to the theme being edited. Please reload the page.",
         ],
         'settings_menu' => 'Front-end theme',
         'settings_menu_description' => 'Manage the front-end theme and customization options.',
@@ -92,24 +92,24 @@ return [
         'dir_name_taken' => 'Desired theme directory already exists.',
         'find_more_themes' => 'Find more themes',
         'saving' => 'Saving theme...',
-        'return' => 'Return to themes list'
+        'return' => 'Return to themes list',
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance mode',
         'settings_menu_description' => 'Configure the maintenance mode page and toggle the setting.',
         'is_enabled' => 'Enable maintenance mode',
         'is_enabled_comment' => 'Select the page to show when maintenance mode is activated.',
-        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.'
+        'hint' => 'Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.',
     ],
     'page' => [
         'not_found_name' => "The page ':name' is not found",
         'not_found' => [
             'label' => 'Page not found',
-            'help' => 'The requested page cannot be found.'
+            'help' => 'The requested page cannot be found.',
         ],
         'custom_error' => [
             'label' => 'Page error',
-            'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+            'help' => "We're sorry, but something went wrong and the page cannot be displayed.",
         ],
         'menu_label' => 'Pages',
         'unsaved_label' => 'Unsaved page(s)',
@@ -122,7 +122,7 @@ return [
         'cms_page' => 'CMS page',
         'title' => 'Page title',
         'url' => 'Page URL',
-        'file_name' => 'Page file name'
+        'file_name' => 'Page file name',
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
@@ -131,7 +131,7 @@ return [
         'no_list_records' => 'No layouts found',
         'new' => 'New layout',
         'delete_confirm_multiple' => 'Delete selected layouts?',
-        'delete_confirm_single' => 'Delete this layout?'
+        'delete_confirm_single' => 'Delete this layout?',
     ],
     'partial' => [
         'not_found_name' => "The partial ':name' is not found.",
@@ -141,7 +141,7 @@ return [
         'no_list_records' => 'No partials found',
         'delete_confirm_multiple' => 'Delete selected partials?',
         'delete_confirm_single' => 'Delete this partial?',
-        'new' => 'New partial'
+        'new' => 'New partial',
     ],
     'content' => [
         'not_found_name' => "The content file ':name' is not found.",
@@ -150,18 +150,18 @@ return [
         'no_list_records' => 'No content files found',
         'delete_confirm_multiple' => 'Delete selected content files or directories?',
         'delete_confirm_single' => 'Delete this content file?',
-        'new' => 'New content file'
+        'new' => 'New content file',
     ],
     'ajax_handler' => [
         'invalid_name' => 'Invalid AJAX handler name: :name.',
-        'not_found' => "AJAX handler ':name' was not found."
+        'not_found' => "AJAX handler ':name' was not found.",
     ],
     'cms' => [
-        'menu_label' => 'CMS'
+        'menu_label' => 'CMS',
     ],
     'sidebar' => [
         'add' => 'Add',
-        'search' => 'Search...'
+        'search' => 'Search...',
     ],
     'editor' => [
         'settings' => 'Settings',
@@ -183,9 +183,9 @@ return [
         'enter_fullscreen' => 'Enter fullscreen mode',
         'exit_fullscreen' => 'Exit fullscreen mode',
         'open_searchbox' => 'Open Search box',
-        'close_searchbox'  => 'Close Search box',
+        'close_searchbox' => 'Close Search box',
         'open_replacebox' => 'Open Replace box',
-        'close_replacebox'  => 'Close Replace box',
+        'close_replacebox' => 'Close Replace box',
         'commit' => 'Commit',
         'reset' => 'Reset',
         'commit_confirm' => 'Are you sure you want to commit your changes to this file to the filesystem? This will overwrite the existing file on the filesystem',
@@ -237,7 +237,7 @@ return [
         'error_deleting_directory' => 'Error deleting the original directory :dir',
         'no_list_records' => 'No files found',
         'delete_confirm' => 'Delete selected files or directories?',
-        'path' => 'Path'
+        'path' => 'Path',
     ],
     'component' => [
         'menu_label' => 'Components',
@@ -249,7 +249,7 @@ return [
         'invalid_request' => 'The template cannot be saved because of invalid component data.',
         'no_records' => 'No components found',
         'not_found' => "The component ':name' is not found.",
-        'method_not_found' => "The component ':name' does not contain a method ':method'."
+        'method_not_found' => "The component ':name' does not contain a method ':method'.",
     ],
     'template' => [
         'invalid_type' => 'Unknown template type.',
@@ -257,7 +257,7 @@ return [
         'saved' => 'Template saved.',
         'no_list_records' => 'No records found',
         'delete_confirm' => 'Delete selected templates?',
-        'order_by' => 'Order by'
+        'order_by' => 'Order by',
     ],
     'permissions' => [
         'name' => 'CMS',

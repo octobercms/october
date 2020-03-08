@@ -166,12 +166,18 @@
      * Render tab form fields once a lazy tab is selected.
      */
     FormWidget.prototype.bindLazyTabs = function() {
-        this.$el.on('click', '.tab-lazy [data-toggle="tab"]', function() {
-            var $el = $(this)
-            $.request('form::onLazyLoadTab', {
+        var tabControl = $('[data-control=tab]', this.$el),
+            tabContainer = $('.nav-tabs', tabControl)
+
+        tabContainer.on('click', '.tab-lazy [data-toggle="tab"]', function() {
+            var $el = $(this),
+                handlerName = $el.data('tab-lazy-handler')
+
+            $.request(handlerName, {
                 data: {
                     target: $el.data('target'),
                     name: $el.data('tab-name'),
+                    section: $el.data('tab-section'),
                 },
                 success: function(data) {
                     this.success(data)
@@ -188,6 +194,11 @@
                 }
             })
         })
+
+        // If initial active tab is lazy loaded, load it immediately
+        if ($('> li.active.tab-lazy', tabContainer).length) {
+            $('> li.active.tab-lazy > [data-toggle="tab"]', tabContainer).trigger('click')
+        }
     }
 
     /*
