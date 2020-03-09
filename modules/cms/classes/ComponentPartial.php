@@ -104,25 +104,26 @@ class ComponentPartial extends Extendable implements CmsObjectContract
      */
     public static function loadOverrideCached($theme, $component, $fileName)
     {
-        $partial = Partial::loadCached($theme, strtolower($component->alias) . '/' . $fileName);
+        $paths = [
+            strtolower($component->alias) . '/' . $fileName,
+            $component->alias . '/' . $fileName,
+        ];
 
-        if ($partial === null) {
-            $partial = Partial::loadCached($theme, $component->alias . '/' . $fileName);
+        $defaultAlias = array_search(Str::normalizeClassName($component->name), ComponentManager::instance()->listComponents());
+        if ($defaultAlias && $defaultAlias !== $component->alias) {
+            $paths = array_merge($paths, [
+                strtolower($defaultAlias) . '/' . $fileName,
+                $defaultAlias . '/' . $fileName,
+            ]);
         }
-        
-        if ($partial === null && Config::get('cms.defaultAliasPartialFallback')) {
-            $defaultAlias = array_search(ComponentManager::instance()->listComponents(), Str::normalizeClassName($component->name));
-            
-            if ($default_alias && $default_alias !== $component->alias) {
-                $partial = Partial::loadCached($theme, strtolower($default_alias) . '/' . $fileName);
-                
-                if ($partial === null) {
-                    $partial = Partial::loadCached($theme, $default_alias . '/' . $fileName);
-                }
+
+        foreach (array_unique($paths) as $path) {
+            if (($partial = Partial::loadCached($theme, $path)) !== null) {
+                return $partial;
             }
         }
 
-        return $partial;
+        return null;
     }
 
     /**

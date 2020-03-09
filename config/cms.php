@@ -427,22 +427,6 @@ return [
     */
 
     'restrictBaseDir' => true,
-    
-    /*
-     |--------------------------------------------------------------------------
-     | Allow default alias fallback for component partials
-     |--------------------------------------------------------------------------
-     |
-     | If set to true, the default alias for a component will also be used to find
-     | theme-overridden partials for components.
-     |
-     | eg. a component with a default alias of "blogPost" but with an assigned
-     | alias of "blogPost1" will be checked to see if a partial exists for "blogPost1"
-     | in the theme, before checking for a partial for "blogPost".
-     |
-     */
-    
-    'defaultAliasPartialFallback' => false,
 
     /*
     |--------------------------------------------------------------------------
