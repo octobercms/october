@@ -771,7 +771,7 @@ class FormController extends ControllerBehavior
         /*
          * Prepare query and find model record
          */
-        /** @var \October\Rain\Database\Builder $query */
+        /** @var \October\Rain\Database\Builder|\October\Rain\Halcyon\Builder $query */
         $query = $model->newQuery();
         $this->controller->formExtendQuery($query);
         /** @var \October\Rain\Database\Model|\October\Rain\Halcyon\Model $result */
