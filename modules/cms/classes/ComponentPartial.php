@@ -3,7 +3,6 @@
 use File;
 use Lang;
 use Str;
-use Config;
 use Cms\Classes\ComponentManager;
 use Cms\Contracts\CmsObject as CmsObjectContract;
 use Cms\Helpers\File as FileHelper;
