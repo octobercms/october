@@ -60,12 +60,12 @@ class RouterTest extends TestCase
     {
         $router = new Router(self::$theme);
         $method = self::getMethod('getCachedUrlFileName');
-        $urlList = array();
+        $urlList = [];
 
         /*
          * The first time the page should be loaded from the disk.
          */
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertNull($result);
 
         /*
@@ -78,14 +78,14 @@ class RouterTest extends TestCase
         /*
          * The second time the page should be loaded from the cache.
          */
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertEquals('index.htm', $result);
 
         /*
          * Clear the cache
          */
         $router->clearCache();
-        $result = $method->invokeArgs($router, array('/', &$urlList));
+        $result = $method->invokeArgs($router, ['/', &$urlList]);
         $this->assertNull($result);
     }
 
@@ -142,6 +142,26 @@ class RouterTest extends TestCase
         $parameters = $router->getParameters();
         $this->assertNotEmpty($page);
         $this->assertEquals('blog-archive.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
+
+        $page = $router->findByUrl('blog/category-page');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
+        $this->assertEquals(array_keys($parameters)[0], 'category_name');
+        $this->assertEmpty($parameters[array_keys($parameters)[0]]);
+
+        $page = $router->findByUrl('blog/category-page/categoryName');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
+        $this->assertCount(1, $parameters);
+
+        $page = $router->findByUrl('blog/category-page/categoryName/subCategoryName');
+        $parameters = $router->getParameters();
+        $this->assertNotEmpty($page);
+        $this->assertEquals('blog-category.htm', $page->getFileName());
         $this->assertCount(1, $parameters);
     }
 

@@ -149,9 +149,9 @@ class UpdateManager
         /*
          * Update plugins
          */
-        $plugins = $this->pluginManager->sortByDependencies();
-        foreach ($plugins as $plugin) {
-            $this->updatePlugin($plugin);
+        $plugins = $this->pluginManager->getPlugins();
+        foreach ($plugins as $code => $plugin) {
+            $this->updatePlugin($code);
         }
 
         Parameter::set('system::update.count', 0);
@@ -523,7 +523,6 @@ class UpdateManager
         $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
 
         if ($this->versionManager->updatePlugin($plugin) !== false) {
-
             foreach ($this->versionManager->getNotes() as $note) {
                 $this->note($note);
             }
@@ -680,7 +679,9 @@ class UpdateManager
         $requestedDetails = array_intersect_key($this->productCache[$type], array_flip($codes));
 
         foreach ($requestedDetails as $detail) {
-            if ($detail === -1) continue;
+            if ($detail === -1) {
+                continue;
+            }
             $result[] = $detail;
         }
 

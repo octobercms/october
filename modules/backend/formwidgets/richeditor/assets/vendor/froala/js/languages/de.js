@@ -181,6 +181,7 @@ $.FE.LANGUAGE['de'] = {
     "Cell Style": "Zellen-Stil",
 
     // Files
+    "Insert File": "Datei einfügen",
     "Upload File": "Datei hochladen",
     "Drop file": "Datei hineinziehen",
 

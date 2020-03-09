@@ -24,6 +24,7 @@ use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
@@ -38,6 +39,8 @@ class Controller
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
+    use \System\Traits\SecurityController;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -90,11 +93,6 @@ class Controller
     public $vars = [];
 
     /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
-
-    /**
      * @var self Cache of self
      */
     protected static $instance;
@@ -121,7 +119,7 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
+        $this->assetPath = Config::get('cms.themesPath', '/themes') . '/' . $this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->partialStack = new PartialStack;
         $this->initTwigEnvironment();
@@ -133,9 +131,11 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
-     * @param string $url Specifies the requested page URL.
-     * If the parameter is omitted, the current URL used.
-     * @return string Returns the processed page content.
+     * If the parameter is null, the current URL used. If it is not
+     * provided then '/' is used
+     *
+     * @param string|null $url Specifies the requested page URL.
+     * @return BaseResponse Returns the response to the provided URL
      */
     public function run($url = '/')
     {
@@ -194,8 +194,7 @@ class Controller
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
-            }
-            else {
+            } else {
                 return $event;
             }
         }
@@ -250,14 +249,14 @@ class Controller
          *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
-            return $event;
+            $result = $event;
         }
 
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -544,7 +543,7 @@ class Controller
      * Note for pre-processing see cms.template.processTwigContent event.
      * @param \Cms\Classes\Page $page Specifies the current CMS page.
      * @param string $url Specifies the current URL.
-     * @param string $content The page markup to post processs.
+     * @param string $content The page markup to post-process.
      * @return string Returns the updated result string.
      */
     protected function postProcessResult($page, $url, $content)
@@ -553,7 +552,7 @@ class Controller
 
         /**
          * @event cms.page.postprocess
-         * Provides oportunity to hook into the post processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
+         * Provides opportunity to hook into the post-processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
          *
          * Example usage:
          *
@@ -812,7 +811,7 @@ class Controller
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('cms.ajax.beforeRunHandler', function((\Cms\Classes\Controller) $controller, (string) $handler) {
+         *     Event::listen('cms.ajax.beforeRunHandler', function ((\Cms\Classes\Controller) $controller, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {
@@ -841,7 +840,6 @@ class Controller
          * Process Component handler
          */
         if (strpos($handler, '::')) {
-
             list($componentName, $handlerName) = explode('::', $handler);
             $componentObj = $this->findComponentByName($componentName);
 
@@ -899,7 +897,7 @@ class Controller
 
         /**
          * @event cms.page.render
-         * Provides an oportunity to manipulate the page's rendered contents
+         * Provides an opportunity to manipulate the page's rendered contents
          *
          * Example usage:
          *
@@ -943,18 +941,18 @@ class Controller
 
         /**
          * @event cms.page.beforeRenderPartial
-         * Provides an oportunity to manipulate the name of the partial being rendered before it renders
+         * Provides an opportunity to manipulate the name of the partial being rendered before it renders
          *
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderPartial', function ((\Cms\Classes\Controller) $controller, (string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderPartial', function ((string) $partialName) {
-         *         return "path/to/overriding/location/" . $partialName;
+         *         return Cms\Classes\Partial::loadCached($theme, 'custom-partial-name');
          *     });
          *
          */
@@ -965,7 +963,6 @@ class Controller
          * Process Component partial
          */
         elseif (strpos($name, '::') !== false) {
-
             list($componentAlias, $partialName) = explode('::', $name);
 
             /*
@@ -1000,9 +997,7 @@ class Controller
             /*
              * Check if the theme has an override
              */
-            if (strpos($partialName, '/') === false) {
-                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
-            }
+            $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
 
             /*
              * Check the component partial
@@ -1098,7 +1093,7 @@ class Controller
 
         /**
          * @event cms.page.renderPartial
-         * Provides an oportunity to manipulate the output of a partial after being rendered
+         * Provides an opportunity to manipulate the output of a partial after being rendered
          *
          * Example usage:
          *
@@ -1131,18 +1126,18 @@ class Controller
     {
         /**
          * @event cms.page.beforeRenderContent
-         * Provides an oportunity to manipulate the name of the content file being rendered before it renders
+         * Provides an opportunity to manipulate the name of the content file being rendered before it renders
          *
          * Example usage:
          *
          *     Event::listen('cms.page.beforeRenderContent', function ((\Cms\Classes\Controller) $controller, (string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          * Or
          *
          *     $CmsController->bindEvent('page.beforeRenderContent', function ((string) $contentName) {
-         *         return "path/to/overriding/location/" . $contentName;
+         *         return Cms\Classes\Content::loadCached($theme, 'custom-content-name');
          *     });
          *
          */
@@ -1175,7 +1170,7 @@ class Controller
 
         /**
          * @event cms.page.renderContent
-         * Provides an oportunity to manipulate the output of a content file after being rendered
+         * Provides an opportunity to manipulate the output of a content file after being rendered
          *
          * Example usage:
          *
@@ -1224,32 +1219,8 @@ class Controller
     }
 
     //
-    // Setters
-    //
-
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     * @return self
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    //
     // Getters
     //
-
-     /**
-     * Returns the status code for the current web response.
-     * @return int Status code
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
 
     /**
      * Returns an existing instance of the controller.
@@ -1574,37 +1545,5 @@ class Controller
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
-    }
-
-    //
-    // Security
-    //
-
-    /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
-     * @return bool
-     */
-    protected function verifyCsrfToken()
-    {
-        if (!Config::get('cms.enableCsrfProtection')) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!strlen($token)) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
     }
 }

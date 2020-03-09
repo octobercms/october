@@ -44,7 +44,7 @@
         var template = [
             '<div class="product-details">',
             '<div class="product-image"><img src="{{image}}" alt=""></div>',
-            '<div class="product-name ">{{name}}</div>',
+            '<div class="product-name ">{{name}} by {{author}}</div>',
             '<div class="product-description text-overflow">{{description}}</div>',
             '</div>'
         ].join('')

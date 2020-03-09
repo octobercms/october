@@ -45,11 +45,29 @@
 }
 
 //
+// Side panel
+//
+
+#layout-side-panel {
+    .sidepanel-content-header {
+        background: @custom-dark-secondary;
+    }
+}
+
+//
 // Asset List
 //
 
 .control-assetlist ul li.active a:after,
 .control-assetlist ul li.active a.link:after {
+    background: @brand-secondary;
+}
+
+//
+// Pages List
+//
+
+.control-treeview ol > li.active > div::after {
     background: @brand-secondary;
 }
 
@@ -84,13 +102,6 @@ table.table.data {
                 border-left: 3px solid @brand-secondary;
             }
         }
-        // tr:not(.no-data):hover td,
-        // tr:not(.no-data).selected td {
-        //     background: mix(white, @brand-accent, 13%) !important;
-        // }
-        // tr:not(.no-data):active td {
-        //     background: @brand-accent !important;
-        // }
     }
 }
 
@@ -121,7 +132,7 @@ table.table.data {
     }
 
     > div > div.tabs-container {
-        background-color: @custom-dark-secondary;
+        background: @custom-dark-secondary;
     }
 }
 
@@ -173,4 +184,12 @@ div.control-componentlist {
             background: @brand-secondary !important;
         }
     }
+}
+
+//
+// Media
+//
+
+.nav.selector-group li.active {
+    border-left-color: @brand-secondary;
 }

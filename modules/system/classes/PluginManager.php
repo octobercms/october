@@ -11,7 +11,7 @@ use Config;
 use Schema;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use ApplicationException;
+use SystemException;
 
 /**
  * Plugin manager
@@ -107,6 +107,8 @@ class PluginManager
         foreach ($this->getPluginNamespaces() as $namespace => $path) {
             $this->loadPlugin($namespace, $path);
         }
+
+        $this->sortDependencies();
 
         return $this->plugins;
     }
@@ -363,7 +365,9 @@ class PluginManager
     {
         $classId = $this->getIdentifier($namespace);
 
-        return isset($this->plugins[$classId]);
+        $normalized = $this->normalizeIdentifier($classId);
+
+        return isset($this->plugins[$normalized]);
     }
 
     /**
@@ -673,53 +677,33 @@ class PluginManager
     }
 
     /**
-     * Returns the plugin identifiers that are required by the supplied plugin.
-     * @param  string $plugin Plugin identifier, object or class
-     * @return array
-     */
-    public function getDependencies($plugin)
-    {
-        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($plugin))) {
-            return false;
-        }
-
-        if (!isset($plugin->require) || !$plugin->require) {
-            return null;
-        }
-
-        return is_array($plugin->require) ? $plugin->require : [$plugin->require];
-    }
-
-    /**
      * Sorts a collection of plugins, in the order that they should be actioned,
      * according to their given dependencies. Least dependent come first.
-     * @param  array $plugins Object collection to sort, or null to sort all.
      * @return array Collection of sorted plugin identifiers
      */
-    public function sortByDependencies($plugins = null)
+    protected function sortDependencies()
     {
-        if (!is_array($plugins)) {
-            $plugins = $this->getPlugins();
-        }
+        ksort($this->plugins);
 
+        /*
+         * Canvas the dependency tree
+         */
+        $checklist = $this->plugins;
         $result = [];
-        $checklist = $plugins;
 
         $loopCount = 0;
         while (count($checklist)) {
-
-            if (++$loopCount > 999) {
-                throw new ApplicationException('Too much recursion');
+            if (++$loopCount > 2048) {
+                throw new SystemException('Too much recursion! Check for circular dependencies in your plugins.');
             }
 
             foreach ($checklist as $code => $plugin) {
-
                 /*
                  * Get dependencies and remove any aliens
                  */
                 $depends = $this->getDependencies($plugin) ?: [];
-                $depends = array_filter($depends, function ($pluginCode) use ($plugins) {
-                    return isset($plugins[$pluginCode]);
+                $depends = array_filter($depends, function ($pluginCode) {
+                    return isset($this->plugins[$pluginCode]);
                 });
 
                 /*
@@ -745,10 +729,47 @@ class PluginManager
                 array_push($result, $code);
                 unset($checklist[$code]);
             }
-
         }
 
-        return $result;
+        /*
+         * Reassemble plugin map
+         */
+        $sortedPlugins = [];
+
+        foreach ($result as $code) {
+            $sortedPlugins[$code] = $this->plugins[$code];
+        }
+
+        return $this->plugins = $sortedPlugins;
+    }
+
+    /**
+     * Returns the plugin identifiers that are required by the supplied plugin.
+     * @param  string $plugin Plugin identifier, object or class
+     * @return array
+     */
+    public function getDependencies($plugin)
+    {
+        if (is_string($plugin) && (!$plugin = $this->findByIdentifier($plugin))) {
+            return false;
+        }
+
+        if (!isset($plugin->require) || !$plugin->require) {
+            return null;
+        }
+
+        return is_array($plugin->require) ? $plugin->require : [$plugin->require];
+    }
+
+    /**
+     * @deprecated Plugins are now sorted by default. See getPlugins()
+     * Remove if year >= 2022
+     */
+    public function sortByDependencies($plugins = null)
+    {
+        traceLog('PluginManager::sortByDependencies is deprecated. Plugins are now sorted by default. Use PluginManager::getPlugins()');
+
+        return array_keys($plugins ?: $this->getPlugins());
     }
 
     //

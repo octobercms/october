@@ -1,7 +1,7 @@
 <?php namespace Cms\Twig;
 
 use Event;
-use Twig\Source as TwigSource;;
+use Twig\Source as TwigSource;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Cms\Contracts\CmsObject;
 use System\Twig\Loader as LoaderBase;
@@ -48,7 +48,7 @@ class Loader extends LoaderBase implements TwigLoaderInterface
 
         /**
          * @event cms.template.processTwigContent
-         * Provides an oportunity to modify Twig content before being processed by Twig. `$dataHolder` = {content: $twigContent}
+         * Provides an opportunity to modify Twig content before being processed by Twig. `$dataHolder` = {content: $twigContent}
          *
          * Example usage:
          *

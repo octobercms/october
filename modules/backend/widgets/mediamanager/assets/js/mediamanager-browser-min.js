@@ -276,7 +276,7 @@ this.scrollContentElement.insertBefore(this.selectionMarker,this.scrollContentEl
 MediaManager.prototype.doObjectsCollide=function(aTop,aLeft,aWidth,aHeight,bTop,bLeft,bWidth,bHeight){return!(((aTop+aHeight)<(bTop))||(aTop>(bTop+bHeight))||((aLeft+aWidth)<bLeft)||(aLeft>(bLeft+bWidth)))}
 MediaManager.prototype.initUploader=function(){if(!this.itemListElement||this.options.readOnly)
 return
-var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',headers:{},createImageThumbnails:false}
+var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',timeout:0,headers:{},createImageThumbnails:false}
 if(this.options.uniqueId){uploaderOptions.headers['X-OCTOBER-FILEUPLOAD']=this.options.uniqueId}
 var token=$('meta[name="csrf-token"]').attr('content')
 if(token){uploaderOptions.headers['X-CSRF-TOKEN']=token}
@@ -454,13 +454,13 @@ MediaManager.prototype.onSortingChanged=function(ev){var $target=$(ev.target),da
 if($target.data('sort')=='by'){data.sortBy=$target.val();}else if($target.data('sort')=='direction'){data.sortDirection=$target.val()}
 this.execNavigationRequest('onSetSorting',data)}
 MediaManager.prototype.onKeyDown=function(ev){var eventHandled=false
-switch(ev.which){case 13:var items=this.getSelectedItems(true,true)
+switch(ev.key){case'Enter':var items=this.getSelectedItems(true,true)
 if(items.length>0)
 this.navigateToItem($(items[0]))
 eventHandled=true
-break;case 39:case 40:this.selectRelative(true,ev.shiftKey)
+break;case'ArrowRight':case'ArrowDown':this.selectRelative(true,ev.shiftKey)
 eventHandled=true
-break;case 37:case 38:this.selectRelative(false,ev.shiftKey)
+break;case'ArrowLeft':case'ArrowUp':this.selectRelative(false,ev.shiftKey)
 eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()

@@ -212,7 +212,9 @@ class Preference extends Model
             'ro'    => [Lang::get('system::lang.locale.ro'),    'flag-ro'],
             'ru'    => [Lang::get('system::lang.locale.ru'),    'flag-ru'],
             'sk'    => [Lang::get('system::lang.locale.sk'),    'flag-sk'],
+            'sl'    => [Lang::get('system::lang.locale.sl'),    'flag-si'],
             'sv'    => [Lang::get('system::lang.locale.sv'),    'flag-se'],
+            'th'    => [Lang::get('system::lang.locale.th'),    'flag-th'],
             'tr'    => [Lang::get('system::lang.locale.tr'),    'flag-tr'],
             'uk'    => [Lang::get('system::lang.locale.uk'),    'flag-ua'],
             'vn'    => [Lang::get('system::lang.locale.vn'),    'flag-vn'],
@@ -275,7 +277,6 @@ class Preference extends Model
 
         // Iterate through the themes
         foreach ($themeDir as $node) {
-
             // If this file is a theme (starting by "theme-")
             if (!$node->isDir() && substr($node->getFileName(), 0, 6) == 'theme-') {
                 // Remove the theme- prefix and the .js suffix, create an user friendly and capitalized name
@@ -287,7 +288,6 @@ class Preference extends Model
                     $themes[$themeId] = $themeName;
                 }
             }
-
         }
 
         // Sort the theme alphabetically, and push the default theme

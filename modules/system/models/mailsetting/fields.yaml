@@ -13,6 +13,7 @@ tabs:
         sender_email:
             label: system::lang.mail.sender_email
             span: auto
+            type: email
             tab: system::lang.mail.general
 
         send_mode:
@@ -121,31 +122,40 @@ tabs:
                 condition: value[mandrill]
 
         ses_key:
-          label: system::lang.mail.ses_key
-          commentAbove: system::lang.mail.ses_key_comment
-          tab: system::lang.mail.general
-          span: left
-          trigger:
-            action: show
-            field: send_mode
-            condition: value[ses]
+            label: system::lang.mail.ses_key
+            commentAbove: system::lang.mail.ses_key_comment
+            tab: system::lang.mail.general
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
 
         ses_secret:
-          label: system::lang.mail.ses_secret
-          commentAbove: system::lang.mail.ses_secret_comment
-          tab: system::lang.mail.general
-          span: right
-          trigger:
-            action: show
-            field: send_mode
-            condition: value[ses]
+            label: system::lang.mail.ses_secret
+            commentAbove: system::lang.mail.ses_secret_comment
+            tab: system::lang.mail.general
+            span: right
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
 
         ses_region:
-          label: system::lang.mail.ses_region
-          commentAbove: system::lang.mail.ses_region_comment
-          tab: system::lang.mail.general
-          span: left
-          trigger:
-            action: show
-            field: send_mode
-            condition: value[ses]
+            label: system::lang.mail.ses_region
+            commentAbove: system::lang.mail.ses_region_comment
+            tab: system::lang.mail.general
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
+
+        sparkpost_secret:
+            label: system::lang.mail.sparkpost_secret
+            commentAbove: system::lang.mail.sparkpost_secret_comment
+            tab: system::lang.mail.general
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[sparkpost]

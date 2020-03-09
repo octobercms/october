@@ -27,9 +27,6 @@ return [
             'help' => "Yönetim paneline erişebilmeniz için geçerli bir veritabanı yapılandırması yapmalısınız. Lütfen ayarların kontrol edin.",
             'cms_link' => 'Anasayfaya dön',
         ],
-        'invalid_token' => [
-            'label' => 'Geçersiz güvenlik anahtarı'
-        ],
     ],
     'partial' => [
         'not_found_name' => "':name' bölümü bulunamadı.",
@@ -277,8 +274,8 @@ return [
         'preview_no_media_message' => 'Seçilmiş medya yok.',
         'preview_no_record_message' => 'Seçili kayıt yok.',
         'select' => 'Seç',
-        'select_all' => 'tümü',
-        'select_none' => 'hiçbiri',
+        'select_all' => 'hepsini seç',
+        'select_none' => 'hiçbir şey seçilmedi',
         'select_placeholder' => 'lütfen seçin',
         'insert_row' => 'Kayıt Ekle',
         'insert_row_below' => 'Alt Satıra Kayıt Ekle',
