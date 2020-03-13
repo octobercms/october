@@ -6,6 +6,7 @@ use ReflectionClass;
 use SystemException;
 use Yaml;
 use Backend;
+use Config;
 
 /**
  * Plugin base class
@@ -301,5 +302,16 @@ class PluginBase extends ServiceProviderBase
         }
 
         return $this->loadedYamlConfiguration;
+    }
+
+    /**
+     * Return Plugin's relative URL
+     *
+     * @return string
+     */
+    public function getPluginUrl()
+    {
+       $parts = array_slice(explode('\\', strtolower(get_class($this))), 0, -1);
+       return Config::get('cms.pluginsPath') . '/' . implode('/', $parts);
     }
 }
