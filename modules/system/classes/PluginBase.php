@@ -311,7 +311,7 @@ class PluginBase extends ServiceProviderBase
      */
     public function getPluginUrl()
     {
-       $parts = array_slice(explode('\\', strtolower(get_class($this))), 0, -1);
-       return Config::get('cms.pluginsPath') . '/' . implode('/', $parts);
+        $parts = array_slice(explode('\\', strtolower(get_class($this))), 0, -1);
+        return Config::get('cms.pluginsPath') . '/' . implode('/', $parts);
     }
 }
