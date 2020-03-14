@@ -282,7 +282,7 @@ class OctoberEnv extends Command
      */
     private function stripQuotes($string)
     {
-        return strtr($string, ['"' => '', "'" => '']);
+        return preg_replace('/^(\'(.*)\'|"(.*)")$/', '$2$3', $string);
     }
 
     /**
