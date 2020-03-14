@@ -49,9 +49,9 @@ class PluginRollback extends Command
             if (!VersionManager::instance()->hasDatabaseVersion($pluginName, $stopOnVersion)) {
                 throw new \InvalidArgumentException(Lang::get('Plugin version not found'));
             }
-            $confirmQuestion = 'Do you want to continue reverting to version ' . $stopOnVersion . '? This option is nonreversible. [yes|no]';
+            $confirmQuestion = 'Please confirm that you wish to revert the plugin to version ' . $stopOnVersion . '. This may result in changes to your database and potential data loss.';
         } else {
-            $confirmQuestion = 'Do you wish to continue reverting all versions? This option is nonreversible. [yes|no]';
+            $confirmQuestion = 'Please confirm that you wish to completely rollback this plugin. This may result in potential data loss.';
         }
 
         if ($this->option('force') || $this->confirm($confirmQuestion)) {
@@ -62,7 +62,7 @@ class PluginRollback extends Command
                 $manager->rollbackPlugin($pluginName, $stopOnVersion);
             } catch (\Exception $exception) {
                 $lastVersion = VersionManager::instance()->getCurrentVersion($pluginName);
-                $this->output->writeln(sprintf("<comment>An exception occurred during the rollback, and the plugin was stopped in version v%s.</comment>", $lastVersion));
+                $this->output->writeln(sprintf("<comment>An exception occurred during the rollback and the process has been stopped. The plugin was rolled back to version v%s.</comment>", $lastVersion));
                 throw $exception;
             }
         }
