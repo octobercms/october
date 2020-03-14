@@ -56,7 +56,7 @@ class Page extends CmsCompoundObject
         parent::__construct($attributes);
 
         $this->customMessages = [
-            'url.regex' => Lang::get('cms::lang.page.invalid_url')
+            'url.regex' => 'cms::lang.page.invalid_url',
         ];
     }
 
