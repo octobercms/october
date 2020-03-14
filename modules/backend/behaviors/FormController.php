@@ -771,10 +771,8 @@ class FormController extends ControllerBehavior
         /*
          * Prepare query and find model record
          */
-        /** @var \October\Rain\Database\Builder|\October\Rain\Halcyon\Builder $query */
         $query = $model->newQuery();
         $this->controller->formExtendQuery($query);
-        /** @var \October\Rain\Database\Model|\October\Rain\Halcyon\Model $result */
         $result = $query->find($recordId);
 
         if (!$result) {
@@ -860,7 +858,7 @@ class FormController extends ControllerBehavior
     /**
      * Extend the query used for finding the form model. Extra conditions
      * can be applied to the query, for example, $query->withTrashed();
-     * @param \October\Rain\Database\Builder $query
+     * @param \October\Rain\Database\Builder|\October\Rain\Halcyon\Builder $query
      * @return void
      */
     public function formExtendQuery($query)
