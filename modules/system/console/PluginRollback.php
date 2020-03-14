@@ -40,14 +40,14 @@ class PluginRollback extends Command
         $pluginName = $this->argument('name');
         $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
         if (!PluginManager::instance()->exists($pluginName)) {
-            throw new \InvalidArgumentException(Lang::get('system::lang.updates.plugin_not_found'));
+            throw new \InvalidArgumentException('Plugin not found');
         }
 
         $stopOnVersion = ltrim(($this->argument('version') ?: null), 'v');
 
         if ($stopOnVersion) {
             if (!VersionManager::instance()->hasDatabaseVersion($pluginName, $stopOnVersion)) {
-                throw new \InvalidArgumentException(Lang::get('system::lang.updates.plugin_version_not_found'));
+                throw new \InvalidArgumentException(Lang::get('Plugin version not found'));
             }
             $confirmQuestion = 'Do you want to continue reverting to version ' . $stopOnVersion . '? This option is nonreversible. [yes|no]';
         } else {
