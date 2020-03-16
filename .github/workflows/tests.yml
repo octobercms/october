@@ -110,4 +110,4 @@ jobs:
         if: failure()
         with:
           name: dusk-screenshots
-          path: ./tests/Browser/screenshots
+          path: ./storage/dusk/screenshots
