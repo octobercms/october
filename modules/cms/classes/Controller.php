@@ -1538,7 +1538,7 @@ class Controller
                     $newPropertyValue = $routerParameters[$routeParamName] ?? null;
                 }
                 else {
-                    $newPropertyValue = $parameters[$paramName] ?? null;
+                    $newPropertyValue = array_get($parameters, $paramName, null);
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);
