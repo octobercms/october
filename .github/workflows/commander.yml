@@ -1,0 +1,16 @@
+name: Commander
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  runComment:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run comment
+      uses: nwtgck/actions-comment-run@v1.0
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        allowed-associations: '["OWNER", "MEMBER"]'
