@@ -79,6 +79,7 @@
             editorClass: 'control-richeditor',
             language: this.options.editorLang,
             fullPage: this.options.fullpage,
+            imagePaste: this.options.imagePaste,
             pageLinksHandler: this.options.linksHandler,
             uploadHandler: this.options.uploadHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
