@@ -88,6 +88,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
         $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
+        $this->vars['imagePaste'] = true;
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
