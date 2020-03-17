@@ -121,8 +121,9 @@ class OctoberEnvTest extends TestCase
 
     protected function restoreEnvFile()
     {
+        unlink(base_path('.env'));
+
         if (file_exists(base_path('.env.stub'))) {
-            unlink(base_path('.env'));
             rename(base_path('.env.stub'), base_path('.env'));
         }
     }
