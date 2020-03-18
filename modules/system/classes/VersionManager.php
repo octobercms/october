@@ -177,34 +177,39 @@ class VersionManager
         $stopOnNextVersion = false;
         $newPluginVersion = null;
 
-        foreach ($pluginHistory as $history) {
-            if ($stopCurrentVersion && $stopOnVersion === $history->version) {
-                $newPluginVersion = $history->version;
-                break;
+        try {
+
+            foreach ($pluginHistory as $history) {
+                if ($stopCurrentVersion && $stopOnVersion === $history->version) {
+                    $newPluginVersion = $history->version;
+                    break;
+                }
+
+                if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
+                    // Stop if the $stopOnVersion value was found and
+                    // this is a new version. The history could contain
+                    // multiple items for a single version (comments and scripts).
+                    $newPluginVersion = $history->version;
+                    break;
+                }
+
+                if ($history->type == self::HISTORY_TYPE_COMMENT) {
+                    $this->removeDatabaseComment($code, $history->version);
+                } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
+                    $this->removeDatabaseScript($code, $history->version, $history->detail);
+                }
+
+                if ($stopOnVersion === $history->version) {
+                    $stopOnNextVersion = true;
+                }
             }
 
-            if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
-                // Stop if the $stopOnVersion value was found and
-                // this is a new version. The history could contain
-                // multiple items for a single version (comments and scripts).
-                $newPluginVersion = $history->version;
-                break;
-            }
-
-            if ($history->type == self::HISTORY_TYPE_COMMENT) {
-                $this->removeDatabaseComment($code, $history->version);
-            } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
-                $this->removeDatabaseScript($code, $history->version, $history->detail);
-            }
-
+        } catch (\Exception $exception) {
             $lastHistory = $this->getLastHistory($code);
             if ($lastHistory) {
                 $this->setDatabaseVersion($code, $lastHistory->version);
             }
-
-            if ($stopOnVersion === $history->version) {
-                $stopOnNextVersion = true;
-            }
+            throw $exception;
         }
 
         $this->setDatabaseVersion($code, $newPluginVersion);
