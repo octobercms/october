@@ -178,7 +178,6 @@ class VersionManager
         $newPluginVersion = null;
 
         try {
-
             foreach ($pluginHistory as $history) {
                 if ($stopCurrentVersion && $stopOnVersion === $history->version) {
                     $newPluginVersion = $history->version;
@@ -203,7 +202,6 @@ class VersionManager
                     $stopOnNextVersion = true;
                 }
             }
-
         } catch (\Exception $exception) {
             $lastHistory = $this->getLastHistory($code);
             if ($lastHistory) {
