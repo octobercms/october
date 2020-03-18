@@ -476,9 +476,9 @@ class ListController extends ControllerBehavior
 
     /**
      * Controller override: Extend supplied model
-     * @param \October\Rain\Database\Model|\October\Rain\Halcyon\Model $model
+     * @param \October\Rain\Database\Model $model
      * @param string|null $definition
-     * @return \October\Rain\Database\Model|\October\Rain\Halcyon\Model
+     * @return \October\Rain\Database\Model
      */
     public function listExtendModel($model, $definition = null)
     {
@@ -488,7 +488,7 @@ class ListController extends ControllerBehavior
     /**
      * Controller override: Extend the query used for populating the list
      * before the default query is processed.
-     * @param \October\Rain\Database\Builder|\October\Rain\Halcyon\Builder $query
+     * @param \October\Rain\Database\Builder $query
      * @param string|null $definition
      */
     public function listExtendQueryBefore($query, $definition = null)
@@ -498,7 +498,7 @@ class ListController extends ControllerBehavior
     /**
      * Controller override: Extend the query used for populating the list
      * after the default query is processed.
-     * @param \October\Rain\Database\Builder|\October\Rain\Halcyon\Builder $query
+     * @param \October\Rain\Database\Builder $query
      * @param string|null $definition
      */
     public function listExtendQuery($query, $definition = null)
@@ -527,7 +527,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Returns a CSS class name for a list row (<tr class="...">).
-     * @param  \October\Rain\Database\Model|\October\Rain\Halcyon\Model $record The populated model used for the column
+     * @param  \October\Rain\Database\Model $record The populated model used for the column
      * @param  string|null $definition List definition (optional)
      * @return string|void CSS class name
      */
@@ -537,7 +537,7 @@ class ListController extends ControllerBehavior
 
     /**
      * Replace a table column value (<td>...</td>)
-     * @param  \October\Rain\Database\Model|\October\Rain\Halcyon\Model $record The populated model used for the column
+     * @param  \October\Rain\Database\Model $record The populated model used for the column
      * @param  string $columnName The column name to override
      * @param  string|null $definition List definition (optional)
      * @return string|void HTML view
