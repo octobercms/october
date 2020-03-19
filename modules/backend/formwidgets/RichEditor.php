@@ -34,7 +34,7 @@ class RichEditor extends FormWidgetBase
     /**
      * @var boolean Is image pasting allowed into the editor.
      */
-    public $imagePaste = true;
+    public $allowImagePaste = true;
 
     /**
      * @var boolean Determines whether content has HEAD and HTML tags.
@@ -73,7 +73,7 @@ class RichEditor extends FormWidgetBase
             'fullPage',
             'readOnly',
             'toolbarButtons',
-            'imagePaste',
+            'allowImagePaste',
         ]);
     }
 
@@ -101,7 +101,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
         $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
-        $this->vars['imagePaste'] = $this->imagePaste;
+        $this->vars['allowImagePaste'] = $this->allowImagePaste;
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
