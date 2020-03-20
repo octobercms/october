@@ -204,7 +204,7 @@ class ListController extends ControllerBehavior
         if (isset($listConfig->toolbar)) {
             $toolbarConfig = $this->makeConfig($listConfig->toolbar);
             $toolbarConfig->alias = $widget->alias . 'Toolbar';
-            $toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $toolbarConfig);
+            $toolbarWidget = $this->makeWidget(\Backend\Widgets\Toolbar::class, $toolbarConfig);
             $toolbarWidget->bindToController();
             $toolbarWidget->cssClasses[] = 'list-header';
 
@@ -237,7 +237,7 @@ class ListController extends ControllerBehavior
 
             $filterConfig = $this->makeConfig($listConfig->filter);
             $filterConfig->alias = $widget->alias . 'Filter';
-            $filterWidget = $this->makeWidget('Backend\Widgets\Filter', $filterConfig);
+            $filterWidget = $this->makeWidget(\Backend\Widgets\Filter::class, $filterConfig);
             $filterWidget->bindToController();
 
             /*
@@ -564,8 +564,7 @@ class ListController extends ControllerBehavior
     public static function extendListColumns($callback)
     {
         $calledClass = self::getCalledExtensionClass();
-        Event::listen('backend.list.extendColumns', function ($widget) use ($calledClass, $callback) {
-            /** @var \Backend\Widgets\Lists $widget */
+        Event::listen('backend.list.extendColumns', function (\Backend\Widgets\Lists $widget) use ($calledClass, $callback) {
             if (!is_a($widget->getController(), $calledClass)) {
                 return;
             }
@@ -581,8 +580,7 @@ class ListController extends ControllerBehavior
     public static function extendListFilterScopes($callback)
     {
         $calledClass = self::getCalledExtensionClass();
-        Event::listen('backend.filter.extendScopes', function ($widget) use ($calledClass, $callback) {
-            /** @var \Backend\Widgets\Lists $widget */
+        Event::listen('backend.filter.extendScopes', function (\Backend\Widgets\Filter $widget) use ($calledClass, $callback) {
             if (!is_a($widget->getController(), $calledClass)) {
                 return;
             }
