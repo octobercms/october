@@ -19,7 +19,7 @@ trait WidgetMaker
      * Makes a widget object with the supplied configuration file.
      * @param string $class Widget class name
      * @param array $widgetConfig An array of config.
-     * @return \Backend\Classes\WidgetBase The widget object
+     * @return mixed|\Backend\Classes\WidgetBase The widget object
      */
     public function makeWidget($class, $widgetConfig = [])
     {

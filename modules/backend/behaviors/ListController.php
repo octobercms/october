@@ -165,7 +165,6 @@ class ListController extends ControllerBehavior
         /*
          * List Widget with extensibility
          */
-        /** @var \Backend\Widgets\Lists $widget */
         $widget = $this->makeWidget(\Backend\Widgets\Lists::class, $columnConfig);
 
         $widget->bindEvent('list.extendColumns', function () use ($widget) {
