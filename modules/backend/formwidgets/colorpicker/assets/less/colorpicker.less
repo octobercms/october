@@ -69,6 +69,36 @@
 
     }
 
+    &.disabled {
+        > ul {
+            li {
+                &:hover {
+                    cursor: not-allowed;
+                    background-color: transparent;
+
+                    span {
+                        border: 1px solid @color-colorpicker-border;
+                    }
+                }
+
+                &.custom-color {
+                    position: relative;
+
+                    span {
+                        border-style: dashed;
+                    }
+
+                    &:hover,
+                    &.active {
+                        span {
+                            border-style: solid;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 //
