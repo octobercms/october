@@ -11,6 +11,7 @@
     data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
+    <?= $this->formField->getAttributes() ?>
 >
 
     <!-- Add New Image -->
