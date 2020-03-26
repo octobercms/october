@@ -1476,8 +1476,6 @@ class RelationController extends ControllerBehavior
                 return null;
             } elseif (is_string($buttons)) {
                 $buttons = array_map('trim', explode('|', $buttons));
-            } elseif (is_array($buttons)) {
-                $buttons = $buttons;
             } elseif ($this->manageMode == 'pivot') {
                 $buttons = ['add', 'remove'];
             } else {
