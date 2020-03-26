@@ -1585,8 +1585,7 @@ class RelationController extends ControllerBehavior
             case 'pivot':
                 if (array_key_exists('pivot', $customTitles)) {
                     return $customTitles['pivot'];
-                }
-                elseif ($this->eventTarget == 'button-link') {
+                } elseif ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
@@ -1594,8 +1593,7 @@ class RelationController extends ControllerBehavior
             case 'list':
                 if (array_key_exists('list', $customTitles)) {
                     return $customTitles['list'];
-                }
-                elseif ($this->eventTarget == 'button-link') {
+                } elseif ($this->eventTarget == 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
@@ -1603,11 +1601,9 @@ class RelationController extends ControllerBehavior
             case 'form':
                 if (array_key_exists('form', $customTitles)) {
                     return $customTitles['form'];
-                }
-                elseif ($this->readOnly) {
+                } elseif ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
-                }
-                elseif ($this->manageId) {
+                } elseif ($this->manageId) {
                     return 'backend::lang.relation.update_name';
                 }
                 
