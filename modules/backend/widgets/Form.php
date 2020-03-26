@@ -383,6 +383,7 @@ class Form extends WidgetBase
         $this->setFormValues($saveData);
         $this->prepareVars();
 
+        $fieldsBeforeRefresh = $this->allFields;
         /**
          * @event backend.form.refreshFields
          * Called when the form is refreshed, giving the opportunity to modify the form fields
@@ -402,6 +403,13 @@ class Form extends WidgetBase
          */
         $this->fireSystemEvent('backend.form.refreshFields', [$this->allFields]);
 
+        $fieldsStructureModifications = array_merge(array_diff_key($fieldsBeforeRefresh, $this->allFields), array_diff_key($this->allFields, $fieldsBeforeRefresh));
+        /**
+         * Does any fields has been removed or added?
+         */
+        $formStructureModified = (bool)$fieldsStructureModifications;
+        
+
         /*
          * If an array of fields is supplied, update specified fields individually.
          */
@@ -420,7 +428,7 @@ class Form extends WidgetBase
         /*
          * Update the whole form
          */
-        if (empty($result)) {
+        if (empty($result) || $formStructureModified) {
             $result = ['#'.$this->getId() => $this->makePartial('form')];
         }
 
