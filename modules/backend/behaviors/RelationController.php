@@ -1465,7 +1465,7 @@ class RelationController extends ControllerBehavior
 
     /**
      * Determine the default buttons based on the model relationship type.
-     * @return string
+     * @return array|string
      */
     protected function evalToolbarButtons()
     {
@@ -1495,41 +1495,41 @@ class RelationController extends ControllerBehavior
             }
         }
 
-        $buttonText = array();
+        $buttonText = [];
 
         foreach ($buttons as $type => $text) {
-            if (is_numeric($type) || ! $text) {
+            if (is_numeric($type) || !$text) {
                 if (is_numeric($type) && $text) {
                     $type = $text;
                 }
 
                 switch ($type) {
-                    case 'add':
-                        $text = 'backend::lang.relation.add_name';
-                        break;
-
                     case 'create':
                         $text = 'backend::lang.relation.create_name';
+                        break;
+
+                    case 'update':
+                        $text = 'backend::lang.relation.update_name';
                         break;
 
                     case 'delete':
                         $text = 'backend::lang.relation.delete';
                         break;
 
-                    case 'link':
-                        $text = 'backend::lang.relation.link_name';
+                    case 'add':
+                        $text = 'backend::lang.relation.add_name';
                         break;
 
                     case 'remove':
                         $text = 'backend::lang.relation.remove';
                         break;
+
+                    case 'link':
+                        $text = 'backend::lang.relation.link_name';
+                        break;
                         
                     case 'unlink':
                         $text = 'backend::lang.relation.unlink';
-                        break;
-
-                    case 'update':
-                        $text = 'backend::lang.relation.update_name';
                         break;
                 }
             }
@@ -1577,7 +1577,7 @@ class RelationController extends ControllerBehavior
             return $customTitle;
         }
 
-        $customTitles = is_array($customTitle) ? $customTitle : array();
+        $customTitles = is_array($customTitle) ? $customTitle : [];
 
         switch ($this->manageMode) {
             case 'pivot':
