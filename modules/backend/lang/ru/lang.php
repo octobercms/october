@@ -7,7 +7,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
-        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
+        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.", // TODO
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
         'colors_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий HTML цвет в HEX для поля формы ':field'."
     ],
@@ -17,6 +17,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Без названия',
+        '404' => [
+            'label' => 'Страница не найдена',
+            'help' => 'Мы тщательно искали, но запрошенный URL так и не смогли найти. Может быть вы искали что то ещё?',
+            'back_link' => 'Вернуться к предыдущей странице',
+        ],
         'access_denied' => [
             'label' => 'Доступ запрещен',
             'help' => 'У вас нет необходимых прав для просмотра этой страницы.',
@@ -29,9 +34,20 @@ return [
         ],
     ],
     'partial' => [
-        'not_found_name' => 'Не удалось найти шаблон (partial) с именем :name.'
+        'not_found_name' => 'Не удалось найти фрагмент (partial) с именем :name.',
+        'invalid_name' => 'Неправильное имя фрагмента: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Invalid AJAX handler name: :name.', // TODO
+        'not_found' => "AJAX handler ':name' was not found.", // TODO
     ],
     'account' => [
+        'impersonate' => 'Impersonate user', // TODO
+        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.', // TODO
+        'impersonate_success' => 'You are now impersonating this user', // TODO
+        'impersonate_working' => 'Impersonating...', // TODO
+        'impersonating' => 'Impersonating :full_name', // TODO
+        'stop_impersonating' => 'Stop impersonating', // TODO
         'signed_in_as' => 'Выполнен вход как :full_name',
         'sign_out' => 'Выйти',
         'login' => 'Вход',
@@ -138,6 +154,8 @@ return [
         'last_login' => 'Последний вход',
         'created_at' => 'Создан',
         'updated_at' => 'Обновлен',
+        'deleted_at' => 'Удален',
+        'show_deleted' => 'Показать удаленных',
         'group' => [
             'name' => 'Группы',
             'name_field' => 'Название',
@@ -171,6 +189,8 @@ return [
         'preferences' => [
             'not_authenticated' => 'Невозможно загрузить или сохранить настройки для неавторизованного пользователя.'
         ],
+        'trashed_hint_title' => 'Этот аккаунт был удален',
+        'trashed_hint_desc' => 'Этот аккаунт был удален и не может быть авторизован. Чтобы восстановить его, нажмите иконку восстановления пользователя в правом нижнем углу.',
     ],
     'list' => [
         'default_title' => 'Список',
@@ -216,6 +236,7 @@ return [
         'remove_file' => 'Удалить файл'
     ],
     'repeater' => [
+        'add_new_item' => 'Добавить новый объект',
         'min_items_failed' => ':name требует минимум :min объектов, было передано только :items',
         'max_items_failed' => ':name позволяет передать максимум :max объектов, было передано :items',
     ],
@@ -226,6 +247,7 @@ return [
         'create_success' => ':name был успешно создан',
         'update_success' => ':name был успешно сохранен',
         'delete_success' => ':name был успешно удален',
+        'restore_success' => ':name восстановлен',
         'reset_success' => 'Сброс завершен',
         'missing_id' => 'Идентификатор формы записи не указан.',
         'missing_model' => 'Для формы используемой в :class не определена модель.',
@@ -245,6 +267,9 @@ return [
         'confirm_delete' => 'Вы действительно хотите удалить эту запись?',
         'confirm_delete_multiple' => 'Вы действительно хотите удалить выбранные записи?',
         'deleting_name' => 'Удаление :name...',
+        'restore' => 'Восстановить',
+        'restoring' => 'Восстановление...',
+        'confirm_restore' => 'Вы уверены, что хотите восстановить эту запись?',
         'reset_default' => 'Сбросить настройки',
         'resetting' => 'Сброс',
         'resetting_name' => 'Сброс :name',
@@ -278,6 +303,7 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Найти запись',
+        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid', // TODO
         'cancel' => 'Отмена'
     ],
     'pagelist' => [
@@ -335,7 +361,9 @@ return [
         'tips_description' => 'Есть проблемы, на которые стоит обратить внимание, чтобы правильно настроить систему.',
         'permissions' => 'Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.',
         'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.',
-        'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.'
+        'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.',
+        'debug' => 'Режим отладки включен. Это не рекомендуется для рабочих инсталяций.',
+        'decompileBackendAssets' => 'Assets in the Backend are currently decompiled. This is not recommended for production installations.' // TODO
     ],
     'editor' => [
         'menu_label' => 'Настройки редактора',
@@ -405,6 +433,8 @@ return [
         'brand' => 'Бренд',
         'logo' => 'Логотип',
         'logo_description' => 'Загрузите логотип для панели управления',
+        'favicon' => 'Фавикон',
+        'favicon_description' => 'Загрузите пользовательский фавикон для бекенда',
         'app_name' => 'Название приложения',
         'app_name_description' => 'Это имя отображается в заголовке панели управления',
         'app_tagline' => 'Слоган приложения',
@@ -418,6 +448,7 @@ return [
         'navigation' => 'Навигация',
         'menu_mode' => 'Стиль меню',
         'menu_mode_inline' => 'Строчный',
+        'menu_mode_inline_no_icons' => 'Строчный (без иконок)',
         'menu_mode_tile' => 'Плитка',
         'menu_mode_collapsed' => 'Схлопнутый'
     ],
@@ -435,7 +466,9 @@ return [
         'hint' => 'В этом журнале отображается список успешных попыток авторизаций администраторов. Записи хранятся :days дней.',
         'menu_label' => 'Журнал доступа',
         'menu_description' => 'Просмотр списка успешных авторизаций администраторов.',
+        'id' => 'ID',
         'created_at' => 'Дата & Время',
+        'type' => 'Тип',
         'login' => 'Логин',
         'ip_address' => 'IP адрес',
         'first_name' => 'Имя',
@@ -522,11 +555,12 @@ return [
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Управление медиафайлами'
+        'manage_media' => 'Загрузка и управление медиаконтентом - изображениями, видео, звуками, документами',
     ],
     'mediafinder' => [
         'label' => 'Поиск медиа',
-        'default_prompt' => 'Кликните на кнопку %s, чтобы найти медиафайл'
+        'default_prompt' => 'Кликните на кнопку %s, чтобы найти медиафайл',
+        'no_image' => 'Не удалось найти изображение',
     ],
     'media' => [
         'menu_label' => 'Медиафайлы',
