@@ -1471,7 +1471,7 @@ class RelationController extends ControllerBehavior
     {
         $buttons = $this->getConfig('view[toolbarButtons]');
 
-        if (! is_array($buttons)) {
+        if (!is_array($buttons)) {
             if ($buttons === false) {
                 return null;
             }
