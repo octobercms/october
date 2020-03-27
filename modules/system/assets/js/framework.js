@@ -68,6 +68,11 @@ if (window.jQuery.request !== undefined) {
             requestHeaders['X-OCTOBER-REQUEST-FLASH'] = 1
         }
 
+        var csrfToken = getXSRFToken()
+        if (csrfToken) {
+            requestHeaders['X-XSRF-TOKEN'] = csrfToken
+        }
+
         /*
          * Request data
          */
@@ -267,7 +272,7 @@ if (window.jQuery.request !== undefined) {
              * Custom function, redirect the browser to another location
              */
             handleRedirectResponse: function(url) {
-                window.location.href = url
+                window.location.assign(url)
             },
 
             /*
@@ -463,6 +468,21 @@ if (window.jQuery.request !== undefined) {
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
+    }
+
+    function getXSRFToken() {
+        var cookieValue = null
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';')
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i])
+                if (cookie.substring(0, 11) == ('XSRF-TOKEN' + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(11))
+                    break
+                }
+            }
+        }
+        return cookieValue
     }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {

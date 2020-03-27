@@ -715,6 +715,7 @@
             clickable: this.$el.find('[data-control="upload"]').get(0),
             url: this.options.url,
             paramName: 'file_data',
+            timeout: 0,
             headers: {},
             createImageThumbnails: false
             // fallback: implement method that would set a flag that the uploader is not supported by the browser

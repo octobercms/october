@@ -14,6 +14,8 @@ useFiles=false}
 if($.type(loading)=='string'){loading=$(loading)}
 var requestHeaders={'X-OCTOBER-REQUEST-HANDLER':handler,'X-OCTOBER-REQUEST-PARTIALS':this.extractPartials(options.update)}
 if(useFlash){requestHeaders['X-OCTOBER-REQUEST-FLASH']=1}
+var csrfToken=getXSRFToken()
+if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}
 var requestData,inputName,data={}
 $.each($el.parents('[data-request-data]').toArray().reverse(),function extendRequest(){$.extend(data,paramToObj('data-request-data',$(this).data('request-data')))})
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
@@ -66,7 +68,7 @@ var fieldElement=$form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [
 if(fieldElement.length>0){var _event=jQuery.Event('ajaxInvalidField')
 $(window).trigger(_event,[fieldElement.get(0),fieldName,fieldMessages,isFirstInvalidField])
 if(isFirstInvalidField){if(!_event.isDefaultPrevented())fieldElement.focus()
-isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.href=url},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
+isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.assign(url)},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
 if($.type(selector)=='string'&&selector.charAt(0)=='@'){$(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else if($.type(selector)=='string'&&selector.charAt(0)=='^'){$(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else{$(selector).trigger('ajaxBeforeReplace')
@@ -112,6 +114,12 @@ function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
 try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
+function getXSRFToken(){var cookieValue=null
+if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';')
+for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i])
+if(cookie.substring(0,11)==('XSRF-TOKEN'+'=')){cookieValue=decodeURIComponent(cookie.substring(11))
+break}}}
+return cookieValue}
 $(document).on('change','select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]',function documentOnChange(){$(this).request()})
 $(document).on('click','a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]',function documentOnClick(e){e.preventDefault()
 $(this).request()

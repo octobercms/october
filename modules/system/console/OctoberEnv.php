@@ -203,7 +203,7 @@ class OctoberEnv extends Command
     private function saveEnvSettings($key, $value)
     {
         if (! $this->envKeyExists($key)) {
-            $line = sprintf("%s=%s\n", $key, $this->stripQuotes($value));
+            $line = sprintf("%s=%s\n", $key, $value);
 
             if ($this->config == 'database' && $key != 'DB_CONNECTION') {
                 $this->writeDbEnvSettings($line);
@@ -266,7 +266,11 @@ class OctoberEnv extends Command
     private function normalize($value)
     {
         if (is_string($value)) {
-            return "'$value'";
+            if (preg_match('/["\'#]/', $value)) {
+                return '"' . str_replace('"', '\\"', $value) . '"';
+            } else {
+                return $value;
+            }
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
         } elseif ($value === null) {
@@ -274,15 +278,6 @@ class OctoberEnv extends Command
         }
 
         return $value;
-    }
-
-    /**
-     * @param $string
-     * @return string
-     */
-    private function stripQuotes($string)
-    {
-        return strtr($string, ['"' => '', "'" => '']);
     }
 
     /**

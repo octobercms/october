@@ -25,9 +25,6 @@ return [
             'help' => "K přístupu do administrace je zapotřebí databáze. Zkontrolujte, zda je databáze nakonfigurována a migrována a zkuste to znovu.",
             'cms_link' => 'Zpět na úvodní stránku'
         ],
-        'invalid_token' => [
-            'label' => 'Neplatný bezpečnostní token',
-        ]
     ],
     'partial' => [
         'not_found_name' => "Dílčí šablona ':name' nebyla nalezena."
@@ -262,8 +259,8 @@ return [
         'preview_no_media_message' => 'Žádné médium nebylo vybráno.',
         'preview_no_record_message' => 'Žádný záznam není vybraný.',
         'select' => 'Vybrat',
-        'select_all' => 'Vše',
-        'select_none' => 'Nic',
+        'select_all' => 'vybrat vše',
+        'select_none' => 'vyberte žádný',
         'select_placeholder' => 'Prosím vyberte',
         'insert_row' => 'Vložit řádek',
         'insert_row_below' => 'Vložit řádek pod',

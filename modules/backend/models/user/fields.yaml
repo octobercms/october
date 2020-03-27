@@ -24,6 +24,7 @@ tabs:
 
         email:
             span: right
+            type: email
             label: backend::lang.user.email
 
         send_invite:

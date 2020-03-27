@@ -25,9 +25,6 @@ return [
             'help' => "백엔드에 접속하기 위해선 DB가 필요합니다. 다시 접속하시기 전에 DB가 정상적으로 설정및 이전되었는지 확인해주세요.",
             'cms_link' => '홈페이지로 돌아가기'
         ],
-        'invalid_token' => [
-            'label' => '잘못된 보안 토큰'
-        ]
     ],
     'partial' => [
         'not_found_name' => "':name' 페이지를 찾을 수 없습니다.",
@@ -244,8 +241,8 @@ return [
         'preview_no_media_message' => '선택하신 미디어가 없습니다.',
         'preview_no_record_message' => '선택하신 기록이 없습니다.',
         'select' => '선택',
-        'select_all' => '전체선택',
-        'select_none' => '선택없음',
+        'select_all' => '모두 선택',
+        'select_none' => '없음을 선택하십시오',
         'select_placeholder' => '선택해주세요',
         'insert_row' => '행 추가',
         'insert_row_below' => '아래 행 추가',

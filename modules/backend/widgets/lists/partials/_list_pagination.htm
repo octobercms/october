@@ -34,7 +34,8 @@
                 name="page"
                 class="form-control input-sm custom-select select-no-search"
                 data-request="<?= $this->getEventHandler('onPaginate') ?>"
-                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>">
+                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
+                autocomplete="off">
                 <?php for($i = 1; $i <= $pageLast ; $i++): ?>
                     <option value="<?= $i ?>" <?= $i === $pageCurrent ? 'selected' : '' ?>><?= $i ?></option>
                 <?php endfor ?>

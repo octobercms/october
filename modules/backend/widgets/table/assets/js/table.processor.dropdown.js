@@ -270,8 +270,10 @@
         }
     }
 
-    DropdownProcessor.prototype.updateCellFromFocusedItem = function() {
-        var focusedItem = this.findFocusedItem();
+    DropdownProcessor.prototype.updateCellFromFocusedItem = function(focusedItem) {
+        if (!focusedItem) {
+            focusedItem = this.findFocusedItem();
+        }
         this.setSelectedItem(focusedItem);
     }
 
@@ -309,7 +311,7 @@
 
         if (target.tagName == 'LI') {
             target.focus();
-            this.updateCellFromFocusedItem()
+            this.updateCellFromFocusedItem(target)
             this.hideDropdown()
         }
     }
