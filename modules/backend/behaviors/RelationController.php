@@ -1583,7 +1583,7 @@ class RelationController extends ControllerBehavior
             case 'pivot':
                 if (array_key_exists('pivot', $customTitles)) {
                     return $customTitles['pivot'];
-                } elseif ($this->eventTarget == 'button-link') {
+                } elseif ($this->eventTarget === 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
