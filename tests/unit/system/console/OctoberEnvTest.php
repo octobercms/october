@@ -13,7 +13,7 @@ class OctoberEnvTest extends TestCase
     /** @var string Stores the original config path from the app container */
     public static $origConfigPath;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -52,7 +52,7 @@ class OctoberEnvTest extends TestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->tearDownConfigFixtures();
         $this->restoreEnvFile();
