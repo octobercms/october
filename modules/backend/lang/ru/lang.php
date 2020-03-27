@@ -7,7 +7,6 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
-        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.", // TODO
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
         'colors_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий HTML цвет в HEX для поля формы ':field'."
     ],
@@ -38,16 +37,10 @@ return [
         'invalid_name' => 'Неправильное имя фрагмента: :name.',
     ],
     'ajax_handler' => [
-        'invalid_name' => 'Invalid AJAX handler name: :name.', // TODO
-        'not_found' => "AJAX handler ':name' was not found.", // TODO
+        'invalid_name' => 'Неправильное имя AJAX обработчика: :name.',
+        'not_found' => "AJAX обработчик ':name' не найден.",
     ],
     'account' => [
-        'impersonate' => 'Impersonate user', // TODO
-        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.', // TODO
-        'impersonate_success' => 'You are now impersonating this user', // TODO
-        'impersonate_working' => 'Impersonating...', // TODO
-        'impersonating' => 'Impersonating :full_name', // TODO
-        'stop_impersonating' => 'Stop impersonating', // TODO
         'signed_in_as' => 'Выполнен вход как :full_name',
         'sign_out' => 'Выйти',
         'login' => 'Вход',
@@ -303,7 +296,6 @@ return [
     ],
     'recordfinder' => [
         'find_record' => 'Найти запись',
-        'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid', // TODO
         'cancel' => 'Отмена'
     ],
     'pagelist' => [
@@ -363,7 +355,6 @@ return [
         'extension' => 'Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.',
         'plugin_missing' => 'Плагин :name имеет зависимость. Установите этот плагин.',
         'debug' => 'Режим отладки включен. Это не рекомендуется для рабочих инсталяций.',
-        'decompileBackendAssets' => 'Assets in the Backend are currently decompiled. This is not recommended for production installations.' // TODO
     ],
     'editor' => [
         'menu_label' => 'Настройки редактора',
