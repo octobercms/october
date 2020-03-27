@@ -268,7 +268,7 @@ return [
         'confirm_delete_multiple' => 'Delete selected records?',
         'deleting_name' => 'Deleting :name...',
         'restore' => 'Restore',
-        'restoring' => 'Restoring',
+        'restoring' => 'Restoring...',
         'confirm_restore' => 'Are you sure you want to restore this record?',
         'reset_default' => 'Reset to default',
         'resetting' => 'Resetting',
