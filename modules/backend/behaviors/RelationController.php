@@ -1591,7 +1591,7 @@ class RelationController extends ControllerBehavior
             case 'list':
                 if (array_key_exists('list', $customTitles)) {
                     return $customTitles['list'];
-                } elseif ($this->eventTarget == 'button-link') {
+                } elseif ($this->eventTarget === 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
