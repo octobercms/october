@@ -1465,7 +1465,7 @@ class RelationController extends ControllerBehavior
 
     /**
      * Determine the default buttons based on the model relationship type.
-     * @return array|string
+     * @return array|null
      */
     protected function evalToolbarButtons()
     {
