@@ -2,7 +2,7 @@
 
     <?php foreach ($relationToolbarButtons as $type => $text): ?>
 
-        <?php if ($type == 'update'): ?>
+        <?php if ($type === 'update'): ?>
             <?= $this->relationMakePartial('button_update', [
                 'relationManageId' => $relationViewModel->getKey(),
                 'text' => $text
