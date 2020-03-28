@@ -38,9 +38,11 @@
 .field-markdowneditor.is-fullscreen,
 .field-markdowneditor.is-fullscreen .editor-toolbar {border-radius:0 !important;border:none}
 .field-markdowneditor.disabled .ace_scroller {cursor:not-allowed}
-.field-markdowneditor.disabled .ace-github .ace_cursor {opacity:0.2}
-.field-markdowneditor.disabled .control-toolbar.editor-toolbar .toolbar-item .btn {cursor:not-allowed}
-.field-markdowneditor.disabled .control-toolbar.editor-toolbar .toolbar-item .btn:hover {background-color:transparent;color:rgba(64,82,97,0.8)}
+.field-markdowneditor.disabled .ace-github {color:#bdbdbd}
+.field-markdowneditor.disabled .editor-preview {color:#bdbdbd}
+.field-markdowneditor.disabled .control-toolbar.editor-toolbar .toolbar-item .btn {cursor:not-allowed;color:#bdbdbd}
+.field-markdowneditor.disabled .control-toolbar.editor-toolbar .toolbar-item .btn:hover {background-color:transparent;color:#bdbdbd}
+.field-markdowneditor.disabled .control-toolbar.editor-toolbar .toolbar-item .btn.oc-autumn-button {color:#bdbdbd !important}
 .field-markdowneditor .editor-preview {color:#515c5d;font-family:"Helvetica",sans-serif;line-height:180%}
 .field-markdowneditor .editor-preview h1,
 .field-markdowneditor .editor-preview h2,

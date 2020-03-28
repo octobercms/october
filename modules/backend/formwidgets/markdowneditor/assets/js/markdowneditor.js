@@ -360,6 +360,7 @@
         if (this.options.disabled) {
             editor.setReadOnly(true);
             editor.setHighlightSelectedWord(false);
+            editor.renderer.$cursorLayer.element.style.display = 'none';
         } else {
             editor.on('blur', this.proxy(this.onBlur))
             editor.on('focus', this.proxy(this.onFocus))
