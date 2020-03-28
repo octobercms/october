@@ -81,17 +81,42 @@
                     }
                 }
 
+                &.active {
+                    background-color: transparent;
+                }
+
                 &.custom-color {
                     position: relative;
 
                     span {
                         border-style: dashed;
+
+                        &.disabled {
+                            &:before, &:after {
+                                position: absolute;
+                                left: 15px;
+                                content: ' ';
+                                height: 24px;
+                                width: 1px;
+                                background-color: #cecece;
+                            }
+                            &:before {
+                                transform: rotate(45deg);
+                            }
+                            &:after {
+                                transform: rotate(-45deg);
+                            }
+                        }
                     }
 
-                    &:hover,
+                    &:hover {
+                        span {
+                            border-style: dashed;
+                        }
+                    }
                     &.active {
                         span {
-                            border-style: solid;
+                            border: 1px solid @color-colorpicker-border;
                         }
                     }
                 }

@@ -12,19 +12,21 @@
         <?= $this->formField->getAttributes() ?>>
 
         <ul>
-            <?php foreach ($availableColors as $index => $color): ?>
-                <li
-                    class="<?= $color == $value ? 'active' : null ?>"
-                    data-hex-color="<?= $color ?>">
-                    <span style="background: <?= $color ?>"><?= $color ?></span>
-                </li>
-            <?php endforeach ?>
+            <?php if (!$readOnly && !$disabled): ?>
+                <?php foreach ($availableColors as $index => $color): ?>
+                    <li
+                        class="<?= $color == $value ? 'active' : null ?>"
+                        data-hex-color="<?= $color ?>">
+                        <span style="background: <?= $color ?>"><?= $color ?></span>
+                    </li>
+                <?php endforeach ?>
+            <?php endif; ?>
 
             <li
                 class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
                 data-hex-color="<?= $isCustomColor ? e($value) : '#ffffff' ?>"
                 data-custom-color>
-                <span style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
+                <span <?php if ($readOnly || $disabled): ?>class="disabled"<?php endif; ?> style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
             </li>
         </ul>
 
