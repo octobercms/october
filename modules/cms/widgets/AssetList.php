@@ -17,7 +17,6 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
 use Exception;
-use Config;
 
 /**
  * CMS asset list widget.
