@@ -1,6 +1,6 @@
 # Plugin testing
 
-Plugin unit tests can be performed by running `phpunit` in the base plugin directory.
+Plugin unit tests can be performed by running `vendor/bin/phpunit` in the base plugin directory.
 
 ### Creating plugin tests
 
@@ -96,7 +96,7 @@ To perform unit testing on the core October files, you should download a develop
 
 ### Unit tests
 
-Unit tests can be performed by running `phpunit` in the root directory or inside `/tests/unit`.
+Unit tests can be performed by running `vendor/bin/phpunit` in the root directory of your October CMS installation.
 
 ### Functional tests
 
