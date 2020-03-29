@@ -662,7 +662,9 @@ class AssetList extends WidgetBase
             /*
              * Accept the uploaded file
              */
-            $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
+            $uploadedFile = $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
+
+            File::chmod($uploadedFile->getRealPath());
 
             $response = Response::make('success');
         }
