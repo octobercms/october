@@ -665,9 +665,7 @@ class AssetList extends WidgetBase
              */
             $uploadedFile = $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
 
-            if (Config::get('cms.defaultMask.file')) {
-                @chmod($uploadedFile->getRealPath(), octdec(Config::get('cms.defaultMask.file')));
-            }
+            File::chmod($uploadedFile->getRealPath());
 
             $response = Response::make('success');
         }
