@@ -243,8 +243,12 @@ class FormController extends ControllerBehavior
 
         $this->initForm($model);
 
-        $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeCreate($model);
+        if ($result = $this->controller->formBeforeSave($model)) {
+            return $result;
+        }
+        if ($result = $this->controller->formBeforeCreate($model)) {
+            return $result;
+        }
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
         Db::transaction(function () use ($modelsToSave) {
@@ -311,8 +315,12 @@ class FormController extends ControllerBehavior
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
-        $this->controller->formBeforeSave($model);
-        $this->controller->formBeforeUpdate($model);
+        if ($result = $this->controller->formBeforeSave($model)) {
+            return $result;
+        }
+        if ($result = $this->controller->formBeforeUpdate($model)) {
+            return $result;
+        }
 
         $modelsToSave = $this->prepareModelsToSave($model, $this->formWidget->getSaveData());
         Db::transaction(function () use ($modelsToSave) {
