@@ -3,26 +3,32 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-colorpicker"
+        class="field-colorpicker <?php if($readOnly || $disabled): ?>disabled<?php endif; ?>"
         data-control="colorpicker"
         <?php if ($showAlpha): ?>data-show-alpha="<?= $showAlpha ?>"<?php endif ?>
         <?php if ($allowEmpty): ?>data-allow-empty="<?= $allowEmpty ?>"<?php endif ?>
-        data-data-locker="#<?= $this->getId('input') ?>">
+        data-data-locker="#<?= $this->getId('input') ?>"
+        <?php if ($readOnly || $disabled): ?>data-disabled="true"<?php endif; ?>
+        <?= $this->formField->getAttributes() ?>>
 
         <ul>
-            <?php foreach ($availableColors as $index => $color): ?>
-                <li
-                    class="<?= $color == $value ? 'active' : null ?>"
-                    data-hex-color="<?= $color ?>">
-                    <span style="background: <?= $color ?>"><?= $color ?></span>
-                </li>
-            <?php endforeach ?>
+            <?php if (!$readOnly && !$disabled): ?>
+                <?php foreach ($availableColors as $index => $color): ?>
+                    <li
+                        class="<?= $color == $value ? 'active' : null ?>"
+                        data-hex-color="<?= $color ?>">
+                        <span style="background: <?= $color ?>"><?= $color ?></span>
+                    </li>
+                <?php endforeach ?>
+            <?php endif; ?>
 
             <li
                 class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
                 data-hex-color="<?= $isCustomColor ? e($value) : '#ffffff' ?>"
                 data-custom-color>
-                <span style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
+                <span
+                    class="<?php if (!$value): ?>is-empty<?php endif; ?> <?php if ($readOnly || $disabled): ?>disabled<?php endif; ?>"
+                    style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
             </li>
         </ul>
 
