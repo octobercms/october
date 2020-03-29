@@ -26,7 +26,9 @@
                 class="custom-color <?= $isCustomColor == $value ? 'active' : null ?>"
                 data-hex-color="<?= $isCustomColor ? e($value) : '#ffffff' ?>"
                 data-custom-color>
-                <span <?php if ($readOnly || $disabled): ?>class="disabled"<?php endif; ?> style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
+                <span
+                    class="<?php if (!$value): ?>is-empty<?php endif; ?> <?php if ($readOnly || $disabled): ?>disabled<?php endif; ?>"
+                    style="background: <?= $isCustomColor ? e($value) : '#ffffff' ?>"></span>
             </li>
         </ul>
 

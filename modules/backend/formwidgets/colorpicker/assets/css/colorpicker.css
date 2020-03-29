@@ -15,10 +15,10 @@
 .field-colorpicker.disabled >ul li.active {background-color:transparent}
 .field-colorpicker.disabled >ul li.custom-color {position:relative}
 .field-colorpicker.disabled >ul li.custom-color span {border-style:dashed}
-.field-colorpicker.disabled >ul li.custom-color span.disabled:before,
-.field-colorpicker.disabled >ul li.custom-color span.disabled:after {position:absolute;left:15px;content:' ';height:24px;width:1px;background-color:#cecece}
-.field-colorpicker.disabled >ul li.custom-color span.disabled:before {transform:rotate(45deg)}
-.field-colorpicker.disabled >ul li.custom-color span.disabled:after {transform:rotate(-45deg)}
+.field-colorpicker.disabled >ul li.custom-color span.disabled.is-empty:before,
+.field-colorpicker.disabled >ul li.custom-color span.disabled.is-empty:after {position:absolute;left:15px;content:' ';height:24px;width:1px;background-color:#cecece}
+.field-colorpicker.disabled >ul li.custom-color span.disabled.is-empty:before {transform:rotate(45deg)}
+.field-colorpicker.disabled >ul li.custom-color span.disabled.is-empty:after {transform:rotate(-45deg)}
 .field-colorpicker.disabled >ul li.custom-color:hover span {border-style:dashed}
 .field-colorpicker.disabled >ul li.custom-color.active span {border:1px solid #cecece}
 .sp-hue,
