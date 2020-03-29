@@ -1,6 +1,6 @@
 # Plugin testing
 
-Plugin unit tests can be performed by running `vendor/bin/phpunit` in the base plugin directory.
+Individual plugin test cases can be run by running `../../../vendor/bin/phpunit` in the plugin's base directory (ex. `plugins/acme/demo`.
 
 ### Creating plugin tests
 
