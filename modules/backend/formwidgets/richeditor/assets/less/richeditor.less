@@ -224,3 +224,48 @@
         text-decoration: none;
     }
 }
+
+//
+// Additions to disabled state
+//
+
+.fr-box.fr-basic {
+    // Toolbar
+    .fr-toolbar.fr-disabled {
+        .fr-command {
+            cursor: not-allowed;
+
+            &:hover, &:focus {
+                color: #bdbdbd;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+
+                &::after {
+                    border-top-color: #bdbdbd!important;
+                }
+            }
+
+            &.fr-btn-hover {
+                color: #bdbdbd; background: transparent;
+
+                &::after {
+                    border-top-color:#bdbdbd !important
+                }
+            }
+
+            &.fr-btn.fr-options {
+                &:hover, &:focus {
+                    border-left:solid 1px transparent;
+                }
+                &.fr-btn-hover {
+                    border-left:solid 1px transparent;
+                }
+            }
+        }
+    }
+
+    // Content
+    .fr-element.fr-disabled {
+        cursor: not-allowed;
+    }
+}

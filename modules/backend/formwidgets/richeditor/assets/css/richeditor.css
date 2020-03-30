@@ -565,3 +565,14 @@ body .fr-popup .fr-checkbox span {border-color:#d1d6d9}
 .control-richeditor figure[data-video]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f03d"}
 .control-richeditor figure[data-audio]:before {font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f028"}
 .fr-quick-insert a.fr-floating-btn {color:rgba(64,82,97,0.8);text-decoration:none}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command {cursor:not-allowed}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command:hover,
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command:focus {color:#bdbdbd;-webkit-box-shadow:none;box-shadow:none}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command:hover::after,
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command:focus::after {border-top-color:#bdbdbd !important}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command.fr-btn-hover {color:#bdbdbd;background:transparent}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command.fr-btn-hover::after {border-top-color:#bdbdbd !important}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command.fr-btn.fr-options:hover,
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command.fr-btn.fr-options:focus {border-left:solid 1px transparent}
+.fr-box.fr-basic .fr-toolbar.fr-disabled .fr-command.fr-btn.fr-options.fr-btn-hover {border-left:solid 1px transparent}
+.fr-box.fr-basic .fr-element.fr-disabled {cursor:not-allowed}
