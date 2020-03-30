@@ -352,7 +352,7 @@ class NavigationManager
 
         foreach ($this->items as $item) {
             if ($item->badge) {
-                $item->counter = $item->badge;
+                $item->counter = (string) $item->badge;
                 continue;
             }
 
