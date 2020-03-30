@@ -355,6 +355,9 @@ class NavigationManager
                 $item->counter = (string) $item->badge;
                 continue;
             }
+            if ($item->counter === false) {
+                continue;
+            }
 
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
