@@ -68,10 +68,71 @@ Use the `data-handler` attribute to source the select options from an AJAX handl
     data-minimum-input-length="2"
     data-ajax--delay="300"
     data-request-data="foo: 'bar'"
-    ></select>
+></select>
 ```
 
-The AJAX handler should return results as an array.
+The AJAX handler should return results in the [Select2 data format](https://select2.org/data-sources/formats).
+
+```php
+public function onGetOptions()
+{
+    return [
+        'results' => [
+            [
+                'id' => 1,
+                'text' => 'Foo'
+            ],
+            [
+                'id' => 2,
+                'text' => 'Bar'
+            ]
+            ...
+        ]
+    ];
+}
+```
+
+Or a more full-featured example:
+
+```php
+public function onGetOptions()
+{
+    return [
+        'results' => [
+            [
+                'id' => 1,
+                'text' => 'Foo',
+                'disabled' => true
+            ],
+            [
+                'id' => 2,
+                'text' => 'Bar',
+                'selected' => true
+            ],
+            [
+                'text' => 'Group',
+                'children' => [
+                    [
+                        'id' => 3,
+                        'text' => 'Child 1'
+                    ],
+                    [
+                        'id' => 4,
+                        'text' => 'Child 2'
+                    ]
+                    ...
+                ]
+            ]
+            ...
+        ],
+        'pagination' => [
+            'more' => true
+        ]
+    ];
+}
+```
+
+The results array can be assigned to either the `result` or `results` key. As an alternative to the Select2 format, results can also be provided as an associative array (also assigned to either key). Due to the fact that JavaScript does not guarantee the order of object properties, we suggest the method above for defining results.
 
 ```php
 public function onGetOptions()

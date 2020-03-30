@@ -13,20 +13,44 @@
 ?>
 <div class="<?= $navCss ?>">
     <ul class="nav nav-tabs">
-        <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-            <li class="<?= $index++==0?'active':''?>">
-                <a href="#<?= $type.'tab-'.$index ?>"><?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?><?= e(trans($name)) ?></a>
+        <?php $index = 0; foreach ($tabs as $name => $fields):
+            $lazy = in_array($name, $tabs->lazy);
+        ?>
+            <li class="<?= ($index++ === 0) ? 'active' : '' ?> <?= $lazy ? 'tab-lazy' : '' ?>">
+                <a
+                    href="#<?= $type . 'tab-' . $index ?>"
+                    <?php if ($lazy): ?>
+                        data-tab-name="<?= e($name) ?>"
+                        data-tab-section="<?= $type ?>"
+                        data-tab-lazy-handler="<?= $this->getEventHandler('onLazyLoadTab') ?>"
+                    <?php endif ?>
+                >
+                    <span class="title">
+                        <span>
+                            <?php if ($tabs->getIcon($name)): ?><span class="<?= $tabs->getIcon($name) ?>"></span><?php endif; ?>
+                            <?= e(trans($name)) ?>
+                        </span>
+                    </span>
+                </a>
             </li>
         <?php endforeach ?>
     </ul>
 </div>
 
 <div class="tab-content <?= $contentCss ?>">
-    <?php $index = 0; foreach ($tabs as $name => $fields): ?>
-        <div
-            class="tab-pane <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $index++==0?'active':''?> <?= $paneCss ?>"
-            id="<?= $type.'tab-'.$index ?>">
-            <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
-        </div>
+    <?php
+    $index = 0;
+    foreach ($tabs as $name => $fields):
+        $lazy = in_array($name, $tabs->lazy);
+    ?>
+            <div
+                class="tab-pane <?= $lazy ? 'lazy' : '' ?> <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= ($index++ === 0) ? 'active' : '' ?> <?= $paneCss ?>"
+                id="<?= $type . 'tab-' . $index ?>">
+                <?php if ($lazy): ?>
+                    <?= $this->makePartial('form_tabs_lazy', ['fields' => $fields]) ?>
+                <?php else: ?>
+                    <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
+                <?php endif ?>
+            </div>
     <?php endforeach ?>
 </div>

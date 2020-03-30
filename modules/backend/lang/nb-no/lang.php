@@ -24,9 +24,6 @@ return [
             'help' => "En database kreves for å koble til backend. Sjekk at databasetilgang er konfigurert og migrert før du prøver igjen.",
             'cms_link' => 'Tilbake til hovedsiden'
         ],
-        'invalid_token' => [
-            'label' => 'Ugyldig sikkerhets-token'
-        ]
     ],
     'partial' => [
         'not_found_name' => "En partial ved navn ':name' ble ikke funnet."
@@ -239,8 +236,8 @@ return [
         'preview_no_files_message' => 'Filer er ikke opplastet',
         'preview_no_record_message' => 'Det er ingen valgte oppføringer.',
         'select' => 'Velg',
-        'select_all' => 'alle',
-        'select_none' => 'ingen',
+        'select_all' => 'Velg alle',
+        'select_none' => 'Velg ingen',
         'select_placeholder' => 'velg',
         'insert_row' => 'Sett inn rad',
         'insert_row_below' => 'Sett inn rad under',

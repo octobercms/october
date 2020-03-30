@@ -39,7 +39,7 @@
                 tickLength: 5
             },
             selection: { mode: "x" },
-            grid: { 
+            grid: {
                 markingsColor:   "rgba(0,0,0, 0.02)",
                 backgroundColor: { colors: ["#fff", "#fff"] },
                 borderColor:     "#7bafcc",
@@ -80,7 +80,7 @@
 
         var parsedOptions = {}
         try {
-            parsedOptions = JSON.parse(JSON.stringify(eval("({" + options.chartOptions + "})")));
+            parsedOptions = ocJSON("{" + options.chartOptions + "}");
         } catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }
@@ -102,15 +102,15 @@
 
         if (this.options.zoomable) {
             this.$el.on("plotselected", function (event, ranges) {
-                var newCoords = { 
-                    xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to } 
+                var newCoords = {
+                    xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
                 }
-                
+
                 $.plot(self.$el, self.fullDataSet, $.extend(true, {}, self.chartOptions, newCoords))
                 self.resetZoomLink.show()
             });
         }
-        
+
         /*
          * Markings Helper
          */
@@ -121,14 +121,14 @@
         function weekendAreas(axes) {
             var markings = [],
                 d = new Date(axes.xaxis.min);
-            
+
             // Go to the first Saturday
             d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
             d.setUTCSeconds(0)
             d.setUTCMinutes(0)
             d.setUTCHours(0)
             var i = d.getTime()
-            
+
             do {
                 // When we don't set yaxis, the rectangle automatically
                 // extends to infinity upwards and downwards
@@ -178,7 +178,7 @@
     }
 
     /*
-     * Adds a data set to the chart. 
+     * Adds a data set to the chart.
      * See https://github.com/flot/flot/blob/master/API.md#data-format for the list
      * of supported data set options.
      */

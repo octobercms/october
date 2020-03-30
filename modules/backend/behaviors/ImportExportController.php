@@ -619,6 +619,7 @@ class ImportExportController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
         $csv->setEscape($options['escape']);
@@ -629,7 +630,7 @@ class ImportExportController extends ControllerBehavior
         $headers = [];
         $columns = $widget->getVisibleColumns();
         foreach ($columns as $column) {
-            $headers[] = Lang::get($column->label);
+            $headers[] = $widget->getHeaderValue($column);
         }
         $csv->insertOne($headers);
 

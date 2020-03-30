@@ -159,7 +159,7 @@ abstract class ComponentBase extends Extendable
          *
          * Example usage (forwards AJAX handlers to a backend widget):
          *
-         *     Event::listen('cms.component.beforeRunAjaxHandler', function((\Cms\Classes\ComponentBase) $component, (string) $handler) {
+         *     Event::listen('cms.component.beforeRunAjaxHandler', function ((\Cms\Classes\ComponentBase) $component, (string) $handler) {
          *         if (strpos($handler, '::')) {
          *             list($componentAlias, $handlerName) = explode('::', $handler);
          *             if ($componentAlias === $this->getBackendWidgetAlias()) {
@@ -194,7 +194,7 @@ abstract class ComponentBase extends Extendable
          *
          * Example usage (Logs requests and their response):
          *
-         *     Event::listen('cms.component.beforeRunHandler', function((\Cms\Classes\ComponentBase) $component, (string) $handler, (mixed) $result) {
+         *     Event::listen('cms.component.beforeRunHandler', function ((\Cms\Classes\ComponentBase) $component, (string) $handler, (mixed) $result) {
          *         if (in_array($handler, $interceptHandlers)) {
          *             return 'request has been intercepted, original response: ' . json_encode($result);
          *         }
@@ -306,7 +306,8 @@ abstract class ComponentBase extends Extendable
         try {
             return parent::__call($method, $parameters);
         }
-        catch (BadMethodCallException $ex) {}
+        catch (BadMethodCallException $ex) {
+        }
 
         if (method_exists($this->controller, $method)) {
             return call_user_func_array([$this->controller, $method], $parameters);

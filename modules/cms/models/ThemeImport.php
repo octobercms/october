@@ -59,6 +59,16 @@ class ThemeImport extends Model
         ]
     ];
 
+    /**
+     * Import / Export model classes are helpers and are not to write to the database
+     *
+     * @return void
+     */
+    public function save(array $options = null, $sessionKey = null)
+    {
+        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+    }
+
     public function getFoldersOptions()
     {
         return [
@@ -88,8 +98,7 @@ class ThemeImport extends Model
         $this->theme = $theme;
         $this->fill($data);
 
-        try
-        {
+        try {
             $file = $this->uploaded_file()->withDeferred($sessionKey)->first();
             if (!$file) {
                 throw new ApplicationException('There is no file attached to import!');
@@ -125,7 +134,6 @@ class ThemeImport extends Model
             $file->delete();
         }
         catch (Exception $ex) {
-
             if (!empty($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }

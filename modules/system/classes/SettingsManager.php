@@ -109,8 +109,17 @@ class SettingsManager
             $this->registerSettingItems($id, $items);
         }
 
-        /*
-         * Extensibility
+        /**
+         * @event system.settings.extendItems
+         * Provides an opportunity to manipulate the system settings manager
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.settings.extendItems', function ((\System\Classes\SettingsManager) $settingsManager) {
+         *         $settingsManager->addSettingItem(...)
+         *         $settingsManager->removeSettingItem(...)
+         *     });
+         *
          */
         Event::fire('system.settings.extendItems', [$this]);
 
@@ -171,7 +180,6 @@ class SettingsManager
     {
         $filteredItems = [];
         foreach ($items as $categoryName => $category) {
-
             $filteredCategory = [];
             foreach ($category as $item) {
                 $itemContext = is_array($item->context) ? $item->context : [$item->context];
@@ -192,10 +200,9 @@ class SettingsManager
      * Registers a callback function that defines setting items.
      * The callback function should register setting items by calling the manager's
      * registerSettingItems() function. The manager instance is passed to the
-     * callback function as an argument.
-     * Usage:
+     * callback function as an argument. Usage:
      *
-     *     SettingsManager::registerCallback(function($manager){
+     *     SettingsManager::registerCallback(function ($manager) {
      *         $manager->registerSettingItems([...]);
      *     });
      *
@@ -365,6 +372,10 @@ class SettingsManager
      */
     protected function filterItemPermissions($user, array $items)
     {
+        if (!$user) {
+            return $items;
+        }
+        
         $items = array_filter($items, function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;

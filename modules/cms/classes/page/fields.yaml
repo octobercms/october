@@ -74,6 +74,12 @@ secondaryTabs:
             type: codeeditor
             language: twig
 
+        safemode_notice:
+            tab: cms::lang.editor.code
+            type: partial
+            hidden: true
+            cssClass: p-b-0
+
         code:
             tab: cms::lang.editor.code
             stretch: true

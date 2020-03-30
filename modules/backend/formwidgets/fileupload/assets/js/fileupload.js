@@ -103,6 +103,8 @@
             clickable: this.$uploadButton.get(0),
             previewsContainer: this.$filesContainer.get(0),
             maxFiles: !this.options.isMulti ? 1 : null,
+            maxFilesize: this.options.maxFilesize,
+            timeout: 0,
             headers: {}
         }
 
@@ -432,6 +434,7 @@
         extraData: {},
         paramName: 'file_data',
         fileTypes: null,
+        maxFilesize: 256,
         template: null,
         errorTemplate: null,
         isMulti: null,

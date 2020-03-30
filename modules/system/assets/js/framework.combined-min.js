@@ -14,17 +14,19 @@ useFiles=false}
 if($.type(loading)=='string'){loading=$(loading)}
 var requestHeaders={'X-OCTOBER-REQUEST-HANDLER':handler,'X-OCTOBER-REQUEST-PARTIALS':this.extractPartials(options.update)}
 if(useFlash){requestHeaders['X-OCTOBER-REQUEST-FLASH']=1}
+var csrfToken=getXSRFToken()
+if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}
 var requestData,inputName,data={}
 $.each($el.parents('[data-request-data]').toArray().reverse(),function extendRequest(){$.extend(data,paramToObj('data-request-data',$(this).data('request-data')))})
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
 if(inputName!==undefined&&options.data[inputName]===undefined){options.data[inputName]=$el.val()}}
 if(options.data!==undefined&&!$.isEmptyObject(options.data)){$.extend(data,options.data)}
-if(useFiles){requestData=new FormData($form.length?$form.get(0):null)
+if(useFiles){requestData=new FormData($form.length?$form.get(0):undefined)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
 $.each(data,function(key){requestData.append(key,this)})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
-var requestOptions={url:url,crossDomain:false,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
+var requestOptions={url:url,crossDomain:false,global:options.ajaxGlobal,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
 var _event=jQuery.Event('ajaxBeforeUpdate')
 $triggerEl.trigger(_event,[context,data,textStatus,jqXHR])
@@ -66,7 +68,7 @@ var fieldElement=$form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [
 if(fieldElement.length>0){var _event=jQuery.Event('ajaxInvalidField')
 $(window).trigger(_event,[fieldElement.get(0),fieldName,fieldMessages,isFirstInvalidField])
 if(isFirstInvalidField){if(!_event.isDefaultPrevented())fieldElement.focus()
-isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.href=url},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
+isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.assign(url)},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
 if($.type(selector)=='string'&&selector.charAt(0)=='@'){$(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else if($.type(selector)=='string'&&selector.charAt(0)=='^'){$(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else{$(selector).trigger('ajaxBeforeReplace')
@@ -92,7 +94,7 @@ $el.trigger('ajaxPromise',[context])
 return $.ajax(requestOptions).fail(function(jqXHR,textStatus,errorThrown){if(!isRedirect){$el.trigger('ajaxFail',[context,textStatus,jqXHR])}
 if(loading)loading.hide()}).done(function(data,textStatus,jqXHR){if(!isRedirect){$el.trigger('ajaxDone',[context,data,textStatus,jqXHR])}
 if(loading)loading.hide()}).always(function(dataOrXhr,textStatus,xhrOrError){$el.trigger('ajaxAlways',[context,dataOrXhr,textStatus,xhrOrError])})}
-Request.DEFAULTS={update:{},type:'POST',beforeUpdate:function(data,textStatus,jqXHR){},evalBeforeUpdate:null,evalSuccess:null,evalError:null,evalComplete:null}
+Request.DEFAULTS={update:{},type:'POST',beforeUpdate:function(data,textStatus,jqXHR){},evalBeforeUpdate:null,evalSuccess:null,evalError:null,evalComplete:null,ajaxGlobal:false}
 Request.prototype.extractPartials=function(update){var result=[]
 for(var partial in update)
 result.push(partial)
@@ -100,7 +102,7 @@ return result.join('&')}
 var old=$.fn.request
 $.fn.request=function(handler,option){var args=arguments
 var $this=$(this).first()
-var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
+var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
 if(!handler)handler=$this.data('request')
 var options=$.extend(true,{},Request.DEFAULTS,data,typeof option=='object'&&option)
 return new Request($this,handler,options)}
@@ -110,14 +112,20 @@ $.fn.request.noConflict=function(){$.fn.request=old
 return this}
 function paramToObj(name,value){if(value===undefined)value=''
 if(typeof value=='object')return value
-try{return JSON.parse(JSON.stringify(eval("({"+value+"})")))}
+try{return ocJSON("{"+value+"}")}
 catch(e){throw new Error('Error parsing the '+name+' attribute value. '+e)}}
+function getXSRFToken(){var cookieValue=null
+if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';')
+for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i])
+if(cookie.substring(0,11)==('XSRF-TOKEN'+'=')){cookieValue=decodeURIComponent(cookie.substring(11))
+break}}}
+return cookieValue}
 $(document).on('change','select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]',function documentOnChange(){$(this).request()})
 $(document).on('click','a[data-request], button[data-request], input[type=button][data-request], input[type=submit][data-request]',function documentOnClick(e){e.preventDefault()
 $(this).request()
 if($(this).is('[type=submit]'))
 return false})
-$(document).on('keydown','input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]',function documentOnKeydown(e){if(e.keyCode==13){if(this.dataTrackInputTimer!==undefined)
+$(document).on('keydown','input[type=text][data-request], input[type=submit][data-request], input[type=password][data-request]',function documentOnKeydown(e){if(e.key==='Enter'){if(this.dataTrackInputTimer!==undefined)
 window.clearTimeout(this.dataTrackInputTimer)
 $(this).request()
 return false}})
@@ -141,7 +149,42 @@ return false})
 $(window).on('beforeunload',function documentOnBeforeUnload(){window.ocUnloading=true})
 $(document).ready(function triggerRenderOnReady(){$(document).trigger('render')})
 $(window).on('ajaxUpdateComplete',function triggerRenderOnAjaxUpdateComplete(){$(document).trigger('render')})
-$.fn.render=function(callback){$(document).on('render',callback)}}(window.jQuery);+function($){"use strict";if($.oc===undefined)
+$.fn.render=function(callback){$(document).on('render',callback)}}(window.jQuery);+function(window){"use strict";function parseKey(str,pos,quote){var key="";for(var i=pos;i<str.length;i++){if(quote&&quote===str[i]){return key;}else if(!quote&&(str[i]===" "||str[i]===":")){return key;}
+key+=str[i];if(str[i]==="\\"&&i+1<str.length){key+=str[i+1];i++;}}
+throw new Error("Broken JSON syntax near "+key);}
+function getBody(str,pos){if(str[pos]==="\""||str[pos]==="'"){var body=str[pos];for(var i=pos+1;i<str.length;i++){if(str[i]==="\\"){body+=str[i];if(i+1<str.length)body+=str[i+1];i++;}else if(str[i]===str[pos]){body+=str[pos];return{originLength:body.length,body:body};}else body+=str[i];}
+throw new Error("Broken JSON string body near "+body);}
+if(str[pos]==="t"){if(str.indexOf("true",pos)===pos){return{originLength:"true".length,body:"true"};}
+throw new Error("Broken JSON boolean body near "+str.substr(0,pos+10));}
+if(str[pos]==="f"){if(str.indexOf("f",pos)===pos){return{originLength:"false".length,body:"false"};}
+throw new Error("Broken JSON boolean body near "+str.substr(0,pos+10));}
+if(str[pos]==="n"){if(str.indexOf("null",pos)===pos){return{originLength:"null".length,body:"null"};}
+throw new Error("Broken JSON boolean body near "+str.substr(0,pos+10));}
+if(str[pos]==="-"||str[pos]==="+"||str[pos]==="."||(str[pos]>="0"&&str[pos]<="9")){var body="";for(var i=pos;i<str.length;i++){if(str[i]==="-"||str[i]==="+"||str[i]==="."||(str[i]>="0"&&str[i]<="9")){body+=str[i];}else{return{originLength:body.length,body:body};}}
+throw new Error("Broken JSON number body near "+body);}
+if(str[pos]==="{"||str[pos]==="["){var stack=[str[pos]];var body=str[pos];for(var i=pos+1;i<str.length;i++){body+=str[i];if(str[i]==="\\"){if(i+1<str.length)body+=str[i+1];i++;}else if(str[i]==="\""){if(stack[stack.length-1]==="\""){stack.pop();}else if(stack[stack.length-1]!=="'"){stack.push(str[i]);}}else if(str[i]==="'"){if(stack[stack.length-1]==="'"){stack.pop();}else if(stack[stack.length-1]!=="\""){stack.push(str[i]);}}else if(stack[stack.length-1]!=="\""&&stack[stack.length-1]!=="'"){if(str[i]==="{"){stack.push("{");}else if(str[i]==="}"){if(stack[stack.length-1]==="{"){stack.pop();}else{throw new Error("Broken JSON "+(str[pos]==="{"?"object":"array")+" body near "+body);}}else if(str[i]==="["){stack.push("[");}else if(str[i]==="]"){if(stack[stack.length-1]==="["){stack.pop();}else{throw new Error("Broken JSON "+(str[pos]==="{"?"object":"array")+" body near "+body);}}}
+if(!stack.length){return{originLength:i-pos,body:body};}}
+throw new Error("Broken JSON "+(str[pos]==="{"?"object":"array")+" body near "+body);}
+throw new Error("Broken JSON body near "+str.substr((pos-5>=0)?pos-5:0,50));}
+function canBeKeyHead(ch){if(ch[0]==="\\")return false;if((ch[0]>='a'&&ch[0]<='z')||(ch[0]>='A'&&ch[0]<='Z')||ch[0]==='_')return true;if(ch[0]>='0'&&ch[0]<='9')return true;if(ch[0]==='$')return true;if(ch.charCodeAt(0)>255)return true;return false;}
+function isBlankChar(ch){return ch===" "||ch==="\n"||ch==="\t";}
+function parse(str){str=str.trim();if(!str.length)throw new Error("Broken JSON object.");var result="";while(str&&str[0]===","){str=str.substr(1);}
+if(str[0]==="\""||str[0]==="'"){if(str[str.length-1]!==str[0]){throw new Error("Invalid string JSON object.");}
+var body="\"";for(var i=1;i<str.length;i++){if(str[i]==="\\"){if(str[i+1]==="'"){body+=str[i+1]}else{body+=str[i];body+=str[i+1];}
+i++;}else if(str[i]===str[0]){body+="\"";return body}else if(str[i]==="\""){body+="\\\""}else body+=str[i];}
+throw new Error("Invalid string JSON object.");}
+if(str==="true"||str==="false"){return str;}
+if(str==="null"){return"null";}
+var num=parseFloat(str);if(!isNaN(num)){return num.toString();}
+if(str[0]==="{"){var type="needKey";var result="{";for(var i=1;i<str.length;i++){if(isBlankChar(str[i])){continue;}else if(type==="needKey"&&(str[i]==="\""||str[i]==="'")){var key=parseKey(str,i+1,str[i]);result+="\""+key+"\"";i+=key.length;i+=1;type="afterKey";}else if(type==="needKey"&&canBeKeyHead(str[i])){var key=parseKey(str,i);result+="\"";result+=key;result+="\"";i+=key.length-1;type="afterKey";}else if(type==="afterKey"&&str[i]===":"){result+=":";type=":";}else if(type===":"){var body=getBody(str,i);i=i+body.originLength-1;result+=parse(body.body);type="afterBody";}else if(type==="afterBody"||type==="needKey"){var last=i;while(str[last]===","||isBlankChar(str[last])){last++;}
+if(str[last]==="}"&&last===str.length-1){while(result[result.length-1]===","){result=result.substr(0,result.length-1);}
+result+="}";return result;}else if(last!==i&&result!=="{"){result+=",";type="needKey";i=last-1;}}}
+throw new Error("Broken JSON object near "+result);}
+if(str[0]==="["){var result="[";var type="needBody";for(var i=1;i<str.length;i++){if(" "===str[i]||"\n"===str[i]||"\t"===str[i]){continue;}else if(type==="needBody"){if(str[i]===","){result+="null,";continue;}
+if(str[i]==="]"&&i===str.length-1){if(result[result.length-1]===",")result=result.substr(0,result.length-1);result+="]";return result;}
+var body=getBody(str,i);i=i+body.originLength-1;result+=parse(body.body);type="afterBody";}else if(type==="afterBody"){if(str[i]===","){result+=",";type="needBody";while(str[i+1]===","||isBlankChar(str[i+1])){if(str[i+1]===",")result+="null,";i++;}}else if(str[i]==="]"&&i===str.length-1){result+="]";return result;}}}
+throw new Error("Broken JSON array near "+result);}}
+window.ocJSON=function(json){var jsonString=parse(json);return JSON.parse(jsonString);};}(window);+function($){"use strict";if($.oc===undefined)
 $.oc={}
 var LOADER_CLASS='oc-loading';$(document).on('ajaxSetup','[data-request][data-request-flash]',function(event,context){context.options.handleErrorMessage=function(message){$.oc.flashMsg({text:message,class:'error'})}
 context.options.handleFlashMessage=function(message,type){$.oc.flashMsg({text:message,class:type})}})
