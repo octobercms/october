@@ -777,7 +777,7 @@ class Controller
                     return $result;
                 }
 
-                return Response::make($responseContents, $this->statusCode);
+                return $this->makeResponse($responseContents);
             }
             catch (ValidationException $ex) {
                 /*
