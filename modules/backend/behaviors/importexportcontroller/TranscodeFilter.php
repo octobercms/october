@@ -20,11 +20,19 @@ class TranscodeFilter extends php_user_filter
     public function filter($in, $out, &$consumed, $closing)
     {
         while ($resource = stream_bucket_make_writeable($in)) {
-            $resource->data = @mb_convert_encoding(
-                $resource->data,
-                $this->encodingTo,
-                $this->encodingFrom
-            );
+            if (in_array($this->encodingFrom, mb_list_encodings())) {
+                $resource->data = @mb_convert_encoding(
+                    $resource->data,
+                    $this->encodingTo,
+                    $this->encodingFrom
+                );
+            } else {
+                $resource->data = @iconv(
+                    $this->encodingFrom,
+                    $this->encodingTo,
+                    $resource->data
+                );
+            }
 
             $consumed += $resource->datalen;
 
