@@ -48,7 +48,7 @@ class SideMenuItem
     public $counterLabel;
 
     /**
-     * @var null|mixed
+     * @var null|string
      */
      public $badge;
 
