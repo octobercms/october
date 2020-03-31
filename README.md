@@ -7,7 +7,6 @@
 October's mission is to show the world that web development is not rocket science.
 
 ![Stable Build](https://github.com/octobercms/october/workflows/Tests/badge.svg?branch=master)
-![Development Build](https://github.com/octobercms/october/workflows/Tests/badge.svg?branch=develop)
 [![License](https://poser.pugx.org/october/october/license.svg)](https://packagist.org/packages/october/october)
 
 ## Installing October
