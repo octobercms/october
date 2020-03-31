@@ -115,6 +115,7 @@ class EditorSetting extends Model
     {
         if (!isset($this->value['html_paragraph_formats'])) {
             $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
+            $this->save();
         }
     }
 
@@ -173,7 +174,7 @@ class EditorSetting extends Model
         });
     }
 
-    private static function getConfiguredArray($key, $default = null, $callback = null)
+    protected static function getConfiguredArray($key, $default = null, $callback = null)
     {
         $instance = static::instance();
 
