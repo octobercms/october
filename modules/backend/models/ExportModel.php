@@ -5,7 +5,7 @@ use Lang;
 use Model;
 use Response;
 use League\Csv\Writer as CsvWriter;
-use October\Rain\Parse\League\EscapeFormula as CsvEscapeFormula;
+use League\Csv\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 
@@ -112,8 +112,7 @@ abstract class ExportModel extends Model
             $csv->setEscape($options['escape']);
         }
 
-        // Temporary until upgrading to league/csv >= 9.1.0 (will be $csv->addFormatter($formatter))
-        $formatter = new CsvEscapeFormula();
+        $csv->addFormatter(new CsvEscapeFormula());
 
         /*
          * Add headers
