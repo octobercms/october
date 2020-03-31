@@ -127,10 +127,6 @@ abstract class ExportModel extends Model
          */
         foreach ($results as $result) {
             $data = $this->matchDataToColumns($result, $columns);
-
-            // Temporary until upgrading to league/csv >= 9.1.0
-            $data = $formatter($data);
-
             $csv->insertOne($data);
         }
 
