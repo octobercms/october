@@ -231,6 +231,7 @@ abstract class ImportModel extends Model
             'iso-8859-13',
             'iso-8859-14',
             'iso-8859-15',
+            'Windows-1250',
             'Windows-1251',
             'Windows-1252'
         ];
