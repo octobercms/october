@@ -118,8 +118,10 @@
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
+        var $target = $(ev.target)
+
         // Allow any widgets inside a deleted item to be disposed
-        $(ev.target).closest('.field-repeater-item').find('[data-disposable]').each(function () {
+        $target.closest('.field-repeater-item').find('[data-disposable]').each(function () {
             var $elem = $(this),
                 control = $elem.data('control'),
                 widget = $elem.data('oc.' + control)
@@ -129,12 +131,14 @@
             }
         })
 
-        $(ev.target).closest('.field-repeater-item').remove()
+        $target.closest('[data-field-name]').trigger('change.oc.formwidget')
+        $target.closest('.field-repeater-item').remove()
         this.togglePrompt()
     }
 
     Repeater.prototype.onAddItemSuccess = function(ev) {
         this.togglePrompt()
+        $(ev.target).closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     Repeater.prototype.togglePrompt = function () {
