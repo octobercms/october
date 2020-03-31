@@ -39,6 +39,11 @@ class PluginManager
     protected $pathMap = [];
 
     /**
+     * @var array A map of normalized plugin identifiers [lowercase.identifier => Normalized.Identifier]
+     */
+    protected $normalizedMap = [];
+
+    /**
      * @var bool Check if all plugins have had the register() method called.
      */
     protected $registered = false;
@@ -157,6 +162,7 @@ class PluginManager
 
         $this->plugins[$classId] = $classObj;
         $this->pathMap[$classId] = $path;
+        $this->normalizedMap[strtolower($classId)] = $classId;
 
         return $classObj;
     }
@@ -441,15 +447,16 @@ class PluginManager
 
     /**
      * Takes a human plugin code (acme.blog) and makes it authentic (Acme.Blog)
-     * @param  string $id
+     * Returns the provided identifier if a match isn't found
+     *
+     * @param  string $identifier
      * @return string
      */
     public function normalizeIdentifier($identifier)
     {
-        foreach ($this->plugins as $id => $object) {
-            if (strtolower($id) == strtolower($identifier)) {
-                return $id;
-            }
+        $id = strtolower($identifier);
+        if (isset($this->normalizedMap[$id])) {
+            return $this->normalizedMap[$id];
         }
 
         return $identifier;
