@@ -60,6 +60,7 @@ class Components extends FormWidgetBase
             catch (Exception $ex) {
                 if ($name[0] === '@') {
                     $componentObj = new SoftComponent($properties);
+                    $componentObj->name = $name;
                     $componentObj->alias = $alias;
                     $componentObj->pluginIcon = 'icon-flag';
                 } else {
