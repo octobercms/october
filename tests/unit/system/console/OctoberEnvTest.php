@@ -50,6 +50,36 @@ class OctoberEnvTest extends TestCase
             $this->assertContains('DB_PASSWORD="test\\"quotes\'test"', $envFile);
             $this->assertContains('DB_PORT=3306', $envFile);
         }
+
+        // Check app.php config file
+        $appConfigFile = file_get_contents(storage_path('temp/tests/config/app.php'));
+
+        if (method_exists($this, 'assertStringContainsString')) {
+            $this->assertStringContainsString('\'debug\' => env(\'APP_DEBUG\', true),', $appConfigFile);
+            $this->assertStringContainsString('\'url\' => env(\'APP_URL\', \'https://localhost\'),', $appConfigFile);
+        } else {
+            $this->assertContains('\'debug\' => env(\'APP_DEBUG\', true),', $appConfigFile);
+            $this->assertContains('\'url\' => env(\'APP_URL\', \'https://localhost\'),', $appConfigFile);
+        }
+
+        // Check database.php config file
+        $appConfigFile = file_get_contents(storage_path('temp/tests/config/database.php'));
+
+        if (method_exists($this, 'assertStringContainsString')) {
+            $this->assertStringContainsString('\'default\' => env(\'DB_CONNECTION\', \'mysql\')', $appConfigFile);
+            $this->assertStringContainsString('\'port\' => env(\'DB_PORT\', 3306),', $appConfigFile);
+            // Both the following configurations had values in the original config, they should be stripped out once
+            // the .env file is generated.
+            $this->assertStringContainsString('\'username\' => env(\'DB_USERNAME\', \'\'),', $appConfigFile);
+            $this->assertStringContainsString('\'password\' => env(\'DB_PASSWORD\', \'\'),', $appConfigFile);
+        } else {
+            $this->assertContains('\'default\' => env(\'DB_CONNECTION\', \'mysql\')', $appConfigFile);
+            $this->assertContains('\'port\' => env(\'DB_PORT\', 3306),', $appConfigFile);
+            // Both the following configurations had values in the original config, they should be stripped out once
+            // the .env file is generated.
+            $this->assertContains('\'username\' => env(\'DB_USERNAME\', \'\'),', $appConfigFile);
+            $this->assertContains('\'password\' => env(\'DB_PASSWORD\', \'\'),', $appConfigFile);
+        }
     }
 
     protected function tearDown()
