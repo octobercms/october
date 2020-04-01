@@ -88,6 +88,8 @@ class CmsObjectQueryTest extends TestCase
             "with-layout",
             "with-partials",
             "with-placeholder",
+            "with-soft-component-class",
+            "with-soft-component-class-alias",
         ], $pages);
 
         $layouts = Layout::lists('baseFileName');
