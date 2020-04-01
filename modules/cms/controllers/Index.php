@@ -712,22 +712,14 @@ class Index extends Controller
             }
 
             for ($index = 0; $index < $count; $index++) {
-                $componentName = ltrim($componentNames[$index], '@');
+                $componentName = $componentNames[$index];
                 $componentAlias = $componentAliases[$index];
 
-                if (substr($componentAlias, 0, 1) === '@') {
-                    $componentAlias = substr($componentAlias, 1);
-                    $isSoftComponent = true;
+                $isSoftComponent = (substr($componentAlias, 0, 1) === '@');
+                $componentName = ltrim($componentName, '@');
+                $componentAlias = ltrim($componentAlias, '@');
 
-                    if (empty($componentName)) {
-                        // Missing soft component - let's find the original name
-                        $componentName = $this->findComponentByAlias($componentAlias, $prevSettings['components'])['name'] ?? '';
-                    }
-                } else {
-                    $isSoftComponent = false;
-                }
-
-                if ($componentAlias != $componentName) {
+                if ($componentAlias !== $componentName) {
                     $section = $componentName . ' ' . $componentAlias;
                 } else {
                     $section = $componentName;
