@@ -61,7 +61,7 @@ class Components extends FormWidgetBase
                 if ($name[0] === '@') {
                     $componentObj = new SoftComponent($properties);
                     $componentObj->name = $name;
-                    $componentObj->alias = $alias;
+                    $componentObj->alias = (($alias !== $name) ? '@' : '') . $alias;
                     $componentObj->pluginIcon = 'icon-flag';
                 } else {
                     $componentObj = new UnknownComponent(null, $properties, $ex->getMessage());
