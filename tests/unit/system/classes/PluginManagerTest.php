@@ -212,5 +212,17 @@ class PluginManagerTest extends TestCase
 
         $result = $this->manager->isDisabled('DependencyTest.NotFound');
         $this->assertTrue($result);
+
+        /**
+         * Test case for https://github.com/octobercms/october/pull/4838
+         */
+        $result = $this->manager->isDisabled('dependencyTest\Wrongcase');
+        $this->assertFalse($result);
+
+        $result = $this->manager->isDisabled('dependencyTest.Wrongcase');
+        $this->assertFalse($result);
+
+        $result = $this->manager->isDisabled('dependencytest.notfound');
+        $this->assertTrue($result);
     }
 }
