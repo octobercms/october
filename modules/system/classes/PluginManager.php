@@ -208,19 +208,15 @@ class PluginManager
      */
     public function registerPlugin($plugin, $pluginId = null)
     {
-        if (!$pluginId) {
-            $pluginId = $this->getIdentifier($plugin);
-        }
-
-        if (!$plugin) {
-            return;
-        }
-
         /**
          * Verify that the provided plugin should be registered
          */
-        if ($plugin->disabled || (self::$noInit && !$plugin->elevated)) {
+        if (!$plugin || $plugin->disabled || (self::$noInit && !$plugin->elevated)) {
             return;
+        }
+
+        if (!$pluginId) {
+            $pluginId = $this->getIdentifier($plugin);
         }
 
         $pluginPath = $this->getPluginPath($plugin);
