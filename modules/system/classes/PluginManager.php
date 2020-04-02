@@ -338,7 +338,7 @@ class PluginManager
      */
     public function exists($id)
     {
-        return !(!$this->findByIdentifier($id) || $this->isDisabled($id));
+        return $this->findByIdentifier($id) && !$this->isDisabled($id);
     }
 
     /**

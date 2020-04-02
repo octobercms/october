@@ -225,4 +225,19 @@ class PluginManagerTest extends TestCase
         $result = $this->manager->isDisabled('dependencytest.notfound');
         $this->assertTrue($result);
     }
+
+    public function testExists()
+    {
+        $result = $this->manager->exists('DependencyTest.Found');
+        $this->assertTrue($result);
+
+        $result = $this->manager->exists('DependencyTest.WrongCase');
+        $this->assertTrue($result);
+
+        $result = $this->manager->exists('DependencyTest.NotFound');
+        $this->assertFalse($result);
+
+        $result = $this->manager->exists('Unknown.Plugin');
+        $this->assertFalse($result);
+    }
 }
