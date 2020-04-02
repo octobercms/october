@@ -210,7 +210,9 @@ class Lists extends WidgetBase
         /*
          * Configure the list widget
          */
-        $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        if ($this->showSetup) {
+            $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        }
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
@@ -640,9 +642,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-
-        if (!$currentPageNumber && empty($this->searchTerm)) {
-            // Restore the last visited page from the session if available.
+        if (empty($currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
@@ -728,7 +728,7 @@ class Lists extends WidgetBase
         /*
          * Supplied column list
          */
-        if ($this->columnOverride === null) {
+        if ($this->showSetup && $this->columnOverride === null) {
             $this->columnOverride = $this->getUserPreference('visible', null);
         }
 
@@ -1172,6 +1172,7 @@ class Lists extends WidgetBase
 
     /**
      * Process as text, escape the value
+     * @return string
      */
     protected function evalTextTypeValue($record, $column, $value)
     {
@@ -1188,6 +1189,7 @@ class Lists extends WidgetBase
 
     /**
      * Process as number, proxy to text
+     * @return string
      */
     protected function evalNumberTypeValue($record, $column, $value)
     {
@@ -1406,11 +1408,16 @@ class Lists extends WidgetBase
      * Applies a search term to the list results, searching will disable tree
      * view if a value is supplied.
      * @param string $term
+     * @param boolean $resetPagination
      */
-    public function setSearchTerm($term)
+    public function setSearchTerm($term, $resetPagination = false)
     {
         if (!empty($term)) {
             $this->showTree = false;
+        }
+
+        if ($resetPagination) {
+            $this->currentPageNumber = 1;
         }
 
         $this->searchTerm = $term;
@@ -1494,21 +1501,27 @@ class Lists extends WidgetBase
 
             $this->sortColumn = $sortOptions['column'] = $column;
 
-            $this->putSession('sort', $sortOptions);
-
             /*
              * Persist the page number
              */
             $this->currentPageNumber = post('page');
 
-            return $this->onRefresh();
+            /*
+             * Try to refresh the list with the new sortOptions. Put the
+             * new sortOptions in to the session if the query succeeded.
+             */
+            $result = $this->onRefresh();
+
+            $this->putSession('sort', $sortOptions);
+
+            return $result;
         }
     }
 
     /**
      * Returns the current sorting column, saved in a session or cached.
      */
-    protected function getSortColumn()
+    public function getSortColumn()
     {
         if (!$this->isSortable()) {
             return false;
@@ -1553,6 +1566,14 @@ class Lists extends WidgetBase
         }
 
         return $this->sortColumn;
+    }
+
+    /*
+     * Returns the current sort direction or default of 'asc'
+     */
+    public function getSortDirection()
+    {
+        return $this->sortDirection ?? 'asc';
     }
 
     /**

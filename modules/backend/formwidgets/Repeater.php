@@ -43,6 +43,15 @@ class Repeater extends FormWidgetBase
      */
     public $maxItems;
 
+    /**
+     * @var string The style of the repeater. Can be one of three values:
+     *  - "default": Shows all repeater items expanded on load.
+     *  - "collapsed": Shows all repeater items collapsed on load.
+     *  - "accordion": Shows only the first repeater item expanded on load. When another item is clicked, all other open
+     *      items are collapsed.
+     */
+    public $style;
+
     //
     // Object properties
     //
@@ -98,9 +107,10 @@ class Repeater extends FormWidgetBase
     public function init()
     {
         $this->prompt = Lang::get('backend::lang.repeater.add_new_item');
-        
+
         $this->fillFromConfig([
             'form',
+            'style',
             'prompt',
             'sortable',
             'titleFrom',
@@ -156,6 +166,7 @@ class Repeater extends FormWidgetBase
         $this->vars['titleFrom'] = $this->titleFrom;
         $this->vars['minItems'] = $this->minItems;
         $this->vars['maxItems'] = $this->maxItems;
+        $this->vars['style'] = $this->style;
 
         $this->vars['useGroups'] = $this->useGroups;
         $this->vars['groupDefinitions'] = $this->groupDefinitions;
@@ -404,15 +415,15 @@ class Repeater extends FormWidgetBase
         if ($this->alias === $widgetName) {
             // This repeater has made the AJAX request
             self::$onAddItemCalled = true;
-        } else if (strpos($widgetName, $this->alias) === 0) {
+        } else if (strpos($widgetName, $this->alias . 'Form') === 0) {
             // A child repeater has made the AJAX request
 
             // Get index from AJAX handler
             $handlerSuffix = str_replace($this->alias . 'Form', '', $widgetName);
-            preg_match('/^[0-9]+/', $handlerSuffix, $matches);
-
-            $this->childAddItemCalled = true;
-            $this->childIndexCalled = (int) $matches[0];
+            if (preg_match('/^[0-9]+/', $handlerSuffix, $matches)) {
+                $this->childAddItemCalled = true;
+                $this->childIndexCalled = (int) $matches[0];
+            }
         }
     }
 

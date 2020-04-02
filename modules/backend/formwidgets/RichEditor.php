@@ -1,10 +1,12 @@
 <?php namespace Backend\FormWidgets;
 
 use App;
+use Config;
 use File;
 use Event;
 use Lang;
 use Request;
+use Backend;
 use BackendAuth;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
@@ -131,7 +133,16 @@ class RichEditor extends FormWidgetBase
     {
         $this->addCss('css/richeditor.css', 'core');
         $this->addJs('js/build-min.js', 'core');
-        $this->addJs('js/build-plugins-min.js', 'core');
+
+        if (Config::get('develop.decompileBackendAssets', false)) {
+            $scripts = Backend::decompileAsset($this->getAssetPath('js/build-plugins.js'));
+            foreach ($scripts as $script) {
+                $this->addJs($script, 'core');
+            }
+        } else {
+            $this->addJs('js/build-plugins-min.js', 'core');
+        }
+
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
         if ($lang = $this->getValidEditorLang()) {

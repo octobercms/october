@@ -54,7 +54,7 @@ trait PreferenceMaker
      *
      * @return array
      */
-    public function getUserPreferences(): array
+    public function getUserPreferences()
     {
         if (isset(self::$preferenceCache[$this->getPreferenceKey()])) {
             return self::$preferenceCache[$this->getPreferenceKey()];
@@ -112,7 +112,7 @@ trait PreferenceMaker
      *
      * @return string
      */
-    protected function getPreferenceKey(): string
+    protected function getPreferenceKey()
     {
         $controller = (property_exists($this, 'controller') && $this->controller)
             ? $this->controller

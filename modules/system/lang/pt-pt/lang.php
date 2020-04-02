@@ -35,6 +35,7 @@ return [
         'ru' => 'Russo',
         'sv' => 'Suéco',
         'sk' => 'Esloveno',
+        'sl' => 'Slovenščina',
         'tr' => 'Turco',
         'zh-cn' => 'Chinês',
         'zh-tw' => 'Tailandês',

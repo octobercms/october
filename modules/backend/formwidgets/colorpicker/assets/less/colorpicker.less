@@ -69,6 +69,61 @@
 
     }
 
+    &.disabled {
+        > ul {
+            li {
+                &:hover {
+                    cursor: not-allowed;
+                    background-color: transparent;
+
+                    span {
+                        border: 1px solid @color-colorpicker-border;
+                    }
+                }
+
+                &.active {
+                    background-color: transparent;
+                }
+
+                &.custom-color {
+                    position: relative;
+
+                    span {
+                        border-style: dashed;
+
+                        &.disabled.is-empty {
+                            &:before, &:after {
+                                position: absolute;
+                                left: 15px;
+                                content: ' ';
+                                height: 24px;
+                                width: 1px;
+                                background-color: #cecece;
+                            }
+                            &:before {
+                                transform: rotate(45deg);
+                            }
+                            &:after {
+                                transform: rotate(-45deg);
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        span {
+                            border-style: dashed;
+                        }
+                    }
+                    &.active {
+                        span {
+                            border: 1px solid @color-colorpicker-border;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 //
