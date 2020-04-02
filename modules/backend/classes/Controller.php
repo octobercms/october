@@ -153,9 +153,14 @@ class Controller extends ControllerBase
         /*
          * Media Manager widget is available on all back-end pages
          */
-        if ($this->user && $this->user->hasAccess('media.*')) {
-            $manager = new MediaManager($this, 'ocmediamanager');
-            $manager->bindToController();
+        if ($this->user) {
+            //RichEditor posts X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD when upload the image
+            $quickUploadMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD');
+
+            if ($quickUploadMode || $this->user->hasAccess('media.*')) {
+                $manager = new MediaManager($this, 'ocmediamanager');
+                $manager->bindToController();
+            }
         }
 
         $this->extendableConstruct();
