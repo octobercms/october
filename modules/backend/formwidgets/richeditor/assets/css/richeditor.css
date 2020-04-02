@@ -547,7 +547,7 @@ body .fr-popup .fr-checkbox span {border-color:#d1d6d9}
 .fr-tooltip {z-index:9997 !important}
 .fr-popup {z-index:9995 !important}
 .fr-toolbar {z-index:11 !important}
-.field-richeditor.stretch .fr-box:not(.fr-fullscreen) {display:block;position:relative;height:100% !important;width:100% !important;border-radius:0 !important;-moz-border-radius:0 !important;-webkit-border-radius:0 !important;-moz-background-clip:padding !important;-webkit-background-clip:padding-box !important;background-clip:padding-box !important;overflow:hidden}
+.field-richeditor.stretch .fr-box:not(.fr-fullscreen) {display:block;position:relative;height:100% !important;width:100% !important;border-radius:0 !important;-moz-border-radius:0 !important;-webkit-border-radius:0 !important;-moz-background-clip:padding !important;-webkit-background-clip:padding-box !important;background-clip:padding-box !important;overflow:visible}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-toolbar {border-radius:0 !important;-moz-border-radius:0 !important;-webkit-border-radius:0 !important;-moz-background-clip:padding !important;-webkit-background-clip:padding-box !important;background-clip:padding-box !important;border-top-color:white}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-wrapper {width:100% !important;left:0;top:0;bottom:0;position:absolute;height:auto !important}
 .field-richeditor.stretch .fr-box:not(.fr-fullscreen) .fr-wrapper .fr-view {min-height:0}
