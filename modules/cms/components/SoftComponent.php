@@ -26,8 +26,8 @@ class SoftComponent extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Soft component',
-            'description' => 'This component is missing but optional.'
+            'name'        => 'cms::lang.component.soft_component',
+            'description' => 'cms::lang.component.soft_component_description'
         ];
     }
 }
