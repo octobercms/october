@@ -1412,7 +1412,8 @@ class Controller
      *
      * @return ComponentBase|null Component object. Will return `null` if a soft component is used but not found.
      *
-     * @throws CmsException if the (hard) component is not found or is not registered.
+     * @throws CmsException if the (hard) component is not found.
+     * @throws SystemException if the (hard) component class is not found or is not registered.
      */
     public function addComponent($name, $alias, $properties, $addToLayout = false)
     {
@@ -1424,24 +1425,20 @@ class Controller
             $alias = $this->parseComponentLabel($alias);
         }
 
-        try {
-            $componentObj = $manager->makeComponent(
-                $name,
-                ($addToLayout) ? $this->layoutObj : $this->pageObj,
-                $properties,
-                $isSoftComponent
-            );
+        $componentObj = $manager->makeComponent(
+            $name,
+            ($addToLayout) ? $this->layoutObj : $this->pageObj,
+            $properties,
+            $isSoftComponent
+        );
 
-            if (is_null($componentObj)) {
-                if (!$isSoftComponent) {
-                    throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
-                }
-
-                // A missing soft component will return null.
-                return null;
+        if (is_null($componentObj)) {
+            if (!$isSoftComponent) {
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
             }
-        } catch (SystemException $e) {
-            throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+
+            // A missing soft component will return null.
+            return null;
         }
 
         $componentObj->alias = $alias;
