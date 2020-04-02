@@ -605,7 +605,7 @@ class PluginManager
     {
         $code = $this->getIdentifier($id);
         $code = $this->normalizeIdentifier($code);
-        if (array_key_exists($code, $this->disabledPlugins)) {
+        if (isset($this->disabledPlugins[$code])) {
             return false;
         }
 
@@ -630,7 +630,7 @@ class PluginManager
     {
         $code = $this->getIdentifier($id);
         $code = $this->normalizeIdentifier($code);
-        if (!array_key_exists($code, $this->disabledPlugins)) {
+        if (!isset($this->disabledPlugins[$code])) {
             return false;
         }
 
