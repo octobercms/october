@@ -39,7 +39,7 @@
         "october/backend": "~1.0",
         "october/cms": "~1.0",
         "laravel/framework": "~5.5.40",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "wikimedia/composer-merge-plugin": "1.4.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
