@@ -290,6 +290,10 @@ class RelationController extends ControllerBehavior
         }
 
         $this->controller->pageAction();
+        if ($fatalError = $this->controller->getFatalError()) {
+            throw new ApplicationException($fatalError);
+        }
+
         $this->validateField();
         $this->prepareVars();
         $this->initialized = true;
@@ -1106,7 +1110,7 @@ class RelationController extends ControllerBehavior
             $this->relationObject->add($newModel, $sessionKey);
         }
         elseif ($this->viewMode == 'single') {
-            $newModel = $this->viewModel;
+            $newModel = $this->manageWidget->model;
             $this->viewWidget->setFormValues($saveData);
 
             /*
@@ -1150,6 +1154,8 @@ class RelationController extends ControllerBehavior
             }
         }
         elseif ($this->viewMode == 'single') {
+            $this->viewModel = $this->manageWidget->model;
+
             $this->viewWidget->setFormValues($saveData);
             $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
@@ -1360,7 +1366,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $foreignKeyName = $this->relationModel->getQualifiedKeyName();
-        $hydratedModel = $this->relationObject->where($foreignKeyName, $this->manageId)->first();
+        $hydratedModel = $this->pivotWidget->model;
         $saveData = $this->pivotWidget->getSaveData();
 
         $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
@@ -1473,39 +1479,79 @@ class RelationController extends ControllerBehavior
 
     /**
      * Determine the default buttons based on the model relationship type.
-     * @return string
+     * @return array|null
      */
     protected function evalToolbarButtons()
     {
         $buttons = $this->getConfig('view[toolbarButtons]');
 
-        if ($buttons === false) {
-            return null;
-        }
-        elseif (is_string($buttons)) {
-            return array_map('trim', explode('|', $buttons));
-        }
-        elseif (is_array($buttons)) {
-            return $buttons;
+        if (!is_array($buttons)) {
+            if ($buttons === false) {
+                return null;
+            } elseif (is_string($buttons)) {
+                $buttons = array_map('trim', explode('|', $buttons));
+            } elseif ($this->manageMode === 'pivot') {
+                $buttons = ['add', 'remove'];
+            } else {
+                switch ($this->relationType) {
+                    case 'hasMany':
+                    case 'morphMany':
+                    case 'morphToMany':
+                    case 'morphedByMany':
+                    case 'belongsToMany':
+                        return ['create', 'add', 'delete', 'remove'];
+
+                    case 'hasOne':
+                    case 'morphOne':
+                    case 'belongsTo':
+                        return ['create', 'update', 'link', 'delete', 'unlink'];
+                }
+            }
         }
 
-        if ($this->manageMode == 'pivot') {
-            return ['add', 'remove'];
+        $buttonText = [];
+
+        foreach ($buttons as $type => $text) {
+            if (is_numeric($type) || !$text) {
+                if (is_numeric($type) && $text) {
+                    $type = $text;
+                }
+
+                switch ($type) {
+                    case 'create':
+                        $text = 'backend::lang.relation.create_name';
+                        break;
+
+                    case 'update':
+                        $text = 'backend::lang.relation.update_name';
+                        break;
+
+                    case 'delete':
+                        $text = 'backend::lang.relation.delete';
+                        break;
+
+                    case 'add':
+                        $text = 'backend::lang.relation.add_name';
+                        break;
+
+                    case 'remove':
+                        $text = 'backend::lang.relation.remove';
+                        break;
+
+                    case 'link':
+                        $text = 'backend::lang.relation.link_name';
+                        break;
+                        
+                    case 'unlink':
+                        $text = 'backend::lang.relation.unlink';
+                        break;
+                }
+            }
+
+            $buttonText[$type] = $text;
         }
 
-        switch ($this->relationType) {
-            case 'hasMany':
-            case 'morphMany':
-            case 'morphToMany':
-            case 'morphedByMany':
-            case 'belongsToMany':
-                return ['create', 'add', 'delete', 'remove'];
-
-            case 'hasOne':
-            case 'morphOne':
-            case 'belongsTo':
-                return ['create', 'update', 'link', 'delete', 'unlink'];
-        }
+        return $buttonText;
     }
 
     /**
@@ -1539,28 +1585,41 @@ class RelationController extends ControllerBehavior
      */
     protected function evalManageTitle()
     {
-        if ($customTitle = $this->getConfig('manage[title]')) {
+        $customTitle = $this->getConfig('manage[title]');
+
+        if (is_string($customTitle)) {
             return $customTitle;
         }
 
+        $customTitles = is_array($customTitle) ? $customTitle : [];
+
         switch ($this->manageMode) {
             case 'pivot':
+                if (array_key_exists('pivot', $customTitles)) {
+                    return $customTitles['pivot'];
+                } elseif ($this->eventTarget === 'button-link') {
+                    return 'backend::lang.relation.link_a_new';
+                }
+
+                return 'backend::lang.relation.add_a_new';
             case 'list':
-                if ($this->eventTarget == 'button-link') {
+                if (array_key_exists('list', $customTitles)) {
+                    return $customTitles['list'];
+                } elseif ($this->eventTarget === 'button-link') {
                     return 'backend::lang.relation.link_a_new';
                 }
 
                 return 'backend::lang.relation.add_a_new';
             case 'form':
-                if ($this->readOnly) {
+                if (array_key_exists('form', $customTitles)) {
+                    return $customTitles['form'];
+                } elseif ($this->readOnly) {
                     return 'backend::lang.relation.preview_name';
-                }
-                elseif ($this->manageId) {
+                } elseif ($this->manageId) {
                     return 'backend::lang.relation.update_name';
                 }
-                else {
-                    return 'backend::lang.relation.create_name';
-                }
+                
+                return 'backend::lang.relation.create_name';
         }
     }
 

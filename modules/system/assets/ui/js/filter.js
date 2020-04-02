@@ -46,7 +46,7 @@
      */
     FilterWidget.prototype.getPopoverTemplate = function() {
         return '                                                                                                       \
-                <form>                                                                                                 \
+                <form id="filterPopover-{{ scopeName }}">                                                              \
                     <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                                  \
                     <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                        \
