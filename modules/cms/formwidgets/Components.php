@@ -42,8 +42,7 @@ class Components extends FormWidgetBase
 
             try {
                 $componentObj = $manager->makeComponent($name, null, $properties);
-
-                $componentObj->alias = ((substr($name, 0, 1) === '@' && $alias !== $name) ? '@' : '') . $alias;
+                $componentObj->alias = ((starts_with($name, '@') && $alias !== $name) ? '@' : '') . $alias;
                 $componentObj->pluginIcon = 'icon-puzzle-piece';
 
                 /*
@@ -58,7 +57,7 @@ class Components extends FormWidgetBase
                 }
             }
             catch (Exception $ex) {
-                if ($name[0] === '@') {
+                if (starts_with($name, '@')) {
                     $componentObj = new SoftComponent($properties);
                     $componentObj->name = $name;
                     $componentObj->alias = (($alias !== $name) ? '@' : '') . $alias;
