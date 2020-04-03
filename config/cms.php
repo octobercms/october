@@ -44,12 +44,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Use this setting to force a secure protocol when accessing any back-end
-    | pages, including the authentication pages. If set to null, this setting
-    | is enabled when debug mode (app.debug) is disabled.
+    | pages, including the authentication pages. This is usually handled by
+    | web server config, but can be handled by the app for added security.
     |
     */
 
-    'backendForceSecure' => null,
+    'backendForceSecure' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -92,6 +92,21 @@ return [
     */
 
     'backendSkin' => 'Backend\Skins\Standard',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Automatically run migrations on login
+    |--------------------------------------------------------------------------
+    |
+    | If value is true, UpdateManager will be run on logging in to the backend.
+    | It's recommended to set this value to 'null' in production enviroments
+    | because it clears the cache every time a user logs in to the backend.
+    | If set to null, this setting is enabled when debug mode (app.debug) is enabled
+    | and disabled when debug mode is disabled.
+    |
+    */
+
+    'runMigrationsOnLogin' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -359,8 +374,8 @@ return [
     | Cross Site Request Forgery (CSRF) Protection
     |--------------------------------------------------------------------------
     |
-    | If the CSRF protection is enabled, all "postback" requests are checked
-    | for a valid security token.
+    | If the CSRF protection is enabled, all "postback" & AJAX requests are
+    | checked for a valid security token.
     |
     */
 
@@ -425,7 +440,7 @@ return [
     | this feature on can create a conflict if you have a frontend Service
     | Worker running. The 'scope' needs to be correctly set and not have a
     | duplicate subfolder structure on the frontend, otherwise it will run
-    | on both the frontend and backend of your website.	
+    | on both the frontend and backend of your website.
     |
     | true  - allow service workers to run in the backend
     |
@@ -433,6 +448,6 @@ return [
     |
     */
 
-    'enableBackendServiceWorkers' => false,	
+    'enableBackendServiceWorkers' => false,
 
 ];

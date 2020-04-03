@@ -25,9 +25,6 @@ return [
             'help' => "Eine Datenbank wird benötigt um Zugriff auf das Backend zu haben. Überprüfe die Datenbankkonfiguration und migriere die Datenbank bevor du es noch einmal probierst.",
             'cms_link' => 'Zurück zur Homepage'
         ],
-        'invalid_token' => [
-            'label' => 'Ungültiges Sicherheitstoken'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
@@ -94,7 +91,7 @@ return [
             'request_log' => 'Request Log',
             'app_birthday' => 'Online seit',
         ],
-       'welcome' => [
+        'welcome' => [
             'widget_title_default' => 'Willkommen',
             'welcome_back_name' => 'Willkommen zurück zu :app, :name.',
             'welcome_to_name' => 'Willkommen zu :app, :name.',
@@ -134,7 +131,7 @@ return [
         'activated' => 'Aktiviert',
         'last_login' => 'Letzer login',
         'created_at' => 'Erstellt am',
-        'updated_at' => 'Aktualisiert am',        
+        'updated_at' => 'Aktualisiert am',
         'group' => [
             'name' => 'Gruppe',
             'name_comment' => 'Der Name, der angezeigt wird wenn  name is displayed in the group list on the Create/Edit Administrator form.',
@@ -245,8 +242,8 @@ return [
         'preview_no_media_message' => 'Es wurde keine Media-Datei ausgewählt.',
         'preview_no_record_message' => 'Es ist kein Eintrag ausgewählt.',
         'select' => 'Auswählen',
-        'select_all' => 'Alle',
-        'select_none' => 'Keine',
+        'select_all' => 'Wählen Sie Alle',
+        'select_none' => 'nichts ausgewählt',
         'select_placeholder' => 'Bitte auswählen',
         'insert_row' => 'Reihe einfügen',
         'insert_row_below' => 'Neue Reihe darunter einfügen',
@@ -262,7 +259,7 @@ return [
     'pagelist' => [
         'page_link' => 'Seitenlink',
         'select_page' => 'Wähle eine Seite...'
-    ],    
+    ],
     'relation' => [
         'missing_config' => "Verhalten (behaviour) der Verbindung hat keine Konfiguration für ':config'.",
         'missing_definition' => "Verhalten (behaviour) der Verbindung umfasst keine Definition für ':field'.",
@@ -327,19 +324,19 @@ return [
         'code_folding_begin_end' => 'Markierungsbeginn und Ende',
         'autocompletion' => 'Autovervollständigung',
         'word_wrap' => 'Word Wrap',
-        'highlight_active_line' => 'Aktive Linie hervorheben',
-        'auto_closing' => 'Autmatisch Tags schließen',
+        'highlight_active_line' => 'Aktive Zeile hervorheben',
+        'auto_closing' => 'Automatisch Tags schließen',
         'show_invisibles' => 'Unsichtbare Zeichen anzeigen',
         'show_gutter' => 'Gutter anzeigen',
         'live_autocompletion'=> 'Live Autovervollständigung',
-        'enable_snippets'=> 'Aktiviere code snippets (Tab)',
+        'enable_snippets'=> 'Aktiviere Code-snippets (Tab)',
         'display_indent_guides'=> 'Zeige Einrückungshilfen',
         'show_print_margin'=> 'Zeige Druckabstand',
         'mode_off' => 'Aus',
         'mode_fluid' => 'Fluid',
         '40_characters' => '40 Zeichen',
         '80_characters' => '80 Zeichen',
-        'theme' => 'Farb Schema',
+        'theme' => 'Farbschema',
         'markup_styles' => 'Markup Styles',
         'custom_styles' => 'Custom stylesheet',
         'custom styles_comment' => 'Custom styles im HTML editor einbinden.',
@@ -359,8 +356,17 @@ return [
         'no_wrap' => 'Tags nicht wrappen',
         'no_wrap_comment' => 'Die Liste von Tags welche nicht in Block-Tags gepackt werden sollen.',
         'remove_tags' => 'Entferne Tags',
-        'remove_tags_comment' => 'Die Liste an Tags welche nicht zusammen entfernt werden mit ihren Inhalt.'
-
+        'remove_tags_comment' => 'Die Liste an Tags welche nicht zusammen entfernt werden mit ihrem Inhalt.',
+        'line_breaker_tags' => 'Zeilenumbruch Tags',
+        'line_breaker_tags_comment' => 'Die Liste von Tags, zwischen die ein Zeilenumbruch-Element eingefügt wird.',
+        'toolbar_buttons' => 'Toolbar-Buttons',
+        'toolbar_buttons_comment' => 'Die Toolbar-Buttons, die im Rich Editor standardmässig angezeigt werden sollen.',
+        'toolbar_buttons_preset' => 'Standard-Vorlage für Toolbars übernehmen:',
+        'toolbar_buttons_presets' => [
+            'default' => 'Standard',
+            'minimal' => 'Minimal',
+            'full' => 'Vollständig',
+        ],
     ],
     'tooltips' => [
         'preview_website' => 'Vorschau der Webseite'

@@ -7,6 +7,7 @@ use Config;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Components\ViewBag;
+use Cms\Helpers\Cms as CmsHelpers;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Halcyon\Processors\SectionParser;
 use Twig\Source as TwigSource;
@@ -143,12 +144,7 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        $safeMode = Config::get('cms.enableSafeMode', null);
-        if ($safeMode === null) {
-            $safeMode = !Config::get('app.debug', false);
-        }
-
-        if ($safeMode && $this->isDirty('code') && strlen(trim($this->code))) {
+        if (CmsHelpers::safeModeEnabled() && $this->isDirty('code') && strlen(trim($this->code))) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
     }
@@ -237,7 +233,6 @@ class CmsCompoundObject extends CmsObject
         $componentName = $componentManager->resolve($componentName);
 
         foreach ($this->settings['components'] as $sectionName => $values) {
-
             $result = $sectionName;
 
             if ($sectionName == $componentName) {
@@ -257,7 +252,6 @@ class CmsCompoundObject extends CmsObject
             if ($sectionName == $componentName) {
                 return $result;
             }
-
         }
 
         return false;

@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => "파일 ':name'을 작성할 수 없습니다.",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => '잘못된 보안 토큰',
+        ],
+    ],
     'combiner' => [
         'not_found' => "combiner파일 ':name'을 발견할 수 없습니다.",
     ],
@@ -55,6 +60,7 @@ return [
             'label' => '플러그인명',
             'help' => '중복없는 플러그인명을 사용해주세요. (예:RainLab.Blog)',
         ],
+        'by_author' => 'By :name'
     ],
     'plugins' => [
         'manage' => '플러그인 관리',

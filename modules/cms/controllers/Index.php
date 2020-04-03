@@ -4,6 +4,7 @@ use Url;
 use Lang;
 use Flash;
 use Config;
+use Event;
 use Request;
 use Exception;
 use BackendMenu;
@@ -20,6 +21,7 @@ use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
+use Cms\Helpers\Cms as CmsHelpers;
 use Backend\Classes\Controller;
 use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
@@ -58,6 +60,24 @@ class Index extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Event::listen('backend.form.extendFieldsBefore', function ($widget) {
+            if (!$widget->getController() instanceof Index) {
+                return;
+            }
+            if (!$widget->model instanceof CmsCompoundObject) {
+                return;
+            }
+
+            if (empty($widget->secondaryTabs['fields'])) {
+                return;
+            }
+
+            if (array_key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
+                $widget->secondaryTabs['fields']['safemode_notice']['hidden'] = false;
+                $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+            };
+        });
 
         BackendMenu::setContext('October.Cms', 'cms', true);
 
@@ -661,7 +681,7 @@ class Index extends Controller
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
         $widgetConfig->model = $template;
-        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName());
+        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->exists ? $template->getFileName() : uniqid());
 
         return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
@@ -715,7 +735,7 @@ class Index extends Controller
 
         /**
          * @event cms.template.processSettingsBeforeSave
-         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: array()}
+         * Fires before a CMS template (page|partial|layout|content|asset) is saved and provides an opportunity to interact with the settings data. `$dataHolder` = {settings: []}
          *
          * Example usage:
          *

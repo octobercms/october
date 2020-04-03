@@ -33,7 +33,7 @@ class EditorSetting extends Model
      * @var mixed Settings form field defitions
      */
     public $settingsFields = 'fields.yaml';
-    
+
     /**
      * @var string The key to store rendered CSS in the cache under
      */
@@ -74,6 +74,20 @@ class EditorSetting extends Model
     protected $defaultHtmlStyleTableCell = [
         'oc-cell-highlighted' => 'Highlighted',
         'oc-cell-thick-border' => 'Thick Border',
+    ];
+
+    /**
+     * Editor toolbar presets for Froala.
+     */
+    protected $editorToolbarPresets = [
+        'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL, insertTable, 
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertHR, html',
+        'minimal' => 'paragraphFormat, bold, italic, underline, |, insertLink, insertImage, |, html',
+        'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |, 
+                      strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color, 
+                      emoticons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR, 
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, |, selectAll, 
+                      html, fullscreen',
     ];
 
     /**
@@ -128,9 +142,14 @@ class EditorSetting extends Model
         $defaultValue = $instance->getDefaultValue($key);
 
         if (is_array($value)) {
-            $value = array_build($value, function ($key, $value) {
-                return [array_get($value, 'class_name'), array_get($value, 'class_label')];
-            });
+            $value = array_filter(array_build($value, function ($key, $value) {
+                if (array_has($value, ['class_name', 'class_label'])) {
+                    return [
+                        array_get($value, 'class_name'),
+                        array_get($value, 'class_label')
+                    ];
+                }
+            }));
         }
 
         return $value != $defaultValue ? $value : $default;
@@ -156,6 +175,17 @@ class EditorSetting extends Model
         $property = 'default'.studly_case($attribute);
 
         return $this->$property;
+    }
+
+    /**
+     * Return the editor toolbar presets without line breaks.
+     * @return array
+     */
+    public function getEditorToolbarPresets()
+    {
+        return array_map(function ($value) {
+            return preg_replace('/\s+/', ' ', $value);
+        }, $this->editorToolbarPresets);
     }
 
     public static function renderCss()

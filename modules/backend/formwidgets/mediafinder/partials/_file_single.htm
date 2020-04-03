@@ -3,6 +3,7 @@
     class="field-mediafinder style-file-single <?= $value ? 'is-populated' : '' ?> <?= $this->previewMode ? 'is-preview' : '' ?>"
     data-control="mediafinder"
     data-media-manager-alias="<?= $mediaManagerAlias ?>"
+    <?= $field->getAttributes() ?>
 >
 
     <!-- Find Button -->

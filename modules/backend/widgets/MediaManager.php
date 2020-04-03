@@ -317,7 +317,7 @@ class MediaManager extends WidgetBase
                  *
                  * Example usage:
                  *
-                 *     Event::listen('media.folder.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *     Event::listen('media.folder.delete', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
                  *         \Log::info($path . " was deleted");
                  *     });
                  *
@@ -348,7 +348,7 @@ class MediaManager extends WidgetBase
                  *
                  * Example usage:
                  *
-                 *     Event::listen('media.file.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *     Event::listen('media.file.delete', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
                  *         \Log::info($path . " was deleted");
                  *     });
                  *
@@ -431,7 +431,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *     Event::listen('media.file.rename', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
              *         \Log::info($originalPath . " was moved to " . $path);
              *     });
              *
@@ -456,7 +456,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.folder.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *     Event::listen('media.folder.rename', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
              *         \Log::info($originalPath . " was moved to " . $path);
              *     });
              *
@@ -514,7 +514,7 @@ class MediaManager extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('media.folder.create', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
+         *     Event::listen('media.folder.create', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
          *         \Log::info($newFolderPath . " was created");
          *     });
          *
@@ -614,7 +614,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *     Event::listen('media.file.move', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
              *         \Log::info($path . " was moved to " . $dest);
              *     });
              *
@@ -640,7 +640,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.folder.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *     Event::listen('media.folder.move', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
              *         \Log::info($path . " was moved to " . $dest);
              *     });
              *
@@ -795,10 +795,10 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        $params = array(
+        $params = [
             'width' => $width,
             'height' => $height
-        );
+        ];
 
         return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }
@@ -1562,18 +1562,18 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.upload', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *     Event::listen('media.file.upload', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) &$path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
              *         \Log::info($path . " was upoaded.");
              *     });
              *
              * Or
              *
-             *     $mediaWidget->bindEvent('file.upload', function ((string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
+             *     $mediaWidget->bindEvent('file.upload', function ((string) &$path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
              *         \Log::info($path . " was uploaded");
              *     });
              *
              */
-            $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
+            $this->fireSystemEvent('media.file.upload', [&$filePath, $uploadedFile]);
 
             $response = Response::make([
                 'link' => MediaLibrary::url($filePath),

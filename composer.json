@@ -1,7 +1,8 @@
 {
     "name": "october/october",
-    "description": "October CMS",
+    "description": "OctoberCMS",
     "homepage": "https://octobercms.com",
+    "type": "project",
     "keywords": ["october", "cms", "octobercms", "laravel"],
     "license": "MIT",
     "authors": [
@@ -30,15 +31,15 @@
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.0.8",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "october/rain": "~1.0",
         "october/system": "~1.0",
         "october/backend": "~1.0",
         "october/cms": "~1.0",
-        "laravel/framework": "5.5.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "laravel/framework": "~5.5.40",
+        "wikimedia/composer-merge-plugin": "1.4.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
@@ -46,10 +47,12 @@
         "phpunit/phpunit-selenium": "~1.2",
         "meyfa/phpunit-assert-gd": "1.1.0",
         "squizlabs/php_codesniffer": "3.*",
-        "jakub-onderka/php-parallel-lint": "^1.0"
+        "php-parallel-lint/php-parallel-lint": "^1.0"
     },
     "autoload-dev": {
         "classmap": [
+            "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
             "tests/UiTestCase.php",
             "tests/PluginTestCase.php"
@@ -68,7 +71,7 @@
     "config": {
         "preferred-install": "dist",
         "platform": {
-            "php": "7.0"
+            "php": "7.0.8"
         }
     },
     "minimum-stability": "dev",

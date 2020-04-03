@@ -25,9 +25,6 @@ return [
             'help' => "جهت استفاده از بخش مدیریت به یک پایگاه داده نیاز دارید. تنظیمات پایگاه داده را بررسی نموده و از نصب جدولها در آن اطمینان حاصل کنید.",
             'cms_link' => 'Return to the homepage'
         ],
-        'invalid_token' => [
-            'label' => 'کلید امنیتی معتبر نمی باشد'
-        ]
     ],
     'partial' => [
         'not_found_name' => "بخشی با نام ':name' یافت نشد.",
@@ -263,8 +260,8 @@ return [
         'preview_no_media_message' => 'رسانه ای انتخاب نشده است.',
         'preview_no_record_message' => 'موردی انتخاب نشده است.',
         'select' => 'انتخاب',
-        'select_all' => 'همه',
-        'select_none' => 'هیچ',
+        'select_all' => 'انتخاب همه',
+        'select_none' => 'هیچ کدام را انتخاب نکنید',
         'select_placeholder' => 'لطفا انتخاب نمایید',
         'insert_row' => 'افزودن سطر',
         'insert_row_below' => 'افزودن سطر بعد از',
@@ -380,7 +377,7 @@ return [
         'remove_tags' => 'تگ های غیر مجاز',
         'remove_tags_comment' => 'تگ هایی که در صورت وارد شدن در ویرایش گر با محتوی خود حذف می شوند',
         'toolbar_buttons' => 'دکمه های جعبه ابزار',
-        'toolbar_buttons_comment' => 'دکمه های پیشفرض جهت نمایش در ویرایشگر. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'دکمه های پیشفرض جهت نمایش در ویرایشگر.',
     ],
     'tooltips' => [
         'preview_website' => 'پیش نمایش وب سایت'

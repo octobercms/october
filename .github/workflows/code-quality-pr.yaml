@@ -1,0 +1,30 @@
+name: Code Quality
+
+on:
+  pull_request:
+
+jobs:
+  codeQuality:
+    runs-on: ubuntu-latest
+    name: PHP
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v1
+      - name: Install PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.2
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --no-suggest
+      - name: Reset October modules and library
+        run: |
+          git reset --hard HEAD
+          rm -rf ./vendor/october/rain
+          wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
+          unzip ./vendor/october/develop.zip -d ./vendor/october
+          mv ./vendor/october/library-develop ./vendor/october/rain
+          composer dump-autoload
+      - name: Run code quality checks
+        run: |
+          git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && git fetch
+          ./vendor/bin/phpcs --colors -nq --report="full" --extensions="php" $(git diff --name-only --diff-filter=ACMR origin/${{ github.base_ref }} HEAD)

@@ -174,7 +174,9 @@ abstract class ImportModel extends Model
      */
     protected function decodeArrayValue($value, $delimeter = '|')
     {
-        if (strpos($value, $delimeter) === false) return [$value];
+        if (strpos($value, $delimeter) === false) {
+            return [$value];
+        }
 
         $data = preg_split('~(?<!\\\)' . preg_quote($delimeter, '~') . '~', $value);
         $newData = [];
@@ -229,6 +231,7 @@ abstract class ImportModel extends Model
             'iso-8859-13',
             'iso-8859-14',
             'iso-8859-15',
+            'Windows-1250',
             'Windows-1251',
             'Windows-1252'
         ];

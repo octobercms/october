@@ -3,7 +3,7 @@
 use Db;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
-use Illuminate\Database\Eloquent\Relations\Relation as RelationBase;
+use October\Rain\Database\Relations\Relation as RelationBase;
 
 /**
  * Form Relationship
@@ -40,6 +40,11 @@ class Relation extends FormWidgetBase
      */
     public $scope;
 
+    /**
+     * @var string Define the order of the list query.
+     */
+    public $order;
+
     //
     // Object properties
     //
@@ -63,6 +68,7 @@ class Relation extends FormWidgetBase
             'nameFrom',
             'emptyOption',
             'scope',
+            'order',
         ]);
 
         if (isset($this->config->select)) {
@@ -109,19 +115,25 @@ class Relation extends FormWidgetBase
                 $field->type = 'dropdown';
             }
 
+            // Order query by the configured option.
+            if ($this->order) {
+                // Using "raw" to allow authors to use a string to define the order clause.
+                $query->orderByRaw($this->order);
+            }
+
             // It is safe to assume that if the model and related model are of
             // the exact same class, then it cannot be related to itself
             if ($model->exists && (get_class($model) == get_class($relationModel))) {
                 $query->where($relationModel->getKeyName(), '<>', $model->getKey());
             }
 
-            if ($scopeMethod = $this->scope) {
-                $query->$scopeMethod($model);
-            }
-
             // Even though "no constraints" is applied, belongsToMany constrains the query
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
+
+            if ($scopeMethod = $this->scope) {
+                $query->$scopeMethod($model);
+            }
 
             // Determine if the model uses a tree trait
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];

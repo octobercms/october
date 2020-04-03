@@ -31,12 +31,11 @@
                 if (isMobile) e.preventDefault()
             })
 
-            $('[data-calculate-width]', navbar).one('oc.widthFixed', function() {
-                var dragScroll = $('[data-control=toolbar]', navbar).data('oc.dragScroll')
-                if (dragScroll) {
-                    dragScroll.goToElement($('ul.nav > li.active', navbar), undefined, {'duration': 0})
-                }
-            })
+            // Scroll to the currently active nav item.
+            var dragScroll = $('[data-control=toolbar]', navbar).data('oc.dragScroll')
+            if (dragScroll) {
+                dragScroll.goToElement($('ul.nav > li.active', navbar), undefined, {'duration': 0})
+            }
         })
     })
 })(jQuery);

@@ -71,6 +71,19 @@ class MailLayout extends Model
         return array_get(self::listCodes(), $code);
     }
 
+    public static function findOrMakeLayout($code)
+    {
+        $layout = self::whereCode($code)->first();
+
+        if (!$layout && View::exists($code)) {
+            $layout = new self;
+            $layout->code = $code;
+            $layout->fillFromView($code);
+        }
+
+        return $layout;
+    }
+
     /**
      * Loops over each mail layout and ensures the system has a layout,
      * if the layout does not exist, it will create one.
@@ -141,5 +154,4 @@ class MailLayout extends Model
     {
         return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
     }
-
 }

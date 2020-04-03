@@ -170,13 +170,13 @@ class ControllerTest extends TestCase
         $requestMock = $this
             ->getMockBuilder('Illuminate\Http\Request')
             ->disableOriginalConstructor()
-            ->setMethods(array('ajax', 'method', 'header'))
+            ->setMethods(['ajax', 'method', 'header'])
             ->getMock();
 
-        $map = array(
-            array('X_OCTOBER_REQUEST_HANDLER', null, $handler),
-            array('X_OCTOBER_REQUEST_PARTIALS', null, $partials),
-        );
+        $map = [
+            ['X_OCTOBER_REQUEST_HANDLER', null, $handler],
+            ['X_OCTOBER_REQUEST_PARTIALS', null, $partials],
+        ];
 
         $requestMock->expects($this->any())
             ->method('ajax')
@@ -485,5 +485,4 @@ Custom output: And tell him about his brush strokes?
 ESC;
         $this->assertEquals($content, $response);
     }
-
 }

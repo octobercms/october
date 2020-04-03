@@ -19,10 +19,12 @@ return [
             'online' => 'online',
             'maintenance' => 'em manutenção',
             'manage_themes' => 'Gerenciar temas',
+            'customize_theme' => 'Customizar tema'
         ]
     ],
     'theme' => [
         'not_found_name' => 'O tema ":name" não foi encontrado.',
+        'by_author' => 'Por :name',
         'active' => [
             'not_set' => 'O tema ativo não foi definido.',
             'not_found' => 'O tema ativo não foi encontrado.',
@@ -45,6 +47,8 @@ return [
         'homepage_placeholder' => 'URL do site',
         'code_label' => 'Código',
         'code_placeholder' => 'Um código exclusivo para esse tema a ser usado para distribuição',
+        'preview_image_label' => 'Imagem de pré-visualização',
+        'preview_image_placeholder' => 'O caminho da imagem de pré-visualização do tema.',
         'dir_name_label' => 'Nome do diretório',
         'dir_name_create_label' => 'O diretório-alvo de temas',
         'theme_label' => 'Tema',
@@ -95,6 +99,7 @@ return [
         'settings_menu_description' => 'Configurar modo de manutenção e a página exibida.',
         'is_enabled' => 'Ativar modo de manutenção',
         'is_enabled_comment' => 'Quando ativado visitantes do site vão ver a página selecionada.',
+        'hint' => 'O modo de manutenção exibirá a página de manutenção para visitantes que não estão conectados à área de back-end.'
     ],
     'page' => [
         'not_found_name' => 'A página ":name" não foi encontrada',
@@ -114,6 +119,10 @@ return [
         'delete_confirm_multiple' => 'Você realmente deseja excluir as páginas selecionadas?',
         'delete_confirm_single' => 'Você realmente deseja excluir esta página?',
         'no_layout' => '-- sem esboço --',
+        'cms_page' => 'Página do CMS',
+        'title' => 'Título da página',
+        'url' => 'URL da página',
+        'file_name' => 'Nome do arquivo da página'
     ],
     'layout' => [
         'not_found_name' => 'O esboço ":name" não foi encontrado',
@@ -176,7 +185,15 @@ return [
         'open_searchbox' => 'Abrir caixa de busca',
         'close_searchbox'  => 'Fechar caixa de busca',
         'open_replacebox' => 'Abrir caixa de substituição',
-        'close_replacebox'  => 'Fechar caixa de substituição'
+        'close_replacebox'  => 'Fechar caixa de substituição',
+        'commit' => 'Persistir',
+        'reset' => 'Redefinir',
+        'commit_confirm' => 'Tem certeza de que deseja enviar suas alterações para este arquivo no sistema de arquivos? Isso sobrescreverá o arquivo existente no sistema de arquivos',
+        'reset_confirm' => 'Tem certeza de que deseja redefinir este arquivo para a cópia que está no sistema de arquivos? Isso irá substituí-lo completamente com o arquivo que está no sistema de arquivos',
+        'committing' => 'Persistindo',
+        'resetting' => 'Redefinindo',
+        'commit_success' => 'O :type foi confirmado no sistema de arquivos',
+        'reset_success' => 'O :type foi redefinido para a versão do sistema de arquivos',
     ],
     'asset' => [
         'menu_label' => 'Arquivos',
@@ -218,6 +235,8 @@ return [
         'error_moving_file' => 'Erro ao mover arquivo :file',
         'error_moving_directory' => 'Erro ao mover diretório :dir',
         'error_deleting_directory' => 'Erro ao excluir o diretório original :dir',
+        'no_list_records' => 'Nenhum arquivo encontrado',
+        'delete_confirm' => 'Excluir arquivos ou diretórios selecionados?',
         'path' => 'Caminho',
     ],
     'component' => [
@@ -236,6 +255,9 @@ return [
         'invalid_type' => 'Tipo de modelo desconhecido.',
         'not_found' => 'O modelo solicitado não foi encontrado.',
         'saved'=> 'O modelo foi salvo com sucesso.',
+        'no_list_records' => 'Nenhum registro foi encontrado',
+        'delete_confirm' => 'Excluir modelos selecionados?',
+        'order_by' => 'Ordenar por'
     ],
     'permissions' => [
         'name' => 'Cms',
@@ -245,5 +267,34 @@ return [
         'manage_layouts' => 'Gerenciar esboços',
         'manage_partials' => 'Gerenciar blocos',
         'manage_themes' => 'Gerenciar temas',
+    ],
+    'theme_log' => [
+        'hint' => 'Esses registros exibe as alterações feitas no tema pelos administradores na área de backend.',
+        'menu_label' => 'Registros do tema',
+        'menu_description' => 'Veja as alterações feitas no tema ativo.',
+        'empty_link' => 'Registros do tema vazio',
+        'empty_loading' => 'Esvaziando registros de tema...',
+        'empty_success' => 'Registros do tema esvaziado',
+        'return_link' => 'Retornar aos registros deo tema',
+        'id' => 'ID',
+        'id_label' => 'Registro ID',
+        'created_at' => 'Data & Hora',
+        'user' => 'Usuário',
+        'type' => 'Tipo',
+        'type_create' => 'Criado',
+        'type_update' => 'Atualizado',
+        'type_delete' => 'Apagado',
+        'theme_name' => 'Tema',
+        'theme_code' => 'Código do tema',
+        'old_template' => 'Modelo (antigo)',
+        'new_template' => 'Template (novo)',
+        'template' => 'Modelo',
+        'diff' => 'Mudanças',
+        'old_value' => 'Valor antigo',
+        'new_value' => 'Novo valor',
+        'preview_title' => 'Mudanças no modelo',
+        'template_updated' => 'Modelo foi atualizado',
+        'template_created' => 'Modelo foi criado',
+        'template_deleted' => 'O modelo foi apagado',
     ],
 ];

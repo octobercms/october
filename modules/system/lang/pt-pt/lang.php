@@ -35,6 +35,7 @@ return [
         'ru' => 'Russo',
         'sv' => 'Suéco',
         'sk' => 'Esloveno',
+        'sl' => 'Slovenščina',
         'tr' => 'Turco',
         'zh-cn' => 'Chinês',
         'zh-tw' => 'Tailandês',
@@ -45,6 +46,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'Não é possível criar o ficheiro: :name',
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido',
+        ],
     ],
     'combiner' => [
         'not_found' => 'O ficheiro combinador ":name" não foi encontrado.',

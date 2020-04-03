@@ -1,8 +1,6 @@
 <?php
-
 class AuthTest extends UiTestCase
 {
-
     public function testSignInAndOut()
     {
         $this->open('backend');
@@ -88,7 +86,5 @@ class AuthTest extends UiTestCase
         catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
-
     }
-
 }

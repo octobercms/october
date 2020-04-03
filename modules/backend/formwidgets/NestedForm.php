@@ -35,11 +35,16 @@ class NestedForm extends FormWidgetBase
     /**
      * @inheritDoc
      */
-    public function init() {
+    public function init()
+    {
         $this->fillFromConfig([
             'form',
             'usePanelStyles',
         ]);
+
+        if ($this->formField->disabled) {
+            $this->previewMode = true;
+        }
 
         $config = $this->makeConfig($this->form);
         $config->model = $this->model;
@@ -48,7 +53,12 @@ class NestedForm extends FormWidgetBase
         $config->arrayName = $this->getFieldName();
         $config->isNested = true;
 
+        if (object_get($this->getParentForm()->config, 'enableDefaults') === true) {
+            $config->enableDefaults = true;
+        }
+
         $widget = $this->makeWidget(Form::class, $config);
+        $widget->previewMode = $this->previewMode;
         $widget->bindToController();
 
         $this->formWidget = $widget;
@@ -62,13 +72,14 @@ class NestedForm extends FormWidgetBase
     /**
      * @inheritdoc
      */
-    function render()
+    public function render()
     {
         $this->prepareVars();
         return $this->makePartial('nestedform');
     }
 
-    function prepareVars() {
+    public function prepareVars()
+    {
         $this->formWidget->previewMode = $this->previewMode;
     }
 }

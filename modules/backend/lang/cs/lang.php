@@ -25,9 +25,6 @@ return [
             'help' => "K přístupu do administrace je zapotřebí databáze. Zkontrolujte, zda je databáze nakonfigurována a migrována a zkuste to znovu.",
             'cms_link' => 'Zpět na úvodní stránku'
         ],
-        'invalid_token' => [
-            'label' => 'Neplatný bezpečnostní token',
-        ]
     ],
     'partial' => [
         'not_found_name' => "Dílčí šablona ':name' nebyla nalezena."
@@ -262,8 +259,8 @@ return [
         'preview_no_media_message' => 'Žádné médium nebylo vybráno.',
         'preview_no_record_message' => 'Žádný záznam není vybraný.',
         'select' => 'Vybrat',
-        'select_all' => 'Vše',
-        'select_none' => 'Nic',
+        'select_all' => 'vybrat vše',
+        'select_none' => 'vyberte žádný',
         'select_placeholder' => 'Prosím vyberte',
         'insert_row' => 'Vložit řádek',
         'insert_row_below' => 'Vložit řádek pod',
@@ -379,7 +376,7 @@ return [
         'remove_tags' => 'Odstranit značky',
         'remove_tags_comment' => 'Seznam značek, které jsou odstraněny spolu s jejich obsahem.',
         'toolbar_buttons' => 'Tlačítka na panelu nástrojů',
-        'toolbar_buttons_comment' => 'Seznam výchozích tlačítek na panelů nástrojů textového editoru. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Seznam výchozích tlačítek na panelů nástrojů textového editoru.',
     ],
     'tooltips' => [
         'preview_website' => 'Náhled stránek'
