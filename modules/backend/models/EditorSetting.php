@@ -82,7 +82,7 @@ class EditorSetting extends Model
     protected $editorToolbarPresets = [
         'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL, insertTable, 
                       insertLink, insertImage, insertVideo, insertAudio, insertFile, insertHR, html',
-        'minimal' => 'bold, italic, underline, |, insertLink, insertImage, |, html',
+        'minimal' => 'paragraphFormat, bold, italic, underline, |, insertLink, insertImage, |, html',
         'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |, 
                       strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color, 
                       emoticons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR, 
