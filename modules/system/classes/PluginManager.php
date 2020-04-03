@@ -208,13 +208,6 @@ class PluginManager
      */
     public function registerPlugin($plugin, $pluginId = null)
     {
-        /**
-         * Verify that the provided plugin should be registered
-         */
-        if (!$plugin || $plugin->disabled || (self::$noInit && !$plugin->elevated)) {
-            return;
-        }
-
         if (!$pluginId) {
             $pluginId = $this->getIdentifier($plugin);
         }
@@ -228,6 +221,13 @@ class PluginManager
         $langPath = $pluginPath . '/lang';
         if (File::isDirectory($langPath)) {
             Lang::addNamespace($pluginNamespace, $langPath);
+        }
+
+        /**
+         * Verify that the provided plugin should be registered
+         */
+        if (!$plugin || $plugin->disabled || (self::$noInit && !$plugin->elevated)) {
+            return;
         }
 
         /*
