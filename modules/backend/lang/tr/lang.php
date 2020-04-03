@@ -393,7 +393,7 @@ return [
         'line_breaker_tags' => 'Satır atlatma etiketleri',
         'line_breaker_tags_comment' => 'Aralarına bir satır atlatma öğesi yerleştirmek için kullanılan etiketlerin listesi.',
         'toolbar_buttons' => 'Araç Çubuğu Düğmeleri',
-        'toolbar_buttons_comment' => 'Rich Editor\'de varsayılan olarak görüntülenecek Araç Çubuğu düğmeleri. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Rich Editor\'de varsayılan olarak görüntülenecek Araç Çubuğu düğmeleri.',
     ],
     'tooltips' => [
         'preview_website' => 'Websiteyi Önizle',
