@@ -1411,7 +1411,6 @@ class Controller
      * @param bool $addToLayout Add to layout, instead of page
      *
      * @return ComponentBase|null Component object. Will return `null` if a soft component is used but not found.
-     *
      * @throws CmsException if the (hard) component is not found.
      * @throws SystemException if the (hard) component class is not found or is not registered.
      */
