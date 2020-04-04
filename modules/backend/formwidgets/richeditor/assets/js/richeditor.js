@@ -36,6 +36,7 @@
 
     RichEditor.DEFAULTS = {
         linksHandler: null,
+        uploadHandler: null,
         stylesheet: null,
         fullpage: false,
         editorLang: 'en',
@@ -79,6 +80,7 @@
             language: this.options.editorLang,
             fullPage: this.options.fullpage,
             pageLinksHandler: this.options.linksHandler,
+            uploadHandler: this.options.uploadHandler,
             aceEditorVendorPath: this.options.aceVendorPath,
             toolbarSticky: false
         }
@@ -157,7 +159,7 @@
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
         froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
-            X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD: 1,
+            _handler: froalaOptions.uploadHandler,
             _token: $('meta[name="csrf-token"]').attr('content')
         }
 

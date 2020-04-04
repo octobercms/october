@@ -2,7 +2,7 @@
     data-control="media-manager"
     class="layout"
     data-alias="<?= $this->alias ?>"
-    data-unique-id="<?= $this->getId() ?>"
+    data-upload-handler="<?= $this->getEventHandler('onUpload') ?>"
     data-delete-empty="<?= e(trans('backend::lang.media.delete_empty')) ?>"
     data-delete-confirm="<?= e(trans('backend::lang.media.delete_confirm')) ?>"
     data-move-empty="<?= e(trans('backend::lang.media.move_empty')) ?>"
