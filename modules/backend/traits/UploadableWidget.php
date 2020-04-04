@@ -18,10 +18,10 @@ use October\Rain\Filesystem\Definitions as FileDefinitions;
  */
 trait UploadableWidget
 {
-    /**
-     * @var string|null Path in the Media Library where uploaded files should be stored. If null it will be pulled from Request::input('path');
-     */
-    public $uploadPath = '/uploaded-files';
+    // /**
+    //  * @var string Path in the Media Library where uploaded files should be stored. If empty it will be pulled from Request::input('path');
+    //  */
+    // public $uploadPath;
 
     /**
      * Process file uploads submitted via AJAX
@@ -73,7 +73,7 @@ trait UploadableWidget
             }
 
             // Use the configured upload path unless it's null, in which case use the user-provided path
-            $path = !is_null($this->uploadPath) ? $this->uploadPath : Request::input('path');
+            $path = !empty($this->uploadPath) ? $this->uploadPath : Request::input('path');
             $path = MediaLibrary::validatePath($path);
             $filePath = $path . '/' . $fileName;
 

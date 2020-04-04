@@ -155,13 +155,27 @@
 
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo']
 
+        // Ensure that October recognizes AJAX requests from Froala
+        froalaOptions.requestHeaders = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+
+        // Get the data from the parent form for including in the request
+        var $form = this.$el.closest('form')
+        var formData = {};
+        if ($form.length > 0) {
+            $.each($form.serializeArray(), function (index, field) {
+                formData[field.name] = field.value;
+            })
+        }
+
         // File upload
         froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location
         froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data'
-        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = {
+        froalaOptions.imageUploadParams = froalaOptions.fileUploadParams = $.extend(formData, {
             _handler: froalaOptions.uploadHandler,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        }
+        })
 
         var placeholder = this.$textarea.attr('placeholder')
         froalaOptions.placeholderText = placeholder ? placeholder : ''

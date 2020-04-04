@@ -61,11 +61,6 @@ class MediaManager extends WidgetBase
     public $cropAndInsertButton = false;
 
     /**
-     * @var string|null Path in the Media Library where uploaded files should be stored. If null it will be pulled from Request::input('path');
-     */
-    public $uploadPath = null;
-
-    /**
      * Constructor.
      */
     public function __construct($controller, $alias, $readOnly = false)
@@ -1619,7 +1614,7 @@ class MediaManager extends WidgetBase
     /**
      * Business logic to crop a media library image
      * @param string $imageSrcPath
-     * @param array $selectionData
+     * @param string $selectionData
      * @param string $cropSessionKey
      * @param string $path
      * @return array

@@ -106,6 +106,14 @@
     &.size-large  { .richeditor-set-height(@size-large); }
     &.size-huge   { .richeditor-set-height(@size-huge); }
     &.size-giant  { .richeditor-set-height(@size-giant); }
+
+    &.stretch {
+        &.size-tiny { min-height: @size-tiny; }
+        &.size-small { min-height: @size-small; }
+        &.size-large { min-height: @size-large; }
+        &.size-huge { min-height: @size-huge; }
+        &.size-giant { min-height: @size-giant; }
+    }
 }
 
 .fr-tooltip {

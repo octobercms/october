@@ -41,6 +41,11 @@ class RichEditor extends FormWidgetBase
      */
     public $readOnly = false;
 
+    /**
+     * @var string|null Path in the Media Library where uploaded files should be stored. If null it will be pulled from Request::input('path');
+     */
+    public $uploadPath = '/uploaded-files';
+
     //
     // Object properties
     //
