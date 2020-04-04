@@ -277,7 +277,6 @@ MediaManager.prototype.doObjectsCollide=function(aTop,aLeft,aWidth,aHeight,bTop,
 MediaManager.prototype.initUploader=function(){if(!this.itemListElement||this.options.readOnly)
 return
 var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',timeout:0,headers:{},createImageThumbnails:false}
-if(this.options.uniqueId){uploaderOptions.headers['X-OCTOBER-FILEUPLOAD']=this.options.uniqueId}
 var token=$('meta[name="csrf-token"]').attr('content')
 if(token){uploaderOptions.headers['X-CSRF-TOKEN']=token}
 this.dropzone=new Dropzone(this.$el.get(0),uploaderOptions)
@@ -307,7 +306,8 @@ progressBar.setAttribute('class','progress-bar')}
 MediaManager.prototype.uploadQueueComplete=function(){this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
 this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 this.refresh()}
-MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())}
+MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())
+xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER',this.options.uploadHandler)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
 MediaManager.prototype.updateUploadBar=function(templateName,classNames){var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),successTemplate=fileNumberLabel.getAttribute('data-'+templateName+'-template'),progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
@@ -465,7 +465,7 @@ eventHandled=true
 break;}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
+MediaManager.DEFAULTS={url:window.location,uploadHandler:null,alias:'',deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)

@@ -157,11 +157,11 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,uploadHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
-RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
+RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,uploadHandler:this.options.uploadHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
 else{froalaOptions.toolbarButtons=$.oc.richEditorButtons}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
@@ -178,9 +178,12 @@ froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
 froalaOptions.lineBreakerTags=this.options.lineBreakerTags?this.options.lineBreakerTags.split(/[\s,]+/):['figure, table, hr, iframe, form, dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
+froalaOptions.requestHeaders={'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),'X-Requested-With':'XMLHttpRequest'}
+var $form=this.$el.closest('form')
+var formData={};if($form.length>0){$.each($form.serializeArray(),function(index,field){formData[field.name]=field.value;})}
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'
-froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1,_token:$('meta[name="csrf-token"]').attr('content')}
+froalaOptions.imageUploadParams=froalaOptions.fileUploadParams=$.extend(formData,{_handler:froalaOptions.uploadHandler,})
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()

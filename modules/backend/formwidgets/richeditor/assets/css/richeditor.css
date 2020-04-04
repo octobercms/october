@@ -446,7 +446,6 @@ textarea.fr-code {display:none;width:100%;resize:none;-moz-resize:none;-webkit-r
 .fr-view .fr-video.fr-dvi {display:inline-block}
 .fr-view .fr-video.fr-dvi.fr-fvl {float:left}
 .fr-view .fr-video.fr-dvi.fr-fvr {float:right}
-.fr-view {}
 .fr-view .oc-text-gray {color:#AAA !important}
 .fr-view .oc-text-bordered {border-top:solid 1px #222;border-bottom:solid 1px #222;padding:10px 0}
 .fr-view .oc-text-spaced {letter-spacing:1px}
@@ -544,6 +543,11 @@ body .fr-popup .fr-checkbox span {border-color:#d1d6d9}
 .field-richeditor.size-giant .fr-wrapper {height:350px}
 .field-richeditor.size-giant .fr-wrapper .fr-view {min-height:350px}
 .field-richeditor.size-giant .height-indicator {height:350px;display:none}
+.field-richeditor.size-tiny.stretch {min-height:90px}
+.field-richeditor.size-small.stretch {min-height:140px}
+.field-richeditor.size-large.stretch {min-height:240px}
+.field-richeditor.size-huge.stretch {min-height:290px}
+.field-richeditor.size-giant.stretch {min-height:390px}
 .fr-tooltip {z-index:9997 !important}
 .fr-popup {z-index:9995 !important}
 .fr-toolbar {z-index:11 !important}
