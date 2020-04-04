@@ -393,7 +393,7 @@ return [
         'line_breaker_tags' => 'Balise de saut de ligne',
         'line_breaker_tags_comment' => 'La liste des balises qui sont utilisés pour mettre des sauts de ligne.',
         'toolbar_buttons' => 'Boutons de la barre d\'outils',
-        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi.',
     ],
     'tooltips' => [
         'preview_website' => 'Aperçu du site'

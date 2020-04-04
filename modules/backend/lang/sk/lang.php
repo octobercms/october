@@ -383,7 +383,7 @@ return [
         'remove_tags' => 'Odstrániť značky',
         'remove_tags_comment' => 'Zoznam značiek, ktoré sú odstránené spolu s ich obsahom.',
         'toolbar_buttons' => 'Tlačítka na paneli nástrojov',
-        'toolbar_buttons_comment' => 'Predvolené tlačítka, ktoré budú zobrazené na paneli nástrojov textového editoru. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Predvolené tlačítka, ktoré budú zobrazené na paneli nástrojov textového editoru.',
     ],
     'tooltips' => [
         'preview_website' => 'Náhľad stránok'

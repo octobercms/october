@@ -404,7 +404,7 @@ return [
         'line_breaker_tags' => 'Теги с переводом строки',
         'line_breaker_tags_comment' => 'Список тегов, в которых будет использоваться тег перевода строки',
         'toolbar_buttons' => 'Кнопки панели инструментов',
-        'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию.'
     ],
     'tooltips' => [
         'preview_website' => 'Просмотр сайта'

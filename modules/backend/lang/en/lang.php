@@ -413,7 +413,13 @@ return [
         'line_breaker_tags' => 'Line breaker tags',
         'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
-        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default.',
+        'toolbar_buttons_preset' => 'Insert a preset toolbar button configuration:',
+        'toolbar_buttons_presets' => [
+            'default' => 'Default',
+            'minimal' => 'Minimal',
+            'full' => 'Full',
+        ],
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website',

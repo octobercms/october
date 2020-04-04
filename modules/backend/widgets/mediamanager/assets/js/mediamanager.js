@@ -721,10 +721,6 @@
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
         }
 
-        if (this.options.uniqueId) {
-            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
-        }
-
         /*
          * Add CSRF token to headers
          */
@@ -800,6 +796,7 @@
 
     MediaManager.prototype.uploadSending = function(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     MediaManager.prototype.uploadCancelAll = function() {
@@ -1284,8 +1281,8 @@
 
     MediaManager.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         alias: '',
-        uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',
