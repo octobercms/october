@@ -27,7 +27,7 @@ class ComponentHelpers
                 'title'                 => Lang::get('cms::lang.component.alias'),
                 'description'           => Lang::get('cms::lang.component.alias_description'),
                 'type'                  => 'string',
-                'validationPattern'     => '^[a-zA-Z]+[0-9a-z\_]*$',
+                'validationPattern'     => '^(@)?[a-zA-Z]+[0-9a-z\_]*$',
                 'validationMessage'     => Lang::get('cms::lang.component.validation_message'),
                 'required'              => true,
                 'showExternalParam'     => false

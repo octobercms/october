@@ -250,6 +250,8 @@ return [
         'no_records' => 'No components found',
         'not_found' => "The component ':name' is not found.",
         'method_not_found' => "The component ':name' does not contain a method ':method'.",
+        'soft_component' => 'Soft Component',
+        'soft_component_description' => 'This component is missing but optional.',
     ],
     'template' => [
         'invalid_type' => 'Unknown template type.',
