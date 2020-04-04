@@ -722,11 +722,6 @@
         }
 
         /*
-         * Add the handler name to headers
-         */
-        uploaderOptions.headers['X-OCTOBER-REQUEST-HANDLER'] = this.options.uploadHandler
-
-        /*
          * Add CSRF token to headers
          */
         var token = $('meta[name="csrf-token"]').attr('content')
@@ -801,6 +796,7 @@
 
     MediaManager.prototype.uploadSending = function(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     MediaManager.prototype.uploadCancelAll = function() {
@@ -1287,7 +1283,6 @@
         url: window.location,
         uploadHandler: null,
         alias: '',
-        uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',
