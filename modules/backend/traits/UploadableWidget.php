@@ -112,7 +112,7 @@ trait UploadableWidget
                 'link' => MediaLibrary::url($filePath),
                 'result' => 'success'
             ]);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $response = Response::make($ex->getMessage(), 400);
         }
 
