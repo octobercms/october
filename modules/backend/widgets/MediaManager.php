@@ -1619,7 +1619,7 @@ class MediaManager extends WidgetBase
     /**
      * Business logic to crop a media library image
      * @param string $imageSrcPath
-     * @param string $selectionData
+     * @param array $selectionData
      * @param string $cropSessionKey
      * @param string $path
      * @return array
