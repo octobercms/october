@@ -5,12 +5,12 @@
     data-upload-handler="<?= $this->getEventHandler('onUpload') ?>"
     data-template="#<?= $this->getId('template') ?>"
     data-error-template="#<?= $this->getId('errorTemplate') ?>"
-    data-unique-id="<?= $this->getId() ?>"
     data-thumbnail-width="<?= $imageWidth ?: '0' ?>"
     data-thumbnail-height="<?= $imageHeight ?: '0' ?>"
     data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
+    <?= $this->formField->getAttributes() ?>
 >
 
     <!-- Add New Image -->

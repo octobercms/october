@@ -122,9 +122,11 @@
         /*
          * When a master is updated, refresh its slaves
          */
-        $.each(fieldMap, function(fieldName, toRefresh){
-            fieldElements.filter('[data-field-name="'+fieldName+'"]')
-                .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
+        $.each(fieldMap, function(fieldName, toRefresh) {
+            $(document).on('change.oc.formwidget',
+                '[data-field-name="' + fieldName + '"]',
+                $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
+            );
         })
     }
 

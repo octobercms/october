@@ -582,7 +582,7 @@ class UpdateManager
         $fileCode = $name . $hash;
         $filePath = $this->getFilePath($fileCode);
 
-        if (!Zip::extract($filePath, $this->baseDirectory . '/plugins/')) {
+        if (!Zip::extract($filePath, plugins_path())) {
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
@@ -624,7 +624,7 @@ class UpdateManager
         $fileCode = $name . $hash;
         $filePath = $this->getFilePath($fileCode);
 
-        if (!Zip::extract($filePath, $this->baseDirectory . '/themes/')) {
+        if (!Zip::extract($filePath, themes_path())) {
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
