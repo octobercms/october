@@ -12,13 +12,13 @@
     }
 ?>
 <div class="<?= $navCss ?>">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs"  <?= $tabs->linkable ? 'data-linkable' : '' ?>>
         <?php $index = 0; foreach ($tabs as $name => $fields):
             $lazy = in_array($name, $tabs->lazy);
         ?>
             <li class="<?= ($index++ === 0) ? 'active' : '' ?> <?= $lazy ? 'tab-lazy' : '' ?>">
                 <a
-                    href="#<?= $type . 'tab-' . $index ?>"
+                    href="#<?= $type . 'tab-' . ($tabs->linkable ? str_slug($name) : $index) ?>"
                     <?php if ($lazy): ?>
                         data-tab-name="<?= e($name) ?>"
                         data-tab-section="<?= $type ?>"

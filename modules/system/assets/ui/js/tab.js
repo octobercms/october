@@ -38,7 +38,7 @@
             var force = (data !== undefined && data.force !== undefined) ? data.force : false;
             self.closeTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'), force)
         })
-		
+
 		this.$el.on('mousedown', "li[data-tab-id]", function (ev) {
             if (ev.key === '2') {
                 $(ev.target).trigger('close.oc.tab');
@@ -65,6 +65,9 @@
             $(window).trigger('oc.updateUi')
 
             var tabUrl = $('> a', this).data('tabUrl')
+            if (!tabUrl && $(this).parent('ul').is('[data-linkable]')) {
+            	tabUrl = $('> a', this).attr('href')
+            }
             if (tabUrl) {
                 window.history.replaceState({}, 'Tab link reference', tabUrl)
             }
@@ -84,6 +87,10 @@
         })
 
         this.updateClasses()
+
+        if (location.hash && this.$tabsContainer.is('[data-linkable]')) {
+            $('li > a[href=' + location.hash + ']', this.$tabsContainer).tab('show')
+        }
     }
 
     Tab.prototype.initTab = function(li) {
