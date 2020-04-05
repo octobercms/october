@@ -3243,7 +3243,7 @@ $.fn.filterWidget.Constructor=FilterWidget
 $.fn.filterWidget.noConflict=function(){$.fn.filterWidget=old
 return this}
 $(document).render(function(){$('[data-control="filterwidget"]').filterWidget();})}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
-this.initRegion()
+this.ignoreTimezone=this.$el.children().get(0).hasAttribute('data-ignore-timezone');this.initRegion()
 this.initFilterDate()}
 FilterWidget.prototype.initFilterDate=function(){var self=this
 this.$el.on('show.oc.popover','a.filter-scope-date',function(event){self.initDatePickers($(this).hasClass('range'))
@@ -3378,7 +3378,9 @@ FilterWidget.prototype.initRegion=function(){this.locale=$('meta[name="backend-l
 this.timezone=$('meta[name="backend-timezone"]').attr('content')
 this.appTimezone=$('meta[name="app-timezone"]').attr('content')
 if(!this.appTimezone){this.appTimezone='UTC'}
-if(!this.timezone){this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
+if(!this.timezone){this.timezone='UTC'}
+if(this.ignoreTimezone){this.appTimezone='UTC'
+this.timezone='UTC'}}}(window.jQuery);+function($){"use strict";var FilterWidget=$.fn.filterWidget.Constructor;var overloaded_init=FilterWidget.prototype.init;FilterWidget.prototype.init=function(){overloaded_init.apply(this)
 this.initFilterNumber()}
 FilterWidget.prototype.initFilterNumber=function(){var self=this
 this.$el.on('show.oc.popover','a.filter-scope-number',function(event){self.initNumberInputs($(this).hasClass('range'))
@@ -4579,10 +4581,12 @@ this.$el.on('unmodified.oc.tab',function(ev){ev.preventDefault()
 self.unmodifyTab($(ev.target).closest('ul.nav-tabs > li, div.tab-content > div'))})
 this.$tabsContainer.on('shown.bs.tab','li',function(){$(window).trigger('oc.updateUi')
 var tabUrl=$('> a',this).data('tabUrl')
+if(!tabUrl&&$(this).parent('ul').is('[data-linkable]')){tabUrl=$('> a',this).attr('href')}
 if(tabUrl){window.history.replaceState({},'Tab link reference',tabUrl)}})
 if(this.options.slidable){this.$pagesContainer.touchwipe({wipeRight:function(){self.prev();},wipeLeft:function(){self.next();},preventDefaultEvents:false,min_move_x:60});}
 this.$tabsContainer.toolbar({scrollClassContainer:this.$el})
-this.updateClasses()}
+this.updateClasses()
+if(location.hash&&this.$tabsContainer.is('[data-linkable]')){$('li > a[href='+location.hash+']',this.$tabsContainer).tab('show')}}
 Tab.prototype.initTab=function(li){var
 $tabs=$('>li',this.$tabsContainer),tabIndex=$tabs.index(li),time=new Date().getTime(),targetId=this.tabId+'-tab-'+tabIndex+time,$anchor=$('a',li)
 $anchor.data('target','#'+targetId).attr('data-target','#'+targetId).attr('data-toggle','tab')
