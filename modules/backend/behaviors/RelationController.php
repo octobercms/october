@@ -1500,11 +1500,13 @@ class RelationController extends ControllerBehavior
                     case 'morphedByMany':
                     case 'belongsToMany':
                         $buttons = ['create', 'add', 'delete', 'remove'];
+                    break;
 
                     case 'hasOne':
                     case 'morphOne':
                     case 'belongsTo':
                         $buttons = ['create', 'update', 'link', 'delete', 'unlink'];
+                    break;
                 }
             }
         }
