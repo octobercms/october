@@ -435,7 +435,7 @@ return [
         'manage_mail_templates'       => 'Upravljanje e-poštnih predlog',
         'manage_mail_settings'        => 'Upravljanje e-poštnih nastavitev',
         'manage_other_administrators' => 'Upravljanje ostalih administratorjev',
-        'impersonate_users'           => 'Oponašanje uporabnikov',
+        'impersonate_users'           => 'Impersonacija uporabnikov',
         'manage_preferences'          => 'Upravljanje z nastavitvami administracije',
         'manage_editor'               => 'Upravljanje z nastavitvami urejevalnika kode',
         'view_the_dashboard'          => 'Prikaz namizja oz. nadzorne plošče',
