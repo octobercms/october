@@ -1499,12 +1499,14 @@ class RelationController extends ControllerBehavior
                     case 'morphToMany':
                     case 'morphedByMany':
                     case 'belongsToMany':
-                        return ['create', 'add', 'delete', 'remove'];
+                        $buttons = ['create', 'add', 'delete', 'remove'];
+                    break;
 
                     case 'hasOne':
                     case 'morphOne':
                     case 'belongsTo':
-                        return ['create', 'update', 'link', 'delete', 'unlink'];
+                        $buttons = ['create', 'update', 'link', 'delete', 'unlink'];
+                    break;
                 }
             }
         }
@@ -1541,7 +1543,7 @@ class RelationController extends ControllerBehavior
                     case 'link':
                         $text = 'backend::lang.relation.link_name';
                         break;
-                        
+
                     case 'unlink':
                         $text = 'backend::lang.relation.unlink';
                         break;
@@ -1618,7 +1620,7 @@ class RelationController extends ControllerBehavior
                 } elseif ($this->manageId) {
                     return 'backend::lang.relation.update_name';
                 }
-                
+
                 return 'backend::lang.relation.create_name';
         }
     }
