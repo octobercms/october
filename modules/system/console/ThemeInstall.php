@@ -1,12 +1,15 @@
 <?php namespace System\Console;
 
-use File;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
-use System\Classes\UpdateManager;
+use Exception;
+use File;
+use Yaml;
+use Artisan;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Exception;
+use System\Classes\PluginManager;
+use System\Classes\UpdateManager;
 
 /**
  * Console command to install a new theme.
@@ -70,7 +73,7 @@ class ThemeInstall extends Command
             $fields = ['Name', 'Description', 'Author', 'URL', ''];
 
             $this->info(sprintf(
-                implode(': %s'.PHP_EOL, $fields),
+                implode(': %s' . PHP_EOL, $fields),
                 $themeDetails['code'],
                 $themeDetails['description'],
                 $themeDetails['author'],
@@ -94,7 +97,7 @@ class ThemeInstall extends Command
                  * Move downloaded theme to a new directory.
                  * Basically we're renaming it.
                  */
-                File::move(themes_path().'/'.$dirName, themes_path().'/'.$argDirName);
+                File::move(themes_path() . '/' . $dirName, themes_path() . '/' . $argDirName);
 
                 /*
                  * Let's make sure to unflag the 'old' theme as
@@ -105,9 +108,32 @@ class ThemeInstall extends Command
                 $dirName = $argDirName;
             }
 
+            if (File::exists(themes_path() . '/' . $dirName . '/theme.yaml')) {
+                // Find if any plugins are required
+                $requiredPlugins = [];
+                $themeYaml = Yaml::parseFile(themes_path() . '/' . $dirName . '/theme.yaml');
+
+                $pluginManager = PluginManager::instance();
+
+                if (isset($themeYaml['require']) && is_array($themeYaml)) {
+                    foreach ($themeYaml['require'] as $plugin) {
+                        if (!$pluginManager->exists($plugin)) {
+                            $requiredPlugins[] = $plugin;
+                        }
+                    }
+                }
+
+                if (count($requiredPlugins)) {
+                    $this->info('Installing required plugins...');
+
+                    foreach ($requiredPlugins as $plugin) {
+                        $this->installPlugin($plugin);
+                    }
+                }
+            }
+
             $this->info(sprintf('The theme %s has been installed. (now %s)', $themeDetails['code'], $dirName));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->error($ex->getMessage());
         }
     }
@@ -121,6 +147,19 @@ class ThemeInstall extends Command
     protected function themeCodeToDir($themeCode)
     {
         return strtolower(str_replace('.', '-', $themeCode));
+    }
+
+    /**
+     * Installs a required theme plugin.
+     *
+     * @param string $code
+     * @return void
+     */
+    protected function installPlugin($code)
+    {
+        $this->info(sprintf(' - %s', $code));
+
+        Artisan::call('plugin:install', ['name' => $code]);
     }
 
     /**
