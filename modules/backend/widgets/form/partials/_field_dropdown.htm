@@ -20,7 +20,6 @@
         name="<?= $field->getName() ?>"
         class="form-control custom-select <?= $useSearch ? '' : 'select-no-search' ?>"
         <?= $field->getAttributes() ?>
-        <?= $field->required ? 'required' : '' ?>
         <?= $field->placeholder ? 'data-placeholder="'.e(trans($field->placeholder)).'"' : '' ?>
         >
         <?php if ($emptyOption): ?>
