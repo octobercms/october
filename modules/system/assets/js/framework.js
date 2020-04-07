@@ -39,7 +39,7 @@ if (window.jQuery.request !== undefined) {
         /*
          * Validate the form client-side
          */
-        if ($form && $form[0] && !$form[0].checkValidity()) {
+        if (browserSupportsFormValidation() && $form && $form[0] && !$form[0].checkValidity()) {
             $form[0].reportValidity();
             return false;
         }
@@ -474,6 +474,13 @@ if (window.jQuery.request !== undefined) {
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
+    }
+               
+    // CHECK IF BROWSER SUPPORTS CLIENT-SIDE FORM VALIDATION
+    // ==============
+
+    function browserSupportsFormValidation() {
+        return (typeof document.createElement('input').validity == 'object');
     }
 
     $(document).on('change', 'select[data-request], input[type=radio][data-request], input[type=checkbox][data-request], input[type=file][data-request]', function documentOnChange() {
