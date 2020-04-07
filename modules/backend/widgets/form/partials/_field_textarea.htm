@@ -9,4 +9,5 @@
         class="form-control field-textarea size-<?= $field->size ?>"
         placeholder="<?= e(trans($field->placeholder)) ?>"
         <?= $field->getAttributes() ?>><?= e($field->value) ?></textarea>
+        <?= $field->required ? 'required' : '' ?>
 <?php endif?>
