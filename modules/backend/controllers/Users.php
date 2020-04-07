@@ -149,6 +149,20 @@ class Users extends Controller
     }
 
     /**
+     * Unsuspend this user
+     */
+    public function update_onUnsuspendUser($recordId)
+    {
+        $model = $this->formFindModelObject($recordId);
+
+        $model->unsuspend();
+
+        Flash::success(Lang::get('backend::lang.account.unsuspend_success'));
+
+        return Redirect::refresh();
+    }
+
+    /**
      * My Settings controller
      */
     public function myaccount()
