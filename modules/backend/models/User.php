@@ -196,7 +196,8 @@ class User extends UserBase
      * Check if the user is suspended.
      * @return bool
      */
-    public function isSuspended() {
+    public function isSuspended()
+    {
         return BackendAuth::findThrottleByUserId($this->id)->checkSuspended();
     }
 
