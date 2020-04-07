@@ -1,9 +1,9 @@
 <?php namespace Backend\Models;
 
-use BackendAuth;
 use Mail;
 use Event;
 use Backend;
+use BackendAuth;
 use October\Rain\Auth\Models\User as UserBase;
 
 /**
