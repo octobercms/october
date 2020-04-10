@@ -22,8 +22,11 @@
         <?php if (isset($tableStyles)): ?>data-table-styles="<?= e(json_encode($tableStyles)) ?>"<?php endif ?>
         <?php if (isset($tableCellStyles)): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
         data-links-handler="<?= $this->getEventHandler('onLoadPageLinksForm') ?>"
+        data-upload-handler="<?= $this->getEventHandler('onUpload') ?>"
         data-ace-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
-        data-control="richeditor">
+        data-control="richeditor"
+        <?= $field->getAttributes() ?>
+    >
             <textarea
                 placeholder="<?= e(trans($field->placeholder)) ?>"
                 name="<?= $name ?>"

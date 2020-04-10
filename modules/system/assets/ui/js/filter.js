@@ -46,7 +46,7 @@
      */
     FilterWidget.prototype.getPopoverTemplate = function() {
         return '                                                                                                       \
-                <form>                                                                                                 \
+                <form id="filterPopover-{{ scopeName }}">                                                              \
                     <input type="hidden" name="scopeName"  value="{{ scopeName }}" />                                  \
                     <div id="controlFilterPopover" class="control-filter-popover control-filter-box-popover --range">  \
                         <div class="filter-search loading-indicator-container size-input-text">                        \
@@ -56,10 +56,7 @@
                                 name="search"                                                                          \
                                 autocomplete="off"                                                                     \
                                 class="filter-search-input form-control icon search popup-allow-focus"                 \
-                                data-request="{{ optionsHandler }}"                                                    \
-                                data-load-indicator-opaque                                                             \
-                                data-load-indicator                                                                    \
-                                data-track-input />                                                                    \
+                                data-search />                                                                         \
                             <div class="filter-items">                                                                 \
                                 <ul>                                                                                   \
                                     {{#available}}                                                                     \
@@ -155,6 +152,10 @@
                 e.preventDefault()
                 self.filterScope(true)
             })
+
+            $(event.relatedTarget).on('input', '#controlFilterPopover input[data-search]', function (e) {
+                self.searchQuery($(this))
+            });
         })
 
         // Setup event handler to apply selected options when closing the type: group scope popup
@@ -554,6 +555,45 @@
         }
 
         return $.oc.lang.get(name, defaultValue)
+    }
+
+    FilterWidget.prototype.searchQuery = function ($el) {
+        if (this.dataTrackInputTimer !== undefined) {
+            window.clearTimeout(this.dataTrackInputTimer)
+        }
+
+        var self = this
+
+        this.dataTrackInputTimer = window.setTimeout(function () {
+            var
+                lastValue = $el.data('oc.lastvalue'),
+                thisValue = $el.val()
+
+            if (lastValue !== undefined && lastValue == thisValue) {
+                return
+            }
+
+            $el.data('oc.lastvalue', thisValue)
+
+            if (self.lastDataTrackInputRequest) {
+                self.lastDataTrackInputRequest.abort()
+            }
+
+            var data = {
+                scopeName: self.activeScopeName,
+                search: thisValue
+            }
+
+            $.oc.stripeLoadIndicator.show()
+            self.lastDataTrackInputRequest = self.$el.request(self.options.optionsHandler, {
+                data: data
+            }).success(function(data){
+                self.filterAvailable(self.activeScopeName, data.options.available)
+                self.toggleFilterButtons()
+            }).always(function(){
+                $.oc.stripeLoadIndicator.hide()
+            })
+        }, 300)
     }
 
     // FILTER WIDGET PLUGIN DEFINITION

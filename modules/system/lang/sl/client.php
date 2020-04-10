@@ -24,7 +24,7 @@ return [
         'header6'        => 'Naslov 6',
         'bold'           => 'Krepko',
         'italic'         => 'Ležeče',
-        'unorderedlist'  => 'Neštevilčni seznam',
+        'unorderedlist'  => 'Neoštevilčeni seznam',
         'orderedlist'    => 'Številčni seznam',
         'video'          => 'Video',
         'image'          => 'Slika',
@@ -64,7 +64,7 @@ return [
             'September',
             'Oktober',
             'November',
-            'December'
+            'December',
         ],
         'weekdays'      => ['Nedelja', 'Ponedeljek', 'Torek', 'Sreda', 'Četrtek', 'Petek', 'Sobota'],
         'weekdaysShort' => ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
@@ -94,7 +94,7 @@ return [
             'reset_button_text'  => 'Ponastavi',
             'min_placeholder'    => 'Min',
             'max_placeholder'    => 'Max',
-        ]
+        ],
     ],
     'eventlog'       => [
         'show_stacktrace' => 'Prikaži sled dogodkov',

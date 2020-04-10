@@ -412,7 +412,7 @@ return [
         'line_breaker_tags' => 'Etiquetas de quebra de linha',
         'line_breaker_tags_comment' => 'Lista de etiquetas entre as quais é inserida uma quebra de linha.',
         'toolbar_buttons' => 'Botões da barra de ferramentas',
-        'toolbar_buttons_comment' => 'Botões da barra de ferramentas do editor rico a serem mostradas por defeito. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Botões da barra de ferramentas do editor rico a serem mostradas por defeito.',
     ],
     'tooltips' => [
         'preview_website' => 'Prévisualizar a página',

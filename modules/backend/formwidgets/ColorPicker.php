@@ -43,6 +43,16 @@ class ColorPicker extends FormWidgetBase
      */
     public $showAlpha = false;
 
+    /**
+     * @var bool If true, the color picker is set to read-only mode
+     */
+    public $readOnly = false;
+
+    /**
+     * @var bool If true, the color picker is set to disabled mode
+     */
+    public $disabled = false;
+
     //
     // Object properties
     //
@@ -61,6 +71,8 @@ class ColorPicker extends FormWidgetBase
             'availableColors',
             'allowEmpty',
             'showAlpha',
+            'readOnly',
+            'disabled',
         ]);
     }
 
@@ -83,6 +95,8 @@ class ColorPicker extends FormWidgetBase
         $this->vars['availableColors'] = $availableColors = $this->getAvailableColors();
         $this->vars['allowEmpty'] = $this->allowEmpty;
         $this->vars['showAlpha'] = $this->showAlpha;
+        $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['disabled'] = $this->disabled;
         $this->vars['isCustomColor'] = !in_array($value, $availableColors);
     }
 
