@@ -533,8 +533,7 @@ class UpdateManager
      * Rollback an existing plugin
      *
      * @param string $name Plugin name.
-     * @param string $stopOnVersion If this parameter is specified, the process stops
-     * the specified version is rolled back.
+     * @param string $stopOnVersion If this parameter is specified, the process stops once the provided version number is reached
      * @return self
      */
     public function rollbackPlugin(string $name, string $stopOnVersion = null)
