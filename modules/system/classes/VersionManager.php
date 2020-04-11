@@ -576,12 +576,12 @@ class VersionManager
     /**
      * Get the currently installed version of the plugin.
      *
-     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
+     * @param string|PluginBase $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @return string
      */
     public function getCurrentVersion($plugin): string
     {
-        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = $this->pluginManager->getIdentifier($plugin);
         return $this->getDatabaseVersion($code);
     }
 
