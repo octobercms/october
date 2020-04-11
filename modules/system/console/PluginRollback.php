@@ -35,8 +35,8 @@ class PluginRollback extends Command
     public function handle()
     {
         /*
-            * Lookup plugin
-            */
+        * Lookup plugin
+        */
         $pluginName = $this->argument('name');
         $pluginName = PluginManager::instance()->normalizeIdentifier($pluginName);
         if (!PluginManager::instance()->exists($pluginName)) {
