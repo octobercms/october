@@ -1,7 +1,6 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
-use Lang;
 use Symfony\Component\Console\Input\InputOption;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
