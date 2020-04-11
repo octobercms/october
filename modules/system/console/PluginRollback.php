@@ -76,7 +76,7 @@ class PluginRollback extends Command
     {
         return [
             ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
-            ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process stops after the specified version is rolled back, if not, go back to the first version. Eg: 1.3.9'],
+            ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process will stop on the specified version, if not, it will completely rollback the plugin. Example: 1.3.9'],
         ];
     }
 
