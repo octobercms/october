@@ -322,6 +322,7 @@ return [
         'plugin_version' => 'Version',
         'plugin_author' => 'Author',
         'plugin_not_found' => 'Plugin not found',
+        'plugin_version_not_found' => 'Plugin version not found',
         'core_current_build' => 'Current build',
         'core_view_changelog' => 'View Changelog',
         'core_build' => 'Build :build',
