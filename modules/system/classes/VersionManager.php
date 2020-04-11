@@ -608,12 +608,12 @@ class VersionManager
     /**
      * Get last version note
      *
-     * @param $plugin
+     * @param string|PluginBase $plugin
      * @return string
      */
     public function getCurrentVersionNote($plugin): string
     {
-        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = $this->pluginManager->getIdentifier($plugin);
         $histories = $this->getDatabaseHistory($code);
         $lastHistory = array_last(array_where($histories, function ($history) {
             return $history->type === self::HISTORY_TYPE_COMMENT;
