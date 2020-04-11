@@ -588,13 +588,13 @@ class VersionManager
     /**
      * Check if a certain version of the plugin exists in the plugin history database.
      *
-     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
+     * @param string|PluginBase $plugin Either the identifier of a plugin as a string, or a Plugin class.
      * @param string $version
      * @return bool
      */
-    public function hasDatabaseVersion($plugin, $version): bool
+    public function hasDatabaseVersion($plugin, string $version): bool
     {
-        $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
+        $code = $this->pluginManager->getIdentifier($plugin);
         $histories = $this->getDatabaseHistory($code);
         foreach ($histories as $history) {
             if ($history->version === $version) {
