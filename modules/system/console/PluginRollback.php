@@ -75,7 +75,7 @@ class PluginRollback extends Command
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
+            ['name', InputArgument::REQUIRED, 'The name of the plugin to be rolled back. Eg: AuthorName.PluginName'],
             ['version', InputArgument::OPTIONAL, 'If this parameter is specified, the process will stop on the specified version, if not, it will completely rollback the plugin. Example: 1.3.9'],
         ];
     }
