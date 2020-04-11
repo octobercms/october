@@ -47,7 +47,7 @@ class PluginRollback extends Command
 
         if ($stopOnVersion) {
             if (!VersionManager::instance()->hasDatabaseVersion($pluginName, $stopOnVersion)) {
-                throw new \InvalidArgumentException(Lang::get('Plugin version not found'));
+                throw new \InvalidArgumentException('Plugin version not found');
             }
             $confirmQuestion = 'Please confirm that you wish to revert the plugin to version ' . $stopOnVersion . '. This may result in changes to your database and potential data loss.';
         } else {
