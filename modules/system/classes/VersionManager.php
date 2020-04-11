@@ -456,8 +456,9 @@ class VersionManager
 
     /**
      * Returns the last update history for a plugin.
-     * @param $code
-     * @return mixed
+     *
+     * @param string $code The plugin identifier
+     * @return stdClass|null
      */
     protected function getLastHistory($code)
     {
