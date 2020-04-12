@@ -1077,7 +1077,7 @@ class Lists extends WidgetBase
          * Apply default value.
          */
         if ($value === '' || $value === null) {
-            $value = $column->defaults;
+            $value = Lang::get($column->defaults);
         }
 
         /**
