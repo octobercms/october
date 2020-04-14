@@ -115,7 +115,9 @@
 
         this.visibleItemId = menuItemId
 
-        $.oc.sideNav.setActiveItem(menuItemId)
+        if ($.oc.sideNav !== undefined) {
+            $.oc.sideNav.setActiveItem(menuItemId)
+        }
 
         this.$sidePanelItems.each(function() {
             var  $el = $(this)
@@ -164,6 +166,10 @@
     }
 
     SidePanelTab.prototype.updateActiveTab = function() {
+        if ($.oc.sideNav === undefined) {
+            return
+        }
+
         if (!this.panelVisible && ($(window).width() < this.options.breakpoint || !this.panelFixed())) {
             $.oc.sideNav.unsetActiveItem()
         }
