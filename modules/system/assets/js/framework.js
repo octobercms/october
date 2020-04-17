@@ -118,7 +118,11 @@ if (window.jQuery.request !== undefined) {
             }
 
             $.each(data, function(key) {
-                requestData.append(key, this)
+                if (typeof Blob !== "undefined" && this instanceof Blob && this.filename) {
+                    requestData.append(key, this, this.filename)
+                } else {
+                    requestData.append(key, this)
+                }
             })
         }
         else {
