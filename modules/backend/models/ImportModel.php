@@ -123,7 +123,7 @@ abstract class ImportModel extends Model
 
         if (
             $options['encoding'] !== null &&
-            $reader->isActiveStreamFilter()
+            $reader->supportsStreamFilter()
         ) {
             $reader->addStreamFilter(sprintf(
                 '%s%s:%s',
