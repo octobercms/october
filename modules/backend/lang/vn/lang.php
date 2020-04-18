@@ -25,9 +25,6 @@ return [
             'help' => "Bắt buộc phải có 1 database để truy cập vào trang quản trị. Kiểm tra lại cấu hình database và migrated trước khi thử lại.",
             'cms_link' => 'Quay lại trang chủ'
         ],
-        'invalid_token' => [
-            'label' => 'Security token không hợp lệ'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Không tìm thấy partial ':name'."
@@ -263,8 +260,8 @@ return [
         'preview_no_media_message' => 'Không có file media nào được chọn.',
         'preview_no_record_message' => 'Không có bản ghi nào được chọn.',
         'select' => 'Select',
-        'select_all' => 'Tất cả',
-        'select_none' => 'none',
+        'select_all' => 'chọn tất cả',
+        'select_none' => 'không chọn',
         'select_placeholder' => 'Vui lòng lựa chọn',
         'insert_row' => 'Thêm mới Row',
         'insert_row_below' => 'Thêm Row dưới đây',
@@ -380,7 +377,7 @@ return [
         'remove_tags' => 'Xóa các tag',
         'remove_tags_comment' => 'Danh sách tag bị xóa kể cả nội dung của chúng.',
         'toolbar_buttons' => 'Các nút trên thanh công cụ',
-        'toolbar_buttons_comment' => 'Các nút mặc định ở trên thanh công cụ  của Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Các nút mặc định ở trên thanh công cụ  của Rich Editor.',
     ],
     'tooltips' => [
         'preview_website' => 'Xem trước website'

@@ -21,6 +21,8 @@ this.navigationAjax=null
 this.dblTouchTimer=null
 this.dblTouchFlag=null
 this.itemListPosition=null
+this.maxItems=this.options.maxSelectedItems
+this.isMulti=this.options.isMulti
 this.maxSelectedItemsElement=null
 this.init()}
 MediaManager.prototype=Object.create(BaseProto)
@@ -46,20 +48,6 @@ this.thumbnailQueue=[]
 this.navigationAjax=null
 this.maxSelectedItemsElement=null
 BaseProto.dispose.call(this)}
-MediaManager.prototype.getSelectedItems=function(returnNotProcessed,allowRootItem){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),result=[]
-if(!allowRootItem){var filteredItems=[]
-for(var i=0,len=items.length;i<len;i++){var item=items[i]
-if(!item.hasAttribute('data-root'))
-filteredItems.push(item)}
-items=filteredItems}
-if(returnNotProcessed===true)
-return items
-for(var i=0,len=items.length;i<len;i++){var item=items[i],itemDetails={itemType:item.getAttribute('data-item-type'),path:item.getAttribute('data-path'),title:item.getAttribute('data-title'),documentType:item.getAttribute('data-document-type'),folder:item.getAttribute('data-folder'),publicUrl:item.getAttribute('data-public-url')}
-result.push(itemDetails)}
-return result}
-MediaManager.prototype.getSelectedPercent=function(){var itemsSelected=this.getSelectedItems(true).length
-var itemsMax=this.options.maxSelectedItems
-return Math.floor((itemsSelected/itemsMax)*100);}
 MediaManager.prototype.init=function(){this.itemListElement=this.$el.find('[data-control="item-list"]').get(0)
 this.scrollContentElement=this.itemListElement.querySelector('.scroll-wrapper')
 if(this.options.bottomToolbar){this.$el.find('[data-control="bottom-toolbar"]').removeClass('hide')
@@ -117,31 +105,48 @@ clearTimeout(this.selectTimer)
 this.selectTimer=null}
 MediaManager.prototype.deselectAll=function(){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 for(var i=0,len=items.length;i<len;i++){items[i].setAttribute('class','')}}
-MediaManager.prototype.selectNode=function(node){node.setAttribute('class','selected')
-this.lastSelectedItem=node}
+MediaManager.prototype.selectNode=function(node,setLastSelected){if(setLastSelected===undefined){setLastSelected=true}
+node.setAttribute('class','selected')
+if(setLastSelected){this.lastSelectedItem=node}}
 MediaManager.prototype.deselectNode=function(node){node.setAttribute('class','')
-this.lastSelectedItem=null}
-MediaManager.prototype.updateMaxSelectedItemsMessage=function(){var message=this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML.replace(/\{selectedItems\}/g,this.getSelectedItems(true).length).replace(/\{maxItems\}/g,this.options.maxSelectedItems).replace(/\{percent\}/g,this.getSelectedPercent())
+var items=this.itemListElement.querySelectorAll('[data-type="media-item"].selected')
+if(items===0){this.lastSelectedItem=null}}
+MediaManager.prototype.getSelectedItems=function(returnNotProcessed,allowRootItem){var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),result=[]
+if(!allowRootItem){var filteredItems=[]
+for(var i=0,len=items.length;i<len;i++){var item=items[i]
+if(!item.hasAttribute('data-root'))
+filteredItems.push(item)}
+items=filteredItems}
+if(returnNotProcessed===true)
+return items
+for(var i=0,len=items.length;i<len;i++){var item=items[i],itemDetails={itemType:item.getAttribute('data-item-type'),path:item.getAttribute('data-path'),title:item.getAttribute('data-title'),documentType:item.getAttribute('data-document-type'),folder:item.getAttribute('data-folder'),publicUrl:item.getAttribute('data-public-url')}
+result.push(itemDetails)}
+return result}
+MediaManager.prototype.countSelected=function(){return this.itemListElement.querySelectorAll('[data-type="media-item"][data-item-type="file"].selected').length;}
+MediaManager.prototype.selectionsLeft=function(){var itemCount=this.countSelected(),maxItems=(this.isMulti)?this.maxItems:null
+if(maxItems===null||maxItems===-1){return null}
+return maxItems-itemCount;}
+MediaManager.prototype.getSelectedPercent=function(){return Math.floor((this.countSelected()/this.maxItems)*100)}
+MediaManager.prototype.updateMaxSelectedItemsMessage=function(){var message=this.$el.get(0).querySelector('[data-control="max-selected-items-template"]').innerHTML.replace(/\{selectedItems\}/g,this.countSelected()).replace(/\{maxItems\}/g,this.maxItems).replace(/\{percent\}/g,this.getSelectedPercent())
 if(!this.maxSelectedItemsElement){this.maxSelectedItemsElement=this.$el.get(0).querySelector('[data-control="max-selected-items"]')
 if(!this.maxSelectedItemsElement){return}}
 this.maxSelectedItemsElement.innerHTML=message}
-MediaManager.prototype.selectItem=function(node,expandSelection){if(!expandSelection){this.deselectAll()
-this.selectNode(node)}
-else{if(this.options.maxSelectedItems!==false||this.options.maxSelectedItems!==-1){var selectedItems=this.getSelectedItems(true).length
-if(selectedItems>=this.options.maxSelectedItems){return}}
-if(node.getAttribute('class')=='selected')
-this.deselectNode(node)
-else
-this.selectNode(node)}
+MediaManager.prototype.selectItem=function(node,ctrlKey,shiftKey){if(ctrlKey===false&&shiftKey===false){this.deselectAll()
+this.selectNode(node)}else if(ctrlKey===true){if(node.getAttribute('class')=='selected'){this.deselectNode(node)}else{if(this.selectionsLeft()===0){return}
+this.selectNode(node,false)}}else{var startIndex=$(this.lastSelectedItem).index(),endIndex=$(node).index()
+this.deselectAll()
+var shiftSelections=0;if(startIndex>endIndex){for(var nextIndex=startIndex;nextIndex>=endIndex;nextIndex-=1){if(this.selectionsLeft()===0){break}
+this.selectNode(this.itemListElement.querySelector('[data-type="media-item"]:nth-child('+(nextIndex+1)+')'),false)}}else{for(var nextIndex=startIndex;nextIndex<=endIndex;nextIndex+=1){if(this.selectionsLeft()===0){break}
+this.selectNode(this.itemListElement.querySelector('[data-type="media-item"]:nth-child('+(nextIndex+1)+')'),false)}}}
 var selectedItems=this.getSelectedItems(true).length
 if(selectedItems>1){this.$el.find('[data-popup-command="crop-and-insert"]').attr('disabled','disabled')}else{this.$el.find('[data-popup-command="crop-and-insert"]').removeAttr('disabled')}
-this.updateMaxSelectedItemsMessage()
+if(this.isMulti){this.updateMaxSelectedItemsMessage()}
 node.focus()
 this.clearSelectTimer()
 if(this.isPreviewSidebarVisible()){this.selectTimer=setTimeout(this.proxy(this.updateSidebarPreview),100)}
-if(node.hasAttribute('data-root')&&!expandSelection){this.toggleMoveAndDelete(true)}
+if(node.hasAttribute('data-root')&&(!ctrlKey&&!shiftKey)){this.toggleMoveAndDelete(true)}
 else{this.toggleMoveAndDelete(false)}
-if(expandSelection){this.unselectRoot()}}
+if(ctrlKey||shiftKey){this.unselectRoot()}}
 MediaManager.prototype.toggleMoveAndDelete=function(value){$('[data-command=delete]',this.$el).prop('disabled',value)
 $('[data-command=move]',this.$el).prop('disabled',value)}
 MediaManager.prototype.unselectRoot=function(){var rootItem=this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected')
@@ -153,8 +158,8 @@ clearTimeout(this.dblTouchTimer)
 this.dblTouchTimer=null}
 MediaManager.prototype.clearDblTouchFlag=function(){this.dblTouchFlag=false}
 MediaManager.prototype.selectFirstItem=function(){var firstItem=this.itemListElement.querySelector('[data-type="media-item"]:first-child')
-if(firstItem){this.selectItem(firstItem)}}
-MediaManager.prototype.selectRelative=function(next,expandSelection){var currentSelection=this.getSelectedItems(true,true)
+if(firstItem){this.selectItem(firstItem,false,false)}}
+MediaManager.prototype.selectRelative=function(next,ctrlKey,shiftKey){var currentSelection=this.getSelectedItems(true,true)
 if(currentSelection.length==0){this.selectFirstItem()
 return}
 var itemToSelect=null
@@ -165,7 +170,7 @@ else{var firstItem=currentSelection[0]
 if(firstItem)
 itemToSelect=firstItem.previousElementSibling}
 if(itemToSelect)
-this.selectItem(itemToSelect,expandSelection)}
+this.selectItem(itemToSelect,ctrlKey,shiftKey)}
 MediaManager.prototype.gotoFolder=function(path,resetSearch){var data={path:path,resetSearch:resetSearch!==undefined?1:0}
 this.execNavigationRequest('onGoToFolder',data)}
 MediaManager.prototype.afterNavigate=function(){this.scrollToTop()
@@ -203,9 +208,11 @@ MediaManager.prototype.updateSidebarMediaPreview=function(items){var previewPane
 for(var i=0,len=previewContainer.children.length;i<len;i++){previewContainer.removeChild(previewContainer.children[i])}
 if(items.length==1&&!items[0].hasAttribute('data-root')){var item=items[0],documentType=item.getAttribute('data-document-type')
 switch(documentType){case'audio':template=previewPanel.querySelector('[data-control="audio-template"]').innerHTML
-break;case'video':template=previewPanel.querySelector('[data-control="video-template"]').innerHTML
-break;case'image':template=previewPanel.querySelector('[data-control="image-template"]').innerHTML
-break;}
+break
+case'video':template=previewPanel.querySelector('[data-control="video-template"]').innerHTML
+break
+case'image':template=previewPanel.querySelector('[data-control="image-template"]').innerHTML
+break}
 previewContainer.innerHTML=template.replace('{src}',item.getAttribute('data-public-url')).replace('{path}',item.getAttribute('data-path')).replace('{last-modified}',item.getAttribute('data-last-modified-ts'))
 if(documentType=='image')
 this.loadSidebarThumbnail()}
@@ -297,8 +304,7 @@ this.scrollContentElement.insertBefore(this.selectionMarker,this.scrollContentEl
 MediaManager.prototype.doObjectsCollide=function(aTop,aLeft,aWidth,aHeight,bTop,bLeft,bWidth,bHeight){return!(((aTop+aHeight)<(bTop))||(aTop>(bTop+bHeight))||((aLeft+aWidth)<bLeft)||(aLeft>(bLeft+bWidth)))}
 MediaManager.prototype.initUploader=function(){if(!this.itemListElement||this.options.readOnly)
 return
-var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',headers:{},createImageThumbnails:false}
-if(this.options.uniqueId){uploaderOptions.headers['X-OCTOBER-FILEUPLOAD']=this.options.uniqueId}
+var uploaderOptions={clickable:this.$el.find('[data-control="upload"]').get(0),url:this.options.url,paramName:'file_data',timeout:0,headers:{},createImageThumbnails:false}
 var token=$('meta[name="csrf-token"]').attr('content')
 if(token){uploaderOptions.headers['X-CSRF-TOKEN']=token}
 this.dropzone=new Dropzone(this.$el.get(0),uploaderOptions)
@@ -328,13 +334,16 @@ progressBar.setAttribute('class','progress-bar')}
 MediaManager.prototype.uploadQueueComplete=function(){this.$el.find('[data-command="cancel-uploading"]').addClass('hide')
 this.$el.find('[data-command="close-uploader"]').removeClass('hide')
 this.refresh()}
-MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())}
+MediaManager.prototype.uploadSending=function(file,xhr,formData){formData.append('path',this.$el.find('[data-type="current-folder"]').val())
+xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER',this.options.uploadHandler)}
 MediaManager.prototype.uploadCancelAll=function(){this.dropzone.removeAllFiles(true)
 this.hideUploadUi()}
 MediaManager.prototype.updateUploadBar=function(templateName,classNames){var fileNumberLabel=this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),successTemplate=fileNumberLabel.getAttribute('data-'+templateName+'-template'),progressBar=this.$el.get(0).querySelector('[data-control="upload-progress-bar"]')
-fileNumberLabel.innerHTML=successTemplate;progressBar.setAttribute('class',classNames)}
-MediaManager.prototype.uploadSuccess=function(){this.updateUploadBar('success','progress-bar progress-bar-success');}
-MediaManager.prototype.uploadError=function(file,message){this.updateUploadBar('error','progress-bar progress-bar-danger');if(!message){message='Error uploading file'}
+fileNumberLabel.innerHTML=successTemplate
+progressBar.setAttribute('class',classNames)}
+MediaManager.prototype.uploadSuccess=function(){this.updateUploadBar('success','progress-bar progress-bar-success')}
+MediaManager.prototype.uploadError=function(file,message){this.updateUploadBar('error','progress-bar progress-bar-danger')
+if(!message){message='Error uploading file'}
 $.oc.alert(message)}
 MediaManager.prototype.cropSelectedImage=function(callback){var selectedItems=this.getSelectedItems(true)
 if(selectedItems.length!=1){alert(this.options.selectSingleImage)
@@ -364,7 +373,7 @@ $.oc.confirm(this.options.deleteConfirm,this.proxy(this.deleteConfirmation))}
 MediaManager.prototype.deleteConfirmation=function(confirmed){if(!confirmed)
 return
 var items=this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),paths=[]
-for(var i=0,len=items.length;i<len;i++){if(items[i].hasAttribute('data-root')){continue;}
+for(var i=0,len=items.length;i<len;i++){if(items[i].hasAttribute('data-root')){continue}
 paths.push({'path':items[i].getAttribute('data-path'),'type':items[i].getAttribute('data-item-type')})}
 var data={paths:paths}
 $.oc.stripeLoadIndicator.show()
@@ -408,31 +417,33 @@ if($(ev.target).data('label')!='public-url')
 return false}
 MediaManager.prototype.onCommandClick=function(ev){var command=$(ev.currentTarget).data('command')
 switch(command){case'refresh':this.refresh()
-break;case'change-view':this.changeView($(ev.currentTarget).data('view'))
-break;case'cancel-uploading':this.uploadCancelAll()
-break;case'close-uploader':this.hideUploadUi()
-break;case'set-filter':this.setFilter($(ev.currentTarget).data('filter'))
-break;case'delete':this.deleteItems()
-break;case'create-folder':this.createFolder(ev)
-break;case'move':this.moveItems(ev)
-break;case'toggle-sidebar':this.toggleSidebar(ev)
-break;case'popup-command':var popupCommand=$(ev.currentTarget).data('popup-command')
+break
+case'change-view':this.changeView($(ev.currentTarget).data('view'))
+break
+case'cancel-uploading':this.uploadCancelAll()
+break
+case'close-uploader':this.hideUploadUi()
+break
+case'set-filter':this.setFilter($(ev.currentTarget).data('filter'))
+break
+case'delete':this.deleteItems()
+break
+case'create-folder':this.createFolder(ev)
+break
+case'move':this.moveItems(ev)
+break
+case'toggle-sidebar':this.toggleSidebar(ev)
+break
+case'popup-command':var popupCommand=$(ev.currentTarget).data('popup-command')
 if(popupCommand!=='crop-and-insert')
 this.$el.trigger('popupcommand',[popupCommand])
 else
 this.cropSelectedImage(this.proxy(this.onImageCropped))
-break;}
+break}
 return false}
 MediaManager.prototype.onItemClick=function(ev){if(ev.target.tagName=='I'&&ev.target.hasAttribute('data-rename-control'))
 return
-if(ev.shiftKey&&this.lastSelectedItem){var $lastItem=$(this.lastSelectedItem),itemsToSelect=false
-if($lastItem.prevAll().filter(ev.currentTarget).length!==0){itemsToSelect=$lastItem.prevUntil(ev.currentTarget).not('.selected').get()}else if($lastItem.nextAll().filter(ev.currentTarget).length!==0){itemsToSelect=$lastItem.nextUntil(ev.currentTarget).not('.selected').get()}
-if(itemsToSelect){itemsToSelect.unshift(ev.currentTarget)
-var currentlySelected=this.getSelectedItems(true)
-for(var i=0,len=currentlySelected.length;i<len;i++){itemsToSelect.push(currentlySelected[i])}
-this.deselectAll()
-for(var i=0,len=itemsToSelect.length;i<len;i++){this.selectItem(itemsToSelect[i],true)}}}
-else{this.selectItem(ev.currentTarget,(ev.ctrlKey||ev.metaKey))}}
+this.selectItem(ev.currentTarget,(ev.ctrlKey||ev.metaKey),(ev.shiftKey))}
 MediaManager.prototype.onItemTouch=function(ev){ev.preventDefault()
 ev.stopPropagation()
 if(this.dblTouchFlag){this.onNavigate(ev)
@@ -479,21 +490,23 @@ this.selectionMarker.style.top=this.selectionStartPoint.y+'px'}
 else{this.selectionMarker.style.top=relativePosition.y+'px'
 this.selectionMarker.style.height=Math.abs(deltaY)+'px'}}}
 MediaManager.prototype.onSortingChanged=function(ev){var $target=$(ev.target),data={path:this.$el.find('[data-type="current-folder"]').val()}
-if($target.data('sort')=='by'){data.sortBy=$target.val();}else if($target.data('sort')=='direction'){data.sortDirection=$target.val()}
+if($target.data('sort')=='by'){data.sortBy=$target.val()}else if($target.data('sort')=='direction'){data.sortDirection=$target.val()}
 this.execNavigationRequest('onSetSorting',data)}
 MediaManager.prototype.onKeyDown=function(ev){var eventHandled=false
-switch(ev.which){case 13:var items=this.getSelectedItems(true,true)
+switch(ev.key){case'Enter':var items=this.getSelectedItems(true,true)
 if(items.length>0)
 this.navigateToItem($(items[0]))
 eventHandled=true
-break;case 39:case 40:this.selectRelative(true,ev.shiftKey)
+break
+case'ArrowRight':case'ArrowDown':this.selectRelative(true,(ev.ctrlKey||ev.metaKey),ev.shiftKey)
 eventHandled=true
-break;case 37:case 38:this.selectRelative(false,ev.shiftKey)
+break
+case'ArrowLeft':case'ArrowUp':this.selectRelative(false,(ev.ctrlKey||ev.metaKey),ev.shiftKey)
 eventHandled=true
-break;}
+break}
 if(eventHandled){ev.preventDefault()
 ev.stopPropagation()}}
-MediaManager.DEFAULTS={url:window.location,alias:'',uniqueId:null,deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false,maxSelectedItems:false}
+MediaManager.DEFAULTS={url:window.location,uploadHandler:null,alias:'',deleteEmpty:'Please select files to delete.',deleteConfirm:'Delete the selected file(s)?',moveEmpty:'Please select files to move.',selectSingleImage:'Please select a single image.',selectionNotImage:'The selected item is not an image.',bottomToolbar:false,cropAndInsertButton:false,isMulti:false,maxSelectedItems:false}
 var old=$.fn.mediaManager
 $.fn.mediaManager=function(option){var args=Array.prototype.slice.call(arguments,1),result=undefined
 this.each(function(){var $this=$(this)

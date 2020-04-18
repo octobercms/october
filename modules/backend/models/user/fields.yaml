@@ -24,6 +24,7 @@ tabs:
 
         email:
             span: right
+            type: email
             label: backend::lang.user.email
 
         send_invite:
@@ -67,6 +68,10 @@ tabs:
 secondaryTabs:
     fields:
         btn_impersonate:
+            label: ''
+            context: [update]
+            type: partial
+        btn_unsuspend:
             label: ''
             context: [update]
             type: partial

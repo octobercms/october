@@ -16,6 +16,9 @@ sftp-config.json
 .ftpconfig
 selenium.php
 composer.lock
+package-lock.json
+/node_modules
+_ide_helper.php
 
 # for netbeans
 nbproject

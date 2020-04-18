@@ -3,6 +3,7 @@
 use Mail;
 use Event;
 use Backend;
+use BackendAuth;
 use October\Rain\Auth\Models\User as UserBase;
 
 /**
@@ -136,6 +137,18 @@ class User extends UserBase
     public function afterLogin()
     {
         parent::afterLogin();
+
+        /**
+         * @event backend.user.login
+         * Provides an opportunity to interact with the Backend User model after the user has logged in
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.user.login', function ((\Backend\Models\User) $user) {
+         *         Flash::success(sprintf('Welcome %s!', $user->getFullNameAttribute()));
+         *     });
+         *
+         */
         Event::fire('backend.user.login', [$this]);
     }
 
@@ -177,5 +190,23 @@ class User extends UserBase
         }
 
         return $result;
+    }
+
+    /**
+     * Check if the user is suspended.
+     * @return bool
+     */
+    public function isSuspended()
+    {
+        return BackendAuth::findThrottleByUserId($this->id)->checkSuspended();
+    }
+
+    /**
+     * Remove the suspension on this user.
+     * @return void
+     */
+    public function unsuspend()
+    {
+        BackendAuth::findThrottleByUserId($this->id)->unsuspend();
     }
 }

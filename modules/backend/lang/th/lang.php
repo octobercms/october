@@ -29,9 +29,6 @@ return [
             'help' => "จำเป็นต้องมีฐานข้อมูลในการเข้าถึงหน้าเว็บหลังบ้าน ตรวจสอบว่าฐานข้อมูลได้ถูกตั้งค่าและโอนย้ายก่อนลองอีกครั้ง",
             'cms_link' => 'กลับสู่หน้าเว็บหลัก',
         ],
-        'invalid_token' => [
-            'label' => 'โทเค็นความปลอดภัยไม่ถูกต้อง',
-        ],
     ],
     'partial' => [
         'not_found_name' => "ไม่พบส่วนย่อย ':name'",
@@ -273,8 +270,8 @@ return [
         'preview_no_files_message' => 'ไม่มีไฟล์ถูกอัพโหลด',
         'preview_no_media_message' => 'ไม่มีสื่อบันทึกที่ถูกเลือก',
         'select' => 'เลือก',
-        'select_all' => 'ทั้งหมด',
-        'select_none' => 'ไม่มี',
+        'select_all' => 'เลือกทั้งหมด',
+        'select_none' => 'ไม่เลือกเลย',
         'select_placeholder' => 'กรุณาเลือก',
         'insert_row' => 'เพิ่มบรรทัด',
         'insert_row_below' => 'เพิ่มบรรทัดด้านล่าง',
@@ -371,7 +368,7 @@ return [
         'line_breaker_tags' => 'แท็กสำหรับขึ้นบรรทัดใหม่',
         'line_breaker_tags_comment' => 'รายการของแท็กที่ให้ตัวขึ้นบรรทัดใหม่วางคั่นได้',
         'toolbar_buttons' => 'ปุ่มในแถบเครื่องมือ',
-        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ',
     ],
     'tooltips' => [
         'preview_website' => 'ดูตัวอย่างเว็บไซต์',

@@ -93,15 +93,15 @@ $node.attr('data-label',text)
 insertElement($node)}
 function _initUiBlocks(){$('[data-video], [data-audio]',editor.$el).each(function(){$(this).addClass('fr-draggable').attr({'data-ui-block':'true','draggable':'true','tabindex':'0'}).html('&nbsp;')
 this.contentEditable=false})}
-function _handleUiBlocksKeydown(ev){if(ev.which==40||ev.which==38||ev.which==8||ev.which==46){var $block=$(editor.selection.element())
+function _handleUiBlocksKeydown(ev){if(ev.key==='ArrowDown'||ev.key==='ArrowUp'||ev.key==='Backspace'||ev.key==='Delete'){var $block=$(editor.selection.element())
 if($block.is('br')){$block=$block.parent()}
-if(!!$block.length){switch(ev.which){case 38:_handleUiBlockCaretIn($block.prev())
+if(!!$block.length){switch(ev.key){case'ArrowUp':_handleUiBlockCaretIn($block.prev())
 break
-case 40:_handleUiBlockCaretIn($block.next())
+case'ArrowDown':_handleUiBlockCaretIn($block.next())
 break
-case 46:_handleUiBlockCaretClearEmpty($block.next(),$block)
+case'Delete':_handleUiBlockCaretClearEmpty($block.next(),$block)
 break
-case 8:_handleUiBlockCaretClearEmpty($block.prev(),$block)
+case'Backspace':_handleUiBlockCaretClearEmpty($block.prev(),$block)
 break}}}}
 function _handleUiBlockCaretClearEmpty($block,$p){if($block.attr('data-ui-block')!==undefined&&$.trim($p.text()).length==0){$p.remove()
 _handleUiBlockCaretIn($block)
@@ -110,17 +110,17 @@ function _handleUiBlockCaretIn($block){if($block.attr('data-ui-block')!==undefin
 editor.selection.clear()
 return true}
 return false}
-function _uiBlockKeyDown(ev,block){if(ev.which==40||ev.which==38||ev.which==13||ev.which==8||ev.which==46){switch(ev.which){case 40:_focusUiBlockOrText($(block).next(),true)
+function _uiBlockKeyDown(ev,block){if(ev.key==='ArrowDown'||ev.key==='ArrowUp'||ev.key==='Enter'||ev.key==='Backspace'||ev.key==='Delete'){switch(ev.key){case'ArrowDown':_focusUiBlockOrText($(block).next(),true)
 break
-case 38:_focusUiBlockOrText($(block).prev(),false)
+case'ArrowUp':_focusUiBlockOrText($(block).prev(),false)
 break
-case 13:var $paragraph=$('<p><br/></p>')
+case'Enter':var $paragraph=$('<p><br/></p>')
 $paragraph.insertAfter(block)
 editor.selection.setAfter(block)
 editor.selection.restore()
 editor.undo.saveStep()
 break
-case 8:case 46:var $nextFocus=$(block).next(),gotoStart=true
+case'Backspace':case'Delete':var $nextFocus=$(block).next(),gotoStart=true
 if($nextFocus.length==0){$nextFocus=$(block).prev()
 gotoStart=false}
 _focusUiBlockOrText($nextFocus,gotoStart)
@@ -157,11 +157,11 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,uploadHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
-RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
+RichEditor.prototype.initFroala=function(){var froalaOptions={editorClass:'control-richeditor',language:this.options.editorLang,fullPage:this.options.fullpage,pageLinksHandler:this.options.linksHandler,uploadHandler:this.options.uploadHandler,aceEditorVendorPath:this.options.aceVendorPath,toolbarSticky:false}
 if(this.options.toolbarButtons){froalaOptions.toolbarButtons=this.options.toolbarButtons.split(',')}
 else{froalaOptions.toolbarButtons=$.oc.richEditorButtons}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
@@ -178,9 +178,12 @@ froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
 froalaOptions.lineBreakerTags=this.options.lineBreakerTags?this.options.lineBreakerTags.split(/[\s,]+/):['figure, table, hr, iframe, form, dl']
 froalaOptions.shortcutsEnabled=['show','bold','italic','underline','indent','outdent','undo','redo']
+froalaOptions.requestHeaders={'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),'X-Requested-With':'XMLHttpRequest'}
+var $form=this.$el.closest('form')
+var formData={};if($form.length>0){$.each($form.serializeArray(),function(index,field){formData[field.name]=field.value;})}
 froalaOptions.imageUploadURL=froalaOptions.fileUploadURL=window.location
 froalaOptions.imageUploadParam=froalaOptions.fileUploadParam='file_data'
-froalaOptions.imageUploadParams=froalaOptions.fileUploadParams={X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD:1,_token:$('meta[name="csrf-token"]').attr('content')}
+froalaOptions.imageUploadParams=froalaOptions.fileUploadParams=$.extend(formData,{_handler:froalaOptions.uploadHandler,})
 var placeholder=this.$textarea.attr('placeholder')
 froalaOptions.placeholderText=placeholder?placeholder:''
 froalaOptions.height=this.$el.hasClass('stretch')?Infinity:$('.height-indicator',this.$el).height()

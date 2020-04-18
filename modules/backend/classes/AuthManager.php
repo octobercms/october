@@ -1,7 +1,9 @@
 <?php namespace Backend\Classes;
 
+use Config;
 use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
+use October\Rain\Exception\SystemException;
 
 /**
  * Back-end authentication manager.
@@ -55,6 +57,11 @@ class AuthManager extends RainAuthManager
      */
     protected $permissionCache = false;
 
+    protected function init()
+    {
+        $this->useThrottle = Config::get('auth.throttle.enabled', true);
+    }
+
     /**
      * Registers a callback function that defines authentication permissions.
      * The callback function should register permissions by calling the manager's
@@ -81,7 +88,7 @@ class AuthManager extends RainAuthManager
      * - order - a position of the item in the menu, optional.
      * - comment - a brief comment that describes the permission, optional.
      * - tab - assign this permission to a tabbed group, optional.
-     * @param string $owner Specifies the menu items owner plugin or module in the format Vendor/Module.
+     * @param string $owner Specifies the permissions' owner plugin or module in the format Author.Plugin
      * @param array $definitions An array of the menu item definitions.
      */
     public function registerPermissions($owner, array $definitions)
@@ -93,6 +100,29 @@ class AuthManager extends RainAuthManager
             ]));
 
             $this->permissions[] = $permission;
+        }
+    }
+
+    /**
+     * Removes a single back-end permission
+     * @param string $owner Specifies the permissions' owner plugin or module in the format Author.Plugin
+     * @param string $code The code of the permission to remove
+     * @return void
+     */
+    public function removePermission($owner, $code)
+    {
+        if (!$this->permissions) {
+            throw new SystemException('Unable to remove permissions before they are loaded.');
+        }
+
+        $ownerPermissions = array_filter($this->permissions, function ($permission) use ($owner) {
+            return $permission->owner === $owner;
+        });
+
+        foreach ($ownerPermissions as $key => $permission) {
+            if ($permission->code === $code) {
+                unset($this->permissions[$key]);
+            }
         }
     }
 

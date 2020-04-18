@@ -276,7 +276,7 @@ return [
         'plugin_description' => 'Descrição',
         'plugin_version' => 'Versão',
         'plugin_author' => 'Autor',
-        'plugin_not_found' => 'Plugin encotrado',
+        'plugin_not_found' => 'Plugin não encontrado',
         'plugin_version_not_found' => 'Versão do plugin não encontrada',
         'core_current_build' => 'Compilação atual',
         'core_view_changelog' => 'Visualizar Changelog',
@@ -417,6 +417,9 @@ return [
         'custom_error' => [
             'label' => 'Erro de página',
             'help' => "Desculpe, mas algo deu errado e a página não pode ser exibida."
+        ],
+        'invalid_token' => [
+            'label' => 'Token de segurança inválido',
         ],
     ],
     'pagination' => [

@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => 'Nevar izveidot failu: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Nederīga drošības atslēga',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Kombināciju fails ':name' netika atrasts."
     ],
