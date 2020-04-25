@@ -218,6 +218,8 @@ class FormController extends ControllerBehavior
             $model = $this->controller->formExtendModel($model) ?: $model;
 
             $this->initForm($model);
+
+            $this->initializeSidePanelList();
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -287,6 +289,7 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
+            $this->initializeSidePanelList($recordId);
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -384,6 +387,8 @@ class FormController extends ControllerBehavior
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
+
+            $this->initializeSidePanelList($recordId);
         }
         catch (Exception $ex) {
             $this->controller->handleError($ex);
@@ -881,5 +886,20 @@ class FormController extends ControllerBehavior
             }
             call_user_func_array($callback, [$widget, $widget->model, $widget->getContext()]);
         });
+    }
+
+    /**
+     * Initialize Side Panel list
+     */
+    public function initializeSidePanelList($recordId = null)
+    {
+        try {
+            $this->controller->makeLists();
+            if ($recordId) {
+                $this->controller->listSetRecordAsActive($recordId);
+            }
+        }
+        catch (Exception $ex) {
+        }
     }
 }

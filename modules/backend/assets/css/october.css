@@ -825,6 +825,7 @@ html.mobile #layout-sidenav ul {overflow:auto;-webkit-overflow-scrolling:touch}
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover i {color:rgba(255,255,255,0.6) !important}
 #layout-sidenav.layout-sidenav ul.drag li:not(.active) a:hover:after,
 .touch #layout-sidenav.layout-sidenav li:not(.active) a:hover:after {display:none !important}
+#layout-side-panel {background:#ecf0f1}
 #layout-side-panel .fix-button {position:absolute;right:-25px;top:0;display:none;width:25px;height:25px;font-size:13px;background:#ecf0f1;z-index:120;opacity:0.5;filter:alpha(opacity=50);-webkit-border-radius:0 4px 4px 0;-moz-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0}
 #layout-side-panel .fix-button i {display:block;text-align:center;margin-top:5px;color:#aaa}
 #layout-side-panel .fix-button:hover {text-decoration:none;display:block;opacity:1 !important;filter:alpha(opacity=100) !important}
@@ -832,6 +833,14 @@ html.mobile #layout-sidenav ul {overflow:auto;-webkit-overflow-scrolling:touch}
 #layout-side-panel .fix-button-content-header .fix-button {top:46px}
 #layout-side-panel .sidepanel-content-header {background:#d35400;color:white;font-size:15px;padding:12px 20px 13px;position:relative}
 #layout-side-panel .sidepanel-content-header:after {content:'';display:block;width:0;height:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #d35400;border-bottom-width:0;position:absolute;left:14px;bottom:-8px}
+#layout-side-panel .list-header {padding:0}
+#layout-side-panel table.table.data {font-size:14px;border-bottom:0}
+#layout-side-panel table.table.data thead {display:none}
+#layout-side-panel table.table.data tbody td {border-top:0;background-color:#fff;color:#2b3e50;border-bottom:1px solid #ecf0f1}
+#layout-side-panel table.table.data tbody tr:hover td,
+#layout-side-panel table.table.data tbody tr.active td {background:#ddd !important;color:inherit}
+#layout-side-panel table.table.data tbody tr td:first-child,
+#layout-side-panel table.table.data tbody tr.active td:first-child {border-left-width:4px;padding-left:21px}
 body.side-panel-not-fixed #layout-side-panel {display:none}
 body.side-panel-not-fixed #layout-side-panel .fix-button {opacity:0.5;filter:alpha(opacity=50)}
 body.display-side-panel #layout-side-panel {display:block;position:absolute;z-index:600;width:350px;-webkit-box-shadow:3px 0 3px 0 rgba(0,0,0,0.1);box-shadow:3px 0 3px 0 rgba(0,0,0,0.1)}

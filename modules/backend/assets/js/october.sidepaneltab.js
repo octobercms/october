@@ -47,7 +47,9 @@
 
             self.displayTab(this)
 
-            return false
+            if (Modernizr.touchevents) {
+                return false;
+            }
         })
 
         if (!Modernizr.touchevents) {

@@ -586,4 +586,21 @@ class ListController extends ControllerBehavior
             call_user_func_array($callback, [$widget]);
         });
     }
+
+
+    /**
+     * Set record as active on side panel list
+     * @return void
+     */
+    public function listSetRecordAsActive($recordId, $definition = null)   
+    {
+        if (!$definition || !isset($this->listDefinitions[$definition])) {
+            $definition = $this->primaryDefinition;
+        }
+
+        $widget = $this->listWidgets[$definition];
+        $widget->bindEvent('list.injectRowClass', function ($record) use ($recordId) {
+            return $record->getKey() == $recordId ? 'active' : '';
+        });  
+    }
 }

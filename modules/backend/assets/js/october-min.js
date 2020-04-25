@@ -1024,7 +1024,7 @@ if(Modernizr.touchevents&&$(window).width()<self.options.breakpoint){if($(this).
 return}
 else{self.displaySidePanel()}}
 self.displayTab(this)
-return false})
+if(Modernizr.touchevents){return false;}})
 if(!Modernizr.touchevents){self.$sideNav.mouseleave(function(){clearTimeout(self.panelOpenTimeout)})
 self.$el.mouseleave(function(){self.hideSidePanel()})
 self.$sideNavItems.mouseenter(function(){if($(window).width()<self.options.breakpoint||!self.panelFixed()){if($(this).data('no-side-panel')){self.hideSidePanel()

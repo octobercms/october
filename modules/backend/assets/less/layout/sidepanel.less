@@ -3,6 +3,8 @@
 // --------------------------------------------------
 
 #layout-side-panel {
+    background: #ecf0f1;
+
     .fix-button {
         position: absolute;
         right: -25px;
@@ -52,6 +54,42 @@
             position: absolute;
             left: 14px;
             bottom: -8px;
+        }
+    }
+
+    /***********************************************/
+    /* Side Panel List styles                      */
+    /***********************************************/
+
+    .list-header {
+        padding: 0;
+    }
+
+    table.table.data {
+        font-size: 14px;
+        border-bottom: 0;
+
+        thead {
+            display: none;
+        }
+
+        tbody td {
+            border-top:0;
+            background-color: #ffffff;
+            color: #2b3e50;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tbody tr:hover td, 
+        tbody tr.active td {
+            background: #dddddd !important; 
+            color: inherit;
+        }
+
+        tbody tr td:first-child,
+        tbody tr.active td:first-child {
+            border-left-width: 4px; 
+            padding-left: 21px; 
         }
     }
 }
