@@ -591,7 +591,7 @@ class ListController extends ControllerBehavior
      * Set record as active on side panel list
      * @return void
      */
-    public function listSetRecordAsActive($recordId, $definition = null)   
+    public function listSetRecordAsActive($recordId, $definition = null)
     {
         if (!$definition || !isset($this->listDefinitions[$definition])) {
             $definition = $this->primaryDefinition;
@@ -600,6 +600,6 @@ class ListController extends ControllerBehavior
         $widget = $this->listWidgets[$definition];
         $widget->bindEvent('list.injectRowClass', function ($record) use ($recordId) {
             return $record->getKey() == $recordId ? 'active' : '';
-        });  
+        });
     }
 }
