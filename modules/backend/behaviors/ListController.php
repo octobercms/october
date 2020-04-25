@@ -587,7 +587,6 @@ class ListController extends ControllerBehavior
         });
     }
 
-
     /**
      * Set record as active on side panel list
      * @return void
