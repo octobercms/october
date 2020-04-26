@@ -86,6 +86,20 @@ class EditorSetting extends Model
     ];
 
     /**
+     * Editor toolbar presets for Froala.
+     */
+    protected $editorToolbarPresets = [
+        'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL, insertTable, 
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertHR, html',
+        'minimal' => 'paragraphFormat, bold, italic, underline, |, insertLink, insertImage, |, html',
+        'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |, 
+                      strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color, 
+                      emoticons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR, 
+                      insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, |, selectAll, 
+                      html, fullscreen',
+    ];
+
+    /**
      * Validation rules
      */
     public $rules = [];
@@ -209,6 +223,17 @@ class EditorSetting extends Model
         $property = 'default'.studly_case($attribute);
 
         return $this->$property;
+    }
+
+    /**
+     * Return the editor toolbar presets without line breaks.
+     * @return array
+     */
+    public function getEditorToolbarPresets()
+    {
+        return array_map(function ($value) {
+            return preg_replace('/\s+/', ' ', $value);
+        }, $this->editorToolbarPresets);
     }
 
     public static function renderCss()

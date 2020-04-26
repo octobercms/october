@@ -333,11 +333,18 @@ class AssetList extends WidgetBase
 
             $basename = basename($path);
             $originalFullPath = $this->getFullPath($path);
-            $newFullPath = rtrim($destinationFullPath, '/').'/'.$basename;
+            $newFullPath = realpath(rtrim($destinationFullPath, '/')) . '/' . $basename;
             $safeDir = $this->getAssetsPath();
 
             if ($originalFullPath == $newFullPath) {
                 continue;
+            }
+
+            if (!starts_with($newFullPath, $safeDir)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.asset.error_moving_file',
+                    ['file' => $basename]
+                ));
             }
 
             if (is_file($originalFullPath)) {
@@ -662,7 +669,9 @@ class AssetList extends WidgetBase
             /*
              * Accept the uploaded file
              */
-            $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
+            $uploadedFile = $uploadedFile->move($this->getCurrentPath(), $uploadedFile->getClientOriginalName());
+
+            File::chmod($uploadedFile->getRealPath());
 
             $response = Response::make('success');
         }

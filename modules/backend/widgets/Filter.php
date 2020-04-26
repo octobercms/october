@@ -153,7 +153,7 @@ class Filter extends WidgetBase
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ?? '∞';
+                    $params['minStr'] = $min ?? '-∞';
                     $params['min'] = $min ?? null;
 
                     $params['maxStr'] = $max ?? '∞';
@@ -622,6 +622,7 @@ class Filter extends WidgetBase
                         'maxDate'   => '2099-12-31',
                         'firstDay'  => 0,
                         'yearRange' => 10,
+                        'ignoreTimezone' => false,
                     ];
 
                     break;

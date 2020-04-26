@@ -97,7 +97,7 @@
      */
     FilterWidget.prototype.getPopoverNumberTemplate = function () {
         return '                                                                                                        \
-                <form>                                                                                                  \
+                <form id="filterPopoverNumber-{{ scopeName }}">                                                         \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
                     <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">\
                         <div class="filter-search loading-indicator-container size-input-text">                         \
@@ -129,7 +129,7 @@
      */
     FilterWidget.prototype.getPopoverNumberRangeTemplate = function () {
         return '                                                                                                            \
-                <form>                                                                                                      \
+                <form id="filterPopoverNumberRange-{{ scopeName }}">                                                        \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                        \
                     <div id="controlFilterPopoverNum" class="control-filter-popover control-filter-box-popover --range">    \
                         <div class="filter-search loading-indicator-container size-input-text">                             \

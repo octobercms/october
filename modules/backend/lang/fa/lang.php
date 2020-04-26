@@ -377,7 +377,7 @@ return [
         'remove_tags' => 'تگ های غیر مجاز',
         'remove_tags_comment' => 'تگ هایی که در صورت وارد شدن در ویرایش گر با محتوی خود حذف می شوند',
         'toolbar_buttons' => 'دکمه های جعبه ابزار',
-        'toolbar_buttons_comment' => 'دکمه های پیشفرض جهت نمایش در ویرایشگر. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'دکمه های پیشفرض جهت نمایش در ویرایشگر.',
     ],
     'tooltips' => [
         'preview_website' => 'پیش نمایش وب سایت'

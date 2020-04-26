@@ -11,6 +11,7 @@ use Session;
 use Request;
 use Response;
 use Exception;
+use SystemException;
 use BackendAuth;
 use Twig\Environment as TwigEnvironment;
 use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
@@ -24,7 +25,6 @@ use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
-use October\Rain\Exception\ApplicationException;
 use October\Rain\Parse\Bracket as TextParser;
 use Illuminate\Http\RedirectResponse;
 
@@ -1403,36 +1403,55 @@ class Controller
     //
 
     /**
-     * Adds a component to the page object
-     * @param mixed  $name        Component class name or short name
-     * @param string $alias       Alias to give the component
-     * @param array  $properties  Component properties
-     * @param bool   $addToLayout Add to layout, instead of page
-     * @return ComponentBase Component object
+     * Adds a component to the page object.
+     *
+     * @param mixed $name Component class name or short name
+     * @param string $alias Alias to give the component
+     * @param array $properties Component properties
+     * @param bool $addToLayout Add to layout, instead of page
+     *
+     * @return ComponentBase|null Component object. Will return `null` if a soft component is used but not found.
+     * @throws CmsException if the (hard) component is not found.
+     * @throws SystemException if the (hard) component class is not found or is not registered.
      */
     public function addComponent($name, $alias, $properties, $addToLayout = false)
     {
         $manager = ComponentManager::instance();
+        $isSoftComponent = $this->isSoftComponent($name);
+
+        if ($isSoftComponent) {
+            $name = $this->parseComponentLabel($name);
+            $alias = $this->parseComponentLabel($alias);
+        }
+
+        $componentObj = $manager->makeComponent(
+            $name,
+            ($addToLayout) ? $this->layoutObj : $this->pageObj,
+            $properties,
+            $isSoftComponent
+        );
+
+        if (is_null($componentObj)) {
+            if (!$isSoftComponent) {
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+            }
+
+            // A missing soft component will return null.
+            return null;
+        }
+
+        $componentObj->alias = $alias;
+        $this->vars[$alias] = $componentObj;
 
         if ($addToLayout) {
-            if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
-        }
-        else {
-            if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
+            $this->layout->components[$alias] = $componentObj;
+        } else {
+            $this->page->components[$alias] = $componentObj;
         }
 
         $this->setComponentPropertiesFromParams($componentObj);
         $componentObj->init();
+
         return $componentObj;
     }
 
@@ -1538,12 +1557,35 @@ class Controller
                     $newPropertyValue = $routerParameters[$routeParamName] ?? null;
                 }
                 else {
-                    $newPropertyValue = $parameters[$paramName] ?? null;
+                    $newPropertyValue = array_get($parameters, $paramName, null);
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);
                 $component->setExternalPropertyName($propertyName, $paramName);
             }
         }
+    }
+
+    /**
+     * Removes prefixed '@' from soft component name
+     * @param string $label
+     * @return string
+     */
+    protected function parseComponentLabel($label)
+    {
+        if ($this->isSoftComponent($label)) {
+            return ltrim($label, '@');
+        }
+        return $label;
+    }
+
+    /**
+     * Checks if component name has @.
+     * @param string $label
+     * @return bool
+     */
+    protected function isSoftComponent($label)
+    {
+        return starts_with($label, '@');
     }
 }

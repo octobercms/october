@@ -537,9 +537,13 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
-        $fullPath = $this->storagePath.implode("/", array_map("rawurlencode", explode("/", $path)));
+        $fullPath = $this->storagePath . implode("/", array_map("rawurlencode", explode("/", $path)));
 
-        return Url::to($fullPath);
+        if (Config::get('cms.linkPolicy') === 'force') {
+            return Url::to($fullPath);
+        } else {
+            return $fullPath;
+        }
     }
 
     /**

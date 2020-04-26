@@ -122,9 +122,11 @@
         /*
          * When a master is updated, refresh its slaves
          */
-        $.each(fieldMap, function(fieldName, toRefresh){
-            fieldElements.filter('[data-field-name="'+fieldName+'"]')
-                .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
+        $.each(fieldMap, function(fieldName, toRefresh) {
+            $(document).on('change.oc.formwidget',
+                '[data-field-name="' + fieldName + '"]',
+                $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
+            );
         })
     }
 
@@ -166,7 +168,10 @@
      * Render tab form fields once a lazy tab is selected.
      */
     FormWidget.prototype.bindLazyTabs = function() {
-        this.$el.on('click', '.tab-lazy [data-toggle="tab"]', function() {
+        var tabControl = $('[data-control=tab]', this.$el),
+            tabContainer = $('.nav-tabs', tabControl)
+
+        tabContainer.on('click', '.tab-lazy [data-toggle="tab"]', function() {
             var $el = $(this),
                 handlerName = $el.data('tab-lazy-handler')
 
@@ -191,6 +196,11 @@
                 }
             })
         })
+
+        // If initial active tab is lazy loaded, load it immediately
+        if ($('> li.active.tab-lazy', tabContainer).length) {
+            $('> li.active.tab-lazy > [data-toggle="tab"]', tabContainer).trigger('click')
+        }
     }
 
     /*

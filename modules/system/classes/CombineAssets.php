@@ -413,7 +413,8 @@ class CombineAssets
     {
         /**
          * @event cms.combiner.beforePrepare
-         * Provides an opportunity to interact with the asset combiner before assets are combined
+         * Provides an opportunity to interact with the asset combiner before assets are combined.
+         * >**NOTE**: Plugin's must be elevated (`$elevated = true` on Plugin.php) to be run on the /combine route and thus listen to this event
          *
          * Example usage:
          *

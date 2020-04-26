@@ -210,7 +210,9 @@ class Lists extends WidgetBase
         /*
          * Configure the list widget
          */
-        $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        if ($this->showSetup) {
+            $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        }
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
@@ -640,9 +642,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-
-        if (!$currentPageNumber && empty($this->searchTerm)) {
-            // Restore the last visited page from the session if available.
+        if (empty($currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
@@ -728,7 +728,7 @@ class Lists extends WidgetBase
         /*
          * Supplied column list
          */
-        if ($this->columnOverride === null) {
+        if ($this->showSetup && $this->columnOverride === null) {
             $this->columnOverride = $this->getUserPreference('visible', null);
         }
 
@@ -1076,8 +1076,8 @@ class Lists extends WidgetBase
         /*
          * Apply default value.
          */
-        if ($value === '' || $value === null) {
-            $value = $column->defaults;
+        if (($value === '' || is_null($value)) && !empty($column->defaults)) {
+            $value = Lang::get($column->defaults);
         }
 
         /**
@@ -1408,11 +1408,16 @@ class Lists extends WidgetBase
      * Applies a search term to the list results, searching will disable tree
      * view if a value is supplied.
      * @param string $term
+     * @param boolean $resetPagination
      */
-    public function setSearchTerm($term)
+    public function setSearchTerm($term, $resetPagination = false)
     {
         if (!empty($term)) {
             $this->showTree = false;
+        }
+
+        if ($resetPagination) {
+            $this->currentPageNumber = 1;
         }
 
         $this->searchTerm = $term;
