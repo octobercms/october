@@ -183,9 +183,9 @@ class OctoberMirror extends Command
         }
 
         if ($this->option('copy')) {
-            if(File::isFile($src)) {
+            if (File::isFile($src)) {
                 File::copy($src, $dest);
-            } else if(File::isDirectory($src)) {
+            } else if (File::isDirectory($src)) {
                 File::copyDirectory($src, $dest);
             }
         } else {
