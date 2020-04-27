@@ -4,10 +4,10 @@ use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
-    protected function setUp()
+    protected function tearDown()
     {
-        parent::setUp();
-        $this->setUpStorage();
+        $this->removeMedia();
+        parent::tearDown();
     }
 
     public function invalidPathsProvider()
@@ -71,6 +71,7 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 
     public function testListFolderContents()
     {
+        $this->setUpStorage();
         $this->copyMedia();
 
         $contents = MediaLibrary::instance()->listFolderContents();
@@ -81,8 +82,6 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
         $this->assertAttributeEquals('/text.txt', 'path', $item, 'Media library item does not have the right path');
         $this->assertAttributeNotEmpty('lastModified', $item, 'Media library item last modified is empty');
         $this->assertAttributeNotEmpty('size', $item, 'Media library item size is empty');
-
-        $this->removeMedia();
     }
 
     protected function setUpStorage()
@@ -117,6 +116,10 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 
     protected function removeMedia()
     {
+        if ($this->app->storagePath() !== base_path('storage/temp')) {
+            return;
+        }
+
         foreach (glob(storage_path('app/media/*')) as $file) {
             unlink($file);
         }
