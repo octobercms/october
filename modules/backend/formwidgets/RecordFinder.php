@@ -276,7 +276,7 @@ class RecordFinder extends FormWidgetBase
         $name = $this->relationModel;
         $nameFrom = explode('.', $this->nameFrom);
         foreach ($nameFrom as $attribute) {
-            if (!empty($name->{$attribute})){
+            if (!empty($name->{$attribute})) {
                 $name = $name->{$attribute};
             }
         }
