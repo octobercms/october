@@ -680,7 +680,8 @@ class MediaLibrary
                 $key = 'folders';
             }
 
-            if ($libraryItem = $this->initLibraryItem($content, $type)) {
+            $libraryItem = $this->initLibraryItem($content, $type);
+            if (!is_null($libraryItem)) {
                 $result[$key][] = $libraryItem;
             }
         }
