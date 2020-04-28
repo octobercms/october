@@ -127,7 +127,7 @@
                  */
                 if ($element.hasClass('select-no-dropdown')) {
                     extraOptions.selectOnClose = true
-                    extraOptions.closeOnSelect = false
+                    extraOptions.closeOnSelect = true
                     extraOptions.minimumInputLength = 1
 
                     $element.on('select2:closing', function() {
