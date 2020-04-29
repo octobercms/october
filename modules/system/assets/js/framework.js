@@ -30,12 +30,23 @@ if (window.jQuery.request !== undefined) {
         }
 
         /*
-         * Prepare the options and execute the request
+         * Prepare the options
          */
         var $form = options.form ? $(options.form) : $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options }
 
+        /*
+         * Validate the form client-side
+         */
+        if (typeof document.createElement('input').reportValidity == 'function' && $form && $form[0] && !$form[0].checkValidity()) {
+            $form[0].reportValidity();
+            return false;
+        }
+
+        /*
+         * Execute the request
+         */
         $el.trigger('ajaxSetup', [context])
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
@@ -107,7 +118,11 @@ if (window.jQuery.request !== undefined) {
             }
 
             $.each(data, function(key) {
-                requestData.append(key, this)
+                if (typeof Blob !== "undefined" && this instanceof Blob && this.filename) {
+                    requestData.append(key, this, this.filename)
+                } else {
+                    requestData.append(key, this)
+                }
             })
         }
         else {

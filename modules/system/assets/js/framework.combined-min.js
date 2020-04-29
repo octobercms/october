@@ -4,6 +4,7 @@ if(window.jQuery.request!==undefined){throw new Error('The OctoberCMS framework 
 +function($){"use strict";var Request=function(element,handler,options){var $el=this.$el=$(element);this.options=options||{};if(handler===undefined){throw new Error('The request handler name is not specified.')}
 if(!handler.match(/^(?:\w+\:{2})?on*/)){throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')}
 var $form=options.form?$(options.form):$el.closest('form'),$triggerEl=!!$form.length?$form:$el,context={handler:handler,options:options}
+if(typeof document.createElement('input').reportValidity=='function'&&$form&&$form[0]&&!$form[0].checkValidity()){$form[0].reportValidity();return false;}
 $el.trigger('ajaxSetup',[context])
 var _event=jQuery.Event('oc.beforeRequest')
 $triggerEl.trigger(_event,context)
@@ -24,7 +25,7 @@ if(options.data!==undefined&&!$.isEmptyObject(options.data)){$.extend(data,optio
 if(useFiles){requestData=new FormData($form.length?$form.get(0):undefined)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
-$.each(data,function(key){requestData.append(key,this)})}
+$.each(data,function(key){if(typeof Blob!=="undefined"&&this instanceof Blob&&this.filename){requestData.append(key,this,this.filename)}else{requestData.append(key,this)}})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
 var requestOptions={url:url,crossDomain:false,global:options.ajaxGlobal,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return

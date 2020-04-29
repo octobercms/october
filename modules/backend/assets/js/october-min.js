@@ -1041,7 +1041,7 @@ self.$el.on('close.oc.sidePanel',function(){self.hideSidePanel()})}
 this.updateActiveTab()}
 SidePanelTab.prototype.displayTab=function(menuItem){var menuItemId=$(menuItem).data('menu-item')
 this.visibleItemId=menuItemId
-$.oc.sideNav.setActiveItem(menuItemId)
+if($.oc.sideNav!==undefined){$.oc.sideNav.setActiveItem(menuItemId)}
 this.$sidePanelItems.each(function(){var $el=$(this)
 $el.toggleClass('hide',$el.data('content-id')!=menuItemId)})
 $(window).trigger('resize')}
@@ -1058,7 +1058,8 @@ this.updateActiveTab()}
 SidePanelTab.prototype.updatePanelPosition=function(){if(!this.panelFixed()||Modernizr.touchevents){this.$el.height($(document).height()-this.mainNavHeight)}
 else{this.$el.css('height','')}
 if(this.panelVisible&&$(window).width()>this.options.breakpoint&&this.panelFixed()){this.hideSidePanel()}}
-SidePanelTab.prototype.updateActiveTab=function(){if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
+SidePanelTab.prototype.updateActiveTab=function(){if($.oc.sideNav===undefined){return}
+if(!this.panelVisible&&($(window).width()<this.options.breakpoint||!this.panelFixed())){$.oc.sideNav.unsetActiveItem()}
 else{$.oc.sideNav.setActiveItem(this.visibleItemId)}}
 SidePanelTab.prototype.panelFixed=function(){return!($(window).width()<this.options.breakpoint)&&!$(document.body).hasClass('side-panel-not-fixed')}
 SidePanelTab.prototype.fixPanel=function(){$(document.body).toggleClass('side-panel-not-fixed')

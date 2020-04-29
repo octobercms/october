@@ -3062,10 +3062,7 @@ FilterWidget.prototype.getPopoverTemplate=function(){return'                    
                                 name="search"                                                                          \
                                 autocomplete="off"                                                                     \
                                 class="filter-search-input form-control icon search popup-allow-focus"                 \
-                                data-request="{{ optionsHandler }}"                                                    \
-                                data-load-indicator-opaque                                                             \
-                                data-load-indicator                                                                    \
-                                data-track-input />                                                                    \
+                                data-search />                                                                         \
                             <div class="filter-items">                                                                 \
                                 <ul>                                                                                   \
                                     {{#available}}                                                                     \
@@ -3115,7 +3112,8 @@ $(event.relatedTarget).on('ajaxDone','#controlFilterPopover input.filter-search-
 $(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="apply"]',function(e){e.preventDefault()
 self.filterScope()})
 $(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="clear"]',function(e){e.preventDefault()
-self.filterScope(true)})})
+self.filterScope(true)})
+$(event.relatedTarget).on('input','#controlFilterPopover input[data-search]',function(e){self.searchQuery($(this))});})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
@@ -3230,6 +3228,17 @@ this.updateScopeSetting(this.$activeScope,0)}
 this.pushOptions(scopeName);this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
+FilterWidget.prototype.searchQuery=function($el){if(this.dataTrackInputTimer!==undefined){window.clearTimeout(this.dataTrackInputTimer)}
+var self=this
+this.dataTrackInputTimer=window.setTimeout(function(){var
+lastValue=$el.data('oc.lastvalue'),thisValue=$el.val()
+if(lastValue!==undefined&&lastValue==thisValue){return}
+$el.data('oc.lastvalue',thisValue)
+if(self.lastDataTrackInputRequest){self.lastDataTrackInputRequest.abort()}
+var data={scopeName:self.activeScopeName,search:thisValue}
+$.oc.stripeLoadIndicator.show()
+self.lastDataTrackInputRequest=self.$el.request(self.options.optionsHandler,{data:data}).success(function(data){self.filterAvailable(self.activeScopeName,data.options.available)
+self.toggleFilterButtons()}).always(function(){$.oc.stripeLoadIndicator.hide()})},300)}
 var old=$.fn.filterWidget
 $.fn.filterWidget=function(option){var args=arguments,result
 this.each(function(){var $this=$(this)

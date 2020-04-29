@@ -425,6 +425,15 @@ class FormField
         $result = array_get($this->attributes, $position, []);
         $result = $this->filterAttributes($result, $position);
 
+        // Field is required, so add the "required" attribute
+        if ($position === 'field' && $this->required && (!isset($result['required']) || $result['required'])) {
+            $result['required'] = '';
+        }
+        // The "required" attribute is set and falsy, so unset it
+        elseif ($position === 'field' && isset($result['required']) && !$result['required']) {
+            unset($result['required']);
+        }
+
         return $htmlBuild ? Html::attributes($result) : $result;
     }
 
