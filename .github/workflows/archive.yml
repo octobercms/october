@@ -27,5 +27,5 @@ jobs:
           If this pull request is critical to your business, consider joining the [Premium Support Program](https://octobercms.com/premium-support) where a Service Level Agreement is offered.
         stale-issue-label: 'Status: Archived'
         stale-pr-label: 'Status: Archived'
-        exempt-issue-label: 'Status: In Progress,Status: On Hold,Status: Blocked'
-        exempt-pr-label: 'Status: In Progress,Status: On Hold,Status: Blocked'
+        exempt-issue-labels: 'Status: In Progress,Status: On Hold,Status: Blocked'
+        exempt-pr-labels: 'Status: In Progress,Status: On Hold,Status: Blocked'
