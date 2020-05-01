@@ -49,7 +49,7 @@ In addition to a prepopulated menu of options, Select2 can dynamically create ne
 
     <select
         class="form-control custom-select"
-        data-tags=true
+        data-tags="true"
     ></select>
 
 ## Option groups
