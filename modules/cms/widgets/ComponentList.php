@@ -88,7 +88,7 @@ class ComponentList extends WidgetBase
             foreach ($components as $componentInfo) {
                 $className = $componentInfo->className;
                 $alias = $componentInfo->alias;
-                $component = App::make($className);
+                $component = App::make($className, [null, []]);
 
                 if ($component->isHidden) {
                     continue;
