@@ -361,7 +361,7 @@ return [
         'remove_tags'                => 'Usuń znaczniki',
         'remove_tags_comment'        => 'Lista znaczników, które zostaną usunięte wraz z zawartością.',
         'toolbar_buttons'            => 'Przyciski paska narzędzi',
-        'toolbar_buttons_comment'    => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment'    => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora.',
 
     ],
     'tooltips'            => [

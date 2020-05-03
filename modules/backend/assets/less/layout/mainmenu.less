@@ -20,7 +20,6 @@ body.mainmenu-open {
     display: inline-block;
     font-size: @font-size-base;
     color: inherit;
-    outline: none;
 
     &:hover {
         background-color: transparent;
@@ -113,7 +112,7 @@ nav#layout-mainmenu {
     padding: 0 0 0 20px;
     line-height: 0;
     white-space: nowrap;
-    vertical-align: top;
+    display: flex;
 
     a {
         text-decoration: none;
@@ -157,7 +156,14 @@ nav#layout-mainmenu {
     }
 
     .toolbar-item {
+        flex: 1 1 auto;
+        display: block;
         padding-right: 0;
+        overflow: hidden;
+
+        &-account {
+            flex: 0 0 auto;
+        }
 
         &:before, &:after {
             margin-top: 0;

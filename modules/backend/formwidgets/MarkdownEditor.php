@@ -27,6 +27,16 @@ class MarkdownEditor extends FormWidgetBase
      */
     public $safe = false;
 
+    /**
+     * @var bool If true, the editor is set to read-only mode
+     */
+    public $readOnly = false;
+
+    /**
+     * @var bool If true, the editor is set to read-only mode
+     */
+    public $disabled = false;
+
     //
     // Object properties
     //
@@ -44,6 +54,8 @@ class MarkdownEditor extends FormWidgetBase
         $this->fillFromConfig([
             'mode',
             'safe',
+            'readOnly',
+            'disabled',
         ]);
     }
 
@@ -66,6 +78,8 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['size'] = $this->formField->size;
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
+        $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['disabled'] = $this->disabled;
         $this->vars['useMediaManager'] = BackendAuth::getUser()->hasAccess('media.manage_media');
     }
 

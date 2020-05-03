@@ -4,8 +4,17 @@
  * Register Backend routes before all user routes.
  */
 App::before(function ($request) {
-    /*
-     * Extensibility
+
+    /**
+     * @event backend.beforeRoute
+     * Fires before backend routes get added
+     *
+     * Example usage:
+     *
+     *     Event::listen('backend.beforeRoute', function () {
+     *         // your code here
+     *     });
+     *
      */
     Event::fire('backend.beforeRoute');
 
@@ -25,8 +34,16 @@ App::before(function ($request) {
      */
     Route::any(Config::get('cms.backendUri', 'backend'), 'Backend\Classes\BackendController@run')->middleware('web');
 
-    /*
-     * Extensibility
+    /**
+     * @event backend.route
+     * Fires after backend routes have been added
+     *
+     * Example usage:
+     *
+     *     Event::listen('backend.route', function () {
+     *         // your code here
+     *     });
+     *
      */
     Event::fire('backend.route');
 });

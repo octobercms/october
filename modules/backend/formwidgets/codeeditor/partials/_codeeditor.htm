@@ -24,7 +24,8 @@
         data-read-only="<?= $readOnly ? 'true' : 'false' ?>"
         data-language="<?= $language ?>"
         data-margin="<?= $margin ?>"
-        data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">
+        data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
+        <?= $this->formField->getAttributes() ?>>
         <div class="editor-toolbar">
             <ul>
                 <li class="searchbox-enable">

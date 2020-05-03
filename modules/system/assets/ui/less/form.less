@@ -329,13 +329,15 @@
 }
 
 .field-checkboxlist {
-    &:not(.is-scrollable) {
+    .field-checkboxlist-inner {
         .border-radius(@border-radius-base);
         background: @color-form-checkboxlist-background;
         border: 1px solid @color-form-checkboxlist-border;
+    }
 
+    &:not(.is-scrollable) {
         .field-checkboxlist-inner {
-            padding: 20px 20px 2px 20px;
+            padding: 15px 15px 2px 15px;
         }
     }
 
@@ -368,17 +370,14 @@
     }
 }
 
-
 .field-checkboxlist-scrollable {
-    background: @color-form-checkboxlist-background;
-    border: 1px solid @color-form-checkboxlist-border;
     padding-left: 15px;
     height: @size-large + 100;
 
     // First checkbox
     .checkbox {
         margin-top: 15px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     // All others

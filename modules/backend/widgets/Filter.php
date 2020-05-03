@@ -145,18 +145,19 @@ class Filter extends WidgetBase
                 break;
 
             case 'numberrange':
-                if ($scope->value && is_array($scope->value) && count($scope->value) === 2 &&
-                    $scope->value[0] &&
-                    $scope->value[1]
+                if (
+                    $scope->value
+                    && (is_array($scope->value) && count($scope->value) === 2)
+                    && (isset($scope->value[0]) || isset($scope->value[1]))
                 ) {
                     $min = $scope->value[0];
                     $max = $scope->value[1];
 
-                    $params['minStr'] = $min ?: '';
-                    $params['min'] = $min ?: null;
+                    $params['minStr'] = $min ?? '-∞';
+                    $params['min'] = $min ?? null;
 
-                    $params['maxStr'] = $max ?: '∞';
-                    $params['max'] = $max ?: null;
+                    $params['maxStr'] = $max ?? '∞';
+                    $params['max'] = $max ?? null;
                 }
 
                 break;
@@ -169,6 +170,22 @@ class Filter extends WidgetBase
         }
 
         return $this->makePartial('scope_'.$scope->type, $params);
+    }
+
+    /**
+     * Returns a HTML encoded value containing the other scopes this scope depends on
+     * @param  \Backend\Classes\FilterScope $scope
+     * @return string
+     */
+    protected function getScopeDepends($scope)
+    {
+        if (!$scope->dependsOn) {
+            return '';
+        }
+
+        $dependsOn = is_array($scope->dependsOn) ? $scope->dependsOn : [$scope->dependsOn];
+        $dependsOn = htmlspecialchars(json_encode($dependsOn), ENT_QUOTES, 'UTF-8');
+        return $dependsOn;
     }
 
     //
@@ -426,7 +443,11 @@ class Filter extends WidgetBase
                 ]));
             }
 
-            $options = $model->$methodName();
+            if (!empty($scope->dependsOn)) {
+                $options = $model->$methodName($this->getScopes());
+            } else {
+                $options = $model->$methodName();
+            }
         }
         elseif (!is_array($options)) {
             $options = [];
@@ -601,6 +622,7 @@ class Filter extends WidgetBase
                         'maxDate'   => '2099-12-31',
                         'firstDay'  => 0,
                         'yearRange' => 10,
+                        'ignoreTimezone' => false,
                     ];
 
                     break;
@@ -663,6 +685,15 @@ class Filter extends WidgetBase
         $this->defineFilterScopes();
 
         foreach ($this->allScopes as $scope) {
+            // Ensure that only valid values are set scopes of type: group
+            if ($scope->type === 'group') {
+                $activeKeys = $scope->value ? array_keys($scope->value) : [];
+                $available = $this->getAvailableOptions($scope);
+                $active = $this->filterActiveOptions($activeKeys, $available);
+                $value = !empty($active) ? $active : null;
+                $this->setScopeValue($scope, $value);
+            }
+
             $this->applyScopeToQuery($scope, $query);
         }
 
@@ -761,15 +792,14 @@ class Filter extends WidgetBase
                 if (is_array($scope->value) && count($scope->value) > 1) {
                     list($min, $max) = array_values($scope->value);
 
-                    if ($min && $max) {
+                    if (isset($min) || isset($max)) {
                         /*
                          * Condition
-                         *
                          */
                         if ($scopeConditions = $scope->conditions) {
                             $query->whereRaw(DbDongle::parse(strtr($scopeConditions, [
-                                ':min'  => $min,
-                                ':max'  => $max
+                                ':min'  => $min === null ? -2147483647 : $min,
+                                ':max'  => $max === null ? 2147483647 : $max
                             ])));
                         }
                         /*
@@ -804,6 +834,10 @@ class Filter extends WidgetBase
 
             default:
                 $value = is_array($scope->value) ? array_keys($scope->value) : $scope->value;
+
+                if (empty($value)) {
+                    break;
+                }
 
                 /*
                  * Condition
@@ -1016,8 +1050,7 @@ class Filter extends WidgetBase
                     if (preg_match($numberRegex, $number)) {
                         $numbers[] = $number;
                     } else {
-                        $numbers = [];
-                        break;
+                        $numbers[] = null;
                     }
                 }
             }
