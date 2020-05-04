@@ -1,7 +1,7 @@
 +function ($) { "use strict";
 
     var Sensitive = function(element, options) {
-        this.$el       = $(element)
+        this.$el = $(element)
         this.init()
     }
 
@@ -13,7 +13,7 @@
     Sensitive.prototype.init = function() {
         var self = this
         this.$sensitiveField = this.$el
-        this.$showIcon = this.$el.siblings('.toggle-icon:first').find('i')
+        this.$showIcon = this.$el.siblings('.toggle-icon:first')
 
         this.$showIcon.click(function(){
             self.togglePassword()
@@ -30,7 +30,7 @@
     }
 
     Sensitive.prototype.toggleIcon = function() {
-        this.$showIcon.toggleClass("icon-eye icon-eye-slash");
+        this.$showIcon.find('i').toggleClass("icon-eye icon-eye-slash");
     }
 
     $.fn.sensitive = function (option) {
