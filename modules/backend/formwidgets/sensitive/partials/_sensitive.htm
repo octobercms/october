@@ -6,12 +6,10 @@
         name="<?= $this->getFieldName() ?>"
         id="<?= $this->getId() ?>"
         value="<?= e($this->getLoadValue()) ?>"
-        placeholder="<?= e(trans($this->placeholder)) ?>"
+        placeholder="<?= e(trans($this->formField->placeholder)) ?>"
         class="form-control"
-        <?php if ($this->previewMode): ?>
-        disabled="disabled"
-        <?php endif ?>
+        <?php if ($this->previewMode): ?>disabled="disabled"<?php endif ?>
         autocomplete="off"
     />
-    <span class="input-group-addon toggle-icon" toggle="<?= $this->getId() ?>"><i class="icon-eye"></i></span>
+    <span class="input-group-addon toggle-icon"><i class="icon-eye"></i></span>
 </div>
