@@ -10,12 +10,12 @@ use Backend\Classes\FormWidgetBase;
 class Sensitive extends FormWidgetBase
 {
     /**
-     * @var bool If true, the color picker is set to read-only mode
+     * @var bool If true, the sensitive field is set to read-only mode
      */
     public $readOnly = false;
 
     /**
-     * @var bool If true, the color picker is set to disabled mode
+     * @var bool If true, the sensitive field set to disabled mode
      */
     public $disabled = false;
 

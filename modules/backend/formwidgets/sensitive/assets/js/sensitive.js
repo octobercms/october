@@ -1,7 +1,11 @@
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
 
-    var Sensitive = function(element, options) {
+    var Sensitive = function(element) {
         this.$el = $(element)
+
+        Base.call(this)
         this.init()
     }
 
@@ -10,28 +14,37 @@
         disabled: false
     }
 
+    Sensitive.prototype = Object.create(BaseProto)
+    Sensitive.prototype.constructor = Sensitive
+
     Sensitive.prototype.init = function() {
-        var self = this
-        this.$sensitiveField = this.$el
+        this.$sensitiveInput = this.$el
         this.$showIcon = this.$el.siblings('.toggle-icon:first')
 
-        this.$showIcon.click(function(){
-            self.togglePassword()
-            self.toggleIcon()
-        })
+        this.$showIcon.on('click', this.proxy(this.onToggle))
     }
 
-    Sensitive.prototype.togglePassword = function() {
-        if (this.$sensitiveField.attr("type") == "password") {
-            this.$sensitiveField.attr("type", "text");
+    Sensitive.prototype.dispose = function () {
+        this.$showIcon.off('click', this.proxy(this.onToggle))
+
+        this.$sensitiveInput = null
+        this.$showIcon = null
+        this.$el = null
+
+        BaseProto.dispose.call(this)
+    }
+
+    Sensitive.prototype.onToggle = function() {
+        if (this.$sensitiveInput.attr('type') === 'password') {
+            this.$sensitiveInput.attr('type', 'text');
         } else {
-            this.$sensitiveField.attr("type", "password");
+            this.$sensitiveInput.attr('type', 'password');
         }
+
+        this.$showIcon.find('i').toggleClass('icon-eye icon-eye-slash');
     }
 
-    Sensitive.prototype.toggleIcon = function() {
-        this.$showIcon.find('i').toggleClass("icon-eye icon-eye-slash");
-    }
+    var old = $.fn.sensitive
 
     $.fn.sensitive = function (option) {
         var args = Array.prototype.slice.call(arguments, 1), result
@@ -46,8 +59,6 @@
 
         return result ? result : this
     }
-
-    $.fn.sensitive.Constructor = Sensitive
 
     $.fn.sensitive.noConflict = function () {
         $.fn.sensitive = old
