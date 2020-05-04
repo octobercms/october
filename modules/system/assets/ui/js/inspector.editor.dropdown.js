@@ -112,6 +112,9 @@
             dropdownCssClass: 'ocInspectorDropdown'
         }
 
+        if (this.propertyDefinition.emptyOption !== undefined) {
+            options.placeholder = this.propertyDefinition.emptyOption
+        }
         if (this.propertyDefinition.placeholder !== undefined) {
             options.placeholder = this.propertyDefinition.placeholder
         }
@@ -131,7 +134,7 @@
     }
 
     DropdownEditor.prototype.createPlaceholder = function(select) {
-        var placeholder = this.propertyDefinition.placeholder
+        var placeholder = this.propertyDefinition.placeholder || this.propertyDefinition.emptyOption
 
         if (placeholder !== undefined && !Modernizr.touchevents) {
             this.createOption(select, null, null)
