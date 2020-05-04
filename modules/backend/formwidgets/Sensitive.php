@@ -7,7 +7,7 @@ use Backend\Classes\FormWidgetBase;
 /**
  * Sensitive - renders a password field with "eye" icon to show it
  */
-class Sensivite extends FormWidgetBase
+class Sensitive extends FormWidgetBase
 {
     /**
      * @var bool If true, the color picker is set to read-only mode
@@ -33,6 +33,10 @@ class Sensivite extends FormWidgetBase
             'readOnly',
             'disabled',
         ]);
+
+        if ($this->formField->disabled || $this->formField->readOnly) {
+            $this->previewMode = true;
+        }
     }
 
     /**

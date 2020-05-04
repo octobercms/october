@@ -1,0 +1,17 @@
+<!-- Sensitive -->
+<div class="input-group">
+    <input
+        type="password"
+        data-control="sensitive"
+        name="<?= $this->getFieldName() ?>"
+        id="<?= $this->getId() ?>"
+        value="<?= e($this->value) ?>"
+        placeholder="<?= e(trans($this->placeholder)) ?>"
+        class="form-control"
+        <?php if ($this->previewMode): ?>
+        disabled="disabled"
+        <?php endif ?>
+        autocomplete="off"
+    />
+    <span class="input-group-addon toggle-icon" toggle="<?= $this->getId() ?>"><i class="icon-eye"></i></span>
+</div>

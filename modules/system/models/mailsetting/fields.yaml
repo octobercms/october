@@ -80,6 +80,7 @@ tabs:
             label: system::lang.mail.smtp_password
             tab: system::lang.mail.general
             span: right
+            type: sensitive
             trigger:
                 action: show
                 field: send_mode
