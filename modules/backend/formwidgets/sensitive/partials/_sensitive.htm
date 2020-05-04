@@ -5,7 +5,7 @@
         data-control="sensitive"
         name="<?= $this->getFieldName() ?>"
         id="<?= $this->getId() ?>"
-        value="<?= e($this->value) ?>"
+        value="<?= e($this->getLoadValue()) ?>"
         placeholder="<?= e(trans($this->placeholder)) ?>"
         class="form-control"
         <?php if ($this->previewMode): ?>
