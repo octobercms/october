@@ -207,7 +207,7 @@ class ThemeSync extends Command
      * @param string $path
      * @param string $model
      * @param \Cms\Classes\Theme $theme
-     * @return \October\Rain\Halycon\Model
+     * @return \October\Rain\Halcyon\Model
      */
     protected function getModelForPath($path, $modelClass, $theme)
     {
