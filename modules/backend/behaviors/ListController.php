@@ -232,38 +232,41 @@ class ListController extends ControllerBehavior
          * Prepare the filter widget (optional)
          */
         if (isset($listConfig->filter)) {
-            $widget->cssClasses[] = 'list-flush';
-
             $filterConfig = $this->makeConfig($listConfig->filter);
-            $filterConfig->alias = $widget->alias . 'Filter';
-            $filterWidget = $this->makeWidget(\Backend\Widgets\Filter::class, $filterConfig);
-            $filterWidget->bindToController();
+            
+            if (!empty($filterConfig->scopes)) {
+                $widget->cssClasses[] = 'list-flush';
 
-            /*
-             * Filter the list when the scopes are changed
-             */
-            $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
-                return $widget->onFilter();
-            });
+                $filterConfig->alias = $widget->alias . 'Filter';
+                $filterWidget = $this->makeWidget(\Backend\Widgets\Filter::class, $filterConfig);
+                $filterWidget->bindToController();
 
-            /*
-             * Filter Widget with extensibility
-             */
-            $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
-                $this->controller->listFilterExtendScopes($filterWidget);
-            });
+                /*
+                * Filter the list when the scopes are changed
+                */
+                $filterWidget->bindEvent('filter.update', function () use ($widget, $filterWidget) {
+                    return $widget->onFilter();
+                });
 
-            /*
-             * Extend the query of the list of options
-             */
-            $filterWidget->bindEvent('filter.extendQuery', function ($query, $scope) {
-                $this->controller->listFilterExtendQuery($query, $scope);
-            });
+                /*
+                * Filter Widget with extensibility
+                */
+                $filterWidget->bindEvent('filter.extendScopes', function () use ($filterWidget) {
+                    $this->controller->listFilterExtendScopes($filterWidget);
+                });
 
-            // Apply predefined filter values
-            $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
+                /*
+                * Extend the query of the list of options
+                */
+                $filterWidget->bindEvent('filter.extendQuery', function ($query, $scope) {
+                    $this->controller->listFilterExtendQuery($query, $scope);
+                });
 
-            $this->filterWidgets[$definition] = $filterWidget;
+                // Apply predefined filter values
+                $widget->addFilter([$filterWidget, 'applyAllScopesToQuery']);
+
+                $this->filterWidgets[$definition] = $filterWidget;
+            }
         }
 
         return $widget;
