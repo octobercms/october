@@ -47,6 +47,15 @@ Allows a user to select from a list of binary options.
         </div>
     </div>
 
+### Indeterminate checkboxes
+
+    <div class="checkbox custom-checkbox is-indeterminate">
+        <input name="checkbox" value="1" type="checkbox" id="checkbox1" data-checked="1" />
+        <label for="checkbox1">Checkbox</label>
+    </div>
+
+The `data-checked` attribute may have one of three values: 0 (off), 1 (indeterminate) or 2 (on).
+
 ### Radio
 
     <div class="radio custom-radio">
