@@ -8,19 +8,19 @@ jobs:
   archive:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v1
+    - uses: actions/stale@v1.1.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        days-before-stale: 30
+        days-before-stale: 60
         days-before-close: 3
         stale-issue-message: >
-          This issue will be closed and archived in 3 days, as there has been no activity in the last 30 days.
+          This issue will be closed and archived in 3 days, as there has been no activity in the last 60 days.
 
           If this issue is still relevant or you would like to see it actioned, please respond and we will re-open this issue.
           
           If this issue is critical to your business, consider joining the [Premium Support Program](https://octobercms.com/premium-support) where a Service Level Agreement is offered.
         stale-pr-message: >
-          This pull request will be closed and archived in 3 days, as there has been no activity in the last 30 days.
+          This pull request will be closed and archived in 3 days, as there has been no activity in the last 60 days.
 
           If this is still being worked on, please respond and we will re-open this pull request.
           
