@@ -388,7 +388,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-soft-component-class')->getContent();
-        $page = $this->readAttribute($controller, 'page');
+        $page = $controller->getPage();
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -414,7 +414,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-soft-component-class-alias')->getContent();
-        $page = $this->readAttribute($controller, 'page');
+        $page = $controller->getPage();
         $this->assertArrayHasKey('someAlias', $page->components);
 
         $component = $page->components['someAlias'];
