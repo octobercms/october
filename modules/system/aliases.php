@@ -29,7 +29,6 @@ return [
     'Storage'   => Illuminate\Support\Facades\Storage::class,
     'Url'       => Illuminate\Support\Facades\URL::class, // Preferred
     'URL'       => Illuminate\Support\Facades\URL::class,
-    'Validator' => Illuminate\Support\Facades\Validator::class,
     'View'      => Illuminate\Support\Facades\View::class,
 
     /*
@@ -52,6 +51,7 @@ return [
     'Twig'            => October\Rain\Support\Facades\Twig::class,
     'DbDongle'        => October\Rain\Support\Facades\DbDongle::class,
     'Schema'          => October\Rain\Support\Facades\Schema::class,
+    'Validator'       => October\Rain\Support\Facades\Validator::class,
     'Cms'             => Cms\Facades\Cms::class,
     'Backend'         => Backend\Facades\Backend::class,
     'BackendMenu'     => Backend\Facades\BackendMenu::class,
