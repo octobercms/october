@@ -1,0 +1,44 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+
+jobs:
+  phpUnitTests:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 6
+      matrix:
+        phpVersions: ['7.1', '7.2', '7.3', '7.4']
+      fail-fast: false
+    name: PHP ${{ matrix.phpVersions }}
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v1
+      - name: Install PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.phpVersions }}
+          extension-csv: mbstring, intl, gd, xml, sqlite
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
+      - name: Reset October modules and library
+        run: |
+          git reset --hard HEAD
+          rm -rf ./vendor/october/rain
+          wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
+          unzip ./vendor/october/develop.zip -d ./vendor/october
+          mv ./vendor/october/library-develop ./vendor/october/rain
+          composer dump-autoload
+      - name: Run post-update Composer scripts
+        run: |
+          php artisan october:util set build
+          php artisan package:discover
+      - name: Run Linting and Tests
+        run: |
+          ./vendor/bin/parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php .
+          ./vendor/bin/phpunit

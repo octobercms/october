@@ -27,9 +27,6 @@ return [
             'help' => 'Une base de données est requise pour l’accès à l’interface d’administration. Veuillez vérifier que la base de données existe et que les migrations ont été effectuées avant de ré-essayer.',
             'cms_link' => 'Retour à l’accueil'
         ],
-        'invalid_token' => [
-            'label' => 'La clé de sécurité est invalide'
-        ]
     ],
     'partial' => [
         'not_found_name' => 'Le modèle partiel ":name" est introuvable.'
@@ -92,7 +89,7 @@ return [
             'updates_link' => 'Mettre à jour',
             'warnings_pending' => 'Certaines anomalies méritent votre attention',
             'warnings_nil' => 'Aucun avertissement à afficher',
-            'warnings_link' => 'Vue',
+            'warnings_link' => 'Voir',
             'core_build' => 'Version du système',
             'event_log' => 'Journal des évènements',
             'request_log' => 'Journal des requêtes',
@@ -277,8 +274,8 @@ return [
         'preview_no_media_message' => 'Aucun média sélectionné.',
         'preview_no_record_message' => 'Il n’y a aucun enregistrement sélectionné.',
         'select' => 'Sélectionner',
-        'select_all' => 'tout',
-        'select_none' => 'aucun',
+        'select_all' => 'tout sélectionner',
+        'select_none' => 'Ne rien sélectionner',
         'select_placeholder' => 'Sélectionner une valeur',
         'insert_row' => 'Insérer une ligne',
         'insert_row_below' => 'Insérer une ligne dessous',
@@ -396,7 +393,7 @@ return [
         'line_breaker_tags' => 'Balise de saut de ligne',
         'line_breaker_tags_comment' => 'La liste des balises qui sont utilisés pour mettre des sauts de ligne.',
         'toolbar_buttons' => 'Boutons de la barre d\'outils',
-        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi.',
     ],
     'tooltips' => [
         'preview_website' => 'Aperçu du site'

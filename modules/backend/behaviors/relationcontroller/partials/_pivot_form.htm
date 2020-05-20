@@ -2,6 +2,7 @@
 
     <?= Form::ajax('onRelationManagePivotUpdate', [
         'data' => ['_relation_field' => $relationField, 'manage_id' => $relationManageId],
+        'data-request-success' => "$.oc.relationBehavior.changed('" . e($this->vars['relationField']) . "', 'updated')",
         'data-popup-load-indicator' => true
     ]) ?>
 
@@ -41,6 +42,7 @@
 
     <?= Form::ajax('onRelationManagePivotCreate', [
         'data' => ['_relation_field' => $relationField, 'foreign_id' => $foreignId],
+        'data-request-success' => "$.oc.relationBehavior.changed('" . e($this->vars['relationField']) . "', 'created')",
         'data-popup-load-indicator' => true
     ]) ?>
 

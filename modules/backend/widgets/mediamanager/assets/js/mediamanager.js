@@ -715,13 +715,10 @@
             clickable: this.$el.find('[data-control="upload"]').get(0),
             url: this.options.url,
             paramName: 'file_data',
+            timeout: 0,
             headers: {},
             createImageThumbnails: false
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
-        }
-
-        if (this.options.uniqueId) {
-            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
         }
 
         /*
@@ -799,6 +796,7 @@
 
     MediaManager.prototype.uploadSending = function(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     MediaManager.prototype.uploadCancelAll = function() {
@@ -1025,6 +1023,7 @@
             var item = items[i],
                 path = item.getAttribute('data-path')
 
+
             if (item.getAttribute('data-item-type') == 'folder')
                 data.folders.push(path)
             else
@@ -1250,21 +1249,22 @@
     MediaManager.prototype.onKeyDown = function(ev) {
         var eventHandled = false
 
-        switch (ev.which) {
-            case 13:
+
+        switch (ev.key) {
+            case 'Enter':
                 var items = this.getSelectedItems(true, true)
                 if (items.length > 0)
                     this.navigateToItem($(items[0]))
 
                 eventHandled = true
             break;
-            case 39:
-            case 40:
+            case 'ArrowRight':
+            case 'ArrowDown':
                 this.selectRelative(true, ev.shiftKey)
                 eventHandled = true
             break;
-            case 37:
-            case 38:
+            case 'ArrowLeft':
+            case 'ArrowUp':
                 this.selectRelative(false, ev.shiftKey)
                 eventHandled = true
             break;
@@ -1281,8 +1281,8 @@
 
     MediaManager.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         alias: '',
-        uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',

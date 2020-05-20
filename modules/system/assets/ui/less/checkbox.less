@@ -142,11 +142,8 @@
     }
 
     input:disabled + label:before {
+        background-color: #999 !important;
         border: 1px solid @color-checkbox-border !important;
-    }
-
-    input:disabled:checked + label:before {
-        background-color: #999;
     }
 
     &:focus {
@@ -186,6 +183,17 @@
                     top: 10px;
                 }
             }
+        }
+    }
+
+    &.radio-field {
+        > label {
+            display: block;
+        }
+
+        .custom-radio {
+            display: inline-block;
+            margin-bottom: 0;
         }
     }
 }

@@ -65,10 +65,21 @@ trait ConfigMaker
                 ));
             }
 
-            $config = Yaml::parse(File::get($configFile));
+            $config = Yaml::parseFile($configFile);
 
-            /*
-             * Extensibility
+            /**
+             * @event system.extendConfigFile
+             * Provides an opportunity to modify config files
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.extendConfigFile', function ((string) $path, (array) $config) {
+             *         if ($path === '/plugins/author/plugin-name/controllers/mycontroller/config_relation.yaml') {
+             *             unset($config['property_value']['view']['recordUrl']);
+             *             return $config;
+             *         }
+             *     });
+             *
              */
             $publicFile = File::localToPublic($configFile);
             if ($results = Event::fire('system.extendConfigFile', [$publicFile, $config])) {

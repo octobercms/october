@@ -334,7 +334,14 @@ class CodeParser
          * Compile cached file into bytecode cache
          */
         if (Config::get('cms.forceBytecodeInvalidation', false)) {
-            if (function_exists('opcache_invalidate') && ini_get('opcache.enable')) {
+            $opcache_enabled = ini_get('opcache.enable');
+            $opcache_path = trim(ini_get('opcache.restrict_api'));
+
+            if (!empty($opcache_path) && !starts_with(__FILE__, $opcache_path)) {
+                $opcache_enabled = false;
+            }
+
+            if (function_exists('opcache_invalidate') && $opcache_enabled) {
                 opcache_invalidate($path, true);
             }
             elseif (function_exists('apc_compile_file')) {

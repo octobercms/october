@@ -36,9 +36,11 @@ return [
         'pt-br' => 'Português (Brasil)',
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -49,6 +51,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'Ei voida luoda tiedostoa: :name'
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Token on virheellinen',
+        ],
     ],
     'combiner' => [
         'not_found' => "Yhdistelmätiedostoa ':name' ei löydy."

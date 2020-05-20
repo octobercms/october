@@ -11,6 +11,7 @@ use Session;
 use Request;
 use Response;
 use Exception;
+use SystemException;
 use BackendAuth;
 use Twig\Environment as TwigEnvironment;
 use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
@@ -38,6 +39,8 @@ class Controller
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
+    use \System\Traits\ResponseMaker;
+    use \System\Traits\SecurityController;
 
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme processed by the controller.
@@ -90,11 +93,6 @@ class Controller
     public $vars = [];
 
     /**
-     * @var int Response status code
-     */
-    protected $statusCode = 200;
-
-    /**
      * @var self Cache of self
      */
     protected static $instance;
@@ -121,7 +119,7 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = Config::get('cms.themesPath', '/themes').'/'.$this->theme->getDirName();
+        $this->assetPath = Config::get('cms.themesPath', '/themes') . '/' . $this->theme->getDirName();
         $this->router = new Router($this->theme);
         $this->partialStack = new PartialStack;
         $this->initTwigEnvironment();
@@ -133,9 +131,11 @@ class Controller
      * Finds and serves the requested page.
      * If the page cannot be found, returns the page with the URL /404.
      * If the /404 page doesn't exist, returns the system 404 page.
-     * @param string $url Specifies the requested page URL.
-     * If the parameter is omitted, the current URL used.
-     * @return string Returns the processed page content.
+     * If the parameter is null, the current URL used. If it is not
+     * provided then '/' is used
+     *
+     * @param string|null $url Specifies the requested page URL.
+     * @return BaseResponse Returns the response to the provided URL
      */
     public function run($url = '/')
     {
@@ -194,8 +194,7 @@ class Controller
         if ($event = $this->fireSystemEvent('cms.page.beforeDisplay', [$url, $page])) {
             if ($event instanceof Page) {
                 $page = $event;
-            }
-            else {
+            } else {
                 return $event;
             }
         }
@@ -250,14 +249,14 @@ class Controller
          *
          */
         if ($event = $this->fireSystemEvent('cms.page.display', [$url, $page, $result])) {
-            return $event;
+            $result = $event;
         }
 
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return Response::make($result, $this->statusCode);
+        /*
+         * Prepare and return response
+         * @see \System\Traits\ResponseMaker
+         */
+        return $this->makeResponse($result);
     }
 
     /**
@@ -998,9 +997,7 @@ class Controller
             /*
              * Check if the theme has an override
              */
-            if (strpos($partialName, '/') === false) {
-                $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
-            }
+            $partial = ComponentPartial::loadOverrideCached($this->theme, $componentObj, $partialName);
 
             /*
              * Check the component partial
@@ -1222,32 +1219,8 @@ class Controller
     }
 
     //
-    // Setters
-    //
-
-    /**
-     * Sets the status code for the current web response.
-     * @param int $code Status code
-     * @return self
-     */
-    public function setStatusCode($code)
-    {
-        $this->statusCode = (int) $code;
-        return $this;
-    }
-
-    //
     // Getters
     //
-
-     /**
-     * Returns the status code for the current web response.
-     * @return int Status code
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
 
     /**
      * Returns an existing instance of the controller.
@@ -1430,36 +1403,55 @@ class Controller
     //
 
     /**
-     * Adds a component to the page object
-     * @param mixed  $name        Component class name or short name
-     * @param string $alias       Alias to give the component
-     * @param array  $properties  Component properties
-     * @param bool   $addToLayout Add to layout, instead of page
-     * @return ComponentBase Component object
+     * Adds a component to the page object.
+     *
+     * @param mixed $name Component class name or short name
+     * @param string $alias Alias to give the component
+     * @param array $properties Component properties
+     * @param bool $addToLayout Add to layout, instead of page
+     *
+     * @return ComponentBase|null Component object. Will return `null` if a soft component is used but not found.
+     * @throws CmsException if the (hard) component is not found.
+     * @throws SystemException if the (hard) component class is not found or is not registered.
      */
     public function addComponent($name, $alias, $properties, $addToLayout = false)
     {
         $manager = ComponentManager::instance();
+        $isSoftComponent = $this->isSoftComponent($name);
+
+        if ($isSoftComponent) {
+            $name = $this->parseComponentLabel($name);
+            $alias = $this->parseComponentLabel($alias);
+        }
+
+        $componentObj = $manager->makeComponent(
+            $name,
+            ($addToLayout) ? $this->layoutObj : $this->pageObj,
+            $properties,
+            $isSoftComponent
+        );
+
+        if (is_null($componentObj)) {
+            if (!$isSoftComponent) {
+                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name' => $name]));
+            }
+
+            // A missing soft component will return null.
+            return null;
+        }
+
+        $componentObj->alias = $alias;
+        $this->vars[$alias] = $componentObj;
 
         if ($addToLayout) {
-            if (!$componentObj = $manager->makeComponent($name, $this->layoutObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->layout->components[$alias] = $componentObj;
-        }
-        else {
-            if (!$componentObj = $manager->makeComponent($name, $this->pageObj, $properties)) {
-                throw new CmsException(Lang::get('cms::lang.component.not_found', ['name'=>$name]));
-            }
-
-            $componentObj->alias = $alias;
-            $this->vars[$alias] = $this->page->components[$alias] = $componentObj;
+            $this->layout->components[$alias] = $componentObj;
+        } else {
+            $this->page->components[$alias] = $componentObj;
         }
 
         $this->setComponentPropertiesFromParams($componentObj);
         $componentObj->init();
+
         return $componentObj;
     }
 
@@ -1565,7 +1557,7 @@ class Controller
                     $newPropertyValue = $routerParameters[$routeParamName] ?? null;
                 }
                 else {
-                    $newPropertyValue = $parameters[$paramName] ?? null;
+                    $newPropertyValue = array_get($parameters, $paramName, null);
                 }
 
                 $component->setProperty($propertyName, $newPropertyValue);
@@ -1574,35 +1566,26 @@ class Controller
         }
     }
 
-    //
-    // Security
-    //
+    /**
+     * Removes prefixed '@' from soft component name
+     * @param string $label
+     * @return string
+     */
+    protected function parseComponentLabel($label)
+    {
+        if ($this->isSoftComponent($label)) {
+            return ltrim($label, '@');
+        }
+        return $label;
+    }
 
     /**
-     * Checks the request data / headers for a valid CSRF token.
-     * Returns false if a valid token is not found. Override this
-     * method to disable the check.
+     * Checks if component name has @.
+     * @param string $label
      * @return bool
      */
-    protected function verifyCsrfToken()
+    protected function isSoftComponent($label)
     {
-        if (!Config::get('cms.enableCsrfProtection')) {
-            return true;
-        }
-
-        if (in_array(Request::method(), ['HEAD', 'GET', 'OPTIONS'])) {
-            return true;
-        }
-
-        $token = Request::input('_token') ?: Request::header('X-CSRF-TOKEN');
-
-        if (!strlen($token) || !strlen(Session::token())) {
-            return false;
-        }
-
-        return hash_equals(
-            Session::token(),
-            $token
-        );
+        return starts_with($label, '@');
     }
 }

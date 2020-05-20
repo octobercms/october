@@ -35,10 +35,12 @@ return [
         'pt-br' => 'Português (Brasil)',
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -50,6 +52,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'Không thể tạo file: :name'
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Security token không hợp lệ',
+        ],
     ],
     'combiner' => [
         'not_found' => "Không tìm thấy combiner file ':name'."

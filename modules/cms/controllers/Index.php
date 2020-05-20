@@ -4,6 +4,7 @@ use Url;
 use Lang;
 use Flash;
 use Config;
+use Event;
 use Request;
 use Exception;
 use BackendMenu;
@@ -20,6 +21,7 @@ use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
+use Cms\Helpers\Cms as CmsHelpers;
 use Backend\Classes\Controller;
 use System\Helpers\DateTime;
 use October\Rain\Router\Router as RainRouter;
@@ -58,6 +60,24 @@ class Index extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Event::listen('backend.form.extendFieldsBefore', function ($widget) {
+            if (!$widget->getController() instanceof Index) {
+                return;
+            }
+            if (!$widget->model instanceof CmsCompoundObject) {
+                return;
+            }
+
+            if (empty($widget->secondaryTabs['fields'])) {
+                return;
+            }
+
+            if (array_key_exists('code', $widget->secondaryTabs['fields']) && CmsHelpers::safeModeEnabled()) {
+                $widget->secondaryTabs['fields']['safemode_notice']['hidden'] = false;
+                $widget->secondaryTabs['fields']['code']['readOnly'] = true;
+            };
+        });
 
         BackendMenu::setContext('October.Cms', 'cms', true);
 
@@ -171,7 +191,7 @@ class Index extends Controller
         $templateData = [];
 
         $settings = array_get($saveData, 'settings', []) + Request::input('settings', []);
-        $settings = $this->upgradeSettings($settings);
+        $settings = $this->upgradeSettings($settings, $template->settings);
 
         if ($settings) {
             $templateData['settings'] = $settings;
@@ -536,7 +556,7 @@ class Index extends Controller
     }
 
     /**
-     * Reolves a template type to its class name
+     * Resolves a template type to its class name
      * @param string $type
      * @return string
      */
@@ -661,17 +681,18 @@ class Index extends Controller
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
         $widgetConfig->model = $template;
-        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->getFileName());
+        $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->exists ? $template->getFileName() : uniqid());
 
         return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
     }
 
     /**
-     * Processes the component settings so they are ready to be saved
-     * @param array $settings
+     * Processes the component settings so they are ready to be saved.
+     * @param array $settings The new settings for this template.
+     * @param array $prevSettings The previous settings for this template.
      * @return array
      */
-    protected function upgradeSettings($settings)
+    protected function upgradeSettings($settings, $prevSettings)
     {
         /*
          * Handle component usage
@@ -694,14 +715,34 @@ class Index extends Controller
                 $componentName = $componentNames[$index];
                 $componentAlias = $componentAliases[$index];
 
-                $section = $componentName;
-                if ($componentAlias != $componentName) {
-                    $section .= ' '.$componentAlias;
+                $isSoftComponent = (substr($componentAlias, 0, 1) === '@');
+                $componentName = ltrim($componentName, '@');
+                $componentAlias = ltrim($componentAlias, '@');
+
+                if ($componentAlias !== $componentName) {
+                    $section = $componentName . ' ' . $componentAlias;
+                } else {
+                    $section = $componentName;
+                }
+                if ($isSoftComponent) {
+                    $section = '@' . $section;
                 }
 
                 $properties = json_decode($componentProperties[$index], true);
                 unset($properties['oc.alias'], $properties['inspectorProperty'], $properties['inspectorClassName']);
-                $settings[$section] = $properties;
+
+                if (!$properties) {
+                    $oldComponentSettings = array_key_exists($section, $prevSettings['components'])
+                        ? $prevSettings['components'][$section]
+                        : null;
+                    if ($isSoftComponent && $oldComponentSettings) {
+                        $settings[$section] = $oldComponentSettings;
+                    } else {
+                        $settings[$section] = $properties;
+                    }
+                } else {
+                    $settings[$section] = $properties;
+                }
             }
         }
 
@@ -734,6 +775,35 @@ class Index extends Controller
         $this->fireSystemEvent('cms.template.processSettingsBeforeSave', [$dataHolder]);
 
         return $dataHolder->settings;
+    }
+
+    /**
+     * Finds a given component by its alias.
+     *
+     * If found, this will return the component's name, alias and properties.
+     *
+     * @param string $aliasQuery The alias to search for
+     * @param array $components The array of components to look within.
+     * @return array|null
+     */
+    protected function findComponentByAlias(string $aliasQuery, array $components = [])
+    {
+        $found = null;
+
+        foreach ($components as $name => $properties) {
+            list($name, $alias) = strpos($name, ' ') ? explode(' ', $name) : [$name, $name];
+
+            if (ltrim($alias, '@') === ltrim($aliasQuery, '@')) {
+                $found = [
+                    'name' => ltrim($name, '@'),
+                    'alias' => $alias,
+                    'properties' => $properties
+                ];
+                break;
+            }
+        }
+
+        return $found;
     }
 
     /**

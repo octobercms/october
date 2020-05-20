@@ -24,9 +24,6 @@ return [
             'help'     => 'Baza danych jest wymagana do dostępu do panelu administracyjnego. Sprawdz czy baza danych jest prawidłowo skonfigurowana i zmigrowana przed ponowną próbą.',
             'cms_link' => 'Powrót do strony głównej',
         ],
-        'invalid_token' => [
-            'label' => 'Nieprawidłowy żeton bezpieczeństwa',
-        ],
     ],
     'partial'             => [
         'not_found_name' => "Blok ':name' nie został odnaleziony.",
@@ -212,7 +209,7 @@ return [
         'update_title'                         => 'Edytuj :name',
         'preview_title'                        => 'Podgląd :name',
         'create_success'                       => ':name został stworzony pomyślnie',
-        'update_success'                       => ':name został stworzony pomyślnie',
+        'update_success'                       => ':name został zaktualizowany pomyślnie',
         'delete_success'                       => ':name został usunięty pomyślnie',
         'reset_success'                        => 'Resetowanie zostało zakończone',
         'missing_id'                           => 'ID rekordu formularza nie zostało znalezione.',
@@ -253,8 +250,8 @@ return [
         'preview_no_files_message'             => 'Brak wgranych plików.',
         'preview_no_record_message'            => 'Brak zaznaczonych elementów.',
         'select'                               => 'Zaznacz',
-        'select_all'                           => 'wszystkie',
-        'select_none'                          => 'żadne',
+        'select_all'                           => 'Zaznacz wszystko',
+        'select_none'                          => 'Wybierz brak',
         'select_placeholder'                   => 'proszę zaznacz',
         'insert_row'                           => 'Wstaw wiersz',
         'insert_row_below'                     => 'Wstaw wiersz poniżej',
@@ -364,7 +361,7 @@ return [
         'remove_tags'                => 'Usuń znaczniki',
         'remove_tags_comment'        => 'Lista znaczników, które zostaną usunięte wraz z zawartością.',
         'toolbar_buttons'            => 'Przyciski paska narzędzi',
-        'toolbar_buttons_comment'    => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment'    => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora.',
 
     ],
     'tooltips'            => [

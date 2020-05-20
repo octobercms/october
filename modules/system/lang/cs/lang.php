@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => 'Nelze vytvořit soubor: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Neplatný bezpečnostní token',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Slučující soubor ':name' nebyl nalezen."
     ],

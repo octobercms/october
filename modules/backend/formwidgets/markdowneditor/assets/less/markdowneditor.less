@@ -174,6 +174,31 @@
             border: none;
         }
     }
+
+    //
+    // Disabled
+    //
+
+    &.disabled {
+        .ace_scroller {
+            cursor: not-allowed;
+        }
+        .control-toolbar.editor-toolbar {
+            .toolbar-item {
+                .btn {
+                    cursor: not-allowed;
+                    color: #bdbdbd;
+                    &:hover {
+                        background-color: transparent;
+                        color: #bdbdbd;
+                    }
+                }
+                .btn.oc-autumn-button {
+                    color: #bdbdbd!important;
+                }
+            }
+        }
+    }
 }
 
 //
