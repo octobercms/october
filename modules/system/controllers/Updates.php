@@ -234,8 +234,11 @@ class Updates extends Controller
         $warnings = [];
         $missingPlugins = PluginManager::instance()->findMissingDependencies();
 
-        foreach ($missingPlugins as $pluginCode) {
-            $warnings[] = Lang::get('backend::lang.warnings.plugin_missing', ['name' => '<strong>'.$pluginCode.'</strong>']);
+        foreach ($missingPlugins as $plugin) {
+            $warnings[] = Lang::get('system::lang.updates.dependencies_plugin_missing', [
+                'code' => '<strong>'.$plugin['code'].'</strong>',
+                'parent_code' => '<strong>'.$plugin['parent_code'].'</strong>'
+            ]);
         }
 
         return $warnings;

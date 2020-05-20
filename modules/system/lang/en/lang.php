@@ -325,6 +325,8 @@ return [
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'core_set_build' => 'Setting build number',
+        'dependencies_description' => 'Some issues have been detected and require attention',
+        'dependencies_plugin_missing' => 'The plugin :code is a dependency of :parent_code but is not installed. Please install this plugin.',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'View details',
         'plugins' => 'Plugins',

@@ -634,7 +634,10 @@ class PluginManager
                 }
 
                 if (!in_array($require, $missing)) {
-                    $missing[] = $require;
+                    $missing[] = [
+                        'parent_code' => $this->getIdentifier($plugin),
+                        'code' => $require,
+                    ];
                 }
             }
         }

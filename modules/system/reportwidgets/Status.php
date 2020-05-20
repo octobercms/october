@@ -127,8 +127,8 @@ class Status extends ReportWidgetBase
             }
         }
 
-        foreach ($missingPlugins as $pluginCode) {
-            $warnings[] = Lang::get('backend::lang.warnings.plugin_missing', ['name' => '<strong>'.$pluginCode.'</strong>']);
+        foreach ($missingPlugins as $plugin) {
+            $warnings[] = Lang::get('backend::lang.warnings.plugin_missing', ['name' => '<strong>'.$plugin['code'].'</strong>']);
         }
 
         return $warnings;
