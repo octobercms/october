@@ -141,15 +141,20 @@
     DatePicker.prototype.onSelectDatePicker = function(pickerMoment) {
         var pickerValue = pickerMoment.format(this.dbDateFormat)
 
-        var timeValue = this.options.mode === 'date' ? '00:00:00' : this.getTimePickerValue()
+        if (this.options.mode === 'date') {
+            this.$dataLocker.val(pickerValue)
+        }
+        else {
+            var timeValue = this.getTimePickerValue()
 
-        var momentObj = moment
-            .tz(pickerValue + ' ' + timeValue, this.dbDateTimeFormat, this.timezone)
-            .tz(this.appTimezone)
+            var momentObj = moment
+                .tz(pickerValue + ' ' + timeValue, this.dbDateTimeFormat, this.timezone)
+                .tz(this.appTimezone)
 
-        var lockerValue = momentObj.format(this.dbDateTimeFormat)
+            var lockerValue = momentObj.format(this.dbDateTimeFormat)
 
-        this.$dataLocker.val(lockerValue)
+            this.$dataLocker.val(lockerValue)
+        }
     }
 
     // Returns in user preference timezone
@@ -202,15 +207,20 @@
 
         var timeValue = moment(pickerValue, this.getTimeFormat()).format(this.dbTimeFormat)
 
-        var dateValue = this.getDatePickerValue()
+        if (this.options.mode === 'time') {
+            this.$dataLocker.val(timeValue)
+        }
+        else {
+            var dateValue = this.getDatePickerValue()
 
-        var momentObj = moment
-            .tz(dateValue + ' ' + timeValue, this.dbDateTimeFormat, this.timezone)
-            .tz(this.appTimezone)
+            var momentObj = moment
+                .tz(dateValue + ' ' + timeValue, this.dbDateTimeFormat, this.timezone)
+                .tz(this.appTimezone)
 
-        var lockerValue = momentObj.format(this.dbDateTimeFormat)
+            var lockerValue = momentObj.format(this.dbDateTimeFormat)
 
-        this.$dataLocker.val(lockerValue)
+            this.$dataLocker.val(lockerValue)
+        }
     }
 
     DatePicker.prototype.onChangeTimePicker = function() {
