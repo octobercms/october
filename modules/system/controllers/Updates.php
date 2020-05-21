@@ -66,7 +66,7 @@ class Updates extends Controller
             $this->useSecurityToken = false;
         }
 
-        $this->vars['warnings'] = $this->findMissingDependencies();
+        $this->vars['warnings'] = $this->getWarnings();
     }
 
     /**
