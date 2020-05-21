@@ -657,7 +657,7 @@ class PluginManager
      * Scans the system plugins to locate any dependencies that are not currently
      * installed. Returns an array of missing plugin codes keyed by the plugin that requires them.
      *
-     *.     ['Author.Plugin' => ['Required.Plugin1', 'Required.Plugin2']
+     *     ['Author.Plugin' => ['Required.Plugin1', 'Required.Plugin2']
      *
      *     PluginManager::instance()->findMissingDependencies();
      *
