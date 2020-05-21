@@ -655,7 +655,12 @@ class PluginManager
 
     /**
      * Scans the system plugins to locate any dependencies that are not currently
-     * installed. Returns an array of plugin codes that are needed.
+     * installed.
+     * Returns an array of plugins with an array of missing dependencies.
+     * 'InstalledPluginCode' => [
+     *     'MissingPluginCode',
+     *     'MissingPluginCode'
+     * ]
      *
      *     PluginManager::instance()->findMissingDependencies();
      *
@@ -676,10 +681,7 @@ class PluginManager
                 }
 
                 if (!in_array($require, $missing)) {
-                    $missing[] = [
-                        'parent_code' => $this->getIdentifier($plugin),
-                        'code' => $require,
-                    ];
+                    $missing[$this->getIdentifier($plugin)][] = $require;
                 }
             }
         }

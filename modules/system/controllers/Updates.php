@@ -232,13 +232,15 @@ class Updates extends Controller
     protected function getWarnings()
     {
         $warnings = [];
-        $missingPlugins = PluginManager::instance()->findMissingDependencies();
+        $missingDependencies = PluginManager::instance()->findMissingDependencies();
 
-        foreach ($missingPlugins as $plugin) {
-            $warnings[] = Lang::get('system::lang.updates.dependencies_plugin_missing', [
-                'code' => '<strong>' . $plugin['code'] . '</strong>',
-                'parent_code' => '<strong>' . $plugin['parent_code'] . '</strong>'
-            ]);
+        foreach ($missingDependencies as $pluginCode => $plugin) {
+            foreach ($plugin as $missingPluginCode) {
+                $warnings[] = Lang::get('system::lang.updates.update_warnings_plugin_missing', [
+                    'code' => '<strong>' . $missingPluginCode . '</strong>',
+                    'parent_code' => '<strong>' . $pluginCode . '</strong>'
+                ]);
+            }
         }
 
         return $warnings;
