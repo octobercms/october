@@ -229,7 +229,7 @@ class Updates extends Controller
         return $contents;
     }
 
-    protected function findMissingDependencies()
+    protected function getWarnings()
     {
         $warnings = [];
         $missingPlugins = PluginManager::instance()->findMissingDependencies();
