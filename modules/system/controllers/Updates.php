@@ -236,8 +236,8 @@ class Updates extends Controller
 
         foreach ($missingPlugins as $plugin) {
             $warnings[] = Lang::get('system::lang.updates.dependencies_plugin_missing', [
-                'code' => '<strong>'.$plugin['code'].'</strong>',
-                'parent_code' => '<strong>'.$plugin['parent_code'].'</strong>'
+                'code' => '<strong>' . $plugin['code'] . '</strong>',
+                'parent_code' => '<strong>' . $plugin['parent_code'] . '</strong>'
             ]);
         }
 
