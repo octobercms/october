@@ -332,7 +332,7 @@ return [
         'core_extracting' => 'Unpacking application files',
         'core_set_build' => 'Setting build number',
         'update_warnings_title' => 'Some issues have been detected and require attention:',
-        'dependencies_plugin_missing' => 'The plugin :code is a dependency of :parent_code but is not installed. Please install this plugin.',
+        'update_warnings_plugin_missing' => 'The :parent_code plugin requires :code to be installed before it will work',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'View details',
         'plugins' => 'Plugins',
