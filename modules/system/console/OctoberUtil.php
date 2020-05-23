@@ -9,8 +9,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
-use Exception;
+use ApplicationException;
+use System\Classes\FileManifest;
+use System\Classes\SourceManifest;
 use System\Models\Parameter;
+use ZipArchive;
 
 /**
  * Console command for other utility commands.
@@ -101,6 +104,10 @@ class OctoberUtil extends Command
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
             ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
             ['projectId', null, InputOption::VALUE_REQUIRED, 'Specify a projectId for set project'],
+            ['manifest', null, InputOption::VALUE_REQUIRED, 'Specify a target manifest file for the "build manifest" utility'],
+            ['sourceManifest', null, InputOption::VALUE_REQUIRED, 'Specify a source manifest file for the "build manifest" utility'],
+            ['minBuild', null, InputOption::VALUE_REQUIRED, 'Specify a minimum build for the "build manifest" utility'],
+            ['maxBuild', null, InputOption::VALUE_REQUIRED, 'Specify a maximum build for the "build manifest" utility'],
         ];
     }
 
@@ -110,8 +117,6 @@ class OctoberUtil extends Command
 
     protected function utilSetBuild()
     {
-        $this->comment('-');
-
         /*
          * Skip setting the build number if no database is detected to set it within
          */
@@ -120,21 +125,135 @@ class OctoberUtil extends Command
             return;
         }
 
-        try {
-            $build = UpdateManager::instance()->setBuildNumberManually();
-            $this->comment('*** October sets build: '.$build);
+        $this->comment('*** Detecting October CMS build...');
+
+        $build = UpdateManager::instance()->setBuildNumberManually();
+
+        if (is_null($build)) {
+            $this->error('Unable to detect your build of October CMS.');
+            exit(0);
         }
-        catch (Exception $ex) {
-            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
+        if ($build['modified']) {
+            $this->info('*** Detected a modified version of October CMS build ' . $build['build']);
+        } else {
+            $this->info('*** Detected October CMS build ' . $build['build']);
+        }
+    }
+
+    protected function utilBuildManifest()
+    {
+        $minBuild = $this->option('minBuild') ?? 420;
+        $maxBuild = $this->option('maxBuild') ?? 9999;
+
+        $targetFile = $this->option('manifest');
+        if (empty($targetFile)) {
+            throw new ApplicationException(
+                'A target must be specified for the generated manifest file. Use "--manifest=[file]" to specify target.'
+            );
         }
 
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
+        if ($minBuild > $maxBuild) {
+            throw new ApplicationException(
+                'Minimum build specified is larger than the maximum build specified.'
+            );
+        }
+
+        if (!empty($this->option('sourceManifest'))) {
+            $manifest = new SourceManifest($this->option('sourceManifest'));
+        } else {
+            $manifest = new SourceManifest('', null);
+        }
+
+        // Create temporary directory to hold builds
+        $buildDir = storage_path('temp/builds/');
+        if (!is_dir($buildDir)) {
+            mkdir($buildDir, 0775, true);
+        }
+
+        for ($build = $minBuild; $build <= $maxBuild; ++$build) {
+            // Download version from GitHub
+            $this->comment('Processing build ' . $build);
+            $this->line('  - Downloading...');
+
+            if (file_exists($buildDir . 'build-' . $build . '.zip') || is_dir($buildDir . $build . '/')) {
+                $this->info('  - Already downloaded.');
+            } else {
+                $zipFile = @file_get_contents('https://github.com/octobercms/october/archive/v1.0.' . $build . '.zip');
+                if (empty($zipFile)) {
+                    $this->error('  - Not found.');
+                    break;
+                }
+
+                file_put_contents($buildDir . 'build-' . $build . '.zip', $zipFile);
+
+                $this->info('  - Downloaded.');
+            }
+
+            // Extract version
+            $this->line('  - Extracting...');
+            if (is_dir($buildDir . $build . '/')) {
+                $this->info('  - Already extracted.');
+            } else {
+                $zip = new ZipArchive;
+                if ($zip->open($buildDir . 'build-' . $build . '.zip')) {
+                    $toExtract = [];
+                    $paths = [
+                        'october-1.0.' . $build . '/modules/backend/',
+                        'october-1.0.' . $build . '/modules/cms/',
+                        'october-1.0.' . $build . '/modules/system/',
+                    ];
+
+                    // Only get necessary files from the modules directory
+                    for ($i = 0; $i < $zip->numFiles; ++$i) {
+                        $filename = $zip->statIndex($i)['name'];
+
+                        foreach ($paths as $path) {
+                            if (strpos($filename, $path) === 0) {
+                                $toExtract[] = $filename;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!count($toExtract)) {
+                        $this->error('  - Unable to get valid files for extraction. Cancelled.');
+                        exit(1);
+                    }
+
+                    $zip->extractTo($buildDir . $build . '/', $toExtract);
+                    $zip->close();
+
+                    // Remove ZIP file
+                    unlink($buildDir . 'build-' . $build . '.zip');
+                } else {
+                    $this->error('  - Unable to extract zip file. Cancelled.');
+                    exit(1);
+                }
+
+                $this->info('  - Extracted.');
+            }
+
+            // Determine previous build
+            $manifestBuilds = $manifest->getBuilds();
+            $previous = null;
+            if (count($manifestBuilds)) {
+                if (isset($manifestBuilds[$build - 1])) {
+                    $previous = $build - 1;
+                }
+            }
+
+            // Add build to manifest
+            $this->line('  - Adding to manifest...');
+            $buildManifest = new FileManifest($buildDir . $build . '/october-1.0.' . $build);
+            $manifest->addBuild($build, $buildManifest, $previous);
+            $this->info('  - Added.');
+        }
+
+        // Generate manifest
+        $this->comment('Generating manifest...');
+        file_put_contents($targetFile, $manifest->generate());
+
+        $this->comment('Completed.');
     }
 
     protected function utilCompileJs()

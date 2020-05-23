@@ -363,22 +363,21 @@ class UpdateManager
     }
 
     /**
-     * Asks the gateway for the lastest build number and stores it.
+     * Determines build number from source manifest.
+     *
      * @return void
      */
     public function setBuildNumberManually()
     {
-        $postData = [];
+        $source = new SourceManifest();
+        $manifest = new FileManifest();
 
-        if (Config::get('cms.edgeUpdates', false)) {
-            $postData['edge'] = 1;
+        // Find build by comparing with source manifest
+        $build = $source->compare($manifest);
+
+        if (!is_null($build)) {
+            $this->setBuild($build['build'], null, $build['modified']);
         }
-
-        $result = $this->requestServerData('ping', $postData);
-
-        $build = (int) array_get($result, 'pong', 420);
-
-        $this->setBuild($build);
 
         return $build;
     }
@@ -462,12 +461,14 @@ class UpdateManager
      * Sets the build number and hash
      * @param string $hash
      * @param string $build
+     * @param bool $modified
      * @return void
      */
-    public function setBuild($build, $hash = null)
+    public function setBuild($build, $hash = null, $modified = false)
     {
         $params = [
-            'system::core.build' => $build
+            'system::core.build' => $build,
+            'system::core.modified' => $modified,
         ];
 
         if ($hash) {

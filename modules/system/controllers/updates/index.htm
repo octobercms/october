@@ -34,7 +34,19 @@
         <?php if ($coreBuild): ?>
             <div class="scoreboard-item title-value">
                 <h4><?= e(trans('system::lang.updates.core_current_build')) ?></h4>
-                <p><?= $coreBuild ?></p>
+                <?php if ($coreBuildModified): ?>
+                    <p
+                        class="oc-icon-exclamation-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="This build has been modified"
+                    >
+                        <?= $coreBuild ?>
+                    </p>
+                <?php else: ?>
+                    <p><?= $coreBuild ?></p>
+                <?php endif; ?>
+
                 <p class="description">
                     <a
                         href="javascript:;"
