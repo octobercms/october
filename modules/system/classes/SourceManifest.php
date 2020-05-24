@@ -2,7 +2,6 @@
 
 use ApplicationException;
 use Config;
-use System\Classes\FileManifest;
 
 /**
  * Reads and stores the October CMS source manifest information.

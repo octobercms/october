@@ -6,7 +6,7 @@ use Config;
 /**
  * Stores the file manifest for this October CMS installation.
  *
- * This manifest is a file checksum of all files within this October CMS installation. When comapred to the source
+ * This manifest is a file checksum of all files within this October CMS installation. When compared to the source
  * manifest, this allows us to determine the current installation's build number.
  *
  * @package october\system
