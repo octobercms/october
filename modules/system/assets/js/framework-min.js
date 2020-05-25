@@ -4,7 +4,7 @@ if(window.jQuery.request!==undefined){throw new Error('The OctoberCMS framework 
 +function($){"use strict";var Request=function(element,handler,options){var $el=this.$el=$(element);this.options=options||{};if(handler===undefined){throw new Error('The request handler name is not specified.')}
 if(!handler.match(/^(?:\w+\:{2})?on*/)){throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')}
 var $form=options.form?$(options.form):$el.closest('form'),$triggerEl=!!$form.length?$form:$el,context={handler:handler,options:options}
-if(typeof document.createElement('input').reportValidity=='function'&&$form&&$form[0]&&!$form[0].checkValidity()){$form[0].reportValidity();return false;}
+if((options.validate!==undefined)&&typeof document.createElement('input').reportValidity=='function'&&$form&&$form[0]&&!$form[0].checkValidity()){$form[0].reportValidity();return false;}
 $el.trigger('ajaxSetup',[context])
 var _event=jQuery.Event('oc.beforeRequest')
 $triggerEl.trigger(_event,context)
@@ -103,7 +103,7 @@ return result.join('&')}
 var old=$.fn.request
 $.fn.request=function(handler,option){var args=arguments
 var $this=$(this).first()
-var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
+var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),validate:$this.data('request-validate'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
 if(!handler)handler=$this.data('request')
 var options=$.extend(true,{},Request.DEFAULTS,data,typeof option=='object'&&option)
 return new Request($this,handler,options)}
