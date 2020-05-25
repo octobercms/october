@@ -2,6 +2,8 @@
 
 use ApplicationException;
 use Config;
+use October\Rain\Filesystem\Filesystem;
+use October\Rain\Halcyon\Datasource\FileDatasource;
 
 /**
  * Stores the file manifest for this October CMS installation.
@@ -149,42 +151,11 @@ class FileManifest
      */
     protected function findFiles(string $basePath)
     {
-        $files = [];
+        $datasource = new FileDatasource($basePath, new Filesystem);
 
-        $iterator = function ($path) use (&$iterator, &$files, $basePath) {
-            foreach (new \DirectoryIterator($path) as $item) {
-                if ($item->isDot() === true) {
-                    continue;
-                }
-                if ($item->isFile()) {
-                    // Ignore hidden files
-                    if (substr($item->getFilename(), 0, 1) === '.') {
-                        continue;
-                    }
-
-                    // Check for specific extensions.
-                    $validExtensions = ['php', 'js', 'css', 'less'];
-                    $pathinfo = $item->getFileInfo();
-
-                    if (!in_array(strtolower($pathinfo->getExtension()), $validExtensions)) {
-                        continue;
-                    }
-
-                    $files[] = $item->getPathName();
-                }
-                if ($item->isDir()) {
-                    // Ignore hidden directories
-                    if (substr($item->getFilename(), 0, 1) === '.') {
-                        continue;
-                    }
-
-                    $iterator($item->getPathname());
-                }
-            }
-        };
-        $iterator($basePath);
-
-        return $files;
+        return array_map(function ($path) use ($basePath) {
+            return $basePath . '/' . $path;
+        }, array_keys($datasource->getAvailablePaths()));
     }
 
     /**
