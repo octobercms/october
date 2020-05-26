@@ -567,7 +567,7 @@ return [
     ],
     'permissions' => [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
-        'allow_unsafe_markdown' => 'Use unsafe Markdown (can use HTML & JS)',
+        'allow_unsafe_markdown' => 'Use unsafe Markdown (Can include Javascript)',
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
