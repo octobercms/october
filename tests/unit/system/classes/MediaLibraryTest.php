@@ -4,7 +4,7 @@ use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
-    protected function tearDown()
+    protected function tearDown() : void
     {
         $this->removeMedia();
         parent::tearDown();
