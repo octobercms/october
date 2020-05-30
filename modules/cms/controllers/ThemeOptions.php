@@ -163,7 +163,7 @@ class ThemeOptions extends Controller
 
         $langPath = $theme->getPath() . '/lang';
         if (File::isDirectory($langPath)) {
-            Lang::addNamespace("theme.$dirName", $langPath);
+            Lang::addNamespace("theme.{$theme->getId()}", $langPath);
         }
     }
 }
