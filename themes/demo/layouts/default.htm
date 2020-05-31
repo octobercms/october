@@ -1,5 +1,10 @@
 description = "Default layout"
 ==
+    function onInit()
+    {
+        $this['backend_url'] = Backend::url('/');
+    }
+==
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +24,7 @@ description = "Default layout"
 
         <!-- Header -->
         <header id="layout-header">
-            {% partial 'site/header' %}
+            {% partial 'site/header' backend_url=backend_url %}
         </header>
 
         <!-- Content -->
