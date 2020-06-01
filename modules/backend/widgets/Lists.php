@@ -212,6 +212,7 @@ class Lists extends WidgetBase
          */
         if ($this->showSetup) {
             $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+            $this->treeExpanded = $this->getUserPreference('tree_expanded', $this->treeExpanded);
         }
 
         if ($this->showPagination == 'auto') {
@@ -1617,6 +1618,9 @@ class Lists extends WidgetBase
         $this->vars['columns'] = $this->getSetupListColumns();
         $this->vars['perPageOptions'] = $this->getSetupPerPageOptions();
         $this->vars['recordsPerPage'] = $this->recordsPerPage;
+        $this->vars['showTree'] = $this->showTree;
+        $this->vars['treeExpanded'] = $this->treeExpanded;
+
         return $this->makePartial('setup_form');
     }
 
@@ -1625,6 +1629,9 @@ class Lists extends WidgetBase
      */
     public function onApplySetup()
     {
+        // Reset treeExpanded property back to default value
+        $this->fillFromConfig(['treeExpanded']);
+
         if (($visibleColumns = post('visible_columns')) && is_array($visibleColumns)) {
             $this->columnOverride = $visibleColumns;
             $this->putUserPreference('visible', $this->columnOverride);
@@ -1633,6 +1640,11 @@ class Lists extends WidgetBase
         $this->recordsPerPage = post('records_per_page', $this->recordsPerPage);
         $this->putSession('order', post('column_order'));
         $this->putUserPreference('per_page', $this->recordsPerPage);
+
+        $this->treeExpanded = post('tree_expanded', $this->treeExpanded);
+        $this->putSession('tree_expanded', post('tree_expanded'));
+        $this->putUserPreference('tree_expanded', $this->treeExpanded);
+
         return $this->onRefresh();
     }
 
@@ -1643,6 +1655,8 @@ class Lists extends WidgetBase
     {
         $this->clearUserPreference('visible');
         $this->clearUserPreference('per_page');
+        $this->clearUserPreference('tree_expanded');
+
         return $this->onRefresh();
     }
 

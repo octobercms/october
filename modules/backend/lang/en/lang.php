@@ -219,6 +219,8 @@ return [
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',
         'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
+        'tree_expanded' => 'Tree expanded',
+        'tree_expanded_page_help' => 'Determines if tree nodes should be expanded by default.',
         'check' => 'Check',
         'delete_selected' => 'Delete selected',
         'delete_selected_empty' => 'There are no selected records to delete.',
