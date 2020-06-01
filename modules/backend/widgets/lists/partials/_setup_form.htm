@@ -46,6 +46,22 @@
             </div>
         <?php endif ?>
 
+        <?php if ($this->showTree): ?>
+        <div class="form-group">
+            <div class="checkbox custom-checkbox">
+                <input type="hidden" value="0" name="tree_expanded"/>
+                <input id="<?= $this->getId('setupCheckbox-tree_expanded') ?>" type="checkbox" class="form-control"
+                       name="tree_expanded" value="1"
+                <?= $treeExpanded ? 'checked="checked"' : '' ?>
+                />
+                <label for="<?= $this->getId('setupCheckbox-tree_expanded') ?>"><?= e(trans('backend::lang.list.tree_expanded')) ?></label>
+                <p class="help-block">
+                    <?= e(trans('backend::lang.list.tree_expanded_page_help')) ?>
+                </p>
+            </div>
+        </div>
+        <?php endif; ?>
+
     </div>
     <div class="modal-footer">
         <button
