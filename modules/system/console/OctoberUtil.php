@@ -1,6 +1,5 @@
 <?php namespace System\Console;
 
-use App;
 use Lang;
 use File;
 use Config;
@@ -105,6 +104,14 @@ class OctoberUtil extends Command
     //
     // Utilties
     //
+
+    protected function utilSetBuild()
+    {
+        $this->comment('NOTE: This command is now deprecated. Please use "php artisan october:build" instead.');
+        $this->comment('');
+
+        return $this->call('october:build');
+    }
 
     protected function utilCompileJs()
     {
