@@ -132,6 +132,20 @@ class SourceManifest
     }
 
     /**
+     * Gets the maximum build number in the manifest.
+     *
+     * @return int
+     */
+    public function getMaxBuild()
+    {
+        if (!count($this->builds)) {
+            return null;
+        }
+
+        return max(array_keys($this->builds));
+    }
+
+    /**
      * Generates the JSON data to be stored with the source manifest.
      *
      * @throws ApplicationException If no builds have been added to this source manifest.
