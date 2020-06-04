@@ -18,7 +18,7 @@ jobs:
         with:
           php-version: 7.2
       - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
       - name: Reset October modules and library
         run: |
           git reset --hard HEAD
