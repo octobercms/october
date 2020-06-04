@@ -253,7 +253,7 @@ class SourceManifest
 
             foreach ($state as $file => $sum) {
                 // Determine module
-                $module = explode(DIRECTORY_SEPARATOR, $file)[2];
+                $module = explode('/', $file)[2];
 
                 if (!in_array($module, $availableModules)) {
                     unset($state[$file]);

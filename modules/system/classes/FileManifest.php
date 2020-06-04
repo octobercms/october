@@ -101,7 +101,7 @@ class FileManifest
         $files = [];
 
         foreach ($this->modules as $module) {
-            $path = $this->root . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $module;
+            $path = $this->root . '/modules/' . $module;
 
             if (!is_dir($path)) {
                 continue;
@@ -133,7 +133,7 @@ class FileManifest
 
         foreach ($this->files as $path => $hash) {
             // Determine module
-            $module = explode(DIRECTORY_SEPARATOR, $path)[2];
+            $module = explode('/', $path)[2];
 
             $modules[$module] .= $hash;
         }
