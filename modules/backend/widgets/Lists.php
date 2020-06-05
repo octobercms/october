@@ -8,6 +8,7 @@ use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
+use October\Rain\Support\Str;
 use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
 use Backend\Classes\ListColumn;
@@ -262,6 +263,7 @@ class Lists extends WidgetBase
         $this->vars['sortDirection'] = $this->sortDirection;
         $this->vars['showTree'] = $this->showTree;
         $this->vars['treeLevel'] = 0;
+        $this->vars['treeExpanded'] = $this->treeExpanded;
 
         if ($this->showPagination) {
             $this->vars['pageCurrent'] = $this->records->currentPage();
@@ -1692,6 +1694,8 @@ class Lists extends WidgetBase
 
         $this->showSorting = $this->showPagination = false;
 
+        $this->treeExpanded = $this->getSession('tree_expanded', $this->treeExpanded);
+
         if (!$this->model->methodExists('getChildren')) {
             throw new ApplicationException(
                 'To display list as a tree, the specified model must have a method "getChildren"'
@@ -1724,6 +1728,44 @@ class Lists extends WidgetBase
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
         return $this->onRefresh();
+    }
+
+    /**
+     * Sets all node (model) to an expanded or collapsed state, stored in the
+     * session, then renders the list again.
+     * @return array
+     */
+    public function onToggleTreeExpanded()
+    {
+        $this->resetAllTreeNodes();
+
+        // Invert the current tree state.
+        $this->treeExpanded = ! $this->treeExpanded;
+        $this->putSession('tree_expanded', $this->treeExpanded);
+
+        return $this->onRefresh();
+    }
+
+    /**
+     * Removes all tree node statuses stored in the session.
+     */
+    protected function resetAllTreeNodes()
+    {
+        if (! $this->showTree) {
+            return;
+        }
+
+        $keys = [];
+
+        foreach ($this->getSession() as $key => $value) {
+            if (Str::startsWith($key, 'tree_node_status_')) {
+                $keys[] = $key;
+            }
+        }
+
+        if (count($keys) > 0) {
+            $this->forgetSession($keys);
+        }
     }
 
     //
