@@ -9,9 +9,18 @@
     <?php endif ?>
 
     <?php if ($showTree): ?>
-        <th class="list-tree">
-            <span></span>
-        </th>
+    <th class="list-tree">
+        <a href="javascript:;"
+           class="list-expand-collapse"
+           data-request="<?= $this->getEventHandler('onToggleTreeExpanded'); ?>"
+           data-stripe-load-indicator>
+                <?php if ($treeExpanded): ?>
+                <i class="icon-minus-square-o"></i>
+                <?php else: ?>
+                <i class="icon-plus-square-o"></i>
+                <?php endif ?>
+        </a>
+    </th>
     <?php endif ?>
 
     <?php foreach ($columns as $key => $column): ?>
