@@ -820,6 +820,9 @@
     MediaManager.prototype.uploadError = function(file, message) {
         this.updateUploadBar('error', 'progress-bar progress-bar-danger');
 
+        if (file.xhr.status === 413) {
+            message = 'Server rejected the file because it was too large, try increasing post_max_size';
+        }
         if (!message) {
             message = 'Error uploading file'
         }
