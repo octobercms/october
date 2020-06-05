@@ -126,7 +126,25 @@ if (window.jQuery.request !== undefined) {
             })
         }
         else {
-            requestData = [$form.serialize(), $.param(data)].filter(Boolean).join('&')
+            var submitButtonValue,
+                ae = $(document.activeElement)
+
+            /*
+             * A specific submit button was clicked, so add that value
+             */
+            if (ae.attr('type') == "submit" || ae.is("button")) {
+                if (typeof ae.attr("name") !== undefined) {
+                    submitButtonValue = encodeURIComponent(ae.attr("name")) + "=" + encodeURIComponent(ae.attr("value"))
+                }
+            }
+            /*
+             * No specific button was clicked, so use the value from the first submit button
+             */
+            else if ($el.find("[type=submit]").length !== 0 && $el.find("[type=submit]").first().attr("name") !== undefined) {
+                submitButtonValue = encodeURIComponent($el.find("[type=submit]").first().attr("name")) + "=" + encodeURIComponent($el.find("[type=submit]").first().attr("value"))
+            }
+
+            requestData = [$form.serialize(), $.param(data), submitButtonValue].filter(Boolean).join('&')
         }
 
         /*
