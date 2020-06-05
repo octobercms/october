@@ -127,7 +127,9 @@ if (window.jQuery.request !== undefined) {
         }
         else {
             var submitButtonValue,
-                ae = $(document.activeElement)
+                ae = $(document.activeElement),
+                submits,
+                submitValue
 
             /*
              * A specific submit button was clicked, so add that value
@@ -140,8 +142,14 @@ if (window.jQuery.request !== undefined) {
             /*
              * No specific button was clicked, so use the value from the first submit button
              */
-            else if ($el.find("[type=submit]").length !== 0 && $el.find("[type=submit]").first().attr("name") !== undefined) {
-                submitButtonValue = encodeURIComponent($el.find("[type=submit]").first().attr("name")) + "=" + encodeURIComponent($el.find("[type=submit]").first().attr("value"))
+            else {
+                submits = $el.find("[type=submit],button:not([type])")
+
+                if (submits.length !== 0 && submits.first().attr("name") !== undefined) {
+                    submitValue = (submits.first().attr("value") !== undefined) ? submits.first().attr("value") : ""
+
+                    submitButtonValue = encodeURIComponent(submits.first().attr("name")) + "=" + encodeURIComponent(submitValue)
+                }
             }
 
             requestData = [$form.serialize(), $.param(data), submitButtonValue].filter(Boolean).join('&')
