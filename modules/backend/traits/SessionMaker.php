@@ -1,5 +1,6 @@
 <?php namespace Backend\Traits;
 
+use October\Rain\Support\Arr;
 use Str;
 use Session;
 
@@ -55,6 +56,21 @@ trait SessionMaker
         }
 
         return $currentStore[$key] ?? $default;
+    }
+
+    /**
+     * Removes one or many items from the widget session data.
+     * @param string|array $keys Unique key for the data store.
+     */
+    protected function forgetSession($keys)
+    {
+        $sessionId = $this->makeSessionId();
+
+        $currentStore = $this->getSession();
+
+        Arr::forget($currentStore, $keys);
+
+        Session::put($sessionId, base64_encode(serialize($currentStore)));
     }
 
     /**
