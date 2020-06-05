@@ -136,7 +136,8 @@ if (window.jQuery.request !== undefined) {
              */
             if (ae.attr('type') == "submit" || ae.is("button")) {
                 if (typeof ae.attr("name") !== undefined) {
-                    submitButtonValue = encodeURIComponent(ae.attr("name")) + "=" + encodeURIComponent(ae.attr("value"))
+                    submitValue = (ae.attr("value") !== undefined) ? ae.attr("value") : ""
+                    submitButtonValue = encodeURIComponent(ae.attr("name")) + "=" + encodeURIComponent(submitValue)
                 }
             }
             /*
@@ -147,7 +148,6 @@ if (window.jQuery.request !== undefined) {
 
                 if (submits.length !== 0 && submits.first().attr("name") !== undefined) {
                     submitValue = (submits.first().attr("value") !== undefined) ? submits.first().attr("value") : ""
-
                     submitButtonValue = encodeURIComponent(submits.first().attr("name")) + "=" + encodeURIComponent(submitValue)
                 }
             }
