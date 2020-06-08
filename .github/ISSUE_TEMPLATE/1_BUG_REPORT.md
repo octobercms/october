@@ -1,6 +1,6 @@
 ---
 name: "🐛 Bug Report"
-about: 'Report a general OctoberCMS issue "FOR SECURITY ISSUES PLEASE CONTACT THE ADMINS IN PRIVATE AND DONT OPEN AN ISSUE HERE"'
+about: 'Report a general OctoberCMS issue'
 labels: 'Status: Review Needed, Type: Unconfirmed Bug'
 ---
 
