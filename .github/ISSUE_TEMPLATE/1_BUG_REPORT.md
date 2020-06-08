@@ -1,6 +1,6 @@
 ---
 name: "🐛 Bug Report"
-about: 'Report a general OctoberCMS issue "CONTACT THE ADMINS IN PRIVATE FOR SECURITY ISSUES DO NOT OPEN HERE"'
+about: 'Report a general OctoberCMS issue "CONTACT THE ADMINS IN PRIVATE FOR SECURITY ISSUES DO NOT OPEN HERE" see here: https://github.com/octobercms/october/blob/develop/SECURITY.md'
 labels: 'Status: Review Needed, Type: Unconfirmed Bug'
 ---
 
