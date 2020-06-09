@@ -39,6 +39,7 @@
 
         this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
         this.$el.one('dispose-control', this.proxy(this.dispose))
+        this.$form.closest('.modal').on('hidden.oc.popup', this.proxy(this.dispose))
     }
 
     FormWidget.prototype.dispose = function() {
