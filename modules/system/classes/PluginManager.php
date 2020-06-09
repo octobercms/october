@@ -226,7 +226,7 @@ class PluginManager
         /**
          * Prevent autoloaders from loading if plugin is disabled
          */
-        if (!$plugin->disabled) {
+        if ($plugin->disabled) {
             return;
         }
 
