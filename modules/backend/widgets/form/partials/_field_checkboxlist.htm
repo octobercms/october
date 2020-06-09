@@ -4,7 +4,7 @@
     $isScrollable = count($fieldOptions) > 10;
     $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
     $quickselectEnabled = $field->getConfig('quickselect', $isScrollable);
-    $defaultState = $field->getConfig('default', false)
+    $defaultState = (bool) $field->getConfig('default', false)
 ?>
 <!-- Checkbox List -->
 <?php if ($readOnly && $field->value): ?>
