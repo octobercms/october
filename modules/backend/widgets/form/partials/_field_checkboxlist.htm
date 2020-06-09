@@ -4,6 +4,7 @@
     $isScrollable = count($fieldOptions) > 10;
     $readOnly = $this->previewMode || $field->readOnly || $field->disabled;
     $quickselectEnabled = $field->getConfig('quickselect', $isScrollable);
+    $defaultState = $field->getConfig('default', false)
 ?>
 <!-- Checkbox List -->
 <?php if ($readOnly && $field->value): ?>
@@ -72,6 +73,7 @@
                     $index++;
                     $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
                     if (is_string($option)) $option = [$option];
+                    $isSelected = $defaultState || in_array($value, $checkedValues)
                 ?>
                 <div class="checkbox custom-checkbox">
                     <input
@@ -79,7 +81,7 @@
                         id="<?= $checkboxId ?>"
                         name="<?= $field->getName() ?>[]"
                         value="<?= e($value) ?>"
-                        <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>>
+                    <?= $isSelected ? 'checked="checked"' : '' ?>>
 
                     <label for="<?= $checkboxId ?>">
                         <?= e(trans($option[0])) ?>
