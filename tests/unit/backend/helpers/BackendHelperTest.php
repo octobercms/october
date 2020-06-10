@@ -22,12 +22,4 @@ class BackendHelperTest extends TestCase
         $backendHelper = new Backend;
         $assets = $backendHelper->decompileAsset('tests/fixtures/backend/assets/missing.js');
     }
-
-    public function testDecompileNonCompilationFile()
-    {
-        $this->expectException(DecompileException::class);
-
-        $backendHelper = new Backend;
-        $assets = $backendHelper->decompileAsset('tests/fixtures/backend/assets/not-compilation.js');
-    }
 }

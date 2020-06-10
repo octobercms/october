@@ -142,7 +142,7 @@
         return result
     }
 
-    AutocompleteEditor.prototype.onInspectorPropertyChanged = function(property, value) {
+    AutocompleteEditor.prototype.onInspectorPropertyChanged = function(property) {
         if (!this.propertyDefinition.depends || this.propertyDefinition.depends.indexOf(property) === -1) {
             return
         }
@@ -219,7 +219,7 @@
         var itemsEvent = $.Event('autocompleteitems.oc.inspector')
 
         $inspectable.trigger(itemsEvent, [{
-            values: values, 
+            values: values,
             callback: this.proxy(this.itemsRequestDone),
             property: this.inspector.getPropertyPath(this.propertyDefinition.property),
             propertyDefinition: this.propertyDefinition

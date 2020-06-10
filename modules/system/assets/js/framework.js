@@ -39,7 +39,7 @@ if (window.jQuery.request !== undefined) {
         /*
          * Validate the form client-side
          */
-        if (typeof document.createElement('input').reportValidity == 'function' && $form && $form[0] && !$form[0].checkValidity()) {
+        if ((options.browserValidate !== undefined) && typeof document.createElement('input').reportValidity == 'function' && $form && $form[0] && !$form[0].checkValidity()) {
             $form[0].reportValidity();
             return false;
         }
@@ -446,6 +446,7 @@ if (window.jQuery.request !== undefined) {
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
+            browserValidate: $this.data('browser-validate'),
             form: $this.data('request-form'),
             url: $this.data('request-url'),
             update: paramToObj('data-request-update', $this.data('request-update')),
