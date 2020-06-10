@@ -118,7 +118,7 @@
             $(document).on('change.oc.formwidget',
                 '[data-field-name="' + fieldName + '"]',
                 $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
-            );
+            )
         })
     }
 
