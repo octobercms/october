@@ -3,17 +3,17 @@
 use App;
 use System\Classes\UpdateManager;
 
-class OctoberBuild extends \Illuminate\Console\Command
+class OctoberVersion extends \Illuminate\Console\Command
 {
     /**
      * @var string The console command description.
      */
-    protected $description = 'Detects the build number of this October CMS instance.';
+    protected $description = 'Detects the build number (version) of this October CMS instance.';
 
     /**
      * @var string The name and signature of the console command.
      */
-    protected $signature = 'october:build';
+    protected $signature = 'october:version';
 
     /**
      * Execute the console command.
