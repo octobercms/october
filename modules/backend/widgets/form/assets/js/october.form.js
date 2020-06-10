@@ -43,10 +43,10 @@
     }
 
     FormWidget.prototype.dispose = function() {
-        this.unbindDependants();
-        this.unbindCheckboxList();
-        this.unbindLazyTabs();
-        this.unbindCollapsibleSections();
+        this.unbindDependants()
+        this.unbindCheckboxList()
+        this.unbindLazyTabs()
+        this.unbindCollapsibleSections()
 
         this.$el.off('dispose-control', this.proxy(this.dispose))
         this.$el.removeData('oc.formwidget')
