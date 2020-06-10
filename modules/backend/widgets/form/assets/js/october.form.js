@@ -112,7 +112,7 @@
             fieldMap = this._getDependants()
 
         /*
-         * When a master is updated, refresh its slaves
+         * When a field is updated, refresh its dependents
          */
         $.each(fieldMap, function(fieldName, toRefresh) {
             $(document).on('change.oc.formwidget',
