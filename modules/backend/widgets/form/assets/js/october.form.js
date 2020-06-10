@@ -308,7 +308,7 @@
      * Unbinds collapsible section handlers
      */
     FormWidget.prototype.unbindCollapsibleSections = function() {
-        $('.section-field[data-field-collapsible]', this.$form).off('click');
+        $('.section-field[data-field-collapsible]', this.$form).off('click')
     }
 
     FormWidget.DEFAULTS = {
