@@ -160,7 +160,7 @@
             })
         })
 
-        return fieldMap;
+        return fieldMap
     }
 
     /*
