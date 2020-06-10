@@ -242,7 +242,7 @@
     FormWidget.prototype.unbindLazyTabs = function() {
         var tabControl = $('[data-control=tab]', this.$el)
 
-        $('.nav-tabs', tabControl).off('click', '.tab-lazy [data-toggle="tab"]');
+        $('.nav-tabs', tabControl).off('click', '.tab-lazy [data-toggle="tab"]')
     }
 
     /*
