@@ -129,7 +129,7 @@
         var fieldMap = this._getDependants()
 
         $.each(fieldMap, function(fieldName, toRefresh) {
-            $(document).off('change.oc.formwidget', '[data-field-name="' + fieldName + '"]');
+            $(document).off('change.oc.formwidget', '[data-field-name="' + fieldName + '"]')
         })
     }
 
