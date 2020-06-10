@@ -85,8 +85,8 @@
      * Unbind checkboxlist handlers
      */
     FormWidget.prototype.unbindCheckboxList = function() {
-        this.$el.off('click', '[data-field-checkboxlist-all]');
-        this.$el.off('click', '[data-field-checkboxlist-none]');
+        this.$el.off('click', '[data-field-checkboxlist-all]')
+        this.$el.off('click', '[data-field-checkboxlist-none]')
     }
 
     /*
