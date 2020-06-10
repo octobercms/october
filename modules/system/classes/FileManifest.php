@@ -22,7 +22,7 @@ class FileManifest
     protected $root;
 
     /**
-     * @var string Modules to store in manifest.
+     * @var array Modules to store in manifest.
      */
     protected $modules = ['system', 'backend', 'cms'];
 
