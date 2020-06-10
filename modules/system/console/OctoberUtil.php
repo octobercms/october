@@ -107,10 +107,10 @@ class OctoberUtil extends Command
 
     protected function utilSetBuild()
     {
-        $this->comment('NOTE: This command is now deprecated. Please use "php artisan october:build" instead.');
+        $this->comment('NOTE: This command is now deprecated. Please use "php artisan october:version" instead.');
         $this->comment('');
 
-        return $this->call('october:build');
+        return $this->call('october:version');
     }
 
     protected function utilCompileJs()
