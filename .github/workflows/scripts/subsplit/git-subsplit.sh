@@ -225,7 +225,7 @@ subsplit_publish()
             git branch -D "$LOCAL_BRANCH" >/dev/null 2>&1
             git branch -D "${LOCAL_BRANCH}-checkout" >/dev/null 2>&1
             git checkout -b "${LOCAL_BRANCH}-checkout" "origin/${HEAD}" >/dev/null 2>&1
-            git subtree split -q --prefix="$SUBPATH" --branch="$LOCAL_BRANCH" "origin/${HEAD}" >/dev/null
+            git subtree split -q --prefix="$SUBPATH" --branch="$LOCAL_BRANCH" "origin/${HEAD}" >/dev/null 2>&1
             RETURNCODE=$?
 
             if [ -n "$VERBOSE" ];
@@ -234,12 +234,12 @@ subsplit_publish()
                 echo "${DEBUG} git branch -D \"$LOCAL_BRANCH\" >/dev/null 2>&1"
                 echo "${DEBUG} git branch -D \"${LOCAL_BRANCH}-checkout\" >/dev/null 2>&1"
                 echo "${DEBUG} git checkout -b \"${LOCAL_BRANCH}-checkout\" \"origin/${HEAD}\" >/dev/null 2>&1"
-                echo "${DEBUG} git subtree split -q --prefix=\"$SUBPATH\" --branch=\"$LOCAL_BRANCH\" \"origin/${HEAD}\" >/dev/null"
+                echo "${DEBUG} git subtree split -q --prefix=\"$SUBPATH\" --branch=\"$LOCAL_BRANCH\" \"origin/${HEAD}\" >/dev/null 2>&1"
             fi
 
             if [ $RETURNCODE -eq 0 ]
             then
-                PUSH_CMD="git push -q ${DRY_RUN} --force $REMOTE_NAME ${LOCAL_BRANCH}:${HEAD}"
+                PUSH_CMD="git push -q ${DRY_RUN} --force $REMOTE_NAME ${LOCAL_BRANCH}:${HEAD} >/dev/null 2>&1"
 
                 if [ -n "$VERBOSE" ];
                 then
