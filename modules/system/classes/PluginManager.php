@@ -224,9 +224,9 @@ class PluginManager
         }
 
         /**
-         * Verify that the provided plugin should be registered
+         * Prevent autoloaders from loading if plugin is disabled
          */
-        if (!$plugin || $plugin->disabled || (self::$noInit && !$plugin->elevated)) {
+        if ($plugin->disabled) {
             return;
         }
 
@@ -236,6 +236,13 @@ class PluginManager
         $autoloadPath = $pluginPath . '/vendor/autoload.php';
         if (File::isFile($autoloadPath)) {
             ComposerManager::instance()->autoload($pluginPath . '/vendor');
+        }
+
+        /**
+         * Disable plugin registration for restricted pages, unless elevated
+         */
+        if (self::$noInit && !$plugin->elevated) {
+            return;
         }
 
         /**
