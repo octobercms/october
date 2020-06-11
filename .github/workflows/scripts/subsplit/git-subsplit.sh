@@ -239,7 +239,7 @@ subsplit_publish()
 
             if [ $RETURNCODE -eq 0 ]
             then
-                PUSH_CMD="git push -q ${DRY_RUN} --force $REMOTE_NAME ${LOCAL_BRANCH}:${HEAD} >/dev/null 2>&1"
+                PUSH_CMD="git push -q ${DRY_RUN} --force $REMOTE_NAME ${LOCAL_BRANCH}:${HEAD}"
 
                 if [ -n "$VERBOSE" ];
                 then
@@ -252,6 +252,12 @@ subsplit_publish()
                     $PUSH_CMD
                 else
                     $PUSH_CMD
+                fi
+
+                PUSHRETURNCODE=$?
+                if [ $PUSHRETURNCODE -eq 0 ]
+                then
+                    say " - completed"
                 fi
             fi
         done
@@ -296,7 +302,7 @@ subsplit_publish()
             fi
 
             say " - subtree split for '${TAG}'"
-            git subtree split -q --annotate="${ANNOTATE}" --prefix="$SUBPATH" --branch="$LOCAL_TAG" "$TAG" >/dev/null
+            git subtree split -q --annotate="${ANNOTATE}" --prefix="$SUBPATH" --branch="$LOCAL_TAG" "$TAG" >/dev/null 2>&1
             RETURNCODE=$?
 
             if [ -n "$VERBOSE" ];
@@ -320,6 +326,12 @@ subsplit_publish()
                     $PUSH_CMD
                 else
                     $PUSH_CMD
+                fi
+
+                PUSHRETURNCODE=$?
+                if [ $PUSHRETURNCODE -eq 0 ]
+                then
+                    say " - completed"
                 fi
             fi
         done
