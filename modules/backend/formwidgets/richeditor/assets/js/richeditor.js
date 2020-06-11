@@ -133,9 +133,9 @@
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
 
-        if (this.options.htmlAllowedEmptyTags) {
-            froalaOptions.allowEmptyTags = this.options.htmlAllowedEmptyTags.split(/[\s,]+/)
-        }
+        froalaOptions.htmlAllowedEmptyTags = this.options.allowEmptyTags
+            ? this.options.allowEmptyTags.split(/[\s,]+/)
+            : ['textarea', 'a', 'iframe', 'object', 'video', 'style', 'script', 'i']
 
         if (this.options.allowTags) {
             froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/)
@@ -145,9 +145,11 @@
             ? this.options.noWrapTags.split(/[\s,]+/)
             : ['figure', 'script', 'style']
 
-        if (this.options.removeTags) {
-            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
-        }
+        // Froala defaults to ['script', 'style', 'base'], default to base to allow script and style tags.
+        // https://froala.com/wysiwyg-editor/docs/options/#htmlRemoveTags
+        froalaOptions.htmlRemoveTags = this.options.removeTags
+            ? this.options.removeTags.split(/[\s,]+/)
+            : ['base']
 
         froalaOptions.lineBreakerTags = this.options.lineBreakerTags
             ? this.options.lineBreakerTags.split(/[\s,]+/)
