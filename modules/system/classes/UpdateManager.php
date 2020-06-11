@@ -370,7 +370,7 @@ class UpdateManager
     public function setBuildNumberManually()
     {
         $source = new SourceManifest();
-        $manifest = new FileManifest();
+        $manifest = new FileManifest(null, null, true);
 
         // Find build by comparing with source manifest
         $build = $source->compare($manifest);

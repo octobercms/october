@@ -32,12 +32,18 @@ class FileManifest
     protected $files = [];
 
     /**
+     * @var bool Will rewrite all line breaks in found files to Unix (LF) format. If enabled, this will slow down
+     * the performance of FileManifest.
+     */
+    protected $fixLineBreaks = false;
+
+    /**
      * Constructor.
      *
      * @param string $root The root folder to get the file list from.
      * @param array $modules An array of modules to include in the file manifest.
      */
-    public function __construct($root = null, array $modules = null)
+    public function __construct($root = null, array $modules = null, $fixLineBreaks = false)
     {
         if (isset($root)) {
             $this->setRoot($root);
@@ -50,6 +56,8 @@ class FileManifest
         } else {
             $this->setModules(Config::get('cms.loadModules', ['System', 'Backend', 'Cms']));
         }
+
+        $this->fixLineBreaks = (bool) $fixLineBreaks;
     }
 
     /**
@@ -108,7 +116,10 @@ class FileManifest
             }
 
             foreach ($this->findFiles($path) as $file) {
-                $files[$this->getFilename($file)] = md5_file($file);
+                $content = ($this->fixLineBreaks)
+                    ? str_replace(PHP_EOL, "\n", file_get_contents($file))
+                    : file_get_contents($file);
+                $files[$this->getFilename($file)] = md5($content);
             }
         }
 
