@@ -107,7 +107,7 @@ say()
 {
     if [ -z "$QUIET" ];
     then
-        echo "$@" >&2
+        echo "$@"
     fi
 }
 

@@ -12,4 +12,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Split demo theme
-        run: ${GITHUB_WORKSPACE}/.github/workflows/scripts/subsplit/git-subsplit.sh publish --debug --path="${GITHUB_WORKSPACE}" --heads="${GITHUB_REF}" --no-tags themes/demo:https://bennothommo:${{ secrets.MAINTENANCE_TOKEN }}@github.com:octoberrain/demo-theme.git
+        run: ${GITHUB_WORKSPACE}/.github/workflows/scripts/subsplit/git-subsplit.sh publish --debug --path="${GITHUB_WORKSPACE}" --heads="${${GITHUB_REF}/refs\/heads\//}" --no-tags themes/demo:https://bennothommo:${{ secrets.MAINTENANCE_TOKEN }}@github.com:octoberrain/demo-theme.git
