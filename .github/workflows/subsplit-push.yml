@@ -1,6 +1,9 @@
 name: Subsplit
 
-on: push
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   subsplit:
@@ -8,7 +11,7 @@ jobs:
     name: Split repositories
     steps:
       - name: Checkout history
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Split system module
