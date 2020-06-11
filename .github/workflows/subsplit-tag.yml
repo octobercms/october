@@ -11,10 +11,9 @@ jobs:
     name: Split repositories
     steps:
       - name: Checkout history
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
         with:
           fetch-depth: 0
-          token: ${{ secrets.MAINTENANCE_TOKEN }}
       - name: Split system module
         run: ${GITHUB_WORKSPACE}/.github/workflows/scripts/subsplit/git-subsplit.sh publish --debug --path="${GITHUB_WORKSPACE}" --tags="${GITHUB_REF/refs\/tags\//}" --no-heads modules/system:https://bennothommo:${{ secrets.MAINTENANCE_TOKEN }}@github.com/octoberrain/system.git
       - name: Split backend module
