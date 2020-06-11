@@ -14,6 +14,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          token: ${{ secrets.MAINTENANCE_TOKEN }}
       - name: Split system module
         run: ${GITHUB_WORKSPACE}/.github/workflows/scripts/subsplit/git-subsplit.sh publish --debug --path="${GITHUB_WORKSPACE}" --heads="${GITHUB_REF/refs\/heads\//}" --no-tags modules/system:https://bennothommo:${{ secrets.MAINTENANCE_TOKEN }}@github.com/octoberrain/system.git
       - name: Split backend module
