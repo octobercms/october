@@ -95,47 +95,47 @@
         froalaOptions.imageStyles = this.options.imageStyles
             ? this.options.imageStyles
             : {
-              'oc-img-rounded': 'Rounded',
-              'oc-img-bordered': 'Bordered'
+                'oc-img-rounded': 'Rounded',
+                'oc-img-bordered': 'Bordered'
             }
 
         froalaOptions.linkStyles = this.options.linkStyles
             ? this.options.linkStyles
             : {
-              'oc-link-green': 'Green',
-              'oc-link-strong': 'Thick'
+                'oc-link-green': 'Green',
+                'oc-link-strong': 'Thick'
             }
 
         froalaOptions.paragraphStyles = this.options.paragraphStyles
             ? this.options.paragraphStyles
             : {
-              'oc-text-gray': 'Gray',
-              'oc-text-bordered': 'Bordered',
-              'oc-text-spaced': 'Spaced',
-              'oc-text-uppercase': 'Uppercase'
+                'oc-text-gray': 'Gray',
+                'oc-text-bordered': 'Bordered',
+                'oc-text-spaced': 'Spaced',
+                'oc-text-uppercase': 'Uppercase'
             }
 
         froalaOptions.tableStyles = this.options.tableStyles
             ? this.options.tableStyles
             : {
-              'oc-dashed-borders': 'Dashed Borders',
-              'oc-alternate-rows': 'Alternate Rows'
+                'oc-dashed-borders': 'Dashed Borders',
+                'oc-alternate-rows': 'Alternate Rows'
             }
 
         froalaOptions.tableCellStyles = this.options.tableCellStyles
             ? this.options.tableCellStyles
             : {
-              'oc-cell-highlighted': 'Highlighted',
-              'oc-cell-thick-border': 'Thick'
+                'oc-cell-highlighted': 'Highlighted',
+                'oc-cell-thick-border': 'Thick'
             }
 
         froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
 
-        froalaOptions.htmlAllowedEmptyTags = this.options.allowEmptyTags
-            ? this.options.allowEmptyTags.split(/[\s,]+/)
-            : ['textarea', 'a', 'iframe', 'object', 'video', 'style', 'script', 'i']
+        if (this.options.allowEmptyTags) {
+            froalaOptions.htmlAllowedEmptyTags = this.options.allowEmptyTags.split(/[\s,]+/)
+        }
 
         if (this.options.allowTags) {
             froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/)
@@ -145,11 +145,9 @@
             ? this.options.noWrapTags.split(/[\s,]+/)
             : ['figure', 'script', 'style']
 
-        // Froala defaults to ['script', 'style', 'base'], default to base to allow script and style tags.
-        // https://froala.com/wysiwyg-editor/docs/options/#htmlRemoveTags
-        froalaOptions.htmlRemoveTags = this.options.removeTags
-            ? this.options.removeTags.split(/[\s,]+/)
-            : ['base']
+        if (this.options.removeTags) {
+            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
+        }
 
         froalaOptions.lineBreakerTags = this.options.lineBreakerTags
             ? this.options.lineBreakerTags.split(/[\s,]+/)
