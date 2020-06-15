@@ -172,7 +172,9 @@ froalaOptions.tableCellStyles=this.options.tableCellStyles?this.options.tableCel
 froalaOptions.toolbarButtonsMD=froalaOptions.toolbarButtons
 froalaOptions.toolbarButtonsSM=froalaOptions.toolbarButtons
 froalaOptions.toolbarButtonsXS=froalaOptions.toolbarButtons
-if(this.options.allowEmptyTags){froalaOptions.htmlAllowedEmptyTags=this.options.allowEmptyTags.split(/[\s,]+/)}
+if(this.options.allowEmptyTags){let filteredTagList=[];this.options.allowEmptyTags.split(/[\s,]+/).forEach(tagString=>{let i=0;tagString.split('.').forEach(tag=>{if(tag!==null&&!filteredTagList.includes(tag)){filteredTagList.push(i?'.'+tag:tag)}
+i++})})
+froalaOptions.htmlAllowedEmptyTags=filteredTagList}
 if(this.options.allowTags){froalaOptions.htmlAllowedTags=this.options.allowTags.split(/[\s,]+/)}
 froalaOptions.htmlDoNotWrapTags=this.options.noWrapTags?this.options.noWrapTags.split(/[\s,]+/):['figure','script','style']
 if(this.options.removeTags){froalaOptions.htmlRemoveTags=this.options.removeTags.split(/[\s,]+/)}
@@ -260,14 +262,13 @@ $.fn.richEditor=function(option){var args=Array.prototype.slice.call(arguments,1
 this.each(function(){var $this=$(this)
 var data=$this.data('oc.richEditor')
 var options=$.extend({},RichEditor.DEFAULTS,$this.data(),typeof option=='object'&&option)
-if(!data)$this.data('oc.richEditor',(data=new RichEditor(this,options)))
-if(typeof option=='string')result=data[option].apply(data,args)
-if(typeof result!='undefined')return false})
+if(!data){$this.data('oc.richEditor',(data=new RichEditor(this,options)))
+if(typeof option=='string'){result=data[option].apply(data,args)
+if(typeof result!='undefined'){return false}}}})
 return result?result:this}
 $.fn.richEditor.Constructor=RichEditor
 $.fn.richEditor.noConflict=function(){$.fn.richEditor=old
 return this}
 $(document).render(function(){$('[data-control="richeditor"]').richEditor()})
-if($.oc===undefined)
-$.oc={}
-$.oc.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}(window.jQuery);
+if($.oc===undefined){$.oc={}
+$.oc.richEditorButtons=['paragraphFormat','paragraphStyle','quote','bold','italic','align','formatOL','formatUL','insertTable','insertLink','insertImage','insertVideo','insertAudio','insertFile','insertHR','fullscreen','html']}}(window.jQuery);
