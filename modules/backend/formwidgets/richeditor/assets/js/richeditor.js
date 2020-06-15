@@ -134,7 +134,18 @@
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
 
         if (this.options.allowEmptyTags) {
-            froalaOptions.htmlAllowedEmptyTags = this.options.allowEmptyTags.split(/[\s,]+/)
+            // Filter the tags list to split eventual tag.class and add them if necessary
+            let filteredTagList = [];
+            this.options.allowEmptyTags.split(/[\s,]+/).forEach(tagString => {
+                let i = 0;
+                tagString.split('.').forEach(tag => {
+                    if (tag !== null && ! filteredTagList.includes(tag)) {
+                        filteredTagList.push(i ? '.'+ tag : tag)
+                    }
+                    i++
+                })
+            })
+            froalaOptions.htmlAllowedEmptyTags = filteredTagList
         }
 
         if (this.options.allowTags) {
