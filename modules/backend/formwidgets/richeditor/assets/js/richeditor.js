@@ -134,10 +134,12 @@
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
 
         if (this.options.allowEmptyTags) {
+            froalaOptions.htmlAllowedEmptyTags = [];
+
             this.options.allowEmptyTags.split(/[\s,]+/).forEach(
                 function (selector) {
                     var tag = selector.split('.', 2)
-                    if (froalaOptions.htmlAllowedEmptyTags.indexOf(tag) === -1) {
+                    if (froalaOptions.htmlAllowedEmptyTags.indexOf(tag[0]) === -1) {
                         froalaOptions.htmlAllowedEmptyTags.push(selector)
                     }
                 }
