@@ -224,9 +224,9 @@ class PluginManager
         }
 
         /**
-         * Verify that the provided plugin should be registered
+         * Prevent autoloaders from loading if plugin is disabled
          */
-        if (!$plugin || $plugin->disabled || (self::$noInit && !$plugin->elevated)) {
+        if ($plugin->disabled) {
             return;
         }
 
@@ -236,6 +236,13 @@ class PluginManager
         $autoloadPath = $pluginPath . '/vendor/autoload.php';
         if (File::isFile($autoloadPath)) {
             ComposerManager::instance()->autoload($pluginPath . '/vendor');
+        }
+
+        /**
+         * Disable plugin registration for restricted pages, unless elevated
+         */
+        if (self::$noInit && !$plugin->elevated) {
+            return;
         }
 
         /**
@@ -655,7 +662,9 @@ class PluginManager
 
     /**
      * Scans the system plugins to locate any dependencies that are not currently
-     * installed. Returns an array of plugin codes that are needed.
+     * installed. Returns an array of missing plugin codes keyed by the plugin that requires them.
+     *
+     *     ['Author.Plugin' => ['Required.Plugin1', 'Required.Plugin2']
      *
      *     PluginManager::instance()->findMissingDependencies();
      *
@@ -676,7 +685,7 @@ class PluginManager
                 }
 
                 if (!in_array($require, $missing)) {
-                    $missing[] = $require;
+                    $missing[$this->getIdentifier($plugin)][] = $require;
                 }
             }
         }

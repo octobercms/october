@@ -95,59 +95,70 @@
         froalaOptions.imageStyles = this.options.imageStyles
             ? this.options.imageStyles
             : {
-              'oc-img-rounded': 'Rounded',
-              'oc-img-bordered': 'Bordered'
+                'oc-img-rounded': 'Rounded',
+                'oc-img-bordered': 'Bordered'
             }
 
         froalaOptions.linkStyles = this.options.linkStyles
             ? this.options.linkStyles
             : {
-              'oc-link-green': 'Green',
-              'oc-link-strong': 'Thick'
+                'oc-link-green': 'Green',
+                'oc-link-strong': 'Thick'
             }
 
         froalaOptions.paragraphStyles = this.options.paragraphStyles
             ? this.options.paragraphStyles
             : {
-              'oc-text-gray': 'Gray',
-              'oc-text-bordered': 'Bordered',
-              'oc-text-spaced': 'Spaced',
-              'oc-text-uppercase': 'Uppercase'
+                'oc-text-gray': 'Gray',
+                'oc-text-bordered': 'Bordered',
+                'oc-text-spaced': 'Spaced',
+                'oc-text-uppercase': 'Uppercase'
             }
 
         froalaOptions.tableStyles = this.options.tableStyles
             ? this.options.tableStyles
             : {
-              'oc-dashed-borders': 'Dashed Borders',
-              'oc-alternate-rows': 'Alternate Rows'
+                'oc-dashed-borders': 'Dashed Borders',
+                'oc-alternate-rows': 'Alternate Rows'
             }
 
         froalaOptions.tableCellStyles = this.options.tableCellStyles
             ? this.options.tableCellStyles
             : {
-              'oc-cell-highlighted': 'Highlighted',
-              'oc-cell-thick-border': 'Thick'
+                'oc-cell-highlighted': 'Highlighted',
+                'oc-cell-thick-border': 'Thick'
             }
 
         froalaOptions.toolbarButtonsMD = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons
 
-        if (this.options.htmlAllowedEmptyTags) {
-            froalaOptions.allowEmptyTags = this.options.htmlAllowedEmptyTags.split(/[\s,]+/)
+        if (this.options.allowEmptyTags) {
+            froalaOptions.htmlAllowedEmptyTags = [];
+
+            this.options.allowEmptyTags.split(/[\s,]+/).forEach(
+                function (selector) {
+                    var tag = selector.split('.', 2)
+                    if (froalaOptions.htmlAllowedEmptyTags.indexOf(tag[0]) === -1) {
+                        froalaOptions.htmlAllowedEmptyTags.push(selector)
+                    }
+                }
+            )
+        } else {
+            froalaOptions.htmlAllowedEmptyTags = ['textarea', 'a', 'iframe', 'object', 'video', 'style', 'script', '.fa', '.fr-emoticon', '.fr-inner', 'path', 'line', 'hr', 'i']
         }
 
-        if (this.options.allowTags) {
-            froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/)
-        }
+        froalaOptions.htmlAllowedTags = this.options.allowTags
+            ? this.options.allowTags.split(/[\s,]+/)
+            : ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'blockquote', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hgroup', 'hr', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'pre', 'progress', 'queue', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'style', 'section', 'select', 'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr']
 
         froalaOptions.htmlDoNotWrapTags = this.options.noWrapTags
             ? this.options.noWrapTags.split(/[\s,]+/)
             : ['figure', 'script', 'style']
 
-        if (this.options.removeTags) {
-            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/)
-        }
+        froalaOptions.htmlRemoveTags = this.options.removeTags
+            ? this.options.removeTags.split(/[\s,]+/)
+            : ['script', 'style', 'base']
 
         froalaOptions.lineBreakerTags = this.options.lineBreakerTags
             ? this.options.lineBreakerTags.split(/[\s,]+/)

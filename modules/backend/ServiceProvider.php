@@ -4,6 +4,7 @@ use App;
 use Backend;
 use BackendMenu;
 use BackendAuth;
+use Backend\Models\UserRole;
 use Backend\Classes\WidgetManager;
 use System\Classes\MailManager;
 use System\Classes\CombineAssets;
@@ -168,7 +169,12 @@ class ServiceProvider extends ModuleServiceProvider
                 'media.manage_media' => [
                     'label' => 'backend::lang.permissions.manage_media',
                     'tab' => 'system::lang.permissions.name',
-                ]
+                ],
+                'backend.allow_unsafe_markdown' => [
+                    'label' => 'backend::lang.permissions.allow_unsafe_markdown',
+                    'tab' => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
+                ],
             ]);
         });
     }

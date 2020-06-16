@@ -1,6 +1,7 @@
 <?php namespace Backend\Helpers;
 
 use Url;
+use File;
 use Html;
 use Config;
 use Request;
@@ -171,11 +172,37 @@ class Backend
      */
     public function decompileAsset(string $file, bool $skinAsset = false)
     {
+        $assets = $this->parseAsset($file, $skinAsset);
+
+        return array_map(function ($asset) use ($skinAsset) {
+            // Resolve relative asset paths
+            if ($skinAsset) {
+                $assetPath = base_path(substr(Skin::getActive()->getPath($asset, true), 1));
+            } else {
+                $assetPath = base_path($asset);
+            }
+            $relativePath = File::localToPublic(realpath($assetPath));
+
+            return Url::asset($relativePath);
+        }, $assets);
+    }
+
+    /**
+     * Parse the provided asset file to get the files that it includes
+     *
+     * @param string $file The compilation asset file to parse
+     * @param boolean $skinAsset If true, will load decompiled assets from the "skins" directory.
+     * @return array
+     */
+    protected function parseAsset($file, $skinAsset)
+    {
         if ($skinAsset) {
             $assetFile = base_path(substr(Skin::getActive()->getPath($file, true), 1));
         } else {
             $assetFile = base_path($file);
         }
+
+        $results = [$file];
 
         if (!file_exists($assetFile)) {
             throw new DecompileException('File ' . $file . ' does not exist to be decompiled.');
@@ -186,30 +213,23 @@ class Backend
 
         $contents = file_get_contents($assetFile);
 
-        if (!preg_match('/^=require/m', $contents)) {
-            throw new DecompileException('File ' . $file . ' does not appear to be a compiled asset.');
-        }
-
         // Find all assets that are compiled in this file
         preg_match_all('/^=require\s+([A-z0-9-_+\.\/]+)$/m', $contents, $matches, PREG_SET_ORDER);
-
-        if (!count($matches)) {
-            throw new DecompileException('Unable to extract any asset paths when decompiled file ' . $file . '.');
-        }
 
         // Determine correct asset path
         $directory = str_replace(basename($file), '', $file);
 
-        return array_map(function ($match) use ($directory, $skinAsset) {
-            // Resolve relative asset paths
-            if ($skinAsset) {
-                $assetPath = base_path(substr(Skin::getActive()->getPath($directory . $match[1], true), 1));
-            } else {
-                $assetPath = base_path($directory . $match[1]);
-            }
-            $realPath = str_replace(base_path(), '', realpath($assetPath));
+        if (count($matches)) {
+            $results = array_map(function ($match) use ($directory) {
+                return $directory . $match[1];
+            }, $matches);
 
-            return Url::asset($realPath);
-        }, $matches);
+            foreach ($results as $i => $result) {
+                $nested = $this->parseAsset($result, $skinAsset);
+                array_splice($results, $i, 1, $nested);
+            }
+        }
+
+        return $results;
     }
 }

@@ -47,5 +47,18 @@
         <?php endif ?>
     </div>
 </div>
-
+<?php if (count($warnings)): ?>
+    <div class="scoreboard">
+        <div class="callout fade in callout-danger no-icon">
+            <div class="header">
+                <h3><?= e(trans('system::lang.updates.update_warnings_title')) ?></h3>
+                <ul>
+                    <?php foreach ($warnings as $warning): ?>
+                        <li><?= $warning ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
 <?= $this->listRender() ?>

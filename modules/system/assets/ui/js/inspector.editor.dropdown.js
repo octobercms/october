@@ -112,6 +112,9 @@
             dropdownCssClass: 'ocInspectorDropdown'
         }
 
+        if (this.propertyDefinition.emptyOption !== undefined) {
+            options.placeholder = this.propertyDefinition.emptyOption
+        }
         if (this.propertyDefinition.placeholder !== undefined) {
             options.placeholder = this.propertyDefinition.placeholder
         }
@@ -131,7 +134,7 @@
     }
 
     DropdownEditor.prototype.createPlaceholder = function(select) {
-        var placeholder = this.propertyDefinition.placeholder
+        var placeholder = this.propertyDefinition.placeholder || this.propertyDefinition.emptyOption
 
         if (placeholder !== undefined && !Modernizr.touchevents) {
             this.createOption(select, null, null)
@@ -202,7 +205,7 @@
         this.inspector.setPropertyValue(this.propertyDefinition.property, this.normalizeValue(select.value), this.initialization)
     }
 
-    DropdownEditor.prototype.onInspectorPropertyChanged = function(property, value) {
+    DropdownEditor.prototype.onInspectorPropertyChanged = function(property) {
         if (!this.propertyDefinition.depends || this.propertyDefinition.depends.indexOf(property) === -1) {
             return
         }
@@ -260,7 +263,7 @@
             return false
         }
 
-        return BaseProto.isEmptyValue.call(this, value) 
+        return BaseProto.isEmptyValue.call(this, value)
     }
 
     //
@@ -307,7 +310,8 @@
         var currentValue = this.inspector.getPropertyValue(this.propertyDefinition.property),
             data = this.getRootSurface().getValues(),
             self = this,
-            $form = $(this.getSelect()).closest('form')
+            $form = $(this.getSelect()).closest('form'),
+            dependents = this.inspector.findDependentProperties(this.propertyDefinition.property)
 
         if (currentValue === undefined) {
             currentValue = this.propertyDefinition.default
@@ -316,6 +320,15 @@
         var callback = function dropdownOptionsRequestDoneClosure(data) {
             self.hideLoadingIndicator()
             self.optionsRequestDone(data, currentValue, true)
+
+            if (dependents.length > 0) {
+                for (var i in dependents) {
+                    var editor = self.inspector.findPropertyEditor(dependents[i])
+                    if (editor && typeof editor.onInspectorPropertyChanged === 'function') {
+                        editor.onInspectorPropertyChanged(self.propertyDefinition.property)
+                    }
+                }
+            }
         }
 
         if (this.propertyDefinition.depends) {
@@ -347,7 +360,7 @@
         var optionsEvent = $.Event('dropdownoptions.oc.inspector')
 
         $inspectable.trigger(optionsEvent, [{
-            values: values, 
+            values: values,
             callback: callback,
             property: this.inspector.getPropertyPath(this.propertyDefinition.property),
             propertyDefinition: this.propertyDefinition
