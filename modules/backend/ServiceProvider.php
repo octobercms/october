@@ -199,6 +199,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
             $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
             $manager->registerFormWidget('Backend\FormWidgets\NestedForm', 'nestedform');
+            $manager->registerFormWidget('Backend\FormWidgets\Sensitive', 'sensitive');
         });
     }
 
