@@ -209,6 +209,7 @@
         this.$textarea.on('froalaEditor.contentChanged', this.proxy(this.onChange))
         this.$textarea.on('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.on('froalaEditor.html.set', this.proxy(this.onSetContent))
+        this.$textarea.on('froalaEditor.paste.beforeCleanup', this.proxy(this.beforeCleanupPaste))
         this.$form.on('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
 
         this.$textarea.froalaEditor(froalaOptions)
@@ -245,6 +246,7 @@
         this.$textarea.off('froalaEditor.contentChanged', this.proxy(this.onChange))
         this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent))
         this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent))
+        this.$textarea.off('froalaEditor.paste.beforeCleanup', this.proxy(this.beforeCleanupPaste))
         this.$form.off('oc.beforeRequest', this.proxy(this.onFormBeforeRequest))
 
         $(window).off('resize', this.proxy(this.updateLayout))
@@ -342,6 +344,10 @@
 
     RichEditor.prototype.onSetContent = function(ev, editor) {
         this.$textarea.trigger('setContent.oc.richeditor', [this])
+    }
+
+    RichEditor.prototype.beforeCleanupPaste = function (ev, editor, clipboard_html) {
+        return ocSanitize(clipboard_html)
     }
 
     RichEditor.prototype.onSyncContent = function(ev, editor, html) {
