@@ -6,7 +6,7 @@
  * - data-option="value" - an option with a value
  *
  * JavaScript API:
- * $('a#someElement').recordFinder({ option: 'value' })
+ * $('a#someElement').mediaFinder({ option: 'value' })
  *
  * Dependences:
  * - Some other plugin (filename.js)
@@ -71,7 +71,7 @@
         this.$findValue = null
         this.$el = null
 
-        // In some cases options could contain callbacks, 
+        // In some cases options could contain callbacks,
         // so it's better to clean them up too.
         this.options = null
 

@@ -185,4 +185,6 @@ if(str[0]==="["){var result="[";var type="needBody";for(var i=1;i<str.length;i++
 if(str[i]==="]"&&i===str.length-1){if(result[result.length-1]===",")result=result.substr(0,result.length-1);result+="]";return result;}
 var body=getBody(str,i);i=i+body.originLength-1;result+=parse(body.body);type="afterBody";}else if(type==="afterBody"){if(str[i]===","){result+=",";type="needBody";while(str[i+1]===","||isBlankChar(str[i+1])){if(str[i+1]===",")result+="null,";i++;}}else if(str[i]==="]"&&i===str.length-1){result+="]";return result;}}}
 throw new Error("Broken JSON array near "+result);}}
-window.ocJSON=function(json){var jsonString=parse(json);return JSON.parse(jsonString);};}(window);
+window.ocJSON=function(json){var jsonString=parse(json);return JSON.parse(jsonString);};}(window);+function(window){"use strict";function trimAttributes(node){$.each(node.attributes,function(){var attrName=this.name;var attrValue=this.value;if(attrName.indexOf('on')==0||attrValue.indexOf('javascript:')==0){$(node).removeAttr(attrName);}});}
+function sanitize(html){var output=$($.parseHTML('<div>'+html+'</div>',null,false));output.find('*').each(function(){trimAttributes(this);});return output.html();}
+window.ocSanitize=function(html){return sanitize(html)};}(window);
