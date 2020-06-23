@@ -140,7 +140,7 @@ return [
     |
     | Set this to `true` to enable automatic loading of these packages. This
     | will result in packages being loaded, even if the plugin using them is
-    | disabled.
+    | disabled. This is NOT RECOMMENDED.
     |
     | Please note that packages defined in `app.providers` will still be loaded
     | even if discovery is disabled.
