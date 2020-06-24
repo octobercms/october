@@ -111,7 +111,7 @@ if (window.jQuery.request !== undefined) {
         // Identify and merge the data from parent form elements
         //
         // If the current $form element was spawned by an element that exists in a different form element
-        // (usually because the current form is in a popup), then it will have a data-request-parent-element
+        // (usually because the current form is in a popup), then it will have a data-request-parent
         // attribute present that identifies the element that spawned it. We then need to merge the data
         // from that element's containing form element and in turn check to see if it was spawned by another
         // element (i.e. nested popups) until we have completed the chain down to the original form element.
@@ -120,14 +120,13 @@ if (window.jQuery.request !== undefined) {
         // a given widget is still present in any requests made to that widget so that it will be properly
         // instantiated on the server side and ready to respond to our requests.
         var parentFormData = {},
-            $parentEl = false,
             parentForms = [$form]
-            
+
         var findParentForms = function ($form) {
             // If the form element exists and has a parent element defined
-            if ($form.length && $form.data('request-parent-element')) {
+            if ($form.length && $form.data('request-parent')) {
                 // Identify the owning form of the parent element
-                $parentEl = $($form.data('request-parent-element'))
+                var $parentEl = $($form.data('request-parent'))
                 if ($parentEl.length) {
                     var $parentForm = $parentEl.closest('form')
                     if ($parentForm.length) {
@@ -139,7 +138,12 @@ if (window.jQuery.request !== undefined) {
                 }
             }
         }
+
+        // Attempt to find all the parent forms in the chain
         findParentForms($form)
+
+        // Loop through the discovered forms in reverse order so that the forms that are closer to the
+        // current element have priority when it comes to data merge conflicts
         parentForms.reverse().forEach(function ($formEl) {
             $.extend(parentFormData, serializeFormToObj($formEl))
         })
