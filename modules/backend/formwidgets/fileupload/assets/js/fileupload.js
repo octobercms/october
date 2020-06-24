@@ -219,6 +219,9 @@
         this.$el.closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
+    /*
+     * Add the required additional data to the fileupload request
+     */
     FileUpload.prototype.addExtraFormData = function(formData) {
         if (this.options.extraData) {
             $.each(this.options.extraData, function (name, value) {
@@ -226,10 +229,13 @@
             })
         }
 
+        // Add the data from the containing form element to the upload request to
+        // ensure that the widget is properly initialized to handle the upload
         var $form = this.$el.closest('form')
         if ($form.length > 0) {
-            $.each($form.serializeArray(), function (index, field) {
-                formData.append(field.name, field.value)
+            var parentFormData = $form.getParentFormData()
+            $.each(parentFormData, function (key) {
+                formData.append(key, this)
             })
         }
     }

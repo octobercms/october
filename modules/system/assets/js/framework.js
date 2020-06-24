@@ -108,45 +108,8 @@ if (window.jQuery.request !== undefined) {
             $.extend(data, options.data)
         }
 
-        // Identify and merge the data from parent form elements
-        //
-        // If the current $form element was spawned by an element that exists in a different form element
-        // (usually because the current form is in a popup), then it will have a data-request-parent
-        // attribute present that identifies the element that spawned it. We then need to merge the data
-        // from that element's containing form element and in turn check to see if it was spawned by another
-        // element (i.e. nested popups) until we have completed the chain down to the original form element.
-        // The closer a form element is to the current request $el, the higher priority its data will be in
-        // merge conflicts. This is required in order to ensure that all the data that was required to render
-        // a given widget is still present in any requests made to that widget so that it will be properly
-        // instantiated on the server side and ready to respond to our requests.
-        var parentFormData = {},
-            parentForms = [$form]
-
-        var findParentForms = function ($form) {
-            // If the form element exists and has a parent element defined
-            if ($form.length && $form.data('request-parent')) {
-                // Identify the owning form of the parent element
-                var $parentEl = $($form.data('request-parent'))
-                if ($parentEl.length) {
-                    var $parentForm = $parentEl.closest('form')
-                    if ($parentForm.length) {
-                        // Add the identified parent form to the array for processing its data
-                        // and check it for a parent element & containing form of its own
-                        parentForms.push($parentForm)
-                        findParentForms($parentForm)
-                    }
-                }
-            }
-        }
-
-        // Attempt to find all the parent forms in the chain
-        findParentForms($form)
-
-        // Loop through the discovered forms in reverse order so that the forms that are closer to the
-        // current element have priority when it comes to data merge conflicts
-        parentForms.reverse().forEach(function ($formEl) {
-            $.extend(parentFormData, serializeFormToObj($formEl))
-        })
+        // Get the form data from parent forms, taking into account data-request-parent
+        var parentFormData = $form.getParentFormData()
 
         if (useFiles) {
             requestData = new FormData()
@@ -481,8 +444,6 @@ if (window.jQuery.request !== undefined) {
     var old = $.fn.request
 
     $.fn.request = function(handler, option) {
-        var args = arguments
-
         var $this = $(this).first()
         var data  = {
             evalBeforeUpdate: $this.data('request-before-update'),
@@ -518,6 +479,54 @@ if (window.jQuery.request !== undefined) {
     $.fn.request.noConflict = function() {
         $.fn.request = old
         return this
+    }
+
+    // $.fn.getParentFormData() PLUGIN DEFINITION
+    // ==============
+
+    $.fn.getParentFormData = function () {
+        // Identify and merge the data from parent form elements
+        //
+        // If the current $form element was spawned by an element that exists in a different form element
+        // (usually because the current form is in a popup), then it will have a data-request-parent
+        // attribute present that identifies the element that spawned it. We then need to merge the data
+        // from that element's containing form element and in turn check to see if it was spawned by another
+        // element (i.e. nested popups) until we have completed the chain down to the original form element.
+        // The closer a form element is to the current request $el, the higher priority its data will be in
+        // merge conflicts. This is required in order to ensure that all the data that was required to render
+        // a given widget is still present in any requests made to that widget so that it will be properly
+        // instantiated on the server side and ready to respond to our requests.
+        var $form = $(this).first(),
+            parentFormData = {},
+            parentForms = [$form]
+
+        var findParentForms = function ($form) {
+            // If the form element exists and has a parent element defined
+            if ($form.length && $form.data('request-parent')) {
+                // Identify the owning form of the parent element
+                var $parentEl = $($form.data('request-parent'))
+                if ($parentEl.length) {
+                    var $parentForm = $parentEl.closest('form')
+                    if ($parentForm.length) {
+                        // Add the identified parent form to the array for processing its data
+                        // and check it for a parent element & containing form of its own
+                        parentForms.push($parentForm)
+                        findParentForms($parentForm)
+                    }
+                }
+            }
+        }
+
+        // Attempt to find all the parent forms in the chain
+        findParentForms($form)
+
+        // Loop through the discovered forms in reverse order so that the forms that are closer to the
+        // current element have priority when it comes to data merge conflicts
+        parentForms.reverse().forEach(function ($formEl) {
+            $.extend(parentFormData, serializeFormToObj($formEl))
+        })
+
+        return parentFormData
     }
 
     // REQUEST DATA-API
