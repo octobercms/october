@@ -121,23 +121,24 @@ if (window.jQuery.request !== undefined) {
         // instantiated on the server side and ready to respond to our requests.
         var parentFormData = {},
             $parentEl = false,
-            parentForms = [$form],
-            findParentForms = function ($form) {
-                // If the form element exists and has a parent element defined
-                if ($form.length && $form.data('request-parent-element')) {
-                    // Identify the owning form of the parent element
-                    $parentEl = $($form.data('request-parent-element'))
-                    if ($parentEl.length) {
-                        var $parentForm = $parentEl.closest('form')
-                        if ($parentForm.length) {
-                            // Add the identified parent form to the array for processing it's data
-                            // and check it for a parent element & containing form of its own
-                            parentForms.push($parentForm)
-                            findParentForms($parentForm)
-                        }
+            parentForms = [$form]
+            
+        var findParentForms = function ($form) {
+            // If the form element exists and has a parent element defined
+            if ($form.length && $form.data('request-parent-element')) {
+                // Identify the owning form of the parent element
+                $parentEl = $($form.data('request-parent-element'))
+                if ($parentEl.length) {
+                    var $parentForm = $parentEl.closest('form')
+                    if ($parentForm.length) {
+                        // Add the identified parent form to the array for processing its data
+                        // and check it for a parent element & containing form of its own
+                        parentForms.push($parentForm)
+                        findParentForms($parentForm)
                     }
                 }
             }
+        }
         findParentForms($form)
         parentForms.reverse().forEach(function ($formEl) {
             $.extend(parentFormData, serializeFormToObj($formEl))
