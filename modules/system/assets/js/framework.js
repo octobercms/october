@@ -91,6 +91,8 @@ if (window.jQuery.request !== undefined) {
             inputName,
             data = {}
 
+        // Loop through every parent element with the data-request-data attribute and attach the data
+        // to the request data object with closer element data overwriting further element data
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
             $.extend(data, paramToObj('data-request-data', $(this).data('request-data')))
         })
@@ -106,9 +108,50 @@ if (window.jQuery.request !== undefined) {
             $.extend(data, options.data)
         }
 
-        if (useFiles) {
-            requestData = new FormData($form.length ? $form.get(0) : undefined)
+        // Identify and merge the data from parent form elements
+        //
+        // If the current $form element was spawned by an element that exists in a different form element
+        // (usually because the current form is in a popup), then it will have a data-request-parent-element
+        // attribute present that identifies the element that spawned it. We then need to merge the data
+        // from that element's containing form element and in turn check to see if it was spawned by another
+        // element (i.e. nested popups) until we have completed the chain down to the original form element.
+        // The closer a form element is to the current request $el, the higher priority its data will be in
+        // merge conflicts. This is required in order to ensure that all the data that was required to render
+        // a given widget is still present in any requests made to that widget so that it will be properly
+        // instantiated on the server side and ready to respond to our requests.
+        var parentFormData = {},
+            $parentEl = false,
+            parentForms = [$form],
+            findParentForms = function ($form) {
+                // If the form element exists and has a parent element defined
+                if ($form.length && $form.data('request-parent-element')) {
+                    // Identify the owning form of the parent element
+                    $parentEl = $($form.data('request-parent-element'))
+                    if ($parentEl.length) {
+                        var $parentForm = $parentEl.closest('form')
+                        if ($parentForm.length) {
+                            // Add the identified parent form to the array for processing it's data
+                            // and check it for a parent element & containing form of its own
+                            parentForms.push($parentForm)
+                            findParentForms($parentForm)
+                        }
+                    }
+                }
+            }
+        findParentForms($form)
+        parentForms.reverse().forEach(function ($formEl) {
+            $.extend(parentFormData, serializeFormToObj($formEl))
+        })
 
+        if (useFiles) {
+            requestData = new FormData()
+
+            // Initialize the FormData object with the merged parent form data
+            $.each(parentFormData, function (key) {
+                requestData.append(key, this)
+            })
+
+            // Attach file data if the request element is a file input
             if ($el.is(':file') && inputName) {
                 $.each($el.prop('files'), function() {
                     requestData.append(inputName, this)
@@ -117,7 +160,8 @@ if (window.jQuery.request !== undefined) {
                 delete data[inputName]
             }
 
-            $.each(data, function(key) {
+            // Append the data from the options array
+            $.each(data, function (key) {
                 if (typeof Blob !== "undefined" && this instanceof Blob && this.filename) {
                     requestData.append(key, this, this.filename)
                 } else {
@@ -126,7 +170,7 @@ if (window.jQuery.request !== undefined) {
             })
         }
         else {
-            requestData = [$form.serialize(), $.param(data)].filter(Boolean).join('&')
+            requestData = [$.param(parentFormData), $.param(data)].filter(Boolean).join('&')
         }
 
         /*
@@ -484,6 +528,17 @@ if (window.jQuery.request !== undefined) {
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)
         }
+    }
+
+    function serializeFormToObj($form) {
+        var arrayData = $form.serializeArray(),
+            objectData = {}
+
+        arrayData.forEach(function (field) {
+            objectData[field.name] = field.value
+        })
+
+        return objectData
     }
 
     function getXSRFToken() {
