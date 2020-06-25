@@ -112,10 +112,6 @@ class ComponentPartial extends Extendable implements CmsObjectContract
         }
 
         if ($partial === null) {
-            $partial = Partial::loadCached($theme, $component->name . '/' . $fileName);
-        }
-
-        if ($partial === null) {
             $pluginPath = 'components-shared' . str_replace(
                 plugins_path(),
                 '',
