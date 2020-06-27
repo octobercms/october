@@ -208,7 +208,7 @@ class Filter extends WidgetBase
 
         switch ($scope->type) {
             case 'group':
-                $active = $this->optionsFromAjax(post('options.active'));
+                $active = $this->optionsFromAjax(post('options'));
                 $this->setScopeValue($scope, $active);
                 break;
 
