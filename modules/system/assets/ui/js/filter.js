@@ -483,7 +483,7 @@
         var self = this,
             data = {
                 scopeName: scopeName,
-                options: this.scopeValues[scopeName]
+                options: JSON.stringify(this.scopeValues[scopeName])
             }
 
         $.oc.stripeLoadIndicator.show()
