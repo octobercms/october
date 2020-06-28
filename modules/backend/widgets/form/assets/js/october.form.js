@@ -220,7 +220,7 @@
             var tabControl = $('[data-control=tab]', self.$el),
                 tabContainer = $('.nav-tabs', tabControl)
 
-            if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
+            if (!tabControl.length || !form || !form.length || !$.contains(form.get(0), tabControl.get(0)))
                 return
 
             /*
