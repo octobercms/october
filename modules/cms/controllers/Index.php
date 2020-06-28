@@ -403,6 +403,11 @@ class Index extends Controller
         $manager = ComponentManager::instance();
         $componentObj = $manager->makeComponent($componentName);
         $partial = ComponentPartial::load($componentObj, 'default');
+
+        if (!$partial) {
+            throw new ApplicationException(Lang::get('cms::lang.component.no_default_partial'));
+        }
+
         $content = $partial->getContent();
         $content = str_replace('__SELF__', $alias, $content);
 
