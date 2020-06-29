@@ -327,7 +327,7 @@ class UpdateManager
         /*
          * Rollback plugins
          */
-        $plugins = $this->pluginManager->getPlugins();
+        $plugins = array_reverse($this->pluginManager->getPlugins());
         foreach ($plugins as $name => $plugin) {
             $this->rollbackPlugin($name);
         }
