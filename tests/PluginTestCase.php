@@ -28,7 +28,7 @@ abstract class PluginTestCase extends TestCase
         $app['cache']->setDefaultDriver('array');
         $app->setLocale('en');
 
-        $app->singleton('auth', function ($app) {
+        $app->singleton('backend.auth', function ($app) {
             $app['auth.loaded'] = true;
 
             return AuthManager::instance();
