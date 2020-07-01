@@ -95,6 +95,12 @@ class Lists extends WidgetBase
     public $treeExpanded = false;
 
     /**
+     * @var bool When true, the toggle nodes button will expand all tree nodes.
+     *           When false, the toggle nodes button will collapse all tree nodes.
+     */
+    public $toggleTreeExpanded = true;
+
+    /**
      * @var bool|string Display pagination when limiting records per page.
      */
     public $showPagination = 'auto';
@@ -266,6 +272,7 @@ class Lists extends WidgetBase
         $this->vars['showTree'] = $this->showTree;
         $this->vars['treeLevel'] = 0;
         $this->vars['treeExpanded'] = $this->treeExpanded;
+        $this->vars['toggleTreeExpanded'] = $this->toggleTreeExpanded;
 
         if ($this->showPagination) {
             $this->vars['pageCurrent'] = $this->records->currentPage();
@@ -1734,6 +1741,8 @@ class Lists extends WidgetBase
 
         $this->treeExpanded = $this->getSession('tree_expanded', $this->treeExpanded);
 
+        $this->toggleTreeExpanded = $this->getSession('tree_toggle_expanded', ! $this->treeExpanded);
+
         if (!$this->model->methodExists('getChildren')) {
             throw new ApplicationException(
                 'To display list as a tree, the specified model must have a method "getChildren"'
@@ -1765,7 +1774,41 @@ class Lists extends WidgetBase
     public function onToggleTreeNode()
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
+
+        $expandNode = ! post('status');
+
+        if (! $this->treeExpanded && $expandNode) {
+            $this->treeExpanded = false;
+            $this->putSession('tree_expanded', $this->treeExpanded);
+
+            $this->toggleTreeExpanded = false;
+            $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
+        } elseif (! $expandNode && $this->isAllNodesCollapsed()) {
+            $this->treeExpanded = false;
+            $this->putSession('tree_expanded', $this->treeExpanded);
+
+            $this->toggleTreeExpanded = true;
+            $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
+        }
+
         return $this->onRefresh();
+    }
+
+    /**
+     * Checks if all nodes are in collapsed state.
+     * @return bool
+     */
+    public function isAllNodesCollapsed()
+    {
+        $nodes = $this->getRecords();
+
+        foreach ($nodes as $node) {
+            if ($this->isTreeNodeExpanded($node)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -1778,8 +1821,11 @@ class Lists extends WidgetBase
         $this->resetAllTreeNodes();
 
         // Invert the current tree state.
-        $this->treeExpanded = ! $this->treeExpanded;
-        $this->putSession('tree_expanded', $this->treeExpanded);
+        $this->treeExpanded = $this->toggleTreeExpanded;
+        $this->putSession('tree_expanded', $this->toggleTreeExpanded);
+
+        $this->toggleTreeExpanded = ! $this->toggleTreeExpanded;
+        $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
 
         return $this->onRefresh();
     }

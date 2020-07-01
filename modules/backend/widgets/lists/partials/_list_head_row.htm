@@ -14,10 +14,10 @@
            class="list-expand-collapse"
            data-request="<?= $this->getEventHandler('onToggleTreeExpanded'); ?>"
            data-stripe-load-indicator>
-                <?php if ($treeExpanded): ?>
-                <i class="icon-minus-square-o"></i>
-                <?php else: ?>
+                <?php if ($toggleTreeExpanded): ?>
                 <i class="icon-plus-square-o"></i>
+                <?php else: ?>
+                <i class="icon-minus-square-o"></i>
                 <?php endif ?>
         </a>
     </th>
