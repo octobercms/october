@@ -1740,12 +1740,26 @@ class Lists extends WidgetBase
         $expandNode = ! post('status');
 
         if (! $this->treeExpanded && $expandNode) {
+            /*
+             * When the tree is collapsed and the user expands a node,
+             * make sure the tree expanded preference is set to false
+             * and the toggle button is set to collapse all nodes.
+             * The toggle nodes button should always default to collapsing nodes,
+             * unless all nodes are already collapsed.
+             */
+
             $this->treeExpanded = false;
             $this->putSession('tree_expanded', $this->treeExpanded);
 
             $this->toggleTreeExpanded = false;
             $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
         } elseif (! $expandNode && $this->isAllNodesCollapsed()) {
+            /*
+             * If the user is collapsing a node and all nodes are now collapsed,
+             * make sure the tree expanded preference is set,
+             * and change the toggle button to expand all nodes.
+             */
+
             $this->treeExpanded = false;
             $this->putSession('tree_expanded', $this->treeExpanded);
 
