@@ -134,7 +134,7 @@ class Index extends Controller
 
         $this->bodyClass = 'compact-container';
         $this->pageTitle = 'cms::lang.cms.menu_label';
-        $this->pageTitleTemplate = '%s '.trans($this->pageTitle);
+        $this->pageTitleTemplate = '%s '.Lang::get($this->pageTitle);
 
         if (Request::ajax() && Request::input('formWidgetAlias')) {
             $this->bindFormWidgetToController();
@@ -380,7 +380,7 @@ class Index extends Controller
     public function onExpandMarkupToken()
     {
         if (!$alias = post('tokenName')) {
-            throw new ApplicationException(trans('cms::lang.component.no_records'));
+            throw new ApplicationException(Lang::get('cms::lang.component.no_records'));
         }
 
         // Can only expand components at this stage
@@ -389,20 +389,25 @@ class Index extends Controller
         }
 
         if (!($names = (array) post('component_names')) || !($aliases = (array) post('component_aliases'))) {
-            throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+            throw new ApplicationException(Lang::get('cms::lang.component.not_found', ['name' => $alias]));
         }
 
         if (($index = array_get(array_flip($aliases), $alias, false)) === false) {
-            throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+            throw new ApplicationException(Lang::get('cms::lang.component.not_found', ['name' => $alias]));
         }
 
         if (!$componentName = array_get($names, $index)) {
-            throw new ApplicationException(trans('cms::lang.component.not_found', ['name' => $alias]));
+            throw new ApplicationException(Lang::get('cms::lang.component.not_found', ['name' => $alias]));
         }
 
         $manager = ComponentManager::instance();
         $componentObj = $manager->makeComponent($componentName);
         $partial = ComponentPartial::load($componentObj, 'default');
+
+        if (!$partial) {
+            throw new ApplicationException(Lang::get('cms::lang.component.no_default_partial'));
+        }
+
         $content = $partial->getContent();
         $content = str_replace('__SELF__', $alias, $content);
 
@@ -551,7 +556,7 @@ class Index extends Controller
     protected function validateRequestTheme()
     {
         if ($this->theme->getDirName() != Request::input('theme')) {
-            throw new ApplicationException(trans('cms::lang.theme.edit.not_match'));
+            throw new ApplicationException(Lang::get('cms::lang.theme.edit.not_match'));
         }
     }
 
@@ -571,7 +576,7 @@ class Index extends Controller
         ];
 
         if (!array_key_exists($type, $types)) {
-            throw new ApplicationException(trans('cms::lang.template.invalid_type'));
+            throw new ApplicationException(Lang::get('cms::lang.template.invalid_type'));
         }
 
         return $types[$type];
@@ -588,7 +593,7 @@ class Index extends Controller
         $class = $this->resolveTypeClassName($type);
 
         if (!($template = call_user_func([$class, 'load'], $this->theme, $path))) {
-            throw new ApplicationException(trans('cms::lang.template.not_found'));
+            throw new ApplicationException(Lang::get('cms::lang.template.not_found'));
         }
 
         /**
@@ -623,7 +628,7 @@ class Index extends Controller
         $class = $this->resolveTypeClassName($type);
 
         if (!($template = $class::inTheme($this->theme))) {
-            throw new ApplicationException(trans('cms::lang.template.not_found'));
+            throw new ApplicationException(Lang::get('cms::lang.template.not_found'));
         }
 
         return $template;
@@ -640,7 +645,7 @@ class Index extends Controller
         if ($type === 'page') {
             $result = $template->title ?: $template->getFileName();
             if (!$result) {
-                $result = trans('cms::lang.page.new');
+                $result = Lang::get('cms::lang.page.new');
             }
 
             return $result;
@@ -649,7 +654,7 @@ class Index extends Controller
         if ($type === 'partial' || $type === 'layout' || $type === 'content' || $type === 'asset') {
             $result = in_array($type, ['asset', 'content']) ? $template->getFileName() : $template->getBaseFileName();
             if (!$result) {
-                $result = trans('cms::lang.'.$type.'.new');
+                $result = Lang::get('cms::lang.'.$type.'.new');
             }
 
             return $result;
@@ -676,7 +681,7 @@ class Index extends Controller
         ];
 
         if (!array_key_exists($type, $formConfigs)) {
-            throw new ApplicationException(trans('cms::lang.template.not_found'));
+            throw new ApplicationException(Lang::get('cms::lang.template.not_found'));
         }
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
@@ -703,12 +708,12 @@ class Index extends Controller
 
         if ($componentProperties !== null) {
             if ($componentNames === null || $componentAliases === null) {
-                throw new ApplicationException(trans('cms::lang.component.invalid_request'));
+                throw new ApplicationException(Lang::get('cms::lang.component.invalid_request'));
             }
 
             $count = count($componentProperties);
             if (count($componentNames) != $count || count($componentAliases) != $count) {
-                throw new ApplicationException(trans('cms::lang.component.invalid_request'));
+                throw new ApplicationException(Lang::get('cms::lang.component.invalid_request'));
             }
 
             for ($index = 0; $index < $count; $index++) {
