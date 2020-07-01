@@ -45,7 +45,7 @@ Add the `select-no-search` CSS class to disable searching.
 
 ### Dynamic option creation
 
-In addition to a prepopulated menu of options, Select2 can dynamically create new options from text input by the user in the search box. This feature is called "tagging". To enable tagging, set the `tags` option to `true`:
+In addition to a pre-populated menu of options, Select widgets may dynamically create new options from textual input by the user in the search box. This feature is called "tagging". To enable tagging, set the `tags` option to `true`:
 
     <select
         class="form-control custom-select"
