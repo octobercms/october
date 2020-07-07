@@ -82,6 +82,11 @@ class FileUpload extends FormWidgetBase
      */
     public $attachOnUpload = false;
 
+    /**
+     * @var boolean Automatically deletes the uploaded file on detach. Defaults to false.
+     */
+    public $deleteOnDetach = false;
+
     //
     // Object properties
     //
@@ -113,6 +118,7 @@ class FileUpload extends FormWidgetBase
             'thumbOptions',
             'useCaption',
             'attachOnUpload',
+            'deleteOnDetach'
         ]);
 
         if ($this->formField->disabled) {
@@ -337,6 +343,9 @@ class FileUpload extends FormWidgetBase
         $fileModel = $this->getRelationModel();
         if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $this->getRelationObject()->remove($file, $this->sessionKey);
+            if ($this->deleteOnDetach) {
+                $file->remove();
+            }
         }
     }
 
