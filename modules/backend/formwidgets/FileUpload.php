@@ -344,7 +344,7 @@ class FileUpload extends FormWidgetBase
         if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $this->getRelationObject()->remove($file, $this->sessionKey);
             if ($this->deleteOnDetach) {
-                $file->remove();
+                $file->delete();
             }
         }
     }
