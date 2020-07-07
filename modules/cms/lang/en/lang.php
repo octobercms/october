@@ -249,6 +249,7 @@ return [
         'invalid_request' => 'The template cannot be saved because of invalid component data.',
         'no_records' => 'No components found',
         'not_found' => "The component ':name' is not found.",
+        'no_default_partial' => "This component does not have a 'default' partial",
         'method_not_found' => "The component ':name' does not contain a method ':method'.",
         'soft_component' => 'Soft Component',
         'soft_component_description' => 'This component is missing but optional.',
