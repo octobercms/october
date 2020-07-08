@@ -22,6 +22,11 @@ class Sensitive extends FormWidgetBase
     public $disabled = false;
 
     /**
+     * @var bool If true, a button will be available to copy the value.
+     */
+    public $allowCopy = false;
+
+    /**
      * @var string The string that will be used as a placeholder for an unrevealed sensitive value.
      */
     public $hiddenPlaceholder = '__hidden__';
@@ -44,6 +49,7 @@ class Sensitive extends FormWidgetBase
         $this->fillFromConfig([
             'readOnly',
             'disabled',
+            'allowCopy',
             'hiddenPlaceholder',
             'hideOnTabChange',
         ]);
@@ -71,6 +77,7 @@ class Sensitive extends FormWidgetBase
         $this->vars['readOnly'] = $this->readOnly;
         $this->vars['disabled'] = $this->disabled;
         $this->vars['hasValue'] = !empty($this->getLoadValue());
+        $this->vars['allowCopy'] = $this->allowCopy;
         $this->vars['hiddenPlaceholder'] = $this->hiddenPlaceholder;
         $this->vars['hideOnTabChange'] = $this->hideOnTabChange;
     }
@@ -80,7 +87,7 @@ class Sensitive extends FormWidgetBase
      *
      * @return array
      */
-    public function onReveal()
+    public function onShowValue()
     {
         return [
             'value' => $this->getLoadValue()

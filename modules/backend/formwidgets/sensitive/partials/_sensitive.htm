@@ -1,7 +1,7 @@
 <div
     data-control="sensitive"
     data-clean="true"
-    data-event-handler="<?= $this->getEventHandler('onReveal') ?>"
+    data-event-handler="<?= $this->getEventHandler('onShowValue') ?>"
     <?php if ($hideOnTabChange): ?>data-hide-on-tab-change="true"<?php endif ?>
 >
     <div class="loading-indicator-container size-form-field">
@@ -17,6 +17,15 @@
                 autocomplete="off"
                 data-input
             />
+            <?php if ($allowCopy): ?>
+            <a
+                href="javascript:;"
+                class="input-group-addon btn btn-secondary"
+                data-copy
+            >
+                <i class="icon-copy"></i>
+            </a>
+            <?php endif ?>
             <a
                 href="javascript:;"
                 class="input-group-addon btn btn-secondary"

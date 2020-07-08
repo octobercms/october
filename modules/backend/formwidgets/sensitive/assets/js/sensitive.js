@@ -21,6 +21,7 @@
         this.$toggle = this.$el.find('[data-toggle]').first()
         this.$icon = this.$el.find('[data-icon]').first()
         this.$loader = this.$el.find('[data-loader]').first()
+        this.$copy = this.$el.find('[data-copy]').first()
 
         $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
@@ -45,11 +46,23 @@
             // Watch for tab change or minimise
             document.addEventListener('visibilitychange', this.proxy(this.onTabChange))
         }
+
+        if (this.$copy.length) {
+            this.$copy.on('click', this.proxy(this.onCopy))
+        }
     }
 
     Sensitive.prototype.dispose = function () {
-        this.$input.on('keydown', this.proxy(this.onInput))
+        this.$input.off('keydown', this.proxy(this.onInput))
         this.$toggle.off('click', this.proxy(this.onToggle))
+
+        if (this.options.hideOnTabChange) {
+            document.removeEventListener('visibilitychange', this.proxy(this.onTabChange))
+        }
+
+        if (this.$copy.length) {
+            this.$copy.off('click', this.proxy(this.onCopy))
+        }
 
         this.$input = this.$toggle = this.$icon = this.$loader = null
         this.$el = null
@@ -82,6 +95,37 @@
         }
     }
 
+    Sensitive.prototype.onCopy = function() {
+        var that = this,
+            deferred = $.Deferred(),
+            isHidden = this.hidden
+
+        deferred.then(function () {
+            if (that.hidden) {
+                that.toggleVisibility()
+            }
+
+            that.$input.focus()
+            that.$input.select()
+
+            try {
+                document.execCommand('copy')
+            } catch (err) {
+            }
+
+            that.$input.blur()
+            if (isHidden) {
+                that.toggleVisibility()
+            }
+        })
+
+        if (this.$input.val() !== '' && this.clean) {
+            this.reveal(deferred)
+        } else {
+            deferred.resolve()
+        }
+    }
+
     Sensitive.prototype.toggleVisibility = function() {
         if (this.hidden) {
             this.$input.attr('type', 'text')
@@ -94,7 +138,7 @@
         this.hidden = !this.hidden
     }
 
-    Sensitive.prototype.reveal = function() {
+    Sensitive.prototype.reveal = function(deferred) {
         var that = this
         this.$icon.css({
             visibility: 'hidden'
@@ -112,6 +156,10 @@
                 that.$loader.addClass('hide')
 
                 that.toggleVisibility()
+
+                if (deferred) {
+                    deferred.resolve()
+                }
             }
         })
     }
