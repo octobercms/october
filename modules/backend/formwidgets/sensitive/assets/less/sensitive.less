@@ -1,0 +1,13 @@
+@import "../../../../assets/less/core/boot.less";
+
+div[data-control="sensitive"] {
+    a[data-toggle] {
+        box-shadow: none;
+
+        &:hover,
+        &:focus {
+            border: 1px solid @input-group-addon-border-color;
+            border-left: 0;
+        }
+    }
+}

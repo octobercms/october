@@ -1,0 +1,3 @@
+div[data-control="sensitive"] a[data-toggle] {box-shadow:none}
+div[data-control="sensitive"] a[data-toggle]:hover,
+div[data-control="sensitive"] a[data-toggle]:focus {border:1px solid #d1d6d9;border-left:0}
