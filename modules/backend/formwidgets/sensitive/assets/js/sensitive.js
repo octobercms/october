@@ -86,9 +86,6 @@
         this.$loader.removeClass('hide')
 
         this.$input.request(this.$input.data('eventHandler'), {
-            data: {
-                fieldId: this.$input.attr('id'),
-            },
             success: function (data) {
                 that.$input.val(data.value)
                 that.clean = false
