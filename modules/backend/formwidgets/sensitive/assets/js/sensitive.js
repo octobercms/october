@@ -7,7 +7,6 @@
  * JavaScript API:
  * $('div#someElement').sensitive({...})
  */
-
 +function ($) { "use strict";
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
