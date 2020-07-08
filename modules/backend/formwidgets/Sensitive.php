@@ -1,6 +1,5 @@
 <?php namespace Backend\FormWidgets;
 
-use Input;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -23,14 +22,19 @@ class Sensitive extends FormWidgetBase
     public $disabled = false;
 
     /**
+     * @var string The string that will be used as a placeholder for an unrevealed sensitive value.
+     */
+    public $hiddenPlaceholder = '__hidden__';
+
+    /**
+     * @var bool If true, the sensitive input will be hidden if the user changes to another tab in their browser.
+     */
+    public $hideOnTabChange = true;
+
+    /**
      * @inheritDoc
      */
     protected $defaultAlias = 'sensitive';
-
-    /**
-     * @var string The string that will be used as a placeholder for an unrevealed sensitive value.
-     */
-    protected $hiddenPlaceholder = '__hidden__';
 
     /**
      * @inheritDoc
@@ -41,6 +45,7 @@ class Sensitive extends FormWidgetBase
             'readOnly',
             'disabled',
             'hiddenPlaceholder',
+            'hideOnTabChange',
         ]);
 
         if ($this->formField->disabled || $this->formField->readOnly) {
@@ -67,6 +72,7 @@ class Sensitive extends FormWidgetBase
         $this->vars['disabled'] = $this->disabled;
         $this->vars['hasValue'] = !empty($this->getLoadValue());
         $this->vars['hiddenPlaceholder'] = $this->hiddenPlaceholder;
+        $this->vars['hideOnTabChange'] = $this->hideOnTabChange;
     }
 
     /**

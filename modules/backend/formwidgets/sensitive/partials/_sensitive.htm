@@ -1,6 +1,8 @@
 <div
     data-control="sensitive"
     data-clean="true"
+    data-event-handler="<?= $this->getEventHandler('onReveal') ?>"
+    <?php if ($hideOnTabChange): ?>data-hide-on-tab-change="true"<?php endif ?>
 >
     <div class="loading-indicator-container size-form-field">
         <div class="input-group">
@@ -14,7 +16,6 @@
                 <?php if ($this->previewMode): ?>disabled="disabled"<?php endif ?>
                 autocomplete="off"
                 data-input
-                data-event-handler="<?= $this->getEventHandler('onReveal') ?>"
             />
             <a
                 href="javascript:;"

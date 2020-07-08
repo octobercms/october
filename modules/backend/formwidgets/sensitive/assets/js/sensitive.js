@@ -12,31 +12,40 @@
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
 
-    var Sensitive = function(element) {
+    var Sensitive = function(element, options) {
         this.$el = $(element)
+        this.options = options
+        this.clean = Boolean(this.$el.data('clean'))
+        this.hidden = true
 
+        this.$input = this.$el.find('[data-input]').first()
+        this.$toggle = this.$el.find('[data-toggle]').first()
+        this.$icon = this.$el.find('[data-icon]').first()
+        this.$loader = this.$el.find('[data-loader]').first()
+
+        $.oc.foundation.controlUtils.markDisposable(element)
         Base.call(this)
         this.init()
     }
 
     Sensitive.DEFAULTS = {
         readOnly: false,
-        disabled: false
+        disabled: false,
+        eventHandler: null,
+        hideOnTabChange: false,
     }
 
     Sensitive.prototype = Object.create(BaseProto)
     Sensitive.prototype.constructor = Sensitive
 
     Sensitive.prototype.init = function() {
-        this.$input = this.$el.find('[data-input]').first()
-        this.$toggle = this.$el.find('[data-toggle]').first()
-        this.$icon = this.$el.find('[data-icon]').first()
-        this.$loader = this.$el.find('[data-loader]').first()
-
-        this.clean = Boolean(this.$el.data('clean'))
-
         this.$input.on('keydown', this.proxy(this.onInput))
         this.$toggle.on('click', this.proxy(this.onToggle))
+
+        if (this.options.hideOnTabChange) {
+            // Watch for tab change or minimise
+            document.addEventListener('visibilitychange', this.proxy(this.onTabChange))
+        }
     }
 
     Sensitive.prototype.dispose = function () {
@@ -68,14 +77,22 @@
         return true
     }
 
+    Sensitive.prototype.onTabChange = function() {
+        if (document.hidden && !this.hidden) {
+            this.toggleVisibility()
+        }
+    }
+
     Sensitive.prototype.toggleVisibility = function() {
-        if (this.$input.attr('type') === 'password') {
+        if (this.hidden) {
             this.$input.attr('type', 'text')
         } else {
             this.$input.attr('type', 'password')
         }
 
         this.$icon.toggleClass('icon-eye icon-eye-slash')
+
+        this.hidden = !this.hidden
     }
 
     Sensitive.prototype.reveal = function() {
@@ -85,7 +102,7 @@
         })
         this.$loader.removeClass('hide')
 
-        this.$input.request(this.$input.data('eventHandler'), {
+        this.$input.request(this.options.eventHandler, {
             success: function (data) {
                 that.$input.val(data.value)
                 that.clean = false
