@@ -128,21 +128,23 @@ class CodeParser
         $body = $this->object->code;
         $body = preg_replace('/^\s*function/m', 'public function', $body);
 
-        $codeNamespaces = [];
+        $namespaces = [];
         $pattern = '/(use\s+[a-z0-9_\\\\]+(\s+as\s+[a-z0-9_]+)?;\n?)/mi';
         preg_match_all($pattern, $body, $namespaces);
         $body = preg_replace($pattern, '', $body);
 
         $parentClass = $this->object->getCodeClassParent();
         if ($parentClass !== null) {
-            $parentClass = ' extends '.$parentClass;
+            $parentClass = ' extends \\'.$parentClass;
         }
 
-        $fileContents = '<?php '.PHP_EOL;
+        $fileContents = "<?php namespace $className;" . PHP_EOL;
 
         foreach ($namespaces[0] as $namespace) {
             $fileContents .= $namespace;
         }
+
+        $fileContents .= PHP_EOL;
 
         $fileContents .= 'class '.$className.$parentClass.PHP_EOL;
         $fileContents .= '{'.PHP_EOL;
@@ -168,14 +170,14 @@ class CodeParser
     public function source($page, $layout, $controller)
     {
         $data = $this->parse();
-        $className = $data['className'];
+        $className = $data['className'] . '\\' . $data['className'];
 
         if (!class_exists($className)) {
             require_once $data['filePath'];
         }
 
         if (!class_exists($className) && ($data = $this->handleCorruptCache($data))) {
-            $className = $data['className'];
+            $className = $data['className'] . '\\' . $data['className'];
         }
 
         return new $className($page, $layout, $controller);
@@ -192,7 +194,7 @@ class CodeParser
         $path = array_get($data, 'filePath', $this->getCacheFilePath());
 
         if (is_file($path)) {
-            if (($className = $this->extractClassFromFile($path)) && class_exists($className)) {
+            if (($className = $this->extractClassFromFile($path)) && class_exists($className . '\\' . $className)) {
                 $data['className'] = $className;
                 return $data;
             }
