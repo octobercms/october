@@ -128,7 +128,7 @@ class CodeParser
         $body = $this->object->code;
         $body = preg_replace('/^\s*function/m', 'public function', $body);
 
-        $codeNamespaces = [];
+        $namespaces = [];
         $pattern = '/(use\s+[a-z0-9_\\\\]+(\s+as\s+[a-z0-9_]+)?;\n?)/mi';
         preg_match_all($pattern, $body, $namespaces);
         $body = preg_replace($pattern, '', $body);
@@ -141,7 +141,9 @@ class CodeParser
         $fileContents = '<?php '.PHP_EOL;
 
         foreach ($namespaces[0] as $namespace) {
-            $fileContents .= $namespace;
+            if (str_contains($namespace, '\\')) {
+                $fileContents .= $namespace;
+            }
         }
 
         $fileContents .= 'class '.$className.$parentClass.PHP_EOL;
