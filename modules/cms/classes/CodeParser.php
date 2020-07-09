@@ -135,16 +135,16 @@ class CodeParser
 
         $parentClass = $this->object->getCodeClassParent();
         if ($parentClass !== null) {
-            $parentClass = ' extends \\'.$parentClass;
+            $parentClass = ' extends '.$parentClass;
         }
 
-        $fileContents = "<?php namespace $className;" . PHP_EOL;
+        $fileContents = '<?php '.PHP_EOL;
 
         foreach ($namespaces[0] as $namespace) {
-            $fileContents .= $namespace;
+            if (str_contains($namespace, '\\')) {
+                $fileContents .= $namespace;
+            }
         }
-
-        $fileContents .= PHP_EOL;
 
         $fileContents .= 'class '.$className.$parentClass.PHP_EOL;
         $fileContents .= '{'.PHP_EOL;
@@ -170,14 +170,14 @@ class CodeParser
     public function source($page, $layout, $controller)
     {
         $data = $this->parse();
-        $className = $data['className'] . '\\' . $data['className'];
+        $className = $data['className'];
 
         if (!class_exists($className)) {
             require_once $data['filePath'];
         }
 
         if (!class_exists($className) && ($data = $this->handleCorruptCache($data))) {
-            $className = $data['className'] . '\\' . $data['className'];
+            $className = $data['className'];
         }
 
         return new $className($page, $layout, $controller);
@@ -194,7 +194,7 @@ class CodeParser
         $path = array_get($data, 'filePath', $this->getCacheFilePath());
 
         if (is_file($path)) {
-            if (($className = $this->extractClassFromFile($path)) && class_exists($className . '\\' . $className)) {
+            if (($className = $this->extractClassFromFile($path)) && class_exists($className)) {
                 $data['className'] = $className;
                 return $data;
             }
