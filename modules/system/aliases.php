@@ -60,4 +60,10 @@ return [
     'SystemException'      => October\Rain\Exception\SystemException::class,
     'ApplicationException' => October\Rain\Exception\ApplicationException::class,
     'ValidationException'  => October\Rain\Exception\ValidationException::class,
+
+    /*
+     * Fallback aliases
+     */
+    // Input facade was removed in Laravel 6 - we are keeping it in the Rain library for backwards compatibility.
+    'Illuminate\Support\Facades\Input' => October\Rain\Support\Facades\Input::class,
 ];
