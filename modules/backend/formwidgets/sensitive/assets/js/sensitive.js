@@ -16,6 +16,7 @@
         this.options = options
         this.clean = Boolean(this.$el.data('clean'))
         this.hidden = true
+        this.triggerElement = null
 
         this.$input = this.$el.find('[data-input]').first()
         this.$toggle = this.$el.find('[data-toggle]').first()
@@ -50,6 +51,9 @@
         if (this.$copy.length) {
             this.$copy.on('click', this.proxy(this.onCopy))
         }
+
+        $(window).on('ajaxSetup', this.proxy(this.onAjaxSetup))
+        $(window).on('oc.beforeRequest', this.proxy(this.onBeforeRequest))
     }
 
     Sensitive.prototype.dispose = function () {
@@ -63,6 +67,9 @@
         if (this.$copy.length) {
             this.$copy.off('click', this.proxy(this.onCopy))
         }
+
+        $(window).off('ajaxSetup', this.proxy(this.onAjaxSetup))
+        $(window).off('oc.beforeRequest', this.proxy(this.onBeforeRequest))
 
         this.$input = this.$toggle = this.$icon = this.$loader = null
         this.$el = null
@@ -124,6 +131,54 @@
         } else {
             deferred.resolve()
         }
+    }
+
+    Sensitive.prototype.onAjaxSetup = function (event, context) {
+        // Don't track AJAX request if it is for revealing the value
+        if (context.handler === this.options.eventHandler) {
+            return
+        }
+        // Don't track AJAX requests if this field has been revealed
+        if (!this.clean) {
+            return
+        }
+        // Only track trigger elements if the AJAX request is for an element in the same form as this input
+        if (!this.$el.closest('form').is($(event.target).closest('form'))) {
+            return
+        }
+
+        this.triggerElement = event.target
+    }
+
+    Sensitive.prototype.onBeforeRequest = function (event, context) {
+        var that = this,
+            deferred = $.Deferred()
+
+        // Don't track AJAX request if it is for revealing the value
+        if (context.handler === this.options.eventHandler) {
+            return
+        }
+        // Don't track AJAX requests if this field has been revealed
+        if (!this.clean) {
+            return
+        }
+        // Only defer AJAX requests for elements in the same form as this input
+        if (!this.triggerElement || !this.$el.closest('form').is($(this.triggerElement).closest('form'))) {
+            return
+        }
+
+        // Prevent the initial AJAX request and re-call it after revealing the value
+        event.preventDefault()
+
+        deferred.then(function () {
+            if (!that.hidden) {
+                that.toggleVisibility()
+            }
+
+            $(that.triggerElement).request()
+        })
+
+        this.reveal(deferred)
     }
 
     Sensitive.prototype.toggleVisibility = function() {
