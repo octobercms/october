@@ -1,9 +1,9 @@
 <?php namespace System\Controllers;
 
-use Config;
-use Request;
 use Lang;
 use Flash;
+use Config;
+use Request;
 use Backend;
 use BackendMenu;
 use System\Classes\SettingsManager;
@@ -200,7 +200,7 @@ class Settings extends Controller
     protected function findSettingItem($author = null, $plugin = null, $code = null)
     {
         if (is_null($author) || is_null($plugin)) {
-            [$author, $plugin, $code] = $this->autoGuessSettingItem();
+            [$author, $plugin, $code] = $this->guessSettingItem();
         }
 
         $manager = SettingsManager::instance();
@@ -223,7 +223,7 @@ class Settings extends Controller
      *
      * @return array
      */
-    protected function autoGuessSettingItem()
+    protected function guessSettingItem()
     {
         $segments = Request::segments();
 
