@@ -219,7 +219,7 @@ class Settings extends Controller
     }
 
     /**
-     * Auto-guesses the requested setting item by URL segments from the Request object.
+     * Guesses the requested setting item by URL segments from the Request object.
      *
      * @return array
      */
