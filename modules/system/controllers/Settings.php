@@ -1,5 +1,7 @@
 <?php namespace System\Controllers;
 
+use Config;
+use Request;
 use Lang;
 use Flash;
 use Backend;
@@ -140,6 +142,22 @@ class Settings extends Controller
     }
 
     /**
+     * Returns the form widget used by this behavior.
+     *
+     * @return \Backend\Widgets\Form
+     */
+    public function formGetWidget()
+    {
+        if (is_null($this->formWidget)) {
+            $item = $this->findSettingItem();
+            $model = $this->createModel($item);
+            $this->initWidgets($model);
+        }
+
+        return $this->formWidget;
+    }
+
+    /**
      * Prepare the widgets used by this action
      * Model $model
      */
@@ -169,10 +187,22 @@ class Settings extends Controller
     }
 
     /**
-     * Locates a setting item for a module or plugin
+     * Locates a setting item for a module or plugin.
+     *
+     * If none of the parameters are provided, they will be auto-guessed from the URL.
+     *
+     * @param string|null $author
+     * @param string|null $plugin
+     * @param string|null $code
+     *
+     * @return array
      */
-    protected function findSettingItem($author, $plugin, $code)
+    protected function findSettingItem($author = null, $plugin = null, $code = null)
     {
+        if (is_null($author) || is_null($plugin)) {
+            [$author, $plugin, $code] = $this->autoGuessSettingItem();
+        }
+
         $manager = SettingsManager::instance();
 
         $moduleOwner = $author;
@@ -186,5 +216,24 @@ class Settings extends Controller
         }
 
         return $item;
+    }
+
+    /**
+     * Auto-guesses the requested setting item by URL segments from the Request object.
+     *
+     * @return array
+     */
+    protected function autoGuessSettingItem()
+    {
+        $segments = Request::segments();
+
+        if (!empty(Config::get('cms.backendUri', 'backend'))) {
+            array_splice($segments, 0, 4);
+        } else {
+            array_splice($segments, 0, 3);
+        }
+
+        // Ensure there's at least 3 segments
+        return array_pad($segments, 3, null);
     }
 }
