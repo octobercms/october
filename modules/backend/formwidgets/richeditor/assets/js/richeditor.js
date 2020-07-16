@@ -50,6 +50,7 @@
         imageStyles: null,
         linkStyles: null,
         paragraphStyles: null,
+        paragraphFormat: null,
         tableStyles: null,
         tableCellStyles: null,
         aceVendorPath: '/',
@@ -113,6 +114,17 @@
                 'oc-text-bordered': 'Bordered',
                 'oc-text-spaced': 'Spaced',
                 'oc-text-uppercase': 'Uppercase'
+            }
+
+        froalaOptions.paragraphFormat = this.options.paragraphFormat
+            ? this.options.paragraphFormat
+            : {
+              'N': 'Normal',
+              'H1': 'Heading 1',
+              'H2': 'Heading 2',
+              'H3': 'Heading 3',
+              'H4': 'Heading 4',
+              'PRE': 'Code'
             }
 
         froalaOptions.tableStyles = this.options.tableStyles
