@@ -316,7 +316,7 @@
             isLoaded = true,
             container = false
 
-        if (typeof this.scopeAvailable[scopeName] !== "undefined") {
+        if (typeof this.scopeAvailable[scopeName] !== "undefined" && this.scopeAvailable[scopeName]) {
             data = $.extend({}, data, {
                 available: this.scopeAvailable[scopeName],
                 active: this.scopeValues[scopeName]
@@ -551,6 +551,7 @@
 
         if (isReset) {
             this.scopeValues[scopeName] = null
+            this.scopeAvailable[scopeName] = null
             this.updateScopeSetting(this.$activeScope, 0)
         }
 

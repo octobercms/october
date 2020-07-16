@@ -3161,7 +3161,7 @@ this.updateScopeSetting(this.$activeScope,isDeselect?filtered.length:active.leng
 this.isActiveScopeDirty=true
 this.focusSearch()}
 FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=null,isLoaded=true,container=false
-if(typeof this.scopeAvailable[scopeName]!=="undefined"){data=$.extend({},data,{available:this.scopeAvailable[scopeName],active:this.scopeValues[scopeName]})}
+if(typeof this.scopeAvailable[scopeName]!=="undefined"&&this.scopeAvailable[scopeName]){data=$.extend({},data,{available:this.scopeAvailable[scopeName],active:this.scopeValues[scopeName]})}
 var modalParent=$scope.parents('.modal-dialog')
 if(modalParent.length>0){container=modalParent[0]}
 if(!data){data={loading:true}
@@ -3225,6 +3225,7 @@ this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.
 $scope.toggleClass('active',!!switchValue)}
 FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
 if(isReset){this.scopeValues[scopeName]=null
+this.scopeAvailable[scopeName]=null
 this.updateScopeSetting(this.$activeScope,0)}
 this.pushOptions(scopeName);this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
