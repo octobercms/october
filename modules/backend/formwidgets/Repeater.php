@@ -442,7 +442,19 @@ class Repeater extends FormWidgetBase
             return null;
         }
 
-        $fields = array_get($this->groupDefinitions, $code.'.fields');
+        // Bring the config in to use all attributes in repeater
+        $group = $this->getConfig('groups', []);
+        if (is_string($group)) {
+            $group = $this->makeConfig($group);
+        }
+
+        if ($group && isset($group->{$code}['type']) && $group->{$code}['type'] === 'repeater') {
+            $fields = [
+                $code => $group->{$code}
+            ];
+        } else {
+            $fields = array_get($this->groupDefinitions, $code.'.fields');
+        }
 
         if (!$fields) {
             return null;
