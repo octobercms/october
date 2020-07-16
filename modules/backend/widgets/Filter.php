@@ -208,7 +208,8 @@ class Filter extends WidgetBase
 
         switch ($scope->type) {
             case 'group':
-                $active = $this->optionsFromAjax(post('options.active'));
+                $data = json_decode(post('options'), true);
+                $active = $this->optionsFromAjax($data ?: null);
                 $this->setScopeValue($scope, $active);
                 break;
 
@@ -223,7 +224,8 @@ class Filter extends WidgetBase
                 break;
 
             case 'date':
-                $dates = $this->datesFromAjax(post('options.dates'));
+                $data = json_decode(post('options'), true);
+                $dates = $this->datesFromAjax($data['dates'] ?? null);
 
                 if (!empty($dates)) {
                     list($date) = $dates;
@@ -236,7 +238,8 @@ class Filter extends WidgetBase
                 break;
 
             case 'daterange':
-                $dates = $this->datesFromAjax(post('options.dates'));
+                $data = json_decode(post('options'), true);
+                $dates = $this->datesFromAjax($data['dates'] ?? null);
 
                 if (!empty($dates)) {
                     list($after, $before) = $dates;
@@ -251,7 +254,8 @@ class Filter extends WidgetBase
                 break;
 
             case 'number':
-                $numbers = $this->numbersFromAjax(post('options.numbers'));
+                $data = json_decode(post('options'), true);
+                $numbers = $this->numbersFromAjax($data['numbers'] ?? null);
 
                 if (!empty($numbers)) {
                     list($number) = $numbers;
@@ -264,7 +268,8 @@ class Filter extends WidgetBase
                 break;
 
             case 'numberrange':
-                $numbers = $this->numbersFromAjax(post('options.numbers'));
+                $data = json_decode(post('options'), true);
+                $numbers = $this->numbersFromAjax($data['numbers'] ?? null);
 
                 if (!empty($numbers)) {
                     list($min, $max) = $numbers;
@@ -622,6 +627,7 @@ class Filter extends WidgetBase
                         'maxDate'   => '2099-12-31',
                         'firstDay'  => 0,
                         'yearRange' => 10,
+                        'ignoreTimezone' => false,
                     ];
 
                     break;

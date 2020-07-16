@@ -175,6 +175,8 @@ class NavigationManager
      *      - counter - an optional numeric value to output near the menu icon. The value should be
      *        a number or a callable returning a number.
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
+     *      - badge - an optional string value to output near the menu icon. The value should be
+     *        a string. This value will override the counter if set.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      * @throws SystemException
@@ -349,6 +351,10 @@ class NavigationManager
         }
 
         foreach ($this->items as $item) {
+            if ($item->badge) {
+                $item->counter = (string) $item->badge;
+                continue;
+            }
             if ($item->counter === false) {
                 continue;
             }
@@ -360,11 +366,14 @@ class NavigationManager
             } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
+                    if ($sideItem->badge) {
+                        continue;
+                    }
                     $item->counter += $sideItem->counter;
                 }
             }
 
-            if (empty($item->counter)) {
+            if (empty($item->counter) || !is_numeric($item->counter)) {
                 $item->counter = null;
             }
         }
@@ -402,11 +411,18 @@ class NavigationManager
         $items = $activeItem->sideMenu;
 
         foreach ($items as $item) {
+            if ($item->badge) {
+                $item->counter = (string) $item->badge;
+                continue;
+            }
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
                 if (empty($item->counter)) {
                     $item->counter = null;
                 }
+            }
+            if (!is_null($item->counter) && !is_numeric($item->counter)) {
+                throw new SystemException("The menu item {$activeItem->code}.{$item->code}'s counter property is invalid. Check to make sure it's numeric or callable. Value: " . var_export($item->counter, true));
             }
         }
 

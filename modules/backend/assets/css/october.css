@@ -659,19 +659,20 @@ ul.mainmenu-nav li {}
 ul.mainmenu-nav li .svg-icon {-webkit-backface-visibility:hidden;backface-visibility:hidden}
 ul.mainmenu-nav li span.counter {display:block;position:absolute;top:.143em;right:0;padding:.143em .429em .214em .286em;background-color:#d9350f;color:#fff;font-size:.786em;line-height:100%;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;opacity:1;filter:alpha(opacity=100);-webkit-transform:scale(1,);-ms-transform:scale(1,);transform:scale(1,);-webkit-transition:all 0.3s;transition:all 0.3s}
 ul.mainmenu-nav li span.counter.empty {opacity:0;filter:alpha(opacity=0);-webkit-transform:scale(0,);-ms-transform:scale(0,);transform:scale(0,)}
-nav#layout-mainmenu {background-color:#000;padding:0 0 0 20px;line-height:0;white-space:nowrap;vertical-align:top}
+nav#layout-mainmenu {background-color:#000;padding:0 0 0 20px;line-height:0;white-space:nowrap;display:flex}
 nav#layout-mainmenu a {text-decoration:none}
 nav#layout-mainmenu a:focus {background:transparent}
 nav#layout-mainmenu ul {margin:0;padding:0;list-style:none;float:left;white-space:nowrap;overflow:hidden}
 nav#layout-mainmenu ul li {color:rgba(255,255,255,0.6);display:inline-block;vertical-align:top;position:relative;margin-right:30px}
-nav#layout-mainmenu ul li a {display:inline-block;font-size:14px;color:inherit;outline:none;padding:14px 0 10px}
+nav#layout-mainmenu ul li a {display:inline-block;font-size:14px;color:inherit;padding:14px 0 10px}
 nav#layout-mainmenu ul li a:hover {background-color:transparent}
 nav#layout-mainmenu ul li a:active,
 nav#layout-mainmenu ul li a:focus {text-decoration:none;color:rgba(255,255,255,0.6)}
 nav#layout-mainmenu ul li a i {line-height:1;font-size:30px;vertical-align:middle}
 nav#layout-mainmenu ul li a img.svg-icon {height:30px;width:30px;margin-right:10px;position:relative;top:0}
 nav#layout-mainmenu ul.nav {display:inline-block}
-nav#layout-mainmenu .toolbar-item {padding-right:0}
+nav#layout-mainmenu .toolbar-item {flex:1 1 auto;display:block;padding-right:0;overflow:hidden}
+nav#layout-mainmenu .toolbar-item-account {flex:0 0 auto}
 nav#layout-mainmenu .toolbar-item:before,
 nav#layout-mainmenu .toolbar-item:after {margin-top:0}
 nav#layout-mainmenu .toolbar-item:before {left:-12px}
@@ -770,7 +771,7 @@ nav#layout-mainmenu.navbar-mode-collapse .menu-toggle {display:inline-block;colo
 .mainmenu-collapsed >div ul.mainmenu-nav li:first-child {margin-left:0}
 .mainmenu-collapsed >div ul {margin:0;padding:5px 0 15px 15px;overflow:hidden}
 .mainmenu-collapsed >div ul li {color:rgba(255,255,255,0.6);display:inline-block;vertical-align:top;position:relative;margin-right:30px}
-.mainmenu-collapsed >div ul li a {display:inline-block;font-size:14px;color:inherit;outline:none}
+.mainmenu-collapsed >div ul li a {display:inline-block;font-size:14px;color:inherit}
 .mainmenu-collapsed >div ul li a:hover {background-color:transparent}
 .mainmenu-collapsed >div ul li a:active,
 .mainmenu-collapsed >div ul li a:focus {text-decoration:none;color:rgba(255,255,255,0.6)}
@@ -856,6 +857,7 @@ body.outer .layout >.layout-row >.layout-cell .outer-form-container .horizontal-
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .horizontal-form input {vertical-align:top;margin-right:9px;display:inline-block;border:none;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px}
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .horizontal-form button {background:#0181b9;text-align:center;font-size:13px;font-weight:600;height:40px;vertical-align:top;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .remember label {color:rgba(255,255,255,0.44)}
+body.outer .layout >.layout-row >.layout-cell .outer-form-container .remember input#remember {display:none}
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .forgot-password {margin-top:30px;font-size:13px;top:8px}
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .forgot-password a {color:rgba(255,255,255,0.44)}
 body.outer .layout >.layout-row >.layout-cell .outer-form-container .forgot-password:before {color:rgba(255,255,255,0.44);font-size:14px;position:relative;margin-right:5px}

@@ -2,6 +2,7 @@
 
 use Cache;
 use Exception;
+use ApplicationException;
 use October\Rain\Halcyon\Model;
 use October\Rain\Halcyon\Processors\Processor;
 use October\Rain\Halcyon\Datasource\Datasource;
@@ -35,6 +36,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      * @var string The key for the datasource to perform CRUD operations on
      */
     public $activeDatasourceKey = '';
+
+    /**
+     * @var bool Flag to indicate that we're in "single datasource mode"
+     */
+    protected $singleDatasourceMode = false;
 
     /**
      * Create a new datasource instance.
@@ -132,6 +138,34 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     }
 
     /**
+     * Forces all operations in a provided closure to run within a selected datasource.
+     *
+     * @param string $source
+     * @param \Closure $closure
+     * @return mixed
+     */
+    public function usingSource(string $source, \Closure $closure)
+    {
+        if (!array_key_exists($source, $this->datasources)) {
+            throw new ApplicationException('Invalid datasource specified.');
+        }
+
+        // Setup the datasource for single source mode
+        $previousSource = $this->activeDatasourceKey;
+        $this->activeDatasourceKey = $source;
+        $this->singleDatasourceMode = true;
+
+        // Execute the callback
+        $return = $closure->call($this);
+
+        // Restore the datasource to auto mode
+        $this->singleDatasourceMode = false;
+        $this->activeDatasourceKey = $previousSource;
+
+        return $return;
+    }
+
+    /**
      * Push the provided model to the specified datasource
      *
      * @param Model $model The Halcyon Model to push
@@ -140,23 +174,19 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function pushToSource(Model $model, string $source)
     {
-        // Set the active datasource to the provided source and retrieve it
-        $originalActiveKey = $this->activeDatasourceKey;
-        $this->activeDatasourceKey = $source;
-        $datasource = $this->getActiveDatasource();
+        $this->usingSource($source, function () use ($model) {
+            $datasource = $this->getActiveDatasource();
 
-        // Get the path parts
-        $dirName = $model->getObjectTypeDirName();
-        list($fileName, $extension) = $model->getFileNameParts();
+            // Get the path parts
+            $dirName = $model->getObjectTypeDirName();
+            list($fileName, $extension) = $model->getFileNameParts();
 
-        // Get the file content
-        $content = $datasource->getPostProcessor()->processUpdate($model->newQuery(), []);
+            // Get the file content
+            $content = $datasource->getPostProcessor()->processUpdate($model->newQuery(), []);
 
-        // Perform an update on the selected datasource (will insert if it doesn't exist)
-        $this->update($dirName, $fileName, $extension, $content);
-
-        // Restore the original active datasource
-        $this->activeDatasourceKey = $originalActiveKey;
+            // Perform an update on the selected datasource (will insert if it doesn't exist)
+            $this->update($dirName, $fileName, $extension, $content);
+        });
     }
 
     /**
@@ -168,20 +198,16 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     public function removeFromSource(Model $model, string $source)
     {
-        // Set the active datasource to the provided source and retrieve it
-        $originalActiveKey = $this->activeDatasourceKey;
-        $this->activeDatasourceKey = $source;
-        $datasource = $this->getActiveDatasource();
+        $this->usingSource($source, function () use ($model) {
+            $datasource = $this->getActiveDatasource();
 
-        // Get the path parts
-        $dirName = $model->getObjectTypeDirName();
-        list($fileName, $extension) = $model->getFileNameParts();
+            // Get the path parts
+            $dirName = $model->getObjectTypeDirName();
+            list($fileName, $extension) = $model->getFileNameParts();
 
-        // Perform a forced delete on the selected datasource to ensure it's removed
-        $this->forceDelete($dirName, $fileName, $extension);
-
-        // Restore the original active datasource
-        $this->activeDatasourceKey = $originalActiveKey;
+            // Perform a forced delete on the selected datasource to ensure it's removed
+            $this->forceDelete($dirName, $fileName, $extension);
+        });
     }
 
     /**
@@ -192,6 +218,11 @@ class AutoDatasource extends Datasource implements DatasourceInterface
      */
     protected function getDatasourceForPath(string $path)
     {
+        // Always return the active datasource when singleDatasourceMode is enabled
+        if ($this->singleDatasourceMode) {
+            return $this->getActiveDatasource();
+        }
+
         // Default to the last datasource provided
         $datasourceIndex = count($this->datasources) - 1;
 
@@ -238,7 +269,12 @@ class AutoDatasource extends Datasource implements DatasourceInterface
         $pathsCache = array_reverse($this->pathCache);
 
         // Get paths available in the provided dirName, allowing proper prioritization of earlier datasources
-        foreach ($pathsCache as $sourcePaths) {
+        foreach ($pathsCache as $datasourceKey => $sourcePaths) {
+            // Only look at the active datasource if singleDatasourceMode is enabled
+            if ($this->singleDatasourceMode && $datasourceKey !== $this->activeDatasourceKey) {
+                continue;
+            }
+
             $paths = array_merge($paths, array_filter($sourcePaths, function ($path) use ($dirName, $options) {
                 $basePath = $dirName . '/';
 
@@ -297,7 +333,24 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function selectOne(string $dirName, string $fileName, string $extension)
     {
         try {
-            $result = $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->selectOne($dirName, $fileName, $extension);
+            $path = $this->makeFilePath($dirName, $fileName, $extension);
+            $result = $this->getDatasourceForPath($path)->selectOne($dirName, $fileName, $extension);
+
+            // if result = null, this means that
+            // - a: The requested record doesn't exist
+            // - b: The requested record exists, but is marked deleted
+            // - c: The requested record is reported to exist in a datasource that it doesn't actually exist in
+            if (is_null($result)) {
+                foreach ($this->pathCache as $paths) {
+                    // If the path is reported to exist here (and isn't marked deleted) even though the previous attempt
+                    // returned nothing, then the paths cache needs to be rebuilt and we should try again
+                    if (@$paths[$path]) {
+                        $this->populateCache(true);
+                        $result = $this->getDatasourceForPath($path)->selectOne($dirName, $fileName, $extension);
+                        break;
+                    }
+                }
+            }
         } catch (Exception $ex) {
             $result = null;
         }

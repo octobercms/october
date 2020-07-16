@@ -1,0 +1,11 @@
+url = "/with-soft-component-class-alias"
+layout = "content"
+
+[@testArchive someAlias]
+posts-per-page = "69"
+==
+<p>This page uses components.</p>
+{% for post in someAlias.posts %}
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+{% endfor %}

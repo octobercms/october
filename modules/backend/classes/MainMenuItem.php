@@ -45,6 +45,11 @@ class MainMenuItem
     public $counterLabel;
 
     /**
+     * @var null|string
+     */
+     public $badge;
+
+    /**
      * @var string
      */
     public $url;
@@ -118,6 +123,7 @@ class MainMenuItem
         $instance->iconSvg = $data['iconSvg'] ?? null;
         $instance->counter = $data['counter'] ?? null;
         $instance->counterLabel = $data['counterLabel'] ?? null;
+        $instance->badge = $data['badge'] ?? null;
         $instance->permissions = $data['permissions'] ?? $instance->permissions;
         $instance->order = $data['order'] ?? $instance->order;
         return $instance;

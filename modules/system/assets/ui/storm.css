@@ -1,4 +1,3 @@
-:focus {outline:none;-webkit-box-shadow:inset 0 1px 2px rgba(27,31,35,.075),0 0 0 .2em rgba(3,102,214,.3);box-shadow:inset 0 1px 2px rgba(27,31,35,.075),0 0 0 .2em rgba(3,102,214,.3)}
 html {font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body {margin:0}
 article,
@@ -90,7 +89,7 @@ textarea {background-image:none}
 a {color:#0181b9;text-decoration:none}
 a:hover,
 a:focus {color:#001721;text-decoration:underline}
-a:focus {outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+a:focus {outline:thin dotted;outline-offset:0;outline:4px auto Highlight;outline:4px auto -webkit-focus-ring-color}
 img {vertical-align:middle}
 .img-responsive {display:block;max-width:100%;height:auto}
 .img-rounded {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
@@ -467,7 +466,7 @@ address {margin-bottom:20px;font-style:normal;line-height:1.42857143}
 .btn {display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:8px 19.5px;font-size:14px;line-height:1.42857143;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .btn:focus,
 .btn:active:focus,
-.btn.active:focus {outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+.btn.active:focus {outline:thin dotted;outline-offset:0;outline:4px auto Highlight;outline:4px auto -webkit-focus-ring-color}
 .btn:hover,
 .btn:focus {color:#fff;text-decoration:none}
 .btn:active,
@@ -3690,7 +3689,7 @@ select[multiple],
 select[size] {height:auto}
 input[type="file"]:focus,
 input[type="radio"]:focus,
-input[type="checkbox"]:focus {outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+input[type="checkbox"]:focus {outline:thin dotted;outline-offset:0;outline:4px auto Highlight;outline:4px auto -webkit-focus-ring-color}
 output {display:block;padding-top:9px;font-size:14px;line-height:1.42857143;color:#385487}
 .form-control {display:block;width:100%;height:38px;padding:8px 13px 9px;font-size:14px;line-height:1.42857143;color:#385487;background-color:#fff;background-image:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-transition:border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s;transition:border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s}
 .form-control:focus {border-color:#d1d6d9;outline:0}
@@ -4650,7 +4649,7 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .inspector-fields td.text input[type=text]::-moz-placeholder {font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text input[type=text]:-ms-input-placeholder {font-weight:normal !important;color:#b5babd}
 .inspector-fields td.text.active {background:#fff}
-.inspector-fields td.autocomplete {padding:0}
+.inspector-fields td.autocomplete {padding:0;overflow:visible;position:relative}
 .inspector-fields td.autocomplete .autocomplete-container input[type=text] {padding:5px 12px}
 .inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu {background:white;font-size:12px;z-index:10000}
 .inspector-fields td.autocomplete .autocomplete-container ul.dropdown-menu li a {padding:5px 12px;white-space:normal;word-wrap:break-word}

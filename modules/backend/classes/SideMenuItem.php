@@ -48,6 +48,11 @@ class SideMenuItem
     public $counterLabel;
 
     /**
+     * @var null|string
+     */
+     public $badge;
+
+    /**
      * @var int
      */
     public $order = -1;
@@ -110,6 +115,7 @@ class SideMenuItem
         $instance->counter = $data['counter'] ?? null;
         $instance->counterLabel = $data['counterLabel'] ?? null;
         $instance->attributes = $data['attributes'] ?? $instance->attributes;
+        $instance->badge = $data['badge'] ?? null;
         $instance->permissions = $data['permissions'] ?? $instance->permissions;
         $instance->order = $data['order'] ?? $instance->order;
         return $instance;

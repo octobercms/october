@@ -1,15 +1,15 @@
 <?php namespace Backend\FormWidgets;
 
 use App;
-use Config;
 use File;
-use Event;
 use Lang;
+use Event;
+use Config;
 use Request;
 use Backend;
 use BackendAuth;
-use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
+use Backend\Classes\FormWidgetBase;
 
 /**
  * Rich Editor
@@ -20,6 +20,8 @@ use Backend\Models\EditorSetting;
  */
 class RichEditor extends FormWidgetBase
 {
+    use \Backend\Traits\UploadableWidget;
+
     //
     // Configurable properties
     //
@@ -38,6 +40,11 @@ class RichEditor extends FormWidgetBase
      * @var boolean If true, the editor is set to read-only mode
      */
     public $readOnly = false;
+
+    /**
+     * @var string|null Path in the Media Library where uploaded files should be stored. If null it will be pulled from Request::input('path');
+     */
+    public $uploadPath = '/uploaded-files';
 
     //
     // Object properties

@@ -207,25 +207,24 @@ class ThemeSync extends Command
      * @param string $path
      * @param string $model
      * @param \Cms\Classes\Theme $theme
-     * @return \October\Rain\Halycon\Model
+     * @return \October\Rain\Halcyon\Model
      */
     protected function getModelForPath($path, $modelClass, $theme)
     {
-        $originalSource = $this->datasource->activeDatasourceKey;
-        $this->datasource->activeDatasourceKey = $this->source;
+        return $this->datasource->usingSource($this->source, function () use ($path, $modelClass, $theme) {
+            $modelObj = new $modelClass;
 
-        $modelObj = new $modelClass;
+            $entity = $modelClass::load(
+                $theme,
+                str_replace($modelObj->getObjectTypeDirName() . '/', '', $path)
+            );
 
-        $entity = $modelClass::load(
-            $theme,
-            str_replace($modelObj->getObjectTypeDirName() . '/', '', $path)
-        );
+            if (!isset($entity)) {
+                return null;
+            }
 
-        if (!isset($entity)) {
-            return null;
-        }
-
-        $this->datasource->activeDatasourceKey = $originalSource;
+            return $entity;
+        });
 
         return $entity;
     }

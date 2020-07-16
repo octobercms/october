@@ -71,6 +71,10 @@ secondaryTabs:
             label: ''
             context: [update]
             type: partial
+        btn_unsuspend:
+            label: ''
+            context: [update]
+            type: partial
         avatar:
             label: backend::lang.user.avatar
             type: fileupload

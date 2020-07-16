@@ -368,7 +368,7 @@ return [
         'line_breaker_tags' => 'แท็กสำหรับขึ้นบรรทัดใหม่',
         'line_breaker_tags_comment' => 'รายการของแท็กที่ให้ตัวขึ้นบรรทัดใหม่วางคั่นได้',
         'toolbar_buttons' => 'ปุ่มในแถบเครื่องมือ',
-        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ',
     ],
     'tooltips' => [
         'preview_website' => 'ดูตัวอย่างเว็บไซต์',

@@ -258,7 +258,7 @@ class FormController extends ControllerBehavior
 
         Flash::success($this->getLang("{$this->context}[flashSave]", 'backend::lang.form.create_success'));
 
-        if ($redirect = $this->makeRedirect('create', $model)) {
+        if ($redirect = $this->makeRedirect($this->context, $model)) {
             return $redirect;
         }
     }
@@ -326,7 +326,7 @@ class FormController extends ControllerBehavior
 
         Flash::success($this->getLang("{$this->context}[flashSave]", 'backend::lang.form.update_success'));
 
-        if ($redirect = $this->makeRedirect('update', $model)) {
+        if ($redirect = $this->makeRedirect($this->context, $model)) {
             return $redirect;
         }
     }

@@ -122,9 +122,11 @@
         /*
          * When a master is updated, refresh its slaves
          */
-        $.each(fieldMap, function(fieldName, toRefresh){
-            fieldElements.filter('[data-field-name="'+fieldName+'"]')
-                .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
+        $.each(fieldMap, function(fieldName, toRefresh) {
+            $(document).on('change.oc.formwidget',
+                '[data-field-name="' + fieldName + '"]',
+                $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
+            );
         })
     }
 
@@ -218,7 +220,7 @@
             var tabControl = $('[data-control=tab]', self.$el),
                 tabContainer = $('.nav-tabs', tabControl)
 
-            if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
+            if (!tabControl.length || !form || !form.length || !$.contains(form.get(0), tabControl.get(0)))
                 return
 
             /*

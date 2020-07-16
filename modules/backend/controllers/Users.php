@@ -4,6 +4,7 @@ use Lang;
 use Flash;
 use Backend;
 use Redirect;
+use Response;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserGroup;
@@ -146,6 +147,20 @@ class Users extends Controller
         Flash::success(Lang::get('backend::lang.account.impersonate_success'));
 
         return Backend::redirect('backend/users/myaccount');
+    }
+
+    /**
+     * Unsuspend this user
+     */
+    public function update_onUnsuspendUser($recordId)
+    {
+        $model = $this->formFindModelObject($recordId);
+
+        $model->unsuspend();
+
+        Flash::success(Lang::get('backend::lang.account.unsuspend_success'));
+
+        return Redirect::refresh();
     }
 
     /**

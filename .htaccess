@@ -16,7 +16,7 @@
     ## Uncomment following lines to force HTTPS.
     ##
     # RewriteCond %{HTTPS} off
-    # RewriteRule (.*) https://%{SERVER_NAME}/$1 [R,L]
+    # RewriteRule (.*) https://%{SERVER_NAME}/$1 [L,R=301]
 
     ##
     ## Black listed folders

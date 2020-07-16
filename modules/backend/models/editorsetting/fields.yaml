@@ -111,4 +111,11 @@ tabs:
             comment: backend::lang.editor.toolbar_buttons_comment
             tab: backend::lang.editor.toolbar_buttons
             type: textarea
-            span: auto
+            span: left
+
+        _html_toolbar_buttons_presets:
+            label: backend::lang.editor.toolbar_buttons_preset
+            tab: backend::lang.editor.toolbar_buttons
+            type: partial
+            path: ~/modules/backend/models/editorsetting/_toolbar_presets.htm
+            span: left

@@ -376,7 +376,7 @@ return [
         'remove_tags' => 'Видаляємі теги',
         'remove_tags_comment' => 'Теги які видаляються разом з їх вмістом.',
         'toolbar_buttons' => 'Кнопки панелі інструментів',
-        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor.'
     ],
     'tooltips' => [
         'preview_website' => 'Перегляд веб-сайту'

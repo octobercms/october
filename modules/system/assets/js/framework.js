@@ -30,12 +30,23 @@ if (window.jQuery.request !== undefined) {
         }
 
         /*
-         * Prepare the options and execute the request
+         * Prepare the options
          */
         var $form = options.form ? $(options.form) : $el.closest('form'),
             $triggerEl = !!$form.length ? $form : $el,
             context = { handler: handler, options: options }
 
+        /*
+         * Validate the form client-side
+         */
+        if ((options.browserValidate !== undefined) && typeof document.createElement('input').reportValidity == 'function' && $form && $form[0] && !$form[0].checkValidity()) {
+            $form[0].reportValidity();
+            return false;
+        }
+
+        /*
+         * Execute the request
+         */
         $el.trigger('ajaxSetup', [context])
         var _event = jQuery.Event('oc.beforeRequest')
         $triggerEl.trigger(_event, context)
@@ -107,7 +118,11 @@ if (window.jQuery.request !== undefined) {
             }
 
             $.each(data, function(key) {
-                requestData.append(key, this)
+                if (typeof Blob !== "undefined" && this instanceof Blob && this.filename) {
+                    requestData.append(key, this, this.filename)
+                } else {
+                    requestData.append(key, this)
+                }
             })
         }
         else {
@@ -431,6 +446,7 @@ if (window.jQuery.request !== undefined) {
             loading: $this.data('request-loading'),
             flash: $this.data('request-flash'),
             files: $this.data('request-files'),
+            browserValidate: $this.data('browser-validate'),
             form: $this.data('request-form'),
             url: $this.data('request-url'),
             update: paramToObj('data-request-update', $this.data('request-update')),
@@ -888,6 +904,74 @@ if (window.jQuery.request !== undefined) {
     window.ocJSON = function(json) {
         var jsonString = parse(json);
         return JSON.parse(jsonString);
+    };
+
+}(window);
+
+/*
+ * October CMS jQuery HTML Sanitizer
+ * @see https://gist.github.com/ufologist/5a0da51b2b9ef1b861c30254172ac3c9
+ */
++function(window) { "use strict";
+
+    function trimAttributes(node) {
+        $.each(node.attributes, function() {
+            var attrName = this.name;
+            var attrValue = this.value;
+
+            /*
+             * remove attributes where the names start with "on" (for example: onload, onerror...)
+             * remove attributes where the value starts with the "javascript:" pseudo protocol (for example href="javascript:alert(1)")
+             */
+            if (attrName.indexOf('on') == 0 || attrValue.indexOf('javascript:') == 0) {
+                $(node).removeAttr(attrName);
+            }
+        });
+    }
+
+    function sanitize(html) {
+        /*
+         * [jQuery.parseHTML(data [, context ] [, keepScripts ])](http://api.jquery.com/jQuery.parseHTML/) added: 1.8
+         * Parses a string into an array of DOM nodes.
+         *
+         * By default, the context is the current document if not specified or given as null or undefined. If the HTML was to be used
+         * in another document such as an iframe, that frame's document could be used.
+         *
+         * As of 3.0 the default behavior is changed.
+         *
+         * If the context is not specified or given as null or undefined, a new document is used.
+         * This can potentially improve security because inline events will not execute when the HTML is parsed. Once the parsed HTML
+         * is injected into a document it does execute, but this gives tools a chance to traverse the created DOM and remove anything
+         * deemed unsafe. This improvement does not apply to internal uses of jQuery.parseHTML as they usually pass in the current
+         * document. Therefore, a statement like $( "#log" ).append( $( htmlString ) ) is still subject to the injection of malicious code.
+         *
+         * without context do not execute script
+         * $.parseHTML('<div><img src=1 onerror=alert(1)></div>');
+         * $.parseHTML('<div><img src=1 onerror=alert(2)></div>', null);
+         *
+         * with context document execute script!
+         * $.parseHTML('<div><img src=1 onerror=alert(3)></div>', document);
+         *
+         * Most jQuery APIs that accept HTML strings will run scripts that are included in the HTML. jQuery.parseHTML does not run scripts
+         * in the parsed HTML unless keepScripts is explicitly true. However, it is still possible in most environments to execute scripts
+         * indirectly, for example via the <img onerror> attribute.
+         *
+         * will return []
+         * $.parseHTML('<script>alert(1)<\/script>', null, false);
+         *
+         * will return [script DOM element]
+         * $.parseHTML('<script>alert(1)<\/script>', null, true);
+         */
+        var output = $($.parseHTML('<div>' + html + '</div>', null, false));
+        output.find('*').each(function() {
+            trimAttributes(this);
+        });
+        return output.html();
+    }
+
+    // Global function
+    window.ocSanitize = function(html) {
+        return sanitize(html)
     };
 
 }(window);

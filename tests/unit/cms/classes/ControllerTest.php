@@ -381,6 +381,67 @@ ESC;
         $response = $controller->run('/no-component-class')->getContent();
     }
 
+    public function testSoftComponentClassNotFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/no-soft-component-class')->getContent();
+
+        $this->assertEquals('<p>Hey</p>', $response);
+    }
+
+    public function testSoftComponentClassFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-soft-component-class')->getContent();
+        $page = $this->readAttribute($controller, 'page');
+        $this->assertArrayHasKey('testArchive', $page->components);
+
+        $component = $page->components['testArchive'];
+        $details = $component->componentDetails();
+
+        $content = <<<ESC
+<div>LAYOUT CONTENT<p>This page uses components.</p>
+    <h3>Lorum ipsum</h3>
+    <p>Post Content #1</p>
+    <h3>La Playa Nudista</h3>
+    <p>Second Post Content</p>
+</div>
+ESC;
+
+        $this->assertEquals($content, $response);
+        $this->assertEquals(69, $component->property('posts-per-page'));
+        $this->assertEquals('Blog Archive Dummy Component', $details['name']);
+        $this->assertEquals('Displays an archive of blog posts.', $details['description']);
+    }
+
+    public function testSoftComponentWithAliasClassFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-soft-component-class-alias')->getContent();
+        $page = $this->readAttribute($controller, 'page');
+        $this->assertArrayHasKey('someAlias', $page->components);
+
+        $component = $page->components['someAlias'];
+        $details = $component->componentDetails();
+
+        $content = <<<ESC
+<div>LAYOUT CONTENT<p>This page uses components.</p>
+    <h3>Lorum ipsum</h3>
+    <p>Post Content #1</p>
+    <h3>La Playa Nudista</h3>
+    <p>Second Post Content</p>
+</div>
+ESC;
+
+        $this->assertEquals($content, $response);
+        $this->assertEquals(69, $component->property('posts-per-page'));
+        $this->assertEquals('Blog Archive Dummy Component', $details['name']);
+        $this->assertEquals('Displays an archive of blog posts.', $details['description']);
+    }
+
     public function testComponentNotFound()
     {
         //

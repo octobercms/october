@@ -4,6 +4,7 @@ if(window.jQuery.request!==undefined){throw new Error('The OctoberCMS framework 
 +function($){"use strict";var Request=function(element,handler,options){var $el=this.$el=$(element);this.options=options||{};if(handler===undefined){throw new Error('The request handler name is not specified.')}
 if(!handler.match(/^(?:\w+\:{2})?on*/)){throw new Error('Invalid handler name. The correct handler name format is: "onEvent".')}
 var $form=options.form?$(options.form):$el.closest('form'),$triggerEl=!!$form.length?$form:$el,context={handler:handler,options:options}
+if((options.browserValidate!==undefined)&&typeof document.createElement('input').reportValidity=='function'&&$form&&$form[0]&&!$form[0].checkValidity()){$form[0].reportValidity();return false;}
 $el.trigger('ajaxSetup',[context])
 var _event=jQuery.Event('oc.beforeRequest')
 $triggerEl.trigger(_event,context)
@@ -24,7 +25,7 @@ if(options.data!==undefined&&!$.isEmptyObject(options.data)){$.extend(data,optio
 if(useFiles){requestData=new FormData($form.length?$form.get(0):undefined)
 if($el.is(':file')&&inputName){$.each($el.prop('files'),function(){requestData.append(inputName,this)})
 delete data[inputName]}
-$.each(data,function(key){requestData.append(key,this)})}
+$.each(data,function(key){if(typeof Blob!=="undefined"&&this instanceof Blob&&this.filename){requestData.append(key,this,this.filename)}else{requestData.append(key,this)}})}
 else{requestData=[$form.serialize(),$.param(data)].filter(Boolean).join('&')}
 var requestOptions={url:url,crossDomain:false,global:options.ajaxGlobal,context:context,headers:requestHeaders,success:function(data,textStatus,jqXHR){if(this.options.beforeUpdate.apply(this,[data,textStatus,jqXHR])===false)return
 if(options.evalBeforeUpdate&&eval('(function($el, context, data, textStatus, jqXHR) {'+options.evalBeforeUpdate+'}.call($el.get(0), $el, context, data, textStatus, jqXHR))')===false)return
@@ -102,7 +103,7 @@ return result.join('&')}
 var old=$.fn.request
 $.fn.request=function(handler,option){var args=arguments
 var $this=$(this).first()
-var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
+var data={evalBeforeUpdate:$this.data('request-before-update'),evalSuccess:$this.data('request-success'),evalError:$this.data('request-error'),evalComplete:$this.data('request-complete'),ajaxGlobal:$this.data('request-ajax-global'),confirm:$this.data('request-confirm'),redirect:$this.data('request-redirect'),loading:$this.data('request-loading'),flash:$this.data('request-flash'),files:$this.data('request-files'),browserValidate:$this.data('browser-validate'),form:$this.data('request-form'),url:$this.data('request-url'),update:paramToObj('data-request-update',$this.data('request-update')),data:paramToObj('data-request-data',$this.data('request-data'))}
 if(!handler)handler=$this.data('request')
 var options=$.extend(true,{},Request.DEFAULTS,data,typeof option=='object'&&option)
 return new Request($this,handler,options)}
@@ -184,4 +185,6 @@ if(str[0]==="["){var result="[";var type="needBody";for(var i=1;i<str.length;i++
 if(str[i]==="]"&&i===str.length-1){if(result[result.length-1]===",")result=result.substr(0,result.length-1);result+="]";return result;}
 var body=getBody(str,i);i=i+body.originLength-1;result+=parse(body.body);type="afterBody";}else if(type==="afterBody"){if(str[i]===","){result+=",";type="needBody";while(str[i+1]===","||isBlankChar(str[i+1])){if(str[i+1]===",")result+="null,";i++;}}else if(str[i]==="]"&&i===str.length-1){result+="]";return result;}}}
 throw new Error("Broken JSON array near "+result);}}
-window.ocJSON=function(json){var jsonString=parse(json);return JSON.parse(jsonString);};}(window);
+window.ocJSON=function(json){var jsonString=parse(json);return JSON.parse(jsonString);};}(window);+function(window){"use strict";function trimAttributes(node){$.each(node.attributes,function(){var attrName=this.name;var attrValue=this.value;if(attrName.indexOf('on')==0||attrValue.indexOf('javascript:')==0){$(node).removeAttr(attrName);}});}
+function sanitize(html){var output=$($.parseHTML('<div>'+html+'</div>',null,false));output.find('*').each(function(){trimAttributes(this);});return output.html();}
+window.ocSanitize=function(html){return sanitize(html)};}(window);

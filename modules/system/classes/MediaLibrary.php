@@ -537,9 +537,13 @@ class MediaLibrary
     {
         $path = $this->validatePath($path);
 
-        $fullPath = $this->storagePath.implode("/", array_map("rawurlencode", explode("/", $path)));
+        $fullPath = $this->storagePath . implode("/", array_map("rawurlencode", explode("/", $path)));
 
-        return Url::to($fullPath);
+        if (Config::get('cms.linkPolicy') === 'force') {
+            return Url::to($fullPath);
+        } else {
+            return $fullPath;
+        }
     }
 
     /**
@@ -591,14 +595,14 @@ class MediaLibrary
     }
 
     /**
-     * Initializes a library item from a path and item type.
-     * @param string $path Specifies the item path relative to the storage disk root.
+     * Initializes a library item from file metadata and item type.
+     * @param array $item Specifies the file metadata as returned by the storage adapter.
      * @param string $itemType Specifies the item type.
      * @return mixed Returns the MediaLibraryItem object or NULL if the item is not visible.
      */
-    protected function initLibraryItem($path, $itemType)
+    protected function initLibraryItem($item, $itemType)
     {
-        $relativePath = $this->getMediaRelativePath($path);
+        $relativePath = $this->getMediaRelativePath($item['path']);
 
         if (!$this->isVisible($relativePath)) {
             return;
@@ -608,9 +612,11 @@ class MediaLibrary
          * S3 doesn't allow getting the last modified timestamp for folders,
          * so this feature is disabled - folders timestamp is always NULL.
          */
-        $lastModified = $itemType == MediaLibraryItem::TYPE_FILE
-            ? $this->getStorageDisk()->lastModified($path)
-            : null;
+        if ($itemType === MediaLibraryItem::TYPE_FILE) {
+            $lastModified = $item['timestamp'] ?? $this->getStorageDisk()->lastModified($item['path']);
+        } else {
+            $lastModified = null;
+        }
 
         /*
          * The folder size (number of items) doesn't respect filters. That
@@ -618,9 +624,11 @@ class MediaLibrary
          * zero items for a folder that contains files not visible with a
          * currently applied filter. -ab
          */
-        $size = $itemType == MediaLibraryItem::TYPE_FILE
-            ? $this->getStorageDisk()->size($path)
-            : $this->getFolderItemCount($path);
+        if ($itemType === MediaLibraryItem::TYPE_FILE) {
+            $size = $item['size'] ?? $this->getStorageDisk()->size($item['path']);
+        } else {
+            $size = $this->getFolderItemCount($item['path']);
+        }
 
         $publicUrl = $this->getPathUrl($relativePath);
 
@@ -661,17 +669,20 @@ class MediaLibrary
             'folders' => []
         ];
 
-        $files = $this->getStorageDisk()->files($fullFolderPath);
-        foreach ($files as $file) {
-            if ($libraryItem = $this->initLibraryItem($file, MediaLibraryItem::TYPE_FILE)) {
-                $result['files'][] = $libraryItem;
-            }
-        }
+        $contents = $this->getStorageDisk()->listContents($fullFolderPath);
 
-        $folders = $this->getStorageDisk()->directories($fullFolderPath);
-        foreach ($folders as $folder) {
-            if ($libraryItem = $this->initLibraryItem($folder, MediaLibraryItem::TYPE_FOLDER)) {
-                $result['folders'][] = $libraryItem;
+        foreach ($contents as $content) {
+            if ($content['type'] === 'file') {
+                $type = MediaLibraryItem::TYPE_FILE;
+                $key = 'files';
+            } elseif ($content['type'] === 'dir') {
+                $type = MediaLibraryItem::TYPE_FOLDER;
+                $key = 'folders';
+            }
+
+            $libraryItem = $this->initLibraryItem($content, $type);
+            if (!is_null($libraryItem)) {
+                $result[$key][] = $libraryItem;
             }
         }
 
