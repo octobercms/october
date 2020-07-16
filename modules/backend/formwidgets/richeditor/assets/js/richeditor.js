@@ -116,8 +116,8 @@
               'oc-text-uppercase': 'Uppercase'
             }
 
-        froalaOptions.paragraphFormat = this.options.paragraphFormat
-            ? this.options.paragraphFormat
+        froalaOptions.paragraphFormat = this.options.paragraphFormats
+            ? this.options.paragraphFormats
             : {
               'N': 'Normal',
               'H1': 'Heading 1',
