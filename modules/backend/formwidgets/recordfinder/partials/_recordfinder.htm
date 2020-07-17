@@ -35,6 +35,7 @@
         <?php endif ?>
         <button
             class="btn btn-default find-record"
+            id="<?= $this->getId('popupTrigger') ?>"
             data-control="popup"
             data-size="huge"
             data-handler="<?= $this->getEventHandler('onFindRecord') ?>"

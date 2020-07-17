@@ -291,6 +291,9 @@ class RecordFinder extends FormWidgetBase
     {
         $this->prepareVars();
 
+        // Attach the parent element ID to the popup
+        $this->vars['parentElementId'] = $this->getId('popupTrigger');
+
         /*
          * Purge the search term stored in session
          */

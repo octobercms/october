@@ -91,6 +91,25 @@ if (window.jQuery.request !== undefined) {
             inputName,
             data = {}
 
+        // options.data contains $el's data-request-data
+
+        // Data empty
+
+        // Data contains data-request-data data included by any element that is a parent of $el (all the way up to
+        // the document root) in closest-takes-priority scheme
+
+        // If $el is a form input AND is not present in a $form container then options.data.{$el.name}
+        // is overwritten with $el.value
+
+        // If options.data is a valid object then merge data & options.data prioritizing options.data
+
+        // If the containing form has a request-parent element specified, then we move to that element
+        // and process it's data as if it was the element creating the request, including checking for a
+        // parent element to that request. Once we've gone all the way up until there are no more parent
+        // elements detected then the parent data is merged such that the closest data in the chain to the
+        // original element that triggered the request has the highest priority.
+
+
         // Loop through every parent element with the data-request-data attribute and attach the data
         // to the request data object with closer element data overwriting further element data
         $.each($el.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
@@ -497,8 +516,8 @@ if (window.jQuery.request !== undefined) {
         // a given widget is still present in any requests made to that widget so that it will be properly
         // instantiated on the server side and ready to respond to our requests.
         var $form = $(this).first(),
-            parentFormData = {},
-            parentForms = [$form]
+            parentDataObjects = [serializeFormToObj($form)],
+            parentFormData = {}
 
         var findParentForms = function ($form) {
             // If the form element exists and has a parent element defined
@@ -506,6 +525,19 @@ if (window.jQuery.request !== undefined) {
                 // Identify the owning form of the parent element
                 var $parentEl = $($form.data('request-parent'))
                 if ($parentEl.length) {
+                    var parentEmbeddedData = {}
+
+                    // Loop through every parent element with the data-request-data attribute and attach the data
+                    // to the request data object with closer element data overwriting further element data
+                    $.each($parentEl.parents('[data-request-data]').toArray().reverse(), function extendRequest() {
+                        $.extend(parentEmbeddedData, paramToObj('data-request-data', $(this).data('request-data')))
+                    })
+
+                    // If the parent element has embedded data include it
+                    if ($parentEl.is('[data-request-data]')) {
+                        $.extend(parentEmbeddedData, paramToObj('data-request-data', $parentEl.data('request-data')))
+                    }
+
                     var $parentForm = $parentEl.closest('form')
                     if ($parentForm.length) {
                         // Add the identified parent form to the array for processing its data
@@ -522,8 +554,8 @@ if (window.jQuery.request !== undefined) {
 
         // Loop through the discovered forms in reverse order so that the forms that are closer to the
         // current element have priority when it comes to data merge conflicts
-        parentForms.reverse().forEach(function ($formEl) {
-            $.extend(parentFormData, serializeFormToObj($formEl))
+        parentDataObjects.reverse().forEach(function (data) {
+            $.extend(parentFormData, data)
         })
 
         return parentFormData
