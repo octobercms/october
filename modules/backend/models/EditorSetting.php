@@ -76,6 +76,15 @@ class EditorSetting extends Model
         'oc-cell-thick-border' => 'Thick Border',
     ];
 
+    protected $defaultHtmlParagraphFormats = [
+        'N' => 'Normal',
+        'H1' => 'Heading 1',
+        'H2' => 'Heading 2',
+        'H3' => 'Heading 3',
+        'H4' => 'Heading 4',
+        'PRE' => 'Code',
+    ];
+
     /**
      * Editor toolbar presets for Froala.
      */
@@ -113,6 +122,15 @@ class EditorSetting extends Model
         $this->html_style_paragraph = $this->makeStylesForTable($this->defaultHtmlStyleParagraph);
         $this->html_style_table = $this->makeStylesForTable($this->defaultHtmlStyleTable);
         $this->html_style_table_cell = $this->makeStylesForTable($this->defaultHtmlStyleTableCell);
+        $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
+    }
+
+    public function afterFetch()
+    {
+        if (!isset($this->value['html_paragraph_formats'])) {
+            $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
+            $this->save();
+        }
     }
 
     public function afterSave()
@@ -129,11 +147,48 @@ class EditorSetting extends Model
         });
     }
 
+    protected function makeFormatsForTable($arr)
+    {
+        $count = 0;
+
+        return array_build($arr, function ($key, $value) use (&$count) {
+            return [$count++, ['format_label' => $value, 'format_tag' => $key]];
+        });
+    }
+
     /**
-     * Same as getConfigured but uses special style structure.
+     * Same as getConfigured but uses a special structure for styles.
      * @return mixed
      */
     public static function getConfiguredStyles($key, $default = null)
+    {
+        return static::getConfiguredArray($key, $default, function ($key, $value) {
+            if (array_has($value, ['class_name', 'class_label'])) {
+                return [
+                    array_get($value, 'class_name'),
+                    array_get($value, 'class_label')
+                ];
+            }
+        });
+    }
+
+    /**
+     * Same as getConfigured but uses a special structure for paragraph formats.
+     * @return mixed
+     */
+    public static function getConfiguredFormats($key, $default = null)
+    {
+        return static::getConfiguredArray($key, $default, function ($key, $value) {
+            if (array_has($value, ['format_tag', 'format_label'])) {
+                return [
+                    array_get($value, 'format_tag'),
+                    array_get($value, 'format_label')
+                ];
+            }
+        });
+    }
+
+    protected static function getConfiguredArray($key, $default = null, $callback = null)
     {
         $instance = static::instance();
 
@@ -141,15 +196,8 @@ class EditorSetting extends Model
 
         $defaultValue = $instance->getDefaultValue($key);
 
-        if (is_array($value)) {
-            $value = array_filter(array_build($value, function ($key, $value) {
-                if (array_has($value, ['class_name', 'class_label'])) {
-                    return [
-                        array_get($value, 'class_name'),
-                        array_get($value, 'class_label')
-                    ];
-                }
-            }));
+        if (is_array($value) && is_callable($callback)) {
+            $value = array_filter(array_build($value, $callback));
         }
 
         return $value != $defaultValue ? $value : $default;
