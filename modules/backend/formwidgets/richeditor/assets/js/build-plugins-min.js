@@ -157,7 +157,7 @@ Base.call(this)
 this.init()}
 RichEditor.prototype=Object.create(BaseProto)
 RichEditor.prototype.constructor=RichEditor
-RichEditor.DEFAULTS={linksHandler:null,uploadHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
+RichEditor.DEFAULTS={linksHandler:null,uploadHandler:null,stylesheet:null,fullpage:false,editorLang:'en',useMediaManager:false,toolbarButtons:null,allowEmptyTags:null,allowTags:null,noWrapTags:null,removeTags:null,lineBreakerTags:null,imageStyles:null,linkStyles:null,paragraphStyles:null,paragraphFormat:null,tableStyles:null,tableCellStyles:null,aceVendorPath:'/',readOnly:false}
 RichEditor.prototype.init=function(){var self=this;this.$el.one('dispose-control',this.proxy(this.dispose))
 if(!this.$textarea.attr('id')){this.$textarea.attr('id','element-'+Math.random().toString(36).substring(7))}
 this.initFroala()}
@@ -167,6 +167,7 @@ else{froalaOptions.toolbarButtons=$.oc.richEditorButtons}
 froalaOptions.imageStyles=this.options.imageStyles?this.options.imageStyles:{'oc-img-rounded':'Rounded','oc-img-bordered':'Bordered'}
 froalaOptions.linkStyles=this.options.linkStyles?this.options.linkStyles:{'oc-link-green':'Green','oc-link-strong':'Thick'}
 froalaOptions.paragraphStyles=this.options.paragraphStyles?this.options.paragraphStyles:{'oc-text-gray':'Gray','oc-text-bordered':'Bordered','oc-text-spaced':'Spaced','oc-text-uppercase':'Uppercase'}
+froalaOptions.paragraphFormat=this.options.paragraphFormat?this.options.paragraphFormat:{'N':'Normal','H1':'Heading 1','H2':'Heading 2','H3':'Heading 3','H4':'Heading 4','PRE':'Code'}
 froalaOptions.tableStyles=this.options.tableStyles?this.options.tableStyles:{'oc-dashed-borders':'Dashed Borders','oc-alternate-rows':'Alternate Rows'}
 froalaOptions.tableCellStyles=this.options.tableCellStyles?this.options.tableCellStyles:{'oc-cell-highlighted':'Highlighted','oc-cell-thick-border':'Thick'}
 froalaOptions.toolbarButtonsMD=froalaOptions.toolbarButtons
