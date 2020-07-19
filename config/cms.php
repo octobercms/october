@@ -298,6 +298,16 @@ return [
     | in cloud storage (ex. AWS, RackSpace) are valid for by setting
     | temporaryUrlTTL to a value in seconds to define a validity period. This
     | is only used for the 'uploads' config when using a supported cloud disk
+    |
+    | NOTE: If you have installed October in a subfolder, are using local
+    | storage and are not using a linkPolicy of 'force' you should include
+    | the path to the subfolder in the `path` option for these storage
+    | configurations.
+    |
+    | Example: October is installed under https://localhost/projects/october.
+    | You should then specify `/projects/october/storage/app/uploads` as the
+    | path for the uploads disk and `/projects/october/storage/app/media` as
+    | the path for the media disk.
     */
 
     'storage' => [
