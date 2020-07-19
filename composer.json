@@ -19,10 +19,12 @@
         {
             "name": "Luke Towers",
             "email": "octobercms@luketowers.ca",
+            "homepage": "https://luketowers.ca",
             "role": "Maintainer"
         }
     ],
     "support": {
+        "paid": "https://octobercms.com/premium-support",
         "issues": "https://github.com/octobercms/october/issues",
         "forum": "https://octobercms.com/forum/",
         "docs": "https://octobercms.com/docs/",
@@ -30,8 +32,6 @@
     },
     "require": {
         "php": ">=7.2",
-        "ext-mbstring": "*",
-        "ext-openssl": "*",
         "october/rain": "dev-wip/laravel-6 as 1.0",
         "october/system": "dev-wip/laravel-6",
         "october/backend": "dev-wip/laravel-6",

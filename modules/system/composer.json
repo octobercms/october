@@ -26,7 +26,8 @@
     "require": {
         "php": ">=7.2",
         "composer/installers": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "~1.0",
+        "laravel/framework": "~6.0"
     },
     "autoload": {
         "psr-4": {
