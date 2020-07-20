@@ -66,4 +66,6 @@ return [
      */
     // Input facade was removed in Laravel 6 - we are keeping it in the Rain library for backwards compatibility.
     'Illuminate\Support\Facades\Input' => October\Rain\Support\Facades\Input::class,
+    // Illuminate's HtmlDumper was "dumped" in Laravel 6 - we'll route this to Symfony's HtmlDumper as Laravel have done.
+    'Illuminate\Support\Debug\HtmlDumper' => Symfony\Component\VarDumper\Dumper\HtmlDumper::class,
 ];
