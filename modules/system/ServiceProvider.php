@@ -7,6 +7,7 @@ use Event;
 use Config;
 use Backend;
 use Request;
+use Lang;
 use BackendMenu;
 use BackendAuth;
 use Twig\Environment as TwigEnvironment;
@@ -95,6 +96,9 @@ class ServiceProvider extends ModuleServiceProvider
         }
 
         Paginator::defaultSimpleView('system::pagination.simple-default');
+
+        // Register system validation messages
+        Lang::addValidationNamespace('system');
 
         /*
          * Boot plugins

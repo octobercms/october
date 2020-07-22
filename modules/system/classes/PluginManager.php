@@ -221,6 +221,7 @@ class PluginManager
         $langPath = $pluginPath . '/lang';
         if (File::isDirectory($langPath)) {
             Lang::addNamespace($pluginNamespace, $langPath);
+            Lang::addValidationNamespace($pluginNamespace);
         }
 
         /**
