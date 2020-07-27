@@ -2,9 +2,13 @@ url = "/code-namespaces"
 ==
 <?php
 
-use Cms\Classes\Theme;
-use Cms\Classes\Router;
-use Cms\Traits\UrlMaker;
+use Cms\Classes\{
+    Theme,
+    Router as MyRouter,
+};
+use Cms\Traits\{
+    UrlMaker as MyMaker
+};
 
 function onStart() {
     $this['pageStartVar'] = 3;

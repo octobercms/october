@@ -303,6 +303,64 @@ class CodeParserTest extends TestCase
         $this->assertEquals($referenceContents, $this->getContents($info['filePath']));
     }
 
+    public function testNamespacesGrouped()
+    {
+        $theme = Theme::load('test');
+
+        $page = Page::load($theme, 'code-namespaces-grouped.htm');
+        $this->assertNotEmpty($page);
+
+        $parser = new CodeParser($page);
+        $info = $parser->parse();
+
+        $this->assertInternalType('array', $info);
+        $this->assertArrayHasKey('filePath', $info);
+        $this->assertArrayHasKey('className', $info);
+        $this->assertArrayHasKey('source', $info);
+
+        $this->assertFileExists($info['filePath']);
+        $controller = new Controller($theme);
+        $obj = $parser->source($page, null, $controller);
+        $this->assertInstanceOf(PageCode::class, $obj);
+
+        $referenceFilePath = base_path() . '/tests/fixtures/cms/reference/namespaces-grouped.php.stub';
+        $this->assertFileExists($referenceFilePath);
+        $referenceContents = $this->getContents($referenceFilePath);
+
+        $referenceContents = str_replace('{className}', $info['className'], $referenceContents);
+
+        $this->assertEquals($referenceContents, $this->getContents($info['filePath']));
+    }
+
+    public function testNamespacesCommented()
+    {
+        $theme = Theme::load('test');
+
+        $page = Page::load($theme, 'code-namespaces-commented.htm');
+        $this->assertNotEmpty($page);
+
+        $parser = new CodeParser($page);
+        $info = $parser->parse();
+
+        $this->assertInternalType('array', $info);
+        $this->assertArrayHasKey('filePath', $info);
+        $this->assertArrayHasKey('className', $info);
+        $this->assertArrayHasKey('source', $info);
+
+        $this->assertFileExists($info['filePath']);
+        $controller = new Controller($theme);
+        $obj = $parser->source($page, null, $controller);
+        $this->assertInstanceOf(PageCode::class, $obj);
+
+        $referenceFilePath = base_path() . '/tests/fixtures/cms/reference/namespaces-commented.php.stub';
+        $this->assertFileExists($referenceFilePath);
+        $referenceContents = $this->getContents($referenceFilePath);
+
+        $referenceContents = str_replace('{className}', $info['className'], $referenceContents);
+
+        $this->assertEquals($referenceContents, $this->getContents($info['filePath']));
+    }
+
     //
     // Helpers
     //

@@ -1,9 +1,10 @@
 <?php
 use Cms\Classes\Theme;
-use Cms\Classes\Router;
+use Cms\Classes\Router as MyRouter;
+use Cms\Traits\UrlMaker as MyMaker;
 class {className} extends Cms\Classes\PageCode
 {
-use Cms\Traits\UrlMaker;
+use MyMaker;
 public function onStart() {
     $this['pageStartVar'] = 3;
 }

@@ -1,0 +1,20 @@
+url = "/code-namespaces"
+==
+<?php
+
+use Cms\Classes\{
+    // Theme,
+    Router as MyRouter,
+};
+/**
+use Cms\Traits\{
+    UrlMaker as MyMaker
+};
+*/
+
+function onStart() {
+    $this['pageStartVar'] = 3;
+}
+?>
+==
+<p>Page</p>

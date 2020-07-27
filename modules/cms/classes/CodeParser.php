@@ -4,6 +4,7 @@ use File;
 use Lang;
 use Cache;
 use Config;
+use ReflectionClass;
 use SystemException;
 
 /**
@@ -128,26 +129,42 @@ class CodeParser
         $body = $this->object->code;
         $body = preg_replace('/^\s*function/m', 'public function', $body);
 
-        $namespaces = [];
-        $pattern = '/(use\s+[a-z0-9_\\\\]+(\s+as\s+[a-z0-9_]+)?;\n?)/mi';
-        preg_match_all($pattern, $body, $namespaces);
-        $body = preg_replace($pattern, '', $body);
+        // Remove commented out code
+        $body = preg_replace('/\/\*\*.*?\*\//ms', '', $body);
+        $body = preg_replace('/\/\/.*?$/m', '', $body);
+
+        // Extract use cases
+        $pattern = '/^\s*(use\s+([a-z0-9_\\\\]+)((\{\n?\s*([a-z0-9_\\\\]+[,\s]*)+\s*\})|(\s+as\s+([a-z0-9_]+)))?;\n?)/mi';
+        preg_match_all($pattern, $body, $useCases, PREG_SET_ORDER);
+        $body = trim(preg_replace($pattern, '', $body));
+
+        $useCases = $this->parseUseCases($useCases);
 
         $parentClass = $this->object->getCodeClassParent();
         if ($parentClass !== null) {
             $parentClass = ' extends '.$parentClass;
         }
 
-        $fileContents = '<?php '.PHP_EOL;
+        $fileContents = '<?php'.PHP_EOL;
 
-        foreach ($namespaces[0] as $namespace) {
-            if (str_contains($namespace, '\\')) {
-                $fileContents .= $namespace;
+        if (count($useCases['imports'])) {
+            foreach ($useCases['imports'] as $import) {
+                $fileContents .= 'use ' . $import['class'] . ((!is_null($import['alias']))
+                    ? ' as ' . $import['alias']
+                    : ''
+                ) . ';' . PHP_EOL;
             }
         }
 
         $fileContents .= 'class '.$className.$parentClass.PHP_EOL;
         $fileContents .= '{'.PHP_EOL;
+
+        if (count($useCases['traits'])) {
+            foreach ($useCases['traits'] as $trait) {
+                $fileContents .= 'use ' . $trait . ';' . PHP_EOL;
+            }
+        }
+
         $fileContents .= $body.PHP_EOL;
         $fileContents .= '}'.PHP_EOL;
 
@@ -376,5 +393,83 @@ class CodeParser
         }
 
         File::chmodRecursive($dir);
+    }
+
+    protected function parseUseCases(array $uses)
+    {
+        $useCases = [
+            'imports' => [],
+            'traits' => []
+        ];
+
+        foreach ($uses as $useCase) {
+            if (empty($useCase[4])) {
+                // Normal use cases
+                $className = $useCase[2];
+                $alias = (!empty($useCase[7])) ? $useCase[7] : null;
+
+                if (!str_contains($className, '\\')) {
+                    continue;
+                }
+
+                $classObj = new ReflectionClass($className);
+                if ($classObj->isTrait()) {
+                    if (!is_null($alias)) {
+                        $useCases['imports'][] = [
+                            'class' => $className,
+                            'alias' => $alias,
+                        ];
+                        $useCases['traits'][] = $alias;
+                    } else {
+                        $useCases['traits'][] = $className;
+                    }
+                } else {
+                    $useCases['imports'][] = [
+                        'class' => $className,
+                        'alias' => $alias,
+                    ];
+                }
+            } else {
+                // Grouped use cases
+                $subClasses = str_replace(['{', '}'], '', $useCase[4]);
+                $subClasses = array_map(function ($subClass) {
+                    return trim($subClass);
+                }, explode(',', $subClasses));
+
+                foreach ($subClasses as $subClass) {
+                    if (empty($subClass)) {
+                        continue;
+                    }
+
+                    if (!preg_match('/([a-z0-9_\\\\]+)(\s+as\s+([a-z0-9_]+))?/i', $subClass, $subClassParts)) {
+                        continue;
+                    }
+
+                    $subClassName = $subClassParts[1];
+                    $alias = (!empty($subClassParts[3])) ? $subClassParts[3] : null;
+                    $className = $useCase[2] . $subClassName;
+
+                    $classObj = new ReflectionClass($className);
+                    if ($classObj->isTrait()) {
+                        if (!is_null($alias)) {
+                            $useCases['imports'][] = [
+                                'class' => $className,
+                                'alias' => $alias,
+                            ];
+                            $useCases['traits'][] = $alias;
+                        } else {
+                            $useCases['traits'][] = $className;
+                        }
+                    } else {
+                        $useCases['imports'][] = [
+                            'class' => $className,
+                            'alias' => $alias,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $useCases;
     }
 }
