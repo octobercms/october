@@ -57,7 +57,7 @@ class CodeParserTest extends TestCase
          */
 
         $body = preg_replace('/^\s*function/m', 'public function', $layout->code);
-        $expectedContent = '<?php ' . PHP_EOL;
+        $expectedContent = '<?php' . PHP_EOL;
 
         $expectedContent .= 'class ' . $info['className'] . ' extends ' . LayoutCode::class . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
@@ -138,7 +138,7 @@ class CodeParserTest extends TestCase
 
         $this->assertFileExists($info['filePath']);
 
-        $expectedContent = '<?php ' . PHP_EOL;
+        $expectedContent = '<?php' . PHP_EOL;
         $expectedContent .= 'class ' . $info['className'] . ' extends ' . LayoutCode::class . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= PHP_EOL;
@@ -168,7 +168,7 @@ class CodeParserTest extends TestCase
         $this->assertInstanceOf(PageCode::class, $obj);
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
-        $expectedContent = '<?php ' . PHP_EOL;
+        $expectedContent = '<?php' . PHP_EOL;
         $expectedContent .= 'class ' . $info['className'] . ' extends ' . PageCode::class . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
@@ -202,7 +202,7 @@ class CodeParserTest extends TestCase
         $this->assertInstanceOf('\Cms\Classes\PageCode', $obj);
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
-        $expectedContent = '<?php ' . PHP_EOL;
+        $expectedContent = '<?php' . PHP_EOL;
         $expectedContent .= 'class ' . $info['className'] . ' extends ' . PageCode::class . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
@@ -231,7 +231,7 @@ class CodeParserTest extends TestCase
         $this->assertInstanceOf(PageCode::class, $obj);
 
         $body = preg_replace('/^\s*function/m', 'public function', $page->code);
-        $expectedContent = '<?php ' . PHP_EOL;
+        $expectedContent = '<?php' . PHP_EOL;
         $expectedContent .= 'class ' . $info['className'] . ' extends ' . PageCode::class . PHP_EOL;
         $expectedContent .= '{' . PHP_EOL;
         $expectedContent .= $body . PHP_EOL;
