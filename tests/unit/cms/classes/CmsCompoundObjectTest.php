@@ -30,7 +30,7 @@ class TestTemporaryCmsCompoundObject extends CmsCompoundObject
 
 class CmsCompoundObjectTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         Model::clearBootedModels();
@@ -44,16 +44,16 @@ class CmsCompoundObjectTest extends TestCase
         $theme = Theme::load('test');
 
         $obj = TestCmsCompoundObject::load($theme, 'compound.htm');
-        $this->assertContains("\$controller->data['something'] = 'some value'", $obj->code);
+        $this->assertStringContainsString("\$controller->data['something'] = 'some value'", $obj->code);
         $this->assertEquals('<p>This is a paragraph</p>', $obj->markup);
-        $this->assertInternalType('array', $obj->settings);
+        $this->assertIsArray($obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
 
         $this->assertArrayHasKey('components', $obj->settings);
 
         $this->assertArrayHasKey('section', $obj->settings['components']);
-        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertIsArray($obj->settings['components']['section']);
         $this->assertArrayHasKey('version', $obj->settings['components']['section']);
         $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
@@ -69,7 +69,7 @@ class CmsCompoundObjectTest extends TestCase
 
         $obj = TestCmsCompoundObject::load($theme, 'component.htm');
         $this->assertArrayHasKey('components', $obj->settings);
-        $this->assertInternalType('array', $obj->settings['components']);
+        $this->assertIsArray($obj->settings['components']);
         $this->assertArrayHasKey('testArchive', $obj->settings['components']);
         $this->assertArrayHasKey('posts-per-page', $obj->settings['components']['testArchive']);
         $this->assertEquals(10, $obj->settings['components']['testArchive']['posts-per-page']);
@@ -82,7 +82,7 @@ class CmsCompoundObjectTest extends TestCase
         $obj = TestCmsCompoundObject::load($theme, 'components.htm');
         $this->assertArrayHasKey('components', $obj->settings);
 
-        $this->assertInternalType('array', $obj->settings['components']);
+        $this->assertIsArray($obj->settings['components']);
         $this->assertArrayHasKey('testArchive firstAlias', $obj->settings['components']);
         $this->assertArrayHasKey('October\Tester\Components\Post secondAlias', $obj->settings['components']);
 
@@ -108,7 +108,7 @@ class CmsCompoundObjectTest extends TestCase
         $properties = $obj->getComponentProperties('October\Tester\Components\Post');
         $emptyProperties = $obj->getComponentProperties('October\Tester\Components\Archive');
         $notExistingProperties = $obj->getComponentProperties('This\Is\Not\Component');
-        $this->assertInternalType('array', $properties);
+        $this->assertIsArray($properties);
         $this->assertArrayHasKey('show-featured', $properties);
         $this->assertTrue((bool)$properties['show-featured']);
         $this->assertEquals('true', $properties['show-featured']);
@@ -148,18 +148,18 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertEquals($testContent, $obj->getContent());
         $this->assertEquals('testcompound.htm', $obj->getFileName());
         $this->assertEquals('<p>This is a paragraph</p>', $obj->markup);
-        $this->assertInternalType('array', $obj->settings);
+        $this->assertIsArray($obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
 
         $this->assertArrayHasKey('components', $obj->settings);
 
-        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertIsArray($obj->settings['components']['section']);
         $this->assertArrayHasKey('version', $obj->settings['components']['section']);
         $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         $this->assertEquals('value', $obj->var);
-        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertIsArray($obj->settings['components']['section']);
         $this->assertArrayHasKey('version', $obj->settings['components']['section']);
         $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
@@ -173,18 +173,18 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertEquals($testContent, $obj->getContent());
         $this->assertEquals('testcompound.htm', $obj->getFileName());
         $this->assertEquals('<p>This is a paragraph</p>', $obj->markup);
-        $this->assertInternalType('array', $obj->settings);
+        $this->assertIsArray($obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
 
         $this->assertArrayHasKey('components', $obj->settings);
 
-        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertIsArray($obj->settings['components']['section']);
         $this->assertArrayHasKey('version', $obj->settings['components']['section']);
         $this->assertEquals(10, $obj->settings['components']['section']['version']);
 
         $this->assertEquals('value', $obj->var);
-        $this->assertInternalType('array', $obj->settings['components']['section']);
+        $this->assertIsArray($obj->settings['components']['section']);
         $this->assertArrayHasKey('version', $obj->settings['components']['section']);
         $this->assertEquals(10, $obj->settings['components']['section']['version']);
     }
@@ -280,14 +280,14 @@ class CmsCompoundObjectTest extends TestCase
         $obj = TestParsedCmsCompoundObject::load($theme, 'viewbag.htm');
         $this->assertNull($obj->code);
         $this->assertEquals('<p>Chop Suey!</p>', $obj->markup);
-        $this->assertInternalType('array', $obj->settings);
+        $this->assertIsArray($obj->settings);
         $this->assertArrayHasKey('var', $obj->settings);
         $this->assertEquals('value', $obj->settings['var']);
 
         $this->assertArrayHasKey('components', $obj->settings);
 
         $this->assertArrayHasKey('viewBag', $obj->settings['components']);
-        $this->assertInternalType('array', $obj->settings['components']['viewBag']);
+        $this->assertIsArray($obj->settings['components']['viewBag']);
         $this->assertArrayHasKey('title', $obj->settings['components']['viewBag']);
         $this->assertEquals('Toxicity', $obj->settings['components']['viewBag']['title']);
 

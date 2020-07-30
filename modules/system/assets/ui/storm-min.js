@@ -3044,6 +3044,7 @@ $.fn.toolbar.noConflict=function(){$.fn.toolbar=old
 return this}
 $(document).on('render',function(){$('[data-control=toolbar]').toolbar()})}(window.jQuery);+function($){"use strict";var FilterWidget=function(element,options){this.$el=$(element);this.options=options||{}
 this.scopeValues={}
+this.scopeAvailable={}
 this.$activeScope=null
 this.activeScopeName=null
 this.isActiveScopeDirty=false
@@ -3148,18 +3149,19 @@ $item.addClass('animate-enter').prependTo($otherContainer).one('webkitAnimationE
 if(!this.scopeValues[this.activeScopeName])
 return
 var
-itemId=$item.data('item-id'),items=this.scopeValues[this.activeScopeName],fromItems=isDeselect?items.active:items.available,toItems=isDeselect?items.available:items.active,testFunc=function(item){return item.id==itemId},item=$.grep(fromItems,testFunc).pop(),filtered=$.grep(fromItems,testFunc,true)
+itemId=$item.data('item-id'),active=this.scopeValues[this.activeScopeName],available=this.scopeAvailable[this.activeScopeName],fromItems=isDeselect?active:available,toItems=isDeselect?available:active,testFunc=function(active){return active.id==itemId},item=$.grep(fromItems,testFunc).pop(),filtered=$.grep(fromItems,testFunc,true)
 if(isDeselect)
-this.scopeValues[this.activeScopeName].active=filtered
+this.scopeValues[this.activeScopeName]=filtered
 else
-this.scopeValues[this.activeScopeName].available=filtered
+this.scopeAvailable[this.activeScopeName]=filtered
 if(item)
 toItems.push(item)
-this.toggleFilterButtons(items)
-this.updateScopeSetting(this.$activeScope,items.active.length)
+this.toggleFilterButtons(active)
+this.updateScopeSetting(this.$activeScope,isDeselect?filtered.length:active.length)
 this.isActiveScopeDirty=true
 this.focusSearch()}
-FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=this.scopeValues[scopeName],isLoaded=true,container=false
+FilterWidget.prototype.displayPopover=function($scope){var self=this,scopeName=$scope.data('scope-name'),data=null,isLoaded=true,container=false
+if(typeof this.scopeAvailable[scopeName]!=="undefined"&&this.scopeAvailable[scopeName]){data=$.extend({},data,{available:this.scopeAvailable[scopeName],active:this.scopeValues[scopeName]})}
 var modalParent=$scope.parents('.modal-dialog')
 if(modalParent.length>0){container=modalParent[0]}
 if(!data){data={loading:true}
@@ -3181,8 +3183,7 @@ FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[
 return
 if(!data.active)data.active=[]
 if(!data.available)data.available=[]
-this.scopeValues[scopeName]=data
-if(scopeName!=this.activeScopeName)
+this.scopeValues[scopeName]=data.active;this.scopeAvailable[scopeName]=data.available;if(scopeName!=this.activeScopeName)
 return
 var container=$('#controlFilterPopover .filter-items > ul').empty()
 this.addItemsToListElement(container,data.available)
@@ -3194,8 +3195,8 @@ if(!this.scopeValues[this.activeScopeName])
 return
 var
 self=this,filtered=[],items=this.scopeValues[scopeName]
-if(items.active.length){var activeIds=[]
-$.each(items.active,function(key,obj){activeIds.push(obj.id)})
+if(items.length){var activeIds=[]
+$.each(items,function(key,obj){activeIds.push(obj.id)})
 filtered=$.grep(available,function(item){return $.inArray(item.id,activeIds)===-1})}
 else{filtered=available}
 var container=$('#controlFilterPopover .filter-items > ul').empty()
@@ -3204,10 +3205,10 @@ FilterWidget.prototype.addItemsToListElement=function($ul,items){$.each(items,fu
 $ul.append(item)})}
 FilterWidget.prototype.toggleFilterButtons=function(data)
 {var items=$('#controlFilterPopover .filter-active-items > ul'),buttonContainer=$('#controlFilterPopover .filter-buttons')
-if(data){data.active.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
+if(data){data.length>0?buttonContainer.show():buttonContainer.hide()}else{items.children().length>0?buttonContainer.show():buttonContainer.hide()}}
 FilterWidget.prototype.pushOptions=function(scopeName){if(!this.isActiveScopeDirty||!this.options.updateHandler)
 return
-var self=this,data={scopeName:scopeName,options:this.scopeValues[scopeName]}
+var self=this,data={scopeName:scopeName,options:JSON.stringify(this.scopeValues[scopeName])}
 $.oc.stripeLoadIndicator.show()
 this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.stripeLoadIndicator.hide()}).done(function(){self.$el.find('[data-scope-name="'+scopeName+'"]').trigger('change.oc.filterScope')})}
 FilterWidget.prototype.checkboxToggle=function($el){var isChecked=$el.is(':checked'),$scope=$el.closest('.filter-scope'),scopeName=$scope.data('scope-name')
@@ -3224,6 +3225,7 @@ this.$el.request(this.options.updateHandler,{data:data}).always(function(){$.oc.
 $scope.toggleClass('active',!!switchValue)}
 FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
 if(isReset){this.scopeValues[scopeName]=null
+this.scopeAvailable[scopeName]=null
 this.updateScopeSetting(this.$activeScope,0)}
 this.pushOptions(scopeName);this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
@@ -3535,7 +3537,7 @@ var separators=$element.data('token-separators')
 if(separators){extraOptions.tags=true
 extraOptions.tokenSeparators=separators.split('|')
 if($element.hasClass('select-no-dropdown')){extraOptions.selectOnClose=true
-extraOptions.closeOnSelect=false
+extraOptions.closeOnSelect=true
 extraOptions.minimumInputLength=1
 $element.on('select2:closing',function(){if($('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').length>0){$('.select2-dropdown.select-no-dropdown:first .select2-results__option--highlighted').removeClass('select2-results__option--highlighted')
 $('.select2-dropdown.select-no-dropdown:first .select2-results__option:first').addClass('select2-results__option--highlighted')}})}}

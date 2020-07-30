@@ -28,7 +28,7 @@ abstract class PluginTestCase extends TestCase
         $app['cache']->setDefaultDriver('array');
         $app->setLocale('en');
 
-        $app->singleton('auth', function ($app) {
+        $app->singleton('backend.auth', function ($app) {
             $app['auth.loaded'] = true;
 
             return AuthManager::instance();
@@ -67,7 +67,7 @@ abstract class PluginTestCase extends TestCase
      * Perform test case set up.
      * @return void
      */
-    public function setUp()
+    public function setUp() : void
     {
         /*
          * Force reload of October singletons
@@ -105,7 +105,7 @@ abstract class PluginTestCase extends TestCase
      * Flush event listeners and collect garbage.
      * @return void
      */
-    public function tearDown()
+    public function tearDown() : void
     {
         $this->flushModelEventListeners();
         parent::tearDown();

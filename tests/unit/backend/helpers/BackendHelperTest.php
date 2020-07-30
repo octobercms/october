@@ -11,8 +11,8 @@ class BackendHelperTest extends TestCase
         $assets = $backendHelper->decompileAsset('tests/fixtures/backend/assets/compilation.js');
 
         $this->assertCount(2, $assets);
-        $this->assertContains('file1.js', $assets[0]);
-        $this->assertContains('file2.js', $assets[1]);
+        $this->assertStringContainsString('file1.js', $assets[0]);
+        $this->assertStringContainsString('file2.js', $assets[1]);
     }
 
     public function testDecompileMissingFile()
