@@ -27,7 +27,7 @@ class FileManifestTest extends TestCase
     public function testGetModuleChecksums()
     {
         $this->assertEquals([
-            'test' => 'a59012c67109b32fc9d188b388dc4293',
+            'test' => 'f83bfce9cc5eee731d33ffde215ed8f3',
             'test2' => 'f6c6421627c68e60fb8e7a47f753b239',
         ], $this->fileManifest->getModuleChecksums());
     }
@@ -52,7 +52,7 @@ class FileManifestTest extends TestCase
         ], $this->fileManifest->getFiles());
 
         $this->assertEquals([
-            'test' => 'a59012c67109b32fc9d188b388dc4293',
+            'test' => 'f83bfce9cc5eee731d33ffde215ed8f3',
         ], $this->fileManifest->getModuleChecksums());
     }
 }

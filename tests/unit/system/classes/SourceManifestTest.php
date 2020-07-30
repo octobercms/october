@@ -52,7 +52,7 @@ class SourceManifestTest extends TestCase
             '        {' . "\n" .
             '            "build": 2,' . "\n" .
             '            "modules": {' . "\n" .
-            '                "test": "a59012c67109b32fc9d188b388dc4293",' . "\n" .
+            '                "test": "f83bfce9cc5eee731d33ffde215ed8f3",' . "\n" .
             '                "test2": "f6c6421627c68e60fb8e7a47f753b239"' . "\n" .
             '            },' . "\n" .
             '            "files": {' . "\n" .

@@ -153,9 +153,14 @@ class FileManifest
     {
         $datasource = new FileDatasource($basePath, new Filesystem);
 
-        return array_map(function ($path) use ($basePath) {
+        $files = array_map(function ($path) use ($basePath) {
             return $basePath . '/' . $path;
         }, array_keys($datasource->getAvailablePaths()));
+
+        // Ensure files are sorted so they are in a consistent order, no matter the way the OS returns the file list.
+        sort($files, SORT_NATURAL);
+
+        return $files;
     }
 
     /**
