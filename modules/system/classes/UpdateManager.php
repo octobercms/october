@@ -360,15 +360,31 @@ class UpdateManager
     /**
      * Determines build number from source manifest.
      *
-     * @return void
+     * An array will be returned with the following, if a build can be determined:
+     *  - `build` - The detected build number installed.
+     *  - `modified` - Whether the installation appears to have been modified.
+     *
+     * Otherwise, `null` will be returned.
+     *
+     * @return array|null
      */
-    public function setBuildNumberManually()
+    public function getBuildNumberManually()
     {
         $source = new SourceManifest();
         $manifest = new FileManifest(null, null, true);
 
         // Find build by comparing with source manifest
-        $build = $source->compare($manifest);
+        return $source->compare($manifest);
+    }
+
+    /**
+     * Sets the build number in the database.
+     *
+     * @return void
+     */
+    public function setBuildNumberManually()
+    {
+        $build = $this->getBuildNumberManually();
 
         if (!is_null($build)) {
             $this->setBuild($build['build'], null, $build['modified']);

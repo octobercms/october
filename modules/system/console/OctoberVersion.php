@@ -22,15 +22,16 @@ class OctoberVersion extends \Illuminate\Console\Command
      */
     public function handle()
     {
-        // Skip setting the build number if no database is detected to set it within
-        if (!App::hasDatabase()) {
-            $this->comment('No database detected - skipping setting the build number.');
-            return;
-        }
-
         $this->comment('*** Detecting October CMS build...');
 
-        $build = UpdateManager::instance()->setBuildNumberManually();
+        if (!App::hasDatabase()) {
+            $build = UpdateManager::instance()->getBuildNumberManually();
+
+            // Skip setting the build number if no database is detected to set it within
+            $this->comment('*** No database detected - skipping setting the build number.');
+        } else {
+            $build = UpdateManager::instance()->setBuildNumberManually();
+        }
 
         if (is_null($build)) {
             $this->error('Unable to detect your build of October CMS.');
@@ -38,9 +39,9 @@ class OctoberVersion extends \Illuminate\Console\Command
         }
 
         if ($build['modified']) {
-            $this->info('*** Detected a modified version of October CMS build ' . $build['build']);
+            $this->info('*** Detected a modified version of October CMS build ' . $build['build'] . '.');
         } else {
-            $this->info('*** Detected October CMS build ' . $build['build']);
+            $this->info('*** Detected October CMS build ' . $build['build'] . '.');
         }
     }
 }
