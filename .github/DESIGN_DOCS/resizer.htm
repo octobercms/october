@@ -1,0 +1,91 @@
+==
+<?php
+/**
+ * DRAFT RESIZER DESIGN
+ * This is a rough draft, very WIP, of what the Image resizer UX / API will look like in October.
+ *
+ * Notes:
+ * - Clearing the application cache should not invalidate any existing resized images
+ *
+ * Configurations to support
+ *
+ * - Developer can provide a image (in a wide range of various formats so long as the application actually has access to the provided image
+ * and can understand how to access it) to the `| resize(width, height, options)` Twig filter. That filter will output either a link to the
+ * final generated image as requested or a link to the resizer route that will actually handle resizing the image.
+ * - User should be able to extend the image resizing to provide pre or post processing of the images before / after being resized
+ * also to include the ability to swap out the image resizer itself. The core workflow logic should remain the same though.
+ */
+class Helper {
+    /**
+     * Gets the identifier for provided resizing configuration
+     * This method validates, authorizes, and prepares the resizing request for execution by the resizer
+     * Invalid images (inaccessible, private, incompatible formats, etc) should be denied here, and only
+     * after successfull validation should the requested configuration be stored along with a signed hash
+     * of the the options
+     *
+     * @param mixed $image
+     * @param integer|bool|null $width
+     * @param integer|bool|null $height
+     * @param array $options
+     * @return string
+     */
+    public function getIdentifier($image, $width = null, $height = null, array $options = [])
+    {
+
+    }
+
+    /**
+     * Get the reference to the resized image if the requested resize exists
+     *
+     * @param string $identifier The Resizer Identifier that references the source image and desired resizing configuration
+     * @return bool|string
+     */
+    public function resized($identifier)
+    {
+        $options = static::getOptions($identifier);
+
+        $targetDisk = $options['resized_disk'];
+        $targetFile = $options['resized_path'];
+
+        $resized = $targetDisk->get($targetFile);
+
+        if ($resized) {
+            return $resized;
+        } else {
+            return false;
+        }
+    }
+
+    public function resize()
+    {
+
+    }
+}
+
+// Twig filter implementation
+function filterResize(mixed $image, int $width, int $height, array $options) {
+    $image = Helper::normalizeImage($image);
+
+    $identifier = Helper::getIdentifier(['disk' => $image->disk, 'path' => $image->path], $width, $height, $options);
+
+    if (Helper::resized($identifier)) {
+        return Helper::resized($identifier)->url();
+    } else {
+        return '/resize/' . $identifier;
+    }
+}
+
+// Route handling for /resize/{identifier} route
+Route::get('/resize/{identifier}', function ($identifier) {
+    if (Helper::resized($identifier)) {
+        return redirect()->to(Helper::resized($identifier));
+    }
+
+    return Helper::resize($identifier);
+});
+==
+{##}
+{{ 'assets/images/logo.png' | theme | resize(false, false, {quality: 90}) }}
+{{ record.mediafinder_field | media | resize(200, false) }}
+{{ record.filemodel_property | resize(false, 200, {mode: 'contain'}) }}
+{{ record.filemodel_property.getPath() | resize(600, 202) }}
