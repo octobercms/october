@@ -285,9 +285,22 @@ class Asset extends Extendable
             $fileName = $this->fileName;
         }
 
-        // Limit paths to those under the assets directory
         $directory = $this->theme->getPath() . '/' . $this->dirName . '/';
-        $path = realpath($directory . $fileName);
+        $filePath = $directory . $fileName;
+        $path = realpath($filePath);
+
+        /**
+         * If the path doesn't exist yet, then create it temporarily
+         * in order to run realpath() resolution on it to verify the
+         * final destination and then remove the temporary file.
+         */
+        if (!$path) {
+            touch($filePath);
+            $path = realpath($filePath);
+            unlink($filePath);
+        }
+
+        // Limit paths to those under the theme's assets directory
         if (!starts_with($path, $directory)) {
             return false;
         }
