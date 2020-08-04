@@ -80,6 +80,7 @@ class ServiceProvider extends ModuleServiceProvider
             $combiner->registerBundle('~/modules/backend/formwidgets/colorpicker/assets/less/colorpicker.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/permissioneditor/assets/less/permissioneditor.less');
             $combiner->registerBundle('~/modules/backend/formwidgets/markdowneditor/assets/less/markdowneditor.less');
+            $combiner->registerBundle('~/modules/backend/formwidgets/sensitive/assets/less/sensitive.less');
 
             /*
              * Rich Editor is protected by DRM
@@ -199,6 +200,7 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerFormWidget('Backend\FormWidgets\TagList', 'taglist');
             $manager->registerFormWidget('Backend\FormWidgets\MediaFinder', 'mediafinder');
             $manager->registerFormWidget('Backend\FormWidgets\NestedForm', 'nestedform');
+            $manager->registerFormWidget('Backend\FormWidgets\Sensitive', 'sensitive');
         });
     }
 

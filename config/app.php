@@ -113,21 +113,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => 'single',
-
-    /*
-    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -144,6 +129,26 @@ return [
         'System\ServiceProvider',
     ]),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Load automatically discovered packages
+    |--------------------------------------------------------------------------
+    |
+    | By default, October CMS disables the loading of discovered packages
+    | through Laravel's package discovery service, in order to allow packages
+    | used by plugins to be disabled if the plugin itself is disabled.
+    |
+    | Set this to `true` to enable automatic loading of these packages. This
+    | will result in packages being loaded, even if the plugin using them is
+    | disabled. This is NOT RECOMMENDED.
+    |
+    | Please note that packages defined in `app.providers` will still be loaded
+    | even if discovery is disabled.
+    |
+    */
+
+    'loadDiscoveredPackages' => false,
+    
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

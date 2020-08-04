@@ -11,6 +11,7 @@ class CreateAuthorsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->nullable();
+            $table->integer('country_id')->unsigned()->index()->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->softDeletes();
