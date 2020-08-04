@@ -9,46 +9,23 @@ class AssetTest extends TestCase
     {
         $theme = Theme::load('test');
 
-        // Forward compatible assertions
-        // @TODO: Use only `assertStringContainsString` after L6 upgrade
+        // Valid direct path
+        $this->assertStringContainsString(
+            'console.log(\'script1.js\');',
+            Asset::load($theme, 'js/script1.js')->content
+        );
 
-        if (method_exists($this, 'assertStringContainsString')) {
-            // Valid direct path
-            $this->assertStringContainsString(
-                'console.log(\'script1.js\');',
-                Asset::load($theme, 'js/script1.js')->content
-            );
+        // Valid direct subdirectory path
+        $this->assertStringContainsString(
+            'console.log(\'subdir/script1.js\');',
+            Asset::load($theme, 'js/subdir/script1.js')->content
+        );
 
-            // Valid direct subdirectory path
-            $this->assertStringContainsString(
-                'console.log(\'subdir/script1.js\');',
-                Asset::load($theme, 'js/subdir/script1.js')->content
-            );
-
-            // Valid relative path
-            $this->assertStringContainsString(
-                'console.log(\'script2.js\');',
-                Asset::load($theme, 'js/subdir/../script2.js')->content
-            );
-        } else {
-            // Valid direct path
-            $this->assertContains(
-                'console.log(\'script1.js\');',
-                Asset::load($theme, 'js/script1.js')->content
-            );
-
-            // Valid direct subdirectory path
-            $this->assertContains(
-                'console.log(\'subdir/script1.js\');',
-                Asset::load($theme, 'js/subdir/script1.js')->content
-            );
-
-            // Valid relative path
-            $this->assertContains(
-                'console.log(\'script2.js\');',
-                Asset::load($theme, 'js/subdir/../script2.js')->content
-            );
-        }
+        // Valid relative path
+        $this->assertStringContainsString(
+            'console.log(\'script2.js\');',
+            Asset::load($theme, 'js/subdir/../script2.js')->content
+        );
 
         // Invalid theme path
         $this->assertNull(
@@ -66,6 +43,11 @@ class AssetTest extends TestCase
         // Check that we cannot load directories directly
         $this->assertNull(
             Asset::load($theme, 'js/subdir')
+        );
+
+        // Check that we definitely cannot load external PHP files
+        $this->assertNull(
+            Asset::load($theme, '../../../../../config/database.php')
         );
     }
 
@@ -117,8 +99,9 @@ class AssetTest extends TestCase
             $assetClass->getFilePath('js/missing.js')
         );
 
-        // Missing file and missing directory (directory needs to be created first)
-        $this->assertFalse(
+        // Missing file and missing directory (new directories are created as needed)
+        $this->assertEquals(
+            $themeDir . '/assets/js/missing/missing.js',
             $assetClass->getFilePath('/js/missing/missing.js')
         );
 
@@ -128,6 +111,9 @@ class AssetTest extends TestCase
         );
         $this->assertFalse(
             $assetClass->getFilePath('../content/html-content.htm')
+        );
+        $this->assertFalse(
+            $assetClass->getFilePath('../../../../../config/database.php')
         );
     }
 }
