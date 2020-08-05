@@ -287,19 +287,7 @@ class Asset extends Extendable
 
         $directory = $this->theme->getPath() . '/' . $this->dirName . '/';
         $filePath = $directory . $fileName;
-        $fileParts = pathinfo($filePath);
-        $resolvedPath = realpath($filePath);
-
-        // If the file does not exist, or realpath() returns false, check the directory.
-        if (!$resolvedPath) {
-            $resolvedDir = realpath($fileParts['dirname']);
-
-            if (!$resolvedDir) {
-                return false;
-            }
-
-            $resolvedPath = $resolvedDir . '/' . $fileParts['basename'];
-        }
+        $resolvedPath = resolve_path($filePath);
 
         // Limit paths to those under the theme's assets directory
         if (!starts_with($resolvedPath, $directory)) {
