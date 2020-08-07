@@ -63,7 +63,7 @@ We do our best to attend to all reported issues. If you have an important issue 
 
 >**NOTE:** Please don't use GitHub issues for suggesting a new feature. If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](https://octobercms.com/forum/chan/feature-requests).
 
-Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [Discord](https://discord.gg/gEKgwSZ) or [IRC](https://octobercms.com/chat).
+Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [Discord](https://discord.gg/gEKgwSZ).
 
 #### GitHub feature requests
 
