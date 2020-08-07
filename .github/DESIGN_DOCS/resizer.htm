@@ -33,14 +33,17 @@
  *      'colourize' => string, RGB value
  * ]
  *
- * Event::fire('system.resize.afterResize')
- * Event::fire('system.resize.beforeResize')
- * Event::fire('system.resize.processResize')
+ * Event::fire('system.resizer.afterResize')
+ * Event::fire('system.resizer.beforeResize')
+ * Event::fire('system.resizer.processResize')
+ * Event::fire('system.resizer.getAvailableSources', [&$sourcesArray])
  *
  *
  *
 
 use App;
+use Cache;
+use Event;
 use Storage;
 use October\Rain\Database\Attach\File as FileModel;
 
@@ -64,7 +67,104 @@ use October\Rain\Database\Attach\File as FileModel;
  *      - Post processing of resized images with TinyPNG to optimize filesize further
  *      - Replacement processing of resizing with Intervention Image (using GD or ImageMagick)
  */
-class Helper {
+class Resizer {
+    /**
+     * @var string The cache key prefix for resizer configs
+     */
+    public const CACHE_PREFIX = 'system.resizer.';
+
+    /**
+     * @var array Image source data ['disk' => string, 'path' => string, 'source' => string]
+     */
+    protected $image = [];
+
+    /**
+     * @var integer Desired width
+     */
+    protected $width = null;
+
+    /**
+     * @var integer Desired height
+     */
+    protected $height = null;
+
+    /**
+     * @var array Image resizing configuration data
+     */
+    protected $options = [];
+
+    /**
+     * Prepare the resizer instance
+     *
+     * @param mixed $image
+     * @param integer|bool|null $width
+     * @param integer|bool|null $height
+     * @param array $options
+     */
+    public function __construct($image, $width = null, $height = null, $options = [])
+    {
+        $this->image = static::normalizeImage($image);
+        $this->width = is_numeric($width) ? (int) $width : null;
+        $this->height = is_numeric($height) ? (int) $height : null;
+        $this->options = array_merge($this->getDefaultOptions(), $options);
+    }
+
+    /**
+     * Get the available sources for processing image resize requests from
+     *
+     * @return array
+     */
+    public static function getAvailableSources()
+    {
+        $sources = [
+            'themes' => [
+                'disk' => 'system',
+                'folder' => config('cms.themesPathLocal', base_path('themes')),
+                'path' => config('cms.themesPath', '/themes'),
+            ],
+            'plugins' => [
+                'disk' => 'system',
+                'folder' => config('cms.pluginsPathLocal', base_path('plugins')),
+                'path' => config('cms.pluginsPath', '/plugins'),
+            ],
+            'media' => [
+                'disk' => config('cms.storage.media.disk', 'local'),
+                'folder' => config('cms.storage.media.folder', 'media'),
+                'path' => config('cms.storage.media.path', '/storage/app/media'),
+            ],
+            'modules' => [
+                'disk' => 'system',
+                'folder' => base_path('modules'),
+                'path' => '/modules',
+            ],
+            'uploads' => [
+                'disk' => config('cms.storage.uploads.disk', 'local'),
+                'folder' => config('cms.storage.uploads.folder', 'uploads'),
+                'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
+            ],
+        ];
+
+        /**
+         * @event system.resizer.getAvailableSources
+         * Provides an opportunity to modify the sources available for processing resize requests from
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.resizer.getAvailableSources', function ((array) &$sources)) {
+         *         $sources['custom'] = [
+         *              'disk' => 'custom',
+         *              'folder' => 'relative/path/on/disk',
+         *              'path' => 'publicly/accessible/path',
+         *         ];
+         *     });
+         *
+         */
+        Event::fire('system.resizer.getAvailableSources', [&$sources]);
+
+        return $sources;
+    }
+
+
     /**
      * Gets the identifier for provided resizing configuration
      * This method validates, authorizes, and prepares the resizing request for execution by the resizer
@@ -76,22 +176,27 @@ class Helper {
      * @param integer|bool|null $width
      * @param integer|bool|null $height
      * @param array $options
-     * @return string
+     * @return string 40 character string used as a unique reference to the provided configuration
      */
     public function getIdentifier($image, $width = null, $height = null, array $options = [])
     {
         $image = static::normalizeImage($image);
 
-        if (is_null($image)) {
-            throw new \Exception("Unable to process the provided image: " . var_export($image));
-        }
-
-        $properties = [
+        $config = [
             'image' => $image,
             'width' => $width,
             'height' => $height,
             'options' => $options,
         ];
+
+        $identifier = hash_hmac('sha1', json_encode($config), App::make('encrypter')->getKey());
+
+        // If the image hasn't been resized yet, then store the config data for the resizer to use
+        if (!static::resized($identifier)) {
+            Cache::put(static::CACHE_PREFIX . $identifier, $config);
+        }
+
+        return $identifier;
     }
 
     /**
@@ -101,12 +206,14 @@ class Helper {
      *              ['disk' => string, 'path' => string],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
-     * @return array|null Array containing the disk and path ['disk' => string, 'path' => string], null if not found
+     * @throws SystemException If the image was unable to be identified
+     * @return array Array containing the disk, path, and selected source name ['disk' => string, 'path' => string, 'source' => string]
      */
     public static function normalizeImage($image)
     {
         $disk = null;
         $path = null;
+        $selectedSource = null;
 
         // Process an array
         if (is_array($image) && !empty($image['disk']) && !empty($image['path'])) {
@@ -125,33 +232,7 @@ class Helper {
 
             // Loop through the sources available to the application to pull from
             // to identify the source most likely to be holding the image
-            $resizeSources = [
-                'themes' => [
-                    'disk' => 'system',
-                    'folder' => config('cms.themesPathLocal', base_path('themes')),
-                    'path' => config('cms.themesPath', '/themes'),
-                ],
-                'plugins' => [
-                    'disk' => 'system',
-                    'folder' => config('cms.pluginsPathLocal', base_path('plugins')),
-                    'path' => config('cms.pluginsPath', '/plugins'),
-                ],
-                'media' => [
-                    'disk' => config('cms.storage.media.disk', 'local'),
-                    'folder' => config('cms.storage.media.folder', 'media'),
-                    'path' => config('cms.storage.media.path', '/storage/app/media'),
-                ],
-                'modules' => [
-                    'disk' => 'system',
-                    'folder' => base_path('modules'),
-                    'path' => '/modules',
-                ],
-                'uploads' => [
-                    'disk' => config('cms.storage.uploads.disk', 'local'),
-                    'folder' => config('cms.storage.uploads.folder', 'uploads'),
-                    'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
-                ],
-            ];
+            $resizeSources = static::getAvailableSources();
             foreach ($resizeSources as $source => $details) {
                 // Normalize the source path
                 $sourcePath = urldecode(parse_url($details['path'], PHP_URL_PATH));
@@ -175,6 +256,7 @@ class Helper {
 
                     // Verify that the file exists before exiting the identification process
                     if ($disk->exists($path)) {
+                        $selectedSource = $source;
                         break;
                     } else {
                         $disk = null;
@@ -185,13 +267,14 @@ class Helper {
             }
         }
 
-        if (!$disk || !$path) {
-            return null;
+        if (!$disk || !$path || !$selectedSource) {
+            throw new SystemException("Unable to process the provided image: " . e(var_export($image)));
         }
 
         return [
             'disk' => $disk,
             'path' => $path,
+            'source' => $selectedSource,
         ];
     }
 
@@ -202,8 +285,10 @@ class Helper {
      * @param string $identifier The Resizer Identifier that references the source image and desired resizing configuration
      * @return bool|string
      */
-    public function resized($identifier)
+    public function resized($image, $width = null, $height = null, $options = array)
     {
+        $targetPath = implode('/', array_slice(str_split($identifier, 10), 0, 4)) . '/' . pathinfo($image['path'], PATHINFO_FILENAME) . "_resized_{$data['width']}_{$data['height']}.{$data['options']['extension']}";
+
         $options = static::getOptions($identifier);
 
         $targetDisk = $options['resized_disk'];
@@ -218,32 +303,69 @@ class Helper {
         }
     }
 
-    public function resize()
+    public function resize($image, $width = null, $height = null, $options = [])
     {
+        $identifier = static::getIdentifier($image, $width, $height, $options);
 
+
+    }
+
+    public static function getResizerUrl($image, $width = null, $height = null, $options = [])
+    {
+        $image = static::normalizeImage($image);
+        $identifier = static::getIdentifier($image, $width, $height, $options);
+        $data = static::normalizeConfig($image, $width, $height, $options);
+        $name = pathinfo($image['path'], PATHINFO_FILENAME) . "_resized_{$data['width']}_{$data['height']}.{$data['options']['extension']}";
+
+        return Url::to("/resizer/$identifier/{$image['source']}/$name");
     }
 }
 
 // Twig filter implementation
 function filterResize(mixed $image, int $width, int $height, array $options) {
-    $image = Helper::normalizeImage($image);
+    // Attempt to process the provided image
+    try {
+        $imageData = Helper::normalizeImage($image);
+    } catch (SystemException $ex) {
+        // Ignore processing this URL if the resizer is unable to identify it
+        if (is_string($image)) {
+            return $image;
+        } elseif ($image instanceof FileModel) {
+            return $image->getPath();
+        } else {
+            throw new SystemException("Unable to process the provided image: " . e(var_export($image)));
+        }
+    }
 
-    $identifier = Helper::getIdentifier(['disk' => $image->disk, 'path' => $image->path], $width, $height, $options);
+    $resizedUrl = Helper::resized($imageData, $width, $height, $options);
 
-    if (Helper::resized($identifier)) {
-        return Helper::resized($identifier)->url();
+    if ($resizedUrl) {
+        return $resizedUrl;
     } else {
-        return '/resize/' . $identifier;
+        return Helper::getResizerUrl($imageData, $width, $height, $options);
     }
 }
 
-// Route handling for /resize/{identifier} route
-Route::get('/resize/{identifier}', function ($identifier) {
-    if (Helper::resized($identifier)) {
-        return redirect()->to(Helper::resized($identifier));
+// Route handling for resizing route route
+Route::get('/resize/{identifier}/{source}/{name}', function ($identifier, $source, $name) {
+    // Generate the URL to the final result
+    $resizedUrl = Helper::getResizedUrl($identifer, $source, $name);
+
+    // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
+    $config = Cache::pull(Helper::CACHE_PREFIX . $identifier, null);
+
+    // If the configuration wasn't found the image has already been processed or
+    // is currently being processed by a different request. Either way, return a
+    // redirect to the final result.
+    if (empty($config) || Helper::resized($config['image'], $config['width'], $config['height'], $config['options'])) {
+        return redirect()->to($resizedUrl);
     }
 
-    return Helper::resize($identifier);
+    // Process the image resize
+    Helper::resize($config['image'], $config['width'], $config['height'], $config['options']);
+
+    // Return a redirect to the generated image
+    return redirect()->to($resizedUrl);
 });
 ==
 {##}
