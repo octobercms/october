@@ -325,6 +325,12 @@ return [
             'path'   => '/storage/app/media',
         ],
 
+        'resized' => [
+            'disk'   => 'local',
+            'folder' => 'resized',
+            'path'   => '/storage/app/resized',
+        ],
+
     ],
 
     /*
