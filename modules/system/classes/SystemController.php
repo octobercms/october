@@ -1,10 +1,11 @@
 <?php namespace System\Classes;
 
 use Lang;
+use Response;
+use Exception;
+use SystemException;
 use ApplicationException;
 use Illuminate\Routing\Controller as ControllerBase;
-use Exception;
-use Response;
 
 /**
  * The is the master controller for system related routing.
@@ -12,7 +13,7 @@ use Response;
  *
  * @see System\Classes\CombineAssets Asset combiner class
  * @package october\system
- * @author Alexey Bobkov, Samuel Georges
+ * @author Alexey Bobkov, Samuel Georges, Luke Towers
  */
 class SystemController extends ControllerBase
 {
@@ -35,9 +36,31 @@ class SystemController extends ControllerBase
             $combiner = CombineAssets::instance();
 
             return $combiner->getContents($cacheId);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             return Response::make('/* '.e($ex->getMessage()).' */', 500);
         }
+    }
+
+    /**
+     * Resizes an image using the provided configuration
+     * and returns a redirect to the resized image
+     *
+     * @param string $identifier The identifier used to retrieve the image configuration
+     * @param string $source The name of the source the image is being resized from
+     * @param string $name The filename of the resized image
+     * @return RedirectResponse
+     */
+    public function resize(string $identifier, string $source, string $name)
+    {
+        // Attempt to process the resize
+        try {
+            $resizer = ImageResizer::fromIdentifier($identifier);
+            $resizer->resize();
+        } catch (SystemException $ex) {
+            // If the resizing failed it was most likely because the config had already been
+            // pulled from the cache so just continue to redirect the user to the final file anyways
+        }
+
+        return redirect()->to(ImageResizer::getResizedUrl($identifier, $source, $name));
     }
 }

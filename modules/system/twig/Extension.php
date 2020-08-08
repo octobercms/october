@@ -1,10 +1,11 @@
 <?php namespace System\Twig;
 
 use Url;
-use Twig\Extension\AbstractExtension as TwigExtension;
-use Twig\TwigFilter as TwigSimpleFilter;
+use System\Classes\ImageResizer;
 use System\Classes\MediaLibrary;
 use System\Classes\MarkupManager;
+use Twig\TwigFilter as TwigSimpleFilter;
+use Twig\Extension\AbstractExtension as TwigExtension;
 
 /**
  * The System Twig extension class implements common Twig functions and filters.
@@ -54,6 +55,7 @@ class Extension extends TwigExtension
         $filters = [
             new TwigSimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
             new TwigSimpleFilter('media', [$this, 'mediaFilter'], ['is_safe' => ['html']]),
+            new TwigSimpleFilter('resize', [$this, 'resizeFilter'], ['is_safe' => ['html']]),
         ];
 
         /*
@@ -99,5 +101,23 @@ class Extension extends TwigExtension
     public function mediaFilter($file)
     {
         return MediaLibrary::url($file);
+    }
+
+    /**
+     * Converts supplied input into a URL that will return the desired resized image
+     *
+     * @param mixed $image Supported values below:
+     *              ['disk' => string, 'path' => string],
+     *              instance of October\Rain\Database\Attach\File,
+     *              string containing URL or path accessible to the application's filesystem manager
+     * @param integer|bool|null $width Desired width of the resized image
+     * @param integer|bool|null $height Desired height of the resized image
+     * @param array|null $options Array of options to pass to the resizer
+     * @throws SystemException If the provided input was unable to be processed
+     * @return string
+     */
+    public function resizeFilter($image, $width = null, $height = null, $options = [])
+    {
+        return ImageResizer::getFilterUrl($image, $width, $height, $options);
     }
 }

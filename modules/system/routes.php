@@ -8,4 +8,9 @@ App::before(function ($request) {
      * Combine JavaScript and StyleSheet assets
      */
     Route::any('combine/{file}', 'System\Classes\SystemController@combine');
+
+    /*
+     * Resize image assets
+     */
+    Route::get('resize/{identifier}/{source}/{name}', 'System\Classes\SystemController@resize');
 });
