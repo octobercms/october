@@ -46,15 +46,11 @@ class SystemController extends ControllerBase
      * and returns a redirect to the resized image
      *
      * @param string $identifier The identifier used to retrieve the image configuration
+     * @param string $encodedUrl The double-encoded URL of the resized image, see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
      * @return RedirectResponse
      */
-    public function resizer(string $identifier)
+    public function resizer(string $identifier, string $encodedUrl)
     {
-        // The URL-encoded URL to the resized image has to be passed as a GET variable
-        // because of Laravel rawurldecode's the requested URL before passing it to the routing engine
-        // @see https://github.com/laravel/framework/pull/4338
-        $encodedUrl = input('t');
-
         $resizedUrl = ImageResizer::getValidResizedUrl($identifier, $encodedUrl);
         if (empty($resizedUrl)) {
             return response('Invalid identifier or redirect URL', 400);

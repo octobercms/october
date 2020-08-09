@@ -159,6 +159,8 @@ class ImageResizer
         // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
         $config = Cache::get(static::CACHE_PREFIX . $identifier, null); // @TODO: replace with pull()
 
+        dd($config);
+
         // Validate that the desired config was able to be loaded
         if (empty($config)) {
             throw new SystemException("Unable to retrieve the configuration for " . e($identifier));
@@ -232,7 +234,6 @@ class ImageResizer
                 'disk' => config('cms.storage.uploads.disk', 'local'),
                 'folder' => config('cms.storage.uploads.folder', 'uploads'),
                 'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
-                'target' => 'alongside',
             ],
         ];
 
@@ -299,16 +300,18 @@ class ImageResizer
      * Normalize the provided input into information that the resizer can work with
      *
      * @param mixed $image Supported values below:
-     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string],
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @throws SystemException If the image was unable to be identified
-     * @return array Array containing the disk, path, and extension ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string]
+     * @return array Array containing the disk, path, and extension ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string]
      */
     public static function normalizeImage($image)
     {
         $disk = null;
         $path = null;
+        $selectedSource = null;
+        $fileModel = null;
 
         // Process an array
         if (is_array($image) && !empty($image['disk']) && !empty($image['path'])) {
@@ -325,11 +328,15 @@ class ImageResizer
         } elseif ($image instanceof FileModel) {
             $disk = $image->getDisk();
             $path = $image->getDiskPath();
+            $selectedSource = 'uploads';
+            $fileModel = $image;
 
             // Verify that the source file exists
             if (empty(pathinfo($path, PATHINFO_EXTENSION)) || !$disk->exists($path)) {
                 $disk = null;
                 $path = null;
+                $selectedSource = null;
+                $fileModel = null;
             }
 
         // Process a string
@@ -363,6 +370,7 @@ class ImageResizer
 
                     // Verify that the file exists before exiting the identification process
                     if (!empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path)) {
+                        $selectedSource = $source;
                         break;
                     } else {
                         $disk = null;
@@ -373,17 +381,24 @@ class ImageResizer
             }
         }
 
-        if (!$disk || !$path) {
+        if (!$disk || !$path || !$selectedSource) {
             if (is_object($image)) {
                 $image = get_class($image);
             }
             throw new SystemException("Unable to process the provided image: " . e(var_export($image, true)));
         }
 
-        return [
+        $data = [
             'disk' => $disk,
             'path' => $path,
+            'source' => $selectedSource,
         ];
+
+        if ($fileModel) {
+            $data['fileModel'] = $fileModel;
+        }
+
+        return $data;
     }
 
 
@@ -432,10 +447,12 @@ class ImageResizer
      */
     public function getResizerUrl()
     {
+        // Slashes in URL params have to be double encoded to survive Laravel's router
+        // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
+        $resizedUrl = urlencode(urlencode($this->getResizedUrl()));
         $identifier = $this->getIdentifier();
-        $resizedUrl = urlencode($this->getResizedUrl());
 
-        return Url::to("/resizer/{$identifier}?t=$resizedUrl");
+        return Url::to("/resizer/$identifier/$resizedUrl");
     }
 
     /**
@@ -445,6 +462,11 @@ class ImageResizer
      */
     public function getResizedUrl()
     {
+        if ($this->image['source'] === 'source') {
+            $thumbFile = $this->image['fileModel']->getThumbFilename($this->width, $this->height, $this->options);
+            $thumbPublic = $this->image['fileModel']->getPath($thumbFile);
+        }
+
         $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
 
         return $resizedDisk->url(Config::get('cms.resized.folder', 'resized') . '/' . $this->getResizedPath() . $this->getResizedName());
@@ -491,8 +513,10 @@ class ImageResizer
      */
     public static function getValidResizedUrl($identifier, $encodedUrl)
     {
+        // Slashes in URL params have to be double encoded to survive Laravel's router
+        // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
+        $decodedUrl = urldecode(urldecode($encodedUrl));
         $url = null;
-        $decodedUrl = urldecode($encodedUrl);
 
         // The identifier should be the signed version of the decoded URL
         if (static::isValidIdentifier($identifier) && $identifier === hash_hmac('sha1', $decodedUrl, Crypt::getKey())) {
