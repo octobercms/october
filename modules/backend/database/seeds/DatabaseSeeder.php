@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Eloquent::unguard();
-
-        $this->call('Backend\Database\Seeds\SeedSetupAdmin');
+        Eloquent::unguarded(function () {
+            $this->call('Backend\Database\Seeds\SeedSetupAdmin');
+        });
     }
 }

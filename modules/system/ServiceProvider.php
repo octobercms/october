@@ -94,6 +94,7 @@ class ServiceProvider extends ModuleServiceProvider
             }
         }
 
+        Paginator::useBootstrapThree();
         Paginator::defaultSimpleView('system::pagination.simple-default');
 
         /*

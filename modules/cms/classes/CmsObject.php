@@ -227,7 +227,16 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
             $fileName = $this->fileName;
         }
 
-        return $this->theme->getPath().'/'.$this->getObjectTypeDirName().'/'.$fileName;
+        $directory = $this->theme->getPath() . '/' . $this->getObjectTypeDirName() . '/';
+        $filePath = $directory . $fileName;
+        $resolvedPath = resolve_path($filePath);
+
+        // Limit paths to those under the corresponding theme directory
+        if (!starts_with($resolvedPath, $directory)) {
+            return false;
+        }
+
+        return $resolvedPath;
     }
 
     /**

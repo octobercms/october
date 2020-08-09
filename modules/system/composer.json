@@ -8,11 +8,13 @@
     "authors": [
         {
             "name": "Alexey Bobkov",
-            "email": "aleksey.bobkov@gmail.com"
+            "email": "aleksey.bobkov@gmail.com",
+            "role": "Co-founder"
         },
         {
             "name": "Samuel Georges",
-            "email": "daftspunky@gmail.com"
+            "email": "daftspunky@gmail.com",
+            "role": "Co-founder"
         },
         {
             "name": "Luke Towers",
@@ -22,9 +24,10 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.2",
         "composer/installers": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "~1.0",
+        "laravel/framework": "~6.0"
     },
     "autoload": {
         "psr-4": {

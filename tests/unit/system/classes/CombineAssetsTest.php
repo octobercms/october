@@ -5,7 +5,7 @@ use System\Classes\CombineAssets;
 
 class CombineAssetsTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -24,10 +24,10 @@ class CombineAssetsTest extends TestCase
          * Supported file extensions should exist
          */
         $jsExt = $cssExt = self::getProtectedProperty($combiner, 'jsExtensions');
-        $this->assertInternalType('array', $jsExt);
+        $this->assertIsArray($jsExt);
 
         $cssExt = self::getProtectedProperty($combiner, 'cssExtensions');
-        $this->assertInternalType('array', $cssExt);
+        $this->assertIsArray($cssExt);
 
         /*
          * Check service methods
