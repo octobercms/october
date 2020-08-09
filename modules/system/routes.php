@@ -11,6 +11,7 @@ App::before(function ($request) {
 
     /*
      * Resize image assets
+     * Requires ?t={encodedUrl} to be present
      */
-    Route::get('resize/{identifier}/{source}/{name}', 'System\Classes\SystemController@resize');
+    Route::get('resizer/{identifier}', 'System\Classes\SystemController@resizer');
 });
