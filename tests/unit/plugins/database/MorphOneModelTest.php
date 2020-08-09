@@ -6,7 +6,7 @@ use Database\Tester\Models\Meta;
 
 class MorphOneModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

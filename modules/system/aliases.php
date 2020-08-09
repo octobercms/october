@@ -16,7 +16,6 @@ return [
     'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
     'Event'     => Illuminate\Support\Facades\Event::class,
     'Hash'      => Illuminate\Support\Facades\Hash::class,
-    'Input'     => Illuminate\Support\Facades\Input::class,
     'Lang'      => Illuminate\Support\Facades\Lang::class,
     'Log'       => Illuminate\Support\Facades\Log::class,
     'Mail'      => Illuminate\Support\Facades\Mail::class,
@@ -30,7 +29,6 @@ return [
     'Storage'   => Illuminate\Support\Facades\Storage::class,
     'Url'       => Illuminate\Support\Facades\URL::class, // Preferred
     'URL'       => Illuminate\Support\Facades\URL::class,
-    'Validator' => Illuminate\Support\Facades\Validator::class,
     'View'      => Illuminate\Support\Facades\View::class,
 
     /*
@@ -42,6 +40,7 @@ return [
     'Config'          => October\Rain\Support\Facades\Config::class,
     'Seeder'          => October\Rain\Database\Updates\Seeder::class,
     'Flash'           => October\Rain\Support\Facades\Flash::class,
+    'Input'           => October\Rain\Support\Facades\Input::class,
     'Form'            => October\Rain\Support\Facades\Form::class,
     'Html'            => October\Rain\Support\Facades\Html::class,
     'Http'            => October\Rain\Support\Facades\Http::class,
@@ -52,6 +51,7 @@ return [
     'Twig'            => October\Rain\Support\Facades\Twig::class,
     'DbDongle'        => October\Rain\Support\Facades\DbDongle::class,
     'Schema'          => October\Rain\Support\Facades\Schema::class,
+    'Validator'       => October\Rain\Support\Facades\Validator::class,
     'Cms'             => Cms\Facades\Cms::class,
     'Backend'         => Backend\Facades\Backend::class,
     'BackendMenu'     => Backend\Facades\BackendMenu::class,
@@ -60,4 +60,12 @@ return [
     'SystemException'      => October\Rain\Exception\SystemException::class,
     'ApplicationException' => October\Rain\Exception\ApplicationException::class,
     'ValidationException'  => October\Rain\Exception\ValidationException::class,
+
+    /*
+     * Fallback aliases
+     */
+    // Input facade was removed in Laravel 6 - we are keeping it in the Rain library for backwards compatibility.
+    'Illuminate\Support\Facades\Input' => October\Rain\Support\Facades\Input::class,
+    // Illuminate's HtmlDumper was "dumped" in Laravel 6 - we'll route this to Symfony's HtmlDumper as Laravel have done.
+    'Illuminate\Support\Debug\HtmlDumper' => Symfony\Component\VarDumper\Dumper\HtmlDumper::class,
 ];
