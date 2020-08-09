@@ -30,12 +30,6 @@ class VersionManager
     const HISTORY_TYPE_SCRIPT = 'script';
 
     /**
-     * The notes for the current operation.
-     * @var array
-     */
-    protected $notes = [];
-
-    /**
      * @var \Illuminate\Console\OutputStyle
      */
     protected $notesOutput;
@@ -426,6 +420,7 @@ class VersionManager
          * Execute the database PHP script
          */
         $updateFile = $this->pluginManager->getPluginPath($code) . '/updates/' . $script;
+
         $this->updater->packDown($updateFile);
 
         Db::table('system_plugin_history')
@@ -508,31 +503,7 @@ class VersionManager
     {
         if ($this->notesOutput !== null) {
             $this->notesOutput->writeln($message);
-        } else {
-            $this->notes[] = $message;
         }
-
-        return $this;
-    }
-
-    /**
-     * Get the notes for the last operation.
-     * @return array
-     */
-    public function getNotes()
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Resets the notes store.
-     * @return self
-     */
-    public function resetNotes()
-    {
-        $this->notesOutput = null;
-
-        $this->notes = [];
 
         return $this;
     }
@@ -550,8 +521,7 @@ class VersionManager
     }
 
     /**
-     * @param $details
-     *
+     * Extract script and comments from version details
      * @return array
      */
     protected function extractScriptsAndComments($details): array
@@ -566,7 +536,8 @@ class VersionManager
             $scripts = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
                 return preg_match($fileNamePattern, $detail);
             }));
-        } else {
+        }
+        else {
             $comments = (array)$details;
             $scripts = [];
         }

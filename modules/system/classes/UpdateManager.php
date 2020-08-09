@@ -30,11 +30,6 @@ class UpdateManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
-     * @var array The notes for the current operation.
-     */
-    protected $notes = [];
-
-    /**
      * @var \Illuminate\Console\OutputStyle
      */
     protected $notesOutput;
@@ -345,12 +340,12 @@ class UpdateManager
         /*
          * Rollback modules
          */
+        if (isset($this->notesOutput)) {
+            $this->migrator->setOutput($this->notesOutput);
+        }
+
         while (true) {
             $rolledBack = $this->migrator->rollback($paths, ['pretend' => false]);
-
-            foreach ($this->migrator->getNotes() as $note) {
-                $this->note($note);
-            }
 
             if (count($rolledBack) == 0) {
                 break;
@@ -403,13 +398,13 @@ class UpdateManager
      */
     public function migrateModule($module)
     {
-        $this->migrator->run(base_path() . '/modules/' . strtolower($module) . '/database/migrations');
+        if (isset($this->notesOutput)) {
+            $this->migrator->setOutput($this->notesOutput);
+        }
 
         $this->note($module);
 
-        foreach ($this->migrator->getNotes() as $note) {
-            $this->note(' - ' . $note);
-        }
+        $this->migrator->run(base_path() . '/modules/'.strtolower($module).'/database/migrations');
 
         return $this;
     }
@@ -518,13 +513,9 @@ class UpdateManager
 
         $this->note($name);
 
-        $this->versionManager->resetNotes()->setNotesOutput($this->notesOutput);
+        $this->versionManager->setNotesOutput($this->notesOutput);
 
-        if ($this->versionManager->updatePlugin($plugin) !== false) {
-            foreach ($this->versionManager->getNotes() as $note) {
-                $this->note($note);
-            }
-        }
+        $this->versionManager->updatePlugin($plugin);
 
         return $this;
     }
@@ -713,7 +704,8 @@ class UpdateManager
         }
 
         $data = $this->requestServerData($type . '/popular');
-        Cache::put($cacheKey, base64_encode(serialize($data)), 60);
+        $expiresAt = now()->addMinutes(60);
+        Cache::put($cacheKey, base64_encode(serialize($data)), $expiresAt);
 
         foreach ($data as $product) {
             $code = array_get($product, 'code', -1);
@@ -802,31 +794,7 @@ class UpdateManager
     {
         if ($this->notesOutput !== null) {
             $this->notesOutput->writeln($message);
-        } else {
-            $this->notes[] = $message;
         }
-
-        return $this;
-    }
-
-    /**
-     * Get the notes for the last operation.
-     * @return array
-     */
-    public function getNotes()
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Resets the notes store.
-     * @return self
-     */
-    public function resetNotes()
-    {
-        $this->notesOutput = null;
-
-        $this->notes = [];
 
         return $this;
     }

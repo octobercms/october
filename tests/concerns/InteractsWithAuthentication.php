@@ -29,7 +29,7 @@ trait InteractsWithAuthentication
      */
     public function be(UserContract $user, $driver = null)
     {
-        $this->app['auth']->setUser($user);
+        $this->app['backend.auth']->setUser($user);
     }
 
     /**
@@ -66,7 +66,7 @@ trait InteractsWithAuthentication
      */
     protected function isAuthenticated($guard = null)
     {
-        return $this->app->make('auth')->guard($guard)->check();
+        return $this->app->make('backend.auth')->guard($guard)->check();
     }
 
     /**
@@ -78,7 +78,7 @@ trait InteractsWithAuthentication
      */
     public function assertAuthenticatedAs($user, $guard = null)
     {
-        $expected = $this->app->make('auth')->guard($guard)->user();
+        $expected = $this->app->make('backend.auth')->guard($guard)->user();
 
         $this->assertNotNull($expected, 'The current user is not authenticated.');
 
@@ -140,7 +140,7 @@ trait InteractsWithAuthentication
      */
     protected function hasCredentials(array $credentials, $guard = null)
     {
-        $provider = $this->app->make('auth')->guard($guard)->getProvider();
+        $provider = $this->app->make('backend.auth')->guard($guard)->getProvider();
 
         $user = $provider->retrieveByCredentials($credentials);
 
