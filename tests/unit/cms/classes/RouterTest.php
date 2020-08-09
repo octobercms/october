@@ -7,7 +7,7 @@ class RouterTest extends TestCase
 {
     protected static $theme = null;
 
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 
@@ -43,7 +43,7 @@ class RouterTest extends TestCase
         $this->assertFalse($value);
         $map = $property->getValue($router);
 
-        $this->assertIsArray($map);
+        $this->assertInternalType('array', $map);
         $this->assertGreaterThanOrEqual(4, count($map));
 
         /*
@@ -52,7 +52,7 @@ class RouterTest extends TestCase
         $value = $method->invoke($router);
         $this->assertTrue($value);
         $map = $property->getValue($router);
-        $this->assertIsArray($map);
+        $this->assertInternalType('array', $map);
         $this->assertGreaterThanOrEqual(4, count($map));
     }
 

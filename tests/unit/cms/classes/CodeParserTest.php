@@ -10,7 +10,7 @@ use Cms\Classes\Controller;
 
 class CodeParserTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setup();
 
@@ -41,7 +41,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($layout);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -78,7 +78,7 @@ class CodeParserTest extends TestCase
 
         $parser = new CodeParser($layout);
         $info = $parser->parse();
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertEquals('request-cache', $info['source']);
         $this->assertFileExists($info['filePath']);
 
@@ -91,7 +91,7 @@ class CodeParserTest extends TestCase
 
         $parser = new CodeParser($layout);
         $info = $parser->parse();
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertEquals('cache', $info['source']);
         $this->assertFileExists($info['filePath']);
 
@@ -101,7 +101,7 @@ class CodeParserTest extends TestCase
 
         $parser = new CodeParser($layout);
         $info = $parser->parse();
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertEquals('request-cache', $info['source']);
         $this->assertFileExists($info['filePath']);
 
@@ -110,14 +110,13 @@ class CodeParserTest extends TestCase
          */
 
         $this->assertTrue(@touch($layout->getFilePath()));
-        clearstatcache();
         $layout = Layout::load($theme, 'php-parser-test.htm');
         $this->assertNotEmpty($layout);
         $parser = new CodeParser($layout);
         $property->setValue($parser, []);
 
         $info = $parser->parse();
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertEquals('parser', $info['source']);
         $this->assertFileExists($info['filePath']);
     }
@@ -132,7 +131,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($layout);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -158,7 +157,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($page);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -192,7 +191,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($page);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -221,7 +220,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($page);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -256,7 +255,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($page);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);
@@ -285,7 +284,7 @@ class CodeParserTest extends TestCase
         $parser = new CodeParser($page);
         $info = $parser->parse();
 
-        $this->assertIsArray($info);
+        $this->assertInternalType('array', $info);
         $this->assertArrayHasKey('filePath', $info);
         $this->assertArrayHasKey('className', $info);
         $this->assertArrayHasKey('source', $info);

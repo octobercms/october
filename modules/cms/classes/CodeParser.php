@@ -224,8 +224,7 @@ class CodeParser
         $cached = $this->getCachedInfo() ?: [];
         $cached[$this->filePath] = $cacheItem;
 
-        $expiresAt = now()->addMinutes(1440);
-        Cache::put($this->dataCacheKey, base64_encode(serialize($cached)), $expiresAt);
+        Cache::put($this->dataCacheKey, base64_encode(serialize($cached)), 1440);
 
         self::$cache[$this->filePath] = $result;
     }

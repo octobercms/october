@@ -7,7 +7,7 @@ use October\Rain\Halcyon\Model;
 
 class CmsObjectQueryTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

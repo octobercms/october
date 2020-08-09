@@ -5,7 +5,7 @@ use System\Classes\MarkupManager;
 class MarkupManagerTest extends TestCase
 {
 
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

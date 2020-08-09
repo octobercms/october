@@ -134,11 +134,10 @@ class MediaLibrary
             $folderContents = $this->scanFolderContents($fullFolderPath);
 
             $cached[$fullFolderPath] = $folderContents;
-            $expiresAt = now()->addMinutes(Config::get('cms.storage.media.ttl', 10));
             Cache::put(
                 $this->cacheKey,
                 base64_encode(serialize($cached)),
-                $expiresAt
+                Config::get('cms.storage.media.ttl', 10)
             );
         }
 

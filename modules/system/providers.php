@@ -15,7 +15,9 @@ return [
     Illuminate\Pagination\PaginationServiceProvider::class,
     Illuminate\Pipeline\PipelineServiceProvider::class,
     Illuminate\Queue\QueueServiceProvider::class,
+    Illuminate\Redis\RedisServiceProvider::class,
     Illuminate\Session\SessionServiceProvider::class,
+    Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
     Laravel\Tinker\TinkerServiceProvider::class,
 
@@ -34,7 +36,5 @@ return [
     October\Rain\Flash\FlashServiceProvider::class,
     October\Rain\Mail\MailServiceProvider::class,
     October\Rain\Argon\ArgonServiceProvider::class,
-    October\Rain\Redis\RedisServiceProvider::class,
-    October\Rain\Validation\ValidationServiceProvider::class,
 
 ];

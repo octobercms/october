@@ -127,11 +127,10 @@ class Router
                             : $fileName;
 
                         $key = $this->getUrlListCacheKey();
-                        $expiresAt = now()->addMinutes(Config::get('cms.urlCacheTtl', 1));
                         Cache::put(
                             $key,
                             base64_encode(serialize($urlList)),
-                            $expiresAt
+                            Config::get('cms.urlCacheTtl', 1)
                         );
                     }
                 }
@@ -252,8 +251,7 @@ class Router
 
             $this->urlMap = $map;
             if ($cacheable) {
-                $expiresAt = now()->addMinutes(Config::get('cms.urlCacheTtl', 1));
-                Cache::put($key, base64_encode(serialize($map)), $expiresAt);
+                Cache::put($key, base64_encode(serialize($map)), Config::get('cms.urlCacheTtl', 1));
             }
 
             return false;

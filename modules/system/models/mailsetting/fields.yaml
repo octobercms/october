@@ -79,7 +79,6 @@ tabs:
         smtp_password:
             label: system::lang.mail.smtp_password
             tab: system::lang.mail.general
-            type: sensitive
             span: right
             trigger:
                 action: show
@@ -108,7 +107,6 @@ tabs:
             label: system::lang.mail.mailgun_secret
             commentAbove: system::lang.mail.mailgun_secret_comment
             tab: system::lang.mail.general
-            type: sensitive
             trigger:
                 action: show
                 field: send_mode
@@ -118,7 +116,6 @@ tabs:
             label: system::lang.mail.mandrill_secret
             commentAbove: system::lang.mail.mandrill_secret_comment
             tab: system::lang.mail.general
-            type: sensitive
             trigger:
                 action: show
                 field: send_mode
@@ -138,7 +135,6 @@ tabs:
             label: system::lang.mail.ses_secret
             commentAbove: system::lang.mail.ses_secret_comment
             tab: system::lang.mail.general
-            type: sensitive
             span: right
             trigger:
                 action: show
@@ -158,7 +154,6 @@ tabs:
         sparkpost_secret:
             label: system::lang.mail.sparkpost_secret
             commentAbove: system::lang.mail.sparkpost_secret_comment
-            type: sensitive
             tab: system::lang.mail.general
             trigger:
                 action: show

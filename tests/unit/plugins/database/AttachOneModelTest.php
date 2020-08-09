@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AttachOneModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

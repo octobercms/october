@@ -158,8 +158,7 @@ class Theme
         if ($checkDatabase && App::hasDatabase()) {
             try {
                 try {
-                    $expiresAt = now()->addMinutes(1440);
-                    $dbResult = Cache::remember(self::ACTIVE_KEY, $expiresAt, function () {
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
                         return Parameter::applyKey(self::ACTIVE_KEY)->value('value');
                     });
                 }

@@ -4,7 +4,7 @@ use Database\Tester\Models\ValidationPost;
 
 class ValidationModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 
@@ -13,10 +13,11 @@ class ValidationModelTest extends PluginTestCase
         $this->runPluginRefreshCommand('Database.Tester');
     }
 
+    /**
+     * @expectedException October\Rain\Database\ModelException
+     */
     public function testUniqueTableValidation()
     {
-        $this->expectException(\October\Rain\Database\ModelException::class);
-
         $post = ValidationPost::create([
             'title' => 'This is a new post',
             'slug' => 'post-1',

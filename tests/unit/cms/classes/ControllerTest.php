@@ -6,7 +6,7 @@ use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 
@@ -69,7 +69,7 @@ class ControllerTest extends TestCase
         $response = $controller->run('/some-page-that-doesnt-exist');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
         $content = $response->getContent();
-        $this->assertIsString($content);
+        $this->assertInternalType('string', $content);
         $this->assertEquals('<p>Page not found</p>', $content);
     }
 
@@ -83,15 +83,16 @@ class ControllerTest extends TestCase
         $response = $controller->run('/');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
         $content = $response->getContent();
-        $this->assertIsString($content);
+        $this->assertInternalType('string', $content);
         $this->assertEquals('<h1>My Webpage</h1>', trim($content));
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage is not found
+     */
     public function testLayoutNotFound()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessageMatches('/is\snot\sfound/');
-
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-layout');
@@ -145,11 +146,12 @@ class ControllerTest extends TestCase
         $this->assertEquals("<div>LAYOUT CONTENT <h1>This page is a subdirectory</h1></div>", $response);
     }
 
+    /**
+     * @expectedException        \Twig\Error\RuntimeError
+     * @expectedExceptionMessage is not found
+     */
     public function testPartialNotFound()
     {
-        $this->expectException(\Twig\Error\RuntimeError::class);
-        $this->expectExceptionMessageMatches('/is\snot\sfound/');
-
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-partial')->getContent();
@@ -191,11 +193,12 @@ class ControllerTest extends TestCase
         return $requestMock;
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage AJAX handler 'onNoHandler' was not found.
+     */
     public function testAjaxHandlerNotFound()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('AJAX handler \'onNoHandler\' was not found.');
-
         Request::swap($this->configAjaxRequestMock('onNoHandler', ''));
 
         $theme = Theme::load('test');
@@ -203,11 +206,12 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage Invalid AJAX handler name: delete.
+     */
     public function testAjaxInvalidHandlerName()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('Invalid AJAX handler name: delete.');
-
         Request::swap($this->configAjaxRequestMock('delete'));
 
         $theme = Theme::load('test');
@@ -215,11 +219,12 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage Invalid partial name: p:artial.
+     */
     public function testAjaxInvalidPartial()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('Invalid partial name: p:artial.');
-
         Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
 
         $theme = Theme::load('test');
@@ -227,11 +232,12 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
+    /**
+     * @expectedException        Cms\Classes\CmsException
+     * @expectedExceptionMessage The partial 'partial' is not found.
+     */
     public function testAjaxPartialNotFound()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('The partial \'partial\' is not found.');
-
         Request::swap($this->configAjaxRequestMock('onTest', 'partial'));
 
         $theme = Theme::load('test');
@@ -249,7 +255,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertIsArray($content);
+        $this->assertInternalType('array', $content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -266,7 +272,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertIsArray($content);
+        $this->assertInternalType('array', $content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -283,7 +289,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertIsArray($content);
+        $this->assertInternalType('array', $content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(2, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -297,7 +303,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component')->getContent();
-        $page = self::getProtectedProperty($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -325,7 +331,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-components')->getContent();
-        $page = self::getProtectedProperty($controller, 'page');
+        $page = $this->readAttribute($controller, 'page');
 
         $this->assertArrayHasKey('firstAlias', $page->components);
         $this->assertArrayHasKey('secondAlias', $page->components);
@@ -357,18 +363,19 @@ ESC;
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertIsArray($content);
+        $this->assertInternalType('array', $content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
         $this->assertEquals('page', $content['ajax-result']);
     }
 
+    /**
+     * @expectedException        October\Rain\Exception\SystemException
+     * @expectedExceptionMessage is not registered for the component
+     */
     public function testComponentClassNotFound()
     {
-        $this->expectException(\October\Rain\Exception\SystemException::class);
-        $this->expectExceptionMessageMatches('/is\snot\sregistered\sfor\sthe\scomponent/');
-
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-component-class')->getContent();
@@ -388,7 +395,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-soft-component-class')->getContent();
-        $page = $controller->getPage();
+        $page = $this->readAttribute($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -414,7 +421,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-soft-component-class-alias')->getContent();
-        $page = $controller->getPage();
+        $page = $this->readAttribute($controller, 'page');
         $this->assertArrayHasKey('someAlias', $page->components);
 
         $component = $page->components['someAlias'];

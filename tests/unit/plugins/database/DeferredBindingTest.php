@@ -6,7 +6,7 @@ use October\Rain\Database\Models\DeferredBinding;
 
 class DeferredBindingTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

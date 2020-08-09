@@ -6,7 +6,7 @@ use October\Rain\Database\Collection;
 
 class MorphManyModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

@@ -11,7 +11,7 @@ use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
-use League\Csv\EscapeFormula as CsvEscapeFormula;
+use October\Rain\Parse\League\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 use Exception;
@@ -624,7 +624,9 @@ class ImportExportController extends ControllerBehavior
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
         $csv->setEscape($options['escape']);
-        $csv->addFormatter(new CsvEscapeFormula());
+
+        // Temporary until upgrading to league/csv >= 9.1.0 (will be $csv->addFormatter($formatter))
+        $formatter = new CsvEscapeFormula();
 
         /*
          * Add headers
@@ -659,6 +661,9 @@ class ImportExportController extends ControllerBehavior
                 }
                 $record[] = $value;
             }
+
+            // Temporary until upgrading to league/csv >= 9.1.0
+            $record = $formatter($record);
 
             $csv->insertOne($record);
         }

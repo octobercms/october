@@ -7,7 +7,7 @@ use October\Rain\Halcyon\Datasource\FileDatasource;
 
 class CmsThemeTemplateFixture extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['*'];
 
     public $timestamps = false;
 
@@ -30,7 +30,7 @@ class AutoDatasourceTest extends PluginTestCase
      */
     public $datasource;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -73,7 +73,7 @@ class AutoDatasourceTest extends PluginTestCase
         ]);
     }
 
-    public function tearDown(): void
+    public function tearDown()
     {
         foreach ($this->fixtures as $fixture) {
             $fixture->delete();

@@ -25,7 +25,7 @@ App::before(function ($request) {
             'middleware' => ['web'],
             'prefix' => Config::get('cms.backendUri', 'backend')
         ], function () {
-            Route::any('{slug?}', 'Backend\Classes\BackendController@run')->where('slug', '(.*)?');
+            Route::any('{slug}', 'Backend\Classes\BackendController@run')->where('slug', '(.*)?');
         })
     ;
 

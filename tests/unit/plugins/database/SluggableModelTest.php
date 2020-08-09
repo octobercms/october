@@ -4,7 +4,7 @@ use Database\Tester\Models\SluggablePost;
 
 class SluggableModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

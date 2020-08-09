@@ -4,7 +4,7 @@ use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
-    protected function tearDown() : void
+    protected function tearDown()
     {
         $this->removeMedia();
         parent::tearDown();
@@ -66,7 +66,7 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
     public function testValidPathsOnValidatePath($path)
     {
         $result = MediaLibrary::validatePath($path);
-        $this->assertIsString($result);
+        $this->assertInternalType('string', $result);
     }
 
     public function testListFolderContents()

@@ -10,11 +10,11 @@ use Route;
 use Config;
 use Request;
 use Response;
-use October\Rain\Assetic\Asset\FileAsset;
-use October\Rain\Assetic\Asset\AssetCache;
-use October\Rain\Assetic\Asset\AssetCollection;
-use October\Rain\Assetic\Cache\FilesystemCache;
-use October\Rain\Assetic\Factory\AssetFactory;
+use Assetic\Asset\FileAsset;
+use Assetic\Asset\AssetCache;
+use Assetic\Asset\AssetCollection;
+use Assetic\Factory\AssetFactory;
+use October\Rain\Parse\Assetic\FilesystemCache;
 use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
@@ -126,22 +126,22 @@ class CombineAssets
         /*
          * Register JavaScript filters
          */
-        $this->registerFilter('js', new \October\Rain\Assetic\Filter\JavascriptImporter);
+        $this->registerFilter('js', new \October\Rain\Parse\Assetic\JavascriptImporter);
 
         /*
          * Register CSS filters
          */
-        $this->registerFilter('css', new \October\Rain\Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Assetic\Filter\CssRewriteFilter);
-        $this->registerFilter('less', new \October\Rain\Assetic\Filter\LessCompiler);
-        $this->registerFilter('scss', new \October\Rain\Assetic\Filter\ScssCompiler);
+        $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
+        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
-            $this->registerFilter('js', new \October\Rain\Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Assetic\Filter\StylesheetMinify);
+            $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
         }
 
         /*

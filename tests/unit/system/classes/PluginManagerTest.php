@@ -5,7 +5,7 @@ class PluginManagerTest extends TestCase
 {
     public $manager;
 
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

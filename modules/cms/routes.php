@@ -22,7 +22,7 @@ App::before(function ($request) {
      * The CMS module intercepts all URLs that were not
      * handled by the back-end modules.
      */
-    Route::any('{slug?}', 'Cms\Classes\CmsController@run')->where('slug', '(.*)?')->middleware('web');
+    Route::any('{slug}', 'Cms\Classes\CmsController@run')->where('slug', '(.*)?')->middleware('web');
 
     /**
      * @event cms.route

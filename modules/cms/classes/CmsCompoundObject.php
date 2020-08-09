@@ -316,8 +316,7 @@ class CmsCompoundObject extends CmsObject
 
         self::$objectComponentPropertyMap = $objectComponentMap;
 
-        $expiresAt = now()->addMinutes(Config::get('cms.parsedPageCacheTTL', 10));
-        Cache::put($key, base64_encode(serialize($objectComponentMap)), $expiresAt);
+        Cache::put($key, base64_encode(serialize($objectComponentMap)), Config::get('cms.parsedPageCacheTTL', 10));
 
         if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
             return $objectComponentMap[$objectCode][$componentName];

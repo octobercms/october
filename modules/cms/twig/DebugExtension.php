@@ -8,7 +8,7 @@ use Cms\Classes\Controller;
 use Cms\Classes\ComponentBase;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use October\Rain\Database\Model;
 

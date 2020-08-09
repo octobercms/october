@@ -5,7 +5,7 @@ use Database\Tester\Models\Phone;
 
 class HasOneModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

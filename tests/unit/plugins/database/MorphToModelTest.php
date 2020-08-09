@@ -6,7 +6,7 @@ use Database\Tester\Models\EventLog;
 
 class MorphToModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

@@ -5,7 +5,6 @@ use Str;
 use Lang;
 use Model;
 use League\Csv\Reader as CsvReader;
-use League\Csv\Statement as CsvStatement;
 
 /**
  * Model used for importing data
@@ -109,6 +108,11 @@ abstract class ImportModel extends Model
          */
         $reader = CsvReader::createFromPath($filePath, 'r');
 
+        // Filter out empty rows
+        $reader->addFilter(function (array $row) {
+            return count($row) > 1 || reset($row) !== null;
+        });
+
         if ($options['delimiter'] !== null) {
             $reader->setDelimiter($options['delimiter']);
         }
@@ -121,11 +125,15 @@ abstract class ImportModel extends Model
             $reader->setEscape($options['escape']);
         }
 
+        if ($options['firstRowTitles']) {
+            $reader->setOffset(1);
+        }
+
         if (
             $options['encoding'] !== null &&
-            $reader->supportsStreamFilter()
+            $reader->isActiveStreamFilter()
         ) {
-            $reader->addStreamFilter(sprintf(
+            $reader->appendStreamFilter(sprintf(
                 '%s%s:%s',
                 TranscodeFilter::FILTER_NAME,
                 strtolower($options['encoding']),
@@ -133,19 +141,8 @@ abstract class ImportModel extends Model
             ));
         }
 
-        // Create reader statement
-        $stmt = (new CsvStatement)
-            ->where(function (array $row) {
-                // Filter out empty rows
-                return count($row) > 1 || reset($row) !== null;
-            });
-
-        if ($options['firstRowTitles']) {
-            $stmt = $stmt->offset(1);
-        }
-
         $result = [];
-        $contents = $stmt->process($reader);
+        $contents = $reader->fetch();
         foreach ($contents as $row) {
             $result[] = $this->processImportRow($row, $matches);
         }

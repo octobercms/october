@@ -5,7 +5,7 @@ use System\Classes\VersionManager;
 class VersionManagerTest extends TestCase
 {
 
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 
@@ -100,8 +100,8 @@ class VersionManagerTest extends TestCase
         $manager = VersionManager::instance();
         list($comments, $scripts) = self::callProtectedMethod($manager, 'extractScriptsAndComments', [$versionInfo]);
 
-        $this->assertIsArray($comments);
-        $this->assertIsArray($scripts);
+        $this->assertInternalType('array', $comments);
+        $this->assertInternalType('array', $scripts);
 
         $this->assertEquals($expectedComments, $comments);
         $this->assertEquals($expectedScripts, $scripts);

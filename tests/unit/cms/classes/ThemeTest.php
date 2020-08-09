@@ -4,7 +4,7 @@ use Cms\Classes\Theme;
 
 class ThemeTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 
@@ -44,7 +44,7 @@ class ThemeTest extends TestCase
 
         $pageCollection = $theme->listPages();
         $pages = array_values($pageCollection->all());
-        $this->assertIsArray($pages);
+        $this->assertInternalType('array', $pages);
 
         $expectedPageNum = $this->countThemePages(base_path().'/tests/fixtures/themes/test/pages');
         $this->assertCount($expectedPageNum, $pages);
@@ -63,11 +63,12 @@ class ThemeTest extends TestCase
         $this->assertEquals('test', $activeTheme->getDirName());
     }
 
+    /**
+     * @expectedException        \October\Rain\Exception\SystemException
+     * @expectedExceptionMessage The active theme is not set.
+     */
     public function testNoActiveTheme()
     {
-        $this->expectException(\October\Rain\Exception\SystemException::class);
-        $this->expectExceptionMessage('The active theme is not set.');
-
         Config::set('cms.activeTheme', null);
         Theme::getActiveTheme();
     }

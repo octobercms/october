@@ -10,7 +10,7 @@ class AssetMakerTest extends TestCase
 {
     private $stub;
 
-    public function setUp() : void
+    public function setUp()
     {
         $this->createApplication();
         $this->stub = new AssetMakerStub();

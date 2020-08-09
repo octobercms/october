@@ -10,7 +10,7 @@ use Database\Tester\Models\UserWithSoftAuthorAndSoftDelete;
 
 class SoftDeleteModelTest extends PluginTestCase
 {
-    public function setUp() : void
+    public function setUp()
     {
         parent::setUp();
 

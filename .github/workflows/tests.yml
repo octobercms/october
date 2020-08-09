@@ -8,56 +8,37 @@ on:
   pull_request:
 
 jobs:
-  frontendTests:
-    runs-on: ubuntu-latest
-    name: JavaScript
-    steps:
-      - name: Checkout changes
-        uses: actions/checkout@v1
-      - name: Install Node
-        uses: actions/setup-node@v1
-        with:
-            node-version: 8
-      - name: Install Node dependencies
-        run: npm install
-      - name: Run tests
-        run: npm run test
   phpUnitTests:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
       matrix:
-        phpVersions: ['7.2', '7.3', '7.4']
+        phpVersions: ['7.1', '7.2', '7.3', '7.4']
       fail-fast: false
-    name: Unit Tests / PHP ${{ matrix.phpVersions }}
+    name: PHP ${{ matrix.phpVersions }}
     steps:
       - name: Checkout changes
         uses: actions/checkout@v1
       - name: Install PHP
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@master
         with:
           php-version: ${{ matrix.phpVersions }}
-          extensions: mbstring, intl, gd, xml, sqlite
-      - name: Setup problem matchers for PHPUnit
-        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-      - name: Set Composer cache
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache Composer dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
+          extension-csv: mbstring, intl, gd, xml, sqlite
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --no-suggest --no-scripts
-      - name: Run post-update Composer scripts
-        run: php artisan package:discover
-      - name: Reset October modules
+      - name: Reset October modules and library
         run: |
           git reset --hard HEAD
-          composer dumpautoload
+          rm -rf ./vendor/october/rain
+          wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
+          unzip ./vendor/october/develop.zip -d ./vendor/october
+          mv ./vendor/october/library-develop ./vendor/october/rain
+          composer dump-autoload
+      - name: Run post-update Composer scripts
+        run: |
+          php artisan october:util set build
+          php artisan package:discover
       - name: Run Linting and Tests
         run: |
           ./vendor/bin/parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php .
-          ./vendor/bin/phpunit --prepend ./vendor/october/rain/src/Support/helpers.php
+          ./vendor/bin/phpunit

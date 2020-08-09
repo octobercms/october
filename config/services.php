@@ -24,10 +24,6 @@ return [
         'secret' => '',
     ],
 
-    'postmark' => [
-        'token' => '',
-    ],
-
     'ses' => [
         'key' => '',
         'secret' => '',
