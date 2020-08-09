@@ -46,21 +46,28 @@ class SystemController extends ControllerBase
      * and returns a redirect to the resized image
      *
      * @param string $identifier The identifier used to retrieve the image configuration
-     * @param string $source The name of the source the image is being resized from
-     * @param string $name The filename of the resized image
      * @return RedirectResponse
      */
-    public function resize(string $identifier, string $source, string $name)
+    public function resizer(string $identifier)
     {
+        // The URL-encoded URL to the resized image has to be passed as a GET variable
+        // because of Laravel rawurldecode's the requested URL before passing it to the routing engine
+        // @see https://github.com/laravel/framework/pull/4338
+        $encodedUrl = input('t');
+
+        $resizedUrl = ImageResizer::getValidResizedUrl($identifier, $encodedUrl);
+        if (empty($resizedUrl)) {
+            return response('Invalid identifier or redirect URL', 400);
+        }
+
         // Attempt to process the resize
         try {
             $resizer = ImageResizer::fromIdentifier($identifier);
             $resizer->resize();
         } catch (SystemException $ex) {
-            // If the resizing failed it was most likely because the config had already been
-            // pulled from the cache so just continue to redirect the user to the final file anyways
+            // If the resizing failed it was most likely because it is in progress or has already finished
         }
 
-        return redirect()->to(ImageResizer::getResizedUrl($identifier, $source, $name));
+        return redirect()->to($resizedUrl);
     }
 }
