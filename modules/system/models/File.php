@@ -21,6 +21,26 @@ class File extends FileBase
     protected $table = 'system_files';
 
     /**
+     * @var array The attributes that are mass assignable.
+     */
+    protected $fillable = [
+        'file_name',
+        'title',
+        'description',
+        'field',
+        'attachment_id',
+        'attachment_type',
+        'is_public',
+        'sort_order',
+        'data',
+    ];
+
+    /**
+     * @var array The attributes that aren't mass assignable.
+     */
+    protected $guarded = [];
+
+    /**
      * {@inheritDoc}
      */
     public function getThumb($width, $height, $options = [])
