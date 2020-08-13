@@ -1,6 +1,6 @@
 <?php
 
-use Url;
+use URL;
 use Backend;
 use System\Classes\ImageResizer;
 use System\Classes\MediaLibrary;
@@ -40,7 +40,7 @@ class ImageResizerTest extends TestCase
                 'target' => '',
             ],
             'pluginUrl' => [
-                'source' => Url::to('plugins/october/demo/assets/logo.png'),
+                'source' => URL::to('plugins/october/demo/assets/logo.png'),
                 'target' => '',
             ],
             'absoluteUrl' => [
