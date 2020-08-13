@@ -8,6 +8,7 @@ use Event;
 use Config;
 use Storage;
 use SystemException;
+use System\Models\File as SystemFileModel;
 use October\Rain\Database\Attach\File as FileModel;
 
 /**
@@ -112,6 +113,11 @@ class ImageResizer
      * @var array Image source data ['disk' => string, 'path' => string, 'source' => string]
      */
     protected $image = [];
+
+    /**
+     * @var FileModel The instance of the FileModel for the source image
+     */
+    protected $fileModel = null;
 
     /**
      * @var integer Desired width
@@ -230,7 +236,7 @@ class ImageResizer
                 'folder' => base_path('modules'),
                 'path' => '/modules',
             ],
-            'uploads' => [
+            'filemodel' => [
                 'disk' => config('cms.storage.uploads.disk', 'local'),
                 'folder' => config('cms.storage.uploads.folder', 'uploads'),
                 'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
@@ -258,14 +264,32 @@ class ImageResizer
     }
 
 
+    /**
+     * Get the current config
+     *
+     * @return array
+     */
     public function getConfig()
     {
-        return [
-            'image' => $this->image,
+        $config = [
+            'image' => [
+                'disk' => $this->image['disk'],
+                'path' => $this->image['path'],
+                'source' => $this->image['source'],
+            ],
             'width' => $this->width,
             'height' => $this->height,
             'options' => $this->options,
         ];
+
+        if (!empty($this->image['fileModel']) && $this->image['fileModel'] instanceof FileModel) {
+            $config['image']['fileModel'] = [
+                'class' => get_class($this->image['fileModel']),
+                'key' => $this->image['fileModel']->getKey(),
+            ];
+        }
+
+        return $config;
     }
 
 
@@ -304,7 +328,7 @@ class ImageResizer
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @throws SystemException If the image was unable to be identified
-     * @return array Array containing the disk, path, and extension ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string]
+     * @return array Array containing the disk, path, and extension ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void]
      */
     public static function normalizeImage($image)
     {
@@ -314,21 +338,27 @@ class ImageResizer
         $fileModel = null;
 
         // Process an array
-        if (is_array($image) && !empty($image['disk']) && !empty($image['path'])) {
+        if (is_array($image) && !empty($image['disk']) && !empty($image['path']) && !empty($image['source'])) {
             $disk = $image['disk'];
             $path = $image['path'];
+            $selectedSource = $image['source'];
 
             // Verify that the source file exists
             if (empty(pathinfo($path, PATHINFO_EXTENSION)) || !$disk->exists($path)) {
                 $disk = null;
                 $path = null;
+                $selectedSource = null;
+            }
+
+            if (!empty($image['fileModel'])) {
+                $fileModel = $image['fileModel'];
             }
 
         // Process a FileModel
         } elseif ($image instanceof FileModel) {
             $disk = $image->getDisk();
             $path = $image->getDiskPath();
-            $selectedSource = 'uploads';
+            $selectedSource = 'filemodel';
             $fileModel = $image;
 
             // Verify that the source file exists
@@ -353,6 +383,19 @@ class ImageResizer
 
                 // Identify if the current source is a match
                 if (starts_with($relativePath, $sourcePath)) {
+                    // Attempt to handle FileModel URLs passed as strings
+                    if ($source === 'filemodel') {
+                        $diskName = pathinfo($relativePath, PATHINFO_BASENAME);
+                        $model = SystemFileModel::where('disk_name', $diskName)->first();
+                        if ($model && $image = static::normalizeImage($model)) {
+                            $disk = $image['disk'];
+                            $path = $image['path'];
+                            $selectedSource = $image['source'];
+                            $fileModel = $image['fileModel'];
+                            break;
+                        }
+                    }
+
                     // Generate a path relative to the selected disk
                     $path = $details['folder'] . '/' . str_after($relativePath, $sourcePath . '/');
 
@@ -410,10 +453,18 @@ class ImageResizer
      */
     public function isResized()
     {
-        // @Todo: need to centralize the target disk path / url generation logic
-        $targetPath = '/' . $this->getResizedName();
+        if ($this->image['source'] === 'fileupload') {
+            $model = $this->getFileModel();
+            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
+            $disk = $model->getDisk();
+            $path = $model->getDiskPath($thumbFile);
+        } else {
+            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $path = $this->getPathToResizedImage();
+        }
 
-        // @todo: Check if resized path exists on the target disk
+        // Return true if the path is a file and it exists on the target disk
+        return !empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path);
     }
 
     public function resize()
@@ -422,22 +473,21 @@ class ImageResizer
     }
 
     /**
-     * Get the filename of the resized image
-     */
-    public function getResizedName()
-    {
-        return pathinfo($this->image['path'], PATHINFO_FILENAME) . "_resized.{$this->options['extension']}";
-    }
-
-    /**
      * Get the path of the resized image
      */
-    public function getResizedPath()
+    public function getPathToResizedImage()
     {
         // Generate the unique file identifier for the resized image
         $fileIdentifier = hash_hmac('sha1', serialize($this->getConfig()), Crypt::getKey());
 
-        return implode('/', array_slice(str_split($fileIdentifier, 10), 0, 4)) . '/';
+        // Generate the filename for the resized image
+        $name = pathinfo($this->image['path'], PATHINFO_FILENAME) . "_resized_$fileIdentifier.{$this->options['extension']}";
+
+        // Generate the path to the containing folder for the resized image
+        $folder = implode('/', array_slice(str_split(str_limit($fileIdentifier, 9), 3), 0, 3));
+
+        // Generate and return the full path
+        return Config::get('cms.resized.folder', 'resized') . '/' . $folder . '/' . $name;
     }
 
     /**
@@ -456,38 +506,43 @@ class ImageResizer
     }
 
     /**
+     * Gets the current fileModel associated with the source image if one exists
+     *
+     * @return FileModel|null
+     */
+    public function getFileModel()
+    {
+        if ($this->fileModel) {
+            return $this->fileModel;
+        }
+
+        if ($this->image['source'] === 'filemodel') {
+            if ($this->image['fileModel'] instanceof FileModel) {
+                $this->fileModel = $this->image['fileModel'];
+            } else {
+                $this->fileModel = $this->image['fileModel']['class']::findOrFail($this->image['fileModel']['key']);
+            }
+        }
+
+        return $this->fileModel;
+    }
+
+    /**
      * Get the URL to the resized image
      *
      * @return string
      */
     public function getResizedUrl()
     {
-        if ($this->image['source'] === 'source') {
-            $thumbFile = $this->image['fileModel']->getThumbFilename($this->width, $this->height, $this->options);
-            $thumbPublic = $this->image['fileModel']->getPath($thumbFile);
-        }
+        $url = '';
 
-        $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-
-        return $resizedDisk->url(Config::get('cms.resized.folder', 'resized') . '/' . $this->getResizedPath() . $this->getResizedName());
-
-
-
-        $sources = static::getAvailableSources();
-
-        if (empty($sources[$source])) {
-            throw new SystemException("The provided source is invalid: " . e($source));
+        if ($this->image['source'] === 'filemodel') {
+            $model = $this->getFileModel();
+            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
+            $url = $model->getPath($thumbFile);
         } else {
-            $sourceConfig = $sources[$source];
-        }
-
-        switch ($sourceConfig['target']) {
-            case 'alongside':
-                break;
-            default:
-                $path = implode('/', array_slice(str_split($hash, 10), 0, 4)) . '/' . $name;
-                $url = Storage::disk(config('cms.resized.disk'))->url($path);
-                break;
+            $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $url = $resizedDisk->url($this->getPathToResizedImage());
         }
 
         return $url;
@@ -526,6 +581,12 @@ class ImageResizer
         return $url;
     }
 
+    /**
+     * Gets the current useful URL to the resized image
+     * (resizer if not resized, resized image directly if resized)
+     *
+     * @return string
+     */
     public function getUrl()
     {
         if ($this->isResized()) {
