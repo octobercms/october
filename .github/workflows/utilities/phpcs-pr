@@ -1,0 +1,77 @@
+#!/usr/bin/env php
+<?php
+if (empty($argv[1])) {
+    echo 'You must provide a base branch to check this PR against.';
+    echo "\n";
+    exit(1);
+}
+
+// Get a changelist of files from Git for this PR.
+$fileList = shell_exec('git diff --name-only --diff-filter=ACMR origin/' . $argv[1] . ' HEAD');
+$files = array_filter(explode("\n", $fileList));
+
+foreach ($files as &$file) {
+    if (strpos($file, ' ') !== false) {
+        $file = str_replace(' ', '\\ ', $file);
+    }
+}
+
+// Run all changed files through the PHPCS code sniffer and generate a CSV report
+$csv = shell_exec('phpcs --colors -nq --report="csv" --extensions="php" ' . implode(' ', $files));
+$lines = array_map(function ($row) {
+    return array_map(function ($column) {
+        return trim($column, '"');
+    }, explode(',', $row));
+}, array_filter(explode("\n", $csv)));
+
+// Remove header row
+array_shift($lines);
+
+if (!count($lines)) {
+    echo "\e[0;32mFound no issues with code quality.\e[0m";
+    echo "\n";
+    exit(0);
+} else {
+    // Group errors by file
+    $files = [];
+
+    foreach ($lines as $line) {
+        $filename = str_replace(dirname(dirname(dirname(__DIR__))), '', $line[0]);
+
+        if (empty($files[$filename])) {
+            $files[$filename] = [];
+        }
+
+        $files[$filename][] = [
+            'warning' => ($line[3] === 'warning'),
+            'message' => $line[4],
+            'line' => $line[1],
+        ];
+    }
+
+    // Render report
+    echo "\e[0;31mFound "
+        . ((count($lines) === 1)
+            ? '1 issue'
+            : count($lines) . ' issues')
+        . " with code quality.\e[0m";
+    echo "\n";
+
+    foreach ($files as $file => $errors) {
+        echo "\n";
+        echo "\e[1;37m" . str_replace('"', '', $file) . "\e[0m";
+        echo "\n\n";
+
+        foreach ($errors as $error) {
+            echo "\e[2m" . str_pad('  L' . $error['line'], 7) . " | \e[0m";
+            if ($error['warning'] === false) {
+                echo "\e[0;31mERR:\e[0m  ";
+            } else {
+                echo "\e[1;33mWARN:\e[0m ";
+            }
+            echo $error['message'];
+            echo "\n";
+        }
+    }
+    exit(1);
+}
