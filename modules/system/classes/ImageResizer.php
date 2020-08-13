@@ -99,7 +99,7 @@ use October\Rain\Database\Attach\File as FileModel;
  */
 class ImageResizer
 {
-/**
+    /**
      * @var string The cache key prefix for resizer configs
      */
     public const CACHE_PREFIX = 'system.resizer.';
@@ -151,28 +151,6 @@ class ImageResizer
         $this->width = is_numeric($width) ? (int) $width : null;
         $this->height = is_numeric($height) ? (int) $height : null;
         $this->options = array_merge($this->getDefaultOptions(), $options);
-    }
-
-    /**
-     * Instantiate a resizer instance from the provided identifier
-     *
-     * @param string $identifier The 40 character cache identifier for the desired resizer configuration
-     * @throws SystemException If the identifier is unable to be loaded
-     * @return static
-     */
-    public static function fromIdentifier(string $identifier)
-    {
-        // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
-        $config = Cache::get(static::CACHE_PREFIX . $identifier, null); // @TODO: replace with pull()
-
-        dd($config);
-
-        // Validate that the desired config was able to be loaded
-        if (empty($config)) {
-            throw new SystemException("Unable to retrieve the configuration for " . e($identifier));
-        }
-
-        return new static($config['image'], $config['width'], $config['height'], $config['options']);
     }
 
     /**
@@ -263,7 +241,6 @@ class ImageResizer
         return $sources;
     }
 
-
     /**
      * Get the current config
      *
@@ -292,32 +269,127 @@ class ImageResizer
         return $config;
     }
 
+    /**
+     * Process the resize request
+     */
+    public function resize()
+    {
+        if ($this->isResized()) {
+            return;
+        }
+    }
 
     /**
-     * Gets the identifier for provided resizing configuration
-     * This method validates, authorizes, and prepares the resizing request for execution by the resizer
-     * Invalid images (inaccessible, private, incompatible formats, etc) should be denied here, and only
-     * after successfull validation should the requested configuration be stored along with a signed hash
-     * of the the options
+     * Gets the current fileModel associated with the source image if one exists
      *
-     * @return string 40 character string used as a unique reference to the provided configuration
+     * @return FileModel|null
      */
-    public function getIdentifier()
+    public function getFileModel()
     {
-        if ($this->identifier) {
-            return $this->identifier;
+        if ($this->fileModel) {
+            return $this->fileModel;
         }
 
-        // Generate the identifier
-        $this->identifier = hash_hmac('sha1', $this->getResizedUrl(), Crypt::getKey());
-
-        // If the image hasn't been resized yet, then store the config data for the resizer to use
-        if (!$this->isResized()) {
-            // @TODO: remove the cache timeout when testing in Laravel 6, L5.5 didn't support rememberForever in put
-            Cache::put(static::CACHE_PREFIX . $this->identifier, $this->getConfig(), now()->addMinutes(10));
+        if ($this->image['source'] === 'filemodel') {
+            if ($this->image['fileModel'] instanceof FileModel) {
+                $this->fileModel = $this->image['fileModel'];
+            } else {
+                $this->fileModel = $this->image['fileModel']['class']::findOrFail($this->image['fileModel']['key']);
+            }
         }
 
-        return $this->identifier;
+        return $this->fileModel;
+    }
+
+    /**
+     * Get the reference to the resized image if the requested resize exists
+     *
+     * @param string $identifier The Resizer Identifier that references the source image and desired resizing configuration
+     * @return bool|string
+     */
+    public function isResized()
+    {
+        if ($this->image['source'] === 'fileupload') {
+            $model = $this->getFileModel();
+            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
+            $disk = $model->getDisk();
+            $path = $model->getDiskPath($thumbFile);
+        } else {
+            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $path = $this->getPathToResizedImage();
+        }
+
+        // Return true if the path is a file and it exists on the target disk
+        return !empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path);
+    }
+
+    /**
+     * Get the path of the resized image
+     */
+    public function getPathToResizedImage()
+    {
+        // Generate the unique file identifier for the resized image
+        $fileIdentifier = hash_hmac('sha1', serialize($this->getConfig()), Crypt::getKey());
+
+        // Generate the filename for the resized image
+        $name = pathinfo($this->image['path'], PATHINFO_FILENAME) . "_resized_$fileIdentifier.{$this->options['extension']}";
+
+        // Generate the path to the containing folder for the resized image
+        $folder = implode('/', array_slice(str_split(str_limit($fileIdentifier, 9), 3), 0, 3));
+
+        // Generate and return the full path
+        return Config::get('cms.resized.folder', 'resized') . '/' . $folder . '/' . $name;
+    }
+
+    /**
+     * Gets the current useful URL to the resized image
+     * (resizer if not resized, resized image directly if resized)
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        if ($this->isResized()) {
+            return $this->getResizedUrl();
+        } else {
+            return $this->getResizerUrl();
+        }
+    }
+
+    /**
+     * Get the URL to the system resizer route for this instance's configuration
+     *
+     * @return string $url
+     */
+    public function getResizerUrl()
+    {
+        // Slashes in URL params have to be double encoded to survive Laravel's router
+        // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
+        $resizedUrl = urlencode(urlencode($this->getResizedUrl()));
+        $identifier = $this->getIdentifier();
+
+        return Url::to("/resizer/$identifier/$resizedUrl");
+    }
+
+    /**
+     * Get the URL to the resized image
+     *
+     * @return string
+     */
+    public function getResizedUrl()
+    {
+        $url = '';
+
+        if ($this->image['source'] === 'filemodel') {
+            $model = $this->getFileModel();
+            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
+            $url = $model->getPath($thumbFile);
+        } else {
+            $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $url = $resizedDisk->url($this->getPathToResizedImage());
+        }
+
+        return $url;
     }
 
     /**
@@ -444,110 +516,6 @@ class ImageResizer
         return $data;
     }
 
-
-    /**
-     * Get the reference to the resized image if the requested resize exists
-     *
-     * @param string $identifier The Resizer Identifier that references the source image and desired resizing configuration
-     * @return bool|string
-     */
-    public function isResized()
-    {
-        if ($this->image['source'] === 'fileupload') {
-            $model = $this->getFileModel();
-            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
-            $disk = $model->getDisk();
-            $path = $model->getDiskPath($thumbFile);
-        } else {
-            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-            $path = $this->getPathToResizedImage();
-        }
-
-        // Return true if the path is a file and it exists on the target disk
-        return !empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path);
-    }
-
-    public function resize()
-    {
-        // @TODO: Resize the image
-    }
-
-    /**
-     * Get the path of the resized image
-     */
-    public function getPathToResizedImage()
-    {
-        // Generate the unique file identifier for the resized image
-        $fileIdentifier = hash_hmac('sha1', serialize($this->getConfig()), Crypt::getKey());
-
-        // Generate the filename for the resized image
-        $name = pathinfo($this->image['path'], PATHINFO_FILENAME) . "_resized_$fileIdentifier.{$this->options['extension']}";
-
-        // Generate the path to the containing folder for the resized image
-        $folder = implode('/', array_slice(str_split(str_limit($fileIdentifier, 9), 3), 0, 3));
-
-        // Generate and return the full path
-        return Config::get('cms.resized.folder', 'resized') . '/' . $folder . '/' . $name;
-    }
-
-    /**
-     * Get the URL to the system resizer route for this instance's configuration
-     *
-     * @return string $url
-     */
-    public function getResizerUrl()
-    {
-        // Slashes in URL params have to be double encoded to survive Laravel's router
-        // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
-        $resizedUrl = urlencode(urlencode($this->getResizedUrl()));
-        $identifier = $this->getIdentifier();
-
-        return Url::to("/resizer/$identifier/$resizedUrl");
-    }
-
-    /**
-     * Gets the current fileModel associated with the source image if one exists
-     *
-     * @return FileModel|null
-     */
-    public function getFileModel()
-    {
-        if ($this->fileModel) {
-            return $this->fileModel;
-        }
-
-        if ($this->image['source'] === 'filemodel') {
-            if ($this->image['fileModel'] instanceof FileModel) {
-                $this->fileModel = $this->image['fileModel'];
-            } else {
-                $this->fileModel = $this->image['fileModel']['class']::findOrFail($this->image['fileModel']['key']);
-            }
-        }
-
-        return $this->fileModel;
-    }
-
-    /**
-     * Get the URL to the resized image
-     *
-     * @return string
-     */
-    public function getResizedUrl()
-    {
-        $url = '';
-
-        if ($this->image['source'] === 'filemodel') {
-            $model = $this->getFileModel();
-            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
-            $url = $model->getPath($thumbFile);
-        } else {
-            $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-            $url = $resizedDisk->url($this->getPathToResizedImage());
-        }
-
-        return $url;
-    }
-
     /**
      * Check if the provided identifier looks like a valid identifier
      *
@@ -557,6 +525,55 @@ class ImageResizer
     public static function isValidIdentifier($id)
     {
         return is_string($id) && ctype_alnum($id) && strlen($id) === 40;
+    }
+
+    /**
+     * Gets the identifier for provided resizing configuration
+     * This method validates, authorizes, and prepares the resizing request for execution by the resizer
+     * Invalid images (inaccessible, private, incompatible formats, etc) should be denied here, and only
+     * after successfull validation should the requested configuration be stored along with a signed hash
+     * of the the options
+     *
+     * @return string 40 character string used as a unique reference to the provided configuration
+     */
+    public function getIdentifier()
+    {
+        if ($this->identifier) {
+            return $this->identifier;
+        }
+
+        // Generate the identifier
+        $this->identifier = hash_hmac('sha1', $this->getResizedUrl(), Crypt::getKey());
+
+        // If the image hasn't been resized yet, then store the config data for the resizer to use
+        if (!$this->isResized()) {
+            // @TODO: remove the cache timeout when testing in Laravel 6, L5.5 didn't support rememberForever in put
+            Cache::put(static::CACHE_PREFIX . $this->identifier, $this->getConfig(), now()->addMinutes(10));
+        }
+
+        return $this->identifier;
+    }
+
+    /**
+     * Instantiate a resizer instance from the provided identifier
+     *
+     * @param string $identifier The 40 character cache identifier for the desired resizer configuration
+     * @throws SystemException If the identifier is unable to be loaded
+     * @return static
+     */
+    public static function fromIdentifier(string $identifier)
+    {
+        // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
+        $config = Cache::get(static::CACHE_PREFIX . $identifier, null); // @TODO: replace with pull()
+
+        dd($config);
+
+        // Validate that the desired config was able to be loaded
+        if (empty($config)) {
+            throw new SystemException("Unable to retrieve the configuration for " . e($identifier));
+        }
+
+        return new static($config['image'], $config['width'], $config['height'], $config['options']);
     }
 
     /**
@@ -579,21 +596,6 @@ class ImageResizer
         }
 
         return $url;
-    }
-
-    /**
-     * Gets the current useful URL to the resized image
-     * (resizer if not resized, resized image directly if resized)
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        if ($this->isResized()) {
-            return $this->getResizedUrl();
-        } else {
-            return $this->getResizerUrl();
-        }
     }
 
     /**
