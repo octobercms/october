@@ -78,10 +78,10 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
         $this->assertNotEmpty($contents, 'Media library item is not discovered');
 
         $item = reset($contents);
-        $this->assertAttributeEquals('file', 'type', $item, 'Media library item does not have the right type');
-        $this->assertAttributeEquals('/text.txt', 'path', $item, 'Media library item does not have the right path');
-        $this->assertAttributeNotEmpty('lastModified', $item, 'Media library item last modified is empty');
-        $this->assertAttributeNotEmpty('size', $item, 'Media library item size is empty');
+        $this->assertEquals('file', $item->type, 'Media library item does not have the right type');
+        $this->assertEquals('/text.txt', $item->path, 'Media library item does not have the right path');
+        $this->assertNotEmpty($item->lastModified, 'Media library item last modified is empty');
+        $this->assertNotEmpty($item->size, 'Media library item size is empty');
     }
 
     protected function setUpStorage()
