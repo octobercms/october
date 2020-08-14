@@ -1,13 +1,11 @@
 <?php
 
-use URL;
-use Backend;
 use System\Classes\ImageResizer;
 use System\Classes\MediaLibrary;
 use System\Models\File as FileModel;
 use Cms\Classes\Controller as CmsController;
 
-class ImageResizerTest extends TestCase
+class ImageResizerTest extends PluginTestCase
 {
     //
     // Tests
