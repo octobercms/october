@@ -77,7 +77,12 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
+
+      - name: Reset October modules
+        run: |
+            git reset --hard HEAD
+            composer dumpautoload
 
       - name: Run post-update Composer scripts
         run: php artisan package:discover
