@@ -108,7 +108,7 @@ class FileManifest
             }
 
             foreach ($this->findFiles($path) as $file) {
-                $files[$this->getFilename($file)] = md5(str_replace("\r\n", "\n", file_get_contents($file)));
+                $files[$this->getFilename($file)] = hash_file('sha3-256', $file);
             }
         }
 
@@ -139,7 +139,7 @@ class FileManifest
         }
 
         return array_map(function ($moduleSum) {
-            return md5($moduleSum);
+            return hash('sha3-256', $moduleSum);
         }, $modules);
     }
 
