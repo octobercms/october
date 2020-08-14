@@ -107,7 +107,7 @@ class Extension extends TwigExtension
      * Converts supplied input into a URL that will return the desired resized image
      *
      * @param mixed $image Supported values below:
-     *              ['disk' => string, 'path' => string],
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @param integer|bool|null $width Desired width of the resized image

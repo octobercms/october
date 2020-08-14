@@ -7,9 +7,12 @@ use Cache;
 use Event;
 use Config;
 use Storage;
+use Exception;
 use SystemException;
+use File as FileHelper;
 use System\Models\File as SystemFileModel;
 use October\Rain\Database\Attach\File as FileModel;
+use October\Rain\Database\Attach\Resizer as DefaultResizer;
 
 /**
  * $width = numeric, 'auto' | false | null
@@ -138,7 +141,7 @@ class ImageResizer
      * Prepare the resizer instance
      *
      * @param mixed $image Supported values below:
-     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string],
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @param integer|bool|null $width Desired width of the resized image
@@ -167,7 +170,7 @@ class ImageResizer
             'sharpen'   => 0,
             'interlace' => false,
             'quality'   => 90,
-            'extension' => pathinfo($this->image['path'], PATHINFO_EXTENSION),
+            'extension' => $this->getExtension(),
         ];
 
         /**
@@ -284,8 +287,121 @@ class ImageResizer
 
         // Handle resizing for all other sources
         } else {
+            // Copy the image to be resized to the temp directory
+            $tempPath = $this->getLocalTempPath();
+            FileHelper::put($tempPath, $this->getSourceFileContents());
 
+            try {
+                /**
+                 * @event system.resizer.processResize
+                 * Halting event that enables replacement of the resizing process. There should only ever be
+                 * one listener handling this event per project at most, as other listeners would be ignored.
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('system.resizer.processResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {
+                 *          // Get the resizing configuration
+                 *          $config = $resizer->getConfig();
+                 *
+                 *          // Resize the image
+                 *          $resizedImageContents = My\Custom\Resizer::resize($localTempPath, $config['width], $config['height'], $config['options']);
+                 *
+                 *          // Place the resized image in the correct location for the resizer to finish processing it
+                 *          file_put_contents($localTempPath, $resizedImageContents);
+                 *
+                 *          // Prevent any other resizing replacer logic from running
+                 *          return true;
+                 *     });
+                 *
+                 */
+                $processed = Event::fire('system.resizer.processResize', [$this, $tempPath], true);
+                if (!$processed) {
+                    // Process the resize with the default image resizer
+                    DefaultResizer::open($tempPath)
+                        ->resize($this->width, $this->height, $this->options)
+                        ->save($tempPath);
+                }
+
+                /**
+                 * @event system.resizer.afterResize
+                 * Enables post processing of resized images after they've been resized before the
+                 * resizing process is finalized (ex. adding watermarks, further optimizing, etc)
+                 *
+                 * Example usage:
+                 *
+                 *     Event::listen('system.resizer.afterResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {                 *
+                 *          // Get the resized image data
+                 *          $resizedImageContents = file_get_contents($localTempPath);
+                 *
+                 *          // Post process the image
+                 *          $processedContents = TinyPNG::optimize($resizedImageContents);
+                 *
+                 *          // Place the processed image in the correct location for the resizer to finish processing it
+                 *          file_put_contents($localTempPath, $processedContents);
+                 *     });
+                 *
+                 */
+                Event::fire('system.resizer.afterResize', [$this, $tempPath]);
+
+                // Store the resized image
+                $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+                $path = $this->getPathToResizedImage();
+                $disk->put($path, file_get_contents($tempPath));
+
+                // Clean up
+                unlink($tempPath);
+            } catch (Exception $ex) {
+                // Clean up in case of any issues
+                unlink($tempPath);
+
+                // Pass the exception up
+                throw $ex;
+            }
         }
+    }
+
+    /**
+     * Define the internal working path, override this method to define.
+     */
+    public function getTempPath()
+    {
+        $path = temp_path() . '/resizer';
+
+        if (!FileHelper::isDirectory($path)) {
+            FileHelper::makeDirectory($path, 0777, true, true);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Returns a temporary local path to work from.
+     */
+    protected function getLocalTempPath($path = null)
+    {
+        if (!$path) {
+            return $this->getTempPath() . '/' . $this->getIdentifier() . '.' . $this->getExtension();
+        }
+
+        return $this->getTempPath() . '/' . $path;
+    }
+
+    /**
+     * Returns the file extension.
+     */
+    public function getExtension()
+    {
+        return FileHelper::extension($this->image['path']);
+    }
+
+    /**
+     * Get the contents of the image file to be resized
+     *
+     * @return string
+     */
+    public function getSourceFileContents()
+    {
+        return $this->image['disk']->get($this->image['path']);
     }
 
     /**
@@ -329,7 +445,7 @@ class ImageResizer
         }
 
         // Return true if the path is a file and it exists on the target disk
-        return !empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path);
+        return !empty(FileHelper::extension($path)) && $disk->exists($path);
     }
 
     /**
@@ -375,7 +491,12 @@ class ImageResizer
         // Slashes in URL params have to be double encoded to survive Laravel's router
         // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
         $resizedUrl = urlencode(urlencode($this->getResizedUrl()));
+
+        // Get the current configuration's identifier
         $identifier = $this->getIdentifier();
+
+        // Store the current configuration
+        $this->storeConfig();
 
         return Url::to("/resizer/$identifier/$resizedUrl");
     }
@@ -405,11 +526,12 @@ class ImageResizer
      * Normalize the provided input into information that the resizer can work with
      *
      * @param mixed $image Supported values below:
-     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string],
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @throws SystemException If the image was unable to be identified
-     * @return array Array containing the disk, path, and extension ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void]
+     * @return array Array containing the disk, path, source, and fileModel if applicable
+     *               ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void]
      */
     public static function normalizeImage($image)
     {
@@ -425,7 +547,7 @@ class ImageResizer
             $selectedSource = $image['source'];
 
             // Verify that the source file exists
-            if (empty(pathinfo($path, PATHINFO_EXTENSION)) || !$disk->exists($path)) {
+            if (empty(FileHelper::extension($path)) || !$disk->exists($path)) {
                 $disk = null;
                 $path = null;
                 $selectedSource = null;
@@ -443,7 +565,7 @@ class ImageResizer
             $fileModel = $image;
 
             // Verify that the source file exists
-            if (empty(pathinfo($path, PATHINFO_EXTENSION)) || !$disk->exists($path)) {
+            if (empty(FileHelper::extension($path)) || !$disk->exists($path)) {
                 $disk = null;
                 $path = null;
                 $selectedSource = null;
@@ -493,7 +615,7 @@ class ImageResizer
                     $disk = Storage::disk($details['disk']);
 
                     // Verify that the file exists before exiting the identification process
-                    if (!empty(pathinfo($path, PATHINFO_EXTENSION)) && $disk->exists($path)) {
+                    if (!empty(FileHelper::extension($path)) && $disk->exists($path)) {
                         $selectedSource = $source;
                         break;
                     } else {
@@ -538,10 +660,6 @@ class ImageResizer
 
     /**
      * Gets the identifier for provided resizing configuration
-     * This method validates, authorizes, and prepares the resizing request for execution by the resizer
-     * Invalid images (inaccessible, private, incompatible formats, etc) should be denied here, and only
-     * after successfull validation should the requested configuration be stored along with a signed hash
-     * of the the options
      *
      * @return string 40 character string used as a unique reference to the provided configuration
      */
@@ -551,16 +669,19 @@ class ImageResizer
             return $this->identifier;
         }
 
-        // Generate the identifier
-        $this->identifier = hash_hmac('sha1', $this->getResizedUrl(), Crypt::getKey());
+        // Generate & return the identifier
+        return $this->identifier = hash_hmac('sha1', $this->getResizedUrl(), Crypt::getKey());
+    }
 
+    /**
+     * Stores the resizer configuration if the resizing hasn't been completed yet
+     */
+    public function storeConfig()
+    {
         // If the image hasn't been resized yet, then store the config data for the resizer to use
         if (!$this->isResized()) {
-            // @TODO: remove the cache timeout when testing in Laravel 6, L5.5 didn't support rememberForever in put
-            Cache::put(static::CACHE_PREFIX . $this->identifier, $this->getConfig(), now()->addMinutes(10));
+            Cache::put(static::CACHE_PREFIX . $this->getIdentifier(), $this->getConfig());
         }
-
-        return $this->identifier;
     }
 
     /**
@@ -573,7 +694,7 @@ class ImageResizer
     public static function fromIdentifier(string $identifier)
     {
         // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
-        $config = Cache::get(static::CACHE_PREFIX . $identifier, null); // @TODO: replace with pull()
+        $config = Cache::pull(static::CACHE_PREFIX . $identifier, null);
 
         // Validate that the desired config was able to be loaded
         if (empty($config)) {
@@ -609,7 +730,7 @@ class ImageResizer
      * Converts supplied input into a URL that will return the desired resized image
      *
      * @param mixed $image Supported values below:
-     *              ['disk' => string, 'path' => string],
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @param integer|bool|null $width Desired width of the resized image

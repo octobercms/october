@@ -61,7 +61,17 @@ class SystemController extends ControllerBase
             $resizer = ImageResizer::fromIdentifier($identifier);
             $resizer->resize();
         } catch (SystemException $ex) {
-            // If the resizing failed it was most likely because it is in progress or has already finished
+            // If the resizing failed with a SystemException, it was most
+            // likely because it is in progress or has already finished
+        } catch (Exception $ex) {
+            // If it failed for any other reason, restore the config so that
+            // the resizer route will continue to work until it succeeds
+            if ($resizer) {
+                $resizer->storeConfig();
+            }
+
+            // Rethrow the exception
+            throw $ex;
         }
 
         return redirect()->to($resizedUrl);
