@@ -122,12 +122,12 @@ class ImageResizer
     /**
      * @var integer Desired width
      */
-    protected $width = null;
+    protected $width = 0;
 
     /**
      * @var integer Desired height
      */
-    protected $height = null;
+    protected $height = 0;
 
     /**
      * @var array Image resizing configuration data
@@ -145,11 +145,11 @@ class ImageResizer
      * @param integer|bool|null $height Desired height of the resized image
      * @param array|null $options Array of options to pass to the resizer
      */
-    public function __construct($image, $width = null, $height = null, $options = [])
+    public function __construct($image, $width = 0, $height = 0, $options = [])
     {
         $this->image = static::normalizeImage($image);
-        $this->width = is_numeric($width) ? (int) $width : null;
-        $this->height = is_numeric($height) ? (int) $height : null;
+        $this->width = (int) $width;
+        $this->height = (int) $height;
         $this->options = array_merge($this->getDefaultOptions(), $options);
     }
 
@@ -277,6 +277,15 @@ class ImageResizer
         if ($this->isResized()) {
             return;
         }
+
+        // FileModel instances should handle their own resizing
+        if ($this->image['source'] === 'filemodel' && $fileModel = $this->getFileModel()) {
+            $fileModel->getThumb($this->width, $this->height, $this->options);
+
+        // Handle resizing for all other sources
+        } else {
+
+        }
     }
 
     /**
@@ -309,7 +318,7 @@ class ImageResizer
      */
     public function isResized()
     {
-        if ($this->image['source'] === 'fileupload') {
+        if ($this->image['source'] === 'filemodel') {
             $model = $this->getFileModel();
             $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
             $disk = $model->getDisk();
@@ -565,8 +574,6 @@ class ImageResizer
     {
         // Attempt to retrieve the resizer configuration and remove the data from the cache after retrieval
         $config = Cache::get(static::CACHE_PREFIX . $identifier, null); // @TODO: replace with pull()
-
-        dd($config);
 
         // Validate that the desired config was able to be loaded
         if (empty($config)) {
