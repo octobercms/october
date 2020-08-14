@@ -61,47 +61,47 @@ class AssetTest extends TestCase
 
         // Direct paths
         $this->assertEquals(
-            $themeDir . '/assets/js/script1.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/script1.js'),
             $assetClass->getFilePath('js/script1.js')
         );
         $this->assertEquals(
-            $themeDir . '/assets/js/script1.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/script1.js'),
             $assetClass->getFilePath('/js/script1.js')
         );
 
         // Direct path to a directory
         $this->assertEquals(
-            $themeDir . '/assets/js/subdir',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/subdir'),
             $assetClass->getFilePath('/js/subdir')
         );
         $this->assertEquals(
-            $themeDir . '/assets/js/subdir',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/subdir'),
             $assetClass->getFilePath('/js/subdir/')
         );
 
         // Relative paths
         $this->assertEquals(
-            $themeDir . '/assets/js/script2.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/script2.js'),
             $assetClass->getFilePath('./js/script2.js')
         );
         $this->assertEquals(
-            $themeDir . '/assets/js/script2.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/script2.js'),
             $assetClass->getFilePath('/js/subdir/../script2.js')
         );
 
         // Missing file, but valid directory (allows for new files)
         $this->assertEquals(
-            $themeDir . '/assets/js/missing.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/missing.js'),
             $assetClass->getFilePath('/js/missing.js')
         );
         $this->assertEquals(
-            $themeDir . '/assets/js/missing.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/missing.js'),
             $assetClass->getFilePath('js/missing.js')
         );
 
         // Missing file and missing directory (new directories are created as needed)
         $this->assertEquals(
-            $themeDir . '/assets/js/missing/missing.js',
+            str_replace('/', DIRECTORY_SEPARATOR, $themeDir . '/assets/js/missing/missing.js'),
             $assetClass->getFilePath('/js/missing/missing.js')
         );
 

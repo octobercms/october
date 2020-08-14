@@ -9,16 +9,16 @@ on:
 jobs:
   codeQuality:
     runs-on: ubuntu-latest
-    name: PHPCS
+    name: PHP
     steps:
       - name: Checkout changes
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Install PHP and PHP Code Sniffer
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '7.3'
           tools: phpcs
-      - name: Setup problem matcher for PHPCS
-        run: echo "::add-matcher::${{ github.workspace }}/.github/workflows/matchers/phpcs-matcher.json"
       - name: Run code quality checks
-        run: phpcs --colors -nq --report="checkstyle" --extensions="php" $(git show --name-only --pretty="" --diff-filter=ACMR ${{ github.sha }})
+        run: ./.github/workflows/utilities/phpcs-push ${{ github.sha }}

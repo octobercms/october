@@ -23,7 +23,7 @@ class CmsObjectTest extends TestCase
         $this->assertEquals('<p>This is a test HTML content file.</p>', $obj->getContent());
         $this->assertEquals('plain.html', $obj->getFileName());
 
-        $path = $theme->getPath().'/testobjects/plain.html';
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $theme->getPath().'/testobjects/plain.html');
         $this->assertEquals($path, $obj->getFilePath());
         $this->assertEquals(filemtime($path), $obj->mtime);
     }
@@ -36,7 +36,7 @@ class CmsObjectTest extends TestCase
         $this->assertEquals('<p>This is an object in a subdirectory.</p>', $obj->getContent());
         $this->assertEquals('subdir/obj.html', $obj->getFileName());
 
-        $path = $theme->getPath().'/testobjects/subdir/obj.html';
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $theme->getPath().'/testobjects/subdir/obj.html');
         $this->assertEquals($path, $obj->getFilePath());
         $this->assertEquals(filemtime($path), $obj->mtime);
     }
