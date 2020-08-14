@@ -312,7 +312,7 @@ class ControllerTest extends TestCase
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
@@ -342,7 +342,7 @@ ESC;
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(6, $component->property('posts-per-page'));
         $this->assertEquals(9, $component2->property('posts-per-page'));
     }
@@ -403,7 +403,7 @@ ESC;
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
@@ -429,7 +429,7 @@ ESC;
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
@@ -523,7 +523,7 @@ ESC;
 <p>Insert post here</p>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
     }
 
     public function testComponentWithOnRender()
@@ -537,6 +537,6 @@ Pass
 Custom output: Would you look over Picasso's shoulder
 Custom output: And tell him about his brush strokes?
 ESC;
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
     }
 }
