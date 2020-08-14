@@ -110,6 +110,7 @@ class CodeParserTest extends TestCase
          */
 
         $this->assertTrue(@touch($layout->getFilePath()));
+        clearstatcache();
         $layout = Layout::load($theme, 'php-parser-test.htm');
         $this->assertNotEmpty($layout);
         $parser = new CodeParser($layout);
