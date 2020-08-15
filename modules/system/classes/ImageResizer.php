@@ -26,7 +26,7 @@ use October\Rain\Database\Attach\Resizer as DefaultResizer;
  *          'crop',         // crop to the given dimensions after fitting as much of the image as possible inside those
  *          'fit',          // fit the image inside the given maximal dimensions, keeping the aspect ratio
  *      ],
- *      'quality'   => numeric, 1 - 100
+ *      'quality'   => numeric, 1 - 100
  *      'interlace' => boolean (default false),
  *      'extension' => ['auto', 'png', 'gif', 'jpg', 'jpeg', 'webp', 'bmp', 'ico'],
  *      'offset'    => [x, y] Offset to crop the image from
@@ -106,6 +106,11 @@ class ImageResizer
      * @var string The cache key prefix for resizer configs
      */
     public const CACHE_PREFIX = 'system.resizer.';
+
+    /**
+     * @var array Available sources to get images from
+     */
+    protected static $availableSources = [];
 
     /**
      * @var string Unique identifier for the current configuration
@@ -196,6 +201,10 @@ class ImageResizer
      */
     public static function getAvailableSources()
     {
+        if (!empty(static::$availableSources)) {
+            return static::$availableSources;
+        }
+
         $sources = [
             'themes' => [
                 'disk' => 'system',
@@ -241,7 +250,7 @@ class ImageResizer
          */
         Event::fire('system.resizer.getAvailableSources', [&$sources]);
 
-        return $sources;
+        return static::$availableSources = $sources;
     }
 
     /**
@@ -743,7 +752,7 @@ class ImageResizer
     {
         // Attempt to process the provided image
         try {
-            $resizer = new ImageResizer($image, $width, $height, $options);
+            $resizer = new static($image, $width, $height, $options);
         } catch (SystemException $ex) {
             // Ignore processing this URL if the resizer is unable to identify it
             if (is_string($image)) {
