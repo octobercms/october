@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'システム管理者領域'
     ],
-    'aria-label' => [
-        'footer'        => 'フッター',
-        'side_panel'    => 'サイドパネル',
-        'breadcrumb'    => 'パン粉',
-        'main_content'  => 'メインエリア',
-        'tabs'          => 'タブ',
-    ],
     'field' => [
         'invalid_type' => '無効なフィールドタイプ :type が使用されています。',
         'options_method_not_exists' => 'モデルクラスの:modelは、":field"フォームフィールドのためにオプションを返す、:method()メソッドを定義しなくてはなりません。',
@@ -183,8 +176,8 @@ return [
         'behavior_not_ready' => 'フォームビヘイビアーは初期化されていません。コントローラーでinitForm()を呼び出しているか確認してください。',
         'preview_no_files_message' => 'ファイルはアップロードされません。',
         'select' => '選択',
-        'select_all' => 'すべて',
-        'select_none' => 'なし',
+        'select_all' => 'すべて選択',
+        'select_none' => 'どれも選択しない',
         'select_placeholder' => '選択してください',
         'insert_row' => '行を挿入',
         'delete_row' => '行を削除',

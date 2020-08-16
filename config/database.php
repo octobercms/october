@@ -53,15 +53,17 @@ return [
         ],
 
         'mysql' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'port'      => 3306,
-            'database'  => 'database',
-            'username'  => 'root',
-            'password'  => '',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix'    => '',
+            'driver'     => 'mysql',
+            'engine'     => 'InnoDB',
+            'host'       => 'localhost',
+            'port'       => 3306,
+            'database'   => 'database',
+            'username'   => 'root',
+            'password'   => '',
+            'charset'    => 'utf8mb4',
+            'collation'  => 'utf8mb4_unicode_ci',
+            'prefix'     => '',
+            'varcharmax' => 191,
         ],
 
         'pgsql' => [
@@ -114,6 +116,7 @@ return [
 
     'redis' => [
 
+        'client' => 'predis',
         'cluster' => false,
 
         'default' => [

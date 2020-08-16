@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Haldusliides'
     ],
-    'aria-label' => [
-        'footer'        => 'jalus',
-        'side_panel'    => 'kõrvalpaneel',
-        'breadcrumb'    => 'riivsai',
-        'main_content'  => 'peamine ala',
-        'tabs'          => 'vahekaardid',
-    ],
     'field' => [
         'invalid_type' => 'Välja tüüpi :type pole olemas.',
         'options_method_invalid_model' => "Atribuut ':field' ei vasta ühelegi olemasolevale andmemudelile. Palun defineeri valikväärtuste funktioon :model andmemudelis.",
@@ -32,9 +25,6 @@ return [
             'help' => "Haldusliidese kasutamiseks peab olemas seadistatud andmebaas. Enne jätkamist palun kontrolli andmebaasi seadistust.",
             'cms_link' => 'Tagasi kodulehele'
         ],
-        'invalid_token' => [
-            'label' => 'Vigane turvamärk'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Koodiblokki ':name' ei leitud."
@@ -252,8 +242,8 @@ return [
         'preview_no_media_message' => 'Ühtegi meediafaili pole valitud.',
         'preview_no_record_message' => 'Ühtegi kirjet pole valitud.',
         'select' => 'Vali',
-        'select_all' => 'kõik',
-        'select_none' => 'mitte ükski',
+        'select_all' => 'Vali kõik',
+        'select_none' => 'vali ükski',
         'select_placeholder' => 'palun vali',
         'insert_row' => 'Lisa rida',
         'insert_row_below' => 'Lisa rida alla',

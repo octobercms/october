@@ -141,7 +141,7 @@ class MailTemplate extends Model
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
 
         $layoutCode = array_get($sections, 'settings.layout', 'default');
-        $this->layout_id = MailLayout::getIdFromCode($layoutCode);
+        $this->layout = MailLayout::findOrMakeLayout($layoutCode);
     }
 
     protected static function getTemplateSections($code)

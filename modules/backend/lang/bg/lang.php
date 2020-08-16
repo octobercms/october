@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Администраторски Панел'
     ],
-    'aria-label' => [
-        'footer'        => 'долния',
-        'side_panel'    => 'страничен панел',
-        'breadcrumb'    => 'галета',
-        'main_content'  => 'основната зона',
-        'tabs'          => 'разделите',
-    ],
     'field' => [
         'invalid_type' => 'Използвано невалиден тип поле :type.',
         'options_method_not_exists' => "Моделът клас :model трябва да се определя метод :method() връщайки настройки за ':field' поле."
@@ -26,9 +19,6 @@ return [
             'help' => "Вие нямате нужните права за да видите тази страница.",
             'cms_link' => 'Върни се към администраторския-панел'
         ],
-        'invalid_token' => [
-            'label' => 'Невалиден код за сигурност (token)'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Частичната страница ':name' не е намерена."
@@ -208,8 +198,8 @@ return [
         'preview_no_files_message' => 'Все още няма качени файлове.',
         'preview_no_record_message' => 'Не е избран запис.',
         'select' => 'Избери',
-        'select_all' => 'всичко',
-        'select_none' => 'нищо',
+        'select_all' => 'Избери всички',
+        'select_none' => 'изберете никой',
         'select_placeholder' => 'моля изберете',
         'insert_row' => 'Вмъкни ред',
         'insert_row_below' => 'Вмъкни ред По-долу',

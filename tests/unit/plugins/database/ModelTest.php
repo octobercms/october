@@ -4,7 +4,7 @@ use Database\Tester\Models\Post;
 
 class ModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -23,12 +23,11 @@ class ModelTest extends PluginTestCase
         $this->assertEquals(1, $post->id);
     }
 
-    /**
-     * @expectedException        \Illuminate\Database\Eloquent\MassAssignmentException
-     * @expectedExceptionMessage title
-     */
     public function testGuardedAttribute()
     {
+        $this->expectException(\Illuminate\Database\Eloquent\MassAssignmentException::class);
+        $this->expectExceptionMessageMatches('/title/');
+
         Post::create(['title' => 'Hi!', 'slug' => 'authenticity']);
     }
 }

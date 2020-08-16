@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'لوحة الإدارة'
     ],
-    'aria-label' => [
-        'footer'        => 'تذييل',
-        'side_panel'    => 'لوحة جانبية',
-        'breadcrumb'    => 'التفصيلي',
-        'main_content'  => 'المجال الرئيسي',
-        'tabs'          => 'علامات التبويب',
-    ],
     'page' => [
         'access_denied' => [
             'label' => 'ممنوع الوصول',
@@ -108,8 +101,8 @@ return [
         'reload' => 'إعادة تحميل',
         'complete' => 'تم',
         'select' => 'تحديد',
-        'select_all' => 'تحديد الكل',
-        'select_none' => 'إلغاء التحديد',
+        'select_all' => 'اختر الكل',
+        'select_none' => 'لا تختر شيء',
         'select_placeholder' => 'من فضلك اختار',
         'insert_row' => 'إضافة سجل',
         'return_to_list' => 'عودة للقائمة',

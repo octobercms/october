@@ -5,13 +5,6 @@ return [
         'title' => 'Yönetim Paneli',
         'invalid_login' => 'Girdiğiniz bilgiler kayıtlarla eşleşmiyor. Lütfen kontrol edip tekrar deneyin.',
     ],
-    'aria-label' => [
-        'footer'        => 'altbilgi menüsü',
-        'side_panel'    => 'yan panel',
-        'breadcrumb'    => 'kırıntı izi',
-        'main_content'  => 'ana alan',
-        'tabs'          => 'sekmeler',
-    ],
     'field' => [
         'invalid_type' => 'Geçersiz alan tipi :type.',
         'options_method_invalid_model' => "':field' metodu, geçerli bir model ile eşleşmiyor. :model Model'i için options metodu tanımlamalısınız.",
@@ -33,9 +26,6 @@ return [
             'label' => 'Veritabanı yapılandırılmamış',
             'help' => "Yönetim paneline erişebilmeniz için geçerli bir veritabanı yapılandırması yapmalısınız. Lütfen ayarların kontrol edin.",
             'cms_link' => 'Anasayfaya dön',
-        ],
-        'invalid_token' => [
-            'label' => 'Geçersiz güvenlik anahtarı'
         ],
     ],
     'partial' => [
@@ -284,8 +274,8 @@ return [
         'preview_no_media_message' => 'Seçilmiş medya yok.',
         'preview_no_record_message' => 'Seçili kayıt yok.',
         'select' => 'Seç',
-        'select_all' => 'tümü',
-        'select_none' => 'hiçbiri',
+        'select_all' => 'hepsini seç',
+        'select_none' => 'hiçbir şey seçilmedi',
         'select_placeholder' => 'lütfen seçin',
         'insert_row' => 'Kayıt Ekle',
         'insert_row_below' => 'Alt Satıra Kayıt Ekle',
@@ -403,7 +393,7 @@ return [
         'line_breaker_tags' => 'Satır atlatma etiketleri',
         'line_breaker_tags_comment' => 'Aralarına bir satır atlatma öğesi yerleştirmek için kullanılan etiketlerin listesi.',
         'toolbar_buttons' => 'Araç Çubuğu Düğmeleri',
-        'toolbar_buttons_comment' => 'Rich Editor\'de varsayılan olarak görüntülenecek Araç Çubuğu düğmeleri. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Rich Editor\'de varsayılan olarak görüntülenecek Araç Çubuğu düğmeleri.',
     ],
     'tooltips' => [
         'preview_website' => 'Websiteyi Önizle',

@@ -1,0 +1,24 @@
+name: Code Quality
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  codeQuality:
+    runs-on: ubuntu-latest
+    name: PHP
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install PHP and PHP Code Sniffer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.3'
+          tools: phpcs
+      - name: Run code quality checks
+        run: ./.github/workflows/utilities/phpcs-push ${{ github.sha }}

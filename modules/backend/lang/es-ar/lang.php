@@ -1,13 +1,6 @@
 <?php
 
 return [
-    'aria-label' => [
-        'footer'        => 'pie de página',
-        'side_panel'    => 'panel lateral',
-        'breadcrumb'    => 'migaja de pan',
-        'main_content'  => 'área principal',
-        'tabs'          => 'pestañas',
-    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'La clase del modelo :model debe definir un método :method() que devuelva opciones para el campo ":field".',
@@ -168,8 +161,8 @@ return [
         'behavior_not_ready' => 'Por favor compruebe que ha llamado a la funcion initForm() en el controlador.',
         'preview_no_files_message' => 'Los archivos no fueron cargados.',
         'select' => 'Seleccionar',
-        'select_all' => 'Todo',
-        'select_none' => 'Ninguno',
+        'select_all' => 'seleccionar todo',
+        'select_none' => 'no seleccionar ninguno',
         'select_placeholder' => 'Seleccionar',
         'insert_row' => 'Insertar fila',
         'delete_row' => 'Eliminar fila',

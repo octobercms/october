@@ -40,7 +40,7 @@ return [
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     "email"                => "Поле :attribute имеет ошибочный формат.",
-    "exists"               => "Выбранное значение для :attribute уже существует.",
+    "exists"               => "Выбранное значение для :attribute отсутствует.",
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
     "image"                => "Поле :attribute должно быть изображением.",

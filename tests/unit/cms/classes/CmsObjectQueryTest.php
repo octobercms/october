@@ -7,7 +7,7 @@ use October\Rain\Halcyon\Model;
 
 class CmsObjectQueryTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -78,6 +78,7 @@ class CmsObjectQueryTest extends TestCase
             "no-component-class",
             "no-layout",
             "no-partial",
+            "no-soft-component-class",
             "optional-full-php-tags",
             "optional-short-php-tags",
             "throw-php",
@@ -87,6 +88,8 @@ class CmsObjectQueryTest extends TestCase
             "with-layout",
             "with-partials",
             "with-placeholder",
+            "with-soft-component-class",
+            "with-soft-component-class-alias",
         ], $pages);
 
         $layouts = Layout::lists('baseFileName');

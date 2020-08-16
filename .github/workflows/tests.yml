@@ -1,0 +1,100 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+
+jobs:
+  frontendTests:
+    runs-on: ubuntu-latest
+    name: JavaScript
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+            node-version: 12
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+  phpUnitTests:
+    strategy:
+      max-parallel: 6
+      matrix:
+        operatingSystem: [ubuntu-latest, windows-latest]
+        phpVersion: ['7.2', '7.3', '7.4']
+      fail-fast: false
+    runs-on: ${{ matrix.operatingSystem }}
+    name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
+    env:
+      extensions: curl, fileinfo, gd, mbstring, openssl, pdo, pdo_sqlite, sqlite3, xml
+      key: october-cms-cache-v1
+    steps:
+      - name: Checkout changes
+        uses: actions/checkout@v2
+
+      - name: Setup extension cache
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.phpVersion }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.phpVersion }}
+          tools: composer
+          extensions: ${{ env.extensions }}
+
+      - name: Setup dependency cache
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --no-suggest --no-scripts
+
+      - name: Reset October modules
+        run: |
+            git reset --hard HEAD
+            composer dumpautoload
+
+      - name: Run post-update Composer scripts
+        run: php artisan package:discover
+
+      - name: Reset October modules
+        run: |
+          git reset --hard HEAD
+          composer dumpautoload
+
+      - name: Setup problem matchers for PHPUnit
+        if: matrix.phpVersion == '7.4'
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Run tests
+        run: ./vendor/bin/phpunit --prepend ./vendor/october/rain/src/Support/helpers.php

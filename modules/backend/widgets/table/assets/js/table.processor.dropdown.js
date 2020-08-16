@@ -270,8 +270,10 @@
         }
     }
 
-    DropdownProcessor.prototype.updateCellFromFocusedItem = function() {
-        var focusedItem = this.findFocusedItem();
+    DropdownProcessor.prototype.updateCellFromFocusedItem = function(focusedItem) {
+        if (!focusedItem) {
+            focusedItem = this.findFocusedItem();
+        }
         this.setSelectedItem(focusedItem);
     }
 
@@ -309,7 +311,7 @@
 
         if (target.tagName == 'LI') {
             target.focus();
-            this.updateCellFromFocusedItem()
+            this.updateCellFromFocusedItem(target)
             this.hideDropdown()
         }
     }
@@ -318,13 +320,13 @@
         if (!this.itemListElement)
             return
 
-        if (ev.keyCode == 40 || ev.keyCode == 38)
+        if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp')
         {
             // Up or down keys - find previous/next list item and select it
             var focused = this.findFocusedItem(),
                 newFocusedItem = focused.nextElementSibling
 
-            if (ev.keyCode == 38)
+            if (ev.key === 'ArrowUp')
                 newFocusedItem = focused.previousElementSibling
 
             if (newFocusedItem) {
@@ -334,14 +336,14 @@
             return
         }
 
-        if (ev.keyCode == 13 || ev.keyCode == 32) {
+        if (ev.key === 'Enter' || ev.key === '(Space character)' || ev.key === 'Spacebar' || ev.key === ' ') {
             // Return or space keys - update the selected value and hide the editor
             this.updateCellFromFocusedItem()
             this.hideDropdown()
             return
         }
 
-        if (ev.keyCode == 9) {
+        if (ev.key === 'Tab') {
             // Tab - update the selected value and pass control to the table navigation
             this.updateCellFromFocusedItem()
             this.tableObj.navigation.navigateNext(ev)
@@ -349,7 +351,7 @@
             return
         }
 
-        if (ev.keyCode == 27) {
+        if (ev.key === 'Escape') {
             // Esc - hide the drop-down
             this.hideDropdown()
             return
@@ -380,14 +382,14 @@
         if (!this.itemListElement)
             return
 
-        if (ev.keyCode == 32 && !this.searching) { // Spacebar
+        if ((ev.key === '(Space character)' || ev.key === 'Spacebar' || ev.key === ' ') && !this.searching) { // Spacebar
             this.showDropdown()
-        } else if (ev.keyCode == 40 || ev.keyCode == 38) { // Up and down arrow keys
+        } else if (ev.key === 'ArrowDown'  || ev.key === 'ArrowUp') { // Up and down arrow keys
             var selected = this.findSelectedItem(),
                 newSelectedItem;
 
             if (!selected) {
-                if (ev.keyCode == 38) {
+                if (ev.key === 'ArrowUp') {
                     // Only show an initial item when the down array key is pressed
                     return false
                 }
@@ -395,7 +397,7 @@
             } else {
                 newSelectedItem = selected.nextElementSibling
 
-                if (ev.keyCode == 38)
+                if (ev.key === 'ArrowUp')
                     newSelectedItem = selected.previousElementSibling
             }
 

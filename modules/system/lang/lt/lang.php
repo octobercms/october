@@ -32,9 +32,11 @@ return [
         'pl' => 'Polski',
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türk',
         'zh-cn' => '简体中文',
         'zh-tw' => '繁體中文',
@@ -45,6 +47,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'Negalime sukurti failo: :name'
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Netinkama saugos žyma',
+        ],
     ],
     'combiner' => [
         'not_found' => "Bendrintojo failas ':name' nerastas."

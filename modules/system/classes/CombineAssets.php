@@ -10,11 +10,11 @@ use Route;
 use Config;
 use Request;
 use Response;
-use Assetic\Asset\FileAsset;
-use Assetic\Asset\AssetCache;
-use Assetic\Asset\AssetCollection;
-use Assetic\Factory\AssetFactory;
-use October\Rain\Parse\Assetic\FilesystemCache;
+use October\Rain\Assetic\Asset\FileAsset;
+use October\Rain\Assetic\Asset\AssetCache;
+use October\Rain\Assetic\Asset\AssetCollection;
+use October\Rain\Assetic\Cache\FilesystemCache;
+use October\Rain\Assetic\Factory\AssetFactory;
 use System\Helpers\Cache as CacheHelper;
 use ApplicationException;
 use DateTime;
@@ -126,22 +126,22 @@ class CombineAssets
         /*
          * Register JavaScript filters
          */
-        $this->registerFilter('js', new \October\Rain\Parse\Assetic\JavascriptImporter);
+        $this->registerFilter('js', new \October\Rain\Assetic\Filter\JavascriptImporter);
 
         /*
          * Register CSS filters
          */
-        $this->registerFilter('css', new \Assetic\Filter\CssImportFilter);
-        $this->registerFilter(['css', 'less', 'scss'], new \Assetic\Filter\CssRewriteFilter);
-        $this->registerFilter('less', new \October\Rain\Parse\Assetic\LessCompiler);
-        $this->registerFilter('scss', new \October\Rain\Parse\Assetic\ScssCompiler);
+        $this->registerFilter('css', new \October\Rain\Assetic\Filter\CssImportFilter);
+        $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Assetic\Filter\CssRewriteFilter);
+        $this->registerFilter('less', new \October\Rain\Assetic\Filter\LessCompiler);
+        $this->registerFilter('scss', new \October\Rain\Assetic\Filter\ScssCompiler);
 
         /*
          * Minification filters
          */
         if ($this->useMinify) {
-            $this->registerFilter('js', new \Assetic\Filter\JSMinFilter);
-            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Parse\Assetic\StylesheetMinify);
+            $this->registerFilter('js', new \October\Rain\Assetic\Filter\JSMinFilter);
+            $this->registerFilter(['css', 'less', 'scss'], new \October\Rain\Assetic\Filter\StylesheetMinify);
         }
 
         /*
@@ -411,8 +411,17 @@ class CombineAssets
      */
     protected function prepareCombiner(array $assets, $rewritePath = null)
     {
-        /*
-         * Extensibility
+        /**
+         * @event cms.combiner.beforePrepare
+         * Provides an opportunity to interact with the asset combiner before assets are combined.
+         * >**NOTE**: Plugin's must be elevated (`$elevated = true` on Plugin.php) to be run on the /combine route and thus listen to this event
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.combiner.beforePrepare', function ((\System\Classes\CombineAssets) $assetCombiner, (array) $assets) {
+         *         $assetCombiner->registerFilter(...)
+         *     });
+         *
          */
         Event::fire('cms.combiner.beforePrepare', [$this, $assets]);
 
@@ -420,7 +429,7 @@ class CombineAssets
         $filesSalt = null;
         foreach ($assets as $asset) {
             $filters = $this->getFilters(File::extension($asset)) ?: [];
-            $path = file_exists($asset) ? $asset : File::symbolizePath($asset, null) ?: $this->localPath . $asset;
+            $path = file_exists($asset) ? $asset : (File::symbolizePath($asset, null) ?: $this->localPath . $asset);
             $files[] = new FileAsset($path, $filters, public_path());
             $filesSalt .= $this->localPath . $asset;
         }
@@ -474,7 +483,7 @@ class CombineAssets
         $key = '';
 
         $assetFiles = array_map(function ($file) {
-            return file_exists($file) ? $file : File::symbolizePath($file, null) ?: $this->localPath . $file;
+            return file_exists($file) ? $file : (File::symbolizePath($file, null) ?: $this->localPath . $file);
         }, $assets);
 
         foreach ($assetFiles as $file) {
@@ -542,7 +551,7 @@ class CombineAssets
      * `registerBundle` method. This instance is passed to the callback
      * function as an argument. Usage:
      *
-     *     CombineAssets::registerCallback(function($combiner){
+     *     CombineAssets::registerCallback(function ($combiner) {
      *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
      *     });
      *
@@ -809,10 +818,19 @@ class CombineAssets
             $cacheKey .= $this->getDeepHashFromAssets($assets);
         }
 
-        /*
-         * Extensibility
-         */
         $dataHolder = (object) ['key' => $cacheKey];
+
+        /**
+         * @event cms.combiner.getCacheKey
+         * Provides an opportunity to modify the asset combiner's cache key
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.combiner.getCacheKey', function ((\System\Classes\CombineAssets) $assetCombiner, (stdClass) $dataHolder) {
+         *         $dataHolder->key = rand();
+         *     });
+         *
+         */
         Event::fire('cms.combiner.getCacheKey', [$this, $dataHolder]);
         $cacheKey = $dataHolder->key;
 

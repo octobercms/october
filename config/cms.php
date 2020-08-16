@@ -44,12 +44,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Use this setting to force a secure protocol when accessing any back-end
-    | pages, including the authentication pages. If set to null, this setting
-    | is enabled when debug mode (app.debug) is disabled.
+    | pages, including the authentication pages. This is usually handled by
+    | web server config, but can be handled by the app for added security.
     |
     */
 
-    'backendForceSecure' => null,
+    'backendForceSecure' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
     | Automatically run migrations on login
     |--------------------------------------------------------------------------
     |
-    | If value is true, UpdateMananger will be run on logging in to the backend.
+    | If value is true, UpdateManager will be run on logging in to the backend.
     | It's recommended to set this value to 'null' in production enviroments
     | because it clears the cache every time a user logs in to the backend.
     | If set to null, this setting is enabled when debug mode (app.debug) is enabled
@@ -298,6 +298,16 @@ return [
     | in cloud storage (ex. AWS, RackSpace) are valid for by setting
     | temporaryUrlTTL to a value in seconds to define a validity period. This
     | is only used for the 'uploads' config when using a supported cloud disk
+    |
+    | NOTE: If you have installed October in a subfolder, are using local
+    | storage and are not using a linkPolicy of 'force' you should include
+    | the path to the subfolder in the `path` option for these storage
+    | configurations.
+    |
+    | Example: October is installed under https://localhost/projects/october.
+    | You should then specify `/projects/october/storage/app/uploads` as the
+    | path for the uploads disk and `/projects/october/storage/app/media` as
+    | the path for the media disk.
     */
 
     'storage' => [
@@ -374,8 +384,8 @@ return [
     | Cross Site Request Forgery (CSRF) Protection
     |--------------------------------------------------------------------------
     |
-    | If the CSRF protection is enabled, all "postback" requests are checked
-    | for a valid security token.
+    | If the CSRF protection is enabled, all "postback" & AJAX requests are
+    | checked for a valid security token.
     |
     */
 

@@ -11,25 +11,6 @@
 @mainmenu-tile-label-height: 20px;
 @mainmenu-tile-label-width: 100px;
 
-//
-// Focus Ring Support for accessibility
-//
-
-.js-focus-visible {
-	&:focus {
-		&:not(.focus-visible) {
-			outline: none;
-		}
-	}
-	.focus-visible {
-		border: .0625rem solid #3578E5;
-		-webkit-box-shadow: 0 0 .1875rem .125rem #3578E5;
-		box-shadow: 0 0 .1875rem .125rem #3578E5;
-		z-index: 1;
-		position: relative;
-	}
-}
-
 body.mainmenu-open {
     overflow: hidden;
     position: fixed;
@@ -39,7 +20,6 @@ body.mainmenu-open {
     display: inline-block;
     font-size: @font-size-base;
     color: inherit;
-    outline: none;
 
     &:hover {
         background-color: transparent;
@@ -132,7 +112,7 @@ nav#layout-mainmenu {
     padding: 0 0 0 20px;
     line-height: 0;
     white-space: nowrap;
-    vertical-align: top;
+    display: flex;
 
     a {
         text-decoration: none;
@@ -176,7 +156,14 @@ nav#layout-mainmenu {
     }
 
     .toolbar-item {
+        flex: 1 1 auto;
+        display: block;
         padding-right: 0;
+        overflow: hidden;
+
+        &-account {
+            flex: 0 0 auto;
+        }
 
         &:before, &:after {
             margin-top: 0;
@@ -233,6 +220,7 @@ nav#layout-mainmenu {
 
             img.account-avatar {
                 width: 45px;
+                height: 45px;
             }
 
             .account-name {

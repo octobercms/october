@@ -29,6 +29,8 @@
     FilterWidget.prototype.init = function () {
         overloaded_init.apply(this)
 
+        this.ignoreTimezone = this.$el.children().get(0).hasAttribute('data-ignore-timezone');
+
         this.initRegion()
         this.initFilterDate()
     }
@@ -43,14 +45,14 @@
         this.$el.on('show.oc.popover', 'a.filter-scope-date', function (event) {
             self.initDatePickers($(this).hasClass('range'))
 
-            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-trigger="filter"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-filter-action="filter"]', function (e) {
                 e.preventDefault()
                 e.stopPropagation()
 
                 self.filterByDate()
             })
 
-            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-trigger="clear"]', function (e) {
+            $(event.relatedTarget).on('click', '#controlFilterPopoverDate [data-filter-action="clear"]', function (e) {
                 e.preventDefault()
                 e.stopPropagation()
 
@@ -104,7 +106,7 @@
      */
     FilterWidget.prototype.getPopoverDateTemplate = function () {
         return '                                                                                                        \
-                <form>                                                                                                  \
+                <form id="controlFilterPopoverDate-{{ scopeName }}">                                                    \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover">       \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
@@ -121,7 +123,7 @@
                                 </div>                                                                                  \
                             </div>                                                                                      \
                             <div class="filter-buttons">                                                                \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                       \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                 \
                                     {{ reset_button_text }}                                                             \
                                 </button>                                                                               \
                             </div>                                                                                      \
@@ -136,7 +138,7 @@
      */
     FilterWidget.prototype.getPopoverRangeTemplate = function () {
         return '                                                                                                          \
-                <form>                                                                                                    \
+                <form id="controlFilterPopoverRange-{{ scopeName }}">                                                     \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                      \
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover --range"> \
                         <div class="filter-search loading-indicator-container size-input-text">                           \
@@ -159,16 +161,16 @@
                                         type="text"                                                                       \
                                         name="date"                                                                       \
                                         value="{{ date }}"                                                                \
-                                        class="form-control align-right popup-allow-focus"                                                  \
+                                        class="form-control align-right popup-allow-focus"                                \
                                         autocomplete="off"                                                                \
                                         placeholder="{{ before_placeholder }}" />                                         \
                                 </div>                                                                                    \
                             </div>                                                                                        \
                             <div class="filter-buttons">                                                                  \
-                                <button class="btn btn-block btn-primary" data-trigger="filter">                          \
+                                <button class="btn btn-block btn-primary" data-filter-action="filter">                    \
                                     {{ filter_button_text }}                                                              \
                                 </button>                                                                                 \
-                                <button class="btn btn-block btn-secondary" data-trigger="clear">                         \
+                                <button class="btn btn-block btn-secondary" data-filter-action="clear">                   \
                                     {{ reset_button_text }}                                                               \
                                 </button>                                                                                 \
                             </div>                                                                                        \
@@ -394,6 +396,12 @@
         }
 
         if (!this.timezone) {
+            this.timezone = 'UTC'
+        }
+
+        // Set both timezones to UTC to disable converting between them
+        if (this.ignoreTimezone) {
+            this.appTimezone = 'UTC'
             this.timezone = 'UTC'
         }
     }

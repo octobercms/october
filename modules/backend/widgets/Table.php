@@ -1,5 +1,7 @@
 <?php namespace Backend\Widgets;
 
+use Config;
+use Backend;
 use Lang;
 use Input;
 use Request;
@@ -123,7 +125,7 @@ class Table extends WidgetBase
         $this->vars['recordsKeyFrom'] = $this->recordsKeyFrom;
 
         $this->vars['recordsPerPage'] = $this->getConfig('recordsPerPage', false) ?: 'false';
-        $this->vars['postbackHandlerName'] = $this->getConfig('postbackHandlerName', 'onSave');
+        $this->vars['postbackHandlerName'] = $this->getConfig('postbackHandlerName');
         $this->vars['searching'] = $this->getConfig('searching', false);
         $this->vars['adding'] = $this->getConfig('adding', true);
         $this->vars['deleting'] = $this->getConfig('deleting', true);
@@ -153,15 +155,23 @@ class Table extends WidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/table.css', 'core');
-        $this->addJs('js/build-min.js', 'core');
+
+        if (Config::get('develop.decompileBackendAssets', false)) {
+            $scripts = Backend::decompileAsset($this->getAssetPath('js/build.js'));
+            foreach ($scripts as $script) {
+                $this->addJs($script, 'core');
+            }
+        } else {
+            $this->addJs('js/build-min.js', 'core');
+        }
     }
 
     /**
      * Converts the columns associative array to a regular array and translates column headers and drop-down options.
      * Working with regular arrays is much faster in JavaScript.
      * References:
-     * - http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
-     * - http://jsperf.com/performance-of-array-vs-object/3
+     * - https://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+     * - https://jsperf.com/performance-of-array-vs-object/3
      */
     protected function prepareColumnsArray()
     {

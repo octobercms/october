@@ -155,7 +155,7 @@
                    return false
                }
 
-               if (e.keyCode == 27) {
+               if (e.key === 'Escape') {
                    self.hide()
                    return false
                }

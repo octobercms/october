@@ -193,6 +193,19 @@ class Extension extends TwigExtension
             return $default;
         }
 
+        /**
+         * @event cms.block.render
+         * Provides an opportunity to modify the rendered block content
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.block.render', function ((string) $name, (string) $result) {
+         *         if ($name === 'myBlockName') {
+         *             return 'my custom content';
+         *         }
+         *     });
+         *
+         */
         if ($event = Event::fire('cms.block.render', [$name, $result], true)) {
             $result = $event;
         }

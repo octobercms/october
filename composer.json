@@ -2,6 +2,7 @@
     "name": "october/october",
     "description": "October CMS",
     "homepage": "https://octobercms.com",
+    "type": "project",
     "keywords": ["october", "cms", "octobercms", "laravel"],
     "license": "MIT",
     "authors": [
@@ -23,35 +24,34 @@
         }
     ],
     "support": {
+        "paid": "https://octobercms.com/premium-support",
         "issues": "https://github.com/octobercms/october/issues",
         "forum": "https://octobercms.com/forum/",
         "docs": "https://octobercms.com/docs/",
-        "irc": "irc://irc.freenode.net/october",
         "source": "https://github.com/octobercms/october"
     },
     "require": {
-        "php": ">=7.0",
-        "ext-mbstring": "*",
-        "ext-openssl": "*",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
-        "laravel/framework": "5.5.*",
-        "wikimedia/composer-merge-plugin": "dev-master"
+        "php": ">=7.2",
+        "october/rain": "dev-develop as 1.0",
+        "october/system": "dev-develop",
+        "october/backend": "dev-develop",
+        "october/cms": "dev-develop",
+        "laravel/framework": "~6.0",
+        "wikimedia/composer-merge-plugin": "1.4.1"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.7",
-        "phpunit/phpunit": "~6.5",
-        "phpunit/phpunit-selenium": "~1.2",
-        "meyfa/phpunit-assert-gd": "1.1.0",
+        "phpunit/phpunit": "^8.0|^9.0",
+        "fzaninotto/faker": "~1.9",
         "squizlabs/php_codesniffer": "3.*",
-        "jakub-onderka/php-parallel-lint": "^1.0"
+        "php-parallel-lint/php-parallel-lint": "^1.0",
+        "meyfa/phpunit-assert-gd": "^2.0.0",
+        "dms/phpunit-arraysubset-asserts": "^0.1.0"
     },
     "autoload-dev": {
         "classmap": [
+            "tests/concerns/InteractsWithAuthentication.php",
+            "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
-            "tests/UiTestCase.php",
             "tests/PluginTestCase.php"
         ]
     },
@@ -63,12 +63,21 @@
         "post-update-cmd": [
             "php artisan october:util set build",
             "php artisan package:discover"
+        ],
+        "test": [
+            "phpunit --stop-on-failure"
+        ],
+        "lint": [
+            "parallel-lint --exclude vendor --exclude storage --exclude tests/fixtures/plugins/testvendor/goto/Plugin.php ."
+        ],
+        "sniff": [
+            "phpcs --colors -nq --report=\"full\" --extensions=\"php\""
         ]
     },
     "config": {
         "preferred-install": "dist",
         "platform": {
-            "php": "7.0"
+            "php": "7.2"
         }
     },
     "minimum-stability": "dev",

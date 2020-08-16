@@ -4,13 +4,6 @@ return [
     'auth' => [
         'title' => 'Area de Administración'
     ],
-    'aria-label' => [
-        'footer'        => 'pie de página',
-        'side_panel'    => 'panel lateral',
-        'breadcrumb'    => 'migaja de pan',
-        'main_content'  => 'área principal',
-        'tabs'          => 'pestañas',
-    ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
         'options_method_not_exists' => 'El modelo clase: model debe definir un método: method() opciones recurrentes para el ":field" desde campo.'
@@ -26,9 +19,6 @@ return [
             'help' => 'No tiene permisos necesarios para ver esta página.',
             'cms_link' => 'Volver al panel de administración'
         ],
-        'invalid_token' => [
-            'label' => 'Token de seguridad invalido'
-        ]
     ],
     'partial' => [
         'not_found_name' => "El parcial ':name' no se encuentra."
@@ -237,8 +227,8 @@ return [
         'preview_no_files_message' => 'Los archivos no se han subido',
         'preview_no_record_message' => 'No hay ningún registro seleccionado.',
         'select' => 'Seleccionar',
-        'select_all' => 'todos',
-        'select_none' => 'ninguno',
+        'select_all' => 'seleccionar todo',
+        'select_none' => 'no seleccionar ninguno',
         'select_placeholder' => 'por favor seleccione',
         'insert_row' => 'Agregar Fila',
         'insert_row_below' => 'Insertar fila debajo',
@@ -317,11 +307,11 @@ return [
         'auto_closing' => 'Cerrado de etiquetas automático',
         'show_invisibles' => 'Mostrar caracteres invisibles',
         'show_gutter' => 'Mostrar numeros de línea',
-        'basic_autocompletion'=> 'Autocompletado Basico (Ctrl + Espacio)',
-        'live_autocompletion'=> 'Autocompletado en Vivo',
-        'enable_snippets'=> 'Activar uso de Snippets',
-        'display_indent_guides'=> 'Mostrar Guias de Identado',
-        'show_print_margin'=> 'Mostrar Margen de impresión',
+        'basic_autocompletion' => 'Autocompletado Basico (Ctrl + Espacio)',
+        'live_autocompletion' => 'Autocompletado en Vivo',
+        'enable_snippets' => 'Activar uso de Snippets',
+        'display_indent_guides' => 'Mostrar Guias de Identado',
+        'show_print_margin' => 'Mostrar Margen de impresión',
         'mode_off' => 'Off',
         'mode_fluid' => 'Fluido',
         '40_characters' => '40 Caracteres',
@@ -406,7 +396,8 @@ return [
     'filter' => [
         'all' => 'todo',
         'options_method_not_exists' => "La clase de modelo :model debe definir un método :method() para regresar opciones para el filtro ':filter'.",
-        'date_all' => 'todo el período'
+        'date_all' => 'todo el período',
+        'number_all' => 'todos los números'
     ],
     'import_export' => [
         'upload_csv_file' => '1. Subir un archivo CSV',

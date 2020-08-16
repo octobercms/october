@@ -100,19 +100,21 @@
                         <?= e(trans('cms::lang.theme.export_button')) ?>
                     </a>
                 </li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation">
-                    <a
-                        role="menuitem"
-                        tabindex="-1"
-                        data-request="onDelete"
-                        data-request-confirm="<?= e(trans('cms::lang.theme.delete_confirm')) ?>"
-                        data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
-                        href="javascript:;"
-                        class="oc-icon-trash">
-                        <?= e(trans('cms::lang.theme.delete_button')) ?>
-                    </a>
-                </li>
+                <?php if (!$theme->isActiveTheme()): ?>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a
+                            role="menuitem"
+                            tabindex="-1"
+                            data-request="onDelete"
+                            data-request-confirm="<?= e(trans('cms::lang.theme.delete_confirm')) ?>"
+                            data-request-data="theme: '<?= e($theme->getDirName()) ?>'"
+                            href="javascript:;"
+                            class="oc-icon-trash">
+                            <?= e(trans('cms::lang.theme.delete_button')) ?>
+                        </a>
+                    </li>
+                <?php endif ?>
             </ul>
         </div>
     </div>

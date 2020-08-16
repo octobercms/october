@@ -1,5 +1,6 @@
 <?php namespace System;
 
+use Db;
 use App;
 use View;
 use Event;
@@ -84,10 +85,16 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         // Fix UTF8MB4 support for MariaDB < 10.2 and MySQL < 5.7
-        if (Config::get('database.connections.mysql.charset') === 'utf8mb4') {
-            Schema::defaultStringLength(191);
+        $this->applyDatabaseDefaultStringLength();
+
+        // Fix use of Storage::url() for local disks that haven't been configured correctly
+        foreach (Config::get('filesystems.disks') as $key => $config) {
+            if ($config['driver'] === 'local' && ends_with($config['root'], '/storage/app') && empty($config['url'])) {
+                Config::set("filesystems.disks.$key.url", '/storage/app');
+            }
         }
 
+        Paginator::useBootstrapThree();
         Paginator::defaultSimpleView('system::pagination.simple-default');
 
         /*
@@ -125,7 +132,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerPrivilegedActions()
     {
-        $requests = ['/combine', '@/system/updates', '@/system/install', '@/backend/auth'];
+        $requests = ['/combine/', '@/system/updates', '@/system/install', '@/backend/auth'];
         $commands = ['october:up', 'october:update'];
 
         /*
@@ -146,7 +153,7 @@ class ServiceProvider extends ModuleServiceProvider
         /*
          * CLI
          */
-        if (App::runningInConsole() && count(array_intersect($commands, Request::server('argv'))) > 0) {
+        if (App::runningInConsole() && count(array_intersect($commands, Request::server('argv', []))) > 0) {
             PluginManager::$noInit = true;
         }
     }
@@ -240,12 +247,14 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.fresh', 'System\Console\OctoberFresh');
         $this->registerConsoleCommand('october.env', 'System\Console\OctoberEnv');
         $this->registerConsoleCommand('october.install', 'System\Console\OctoberInstall');
+        $this->registerConsoleCommand('october.passwd', 'System\Console\OctoberPasswd');
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
         $this->registerConsoleCommand('plugin.disable', 'System\Console\PluginDisable');
         $this->registerConsoleCommand('plugin.enable', 'System\Console\PluginEnable');
         $this->registerConsoleCommand('plugin.refresh', 'System\Console\PluginRefresh');
+        $this->registerConsoleCommand('plugin.rollback', 'System\Console\PluginRollback');
         $this->registerConsoleCommand('plugin.list', 'System\Console\PluginList');
 
         $this->registerConsoleCommand('theme.install', 'System\Console\ThemeInstall');
@@ -555,5 +564,25 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerGlobalViewVars()
     {
         View::share('appName', Config::get('app.name'));
+    }
+
+    /**
+     * Fix UTF8MB4 support for old versions of MariaDB (<10.2) and MySQL (<5.7)
+     */
+    protected function applyDatabaseDefaultStringLength()
+    {
+        if (Db::getDriverName() !== 'mysql') {
+            return;
+        }
+
+        $defaultStrLen = Db::getConfig('varcharmax');
+
+        if ($defaultStrLen === null && Db::getConfig('charset') === 'utf8mb4') {
+            $defaultStrLen = 191;
+        }
+
+        if ($defaultStrLen !== null) {
+            Schema::defaultStringLength((int) $defaultStrLen);
+        }
     }
 }

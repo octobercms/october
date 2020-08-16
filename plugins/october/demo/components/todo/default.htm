@@ -1,4 +1,5 @@
 <form
+    role="form"
     data-request="{{ __SELF__ }}::onAddItem"
     data-request-update="'{{ __SELF__ }}::list': '#result'"
     data-request-success="$('#input-item').val('')"
@@ -9,7 +10,7 @@
         </div>
         <div class="panel-body">
             <div class="input-group">
-                <input type="text" id="input-item" class="form-control" value="" name="newItem" placeholder="What needs to be done?"> 
+                <input type="text" id="input-item" class="form-control" value="" name="newItem" placeholder="What needs to be done?">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn btn-primary" data-attach-loading>Add</button>
                 </span>

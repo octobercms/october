@@ -93,7 +93,7 @@ class OctoberMirror extends Command
          *
          * Example usage:
          *
-         *     Event::listen('system.console.mirror.extendPaths', function($paths) {
+         *     Event::listen('system.console.mirror.extendPaths', function ($paths) {
          *          $paths->directories = array_merge($paths->directories, ['plugins/myauthor/myplugin/public']);
          *     });
          *

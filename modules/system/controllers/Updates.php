@@ -65,6 +65,8 @@ class Updates extends Controller
         if ($this->getAjaxHandler() == 'onExecuteStep') {
             $this->useSecurityToken = false;
         }
+
+        $this->vars['warnings'] = $this->getWarnings();
     }
 
     /**
@@ -225,6 +227,23 @@ class Updates extends Controller
         }
 
         return $contents;
+    }
+
+    protected function getWarnings()
+    {
+        $warnings = [];
+        $missingDependencies = PluginManager::instance()->findMissingDependencies();
+
+        foreach ($missingDependencies as $pluginCode => $plugin) {
+            foreach ($plugin as $missingPluginCode) {
+                $warnings[] = Lang::get('system::lang.updates.update_warnings_plugin_missing', [
+                    'code' => '<strong>' . $missingPluginCode . '</strong>',
+                    'parent_code' => '<strong>' . $pluginCode . '</strong>'
+                ]);
+            }
+        }
+
+        return $warnings;
     }
 
     /**

@@ -11,6 +11,7 @@ use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
 use Exception;
 use System\Models\Parameter;
+use System\Models\File as FileModel;
 
 /**
  * Console command for other utility commands.
@@ -294,7 +295,66 @@ class OctoberUtil extends Command
             return;
         }
 
-        // @todo
+        $uploadsDisk = Config::get('cms.storage.uploads.disk', 'local');
+        if ($uploadsDisk !== 'local') {
+            $this->error("Purging uploads is only supported on the 'local' disk, current uploads disk is $uploadsDisk");
+            return;
+        }
+
+        $totalCount = 0;
+        $validFiles = FileModel::pluck('disk_name')->all();
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app')) . '/' . Config::get('cms.storage.uploads.folder', 'uploads');
+
+        // Recursive function to scan the directory for files and ensure they exist in system_files.
+        $purgeFunc = function ($targetDir) use (&$purgeFunc, &$totalCount, $uploadsPath, $validFiles) {
+            if ($files = File::glob($targetDir.'/*')) {
+                if ($dirs = File::directories($targetDir)) {
+                    foreach ($dirs as $dir) {
+                        $purgeFunc($dir);
+
+                        if (File::isDirectoryEmpty($dir) && is_writeable($dir)) {
+                            rmdir($dir);
+                            $this->info('Removed folder: '. str_replace($uploadsPath, '', $dir));
+                        }
+                    }
+                }
+
+                foreach ($files as $file) {
+                    if (!is_file($file)) {
+                        continue;
+                    }
+
+                    // Skip .gitignore files
+                    if ($file === '.gitignore') {
+                        continue;
+                    }
+
+                    // Skip files unable to be purged
+                    if (!is_writeable($file)) {
+                        $this->warn('Unable to purge file: ' . str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    // Skip valid files
+                    if (in_array(basename($file), $validFiles)) {
+                        $this->warn('Skipped file in use: '. str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    unlink($file);
+                    $this->info('Purged: '. str_replace($uploadsPath, '', $file));
+                    $totalCount++;
+                }
+            }
+        };
+
+        $purgeFunc($uploadsPath);
+
+        if ($totalCount > 0) {
+            $this->comment(sprintf('Successfully deleted %d invalid file(s), leaving %d valid files', $totalCount, count($validFiles)));
+        } else {
+            $this->comment('No files found to purge.');
+        }
     }
 
     protected function utilPurgeOrphans()
@@ -313,7 +373,7 @@ class OctoberUtil extends Command
     {
         foreach (File::directories(plugins_path()) as $authorDir) {
             foreach (File::directories($authorDir) as $pluginDir) {
-                if (!File::isDirectory($pluginDir.'/.git')) {
+                if (!File::exists($pluginDir.'/.git')) {
                     continue;
                 }
 
@@ -325,7 +385,7 @@ class OctoberUtil extends Command
         }
 
         foreach (File::directories(themes_path()) as $themeDir) {
-            if (!File::isDirectory($themeDir.'/.git')) {
+            if (!File::exists($themeDir.'/.git')) {
                 continue;
             }
 

@@ -3,14 +3,7 @@
 return [
     'auth' => [
         'title' => 'Beheeromgeving',
-        'invalid_login' => 'De ingevoerde gegevens leveren geen resultaat. Controleer je invoer en probeer het opnieuw.'
-    ],
-    'aria-label' => [
-        'footer'        => 'voettekst navigatie',
-        'side_panel'    => 'zijpaneel',
-        'breadcrumb'    => 'broodkruimel spoor',
-        'main_content'  => 'hoofdgebied',
-        'tabs'          => 'klikt op',
+        'invalid_login' => 'De ingevoerde gegevens leveren geen resultaat. Controleer je invoer en probeer het opnieuw.',
     ],
     'field' => [
         'invalid_type' => 'Ongeldig type veld: :type.',
@@ -25,8 +18,8 @@ return [
     'page' => [
         'untitled' => 'Naamloos',
         '404' => [
-            'label'     => 'Sorry, we kunnen deze pagina niet meer vinden.',
-            'help'      => "We hebben ons best gedaan, maar het lijkt erop dat deze pagina niet (meer) bestaat of misschien verhuisd is.",
+            'label' => 'Sorry, we kunnen deze pagina niet meer vinden.',
+            'help' => "We hebben ons best gedaan, maar het lijkt erop dat deze pagina niet (meer) bestaat of misschien verhuisd is.",
             'back_link' => 'Terug naar de homepagina.',
         ],
         'access_denied' => [
@@ -39,9 +32,6 @@ return [
             'help' => 'Een database is nodig om toegang te krijgen tot de back-end. Controleer of de database juist is geconfigureerd en probeer het opnieuw.',
             'cms_link' => 'Terug naar homepagina',
         ],
-        'invalid_token' => [
-            'label' => 'Ongeldig token',
-        ],
     ],
     'partial' => [
         'not_found_name' => "Het sjabloon (partial) ':name' is niet gevonden.",
@@ -49,9 +39,19 @@ return [
     ],
     'ajax_handler' => [
         'invalid_name' => 'Ongeldige AJAX verzoek met naam: :name.',
-        'not_found' => "Het AJAX verzoek ':name' kon niet worden gevonden."
+        'not_found' => "Het AJAX verzoek ':name' kon niet worden gevonden.",
     ],
     'account' => [
+        'impersonate' => 'Inloggen als',
+        'impersonate_confirm' => 'Je gaat inloggen als deze gebruiker. Weet je het zeker? Keer terug door uit te loggen.',
+        'impersonate_success' => 'Je bent nu ingelogd als deze gebruiker',
+        'impersonate_working' => 'Inloggen als...',
+        'impersonating' => 'Inloggen als :full_name',
+        'stop_impersonating' => 'Terugkeren',
+        'unsuspend' => 'Blokkering opheffen',
+        'unsuspend_confirm' => 'Weet je zeker dat je de blokkering voor deze gebruiker wilt opheffen?',
+        'unsuspend_success' => 'De blokkade voor deze gebruiker is opgeheven.',
+        'unsuspend_working' => 'Blokkering opheffen...',
         'signed_in_as' => 'Ingelogd als :full_name',
         'sign_out' => 'Uitloggen',
         'login' => 'Inloggen',
@@ -240,6 +240,7 @@ return [
         'remove_file' => 'Verwijder bestand',
     ],
     'repeater' => [
+        'add_new_item' => 'Nieuw item toevoegen',
         'min_items_failed' => ':name vereist minimaal :min items, er zijn :items opgegeven',
         'max_items_failed' => ':name vereist maximaal :max items, er zijn :items opgegeven',
     ],
@@ -294,8 +295,8 @@ return [
         'preview_no_media_message' => 'Er zijn geen media geselecteerd.',
         'preview_no_record_message' => 'Er zijn geen records geselecteerd.',
         'select' => 'Selecteer',
-        'select_all' => 'alles',
-        'select_none' => 'niets',
+        'select_all' => 'selecteer alles',
+        'select_none' => 'selecteer niets',
         'select_placeholder' => 'selecteer',
         'insert_row' => 'Rij invoegen',
         'insert_row_below' => 'Rij onder invoegen',
@@ -311,7 +312,7 @@ return [
     ],
     'pagelist' => [
         'page_link' => 'Pagina link',
-        'select_page' => 'Selecteer een pagina...'
+        'select_page' => 'Selecteer een pagina...',
     ],
     'relation' => [
         'missing_config' => "Het gedrag (behavior) van deze relatie bevat geen instellingen voor ':config'.",
@@ -365,6 +366,8 @@ return [
         'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
         'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
+        'debug' => 'Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.',
+        'decompileBackendAssets' => 'Assets van de back-end worden momenteel gedecompileerd. Dit wordt niet aanbevolen op een productie-omgeving.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
@@ -414,7 +417,13 @@ return [
         'line_breaker_tags' => 'Line breaker tags',
         'line_breaker_tags_comment' => 'Een lijst van HTML-tags waartussen een line breaker element wordt geplaatst.',
         'toolbar_buttons' => 'Toolbar knoppen',
-        'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor.',
+        'toolbar_buttons_preset' => 'Voeg preset toe voor toolbar knoppen:',
+        'toolbar_buttons_presets' => [
+            'default' => 'Standaard',
+            'minimal' => 'Minimaal',
+            'full' => 'Volledig',
+        ],
     ],
     'tooltips' => [
         'preview_website' => 'Voorvertoning website',
@@ -441,14 +450,15 @@ return [
         'app_tagline' => 'Applicatie slogan',
         'app_tagline_description' => 'Deze slogan wordt weergegeven in het aanmeldvenster van de beheeromgeving.',
         'colors' => 'Kleuren',
-        'primary_color' => 'Primair color',
-        'secondary_color' => 'Secundair color',
-        'accent_color' => 'Accent color',
+        'primary_color' => 'Primaire kleur',
+        'secondary_color' => 'Secundaire kleur',
+        'accent_color' => 'Accentkleur',
         'styles' => 'Stijlen',
         'custom_stylesheet' => 'Aangepaste stylesheet',
         'navigation' => 'Navigatie',
         'menu_mode' => 'Menustijl',
         'menu_mode_inline' => 'Inline-mode',
+        'menu_mode_inline_no_icons' => 'Inline-mode (zonder iconen)',
         'menu_mode_tile' => 'Tegels',
         'menu_mode_collapsed' => 'Ingeklapt',
     ],
@@ -550,16 +560,19 @@ return [
             'iso_8859_13' => 'ISO-8859-13 (Latin-7, Baltic Rim)',
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
+            'windows_1250' => 'Windows-1250 (CP1250, Central and Eastern European)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)'
-        ]
+            'windows_1252' => 'Windows-1252 (CP1252)',
+        ],
     ],
     'permissions' => [
-        'manage_media' => 'Beheer media',
+        'manage_media' => 'Beheer media (afbeeldingen, videos, geluiden, documenten)',
+        'allow_unsafe_markdown' => 'Gebruik onveilige Markdown (Kan Javascript bevatten)',
     ],
     'mediafinder' => [
         'label' => 'Media zoeker',
         'default_prompt' => 'Klik op de %s knop om een media item te vinden',
+        'no_image' => 'De afbeelding kan niet gevonden worden',
     ],
     'media' => [
         'menu_label' => 'Media',

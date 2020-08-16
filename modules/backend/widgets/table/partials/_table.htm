@@ -6,7 +6,9 @@
     data-data="<?= e($data) ?>"
     data-alias="<?= e($this->alias) ?>"
     data-field-name="<?= e($this->fieldName) ?>"
+    <?php if (!empty($postbackHandlerName)): ?>
     data-postback-handler-name="<?= e($postbackHandlerName) ?>"
+    <?php endif; ?>
     data-adding="<?= e($adding) ?>"
     data-searching="<?= e($searching) ?>"
     data-deleting="<?= e($deleting) ?>"

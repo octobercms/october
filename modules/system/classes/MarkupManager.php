@@ -87,10 +87,9 @@ class MarkupManager
      * Registers a callback function that defines simple Twig extensions.
      * The callback function should register menu items by calling the manager's
      * `registerFunctions`, `registerFilters`, `registerTokenParsers` function.
-     * The manager instance is passed to the callback function as an argument.
-     * Usage:
+     * The manager instance is passed to the callback function as an argument. Usage:
      *
-     *     MarkupManager::registerCallback(function($manager){
+     *     MarkupManager::registerCallback(function ($manager) {
      *         $manager->registerFilters([...]);
      *         $manager->registerFunctions([...]);
      *         $manager->registerTokenParsers([...]);

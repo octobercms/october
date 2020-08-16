@@ -8,10 +8,10 @@ use Event;
 use Config;
 use Request;
 use Response;
-use Closure;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Classes\PluginManager;
+use Closure;
 
 /**
  * This is the master controller for all back-end pages.
@@ -77,7 +77,11 @@ class BackendController extends ControllerBase
                 $path = implode('/', $pathParts);
 
                 $requestedController = $this->getRequestedController($path);
-                if (!is_null($requestedController) && count($requestedController['controller']->getMiddleware())) {
+                if (
+                    !is_null($requestedController)
+                    && is_array($requestedController)
+                    && count($requestedController['controller']->getMiddleware())
+                ) {
                     $action = $requestedController['action'];
 
                     // Collect applicable middleware and insert middleware into pipeline

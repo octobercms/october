@@ -69,8 +69,13 @@
         this.documentClickHandler = this.onDocumentClick.bind(this)
         this.toolbarClickHandler = this.onToolbarClick.bind(this)
 
-        if (this.options.postback && this.options.clientDataSourceClass == 'client')
+        if (this.options.postback && this.options.clientDataSourceClass == 'client') {
+            if (!this.options.postbackHandlerName) {
+                var formHandler = this.$el.closest('form').data('request')
+                this.options.postbackHandlerName = formHandler || 'onSave'
+            }
             this.formSubmitHandler = this.onFormSubmit.bind(this)
+        }
 
         // Navigation helper
         this.navigation = null
@@ -756,7 +761,7 @@
     }
 
     Table.prototype.onKeydown = function(ev) {
-        if (ev.keyCode == 65 && ev.altKey && this.options.adding) {
+        if ((ev.key === 'a' || ev.key === 'A') && ev.altKey && this.options.adding) {
             if (!ev.shiftKey) {
                 // alt+a - add record below
                 this.addRecord('below')
@@ -770,7 +775,7 @@
             return
         }
 
-        if (ev.keyCode == 68 && ev.altKey && this.options.deleting) {
+        if ((ev.key === 'd' || ev.key === 'D') && ev.altKey && this.options.deleting) {
             // alt+d - delete record
             this.deleteRecord()
 
@@ -1112,7 +1117,7 @@
         recordsPerPage: false,
         data: null,
         postback: true,
-        postbackHandlerName: 'onSave',
+        postbackHandlerName: null,
         adding: true,
         deleting: true,
         toolbar: true,

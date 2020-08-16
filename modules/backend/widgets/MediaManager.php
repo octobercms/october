@@ -6,6 +6,7 @@ use Lang;
 use File;
 use Input;
 use Config;
+use Backend;
 use Request;
 use Response;
 use Exception;
@@ -26,6 +27,8 @@ use Form as FormHelper;
  */
 class MediaManager extends WidgetBase
 {
+    use \Backend\Traits\UploadableWidget;
+
     const FOLDER_ROOT = '/';
 
     const VIEW_MODE_GRID = 'grid';
@@ -67,8 +70,6 @@ class MediaManager extends WidgetBase
         $this->readOnly = $readOnly;
 
         parent::__construct($controller, []);
-
-        $this->checkUploadPostback();
     }
 
     /**
@@ -79,7 +80,15 @@ class MediaManager extends WidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/mediamanager.css', 'core');
-        $this->addJs('js/mediamanager-browser-min.js', 'core');
+
+        if (Config::get('develop.decompileBackendAssets', false)) {
+            $scripts = Backend::decompileAsset($this->getAssetPath('js/mediamanager-browser.js'));
+            foreach ($scripts as $script) {
+                $this->addJs($script, 'core');
+            }
+        } else {
+            $this->addJs('js/mediamanager-browser-min.js', 'core');
+        }
     }
 
     /**
@@ -319,7 +328,7 @@ class MediaManager extends WidgetBase
                  *
                  * Example usage:
                  *
-                 *     Event::listen('media.folder.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *     Event::listen('media.folder.delete', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
                  *         \Log::info($path . " was deleted");
                  *     });
                  *
@@ -350,7 +359,7 @@ class MediaManager extends WidgetBase
                  *
                  * Example usage:
                  *
-                 *     Event::listen('media.file.delete', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
+                 *     Event::listen('media.file.delete', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path) {
                  *         \Log::info($path . " was deleted");
                  *     });
                  *
@@ -433,7 +442,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *     Event::listen('media.file.rename', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
              *         \Log::info($originalPath . " was moved to " . $path);
              *     });
              *
@@ -458,7 +467,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.folder.rename', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
+             *     Event::listen('media.folder.rename', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $originalPath, (string) $newPath) {
              *         \Log::info($originalPath . " was moved to " . $path);
              *     });
              *
@@ -516,7 +525,7 @@ class MediaManager extends WidgetBase
          *
          * Example usage:
          *
-         *     Event::listen('media.folder.create', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
+         *     Event::listen('media.folder.create', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $newFolderPath) {
          *         \Log::info($newFolderPath . " was created");
          *     });
          *
@@ -616,7 +625,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.file.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *     Event::listen('media.file.move', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
              *         \Log::info($path . " was moved to " . $dest);
              *     });
              *
@@ -642,7 +651,7 @@ class MediaManager extends WidgetBase
              *
              * Example usage:
              *
-             *     Event::listen('media.folder.move', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
+             *     Event::listen('media.folder.move', function ((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (string) $dest) {
              *         \Log::info($path . " was moved to " . $dest);
              *     });
              *
@@ -797,10 +806,10 @@ class MediaManager extends WidgetBase
         $path = Input::get('path');
         $path = MediaLibrary::validatePath($path);
 
-        $params = array(
+        $params = [
             'width' => $width,
             'height' => $height
-        );
+        ];
 
         return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }
@@ -1495,170 +1504,6 @@ class MediaManager extends WidgetBase
         catch (Exception $ex) {
             return $originalDimensions;
         }
-    }
-
-    /**
-     * Detect the upload post flag
-     * @return void
-     */
-    protected function checkUploadPostback()
-    {
-        if ($this->readOnly) {
-            return;
-        }
-
-        $fileName = null;
-        $quickMode = false;
-
-        if (
-            (!($uniqueId = Request::header('X-OCTOBER-FILEUPLOAD')) || $uniqueId != $this->getId()) &&
-            (!$quickMode = post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD'))
-        ) {
-            return;
-        }
-
-        try {
-            if (!Input::hasFile('file_data')) {
-                throw new ApplicationException('File missing from request');
-            }
-
-            $uploadedFile = Input::file('file_data');
-
-            $fileName = $uploadedFile->getClientOriginalName();
-
-            /*
-             * Convert uppcare case file extensions to lower case
-             */
-            $extension = strtolower($uploadedFile->getClientOriginalExtension());
-            $fileName = File::name($fileName).'.'.$extension;
-
-            /*
-             * File name contains non-latin characters, attempt to slug the value
-             */
-            if (!$this->validateFileName($fileName)) {
-                $fileNameClean = $this->cleanFileName(File::name($fileName));
-                $fileName = $fileNameClean . '.' . $extension;
-            }
-
-            /*
-             * Check for unsafe file extensions
-             */
-            if (!$this->validateFileType($fileName)) {
-                throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
-            }
-
-            /*
-             * See mime type handling in the asset manager
-             */
-            if (!$uploadedFile->isValid()) {
-                throw new ApplicationException($uploadedFile->getErrorMessage());
-            }
-
-            $path = $quickMode ? '/uploaded-files' : Input::get('path');
-            $path = MediaLibrary::validatePath($path);
-            $filePath = $path.'/'.$fileName;
-
-            /*
-             * getRealPath() can be empty for some environments (IIS)
-             */
-            $realPath = empty(trim($uploadedFile->getRealPath()))
-                             ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
-                             : $uploadedFile->getRealPath();
-
-            MediaLibrary::instance()->put(
-                $filePath,
-                File::get($realPath)
-            );
-
-            /**
-             * @event media.file.upload
-             * Called after a file is uploaded
-             *
-             * Example usage:
-             *
-             *     Event::listen('media.file.upload', function((\Backend\Widgets\MediaManager) $mediaWidget, (string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
-             *         \Log::info($path . " was upoaded.");
-             *     });
-             *
-             * Or
-             *
-             *     $mediaWidget->bindEvent('file.upload', function ((string) $path, (\Symfony\Component\HttpFoundation\File\UploadedFile) $uploadedFile) {
-             *         \Log::info($path . " was uploaded");
-             *     });
-             *
-             */
-            $this->fireSystemEvent('media.file.upload', [$filePath, $uploadedFile]);
-
-            $response = Response::make([
-                'link' => MediaLibrary::url($filePath),
-                'result' => 'success'
-            ]);
-        }
-        catch (Exception $ex) {
-            $response = Response::make($ex->getMessage(), 400);
-        }
-
-        // Override the controller response
-        $this->controller->setResponse($response);
-    }
-
-    /**
-     * Validate a proposed media item file name.
-     * @param string
-     * @return bool
-     */
-    protected function validateFileName($name)
-    {
-        if (!preg_match('/^[\w@\.\s_\-]+$/iu', $name)) {
-            return false;
-        }
-
-        if (strpos($name, '..') !== false) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Check for blocked / unsafe file extensions
-     * @param string
-     * @return bool
-     */
-    protected function validateFileType($name)
-    {
-        $extension = strtolower(File::extension($name));
-
-        $allowedFileTypes = FileDefinitions::get('defaultExtensions');
-
-        if (!in_array($extension, $allowedFileTypes)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Creates a slug form the string. A modified version of Str::slug
-     * with the main difference that it accepts @-signs
-     * @param string $name
-     * @return string
-     */
-    protected function cleanFileName($name)
-    {
-        $title = Str::ascii($name);
-
-        // Convert all dashes/underscores into separator
-        $flip = $separator = '-';
-        $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
-
-        // Remove all characters that are not the separator, letters, numbers, whitespace or @.
-        $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s@]+!u', '', mb_strtolower($title));
-
-        // Replace all separator characters and whitespace by a single separator
-        $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
-
-        return trim($title, $separator);
     }
 
     //

@@ -140,7 +140,8 @@ The partial for your rendered popup should follow this structure:
 - data-handler="onLoadContent" - October ajax request name
 - data-keyboard="false" - Allow popup to be closed with the keyboard
 - data-extra-data="file_id: 1" - October ajax request data
-- data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny
+- data-size="large" - Popup size, available sizes: giant, huge, large, small, tiny, adaptive (will scale to fit the window)
+- data-adaptive-height="false" - Allow the popup to fill the height of the screen
 
 ### JavaScript API
 

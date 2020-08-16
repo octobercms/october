@@ -33,9 +33,11 @@ return [
         'pl' => 'Polski',
         'pt-br' => 'Português (Brasil)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'zh-cn' => '简体中文',
         'zh-tw' => '繁體中文',
@@ -46,6 +48,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'Faili :name ei õnnestunud luua'
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Vigane turvamärk',
+        ],
     ],
     'combiner' => [
         'not_found' => "Ühendaja faili ':name' ei leitud."
@@ -90,7 +97,8 @@ return [
         'name' => [
             'label' => 'Plugina nimi',
             'help' => 'Anna pluginale nimi selle unikaalse koodi järgi. Nt RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Autor: :name'
     ],
     'plugins' => [
         'manage' => 'Halda pluginaid',

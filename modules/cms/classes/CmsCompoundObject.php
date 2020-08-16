@@ -7,6 +7,7 @@ use Config;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Components\ViewBag;
+use Cms\Helpers\Cms as CmsHelpers;
 use System\Twig\Extension as SystemTwigExtension;
 use October\Rain\Halcyon\Processors\SectionParser;
 use Twig\Source as TwigSource;
@@ -143,12 +144,7 @@ class CmsCompoundObject extends CmsObject
      */
     protected function checkSafeMode()
     {
-        $safeMode = Config::get('cms.enableSafeMode', null);
-        if ($safeMode === null) {
-            $safeMode = !Config::get('app.debug', false);
-        }
-
-        if ($safeMode && $this->isDirty('code') && strlen(trim($this->code))) {
+        if (CmsHelpers::safeModeEnabled() && $this->isDirty('code') && strlen(trim($this->code))) {
             throw new ApplicationException(Lang::get('cms::lang.cms_object.safe_mode_enabled'));
         }
     }
@@ -320,7 +316,8 @@ class CmsCompoundObject extends CmsObject
 
         self::$objectComponentPropertyMap = $objectComponentMap;
 
-        Cache::put($key, base64_encode(serialize($objectComponentMap)), Config::get('cms.parsedPageCacheTTL', 10));
+        $expiresAt = now()->addMinutes(Config::get('cms.parsedPageCacheTTL', 10));
+        Cache::put($key, base64_encode(serialize($objectComponentMap)), $expiresAt);
 
         if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
             return $objectComponentMap[$objectCode][$componentName];
