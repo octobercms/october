@@ -1,6 +1,5 @@
 <?php namespace System\Classes;
 
-use App;
 use Url;
 use Crypt;
 use Cache;
