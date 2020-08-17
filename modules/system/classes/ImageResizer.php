@@ -253,6 +253,20 @@ class ImageResizer
     }
 
     /**
+     * Flushes the local sources cache.
+     *
+     * @return void
+     */
+    public static function flushAvailableSources()
+    {
+        if (empty(static::$availableSources)) {
+            return;
+        }
+
+        static::$availableSources = [];
+    }
+
+    /**
      * Get the current config
      *
      * @return array

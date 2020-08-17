@@ -5,14 +5,26 @@ use System\Classes\MediaLibrary;
 use System\Models\File as FileModel;
 use Cms\Classes\Controller as CmsController;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+use October\Rain\Exception\SystemException;
 
 class ImageResizerTest extends PluginTestCase
 {
     use ArraySubsetAsserts;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Event::flush('cms.theme.getActiveTheme');
+        Event::listen('cms.theme.getActiveTheme', function () {
+            return 'test';
+        });
+    }
+
     public function tearDown(): void
     {
         $this->removeMedia();
+        ImageResizer::flushAvailableSources();
         parent::tearDown();
     }
 
@@ -134,30 +146,68 @@ class ImageResizerTest extends PluginTestCase
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
-        // Still to test - FileModel URL and FileModel instance
+        // Path of a FileModel instance
+        $fileModel = new FileModel();
+        $fileModel->fromFile(base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $fileModel->save();
+
+        $imageResizer = new ImageResizer(
+            FileModel::first()->getPath(),
+            100,
+            100,
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // FileModel instance itself
+        $imageResizer = new ImageResizer(
+            $fileModel,
+            100,
+            100,
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Remove FileModel instance
+        $fileModel->delete();
     }
 
-    public function testInvalidInput()
+    public function testInvalidInputPath()
     {
-        $this->markTestIncomplete();
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessageMatches('/^Unable to process the provided image/');
 
-        $providedPath = '/plugins/october/demo/assets/NOTPRESENT.png';
+        $imageResizer = new ImageResizer(
+            '/plugins/database/tester/assets/images/MISSING.png',
+            100,
+            100,
+        );
+    }
+
+    public function testInvalidInputFileModel()
+    {
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessageMatches('/^Unable to process the provided image/');
+
+        $imageResizer = new ImageResizer(
+            FileModel::first(),
+            100,
+            100,
+        );
     }
 
     protected function setUpStorage()
     {
         $this->app->useStoragePath(base_path('storage/temp'));
 
-        config(['filesystems.disks.test_local' => [
+        Config::set('filesystems.disks.test_local', [
             'driver' => 'local',
             'root'   => storage_path('app'),
-        ]]);
+        ]);
 
-        config(['cms.storage.media' => [
+        Config::set('cms.storage.media', [
             'disk'   => 'test_local',
             'folder' => 'media',
             'path'   => '/storage/temp/app/media',
-        ]]);
+        ]);
     }
 
     protected function copyMedia()
