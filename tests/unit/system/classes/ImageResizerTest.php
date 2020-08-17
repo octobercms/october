@@ -1,5 +1,6 @@
 <?php
 
+use Cms\Classes\Theme;
 use System\Classes\ImageResizer;
 use System\Classes\MediaLibrary;
 use System\Models\File as FileModel;
@@ -15,10 +16,9 @@ class ImageResizerTest extends PluginTestCase
     {
         parent::setUp();
 
-        Event::forget('cms.theme.getActiveTheme');
-        Event::listen('cms.theme.getActiveTheme', function () {
-            return 'test';
-        });
+        Config::set('cms.activeTheme', 'test');
+        Event::flush('cms.theme.getActiveTheme');
+        Theme::resetCache();
     }
 
     public function tearDown(): void
