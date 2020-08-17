@@ -15,7 +15,7 @@ class ImageResizerTest extends PluginTestCase
     {
         parent::setUp();
 
-        Event::flush('cms.theme.getActiveTheme');
+        Event::forget('cms.theme.getActiveTheme');
         Event::listen('cms.theme.getActiveTheme', function () {
             return 'test';
         });
@@ -34,7 +34,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             (new CmsController())->themeUrl('assets/images/october.png'),
             100,
-            100,
+            100
         );
         self::assertArraySubset([
             'width' => 100,
@@ -91,7 +91,7 @@ class ImageResizerTest extends PluginTestCase
             (new CmsController())->themeUrl('assets/images/october.png'),
             100,
             100,
-            [],
+            []
         );
         self::assertArraySubset([
             'width' => 100,
@@ -118,7 +118,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             MediaLibrary::url('october.png'),
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -126,7 +126,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             URL::to('plugins/database/tester/assets/images/avatar.png'),
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -134,7 +134,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             '/plugins/database/tester/assets/images/avatar.png',
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -142,7 +142,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             Backend::skinAsset('assets/images/favicon.png'),
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -154,7 +154,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             FileModel::first()->getPath(),
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -162,7 +162,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             $fileModel,
             100,
-            100,
+            100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
@@ -178,7 +178,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             '/plugins/database/tester/assets/images/MISSING.png',
             100,
-            100,
+            100
         );
     }
 
@@ -190,7 +190,7 @@ class ImageResizerTest extends PluginTestCase
         $imageResizer = new ImageResizer(
             FileModel::first(),
             100,
-            100,
+            100
         );
     }
 
