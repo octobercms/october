@@ -118,6 +118,6 @@ class Extension extends TwigExtension
      */
     public function resizeFilter($image, $width = null, $height = null, $options = [])
     {
-        return ImageResizer::getFilterUrl($image, $width, $height, $options);
+        return ImageResizer::filterGetUrl($image, $width, $height, $options);
     }
 }

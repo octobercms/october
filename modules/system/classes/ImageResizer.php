@@ -155,8 +155,8 @@ class ImageResizer
     public function __construct($image, $width = 0, $height = 0, $options = [])
     {
         $this->image = static::normalizeImage($image);
-        $this->width = (int) ($width === 'auto') ? 0 : $width;
-        $this->height = (int) ($height === 'auto') ? 0 : $height;
+        $this->width = (int) (($width === 'auto') ? 0 : $width);
+        $this->height = (int) (($height === 'auto') ? 0 : $height);
         $this->options = array_merge($this->getDefaultOptions(), $options);
     }
 
@@ -761,7 +761,7 @@ class ImageResizer
      * @throws SystemException If the provided input was unable to be processed
      * @return string
      */
-    public static function getFilterUrl($image, $width = null, $height = null, $options = [])
+    public static function filterGetUrl($image, $width = null, $height = null, $options = [])
     {
         // Attempt to process the provided image
         try {
