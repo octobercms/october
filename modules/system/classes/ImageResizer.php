@@ -779,4 +779,23 @@ class ImageResizer
 
         return $resizer->getUrl();
     }
+
+    /**
+     * Gets the dimensions of the provided image file
+     *
+     * @param mixed $image Supported values below:
+     *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
+     *              instance of October\Rain\Database\Attach\File,
+     *              string containing URL or path accessible to the application's filesystem manager
+     * @throws SystemException If the provided input was unable to be processed
+     * @return string
+     */
+    public static function filterGetSize($image)
+    {
+        $resizer = new static($image);
+
+        return Cache::rememberForever(static::CACHE_PREFIX . 'dimensions.' . $resizer->getIdentifier(), function ($resizer) {
+
+        });
+    }
 }
