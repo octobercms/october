@@ -107,6 +107,48 @@ class ImageResizerTest extends PluginTestCase
         ], $imageResizer->getConfig());
 
         Event::forget('system.resizer.getDefaultOptions');
+
+        // Resize with a falsey height specified
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            100,
+            false
+        );
+        self::assertArraySubset([
+            'width' => 100,
+            'height' => 0,
+        ], $imageResizer->getConfig());
+
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            100,
+            null
+        );
+        self::assertArraySubset([
+            'width' => 100,
+            'height' => 0,
+        ], $imageResizer->getConfig());
+
+        // Resize with a falsey width specified
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            '',
+            100
+        );
+        self::assertArraySubset([
+            'width' => 0,
+            'height' => 100,
+        ], $imageResizer->getConfig());
+
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            "0",
+            100
+        );
+        self::assertArraySubset([
+            'width' => 0,
+            'height' => 100,
+        ], $imageResizer->getConfig());
     }
 
     public function testSources()
