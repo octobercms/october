@@ -28,6 +28,11 @@ class ImageResizerTest extends PluginTestCase
         parent::tearDown();
     }
 
+    /**
+     * Tests configuration through the constructor as well as events.
+     *
+     * @return void
+     */
     public function testConfiguration()
     {
         // Resize with default options
@@ -151,9 +156,47 @@ class ImageResizerTest extends PluginTestCase
         ], $imageResizer->getConfig());
     }
 
-    public function testSources()
+    /**
+     * Tests URLs for sources that can be accessed via URL.
+     *
+     * @return void
+     */
+    public function testURLSources()
     {
-        // Media URL
+        // Theme URL (absolute URL)
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Theme URL (relative URL)
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $imageResizer = new ImageResizer(
+            'themes/test/assets/images/october.png',
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Media URL (absolute URL)
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $imageResizer = new ImageResizer(
+            URL::to(MediaLibrary::url('october.png')),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Media URL (relative URL)
         $this->setUpStorage();
         $this->copyMedia();
 
@@ -164,7 +207,26 @@ class ImageResizerTest extends PluginTestCase
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
-        // Plugin URL (also tests absolute URLs)
+        // Media URL (absolute URL)
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $imageResizer = new ImageResizer(
+            URL::to(MediaLibrary::url('october.png')),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Plugin URL (relative URL)
+        $imageResizer = new ImageResizer(
+            'plugins/database/tester/assets/images/avatar.png',
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Plugin URL (absolute URL)
         $imageResizer = new ImageResizer(
             URL::to('plugins/database/tester/assets/images/avatar.png'),
             100,
@@ -172,15 +234,15 @@ class ImageResizerTest extends PluginTestCase
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
-        // Relative URL
+        // Module URL (relative URL)
         $imageResizer = new ImageResizer(
-            '/plugins/database/tester/assets/images/avatar.png',
+            'modules/backend/assets/images/favicon.png',
             100,
             100
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
-        // Module URL
+        // Module URL (absolute URL)
         $imageResizer = new ImageResizer(
             Backend::skinAsset('assets/images/favicon.png'),
             100,
@@ -188,11 +250,7 @@ class ImageResizerTest extends PluginTestCase
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
-        // Path of a FileModel instance
-        $fileModel = new FileModel();
-        $fileModel->fromFile(base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
-        $fileModel->save();
-
+        // URL for a FileModel instance (absolute URL)
         $imageResizer = new ImageResizer(
             FileModel::first()->getPath(),
             100,
@@ -200,7 +258,68 @@ class ImageResizerTest extends PluginTestCase
         );
         $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
 
+        // Remove FileModel instance
+        $fileModel->delete();
+
+        // URL of a FileModel instance (relative URL)
+        $fileModel = new FileModel();
+        $fileModel->fromFile(base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $fileModel->save();
+
+        $imageResizer = new ImageResizer(
+            str_replace(base_path() . '/', '', FileModel::first()->getLocalPath()),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+    }
+
+    /**
+     * Tests paths for sources that can be accessed via paths.
+     *
+     * @return void
+     */
+    public function testPathSources()
+    {
+        // Plugin path (relative)
+        $imageResizer = new ImageResizer(
+            '/plugins/database/tester/assets/images/avatar.png',
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Plugin path (absolute)
+        $imageResizer = new ImageResizer(
+            base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Path of a FileModel instance (absolute)
+        $fileModel = new FileModel();
+        $fileModel->fromFile(base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $fileModel->save();
+
+        $imageResizer = new ImageResizer(
+            FileModel::first()->getLocalPath(),
+            100,
+            100
+        );
+        $this->assertEquals('png', $imageResizer->getConfig()['options']['extension']);
+
+        // Remove FileModel instance
+        $fileModel->delete();
+    }
+
+    public function testDirectSources()
+    {
         // FileModel instance itself
+        $fileModel = new FileModel();
+        $fileModel->fromFile(base_path('tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $fileModel->save();
+
         $imageResizer = new ImageResizer(
             $fileModel,
             100,
