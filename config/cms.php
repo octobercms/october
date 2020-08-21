@@ -329,6 +329,7 @@ return [
         'resized' => [
             'disk'   => 'local',
             'folder' => 'resized',
+            'path'   => '/storage/app/resized',
         ],
 
     ],

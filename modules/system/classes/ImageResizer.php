@@ -215,6 +215,11 @@ class ImageResizer
                 'folder' => config('cms.pluginsPathLocal', base_path('plugins')),
                 'path' => config('cms.pluginsPath', '/plugins'),
             ],
+            'resized' => [
+                'disk' => config('cms.storage.resized.disk', 'local'),
+                'folder' => config('cms.storage.resized.folder', 'resized'),
+                'path' => config('cms.storage.resized.path', '/storage/app/resized'),
+            ],
             'media' => [
                 'disk' => config('cms.storage.media.disk', 'local'),
                 'folder' => config('cms.storage.media.folder', 'media'),
@@ -311,7 +316,6 @@ class ImageResizer
         } else {
             // Copy the image to be resized to the temp directory
             $tempPath = $this->getLocalTempPath();
-            FileHelper::put($tempPath, $this->getSourceFileContents());
 
             try {
                 /**
@@ -397,15 +401,24 @@ class ImageResizer
     }
 
     /**
-     * Returns a temporary local path to work from.
+     * Stores the current source image in the temp directory and returns the path to it
+     *
+     * @param string $path The path to suffix the temp directory path with, defaults to $identifier.$ext
+     * @return string $tempPath
      */
     protected function getLocalTempPath($path = null)
     {
-        if (!$path) {
-            return $this->getTempPath() . '/' . $this->getIdentifier() . '.' . $this->getExtension();
+        if (!is_null($path) && is_string($path)) {
+            $tempPath = $this->getTempPath() . '/' . $path;
+        } else {
+            $tempPath = $this->getTempPath() . '/' . $this->getIdentifier() . '.' . $this->getExtension();
         }
 
-        return $this->getTempPath() . '/' . $path;
+        if (!file_exists($tempPath)) {
+            FileHelper::put($tempPath, $this->getSourceFileContents());
+        }
+
+        return $tempPath;
     }
 
     /**
@@ -617,8 +630,9 @@ class ImageResizer
                             $path = $image['path'];
                             $selectedSource = $image['source'];
                             $fileModel = $image['fileModel'];
-                            break;
                         }
+                        // Stop any further path processing from happening on filemodel sources
+                        break;
                     }
 
                     // Generate a path relative to the selected disk
@@ -758,7 +772,7 @@ class ImageResizer
      * @param integer|bool|null $width Desired width of the resized image
      * @param integer|bool|null $height Desired height of the resized image
      * @param array|null $options Array of options to pass to the resizer
-     * @throws SystemException If the provided input was unable to be processed
+     * @throws Exception If the provided image was unable to be processed
      * @return string
      */
     public static function filterGetUrl($image, $width = null, $height = null, $options = [])
@@ -782,20 +796,38 @@ class ImageResizer
 
     /**
      * Gets the dimensions of the provided image file
+     * NOTE: Doesn't currently support being passed a FileModel image that has already been resized
      *
      * @param mixed $image Supported values below:
      *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
      * @throws SystemException If the provided input was unable to be processed
-     * @return string
+     * @return array ['width' => int, 'height' => int]
      */
-    public static function filterGetSize($image)
+    public static function filterGetDimensions($image)
     {
         $resizer = new static($image);
 
-        return Cache::rememberForever(static::CACHE_PREFIX . 'dimensions.' . $resizer->getIdentifier(), function ($resizer) {
+        return Cache::rememberForever(static::CACHE_PREFIX . 'dimensions.' . $resizer->getIdentifier(), function () use ($resizer) {
+            // Prepare the local file for assessment
+            $tempPath = $resizer->getLocalTempPath();
+            $dimensions = [];
 
+            // Attempt to get the image size
+            try {
+                $size = getimagesize($tempPath);
+                $dimensions['width'] = $size[0];
+                $dimensions['height'] = $size[1];
+            } catch (\Exception $ex) {
+                @unlink($tempPath);
+                throw $ex;
+            }
+
+            // Cleanup afterwards
+            @unlink($tempPath);
+
+            return $dimensions;
         });
     }
 }
