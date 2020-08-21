@@ -14,68 +14,6 @@ use October\Rain\Database\Attach\File as FileModel;
 use October\Rain\Database\Attach\Resizer as DefaultResizer;
 
 /**
- * $width = numeric, 'auto' | false | null
- * $height = numeric, 'auto' | false | null
- * $options = null | array [
- *      'mode' => [
- *          'auto',         // automatically choose between portrait and landscape based on the image's orientation
- *          'exact',        // resize to the exact dimensions given, without preserving aspect ratio
- *          'portrait',     // resize to the given height and adapt the width to preserve aspect ratio
- *          'landscape',    // resize to the given width and adapt the height to preserve aspect ratio
- *          'crop',         // crop to the given dimensions after fitting as much of the image as possible inside those
- *          'fit',          // fit the image inside the given maximal dimensions, keeping the aspect ratio
- *      ],
- *      'quality'   => numeric, 1 - 100
- *      'interlace' => boolean (default false),
- *      'extension' => ['auto', 'png', 'gif', 'jpg', 'jpeg', 'webp', 'bmp', 'ico'],
- *      'offset'    => [x, y] Offset to crop the image from
- *      'sharpen'   => numeric, 1 - 100
- *
- *      // Options that could be processed by an addon
- *
- *      'blur'      => numeric, 1 - 100
- *      'brightness'=> numeric, -100 - 100
- *      'contrast'  => numeric, -100 - 100
- *      'pixelate'  => numeric, 1 - 5000
- *      'greyscale' => boolean
- *      'invert'    => boolean
- *      'opacity'   => numeric, 0 - 100
- *      'rotate'    => numeric, 1 - 360
- *      'flip'      => [h, v]
- *      'background' | 'fill' => string, hex value
- *      'colourize' => string, RGB value
- * ]
- *
- * Event::fire('system.resizer.afterResize')
- * Event::fire('system.resizer.beforeResize')
- * Event::fire('system.resizer.processResize')
- * Event::fire('system.resizer.getAvailableSources', [&$sourcesArray])
- *
- *
- */
-
-/**
- * DRAFT RESIZER DESIGN
- * This is a rough draft, very WIP, of what the Image resizer UX / API will look like in October.
- *
- * Notes:
- * - Clearing the application cache should not invalidate any existing resized images
- * - Invalid images should not result in a valid "image not found" image existing, it should result in a 404 or more specific error
- * - Provide a new backend list column type "thumb" that will pass it through the resizer
- *
- * Configurations to support
- *
- * - Developer can provide a image (in a wide range of various formats so long as the application actually has access to the provided image
- * and can understand how to access it) to the `| resize(width, height, options)` Twig filter. That filter will output either a link to the
- * final generated image as requested or a link to the resizer route that will actually handle resizing the image.
- * - User should be able to extend the image resizing to provide pre or post processing of the images before / after being resized
- * also to include the ability to swap out the image resizer itself. The core workflow logic should remain the same though.
- *      Examples:
- *      - Post processing of resized images with TinyPNG to optimize filesize further
- *      - Replacement processing of resizing with Intervention Image (using GD or ImageMagick)
- */
-
-/**
  * Image Resizing class used for resizing any image resources accessible
  * to the application.
  *
@@ -91,11 +29,14 @@ use October\Rain\Database\Attach\Resizer as DefaultResizer;
  *
  * The functionality of this class is controlled by these config items:
  *
- * - cms.resized.disk -
- * - cms.resized.folder -
- * - cms.resized.path -
+ * - cms.resized.disk - The disk to store resized images on
+ * - cms.resized.folder - The folder on the disk to store resized images in
+ * - cms.resized.path - The public path to the resized images as returned
+ *                      by the storage disk's URL method, used to identify
+ *                      already resized images
  *
  * @see System\Classes\SystemController System controller
+ * @see System\Twig\Extension Twig filters for this class defined
  * @package october\system
  * @author Luke Towers
  */
