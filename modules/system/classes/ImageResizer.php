@@ -551,14 +551,14 @@ class ImageResizer
         // Process a string
         } elseif (is_string($image)) {
             // Parse the provided image path into a filesystem ready relative path
-            $relativePath = urldecode(parse_url($image, PHP_URL_PATH));
+            $relativePath = static::normalizePath(urldecode(parse_url($image, PHP_URL_PATH)));
 
             // Loop through the sources available to the application to pull from
             // to identify the source most likely to be holding the image
             $resizeSources = static::getAvailableSources();
             foreach ($resizeSources as $source => $details) {
                 // Normalize the source path
-                $sourcePath = urldecode(parse_url($details['path'], PHP_URL_PATH));
+                $sourcePath = static::normalizePath(urldecode(parse_url($details['path'], PHP_URL_PATH)));
 
                 // Identify if the current source is a match
                 if (starts_with($relativePath, $sourcePath)) {
@@ -577,7 +577,7 @@ class ImageResizer
                     }
 
                     // Generate a path relative to the selected disk
-                    $path = $details['folder'] . '/' . str_after($relativePath, $sourcePath . '/');
+                    $path = static::normalizePath($details['folder']) . '/' . str_after($relativePath, $sourcePath . '/');
 
                     // Handle disks of type "system" (the local file system the application is running on)
                     if ($details['disk'] === 'system') {
@@ -586,7 +586,7 @@ class ImageResizer
                             'root' => base_path(),
                         ]);
                         // Regenerate the path relative to the newly defined "system" disk
-                        $path = str_after($path, base_path() . '/');
+                        $path = str_after($path, static::normalizePath(base_path()) . '/');
                     }
 
                     $disk = Storage::disk($details['disk']);
@@ -622,6 +622,21 @@ class ImageResizer
         }
 
         return $data;
+    }
+
+    /**
+     * Normalize the provided path to Unix style directory seperators to ensure
+     * that path manipulation operations succeed regardless of environment
+     *
+     * NOTE: Can't use October\Rain\FileSystem\PathResolver because it prepends
+     * the current working directory to relative paths
+     *
+     * @param string $path
+     * @return string
+     */
+    protected static function normalizePath($path)
+    {
+        return str_replace('\\', '/', $path);
     }
 
     /**
