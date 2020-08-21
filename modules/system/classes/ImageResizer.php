@@ -249,81 +249,81 @@ class ImageResizer
             return;
         }
 
-        // FileModel instances should handle their own resizing
+        // Get the target disk & path to store the final image
         if ($this->image['source'] === 'filemodel' && $fileModel = $this->getFileModel()) {
-            $fileModel->getThumb($this->width, $this->height, $this->options);
-
-        // Handle resizing for all other sources
+            $disk = $fileModel->getDisk();
+            $path = $fileModel->getDiskPath($fileModel->getThumbFilename($this->width, $this->height, $this->options));
         } else {
-            // Copy the image to be resized to the temp directory
-            $tempPath = $this->getLocalTempPath();
+            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $path = $this->getPathToResizedImage();
+        }
 
-            try {
-                /**
-                 * @event system.resizer.processResize
-                 * Halting event that enables replacement of the resizing process. There should only ever be
-                 * one listener handling this event per project at most, as other listeners would be ignored.
-                 *
-                 * Example usage:
-                 *
-                 *     Event::listen('system.resizer.processResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {
-                 *          // Get the resizing configuration
-                 *          $config = $resizer->getConfig();
-                 *
-                 *          // Resize the image
-                 *          $resizedImageContents = My\Custom\Resizer::resize($localTempPath, $config['width], $config['height'], $config['options']);
-                 *
-                 *          // Place the resized image in the correct location for the resizer to finish processing it
-                 *          file_put_contents($localTempPath, $resizedImageContents);
-                 *
-                 *          // Prevent any other resizing replacer logic from running
-                 *          return true;
-                 *     });
-                 *
-                 */
-                $processed = Event::fire('system.resizer.processResize', [$this, $tempPath], true);
-                if (!$processed) {
-                    // Process the resize with the default image resizer
-                    DefaultResizer::open($tempPath)
-                        ->resize($this->width, $this->height, $this->options)
-                        ->save($tempPath);
-                }
+        // Copy the image to be resized to the temp directory
+        $tempPath = $this->getLocalTempPath();
 
-                /**
-                 * @event system.resizer.afterResize
-                 * Enables post processing of resized images after they've been resized before the
-                 * resizing process is finalized (ex. adding watermarks, further optimizing, etc)
-                 *
-                 * Example usage:
-                 *
-                 *     Event::listen('system.resizer.afterResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {                 *
-                 *          // Get the resized image data
-                 *          $resizedImageContents = file_get_contents($localTempPath);
-                 *
-                 *          // Post process the image
-                 *          $processedContents = TinyPNG::optimize($resizedImageContents);
-                 *
-                 *          // Place the processed image in the correct location for the resizer to finish processing it
-                 *          file_put_contents($localTempPath, $processedContents);
-                 *     });
-                 *
-                 */
-                Event::fire('system.resizer.afterResize', [$this, $tempPath]);
-
-                // Store the resized image
-                $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-                $path = $this->getPathToResizedImage();
-                $disk->put($path, file_get_contents($tempPath));
-
-                // Clean up
-                unlink($tempPath);
-            } catch (Exception $ex) {
-                // Clean up in case of any issues
-                unlink($tempPath);
-
-                // Pass the exception up
-                throw $ex;
+        try {
+            /**
+             * @event system.resizer.processResize
+             * Halting event that enables replacement of the resizing process. There should only ever be
+             * one listener handling this event per project at most, as other listeners would be ignored.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.resizer.processResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {
+             *          // Get the resizing configuration
+             *          $config = $resizer->getConfig();
+             *
+             *          // Resize the image
+             *          $resizedImageContents = My\Custom\Resizer::resize($localTempPath, $config['width], $config['height'], $config['options']);
+             *
+             *          // Place the resized image in the correct location for the resizer to finish processing it
+             *          file_put_contents($localTempPath, $resizedImageContents);
+             *
+             *          // Prevent any other resizing replacer logic from running
+             *          return true;
+             *     });
+             *
+             */
+            $processed = Event::fire('system.resizer.processResize', [$this, $tempPath], true);
+            if (!$processed) {
+                // Process the resize with the default image resizer
+                DefaultResizer::open($tempPath)
+                    ->resize($this->width, $this->height, $this->options)
+                    ->save($tempPath);
             }
+
+            /**
+             * @event system.resizer.afterResize
+             * Enables post processing of resized images after they've been resized before the
+             * resizing process is finalized (ex. adding watermarks, further optimizing, etc)
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.resizer.afterResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {                 *
+             *          // Get the resized image data
+             *          $resizedImageContents = file_get_contents($localTempPath);
+             *
+             *          // Post process the image
+             *          $processedContents = TinyPNG::optimize($resizedImageContents);
+             *
+             *          // Place the processed image in the correct location for the resizer to finish processing it
+             *          file_put_contents($localTempPath, $processedContents);
+             *     });
+             *
+             */
+            Event::fire('system.resizer.afterResize', [$this, $tempPath]);
+
+            // Store the resized image
+            $disk->put($path, file_get_contents($tempPath));
+
+            // Clean up
+            unlink($tempPath);
+        } catch (Exception $ex) {
+            // Clean up in case of any issues
+            unlink($tempPath);
+
+            // Pass the exception up
+            throw $ex;
         }
     }
 
