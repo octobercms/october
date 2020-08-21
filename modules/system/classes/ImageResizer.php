@@ -230,10 +230,10 @@ class ImageResizer
             'options' => $this->options,
         ];
 
-        if (!empty($this->image['fileModel']) && $this->image['fileModel'] instanceof FileModel) {
+        if ($fileModel = $this->getFileModel()) {
             $config['image']['fileModel'] = [
-                'class' => get_class($this->image['fileModel']),
-                'key' => $this->image['fileModel']->getKey(),
+                'class' => get_class($fileModel),
+                'key' => $fileModel->getKey(),
             ];
         }
 
@@ -249,14 +249,8 @@ class ImageResizer
             return;
         }
 
-        // Get the target disk & path to store the final image
-        if ($this->image['source'] === 'filemodel' && $fileModel = $this->getFileModel()) {
-            $disk = $fileModel->getDisk();
-            $path = $fileModel->getDiskPath($fileModel->getThumbFilename($this->width, $this->height, $this->options));
-        } else {
-            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-            $path = $this->getPathToResizedImage();
-        }
+        // Get the details for the target image
+        list($disk, $path) = $this->getTargetDetails();
 
         // Copy the image to be resized to the temp directory
         $tempPath = $this->getLocalTempPath();
@@ -403,6 +397,24 @@ class ImageResizer
     }
 
     /**
+     * Get the details for the target image
+     *
+     * @return array [Illuminate\Filesystem\FilesystemAdapter $disk, (string) $path]
+     */
+    protected function getTargetDetails()
+    {
+        if ($this->image['source'] === 'filemodel' && $fileModel = $this->getFileModel()) {
+            $disk = $fileModel->getDisk();
+            $path = $fileModel->getDiskPath($fileModel->getThumbFilename($this->width, $this->height, $this->options));
+        } else {
+            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $path = $this->getPathToResizedImage();
+        }
+
+        return [$disk, $path];
+    }
+
+    /**
      * Get the reference to the resized image if the requested resize exists
      *
      * @param string $identifier The Resizer Identifier that references the source image and desired resizing configuration
@@ -410,15 +422,8 @@ class ImageResizer
      */
     public function isResized()
     {
-        if ($this->image['source'] === 'filemodel') {
-            $model = $this->getFileModel();
-            $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
-            $disk = $model->getDisk();
-            $path = $model->getDiskPath($thumbFile);
-        } else {
-            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
-            $path = $this->getPathToResizedImage();
-        }
+        // Get the details for the target image
+        list($disk, $path) = $this->getTargetDetails();
 
         // Return true if the path is a file and it exists on the target disk
         return !empty(FileHelper::extension($path)) && $disk->exists($path);
