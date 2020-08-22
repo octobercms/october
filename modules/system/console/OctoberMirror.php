@@ -41,6 +41,7 @@ class OctoberMirror extends Command
     protected $directories = [
         'storage/app/uploads/public',
         'storage/app/media',
+        'storage/app/resized',
         'storage/temp/public',
     ];
 

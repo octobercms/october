@@ -10,6 +10,8 @@ use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
+use System\Classes\MediaLibrary;
+use System\Classes\ImageResizer;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
@@ -1185,6 +1187,42 @@ class Lists extends WidgetBase
         }
 
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
+     * Process an image value
+     * @return string
+     */
+    protected function evalImageTypeValue($record, $column, $value)
+    {
+        $config = $column->config;
+
+        // Get config options with defaults
+        $width = isset($config['width']) ? $config['width'] : 50;
+        $height = isset($config['height']) ? $config['height'] : 50;
+        $options = isset($config['options']) ? $config['options'] : [];
+
+        // Handle attachMany relationships
+        if (isset($record->attachMany[$column->columnName])) {
+            $image = $value->first();
+
+        // Handle attachOne relationships
+        } elseif (isset($record->attachOne[$column->columnName])) {
+            $image = $value;
+
+        // Handle absolute URLs
+        } elseif (str_contains($value, '://')) {
+            $value = $value;
+
+        // Assume all other values to be from the media library
+        } else {
+            $value = MediaLibrary::url($value);
+        }
+
+        if (!is_null($value)) {
+            $imageUrl = ImageResizer::filterGetUrl($image, $width, $height, $options);
+            return "<img src='$imageUrl' width='$width' height='$height' />";
+        }
     }
 
     /**
