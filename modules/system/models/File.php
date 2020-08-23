@@ -95,15 +95,6 @@ class File extends FileBase
     }
 
     /**
-     * Returns true if storage.uploads.disk in config/cms.php is "local".
-     * @return bool
-     */
-    protected function isLocalStorage()
-    {
-        return Config::get('cms.storage.uploads.disk') == 'local';
-    }
-
-    /**
      * Returns the storage disk the file is stored on
      * @return FilesystemAdapter
      */

@@ -4,7 +4,7 @@ use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
-    protected function tearDown() : void
+    public function tearDown(): void
     {
         $this->removeMedia();
         parent::tearDown();
@@ -76,12 +76,17 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 
         $contents = MediaLibrary::instance()->listFolderContents();
         $this->assertNotEmpty($contents, 'Media library item is not discovered');
+        $this->assertCount(2, $contents);
 
-        $item = reset($contents);
-        $this->assertAttributeEquals('file', 'type', $item, 'Media library item does not have the right type');
-        $this->assertAttributeEquals('/text.txt', 'path', $item, 'Media library item does not have the right path');
-        $this->assertAttributeNotEmpty('lastModified', $item, 'Media library item last modified is empty');
-        $this->assertAttributeNotEmpty('size', $item, 'Media library item size is empty');
+        $this->assertEquals('file', $contents[0]->type, 'Media library item does not have the right type');
+        $this->assertEquals('/october.png', $contents[0]->path, 'Media library item does not have the right path');
+        $this->assertNotEmpty($contents[0]->lastModified, 'Media library item last modified is empty');
+        $this->assertNotEmpty($contents[0]->size, 'Media library item size is empty');
+
+        $this->assertEquals('file', $contents[1]->type, 'Media library item does not have the right type');
+        $this->assertEquals('/text.txt', $contents[1]->path, 'Media library item does not have the right path');
+        $this->assertNotEmpty($contents[1]->lastModified, 'Media library item last modified is empty');
+        $this->assertNotEmpty($contents[1]->size, 'Media library item size is empty');
     }
 
     protected function setUpStorage()

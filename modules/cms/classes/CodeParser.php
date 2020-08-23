@@ -141,7 +141,8 @@ class CodeParser
         $fileContents = '<?php '.PHP_EOL;
 
         foreach ($namespaces[0] as $namespace) {
-            if (str_contains($namespace, '\\')) {
+            // Only allow compound or aliased use statements
+            if (str_contains($namespace, '\\') || str_contains($namespace, ' as ')) {
                 $fileContents .= trim($namespace).PHP_EOL;
             }
         }

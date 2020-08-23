@@ -238,18 +238,6 @@ class PluginManager
             ComposerManager::instance()->autoload($pluginPath . '/vendor');
         }
 
-        /**
-         * Disable plugin registration for restricted pages, unless elevated
-         */
-        if (self::$noInit && !$plugin->elevated) {
-            return;
-        }
-
-        /**
-         * Run the plugin's register() method
-         */
-        $plugin->register();
-
         /*
          * Register configuration path
          */
@@ -265,6 +253,18 @@ class PluginManager
         if (File::isDirectory($viewsPath)) {
             View::addNamespace($pluginNamespace, $viewsPath);
         }
+
+        /**
+         * Disable plugin registration for restricted pages, unless elevated
+         */
+        if (self::$noInit && !$plugin->elevated) {
+            return;
+        }
+
+        /**
+         * Run the plugin's register() method
+         */
+        $plugin->register();
 
         /*
          * Add init, if available
