@@ -1159,7 +1159,7 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             // Ensure that the view widget model is the same instance as the manage widget model
             // since they will technically be different object instances in this context as
-            // $viewWidet->model is populated by $this->relationModel->getResults() and
+            // $viewWidet->model is populated by $this->relationObject->getResults() and
             // $manageWidget->model is populated by $this->relationModel->find($manageId);
             $this->viewModel = $this->viewWidget->model = $this->manageWidget->model;
 
