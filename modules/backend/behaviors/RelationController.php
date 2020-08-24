@@ -1123,6 +1123,15 @@ class RelationController extends ControllerBehavior
                 $newModel->save(null, $this->manageWidget->getSessionKey());
             }
 
+            if ($this->relationType === 'hasOne') {
+                // Unassign previous relation if one is already assigned
+                $relation = $this->relationObject->getParent()->{$this->relationName};
+
+                if ($relation) {
+                    $this->relationObject->remove($relation, $sessionKey);
+                }
+            }
+
             $this->relationObject->add($newModel, $sessionKey);
 
             /*
@@ -1245,6 +1254,15 @@ class RelationController extends ControllerBehavior
          */
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
+                if ($this->relationType === 'hasOne') {
+                    // Unassign previous relations for singular relation types
+                    $relation = $this->relationObject->getParent()->{$this->relationName};
+
+                    if ($relation) {
+                        $this->relationObject->remove($relation, $sessionKey);
+                    }
+                }
+
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewWidget->setFormValues($model->attributes);
 
