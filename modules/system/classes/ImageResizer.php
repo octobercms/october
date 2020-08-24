@@ -261,9 +261,13 @@ class ImageResizer
              * Halting event that enables replacement of the resizing process. There should only ever be
              * one listener handling this event per project at most, as other listeners would be ignored.
              *
+             * > **NOTE:** The `$sourceDisk` and `$sourcePath` variables are only provided for informational
+             * purposes, i.e. logging errors. They should never be interacted with directly, only interact
+             * with the `$localTempPath` variable.
+             *
              * Example usage:
              *
-             *     Event::listen('system.resizer.processResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {
+             *     Event::listen('system.resizer.processResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath, (\Illuminate\Filesystem\FilesystemAdapter) $sourceDisk, (string) $sourcePath) {
              *          // Get the resizing configuration
              *          $config = $resizer->getConfig();
              *
@@ -278,7 +282,7 @@ class ImageResizer
              *     });
              *
              */
-            $processed = Event::fire('system.resizer.processResize', [$this, $tempPath], true);
+            $processed = Event::fire('system.resizer.processResize', [$this, $tempPath, $disk, $path], true);
             if (!$processed) {
                 // Process the resize with the default image resizer
                 DefaultResizer::open($tempPath)
@@ -291,9 +295,13 @@ class ImageResizer
              * Enables post processing of resized images after they've been resized before the
              * resizing process is finalized (ex. adding watermarks, further optimizing, etc)
              *
+             * > **NOTE:** The `$sourceDisk` and `$sourcePath` variables are only provided for informational
+             * purposes, i.e. logging errors. They should never be interacted with directly, only interact
+             * with the `$localTempPath` variable.
+             *
              * Example usage:
              *
-             *     Event::listen('system.resizer.afterResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath)) {                 *
+             *     Event::listen('system.resizer.afterResize', function ((\System\Classes\ImageResizer) $resizer, (string) $localTempPath, (\Illuminate\Filesystem\FilesystemAdapter) $disk, (string) $path)) {
              *          // Get the resized image data
              *          $resizedImageContents = file_get_contents($localTempPath);
              *
@@ -305,7 +313,7 @@ class ImageResizer
              *     });
              *
              */
-            Event::fire('system.resizer.afterResize', [$this, $tempPath]);
+            Event::fire('system.resizer.afterResize', [$this, $tempPath, $disk, $path]);
 
             // Store the resized image
             $disk->put($path, file_get_contents($tempPath));
