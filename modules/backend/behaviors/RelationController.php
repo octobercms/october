@@ -1331,7 +1331,11 @@ class RelationController extends ControllerBehavior
                 }
             }
 
+            // Reinitialise the form with a blank model
+            $this->initRelation($this->model);
+
             $this->viewWidget->setFormValues([]);
+            $this->viewModel = $this->relationModel;
         }
 
         return $this->relationRefresh();
