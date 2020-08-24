@@ -1125,7 +1125,7 @@ class RelationController extends ControllerBehavior
 
             if ($this->relationType === 'hasOne') {
                 // Unassign previous relation if one is already assigned
-                $relation = $this->relationObject->getParent()->{$this->relationName};
+                $relation = $this->relationObject->getParent()->{$this->relationName} ?? null;
 
                 if ($relation) {
                     $this->relationObject->remove($relation, $sessionKey);
@@ -1255,8 +1255,8 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             if ($recordId && ($model = $this->relationModel->find($recordId))) {
                 if ($this->relationType === 'hasOne') {
-                    // Unassign previous relations for singular relation types
-                    $relation = $this->relationObject->getParent()->{$this->relationName};
+                    // Unassign previous relation if one is already assigned
+                    $relation = $this->relationObject->getParent()->{$this->relationName} ?? null;
 
                     if ($relation) {
                         $this->relationObject->remove($relation, $sessionKey);
