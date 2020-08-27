@@ -346,13 +346,22 @@ class PluginManager
 
     /**
      * Returns an array with all enabled plugins
-     * The index is the plugin namespace, the value is the plugin information object.
      *
-     * @return array
+     * @return array [$code => $pluginObj]
      */
     public function getPlugins()
     {
         return array_diff_key($this->plugins, $this->disabledPlugins);
+    }
+
+    /**
+     * Returns an array will all plugins detected on the filesystem
+     *
+     * @return array [$code => $pluginObj]
+     */
+    public function getAllPlugins()
+    {
+        return $this->plugins;
     }
 
     /**
