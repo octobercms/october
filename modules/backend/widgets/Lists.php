@@ -1212,14 +1212,14 @@ class Lists extends WidgetBase
 
         // Handle absolute URLs
         } elseif (str_contains($value, '://')) {
-            $value = $value;
+            $image = $value;
 
         // Assume all other values to be from the media library
         } else {
-            $value = MediaLibrary::url($value);
+            $image = MediaLibrary::url($value);
         }
 
-        if (!is_null($value)) {
+        if (!is_null($image)) {
             $imageUrl = ImageResizer::filterGetUrl($image, $width, $height, $options);
             return "<img src='$imageUrl' width='$width' height='$height' />";
         }
