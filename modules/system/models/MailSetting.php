@@ -160,15 +160,15 @@ class MailSetting extends Model
     {
         if (in_array($fields->smtp_port->value ?? 25, [25, 465, 587])) {
             switch ($fields->smtp_encryption->value ?? '') {
-                case '':
-                default:
-                    $fields->smtp_port->value = 25;
-                    break;
                 case 'tls':
                     $fields->smtp_port->value = 587;
                     break;
                 case 'ssl':
                     $fields->smtp_port->value = 465;
+                    break;
+                case '':
+                default:
+                    $fields->smtp_port->value = 25;
                     break;
             }
         }
