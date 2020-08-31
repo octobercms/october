@@ -4,6 +4,7 @@ use Db;
 use Html;
 use Lang;
 use Backend;
+use Request;
 use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -227,7 +228,7 @@ class Lists extends WidgetBase
         $this->validateModel();
         $this->validateTree();
 
-        if (!$this->isAjaxRequest()) {
+        if (!Request::ajax() || Request::method() !== 'POST') {
             $this->resetCheckedState();
         }
     }
@@ -1822,16 +1823,6 @@ class Lists extends WidgetBase
         }
 
         return true;
-    }
-
-    /**
-     * Determines if an AJAX request is occurring within the list
-     *
-     * @return bool
-     */
-    public function isAjaxRequest()
-    {
-        return !is_null($this->getController()->getAjaxHandler());
     }
 
     /**
