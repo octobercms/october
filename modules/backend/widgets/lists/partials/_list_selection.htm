@@ -1,0 +1,29 @@
+<div class="loading-indicator-container size-small">
+    <div class="control-selection">
+        <span class="select-iteration">
+            <?= e(trans('backend::lang.list.select')) ?>
+        </span>
+
+        <span class="select-options">
+            <a
+                href="javascript:;"
+                class="select-all"
+                data-request="<?= $this->getEventHandler('onSelectAll') ?>"
+                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
+                title="<?= e(trans('backend::lang.list.select_all_title')) ?>"
+            >
+                <?= e(trans('backend::lang.list.select_all')) ?>
+            </a>
+            <a
+                href="javascript:;"
+                class="select-none"
+                data-request="<?= $this->getEventHandler('onSelectNone') ?>"
+                data-request-data="page: 1"
+                data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>"
+                title="<?= e(trans('backend::lang.list.select_none_title')) ?>"
+            >
+                <?= e(trans('backend::lang.list.select_none')) ?>
+            </a>
+        </span>
+    </div>
+</div>

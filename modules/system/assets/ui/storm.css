@@ -4603,8 +4603,11 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .list-header h3 {font-size:14px;color:#7e8c8d;text-transform:uppercase;font-weight:600;margin-top:0;margin-bottom:15px}
 .list-footer {padding:10px 15px}
 .list-footer a {color:#666;text-decoration:none}
+.list-footer .list-selection {font-size:13px;text-align:left;padding-top:10px;overflow:hidden;float:left;width:50%}
+.list-footer .list-selection .loading-indicator div {margin-left:20px;font-size:12px}
 .list-footer .list-pagination {font-size:14px;text-align:right;padding-top:10px;overflow:hidden}
 .list-footer .list-pagination .loading-indicator div {margin-left:20px;font-size:12px}
+.list-footer .list-selection + .list-pagination {float:right;width:50%}
 .report-widget .table-container {margin:-15px}
 .report-widget .table-container table.table.data {margin-bottom:0}
 .report-widget .table-container table.table.data thead tr th {border-top:none !important}

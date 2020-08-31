@@ -11,6 +11,7 @@
 
 @import "list.rowlink.less";
 @import "list.base.less";
+@import "list.selection.less";
 
 //
 // List Data Table
@@ -531,6 +532,22 @@ table.table.data {
         text-decoration: none;
     }
 
+    .list-selection {
+        font-size: 13px;
+        text-align: left;
+        padding-top: 10px;
+        overflow: hidden; /* clearfix */
+        float: left;
+        width: 50%;
+
+        .loading-indicator {
+            div {
+                margin-left: 20px;
+                font-size: 12px;
+            }
+        }
+    }
+
     .list-pagination {
         font-size: 14px;
         text-align: right;
@@ -543,6 +560,11 @@ table.table.data {
                 font-size: 12px;
             }
         }
+    }
+
+    .list-selection + .list-pagination {
+        float: right;
+        width: 50%;
     }
 }
 
