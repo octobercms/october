@@ -5,12 +5,14 @@
  * - Row Link Plugin (system/assets/ui/js/list.rowlink.js)
  */
 +function ($) { "use strict";
+    var Base = $.oc.foundation.base,
+        BaseProto = Base.prototype
 
     var ListWidget = function (element, options) {
 
-        var $el = this.$el = $(element);
+        var $el = this.$el = $(element)
 
-        this.options = options || {};
+        this.options = options || {}
 
         var scrollClassContainer = options.scrollClassContainer !== undefined
             ? options.scrollClassContainer
@@ -22,10 +24,29 @@
             dragSelector: 'thead'
         })
 
+        $.oc.foundation.controlUtils.markDisposable(element)
+        Base.call(this)
+
+        this.init()
         this.update()
     }
 
     ListWidget.DEFAULTS = {
+    }
+
+    ListWidget.prototype = Object.create(BaseProto)
+    ListWidget.prototype.constructor = ListWidget
+
+    ListWidget.prototype.init = function() {
+        this.$el.find('.control-pagination [data-request]').on('ajaxSetup', this.proxy(this.addCheckedToPaginate))
+    }
+
+    ListWidget.prototype.dispose = function() {
+        this.$el.find('.control-pagination [data-request]').off('ajaxSetup', this.proxy(this.addCheckedToPaginate))
+
+        this.$el = null
+
+        BaseProto.dispose.call(this)
     }
 
     ListWidget.prototype.update = function() {
@@ -72,18 +93,31 @@
     ListWidget.prototype.getChecked = function() {
         var
             list = this.$el,
-            body = $('tbody', list)
+            body = $('tbody', list),
+            checked = []
 
-        return  $('.list-checkbox input[type="checkbox"]', body).map(function(){
+        checked = $('.list-checkbox input[type="checkbox"]', body).map(function(){
             var $el = $(this)
             if ($el.is(':checked'))
                 return $el.val()
-        }).get();
+        }).get()
+
+        $(list).find('input[data-other-checked]').each(function () {
+            checked.push($(this).val())
+        })
+
+        return checked
     }
 
     ListWidget.prototype.toggleChecked = function(el) {
         var $checkbox = $('.list-checkbox input[type="checkbox"]', $(el).closest('tr'))
         $checkbox.prop('checked', !$checkbox.is(':checked')).trigger('change')
+    }
+
+    ListWidget.prototype.addCheckedToPaginate = function(evt, context) {
+        if (!context.options.data.checked) {
+            context.options.data.checked = this.getChecked()
+        }
     }
 
     // LIST WIDGET PLUGIN DEFINITION
@@ -104,7 +138,7 @@
         })
 
         return result ? result : this
-      }
+    }
 
     $.fn.listWidget.Constructor = ListWidget
 
@@ -138,7 +172,7 @@
     // ==============
 
     $(document).render(function(){
-        $('[data-control="listwidget"]').listWidget();
+        $('[data-control="listwidget"]').listWidget()
     })
 
 }(window.jQuery);

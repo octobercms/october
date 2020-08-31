@@ -226,6 +226,10 @@ class Lists extends WidgetBase
 
         $this->validateModel();
         $this->validateTree();
+
+        if (!$this->isAjaxRequest()) {
+            $this->resetCheckedState();
+        }
     }
 
     /**
@@ -264,6 +268,7 @@ class Lists extends WidgetBase
         $this->vars['sortDirection'] = $this->sortDirection;
         $this->vars['showTree'] = $this->showTree;
         $this->vars['treeLevel'] = 0;
+        $this->vars['otherChecked'] = $this->getOtherCheckedItems();
 
         if ($this->showPagination) {
             $this->vars['pageCurrent'] = $this->records->currentPage();
@@ -301,6 +306,7 @@ class Lists extends WidgetBase
     public function onPaginate()
     {
         $this->currentPageNumber = post('page');
+        $this->setCheckedState();
         return $this->onRefresh();
     }
 
@@ -1816,5 +1822,70 @@ class Lists extends WidgetBase
         }
 
         return true;
+    }
+
+    /**
+     * Determines if an AJAX request is occurring within the list
+     *
+     * @return bool
+     */
+    public function isAjaxRequest()
+    {
+        return !is_null($this->getController()->getAjaxHandler());
+    }
+
+    /**
+     * Persisted checkboxes
+     */
+
+    /**
+     * Determines if record is checked
+     *
+     * @param int|string $recordId
+     * @return bool
+     */
+    public function isChecked($recordId)
+    {
+        return in_array($recordId, $this->getCheckedState());
+    }
+
+    /**
+     * Gets the stored state of checked records.
+     *
+     * @return array
+     */
+    public function getCheckedState()
+    {
+        return json_decode($this->getSession('checked', '[]'));
+    }
+
+    /**
+     * Sets the stored state of checked records.
+     *
+     * @return void
+     */
+    public function setCheckedState()
+    {
+        $this->putSession('checked', json_encode(post('checked', [])));
+    }
+
+    /**
+     * Clears the stored state of checked records.
+     *
+     * @return void
+     */
+    public function resetCheckedState()
+    {
+        $this->putSession('checked', json_encode([]));
+    }
+
+    /**
+     * Determines checked items that fall outside the current page.
+     *
+     * @return array
+     */
+    public function getOtherCheckedItems()
+    {
+        return array_diff($this->getCheckedState(), $this->getRecords()->pluck('id')->toArray());
     }
 }

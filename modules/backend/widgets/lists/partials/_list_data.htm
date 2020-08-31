@@ -1,0 +1,5 @@
+<?php if (count($otherChecked)): ?>
+    <?php foreach ($otherChecked as $id): ?>
+        <input name="checked[]" type="hidden" value="<?= $id ?>" data-other-checked>
+    <?php endforeach ?>
+<?php endif ?>

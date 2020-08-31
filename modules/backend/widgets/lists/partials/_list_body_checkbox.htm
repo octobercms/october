@@ -5,7 +5,9 @@
             name="checked[]"
             id="<?= $this->getId('checkbox-' . $record->getKey()) ?>"
             value="<?= $record->getKey() ?>"
-            autocomplete="off"/>
+            autocomplete="off"
+            <?php if ($this->isChecked($record->getKey())): ?>checked<?php endif ?>
+        />
         <label for="<?= $this->getId('checkbox-' . $record->getKey()) ?>"><?= e(trans('backend::lang.list.check')) ?></label>
     </div>
 </td>
