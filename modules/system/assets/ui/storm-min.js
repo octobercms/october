@@ -4597,7 +4597,7 @@ if(tabUrl){window.history.replaceState({},'Tab link reference',tabUrl)}})
 if(this.options.slidable){this.$pagesContainer.touchwipe({wipeRight:function(){self.prev();},wipeLeft:function(){self.next();},preventDefaultEvents:false,min_move_x:60});}
 this.$tabsContainer.toolbar({scrollClassContainer:this.$el})
 this.updateClasses()
-if(location.hash&&this.$tabsContainer.is('[data-linkable]')){$('li > a[href='+location.hash+']',this.$tabsContainer).tab('show')}}
+if(location.hash&&this.$tabsContainer.is('[data-linkable]')){$('li > a[href="'+location.hash+'"]',this.$tabsContainer).tab('show')}}
 Tab.prototype.initTab=function(li){var
 $tabs=$('>li',this.$tabsContainer),tabIndex=$tabs.index(li),time=new Date().getTime(),targetId=this.tabId+'-tab-'+tabIndex+time,$anchor=$('a',li)
 $anchor.data('target','#'+targetId).attr('data-target','#'+targetId).attr('data-toggle','tab')
