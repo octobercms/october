@@ -108,7 +108,7 @@ class FileManifest
             }
 
             foreach ($this->findFiles($path) as $file) {
-                $files[$this->getFilename($file)] = hash_file('sha3-256', $file);
+                $files[$this->getFilename($file)] = hash('sha3-256', $this->normalizeFileContents($file));
             }
         }
 
@@ -172,5 +172,22 @@ class FileManifest
     protected function getFilename(string $file): string
     {
         return str_replace($this->root, '', $file);
+    }
+
+    /**
+     * Normalises the file contents, irrespective of OS.
+     *
+     * @param string $file
+     * @return string
+     */
+    protected function normalizeFileContents(string $file): string
+    {
+        if (!is_file($file)) {
+            return '';
+        }
+
+        $contents = file_get_contents($file);
+
+        return str_replace(PHP_EOL, "\n", $contents);
     }
 }
