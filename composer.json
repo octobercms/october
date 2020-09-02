@@ -61,7 +61,7 @@
             "php artisan package:discover"
         ],
         "post-update-cmd": [
-            "php artisan october:util set build",
+            "php artisan october:version",
             "php artisan package:discover"
         ],
         "test": [

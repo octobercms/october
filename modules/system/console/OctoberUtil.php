@@ -1,6 +1,5 @@
 <?php namespace System\Console;
 
-use App;
 use Lang;
 use File;
 use Config;
@@ -9,7 +8,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
-use Exception;
 use System\Models\Parameter;
 use System\Models\File as FileModel;
 
@@ -28,7 +26,6 @@ use System\Models\File as FileModel;
  * - compile less: Compile registered LESS files only.
  * - compile scss: Compile registered SCSS files only.
  * - compile lang: Compile registered Language files only.
- * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
  * - set project --projectId=<id>: Set the projectId for this october instance.
  *
  * @package october\system
@@ -111,31 +108,10 @@ class OctoberUtil extends Command
 
     protected function utilSetBuild()
     {
-        $this->comment('-');
+        $this->comment('NOTE: This command is now deprecated. Please use "php artisan october:version" instead.');
+        $this->comment('');
 
-        /*
-         * Skip setting the build number if no database is detected to set it within
-         */
-        if (!App::hasDatabase()) {
-            $this->comment('No database detected - skipping setting the build number.');
-            return;
-        }
-
-        try {
-            $build = UpdateManager::instance()->setBuildNumberManually();
-            $this->comment('*** October sets build: '.$build);
-        }
-        catch (Exception $ex) {
-            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
-        }
-
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
+        return $this->call('october:version');
     }
 
     protected function utilCompileJs()

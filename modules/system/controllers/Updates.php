@@ -75,6 +75,7 @@ class Updates extends Controller
     public function index()
     {
         $this->vars['coreBuild'] = Parameter::get('system::core.build');
+        $this->vars['coreBuildModified'] = Parameter::get('system::core.modified', false);
         $this->vars['projectId'] = Parameter::get('system::project.id');
         $this->vars['projectName'] = Parameter::get('system::project.name');
         $this->vars['projectOwner'] = Parameter::get('system::project.owner');

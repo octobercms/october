@@ -133,7 +133,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerPrivilegedActions()
     {
         $requests = ['/combine/', '@/system/updates', '@/system/install', '@/backend/auth'];
-        $commands = ['october:up', 'october:update'];
+        $commands = ['october:up', 'october:update', 'october:version'];
 
         /*
          * Requests
@@ -248,6 +248,8 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsoleCommand('october.env', 'System\Console\OctoberEnv');
         $this->registerConsoleCommand('october.install', 'System\Console\OctoberInstall');
         $this->registerConsoleCommand('october.passwd', 'System\Console\OctoberPasswd');
+        $this->registerConsoleCommand('october.version', 'System\Console\OctoberVersion');
+        $this->registerConsoleCommand('october.manifest', 'System\Console\OctoberManifest');
 
         $this->registerConsoleCommand('plugin.install', 'System\Console\PluginInstall');
         $this->registerConsoleCommand('plugin.remove', 'System\Console\PluginRemove');
