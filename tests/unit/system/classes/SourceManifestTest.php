@@ -131,16 +131,19 @@ class SourceManifestTest extends TestCase
         $this->assertEquals([
             'build' => 1,
             'modified' => false,
+            'confident' => true
         ], $this->sourceManifest->compare($this->builds[1]));
 
         $this->assertEquals([
             'build' => 2,
             'modified' => false,
+            'confident' => true
         ], $this->sourceManifest->compare($this->builds[2]));
 
         $this->assertEquals([
             'build' => 3,
             'modified' => false,
+            'confident' => true
         ], $this->sourceManifest->compare($this->builds[3]));
     }
 
@@ -160,6 +163,7 @@ class SourceManifestTest extends TestCase
         $this->assertEquals([
             'build' => 3,
             'modified' => true,
+            'confident' => true,
         ], $this->sourceManifest->compare($modifiedManifest));
     }
 
