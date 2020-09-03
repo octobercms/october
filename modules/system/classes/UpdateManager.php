@@ -360,33 +360,36 @@ class UpdateManager
     /**
      * Determines build number from source manifest.
      *
-     * An array will be returned with the following, if a build can be determined:
-     *  - `build` - The detected build number installed.
-     *  - `modified` - Whether the installation appears to have been modified.
+     * This will return an array with the following information:
+     *  - `build`: The build number we determined was most likely the build installed.
+     *  - `modified`: Whether we detected any modifications between the installed build and the manifest.
+     *  - `confident`: Whether we are at least 60% sure that this is the installed build. More modifications to
+     *                  to the code = less confidence.
+     *  - `changes`: If $detailed is true, this will include the list of files modified, created and deleted.
      *
-     * Otherwise, `null` will be returned.
-     *
-     * @return array|null
+     * @param bool $detailed If true, the list of files modified, added and deleted will be included in the result.
+     * @return array
      */
-    public function getBuildNumberManually()
+    public function getBuildNumberManually($detailed = false)
     {
         $source = new SourceManifest();
         $manifest = new FileManifest(null, null, true);
 
         // Find build by comparing with source manifest
-        return $source->compare($manifest);
+        return $source->compare($manifest, $detailed);
     }
 
     /**
      * Sets the build number in the database.
      *
+     * @param bool $detailed If true, the list of files modified, added and deleted will be included in the result.
      * @return void
      */
-    public function setBuildNumberManually()
+    public function setBuildNumberManually($detailed = false)
     {
-        $build = $this->getBuildNumberManually();
+        $build = $this->getBuildNumberManually($detailed);
 
-        if (!is_null($build)) {
+        if ($build['confident']) {
             $this->setBuild($build['build'], null, $build['modified']);
         }
 

@@ -221,11 +221,18 @@ class SourceManifest
      *
      * This will determine the build of the October CMS installation.
      *
+     * This will return an array with the following information:
+     *  - `build`: The build number we determined was most likely the build installed.
+     *  - `modified`: Whether we detected any modifications between the installed build and the manifest.
+     *  - `confident`: Whether we are at least 60% sure that this is the installed build. More modifications to
+     *                  to the code = less confidence.
+     *  - `changes`: If $detailed is true, this will include the list of files modified, created and deleted.
+     *
      * @param FileManifest $manifest The file manifest to compare against the source.
-     * @return array|null Will return an array with the build, modified state and the probability that it is the
-     *  version specified. If the detected version does not look like a likely candidate, this will return null.
+     * @param bool $detailed If true, the list of files modified, added and deleted will be included in the result.
+     * @return array
      */
-    public function compare(FileManifest $manifest)
+    public function compare(FileManifest $manifest, $detailed = false)
     {
         $modules = $manifest->getModuleChecksums();
 
@@ -234,10 +241,17 @@ class SourceManifest
             $matched = array_intersect_assoc($details['modules'], $modules);
 
             if (count($matched) === count($modules)) {
-                return [
+                $details = [
                     'build' => $build,
                     'modified' => false,
+                    'confident' => true,
                 ];
+
+                if ($detailed) {
+                    $details['changes'] = [];
+                }
+
+                return $details;
             }
         }
 
@@ -289,17 +303,20 @@ class SourceManifest
             $buildMatch[$build] = round($score * 100, 2);
         }
 
-
-        // Find likely version (we have to be at least 60% sure)
+        // Find likely version
         $likelyBuild = array_search(max($buildMatch), $buildMatch);
-        if ($buildMatch[$likelyBuild] < 60) {
-            return null;
-        }
 
-        return [
+        $details = [
             'build' => $likelyBuild,
             'modified' => true,
+            'confident' => ($buildMatch[$likelyBuild] >= 60)
         ];
+
+        if ($detailed) {
+            $details['changes'] = $this->processChanges($manifest, $likelyBuild);
+        }
+
+        return $details;
     }
 
     /**
@@ -308,7 +325,8 @@ class SourceManifest
      * Will return an array of added, modified and removed files.
      *
      * @param FileManifest $manifest The current build's file manifest.
-     * @param integer $previous The previous build number, used to determine changes with this build.
+     * @param FileManifest|integer $previous Either a previous manifest, or the previous build number as an int,
+     *  used to determine changes with this build.
      * @return array
      */
     protected function processChanges(FileManifest $manifest, $previous = null)
@@ -321,7 +339,11 @@ class SourceManifest
         }
 
         // Only save files if they are changing the "state" of the manifest (ie. the file is modified, added or removed)
-        $state = $this->getState($previous);
+        if (is_int($previous)) {
+            $state = $this->getState($previous);
+        } else {
+            $state = $previous->getFiles();
+        }
         $added = [];
         $modified = [];
 
