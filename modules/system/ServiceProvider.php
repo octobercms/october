@@ -9,6 +9,7 @@ use Backend;
 use Request;
 use BackendMenu;
 use BackendAuth;
+use Twig\Extension\SandboxExtension;
 use Twig\Environment as TwigEnvironment;
 use System\Classes\MailManager;
 use System\Classes\ErrorHandler;
@@ -19,6 +20,7 @@ use System\Classes\UpdateManager;
 use System\Twig\Engine as TwigEngine;
 use System\Twig\Loader as TwigLoader;
 use System\Twig\Extension as TwigExtension;
+use System\Twig\SecurityPolicy as TwigSecurityPolicy;
 use System\Models\EventLog;
 use System\Models\MailSetting;
 use System\Classes\CombineAssets;
@@ -300,6 +302,7 @@ class ServiceProvider extends ModuleServiceProvider
         App::singleton('twig.environment', function ($app) {
             $twig = new TwigEnvironment(new TwigLoader, ['auto_reload' => true]);
             $twig->addExtension(new TwigExtension);
+            $twig->addExtension(new SandboxExtension(new TwigSecurityPolicy, true));
             return $twig;
         });
 
