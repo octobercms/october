@@ -37,6 +37,13 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
     public $customMessages = [];
 
     /**
+     * @var int The maximum allowed path nesting level. The default value is 2,
+     * meaning that files can only exist in the root directory, or in a
+     * subdirectory. Set to null if any level is allowed.
+     */
+    protected $maxNesting = null;
+
+    /**
      * @var array The attributes that are mass assignable.
      */
     protected $fillable = [
