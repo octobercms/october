@@ -9,6 +9,7 @@ use Backend;
 use Request;
 use BackendMenu;
 use BackendAuth;
+use Twig\Extension\SandboxExtension;
 use Twig\Environment as TwigEnvironment;
 use System\Classes\MailManager;
 use System\Classes\ErrorHandler;
@@ -28,7 +29,6 @@ use October\Rain\Support\ModuleServiceProvider;
 use October\Rain\Router\Helper as RouterHelper;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
-use Twig\Extension\SandboxExtension;
 
 class ServiceProvider extends ModuleServiceProvider
 {
