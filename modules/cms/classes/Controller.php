@@ -15,6 +15,7 @@ use SystemException;
 use BackendAuth;
 use Twig\Environment as TwigEnvironment;
 use Twig\Cache\FilesystemCache as TwigCacheFilesystem;
+use Twig\Extension\SandboxExtension;
 use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
@@ -23,6 +24,7 @@ use System\Models\RequestLog;
 use System\Helpers\View as ViewHelper;
 use System\Classes\CombineAssets;
 use System\Twig\Extension as SystemTwigExtension;
+use System\Twig\SecurityPolicy;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Parse\Bracket as TextParser;
@@ -608,6 +610,7 @@ class Controller
         $this->twig = new TwigEnvironment($this->loader, $options);
         $this->twig->addExtension(new CmsTwigExtension($this));
         $this->twig->addExtension(new SystemTwigExtension);
+        $this->twig->addExtension(new SandboxExtension(new SecurityPolicy, true));
 
         if ($isDebugMode) {
             $this->twig->addExtension(new DebugExtension($this));
