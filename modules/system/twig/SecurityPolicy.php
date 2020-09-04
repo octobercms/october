@@ -14,48 +14,51 @@ use Twig\Sandbox\SecurityNotAllowedPropertyError;
  */
 final class SecurityPolicy implements SecurityPolicyInterface
 {
-    protected $blockedProperties = [];
-
+    /**
+     * @var array List of forbidden methods.
+     */
     protected $blockedMethods = [
         'addDynamicMethod',
         'addDynamicProperty'
     ];
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->setBlockedMethods($this->blockedMethods);
-    }
-
-    public function setBlockedMethods(array $methods)
-    {
         foreach ($this->blockedMethods as $i => $m) {
-            $this->blockedMethods[$i] = strtr($m, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+            $this->blockedMethods[$i] = strtolower($m);
         }
     }
 
+    /**
+     * @throws SecurityError
+     */
     public function checkSecurity($tags, $filters, $functions)
     {
     }
 
+    /**
+     * @throws SecurityNotAllowedPropertyError
+     */
+    public function checkPropertyAllowed($obj, $property)
+    {
+    }
+
+    /**
+     * @throws SecurityNotAllowedMethodError
+     */
     public function checkMethodAllowed($obj, $method)
     {
         if ($obj instanceof Template || $obj instanceof Markup) {
             return;
         }
 
-        $blockedMethod = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
-
+        $blockedMethod = strtolower($method);
         if (in_array($blockedMethod, $this->blockedMethods)) {
             $class = get_class($obj);
             throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is blocked.', $method, $class), $class, $method);
-        }
-    }
-
-    public function checkPropertyAllowed($obj, $property)
-    {
-        if (in_array($property, $this->blockedProperties)) {
-            $class = get_class($obj);
-            throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is blocked.', $property, $class), $class, $property);
         }
     }
 }
