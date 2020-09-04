@@ -6,6 +6,8 @@ use Cms\Classes\Theme;
 class TestCmsObject extends CmsObject
 {
     protected $dirName = 'testobjects';
+
+    protected $allowedExtensions = ['htm', 'html'];
 }
 
 class TestTemporaryCmsObject extends CmsObject
