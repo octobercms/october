@@ -90,6 +90,7 @@ trait AssetMaker
             foreach ($this->assets['js'] as $asset) {
                 $attributes = Html::attributes(array_merge(
                     [
+                        'data-cfasync' => "false",
                         'src' => $this->getAssetEntryBuildPath($asset)
                     ],
                     array_except($asset['attributes'], $reserved)
