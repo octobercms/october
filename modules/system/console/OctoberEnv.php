@@ -355,6 +355,7 @@ class OctoberEnv extends Command
         return [
             'app' => [
                 'APP_DEBUG' => 'debug',
+                'APP_NAME' => 'name',
                 'APP_URL' => 'url',
                 'APP_KEY' => 'key',
             ],
