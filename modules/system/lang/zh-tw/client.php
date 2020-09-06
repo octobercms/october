@@ -72,8 +72,8 @@ return [
             'filter_button_text' => '篩選',
             'reset_button_text' => '重置',
             'date_placeholder' => '日期',
-            'after_placeholder' => '在此之前',
-            'before_placeholder' => '在此之後',
+            'after_placeholder' => '在此之後',
+            'before_placeholder' => '在此之前',
         ],
         'numbers' => [
             'all' => '全部',
