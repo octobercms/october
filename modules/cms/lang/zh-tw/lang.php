@@ -172,7 +172,7 @@ return [
         'hidden' => '隱藏',
         'hidden_comment' => '隱藏頁面只能被登錄的後台使用者訪問.',
         'enter_fullscreen' => '進入全螢幕模式',
-        'exit_fullscreen' => '退出全螢幕模式'
+        'exit_fullscreen' => '退出全螢幕模式',
     ],
     'asset' => [
         'menu_label' => '資源',
