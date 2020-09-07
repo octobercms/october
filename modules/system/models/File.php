@@ -26,6 +26,9 @@ class File extends FileBase
     public function getThumb($width, $height, $options = [])
     {
         $url = '';
+        $width = !empty($width) ? $width : 0;
+        $height = !empty($height) ? $height : 0;
+
         if (!$this->isPublic() && class_exists(Files::class)) {
             $options = $this->getDefaultThumbOptions($options);
             // Ensure that the thumb exists first
