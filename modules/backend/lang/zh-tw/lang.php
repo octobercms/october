@@ -305,7 +305,6 @@ return [
     ],
     'filter' => [
         'all' => '全部',
-        'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':filter' filter.",
         'date_all' => '全部區間',
         'number_all' => '全部數目',
     ],
