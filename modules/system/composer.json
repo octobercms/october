@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.0",
         "composer/installers": "~1.0",
-        "october/rain": "~1.0"
+        "october/rain": "~1.0.469"
     },
     "autoload": {
         "psr-4": {
