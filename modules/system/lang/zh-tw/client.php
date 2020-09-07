@@ -82,21 +82,5 @@ return [
             'min_placeholder' => '最小值',
             'max_placeholder' => '最大值',
         ],
-    ],
-    'eventlog' => [
-        'show_stacktrace' => 'Show the stacktrace',
-        'hide_stacktrace' => 'Hide the stacktrace',
-        'tabs' => [
-            'formatted' => 'Formatted',
-            'raw' => 'Raw',
-        ],
-        'editor' => [
-            'title' => 'Source code editor',
-            'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
-            'openWith' => 'Open with',
-            'remember_choice' => 'Remember selected option for this session',
-            'open' => 'Open',
-            'cancel' => 'Cancel',
-        ],
-    ],
+    ]
 ];
