@@ -212,13 +212,15 @@ class ReorderController extends ControllerBehavior
     protected function validateModel()
     {
         $model = $this->controller->reorderGetModel();
-        $modelImplements = class_uses($model);
+        $modelTraits = class_uses($model);
 
-        if (isset($modelImplements[\October\Rain\Database\Traits\Sortable::class]) ||
-            isset($modelImplements[\October\Rain\Database\Behaviors\Sortable::class])) {
+        if (
+            isset($modelTraits[\October\Rain\Database\Traits\Sortable::class] ||
+            $model->isClassExtendedWith('October.Rain.Database.Behaviors.Sortable')
+        ) {
             $this->sortMode = 'simple';
         }
-        elseif (isset($modelImplements[\October\Rain\Database\Traits\NestedTree::class])) {
+        elseif (isset($modelTraits[\October\Rain\Database\Traits\NestedTree::class])) {
             $this->sortMode = 'nested';
             $this->showTree = true;
         }
