@@ -215,7 +215,7 @@ class ReorderController extends ControllerBehavior
         $modelTraits = class_uses($model);
 
         if (
-            isset($modelTraits[\October\Rain\Database\Traits\Sortable::class] ||
+            isset($modelTraits[\October\Rain\Database\Traits\Sortable::class]) ||
             $model->isClassExtendedWith('October.Rain.Database.Behaviors.Sortable')
         ) {
             $this->sortMode = 'simple';
