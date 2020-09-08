@@ -212,17 +212,18 @@ class ReorderController extends ControllerBehavior
     protected function validateModel()
     {
         $model = $this->controller->reorderGetModel();
-        $modelTraits = class_uses($model);
+        $modelImplements = class_uses($model);
 
-        if (isset($modelTraits[\October\Rain\Database\Traits\Sortable::class])) {
+        if (isset($modelImplements[\October\Rain\Database\Traits\Sortable::class]) ||
+            isset($modelImplements[\October\Rain\Database\Behaviors\Sortable::class])) {
             $this->sortMode = 'simple';
         }
-        elseif (isset($modelTraits[\October\Rain\Database\Traits\NestedTree::class])) {
+        elseif (isset($modelImplements[\October\Rain\Database\Traits\NestedTree::class])) {
             $this->sortMode = 'nested';
             $this->showTree = true;
         }
         else {
-            throw new ApplicationException('The model must implement the NestedTree or Sortable traits.');
+            throw new ApplicationException('The model must implement the Sortable trait/behavior or the NestedTree trait.');
         }
 
         return $model;
