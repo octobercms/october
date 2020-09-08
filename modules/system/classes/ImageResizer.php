@@ -500,7 +500,10 @@ class ImageResizer
             $url = $resizedDisk->url($this->getPathToResizedImage());
         }
 
-        return $url;
+        // Ensure that a properly encoded URL is returned
+        $segments = explode('/', $url);
+        $lastSegment = array_pop($segments);
+        return implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
     }
 
     /**
