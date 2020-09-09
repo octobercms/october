@@ -208,7 +208,7 @@ trait AssetMaker
              *
              * Example usage:
              *
-             *     Event::listen('system.assets.beforeAddAsset', function (string $type, string $path, array $attributes) {
+             *     Event::listen('system.assets.beforeAddAsset', function (string &$type, string &$path, array &$attributes) {
              *         if (in_array($path, $blockedAssets)) {
              *             return false;
              *         }
@@ -216,7 +216,7 @@ trait AssetMaker
              *
              * Or
              *
-             *     $this->bindEvent('assets.beforeAddAsset', function (string $type, string $path, array $attributes) {
+             *     $this->bindEvent('assets.beforeAddAsset', function (string &$type, string &$path, array &$attributes) {
              *         $attributes['special_cdn_flag'] = false;
              *     });
              *
