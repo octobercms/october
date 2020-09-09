@@ -135,7 +135,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerPrivilegedActions()
     {
         $requests = ['/combine/', '@/system/updates', '@/system/install', '@/backend/auth'];
-        $commands = ['october:up', 'october:update', 'october:version'];
+        $commands = ['october:up', 'october:update', 'october:env', 'october:version'];
 
         /*
          * Requests
