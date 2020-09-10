@@ -2,6 +2,13 @@
 
 use October\Rain\Support\Facade;
 
+/**
+ * Cms facade
+ *
+ * @package october\cms
+ *
+ * @method static string url(string $path = null)
+ */
 class Cms extends Facade
 {
     /**

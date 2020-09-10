@@ -2,6 +2,19 @@
 
 use October\Rain\Support\Facade;
 
+/**
+ * BackendAuth facade
+ *
+ * @package october\backend
+ *
+ * @method static void registerCallback(callable $callback)
+ * @method static void registerPermissions(string $owner, array $definitions)
+ * @method static void removePermission(string $owner, string $code)
+ * @method static array listPermissions()
+ * @method static array listTabbedPermissions()
+ * @method static array listPermissionsForRole(string $role, bool $includeOrphans = true)
+ * @method static boolean hasPermissionsForRole(string $role)
+ */
 class BackendAuth extends Facade
 {
     /**
