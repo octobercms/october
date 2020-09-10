@@ -9,6 +9,7 @@ return [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+        'options_static_method_invalid_value' => "The static method ':method()' on :class did not return a valid options array.",
         'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field.",
     ],
     'widget' => [
