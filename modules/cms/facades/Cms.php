@@ -3,18 +3,15 @@
 use October\Rain\Support\Facade;
 
 /**
- * Cms facade
- *
- * @package october\cms
- *
  * @method static string url(string $path = null)
+ *
+ * @see \Cms\Helpers\Cms
  */
 class Cms extends Facade
 {
     /**
      * Get the registered name of the component.
      *
-     * @see \Cms\Helpers\Cms
      * @return string
      */
     protected static function getFacadeAccessor()

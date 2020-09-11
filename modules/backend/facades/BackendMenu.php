@@ -3,10 +3,6 @@
 use October\Rain\Support\Facade;
 
 /**
- * BackendMenu facade
- *
- * @package october\backend
- *
  * @method static void registerCallback(callable $callback)
  * @method static void registerMenuItems(string $owner, array $definitions)
  * @method static void addMainMenuItems(string $owner, array $definitions)
@@ -28,14 +24,13 @@ use October\Rain\Support\Facade;
  * @method static bool isSideMenuItemActive(\Backend\Classes\SideMenuItem $item)
  * @method static void registerContextSidenavPartial(string $owner, string $mainMenuItemCode, string $partial)
  * @method static mixed getContextSidenavPartial(string $owner, string $mainMenuItemCode)
+ *
+ * @see \Backend\Classes\NavigationManager
  */
 class BackendMenu extends Facade
 {
     /**
      * Get the registered name of the component.
-     *
-     * Resolves to:
-     * - Backend\Classes\NavigationManager
      *
      * @return string
      */
