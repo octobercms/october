@@ -9,6 +9,7 @@ use Backend;
 use Request;
 use BackendMenu;
 use BackendAuth;
+use Backend\Models\UserRole;
 use Twig\Extension\SandboxExtension;
 use Twig\Environment as TwigEnvironment;
 use System\Classes\MailManager;
@@ -417,19 +418,23 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.System', [
                 'system.manage_updates' => [
                     'label' => 'system::lang.permissions.manage_software_updates',
-                    'tab' => 'system::lang.permissions.name'
+                    'tab' => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'system.access_logs' => [
                     'label' => 'system::lang.permissions.access_logs',
-                    'tab' => 'system::lang.permissions.name'
+                    'tab' => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'system.manage_mail_settings' => [
                     'label' => 'system::lang.permissions.manage_mail_settings',
-                    'tab' => 'system::lang.permissions.name'
+                    'tab' => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'system.manage_mail_templates' => [
                     'label' => 'system::lang.permissions.manage_mail_templates',
-                    'tab' => 'system::lang.permissions.name'
+                    'tab' => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ]
             ]);
         });

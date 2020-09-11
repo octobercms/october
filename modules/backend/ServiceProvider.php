@@ -140,31 +140,34 @@ class ServiceProvider extends ModuleServiceProvider
             $manager->registerPermissions('October.Backend', [
                 'backend.access_dashboard' => [
                     'label' => 'system::lang.permissions.view_the_dashboard',
-                    'tab'   => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'backend.manage_default_dashboard' => [
                     'label' => 'system::lang.permissions.manage_default_dashboard',
                     'tab'   => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'backend.manage_users' => [
                     'label' => 'system::lang.permissions.manage_other_administrators',
-                    'tab'   => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'backend.impersonate_users' => [
                     'label' => 'system::lang.permissions.impersonate_users',
                     'tab'   => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'backend.manage_preferences' => [
                     'label' => 'system::lang.permissions.manage_preferences',
-                    'tab'   => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'backend.manage_editor' => [
                     'label' => 'system::lang.permissions.manage_editor',
-                    'tab'   => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'backend.manage_branding' => [
                     'label' => 'system::lang.permissions.manage_branding',
-                    'tab'   => 'system::lang.permissions.name'
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'media.manage_media' => [
                     'label' => 'backend::lang.permissions.manage_media',
