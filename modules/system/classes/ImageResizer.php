@@ -219,9 +219,21 @@ class ImageResizer
      */
     public function getConfig()
     {
+        $disk = $this->image['disk'];
+
+        // Normalize local disk adapters with symlinked paths to their target path
+        // to support atomic deployments where the base application path changes
+        // each deployment but the realpath of the storage directory does not
+        if (FileHelper::isLocalDisk($disk)) {
+            $realPath = realpath($disk->getAdapter()->getPathPrefix());
+            if ($realPath) {
+                $disk->getAdapter()->setPathPrefix($realPath);
+            }
+        }
+
         $config = [
             'image' => [
-                'disk' => $this->image['disk'],
+                'disk' => $disk,
                 'path' => $this->image['path'],
                 'source' => $this->image['source'],
             ],
