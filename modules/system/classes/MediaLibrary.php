@@ -536,7 +536,7 @@ class MediaLibrary
      */
     public function getPathUrl($path)
     {
-        $path = $this->validatePath($path);
+        $path = $this->validatePath($path, true);
 
         $fullPath = $this->storagePath . implode("/", array_map("rawurlencode", explode("/", $path)));
 
