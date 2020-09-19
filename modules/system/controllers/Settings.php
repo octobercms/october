@@ -104,7 +104,7 @@ class Settings extends Controller
         }
         $model->save(null, $this->formWidget->getSessionKey());
 
-        if(!Flash::check()){
+        if (!Flash::check()) {
             Flash::success(Lang::get('system::lang.settings.update_success', ['name' => Lang::get($item->label)]));
         }
         /*
