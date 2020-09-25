@@ -41,7 +41,8 @@ class BrandSetting extends Model
 
     public $attachOne = [
         'favicon' => \System\Models\File::class,
-        'logo' => \System\Models\File::class
+        'logo' => \System\Models\File::class,
+        'fallback_image' => \System\Models\File::class,
     ];
 
     /**
@@ -113,6 +114,17 @@ class BrandSetting extends Model
         }
 
         return self::getDefaultLogo() ?: null;
+    }
+
+    public static function getFallbackImage()
+    {
+        $settings = self::instance();
+
+        if ($settings->fallback_image) {
+            return $settings->fallback_image->getDiskPath();
+        }
+
+        return null;
     }
 
     public static function renderCss()

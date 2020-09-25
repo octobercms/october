@@ -39,6 +39,15 @@ tabs:
             span: right
             fileTypes: jpg,jpeg,bmp,png,webp,gif,svg,ico
 
+        fallback_image:
+            label: backend::lang.branding.fallback_image
+            type: fileupload
+            commentAbove: backend::lang.branding.fallback_image_description
+            mode: image
+            tab: backend::lang.branding.brand
+            span: right
+            fileTypes: jpg,jpeg,bmp,png,webp,gif,svg,ico
+
         primary_color:
             label: backend::lang.branding.primary_color
             type: colorpicker
