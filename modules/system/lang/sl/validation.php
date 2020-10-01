@@ -109,7 +109,7 @@ return [
         'string'  => ':attribute mora vsebovati :size znakov.',
         'array'   => ':attribute mora vsebovati :size elementov.',
     ],
-	'starts_with'          => '":attribute" se mora začeti z eno od naslednjih vrednosti: :values.',
+    'starts_with'          => '":attribute" se mora začeti z eno od naslednjih vrednosti: :values.',
     'string'               => '":attribute" mora biti veljaven znakovni niz.',
     'timezone'             => '":attribute" mora biti veljavno območje.',
     'unique'               => 'Element ":attribute" je že zaseden.',
