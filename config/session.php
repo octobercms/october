@@ -168,7 +168,7 @@ return [
     | Same-Site Cookies
     |--------------------------------------------------------------------------
     |
-    | This option determines how your cookies behave when cross-site requests 
+    | This option determines how your cookies behave when cross-site requests
     | take place and can be used to mitigate CSRF attacks.
     |
     | Cookies that match the domain of the current site, i.e. what's displayed
