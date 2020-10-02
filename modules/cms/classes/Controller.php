@@ -253,9 +253,9 @@ class Controller
         }
 
         /*
-         * Check samesite config
+         * Set a default samesite config for invalid values
          */
-        if (strtolower(Config::get('session.same_site')) === 'lax' || 'strict' || 'none') {
+        if (strtolower(Config::get('session.same_site')) !== 'lax' || 'strict' || 'none') {
            Config::set('session.same_site', 'Lax');
         }
 
