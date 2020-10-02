@@ -253,10 +253,10 @@ class Controller
         }
 
         /*
-         * Set a default samesite config for invalid values
+         * Set a default samesite config value for invalid values
          */
         if (strtolower(Config::get('session.same_site')) !== 'lax' || 'strict' || 'none') {
-           Config::set('session.same_site', 'Lax');
+            Config::set('session.same_site', 'Lax');
         }
 
         /*
