@@ -102,9 +102,9 @@ class ReorderRelationController extends ControllerBehavior
 
         return $this->reorderRelationMakePartial(
             'relation_modal',
-                 $params + [
-                    'container' => $this->reorderRelationMakePartial('container', $params)
-                ]
+            $params + [
+                'container' => $this->reorderRelationMakePartial('container', $params),
+            ]
         );
     }
 
@@ -159,7 +159,7 @@ class ReorderRelationController extends ControllerBehavior
         $this->controller->reorderExtendRelationQuery($query);
 
         return $query
-            ->with([$this->relation => function($q) {
+            ->with([$this->relation => function ($q) {
                 $q->orderBy($this->parentModel->getRelationSortOrderColumn($this->relation), 'ASC');
             }])
             ->findOrFail(post('_reorder_parent_id'))
