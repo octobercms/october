@@ -50,7 +50,10 @@ class ReorderRelationController extends ControllerBehavior
         parent::__construct($controller);
 
         // The configuration is optional for this behavior.
-        $this->config = $this->makeConfig($controller->reorderRelationConfig, []);
+        $this->config = [];
+        if ($controller->reorderRelationConfig) {
+            $this->config = $this->makeConfig($controller->reorderRelationConfig, []);
+        }
     }
 
     //
