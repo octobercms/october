@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title">
+        <?= e(trans('backend::lang.reorder.relation')) ?>
+    </h4>
+</div>
+
+<div class="modal-body">
+    <?= $container ?>
+</div>
+
+<div class="modal-footer">
+    <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup"
+            data-request="onRelationModalClose"
+            data-request-data="
+                _reorder_parent_id: '<?= e($reorderParentId) ?>',
+                _reorder_model: '<?= e(addslashes($reorderModel)) ?>',
+                _reorder_relation: '<?= e($reorderRelation) ?>'
+            ">
+        <?= e(trans('backend::lang.relation.close')) ?>
+    </button>
+</div>

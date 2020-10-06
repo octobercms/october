@@ -351,6 +351,7 @@ return [
     'reorder' => [
         'default_title' => 'Reorder records',
         'no_records' => 'There are no records available to sort.',
+        'relation' => 'Sort related entries',
     ],
     'model' => [
         'name' => 'Model',

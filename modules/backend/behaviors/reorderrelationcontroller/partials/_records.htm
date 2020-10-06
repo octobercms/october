@@ -1,0 +1,13 @@
+<?php foreach ($records as $record): ?>
+
+    <li data-record-id="<?= $record->getKey() ?>"
+        data-record-sort-order="<?= $record->pivot->{$sortColumn} ?>"
+    >
+        <div class="record">
+            <a href="javascript:;" class="move"></a>
+            <span><?= e($this->reorderRelationGetRecordName($record, $relation)) ?></span>
+            <input name="record_ids[]" type="hidden" value="<?= $record->getKey() ?>" />
+        </div>
+    </li>
+
+<?php endforeach ?>

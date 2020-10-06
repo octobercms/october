@@ -295,7 +295,8 @@ return [
     ],
     'reorder' => [
         'default_title' => 'Einträge sortieren',
-        'no_records' => 'Es gibt keine Einträge zum sortieren.'
+        'no_records' => 'Es gibt keine Einträge zum sortieren.',
+        'relation' => 'Sortiere verwandte Einträge',
     ],
     'model' => [
         'name' => "Model",

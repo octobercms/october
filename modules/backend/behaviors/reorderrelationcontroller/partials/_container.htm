@@ -1,0 +1,30 @@
+<!-- Reorder List -->
+<?= Form::open() ?>
+
+    <input type="hidden" name="_reorder_relation" value="<?= e($reorderRelation) ?>">
+    <input type="hidden" name="_reorder_model" value="<?= e($reorderModel) ?>">
+    <input type="hidden" name="_reorder_parent_id" value="<?= e($reorderParentId) ?>">
+
+    <div
+        id="reorderTreeList"
+        class="control-treelist"
+        data-control="treelist"
+        data-handle="> li > .record > a.move"
+        data-stripe-load-indicator>
+        <?php if ($reorderRecords): ?>
+            <ol id="reorderRecords">
+                <?= $this->reorderRelationMakePartial('records', [
+                    'records' => $reorderRecords,
+                    'sortColumn' => $reorderSortColumn,
+                    'relation' => $reorderRelation
+                ]) ?>
+            </ol>
+        <?php else: ?>
+            <p><?= Lang::get('backend::lang.reorder.no_records') ?></p>
+        <?php endif ?>
+    </div>
+<?= Form::close() ?>
+
+<script>
+    $.oc.reorderBehavior.initSorting('simple', 'relation')
+</script>

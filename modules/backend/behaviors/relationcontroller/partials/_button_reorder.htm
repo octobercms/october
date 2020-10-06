@@ -1,0 +1,13 @@
+<a
+        data-control="popup"
+        data-size="huge"
+        data-handler="onRelationButtonReorder"
+        data-request-data="
+            _reorder_parent_id: '<?= e($this->vars['formModel']->id) ?>',
+            _reorder_model: '<?= e(addslashes(get_class($this->vars['formModel']))) ?>',
+            _reorder_relation: '<?= e($this->vars['relationField']) ?>'
+        "
+        href="javascript:;"
+        class="btn btn-sm btn-secondary oc-icon-reorder">
+    <?= e(trans('backend::lang.reorder.default_title')) ?>
+</a>
