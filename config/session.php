@@ -180,8 +180,8 @@ return [
     | meaning the default behaviour will be to restrict cookies to first party
     | contexts only.
     |
-    | Cookies for cross-site usage must specify `SameSite=None` and
-    | `Secure=true` to enable inclusion in third party context.
+    | Cookies for cross-site usage must specify `same_site` as 'None' and `secure`
+    | as `true` to work correctly.
     |
     | Lax - Cookies are allowed to be sent with top-level navigations and will
     | be sent along with GET request initiated by third party website.
