@@ -669,8 +669,9 @@ class RelationController extends ControllerBehavior
             $config->defaultSort = $this->getConfig('view[defaultSort]');
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
-            $config->recordUrl = $this->getConfig('view[recordUrl]', null);
-            $config->customViewPath = $this->getConfig('view[customViewPath]', null);
+            $config->recordUrl = $this->getConfig('view[recordUrl]');
+            $config->customViewPath = $this->getConfig('view[customViewPath]');
+            $config->noRecordsMessage = $this->getConfig('view[noRecordsMessage]');
 
             $defaultOnClick = sprintf(
                 "$.oc.relationBehavior.clickViewListRecord(':%s', '%s', '%s')",
@@ -818,6 +819,7 @@ class RelationController extends ControllerBehavior
             $config->showSorting = $this->getConfig('manage[showSorting]', !$isPivot);
             $config->defaultSort = $this->getConfig('manage[defaultSort]');
             $config->recordsPerPage = $this->getConfig('manage[recordsPerPage]');
+            $config->noRecordsMessage = $this->getConfig('manage[noRecordsMessage]');
 
             if ($this->viewMode == 'single') {
                 $config->showCheckboxes = false;
