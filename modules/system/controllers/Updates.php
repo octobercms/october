@@ -65,6 +65,8 @@ class Updates extends Controller
         if ($this->getAjaxHandler() == 'onExecuteStep') {
             $this->useSecurityToken = false;
         }
+
+        $this->vars['warnings'] = $this->getWarnings();
     }
 
     /**
@@ -73,6 +75,7 @@ class Updates extends Controller
     public function index()
     {
         $this->vars['coreBuild'] = Parameter::get('system::core.build');
+        $this->vars['coreBuildModified'] = Parameter::get('system::core.modified', false);
         $this->vars['projectId'] = Parameter::get('system::project.id');
         $this->vars['projectName'] = Parameter::get('system::project.name');
         $this->vars['projectOwner'] = Parameter::get('system::project.owner');
@@ -225,6 +228,23 @@ class Updates extends Controller
         }
 
         return $contents;
+    }
+
+    protected function getWarnings()
+    {
+        $warnings = [];
+        $missingDependencies = PluginManager::instance()->findMissingDependencies();
+
+        foreach ($missingDependencies as $pluginCode => $plugin) {
+            foreach ($plugin as $missingPluginCode) {
+                $warnings[] = Lang::get('system::lang.updates.update_warnings_plugin_missing', [
+                    'code' => '<strong>' . $missingPluginCode . '</strong>',
+                    'parent_code' => '<strong>' . $pluginCode . '</strong>'
+                ]);
+            }
+        }
+
+        return $warnings;
     }
 
     /**

@@ -4,10 +4,11 @@ use File;
 use Lang;
 use Config;
 use Request;
-use Cms\Helpers\File as FileHelper;
-use October\Rain\Extension\Extendable;
 use ApplicationException;
 use ValidationException;
+use Cms\Helpers\File as FileHelper;
+use October\Rain\Extension\Extendable;
+use October\Rain\Filesystem\PathResolver;
 
 /**
  * The CMS theme asset file class.
@@ -285,14 +286,15 @@ class Asset extends Extendable
             $fileName = $this->fileName;
         }
 
-        // Limit paths to those under the assets directory
         $directory = $this->theme->getPath() . '/' . $this->dirName . '/';
-        $path = realpath($directory . $fileName);
-        if (!starts_with($path, $directory)) {
+        $filePath = $directory . $fileName;
+
+        // Limit paths to those under the theme's assets directory
+        if (!PathResolver::within($filePath, $directory)) {
             return false;
         }
 
-        return $path;
+        return PathResolver::resolve($filePath);
     }
 
     /**

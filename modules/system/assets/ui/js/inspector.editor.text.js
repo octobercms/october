@@ -14,7 +14,7 @@
     TextEditor.prototype.constructor = Base
 
     TextEditor.prototype.setLinkText = function(link, value) {
-        var value = value !== undefined ? value 
+        var value = value !== undefined ? value
                 : this.inspector.getPropertyValue(this.propertyDefinition.property)
 
         if (value === undefined) {
@@ -24,7 +24,7 @@
         if (!value) {
             value = this.propertyDefinition.placeholder
             $.oc.foundation.element.addClass(link, 'placeholder')
-        } 
+        }
         else {
             $.oc.foundation.element.removeClass(link, 'placeholder')
         }
@@ -47,7 +47,8 @@
                 <div class="modal-body">                                                                \
                     <div class="form-group">                                                            \
                         <p class="inspector-field-comment"></p>                                         \
-                        <textarea class="form-control size-small field-textarea" name="name" value=""/> \
+                        <textarea class="form-control size-small field-textarea" name="name">           \
+                        </textarea>                                                                     \
                     </div>                                                                              \
                 </div>                                                                                  \
                 <div class="modal-footer">                                                              \

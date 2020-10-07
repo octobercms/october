@@ -1,6 +1,5 @@
 <?php namespace System\Console;
 
-use App;
 use Lang;
 use File;
 use Config;
@@ -9,8 +8,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use System\Classes\UpdateManager;
 use System\Classes\CombineAssets;
-use Exception;
 use System\Models\Parameter;
+use System\Models\File as FileModel;
 
 /**
  * Console command for other utility commands.
@@ -27,7 +26,6 @@ use System\Models\Parameter;
  * - compile less: Compile registered LESS files only.
  * - compile scss: Compile registered SCSS files only.
  * - compile lang: Compile registered Language files only.
- * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
  * - set project --projectId=<id>: Set the projectId for this october instance.
  *
  * @package october\system
@@ -110,31 +108,10 @@ class OctoberUtil extends Command
 
     protected function utilSetBuild()
     {
-        $this->comment('-');
+        $this->comment('NOTE: This command is now deprecated. Please use "php artisan october:version" instead.');
+        $this->comment('');
 
-        /*
-         * Skip setting the build number if no database is detected to set it within
-         */
-        if (!App::hasDatabase()) {
-            $this->comment('No database detected - skipping setting the build number.');
-            return;
-        }
-
-        try {
-            $build = UpdateManager::instance()->setBuildNumberManually();
-            $this->comment('*** October sets build: '.$build);
-        }
-        catch (Exception $ex) {
-            $this->comment('*** You were kicked from #october by Ex: ('.$ex->getMessage().')');
-        }
-
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
-        sleep(1);
-        $this->comment('Ping? Pong!');
-        $this->comment('-');
+        return $this->call('october:version');
     }
 
     protected function utilCompileJs()
@@ -294,7 +271,66 @@ class OctoberUtil extends Command
             return;
         }
 
-        // @todo
+        $uploadsDisk = Config::get('cms.storage.uploads.disk', 'local');
+        if ($uploadsDisk !== 'local') {
+            $this->error("Purging uploads is only supported on the 'local' disk, current uploads disk is $uploadsDisk");
+            return;
+        }
+
+        $totalCount = 0;
+        $validFiles = FileModel::pluck('disk_name')->all();
+        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app')) . '/' . Config::get('cms.storage.uploads.folder', 'uploads');
+
+        // Recursive function to scan the directory for files and ensure they exist in system_files.
+        $purgeFunc = function ($targetDir) use (&$purgeFunc, &$totalCount, $uploadsPath, $validFiles) {
+            if ($files = File::glob($targetDir.'/*')) {
+                if ($dirs = File::directories($targetDir)) {
+                    foreach ($dirs as $dir) {
+                        $purgeFunc($dir);
+
+                        if (File::isDirectoryEmpty($dir) && is_writeable($dir)) {
+                            rmdir($dir);
+                            $this->info('Removed folder: '. str_replace($uploadsPath, '', $dir));
+                        }
+                    }
+                }
+
+                foreach ($files as $file) {
+                    if (!is_file($file)) {
+                        continue;
+                    }
+
+                    // Skip .gitignore files
+                    if ($file === '.gitignore') {
+                        continue;
+                    }
+
+                    // Skip files unable to be purged
+                    if (!is_writeable($file)) {
+                        $this->warn('Unable to purge file: ' . str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    // Skip valid files
+                    if (in_array(basename($file), $validFiles)) {
+                        $this->warn('Skipped file in use: '. str_replace($uploadsPath, '', $file));
+                        continue;
+                    }
+
+                    unlink($file);
+                    $this->info('Purged: '. str_replace($uploadsPath, '', $file));
+                    $totalCount++;
+                }
+            }
+        };
+
+        $purgeFunc($uploadsPath);
+
+        if ($totalCount > 0) {
+            $this->comment(sprintf('Successfully deleted %d invalid file(s), leaving %d valid files', $totalCount, count($validFiles)));
+        } else {
+            $this->comment('No files found to purge.');
+        }
     }
 
     protected function utilPurgeOrphans()

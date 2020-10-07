@@ -11,7 +11,7 @@
     ## if you have installed to a subdirectory, enter the name here also.
     ##
     # RewriteBase /
-    
+
     ##
     ## Uncomment following lines to force HTTPS.
     ##
@@ -35,8 +35,9 @@
     ##
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteCond %{REQUEST_FILENAME} !/.well-known/*
-    RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/public/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
+    RewriteCond %{REQUEST_FILENAME} !/storage/app/resized/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/temp/public/.*
     RewriteCond %{REQUEST_FILENAME} !/themes/.*/(assets|resources)/.*
     RewriteCond %{REQUEST_FILENAME} !/plugins/.*/(assets|resources)/.*

@@ -106,6 +106,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
         $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');
         $this->vars['paragraphStyles'] = EditorSetting::getConfiguredStyles('html_style_paragraph');
+        $this->vars['paragraphFormats'] = EditorSetting::getConfiguredFormats('html_paragraph_formats');
         $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
         $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
     }

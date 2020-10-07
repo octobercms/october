@@ -1,7 +1,8 @@
 <?php namespace Backend\FormWidgets;
 
-use BackendAuth;
+use Html;
 use Markdown;
+use BackendAuth;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -42,12 +43,12 @@ class MarkdownEditor extends FormWidgetBase
     //
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected $defaultAlias = 'markdown';
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function init()
     {
@@ -60,7 +61,7 @@ class MarkdownEditor extends FormWidgetBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function render()
     {
@@ -84,7 +85,7 @@ class MarkdownEditor extends FormWidgetBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function loadAssets()
     {
@@ -93,12 +94,44 @@ class MarkdownEditor extends FormWidgetBase
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
     }
 
+    /**
+     * Check to see if the generated HTML should be cleaned to remove any potential XSS
+     *
+     * @return boolean
+     */
+    protected function shouldCleanHtml()
+    {
+        $user = BackendAuth::getUser();
+        return !$user || !$user->hasAccess('backend.allow_unsafe_markdown');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSaveValue($value)
+    {
+        if ($this->shouldCleanHtml()) {
+            $value = Html::clean($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * AJAX handler to render the markdown as HTML
+     *
+     * @return array ['preview' => $generatedHTML]
+     */
     public function onRefresh()
     {
         $value = post($this->getFieldName());
         $previewHtml = $this->safe
             ? Markdown::parseSafe($value)
             : Markdown::parse($value);
+
+        if ($this->shouldCleanHtml()) {
+            $previewHtml = Html::clean($previewHtml);
+        }
 
         return [
             'preview' => $previewHtml

@@ -333,7 +333,24 @@ class AutoDatasource extends Datasource implements DatasourceInterface
     public function selectOne(string $dirName, string $fileName, string $extension)
     {
         try {
-            $result = $this->getDatasourceForPath($this->makeFilePath($dirName, $fileName, $extension))->selectOne($dirName, $fileName, $extension);
+            $path = $this->makeFilePath($dirName, $fileName, $extension);
+            $result = $this->getDatasourceForPath($path)->selectOne($dirName, $fileName, $extension);
+
+            // if result = null, this means that
+            // - a: The requested record doesn't exist
+            // - b: The requested record exists, but is marked deleted
+            // - c: The requested record is reported to exist in a datasource that it doesn't actually exist in
+            if (is_null($result)) {
+                foreach ($this->pathCache as $paths) {
+                    // If the path is reported to exist here (and isn't marked deleted) even though the previous attempt
+                    // returned nothing, then the paths cache needs to be rebuilt and we should try again
+                    if (@$paths[$path]) {
+                        $this->populateCache(true);
+                        $result = $this->getDatasourceForPath($path)->selectOne($dirName, $fileName, $extension);
+                        break;
+                    }
+                }
+            }
         } catch (Exception $ex) {
             $result = null;
         }

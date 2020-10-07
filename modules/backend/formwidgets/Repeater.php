@@ -248,16 +248,6 @@ class Repeater extends FormWidgetBase
             }
         }
 
-        if (!$this->childAddItemCalled && $currentValue === null) {
-            $this->formWidgets = [];
-            return;
-        }
-
-        if ($this->childAddItemCalled && !isset($currentValue[$this->childIndexCalled])) {
-            // If no value is available but a child repeater has added an item, add a "stub" repeater item
-            $this->makeItemFormWidget($this->childIndexCalled);
-        }
-
         // Ensure that the minimum number of items are preinitialized
         // ONLY DONE WHEN NOT IN GROUP MODE
         if (!$this->useGroups && $this->minItems > 0) {
@@ -271,6 +261,16 @@ class Repeater extends FormWidgetBase
                     $currentValue[] = [];
                 }
             }
+        }
+
+        if (!$this->childAddItemCalled && $currentValue === null) {
+            $this->formWidgets = [];
+            return;
+        }
+
+        if ($this->childAddItemCalled && !isset($currentValue[$this->childIndexCalled])) {
+            // If no value is available but a child repeater has added an item, add a "stub" repeater item
+            $this->makeItemFormWidget($this->childIndexCalled);
         }
 
         if (!is_array($currentValue)) {

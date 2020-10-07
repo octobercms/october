@@ -57,8 +57,6 @@ class AssetList extends WidgetBase
         parent::__construct($controller, []);
 
         $this->bindToController();
-
-        $this->checkUploadPostback();
     }
 
     /**
@@ -622,10 +620,12 @@ class AssetList extends WidgetBase
     }
 
     /**
-     * Checks the current request to see if it is a postback containing a file upload
-     * for this particular widget.
+     * Process file uploads submitted via AJAX
+     *
+     * @return void
+     * @throws ApplicationException If the file "file_data" wasn't detected in the request or if the file failed to pass validation / security checks
      */
-    protected function checkUploadPostback()
+    public function onUpload()
     {
         $fileName = null;
 

@@ -9,6 +9,7 @@ return [
         'invalid_type' => 'Invalid field type used :type.',
         'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
         'options_method_not_exists' => "The model class :model must define a method :method() returning options for the ':field' form field.",
+        'options_static_method_invalid_value' => "The static method ':method()' on :class did not return a valid options array.",
         'colors_method_not_exists' => "The model class :model must define a method :method() returning html color HEX codes for the ':field' form field.",
     ],
     'widget' => [
@@ -406,6 +407,7 @@ return [
         'label' => 'Label',
         'class_name' => 'Class name',
         'markup_tags' => 'Markup Tags',
+        'markup_tag' => 'Markup Tag',
         'allowed_empty_tags' => 'Allowed empty tags',
         'allowed_empty_tags_comment' => 'The list of tags that are not removed when they have no content inside.',
         'allowed_tags' => 'Allowed tags',
@@ -416,6 +418,7 @@ return [
         'remove_tags_comment' => 'The list of tags that are removed together with their content.',
         'line_breaker_tags' => 'Line breaker tags',
         'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
+        'toolbar_options' => 'Toolbar Options',
         'toolbar_buttons' => 'Toolbar Buttons',
         'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default.',
         'toolbar_buttons_preset' => 'Insert a preset toolbar button configuration:',
@@ -424,6 +427,8 @@ return [
             'minimal' => 'Minimal',
             'full' => 'Full',
         ],
+        'paragraph_formats' => 'Paragraph Formats',
+        'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown.',
     ],
     'tooltips' => [
         'preview_website' => 'Preview the website',
@@ -567,6 +572,7 @@ return [
     ],
     'permissions' => [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
+        'allow_unsafe_markdown' => 'Use unsafe Markdown (Can include Javascript)',
     ],
     'mediafinder' => [
         'label' => 'Media Finder',

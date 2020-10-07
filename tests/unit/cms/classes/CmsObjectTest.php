@@ -6,6 +6,8 @@ use Cms\Classes\Theme;
 class TestCmsObject extends CmsObject
 {
     protected $dirName = 'testobjects';
+
+    protected $allowedExtensions = ['htm', 'html'];
 }
 
 class TestTemporaryCmsObject extends CmsObject
@@ -23,7 +25,7 @@ class CmsObjectTest extends TestCase
         $this->assertEquals('<p>This is a test HTML content file.</p>', $obj->getContent());
         $this->assertEquals('plain.html', $obj->getFileName());
 
-        $path = $theme->getPath().'/testobjects/plain.html';
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $theme->getPath().'/testobjects/plain.html');
         $this->assertEquals($path, $obj->getFilePath());
         $this->assertEquals(filemtime($path), $obj->mtime);
     }
@@ -36,7 +38,7 @@ class CmsObjectTest extends TestCase
         $this->assertEquals('<p>This is an object in a subdirectory.</p>', $obj->getContent());
         $this->assertEquals('subdir/obj.html', $obj->getFileName());
 
-        $path = $theme->getPath().'/testobjects/subdir/obj.html';
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $theme->getPath().'/testobjects/subdir/obj.html');
         $this->assertEquals($path, $obj->getFilePath());
         $this->assertEquals(filemtime($path), $obj->mtime);
     }
@@ -148,12 +150,11 @@ class CmsObjectTest extends TestCase
         $this->assertNull($obj->something);
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileNameSymbol()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -164,12 +165,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileNamePath()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -180,12 +180,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage Invalid file name
-     */
     public function testFillInvalidFileSlash()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('Invalid file name');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -196,12 +195,11 @@ class CmsObjectTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @expectedException        \October\Rain\Exception\ValidationException
-     * @expectedExceptionMessage The File Name field is required
-     */
     public function testFillEmptyFileName()
     {
+        $this->expectException(\October\Rain\Exception\ValidationException::class);
+        $this->expectExceptionMessage('The File Name field is required');
+
         $theme = Theme::load('apitest');
 
         $testContents = 'mytestcontent';
@@ -266,11 +264,12 @@ class CmsObjectTest extends TestCase
 
     /**
      * @depends testRename
-     * @expectedException        \October\Rain\Exception\ApplicationException
-     * @expectedExceptionMessage already exists
      */
     public function testRenameToExistingFile()
     {
+        $this->expectException(\October\Rain\Exception\ApplicationException::class);
+        $this->expectExceptionMessageMatches('/already\sexists/');
+
         $theme = Theme::load('apitest');
 
         $srcFilePath = $theme->getPath().'/testobjects/anotherobj.htm';

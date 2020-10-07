@@ -4,6 +4,7 @@ use Lang;
 use Flash;
 use Backend;
 use Redirect;
+use Response;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserGroup;

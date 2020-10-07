@@ -250,6 +250,8 @@ return [
         'no_records' => 'Geen componenten gevonden',
         'not_found' => 'Het component \':name\' is niet gevonden.',
         'method_not_found' => 'Het component \':name\' bevat geen \':method\' methode.',
+        'soft_component' => 'Soft Component',
+        'soft_component_description' => 'Dit component ontbreekt, maar is optioneel.',
     ],
     'template' => [
         'invalid_type' => 'Onbekend type template.',

@@ -331,6 +331,8 @@ return [
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'core_set_build' => 'Setting build number',
+        'update_warnings_title' => 'Some issues have been detected and require attention:',
+        'update_warnings_plugin_missing' => 'The :parent_code plugin requires :code to be installed before it will work',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'View details',
         'plugins' => 'Plugins',
