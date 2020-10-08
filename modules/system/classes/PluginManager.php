@@ -844,20 +844,22 @@ class PluginManager
      */
     public function deletePlugin($id)
     {
+        $code = $this->normalizeIdentifier($id);
+
         /*
          * Rollback plugin
          */
-        UpdateManager::instance()->rollbackPlugin($id);
+        UpdateManager::instance()->rollbackPlugin($code);
 
         /*
          * Delete from file system
          */
-        if ($pluginPath = self::instance()->getPluginPath($id)) {
+        if ($pluginPath = self::instance()->getPluginPath($code)) {
             File::deleteDirectory($pluginPath);
         }
 
         // actually remove the plugin from our internal container
-        unset($this->plugins[ $this->normalizeIdentifier($id) ]);
+        unset($this->plugins[$code]);
     }
 
     /**
