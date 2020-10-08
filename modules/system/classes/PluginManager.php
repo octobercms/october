@@ -857,7 +857,7 @@ class PluginManager
         }
 
         // actually remove the plugin from our internal container
-        unset($this->plugins[$id]);
+        unset($this->plugins[ $this->normalizeIdentifier($id) ]);
     }
 
     /**
