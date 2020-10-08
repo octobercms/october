@@ -12,6 +12,7 @@ use Response;
 use BackendMenu;
 use Cms\Classes\ThemeManager;
 use Backend\Classes\Controller;
+use System\Models\MailTemplate;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\UpdateManager;
@@ -876,6 +877,9 @@ class Updates extends Controller
                 }
             }
         }
+
+        // Make sure orphaned mail templates get purged
+        MailTemplate::syncAll();
 
         Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
         return $this->listRefresh('manage');
