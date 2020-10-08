@@ -855,6 +855,9 @@ class PluginManager
         if ($pluginPath = self::instance()->getPluginPath($id)) {
             File::deleteDirectory($pluginPath);
         }
+
+        // actually remove the plugin from our internal container
+        unset($this->plugins[$id]);
     }
 
     /**
