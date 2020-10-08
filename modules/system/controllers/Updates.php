@@ -811,6 +811,8 @@ class Updates extends Controller
     {
         if ($pluginCode = post('code')) {
             PluginManager::instance()->deletePlugin($pluginCode);
+            // purge orphaned mail templates
+            MailTemplate::syncAll();
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
         }
 
@@ -878,8 +880,11 @@ class Updates extends Controller
             }
         }
 
-        // Make sure orphaned mail templates get purged
-        MailTemplate::syncAll();
+        if (in_array($bulkAction, ['disable', 'remove'])) {
+            // purge orphaned mail templates
+            MailTemplate::syncAll();
+        }
+
 
         Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
         return $this->listRefresh('manage');
