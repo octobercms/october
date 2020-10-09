@@ -343,7 +343,6 @@ class ServiceProvider extends ModuleServiceProvider
                 'panel' => 'system::mail.partial-panel',
                 'table' => 'system::mail.partial-table',
                 'subcopy' => 'system::mail.partial-subcopy',
-
                 'promotion' => 'system::mail.partial-promotion',
             ]);
         });
