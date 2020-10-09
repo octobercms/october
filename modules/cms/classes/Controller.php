@@ -253,13 +253,6 @@ class Controller
         }
 
         /*
-         * Set a default samesite config value for invalid values
-         */
-        if (!in_array(strtolower(Config::get('session.same_site')), ['lax', 'strict', 'none'])) {
-            Config::set('session.same_site', 'Lax');
-        }
-
-        /*
          * Prepare and return response
          * @see \System\Traits\ResponseMaker
          */
