@@ -73,9 +73,9 @@ Before sending or reviewing Pull Requests, be sure to review the [Contributing G
 
 Please follow the following guides and code standards:
 
-* [PSR 4 Coding Standards](https://github.com/php-fig/fig-standards/blob/develop/accepted/PSR-4-autoloader.md)
-* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/develop/accepted/PSR-2-coding-style-guide.md)
-* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/develop/accepted/PSR-1-basic-coding-standard.md)
+* [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+* [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 
 ### Code of Conduct
 
