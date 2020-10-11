@@ -2,7 +2,6 @@
 
 use App;
 use File;
-use View;
 use Twig\Source as TwigSource;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Exception;
@@ -15,6 +14,11 @@ use Exception;
  */
 class Loader implements TwigLoaderInterface
 {
+    /**
+     * @var string Expected file extension
+     */
+    protected $extension = 'htm';
+
     /**
      * @var array Cache
      */
@@ -33,13 +37,18 @@ class Loader implements TwigLoaderInterface
             return $this->cache[$name];
         }
 
+        $view = $name;
+        if (File::extension($view) === $this->extension) {
+            $view = substr($view, 0, -strlen($this->extension));
+        }
+
         $path = $finder->find($name);
         return $this->cache[$name] = $path;
     }
 
     public function getSourceContext($name)
     {
-        return new TwigSource((string) View::make($name), $name);
+        return new TwigSource(File::get($this->findTemplate($name)), $name);
     }
 
     public function getCacheKey($name)
