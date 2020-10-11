@@ -240,4 +240,12 @@ class PluginManagerTest extends TestCase
         $result = $this->manager->exists('Unknown.Plugin');
         $this->assertFalse($result);
     }
+
+    public function testNormalizeIdentifier()
+    {
+        $id = 'october.sample';
+        $code = $this->manager->normalizeIdentifier($id);
+
+        $this->assertEquals('October.Sample', $code);
+    }
 }
