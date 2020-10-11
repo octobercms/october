@@ -199,7 +199,7 @@ class Page extends CmsCompoundObject
 
             $page = self::loadCached($theme, $item->reference);
 
-            // remove hidden cms pages from menus
+            // Remove hidden CMS pages from menus when backend user is logged out
             if ($page && $page->is_hidden && !BackendAuth::getUser()) {
                 return;
             }
