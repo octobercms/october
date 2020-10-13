@@ -319,6 +319,21 @@ class NavigationManager
         $this->items[$itemKey]->addSideMenuItem($item);
         return true;
     }
+    
+    /**
+     * Remove multiple side menu items
+     *
+     * @param string $owner
+     * @param string $code
+     * @param array  $sideCodes
+     * @return void
+     */
+    public function removeSideMenuItems($owner, $code, $sideCodes)
+    {
+        foreach ($sideCodes as $sideCode) {
+            $this->removeSideMenuItem($owner, $code, $sideCode);
+        }
+    }
 
     /**
      * Removes a single main menu item
