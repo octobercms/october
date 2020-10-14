@@ -24,6 +24,7 @@ use System\Twig\Extension as TwigExtension;
 use System\Twig\SecurityPolicy as TwigSecurityPolicy;
 use System\Models\EventLog;
 use System\Models\MailSetting;
+use System\Models\MailTemplate;
 use System\Classes\CombineAssets;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
@@ -59,6 +60,13 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerAssetBundles();
         $this->registerValidator();
         $this->registerGlobalViewVars();
+
+        Event::listen('system.plugins.afterUpdate', function ($action) {
+            if (in_array($action, ['disable', 'remove'])) {
+                // purge orphaned mail templates
+                MailTemplate::syncAll();
+            }
+        });
 
         /*
          * Register other module providers

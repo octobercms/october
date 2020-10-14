@@ -1,5 +1,6 @@
 <?php namespace System\Controllers;
 
+use Event;
 use Lang;
 use Html;
 use Yaml;
@@ -811,9 +812,8 @@ class Updates extends Controller
     {
         if ($pluginCode = post('code')) {
             PluginManager::instance()->deletePlugin($pluginCode);
-            // purge orphaned mail templates
-            MailTemplate::syncAll();
             Flash::success(Lang::get('system::lang.plugins.remove_success'));
+            Event::fire('system.plugins.afterUpdate', ['remove']);
         }
 
         return Redirect::refresh();
@@ -880,11 +880,7 @@ class Updates extends Controller
             }
         }
 
-        if (in_array($bulkAction, ['disable', 'remove'])) {
-            // purge orphaned mail templates
-            MailTemplate::syncAll();
-        }
-
+        Event::fire('system.plugins.afterUpdate', [$bulkAction]);
 
         Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
         return $this->listRefresh('manage');
