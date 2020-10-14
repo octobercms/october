@@ -856,7 +856,7 @@ class PluginManager
             File::deleteDirectory($pluginPath);
         }
 
-        // actually remove the plugin from our internal container
+        // Remove the plugin from the internal container
         $code = $this->normalizeIdentifier($id);
         unset($this->plugins[$code]);
     }
