@@ -11,6 +11,7 @@
         var $el = this.$el = $(element);
 
         this.options = options || {};
+        this.sortOrders = []
 
         var scrollClassContainer = options.scrollClassContainer !== undefined
             ? options.scrollClassContainer
@@ -21,6 +22,17 @@
             scrollSelector: 'thead',
             dragSelector: 'thead'
         })
+
+        if (element.dataset.hasOwnProperty('sortable')) {
+            this.$el.find('.control-list-tbody').listSortable({
+                handle: '.drag-handle'
+            })
+            this.$el.on('dragged.list.sorted', $.proxy(this.processReorder, this))
+
+            this.$el.find('[data-record-sort-order]').each(function (index, el) {
+                this.sortOrders.push(el.dataset.recordSortOrder)
+            }.bind(this))
+        }
 
         this.update()
     }
@@ -84,6 +96,15 @@
     ListWidget.prototype.toggleChecked = function(el) {
         var $checkbox = $('.list-checkbox input[type="checkbox"]', $(el).closest('tr'))
         $checkbox.prop('checked', !$checkbox.is(':checked')).trigger('change')
+    }
+
+    ListWidget.prototype.processReorder = function() {
+        var relation = this.$el.data('sortableRelation')
+        var handler = relation ? 'onReorderRelation' : 'onReorder'
+
+        this.$el.request(handler, {
+            data: { sort_orders: this.sortOrders, _reorder_relation_name: relation }
+        })
     }
 
     // LIST WIDGET PLUGIN DEFINITION

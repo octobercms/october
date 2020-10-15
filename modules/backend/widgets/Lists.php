@@ -6,6 +6,7 @@ use Lang;
 use Backend;
 use DbDongle;
 use Carbon\Carbon;
+use October\Rain\Database\Traits\SortableRelation;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
@@ -67,6 +68,11 @@ class Lists extends WidgetBase
      * @var bool Shows the sorting options for each column.
      */
     public $showSorting = true;
+
+    /**
+     * @var bool Makes this list sortable in-place.
+     */
+    public $sortable = false;
 
     /**
      * @var mixed A default sort column to look for.
@@ -182,6 +188,26 @@ class Lists extends WidgetBase
     protected $sortDirection;
 
     /**
+     * @var string Name of the relation to sort.
+     */
+    protected $reorderRelation;
+
+    /**
+     * @var string Class path of the model to sort.
+     */
+    protected $reorderModel;
+
+    /**
+     * @var string ID of the parent model (used when sorting relations).
+     */
+    protected $reorderParentId;
+
+    /**
+     * @var string Column to sort by.
+     */
+    protected $reorderColumn;
+
+    /**
      * @var array List of CSS classes to apply to the list container element
      */
     public $cssClasses = [];
@@ -199,6 +225,10 @@ class Lists extends WidgetBase
             'noRecordsMessage',
             'showPageNumbers',
             'recordsPerPage',
+            'sortable',
+            'reorderRelation',
+            'reorderModel',
+            'reorderParentId',
             'showSorting',
             'defaultSort',
             'showCheckboxes',
@@ -226,6 +256,15 @@ class Lists extends WidgetBase
 
         $this->validateModel();
         $this->validateTree();
+
+        if ($this->sortable) {
+            $this->addJs('/modules/system/assets/ui/js/list.sortable.js', 'core');
+            $this->showSorting = false;
+
+            /** @var SortableRelation $modelInstance */
+            $modelInstance = new $this->reorderModel;
+            $this->reorderColumn = $modelInstance->getRelationSortOrderColumn($this->reorderRelation);
+        }
     }
 
     /**
@@ -260,6 +299,10 @@ class Lists extends WidgetBase
         $this->vars['showPagination'] = $this->showPagination;
         $this->vars['showPageNumbers'] = $this->showPageNumbers;
         $this->vars['showSorting'] = $this->showSorting;
+        $this->vars['sortable'] = $this->sortable;
+        $this->vars['reorderModel'] = $this->reorderModel;
+        $this->vars['reorderRelation'] = $this->reorderRelation;
+        $this->vars['reorderParentId'] = $this->reorderParentId;
         $this->vars['sortColumn'] = $this->getSortColumn();
         $this->vars['sortDirection'] = $this->sortDirection;
         $this->vars['showTree'] = $this->showTree;
@@ -536,6 +579,12 @@ class Lists extends WidgetBase
                 $sortColumn = $column->relation . '_count';
             }
 
+            // Fix the sort order if this list has sortable set to true.
+            if ($this->sortable) {
+                $sortColumn = $this->reorderColumn;
+                $this->sortDirection = 'ASC';
+            }
+
             $query->orderBy($sortColumn, $this->sortDirection);
         }
 
@@ -773,6 +822,17 @@ class Lists extends WidgetBase
         if (!isset($this->columns) || !is_array($this->columns) || !count($this->columns)) {
             $class = get_class($this->model instanceof Model ? $this->model : $this->controller);
             throw new ApplicationException(Lang::get('backend::lang.list.missing_columns', compact('class')));
+        }
+
+        if ($this->sortable) {
+            $this->allColumns['sort_handle'] = $this->makeListColumn('sort_handle', [
+               'label' => '',
+               'path' => '~/modules/backend/widgets/lists/partials/_list_sort_handle.htm',
+               'type' => 'partial',
+               'width' => '20px',
+               'sortable' => false,
+               'clickable' => false,
+            ]);
         }
 
         $this->addColumns($this->columns);

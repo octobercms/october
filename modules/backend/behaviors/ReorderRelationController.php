@@ -77,7 +77,7 @@ class ReorderRelationController extends ControllerBehavior
         }
 
         /** @var SortableRelation $instance */
-        $instance = $this->parentModel->newQuery()->find(post('_reorder_parent_id'));
+        $instance = $this->parentModel->newQuery()->find($this->postValue('_reorder_parent_id'));
         $instance->setRelationOrder($this->relation, $ids, $orders);
     }
 
@@ -96,7 +96,7 @@ class ReorderRelationController extends ControllerBehavior
         $params = [
             'reorderRelation' => $this->relation,
             'reorderModel' => get_class($this->parentModel),
-            'reorderParentId' => post('_reorder_parent_id'),
+            'reorderParentId' => $this->postValue('_reorder_parent_id'),
             'reorderSortColumn' => $this->parentModel->getRelationSortOrderColumn($this->relation),
         ];
 
@@ -117,7 +117,7 @@ class ReorderRelationController extends ControllerBehavior
         $this->reorderGetModel();
 
         $this->controller->initRelation(
-            $this->parentModel->newQuery()->findOrFail(post('_reorder_parent_id')),
+            $this->parentModel->newQuery()->findOrFail($this->postValue('_reorder_parent_id')),
             $this->relation
         );
 
@@ -136,7 +136,7 @@ class ReorderRelationController extends ControllerBehavior
     public function reorderGetModel()
     {
         $this->parentModel = $this->reorderGetParentModel();
-        $this->relation = post('_reorder_relation');
+        $this->relation = $this->postValue('_reorder_relation');
 
         $relationModelClass = array_get($this->parentModel->getRelationDefinition($this->relation), 0);
         if (!$relationModelClass) {
@@ -162,7 +162,7 @@ class ReorderRelationController extends ControllerBehavior
             ->with([$this->relation => function ($q) {
                 $q->orderBy($this->parentModel->getRelationSortOrderColumn($this->relation), 'ASC');
             }])
-            ->findOrFail(post('_reorder_parent_id'))
+            ->findOrFail($this->postValue('_reorder_parent_id'))
             ->{$this->relation};
     }
 
@@ -195,7 +195,7 @@ class ReorderRelationController extends ControllerBehavior
      */
     public function reorderGetParentModel()
     {
-        $model = post('_reorder_model');
+        $model = $this->postValue('_reorder_model');
 
         if (!class_exists($model)) {
             throw new ApplicationException(
@@ -260,5 +260,19 @@ class ReorderRelationController extends ControllerBehavior
         }
 
         return $contents;
+    }
+
+    /**
+     * Fetch a post value for the current relation.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    private function postValue(string $key)
+    {
+        $relation = post('_reorder_relation_name');
+
+        return post($key. '.' . $relation);
     }
 }

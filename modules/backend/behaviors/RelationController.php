@@ -667,6 +667,10 @@ class RelationController extends ControllerBehavior
             $config->alias = $this->alias . 'ViewList';
             $config->showSorting = $this->getConfig('view[showSorting]', true);
             $config->defaultSort = $this->getConfig('view[defaultSort]');
+            $config->sortable = $this->getConfig('view[sortable]', false);
+            $config->reorderRelation = $this->relationName;
+            $config->reorderModel = get_class($this->model);
+            $config->reorderParentId = $this->model->getKey();
             $config->recordsPerPage = $this->getConfig('view[recordsPerPage]');
             $config->showCheckboxes = $this->getConfig('view[showCheckboxes]', !$this->readOnly);
             $config->recordUrl = $this->getConfig('view[recordUrl]', null);

@@ -1,9 +1,10 @@
 <!-- Reorder List -->
 <?= Form::open() ?>
 
-    <input type="hidden" name="_reorder_relation" value="<?= e($reorderRelation) ?>">
-    <input type="hidden" name="_reorder_model" value="<?= e($reorderModel) ?>">
-    <input type="hidden" name="_reorder_parent_id" value="<?= e($reorderParentId) ?>">
+    <input type="hidden" name="_reorder_relation_name" value="<?= e($reorderRelation) ?>">
+    <input type="hidden" name="_reorder_relation[<?= e($reorderRelation) ?>]" value="<?= e($reorderRelation) ?>">
+    <input type="hidden" name="_reorder_model[<?= e($reorderRelation) ?>]" value="<?= e($reorderModel) ?>">
+    <input type="hidden" name="_reorder_parent_id[<?= e($reorderRelation) ?>]" value="<?= e($reorderParentId) ?>">
 
     <div
         id="reorderTreeList"

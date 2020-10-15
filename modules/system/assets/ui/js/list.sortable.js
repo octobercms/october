@@ -1,6 +1,6 @@
 /*
  * Sortable plugin.
- * 
+ *
  * Status: experimental. The behavior is not perfect, but it's OK in terms of memory
  * usage and disposing.
  *
@@ -8,7 +8,7 @@
  * functionality. The plugin uses only HTML5 Drag&Drop feature and completely
  * disposable.
  *
- * During the dragging the plugin creates a placeholder element, which should be 
+ * During the dragging the plugin creates a placeholder element, which should be
  * styled separately.
  *
  * Draggable elements should be marked with "draggable" HTML5 attribute.
@@ -18,7 +18,7 @@
  * [x] Sorting a single list.
  * [ ] Dragging items between multiple lists.
  * [ ] Sorting nested lists.
- 
+
  * JAVASCRIPT API
  *
  * $('#list').listSortable({})
@@ -29,7 +29,7 @@
  * <ul data-control="list-sortable">
  *     <li draggable="true">...</li>
  *
- * Multiple lists will not support this option and the plugin should be created 
+ * Multiple lists will not support this option and the plugin should be created
  * and updated by a caller code.
  *
  * Options:
@@ -38,6 +38,7 @@
  *
  * Events:
  * - dragged.list.sortable - triggered on a list element after it was moved
+ * - dragged.list.sorted - triggered on a list after the drag action finished
  */
 
 +function ($) { "use strict";
@@ -86,23 +87,23 @@
     ListSortable.prototype.registerListHandlers = function(list) {
         var $list = $(list)
 
-        $list.on('dragstart', '> li', this.proxy(this.onDragStart))
-        $list.on('dragover', '> li', this.proxy(this.onDragOver))
-        $list.on('dragenter', '> li', this.proxy(this.onDragEnter))
-        $list.on('dragleave', '> li', this.proxy(this.onDragLeave))
-        $list.on('drop', '> li', this.proxy(this.onDragDrop))
-        $list.on('dragend', '> li', this.proxy(this.onDragEnd))
+        $list.on('dragstart', '> *', this.proxy(this.onDragStart))
+        $list.on('dragover', '> *', this.proxy(this.onDragOver))
+        $list.on('dragenter', '> *', this.proxy(this.onDragEnter))
+        $list.on('dragleave', '> *', this.proxy(this.onDragLeave))
+        $list.on('drop', '> *', this.proxy(this.onDragDrop))
+        $list.on('dragend', '> *', this.proxy(this.onDragEnd))
     }
 
     ListSortable.prototype.unregisterListHandlers = function(list) {
         var $list = $(list)
 
-        $list.off('dragstart', '> li', this.proxy(this.onDragStart))
-        $list.off('dragover', '> li', this.proxy(this.onDragOver))
-        $list.off('dragenter', '> li', this.proxy(this.onDragEnter))
-        $list.off('dragleave', '> li', this.proxy(this.onDragLeave))
-        $list.off('drop', '> li', this.proxy(this.onDragDrop))
-        $list.off('dragend', '> li', this.proxy(this.onDragEnd))
+        $list.off('dragstart', '> *', this.proxy(this.onDragStart))
+        $list.off('dragover', '> *', this.proxy(this.onDragOver))
+        $list.off('dragenter', '> *', this.proxy(this.onDragEnter))
+        $list.off('dragleave', '> *', this.proxy(this.onDragLeave))
+        $list.off('drop', '> *', this.proxy(this.onDragDrop))
+        $list.off('dragend', '> *', this.proxy(this.onDragEnd))
     }
 
     ListSortable.prototype.unregisterHandlers = function() {
@@ -152,7 +153,7 @@
     }
 
     ListSortable.prototype.isDragStartAllowed = function(element) {
-        // TODO: if handle selector is specified - test if 
+        // TODO: if handle selector is specified - test if
         // the element is a handle.
 
         return true
@@ -168,7 +169,6 @@
         }
 
         elementsIdCounter++
-        var elementId = elementsIdCounter
 
         element.setAttribute('data-list-sortable-element-id', elementsIdCounter)
 
@@ -189,7 +189,7 @@
 
     ListSortable.prototype.removePlaceholders = function() {
         for (var i=this.lists.length-1; i >= 0; i--) {
-            var list = this.lists[i], 
+            var list = this.lists[i],
                 placeholders = list.querySelectorAll('.list-sortable-placeholder')
 
             for (var j=placeholders.length-1; j >= 0; j--) {
@@ -199,7 +199,7 @@
     }
 
     ListSortable.prototype.createPlaceholder = function(element, ev) {
-        var placeholder = document.createElement('li'),
+        var placeholder = document.createElement(element.tagName),
             placement = this.getPlaceholderPlacement(element, ev)
 
         this.removePlaceholders()
@@ -293,7 +293,7 @@
         var current = element
 
         while (current) {
-            if (current.tagName === 'LI' && current.hasAttribute('draggable') ) {
+            if (current.hasAttribute('draggable')) {
                 return current
             }
 
@@ -320,9 +320,9 @@
         // the dragend for removing the placeholders because dragend
         // is triggered before drop, but we need placeholder to exists
         // in the drop handler.
-        // 
+        //
         // Mouse events are suppressed during the drag and drop operations,
-        // so we only need to handle it once (but we still must the handler 
+        // so we only need to handle it once (but we still must the handler
         // explicitly).
         $(document).on('mousemove', this.proxy(this.onDocumentMouseMove))
 
@@ -395,6 +395,10 @@
 
     ListSortable.prototype.onDragEnd = function(ev) {
         $(document).off('dragover', this.proxy(this.onDocumentDragOver))
+        var list = $(ev.target).closest('[data-sortable]')
+        if (list) {
+            list.trigger('dragged.list.sorted')
+        }
     }
 
     ListSortable.prototype.onDocumentDragOver = function(ev) {
@@ -436,7 +440,7 @@
                 $this.data('oc.listSortable', (data = new ListSortable(this, options)))
             }
 
-            if (typeof option == 'string' && data) { 
+            if (typeof option == 'string' && data) {
                 if (data[option]) {
                     var methodArguments = Array.prototype.slice.call(args) // Clone the arguments array
                     methodArguments.shift()

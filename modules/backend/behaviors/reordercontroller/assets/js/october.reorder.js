@@ -6,7 +6,6 @@
  * - Nested sorting: Post back source and target nodes IDs and the move positioning.
  */
 +function ($) { "use strict";
-
     var ReorderBehavior = function() {
 
         this.sortMode = null

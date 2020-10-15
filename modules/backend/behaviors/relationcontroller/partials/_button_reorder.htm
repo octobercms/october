@@ -1,11 +1,13 @@
+<?php $relationName = $this->vars['relationField']; ?>
 <a
         data-control="popup"
         data-size="huge"
         data-handler="onRelationButtonReorder"
         data-request-data="
-            _reorder_parent_id: '<?= e($this->vars['formModel']->id) ?>',
-            _reorder_model: '<?= e(addslashes(get_class($this->vars['formModel']))) ?>',
-            _reorder_relation: '<?= e($this->vars['relationField']) ?>'
+            _reorder_parent_id[<?= e($relationName) ?>]: '<?= e($this->vars['formModel']->id) ?>',
+            _reorder_model[<?= e($relationName) ?>]: '<?= e(addslashes(get_class($this->vars['formModel']))) ?>',
+            _reorder_relation[<?= e($relationName) ?>]: '<?= e($relationName) ?>',
+            _reorder_relation_name: '<?= e($relationName) ?>'
         "
         href="javascript:;"
         class="btn btn-sm btn-secondary oc-icon-reorder">

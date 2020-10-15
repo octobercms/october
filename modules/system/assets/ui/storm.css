@@ -4308,6 +4308,8 @@ th {text-align:left}
 .table >thead:first-child >tr:first-child >td {border-top:0}
 .table >tbody + tbody {border-top:2px solid #ddd}
 .table .table {background-color:#f9f9f9}
+.table .list-sortable-placeholder {display:block;position:relative;height:0}
+.table .list-sortable-placeholder:before {display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f054";font-size:15px;color:#d35714;left:0;top:-9px;z-index:2000}
 .table-condensed >thead >tr >th,
 .table-condensed >tbody >tr >th,
 .table-condensed >tfoot >tr >th,

@@ -3,7 +3,7 @@
     $childRecords = $showTree ? $record->getChildren() : null;
     $treeLevelClass = $showTree ? 'list-tree-level-'.$treeLevel : '';
 ?>
-<tr class="<?= $treeLevelClass ?> <?= $this->getRowClass($record) ?>">
+<tr class="<?= $treeLevelClass ?> <?= $this->getRowClass($record) ?>" <?= $sortable ? 'draggable="true"' : '' ?>>
     <?php if ($showCheckboxes): ?>
         <?= $this->makePartial('list_body_checkbox', ['record' => $record]) ?>
     <?php endif ?>

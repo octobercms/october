@@ -56,6 +56,22 @@ th {
     .table {
         background-color: @body-bg;
     }
+
+    .list-sortable-placeholder {
+        display: block;
+        position: relative;
+        height: 0;
+        &:before {
+            display: block;
+            position: absolute;
+            .icon(@chevron-right);
+            font-size: 15px;
+            color: #d35714;
+            left: 0;
+            top: -9px;
+            z-index: 2000;
+        }
+    }
 }
 
 
