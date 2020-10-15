@@ -631,6 +631,7 @@ class PluginManager
         if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = true;
         }
+        Event::fire('system.plugins.afterDisable', [$code]);
 
         return true;
     }
@@ -661,6 +662,7 @@ class PluginManager
         if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = false;
         }
+        Event::fire('system.plugins.afterEnable', [$code]);
 
         return true;
     }
@@ -859,6 +861,8 @@ class PluginManager
         // Remove the plugin from the internal container
         $code = $this->normalizeIdentifier($id);
         unset($this->plugins[$code]);
+
+        Event::fire('system.plugins.afterRemove', [$code]);
     }
 
     /**

@@ -61,13 +61,6 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerValidator();
         $this->registerGlobalViewVars();
 
-        Event::listen('system.plugins.afterUpdate', function ($action) {
-            if (in_array($action, ['disable', 'remove'])) {
-                // purge orphaned mail templates
-                MailTemplate::syncAll();
-            }
-        });
-
         /*
          * Register other module providers
          */
@@ -365,6 +358,15 @@ class ServiceProvider extends ModuleServiceProvider
             $plainOnly = $view === null; // When "plain-text only" email is sent, $view is null, this sets the flag appropriately
             return !MailManager::instance()->$method($message, $raw ?: $view ?: $plain, $data, $plainOnly);
         });
+
+        Event::listen('system.plugins.afterDisable', function ($pluginCode) {
+            MailTemplate::syncAll();
+        });
+
+        Event::listen('system.plugins.afterRemove', function ($pluginCode) {
+            MailTemplate::syncAll();
+        });
+
     }
 
     /*
