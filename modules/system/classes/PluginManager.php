@@ -4,6 +4,7 @@ use Db;
 use App;
 use Str;
 use Log;
+use Event;
 use File;
 use Lang;
 use View;
