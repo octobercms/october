@@ -359,13 +359,13 @@ class ServiceProvider extends ModuleServiceProvider
             return !MailManager::instance()->$method($message, $raw ?: $view ?: $plain, $data, $plainOnly);
         });
 
-        Event::listen('system.plugins.afterDisable', function ($pluginCode) {
-            MailTemplate::syncAll();
-        });
-
-        Event::listen('system.plugins.afterRemove', function ($pluginCode) {
-            MailTemplate::syncAll();
-        });
+        $mailSync = function ($pluginCode) {
+            if (!$this->app->runningUnitTests()) {
+                MailTemplate::syncAll();
+            }
+        };
+        Event::listen('system.plugins.afterDisable', $mailSync);
+        Event::listen('system.plugins.afterRemove', $mailSync);
     }
 
     /*

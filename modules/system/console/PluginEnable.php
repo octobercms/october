@@ -40,7 +40,7 @@ class PluginEnable extends Command
             return $this->error(sprintf('Unable to find a registered plugin called "%s"', $pluginName));
         }
 
-        // Disable this plugin
+        // Enable this plugin
         $pluginManager->enablePlugin($pluginName);
 
         $plugin = PluginVersion::where('code', $pluginName)->first();
