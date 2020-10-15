@@ -366,7 +366,6 @@ class ServiceProvider extends ModuleServiceProvider
         Event::listen('system.plugins.afterRemove', function ($pluginCode) {
             MailTemplate::syncAll();
         });
-
     }
 
     /*
