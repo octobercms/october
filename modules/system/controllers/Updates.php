@@ -1,6 +1,5 @@
 <?php namespace System\Controllers;
 
-use Event;
 use Lang;
 use Html;
 use Yaml;
@@ -13,7 +12,6 @@ use Response;
 use BackendMenu;
 use Cms\Classes\ThemeManager;
 use Backend\Classes\Controller;
-use System\Models\MailTemplate;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
 use System\Classes\UpdateManager;
