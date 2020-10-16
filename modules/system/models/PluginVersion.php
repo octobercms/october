@@ -122,7 +122,7 @@ class PluginVersion extends Model
      */
     public function afterSave()
     {
-        if ($this->getOriginal('is_disabled') === 0 && $this->is_disabled === 1) {
+        if (!$this->getOriginal('is_disabled')  && $this->is_disabled) {
             /**
              * @event system.plugins.afterDisable
              * Provides an opportunity to take actions after a plugin has been disabled.
@@ -135,7 +135,7 @@ class PluginVersion extends Model
              *
              */
             Event::fire('system.plugins.afterDisable', [$this->code]);
-        } elseif ($this->getOriginal('is_disabled') === 1 && $this->is_disabled === 0) {
+        } elseif ($this->getOriginal('is_disabled') && !$this->is_disabled) {
             /**
              * @event system.plugins.afterEnable
              * Provides an opportunity to take actions after a plugin has been enabled.
@@ -148,6 +148,33 @@ class PluginVersion extends Model
              *
              */
             Event::fire('system.plugins.afterEnable', [$this->code]);
+        }
+        if (!$this->getOriginal('is_frozen')  && $this->is_frozen) {
+            /**
+             * @event system.plugins.afterFreeze
+             * Provides an opportunity to take actions after a plugin has been frozen.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.plugins.afterFreeze', function ((String) $pluginCode) {
+             *         trace_log('Plugin ' . $pluginCode . ' has been frozen.');
+             *     });
+             *
+             */
+            Event::fire('system.plugins.afterFreeze', [$this->code]);
+        } elseif ($this->getOriginal('is_frozen') && !$this->is_frozen) {
+            /**
+             * @event system.plugins.afterUnfreeze
+             * Provides an opportunity to take actions after a plugin has been unfrozen.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.plugins.afterUnfreeze
+             *         trace_log('Plugin ' . $pluginCode . ' has been unfrozen.');
+             *     });
+             *
+             */
+            Event::fire('system.plugins.afterUnfreeze', [$this->code]);
         }
     }
 
