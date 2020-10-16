@@ -135,7 +135,6 @@ class PluginVersion extends Model
              *
              */
             Event::fire('system.plugins.afterDisable', [$this->code]);
-
         } elseif ($this->getOriginal('is_disabled') === 1 && $this->is_disabled === 0) {
             /**
              * @event system.plugins.afterEnable
