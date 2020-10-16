@@ -1,5 +1,6 @@
 <?php namespace System\Models;
 
+use Event;
 use Lang;
 use Model;
 use Config;
@@ -113,6 +114,41 @@ class PluginVersion extends Model
             $this->name = $this->code;
             $this->description = Lang::get('system::lang.plugins.unknown_plugin');
             $this->orphaned = true;
+        }
+    }
+
+    /**
+     * After the model is saved
+     */
+    public function afterSave()
+    {
+        if ($this->getOriginal('is_disabled') === 0 && $this->is_disabled === 1) {
+            /**
+             * @event system.plugins.afterDisable
+             * Provides an opportunity to take actions after a plugin has been disabled.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.plugins.afterDisable', function ((String) $pluginCode) {
+             *         trace_log('Plugin ' . $pluginCode . ' has been disabled.');
+             *     });
+             *
+             */
+            Event::fire('system.plugins.afterDisable', [$this->code]);
+
+        } elseif ($this->getOriginal('is_disabled') === 1 && $this->is_disabled === 0) {
+            /**
+             * @event system.plugins.afterEnable
+             * Provides an opportunity to take actions after a plugin has been enabled.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.plugins.afterEnable', function ((String) $pluginCode) {
+             *         trace_log('Plugin ' . $pluginCode . ' has been enabled.');
+             *     });
+             *
+             */
+            Event::fire('system.plugins.afterEnable', [$this->code]);
         }
     }
 

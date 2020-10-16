@@ -41,7 +41,7 @@ class PluginDisable extends Command
         }
 
         // Disable this plugin
-        $pluginManager->disablePlugin($pluginName);
+        $pluginManager->disablePlugin($pluginName, true);
 
         $plugin = PluginVersion::where('code', $pluginName)->first();
         $plugin->is_disabled = true;

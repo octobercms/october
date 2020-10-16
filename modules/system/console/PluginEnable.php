@@ -41,7 +41,7 @@ class PluginEnable extends Command
         }
 
         // Enable this plugin
-        $pluginManager->enablePlugin($pluginName);
+        $pluginManager->enablePlugin($pluginName, true);
 
         $plugin = PluginVersion::where('code', $pluginName)->first();
         $plugin->is_disabled = false;
