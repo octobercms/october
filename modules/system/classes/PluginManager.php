@@ -632,6 +632,18 @@ class PluginManager
         if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = true;
         }
+
+        /**
+         * @event system.plugins.afterDisable
+         * Provides an opportunity to take actions after a plugin has been disabled.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.plugins.afterDisable', function ((String) $pluginCode) {
+         *         trace_log('Plugin ' . $pluginCode . ' has been disabled.');
+         *     });
+         *
+         */
         Event::fire('system.plugins.afterDisable', [$code]);
 
         return true;
@@ -663,6 +675,18 @@ class PluginManager
         if ($pluginObj = $this->findByIdentifier($code)) {
             $pluginObj->disabled = false;
         }
+
+        /**
+         * @event system.plugins.afterEnable
+         * Provides an opportunity to take actions after a plugin has been enabled.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.plugins.afterEnable', function ((String) $pluginCode) {
+         *         trace_log('Plugin ' . $pluginCode . ' has been enabled.');
+         *     });
+         *
+         */
         Event::fire('system.plugins.afterEnable', [$code]);
 
         return true;
@@ -863,6 +887,17 @@ class PluginManager
         $code = $this->normalizeIdentifier($id);
         unset($this->plugins[$code]);
 
+        /**
+         * @event system.plugins.afterRemove
+         * Provides an opportunity to take actions after a plugin has been removed.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.plugins.afterRemove', function ((String) $pluginCode) {
+         *         trace_log('Plugin ' . $pluginCode . ' has been removed.');
+         *     });
+         *
+         */
         Event::fire('system.plugins.afterRemove', [$code]);
     }
 
