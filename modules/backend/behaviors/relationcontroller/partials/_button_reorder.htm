@@ -6,7 +6,6 @@
         data-request-data="
             _reorder_parent_id[<?= e($relationName) ?>]: '<?= e($this->vars['formModel']->id) ?>',
             _reorder_model[<?= e($relationName) ?>]: '<?= e(addslashes(get_class($this->vars['formModel']))) ?>',
-            _reorder_relation[<?= e($relationName) ?>]: '<?= e($relationName) ?>',
             _reorder_relation_name: '<?= e($relationName) ?>'
         "
         href="javascript:;"
