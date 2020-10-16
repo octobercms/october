@@ -867,7 +867,7 @@ class PluginManager
          *
          * Example usage:
          *
-         *     Event::listen('system.plugins.afterRemove', function ((String) $pluginCode) {
+         *     Event::listen('system.plugins.afterRemove', function ((string) $pluginCode) {
          *         trace_log('Plugin ' . $pluginCode . ' has been removed.');
          *     });
          *
