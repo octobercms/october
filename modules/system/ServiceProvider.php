@@ -360,7 +360,7 @@ class ServiceProvider extends ModuleServiceProvider
         });
 
         $mailSync = function ($pluginCode) {
-            if (!$this->app->runningUnitTests()) {
+            if ($this->app->hasDatabase()) {
                 MailTemplate::syncAll();
             }
         };
