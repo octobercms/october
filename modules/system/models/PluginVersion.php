@@ -130,7 +130,7 @@ class PluginVersion extends Model
              *
              * Example usage:
              *
-             *     Event::listen('system.plugins.afterDisable', function ((String) $pluginCode) {
+             *     Event::listen('system.plugins.afterDisable', function ((string) $pluginCode) {
              *         trace_log('Plugin ' . $pluginCode . ' has been disabled.');
              *     });
              *
