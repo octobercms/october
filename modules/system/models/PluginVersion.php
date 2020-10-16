@@ -122,7 +122,7 @@ class PluginVersion extends Model
      */
     public function afterSave()
     {
-        // The plugin has been disabled.
+        // Detect if the plugin has been disabled.
         if (!$this->getOriginal('is_disabled') && $this->is_disabled) {
             /**
              * @event system.plugins.afterDisable
