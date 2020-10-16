@@ -118,7 +118,7 @@ class PluginVersion extends Model
     }
 
     /**
-     * After the model is saved
+     * Fired after the model is saved
      */
     public function afterSave()
     {
