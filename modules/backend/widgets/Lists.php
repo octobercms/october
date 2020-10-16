@@ -6,6 +6,7 @@ use Lang;
 use Backend;
 use DbDongle;
 use Carbon\Carbon;
+use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\SortableRelation;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
@@ -261,9 +262,13 @@ class Lists extends WidgetBase
             $this->addJs('/modules/system/assets/ui/js/list.sortable.js', 'core');
             $this->showSorting = false;
 
-            /** @var SortableRelation $modelInstance */
-            $modelInstance = new $this->reorderModel;
-            $this->reorderColumn = $modelInstance->getRelationSortOrderColumn($this->reorderRelation);
+            if ($this->reorderRelation) {
+                /** @var SortableRelation $modelInstance */
+                $modelInstance = new $this->reorderModel;
+                $this->reorderColumn = $modelInstance->getRelationSortOrderColumn($this->reorderRelation);
+            } else {
+                $this->reorderColumn = $this->model->getSortOrderColumn();
+            }
         }
     }
 
@@ -374,6 +379,18 @@ class Lists extends WidgetBase
                 'backend::lang.model.invalid_class',
                 ['model'=>get_class($this->model), 'class'=>get_class($this->controller)]
             ));
+        }
+
+        if ($this->sortable) {
+            $checkModel = $this->reorderRelation ? $this->reorderModel : $this->model;
+            $needsTrait = $this->reorderRelation ? SortableRelation::class : Sortable::class;
+            $modelTraits = class_uses($checkModel);
+
+            if (!isset($modelTraits[$needsTrait])) {
+                throw new ApplicationException(
+                    sprintf('The "%s" model must implement the "%s" trait.', get_class($this->model), $needsTrait)
+                );
+            }
         }
 
         return $this->model;
@@ -826,7 +843,7 @@ class Lists extends WidgetBase
 
         if ($this->sortable) {
             $this->allColumns['sort_handle'] = $this->makeListColumn('sort_handle', [
-               'label' => '',
+               'label' => 'backend::lang.list.sort_handle',
                'path' => '~/modules/backend/widgets/lists/partials/_list_sort_handle.htm',
                'type' => 'partial',
                'width' => '20px',
@@ -1017,6 +1034,11 @@ class Lists extends WidgetBase
      */
     public function getHeaderValue($column)
     {
+        // The sort handle should never have a visible column header label.
+        if ($column->label === 'backend::lang.list.sort_handle') {
+            return '';
+        }
+
         $value = Lang::get($column->label);
 
         /**

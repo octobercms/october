@@ -1,5 +1,12 @@
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <button
+        type="button"
+        class="close"
+        data-dismiss="popup"
+        <?= $requestParams ?>
+    >
+        &times;
+    </button>
     <h4 class="modal-title">
         <?= e(trans('backend::lang.reorder.relation')) ?>
     </h4>
@@ -11,15 +18,11 @@
 
 <div class="modal-footer">
     <button
-            type="button"
-            class="btn btn-default"
-            data-dismiss="popup"
-            data-request="onRelationModalClose"
-            data-request-data="
-                _reorder_parent_id: '<?= e($reorderParentId) ?>',
-                _reorder_model: '<?= e(addslashes($reorderModel)) ?>',
-                _reorder_relation: '<?= e($reorderRelation) ?>'
-            ">
+        type="button"
+        class="btn btn-default"
+        data-dismiss="popup"
+        <?= $requestParams ?>
+    >
         <?= e(trans('backend::lang.relation.close')) ?>
     </button>
 </div>

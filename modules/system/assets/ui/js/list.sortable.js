@@ -199,7 +199,7 @@
     }
 
     ListSortable.prototype.createPlaceholder = function(element, ev) {
-        var placeholder = document.createElement(element.tagName),
+        var placeholder = document.createElement('li'),
             placement = this.getPlaceholderPlacement(element, ev)
 
         this.removePlaceholders()
@@ -315,6 +315,11 @@
         ev.originalEvent.dataTransfer.setData('listsortable/elementid', this.getElementSortableId(ev.target))
         ev.originalEvent.dataTransfer.setData(this.listSortableId, this.listSortableId)
 
+        // Make sure the sort placeholder is never cut off by any hidden overflow.
+        var container = $(ev.target).closest('[data-sortable]')
+        this.originalOverflow = container.css('overflow')
+        container.css({overflow: 'visible'})
+
         // The mousemove handler is used to remove the placeholder
         // when the drag is canceled with Escape button. We can't use
         // the dragend for removing the placeholders because dragend
@@ -395,9 +400,11 @@
 
     ListSortable.prototype.onDragEnd = function(ev) {
         $(document).off('dragover', this.proxy(this.onDocumentDragOver))
-        var list = $(ev.target).closest('[data-sortable]')
-        if (list) {
-            list.trigger('dragged.list.sorted')
+
+        var container = $(ev.target).closest('[data-sortable]')
+        if (container) {
+            container.trigger('dragged.list.sorted')
+            container.css({overflow: this.originalOverflow})
         }
     }
 

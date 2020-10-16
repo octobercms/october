@@ -4310,6 +4310,7 @@ th {text-align:left}
 .table .table {background-color:#f9f9f9}
 .table .list-sortable-placeholder {display:block;position:relative;height:0}
 .table .list-sortable-placeholder:before {display:block;position:absolute;font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;content:"\f054";font-size:15px;color:#d35714;left:0;top:-9px;z-index:2000}
+.table .drag-handle {cursor:move}
 .table-condensed >thead >tr >th,
 .table-condensed >tbody >tr >th,
 .table-condensed >tfoot >tr >th,
@@ -4451,8 +4452,8 @@ table.table.data thead th.active >a:after {color:#c63e26;opacity:1 !important;fi
 table.table.data thead tr th:first-child {padding-left:10px}
 table.table.data thead tr th:last-child a {padding-right:25px}
 table.table.data thead .list-checkbox .custom-checkbox {top:-16px}
-table.table.data tbody tr:nth-child(even) td,
-table.table.data tbody tr:nth-child(even) th {background-color:#ecf0f1}
+table.table.data tbody tr:nth-of-type(even) td,
+table.table.data tbody tr:nth-of-type(even) th {background-color:#ecf0f1}
 table.table.data tbody td,
 table.table.data tbody th {padding:12px 15px;color:#666;border-top:2px solid white}
 table.table.data tbody td a:not(.btn),
@@ -4465,6 +4466,7 @@ table.table.data tbody td div.progress div.bar,
 table.table.data tbody th div.progress div.bar {position:absolute;left:-15px;top:-11px;bottom:-11px;background:#0181b9;opacity:0.3;filter:alpha(opacity=30)}
 table.table.data tbody td div.progress a,
 table.table.data tbody th div.progress a {position:relative}
+table.table.data tbody .list-sortable-placeholder:first-child + tr td {border-top:0}
 table.table.data tbody tr:first-child th,
 table.table.data tbody tr:first-child td {border-top-width:0}
 table.table.data tbody tr:last-child th,
@@ -4610,8 +4612,8 @@ table.table.data tr.list-tree-level-10 td.list-cell-index-1 {padding-left:115px}
 .report-widget .table-container {margin:-15px}
 .report-widget .table-container table.table.data {margin-bottom:0}
 .report-widget .table-container table.table.data thead tr th {border-top:none !important}
-.report-widget .table-container table.table.data tbody tr:nth-child(even) td,
-.report-widget .table-container table.table.data tbody tr:nth-child(even) th {background-color:transparent}
+.report-widget .table-container table.table.data tbody tr:nth-of-type(even) td,
+.report-widget .table-container table.table.data tbody tr:nth-of-type(even) th {background-color:transparent}
 .list-scrollable-container {touch-action:auto;position:relative}
 .list-scrollable-container:after,
 .list-scrollable-container:before {display:none;position:absolute;top:50%;margin-top:-7px;height:9px;font-size:10px;color:#666}

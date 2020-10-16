@@ -216,6 +216,7 @@ return [
         'refresh' => 'Refresh',
         'updating' => 'Updating...',
         'loading' => 'Loading...',
+        'sort_handle' => 'Sort handle',
         'setup_title' => 'List setup',
         'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
         'records_per_page' => 'Records per page',

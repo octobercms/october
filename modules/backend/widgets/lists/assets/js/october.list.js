@@ -102,8 +102,14 @@
         var relation = this.$el.data('sortableRelation')
         var handler = relation ? 'onReorderRelation' : 'onReorder'
 
+        var recordIds = []
+        this.$el.find('[data-record-id]').each(function (index, el) {
+            recordIds.push(el.dataset.recordId)
+        }.bind(this))
+
         this.$el.request(handler, {
-            data: { sort_orders: this.sortOrders, _reorder_relation_name: relation }
+            data: { sort_orders: this.sortOrders, record_ids: recordIds, _reorder_relation_name: relation },
+            loading: $.oc.stripeLoadIndicator,
         })
     }
 

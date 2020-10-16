@@ -154,6 +154,7 @@ class ListController extends ControllerBehavior
             'showCheckboxes',
             'showTree',
             'treeExpanded',
+            'sortable',
             'customViewPath',
         ];
 
@@ -428,13 +429,17 @@ class ListController extends ControllerBehavior
     /**
      * Returns the sort order value for a specific record.
      */
-    public function getRecordSortOrder($record, $relation)
+    public function getRecordSortOrder($record, $relation = '')
     {
-        /** @var SortableRelation $modelInstance */
-        $modelInstance = new $this->config->modelClass;
-        $reorderColumn = $modelInstance->getRelationSortOrderColumn($relation);
+        if ($relation) {
+            /** @var SortableRelation $modelInstance */
+            $modelInstance = new $this->config->modelClass;
+            $reorderColumn = $modelInstance->getRelationSortOrderColumn($relation);
 
-        return $record->pivot->{$reorderColumn};
+            return $record->pivot->{$reorderColumn};
+        }
+
+        return $record->{$record->getSortOrderColumn()};
     }
 
     /**

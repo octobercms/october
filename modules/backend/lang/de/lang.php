@@ -171,6 +171,7 @@ return [
         'refresh' => 'Erneuern',
         'updating' => 'Aktualisiere...',
         'loading' => 'Laden...',
+        'sort_handle' => 'Sortierung',
         'setup_title' => 'Listen Setup',
         'setup_help' => 'Benutzen Sie Checkboxen, um Spalten auszuwählen, welche Sie in den Listen sehen möchten. Sie können die Position der Spalten ändern, indem Sie diese hinauf oder hinunter ziehen.',
         'records_per_page' => 'Aufzeichnungen pro Seite',

@@ -104,6 +104,7 @@ class ReorderRelationController extends ControllerBehavior
             'relation_modal',
             $params + [
                 'container' => $this->reorderRelationMakePartial('container', $params),
+                'requestParams' => $this->reorderRelationMakePartial('request_params', $params),
             ]
         );
     }
