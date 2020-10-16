@@ -137,7 +137,7 @@ class ReorderRelationController extends ControllerBehavior
     public function reorderGetModel()
     {
         $this->parentModel = $this->reorderGetParentModel();
-        $this->relation = $this->postValue('_reorder_relation');
+        $this->relation = post('_reorder_relation_name');
 
         $relationModelClass = array_get($this->parentModel->getRelationDefinition($this->relation), 0);
         if (!$relationModelClass) {

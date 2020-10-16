@@ -235,7 +235,7 @@ class ListController extends ControllerBehavior
          */
         if (isset($listConfig->filter)) {
             $filterConfig = $this->makeConfig($listConfig->filter);
-            
+
             if (!empty($filterConfig->scopes)) {
                 $widget->cssClasses[] = 'list-flush';
 
