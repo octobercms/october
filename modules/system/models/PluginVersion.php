@@ -149,7 +149,7 @@ class PluginVersion extends Model
              */
             Event::fire('system.plugins.afterEnable', [$this->code]);
         }
-        if (!$this->getOriginal('is_frozen')  && $this->is_frozen) {
+        if (!$this->getOriginal('is_frozen') && $this->is_frozen) {
             /**
              * @event system.plugins.afterFreeze
              * Provides an opportunity to take actions after a plugin has been frozen.
