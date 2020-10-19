@@ -69,7 +69,8 @@ var fieldElement=$form.find('[name="'+fieldName+'"], [name="'+fieldName+'[]"], [
 if(fieldElement.length>0){var _event=jQuery.Event('ajaxInvalidField')
 $(window).trigger(_event,[fieldElement.get(0),fieldName,fieldMessages,isFirstInvalidField])
 if(isFirstInvalidField){if(!_event.isDefaultPrevented())fieldElement.focus()
-isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.assign(url)},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
+isFirstInvalidField=false}}})},handleFlashMessage:function(message,type){},handleRedirectResponse:function(url){window.location.assign(url)
+$el.trigger('ajaxDone')},handleUpdateResponse:function(data,textStatus,jqXHR){var updatePromise=$.Deferred().done(function(){for(var partial in data){var selector=(options.update[partial])?options.update[partial]:partial
 if($.type(selector)=='string'&&selector.charAt(0)=='@'){$(selector.substring(1)).append(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else if($.type(selector)=='string'&&selector.charAt(0)=='^'){$(selector.substring(1)).prepend(data[partial]).trigger('ajaxUpdate',[context,data,textStatus,jqXHR])}
 else{$(selector).trigger('ajaxBeforeReplace')
