@@ -288,6 +288,8 @@ if (window.jQuery.request !== undefined) {
              */
             handleRedirectResponse: function(url) {
                 window.location.assign(url)
+                // send this event to signal the stripe load indicator can be hidden
+                $el.trigger('ajaxDone')
             },
 
             /*
