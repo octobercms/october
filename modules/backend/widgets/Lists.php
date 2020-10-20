@@ -8,7 +8,7 @@ use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
-use October\Rain\Support\Str;
+use Str;
 use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
 use System\Classes\MediaLibrary;
