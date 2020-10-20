@@ -2,10 +2,10 @@
 
 use View;
 use Model;
+use InvalidArgumentException;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
-use Exception;
 use File as FileHelper;
 
 /**
@@ -51,18 +51,13 @@ class MailPartial extends Model
 
     public static function findOrMakePartial($code)
     {
-        try {
-            if (!$template = self::whereCode($code)->first()) {
-                $template = new self;
-                $template->code = $code;
-                $template->fillFromCode($code);
-            }
+        if (!$template = self::whereCode($code)->first()) {
+            $template = new self;
+            $template->code = $code;
+            $template->fillFromCode($code);
+        }
 
-            return $template;
-        }
-        catch (Exception $ex) {
-            return null;
-        }
+        return $template;
     }
 
     /**
@@ -128,7 +123,7 @@ class MailPartial extends Model
             $view = View::make($code);
             return MailParser::parse(FileHelper::get($view->getPath()));
         }
-        catch (\Exception $e) {
+        catch (InvalidArgumentException $e) {
             return null;
         }
     }

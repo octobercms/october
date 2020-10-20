@@ -2,7 +2,7 @@
 
 use View;
 use Model;
-use Exception;
+use InvalidArgumentException;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -156,7 +156,7 @@ class MailLayout extends Model
             $view = View::make($code);
             return MailParser::parse(FileHelper::get($view->getPath()));
         }
-        catch (\Exception $e) {
+        catch (InvalidArgumentException $e) {
             return null;
         }
     }
