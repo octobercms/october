@@ -1741,7 +1741,7 @@ class Lists extends WidgetBase
 
         $this->treeExpanded = $this->getSession('tree_expanded', $this->treeExpanded);
 
-        $this->toggleTreeExpanded = $this->getSession('tree_toggle_expanded', ! $this->treeExpanded);
+        $this->toggleTreeExpanded = $this->getSession('tree_toggle_expanded', !$this->treeExpanded);
 
         if (!$this->model->methodExists('getChildren')) {
             throw new ApplicationException(
