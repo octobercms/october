@@ -149,22 +149,22 @@ class ImageResizer
             'themes' => [
                 'disk' => 'system',
                 'folder' => config('cms.themesPathLocal', base_path('themes')),
-                'path' => config('cms.themesPath', '/themes'),
+                'path' => rtrim(config('cms.themesPath', '/themes'), '/'),
             ],
             'plugins' => [
                 'disk' => 'system',
                 'folder' => config('cms.pluginsPathLocal', base_path('plugins')),
-                'path' => config('cms.pluginsPath', '/plugins'),
+                'path' => rtrim(config('cms.pluginsPath', '/plugins'), '/'),
             ],
             'resized' => [
                 'disk' => config('cms.storage.resized.disk', 'local'),
                 'folder' => config('cms.storage.resized.folder', 'resized'),
-                'path' => config('cms.storage.resized.path', '/storage/app/resized'),
+                'path' => rtrim(config('cms.storage.resized.path', '/storage/app/resized'), '/'),
             ],
             'media' => [
                 'disk' => config('cms.storage.media.disk', 'local'),
                 'folder' => config('cms.storage.media.folder', 'media'),
-                'path' => config('cms.storage.media.path', '/storage/app/media'),
+                'path' => rtrim(config('cms.storage.media.path', '/storage/app/media'), '/'),
             ],
             'modules' => [
                 'disk' => 'system',
@@ -174,7 +174,7 @@ class ImageResizer
             'filemodel' => [
                 'disk' => config('cms.storage.uploads.disk', 'local'),
                 'folder' => config('cms.storage.uploads.folder', 'uploads'),
-                'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
+                'path' => rtrim(config('cms.storage.uploads.path', '/storage/app/uploads'), '/'),
             ],
         ];
 
@@ -229,6 +229,14 @@ class ImageResizer
             if ($realPath) {
                 $disk->getAdapter()->setPathPrefix($realPath);
             }
+        }
+
+        // Handle disks that can't be serialized by referencing them by their
+        // filesystems.php config name
+        try {
+            serialize($disk);
+        } catch (Exception $ex) {
+            $disk = Storage::identify($disk);
         }
 
         $config = [
@@ -541,6 +549,11 @@ class ImageResizer
             $disk = $image['disk'];
             $path = $image['path'];
             $selectedSource = $image['source'];
+
+            // Handle disks that couldn't be serialized
+            if (is_string($disk)) {
+                $disk = Storage::disk($disk);
+            }
 
             // Verify that the source file exists
             if (empty(FileHelper::extension($path)) || !$disk->exists($path)) {
