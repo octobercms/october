@@ -2,6 +2,7 @@
 
 use View;
 use Model;
+use InvalidArgumentException;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use File as FileHelper;
@@ -68,7 +69,12 @@ class MailTemplate extends Model
         $codes = array_keys(self::listAllTemplates());
 
         foreach ($codes as $code) {
-            $result[] = self::findOrMakeTemplate($code);
+            try {
+                $result[] = self::findOrMakeTemplate($code);
+            }
+            catch (InvalidArgumentException $e) {
+                // skip orphaned templates for disabled/removed plugins
+            }
         }
 
         return $result;

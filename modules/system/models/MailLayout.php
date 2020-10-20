@@ -2,6 +2,7 @@
 
 use View;
 use Model;
+use Exception;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -73,15 +74,19 @@ class MailLayout extends Model
 
     public static function findOrMakeLayout($code)
     {
-        $layout = self::whereCode($code)->first();
+        try {
+            $layout = self::whereCode($code)->first();
 
-        if (!$layout && View::exists($code)) {
-            $layout = new self;
-            $layout->code = $code;
-            $layout->fillFromView($code);
+            if (!$layout && View::exists($code)) {
+                $layout = new self;
+                $layout->code = $code;
+                $layout->fillFromView($code);
+            }
+            return $layout;
         }
-
-        return $layout;
+        catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
