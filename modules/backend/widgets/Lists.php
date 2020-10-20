@@ -1800,7 +1800,7 @@ class Lists extends WidgetBase
         $this->treeExpanded = $this->toggleTreeExpanded;
         $this->putSession('tree_expanded', $this->toggleTreeExpanded);
 
-        $this->toggleTreeExpanded = ! $this->toggleTreeExpanded;
+        $this->toggleTreeExpanded = !$this->toggleTreeExpanded;
         $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
 
         return $this->onRefresh();
