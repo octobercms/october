@@ -74,19 +74,14 @@ class MailLayout extends Model
 
     public static function findOrMakeLayout($code)
     {
-        try {
-            $layout = self::whereCode($code)->first();
+        $layout = self::whereCode($code)->first();
 
-            if (!$layout && View::exists($code)) {
-                $layout = new self;
-                $layout->code = $code;
-                $layout->fillFromView($code);
-            }
-            return $layout;
+        if (!$layout && View::exists($code)) {
+            $layout = new self;
+            $layout->code = $code;
+            $layout->fillFromView($code);
         }
-        catch (Exception $e) {
-            return null;
-        }
+        return $layout;
     }
 
     /**
@@ -157,6 +152,12 @@ class MailLayout extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
+        try {
+            $view = View::make($code);
+            return MailParser::parse(FileHelper::get($view->getPath()));
+        }
+        catch (\Exception $e) {
+            return null;
+        }
     }
 }

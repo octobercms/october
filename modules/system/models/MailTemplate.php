@@ -69,12 +69,7 @@ class MailTemplate extends Model
         $codes = array_keys(self::listAllTemplates());
 
         foreach ($codes as $code) {
-            try {
-                $result[] = self::findOrMakeTemplate($code);
-            }
-            catch (InvalidArgumentException $e) {
-                // skip orphaned templates for disabled/removed plugins
-            }
+            $result[] = self::findOrMakeTemplate($code);
         }
 
         return $result;
@@ -152,7 +147,13 @@ class MailTemplate extends Model
 
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
+        try {
+            $view = View::make($code);
+            return MailParser::parse(FileHelper::get($view->getPath()));
+        }
+        catch (\Exception $e) {
+            return null;
+        }
     }
 
     public static function findOrMakeTemplate($code)
