@@ -165,10 +165,16 @@ class ServiceProvider extends ModuleServiceProvider
                 'backend.manage_editor' => [
                     'label' => 'system::lang.permissions.manage_editor',
                     'tab'   => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
+                ],
+                'backend.manage_own_editor' => [
+                    'label' => 'system::lang.permissions.manage_own_editor',
+                    'tab'   => 'system::lang.permissions.name',
                 ],
                 'backend.manage_branding' => [
                     'label' => 'system::lang.permissions.manage_branding',
                     'tab'   => 'system::lang.permissions.name',
+                    'roles' => UserRole::CODE_DEVELOPER,
                 ],
                 'media.manage_media' => [
                     'label' => 'backend::lang.permissions.manage_media',

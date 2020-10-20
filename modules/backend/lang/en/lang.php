@@ -373,6 +373,7 @@ return [
     'editor' => [
         'menu_label' => 'Editor settings',
         'menu_description' => 'Customize the global editor preferences, such as font size and color scheme.',
+        'preview' => 'Preview',
         'font_size' => 'Font size',
         'tab_size' => 'Tab size',
         'use_hard_tabs' => 'Indent using tabs',
