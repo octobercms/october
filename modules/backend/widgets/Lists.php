@@ -1753,7 +1753,7 @@ class Lists extends WidgetBase
 
             $this->toggleTreeExpanded = false;
             $this->putSession('tree_toggle_expanded', $this->toggleTreeExpanded);
-        } elseif (! $expandNode && $this->isAllNodesCollapsed()) {
+        } elseif (!$expandNode && $this->isAllNodesCollapsed()) {
             /*
              * If the user is collapsing a node and all nodes are now collapsed,
              * make sure the tree expanded preference is set,
