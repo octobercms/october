@@ -61,6 +61,7 @@ trait SessionMaker
     /**
      * Removes one or many items from the widget session data.
      * @param string|array $keys Unique key for the data store.
+     * @return void
      */
     protected function forgetSession($keys)
     {
