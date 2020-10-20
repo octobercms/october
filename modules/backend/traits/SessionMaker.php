@@ -65,11 +65,8 @@ trait SessionMaker
     protected function forgetSession($keys)
     {
         $sessionId = $this->makeSessionId();
-
         $currentStore = $this->getSession();
-
         Arr::forget($currentStore, $keys);
-
         Session::put($sessionId, base64_encode(serialize($currentStore)));
     }
 
