@@ -261,6 +261,7 @@ class Lists extends WidgetBase
         if ($this->sortable) {
             $this->addJs('/modules/system/assets/ui/js/list.sortable.js', 'core');
             $this->showSorting = false;
+            $this->showTree = false;
 
             if ($this->reorderRelation) {
                 /** @var SortableRelation $modelInstance */
