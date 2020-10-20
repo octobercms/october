@@ -1777,7 +1777,7 @@ class Lists extends WidgetBase
 
         $expandNode = ! post('status');
 
-        if (! $this->treeExpanded && $expandNode) {
+        if (!$this->treeExpanded && $expandNode) {
             /*
              * When the tree is collapsed and the user expands a node,
              * make sure the tree expanded preference is set to false
