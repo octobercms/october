@@ -2,7 +2,6 @@
 
 use View;
 use Model;
-use InvalidArgumentException;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use File as FileHelper;
@@ -69,7 +68,9 @@ class MailTemplate extends Model
         $codes = array_keys(self::listAllTemplates());
 
         foreach ($codes as $code) {
-            $result[] = self::findOrMakeTemplate($code);
+            if (View::exists($code)) {
+                $result[] = self::findOrMakeTemplate($code);
+            }
         }
 
         return $result;
@@ -137,8 +138,8 @@ class MailTemplate extends Model
 
     protected function fillFromSections($sections)
     {
-        $this->content_html = $sections['html'];
-        $this->content_text = $sections['text'];
+        $this->content_html = array_get($sections, 'html', '<!-- empty content -->');
+        $this->content_text = array_get($sections, 'text');
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
 
         $layoutCode = array_get($sections, 'settings.layout', 'default');
@@ -147,13 +148,11 @@ class MailTemplate extends Model
 
     protected static function getTemplateSections($code)
     {
-        try {
-            $view = View::make($code);
-            return MailParser::parse(FileHelper::get($view->getPath()));
-        }
-        catch (InvalidArgumentException $e) {
+        if (!View::exists($code)) {
             return null;
         }
+        $view = View::make($code);
+        return MailParser::parse(FileHelper::get($view->getPath()));
     }
 
     public static function findOrMakeTemplate($code)

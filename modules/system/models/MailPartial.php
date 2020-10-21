@@ -2,7 +2,6 @@
 
 use View;
 use Model;
-use InvalidArgumentException;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -119,12 +118,10 @@ class MailPartial extends Model
 
     protected static function getTemplateSections($code)
     {
-        try {
-            $view = View::make($code);
-            return MailParser::parse(FileHelper::get($view->getPath()));
-        }
-        catch (InvalidArgumentException $e) {
+        if (!View::exists($code)) {
             return null;
         }
+        $view = View::make($code);
+        return MailParser::parse(FileHelper::get($view->getPath()));
     }
 }
