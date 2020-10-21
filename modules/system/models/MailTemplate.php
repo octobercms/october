@@ -157,7 +157,7 @@ class MailTemplate extends Model
      */
     protected function fillFromSections($sections)
     {
-        $this->content_html = array_get($sections, 'html', '<!-- empty content -->');
+        $this->content_html = array_get($sections, 'html');
         $this->content_text = array_get($sections, 'text');
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
 
