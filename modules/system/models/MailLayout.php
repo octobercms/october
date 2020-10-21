@@ -80,6 +80,7 @@ class MailLayout extends Model
             $layout->code = $code;
             $layout->fillFromView($code);
         }
+
         return $layout;
     }
 
