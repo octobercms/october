@@ -47,6 +47,7 @@ class MailTemplate extends Model
 
     /**
      * Returns an array of template codes and descriptions.
+     *
      * @return array
      */
     public static function listAllTemplates()
@@ -60,6 +61,7 @@ class MailTemplate extends Model
 
     /**
      * Returns a list of all mail templates.
+     *
      * @return array Returns an array of the MailTemplate objects.
      */
     public static function allTemplates()
@@ -78,6 +80,7 @@ class MailTemplate extends Model
 
     /**
      * Syncronise all file templates to the database.
+     *
      * @return void
      */
     public static function syncAll()
@@ -133,6 +136,7 @@ class MailTemplate extends Model
 
     /**
      * Fill model using provided content.
+     *
      * @param string $content
      * @return void
      */
@@ -143,6 +147,7 @@ class MailTemplate extends Model
 
     /**
      * Fill model using a view.
+     *
      * @param string $path
      * @return void
      */
@@ -153,6 +158,7 @@ class MailTemplate extends Model
 
     /**
      * Fill model using provided section array.
+     *
      * @param array $sections
      * @return void
      */
@@ -168,6 +174,7 @@ class MailTemplate extends Model
 
     /**
      * Get section array from a view file.
+     *
      * @param string $code
      * @return array|null
      */
@@ -182,6 +189,7 @@ class MailTemplate extends Model
 
     /**
      * Find a MailTemplate record by code or create one from a view file.
+     *
      * @param string $code
      * @return MailTemplate model
      */
