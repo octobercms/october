@@ -121,6 +121,7 @@ class MailTemplate extends Model
 
     /**
      * Fired after the model has been fetched.
+     *
      * @return void
      */
     public function afterFetch()
