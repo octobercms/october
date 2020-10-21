@@ -60,7 +60,7 @@ class MailPartial extends Model
 
             return $template;
         }
-        catch (Exception $e) {
+        catch (Exception $ex) {
             return null;
         }
     }
