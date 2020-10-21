@@ -119,6 +119,10 @@ class MailTemplate extends Model
         }
     }
 
+    /**
+     * Fired after the model has been fetched.
+     * @return void
+     */
     public function afterFetch()
     {
         if (!$this->is_custom) {
@@ -126,16 +130,31 @@ class MailTemplate extends Model
         }
     }
 
+    /**
+     * Fill model using provided content.
+     * @param string $content
+     * @return void
+     */
     public function fillFromContent($content)
     {
         $this->fillFromSections(MailParser::parse($content));
     }
 
+    /**
+     * Fill model using a view.
+     * @param string $path
+     * @return void
+     */
     public function fillFromView($path)
     {
         $this->fillFromSections(self::getTemplateSections($path));
     }
 
+    /**
+     * Fill model using provided section array.
+     * @param array $sections
+     * @return void
+     */
     protected function fillFromSections($sections)
     {
         $this->content_html = array_get($sections, 'html', '<!-- empty content -->');
@@ -146,6 +165,11 @@ class MailTemplate extends Model
         $this->layout = MailLayout::findOrMakeLayout($layoutCode);
     }
 
+    /**
+     * Get section array from a view file.
+     * @param string $code
+     * @return array|null
+     */
     protected static function getTemplateSections($code)
     {
         if (!View::exists($code)) {
@@ -155,6 +179,11 @@ class MailTemplate extends Model
         return MailParser::parse(FileHelper::get($view->getPath()));
     }
 
+    /**
+     * Find a MailTemplate record by code or create one from a view file.
+     * @param string $code
+     * @return MailTemplate model
+     */
     public static function findOrMakeTemplate($code)
     {
         $template = self::whereCode($code)->first();
