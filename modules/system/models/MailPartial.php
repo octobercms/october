@@ -2,6 +2,7 @@
 
 use View;
 use Model;
+use Exception;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -50,13 +51,18 @@ class MailPartial extends Model
 
     public static function findOrMakePartial($code)
     {
-        if (!$template = self::whereCode($code)->first()) {
-            $template = new self;
-            $template->code = $code;
-            $template->fillFromCode($code);
-        }
+        try {
+            if (!$template = self::whereCode($code)->first()) {
+                $template = new self;
+                $template->code = $code;
+                $template->fillFromCode($code);
+            }
 
-        return $template;
+            return $template;
+        }
+        catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
