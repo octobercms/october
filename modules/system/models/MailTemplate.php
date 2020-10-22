@@ -146,7 +146,7 @@ class MailTemplate extends Model
     }
 
     /**
-     * Fill model using a view.
+     * Fill model using a view file path.
      *
      * @param string $path
      * @return void
@@ -173,7 +173,7 @@ class MailTemplate extends Model
     }
 
     /**
-     * Get section array from a view file.
+     * Get section array from a view file by code.
      *
      * @param string $code
      * @return array|null

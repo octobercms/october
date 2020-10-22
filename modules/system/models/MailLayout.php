@@ -50,6 +50,11 @@ class MailLayout extends Model
 
     public static $codeCache;
 
+    /**
+     * Fired before the model is deleted.
+     *
+     * @return void
+     */
     public function beforeDelete()
     {
         if ($this->is_locked) {
@@ -57,6 +62,11 @@ class MailLayout extends Model
         }
     }
 
+    /**
+     * List MailLayouts codes keyed by id.
+     *
+     * @return array
+     */
     public static function listCodes()
     {
         if (self::$codeCache !== null) {
@@ -66,11 +76,24 @@ class MailLayout extends Model
         return self::$codeCache = self::lists('id', 'code');
     }
 
+    /**
+     * Return the id of a MailLayout searched by its code.
+     *
+     * @param string $code
+     * @return string
+     */
     public static function getIdFromCode($code)
     {
         return array_get(self::listCodes(), $code);
     }
 
+    /**
+     * Find a MailLayout by its code or create a new
+     * one from the view file.
+     *
+     * @param string $code
+     * @return MailLayout
+     */
     public static function findOrMakeLayout($code)
     {
         $layout = self::whereCode($code)->first();
@@ -87,6 +110,7 @@ class MailLayout extends Model
     /**
      * Loops over each mail layout and ensures the system has a layout,
      * if the layout does not exist, it will create one.
+     *
      * @return void
      */
     public static function createLayouts()
@@ -107,6 +131,12 @@ class MailLayout extends Model
         }
     }
 
+    /**
+     * Fill model using a view file by code.
+     *
+     * @param string $code
+     * @return void
+     */
     public function fillFromCode($code = null)
     {
         $definitions = MailManager::instance()->listRegisteredLayouts();
@@ -122,6 +152,12 @@ class MailLayout extends Model
         $this->fillFromView($definition);
     }
 
+    /**
+     * Fill model using a view file by path.
+     *
+     * @param string $path
+     * @return void
+     */
     public function fillFromView($path)
     {
         $sections = self::getTemplateSections($path);
@@ -150,6 +186,12 @@ class MailLayout extends Model
         $this->content_text = array_get($sections, 'text');
     }
 
+    /**
+     * Get section array from a view file by code.
+     *
+     * @param string $code
+     * @return array|null
+     */
     protected static function getTemplateSections($code)
     {
         if (!View::exists($code)) {
