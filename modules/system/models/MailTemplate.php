@@ -173,7 +173,7 @@ class MailTemplate extends Model
     }
 
     /**
-     * Get section array from a view file by code.
+     * Get section array from a view file retrieved by code.
      *
      * @param string $code
      * @return array|null

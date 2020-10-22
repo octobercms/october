@@ -132,7 +132,7 @@ class MailLayout extends Model
     }
 
     /**
-     * Fill model using a view file by code.
+     * Fill model using a view file retrieved by code.
      *
      * @param string $code
      * @return void
@@ -153,7 +153,7 @@ class MailLayout extends Model
     }
 
     /**
-     * Fill model using a view file by path.
+     * Fill model using a view file retrieved by path.
      *
      * @param string $path
      * @return void
@@ -187,7 +187,7 @@ class MailLayout extends Model
     }
 
     /**
-     * Get section array from a view file by code.
+     * Get section array from a view file retrieved by code.
      *
      * @param string $code
      * @return array|null
