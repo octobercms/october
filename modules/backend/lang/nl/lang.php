@@ -9,6 +9,7 @@ return [
         'invalid_type' => 'Ongeldig type veld: :type.',
         'options_method_invalid_model' => "Het attribuut ':field' levert geen geldig model op. Probeer de opties methode expliciet te specifieren voor modelklasse :model.",
         'options_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin opties voor het veld ":field".',
+        'options_static_method_invalid_value' => "De statische methode ':method()' in :class leverde geen geldige array met opties op.",
         'colors_method_not_exists' => 'De modelklasse :model moet de methode :method() definiëren met daarin html HEX kleurcodes voor het veld ":field".',
     ],
     'widget' => [
@@ -372,6 +373,7 @@ return [
     'editor' => [
         'menu_label' => 'Editor instellingen',
         'menu_description' => 'Beheer editor instellingen, zoals lettergrootte en kleurschema.',
+        'preview' => 'Voorbeeldweergave',
         'font_size' => 'Lettergrootte',
         'tab_size' => 'Tab grootte',
         'use_hard_tabs' => 'Inspringen met tabs',
@@ -406,6 +408,7 @@ return [
         'label' => 'Label',
         'class_name' => 'Class naam',
         'markup_tags' => 'Opmaak HTML-tags',
+        'markup_tag' => 'Opmaak HTML-tag',
         'allowed_empty_tags' => 'Toegestane lege HTML-tags',
         'allowed_empty_tags_comment' => 'Een lijst van HTML-tags die niet worden verwijderd als ze leeg zijn.',
         'allowed_tags' => 'Toegestane HTML-tags',
@@ -416,6 +419,7 @@ return [
         'remove_tags_comment' => 'Een lijst van HTML-tags die samen met hun inhoud worden verwijderd.',
         'line_breaker_tags' => 'Line breaker tags',
         'line_breaker_tags_comment' => 'Een lijst van HTML-tags waartussen een line breaker element wordt geplaatst.',
+        'toolbar_options' => 'Toolbar opties',
         'toolbar_buttons' => 'Toolbar knoppen',
         'toolbar_buttons_comment' => 'De toolbar knoppen die standaard getoond worden door de Rich Editor.',
         'toolbar_buttons_preset' => 'Voeg preset toe voor toolbar knoppen:',
@@ -424,9 +428,11 @@ return [
             'minimal' => 'Minimaal',
             'full' => 'Volledig',
         ],
+        'paragraph_formats' => 'Paragraaf formaten',
+        'paragraph_formats_comment' => 'De opties die in de "Paragraaf formaat" lijst zullen verschijnen.',
     ],
     'tooltips' => [
-        'preview_website' => 'Voorvertoning website',
+        'preview_website' => 'Voorbeeldweergave website',
     ],
     'mysettings' => [
         'menu_label' => 'Mijn instellingen',
