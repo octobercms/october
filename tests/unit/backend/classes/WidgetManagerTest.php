@@ -44,5 +44,4 @@ class WidgetManagerTest extends TestCase
 
         $this->assertCount(1, $widgets);
     }
-
 }

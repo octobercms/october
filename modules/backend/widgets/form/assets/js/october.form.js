@@ -34,6 +34,7 @@
         this.bindDependants()
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
+        this.bindLazyTabs()
         this.bindCollapsibleSections()
 
         this.$el.on('oc.triggerOn.afterUpdate', this.proxy(this.toggleEmptyTabs))
@@ -121,9 +122,11 @@
         /*
          * When a master is updated, refresh its slaves
          */
-        $.each(fieldMap, function(fieldName, toRefresh){
-            fieldElements.filter('[data-field-name="'+fieldName+'"]')
-                .on('change.oc.formwidget', $.proxy(self.onRefreshDependants, self, fieldName, toRefresh))
+        $.each(fieldMap, function(fieldName, toRefresh) {
+            $(document).on('change.oc.formwidget',
+                '[data-field-name="' + fieldName + '"]',
+                $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
+            );
         })
     }
 
@@ -162,6 +165,45 @@
     }
 
     /*
+     * Render tab form fields once a lazy tab is selected.
+     */
+    FormWidget.prototype.bindLazyTabs = function() {
+        var tabControl = $('[data-control=tab]', this.$el),
+            tabContainer = $('.nav-tabs', tabControl)
+
+        tabContainer.on('click', '.tab-lazy [data-toggle="tab"]', function() {
+            var $el = $(this),
+                handlerName = $el.data('tab-lazy-handler')
+
+            $.request(handlerName, {
+                data: {
+                    target: $el.data('target'),
+                    name: $el.data('tab-name'),
+                    section: $el.data('tab-section'),
+                },
+                success: function(data) {
+                    this.success(data)
+                    $el.parent().removeClass('tab-lazy')
+                    // Trigger all input presets to populate new fields.
+                    setTimeout(function() {
+                        $('[data-input-preset]').each(function() {
+                            var preset = $(this).data('oc.inputPreset')
+                            if (preset && preset.$src) {
+                                preset.$src.trigger('input')
+                            }
+                        })
+                    }, 0)
+                }
+            })
+        })
+
+        // If initial active tab is lazy loaded, load it immediately
+        if ($('> li.active.tab-lazy', tabContainer).length) {
+            $('> li.active.tab-lazy > [data-toggle="tab"]', tabContainer).trigger('click')
+        }
+    }
+
+    /*
      * Hides tabs that have no content, it is possible this can be
      * called multiple times in a single cycle due to input.trigger.
      */
@@ -178,13 +220,13 @@
             var tabControl = $('[data-control=tab]', self.$el),
                 tabContainer = $('.nav-tabs', tabControl)
 
-            if (!tabControl.length || !$.contains(form.get(0), tabControl.get(0)))
+            if (!tabControl.length || !form || !form.length || !$.contains(form.get(0), tabControl.get(0)))
                 return
 
             /*
              * Check each tab pane for form field groups
              */
-            $('.tab-pane', tabControl).each(function() {
+            $('.tab-pane:not(.lazy)', tabControl).each(function() {
                 $('[data-target="#' + $(this).attr('id') + '"]', tabControl)
                     .closest('li')
                     .toggle(!!$('> .form-group:not(:empty):not(.hide)', $(this)).length)
@@ -264,7 +306,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+            return ocJSON("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)

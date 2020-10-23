@@ -50,7 +50,6 @@ class Theme
 
     const ACTIVE_KEY = 'cms::theme.active';
     const EDIT_KEY = 'cms::theme.edit';
-    const CONFIG_KEY = 'cms::theme.config';
 
     /**
      * Loads the theme.
@@ -60,7 +59,7 @@ class Theme
     {
         $theme = new static;
         $theme->setDirName($dirName);
-        $theme->registerHalyconDatasource();
+        $theme->registerHalcyonDatasource();
 
         return $theme;
     }
@@ -151,11 +150,16 @@ class Theme
     public static function getActiveThemeCode()
     {
         $activeTheme = Config::get('cms.activeTheme');
+        $themes = static::all();
+        $havingMoreThemes = count($themes) > 1;
+        $themeHasChanged = !empty($themes[0]) && $themes[0]->dirName !== $activeTheme;
+        $checkDatabase = $havingMoreThemes || $themeHasChanged;
 
-        if (App::hasDatabase()) {
+        if ($checkDatabase && App::hasDatabase()) {
             try {
                 try {
-                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
+                    $expiresAt = now()->addMinutes(1440);
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, $expiresAt, function () {
                         return Parameter::applyKey(self::ACTIVE_KEY)->value('value');
                     });
                 }
@@ -181,7 +185,9 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getActiveTheme', function() { return 'mytheme'; });
+         *     Event::listen('cms.theme.getActiveTheme', function () {
+         *         return 'mytheme';
+         *     });
          *
          */
         $apiResult = Event::fire('cms.theme.getActiveTheme', [], true);
@@ -235,7 +241,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the active
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.setActiveTheme', function($code) {
+         *     Event::listen('cms.theme.setActiveTheme', function ($code) {
          *         \Log::info("Theme has been changed to $code");
          *     });
          *
@@ -265,7 +271,7 @@ class Theme
          * If a value is returned from this halting event, it will be used as the edit
          * theme code. Example usage:
          *
-         *     Event::listen('cms.theme.getEditTheme', function() {
+         *     Event::listen('cms.theme.getEditTheme', function () {
          *         return "the-edit-theme-code";
          *     });
          *
@@ -339,17 +345,7 @@ class Theme
             return $this->configCache = [];
         }
 
-        try {
-            $cacheKey = self::CONFIG_KEY.'::'.$this->getDirName();
-            $config = Cache::rememberForever($cacheKey, function() use ($path) {
-                return Yaml::parseFile($path);
-            });
-        }
-        catch (Exception $ex) {
-            // Cache failed
-            $config = Yaml::parseFile($path);
-        }
-
+        $config = Yaml::parseFile($path);
 
         /**
          * @event cms.theme.extendConfig
@@ -499,7 +495,6 @@ class Theme
 
         Cache::forget(self::ACTIVE_KEY);
         Cache::forget(self::EDIT_KEY);
-        Cache::forget(self::CONFIG_KEY.'::'.(new self)->getDirName());
     }
 
     /**
@@ -521,6 +516,19 @@ class Theme
     }
 
     /**
+     * Remove data specific to this theme
+     * @return bool
+     */
+    public function removeCustomData()
+    {
+        if ($this->hasCustomData()) {
+            return $this->getCustomData()->delete();
+        }
+
+        return true;
+    }
+
+    /**
      * Checks to see if the database layer has been enabled
      *
      * @return boolean
@@ -539,7 +547,7 @@ class Theme
      * Ensures this theme is registered as a Halcyon datasource.
      * @return void
      */
-    public function registerHalyconDatasource()
+    public function registerHalcyonDatasource()
     {
         $resolver = App::make('halcyon');
 

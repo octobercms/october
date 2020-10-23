@@ -6,7 +6,7 @@ use October\Rain\Database\Models\DeferredBinding;
 
 class DeferredBindingTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -105,5 +105,4 @@ class DeferredBindingTest extends PluginTestCase
         $author->commitDeferred($sessionKey);
         $this->assertEquals(0, DeferredBinding::count());
     }
-
 }

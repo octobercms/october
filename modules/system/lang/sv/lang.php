@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => "Kunde inte skapa fil: :name",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Ogiltig säkerhetstoken',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Kombinationsfilen ':name' kunde ej hittas",
     ],
@@ -218,7 +223,7 @@ return [
         'none' => [
             'label' => 'Inga uppdateringar',
             'help' => 'Inga nya uppdateringar hittades.'
-    ],
+        ],
         'important_action' => [
             'empty' => 'Välj åtgärd',
             'confirm' => 'Bekräfta uppdatering',

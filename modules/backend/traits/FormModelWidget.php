@@ -98,5 +98,4 @@ trait FormModelWidget
         list($model, $attribute) = $this->resolveModelAttribute($this->valueFrom);
         return $model->getRelationType($attribute);
     }
-
 }

@@ -1,5 +1,6 @@
 <?php namespace System\Classes;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider as ServiceProviderBase;
 use ReflectionClass;
 use SystemException;
@@ -50,8 +51,9 @@ class PluginBase extends ServiceProviderBase
 
         if (!array_key_exists('plugin', $configuration)) {
             throw new SystemException(sprintf(
-                'The plugin configuration file plugin.yaml should contain the "plugin" section: %s.', $thisClass)
-            );
+                'The plugin configuration file plugin.yaml should contain the "plugin" section: %s.',
+                $thisClass
+            ));
         }
 
         return $configuration['plugin'];
@@ -69,7 +71,7 @@ class PluginBase extends ServiceProviderBase
     /**
      * Boot method, called right before the request route.
      *
-     * @return array
+     * @return void
      */
     public function boot()
     {
@@ -147,7 +149,7 @@ class PluginBase extends ServiceProviderBase
     /**
      * Registers scheduled tasks that are executed on a regular basis.
      *
-     * @param string $schedule
+     * @param Schedule $schedule
      * @return void
      */
     public function registerSchedule($schedule)

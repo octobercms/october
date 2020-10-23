@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => 'Administrácia'
+        'title' => 'Administrácia',
+        'invalid_login' => 'Údaje, ktoré ste zadali sú nesprávne. Prosím skontrolujte údaje a skúste to znova.'
     ],
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',
@@ -15,6 +16,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Bez názvu',
+        '404' => [
+            'label'     => 'Stránka nenájdená',
+            'help'      => "Hľadali sme a hľadali, ale požadovanú adresu URL jednoducho nebolo možné nájsť. Možno ste hľadali niečo iné?",
+            'back_link' => 'Späť na predchodzú stránku',
+        ],
         'access_denied' => [
             'label' => 'Prístup odmietnutý',
             'help' => "Nemáte potrebné oprávnenia na zobrazenie tejto stránky.",
@@ -25,9 +31,6 @@ return [
             'help' => "Pre prístup do administrácie je potrebná databáza. Zkontrolujte, či je databáza nakonfigurovaná a zmigrovaná a skúste to znova.",
             'cms_link' => 'Späť na úvodnú stránku'
         ],
-        'invalid_token' => [
-            'label' => 'Neplatný bezpečnostný token'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Čiastočná šablona ':name' nebola nájdená."
@@ -263,8 +266,8 @@ return [
         'preview_no_media_message' => 'Žiadne médium nebolo vybrané.',
         'preview_no_record_message' => 'Žiadny záznam nie je vybraný',
         'select' => 'Vybrať',
-        'select_all' => 'všetko',
-        'select_none' => 'nič',
+        'select_all' => 'vybrať všetko',
+        'select_none' => 'nevyber nič',
         'select_placeholder' => 'prosím vyberte',
         'insert_row' => 'Vložiť riadok',
         'insert_row_below' => 'Vložiť riadok pod',
@@ -297,7 +300,7 @@ return [
         'cancel' => 'Zrušiť',
         'close' => 'Zatvoriť',
         'add_name' => 'Pridať :name',
-        'create' => 'Vytvorť',
+        'create' => 'Vytvoriť',
         'create_name' => 'Vytvoriť :name',
         'update' => 'Upraviť',
         'update_name' => 'Upraviť :name',
@@ -380,7 +383,7 @@ return [
         'remove_tags' => 'Odstrániť značky',
         'remove_tags_comment' => 'Zoznam značiek, ktoré sú odstránené spolu s ich obsahom.',
         'toolbar_buttons' => 'Tlačítka na paneli nástrojov',
-        'toolbar_buttons_comment' => 'Predvolené tlačítka, ktoré budú zobrazené na paneli nástrojov textového editoru. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Predvolené tlačítka, ktoré budú zobrazené na paneli nástrojov textového editoru.',
     ],
     'tooltips' => [
         'preview_website' => 'Náhľad stránok'

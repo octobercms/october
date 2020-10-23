@@ -19,9 +19,6 @@ return [
             'help' => "Du har inte behörighet att visa den här sidan.",
             'cms_link' => "Gå till CMS backend",
         ],
-        'invalid_token' => [
-            'label' => 'Ogiltig säkerhetstoken'
-        ],
     ],
     'partial' => [
         'not_found_name' => "En partial med namn ':name' kunde inte hittas",
@@ -193,8 +190,8 @@ return [
         'preview_no_files_message' => 'Filen är inte uppladdad',
         'preview_no_record_message' => 'Ingen rad är vald.',
         'select' => 'Välj',
-        'select_all' => 'alla',
-        'select_none' => 'ingen',
+        'select_all' => 'Välj alla',
+        'select_none' => 'Välj ingen',
         'select_placeholder' => 'Vänligen välj',
         'insert_row' => 'Lägg till rad',
         'delete_row' => 'Radera rad',

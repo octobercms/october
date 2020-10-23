@@ -49,6 +49,7 @@ return [
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancelar',
+        'widget_remove_confirm' => 'Remover este widget?'
     ],
 
     'datepicker' => [
@@ -58,10 +59,16 @@ return [
         'weekdays' => ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
         'weekdaysShort' => ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
     ],
-
+    'colorpicker' => [
+        'choose' => 'Ok',
+    ],
     'filter' => [
         'group' => [
             'all' => 'todos'
+        ],
+        'scopes' => [
+            'apply_button_text' => 'Aplicar',
+            'clear_button_text'  => 'Limpar'
         ],
         'dates' => [
             'all' => 'todas',
@@ -70,6 +77,13 @@ return [
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Após',
             'before_placeholder' => 'Antes'
+        ],
+        'numbers' => [
+            'all' => 'todas',
+            'filter_button_text' => 'Filtar',
+            'reset_button_text'  => 'Reiniciar',
+            'min_placeholder' => 'Min',
+            'max_placeholder' => 'Max'
         ]
     ],
 

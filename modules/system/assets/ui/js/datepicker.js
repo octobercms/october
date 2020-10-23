@@ -190,8 +190,8 @@
             autoclose: 'true',
             placement: 'auto',
             align: 'right',
-            twelvehour: this.isTimeTwelveHour()
-            // afterDone: this.proxy(this.onSelectTimePicker)
+            twelvehour: this.isTimeTwelveHour(),
+            afterDone: this.proxy(this.onChangeTimePicker)
         })
 
         this.$timePicker.val(this.getDataLockerValue(this.getTimeFormat()))
@@ -211,6 +211,11 @@
         var lockerValue = momentObj.format(this.dbDateTimeFormat)
 
         this.$dataLocker.val(lockerValue)
+    }
+
+    DatePicker.prototype.onChangeTimePicker = function() {
+        // Trigger a change event when the time is changed, to allow dependent fields to refresh
+        this.$timePicker.trigger('change')
     }
 
     // Returns in user preference timezone

@@ -13,13 +13,14 @@ class MailSetting extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
-    const MODE_LOG      = 'log';
-    const MODE_MAIL     = 'mail';
-    const MODE_SENDMAIL = 'sendmail';
-    const MODE_SMTP     = 'smtp';
-    const MODE_MAILGUN  = 'mailgun';
-    const MODE_MANDRILL = 'mandrill';
-    const MODE_SES      = 'ses';
+    const MODE_LOG       = 'log';
+    const MODE_MAIL      = 'mail';
+    const MODE_SENDMAIL  = 'sendmail';
+    const MODE_SMTP      = 'smtp';
+    const MODE_MAILGUN   = 'mailgun';
+    const MODE_MANDRILL  = 'mandrill';
+    const MODE_SES       = 'ses';
+    const MODE_SPARKPOST = 'sparkpost';
 
     /**
      * @var array Behaviors implemented by this model.
@@ -76,6 +77,7 @@ class MailSetting extends Model
             static::MODE_MAILGUN  => 'system::lang.mail.mailgun',
             static::MODE_MANDRILL => 'system::lang.mail.mandrill',
             static::MODE_SES      => 'system::lang.mail.ses',
+            static::MODE_SPARKPOST => 'system::lang.mail.sparkpost',
         ];
     }
 
@@ -88,7 +90,6 @@ class MailSetting extends Model
         $config->set('mail.from.address', $settings->sender_email);
 
         switch ($settings->send_mode) {
-
             case self::MODE_SMTP:
                 $config->set('mail.host', $settings->smtp_address);
                 $config->set('mail.port', $settings->smtp_port);
@@ -126,10 +127,12 @@ class MailSetting extends Model
                 $config->set('services.ses.secret', $settings->ses_secret);
                 $config->set('services.ses.region', $settings->ses_region);
                 break;
+
+            case self::MODE_SPARKPOST:
+                $config->set('services.sparkpost.secret', $settings->sparkpost_secret);
+                break;
         }
-
     }
-
 
     /**
      * @return array smtp_encryption options values
@@ -141,5 +144,33 @@ class MailSetting extends Model
             'tls' => 'system::lang.mail.smtp_encryption_tls',
             'ssl' => 'system::lang.mail.smtp_encryption_ssl',
         ];
+    }
+
+    /**
+     * Filter fields callback.
+     *
+     * We use this to automatically set the SMTP port to the encryption type's corresponding port, if it was originally
+     * using a default port.
+     *
+     * @param array $fields
+     * @param string|null $context
+     * @return void
+     */
+    public function filterFields($fields, $context = null)
+    {
+        if (in_array($fields->smtp_port->value ?? 25, [25, 465, 587])) {
+            switch ($fields->smtp_encryption->value ?? '') {
+                case 'tls':
+                    $fields->smtp_port->value = 587;
+                    break;
+                case 'ssl':
+                    $fields->smtp_port->value = 465;
+                    break;
+                case '':
+                default:
+                    $fields->smtp_port->value = 25;
+                    break;
+            }
+        }
     }
 }

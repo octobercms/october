@@ -45,6 +45,16 @@
 }
 
 //
+// Side panel
+//
+
+#layout-side-panel {
+    .sidepanel-content-header {
+        background: @custom-dark-secondary;
+    }
+}
+
+//
 // Asset List
 //
 
@@ -92,13 +102,6 @@ table.table.data {
                 border-left: 3px solid @brand-secondary;
             }
         }
-        // tr:not(.no-data):hover td,
-        // tr:not(.no-data).selected td {
-        //     background: mix(white, @brand-accent, 13%) !important;
-        // }
-        // tr:not(.no-data):active td {
-        //     background: @brand-accent !important;
-        // }
     }
 }
 
@@ -129,7 +132,7 @@ table.table.data {
     }
 
     > div > div.tabs-container {
-        background-color: @custom-dark-secondary;
+        background: @custom-dark-secondary;
     }
 }
 
@@ -179,6 +182,42 @@ div.control-componentlist {
     ul {
         li.active {
             background: @brand-secondary !important;
+        }
+    }
+}
+
+//
+// Media
+//
+
+.nav.selector-group li.active {
+    border-left-color: @brand-secondary;
+}
+
+//
+// Fancy breadcrumb
+//
+body.breadcrumb-fancy .control-breadcrumb,
+.control-breadcrumb.breadcrumb-fancy {
+    background-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+
+    li {
+        background-color: mix(black, saturate(@brand-secondary, 20%), 31%);
+
+        &:last-child {
+            background-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+
+            &::before {
+                border-left-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+            }
+        }
+
+        &::after {
+            border-left-color: mix(black, saturate(@brand-secondary, 20%), 31%);
+        }
+
+        &:not(:last-child)::before {
+            border-left-color: @brand-secondary;
         }
     }
 }

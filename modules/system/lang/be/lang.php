@@ -14,6 +14,11 @@ return [
     'combiner' => [
         'not_found' => "Аб'яднальны файл \":name\" не знойдзены"
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => "Няправільны токен бяспекі",
+        ],
+    ],
     'system' => [
         'name' => "Сістэма",
         'menu_label' => "Сістэма",

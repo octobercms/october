@@ -7,7 +7,6 @@ use Model;
  */
 class Role extends Model
 {
-
     /**
      * @var string The database table used by the model.
      */
@@ -32,5 +31,4 @@ class Role extends Model
             'table' => 'database_tester_authors_roles'
         ],
     ];
-
 }

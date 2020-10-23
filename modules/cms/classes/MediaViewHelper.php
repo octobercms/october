@@ -102,5 +102,4 @@ class MediaViewHelper
             break;
         }
     }
-
 }

@@ -30,12 +30,6 @@ class VersionManager
     const HISTORY_TYPE_SCRIPT = 'script';
 
     /**
-     * The notes for the current operation.
-     * @var array
-     */
-    protected $notes = [];
-
-    /**
      * @var \Illuminate\Console\OutputStyle
      */
     protected $notesOutput;
@@ -157,8 +151,13 @@ class VersionManager
      * Removes and packs down a plugin from the system. Files are left intact.
      * If the $stopOnVersion parameter is specified, the process stops after
      * the specified version is rolled back.
+     *
+     * @param mixed $plugin Either the identifier of a plugin as a string, or a Plugin class.
+     * @param string $stopOnVersion
+     * @param bool $stopCurrentVersion
+     * @return bool
      */
-    public function removePlugin($plugin, $stopOnVersion = null)
+    public function removePlugin($plugin, $stopOnVersion = null, $stopCurrentVersion = false)
     {
         $code = is_string($plugin) ? $plugin : $this->pluginManager->getIdentifier($plugin);
 
@@ -172,25 +171,37 @@ class VersionManager
         $stopOnNextVersion = false;
         $newPluginVersion = null;
 
-        foreach ($pluginHistory as $history) {
-            if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
-                // Stop if the $stopOnVersion value was found and
-                // this is a new version. The history could contain
-                // multiple items for a single version (comments and scripts).
-                $newPluginVersion = $history->version;
-                break;
-            }
+        try {
+            foreach ($pluginHistory as $history) {
+                if ($stopCurrentVersion && $stopOnVersion === $history->version) {
+                    $newPluginVersion = $history->version;
+                    break;
+                }
 
-            if ($history->type == self::HISTORY_TYPE_COMMENT) {
-                $this->removeDatabaseComment($code, $history->version);
-            }
-            elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
-                $this->removeDatabaseScript($code, $history->version, $history->detail);
-            }
+                if ($stopOnNextVersion && $history->version !== $stopOnVersion) {
+                    // Stop if the $stopOnVersion value was found and
+                    // this is a new version. The history could contain
+                    // multiple items for a single version (comments and scripts).
+                    $newPluginVersion = $history->version;
+                    break;
+                }
 
-            if ($stopOnVersion === $history->version) {
-                $stopOnNextVersion = true;
+                if ($history->type == self::HISTORY_TYPE_COMMENT) {
+                    $this->removeDatabaseComment($code, $history->version);
+                } elseif ($history->type == self::HISTORY_TYPE_SCRIPT) {
+                    $this->removeDatabaseScript($code, $history->version, $history->detail);
+                }
+
+                if ($stopOnVersion === $history->version) {
+                    $stopOnNextVersion = true;
+                }
             }
+        } catch (\Exception $exception) {
+            $lastHistory = $this->getLastHistory($code);
+            if ($lastHistory) {
+                $this->setDatabaseVersion($code, $lastHistory->version);
+            }
+            throw $exception;
         }
 
         $this->setDatabaseVersion($code, $newPluginVersion);
@@ -209,7 +220,7 @@ class VersionManager
 
     /**
      * Deletes all records from the version and history tables for a plugin.
-     * @param  string $pluginCode Plugin code
+     * @param string $pluginCode Plugin code
      * @return void
      */
     public function purgePlugin($pluginCode)
@@ -317,8 +328,7 @@ class VersionManager
         if (!isset($this->databaseVersions[$code])) {
             $this->databaseVersions[$code] = Db::table('system_plugin_versions')
                 ->where('code', $code)
-                ->value('version')
-            ;
+                ->value('version');
         }
 
         return $this->databaseVersions[$code] ?? self::NO_VERSION_VALUE;
@@ -333,18 +343,16 @@ class VersionManager
 
         if ($version && !$currentVersion) {
             Db::table('system_plugin_versions')->insert([
-                'code' => $code,
-                'version' => $version,
+                'code'       => $code,
+                'version'    => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($version && $currentVersion) {
+        } elseif ($version && $currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->update([
-                'version' => $version,
+                'version'    => $version,
                 'created_at' => new Carbon
             ]);
-        }
-        elseif ($currentVersion) {
+        } elseif ($currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->delete();
         }
 
@@ -357,10 +365,10 @@ class VersionManager
     protected function applyDatabaseComment($code, $version, $comment)
     {
         Db::table('system_plugin_history')->insert([
-            'code' => $code,
-            'type' => self::HISTORY_TYPE_COMMENT,
-            'version' => $version,
-            'detail' => $comment,
+            'code'       => $code,
+            'type'       => self::HISTORY_TYPE_COMMENT,
+            'version'    => $version,
+            'detail'     => $comment,
             'created_at' => new Carbon
         ]);
     }
@@ -395,10 +403,10 @@ class VersionManager
         $this->updater->setUp($updateFile);
 
         Db::table('system_plugin_history')->insert([
-            'code' => $code,
-            'type' => self::HISTORY_TYPE_SCRIPT,
-            'version' => $version,
-            'detail' => $script,
+            'code'       => $code,
+            'type'       => self::HISTORY_TYPE_SCRIPT,
+            'version'    => $version,
+            'detail'     => $script,
             'created_at' => new Carbon
         ]);
     }
@@ -412,6 +420,7 @@ class VersionManager
          * Execute the database PHP script
          */
         $updateFile = $this->pluginManager->getPluginPath($code) . '/updates/' . $script;
+
         $this->updater->packDown($updateFile);
 
         Db::table('system_plugin_history')
@@ -438,6 +447,20 @@ class VersionManager
             ->all();
 
         return $this->databaseHistory[$code] = $historyInfo;
+    }
+
+    /**
+     * Returns the last update history for a plugin.
+     *
+     * @param string $code The plugin identifier
+     * @return stdClass|null
+     */
+    protected function getLastHistory($code)
+    {
+        return Db::table('system_plugin_history')
+            ->where('code', $code)
+            ->orderBy('id', 'DESC')
+            ->first();
     }
 
     /**
@@ -473,7 +496,7 @@ class VersionManager
 
     /**
      * Raise a note event for the migrator.
-     * @param  string  $message
+     * @param string $message
      * @return void
      */
     protected function note($message)
@@ -481,38 +504,13 @@ class VersionManager
         if ($this->notesOutput !== null) {
             $this->notesOutput->writeln($message);
         }
-        else {
-            $this->notes[] = $message;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get the notes for the last operation.
-     * @return array
-     */
-    public function getNotes()
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Resets the notes store.
-     * @return self
-     */
-    public function resetNotes()
-    {
-        $this->notesOutput = null;
-
-        $this->notes = [];
 
         return $this;
     }
 
     /**
      * Sets an output stream for writing notes.
-     * @param  Illuminate\Console\Command $output
+     * @param Illuminate\Console\Command $output
      * @return self
      */
     public function setNotesOutput($output)
@@ -523,11 +521,10 @@ class VersionManager
     }
 
     /**
-     * @param $details
-     *
+     * Extract script and comments from version details
      * @return array
      */
-    protected function extractScriptsAndComments($details)
+    protected function extractScriptsAndComments($details): array
     {
         if (is_array($details)) {
             $fileNamePattern = "/^[a-z0-9\_\-\.\/\\\]+\.php$/i";
@@ -539,11 +536,60 @@ class VersionManager
             $scripts = array_values(array_filter($details, function ($detail) use ($fileNamePattern) {
                 return preg_match($fileNamePattern, $detail);
             }));
-        } else {
+        }
+        else {
             $comments = (array)$details;
             $scripts = [];
         }
 
-        return array($comments, $scripts);
+        return [$comments, $scripts];
+    }
+
+    /**
+     * Get the currently installed version of the plugin.
+     *
+     * @param string|PluginBase $plugin Either the identifier of a plugin as a string, or a Plugin class.
+     * @return string
+     */
+    public function getCurrentVersion($plugin): string
+    {
+        $code = $this->pluginManager->getIdentifier($plugin);
+        return $this->getDatabaseVersion($code);
+    }
+
+    /**
+     * Check if a certain version of the plugin exists in the plugin history database.
+     *
+     * @param string|PluginBase $plugin Either the identifier of a plugin as a string, or a Plugin class.
+     * @param string $version
+     * @return bool
+     */
+    public function hasDatabaseVersion($plugin, string $version): bool
+    {
+        $code = $this->pluginManager->getIdentifier($plugin);
+        $histories = $this->getDatabaseHistory($code);
+        foreach ($histories as $history) {
+            if ($history->version === $version) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get last version note
+     *
+     * @param string|PluginBase $plugin
+     * @return string
+     */
+    public function getCurrentVersionNote($plugin): string
+    {
+        $code = $this->pluginManager->getIdentifier($plugin);
+        $histories = $this->getDatabaseHistory($code);
+        $lastHistory = array_last(array_where($histories, function ($history) {
+            return $history->type === self::HISTORY_TYPE_COMMENT;
+        }));
+        return $lastHistory ? $lastHistory->detail : '';
     }
 }

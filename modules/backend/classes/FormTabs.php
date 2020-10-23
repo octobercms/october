@@ -28,15 +28,20 @@ class FormTabs implements IteratorAggregate, ArrayAccess
     public $fields = [];
 
     /**
+     * @var array Names of tabs to lazy load.
+     */
+    public $lazy = [];
+
+    /**
      * @var string Default tab label to use when none is specified.
      */
     public $defaultTab = 'backend::lang.form.undefined_tab';
-    
+
     /**
      * @var array List of icons for their corresponding tabs.
      */
     public $icons = [];
-    
+
     /**
      * @var bool Should these tabs stretch to the bottom of the page layout.
      */
@@ -56,6 +61,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      * @var array Specifies a CSS class to an individual tab pane.
      */
     public $paneCssClass;
+
+    /**
+     * @var bool Each tab gets url fragment to be linkable.
+     */
+    public $linkable = true;
 
     /**
      * Constructor.
@@ -86,11 +96,11 @@ class FormTabs implements IteratorAggregate, ArrayAccess
         if (array_key_exists('defaultTab', $config)) {
             $this->defaultTab = $config['defaultTab'];
         }
-        
+
         if (array_key_exists('icons', $config)) {
             $this->icons = $config['icons'];
         }
-        
+
         if (array_key_exists('stretch', $config)) {
             $this->stretch = $config['stretch'];
         }
@@ -105,6 +115,14 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         if (array_key_exists('paneCssClass', $config)) {
             $this->paneCssClass = $config['paneCssClass'];
+        }
+
+        if (array_key_exists('linkable', $config)) {
+            $this->linkable = (bool) $config['linkable'];
+        }
+
+        if (array_key_exists('lazy', $config)) {
+            $this->lazy = $config['lazy'];
         }
     }
 
@@ -182,7 +200,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
 
         return $tablessFields;
     }
-    
+
     /**
      * Returns an icon for the tab based on the tab's name.
      * @param string $name
@@ -194,7 +212,7 @@ class FormTabs implements IteratorAggregate, ArrayAccess
             return $this->icons[$name];
         }
     }
-    
+
     /**
      * Returns a tab pane CSS class.
      * @param string $index
@@ -222,9 +240,10 @@ class FormTabs implements IteratorAggregate, ArrayAccess
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->suppressTabs
-            ? $this->getAllFields()
-            : $this->getFields()
+        return new ArrayIterator(
+            $this->suppressTabs
+                ? $this->getAllFields()
+                : $this->getFields()
         );
     }
 

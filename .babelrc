@@ -1,0 +1,13 @@
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": [
+        [
+            "module-resolver", {
+                "root": ["."],
+                "alias": {
+                    "helpers": "./tests/js/helpers"
+                }
+            }
+        ]
+    ]
+}

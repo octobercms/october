@@ -40,7 +40,7 @@
             }
         })
 
-        markup = self.parseSource(self.$el.text())
+        markup = self.parseSource(self.$el.html())
 
         self.$el
             .addClass('plugin-exception-beautifier')
@@ -274,7 +274,10 @@
             }
         }
         else {
-            markup += $.oc.escapeHtmlString(str)
+            // Allow HTML entities
+            str = str.replace(/&amp;([^\s&;]+?);/g, '&$1;')
+
+            markup += str
                 .replace(/\{x-newline\}/g, '<br>')
                 .replace(/\{x-tabulation\}/g, '&nbsp;&nbsp;')
         }
@@ -353,7 +356,7 @@
             tabs.find('#beautifier-tab-formatted').append(markup)
         }
 
-        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + $.oc.escapeHtmlString(source.trim()).replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
+        tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + source.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>')
 
         tabs.ocTab({
             closable: false

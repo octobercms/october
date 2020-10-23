@@ -94,7 +94,8 @@ class ThemeLog extends Model
         try {
             $record->save();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return $record;
     }

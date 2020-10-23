@@ -28,7 +28,7 @@ class WidgetMakerTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -58,5 +58,4 @@ class WidgetMakerTest extends TestCase
         $this->assertInstanceOf('Backend\Widgets\Search', $widget);
         $this->assertEquals('config', $widget->getConfig('test'));
     }
-
 }

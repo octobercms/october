@@ -58,7 +58,8 @@ class EventLog extends Model
         try {
             $record->save();
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         return $record;
     }
@@ -84,6 +85,9 @@ class EventLog extends Model
             return $match[1];
         }
 
-        return Str::limit($this->message, 100);
+        // Get first line of message
+        preg_match('/^([^\n\r]+)/m', $this->message, $matches);
+
+        return Str::limit($matches[1] ?? '', 500);
     }
 }

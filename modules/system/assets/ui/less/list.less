@@ -153,7 +153,7 @@ table.table.data {
             }
         }
 
-        tr.rowlink:hover td, tr:not(.no-data).selected td {
+        tr.rowlink:not(.nolink):hover td, tr:not(.no-data).selected td {
             background: @color-list-hover-bg !important;
             color: @highlight-hover-text;
 
@@ -162,7 +162,7 @@ table.table.data {
             }
         }
 
-        tr.rowlink:active td {
+        tr.rowlink:not(.nolink):active td {
             background: @color-list-active-bg !important;
             color: @color-list-active-text;
         }
@@ -596,5 +596,10 @@ table.table.data {
 
     > .list-scrollable {
         overflow: hidden;
+    }
+
+    &.scroll-after th a,
+    &.scroll-before th a {
+        cursor: grab;
     }
 }

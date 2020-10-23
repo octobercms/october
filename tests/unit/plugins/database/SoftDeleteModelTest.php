@@ -10,7 +10,7 @@ use Database\Tester\Models\UserWithSoftAuthorAndSoftDelete;
 
 class SoftDeleteModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -94,5 +94,4 @@ class SoftDeleteModelTest extends PluginTestCase
 
         $this->assertNotNull(SoftDeleteAuthor::find($authorId));
     }
-
 }

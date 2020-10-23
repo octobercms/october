@@ -25,9 +25,6 @@ return [
             'help' => 'Для доступу до back-end - потрібна база данних. Перевірте, налаштування та міграції бази данних, перш ніж спробувати знову.',
             'cms_link' => 'Повернутися на домашню сторінку'
         ],
-        'invalid_token' => [
-            'label' => 'Неправильний токен безпеки'
-        ],
     ],
     'partial' => [
         'not_found_name' => "Частину ':name' не знайдено.",
@@ -262,8 +259,8 @@ return [
         'preview_no_media_message' => 'Немає обраного файла.',
         'preview_no_record_message' => 'Немає обраних записів.',
         'select' => 'Обрати',
-        'select_all' => 'всі',
-        'select_none' => 'жоден',
+        'select_all' => 'вибрати все',
+        'select_none' => 'вибрати жоден',
         'select_placeholder' => 'будь ласка, оберіть',
         'insert_row' => 'Вставити рядок',
         'insert_row_below' => 'Вставити рядок нижче',
@@ -379,7 +376,7 @@ return [
         'remove_tags' => 'Видаляємі теги',
         'remove_tags_comment' => 'Теги які видаляються разом з їх вмістом.',
         'toolbar_buttons' => 'Кнопки панелі інструментів',
-        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => 'Кнопки панелі інструментів, які за замовчуванням відображаються в Rich Editor.'
     ],
     'tooltips' => [
         'preview_website' => 'Перегляд веб-сайту'

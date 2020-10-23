@@ -22,7 +22,7 @@
                                 class="column-label"
                                 onclick="$.oc.importBehavior.loadFileColumnSample(this)"
                             >
-                                <?= $column ?>
+                                <?= e($column) ?>
                             </a>
                         </span>
                     </div>

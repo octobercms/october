@@ -5,6 +5,7 @@ use Lang;
 use Model;
 use Response;
 use League\Csv\Writer as CsvWriter;
+use League\Csv\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 
@@ -96,7 +97,7 @@ abstract class ExportModel extends Model
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
-        
+
         $csv->setOutputBOM(CsvWriter::BOM_UTF8);
 
         if ($options['delimiter'] !== null) {
@@ -110,6 +111,8 @@ abstract class ExportModel extends Model
         if ($options['escape'] !== null) {
             $csv->setEscape($options['escape']);
         }
+
+        $csv->addFormatter(new CsvEscapeFormula());
 
         /*
          * Add headers
@@ -193,8 +196,7 @@ abstract class ExportModel extends Model
         foreach ($data as $value) {
             if (is_array($value)) {
                 $newData[] = 'Array';
-            }
-            else {
+            } else {
                 $newData[] = str_replace($delimeter, '\\'.$delimeter, $value);
             }
         }

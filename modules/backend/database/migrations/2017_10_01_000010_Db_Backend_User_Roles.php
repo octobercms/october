@@ -88,7 +88,8 @@ class DbBackendUserRoles extends Migration
                     'permissions' => $group->permissions ?? null
                 ]);
             }
-            catch (Exception $ex) {}
+            catch (Exception $ex) {
+            }
 
             $permissions[$group->id] = $group->permissions ?? null;
         }
@@ -130,7 +131,8 @@ class DbBackendUserRoles extends Migration
                     $perms = json_decode($permString, true);
                     $userPerms = array_merge($userPerms, $perms);
                 }
-                catch (Exception $ex) {}
+                catch (Exception $ex) {
+                }
             }
 
             if (count($userPerms) > 0) {
@@ -157,6 +159,7 @@ class DbBackendUserRoles extends Migration
                 'permissions' => json_encode($newPerms)
             ]);
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
     }
 }

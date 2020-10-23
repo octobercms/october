@@ -25,9 +25,6 @@ return [
             'help' => "Duomenų bazė reikalinga administracijos prieigai. Patikrinkite duomenų bazės konfigūraciją bei migracijas ir bandykite dar kartą.",
             'cms_link' => 'Grįžti į svetainę'
         ],
-        'invalid_token' => [
-            'label' => 'Netinkama saugos žyma'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Priedėlis ':name' nerastas."
@@ -244,8 +241,8 @@ return [
         'preview_no_files_message' => 'Nėra įkeltų failų.',
         'preview_no_record_message' => 'Nėra pasirinktų įrašų.',
         'select' => 'Pasirinkti',
-        'select_all' => 'viską',
-        'select_none' => 'nieko',
+        'select_all' => 'pasirinkti viską',
+        'select_none' => 'neišsirinkite nė vieno',
         'select_placeholder' => 'prašome pasirinkti',
         'insert_row' => 'Pridėti Eilutę',
         'insert_row_below' => 'Pridėti Eilutę Žemiau',

@@ -1,6 +1,6 @@
 /*
  * The autcomplete plugin, a forked version of Bootstrap's original typeahead plugin.
- * 
+ *
  * Data attributes:
  * - data-control="autocomplete" - enables the autocomplete plugin
  *
@@ -233,19 +233,19 @@
         move: function (e) {
             if (!this.shown) return
 
-            switch(e.keyCode) {
-                case 9: // tab
-                case 13: // enter
-                case 27: // escape
+            switch(e.key) {
+                case 'Tab':
+                case 'Enter':
+                case 'Escape':
                     e.preventDefault()
                     break
 
-                case 38: // up arrow
+                case 'ArrowUp':
                     e.preventDefault()
                     this.prev()
                     break
 
-                case 40: // down arrow
+                case 'ArrowDown':
                     e.preventDefault()
                     this.next()
                     break
@@ -255,7 +255,7 @@
         },
 
         keydown: function (e) {
-            this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27])
+            this.suppressKeyPressRepeat = ~$.inArray(e.key, ['ArrowDown','ArrowUp','Tab','Enter','Escape'])
             this.move(e)
         },
 
@@ -378,7 +378,7 @@
         if (typeof value == 'object') return value
 
         try {
-            return JSON.parse(JSON.stringify(eval("({" + value + "})")))
+            return ocJSON("{" + value + "}")
         }
         catch (e) {
             throw new Error('Error parsing the '+name+' attribute value. '+e)

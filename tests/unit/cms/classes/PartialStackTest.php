@@ -55,5 +55,4 @@ class PartialStackTest extends TestCase
         $stack = new PartialStack;
         $this->assertNull($stack->getComponent('xxx'));
     }
-
 }

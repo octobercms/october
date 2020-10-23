@@ -65,6 +65,8 @@ class Updates extends Controller
         if ($this->getAjaxHandler() == 'onExecuteStep') {
             $this->useSecurityToken = false;
         }
+
+        $this->vars['warnings'] = $this->getWarnings();
     }
 
     /**
@@ -73,6 +75,7 @@ class Updates extends Controller
     public function index()
     {
         $this->vars['coreBuild'] = Parameter::get('system::core.build');
+        $this->vars['coreBuildModified'] = Parameter::get('system::core.modified', false);
         $this->vars['projectId'] = Parameter::get('system::project.id');
         $this->vars['projectName'] = Parameter::get('system::project.name');
         $this->vars['projectOwner'] = Parameter::get('system::project.owner');
@@ -189,14 +192,15 @@ class Updates extends Controller
                 }
 
                 //Filter out update scripts
-                $details = array_filter($details, function($string) use ($path) {
+                $details = array_filter($details, function ($string) use ($path) {
                     return !preg_match('/^[a-z_\-0-9]*\.php$/i', $string) || !File::exists($path . '/updates/' . $string);
                 });
 
                 $contents[$version] = $details;
             }
         }
-        catch (Exception $ex) {}
+        catch (Exception $ex) {
+        }
 
         uksort($contents, function ($a, $b) {
             return version_compare($b, $a);
@@ -209,7 +213,9 @@ class Updates extends Controller
     {
         $contents = null;
         foreach ($filenames as $file) {
-            if (!File::exists($path . '/'.$file)) continue;
+            if (!File::exists($path . '/'.$file)) {
+                continue;
+            }
 
             $contents = File::get($path . '/'.$file);
 
@@ -222,6 +228,23 @@ class Updates extends Controller
         }
 
         return $contents;
+    }
+
+    protected function getWarnings()
+    {
+        $warnings = [];
+        $missingDependencies = PluginManager::instance()->findMissingDependencies();
+
+        foreach ($missingDependencies as $pluginCode => $plugin) {
+            foreach ($plugin as $missingPluginCode) {
+                $warnings[] = Lang::get('system::lang.updates.update_warnings_plugin_missing', [
+                    'code' => '<strong>' . $missingPluginCode . '</strong>',
+                    'parent_code' => '<strong>' . $pluginCode . '</strong>'
+                ]);
+            }
+        }
+
+        return $warnings;
     }
 
     /**
@@ -369,7 +392,9 @@ class Updates extends Controller
             $coreImportant = false;
 
             foreach (array_get($result, 'core.updates', []) as $build => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $detailsUrl = '//octobercms.com/support/articles/release-notes';
                 $description = str_replace('!!!', '', $description);
@@ -387,7 +412,9 @@ class Updates extends Controller
             $isImportant = false;
 
             foreach (array_get($plugin, 'updates', []) as $version => $description) {
-                if (strpos($description, '!!!') === false) continue;
+                if (strpos($description, '!!!') === false) {
+                    continue;
+                }
 
                 $isImportant = $hasImportantUpdates = true;
                 $detailsUrl = Backend::url('system/updates/details/'.PluginVersion::makeSlug($code).'/upgrades').'?fetch=1';
@@ -423,12 +450,15 @@ class Updates extends Controller
 
     /**
      * Contacts the update server for a list of necessary updates.
+     *
+     * @param bool $force Whether or not to force the redownload of existing tools
+     * @return string The rendered "execute" partial
      */
-    public function onForceUpdate()
+    public function onForceUpdate($force = true)
     {
         try {
             $manager = UpdateManager::instance();
-            $result = $manager->requestUpdateList(true);
+            $result = $manager->requestUpdateList($force);
 
             $coreHash = array_get($result, 'core.hash', false);
             $coreBuild = array_get($result, 'core.build', false);
@@ -679,7 +709,7 @@ class Updates extends Controller
                 'system::project.owner' => $result['owner'],
             ]);
 
-            return $this->onForceUpdate();
+            return $this->onForceUpdate(false);
         }
         catch (Exception $ex) {
             $this->handleError($ex);
@@ -851,7 +881,7 @@ class Updates extends Controller
         }
 
         Flash::success(Lang::get("system::lang.plugins.{$bulkAction}_success"));
-        return $this->listRefresh('manage');
+        return redirect()->refresh();
     }
 
     //
@@ -910,7 +940,6 @@ class Updates extends Controller
     public function onRemoveTheme()
     {
         if ($themeCode = post('code')) {
-
             ThemeManager::instance()->deleteTheme($themeCode);
 
             Flash::success(trans('cms::lang.theme.delete_theme_success'));

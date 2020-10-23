@@ -268,8 +268,8 @@ return [
         'preview_no_media_message' => 'No hi ha medis seleccionats.',
         'preview_no_record_message' => 'No hi ha cap registre seleccionat.',
         'select' => 'Seleccionar',
-        'select_all' => 'tots',
-        'select_none' => 'cap',
+        'select_all' => 'seleccionar tot',
+        'select_none' => 'no selecciona cap',
         'select_placeholder' => 'si us plau selecciona',
         'insert_row' => 'Inserir fila',
         'insert_row_below' => 'Inserir fila a sota',
@@ -387,7 +387,7 @@ return [
         'line_breaker_tags' => 'Etiquetes de canvi de línia',
         'line_breaker_tags_comment' => "La llista d'etiquetes que s'utilitzen per introduir un canvi de línia.",
         'toolbar_buttons' => "Botons de la barra d'eines",
-        'toolbar_buttons_comment' => "Els botons de la barra d'eines que es mostraran en l'editor de text enriquit per defecte. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]",
+        'toolbar_buttons_comment' => "Els botons de la barra d'eines que es mostraran en l'editor de text enriquit per defecte.",
     ],
     'tooltips' => [
         'preview_website' => 'Previsualitzar el lloc web'

@@ -41,6 +41,7 @@ class OctoberMirror extends Command
     protected $directories = [
         'storage/app/uploads/public',
         'storage/app/media',
+        'storage/app/resized',
         'storage/temp/public',
     ];
 
@@ -93,7 +94,7 @@ class OctoberMirror extends Command
          *
          * Example usage:
          *
-         *     Event::listen('system.console.mirror.extendPaths', function($paths) {
+         *     Event::listen('system.console.mirror.extendPaths', function ($paths) {
          *          $paths->directories = array_merge($paths->directories, ['plugins/myauthor/myplugin/public']);
          *     });
          *

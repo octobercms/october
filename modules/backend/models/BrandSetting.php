@@ -43,7 +43,7 @@ class BrandSetting extends Model
         'favicon' => \System\Models\File::class,
         'logo' => \System\Models\File::class
     ];
-    
+
     /**
      * @var string The key to store rendered CSS in the cache under
      */
@@ -80,6 +80,12 @@ class BrandSetting extends Model
         $this->secondary_color = $config->get('brand.secondaryColor', self::SECONDARY_COLOR);
         $this->accent_color = $config->get('brand.accentColor', self::ACCENT_COLOR);
         $this->menu_mode = $config->get('brand.menuMode', self::INLINE_MENU);
+
+        // Attempt to load custom CSS
+        $brandCssPath = File::symbolizePath(Config::get('brand.customLessPath'));
+        if ($brandCssPath && File::exists($brandCssPath)) {
+            $this->custom_css = File::get($brandCssPath);
+        }
     }
 
     public function afterSave()
@@ -181,5 +187,4 @@ class BrandSetting extends Model
 
         return null;
     }
-
 }

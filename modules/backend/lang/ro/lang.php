@@ -149,8 +149,8 @@ return [
         'behavior_not_ready' => 'Setarile initiale ale formularului nu au fost definite, verificati existenta functiei initForm() in controller.',
         'preview_no_files_message' => 'Fisierele nu au fost incarcate',
         'select' => 'Selectare',
-        'select_all' => 'toate',
-        'select_none' => 'niciunul',
+        'select_all' => 'Selectează tot',
+        'select_none' => 'Selectați niciuna',
     ],
     'relation' => [
         'missing_definition' => "Relatia nu contine definitii pentru campul ':field'.",

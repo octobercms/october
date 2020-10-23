@@ -192,7 +192,6 @@ class MailManager
         $disableAutoInlineCss = false;
 
         if ($template->layout) {
-
             $disableAutoInlineCss = array_get($template->layout->options, 'disable_auto_inline_css', $disableAutoInlineCss);
 
             $html = $this->renderTwig($template->layout->content_html, [
@@ -402,7 +401,7 @@ class MailManager
      * registerMailTemplates() function. Thi instance is passed to the
      * callback function as an argument. Usage:
      *
-     *     MailManager::registerCallback(function($manager) {
+     *     MailManager::registerCallback(function ($manager) {
      *         $manager->registerMailTemplates([...]);
      *     });
      *

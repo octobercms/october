@@ -42,7 +42,6 @@ class ThemeList extends Command
         }
 
         if ($this->option('include-marketplace')) {
-
             // @todo List everything in the marketplace - not just popular.
 
             $popularThemes = $updateManager->requestPopularProducts('theme');

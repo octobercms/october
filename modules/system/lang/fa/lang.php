@@ -35,10 +35,12 @@ return [
         'pt-br' => 'Português (Brasil)',
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -49,6 +51,11 @@ return [
     ],
     'file' => [
         'create_fail' => 'مشکلی در ایجاد فایل :name به وجود آمده است',
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'کلید امنیتی معتبر نمی باشد',
+        ],
     ],
     'combiner' => [
         'not_found' => "فایل ترکیب کننده ':name' یافت نشد.",
@@ -95,7 +102,8 @@ return [
         'name' => [
             'label' => 'نام افزونه',
             'help' => 'یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog',
-        ]
+        ],
+        'by_author' => 'توسط :name'
     ],
     'plugins' => [
         'manage' => 'مدیریت افزونه ها',

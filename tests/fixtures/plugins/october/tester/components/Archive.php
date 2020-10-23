@@ -4,7 +4,6 @@ use Cms\Classes\ComponentBase;
 
 class Archive extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
@@ -39,5 +38,4 @@ class Archive extends ComponentBase
     {
         $this->page['var'] = 'page';
     }
-
 }

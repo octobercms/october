@@ -186,6 +186,14 @@ return [
         'close_searchbox' => 'Sluit zoekveld',
         'open_replacebox' => 'Open vervang veld',
         'close_replacebox' => 'Sluit vervang veld',
+        'commit' => 'Commit',
+        'reset' => 'Reset',
+        'commit_confirm' => 'Weet je zeker dat je je wijzigingen wilt opslaan op het bestandssysteem? Deze actie zal het huidige bestand overschrijven.',
+        'reset_confirm' => 'Weet je zeker dat je wilt terugkeren naar de vorige versie? Deze actie zal de vorige versie terugzetten en je wijzigingen zullen verloren gaan.',
+        'committing' => 'Committen',
+        'resetting' => 'Resetten',
+        'commit_success' => ':type is ge-commit naar het bestandssysteem',
+        'reset_success' => ':type is ge-reset op het bestandssysteem',
     ],
     'asset' => [
         'menu_label' => 'Middelen',
@@ -242,6 +250,8 @@ return [
         'no_records' => 'Geen componenten gevonden',
         'not_found' => 'Het component \':name\' is niet gevonden.',
         'method_not_found' => 'Het component \':name\' bevat geen \':method\' methode.',
+        'soft_component' => 'Soft Component',
+        'soft_component_description' => 'Dit component ontbreekt, maar is optioneel.',
     ],
     'template' => [
         'invalid_type' => 'Onbekend type template.',

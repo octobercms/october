@@ -56,7 +56,8 @@ return [
         'name' => [
             'label' => 'Nom del plugin',
             'help' => 'Anomena el tema amb el seu codi únic. Per exemple, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'Per :name',
     ],
     'plugins' => [
         'manage' => 'Gestionar plugins',

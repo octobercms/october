@@ -154,7 +154,7 @@ return [
         'not_found' => "El componente ':name' no se encuentra.",
         'method_not_found' => "El componente ':name' no contiene un método ':method'.",
     ],
-  'template' => [
+    'template' => [
         'invalid_type' => "Tipo de plantilla Desconocido.",
         'not_found' => "No se encontró la plantilla solicitada.",
         'saved'=> "La plantilla se ha guardado correctamente."

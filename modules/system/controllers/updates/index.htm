@@ -34,7 +34,19 @@
         <?php if ($coreBuild): ?>
             <div class="scoreboard-item title-value">
                 <h4><?= e(trans('system::lang.updates.core_current_build')) ?></h4>
-                <p><?= $coreBuild ?></p>
+                <?php if ($coreBuildModified): ?>
+                    <p
+                        class="oc-icon-exclamation-circle"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="This build has been modified"
+                    >
+                        <?= $coreBuild ?>
+                    </p>
+                <?php else: ?>
+                    <p><?= $coreBuild ?></p>
+                <?php endif; ?>
+
                 <p class="description">
                     <a
                         href="javascript:;"
@@ -47,5 +59,18 @@
         <?php endif ?>
     </div>
 </div>
-
+<?php if (count($warnings)): ?>
+    <div class="scoreboard">
+        <div class="callout fade in callout-danger no-icon">
+            <div class="header">
+                <h3><?= e(trans('system::lang.updates.update_warnings_title')) ?></h3>
+                <ul>
+                    <?php foreach ($warnings as $warning): ?>
+                        <li><?= $warning ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
 <?= $this->listRender() ?>

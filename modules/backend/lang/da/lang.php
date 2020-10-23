@@ -24,9 +24,6 @@ return [
             'help' => "En database er påkrævet for at kunne tilgå backenden. Kontroller om databasen er konfigureret og migreret, inden du prøver igen.",
             'cms_link' => 'Tilbage til hjemmesiden'
         ],
-        'invalid_token' => [
-            'label' => 'Ugyldig sikkerhedstoken'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Partialen ':name' kunne ikke findes."
@@ -235,8 +232,8 @@ return [
         'preview_no_files_message' => 'Der er ikke uploadet nogle filer.',
         'preview_no_record_message' => 'Der er ikke valgt nogen record.',
         'select' => 'Vælg',
-        'select_all' => 'alle',
-        'select_none' => 'ingen',
+        'select_all' => 'Vælg alle',
+        'select_none' => 'vælg ingen',
         'select_placeholder' => 'Vælg venligst',
         'insert_row' => 'Indsæt Række',
         'insert_row_below' => 'Indsæt Række Nedeunder',

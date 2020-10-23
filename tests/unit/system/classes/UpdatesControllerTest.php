@@ -14,6 +14,12 @@ class UpdatesControllerTest extends TestCase
         $controller = $this->getMockBuilder(Updates::class)->disableOriginalConstructor()->getMock();
 
         $expectedVersions = [
+            '1.2.0' => [
+                '!!! Security update - see: https://octobercms.com',
+            ],
+            '1.1.0' => [
+                '!!! Drop support for blog settings',
+            ],
             '1.0.5' => [
                 'Create blog settings table',
                 'Another update message',

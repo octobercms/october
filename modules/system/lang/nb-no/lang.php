@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => 'Kan ikke opprette filen: :name'
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Ugyldig sikkerhets-token',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Kombinasjonsfilen ':name' ble ikke funnet."
     ],

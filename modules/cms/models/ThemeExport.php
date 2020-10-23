@@ -54,6 +54,16 @@ class ThemeExport extends Model
         ]
     ];
 
+    /**
+     * Import / Export model classes are helpers and are not to write to the database
+     *
+     * @return void
+     */
+    public function save(array $options = null, $sessionKey = null)
+    {
+        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+    }
+
     public function getFoldersOptions()
     {
         return [
@@ -110,7 +120,6 @@ class ThemeExport extends Model
             File::deleteDirectory($tempPath);
         }
         catch (Exception $ex) {
-
             if (strlen($tempPath) && File::isDirectory($tempPath)) {
                 File::deleteDirectory($tempPath);
             }

@@ -61,7 +61,6 @@ div.control-componentlist div.components div.layout-cell > div:after {
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f12e";
 }
 .draggable-component-item > div:hover:after,
@@ -134,6 +133,15 @@ div.control-componentlist div.components div.layout-cell.error-component > div {
 }
 div.control-componentlist div.components div.layout-cell.error-component > div:after {
   color: #ab2a1c;
+}
+div.control-componentlist div.components div.layout-cell.warning-component {
+  background: #ffc107;
+}
+div.control-componentlist div.components div.layout-cell.warning-component > div {
+  color: #343a40;
+}
+div.control-componentlist div.components div.layout-cell.warning-component > div:after {
+  color: #ffc107;
 }
 div.control-componentlist div.components div.layout-cell:first-child {
   border-bottom-left-radius: 3px;
@@ -272,7 +280,6 @@ div.control-componentlist div.components div.layout-cell.adding > div {
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  *margin-right: .3em;
   content: "\f12e";
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);

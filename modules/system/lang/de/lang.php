@@ -11,6 +11,11 @@ return [
     'file' => [
         'create_fail' => "Konnte Datei :name nicht erstellen",
     ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Ungültiges Sicherheitstoken',
+        ],
+    ],
     'combiner' => [
         'not_found' => "Die combiner Datei ':name' wurde nicht gefunden.",
     ],

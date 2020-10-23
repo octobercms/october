@@ -37,10 +37,12 @@ return [
         'pt-br' => 'Português (Brasil)',
         'pt-pt' => 'Português (Portugal)',
         'ro' => 'Română',
+        'rs' => 'Srpski',
         'ru' => 'Русский',
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -52,6 +54,11 @@ return [
     ],
     'file' => [
         'create_fail' => "Dosya oluşturulamıyor: :name",
+    ],
+    'page' => [
+        'invalid_token' => [
+            'label' => 'Geçersiz güvenlik anahtarı',
+        ],
     ],
     'combiner' => [
         'not_found' => "Kombine dosyası: ':name' bulunamadı.",
@@ -99,6 +106,7 @@ return [
             'label' => 'Eklenti Adı',
             'help' => 'Eklenti adı eşsiz olmalıdır. Örneğin, RainLab.Blog',
         ],
+        'by_author' => ':name ile filtrele'
     ],
     'plugins' => [
         'manage' => 'Eklentileri yönet',

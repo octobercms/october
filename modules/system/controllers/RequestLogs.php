@@ -63,9 +63,10 @@ class RequestLogs extends Controller
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
-
             foreach ($checkedIds as $recordId) {
-                if (!$record = RequestLog::find($recordId)) continue;
+                if (!$record = RequestLog::find($recordId)) {
+                    continue;
+                }
                 $record->delete();
             }
 

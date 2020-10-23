@@ -19,9 +19,6 @@ return [
             'help' => "Jums nav piekļuves tiesību, lai skatītu šo lapu.",
             'cms_link' => 'Atgriezties back-end'
         ],
-        'invalid_token' => [
-            'label' => 'Nederīga drošības atslēga'
-        ]
     ],
     'partial' => [
         'not_found_name' => "Daļa ':name' nav atrasta."
@@ -202,8 +199,8 @@ return [
         'preview_no_files_message' => 'Faili nav augšupielādēti',
         'preview_no_record_message' => 'Nav izvēlētu ierakstu.',
         'select' => 'Izvēlēties',
-        'select_all' => 'visus',
-        'select_none' => 'nevienu',
+        'select_all' => 'izvēlēties visus',
+        'select_none' => 'neizvēlēties nevienu',
         'select_placeholder' => 'lūdzu izvēlieties',
         'insert_row' => 'Ievietot rindu',
         'insert_row_below' => 'Ievietot riendu zemāk',
