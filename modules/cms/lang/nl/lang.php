@@ -249,6 +249,7 @@ return [
         'invalid_request' => 'De template kan niet worden opgeslagen vanwege ongeldige componentgegevens.',
         'no_records' => 'Geen componenten gevonden',
         'not_found' => 'Het component \':name\' is niet gevonden.',
+        'no_default_partial' => "De component bevat geen 'standaard' sjabloon",
         'method_not_found' => 'Het component \':name\' bevat geen \':method\' methode.',
         'soft_component' => 'Soft Component',
         'soft_component_description' => 'Dit component ontbreekt, maar is optioneel.',
