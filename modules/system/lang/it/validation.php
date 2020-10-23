@@ -37,7 +37,7 @@ return [
     "exists"           => "Il valore di :attribute non è valido.",
     "image"            => ":attribute deve essere un'immagine.",
     "in"               => "Il valore di  :attribute non è valido.",
-    "integer"          => ":attribute deve essere un numero interno.",
+    "integer"          => ":attribute deve essere un numero intero.",
     "ip"               => ":attribute deve essere un indirizzo IP valido.",
     "max"              => [
         "numeric" => ":attribute non può essere maggiore di :max.",

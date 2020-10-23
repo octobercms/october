@@ -1,5 +1,6 @@
 <?php namespace System\Twig;
 
+use System\Twig\Loader as TwigLoader;
 use Twig\Environment as TwigEnvironment;
 use Illuminate\Contracts\View\Engine as EngineInterface;
 
@@ -26,7 +27,14 @@ class Engine implements EngineInterface
 
     public function get($path, array $vars = [])
     {
+        $previousAllow = TwigLoader::$allowInclude;
+
+        TwigLoader::$allowInclude = true;
+
         $template = $this->environment->loadTemplate($path);
+
+        TwigLoader::$allowInclude = $previousAllow;
+
         return $template->render($vars);
     }
 }

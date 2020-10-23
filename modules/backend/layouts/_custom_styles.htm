@@ -9,6 +9,6 @@
 <?php endif ?>
 <?php if (EditorSetting::isConfigured()): ?>
     <style>
-        <?= EditorSetting::renderCss() ?>
+        <?= strip_tags(EditorSetting::renderCss()) ?>
     </style>
 <?php endif ?>
