@@ -18,6 +18,7 @@
 =require table.processor.checkbox.js
 =require table.processor.dropdown.js
 =require table.processor.autocomplete.js
+=require table.processor.computed.js
 =require table.validator.base.js
 =require table.validator.required.js
 =require table.validator.basenumber.js

@@ -333,8 +333,9 @@
             dataCells = this.dataTable.querySelectorAll('tr:first-child td')
 
         for (var i = 0, len = headerCells.length; i < len; i++) {
-            if (dataCells[i])
+            if (dataCells[i] && headerCells[i].getAttribute('style')) {
                 dataCells[i].setAttribute('style', headerCells[i].getAttribute('style'))
+            }
         }
     }
 
