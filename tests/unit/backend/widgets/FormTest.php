@@ -165,7 +165,7 @@ class FormTest extends PluginTestCase
             'fields' => [
                 'static_method_options' => [
                     'type' => 'dropdown',
-                    'options' => 'staticMethodOptions',
+                    'options' => 'FormHelper::staticMethodOptions',
                     'expect' => ['static', 'method'],
                 ],
                 'callable_options' => [
