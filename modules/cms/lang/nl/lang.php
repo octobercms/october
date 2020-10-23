@@ -11,7 +11,7 @@ return [
         'error_deleting' => 'Fout bij het verwijderen van template: ":name". Controleer de schrijfrechten.',
         'delete_success' => 'Templates zijn succesvol verwijderd: :count.',
         'file_name_required' => 'Het invullen van een bestandsnaam is verplicht.',
-        'safe_mode_enabled' => 'Beveiligde modus is op dit moment ingeschakeld.',
+        'safe_mode_enabled' => 'Veilige modus is op dit moment ingeschakeld.',
     ],
     'dashboard' => [
         'active_theme' => [
