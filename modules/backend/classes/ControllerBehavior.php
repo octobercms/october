@@ -23,7 +23,7 @@ class ControllerBehavior extends ExtensionBase
     }
 
     /**
-     * @var array Supplied configuration.
+     * @var \stdClass Supplied configuration.
      */
     protected $config;
 

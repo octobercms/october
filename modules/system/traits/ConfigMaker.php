@@ -27,7 +27,7 @@ trait ConfigMaker
      * Reads the contents of the supplied file and applies it to this object.
      * @param array $configFile
      * @param array $requiredConfig
-     * @return array|stdClass
+     * @return stdClass
      */
     public function makeConfig($configFile = [], $requiredConfig = [])
     {
