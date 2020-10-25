@@ -62,7 +62,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.phpVersion }}
-          tools: composer
+          tools: composer:1.10.16
           extensions: ${{ env.extensions }}
 
       - name: Setup dependency cache
