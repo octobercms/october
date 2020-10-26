@@ -8,8 +8,8 @@ scopes:
         label: backend::lang.user.superuser
         type: switch
         conditions:
-            - is_superuser = false
-            - is_superuser = true
+            - is_superuser = 0
+            - is_superuser = 1
 
     login_date:
         label: backend::lang.user.last_login
