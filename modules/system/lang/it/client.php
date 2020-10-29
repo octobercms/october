@@ -31,9 +31,8 @@ return [
         'link' => 'Collegamento',
         'horizontalrule' => 'Inserisci linea orizzontale',
         'fullscreen' => 'Schermo intero',
-        'preview' => 'Anteprima',
+        'preview' => 'Anteprima'
     ],
-
     'mediamanager' => [
         'insert_link' => "Inserisci collegamento elemento multimediale",
         'insert_image' => "Inserisci immagine",
@@ -43,14 +42,13 @@ return [
         'invalid_file_single_insert' => "Si prega di selezionare un singolo file.",
         'invalid_image_empty_insert' => "Si prega di selezionare l\'immagine/le immagini da inserire.",
         'invalid_video_empty_insert' => "Si prega di selezionare un file video da inserire.",
-        'invalid_audio_empty_insert' => "Si prega di selezionare un file audio da inserire.",
+        'invalid_audio_empty_insert' => "Si prega di selezionare un file audio da inserire."
     ],
-
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annulla',
+        'widget_remove_confirm' => 'Rimuovere questo widget?',
     ],
-
     'datepicker' => [
         'previousMonth' => 'Mese precedente',
         'nextMonth' => 'Mese successivo',
@@ -58,10 +56,16 @@ return [
         'weekdays' => ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
         'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab']
     ],
-
+    'colorpicker' => [
+        'choose' => 'OK'
+    ],
     'filter' => [
         'group' => [
             'all' => 'tutti'
+        ],
+        'scopes' => [
+            'apply_button_text' => 'Applica',
+            'clear_button_text' => 'Rimuovi'
         ],
         'dates' => [
             'all' => 'tutte',
@@ -70,15 +74,21 @@ return [
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Dopo',
             'before_placeholder' => 'Prima'
-        ]
+        ],
+        'numbers' => [
+            'all' => 'tutti',
+            'filter_button_text' => 'Filtra',
+            'reset_button_text' => 'Reset',
+            'min_placeholder' => 'Min',
+            'max_placeholder' => 'Max'
+        ],
     ],
-
     'eventlog' => [
         'show_stacktrace' => 'Visualizza la traccia dello stack',
         'hide_stacktrace' => 'Nascondi la traccia dello stack',
         'tabs' => [
             'formatted' => 'Formattato',
-            'raw' => 'Grezzo',
+            'raw' => 'Grezzo'
         ],
         'editor' => [
             'title' => 'Editor codice sorgente',
