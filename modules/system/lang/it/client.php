@@ -31,7 +31,7 @@ return [
         'link' => 'Collegamento',
         'horizontalrule' => 'Inserisci linea orizzontale',
         'fullscreen' => 'Schermo intero',
-        'preview' => 'Anteprima'
+        'preview' => 'Anteprima',
     ],
     'mediamanager' => [
         'insert_link' => "Inserisci collegamento elemento multimediale",
@@ -42,7 +42,7 @@ return [
         'invalid_file_single_insert' => "Si prega di selezionare un singolo file.",
         'invalid_image_empty_insert' => "Si prega di selezionare l\'immagine/le immagini da inserire.",
         'invalid_video_empty_insert' => "Si prega di selezionare un file video da inserire.",
-        'invalid_audio_empty_insert' => "Si prega di selezionare un file audio da inserire."
+        'invalid_audio_empty_insert' => "Si prega di selezionare un file audio da inserire.",
     ],
     'alert' => [
         'confirm_button_text' => 'OK',
@@ -54,18 +54,18 @@ return [
         'nextMonth' => 'Mese successivo',
         'months' => ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
         'weekdays' => ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-        'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab']
+        'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
     ],
     'colorpicker' => [
-        'choose' => 'OK'
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [
-            'all' => 'tutti'
+            'all' => 'tutti',
         ],
         'scopes' => [
             'apply_button_text' => 'Applica',
-            'clear_button_text' => 'Rimuovi'
+            'clear_button_text' => 'Rimuovi',
         ],
         'dates' => [
             'all' => 'tutte',
@@ -73,14 +73,14 @@ return [
             'reset_button_text'  => 'Reimposta',
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Dopo',
-            'before_placeholder' => 'Prima'
+            'before_placeholder' => 'Prima',
         ],
         'numbers' => [
             'all' => 'tutti',
             'filter_button_text' => 'Filtra',
             'reset_button_text' => 'Reset',
             'min_placeholder' => 'Min',
-            'max_placeholder' => 'Max'
+            'max_placeholder' => 'Max',
         ],
     ],
     'eventlog' => [
@@ -88,7 +88,7 @@ return [
         'hide_stacktrace' => 'Nascondi la traccia dello stack',
         'tabs' => [
             'formatted' => 'Formattato',
-            'raw' => 'Grezzo'
+            'raw' => 'Grezzo',
         ],
         'editor' => [
             'title' => 'Editor codice sorgente',
@@ -96,7 +96,7 @@ return [
             'openWith' => 'Apri con',
             'remember_choice' => 'Ricorda l\'opzione selezionata per questa sessione',
             'open' => 'Apri',
-            'cancel' => 'Annulla'
+            'cancel' => 'Annulla',
         ]
     ]
 ];
