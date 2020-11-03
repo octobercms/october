@@ -1,6 +1,7 @@
 <?php namespace Cms;
 
 use App;
+use Url;
 use Event;
 use Backend;
 use BackendMenu;
@@ -166,6 +167,19 @@ class ServiceProvider extends ModuleServiceProvider
                         ]
                     ]
                 ]
+            ]);
+
+            $manager->registerQuickActions('October.Cms', [
+                'preview' => [
+                    'label'      => 'backend::lang.tooltips.preview_website',
+                    'icon'       => 'icon-crosshairs',
+                    'url'        => Url::to('/'),
+                    'order'      => 10,
+                    'attributes' => [
+                        'target' => '_blank',
+                        'rel'    => 'noopener noreferrer',
+                    ],
+                ],
             ]);
         });
     }
