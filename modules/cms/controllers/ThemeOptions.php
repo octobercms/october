@@ -46,7 +46,6 @@ class ThemeOptions extends Controller
         parent::__construct();
 
         $this->pageTitle = 'cms::lang.theme.settings_menu';
-        $this->registerLocalization($this->getDirName());
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('October.Cms', 'theme');
@@ -149,21 +148,5 @@ class ThemeOptions extends Controller
         }
 
         return $theme;
-    }
-
-    /**
-     * Register language namespace if available for the theme
-     *
-     * @param string $dirName
-     * @throws ApplicationException if the theme object cannot be loaded
-     */
-    protected function registerLocalization(string $dirName)
-    {
-        $theme = $this->findThemeObject($dirName);
-
-        $langPath = $theme->getPath() . '/lang';
-        if (File::isDirectory($langPath)) {
-            Lang::addNamespace("theme.{$theme->getId()}", $langPath);
-        }
     }
 }

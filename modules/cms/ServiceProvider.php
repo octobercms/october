@@ -1,11 +1,14 @@
 <?php namespace Cms;
 
 use App;
+use Lang;
+use File;
 use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserRole;
+use Cms\Classes\Theme as CmsTheme;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
@@ -40,6 +43,7 @@ class ServiceProvider extends ModuleServiceProvider
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
+            $this->registerBackendLocalization();
         }
     }
 
@@ -282,6 +286,20 @@ class ServiceProvider extends ModuleServiceProvider
                 ]
             ]);
         });
+    }
+
+    /**
+     * Registers localization from an active theme for backend items.
+     */
+    protected function registerBackendLocalization()
+    {
+        $theme = CmsTheme::getActiveTheme();
+
+        $langPath = $theme->getPath() . '/lang';
+
+        if (File::isDirectory($langPath)) {
+            Lang::addNamespace("theme.{$theme->getId()}", $langPath);
+        }
     }
 
     /**
