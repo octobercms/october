@@ -298,7 +298,7 @@ class ServiceProvider extends ModuleServiceProvider
         $langPath = $theme->getPath() . '/lang';
 
         if (File::isDirectory($langPath)) {
-            Lang::addNamespace("theme.{$theme->getId()}", $langPath);
+            Lang::addNamespace("themes.{$theme->getId()}", $langPath);
         }
     }
 
