@@ -55,10 +55,10 @@ class MailPartial extends Model
     }
 
     /**
-     * Find a MailPartial record by code or create one from a view file.
+     * Find a MailPartial instance by code or create a new instance from a view file.
      *
      * @param string $code
-     * @return MailTemplate model
+     * @return MailTemplate
      */
     public static function findOrMakePartial($code)
     {
@@ -113,7 +113,7 @@ class MailPartial extends Model
     /**
      * Fill model using a view file retrieved by code.
      *
-     * @param string $code
+     * @param string|null $code
      * @return void
      */
     public function fillFromCode($code = null)

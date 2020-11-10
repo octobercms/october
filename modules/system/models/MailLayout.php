@@ -54,6 +54,7 @@ class MailLayout extends Model
      * Fired before the model is deleted.
      *
      * @return void
+     * @throws ApplicationException if the template is locked
      */
     public function beforeDelete()
     {
@@ -63,7 +64,7 @@ class MailLayout extends Model
     }
 
     /**
-     * List MailLayouts codes keyed by id.
+     * List MailLayouts codes keyed by ID.
      *
      * @return array
      */
@@ -77,7 +78,7 @@ class MailLayout extends Model
     }
 
     /**
-     * Return the id of a MailLayout searched by its code.
+     * Return the ID of a MailLayout instance from a defined code.
      *
      * @param string $code
      * @return string
@@ -88,8 +89,7 @@ class MailLayout extends Model
     }
 
     /**
-     * Find a MailLayout by its code or create a new
-     * one from the view file.
+     * Find a MailLayout instance by its code or create a new instance from the view file.
      *
      * @param string $code
      * @return MailLayout
@@ -134,8 +134,9 @@ class MailLayout extends Model
     /**
      * Fill model using a view file retrieved by code.
      *
-     * @param string $code
+     * @param string|null $code
      * @return void
+     * @throws ApplicationException if a layout with the defined code is not registered.
      */
     public function fillFromCode($code = null)
     {
