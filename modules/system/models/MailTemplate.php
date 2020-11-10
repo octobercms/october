@@ -47,6 +47,7 @@ class MailTemplate extends Model
 
     /**
      * Returns an array of template codes and descriptions.
+     *
      * @return array
      */
     public static function listAllTemplates()
@@ -60,6 +61,7 @@ class MailTemplate extends Model
 
     /**
      * Returns a list of all mail templates.
+     *
      * @return array Returns an array of the MailTemplate objects.
      */
     public static function allTemplates()
@@ -68,7 +70,9 @@ class MailTemplate extends Model
         $codes = array_keys(self::listAllTemplates());
 
         foreach ($codes as $code) {
-            $result[] = self::findOrMakeTemplate($code);
+            if (View::exists($code)) {
+                $result[] = self::findOrMakeTemplate($code);
+            }
         }
 
         return $result;
@@ -76,6 +80,7 @@ class MailTemplate extends Model
 
     /**
      * Syncronise all file templates to the database.
+     *
      * @return void
      */
     public static function syncAll()
@@ -117,6 +122,11 @@ class MailTemplate extends Model
         }
     }
 
+    /**
+     * Fired after the model has been fetched.
+     *
+     * @return void
+     */
     public function afterFetch()
     {
         if (!$this->is_custom) {
@@ -124,31 +134,65 @@ class MailTemplate extends Model
         }
     }
 
+    /**
+     * Fill model using provided content.
+     *
+     * @param string $content
+     * @return void
+     */
     public function fillFromContent($content)
     {
         $this->fillFromSections(MailParser::parse($content));
     }
 
+    /**
+     * Fill model using a view file path.
+     *
+     * @param string $path
+     * @return void
+     */
     public function fillFromView($path)
     {
         $this->fillFromSections(self::getTemplateSections($path));
     }
 
+    /**
+     * Fill model using provided section array.
+     *
+     * @param array $sections
+     * @return void
+     */
     protected function fillFromSections($sections)
     {
-        $this->content_html = $sections['html'];
-        $this->content_text = $sections['text'];
+        $this->content_html = array_get($sections, 'html');
+        $this->content_text = array_get($sections, 'text');
         $this->subject = array_get($sections, 'settings.subject', 'No subject');
 
         $layoutCode = array_get($sections, 'settings.layout', 'default');
         $this->layout = MailLayout::findOrMakeLayout($layoutCode);
     }
 
+    /**
+     * Get section array from a view file retrieved by code.
+     *
+     * @param string $code
+     * @return array|null
+     */
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
+        if (!View::exists($code)) {
+            return null;
+        }
+        $view = View::make($code);
+        return MailParser::parse(FileHelper::get($view->getPath()));
     }
 
+    /**
+     * Find a MailTemplate record by code or create one from a view file.
+     *
+     * @param string $code
+     * @return MailTemplate model
+     */
     public static function findOrMakeTemplate($code)
     {
         $template = self::whereCode($code)->first();
