@@ -49,15 +49,24 @@
     </div>
     <div class="toolbar-item toolbar-item-account">
         <ul class="mainmenu-toolbar">
-            <li class="mainmenu-preview with-tooltip">
-                <a
-                    href="<?= Url::to('/') ?>"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="<?= e(trans('backend::lang.tooltips.preview_website')) ?>">
-                    <i class="icon-crosshairs"></i>
-                </a>
-            </li>
+            <?php foreach (BackendMenu::listQuickActionItems() as $item): ?>
+                <li class="mainmenu-quick-action with-tooltip">
+                    <a
+                        href="<?= $item->url ?>"
+                        title="<?= e(trans($item->label)) ?>"
+                        <?= Html::attributes($item->attributes) ?>
+                    >
+
+                        <?php if ($item->iconSvg): ?>
+                            <img
+                                src="<?= Url::asset($item->iconSvg) ?>"
+                                class="svg-icon" loading="lazy" width="20" height="20" />
+                        <?php endif ?>
+
+                        <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
+                    </a>
+                </li>
+            <?php endforeach ?>
             <li class="mainmenu-account with-tooltip">
                 <a
                     href="javascript:;" onclick="$.oc.layout.toggleAccountMenu(this)"
