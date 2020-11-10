@@ -7,6 +7,7 @@ use Form as FormHelper;
 use Backend\Classes\ControllerBehavior;
 use October\Rain\Database\Model;
 use ApplicationException;
+use Flash;
 
 /**
  * Uses a combination of lists and forms for managing Model relations.
@@ -1148,6 +1149,8 @@ class RelationController extends ControllerBehavior
             }
         }
 
+        if ($flashMessage = Lang::get($this->getConfig('manage[flash][create]'))) Flash::success($flashMessage);
+
         return $this->relationRefresh();
     }
 
@@ -1178,6 +1181,8 @@ class RelationController extends ControllerBehavior
             $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
 
+        if ($flashMessage = Lang::get($this->getConfig('manage[flash][update]'))) Flash::success($flashMessage);
+
         return $this->relationRefresh();
     }
 
@@ -1187,6 +1192,7 @@ class RelationController extends ControllerBehavior
     public function onRelationManageDelete()
     {
         $this->beforeAjax();
+        $relationAffected = false;
 
         /*
          * Multiple (has many, belongs to many)
@@ -1198,7 +1204,7 @@ class RelationController extends ControllerBehavior
                         continue;
                     }
 
-                    $obj->delete();
+                    $relationAffected |= $obj->delete();
                 }
             }
         }
@@ -1208,7 +1214,7 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $relatedModel = $this->viewModel;
             if ($relatedModel->exists) {
-                $relatedModel->delete();
+                $relationAffected |= $relatedModel->delete();
             }
 
             // Reinitialise the form with a blank model
@@ -1217,6 +1223,8 @@ class RelationController extends ControllerBehavior
             $this->viewWidget->setFormValues([]);
             $this->viewModel = $this->relationModel;
         }
+
+        if ($relationAffected && ($flashMessage = Lang::get($this->getConfig('manage[flash][delete]')))) Flash::success($flashMessage);
 
         return $this->relationRefresh();
     }
@@ -1249,6 +1257,8 @@ class RelationController extends ControllerBehavior
                 foreach ($models as $model) {
                     $this->relationObject->add($model, $sessionKey);
                 }
+
+                if ($flashMessage = Lang::get($this->getConfig('manage[flash][add]'))) Flash::success($flashMessage);
             }
         }
         /*
@@ -1278,6 +1288,8 @@ class RelationController extends ControllerBehavior
                         $parentModel->save();
                     }
                 }
+
+                if ($flashMessage = Lang::get($this->getConfig('manage[flash][link]'))) Flash::success($flashMessage);
             }
         }
 
@@ -1308,6 +1320,8 @@ class RelationController extends ControllerBehavior
                 foreach ($models as $model) {
                     $this->relationObject->remove($model, $sessionKey);
                 }
+
+                if ($flashMessage = Lang::get($this->getConfig('manage[flash][remove]'))) Flash::success($flashMessage);
             }
         }
         /*
@@ -1338,6 +1352,8 @@ class RelationController extends ControllerBehavior
 
             $this->viewWidget->setFormValues([]);
             $this->viewModel = $this->relationModel;
+
+            if ($flashMessage = Lang::get($this->getConfig('manage[flash][unlink]'))) Flash::success($flashMessage);
         }
 
         return $this->relationRefresh();
@@ -1356,6 +1372,7 @@ class RelationController extends ControllerBehavior
         $this->beforeAjax();
 
         $this->vars['foreignId'] = $this->foreignId ?: post('checked');
+        $this->vars['relationPivotTitle'] = $this->evalPivotTitle();
 
         return $this->relationMakePartial('pivot_form');
     }
@@ -1389,6 +1406,8 @@ class RelationController extends ControllerBehavior
             }
         });
 
+            if ($flashMessage = Lang::get($this->getConfig('manage[flash][add]'))) Flash::success($flashMessage);
+
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
 
@@ -1404,6 +1423,8 @@ class RelationController extends ControllerBehavior
         foreach ($modelsToSave as $modelToSave) {
             $modelToSave->save(null, $this->pivotWidget->getSessionKey());
         }
+
+        if ($flashMessage = Lang::get($this->getConfig('manage[flash][update]'))) Flash::success($flashMessage);
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -1628,32 +1649,58 @@ class RelationController extends ControllerBehavior
 
         switch ($this->manageMode) {
             case 'pivot':
-                if (array_key_exists('pivot', $customTitles)) {
-                    return $customTitles['pivot'];
-                } elseif ($this->eventTarget === 'button-link') {
-                    return 'backend::lang.relation.link_a_new';
-                }
-
-                return 'backend::lang.relation.add_a_new';
             case 'list':
-                if (array_key_exists('list', $customTitles)) {
-                    return $customTitles['list'];
-                } elseif ($this->eventTarget === 'button-link') {
+                if ($customTitle = array_get($customTitles, 'list') && is_string($customTitle)) {
+                    return $customTitle;
+                }
+                if ($this->eventTarget === 'button-link') {
+                    if ($customTitle = array_get($customTitles, 'list.link')) return $customTitle;
                     return 'backend::lang.relation.link_a_new';
                 }
-
+                if ($customTitle = array_get($customTitles, 'list.add')) return $customTitle;
                 return 'backend::lang.relation.add_a_new';
+
             case 'form':
-                if (array_key_exists('form', $customTitles)) {
-                    return $customTitles['form'];
-                } elseif ($this->readOnly) {
+                if ($customTitle = array_get($customTitles, 'form') && is_string($customTitle)) {
+                    return $customTitle;
+                }
+                if ($this->readOnly) {
+                    if ($customTitle = array_get($customTitles, 'form.preview')) return $customTitle;
                     return 'backend::lang.relation.preview_name';
-                } elseif ($this->manageId) {
+                }
+                if ($this->manageId) {
+                    if ($customTitle = array_get($customTitles, 'form.update')) return $customTitle;
                     return 'backend::lang.relation.update_name';
                 }
-
+                if ($customTitle = array_get($customTitles, 'form.create')) return $customTitle;
                 return 'backend::lang.relation.create_name';
         }
+    }
+
+    /**
+     * Determine the pivot popup title.
+     * @return string
+     */
+    protected function evalPivotTitle()
+    {
+        $customTitle = $this->getConfig('pivot[title]');
+
+        if (is_string($customTitle)) {
+            return $customTitle;
+        }
+
+        $customTitles = is_array($customTitle) ? $customTitle : [];
+
+        if ($this->readOnly) {
+            if ($customTitle = array_get($customTitles, 'preview')) return $customTitle;
+            return 'backend::lang.relation.related_data';
+        }
+        if ($this->manageId) {
+            if ($customTitle = array_get($customTitles, 'update')) return $customTitle;
+            return 'backend::lang.relation.related_data';
+        }
+        if ($customTitle = array_get($customTitles, 'create')) return $customTitle;
+        return 'backend::lang.relation.related_data';
     }
 
     /**
