@@ -1149,7 +1149,10 @@ class RelationController extends ControllerBehavior
             }
         }
 
-        if ($flashMessage = Lang::get($this->getConfig('manage[flash][create]'))) Flash::success($flashMessage);
+        $flashMessage = Lang::get($this->getConfig('manage[flash][create]'));
+        if ($flashMessage) {
+            Flash::success($flashMessage);
+        }
 
         return $this->relationRefresh();
     }
@@ -1181,7 +1184,10 @@ class RelationController extends ControllerBehavior
             $this->viewModel->save(null, $this->manageWidget->getSessionKey());
         }
 
-        if ($flashMessage = Lang::get($this->getConfig('manage[flash][update]'))) Flash::success($flashMessage);
+        $flashMessage = Lang::get($this->getConfig('manage[flash][update]'));
+        if ($flashMessage) {
+            Flash::success($flashMessage);
+        }
 
         return $this->relationRefresh();
     }
@@ -1224,7 +1230,12 @@ class RelationController extends ControllerBehavior
             $this->viewModel = $this->relationModel;
         }
 
-        if ($relationAffected && ($flashMessage = Lang::get($this->getConfig('manage[flash][delete]')))) Flash::success($flashMessage);
+        if ($relationAffected) {
+            $flashMessage = Lang::get($this->getConfig('manage[flash][delete]'));
+            if ($flashMessage) {
+                Flash::success($flashMessage);
+            }
+        }
 
         return $this->relationRefresh();
     }
@@ -1258,7 +1269,10 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->add($model, $sessionKey);
                 }
 
-                if ($flashMessage = Lang::get($this->getConfig('manage[flash][add]'))) Flash::success($flashMessage);
+                $flashMessage = Lang::get($this->getConfig('manage[flash][add]'));
+                if ($flashMessage) {
+                    Flash::success($flashMessage);
+                }
             }
         }
         /*
@@ -1289,7 +1303,10 @@ class RelationController extends ControllerBehavior
                     }
                 }
 
-                if ($flashMessage = Lang::get($this->getConfig('manage[flash][link]'))) Flash::success($flashMessage);
+                $flashMessage = Lang::get($this->getConfig('manage[flash][link]'));
+                if ($flashMessage) {
+                    Flash::success($flashMessage);
+                }
             }
         }
 
@@ -1321,7 +1338,10 @@ class RelationController extends ControllerBehavior
                     $this->relationObject->remove($model, $sessionKey);
                 }
 
-                if ($flashMessage = Lang::get($this->getConfig('manage[flash][remove]'))) Flash::success($flashMessage);
+                $flashMessage = Lang::get($this->getConfig('manage[flash][remove]'));
+                if ($flashMessage) {
+                    Flash::success($flashMessage);
+                }
             }
         }
         /*
@@ -1353,7 +1373,10 @@ class RelationController extends ControllerBehavior
             $this->viewWidget->setFormValues([]);
             $this->viewModel = $this->relationModel;
 
-            if ($flashMessage = Lang::get($this->getConfig('manage[flash][unlink]'))) Flash::success($flashMessage);
+            $flashMessage = Lang::get($this->getConfig('manage[flash][unlink]'));
+            if ($flashMessage) {
+                Flash::success($flashMessage);
+            }
         }
 
         return $this->relationRefresh();
@@ -1406,7 +1429,10 @@ class RelationController extends ControllerBehavior
             }
         });
 
-            if ($flashMessage = Lang::get($this->getConfig('manage[flash][add]'))) Flash::success($flashMessage);
+        $flashMessage = Lang::get($this->getConfig('manage[flash][add]'));
+        if ($flashMessage) {
+            Flash::success($flashMessage);
+        }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -1424,7 +1450,10 @@ class RelationController extends ControllerBehavior
             $modelToSave->save(null, $this->pivotWidget->getSessionKey());
         }
 
-        if ($flashMessage = Lang::get($this->getConfig('manage[flash][update]'))) Flash::success($flashMessage);
+        $flashMessage = Lang::get($this->getConfig('manage[flash][update]'));
+        if ($flashMessage) {
+            Flash::success($flashMessage);
+        }
 
         return ['#'.$this->relationGetId('view') => $this->relationRenderView()];
     }
@@ -1650,30 +1679,37 @@ class RelationController extends ControllerBehavior
         switch ($this->manageMode) {
             case 'pivot':
             case 'list':
-                if ($customTitle = array_get($customTitles, 'list') && is_string($customTitle)) {
+                $customTitle = array_get($customTitles, 'list');
+                if ($customTitle && is_string($customTitle)) {
                     return $customTitle;
                 }
+
                 if ($this->eventTarget === 'button-link') {
-                    if ($customTitle = array_get($customTitles, 'list.link')) return $customTitle;
-                    return 'backend::lang.relation.link_a_new';
+                    $customTitle = array_get($customTitles, 'list.link');
+                    return $customTitle ?: 'backend::lang.relation.link_a_new';
                 }
-                if ($customTitle = array_get($customTitles, 'list.add')) return $customTitle;
-                return 'backend::lang.relation.add_a_new';
+
+                $customTitle = array_get($customTitles, 'list.add');
+                return $customTitle ?: 'backend::lang.relation.add_a_new';
 
             case 'form':
-                if ($customTitle = array_get($customTitles, 'form') && is_string($customTitle)) {
+                $customTitle = array_get($customTitles, 'form');
+                if ($customTitle && is_string($customTitle)) {
                     return $customTitle;
                 }
+
                 if ($this->readOnly) {
-                    if ($customTitle = array_get($customTitles, 'form.preview')) return $customTitle;
-                    return 'backend::lang.relation.preview_name';
+                    $customTitle = array_get($customTitles, 'form.preview');
+                    return $customTitle ?: 'backend::lang.relation.preview_name';
                 }
+
                 if ($this->manageId) {
-                    if ($customTitle = array_get($customTitles, 'form.update')) return $customTitle;
-                    return 'backend::lang.relation.update_name';
+                    $customTitle = array_get($customTitles, 'form.update');
+                    return $customTitle ?: 'backend::lang.relation.update_name';
                 }
-                if ($customTitle = array_get($customTitles, 'form.create')) return $customTitle;
-                return 'backend::lang.relation.create_name';
+
+                $customTitle = array_get($customTitles, 'form.create');
+                return $customTitle ?: 'backend::lang.relation.create_name';
         }
     }
 
@@ -1692,15 +1728,17 @@ class RelationController extends ControllerBehavior
         $customTitles = is_array($customTitle) ? $customTitle : [];
 
         if ($this->readOnly) {
-            if ($customTitle = array_get($customTitles, 'preview')) return $customTitle;
-            return 'backend::lang.relation.related_data';
+            $customTitle = array_get($customTitles, 'preview');
+            return $customTitle ?: 'backend::lang.relation.related_data';
         }
+
         if ($this->manageId) {
-            if ($customTitle = array_get($customTitles, 'update')) return $customTitle;
-            return 'backend::lang.relation.related_data';
+            $customTitle = array_get($customTitles, 'update');
+            return $customTitle ?: 'backend::lang.relation.related_data';
         }
-        if ($customTitle = array_get($customTitles, 'create')) return $customTitle;
-        return 'backend::lang.relation.related_data';
+
+        $customTitle = array_get($customTitles, 'create');
+        return $customTitle ?: 'backend::lang.relation.related_data';
     }
 
     /**
