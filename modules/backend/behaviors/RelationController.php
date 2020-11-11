@@ -1210,7 +1210,8 @@ class RelationController extends ControllerBehavior
                         continue;
                     }
 
-                    $relationAffected |= $obj->delete();
+                    $result = $obj->delete();
+                    $relationAffected = $relationAffected || $result;
                 }
             }
         }
@@ -1220,7 +1221,8 @@ class RelationController extends ControllerBehavior
         elseif ($this->viewMode == 'single') {
             $relatedModel = $this->viewModel;
             if ($relatedModel->exists) {
-                $relationAffected |= $relatedModel->delete();
+                $result = $relatedModel->delete();
+                $relationAffected = $relationAffected || $result;
             }
 
             // Reinitialise the form with a blank model
