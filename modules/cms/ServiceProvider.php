@@ -44,7 +44,6 @@ class ServiceProvider extends ModuleServiceProvider
             $this->registerBackendPermissions();
             $this->registerBackendWidgets();
             $this->registerBackendSettings();
-            $this->registerBackendLocalization();
         }
     }
 
@@ -59,6 +58,10 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->bootMenuItemEvents();
         $this->bootRichEditorEvents();
+
+        if (App::runningInBackend()) {
+            $this->bootBackendLocalization();
+        }
     }
 
     /**
@@ -303,16 +306,16 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
-     * Registers localization from an active theme for backend items.
+     * Boots localization from an active theme for backend items.
      */
-    protected function registerBackendLocalization()
+    protected function bootBackendLocalization()
     {
         $theme = CmsTheme::getActiveTheme();
 
         $langPath = $theme->getPath() . '/lang';
 
         if (File::isDirectory($langPath)) {
-            Lang::addNamespace("themes.{$theme->getId()}", $langPath);
+            Lang::addNamespace('themes.' . $theme->getId(), $langPath);
         }
     }
 
