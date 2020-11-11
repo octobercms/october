@@ -450,10 +450,10 @@ class Repeater extends FormWidgetBase
 
         if ($group && isset($group->{$code}['type']) && $group->{$code}['type'] === 'repeater') {
             $fields = [
-                $code => $group->{$code}
+                $code => $group->{$code},
             ];
         } else {
-            $fields = array_get($this->groupDefinitions, $code.'.fields');
+            $fields = array_get($this->groupDefinitions, $code . '.fields');
         }
 
         if (!$fields) {
