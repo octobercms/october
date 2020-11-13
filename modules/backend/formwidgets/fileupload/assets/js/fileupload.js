@@ -102,8 +102,7 @@
             previewsContainer: this.$filesContainer.get(0),
             maxFilesize: this.options.maxFilesize,
             timeout: 0,
-            headers: {},
-            dictMaxFilesExceeded: 'backend::lang.fileupload.max_files_exceeded'
+            headers: {}
         }
 
         if (!this.options.isMulti) {
