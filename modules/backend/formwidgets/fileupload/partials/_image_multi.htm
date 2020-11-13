@@ -9,6 +9,7 @@
     data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
+    <?php if ($maxFiles): ?>data-max-files="<?= $maxFiles ?>"<?php endif ?>
     <?= $this->formField->getAttributes() ?>
 >
 

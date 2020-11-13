@@ -100,10 +100,17 @@
             paramName: this.options.paramName,
             clickable: this.$uploadButton.get(0),
             previewsContainer: this.$filesContainer.get(0),
-            maxFiles: !this.options.isMulti ? 1 : null,
             maxFilesize: this.options.maxFilesize,
             timeout: 0,
             headers: {}
+        }
+
+        if (!this.options.isMulti) {
+            this.uploaderOptions.maxFiles = 1
+        } else if (this.options.maxFiles) {
+            this.uploaderOptions.maxFiles = this.options.maxFiles
+        } else {
+            this.uploaderOptions.maxFiles = null
         }
 
         if (this.options.fileTypes) {
