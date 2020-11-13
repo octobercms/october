@@ -309,7 +309,7 @@
                 _super($item, container)
                 self.onSortAttachments()
             },
-                distance: 10
+            distance: 10
         })
     }
 
@@ -429,9 +429,9 @@
      */
     FileUpload.prototype.getFilesize = function (file) {
         var formatter = new Intl.NumberFormat('en', {
-            style: 'decimal',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
+                style: 'decimal',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             }),
             size = 0,
             units = 'bytes'
@@ -487,12 +487,8 @@
             var $this   = $(this)
             var data    = $this.data('oc.fileUpload')
             var options = $.extend({}, FileUpload.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) {
-                $this.data('oc.fileUpload', (data = new FileUpload(this, options)))
-                if (typeof option == 'string') {
-                    data[option].call($this)
-                }
-            }
+            if (!data) $this.data('oc.fileUpload', (data = new FileUpload(this, options)))
+            if (typeof option == 'string') data[option].call($this)
         })
     }
 
