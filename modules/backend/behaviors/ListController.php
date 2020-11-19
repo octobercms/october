@@ -298,16 +298,6 @@ class ListController extends ControllerBehavior
         }
 
         /*
-         * Validate checked identifiers
-         */
-        $checkedIds = post('checked');
-
-        if (!$checkedIds || !is_array($checkedIds) || !count($checkedIds)) {
-            Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
-            return $this->controller->listRefresh();
-        }
-
-        /*
          * Establish the list definition
          */
         $definition = post('definition', $this->primaryDefinition);
@@ -317,6 +307,20 @@ class ListController extends ControllerBehavior
         }
 
         $listConfig = $this->controller->listGetConfig($definition);
+
+        /*
+         * Validate checked identifiers
+         */
+        $checkedIds = post('checked');
+
+        if (!$checkedIds || !is_array($checkedIds) || !count($checkedIds)) {
+            Flash::error(Lang::get(
+                (!empty($listConfig->noRecordsDeletedMessage))
+                    ? $listConfig->noRecordsDeletedMessage
+                    : 'backend::lang.list.delete_selected_empty'
+            ));
+            return $this->controller->listRefresh();
+        }
 
         /*
          * Create the model
@@ -344,10 +348,18 @@ class ListController extends ControllerBehavior
                 $record->delete();
             }
 
-            Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
+            Flash::success(Lang::get(
+                (!empty($listConfig->deleteMessage))
+                    ? $listConfig->deleteMessage
+                    : 'backend::lang.list.delete_selected_success'
+            ));
         }
         else {
-            Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
+            Flash::error(Lang::get(
+                (!empty($listConfig->noRecordsDeletedMessage))
+                    ? $listConfig->noRecordsDeletedMessage
+                    : 'backend::lang.list.delete_selected_empty'
+            ));
         }
 
         return $this->controller->listRefresh($definition);
