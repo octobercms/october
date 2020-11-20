@@ -1775,7 +1775,7 @@ class Lists extends WidgetBase
     {
         $this->putSession('tree_node_status_' . post('node_id'), post('status') ? 0 : 1);
 
-        $expandNode = ! post('status');
+        $expandNode = !post('status');
 
         if (!$this->treeExpanded && $expandNode) {
             /*
