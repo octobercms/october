@@ -32,15 +32,15 @@ jobs:
     strategy:
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
-        phpVersion: ['7.2', '7.3', '7.4']
+        phpVersion: ['7.2', '7.3', '7.4', '8.0']
         experimental: [false]
         include:
-            - phpVersion: '8.0'
-              os: ubuntu-latest
-              experimental: true
-            - phpVersion: '8.0'
-              os: windows-latest
-              experimental: true
+          - phpVersion: '8.0'
+            os: ubuntu-latest
+            experimental: true
+          - phpVersion: '8.0'
+            os: windows-latest
+            experimental: true
       fail-fast: false
     runs-on: ${{ matrix.operatingSystem }}
     continue-on-error: ${{ matrix.experimental }}
