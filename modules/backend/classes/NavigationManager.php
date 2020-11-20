@@ -24,9 +24,14 @@ class NavigationManager
     protected $callbacks = [];
 
     /**
-     * @var array List of registered items.
+     * @var MainMenuItem[] List of registered items.
      */
     protected $items;
+
+    /**
+     * @var QuickActionItem[] List of registered quick actions.
+     */
+    protected $quickActions;
 
     protected $contextSidenavPartials = [];
 
@@ -34,34 +39,8 @@ class NavigationManager
     protected $contextMainMenuItemCode;
     protected $contextSideMenuItemCode;
 
-    protected static $mainItemDefaults = [
-        'code'        => null,
-        'label'       => null,
-        'icon'        => null,
-        'iconSvg'     => null,
-        'counter'     => null,
-        'counterLabel'=> null,
-        'url'         => null,
-        'permissions' => [],
-        'order'       => 500,
-        'sideMenu'    => []
-    ];
-
-    protected static $sideItemDefaults = [
-        'code'        => null,
-        'label'       => null,
-        'icon'        => null,
-        'url'         => null,
-        'iconSvg'     => null,
-        'counter'     => null,
-        'counterLabel'=> null,
-        'order'       => -1,
-        'attributes'  => [],
-        'permissions' => []
-    ];
-
     /**
-     * @var System\Classes\PluginManager
+     * @var PluginManager
      */
     protected $pluginManager;
 
@@ -76,9 +55,13 @@ class NavigationManager
     /**
      * Loads the menu items from modules and plugins
      * @return void
+     * @throws SystemException
      */
     protected function loadItems()
     {
+        $this->items = [];
+        $this->quickActions = [];
+
         /*
          * Load module items
          */
@@ -93,11 +76,18 @@ class NavigationManager
 
         foreach ($plugins as $id => $plugin) {
             $items = $plugin->registerNavigation();
-            if (!is_array($items)) {
+            $quickActions = $plugin->registerQuickActions();
+
+            if (!is_array($items) && !is_array($quickActions)) {
                 continue;
             }
 
-            $this->registerMenuItems($id, $items);
+            if (is_array($items)) {
+                $this->registerMenuItems($id, $items);
+            }
+            if (is_array($quickActions)) {
+                $this->registerQuickActions($id, $quickActions);
+            }
         }
 
         /**
@@ -116,17 +106,21 @@ class NavigationManager
         Event::fire('backend.menu.extendItems', [$this]);
 
         /*
-         * Sort menu items
+         * Sort menu items and quick actions
          */
-        uasort($this->items, function ($a, $b) {
+        uasort($this->items, static function ($a, $b) {
+            return $a->order - $b->order;
+        });
+        uasort($this->quickActions, static function ($a, $b) {
             return $a->order - $b->order;
         });
 
         /*
-         * Filter items user lacks permission for
+         * Filter items and quick actions that the user lacks permission for
          */
         $user = BackendAuth::getUser();
         $this->items = $this->filterItemPermissions($user, $this->items);
+        $this->quickActions = $this->filterItemPermissions($user, $this->quickActions);
 
         foreach ($this->items as $item) {
             if (!$item->sideMenu || !count($item->sideMenu)) {
@@ -147,7 +141,7 @@ class NavigationManager
             /*
              * Sort side menu items
              */
-            uasort($item->sideMenu, function ($a, $b) {
+            uasort($item->sideMenu, static function ($a, $b) {
                 return $a->order - $b->order;
             });
 
@@ -200,15 +194,14 @@ class NavigationManager
      *      - counter - an optional numeric value to output near the menu icon. The value should be
      *        a number or a callable returning a number.
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
+     *      - badge - an optional string value to output near the menu icon. The value should be
+     *        a string. This value will override the counter if set.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
+     * @throws SystemException
      */
     public function registerMenuItems($owner, array $definitions)
     {
-        if (!$this->items) {
-            $this->items = [];
-        }
-
         $validator = Validator::make($definitions, [
             '*.label' => 'required',
             '*.icon' => 'required_without:*.iconSvg',
@@ -222,9 +215,9 @@ class NavigationManager
             $errorMessage = 'Invalid menu item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
             if (Config::get('app.debug', false)) {
                 throw new SystemException($errorMessage);
-            } else {
-                Log::error($errorMessage);
             }
+
+            Log::error($errorMessage);
         }
 
         $this->addMainMenuItems($owner, $definitions);
@@ -246,7 +239,7 @@ class NavigationManager
      * Dynamically add a single main menu item
      * @param string $owner
      * @param string $code
-     * @param array  $definitions
+     * @param array  $definition
      */
     public function addMainMenuItem($owner, $code, array $definition)
     {
@@ -256,20 +249,39 @@ class NavigationManager
             $definition = array_merge((array) $this->items[$itemKey], $definition);
         }
 
-        $item = (object) array_merge(self::$mainItemDefaults, array_merge($definition, [
+        $item = array_merge($definition, [
             'code'  => $code,
             'owner' => $owner
-        ]));
+        ]);
 
-        $this->items[$itemKey] = $item;
+        $this->items[$itemKey] = MainMenuItem::createFromArray($item);
 
-        if ($item->sideMenu) {
-            $this->addSideMenuItems($owner, $code, $item->sideMenu);
+        if (array_key_exists('sideMenu', $item)) {
+            $this->addSideMenuItems($owner, $code, $item['sideMenu']);
         }
     }
 
     /**
+     * @param string $owner
+     * @param string $code
+     * @return MainMenuItem
+     * @throws SystemException
+     */
+    public function getMainMenuItem(string $owner, string $code)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+
+        if (!array_key_exists($itemKey, $this->items)) {
+            throw new SystemException('No main menu item found with key ' . $itemKey);
+        }
+
+        return $this->items[$itemKey];
+    }
+
+    /**
      * Removes a single main menu item
+     * @param $owner
+     * @param $code
      */
     public function removeMainMenuItem($owner, $code)
     {
@@ -295,7 +307,8 @@ class NavigationManager
      * @param string $owner
      * @param string $code
      * @param string $sideCode
-     * @param array  $definitions
+     * @param array $definition
+     * @return bool
      */
     public function addSideMenuItem($owner, $code, $sideCode, array $definition)
     {
@@ -316,13 +329,33 @@ class NavigationManager
             $definition = array_merge((array) $mainItem->sideMenu[$sideCode], $definition);
         }
 
-        $item = (object) array_merge(self::$sideItemDefaults, $definition);
+        $item = SideMenuItem::createFromArray($definition);
 
-        $this->items[$itemKey]->sideMenu[$sideCode] = $item;
+        $this->items[$itemKey]->addSideMenuItem($item);
+        return true;
+    }
+
+    /**
+     * Remove multiple side menu items
+     *
+     * @param string $owner
+     * @param string $code
+     * @param array  $sideCodes
+     * @return void
+     */
+    public function removeSideMenuItems($owner, $code, $sideCodes)
+    {
+        foreach ($sideCodes as $sideCode) {
+            $this->removeSideMenuItem($owner, $code, $sideCode);
+        }
     }
 
     /**
      * Removes a single main menu item
+     * @param string $owner
+     * @param string $code
+     * @param string $sideCode
+     * @return bool
      */
     public function removeSideMenuItem($owner, $code, $sideCode)
     {
@@ -332,20 +365,30 @@ class NavigationManager
         }
 
         $mainItem = $this->items[$itemKey];
-        unset($mainItem->sideMenu[$sideCode]);
+        $mainItem->removeSideMenuItem($sideCode);
+        return true;
     }
 
     /**
      * Returns a list of the main menu items.
      * @return array
+     * @throws SystemException
      */
     public function listMainMenuItems()
     {
-        if ($this->items === null) {
+        if ($this->items === null && $this->quickActions === null) {
             $this->loadItems();
         }
 
+        if ($this->items === null) {
+            return [];
+        }
+
         foreach ($this->items as $item) {
+            if ($item->badge) {
+                $item->counter = (string) $item->badge;
+                continue;
+            }
             if ($item->counter === false) {
                 continue;
             }
@@ -357,11 +400,14 @@ class NavigationManager
             } elseif (!empty($sideItems = $this->listSideMenuItems($item->owner, $item->code))) {
                 $item->counter = 0;
                 foreach ($sideItems as $sideItem) {
+                    if ($sideItem->badge) {
+                        continue;
+                    }
                     $item->counter += $sideItem->counter;
                 }
             }
 
-            if (empty($item->counter)) {
+            if (empty($item->counter) || !is_numeric($item->counter)) {
                 $item->counter = null;
             }
         }
@@ -372,6 +418,10 @@ class NavigationManager
     /**
      * Returns a list of side menu items for the currently active main menu item.
      * The currently active main menu item is set with the setContext methods.
+     * @param null $owner
+     * @param null $code
+     * @return SideMenuItem[]
+     * @throws SystemException
      */
     public function listSideMenuItems($owner = null, $code = null)
     {
@@ -395,15 +445,153 @@ class NavigationManager
         $items = $activeItem->sideMenu;
 
         foreach ($items as $item) {
+            if ($item->badge) {
+                $item->counter = (string) $item->badge;
+                continue;
+            }
             if ($item->counter !== null && is_callable($item->counter)) {
                 $item->counter = call_user_func($item->counter, $item);
                 if (empty($item->counter)) {
                     $item->counter = null;
                 }
             }
+            if (!is_null($item->counter) && !is_numeric($item->counter)) {
+                throw new SystemException("The menu item {$activeItem->code}.{$item->code}'s counter property is invalid. Check to make sure it's numeric or callable. Value: " . var_export($item->counter, true));
+            }
         }
 
         return $items;
+    }
+
+    /**
+     * Registers quick actions in the main navigation.
+     *
+     * Quick actions are single purpose links displayed to the left of the user menu in the
+     * backend main navigation.
+     *
+     * The argument is an array of the quick action items. The array keys represent the
+     * quick action item codes, specific for the plugin/module. Each element in the
+     * array should be an associative array with the following keys:
+     * - label - specifies the action label localization string key, used as a tooltip, required.
+     * - icon - an icon name from the Font Awesome icon collection, required if iconSvg is unspecified.
+     * - iconSvg - a custom SVG icon to use for the icon, required if icon is unspecified.
+     * - url - the back-end relative URL the quick action item should point to, required.
+     * - permissions - an array of permissions the back-end user should have, optional.
+     *   The item will be displayed if the user has any of the specified permissions.
+     * - order - a position of the item in the menu, optional.
+     *
+     * @param string $owner Specifies the quick action items owner plugin or module in the format Author.Plugin.
+     * @param array $definitions An array of the quick action item definitions.
+     * @return void
+     * @throws SystemException If the validation of the quick action configuration fails
+     */
+    public function registerQuickActions($owner, array $definitions)
+    {
+        $validator = Validator::make($definitions, [
+            '*.label' => 'required',
+            '*.icon' => 'required_without:*.iconSvg',
+            '*.url' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $errorMessage = 'Invalid quick action item detected in ' . $owner . '. Contact the plugin author to fix (' . $validator->errors()->first() . ')';
+            if (Config::get('app.debug', false)) {
+                throw new SystemException($errorMessage);
+            }
+
+            Log::error($errorMessage);
+        }
+
+        $this->addQuickActionItems($owner, $definitions);
+    }
+
+    /**
+     * Dynamically add an array of quick action items
+     *
+     * @param string $owner
+     * @param array  $definitions
+     * @return void
+     */
+    public function addQuickActionItems($owner, array $definitions)
+    {
+        foreach ($definitions as $code => $definition) {
+            $this->addQuickActionItem($owner, $code, $definition);
+        }
+    }
+
+    /**
+     * Dynamically add a single quick action item
+     *
+     * @param string $owner
+     * @param string $code
+     * @param array  $definition
+     * @return void
+     */
+    public function addQuickActionItem($owner, $code, array $definition)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+
+        if (isset($this->quickActions[$itemKey])) {
+            $definition = array_merge((array) $this->quickActions[$itemKey], $definition);
+        }
+
+        $item = array_merge($definition, [
+            'code'  => $code,
+            'owner' => $owner
+        ]);
+
+        $this->quickActions[$itemKey] = QuickActionItem::createFromArray($item);
+    }
+
+    /**
+     * Gets the instance of a specified quick action item.
+     *
+     * @param string $owner
+     * @param string $code
+     * @return QuickActionItem
+     * @throws SystemException
+     */
+    public function getQuickActionItem(string $owner, string $code)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+
+        if (!array_key_exists($itemKey, $this->quickActions)) {
+            throw new SystemException('No quick action item found with key ' . $itemKey);
+        }
+
+        return $this->quickActions[$itemKey];
+    }
+
+    /**
+     * Removes a single quick action item
+     *
+     * @param $owner
+     * @param $code
+     * @return void
+     */
+    public function removeQuickActionItem($owner, $code)
+    {
+        $itemKey = $this->makeItemKey($owner, $code);
+        unset($this->quickActions[$itemKey]);
+    }
+
+    /**
+     * Returns a list of quick action items.
+     *
+     * @return array
+     * @throws SystemException
+     */
+    public function listQuickActionItems()
+    {
+        if ($this->items === null && $this->quickActions === null) {
+            $this->loadItems();
+        }
+
+        if ($this->quickActions === null) {
+            return [];
+        }
+
+        return $this->quickActions;
     }
 
     /**
@@ -467,17 +655,18 @@ class NavigationManager
 
     /**
      * Determines if a main menu item is active.
-     * @param mixed $item Specifies the item object.
+     * @param MainMenuItem $item Specifies the item object.
      * @return boolean Returns true if the menu item is active.
      */
     public function isMainMenuItemActive($item)
     {
-        return $this->contextOwner == $item->owner && $this->contextMainMenuItemCode == $item->code;
+        return $this->contextOwner === $item->owner && $this->contextMainMenuItemCode === $item->code;
     }
 
     /**
      * Returns the currently active main menu item
-     * @param mixed $item Returns the item object or null.
+     * @return null|MainMenuItem $item Returns the item object or null.
+     * @throws SystemException
      */
     public function getActiveMainMenuItem()
     {
@@ -492,7 +681,7 @@ class NavigationManager
 
     /**
      * Determines if a side menu item is active.
-     * @param mixed $item Specifies the item object.
+     * @param SideMenuItem $item Specifies the item object.
      * @return boolean Returns true if the side item is active.
      */
     public function isSideMenuItemActive($item)
@@ -502,7 +691,7 @@ class NavigationManager
             return true;
         }
 
-        return $this->contextOwner == $item->owner && $this->contextSideMenuItemCode == $item->code;
+        return $this->contextOwner === $item->owner && $this->contextSideMenuItemCode === $item->code;
     }
 
     /**
@@ -534,8 +723,8 @@ class NavigationManager
 
     /**
      * Removes menu items from an array if the supplied user lacks permission.
-     * @param User $user A user object
-     * @param array $items A collection of menu items
+     * @param \Backend\Models\User $user A user object
+     * @param MainMenuItem[]|SideMenuItem[] $items A collection of menu items
      * @return array The filtered menu items
      */
     protected function filterItemPermissions($user, array $items)
@@ -544,7 +733,7 @@ class NavigationManager
             return $items;
         }
 
-        $items = array_filter($items, function ($item) use ($user) {
+        $items = array_filter($items, static function ($item) use ($user) {
             if (!$item->permissions || !count($item->permissions)) {
                 return true;
             }
@@ -557,7 +746,8 @@ class NavigationManager
 
     /**
      * Internal method to make a unique key for an item.
-     * @param  object $item
+     * @param string $owner
+     * @param string $code
      * @return string
      */
     protected function makeItemKey($owner, $code)

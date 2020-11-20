@@ -506,14 +506,14 @@ class Form extends WidgetBase
          *
          *     Event::listen('backend.form.extendFieldsBefore', function ((\Backend\Widgets\Form) $formWidget) {
          *         // You should always check to see if you're extending correct model/controller
-         *         if (!$widget->model instanceof \Foo\Example\Models\Bar) {
+         *         if (!$formWidget->model instanceof \Foo\Example\Models\Bar) {
          *             return;
          *         }
          *
          *         // Here you can't use addFields() because it will throw you an exception because form is not yet created
          *         // and it does not have tabs and fields
          *         // For this example we will pretend that we want to add a new field named example_field
-         *         $widget->fields['example_field'] = [
+         *         $formWidget->fields['example_field'] = [
          *             'label' => 'Example field',
          *             'comment' => 'Your example field',
          *             'type' => 'text',
@@ -524,14 +524,14 @@ class Form extends WidgetBase
          *
          *     $formWidget->bindEvent('form.extendFieldsBefore', function () use ((\Backend\Widgets\Form $formWidget)) {
          *         // You should always check to see if you're extending correct model/controller
-         *         if (!$widget->model instanceof \Foo\Example\Models\Bar) {
+         *         if (!$formWidget->model instanceof \Foo\Example\Models\Bar) {
          *             return;
          *         }
          *
          *         // Here you can't use addFields() because it will throw you an exception because form is not yet created
          *         // and it does not have tabs and fields
          *         // For this example we will pretend that we want to add a new field named example_field
-         *         $widget->fields['example_field'] = [
+         *         $formWidget->fields['example_field'] = [
          *             'label' => 'Example field',
          *             'comment' => 'Your example field',
          *             'type' => 'text',
@@ -579,17 +579,17 @@ class Form extends WidgetBase
          *
          *     Event::listen('backend.form.extendFields', function ((\Backend\Widgets\Form) $formWidget) {
          *         // Only for the User controller
-         *         if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
+         *         if (!$formWidget->getController() instanceof \RainLab\User\Controllers\Users) {
          *             return;
          *         }
          *
          *         // Only for the User model
-         *         if (!$widget->model instanceof \RainLab\User\Models\User) {
+         *         if (!$formWidget->model instanceof \RainLab\User\Models\User) {
          *             return;
          *         }
          *
          *         // Add an extra birthday field
-         *         $widget->addFields([
+         *         $formWidget->addFields([
          *             'birthday' => [
          *                 'label'   => 'Birthday',
          *                 'comment' => 'Select the users birthday',
@@ -598,24 +598,24 @@ class Form extends WidgetBase
          *         ]);
          *
          *         // Remove a Surname field
-         *         $widget->removeField('surname');
+         *         $formWidget->removeField('surname');
          *     });
          *
          * Or
          *
          *     $formWidget->bindEvent('form.extendFields', function () use ((\Backend\Widgets\Form $formWidget)) {
          *         // Only for the User controller
-         *         if (!$widget->getController() instanceof \RainLab\User\Controllers\Users) {
+         *         if (!$formWidget->getController() instanceof \RainLab\User\Controllers\Users) {
          *             return;
          *         }
          *
          *         // Only for the User model
-         *         if (!$widget->model instanceof \RainLab\User\Models\User) {
+         *         if (!$formWidget->model instanceof \RainLab\User\Models\User) {
          *             return;
          *         }
          *
          *         // Add an extra birthday field
-         *         $widget->addFields([
+         *         $formWidget->addFields([
          *             'birthday' => [
          *                 'label'   => 'Birthday',
          *                 'comment' => 'Select the users birthday',
@@ -624,7 +624,7 @@ class Form extends WidgetBase
          *         ]);
          *
          *         // Remove a Surname field
-         *         $widget->removeField('surname');
+         *         $formWidget->removeField('surname');
          *     });
          *
          */
@@ -737,7 +737,7 @@ class Form extends WidgetBase
                 $this->model->setValidationAttributeName($attrName, $fieldObj->label);
             }
 
-            $this->allFields[$name] = $fieldObj;
+            $this->allFields[$fieldObj->fieldName] = $fieldObj;
 
             switch (strtolower($addToArea)) {
                 case FormTabs::SECTION_PRIMARY:
@@ -1283,6 +1283,7 @@ class Form extends WidgetBase
     {
         /*
          * Advanced usage, supplied options are callable
+         * [\Path\To\Class, methodName]
          */
         if (is_array($fieldOptions) && is_callable($fieldOptions)) {
             $fieldOptions = call_user_func($fieldOptions, $this, $field);
@@ -1294,6 +1295,9 @@ class Form extends WidgetBase
         if (!is_array($fieldOptions) && !$fieldOptions) {
             try {
                 list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
+                if (!$model) {
+                    throw new Exception();
+                }
             }
             catch (Exception $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
@@ -1325,6 +1329,22 @@ class Form extends WidgetBase
          * Field options are an explicit method reference
          */
         elseif (is_string($fieldOptions)) {
+            // \Path\To\Class::staticMethodOptions
+            if (str_contains($fieldOptions, '::')) {
+                $options = explode('::', $fieldOptions);
+                if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
+                    $result = $options[0]::{$options[1]}();
+                    if (!is_array($result)) {
+                        throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
+                            'class' => $options[0],
+                            'method' => $options[1]
+                        ]));
+                    }
+                    return $result;
+                }
+            }
+
+            // $model->{$fieldOptions}()
             if (!$this->objectMethodExists($this->model, $fieldOptions)) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
                     'model'  => get_class($this->model),

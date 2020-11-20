@@ -5,7 +5,7 @@ use Database\Tester\Models\RevisionablePost;
 
 class RevisionableModelTest extends PluginTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 

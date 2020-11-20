@@ -103,8 +103,11 @@ class ThemeOptions extends Controller
 
     /**
      * Default to the active theme if user doesn't have access to manage all themes
+     *
+     * @param string $dirName
+     * @return string
      */
-    protected function getDirName($dirName = null)
+    protected function getDirName(string $dirName = null)
     {
         /*
          * Only the active theme can be managed without this permission

@@ -89,7 +89,7 @@ textarea {background-image:none}
 a {color:#0181b9;text-decoration:none}
 a:hover,
 a:focus {color:#001721;text-decoration:underline}
-a:focus {outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+a:focus {outline:thin dotted;outline-offset:0;outline:4px auto Highlight;outline:4px auto -webkit-focus-ring-color}
 img {vertical-align:middle}
 .img-responsive {display:block;max-width:100%;height:auto}
 .img-rounded {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}

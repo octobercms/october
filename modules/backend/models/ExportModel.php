@@ -5,6 +5,7 @@ use Lang;
 use Model;
 use Response;
 use League\Csv\Writer as CsvWriter;
+use League\Csv\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 
@@ -110,6 +111,8 @@ abstract class ExportModel extends Model
         if ($options['escape'] !== null) {
             $csv->setEscape($options['escape']);
         }
+
+        $csv->addFormatter(new CsvEscapeFormula());
 
         /*
          * Add headers

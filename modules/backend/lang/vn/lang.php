@@ -377,7 +377,7 @@ return [
         'remove_tags' => 'Xóa các tag',
         'remove_tags_comment' => 'Danh sách tag bị xóa kể cả nội dung của chúng.',
         'toolbar_buttons' => 'Các nút trên thanh công cụ',
-        'toolbar_buttons_comment' => 'Các nút mặc định ở trên thanh công cụ  của Rich Editor. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Các nút mặc định ở trên thanh công cụ  của Rich Editor.',
     ],
     'tooltips' => [
         'preview_website' => 'Xem trước website'

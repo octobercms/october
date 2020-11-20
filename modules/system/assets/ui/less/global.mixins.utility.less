@@ -26,9 +26,12 @@
 .tab-focus() {
     // Default
     outline: thin dotted;
+    outline-offset: 0px;
+
+    // Firefox
+    outline: 4px auto Highlight;
     // WebKit
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
+    outline: 4px auto -webkit-focus-ring-color;
 }
 
 // Center-align a block level element

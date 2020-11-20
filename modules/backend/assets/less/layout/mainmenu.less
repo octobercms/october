@@ -20,7 +20,6 @@ body.mainmenu-open {
     display: inline-block;
     font-size: @font-size-base;
     color: inherit;
-    outline: none;
 
     &:hover {
         background-color: transparent;
@@ -48,7 +47,7 @@ body.mainmenu-open {
     height: @height;
 
     ul.mainmenu-toolbar {
-        li.mainmenu-preview {
+        li.mainmenu-quick-action {
             a {
                 height: @height;
                 line-height: @height;
@@ -113,7 +112,7 @@ nav#layout-mainmenu {
     padding: 0 0 0 20px;
     line-height: 0;
     white-space: nowrap;
-    vertical-align: top;
+    display: flex;
 
     a {
         text-decoration: none;
@@ -157,7 +156,14 @@ nav#layout-mainmenu {
     }
 
     .toolbar-item {
+        flex: 1 1 auto;
+        display: block;
         padding-right: 0;
+        overflow: hidden;
+
+        &-account {
+            flex: 0 0 auto;
+        }
 
         &:before, &:after {
             margin-top: 0;
@@ -185,8 +191,12 @@ nav#layout-mainmenu {
     //
 
     ul.mainmenu-toolbar {
-        li.mainmenu-preview {
-            margin: 0 0 0 21px;
+        li.mainmenu-quick-action {
+            margin: 0;
+
+            &:first-child {
+                margin-left: 21px;
+            }
 
             i {
                 font-size: 20px;

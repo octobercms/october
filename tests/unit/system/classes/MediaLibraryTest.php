@@ -4,6 +4,12 @@ use System\Classes\MediaLibrary;
 
 class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
 {
+    public function tearDown(): void
+    {
+        $this->removeMedia();
+        parent::tearDown();
+    }
+
     public function invalidPathsProvider()
     {
         return [
@@ -60,6 +66,70 @@ class MediaLibraryTest extends TestCase // @codingStandardsIgnoreLine
     public function testValidPathsOnValidatePath($path)
     {
         $result = MediaLibrary::validatePath($path);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
+    }
+
+    public function testListFolderContents()
+    {
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $contents = MediaLibrary::instance()->listFolderContents();
+        $this->assertNotEmpty($contents, 'Media library item is not discovered');
+        $this->assertCount(3, $contents);
+
+        $this->assertEquals('file', $contents[1]->type, 'Media library item does not have the right type');
+        $this->assertEquals('/october.png', $contents[1]->path, 'Media library item does not have the right path');
+        $this->assertNotEmpty($contents[1]->lastModified, 'Media library item last modified is empty');
+        $this->assertNotEmpty($contents[1]->size, 'Media library item size is empty');
+
+        $this->assertEquals('file', $contents[2]->type, 'Media library item does not have the right type');
+        $this->assertEquals('/text.txt', $contents[2]->path, 'Media library item does not have the right path');
+        $this->assertNotEmpty($contents[2]->lastModified, 'Media library item last modified is empty');
+        $this->assertNotEmpty($contents[2]->size, 'Media library item size is empty');
+    }
+
+    protected function setUpStorage()
+    {
+        $this->app->useStoragePath(base_path('storage/temp'));
+
+        config(['filesystems.disks.test_local' => [
+            'driver' => 'local',
+            'root'   => storage_path('app'),
+        ]]);
+
+        config(['cms.storage.media' => [
+            'disk'   => 'test_local',
+            'folder' => 'media',
+            'path'   => '/storage/app/media',
+        ]]);
+    }
+
+    protected function copyMedia()
+    {
+        $mediaPath = storage_path('app/media');
+
+        if (!is_dir($mediaPath)) {
+            mkdir($mediaPath, 0777, true);
+        }
+
+        foreach (glob(base_path('tests/fixtures/media/*')) as $file) {
+            $path = pathinfo($file);
+            copy($file, $mediaPath . DIRECTORY_SEPARATOR . $path['basename']);
+        }
+    }
+
+    protected function removeMedia()
+    {
+        if ($this->app->storagePath() !== base_path('storage/temp')) {
+            return;
+        }
+
+        foreach (glob(storage_path('app/media/*')) as $file) {
+            unlink($file);
+        }
+
+        rmdir(storage_path('app/media'));
+        rmdir(storage_path('app'));
     }
 }

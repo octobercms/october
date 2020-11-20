@@ -376,7 +376,7 @@ return [
         'remove_tags' => 'Odstranit značky',
         'remove_tags_comment' => 'Seznam značek, které jsou odstraněny spolu s jejich obsahem.',
         'toolbar_buttons' => 'Tlačítka na panelu nástrojů',
-        'toolbar_buttons_comment' => 'Seznam výchozích tlačítek na panelů nástrojů textového editoru. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Seznam výchozích tlačítek na panelů nástrojů textového editoru.',
     ],
     'tooltips' => [
         'preview_website' => 'Náhled stránek'

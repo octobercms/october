@@ -13,6 +13,9 @@
             <?php if ($relationSearchWidget): ?>
                 <?= $relationSearchWidget->render() ?>
             <?php endif ?>
+            <?php if ($relationManageFilterWidget): ?>
+                <?= $relationManageFilterWidget->render() ?>
+            <?php endif ?>
             <?= $relationManageWidget->render() ?>
         </div>
 

@@ -6,7 +6,7 @@ use October\Rain\Halcyon\Model;
 
 class ControllerTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
@@ -69,7 +69,7 @@ class ControllerTest extends TestCase
         $response = $controller->run('/some-page-that-doesnt-exist');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
         $content = $response->getContent();
-        $this->assertInternalType('string', $content);
+        $this->assertIsString($content);
         $this->assertEquals('<p>Page not found</p>', $content);
     }
 
@@ -83,16 +83,15 @@ class ControllerTest extends TestCase
         $response = $controller->run('/');
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
         $content = $response->getContent();
-        $this->assertInternalType('string', $content);
+        $this->assertIsString($content);
         $this->assertEquals('<h1>My Webpage</h1>', trim($content));
     }
 
-    /**
-     * @expectedException        Cms\Classes\CmsException
-     * @expectedExceptionMessage is not found
-     */
     public function testLayoutNotFound()
     {
+        $this->expectException(\Cms\Classes\CmsException::class);
+        $this->expectExceptionMessageMatches('/is\snot\sfound/');
+
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-layout');
@@ -146,12 +145,11 @@ class ControllerTest extends TestCase
         $this->assertEquals("<div>LAYOUT CONTENT <h1>This page is a subdirectory</h1></div>", $response);
     }
 
-    /**
-     * @expectedException        \Twig\Error\RuntimeError
-     * @expectedExceptionMessage is not found
-     */
     public function testPartialNotFound()
     {
+        $this->expectException(\Twig\Error\RuntimeError::class);
+        $this->expectExceptionMessageMatches('/is\snot\sfound/');
+
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-partial')->getContent();
@@ -193,12 +191,11 @@ class ControllerTest extends TestCase
         return $requestMock;
     }
 
-    /**
-     * @expectedException        Cms\Classes\CmsException
-     * @expectedExceptionMessage AJAX handler 'onNoHandler' was not found.
-     */
     public function testAjaxHandlerNotFound()
     {
+        $this->expectException(\Cms\Classes\CmsException::class);
+        $this->expectExceptionMessage('AJAX handler \'onNoHandler\' was not found.');
+
         Request::swap($this->configAjaxRequestMock('onNoHandler', ''));
 
         $theme = Theme::load('test');
@@ -206,12 +203,11 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
-    /**
-     * @expectedException        Cms\Classes\CmsException
-     * @expectedExceptionMessage Invalid AJAX handler name: delete.
-     */
     public function testAjaxInvalidHandlerName()
     {
+        $this->expectException(\Cms\Classes\CmsException::class);
+        $this->expectExceptionMessage('Invalid AJAX handler name: delete.');
+
         Request::swap($this->configAjaxRequestMock('delete'));
 
         $theme = Theme::load('test');
@@ -219,12 +215,11 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
-    /**
-     * @expectedException        Cms\Classes\CmsException
-     * @expectedExceptionMessage Invalid partial name: p:artial.
-     */
     public function testAjaxInvalidPartial()
     {
+        $this->expectException(\Cms\Classes\CmsException::class);
+        $this->expectExceptionMessage('Invalid partial name: p:artial.');
+
         Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
 
         $theme = Theme::load('test');
@@ -232,12 +227,11 @@ class ControllerTest extends TestCase
         $controller->run('/ajax-test');
     }
 
-    /**
-     * @expectedException        Cms\Classes\CmsException
-     * @expectedExceptionMessage The partial 'partial' is not found.
-     */
     public function testAjaxPartialNotFound()
     {
+        $this->expectException(\Cms\Classes\CmsException::class);
+        $this->expectExceptionMessage('The partial \'partial\' is not found.');
+
         Request::swap($this->configAjaxRequestMock('onTest', 'partial'));
 
         $theme = Theme::load('test');
@@ -255,7 +249,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertInternalType('array', $content);
+        $this->assertIsArray($content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -272,7 +266,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertInternalType('array', $content);
+        $this->assertIsArray($content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -289,7 +283,7 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertInternalType('array', $content);
+        $this->assertIsArray($content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(2, $content);
         $this->assertArrayHasKey('ajax-result', $content);
@@ -303,7 +297,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component')->getContent();
-        $page = $this->readAttribute($controller, 'page');
+        $page = self::getProtectedProperty($controller, 'page');
         $this->assertArrayHasKey('testArchive', $page->components);
 
         $component = $page->components['testArchive'];
@@ -318,7 +312,7 @@ class ControllerTest extends TestCase
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
@@ -331,7 +325,7 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-components')->getContent();
-        $page = $this->readAttribute($controller, 'page');
+        $page = self::getProtectedProperty($controller, 'page');
 
         $this->assertArrayHasKey('firstAlias', $page->components);
         $this->assertArrayHasKey('secondAlias', $page->components);
@@ -348,7 +342,7 @@ ESC;
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
         $this->assertEquals(6, $component->property('posts-per-page'));
         $this->assertEquals(9, $component2->property('posts-per-page'));
     }
@@ -363,22 +357,82 @@ ESC;
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
 
         $content = $response->getOriginalContent();
-        $this->assertInternalType('array', $content);
+        $this->assertIsArray($content);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(1, $content);
         $this->assertArrayHasKey('ajax-result', $content);
         $this->assertEquals('page', $content['ajax-result']);
     }
 
-    /**
-     * @expectedException        October\Rain\Exception\SystemException
-     * @expectedExceptionMessage is not registered for the component
-     */
     public function testComponentClassNotFound()
     {
+        $this->expectException(\October\Rain\Exception\SystemException::class);
+        $this->expectExceptionMessageMatches('/is\snot\sregistered\sfor\sthe\scomponent/');
+
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/no-component-class')->getContent();
+    }
+
+    public function testSoftComponentClassNotFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/no-soft-component-class')->getContent();
+
+        $this->assertEquals('<p>Hey</p>', $response);
+    }
+
+    public function testSoftComponentClassFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-soft-component-class')->getContent();
+        $page = $controller->getPage();
+        $this->assertArrayHasKey('testArchive', $page->components);
+
+        $component = $page->components['testArchive'];
+        $details = $component->componentDetails();
+
+        $content = <<<ESC
+<div>LAYOUT CONTENT<p>This page uses components.</p>
+    <h3>Lorum ipsum</h3>
+    <p>Post Content #1</p>
+    <h3>La Playa Nudista</h3>
+    <p>Second Post Content</p>
+</div>
+ESC;
+
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
+        $this->assertEquals(69, $component->property('posts-per-page'));
+        $this->assertEquals('Blog Archive Dummy Component', $details['name']);
+        $this->assertEquals('Displays an archive of blog posts.', $details['description']);
+    }
+
+    public function testSoftComponentWithAliasClassFound()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-soft-component-class-alias')->getContent();
+        $page = $controller->getPage();
+        $this->assertArrayHasKey('someAlias', $page->components);
+
+        $component = $page->components['someAlias'];
+        $details = $component->componentDetails();
+
+        $content = <<<ESC
+<div>LAYOUT CONTENT<p>This page uses components.</p>
+    <h3>Lorum ipsum</h3>
+    <p>Post Content #1</p>
+    <h3>La Playa Nudista</h3>
+    <p>Second Post Content</p>
+</div>
+ESC;
+
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
+        $this->assertEquals(69, $component->property('posts-per-page'));
+        $this->assertEquals('Blog Archive Dummy Component', $details['name']);
+        $this->assertEquals('Displays an archive of blog posts.', $details['description']);
     }
 
     public function testComponentNotFound()
@@ -469,7 +523,7 @@ ESC;
 <p>Insert post here</p>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
     }
 
     public function testComponentWithOnRender()
@@ -483,6 +537,6 @@ Pass
 Custom output: Would you look over Picasso's shoulder
 Custom output: And tell him about his brush strokes?
 ESC;
-        $this->assertEquals($content, $response);
+        $this->assertEquals(str_replace(PHP_EOL, "\n", $content), $response);
     }
 }

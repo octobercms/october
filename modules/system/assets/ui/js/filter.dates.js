@@ -29,6 +29,8 @@
     FilterWidget.prototype.init = function () {
         overloaded_init.apply(this)
 
+        this.ignoreTimezone = this.$el.children().get(0).hasAttribute('data-ignore-timezone');
+
         this.initRegion()
         this.initFilterDate()
     }
@@ -104,7 +106,7 @@
      */
     FilterWidget.prototype.getPopoverDateTemplate = function () {
         return '                                                                                                        \
-                <form>                                                                                                  \
+                <form id="controlFilterPopoverDate-{{ scopeName }}">                                                    \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                    \
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover">       \
                         <div class="filter-search loading-indicator-container size-input-text">                         \
@@ -136,7 +138,7 @@
      */
     FilterWidget.prototype.getPopoverRangeTemplate = function () {
         return '                                                                                                          \
-                <form>                                                                                                    \
+                <form id="controlFilterPopoverRange-{{ scopeName }}">                                                     \
                     <input type="hidden" name="scopeName" value="{{ scopeName }}" />                                      \
                     <div id="controlFilterPopoverDate" class="control-filter-popover control-filter-box-popover --range"> \
                         <div class="filter-search loading-indicator-container size-input-text">                           \
@@ -394,6 +396,12 @@
         }
 
         if (!this.timezone) {
+            this.timezone = 'UTC'
+        }
+
+        // Set both timezones to UTC to disable converting between them
+        if (this.ignoreTimezone) {
+            this.appTimezone = 'UTC'
             this.timezone = 'UTC'
         }
     }

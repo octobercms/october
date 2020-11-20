@@ -91,6 +91,10 @@
     //
 
     MarkdownEditor.prototype.onClickToolbarButton = function(ev) {
+        if (this.options.disabled) {
+            return;
+        }
+
         var $target = $(ev.target),
             $button = $target.is('a') ? $target : $target.closest('.btn'),
             action = $button.data('button-action'),
@@ -202,6 +206,10 @@
     }
 
     MarkdownEditor.prototype.createToolbarDropdown = function(button, $el) {
+        if (this.options.disabled) {
+            return;
+        }
+
         var $dropdown = $('<ul class="dropdown-menu" />'),
             $childButton
 
@@ -241,12 +249,17 @@
         var $button = $('<button />').attr({
             'type': "button",
             'class': 'btn',
-            'title': $.oc.lang.get(button.label),
-            'data-control': "tooltip",
-            'data-placement': "bottom",
-            'data-container': "body",
-            'data-button-code': code
         })
+
+        if (!this.options.disabled) {
+            $button.attr({
+                'title': $.oc.lang.get(button.label),
+                'data-control': "tooltip",
+                'data-placement': "bottom",
+                'data-container': "body",
+                'data-button-code': code
+            });
+        }
 
         if (button.action) {
             $button.attr('data-button-action', button.action)
@@ -343,8 +356,15 @@
         editor.renderer.setShowPrintMargin(false)
         editor.getSession().setUseWrapMode(true)
         editor.setFontSize(14)
-        editor.on('blur', this.proxy(this.onBlur))
-        editor.on('focus', this.proxy(this.onFocus))
+
+        if (this.options.disabled) {
+            editor.setReadOnly(true);
+            editor.setHighlightSelectedWord(false);
+            editor.renderer.$cursorLayer.element.style.display = 'none';
+        } else {
+            editor.on('blur', this.proxy(this.onBlur))
+            editor.on('focus', this.proxy(this.onFocus))
+        }
 
         // Set the vendor path for Ace's require path
         ace.require('ace/config').set('basePath', this.options.vendorPath)
@@ -679,7 +699,8 @@
         refreshHandler: null,
         buttons: ['formatting', 'bold', 'italic', 'unorderedlist', 'orderedlist', 'link', 'horizontalrule'],
         viewMode: 'tab',
-        useMediaManager: false
+        useMediaManager: false,
+        disabled: false
     }
 
     // PLUGIN DEFINITION

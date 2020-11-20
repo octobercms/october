@@ -42,6 +42,11 @@ class MailPartial extends Model
         'content_html'          => 'required',
     ];
 
+    /**
+     * Fired after the model has been fetched.
+     *
+     * @return void
+     */
     public function afterFetch()
     {
         if (!$this->is_custom) {
@@ -49,6 +54,12 @@ class MailPartial extends Model
         }
     }
 
+    /**
+     * Find a MailPartial instance by code or create a new instance from a view file.
+     *
+     * @param string $code
+     * @return MailTemplate
+     */
     public static function findOrMakePartial($code)
     {
         try {
@@ -68,18 +79,29 @@ class MailPartial extends Model
     /**
      * Loops over each mail layout and ensures the system has a layout,
      * if the layout does not exist, it will create one.
+     *
      * @return void
      */
     public static function createPartials()
     {
-        $dbPartials = self::lists('code', 'code');
+        $partials = MailManager::instance()->listRegisteredPartials();
+        $dbPartials = self::lists('is_custom', 'code');
+        $newPartials = array_diff_key($partials, $dbPartials);
 
-        $definitions = MailManager::instance()->listRegisteredPartials();
-        foreach ($definitions as $code => $path) {
-            if (array_key_exists($code, $dbPartials)) {
+        /*
+         * Clean up non-customized partials
+         */
+        foreach ($dbPartials as $code => $isCustom) {
+            if ($isCustom) {
                 continue;
             }
 
+            if (!array_key_exists($code, $partials)) {
+                self::whereCode($code)->delete();
+            }
+        }
+
+        foreach ($newPartials as $code => $path) {
             $partial = new static;
             $partial->code = $code;
             $partial->is_custom = 0;
@@ -88,6 +110,12 @@ class MailPartial extends Model
         }
     }
 
+    /**
+     * Fill model using a view file retrieved by code.
+     *
+     * @param string|null $code
+     * @return void
+     */
     public function fillFromCode($code = null)
     {
         $definitions = MailManager::instance()->listRegisteredPartials();
@@ -103,6 +131,12 @@ class MailPartial extends Model
         $this->fillFromView($definition);
     }
 
+    /**
+     * Fill model using a view file retrieved by path.
+     *
+     * @param string $path
+     * @return void
+     */
     public function fillFromView($path)
     {
         $sections = self::getTemplateSections($path);
@@ -112,8 +146,18 @@ class MailPartial extends Model
         $this->content_text = array_get($sections, 'text');
     }
 
+    /**
+     * Get section array from a view file retrieved by code.
+     *
+     * @param string $code
+     * @return array|null
+     */
     protected static function getTemplateSections($code)
     {
-        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
+        if (!View::exists($code)) {
+            return null;
+        }
+        $view = View::make($code);
+        return MailParser::parse(FileHelper::get($view->getPath()));
     }
 }

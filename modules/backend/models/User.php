@@ -3,6 +3,7 @@
 use Mail;
 use Event;
 use Backend;
+use BackendAuth;
 use October\Rain\Auth\Models\User as UserBase;
 
 /**
@@ -26,8 +27,8 @@ class User extends UserBase
     public $rules = [
         'email' => 'required|between:6,255|email|unique:backend_users',
         'login' => 'required|between:2,255|unique:backend_users',
-        'password' => 'required:create|between:4,255|confirmed',
-        'password_confirmation' => 'required_with:password|between:4,255'
+        'password' => 'required:create|min:4|confirmed',
+        'password_confirmation' => 'required_with:password|min:4'
     ];
 
     /**
@@ -189,5 +190,23 @@ class User extends UserBase
         }
 
         return $result;
+    }
+
+    /**
+     * Check if the user is suspended.
+     * @return bool
+     */
+    public function isSuspended()
+    {
+        return BackendAuth::findThrottleByUserId($this->id)->checkSuspended();
+    }
+
+    /**
+     * Remove the suspension on this user.
+     * @return void
+     */
+    public function unsuspend()
+    {
+        BackendAuth::findThrottleByUserId($this->id)->unsuspend();
     }
 }

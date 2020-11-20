@@ -193,3 +193,31 @@ div.control-componentlist {
 .nav.selector-group li.active {
     border-left-color: @brand-secondary;
 }
+
+//
+// Fancy breadcrumb
+//
+body.breadcrumb-fancy .control-breadcrumb,
+.control-breadcrumb.breadcrumb-fancy {
+    background-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+
+    li {
+        background-color: mix(black, saturate(@brand-secondary, 20%), 31%);
+
+        &:last-child {
+            background-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+
+            &::before {
+                border-left-color: mix(black, saturate(@brand-secondary, 20%), 16%);
+            }
+        }
+
+        &::after {
+            border-left-color: mix(black, saturate(@brand-secondary, 20%), 31%);
+        }
+
+        &:not(:last-child)::before {
+            border-left-color: @brand-secondary;
+        }
+    }
+}

@@ -124,7 +124,7 @@ class FormField
     /**
      * @var string Specifies a comment to accompany the field
      */
-    public $comment;
+    public $comment = '';
 
     /**
      * @var string Specifies the comment position.
@@ -139,7 +139,7 @@ class FormField
     /**
      * @var string Specifies a message to display when there is no value supplied (placeholder).
      */
-    public $placeholder;
+    public $placeholder = '';
 
     /**
      * @var array Contains a list of attributes specified in the field configuration.
@@ -424,6 +424,15 @@ class FormField
     {
         $result = array_get($this->attributes, $position, []);
         $result = $this->filterAttributes($result, $position);
+
+        // Field is required, so add the "required" attribute
+        if ($position === 'field' && $this->required && (!isset($result['required']) || $result['required'])) {
+            $result['required'] = '';
+        }
+        // The "required" attribute is set and falsy, so unset it
+        elseif ($position === 'field' && isset($result['required']) && !$result['required']) {
+            unset($result['required']);
+        }
 
         return $htmlBuild ? Html::attributes($result) : $result;
     }

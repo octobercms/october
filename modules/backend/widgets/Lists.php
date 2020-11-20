@@ -10,6 +10,8 @@ use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
+use System\Classes\MediaLibrary;
+use System\Classes\ImageResizer;
 use Backend\Classes\ListColumn;
 use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
@@ -210,7 +212,9 @@ class Lists extends WidgetBase
         /*
          * Configure the list widget
          */
-        $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        if ($this->showSetup) {
+            $this->recordsPerPage = $this->getUserPreference('per_page', $this->recordsPerPage);
+        }
 
         if ($this->showPagination == 'auto') {
             $this->showPagination = $this->recordsPerPage && $this->recordsPerPage > 0;
@@ -520,7 +524,7 @@ class Lists extends WidgetBase
         /*
          * Apply sorting
          */
-        if (($sortColumn = $this->getSortColumn()) && !$this->showTree) {
+        if (($sortColumn = $this->getSortColumn()) && !$this->showTree && in_array($sortColumn, array_keys($this->getVisibleColumns()))) {
             if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
                 $sortColumn = $this->isColumnPivot($column)
                     ? 'pivot_' . $column->valueFrom
@@ -640,9 +644,7 @@ class Lists extends WidgetBase
     protected function getCurrentPageNumber($query)
     {
         $currentPageNumber = $this->currentPageNumber;
-
-        if (!$currentPageNumber && empty($this->searchTerm)) {
-            // Restore the last visited page from the session if available.
+        if (empty($currentPageNumber)) {
             $currentPageNumber = $this->getSession('lastVisitedPage');
         }
 
@@ -728,7 +730,7 @@ class Lists extends WidgetBase
         /*
          * Supplied column list
          */
-        if ($this->columnOverride === null) {
+        if ($this->showSetup && $this->columnOverride === null) {
             $this->columnOverride = $this->getUserPreference('visible', null);
         }
 
@@ -1076,8 +1078,8 @@ class Lists extends WidgetBase
         /*
          * Apply default value.
          */
-        if ($value === '' || $value === null) {
-            $value = $column->defaults;
+        if (($value === '' || is_null($value)) && !empty($column->defaults)) {
+            $value = Lang::get($column->defaults);
         }
 
         /**
@@ -1185,6 +1187,42 @@ class Lists extends WidgetBase
         }
 
         return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
+    }
+
+    /**
+     * Process an image value
+     * @return string
+     */
+    protected function evalImageTypeValue($record, $column, $value)
+    {
+        $config = $column->config;
+
+        // Get config options with defaults
+        $width = isset($config['width']) ? $config['width'] : 50;
+        $height = isset($config['height']) ? $config['height'] : 50;
+        $options = isset($config['options']) ? $config['options'] : [];
+
+        // Handle attachMany relationships
+        if (isset($record->attachMany[$column->columnName])) {
+            $image = $value->first();
+
+        // Handle attachOne relationships
+        } elseif (isset($record->attachOne[$column->columnName])) {
+            $image = $value;
+
+        // Handle absolute URLs
+        } elseif (str_contains($value, '://')) {
+            $image = $value;
+
+        // Assume all other values to be from the media library
+        } else {
+            $image = MediaLibrary::url($value);
+        }
+
+        if (!is_null($image)) {
+            $imageUrl = ImageResizer::filterGetUrl($image, $width, $height, $options);
+            return "<img src='$imageUrl' width='$width' height='$height' />";
+        }
     }
 
     /**
@@ -1408,11 +1446,16 @@ class Lists extends WidgetBase
      * Applies a search term to the list results, searching will disable tree
      * view if a value is supplied.
      * @param string $term
+     * @param boolean $resetPagination
      */
-    public function setSearchTerm($term)
+    public function setSearchTerm($term, $resetPagination = false)
     {
         if (!empty($term)) {
             $this->showTree = false;
+        }
+
+        if ($resetPagination) {
+            $this->currentPageNumber = 1;
         }
 
         $this->searchTerm = $term;

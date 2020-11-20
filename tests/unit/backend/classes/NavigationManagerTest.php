@@ -59,18 +59,18 @@ class NavigationManagerTest extends TestCase
         $manager->setContext('October.Tester', 'blog');
 
         $items = $manager->listSideMenuItems();
-        $this->assertInternalType('array', $items);
+        $this->assertIsArray($items);
         $this->assertArrayHasKey('posts', $items);
         $this->assertArrayHasKey('categories', $items);
 
-        $this->assertInternalType('object', $items['posts']);
+        $this->assertIsObject($items['posts']);
         $this->assertObjectHasAttribute('code', $items['posts']);
         $this->assertObjectHasAttribute('owner', $items['posts']);
         $this->assertEquals('posts', $items['posts']->code);
         $this->assertEquals('October.Tester', $items['posts']->owner);
 
         $this->assertObjectHasAttribute('permissions', $items['posts']);
-        $this->assertInternalType('array', $items['posts']->permissions);
+        $this->assertIsArray($items['posts']->permissions);
         $this->assertCount(1, $items['posts']->permissions);
 
         $this->assertObjectHasAttribute('order', $items['posts']);
@@ -92,7 +92,7 @@ class NavigationManagerTest extends TestCase
 
         $items = $manager->listMainMenuItems();
 
-        $this->assertInternalType('array', $items);
+        $this->assertIsArray($items);
         $this->assertArrayHasKey('OCTOBER.TESTER.PRINT', $items);
 
         $item = $items['OCTOBER.TESTER.PRINT'];
@@ -143,10 +143,10 @@ class NavigationManagerTest extends TestCase
         $manager->setContext('October.Tester', 'blog');
         $items = $manager->listSideMenuItems();
 
-        $this->assertInternalType('array', $items);
+        $this->assertIsArray($items);
         $this->assertArrayHasKey('foo', $items);
 
-        $this->assertInternalType('object', $items['foo']);
+        $this->assertIsObject($items['foo']);
         $this->assertObjectHasAttribute('code', $items['foo']);
         $this->assertObjectHasAttribute('owner', $items['foo']);
         $this->assertObjectHasAttribute('order', $items['foo']);
@@ -156,7 +156,7 @@ class NavigationManagerTest extends TestCase
         $this->assertEquals('October.Tester', $items['foo']->owner);
 
         $this->assertObjectHasAttribute('permissions', $items['foo']);
-        $this->assertInternalType('array', $items['foo']->permissions);
+        $this->assertIsArray($items['foo']->permissions);
         $this->assertCount(2, $items['foo']->permissions);
         $this->assertContains('october.tester.access_foo', $items['foo']->permissions);
         $this->assertContains('october.tester.access_bar', $items['foo']->permissions);
