@@ -1738,11 +1738,8 @@ class Lists extends WidgetBase
         }
 
         $this->showSorting = $this->showPagination = false;
-
         $this->treeExpanded = $this->getSession('tree_expanded', $this->treeExpanded);
-
         $this->toggleTreeExpanded = $this->getSession('tree_toggle_expanded', !$this->treeExpanded);
-
         if (!$this->model->methodExists('getChildren')) {
             throw new ApplicationException(
                 'To display list as a tree, the specified model must have a method "getChildren"'
