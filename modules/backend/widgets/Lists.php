@@ -1811,7 +1811,7 @@ class Lists extends WidgetBase
      */
     protected function resetAllTreeNodes()
     {
-        if (! $this->showTree) {
+        if (!$this->showTree) {
             return;
         }
 
