@@ -158,14 +158,14 @@ class FileUpload extends FormWidgetBase
         $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
         $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-upload');
-        $this->vars['imageHeight'] = $this->imageHeight;
-        $this->vars['imageWidth'] = $this->imageWidth;
+        $this->vars['imageHeight'] = (is_int($this->imageHeight)) ? $this->imageHeight : null;
+        $this->vars['imageWidth'] = (is_int($this->imageWidth)) ? $this->imageWidth : null;
         $this->vars['acceptedFileTypes'] = $this->getAcceptedFileTypes(true);
-        $this->vars['maxFilesize'] = $this->maxFilesize;
+        $this->vars['maxFilesize'] = (is_int($this->maxFilesize)) ? $this->maxFilesize : null;
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['cssBlockDimensions'] = $this->getCssDimensions('block');
         $this->vars['useCaption'] = $this->useCaption;
-        $this->vars['maxFiles'] = $this->maxFiles;
+        $this->vars['maxFiles'] = (is_int($this->maxFiles)) ? $this->maxFiles : null;
         $this->vars['prompt'] = $this->getPromptText();
     }
 
