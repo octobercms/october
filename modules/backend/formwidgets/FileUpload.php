@@ -65,7 +65,7 @@ class FileUpload extends FormWidgetBase
     public $maxFilesize;
 
     /**
-     * @var mixed Max files number.
+     * @var integer|null Max files number.
      */
     public $maxFiles;
 
