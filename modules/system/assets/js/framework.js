@@ -288,6 +288,11 @@ if (window.jQuery.request !== undefined) {
              */
             handleRedirectResponse: function(url) {
                 window.location.assign(url)
+                // Indicate that the AJAX request is finished if we're still on the current page
+                // so that the loading indicator for redirects that cause a browser to download 
+                // a file instead of leave the page will properly stop.
+                // @see https://github.com/octobercms/october/issues/5055
+                $el.trigger('ajaxDone')
             },
 
             /*

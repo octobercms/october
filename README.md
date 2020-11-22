@@ -1,12 +1,12 @@
 <p align="center">
-    <img src="https://github.com/octobercms/october/blob/master/themes/demo/assets/images/october.png?raw=true" alt="October" width="25%" height="25%" />
+    <img src="https://github.com/octobercms/october/blob/develop/themes/demo/assets/images/october.png?raw=true" alt="October" width="25%" height="25%" />
 </p>
 
 [October](https://octobercms.com) is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again. It was born out of frustration with existing systems. We feel building websites has become a convoluted and confusing process that leaves developers unsatisfied. We want to turn you around to the simpler side and get back to basics.
 
 October's mission is to show the world that web development is not rocket science.
 
-![Stable Build](https://github.com/octobercms/october/workflows/Tests/badge.svg?branch=master)
+![Stable Build](https://github.com/octobercms/october/workflows/Tests/badge.svg?branch=1.1)
 [![License](https://poser.pugx.org/october/october/license.svg)](https://packagist.org/packages/october/october)
 
 ## Installing October
@@ -73,7 +73,7 @@ Before sending or reviewing Pull Requests, be sure to review the [Contributing G
 
 Please follow the following guides and code standards:
 
-* [PSR 4 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* [PSR 4 Autoloader](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 * [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
 

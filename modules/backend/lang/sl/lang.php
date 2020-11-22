@@ -6,10 +6,11 @@ return [
         'invalid_login' => 'Podatki, ki ste jih vnesli, se ne ujemajo z našimi zapisi. Prosimo, ponovno preverite podatke in poskusite znova.',
     ],
     'field'               => [
-        'invalid_type'                 => 'Uporabljen je neveljaven tip polja :type.',
-        'options_method_invalid_model' => "Atribut ':field' ne ustreza veljavnemu modelu. Poskusite natančno določiti možnosti metode za model :model.",
-        'options_method_not_exists'    => "Model :model mora vsebovati metodo :method(), ki vrača možnosti za polje ':field' na obrazcu.",
-        'colors_method_not_exists'     => "Model :model mora vsebovati metodo :method(), ki vrača HTML barvne kode v HEX formatu za polje ':field' na obrazcu.",
+        'invalid_type'                        => 'Uporabljen je neveljaven tip polja :type.',
+        'options_method_invalid_model'        => "Atribut ':field' ne ustreza veljavnemu modelu. Poskusite natančno določiti možnosti metode za model :model.",
+        'options_method_not_exists'           => "Model :model mora vsebovati metodo :method(), ki vrača možnosti za polje ':field' na obrazcu.",
+        'options_static_method_invalid_value' => "Statična metoda ':method()' v razredu :class ni vrnila veljavnih možnosti.",
+        'colors_method_not_exists'            => "Model :model mora vsebovati metodo :method(), ki vrača HTML barvne kode v HEX formatu za polje ':field' na obrazcu.",
     ],
     'widget'              => [
         'not_registered' => "Ime vtičnika ':name' ni bilo registrirano.",
@@ -48,6 +49,10 @@ return [
         'impersonate_working'  => 'Impersoniram...',
         'impersonating'        => 'Impersonacija uporabnika :full_name',
         'stop_impersonating'   => 'Prekliči impersonacijo',
+        'unsuspend'            => 'Odsuspendiraj',
+        'unsuspend_confirm'    => 'Ali ste prepričani, da želite odsuspendirati tega uporabnika?',
+        'unsuspend_success'    => 'Uporabnik je odsuspendiran.',
+        'unsuspend_working'    => 'Odsuspendiram...',
         'signed_in_as'         => 'Prijavljeni ste kot :full_name',
         'sign_out'             => 'Odjava',
         'login'                => 'Prijava',
@@ -402,6 +407,7 @@ return [
         'label'                      => 'Opis',
         'class_name'                 => 'Oznaka razreda',
         'markup_tags'                => 'Označevalne oznake',
+        'markup_tag'                 => 'Označevalna oznaka',
         'allowed_empty_tags'         => 'Dovoljene prazne oznake',
         'allowed_empty_tags_comment' => 'Seznam oznak, ki niso odstranjene, če v njih ni vsebine.',
         'allowed_tags'               => 'Dovoljene oznake',
@@ -412,6 +418,7 @@ return [
         'remove_tags_comment'        => 'Seznam oznak, ki so odstranjene skupaj z njihovo vsebino.',
         'line_breaker_tags'          => 'Oznake prekinitve vrstic',
         'line_breaker_tags_comment'  => 'Seznam oznak, ki se uporabljajo za postavitev elementa prekinitve med vrstice.',
+        'toolbar_options'            => 'Nastavitve orodne vrstice',
         'toolbar_buttons'            => 'Gumbi orodne vrstice',
         'toolbar_buttons_comment'    => 'Gumbi orodne vrstice, ki se privzeto prikažejo v urejevalniku. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
         'toolbar_buttons_preset'     => 'Vstavite prednastavljeno konfiguracijo gumbov orodne vrstice:',
@@ -420,6 +427,8 @@ return [
             'minimal' => 'Minimalno',
             'full'    => 'Polno',
         ],
+        'paragraph_formats'          => 'Formati odstavkov',
+        'paragraph_formats_comment'  => 'Možnosti, ki se prikažejo v spustnem seznamu Format odstavka.',
     ],
     'tooltips'            => [
         'preview_website' => 'Ogled spletne strani',
@@ -470,7 +479,7 @@ return [
     ],
     'access_log'          => [
         'hint'             => 'Ta dnevnik beleži seznam uspešnih prijav administratorjev. Zapisi se hranijo :days dni.',
-        'menu_label'       => 'Dnevnik dostopa',
+        'menu_label'       => 'Dnevnik dostopov',
         'menu_description' => 'Prikaz seznama uspešnih prijav administratorjev.',
         'id'               => 'ID',
         'created_at'       => 'Datum in čas',
@@ -558,11 +567,12 @@ return [
             'iso_8859_15'  => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1250' => 'Windows-1250 (CP1250, Central and Eastern European)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)'
-        ]
+            'windows_1252' => 'Windows-1252 (CP1252)',
+        ],
     ],
     'permissions'         => [
-        'manage_media' => 'Nalaganje in upravljanje z media vsebinami - slike, video posnetki, zvočni posnetki, dokumenti',
+        'manage_media'          => 'Nalaganje in upravljanje z media vsebinami - slike, video posnetki, zvočni posnetki, dokumenti',
+        'allow_unsafe_markdown' => 'Dovoli uporabo nevarnih označb (lahko vključi Javascript)',
     ],
     'mediafinder'         => [
         'label'          => 'Media brskalnik',

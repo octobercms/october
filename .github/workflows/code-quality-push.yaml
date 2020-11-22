@@ -3,7 +3,8 @@ name: Code Quality
 on:
   push:
     branches:
-      - master
+      - 1.0
+      - 1.1
       - develop
 
 jobs:

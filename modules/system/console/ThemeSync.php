@@ -105,7 +105,7 @@ class ThemeSync extends Command
 
             foreach ($userPaths as $userPath) {
                 foreach ($themePaths as $themePath) {
-                    $pregMatch = '/' . str_replace('/', '\/', $userPath) . '/i';
+                    $pregMatch = '/^' . str_replace('/', '\/', $userPath) . '/i';
 
                     if ($userPath === $themePath || preg_match($pregMatch, $themePath)) {
                         $paths[] = $themePath;

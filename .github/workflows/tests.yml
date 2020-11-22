@@ -3,7 +3,8 @@ name: Tests
 on:
   push:
     branches:
-      - master
+      - 1.0
+      - 1.1
       - develop
   pull_request:
 
@@ -62,7 +63,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.phpVersion }}
-          tools: composer
+          tools: composer:v1
           extensions: ${{ env.extensions }}
 
       - name: Setup dependency cache

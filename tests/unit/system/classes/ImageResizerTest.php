@@ -320,6 +320,21 @@ class ImageResizerTest extends PluginTestCase
         );
     }
 
+    public function testSpaceInFilename()
+    {
+        // Media URL with space
+        $this->setUpStorage();
+        $this->copyMedia();
+
+        $imageResizer = new ImageResizer(
+            URL::to(MediaLibrary::url('october space.png')),
+            100,
+            100
+        );
+
+        $this->assertStringContainsString('october%20space', $imageResizer->getResizedUrl(), 'Resized URLs are not properly URL encoded');
+    }
+
     protected function setUpStorage()
     {
         $this->app->useStoragePath(base_path('storage/temp'));
