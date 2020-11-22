@@ -32,6 +32,7 @@
             <option
                 <?= $field->isSelected($value) ? 'selected="selected"' : '' ?>
                 <?php if (isset($option[1])): ?>data-<?=strpos($option[1],'.')?'image':'icon'?>="<?= $option[1] ?>"<?php endif ?>
+                <?php if (array_get($option, 'disabled')):?>disabled<?php endif ?>
                 value="<?= e($value) ?>"
             ><?= e(trans($option[0])) ?></option>
         <?php endforeach ?>
