@@ -1,6 +1,6 @@
 <?php namespace Backend\Traits;
 
-use October\Rain\Support\Arr;
+use Arr;
 use Str;
 use Session;
 
@@ -60,7 +60,8 @@ trait SessionMaker
 
     /**
      * Removes one or many items from the widget session data.
-     * @param string|array $keys Unique key for the data store.
+     *
+     * @param string|array $keys Keys to be removed from the widget session data
      * @return void
      */
     protected function forgetSession($keys)
