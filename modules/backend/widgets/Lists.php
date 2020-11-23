@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets;
 
 use Db;
+use Str;
 use Html;
 use Lang;
 use Backend;
@@ -8,7 +9,6 @@ use DbDongle;
 use Carbon\Carbon;
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Router\Helper as RouterHelper;
-use Str;
 use System\Helpers\DateTime as DateTimeHelper;
 use System\Classes\PluginManager;
 use System\Classes\MediaLibrary;
