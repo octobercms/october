@@ -59,7 +59,8 @@
             "tests/concerns/InteractsWithAuthentication.php",
             "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
-            "tests/PluginTestCase.php"
+            "tests/PluginTestCase.php",
+            "vendor/october/rain/tests/DbTestCase.php"
         ]
     },
     "scripts": {
