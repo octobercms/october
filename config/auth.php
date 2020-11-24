@@ -36,4 +36,5 @@ return [
         'suspensionTime' => 15,
     ],
 
+    "requireActivation" => false,
 ];
