@@ -35,6 +35,13 @@ return [
          */
         'suspensionTime' => 15,
     ],
-
+    /*
+    |--------------------------------------------------------------------------
+    | Require activation
+    |--------------------------------------------------------------------------
+    |
+    | Toggle if a backend user needs to be activated before login.
+    |
+     */
     "requireActivation" => false,
 ];
