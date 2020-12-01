@@ -68,7 +68,7 @@ jobs:
 
       - name: Switch library dependency
         if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
-        run: ./.github/workflows/utilities/library-switcher "dev-develop as 1.1"
+        run: php ./.github/workflows/utilities/library-switcher "dev-develop as 1.1"
 
       - name: Setup dependency cache
         id: composercache
