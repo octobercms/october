@@ -34,8 +34,17 @@ jobs:
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
         phpVersion: ['7.2', '7.3', '7.4']
+        experimental: [false]
+        include:
+            - phpVersion: '8.0'
+              os: ubuntu-latest
+              experimental: true
+            - phpVersion: '8.0'
+              os: windows-latest
+              experimental: true
       fail-fast: false
     runs-on: ${{ matrix.operatingSystem }}
+    continue-on-error: ${{ matrix.experimental }}
     name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
     env:
       extensions: curl, fileinfo, gd, mbstring, openssl, pdo, pdo_sqlite, sqlite3, xml
@@ -94,7 +103,7 @@ jobs:
           composer dumpautoload
 
       - name: Replace Rain library with development version
-        if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
+        if: matrix.os == 'ubuntu-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
         run: |
           rm -rf ./vendor/october/rain
           wget https://github.com/octobercms/library/archive/develop.zip
@@ -102,6 +111,17 @@ jobs:
           unzip -d ./vendor/october ./vendor/october/develop.zip
           rm ./vendor/october/develop.zip
           mv ./vendor/october/library-develop ./vendor/october/rain
+          composer dumpautoload
+
+      - name: Replace Rain library with development version
+        if: matrix.os == 'windows-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
+        run: |
+          rd /s /q .\vendor\october\rain
+          wget https://github.com/octobercms/library/archive/develop.zip
+          move develop.zip .\vendor\october\
+          unzip -d .\vendor\october .\vendor\october\develop.zip
+          del /q .\vendor\october\develop.zip
+          rename .\vendor\october\library-develop .\vendor\october\rain
           composer dumpautoload
 
       - name: Setup problem matchers for PHPUnit
