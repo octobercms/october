@@ -66,6 +66,10 @@ jobs:
           tools: composer:v1
           extensions: ${{ env.extensions }}
 
+      - name: Switch library dependency
+        if: matrix.operatingSystem == 'ubuntu-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
+        run: ./.github/workflow/utilities/library-switcher "dev-develop as 1.1"
+
       - name: Setup dependency cache
         id: composercache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -91,28 +95,6 @@ jobs:
       - name: Reset October modules
         run: |
           git reset --hard HEAD
-          composer dumpautoload
-
-      - name: Replace Rain library with development version (Ubuntu)
-        if: matrix.operatingSystem == 'ubuntu-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
-        run: |
-          rm -rf ./vendor/october/rain
-          wget https://github.com/octobercms/library/archive/develop.zip
-          mv develop.zip ./vendor/october/
-          unzip -d ./vendor/october ./vendor/october/develop.zip
-          rm ./vendor/october/develop.zip
-          mv ./vendor/october/library-develop ./vendor/october/rain
-          composer dumpautoload
-
-      - name: Replace Rain library with development version (Windows)
-        if: matrix.operatingSystem == 'windows-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
-        run: |
-          rd .\vendor\october\rain /s /q
-          wget https://github.com/octobercms/library/archive/develop.zip
-          move develop.zip .\vendor\october\
-          Expand-Archive -Force .\vendor\october .\vendor\october\develop.zip
-          del /q .\vendor\october\develop.zip
-          ren .\vendor\october\library-develop .\vendor\october\rain
           composer dumpautoload
 
       - name: Setup problem matchers for PHPUnit
