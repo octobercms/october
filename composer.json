@@ -30,6 +30,12 @@
         "docs": "https://octobercms.com/docs/",
         "source": "https://github.com/octobercms/october"
     },
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"https://github.com/octoberrain/composer-merge-plugin"
+        }
+    ],
     "require": {
         "php": ">=7.2",
         "october/rain": "1.1.*",
@@ -37,7 +43,7 @@
         "october/backend": "1.1.*",
         "october/cms": "1.1.*",
         "laravel/framework": "~6.0",
-        "wikimedia/composer-merge-plugin": "1.4.1"
+        "wikimedia/composer-merge-plugin": "dev-feature/composer-v2 as 1.5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4|^9.3.3",
@@ -53,7 +59,8 @@
             "tests/concerns/InteractsWithAuthentication.php",
             "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
-            "tests/PluginTestCase.php"
+            "tests/PluginTestCase.php",
+            "vendor/october/rain/tests/DbTestCase.php"
         ]
     },
     "scripts": {

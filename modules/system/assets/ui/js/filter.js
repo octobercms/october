@@ -156,7 +156,7 @@
 
             $(event.relatedTarget).on('input', '#controlFilterPopover input[data-search]', function (e) {
                 self.searchQuery($(this))
-            });
+            })
         })
 
         // Setup event handler to apply selected options when closing the type: group scope popup
@@ -176,7 +176,7 @@
      */
     FilterWidget.prototype.bindDependants = function() {
         if (!$('[data-scope-depends]', this.$el).length) {
-            return;
+            return
         }
 
         var self = this,
@@ -399,8 +399,8 @@
         if (!data.active) data.active = []
         if (!data.available) data.available = []
 
-        this.scopeValues[scopeName] = data.active;
-        this.scopeAvailable[scopeName] = data.available;
+        this.scopeValues[scopeName] = data.active
+        this.scopeAvailable[scopeName] = data.available
 
         // Do not render if scope has changed
         if (scopeName != this.activeScopeName)
@@ -552,11 +552,12 @@
         if (isReset) {
             this.scopeValues[scopeName] = null
             this.scopeAvailable[scopeName] = null
+            this.isActiveScopeDirty = true
             this.updateScopeSetting(this.$activeScope, 0)
         }
 
-        this.pushOptions(scopeName);
-        this.isActiveScopeDirty = true;
+        this.pushOptions(scopeName)
+        this.isActiveScopeDirty = false
         this.$activeScope.data('oc.popover').hide()
     }
 
