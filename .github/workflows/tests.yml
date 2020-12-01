@@ -101,7 +101,7 @@ jobs:
           mv develop.zip ./vendor/october/
           unzip ./vendor/october/develop.zip
           rm ./vendor/october/develop.zip
-          mv ./vendor/october/library-develop ./vendor/october/rain
+          mv ./vendor/october/library-develop/ ./vendor/october/rain
           composer dumpautoload
 
       - name: Setup problem matchers for PHPUnit
