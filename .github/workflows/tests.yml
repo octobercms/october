@@ -94,7 +94,7 @@ jobs:
           composer dumpautoload
 
       - name: Replace Rain library with development version
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.base_ref == 'refs/heads/develop'
         run: |
           rm -rf ./vendor/october/rain
           wget https://github.com/octobercms/library/archive/develop.zip
