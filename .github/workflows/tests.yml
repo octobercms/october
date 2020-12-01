@@ -93,7 +93,7 @@ jobs:
           git reset --hard HEAD
           composer dumpautoload
 
-      - name: Replace Rain library with development version
+      - name: Replace Rain library with development version (Ubuntu)
         if: matrix.operatingSystem == 'ubuntu-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
         run: |
           rm -rf ./vendor/october/rain
@@ -104,15 +104,15 @@ jobs:
           mv ./vendor/october/library-develop ./vendor/october/rain
           composer dumpautoload
 
-      - name: Replace Rain library with development version
+      - name: Replace Rain library with development version (Windows)
         if: matrix.operatingSystem == 'windows-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
         run: |
-          rd /s /q .\vendor\october\rain
+          rd .\vendor\october\rain /s /q
           wget https://github.com/octobercms/library/archive/develop.zip
           move develop.zip .\vendor\october\
-          unzip -d .\vendor\october .\vendor\october\develop.zip
+          Expand-Archive -Force .\vendor\october .\vendor\october\develop.zip
           del /q .\vendor\october\develop.zip
-          rename .\vendor\october\library-develop .\vendor\october\rain
+          ren .\vendor\october\library-develop .\vendor\october\rain
           composer dumpautoload
 
       - name: Setup problem matchers for PHPUnit
