@@ -67,7 +67,7 @@ jobs:
           extensions: ${{ env.extensions }}
 
       - name: Switch library dependency
-        if: matrix.operatingSystem == 'ubuntu-latest' && (github.ref == 'refs/heads/develop' || github.base_ref == 'develop')
+        if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
         run: ./.github/workflow/utilities/library-switcher "dev-develop as 1.1"
 
       - name: Setup dependency cache
