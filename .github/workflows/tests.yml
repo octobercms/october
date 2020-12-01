@@ -93,6 +93,17 @@ jobs:
           git reset --hard HEAD
           composer dumpautoload
 
+      - name: Replace Rain library with development version
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          rm -rf ./vendor/october/rain
+          wget https://github.com/octobercms/library/archive/develop.zip
+          mv develop.zip ./vendor/october/
+          unzip ./vendor/october/develop.zip
+          rm ./vendor/october/develop.zip
+          mv ./vendor/october/library-develop ./vendor/october/rain
+          composer dumpautoload
+
       - name: Setup problem matchers for PHPUnit
         if: matrix.phpVersion == '7.4'
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
