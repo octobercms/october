@@ -93,6 +93,9 @@ jobs:
           git reset --hard HEAD
           composer dumpautoload
 
+      - name: Echo Refs for debug
+        run: echo "${{ github.ref }} ${{ github.base_ref }}"
+
       - name: Replace Rain library with development version
         if: github.ref == 'refs/heads/develop' || github.base_ref == 'refs/heads/develop'
         run: |
