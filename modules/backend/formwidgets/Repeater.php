@@ -300,6 +300,13 @@ class Repeater extends FormWidgetBase
         $config->alias = $this->alias . 'Form' . $index;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->isNested = true;
+        $config->fields = array_map(function ($item) use ($index) {
+            if (!empty($item['label'])) {
+                $item['label'] = str_replace(':index', $index + 1, e(trans($item['label'])));
+            }
+            return $item;
+        }, $config->fields);
+
         if (self::$onAddItemCalled || $this->minItems > 0) {
             $config->enableDefaults = true;
         }
