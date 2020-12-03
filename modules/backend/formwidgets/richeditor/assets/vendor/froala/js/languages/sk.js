@@ -55,7 +55,7 @@ $.FE.LANGUAGE['sk'] = {
     "Remove": "Odstr\u00e1ni\u0165",
     "More": "Viac",
     "Update": "Aktualizova\u0165",
-    "Style": "\u0165t\u00fdl",
+    "Style": "\u0160t\u00fdl",
 
     // Font
     "Font Family": "Typ p\u00edsma",
@@ -77,7 +77,7 @@ $.FE.LANGUAGE['sk'] = {
     "Heading 4": "Nadpis 4",
 
     // Style
-    "Paragraph Style": "\u0165t\u00fdl odstavca",
+    "Paragraph Style": "\u0160t\u00fdl odstavca",
     "Inline Style": "Inline \u0161t\u00fdl",
 
     // Alignment
@@ -157,7 +157,7 @@ $.FE.LANGUAGE['sk'] = {
     "Insert Table": "Vlo\u017ei\u0165 tabu\u013eku",
     "Table Header": "Hlavi\u010dka tabu\u013eky",
     "Remove Table": "Odstrani\u0165 tabu\u013eku",
-    "Table Style": "\u0165t\u00fdl tabu\u013eky",
+    "Table Style": "\u0160t\u00fdl tabu\u013eky",
     "Horizontal Align": "Horizont\u00e1lne zarovnanie",
     "Row": "Riadok",
     "Insert row above": "Vlo\u017ei\u0165 riadok nad",
@@ -179,9 +179,11 @@ $.FE.LANGUAGE['sk'] = {
     "Align Top": "Zarovnat na vrch",
     "Align Middle": "Zarovnat na stred",
     "Align Bottom": "Zarovnat na spodok",
-    "Cell Style": "\u0165t\u00fdl bunky",
+    "Cell Style": "\u0160t\u00fdl bunky",
 
     // Files
+    "Insert Audio": "Vlo\u017Ei\u0165 zvuk",
+    "Insert File": "Vlo\u017Ei\u0165 s\u00FAbor",
     "Upload File": "Nahra\u0165 s\u00fabor",
     "Drop file": "Vlo\u017ete s\u00fabor sem",
 
