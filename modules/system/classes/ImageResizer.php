@@ -758,8 +758,8 @@ class ImageResizer
      *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
-     * @param integer|bool|null $width Desired width of the resized image
-     * @param integer|bool|null $height Desired height of the resized image
+     * @param integer|string|bool|null $width Desired width of the resized image
+     * @param integer|string|bool|null $height Desired height of the resized image
      * @param array|null $options Array of options to pass to the resizer
      * @throws Exception If the provided image was unable to be processed
      * @return string
