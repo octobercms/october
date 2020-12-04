@@ -335,6 +335,22 @@ class ImageResizerTest extends PluginTestCase
         $this->assertStringContainsString('october%20space', $imageResizer->getResizedUrl(), 'Resized URLs are not properly URL encoded');
     }
 
+    public function testGetExtension()
+    {
+        $imageResizer = new ImageResizer(
+            (new CmsController())->themeUrl('assets/images/october.png'),
+            150,
+            120,
+            [
+                'extension' => 'jpg',
+            ]
+        );
+        $localTempPath = $this->callProtectedMethod($imageResizer, 'getLocalTempPath');
+
+        $this->assertTrue(ends_with($localTempPath, '.jpg'));
+        $this->assertEquals($imageResizer->getExtension(), 'jpg');
+    }
+
     protected function setUpStorage()
     {
         $this->app->useStoragePath(base_path('storage/temp'));
