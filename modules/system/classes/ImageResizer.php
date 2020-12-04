@@ -381,7 +381,7 @@ class ImageResizer
      */
     public function getExtension()
     {
-        return FileHelper::extension($this->image['path']);
+        return array_get($this->options, 'extension', FileHelper::extension($this->image['path']));
     }
 
     /**
