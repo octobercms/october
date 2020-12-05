@@ -215,4 +215,28 @@ class CodeEditor extends FormWidgetBase
         $this->displayIndentGuides = $preferences->editor_display_indent_guides;
         $this->showPrintMargin = $preferences->editor_show_print_margin;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLoadValue()
+    {
+        if ($this->model->isJsonable($this->fieldName)) {
+            return json_encode($this->formField->value, JSON_PRETTY_PRINT);
+        }
+
+        return parent::getLoadValue();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSaveValue($value)
+    {
+        if ($this->model->isJsonable($this->fieldName)) {
+            return json_decode($value);
+        }
+
+        return parent::getSaveValue($value);
+    }
 }
