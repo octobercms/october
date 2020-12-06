@@ -70,6 +70,16 @@ class MainMenuItem
     public $sideMenu = [];
 
     /**
+     * @var Skeywords[]
+     */
+    public $keywords = [];
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
      * @param string $permission
      * @param array $definition
      */
@@ -126,6 +136,8 @@ class MainMenuItem
         $instance->badge = $data['badge'] ?? null;
         $instance->permissions = $data['permissions'] ?? $instance->permissions;
         $instance->order = $data['order'] ?? $instance->order;
+        $instance->keywords = $data['keywords'] ?? null;
+        $instance->description = $data['description'] ?? null;
         return $instance;
     }
 }

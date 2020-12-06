@@ -68,6 +68,21 @@ class SideMenuItem
     public $permissions = [];
 
     /**
+     * @var Skeywords[]
+     */
+    public $keywords = [];
+
+    /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var string
+     */
+    public $group;
+    
+    /**
      * @param null|string|int $attribute
      * @param null|string|array $value
      */
@@ -118,6 +133,9 @@ class SideMenuItem
         $instance->badge = $data['badge'] ?? null;
         $instance->permissions = $data['permissions'] ?? $instance->permissions;
         $instance->order = $data['order'] ?? $instance->order;
+        $instance->keywords = $data['keywords'] ?? null;
+        $instance->description = $data['description'] ?? null;
+        $instance->group = $data['group'] ?? null;
         return $instance;
     }
 }

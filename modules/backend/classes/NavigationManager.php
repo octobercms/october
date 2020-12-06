@@ -183,6 +183,8 @@ class NavigationManager
      * - counter - an optional numeric value to output near the menu icon. The value should be
      *   a number or a callable returning a number.
      * - counterLabel - an optional string value to describe the numeric reference in counter.
+     * - keywords - an array used to search for the menu, optional.
+     * - description - a string used to give a brief summary, optional.
      * - sideMenu - an array of side menu items, optional. If provided, the array items
      *   should represent the side menu item code, and each value should be an associative
      *   array with the following keys:
@@ -196,6 +198,9 @@ class NavigationManager
      *      - counterLabel - an optional string value to describe the numeric reference in counter.
      *      - badge - an optional string value to output near the menu icon. The value should be
      *        a string. This value will override the counter if set.
+     *      - keywords - an array used to search for the side menu, optional.
+     *      - description - a string used to give a brief summary for the sidebar entry, optional.
+     *      - group - a string used to group several side menu entries under a single header, optional.
      * @param string $owner Specifies the menu items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the menu item definitions.
      * @throws SystemException
@@ -205,10 +210,14 @@ class NavigationManager
         $validator = Validator::make($definitions, [
             '*.label' => 'required',
             '*.icon' => 'required_without:*.iconSvg',
-            '*.url' => 'required',
+            '*.keywords' => 'nullable|array',
+            '*.description' => 'nullable|string|max:250',
             '*.sideMenu.*.label' => 'nullable|required',
             '*.sideMenu.*.icon' => 'nullable|required_without:*.sideMenu.*.iconSvg',
             '*.sideMenu.*.url' => 'nullable|required',
+            '*.sideMenu.*.keywords' => 'nullable|array',
+            '*.sideMenu.*.description' => 'nullable|string|max:250',
+            '*.sideMenu.*.group' => 'nullable|string|max:250',
         ]);
 
         if ($validator->fails()) {
@@ -479,6 +488,9 @@ class NavigationManager
      * - permissions - an array of permissions the back-end user should have, optional.
      *   The item will be displayed if the user has any of the specified permissions.
      * - order - a position of the item in the menu, optional.
+     * - keywords - an array used to search for the menu, optional.
+     * - description - a string used to give a brief summary, optional.
+     * - group - a string used to group several quick action entries under a single header, optional.
      *
      * @param string $owner Specifies the quick action items owner plugin or module in the format Author.Plugin.
      * @param array $definitions An array of the quick action item definitions.
@@ -490,7 +502,9 @@ class NavigationManager
         $validator = Validator::make($definitions, [
             '*.label' => 'required',
             '*.icon' => 'required_without:*.iconSvg',
-            '*.url' => 'required'
+            '*.url' => 'required',
+            '*.keywords' => 'nullable|array',
+            '*.description' => 'nullable|string|max:250',
         ]);
 
         if ($validator->fails()) {
