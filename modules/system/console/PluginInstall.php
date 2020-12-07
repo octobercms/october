@@ -52,7 +52,10 @@ class PluginInstall extends Command
          * Migrate plugin
          */
         $this->output->writeln(sprintf('<info>Migrating plugin...</info>', $code));
-        PluginManager::instance()->loadPlugins();
+        $pluginManager = PluginManager::instance();
+        $pluginManager->loadPlugins();
+        $plugin = $pluginManager->findByIdentifier($code);
+        $pluginManager->registerPlugin($plugin, $code);
         $manager->updatePlugin($code);
     }
 
