@@ -33,6 +33,10 @@ class ThemeTest extends TestCase
 
     public function testGetPath()
     {
+        if (PHP_OS_FAMILY === 'Windows') {
+            $this->markTestIncomplete('Need to fix Windows testing here');
+        }
+
         $theme = Theme::load('test');
 
         $this->assertEquals(base_path('tests/fixtures/themes/test'), $theme->getPath());
