@@ -49,13 +49,17 @@ class PluginInstall extends Command
         $manager->extractPlugin($code, $hash);
 
         /*
-         * Migrate plugin
+         * Make sure plugin is registered
          */
-        $this->output->writeln(sprintf('<info>Migrating plugin...</info>', $code));
         $pluginManager = PluginManager::instance();
         $pluginManager->loadPlugins();
         $plugin = $pluginManager->findByIdentifier($code);
         $pluginManager->registerPlugin($plugin, $code);
+
+        /*
+         * Migrate plugin
+         */
+        $this->output->writeln(sprintf('<info>Migrating plugin...</info>', $code));
         $manager->updatePlugin($code);
     }
 
