@@ -15,9 +15,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app['cache']->setDefaultDriver('array');
         $app->setLocale('en');
 
-        // Set random encryption key
-        $app['config']->set('app.key', bin2hex(random_bytes(16)));
-
         return $app;
     }
 

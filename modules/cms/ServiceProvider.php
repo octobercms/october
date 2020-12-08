@@ -312,10 +312,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (is_null($theme)) {
-            return;
-        }
-
         $langPath = $theme->getPath() . '/lang';
 
         if (File::isDirectory($langPath)) {
