@@ -66,6 +66,10 @@ jobs:
           tools: composer:v1
           extensions: ${{ env.extensions }}
 
+      - name: Switch library dependency
+        if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
+        run: php ./.github/workflows/utilities/library-switcher "dev-develop as 1.1"
+
       - name: Setup dependency cache
         id: composercache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
