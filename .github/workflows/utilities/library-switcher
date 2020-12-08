@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+if (empty($argv[1])) {
+    echo 'You must provide a version to switch the library dependency to.';
+    echo "\n";
+    exit(1);
+}
+
+$composer = json_decode(file_get_contents(getcwd() . '/composer.json'), true);
+$composer['require']['october/rain'] = $argv[1];
+
+file_put_contents(getcwd() . '/composer.json', json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
