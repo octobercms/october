@@ -34,6 +34,7 @@
         this.bindDependants()
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
+        this.activeTabs()
         this.bindLazyTabs()
         this.bindCollapsibleSections()
 
@@ -162,6 +163,47 @@
                 .addClass('loading-indicator-container size-form-field')
                 .loadIndicator()
         })
+    }
+
+    /*
+     * Set the `active` class to the tabs.
+     */
+    FormWidget.prototype.activeTabs = function() {
+        $('.control-tabs .nav-tabs li a').each(function () {
+            // Fragment url matches a tab href
+            if (window.location.hash === $(this).attr('href')) {
+                // Remove all `active` classes
+                $('[href*="' + window.location.hash + '"]').closest('.nav-tabs').find('li').removeClass('active');
+                $('[href*="' + window.location.hash + '"]').closest('.control-tabs').find('.tab-content div.tab-pane').removeClass('active');
+        
+                // Add `active` class to matched tab
+                $('[href*="' + window.location.hash + '"]').parent('li').addClass('active');
+                $($(this).attr('data-target')).addClass('active');
+        
+            // Url doesnt contain fragment or fragement doesnt match
+            } else {
+                // Check primary tabs exists and add `active` class to first tab
+                if ($('#Form-primaryTabs')[0]) {
+                    // Tab navigation
+                    $('#Form-primaryTabs .nav-tabs li').removeClass('active');
+                    $('#Form-primaryTabs .nav-tabs li').first().addClass('active');
+        
+                    // Tab content panel
+                    $('#Form-primaryTabs .tab-content div.tab-pane').removeClass('active');
+                    $('#Form-primaryTabs .tab-content div.tab-pane').first().addClass('active');
+        
+                // Check secondary tabs exists and add `active` class to first tab
+                } else if ($('#Form-secondaryTabs')[0]) {
+                    // Tab navigation
+                    $('#Form-secondaryTabs .nav-tabs li').removeClass('active');
+                    $('#Form-secondaryTabs .nav-tabs li').first().addClass('active');
+        
+                    // Tab content panel
+                    $('#Form-secondaryTabs .tab-content div.tab-pane').removeClass('active');
+                    $('#Form-secondaryTabs .tab-content div.tab-pane').first().addClass('active');
+                }
+            }
+        });
     }
 
     /*
