@@ -345,6 +345,42 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 //
+// Prevents the placeholder getting displayed behind the incremental counter
+// See github issue: https://github.com/octobercms/october/issues/5397
+//
+
+input[type="number"] {
+	&:focus {
+		&::-webkit-input-placeholder {
+			margin-right: 20px;
+		}
+		&::-moz-placeholder {
+			margin-right: 20px;
+		}
+		&:-ms-input-placeholder {
+			margin-right: 20px;
+		}
+		&::placeholder {
+			margin-right: 20px;
+		}
+	}
+	&:hover {
+		&::-webkit-input-placeholder {
+			margin-right: 20px;
+		}
+		&::-moz-placeholder {
+			margin-right: 20px;
+		}
+		&:-ms-input-placeholder {
+			margin-right: 20px;
+		}
+		&::placeholder {
+			margin-right: 20px;
+		}
+	}
+}
+
+//
 // 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
 // 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
 //    (include `-moz` to future-proof).
