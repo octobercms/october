@@ -128,10 +128,10 @@ class ComponentPartial extends Extendable implements CmsObjectContract
 
         if ($partial === null) {
             $pluginPath = 'components-shared' . str_replace(
-                    plugins_path(),
-                    '',
-                    $component->getPath()
-                ) . '/' . $fileName;
+                plugins_path(),
+                '',
+                $component->getPath()
+            ) . '/' . $fileName;
 
             $sharedPath = str_replace(
                 ['/components/' . strtolower($component->alias), '/components/' . strtolower($component->name) . '/'],
