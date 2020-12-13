@@ -58,14 +58,15 @@ class MailManager
      * Same as `addContentToMailer` except with raw content.
      *
      * @return bool
+     *
+     * @deprecated Use addContent() instead
      */
     public function addRawContentToMailer($message, $content, $data)
     {
-        $template = new MailTemplate;
+        $text = new MailTemplate;
+        $text->fillFromContent($content);
 
-        $template->fillFromContent($content);
-
-        $this->addContentToMailerInternal($message, $template, $data);
+        $this->addContentToMailerInternal($message, null, $text, $data);
 
         return true;
     }
@@ -79,6 +80,8 @@ class MailManager
      * @param array $data
      * @param bool $plainOnly Add only plain text content to the message
      * @return bool
+     *
+     * @deprecated Use addContent() instead
      */
     public function addContentToMailer($message, $code, $data, $plainOnly = false)
     {
@@ -93,21 +96,74 @@ class MailManager
             return false;
         }
 
-        $this->addContentToMailerInternal($message, $template, $data, $plainOnly);
+        $html = $text = $template;
+
+        if ($plainOnly) {
+            $html = null;
+        }
+        $this->addContentToMailerInternal($message, $html, $text, $data);
 
         return true;
     }
 
     /**
-     * Internal method used to share logic between `addRawContentToMailer` and `addContentToMailer`
+     * Restore proper behavior in-line with Laravel Mailer
+     * Replaces both `addContentToMailer` and `addRawContentToMailer`
      *
      * @param \Illuminate\Mail\Message $message
-     * @param string $template
+     * @param string $view
+     * @param string $plain
+     * @param string $raw
      * @param array $data
-     * @param bool $plainOnly Add only plain text content to the message
      * @return void
      */
-    protected function addContentToMailerInternal($message, $template, $data, $plainOnly = false)
+    public function addContent($message, $view, $plain, $raw, $data)
+    {
+        $html = null;
+        $text = null;
+
+        if (isset($view)) {
+            if (isset($this->templateCache[$view])) {
+                $html = $this->templateCache[$view];
+            }
+            else {
+                $this->templateCache[$view] = $html = MailTemplate::findOrMakeTemplate($view);
+            }
+        }
+
+        if (isset($plain)) {
+            if (isset($this->templateCache[$plain])) {
+                $text = $this->templateCache[$plain];
+            }
+            else {
+                $this->templateCache[$plain] = $text = MailTemplate::findOrMakeTemplate($plain);
+            }
+        }
+
+        if (isset($raw)) {
+            $text = new MailTemplate;
+            $text->fillFromContent($raw);
+        }
+
+        if (!($html || $text)) {
+            return false;
+        }
+
+        $this->addContentToMailerInternal($message, $html, $text, $data);
+
+        return true;
+    }
+
+    /**
+     * Internal method used to share logic between `addContent`, `addRawContentToMailer` and `addContentToMailer`
+     *
+     * @param \Illuminate\Mail\Message $message
+     * @param MailTemplate $html
+     * @param MailTemplate $text
+     * @param array $data
+     * @return void
+     */
+    protected function addContentToMailerInternal($message, $html, $text, $data)
     {
         /*
          * Start twig transaction
@@ -128,28 +184,34 @@ class MailManager
         $swiftMessage = $message->getSwiftMessage();
 
         if (empty($swiftMessage->getSubject())) {
-            $message->subject(Twig::parse($template->subject, $data));
+            if ($html) {
+                $message->subject(Twig::parse($html->subject, $data));
+            } else {
+                $message->subject(Twig::parse($text->subject, $data));
+            }
         }
 
         $data += [
             'subject' => $swiftMessage->getSubject()
         ];
 
-        if (!$plainOnly) {
-            /*
-             * HTML contents
-             */
-            $html = $this->renderTemplate($template, $data);
-
-            $message->setBody($html, 'text/html');
+        /*
+         * HTML content
+         */
+        if ($html) {
+            $message->setBody($this->renderTemplate($html, $data), 'text/html');
+            if (!$text && $html->content_text) {
+                $text = $html;
+            }
         }
 
         /*
-         * Text contents
+         * Text content
          */
-        $text = $this->renderTextTemplate($template, $data);
+        if ($text) {
+            $message->addPart($this->renderTextTemplate($text, $data), 'text/plain');
+        }
 
-        $message->addPart($text, 'text/plain');
 
         /*
          * End twig transaction
