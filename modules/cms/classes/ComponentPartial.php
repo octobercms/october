@@ -6,6 +6,7 @@ use Cms\Contracts\CmsObject as CmsObjectContract;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
 use ApplicationException;
+use October\Rain\Support\Facades\Str;
 
 /**
  * The CMS component partial class. These objects are read-only.
@@ -108,15 +109,29 @@ class ComponentPartial extends Extendable implements CmsObjectContract
         }
 
         if ($partial === null) {
-            $partial = Partial::loadCached($theme, strtolower($component->name) . '/' . $fileName);
+            $classPath = ComponentManager::instance()->resolve($component->name);
+            $filePath = str_replace(['Components\\', '\\'], ['', '/'], substr($classPath, 1));
+
+            if ($component->name !== $component->alias) {
+                $pathParts = explode('/', $filePath);
+                $filePath = str_replace(array_pop($pathParts), $component->alias, $filePath);
+            }
+            $filePath = strtolower($filePath);
+            $partial = Partial::loadCached($theme, $filePath . '/' . $fileName);
+        }
+
+        if ($partial === null) {
+            $pathParts = explode('/', $filePath);
+            $filePath = str_replace(array_pop($pathParts), '', $filePath);
+            $partial = Partial::loadCached($theme, $filePath . $fileName);
         }
 
         if ($partial === null) {
             $pluginPath = 'components-shared' . str_replace(
-                plugins_path(),
-                '',
-                $component->getPath()
-            ) . '/' . $fileName;
+                    plugins_path(),
+                    '',
+                    $component->getPath()
+                ) . '/' . $fileName;
 
             $sharedPath = str_replace(
                 ['/components/' . strtolower($component->alias), '/components/' . strtolower($component->name) . '/'],
