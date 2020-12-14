@@ -14,21 +14,15 @@ class MailManagerTest extends PluginTestCase
         $swift = Mail::getSwiftMailer();
         $this->message = new Message($swift->createMessage('message'));
 
-        $template = new MailTemplate();
-        $template->is_custom = true;
-        $template->code = 'html-view';
-        $template->subject = 'html view [{{ mode }}]';
-        $template->content_html = 'my html view content';
-        $template->description = 'my html view description';
-        $template->save();
-
-        $template = new MailTemplate();
-        $template->is_custom = true;
-        $template->code = 'plain-view';
-        $template->subject = 'plain view [{{ mode }}]';
-        $template->content_html = 'my plain view content';
-        $template->description = 'my plain view description';
-        $template->save();
+        foreach (['html', 'plain'] as $view) {
+            $t = new MailTemplate();
+            $t->is_custom = true;
+            $t->code = "$view-view";
+            $t->subject = "$view view [{{ mode }}]";
+            $t->content_html = "my $view view content";
+            $t->description = "my $view view description";
+            $t->save();
+        }
     }
 
     //
