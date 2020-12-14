@@ -180,7 +180,7 @@
                 $('[href*="' + window.location.hash + '"]').parent('li').addClass('active');
                 $($(this).attr('data-target')).addClass('active');
         
-            // Url doesnt contain fragment or fragement doesnt match
+            // URL doesn't contain fragment or fragment doesn't match
             } else {
                 // Check primary tabs exists and add `active` class to first tab
                 if ($('#Form-primaryTabs')[0]) {
