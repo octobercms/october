@@ -124,8 +124,7 @@ class MailManager
         if (isset($view)) {
             if (isset($this->templateCache[$view])) {
                 $html = $this->templateCache[$view];
-            }
-            else {
+            } else {
                 $this->templateCache[$view] = $html = MailTemplate::findOrMakeTemplate($view);
             }
         }
@@ -133,8 +132,7 @@ class MailManager
         if (isset($plain)) {
             if (isset($this->templateCache[$plain])) {
                 $text = $this->templateCache[$plain];
-            }
-            else {
+            } else {
                 $this->templateCache[$plain] = $text = MailTemplate::findOrMakeTemplate($plain);
             }
         }
