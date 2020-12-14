@@ -140,11 +140,13 @@ class MailManager
             }
         }
 
+        // raw content will overwrite plain view content, as done in laravel
         if (isset($raw)) {
             $text = new MailTemplate;
             $text->fillFromContent($raw);
         }
 
+        // bailout if we have no content
         if (!($html || $text)) {
             return false;
         }
