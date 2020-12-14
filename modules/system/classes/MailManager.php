@@ -186,7 +186,7 @@ class MailManager
         if (empty($swiftMessage->getSubject())) {
             if ($html) {
                 $message->subject(Twig::parse($html->subject, $data));
-            } else {
+            } else if ($text) {
                 $message->subject(Twig::parse($text->subject, $data));
             }
         }
@@ -209,7 +209,8 @@ class MailManager
          * Text content
          */
         if ($text) {
-            $message->addPart($this->renderTextTemplate($text, $data), 'text/plain');
+            $method = $html ? 'addPart' : 'setBody';
+            $message->{$method}($this->renderTextTemplate($text, $data), 'text/plain');
         }
 
 
