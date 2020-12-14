@@ -119,8 +119,7 @@ class MailManager
      */
     public function addContent($message, $view, $plain, $raw, $data)
     {
-        $html = null;
-        $text = null;
+        $html = $text = null;
 
         if (isset($view)) {
             if (isset($this->templateCache[$view])) {
