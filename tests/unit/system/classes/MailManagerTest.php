@@ -31,14 +31,13 @@ class MailManagerTest extends PluginTestCase
 
     public function testAddContent_Html()
     {
-        $html = $plain = $raw = null;
+        $plain = $raw = null;
+        $html = 'html-view';
         $data = ['mode' => 'test'];
 
-        $html = 'html-view';
-
         $result = MailManager::instance()->addContent($this->message, $html, $plain, $raw, $data);
-
         $swiftMsg = $this->message->getSwiftMessage();
+
         $this->assertEquals('text/html', $swiftMsg->getBodyContentType());
         $this->assertEquals('html view [test]', $swiftMsg->getSubject());
     }
