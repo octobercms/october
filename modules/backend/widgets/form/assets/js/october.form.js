@@ -169,7 +169,7 @@
      * Set the `active` class to the tabs.
      */
     FormWidget.prototype.activeTabs = function() {
-        // Check primary tabs exists and add `active` class to first tab.
+        // Check primary tabs exist and add `active` class to first tab.
         if ($('#Form-primaryTabs')[0]) {
             // Tab navigation
             $('#Form-primaryTabs .nav-tabs li').removeClass('active');
@@ -180,7 +180,7 @@
             $('#Form-primaryTabs .tab-content div.tab-pane').first().addClass('active');
         }
         
-        // Check secondary tabs exists and add `active` class to first tab.
+        // Check secondary tabs exist and add `active` class to first tab.
         if ($('#Form-secondaryTabs')[0]) {
             // Tab navigation
             $('#Form-secondaryTabs .nav-tabs li').removeClass('active');
@@ -192,7 +192,7 @@
         }
                 
         $('.control-tabs .nav-tabs li a').each(function () {
-            // The `fragment` url matches a tab `href` on the page, overwrite the `active` class for that tab.
+            // If the `fragment` url matches a tab `href` on the page then overwrite the `active` class for that tab.
             if (window.location.hash === $(this).attr('href')) {
                 // Remove all `active` classes
                 $('[href*="' + window.location.hash + '"]').closest('.nav-tabs').find('li').removeClass('active');
