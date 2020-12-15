@@ -141,7 +141,7 @@ abstract class ComponentBase extends Extendable
     {
         $this->controller->setComponentContext($this);
         $result = call_user_func_array([$this->controller, 'renderPartial'], func_get_args());
-        $this->controller->restoreComponentContext();
+        $this->controller->setComponentContext(null);
         return $result;
     }
 
