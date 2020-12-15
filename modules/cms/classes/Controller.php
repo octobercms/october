@@ -1217,7 +1217,6 @@ class Controller
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
-            $this->setComponentContext($componentObj);
             $result = $componentObj->onRender();
         }
 
@@ -1225,7 +1224,6 @@ class Controller
             $result = $this->renderPartial($name.'::default', [], false);
         }
 
-        $this->restoreComponentContext();
         return $result;
     }
 
