@@ -105,6 +105,11 @@ class Controller
     protected $componentContext;
 
     /**
+     * @var array of saved \Cms\Classes\ComponentBase Object (LIFO style)
+     */
+    protected $savedComponentContexts;
+
+    /**
      * @var array Component partial stack, used internally.
      */
     protected $partialStack = [];
@@ -847,8 +852,9 @@ class Controller
             $componentObj = $this->findComponentByName($componentName);
 
             if ($componentObj && $componentObj->methodExists($handlerName)) {
-                $this->componentContext = $componentObj;
+                $this->setComponentContext($componentObj);
                 $result = $componentObj->runAjaxHandler($handlerName);
+                $this->restoreComponentContext();
                 return $result ?: true;
             }
         }
@@ -870,8 +876,9 @@ class Controller
              * Cycle each component to locate a usable handler
              */
             if (($componentObj = $this->findComponentByHandler($handler)) !== null) {
-                $this->componentContext = $componentObj;
+                $this->setComponentContext($componentObj);
                 $result = $componentObj->runAjaxHandler($handler);
+                $this->restoreComponentContext();
                 return $result ?: true;
             }
         }
@@ -995,7 +1002,7 @@ class Controller
             }
 
             $partial = null;
-            $this->componentContext = $componentObj;
+            $this->setComponentContext($componentObj);
 
             /*
              * Check if the theme has an override
@@ -1010,6 +1017,7 @@ class Controller
             }
 
             if ($partial === null) {
+                $this->restoreComponentContext();
                 if ($throwException) {
                     throw new CmsException(Lang::get('cms::lang.partial.not_found_name', ['name'=>$name]));
                 }
@@ -1115,6 +1123,7 @@ class Controller
             return $event;
         }
 
+        $this->restoreComponentContext();
         return $partialContent;
     }
 
@@ -1204,12 +1213,11 @@ class Controller
     public function renderComponent($name, $parameters = [])
     {
         $result = null;
-        $previousContext = $this->componentContext;
 
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
-            $this->componentContext = $componentObj;
+            $this->setComponentContext($componentObj);
             $result = $componentObj->onRender();
         }
 
@@ -1217,7 +1225,7 @@ class Controller
             $result = $this->renderPartial($name.'::default', [], false);
         }
 
-        $this->componentContext = $previousContext;
+        $this->restoreComponentContext();
         return $result;
     }
 
@@ -1532,7 +1540,19 @@ class Controller
      */
     public function setComponentContext(ComponentBase $component = null)
     {
+        array_push($this->savedComponentContexts, $this->componentContext);
         $this->componentContext = $component;
+    }
+
+    /**
+     * Restore previously saved componentContext (Last In First Out)
+     * @return void
+     */
+    public function restoreComponentContext()
+    {
+        if (!empty($this->savedComponentContexts)) {
+            $this->componentContext = array_pop($this->savedComponentContexts);
+        }
     }
 
     /**
