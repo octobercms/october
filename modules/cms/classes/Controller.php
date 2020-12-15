@@ -1217,7 +1217,9 @@ class Controller
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
+            $this->setComponentContext($componentObj);
             $result = $componentObj->onRender();
+            $this->restoreComponentContext();
         }
 
         if (!$result) {
