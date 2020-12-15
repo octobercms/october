@@ -107,7 +107,7 @@ class Controller
     /**
      * @var array of saved \Cms\Classes\ComponentBase Object (LIFO style)
      */
-    protected $savedComponentContexts;
+    protected $savedComponentContexts = [];
 
     /**
      * @var array Component partial stack, used internally.
