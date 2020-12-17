@@ -115,7 +115,7 @@ class MailManager
      * @param string $plain
      * @param string $raw
      * @param array $data
-     * @return void
+     * @return bool
      */
     public function addContent($message, $view, $plain, $raw, $data)
     {
