@@ -501,7 +501,7 @@ class ImageResizer
 
         $path = "/resizer/$identifier/$resizedUrl";
 
-        if (Config::get('cms.linkPolicy') === 'force') {
+        if (Config::get('cms.linkPolicy', 'detect') === 'force') {
             return Url::to($path);
         }
 
