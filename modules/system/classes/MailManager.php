@@ -111,9 +111,9 @@ class MailManager
      * Replaces both `addContentToMailer` and `addRawContentToMailer`
      *
      * @param \Illuminate\Mail\Message $message
-     * @param string $view
-     * @param string $plain
-     * @param string $raw
+     * @param string|null $view
+     * @param string|null $plain
+     * @param string|null $raw
      * @param array $data
      * @return bool
      */
@@ -157,12 +157,12 @@ class MailManager
      * Internal method used to share logic between `addContent`, `addRawContentToMailer` and `addContentToMailer`
      *
      * @param \Illuminate\Mail\Message $message
-     * @param MailTemplate $html
-     * @param MailTemplate $text
+     * @param MailTemplate|null $html
+     * @param MailTemplate|null $text
      * @param array $data
      * @return void
      */
-    protected function addContentToMailerInternal($message, $html, $text, $data)
+    protected function addContentToMailerInternal($message, $html = null, $text = null, array $data = [])
     {
         /*
          * Start twig transaction
