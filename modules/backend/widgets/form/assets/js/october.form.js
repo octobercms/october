@@ -138,7 +138,6 @@
     FormWidget.prototype.onRefreshDependants = function(fieldName, toRefresh) {
         var self = this,
             form = this.$el,
-
             formEl = this.$form,
             fieldElements = this.getFieldElements()
 
