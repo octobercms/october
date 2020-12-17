@@ -138,6 +138,7 @@
     FormWidget.prototype.onRefreshDependants = function(fieldName, toRefresh) {
         var self = this,
             form = this.$el,
+
             formEl = this.$form,
             fieldElements = this.getFieldElements()
 
@@ -166,43 +167,25 @@
     }
 
     /*
-     * Set the `active` class to the tabs.
+     * Set the `active` class to the tabs for fragment urls.
      */
     FormWidget.prototype.activeTabs = function() {
-        // Check primary tabs exist and add `active` class to first tab.
-        if ($('#Form-primaryTabs')[0]) {
-            // Tab navigation
-            $('#Form-primaryTabs .nav-tabs li').removeClass('active');
-            $('#Form-primaryTabs .nav-tabs li').first().addClass('active');
-
-            // Tab content panel
-            $('#Form-primaryTabs .tab-content div.tab-pane').removeClass('active');
-            $('#Form-primaryTabs .tab-content div.tab-pane').first().addClass('active');
-        }
-        
-        // Check secondary tabs exist and add `active` class to first tab.
-        if ($('#Form-secondaryTabs')[0]) {
-            // Tab navigation
-            $('#Form-secondaryTabs .nav-tabs li').removeClass('active');
-            $('#Form-secondaryTabs .nav-tabs li').first().addClass('active');
-
-            // Tab content panel
-            $('#Form-secondaryTabs .tab-content div.tab-pane').removeClass('active');
-            $('#Form-secondaryTabs .tab-content div.tab-pane').first().addClass('active');
-        }
-                
+        // Check all tabs on page
         $('.control-tabs .nav-tabs li a').each(function () {
             // If the `fragment` url matches a tab `href` on the page then overwrite the `active` class for that tab.
             if (window.location.hash === $(this).attr('href')) {
                 // Remove all `active` classes
                 $('[href*="' + window.location.hash + '"]').closest('.nav-tabs').find('li').removeClass('active');
                 $('[href*="' + window.location.hash + '"]').closest('.control-tabs').find('.tab-content div.tab-pane').removeClass('active');
-        
+
                 // Add `active` class to matched tab
                 $('[href*="' + window.location.hash + '"]').parent('li').addClass('active');
                 $($(this).attr('data-target')).addClass('active');
             }
         });
+        
+        // Display the tab content
+        $('.tab-content >.tab-pane').removeClass('tabload');
     }
 
     /*

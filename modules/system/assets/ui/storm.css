@@ -2776,6 +2776,7 @@ body.compact-container .control-breadcrumb {margin-top:0;margin-left:0;margin-ri
 @media (min-width:768px) {.nav-tabs-justified >li >a {border-bottom:1px solid #ddd;border-radius:3px 3px 0 0 }.nav-tabs-justified >.active >a,.nav-tabs-justified >.active >a:hover,.nav-tabs-justified >.active >a:focus {border-bottom-color:#f9f9f9 }}
 .tab-content >.tab-pane {display:none}
 .tab-content >.active {display:block}
+.tab-content >.tab-pane.tabload {opacity:0}
 .nav-tabs .dropdown-menu {margin-top:-1px;border-top-right-radius:0;border-top-left-radius:0}
 .control-tabs {position:relative;margin-bottom:20px}
 .control-tabs:last-child {margin-bottom:0}
