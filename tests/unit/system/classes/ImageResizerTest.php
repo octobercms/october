@@ -337,7 +337,7 @@ class ImageResizerTest extends PluginTestCase
 
     public function testGetResizedUrl()
     {
-        $imageResizer = new ImageResizer( (new CmsController())->themeUrl('assets/images/october.png'));
+        $imageResizer = new ImageResizer((new CmsController())->themeUrl('assets/images/october.png'));
 
         Config::set('cms.linkPolicy', 'force');
         $url = $imageResizer->getResizedUrl();
@@ -350,7 +350,7 @@ class ImageResizerTest extends PluginTestCase
 
     public function testGetResizerUrl()
     {
-        $imageResizer = new ImageResizer( (new CmsController())->themeUrl('assets/images/october.png'));
+        $imageResizer = new ImageResizer((new CmsController())->themeUrl('assets/images/october.png'));
 
         Config::set('cms.linkPolicy', 'force');
         $url = $imageResizer->getResizerUrl();
