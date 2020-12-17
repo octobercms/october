@@ -144,7 +144,7 @@ class MailManager
         }
 
         // bailout if we have no content
-        if (!($html || $text)) {
+        if (!isset($html) && !isset($text)) {
             return false;
         }
 
