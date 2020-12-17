@@ -531,7 +531,7 @@ class ImageResizer
         $lastSegment = array_pop($segments);
         $path = implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
 
-        if (Config::get('cms.linkPolicy') === 'force') {
+        if (Config::get('cms.linkPolicy', 'detect') === 'force') {
             return Url::to($path);
         }
 
