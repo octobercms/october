@@ -499,13 +499,13 @@ class ImageResizer
         // Store the current configuration
         $this->storeConfig();
 
-        $path = "/resizer/$identifier/$resizedUrl";
+        $url = "/resizer/$identifier/$resizedUrl";
 
         if (Config::get('cms.linkPolicy', 'detect') === 'force') {
-            return Url::to($path);
+            $url = Url::to($url);
         }
 
-        return $path;
+        return $url;
     }
 
     /**
