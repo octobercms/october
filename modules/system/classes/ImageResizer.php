@@ -529,13 +529,13 @@ class ImageResizer
         // Ensure that a properly encoded URL is returned
         $segments = explode('/', $url);
         $lastSegment = array_pop($segments);
-        $path = implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
+        $url = implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
 
         if (Config::get('cms.linkPolicy', 'detect') === 'force') {
-            return Url::to($path);
+            $url = Url::to($url);
         }
 
-        return $path;
+        return $url;
     }
 
     /**
