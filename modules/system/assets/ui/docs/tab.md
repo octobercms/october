@@ -147,3 +147,7 @@ Example with data attributes (data-control="tab"):
 - beforeClose.oc.tab - triggered on a tab pane element before tab is closed by the user. Call the event's 
   preventDefault() method to cancel the action.
 - afterAllClosed.oc.tab - triggered after all tabs have been closed
+
+### Removing flash of unwanted content
+
+When a user loads a tab directly with a `fragment` (hash) url an issue can occur where the contents of the first tab shows for a few milliseconds before the desired tab contents get shown. Developers are asked to add the `tabload` class to all their tab contents panels (where the `tab-pane` class is located). The `tabload` class works by setting the css for the tab panels to `opacity: 0` until the cms has calculated the tab matching the `fragment` (hash) url. When the tab has been matched, the cms then displays the tab contents panels by setting the css to `opacity: 1`. This removes any flash of unwanted content from the tabs during the loading of the web page.
