@@ -45,6 +45,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Trusted hosts
+    |--------------------------------------------------------------------------
+    |
+    | You may specify valid hosts for your application as an array or boolean
+    | below. This will prevent host header poisoning in your application.
+    |
+    | Possible values:
+    |  - true: Trust the host specified in app.url, as well as all subdomains.
+    |  - false: Disable the trusted hosts feature.
+    |  - array: Defines the domains to be trusted hosts. Each item should be
+    |           a string defining a domain, or a regex pattern.
+    |
+    | If you do not wish to enable this feature, please leave this as false.
+    |
+    */
+
+    'trustedHosts' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
@@ -148,7 +168,7 @@ return [
     */
 
     'loadDiscoveredPackages' => false,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
