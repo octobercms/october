@@ -112,7 +112,23 @@ class OctoberInstall extends Command
     protected function setupCommonValues()
     {
         $url = $this->ask('Application URL', Config::get('app.url'));
-        $this->writeToConfig('app', ['url' => $url]);
+
+        try {
+            $availableLocales = (new \Backend\Models\Preference)->getLocaleOptions();
+            $localesByName = [];
+            foreach ($availableLocales as $locale => $name) {
+                $localesByName[$name[0]] = $locale;
+            }
+
+            $localeName = $this->choice('Default Backend Locale', array_keys($localesByName));
+
+            $locale = $localesByName[$localeName];
+        } catch (\Exception $e) {
+            // Installation failed halfway through, recover gracefully
+            $locale = $this->ask('Default Backend Locale', 'en');
+        }
+
+        $this->writeToConfig('app', ['url' => $url, 'locale' => $locale]);
     }
 
     protected function setupAdvancedValues()
