@@ -25,13 +25,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li><a href="#primaryTabThree">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane tabload active">
                 Tab one content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab two content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab three content
             </div>
         </div>
@@ -46,13 +46,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li><a href="#primaryTabThree">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane tabload active">
                 Tab one content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab two content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab three content
             </div>
         </div>
@@ -69,13 +69,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li><a href="#secondaryTabThree">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane tabload active">
                 Tab one content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab two content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab three content
             </div>
         </div>
@@ -90,13 +90,13 @@ These modifiers can be added in addition to the `control-tabs` class:
             <li><a href="#contentTabThree">Three</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane tabload active">
                 Tab one content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab two content
             </div>
-            <div class="tab-pane">
+            <div class="tab-pane tabload">
                 Tab three content
             </div>
         </div>
@@ -116,7 +116,7 @@ Example with data attributes (data-control="tab"):
             <li class="active"><a href="#home">Home</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">Home</div>
+            <div class="tab-pane tabload active">Home</div>
         </div>
     </div>
 
