@@ -49,7 +49,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | You may specify valid hosts for your application as an array or boolean
-    | below. This will prevent host header poisoning in your application.
+    | below. This helps prevent host header poisoning attacks.
     |
     | Possible values:
     |  - true: Trust the host specified in app.url, as well as all subdomains.
@@ -57,11 +57,23 @@ return [
     |  - array: Defines the domains to be trusted hosts. Each item should be
     |           a string defining a domain, or a regex pattern.
     |
+    | Example of array values:
+    |
+    |    'trustedHosts' => [
+    |       'example.com',           // Matches just example.com
+    |       'www.example.com',       // Matches just www.example.com
+    |       '^(.+\.)?example\.com$', // Matches example.com and all subdomains
+    |       'https://example.com',   // Matches just example.com
+    |    ]
+    |
     | If you do not wish to enable this feature, please leave this as false.
+    |
+    | Note: Even when set to 'false', this functionality is explicitly enabled
+    | on the Backend password reset flow for security.
     |
     */
 
-    'trustedHosts' => false,
+    'trustedHosts' => true,
 
     /*
     |--------------------------------------------------------------------------
