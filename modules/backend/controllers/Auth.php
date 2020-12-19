@@ -147,6 +147,19 @@ class Auth extends Controller
      */
     public function restore_onSubmit()
     {
+        // Force Trusted Host verification on password reset link generation
+        // regardless of config to protect against host header poisoning
+        $trustedHosts = Config::get('app.trustedHosts', false);
+        if ($trustedHosts === false) {
+            $url = Config::get('app.url', null);
+            if (!empty($url)) {
+                // Explicitly only allow the APP_URL host and subdomains
+                Request::setTrustedHosts(['^(.+\.)?' . preg_quote(parse_url($url, PHP_URL_HOST)) . '$']);
+                // Trigger the host validation logic
+                Request::getHost();
+            }
+        }
+        
         $rules = [
             'login' => 'required|between:2,255'
         ];
