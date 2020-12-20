@@ -13,6 +13,7 @@ use ApplicationException;
 use ValidationException;
 use Exception;
 use Config;
+use October\Rain\Foundation\Http\Middleware\CheckForTrustedHost;
 
 /**
  * Authentication controller
@@ -150,16 +151,18 @@ class Auth extends Controller
         // Force Trusted Host verification on password reset link generation
         // regardless of config to protect against host header poisoning
         $trustedHosts = Config::get('app.trustedHosts', false);
+
         if ($trustedHosts === false) {
-            $url = Config::get('app.url', null);
-            if (!empty($url)) {
-                // Explicitly only allow the APP_URL host and subdomains
-                Request::setTrustedHosts(['^(.+\.)?' . preg_quote(parse_url($url, PHP_URL_HOST)) . '$']);
+            $hosts = CheckForTrustedHost::processTrustedHosts(true);
+
+            if (count($hosts)) {
+                Request::setTrustedHosts($hosts);
+
                 // Trigger the host validation logic
                 Request::getHost();
             }
         }
-        
+
         $rules = [
             'login' => 'required|between:2,255'
         ];
