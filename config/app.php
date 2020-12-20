@@ -52,10 +52,11 @@ return [
     | below. This helps prevent host header poisoning attacks.
     |
     | Possible values:
-    |  - true: Trust the host specified in app.url, as well as all subdomains.
-    |  - false: Disable the trusted hosts feature.
+    |  - `true`: Trust the host specified in app.url, as well as the "www"
+    |            subdomain, if applicable.
+    |  - `false`: Disable the trusted hosts feature.
     |  - array: Defines the domains to be trusted hosts. Each item should be
-    |           a string defining a domain, or a regex pattern.
+    |           a string defining a domain, IP address, or a regex pattern.
     |
     | Example of array values:
     |
@@ -66,10 +67,10 @@ return [
     |       'https://example.com',   // Matches just example.com
     |    ]
     |
-    | If you do not wish to enable this feature, please leave this as false.
+    | If you do not wish to enable this feature, please leave this as `false`.
     |
-    | Note: Even when set to 'false', this functionality is explicitly enabled
-    | on the Backend password reset flow for security.
+    | Note: Even when set to `false`, this functionality is explicitly enabled
+    | on the Backend password reset flow for security reasons.
     |
     */
 
