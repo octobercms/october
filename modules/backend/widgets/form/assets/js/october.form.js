@@ -30,8 +30,9 @@
     FormWidget.prototype.init = function() {
 
         this.$form = this.$el.closest('form')
+        this.dependencyMap = {}
 
-        this.bindDependants()
+        this.bindDependents()
         this.bindCheckboxlist()
         this.toggleEmptyTabs()
         this.bindLazyTabs()
@@ -43,12 +44,14 @@
 
     FormWidget.prototype.dispose = function() {
         this.$el.off('dispose-control', this.proxy(this.dispose))
+        this.$el.off('change.oc.formwidget', this.proxy(this.onRefreshDependants))
         this.$el.removeData('oc.formwidget')
 
         this.$el = null
         this.$form = null
         this.options = null
         this.fieldElementCache = null
+        this.dependencyMap = null
 
         BaseProto.dispose.call(this)
     }
@@ -93,14 +96,13 @@
     /*
      * Bind dependant fields
      */
-    FormWidget.prototype.bindDependants = function() {
+    FormWidget.prototype.bindDependents = function() {
 
         if (!$('[data-field-depends]', this.$el).length) {
             return;
         }
 
         var self = this,
-            fieldMap = {},
             fieldElements = this.getFieldElements()
 
         /*
@@ -111,34 +113,33 @@
                 depends = $(this).data('field-depends')
 
             $.each(depends, function(index, depend){
-                if (!fieldMap[depend]) {
-                    fieldMap[depend] = { fields: [] }
+                if (!self.dependencyMap[depend]) {
+                    self.dependencyMap[depend] = { fields: [] }
                 }
 
-                fieldMap[depend].fields.push(name)
+                self.dependencyMap[depend].fields.push(name)
             })
         })
 
-        /*
-         * When a master is updated, refresh its slaves
-         */
-        $.each(fieldMap, function(fieldName, toRefresh) {
-            $(document).on('change.oc.formwidget',
-                '[data-field-name="' + fieldName + '"]',
-                $.proxy(self.onRefreshDependants, self, fieldName, toRefresh)
-            );
-        })
+        this.$el.on('change.oc.formwidget', this.proxy(self.onRefreshDependants))
     }
 
     /*
      * Refresh a dependancy field
      * Uses a throttle to prevent duplicate calls and click spamming
      */
-    FormWidget.prototype.onRefreshDependants = function(fieldName, toRefresh) {
+    FormWidget.prototype.onRefreshDependants = function(event) {
         var self = this,
             form = this.$el,
             formEl = this.$form,
+            $fieldEl = $(event.target).closest('[data-field-name]'),
+            fieldName = $fieldEl.data('field-name'),
             fieldElements = this.getFieldElements()
+
+        // No dependents - skip this event
+        if (!fieldName || !this.dependencyMap[fieldName]) {
+            return
+        }
 
         if (this.dependantUpdateTimers[fieldName] !== undefined) {
             window.clearTimeout(this.dependantUpdateTimers[fieldName])
@@ -146,7 +147,7 @@
 
         this.dependantUpdateTimers[fieldName] = window.setTimeout(function() {
             var refreshData = $.extend({},
-                toRefresh,
+                self.dependencyMap[fieldName],
                 paramToObj('data-refresh-data', self.options.refreshData)
             )
 
@@ -157,7 +158,7 @@
             })
         }, this.dependantUpdateInterval)
 
-        $.each(toRefresh.fields, function(index, field) {
+        $.each(this.dependencyMap[fieldName].fields, function(index, field) {
             fieldElements.filter('[data-field-name="'+field+'"]:visible')
                 .addClass('loading-indicator-container size-form-field')
                 .loadIndicator()
