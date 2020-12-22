@@ -499,8 +499,14 @@ class Lists extends WidgetBase
                 $relationObj = $this->model->{$column->relation}();
                 $countQuery = $relationObj->getRelationExistenceQuery($relationObj->getRelated()->newQueryWithoutScopes(), $query);
 
+                $sqlOrder = null;
+                foreach($relationObj->getBaseQuery()->orders ?? [] as $order) {
+                    $sqlOrder[] = $order['column'] . ' ' . $order['direction'];
+                }
+                if (!empty($sqlOrder)) $sqlOrder = ' order by ' . implode(' ', $sqlOrder);
+
                 $joinSql = $this->isColumnRelated($column, true)
-                    ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")
+                    ? DbDongle::raw("group_concat(" . $sqlSelect . $sqlOrder . " separator ', ')")
                     : DbDongle::raw($sqlSelect);
 
                 $joinSql = $countQuery->select($joinSql)->toSql();
