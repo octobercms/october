@@ -198,7 +198,7 @@ div.control-componentlist div.components div.layout-cell > div.popover-highlight
   display: none;
 }
 div.control-componentlist div.components div.layout-cell > div span.name {
-  padding-left: 38px;
+  padding-right: 20px;
 }
 div.control-componentlist div.components div.layout-cell > div span.description {
   padding-bottom: 35px;
