@@ -82,6 +82,8 @@ if (window.jQuery.request !== undefined) {
         var csrfToken = getXSRFToken()
         if (csrfToken) {
             requestHeaders['X-XSRF-TOKEN'] = csrfToken
+        } else {
+            console.warn('Consider using a X-XSRF-TOKEN when using the framework file.')
         }
 
         /*

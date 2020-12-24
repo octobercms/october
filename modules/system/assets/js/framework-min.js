@@ -16,7 +16,7 @@ if($.type(loading)=='string'){loading=$(loading)}
 var requestHeaders={'X-OCTOBER-REQUEST-HANDLER':handler,'X-OCTOBER-REQUEST-PARTIALS':this.extractPartials(options.update)}
 if(useFlash){requestHeaders['X-OCTOBER-REQUEST-FLASH']=1}
 var csrfToken=getXSRFToken()
-if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}
+if(csrfToken){requestHeaders['X-XSRF-TOKEN']=csrfToken}else{console.warn('Consider using a X-XSRF-TOKEN when using the framework file.')}
 var requestData,inputName,data={}
 $.each($el.parents('[data-request-data]').toArray().reverse(),function extendRequest(){$.extend(data,paramToObj('data-request-data',$(this).data('request-data')))})
 if($el.is(':input')&&!$form.length){inputName=$el.attr('name')
