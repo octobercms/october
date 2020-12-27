@@ -8,4 +8,4 @@ October is evergreen, no one version is singled out for security fixes because t
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within OctoberCMS, please send an email to Samuel Georges at hello@octobercms.com and Luke Towers at octobercms@luketowers.ca. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within OctoberCMS, please send an email to Luke Towers at octobercms@luketowers.ca and Samuel Georges at hello@octobercms.com. All security vulnerabilities will be promptly addressed.

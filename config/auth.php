@@ -19,7 +19,7 @@ return [
         | Failed Authentication Attempt Limit
         |--------------------------------------------------------------------------
         |
-        | Number of failed attemps allowed while trying to authenticate a user.
+        | Number of failed attempts allowed while trying to authenticate a user.
         |
          */
         'attemptLimit' => 5,

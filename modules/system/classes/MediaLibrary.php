@@ -291,6 +291,10 @@ class MediaLibrary
             if (Str::startsWith($folder, $exclude)) {
                 continue;
             }
+            if (!$this->isVisible($folder)) {
+                $exclude[] = $folder . '/';
+                continue;
+            }
 
             $result[] = $folder;
         }
@@ -536,7 +540,7 @@ class MediaLibrary
      */
     public function getPathUrl($path)
     {
-        $path = $this->validatePath($path);
+        $path = $this->validatePath($path, true);
 
         $fullPath = $this->storagePath . implode("/", array_map("rawurlencode", explode("/", $path)));
 

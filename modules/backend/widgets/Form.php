@@ -1283,6 +1283,7 @@ class Form extends WidgetBase
     {
         /*
          * Advanced usage, supplied options are callable
+         * [\Path\To\Class, methodName]
          */
         if (is_array($fieldOptions) && is_callable($fieldOptions)) {
             $fieldOptions = call_user_func($fieldOptions, $this, $field);
@@ -1328,6 +1329,22 @@ class Form extends WidgetBase
          * Field options are an explicit method reference
          */
         elseif (is_string($fieldOptions)) {
+            // \Path\To\Class::staticMethodOptions
+            if (str_contains($fieldOptions, '::')) {
+                $options = explode('::', $fieldOptions);
+                if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
+                    $result = $options[0]::{$options[1]}($this, $field);
+                    if (!is_array($result)) {
+                        throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
+                            'class' => $options[0],
+                            'method' => $options[1]
+                        ]));
+                    }
+                    return $result;
+                }
+            }
+
+            // $model->{$fieldOptions}()
             if (!$this->objectMethodExists($this->model, $fieldOptions)) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
                     'model'  => get_class($this->model),

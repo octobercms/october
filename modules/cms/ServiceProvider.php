@@ -1,11 +1,15 @@
 <?php namespace Cms;
 
 use App;
+use Url;
+use Lang;
+use File;
 use Event;
 use Backend;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserRole;
+use Cms\Classes\Theme as CmsTheme;
 use Backend\Classes\WidgetManager;
 use October\Rain\Support\ModuleServiceProvider;
 use System\Classes\SettingsManager;
@@ -54,6 +58,10 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->bootMenuItemEvents();
         $this->bootRichEditorEvents();
+
+        if (App::runningInBackend()) {
+            $this->bootBackendLocalization();
+        }
     }
 
     /**
@@ -166,6 +174,19 @@ class ServiceProvider extends ModuleServiceProvider
                         ]
                     ]
                 ]
+            ]);
+
+            $manager->registerQuickActions('October.Cms', [
+                'preview' => [
+                    'label'      => 'backend::lang.tooltips.preview_website',
+                    'icon'       => 'icon-crosshairs',
+                    'url'        => Url::to('/'),
+                    'order'      => 10,
+                    'attributes' => [
+                        'target' => '_blank',
+                        'rel'    => 'noopener noreferrer',
+                    ],
+                ],
             ]);
         });
     }
@@ -282,6 +303,24 @@ class ServiceProvider extends ModuleServiceProvider
                 ]
             ]);
         });
+    }
+
+    /**
+     * Boots localization from an active theme for backend items.
+     */
+    protected function bootBackendLocalization()
+    {
+        $theme = CmsTheme::getActiveTheme();
+
+        if (is_null($theme)) {
+            return;
+        }
+
+        $langPath = $theme->getPath() . '/lang';
+
+        if (File::isDirectory($langPath)) {
+            Lang::addNamespace('themes.' . $theme->getId(), $langPath);
+        }
     }
 
     /**

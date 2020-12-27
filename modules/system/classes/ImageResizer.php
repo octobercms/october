@@ -29,9 +29,9 @@ use October\Rain\Database\Attach\Resizer as DefaultResizer;
  *
  * The functionality of this class is controlled by these config items:
  *
- * - cms.resized.disk - The disk to store resized images on
- * - cms.resized.folder - The folder on the disk to store resized images in
- * - cms.resized.path - The public path to the resized images as returned
+ * - cms.storage.resized.disk - The disk to store resized images on
+ * - cms.storage.resized.folder - The folder on the disk to store resized images in
+ * - cms.storage.resized.path - The public path to the resized images as returned
  *                      by the storage disk's URL method, used to identify
  *                      already resized images
  *
@@ -149,22 +149,22 @@ class ImageResizer
             'themes' => [
                 'disk' => 'system',
                 'folder' => config('cms.themesPathLocal', base_path('themes')),
-                'path' => config('cms.themesPath', '/themes'),
+                'path' => rtrim(config('cms.themesPath', '/themes'), '/'),
             ],
             'plugins' => [
                 'disk' => 'system',
                 'folder' => config('cms.pluginsPathLocal', base_path('plugins')),
-                'path' => config('cms.pluginsPath', '/plugins'),
+                'path' => rtrim(config('cms.pluginsPath', '/plugins'), '/'),
             ],
             'resized' => [
                 'disk' => config('cms.storage.resized.disk', 'local'),
                 'folder' => config('cms.storage.resized.folder', 'resized'),
-                'path' => config('cms.storage.resized.path', '/storage/app/resized'),
+                'path' => rtrim(config('cms.storage.resized.path', '/storage/app/resized'), '/'),
             ],
             'media' => [
                 'disk' => config('cms.storage.media.disk', 'local'),
                 'folder' => config('cms.storage.media.folder', 'media'),
-                'path' => config('cms.storage.media.path', '/storage/app/media'),
+                'path' => rtrim(config('cms.storage.media.path', '/storage/app/media'), '/'),
             ],
             'modules' => [
                 'disk' => 'system',
@@ -174,7 +174,7 @@ class ImageResizer
             'filemodel' => [
                 'disk' => config('cms.storage.uploads.disk', 'local'),
                 'folder' => config('cms.storage.uploads.folder', 'uploads'),
-                'path' => config('cms.storage.uploads.path', '/storage/app/uploads'),
+                'path' => rtrim(config('cms.storage.uploads.path', '/storage/app/uploads'), '/'),
             ],
         ];
 
@@ -219,9 +219,29 @@ class ImageResizer
      */
     public function getConfig()
     {
+        $disk = $this->image['disk'];
+
+        // Normalize local disk adapters with symlinked paths to their target path
+        // to support atomic deployments where the base application path changes
+        // each deployment but the realpath of the storage directory does not
+        if (FileHelper::isLocalDisk($disk)) {
+            $realPath = realpath($disk->getAdapter()->getPathPrefix());
+            if ($realPath) {
+                $disk->getAdapter()->setPathPrefix($realPath);
+            }
+        }
+
+        // Handle disks that can't be serialized by referencing them by their
+        // filesystems.php config name
+        try {
+            serialize($disk);
+        } catch (Exception $ex) {
+            $disk = Storage::identify($disk);
+        }
+
         $config = [
             'image' => [
-                'disk' => $this->image['disk'],
+                'disk' => $disk,
                 'path' => $this->image['path'],
                 'source' => $this->image['source'],
             ],
@@ -407,7 +427,7 @@ class ImageResizer
             $disk = $fileModel->getDisk();
             $path = $fileModel->getDiskPath($fileModel->getThumbFilename($this->width, $this->height, $this->options));
         } else {
-            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $disk = Storage::disk(Config::get('cms.storage.resized.disk', 'local'));
             $path = $this->getPathToResizedImage();
         }
 
@@ -444,7 +464,7 @@ class ImageResizer
         $folder = implode('/', array_slice(str_split(str_limit($fileIdentifier, 9), 3), 0, 3));
 
         // Generate and return the full path
-        return Config::get('cms.resized.folder', 'resized') . '/' . $folder . '/' . $name;
+        return Config::get('cms.storage.resized.folder', 'resized') . '/' . $folder . '/' . $name;
     }
 
     /**
@@ -471,7 +491,7 @@ class ImageResizer
     {
         // Slashes in URL params have to be double encoded to survive Laravel's router
         // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
-        $resizedUrl = urlencode(urlencode($this->getResizedUrl()));
+        $resizedUrl = rawurlencode(rawurlencode($this->getResizedUrl()));
 
         // Get the current configuration's identifier
         $identifier = $this->getIdentifier();
@@ -496,7 +516,7 @@ class ImageResizer
             $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
             $url = $model->getPath($thumbFile);
         } else {
-            $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $resizedDisk = Storage::disk(Config::get('cms.storage.resized.disk', 'local'));
             $url = $resizedDisk->url($this->getPathToResizedImage());
         }
 
@@ -530,6 +550,11 @@ class ImageResizer
             $path = $image['path'];
             $selectedSource = $image['source'];
 
+            // Handle disks that couldn't be serialized
+            if (is_string($disk)) {
+                $disk = Storage::disk($disk);
+            }
+
             // Verify that the source file exists
             if (empty(FileHelper::extension($path)) || !$disk->exists($path)) {
                 $disk = null;
@@ -559,14 +584,14 @@ class ImageResizer
         // Process a string
         } elseif (is_string($image)) {
             // Parse the provided image path into a filesystem ready relative path
-            $relativePath = static::normalizePath(urldecode(parse_url($image, PHP_URL_PATH)));
+            $relativePath = static::normalizePath(rawurldecode(parse_url($image, PHP_URL_PATH)));
 
             // Loop through the sources available to the application to pull from
             // to identify the source most likely to be holding the image
             $resizeSources = static::getAvailableSources();
             foreach ($resizeSources as $source => $details) {
                 // Normalize the source path
-                $sourcePath = static::normalizePath(urldecode(parse_url($details['path'], PHP_URL_PATH)));
+                $sourcePath = static::normalizePath(rawurldecode(parse_url($details['path'], PHP_URL_PATH)));
 
                 // Identify if the current source is a match
                 if (starts_with($relativePath, $sourcePath)) {
@@ -612,7 +637,7 @@ class ImageResizer
             }
         }
 
-        if (!$disk || !$path || !$selectedSource) {
+        if (!$disk || !$path || !$selectedSource || (!in_array(FileHelper::extension($path), ['jpg', 'jpeg', 'png', 'webp', 'gif']))) {
             if (is_object($image)) {
                 $image = get_class($image);
             }
@@ -715,7 +740,7 @@ class ImageResizer
     {
         // Slashes in URL params have to be double encoded to survive Laravel's router
         // @see https://github.com/octobercms/october/issues/3592#issuecomment-671017380
-        $decodedUrl = urldecode(urldecode($encodedUrl));
+        $decodedUrl = rawurldecode($encodedUrl);
         $url = null;
 
         // The identifier should be the signed version of the decoded URL
@@ -733,8 +758,8 @@ class ImageResizer
      *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
-     * @param integer|bool|null $width Desired width of the resized image
-     * @param integer|bool|null $height Desired height of the resized image
+     * @param integer|string|bool|null $width Desired width of the resized image
+     * @param integer|string|bool|null $height Desired height of the resized image
      * @param array|null $options Array of options to pass to the resizer
      * @throws Exception If the provided image was unable to be processed
      * @return string

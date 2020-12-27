@@ -1,6 +1,7 @@
 <?php namespace System\Classes;
 
 use Lang;
+use Config;
 use Response;
 use Exception;
 use SystemException;
@@ -63,6 +64,11 @@ class SystemController extends ControllerBase
         } catch (SystemException $ex) {
             // If the resizing failed with a SystemException, it was most
             // likely because it is in progress or has already finished
+            // although it could also be because the cache system used to store
+            // configuration data is broken
+            if (Config::get('cache.default', 'file') === 'array') {
+                throw new Exception('Image resizing requires a persistent cache driver, "array" is not supported. Try changing config/cache.php -> default to a persistent cache driver.');
+            }
         } catch (Exception $ex) {
             // If it failed for any other reason, restore the config so that
             // the resizer route will continue to work until it succeeds
