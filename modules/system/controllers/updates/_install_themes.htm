@@ -44,7 +44,7 @@
 
                             <li data-code="<?= $theme['code'] ?>">
                                 <div class="image">
-                                    <img src="<?= $theme['image'] ?>" alt="">
+                                    <img src="<?= $theme['image'] ?>" alt="" loading="lazy" crossorigin>
                                 </div>
                                 <div class="details">
                                     <h4><?= $theme['name'] ?></h4>
@@ -96,7 +96,7 @@
             data-handler="onInstallTheme"
             data-request-data="code: '{{code}}'"
             href="javascript:;">
-            <div class="image"><img src="{{image}}" alt=""></div>
+            <div class="image"><img src="{{image}}" alt="" loading="lazy" crossorigin></div>
             <div class="details">
                 <h5 class="text-overflow">{{code}}</h5>
                 <p>{{description}}</p>

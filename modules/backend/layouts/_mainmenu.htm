@@ -26,7 +26,7 @@
                                 <?php if ($item->iconSvg): ?>
                                     <img
                                         src="<?= Url::asset($item->iconSvg) ?>"
-                                        class="svg-icon" loading="lazy" width="30" height="30" />
+                                        class="svg-icon" loading="lazy" width="30" height="30" crossorigin>
                                 <?php endif ?>
 
                                 <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -60,7 +60,7 @@
                         <?php if ($item->iconSvg): ?>
                             <img
                                 src="<?= Url::asset($item->iconSvg) ?>"
-                                class="svg-icon" loading="lazy" width="20" height="20" />
+                                class="svg-icon" loading="lazy" width="20" height="20" crossorigin>
                         <?php endif ?>
 
                         <i class="<?= $item->iconSvg ? 'svg-replace' : null ?> <?= $item->icon ?>"></i>
@@ -73,7 +73,7 @@
                     title="<?= e(trans('backend::lang.account.signed_in_as', ['full_name' => $this->user->full_name])) ?>">
                     <img
                         src="<?= $this->user->getAvatarThumb(90, ['mode' => 'crop', 'extension' => 'png']) ?>"
-                        class="account-avatar" loading="lazy" width="90" height="90" />
+                        class="account-avatar" loading="lazy" width="90" height="90" crossorigin>
                 </a>
                 <div class="mainmenu-accountmenu">
                     <ul>

@@ -42,7 +42,7 @@
 
                             <li data-code="<?= $plugin['code'] ?>">
                                 <div class="image">
-                                    <img src="<?= $plugin['image'] ?>" alt="">
+                                    <img src="<?= $plugin['image'] ?>" alt="" loading="lazy" crossorigin>
                                 </div>
                                 <div class="details">
                                     <h4><?= $plugin['name'] ?></h4>
@@ -94,7 +94,7 @@
             data-handler="onInstallPlugin"
             data-request-data="code: '{{code}}'"
             href="javascript:;">
-            <div class="image"><img src="{{image}}" alt=""></div>
+            <div class="image"><img src="{{image}}" alt="" loading="lazy" crossorigin></div>
             <div class="details">
                 <h5 class="text-overflow">{{code}}</h5>
                 <p>{{description}}</p>
