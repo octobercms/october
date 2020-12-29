@@ -198,7 +198,15 @@ div.control-componentlist div.components div.layout-cell > div.popover-highlight
   display: none;
 }
 div.control-componentlist div.components div.layout-cell > div span.name {
-  padding-right: 20px;
+  padding: 8px 20px 0 38px;
+}
+div.control-componentlist div.components div.layout-cell > div span.name i {
+  position: absolute;
+  font-size: 16px;
+  left: 15px;
+  top: 10px;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
 }
 div.control-componentlist div.components div.layout-cell > div span.description {
   padding-bottom: 35px;
