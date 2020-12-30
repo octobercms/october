@@ -2,7 +2,7 @@
 
 use Database\Tester\Models\Post;
 
-class ModelTest extends PluginTestCase
+class PluginModelTest extends PluginTestCase
 {
     public function setUp() : void
     {

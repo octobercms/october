@@ -186,6 +186,19 @@ class RichEditor extends FormWidgetBase
     {
         $result = [];
 
+        /**
+         * @event backend.richeditor.listTypes
+         * Register additional "page link types" to the RichEditor FormWidget
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.richeditor.listTypes', function () {
+         *          return [
+         *              'my-identifier' => 'author.plugin::lang.richeditor.link_types.my_identifier',
+         *          ];
+         *     });
+         *
+         */
         $apiResult = Event::fire('backend.richeditor.listTypes');
         if (is_array($apiResult)) {
             foreach ($apiResult as $typeList) {
@@ -205,6 +218,28 @@ class RichEditor extends FormWidgetBase
     protected function getPageLinks($type)
     {
         $result = [];
+
+        /**
+         * @event backend.richeditor.getTypeInfo
+         * Register additional "page link types" to the RichEditor FormWidget
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.richeditor.getTypeInfo', function ($type) {
+         *          if ($type === 'my-identifier') {
+         *              return [
+         *                  'https://example.com/page1' => 'Page 1',
+         *                  'https://example.com/parent-page' => [
+         *                      'title' => 'Parent Page',
+         *                      'links' => [
+         *                          'https://example.com/child-page' => 'Child Page',
+         *                      ],
+         *                  ],
+         *              ];
+         *          }
+         *     });
+         *
+         */
         $apiResult = Event::fire('backend.richeditor.getTypeInfo', [$type]);
         if (is_array($apiResult)) {
             foreach ($apiResult as $typeInfo) {

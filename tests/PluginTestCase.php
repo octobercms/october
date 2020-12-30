@@ -55,6 +55,9 @@ abstract class PluginTestCase extends TestCase
         $app['config']->set('database.default', $dbConnection);
         $app['config']->set('database.connections.' . $dbConnection, $dbConnections[$dbConnection]);
 
+        // Set random encryption key
+        $app['config']->set('app.key', bin2hex(random_bytes(16)));
+
         /*
          * Modify the plugin path away from the test context
          */

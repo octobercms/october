@@ -646,7 +646,7 @@ class FormController extends ControllerBehavior
      * View helper to render the form fields belonging to the
      * secondary tabs section.
      *
-     *     <?= $this->formRenderPrimaryTabs() ?>
+     *     <?= $this->formRenderSecondaryTabs() ?>
      *
      * @return string HTML markup
      * @throws \October\Rain\Exception\ApplicationException if the Form Widget isn't set

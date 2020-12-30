@@ -29,9 +29,9 @@ use October\Rain\Database\Attach\Resizer as DefaultResizer;
  *
  * The functionality of this class is controlled by these config items:
  *
- * - cms.resized.disk - The disk to store resized images on
- * - cms.resized.folder - The folder on the disk to store resized images in
- * - cms.resized.path - The public path to the resized images as returned
+ * - cms.storage.resized.disk - The disk to store resized images on
+ * - cms.storage.resized.folder - The folder on the disk to store resized images in
+ * - cms.storage.resized.path - The public path to the resized images as returned
  *                      by the storage disk's URL method, used to identify
  *                      already resized images
  *
@@ -427,7 +427,7 @@ class ImageResizer
             $disk = $fileModel->getDisk();
             $path = $fileModel->getDiskPath($fileModel->getThumbFilename($this->width, $this->height, $this->options));
         } else {
-            $disk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $disk = Storage::disk(Config::get('cms.storage.resized.disk', 'local'));
             $path = $this->getPathToResizedImage();
         }
 
@@ -464,7 +464,7 @@ class ImageResizer
         $folder = implode('/', array_slice(str_split(str_limit($fileIdentifier, 9), 3), 0, 3));
 
         // Generate and return the full path
-        return Config::get('cms.resized.folder', 'resized') . '/' . $folder . '/' . $name;
+        return Config::get('cms.storage.resized.folder', 'resized') . '/' . $folder . '/' . $name;
     }
 
     /**
@@ -516,7 +516,7 @@ class ImageResizer
             $thumbFile = $model->getThumbFilename($this->width, $this->height, $this->options);
             $url = $model->getPath($thumbFile);
         } else {
-            $resizedDisk = Storage::disk(Config::get('cms.resized.disk', 'local'));
+            $resizedDisk = Storage::disk(Config::get('cms.storage.resized.disk', 'local'));
             $url = $resizedDisk->url($this->getPathToResizedImage());
         }
 
@@ -758,8 +758,8 @@ class ImageResizer
      *              ['disk' => Illuminate\Filesystem\FilesystemAdapter, 'path' => string, 'source' => string, 'fileModel' => FileModel|void],
      *              instance of October\Rain\Database\Attach\File,
      *              string containing URL or path accessible to the application's filesystem manager
-     * @param integer|bool|null $width Desired width of the resized image
-     * @param integer|bool|null $height Desired height of the resized image
+     * @param integer|string|bool|null $width Desired width of the resized image
+     * @param integer|string|bool|null $height Desired height of the resized image
      * @param array|null $options Array of options to pass to the resizer
      * @throws Exception If the provided image was unable to be processed
      * @return string

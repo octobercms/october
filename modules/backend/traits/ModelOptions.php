@@ -71,7 +71,7 @@ trait ModelOptions
             if (str_contains($fieldOptions, '::')) {
                 $options = explode('::', $fieldOptions);
                 if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
-                    $result = $options[0]::{$options[1]}();
+                    $result = $options[0]::{$options[1]}($this, $field);
                     if (!is_array($result)) {
                         throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
                             'class' => $options[0],
@@ -109,6 +109,7 @@ trait ModelOptions
         if (method_exists($object, 'methodExists')) {
             return $object->methodExists($method);
         }
+
         return method_exists($object, $method);
     }
 }

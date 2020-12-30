@@ -3114,13 +3114,13 @@ $(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="ap
 self.filterScope()})
 $(event.relatedTarget).on('click','#controlFilterPopover [data-filter-action="clear"]',function(e){e.preventDefault()
 self.filterScope(true)})
-$(event.relatedTarget).on('input','#controlFilterPopover input[data-search]',function(e){self.searchQuery($(this))});})
+$(event.relatedTarget).on('input','#controlFilterPopover input[data-search]',function(e){self.searchQuery($(this))})})
 this.$el.on('hide.oc.popover','a.filter-scope',function(){var $scope=$(this)
 self.pushOptions(self.activeScopeName)
 self.activeScopeName=null
 self.$activeScope=null
 setTimeout(function(){$scope.removeClass('filter-scope-open')},200)})}
-FilterWidget.prototype.bindDependants=function(){if(!$('[data-scope-depends]',this.$el).length){return;}
+FilterWidget.prototype.bindDependants=function(){if(!$('[data-scope-depends]',this.$el).length){return}
 var self=this,scopeMap={},scopeElements=this.$el.find('.filter-scope')
 scopeElements.filter('[data-scope-depends]').each(function(){var name=$(this).data('scope-name'),depends=$(this).data('scope-depends')
 $.each(depends,function(index,depend){if(!scopeMap[depend]){scopeMap[depend]={scopes:[]}}
@@ -3183,7 +3183,9 @@ FilterWidget.prototype.fillOptions=function(scopeName,data){if(this.scopeValues[
 return
 if(!data.active)data.active=[]
 if(!data.available)data.available=[]
-this.scopeValues[scopeName]=data.active;this.scopeAvailable[scopeName]=data.available;if(scopeName!=this.activeScopeName)
+this.scopeValues[scopeName]=data.active
+this.scopeAvailable[scopeName]=data.available
+if(scopeName!=this.activeScopeName)
 return
 var container=$('#controlFilterPopover .filter-items > ul').empty()
 this.addItemsToListElement(container,data.available)
@@ -3226,8 +3228,11 @@ $scope.toggleClass('active',!!switchValue)}
 FilterWidget.prototype.filterScope=function(isReset){var scopeName=this.$activeScope.data('scope-name')
 if(isReset){this.scopeValues[scopeName]=null
 this.scopeAvailable[scopeName]=null
+this.isActiveScopeDirty=true
 this.updateScopeSetting(this.$activeScope,0)}
-this.pushOptions(scopeName);this.isActiveScopeDirty=true;this.$activeScope.data('oc.popover').hide()}
+this.pushOptions(scopeName)
+this.isActiveScopeDirty=false
+this.$activeScope.data('oc.popover').hide()}
 FilterWidget.prototype.getLang=function(name,defaultValue){if($.oc===undefined||$.oc.lang===undefined){return defaultValue}
 return $.oc.lang.get(name,defaultValue)}
 FilterWidget.prototype.searchQuery=function($el){if(this.dataTrackInputTimer!==undefined){window.clearTimeout(this.dataTrackInputTimer)}

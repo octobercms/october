@@ -2,12 +2,15 @@
 
 return [
     'auth' => [
-        'title' => 'Admin-Bereich'
+        'title' => 'Admin-Bereich',
+        'invalid_login' => 'Die Angaben stimmen nicht mit unseren Aufzeichnungen überein. Überprüfen Sie diese und versuchen Sie es noch einmal.',
     ],
     'field' => [
         'invalid_type' => 'Ungültiger Feldtyp :type.',
         'options_method_invalid_model' => 'Das Attribut ":field" löst sich nicht zu einen gültigen Model auf. Probiere die options Methode der Model-Klasse :model explicit zu definieren.',
-        'options_method_not_exists' => 'Die Model-Klasse :model muss eine Methode :method() mit Rückgabe der Werte von ":field" besitzen.',
+        'options_method_not_exists' => 'Die Modell-Klasse :model muss eine Methode :method() mit Rückgabe der Werte von ":field" besitzen.',
+        'options_static_method_invalid_value' => "Die statische Methode ':method()' in der Klasse :class hat kein valides Optionsarray zurückgegeben.",
+        'colors_method_not_exists' => "Die Modellklasse :model muss eine Methode :method() definieren, welche html color (HEX) codes für das ':field' Formularfeld zurückgibt.",
     ],
     'widget' => [
         'not_registered' => "Ein Widget namens ':name' wurde nicht registriert",
@@ -15,6 +18,11 @@ return [
     ],
     'page' => [
         'untitled' => "Unbenannt",
+        '404' => [
+            'label' => 'Seite nicht gefunden',
+            'help' => "Die von Ihnen angeforderte Seite konnte nicht gefunden werden.",
+            'back_link' => 'Zurück zur vorigen Seite',
+        ],
         'access_denied' => [
             'label' => "Zugriff verweigert",
             'help' => "Sie haben nicht die erforderlichen Berechtigungen, um diese Seite zu sehen.",
@@ -28,14 +36,23 @@ return [
     ],
     'partial' => [
         'not_found_name' => "Das Partial ':name' wurde nicht gefunden.",
+        'invalid_name' => 'Ungültiger Partial: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Ungültiger AJAX handler: :name.',
+        'not_found' => "AJAX handler ':name' wurde nicht gefunden.",
     ],
     'account' => [
+        'impersonate_confirm' => 'Sind Sie sicher, dass Sie sich als dieser Benutzer anmelden wollen? Sie können zu Ihrem ursprünglichen Zustand zurückkehren, indem Sie sich abmelden.',
+        'impersonate_success' => 'Sie sind jetzt als dieser Benutzer angemeldet',
+        'signed_in_as' => 'Angemeldet als :full_name',
         'sign_out' => 'Abmelden',
         'login' => 'Anmelden',
         'reset' => 'Zurücksetzen',
         'restore' => 'Wiederherstellen',
         'login_placeholder' => 'Benutzername',
         'password_placeholder' => 'Passwort',
+        'remember_me' => 'Angemeldet bleiben',
         'forgot_password' => "Passwort vergessen?",
         'enter_email' => "Bitte E-Mail-Adresse eingeben",
         'enter_login' => "Bitte Benutzernamen eingeben",
@@ -112,6 +129,8 @@ return [
         'last_name' => 'Nachname',
         'full_name' => 'Kompletter Name',
         'email' => 'E-Mail',
+        'role_field' => 'Rolle',
+        'role_comment' => 'Rollen definieren Benutzerberechtigungen, die auf Benutzerebene auf der Registerkarte Berechtigungen überschrieben werden können.',
         'groups' => 'Gruppen',
         'groups_comment' => 'Geben Sie hier die Gruppenzugehörigkeit an',
         'avatar' => 'Avatar',
@@ -148,9 +167,25 @@ return [
             'return' => 'Zurück zur Gruppen-Übersicht',
             'users_count' => 'Benutzer',
         ],
+        'role' => [
+            'name' => 'Rolle',
+            'name_field' => 'Name',
+            'name_comment' => 'Der Name wird in der Rollenliste auf dem Administratorformular angezeigt.',
+            'description_field' => 'Beschreibung',
+            'code_field' => 'Code',
+            'code_comment' => 'Geben Sie einen eindeutigen Code an, wenn Sie mit der API auf das Rollenobjekt zugreifen möchten.',
+            'menu_label' => 'Rollen verwalten',
+            'list_title' => 'Rollen verwalten',
+            'new' => 'Neue Rolle',
+            'delete_confirm' => 'Diese Administratorrolle löschen?',
+            'return' => 'Zurück zur Rollenliste',
+            'users_count' => 'Benutzer',
+        ],
         'preferences' => [
             'not_authenticated' => 'Zum Speichern oder Anzeigen dieser Einstellungen liegt kein Nutzerkonto vor'
-        ]
+        ],
+        'trashed_hint_title' => 'Dieses Konto wurde gelöscht.',
+        'trashed_hint_desc' => 'Dieses Konto wurde gelöscht und kann nicht mehr angemeldet werden. Um es wiederherzustellen, klicken Sie auf das Symbol "Benutzer wiederherstellen" unten rechts',
     ],
     'list' => [
         'default_title' => 'Auflisten',
@@ -194,6 +229,11 @@ return [
         'upload_error' => 'Fehler beim hochladen',
         'remove_confirm' => 'Sind Sie sicher?',
         'remove_file' => 'Datei entfernen',
+    ],
+    'repeater' => [
+        'add_new_item' => 'Neues Element hinzufügen',
+        'min_items_failed' => ':name erfordert ein Minimum an :min Elementen, aber es wurden nur :items bereitgestellt',
+        'max_items_failed' => ':name lässt nur bis zu :max Elemente zu, :items wurden bereitgestellt',
     ],
     'form' => [
         'create_title' => "Neuer :name",
@@ -312,6 +352,8 @@ return [
         'permissions'  => 'Verzeichnis :name oder ein Unterverzeichnis kann nicht von PHP beschrieben werden. Bitte setzen Sie die korrekten Rechte für den Webserver in diesem Verzeichnis.',
         'extension' => 'Die PHP Erweiterung :name ist nicht installiert. Bitte installieren Sie diese Library und aktivieren Sie die Erweiterung.',
         'plugin_missing' => 'Das Plugin :name hat eine Abhängigkeit die nicht installiert ist. Bitte installieren Sie alle benötigten Plugins.',
+        'debug' => 'Der Debug-Modus ist aktiviert. Dies wird für Produktionsinstallationen nicht empfohlen.',
+        'decompileBackendAssets' => 'Assets im Backend sind derzeit dekompiliert. Dies wird für Produktionsinstallationen nicht empfohlen.',
     ],
     'editor' => [
         'menu_label' => 'Editor Einstellungen',
@@ -367,6 +409,8 @@ return [
             'minimal' => 'Minimal',
             'full' => 'Vollständig',
         ],
+        'paragraph_formats' => 'Absatzformatierungen',
+        'paragraph_formats_comment' => 'Die Optionen, welche in der Dropdown-Liste für Absatzformatierungen angezeigt werden.',
     ],
     'tooltips' => [
         'preview_website' => 'Vorschau der Webseite'
@@ -386,6 +430,8 @@ return [
         'brand' => 'Brand',
         'logo' => 'Logo',
         'logo_description' => 'Lade ein eigenes Logo hoch, das im Backend verwendet werden soll.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Laden Sie ein benutzerdefiniertes Favicon zur Verwendung im Back-End hoch',
         'app_name' => 'App-Name',
         'app_name_description' => 'Dieser Name wird als Titel des Backends angezeigt.',
         'app_tagline' => 'App-Tagline',
@@ -399,6 +445,7 @@ return [
         'navigation' => 'Navigation',
         'menu_mode' => 'Menustyles',
         'menu_mode_inline' => 'Inline',
+        'menu_mode_inline_no_icons' => 'Inline (ohne Icons)',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_collapsed' => 'Collapsed'
     ],
@@ -503,6 +550,7 @@ return [
     ],
     'permissions' => [
         'manage_media' => 'Medien verwalten',
+        'allow_unsafe_markdown' => 'Unsicheres Markdown verwenden (kann Javascript enthalten)',
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
@@ -534,7 +582,12 @@ return [
         'multiple_selected' => 'Mehrere Dateien ausgewählt.',
         'uploading_file_num' => 'Lade :number Datei(en)...',
         'uploading_complete' => 'Upload vollständig',
+        'uploading_error' => 'Upload fehlgeschlagen',
+        'type_blocked' => 'Der verwendete Dateityp ist aus Sicherheitsgründen gesperrt.',
         'order_by' => 'Sortieren nach',
+        'direction' => 'Direction',
+        'direction_asc' => 'Aufsteigend',
+        'direction_desc' => 'Absteigend',
         'folder' => 'Ordner',
         'no_files_found' => 'Keine entsprechenden Dateien gefunden.',
         'delete_empty' => 'Bitte Wählen Sie Dateien zum Löschen aus.',
@@ -557,11 +610,11 @@ return [
         'restore' => 'Alle Änderungen rückgängig machen',
         'resize' => 'Größe anpassen...',
         'selection_mode_normal' => 'Normal',
-        'selection_mode_fixed_ratio' => 'Fixes Verhältnis',
-        'selection_mode_fixed_size' => 'Fixe Größe',
+        'selection_mode_fixed_ratio' => 'Festes Verhältnis',
+        'selection_mode_fixed_size' => 'Feste Größe',
         'height' => 'Höhe',
         'width' => 'Breite',
-        'selection_mode' => 'Selection mode',
+        'selection_mode' => 'Auswahlmodus',
         'resize_image' => 'Bildgröße anpassen',
         'image_size' => 'Dimensionen:',
         'selected_size' => 'Ausgewählt:'

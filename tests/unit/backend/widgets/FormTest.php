@@ -20,6 +20,11 @@ class FormTestModel extends Model
     {
         return ['dropdown', 'options'];
     }
+
+    public function staticMethodOptions()
+    {
+        return ['static', 'method'];
+    }
 }
 
 class FormHelper
@@ -160,7 +165,7 @@ class FormTest extends PluginTestCase
             'fields' => [
                 'static_method_options' => [
                     'type' => 'dropdown',
-                    'options' => '\FormHelper::staticMethodOptions',
+                    'options' => 'FormHelper::staticMethodOptions',
                     'expect' => ['static', 'method'],
                 ],
                 'callable_options' => [

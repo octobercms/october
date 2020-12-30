@@ -79,7 +79,7 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 - Describe the problem clearly in the Pull Request description
 - Please make your fix on the `develop` branch. This makes merging much easier.
-- Do not edit compiled asset files such as `october.css`, `framework.css`, etc. directly. Instead, edit the LESS files inside the `less/` directory and then run `php artisan october:util compile assets` from the project root and commit the changed LESS files as well as the recompiled asset files.
+- Do not edit compiled core asset files such as `october.css`, `storm.js`, `framework.css`, `framework.combined.js`, `framework-min.js`, etc. directly. Instead, edit the relevant source / non-minified / non-combined LESS / JS files. For third-party vendor files, you should update both the **.min** and **non-min** versions. Afterwards, run `php artisan october:util compile assets` from the project root to compile all the source asset files; and then commit the changes. For a list of options available for the `compile assets` command, see https://octobercms.com/docs/console/commands#october-util-command
 - For any change that you make, **please also add a test case(s)** in the `tests/unit` directory. This helps us understand the issue and make sure that it will stay fixed forever.
 
 Thank you for your contributions!

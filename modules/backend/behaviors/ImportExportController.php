@@ -803,9 +803,9 @@ class ImportExportController extends ControllerBehavior
 
         if (
             $options['encoding'] !== null &&
-            $reader->isActiveStreamFilter()
+            $reader->supportsStreamFilter()
         ) {
-            $reader->appendStreamFilter(sprintf(
+            $reader->addStreamFilter(sprintf(
                 '%s%s:%s',
                 TranscodeFilter::FILTER_NAME,
                 strtolower($options['encoding']),

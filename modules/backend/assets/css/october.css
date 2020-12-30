@@ -679,9 +679,10 @@ nav#layout-mainmenu .toolbar-item:before {left:-12px}
 nav#layout-mainmenu .toolbar-item:after {right:-12px}
 nav#layout-mainmenu .toolbar-item.scroll-active-before:before {color:#fff}
 nav#layout-mainmenu .toolbar-item.scroll-active-after:after {color:#fff}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview {margin:0 0 0 21px}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview i {font-size:20px}
-nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-preview a {position:relative;padding:0 10px;top:-1px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-quick-action {margin:0}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-quick-action:first-child {margin-left:21px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-quick-action i {font-size:20px}
+nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-quick-action a {position:relative;padding:0 10px;top:-1px}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account {margin-right:0}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account >a {padding:0 15px 0 10px;font-size:13px;position:relative}
 nav#layout-mainmenu ul.mainmenu-toolbar li.mainmenu-account.highlight >a {z-index:600}
@@ -706,8 +707,8 @@ nav#layout-mainmenu ul li .mainmenu-accountmenu li:first-child a:active:after {c
 nav#layout-mainmenu ul li .mainmenu-accountmenu li.divider {height:1px;width:100%;background-color:#e0e0e0}
 nav#layout-mainmenu.navbar-mode-inline,
 nav#layout-mainmenu.navbar-mode-inline_no_icons {height:60px}
-nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-preview a,
-nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-preview a {height:60px;line-height:60px}
+nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-quick-action a,
+nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-quick-action a {height:60px;line-height:60px}
 nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-toolbar li.mainmenu-account >a,
 nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-toolbar li.mainmenu-account >a {height:60px;line-height:60px}
 nav#layout-mainmenu.navbar-mode-inline ul li .mainmenu-accountmenu,
@@ -730,7 +731,7 @@ nav#layout-mainmenu.navbar-mode-inline ul.mainmenu-nav li:last-child,
 nav#layout-mainmenu.navbar-mode-inline_no_icons ul.mainmenu-nav li:last-child {margin-right:0}
 nav#layout-mainmenu.navbar-mode-inline_no_icons .nav-icon {display:none !important}
 nav#layout-mainmenu.navbar-mode-tile {height:78px}
-nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-preview a {height:78px;line-height:78px}
+nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-quick-action a {height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-toolbar li.mainmenu-account >a {height:78px;line-height:78px}
 nav#layout-mainmenu.navbar-mode-tile ul li .mainmenu-accountmenu {top:88px}
 nav#layout-mainmenu.navbar-mode-tile ul.mainmenu-nav li a {position:relative;width:65px;height:65px}
@@ -749,14 +750,14 @@ nav#layout-mainmenu .menu-toggle .menu-toggle-title {margin-left:10px}
 nav#layout-mainmenu .menu-toggle:hover .menu-toggle-icon {opacity:1}
 body.mainmenu-open nav#layout-mainmenu .menu-toggle-icon {opacity:1}
 nav#layout-mainmenu.navbar-mode-collapse {padding-left:0;height:45px}
-nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-preview a {height:45px;line-height:45px}
+nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-quick-action a {height:45px;line-height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account >a {height:45px;line-height:45px}
 nav#layout-mainmenu.navbar-mode-collapse ul li .mainmenu-accountmenu {top:55px}
 nav#layout-mainmenu.navbar-mode-collapse ul.mainmenu-toolbar li.mainmenu-account >a {padding-right:0}
 nav#layout-mainmenu.navbar-mode-collapse ul li .mainmenu-accountmenu:after {right:13px}
 nav#layout-mainmenu.navbar-mode-collapse ul.nav {display:none}
 nav#layout-mainmenu.navbar-mode-collapse .menu-toggle {display:inline-block;color:#fff !important}
-@media (max-width:769px) {nav#layout-mainmenu.navbar {padding-left:0;height:45px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-preview a {height:45px;line-height:45px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account >a {height:45px;line-height:45px }nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {top:55px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account >a {padding-right:0 }nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after {right:13px }nav#layout-mainmenu.navbar ul.nav {display:none }nav#layout-mainmenu.navbar .menu-toggle {display:inline-block;color:#fff !important }}
+@media (max-width:769px) {nav#layout-mainmenu.navbar {padding-left:0;height:45px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-quick-action a {height:45px;line-height:45px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account >a {height:45px;line-height:45px }nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu {top:55px }nav#layout-mainmenu.navbar ul.mainmenu-toolbar li.mainmenu-account >a {padding-right:0 }nav#layout-mainmenu.navbar ul li .mainmenu-accountmenu:after {right:13px }nav#layout-mainmenu.navbar ul.nav {display:none }nav#layout-mainmenu.navbar .menu-toggle {display:inline-block;color:#fff !important }}
 .mainmenu-collapsed {position:absolute;height:100%;top:0;left:0;margin:0;background:#000}
 .mainmenu-collapsed >div {display:block;height:100%}
 .mainmenu-collapsed >div ul.mainmenu-nav li a {position:relative;width:65px;height:65px}

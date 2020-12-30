@@ -47,7 +47,7 @@ body.mainmenu-open {
     height: @height;
 
     ul.mainmenu-toolbar {
-        li.mainmenu-preview {
+        li.mainmenu-quick-action {
             a {
                 height: @height;
                 line-height: @height;
@@ -191,8 +191,12 @@ nav#layout-mainmenu {
     //
 
     ul.mainmenu-toolbar {
-        li.mainmenu-preview {
-            margin: 0 0 0 21px;
+        li.mainmenu-quick-action {
+            margin: 0;
+
+            &:first-child {
+                margin-left: 21px;
+            }
 
             i {
                 font-size: 20px;
