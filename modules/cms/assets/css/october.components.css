@@ -22,16 +22,6 @@ div.control-componentlist div.components div.layout-cell > div {
   position: relative;
   border-right: 1px solid #ecf0f1;
 }
-.draggable-component-item > div:before,
-.component-list .components div.layout-cell > div:before,
-div.control-componentlist div.components div.layout-cell > div:before {
-  position: absolute;
-  font-size: 16px;
-  left: 15px;
-  top: 7px;
-  opacity: 0.7;
-  filter: alpha(opacity=70);
-}
 .draggable-component-item > div:hover,
 .component-list .components div.layout-cell > div:hover,
 div.control-componentlist div.components div.layout-cell > div:hover {
