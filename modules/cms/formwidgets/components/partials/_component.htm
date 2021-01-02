@@ -6,7 +6,7 @@
         data-inspector-description="<?= $description = e($this->getComponentDescription($component)) ?>"
         data-inspector-config="<?= e($this->getComponentsPropertyConfig($component)) ?>"
         data-inspector-class="<?= get_class($component) ?>">
-            <span class="name"><i class="<?= $component->pluginIcon ?>"></i> <?= $name ?></span>
+            <span class="name"><i class="<?= e(str_replace('oc-', '', $component->pluginIcon)) ?>"></i> <?= $name ?></span>
             <span class="description"><?= $description ?></span>
             <span class="alias oc-icon-code"><?= e($component->alias) ?></span>
             <input type="hidden" name="component_properties[]" data-inspector-values value="<?= e($this->getComponentPropertyValues($component)) ?>" />
