@@ -65,7 +65,7 @@ return [
     |       'www.example.com',       // Matches just www.example.com
     |       '^(.+\.)?example\.com$', // Matches example.com and all subdomains
     |       'https://example.com',   // Matches just example.com
-    |    ]
+    |    ],
     |
     | NOTE: Even when set to `false`, this functionality is explicitly enabled
     | on the Backend password reset flow for security reasons.
