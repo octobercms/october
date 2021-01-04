@@ -30,6 +30,12 @@
         "irc": "irc://irc.freenode.net/october",
         "source": "https://github.com/octobercms/october"
     },
+    "repositories": [
+        {
+            "type":"vcs",
+            "url":"https://github.com/octoberrain/composer-merge-plugin"
+        }
+    ],
     "require": {
         "php": ">=7.0.8",
         "ext-mbstring": "*",
@@ -39,7 +45,7 @@
         "october/backend": "~1.0",
         "october/cms": "~1.0",
         "laravel/framework": "~5.5.40",
-        "wikimedia/composer-merge-plugin": "1.4.1"
+        "wikimedia/composer-merge-plugin": "dev-feature/composer-v2 as 1.5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
