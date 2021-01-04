@@ -67,9 +67,7 @@ return [
     |       'https://example.com',   // Matches just example.com
     |    ]
     |
-    | If you do not wish to enable this feature, please leave this as `false`.
-    |
-    | Note: Even when set to `false`, this functionality is explicitly enabled
+    | NOTE: Even when set to `false`, this functionality is explicitly enabled
     | on the Backend password reset flow for security reasons.
     */
 
