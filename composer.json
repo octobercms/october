@@ -55,7 +55,8 @@
             "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
             "tests/UiTestCase.php",
-            "tests/PluginTestCase.php"
+            "tests/PluginTestCase.php",
+            "vendor/october/rain/tests/DbTestCase.php"
         ]
     },
     "scripts": {
