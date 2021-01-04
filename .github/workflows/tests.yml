@@ -3,8 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
-      - develop
+      - '1.0'
   pull_request:
 
 jobs:
@@ -31,9 +30,9 @@ jobs:
         run: |
           git reset --hard HEAD
           rm -rf ./vendor/october/rain
-          wget https://github.com/octobercms/library/archive/develop.zip -O ./vendor/october/develop.zip
-          unzip ./vendor/october/develop.zip -d ./vendor/october
-          mv ./vendor/october/library-develop ./vendor/october/rain
+          wget https://github.com/octobercms/library/archive/1.0.zip -O ./vendor/october/1.0.zip
+          unzip ./vendor/october/1.0.zip -d ./vendor/october
+          mv ./vendor/october/library-1.0 ./vendor/october/rain
           composer dump-autoload
       - name: Run post-update Composer scripts
         run: |
