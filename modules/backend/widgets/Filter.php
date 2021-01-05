@@ -270,8 +270,7 @@ class Filter extends WidgetBase
                     $this->setScopeValue($scope, null);
                 }
 
-                return ['.control-filter' => $this->render()];
-                break;
+                return ['.control-filter' => preg_replace('/^<[^>]+>|<\/[^>]+>$/', '', $this->render())];
         }
 
         /*
