@@ -7,7 +7,7 @@ $(document).ready(function(){
      * Show message if user is using Internet Explorer, by detecting if the IE-only "documentMode" attribute is within
      * the document object.
      */
-    // if (window.document.documentMode) {
+    if (window.document.documentMode) {
         $('div.ie-warning').show();
-    // }
+    }
 })
