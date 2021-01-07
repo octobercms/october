@@ -15,6 +15,7 @@
             $styles = [
                 Url::asset('modules/system/assets/ui/storm.css'),
                 Backend::skinAsset('assets/css/october.css'),
+                Backend::skinAsset('assets/css/auth/auth.css'),
             ];
             $scripts = [
                 Backend::skinAsset('assets/js/vendor/jquery.min.js'),
@@ -68,6 +69,15 @@
                 <div class="layout-row min-size layout-head">
                     <div class="layout-cell">
                         <h1 class="oc-logo"><?= e(Backend\Models\BrandSetting::get('app_name')) ?></h1>
+
+                        <div class="ie-warning callout fade in callout-danger no-icon" style="display: none;">
+                            <div class="header">
+                                <h3><?= e(Lang::get('backend::lang.auth.ie_warning.title')) ?></h3>
+                            </div>
+                            <div class="content">
+                                <p><?= e(Lang::get('backend::lang.auth.ie_warning.body')) ?></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="layout-row">

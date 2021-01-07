@@ -4,6 +4,10 @@ return [
     'auth' => [
         'title' => 'Administration Area',
         'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.',
+        'ie_warning' => [
+            'title' => 'Unsupported Browser',
+            'body' => 'Internet Explorer is no longer supported. You may experience issues when using the Backend. Please upgrade to the Microsoft Edge web browser as soon as possible.',
+        ],
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
