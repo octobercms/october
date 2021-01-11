@@ -187,6 +187,7 @@ class Filter extends WidgetBase
         }
 
         $scope = $this->getScope($scope);
+        $updateScopePartial = false;
 
         switch ($scope->type) {
             case 'group':
@@ -267,10 +268,21 @@ class Filter extends WidgetBase
 
             case 'clear':
                 foreach ($this->getScopes() as $scope) {
-                    $this->setScopeValue($scope, null);
+                    $value = null;
+
+                    switch ($scope->type) {
+                        case 'checkbox':
+                            $value = false;
+                            break;
+                        case 'switch':
+                            $value = '0';
+                            break;
+                    }
+
+                    $this->setScopeValue($scope, $value);
                 }
 
-                return ['.control-filter' => preg_replace('/^<[^>]+>|<\/[^>]+>$/', '', $this->render())];
+                $updateScopePartial = true;
         }
 
         /*
@@ -279,6 +291,11 @@ class Filter extends WidgetBase
         $params = func_get_args();
 
         $result = $this->fireEvent('filter.update', [$params]);
+
+        if ($updateScopePartial) {
+            $this->prepareVars();
+            $result[] = ['.control-filter' => $this->makePartial('filter_scopes')]; 
+        }
 
         if ($result && is_array($result)) {
             return call_user_func_array('array_merge', $result);
