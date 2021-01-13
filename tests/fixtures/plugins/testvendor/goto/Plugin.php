@@ -1,4 +1,4 @@
-<?php namespace TestVendor\Goto;
+<?php namespace TestVendor\_Goto;
 
 use System\Classes\PluginBase;
 
