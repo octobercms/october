@@ -37,7 +37,8 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.2",
+        "doctrine/dbal": "^2.12.*",
         "october/rain": "1.1.*",
         "october/system": "1.1.*",
         "october/backend": "1.1.*",
@@ -84,7 +85,7 @@
     "config": {
         "preferred-install": "dist",
         "platform": {
-            "php": "7.3"
+            "php": "7.2"
         }
     },
     "minimum-stability": "dev",
