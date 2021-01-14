@@ -13,9 +13,6 @@
         <testsuite name="October CMS Test Suite">
             <directory>./tests/unit</directory>
         </testsuite>
-        <testsuite name="October Rain Test Suite">
-            <directory>./vendor/october/rain/tests</directory>
-        </testsuite>
     </testsuites>
 
     <filter>
