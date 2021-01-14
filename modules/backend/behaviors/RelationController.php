@@ -843,6 +843,9 @@ class RelationController extends ControllerBehavior
             }
 
             $widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+            $widget->setSearchOptions([
+                'scope' => $this->getConfig('manage[searchScope]')
+            ]);
 
             /*
              * Apply defined constraints
