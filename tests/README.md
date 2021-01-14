@@ -1,6 +1,6 @@
 # Plugin testing
 
-Plugin unit tests can be performed by running `phpunit` in the base plugin directory.
+Individual plugin test cases can be run by running `../../../vendor/bin/phpunit` in the plugin's base directory (ex. `plugins/acme/demo`.
 
 ### Creating plugin tests
 
@@ -58,7 +58,7 @@ The test class should extend the base class `PluginTestCase` and this is a speci
 
     class BaseTestCase extends PluginTestCase
     {
-        public function setUp()
+        public function setUp(): void
         {
             parent::setUp();
 
@@ -72,7 +72,7 @@ The test class should extend the base class `PluginTestCase` and this is a speci
             $pluginManager->bootAll(true);
         }
 
-        public function tearDown()
+        public function tearDown(): void
         {
             parent::tearDown();
 
@@ -96,39 +96,10 @@ To perform unit testing on the core October files, you should download a develop
 
 ### Unit tests
 
-Unit tests can be performed by running `phpunit` in the root directory or inside `/tests/unit`.
+Unit tests can be performed by running `vendor/bin/phpunit` in the root directory of your October CMS installation.
 
 ### Functional tests
 
-Functional tests can be performed by running `phpunit` in the `/tests/functional` directory. Ensure the following configuration is met:
+Functional tests can be performed by installing the [RainLab Dusk](https://octobercms.com/plugin/rainlab-dusk) in your October CMS installation. The RainLab Dusk plugin is powered by Laravel Dusk, a comprehensive testing suite for the Laravel framework that is designed to test interactions with a fully operational October CMS instance through a virtual browser.
 
-- Active theme is `demo`
-- Language preference is `en`
-
-#### Selenium set up
-
-1. Download latest Java SE from http://java.sun.com/ and install
-1. Download a distribution archive of [Selenium Server](http://seleniumhq.org/download/).
-1. Unzip the distribution archive and copy selenium-server-standalone-2.42.2.jar (check the version suffix) to /usr/local/bin, for instance.
-1. Start the Selenium Server server by running `java -jar /usr/local/bin/selenium-server-standalone-2.42.2.jar`.
-
-#### Selenium configuration
-
-Create a new file `selenium.php` in the root directory, add the following content:
-
-    <?php
-
-    // Selenium server details
-    define('TEST_SELENIUM_HOST', '127.0.0.1');
-    define('TEST_SELENIUM_PORT', 4444);
-    define('TEST_SELENIUM_BROWSER', '*firefox');
-
-    // Back-end URL
-    define('TEST_SELENIUM_URL', 'http://localhost/backend/');
-
-    // Active Theme
-    define('TEST_SELENIUM_THEME', 'demo');
-
-    // Back-end credentials
-    define('TEST_SELENIUM_USER', 'admin');
-    define('TEST_SELENIUM_PASS', 'admin');
+For information on installing and setting up your October CMS install to run functional tests, please review the [README](https://github.com/rainlab/dusk-plugin/blob/master/README.md) for the plugin.

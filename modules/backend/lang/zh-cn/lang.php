@@ -402,7 +402,7 @@ return [
         'remove_tags' => '移除标签',
         'remove_tags_comment' => '所列标签将与其包裹的内容一起删除.',
         'toolbar_buttons' => '工具栏按钮',
-        'toolbar_buttons_comment' => '默认在富文本编辑器中显示的工具栏按钮。例如： [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => '默认在富文本编辑器中显示的工具栏按钮。例如：'
     ],
     'tooltips' => [
         'preview_website' => '预览网站'

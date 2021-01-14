@@ -127,13 +127,13 @@ class Relation extends FormWidgetBase
                 $query->where($relationModel->getKeyName(), '<>', $model->getKey());
             }
 
-            if ($scopeMethod = $this->scope) {
-                $query->$scopeMethod($model);
-            }
-
             // Even though "no constraints" is applied, belongsToMany constrains the query
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
+
+            if ($scopeMethod = $this->scope) {
+                $query->$scopeMethod($model);
+            }
 
             // Determine if the model uses a tree trait
             $treeTraits = ['October\Rain\Database\Traits\NestedTree', 'October\Rain\Database\Traits\SimpleTree'];

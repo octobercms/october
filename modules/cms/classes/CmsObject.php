@@ -4,11 +4,12 @@ use App;
 use Lang;
 use Event;
 use Config;
-use October\Rain\Halcyon\Model as HalcyonModel;
-use Cms\Contracts\CmsObject as CmsObjectContract;
-use ApplicationException;
-use ValidationException;
 use Exception;
+use ValidationException;
+use ApplicationException;
+use Cms\Contracts\CmsObject as CmsObjectContract;
+use October\Rain\Filesystem\PathResolver;
+use October\Rain\Halcyon\Model as HalcyonModel;
 
 /**
  * This is a base class for all CMS objects - content files, pages, partials and layouts.
@@ -35,6 +36,13 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
      * @var array The array of custom error messages.
      */
     public $customMessages = [];
+
+    /**
+     * @var int The maximum allowed path nesting level. The default value is 2,
+     * meaning that files can only exist in the root directory, or in a
+     * subdirectory. Set to null if any level is allowed.
+     */
+    protected $maxNesting = null;
 
     /**
      * @var array The attributes that are mass assignable.
@@ -227,7 +235,15 @@ class CmsObject extends HalcyonModel implements CmsObjectContract
             $fileName = $this->fileName;
         }
 
-        return $this->theme->getPath().'/'.$this->getObjectTypeDirName().'/'.$fileName;
+        $directory = $this->theme->getPath() . '/' . $this->getObjectTypeDirName() . '/';
+        $filePath = $directory . $fileName;
+
+        // Limit paths to those under the corresponding theme directory
+        if (!PathResolver::within($filePath, $directory)) {
+            return false;
+        }
+
+        return PathResolver::resolve($filePath);
     }
 
     /**

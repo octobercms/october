@@ -57,7 +57,7 @@ class Preferences extends Controller
      */
     public function formExtendFields($form)
     {
-        if (!$this->user->hasAccess('backend.manage_editor')) {
+        if (!$this->user->hasAccess('backend.manage_own_editor')) {
             $form->removeTab('backend::lang.backend_preferences.code_editor');
         }
     }

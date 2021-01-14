@@ -59,7 +59,7 @@ class Theme
     {
         $theme = new static;
         $theme->setDirName($dirName);
-        $theme->registerHalyconDatasource();
+        $theme->registerHalcyonDatasource();
 
         return $theme;
     }
@@ -158,7 +158,8 @@ class Theme
         if ($checkDatabase && App::hasDatabase()) {
             try {
                 try {
-                    $dbResult = Cache::remember(self::ACTIVE_KEY, 1440, function () {
+                    $expiresAt = now()->addMinutes(1440);
+                    $dbResult = Cache::remember(self::ACTIVE_KEY, $expiresAt, function () {
                         return Parameter::applyKey(self::ACTIVE_KEY)->value('value');
                     });
                 }
@@ -546,7 +547,7 @@ class Theme
      * Ensures this theme is registered as a Halcyon datasource.
      * @return void
      */
-    public function registerHalyconDatasource()
+    public function registerHalcyonDatasource()
     {
         $resolver = App::make('halcyon');
 

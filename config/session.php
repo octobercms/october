@@ -169,17 +169,31 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option determines how your cookies behave when cross-site requests
-    | take place, and can be used to mitigate CSRF attacks. By default, we
-    | do not enable this as other CSRF protection services are in place.
+    | take place and can be used to mitigate CSRF attacks.
     |
-    | In the strict mode, the cookie is not sent with any cross-site usage
-    | even if the user follows a link to another website. Lax cookies are
-    | only sent with a top-level get request.
+    | Cookies that match the domain of the current site, i.e. what's displayed
+    | in the browser's address bar, are referred to as first-party cookies.
+    | Similarly, cookies from domains other than the current site are referred
+    | to as third-party cookies.
     |
-    | Supported: "lax", "strict"
+    | Cookies without a SameSite attribute will be treated as `SameSite=Lax`,
+    | meaning the default behaviour will be to restrict cookies to first party
+    | contexts only.
+    |
+    | Cookies for cross-site usage must specify `same_site` as 'None' and `secure`
+    | as `true` to work correctly.
+    |
+    | Lax - Cookies are allowed to be sent with top-level navigations and will
+    | be sent along with GET request initiated by third party website.
+    | This is the default value in modern browsers.
+    |
+    | Strict - Cookies will only be sent in a first-party context and not be
+    | sent along with requests initiated by third party websites.
+    |
+    | Supported: "Lax", "Strict" and "None"
     |
     */
 
-    'same_site' => null,
+    'same_site' => 'Lax',
 
 ];

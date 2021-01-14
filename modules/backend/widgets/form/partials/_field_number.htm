@@ -1,6 +1,6 @@
 <!-- Number -->
 <?php if ($this->previewMode): ?>
-    <span class="form-control"><?= $field->value ? e($field->value) : '&nbsp;' ?></span>
+    <span class="form-control"><?= isset($field->value) ? e($field->value) : '&nbsp;' ?></span>
 <?php else: ?>
     <?php
         $min = isset($field->config['min']) ? $field->config['min'] : false;

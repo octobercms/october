@@ -15,9 +15,9 @@ use Exception;
 class Loader implements TwigLoaderInterface
 {
     /**
-     * @var string Expected file extension
+     * @var bool Allow any local file
      */
-    protected $extension = 'htm';
+    public static $allowInclude = false;
 
     /**
      * @var array Cache
@@ -37,16 +37,11 @@ class Loader implements TwigLoaderInterface
             return $this->cache[$name];
         }
 
-        if (File::isFile($name)) {
+        if (static::$allowInclude === true && File::isFile($name)) {
             return $this->cache[$name] = $name;
         }
 
-        $view = $name;
-        if (File::extension($view) === $this->extension) {
-            $view = substr($view, 0, -strlen($this->extension));
-        }
-
-        $path = $finder->find($view);
+        $path = $finder->find($name);
         return $this->cache[$name] = $path;
     }
 

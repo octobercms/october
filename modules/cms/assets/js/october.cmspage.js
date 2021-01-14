@@ -436,7 +436,7 @@
          */
         var editor = $('[data-control=codeeditor]', pane)
         if (editor.length) {
-            var alias = $('input[name="component_aliases[]"]', component).val(),
+            var alias = $('input[name="component_aliases[]"]', component).val().replace(/^@/, ''),
                 codeEditor = editor.codeEditor('getEditorObject')
 
             codeEditor.replace('', {

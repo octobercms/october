@@ -11,7 +11,7 @@ Thank you for your interest in contributing to the OctoberCMS project. We apprec
 
 ## Reporting a Security Vulnerability
 
-Please review [our security policy](https://github.com/octobercms/october/security/policy) on how to report security vulnerabilities.
+Please review [our security policy](https://github.com/octobercms/october/security/policy) on how to report security vulnerabilities. Please do not report security vulnerabilities on GitHub.
 
 ## Reporting an issue with OctoberCMS
 
@@ -20,6 +20,8 @@ Please review [our security policy](https://github.com/octobercms/october/securi
 We work hard to process bugs that are reported, to assist with this please ensure the following details are always included:
 
 - **Summary**: Make sure your summary reflects what the problem is and where it is. Provide as much detail as possible, the more information we have to work with the more likely it is that your problem can be solved.
+
+- **Installed build and plugins**: Please provide the build number of October CMS that is exhibiting the fault, and the version numbers of any installed and active plugins on your installation. You may retrieve this information by logging in to the Backend and navigating to *Settings* and then *Updates & Plugins*.
 
 - **Reproduce steps**: Clearly mention the steps to reproduce the bug.
 
@@ -61,7 +63,7 @@ We do our best to attend to all reported issues. If you have an important issue 
 
 >**NOTE:** Please don't use GitHub issues for suggesting a new feature. If you have a feature idea, the best place to suggest it is the [OctoberCMS website forum](https://octobercms.com/forum/chan/feature-requests).
 
-Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [IRC](https://octobercms.com/chat) or [Slack](https://octobercms.slack.com).
+Only use GitHub if you are planning on contributing a new feature and developing it. If you want to discuss your idea first, before "officially" posting it anywhere, you can always join us on [Discord](https://discord.gg/gEKgwSZ).
 
 #### GitHub feature requests
 
@@ -77,7 +79,7 @@ To help us merge your Pull Request, please make sure you follow these points:
 
 - Describe the problem clearly in the Pull Request description
 - Please make your fix on the `develop` branch. This makes merging much easier.
-- Do not edit compiled asset files such as `october.css`, `framework.css`, etc. directly. Instead, edit the LESS files inside the `less/` directory and then run `php artisan october:util compile assets` from the project root and commit the changed LESS files as well as the recompiled asset files.
+- Do not edit compiled core asset files such as `october.css`, `storm.js`, `framework.css`, `framework.combined.js`, `framework-min.js`, etc. directly. Instead, edit the relevant source / non-minified / non-combined LESS / JS files. For third-party vendor files, you should update both the **.min** and **non-min** versions. Afterwards, run `php artisan october:util compile assets` from the project root to compile all the source asset files; and then commit the changes. For a list of options available for the `compile assets` command, see https://octobercms.com/docs/console/commands#october-util-command
 - For any change that you make, **please also add a test case(s)** in the `tests/unit` directory. This helps us understand the issue and make sure that it will stay fixed forever.
 
 Thank you for your contributions!

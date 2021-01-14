@@ -715,13 +715,10 @@
             clickable: this.$el.find('[data-control="upload"]').get(0),
             url: this.options.url,
             paramName: 'file_data',
+            timeout: 0,
             headers: {},
             createImageThumbnails: false
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
-        }
-
-        if (this.options.uniqueId) {
-            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId
         }
 
         /*
@@ -799,6 +796,7 @@
 
     MediaManager.prototype.uploadSending = function(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val())
+        xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', this.options.uploadHandler)
     }
 
     MediaManager.prototype.uploadCancelAll = function() {
@@ -822,6 +820,9 @@
     MediaManager.prototype.uploadError = function(file, message) {
         this.updateUploadBar('error', 'progress-bar progress-bar-danger');
 
+        if (file.xhr.status === 413) {
+            message = 'Server rejected the file because it was too large, try increasing post_max_size';
+        }
         if (!message) {
             message = 'Error uploading file'
         }
@@ -1283,8 +1284,8 @@
 
     MediaManager.DEFAULTS = {
         url: window.location,
+        uploadHandler: null,
         alias: '',
-        uniqueId: null,
         deleteEmpty: 'Please select files to delete.',
         deleteConfirm: 'Delete the selected file(s)?',
         moveEmpty: 'Please select files to move.',

@@ -145,4 +145,32 @@ class MailSetting extends Model
             'ssl' => 'system::lang.mail.smtp_encryption_ssl',
         ];
     }
+
+    /**
+     * Filter fields callback.
+     *
+     * We use this to automatically set the SMTP port to the encryption type's corresponding port, if it was originally
+     * using a default port.
+     *
+     * @param array $fields
+     * @param string|null $context
+     * @return void
+     */
+    public function filterFields($fields, $context = null)
+    {
+        if (in_array($fields->smtp_port->value ?? 25, [25, 465, 587])) {
+            switch ($fields->smtp_encryption->value ?? '') {
+                case 'tls':
+                    $fields->smtp_port->value = 587;
+                    break;
+                case 'ssl':
+                    $fields->smtp_port->value = 465;
+                    break;
+                case '':
+                default:
+                    $fields->smtp_port->value = 25;
+                    break;
+            }
+        }
+    }
 }

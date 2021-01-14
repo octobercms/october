@@ -35,7 +35,8 @@
         sortableContainer: 'ul.field-repeater-items',
         titleFrom: null,
         minItems: null,
-        maxItems: null
+        maxItems: null,
+        style: 'default',
     }
 
     Repeater.prototype.init = function() {
@@ -49,6 +50,7 @@
         this.$el.one('dispose-control', this.proxy(this.dispose))
 
         this.togglePrompt()
+        this.applyStyle()
     }
 
     Repeater.prototype.dispose = function() {
@@ -116,8 +118,10 @@
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
+        var $target = $(ev.target)
+
         // Allow any widgets inside a deleted item to be disposed
-        $(ev.target).closest('.field-repeater-item').find('[data-disposable]').each(function () {
+        $target.closest('.field-repeater-item').find('[data-disposable]').each(function () {
             var $elem = $(this),
                 control = $elem.data('control'),
                 widget = $elem.data('oc.' + control)
@@ -127,12 +131,14 @@
             }
         })
 
-        $(ev.target).closest('.field-repeater-item').remove()
+        $target.closest('[data-field-name]').trigger('change.oc.formwidget')
+        $target.closest('.field-repeater-item').remove()
         this.togglePrompt()
     }
 
     Repeater.prototype.onAddItemSuccess = function(ev) {
         this.togglePrompt()
+        $(ev.target).closest('[data-field-name]').trigger('change.oc.formwidget')
     }
 
     Repeater.prototype.togglePrompt = function () {
@@ -157,6 +163,13 @@
 
         ev.preventDefault()
 
+        if (this.getStyle() === 'accordion') {
+            if (isCollapsed) {
+                this.expand($item)
+            }
+            return
+        }
+
         if (ev.ctrlKey || ev.metaKey) {
             isCollapsed ? this.expandAll() : this.collapseAll()
         }
@@ -167,7 +180,7 @@
 
     Repeater.prototype.collapseAll = function() {
         var self = this,
-            items = $('.field-repeater-item', this.$el)
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
 
         $.each(items, function(key, item){
             self.collapse($(item))
@@ -176,7 +189,7 @@
 
     Repeater.prototype.expandAll = function() {
         var self = this,
-            items = $('.field-repeater-item', this.$el)
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
 
         $.each(items, function(key, item){
             self.expand($(item))
@@ -189,6 +202,9 @@
     }
 
     Repeater.prototype.expand = function($item) {
+        if (this.getStyle() === 'accordion') {
+            this.collapseAll()
+        }
         $item.removeClass('collapsed')
     }
 
@@ -227,6 +243,36 @@
         }
 
         return defaultText
+    }
+
+    Repeater.prototype.getStyle = function() {
+        var style = 'default';
+
+        // Validate style
+        if (this.options.style && ['collapsed', 'accordion'].indexOf(this.options.style) !== -1) {
+            style = this.options.style
+        }
+
+        return style;
+    }
+
+    Repeater.prototype.applyStyle = function() {
+        var style = this.getStyle(),
+            self = this,
+            items = $(this.$el).children('.field-repeater-items').children('.field-repeater-item')
+
+        $.each(items, function(key, item) {
+            switch (style) {
+                case 'collapsed':
+                    self.collapse($(item))
+                    break
+                case 'accordion':
+                    if (key !== 0) {
+                        self.collapse($(item))
+                    }
+                    break
+            }
+        })
     }
 
     // FIELD REPEATER PLUGIN DEFINITION

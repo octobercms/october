@@ -11,6 +11,7 @@ use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
+use League\Csv\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 use Exception;
@@ -619,9 +620,11 @@ class ImportExportController extends ControllerBehavior
          * Prepare CSV
          */
         $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
         $csv->setDelimiter($options['delimiter']);
         $csv->setEnclosure($options['enclosure']);
         $csv->setEscape($options['escape']);
+        $csv->addFormatter(new CsvEscapeFormula());
 
         /*
          * Add headers
@@ -656,6 +659,7 @@ class ImportExportController extends ControllerBehavior
                 }
                 $record[] = $value;
             }
+
             $csv->insertOne($record);
         }
 
@@ -799,9 +803,9 @@ class ImportExportController extends ControllerBehavior
 
         if (
             $options['encoding'] !== null &&
-            $reader->isActiveStreamFilter()
+            $reader->supportsStreamFilter()
         ) {
-            $reader->appendStreamFilter(sprintf(
+            $reader->addStreamFilter(sprintf(
                 '%s%s:%s',
                 TranscodeFilter::FILTER_NAME,
                 strtolower($options['encoding']),
