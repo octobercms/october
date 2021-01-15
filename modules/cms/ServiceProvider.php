@@ -313,7 +313,8 @@ class ServiceProvider extends ModuleServiceProvider
         foreach (CmsTheme::all() as $theme) {
             $langPath = $theme->getPath() . '/lang';
             if (File::isDirectory($langPath)) {
-                Lang::addNamespace('themes.' . $theme->getId(), $langPath);
+                $config = $theme->getConfig();
+                Lang::addNamespace('themes.' . array_get($config, 'code'), $langPath);
             }
         }
     }
