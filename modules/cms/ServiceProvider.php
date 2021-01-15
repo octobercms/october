@@ -310,16 +310,11 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function bootBackendLocalization()
     {
-        $theme = CmsTheme::getActiveTheme();
-
-        if (is_null($theme)) {
-            return;
-        }
-
-        $langPath = $theme->getPath() . '/lang';
-
-        if (File::isDirectory($langPath)) {
-            Lang::addNamespace('themes.' . $theme->getId(), $langPath);
+        foreach (CmsTheme::all() as $theme) {
+            $langPath = $theme->getPath() . '/lang';
+            if (File::isDirectory($langPath)) {
+                Lang::addNamespace('themes.' . $theme->getId(), $langPath);
+            }
         }
     }
 
