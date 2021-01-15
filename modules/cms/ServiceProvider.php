@@ -314,7 +314,9 @@ class ServiceProvider extends ModuleServiceProvider
             $langPath = $theme->getPath() . '/lang';
             if (File::isDirectory($langPath)) {
                 $config = $theme->getConfig();
-                Lang::addNamespace('themes.' . array_get($config, 'code'), $langPath);
+                if ($code = array_get($config, 'code')) {
+                    Lang::addNamespace('themes.' . $code, $langPath);
+                }
             }
         }
     }
