@@ -294,7 +294,7 @@ class Filter extends WidgetBase
 
         if ($updateScopePartial) {
             $this->prepareVars();
-            $result[] = ['.control-filter' => $this->makePartial('filter_scopes')]; 
+            $result[] = ['.control-filter' => $this->makePartial('filter_scopes')];
         }
 
         if ($result && is_array($result)) {
