@@ -267,10 +267,10 @@ class Filter extends WidgetBase
                 break;
 
             case 'clear':
-                foreach ($this->getScopes() as $scope) {
+                foreach ($this->getScopes() as $s) {
                     $value = null;
 
-                    switch ($scope->type) {
+                    switch ($s->type) {
                         case 'checkbox':
                             $value = false;
                             break;
@@ -279,7 +279,7 @@ class Filter extends WidgetBase
                             break;
                     }
 
-                    $this->setScopeValue($scope, $value);
+                    $this->setScopeValue($s, $value);
                 }
 
                 $updateScopePartial = true;
