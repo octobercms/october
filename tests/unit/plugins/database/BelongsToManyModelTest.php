@@ -1,5 +1,7 @@
 <?php
 
+use Database\Tester\Models\Category;
+use Database\Tester\Models\Post as PostModel;
 use Database\Tester\Models\Role;
 use Database\Tester\Models\Author;
 
@@ -11,6 +13,8 @@ class BelongsToManyModelTest extends PluginTestCase
 
         include_once base_path().'/tests/fixtures/plugins/database/tester/models/Role.php';
         include_once base_path().'/tests/fixtures/plugins/database/tester/models/Author.php';
+        include_once base_path().'/tests/fixtures/plugins/database/tester/models/Category.php';
+        include_once base_path().'/tests/fixtures/plugins/database/tester/models/Post.php';
 
         $this->runPluginRefreshCommand('Database.Tester');
     }
@@ -86,29 +90,57 @@ class BelongsToManyModelTest extends PluginTestCase
         $author = Author::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
         $role1 = Role::create(['name' => "Designer", 'description' => "Quality"]);
         $role2 = Role::create(['name' => "Programmer", 'description' => "Speed"]);
+
+        $category = Category::create(['name' => 'News']);
+        $post1 = PostModel::create(['title' => 'First post']);
+        $post2 = PostModel::create(['title' => 'Second post']);
         Model::reguard();
 
         // Deferred add
         $author->roles()->add($role1, $sessionKey);
         $author->roles()->add($role2, $sessionKey);
+        $category->posts()->add($post1, $sessionKey, [
+            'category_name' => $category->name . ' in pivot',
+            'post_name' => $post1->title . ' in pivot',
+        ]);
+        $category->posts()->add($post2, $sessionKey, [
+            'category_name' => $category->name . ' in pivot',
+            'post_name' => $post2->title . ' in pivot',
+        ]);
         $this->assertEmpty($author->roles);
+        $this->assertEmpty($category->posts);
 
         $this->assertEquals(0, $author->roles()->count());
         $this->assertEquals(2, $author->roles()->withDeferred($sessionKey)->count());
+        $this->assertEquals(0, $category->posts()->count());
+        $this->assertEquals(2, $category->posts()->withDeferred($sessionKey)->count());
 
         // Get simple value (implicit)
         $author->reloadRelations();
         $author->sessionKey = $sessionKey;
         $this->assertEquals([$role1->id, $role2->id], $author->getRelationValue('roles'));
+        $category->reloadRelations();
+        $category->sessionKey = $sessionKey;
+        $this->assertEquals([$post1->id, $post2->id], $category->getRelationValue('posts'));
 
         // Get simple value (explicit)
         $relatedIds = $author->roles()->allRelatedIds($sessionKey)->all();
         $this->assertEquals([$role1->id, $role2->id], $relatedIds);
+        $relatedIds = $category->posts()->allRelatedIds($sessionKey)->all();
+        $this->assertEquals([$post1->id, $post2->id], $relatedIds);
 
         // Commit deferred
         $author->save(null, $sessionKey);
+        $category->save(null, $sessionKey);
         $this->assertEquals(2, $author->roles()->count());
         $this->assertEquals('Designer', $author->roles->first()->name);
+        $this->assertEquals(2, $category->posts()->count());
+        $this->assertEquals('First post', $category->posts->first()->title);
+        $this->assertEquals('Second post', $category->posts->last()->title);
+        $this->assertEquals('First post in pivot', $category->posts->first()->pivot->post_name);
+        $this->assertEquals('Second post in pivot', $category->posts->last()->pivot->post_name);
+        $this->assertEquals('News in pivot', $category->posts->first()->pivot->category_name);
+        $this->assertEquals('News in pivot', $category->posts->last()->pivot->category_name);
 
         // New session
         $sessionKey = uniqid('session_key', true);
@@ -116,14 +148,27 @@ class BelongsToManyModelTest extends PluginTestCase
         // Deferred remove
         $author->roles()->remove($role1, $sessionKey);
         $author->roles()->remove($role2, $sessionKey);
+        $category->posts()->remove($post1, $sessionKey);
+        $category->posts()->remove($post2, $sessionKey);
         $this->assertEquals(2, $author->roles()->count());
         $this->assertEquals(0, $author->roles()->withDeferred($sessionKey)->count());
+        $this->assertEquals(2, $category->posts()->count());
+        $this->assertEquals(0, $category->posts()->withDeferred($sessionKey)->count());
         $this->assertEquals('Designer', $author->roles->first()->name);
+        $this->assertEquals('First post', $category->posts->first()->title);
+        $this->assertEquals('Second post', $category->posts->last()->title);
+        $this->assertEquals('First post in pivot', $category->posts->first()->pivot->post_name);
+        $this->assertEquals('Second post in pivot', $category->posts->last()->pivot->post_name);
+        $this->assertEquals('News in pivot', $category->posts->first()->pivot->category_name);
+        $this->assertEquals('News in pivot', $category->posts->last()->pivot->category_name);
 
         // Commit deferred
         $author->save(null, $sessionKey);
+        $category->save(null, $sessionKey);
         $this->assertEquals(0, $author->roles()->count());
         $this->assertEquals(0, $author->roles->count());
+        $this->assertEquals(0, $category->posts()->count());
+        $this->assertEquals(0, $category->posts->count());
     }
 
     public function testDetachAfterDelete()

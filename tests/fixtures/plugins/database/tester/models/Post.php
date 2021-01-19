@@ -26,6 +26,14 @@ class Post extends Model
         'author' => 'Database\Tester\Models\Author',
     ];
 
+    public $belongsToMany = [
+        'categories' => [
+            'Database\Tester\Models\Category',
+            'table' => 'database_tester_categories_posts',
+            'pivot' => ['category_name', 'post_name']
+        ]
+    ];
+
     public $morphMany = [
         'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
     ];
