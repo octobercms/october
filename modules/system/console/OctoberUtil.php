@@ -339,7 +339,13 @@ class OctoberUtil extends Command
             return;
         }
 
-        // @todo
+        $orphanedFiles = FileModel::whereNull('attachment_id')->delete();
+
+        if ($orphanedFiles > 0) {
+            $this->comment(sprintf('Successfully deleted %d invalid file(s)', $orphanedFiles));
+        } else {
+            $this->comment('No files found to purge.');
+        }
     }
 
     /**
