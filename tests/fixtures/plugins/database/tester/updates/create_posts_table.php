@@ -28,8 +28,8 @@ class CreatePostsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('post_id')->unsigned();
             $table->primary(['category_id', 'post_id']);
-            $table->string('category_name');
-            $table->string('post_name');
+            $table->string('category_name')->nullable();
+            $table->string('post_name')->nullable();
         });
     }
 
