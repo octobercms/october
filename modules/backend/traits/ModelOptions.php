@@ -40,7 +40,7 @@ trait ModelOptions
         }
 
         $fieldName = $this->resolveFieldName($field);
-        $fieldValue = $this->resolveFieldValue($field);
+        $fieldValue = $this->resolveFieldValue($model, $field);
 
         /*
         * Field options are an explicit method reference
@@ -141,14 +141,31 @@ trait ModelOptions
     /**
      * Returns the field's value based on the type of field in use.
      *
+     * @param \October\Rain\Halcyon\Model|\October\Rain\Database\Model $model The model in use in the form or list.
      * @param \Backend\Classes\FormField|\Backend\Classes\ListColumn $field
      * @return string|null
      */
-    protected function resolveFieldValue($field)
+    protected function resolveFieldValue($model, $field)
     {
-        return ($field instanceof \Backend\Classes\FormField)
-            ? $field->value
-            : null;
+        if ($field instanceof \Backend\Classes\FormField) {
+            return $field->value;
+        }
+
+        $fieldName = $this->resolveFieldName($field);
+        try {
+            list($model, $attribute) = $this->resolveModelAttribute($model, $fieldName);
+            if (!$model) {
+                throw new Exception();
+            }
+        }
+        catch (Exception $e) {
+            throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
+                'model' => get_class($model),
+                'field' => $fieldName
+            ]));
+        }
+
+        return $model->{$attribute};
     }
 
     /**
