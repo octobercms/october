@@ -99,6 +99,7 @@ class OctoberUtil extends Command
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
             ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
             ['projectId', null, InputOption::VALUE_REQUIRED, 'Specify a projectId for set project'],
+            ['missing-files', null, InputOption::VALUE_NONE, 'Purge system_files records for missing storage files'],
         ];
     }
 
@@ -338,6 +339,9 @@ class OctoberUtil extends Command
         if (!$this->confirmToProceed('This will PERMANENTLY DELETE files in "system_files" that do not belong to any other model.')) {
             return;
         }
+
+        $purgeMissingFiles = $this->option('missing-files') ?: false;
+        // todo: purge when file missing from storage
 
         $orphanedFiles = FileModel::whereNull('attachment_id')->orWhereNull('attachment_type')->delete();
 
