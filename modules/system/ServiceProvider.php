@@ -104,6 +104,21 @@ class ServiceProvider extends ModuleServiceProvider
             Config::set('session.same_site', 'Lax');
         }
 
+        /*
+         * Set a default cookie prefix
+         * Spec https://tools.ietf.org/html/draft-ietf-httpbis-cookie-prefixes-00#section-3
+         */
+        if ((!preg_match('/^__/', Config::get('session.cookie'))) && (Config::get('session.secure') == true) && ($request->secure())) {
+            // Set the host prefix
+            if ((strtolower(Config::get('session.cookie_prefix')) === 'host') && (Config::get('session.path') === '/')) {
+                Config::set('session.cookie_prefix', '__Host-'.Config::get('session.cookie_prefix'));
+          
+            // Set the secure prefix to everything else as the default  
+            } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
+                Config::set('session.cookie_prefix', '__Secure-'.Config::get('session.cookie_prefix'));
+            }
+        }
+
         Paginator::useBootstrapThree();
         Paginator::defaultSimpleView('system::pagination.simple-default');
 
