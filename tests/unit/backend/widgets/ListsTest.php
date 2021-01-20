@@ -1,6 +1,7 @@
 <?php
 
 use Backend\Models\User;
+use Backend\Models\UserRole;
 use Backend\Widgets\Lists;
 use October\Rain\Exception\ApplicationException;
 use October\Tests\Fixtures\Backend\Models\UserFixture;
@@ -117,10 +118,30 @@ class ListsTest extends PluginTestCase
         $this->assertNotNull($list->getColumn('email'));
     }
 
+    public function testSelectableColumnType()
+    {
+        $user = new UserFixture;
+        $this->actingAs($user->asSuperUser());
+        $developerRole = UserRole::where('name', 'Developer')->first();
+        $user->role()->associate($developerRole);
+
+        $list = $this->restrictedListsFixture(true);
+        $list->render();
+
+        $selectableColumn = $list->getColumn('role_id');
+
+        // Test if the type is set to selectable
+        $this->assertEquals($selectableColumn->type, 'selectable');
+
+        // Test if the value is processed correctly
+        $this->assertEquals($list->getColumnValueRaw($user, $selectableColumn), $developerRole->id);
+        $this->assertEquals($list->getColumnValue($user, $selectableColumn), 'Developer');
+    }
+
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [
-            'model' => new User,
+            'model' => new UserFixture,
             'arrayName' => 'array',
             'columns' => [
                 'id' => [
@@ -133,6 +154,11 @@ class ListsTest extends PluginTestCase
                     'permissions' => ($singlePermission) ? 'test.access_field' : [
                         'test.access_field'
                     ]
+                ],
+                'role_id' => [
+                    'type' => 'selectable',
+                    'label' => 'Role',
+                    'options' => UserRole::all()->pluck('name', 'id')
                 ]
             ]
         ]);
