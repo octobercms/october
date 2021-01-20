@@ -112,7 +112,7 @@ class ServiceProvider extends ModuleServiceProvider
             // Set the host prefix
             if ((strtolower(Config::get('session.cookie_prefix')) === 'host') && (Config::get('session.path') === '/')) {
                 Config::set('session.cookie', '__Host-'.Config::get('session.cookie'));
-          
+
             // Set the secure prefix to everything else as the default
             } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
                 Config::set('session.cookie', '__Secure-'.Config::get('session.cookie'));
