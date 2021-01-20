@@ -111,7 +111,6 @@ return [
 
     'cookie' => 'october_session',
 
-
     /*
     |--------------------------------------------------------------------------
     | Session Cookie Prefix
@@ -142,7 +141,7 @@ return [
     |
     | Supported: "secure", "host" and "none"
     |
-    | Secure - Requires `https`, cookie `session.secure` set to `true` and 
+    | Secure - Requires `https`, cookie `session.secure` set to `true` and
     | can be used with subdomains. This is the `default` setting.
     |
     | Host - Requires `https`, cookie `session.secure` set to `true`, can't
@@ -153,7 +152,6 @@ return [
     */
 
     'cookie_prefix' => 'secure',
-
 
     /*
     |--------------------------------------------------------------------------
