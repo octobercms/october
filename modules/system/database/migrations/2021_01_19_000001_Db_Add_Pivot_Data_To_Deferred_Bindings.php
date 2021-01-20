@@ -9,7 +9,7 @@ class DbAddPivotDataToDeferredBindings extends Migration
     public function up()
     {
         Schema::table('deferred_bindings', function (Blueprint $table) {
-            $table->text('pivot_data')->nullable()->after('slave_id');
+            $table->mediumText('pivot_data')->nullable()->after('slave_id');
         });
     }
 

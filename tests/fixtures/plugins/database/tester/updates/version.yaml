@@ -10,3 +10,4 @@
     - create_event_log_table.php
     - create_meta_table.php
     - create_countries_table.php
+    - create_tags_table.php
