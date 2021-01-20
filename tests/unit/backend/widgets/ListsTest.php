@@ -158,7 +158,7 @@ class ListsTest extends PluginTestCase
                 'role_id' => [
                     'type' => 'selectable',
                     'label' => 'Role',
-                    'options' => UserRole::all()->pluck('name', 'id')
+                    'options' => UserRole::all()->pluck('name', 'id')->toArray()
                 ]
             ]
         ]);

@@ -2,6 +2,7 @@
 
 use Lang;
 use ApplicationException;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * Model Options Trait
@@ -13,65 +14,43 @@ trait ModelOptions
     /**
      * Looks at the model for defined options.
      *
-     * @param $field
-     * @param $fieldOptions
-     * @return mixed
+     * @param \October\Rain\Halcyon\Model|\October\Rain\Database\Model $model The model in use in the form or list.
+     * @param \Backend\Classes\FormField|\Backend\Classes\ListColumn $field The field configuration.
+     * @param array $options The options as specified in the field configuration.
+     * @param array $formData The form data.
+     * @return array
      */
-    protected function getOptionsFromModel($field, $fieldOptions)
+    protected function getOptionsFromModel($model, $field, $options = [], $formData = [])
     {
         /*
          * Advanced usage, supplied options are callable
          * [\Path\To\Class, methodName]
          */
-        if (is_array($fieldOptions) && is_callable($fieldOptions)) {
-            $fieldOptions = call_user_func($fieldOptions, $this, $field);
-        }
+        if (is_array($options) && is_callable($options)) {
+            $options = call_user_func($options, $this, $field);
 
-        /*
-         * Refer to the model method or any of its behaviors
-         */
-        if (!is_array($fieldOptions) && !$fieldOptions) {
-            try {
-                list($model, $attribute) = $field->resolveModelAttribute($this->model, $field->fieldName);
-                if (!$model) {
-                    throw new Exception();
-                }
-            }
-            catch (Exception $ex) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
-                    'model' => get_class($this->model),
-                    'field' => $field->fieldName
+            if (!is_array($options)) {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_value', [
+                    'class' => $options[0],
+                    'method' => $options[1]
                 ]));
             }
 
-            $methodName = 'get'.studly_case($attribute).'Options';
-            if (
-                !$this->objectMethodExists($model, $methodName) &&
-                !$this->objectMethodExists($model, 'getDropdownOptions')
-            ) {
-                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($model),
-                    'method' => $methodName,
-                    'field'  => $field->fieldName
-                ]));
-            }
-
-            if ($this->objectMethodExists($model, $methodName)) {
-                $fieldOptions = $model->$methodName($field->value, $this->data);
-            }
-            else {
-                $fieldOptions = $model->getDropdownOptions($attribute, $field->value, $this->data);
-            }
+            return $options;
         }
+
+        $fieldName = $this->resolveFieldName($field);
+        $fieldValue = $this->resolveFieldValue($field);
+
         /*
-         * Field options are an explicit method reference
-         */
-        elseif (is_string($fieldOptions)) {
+        * Field options are an explicit method reference
+        */
+        if (is_string($options)) {
             // \Path\To\Class::staticMethodOptions
-            if (str_contains($fieldOptions, '::')) {
-                $options = explode('::', $fieldOptions);
+            if (str_contains($options, '::')) {
+                $options = explode('::', $options);
                 if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
-                    $result = $options[0]::{$options[1]}($this, $field);
+                    $result = $options[0]::{$options[1]}($fieldName, $fieldValue, $formData);
                     if (!is_array($result)) {
                         throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
                             'class' => $options[0],
@@ -82,19 +61,52 @@ trait ModelOptions
                 }
             }
 
-            // $model->{$fieldOptions}()
-            if (!$this->objectMethodExists($this->model, $fieldOptions)) {
+            // $model->{$options}()
+            if (!$this->objectMethodExists($model, $options)) {
                 throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
-                    'model'  => get_class($this->model),
-                    'method' => $fieldOptions,
-                    'field'  => $field->fieldName
+                    'model'  => get_class($model),
+                    'method' => $options,
+                    'field'  => $fieldName
                 ]));
             }
 
-            $fieldOptions = $this->model->$fieldOptions($field->value, $field->fieldName, $this->data);
+            $options = $this->model->$options($fieldName, $fieldValue, $formData);
+        }
+        /*
+         * Refer to the model method or any of its behaviors
+         */
+        elseif (!is_array($options) || !count($options)) {
+            try {
+                list($relatedModel, $attribute) = $this->resolveModelAttribute($model, $fieldName);
+                if (!$relatedModel) {
+                    throw new Exception();
+                }
+            }
+            catch (Exception $e) {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_invalid_model', [
+                    'model' => get_class($model),
+                    'field' => $fieldName
+                ]));
+            }
+
+            $model = $relatedModel;
+
+            $methodName = 'get' . studly_case($attribute) . 'Options';
+
+            if ($this->objectMethodExists($model, $methodName)) {
+                $options = $model->$methodName($fieldValue, $formData);
+            } elseif ($this->objectMethodExists($model, 'getDropdownOptions')) {
+                $options = $model->getDropdownOptions($attribute, $fieldValue, $formData);
+            } else {
+                throw new ApplicationException(Lang::get('backend::lang.field.options_method_not_exists', [
+                    'model'  => get_class($model),
+                    'method' => $methodName,
+                    'field'  => $attribute
+                ]));
+            }
         }
 
-        return $fieldOptions;
+        return $options;
     }
 
     /**
@@ -111,5 +123,56 @@ trait ModelOptions
         }
 
         return method_exists($object, $method);
+    }
+
+    /**
+     * Returns the field name based on the type of field in use.
+     *
+     * @param \Backend\Classes\FormField|\Backend\Classes\ListColumn $field
+     * @return string
+     */
+    protected function resolveFieldName($field)
+    {
+        return ($field instanceof \Backend\Classes\FormField)
+            ? $field->fieldName
+            : $field->columnName;
+    }
+
+    /**
+     * Returns the field's value based on the type of field in use.
+     *
+     * @param \Backend\Classes\FormField|\Backend\Classes\ListColumn $field
+     * @return string|null
+     */
+    protected function resolveFieldValue($field)
+    {
+        return ($field instanceof \Backend\Classes\FormField)
+            ? $field->value
+            : null;
+    }
+
+    /**
+     * Returns the final model and attribute name of a nested attribute. Eg:
+     *
+     *     list($model, $attribute) = $this->resolveAttribute('person[phone]');
+     *
+     * @param \October\Rain\Halcyon\Model|\October\Rain\Database\Model $model
+     * @param string|array $attribute
+     * @return array
+     */
+    public function resolveModelAttribute($model, $attribute)
+    {
+        $parts = is_array($attribute) ? $attribute : HtmlHelper::nameToArray($attribute);
+        $last = array_pop($parts);
+
+        foreach ($parts as $part) {
+            $model = $model->{$part} ?? null;
+
+            if (is_null($model)) {
+                return null;
+            }
+        }
+
+        return [$model, $last];
     }
 }

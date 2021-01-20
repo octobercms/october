@@ -1174,24 +1174,6 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Process as selectable value types for 'dropdown', 'radio', 'balloon-selector' form field types.
-     */
-    protected function evalSelectableTypeValue($record, $column, $value)
-    {
-        $fieldOptions = $this->getOptionsFromModel(
-            $this->getColumn($column->columnName),
-            $column->config['options'] ?? null,
-            $column->columnName
-        );
-        return is_array($value)
-            ? $value = implode(', ', array_map(function ($value) use ($fieldOptions) {
-                return $fieldOptions[$value];
-            }, $value))
-            : $fieldOptions[$value] ?? null;
-    }
-
-
-    /**
      * Process as text, escape the value
      * @return string
      */
@@ -1283,6 +1265,24 @@ class Lists extends WidgetBase
         }
 
         return $contents;
+    }
+
+    /**
+     * Process as selectable value types for 'dropdown', 'radio', 'balloon-selector' form field types.
+     */
+    protected function evalSelectableTypeValue($record, $column, $value)
+    {
+        $fieldOptions = $this->getOptionsFromModel(
+            $this->model,
+            $this->getColumn($column->columnName),
+            $column->config['options'] ?? null,
+            $record->toArray()
+        );
+        return is_array($value)
+            ? $value = implode(', ', array_map(function ($value) use ($fieldOptions) {
+                return $fieldOptions[$value];
+            }, $value))
+            : $fieldOptions[$value] ?? null;
     }
 
     /**
