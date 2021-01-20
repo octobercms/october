@@ -33,5 +33,4 @@ class Tag extends Model
             'pivot' => ['added_by'],
         ],
     ];
-
 }
