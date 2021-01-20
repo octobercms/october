@@ -115,7 +115,7 @@ class ServiceProvider extends ModuleServiceProvider
           
             // Set the secure prefix to everything else as the default
             } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
-                Config::set('session.cookie', '__Secure-'.Config::get('session.cookie'));                
+                Config::set('session.cookie', '__Secure-'.Config::get('session.cookie'));
             }
         }
 
