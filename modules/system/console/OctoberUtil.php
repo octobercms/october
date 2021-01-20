@@ -339,10 +339,19 @@ class OctoberUtil extends Command
             return;
         }
 
-        $orphanedFiles = FileModel::whereNull('attachment_id')->delete();
+        $orphanedFiles = FileModel::whereNull('attachment_id')->orWhereNull('attachment_type')->delete();
+
+        foreach (FileModel::all() as $file) {
+            $id = $file->attachment_id;
+            $model = $file->attachment_type;
+            if (!$record = $model::find($id)) {
+                $file->delete();
+                $orphanedFiles += 1;
+            }
+        }
 
         if ($orphanedFiles > 0) {
-            $this->comment(sprintf('Successfully deleted %d invalid file(s)', $orphanedFiles));
+            $this->comment(sprintf('Successfully deleted %d orphaned file(s)', $orphanedFiles));
         } else {
             $this->comment('No files found to purge.');
         }
