@@ -117,7 +117,7 @@ class ServiceProvider extends ModuleServiceProvider
                 Config::set('session.path', '/');
             } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
                 // Set the secure prefix
-                Config::set('session.cookie', '__Secure-'.Config::get('session.cookie'));
+                Config::set('session.cookie', '__Secure-' . Config::get('session.cookie'));
                 Config::set('session.secure', true);
             }
         }
