@@ -1,6 +1,7 @@
 <?php namespace Backend\Classes;
 
 use Config;
+use Request;
 use System\Classes\PluginManager;
 use October\Rain\Auth\Manager as RainAuthManager;
 use October\Rain\Exception\SystemException;
@@ -59,6 +60,24 @@ class AuthManager extends RainAuthManager
 
     protected function init()
     {
+        /*
+         * Set a default cookie prefix
+         * Spec https://tools.ietf.org/html/draft-ietf-httpbis-cookie-prefixes-00#section-3
+         */
+        if ((Config::get('session.secure') == true) && (Request::secure())) {
+            // Set the host prefix
+            if (strtolower(Config::get('session.cookie_prefix')) === 'host') {
+                // Set the host prefix
+                $this->sessionKey = '__Host-admin_auth';
+                Config::set('session.secure', true);
+                Config::set('session.path', '/');
+            } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
+                // Set the secure prefix
+                $this->sessionKey = '__Secure-admin_auth';
+                Config::set('session.secure', true);
+            }
+        }
+
         $this->useThrottle = Config::get('auth.throttle.enabled', true);
         parent::init();
     }
