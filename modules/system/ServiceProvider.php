@@ -110,12 +110,15 @@ class ServiceProvider extends ModuleServiceProvider
          */
         if ((!preg_match('/^__/', Config::get('session.cookie'))) && (Config::get('session.secure') == true) && (Request::secure())) {
             // Set the host prefix
-            if ((strtolower(Config::get('session.cookie_prefix')) === 'host') && (Config::get('session.path') === '/')) {
-                Config::set('session.cookie', '__Host-'.Config::get('session.cookie'));
-
-            // Set the secure prefix to everything else as the default
+            if (strtolower(Config::get('session.cookie_prefix')) === 'host') {
+                // Set the host prefix
+                Config::set('session.cookie', '__Host-' . Config::get('session.cookie'));
+                Config::set('session.secure', true);
+                Config::set('session.path', '/');
             } elseif (strtolower(Config::get('session.cookie_prefix')) !== 'none') {
+                // Set the secure prefix
                 Config::set('session.cookie', '__Secure-'.Config::get('session.cookie'));
+                Config::set('session.secure', true);
             }
         }
 
