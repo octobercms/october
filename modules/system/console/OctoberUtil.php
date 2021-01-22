@@ -348,7 +348,11 @@ class OctoberUtil extends Command
             $model = $file->attachment_type;
             $purgeMsg = sprintf(
                 'Purged: [id=%d] %s (%s) - %s:%d',
-                $file->id, $file->disk_name, $file->file_name, $file->attachment_type, $file->attachment_id
+                $file->id,
+                $file->disk_name,
+                $file->file_name,
+                $file->attachment_type,
+                $file->attachment_id
             );
             if (!$record = $model::find($id)) {
                 $file->delete();
