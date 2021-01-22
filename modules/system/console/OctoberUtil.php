@@ -364,9 +364,9 @@ class OctoberUtil extends Command
         }
 
         if ($orphanedFiles > 0) {
-            $this->comment(sprintf('Successfully deleted %d orphaned file(s)', $orphanedFiles));
+            $this->comment(sprintf('Successfully deleted %d orphaned record(s).', $orphanedFiles));
         } else {
-            $this->comment('No files found to purge.');
+            $this->comment('No records to purge.');
         }
     }
 
