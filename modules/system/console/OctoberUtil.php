@@ -340,17 +340,27 @@ class OctoberUtil extends Command
             return;
         }
 
-        $purgeMissingFiles = $this->option('missing-files') ?: false;
-        // todo: purge when file missing from storage
-
+        $isLocalStorage = Config::get('cms.storage.uploads.disk', 'local') === 'local';
         $orphanedFiles = FileModel::whereNull('attachment_id')->orWhereNull('attachment_type')->delete();
 
         foreach (FileModel::all() as $file) {
             $id = $file->attachment_id;
             $model = $file->attachment_type;
+            $purgeMsg = sprintf(
+                'Purged: [id=%d] %s (%s) - %s:%d',
+                $file->id, $file->disk_name, $file->file_name, $file->attachment_type, $file->attachment_id
+            );
             if (!$record = $model::find($id)) {
                 $file->delete();
+                $this->info($purgeMsg);
                 $orphanedFiles += 1;
+                continue;
+            }
+            if ($this->option('missing-files') && $isLocalStorage && !File::exists($file->getLocalPath())) {
+                $file->delete();
+                $this->info($purgeMsg);
+                $orphanedFiles += 1;
+                continue;
             }
         }
 
