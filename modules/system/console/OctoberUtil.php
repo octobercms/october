@@ -351,16 +351,11 @@ class OctoberUtil extends Command
                 $file->id,
                 $file->disk_name,
                 $file->file_name,
-                $file->attachment_type,
-                $file->attachment_id
+                $model,
+                $id
             );
-            if (!$record = $model::find($id)) {
-                $file->delete();
-                $this->info($purgeMsg);
-                $orphanedFiles += 1;
-                continue;
-            }
-            if ($this->option('missing-files') && $isLocalStorage && !File::exists($file->getLocalPath())) {
+            $record = $model::find($id);
+            if (!$record || ($this->option('missing-files') && $isLocalStorage && !File::exists($file->getLocalPath()))) {
                 $file->delete();
                 $this->info($purgeMsg);
                 $orphanedFiles += 1;
