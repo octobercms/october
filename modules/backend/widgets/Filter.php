@@ -391,7 +391,7 @@ class Filter extends WidgetBase
         $query = $model->newQuery();
         $query->limit(100);
 
-        // If scope has active filter(s) run additional query and leter merge it with base query
+        // If scope has active filter(s) run additional query and later merge it with base query
         if ($scope->value) {
             $modelIds = array_keys($scope->value);
             $activeOptions = $model::findMany($modelIds);
