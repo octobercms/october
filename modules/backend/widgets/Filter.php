@@ -336,7 +336,7 @@ class Filter extends WidgetBase
      * Returns the available options a scope can use, either from the
      * model relation or from a supplied array. Optionally apply a search
      * constraint to the options.
-     * @param  string $scope
+     * @param  \Backend\Classes\FilterScope $scope
      * @param  string $searchQuery
      * @return array
      */
@@ -380,6 +380,8 @@ class Filter extends WidgetBase
 
     /**
      * Looks at the model for defined scope items.
+     * @param \Backend\Classes\FilterScope $scope
+     * @param string $searchQuery
      * @return Collection
      */
     protected function getOptionsFromModel($scope, $searchQuery = null)
@@ -387,12 +389,13 @@ class Filter extends WidgetBase
         $model = $this->scopeModels[$scope->scopeName];
 
         $query = $model->newQuery();
+        $query->limit(100);
 
-        /*
-         * The 'group' scope has trouble supporting more than 500 records at a time
-         * @todo Introduce a more advanced version with robust list support.
-         */
-        $query->limit(500);
+        // If scope has active filter(s) run additional query and leter merge it with base query
+        if ($scope->value) {
+            $modelIds = array_keys($scope->value);
+            $activeOptions = $model::findMany($modelIds);
+        }
 
         /**
          * @event backend.filter.extendQuery
@@ -418,11 +421,17 @@ class Filter extends WidgetBase
         $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
         if (!$searchQuery) {
-            return $query->get();
+            $modelOptions = isset($activeOptions)
+                ? $query->get()->merge($activeOptions)
+                : $query->get();
+            return $modelOptions;
         }
 
         $searchFields = [$model->getKeyName(), $this->getScopeNameFrom($scope)];
-        return $query->searchWhere($searchQuery, $searchFields)->get();
+        $modelOptions = isset($activeOptions)
+            ? $query->searchWhere($searchQuery, $searchFields)->get()->merge($activeOptions)
+            : $query->searchWhere($searchQuery, $searchFields)->get();
+        return $modelOptions;
     }
 
     /**
