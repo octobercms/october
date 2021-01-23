@@ -3156,6 +3156,8 @@ else
 this.scopeAvailable[this.activeScopeName]=filtered
 if(item)
 toItems.push(item)
+else
+toItems.push({'id':itemId,'name':$item.text()})
 this.toggleFilterButtons(active)
 this.updateScopeSetting(this.$activeScope,isDeselect?filtered.length:active.length)
 this.isActiveScopeDirty=true
