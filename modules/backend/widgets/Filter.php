@@ -391,12 +391,6 @@ class Filter extends WidgetBase
         $query = $model->newQuery();
         $query->limit(100);
 
-        // If scope has active filter(s) run additional query and later merge it with base query
-        if ($scope->value) {
-            $modelIds = array_keys($scope->value);
-            $activeOptions = $model::findMany($modelIds);
-        }
-
         /**
          * @event backend.filter.extendQuery
          * Provides an opportunity to extend the query of the list of options
@@ -421,17 +415,21 @@ class Filter extends WidgetBase
         $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
         if (!$searchQuery) {
+            // If scope has active filter(s) run additional query and later merge it with base query
+            if ($scope->value) {
+                $modelIds = array_keys($scope->value);
+                $activeOptions = $model::findMany($modelIds);
+            }
+
             $modelOptions = isset($activeOptions)
                 ? $query->get()->merge($activeOptions)
                 : $query->get();
+                
             return $modelOptions;
         }
 
         $searchFields = [$model->getKeyName(), $this->getScopeNameFrom($scope)];
-        $modelOptions = isset($activeOptions)
-            ? $query->searchWhere($searchQuery, $searchFields)->get()->merge($activeOptions)
-            : $query->searchWhere($searchQuery, $searchFields)->get();
-        return $modelOptions;
+        return $query->searchWhere($searchQuery, $searchFields)->get();
     }
 
     /**
