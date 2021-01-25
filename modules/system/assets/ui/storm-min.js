@@ -3150,14 +3150,8 @@ if(!this.scopeValues[this.activeScopeName])
 return
 var
 itemId=$item.data('item-id'),active=this.scopeValues[this.activeScopeName],available=this.scopeAvailable[this.activeScopeName],fromItems=isDeselect?active:available,toItems=isDeselect?available:active,testFunc=function(active){return active.id==itemId},item=$.grep(fromItems,testFunc).pop(),filtered=$.grep(fromItems,testFunc,true)
-if(isDeselect)
-this.scopeValues[this.activeScopeName]=filtered
-else
-this.scopeAvailable[this.activeScopeName]=filtered
-if(item)
-toItems.push(item)
-else
-toItems.push({'id':itemId,'name':$item.text()})
+if(isDeselect){this.scopeValues[this.activeScopeName]=filtered}else{this.scopeAvailable[this.activeScopeName]=filtered}
+if(item){toItems.push(item)}else{toItems.push({'id':itemId,'name':$item.text()})}
 this.toggleFilterButtons(active)
 this.updateScopeSetting(this.$activeScope,isDeselect?filtered.length:active.length)
 this.isActiveScopeDirty=true

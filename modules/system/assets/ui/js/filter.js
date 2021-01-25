@@ -295,18 +295,20 @@
             item = $.grep(fromItems, testFunc).pop(),
             filtered = $.grep(fromItems, testFunc, true)
 
-        if (isDeselect)
+        if (isDeselect) {
             this.scopeValues[this.activeScopeName] = filtered
-        else
+        } else {
             this.scopeAvailable[this.activeScopeName] = filtered
+        }
 
-        if (item)
+        if (item) {
             toItems.push(item)
-        else
+        } else {
             toItems.push({
                 'id': itemId,
                 'name': $item.text()
             })
+        }
 
         this.toggleFilterButtons(active)
         this.updateScopeSetting(this.$activeScope, isDeselect ? filtered.length : active.length)
