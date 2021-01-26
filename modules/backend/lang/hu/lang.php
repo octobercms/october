@@ -8,7 +8,8 @@ return [
     'field' => [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
-        'options_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a beállításokat.",
+        'options_method_not_exists' => "A(z) :model osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a beállításokat.",
+        'options_static_method_invalid_value' => "A(z) :class osztályban lévő ':method()' nevű metódus nem ad vissza érvényes tömböt.",
         'colors_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a html HEX kódot."
     ],
     'widget' => [
@@ -43,11 +44,15 @@ return [
     ],
     'account' => [
         'impersonate' => 'Átjelentkezés a fiókba',
-        'impersonate_confirm' => 'Biztos benne, hogy átjelentkezik a felhasználó saját fiókjába? Ezáltal a jelenlegi munkamenetből ki lesz jelentkeztetve.',
+        'impersonate_confirm' => 'Biztos, hogy átjelentkezik a felhasználó saját fiókjába? Ezáltal a jelenlegi munkamenetből ki lesz jelentkeztetve.',
         'impersonate_success' => 'Sikeresen átjelentkezett a másik fiókba',
         'impersonate_working' => 'Átjelentkezés...',
         'impersonating' => 'Átjelentkezve mint :full_name',
         'stop_impersonating' => 'Visszajelentkezés',
+        'unsuspend' => 'Felfüggesztés',
+        'unsuspend_confirm' => 'Biztos, hogy felfüggeszti a felhasználót?',
+        'unsuspend_success' => 'A felfüggesztés sikeresen megtörtént.',
+        'unsuspend_working' => 'Felfüggesztés folyamatban...',
         'signed_in_as' => 'Belépve mint :full_name',
         'sign_out' => 'Kijelentkezés',
         'login' => 'Belépés',
@@ -236,6 +241,7 @@ return [
         'remove_file' => 'Fájl eltávolítása'
     ],
     'repeater' => [
+        'add_new_item' => 'Új elem hozzáadása',
         'min_items_failed' => 'A(z) :name mező legalább :max elemből állhat. Jelenleg csak :items mező van megadva.',
         'max_items_failed' => 'A(z) :name mező legfeljebb :max elemből állhat. Jelenleg :items mező van megadva.',
     ],
@@ -282,7 +288,7 @@ return [
         'confirm' => 'Megerősítés',
         'reload' => 'Újratöltés',
         'complete' => 'Befejezés',
-        'ok' => 'OK',
+        'ok' => 'Rendben',
         'or' => 'vagy',
         'confirm_tab_close' => 'Valóban be akarja zárni a fület? El fognak veszni a nem mentett módosítások.',
         'behavior_not_ready' => 'Nem történt meg az űrlap viselkedésének inicializálása. Kérjük ellenőrizze, hogy meghívta-e az initForm() függvényt a vezérlőben.',
@@ -367,6 +373,7 @@ return [
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
         'menu_description' => 'A megjelenésének és működésének testreszabása.',
+        'preview' => 'Előnézet',
         'font_size' => 'Betűméret',
         'tab_size' => 'Tabulátor mérete',
         'use_hard_tabs' => 'Behúzás tabulátorokkal',
@@ -401,6 +408,7 @@ return [
         'label' => 'Megnevezés',
         'class_name' => 'CSS osztály',
         'markup_tags' => 'Szabályok',
+        'markup_tag' => 'Szabály',
         'allowed_empty_tags' => 'Engedélyezett üres elemek',
         'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
         'allowed_tags' => 'Engedélyezett elemek',
@@ -411,8 +419,17 @@ return [
         'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.',
         'line_breaker_tags' => 'Sortörő elemek',
         'line_breaker_tags_comment' => 'Azon HTML elemek, amik végén kötelezően egy új sor jelenik meg.',
-        'toolbar_buttons' => 'Eszköztár',
-        'toolbar_buttons_comment' => 'Használható értékek:'
+        'toolbar_options' => 'Eszköztár',
+        'toolbar_buttons' => 'Saját konfiguráció',
+        'toolbar_buttons_comment' => 'Az alapértelmezetten megjelenő eszközök listája.',
+        'toolbar_buttons_preset' => 'Előre beállított konfigurációk:',
+        'toolbar_buttons_presets' => [
+            'default' => 'Alapértelmezett',
+            'minimal' => 'Minimális',
+            'full' => 'Teljes',
+        ],
+        'paragraph_formats' => 'Bekezdés formátumok',
+        'paragraph_formats_comment' => 'Az ehhez tartozó lenyíló listában fognak megjelenni.',
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
@@ -549,12 +566,14 @@ return [
             'iso_8859_13' => 'ISO-8859-13 (Latin-7, Balti)',
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Kelta)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Nyugat-európai Euró jellel)',
+            'windows_1250' => 'Windows-1250 (CP1250, Közép- és kelet-európai)',
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Média kezelése'
+        'manage_media' => 'Média kezelése',
+        'allow_unsafe_markdown' => 'Nem biztonságos szerkesztő használata',
     ],
     'mediafinder' => [
         'label' => 'Média',
