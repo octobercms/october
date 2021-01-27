@@ -340,6 +340,7 @@ class OctoberUtil extends Command
             return;
         }
 
+        $isDebug = $this->option('debug');
         $orphanedFiles = 0;
         $isLocalStorage = Config::get('cms.storage.uploads.disk', 'local') === 'local';
 
@@ -349,14 +350,18 @@ class OctoberUtil extends Command
                     ->get();
 
         foreach ($files as $file) {
-            $file->delete();
+            if (!$isDebug) {
+                $file->delete();
+            }
             $orphanedFiles += 1;
         }
 
         if ($this->option('missing-files') && $isLocalStorage) {
             foreach (FileModel::all() as $file) {
                 if (!File::exists($file->getLocalPath())) {
-                    $file->delete();
+                    if (!$isDebug) {
+                        $file->delete();
+                    }
                     $orphanedFiles += 1;
                 }
             }
