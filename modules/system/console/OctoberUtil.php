@@ -340,18 +340,25 @@ class OctoberUtil extends Command
             return;
         }
 
+        $orphanedFiles = 0;
         $isLocalStorage = Config::get('cms.storage.uploads.disk', 'local') === 'local';
 
-        $orphanedFiles = FileModel::whereNull('attachment_id')->orWhereNull('attachment_type')->delete();
-        $orphanedFiles += FileModel::whereDoesntHaveMorph('attachment', '*')->delete();
+        $files = FileModel::whereDoesntHaveMorph('attachment', '*')
+                    ->orWhereNull('attachment_id')
+                    ->orWhereNull('attachment_type')
+                    ->get();
+
+        foreach ($files as $file) {
+            $file->delete();
+            $orphanedFiles += 1;
+        }
 
         if ($this->option('missing-files') && $isLocalStorage) {
             foreach (FileModel::all() as $file) {
-                if (File::exists($file->getLocalPath())) {
-                    continue;
+                if (!File::exists($file->getLocalPath())) {
+                    $file->delete();
+                    $orphanedFiles += 1;
                 }
-                $file->delete();
-                $orphanedFiles += 1;
             }
         }
 
