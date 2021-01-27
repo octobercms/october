@@ -113,7 +113,7 @@ return [
     'settings' => [
         'menu_label' => 'Beállítások',
         'not_found' => 'Nem létezik a megadott beállítás oldal.',
-        'missing_model' => 'A beállítások lap egy modell definíciót hiányol.',
+        'missing_model' => 'A beállítások oldal egy modell definíciót hiányol.',
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
         'return' => 'Vissza a beállításokhoz',
         'search' => 'Keresés...'
@@ -278,6 +278,7 @@ return [
         'plugin_version' => 'Verzió',
         'plugin_author' => 'Fejlesztő',
         'plugin_not_found' => 'A bővítmény nem található',
+        'plugin_version_not_found' => 'Bővítmény verzió nem található',
         'core_current_build' => 'Verziószám',
         'core_view_changelog' => 'Részletek',
         'core_build' => 'Új verzió: :build',
@@ -285,6 +286,8 @@ return [
         'core_downloading' => 'Rendszer letöltése...',
         'core_extracting' => 'Rendszer kicsomagolása...',
         'core_set_build' => 'Rendszer beállítása...',
+        'update_warnings_title' => 'Néhány probléma, amelyek figyelmet igényelnek:',
+        'update_warnings_plugin_missing' => 'A(z) :parent_code bővítmény használatához szükséges a(z) :code bővítményt telepíteni.',
         'changelog' => 'Kiadott verziók',
         'changelog_view_details' => 'Részletek',
         'plugins' => 'Bővítmény',
@@ -394,6 +397,7 @@ return [
         'impersonate_users' => 'Átjelentkezés felhasználók fiókjába',
         'manage_preferences' => 'Saját beállítások kezelése',
         'manage_editor' => 'Kódszerkesztő testreszabása',
+        'manage_own_editor' => 'Saját kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult elérése',
         'manage_default_dashboard' => 'Vezérlőpult testreszabása',
         'manage_branding' => 'Kinézet testreszabása'
@@ -415,7 +419,7 @@ return [
     ],
     'page' => [
         'custom_error' => [
-            'label' => 'Laphiba',
+            'label' => 'Oldal hiba',
             'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
         ],
         'invalid_token' => [
