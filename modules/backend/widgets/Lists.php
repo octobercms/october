@@ -525,18 +525,24 @@ class Lists extends WidgetBase
          * Apply sorting
          */
         if (($sortColumn = $this->getSortColumn()) && !$this->showTree && in_array($sortColumn, array_keys($this->getVisibleColumns()))) {
-            if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
-                $sortColumn = $this->isColumnPivot($column)
-                    ? 'pivot_' . $column->valueFrom
-                    : $column->valueFrom;
-            }
+            if ($this->sortColumnHasCustomSorting()) {
+                $customSort = $this->getColumns()[$this->getSortColumn()]->sortable;
 
-            // Set the sorting column to $relation_count if useRelationCount enabled
-            if (isset($column->relation) && @$column->config['useRelationCount']) {
-                $sortColumn = $column->relation . '_count';
-            }
+                $this->buildQueryCustomSort($query, $customSort);
+            } else {
+                if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
+                    $sortColumn = $this->isColumnPivot($column)
+                        ? 'pivot_' . $column->valueFrom
+                        : $column->valueFrom;
+                }
 
-            $query->orderBy($sortColumn, $this->sortDirection);
+                // Set the sorting column to $relation_count if useRelationCount enabled
+                if (isset($column->relation) && @$column->config['useRelationCount']) {
+                    $sortColumn = $column->relation . '_count';
+                }
+
+                $query->orderBy($sortColumn, $this->sortDirection);
+            }
         }
 
         /*
@@ -579,6 +585,83 @@ class Lists extends WidgetBase
         }
 
         return $query;
+    }
+
+    /**
+     * Check if the current sort column has a custom map.
+     * We check if the column's sortable property is an array or string.
+     *
+     * array: represents the order of which the values should be returned
+     * string: references a function on the relevant model that defines or handles the custom sort
+     *
+     * @return boolean
+     */
+    public function sortColumnHasCustomSorting(): bool
+    {
+        $column = $this->getColumns()[$this->getSortColumn()] ?? [];
+
+        return is_array($column->sortable) || is_string($column->sortable);
+    }
+
+    /**
+     * Using a custom sort map, build a raw DB query that handles the sorting.
+     *
+     * @param $query
+     * @param array|string $customSort
+     * @return void
+     */
+    public function buildQueryCustomSort($query, $customSort)
+    {
+        if (is_string($customSort)) {
+            $column = $this->getColumns()[$this->getSortColumn()] ?? [];
+
+            $methodExists = (method_exists($this->model, 'methodExists'))
+                ? $this->model->methodExists($customSort)
+                : method_exists($this->model, $customSort);
+
+            // $model->{$fieldOptions}()
+            if ($methodExists === false) {
+                throw new ApplicationException(Lang::get('backend::lang.list.sortable_method_not_exists', [
+                    'model'  => get_class($this->model),
+                    'method' => $customSort,
+                    'field'  => $column
+                ]));
+            }
+
+            // Forward the custom sort to the specified method
+            $sorting = $this->model->$customSort($query, $column);
+
+            // If a response is given, handle them appropriately
+            if ($sorting instanceof Expression) {
+                $query->orderByRaw($sorting);
+            } elseif (is_string($sorting)) {
+                // If you have bindings you should return DB::raw($sql, $bindings) instead of just the $sql string.
+                $query->orderByRaw(DB::raw($sorting));
+            } elseif (is_array($sorting) || $sorting instanceof Arrayable) {
+                // build the query again, except this time using the array map
+                $this->buildQueryCustomSort($query, $sorting);
+            }
+
+            return;
+        }
+
+        // Get the fieldname that is required for the custom sort
+        $field = $this->getSortColumn();
+
+        // Convert any non-array values to array
+        $customSort = ($customSort instanceof Arrayable) ? $customSort->toArray() : (array) $customSort;
+
+        // Compile a CASE WHEN/THEN END string to handle the sorting logic
+        $bindings = collect();
+        $whens = collect($customSort)
+            ->transform(function ($when, $then) use ($field, $bindings) {
+                return "WHEN {$field} = '$when' THEN $then";
+            })
+            ->implode(' ');
+
+        // Add bindings to raw query and apply sorting
+        $raw = DB::raw('CASE ' . $whens . ' END ' . $this->getSortDirection(), $bindings->toArray());
+        $query->orderByRaw($raw);
     }
 
     public function prepareModel()
