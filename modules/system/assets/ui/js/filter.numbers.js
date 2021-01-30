@@ -242,6 +242,8 @@
             }
 
             numberinput.value = '' !== defaultValue ? defaultValue : '';
+            numberinput.min = scopeData.minInput;
+            numberinput.max = scopeData.maxInput;
         })
     }
 
