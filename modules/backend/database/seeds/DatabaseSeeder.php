@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $adminPassword = (SeedSetupAdmin::$password == 'admin') ? Str::random(22) : SeedSetupAdmin::$password;
+        $adminPassword = (SeedSetupAdmin::$password === 'admin') ? Str::random(22) : SeedSetupAdmin::$password;
 
         Eloquent::unguarded(function () use ($adminPassword) {
             // Generate a random password for the seeded admin account
