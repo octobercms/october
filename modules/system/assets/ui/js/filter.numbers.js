@@ -242,6 +242,7 @@
             }
 
             numberinput.value = '' !== defaultValue ? defaultValue : '';
+            numberinput.step = scopeData.step;
             numberinput.min = scopeData.minInput;
             numberinput.max = scopeData.maxInput;
         })
