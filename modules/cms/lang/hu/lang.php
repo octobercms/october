@@ -105,7 +105,7 @@ return [
         'not_found_name' => "A következő oldal nem található: ':name'",
         'not_found' => [
             'label' => 'Az oldal nem található',
-            'help' => 'A kért oldal nem található.'
+            'help' => 'A kért oldal nem található.',
         ],
         'custom_error' => [
             'label' => 'Oldal hiba',
