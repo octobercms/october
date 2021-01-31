@@ -109,7 +109,7 @@ return [
         ],
         'custom_error' => [
             'label' => 'Oldal hiba',
-            'help' => 'Sajnos valami elromlott, ezért az oldal nem jeleníthető meg.'
+            'help' => 'Sajnos valami elromlott, ezért az oldal nem jeleníthető meg.',
         ],
         'menu_label' => 'Oldalak',
         'unsaved_label' => 'Nem mentett oldal(ok)',
