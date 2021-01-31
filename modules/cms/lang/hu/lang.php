@@ -99,7 +99,7 @@ return [
         'settings_menu_description' => 'A weboldal ideiglenes felfüggesztése a látogatók számára.',
         'is_enabled' => 'Karbantartás engedélyezése',
         'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott oldalt fogják látni.',
-        'hint' => 'Karbantartás módban a lentebb megadott oldal fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.'
+        'hint' => 'Karbantartás módban a lentebb megadott oldal fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.',
     ],
     'page' => [
         'not_found_name' => "A következő oldal nem található: ':name'",
