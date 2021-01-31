@@ -32,7 +32,7 @@ return [
         'edit' => [
             'not_set' => 'Nincs beállítva a szerkesztés alatt lévő téma.',
             'not_found' => 'A szerkesztés alatt lévő téma nem található.',
-            'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra az oldalt.'
+            'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra az oldalt.',
         ],
         'settings_menu' => 'Megjelenés',
         'settings_menu_description' => 'A telepített témák listája és azok testreszabása.',
