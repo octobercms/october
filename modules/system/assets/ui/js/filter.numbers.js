@@ -243,9 +243,15 @@
 
             numberinput.value = '' !== defaultValue ? defaultValue : '';
 
-            if (scopeData.step) numberinput.step = scopeData.step;
-            if (scopeData.minInput) numberinput.min = scopeData.minInput;
-            if (scopeData.maxInput) numberinput.max = scopeData.maxInput;
+            if (scopeData.step) {
+                numberinput.step = scopeData.step
+            }
+            if (scopeData.minInput) {
+                numberinput.min = scopeData.minInput
+            }
+            if (scopeData.maxInput) {
+                numberinput.max = scopeData.maxInput
+            }
         })
     }
 
