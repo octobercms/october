@@ -301,7 +301,7 @@
                 dates[1] = dates[1] && dates[1].match(dateRegex) ? dates[1] : null
 
                 if(dates[0] || dates[1]) {
-                    var after = dates[0] ? moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat) : '∞',
+                    var after = dates[0] ? moment.tz(dates[0], this.appTimezone).tz(this.timezone).format(dateFormat) : '-∞',
                         before = dates[1] ? moment.tz(dates[1], this.appTimezone).tz(this.timezone).format(dateFormat) : '∞'
 
                     $setting.text(after + ' → ' + before)

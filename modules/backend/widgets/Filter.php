@@ -122,7 +122,7 @@ class Filter extends WidgetBase
                         $params['after']    = $after;
                     }
                     else {
-                        $params['afterStr'] = '∞';
+                        $params['afterStr'] = '-∞';
                         $params['after']    = null;
                     }
 
