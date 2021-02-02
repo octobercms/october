@@ -137,6 +137,21 @@ class Filter extends WidgetBase
                 }
 
                 break;
+
+            case 'number':
+            case 'numberrange':
+                if ($minInput = array_get($scope->config, 'minInput')) {
+                    $params['minInput'] = is_numeric($minInput) ? $minInput : null;
+                }
+
+                if ($maxInput = array_get($scope->config, 'maxInput')) {
+                    $params['maxInput'] = is_numeric($maxInput) ? $maxInput : null;
+                }
+
+                if ($step = array_get($scope->config, 'step')) {
+                    $params['step'] = is_numeric($step) ? $step : null;
+                }
+
             case 'number':
                 if (is_numeric($scope->value)) {
                     $params['number'] = $scope->value;
