@@ -151,6 +151,7 @@ class Filter extends WidgetBase
                 if ($step = array_get($scope->config, 'step')) {
                     $params['step'] = is_numeric($step) ? $step : null;
                 }
+                // no break, these paramaters apply to both of the following cases
 
             case 'number':
                 if (is_numeric($scope->value)) {
