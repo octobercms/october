@@ -389,7 +389,9 @@ class Filter extends WidgetBase
         $model = $this->scopeModels[$scope->scopeName];
 
         $query = $model->newQuery();
-        $query->limit(100);
+        
+        // @todo Implement support for lazy loading of options
+        $query->limit(500);
 
         /**
          * @event backend.filter.extendQuery
@@ -415,7 +417,7 @@ class Filter extends WidgetBase
         $this->fireSystemEvent('backend.filter.extendQuery', [$query, $scope]);
 
         if (!$searchQuery) {
-            // If scope has active filter(s) run additional query and later merge it with base query
+            // If scope has active filter(s) run additional query and merge it with base query
             if ($scope->value) {
                 $modelIds = array_keys($scope->value);
                 $activeOptions = $model::findMany($modelIds);
