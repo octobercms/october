@@ -37,7 +37,7 @@
         <?php if ($theme->hasCustomData()): ?>
             <a
                 href="<?= Backend::url('cms/themeoptions/update/'.$theme->getDirName()) ?>"
-                class="btn btn-secondary">
+                class="btn btn-secondary<?= $theme->isActiveTheme() === false ? ' disabled' : '' ?>">
                 <i class="icon-paint-brush"></i>
                 <?= e(trans('cms::lang.theme.customize_button')) ?>
             </a>
