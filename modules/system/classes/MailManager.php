@@ -121,7 +121,7 @@ class MailManager
     {
         $html = $text = null;
 
-        if (isset($view)) {
+        if (!is_null($view)) {
             if (isset($this->templateCache[$view])) {
                 $html = $this->templateCache[$view];
             } else {
@@ -129,7 +129,7 @@ class MailManager
             }
         }
 
-        if (isset($plain)) {
+        if (!is_null($plain)) {
             if (isset($this->templateCache[$plain])) {
                 $text = $this->templateCache[$plain];
             } else {
@@ -138,13 +138,13 @@ class MailManager
         }
 
         // raw content will overwrite plain view content, as done in laravel
-        if (isset($raw)) {
+        if (!is_null($raw)) {
             $text = new MailTemplate;
             $text->fillFromContent($raw);
         }
 
         // bailout if we have no content
-        if (!isset($html) && !isset($text)) {
+        if (is_null($html) && is_null($text)) {
             return false;
         }
 
