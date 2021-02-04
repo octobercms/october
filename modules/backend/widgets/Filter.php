@@ -140,12 +140,12 @@ class Filter extends WidgetBase
 
             case 'number':
             case 'numberrange':
-                if ($minInput = array_get($scope->config, 'minInput')) {
-                    $params['minInput'] = is_numeric($minInput) ? $minInput : null;
+                if ($minInput = array_get($scope->config, 'min')) {
+                    $params['minValue'] = is_numeric($minInput) ? $minInput : null;
                 }
 
-                if ($maxInput = array_get($scope->config, 'maxInput')) {
-                    $params['maxInput'] = is_numeric($maxInput) ? $maxInput : null;
+                if ($maxInput = array_get($scope->config, 'max')) {
+                    $params['maxValue'] = is_numeric($maxInput) ? $maxInput : null;
                 }
 
                 if ($step = array_get($scope->config, 'step')) {

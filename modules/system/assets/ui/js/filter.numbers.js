@@ -246,11 +246,11 @@
             if (scopeData.step) {
                 numberinput.step = scopeData.step
             }
-            if (scopeData.minInput) {
-                numberinput.min = scopeData.minInput
+            if (scopeData.minValue) {
+                numberinput.min = scopeData.minValue
             }
-            if (scopeData.maxInput) {
-                numberinput.max = scopeData.maxInput
+            if (scopeData.maxValue) {
+                numberinput.max = scopeData.maxValue
             }
         })
     }
