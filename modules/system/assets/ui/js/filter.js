@@ -290,24 +290,16 @@
             active = this.scopeValues[this.activeScopeName],
             available = this.scopeAvailable[this.activeScopeName],
             fromItems = isDeselect ? active : available,
-            toItems = isDeselect ? available : active,
             testFunc = function(active){ return active.id == itemId },
-            item = $.grep(fromItems, testFunc).pop(),
+            item = $.grep(fromItems, testFunc).pop() ?? {'id': itemId, 'name': $item.text()},
             filtered = $.grep(fromItems, testFunc, true)
 
         if (isDeselect) {
             this.scopeValues[this.activeScopeName] = filtered
+            this.scopeAvailable[this.activeScopeName].push(item)
         } else {
             this.scopeAvailable[this.activeScopeName] = filtered
-        }
-
-        if (item) {
-            toItems.push(item)
-        } else {
-            toItems.push({
-                'id': itemId,
-                'name': $item.text()
-            })
+            this.scopeValues[this.activeScopeName].push(item)
         }
 
         this.toggleFilterButtons(active)
