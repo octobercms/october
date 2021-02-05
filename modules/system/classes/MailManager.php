@@ -117,7 +117,7 @@ class MailManager
      * @param array $data
      * @return bool
      */
-    public function addContent($message, $view, $plain, $raw, $data)
+    public function addContent($message, $view=null, $plain=null, $raw=null, $data=[])
     {
         $html = $text = null;
 
