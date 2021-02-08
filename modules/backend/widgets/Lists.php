@@ -661,6 +661,7 @@ class Lists extends WidgetBase
         $whens = collect($customSort)
             ->transform(function ($when, $then) use ($field) {
                 $when = Db::connection()->getPdo()->quote($when);
+                
                 return "WHEN {$field} = $when THEN $then";
             })
             ->implode(' ');
