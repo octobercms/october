@@ -528,7 +528,7 @@ class Lists extends WidgetBase
             if ($this->sortColumnHasCustomSorting()) {
                 $customSort = $this->getColumns()[$this->getSortColumn()]->sortable;
 
-                $this->buildQueryCustomSort($query, $customSort);
+                $this->applyCustomSorting($query, $customSort);
             } else {
                 $column = array_get($this->getColumns(), $sortColumn);
                 if ($column && $column->valueFrom) {
@@ -605,13 +605,13 @@ class Lists extends WidgetBase
     }
 
     /**
-     * Using a custom sort map, build a raw DB query that handles the sorting.
+     * Sort the records by using a custom sortable callback or map
      *
      * @param $query
      * @param array|string $customSort
      * @return void
      */
-    public function buildQueryCustomSort($query, $customSort)
+    public function applyCustomSorting($query, $customSort)
     {
         if (is_string($customSort)) {
             $column = $this->getColumns()[$this->getSortColumn()] ?? [];
@@ -633,14 +633,14 @@ class Lists extends WidgetBase
             $sorting = $this->model->$customSort($query, $column);
 
             // If a response is given, handle them appropriately
-            if ($sorting instanceof Expression) {
+            if ($sorting instanceof \Illuminate\Database\Query\Expression) {
                 $query->orderByRaw($sorting);
             } elseif (is_string($sorting)) {
-                // If you have bindings you should return DB::raw($sql, $bindings) instead of just the $sql string.
-                $query->orderByRaw(DB::raw($sorting));
-            } elseif (is_array($sorting) || $sorting instanceof Arrayable) {
+                // If you have bindings you should return Db::raw($sql, $bindings) instead of just the $sql string.
+                $query->orderByRaw(Db::raw($sorting));
+            } elseif (is_array($sorting) || $sorting instanceof \Illuminate\Contracts\Support\Arrayable) {
                 // build the query again, except this time using the array map
-                $this->buildQueryCustomSort($query, $sorting);
+                $this->applyCustomSorting($query, $sorting);
             }
 
             return;
@@ -660,7 +660,7 @@ class Lists extends WidgetBase
             ->implode(' ');
 
         // Add bindings to raw query and apply sorting
-        $raw = DB::raw('CASE ' . $whens . ' END ' . $this->getSortDirection());
+        $raw = Db::raw('CASE ' . $whens . ' END ' . $this->getSortDirection());
         $query->orderByRaw($raw);
     }
 
