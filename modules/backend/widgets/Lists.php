@@ -17,6 +17,8 @@ use Backend\Classes\WidgetBase;
 use October\Rain\Database\Model;
 use ApplicationException;
 use BackendAuth;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Query\Expression;
 
 /**
  * List Widget
@@ -633,12 +635,12 @@ class Lists extends WidgetBase
             $sorting = $this->model->$customSort($query, $column);
 
             // If a response is given, handle them appropriately
-            if ($sorting instanceof \Illuminate\Database\Query\Expression) {
+            if ($sorting instanceof Expression) {
                 $query->orderByRaw($sorting);
             } elseif (is_string($sorting)) {
                 // If you have bindings you should return Db::raw($sql, $bindings) instead of just the $sql string.
                 $query->orderByRaw(Db::raw($sorting));
-            } elseif (is_array($sorting) || $sorting instanceof \Illuminate\Contracts\Support\Arrayable) {
+            } elseif (is_array($sorting) || $sorting instanceof Arrayable) {
                 // build the query again, except this time using the array map
                 $this->applyCustomSorting($query, $sorting);
             }
