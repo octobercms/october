@@ -592,8 +592,8 @@ class Lists extends WidgetBase
      * Check if the current sort column has a custom map.
      * We check if the column's sortable property is an array or string.
      *
-     * array: represents the order of which the values should be returned
-     * string: references a function on the relevant model that defines or handles the custom sort
+     * - array: represents the order of which the values should be returned
+     * - string: references a function on the relevant model that defines or handles the custom sort
      *
      * @return boolean
      */
