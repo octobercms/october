@@ -530,7 +530,8 @@ class Lists extends WidgetBase
 
                 $this->buildQueryCustomSort($query, $customSort);
             } else {
-                if (($column = array_get($this->allColumns, $sortColumn)) && $column->valueFrom) {
+                $column = array_get($this->getColumns(), $sortColumn);
+                if ($column && $column->valueFrom) {
                     $sortColumn = $this->isColumnPivot($column)
                         ? 'pivot_' . $column->valueFrom
                         : $column->valueFrom;
