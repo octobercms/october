@@ -634,14 +634,17 @@ class Lists extends WidgetBase
             // Forward the custom sort to the specified method
             $sorting = $this->model->$customSort($query, $column);
 
-            // If a response is given, handle them appropriately
+            // If a raw SQL string is returned, convert it to an Expression
+            if (is_string($sorting)) {
+                // If you have bindings you should return Db::raw($sql, $bindings) instead of just the SQL string.
+                $sorting = Db::raw($sorting);
+            }
+
             if ($sorting instanceof Expression) {
+                // A raw DB Expression
                 $query->orderByRaw($sorting);
-            } elseif (is_string($sorting)) {
-                // If you have bindings you should return Db::raw($sql, $bindings) instead of just the $sql string.
-                $query->orderByRaw(Db::raw($sorting));
             } elseif (is_array($sorting) || $sorting instanceof Arrayable) {
-                // build the query again, except this time using the array map
+                // An array definition (signifying the order of the values to return)
                 $this->applyCustomSorting($query, $sorting);
             }
 
