@@ -208,6 +208,53 @@ class ListsTest extends PluginTestCase
         $this->assertEquals([4, 1, 3, 2], $recordIds, 'The sortable method callback records (desc) do not match the one defined in the List');
     }
 
+    public function testColumnSortableMethodOverrideReturnQueryString()
+    {
+        $user = new UserFixture;
+        $this->actingAs($user);
+
+        User::extend(function ($user) {
+            $user->addDynamicMethod('sortIdField', function ($query, $listColumn) use ($user) {
+                // same as: return [2, 1, 4, 3];
+                return 'CASE WHEN id = 2 THEN 1 WHEN id = 1 THEN 2 WHEN id = 4 THEN 3 WHEN id = 3 THEN 4 END';
+            });
+        });
+
+        // Test that the records can be sorted in 'ascending' order
+
+        $list = $this->sortableListsFixture(true, 'asc');
+        $list->render();
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
+
+        $this->assertEquals('sortIdField', $list->getColumn('id')->sortable, 'The sortable method callback (asc) does not match the one defined in the List');
+
+        $recordIds = $list->vars['records']->pluck('id')->toArray();
+
+        $this->assertEquals([2, 1, 4, 3], $recordIds, 'The sortable method callback records (asc) do not match the one defined in the List');
+
+        // Test that the records can be sorted in 'descending' order (which should be manually specified by the developer in the string)
+
+        User::extend(function ($user) {
+            $user->addDynamicMethod('sortIdField', function ($query, $listColumn) use ($user) {
+                // same as: return [2, 1, 4, 3];
+                return 'CASE WHEN id = 2 THEN 1 WHEN id = 1 THEN 2 WHEN id = 4 THEN 3 WHEN id = 3 THEN 4 END DESC';
+            });
+        });
+
+        $list = $this->sortableListsFixture(true, 'desc');
+        $list->render();
+
+        $this->assertNotNull($list->getColumn('id'));
+        $this->assertNotNull($list->getColumn('email'));
+
+        $this->assertEquals('sortIdField', $list->getColumn('id')->sortable, 'The sortable method callback (asc) does not match the one defined in the List');
+
+        $recordIds = $list->vars['records']->pluck('id')->toArray();
+        $this->assertEquals([3, 4, 1, 2], $recordIds, 'The sortable method callback records (desc) do not match the one defined in the List');
+    }
+
     protected function sortableListsFixture(bool $method = false, string $sortDirection = 'asc')
     {
         User::firstOrCreate([
