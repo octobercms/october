@@ -227,7 +227,7 @@ return [
         'delete_selected_success' => 'Deleted selected records.',
         'column_switch_true' => 'Yes',
         'column_switch_false' => 'No',
-        'sortable_method_not_exists' => "The model class :model must define a method :method() to either handle or return custom sorting logic.",
+        'sortable_method_not_exists' => 'The model class ":model" must define a method ":method()" to handle custom sorting logic.',
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
