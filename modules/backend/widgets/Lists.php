@@ -632,7 +632,7 @@ class Lists extends WidgetBase
             }
 
             // Forward the custom sort to the specified method
-            $sorting = $this->model->$customSort($query, $column);
+            $sorting = $this->model->$customSort($query, $column, $this->getSortDirection());
 
             // If a raw SQL string is returned, convert it to an Expression
             if (is_string($sorting)) {
@@ -660,7 +660,8 @@ class Lists extends WidgetBase
         // Compile a CASE WHEN/THEN END string to handle the sorting logic
         $whens = collect($customSort)
             ->transform(function ($when, $then) use ($field) {
-                return "WHEN {$field} = '$when' THEN $then";
+                $when = Db::connection()->getPdo()->quote($when);
+                return "WHEN {$field} = $when THEN $then";
             })
             ->implode(' ');
 
