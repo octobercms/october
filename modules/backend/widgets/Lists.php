@@ -653,15 +653,14 @@ class Lists extends WidgetBase
         $customSort = ($customSort instanceof Arrayable) ? $customSort->toArray() : (array) $customSort;
 
         // Compile a CASE WHEN/THEN END string to handle the sorting logic
-        $bindings = collect();
         $whens = collect($customSort)
-            ->transform(function ($when, $then) use ($field, $bindings) {
+            ->transform(function ($when, $then) use ($field) {
                 return "WHEN {$field} = '$when' THEN $then";
             })
             ->implode(' ');
 
         // Add bindings to raw query and apply sorting
-        $raw = DB::raw('CASE ' . $whens . ' END ' . $this->getSortDirection(), $bindings->toArray());
+        $raw = DB::raw('CASE ' . $whens . ' END ' . $this->getSortDirection());
         $query->orderByRaw($raw);
     }
 
