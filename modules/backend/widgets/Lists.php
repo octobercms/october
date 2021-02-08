@@ -597,7 +597,7 @@ class Lists extends WidgetBase
      *
      * @return boolean
      */
-    public function sortColumnHasCustomSorting(): bool
+    public function sortColumnHasCustomSorting()
     {
         $column = $this->getColumns()[$this->getSortColumn()] ?? [];
 
