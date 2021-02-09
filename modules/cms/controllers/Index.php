@@ -685,6 +685,13 @@ class Index extends Controller
         }
 
         $widgetConfig = $this->makeConfig($formConfigs[$type]);
+
+        if ($type === 'content') {
+            $extension = strrchr($template->fileName, '.');
+            $type = $extension === '.htm' ? 'richeditor' : ($extension === '.md' ? 'markdown' : 'codeeditor');
+            array_set($widgetConfig->secondaryTabs, 'fields.markup.type', $type);
+        }
+
         $widgetConfig->model = $template;
         $widgetConfig->alias = $alias ?: 'form'.studly_case($type).md5($template->exists ? $template->getFileName() : uniqid());
 
