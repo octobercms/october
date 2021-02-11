@@ -80,7 +80,7 @@ class File extends FileBase
             $uploadsPath .= '/protected';
         }
 
-        return Url::asset($uploadsPath) . '/';
+        return Storage::url($uploadsPath) . '/';
     }
 
     /**
