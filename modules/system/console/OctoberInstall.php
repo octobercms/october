@@ -201,8 +201,8 @@ class OctoberInstall extends Command
 
     protected function setupDatabaseConfig()
     {
-        $type = $this->choice('Database type', ['MySQL', 'Postgres', 'SQLite', 'SQL Server']);
-
+        $type = $this->choice('Database type', ['MySQL', 'Postgres', 'SQLite', 'SQL Server'], 'SQLite');
+        
         $typeMap = [
             'SQLite' => 'sqlite',
             'MySQL' => 'mysql',
