@@ -7,6 +7,7 @@ use Event;
 use Config;
 use Backend;
 use Request;
+use Validator;
 use BackendMenu;
 use BackendAuth;
 use Backend\Models\UserRole;
@@ -575,6 +576,15 @@ class ServiceProvider extends ModuleServiceProvider
             $validator->replacer('extensions', function ($message, $attribute, $rule, $parameters) {
                 return strtr($message, [':values' => implode(', ', $parameters)]);
             });
+
+            $plugins = PluginManager::instance()->getRegistrationMethodValues('registerValidator');
+            foreach ($plugins as $validators) {
+                foreach ($validators as $name => $validator) {
+                    if (is_callable($validator)) {
+                        Validator::extend($name, $validator);
+                    }
+                }
+            }
         });
     }
 
