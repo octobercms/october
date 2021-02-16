@@ -1,7 +1,7 @@
 /*!
  * Pikaday jQuery plugin.
  *
- * Copyright © 2013 David Bushell | BSD & MIT license | https://github.com/dbushell/Pikaday
+ * Copyright © 2013 David Bushell | BSD & MIT license | https://github.com/Pikaday/Pikaday
  */
 
 (function (root, factory)
@@ -10,7 +10,7 @@
 
     if (typeof exports === 'object') {
         // CommonJS module
-        factory(require('jquery'), require('../pikaday'));
+        factory(require('jquery'), require('pikaday'));
     } else if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery', 'pikaday'], factory);

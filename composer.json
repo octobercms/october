@@ -59,8 +59,7 @@
             "tests/concerns/InteractsWithAuthentication.php",
             "tests/fixtures/backend/models/UserFixture.php",
             "tests/TestCase.php",
-            "tests/PluginTestCase.php",
-            "vendor/october/rain/tests/DbTestCase.php"
+            "tests/PluginTestCase.php"
         ]
     },
     "scripts": {
@@ -85,7 +84,7 @@
     "config": {
         "preferred-install": "dist",
         "platform": {
-            "php": "7.2"
+            "php": "7.2.5"
         }
     },
     "minimum-stability": "dev",
