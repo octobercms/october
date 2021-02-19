@@ -10,6 +10,7 @@ use Request;
 use Validator;
 use BackendMenu;
 use BackendAuth;
+use SystemException;
 use Backend\Models\UserRole;
 use Twig\Extension\SandboxExtension;
 use Twig\Environment as TwigEnvironment;
@@ -582,6 +583,15 @@ class ServiceProvider extends ModuleServiceProvider
                 foreach ($validators as $name => $validator) {
                     if (is_callable($validator)) {
                         Validator::extend($name, $validator);
+                    } elseif (class_exists($validator)) {
+                        if (is_subclass_of($validator, 'October\Rain\Validation\Rule')) {
+                            Validator::extend($name, $validator);
+                        } else {
+                            throw new SystemException(sprintf(
+                                'Class "%s" must extend "October\Rain\Validation\Rule"',
+                                $validator
+                            ));
+                        }
                     }
                 }
             }
