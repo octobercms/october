@@ -577,7 +577,7 @@ class ServiceProvider extends ModuleServiceProvider
                 return strtr($message, [':values' => implode(', ', $parameters)]);
             });
 
-            $plugins = PluginManager::instance()->getRegistrationMethodValues('registerValidators');
+            $plugins = PluginManager::instance()->getRegistrationMethodValues('registerValidationRules');
             foreach ($plugins as $validators) {
                 foreach ($validators as $name => $validator) {
                     if (is_callable($validator)) {
