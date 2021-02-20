@@ -1034,7 +1034,7 @@ class UpdateManager
 
         if (is_string($message)) {
             $this->messages[$class][] = $message;
-        } else if (is_array($message)) {
+        } elseif (is_array($message)) {
             array_merge($this->messages[$class], $message);
         }
     }
@@ -1046,7 +1046,7 @@ class UpdateManager
      */
     protected function printMessages()
     {
-        if (!count($this->messages)) {
+        if (!count($this->messages) || empty(array_filter(array_flatten($this->messages)))) {
             return;
         }
 
