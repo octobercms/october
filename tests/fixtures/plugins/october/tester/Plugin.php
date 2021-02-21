@@ -61,4 +61,14 @@ class Plugin extends PluginBase
             ]
         ];
     }
+
+    public function registerValidationRules()
+    {
+        return [
+            'uppercase' => function ($attribute, $value, $parameters, $validator) {
+                return strtoupper($value) == $value;
+            },
+            'be_like_bob' => \October\Tester\Rules\BeLikeBobRule::class
+        ];
+    }
 }
