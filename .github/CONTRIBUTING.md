@@ -1,10 +1,10 @@
-# Contributing to OctoberCMS
+# Contributing to October CMS
 
 Thank you for your interest in contributing to the October CMS project. We appreciate any assistance that community members and users of October CMS are willing to provide. You can contribute to the project in several different ways:
 
 - [Reporting a Security Vulnerability](#reporting-a-security-vulnerability)
-- [Reporting an issue with OctoberCMS](#reporting-an-issue-with-octobercms)
-  - [Reporting an issue with an OctoberCMS plugin](#reporting-an-issue-with-an-octobercms-plugin)
+- [Reporting an issue with October CMS](#reporting-an-issue-with-octobercms)
+  - [Reporting an issue with an October CMS plugin](#reporting-an-issue-with-an-octobercms-plugin)
 - [Making a Feature Request](#making-a-feature-request)
 - [Making a Pull Request](#making-a-pull-request)
 - [Testing Pull Requests](#testing-a-pull-request)
