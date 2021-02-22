@@ -117,7 +117,7 @@ Occassionally, you may encounter a merge conflict with your Pull Request. This m
 
 It is the responsibility of the author of the Pull Request to resolve any merge conflicts before their Pull Request is accepted.
 
-You should ensure that your local copy of October CMS is synchronised with with the `develop` branch in the October CMS repository. Please follow the [steps above](#best-practices) to synchronise the repositories.
+You should ensure that your local copy of October CMS is synchronised with the `develop` branch in the October CMS repository. Please follow the [steps above](#best-practices) to synchronise the repositories.
 
 If Git reports that your changes have conflicts, you will need to resolve the changes in a way that includes the changes from the OctoberCMS repository as well as implementing your Pull Request's changes. See GitHub's guide to [resolving a merge conflict](https://help.github.com/en/articles/resolving-a-merge-conflict-using-the-command-line) for tips on resolving conflicts.
 
