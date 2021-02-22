@@ -7,7 +7,7 @@ class CustomValidatorRulesTest extends PluginTestCase
         parent::setUp();
 
         include_once base_path() . '/tests/fixtures/plugins/october/tester/rules/BeLikeBobRule.php';
-        include_once base_path().'/tests/fixtures/plugins/october/tester/Plugin.php';
+        include_once base_path() . '/tests/fixtures/plugins/october/tester/Plugin.php';
 
         $this->runPluginRefreshCommand('October.Tester');
     }
