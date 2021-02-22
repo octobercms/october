@@ -1025,6 +1025,10 @@ class UpdateManager
      */
     protected function addMessage($class, $message)
     {
+        if (empty($message)) {
+            return;
+        }
+
         if (is_object($class)) {
             $class = get_class($class);
         }
@@ -1046,7 +1050,7 @@ class UpdateManager
      */
     protected function printMessages()
     {
-        if (!count($this->messages) || empty(array_filter(array_flatten($this->messages)))) {
+        if (!count($this->messages)) {
             return;
         }
 
