@@ -68,7 +68,6 @@ return [
         'enter_new_password' => 'Vul een nieuw wachtwoord in',
         'password_reset' => 'Herstel wachtwoord',
         'restore_success' => 'Een e-mail met instructies om het wachtwoord te herstellen is verzonden naar jouw e-mailadres.',
-        'restore_error' => "Een gebruiker met de gebruikersnaam ':login' is niet gevonden",
         'reset_success' => 'Het wachtwoord is succesvol hersteld. Je kunt nu inloggen',
         'reset_error' => 'Ongeldige herstelinformatie aangeboden. Probeer het opnieuw!',
         'reset_fail' => 'Het is niet mogelijk het wachtwoord te herstellen!',

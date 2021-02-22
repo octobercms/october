@@ -47,7 +47,6 @@ return [
         'enter_new_password' => 'Saisir votre nouveau mot de passe',
         'password_reset' => 'Réinitialiser le mot de passe',
         'restore_success' => 'Un e-mail contenant les instructions a été envoyé à l’adresse e-mail de votre compte.',
-        'restore_error' => 'L’identifiant ":login" ne correspond à aucun utilisateur',
         'reset_success' => 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.',
         'reset_error' => 'Données de réinitialisation du mot de passe invalides. Veuillez réessayer !',
         'reset_fail' => 'Réinitialisation du mot de passe impossible !',

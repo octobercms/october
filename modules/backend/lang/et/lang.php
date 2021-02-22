@@ -43,7 +43,6 @@ return [
         'enter_new_password' => 'Siseta uus parool',
         'password_reset' => 'Parooli lähtestamine',
         'restore_success' => 'Sinu e-posti aadressile saadeti kiri juhistega.',
-        'restore_error' => "Sellist kasutajat ei ole süsteemis: ':login'",
         'reset_success' => 'Parool on lähtestatud, võid nüüd oma uue parooli sisse logida.',
         'reset_error' => 'Sisestasid parooli lähtestamiseks vigased andmed. Palun proovi uuesti!',
         'reset_fail' => 'Parooli lähtestamine ebaõnnestus!',

@@ -42,7 +42,6 @@ return [
         'enter_new_password' => 'Skriv en ny adgangskode',
         'password_reset' => 'Nulstil adgangskode',
         'restore_success' => 'En besked med instruktioner, er blevet sendt til din email adresse.',
-        'restore_error' => "En bruger med login-infoen ':login', kunne ikke findes",
         'reset_success' => 'Adgangskoden er blevet nulstillet. Du kan nu logge ind.',
         'reset_error' => 'Ugyldig adgangskode-nulstillings-data angivet. Prøv venligst igen!',
         'reset_fail' => 'Kunne ikke nulstille din adgangskode!',

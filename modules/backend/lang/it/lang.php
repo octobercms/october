@@ -37,7 +37,6 @@ return [
         'enter_new_password' => 'Inserisci una nuova password',
         'password_reset' => 'Reimposta password',
         'restore_success' => 'Le istruzioni per reimpostare la password sono state inviate al tuo indirizzo e-mail.',
-        'restore_error' => "Nessun utente con username ':login' è stato trovato.",
         'reset_success' => 'La tua password è stata reimpostata con successo. Ora puoi effettuare l\'accesso.',
         'reset_error' => 'I dati forniti per la reimpostazione della password non sono validi. Riprova!',
         'reset_fail' => 'Impossibile ripristinare la password!',

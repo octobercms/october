@@ -68,7 +68,6 @@ return [
         'enter_new_password' => 'Adjon meg egy új jelszót',
         'password_reset' => 'Új jelszó kiadása',
         'restore_success' => 'A visszaállítással kapcsolatos utasításokat tartalmazó levél elküldésre került.',
-        'restore_error' => "Nem található a(z) ':login' nevű felhasználó.",
         'reset_success' => 'A jelszó átállítása sikerült. Most már bejelentkezhet.',
         'reset_error' => 'A megadott jelszó átállítási adatok érvénytelenek. Próbálja újra!',
         'reset_fail' => 'Nem állítható vissza a jelszava!',

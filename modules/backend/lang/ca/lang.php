@@ -49,7 +49,6 @@ return [
         'enter_new_password' => 'Introdueix una nova contrasenya',
         'password_reset' => 'Reiniciar contrasenya',
         'restore_success' => 'Hem enviat un missatge al teu correu amb instruccions.',
-        'restore_error' => "No es pot trobar l'usuari ':login'",
         'reset_success' => "La contrasenya s'ha reiniciat. Ara pots accedir.",
         'reset_error' => 'Dades per restablir contrasenya incorrectes. Si us plau intenta-ho de nou!',
         'reset_fail' => "No s'ha pogut restablir la contrasenya!",

@@ -42,7 +42,6 @@ return [
         'enter_new_password' => 'Skriv inn nytt passord',
         'password_reset' => 'Gjenopprett passord',
         'restore_success' => 'En e-post har blitt sendt til din e-postadresse med informasjon om gjenoppretting av passord.',
-        'restore_error' => "Brukernavnet ':login' eksisterer ikke.",
         'reset_success' => 'Ditt passord har blitt gjenopprettet. Du kan nå logge inn.',
         'reset_error' => 'Ugyldig data. Vennligst prøv igjen!',
         'reset_fail' => 'Kunne ikke gjenopprette passord!',

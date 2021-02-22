@@ -37,7 +37,6 @@ return [
         'enter_new_password' => "新しいパスワードを入力してください",
         'password_reset' => "パスワードリセット",
         'restore_success' => "パスワードを元に戻すための手順を説明したメールを送信しました。",
-        'restore_error' => "':login'というユーザーは登録されていません。",
         'reset_success' => "パスワードがリセットされました。",
         'reset_error' => "間違ったパスワードリセットデータが送信されました。再実行してください。",
         'reset_fail' => "パスワードをリセットできませんでした。",

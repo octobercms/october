@@ -34,7 +34,6 @@ return [
         'enter_new_password' => "Ingrese una nueva contraseña.",
         'password_reset' => "Reiniciar contraseña.",
         'restore_success' => "Le hemos enviado un email con la nueva contraseña.",
-        'restore_error' => "El usuario no es válido ':login'.",
         'reset_success' => "Su contraseña fue correctamente reiniciada.",
         'reset_error' => "La contraseña es inválida. Por favor, intente otra vez.",
         'reset_fail' => "No se puede reiniciar su contraseña.",

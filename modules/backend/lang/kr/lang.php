@@ -43,7 +43,6 @@ return [
         'enter_new_password' => "변경할 비밀번호를 입력해주세요",
         'password_reset' => "비밀번호 재설정",
         'restore_success' => "비밀번호를 복구하기 위한 절차를 설명한 메일을 발송합니다.",
-        'restore_error' => "':login' 아이디는 등록되어있지 않습니다.",
         'reset_success' => "비밀번호가 재설정 되었습니다.",
         'reset_error' => "잘못된 비밀번호 재설정 데이터가 발송되었습니다. 다시 해주세요.",
         'reset_fail' => "비밀번호를 재설정 할 수 없습니다.",

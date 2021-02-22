@@ -34,7 +34,6 @@ return [
         'enter_new_password' => "Introduceti o noua parola",
         'password_reset' => "Resetare parola",
         'restore_success' => "Un mesaj a fost trimis catre adresa de email cu instructiuni pentru resetarea parolei.",
-        'restore_error' => "Utilizatorul ':login' nu a fost gasit in sistem.",
         'reset_success' => "Parola a fost resetata cu succes. Va puteti conecta.",
         'reset_error' => "Date invalide pentru resetarea parolei. Va rugam incercati din nou!",
         'reset_fail' => "Eroare la resetarea parolei!",

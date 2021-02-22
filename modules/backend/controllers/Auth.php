@@ -14,6 +14,7 @@ use ValidationException;
 use Exception;
 use Config;
 use October\Rain\Foundation\Http\Middleware\CheckForTrustedHost;
+use Redirect;
 
 /**
  * Authentication controller
@@ -167,32 +168,28 @@ class Auth extends Controller
         ];
 
         $validation = Validator::make(post(), $rules);
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
+        if (!$validation->fails()) {
+            /** Search for a backend user with the specified username. */
+            $user = BackendAuth::findUserByLogin(post('login'));
 
-        $user = BackendAuth::findUserByLogin(post('login'));
-        if (!$user) {
-            throw new ValidationException([
-                'login' => trans('backend::lang.account.restore_error', ['login' => post('login')])
-            ]);
+            if ($user) {
+                $code = $user->getResetPasswordCode();
+                $link = Backend::url('backend/auth/reset/' . $user->id . '/' . $code);
+
+                $data = [
+                    'name' => $user->full_name,
+                    'link' => $link,
+                ];
+
+                Mail::send('backend::mail.restore', $data, function ($message) use ($user) {
+                    $message->to($user->email, $user->full_name)->subject(trans('backend::lang.account.password_reset'));
+                });
+            }
         }
 
         Flash::success(trans('backend::lang.account.restore_success'));
 
-        $code = $user->getResetPasswordCode();
-        $link = Backend::url('backend/auth/reset/' . $user->id . '/' . $code);
-
-        $data = [
-            'name' => $user->full_name,
-            'link' => $link,
-        ];
-
-        Mail::send('backend::mail.restore', $data, function ($message) use ($user) {
-            $message->to($user->email, $user->full_name)->subject(trans('backend::lang.account.password_reset'));
-        });
-
-        return Backend::redirect('backend/auth/signin');
+        return Redirect::refresh();
     }
 
     /**

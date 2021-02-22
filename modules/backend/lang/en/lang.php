@@ -68,7 +68,6 @@ return [
         'enter_new_password' => 'Enter a new password',
         'password_reset' => 'Password Reset',
         'restore_success' => 'Message sent to your email address with instructions.',
-        'restore_error' => "A user could not be found with a login value of ':login'",
         'reset_success' => 'Password has been reset. You may now sign in.',
         'reset_error' => 'Invalid password reset data supplied. Please try again!',
         'reset_fail' => 'Unable to reset your password!',

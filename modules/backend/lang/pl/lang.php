@@ -61,7 +61,6 @@
         'enter_new_password' => 'Wpisz swoje hasło',
         'password_reset' => 'Zmień hasło',
         'restore_success' => 'Wysłano wiadomość na Twój adres email z hasłem oraz instrukcjami odzyskania.',
-        'restore_error' => 'Nie znaleziono użytkownika z loginem \':login\'',
         'reset_success' => 'Twoje hasło zostało prawidłowo zresetowane. Możesz się teraz zalogować.',
         'reset_error' => 'Nieprawidłowe dane zmiany hasła. Spróbuj ponownie!',
         'reset_fail' => 'Nie można zmienić Twojego hasła!',

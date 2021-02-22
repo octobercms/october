@@ -67,7 +67,6 @@ return [
         'enter_new_password' => 'Unesi novu lozinku',
         'password_reset' => 'Resetovanje lozinke',
         'restore_success' => 'Poruka sa instrukcijama je poslata na vašu adresu.',
-        'restore_error' => "Korisnik nije pronađen sa navedenom vrednošću: ':login'",
         'reset_success' => 'Lozinka je resetovana, možeš se ulogovati.',
         'reset_error' => 'Priloženi podaci za resetovanje lozinke nisu validni. Pokušaj ponovo!',
         'reset_fail' => 'Resetovanje lozinke nije moguće!',

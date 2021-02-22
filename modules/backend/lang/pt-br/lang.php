@@ -68,7 +68,6 @@ return [
         'enter_new_password' => 'Entre com uma nova senha',
         'password_reset' => 'Redefinir sua senha',
         'restore_success' => 'Um e-mail com instruções para redefinir sua senha foi enviado ao seu endereço de e-mail.',
-        'restore_error' => 'O usuário ":login" não foi encontrado',
         'reset_success' => 'Sua senha foi redefinida com sucesso. Você já pode entrar novamente.',
         'reset_error' => 'A senha redefinida é inválida. Por favor, tente de novo!',
         'reset_fail' => 'Falha ao redefinir sua senha!',

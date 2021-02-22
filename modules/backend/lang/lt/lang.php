@@ -43,7 +43,6 @@ return [
         'enter_new_password' => 'Įveskite naują slaptažodį',
         'password_reset' => 'Slaptažodžio Keitimas',
         'restore_success' => 'Išsiuntėme Jums laišką el.paštu su tolimesnėmis instrukcijomis.',
-        'restore_error' => "Vartotojas prisijungimo vardu ':login' nerastas",
         'reset_success' => 'Slaptažodį pakeitėme. Dabar galite prisijungti.',
         'reset_error' => 'Peteikėte netinkamą slaptažodžio atstatymo informaciją. Bandykite dar kartą!',
         'reset_fail' => 'Slaptažodžio pakeisti nepavyko!',

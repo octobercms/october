@@ -37,7 +37,6 @@ return [
         'enter_new_password' => 'Ievadiet jauno paroli',
         'password_reset' => 'Paroles atiestatīšana',
         'restore_success' => 'Epasts tika nosūtīts uz norādīto adresi ar paroles atiestatīšanas norādēm.',
-        'restore_error' => "Lietotājs ar norādīto lietotājvārdu neeksistē ':login'",
         'reset_success' => 'Jūsu parole tika veiksmīgi atiestatīta. Varat pieslēgties.',
         'reset_error' => 'Nederīgi paroles atiestatīšanas dati. Mēģiniet vēlreiz!',
         'reset_fail' => 'Nebija iespējams atiestatīt paroli!',

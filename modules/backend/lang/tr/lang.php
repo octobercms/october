@@ -47,7 +47,6 @@ return [
         'enter_new_password' => "Yeni Şifrenizi girin",
         'password_reset' => "Şifre Sıfırla",
         'restore_success' => "Email adresinize şifrenizi nasıl sıfırlayacağınıza dair bilgiler gönderildi.",
-        'restore_error' => "':login' kullanıcı adı bulunamadı.",
         'reset_success' => "Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.",
         'reset_error' => "Hatalı giriş yaptınız. Lütfen tekrar deneyin!",
         'reset_fail' => "Şifre sıfırlanamadı!",

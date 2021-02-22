@@ -44,7 +44,6 @@ return [
         'enter_new_password' => 'Zadejte nové heslo',
         'password_reset' => 'Obnova hesla',
         'restore_success' => 'E-mail byl zaslán na vaší e-mailovou adresu s heslem a instrukcemi k obnově.',
-        'restore_error' => "Uživatel s přihlašovacím jménem ':login' nebyl nalezen",
         'reset_success' => 'Vaše heslo bylo úspěšně obnoveno. Nyní se můžete přihlásit.',
         'reset_error' => 'Data pro obnovu hesla nejsou správná. Prosím zkuste to znovu!',
         'reset_fail' => 'Obnova hesla selhala!',
