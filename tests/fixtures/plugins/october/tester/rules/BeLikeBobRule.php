@@ -13,7 +13,7 @@ class BeLikeBobRule extends Rule
      */
     public function passes($attribute, $value)
     {
-        return $value == 'bob';
+        return $value === 'bob';
     }
 
     /**
