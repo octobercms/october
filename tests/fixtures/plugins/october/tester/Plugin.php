@@ -66,7 +66,7 @@ class Plugin extends PluginBase
     {
         return [
             'uppercase' => function ($attribute, $value, $parameters, $validator) {
-                return strtoupper($value) == $value;
+                return strtoupper($value) === $value;
             },
             'be_like_bob' => \October\Tester\Rules\BeLikeBobRule::class
         ];
