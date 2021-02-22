@@ -68,7 +68,7 @@ class Plugin extends PluginBase
             'uppercase' => function ($attribute, $value, $parameters, $validator) {
                 return strtoupper($value) === $value;
             },
-            'be_like_bob' => \October\Tester\Rules\BeLikeBobRule::class
+            'be_like_bob' => \October\Tester\Rules\BeLikeBobRule::class,
         ];
     }
 }
