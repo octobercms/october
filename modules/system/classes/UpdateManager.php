@@ -1025,6 +1025,10 @@ class UpdateManager
      */
     protected function addMessage($class, $message)
     {
+        if (empty($message)) {
+            return;
+        }
+
         if (is_object($class)) {
             $class = get_class($class);
         }
@@ -1034,7 +1038,7 @@ class UpdateManager
 
         if (is_string($message)) {
             $this->messages[$class][] = $message;
-        } else if (is_array($message)) {
+        } elseif (is_array($message)) {
             array_merge($this->messages[$class], $message);
         }
     }

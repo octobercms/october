@@ -3,6 +3,7 @@
 use Str;
 use Seeder;
 use Eloquent;
+use Backend\Database\Seeds\SeedSetupAdmin;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $adminPassword = Str::random(22);
+        $shouldRandomizePassword = SeedSetupAdmin::$password === 'admin';
+        $adminPassword = $shouldRandomizePassword ? Str::random(22) : SeedSetupAdmin::$password;
 
         Eloquent::unguarded(function () use ($adminPassword) {
             // Generate a random password for the seeded admin account
@@ -24,7 +26,7 @@ class DatabaseSeeder extends Seeder
             $this->call($adminSeeder);
         });
 
-        return 'The following password has been automatically generated for the "admin" account: '
-            . "<fg=yellow;options=bold>${adminPassword}</>";
+        return $shouldRandomizePassword ? 'The following password has been automatically generated for the "admin" account: '
+            . "<fg=yellow;options=bold>${adminPassword}</>" : '';
     }
 }
