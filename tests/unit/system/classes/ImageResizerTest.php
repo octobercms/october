@@ -335,6 +335,32 @@ class ImageResizerTest extends PluginTestCase
         $this->assertStringContainsString('october%20space', $imageResizer->getResizedUrl(), 'Resized URLs are not properly URL encoded');
     }
 
+    public function testGetResizedUrl()
+    {
+        $imageResizer = new ImageResizer((new CmsController())->themeUrl('assets/images/october.png'));
+
+        Config::set('cms.linkPolicy', 'force');
+        $url = $imageResizer->getResizedUrl();
+        $this->assertTrue(starts_with($url, 'http'));
+
+        Config::set('cms.linkPolicy', 'detect');
+        $url = $imageResizer->getResizedUrl();
+        $this->assertTrue(starts_with($url, Config::get('cms.storage.resized.path', '/storage/app/resized')));
+    }
+
+    public function testGetResizerUrl()
+    {
+        $imageResizer = new ImageResizer((new CmsController())->themeUrl('assets/images/october.png'));
+
+        Config::set('cms.linkPolicy', 'force');
+        $url = $imageResizer->getResizerUrl();
+        $this->assertTrue(starts_with($url, 'http'));
+
+        Config::set('cms.linkPolicy', 'detect');
+        $url = $imageResizer->getResizerUrl();
+        $this->assertTrue(starts_with($url, '/resizer/'));
+    }
+
     protected function setUpStorage()
     {
         $this->app->useStoragePath(base_path('storage/temp'));
