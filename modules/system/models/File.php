@@ -71,9 +71,15 @@ class File extends FileBase
      */
     public function getPublicPath()
     {
-        $uploadsPath = Config::get('cms.storage.uploads.path', '/storage/app/uploads');
+        $uploadsFolder = Config::get('cms.storage.uploads.folder', 'uploads');
 
-        return $this->getDisk()->url($uploadsPath . ($this->isPublic() ? '/public/' : '/protected/'));
+        $path = $this->getDisk()->url('/'. $uploadsFolder . ($this->isPublic() ? '/public/' : '/protected/'));
+
+        if (Config::get('cms.linkPolicy') === 'force') {
+            return Url::asset($path);
+        }
+
+        return $path;
     }
 
     /**
