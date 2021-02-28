@@ -119,6 +119,16 @@
             })
         })
 
+        $.each(fieldMap, function(index, depend){
+            if(fieldMap[index].hasOwnProperty('fields')) {
+                if(fieldMap[depend.fields[0]]) {
+                    fieldMap[index].fieldsNext = [],
+                    fieldMap[index].fieldsNext.push(fieldMap[fieldMap[index].fields[0]])
+                }
+
+            }
+        })
+
         /*
          * When a master is updated, refresh its slaves
          */
@@ -140,6 +150,16 @@
             formEl = this.$form,
             fieldElements = this.getFieldElements()
 
+        if(toRefresh.hasOwnProperty('fieldsNext')) {
+            var fieldNameLv2 = toRefresh.fieldsNext[0].fields[0],
+            toRefreshLv2 = toRefresh.fieldsNext[0]
+
+                if(toRefresh.fieldsNext[0].hasOwnProperty('fieldsNext')) {
+                    var fieldNameLv3 = toRefresh.fieldsNext[0].fieldsNext[0].fields[0],
+                    toRefreshLv3 = toRefresh.fieldsNext[0].fieldsNext[0]
+                }
+        }
+
         if (this.dependantUpdateTimers[fieldName] !== undefined) {
             window.clearTimeout(this.dependantUpdateTimers[fieldName])
         }
@@ -157,11 +177,67 @@
             })
         }, this.dependantUpdateInterval)
 
+        if(fieldNameLv2) {
+            if (this.dependantUpdateTimers[fieldNameLv2] !== undefined) {
+               window.clearTimeout(this.dependantUpdateTimers[fieldNameLv2])
+            }
+
+            this.dependantUpdateTimers[fieldNameLv2] = window.setTimeout(function() {
+                var refreshData = $.extend({},
+                    toRefreshLv2,
+                    paramToObj('data-refresh-data', self.options.refreshData)
+                )
+
+                formEl.request(self.options.refreshHandler, {
+                    data: refreshData
+                }).success(function() {
+                    self.toggleEmptyTabs()
+                })
+            }, this.dependantUpdateInterval)
+
+            if(fieldNameLv3) {
+                if (this.dependantUpdateTimers[fieldNameLv3] !== undefined) {
+                    window.clearTimeout(this.dependantUpdateTimers[fieldNameLv3])
+                 }
+
+                this.dependantUpdateTimers[fieldNameLv3] = window.setTimeout(function() {
+                    var refreshData = $.extend({},
+                        toRefreshLv3,
+                        paramToObj('data-refresh-data', self.options.refreshData)
+                    )
+
+                    formEl.request(self.options.refreshHandler, {
+                        data: refreshData
+                    }).success(function() {
+                        self.toggleEmptyTabs()
+                    })
+                }, this.dependantUpdateInterval)
+            }
+        }
+
+
         $.each(toRefresh.fields, function(index, field) {
             fieldElements.filter('[data-field-name="'+field+'"]:visible')
                 .addClass('loading-indicator-container size-form-field')
                 .loadIndicator()
         })
+
+        if(toRefreshLv2) {
+            $.each(toRefreshLv2.fields, function(index, field) {
+                fieldElements.filter('[data-field-name="'+field+'"]:visible')
+                    .addClass('loading-indicator-container size-form-field')
+                    .loadIndicator()
+            })
+
+            if(toRefreshLv3) {
+                $.each(toRefreshLv3.fields, function(index, field) {
+                    fieldElements.filter('[data-field-name="'+field+'"]:visible')
+                        .addClass('loading-indicator-container size-form-field')
+                        .loadIndicator()
+                })
+            }
+        }
+
     }
 
     /*
