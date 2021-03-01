@@ -1129,7 +1129,7 @@ class Form extends WidgetBase
         if ($enableDefaults === false) {
             return false;
         }
-        return !$this->model->exists || $enableDefaults;
+        return $this->model->exists || $enableDefaults;
     }
 
     /**
