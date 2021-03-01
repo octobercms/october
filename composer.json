@@ -37,7 +37,7 @@
         "october/backend": "1.1.*",
         "october/cms": "1.1.*",
         "laravel/framework": "~6.0",
-        "wikimedia/composer-merge-plugin": "2.0.1"
+        "wikimedia/composer-merge-plugin": "~2.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4|^9.3.3",
