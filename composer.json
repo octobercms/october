@@ -37,7 +37,7 @@
         }
     ],
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.2.9",
         "october/rain": "1.1.*",
         "october/system": "1.1.*",
         "october/backend": "1.1.*",
@@ -82,10 +82,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform": {
-            "php": "7.2.9"
-        }
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
