@@ -499,7 +499,13 @@ class ImageResizer
         // Store the current configuration
         $this->storeConfig();
 
-        return Url::to("/resizer/$identifier/$resizedUrl");
+        $url = "/resizer/$identifier/$resizedUrl";
+
+        if (Config::get('cms.linkPolicy', 'detect') === 'force') {
+            $url = Url::to($url);
+        }
+
+        return $url;
     }
 
     /**
@@ -523,7 +529,13 @@ class ImageResizer
         // Ensure that a properly encoded URL is returned
         $segments = explode('/', $url);
         $lastSegment = array_pop($segments);
-        return implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
+        $url = implode('/', $segments) . '/' . rawurlencode(rawurldecode($lastSegment));
+
+        if (Config::get('cms.linkPolicy', 'detect') === 'force') {
+            $url = Url::to($url);
+        }
+
+        return $url;
     }
 
     /**

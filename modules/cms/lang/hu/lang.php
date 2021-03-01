@@ -32,7 +32,7 @@ return [
         'edit' => [
             'not_set' => 'Nincs beállítva a szerkesztés alatt lévő téma.',
             'not_found' => 'A szerkesztés alatt lévő téma nem található.',
-            'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra a lapot.'
+            'not_match' => 'Az objektum melyhez hozzáférni próbál, nem a szerkesztés alatt lévő témához tartozik. Töltse be újra az oldalt.',
         ],
         'settings_menu' => 'Megjelenés',
         'settings_menu_description' => 'A telepített témák listája és azok testreszabása.',
@@ -98,28 +98,28 @@ return [
         'settings_menu' => 'Karbantartás',
         'settings_menu_description' => 'A weboldal ideiglenes felfüggesztése a látogatók számára.',
         'is_enabled' => 'Karbantartás engedélyezése',
-        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott lapot fogják látni.',
-        'hint' => 'Karbantartás módban a lentebb megadott lap fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.'
+        'is_enabled_comment' => 'Aktiválása esetén a weboldal látogatói csak a kiválasztott oldalt fogják látni.',
+        'hint' => 'Karbantartás módban a lentebb megadott oldal fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre.',
     ],
     'page' => [
-        'not_found_name' => "A következő lap nem található: ':name'",
+        'not_found_name' => "A következő oldal nem található: ':name'",
         'not_found' => [
-            'label' => 'A lap nem található',
-            'help' => 'A kért lap nem található.'
+            'label' => 'Az oldal nem található',
+            'help' => 'A kért oldal nem található.',
         ],
         'custom_error' => [
-            'label' => 'Laphiba',
-            'help' => 'Sajnos valami elromlott, ezért a lap nem jeleníthető meg.'
+            'label' => 'Oldal hiba',
+            'help' => 'Sajnos valami elromlott, ezért az oldal nem jeleníthető meg.',
         ],
-        'menu_label' => 'Lapok',
-        'unsaved_label' => 'Nem mentett lap(ok)',
+        'menu_label' => 'Oldalak',
+        'unsaved_label' => 'Nem mentett oldal(ok)',
         'no_list_records' => 'Nincs találat',
-        'new' => 'Új lap',
+        'new' => 'Új oldal',
         'invalid_url' => 'Érvénytelen a formátum. A webcímnek perjellel kell kezdődnie, és számokat, latin betűket, valamint a következő karaktereket tartalmazhatja: ._-[]:?|/+*',
-        'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt lapokat?',
-        'delete_confirm_single' => 'Valóban törölni akarja ezt a lapot?',
+        'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt oldalakat?',
+        'delete_confirm_single' => 'Valóban törölni akarja ezt az oldalt?',
         'no_layout' => '-- nincs --',
-        'cms_page' => 'Lapok',
+        'cms_page' => 'Oldalak',
         'title' => 'Elnevezés szerint',
         'url' => 'Webcím szerint',
         'file_name' => 'Fájlnév szerint'
@@ -166,7 +166,7 @@ return [
     'editor' => [
         'settings' => 'Beállítások',
         'title' => 'Elnevezés',
-        'new_title' => 'Az új lap címe',
+        'new_title' => 'Az új oldal címe',
         'url' => 'Webcím',
         'filename' => 'Fájlnév',
         'layout' => 'Elrendezés',
@@ -185,7 +185,15 @@ return [
         'open_searchbox' => 'Keresési panel megnyitása',
         'close_searchbox'  => 'Keresési panel bezárása',
         'open_replacebox' => 'Cserepanel megnyitása',
-        'close_replacebox'  => 'Cserepanel bezárása'
+        'close_replacebox'  => 'Cserepanel bezárása',
+        'commit' => 'Végrehajtás',
+        'reset' => 'Visszaállítás',
+        'commit_confirm' => 'Biztos, hogy végrehajtja a fájl módosításait? Ez felülírja a meglévő fájlt.',
+        'reset_confirm' => 'Biztos, hogy vissza akarja állítani ezt a fájlt a másolatra? Ez teljesen lecseréli a meglévő fájlt.',
+        'committing' => 'Végrehajtás',
+        'resetting' => 'Visszaállítás',
+        'commit_success' => 'The :type has been committed to the filesystem',
+        'reset_success' => 'The :type has been reset to the filesystem version',
     ],
     'asset' => [
         'menu_label' => 'Fájlok',
@@ -236,12 +244,15 @@ return [
         'unnamed' => 'Névtelen',
         'no_description' => 'Nincs megadott leírás',
         'alias' => 'Alias',
-        'alias_description' => 'Ennek a komponensnek a lap vagy az elrendezés kódjában való használatkor adott egyedi név.',
+        'alias_description' => 'Ennek a komponensnek az oldal vagy az elrendezés kódjában való használatkor adott egyedi név.',
         'validation_message' => 'A komponens aliasok kötelezőek, és csak latin betűket, számokat, valamint aláhúzásokat tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
         'invalid_request' => 'A sablon érvénytelen komponens adatok miatt nem menthető.',
         'no_records' => 'Nem találhatók komponensek',
         'not_found' => "A(z) ':name' komponens nem található.",
-        'method_not_found' => "A(z) ':name' komponens nem tartalmaz egy ':method' metódust."
+        'no_default_partial' => 'Ennek a komponensek nincs alapértelmezett részlapja.',
+        'method_not_found' => "A(z) ':name' komponens nem tartalmaz a(z) ':method' metódust.",
+        'soft_component' => 'Opcionális komponens',
+        'soft_component_description' => 'Ez a komponens hiányzik, viszont nem kötelező.',
     ],
     'template' => [
         'invalid_type' => 'Ismeretlen sablon típus.',
@@ -255,7 +266,7 @@ return [
         'name' => 'Testreszabás',
         'manage_content' => 'Tartalom kezelése',
         'manage_assets' => 'Fájlok kezelése',
-        'manage_pages' => 'Lapok kezelése',
+        'manage_pages' => 'Oldalak kezelése',
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',
         'manage_themes' => 'Témák kezelése',

@@ -252,7 +252,7 @@ return [
     'mail_brand' => [
         'menu_label' => 'E-mail branding',
         'menu_description' => 'Aanpassen van kleuren en weergave van e-mailsjablonen.',
-        'page_title' => 'Aanpaasen e-mailweergave',
+        'page_title' => 'Aanpassen e-mailweergave',
         'sample_template' => [
             'heading' => 'Kop',
             'paragraph' => 'Dit is een paragraaf gevuld met Lorem Ipsum en een link. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',
