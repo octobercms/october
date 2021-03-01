@@ -33,12 +33,7 @@ jobs:
       max-parallel: 8
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
-        phpVersion: ['7.2', '7.3', '7.4']
-        experimental: [false]
-        include:
-          - phpVersion: '8.0'
-            operatingSystem: ubuntu-latest
-            experimental: true
+        phpVersion: ['7.2', '7.3', '7.4', '8.0']
       fail-fast: false
     runs-on: ${{ matrix.operatingSystem }}
     continue-on-error: ${{ matrix.experimental }}
