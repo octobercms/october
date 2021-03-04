@@ -37,17 +37,6 @@ You may also watch these introductory videos for [beginners](https://vimeo.com/7
 
 October was created by [Alexey Bobkov](https://www.linkedin.com/in/alexey-bobkov-232ba02b/) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/), who both continue to develop the platform.
 
-The maintenance of October is lead by [Luke Towers](https://luketowers.ca/), along with many wonderful people that dedicate their time to help support and grow the community.
-
-<table>
-  <tr>
-    <td align="center"><a href="https://luketowers.ca/"><img src="https://avatars.githubusercontent.com/u/7253840?v=3" width="100px;" alt="Luke Towers"/><br /><sub><b>Luke Towers</b></sub></a></td>
-    <td align="center"><a href="https://github.com/bennothommo"><img src="https://avatars.githubusercontent.com/u/15900351?v=3" width="100px;" alt="Ben Thomson"/><br /><sub><b>Ben Thomson</b></sub></a></td>
-    <td align="center"><a href="https://github.com/w20k"><img src="https://avatars.githubusercontent.com/u/1053320?v=3" width="100px;" alt="Denis Denisov"/><br /><sub><b>Denis Denisov</b></sub></a></td>
-    <td align="center"><a href="https://github.com/mjauvin"><img src="https://avatars.githubusercontent.com/u/2013630?v=3" width="100px;" alt="Marc Jauvin"/><br /><sub><b>Marc Jauvin</b></sub></a></td>
-  </tr>
-</table>
-
 ## Foundation library
 
 The CMS uses [Laravel](https://laravel.com) as a foundation PHP framework.
