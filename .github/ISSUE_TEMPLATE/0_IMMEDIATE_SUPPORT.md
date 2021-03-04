@@ -10,6 +10,4 @@ This repository is only for reporting reproducible bugs or problems. If you need
 - Forum: https://octobercms.com/forum
 - Stack Overflow: https://stackoverflow.com/questions/tagged/octobercms
 
-If you rely on OctoberCMS for your business consider purchasing a paid support plan! Send an email to octobercms@luketowers.ca to get started.
-
-Thanks!
+If you rely on OctoberCMS for your business consider purchasing a paid support plan, visit https://octobercms.com/premium-support
