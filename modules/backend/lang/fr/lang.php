@@ -119,7 +119,7 @@ return [
         'role_field' => 'Rôle',
         'role_comment' => 'Les rôles définissent les permissions de l\'utilisateur, elles peuvent être écrasés au niveau de l\'utilisateur dans l\'onglet "Permissions".',
         'groups' => 'Groupes',
-        'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir. Les groupes définissent les permissions des utilisateurs, qui peuvent être surchargées au niveau de l’utilisateur, dans l’onglet Permissions.',
+        'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir.',
         'avatar' => 'Avatar',
         'password' => 'Mot de passe',
         'password_confirmation' => 'Confirmer le mot de passe',
