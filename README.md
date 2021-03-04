@@ -13,19 +13,15 @@ October's mission is to show the world that web development is not rocket scienc
 
 Instructions on how to install October can be found at the [installation guide](https://octobercms.com/docs/setup/installation).
 
-### Quick start installation
+### Quick Start Installation
 
-For advanced users, run this in your terminal to install October from command line:
+If you have composer installed, run this in your terminal to install October CMS from command line. This will place the files in a directory named **myoctober**.
 
-```shell
-php -r "eval('?>'.file_get_contents('https://octobercms.com/api/installer'));"
-```
+    composer create-project october/october myoctober
 
-If you plan on using a database, run this command:
+If you plan on using a database, run this command inside the application directory.
 
-```shell
-php artisan october:install
-```
+    php artisan october:install
 
 ## Learning October
 
@@ -56,7 +52,7 @@ October CMS can provide premium support for a monthly fee. Find out more via the
 
 ## Contributing
 
-Before sending or reviewing Pull Requests, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first.
+Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first. We are currently operating on a smaller staff and it may take some time to reach your issue. For priority issues, consider purchasing a [premium support plan](https://octobercms.com/premium-support).
 
 ### Coding standards
 
