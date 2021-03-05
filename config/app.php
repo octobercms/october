@@ -71,7 +71,7 @@ return [
     | on the Backend password reset flow for security reasons.
     */
 
-    'trustedHosts' => true,
+    'trustedHosts' => false,
 
     /*
     |--------------------------------------------------------------------------
