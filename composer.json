@@ -15,12 +15,6 @@
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com",
             "role": "Co-founder"
-        },
-        {
-            "name": "Luke Towers",
-            "email": "octobercms@luketowers.ca",
-            "homepage": "https://luketowers.ca",
-            "role": "Maintainer"
         }
     ],
     "support": {
@@ -30,20 +24,14 @@
         "docs": "https://octobercms.com/docs/",
         "source": "https://github.com/octobercms/october"
     },
-    "repositories": [
-        {
-            "type":"vcs",
-            "url":"https://github.com/octoberrain/composer-merge-plugin"
-        }
-    ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.2.9",
         "october/rain": "1.1.*",
         "october/system": "1.1.*",
         "october/backend": "1.1.*",
         "october/cms": "1.1.*",
         "laravel/framework": "~6.0",
-        "wikimedia/composer-merge-plugin": "dev-feature/composer-v2 as 1.5.0"
+        "wikimedia/composer-merge-plugin": "~2.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4|^9.3.3",
@@ -51,8 +39,7 @@
         "fzaninotto/faker": "~1.9",
         "squizlabs/php_codesniffer": "3.*",
         "php-parallel-lint/php-parallel-lint": "^1.0",
-        "meyfa/phpunit-assert-gd": "^2.0.0",
-        "dms/phpunit-arraysubset-asserts": "^0.1.0"
+        "dms/phpunit-arraysubset-asserts": "^0.1.0|^0.2.1"
     },
     "autoload-dev": {
         "classmap": [
@@ -82,10 +69,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform": {
-            "php": "7.2"
-        }
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

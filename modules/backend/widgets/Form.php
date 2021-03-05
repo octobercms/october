@@ -1333,7 +1333,7 @@ class Form extends WidgetBase
             if (str_contains($fieldOptions, '::')) {
                 $options = explode('::', $fieldOptions);
                 if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
-                    $result = $options[0]::{$options[1]}();
+                    $result = $options[0]::{$options[1]}($this, $field);
                     if (!is_array($result)) {
                         throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
                             'class' => $options[0],

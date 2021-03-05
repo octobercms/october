@@ -617,7 +617,7 @@ class Controller extends ControllerBase
             $pageHandler = $this->action . '_' . $handler;
 
             if ($this->methodExists($pageHandler)) {
-                $result = call_user_func_array([$this, $pageHandler], $this->params);
+                $result = call_user_func_array([$this, $pageHandler], array_values($this->params));
                 return $result ?: true;
             }
 
@@ -625,7 +625,7 @@ class Controller extends ControllerBase
              * Process page global handler (onSomething)
              */
             if ($this->methodExists($handler)) {
-                $result = call_user_func_array([$this, $handler], $this->params);
+                $result = call_user_func_array([$this, $handler], array_values($this->params));
                 return $result ?: true;
             }
 
@@ -662,7 +662,7 @@ class Controller extends ControllerBase
     {
         $this->addViewPath($widget->getViewPaths());
 
-        $result = call_user_func_array([$widget, $handler], $this->params);
+        $result = call_user_func_array([$widget, $handler], array_values($this->params));
 
         $this->vars = $widget->vars + $this->vars;
 

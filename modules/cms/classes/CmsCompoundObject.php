@@ -98,6 +98,16 @@ class CmsCompoundObject extends CmsObject
      */
     public function beforeSave()
     {
+        // Ignore line-ending only changes to the code property to avoid triggering safe mode
+        // when no changes actually occurred, it was just the browser reformatting line endings
+        if ($this->isDirty('code')) {
+            $oldCode = str_replace("\n", "\r\n", str_replace("\r", '', $this->getOriginal('code')));
+            $newCode = str_replace("\n", "\r\n", str_replace("\r", '', $this->code));
+            if ($oldCode === $newCode) {
+                $this->code = $this->getOriginal('code');
+            }
+        }
+        
         $this->checkSafeMode();
     }
 

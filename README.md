@@ -13,19 +13,15 @@ October's mission is to show the world that web development is not rocket scienc
 
 Instructions on how to install October can be found at the [installation guide](https://octobercms.com/docs/setup/installation).
 
-### Quick start installation
+### Quick Start Installation
 
-For advanced users, run this in your terminal to install October from command line:
+If you have composer installed, run this in your terminal to install October CMS from command line. This will place the files in a directory named **myoctober**.
 
-```shell
-php -r "eval('?>'.file_get_contents('https://octobercms.com/api/installer'));"
-```
+    composer create-project october/october myoctober
 
-If you plan on using a database, run this command:
+If you plan on using a database, run this command inside the application directory.
 
-```shell
-php artisan october:install
-```
+    php artisan october:install
 
 ## Learning October
 
@@ -36,17 +32,6 @@ You may also watch these introductory videos for [beginners](https://vimeo.com/7
 ## Development Team
 
 October was created by [Alexey Bobkov](https://www.linkedin.com/in/alexey-bobkov-232ba02b/) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/), who both continue to develop the platform.
-
-The maintenance of October is lead by [Luke Towers](https://luketowers.ca/), along with many wonderful people that dedicate their time to help support and grow the community.
-
-<table>
-  <tr>
-    <td align="center"><a href="https://luketowers.ca/"><img src="https://avatars.githubusercontent.com/u/7253840?v=3" width="100px;" alt="Luke Towers"/><br /><sub><b>Luke Towers</b></sub></a></td>
-    <td align="center"><a href="https://github.com/bennothommo"><img src="https://avatars.githubusercontent.com/u/15900351?v=3" width="100px;" alt="Ben Thomson"/><br /><sub><b>Ben Thomson</b></sub></a></td>
-    <td align="center"><a href="https://github.com/w20k"><img src="https://avatars.githubusercontent.com/u/1053320?v=3" width="100px;" alt="Denis Denisov"/><br /><sub><b>Denis Denisov</b></sub></a></td>
-    <td align="center"><a href="https://github.com/mjauvin"><img src="https://avatars.githubusercontent.com/u/2013630?v=3" width="100px;" alt="Marc Jauvin"/><br /><sub><b>Marc Jauvin</b></sub></a></td>
-  </tr>
-</table>
 
 ## Foundation library
 
@@ -67,7 +52,7 @@ October CMS can provide premium support for a monthly fee. Find out more via the
 
 ## Contributing
 
-Before sending or reviewing Pull Requests, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first.
+Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first. We are currently operating on a smaller staff and it may take some time to reach your issue. For priority issues, consider purchasing a [premium support plan](https://octobercms.com/premium-support).
 
 ### Coding standards
 
