@@ -30,10 +30,10 @@ jobs:
         run: npm run test
   phpUnitTests:
     strategy:
-      max-parallel: 6
+      max-parallel: 8
       matrix:
         operatingSystem: [ubuntu-latest, windows-latest]
-        phpVersion: ['7.2', '7.3', '7.4']
+        phpVersion: ['7.2', '7.3', '7.4', '8.0']
       fail-fast: false
     runs-on: ${{ matrix.operatingSystem }}
     name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}

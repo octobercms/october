@@ -112,6 +112,14 @@ class BackendController extends ControllerBase
     }
 
     /**
+     * @inheritDoc
+     */
+    public function callAction($method, $parameters)
+    {
+        return parent::callAction($method, array_values($parameters));
+    }
+
+    /**
      * Pass unhandled URLs to the CMS Controller, if it exists
      *
      * @param string $url
@@ -210,7 +218,7 @@ class BackendController extends ControllerBase
          * Look for a Plugin controller
          */
         if (count($params) >= 2) {
-            list($author, $plugin) = $params;
+            [$author, $plugin] = $params;
 
             $pluginCode = ucfirst($author) . '.' . ucfirst($plugin);
             if (PluginManager::instance()->isDisabled($pluginCode)) {
