@@ -154,7 +154,7 @@
                 data: refreshData
             }).success(function() {
                 self.toggleEmptyTabs()
-                $('[data-field-name="' + toRefresh.fields[0] + '"]').trigger('change');
+                $('[data-field-name="' + toRefresh.fields[0] + '"]').trigger('change')
             })
         }, this.dependantUpdateInterval)
 
