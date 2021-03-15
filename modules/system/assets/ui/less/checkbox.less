@@ -41,9 +41,11 @@
     padding-left: 23px;
     margin-top: 0;
 
+    // Faux hide the native element for client side validation
     input[type=radio],
     input[type=checkbox] {
-        display: none;
+        display: block;
+        opacity: 0;
     }
 
     label {
