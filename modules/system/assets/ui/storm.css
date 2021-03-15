@@ -4096,7 +4096,7 @@ html.cssanimations .cursor-loading-indicator.hide {display:none}
 .custom-checkbox input[type=radio],
 .custom-radio input[type=radio],
 .custom-checkbox input[type=checkbox],
-.custom-radio input[type=checkbox] {display:none}
+.custom-radio input[type=checkbox] {display:block;opacity: 0}
 .custom-checkbox label,
 .custom-radio label {display:inline-block;cursor:pointer;position:relative;padding-left:25px;margin-right:15px;margin-left:-20px;font-size:13px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .custom-checkbox label:before,
