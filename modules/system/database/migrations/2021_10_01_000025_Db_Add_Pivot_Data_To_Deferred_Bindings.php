@@ -1,11 +1,10 @@
 <?php
 
 use October\Rain\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use October\Rain\Database\Updates\Migration;
 
 class DbAddPivotDataToDeferredBindings extends Migration
 {
-
     public function up()
     {
         Schema::table('deferred_bindings', function (Blueprint $table) {
