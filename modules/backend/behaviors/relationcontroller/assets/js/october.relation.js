@@ -80,6 +80,11 @@
                     $form.prepend($('<input />').attr({ type: 'hidden', name: name, value: value }))
                 })
             })
+            
+            $(container).on('hide.oc.popup', function(event, $trigger, $modal) {
+                var $formWidgetEl = $('[data-control="formwidget"]', $modal)
+                $formWidgetEl.trigger('dispose-control')
+            })
         }
 
         function paramToObj(name, value) {
