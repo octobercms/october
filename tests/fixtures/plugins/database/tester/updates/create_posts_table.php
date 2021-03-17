@@ -22,10 +22,20 @@ class CreatePostsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('database_tester_categories_posts', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->integer('category_id')->unsigned();
+            $table->integer('post_id')->unsigned();
+            $table->primary(['category_id', 'post_id']);
+            $table->string('category_name')->nullable();
+            $table->string('post_name')->nullable();
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists('database_tester_categories_posts');
         Schema::dropIfExists('database_tester_posts');
     }
 }

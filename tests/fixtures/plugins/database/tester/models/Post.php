@@ -26,12 +26,29 @@ class Post extends Model
         'author' => 'Database\Tester\Models\Author',
     ];
 
+    public $belongsToMany = [
+        'categories' => [
+            'Database\Tester\Models\Category',
+            'table' => 'database_tester_categories_posts',
+            'pivot' => ['category_name', 'post_name']
+        ]
+    ];
+
     public $morphMany = [
         'event_log' => ['Database\Tester\Models\EventLog', 'name' => 'related', 'delete' => true, 'softDelete' => true],
     ];
 
     public $morphOne = [
         'meta' => ['Database\Tester\Models\Meta', 'name' => 'taggable'],
+    ];
+
+    public $morphToMany = [
+        'tags' => [
+            'Database\Tester\Models\Tag',
+            'name'  => 'taggable',
+            'table' => 'database_tester_taggables',
+            'pivot' => ['added_by']
+        ],
     ];
 }
 

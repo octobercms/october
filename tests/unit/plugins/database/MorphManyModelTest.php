@@ -1,6 +1,8 @@
 <?php
 
 use Database\Tester\Models\Author;
+use Database\Tester\Models\Tag;
+use Database\Tester\Models\Post;
 use Database\Tester\Models\EventLog;
 use October\Rain\Database\Collection;
 
@@ -11,7 +13,9 @@ class MorphManyModelTest extends PluginTestCase
         parent::setUp();
 
         include_once base_path().'/tests/fixtures/plugins/database/tester/models/Author.php';
+        include_once base_path().'/tests/fixtures/plugins/database/tester/models/Post.php';
         include_once base_path().'/tests/fixtures/plugins/database/tester/models/EventLog.php';
+        include_once base_path().'/tests/fixtures/plugins/database/tester/models/Tag.php';
 
         $this->runPluginRefreshCommand('Database.Tester');
     }
@@ -84,6 +88,9 @@ class MorphManyModelTest extends PluginTestCase
         Model::unguard();
         $author = Author::create(['name' => 'Stevie']);
         $event = EventLog::create(['action' => "user-created"]);
+        $post = Post::create(['title' => 'Hello world!']);
+        $tagForAuthor = Tag::create(['name' => 'ForAuthor']);
+        $tagForPost = Tag::create(['name' => 'ForPost']);
         Model::reguard();
 
         $eventId = $event->id;
@@ -96,6 +103,18 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals(0, $author->event_log()->count());
         $this->assertEquals(1, $author->event_log()->withDeferred($sessionKey)->count());
 
+        $author->tags()->add($tagForAuthor, $sessionKey, ['added_by' => 99]);
+        $this->assertEmpty($author->tags);
+
+        $this->assertEquals(0, $author->tags()->count());
+        $this->assertEquals(1, $author->tags()->withDeferred($sessionKey)->count());
+
+        $tagForPost->posts()->add($post, $sessionKey, ['added_by' => 88]);
+        $this->assertEmpty($tagForPost->posts);
+
+        $this->assertEquals(0, $tagForPost->posts()->count());
+        $this->assertEquals(1, $tagForPost->posts()->withDeferred($sessionKey)->count());
+
         // Commit deferred
         $author->save(null, $sessionKey);
         $event = EventLog::find($eventId);
@@ -104,6 +123,15 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals([
             'user-created'
         ], $author->event_log->lists('action'));
+
+        $this->assertEquals(1, $author->tags()->count());
+        $this->assertEquals([$tagForAuthor->id], $author->tags->lists('id'));
+        $this->assertEquals(99, $author->tags->first()->pivot->added_by);
+
+        $tagForPost->save(null, $sessionKey);
+        $this->assertEquals(1, $tagForPost->posts()->count());
+        $this->assertEquals([$post->id], $tagForPost->posts->lists('id'));
+        $this->assertEquals(88, $tagForPost->posts->first()->pivot->added_by);
 
         // New session
         $sessionKey = uniqid('session_key', true);
@@ -117,11 +145,27 @@ class MorphManyModelTest extends PluginTestCase
             'user-created'
         ], $author->event_log->lists('action'));
 
+        $author->tags()->remove($tagForAuthor, $sessionKey);
+        $this->assertEquals(1, $author->tags()->count());
+        $this->assertEquals(0, $author->tags()->withDeferred($sessionKey)->count());
+        $this->assertEquals([$tagForAuthor->id], $author->tags->lists('id'));
+        $this->assertEquals(99, $author->tags->first()->pivot->added_by);
+
+        $tagForPost->posts()->remove($post, $sessionKey);
+        $this->assertEquals(1, $tagForPost->posts()->count());
+        $this->assertEquals(0, $tagForPost->posts()->withDeferred($sessionKey)->count());
+        $this->assertEquals([$post->id], $tagForPost->posts->lists('id'));
+        $this->assertEquals(88, $tagForPost->posts->first()->pivot->added_by);
+
+
         // Commit deferred (model is deleted as per definition)
         $author->save(null, $sessionKey);
         $event = EventLog::find($eventId);
         $this->assertEquals(0, $author->event_log()->count());
         $this->assertNull($event);
         $this->assertEmpty($author->event_log);
+
+        $this->assertEmpty(0, $author->tags);
+        $this->assertEmpty(0, $tagForPost->posts);
     }
 }
