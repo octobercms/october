@@ -99,6 +99,7 @@ class OctoberUtil extends Command
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
             ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
             ['projectId', null, InputOption::VALUE_REQUIRED, 'Specify a projectId for set project'],
+            ['missing-files', null, InputOption::VALUE_NONE, 'Purge system_files records for missing storage files'],
         ];
     }
 
@@ -339,7 +340,38 @@ class OctoberUtil extends Command
             return;
         }
 
-        // @todo
+        $isDebug = $this->option('debug');
+        $orphanedFiles = 0;
+        $isLocalStorage = Config::get('cms.storage.uploads.disk', 'local') === 'local';
+
+        $files = FileModel::whereDoesntHaveMorph('attachment', '*')
+                    ->orWhereNull('attachment_id')
+                    ->orWhereNull('attachment_type')
+                    ->get();
+
+        foreach ($files as $file) {
+            if (!$isDebug) {
+                $file->delete();
+            }
+            $orphanedFiles += 1;
+        }
+
+        if ($this->option('missing-files') && $isLocalStorage) {
+            foreach (FileModel::all() as $file) {
+                if (!File::exists($file->getLocalPath())) {
+                    if (!$isDebug) {
+                        $file->delete();
+                    }
+                    $orphanedFiles += 1;
+                }
+            }
+        }
+
+        if ($orphanedFiles > 0) {
+            $this->comment(sprintf('Successfully deleted %d orphaned record(s).', $orphanedFiles));
+        } else {
+            $this->comment('No records to purge.');
+        }
     }
 
     /**
