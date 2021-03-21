@@ -9,6 +9,7 @@ return [
         'invalid_type' => 'Использован неверный тип поля: :type.',
         'options_method_invalid_model' => "Атрибут ':field' не соответствует допустимой модели. Попробуйте явно указать метод параметров для класса :model .",
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
+        'options_static_method_invalid_value' => "Статический метод ':method()' в :class не вернул допустимый массив параметров.",
         'colors_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий HTML цвет в HEX для поля формы ':field'.",
     ],
     'widget' => [
@@ -48,6 +49,10 @@ return [
         'impersonate_working' => 'Имперсонация...',
         'impersonating' => 'Имперсонация :full_name',
         'stop_impersonating' => 'Остановить имперсонацию',
+        'unsuspend' => 'Приостановлен',
+        'unsuspend_confirm' => 'Вы уверены что хотите приостановить данного пользователя?',
+        'unsuspend_success' => 'Пользователь был приостановлен.',
+        'unsuspend_working' => 'Приостановка...',
         'signed_in_as' => 'Выполнен вход как :full_name',
         'sign_out' => 'Выйти',
         'login' => 'Вход',
@@ -368,6 +373,7 @@ return [
     'editor' => [
         'menu_label' => 'Настройки редактора',
         'menu_description' => 'Управление настройками редактора кода.',
+        'preview' => 'Предпросмотр',
         'font_size' => 'Размер шрифта',
         'tab_size' => 'Размер табуляции',
         'use_hard_tabs' => 'Использовать табуляцию для индентации',
