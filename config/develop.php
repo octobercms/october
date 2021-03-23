@@ -20,7 +20,7 @@ return [
     */
 
     'decompileBackendAssets' => false,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Allow deep-level symlinks
