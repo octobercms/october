@@ -119,6 +119,6 @@ return [
     |
     */
 
-    'enableCsrfProtection' => false
+    'enableCsrfProtection' => false,
 
 ];

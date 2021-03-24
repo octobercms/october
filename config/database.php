@@ -47,45 +47,45 @@ return [
     'connections' => [
 
         'sqlite' => [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => 'storage/database.sqlite',
-            'prefix'   => '',
+            'prefix' => '',
         ],
 
         'mysql' => [
-            'driver'     => 'mysql',
-            'engine'     => 'InnoDB',
-            'host'       => 'localhost',
-            'port'       => 3306,
-            'database'   => 'database',
-            'username'   => 'root',
-            'password'   => '',
-            'charset'    => 'utf8mb4',
-            'collation'  => 'utf8mb4_unicode_ci',
-            'prefix'     => '',
+            'driver' => 'mysql',
+            'engine' => 'InnoDB',
+            'host' => 'localhost',
+            'port' => 3306,
+            'database' => 'database',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
             'varcharmax' => 191,
         ],
 
         'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => 'localhost',
-            'port'     => 5432,
+            'driver' => 'pgsql',
+            'host' => 'localhost',
+            'port' => 5432,
             'database' => 'database',
             'username' => 'root',
             'password' => '',
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
         ],
 
         'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => 'localhost',
-            'port'     => 1433,
+            'driver' => 'sqlsrv',
+            'host' => 'localhost',
+            'port' => 1433,
             'database' => 'database',
             'username' => 'root',
             'password' => '',
-            'prefix'   => '',
+            'prefix' => '',
         ],
 
     ],
@@ -120,9 +120,9 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host'     => '127.0.0.1',
+            'host' => '127.0.0.1',
             'password' => null,
-            'port'     => 6379,
+            'port' => 6379,
             'database' => 0,
         ],
 
@@ -144,4 +144,5 @@ return [
     */
 
     'useConfigForTesting' => false,
+
 ];

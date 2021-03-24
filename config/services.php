@@ -39,7 +39,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => 'User',
+        'model' => 'User',
         'secret' => '',
     ],
 
