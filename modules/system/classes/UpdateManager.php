@@ -590,8 +590,9 @@ class UpdateManager
     {
         $fileCode = $name . $hash;
         $filePath = $this->getFilePath($fileCode);
+        $innerPath = str_replace('.', '/', strtolower($name));
 
-        if (!Zip::extract($filePath, plugins_path())) {
+        if (!Zip::extract($filePath, plugins_path($innerPath))) {
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
@@ -632,8 +633,9 @@ class UpdateManager
     {
         $fileCode = $name . $hash;
         $filePath = $this->getFilePath($fileCode);
+        $innerPath = str_replace('.', '-', strtolower($name));
 
-        if (!Zip::extract($filePath, themes_path())) {
+        if (!Zip::extract($filePath, themes_path($innerPath))) {
             throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
         }
 
@@ -958,7 +960,7 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['protocol_version'] = '1.1';
+        $postData['protocol_version'] = '1.2';
         $postData['client'] = 'october';
 
         $postData['server'] = base64_encode(serialize([
