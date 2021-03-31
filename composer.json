@@ -1,6 +1,6 @@
 {
     "name": "october/october",
-    "description": "OctoberCMS",
+    "description": "October CMS",
     "homepage": "https://octobercms.com",
     "type": "project",
     "keywords": ["october", "cms", "octobercms", "laravel"],
@@ -15,31 +15,22 @@
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com",
             "role": "Co-founder"
-        },
-        {
-            "name": "Luke Towers",
-            "email": "octobercms@luketowers.ca",
-            "homepage": "https://luketowers.ca",
-            "role": "Maintainer"
         }
     ],
     "support": {
+        "paid": "https://octobercms.com/premium-support",
         "issues": "https://github.com/octobercms/october/issues",
         "forum": "https://octobercms.com/forum/",
         "docs": "https://octobercms.com/docs/",
-        "irc": "irc://irc.freenode.net/october",
         "source": "https://github.com/octobercms/october"
     },
     "require": {
         "php": ">=7.0.8",
-        "ext-mbstring": "*",
-        "ext-openssl": "*",
-        "october/rain": "~1.0",
-        "october/system": "~1.0",
-        "october/backend": "~1.0",
-        "october/cms": "~1.0",
-        "laravel/framework": "~5.5.40",
-        "wikimedia/composer-merge-plugin": "1.4.1"
+        "october/rain": "1.0.*",
+        "october/system": "1.0.*",
+        "october/backend": "1.0.*",
+        "october/cms": "1.0.*",
+        "laravel/framework": "~5.5.40"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.7",
@@ -69,21 +60,8 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform": {
-            "php": "7.0.8"
-        }
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "extra": {
-        "merge-plugin": {
-            "include": [
-                "plugins/*/*/composer.json"
-            ],
-            "recurse": true,
-            "replace": false,
-            "merge-dev": false
-        }
-    }
+    "prefer-stable": true
 }
