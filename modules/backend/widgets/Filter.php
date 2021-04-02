@@ -20,7 +20,7 @@ use BackendAuth;
  */
 class Filter extends WidgetBase
 {
-    const DEFAULT_AFTER_DATE = '0000-00-00 00:00:00';
+    const DEFAULT_AFTER_DATE = '0001-01-01 00:00:00';
 
     const DEFAULT_BEFORE_DATE = '2999-12-31 23:59:59';
 
@@ -1025,7 +1025,7 @@ class Filter extends WidgetBase
                         $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', $date);
                     } elseif (empty($date)) {
                         if ($i == 0) {
-                            $dates[] = self::DEFAULT_AFTER_DATE;
+                            $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', self::DEFAULT_AFTER_DATE);
                         } else {
                             $dates[] = Carbon::createFromFormat('Y-m-d H:i:s', self::DEFAULT_BEFORE_DATE);
                         }
