@@ -905,13 +905,16 @@ class UpdateManager
             $http->toFile($filePath);
         });
 
-        if ($result->code != 200) {
-            throw new ApplicationException(File::get($filePath));
+        if (in_array($result->code, [301, 302])) {
+            if ($redirectUrl = array_get($result->info, 'redirect_url')) {
+                $result = Http::get($redirectUrl, function ($http) use ($postData, $filePath) {
+                    $http->toFile($filePath);
+                });
+            }
         }
 
-        if (md5_file($filePath) != $expectedHash) {
-            @unlink($filePath);
-            throw new ApplicationException(Lang::get('system::lang.server.file_corrupt'));
+        if ($result->code != 200) {
+            throw new ApplicationException(File::get($filePath));
         }
     }
 
@@ -944,7 +947,7 @@ class UpdateManager
      */
     protected function createServerUrl($uri)
     {
-        $gateway = Config::get('cms.updateServer', 'http://gateway.octobercms.com/api');
+        $gateway = Config::get('cms.updateServer', 'https://gateway.octobercms.com/api');
         if (substr($gateway, -1) != '/') {
             $gateway .= '/';
         }
