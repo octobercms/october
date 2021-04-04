@@ -578,7 +578,7 @@ class ListController extends ControllerBehavior
     /**
      * Override the record url for the given record
      * @param string $url The default url to override
-     * @param \October\Rain\Database\Model $record 
+     * @param \October\Rain\Database\Model $record
      * @param string|null $definition List definition (optional)
      * @return string|void New url
      */
