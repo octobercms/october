@@ -685,6 +685,34 @@ class Lists extends WidgetBase
         }
 
         $url = RouterHelper::replaceParameters($record, $this->recordUrl);
+
+        /**
+         * @event backend.list.overrideRecordUrl
+         * Overrides the record url in a list widget.
+         *
+         * If a value is returned from this event, it will be used as the url for the provided record.
+         * $url contains the default url and $record is a reference to the model instance.
+         * Example usage:
+         *
+         *     Event::listen('backend.list.overrideRecordUrl', function ($listWidget, $url, $record) {
+         *         if($record->user_id !== BackendAuth::getUser()->id) {
+         *             return 'acme/blog/posts/preview/' . $record->id;
+         *         }
+         *     });
+         *
+         * Or
+         *
+         *     $listWidget->bindEvent('list.overrideRecordUrl', function ($url, $record) {
+         *         if($record->user_id !== BackendAuth::getUser()->id) {
+         *             return 'acme/blog/posts/preview/' . $record->id;
+         *         }
+         *     });
+         *
+         */
+        if ($event = $this->fireSystemEvent('backend.list.overrideRecordUrl', [$url, $record])) {
+            $url = $event;
+        }
+
         return Backend::url($url);
     }
 
