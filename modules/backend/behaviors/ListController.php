@@ -195,6 +195,10 @@ class ListController extends ControllerBehavior
         $widget->bindEvent('list.overrideHeaderValue', function ($column, $value) use ($definition) {
             return $this->controller->listOverrideHeaderValue($column->columnName, $definition);
         });
+        
+        $widget->bindEvent('list.overrideRecordUrl', function ($url, $record) use ($definition) {
+            return $this->controller->listOverrideRecordUrl($url, $record, $definition);
+        });
 
         $widget->bindToController();
 
@@ -568,6 +572,17 @@ class ListController extends ControllerBehavior
      * @return string|void HTML view
      */
     public function listOverrideHeaderValue($columnName, $definition = null)
+    {
+    }
+    
+    /**
+     * Override the record url for the given record
+     * @param string $url The default url to override
+     * @param \October\Rain\Database\Model $record 
+     * @param string|null $definition List definition (optional)
+     * @return string|void New url
+     */
+    public function listOverrideRecordUrl($url, $record, $definition = null)
     {
     }
 
