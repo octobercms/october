@@ -29,7 +29,13 @@
     FilterWidget.prototype.init = function () {
         overloaded_init.apply(this)
 
-        this.ignoreTimezone = this.$el.children().get(0).hasAttribute('data-ignore-timezone');
+        var self = this;
+        this.$el.children().each(function(key, $filter) {
+            if ($filter.hasAttribute('data-ignore-timezone')) {
+                self.ignoreTimezone = true;
+                return false;
+            }
+        });
 
         this.initRegion()
         this.initFilterDate()
