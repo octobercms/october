@@ -186,6 +186,9 @@
                 data: refreshData
             }).success(function() {
                 self.toggleEmptyTabs()
+                $.each(toRefresh.fields, function(key, field) {
+                    $('[data-field-name="' + field + '"]').trigger('change')
+                })
             })
         }, this.dependantUpdateInterval)
 
