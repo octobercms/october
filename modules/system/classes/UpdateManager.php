@@ -234,8 +234,8 @@ class UpdateManager
 
         $params = [
             'core'    => $this->getHash(),
-            'plugins' => serialize($versions),
-            'themes'  => serialize($themes),
+            'plugins' => base64_encode(json_encode($versions)),
+            'themes'  => base64_encode(json_encode($themes)),
             'build'   => $build,
             'force'   => $force
         ];
@@ -966,7 +966,7 @@ class UpdateManager
         $postData['protocol_version'] = '1.2';
         $postData['client'] = 'october';
 
-        $postData['server'] = base64_encode(serialize([
+        $postData['server'] = base64_encode(json_encode([
             'php'   => PHP_VERSION,
             'url'   => Url::to('/'),
             'since' => PluginVersion::orderBy('created_at')->value('created_at')
