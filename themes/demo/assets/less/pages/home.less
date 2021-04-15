@@ -1,0 +1,108 @@
+body.page-home {
+    .jumbotron {
+        background: #FAFBFD;
+        margin-bottom: 0;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+
+        // Decorations
+        //
+        &:before {
+            .decoration-circle();
+            width: 1100px;
+            height: 1100px;
+            top: -460px;
+            left: -490px;
+        }
+
+        &:after {
+            .decoration-circle();
+            width: 270px;
+            height: 270px;
+            top: -120px;
+            right: -130px;
+        }
+
+        h1:before {
+            background: url('../images/platform-demo.png') no-repeat 0 0;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        @media (max-width: @screen-md-max) {
+            p {
+                margin-top: 0;
+            }
+        }
+    }
+
+    .intro {
+        background: #536061;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 40px;
+
+        .container {
+            padding-top: 40px;
+            padding-bottom: 50px;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            height: 28px;
+            left: 0;
+            width: 100%;
+            top: -28px;
+            background: url('../images/home-waves-dark.svg') repeat-x 0 0;
+        }
+
+        h2, p {
+            color: white;
+        }
+
+        h2 {
+            font-weight: normal;
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        img {
+            float: right;
+            margin: -100px -20px 0 0;
+        }
+
+        @media (max-width: @screen-sm-max) {
+            .container {
+                padding-top: 0;
+                padding-bottom: 30px;
+            }
+
+            img {
+                float: none;
+                margin: 0 0 0 -20px;
+                max-width: 100%;
+            }
+        }
+    }
+
+    .home-container {
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 100px;
+        margin-bottom: -100px;
+
+        &:before {
+            .decoration-circle();
+            background: #FAFBFB;
+            right: -1290px;
+            top: 100px;
+            width: 2500px;
+            height: 2500px;
+        }
+    }
+}

@@ -1,9 +1,8 @@
 {
     "name": "october/demo-theme",
     "type": "october-theme",
-    "description": "Demo OctoberCMS theme",
+    "description": "Demo October CMS theme",
     "keywords": ["october", "cms", "demo", "theme"],
-    "license": "MIT",
     "authors": [
         {
             "name": "Alexey Bobkov",

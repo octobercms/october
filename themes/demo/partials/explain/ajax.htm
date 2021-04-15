@@ -1,65 +1,25 @@
-<hr />
-
 <!-- This file is an explanation of the AJAX page -->
 
-<p class="lead">
-    <i class="icon-copy"></i> &nbsp; The HTML markup for this example:
-</p>
+<h3>The HTML markup for this example</h3>
 
-<pre>{% filter escape %}<!-- The form -->
-<form role="form" data-request="onTest" data-request-update="calcresult: '#result'">
-    <input type="text" value="15" name="value1">
-    <select name="operation">
-        <option>+</option>
-        <option>-</option>
-        <option>*</option>
-        <option>/</option>
-    </select>
-    <input type="text" value="5" name="value2">
-    <button type="submit">Calculate</button>
-</form>
+<p>The markup defines a form with the inputs for numbers, operation and buttons. Note the <code>data-request</code> and <code>data-request-update</code> attributes on the FORM tag. Those two attributes tell the AJAX framework which PHP function must handle the request and what page element must be updated when the result comes back from the server.</p>
 
-<!-- The result -->
-<div id="result">{{ "{% partial \"calcresult\" %}" }}</div>
-{% endfilter %}</pre>
+<div class="collapsed-code-block collapsed">
+    <pre>{% content "ajax/form.txt" %}</pre>
+    <div class="expand-code">Expand</div>
+</div>
 
-<hr />
+<h3>The <em>calcresult</em> partial</h3>
 
-<p class="lead">
-    <i class="icon-tags"></i> &nbsp; The <code>calcresult</code> partial:
-</p>
+<p>The partial is referred in the form's <code>data-request-update</code> attribute together with the ID of the element that must be updated with the AJAX request. The partial is also rendered when the page first loads to display the default value.</p>
 
-<pre>{% filter escape %}
-{{ "{% if result %}" }}
-    The result is {{ "{{ result }}" }}.
-{{ "{% else %}" }}
-    Click the <em>Calculate</em> button to find the answer.
-{{ "{% endif %}" }}{% endfilter %}</pre>
+<pre>{% content "ajax/calcresult.txt" %}</pre>
 
-<hr />
+<h3>The <em>onTest</em> PHP function</h3>
 
-<p class="lead">
-    <i class="icon-code"></i> &nbsp; The <code>onTest</code> PHP code:
-</p>
+<p>That PHP function is referred in the form's <code>data-request</code> attribute and acts as the AJAX handler. It loads the submitted values, performs the requested operation, and assigns the calculated value to the <em>result</em> page variable, which is then used in the <em>calcresult</em> partial. The function is defined right in the page file, in the <a href="https://octobercms.com/docs/cms/pages#dynamic-pages">PHP section</a>.</p>
 
-<pre>function onTest()
-{
-    $value1 = input('value1');
-    $value2 = input('value2');
-    $operation = input('operation');
-
-    switch ($operation) {
-        case '+' : 
-            $this['result'] = $value1 + $value2;
-            break;
-        case '-' : 
-            $this['result'] = $value1 - $value2;
-            break;
-        case '*' : 
-            $this['result'] = $value1 * $value2;
-            break;
-        default : 
-            $this['result'] = $value1 / $value2;
-            break;
-    }
-}</pre>
+<div class="collapsed-code-block collapsed">
+    <pre>{% content "ajax/handler.txt" %}</pre>
+    <div class="expand-code">Expand</div>
+</div>

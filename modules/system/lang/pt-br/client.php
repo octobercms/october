@@ -33,6 +33,7 @@ return [
         'fullscreen' => 'Tela cheia',
         'preview' => 'Visualizar',
     ],
+
     'mediamanager' => [
         'insert_link' => "Inserir link",
         'insert_image' => "Inserir imagem",
@@ -44,11 +45,13 @@ return [
         'invalid_video_empty_insert' => "Por favor, selecione os vídeos que deseja inserir.",
         'invalid_audio_empty_insert' => "Por favor, selecione os áudios que deseja inserir.",
     ],
+
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancelar',
         'widget_remove_confirm' => 'Remover este widget?'
     ],
+
     'datepicker' => [
         'previousMonth' => 'Mês anterior',
         'nextMonth' => 'Próximo mês',
@@ -83,6 +86,7 @@ return [
             'max_placeholder' => 'Max'
         ]
     ],
+
     'eventlog' => [
         'show_stacktrace' => 'Exibir o rastreamento',
         'hide_stacktrace' => 'Ocultar o rastreamento',

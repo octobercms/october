@@ -228,7 +228,7 @@ return [
         'preview_no_record_message' => 'Nessun record selezionato.',
         'select' => 'Seleziona',
         'select_all' => 'seleziona tutto',
-        'select_none' => 'deseleziona tutto',
+        'select_none' => 'non selezionare niente',
         'select_placeholder' => 'seleziona',
         'insert_row' => 'Inserisci riga',
         'insert_row_below' => 'Inserisci riga sotto',

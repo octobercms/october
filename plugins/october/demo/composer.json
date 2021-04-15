@@ -3,8 +3,6 @@
     "type": "october-plugin",
     "description": "Demo OctoberCMS plugin",
     "keywords": ["october", "cms", "demo", "plugin"],
-    "license": "MIT",
-
     "authors": [
         {
             "name": "Alexey Bobkov",

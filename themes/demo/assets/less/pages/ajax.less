@@ -3,3 +3,156 @@
 //
 // Styles specific to the AJAX page
 //
+body.page-ajax {
+    background: #FAFBFD;
+
+    .jumbotron {
+        position: relative;
+        margin-bottom: 0;
+
+        &:before {
+            .decoration-circle();
+            left: -600px;
+            top: -600px;
+            width: 1116px;
+            height: 1116px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1:before {
+            background: url('../images/calculator.png') no-repeat 0 0;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        @media (max-width: @screen-md-max) {
+            p {
+                margin-top: 0;
+            }
+        }
+    }
+
+    //
+    // Calculator form
+    //
+
+    .panel {
+        border: none;
+        overflow: hidden;
+        .box-shadow(0 0 20px rgba(0, 0, 0, 0.16));
+
+        @media (min-width: @screen-md-min) {
+            .control-panel {
+                padding-right: 0!important;
+            }
+        }
+    }
+
+    .panel-body {
+        padding: 25px;
+        display: table;
+        width: 100%;
+
+        form {
+            display: table-row;
+
+            .form-group {
+                display: table-cell;
+                vertical-align: top;
+                padding-right: 10px;
+                white-space: nowrap;
+
+                &:last-child {
+                    padding-right: 0;
+                    width: 41px;
+
+                    button {
+                        width: 41px;
+                        height: 41px;
+                        background: @brand-accent;
+                    }
+                }
+
+                &.operation-buttons {
+                    width: 100px;
+                    text-align: center;
+
+                    label {
+                        display: inline-block;
+                        cursor: pointer;
+                        width: 41px;
+                        height: 41px;
+                        line-height: 41px;
+                        position: relative;
+                        margin: 0 10px 0 0;
+                        vertical-align: top;
+                        text-align: center;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        span {
+                            display: block;
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            .border-radius(@border-radius-base);
+                            background: #ECF0F1; 
+                        }
+
+                        input {
+                            display: none;
+
+                            &:checked + span {
+                                background-color: @brand-accent;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @media (max-width: @screen-xs-max) {
+                .form-group {
+                    display: block;
+                    padding-right: 0;
+                    width: 100%!important;
+
+                    &:last-child button {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        input.form-control {
+            border: none;
+            display: block;
+            width: 100%;
+            background-color: #ECF0F1;
+            font-size: 14px;
+            text-align: right;
+            border: none;
+            .box-shadow(none);
+        }
+    }
+
+    #result {
+        background: @brand-accent;
+        color: white;
+        font-size: 54px;
+        padding: 0 15px;
+        
+        font-weight: bold;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

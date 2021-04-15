@@ -1,6 +1,6 @@
 # Plugin testing
 
-Individual plugin test cases can be run by running `../../../vendor/bin/phpunit` in the plugin's base directory (ex. `plugins/acme/demo`.
+Plugin unit tests can be performed by running `phpunit` in the base plugin directory.
 
 ### Creating plugin tests
 
@@ -96,10 +96,4 @@ To perform unit testing on the core October files, you should download a develop
 
 ### Unit tests
 
-Unit tests can be performed by running `vendor/bin/phpunit` in the root directory of your October CMS installation.
-
-### Functional tests
-
-Functional tests can be performed by installing the [RainLab Dusk](https://octobercms.com/plugin/rainlab-dusk) in your October CMS installation. The RainLab Dusk plugin is powered by Laravel Dusk, a comprehensive testing suite for the Laravel framework that is designed to test interactions with a fully operational October CMS instance through a virtual browser.
-
-For information on installing and setting up your October CMS install to run functional tests, please review the [README](https://github.com/rainlab/dusk-plugin/blob/master/README.md) for the plugin.
+Unit tests can be performed by running `phpunit` in the root directory or inside `/tests/unit`.

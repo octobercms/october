@@ -247,7 +247,7 @@ return [
         'important_action_required' => 'Azione richiesta',
         'important_view_guide' => 'Visualizza la guida per l\'aggiornamento',
         'important_alert_text' => 'Alcuni aggiornamenti necessitano della tua attenzione.',
-        'details_title' => 'Dettagli plugin',
+        'details_title_plugin' => 'Dettagli plugin',
         'details_view_homepage' => 'Visualizza homepage',
         'details_readme' => 'Documentazione',
         'details_readme_missing' => 'Nessuna documentazione fornita.',

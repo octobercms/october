@@ -4,6 +4,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => env('APP_NAME', 'October CMS'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes. Set this in your ".env" file.
+    |
+    */
+
+    'env' => env('APP_ENV', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
@@ -16,19 +41,7 @@ return [
     |
     */
 
-    'debug' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Name
-    |--------------------------------------------------------------------------
-    |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
-    */
-
-    'name' => 'October CMS',
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,58 +54,9 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Trusted hosts
-    |--------------------------------------------------------------------------
-    |
-    | You may specify valid hosts for your application as an array or boolean
-    | below. This helps prevent host header poisoning attacks.
-    |
-    | Possible values:
-    |  - `true`: Trust the host specified in app.url, as well as the "www"
-    |            subdomain, if applicable.
-    |  - `false`: Disable the trusted hosts feature.
-    |  - array: Defines the domains to be trusted hosts. Each item should be
-    |           a string defining a domain, IP address, or a regex pattern.
-    |
-    | Example of array values:
-    |
-    |    'trustedHosts' => [
-    |       'example.com',           // Matches just example.com
-    |       'www.example.com',       // Matches just www.example.com
-    |       '^(.+\.)?example\.com$', // Matches example.com and all subdomains
-    |       'https://example.com',   // Matches just example.com
-    |    ],
-    |
-    | NOTE: Even when set to `false`, this functionality is explicitly enabled
-    | on the Backend password reset flow for security reasons.
-    */
-
-    'trustedHosts' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Application Timezone
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. We have gone
-    | ahead and set this to a sensible default for you out of the box.
-    |
-    |
-    | -------- STOP! --------
-    | Before you change this value, consider carefully if that is actually
-    | what you want to do. It is HIGHLY recommended that this is always set
-    | to UTC (as your server & DB timezone should be as well) and instead you
-    | use cms.backendTimezone to set the default timezone used in the backend
-    | to display dates & times.
-    |
-    */
-
-    'timezone' => 'UTC',
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -103,15 +67,9 @@ return [
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
     |
-    | WARNING: Avoid setting this to a locale that is not supported by the
-    | backend yet, as this can cause issues in the backend.
-    |
-    | Currently supported backend locales are listed in
-    | Backend\Models\Preference->getLocaleOptions())
-    |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -137,7 +95,7 @@ return [
     |
     */
 
-    'key' => 'CHANGE_ME!!!!!!!!!!!!!!!!!!!!!!!',
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -161,26 +119,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Load automatically discovered packages
-    |--------------------------------------------------------------------------
-    |
-    | By default, October CMS disables the loading of discovered packages
-    | through Laravel's package discovery service, in order to allow packages
-    | used by plugins to be disabled if the plugin itself is disabled.
-    |
-    | Set this to `true` to enable automatic loading of these packages. This
-    | will result in packages being loaded, even if the plugin using them is
-    | disabled. This is NOT RECOMMENDED.
-    |
-    | Please note that packages defined in `app.providers` will still be loaded
-    | even if discovery is disabled.
-    |
-    */
-
-    'loadDiscoveredPackages' => false,
-
-    /*
-    |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
     |
@@ -195,5 +133,26 @@ return [
         // 'Str' => 'Illuminate\Support\Str', // Example
 
     ]),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default timezone for your application, which
+    | will be used by the PHP date and date-time functions. We have gone
+    | ahead and set this to a sensible default for you out of the box.
+    |
+    |-------------------------------- WARNING! --------------------------------
+    |
+    | Before you change this value, consider carefully if that is actually
+    | what you want to do. It is HIGHLY recommended that this is always set
+    | to UTC (as your server & DB timezone should be as well) and instead you
+    | use cms.backendTimezone to set the default timezone used in the backend
+    | to display dates & times.
+    |
+    */
+
+    'timezone' => 'UTC',
 
 ];

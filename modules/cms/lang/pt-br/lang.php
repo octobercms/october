@@ -249,10 +249,7 @@ return [
         'invalid_request' => 'O modelo não pode ser salvo devido a dados inválidos nos componentes.',
         'no_records' => 'Nenhum componente encontrado',
         'not_found' => 'O componente ":name" não foi encontrado.',
-        'no_default_partial' => "Este componente não tem um bloco 'padrão'",
         'method_not_found' => 'O componente ":name" não tem um método ":method".',
-        'soft_component' => 'Componente Soft',
-        'soft_component_description' => 'Este componente está faltando, mas é opcional.',
     ],
     'template' => [
         'invalid_type' => 'Tipo de modelo desconhecido.',
@@ -270,7 +267,6 @@ return [
         'manage_layouts' => 'Gerenciar esboços',
         'manage_partials' => 'Gerenciar blocos',
         'manage_themes' => 'Gerenciar temas',
-        'manage_theme_options' => 'Configure as opções de personalização para o tema ativo',
     ],
     'theme_log' => [
         'hint' => 'Esses registros exibe as alterações feitas no tema pelos administradores na área de backend.',

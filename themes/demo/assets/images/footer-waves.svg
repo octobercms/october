@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1579px" height="28px" viewBox="0 0 1579 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>footer-waves</title>
+    <g id="footer-waves" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,7.82975641 C265.333333,7.82975641 265.333333,23.5501222 530.666667,23.5501222 C796,23.5501222 800.34,0 1067,0 C1333.66,0 1313.66667,7.80440098 1579,7.80440098 C1579,28.0684597 1579,100.133659 1579,224 L0,224 C0,99.403423 0,27.3466751 0,7.82975641 Z" id="Path" fill="#F4F8F8" transform="translate(789.500000, 112.000000) scale(-1, 1) translate(-789.500000, -112.000000) "></path>
+    </g>
+</svg>

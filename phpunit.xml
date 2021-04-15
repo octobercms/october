@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="tests/bootstrap.php"
+         bootstrap="modules/system/tests/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -11,29 +11,25 @@
 >
     <testsuites>
         <testsuite name="October CMS Test Suite">
-            <directory>./tests/unit</directory>
+            <directory>./modules/*/tests</directory>
+        </testsuite>
+        <testsuite name="October Rain Test Suite">
+            <directory>./vendor/october/rain/tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./modules/</directory>
-
-            <exclude>
-                <file>./modules/backend/routes.php</file>
-                <file>./modules/cms/routes.php</file>
-                <file>./modules/system/routes.php</file>
-
-                <directory suffix=".php">./modules/backend/database</directory>
-                <directory suffix=".php">./modules/cms/database</directory>
-                <directory suffix=".php">./modules/system/database</directory>
-            </exclude>
-        </whitelist>
-    </filter>
 
     <php>
         <env name="APP_ENV" value="testing" />
         <env name="CACHE_DRIVER" value="array" />
         <env name="SESSION_DRIVER" value="array" />
+        <env name="ACTIVE_THEME" value="test" />
+        <env name="CONVERT_LINE_ENDINGS" value="true" />
+        <env name="CMS_ROUTE_CACHE" value="true" />
+        <env name="CMS_TWIG_CACHE" value="false" />
+        <env name="PLUGINS_PATH" value="modules/system/tests/fixtures/plugins" />
+        <env name="THEMES_PATH" value="modules/system/tests/fixtures/themes" />
+        <env name="ENABLE_CSRF" value="false" />
+        <env name="DB_CONNECTION" value="sqlite" />
+        <env name="DB_DATABASE" value=":memory:" />
     </php>
 </phpunit>

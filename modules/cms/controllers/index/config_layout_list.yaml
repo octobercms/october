@@ -1,8 +1,0 @@
-# ===================================
-#  Configures the layout list widget
-# ===================================
-
-descriptionProperty: description
-noRecordsMessage: 'cms::lang.layout.no_list_records'
-deleteConfirmation: 'cms::lang.layout.delete_confirm_multiple'
-itemType: layout

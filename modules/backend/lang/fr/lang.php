@@ -89,7 +89,7 @@ return [
             'updates_link' => 'Mettre à jour',
             'warnings_pending' => 'Certaines anomalies méritent votre attention',
             'warnings_nil' => 'Aucun avertissement à afficher',
-            'warnings_link' => 'Voir',
+            'warnings_link' => 'Vue',
             'core_build' => 'Version du système',
             'event_log' => 'Journal des évènements',
             'request_log' => 'Journal des requêtes',
@@ -119,7 +119,7 @@ return [
         'role_field' => 'Rôle',
         'role_comment' => 'Les rôles définissent les permissions de l\'utilisateur, elles peuvent être écrasés au niveau de l\'utilisateur dans l\'onglet "Permissions".',
         'groups' => 'Groupes',
-        'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir.',
+        'groups_comment' => 'Préciser les groupes auxquels ce compte doit appartenir. Les groupes définissent les permissions des utilisateurs, qui peuvent être surchargées au niveau de l’utilisateur, dans l’onglet Permissions.',
         'avatar' => 'Avatar',
         'password' => 'Mot de passe',
         'password_confirmation' => 'Confirmer le mot de passe',
@@ -393,7 +393,7 @@ return [
         'line_breaker_tags' => 'Balise de saut de ligne',
         'line_breaker_tags_comment' => 'La liste des balises qui sont utilisés pour mettre des sauts de ligne.',
         'toolbar_buttons' => 'Boutons de la barre d\'outils',
-        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi.',
+        'toolbar_buttons_comment' => 'Les boutons de la barre d\'outils a afficher par défaut dans l\'éditeur de texte enrichi. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
     ],
     'tooltips' => [
         'preview_website' => 'Aperçu du site'

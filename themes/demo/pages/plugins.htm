@@ -1,30 +1,43 @@
-title = "Plugin components"
+title = "Plugin Components"
 url = "/demo/plugins"
 layout = "default"
 
 [demoTodo]
 max = 3
+addDefault = 1
 ==
-<div class="jumbotron title-js">
+<div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div class="col-8">
-                <h1>Plugin components</h1>
-                <p>Plugins can provide components, simple building blocks that enrich any page or layout. Check out the todo example below.</p>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h1>CMS Components</h1>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <p>Plugins can provide CMS components, simple building blocks that can enrich pages, layouts, and partials. Check out the To Do example below.</p>
+
+                        {% component 'demoTodo' %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    {% component 'demoTodo' %}
-</div>
-
 <!-- Page Explanation -->
-<div class="container">{% partial "explain/plugins.htm" %}</div>
 
-<br />
+<div class="home-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                {% partial "explain/plugins.htm" %}
 
-<div class="text-center">
-    <p><a target="_blank" href="http://octobercms.com/docs" class="btn btn-lg btn-default">Learn more at October's Documentation</a></p>
+                <div class="p-t p-b">
+                    <p><a href="https://octobercms.com/docs" class="btn btn-primary btn-cta">Learn more at October CMS Documentation ⟶</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

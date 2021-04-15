@@ -239,7 +239,7 @@ return [
         'important_action_required' => 'Изисква действие',
         'important_view_guide' => 'Вижте ръководство за актуализация',
         'important_alert_text' => 'Някои актуализации на които трябва да обърнете внимание.',
-        'details_title' => 'Детайли за добавка',
+        'details_title_plugin' => 'Детайли за добавка',
         'details_view_homepage' => 'Виж начална страница',
         'details_readme' => 'Документация',
         'details_readme_missing' => 'Не е предоставена документация.',

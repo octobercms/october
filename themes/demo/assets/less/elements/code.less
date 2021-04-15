@@ -1,0 +1,96 @@
+pre {
+    padding: 0;
+    background-color: white;
+    border: 1px solid #ECF0F1;
+    .border-radius(6px);
+
+    .CodeMirror {
+        height: auto;
+        color: #2C3E4F;
+    }
+
+    .CodeMirror-gutters {
+        background: transparent;
+        border-right: 1px solid #ECF0F1;
+    }
+
+    .CodeMirror-linenumber {
+        padding-right: 15px;
+        background: white;
+    }
+
+    .CodeMirror-lines {
+        padding: 10px 0;
+    }
+
+    .CodeMirror pre.CodeMirror-line {
+        padding-left: 20px;
+    }
+}
+
+.collapsed-code-block {
+    position: relative;
+
+    .expand-code {
+        display: none;
+    }
+
+    &.collapsed {
+        margin-bottom: 36px;
+
+        > pre {
+            height: 143px;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        .expand-code {
+            .border-radius(20px);
+            .user-select(none);
+            cursor: pointer;
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            font-size: 14px;
+            background-color: white;
+            border: 1px solid #ECF0F1;
+            z-index: 5;
+            transform: translateX(-50%);
+            padding: 4px 18px;
+            .box-shadow(0 0 0 3px white);
+
+            &:hover {
+                color: white;
+                background-color: #7F8C8D;
+            }
+        }
+    }
+}
+
+.code-tab {
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 0 0 13px;
+    position: relative;
+
+    &, &:after {
+        height: 38px;
+        background: url('../images/code-tab.png') no-repeat 0 0;
+        background-size: 335px 38px;
+    }
+
+    &:after {
+        content: '';
+        width: 34px;
+        display: block;
+        position: absolute;
+        right: -34px;
+        top: 0;
+        background-position: right top;
+    }
+
+    + pre {
+        .border-radius(0 6px 6px 6px);
+    }
+}

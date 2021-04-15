@@ -33,6 +33,7 @@ return [
         'fullscreen' => 'Pantalla completa',
         'preview' => 'Previsualizar'
     ],
+
     'mediamanager' => [
         'insert_link' => "Insertar Media Vínculo",
         'insert_image' => "Insertar Media Imagen",
@@ -44,10 +45,12 @@ return [
         'invalid_video_empty_insert' => "Por favor seleccione un archivo de video para insertar.",
         'invalid_audio_empty_insert' => "Por favor seleccione un archivo de audio para insertar.",
     ],
+
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancelar'
     ],
+
     'datepicker' => [
         'previousMonth' => 'Mes Anterior',
         'nextMonth' => 'Mes Siguiente',
@@ -55,31 +58,21 @@ return [
         'weekdays' => ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
         'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']
     ],
+
     'filter' => [
         'group' => [
             'all' => 'todos'
         ],
-        'scopes' => [
-            'apply_button_text' => 'Aplicar',
-            'clear_button_text' => 'Limpiar',
-        ],
         'dates' => [
-            'all' => 'todas',
-            'filter_button_text' => 'Filtrar',
-            'reset_button_text' => 'Restablecer',
-            'date_placeholder' => 'Fecha',
-            'after_placeholder' => 'Desde',
-            'before_placeholder' => 'Hasta'
-        ],
-        'numbers' => [
             'all' => 'todos',
-            'filter_button_text' => 'Filtrar',
-            'reset_button_text' => 'Restablecer',
-            'min_placeholder' => 'Mínimo',
-            'max_placeholder' => 'Máximo',
-            'number_placeholder' => 'Número'
-        ],
+            'filter_button_text' => 'Filtro',
+            'reset_button_text'  => 'Restablecer',
+            'date_placeholder' => 'Fecha',
+            'after_placeholder' => 'Despues',
+            'before_placeholder' => 'Antes'
+        ]
     ],
+
     'eventlog' => [
         'show_stacktrace' => 'Mostrar el seguimiento de la pila',
         'hide_stacktrace' => 'Ocultar el seguimiento de la pila',
@@ -91,7 +84,7 @@ return [
             'title' => 'Seleccione el editor de código fuente a usar',
             'description' => 'Su entorno de sistema operativo debe estar configurado para escuchar a uno de estos esquemas de URL.',
             'openWith' => 'Abrir con',
-            'rememberChoice' => 'Recuerde la opción seleccionada para esta sesión del navegador',
+            'rememberChoice' => 'Recuerde que la opción seleccionada para esta sesión del navegador',
             'open' => 'Abrir',
             'cancel' => 'Cancelar'
         ]

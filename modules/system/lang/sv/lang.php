@@ -233,7 +233,7 @@ return [
         'important_action_required' => 'Åtgärd krävs',
         'important_view_guide' => 'Visa uppgraderingsguide',
         'important_alert_text' => 'Några uppdateringar behöver din uppmärksamhet.',
-        'details_title' => 'Tilläggsdetaljer',
+        'details_title_plugin' => 'Tilläggsdetaljer',
         'details_view_homepage' => 'Visa hemsida',
         'details_readme' => 'Dokumentation',
         'details_readme_missing' => 'Det finns ingen dokumentation tillgänglig.',

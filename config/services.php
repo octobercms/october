@@ -15,32 +15,23 @@ return [
     */
 
     'mailgun' => [
-        'domain' => '',
-        'secret' => '',
-        'endpoint' => 'api.mailgun.net', // api.eu.mailgun.net for EU
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
     'mandrill' => [
-        'secret' => '',
-    ],
-
-    'postmark' => [
-        'token' => '',
+        'secret' => env('MANDRILL_SECRET'),
     ],
 
     'ses' => [
-        'key' => '',
-        'secret' => '',
-        'region' => 'us-east-1',
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
     'sparkpost' => [
-        'secret' => '',
-    ],
-
-    'stripe' => [
-        'model' => 'User',
-        'secret' => '',
+        'secret' => env('SPARKPOST_SECRET'),
     ],
 
 ];

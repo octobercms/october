@@ -1,0 +1,65 @@
+h3 {
+    font-weight: normal;
+
+    &.header-icon {
+        position: relative;
+        padding: 0 0 10px 43px;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px 30px!important;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        &.cms-layout:before {
+            background: url('../images/icon-layouts.png') no-repeat 0 0;
+        }
+
+        &.cms-page:before {
+            background: url('../images/icon-pages.png') no-repeat 0 0;
+        }
+
+        &.cms-partial:before {
+            background: url('../images/icon-partials.png') no-repeat 0 0;
+        }
+
+        &.cms-content-block:before {
+            background: url('../images/icon-contentblocks.png') no-repeat 0 0;
+        }
+
+        &.cms-asset:before {
+            background: url('../images/icon-assets.png') no-repeat 0 0;
+        }
+
+        &.cms-placeholder:before {
+            background: url('../images/icon-placeholders.png') no-repeat 0 0;
+        }
+    }
+}
+
+ul.list-with-ticks {
+    padding: 0;
+
+    li {
+        list-style: none;
+        position: relative;
+        padding-left: 23px;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 15px;
+            height: 15px;
+            background: url('../images/icon-tick.png') no-repeat 0 0;
+            background-size: 15px 15px;
+            position: absolute;
+            left: 0;
+            top: 6px;
+        }
+    }
+}

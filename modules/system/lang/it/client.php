@@ -33,6 +33,7 @@ return [
         'fullscreen' => 'Schermo intero',
         'preview' => 'Anteprima',
     ],
+
     'mediamanager' => [
         'insert_link' => "Inserisci collegamento elemento multimediale",
         'insert_image' => "Inserisci immagine",
@@ -44,28 +45,23 @@ return [
         'invalid_video_empty_insert' => "Si prega di selezionare un file video da inserire.",
         'invalid_audio_empty_insert' => "Si prega di selezionare un file audio da inserire.",
     ],
+
     'alert' => [
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annulla',
-        'widget_remove_confirm' => 'Rimuovere questo widget?',
     ],
+
     'datepicker' => [
         'previousMonth' => 'Mese precedente',
         'nextMonth' => 'Mese successivo',
         'months' => ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
         'weekdays' => ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-        'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+        'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab']
     ],
-    'colorpicker' => [
-        'choose' => 'OK',
-    ],
+
     'filter' => [
         'group' => [
-            'all' => 'tutti',
-        ],
-        'scopes' => [
-            'apply_button_text' => 'Applica',
-            'clear_button_text' => 'Rimuovi',
+            'all' => 'tutti'
         ],
         'dates' => [
             'all' => 'tutte',
@@ -73,16 +69,10 @@ return [
             'reset_button_text'  => 'Reimposta',
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Dopo',
-            'before_placeholder' => 'Prima',
-        ],
-        'numbers' => [
-            'all' => 'tutti',
-            'filter_button_text' => 'Filtra',
-            'reset_button_text' => 'Reset',
-            'min_placeholder' => 'Min',
-            'max_placeholder' => 'Max',
-        ],
+            'before_placeholder' => 'Prima'
+        ]
     ],
+
     'eventlog' => [
         'show_stacktrace' => 'Visualizza la traccia dello stack',
         'hide_stacktrace' => 'Nascondi la traccia dello stack',
@@ -96,7 +86,7 @@ return [
             'openWith' => 'Apri con',
             'remember_choice' => 'Ricorda l\'opzione selezionata per questa sessione',
             'open' => 'Apri',
-            'cancel' => 'Annulla',
+            'cancel' => 'Annulla'
         ]
     ]
 ];

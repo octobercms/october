@@ -1,8 +1,0 @@
-# ===================================
-#  Configures the partial list widget
-# ===================================
-
-descriptionProperty: description
-noRecordsMessage: 'cms::lang.partial.no_list_records'
-deleteConfirmation: 'cms::lang.partial.delete_confirm_multiple'
-itemType: partial

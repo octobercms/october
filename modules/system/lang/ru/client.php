@@ -31,7 +31,7 @@ return [
         'link' => 'Ссылка',
         'horizontalrule' => 'Вставить горизонтальную черту',
         'fullscreen' => 'Полный экран',
-        'preview' => 'Предпросмотр',
+        'preview' => 'Предпросмотр'
     ],
     'mediamanager' => [
         'insert_link' => "Вставить медиа-ссылку",
@@ -47,7 +47,7 @@ return [
     'alert' => [
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Отмена',
-        'widget_remove_confirm' => 'Удалить этот виджет?',
+        'widget_remove_confirm' => 'Удалить этот виджет?'
     ],
     'datepicker' => [
         'previousMonth' => 'Предыдущий месяц',
@@ -61,11 +61,11 @@ return [
     ],
     'filter' => [
         'group' => [
-            'all' => 'все',
+            'all' => 'все'
         ],
         'scopes' => [
             'apply_button_text' => 'Применить',
-            'clear_button_text'  => 'Очистить',
+            'clear_button_text'  => 'Очистить'
         ],
         'dates' => [
             'all' => 'все',
@@ -73,22 +73,22 @@ return [
             'reset_button_text' => 'Сбросить',
             'date_placeholder' => 'Дата',
             'after_placeholder' => 'После',
-            'before_placeholder' => 'До',
+            'before_placeholder' => 'До'
         ],
         'numbers' => [
             'all' => 'все',
             'filter_button_text' => 'Фильтр',
             'reset_button_text'  => 'Сброс',
             'min_placeholder' => 'Min',
-            'max_placeholder' => 'Max',
-        ],
+            'max_placeholder' => 'Max'
+        ]
     ],
     'eventlog' => [
         'show_stacktrace' => 'Показать трассировку стека',
         'hide_stacktrace' => 'Скрыть трассировку стека',
         'tabs' => [
             'formatted' => 'Форматированный',
-            'raw' => 'Исходный',
+            'raw' => 'Исходный'
         ],
         'editor' => [
             'title' => 'Редактор исходного кода',
@@ -96,7 +96,7 @@ return [
             'openWith' => 'Открыть с помощью',
             'remember_choice' => 'Запомнить выбранный вариант для этой сессии',
             'open' => 'Открыть',
-            'cancel' => 'Отмена',
+            'cancel' => 'Отмена'
         ],
     ],
 ];

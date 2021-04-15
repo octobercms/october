@@ -9,7 +9,7 @@ class Todo extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Todo List',
+            'name'        => 'To Do List',
             'description' => 'Implements a simple to-do list.'
         ];
     }
@@ -18,14 +18,27 @@ class Todo extends ComponentBase
     {
         return [
             'max' => [
-                'description'       => 'The most amount of todo items allowed',
+                'description'       => 'The most amount of To Do items allowed',
                 'title'             => 'Max items',
                 'default'           => 10,
                 'type'              => 'string',
                 'validationPattern' => '^[0-9]+$',
                 'validationMessage' => 'The Max Items value is required and should be integer.'
+            ],
+            'addDefault' => [
+                'description'      => 'Determines if default items must be added to the To Do list',
+                'title'            => 'Add default items',
+                'type'             => 'checkbox',
+                'default'          => 0
             ]
         ];
+    }
+
+    public function onRun()
+    {
+        if ($this->property('addDefault')) {
+            $this->page['items'] = ['Learn October CMS'];
+        }
     }
 
     public function onAddItem()

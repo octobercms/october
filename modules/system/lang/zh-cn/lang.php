@@ -274,7 +274,7 @@ return [
         'important_action_required' => '需要选择操作',
         'important_view_guide' => '查看升级指引',
         'important_alert_text' => '一些更新注意事项',
-        'details_title' => '插件详情',
+        'details_title_plugin' => '插件详情',
         'details_view_homepage' => '查看主页',
         'details_readme' => '文档',
         'details_readme_missing' => '没有提供文档',

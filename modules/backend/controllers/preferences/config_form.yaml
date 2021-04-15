@@ -1,8 +1,0 @@
-# ===================================
-#  Form Behavior Config
-# ===================================
-
-name: backend::lang.backend_preferences.menu_label
-form: ~/modules/backend/models/preference/fields.yaml
-modelClass: Backend\Models\Preference
-defaultRedirect: system/settings

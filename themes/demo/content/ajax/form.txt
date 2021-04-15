@@ -1,0 +1,14 @@
+<form role="form" data-request="onTest" data-request-update="calcresult: '#result'">
+    <input type="text" value="15" name="value1">
+
+    <label><input type="radio" name="operation" value="+"> +</label>
+    <label><input type="radio" name="operation" value="-"> -</label>
+    <label><input type="radio" name="operation" value="*" checked> *</label>
+    <label><input type="radio" name="operation" value="/"> /</label>
+
+    <input type="text" value="5" name="value2">
+    <button type="submit">=</button>
+</form>
+
+<!-- The result -->
+<div id="result">{% partial "calcresult" %}"</div>

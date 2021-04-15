@@ -1,0 +1,2 @@
+{% partial "partial-name" %}
+{% partial "site/footer" %}

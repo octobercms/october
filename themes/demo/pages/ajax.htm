@@ -1,8 +1,8 @@
-title = "AJAX framework"
+title = "AJAX Framework"
 url = "/demo/ajax"
 layout = "default"
 ==
-<?php
+<?
 function onTest()
 {
     $value1 = input('value1');
@@ -20,54 +20,79 @@ function onTest()
             $this['result'] = $value1 * $value2;
             break;
         default :
-            $this['result'] = $value1 / $value2;
+            $this['result'] = $value2 != 0 ? round($value1 / $value2, 2) : 'NaN';
             break;
     }
 }
 ?>
 ==
-<div class="jumbotron title-js">
+<div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div class="col-8">
-                <h1>AJAX framework</h1>
-                <p>This built-in JavaScript framework provides simple but powerful AJAX capabilities. Check out the calculator example below.</p>
+            <div class="col-md-offset-1 col-md-10">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h1>AJAX Framework</h1>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <p>The built-in JavaScript framework provides simple but powerful AJAX capabilities. In most cases, you don't need to write JavaScript code to post data to the server and update elements of your page. The <code>data-</code> attributes can solve a lot of typical tasks. For more complex cases you can employ the full power of JavaScript. You can find more information in the <a href="https://octobercms.com/docs/ajax/introduction">documentation</a>. Check out the calculator example below!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel">
+                <div class="row">
+                    <div class="col-md-9 control-panel">
+                        <div class="panel-body">
+                            <form role="form" class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="15" name="value1">
+                                </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Calculator</h3>
-        </div>
-        <div class="panel-body">
-            <form role="form" class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
-                <input type="text" class="form-control" value="15" name="value1" style="width:100px">
-                <select class="form-control" name="operation" style="width: 70px">
-                    <option>+</option>
-                    <option>-</option>
-                    <option>*</option>
-                    <option>/</option>
-                </select>
-                <input type="text" class="form-control" value="5" name="value2" style="width:100px">
-                <button type="submit" class="btn btn btn-primary" data-attach-loading>Calculate</button>
-            </form>
-        </div>
-        <div class="panel-footer" id="result">
-            {% partial "calcresult" %}
+                                <div class="form-group operation-buttons">
+                                    <label><input type="radio" name="operation" value="+"><span>+</span></label>
+                                    <label><input type="radio" name="operation" value="-"><span>-</span></label>
+                                    <label><input type="radio" name="operation" value="*" checked><span>*</span></label>
+                                    <label><input type="radio" name="operation" value="/"><span>/</span></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="5" name="value2">
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn btn-primary">=</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-l-0">
+                        <div id="result">{% partial "calcresult" %}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 
 <!-- Page Explanation -->
-<div class="container">{% partial "explain/ajax.htm" %}</div>
+<div class="home-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                {% partial "explain/ajax.htm" %}
 
-<br />
-
-<div class="text-center">
-    <p><a href="{{ 'plugins'|page }}" class="btn btn-lg btn-default">Continue to Plugin components</a></p>
+                <div class="p-t p-b">
+                    <p><a href="{{ 'plugins'|page }}" class="btn btn-primary btn-cta">Continue to Plugin components ⟶</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

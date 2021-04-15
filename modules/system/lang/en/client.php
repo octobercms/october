@@ -45,6 +45,9 @@ return [
         'invalid_audio_empty_insert' => 'Please select an audio file to insert.',
     ],
     'alert' => [
+        'error' => 'Error',
+        'confirm' => 'Confirm',
+        'dismiss' => 'Dismiss',
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancel',
         'widget_remove_confirm' => 'Remove this widget?',

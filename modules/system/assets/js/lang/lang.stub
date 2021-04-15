@@ -1,9 +1,0 @@
-/*
- * This file has been compiled from: /modules/system/lang/{{locale}}/client.php
- */
-if ($.oc === undefined) $.oc = {}
-if ($.oc.langMessages === undefined) $.oc.langMessages = {}
-$.oc.langMessages['{{locale}}'] = $.extend(
-    $.oc.langMessages['{{locale}}'] || {},
-    {{messages}}
-);
