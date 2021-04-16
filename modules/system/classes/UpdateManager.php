@@ -26,7 +26,7 @@ class UpdateManager
      */
     public function getComposerUrl(): string
     {
-        return env('APP_COMPOSER_GATEWAY', Config::get('system.composer_gateway', 'gateway.octobercms.com'));
+        return env('APP_COMPOSER_GATEWAY', Config::get('system.composer_gateway', 'https://gateway.octobercms.com'));
     }
 
     /**
