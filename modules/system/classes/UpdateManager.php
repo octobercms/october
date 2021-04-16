@@ -4,7 +4,6 @@ use Url;
 use Lang;
 use Http;
 use Config;
-use Carbon\Carbon;
 use ApplicationException;
 use Exception;
 
@@ -102,7 +101,7 @@ class UpdateManager
             'since' => date('c')
         ]));
 
-        if ($credentials = Config::get('cms.updateAuth')) {
+        if ($credentials = Config::get('system.update_gateway_auth')) {
             $http->auth($credentials);
         }
 

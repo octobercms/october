@@ -31,10 +31,6 @@ The best place to learn October CMS is by [reading the documentation](https://oc
 
 You may also watch these introductory videos for [beginners](https://vimeo.com/79963873) and [advanced users](https://vimeo.com/172202661). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
 
-## Contributing
-
-Before sending a Pull Request, be sure to review the [Contributing Guidelines](.github/CONTRIBUTING.md) first. We are currently operating on a smaller staff and it may take some time to reach your issue. For priority issues, consider purchasing a [premium support plan](https://octobercms.com/premium-support).
-
 ## Coding Standards
 
 Please follow the following guides and code standards:
@@ -42,10 +38,6 @@ Please follow the following guides and code standards:
 * [PSR 4 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * [PSR 2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 * [PSR 1 Coding Standards](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-
-## Code of Conduct
-
-In order to ensure that the October CMS community is welcoming to all, please review and abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Security Vulnerabilities
 
@@ -61,12 +53,17 @@ The CMS uses [Laravel](https://laravel.com) as a foundation PHP framework.
 
 ## Contact
 
-You can communicate with us using the following mediums:
+For announcements and updates:
 
-* [Follow us on Twitter](https://twitter.com/octobercms) for announcements and updates.
-* [Follow us on Facebook](https://facebook.com/octobercms) for announcements and updates.
-* [Join us on Slack](https://octobercms-slack.herokuapp.com/) to chat with us.
-* [Join us on IRC](https://octobercms.com/chat) to chat with us.
+* [Contact Us Page](http://octoberdev.test/contact)
+* [Follow us on Twitter](https://twitter.com/octobercms)
+* [Like us on Facebook](https://facebook.com/octobercms)
+
+To chat or hang out:
+
+* [Join us on Slack](https://octobercms-slack.herokuapp.com/)
+* [Join us on Discord](https://discord.gg/gEKgwSZ)
+* [Join us on Telegram](https://t.me/octoberchat)
 
 ## License
 
