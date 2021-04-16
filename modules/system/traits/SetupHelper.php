@@ -274,9 +274,9 @@ trait SetupHelper
     /**
      * getComposerUrl returns the endpoint for composer
      */
-    protected function getComposerUrl(): string
+    protected function getComposerUrl(bool $withProtocol = true): string
     {
-        return UpdateManager::instance()->getComposerUrl();
+        return UpdateManager::instance()->getComposerUrl($withProtocol);
     }
 
     /**
