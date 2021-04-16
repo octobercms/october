@@ -24,9 +24,11 @@ class UpdateManager
     /**
      * getComposerUrl returns the endpoint for composer
      */
-    public function getComposerUrl(): string
+    public function getComposerUrl(bool $withProtocol = true): string
     {
-        return env('APP_COMPOSER_GATEWAY', Config::get('system.composer_gateway', 'https://gateway.octobercms.com'));
+        $gateway = env('APP_COMPOSER_GATEWAY', Config::get('system.composer_gateway', 'gateway.octobercms.com'));
+
+        return $withProtocol ? 'https://'.$gateway : $gateway;
     }
 
     /**

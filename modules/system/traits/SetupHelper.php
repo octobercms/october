@@ -21,7 +21,7 @@ trait SetupHelper
      */
     protected function setComposerAuth($email, $projectKey)
     {
-        $composerUrl = $this->getComposerUrl();
+        $composerUrl = $this->getComposerUrl(false);
 
         $this->injectJsonToFile(base_path('auth.json'), [
             'http-basic' => [
