@@ -177,14 +177,14 @@ trait SetupHelper
             $fetch = $db->query('show tables', PDO::FETCH_NUM);
         }
 
-        $tables = 0;
-        while ($fetch->fetch()) {
-            $tables++;
-        }
+        // $tables = 0;
+        // while ($fetch->fetch()) {
+        //     $tables++;
+        // }
 
-        if ($tables > 0) {
-            throw new Exception(sprintf('Database "%s" is not empty. Please empty the database or specify another database.', $this->e($name)));
-        }
+        // if ($tables > 0) {
+        //     throw new Exception(sprintf('Database "%s" is not empty. Please empty the database or specify another database.', $name));
+        // }
     }
 
     /**

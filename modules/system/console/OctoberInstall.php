@@ -86,8 +86,8 @@ class OctoberInstall extends Command
 
             $this->setEnvVar('APP_LOCALE', $locale);
         }
-        catch (Exception $e) {
-            $this->output->error($e->getMessage());
+        catch (Exception $ex) {
+            $this->output->error($ex->getMessage());
             return $this->setupLanguage();
         }
     }
@@ -302,8 +302,8 @@ class OctoberInstall extends Command
             // Thank the user
             $this->output->success('Thank you for supporting October CMS!');
         }
-        catch (Exception $e) {
-            $this->output->error($e->getMessage());
+        catch (Exception $ex) {
+            $this->output->error($ex->getMessage());
             return $this->setupLicenseKey();
         }
     }
