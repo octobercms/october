@@ -51,11 +51,11 @@ trait SetupHelper
     protected function composerRequireString()
     {
         return implode(' ', [
-            'october/system:dev-develop',
-            'october/backend:dev-develop',
-            'october/cms:dev-develop',
-            'october/media:dev-develop',
-            'october/editor:dev-develop'
+            'october/system',
+            'october/backend',
+            'october/cms',
+            'october/media',
+            'october/editor'
         ]);
     }
 
