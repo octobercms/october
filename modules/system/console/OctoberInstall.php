@@ -200,7 +200,7 @@ class OctoberInstall extends Command
             Config::get("database.connections.{$driver}.port"),
             Config::get("database.connections.{$driver}.database"),
             Config::get("database.connections.{$driver}.username"),
-            Config::get("database.connections.{$driver}.password"),
+            Config::get("database.connections.{$driver}.password")
         );
     }
 
