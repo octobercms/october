@@ -1,6 +1,7 @@
 <?php namespace System\Console;
 
 use Composer\Script\Event;
+use Composer\Installer\PackageEvent;
 
 /**
  * ComposerScript is a collection of composer script logic
@@ -28,7 +29,7 @@ class ComposerScript
     /**
      * prePackageUninstall
      */
-    public static function prePackageUninstall(Event $event)
+    public static function prePackageUninstall(PackageEvent $event)
     {
     }
 }
