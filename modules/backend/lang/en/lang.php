@@ -49,7 +49,7 @@ return [
         'impersonating' => 'Impersonating :full_name',
         'stop_impersonating' => 'Stop impersonating',
         'signed_in_as' => 'Signed in as :full_name',
-        'sign_out' => 'Sign out',
+        'sign_out' => 'Sign Out',
         'login' => 'Login',
         'input_username' => 'Login',
         'input_password' => 'Password',
@@ -392,7 +392,7 @@ return [
         'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'."
     ],
     'warnings' => [
-        'tips' => 'System configuration tips',
+        'tips' => 'System Configuration Tips',
         'tips_description' => 'There are issues you need to pay attention to in order to configure the system properly.',
         'permissions'  => 'Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.',
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
