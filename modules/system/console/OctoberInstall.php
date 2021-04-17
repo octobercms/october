@@ -33,6 +33,11 @@ class OctoberInstall extends Command
     protected $description = 'Set up October CMS for the first time.';
 
     /**
+     * @var int keyRetries counts license key attempts before giving up
+     */
+    protected $keyRetries = 0;
+
+    /**
      * handle executes the console command
      */
     public function handle()
@@ -267,14 +272,19 @@ class OctoberInstall extends Command
      */
     protected function setupLicenseKey()
     {
+        if ($this->keyRetries++ > 10) {
+            $this->output->error('Too many failed attempts, please start again');
+            exit(1);
+        }
+
+        $this->comment('Enter a valid License Key to proceed.');
+
+        $licenceKey = trim($this->ask('License Key'));
+        if (!strlen($licenceKey)) {
+            return $this->setupLicenseKey();
+        }
+
         try {
-            $this->comment('Enter a valid License Key to proceed.');
-
-            $licenceKey = trim($this->ask('License Key'));
-            if (!strlen($licenceKey)) {
-                return $this->setupLicenseKey();
-            }
-
             $result = UpdateManager::instance()->requestProjectDetails($licenceKey);
 
             // Check status
