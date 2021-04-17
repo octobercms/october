@@ -89,7 +89,11 @@ return [
             'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla',
         ],
     ],
+    'packages' => [
+        'install' => 'Install Packages',
+    ],
     'themes' => [
+        'manage' => 'Manage Themes',
         'install' => 'Install Themes',
         'search' => 'search themes to install...',
         'installed' => 'Installed themes',
@@ -325,6 +329,7 @@ return [
         'plugin_code' => 'Code',
         'plugin_description' => 'Description',
         'plugin_version' => 'Version',
+        'plugin_latest' => 'Latest',
         'plugin_author' => 'Author',
         'plugin_not_found' => 'Plugin not found',
         'theme_not_found' => 'Theme not found',
