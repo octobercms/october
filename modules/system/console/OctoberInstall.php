@@ -4,6 +4,7 @@ use PDO;
 use Config;
 use System\Classes\UpdateManager;
 use October\Rain\Process\Composer as ComposerProcess;
+use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\Command;
 use Exception;
 
@@ -61,14 +62,6 @@ class OctoberInstall extends Command
         // $this->setupMigrateDatabase();
 
         $this->outputOutro();
-    }
-
-    /**
-     * getOptions provides the console command options
-     */
-    protected function getOptions(): array
-    {
-        return [];
     }
 
     /**
@@ -313,7 +306,7 @@ class OctoberInstall extends Command
      */
     protected function setupInstallOctober()
     {
-        $requireStr = $this->composerRequireString();
+        $requireStr = $this->composerRequireString($this->option('want') ?: null);
         $this->comment("Executing: composer require {$requireStr}");
 
         $composer = new ComposerProcess;
@@ -427,8 +420,18 @@ class OctoberInstall extends Command
         $this->output->error('Please try running these commands manually');
 
         $this->output->listing([
-            'composer require ' . $this->composerRequireString(),
+            'composer require ' . $this->composerRequireString($this->option('want') ?: null),
             'php artisan october:migrate'
         ]);
+    }
+
+    /**
+     * getOptions get the console command options
+     */
+    protected function getOptions()
+    {
+        return [
+            ['want', 'w', InputOption::VALUE_REQUIRED, 'Provide a custom version.'],
+        ];
     }
 }

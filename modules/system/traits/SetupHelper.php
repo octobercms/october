@@ -48,14 +48,18 @@ trait SetupHelper
     /**
      * composerRequireString returns the composer require string for installing dependencies
      */
-    protected function composerRequireString()
+    protected function composerRequireString($want = null)
     {
+        if ($want !== null) {
+            $want = ':' . $want;
+        }
+
         return implode(' ', [
-            'october/system',
-            'october/backend',
-            'october/cms',
-            'october/media',
-            'october/editor'
+            'october/system'.$want,
+            'october/backend'.$want,
+            'october/cms'.$want,
+            'october/media'.$want,
+            'october/editor'.$want
         ]);
     }
 
@@ -162,29 +166,6 @@ trait SetupHelper
         catch (PDOException $ex) {
             throw new Exception('Connection failed: ' . $ex->getMessage());
         }
-
-        // Check the database is empty
-        if ($type == 'sqlite') {
-            $fetch = $db->query("select name from sqlite_master where type='table'", PDO::FETCH_NUM);
-        }
-        elseif ($type == 'pgsql') {
-            $fetch = $db->query("select table_name from information_schema.tables where table_schema = 'public'", PDO::FETCH_NUM);
-        }
-        elseif ($type === 'sqlsrv') {
-            $fetch = $db->query("select [table_name] from information_schema.tables", PDO::FETCH_NUM);
-        }
-        else {
-            $fetch = $db->query('show tables', PDO::FETCH_NUM);
-        }
-
-        // $tables = 0;
-        // while ($fetch->fetch()) {
-        //     $tables++;
-        // }
-
-        // if ($tables > 0) {
-        //     throw new Exception(sprintf('Database "%s" is not empty. Please empty the database or specify another database.', $name));
-        // }
     }
 
     /**
