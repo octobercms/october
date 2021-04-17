@@ -247,7 +247,7 @@ return [
         'important_action_required' => 'Handling påkrævet',
         'important_view_guide' => ' se opgraderingsguide',
         'important_alert_text' => 'Nogle opdatering kræver din opmærksomhed.',
-        'details_title_plugin' => 'Plugindetaljer',
+        'details_title' => 'Plugindetaljer',
         'details_view_homepage' => 'Se hjemmeside',
         'details_readme' => 'Dokumentation',
         'details_readme_missing' => 'Der er ingen dokumentation tilgængelig.',

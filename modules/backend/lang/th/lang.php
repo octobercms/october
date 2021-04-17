@@ -14,7 +14,7 @@ return [
     ],
     'page' => [
         'untitled' => 'ไม่มีชื่อเรื่อง',
-        'not_found' => [
+        '404' => [
             'label' => 'ไม่พบหน้านี้',
             'help' => "เราพยายามค้นหาแล้ว แต่ไม่พบ URL ที่ร้องขอ บางทีคุณกำลังหาอย่างอื่นอยู่หรือเปล่า?",
             'back_link' => 'กลับไปยังหน้าที่แล้ว',
@@ -368,7 +368,7 @@ return [
         'line_breaker_tags' => 'แท็กสำหรับขึ้นบรรทัดใหม่',
         'line_breaker_tags_comment' => 'รายการของแท็กที่ให้ตัวขึ้นบรรทัดใหม่วางคั่นได้',
         'toolbar_buttons' => 'ปุ่มในแถบเครื่องมือ',
-        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'ปุ่มในแถบเครื่องมือที่จะแสดงในหน้าแก้ไขโดยอัตโนมัติ',
     ],
     'tooltips' => [
         'preview_website' => 'ดูตัวอย่างเว็บไซต์',
@@ -402,7 +402,7 @@ return [
         'navigation' => 'ตัวนำทาง',
         'menu_mode' => 'รูปแบบเมนู',
         'menu_mode_inline' => 'อยู่ในบรรทัดเดียว',
-        'menu_mode_text' => 'อยู่ในบรรทัดเดียว (ไม่มีไอคอน)',
+        'menu_mode_inline_no_icons' => 'อยู่ในบรรทัดเดียว (ไม่มีไอคอน)',
         'menu_mode_tile' => 'กระเบื้อง',
         'menu_mode_collapsed' => 'ย่อ',
     ],

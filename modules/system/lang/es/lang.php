@@ -303,7 +303,7 @@ return [
         'important_view_guide' => 'Ver guía de actualización',
         'important_view_release_notes' => 'Ver notas de la versión',
         'important_alert_text' => 'Algunas actualizaciones necesitan su atención.',
-        'details_title_plugin' => 'Detalles plugin',
+        'details_title' => 'Detalles plugin',
         'details_view_homepage' => 'Ver página de inicio',
         'details_readme' => 'Documentación',
         'details_readme_missing' => 'No hay documentación proporcionada.',

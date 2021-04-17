@@ -17,7 +17,7 @@ return [
     ],
     'page' => [
         'untitled' => '未命名',
-        'not_found' => [
+        '404' => [
             'label'     => '找不到页面',
             'help'      => "无法访问到您请求的URL资源，试试其它的？",
             'back_link' => '返回上个页面'
@@ -402,7 +402,7 @@ return [
         'remove_tags' => '移除标签',
         'remove_tags_comment' => '所列标签将与其包裹的内容一起删除.',
         'toolbar_buttons' => '工具栏按钮',
-        'toolbar_buttons_comment' => '默认在富文本编辑器中显示的工具栏按钮。例如： [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]'
+        'toolbar_buttons_comment' => '默认在富文本编辑器中显示的工具栏按钮。例如：'
     ],
     'tooltips' => [
         'preview_website' => '预览网站'
@@ -437,7 +437,7 @@ return [
         'navigation' => '导航',
         'menu_mode' => '菜单样式',
         'menu_mode_inline' => '行内',
-        'menu_mode_text' => '行内（无图标）',
+        'menu_mode_inline_no_icons' => '行内（无图标）',
         'menu_mode_tile' => '标题',
         'menu_mode_collapsed' => '已折叠'
     ],

@@ -52,6 +52,7 @@ return [
         'widget_width' => '寬度',
         'full_width' => '全部寬度',
         'add_widget' => '新增元件',
+        'manage_widgets' => '管理元件',
         'widget_inspector_title' => '元件設定',
         'widget_inspector_description' => '設定報表元件',
         'widget_columns_label' => '寬度 :columns',
@@ -62,6 +63,12 @@ return [
         'widget_new_row_description' => '把元件放到新列',
         'widget_title_label' => '元件標題',
         'widget_title_error' => '需要元件標題',
+        'reset_layout' => '重置版面',
+        'reset_layout_confirm' => '確定重置為預設版面？',
+        'reset_layout_success' => '版面已重置。',
+        'make_default' => '設定為預設',
+        'make_default_confirm' => '確定將此版面設定為預設？',
+        'make_default_success' => '已設定此版面為預設。',
         'status' => [
             'widget_title_default' => '系統狀態',
             'update_available' => '{0} 更新可用!|{1} 更新可用!|[2,Inf] 更新可用!'
@@ -170,7 +177,7 @@ return [
         'field_off' => '關',
         'field_on' => '開',
         'add' => '增加',
-        'apply' => '應用',
+        'apply' => '確定',
         'cancel' => '取消',
         'close' => '關閉',
         'confirm' => '確認',
@@ -297,7 +304,9 @@ return [
         'email' => 'Email'
     ],
     'filter' => [
-      'all' => '全部'
+        'all' => '全部',
+        'date_all' => '全部區間',
+        'number_all' => '全部數目',
     ],
     'permissions' => [
         'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
@@ -316,10 +325,10 @@ return [
         'display' => '顯示',
         'filter_everything' => '所有',
         'filter_images' => '圖片',
-        'filter_video' => '視頻',
-        'filter_audio' => '音頻',
+        'filter_video' => '影片',
+        'filter_audio' => '音訊',
         'filter_documents' => '文檔',
-        'library' => '庫',
+        'library' => '媒體庫',
         'size' => '大小',
         'title' => '標題',
         'last_modified' => '最近修改',
@@ -332,7 +341,7 @@ return [
         'multiple_selected' => '多選.',
         'uploading_file_num' => '上傳 :number 檔案...',
         'uploading_complete' => '上傳完畢',
-        'order_by' => '排序',
+        'order_by' => '排列方式',
         'folder' => '檔案夾',
         'no_files_found' => '沒找到您請求的檔案.',
         'delete_empty' => '請選擇刪除項.',
@@ -362,6 +371,9 @@ return [
         'selection_mode' => '選擇模式',
         'resize_image' => '調整圖片',
         'image_size' => '圖片大小:',
-        'selected_size' => '選中:'
+        'selected_size' => '選中:',
+        'direction' => '順序',
+        'direction_asc' => '升冪',
+        'direction_desc' => '降冪',
     ]
 ];

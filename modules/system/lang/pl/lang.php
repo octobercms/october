@@ -320,7 +320,7 @@ return [
         'important_action_required' => 'Wymagane działanie',
         'important_view_guide'      => 'Zobacz instrukcje aktualizacji',
         'important_alert_text'      => 'Niektóre aktualizacje wymagają twojej uwagi.',
-        'details_title_plugin'             => 'Szeczóły Wtyczki',
+        'details_title'             => 'Szeczóły Wtyczki',
         'details_view_homepage'     => 'Zobacz stronę domową',
         'details_readme'            => 'Dokumentacja',
         'details_readme_missing'    => 'Nie dostarczono dokumentacji.',

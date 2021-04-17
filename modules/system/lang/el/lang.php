@@ -247,7 +247,7 @@ return [
         'important_action_required' => 'Απαιτείται ενέργεια',
         'important_view_guide' => 'Εμφάνιση οδηγού αναβάθμισης',
         'important_alert_text' => 'Κάποιες ενημερώσεις χρειάζονται την προσοχή σας.',
-        'details_title_plugin' => 'Λεπτομέρειες πρόσθετου',
+        'details_title' => 'Λεπτομέρειες πρόσθετου',
         'details_view_homepage' => 'Εμφάνιση αρχικής σελίδας',
         'details_readme' => 'Οδηγιες Χρήσης',
         'details_readme_missing' => 'Δεν παρέχονται οδηγίες χρήσης.',

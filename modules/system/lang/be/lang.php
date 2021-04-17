@@ -246,7 +246,7 @@ return [
         'important_action_required' => "Патрабуецца дзеянне",
         'important_view_guide' => "Прагледзець кіраўніцтва па абнаўленні",
         'important_alert_text' => "Некаторыя абнаўленні патрабуюць Вашай увагі",
-        'details_title_plugin' => "Дэталі плагіну",
+        'details_title' => "Дэталі плагіну",
         'details_view_homepage' => "Прагледзець хатнюю старонку",
         'details_readme' => "Дакументацыя",
         'details_readme_missing' => "Няма дакументацыі",

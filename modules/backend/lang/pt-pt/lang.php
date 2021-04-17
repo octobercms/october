@@ -17,7 +17,7 @@ return [
     ],
     'page' => [
         'untitled' => 'Sem título',
-        'not_found' => [
+        '404' => [
             'label'     => 'Página não encontrada',
             'help'      => "Por muito que procuremos, o URL pedido não existe. Talvez esteja à procura de outra coisa?",
             'back_link' => 'Voltar à página anterior',
@@ -362,6 +362,7 @@ return [
         'extension' => 'A extensão PHP :name não está instalada. Por favor, instale esta biblioteca para activar a extensão.',
         'plugin_missing' => 'A extensão :name é uma dependência mas não está instalada. Por favor instale esta extensão.',
         'debug' => 'O modo de depuração está activo. Isto não é recomendado em abientes de produção.',
+        'decompileBackendAssets' => 'Os recursos do backend não estao compilados. Isto não é recomendado em ambientes de produção.',
     ],
     'editor' => [
         'menu_label' => 'Definições do Editor',
@@ -411,7 +412,7 @@ return [
         'line_breaker_tags' => 'Etiquetas de quebra de linha',
         'line_breaker_tags_comment' => 'Lista de etiquetas entre as quais é inserida uma quebra de linha.',
         'toolbar_buttons' => 'Botões da barra de ferramentas',
-        'toolbar_buttons_comment' => 'Botões da barra de ferramentas do editor rico a serem mostradas por defeito. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'Botões da barra de ferramentas do editor rico a serem mostradas por defeito.',
     ],
     'tooltips' => [
         'preview_website' => 'Prévisualizar a página',
@@ -446,7 +447,7 @@ return [
         'navigation' => 'Navegação',
         'menu_mode' => 'Estilo de menu',
         'menu_mode_inline' => 'Em linha',
-        'menu_mode_text' => 'Em linha (sem icons)',
+        'menu_mode_inline_no_icons' => 'Em linha (sem icons)',
         'menu_mode_tile' => 'Blocos',
         'menu_mode_collapsed' => 'Colapsados',
     ],

@@ -251,7 +251,7 @@ return [
         'important_view_guide' => 'Переглянути керівництво по оновленню',
         'important_view_release_notes' => 'Перегляд приміток випуску',
         'important_alert_text' => 'Деякі оновлення вимагають вашої уваги.',
-        'details_title_plugin' => 'Інформація про плагін',
+        'details_title' => 'Інформація про плагін',
         'details_view_homepage' => 'Перейти до домашньої сторінки',
         'details_readme' => 'Документація',
         'details_readme_missing' => 'Документація не надана.',

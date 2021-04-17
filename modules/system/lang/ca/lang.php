@@ -312,7 +312,7 @@ return [
         'important_view_guide' => "Veure la guia d'actualització",
         'important_view_release_notes' => 'Veure les notes de la versió',
         'important_alert_text' => 'Algunes actualitzacions necessiten la teva atenció.',
-        'details_title_plugin' => 'Detalls del plugin',
+        'details_title' => 'Detalls del plugin',
         'details_view_homepage' => 'Veure pàgina web',
         'details_readme' => 'Documentació',
         'details_readme_missing' => "No s'ha proveït documentació.",

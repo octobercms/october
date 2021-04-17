@@ -225,7 +225,7 @@ return [
         'important_action_required' => 'Jāpievērš uzmanība',
         'important_view_guide' => 'Skatīt atjaunināšanas padomus',
         'important_alert_text' => 'Daži atjauninājumi ir jāpārskata.',
-        'details_title_plugin' => 'Spraudņa detaļas',
+        'details_title' => 'Spraudņa detaļas',
         'details_view_homepage' => 'Rādīt mājaslapu',
         'details_readme' => 'Dokumentācija',
         'details_readme_missing' => 'Dokumentācija nav pievienota.',

@@ -259,7 +259,7 @@ return [
         'important_view_guide' => 'Zobrazit aktualizační příručku',
         'important_view_release_notes' => 'Zobrazit poznámky k verzi',
         'important_alert_text' => 'Některé aktualizace vyžadují vaší pozornost.',
-        'details_title_plugin' => 'Detaily pluginu',
+        'details_title' => 'Detaily pluginu',
         'details_view_homepage' => 'Zobrazit domovskou stránku',
         'details_readme' => 'Dokumentace',
         'details_readme_missing' => 'Není uvedená žádná dokumentace.',

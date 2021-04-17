@@ -247,7 +247,7 @@ return [
         'important_action_required' => 'Velg handling',
         'important_view_guide' => 'Vis oppgraderingsguide',
         'important_alert_text' => 'Noen oppdateringer krever ettersyn.',
-        'details_title_plugin' => 'Plugin detaljer',
+        'details_title' => 'Plugin detaljer',
         'details_view_homepage' => 'Vis nettside',
         'details_readme' => 'Dokumentasjon',
         'details_readme_missing' => 'Ingen dokumentasjon å vise.',

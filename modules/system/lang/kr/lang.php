@@ -245,7 +245,7 @@ return [
         'important_view_guide' => '업그레이드 가이드 보기',
         'important_view_release_notes' => '릴리즈 노트 보기',
         'important_alert_text' => '몇몇 업데이트는 주의가 필요합니다.',
-        'details_title_plugin' => '플러그인 상세',
+        'details_title' => '플러그인 상세',
         'details_view_homepage' => '홈페이지 보기',
         'details_readme' => '참고문서',
         'details_readme_missing' => '참고문서가 제공되지 않습니다.',
