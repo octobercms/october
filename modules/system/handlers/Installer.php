@@ -18,6 +18,14 @@ class Installer extends ControllerBase
     /**
      * Route: /
      */
+    public function placeholder()
+    {
+        return View::make('system::placeholder');
+    }
+
+    /**
+     * Route: /
+     */
     public function index()
     {
         try {
