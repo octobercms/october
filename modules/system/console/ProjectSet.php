@@ -15,6 +15,7 @@ use Exception;
 class ProjectSet extends Command
 {
     use \System\Traits\SetupHelper;
+    use \System\Traits\SetupBuilder;
 
     /**
      * The console command name.
@@ -36,34 +37,17 @@ class ProjectSet extends Command
             return 1;
         }
 
+        $licenceKey = (string) $this->argument('key');
+
+        if (!$licenceKey) {
+            $this->comment('Enter a valid License Key to proceed.');
+            $licenceKey = trim($this->ask('License Key'));
+        }
+
         try {
-            $licenceKey = (string) $this->argument('key');
+            $this->setupSetProject($licenceKey);
 
-            if (!$licenceKey) {
-                $this->comment('Enter a valid License Key to proceed.');
-                $licenceKey = trim($this->ask('License Key'));
-            }
-
-            $result = UpdateManager::instance()->requestProjectDetails($licenceKey);
-
-            // Check status
-            $isActive = $result['is_active'] ?? false;
-            if (!$isActive) {
-                $this->output->error('License is unpaid or has expired. Please visit octobercms.com to obtain a license.');
-                return;
-            }
-
-            // Save authentication token
-            $projectKey = $result['project_id'] ?? null;
-            $projectEmail = $result['email'] ?? null;
-            $this->setComposerAuth($projectEmail, $projectKey);
-
-            // Add October CMS gateway as a composer repo
-            $composer = new ComposerProcess;
-            $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
-
-            // Thank the user
-            $this->output->success('Thank you for supporting October CMS!');
+            $this->output->success('Thank you for being a customer of October CMS!');
         }
         catch (Exception $e) {
             $this->output->error($e->getMessage());

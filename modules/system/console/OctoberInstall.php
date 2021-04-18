@@ -21,6 +21,7 @@ use Exception;
 class OctoberInstall extends Command
 {
     use \System\Traits\SetupHelper;
+    use \System\Traits\SetupBuilder;
 
     /**
      * @var string name is the console command name
@@ -273,7 +274,13 @@ class OctoberInstall extends Command
     protected function setupLicenseKey()
     {
         if ($this->keyRetries++ > 10) {
-            $this->output->error('Too many failed attempts, please start again');
+            $this->output->error('Too many failed attempts, please try again');
+
+            $this->comment('If you see this error immediately, use these non-interactive commands instead');
+            $this->output->newLine();
+            $this->line("* php artisan project:set <LICENSE KEY>");
+            $this->output->newLine();
+            $this->line("* php artisan october:build");
             exit(1);
         }
 
@@ -285,50 +292,14 @@ class OctoberInstall extends Command
         }
 
         try {
-            $result = UpdateManager::instance()->requestProjectDetails($licenceKey);
+            $this->setupSetProject($licenceKey);
 
-            // Check status
-            $isActive = $result['is_active'] ?? false;
-            if (!$isActive) {
-                throw new Exception('License is unpaid or has expired. Please visit octobercms.com to obtain a license.');
-            }
-
-            // Save authentication token
-            $projectId = $result['project_id'] ?? null;
-            $projectEmail = $result['email'] ?? null;
-            $this->setComposerAuth($projectEmail, $projectId);
-
-            // Add October CMS gateway as a composer repo
-            $composer = new ComposerProcess;
-            $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
-
-            // Thank the user
-            $this->output->success('Thank you for supporting October CMS!');
+            $this->output->success('Thank you for being a customer of October CMS!');
         }
         catch (Exception $ex) {
             $this->output->error($ex->getMessage());
             return $this->setupLicenseKey();
         }
-    }
-
-    /**
-     * setupInstallOctober installs October CMS using composer
-     */
-    protected function setupInstallOctober()
-    {
-        $requireStr = $this->composerRequireString($this->option('want') ?: null);
-        $this->comment("Executing: composer require {$requireStr}");
-
-        $composer = new ComposerProcess;
-        $composer->setCallback(function($message) { echo $message; });
-        $composer->require($requireStr);
-
-        if ($composer->lastExitCode() !== 0) {
-            $this->outputFailedOutro();
-            exit(1);
-        }
-
-        $this->output->newLine();
     }
 
     /**
@@ -365,60 +336,7 @@ class OctoberInstall extends Command
         // }
     }
 
-    /**
-     * outputIntro displays the introduction output
-     */
-    protected function outputIntro()
-    {
-        $message = [
-            ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~. ",
-            "                                                                       ",
-            " .d8888b.   .o8888b.   db  .d8888b.  d8888b. d88888b d8888b.  .d88b.   ",
-            ".8P    Y8. d8P    Y8   88 .8P    Y8. 88  `8D 88'     88  `8D .8',, `8  ",
-            "88      88 8P      oooo88 88      88 88oooY' 88oooo  88oobY' 8. ||  `8 ",
-            "88      88 8b      ~~~~88 88      88 88~~~b. 88~~~~  88`8b   8. ||// 8 ",
-            "`8b    d8' Y8b    d8   88 `8b    d8' 88   8D 88.     88 `88. `8 || d'  ",
-            " `Y8888P'   `Y8888P'   YP  `Y8888P'  Y8888P' Y88888P 88   YD  `.88P'   ",
-            "                                                                       ",
-            "`=========================== INSTALLATION ===========================' ",
-            "",
-        ];
 
-        $this->line($message);
-    }
-
-    /**
-     * outputOutro displays the credits output
-     */
-    protected function outputOutro()
-    {
-        $message = [
-            ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.",
-            "                ,@@@@@@@,                  ",
-            "        ,,,.   ,@@@@@@/@@,  .oo8888o.      ",
-            "     ,&%%&%&&%,@@@@@/@@@@@@,8888\88/8o     ",
-            "    ,%&\%&&%&&%,@@@\@@@/@@@88\88888/88'    ",
-            "    %&&%&%&/%&&%@@\@@/ /@@@88888\88888'    ",
-            "    %&&%/ %&%%&&@@\ V /@@' `88\8 `/88'     ",
-            "    `&%\ ` /%&'    |.|        \ '|8'       ",
-            "        |o|        | |         | |         ",
-            "        |.|        | |         | |         ",
-            "`========= INSTALLATION COMPLETE ========='",
-            "",
-        ];
-
-        $this->line($message);
-
-        $this->comment('Please migrate the database with the following command');
-        $this->output->newLine();
-        $this->line("* php artisan october:migrate");
-        $this->output->newLine();
-
-        $adminUrl = env('APP_URL') . env('BACKEND_URI');
-        $this->comment('Then, open the administration area at this URL');
-        $this->output->newLine();
-        $this->line("* {$adminUrl}");
-    }
 
     /**
      * outputFailedOutro displays the failure message
