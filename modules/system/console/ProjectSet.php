@@ -51,6 +51,7 @@ class ProjectSet extends Command
         }
         catch (Exception $e) {
             $this->output->error($e->getMessage());
+            return 1;
         }
     }
 
