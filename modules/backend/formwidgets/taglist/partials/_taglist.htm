@@ -19,7 +19,7 @@
             <li class="taglist__item"><?= e(trans($option)) ?></li>
         <?php endforeach ?>
     </ul>
-    <?php if ($field->readOnly && is_array($field->value)): ?>
+    <?php if (is_array($field->value)): ?>
         <?php foreach ($displayOnlyOptions as $option): ?>
         <input
             type="hidden"
