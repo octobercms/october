@@ -45,6 +45,9 @@ return [
         'invalid_audio_empty_insert' => "Пожалуйста, выберите аудио для вставки.",
     ],
     'alert' => [
+        'error' => 'Ошибка',
+        'confirm' => 'Подтвердите',
+        'dismiss' => 'Убрать',
         'confirm_button_text' => 'Ок',
         'cancel_button_text' => 'Отмена',
         'widget_remove_confirm' => 'Удалить этот виджет?'
