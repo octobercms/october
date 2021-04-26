@@ -3,6 +3,7 @@
     "description": "Built using October CMS: The Platform That Gets Back to Basics",
     "type": "project",
     "homepage": "https://octobercms.com",
+    "license": "proprietary",
     "require": {
         "php": ">=7.2.9",
         "october/rain": "^2.0",
