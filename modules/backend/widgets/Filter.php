@@ -388,12 +388,6 @@ class Filter extends WidgetBase
 
         $query = $model->newQuery();
 
-        /*
-         * The 'group' scope has trouble supporting more than 500 records at a time
-         * @todo Introduce a more advanced version with robust list support.
-         */
-        $query->limit(500);
-
         /**
          * @event backend.filter.extendQuery
          * Provides an opportunity to extend the query of the list of options
