@@ -3,7 +3,7 @@
 return [
     'auth' => [
         'title' => 'Administration Area',
-        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.'
+        'invalid_login' => 'The details you entered did not match our records. Please double-check and try again.',
     ],
     'field' => [
         'invalid_type' => 'Invalid field type used :type.',
@@ -13,13 +13,13 @@ return [
     ],
     'widget' => [
         'not_registered' => "A widget class name ':name' has not been registered",
-        'not_bound' => "A widget with class name ':name' has not been bound to the controller"
+        'not_bound' => "A widget with class name ':name' has not been bound to the controller",
     ],
     'page' => [
         'untitled' => 'Untitled',
         'not_found' => [
-            'label'     => 'Page Not Found',
-            'help'      => "The requested page cannot be found.",
+            'label' => 'Page Not Found',
+            'help' => "The requested page cannot be found.",
             'back_link' => 'Go back to the previous page',
         ],
         'access_denied' => [
@@ -39,7 +39,7 @@ return [
     ],
     'ajax_handler' => [
         'invalid_name' => 'Invalid AJAX handler name: :name.',
-        'not_found' => "AJAX handler ':name' was not found."
+        'not_found' => "AJAX handler ':name' was not found.",
     ],
     'account' => [
         'impersonate' => 'Impersonate User',
@@ -74,7 +74,7 @@ return [
         'apply' => 'Apply',
         'cancel' => 'Cancel',
         'delete' => 'Delete',
-        'ok' => 'OK'
+        'ok' => 'OK',
     ],
     'dashboard' => [
         'menu_label' => 'Dashboard',
@@ -123,7 +123,7 @@ return [
             'last_sign_in' => 'Your last sign in was',
             'view_access_logs' => 'View Access Logs',
             'nice_message' => 'Have a great day!',
-        ]
+        ],
     ],
     'user' => [
         'name' => 'Administrator',
@@ -174,7 +174,7 @@ return [
             'new' => 'New Group',
             'delete_confirm' => 'Delete this administrator group?',
             'return' => 'Return to Group List',
-            'users_count' => 'Users'
+            'users_count' => 'Users',
         ],
         'role' => [
             'name' => 'Role',
@@ -188,10 +188,10 @@ return [
             'new' => 'New Role',
             'delete_confirm' => 'Delete this administrator role?',
             'return' => 'Return to Role List',
-            'users_count' => 'Users'
+            'users_count' => 'Users',
         ],
         'preferences' => [
-            'not_authenticated' => 'There is no an authenticated user to load or save preferences for.'
+            'not_authenticated' => 'There is no an authenticated user to load or save preferences for.',
         ],
         'trashed_hint_title' => 'This account has been deleted',
         'trashed_hint_desc' => 'This account has been deleted and will be unable to be signed in under. To restore it, click the restore user icon in the bottom right',
@@ -225,7 +225,7 @@ return [
         'delete_selected_confirm' => 'Delete the selected records?',
         'delete_selected_success' => 'Deleted selected records.',
         'column_switch_true' => 'Yes',
-        'column_switch_false' => 'No'
+        'column_switch_false' => 'No',
     ],
     'fileupload' => [
         'attachment' => 'Attachment',
@@ -240,7 +240,7 @@ return [
         'clear' => 'Clear',
         'delete_selected' => 'Delete selected',
         'upload' => 'Upload',
-        'replace' => 'Replace'
+        'replace' => 'Replace',
     ],
     'repeater' => [
         'add_new_item' => 'Add new item',
@@ -310,7 +310,7 @@ return [
         'return_to_list' => 'Return to List',
         'no_options_found' => 'No options found',
         'error' => 'Error',
-        'toggle_full_screen' => 'Toggle Full Screen'
+        'toggle_full_screen' => 'Toggle Full Screen',
     ],
     'treeview' => [
         'expand' => 'Expand',
@@ -320,21 +320,21 @@ return [
         'command_or_document' => 'Command or Document...',
         'quick_access' => 'Quick Access',
         'open' => 'Open',
-        'commands' => 'Commands'
+        'commands' => 'Commands',
     ],
     'tabs' => [
         'close' => 'Close Tab',
         'close_all' => 'Close All',
         'close_others' => 'Close Others',
         'close_saved' => 'Close Saved',
-        'full_screen' => 'Toggle Full Screen'
+        'full_screen' => 'Toggle Full Screen',
     ],
     'modal' => [
-        'close' => 'Close'
+        'close' => 'Close',
     ],
     'dropdownmenu' => [
         'go_back' => 'Go Back',
-        'close_menu' => 'Close Menu'
+        'close_menu' => 'Close Menu',
     ],
     'recordfinder' => [
         'find_record' => 'Find Record',
@@ -343,7 +343,7 @@ return [
     ],
     'pagelist' => [
         'page_link' => 'Page link',
-        'select_page' => 'Select a page...'
+        'select_page' => 'Select a page...',
     ],
     'relation' => [
         'missing_config' => "Relation behavior does not have any configuration for ':config'.",
@@ -376,11 +376,11 @@ return [
         'link_name' => 'Link :name',
         'unlink' => 'Unlink',
         'unlink_name' => 'Unlink :name',
-        'unlink_confirm' => 'Are you sure?'
+        'unlink_confirm' => 'Are you sure?',
     ],
     'reorder' => [
         'default_title' => 'Reorder Records',
-        'no_records' => 'There are no records available to sort.'
+        'no_records' => 'There are no records available to sort.',
     ],
     'model' => [
         'name' => 'Model',
@@ -389,7 +389,7 @@ return [
         'missing_relation' => "Model ':class' does not contain a definition for ':relation'.",
         'missing_method' => "Model ':class' does not contain a method ':method'.",
         'invalid_class' => "Model :model used in :class is not valid, it must inherit the \Model class.",
-        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'."
+        'mass_assignment_failed' => "Mass assignment failed for Model attribute ':attribute'.",
     ],
     'warnings' => [
         'tips' => 'System Configuration Tips',
@@ -449,19 +449,25 @@ return [
         'line_breaker_tags' => 'Line Breaker Tags',
         'line_breaker_tags_comment' => 'The list of tags that are used to place a line breaker element between.',
         'toolbar_buttons' => 'Toolbar Buttons',
-        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+        'toolbar_buttons_comment' => 'The Toolbar Buttons to be displayed in the Rich Editor by default.',
+        'toolbar_buttons_preset' => 'Insert a preset toolbar button configuration',
+        'toolbar_buttons_presets' => [
+            'default' => 'Default',
+            'minimal' => 'Minimal',
+            'full' => 'Full',
+        ],
     ],
     'tooltips' => [
-        'preview_website' => 'Preview the website'
+        'preview_website' => 'Preview the website',
     ],
     'mysettings' => [
         'menu_label' => 'My Settings',
-        'menu_description' => 'Settings related to your administration account'
+        'menu_description' => 'Settings related to your administration account',
     ],
     'myaccount' => [
         'menu_label' => 'My Account',
         'menu_description' => 'Update your account details such as name, email address and password.',
-        'menu_keywords' => 'security login'
+        'menu_keywords' => 'security login',
     ],
     'branding' => [
         'menu_label' => 'Customize Backend',
@@ -500,7 +506,7 @@ return [
         'menu_mode_text' => 'Text',
         'menu_mode_tile' => 'Tiles',
         'menu_mode_icon' => 'Icons',
-        'menu_mode_collapsed' => 'Collapsed'
+        'menu_mode_collapsed' => 'Collapsed',
     ],
     'backend_preferences' => [
         'menu_label' => 'Backend Preferences',
@@ -510,7 +516,7 @@ return [
         'timezone' => 'Timezone',
         'timezone_comment' => 'Adjust displayed dates to this timezone.',
         'locale' => 'Locale',
-        'locale_comment' => 'Select your desired locale for language use.'
+        'locale_comment' => 'Select your desired locale for language use.',
     ],
     'access_log' => [
         'hint' => 'This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.',
@@ -523,7 +529,7 @@ return [
         'ip_address' => 'IP address',
         'first_name' => 'First name',
         'last_name' => 'Last name',
-        'email' => 'Email'
+        'email' => 'Email',
     ],
     'filter' => [
         'all' => 'all',
@@ -602,17 +608,17 @@ return [
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Celtic)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Western European revision with euro sign)',
             'windows_1251' => 'Windows-1251 (CP1251)',
-            'windows_1252' => 'Windows-1252 (CP1252)'
-        ]
+            'windows_1252' => 'Windows-1252 (CP1252)',
+        ],
     ],
     'permissions' => [
-        'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents'
+        'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
     ],
     'mediafinder' => [
         'label' => 'Media Finder',
         'no_image' => 'The image could not be found',
         'select' => 'Select',
-        'replace' => 'Replace'
+        'replace' => 'Replace',
     ],
     'media' => [
         'menu_label' => 'Media',
@@ -675,14 +681,14 @@ return [
         'selection_mode' => 'Selection mode',
         'resize_image' => 'Resize Image',
         'image_size' => 'Image Size:',
-        'selected_size' => 'Selected:'
+        'selected_size' => 'Selected:',
     ],
     'table' => [
-        'add_item' => 'Add item'
+        'add_item' => 'Add item',
     ],
     'uploader' => [
         'uploading' => 'Uploading Files',
-        'complete' => 'Upload Complete'
+        'complete' => 'Upload Complete',
     ],
     'richeditor' => [
         'upload_from_computer' => 'Upload From Computer',
@@ -697,6 +703,6 @@ return [
         'embedding_code_invalid' => 'Please enter valid HTML embedding code',
         'embedding_code_invalid_title' => 'Invalid code',
         'browse' => 'Browse Media Library',
-        'by_url' => 'By URL'
-    ]
+        'by_url' => 'By URL',
+    ],
 ];

@@ -34,10 +34,10 @@ return [
         'preview' => 'Voorbeeldweergave',
     ],
     'mediamanager' => [
-        'insert_link' => 'Invoegen Media Link',
-        'insert_image' => 'Invoegen Media Afbeelding',
-        'insert_video' => 'Invoegen Media Video',
-        'insert_audio' => 'Invoegen Media Audio',
+        'insert_link' => 'Media Link invoegen',
+        'insert_image' => 'Media Afbeelding invoegen',
+        'insert_video' => 'Media Video invoegen',
+        'insert_audio' => 'Media Audio invoegen',
         'invalid_file_empty_insert' => 'Selecteer bestand om een link naar te maken.',
         'invalid_file_single_insert' => 'Selecteer één bestand.',
         'invalid_image_empty_insert' => 'Selecteer afbeelding(en) om in te voegen.',
@@ -45,9 +45,12 @@ return [
         'invalid_audio_empty_insert' => 'Selecteer een audio bestand om in te voegen.',
     ],
     'alert' => [
+        'error' => 'Fout',
+        'confirm' => 'Bevestigen',
+        'dismiss' => 'Afwijzen',
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuleren',
-        'widget_remove_confirm' => 'Deze widget verwijderen?'
+        'widget_remove_confirm' => 'Deze widget verwijderen?',
     ],
     'datepicker' => [
         'previousMonth' => 'Vorige maand',
@@ -61,11 +64,11 @@ return [
     ],
     'filter' => [
         'group' => [
-            'all' => 'alle'
+            'all' => 'alle',
         ],
         'scopes' => [
             'apply_button_text' => 'Toepassen',
-            'clear_button_text'  => 'Resetten'
+            'clear_button_text'  => 'Resetten',
         ],
         'dates' => [
             'all' => 'alle',
@@ -73,7 +76,7 @@ return [
             'reset_button_text'  => 'Resetten',
             'date_placeholder' => 'Datum',
             'after_placeholder' => 'Na',
-            'before_placeholder' => 'Voor'
+            'before_placeholder' => 'Voor',
         ],
         'numbers' => [
             'all' => 'alle',

@@ -12,7 +12,7 @@ return [
         'error_deleting' => "Error deleting the template file ':name'. Please check write permissions.",
         'delete_success' => 'Templates deleted: :count.',
         'file_name_required' => 'The File Name field is required.',
-        'safe_mode_enabled' => 'Safe mode is currently enabled that prevents PHP code changes.'
+        'safe_mode_enabled' => 'Safe mode is currently enabled that prevents PHP code changes.',
     ],
     'dashboard' => [
         'active_theme' => [
@@ -104,7 +104,7 @@ return [
         'return' => 'Return to Themes List',
         'setting_edit_theme' => 'Changing edit theme',
         'edit_theme_changed' => 'Edit theme changed',
-        'no_themes_found' => 'No themes found'
+        'no_themes_found' => 'No themes found',
     ],
     'maintenance' => [
         'settings_menu' => 'Maintenance Mode',
@@ -151,7 +151,7 @@ return [
         'editor_markup' => 'Markup',
         'editor_code' => 'Code',
         'description_hint' => 'The description is optional and only visible in the back-end user interface.',
-        'create_new' => 'New Page'
+        'create_new' => 'New Page',
     ],
     'layout' => [
         'not_found_name' => "The layout ':name' is not found",
@@ -162,7 +162,7 @@ return [
         'delete_confirm_multiple' => 'Delete selected layouts?',
         'delete_confirm_single' => 'Delete this layout?',
         'editor_node_name' => 'Layouts',
-        'create_new' => 'New Layout'
+        'create_new' => 'New Layout',
     ],
     'partial' => [
         'not_found_name' => "The partial ':name' is not found.",
@@ -174,7 +174,7 @@ return [
         'delete_confirm_single' => 'Delete this partial?',
         'editor_node_name' => 'Partials',
         'new' => 'New partial',
-        'create_new' => 'New Partial'
+        'create_new' => 'New Partial',
     ],
     'content' => [
         'not_found_name' => "The content file ':name' is not found.",
@@ -185,7 +185,7 @@ return [
         'delete_confirm_single' => 'Delete this content file?',
         'editor_node_name' => 'Content Files',
         'new' => 'New Content File',
-        'editor_content' => 'Content'
+        'editor_content' => 'Content',
     ],
     'ajax_handler' => [
         'invalid_name' => 'Invalid AJAX handler name: :name.',
@@ -242,7 +242,7 @@ return [
         'refresh' => 'Refresh',
         'create' => 'Create',
         'manage_themes' => 'Manage Themes',
-        'error_no_doctype_permissions' => 'You don\'t have permission to manage the document type: :doctype'
+        'error_no_doctype_permissions' => 'You don\'t have permission to manage the document type: :doctype',
     ],
     'asset' => [
         'menu_label' => 'Assets',
@@ -295,7 +295,7 @@ return [
         'delete_confirm_single' => 'Delete selected file or directory?',
         'path' => 'Path',
         'editor_node_name' => 'Assets',
-        'open' => 'Open'
+        'open' => 'Open',
     ],
     'component' => [
         'menu_label' => 'Components',
@@ -310,7 +310,7 @@ return [
         'method_not_found' => "The component ':name' does not contain a method ':method'.",
         'expand_or_collapse' => "Expand or collapse the component list",
         'remove' => 'Remove component',
-        'expand_partial' => 'Expand Component Partial'
+        'expand_partial' => 'Expand Component Partial',
     ],
     'template' => [
         'invalid_type' => 'Unknown template type.',
@@ -330,7 +330,7 @@ return [
         'storage_filesystem' => 'Filesystem',
         'storage_database' => 'database',
         'update_file' => 'Update template file',
-        'reset_from_file' => 'Reset from template file'
+        'reset_from_file' => 'Reset from template file',
     ],
     'permissions' => [
         'name' => 'CMS',
@@ -432,6 +432,6 @@ return [
             'media_filter' => 'The `media` filter returns an address relative to the public path of the [media manager library](https://octobercms.com/docs/cms/mediamanager). ',
             'md_filter' => 'The `md` filter converts the value from Markdown to HTML format.',
             'raw_filter' => 'The `raw` filter marks the value as being "safe", which means that a variable will not be escaped if `raw` is the last filter applied to it.',
-        ]
-    ]
+        ],
+    ],
 ];

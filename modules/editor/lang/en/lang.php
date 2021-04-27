@@ -7,14 +7,14 @@ return [
     'mainview' => [
         'editor_objects' => 'Editor objects',
         'editor_tabs' => 'Editor tabs',
-        'editor_close_tab' => 'Close tab'
+        'editor_close_tab' => 'Close tab',
     ],
     'editor' => [
-        'menu_label' => 'Editor'
+        'menu_label' => 'Editor',
     ],
     'permissions' => [
         'name' => 'Editor',
-        'access_editor' => 'Access the Editor tool. Access to specific editor features like editing CMS pages is managed using other plugin permissions.'
+        'access_editor' => 'Access the Editor tool. Access to specific editor features like editing CMS pages is managed using other plugin permissions.',
     ],
     'common' => [
         'settings' => 'Settings',
@@ -33,6 +33,6 @@ return [
         'apply_and_save' => 'Apply and Save',
         'quick_access' => 'Quick Access',
         'toggle_sidebar' => 'Toggle Sidebar',
-        'document_not_found' => 'The requested document could not be found.'
-    ]
+        'document_not_found' => 'The requested document could not be found.',
+    ],
 ];
