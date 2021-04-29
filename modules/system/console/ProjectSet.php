@@ -47,7 +47,7 @@ class ProjectSet extends Command
         try {
             $this->setupSetProject($licenceKey);
 
-            $this->output->success('Thank you for being a customer of October CMS!');
+            $this->output->success('Thanks for being a customer of October CMS!');
         }
         catch (Exception $e) {
             $this->output->error($e->getMessage());

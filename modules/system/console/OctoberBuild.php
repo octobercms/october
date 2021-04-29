@@ -30,6 +30,7 @@ class OctoberBuild extends Command
     public function handle()
     {
         $this->output->section('Installing Dependencies');
+
         $this->setupInstallOctober();
 
         $this->outputOutro();

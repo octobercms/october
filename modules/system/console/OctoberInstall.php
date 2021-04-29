@@ -294,7 +294,7 @@ class OctoberInstall extends Command
         try {
             $this->setupSetProject($licenceKey);
 
-            $this->output->success('Thank you for being a customer of October CMS!');
+            $this->output->success('Thanks for being a customer of October CMS!');
         }
         catch (Exception $ex) {
             $this->output->error($ex->getMessage());
@@ -336,8 +336,6 @@ class OctoberInstall extends Command
         // }
     }
 
-
-
     /**
      * outputFailedOutro displays the failure message
      */
@@ -347,10 +345,17 @@ class OctoberInstall extends Command
 
         $this->output->error('Please try running these commands manually');
 
-        $this->output->listing([
-            'composer require ' . $this->composerRequireString($this->option('want') ?: null),
-            'php artisan october:migrate'
-        ]);
+        $commands = [];
+        $commands[] = 'php artisan project:set <license key>';
+
+        if ($want = $this->option('want')) {
+            $commands[] = 'php artisan october:build --want='.$want;
+        }
+        else {
+            $commands[] = 'php artisan october:build';
+        }
+
+        $this->output->listing($commands);
     }
 
     /**
