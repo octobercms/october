@@ -1,9 +1,8 @@
 <?php namespace System\Console;
 
 use PDO;
+use Lang;
 use Config;
-use System\Classes\UpdateManager;
-use October\Rain\Process\Composer as ComposerProcess;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\Command;
 use Exception;
@@ -53,14 +52,17 @@ class OctoberInstall extends Command
         $this->outputLanguageTable();
         $this->setupLanguage();
 
-        $this->output->section('Application Configuration');
+        // Application Configuration
+        $this->output->section(Lang::get('system::lang.installer.app_config_section'));
         $this->setupApplicationUrls();
         $this->setupDatabaseConfig();
 
-        $this->output->section('License Key');
+        // License Key
+        $this->output->section(Lang::get('system::lang.installer.license_section'));
         $this->setupLicenseKey();
 
-        $this->output->section('Installing Dependencies');
+        // Installing Dependencies
+        $this->output->section(Lang::get('system::lang.installer.dependencies_section'));
         $this->setupInstallOctober();
 
         // $this->output->section('Migrating Database');
@@ -76,7 +78,11 @@ class OctoberInstall extends Command
     protected function setupLanguage()
     {
         try {
-            $locale = strtolower($this->ask('Select Language', env('APP_LOCALE', 'en')));
+            $locale = strtolower($this->ask(
+                // Select Language
+                Lang::get('system::lang.installer.locale_select_label'),
+                env('APP_LOCALE', 'en')
+            ));
 
             $availableLocales = $this->getAvailableLocales();
             if (!isset($availableLocales[$locale])) {
@@ -84,6 +90,7 @@ class OctoberInstall extends Command
             }
 
             $this->setEnvVar('APP_LOCALE', $locale);
+            Lang::setLocale($locale);
         }
         catch (Exception $ex) {
             $this->output->error($ex->getMessage());
@@ -122,11 +129,20 @@ class OctoberInstall extends Command
      */
     protected function setupApplicationUrls()
     {
-        $url = $this->ask('Application URL', env('APP_URL', 'http://localhost'));
+        $url = $this->ask(
+            // Application URL
+            Lang::get('system::lang.installer.app_url_label'),
+            env('APP_URL', 'http://localhost')
+        );
         $this->setEnvVar('APP_URL', $url);
 
-        $this->comment('To secure your application, use a custom address for accessing the admin panel.');
-        $backendUri = $this->ask('Backend URI', env('BACKEND_URI', '/backend'));
+        // To secure your application, use a custom address for accessing the admin panel.
+        $this->comment(Lang::get('system::lang.installer.backend_uri_comment'));
+        $backendUri = $this->ask(
+            // Backend URI
+            Lang::get('system::lang.installer.backend_uri_label'),
+            env('BACKEND_URI', '/backend')
+        );
         $this->setEnvVar('BACKEND_URI', $backendUri);
     }
 
@@ -151,12 +167,17 @@ class OctoberInstall extends Command
      */
     protected function setupDatabaseConfig()
     {
-        $type = $this->choice('Database Engine', [
-            'SQLite',
-            'MySQL',
-            'Postgres',
-            'SQL Server'
-        ], 'SQLite');
+        $type = $this->choice(
+            // Database Engine
+            Lang::get('system::lang.installer.database_engine_label'),
+            [
+                'SQLite',
+                'MySQL',
+                'Postgres',
+                'SQL Server'
+            ],
+            'SQLite'
+        );
 
         $typeMap = [
             'SQLite' => 'sqlite',
@@ -208,28 +229,53 @@ class OctoberInstall extends Command
      */
     protected function setupDatabase($driver)
     {
-        $this->comment('Hostname for the database connection.');
-        $host = $this->ask('Database Host', env('DB_HOST', 'localhost'));
+        // Hostname for the database connection.
+        $this->comment(Lang::get('system::lang.installer.database_host_comment'));
+        $host = $this->ask(
+            // Database Host
+            Lang::get('system::lang.installer.database_host_label'),
+            env('DB_HOST', 'localhost')
+        );
         $this->setEnvVar('DB_HOST', $host);
         Config::set("database.connections.{$driver}.host", $host);
 
-        $this->comment('(Optional) A port for the connection');
-        $port = $this->ask('Database Port', env('DB_PORT', false)) ?: '';
+        // (Optional) A port for the connection.
+        $this->comment(Lang::get('system::lang.installer.database_port_comment'));
+        $port = $this->ask(
+            // Database Port
+            Lang::get('system::lang.installer.database_port_label'),
+            env('DB_PORT', false)
+        ) ?: '';
         $this->setEnvVar('DB_PORT', $port);
         Config::set("database.connections.{$driver}.port", $port);
 
-        $this->comment('Specify the name of an empty database.');
-        $database = $this->ask('Database Name', env('DB_DATABASE', 'octobercms'));
+        // Specify the name of the database to use.
+        $this->comment(Lang::get('system::lang.installer.database_name_comment'));
+        $database = $this->ask(
+            // Database Name
+            Lang::get('system::lang.installer.database_name_label'),
+            env('DB_DATABASE', 'octobercms')
+        );
         $this->setEnvVar('DB_DATABASE', $database);
         Config::set("database.connections.{$driver}.database", $database);
 
-        $this->comment('User with create database privileges.');
-        $username = $this->ask('Database Login', env('DB_USERNAME', 'root'));
+        // User with create database privileges.
+        $this->comment(Lang::get('system::lang.installer.database_login_comment'));
+        $username = $this->ask(
+            // Database Login
+            Lang::get('system::lang.installer.database_login_label'),
+            env('DB_USERNAME', 'root')
+        );
         $this->setEnvVar('DB_USERNAME', $username);
         Config::set("database.connections.{$driver}.username", $username);
 
-        $this->comment('Password for the specified user.');
-        $password = $this->ask('Database Password', env('DB_PASSWORD', false)) ?: '';
+        // Password for the specified user.
+        $this->comment(Lang::get('system::lang.installer.database_pass_comment'));
+        $password = $this->ask(
+            // Database Password
+            Lang::get('system::lang.installer.database_pass_label'),
+            env('DB_PASSWORD', false)
+        ) ?: '';
         $this->setEnvVar('DB_PASSWORD', $password);
         Config::set("database.connections.{$driver}.password", $password);
     }
@@ -239,14 +285,19 @@ class OctoberInstall extends Command
      */
     protected function setupDatabaseSqlite()
     {
-        $this->comment('For file-based storage, enter a path relative to the application root directory.');
+        // For file-based storage, enter a path relative to the application root directory.
+        $this->comment(Lang::get('system::lang.installer.database_path_comment'));
 
         $defaultDb = env('DB_DATABASE', 'storage/database.sqlite');
         if ($defaultDb === 'database') {
             $defaultDb = 'storage/database.sqlite';
         }
 
-        $filename = $this->ask('Database Path', $defaultDb);
+        $filename = $this->ask(
+            // Database Path
+            Lang::get('system::lang.installer.database_path_label'),
+            $defaultDb
+        );
         $this->setEnvVar('DB_DATABASE', $filename);
         Config::set("database.connections.sqlite.database", $filename);
 
@@ -274,9 +325,12 @@ class OctoberInstall extends Command
     protected function setupLicenseKey()
     {
         if ($this->keyRetries++ > 10) {
-            $this->output->error('Too many failed attempts, please try again');
 
-            $this->comment('If you see this error immediately, use these non-interactive commands instead');
+            // Too many failed attempts
+            $this->output->error(Lang::get('system::lang.installer.too_many_failures_label'));
+
+            // If you see this error immediately, use these non-interactive commands instead.
+            $this->comment(Lang::get('system::lang.installer.too_many_failures_comment'));
             $this->output->newLine();
             $this->line("* php artisan project:set <LICENSE KEY>");
             $this->output->newLine();
@@ -284,9 +338,11 @@ class OctoberInstall extends Command
             exit(1);
         }
 
-        $this->comment('Enter a valid License Key to proceed.');
+        // Enter a valid License Key to proceed.
+        $this->comment(Lang::get('system::lang.installer.license_key_comment'));
 
-        $licenceKey = trim($this->ask('License Key'));
+        // License Key
+        $licenceKey = trim($this->ask(Lang::get('system::lang.installer.license_key_label')));
         if (!strlen($licenceKey)) {
             return $this->setupLicenseKey();
         }
@@ -294,7 +350,8 @@ class OctoberInstall extends Command
         try {
             $this->setupSetProject($licenceKey);
 
-            $this->output->success('Thanks for being a customer of October CMS!');
+            // Thanks for being a customer of October CMS!
+            $this->output->success(Lang::get('system::lang.installer.license_thanks_comment'));
         }
         catch (Exception $ex) {
             $this->output->error($ex->getMessage());
@@ -318,22 +375,6 @@ class OctoberInstall extends Command
             $this->outputFailedOutro();
             exit(1);
         }
-
-        // $this->line('Migrating application and plugins...');
-
-        // try {
-        //     Db::purge();
-
-        //     UpdateManager::instance()
-        //         ->setNotesOutput($this->output)
-        //         ->update()
-        //     ;
-        // }
-        // catch (Exception $ex) {
-        //     $this->output->error($ex->getMessage());
-        //     $this->setupDatabaseConfig();
-        //     $this->setupMigrateDatabase();
-        // }
     }
 
     /**
@@ -341,9 +382,11 @@ class OctoberInstall extends Command
      */
     protected function outputFailedOutro()
     {
-        $this->output->title('INSTALLATION FAILED');
+        // Installation Failed
+        $this->output->title(Lang::get('system::lang.installer.install_failed_label'));
 
-        $this->output->error('Please try running these commands manually');
+        // Please try running these commands manually.
+        $this->output->error(Lang::get('system::lang.installer.install_failed_comment'));
 
         $commands = [];
         $commands[] = 'php artisan project:set <license key>';

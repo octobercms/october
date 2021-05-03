@@ -1,15 +1,9 @@
 <?php namespace System\Traits;
 
-use App;
-use Str;
 use Lang;
-use Config;
 use Exception;
 use System\Classes\UpdateManager;
 use October\Rain\Process\Composer as ComposerProcess;
-use Dotenv\Dotenv;
-use PDOException;
-use PDO;
 
 /**
  * SetupBuilder is shared logic for the commands
@@ -46,7 +40,8 @@ trait SetupBuilder
         // Check status
         $isActive = $result['is_active'] ?? false;
         if (!$isActive) {
-            throw new Exception('License is unpaid or has expired. Please visit octobercms.com to obtain a license.');
+            // License is unpaid or has expired. Please visit octobercms.com to obtain a license.
+            throw new Exception(Lang::get('system::lang.installer.license_expired_comment'));
         }
 
         // Save authentication token
@@ -103,13 +98,15 @@ trait SetupBuilder
 
         $this->line($message);
 
-        $this->comment('Please migrate the database with the following command');
+        // Please migrate the database with the following command
+        $this->comment(Lang::get('system::lang.installer.migrate_database_comment'));
         $this->output->newLine();
         $this->line("* php artisan october:migrate");
         $this->output->newLine();
 
         $adminUrl = env('APP_URL') . env('BACKEND_URI');
-        $this->comment('Then, open the administration area at this URL');
+        // Then, open the administration area at this URL
+        $this->comment(Lang::get('system::lang.installer.visit_backend_comment'));
         $this->output->newLine();
         $this->line("* {$adminUrl}");
     }

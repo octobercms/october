@@ -1,5 +1,6 @@
 <?php namespace System\Console;
 
+use Lang;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\Command;
 
@@ -29,7 +30,8 @@ class OctoberBuild extends Command
      */
     public function handle()
     {
-        $this->output->section('Installing Dependencies');
+        // Installing Dependencies
+        $this->output->section(Lang::get('system::lang.installer.dependencies_section'));
 
         $this->setupInstallOctober();
 

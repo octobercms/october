@@ -1,7 +1,6 @@
 <?php namespace System\Console;
 
-use System\Classes\UpdateManager;
-use October\Rain\Process\Composer as ComposerProcess;
+use Lang;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Console\Command;
 use Exception;
@@ -40,14 +39,18 @@ class ProjectSet extends Command
         $licenceKey = (string) $this->argument('key');
 
         if (!$licenceKey) {
-            $this->comment('Enter a valid License Key to proceed.');
-            $licenceKey = trim($this->ask('License Key'));
+            // Enter a valid License Key to proceed.
+            $this->comment(Lang::get('system::lang.installer.license_key_comment'));
+
+            // License Key
+            $licenceKey = trim($this->ask(Lang::get('system::lang.installer.license_key_label')));
         }
 
         try {
             $this->setupSetProject($licenceKey);
 
-            $this->output->success('Thanks for being a customer of October CMS!');
+            // Thanks for being a customer of October CMS!
+            $this->output->success(Lang::get('system::lang.installer.license_thanks_comment'));
         }
         catch (Exception $e) {
             $this->output->error($e->getMessage());
