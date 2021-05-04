@@ -9,6 +9,7 @@
     data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
+    <?php if ($maxFiles): ?>data-max-files="<?= $maxFiles ?>"<?php endif ?>
     <?= $this->formField->getAttributes() ?>
 >
 
@@ -20,27 +21,14 @@
     <!-- Existing files -->
     <div class="upload-files-container">
         <?php foreach ($fileList as $file): ?>
-            <div class="upload-object is-success" data-id="<?= $file->id ?>" data-path="<?= $file->pathUrl ?>">
-                <div class="icon-container">
-                    <i class="icon-file"></i>
-                </div>
-                <div class="info">
-                    <h4 class="filename">
-                        <span data-dz-name><?= e($file->title ?: $file->file_name) ?></span>
-                        <a
-                            href="javascript:;"
-                            class="upload-remove-button"
-                            data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                            data-request-confirm="<?= e(trans('backend::lang.fileupload.remove_confirm')) ?>"
-                            data-request-data="file_id: <?= $file->id ?>"
-                            ><i class="icon-times"></i></a>
-                    </h4>
-                    <p class="size"><?= e($file->sizeToString()) ?></p>
-                </div>
-                <div class="meta">
-                    <a href="javascript:;" class="drag-handle"><i class="icon-bars"></i></a>
-                </div>
-            </div>
+            <div class="server-file"
+                 data-id="<?= $file->id ?>"
+                 data-path="<?= $file->pathUrl ?>"
+                 data-thumb="<?= $file->thumbUrl ?>"
+                 data-name="<?= e($file->title ?: $file->file_name) ?>"
+                 data-size="<?= e($file->file_size) ?>"
+                 data-accepted="true"
+            ></div>
         <?php endforeach ?>
     </div>
 </div>
