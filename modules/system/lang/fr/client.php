@@ -98,5 +98,12 @@ return [
             'open' => 'Ouvrir',
             'cancel' => 'Annuler'
         ]
-    ]
+    ],
+    'upload' => [
+        'max_files' => "Vous ne pouvez plus télécharger de fichiers.",
+        'invalid_file_type' => "Vous ne pouvez pas télécharger de fichiers de ce type.",
+        'file_too_big' => "Le fichier est trop volumineux ({{filesize}}MB). Taille maximale du fichier: {{maxFilesize}}MB.",
+        'response_error' => "Le serveur a répondu avec le code {{statusCode}}.",
+        'remove_file' => "Effacer le fichier",
+    ],
 ];

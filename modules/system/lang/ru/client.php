@@ -102,4 +102,11 @@ return [
             'cancel' => 'Отмена'
         ],
     ],
+    'upload' => [
+        'max_files' => 'Вы не можете загрузить больше файлов.',
+        'invalid_file_type' => "Вы не можете загружать файлы этого типа.",
+        'file_too_big' => "Размер файла ({{filesize}}MB) слишком большой. Максимальный размер: {{maxFilesize}}MB.",
+        'response_error' => "Сервер ответил {{statusCode}} кодом.",
+        'remove_file' => "Удалить файл",
+    ],
 ];
