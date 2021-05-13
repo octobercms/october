@@ -1,5 +1,5 @@
 <h2>
-    Configuration
+    <?= e(trans('system::lang.installer.app_config_section')) ?>
 </h2>
 
 <?= Form::open(['name' => 'setupForm']) ?>
@@ -7,7 +7,7 @@
 
     <div class="form-elements" role="form">
         <div class="form-group text-field">
-            <label for="advBackendUri" class="control-label">Backend URI</label>
+            <label for="advBackendUri" class="control-label"><?= e(trans('system::lang.installer.backend_uri_label')) ?></label>
             <div class="form-control-prefix">
                 <span class="prefix"><?= Url::to('') ?></span>
                 <input
@@ -16,11 +16,11 @@
                     class="form-control"
                     value="<?= e(env('BACKEND_URI', '/backend')) ?>" />
             </div>
-            <span class="help-block">To secure your application, use a custom address for accessing the admin panel.</span>
+            <span class="help-block"><?= e(trans('system::lang.installer.backend_uri_comment')) ?></span>
         </div>
 
         <div class="form-group">
-            <label class="control-label">Database Engine</label>
+            <label class="control-label"><?= e(trans('system::lang.installer.database_engine_label')) ?></label>
             <div class="radio-group">
                 <span>
                     <input
@@ -76,18 +76,18 @@
 
         <div id="configFormDatabase">
             <div class="form-group span-left">
-                <label for="dbHost" class="control-label">Database Host</label>
+                <label for="dbHost" class="control-label"><?= e(trans('system::lang.installer.database_host_label')) ?></label>
                 <input
                     id="dbHost"
                     name="db_host"
                     class="form-control"
                     value="<?= e(env('DB_HOST', 'localhost')) ?>"
                     />
-                <span class="help-block">Hostname for the database connection.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_host_comment')) ?></span>
             </div>
 
             <div class="form-group span-right">
-                <label for="dbHost" class="control-label">Database Port</label>
+                <label for="dbHost" class="control-label"><?= e(trans('system::lang.installer.database_port_label')) ?></label>
                 <input
                     id="dbPort"
                     name="db_port"
@@ -95,33 +95,33 @@
                     placeholder=""
                     value="<?= e(env('DB_PORT')) ?>"
                     />
-                <span class="help-block">(Optional) A port for the connection.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_port_comment')) ?></span>
             </div>
 
             <div class="form-group">
-                <label for="dbName" class="control-label">Database Name</label>
+                <label for="dbName" class="control-label"><?= e(trans('system::lang.installer.database_name_label')) ?></label>
                 <input
                     id="dbName"
                     name="db_name"
                     class="form-control"
                     value="<?= e(env('DB_DATABASE')) ?>"
                     />
-                <span class="help-block">Specify the name of an empty database.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_name_comment')) ?></span>
             </div>
 
             <div class="form-group span-left">
-                <label for="dbUser" class="control-label">Database Login</label>
+                <label for="dbUser" class="control-label"><?= e(trans('system::lang.installer.database_login_label')) ?></label>
                 <input
                     id="dbUser"
                     name="db_user"
                     class="form-control"
                     value="<?= e(env('DB_USERNAME')) ?>"
                     />
-                <span class="help-block">User with create database privileges.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_login_comment')) ?></span>
             </div>
 
             <div class="form-group span-right">
-                <label for="dbPass" class="control-label">Database Password</label>
+                <label for="dbPass" class="control-label"><?= e(trans('system::lang.installer.database_pass_label')) ?></label>
                 <input
                     id="dbPass"
                     type="password"
@@ -129,20 +129,20 @@
                     class="form-control"
                     value="<?= e(env('DB_PASSWORD')) ?>"
                     />
-                <span class="help-block">Password for the specified user.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_pass_comment')) ?></span>
             </div>
         </div>
 
         <div id="configFormFile">
             <div class="form-group">
-                <label for="dbName" class="control-label">Database Path</label>
+                <label for="dbName" class="control-label"><?= e(trans('system::lang.installer.database_path_label')) ?></label>
                 <input
                     id="dbName"
                     name="db_filename"
                     class="form-control"
                     value="<?= env('DB_CONNECTION') === 'sqlite' ? e(env('DB_DATABASE', 'storage/database.sqlite')) : 'storage/database.sqlite' ?>"
                     />
-                <span class="help-block">For file-based storage, enter a path relative to the application root directory.</span>
+                <span class="help-block"><?= e(trans('system::lang.installer.database_path_comment')) ?></span>
             </div>
         </div>
 

@@ -1,5 +1,5 @@
 <h2>
-    Select Language
+    <?= e(trans('system::lang.installer.locale_select_label')) ?>
 </h2>
 
 <div class="language-list">

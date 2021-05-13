@@ -57,6 +57,11 @@ class OctoberInstall extends Command
         $this->setupApplicationUrls();
         $this->setupDatabaseConfig();
 
+        if ($this->nonInteractiveCheck()) {
+            $this->outputNonInteractive();
+            return 1;
+        }
+
         // License Key
         $this->output->section(Lang::get('system::lang.installer.license_section'));
         $this->setupLicenseKey();
@@ -325,16 +330,10 @@ class OctoberInstall extends Command
     protected function setupLicenseKey()
     {
         if ($this->keyRetries++ > 10) {
-
             // Too many failed attempts
             $this->output->error(Lang::get('system::lang.installer.too_many_failures_label'));
 
-            // If you see this error immediately, use these non-interactive commands instead.
-            $this->comment(Lang::get('system::lang.installer.too_many_failures_comment'));
-            $this->output->newLine();
-            $this->line("* php artisan project:set <LICENSE KEY>");
-            $this->output->newLine();
-            $this->line("* php artisan october:build");
+            $this->outputNonInteractive();
             exit(1);
         }
 
@@ -377,28 +376,18 @@ class OctoberInstall extends Command
         }
     }
 
-    /**
-     * outputFailedOutro displays the failure message
-     */
-    protected function outputFailedOutro()
+    protected function outputNonInteractive()
     {
-        // Installation Failed
-        $this->output->title(Lang::get('system::lang.installer.install_failed_label'));
+        // Too many failed attempts
+        $this->output->error(Lang::get('system::lang.installer.non_interactive_label'));
 
-        // Please try running these commands manually.
-        $this->output->error(Lang::get('system::lang.installer.install_failed_comment'));
+        // If you see this error immediately, use these non-interactive commands instead.
+        $this->comment(Lang::get('system::lang.installer.non_interactive_comment'));
 
-        $commands = [];
-        $commands[] = 'php artisan project:set <license key>';
-
-        if ($want = $this->option('want')) {
-            $commands[] = 'php artisan october:build --want='.$want;
-        }
-        else {
-            $commands[] = 'php artisan october:build';
-        }
-
-        $this->output->listing($commands);
+        $this->output->newLine();
+        $this->line("* ".Lang::get('system::lang.installer.open_configurator_comment'));
+        $this->output->newLine();
+        $this->line("* php artisan october:build");
     }
 
     /**

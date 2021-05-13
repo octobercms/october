@@ -1,5 +1,5 @@
 <h2>
-    License Agreement
+    <?= e(trans('system::lang.installer.license_section')) ?>
 </h2>
 
 <?= Form::open() ?>
@@ -9,11 +9,13 @@
         <?= View::make('system::license') ?>
     </div>
 
-    <p>Enter a valid License Key to proceed.</p>
+    <p><?= e(trans('system::lang.installer.license_key_comment')) ?></p>
 
     <div class="form-elements" role="form">
         <div class="form-group text-field">
-            <label for="licenseKey" class="control-label">License Key</label>
+            <label for="licenseKey" class="control-label">
+                <?= e(trans('system::lang.installer.license_key_label')) ?>
+            </label>
             <input
                 id="licenseKey"
                 type="text"

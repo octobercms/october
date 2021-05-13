@@ -15,7 +15,8 @@ return [
         'license_thanks_comment' => 'Спасибо за то что пользуетесь October CMS!',
         'license_expired_comment' => 'Лицензия не оплачена или истекла. Посетите octobercms.com чтобы получить лицензию.',
         'too_many_failures_label' => 'Слишком много неудачных попыток',
-        'too_many_failures_comment' => 'Если вы видите эту ошибку, используйте вместо нее эти неинтерактивные команды.',
+        'non_interactive_label' => 'Обнаружен неинтерактивный режим',
+        'non_interactive_comment' => 'Если вы видите эту ошибку, используйте вместо нее эти неинтерактивные команды.',
         'install_failed_label' => 'Установка не удалась',
         'install_failed_comment' => 'Пожалуйста попробуйте ввести эти команды вручную.',
         'database_engine_label' => 'Движок базы данных',
@@ -33,6 +34,7 @@ return [
         'database_path_comment' => 'Введите путь относительно корневого каталога приложения.',
         'migrate_database_comment' => 'Пожалуйста, мигрируйте базу данных с помощью следующей команды',
         'visit_backend_comment' => 'Затем, откройте панель управления по следующему URL',
+        'open_configurator_comment' => 'Откройте приложение в браузере',
     ],
     'app' => [
         'name' => 'October CMS',

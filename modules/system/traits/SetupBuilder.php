@@ -110,4 +110,28 @@ trait SetupBuilder
         $this->output->newLine();
         $this->line("* {$adminUrl}");
     }
+
+    /**
+     * outputFailedOutro displays the failure message
+     */
+    protected function outputFailedOutro()
+    {
+        // Installation Failed
+        $this->output->title(Lang::get('system::lang.installer.install_failed_label'));
+
+        // Please try running these commands manually.
+        $this->output->error(Lang::get('system::lang.installer.install_failed_comment'));
+
+
+        $this->output->newLine();
+        $this->line("* ".Lang::get('system::lang.installer.open_configurator_comment'));
+        $this->output->newLine();
+
+        if ($want = $this->option('want')) {
+            $this->line("* php artisan october:build --want=".$want);
+        }
+        else {
+            $this->line("* php artisan october:build");
+        }
+    }
 }

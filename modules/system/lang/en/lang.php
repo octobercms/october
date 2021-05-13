@@ -15,7 +15,8 @@ return [
         'license_thanks_comment' => 'Thanks for being a customer of October CMS!',
         'license_expired_comment' => 'License is unpaid or has expired. Please visit octobercms.com to obtain a license.',
         'too_many_failures_label' => 'Too many failed attempts',
-        'too_many_failures_comment' => 'If you see this error immediately, use these non-interactive commands instead.',
+        'non_interactive_label' => 'Non Interactive Mode Detected',
+        'non_interactive_comment' => 'If you see this error immediately, use these non-interactive commands instead.',
         'install_failed_label' => 'Installation Failed',
         'install_failed_comment' => 'Please try running these commands manually.',
         'database_engine_label' => 'Database Engine',
@@ -33,6 +34,7 @@ return [
         'database_path_comment' => 'For file-based storage, enter a path relative to the application root directory.',
         'migrate_database_comment' => 'Please migrate the database with the following command',
         'visit_backend_comment' => 'Then, open the administration area at this URL',
+        'open_configurator_comment' => 'Open this application in your browser',
     ],
     'app' => [
         'name' => 'October CMS',

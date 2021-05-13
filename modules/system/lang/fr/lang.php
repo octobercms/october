@@ -15,7 +15,8 @@ return [
         'license_thanks_comment' => "Merci d'être client d'Octobre CMS!",
         'license_expired_comment' => "La licence n'est pas payée ou a expiré. Veuillez visiter octobercms.com pour obtenir une licence.",
         'too_many_failures_label' => 'Trop de tentatives échouées',
-        'too_many_failures_comment' => 'Si vous voyez cette erreur immédiatement, utilisez plutôt ces commandes non interactives.',
+        'non_interactive_label' => 'Mode non interactif détecté',
+        'non_interactive_comment' => 'Si vous voyez cette erreur immédiatement, utilisez plutôt ces commandes non interactives.',
         'install_failed_label' => "L'installation a échoué",
         'install_failed_comment' => "Veuillez essayer d'exécuter ces commandes manuellement.",
         'database_engine_label' => "Moteur de base de données",
@@ -33,6 +34,7 @@ return [
         'database_path_comment' => "Pour le stockage basé sur des fichiers, entrez un chemin relatif au répertoire racine de l'application.",
         'migrate_database_comment' => "Veuillez migrer la base de données avec la commande suivante",
         'visit_backend_comment' => "Ensuite, ouvrez la zone d'administration à cette URL",
+        'open_configurator_comment' => "Ouvrez cette application dans votre navigateur",
     ],
     'app' => [
         'name' => 'OctoberCMS',
