@@ -102,4 +102,11 @@ return [
             'cancel' => 'Annuleren',
         ],
     ],
+    'upload' => [
+        'max_files' => 'Je kan niet meer bestanden uploaden.',
+        'invalid_file_type' => 'Je kan geen bestanden van dit type uploaden.',
+        'file_too_big' => 'Het bestand is te groot ({{filesize}}MB). Maximale bestandsgrootte: {{maxFilesize}}MB.',
+        'response_error' => 'De server reageerde met de code {{statusCode}}.',
+        'remove_file' => 'Verwijder bestand',
+    ],
 ];

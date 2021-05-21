@@ -11,8 +11,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0|^9.0",
-        "meyfa/phpunit-assert-gd": "^2.0.0|^3.0.0",
-        "dms/phpunit-arraysubset-asserts": "^0.1.0|^0.2.1"
+        "meyfa/phpunit-assert-gd": "^2.0.0|^3.0.0"
     },
     "scripts": {
         "post-root-package-install": [

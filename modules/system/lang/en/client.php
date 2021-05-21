@@ -104,9 +104,9 @@ return [
     ],
     'upload' => [
         'max_files' => 'You can not upload any more files.',
-        'invalid_file_type' => "You can't upload files of this type.",
-        'file_too_big' => "File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.",
-        'response_error' => "Server responded with {{statusCode}} code.",
-        'remove_file' => "Remove file",
+        'invalid_file_type' => 'You can\'t upload files of this type.',
+        'file_too_big' => 'File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.',
+        'response_error' => 'Server responded with {{statusCode}} code.',
+        'remove_file' => 'Remove file',
     ],
 ];

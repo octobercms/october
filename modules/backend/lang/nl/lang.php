@@ -232,7 +232,6 @@ return [
         'help' => 'Voeg een titel en omschrijving toe aan deze bijlage.',
         'title_label' => 'Titel',
         'description_label' => 'Omschrijving',
-        'default_prompt' => 'Klik op %s of sleep hier een bestand naar toe om te uploaden',
         'attachment_url' => 'Bijlage URL',
         'upload_file' => 'Upload bestand',
         'upload_error' => 'Upload fout',
@@ -403,7 +402,6 @@ return [
     'editor' => [
         'menu_label' => 'Editor instellingen',
         'menu_description' => 'Beheer editor instellingen, zoals lettergrootte en kleurschema.',
-        'preview' => 'Voorbeeldweergave',
         'font_size' => 'Lettergrootte',
         'tab_size' => 'Tab grootte',
         'use_hard_tabs' => 'Inspringen met tabs',
