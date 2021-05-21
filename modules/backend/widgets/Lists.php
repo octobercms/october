@@ -62,7 +62,7 @@ class Lists extends WidgetBase
      * @var int Maximum rows to display for each page.
      */
     public $recordsPerPage;
-    
+
     /**
      * @var array Options for number of items per page.
      */
@@ -1036,7 +1036,8 @@ class Lists extends WidgetBase
                 $value = $record->attributes[$columnName];
             // Load the value from the relationship counter if useRelationCount is specified
             } elseif ($column->relation && @$column->config['useRelationCount']) {
-                $value = $record->{"{$column->relation}_count"};
+                $countAttributeName = \Str::snake($column->relation);
+                $value = $record->{"{$countAttributeName}_count"};
             } else {
                 $value = $record->{$columnName};
             }
