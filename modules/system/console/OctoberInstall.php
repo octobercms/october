@@ -383,11 +383,24 @@ class OctoberInstall extends Command
 
         // If you see this error immediately, use these non-interactive commands instead.
         $this->comment(Lang::get('system::lang.installer.non_interactive_comment'));
+        $this->output->newLine();
 
+        // Open this application in your browser
+        $this->line(Lang::get('system::lang.installer.open_configurator_comment'));
         $this->output->newLine();
-        $this->line("* ".Lang::get('system::lang.installer.open_configurator_comment'));
+
+        $this->line('-- OR --');
         $this->output->newLine();
-        $this->line("* php artisan october:build");
+
+        $this->line("* php artisan project:set <LICENSE KEY>");
+        $this->output->newLine();
+
+        if ($want = $this->option('want')) {
+            $this->line("* php artisan october:build --want=".$want);
+        }
+        else {
+            $this->line("* php artisan october:build");
+        }
     }
 
     /**

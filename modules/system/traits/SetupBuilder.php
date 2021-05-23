@@ -121,10 +121,16 @@ trait SetupBuilder
 
         // Please try running these commands manually.
         $this->output->error(Lang::get('system::lang.installer.install_failed_comment'));
-
-
         $this->output->newLine();
-        $this->line("* ".Lang::get('system::lang.installer.open_configurator_comment'));
+
+        // Open this application in your browser
+        $this->line(Lang::get('system::lang.installer.open_configurator_comment'));
+        $this->output->newLine();
+
+        $this->line('-- OR --');
+        $this->output->newLine();
+
+        $this->line("* php artisan project:set <LICENSE KEY>");
         $this->output->newLine();
 
         if ($want = $this->option('want')) {
