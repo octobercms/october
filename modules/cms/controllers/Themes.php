@@ -265,6 +265,10 @@ class Themes extends Controller
 
     public function index_onLoadImportForm()
     {
+        if (\Cms\Helpers\Cms::safeModeEnabled()) {
+            throw new ApplicationException(trans('cms::lang.cms_object.safe_mode_enabled'));
+        }
+
         $theme = $this->findThemeObject();
         $this->vars['widget'] = $this->makeImportFormWidget($theme);
         $this->vars['themeDir'] = $theme->getDirName();
@@ -274,6 +278,10 @@ class Themes extends Controller
 
     public function index_onImport()
     {
+        if (\Cms\Helpers\Cms::safeModeEnabled()) {
+            throw new ApplicationException(trans('cms::lang.cms_object.safe_mode_enabled'));
+        }
+
         $theme = $this->findThemeObject();
         $widget = $this->makeImportFormWidget($theme);
 

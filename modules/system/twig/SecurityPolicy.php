@@ -18,11 +18,14 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * @var array List of forbidden methods.
      */
     protected $blockedMethods = [
-        // \October\Rain\Extension\ExtendableTrait
+        // Prevent manipulating Twig itself
+        'getTwig',
+
+        // Prevent dynamic methods and props
         'addDynamicMethod',
         'addDynamicProperty',
 
-        // \October\Rain\Support\Traits\Emitter
+        // Prevent binding event logic
         'bindEvent',
         'bindEventOnce',
 
@@ -30,6 +33,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
         'insert',
         'update',
         'delete',
+        'write',
     ];
 
     /**
