@@ -158,10 +158,10 @@ trait SetupHelper
                 else {
                     $dsn = 'sqlsrv:Server='.$host.(empty($port) ? '':','.$_port).';Database='.$name;
                 }
-            break;
+                break;
         }
         try {
-            $db = new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         catch (PDOException $ex) {
             throw new Exception('Connection failed: ' . $ex->getMessage());
