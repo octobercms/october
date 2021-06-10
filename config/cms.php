@@ -33,7 +33,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The URL map used in the CMS page routing process. By default
-    | the map is updated every time when a page is saved in the back-end or when the
+    | the map is updated every time when a page is saved in the backend or when the
     | interval, in minutes, specified with the urlMapCacheTTL parameter expires.
     |
     */
