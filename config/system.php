@@ -188,28 +188,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | In Memory Cache
-    |--------------------------------------------------------------------------
-    |
-    | The in memory will attempt to store duplicate executions in memory, such
-    | as database queries and CMS page lookups.
-    |
-    | true - always enable; be aware that long-running console commands
-    |        (including queue workers) may retain cache entries in memory that
-    |        have been changed in other processes or would have otherwise
-    |        expired, causing issues with the `queue:restart` command, for
-    |        example
-    |
-    | false - always disable this in-memory request cache
-    |
-    | null  - enable for HTTP requests, disable when running in CLI
-    |
-    */
-
-    'in_memory_cache' => null,
-
-    /*
-    |--------------------------------------------------------------------------
     | Automatically Mirror to Public Directory
     |--------------------------------------------------------------------------
     |

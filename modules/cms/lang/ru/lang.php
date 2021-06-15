@@ -329,7 +329,7 @@ return [
         'template_file' => 'Файл шаблона',
         'storage_filesystem' => 'Файловая система',
         'storage_database' => 'база данных',
-        'update_file' => 'Обновоить файл шаблона',
+        'update_file' => 'Обновить файл шаблона',
         'reset_from_file' => 'Восстановить из файла шаблона'
     ],
     'permissions' => [

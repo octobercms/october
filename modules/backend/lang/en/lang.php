@@ -220,6 +220,7 @@ return [
         'records_per_page' => 'Records per page',
         'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
         'check' => 'Check',
+        'create_button' => 'New :name',
         'delete_selected' => 'Delete selected',
         'delete_selected_empty' => 'There are no selected records to delete.',
         'delete_selected_confirm' => 'Delete the selected records?',
