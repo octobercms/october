@@ -68,12 +68,12 @@ return [
         ],
         'scopes' => [
             'apply_button_text' => 'Toepassen',
-            'clear_button_text'  => 'Resetten',
+            'clear_button_text' => 'Resetten',
         ],
         'dates' => [
             'all' => 'alle',
             'filter_button_text' => 'Filteren',
-            'reset_button_text'  => 'Resetten',
+            'reset_button_text' => 'Resetten',
             'date_placeholder' => 'Datum',
             'after_placeholder' => 'Na',
             'before_placeholder' => 'Voor',
@@ -81,7 +81,7 @@ return [
         'numbers' => [
             'all' => 'alle',
             'filter_button_text' => 'Filteren',
-            'reset_button_text'  => 'Resetten',
+            'reset_button_text' => 'Resetten',
             'min_placeholder' => 'Minimum',
             'max_placeholder' => 'Maximum',
         ],

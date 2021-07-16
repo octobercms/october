@@ -367,13 +367,13 @@ return [
         'old_value' => 'Oude waarde',
         'new_value' => 'Nieuwe waarde',
         'preview_title' => 'Template wijzigingen',
-        'template_updated' => 'Template was gewijzigd',
-        'template_created' => 'Template was aangemaakt',
-        'template_deleted' => 'Template was verwijderd',
+        'template_updated' => 'Template is gewijzigd',
+        'template_created' => 'Template is aangemaakt',
+        'template_deleted' => 'Template is verwijderd',
     ],
-    'intellisense' => [ // TODO
-        'learn_more' => 'Learn more',
-        'docs' => [
+    'intellisense' => [
+        'learn_more' => 'Lees meer',
+        'docs' => [ // TODO
             'partial' => 'Renders the contents of a CMS partial.',
             'page' => 'Renders the contents of a CMS page into a layout template.',
             'content' => 'Renders a CMS content block.',

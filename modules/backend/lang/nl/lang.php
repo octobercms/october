@@ -220,12 +220,17 @@ return [
         'records_per_page' => 'Resultaten per pagina',
         'records_per_page_help' => 'Selecteer het aantal resultaten dat per pagina getoond moet worden. Let op: een hoog getal kan voor prestatieproblemen zorgen.',
         'check' => 'Ingeschakeld',
+        'create_button' => 'Nieuwe :name',
         'delete_selected' => 'Verwijder geselecteerde',
         'delete_selected_empty' => 'Geen geselecteerde records om te verwijderen.',
         'delete_selected_confirm' => 'Verwijder geselecteerde records?',
         'delete_selected_success' => 'De geselecteerde records zijn succesvol verwijderd.',
         'column_switch_true' => 'Ja',
         'column_switch_false' => 'Nee',
+    ],
+    'object_list' => [
+        'prop_cant_be_empty' => 'Eigenschap :property mag niet leeg zijn',
+        'key_value_exists' => 'Waarde is reeds gedefinieerd: :property_value',
     ],
     'fileupload' => [
         'attachment' => 'Bijlage',
@@ -346,6 +351,10 @@ return [
         'select_page' => 'Selecteer een pagina...',
     ],
     'relation' => [
+        'add_success' => ':name toegevoegd',
+        'link_success' => ':name gekoppeld',
+        'remove_success' => ':name verwijderd',
+        'unlink_success' => ':name losgekoppeld',
         'missing_config' => "Het gedrag (behavior) van deze relatie bevat geen instellingen voor ':config'.",
         'missing_definition' => "Het gedrag (behavior) van de relatie bevat geen kolom voor ':field'.",
         'missing_model' => 'Geen model opgegeven voor het gedrag (behavior) van relatie gebruikt in :class.',
@@ -507,6 +516,7 @@ return [
         'menu_mode_tile' => 'Tegels',
         'menu_mode_icon' => 'Iconen',
         'menu_mode_collapsed' => 'Ingeklapt',
+        'menu_mode_left' => 'Links gepositioneerd',
     ],
     'backend_preferences' => [
         'menu_label' => 'CMS voorkeuren',
@@ -619,6 +629,8 @@ return [
         'no_image' => 'De afbeelding kan niet gevonden worden',
         'select' => 'Selecteer',
         'replace' => 'Vervang',
+        'not_an_image' => 'Het geselecteerde bestand is geen afbeelding',
+        'click_to_select_file' => 'Klik om een bestand te selecteren',
     ],
     'media' => [
         'menu_label' => 'Media',
@@ -685,6 +697,10 @@ return [
     ],
     'table' => [
         'add_item' => 'Item toevoegen',
+    ],
+    'dictionary' => [
+        'key_required' => 'Het \'Key\' veld is verplicht',
+        'value_required' => 'Het \'Value\' veld is verplicht',
     ],
     'uploader' => [
         'uploading' => 'Bestand aan het uploaden',

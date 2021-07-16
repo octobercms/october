@@ -77,7 +77,7 @@ return [
         'ok' => 'OK'
     ],
     'dashboard' => [
-        'menu_label' => 'Панель управления',
+        'menu_label' => 'Дашборд',
         'widget_label' => 'Виджет',
         'widget_width' => 'Ширина',
         'full_width' => 'полная ширина',
@@ -500,7 +500,8 @@ return [
         'menu_mode_text' => 'Текст',
         'menu_mode_tile' => 'Плитка',
         'menu_mode_icon' => 'Иконки',
-        'menu_mode_collapsed' => 'Схлопнутый'
+        'menu_mode_collapsed' => 'Схлопнутый',
+        'menu_mode_left' => 'Боковое',
     ],
     'backend_preferences' => [
         'menu_label' => 'Настройки панели управления',

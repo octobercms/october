@@ -13,9 +13,6 @@
         <testsuite name="October CMS Test Suite">
             <directory>./modules/*/tests</directory>
         </testsuite>
-        <testsuite name="October Rain Test Suite">
-            <directory>./vendor/october/rain/tests</directory>
-        </testsuite>
     </testsuites>
 
     <php>
@@ -24,6 +21,7 @@
         <env name="SESSION_DRIVER" value="array" />
         <env name="ACTIVE_THEME" value="test" />
         <env name="CONVERT_LINE_ENDINGS" value="true" />
+        <env name="CMS_SAFE_MODE" value="false" />
         <env name="CMS_ROUTE_CACHE" value="true" />
         <env name="CMS_TWIG_CACHE" value="false" />
         <env name="PLUGINS_PATH" value="modules/system/tests/fixtures/plugins" />
