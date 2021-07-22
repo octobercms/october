@@ -44,21 +44,8 @@ class Page extends CmsCompoundObject
      */
     public $rules = [
         'title' => 'required',
-        'url'   => ['required', 'regex:/^\/[a-z0-9\/\:_\-\*\[\]\+\?\|\.\^\\\$]*$/i']
+        'url'   => 'required'
     ];
-
-    /**
-     * Creates an instance of the object and associates it with a CMS theme.
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->customMessages = [
-            'url.regex' => 'cms::lang.page.invalid_url',
-        ];
-    }
 
     /**
      * Returns name of a PHP class to us a parent for the PHP class created for the object's PHP section.
