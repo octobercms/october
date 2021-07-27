@@ -6,7 +6,19 @@
 <!-- Dropdown -->
 <?php if ($this->previewMode || $field->readOnly): ?>
     <div class="form-control" <?= $field->readOnly ? 'disabled="disabled"' : ''; ?>>
-        <?= (isset($fieldOptions[$field->value])) ? e(trans($fieldOptions[$field->value])) : '' ?>
+        <?php if (isset($fieldOptions[$field->value]) && is_array($fieldOptions[$field->value])): ?>
+            <?php if (strpos($fieldOptions[$field->value][1], '.')): ?>
+                <img src="<?= $fieldOptions[$field->value][1] ?>" alt="">
+                <?= e(trans($fieldOptions[$field->value][0])) ?>
+            <?php else: ?>
+                <i class="<?= $fieldOptions[$field->value][1] ?>"></i>
+                <?= e(trans($fieldOptions[$field->value][0])) ?>
+            <?php endif ?>
+        <?php elseif (isset($fieldOptions[$field->value]) && !is_array($fieldOptions[$field->value])): ?>
+            <?= e(trans($fieldOptions[$field->value])) ?>
+        <?php else: ?>
+            <?= '' ?>
+        <?php endif ?>
     </div>
     <?php if ($field->readOnly): ?>
         <input
