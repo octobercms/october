@@ -367,6 +367,7 @@ return [
         'plugin_latest' => 'Latest',
         'plugin_author' => 'Author',
         'plugin_not_found' => 'Plugin not found',
+        'plugin_version_not_found' => 'Plugin version not found',
         'theme_not_found' => 'Theme not found',
         'core_current_build' => 'Current Build',
         'core_latest_build' => 'Latest Build',
