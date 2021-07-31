@@ -30,7 +30,8 @@ return [
     | Default Branding
     |--------------------------------------------------------------------------
     |
-    | The default backend customization settings.
+    | The default backend customization settings. These values are all optional
+    | and remember to set the enabled value to true.
     |
     */
 
@@ -38,13 +39,15 @@ return [
         'enabled' => false,
         'app_name' => 'October CMS',
         'tagline' => 'Getting Back to Basics',
-        'primary_color' => '#6A6CF7',
-        'secondary_color' => '#e67e22',
-        'accent_color' => '#3498db',
-        'menu_mode' => 'icon',
+        'menu_mode' => 'icons',
         'favicon_path' => '~/app/assets/images/logo.png',
         'logo_path' => '~/app/assets/images/logo.png',
         'stylesheet_path' => '~/app/assets/less/styles.less',
+        'login_background_type' => 'color',
+        'login_background_color' => '#fef6eb',
+        'login_background_wallpaper_size' => 'auto',
+        'login_image_type' => 'autumn_images',
+        'login_custom_image' => '~/app/assets/images/loginimage.png',
     ],
 
     /*

@@ -35,6 +35,7 @@
     ##
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteCond %{REQUEST_FILENAME} !/.well-known/*
+    RewriteCond %{REQUEST_FILENAME} !/app/(assets|resources)/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/media/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/resources/.*
     RewriteCond %{REQUEST_FILENAME} !/storage/app/uploads/public/.*
