@@ -51,16 +51,10 @@ trait SetupHelper
     protected function composerRequireString($want = null)
     {
         if ($want !== null) {
-            $want = ':' . $want;
+            return 'october/all:' . $want;
         }
 
-        return implode(' ', [
-            'october/system'.$want,
-            'october/backend'.$want,
-            'october/cms'.$want,
-            'october/media'.$want,
-            'october/editor'.$want
-        ]);
+        return 'october/all';
     }
 
     /**
