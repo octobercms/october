@@ -17,6 +17,11 @@ use PDO;
 trait SetupHelper
 {
     /**
+     * @var array userConfig is a temporary store of user input config values
+     */
+    protected $userConfig = [];
+
+    /**
      * setComposerAuth configures authentication for composer and October CMS
      */
     protected function setComposerAuth($email, $projectKey)
@@ -110,6 +115,17 @@ trait SetupHelper
                 file_get_contents($path)
             ));
         }
+
+        $this->userConfig[$key] = $value;
+    }
+
+    /**
+     * getEnvVar specifically from installer specified values. This is needed since
+     * the writing to the environment file may not update the values from env()
+     */
+    protected function getEnvVar(string $key): string
+    {
+        return $this->userConfig[$key] ?? env($key);
     }
 
     /**

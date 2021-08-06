@@ -104,7 +104,7 @@ trait SetupBuilder
         $this->line("* php artisan october:migrate");
         $this->output->newLine();
 
-        $adminUrl = env('APP_URL') . env('BACKEND_URI');
+        $adminUrl = $this->getEnvVar('APP_URL') . $this->getEnvVar('BACKEND_URI');
         // Then, open the administration area at this URL
         $this->comment(Lang::get('system::lang.installer.visit_backend_comment'));
         $this->output->newLine();
