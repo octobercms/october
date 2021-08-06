@@ -29,14 +29,13 @@ jobs:
       - name: Run tests
         run: npm run test
   phpUnitTests:
+    runs-on: ubuntu-latest
     strategy:
       max-parallel: 8
       matrix:
-        operatingSystem: [ubuntu-latest, windows-latest]
         phpVersion: ['7.2', '7.3', '7.4', '8.0']
       fail-fast: false
-    runs-on: ${{ matrix.operatingSystem }}
-    name: ${{ matrix.operatingSystem }} / PHP ${{ matrix.phpVersion }}
+    name: PHP ${{ matrix.phpVersion }}
     env:
       extensions: curl, fileinfo, gd, mbstring, openssl, pdo, pdo_sqlite, sqlite3, xml
       key: october-cms-cache-v1
