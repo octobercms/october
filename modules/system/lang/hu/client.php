@@ -45,6 +45,9 @@ return [
         'invalid_audio_empty_insert' => 'Válasszon ki legalább egy audiót a beszúráshoz.'
     ],
     'alert' => [
+        'error' => 'Hiba',
+        'confirm' => 'Elfogadás',
+        'dismiss' => 'Elutasítás',
         'confirm_button_text' => 'Igen',
         'cancel_button_text' => 'Mégsem',
         'widget_remove_confirm' => 'Valóban törölni akarja?'
@@ -98,5 +101,12 @@ return [
             'open' => 'Megnyitás',
             'cancel' => 'Mégsem'
         ]
-    ]
+    ],
+    'upload' => [
+        'max_files' => 'Nem tölthet fel több fájlt.',
+        'invalid_file_type' => 'Ilyen típusú fájl nem tölthető fel.',
+        'file_too_big' => 'A fájl mérete túl nagy ({{filesize}}MB). Maximum ennyi lehet: {{maxFilesize}}MB.',
+        'response_error' => 'A szerver {{statusCode}} kóddal tért vissza.',
+        'remove_file' => 'Fájl eltávolítása',
+    ],
 ];

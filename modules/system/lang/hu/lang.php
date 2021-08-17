@@ -1,8 +1,43 @@
 <?php
 
 return [
+    'installer' => [
+        'app_config_section' => 'Weboldal konfigurálása',
+        'license_section' => 'Licenc kulcs',
+        'dependencies_section' => 'Függőségek telepítése',
+        'locale_select_label' => 'Válasszon nyelvet',
+        'locale_select_error' => 'A(z) :code nyelvi kód helytelen, kérjük módosítsa azt.',
+        'app_url_label' => 'Honlap webcíme',
+        'backend_uri_label' => 'Admin felület címe',
+        'backend_uri_comment' => 'A weboldal védelme érdekében használjon egyéni címet az adminisztrációs panel eléréséhez.',
+        'license_key_label' => 'Licenc kulcs',
+        'license_key_comment' => 'A folytatáshoz adjon meg egy érvényes licenc kulcsot.',
+        'license_thanks_comment' => 'Köszönjük, hogy az October CMS rendszert választotta!',
+        'license_expired_comment' => 'A licenc kifizetetlen vagy lejárt. Kérjük, látogasson el az octobercms.com webhelyre, hogy licencet szerezzen.',
+        'too_many_failures_label' => 'Túl sok sikertelen próbálkozás',
+        'non_interactive_label' => 'Nem interaktív mód észlelve',
+        'non_interactive_comment' => 'Ha ezt a hibát látja, használja ezeket a parancsokat.',
+        'install_failed_label' => 'Sikertelen telepítés',
+        'install_failed_comment' => 'Próbálja meg manuálisan futtatni ezeket a parancsokat.',
+        'database_engine_label' => 'Adatbázis motor',
+        'database_host_label' => 'Adatbázis hoszt',
+        'database_host_comment' => 'Az adatbázis kapcsolat gépneve.',
+        'database_port_label' => 'Adatbázis port',
+        'database_port_comment' => '(Opcionális) Csatlakozáshoz szükséges port.',
+        'database_name_label' => 'Adatbázis neve',
+        'database_name_comment' => 'Adja meg a használni kívánt adatbázis nevét',
+        'database_login_label' => 'Adatbázis belépés',
+        'database_login_comment' => 'Felhasználó adatbázis jogosultságokkal.',
+        'database_pass_label' => 'Adatbázis jelszó',
+        'database_pass_comment' => 'Jelszó a megadott felhasználó számára.',
+        'database_path_label' => 'Adatbázis útvonal',
+        'database_path_comment' => 'A fájl alapú tároláshoz adjon meg egy elérési utat az weboldal gyökérkönyvtárához képest.',
+        'migrate_database_comment' => 'Kérjük, migrálja az adatbázist a következő paranccsal',
+        'visit_backend_comment' => 'Ezután nyissa meg az adminisztrációs felületet ezen a webcímen',
+        'open_configurator_comment' => 'Nyissa meg a weboldalt a böngészőjében',
+    ],
     'app' => [
-        'name' => 'OctoberCMS',
+        'name' => 'October CMS',
         'tagline' => 'Visszatérés az alapokhoz'
     ],
     'directory' => [
@@ -13,6 +48,9 @@ return [
     ],
     'combiner' => [
         'not_found' => "A(z) ':name' egyesítő fájl nem található."
+    ],
+    'resizer' => [
+        'not_found' => "Az átméretezett fájl ':name' nem található.",
     ],
     'system' => [
         'name' => 'Rendszer',
@@ -42,7 +80,11 @@ return [
             'help' => 'A névnek egyedinek kell lennie. Például: RainLab.Vanilla'
         ]
     ],
+    'packages' => [
+        'install' => 'Csomagok telepítése',
+    ],
     'themes' => [
+        'manage' => 'Témák menedzselése',
         'install' => 'Téma telepítése',
         'search' => 'Keresés...',
         'installed' => 'Telepítve',
@@ -112,11 +154,13 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Beállítások',
+        'home_label' => 'Összes beállítás mutatása',
         'not_found' => 'Nem létezik a megadott beállítás oldal.',
         'missing_model' => 'A beállítások oldal egy modell definíciót hiányol.',
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
         'return' => 'Vissza a beállításokhoz',
-        'search' => 'Keresés...'
+        'search' => 'Keresés...',
+        'find_setting' => 'Beállítás keresése...'
     ],
     'mail' => [
         'log_file' => 'Naplófájl',
@@ -276,29 +320,32 @@ return [
         'plugin_code' => 'Kód',
         'plugin_description' => 'Leírás',
         'plugin_version' => 'Verzió',
+        'plugin_latest' => 'Legújabb',
         'plugin_author' => 'Fejlesztő',
         'plugin_not_found' => 'A bővítmény nem található',
         'plugin_version_not_found' => 'Bővítmény verzió nem található',
+        'theme_not_found' => 'A téma nem található',
         'core_current_build' => 'Verziószám',
+        'core_latest_build' => 'Legújabb',
         'core_view_changelog' => 'Részletek',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
         'core_downloading' => 'Rendszer letöltése...',
         'core_extracting' => 'Rendszer kicsomagolása...',
         'core_set_build' => 'Rendszer beállítása...',
-        'update_warnings_title' => 'Néhány probléma, amelyek figyelmet igényelnek:',
-        'update_warnings_plugin_missing' => 'A(z) :parent_code bővítmény használatához szükséges a(z) :code bővítményt telepíteni.',
         'changelog' => 'Kiadott verziók',
         'changelog_view_details' => 'Részletek',
         'plugins' => 'Bővítmény',
         'themes' => 'Témák',
         'disabled' => 'Letiltva',
         'plugin_downloading' => 'Bővítmény letöltése: :name',
+        'plugin_removing' => 'Bővítmény eltávolítása: :name',
         'plugin_extracting' => 'Bővítmény kicsomagolása: :name',
         'plugin_version_none' => 'Új bővítmény',
         'plugin_current_version' => 'Aktuális verzió',
         'theme_new_install' => 'Új téma telepítése.',
         'theme_downloading' => 'Téma letöltése: :name',
+        'theme_removing' => 'Téma eltávolítása: :name',
         'theme_extracting' => 'Téma kicsomagolása: :name',
         'update_label' => 'Honlap frissítése',
         'update_completing' => 'Folyamat befejezése',
@@ -324,7 +371,8 @@ return [
         'important_view_guide' => 'Frissítési útmutató megtekintése',
         'important_view_release_notes' => 'Kiadási megjegyzések megtekintése',
         'important_alert_text' => 'Néhány frissítés körültekintést igényel.',
-        'details_title' => 'Bővítmény részletei',
+        'details_title_plugin' => 'Bővítmény részletei',
+        'details_title_theme' => 'Téma részletei',
         'details_view_homepage' => 'Weboldal',
         'details_readme' => 'Dokumentáció',
         'details_readme_missing' => 'Nincs megadva leírás.',
@@ -333,9 +381,15 @@ return [
         'details_upgrades' => 'Frissítési útmutató',
         'details_upgrades_missing' => 'Nincs megadva instrukció.',
         'details_licence' => 'Felhasználási feltételek',
+        'details_view_licence' => 'Licenc megtekintése',
         'details_licence_missing' => 'Nincs megadva licenc.',
         'details_current_version' => 'Verzió',
         'details_author' => 'Fejlesztő'
+    ],
+    'market' => [
+        'menu_label' => 'Piactér',
+        'menu_description' => 'Bővítmények és témák kezelése és telepítése.',
+        'content_loading' => 'Betöltés...',
     ],
     'server' => [
         'connect_error' => 'Hiba a kiszolgálóhoz való csatlakozáskor.',
@@ -358,7 +412,7 @@ return [
     'event_log' => [
         'hint' => 'Ez a napló a rendszerben történt lehetséges hibákat listázza ki. Például a kivételeket és a hibakeresési információkat.',
         'menu_label' => 'Esemény napló',
-        'menu_description' => 'A rendszer üzeneteinek megtekintése.',
+        'menu_description' => 'A rendszer hiba üzeneteinek megtekintése.',
         'empty_link' => 'Kiürítés',
         'empty_loading' => 'A kiürítés folyamatban...',
         'empty_success' => 'Az esemény napló kiürítése sikerült.',
@@ -394,10 +448,8 @@ return [
         'manage_mail_templates' => 'Levél sablonok kezelése',
         'manage_mail_settings' => 'Levelezési beállítások kezelése',
         'manage_other_administrators' => 'Adminisztrátorok kezelése',
-        'impersonate_users' => 'Átjelentkezés felhasználók fiókjába',
         'manage_preferences' => 'Saját beállítások kezelése',
         'manage_editor' => 'Kódszerkesztő testreszabása',
-        'manage_own_editor' => 'Saját kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult elérése',
         'manage_default_dashboard' => 'Vezérlőpult testreszabása',
         'manage_branding' => 'Kinézet testreszabása'
