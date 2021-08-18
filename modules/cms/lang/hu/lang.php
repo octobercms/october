@@ -3,6 +3,7 @@
 return [
     'cms_object' => [
         'invalid_file' => 'Érvénytelen fájlnév. Csak latin betűket, számokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, konyvtar/oldalnev',
+        'invalid_file_inspector' => 'Érvénytelen fáljnév. A fájlnevek csak alfanumerikus szimbólumokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhatnak. Néhány példa a helyes fájlnevekre: oldal.htm, oldal, konyvtar/oldal',
         'invalid_property' => "A(z) ':name' tulajdonság nem állítható be.",
         'file_already_exists' => "Már létezik ':name' nevű fájl.",
         'error_saving' => "Hiba a(z) ':name' fájl mentésekor. Ellenőrizze az írási engedélyeket.",
@@ -27,7 +28,8 @@ return [
         'by_author' => 'Fejlesztő: :name',
         'active' => [
             'not_set' => 'Nincs beállítva az aktív téma.',
-            'not_found' => 'Az aktív téma nem található.'
+            'not_found' => 'Az aktív téma nem található.',
+            'is_locked' => "A(z) ':theme' téma zárolva van, és nem használható. Kérjük, másolja ezt a témát, vagy hozzon létre gyermek témát."
         ],
         'edit' => [
             'not_set' => 'Nincs beállítva a szerkesztés alatt lévő téma.',
@@ -37,6 +39,7 @@ return [
         'settings_menu' => 'Megjelenés',
         'settings_menu_description' => 'A telepített témák listája és azok testreszabása.',
         'default_tab' => 'Tulajdonságok',
+        'publish_tab' => 'Közzétenni',
         'name_label' => 'Név',
         'name_create_placeholder' => 'Az új téma neve',
         'author_label' => 'Szerző',
@@ -45,8 +48,14 @@ return [
         'description_placeholder' => 'A téma ismertetője',
         'homepage_label' => 'Weboldal',
         'homepage_placeholder' => 'A honlap webcíme',
+        'author_code_label' => 'Szerző kódja',
+        'author_code_placeholder' => 'A terjesztéshez használt egyedi kód a szerző számára',
         'code_label' => 'Kód',
         'code_placeholder' => 'Egyedi azonosító ehhez a témához',
+        'parent_label' => 'Altéma',
+        'no_parent' => '-- nincs --',
+        'database_templates_label' => 'A változtatások adatbázisba mentődnek',
+        'database_templates_description' => 'A téma módosításainak tárolása az adatbázisba',
         'preview_image_label' => 'Előnézet',
         'preview_image_placeholder' => 'A téma előnézet képének elérési útvonala.',
         'dir_name_label' => 'Könyvtár',
@@ -92,7 +101,10 @@ return [
         'dir_name_taken' => 'A megadott könyvtár már létezik.',
         'find_more_themes' => 'További témák az OctoberCMS piacterén',
         'saving' => 'Téma mentése...',
-        'return' => 'Vissza a témákhoz'
+        'return' => 'Vissza a témákhoz',
+        'setting_edit_theme' => 'Változtatások a szerkesztett témában',
+        'edit_theme_changed' => 'Téma változtatások módosítása',
+        'no_themes_found' => 'Nem található téma'
     ],
     'maintenance' => [
         'settings_menu' => 'Karbantartás',
@@ -122,7 +134,24 @@ return [
         'cms_page' => 'Oldalak',
         'title' => 'Elnevezés szerint',
         'url' => 'Webcím szerint',
-        'file_name' => 'Fájlnév szerint'
+        'url_required' => 'A webcím megadása kötelező.',
+        'file_name' => 'Fájlnév szerint',
+        'editor_node_name' => 'Oldalak',
+        'editor_sorting' => 'Oldalak rendezése',
+        'editor_sort_by_url' => 'Webcím',
+        'editor_sort_by_title' => 'Cím',
+        'editor_sort_by_file_name' => 'Fájlnév',
+        'editor_grouping' => 'Könyvtárak',
+        'editor_group_by_filepath' => 'Fájl elérése',
+        'editor_group_by_url' => 'Webcím',
+        'editor_display' => 'Megjelenés',
+        'editor_display_title' => 'Cím',
+        'editor_display_url' => 'Webcím',
+        'editor_display_file' => 'Fájl elérése',
+        'editor_markup' => 'Struktúra',
+        'editor_code' => 'Kód',
+        'description_hint' => 'A leírás nem kötelező, és csak az admin felületen lesz látható.',
+        'create_new' => 'Új oldal'
     ],
     'layout' => [
         'not_found_name' => "A(z) ':name' elrendezés nem található",
@@ -131,7 +160,9 @@ return [
         'no_list_records' => 'Nincs találat',
         'new' => 'Új elrendezés',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt elrendezéseket?',
-        'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?'
+        'delete_confirm_single' => 'Valóban törölni akarja ezt az elrendezést?',
+        'editor_node_name' => 'Elrendezések',
+        'create_new' => 'Új elrendezés',
     ],
     'partial' => [
         'not_found_name' => "A(z) ':name' részlap nem található.",
@@ -141,16 +172,20 @@ return [
         'no_list_records' => 'Nincs találat',
         'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt részlapokat?',
         'delete_confirm_single' => 'Valóban törölni akarja ezt a részlapot?',
-        'new' => 'Új részlap'
+        'editor_node_name' => 'Részlapok',
+        'new' => 'Új részlap',
+        'create_new' => 'Új részlap'
     ],
     'content' => [
-        'not_found_name' => "A(z) ':name' tartalomfájl nem található.",
+        'not_found_name' => "A(z) ':name' tartalom nem található.",
         'menu_label' => 'Tartalom',
         'unsaved_label' => 'Nem mentett tartalom',
         'no_list_records' => 'Nincs találat',
-        'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt tartalomfájlokat vagy könyvtárakat?',
-        'delete_confirm_single' => 'Valóban törölni akarja ezt a tartalomfájlt?',
-        'new' => 'Új tartalomfájl'
+        'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt tartalmakat vagy könyvtárakat?',
+        'delete_confirm_single' => 'Valóban törölni akarja ezt a tartalmat?',
+        'editor_node_name' => 'Tartalmak',
+        'new' => 'Új tartalom',
+        'editor_content' => 'Tartalom'
     ],
     'ajax_handler' => [
         'invalid_name' => 'Érvénytelen AJAX kezelő név: :name.',
@@ -172,12 +207,18 @@ return [
         'layout' => 'Elrendezés',
         'description' => 'Leírás',
         'preview' => 'Előnézet',
+        'page' => 'Oldal',
+        'edit_theme' => 'Téma szerkesztése',
+        'change_edit_theme' => 'Szerkesztett téma módosítása',
+        'edit_theme_saved_changed_tabs' => 'Nem mentett módosítások vannak a nyitott lapokon. A folytatáshoz mentse el őket, vagy zárja be a lapokat.',
+        'partial' => 'Részlap',
         'meta' => 'Továbbiak',
         'meta_title' => 'Keresőbarát cím',
         'meta_description' => 'Keresőbarát leírás',
         'markup' => 'HTML',
         'code' => 'PHP',
         'content' => 'Tartalom',
+        'asset' => 'Fájl',
         'hidden' => 'Rejtett',
         'hidden_comment' => 'Csak a bejelentkezett felhasználók láthatják.',
         'enter_fullscreen' => 'Váltás teljes képernyőre',
@@ -194,6 +235,14 @@ return [
         'resetting' => 'Visszaállítás',
         'commit_success' => 'The :type has been committed to the filesystem',
         'reset_success' => 'The :type has been reset to the filesystem version',
+        'error_loading_header' => 'Hiba a sablon betöltésekor',
+        'component_list' => 'Komponensek',
+        'component_list_description' => 'Hozzáadásához kattintson rá, vagy húzza át a szerkesztőbe.',
+        'info' => 'Információk',
+        'refresh' => 'Újratöltés',
+        'create' => 'Létrehozás',
+        'manage_themes' => 'Témák menedzselése',
+        'error_no_doctype_permissions' => 'Nincs jogosúltsága ehhez a dokumentum típus szerkesztéséhez: :doctype'
     ],
     'asset' => [
         'menu_label' => 'Fájlok',
@@ -205,9 +254,15 @@ return [
         'create_directory' => 'Könyvtár létrehozása',
         'directory_popup_title' => 'Új könyvtár',
         'directory_name' => 'Könyvtár neve',
+        'directory_name_required' => 'A könyvtár nevét kötelező megadni.',
+        'rename_name_required' => 'A név megadása kötelező.',
         'rename' => 'Átnevezés',
         'delete' => 'Törlés',
         'move' => 'Áthelyezés',
+        'moving' => 'Kiválasztott elemek áthelyezése',
+        'moved' => 'Sikeres áthelyezés',
+        'saved' => 'Fájl mentve',
+        'deleted' => 'Fájl törölve',
         'select' => 'Kijelölés',
         'new' => 'Új fájl',
         'rename_popup_title' => 'Átnevezés',
@@ -237,7 +292,10 @@ return [
         'error_deleting_directory' => 'Hiba a(z) :dir eredeti könyvtár áthelyezésekor.',
         'no_list_records' => 'Nincs találat',
         'delete_confirm' => 'Valóban törölni akarja a fájlokat és a könyvtárakat?',
-        'path' => 'Elérési út'
+        'delete_confirm_single' => 'Valóban törölni akarja a fájlt és a könyvtárat?',
+        'path' => 'Elérési út',
+        'editor_node_name' => 'Fájlok',
+        'open' => 'Megnyitás'
     ],
     'component' => [
         'menu_label' => 'Komponensek',
@@ -252,15 +310,27 @@ return [
         'no_default_partial' => 'Ennek a komponensek nincs alapértelmezett részlapja.',
         'method_not_found' => "A(z) ':name' komponens nem tartalmaz a(z) ':method' metódust.",
         'soft_component' => 'Opcionális komponens',
-        'soft_component_description' => 'Ez a komponens hiányzik, viszont nem kötelező.',
+        'soft_component_description' => 'Ez a komponens hiányzik, viszont nem kötelező.'
     ],
     'template' => [
         'invalid_type' => 'Ismeretlen sablon típus.',
         'not_found' => 'A kért sablon nem található.',
         'saved' => 'A módosítások sikeresen mentésre kerültek.',
+        'saved_to_db' => 'A sablon mentésre került adatbázisba',
+        'file_updated' => 'Sablon fájl módosítva',
+        'reset_from_template_success' => 'Template was reset from file',
+        'reloaded' => 'Sablon fájl újratöltve',
+        'deleted' => 'Sablon fájl törölve',
         'no_list_records' => 'Nincs találat',
-        'delete_confirm' => 'Valóban törölni akarja a témát?',
-        'order_by' => 'Rendezés'
+        'delete_confirm' => 'Valóban törölni akarja a sablont?',
+        'order_by' => 'Rendezés',
+        'last_modified' => 'Módosítva',
+        'storage' => 'Tárolás',
+        'template_file' => 'Fájlnév',
+        'storage_filesystem' => 'Fájlrendszer',
+        'storage_database' => 'adatbázis',
+        'update_file' => 'Sablon fájl frissítve',
+        'reset_from_file' => 'Visszaállítás a sablon fájlból'
     ],
     'permissions' => [
         'name' => 'Testreszabás',
@@ -270,7 +340,7 @@ return [
         'manage_layouts' => 'Elrendezések kezelése',
         'manage_partials' => 'Részlapok kezelése',
         'manage_themes' => 'Témák kezelése',
-        'manage_theme_options' => 'Aktív téma testreszabása',
+        'manage_theme_options' => 'Aktív téma testreszabása'
     ],
     'theme_log' => [
         'hint' => 'Az adminok által elvégzett módosítások az aktív téma fájlaiban, amiket az admin felületen keresztül hajtottak végre.',
@@ -300,5 +370,8 @@ return [
         'template_updated' => 'A fájl frissítve lett.',
         'template_created' => 'A fájl létre lett hozva.',
         'template_deleted' => 'A fájl törölve lett.'
+    ],
+    'intellisense' => [
+        'learn_more' => 'Tudjon meg többet'
     ]
 ];

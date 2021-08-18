@@ -9,7 +9,6 @@ return [
         'invalid_type' => 'A(z) :type mezőtípus érvénytelen.',
         'options_method_invalid_model' => "A(z) ':field' tulajdonság nem passzol a modellhez. Próbálja meghatározni a beállítást, ami megfelelő a(z) :model osztály számára.",
         'options_method_not_exists' => "A(z) :model osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a beállításokat.",
-        'options_static_method_invalid_value' => "A(z) :class osztályban lévő ':method()' nevű metódus nem ad vissza érvényes tömböt.",
         'colors_method_not_exists' => "A(z) :model modell osztálynak egy :method() nevű metódust kell definiálnia a(z) ':field' űrlapmező számára, ami visszaadja a html HEX kódot."
     ],
     'widget' => [
@@ -18,7 +17,7 @@ return [
     ],
     'page' => [
         'untitled' => 'Névtelen',
-        '404' => [
+        'not_found' => [
             'label' => 'Az oldal nem található',
             'help' => 'A megadott webcím alatt nem jeleníthető meg tartalom. Kérjük próbálkozzon más címmel.',
             'back_link' => 'Vissza az előző oldalra',
@@ -49,16 +48,16 @@ return [
         'impersonate_working' => 'Átjelentkezés...',
         'impersonating' => 'Átjelentkezve mint :full_name',
         'stop_impersonating' => 'Visszajelentkezés',
-        'unsuspend' => 'Felfüggesztés',
-        'unsuspend_confirm' => 'Biztos, hogy felfüggeszti a felhasználót?',
-        'unsuspend_success' => 'A felfüggesztés sikeresen megtörtént.',
-        'unsuspend_working' => 'Felfüggesztés folyamatban...',
         'signed_in_as' => 'Belépve mint :full_name',
         'sign_out' => 'Kijelentkezés',
         'login' => 'Belépés',
+        'input_username' => 'Felhasználó',
+        'input_password' => 'Jelszó',
+        'login_prompt' => 'Üdvözöljük újra! Kérjük jelentkezzen be a weboldal menedzseléséhez.',
         'reset' => 'Alaphelyzet',
         'restore' => 'Visszaállítás',
-        'login_placeholder' => 'felhasználónév',
+        'login_placeholder' => 'felhasználó',
+        'password_restore' => 'Jelszó visszaállítása',
         'password_placeholder' => 'jelszó',
         'remember_me' => 'Bejelentkezve maradok',
         'forgot_password' => 'Elfelejtette a jelszavát?',
@@ -163,14 +162,15 @@ return [
         'show_deleted' => 'Töröltek mutatása',
         'group' => [
             'name' => 'Csoport',
-            'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
+            'menu_label' => 'Csoportok menedzselése',
+            'menu_description' => 'Adjon hozzá adminisztrátort az értesítésekhez és funkciókhoz használt csoportokhoz.',
             'name_field' => 'Név',
+            'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
             'description_field' => 'Leírás',
             'is_new_user_default_field_label' => 'Alapértelmezett csoport',
             'is_new_user_default_field_comment' => 'Az új adminisztrátorok hozzáadása ehhez a csoporthoz.',
             'code_field' => 'Kód',
             'code_comment' => 'Adjon meg egy egyedi kódot, ha az API-val kíván hozzáférni.',
-            'menu_label' => 'Csoportok',
             'list_title' => 'Csoportok',
             'new' => 'Új csoport',
             'delete_confirm' => 'Valóban törölni akarja az admin csoportot?',
@@ -179,12 +179,13 @@ return [
         ],
         'role' => [
             'name' => 'Szerepkör',
+            'menu_label' => 'Szerepkör menedzselése',
+            'menu_description' => 'Határozza meg az adminisztrátorok jogosultságait szerepük alapján.',
             'name_field' => 'Név',
             'name_comment' => 'A szerepkör megnevezése, ami a listákban jelenik meg.',
             'description_field' => 'Leírás',
             'code_field' => 'Kód',
             'code_comment' => 'Egyedi értéket adjon meg, amit az API elérés során használhat.',
-            'menu_label' => 'Szerepkörök',
             'list_title' => 'Szerepkörök',
             'new' => 'Új szerepkör',
             'delete_confirm' => 'Valóban törölni akarja a szerepkört?',
@@ -221,6 +222,7 @@ return [
         'records_per_page' => 'Listázás',
         'records_per_page_help' => 'Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti.',
         'check' => 'Bejelöl',
+        'create_button' => 'Új :name',
         'delete_selected' => 'Eltávolítás',
         'delete_selected_empty' => 'A törléshez előbb ki kell választani elemet.',
         'delete_selected_confirm' => 'Valóban töröljük a kiválasztott elemeket?',
@@ -228,17 +230,24 @@ return [
         'column_switch_true' => 'Igen',
         'column_switch_false' => 'Nem'
     ],
+    'object_list' => [
+        'prop_cant_be_empty' => 'A tulajdonság :property nem lehet üres',
+        'key_value_exists' => 'Az érték már definiálva lett: :property_value',
+    ],
     'fileupload' => [
         'attachment' => 'Csatolmány',
         'help' => 'Adja meg a csatolmány címét és a leírását.',
         'title_label' => 'Cím',
         'description_label' => 'Leírás',
-        'default_prompt' => 'Hozza ide a fájlt vagy kattintson erre: %s',
         'attachment_url' => 'Csatolmány webcíme',
         'upload_file' => 'Fájl feltöltése',
         'upload_error' => 'Feltöltési hiba',
         'remove_confirm' => 'Biztos benne?',
-        'remove_file' => 'Fájl eltávolítása'
+        'remove_file' => 'Fájl eltávolítása',
+        'clear' => 'Alaphelyzet',
+        'delete_selected' => 'Kijelöltek törlése',
+        'upload' => 'Feltöltés',
+        'replace' => 'Csere'
     ],
     'repeater' => [
         'add_new_item' => 'Új elem hozzáadása',
@@ -255,6 +264,7 @@ return [
         'restore_success' => 'A(z) :name visszaállítása sikerült',
         'reset_success' => 'A visszaállítás sikerült',
         'missing_id' => 'Nincs megadva az űrlap rekord azonosítója.',
+        'missing_tab' => 'Hiányzik egy érvényes fül definíció.',
         'missing_model' => 'A(z) :class osztályban használt űrlap viselkedésének nincs definiált modellje.',
         'missing_definition' => "Az űrlap viselkedés nem tartalmaz mezőt a(z) ':field' mezőhöz.",
         'not_found' => 'A(z) :id azonosítójú űrlap rekord nem található.',
@@ -304,7 +314,34 @@ return [
         'delete_row' => 'Sor törlése',
         'concurrency_file_changed_title' => 'A fájl megváltozott',
         'concurrency_file_changed_description' => 'A jelenleg szerkesztett fájlt egy másik felhasználó már módosította. Újratöltheti és elveszti a változtatásait, vagy felülírja a fájlt.',
-        'return_to_list' => 'Vissza a listához'
+        'return_to_list' => 'Vissza a listához',
+        'no_options_found' => 'Nem találhatók lehetőségek',
+        'error' => 'Hiba',
+        'toggle_full_screen' => 'Teljes képernyőre váltás',
+    ],
+    'treeview' => [
+        'expand' => 'Kibont',
+        'collapse' => 'Összecsuk',
+        'clear_search' => 'Keresés törlése',
+        'search' => 'Keresés',
+        'command_or_document' => 'Parancs vagy dokumentum...',
+        'quick_access' => 'Gyors elérés',
+        'open' => 'Kinyit',
+        'commands' => 'Parancsok',
+    ],
+    'tabs' => [
+        'close' => 'Fül bezárása',
+        'close_all' => 'Összes bezárása',
+        'close_others' => 'Többi bezárása',
+        'close_saved' => 'Bezárás és mentés',
+        'full_screen' => 'Teljes képernyőre váltás',
+    ],
+    'modal' => [
+        'close' => 'Bezárás',
+    ],
+    'dropdownmenu' => [
+        'go_back' => 'Vissza',
+        'close_menu' => 'Menü bezárása',
     ],
     'recordfinder' => [
         'find_record' => 'Tartalom keresése',
@@ -316,6 +353,10 @@ return [
         'select_page' => '-- válasszon --'
     ],
     'relation' => [
+        'add_success' => ':name hozzáadva',
+        'link_success' => ':name linkelve',
+        'remove_success' => ':name eltávolítva',
+        'unlink_success' => ':name nem linkelve',
         'missing_config' => "A reláció viselkedésnek nincs semmilyen konfigurációja a következőhöz: ':config'.",
         'missing_definition' => "A reláció viselkedés nem tartalmazza a(z) ':field' mező definícióját.",
         'missing_model' => 'A(z) :class osztályban használt reláció viselkedésnek nincs definiált modellje.',
@@ -367,13 +408,11 @@ return [
         'permissions'  => 'A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.',
         'extension' => 'A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.',
         'plugin_missing' => 'A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük telepítse ezt a bővítményt.',
-        'debug' => 'A hibakeresési mód engedélyezve van. Ez nem ajánlott éles weboldal esetén.',
-        'decompileBackendAssets' => 'Az admin felülethez tartozó fájlok nem véglegesek. Ez nem ajánlott éles weboldal esetén.'
+        'debug' => 'A hibakeresési mód engedélyezve van. Ez nem ajánlott éles weboldal esetén.'
     ],
     'editor' => [
         'menu_label' => 'Szövegszerkesztő',
         'menu_description' => 'A megjelenésének és működésének testreszabása.',
-        'preview' => 'Előnézet',
         'font_size' => 'Betűméret',
         'tab_size' => 'Tabulátor mérete',
         'use_hard_tabs' => 'Behúzás tabulátorokkal',
@@ -408,18 +447,18 @@ return [
         'label' => 'Megnevezés',
         'class_name' => 'CSS osztály',
         'markup_tags' => 'Szabályok',
-        'markup_tag' => 'Szabály',
         'allowed_empty_tags' => 'Engedélyezett üres elemek',
         'allowed_empty_tags_comment' => 'Azon HTML elemek, amik üres érték esetén sem lesznek eltávolítva.',
         'allowed_tags' => 'Engedélyezett elemek',
         'allowed_tags_comment' => 'Azon HTML elemek, amik használata megengedett.',
+        'allowed_attrs' => 'Engedélyezett attribútumok',
+        'allowed_attrs_comment' => 'Az engedélyezett HTML attribútumok listája a normál juttatásokon kívül.',
         'no_wrap' => 'Nem tördelhető elemek',
         'no_wrap_comment' => 'Azon HTML elemek, amik tartalma nem tördelhető.',
         'remove_tags' => 'Eltávolítható elemek',
         'remove_tags_comment' => 'Azon HTML elemek, amik a tartalmukkal együtt törölhetőek.',
         'line_breaker_tags' => 'Sortörő elemek',
         'line_breaker_tags_comment' => 'Azon HTML elemek, amik végén kötelezően egy új sor jelenik meg.',
-        'toolbar_options' => 'Eszköztár',
         'toolbar_buttons' => 'Saját konfiguráció',
         'toolbar_buttons_comment' => 'Az alapértelmezetten megjelenő eszközök listája.',
         'toolbar_buttons_preset' => 'Előre beállított konfigurációk:',
@@ -428,8 +467,6 @@ return [
             'minimal' => 'Minimális',
             'full' => 'Teljes',
         ],
-        'paragraph_formats' => 'Bekezdés formátumok',
-        'paragraph_formats_comment' => 'Az ehhez tartozó lenyíló listában fognak megjelenni.',
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'
@@ -459,14 +496,29 @@ return [
         'primary_color' => 'Alap szín',
         'secondary_color' => 'Másodlagos szín',
         'accent_color' => 'Hangsúlyos szín',
+        'login_background_type' => 'Háttér típusa',
+        'background_flat_color' => 'Egyszínű',
+        'background_wallpaper' => 'Háttérkép',
+        'login_page' => 'Belépő oldal',
+        'login_image' => 'Kép',
+        'login_page_image' => 'Saját kép',
+        'login_image_random_autumn_images' => 'Őszi válogatás',
+        'login_image_custom' => 'Saját kép',
+        'background_color' => 'Háttér színe',
+        'background_wallpaper_image' => 'Háttérkép',
+        'background_wallpaper_image_size' => 'Méret',
+        'background_wallpaper_size_auto' => 'Automatikus',
+        'background_wallpaper_size_cover' => 'Borítókép',
         'styles' => 'Stílusok',
         'custom_stylesheet' => 'Egyéni megjelenés',
         'navigation' => 'Navigáció',
         'menu_mode' => 'Menü stílusa',
         'menu_mode_inline' => 'Egysoros',
-        'menu_mode_inline_no_icons' => 'Egysoros (nincs ikon)',
+        'menu_mode_text' => 'Szöveges',
         'menu_mode_tile' => 'Csempés',
-        'menu_mode_collapsed' => 'Összezárt'
+        'menu_mode_icon' => 'Ikonos',
+        'menu_mode_collapsed' => 'Összezárt',
+        'menu_mode_left' => 'Oldalsó'
     ],
     'backend_preferences' => [
         'menu_label' => 'Beállításaim',
@@ -494,6 +546,7 @@ return [
     'filter' => [
         'all' => 'mind',
         'options_method_not_exists' => "A(z) :model osztálynak kötelező definiálni a(z) :method() metódust a(z) ':filter' szűrő feltételhez.",
+        'options_static_method_invalid_value' => "A statikus metódus ':method()' a(z) :class nem ad vissza érvényes beállítás tömböt.",
         'date_all' => 'minden időszak',
         'number_all' => 'minden szám'
     ],
@@ -566,19 +619,20 @@ return [
             'iso_8859_13' => 'ISO-8859-13 (Latin-7, Balti)',
             'iso_8859_14' => 'ISO-8859-14 (Latin-8, Kelta)',
             'iso_8859_15' => 'ISO-8859-15 (Latin-9, Nyugat-európai Euró jellel)',
-            'windows_1250' => 'Windows-1250 (CP1250, Közép- és kelet-európai)',
             'windows_1251' => 'Windows-1251 (CP1251)',
             'windows_1252' => 'Windows-1252 (CP1252)'
         ]
     ],
     'permissions' => [
-        'manage_media' => 'Média kezelése',
-        'allow_unsafe_markdown' => 'Nem biztonságos szerkesztő használata',
+        'manage_media' => 'Média kezelése'
     ],
     'mediafinder' => [
         'label' => 'Média',
-        'default_prompt' => 'Kattintson a(z) %s gombra új média fájl kereséséhez.',
-        'no_image' => 'A kép nem található'
+        'no_image' => 'A kép nem található',
+        'select' => 'Kiválaszt',
+        'replace' => 'Csere',
+        'not_an_image' => 'A kiválasztott fájl nem kép',
+        'click_to_select_file' => 'Kattintson a fájl kiválasztásához'
     ],
     'media' => [
         'menu_label' => 'Média',
@@ -642,5 +696,31 @@ return [
         'resize_image' => 'Kép átméretezése',
         'image_size' => 'Kép mérete:',
         'selected_size' => 'Kiválasztva:'
+    ],
+    'table' => [
+        'add_item' => 'Hozzáadás'
+    ],
+    'dictionary' => [
+        'key_required' => 'A kulcs mező megadása kötelező',
+        'value_required' => 'Az érték mező megadása kötelező'
+    ],
+    'uploader' => [
+        'uploading' => 'Fájlok feltöltése',
+        'complete' => 'Feltöltés kész'
+    ],
+    'richeditor' => [
+        'upload_from_computer' => 'Feltöltés számítógépről',
+        'embedding_code' => 'Beágyazási kód',
+        'url_required' => 'A webcím megadása kötelező',
+        'url_validation' => 'A webcímnek http:// vagy https:// kell kezdődnie',
+        'add_image' => 'Kép beszúrása',
+        'add_video' => 'Videó beszúrása',
+        'add_audio' => 'Audió beszúrása',
+        'add_file' => 'Fájl beszúrása',
+        'embedding_code_required' => 'A beágyazási kód megadása kötelező',
+        'embedding_code_invalid' => 'Adjon meg érvényes HTML beágyazási kódot',
+        'embedding_code_invalid_title' => 'Érvénytelen kód',
+        'browse' => 'Böngészés a médiában',
+        'by_url' => 'Webcím szerint'
     ]
 ];

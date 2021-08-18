@@ -13,15 +13,16 @@ return [
     |
     */
 
-    'accepted'       => 'A(z) :attribute-t el kell fogadni.',
-    'active_url'     => 'A(z) :attribute nem érvényes webcím.',
-    'after'          => 'A(z) :attribute :date utáni dátum kell legyen.',
-    'after_or_equal' => 'A(z) :attribute :date utáni vagy vele egyenlő dátum kell legyen.',
-    'alpha'          => 'A(z) :attribute csak betűket tartalmazhat.',
-    'alpha_dash'     => 'A(z) :attribute csak betűket, számokat és kötőjeleket tartalmazhat.',
-    'alpha_num'      => 'A(z) :attribute csak betűket és számokat tartalmazhat.',
-    'array'          => 'A(z) :attribute tömb kell legyen.',
-    'before'         => 'A(z) :attribute :date előtti dátum kell legyen.',
+    'accepted'        => 'A(z) :attribute-t el kell fogadni.',
+    'active_url'      => 'A(z) :attribute nem érvényes webcím.',
+    'after'           => 'A(z) :attribute :date utáni dátum kell legyen.',
+    'after_or_equal'  => 'A(z) :attribute :date utáni vagy vele egyenlő dátum kell legyen.',
+    'alpha'           => 'A(z) :attribute csak betűket tartalmazhat.',
+    'alpha_dash'      => 'A(z) :attribute csak betűket, számokat és kötőjeleket tartalmazhat.',
+    'alpha_num'       => 'A(z) :attribute csak betűket és számokat tartalmazhat.',
+    'array'           => 'A(z) :attribute tömb kell legyen.',
+    'before'          => 'A(z) :attribute :date előtti dátum kell legyen.',
+    'before_or_equal' => 'A(z) :attribute :date előtti vagy egyező dátum kell legyen.',
     'between'        => [
         'numeric' => 'A(z) :attribute :min - :max között kell legyen.',
         'file'    => 'A(z) :attribute :min - :max kilobájt között kell legyen.',
@@ -92,6 +93,7 @@ return [
     'not_in'         => 'A kiválasztott :attribute érvénytelen.',
     'not_regex'      => 'A(z) :attribute formátuma érvénytelen.',
     'numeric'        => 'A(z) :attribute szám kell legyen.',
+    'present'        => 'A(z) :attribute present-nek kell lennie.',
     'regex'          => 'A(z) :attribute formátuma érvénytelen.',
     'required'             => 'A(z) :attribute megadása kötelező.',
     'required_if'          => 'A(z) :attribute megadása kötelező, ha a(z) :other :value.',
