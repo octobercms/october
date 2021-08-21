@@ -83,6 +83,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Force Single Session
+    |--------------------------------------------------------------------------
+    |
+    | Use this setting to prevent concurrent sessions. When enabled, backend
+    | users cannot sign in to multiple devices at the same time. When a new
+    | sign in occurs, all other sessions for that user are invalidated.
+    |
+    */
+
+    'force_single_session' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Backend Timezone
     |--------------------------------------------------------------------------
     |

@@ -1,7 +1,7 @@
 <?php
 
 return [
-        'installer' => [
+    'installer' => [
         'app_config_section' => 'Конфигурация приложения',
         'license_section' => 'Лицензионный ключ',
         'dependencies_section' => 'Установка зависимостей',
@@ -15,13 +15,13 @@ return [
         'license_thanks_comment' => 'Спасибо за то что пользуетесь October CMS!',
         'license_expired_comment' => 'Лицензия не оплачена или истекла. Посетите octobercms.com чтобы получить лицензию.',
         'too_many_failures_label' => 'Слишком много неудачных попыток',
-        'non_interactive_label' => 'Обнаружен неинтерактивный режим',
-        'non_interactive_comment' => 'Если вы видите эту ошибку, используйте вместо нее эти неинтерактивные команды.',
+        'non_interactive_label' => 'Обнаружен не интерактивный режим',
+        'non_interactive_comment' => 'Если вы видите эту ошибку, используйте вместо нее эти не интерактивные команды.',
         'install_failed_label' => 'Установка не удалась',
         'install_failed_comment' => 'Пожалуйста попробуйте ввести эти команды вручную.',
         'database_engine_label' => 'Движок базы данных',
         'database_host_label' => 'Хост базы данных',
-        'database_host_comment' => 'Хост для подлкючения к БД.',
+        'database_host_comment' => 'Хост для подключения к БД.',
         'database_port_label' => 'Порт базы данных',
         'database_port_comment' => '(Опционально) Порт для подключения к БД.',
         'database_name_label' => 'Имя базы данных',
@@ -168,7 +168,7 @@ return [
         'refresh' => 'сбросить',
         'remove' => 'Удалить',
         'freeze_label' => 'Отключить обновления',
-        'unfreeze_label' => 'Включить обнолвения',
+        'unfreeze_label' => 'Включить обновления',
         'enable_label' => 'Включить плагины',
         'disable_label' => 'Выключить плагины',
         'refresh_label' => 'Сбросить данные плагина',
@@ -314,7 +314,7 @@ return [
             'panel' => 'Насколько великолепна эта панель?',
             'more' => 'Еще один текст',
             'promotion' => 'Код купона: OCTOBER',
-            'subcopy' => 'Это подкопия письма',
+            'subcopy' => 'Это суб-копия письма',
             'thanks' => 'Спасибо',
         ],
         'fields' => [

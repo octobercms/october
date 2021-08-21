@@ -7,7 +7,7 @@ return [
     ],
     'field' => [
         'invalid_type' => 'Использован неверный тип поля: :type.',
-        'options_method_invalid_model' => "The attribute ':field' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.",
+        'options_method_invalid_model' => "Атрибут ':field' не соответствует действующей модели. Попробуйте указать options метод для модели :model явно.",
         'options_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий опции для поля формы ':field'.",
         'colors_method_not_exists' => "Класс модели :model должен содержать метод :method(), возвращающий HTML цвет в HEX для поля формы ':field'."
     ],
@@ -44,7 +44,7 @@ return [
     'account' => [
         'impersonate' => 'Имперсонация пользователя',
         'impersonate_confirm' => 'Вы уверены что хотите авторизоваться этим пользователем? Вы можете вернутся к своему аккаунту выйдя из него.',
-        'impersonate_success' => 'You are now impersonating this user',
+        'impersonate_success' => 'Вы имперсонируете этого пользователя',
         'impersonate_working' => 'Имперсонация...',
         'impersonating' => 'Имперсонированы как :full_name',
         'stop_impersonating' => 'Прекратить имперсонацию',
@@ -162,6 +162,8 @@ return [
         'show_deleted' => 'Показать удаленных',
         'group' => [
             'name' => 'Группы',
+            'menu_label' => 'Группы',
+            'menu_description' => 'Добавьте администраторов в группы используемые для уведомлений и остальных функций.',
             'name_field' => 'Название',
             'name_comment' => 'Название отображается в списке групп в форме создания/редактирования администраторов.',
             'description_field' => 'Описание',
@@ -169,7 +171,6 @@ return [
             'is_new_user_default_field_comment' => 'Добавлять новых администраторов в эту группу по умолчанию.',
             'code_field' => 'Уникальный код',
             'code_comment' => 'Введите уникальный код, если вы хотите открыть доступ к нему с помощью API.',
-            'menu_label' => 'Группы',
             'list_title' => 'Управление группами',
             'new' => 'Добавить группу',
             'delete_confirm' => 'Вы действительно хотите удалить эту группу администраторов?',
@@ -178,12 +179,13 @@ return [
         ],
         'role' => [
             'name' => 'Роль',
+            'menu_label' => 'Управление ролями',
+            'menu_description' => 'Настройте разрешения для администраторов в зависимости от их роли.',
             'name_field' => 'Название',
             'name_comment' => 'Название отображается в списке ролей в форме "Администратор".',
             'description_field' => 'Описание',
             'code_field' => 'Код',
             'code_comment' => 'Введите уникальный код, если вы хотите получить доступ к объекту роли при помощи API.',
-            'menu_label' => 'Управление ролями',
             'list_title' => 'Управление ролями',
             'new' => 'Новая роль',
             'delete_confirm' => 'Удалить эту роль администратора?',
@@ -296,7 +298,7 @@ return [
         'confirm_tab_close' => 'Закрыть вкладку? Несохраненные изменения будут потеряны.',
         'behavior_not_ready' => 'Поведение формы не было инициализировано, проверьте вызов initForm() в вашем контроллере.',
         'preview_no_files_message' => 'Нет загруженных файлов.',
-        'preview_no_media_message' => 'Нет выбраного медиа.',
+        'preview_no_media_message' => 'Нет выбранного медиа.',
         'preview_no_record_message' => 'Нет выбранных записей.',
         'select' => 'Выбрать',
         'select_all' => 'Выбрать все',
@@ -313,14 +315,14 @@ return [
         'toggle_full_screen' => 'Перейти в полноэкранный режим'
     ],
     'treeview' => [
-        'expand' => 'Expand',
-        'collapse' => 'Collapse',
-        'clear_search' => 'Clear Search',
-        'search' => 'Search',
-        'command_or_document' => 'Command or Document...',
-        'quick_access' => 'Quick Access',
-        'open' => 'Open',
-        'commands' => 'Commands'
+        'expand' => 'Раскрыть',
+        'collapse' => 'Скрыть',
+        'clear_search' => 'Очистить поиск',
+        'search' => 'Поиск',
+        'command_or_document' => 'Команда или документ...',
+        'quick_access' => 'Быстрый доступ',
+        'open' => 'Открыть',
+        'commands' => 'Команды'
     ],
     'tabs' => [
         'close' => 'Закрыть вкладку',
@@ -333,8 +335,8 @@ return [
         'close' => 'Close'
     ],
     'dropdownmenu' => [
-        'go_back' => 'Go Back',
-        'close_menu' => 'Close Menu'
+        'go_back' => 'Назад',
+        'close_menu' => 'Закрыть меню'
     ],
     'recordfinder' => [
         'find_record' => 'Найти запись',
@@ -408,14 +410,14 @@ return [
         'code_folding' => 'Свертывание кода',
         'code_folding_begin' => 'Mark begin',
         'code_folding_begin_end' => 'Mark begin and end',
-        'autocompletion' => 'Автодополнение',
+        'autocompletion' => 'Авто дополнение',
         'word_wrap' => 'Перенос слов',
         'highlight_active_line' => 'Подсвечивать активную строку',
         'auto_closing' => 'Автоматическое закрытие тегов и специальных символов',
         'show_invisibles' => 'Показывать невидимые символы',
         'show_gutter' => 'Показывать нумерацию строк',
-        'basic_autocompletion' => 'Базовое автодополнение (Ctrl + Space)',
-        'live_autocompletion' => 'Живое автодополнение',
+        'basic_autocompletion' => 'Базовое авто дополнение (Ctrl + Space)',
+        'live_autocompletion' => 'Живое авто дополнение',
         'enable_snippets' => 'Включить сниппеты (Tab)',
         'display_indent_guides' => 'Показывать символы перевода строки',
         'show_print_margin' => 'Показывать границу печати',
@@ -696,7 +698,7 @@ return [
         'add_file' => 'Вставить файл',
         'embedding_code_required' => 'Вставка кода обязательна',
         'embedding_code_invalid' => 'Пожалуйста укажите правильный HTML код',
-        'embedding_code_invalid_title' => 'Непарвильный код',
+        'embedding_code_invalid_title' => 'Неправильный код',
         'browse' => 'Просмотр медиафайлов',
         'by_url' => 'Ссылка на изображение'
     ]
