@@ -163,7 +163,7 @@ return [
         'group' => [
             'name' => 'Csoport',
             'menu_label' => 'Csoportok menedzselése',
-            'menu_description' => 'Adjon hozzá adminisztrátort az értesítésekhez és funkciókhoz használt csoportokhoz.',
+            'menu_description' => 'Adjon hozzá adminisztrátort az értesítésekhez és funkciókhoz.',
             'name_field' => 'Név',
             'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
             'description_field' => 'Leírás',
@@ -467,6 +467,8 @@ return [
             'minimal' => 'Minimális',
             'full' => 'Teljes',
         ],
+        'paragraph_formats' => 'Bekezdés formátumok',
+        'paragraph_formats_comment' => 'A felvett értékek lenyíló listában fognak megjelenni.',
     ],
     'tooltips' => [
         'preview_website' => 'Weboldal megtekintése'

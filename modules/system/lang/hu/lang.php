@@ -154,7 +154,7 @@ return [
     ],
     'settings' => [
         'menu_label' => 'Beállítások',
-        'home_label' => 'Összes beállítás mutatása',
+        'home_label' => 'Összes beállítás',
         'not_found' => 'Nem létezik a megadott beállítás oldal.',
         'missing_model' => 'A beállítások oldal egy modell definíciót hiányol.',
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
@@ -326,6 +326,8 @@ return [
         'plugin_version_not_found' => 'Bővítmény verzió nem található',
         'theme_not_found' => 'A téma nem található',
         'core_current_build' => 'Verziószám',
+        'core_updates_available' => 'Frissítés elérhető',
+        'core_up_to_date' => 'Naprakész',
         'core_latest_build' => 'Legújabb',
         'core_view_changelog' => 'Részletek',
         'core_build' => 'Új verzió: :build',

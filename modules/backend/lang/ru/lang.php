@@ -451,7 +451,9 @@ return [
         'line_breaker_tags' => 'Теги с переводом строки',
         'line_breaker_tags_comment' => 'Список тегов, в которых будет использоваться тег перевода строки',
         'toolbar_buttons' => 'Кнопки панели инструментов',
-        'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию.'
+        'toolbar_buttons_comment' => 'Кнопки панели инструментов, которые будут отображаться в Rich Editor по умолчанию.',
+        'paragraph_formats' => 'Форматы абзацев',
+        'paragraph_formats_comment' => 'Опции появляющиеся в выпадающем списке Форматы абзацев.'
     ],
     'tooltips' => [
         'preview_website' => 'Просмотр сайта'

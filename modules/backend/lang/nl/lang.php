@@ -465,6 +465,8 @@ return [
             'minimal' => 'Minimaal',
             'full' => 'Volledig',
         ],
+        'paragraph_formats' => 'Paragraaf formaten',
+        'paragraph_formats_comment' => 'De opties die in de "Paragraaf formaat" lijst zullen verschijnen.',
     ],
     'tooltips' => [
         'preview_website' => 'Voorbeeldweergave website',

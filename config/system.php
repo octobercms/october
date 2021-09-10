@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'load_modules' => env('LOAD_MODULES', null),
+    'load_modules' => env('LOAD_MODULES'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,9 +22,11 @@ return [
     |
     | Specify plugin codes which will always be disabled in the application.
     |
+    | DISABLE_PLUGINS="October.Demo,RainLab.Blog"
+    |
     */
 
-    'disable_plugins' => env('DISABLE_PLUGINS', []),
+    'disable_plugins' => env('DISABLE_PLUGINS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,17 +55,30 @@ return [
     | System Paths
     |--------------------------------------------------------------------------
     |
-    | Specify location to core system paths.
+    | Specify location to core system paths. Local paths are relative if they
+    | do not have a leading slash.
+    |
+    | PLUGINS_PATH="plugins"
+    |
+    | PLUGINS_ASSET_URL="http://localhost/plugins"
+    |
+    | THEMES_PATH="themes"
+    |
+    | THEMES_ASSET_URL="http://localhost/themes"
+    |
+    | STORAGE_PATH="storage"
+    |
+    | CACHE_PATH="storage"
     |
     */
 
     'plugins_path' => env('PLUGINS_PATH'),
 
-    'plugins_asset_url' => env('PLUGINS_ASSET_URL', null),
+    'plugins_asset_url' => env('PLUGINS_ASSET_URL'),
 
     'themes_path' => env('THEMES_PATH'),
 
-    'themes_asset_url' => env('THEMES_ASSET_URL', null),
+    'themes_asset_url' => env('THEMES_ASSET_URL'),
 
     'storage_path' => env('STORAGE_PATH'),
 

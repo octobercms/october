@@ -370,6 +370,8 @@ return [
         'plugin_version_not_found' => 'Plugin version not found',
         'theme_not_found' => 'Theme not found',
         'core_current_build' => 'Current Build',
+        'core_updates_available' => 'Updates Available',
+        'core_up_to_date' => 'Up to Date',
         'core_latest_build' => 'Latest Build',
         'core_view_changelog' => 'View Changelog',
         'core_build' => 'Build :build',

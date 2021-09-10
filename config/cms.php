@@ -42,7 +42,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Time to live for parsed CMS objects.
+    | Template Caching
     |--------------------------------------------------------------------------
     |
     | Specifies the number of minutes the CMS object cache lives. After the interval
@@ -52,6 +52,8 @@ return [
     */
 
     'template_cache_ttl' => 1440,
+
+    'template_cache_driver' => 'file',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,19 +163,5 @@ return [
     */
 
     'enable_twig_strict_variables' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cache Key for the CMS' PHP code parser cache
-    |--------------------------------------------------------------------------
-    |
-    | This option controls the cache key used by the CMS when storing generated
-    | PHP from the theme PHP sections. Recommended to change this when multiple
-    | servers running October CMS are connected to the same cache server to
-    | prevent conflicts.
-    |
-    */
-
-    'code_parser_cache_key' => 'cms-php-file-data',
 
 ];
