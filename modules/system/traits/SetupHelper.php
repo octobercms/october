@@ -102,7 +102,7 @@ trait SetupHelper
     protected function setEnvVar($key, $value)
     {
         $path = base_path('.env');
-        $old = env($key);
+        $old = $this->getEnvVar($key);
 
         if (is_bool(env($key))) {
             $old = env($key) ? 'true' : 'false';
@@ -123,9 +123,9 @@ trait SetupHelper
      * getEnvVar specifically from installer specified values. This is needed since
      * the writing to the environment file may not update the values from env()
      */
-    protected function getEnvVar(string $key): string
+    protected function getEnvVar(string $key, $default = null): string
     {
-        return $this->userConfig[$key] ?? env($key);
+        return $this->userConfig[$key] ?? env($key, $default);
     }
 
     /**

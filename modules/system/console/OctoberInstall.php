@@ -177,6 +177,15 @@ class OctoberInstall extends Command
      */
     protected function setupDatabaseConfig()
     {
+        $typeMap = [
+            'SQLite' => 'sqlite',
+            'MySQL' => 'mysql',
+            'Postgres' => 'pgsql',
+            'SQL Server' => 'sqlsrv',
+        ];
+
+        $currentDriver = array_flip($typeMap)[$this->getEnvVar('DB_CONNECTION')] ?? 'SQLite';
+
         $type = $this->choice(
             // Database Engine
             Lang::get('system::lang.installer.database_engine_label'),
@@ -186,15 +195,8 @@ class OctoberInstall extends Command
                 'Postgres',
                 'SQL Server'
             ],
-            'SQLite'
+            $currentDriver
         );
-
-        $typeMap = [
-            'SQLite' => 'sqlite',
-            'MySQL' => 'mysql',
-            'Postgres' => 'pgsql',
-            'SQL Server' => 'sqlsrv',
-        ];
 
         $driver = $typeMap[$type] ?? 'sqlite';
 
@@ -244,7 +246,7 @@ class OctoberInstall extends Command
         $host = $this->ask(
             // Database Host
             Lang::get('system::lang.installer.database_host_label'),
-            env('DB_HOST', 'localhost')
+            $this->getEnvVar('DB_HOST', 'localhost')
         );
         $this->setEnvVar('DB_HOST', $host);
         Config::set("database.connections.{$driver}.host", $host);
@@ -254,7 +256,7 @@ class OctoberInstall extends Command
         $port = $this->ask(
             // Database Port
             Lang::get('system::lang.installer.database_port_label'),
-            env('DB_PORT', false)
+            $this->getEnvVar('DB_PORT', false)
         ) ?: '';
         $this->setEnvVar('DB_PORT', $port);
         Config::set("database.connections.{$driver}.port", $port);
@@ -264,7 +266,7 @@ class OctoberInstall extends Command
         $database = $this->ask(
             // Database Name
             Lang::get('system::lang.installer.database_name_label'),
-            env('DB_DATABASE', 'octobercms')
+            $this->getEnvVar('DB_DATABASE', 'octobercms')
         );
         $this->setEnvVar('DB_DATABASE', $database);
         Config::set("database.connections.{$driver}.database", $database);
@@ -274,7 +276,7 @@ class OctoberInstall extends Command
         $username = $this->ask(
             // Database Login
             Lang::get('system::lang.installer.database_login_label'),
-            env('DB_USERNAME', 'root')
+            $this->getEnvVar('DB_USERNAME', 'root')
         );
         $this->setEnvVar('DB_USERNAME', $username);
         Config::set("database.connections.{$driver}.username", $username);
@@ -284,7 +286,7 @@ class OctoberInstall extends Command
         $password = $this->ask(
             // Database Password
             Lang::get('system::lang.installer.database_pass_label'),
-            env('DB_PASSWORD', false)
+            $this->getEnvVar('DB_PASSWORD', false)
         ) ?: '';
         $this->setEnvVar('DB_PASSWORD', $password);
         Config::set("database.connections.{$driver}.password", $password);
@@ -298,7 +300,7 @@ class OctoberInstall extends Command
         // For file-based storage, enter a path relative to the application root directory.
         $this->comment(Lang::get('system::lang.installer.database_path_comment'));
 
-        $defaultDb = env('DB_DATABASE', 'storage/database.sqlite');
+        $defaultDb = $this->getEnvVar('DB_DATABASE', 'storage/database.sqlite');
         if ($defaultDb === 'database') {
             $defaultDb = 'storage/database.sqlite';
         }
