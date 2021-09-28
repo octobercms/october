@@ -158,9 +158,15 @@ class Auth extends Controller
 
         $user = BackendAuth::findUserByLogin(post('login'));
         if (!$user) {
-            throw new ValidationException([
-                'login' => trans('backend::lang.account.restore_error', ['login' => post('login')])
-            ]);
+            if (Config::get('app.debug', false)) {
+                throw new ValidationException([
+                    'login' => trans('backend::lang.account.restore_error', ['login' => post('login')])
+                ]);
+            }
+            else {
+                Flash::success(trans('backend::lang.account.restore_success'));
+                return Backend::redirect('backend/auth/signin');
+            }
         }
 
         Flash::success(trans('backend::lang.account.restore_success'));
