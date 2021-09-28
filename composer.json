@@ -50,12 +50,10 @@
     },
     "scripts": {
         "post-create-project-cmd": [
-            "php artisan key:generate",
-            "php artisan package:discover"
+            "php artisan key:generate"
         ],
         "post-update-cmd": [
-            "php artisan october:version",
-            "php artisan package:discover"
+            "php artisan october:version"
         ],
         "test": [
             "phpunit --stop-on-failure"
