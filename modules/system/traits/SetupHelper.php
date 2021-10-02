@@ -123,7 +123,7 @@ trait SetupHelper
      * getEnvVar specifically from installer specified values. This is needed since
      * the writing to the environment file may not update the values from env()
      */
-    protected function getEnvVar(string $key, $default = null): string
+    protected function getEnvVar(string $key, $default = null)
     {
         return $this->userConfig[$key] ?? env($key, $default);
     }
