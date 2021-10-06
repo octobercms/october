@@ -322,6 +322,7 @@ return [
     'treeview' => [
         'expand' => 'Expand',
         'collapse' => 'Collapse',
+        'reorder' => 'Reorder',
         'clear_search' => 'Clear Search',
         'search' => 'Search',
         'command_or_document' => 'Command or Document...',

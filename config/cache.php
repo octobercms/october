@@ -95,4 +95,5 @@ return [
     */
 
     'prefix' => env('CACHE_PREFIX', 'october_cache'),
+
 ];

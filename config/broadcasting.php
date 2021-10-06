@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 'pusher',
+    'default' => env('BROADCASTING_DEFAULT', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,11 +30,12 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => '',
-            'secret' => '',
-            'app_id' => '',
+            'key' => env('PUSHER_KEY'),
+            'secret' => env('PUSHER_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                //
+                'cluster' => 'eu',
+                'encrypted' => true,
             ],
         ],
 
