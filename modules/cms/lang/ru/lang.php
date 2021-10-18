@@ -24,7 +24,7 @@ return [
         ],
     ],
     'theme' => [
-        'not_found_name' => "Шаблон ':name' не найдена.",
+        'not_found_name' => "Шаблон ':name' не найден.",
         'by_author' => 'Создано :name',
         'active' => [
             'not_set' => 'Активный шаблон не установлен.',

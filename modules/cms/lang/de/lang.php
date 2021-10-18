@@ -11,7 +11,7 @@ return [
         'error_deleting' => 'Fehler beim Löschen der Template-Datei ":name".',
         'delete_success' => 'Templates wurden erfolgreich gelöscht: :count.',
         'file_name_required' => 'Ein Dateiname ist erforderlich.',
-        'safe_mode_enabled' => 'Der abgesicherte Modus ist derzeit aktiviert. Die Bearbeitung des PHP-Codes von CMS-Templates ist deaktiviert. Um den abgesicherten Modus zu deaktivieren, setzen Sie den Konfigurationswert `cms.enableSafeMode` auf `false`.',
+        'safe_mode_enabled' => 'Der abgesicherte Modus ist derzeit aktiviert. Die Bearbeitung des PHP-Codes von CMS-Templates ist deaktiviert. Um den abgesicherten Modus zu deaktivieren, setzen Sie den Konfigurationswert `cms.safe_mode` auf `false`.',
     ],
     'dashboard' => [
         'active_theme' => [
