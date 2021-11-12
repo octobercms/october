@@ -4,5 +4,11 @@
   "Preview Role": "معاينة الدور",
   "This lets you test the actions this role can perform.": "يتيح لك هذا اختبار الإجراءات التي يمكن أن يؤديها هذا الدور.",
   "View As Role": "عرض كـ دور",
-  "Return to Role Settings": "ارجع إلى إعدادات الدور"
+  "Return to Role Settings": "ارجع إلى إعدادات الدور",
+  "Password must have a minimum of length of :min characters": "يجب أن يكون الحد الأدنى لطول كلمة المرور: الحد الأدنى من الأحرف",
+  "Password must contain at least one uppercase character.": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل.",
+  "Password must contain at least one lowercase character.": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل.",
+  "Password must contain at least one number.": "يجب ان تحتوي كلمة المرور على الاقل رقما واحدا.",
+  "Password must contain at least one nonalphanumeric character.": "يجب أن تحتوي كلمة المرور على حرف واحد غير أبجدي رقمي واحد على الأقل.",
+  "Welcome to your Administration Area, :name": "مرحبًا بك في منطقة الإدارة الخاصة بك ،: الاسم"
 }

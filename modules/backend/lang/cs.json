@@ -4,5 +4,11 @@
   "Preview Role": "Náhled role",
   "This lets you test the actions this role can perform.": "To vám umožní otestovat akce, které tato role může provádět.",
   "View As Role": "Zobrazit jako roli",
-  "Return to Role Settings": "Návrat do nastavení rolí"
+  "Return to Role Settings": "Návrat do nastavení rolí",
+  "Password must have a minimum of length of :min characters": "Heslo musí mít minimální délku :min znaků",
+  "Password must contain at least one uppercase character.": "Heslo musí obsahovat alespoň jedno velké písmeno.",
+  "Password must contain at least one lowercase character.": "Heslo musí obsahovat alespoň jedno malé písmeno.",
+  "Password must contain at least one number.": "Heslo musí obsahovat alespoň jedno číslo.",
+  "Password must contain at least one nonalphanumeric character.": "Heslo musí obsahovat alespoň jeden nealfanumerický znak.",
+  "Welcome to your Administration Area, :name": "Vítejte ve své administrativní oblasti, :name"
 }

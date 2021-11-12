@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'enable_asset_minify' => null,
+    'enable_asset_minify' => env('CMS_ASSET_MINIFY', null),
 
     /*
     |--------------------------------------------------------------------------

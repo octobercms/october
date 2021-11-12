@@ -4,5 +4,11 @@
   "Preview Role": "预览角色",
   "This lets you test the actions this role can perform.": "这让您可以测试此角色可以执行的操作。",
   "View As Role": "按角色查看",
-  "Return to Role Settings": "返回角色设置"
+  "Return to Role Settings": "返回角色设置",
+  "Password must have a minimum of length of :min characters": "密码长度必须至少为 :min 个字符",
+  "Password must contain at least one uppercase character.": "密码必须至少包含一个大写字符。",
+  "Password must contain at least one lowercase character.": "密码必须至少包含一个小写字符。",
+  "Password must contain at least one number.": "密码必须包含至少一个数字。",
+  "Password must contain at least one nonalphanumeric character.": "密码必须至少包含一个非字母数字字符。",
+  "Welcome to your Administration Area, :name": "欢迎来到您的管理区域，:name"
 }

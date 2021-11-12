@@ -1,0 +1,14 @@
+{
+  "Cancel": "لغو کنید",
+  "You are viewing as": "شما به عنوان مشاهده می کنید",
+  "Preview Role": "نقش پیش نمایش",
+  "This lets you test the actions this role can perform.": "این به شما امکان می دهد اقداماتی را که این نقش می تواند انجام دهد را آزمایش کنید.",
+  "View As Role": "مشاهده به عنوان نقش",
+  "Return to Role Settings": "به تنظیمات نقش بازگردید",
+  "Password must have a minimum of length of :min characters": "رمز عبور باید حداقل دارای طول :min کاراکتر باشد",
+  "Password must contain at least one uppercase character.": "رمز عبور باید حداقل یک کاراکتر بزرگ داشته باشد.",
+  "Password must contain at least one lowercase character.": "رمز عبور باید حداقل یک نویسه کوچک داشته باشد.",
+  "Password must contain at least one number.": "رمز عبور باید حداقل یک عدد داشته باشد.",
+  "Password must contain at least one nonalphanumeric character.": "رمز عبور باید حداقل یک نویسه غیر الفبایی داشته باشد.",
+  "Welcome to your Administration Area, :name": "به منطقه مدیریت خود، :name خوش آمدید"
+}

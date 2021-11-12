@@ -1,0 +1,14 @@
+{
+  "Cancel": "Адмяніць",
+  "You are viewing as": "Вы праглядаеце як",
+  "Preview Role": "Папярэдні прагляд ролі",
+  "This lets you test the actions this role can perform.": "Гэта дазваляе праверыць дзеянні, якія можа выконваць гэтая роля.",
+  "View As Role": "Прагляд у ролі",
+  "Return to Role Settings": "Вярнуцца да налады роляў",
+  "Password must have a minimum of length of :min characters": "Пароль павінен мець мінімум сімвалаў :min",
+  "Password must contain at least one uppercase character.": "Пароль павінен утрымліваць прынамсі адзін вялікі рэгістр.",
+  "Password must contain at least one lowercase character.": "Пароль павінен утрымліваць прынамсі адзін сімвал ніжняга рэгістра.",
+  "Password must contain at least one number.": "Пароль павінен утрымліваць прынамсі адну лічбу.",
+  "Password must contain at least one nonalphanumeric character.": "Пароль павінен утрымліваць прынамсі адзін нелітарны сімвал.",
+  "Welcome to your Administration Area, :name": "Сардэчна запрашаем у вашу адміністрацыйную зону, :name"
+}

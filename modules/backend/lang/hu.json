@@ -4,5 +4,11 @@
   "Preview Role": "Szerep előnézete",
   "This lets you test the actions this role can perform.": "Lehetővé teszi a szerepkör által végrehajtható műveletek tesztelését.",
   "View As Role": "Átjelentkezés",
-  "Return to Role Settings": "Vissza a beállításokhoz"
+  "Return to Role Settings": "Vissza a beállításokhoz",
+  "Password must have a minimum of length of :min characters": "A jelszónak legalább :min karakter hosszúságúnak kell lennie",
+  "Password must contain at least one uppercase character.": "A jelszónak legalább egy nagybetűt kell tartalmaznia.",
+  "Password must contain at least one lowercase character.": "A jelszónak legalább egy kisbetűt kell tartalmaznia.",
+  "Password must contain at least one number.": "A jelszónak tartalmaznia kell legalább egy számot.",
+  "Password must contain at least one nonalphanumeric character.": "A jelszónak legalább egy nem alfanumerikus karaktert kell tartalmaznia.",
+  "Welcome to your Administration Area, :name": "Üdvözöljük az Adminisztrációs Területén, :name"
 }

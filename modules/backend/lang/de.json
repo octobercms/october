@@ -4,5 +4,11 @@
   "Preview Role": "Vorschau der Rolle",
   "This lets you test the actions this role can perform.": "Auf diese Weise können Sie die Aktionen testen, die diese Rolle ausführen kann.",
   "View As Role": "Als Rolle ansehen",
-  "Return to Role Settings": "Zurück zu den Rolleneinstellungen"
+  "Return to Role Settings": "Zurück zu den Rolleneinstellungen",
+  "Password must have a minimum of length of :min characters": "Das Passwort muss eine Mindestlänge von :min Zeichen haben",
+  "Password must contain at least one uppercase character.": "Das Kennwort muss mindestens einen Großbuchstaben enthalten.",
+  "Password must contain at least one lowercase character.": "Das Passwort muss mindestens einen Kleinbuchstaben enthalten.",
+  "Password must contain at least one number.": "Das Passwort muss mindestens eine Ziffer enthalten.",
+  "Password must contain at least one nonalphanumeric character.": "Das Kennwort muss mindestens ein nicht alphanumerisches Zeichen enthalten.",
+  "Welcome to your Administration Area, :name": "Willkommen in Ihrem Administrationsbereich, :name"
 }

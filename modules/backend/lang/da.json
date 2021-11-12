@@ -1,0 +1,14 @@
+{
+  "Cancel": "Afbestille",
+  "You are viewing as": "Du ser som",
+  "Preview Role": "Forhåndsvisningsrolle",
+  "This lets you test the actions this role can perform.": "Dette lader dig teste de handlinger, som denne rolle kan udføre.",
+  "View As Role": "Se som rolle",
+  "Return to Role Settings": "Vend tilbage til rolleindstillinger",
+  "Password must have a minimum of length of :min characters": "Adgangskoden skal have en minimumslængde på :min tegn",
+  "Password must contain at least one uppercase character.": "Adgangskoden skal indeholde mindst ét stort tegn.",
+  "Password must contain at least one lowercase character.": "Adgangskoden skal indeholde mindst ét lille bogstav.",
+  "Password must contain at least one number.": "Kodeord skal indeholde mindst et tal.",
+  "Password must contain at least one nonalphanumeric character.": "Adgangskoden skal indeholde mindst ét ikke-alfanumerisk tegn.",
+  "Welcome to your Administration Area, :name": "Velkommen til dit administrationsområde, :name"
+}

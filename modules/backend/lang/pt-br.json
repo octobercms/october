@@ -4,5 +4,11 @@
   "Preview Role": "Função de visualização",
   "This lets you test the actions this role can perform.": "Isso permite que você teste as ações que esta função pode executar.",
   "View As Role": "Ver como função",
-  "Return to Role Settings": "Retornar às configurações da função"
+  "Return to Role Settings": "Retornar às configurações da função",
+  "Password must have a minimum of length of :min characters": "A senha deve ter um comprimento mínimo de: min caracteres",
+  "Password must contain at least one uppercase character.": "A senha deve conter pelo menos um caractere maiúsculo.",
+  "Password must contain at least one lowercase character.": "A senha deve conter pelo menos um caractere minúsculo.",
+  "Password must contain at least one number.": "A senha deve conter pelo menos um número.",
+  "Password must contain at least one nonalphanumeric character.": "A senha deve conter pelo menos um caractere não alfanumérico.",
+  "Welcome to your Administration Area, :name": "Bem-vindo à sua área de administração,: nome"
 }

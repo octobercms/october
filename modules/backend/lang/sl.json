@@ -4,5 +4,11 @@
   "Preview Role": "Vloga predogleda",
   "This lets you test the actions this role can perform.": "Tako lahko preizkusite dejanja, ki jih lahko izvede ta vloga.",
   "View As Role": "Poglej kot vlogo",
-  "Return to Role Settings": "Vrnite se v nastavitve vlog"
+  "Return to Role Settings": "Vrnite se v nastavitve vlog",
+  "Password must have a minimum of length of :min characters": "Geslo mora vsebovati najmanj :min znakov",
+  "Password must contain at least one uppercase character.": "Geslo mora vsebovati vsaj eno veliko črko.",
+  "Password must contain at least one lowercase character.": "Geslo mora vsebovati vsaj eno malo črko.",
+  "Password must contain at least one number.": "Geslo mora vsebovati vsaj eno številko.",
+  "Password must contain at least one nonalphanumeric character.": "Geslo mora vsebovati vsaj en nealfanumerični znak.",
+  "Welcome to your Administration Area, :name": "Dobrodošli na vašem administrativnem območju, :name"
 }

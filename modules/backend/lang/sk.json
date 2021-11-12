@@ -1,0 +1,14 @@
+{
+  "Cancel": "Zrušiť",
+  "You are viewing as": "Prezeráte si ako",
+  "Preview Role": "Úloha ukážky",
+  "This lets you test the actions this role can perform.": "To vám umožní otestovať akcie, ktoré môže táto rola vykonávať.",
+  "View As Role": "Zobraziť ako rolu",
+  "Return to Role Settings": "Vráťte sa na nastavenia roly",
+  "Password must have a minimum of length of :min characters": "Heslo musí mať minimálnu dĺžku :min znakov",
+  "Password must contain at least one uppercase character.": "Heslo musí obsahovať aspoň jedno veľké písmeno.",
+  "Password must contain at least one lowercase character.": "Heslo musí obsahovať aspoň jedno malé písmeno.",
+  "Password must contain at least one number.": "Heslo musí obsahovať aspoň jednu číslicu.",
+  "Password must contain at least one nonalphanumeric character.": "Heslo musí obsahovať aspoň jeden nealfanumerický znak.",
+  "Welcome to your Administration Area, :name": "Vitajte vo svojej administratívnej oblasti, :name"
+}

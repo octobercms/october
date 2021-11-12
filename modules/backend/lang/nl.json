@@ -4,5 +4,11 @@
   "Preview Role": "Voorbeeldrol",
   "This lets you test the actions this role can perform.": "Hiermee kunt u de acties testen die deze rol kan uitvoeren.",
   "View As Role": "Weergeven als rol",
-  "Return to Role Settings": "Keer terug naar rolinstellingen"
+  "Return to Role Settings": "Keer terug naar rolinstellingen",
+  "Password must have a minimum of length of :min characters": "Wachtwoord moet minimaal :min tekens lang zijn",
+  "Password must contain at least one uppercase character.": "Wachtwoord moet ten minste één hoofdletter bevatten.",
+  "Password must contain at least one lowercase character.": "Wachtwoord moet ten minste één kleine letter bevatten.",
+  "Password must contain at least one number.": "Het wachtwoord moet minstens een nummer bevatten.",
+  "Password must contain at least one nonalphanumeric character.": "Wachtwoord moet ten minste één niet-alfanumeriek teken bevatten.",
+  "Welcome to your Administration Area, :name": "Welkom in uw administratiegebied, :name"
 }

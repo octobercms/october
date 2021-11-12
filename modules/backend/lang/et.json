@@ -1,0 +1,14 @@
+{
+  "Cancel": "Tühista",
+  "You are viewing as": "Te vaatate kui",
+  "Preview Role": "Rolli eelvaade",
+  "This lets you test the actions this role can perform.": "See võimaldab teil testida toiminguid, mida see roll teha saab.",
+  "View As Role": "Vaata rollina",
+  "Return to Role Settings": "Naaske rolliseadetesse",
+  "Password must have a minimum of length of :min characters": "Parooli pikkus peab olema vähemalt :min tähemärki",
+  "Password must contain at least one uppercase character.": "Parool peab sisaldama vähemalt ühte suurtähte.",
+  "Password must contain at least one lowercase character.": "Parool peab sisaldama vähemalt ühte väiketähte.",
+  "Password must contain at least one number.": "Parool peab sisaldama vähemalt üht numbrit.",
+  "Password must contain at least one nonalphanumeric character.": "Parool peab sisaldama vähemalt ühte mittetähtnumbrilist märki.",
+  "Welcome to your Administration Area, :name": "Tere tulemast oma haldusalasse :name"
+}

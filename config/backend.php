@@ -96,6 +96,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Password Policy
+    |--------------------------------------------------------------------------
+    |
+    | Specify the password policy for backend administrators.
+    |
+    | min_length        - Password minimum length between 4 - 128 chars
+    | require_uppercase - Require at least one uppercase letter (A–Z)
+    | require_lowercase - Require at least one lowercase letter (a–z)
+    | require_number    - Require at least one number
+    | require_nonalpha  - Require at least one nonalphanumeric character
+    | expire_days       - Enable password expiration after number of days (@todo)
+    |
+    */
+
+    'password_policy' => [
+        'min_length' => 4,
+        'require_uppercase' => false,
+        'require_lowercase' => false,
+        'require_number' => false,
+        'require_nonalpha' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Backend Timezone
     |--------------------------------------------------------------------------
     |

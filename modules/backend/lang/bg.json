@@ -1,0 +1,14 @@
+{
+  "Cancel": "Отмяна",
+  "You are viewing as": "Вие гледате като",
+  "Preview Role": "Преглед на ролята",
+  "This lets you test the actions this role can perform.": "Това ви позволява да тествате действията, които тази роля може да изпълнява.",
+  "View As Role": "Преглед като роля",
+  "Return to Role Settings": "Върнете се към настройките на ролята",
+  "Password must have a minimum of length of :min characters": "Паролата трябва да има минимална дължина от :min символи",
+  "Password must contain at least one uppercase character.": "Паролата трябва да съдържа поне един главни букви.",
+  "Password must contain at least one lowercase character.": "Паролата трябва да съдържа поне един знак с малки букви.",
+  "Password must contain at least one number.": "Паролата трябва да съдържа поне една цифра.",
+  "Password must contain at least one nonalphanumeric character.": "Паролата трябва да съдържа поне един небуквено-цифров знак.",
+  "Welcome to your Administration Area, :name": "Добре дошли във вашата административна зона, :name"
+}

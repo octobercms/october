@@ -4,5 +4,11 @@
     "Preview Role": "Preview Role",
     "This lets you test the actions this role can perform.": "This lets you test the actions this role can perform.",
     "View As Role": "View As Role",
-    "Return to Role Settings": "Return to Role Settings"
+    "Return to Role Settings": "Return to Role Settings",
+    "Password must have a minimum of length of :min characters": "Password must have a minimum of length of :min characters",
+    "Password must contain at least one uppercase character.": "Password must contain at least one uppercase character.",
+    "Password must contain at least one lowercase character.": "Password must contain at least one lowercase character.",
+    "Password must contain at least one number.": "Password must contain at least one number.",
+    "Password must contain at least one nonalphanumeric character.": "Password must contain at least one nonalphanumeric character.",
+    "Welcome to your Administration Area, :name": "Welcome to your Administration Area, :name"
 }
