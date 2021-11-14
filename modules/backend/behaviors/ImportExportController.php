@@ -15,6 +15,7 @@ use League\Csv\EscapeFormula as CsvEscapeFormula;
 use ApplicationException;
 use SplTempFileObject;
 use Exception;
+use League\Csv\Statement;
 
 /**
  * Adds features for importing and exporting data.
@@ -250,10 +251,13 @@ class ImportExportController extends ControllerBehavior
         $reader = $this->createCsvReader($path);
 
         if (post('first_row_titles')) {
-            $reader->setOffset(1);
+            $reader->setHeaderOffset(1);
         }
 
-        $result = $reader->setLimit(50)->fetchColumn((int) $columnId);
+        $result = (new Statement())
+            ->limit(50)
+            ->process($reader)
+            ->fetchColumn((int) $columnId);
         $data = iterator_to_array($result, false);
 
         /*
