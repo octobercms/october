@@ -5,10 +5,10 @@
   "This lets you test the actions this role can perform.": "Esto le permite probar las acciones que puede realizar este rol.",
   "View As Role": "Ver como rol",
   "Return to Role Settings": "Volver a la configuración de roles",
-  "Password must have a minimum of length of :min characters": "La contraseña debe tener una longitud mínima de: min caracteres",
+  "Password must have a minimum of length of :min characters": "La contraseña debe tener una longitud mínima de :min caracteres",
   "Password must contain at least one uppercase character.": "La contraseña debe contener al menos un carácter en mayúscula.",
   "Password must contain at least one lowercase character.": "La contraseña debe contener al menos un carácter en minúscula.",
   "Password must contain at least one number.": "La contraseña debe contener al menos un número.",
   "Password must contain at least one nonalphanumeric character.": "La contraseña debe contener al menos un carácter no alfanumérico.",
-  "Welcome to your Administration Area, :name": "Bienvenido a su Área de Administración,: nombre"
+  "Welcome to your Administration Area, :name": "Bienvenido a su Área de Administración, :name"
 }
