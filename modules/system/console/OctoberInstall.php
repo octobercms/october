@@ -139,6 +139,7 @@ class OctoberInstall extends Command
             Lang::get('system::lang.installer.app_url_label'),
             env('APP_URL', 'http://localhost')
         );
+        $url = rtrim(trim($url), '/');
         $this->setEnvVar('APP_URL', $url);
 
         // To secure your application, use a custom address for accessing the admin panel.
