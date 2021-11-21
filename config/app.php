@@ -112,9 +112,9 @@ return [
 
     'providers' => array_merge(include(base_path('modules/system/providers.php')), [
 
-        // 'Illuminate\Html\HtmlServiceProvider', // Example
+        // Illuminate\Html\HtmlServiceProvider::class, // Example
 
-        'System\ServiceProvider',
+        System\ServiceProvider::class,
     ]),
 
     /*
@@ -130,7 +130,7 @@ return [
 
     'aliases' => array_merge(include(base_path('modules/system/aliases.php')), [
 
-        // 'Str' => 'Illuminate\Support\Str', // Example
+        // 'Str' => Illuminate\Support\Str::class, // Example
 
     ]),
 

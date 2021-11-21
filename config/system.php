@@ -81,15 +81,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Permission Mask
+    | Default Permission Masks
     |--------------------------------------------------------------------------
     |
-    | Specifies a default file and folder permission for newly created files
-    | and directories in the system paths.
+    | Specifies a default file and folder permission as a string (eg: "755") for
+    | created files and directories in the system paths. It is recommended
+    | to use file as "644" and folder as "755".
     |
     */
 
-    'default_mask' => ['file' => null, 'folder' => null],
+    'default_mask' => [
+        'file' => env('DEFAULT_FILE_MASK'),
+        'folder' => env('DEFAULT_FOLDER_MASK')
+    ],
 
     /*
     |--------------------------------------------------------------------------
