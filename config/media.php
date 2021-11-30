@@ -15,6 +15,19 @@ return [
 
     'item_cache_ttl' => 10,
 
+   /*
+    |--------------------------------------------------------------------------
+    | Automatically Rename Filenames
+    |--------------------------------------------------------------------------
+    |
+    | When a media file is uploaded, automatically transform its filename.
+    |
+    | Supported: "null", "slug"
+    |
+    */
+
+    'auto_rename' => null,
+
     /*
     |--------------------------------------------------------------------------
     | Ignored Files and Patterns

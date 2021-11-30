@@ -16,6 +16,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Backend Timezone
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a backend user's timezone. This can
+    | be changed by the user at any time using the backend preferences. All
+    | dates displayed in the backend will be converted to this timezone.
+    |
+    */
+
+    'timezone' => 'UTC',
+
+    /*
+    |--------------------------------------------------------------------------
     | Backend Skin
     |--------------------------------------------------------------------------
     |
@@ -23,7 +36,7 @@ return [
     |
     */
 
-    'skin' => 'Backend\Skins\Standard',
+    'skin' => Backend\Skins\Standard::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -118,17 +131,20 @@ return [
         'require_nonalpha' => false,
     ],
 
+
     /*
     |--------------------------------------------------------------------------
-    | Backend Timezone
+    | Default Avatar
     |--------------------------------------------------------------------------
     |
-    | This acts as the default setting for a backend user's timezone. This can
-    | be changed by the user at any time using the backend preferences. All
-    | dates displayed in the backend will be converted to this timezone.
+    | The default avatar used for backend accounts that have no avatar defined.
+    |
+    | local    - Use a local default image of a user
+    | gravatar - Use the Gravatar service to generate a unique image
+    | <url>    - Specify a custom URL to a default avatar
     |
     */
 
-    'timezone' => 'UTC',
+    'default_avatar' => 'gravatar',
 
 ];
