@@ -29,7 +29,7 @@ If you plan on using a database, run this command inside the application directo
 
 The best place to learn October CMS is by [reading the documentation](https://octobercms.com/docs) or [following some tutorials](https://octobercms.com/support/articles/tutorials).
 
-You may also watch these introductory videos for [beginners](https://vimeo.com/79963873) and [advanced users](https://vimeo.com/172202661). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
+You may also watch this [introductory video](https://www.youtube.com/watch?v=yLZTOeOS7wI&t=2s). Make sure to check out our [official YouTube channel](https://www.youtube.com/c/OctoberCMSOfficial). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
 
 ## Coding Standards
 
