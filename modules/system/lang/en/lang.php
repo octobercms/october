@@ -295,7 +295,7 @@ return [
     'mail_brand' => [
         'menu_label' => 'Mail Branding',
         'menu_description' => 'Modify the colors and appearance of mail templates.',
-        'page_title' => 'Customize mail appearance',
+        'page_title' => 'Customize Mail Appearance',
         'sample_template' => [
             'heading' => 'Heading',
             'paragraph' => 'This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a>doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.',

@@ -76,12 +76,11 @@ return [
     |
     | If the minification is enabled, combined assets are compressed (minified).
     | It is recommended to disable the minification during development, and
-    | enable it in production mode. If set to null, assets are minified
-    | when debug mode (app.debug) is disabled.
+    | enable it in production mode.
     |
     */
 
-    'enable_asset_minify' => env('CMS_ASSET_MINIFY', null),
+    'enable_asset_minify' => env('CMS_ASSET_MINIFY', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,12 +89,11 @@ return [
     |
     | If deep hashing is enabled, the combiner cache will be reset when a change
     | is detected on imported files, in addition to those referenced directly.
-    | This will cause slower page performance. If set to null, deep hashing
-    | is used when debug mode (app.debug) is enabled.
+    | This will cause slower page performance.
     |
     */
 
-    'enable_asset_deep_hashing' => null,
+    'enable_asset_deep_hashing' => env('CMS_ASSET_DEEP_HASHING', false),
 
     /*
     |--------------------------------------------------------------------------
