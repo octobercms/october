@@ -34,14 +34,11 @@ description = "Default layout"
         </footer>
 
         <!-- Scripts -->
-
-        <script src="{{ [
-            'assets/vendor/jquery.js',
-            'assets/vendor/bootstrap.js',
-            'assets/vendor/codemirror/codemirror.js',
-            'assets/vendor/codemirror/twig.js',
-            'assets/javascript/app.js',
-        ]|theme }}"></script>
+        <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/codemirror/codemirror.js'|theme }}"></script>
+        <script src="{{ 'assets/vendor/codemirror/twig.js'|theme }}"></script>
+        <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
 
         {% framework extras %}
         {% scripts %}

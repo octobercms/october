@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'enable_route_cache' => env('CMS_ROUTE_CACHE', false),
+    'enable_route_cache' => env('CMS_ROUTE_CACHE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'enable_asset_cache' => env('CMS_ASSET_CACHE', false),
+    'enable_asset_cache' => env('CMS_ASSET_CACHE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -89,11 +89,12 @@ return [
     |
     | If deep hashing is enabled, the combiner cache will be reset when a change
     | is detected on imported files, in addition to those referenced directly.
-    | This will cause slower page performance.
+    | This will cause slower page performance. If set to null, deep hashing
+    | is used when debug mode (app.debug) is enabled.
     |
     */
 
-    'enable_asset_deep_hashing' => env('CMS_ASSET_DEEP_HASHING', false),
+    'enable_asset_deep_hashing' => env('CMS_ASSET_DEEP_HASHING', null),
 
     /*
     |--------------------------------------------------------------------------
