@@ -40,6 +40,7 @@ return [
         'settings_menu_description' => 'Bekijk de lijst met geïnstalleerde thema\'s en selecteer een beschikbaar thema.',
         'default_tab' => 'Eigenschappen',
         'publish_tab' => 'Publiceren',
+        'advanced_tab' => 'Geavanceerd',
         'name_label' => 'Naam',
         'name_create_placeholder' => 'Thema naam',
         'author_label' => 'Auteur',

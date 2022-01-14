@@ -322,6 +322,7 @@ return [
     'treeview' => [
         'expand' => 'Uitklappen',
         'collapse' => 'Inklappen',
+        'reorder' => 'Rangschikken',
         'clear_search' => 'Wis zoekwaarde',
         'search' => 'Zoeken',
         'command_or_document' => 'Commando of Document...',

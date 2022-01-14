@@ -31,6 +31,7 @@ return [
     */
 
     'channels' => [
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['daily'],
@@ -88,6 +89,7 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
     ],
 
 ];

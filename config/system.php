@@ -17,7 +17,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Diable Specified Plugins
+    | Disable Specified Plugins
     |--------------------------------------------------------------------------
     |
     | Specify plugin codes which will always be disabled in the application.
