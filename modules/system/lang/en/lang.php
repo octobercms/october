@@ -516,6 +516,10 @@ return [
         'folder_size_items' => 'item(s)',
     ],
     'page' => [
+        'not_found' => [
+            'label' => 'Page Not Found',
+            'help' => 'The requested page cannot be found.',
+        ],
         'custom_error' => [
             'label' => 'Page Error',
             'help' => "We're sorry, but something went wrong and the page cannot be displayed.",

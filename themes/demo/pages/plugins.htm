@@ -9,16 +9,18 @@ addDefault = 1
 <div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div class="col-md-offset-1 col-md-10">
+            <div class="col-xl-10 col-lg-12">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-xl-5">
                         <h1>CMS Components</h1>
                     </div>
 
-                    <div class="col-lg-7">
-                        <p>Plugins can provide CMS components, simple building blocks that can enrich pages, layouts, and partials. Check out the To Do example below.</p>
+                    <div class="col-xl-7">
+                        <div class="plugins-component-container">
+                            <p>Plugins can provide CMS components, simple building blocks that can enrich pages, layouts, and partials. Check out the To Do example below.</p>
 
-                        {% component 'demoTodo' %}
+                            {% component 'demoTodo' %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -31,11 +33,11 @@ addDefault = 1
 <div class="home-container">
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-xl-10 col-lg-12">
                 {% partial "explain/plugins.htm" %}
 
-                <div class="p-t p-b">
-                    <p><a href="https://octobercms.com/docs" class="btn btn-primary btn-cta">Learn more at October CMS Documentation ⟶</a></p>
+                <div class="py-3">
+                    <p><a href="https://docs.octobercms.com/2.x/setup/installation.html" class="btn btn-primary btn-cta">Learn more at October CMS Documentation ⟶</a></p>
                 </div>
             </div>
         </div>

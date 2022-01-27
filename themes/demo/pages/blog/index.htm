@@ -1,0 +1,44 @@
+url = "/blog"
+layout = "default"
+title = "Blog Homepage"
+
+[recordList posts]
+entityType = "entry"
+entityHandle = "blog"
+
+[recordList categories]
+entityType = "collection"
+entityHandle = "blogCategories"
+==
+{% put activeNavLink = 'tailor' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
+                            {{ category.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <h4>Posts</h4>
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <a href="{{ 'blog/post'|page({ slug: post.slug }) }}">
+                            {{ post.title }}
+                        </a>
+                        {{ post.content|raw }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

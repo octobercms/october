@@ -1,0 +1,37 @@
+url = "/blog/post/:slug"
+layout = "default"
+title = "Display a Blog Post"
+meta_title = "{{ post.title }} - Blog"
+
+[recordView post]
+entityType = "entry"
+entityHandle = "blog"
+entitySlug = "{{ :slug }}"
+
+[recordList categories]
+entityType = "collection"
+entityHandle = "blogCategories"
+==
+{% put activeNavLink = 'tailor' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
+                            {{ category.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <h1>{{ post.title }}</h1>
+            {{ post.content|raw }}
+        </div>
+    </div>
+</div>

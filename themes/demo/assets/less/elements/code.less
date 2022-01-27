@@ -2,7 +2,7 @@ pre {
     padding: 0;
     background-color: white;
     border: 1px solid #ECF0F1;
-    .border-radius(6px);
+    border-radius: 6px;
 
     .CodeMirror {
         height: auto;
@@ -43,10 +43,10 @@ pre {
             overflow: hidden;
             position: relative;
         }
-    
+
         .expand-code {
-            .border-radius(20px);
-            .user-select(none);
+            border-radius: 20px;
+            user-select: none;
             cursor: pointer;
             display: block;
             position: absolute;
@@ -58,7 +58,7 @@ pre {
             z-index: 5;
             transform: translateX(-50%);
             padding: 4px 18px;
-            .box-shadow(0 0 0 3px white);
+            box-shadow: 0 0 0 3px white;
 
             &:hover {
                 color: white;
@@ -76,7 +76,7 @@ pre {
 
     &, &:after {
         height: 38px;
-        background: url('../images/code-tab.png') no-repeat 0 0;
+        background: url('@{assets-url}/images/code-tab.png') no-repeat 0 0;
         background-size: 335px 38px;
     }
 
@@ -91,6 +91,6 @@ pre {
     }
 
     + pre {
-        .border-radius(0 6px 6px 6px);
+        border-radius: 0 6px 6px 6px;
     }
 }

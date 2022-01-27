@@ -29,14 +29,14 @@ function onTest()
 <div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div class="col-md-offset-1 col-md-10">
+            <div class="col-xl-10 col-lg-12">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-xl-5">
                         <h1>AJAX Framework</h1>
                     </div>
 
-                    <div class="col-lg-7">
-                        <p>The built-in JavaScript framework provides simple but powerful AJAX capabilities. In most cases, you don't need to write JavaScript code to post data to the server and update elements of your page. The <code>data-</code> attributes can solve a lot of typical tasks. For more complex cases you can employ the full power of JavaScript. You can find more information in the <a href="https://octobercms.com/docs/ajax/introduction">documentation</a>. Check out the calculator example below!</p>
+                    <div class="col-xl-7">
+                        <p>The built-in JavaScript framework provides simple but powerful AJAX capabilities. In most cases, you don't need to write JavaScript code to post data to the server and update elements of your page. The <code>data-</code> attributes can solve a lot of typical tasks. For more complex cases you can employ the full power of JavaScript. You can find more information in the <a href="https://docs.octobercms.com/2.x/ajax/introduction.html">documentation</a>. Check out the calculator example below!</p>
                     </div>
                 </div>
             </div>
@@ -46,10 +46,10 @@ function onTest()
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-xl-10 col-lg-12">
             <div class="panel">
                 <div class="row">
-                    <div class="col-md-9 control-panel">
+                    <div class="col-lg-9 control-panel">
                         <div class="panel-body">
                             <form role="form" class="form-inline" data-request="onTest" data-request-update="calcresult: '#result'">
                                 <div class="form-group">
@@ -68,12 +68,12 @@ function onTest()
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn btn-primary">=</button>
+                                    <button type="submit" class="btn btn-primary">=</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-3 p-l-0">
+                    <div class="col-lg-3 ps-0">
                         <div id="result">{% partial "calcresult" %}</div>
                     </div>
                 </div>
@@ -86,10 +86,10 @@ function onTest()
 <div class="home-container">
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-xl-10 col-lg-12">
                 {% partial "explain/ajax.htm" %}
 
-                <div class="p-t p-b">
+                <div class="py-3">
                     <p><a href="{{ 'plugins'|page }}" class="btn btn-primary btn-cta">Continue to Plugin components ⟶</a></p>
                 </div>
             </div>

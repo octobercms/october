@@ -410,6 +410,8 @@ return [
         'extension' => 'The PHP extension :name is not installed. Please install this library and activate the extension.',
         'plugin_missing' => 'The plugin :name is a dependency but is not installed. Please install this plugin.',
         'debug' => 'Debug mode is enabled. This is not recommended for production installations.',
+        'backend_uri' => 'The backend URL :name is too generic. Please set to something more unique.',
+        'backend_login' => 'An account with a generic login :name was found. Please rename this administrator account.',
     ],
     'editor' => [
         'menu_label' => 'Editor Settings',

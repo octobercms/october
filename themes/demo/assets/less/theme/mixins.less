@@ -6,9 +6,17 @@
 
 .decoration-circle() {
     content: '';
-    .border-radius(100%);
+    border-radius: 100%;
     background-color: #F4F7F8;
     display: block;
     position: absolute;
-    z-index: 0;
+    z-index: -1;
+}
+
+.text-hide() {
+    font: ~"0/0" a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
 }

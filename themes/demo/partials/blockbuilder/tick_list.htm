@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <ul class="list-with-ticks">
+                {% for item in block.items %}
+                    <li><a target="_blank" href="{{ item.link }}">{{ item.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

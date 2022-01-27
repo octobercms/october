@@ -6,7 +6,8 @@
 
 // Icons
 // --------------------------------------------------
-@FontAwesomePath:    "../vendor/font-awesome/font";
+@FontAwesomePath: "../vendor/font-awesome/font";
+@assets-url: "../../assets/";
 
 // Brands
 // --------------------------------------------------
@@ -17,9 +18,16 @@
 @brand-danger:  #bf5329;
 @brand-accent: #6A6CF7;
 
+@gray-base: #000;
+@gray-darker: lighten(@gray-base, 13.5%); // #222
+@gray-dark: lighten(@gray-base, 20%);   // #333
+@gray: lighten(@gray-base, 33.5%); // #555
+@gray-light: lighten(@gray-base, 46.7%); // #777
+@gray-lighter: lighten(@gray-base, 93.5%); // #eee
+
 // Typography
 // --------------------------------------------------
-@font-family-sans-serif:  "lato", sans-serif;
+@font-family-sans-serif: "lato", sans-serif;
 @line-height-base: 1.7;
 @font-size-base: 16px;
 @font-size-h3: 18px;
@@ -27,19 +35,44 @@
 @headings-color: #2C3E4F;
 @headings-font-weight: bold;
 @jumbotron-heading-color: @headings-color;
-
-@jumbotron-heading-font-size: 65px;
-@jumbotron-font-size: 20px;
-@jumbotron-color: #34495E;
+@border-radius-base: 4px;
 
 @code-color: #D35400;
 @code-bg: #ECF0F1;
 
-//== Jumbotron
+// Breakpoints
+// --------------------------------------------------
+
+// Extra small screen
+@screen-xs-min: 576px;
+
+// Small screen / tablet
+@screen-sm-min: 768px;
+
+// Medium screen / desktop
+@screen-md-min: 992px;
+
+// Large screen / wide desktop
+@screen-lg-min: 1200px;
+
+// Extra large screen
+@screen-xl-min: 1400px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+@screen-lg-max: (@screen-xl-min - 1);
+
+// Jumbotron
 // --------------------------------------------------
 
 @jumbotron-padding: 40px;
 @jumbotron-bg: transparent;
+@jumbotron-color: #34495E;
+@jumbotron-heading-color: @headings-color;
+@jumbotron-font-size: 20px;
+@jumbotron-heading-font-size: 65px;
 
 // Spacing
 // --------------------------------------------------
@@ -66,22 +99,22 @@
 
 // Callouts
 // --------------------------------------------------
-@callout-padding:               20px;
-@callout-border-radius:         @border-radius-base;
-@callout-border:                @gray-lighter;
+@callout-padding: 20px;
+@callout-border-radius: @border-radius-base;
+@callout-border: @gray-lighter;
 
-@callout-info-bg:               #f4f8fa;
-@callout-info-text:             @state-info-text;
-@callout-info-border:           @state-info-border;
+@callout-info-bg: #f4f8fa;
+@callout-info-text: #31708f;
+@callout-info-border: darken(spin(@callout-info-bg, -10), 7%);
 
-@callout-warning-bg:            #faf8f0;
-@callout-warning-text:          @state-warning-text;
-@callout-warning-border:        @state-warning-border;
+@callout-warning-bg: #faf8f0;
+@callout-warning-text: #8a6d3b;
+@callout-warning-border: darken(spin(@callout-warning-bg, -10), 5%);
 
-@callout-danger-bg:             #fdf7f7;
-@callout-danger-text:           @state-danger-text;
-@callout-danger-border:         @state-danger-border;
+@callout-danger-bg: #fdf7f7;
+@callout-danger-text: #a94442;
+@callout-danger-border: darken(spin(@callout-danger-bg, -10), 5%);
 
-@callout-success-bg:            #f9fdf7;
-@callout-success-text:          @state-success-text;
-@callout-success-border:        @state-success-border;
+@callout-success-bg: #f9fdf7;
+@callout-success-text: #3c763d;
+@callout-success-border: darken(spin(@callout-success-bg, -10), 5%);
