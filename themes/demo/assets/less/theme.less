@@ -1,9 +1,15 @@
+@import "theme/boot";
+
+// For first level entry path
+@assets-url: "../../assets";
+
 //
-// Boot theme
+// Common Styles
+//
+// These are styles that apply everywhere
 //
 
-@import "theme/boot";
-@import "theme/type";
+@import "theme/common";
 
 //
 // Controls
@@ -25,21 +31,3 @@
 @import "elements/code";
 @import "elements/buttons";
 @import "elements/footer";
-
-//
-// Layouts
-//
-// Include these here, or directly on the layouts
-//
-
-@import "layouts/default";
-
-//
-// Pages
-//
-// Include these here, or directly on the pages
-//
-
-@import "pages/index";
-@import "pages/ajax";
-@import "pages/plugins";
