@@ -1,5 +1,5 @@
 url = "/blog/post/:slug"
-layout = "default"
+layout = "blog"
 title = "Display a Blog Post"
 meta_title = "{{ post.title }} - Blog"
 
@@ -11,9 +11,10 @@ entitySlug = "{{ :slug }}"
 [recordList categories]
 entityType = "collection"
 entityHandle = "blogCategories"
-==
-{% put activeNavLink = 'tailor' %}
 
+[resources]
+vars[activeNavLink] = 'tailor'
+==
 <div class="container">
     <div class="row">
         <div class="col-md-3">

@@ -1,12 +1,13 @@
-description = "Default layout"
+description = "Blog layout"
 
 [resources]
-less[] = "layouts/default.less"
+less[] = "layouts/blog.less"
 ==
 <!DOCTYPE html>
 <html>
     <head>
         {% partial 'site/meta' %}
+        <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet" />
     </head>
     <body class="{{ 'page-'~this.page.id }}">
 

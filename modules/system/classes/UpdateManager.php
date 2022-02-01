@@ -12,6 +12,11 @@ class UpdateManager
     use \October\Rain\Support\Traits\Singleton;
 
     /**
+     * @var string WANT_VERSION is the default composer version string to use.
+     */
+    const WANT_VERSION = 'dev-develop';
+
+    /**
      * Requests details about a project based on its identifier.
      * @param  string $projectId
      * @return array

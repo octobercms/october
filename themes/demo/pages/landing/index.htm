@@ -6,9 +6,10 @@ meta_title = "{{ landingPage.title }}"
 [recordView landingPage]
 entityType = "entry"
 entityHandle = "landingPage"
-==
-{% put activeNavLink = 'tailor' %}
 
+[resources]
+vars[activeNavLink] = 'tailor'
+==
 {% for block in landingPage.blocks %}
     {% partial 'blockbuilder/' ~ block.type block=block %}
 {% endfor %}

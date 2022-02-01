@@ -55,11 +55,9 @@ trait SetupHelper
      */
     protected function composerRequireString($want = null)
     {
-        if ($want !== null) {
-            return 'october/all:' . $want;
-        }
+        $version = $want ?: UpdateManager::WANT_VERSION;
 
-        return 'october/all';
+        return '"october/all:'.$version.'"';
     }
 
     /**
