@@ -57,7 +57,7 @@ trait SetupHelper
     {
         $version = $want ?: UpdateManager::WANT_VERSION;
 
-        return '"october/all:'.$version.'"';
+        return "october/all:{$version}";
     }
 
     /**
