@@ -6,6 +6,7 @@ use Lang;
 use Config;
 use Exception;
 use System\Classes\UpdateManager;
+use Illuminate\Support\Env;
 use Dotenv\Dotenv;
 use PDOException;
 use PDO;
@@ -110,7 +111,7 @@ trait SetupHelper
      */
     protected function refreshEnvVars()
     {
-        DotEnv::create(App::environmentPath(), App::environmentFile())->load();
+        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
     /**
