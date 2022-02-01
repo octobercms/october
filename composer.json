@@ -6,7 +6,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8.1",
-        "october/rain": "3.x-dev",
+        "october/rain": "^3.0",
         "laravel/framework": "^9.0"
     },
     "require-dev": {
