@@ -1,6 +1,6 @@
 {
     "name": "october/october",
-    "description": "Built using October CMS: The Platform That Gets Back to Basics",
+    "description": "Built using October CMS: The Laravel-Based CMS Engineered For Simplicity",
     "type": "project",
     "homepage": "https://octobercms.com",
     "license": "proprietary",
