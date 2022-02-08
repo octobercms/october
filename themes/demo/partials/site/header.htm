@@ -6,7 +6,7 @@ function onStart()
 }
 ?>
 ==
-{% set activeNavLink = placeholder('activeNavLink') ?: this.page.id %}
+{% set activeNavLink = activeNavLink|default(this.page.id) %}
 
 <!-- Nav -->
 <nav id="layout-nav" class="navbar fixed-top navbar-expand-lg navbar-dark navbar-autohide">

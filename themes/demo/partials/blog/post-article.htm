@@ -1,0 +1,11 @@
+<article class="blog-post">
+    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <p class="blog-post-meta">
+        {{ post.published_at|date('F j, Y') }}
+        {% if post.author %}
+            by <a href="{{ 'blog/author'|page({ slug: post.author.slug }) }}">{{ post.author.title }}</a>
+        {% endif %}
+    </p>
+
+    {{ post.content|raw }}
+</article>
