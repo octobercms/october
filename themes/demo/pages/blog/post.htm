@@ -1,16 +1,13 @@
+##
 url = "/blog/post/:slug"
 layout = "blog"
 title = "Display a Blog Post"
 meta_title = "{{ post.title }} - Blog"
 
-[recordView post]
-entityType = "entry"
-entityHandle = "blog"
-entitySlug = "{{ :slug }}"
+[section blog]
+entrySlug = "{{ :slug }}"
 
-[recordList categories]
-entityType = "collection"
-entityHandle = "blogCategories"
+[collection blogCategories]
 
 [resources]
 vars[activeNavLink] = 'tailor'
@@ -20,7 +17,7 @@ vars[activeNavLink] = 'tailor'
         <div class="col-md-3">
             <h4>Categories</h4>
             <ul>
-                {% for category in categories %}
+                {% for category in blogCategories %}
                     <li>
                         <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
                             {{ category.title }}
@@ -31,8 +28,7 @@ vars[activeNavLink] = 'tailor'
         </div>
 
         <div class="col-md-9">
-            <h1>{{ post.title }}</h1>
-            {{ post.content|raw }}
+            {% partial 'blog/post-article' post=blog %}
         </div>
     </div>
 </div>

@@ -1,0 +1,12 @@
+<div class="col">
+    <div class="card shadow-sm">
+        <img src="{{ 'assets/images/default-post.png'|theme }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+        <div class="card-body">
+            <h4>{{ post.title }}</h4>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">Announcements</a>
+                <small class="text-muted">{{ post.published_at|date('d M Y') }}</small>
+            </div>
+        </div>
+    </div>
+</div>

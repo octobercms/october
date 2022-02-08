@@ -1,23 +1,20 @@
+##
 url = "/blog/category/:slug"
 layout = "blog"
 title = "Display a Blog Category"
 meta_title = "{{ category.title }} - Blog"
 
-[recordView category]
-entityType = "collection"
-entityHandle = "blogCategories"
-entitySlug = "{{ :slug }}"
+[collection category]
+handle = "blogCategories"
+entrySlug = "{{ :slug }}"
 
-[recordList categories]
-entityType = "collection"
-entityHandle = "blogCategories"
+[section blog]
 
-[recordList posts]
-entityType = "entry"
-entityHandle = "blog"
+[collection blogCategories]
 
 [resources]
-vars[activeNavLink] = 'tailor'
+vars[activeNavLink] = "tailor"
+vars[activeBlogCategory] = "{{ :slug }}"
 ==
 <div class="container">
     <div class="row">
@@ -25,7 +22,7 @@ vars[activeNavLink] = 'tailor'
             <h4>Categories</h4>
             <ul>
                 {% set selectedCategory = category.slug %}
-                {% for category in categories %}
+                {% for category in blogCategories %}
                     <li>
                         <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
                             {{ category.title }}
@@ -37,16 +34,11 @@ vars[activeNavLink] = 'tailor'
         </div>
 
         <div class="col-md-9">
-            <h4>Posts</h4>
-            <ul>
-                {% for post in posts %}
-                    <li>
-                        <a href="{{ 'blog/post'|page({ slug: post.slug }) }}">
-                            {{ post.title }}
-                        </a>
-                    </li>
+            <div class="blog-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">
+                {% for post in blog %}
+                    {% partial 'blog/post-card' post=post %}
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
 </div>
