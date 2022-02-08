@@ -18,6 +18,9 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * @var array List of forbidden methods.
      */
     protected $blockedMethods = [
+        // Prevent magic bypass
+        '__call',
+
         // Prevent manipulating Twig itself
         'getTwig',
 
