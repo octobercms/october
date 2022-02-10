@@ -1,3 +1,4 @@
+##
 description = "Blog layout"
 
 [collection blogCategories]
@@ -5,6 +6,8 @@ description = "Blog layout"
 [resources]
 less[] = "layouts/blog.less"
 vars[activeBlogCategory] = ""
+
+[global blogConfig]
 ==
 <!DOCTYPE html>
 <html>
@@ -27,7 +30,7 @@ vars[activeBlogCategory] = ""
                             <a class="link-secondary" href="{{ 'blog/rss'|page }}">Subscribe</a>
                         </div>
                         <div class="col-4 text-center">
-                            <a class="blog-header-logo text-dark" href="{{ 'blog/index'|page }}">Latest News</a>
+                            <a class="blog-header-logo text-dark" href="{{ 'blog/index'|page }}">{{ blogConfig.blog_name|default('Latest News') }}</a>
                         </div>
                         <div class="col-4 d-flex justify-content-end align-items-center">
                             <a class="link-secondary" href="#" aria-label="Search">
@@ -41,7 +44,7 @@ vars[activeBlogCategory] = ""
                     <nav class="nav d-flex justify-content-center">
                         {% for category in blogCategories %}
                             <a
-                                class="p-2 link-secondary {{ activeBlogCategory == category.slug ? 'active' }}"
+                                class="p-2 nav-link link-secondary {{ activeBlogCategory == category.slug ? 'active' }}"
                                 href="{{ 'blog/category'|page({ slug: category.slug }) }}">
                                 {{ category.title }}
                             </a>

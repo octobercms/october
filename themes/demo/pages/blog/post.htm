@@ -2,7 +2,7 @@
 url = "/blog/post/:slug"
 layout = "blog"
 title = "Display a Blog Post"
-meta_title = "{{ post.title }} - Blog"
+meta_title = "{{ blog.title }} - Blog"
 
 [section blog]
 entrySlug = "{{ :slug }}"
@@ -12,23 +12,33 @@ entrySlug = "{{ :slug }}"
 [resources]
 vars[activeNavLink] = 'tailor'
 ==
+{% set post = blog %}
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <h4>Categories</h4>
-            <ul>
-                {% for category in blogCategories %}
-                    <li>
-                        <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
+        <div class="col-md-2">
+            <div class="blog-post-summary">
+                {% if post.categories %}
+                    <h6>
+                        {% for category in post.categories %}
                             {{ category.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+                            {% if not loop.last %}&bull;{% endif %}
+                        {% endfor %}
+                    </h6>
+                {% endif %}
+                {% if post.author %}
+                    <p>by <a href="{{ 'blog/author'|page({ slug: post.author.slug }) }}">{{ post.author.title }}</a></p>
+                {% endif %}
+                <p class="text-muted">
+                    {{ post.published_at_date|date('j M Y') }}
+                </p>
+            </div>
         </div>
 
-        <div class="col-md-9">
-            {% partial 'blog/post-article' post=blog %}
+        <div class="col-md-10 col-xl-7">
+            {% partial 'blog/post-article' post=post %}
+        </div>
+        <div class="col-xl-3 d-none d-xl-block">
+
         </div>
     </div>
 </div>

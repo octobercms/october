@@ -70,7 +70,7 @@ return [
 
     'template_cache_ttl' => 1440,
 
-    'template_cache_driver' => env('CACHE_DRIVER', 'file'),
+    'template_cache_driver' => 'file',
 
     /*
     |--------------------------------------------------------------------------

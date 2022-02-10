@@ -1,11 +1,19 @@
-<div class="col">
-    <div class="card shadow-sm">
-        <img src="{{ 'assets/images/default-post.png'|theme }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+<div class="col {{ cssClass|default('') }}">
+    <div class="card shadow-sm h-100">
+        {% if post.banner %}
+            <img src="{{ post.banner.path }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+        {% else %}
+            <img src="{{ 'assets/images/default-post.png'|theme }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+        {% endif %}
         <div class="card-body">
             <h4>{{ post.title }}</h4>
+        </div>
+        <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">Announcements</a>
-                <small class="text-muted">{{ post.published_at|date('d M Y') }}</small>
+                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">
+                    {{ post.categories.first.title|default('') }}
+                </a>
+                <small class="text-muted">{{ post.published_at_date|date('j M Y') }}</small>
             </div>
         </div>
     </div>
