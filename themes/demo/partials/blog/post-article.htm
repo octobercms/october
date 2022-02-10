@@ -1,7 +1,20 @@
 <article class="blog-post">
     <h2 class="blog-post-title">{{ post.title }}</h2>
+
+    {% if blog.banner %}
+        <div class="blog-post-banner">
+            <img src="{{ blog.banner.path }}" alt="{{ blog.title }}" class="img-fluid mb-3" role="img" />
+        </div>
+    {% endif %}
+
+    <div class="blog-post-featured-text">
+        {% if blog.is_featured %}
+            <h5>{{ blog.featured_text }}</h5>
+        {% endif %}
+    </div>
+
     <p class="blog-post-meta">
-        {{ post.published_at|date('F j, Y') }}
+        {{ post.published_at_date|date('F j, Y') }}
         {% if post.author %}
             by <a href="{{ 'blog/author'|page({ slug: post.author.slug }) }}">{{ post.author.title }}</a>
         {% endif %}
