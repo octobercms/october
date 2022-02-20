@@ -8,6 +8,7 @@ use Http;
 use Cache;
 use Schema;
 use Config;
+use Request;
 use ApplicationException;
 use Cms\Classes\ThemeManager;
 use System\Models\Parameter;
@@ -885,6 +886,10 @@ class UpdateManager
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
         }
 
+        if (!$this->validateServerSignature($resultData, $result->headers['Rest-Sign'] ?? '')) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_invalid') . ' (Bad signature)');
+        }
+
         return $resultData;
     }
 
@@ -963,12 +968,13 @@ class UpdateManager
      */
     protected function applyHttpAttributes($http, $postData)
     {
-        $postData['protocol_version'] = '1.2';
-        $postData['client'] = 'october';
+        $postData['protocol_version'] = '1.3';
+        $postData['client'] = 'October CMS';
 
         $postData['server'] = base64_encode(json_encode([
             'php'   => PHP_VERSION,
             'url'   => Url::to('/'),
+            'ip'    => Request::ip(),
             'since' => PluginVersion::orderBy('created_at')->value('created_at')
         ]));
 
@@ -1019,5 +1025,35 @@ class UpdateManager
     public function getMigrationTableName()
     {
         return Config::get('database.migrations', 'migrations');
+    }
+
+    /**
+     * validateServerSignature checks the server has provided a valid signature
+     *
+     * @return bool
+     */
+    protected function validateServerSignature($data, $signature)
+    {
+        if (!$signature) {
+            return false;
+        }
+
+        $signature = base64_decode($signature);
+
+        $pubKey = '-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt+KwvTXqC8Mz9vV4KIvX
+3y+aZusrlg26jdbNVUuhXNFbt1VisjJydHW2+WGsiEHSy2s61ZAV2dICR6f3huSw
+jY/MH9j23Oo/u61CBpvIS3Q8uC+TLtJl4/F9eqlnzocfMoKe8NmcBbUR3TKQoIok
+xbSMl6jiE2k5TJdzhHUxjZRIeeLDLMKYX6xt37LdhuM8zO6sXQmCGg4J6LmHTJph
+96H11gBvcFSFJSmIiDykJOELZl/aVcY1g3YgpL0mw5Bw1VTmKaRdz1eBi9DmKrKX
+UijG4gD8eLRV/FS/sZCFNR/evbQXvTBxO0TOIVi85PlQEcMl4SBj0CoTyNbcAGtz
+4wIDAQAB
+-----END PUBLIC KEY-----';
+
+        $pubKey = Config::get('system.update_gateway_key', $pubKey);
+
+        $data = base64_encode(json_encode($data));
+
+        return openssl_verify($data, $signature, $pubKey) === 1;
     }
 }
