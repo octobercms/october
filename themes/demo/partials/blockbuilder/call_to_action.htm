@@ -1,13 +1,16 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-10">
-            <div class="py-1">
-                <p>
-                    <a href="{{ block.target }}" class="btn btn-primary btn-cta">
-                        {{ block.label }} ⟶
-                    </a>
-                </p>
-            </div>
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ block.title }}</h1>
+            <p class="lead text-muted">{{ block.description }}</p>
+            <p>
+                {% if block.primary_text %}
+                    <a href="{{ block.primary_url }}" class="btn btn-primary my-2">{{ block.primary_text }}</a>
+                {% endif %}
+                {% if block.secondary_text %}
+                    <a href="{{ block.secondary_url }}" class="btn btn-secondary my-2">{{ block.secondary_text }}</a>
+                {% endif %}
+            </p>
         </div>
     </div>
-</div>
+</section>

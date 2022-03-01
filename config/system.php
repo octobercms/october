@@ -164,25 +164,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Base Directory Restriction
-    |--------------------------------------------------------------------------
-    |
-    | Restricts loading backend template and config files to within the base
-    | directory of the application.
-    |
-    | Warning: This should always be enabled for security reasons. However, in
-    | some cases you may need to disable this; for instance when developing
-    | plugins that are stored elsewhere in the filesystem for organizational
-    | reasons and then symlinked into the application plugins/ directory.
-    |
-    | Never have this disabled in production.
-    |
-    */
-
-    'restrict_base_dir' => env('RESTRICT_BASE_DIR', true),
-
-    /*
-    |--------------------------------------------------------------------------
     | Cookie Encryption
     |--------------------------------------------------------------------------
     |

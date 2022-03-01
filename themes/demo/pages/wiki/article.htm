@@ -1,0 +1,35 @@
+##
+url = "/wiki/:slug*"
+layout = "wiki"
+title = "Wiki Docs Demo"
+meta_title = "{{ wiki.title }}"
+
+[section wiki]
+entrySlug = "{{ :slug }}"
+
+[resources]
+vars[activeNavLink] = 'tailor'
+==
+{% set article = wiki %}
+{% if article is empty %}
+    {% do abort(404) %}
+{% endif %}
+
+<div class="container">
+
+    <div class="py-3">
+        {% partial 'wiki/breadcrumb' article=article %}
+    </div>
+
+    <article class="wiki-article pb-3">
+        <div class="card">
+            <div class="card-body p-5">
+                <h2 class="wiki-article-title mb-3">{{ article.title }}</h2>
+                {{ article.content|raw }}
+                {% partial 'wiki/toc' articles=article.children %}
+            </div>
+        </div>
+    </article>
+
+    {% partial 'wiki/continue' article=article %}
+</div>

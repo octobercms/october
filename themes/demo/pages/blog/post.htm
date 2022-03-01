@@ -12,6 +12,10 @@ entrySlug = "{{ :slug }}"
 [resources]
 vars[activeNavLink] = 'tailor'
 ==
+{% if blog is empty %}
+    {% do abort(404) %}
+{% endif %}
+
 {% set post = blog %}
 <div class="container">
     <div class="row">
@@ -34,11 +38,11 @@ vars[activeNavLink] = 'tailor'
             </div>
         </div>
 
-        <div class="col-md-10 col-xl-7">
+        <div class="col-md-10 col-xl-8">
             {% partial 'blog/post-article' post=post %}
         </div>
-        <div class="col-xl-3 d-none d-xl-block">
-
+        <div class="col-xl-2 d-none d-xl-block">
+            {# Whitespace / Latest Posts #}
         </div>
     </div>
 </div>

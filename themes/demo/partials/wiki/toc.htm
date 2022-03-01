@@ -1,0 +1,19 @@
+{% macro render_toc(articles) %}
+    {% for article in articles %}
+        <li>
+            <a href="{{ 'wiki/article'|page({ slug: article.slug }) }}">{{ article.title }}</a>
+            - {{ article.summary_text }}
+            <ul>
+                {% if article.children %}
+                    {{ _self.render_toc(article.children) }}
+                {% endif %}
+            </ul>
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as nav %}
+
+<ul>
+    {{ nav.render_toc(articles) }}
+</ul>

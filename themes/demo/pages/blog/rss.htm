@@ -5,6 +5,22 @@ title = "Blog RSS Feed"
 [section blog]
 
 [resources]
-vars[activeNavLink] = 'tailor'
+headers[Content-Type] = 'text/xml'
 ==
-<!-- ... -->
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{{ this.page.meta_title ?: this.page.title }}</title>
+        <link>{{ 'blog/index'|page }}</link>
+        <description>{{ this.page.meta_description ?: this.page.description }}</description>
+        <atom:link href="{{ 'blog/rss'|page }}" rel="self" type="application/rss+xml" />
+        {% for post in blog %}<item>
+            <title>{{ post.title }}</title>
+            <link>{{ 'blog/post'|page({ slug: post.slug }) }}</link>
+            <guid>{{ post.slug }}</guid>
+            <pubDate>{{ post.published_at_date.toRfc2822String }}</pubDate>
+            <description>{{ post.featured_text }}</description>
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

@@ -14,6 +14,10 @@ entrySlug = "{{ :slug }}"
 vars[activeNavLink] = "tailor"
 vars[activeBlogCategory] = "{{ :slug }}"
 ==
+{% if category is empty %}
+    {% do abort(404) %}
+{% endif %}
+
 {% set posts = blog.whereRelation('categories', 'slug', category.slug).paginate(16) %}
 
 <div class="container">
@@ -25,7 +29,7 @@ vars[activeBlogCategory] = "{{ :slug }}"
                 {% endfor %}
             </div>
             <nav class="blog-pagination" aria-label="Pagination">
-                {{ posts.toHtml|raw }}
+                {{ posts.links|raw }}
             </nav>
         </div>
     </div>
