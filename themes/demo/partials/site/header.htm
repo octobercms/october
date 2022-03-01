@@ -6,31 +6,34 @@ function onStart()
 }
 ?>
 ==
+{% set activeNavLink = activeNavLink|default(this.page.id) %}
+
 <!-- Nav -->
-<nav id="layout-nav" class="navbar navbar-inverse navbar-fixed-top navbar-autohide" role="navigation">
+<nav id="layout-nav" class="navbar fixed-top navbar-expand-lg navbar-dark navbar-autohide">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ 'home'|page }}">October CMS Demo</a>
-                </div>
-                <div class="collapse navbar-collapse navbar-main-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="{% if this.page.id == 'home' %}active{% endif %}"><a href="{{ 'home'|page }}">Basic Concepts</a></li>
-                        <li class="{% if this.page.id == 'ajax' %}active{% endif %}"><a href="{{ 'ajax'|page }}">AJAX Framework</a></li>
-                        <li class="{% if this.page.id == 'plugins' %}active{% endif %}"><a href="{{ 'plugins'|page }}">CMS Components</a></li>
-                        {% if backendUrl %}
-                            <li><a href="{{ backendUrl }}" target="backend">Backend Area</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
+        <a class="navbar-brand" href="{{ 'index'|page }}">
+            <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" height="25" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ activeNavLink == 'index' ? 'active' }}" href="{{ 'index'|page }}">Basic Concepts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ activeNavLink == 'ajax' ? 'active' }}" href="{{ 'ajax'|page }}">AJAX Framework</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ activeNavLink == 'plugins' ? 'active' }}" href="{{ 'plugins'|page }}">CMS Components</a>
+                </li>
+                {% if backendUrl %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ backendUrl }}" target="backend">Backend Area</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>

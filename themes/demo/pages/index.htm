@@ -1,0 +1,128 @@
+title = "Demonstration"
+url = "/"
+layout = "default"
+
+[resources]
+less[] = "pages/index.less"
+==
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-5">
+                <h1>Platform Demo</h1>
+            </div>
+
+            <div class="col-xl-6 col-lg-7">
+                <div class="welcome-content-container">
+                    {% content "welcome.htm" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-6">
+                <h2>Overview</h2>
+                <p>This page demonstrates the basic CMS features. Usually each page built with October CMS is a combination of a layout, page, partials and content blocks, although in simple cases you can just use a page without anything else.</p>
+            </div>
+            <div class="col-xl-5 col-lg-6">
+                <img
+                    src="{{ 'assets/images/cms-template-diagram.png'|theme }}"
+                    srcset="{{ 'assets/images/cms-template-diagram.png'|theme }}, {{ 'assets/images/cms-template-diagram@2x.png'|theme }} 2x"
+                    alt="CMS template diagram"
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 col-lg-12">
+                <h3 class="header-icon cms-layout">Layouts</h3>
+
+                <p>Layouts define the page scaffold. The layout file <code>layouts/default.htm</code> includes  everything that repeats on each page, such as the HTML, HEAD and BODY tags, CSS and JavaScript references. The page menu and footer in the Demo theme are defined in the layout as well.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-5 col-lg-6">
+                <h3 class="header-icon cms-page">Pages</h3>
+
+                <p>Pages hold the content for each URL. The page file <em>pages/home.htm</em> defines the page URL (<code>/</code> for this page) and the page content. Pages are rendered inside layouts with the <a href="https://docs.octobercms.com/2.x/markup/tag-page.html">page</a> tag that should be called in the layout code. Layouts are optional — you can define everything right in the page file.</p>
+
+                <div class="code-block">
+                    <pre>{{ "{% page %}" }}</pre>
+                </div>
+            </div>
+
+            <div class="col-xl-5 col-lg-6">
+                <h3 class="header-icon cms-partial">Partials</h3>
+
+                <p>Partials are chunks of HTML defined in separate files that can be included inside pages, layouts or other partials. Partials are rendered with the <a href="https://docs.octobercms.com/2.x/markup/tag-partial.html">partial</a> tag. You may place partials inside folders too. In the example below we placed the footer content to the <em>partials/site/footer.htm</em> partial.</p>
+
+                <div class="code-block">
+                    <pre>{% content "partials.txt" %}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-10 col-lg-12">
+                <h3 class="header-icon cms-content-block">Content blocks</h3>
+
+                <p>Content blocks are text or HTML blocks that can be edited separately from the page or layout. The introductory text used on this page is defined in the <em>content/welcome.htm</em> file. Content blocks are defined and rendered with the <a href="https://docs.octobercms.com/2.x/markup/tag-content.html">content</a> tag:</p>
+
+                <div class="code-block">
+                    <pre>{{ "{% content \"content-name.htm\" %}" }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-10 col-lg-12">
+                <h3 class="header-icon cms-placeholder">Placeholders</h3>
+
+                <p>Placeholders allow pages to inject content to a layout. The common use is injecting page-specific references to CSS or JavaScript files to the HEAD tag defined in the layout. Placeholders are defined in the layout file and they have names so that they can be referred in the page. Placeholders use the <a href="https://docs.octobercms.com/2.x/markup/tag-placeholder.html">placeholder and put</a> tags.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-5">
+                <div class="code-tab">Layout file</div>
+                <div class="code-block">
+                    <pre>{% content "placeholder/layout.txt" %}</pre>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-7">
+                <div class="code-tab">Page file</div>
+                <div class="code-block">
+                    <pre>{% content "placeholder/page.txt" %}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-10 col-lg-12">
+                <h3 class="header-icon cms-asset">Assets</h3>
+
+                <p>Assets are resource files like images, JavaScript and stylesheets. This theme stores its asset files (JavaScript, CSS, images, fonts, etc.) in the <em>themes/demo/assets</em> directory. This theme is packaged with these useful third-party tools:</p>
+
+                <ul class="list-with-ticks">
+                    <li><a target="_blank" href="http://getbootstrap.com/">Bootstrap 5</a></li>
+                    <li><a target="_blank" href="https://icons.getbootstrap.com/">Bootstrap Icons</a></li>
+                    <li><a target="_blank" href="https://codemirror.net/">CodeMirror</a></li>
+                </ul>
+
+                <div class="py-3">
+                    <p><a href="{{ 'ajax'|page }}" class="btn btn-primary btn-cta">Continue to AJAX framework ⟶</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

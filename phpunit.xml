@@ -26,7 +26,7 @@
         <env name="CMS_ROUTE_CACHE" value="true" />
         <env name="CMS_TWIG_CACHE" value="false" />
         <env name="PLUGINS_PATH" value="modules/system/tests/fixtures/plugins" />
-        <env name="THEMES_PATH" value="modules/system/tests/fixtures/themes" />
+        <env name="THEMES_PATH" value="modules/cms/tests/fixtures/themes" />
         <env name="ENABLE_CSRF" value="false" />
         <env name="DB_CONNECTION" value="sqlite" />
         <env name="DB_DATABASE" value=":memory:" />
