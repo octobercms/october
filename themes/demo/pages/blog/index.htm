@@ -44,7 +44,7 @@ vars[activeNavLink] = 'tailor'
             {% endfor %}
 
             <nav class="blog-pagination" aria-label="Pagination">
-                {{ posts.toHtml|raw }}
+                {{ posts.links|raw }}
             </nav>
         </div>
 
@@ -69,7 +69,7 @@ vars[activeNavLink] = 'tailor'
                                 <li>
                                     <a
                                         href="{{ 'blog/archive'|page({ month: date.published_at_month, year: date.published_at_year }) }}"
-                                    >{{ dateParsed|date('F') }} {{ dateParsed|date('Y') }}</a>
+                                    >{{ dateParsed|date('F Y') }}</a>
                                     ({{ date.post_count }})
                                 </li>
                             {% endif %}

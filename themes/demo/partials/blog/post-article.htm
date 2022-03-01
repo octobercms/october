@@ -1,5 +1,5 @@
 <article class="blog-post">
-    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <h2 class="blog-post-title mb-3">{{ post.title }}</h2>
 
     {% if blog.banner %}
         <div class="blog-post-banner">
@@ -9,7 +9,7 @@
 
     <div class="blog-post-featured-text">
         {% if blog.is_featured %}
-            <h5>{{ blog.featured_text }}</h5>
+            <p class="lead">{{ blog.featured_text }}</p>
         {% endif %}
     </div>
 
@@ -20,5 +20,9 @@
         {% endif %}
     </p>
 
-    {{ post.content|raw }}
+    {% if post.entry_type == 'markdown_post' %}
+        {{ post.content|md }}
+    {% else %}
+        {{ post.content|raw }}
+    {% endif %}
 </article>

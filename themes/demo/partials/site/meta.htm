@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>October CMS - {{ this.page.meta_title ?: this.page.title }}</title>
+<title>October CMS - {{ placeholder('pageTitle') ?: (this.page.meta_title ?: this.page.title) }}</title>
 <meta name="description" content="{{ this.page.meta_description }}">
 <meta name="title" content="{{ this.page.meta_title }}">
 <meta name="author" content="October CMS">

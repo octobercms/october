@@ -1,0 +1,30 @@
+{% set parent = article.parent %}
+
+<nav class="continue-links pb-5">
+    {% if parent %}
+        {% set prevLink = null %}
+        {% set nextLink = null %}
+        {% for sibling in parent.children %}
+            {% if nextLink == true %}
+                <p class="mb-1">
+                    Next: <a href="{{ 'wiki/article'|page({ slug: sibling.slug }) }}">{{ sibling.title }}</a>
+                </p>
+                {% set nextLink = null %}
+            {% endif %}
+
+            {% if sibling.id == article.id %}
+                {% if prevLink %}
+                    <p class="mb-1">
+                        Previous: <a href="{{ 'wiki/article'|page({ slug: prevLink.slug }) }}">{{ prevLink.title }}</a>
+                    </p>
+                {% endif %}
+                {% set nextLink = true %}
+            {% endif %}
+            {% set prevLink = sibling %}
+        {% endfor %}
+
+        <p class="mb-1">
+            Return to <a href="{{ 'wiki/article'|page({ slug: parent.slug }) }}">{{ parent.title }}</a>
+        </p>
+    {% endif %}
+</nav>

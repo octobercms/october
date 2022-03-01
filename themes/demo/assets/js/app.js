@@ -5,7 +5,6 @@ $(function() {
     /*
      * Auto hide navbar
      */
-
     var $header = $('.navbar-autohide'),
         scrolling = false,
         previousTop = 0,
@@ -40,4 +39,22 @@ $(function() {
         previousTop = currentTop;
         scrolling = false;
     }
+
+    /*
+     * Popovers
+     */
+    $('[data-bs-toggle="popover"]').each(function() {
+        var $el = $(this);
+        if ($el.data('content-target')) {
+            $el
+                .popover({ html: true, content: $($el.data('content-target')).get(0) })
+                .on('shown.bs.popover', function() {
+                    $('input:first', $($el.data('content-target'))).focus();
+                })
+            ;
+        }
+        else {
+            $el.popover();
+        }
+    });
 });

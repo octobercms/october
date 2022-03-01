@@ -1,0 +1,19 @@
+
+<a
+    class="link-secondary"
+    href="#"
+    aria-label="Search"
+    data-bs-toggle="popover"
+    data-content-target="#searchPopover">
+    <i class="bi-search"></i>
+</a>
+<div style="display:none">
+    <div id="searchPopover">
+        <form action="{{ action }}" method="get">
+            <div class="input-group">
+                <input type="text" name="term" class="form-control" placeholder="Search" value="">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>

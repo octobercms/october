@@ -1,0 +1,48 @@
+##
+url = "/wiki/search"
+layout = "wiki"
+title = "Search Wiki Articles"
+meta_title = "Search - Wiki"
+
+[section wiki]
+
+[resources]
+vars[activeNavLink] = "tailor"
+==
+{% set searchTerm = get('term')|trim %}
+{% set articles = wiki.searchWhere(searchTerm, ['title', 'content']).paginate(4) %}
+{% put pageTitle=searchTerm ~ ' - Search Results' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="pb-4 my-4 fst-italic border-bottom">
+                {{ searchTerm }} - Search Results
+            </h3>
+
+            <form class="pb-3">
+                <div class="input-group">
+                    <input type="text" name="term" class="form-control" placeholder="" value="{{ searchTerm }}">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+                <p><small>If you're not happy with the results, please try another search.</small></p>
+            </form>
+
+            <div class="pb-3">
+                {% for article in articles %}
+                    <div class="card mb-3">
+                        <div class="card-body pb-0">
+                            <h5 class="wiki-article-title">
+                                <a href="{{ 'wiki/article'|page({ slug: article.slug }) }}">{{ article.title }}</a>
+                            </h5>
+                            {{ article.content|html_limit(250)|raw }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <nav class="wiki-pagination" aria-label="Pagination">
+                {{ articles.appends(get()).links|raw }}
+            </nav>
+        </div>
+    </div>
+</div>

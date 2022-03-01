@@ -1,0 +1,20 @@
+{% for feature in block.features %}
+    <div class="row featurette {{ loop.last ? 'mb-5' }}">
+        <div class="col-md-7 {{ loop.index is even ? 'order-md-2' }}">
+            <h2 class="featurette-heading">{{ feature.title }}</h2>
+            <p class="lead">
+                {{ feature.description }}
+            </p>
+        </div>
+        <div class="col-md-5 {{ loop.index is even ? 'order-md-1' }}">
+            <img
+                src="{{ feature.image|media }}"
+                class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                width="400"
+                height="400" />
+        </div>
+    </div>
+    {% if not loop.last %}
+        <hr class="featurette-divider" />
+    {% endif %}
+{% endfor %}
