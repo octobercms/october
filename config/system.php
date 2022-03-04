@@ -206,4 +206,19 @@ return [
 
     'auto_rollback_plugins' => env('AUTO_ROLLBACK_PLUGINS', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Base Directory Restriction
+    |--------------------------------------------------------------------------
+    |
+    | Restricts loading backend template and config files to within the base
+    | directory of the application. For example, when using the symlink option
+    | in composer for local packages.
+    |
+    | Warning: This should never be disabled in production for security reasons.
+    |
+    */
+
+    'restrict_base_dir' => env('RESTRICT_BASE_DIR', true),
+
 ];
