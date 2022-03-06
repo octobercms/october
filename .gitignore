@@ -1,11 +1,11 @@
-/bootstrap/compiled.php
-/vendor
+# Common
 composer.phar
 .DS_Store
 .idea
 .env
 .env.*.php
 .env.php
+auth.json
 php_errors.log
 nginx-error.log
 nginx-access.log
@@ -20,6 +20,8 @@ package-lock.json
 /node_modules
 _ide_helper.php
 .phpunit.result.cache
-
-# for netbeans
 nbproject
+
+# Project
+/bootstrap/compiled.php
+/vendor
