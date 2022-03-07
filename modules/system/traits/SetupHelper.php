@@ -53,11 +53,32 @@ trait SetupHelper
     /**
      * composerRequireString returns the composer require string for installing dependencies
      */
-    protected function composerRequireString($want = null)
+    protected function composerRequireCore($composer, $want = null)
     {
-        $version = $want ?: UpdateManager::WANT_VERSION;
+        if ($want === null) {
+            $composer->require('october/all', UpdateManager::WANT_VERSION);
+        }
+        else {
+            $want = $this->processWantString($want);
+            $composer->require('october/rain', $want);
+            $composer->require('october/all', $want);
+        }
+    }
 
-        return "october/all:{$version}";
+    /**
+     * processWantString ensures a valid want version is supplied
+     */
+    protected function processWantString($version)
+    {
+        $parts = explode('.', $version);
+
+        if (count($parts) > 1) {
+            $parts[2] = '*';
+        }
+
+        $parts = array_slice($parts, 0, 3);
+
+        return implode('.', $parts);
     }
 
     /**

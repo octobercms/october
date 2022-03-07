@@ -30,7 +30,7 @@ class Composer extends ControllerBase
 
         flush();
 
-        $composer->require($this->composerRequireString());
+        $this->composerRequireCore($composer);
 
         echo "<exit>{$composer->lastExitCode()}</exit>";
     }
