@@ -15,12 +15,10 @@ trait SetupBuilder
      */
     protected function setupInstallOctober()
     {
-        $requireStr = $this->composerRequireString($this->option('want') ?: null);
-        $this->comment("Executing: composer require {$requireStr}");
-
         $composer = new ComposerProcess;
         $composer->setCallback(function($message) { echo $message; });
-        $composer->require($requireStr);
+
+        $this->composerRequireCore($composer, $this->option('want') ?: null);
 
         if ($composer->lastExitCode() !== 0) {
             $this->outputFailedOutro();
