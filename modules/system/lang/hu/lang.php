@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'installer' => [
         'app_config_section' => 'Weboldal konfigurálása',
         'license_section' => 'Licenc kulcs',
@@ -38,19 +36,19 @@ return [
     ],
     'app' => [
         'name' => 'October CMS',
-        'tagline' => 'Visszatérés az alapokhoz'
+        'tagline' => 'Visszatérés az alapokhoz',
     ],
     'directory' => [
-        'create_fail' => 'Nem hozható létre a könyvtár: :name'
+        'create_fail' => 'Nem hozható létre a könyvtár: :name',
     ],
     'file' => [
-        'create_fail' => 'Nem hozható létre a fájl: :name'
+        'create_fail' => 'Nem hozható létre a fájl: :name',
     ],
     'combiner' => [
-        'not_found' => "A(z) ':name' egyesítő fájl nem található."
+        'not_found' => 'A(z) \':name\' egyesítő fájl nem található.',
     ],
     'resizer' => [
-        'not_found' => "Az átméretezett fájl ':name' nem található.",
+        'not_found' => 'Az átméretezett fájl \':name\' nem található.',
     ],
     'system' => [
         'name' => 'Rendszer',
@@ -69,47 +67,42 @@ return [
             'events' => 'Események',
             'customers' => 'Vevők',
             'my_settings' => 'Beállításaim',
-            'notifications' => 'Értesítések'
-        ]
+            'notifications' => 'Értesítések',
+        ],
     ],
     'theme' => [
         'label' => 'Téma',
         'unnamed' => 'Névtelen téma',
         'name' => [
             'label' => 'Téma neve',
-            'help' => 'A névnek egyedinek kell lennie. Például: RainLab.Vanilla'
-        ]
-    ],
-    'packages' => [
-        'install' => 'Csomagok telepítése',
+            'help' => 'A névnek egyedinek kell lennie. Például: RainLab.Vanilla',
+        ],
     ],
     'themes' => [
-        'manage' => 'Témák menedzselése',
         'install' => 'Téma telepítése',
         'search' => 'Keresés...',
         'installed' => 'Telepítve',
         'no_themes' => 'A piactérről még nem lett telepítve téma.',
         'recommended' => 'Ajánlott',
-        'remove_confirm' => 'Valóban törölni akarja a témát?'
+        'remove_confirm' => 'Valóban törölni akarja a témát?',
     ],
     'plugin' => [
         'label' => 'Bővítmény',
         'unnamed' => 'Névtelen bővítmény',
         'name' => [
             'label' => 'Bővítmény neve',
-            'help' => 'Nevezze meg egyedi kódja alapján a bővítményt. Például: RainLab.Blog'
+            'help' => 'Nevezze meg egyedi kódja alapján a bővítményt. Például: RainLab.Blog',
         ],
-        'by_author' => 'Fejlesztő: :name'
+        'by_author' => 'Fejlesztő: :name',
     ],
     'plugins' => [
-        'manage' => 'Bővítmények kezelése',
         'install' => 'Bővítmények telepítése',
         'install_products' => 'Bővítmények telepítése',
         'search' => 'Keresés...',
         'installed' => 'Telepítve',
         'no_plugins' => 'A piactérről még nem lett telepítve bővítmény.',
         'recommended' => 'Ajánlott',
-        'plugin_label'  => 'Bővítmény',
+        'plugin_label' => 'Bővítmény',
         'unknown_plugin' => 'A bővítményhet tartozó fájlok törölve lettek.',
         'select_label' => 'Művelet kiválasztása...',
         'bulk_actions_label' => 'Csoportos műveletek',
@@ -136,21 +129,19 @@ return [
         'refresh_confirm' => 'Biztos benne, hogy minden egyedi adatot tötölni szeretne a bővítményekből?',
         'refresh_success' => 'A kijelölt bővítmények adatai sikeresen törölve lettek.',
         'remove_confirm' => 'Valóban törölni akarja a kijelölt bővítményeket?',
-        'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek.'
+        'remove_success' => 'A bővítmények sikeresen eltávolításra kerültek.',
     ],
     'project' => [
-        'name' => 'Projekt',
-        'owner_label' => 'Fejlesztő',
         'attach' => 'Csatolás',
         'detach' => 'leválasztás',
         'none' => 'Nincs',
         'id' => [
             'label' => 'Projekt azonosító',
             'help' => 'Súgó (angol nyelvű)',
-            'missing' => 'Adjon meg egy projekt azonosítót.'
+            'missing' => 'Adjon meg egy projekt azonosítót.',
         ],
         'detach_confirm' => 'Biztosan le akarja választani a projektet?',
-        'unbind_success' => 'A projekt leválasztása sikerült.'
+        'unbind_success' => 'A projekt leválasztása sikerült.',
     ],
     'settings' => [
         'menu_label' => 'Beállítások',
@@ -160,7 +151,7 @@ return [
         'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
         'return' => 'Vissza a beállításokhoz',
         'search' => 'Keresés...',
-        'find_setting' => 'Beállítás keresése...'
+        'find_setting' => 'Beállítás keresése...',
     ],
     'mail' => [
         'log_file' => 'Naplófájl',
@@ -205,7 +196,7 @@ return [
         'ses_region' => 'SES régió',
         'ses_region_comment' => 'Adja meg a régiót (pl. us-east-1)',
         'drivers_hint_header' => 'Hiányzó komponens',
-        'drivers_hint_content' => 'A levél kiküldéséhez szükséges, hogy telepítve legyen az ":plugin" nevű bővítmény.'
+        'drivers_hint_content' => 'A levél kiküldéséhez szükséges, hogy telepítve legyen az ":plugin" nevű bővítmény.',
     ],
     'mail_templates' => [
         'menu_label' => 'Sablonok',
@@ -246,7 +237,7 @@ return [
         'sending' => 'Üzenet küldése folyamatban...',
         'return' => 'Vissza a sablonokhoz',
         'options' => 'Beállítások',
-        'disable_auto_inline_css' => 'Automatikusan beágyazott CSS tiltása'
+        'disable_auto_inline_css' => 'Automatikusan beágyazott CSS tiltása',
     ],
     'mail_brand' => [
         'menu_label' => 'Kinézet',
@@ -260,18 +251,18 @@ return [
                 'description' => 'Leírás',
                 'price' => 'Ár',
                 'centered' => 'középre igazítva',
-                'right_aligned' => 'jobbra igazítva'
+                'right_aligned' => 'jobbra igazítva',
             ],
             'buttons' => [
                 'primary' => 'Elsődleges gomb',
                 'positive' => 'Pozitív gomb',
-                'negative' => 'Negatív gomb'
+                'negative' => 'Negatív gomb',
             ],
             'panel' => 'Kiemelt szöveg',
             'more' => 'Még több szöveg',
             'promotion' => 'Kupon kód: OCTOBER',
             'subcopy' => 'Utóirat helye',
-            'thanks' => 'Üdvözlettel'
+            'thanks' => 'Üdvözlettel',
         ],
         'fields' => [
             '_section_background' => 'Hátterek',
@@ -296,8 +287,8 @@ return [
             '_section_components' => 'Komponensek',
             'panel_bg' => 'Panel háttere',
             'promotion_bg' => 'Promóció háttere',
-            'promotion_border_color' => 'Promóció szegély színe'
-        ]
+            'promotion_border_color' => 'Promóció szegély színe',
+        ],
     ],
     'install' => [
         'project_label' => 'Csatolás',
@@ -306,7 +297,7 @@ return [
         'missing_plugin_name' => 'Adja meg a telepítendő bővítmény nevét.',
         'missing_theme_name' => 'Adja meg a telepítendő téma nevét.',
         'install_completing' => 'A telepítési folyamat befejezése',
-        'install_success' => 'A bővítmény telepítése sikerült.'
+        'install_success' => 'A bővítmény telepítése sikerült.',
     ],
     'updates' => [
         'title' => 'Gépház',
@@ -314,7 +305,6 @@ return [
         'menu_label' => 'Gépház',
         'menu_description' => 'A rendszer frissítése, valamint a bővítmények kezelése.',
         'return_link' => 'Vissza a gépházhoz',
-        'check_label' => 'Frissítések keresése',
         'retry_label' => 'Újra próbál',
         'plugin_name' => 'Név',
         'plugin_code' => 'Kód',
@@ -325,11 +315,6 @@ return [
         'plugin_not_found' => 'A bővítmény nem található',
         'plugin_version_not_found' => 'Bővítmény verzió nem található',
         'theme_not_found' => 'A téma nem található',
-        'core_current_build' => 'Verziószám',
-        'core_updates_available' => 'Frissítés elérhető',
-        'core_up_to_date' => 'Naprakész',
-        'core_latest_build' => 'Legújabb',
-        'core_view_changelog' => 'Részletek',
         'core_build' => 'Új verzió: :build',
         'core_build_help' => 'Elérhető a legújabb hivatalos kiadás.',
         'core_downloading' => 'Rendszer letöltése...',
@@ -337,9 +322,7 @@ return [
         'core_set_build' => 'Rendszer beállítása...',
         'changelog' => 'Kiadott verziók',
         'changelog_view_details' => 'Részletek',
-        'plugins' => 'Bővítmény',
         'themes' => 'Témák',
-        'disabled' => 'Letiltva',
         'plugin_downloading' => 'Bővítmény letöltése: :name',
         'plugin_removing' => 'Bővítmény eltávolítása: :name',
         'plugin_extracting' => 'Bővítmény kicsomagolása: :name',
@@ -357,17 +340,17 @@ return [
         'force_label' => 'Frissítés kényszerítése',
         'found' => [
             'label' => 'Új verzió elérhető!',
-            'help' => 'Töltse le a legújabb frissítéseket.'
+            'help' => 'Töltse le a legújabb frissítéseket.',
         ],
         'none' => [
             'label' => 'A weboldal naprakész',
-            'help' => 'Gratulálunk! A weboldala naprakész.'
+            'help' => 'Gratulálunk! A weboldala naprakész.',
         ],
         'important_action' => [
             'empty' => 'Művelet kiválasztása',
             'confirm' => 'Frissítés elfogadása',
             'skip' => 'Frissítés kihagyása (csak most)',
-            'ignore' => 'Frissítés kihagyása (mindig)'
+            'ignore' => 'Frissítés kihagyása (mindig)',
         ],
         'important_action_required' => 'Művelet szükséges',
         'important_view_guide' => 'Frissítési útmutató megtekintése',
@@ -386,7 +369,7 @@ return [
         'details_view_licence' => 'Licenc megtekintése',
         'details_licence_missing' => 'Nincs megadva licenc.',
         'details_current_version' => 'Verzió',
-        'details_author' => 'Fejlesztő'
+        'details_author' => 'Fejlesztő',
     ],
     'market' => [
         'menu_label' => 'Piactér',
@@ -399,17 +382,17 @@ return [
         'response_invalid' => 'Érvénytelen válasz érkezett a kiszolgálóról.',
         'response_empty' => 'Üres válasz érkezett a kiszolgálóról.',
         'file_error' => 'Nem sikerült továbbítania a kiszolgálónak a csomagot.',
-        'file_corrupt' => 'A kiszolgálóról letöltött fájl sérült.'
+        'file_corrupt' => 'A kiszolgálóról letöltött fájl sérült.',
     ],
     'behavior' => [
-        'missing_property' => 'A(z) :class osztálynak kell definiálnia a(z) :behavior viselkedés által használt $:property tulajdonságot.'
+        'missing_property' => 'A(z) :class osztálynak kell definiálnia a(z) :behavior viselkedés által használt $:property tulajdonságot.',
     ],
     'config' => [
         'not_found' => 'Nem található a(z) :location számára definiált :file konfigurációs fájl.',
-        'required' => "A(z) :location helyen használt konfigurációnak meg kell adnia egy ':property' értéket."
+        'required' => 'A(z) :location helyen használt konfigurációnak meg kell adnia egy \':property\' értéket.',
     ],
     'zip' => [
-        'extract_failed' => "Nem tömöríthető ki a(z) ':file' fájl."
+        'extract_failed' => 'Nem tömöríthető ki a(z) \':file\' fájl.',
     ],
     'event_log' => [
         'hint' => 'Ez a napló a rendszerben történt lehetséges hibákat listázza ki. Például a kivételeket és a hibakeresési információkat.',
@@ -424,7 +407,7 @@ return [
         'created_at' => 'Időpont',
         'message' => 'Üzenet',
         'level' => 'Típus',
-        'preview_title' => 'Esemény részletei'
+        'preview_title' => 'Esemény részletei',
     ],
     'request_log' => [
         'hint' => 'Ez a napló a böngésző kérelmeket listázza ki. Ha például egy látogató nem létező aloldalt nyit meg, akkor egy 404-es állapotkódú bejegyzés jön létre.',
@@ -440,7 +423,7 @@ return [
         'referer' => 'Hivatkozás',
         'url' => 'Webcím',
         'status_code' => 'Kód',
-        'preview_title' => 'Kérelem részletei'
+        'preview_title' => 'Kérelem részletei',
     ],
     'permissions' => [
         'name' => 'Rendszer',
@@ -454,7 +437,7 @@ return [
         'manage_editor' => 'Kódszerkesztő testreszabása',
         'view_the_dashboard' => 'Vezérlőpult elérése',
         'manage_default_dashboard' => 'Vezérlőpult testreszabása',
-        'manage_branding' => 'Kinézet testreszabása'
+        'manage_branding' => 'Kinézet testreszabása',
     ],
     'log' => [
         'menu_label' => 'Engedélyek',
@@ -465,29 +448,29 @@ return [
         'log_requests' => 'Kérelmek naplózása',
         'log_requests_comment' => 'Rossz vagy átirányított kérelmek eltárolása.',
         'log_theme' => 'Téma változtatások naplózása',
-        'log_theme_comment' => 'A fájlokban történt változtatások eltárolása.'
+        'log_theme_comment' => 'A fájlokban történt változtatások eltárolása.',
     ],
     'media' => [
-        'invalid_path' => "Érvénytelen elérési útvonal: ':path'",
-        'folder_size_items' => 'fájl'
+        'invalid_path' => 'Érvénytelen elérési útvonal: \':path\'',
+        'folder_size_items' => 'fájl',
     ],
     'page' => [
         'custom_error' => [
             'label' => 'Oldal hiba',
-            'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.'
+            'help' => 'Sajnáljuk, de hiba történt, ezért az oldal nem megjeleníthető.',
         ],
         'invalid_token' => [
-            'label' => 'Biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.'
+            'label' => 'Biztonsági kód érvényessége lejárt. Kérjük töltse be újra az oldalt.',
         ],
         'maintenance' => [
             'label' => 'Hamarosan visszatérünk!',
             'help' => 'A weboldal karbantartás alatt áll. Látogasson vissza később!',
             'message' => 'Üzenet:',
-            'available_at' => 'Újrapróbálás:'
-        ]
+            'available_at' => 'Újrapróbálás:',
+        ],
     ],
     'pagination' => [
         'previous' => 'Előző',
-        'next' => 'Következő'
-    ]
+        'next' => 'Következő',
+    ],
 ];

@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'OctoberCMS',
         'tagline' => 'กลับคืนสู่สามัญ',
@@ -12,7 +10,7 @@ return [
         'create_fail' => 'ไม่สามารถสร้างไฟล์: :name',
     ],
     'combiner' => [
-        'not_found' => "หาไฟล์ combiner ':name' ไม่พบ",
+        'not_found' => 'หาไฟล์ combiner \':name\' ไม่พบ',
     ],
     'system' => [
         'name' => 'ระบบ',
@@ -57,10 +55,9 @@ return [
             'label' => 'ชื่อปลั๊กอิน',
             'help' => 'ตั้งชื่อปลั๊กอินตามรหัสที่ไม่ซ้ำใคร เช่น RainLab.Blog',
         ],
-        'by_author' => 'โดย :name'
+        'by_author' => 'โดย :name',
     ],
     'plugins' => [
-        'manage' => 'จัดการปลั๊กอิน',
         'install' => 'ติดตั้งปลั๊กอิน',
         'install_products' => 'ติดตั้งผลิตภัณฑ์',
         'search' => 'ค้นหาปลั๊กอินเพื่อติดตั้ง...',
@@ -97,8 +94,6 @@ return [
         'remove_success' => 'เอาปลั๊กอินที่เลือกไว้ออกสำเร็จ',
     ],
     'project' => [
-        'name' => 'โครงการ',
-        'owner_label' => 'เจ้าของ',
         'attach' => 'ผูกโครงการ',
         'detach' => 'ถอดโครงการ',
         'none' => 'ไม่มี',
@@ -266,7 +261,6 @@ return [
         'menu_label' => 'อัพเดท & ปลั๊กอิน (Plugin)',
         'menu_description' => 'อัพเดทระบบ, จัดการ และลงปลั๊กอินหรือธีม',
         'return_link' => 'กลับสู่หน้าการอัพเดทระบบ',
-        'check_label' => 'ตรวจสอบอัพเดทใหม่',
         'retry_label' => 'ลองอีกครั้ง',
         'plugin_name' => 'ชื่อ',
         'plugin_code' => 'โค้ด',
@@ -274,8 +268,6 @@ return [
         'plugin_version' => 'เวอร์ชั่น',
         'plugin_author' => 'ผู้สร้าง',
         'plugin_not_found' => 'ไม่พบปลั๊กอิน',
-        'core_current_build' => 'การสร้างตัวปัจจุบัน',
-        'core_view_changelog' => 'ดูบันทึกการเปลี่ยนแปลง',
         'core_build' => 'การสร้างที่ :build',
         'core_build_help' => 'การสร้างตัวล่าสุดพร้อมให้ดาวน์โหลดแล้ว',
         'core_downloading' => 'กำลังดาวน์โหลดไฟล์แอพพลิเคชั่น',
@@ -283,9 +275,7 @@ return [
         'core_set_build' => 'Setting build number',
         'changelog' => 'บันทึกการเปลี่ยนแปลง',
         'changelog_view_details' => 'ดูรายละเอียด',
-        'plugins' => 'ปลั๊กอิน',
         'themes' => 'ธีม',
-        'disabled' => 'ปิดการใช้งาน',
         'plugin_downloading' => 'กำลังดาวน์โหลดปลั๊กอิน: :name',
         'plugin_extracting' => 'กำลังเปิดขยายกล่องปลั๊กอิน: :name',
         'plugin_version_none' => 'ปลั๊กอินใหม่',
@@ -343,10 +333,10 @@ return [
     ],
     'config' => [
         'not_found' => 'ไม่สามารถหาไฟล์การตั้งค่า :file ที่กำหนดไว้สำหรับ :location.',
-        'required' => "การตั้งค่าที่ใช้ใน :location ต้องมีค่า ':property'.",
+        'required' => 'การตั้งค่าที่ใช้ใน :location ต้องมีค่า \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "ไม่สามารถแยกไฟล์หลัก ':file'.",
+        'extract_failed' => 'ไม่สามารถแยกไฟล์หลัก \':file\'.',
     ],
     'event_log' => [
         'hint' => 'บันทึกนี้แสดงรายการของข้อผิดพลาดที่อาจเกิดขึ้นได้ในแอป เช่น exceptions และข้อมูลการดีบั๊ก.',
@@ -406,19 +396,19 @@ return [
         'log_theme_comment' => 'บันทึกเมื่อมีการเปลี่ยนธีมทางเว็บหลังบ้าน',
     ],
     'media' => [
-        'invalid_path' => "ไฟล์ที่กำหนดไม่ถูกต้อง: ':path'",
+        'invalid_path' => 'ไฟล์ที่กำหนดไม่ถูกต้อง: \':path\'',
         'folder_size_items' => 'รายการ',
     ],
     'page' => [
         'custom_error' => [
             'label' => 'หน้าเว็บผิดพลาด',
-            'help' => "ขอโทษครับ, มีบางอย่างผิดพลาดและไม่สามารถแสดงหน้าเว็บได้",
+            'help' => 'ขอโทษครับ, มีบางอย่างผิดพลาดและไม่สามารถแสดงหน้าเว็บได้',
         ],
         'maintenance' => [
-            'label' => "เราจะรีบกลับมา!",
-            'help' => "เรากำลังปิดปรับปรุงระบบ, ลองเข้าอีกครั้งในภายหลัง!",
-            'message' => "ข้อความ:",
-            'available_at' => "ลองใหม่อีกครั้งหลังจาก:",
+            'label' => 'เราจะรีบกลับมา!',
+            'help' => 'เรากำลังปิดปรับปรุงระบบ, ลองเข้าอีกครั้งในภายหลัง!',
+            'message' => 'ข้อความ:',
+            'available_at' => 'ลองใหม่อีกครั้งหลังจาก:',
         ],
         'invalid_token' => [
             'label' => 'โทเค็นความปลอดภัยไม่ถูกต้อง',

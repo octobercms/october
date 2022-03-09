@@ -1,15 +1,13 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Getting back to basics',
     ],
     'directory' => [
-        'create_fail' => "Kunde inte skapa mapp: :name",
+        'create_fail' => 'Kunde inte skapa mapp: :name',
     ],
     'file' => [
-        'create_fail' => "Kunde inte skapa fil: :name",
+        'create_fail' => 'Kunde inte skapa fil: :name',
     ],
     'page' => [
         'invalid_token' => [
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Kombinationsfilen ':name' kunde ej hittas",
+        'not_found' => 'Kombinationsfilen \':name\' kunde ej hittas',
     ],
     'system' => [
         'name' => 'System',
@@ -34,15 +32,15 @@ return [
             'social' => 'Social',
             'events' => 'Händelser',
             'customers' => 'Kunder',
-            'my_settings' => 'Mina inställningar'
-        ]
+            'my_settings' => 'Mina inställningar',
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Namnlöst tema',
         'name' => [
             'label' => 'Temanamn',
-            'help' => 'Namnge temat med en unik kod. Till exempel, RainLab.Vanilla'
+            'help' => 'Namnge temat med en unik kod. Till exempel, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -51,7 +49,7 @@ return [
         'installed' => 'Installerade teman',
         'no_themes' => 'Det finns inga teman installerade från marknadsplatsen.',
         'recommended' => 'Rekommenderat',
-        'remove_confirm' => 'Är du säker på att du vill radera det här temat?'
+        'remove_confirm' => 'Är du säker på att du vill radera det här temat?',
     ],
     'plugin' => [
         'label' => 'Tillägg',
@@ -59,10 +57,9 @@ return [
         'name' => [
             'label' => 'Tilläggsnamn',
             'help' => 'Namnge tillägget efter dess unika kod. Exempelvis RainLab.Blog',
-        ]
         ],
+    ],
     'plugins' => [
-        'manage' => 'Hantera tillägg',
         'enable_or_disable' => 'Aktivera eller inaktivera',
         'enable_or_disable_title' => 'Aktivera eller inaktivera tillägg',
         'install' => 'Installera tillägg',
@@ -85,11 +82,9 @@ return [
         'disable_confirm' => 'Är du säker?',
         'disable_success' => 'Tilläggen avaktiverades.',
         'enable_success' => 'Aktiverade tilläggen.',
-        'unknown_plugin' => 'Tillägget har raderats.'
+        'unknown_plugin' => 'Tillägget har raderats.',
     ],
     'project' => [
-        'name' => 'Projekt',
-        'owner_label' => 'Ägare',
         'attach' => 'Länka projekt',
         'detach' => 'Avlänka projekt',
         'none' => 'Inget',
@@ -107,7 +102,7 @@ return [
         'missing_model' => 'Inställningssidan saknar en modell-definition',
         'update_success' => 'Inställningar för :name har uppdaterats',
         'return' => 'Återgå till systeminställningar',
-        'search' => 'Sök'
+        'search' => 'Sök',
     ],
     'mail' => [
         'log_file' => 'Loggfiler',
@@ -142,7 +137,7 @@ return [
         'mandrill_secret' => 'Mandrill hemlighet',
         'mandrill_secret_comment' => 'Ange din API-nyckel.',
         'drivers_hint_header' => 'Drivrutiner är inte installerade',
-        'drivers_hint_content' => 'Den här e-postmetoden kräver att tillägget ":plugin" är installerat innan du kan skicka e-post.'
+        'drivers_hint_content' => 'Den här e-postmetoden kräver att tillägget ":plugin" är installerat innan du kan skicka e-post.',
     ],
     'mail_templates' => [
         'menu_label' => 'E-postmall',
@@ -187,7 +182,6 @@ return [
         'menu_label' => 'Uppdateringar',
         'menu_description' => 'Uppdatera systemet, hantera och installera tillägg och teman.',
         'return_link' => 'Återgå till systemuppdateringar',
-        'check_label' => 'Sök efter uppdateringar',
         'retry_label' => 'Försök igen',
         'plugin_name' => 'Namn',
         'plugin_code' => 'Kod',
@@ -195,14 +189,11 @@ return [
         'plugin_version' => 'Version',
         'plugin_author' => 'Skapare',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Nuvarande build',
         'core_build' => 'Build :build',
         'core_build_help' => 'Senaste build är tillgänglig.',
         'core_downloading' => 'Laddar ner applikationsfiler',
         'core_extracting' => 'Packar upp applikationsfiler',
-        'plugins' => 'Tillägg',
         'themes' => 'Teman',
-        'disabled' => 'Avaktiverade',
         'plugin_downloading' => 'Laddar ner tillägg: :name',
         'plugin_extracting' => 'Packar upp tillägg: :name',
         'plugin_version_none' => 'Nytt tillägg',
@@ -218,11 +209,11 @@ return [
         'force_label' => 'Tvinga uppdatering',
         'found' => [
             'label' => 'Hittade nya uppdateringar!',
-            'help' => 'Klicka på Uppdatera systemet för att påbörja processen.'
+            'help' => 'Klicka på Uppdatera systemet för att påbörja processen.',
         ],
         'none' => [
             'label' => 'Inga uppdateringar',
-            'help' => 'Inga nya uppdateringar hittades.'
+            'help' => 'Inga nya uppdateringar hittades.',
         ],
         'important_action' => [
             'empty' => 'Välj åtgärd',
@@ -258,7 +249,7 @@ return [
         'required' => 'Konfigurationen som används i :location måste sända med ett värde :property',
     ],
     'zip' => [
-        'extract_failed' => "Kunde inte packa upp core-fil ':file'.",
+        'extract_failed' => 'Kunde inte packa upp core-fil \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Denna logg visar en lista över potentiella fel som uppstår i applikationen, såsom undantag och felsökningsinformation.',
@@ -272,7 +263,7 @@ return [
         'id_label' => 'Händelse-ID',
         'created_at' => 'Datum och tid',
         'message' => 'Meddelande',
-        'level' => 'Nivå'
+        'level' => 'Nivå',
     ],
     'request_log' => [
         'hint' => 'Denna loggen visar en lista med förfrågningar från webbläsare som kan kräva uppmärksamhet. Till exempel, om en besökare öppnar en CMS sida som inte kan hittas, så skapas en post med statuskoden 404.',
@@ -287,7 +278,7 @@ return [
         'count' => 'Räknare',
         'referer' => 'Hänvisning',
         'url' => 'URL',
-        'status_code' => 'Status'
+        'status_code' => 'Status',
     ],
     'permissions' => [
         'name' => 'System',
@@ -303,7 +294,7 @@ return [
         'manage_branding' => 'Anpassa back-end',
     ],
     'media' => [
-        'invalid_path' => "Felaktig filsökväg angiven: ':path'.",
+        'invalid_path' => 'Felaktig filsökväg angiven: \':path\'.',
         'folder_size_items' => 'föremål',
     ],
 ];

@@ -1,18 +1,16 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => '基本に戻ろう！',
     ],
     'directory' => [
-        'create_fail' => "ディレクトリ':name'を作成できません。",
+        'create_fail' => 'ディレクトリ\':name\'を作成できません。',
     ],
     'file' => [
-        'create_fail' => "ファイル':name'を作成できません。",
+        'create_fail' => 'ファイル\':name\'を作成できません。',
     ],
     'combiner' => [
-        'not_found' => "コンバイナファイル':name'が見つかりません。",
+        'not_found' => 'コンバイナファイル\':name\'が見つかりません。',
     ],
     'system' => [
         'name' => 'システム',
@@ -29,8 +27,8 @@ return [
             'social' => 'ソーシャル',
             'events' => 'イベント',
             'customers' => 'カスタマー',
-            'my_settings' => 'マイ設定'
-        ]
+            'my_settings' => 'マイ設定',
+        ],
     ],
     'plugin' => [
         'unnamed' => '名前なしプラグイン',
@@ -40,7 +38,6 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'プラグイン管理',
         'enable_or_disable' => '有効化・無効化',
         'enable_or_disable_title' => 'プラグインの有効化・無効化',
         'remove' => '削除',
@@ -55,11 +52,9 @@ return [
         'disable_confirm' => '無効にしていいですか？',
         'disable_success' => 'プラグインを無効にしました。',
         'enable_success' => 'プラグインを有効にしました。',
-        'unknown_plugin' => 'システムから見知らぬプラグインを削除しました。'
+        'unknown_plugin' => 'システムから見知らぬプラグインを削除しました。',
     ],
     'project' => [
-        'name' => 'プロジェクト',
-        'owner_label' => '所有者',
         'attach' => 'プロジェクト追加',
         'detach' => 'プロジェクト切り離し',
         'none' => '無し',
@@ -77,7 +72,7 @@ return [
         'missing_model' => 'モデルの定義が見つかりません。',
         'update_success' => ':name を設定しました。',
         'return' => 'システム設定へ戻る',
-        'search' => '検索'
+        'search' => '検索',
     ],
     'mail' => [
         'log_file' => 'ログファイル',
@@ -103,7 +98,7 @@ return [
         'mailgun_domain' => 'Mailgunドメイン',
         'mailgun_domain_comment' => 'Mailgunドメイン名を指定してください。',
         'mailgun_secret' => 'Mailgun APIキー',
-        'mailgun_secret_comment' => 'Mailgun APIキーを指定してください。'
+        'mailgun_secret_comment' => 'Mailgun APIキーを指定してください。',
     ],
     'mail_templates' => [
         'menu_label' => 'メールテンプレート',
@@ -127,7 +122,7 @@ return [
         'content_text' => 'プレーンテキスト',
         'test_send' => 'テストメッセージを送信する',
         'test_success' => 'テストメッセージが送信されました。',
-        'return' => 'テンプレートリストに戻る'
+        'return' => 'テンプレートリストに戻る',
     ],
     'install' => [
         'project_label' => 'プロジェクト追加',
@@ -141,25 +136,22 @@ return [
         'name' => 'ソフトウェアアップデート',
         'menu_label' => 'アップデート',
         'menu_description' => 'システムの更新、プラグインとテーマの管理とインストール。',
-        'check_label' => 'アップデート確認',
         'retry_label' => '再実行',
         'plugin_name' => '名前',
         'plugin_description' => '説明',
         'plugin_version' => 'バージョン',
         'plugin_author' => '作者',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => '現在のビルド',
         'core_build' => 'ビルド :build',
         'core_build_help' => '新しいビルドが存在します。',
         'core_downloading' => 'アプリケーションファイルのダウンロード中',
         'core_extracting' => 'アプリケーションファイルの展開中',
-        'plugins' => 'プラグイン',
         'plugin_downloading' => 'プラグインダウンロード中： :name',
         'plugin_extracting' => 'プラグイン展開中： :name',
         'plugin_version_none' => '新プラグイン',
         'theme_new_install' => '新しいテーマのインストール',
-        'theme_downloading' => "テーマ ':name' をダウンロードしています",
-        'theme_extracting' => "テーマ ':name' を展開しています",
+        'theme_downloading' => 'テーマ \':name\' をダウンロードしています',
+        'theme_extracting' => 'テーマ \':name\' を展開しています',
         'update_label' => 'ソフトウェアアップデート',
         'update_completing' => 'アップデート仕上げ中',
         'update_loading' => 'アップデートロード中…',
@@ -191,7 +183,7 @@ return [
         'required' => ':location　の中の設定で、値の指定が必要な、 :property が見つかりません。',
     ],
     'zip' => [
-        'extract_failed' => "コアファイル： ':file' が取り出せません。",
+        'extract_failed' => 'コアファイル： \':file\' が取り出せません。',
     ],
     'event_log' => [
         'hint' => 'アプリケーションで発生した潜在的なエラーを表示します。例えば、例外やデバッグ情報です。',
@@ -205,7 +197,7 @@ return [
         'id_label' => 'イベントID',
         'created_at' => '日付と時間',
         'message' => 'メッセージ',
-        'level' => 'レベル'
+        'level' => 'レベル',
     ],
     'request_log' => [
         'hint' => 'This log displays a list of browser requests that may require attention. For example, if a visitor opens a CMS page that cannot be found, a record is created with the status code 404.',
@@ -220,7 +212,7 @@ return [
         'count' => 'カウンタ',
         'referer' => '参照元',
         'url' => 'URL',
-        'status_code' => 'ステータス'
+        'status_code' => 'ステータス',
     ],
     'permissions' => [
         'name' => 'システム',
@@ -228,6 +220,6 @@ return [
         'manage_software_updates' => 'ソフトウェアアップデートの管理',
         'manage_mail_templates' => 'メールテンプレートの管理',
         'manage_other_administrators' => '他のアドミニストレーターの管理',
-        'view_the_dashboard' => 'ダッシュボードの表示'
+        'view_the_dashboard' => 'ダッシュボードの表示',
     ],
 ];

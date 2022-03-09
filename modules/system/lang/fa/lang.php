@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'مدیریت محتوی اکتبر',
         'tagline' => 'ورود به پنل مدیریت',
@@ -44,7 +42,7 @@ return [
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
-        'zh-tw' => '繁體中文'
+        'zh-tw' => '繁體中文',
     ],
     'directory' => [
         'create_fail' => 'مشکلی در ایجاد پوشه ی :name به وجود آمده است',
@@ -58,7 +56,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "فایل ترکیب کننده ':name' یافت نشد.",
+        'not_found' => 'فایل ترکیب کننده \':name\' یافت نشد.',
     ],
     'system' => [
         'name' => 'سیستم',
@@ -77,15 +75,15 @@ return [
             'events' => 'رویداد ها',
             'customers' => 'مشتریان',
             'my_settings' => 'تنظیمات من',
-            'notifications' => 'اطلاعیه ها'
-        ]
+            'notifications' => 'اطلاعیه ها',
+        ],
     ],
     'theme' => [
         'label' => 'قالب',
         'unnamed' => 'قالب بدون نام',
         'name' => [
             'label' => 'نام قالب',
-            'help' => 'یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla'
+            'help' => 'یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla',
         ],
     ],
     'themes' => [
@@ -103,10 +101,9 @@ return [
             'label' => 'نام افزونه',
             'help' => 'یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog',
         ],
-        'by_author' => 'توسط :name'
+        'by_author' => 'توسط :name',
     ],
     'plugins' => [
-        'manage' => 'مدیریت افزونه ها',
         'enable_or_disable' => 'فعال یا غیر فعال کردن',
         'enable_or_disable_title' => 'فعال یا غیر فعال کردن افزونه ها',
         'install' => 'نصب افزونه جدید',
@@ -123,17 +120,15 @@ return [
         'frozen_help' => 'افزونه های قفل شده بهنگام به روز رسانی نادیده گرفته خواهند شد.',
         'selected_amount' => 'افزونه های انتخاب شده: :amount',
         'remove_confirm' => 'آیا از حذف این افزونه اطمینان دارید؟',
-        'remove_success' => "افزونه ها با موفقیت از سیستم حذف شدند.",
+        'remove_success' => 'افزونه ها با موفقیت از سیستم حذف شدند.',
         'refresh_confirm' => 'آیا اطمینان دارید؟',
-        'refresh_success' => "افزونه ها با موفقیت بارگذاری مجدد شدند.",
+        'refresh_success' => 'افزونه ها با موفقیت بارگذاری مجدد شدند.',
         'disable_confirm' => 'آیا اطمینان دارید؟',
-        'disable_success' => "افزونه ها با موفقیت غیر فعال شدند.",
-        'enable_success' => "افرونه ها با موفقیت فعال شدند.",
-        'unknown_plugin' => "افرونه ها با موفقیت پاک شدند.",
+        'disable_success' => 'افزونه ها با موفقیت غیر فعال شدند.',
+        'enable_success' => 'افرونه ها با موفقیت فعال شدند.',
+        'unknown_plugin' => 'افرونه ها با موفقیت پاک شدند.',
     ],
     'project' => [
-        'name' => 'پروژه',
-        'owner_label' => 'صاحب امتیاز',
         'attach' => 'افرودن به پروژه',
         'detach' => 'حذف از پروژه',
         'none' => 'هیچ',
@@ -151,7 +146,7 @@ return [
         'missing_model' => 'صفحه تنظیمات شامل یک مدل تعریف نشده می باشد.',
         'update_success' => 'تنظیمات برای :name با موفقیت تغییر یافت.',
         'return' => 'بازگشت به تنظیمات سیستم',
-        'search' => 'جستجو'
+        'search' => 'جستجو',
     ],
     'mail' => [
         'log_file' => 'فایل گزارش',
@@ -187,13 +182,13 @@ return [
         'mandrill_secret_comment' => 'کلید API ی Mandrill را وارد نمایید.',
         'ses' => 'SES',
         'ses_key' => 'کلید SES',
-        'ses_key_comment' => 'کلید Api SES  را وارد نمایید',
+        'ses_key_comment' => 'کلید Api SES را وارد نمایید',
         'ses_secret' => 'کلمه عبور SES',
         'ses_secret_comment' => 'کلمه عبور API SES را وارد نمایید',
         'ses_region' => 'منطفه SES',
-        'ses_region_comment' => 'منطقه خود را برای  SES وارد نمایید (برای مثال: us-east-1)',
+        'ses_region_comment' => 'منطقه خود را برای SES وارد نمایید (برای مثال: us-east-1)',
         'drivers_hint_header' => 'درایور ها نصب نشده اند',
-        'drivers_hint_content' => 'این روش برای ارسال پست الکترونیکی به افزونه ":plugin" نیاز دارد. جهت استفاده از این روش لطفا افزونه مورد نیاز را نصب نمایید.'
+        'drivers_hint_content' => 'این روش برای ارسال پست الکترونیکی به افزونه ":plugin" نیاز دارد. جهت استفاده از این روش لطفا افزونه مورد نیاز را نصب نمایید.',
     ],
     'mail_templates' => [
         'menu_label' => 'قالب های نامه الکترونیکی',
@@ -232,7 +227,7 @@ return [
         'deleting' => 'درحال حذف قالب...',
         'deleting_layout' => 'در حال حذف طرح بندی...',
         'sending' => 'ارسال نامه الکترونیکی آزمایشی...',
-        'return' => 'بازگشت به لیست قالب ها'
+        'return' => 'بازگشت به لیست قالب ها',
     ],
     'mail_brand' => [
         'menu_label' => 'پست الکترونیکی',
@@ -246,7 +241,7 @@ return [
                 'description' => 'توضیحات',
                 'price' => 'قیمت',
                 'centered' => 'وسط چین',
-                'right_aligned' => 'راست چین'
+                'right_aligned' => 'راست چین',
             ],
             'buttons' => [
                 'primary' => 'دکمه اصلی',
@@ -257,7 +252,7 @@ return [
             'more' => 'متن اضافی',
             'promotion' => 'کد کپن تخفیف: OCTOBER',
             'subcopy' => 'این یک کپی از پست الکترونیکی می باشد.',
-            'thanks' => 'با تشکر'
+            'thanks' => 'با تشکر',
         ],
         'fields' => [
             '_section_background' => 'پس زمینه',
@@ -283,7 +278,7 @@ return [
             'panel_bg' => 'پس رمینه پنل',
             'promotion_bg' => 'پس زمینه شاخص',
             'promotion_border_color' => 'رنگ حاشیه شاخص',
-        ]
+        ],
     ],
     'install' => [
         'project_label' => 'ضمیمه کردن به نرم افزار',
@@ -300,7 +295,6 @@ return [
         'menu_label' => 'بروز رسانی ها',
         'menu_description' => 'به روز رسانی ی سیستم، مدیریت افزونه ها و قالب های نصب شده.',
         'return_link' => 'بازگشت به صفحه به روز رسانی ها',
-        'check_label' => 'بررسی بروز رسانی',
         'retry_label' => 'تلاش مجدد',
         'plugin_name' => 'نام',
         'plugin_code' => 'کد یکتا',
@@ -308,15 +302,12 @@ return [
         'plugin_version' => 'نسخه',
         'plugin_author' => 'تولید کننده',
         'plugin_not_found' => 'افزونه یافت شد',
-        'core_current_build' => 'نسخه ی کنونی',
         'core_build' => 'نسخه ی :build',
         'core_build_help' => 'به روز رسانی جدید موجود است',
         'core_downloading' => 'دریافت فایل های نرم افزار',
         'core_extracting' => 'گشودن فایل های نرم افزار',
         'core_set_build' => 'شماره ساخت تنظیمات',
-        'plugins' => 'افرونه ها',
         'themes' => 'قالب ها',
-        'disabled' => 'غیر فعال شده',
         'plugin_downloading' => 'دریافت افزونه: :name',
         'plugin_extracting' => 'گشودن افزونه: :name',
         'plugin_version_none' => 'افزونه ی جدید',
@@ -336,7 +327,7 @@ return [
         ],
         'none' => [
             'label' => 'شما از آخرین نسخه استفاده می کنید',
-            'help' => 'هیچ به روز رسانی یافت نشد.'
+            'help' => 'هیچ به روز رسانی یافت نشد.',
         ],
         'important_action' => [
             'empty' => 'اقدام مورد نظر را انتخاب کنید',
@@ -373,17 +364,17 @@ return [
         'missing_property' => 'کلاس :class باید شامل خصوصیت $:property که در :behavior استفاده شده است باشد.',
     ],
     'config' => [
-        'not_found' => 'فایل پیکربندی  :file تعریف شده در :location یافت نشد.',
-        'required' => "پیکربندی استفاده شده در :location باید مقدار ':property' را ارائه نماید.",
+        'not_found' => 'فایل پیکربندی :file تعریف شده در :location یافت نشد.',
+        'required' => 'پیکربندی استفاده شده در :location باید مقدار \':property\' را ارائه نماید.',
     ],
     'zip' => [
-        'extract_failed' => "عدم توانایی در گشودن فایل هسته ':file'.",
+        'extract_failed' => 'عدم توانایی در گشودن فایل هسته \':file\'.',
     ],
     'event_log' => [
         'hint' => 'این گزارش نمایش دهنده خطاهای عملکردی در سیستم می باشد، مانند خطاهای در حال اجرا و اطلاعات خطایابی.',
         'menu_label' => 'گزارش رویدادها',
         'menu_description' => 'نمایش گزارش های سیستمی همراه با زمان و توضیح آنها.',
-        'empty_link' => 'پاک  سازی گزارش رویداد ها',
+        'empty_link' => 'پاک سازی گزارش رویداد ها',
         'empty_loading' => 'درحال پاکسازی گزارشها...',
         'empty_success' => 'گزارشها با موفقیت پاک شدند.',
         'return_link' => 'بازگشت به گزارش رویداد ها',
@@ -392,7 +383,7 @@ return [
         'created_at' => 'ساعت و تاریخ',
         'message' => 'پیغام',
         'level' => 'مرحله',
-        'preview_title' => 'اتفاق'
+        'preview_title' => 'اتفاق',
     ],
     'request_log' => [
         'hint' => 'این گزارش درخواستهایی از طرف مرورگر را که نیاز به بررسی دارند را نمایش می دهد. به عنوان مثال اگر بازدید کنند صفحه ای را که موجود نیست درخواست کند، یک گزینه با کد وضعیت 404 ایجاد می شود.',
@@ -408,7 +399,7 @@ return [
         'referer' => 'منتقل شده از',
         'url' => 'آدرس',
         'status_code' => 'وضعیت',
-        'preview_title' => 'درخواست'
+        'preview_title' => 'درخواست',
     ],
     'permissions' => [
         'name' => 'سیستم',
@@ -421,7 +412,7 @@ return [
         'manage_preferences' => 'مدیریت تنظیمات بخش مدیریت',
         'manage_editor' => 'مدیریت تنظیمات ویرایشگر کد',
         'view_the_dashboard' => 'نمایش صفحه مدیریت',
-        'manage_branding' => 'شخصی سازی قسمت مدیریت'
+        'manage_branding' => 'شخصی سازی قسمت مدیریت',
     ],
     'log' => [
         'menu_label' => 'تنظیمات وقایع',
@@ -435,7 +426,7 @@ return [
         'log_theme_comment' => 'ثبت تغیراتی که در بخش مدیریت برای قالب ها اعمال می گردد.',
     ],
     'media' => [
-        'invalid_path' => "آدرس فایل ':path' معتبر نیست.",
+        'invalid_path' => 'آدرس فایل \':path\' معتبر نیست.',
         'folder_size_items' => 'مورد(ها)',
     ],
 ];

@@ -1,15 +1,13 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Zurück zum Wesentlichen',
     ],
     'directory' => [
-        'create_fail' => "Konnte Verzeichnis: :name nicht erstellen",
+        'create_fail' => 'Konnte Verzeichnis: :name nicht erstellen',
     ],
     'file' => [
-        'create_fail' => "Konnte Datei :name nicht erstellen",
+        'create_fail' => 'Konnte Datei :name nicht erstellen',
     ],
     'page' => [
         'invalid_token' => [
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Die combiner Datei ':name' wurde nicht gefunden.",
+        'not_found' => 'Die combiner Datei \':name\' wurde nicht gefunden.',
     ],
     'system' => [
         'name' => 'System',
@@ -34,8 +32,8 @@ return [
             'social' => 'Social',
             'events' => 'Events',
             'customers' => 'Kunden',
-            'my_settings' => 'Meine Einstellungen'
-        ]
+            'my_settings' => 'Meine Einstellungen',
+        ],
     ],
     'plugin' => [
         'unnamed' => 'Unbenanntes Plugin',
@@ -45,8 +43,6 @@ return [
         ],
     ],
     'project' => [
-        'name' => 'Projekt',
-        'owner_label' => 'Besitzer',
         'attach' => 'Projekt verbinden',
         'detach' => 'Projekt trennen',
         'none' => 'Keins',
@@ -98,7 +94,7 @@ return [
         'mandrill_secret' => 'Mandrill-Schlüssel',
         'mandrill_secret_comment' => 'Gib Deinen Mandrill-API-Schlüssel an.',
         'drivers_hint_header' => 'Treiber nicht installiert.',
-        'drivers_hint_content' => 'Für diese Mail-Methode muss das Plugin ":plugin" installiert werden, bevor Du Mails verschicken kannst.'
+        'drivers_hint_content' => 'Für diese Mail-Methode muss das Plugin ":plugin" installiert werden, bevor Du Mails verschicken kannst.',
     ],
     'mail_templates' => [
         'menu_label' => 'Mail-Vorlagen',
@@ -149,14 +145,12 @@ return [
         'name' => 'Software-Aktualisierung',
         'menu_label' => 'Aktualisierungen',
         'menu_description' => 'System aktualisieren, Plugins und Themes verwalten und installieren.',
-        'check_label' => 'Auf Aktualisierungen überprüfen',
         'retry_label' => 'Erneut versuchen',
         'plugin_name' => 'Name',
         'plugin_description' => 'Beschreibung',
         'plugin_version' => 'Version',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Aktueller Build',
         'core_build' => 'Build :build',
         'core_build_help' => 'Aktuellster Build ist verfügbar.',
         'core_downloading' => 'Applikationsdaten werden heruntergeladen',
@@ -195,7 +189,7 @@ return [
         'required' => 'Konfiguration, die in :location benutzt wird, muss den Wert :property zur Verfügung stellen.',
     ],
     'zip' => [
-        'extract_failed' => "Konnte Core-Datei ':file' nicht entpacken.",
+        'extract_failed' => 'Konnte Core-Datei \':file\' nicht entpacken.',
     ],
     'event_log' => [
         'hint' => 'Dieses Event-Log listet potentielle Fehler in der Anwendung, wie Exceptions und Debugging-Informationen.',
@@ -209,7 +203,7 @@ return [
         'id_label' => 'Event ID',
         'created_at' => 'Datum & Zeit',
         'message' => 'Nachricht',
-        'level' => 'Level'
+        'level' => 'Level',
     ],
     'request_log' => [
         'hint' => 'Dieses Request-Log listet Browser-Anfragen, die Ihrer Aufmerksamkeit bedürfen könnten. Falls zum Beispiel ein Besucher eine nicht existierende CMS-Seite öffnet, wird ein Eintrag mit dem Fehler 404 angelegt.',
@@ -224,7 +218,7 @@ return [
         'count' => 'Zähler',
         'referer' => 'Referer',
         'url' => 'URL',
-        'status_code' => 'Status'
+        'status_code' => 'Status',
     ],
     'permissions' => [
         'name' => 'System',
@@ -237,10 +231,10 @@ return [
         'manage_preferences' => 'Backend-Einstellungen verwalten',
         'manage_editor' => 'Code-Editor-Einstellungen verwalten',
         'view_the_dashboard' => 'Dashboard einsehen',
-        'manage_branding' => 'Backend individualisieren'
+        'manage_branding' => 'Backend individualisieren',
     ],
     'media' => [
-        'invalid_path' => "Ungültiger Dateipfad: ':path'.",
+        'invalid_path' => 'Ungültiger Dateipfad: \':path\'.',
         'folder_size_items' => 'Datei(en)',
     ],
 ];

@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'installer' => [
         'app_config_section' => 'Application Configuration',
         'license_section' => 'License Key',
@@ -91,10 +89,10 @@ return [
         'create_fail' => 'Cannot create file: :name',
     ],
     'combiner' => [
-        'not_found' => "The combiner file ':name' is not found.",
+        'not_found' => 'The combiner file \':name\' is not found.',
     ],
     'resizer' => [
-        'not_found' => "The resizer file ':name' is not found.",
+        'not_found' => 'The resizer file \':name\' is not found.',
     ],
     'system' => [
         'name' => 'System',
@@ -124,11 +122,7 @@ return [
             'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla',
         ],
     ],
-    'packages' => [
-        'install' => 'Install Packages',
-    ],
     'themes' => [
-        'manage' => 'Manage Themes',
         'install' => 'Install Themes',
         'search' => 'search themes to install...',
         'installed' => 'Installed themes',
@@ -146,7 +140,6 @@ return [
         'by_author' => 'By :name',
     ],
     'plugins' => [
-        'manage' => 'Manage Plugins',
         'install' => 'Install Plugins',
         'install_products' => 'Install Products',
         'search' => 'search plugins to install...',
@@ -183,8 +176,6 @@ return [
         'remove_success' => 'Successfully removed the selected plugins.',
     ],
     'project' => [
-        'name' => 'Project',
-        'owner_label' => 'Owner',
         'attach' => 'Attach Project',
         'detach' => 'Detach Project',
         'none' => 'None',
@@ -358,7 +349,6 @@ return [
         'menu_label' => 'System Updates',
         'menu_description' => 'Update the system modules and plugins.',
         'return_link' => 'Return to System Updates',
-        'check_label' => 'Check For Updates',
         'retry_label' => 'Try Again',
         'plugin_name' => 'Name',
         'plugin_code' => 'Code',
@@ -369,11 +359,6 @@ return [
         'plugin_not_found' => 'Plugin not found',
         'plugin_version_not_found' => 'Plugin version not found',
         'theme_not_found' => 'Theme not found',
-        'core_current_build' => 'Current Build',
-        'core_updates_available' => 'Updates Available',
-        'core_up_to_date' => 'Up to Date',
-        'core_latest_build' => 'Latest Build',
-        'core_view_changelog' => 'View Changelog',
         'core_build' => 'Build :build',
         'core_build_help' => 'Latest build is available.',
         'core_downloading' => 'Downloading application files',
@@ -381,9 +366,7 @@ return [
         'core_set_build' => 'Setting build number',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'View Details',
-        'plugins' => 'Plugins',
         'themes' => 'Themes',
-        'disabled' => 'Disabled',
         'plugin_downloading' => 'Downloading plugin: :name',
         'plugin_removing' => 'Removing plugin: :name',
         'plugin_extracting' => 'Unpacking plugin: :name',
@@ -450,10 +433,10 @@ return [
     ],
     'config' => [
         'not_found' => 'Unable to find configuration file :file defined for :location.',
-        'required' => "Configuration used in :location must supply a value ':property'.",
+        'required' => 'Configuration used in :location must supply a value \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "Unable to extract core file ':file'.",
+        'extract_failed' => 'Unable to extract core file \':file\'.',
     ],
     'event_log' => [
         'hint' => 'This log displays a list of potential errors that occur in the application, such as exceptions and debugging information.',
@@ -512,7 +495,7 @@ return [
         'log_theme_comment' => 'When a change is made to the theme using the back-end.',
     ],
     'media' => [
-        'invalid_path' => "Invalid file path specified: ':path'.",
+        'invalid_path' => 'Invalid file path specified: \':path\'.',
         'folder_size_items' => 'item(s)',
     ],
     'page' => [
@@ -522,14 +505,14 @@ return [
         ],
         'custom_error' => [
             'label' => 'Page Error',
-            'help' => "We're sorry, but something went wrong and the page cannot be displayed.",
+            'help' => 'We\'re sorry, but something went wrong and the page cannot be displayed.',
         ],
         'invalid_token' => [
             'label' => 'Invalid security token',
         ],
         'maintenance' => [
-            'label' => "We'll Be Right Back!",
-            'help' => "We're currently down for maintenance, check back soon!",
+            'label' => 'We\'ll Be Right Back!',
+            'help' => 'We\'re currently down for maintenance, check back soon!',
             'message' => 'Message:',
             'available_at' => 'Try again after:',
         ],

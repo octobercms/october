@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Voltando ao básico',
@@ -76,15 +74,15 @@ return [
             'events' => 'Eventos',
             'customers' => 'Clientes',
             'my_settings' => 'Configurações',
-            'notifications' => 'Notificações'
-        ]
+            'notifications' => 'Notificações',
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Tema sem nome',
         'name' => [
             'label' => 'Nome do Tema',
-            'help' => 'Nome do tema deve ser único. Por exemplo, RainLab.Vanilla'
+            'help' => 'Nome do tema deve ser único. Por exemplo, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -93,7 +91,7 @@ return [
         'installed' => 'Temas instalados',
         'no_themes' => 'Não há temas instalados.',
         'recommended' => 'Recomendado',
-        'remove_confirm' => 'Você tem certeza que deseja remover este tema?'
+        'remove_confirm' => 'Você tem certeza que deseja remover este tema?',
     ],
     'plugin' => [
         'label' => 'Plugin',
@@ -102,17 +100,16 @@ return [
             'label' => 'Nome do Plugin',
             'help' => 'Nomeie o plugin pelo seu código exclusivo. Por exemplo, RainLab.Blog',
         ],
-        'by_author' => 'Por :name'
+        'by_author' => 'Por :name',
     ],
     'plugins' => [
-        'manage' => 'Gerenciar plugins',
         'install' => 'Instalar plugins',
         'install_products' => 'Instalar produtos',
         'search' => 'Buscar plugin para instalar...',
         'installed' => 'Plugins instalados',
         'no_plugins' => 'Não há plugins instalados.',
         'recommended' => 'Recomendado',
-        'plugin_label'  => 'Plugin',
+        'plugin_label' => 'Plugin',
         'unknown_plugin' => 'Plugin removido do sistema de arquivos.',
         'select_label' => 'Selecionar ação...',
         'bulk_actions_label' => 'Ações em massa',
@@ -142,8 +139,6 @@ return [
         'remove_success' => 'Plugins removidos com sucesso do sistema.',
     ],
     'project' => [
-        'name' => 'Projeto',
-        'owner_label' => 'Desenvolvedor',
         'attach' => 'Anexar Projeto',
         'detach' => 'Desanexar Projeto',
         'none' => 'Nenhum',
@@ -206,7 +201,7 @@ return [
         'sparkpost_secret' => 'SparkPost chave secreta',
         'sparkpost_secret_comment' => 'Insira sua chave secreta da API SparkPost',
         'drivers_hint_header' => 'Drivers não instalados',
-        'drivers_hint_content' => 'Este método requer que o plugin ":plugin" esteja instalado.'
+        'drivers_hint_content' => 'Este método requer que o plugin ":plugin" esteja instalado.',
     ],
     'mail_templates' => [
         'menu_label' => 'Modelos de E-mail',
@@ -247,7 +242,7 @@ return [
         'sending' => 'Enviando mensagem de teste...',
         'return' => 'Retornar à lista de modelos',
         'options' => 'Opções',
-        'disable_auto_inline_css' => 'Desativar CSS inline automático'
+        'disable_auto_inline_css' => 'Desativar CSS inline automático',
     ],
     'mail_brand' => [
         'menu_label' => 'Personalizar Email',
@@ -261,7 +256,7 @@ return [
                 'description' => 'Descrição',
                 'price' => 'Priço',
                 'centered' => 'Centralizado',
-                'right_aligned' => 'Alinhado à direita'
+                'right_aligned' => 'Alinhado à direita',
             ],
             'buttons' => [
                 'primary' => 'Botão principal',
@@ -272,7 +267,7 @@ return [
             'more' => 'Mais alguns textos',
             'promotion' => 'Código do cupom: OCTOBER',
             'subcopy' => 'Esta é a subcópia do email',
-            'thanks' => 'Obrigado'
+            'thanks' => 'Obrigado',
         ],
         'fields' => [
             '_section_background' => 'Fundo',
@@ -298,7 +293,7 @@ return [
             'panel_bg' => 'Fundo do painel',
             'promotion_bg' => 'Fundo do cupom promocional',
             'promotion_border_color' => 'Cor da borda cupom promocional',
-        ]
+        ],
     ],
     'install' => [
         'project_label' => 'Anexar ao projeto',
@@ -315,7 +310,6 @@ return [
         'menu_label' => 'Atualizações',
         'menu_description' => 'Atualize o sistema, gerencie e instale plugins e temas.',
         'return_link' => 'Voltar às atualizações',
-        'check_label' => 'Verificar atualizações',
         'retry_label' => 'Tentar novamente',
         'plugin_name' => 'Nome',
         'plugin_code' => 'Código',
@@ -324,8 +318,6 @@ return [
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Plugin não encontrado',
         'plugin_version_not_found' => 'Versão do plugin não encontrada',
-        'core_current_build' => 'Compilação atual',
-        'core_view_changelog' => 'Visualizar Changelog',
         'core_build' => 'Compilação :build',
         'core_build_help' => 'Última versão está disponível.',
         'core_downloading' => 'Baixando arquivos do aplicativo',
@@ -335,9 +327,7 @@ return [
         'update_warnings_plugin_missing' => 'O plugin :parent_code requer que o :code seja instalado antes de funcionar',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'Ver detalhes',
-        'plugins' => 'Plugins',
         'themes' => 'Temas',
-        'disabled' => 'Desabilitados',
         'plugin_downloading' => 'Baixando o plugin: :name',
         'plugin_extracting' => 'Desempacotando o plugin: :name',
         'plugin_version_none' => 'Novo plugin',
@@ -413,7 +403,7 @@ return [
         'created_at' => 'Data & Hora',
         'message' => 'Mensagem',
         'level' => 'Nível',
-        'preview_title' => 'Evento'
+        'preview_title' => 'Evento',
     ],
     'request_log' => [
         'hint' => 'Este registro mostra uma lista de requisições que requerem atenção. Por exemplo, se um usuário solicitar uma página não encontrada, será registrado com o status 404.',
@@ -429,7 +419,7 @@ return [
         'referer' => 'Referências',
         'url' => 'URL',
         'status_code' => 'Status',
-        'preview_title' => 'Requisição'
+        'preview_title' => 'Requisição',
     ],
     'permissions' => [
         'name' => 'Sistema',
@@ -445,7 +435,7 @@ return [
         'manage_own_editor' => 'Gerenciar preferências pessoais do editor de código',
         'view_the_dashboard' => 'Visualizar o painel',
         'manage_default_dashboard' => 'Gerenciar o painel padrão',
-        'manage_branding' => 'Personalizar o painel'
+        'manage_branding' => 'Personalizar o painel',
     ],
     'log' => [
         'menu_label' => 'Configurações de registros',
@@ -459,20 +449,20 @@ return [
         'log_theme_comment' => 'Quando uma alteração é feita no tema usando o backend.',
     ],
     'media' => [
-        'invalid_path' => "Caminho especificado inválido: ':path'.",
+        'invalid_path' => 'Caminho especificado inválido: \':path\'.',
         'folder_size_items' => 'item(s)',
     ],
     'page' => [
         'custom_error' => [
             'label' => 'Erro de página',
-            'help' => "Desculpe, mas algo deu errado e a página não pode ser exibida."
+            'help' => 'Desculpe, mas algo deu errado e a página não pode ser exibida.',
         ],
         'invalid_token' => [
             'label' => 'Token de segurança inválido',
         ],
         'maintenance' => [
-            'label' => "Voltamos em breve!",
-            'help' => "No momento, estamos em manutenção, tente novamente mais tarde!",
+            'label' => 'Voltamos em breve!',
+            'help' => 'No momento, estamos em manutenção, tente novamente mais tarde!',
             'message' => 'Mensagem:',
             'available_at' => 'Tente novamente após after:',
         ],

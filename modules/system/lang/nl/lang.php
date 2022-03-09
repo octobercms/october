@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'installer' => [
         'app_config_section' => 'Applicatie configuratie',
         'license_section' => 'Licentiecode',
@@ -91,10 +89,10 @@ return [
         'create_fail' => 'Bestand aanmaken mislukt: :name',
     ],
     'combiner' => [
-        'not_found' => "Het 'combiner' bestand ':name' is niet gevonden.",
+        'not_found' => 'Het \'combiner\' bestand \':name\' is niet gevonden.',
     ],
     'resizer' => [
-        'not_found' => "Het 'resizer' bestand ':name' is niet gevonden.",
+        'not_found' => 'Het \'resizer\' bestand \':name\' is niet gevonden.',
     ],
     'system' => [
         'name' => 'Systeem',
@@ -124,14 +122,10 @@ return [
             'help' => 'Gebruik bij het invoeren van de naam de unieke code van het thema. Bijvoorbeeld: RainLab.Vanilla',
         ],
     ],
-    'packages' => [
-        'install' => 'Installeer Packages',
-    ],
     'themes' => [
-        'manage' => 'Beheer thema\'s',
         'install' => 'Installeer thema\'s',
         'search' => 'Zoek thema\'s om te installeren...',
-        'installed' => "Geïnstalleerde thema's",
+        'installed' => 'Geïnstalleerde thema\'s',
         'no_themes' => 'Er zijn geen thema\'s geïnstalleerd uit de marketplace.',
         'recommended' => 'Aanbevolen',
         'remove_confirm' => 'Weet je zeker dat je dit thema wilt verwijderen?',
@@ -146,7 +140,6 @@ return [
         'by_author' => 'Ontwikkeld door :name',
     ],
     'plugins' => [
-        'manage' => 'Beheer plugins',
         'install' => 'Installeer plugins',
         'install_products' => 'Installeer plugins',
         'search' => 'Zoek plugins om te installeren',
@@ -183,8 +176,6 @@ return [
         'remove_success' => 'Geselecteerde plugins zijn verwijderd.',
     ],
     'project' => [
-        'name' => 'Project',
-        'owner_label' => 'Eigenaar',
         'attach' => 'Koppel project',
         'detach' => 'Ontkoppel project',
         'none' => 'Geen',
@@ -356,9 +347,8 @@ return [
         'title' => 'Beheer updates',
         'name' => 'Applicatie-update',
         'menu_label' => 'Updates & Plugins',
-        'menu_description' => "Update het systeem, beheer en installeer plugins en thema's.",
+        'menu_description' => 'Update het systeem, beheer en installeer plugins en thema\'s.',
         'return_link' => 'Terug naar updates',
-        'check_label' => 'Controleer op updates',
         'retry_label' => 'Probeer nogmaals',
         'plugin_name' => 'Naam',
         'plugin_code' => 'Code',
@@ -369,11 +359,6 @@ return [
         'plugin_not_found' => 'Plugin niet gevonden',
         'plugin_version_not_found' => 'Plugin versie niet gevonden',
         'theme_not_found' => 'Thema niet gevonden',
-        'core_current_build' => 'Huidige versie',
-        'core_updates_available' => 'Updates beschikbaar',
-        'core_up_to_date' => 'Up-to-date',
-        'core_latest_build' => 'Meest recente versie',
-        'core_view_changelog' => 'Bekijk changelog',
         'core_build' => 'Versie :build',
         'core_build_help' => 'De meest recente versie is beschikbaar.',
         'core_downloading' => 'Bestanden aan het downloaden',
@@ -381,9 +366,7 @@ return [
         'core_set_build' => 'Versie informatie bijwerken',
         'changelog' => 'Logboek van wijzigingen',
         'changelog_view_details' => 'Details bekijken',
-        'plugins' => 'Plugins',
         'themes' => 'Thema\'s',
-        'disabled' => 'Uitgeschakeld',
         'plugin_downloading' => 'Plugin downloaden: :name',
         'plugin_removing' => 'Plugin verwijderen: :name',
         'plugin_extracting' => 'Plugin uitpakken: :name',
@@ -453,7 +436,7 @@ return [
         'required' => 'Configuratie gebruikt in :location moet de waarde :property toewijzen.',
     ],
     'zip' => [
-        'extract_failed' => "Kan het corebestand ':file' niet uitpakken.",
+        'extract_failed' => 'Kan het corebestand \':file\' niet uitpakken.',
     ],
     'event_log' => [
         'hint' => 'Dit logboek toont een lijst met potentiële fouten zoals exceptions of debuginformatie, welke voorkomen in de applicatie.',
