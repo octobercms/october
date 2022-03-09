@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'OctoberCMS',
         'tagline' => 'Povratak osnovama',
@@ -57,7 +55,7 @@ return [
         'create_fail' => 'Nije moguće napraviti fajl: :name',
     ],
     'combiner' => [
-        'not_found' => "Kombinovani fajl ':name' nije pronađen.",
+        'not_found' => 'Kombinovani fajl \':name\' nije pronađen.',
     ],
     'system' => [
         'name' => 'Sistem',
@@ -105,7 +103,6 @@ return [
         'by_author' => 'Od :name',
     ],
     'plugins' => [
-        'manage' => 'Upravljaj priključcima',
         'install' => 'Instaliraj priključke',
         'install_products' => 'Instaliraj proizvode',
         'search' => 'traži priključke za instaliranje...',
@@ -142,8 +139,6 @@ return [
         'remove_success' => 'Izabrani priključci su uspešno uklonjeni.',
     ],
     'project' => [
-        'name' => 'Projekat',
-        'owner_label' => 'Vlasnik',
         'attach' => 'Dodaj projekat',
         'detach' => 'Odvoji projekat',
         'none' => 'Nijedan',
@@ -315,7 +310,6 @@ return [
         'menu_label' => 'Ispravke & priključci',
         'menu_description' => 'Ažuriraj sistem, upravljaj i instaliraj priključke i teme.',
         'return_link' => 'Povratak na ažuriranje sistema',
-        'check_label' => 'Proveri ispravke',
         'retry_label' => 'Pokušaj ponovo',
         'plugin_name' => 'Naziv',
         'plugin_code' => 'Kod',
@@ -323,8 +317,6 @@ return [
         'plugin_version' => 'Verzija',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Priključak nije pronađen',
-        'core_current_build' => 'Trenutna verzija',
-        'core_view_changelog' => 'Prikaži listu promena',
         'core_build' => 'Verzija :build',
         'core_build_help' => 'Novija verzija je dostupna.',
         'core_downloading' => 'Dopremanje fajlova aplikacije',
@@ -332,9 +324,7 @@ return [
         'core_set_build' => 'Postavljanje broja verzije',
         'changelog' => 'Lista izmena',
         'changelog_view_details' => 'Prikaži detalje',
-        'plugins' => 'Priključci',
         'themes' => 'Teme',
-        'disabled' => 'Isključeni',
         'plugin_downloading' => 'Dopremanje priključka: :name',
         'plugin_extracting' => 'Ektrakcija priključka: :name',
         'plugin_version_none' => 'Novi priključak',
@@ -392,10 +382,10 @@ return [
     ],
     'config' => [
         'not_found' => 'Konfiguracioni fajl :file za definisanu :location lokaciju nije mogao biti pronađen.',
-        'required' => "Konfiguracija korišćena u :location lokaciji mora obezbediti vrednost za ':property' svojstvo.",
+        'required' => 'Konfiguracija korišćena u :location lokaciji mora obezbediti vrednost za \':property\' svojstvo.',
     ],
     'zip' => [
-        'extract_failed' => "Ekstrakcija glavnog fajla ':file' nije moguća.",
+        'extract_failed' => 'Ekstrakcija glavnog fajla \':file\' nije moguća.',
     ],
     'event_log' => [
         'hint' => 'Ovaj log prikazuje spisak potencijalnih grešaka koje se mogu dogoditi tokom rada aplikacije.',
@@ -455,7 +445,7 @@ return [
         'log_theme_comment' => 'Kada je tema promenjena preko pozadinskog sistema.',
     ],
     'media' => [
-        'invalid_path' => "Specificirana putanja fajla nije validna: ':path'.",
+        'invalid_path' => 'Specificirana putanja fajla nije validna: \':path\'.',
         'folder_size_items' => 'element(i)',
     ],
     'page' => [
@@ -467,8 +457,8 @@ return [
             'label' => 'Bezbednosni žeton nije validan.',
         ],
         'maintenance' => [
-            'label' => "Odmah se vraćamo!",
-            'help' => "Sajt je u fazi održavanja, dođite kasnije!",
+            'label' => 'Odmah se vraćamo!',
+            'help' => 'Sajt je u fazi održavanja, dođite kasnije!',
             'message' => 'Poruka:',
             'available_at' => 'Pokušajte ponovo za:',
         ],

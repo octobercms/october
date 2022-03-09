@@ -1,15 +1,13 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => '기본으로 돌아가기',
     ],
     'directory' => [
-        'create_fail' => "디렉토리 ':name'을 작성할 수 없습니다.",
+        'create_fail' => '디렉토리 \':name\'을 작성할 수 없습니다.',
     ],
     'file' => [
-        'create_fail' => "파일 ':name'을 작성할 수 없습니다.",
+        'create_fail' => '파일 \':name\'을 작성할 수 없습니다.',
     ],
     'page' => [
         'invalid_token' => [
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "combiner파일 ':name'을 발견할 수 없습니다.",
+        'not_found' => 'combiner파일 \':name\'을 발견할 수 없습니다.',
     ],
     'system' => [
         'name' => '시스템',
@@ -34,15 +32,15 @@ return [
             'social' => '소셜',
             'events' => '이벤트',
             'customers' => '고객',
-            'my_settings' => '내 설정'
-        ]
+            'my_settings' => '내 설정',
+        ],
     ],
     'theme' => [
         'label' => '테마',
         'unnamed' => '이름없는 테마',
         'name' => [
             'label' => '테마명',
-            'help' => '중복없는 테마명을 사용해주세요. (예:RainLab.Vanilla)'
+            'help' => '중복없는 테마명을 사용해주세요. (예:RainLab.Vanilla)',
         ],
     ],
     'themes' => [
@@ -51,7 +49,7 @@ return [
         'installed' => '설치된 테마',
         'no_themes' => '마켓에서 설치된 테마가 없습니다.',
         'recommended' => '추천',
-        'remove_confirm' => '이 테마를 삭제하시겠습니까?'
+        'remove_confirm' => '이 테마를 삭제하시겠습니까?',
     ],
     'plugin' => [
         'label' => '플러그인',
@@ -60,10 +58,9 @@ return [
             'label' => '플러그인명',
             'help' => '중복없는 플러그인명을 사용해주세요. (예:RainLab.Blog)',
         ],
-        'by_author' => 'By :name'
+        'by_author' => 'By :name',
     ],
     'plugins' => [
-        'manage' => '플러그인 관리',
         'enable_or_disable' => '활성화/비활성화',
         'enable_or_disable_title' => '플러그인 활성화/비활성화',
         'install' => '플러그인 설치',
@@ -86,11 +83,9 @@ return [
         'disable_confirm' => '비활성화하시겠습니까?',
         'disable_success' => '플러그인을 비활성화 했습니다.',
         'enable_success' => '플러그인을 활성화했습니다.',
-        'unknown_plugin' => '시스템에서 불명확한 플러그인을 삭제했습니다.'
+        'unknown_plugin' => '시스템에서 불명확한 플러그인을 삭제했습니다.',
     ],
     'project' => [
-        'name' => '프로젝트',
-        'owner_label' => '소유자',
         'attach' => '프로젝트 연결',
         'detach' => '프로젝트 분리',
         'none' => '없음',
@@ -108,7 +103,7 @@ return [
         'missing_model' => '모델의 정의를 발견할 수 없습니다.',
         'update_success' => ':name 을 설정했습니다.',
         'return' => '시스템 설정으로 돌아가기',
-        'search' => '검색'
+        'search' => '검색',
     ],
     'mail' => [
         'log_file' => '로그파일',
@@ -147,7 +142,7 @@ return [
         'ses_region' => 'SES 지역',
         'ses_region_comment' => 'SES 지역 (예: us-east-1)',
         'drivers_hint_header' => '드라이버가 설치되지 않았습니다',
-        'drivers_hint_content' => '이 전송방법은 ":plugin" 플러그인을 필요로 합니다.'
+        'drivers_hint_content' => '이 전송방법은 ":plugin" 플러그인을 필요로 합니다.',
     ],
     'mail_templates' => [
         'menu_label' => '이메일 템플릿',
@@ -181,7 +176,7 @@ return [
         'deleting' => '템플릿을 삭제중...',
         'deleting_layout' => '레이아웃을 삭제중...',
         'sending' => '테스트 메시지 전송중...',
-        'return' => '템플릿 목록으로 돌아가기'
+        'return' => '템플릿 목록으로 돌아가기',
     ],
     'install' => [
         'project_label' => '프로젝트 추가',
@@ -198,7 +193,6 @@ return [
         'menu_label' => '업데이트',
         'menu_description' => '시스템 변경, 플러그인과 테마의 관리와 설치.',
         'return_link' => '업데이트로 돌아가기',
-        'check_label' => '업데이트 확인',
         'retry_label' => '재실행',
         'plugin_name' => '이름',
         'plugin_code' => '코드',
@@ -206,21 +200,18 @@ return [
         'plugin_version' => '버전',
         'plugin_author' => '작성자',
         'plugin_not_found' => '플러그인을 찾을 수 없습니다',
-        'core_current_build' => '현재의 빌드',
         'core_build' => '빌드 :build',
         'core_build_help' => '새로운 빌드가 존재합니다.',
         'core_downloading' => '애플리케이션 파일 다운로드중',
         'core_extracting' => '애플리케이션 파일 압축해제는중',
-        'plugins' => '플러그인',
         'themes' => '테마',
-        'disabled' => '비활성됨',
         'plugin_downloading' => '플러그인 다운로드중: :name',
         'plugin_extracting' => '플러그인 압축해제는중: :name',
         'plugin_version_none' => '최신버전',
         'plugin_current_version' => '현재버전',
         'theme_new_install' => '신규테마설치',
-        'theme_downloading' => "테마 ':name' 다운로드중입니다",
-        'theme_extracting' => "테마 ':name' 압축해제중입니다",
+        'theme_downloading' => '테마 \':name\' 다운로드중입니다',
+        'theme_extracting' => '테마 \':name\' 압축해제중입니다',
         'update_label' => 'SW 업데이트',
         'update_completing' => '업데이트 완료중',
         'update_loading' => '업데이트 로딩중...',
@@ -239,7 +230,7 @@ return [
             'empty' => '선택',
             'confirm' => '업데이트',
             'skip' => '이번만 업데이트 안함',
-            'ignore' => '계속 업데이트 안'
+            'ignore' => '계속 업데이트 안',
         ],
         'important_action_required' => '선택 필요',
         'important_view_guide' => '업그레이드 가이드 보기',
@@ -256,7 +247,7 @@ return [
         'details_licence' => '라이센스',
         'details_licence_missing' => '라이센스 정보가 제공되지 않습니다.',
         'details_current_version' => '현재 버전',
-        'details_author' => '작성자'
+        'details_author' => '작성자',
     ],
     'server' => [
         'connect_error' => '서버 접속 오류.',
@@ -274,7 +265,7 @@ return [
         'required' => ':location 의 설정에 필요한 :property 값이 존재해야합니다.',
     ],
     'zip' => [
-        'extract_failed' => "코어파일: ':file' 추출에 실패했습니다.",
+        'extract_failed' => '코어파일: \':file\' 추출에 실패했습니다.',
     ],
     'event_log' => [
         'hint' => '예외발생, 디버그정보 등 애플리케이션에서 발생한 잠재적 오류를 표시합니다.',
@@ -289,7 +280,7 @@ return [
         'created_at' => '생성시간',
         'message' => '메시지',
         'level' => '레벨',
-        'preview_title' => '이벤트'
+        'preview_title' => '이벤트',
     ],
     'request_log' => [
         'hint' => '존재하지 않는 페이지요청등 주의가 필요한 브라우저 요청을 표시합니다.',
@@ -305,7 +296,7 @@ return [
         'referer' => 'Referer',
         'url' => 'URL',
         'status_code' => '상태코드',
-        'preview_title' => '요청'
+        'preview_title' => '요청',
     ],
     'permissions' => [
         'name' => '시스템',
@@ -318,7 +309,7 @@ return [
         'manage_preferences' => '백엔드 설정 관리',
         'manage_editor' => '코드 에디터 설정 관리',
         'view_the_dashboard' => '대시보드 표시',
-        'manage_branding' => '백엔드 브랜드 변경'
+        'manage_branding' => '백엔드 브랜드 변경',
     ],
     'log' => [
         'menu_label' => '로그 설정',
@@ -332,7 +323,7 @@ return [
         'log_theme_comment' => '백엔드를 사용한 테마변경 기록',
     ],
     'media' => [
-        'invalid_path' => "잘못된 경로: ':path'.",
+        'invalid_path' => '잘못된 경로: \':path\'.',
         'folder_size_items' => '갯수',
     ],
 ];

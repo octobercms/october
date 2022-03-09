@@ -1,15 +1,13 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => 'Volviendo a lo básico'
+        'tagline' => 'Volviendo a lo básico',
     ],
     'directory' => [
-        'create_fail' => 'No es posible crear el directorio: :name'
+        'create_fail' => 'No es posible crear el directorio: :name',
     ],
     'file' => [
-        'create_fail' => 'No es posible crear el archivo: :name'
+        'create_fail' => 'No es posible crear el archivo: :name',
     ],
     'page' => [
         'invalid_token' => [
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "El archivo combinador ':name' no se encuentra."
+        'not_found' => 'El archivo combinador \':name\' no se encuentra.',
     ],
     'system' => [
         'name' => 'Sistema',
@@ -35,15 +33,15 @@ return [
             'events' => 'Eventos',
             'customers' => 'Clientes',
             'my_settings' => 'Mis Configuraciones',
-            'notifications' => 'Notificaciones'
-        ]
+            'notifications' => 'Notificaciones',
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Tema sin nombre',
         'name' => [
             'label' => 'Nombre Tema',
-            'help' => 'Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla'
+            'help' => 'Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -52,7 +50,7 @@ return [
         'installed' => 'Temas Instalados',
         'no_themes' => 'No hay temas instalados desde el mercado.',
         'recommended' => 'Recomendado',
-        'remove_confirm' => '¿Seguro que quieres eliminar este tema?'
+        'remove_confirm' => '¿Seguro que quieres eliminar este tema?',
     ],
     'plugin' => [
         'label' => 'Plugin',
@@ -60,10 +58,9 @@ return [
         'name' => [
             'label' => 'Nombre del Plugin',
             'help' => 'Nombra el plugin por su código único. por ejemplo, RainLab.Blog',
-        ]
+        ],
     ],
     'plugins' => [
-        'manage' => 'Gestionar plugins',
         'enable_or_disable' => 'Activar o desactivar',
         'enable_or_disable_title' => 'Activar o Desactivar Plugins',
         'install' => 'Instalar plugins',
@@ -89,8 +86,6 @@ return [
         'unknown_plugin' => 'El Plugin ha sido elimina del sistema de archivos.',
     ],
     'project' => [
-        'name' => 'Proyecto',
-        'owner_label' => 'Dueño',
         'attach' => 'Adjuntar Proyecto',
         'detach' => 'Separar Proyecto',
         'none' => 'Ninguno',
@@ -150,7 +145,7 @@ return [
         'ses_region' => 'Región SES',
         'ses_region_comment' => 'Introduzca su región SES (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers no instalados',
-        'drivers_hint_content' => 'Este método de correo electrónico requiere que el plugin ":plugin" este instalado antes de poder enviar correo.'
+        'drivers_hint_content' => 'Este método de correo electrónico requiere que el plugin ":plugin" este instalado antes de poder enviar correo.',
     ],
     'mail_templates' => [
         'menu_label' => 'Plantillas de Correo',
@@ -187,7 +182,7 @@ return [
         'sending' => 'Enviando mensaje de prueba...',
         'return' => 'Volver a lista de plantillas',
         'options' => 'Opciones',
-        'disable_auto_inline_css' => 'Deshabilitar CSS en línea automático'
+        'disable_auto_inline_css' => 'Deshabilitar CSS en línea automático',
     ],
     'mail_brand' => [
         'menu_label' => 'Branding de Correo',
@@ -201,7 +196,7 @@ return [
                 'description' => 'Descripción',
                 'price' => 'Precio',
                 'centered' => 'Centrado',
-                'right_aligned' => 'Alineado-A-La-Derecha'
+                'right_aligned' => 'Alineado-A-La-Derecha',
             ],
             'buttons' => [
                 'primary' => 'Botón Principal',
@@ -212,7 +207,7 @@ return [
             'more' => 'Algo más de texto',
             'promotion' => 'Código de cupón: OCTOBER',
             'subcopy' => 'Este es el subcopy del correo',
-            'thanks' => 'Gracias'
+            'thanks' => 'Gracias',
         ],
         'fields' => [
             '_section_background' => 'Fondo',
@@ -238,7 +233,7 @@ return [
             'panel_bg' => 'Fondo del Panel',
             'promotion_bg' => 'Fondo de Promoción',
             'promotion_border_color' => 'Color del borde de Promoción',
-        ]
+        ],
     ],
     'install' => [
         'project_label' => 'Adjuntar al proyecto',
@@ -247,7 +242,7 @@ return [
         'missing_plugin_name' => 'Por favor, especifique un nombre de Plugin para instalar',
         'missing_theme_name' => 'Por favor especifique un nombre de Theme a instalar.',
         'install_completing' => 'Finalizó el proceso de instalación',
-        'install_success' => 'El plugin se ha instalado correctamente.'
+        'install_success' => 'El plugin se ha instalado correctamente.',
     ],
     'updates' => [
         'title' => 'Administrar actualizaciones',
@@ -255,7 +250,6 @@ return [
         'menu_label' => 'Actualizaciones',
         'menu_description' => 'Actualizaciones del sistema, administrar e instalar plugins y temas.',
         'return_link' => 'Volver a actualizaciones del sistema',
-        'check_label' => 'Chequear actualizaciones',
         'retry_label' => 'Intentar nuevamente',
         'plugin_name' => 'Nombre',
         'plugin_code' => 'Código',
@@ -263,15 +257,12 @@ return [
         'plugin_version' => 'Versión',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Versión actual',
         'core_build' => 'Versión :build',
         'core_build_help' => 'Última versión está disponible.',
         'core_downloading' => 'Descargando archivos de la aplicación',
         'core_extracting' => 'Descomprimiendo archivos de la aplicación',
         'core_set_build' => 'Estableciendo número de build',
-        'plugins' => 'Plugins',
         'themes' => 'Temas',
-        'disabled' => 'Desactivado',
         'plugin_downloading' => 'Descargando plugin: :name',
         'plugin_extracting' => 'Descomprimiendo plugin: :name',
         'plugin_version_none' => 'Nuevo plugin',
@@ -291,7 +282,7 @@ return [
         ],
         'none' => [
             'label' => 'No hay actualizaciones',
-            'help'  => 'No se encontraron nuevas actualizaciones disponibles.',
+            'help' => 'No se encontraron nuevas actualizaciones disponibles.',
         ],
         'important_action' => [
             'empty' => 'Seleccione acción',
@@ -314,7 +305,7 @@ return [
         'details_licence' => 'Licencia',
         'details_licence_missing' => 'No hay licencia proporcionada.',
         'details_current_version' => 'Versión actual',
-        'details_author' => 'Autor'
+        'details_author' => 'Autor',
     ],
     'server' => [
         'connect_error' => 'Error al conectar con el servidor.',
@@ -329,10 +320,10 @@ return [
     ],
     'config' => [
         'not_found' => 'No se puede encontrar el archivo de configuración :file definido por :location.',
-        'required' => "Configuración utilizada en :location debe proporcionar un valor. ':property'.",
+        'required' => 'Configuración utilizada en :location debe proporcionar un valor. \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "No se puede extraer el archivo ':file'.",
+        'extract_failed' => 'No se puede extraer el archivo \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Este registro muestra una lista de los posibles errores que se producen en la aplicación, como las excepciones y la información de depuración.',
@@ -347,7 +338,7 @@ return [
         'created_at' => 'Fecha y Hora',
         'message' => 'Mensaje',
         'level' => 'Nivel',
-        'preview_title' => 'Evento'
+        'preview_title' => 'Evento',
     ],
     'request_log' => [
         'hint' => 'Este registro muestra una lista de las peticiones del navegador que pueden requerir atención. Por ejemplo, si un usuario abre una página que no se puede encontrar, se crea un registro con el código de estado 404.',
@@ -363,7 +354,7 @@ return [
         'referer' => 'Referencia',
         'url' => 'URL',
         'status_code' => 'Estado',
-        'preview_title' => 'Petición'
+        'preview_title' => 'Petición',
     ],
     'permissions' => [
         'name' => 'Sistema',
@@ -376,7 +367,7 @@ return [
         'manage_preferences' => 'Gestionar preferencias back-end',
         'manage_editor' => 'Gestionar preferencias editor código',
         'view_the_dashboard' => 'Ver el Escritorio',
-        'manage_branding' => 'Perzonalizar el back-end'
+        'manage_branding' => 'Perzonalizar el back-end',
     ],
     'log' => [
         'menu_label' => 'Configuración de Logs',
@@ -390,7 +381,7 @@ return [
         'log_theme_comment' => 'Cuando se realizan cambios al tema utilizando el backend.',
     ],
     'media' => [
-        'invalid_path' => "Ruta de archivo especificada no válida: ':path'.",
+        'invalid_path' => 'Ruta de archivo especificada no válida: \':path\'.',
         'folder_size_items' => 'elemento(s)',
     ],
 ];

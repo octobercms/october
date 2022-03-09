@@ -1,50 +1,48 @@
-<?php
-
-return [
+<?php return [
     'installer' => [
-        'app_config_section' => "Configuration de l'application",
+        'app_config_section' => 'Configuration de l\'application',
         'license_section' => 'Clé de licence',
         'dependencies_section' => 'Installation des dépendances',
         'locale_select_label' => 'Choisir la langue',
-        'locale_select_error' => "Le code de langue :code n'est pas valide, veuillez réessayer",
-        'app_url_label' => "URL de l'application",
+        'locale_select_error' => 'Le code de langue :code n\'est pas valide, veuillez réessayer',
+        'app_url_label' => 'URL de l\'application',
         'backend_uri_label' => 'URI du backend',
-        'backend_uri_comment' => "Pour sécuriser votre application, utilisez une adresse personnalisée pour accéder au panneau d'administration.",
+        'backend_uri_comment' => 'Pour sécuriser votre application, utilisez une adresse personnalisée pour accéder au panneau d\'administration.',
         'license_key_label' => 'Clé de licence',
         'license_key_comment' => 'Entrez une clé de licence valide pour continuer.',
-        'license_thanks_comment' => "Merci d'être client d'Octobre CMS!",
-        'license_expired_comment' => "La licence n'est pas payée ou a expiré. Veuillez visiter octobercms.com pour obtenir une licence.",
+        'license_thanks_comment' => 'Merci d\'être client d\'Octobre CMS!',
+        'license_expired_comment' => 'La licence n\'est pas payée ou a expiré. Veuillez visiter octobercms.com pour obtenir une licence.',
         'too_many_failures_label' => 'Trop de tentatives échouées',
         'non_interactive_label' => 'Mode non interactif détecté',
         'non_interactive_comment' => 'Si vous voyez cette erreur immédiatement, utilisez plutôt ces commandes non interactives.',
-        'install_failed_label' => "L'installation a échoué",
-        'install_failed_comment' => "Veuillez essayer d'exécuter ces commandes manuellement.",
-        'database_engine_label' => "Moteur de base de données",
+        'install_failed_label' => 'L\'installation a échoué',
+        'install_failed_comment' => 'Veuillez essayer d\'exécuter ces commandes manuellement.',
+        'database_engine_label' => 'Moteur de base de données',
         'database_host_label' => 'Hôte de la base de données',
-        'database_host_comment' => "Nom d'hôte de la connexion à la base de données.",
-        'database_port_label' => "Port de base de données",
+        'database_host_comment' => 'Nom d\'hôte de la connexion à la base de données.',
+        'database_port_label' => 'Port de base de données',
         'database_port_comment' => '(Optionnel) Un port pour la connexion.',
         'database_name_label' => 'Nom de la base de données',
-        'database_name_comment' => "Spécifiez le nom de la base de données à utiliser.",
-        'database_login_label' => "Connexion à la base de données",
-        'database_login_comment' => "Utilisateur avec des privilèges de création de base de données.",
-        'database_pass_label' => "Mot de passe de la base de données",
-        'database_pass_comment' => "Mot de passe de l'utilisateur spécifié.",
-        'database_path_label' => "Chemin de la base de données",
-        'database_path_comment' => "Pour le stockage basé sur des fichiers, entrez un chemin relatif au répertoire racine de l'application.",
-        'migrate_database_comment' => "Veuillez migrer la base de données avec la commande suivante",
-        'visit_backend_comment' => "Ensuite, ouvrez la zone d'administration à cette URL",
-        'open_configurator_comment' => "Ouvrez cette application dans votre navigateur",
+        'database_name_comment' => 'Spécifiez le nom de la base de données à utiliser.',
+        'database_login_label' => 'Connexion à la base de données',
+        'database_login_comment' => 'Utilisateur avec des privilèges de création de base de données.',
+        'database_pass_label' => 'Mot de passe de la base de données',
+        'database_pass_comment' => 'Mot de passe de l\'utilisateur spécifié.',
+        'database_path_label' => 'Chemin de la base de données',
+        'database_path_comment' => 'Pour le stockage basé sur des fichiers, entrez un chemin relatif au répertoire racine de l\'application.',
+        'migrate_database_comment' => 'Veuillez migrer la base de données avec la commande suivante',
+        'visit_backend_comment' => 'Ensuite, ouvrez la zone d\'administration à cette URL',
+        'open_configurator_comment' => 'Ouvrez cette application dans votre navigateur',
     ],
     'app' => [
         'name' => 'OctoberCMS',
         'tagline' => 'Retourner à l’essentiel',
     ],
     'directory' => [
-        'create_fail' => "Impossible de créer le répertoire : :name",
+        'create_fail' => 'Impossible de créer le répertoire : :name',
     ],
     'file' => [
-        'create_fail' => "Impossible de créer le fichier : :name",
+        'create_fail' => 'Impossible de créer le fichier : :name',
     ],
     'page' => [
         'invalid_token' => [
@@ -52,7 +50,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Le fichier combiné ':name' est introuvable.",
+        'not_found' => 'Le fichier combiné \':name\' est introuvable.',
     ],
     'system' => [
         'name' => 'Système',
@@ -70,14 +68,14 @@ return [
             'events' => 'Évènements',
             'customers' => 'Clients',
             'my_settings' => 'Mes réglages',
-        ]
+        ],
     ],
     'theme' => [
         'label' => 'Thème',
         'unnamed' => 'Thème sans nom',
         'name' => [
             'label' => 'Nom du thème',
-            'help' => 'Nommer le thème avec un nom de code unique. Par exemple, RainLab.Vanilla'
+            'help' => 'Nommer le thème avec un nom de code unique. Par exemple, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -86,7 +84,7 @@ return [
         'installed' => 'Thèmes installés',
         'no_themes' => 'Il n’y a aucun thème installé depuis le Marketplace.',
         'recommended' => 'Recommandé',
-        'remove_confirm' => 'Êtes-vous sûr(e) de vouloir supprimer ce thème ?'
+        'remove_confirm' => 'Êtes-vous sûr(e) de vouloir supprimer ce thème ?',
     ],
     'plugin' => [
         'label' => 'Plugin',
@@ -97,14 +95,13 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'Gérer les plugins',
         'install' => 'Installer des plugins',
         'install_products' => 'Installer des produits',
         'search' => 'Recherche des plugins à installer…',
         'installed' => 'Plugins installés',
         'no_plugins' => 'Il n’y a aucun plugin installé depuis le site d’October CMS.',
         'recommended' => 'Recommandé',
-        'plugin_label'  => 'Plugin',
+        'plugin_label' => 'Plugin',
         'unknown_plugin' => 'Le plugin a été supprimé du système de fichiers.',
         'select_label' => 'Sélectionner une action...',
         'bulk_actions_label' => 'Actions en bloc',
@@ -126,16 +123,14 @@ return [
         'action_confirm' => 'Êtes-vous sûr de vouloir :action ces plugins ?',
         'freeze_success' => 'Mises à jour désactivées avec succès pour les plugins sélectionnés.',
         'unfreeze_success' => 'Mises à jour activées avec succès pour les plugins sélectionnés.',
-        'enable_success' => "Les plugins ont été activés avec succès.",
-        'disable_success' => "Les plugins ont été désactivés avec succès.",
+        'enable_success' => 'Les plugins ont été activés avec succès.',
+        'disable_success' => 'Les plugins ont été désactivés avec succès.',
         'refresh_confirm' => 'Êtes-vous sûr(e) ?',
-        'refresh_success' => "Les plugins ont été actualisés avec succès.",
+        'refresh_success' => 'Les plugins ont été actualisés avec succès.',
         'remove_confirm' => 'Êtes-vous sûr(e) de vouloir supprimer ce plugin ?',
-        'remove_success' => "Les plugins ont été supprimés avec succès.",
+        'remove_success' => 'Les plugins ont été supprimés avec succès.',
     ],
     'project' => [
-        'name' => 'Projet',
-        'owner_label' => 'Auteur',
         'attach' => 'Attacher un projet',
         'detach' => 'Détacher le Projet',
         'none' => 'Aucun',
@@ -153,7 +148,7 @@ return [
         'missing_model' => 'La page de réglages nécessite la définition d’un Model.',
         'update_success' => 'Les réglages pour :name ont étés mis à jour avec succès.',
         'return' => 'Retourner à la page des réglages du système',
-        'search' => 'Rechercher'
+        'search' => 'Rechercher',
     ],
     'mail' => [
         'log_file' => 'Fichier journal',
@@ -198,7 +193,7 @@ return [
         'ses_region' => 'Région SES',
         'ses_region_comment' => 'Saisir votre région SES (e.g. us-east-1)',
         'drivers_hint_header' => 'Les drivers ne sont pas installés',
-        'drivers_hint_content' => 'Cette méthode d’envoi d’e-mails nécessite que le plugin ":plugin" soit installé avant de pouvoir envoyer des e-mails.'
+        'drivers_hint_content' => 'Cette méthode d’envoi d’e-mails nécessite que le plugin ":plugin" soit installé avant de pouvoir envoyer des e-mails.',
     ],
     'mail_templates' => [
         'menu_label' => 'Modèles des e-mails',
@@ -239,7 +234,7 @@ return [
         'sending' => 'Envoi du message de test en cours…',
         'return' => 'Retour à la liste des modèles.',
         'options' => 'Options',
-        'disable_auto_inline_css' => 'Désactiver le CSS automatique en ligne'
+        'disable_auto_inline_css' => 'Désactiver le CSS automatique en ligne',
     ],
     'mail_brand' => [
         'menu_label' => 'Personnalisation des courriels',
@@ -253,7 +248,7 @@ return [
                 'description' => 'Description',
                 'price' => 'Prix',
                 'centered' => 'Centré',
-                'right_aligned' => 'Aligné à droite'
+                'right_aligned' => 'Aligné à droite',
             ],
             'buttons' => [
                 'primary' => 'Bouton principal',
@@ -264,7 +259,7 @@ return [
             'more' => 'Un peu plus de texte',
             'promotion' => 'Code de réduction: OCTOBER',
             'subcopy' => 'Ceci est le pré copyright de votre courriel',
-            'thanks' => 'Merci'
+            'thanks' => 'Merci',
         ],
         'fields' => [
             '_section_background' => 'Arrière-plan',
@@ -290,7 +285,7 @@ return [
             'panel_bg' => 'Arrière-plan du panneau',
             'promotion_bg' => 'Arrière-plan de la promotion',
             'promotion_border_color' => 'Couleur de la bordure de la promotion',
-        ]
+        ],
     ],
     'install' => [
         'project_label' => 'Attacher un projet',
@@ -307,7 +302,6 @@ return [
         'menu_label' => 'Mise à jour',
         'menu_description' => 'Mise à jour du système, gestion et installation des plugins et thèmes.',
         'return_link' => 'Retourner aux mises à jour du système',
-        'check_label' => 'Vérifier les mises à jour',
         'retry_label' => 'Réessayer',
         'plugin_name' => 'Nom',
         'plugin_code' => 'Code',
@@ -315,8 +309,6 @@ return [
         'plugin_version' => 'Version',
         'plugin_author' => 'Auteur',
         'plugin_not_found' => 'Plugin non trouvé',
-        'core_current_build' => 'Version actuelle',
-        'core_view_changelog' => 'Voir le Changelog',
         'core_build' => 'Version :build',
         'core_build_help' => 'Une nouvelle version est disponible.',
         'core_downloading' => 'Téléchargement des fichiers de l’application',
@@ -324,9 +316,7 @@ return [
         'core_set_build' => 'Définition du numéro de build',
         'changelog' => 'Changelog',
         'changelog_view_details' => 'Voir les détails',
-        'plugins' => 'Plugins',
         'themes' => 'Thèmes',
-        'disabled' => 'Désactivé',
         'plugin_downloading' => 'Téléchargement du plugin : :name',
         'plugin_extracting' => 'Décompression du plugin : :name',
         'plugin_version_none' => 'Nouveau plugin',
@@ -384,10 +374,10 @@ return [
     ],
     'config' => [
         'not_found' => 'Impossible de trouver le fichier de configuration :file défini dans :location.',
-        'required' => "La configuration utilisée dans :location doit fournir une valeur ':property'.",
+        'required' => 'La configuration utilisée dans :location doit fournir une valeur \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "Impossible de décompresser le fichier ':file'.",
+        'extract_failed' => 'Impossible de décompresser le fichier \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Ce journal affiche une liste des erreurs potentielles de l’application, telles que les exceptions et les informations de débogage.',
@@ -418,7 +408,7 @@ return [
         'referer' => 'Référents',
         'url' => 'Adresse URL',
         'status_code' => 'Statut',
-        'preview_title' => 'Requête'
+        'preview_title' => 'Requête',
     ],
     'permissions' => [
         'name' => 'Système',
@@ -433,7 +423,7 @@ return [
         'manage_editor' => 'Gérer les préférences de l’éditeur de code',
         'view_the_dashboard' => 'Voir le tableau de bord',
         'manage_default_dashboard' => 'Gérer le tableau de bord par défaut',
-        'manage_branding' => 'Personnaliser l’interface d’administration'
+        'manage_branding' => 'Personnaliser l’interface d’administration',
     ],
     'log' => [
         'menu_label' => 'Paramètres du journal',
@@ -447,7 +437,7 @@ return [
         'log_theme_comment' => 'Lorsqu’une modification est apportée au thème à l’aide du back-end.',
     ],
     'media' => [
-        'invalid_path' => "Le chemin du fichier indiqué est invalide : ':path'.",
+        'invalid_path' => 'Le chemin du fichier indiqué est invalide : \':path\'.',
         'folder_size_items' => 'Articles(s)',
     ],
     'pagination' => [

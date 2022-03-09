@@ -1,35 +1,33 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Getting back to basics',
     ],
     'directory' => [
-        'create_fail' => "No se puede crear el directorio: :name",
+        'create_fail' => 'No se puede crear el directorio: :name',
     ],
     'file' => [
-        'create_fail' => "No se puede crear el archivo: :name",
+        'create_fail' => 'No se puede crear el archivo: :name',
     ],
     'combiner' => [
-        'not_found' => "El archivo combinado ':name' no se encuentra.",
+        'not_found' => 'El archivo combinado \':name\' no se encuentra.',
     ],
     'system' => [
         'name' => 'Sistema',
         'menu_label' => 'Sistema',
         'categories' => [
-        'cms' => 'CMS',
-        'misc' => 'Miscelánea',
-        'logs' => 'Registros',
-        'mail' => 'Correo',
-        'shop' => 'Comprar',
-        'team' => 'Equipo',
-        'users' => 'Usuarios',
-        'system' => 'Sistema',
-        'social' => 'Social',
-        'events' => 'Eventos',
-        'customers' => 'Clientes',
-        'my_settings' => 'Mis configuraciones',
+            'cms' => 'CMS',
+            'misc' => 'Miscelánea',
+            'logs' => 'Registros',
+            'mail' => 'Correo',
+            'shop' => 'Comprar',
+            'team' => 'Equipo',
+            'users' => 'Usuarios',
+            'system' => 'Sistema',
+            'social' => 'Social',
+            'events' => 'Eventos',
+            'customers' => 'Clientes',
+            'my_settings' => 'Mis configuraciones',
         ],
     ],
     'plugin' => [
@@ -40,7 +38,6 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'Administrar plugins',
         'enable_or_disable' => 'Activar o desactivar',
         'enable_or_disable_title' => 'Activar o desactivar plugins',
         'remove' => 'Eliminar',
@@ -49,17 +46,15 @@ return [
         'disabled_help' => 'Los Plugins desactivados son ignorados por la aplicación.',
         'selected_amount' => 'Plugins seleccionados: :amount',
         'remove_confirm' => '¿Está usted seguro?',
-        'remove_success' => "Se eliminaron exitosamente los plugins del sistema.",
+        'remove_success' => 'Se eliminaron exitosamente los plugins del sistema.',
         'refresh_confirm' => '¿Está usted seguro?',
-        'refresh_success' => "Se actualizaron exitosamente los plugins del sistema.",
+        'refresh_success' => 'Se actualizaron exitosamente los plugins del sistema.',
         'disable_confirm' => '¿Está usted seguro?',
-        'disable_success' => "Se desactivaron exitosamente los plugins.",
-        'enable_success' => "Se activaron exitosamente los plugins.",
-        'unknown_plugin' => "Se eliminó el plugin del sistema de archivos.",
+        'disable_success' => 'Se desactivaron exitosamente los plugins.',
+        'enable_success' => 'Se activaron exitosamente los plugins.',
+        'unknown_plugin' => 'Se eliminó el plugin del sistema de archivos.',
     ],
     'project' => [
-        'name' => 'Proyecto',
-        'owner_label' => 'Dueño',
         'attach' => 'Adjuntar Proyecto',
         'detach' => 'Separar Proyect',
         'none' => 'Ningun',
@@ -76,7 +71,7 @@ return [
         'missing_model' => 'La página de configuración no encuentra una definición de modelo.',
         'update_success' => 'Los ajustes para :name han sido actualizados correctamente.',
         'return' => 'Regresar a la configuración del sistema',
-        'search' => 'Buscar'
+        'search' => 'Buscar',
     ],
     'mail' => [
         'menu_label' => 'Administrar Correo',
@@ -119,7 +114,7 @@ return [
         'content_text' => 'Texto plano',
         'test_send' => 'Enviar mensaje de prueba',
         'test_success' => 'El mensaje de prueba ha sido enviado con éxito.',
-        'return' => 'Volver a la lista de plantilla'
+        'return' => 'Volver a la lista de plantilla',
     ],
     'install' => [
         'project_label' => 'Adjuntar al proyecto',
@@ -133,14 +128,12 @@ return [
         'name' => 'Actualizaciones de software',
         'menu_label' => 'Actualizaciones',
         'menu_description' => 'Actualizaciones del sistema, administrar e instalar plugins y temas.',
-        'check_label' => 'Chequear actualizaciones',
         'retry_label' => 'Intentar nuevamente',
         'plugin_name' => 'Nombre',
         'plugin_description' => 'Descripción',
         'plugin_version' => 'Versión',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Versión actual',
         'core_build' => 'Versión :build',
         'core_build_help' => 'Última versión está disponible.',
         'core_downloading' => 'Descargando archivos de la aplicación',
@@ -179,10 +172,10 @@ return [
     ],
     'config' => [
         'not_found' => 'No se puede encontrar el archivo de configuración :file definido por :location.',
-        'required' => "Configuración utilizada en :location debe proporcionar un valor. ':property'.",
+        'required' => 'Configuración utilizada en :location debe proporcionar un valor. \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "No se puede extraer el archivo ':file'.",
+        'extract_failed' => 'No se puede extraer el archivo \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Este registro muestra una lista de los posibles errores que se producen en la aplicación, como las excepciones y la información de depuración.',
@@ -218,6 +211,6 @@ return [
         'manage_software_updates' => 'Gestionar actualización de software',
         'manage_mail_templates' => 'Gestionar plantillas de correo',
         'manage_other_administrators' => 'Gestionar otros administradores',
-        'view_the_dashboard' => 'Ver el Tablero'
-    ]
+        'view_the_dashboard' => 'Ver el Tablero',
+    ],
 ];

@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'installer' => [
         'app_config_section' => '应用程序配置',
         'license_section' => '许可证密钥',
@@ -38,19 +36,19 @@ return [
     ],
     'app' => [
         'name' => 'October CMS',
-        'tagline' => '欢迎使用October CMS！'
+        'tagline' => '欢迎使用October CMS！',
     ],
     'directory' => [
-        'create_fail' => '不能创建目录: :name'
+        'create_fail' => '不能创建目录: :name',
     ],
     'file' => [
-        'create_fail' => '不能创建文件: :name'
+        'create_fail' => '不能创建文件: :name',
     ],
     'combiner' => [
-        'not_found' => "组合文件 ':name' 没找到."
+        'not_found' => '组合文件 \':name\' 没找到.',
     ],
     'resizer' => [
-        'not_found' => "未找到调整器文件 ':name'。",
+        'not_found' => '未找到调整器文件 \':name\'。',
     ],
     'system' => [
         'name' => '系统',
@@ -69,22 +67,18 @@ return [
             'events' => '事件',
             'customers' => '自定义',
             'my_settings' => '我的设置',
-            'notifications' => '通知'
-        ]
+            'notifications' => '通知',
+        ],
     ],
     'theme' => [
         'label' => '主题',
         'unnamed' => '未命名主题',
         'name' => [
             'label' => '主题名称',
-            'help' => '主题的唯一名称，例如：RainLab.Vanilla'
+            'help' => '主题的唯一名称，例如：RainLab.Vanilla',
         ],
     ],
-    'packages' => [
-        'install' => '应用市场',
-    ],
     'themes' => [
-        'manage' => '管理主题',
         'install' => '安装主题',
         'search' => '搜索主题...',
         'installed' => '已安装主题',
@@ -97,12 +91,11 @@ return [
         'unnamed' => '未命名的插件',
         'name' => [
             'label' => '插件名称',
-            'help' => '插件的唯一名称，例如：RainLab.Blog'
+            'help' => '插件的唯一名称，例如：RainLab.Blog',
         ],
-        'by_author' => '作者 :name'
+        'by_author' => '作者 :name',
     ],
     'plugins' => [
-        'manage' => '管理插件',
         'install' => '安装插件',
         'install_products' => '安装产品',
         'search' => '搜索插件...',
@@ -139,18 +132,16 @@ return [
         'remove_success' => '已成功删除所选插件。',
     ],
     'project' => [
-        'name' => '项目',
-        'owner_label' => '拥有者',
         'attach' => '增加项目',
         'detach' => '删除项目',
         'none' => '没有',
         'id' => [
             'label' => '项目ID',
             'help' => '如何找到您的项目ID',
-            'missing' => '请确认你想使用的项目ID。'
+            'missing' => '请确认你想使用的项目ID。',
         ],
         'detach_confirm' => '你确定要删除这个项目吗?',
-        'unbind_success' => '项目删除成功。'
+        'unbind_success' => '项目删除成功。',
     ],
     'settings' => [
         'menu_label' => '设置',
@@ -301,12 +292,12 @@ return [
     ],
     'install' => [
         'project_label' => '加入项目',
-         'plugin_label' => '安装插件',
-         'theme_label' => '安装主题',
-         'missing_plugin_name' => '请指定要安装的插件名称。',
-         'missing_theme_name' => '请指定要安装的主题名称。',
-         'install_completing' => '完成安装过程',
-         'install_success' => '插件安装成功',
+        'plugin_label' => '安装插件',
+        'theme_label' => '安装主题',
+        'missing_plugin_name' => '请指定要安装的插件名称。',
+        'missing_theme_name' => '请指定要安装的主题名称。',
+        'install_completing' => '完成安装过程',
+        'install_success' => '插件安装成功',
     ],
     'updates' => [
         'title' => '管理更新',
@@ -314,7 +305,6 @@ return [
         'menu_label' => '系统更新',
         'menu_description' => '更新系统模块和插件。',
         'return_link' => '返回系统更新',
-        'check_label' => '检查更新',
         'retry_label' => '重试',
         'plugin_name' => '名字',
         'plugin_code' => '代码',
@@ -325,9 +315,6 @@ return [
         'plugin_not_found' => '未找到插件',
         'plugin_version_not_found' => '未找到插件版本',
         'theme_not_found' => '找不到主题',
-        'core_current_build' => '当前版本',
-        'core_latest_build' => '最新版本',
-        'core_view_changelog' => '查看变更日志',
         'core_build' => '版本 :build',
         'core_build_help' => '最新版本可用。',
         'core_downloading' => '下载应用程序文件',
@@ -335,9 +322,7 @@ return [
         'core_set_build' => '设置版本号',
         'changelog' => '变更日志',
         'changelog_view_details' => '查看详情',
-        'plugins' => '插件',
         'themes' => '主题',
-        'disabled' => '禁用',
         'plugin_downloading' => '下载插件：:name',
         'plugin_removing' => '正在删除插件：:name',
         'plugin_extracting' => '解压插件：:name',
@@ -393,36 +378,36 @@ return [
     ],
     'server' => [
         'connect_error' => '连接到服务器时出错。',
-         'response_not_found' => '找不到更新服务器。',
-         'response_invalid' => '服务器返回异常。',
-         'response_empty' => '服务器返回为空。',
-         'file_error' => '服务器下载文件失败。',
-         'file_corrupt' => '服务器下载文件校验失败。',
+        'response_not_found' => '找不到更新服务器。',
+        'response_invalid' => '服务器返回异常。',
+        'response_empty' => '服务器返回为空。',
+        'file_error' => '服务器下载文件失败。',
+        'file_corrupt' => '服务器下载文件校验失败。',
     ],
     'behavior' => [
         'missing_property' => '类 :class 必须定义 :behavior 行为使用的属性 $:property。',
     ],
     'config' => [
         'not_found' => '无法找到为 :location 定义的配置文件 :file。',
-        'required' => ":location 中使用的配置必须提供一个值':property'",
+        'required' => ':location 中使用的配置必须提供一个值\':property\'',
     ],
     'zip' => [
-        'extract_failed' => "不能解压文件 ':file'。",
+        'extract_failed' => '不能解压文件 \':file\'。',
     ],
     'event_log' => [
         'hint' => '此日志显示应用程序中发生的潜在错误列表，例如异常和调试信息。',
-         'menu_label' => '事件日志',
-         'menu_description' => '查看系统日志消息及其记录的时间和详细信息。',
-         'empty_link' => '清空事件日志',
-         'empty_loading' => '清空事件日志...',
-         'empty_success' => '事件日志已清空',
-         'return_link' => '返回事件日志',
-         'id' => 'ID',
-         'id_label' => '事件 ID',
-         'created_at' => '日期和时间',
-         'message' => '消息',
-         'level' => '级别',
-         'preview_title' => '事件',
+        'menu_label' => '事件日志',
+        'menu_description' => '查看系统日志消息及其记录的时间和详细信息。',
+        'empty_link' => '清空事件日志',
+        'empty_loading' => '清空事件日志...',
+        'empty_success' => '事件日志已清空',
+        'return_link' => '返回事件日志',
+        'id' => 'ID',
+        'id_label' => '事件 ID',
+        'created_at' => '日期和时间',
+        'message' => '消息',
+        'level' => '级别',
+        'preview_title' => '事件',
     ],
     'request_log' => [
         'hint' => '这个日志显示了需要注意的浏览器请求. 比如如果一个访问者打开一个没有的CMS页面, 一条返回状态404的记录被创建。',
@@ -466,26 +451,26 @@ return [
         'log_theme_comment' => '保存后台对主题文件的修改日志。',
     ],
     'media' => [
-        'invalid_path' => "指定的文件路径无效: ':path'.",
+        'invalid_path' => '指定的文件路径无效: \':path\'.',
         'folder_size_items' => '个数',
     ],
     'page' => [
         'custom_error' => [
             'label' => '页面错误',
-            'help' => "抱歉，页面因为一些错误导致无法显示。",
+            'help' => '抱歉，页面因为一些错误导致无法显示。',
         ],
         'invalid_token' => [
             'label' => '非法安全令牌',
         ],
         'maintenance' => [
-            'label' => "我们马上回来！",
-            'help' => "我们目前正在停机维护，请稍后回来查看！",
+            'label' => '我们马上回来！',
+            'help' => '我们目前正在停机维护，请稍后回来查看！',
             'message' => '通知:',
             'available_at' => '稍后再试:',
         ],
     ],
     'pagination' => [
         'previous' => '上一页',
-        'next' => '下一页'
+        'next' => '下一页',
     ],
 ];

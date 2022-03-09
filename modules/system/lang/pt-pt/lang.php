@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Voltando ao básico',
@@ -40,7 +38,7 @@ return [
         'tr' => 'Turco',
         'zh-cn' => 'Chinês',
         'zh-tw' => 'Tailandês',
-        'vn' => 'Tiếng việt'
+        'vn' => 'Tiếng việt',
     ],
     'directory' => [
         'create_fail' => 'Não é possível criar a diretoria: :name',
@@ -72,14 +70,14 @@ return [
             'events' => 'Eventos',
             'customers' => 'Clientes',
             'my_settings' => 'Configurações',
-        ]
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Tema sem nome',
         'name' => [
             'label' => 'Nome do Tema',
-            'help' => 'O nome do tema deve ser único. Por exemplo, RainLab.Vanilla'
+            'help' => 'O nome do tema deve ser único. Por exemplo, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -88,7 +86,7 @@ return [
         'installed' => 'Temas instalados',
         'no_themes' => 'Não há temas instalados.',
         'recommended' => 'Recomendado',
-        'remove_confirm' => 'Tem a certeza que deseja remover este tema?'
+        'remove_confirm' => 'Tem a certeza que deseja remover este tema?',
     ],
     'plugin' => [
         'label' => 'Extensão',
@@ -99,7 +97,6 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'Gerir extensões',
         'enable_or_disable' => 'Activar ou desactivar',
         'enable_or_disable_title' => 'Activar ou desactivar extensões',
         'install' => 'Instalar extensões',
@@ -125,8 +122,6 @@ return [
         'unknown_plugin' => 'Extensão removida do sistema de ficheiros.',
     ],
     'project' => [
-        'name' => 'Projecto',
-        'owner_label' => 'Desenvolvedor',
         'attach' => 'Anexar Projecto',
         'detach' => 'Desanexar Projecto',
         'none' => 'Nenhum',
@@ -186,7 +181,7 @@ return [
         'ses_region' => 'Região SES',
         'ses_region_comment' => 'Entre com sua região SES (exemplo: us-east-1)',
         'drivers_hint_header' => 'Drivers não instalados',
-        'drivers_hint_content' => 'Este método requer que a extensão ":plugin" esteja instalada.'
+        'drivers_hint_content' => 'Este método requer que a extensão ":plugin" esteja instalada.',
     ],
     'mail_templates' => [
         'menu_label' => 'Modelos de E-mail',
@@ -221,7 +216,7 @@ return [
         'deleting' => 'Apagando modelo...',
         'deleting_layout' => 'Apagando esboço...',
         'sending' => 'Enviando mensagem de teste...',
-        'return' => 'Regressar à lista de modelos'
+        'return' => 'Regressar à lista de modelos',
     ],
     'install' => [
         'project_label' => 'Anexar ao projecto',
@@ -238,7 +233,6 @@ return [
         'menu_label' => 'Actualizações',
         'menu_description' => 'Actualize o sistema, gira e instale extensões e temas.',
         'return_link' => 'Voltar às actualizações',
-        'check_label' => 'Verificar actualizações',
         'retry_label' => 'Tentar novamente',
         'plugin_name' => 'Nome',
         'plugin_code' => 'Código',
@@ -246,14 +240,11 @@ return [
         'plugin_version' => 'Versão',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Extensão não encontrada',
-        'core_current_build' => 'Compilação atual',
         'core_build' => 'Compilação :build',
         'core_build_help' => 'Última versão está disponível.',
         'core_downloading' => 'Descarregando ficheiros da aplicação',
         'core_extracting' => 'Descomprimindo ficheiros do aplicação',
-        'plugins' => 'Extensões',
         'themes' => 'Temas',
-        'disabled' => 'Desactivados',
         'plugin_downloading' => 'Baixando a extensão: :name',
         'plugin_extracting' => 'Descomprimindo a extensão: :name',
         'plugin_version_none' => 'Nova extensão',
@@ -329,7 +320,7 @@ return [
         'created_at' => 'Data & Hora',
         'message' => 'Mensagem',
         'level' => 'Nível',
-        'preview_title' => 'Evento'
+        'preview_title' => 'Evento',
     ],
     'request_log' => [
         'hint' => 'Este registro mostra uma lista de requisições que requerem atenção. Por exemplo, se um utilizador solicitar uma página não encontrada, será registado com o status 404.',
@@ -345,7 +336,7 @@ return [
         'referer' => 'Referências',
         'url' => 'URL',
         'status_code' => 'Estado',
-        'preview_title' => 'Requisição'
+        'preview_title' => 'Requisição',
     ],
     'permissions' => [
         'name' => 'Sistema',
@@ -358,7 +349,7 @@ return [
         'manage_preferences' => 'Gerir preferências da área administrativa',
         'manage_editor' => 'Gerir preferências do editor de código',
         'view_the_dashboard' => 'Visualizar o painel',
-        'manage_branding' => 'Personalizar o backend'
+        'manage_branding' => 'Personalizar o backend',
     ],
     'log' => [
         'menu_label' => 'Configurações de registo',
@@ -372,7 +363,7 @@ return [
         'log_theme_comment' => 'Quado uma alteração é efectuada no tema utilizando o backend.',
     ],
     'media' => [
-        'invalid_path' => "Caminho especificado inválido: ':path'.",
+        'invalid_path' => 'Caminho especificado inválido: \':path\'.',
         'folder_size_items' => 'item(s)',
     ],
 ];

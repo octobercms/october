@@ -1,15 +1,13 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => 'Getting back to basics'
+        'tagline' => 'Getting back to basics',
     ],
     'directory' => [
-        'create_fail' => 'Kan ikke opprette mappen: :name'
+        'create_fail' => 'Kan ikke opprette mappen: :name',
     ],
     'file' => [
-        'create_fail' => 'Kan ikke opprette filen: :name'
+        'create_fail' => 'Kan ikke opprette filen: :name',
     ],
     'page' => [
         'invalid_token' => [
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Kombinasjonsfilen ':name' ble ikke funnet."
+        'not_found' => 'Kombinasjonsfilen \':name\' ble ikke funnet.',
     ],
     'system' => [
         'name' => 'System',
@@ -34,15 +32,15 @@ return [
             'social' => 'Sosialt',
             'events' => 'Hendelser',
             'customers' => 'Kunder',
-            'my_settings' => 'Mine innstillinger'
-        ]
+            'my_settings' => 'Mine innstillinger',
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Tema uten navn',
         'name' => [
             'label' => 'Navn på tema',
-            'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla'
+            'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -51,18 +49,17 @@ return [
         'installed' => 'Installerte temaer',
         'no_themes' => 'Det er ingen installerte temaer fra markedsplassen.',
         'recommended' => 'Anbefalt',
-        'remove_confirm' => 'Vil du virkelig slette dette temaet?'
+        'remove_confirm' => 'Vil du virkelig slette dette temaet?',
     ],
     'plugin' => [
         'label' => 'Plugin',
         'unnamed' => 'Plugin uten navn',
         'name' => [
             'label' => 'Navn på plugin',
-            'help' => 'Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog'
-        ]
+            'help' => 'Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog',
+        ],
     ],
     'plugins' => [
-        'manage' => 'Administrere plugins',
         'enable_or_disable' => 'Aktivere eller deaktivere',
         'enable_or_disable_title' => 'Aktivere eller deaktivere plugins',
         'install' => 'Installer plugins',
@@ -85,21 +82,19 @@ return [
         'disable_confirm' => 'Er du sikker?',
         'disable_success' => 'Plugins har blitt deaktivert.',
         'enable_success' => 'Plugins har blitt aktivert.',
-        'unknown_plugin' => 'Plugins har blitt fjernet fra systemet.'
+        'unknown_plugin' => 'Plugins har blitt fjernet fra systemet.',
     ],
     'project' => [
-        'name' => 'Prosjekt',
-        'owner_label' => 'Eier',
         'attach' => 'Tilkoble prosjekt',
         'detach' => 'Avkoble prosjekt',
         'none' => 'Ingen',
         'id' => [
             'label' => 'Prosjekt-ID',
             'help' => 'Hvordan finne din prosjekt-ID',
-            'missing' => 'Vennligst spesifiser en prosjekt-ID.'
+            'missing' => 'Vennligst spesifiser en prosjekt-ID.',
         ],
         'detach_confirm' => 'Vil du virkelig avkoble dette prosjektet?',
-        'unbind_success' => 'Prosjektet har blitt avkoblet.'
+        'unbind_success' => 'Prosjektet har blitt avkoblet.',
     ],
     'settings' => [
         'menu_label' => 'Innstillinger',
@@ -107,7 +102,7 @@ return [
         'missing_model' => 'Innstillingssiden mangler en modell-definisjon.',
         'update_success' => 'Innstillingene for :name har blitt lagret.',
         'return' => 'Tilbake til systeminnstillinger',
-        'search' => 'Søk'
+        'search' => 'Søk',
     ],
     'mail' => [
         'log_file' => 'Loggfil',
@@ -149,7 +144,7 @@ return [
         'ses_region' => 'SES region',
         'ses_region_comment' => 'Legg inn din SES region (feks. us-east-1)',
         'drivers_hint_header' => 'Drivere ikke installert',
-        'drivers_hint_content' => 'Denne mailmetoden krever at plugin ":plugin" er installert før du kan sende mail.'
+        'drivers_hint_content' => 'Denne mailmetoden krever at plugin ":plugin" er installert før du kan sende mail.',
     ],
     'mail_templates' => [
         'menu_label' => 'E-postmaler',
@@ -184,7 +179,7 @@ return [
         'deleting' => 'Sletter mal...',
         'deleting_layout' => 'Sletter layout...',
         'sending' => 'Sender testmelding...',
-        'return' => 'Tilbake til mallisten'
+        'return' => 'Tilbake til mallisten',
     ],
     'install' => [
         'project_label' => 'Tilkoble prosjekt',
@@ -193,7 +188,7 @@ return [
         'missing_plugin_name' => 'Vennligst oppgi pluginens navn.',
         'missing_theme_name' => 'Oppgi tema-navn for å installere.',
         'install_completing' => 'Fullfører installasjonen',
-        'install_success' => 'Plugin har blitt installert.'
+        'install_success' => 'Plugin har blitt installert.',
     ],
     'updates' => [
         'title' => 'Administrer oppdateringer',
@@ -201,7 +196,6 @@ return [
         'menu_label' => 'Oppdateringer',
         'menu_description' => 'Oppdatere systemet, administrer og installere plugins og temaer.',
         'return_link' => 'Tilbake til oppdateringer',
-        'check_label' => 'Se etter oppdateringer',
         'retry_label' => 'Prøv igjen',
         'plugin_name' => 'Navn',
         'plugin_code' => 'Kode',
@@ -209,14 +203,11 @@ return [
         'plugin_version' => 'Versjon',
         'plugin_author' => 'Utgiver',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Nåværende build',
         'core_build' => 'Build :build',
         'core_build_help' => 'Siste build er tilgjengelig.',
         'core_downloading' => 'Laster ned applikasjonsfiler',
         'core_extracting' => 'Pakker ut applikasjonsfiler',
-        'plugins' => 'Plugins',
         'themes' => 'Teamer',
-        'disabled' => 'Deaktivert',
         'plugin_downloading' => 'Laster ned plugin: :name',
         'plugin_extracting' => 'Pakker ut plugin: :name',
         'plugin_version_none' => 'Ny plugin',
@@ -232,11 +223,11 @@ return [
         'force_label' => 'Tving update',
         'found' => [
             'label' => 'Fant nye oppdateringer!',
-            'help' => 'Klikk på Oppdatér programvare for å oppdatere.'
+            'help' => 'Klikk på Oppdatér programvare for å oppdatere.',
         ],
         'none' => [
             'label' => 'Ingen oppdateringer',
-            'help' => 'Ingen nye oppdateringer ble funnet.'
+            'help' => 'Ingen nye oppdateringer ble funnet.',
         ],
         'important_action' => [
             'empty' => 'Velg handling',
@@ -262,17 +253,17 @@ return [
         'response_invalid' => 'Feilaktig respons fra serveren.',
         'response_empty' => 'Tom respons fra serveren.',
         'file_error' => 'Serveren kunne ikke levere pakken.',
-        'file_corrupt' => 'Pakken fra serveren er korrupt.'
+        'file_corrupt' => 'Pakken fra serveren er korrupt.',
     ],
     'behavior' => [
-        'missing_property' => 'Klassen :class må definere egenskapen $:property som brukes av :behavior -egenskapen.'
+        'missing_property' => 'Klassen :class må definere egenskapen $:property som brukes av :behavior -egenskapen.',
     ],
     'config' => [
         'not_found' => 'Fant ikke konfigurasjonsfilen :file definert for for :location.',
-        'required' => "Konfigurasjon brukt i :location må angi verdien ':property'."
+        'required' => 'Konfigurasjon brukt i :location må angi verdien \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "Kunne ikke pakke opp core-fil ':file'."
+        'extract_failed' => 'Kunne ikke pakke opp core-fil \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Denne loggen viser en liste over potensielle feilmeldinger som oppstår i applikasjonen, for eksempel unntak og debugginginformasjon.',
@@ -287,7 +278,7 @@ return [
         'created_at' => 'Tid',
         'message' => 'Melding',
         'level' => 'Nivå',
-        'preview_title' => 'Hendelse'
+        'preview_title' => 'Hendelse',
     ],
     'request_log' => [
         'hint' => 'Denne loggen viser en liste over nettleserforespørsler som kan kreve oppmerksomhet. For eksempel, hvis en bruker besøker en side som ikke eksisterer, vil det bli oppført her med statuskode 404.',
@@ -303,7 +294,7 @@ return [
         'referer' => 'Referers',
         'url' => 'URL',
         'status_code' => 'Status',
-        'preview_title' => 'Forespørsel'
+        'preview_title' => 'Forespørsel',
     ],
     'permissions' => [
         'name' => 'System',
@@ -316,10 +307,10 @@ return [
         'manage_preferences' => 'Administrer backend-innstillinger',
         'manage_editor' => 'Administrer kodeeditor-innstillinger',
         'view_the_dashboard' => 'Se dashboard',
-        'manage_branding' => 'Tilpasse backend'
+        'manage_branding' => 'Tilpasse backend',
     ],
     'media' => [
-        'invalid_path' => "Ugyldig filsti: ':path'.",
+        'invalid_path' => 'Ugyldig filsti: \':path\'.',
         'folder_size_items' => 'fil(er)',
     ],
 ];

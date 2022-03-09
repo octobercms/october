@@ -1,18 +1,16 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Intoarcerea la elementele de baza',
     ],
     'directory' => [
-        'create_fail' => "Nu se poate crea directorul: :name",
+        'create_fail' => 'Nu se poate crea directorul: :name',
     ],
     'file' => [
-        'create_fail' => "Nu se poate crea fisierul: :name",
+        'create_fail' => 'Nu se poate crea fisierul: :name',
     ],
     'combiner' => [
-        'not_found' => "Fisierul compus ':name' nu a fost gasit.",
+        'not_found' => 'Fisierul compus \':name\' nu a fost gasit.',
     ],
     'system' => [
         'name' => 'Sistem',
@@ -40,7 +38,6 @@ return [
         ],
     ],
     'plugins' => [
-        'manage' => 'Gestionare plugin-uri',
         'enable_or_disable' => 'Activare sau dezactivare',
         'enable_or_disable_title' => 'Activare sau dezactivare plugin-uri',
         'remove' => 'Inlaturare',
@@ -48,15 +45,13 @@ return [
         'disabled_label' => 'Dezactivat',
         'disabled_help' => 'Plugin-urile care sunt dezactivate sunt ignorate de catre aplicatie.',
         'selected_amount' => 'Plugin-uri selectate: :amount',
-        'remove_success' => "Plugin-urile respective au fost inlaturate cu succes din sistem.",
-        'refresh_success' => "Plugin-urile respective au fost actualizate cu succes.",
-        'disable_success' => "Plugin-urile respective au fost dezactivate cu succes.",
-        'enable_success' => "Plugin-urile respective au fost activate cu succes.",
-        'unknown_plugin' => "Plugin-ul a fost inlaturat din sistemul de fisiere.",
+        'remove_success' => 'Plugin-urile respective au fost inlaturate cu succes din sistem.',
+        'refresh_success' => 'Plugin-urile respective au fost actualizate cu succes.',
+        'disable_success' => 'Plugin-urile respective au fost dezactivate cu succes.',
+        'enable_success' => 'Plugin-urile respective au fost activate cu succes.',
+        'unknown_plugin' => 'Plugin-ul a fost inlaturat din sistemul de fisiere.',
     ],
     'project' => [
-        'name' => 'Proiect',
-        'owner_label' => 'Proprietar',
         'attach' => 'Atasare Proiect',
         'detach' => 'Detasare Proiect',
         'none' => 'Niciunul',
@@ -73,7 +68,7 @@ return [
         'missing_model' => 'Paginii de setari ii lipseste o definitie de Model.',
         'update_success' => 'Setarile pentru :name au fost actualizate cu succes.',
         'return' => 'Intoarcere la setarile sistemului.',
-        'search' => 'Cautare'
+        'search' => 'Cautare',
     ],
     'mail' => [
         'menu_label' => 'Configuratie Email',
@@ -116,7 +111,7 @@ return [
         'content_text' => 'Text simplu',
         'test_send' => 'Trimitere mesaj de test',
         'test_success' => 'Mesajul de test a fost trimis cu succes.',
-        'return' => 'Intoarcere la lista de sabloane'
+        'return' => 'Intoarcere la lista de sabloane',
     ],
     'install' => [
         'project_label' => 'Atasare la Proiect',
@@ -130,14 +125,12 @@ return [
         'name' => 'Actualizare Software',
         'menu_label' => 'Actualizari',
         'menu_description' => 'Actualizati sistemul, gestionati si instalati plugin-uri si teme.',
-        'check_label' => 'Cauta actualizari disponibile',
         'retry_label' => 'Incercati din nou',
         'plugin_name' => 'Nume',
         'plugin_description' => 'Descriere',
         'plugin_version' => 'Versiune',
         'plugin_author' => 'Autor',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Versiune curenta',
         'core_build' => 'Versiune :build',
         'core_build_help' => 'Ultima versiune este disponibila.',
         'core_downloading' => 'Se descarca fisierele aplicatiei',
@@ -176,10 +169,10 @@ return [
     ],
     'config' => [
         'not_found' => 'Nu a fost gasit fisierul de configurare :file definit pentru :location.',
-        'required' => "Configuratia folosita in :location trebuie sa furnizeze o valoare ':property'.",
+        'required' => 'Configuratia folosita in :location trebuie sa furnizeze o valoare \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "Nu s-a putut extrage fisierul de baza ':file'.",
+        'extract_failed' => 'Nu s-a putut extrage fisierul de baza \':file\'.',
     ],
     'event_log' => [
         'hint' => 'Acest jurnal afiseaza o lista de erori potentiale in aplicatie, cum ar fi exceptii sau informatie pentru depanare.',
@@ -215,6 +208,6 @@ return [
         'manage_software_updates' => 'Gestioneaza actualizarile software',
         'manage_mail_templates' => 'Gestioneaza sabloanele de email',
         'manage_other_administrators' => 'Gestioneaza alti administratori',
-        'view_the_dashboard' => 'Vizualizare panou de control'
-    ]
+        'view_the_dashboard' => 'Vizualizare panou de control',
+    ],
 ];

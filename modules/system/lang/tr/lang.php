@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'OctoberCMS',
         'tagline' => 'Sadeliğe dönüş...',
@@ -50,10 +48,10 @@ return [
         'vn' => 'Tiếng việt',
     ],
     'directory' => [
-        'create_fail' => "Klasör oluşturulamıyor: :name",
+        'create_fail' => 'Klasör oluşturulamıyor: :name',
     ],
     'file' => [
-        'create_fail' => "Dosya oluşturulamıyor: :name",
+        'create_fail' => 'Dosya oluşturulamıyor: :name',
     ],
     'page' => [
         'invalid_token' => [
@@ -61,7 +59,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Kombine dosyası: ':name' bulunamadı.",
+        'not_found' => 'Kombine dosyası: \':name\' bulunamadı.',
     ],
     'system' => [
         'name' => 'Sistem',
@@ -106,17 +104,16 @@ return [
             'label' => 'Eklenti Adı',
             'help' => 'Eklenti adı eşsiz olmalıdır. Örneğin, RainLab.Blog',
         ],
-        'by_author' => ':name ile filtrele'
+        'by_author' => ':name ile filtrele',
     ],
     'plugins' => [
-        'manage' => 'Eklentileri yönet',
         'install' => 'Eklentileri yükle',
         'install_products' => 'Ürünleri yükle',
         'search' => 'eklenti ara...',
         'installed' => 'Yüklü eklentiler',
         'no_plugins' => 'Mağazadan yüklenmiş bir eklenti bulunmamaktadır.',
         'recommended' => 'Tavsiye edilen',
-        'plugin_label'  => 'Eklenti',
+        'plugin_label' => 'Eklenti',
         'unknown_plugin' => 'Eklenti sistemden kaldırıldı.',
         'select_label' => 'Eylem Seçin...',
         'bulk_actions_label' => 'Toplu eylemler',
@@ -146,8 +143,6 @@ return [
         'remove_success' => 'Eklentiler sistemden başarıyla kaldırıldı.',
     ],
     'project' => [
-        'name' => 'Proje',
-        'owner_label' => 'Proje Sahibi',
         'attach' => 'Projeyi Eşle',
         'detach' => 'Projeyi Ayır',
         'none' => 'Hiçbiri',
@@ -316,7 +311,6 @@ return [
         'menu_label' => 'Güncellemeler',
         'menu_description' => 'Sistemi güncelleyin, temaları ve eklentileri yönetin.',
         'return_link' => 'Sistem güncellemelerine geri dön',
-        'check_label' => 'Güncellemeleri kontrol et',
         'retry_label' => 'Tekrar dene',
         'plugin_name' => 'Adı',
         'plugin_code' => 'Kod',
@@ -324,15 +318,12 @@ return [
         'plugin_version' => 'Versiyon',
         'plugin_author' => 'Yazar',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Mevcut versiyon',
         'core_build' => 'Versiyon :build',
         'core_build_help' => 'Son versiyon kullanılabilir.',
         'core_downloading' => 'Uygulama dosyaları indiriliyor',
         'core_extracting' => 'Uygulama dosyaları çıkarılıyor',
         'core_set_build' => 'Build numarası güncelleniyor',
-        'plugins' => 'Modüller',
         'themes' => 'Temalar',
-        'disabled' => 'Devre dışı',
         'plugin_downloading' => 'Modül indiriliyor: :name',
         'plugin_extracting' => 'Modül dosyaları çıkarılıyor: :name',
         'plugin_version_none' => 'Yeni eklenti',
@@ -393,7 +384,7 @@ return [
         'required' => ':location konumunda kullanılan :property ayarı bir değer içermelidir.',
     ],
     'zip' => [
-        'extract_failed' => "':file' adlı çekirdek dosyası dosya paketinden çıkarılamadı.",
+        'extract_failed' => '\':file\' adlı çekirdek dosyası dosya paketinden çıkarılamadı.',
     ],
     'event_log' => [
         'hint' => 'Bu kayıtlar, uygulamada ortaya çıkan potansiyel hataları, istisnaları ve hata ayıklama bilgilerini görüntüler.',
@@ -452,7 +443,7 @@ return [
         'log_theme_comment' => 'Tema dosyalarında backend üzerinden bir değişiklik yapıldığında tutulan kayıtlar.',
     ],
     'media' => [
-        'invalid_path' => "Geçersiz dosya dizini belirtildi: ':path'.",
+        'invalid_path' => 'Geçersiz dosya dizini belirtildi: \':path\'.',
         'folder_size_items' => 'öğe(ler)',
     ],
 ];

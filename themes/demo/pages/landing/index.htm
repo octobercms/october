@@ -8,17 +8,8 @@ meta_title = "{{ landingPage.title }}"
 [resources]
 vars[activeNavLink] = 'tailor'
 ==
-
-
 <main>
     <div class="container">
-        {#
-        {% partial 'blockbuilder/headline_items' %}
-        {% partial 'blockbuilder/pricing_table' %}
-        {% partial 'blockbuilder/compare_table' %}
-        {% partial 'blockbuilder/feature_table' %}
-        #}
-
         {% for block in landingPage.blocks %}
             {% partial 'blockbuilder/' ~ block.type block=block %}
         {% endfor %}

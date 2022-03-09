@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
         'tagline' => 'Tornare alle origini',
@@ -17,7 +15,7 @@ return [
         ],
     ],
     'combiner' => [
-        'not_found' => "Il file combinatore ':name' non è stato trovato.",
+        'not_found' => 'Il file combinatore \':name\' non è stato trovato.',
     ],
     'system' => [
         'name' => 'Sistema',
@@ -35,14 +33,14 @@ return [
             'events' => 'Eventi',
             'customers' => 'Clienti',
             'my_settings' => 'Impostazioni personali',
-        ]
+        ],
     ],
     'theme' => [
         'label' => 'Tema',
         'unnamed' => 'Tema senza nome',
         'name' => [
             'label' => 'Nome tema',
-            'help' => 'Cerca il tema tramite il suo codice univoco. Ad esempio, RainLab.Vanilla'
+            'help' => 'Cerca il tema tramite il suo codice univoco. Ad esempio, RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -51,18 +49,17 @@ return [
         'installed' => 'Temi installati',
         'no_themes' => 'Non ci sono temi installati dal marketplace.',
         'recommended' => 'Raccomandati',
-        'remove_confirm' => 'Sei sicuro di voler rimuovere questo tema?'
+        'remove_confirm' => 'Sei sicuro di voler rimuovere questo tema?',
     ],
     'plugin' => [
         'label' => 'Plugin',
         'unnamed' => 'Plugin senza nome',
         'name' => [
             'label' => 'Nome del plugin',
-            'help' => 'Cerca il plugin tramite il suo codice univoco. Ad esempio, RainLab.Blog'
-        ]
+            'help' => 'Cerca il plugin tramite il suo codice univoco. Ad esempio, RainLab.Blog',
+        ],
     ],
     'plugins' => [
-        'manage' => 'Gestisci plugin',
         'enable_or_disable' => 'Abilita o disabilita',
         'enable_or_disable_title' => 'Abilita o disabilita plugin',
         'install' => 'Installa plugin',
@@ -88,8 +85,6 @@ return [
         'unknown_plugin' => 'Il plugin è stato rimosso dal file system.',
     ],
     'project' => [
-        'name' => 'Progetto',
-        'owner_label' => 'Proprietario',
         'attach' => 'Collega progetto',
         'detach' => 'Scollega progetto',
         'none' => 'Nessuno',
@@ -107,7 +102,7 @@ return [
         'missing_model' => 'La pagine delle impostazioni non ha nessun modello associato.',
         'update_success' => 'Le impostazioni per :name sono state aggiornate con successo.',
         'return' => 'Ritorna alle impostazioni di sistema',
-        'search' => 'Cerca'
+        'search' => 'Cerca',
     ],
     'mail' => [
         'log_file' => 'File di log',
@@ -149,7 +144,7 @@ return [
         'ses_region' => 'Regione SES',
         'ses_region_comment' => 'Inserisci la tua regione SES (ad es. us-east-1)',
         'drivers_hint_header' => 'Driver non installati',
-        'drivers_hint_content' => 'Questa modalità di invio richiede che il plugin ":plugin" sia installato prima che tu possa inviare messaggi.'
+        'drivers_hint_content' => 'Questa modalità di invio richiede che il plugin ":plugin" sia installato prima che tu possa inviare messaggi.',
     ],
     'mail_templates' => [
         'menu_label' => 'Modelli di e-mail',
@@ -201,7 +196,6 @@ return [
         'menu_label' => 'Aggiornamenti & Plugin',
         'menu_description' => 'Aggiorna il sistema, gestisci ed installa plugin e temi.',
         'return_link' => 'Ritorna agli aggiornamenti di sistema',
-        'check_label' => 'Verifica gli aggiornamenti',
         'retry_label' => 'Riprova',
         'plugin_name' => 'Nome',
         'plugin_code' => 'Codice',
@@ -209,14 +203,11 @@ return [
         'plugin_version' => 'Versione',
         'plugin_author' => 'Autore',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => 'Build corrente',
         'core_build' => 'Build :build',
         'core_build_help' => 'Disponibile l\'ultima build.',
         'core_downloading' => 'Scaricamento dei file in corso',
         'core_extracting' => 'Estrazione dei file in corso',
-        'plugins' => 'Plugin',
         'themes' => 'Temi',
-        'disabled' => 'Disabilitati',
         'plugin_downloading' => 'Scaricamento plugin: :name',
         'plugin_extracting' => 'Estrazione plugin: :name',
         'plugin_version_none' => 'Nuovo plugin',
@@ -269,10 +260,10 @@ return [
     ],
     'config' => [
         'not_found' => 'Il file di configurazione :file definito per :location non è stato trovato.',
-        'required' => "La configurazione utilizzata in :location deve fornire un valore ':property'.",
+        'required' => 'La configurazione utilizzata in :location deve fornire un valore \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "Estrazione del file sistema ':file' non riuscita.",
+        'extract_failed' => 'Estrazione del file sistema \':file\' non riuscita.',
     ],
     'event_log' => [
         'hint' => 'Questo registro visualizza un elenco dei potenziali errori occorsi nell\'applicazione, come eccezioni e informazioni di debug.',
@@ -287,7 +278,7 @@ return [
         'created_at' => 'Data e ora',
         'message' => 'Messaggio',
         'level' => 'Livello',
-        'preview_title' => 'Evento'
+        'preview_title' => 'Evento',
     ],
     'request_log' => [
         'hint' => 'Questo registro visualizza un elenco delle richieste del browser che possono richiedere attenzione. Ad esempio, se un visitatore apre una pagina del CMS che non può essere trovata, viene creato un record con il codice di errore 404.',
@@ -303,7 +294,7 @@ return [
         'referer' => 'Provenienza',
         'url' => 'URL',
         'status_code' => 'Codice di stato',
-        'preview_title' => 'Richiesta'
+        'preview_title' => 'Richiesta',
     ],
     'permissions' => [
         'name' => 'Sistema',
@@ -316,10 +307,10 @@ return [
         'manage_preferences' => 'Gestisci preferenze pannello di controllo',
         'manage_editor' => 'Gestisci preferenze editor di codice',
         'view_the_dashboard' => 'Visualizza la dashboard',
-        'manage_branding' => 'Personalizza il pannello di controllo'
+        'manage_branding' => 'Personalizza il pannello di controllo',
     ],
     'media' => [
-        'invalid_path' => "Percorso del file non valido: ':path'.",
+        'invalid_path' => 'Percorso del file non valido: \':path\'.',
         'folder_size_items' => 'elementi',
     ],
 ];

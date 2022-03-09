@@ -1,18 +1,16 @@
-<?php
-
-return [
+<?php return [
     'app' => [
         'name' => 'October CMS',
-        'tagline' => '登入'
+        'tagline' => '登入',
     ],
     'directory' => [
-        'create_fail' => '不能建立目錄: :name'
+        'create_fail' => '不能建立目錄: :name',
     ],
     'file' => [
-        'create_fail' => '不能建立檔案: :name'
+        'create_fail' => '不能建立檔案: :name',
     ],
     'combiner' => [
-        'not_found' => "混合檔案 ':name' 沒找到."
+        'not_found' => '混合檔案 \':name\' 沒找到.',
     ],
     'system' => [
         'name' => '系統',
@@ -29,14 +27,14 @@ return [
             'social' => '社交',
             'events' => '事件',
             'customers' => '自訂',
-            'my_settings' => '我的設定'
-        ]
+            'my_settings' => '我的設定',
+        ],
     ],
     'theme' => [
         'unnamed' => '未命名主題',
         'name' => [
             'label' => '主題名稱',
-            'help' => '主題的唯一名稱，例如：RainLab.Vanilla'
+            'help' => '主題的唯一名稱，例如：RainLab.Vanilla',
         ],
     ],
     'themes' => [
@@ -45,17 +43,16 @@ return [
         'installed' => '已安裝主題',
         'no_themes' => '市集上沒有已安裝的主題。',
         'recommended' => '推薦',
-        'remove_confirm' => '您確定要刪除這些主題嗎？'
+        'remove_confirm' => '您確定要刪除這些主題嗎？',
     ],
     'plugin' => [
         'unnamed' => '未命名的外掛',
         'name' => [
             'label' => '外掛名稱',
-            'help' => '外掛的唯一名稱，例如：RainLab.Blog'
-        ]
+            'help' => '外掛的唯一名稱，例如：RainLab.Blog',
+        ],
     ],
     'plugins' => [
-        'manage' => '管理外掛',
         'enable_or_disable' => '啟用或停用',
         'enable_or_disable_title' => '啟用或停用外掛',
         'install' => '安裝外掛',
@@ -76,21 +73,19 @@ return [
         'disable_confirm' => '您確定嗎?',
         'disable_success' => '成功停用了這些外掛.',
         'enable_success' => '成功啟用了這些外掛',
-        'unknown_plugin' => '外掛從檔案系統中移除了.'
+        'unknown_plugin' => '外掛從檔案系統中移除了.',
     ],
     'project' => [
-        'name' => '產品',
-        'owner_label' => '擁有者',
         'attach' => '增加產品',
         'detach' => '刪除產品',
         'none' => '沒有',
         'id' => [
             'label' => '產品ID',
             'help' => '如何找到您的產品ID',
-            'missing' => '請確認您想使用的產品ID.'
+            'missing' => '請確認您想使用的產品ID.',
         ],
         'detach_confirm' => '您確定要刪除這個產品嗎?',
-        'unbind_success' => '產品刪除成功.'
+        'unbind_success' => '產品刪除成功.',
     ],
     'settings' => [
         'menu_label' => '設定',
@@ -98,7 +93,7 @@ return [
         'missing_model' => '設定頁缺少Model定義.',
         'update_success' => ':name 的設定更新成功了.',
         'return' => '返回系統設定',
-        'search' => '搜尋'
+        'search' => '搜尋',
     ],
     'mail' => [
         'log_file' => '日誌檔案',
@@ -127,7 +122,7 @@ return [
         'mailgun_secret_comment' => '輸入您的 Mailgun API key.',
         'mandrill' => 'Mandrill',
         'mandrill_secret' => 'Mandrill Secret',
-        'mandrill_secret_comment' => '輸入您的 Mandrill API key.'
+        'mandrill_secret_comment' => '輸入您的 Mandrill API key.',
     ],
     'mail_templates' => [
         'menu_label' => '郵件模板',
@@ -151,7 +146,7 @@ return [
         'content_text' => '純文字',
         'test_send' => '發送測試訊息',
         'test_success' => '測試訊息已經成功發送.',
-        'return' => '返回模板列表'
+        'return' => '返回模板列表',
     ],
     'install' => [
         'project_label' => '加入產品',
@@ -160,28 +155,24 @@ return [
         'missing_plugin_name' => '請輸入要安裝的外掛名稱。',
         'missing_theme_name' => '請輸入要安裝的主題名稱。',
         'install_completing' => '完成安裝過程',
-        'install_success' => '外掛安裝成功。'
+        'install_success' => '外掛安裝成功。',
     ],
     'updates' => [
         'title' => '管理更新',
         'name' => '軟件更新',
         'menu_label' => '更新',
         'menu_description' => '更新系統, 管理並安裝外掛和主題.',
-        'check_label' => '檢查更新',
         'retry_label' => '重試',
         'plugin_name' => '名字',
         'plugin_description' => '描述',
         'plugin_version' => '版本',
         'plugin_author' => '作者',
         'plugin_not_found' => 'Plugin not found',
-        'core_current_build' => '目前版本',
         'core_build' => '版本 :build',
         'core_build_help' => '新的版本可用.',
         'core_downloading' => '下載應用程式',
         'core_extracting' => '解壓縮應用程式',
-        'plugins' => '外掛',
         'themes' => '主題',
-        'disabled' => '停用',
         'plugin_downloading' => '下載外掛: :name',
         'plugin_extracting' => '解壓縮外掛: :name',
         'plugin_version_none' => '新外掛',
@@ -196,12 +187,12 @@ return [
         'force_label' => '強制更新',
         'found' => [
             'label' => '發現新的更新!',
-            'help' => '點選更新.'
+            'help' => '點選更新.',
         ],
         'none' => [
             'label' => '沒有更新',
-            'help' => '沒有發現新的更新.'
-        ]
+            'help' => '沒有發現新的更新.',
+        ],
     ],
     'server' => [
         'connect_error' => '連接伺服器失敗.',
@@ -209,17 +200,17 @@ return [
         'response_invalid' => '伺服器返回異常.',
         'response_empty' => '伺服器返回為空.',
         'file_error' => '伺服器下載檔案失敗.',
-        'file_corrupt' => '伺服器下載檔案校驗失敗.'
+        'file_corrupt' => '伺服器下載檔案校驗失敗.',
     ],
     'behavior' => [
-        'missing_property' => 'Class :class 必須定義屬性 $:property 被 :behavior behavior 使用.'
+        'missing_property' => 'Class :class 必須定義屬性 $:property 被 :behavior behavior 使用.',
     ],
     'config' => [
         'not_found' => '不能搜尋設定檔案 :file 為 :location 定義.',
-        'required' => "設定 :location 必須有 ':property'."
+        'required' => '設定 :location 必須有 \':property\'.',
     ],
     'zip' => [
-        'extract_failed' => "不能解壓縮檔案 ':file'."
+        'extract_failed' => '不能解壓縮檔案 \':file\'.',
     ],
     'event_log' => [
         'hint' => '日誌顯示了程序中的潛在錯誤, 比如異常和測試訊息.',
@@ -233,7 +224,7 @@ return [
         'id_label' => '事件 ID',
         'created_at' => '時間和日期',
         'message' => '訊息',
-        'level' => '等級'
+        'level' => '等級',
     ],
     'request_log' => [
         'hint' => '這個日誌顯示了需要注意的瀏覽器請求. 比如如果一個訪問者打開一個沒有的CMS頁面, 一條返回狀態404的記錄被建立.',
@@ -248,7 +239,7 @@ return [
         'count' => '次數',
         'referer' => '來源',
         'url' => 'URL',
-        'status_code' => '狀態'
+        'status_code' => '狀態',
     ],
     'permissions' => [
         'name' => '系統',
@@ -259,10 +250,10 @@ return [
         'manage_mail_settings' => '管理郵件設定',
         'manage_other_administrators' => '管理其他管理員',
         'view_the_dashboard' => '查看儀表板',
-        'manage_branding' => '自訂後台'
+        'manage_branding' => '自訂後台',
     ],
     'media' => [
-        'invalid_path' => "不合法的路徑: ':path'.",
+        'invalid_path' => '不合法的路徑: \':path\'.',
         'folder_size_items' => '個數',
     ],
 ];
