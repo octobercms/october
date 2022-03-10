@@ -80,6 +80,16 @@ class Installer extends ControllerBase
     }
 
     /**
+     * composerInstalled checks if composer is installed
+     */
+    protected function composerInstalled()
+    {
+        $composer = new ComposerProcess;
+        $composer->useLocalLibrary();
+        return $composer->isInstalled();
+    }
+
+    /**
      * Route: /setup
      */
     public function setup()
@@ -155,13 +165,8 @@ class Installer extends ControllerBase
 
                 // Add October CMS gateway as a composer repo
                 $composer = new ComposerProcess;
-                try {
-                    $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
-                }
-                catch (Exception $ex) {
-                    $composer->useLocalLibrary();
-                    $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
-                }
+                $composer->useLocalLibrary();
+                $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
 
                 return Redirect::to('install');
             }
