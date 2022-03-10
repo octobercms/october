@@ -43,14 +43,6 @@ trait SetupHelper
     }
 
     /**
-     * composerInstalled checks if composer is installed
-     */
-    protected function composerInstalled()
-    {
-        return (new ComposerProcess)->isInstalled();
-    }
-
-    /**
      * composerRequireString returns the composer require string for installing dependencies
      */
     protected function composerRequireCore($composer, $want = null)
