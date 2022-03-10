@@ -2,13 +2,7 @@
 
 <div class="requirement-list">
     <?php foreach ($requirements as $key => $message): ?>
-        <?php if ($key == 'composer'): ?>
-            <div>
-                <p>Composer is not installed</p>
-                <code>composer</code>
-                <small>Package Manager</small>
-            </div>
-        <?php elseif ($key == 'cache-path'): ?>
+        <?php if ($key == 'cache-path'): ?>
             <div>
                 <p>Cache path is not writable</p>
                 <code><?= e(cache_path()) ?></code>
