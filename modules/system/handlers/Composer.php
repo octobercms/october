@@ -18,7 +18,6 @@ class Composer extends ControllerBase
         while (@ob_end_flush());
 
         $composer = new ComposerProcess;
-
         $composer->setCallback(function($msg) {
             if ($nMsg = $this->processOutput($msg)) {
                 foreach (explode("\n", $nMsg) as $nnMsg) {
