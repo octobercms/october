@@ -58,15 +58,15 @@ class Installer extends ControllerBase
     public function check()
     {
         $requirements = array_filter([
-            'composer'         => !$this->composerInstalled(),
-            'cache-path'       => !is_writable(cache_path()),
-            'pdo-library'      => !defined('PDO::ATTR_DRIVER_NAME'),
+            'composer' => !$this->composerInstalled(),
+            'cache-path' => !is_writable(cache_path()),
+            'pdo-library' => !defined('PDO::ATTR_DRIVER_NAME'),
             'mbstring-library' => !extension_loaded('mbstring'),
             'fileinfo-library' => !extension_loaded('fileinfo'),
-            'ssl-library'      => !extension_loaded('openssl'),
-            'gd-library'       => !extension_loaded('gd'),
-            'curl-library'     => !function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION'),
-            'zip-library'      => !class_exists('ZipArchive'),
+            'ssl-library' => !extension_loaded('openssl'),
+            'gd-library' => !extension_loaded('gd'),
+            'curl-library' => !function_exists('curl_init') && defined('CURLOPT_FOLLOWLOCATION'),
+            'zip-library' => !class_exists('ZipArchive'),
         ]);
 
         if (count($requirements) === 0) {
@@ -100,22 +100,22 @@ class Installer extends ControllerBase
 
                 if ($dbType === 'sqlite') {
                     $this->setEnvVars([
-                        'BACKEND_URI'   => post('backend_uri', '/backend'),
-                        'APP_URL'       => Url::to(''),
+                        'BACKEND_URI' => post('backend_uri', '/backend'),
+                        'APP_URL' => Url::to(''),
                         'DB_CONNECTION' => $dbType,
-                        'DB_DATABASE'   => $dbName,
+                        'DB_DATABASE' => $dbName,
                     ]);
                 }
                 else {
                     $this->setEnvVars([
-                        'BACKEND_URI'   => post('backend_uri', '/backend'),
-                        'APP_URL'       => Url::to(''),
+                        'BACKEND_URI' => post('backend_uri', '/backend'),
+                        'APP_URL' => Url::to(''),
                         'DB_CONNECTION' => $dbType,
-                        'DB_HOST'       => post('db_host'),
-                        'DB_PORT'       => post('db_port'),
-                        'DB_DATABASE'   => $dbName,
-                        'DB_USERNAME'   => post('db_user'),
-                        'DB_PASSWORD'   => post('db_pass'),
+                        'DB_HOST' => post('db_host'),
+                        'DB_PORT' => post('db_port'),
+                        'DB_DATABASE' => $dbName,
+                        'DB_USERNAME' => post('db_user'),
+                        'DB_PASSWORD' => post('db_pass'),
                     ]);
                 }
 
@@ -155,7 +155,13 @@ class Installer extends ControllerBase
 
                 // Add October CMS gateway as a composer repo
                 $composer = new ComposerProcess;
-                $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
+                try {
+                    $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
+                }
+                catch (Exception $ex) {
+                    $composer->useLocalLibrary();
+                    $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
+                }
 
                 return Redirect::to('install');
             }
