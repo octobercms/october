@@ -5,7 +5,7 @@ use View;
 use Config;
 use Redirect;
 use System\Classes\UpdateManager;
-use October\Rain\Process\Composer as ComposerProcess;
+use October\Rain\Process\ComposerPhp;
 use Illuminate\Routing\Controller as ControllerBase;
 use Exception;
 
@@ -58,7 +58,6 @@ class Installer extends ControllerBase
     public function check()
     {
         $requirements = array_filter([
-            'composer' => !$this->composerInstalled(),
             'cache-path' => !is_writable(cache_path()),
             'pdo-library' => !defined('PDO::ATTR_DRIVER_NAME'),
             'mbstring-library' => !extension_loaded('mbstring'),
@@ -77,16 +76,6 @@ class Installer extends ControllerBase
             'title' => 'Check Requirements',
             'requirements' => $requirements
         ]);
-    }
-
-    /**
-     * composerInstalled checks if composer is installed
-     */
-    protected function composerInstalled()
-    {
-        $composer = new ComposerProcess;
-        $composer->useLocalLibrary();
-        return $composer->isInstalled();
     }
 
     /**
@@ -164,8 +153,7 @@ class Installer extends ControllerBase
                 $this->setComposerAuth($projectEmail, $projectId);
 
                 // Add October CMS gateway as a composer repo
-                $composer = new ComposerProcess;
-                $composer->useLocalLibrary();
+                $composer = new ComposerPhp;
                 $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
 
                 return Redirect::to('install');
