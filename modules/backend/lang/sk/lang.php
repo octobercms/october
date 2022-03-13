@@ -8,7 +8,8 @@ return [
     'field' => [
         'invalid_type' => 'Bol použitý zlý typ :type.',
         'options_method_invalid_model' => "Vlastnosť ':field' nezodpovedá platnému modelu. Skúste špecifikovať metódu možností pre triedu modelu :model explicitne.",
-        'options_method_not_exists' => "Trieda modelu :model musí implementovať metódu :method(), ktorá vracia možností pre formulárové pole ':field'."
+        'options_method_not_exists' => "Trieda modelu :model musí implementovať metódu :method(), ktorá vracia možností pre formulárové pole ':field'.",
+        'colors_method_not_exists' => "Trieda modelu :model musí implementovať metódu :method(), ktorá vracia html farbu HEX poľa ':field'."
     ],
     'widget' => [
         'not_registered' => "Trieda widgetu s menom ':name' nie je zaregistrovaná",
@@ -16,9 +17,9 @@ return [
     ],
     'page' => [
         'untitled' => 'Bez názvu',
-        '404' => [
-            'label'     => 'Stránka nenájdená',
-            'help'      => "Hľadali sme a hľadali, ale požadovanú adresu URL jednoducho nebolo možné nájsť. Možno ste hľadali niečo iné?",
+        'not_found' => [
+            'label' => 'Stránka nenájdená',
+            'help' => "Hľadali sme a hľadali, ale požadovanú adresu URL jednoducho nebolo možné nájsť. Možno ste hľadali niečo iné?",
             'back_link' => 'Späť na predchodzú stránku',
         ],
         'access_denied' => [
@@ -33,7 +34,12 @@ return [
         ],
     ],
     'partial' => [
-        'not_found_name' => "Čiastočná šablona ':name' nebola nájdená."
+        'not_found_name' => "Čiastočná šablona ':name' nebola nájdená.",
+        'invalid_name' => 'Neplatný názov čiastočnej šablóny: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Neplatný názov AJAX handler: :name.',
+        'not_found' => "AJAX handler ':name' nebol najdený.",
     ],
     'account' => [
         'signed_in_as' => 'Prihlásený ako :full_name',
@@ -200,6 +206,7 @@ return [
         'records_per_page' => 'Záznamov na stránku',
         'records_per_page_help' => 'Vyberte koľko záznamov chcete vidieť na jednej stránke. Vysoký počet záznamov môže negatívne ovplyvniť rýchlosť stránok.',
         'check' => 'Zaškrtnúť',
+        'create_button' => 'Vytvoriť :name',
         'delete_selected' => 'Zmazať vybrané',
         'delete_selected_empty' => 'Neboli vybrané žiadne záznamy na zmazanie.',
         'delete_selected_confirm' => 'Skutočne chcete zmazať vybrané záznamy?',
@@ -588,5 +595,31 @@ return [
         'resize_image' => 'Zmeniť veľkosť obrázku',
         'image_size' => 'Veľkosť obrázku:',
         'selected_size' => 'Vybrané:'
+    ],
+    'table' => [
+        'add_item' => 'Pridať položku',
+    ],
+    'dictionary' => [
+        'key_required' => 'Kľúč je povinný',
+        'value_required' => 'Hodnota je povinná',
+    ],
+    'uploader' => [
+        'uploading' => 'Nahrávam súbory',
+        'complete' => 'Nahrávanie dokončené',
+    ],
+    'richeditor' => [
+        'upload_from_computer' => 'Nahrať z počítača',
+        'embedding_code' => 'Vložiť kód',
+        'url_required' => 'URL je povinný',
+        'url_validation' => 'URL musí byť s http:// alebo https://',
+        'add_image' => 'Pridať obrázok',
+        'add_video' => 'Pridať video',
+        'add_audio' => 'Pridať audio',
+        'add_file' => 'Pridať súbor',
+        'embedding_code_required' => 'Kód je povinný',
+        'embedding_code_invalid' => 'Zadaný kód nie je platný',
+        'embedding_code_invalid_title' => 'Neplatný kód',
+        'browse' => 'Prehľadávať médiá',
+        'by_url' => 'Podľa URL',
     ],
 ];
