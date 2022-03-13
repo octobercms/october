@@ -1,7 +1,9 @@
 <?php
+
 return [
     'cms_object' => [
         'invalid_file' => 'Neplatný názov súboru: :name. Názvy súboru môžu obsahovať iba alfanumerické symboly, podtržítka, pomlčky a bodky. Príklady správnych názvov súborov: stranka.htm, stranka, priecinok/stranka',
+        'invalid_file_inspector' => 'Neplatný názov súboru. Názvy súborov môžu obsahovať iba alfanumerické symboly, podčiarkovníky, pomlčky a bodky. Niekoľko príkladov správnych názvov súborov: stránka.htm, stránka, podadresár/stránka',
         'invalid_property' => "Parameter ':name' meno nie je možné nastaviť",
         'file_already_exists' => "Súbor ':name' už existuje.",
         'error_saving' => "Chyba pri ukladaní súboru ':name'. Skontrolujte oprávnenia na zápis.",
