@@ -3,6 +3,7 @@
 use Lang;
 use Exception;
 use System\Classes\UpdateManager;
+use October\Rain\Process\ComposerPhp;
 use October\Rain\Process\Composer as ComposerProcess;
 
 /**
@@ -48,7 +49,7 @@ trait SetupBuilder
         $this->setComposerAuth($projectEmail, $projectId);
 
         // Add October CMS gateway as a composer repo
-        $composer = new ComposerProcess;
+        $composer = new ComposerPhp;
         $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
     }
 
