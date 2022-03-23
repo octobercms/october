@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Adgangskoden skal indeholde mindst ét lille bogstav.",
   "Password must contain at least one number.": "Kodeord skal indeholde mindst et tal.",
   "Password must contain at least one nonalphanumeric character.": "Adgangskoden skal indeholde mindst ét ikke-alfanumerisk tegn.",
-  "Welcome to your Administration Area, :name": "Velkommen til dit administrationsområde, :name"
+  "Welcome to your Administration Area, :name": "Velkommen til dit administrationsområde, :name",
+  "Duplicate": "Duplikere",
+  "Expand": "Udvide",
+  "Collapse": "Falde sammen",
+  "Move Up": "Flyt op",
+  "Move Down": "Flyt ned",
+  "Remove": "Fjerne"
 }

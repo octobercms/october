@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل.",
   "Password must contain at least one number.": "يجب ان تحتوي كلمة المرور على الاقل رقما واحدا.",
   "Password must contain at least one nonalphanumeric character.": "يجب أن تحتوي كلمة المرور على حرف واحد غير أبجدي رقمي واحد على الأقل.",
-  "Welcome to your Administration Area, :name": "مرحبًا بك في منطقة الإدارة الخاصة بك ،: الاسم"
+  "Welcome to your Administration Area, :name": "مرحبًا بك في منطقة الإدارة الخاصة بك ،: الاسم",
+  "Duplicate": "ينسخ",
+  "Expand": "يوسع",
+  "Collapse": "انهيار",
+  "Move Up": "تحرك",
+  "Move Down": "تحرك لأسفل",
+  "Remove": "إزالة"
 }

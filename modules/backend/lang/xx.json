@@ -10,5 +10,11 @@
     "Password must contain at least one lowercase character.": "Password must contain at least one lowercase character.",
     "Password must contain at least one number.": "Password must contain at least one number.",
     "Password must contain at least one nonalphanumeric character.": "Password must contain at least one nonalphanumeric character.",
-    "Welcome to your Administration Area, :name": "Welcome to your Administration Area, :name"
+    "Welcome to your Administration Area, :name": "Welcome to your Administration Area, :name",
+    "Duplicate": "Duplicate",
+    "Expand": "Expand",
+    "Collapse": "Collapse",
+    "Move Up": "Move Up",
+    "Move Down": "Move Down",
+    "Remove": "Remove"
 }

@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Пароль должен содержать хотя бы один символ нижнего регистра.",
   "Password must contain at least one number.": "Пароль должен содержать как минимум одну цифру.",
   "Password must contain at least one nonalphanumeric character.": "Пароль должен содержать хотя бы один не буквенно-цифровой символ.",
-  "Welcome to your Administration Area, :name": "Добро пожаловать в вашу административную зону :name"
+  "Welcome to your Administration Area, :name": "Добро пожаловать в вашу административную зону :name",
+  "Duplicate": "Дублировать",
+  "Expand": "Расширять",
+  "Collapse": "Крах",
+  "Move Up": "Вверх",
+  "Move Down": "Вниз",
+  "Remove": "Удалять"
 }

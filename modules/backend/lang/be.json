@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Пароль павінен утрымліваць прынамсі адзін сімвал ніжняга рэгістра.",
   "Password must contain at least one number.": "Пароль павінен утрымліваць прынамсі адну лічбу.",
   "Password must contain at least one nonalphanumeric character.": "Пароль павінен утрымліваць прынамсі адзін нелітарны сімвал.",
-  "Welcome to your Administration Area, :name": "Сардэчна запрашаем у вашу адміністрацыйную зону, :name"
+  "Welcome to your Administration Area, :name": "Сардэчна запрашаем у вашу адміністрацыйную зону, :name",
+  "Duplicate": "Дубляваць",
+  "Expand": "Разгарнуць",
+  "Collapse": "Згарнуць",
+  "Move Up": "Рухайцеся ўверх",
+  "Move Down": "Рухайцеся ўніз",
+  "Remove": "Выдаліць"
 }

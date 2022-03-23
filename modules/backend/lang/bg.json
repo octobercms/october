@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Паролата трябва да съдържа поне един знак с малки букви.",
   "Password must contain at least one number.": "Паролата трябва да съдържа поне една цифра.",
   "Password must contain at least one nonalphanumeric character.": "Паролата трябва да съдържа поне един небуквено-цифров знак.",
-  "Welcome to your Administration Area, :name": "Добре дошли във вашата административна зона, :name"
+  "Welcome to your Administration Area, :name": "Добре дошли във вашата административна зона, :name",
+  "Duplicate": "Дублиране",
+  "Expand": "Разгънете",
+  "Collapse": "Свиване",
+  "Move Up": "Премести се нагоре",
+  "Move Down": "Премести надолу",
+  "Remove": "Премахване"
 }

@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Wachtwoord moet ten minste één kleine letter bevatten.",
   "Password must contain at least one number.": "Het wachtwoord moet minstens een nummer bevatten.",
   "Password must contain at least one nonalphanumeric character.": "Wachtwoord moet ten minste één niet-alfanumeriek teken bevatten.",
-  "Welcome to your Administration Area, :name": "Welkom in uw administratiegebied, :name"
+  "Welcome to your Administration Area, :name": "Welkom in uw administratiegebied, :name",
+  "Duplicate": "Duplicaat",
+  "Expand": "Uitbreiden",
+  "Collapse": "Instorten",
+  "Move Up": "Omhoog gaan",
+  "Move Down": "Naar beneden verplaatsen",
+  "Remove": "Verwijderen"
 }

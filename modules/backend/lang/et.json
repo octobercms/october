@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Parool peab sisaldama vähemalt ühte väiketähte.",
   "Password must contain at least one number.": "Parool peab sisaldama vähemalt üht numbrit.",
   "Password must contain at least one nonalphanumeric character.": "Parool peab sisaldama vähemalt ühte mittetähtnumbrilist märki.",
-  "Welcome to your Administration Area, :name": "Tere tulemast oma haldusalasse :name"
+  "Welcome to your Administration Area, :name": "Tere tulemast oma haldusalasse :name",
+  "Duplicate": "Duplikaat",
+  "Expand": "Laienda",
+  "Collapse": "Ahenda",
+  "Move Up": "Üles liikuma",
+  "Move Down": "Liigu alla",
+  "Remove": "Eemalda"
 }

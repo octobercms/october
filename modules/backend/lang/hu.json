@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "A jelszónak legalább egy kisbetűt kell tartalmaznia.",
   "Password must contain at least one number.": "A jelszónak tartalmaznia kell legalább egy számot.",
   "Password must contain at least one nonalphanumeric character.": "A jelszónak legalább egy nem alfanumerikus karaktert kell tartalmaznia.",
-  "Welcome to your Administration Area, :name": "Üdvözöljük az Adminisztrációs Területén, :name"
+  "Welcome to your Administration Area, :name": "Üdvözöljük az Adminisztrációs Területén, :name",
+  "Duplicate": "Másolat",
+  "Expand": "Kiterjed",
+  "Collapse": "Összeomlás",
+  "Move Up": "Mozgás felfelé",
+  "Move Down": "Mozgás Le",
+  "Remove": "Távolítsa el"
 }

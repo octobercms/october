@@ -10,5 +10,11 @@
   "Password must contain at least one lowercase character.": "Heslo musí obsahovat alespoň jedno malé písmeno.",
   "Password must contain at least one number.": "Heslo musí obsahovat alespoň jedno číslo.",
   "Password must contain at least one nonalphanumeric character.": "Heslo musí obsahovat alespoň jeden nealfanumerický znak.",
-  "Welcome to your Administration Area, :name": "Vítejte ve své administrativní oblasti, :name"
+  "Welcome to your Administration Area, :name": "Vítejte ve své administrativní oblasti, :name",
+  "Duplicate": "Duplikát",
+  "Expand": "Rozšířit",
+  "Collapse": "Kolaps",
+  "Move Up": "Posunout nahoru",
+  "Move Down": "Posunout dolů",
+  "Remove": "Odstranit"
 }
