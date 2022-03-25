@@ -516,6 +516,10 @@ return [
         'folder_size_items' => 'item(s)',
     ],
     'page' => [
+        'not_found' => [
+            'label' => 'Pagina niet gevonden',
+            'help' => 'De gevraagde pagina kan niet gevonden worden.',
+        ],
         'custom_error' => [
             'label' => 'Paginafout',
             'help' => 'Excuses, er is een fout opgetreden. De pagina kan niet worden weergegeven.',

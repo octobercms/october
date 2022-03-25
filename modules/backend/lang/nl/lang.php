@@ -405,11 +405,13 @@ return [
     ],
     'warnings' => [
         'tips' => 'Systeem configuratie tips',
-        'tips_description' => 'Er zijn problemen gevonden waar je aandacht aan moet besteden om uw systeem goed te configureren.',
+        'tips_description' => 'Er zijn aandachtspunten die actie vereisen.',
         'permissions' => 'De map :name of de submappen zijn niet schrijfbaar voor PHP. Zet de bijhorende rechten voor de webserver in deze map.',
         'extension' => 'De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.',
         'plugin_missing' => 'De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.',
         'debug' => 'Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.',
+        'backend_uri' => 'De backend URL is te generiek. Kies een unieke naam.',
+        'backend_login' => 'Er is een account met een generieke gebruikersnaam gevonden (:name). Pas de gebruikersnaam aan van dit account.',
     ],
     'editor' => [
         'menu_label' => 'Editor instellingen',
@@ -499,6 +501,7 @@ return [
         'primary_color' => 'Primaire kleur',
         'secondary_color' => 'Secundaire kleur',
         'accent_color' => 'Accentkleur',
+        'selection_color' => 'Selectiekleur',
         'login_background_type' => 'Achtergrondtype',
         'background_flat_color' => 'Effen kleur',
         'background_wallpaper' => 'Afbeelding',
@@ -723,7 +726,7 @@ return [
         'embedding_code_required' => 'De in te voegen code is vereist',
         'embedding_code_invalid' => 'Geef geldige HTML-code op',
         'embedding_code_invalid_title' => 'Ongeldige code',
-        'browse' => 'Blader in Media Library',
+        'browse' => 'Blader in Media',
         'by_url' => 'Op URL',
     ],
 ];
