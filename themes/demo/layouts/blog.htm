@@ -2,12 +2,14 @@
 description = "Blog layout"
 
 [collection blogCategories]
+handle = "Blog\Categories"
+
+[global blogConfig]
+handle = "Blog\Config"
 
 [resources]
 less[] = "layouts/blog.less"
 vars[activeBlogCategory] = ""
-
-[global blogConfig]
 ==
 <!DOCTYPE html>
 <html>
