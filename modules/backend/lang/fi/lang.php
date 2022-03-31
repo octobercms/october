@@ -8,7 +8,7 @@ return [
     'field' => [
         'invalid_type' => 'Kentän tyyppi :type ei ole sallittu.',
         'options_method_invalid_model' => "Attribuutti ':field' ratkaise kelvollista mallia. Spesifioit vaihtoehtoinen metodi mallille :model explisiittisesti.",
-        'options_method_not_exists' => "Luokan :model täytyy määritellä metodi :method(), joka palauttaa ':field' lomakekentän ehdot."
+        'options_method_not_exists' => "Luokan :model täytyy määritellä metodi :method(), joka palauttaa ':field' lomakekentän ehdot.",
         'colors_method_not_exists' => "Malliluokka :model pitää määritellä :method() palauttaaksesi HEX-arvoisen värin ':field' lomakekenttään."
     ],
     'widget' => [
@@ -243,7 +243,7 @@ return [
         'upload_file' => 'Siirrä tiedosto',
         'upload_error' => 'Virhe siirrossa',
         'remove_confirm' => 'Oletko varma?',
-        'remove_file' => 'Poista tiedosto'
+        'remove_file' => 'Poista tiedosto',
         'clear' => 'Tyhjennä',
         'delete_selected' => 'Poista valittu',
         'upload' => 'Siirrä',
