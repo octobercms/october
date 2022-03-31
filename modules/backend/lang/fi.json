@@ -1,0 +1,21 @@
+{
+  "Cancel": "Peruuta",
+  "You are viewing as": "Tarkasteluroolisi on",
+  "Preview Role": "Esikatselurooli",
+  "This lets you test the actions this role can perform.": "Tämän avulla voit tarkastella toimenpiteitä, joita rooli voi tehdä.",
+  "View As Role": "Katsele roolissa",
+  "Return to Role Settings": "Palaa rooli-asetuksiin",
+  "Password must have a minimum of length of :min characters": "Salasanassa on oltava vähintään :min merkkiä",
+  "Password must contain at least one uppercase character.": "Salasanassa on oltava vähintään yksi ISO kirjain.",
+  "Password must contain at least one lowercase character.": "Salasanassa on oltava vähintään yksi pieni kirjain.",
+  "Password must contain at least one number.": "Salasanassa on oltava vähintään yksi numero.",
+  "Password must contain at least one nonalphanumeric character.": "Salasanassa on oltava vähintään yksi erikoismerkki.",
+  "Welcome to your Administration Area, :name": "Tervetuloa ylläpitoon, :name",
+  "Duplicate": "Kopioi",
+  "Expand": "Laajenna",
+  "Collapse": "Sulje",
+  "Move Up": "Siirrä ylös",
+  "Move Down": "Siirrä alas",
+  "Remove": "Poista",
+  "Manage Item": "Hallitse kohdetta"
+}
