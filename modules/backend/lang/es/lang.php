@@ -2,7 +2,8 @@
 
 return [
     'auth' => [
-        'title' => 'Area de Administración'
+        'title' => 'Area de Administración',
+        'invalid_login' => 'Los detalles que ingresó no coinciden con nuestros registros. Vuelva a verificar y vuelva a intentarlo.'
     ],
     'field' => [
         'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
