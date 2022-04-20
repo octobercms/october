@@ -1,0 +1,41 @@
+uuid: edcd102e-0525-4e4d-b07e-633ae6c18db6
+handle: Blog\Post
+type: stream
+name: Post
+drafts: true
+
+primaryNavigation:
+    label: Blog
+    icon: icon-copy
+    order: 95
+
+navigation:
+    icon: icon-pencil
+    order: 100
+
+groups:
+    regular_post:
+        name: Regular Post
+        fields:
+            content:
+                tab: Edit
+                label: Content
+                type: richeditor
+                span: adaptive
+
+            blog_post_content:
+                type: mixin
+                source: Blog\PostContent
+
+    markdown_post:
+        name: Markdown Post
+        fields:
+            content:
+                tab: Edit
+                label: Content
+                type: markdown
+                span: adaptive
+
+            blog_post_content:
+                type: mixin
+                source: Blog\PostContent

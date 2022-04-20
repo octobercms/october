@@ -5,5 +5,7 @@
     "Owner": "Właściciel",
     "Plugins": "Wtyczki",
     "Disabled": "Wyłączony",
-    "Current Build": "Aktualna wersja"
+    "Current Build": "Aktualna wersja",
+    "System Updates": "Aktualizacje",
+    "Update the system modules and plugins.": "Aktualizacja systemu, zarządzaj i instaluj wtyczki oraz szablony."
 }

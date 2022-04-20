@@ -3,10 +3,70 @@
 }
 
 .btn {
-    &.btn-cta {
-        border-radius: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: @brand-accent;
+    &.btn-pill {
+        border-radius: 100px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    &.btn-primary {
+        &:not(:hover):not(:active) {
+            border-color: transparent;
+            background: linear-gradient(102.01deg, #5799EB 0.3%, #9F74FB 106.31%);
+        }
+    }
+}
+
+.share-button {
+    display: inline-block;
+
+    .btn {
+        position: relative;
+        padding-left: 47px;
+        padding-right: 25px;
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 17px;
+            top: 12px;
+            width: 14px;
+            height: 14px;
+            background-repeat: no-repeat;
+            background-size: 14px 14px;
+            background-image: url('@{assets-url}/images/icons/icon-share.png');
+        }
+
+        &.btn-sm {
+            padding-left: 37px;
+            padding-right: 15px;
+
+            &:before {
+                left: 12px;
+                top: 7px;
+            }
+        }
+    }
+}
+
+.share-button-popover {
+    padding: 0;
+    margin: -1rem;
+    overflow: hidden;
+    border-radius: 8px;
+
+    .nav-link {
+        padding: 10px 15px;
+
+        color: #343F52;
+        text-decoration: none;
+        > i {
+            margin-right: 5px;
+        }
+
+        &:hover {
+            color: #fff;
+            background: @brand-primary;
+        }
     }
 }

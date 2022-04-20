@@ -1,0 +1,53 @@
+uuid: 339b11b7-69ad-43c4-9be1-6953e7738827
+handle: Wiki\Article
+type: structure
+name: Article
+drafts: true
+
+structure:
+    maxDepth: 3
+
+navigation:
+    icon: icon-wikipedia-w
+
+fields:
+    content:
+        label: Content
+        tab: Edit
+        type: richeditor
+        span: adaptive
+
+    banner:
+        label: Banner
+        type: fileupload
+        mode: image
+        maxFiles: 1
+
+    show_in_toc:
+        label: Show in TOC
+        comment: Include this article in the table of contents
+        type: checkbox
+
+    summary_text:
+        label: Summary Text
+        type: textarea
+        size: small
+
+    gallery:
+        label: Gallery
+        type: fileupload
+        mode: image
+
+    external_links:
+        label: External Links
+        tab: Links
+        type: repeater
+        form:
+            fields:
+                link_text:
+                    label: Link Text
+                    span: auto
+
+                link_url:
+                    label: Link URL
+                    span: auto

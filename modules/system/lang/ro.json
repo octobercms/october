@@ -3,5 +3,7 @@
     "Manage Plugins": "Gestionare plugin-uri",
     "Project": "Proiect",
     "Owner": "Proprietar",
-    "Current Build": "Versiune curenta"
+    "Current Build": "Versiune curenta",
+    "System Updates": "Actualizari",
+    "Update the system modules and plugins.": "Actualizati sistemul, gestionati si instalati plugin-uri si teme."
 }

@@ -1,0 +1,6 @@
+{% set images = [
+    'workspace',
+    'desktop',
+    'pancakes',
+    'doughnuts'
+] %}{{ ('assets/images/stock/' ~ random(images) ~ '.png')|theme }}

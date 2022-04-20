@@ -1,0 +1,20 @@
+uuid: 015fde4b-23d8-4ba3-8e78-9c6ebfb5fcf7
+name: Paragraph Block
+type: mixin
+handle: Blocks\ParagraphBlock
+
+fields:
+    title:
+        label: Title
+        type: text
+
+    content:
+        label: Description
+        type: richeditor
+        size: small
+
+    image:
+        label: Image
+        type: mediafinder
+        mode: image
+        maxItems: 1

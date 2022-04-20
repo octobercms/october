@@ -5,5 +5,7 @@
     "Owner": "Proprietario",
     "Plugins": "Plugin",
     "Disabled": "Disabilitati",
-    "Current Build": "Build corrente"
+    "Current Build": "Build corrente",
+    "System Updates": "Aggiornamenti & Plugin",
+    "Update the system modules and plugins.": "Aggiorna il sistema, gestisci ed installa plugin e temi."
 }

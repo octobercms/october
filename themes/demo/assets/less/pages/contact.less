@@ -1,0 +1,47 @@
+@import "../theme/boot";
+
+.contactform {
+    text-align: center;
+    background: #f6f2ff;
+    padding: 70px 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    > .container {
+        position: relative;
+    }
+
+    h3 {
+        font-weight: 700;
+        font-size: 26px;
+        margin-bottom: 45px;
+    }
+
+    p.lead {
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    // Decorations
+    .contactform-decoration-1 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 321px;
+        height: 321px;
+        left: -140px;
+        top: -140px;
+        opacity: .5;
+    }
+
+    .contactform-decoration-2 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 380px;
+        height: 380px;
+        right: -165px;
+        top: -180px;
+        opacity: .5;
+    }
+}

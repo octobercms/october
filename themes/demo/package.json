@@ -18,6 +18,9 @@
         "bootstrap": "^5.1.3",
         "bootstrap-icons": "^1.7.2",
         "codemirror": "^5.64.0",
-        "jquery": "^3.6.0"
+        "jquery": "^3.6.0",
+        "slick-carousel": "^1.8.1",
+        "photoswipe": "^5.2.4",
+        "photoswipe-dynamic-caption-plugin": "^1.1.1"
     }
 }

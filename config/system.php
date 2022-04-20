@@ -92,7 +92,7 @@ return [
 
     'default_mask' => [
         'file' => env('DEFAULT_FILE_MASK'),
-        'folder' => env('DEFAULT_FOLDER_MASK')
+        'folder' => env('DEFAULT_FOLDER_MASK'),
     ],
 
     /*

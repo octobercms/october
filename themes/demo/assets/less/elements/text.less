@@ -1,0 +1,45 @@
+.text-muted {
+    color: #A2A2A2;
+}
+
+.text-icon {
+    position: relative;
+    display: inline-block;
+    padding-left: 24px;
+    line-height: 16px;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: -1px;
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+    }
+
+    &.text-icon-date {
+        &:before {
+            background-image: url('@{assets-url}/images/icons/icon-calendar.png');
+        }
+    }
+
+    &.text-icon-author {
+        &:before {
+            background-image: url('@{assets-url}/images/icons/icon-user.png');
+        }
+    }
+}
+
+.text-banner {
+    border-radius: 13px;
+    width: 100%;
+    height: 191px;
+    background-position: center center;
+    background-size: cover;
+
+    &.banner-lg {
+        height: 268px;
+    }
+}

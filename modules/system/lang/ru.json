@@ -8,5 +8,7 @@
     "Plugins": "Плагины",
     "Disabled": "Отключено",
     "Current Build": "Текущая сборка",
-    "View Changelog": "Посмотреть историю изменений"
+    "View Changelog": "Посмотреть историю изменений",
+    "System Updates": "Обновления",
+    "Update the system modules and plugins.": "Обновление системы, управление и установка плагинов и тем."
 }

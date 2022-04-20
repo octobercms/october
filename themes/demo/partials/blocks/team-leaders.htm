@@ -1,0 +1,29 @@
+##
+[resources]
+less[] = "blocks/team-leaders.less"
+js[] = "blocks/team-leaders.js"
+==
+<div class="block-team-leaders">
+    <div class="container py-3">
+        <div class="text-center">
+            <h2 class="pt-5">Meet the Team!</h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="block-team-leaders">
+        <div data-control="team-leaders" class="team-leaders">
+            {% for member in block.members|default([]) %}
+                <div class="team-member-container">
+                    <div class="team-member card">
+                        <div class="card-body">
+                            {% partial 'elements/user-panel-team' user=member %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

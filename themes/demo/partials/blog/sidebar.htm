@@ -1,0 +1,68 @@
+##
+[collection blog]
+handle = "Blog\Post"
+
+[collection blogCategories]
+handle = "Blog\Category"
+
+[global blogConfig]
+handle = "Blog\Config"
+==
+{% set archiveDates = blog
+    .selectRaw("count(*) as post_count, published_at_month, published_at_year")
+    .groupBy('published_at_month', 'published_at_year').get()
+%}
+
+<div class="sidebar-search">
+    <form action="{{ 'blog/search'|page }}" method="get">
+        <div class="form-control-search">
+            <input type="text" name="term" class="form-control" placeholder="Search" value="">
+            <span class="search-icon"></span>
+        </div>
+    </form>
+</div>
+
+<div class="sidebar-about">
+    <h3>About Us</h3>
+    {% if blogConfig.about_this_blog %}
+        {{ blogConfig.about_this_blog|md }}
+    {% else %}
+        <p class="text-secondary">
+            Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.
+        </p>
+    {% endif %}
+</div>
+
+<div class="sidebar-social">
+    {% partial 'elements/social-links' links=blogConfig.social_links showRssLink=true %}
+</div>
+
+<div class="sidebar-categories">
+    <h3>Categories</h3>
+    <ul class="bullet-list">
+        {% for category in blogCategories %}
+            <li class="{{ activeBlogCategory == category.slug ? 'active' }}">
+                <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
+                    {{ category.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="sidebar-archives">
+    <h3>Archives</h3>
+    <ul class="bullet-list">
+        {% for date in archiveDates %}
+            {% if date.published_at_year %}
+                {% set dateParsed = date('1-'~date.published_at_month~'-'~date.published_at_year) %}
+                <li>
+                    <a
+                        href="{{ 'blog/archive'|page({ month: date.published_at_month, year: date.published_at_year }) }}"
+                    >{{ dateParsed|date('F Y') }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+

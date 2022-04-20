@@ -5,11 +5,14 @@ title = "Wiki Docs Demo"
 meta_title = "{{ wiki.title }}"
 
 [section wiki]
-handle = "Wiki"
+handle = "Wiki\Article"
 entrySlug = "{{ :slug }}"
 
 [resources]
-vars[activeNavLink] = 'tailor'
+vars[activeNavLink] = 'wiki'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:wiki/article.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:wiki/article.yaml'
+vars[howItsMadeTailorContent] = 'entries/wiki_article/{{ wiki.id }}'
 ==
 {% set article = wiki %}
 {% if article is empty %}
@@ -23,14 +26,34 @@ vars[activeNavLink] = 'tailor'
     </div>
 
     <article class="wiki-article pb-3">
-        <div class="card">
-            <div class="card-body p-5">
-                <h2 class="wiki-article-title mb-3">{{ article.title }}</h2>
-                {{ article.content|raw }}
-                {% partial 'wiki/toc' articles=article.children %}
-            </div>
+        <h1 class="wiki-article-title mb-3">{{ article.title }}</h1>
+        <p class="lead">{{ article.summary_text }}</p>
+
+        <div class="wiki-banner mb-3">
+            {% if article.banner %}
+                <div class="text-banner" style="background-image:url('{{ article.banner.path }}')"></div>
+            {% else %}
+                <div class="text-banner" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+            {% endif %}
+        </div>
+
+        {{ article.content|raw }}
+
+        <div class="wiki-article-gallery mb-3">
+            {% partial 'controls/image-carousel' gallery=article.gallery %}
         </div>
     </article>
 
     {% partial 'wiki/continue' article=article %}
+
+    {% if article.external_links %}
+        <hr />
+        <h2>External Links</h2>
+        <ul class="bullet-list list-content">
+            {% for link in article.external_links %}
+                <li><a href="{{ link.link_url }}">{{ link.link_text }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 </div>

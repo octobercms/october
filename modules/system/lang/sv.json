@@ -5,5 +5,7 @@
     "Owner": "Ägare",
     "Plugins": "Tillägg",
     "Disabled": "Avaktiverade",
-    "Current Build": "Nuvarande build"
+    "Current Build": "Nuvarande build",
+    "System Updates": "Uppdateringar",
+    "Update the system modules and plugins.": "Uppdatera systemet, hantera och installera tillägg och teman."
 }

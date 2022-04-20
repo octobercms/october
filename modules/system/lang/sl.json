@@ -6,5 +6,7 @@
     "Plugins": "Vtičniki",
     "Disabled": "Onemogočeno",
     "Current Build": "Trenutna različica",
-    "View Changelog": "Pokaži dnevnik sprememb"
+    "View Changelog": "Pokaži dnevnik sprememb",
+    "System Updates": "Posodobitve in vtičniki",
+    "Update the system modules and plugins.": "Posodobitev sistema, upravljanje in nameščanje vtičnikov in tem."
 }

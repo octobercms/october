@@ -1,0 +1,20 @@
+##
+
+[collection wiki]
+handle = "Wiki\Article"
+==
+{% set articles = wiki.getNested() %}
+
+<div class="sidebar-search">
+    <form action="{{ 'wiki/search'|page }}" method="get">
+        <div class="form-control-search">
+            <input type="text" name="term" class="form-control" placeholder="Search" value="">
+            <span class="search-icon"></span>
+        </div>
+    </form>
+</div>
+
+<div class="sidebar-toc">
+    <h3>Table of Contents</h3>
+    {% partial 'wiki/sidebar-toc' articles=articles %}
+</div>

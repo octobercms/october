@@ -5,5 +5,7 @@
     "Owner": "소유자",
     "Plugins": "플러그인",
     "Disabled": "비활성됨",
-    "Current Build": "현재의 빌드"
+    "Current Build": "현재의 빌드",
+    "System Updates": "업데이트",
+    "Update the system modules and plugins.": "시스템 변경, 플러그인과 테마의 관리와 설치."
 }

@@ -4,5 +4,7 @@
     "Project": "プロジェクト",
     "Owner": "所有者",
     "Plugins": "プラグイン",
-    "Current Build": "現在のビルド"
+    "Current Build": "現在のビルド",
+    "System Updates": "アップデート",
+    "Update the system modules and plugins.": "システムの更新、プラグインとテーマの管理とインストール。"
 }

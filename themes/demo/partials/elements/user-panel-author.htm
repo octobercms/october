@@ -1,0 +1,30 @@
+<div class="element-user-panel author-panel">
+    <div class="row">
+        <div class="col-md-8 d-flex">
+            <div class="user-avatar">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar|media }}" alt="{{ user.title }}" />
+                {% else %}
+                    <img src="{{ partial('helpers/random-avatar-image') }}" alt="{{ user.title }}" />
+                {% endif %}
+            </div>
+            <div class="user-details">
+                <h3 class="mb-0">{{ user.title }}</h3>
+                <p>{{ user.role }}</p>
+            </div>
+        </div>
+        {% if not hideAllPosts %}
+        <div class="col-md-4 text-end">
+            <a href="{{ 'blog/author'|page({ slug: user.slug }) }}" class="btn btn-secondary btn-pill btn-sm mt-4">
+                All Posts
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="user-profile">
+        <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+    </div>
+    <div class="user-social">
+        {% partial 'elements/social-links' links=user.social_links %}
+    </div>
+</div>

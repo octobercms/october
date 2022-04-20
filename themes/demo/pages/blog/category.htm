@@ -2,36 +2,33 @@
 url = "/blog/category/:slug"
 layout = "blog"
 title = "Display a Blog Category"
-meta_title = "{{ category.title }} - Blog"
 
 [section category]
-handle = "Blog\Categories"
+handle = "Blog\Category"
 entrySlug = "{{ :slug }}"
 
 [collection blog]
-handle = "Blog"
+handle = "Blog\Post"
 
 [resources]
-vars[activeNavLink] = "tailor"
+vars[activeNavLink] = 'blog'
 vars[activeBlogCategory] = "{{ :slug }}"
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/category.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/category.yaml'
+vars[howItsMadeTailorContent] = 'entries/blog_category/{{ category.id }}'
 ==
 {% if category is empty %}
     {% do abort(404) %}
 {% endif %}
 
 {% set posts = blog.whereRelation('categories', 'slug', category.slug).paginate(16) %}
+{% put pageTitle = 'Articles in ' ~ category.title %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="blog-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">
-                {% for post in posts %}
-                    {% partial 'blog/post-card' post=post %}
-                {% endfor %}
-            </div>
-            <nav class="blog-pagination" aria-label="Pagination">
-                {{ posts.links|raw }}
-            </nav>
-        </div>
-    </div>
+<div class="blog-featured row row-cols-1 row-cols-xl-2 g-3 pb-5">
+    {% for post in posts %}
+        {% partial 'blog/post-card' post=post %}
+    {% endfor %}
 </div>
+<nav class="blog-pagination" aria-label="Pagination">
+    {{ posts.links|raw }}
+</nav>

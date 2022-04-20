@@ -1,0 +1,28 @@
+##
+url = "/about"
+layout = "default"
+title = "About Page"
+meta_title = "{{ landingPage.title }}"
+
+[section landingPage]
+handle = "LandingPage"
+
+[resources]
+vars[activeNavLink] = 'about'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:about.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:landing/landing-page.yaml'
+vars[howItsMadeTailorContent] = 'entries/landing_page'
+==
+{% put headerAfter %}
+    <div class="container">
+        <div class="header-extra text-center">
+            <h1 class="mb-4">Hello! This is October CMS!</h1>
+            <p class="lead">A company proving that making websites is not rocket science.</p>
+        </div>
+    </div>
+{% endput %}
+<main class="header-flush">
+    {% for block in landingPage.blocks %}
+        {% partial 'blocks/' ~ str_slug(block.type) block=block %}
+    {% endfor %}
+</main>

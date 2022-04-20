@@ -5,5 +5,7 @@
     "Owner": "Autor",
     "Plugins": "Plugins",
     "Disabled": "Deshabilitats",
-    "Current Build": "Versió actual"
+    "Current Build": "Versió actual",
+    "System Updates": "Actualitzacions i plugins",
+    "Update the system modules and plugins.": "Actualitzar el sistema, gestionar i instal·lar plugins i temes."
 }

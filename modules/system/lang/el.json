@@ -5,5 +5,7 @@
     "Owner": "Ιδιοκτήτης",
     "Plugins": "Πρόσθετα",
     "Disabled": "Ανενεργό",
-    "Current Build": "Τρέχουσα έκδοση"
+    "Current Build": "Τρέχουσα έκδοση",
+    "System Updates": "Ενημερώσεις & Πρόσθετα",
+    "Update the system modules and plugins.": "Ενημερώνει το σύστημα, διαχειρίζεται και εγκαθιστά πρόσθετα και θέματα."
 }

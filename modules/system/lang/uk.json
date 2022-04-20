@@ -5,5 +5,7 @@
     "Owner": "Власник",
     "Plugins": "Плагіни",
     "Disabled": "Відключено",
-    "Current Build": "Поточна версія системи"
+    "Current Build": "Поточна версія системи",
+    "System Updates": "Оновлення",
+    "Update the system modules and plugins.": "Оновлення системи, керування плагінами та темами."
 }

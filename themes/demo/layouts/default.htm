@@ -1,4 +1,7 @@
+##
 description = "Default layout"
+
+[backendLink]
 
 [resources]
 less[] = "layouts/default.less"
@@ -25,5 +28,10 @@ less[] = "layouts/default.less"
             {% partial 'site/footer' %}
         </footer>
 
+        <!-- Mobile -->
+        {% partial 'site/mobile' %}
+
+        <!-- How the page is made -->
+        {% partial 'site/how-its-made' %}
     </body>
 </html>

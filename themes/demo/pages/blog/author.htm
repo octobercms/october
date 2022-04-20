@@ -1,66 +1,42 @@
 ##
 url = "/blog/author/:slug"
-layout = "blog"
+layout = "default"
 title = "Display a Blog Author"
-meta_title = "{{ author.title }} - Blog"
 
 [section author]
-handle = "Blog\Authors"
+handle = "Blog\Author"
 entrySlug = "{{ :slug }}"
 
 [collection blog]
-handle = "Blog"
+handle = "Blog\Post"
 
 [resources]
-vars[activeNavLink] = 'tailor'
+vars[activeNavLink] = 'blog'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/author.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/author.yaml'
+vars[howItsMadeTailorContent] = 'entries/blog_author/{{ author.id }}'
 ==
 {% if author is empty %}
     {% do abort(404) %}
 {% endif %}
 
 {% set authorPosts = blog.whereRelation('author', 'slug', author.slug).paginate(16) %}
+{% put pageTitle = author.title %}
 
 <main class="container">
+    <header>
+        <h1>Posts by {{ author.title }}</h1>
+    </header>
     <div class="blog-featured row mb-2">
         <div class="col-md-12">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
-                <div class="col-auto d-none d-lg-block">
-                    {% if author.avatar %}
-                        <img src="{{ author.avatar|media }}" alt="{{ author.title }}" />
-                    {% else %}
-                        <img src="{{ 'assets/images/default-avatar.png'|theme }}" alt="{{ author.title }}" class="m-5" />
-                    {% endif %}
-                </div>
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h3>{{ author.title }}</h3>
-                    <p class="card-text mb-auto">This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                    <div class="d-flex justify-content-end align-items-center">
-                        {% if author.facebook_url %}
-                            <a class="link-secondary" href="{{ author.facebook_url }}" aria-label="Facebook" target="_blank">
-                                <i class="bi bi-facebook mx-3"></i>
-                            </a>
-                        {% endif %}
-                        {% if author.twitter_url %}
-                            <a class="link-secondary" href="{{ author.twitter_url }}" aria-label="Twitter" target="_blank">
-                                <i class="bi bi-twitter mx-3"></i>
-                            </a>
-                        {% endif %}
-                        {% if author.linkedin_url %}
-                            <a class="link-secondary" href="{{ author.linkedin_url }}" aria-label="LinkedIn" target="_blank">
-                                <i class="bi bi-linkedin mx-3"></i>
-                            </a>
-                        {% endif %}
-                        {% if author.github_url %}
-                            <a class="link-secondary" href="{{ author.github_url }}" aria-label="GitHub" target="_blank">
-                                <i class="bi bi-github mx-3"></i>
-                            </a>
-                        {% endif %}
-                    </div>
+            <div class="card post-card mb-4">
+                <div class="card-body">
+                    {% partial 'elements/user-panel-author' user=author hideAllPosts=true %}
                 </div>
             </div>
         </div>
     </div>
-    <div class="blog-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">
+    <div class="blog-featured row row-cols-1 row-cols-xl-2 g-3 pb-5">
         {% for post in authorPosts %}
             {% partial 'blog/post-card' post=post %}
         {% endfor %}

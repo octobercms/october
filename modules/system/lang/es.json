@@ -5,5 +5,7 @@
     "Owner": "Dueño",
     "Plugins": "Plugins",
     "Disabled": "Desactivado",
-    "Current Build": "Versión actual"
+    "Current Build": "Versión actual",
+    "System Updates": "Actualizaciones",
+    "Update the system modules and plugins.": "Actualizaciones del sistema, administrar e instalar plugins y temas."
 }

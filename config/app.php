@@ -112,9 +112,12 @@ return [
 
     'providers' => array_merge(include(base_path('modules/system/providers.php')), [
 
+        // Core Service Provider
+        System\ServiceProvider::class,
+
+        // Package Service Providers...
         // Illuminate\Html\HtmlServiceProvider::class, // Example
 
-        System\ServiceProvider::class,
     ]),
 
     /*

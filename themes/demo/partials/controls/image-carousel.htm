@@ -1,0 +1,22 @@
+##
+[resources]
+js[] = "controls/image-carousel.js"
+less[] = "controls/image-carousel.less"
+==
+{% set galleryId = 'carousel' ~ random() %}
+
+<div data-control="image-carousel" id="{{ galleryId }}">
+    {% for image in gallery %}
+        {% set thumb = image.getThumb(650, 650, {extension: 'png', mode: 'crop'}) %}
+        <div>
+            <div class="image-container">
+                <a href="{{ image|media }}"><img src="{{thumb}}"></a>
+
+                <div class="pswp-caption-content">
+                    <h3>{{ image.title }}</h3>
+                    <p>{{ image.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,47 @@
+uuid: 4d7fd1e4-85f2-48f5-947e-92819fc8664b
+handle: Blog\PostContent
+type: mixin
+name: Blog Post Content
+
+fields:
+    banner:
+        tab: Manage
+        label: Banner
+        type: fileupload
+        mode: image
+        maxFiles: 1
+
+    author:
+        tab: Manage
+        label: Author
+        commentAbove: 'Select the author for this blog post'
+        type: entries
+        maxItems: 1
+        source: Blog\Author
+
+    categories:
+        tab: Manage
+        label: Categories
+        commentAbove: 'Select categories the blog post belongs to'
+        type: entries
+        source: Blog\Category
+
+    featured_text:
+        tab: Featured
+        label: Featured Text
+        type: textarea
+        size: small
+
+    gallery:
+        label: Gallery
+        type: fileupload
+        mode: image
+        span: adaptive
+        tab: Gallery
+
+    gallery_media:
+        label: Media
+        type: mediafinder
+        mode: image
+        span: adaptive
+        tab: Media

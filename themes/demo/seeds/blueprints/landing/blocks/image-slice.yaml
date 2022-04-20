@@ -1,0 +1,11 @@
+uuid: 21aad99b-d3c6-4f5e-b271-15471c81e11b
+name: Image Slice
+type: mixin
+handle: Blocks\ImageSlice
+
+fields:
+    image:
+        label: Image
+        type: mediafinder
+        mode: image
+        maxItems: 1

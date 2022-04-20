@@ -5,5 +5,7 @@
     "Owner": "Собственик",
     "Plugins": "Добавки",
     "Disabled": "Изключено",
-    "Current Build": "Текуща изработка"
+    "Current Build": "Текуща изработка",
+    "System Updates": "Актуализация",
+    "Update the system modules and plugins.": "Актуализиране на системата, управление и инсталиране на добавки и теми."
 }

@@ -1,0 +1,57 @@
+uuid: 7b193500-ac0b-481f-a79c-2a362646364d
+handle: BlockBuilder
+type: mixin
+name: Block Builder
+
+fields:
+    blocks:
+        label: Blocks
+        type: repeater
+        displayMode: builder
+        span: adaptive
+        tab: Blocks
+        groups:
+            image_slice:
+                name: Image Slice
+                description: A large image with an angled slice.
+                icon: octo-icon-picture
+                fields:
+                    _mixin:
+                        type: mixin
+                        source: Blocks\ImageSlice
+
+            paragraph_block:
+                name: Paragraph Block
+                description: Simple paragraph with image
+                icon: octo-icon-text-h1
+                fields:
+                    _mixin:
+                        type: mixin
+                        source: Blocks\ParagraphBlock
+
+            detailed_block:
+                name: Detailed Block
+                description: Detailed paragraph with image and list
+                icon: octo-icon-diamond
+                fields:
+                    _mixin:
+                        type: mixin
+                        source: Blocks\DetailedBlock
+
+            scoreboard_metrics:
+                name: Scoreboard Metrics
+                description: Show some impressive metrics about the business.
+                icon: icon-quote-right
+                fields:
+                    _mixin:
+                        type: mixin
+                        source: Blocks\ScoreboardMetrics
+
+            team_leaders:
+                name: Team Leaders
+                description: Display the team members.
+                icon: octo-icon-comment
+                fields:
+                    _mixin:
+                        type: mixin
+                        source: Blocks\TeamLeaders

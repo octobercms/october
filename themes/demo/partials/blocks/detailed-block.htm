@@ -1,0 +1,27 @@
+{% set blockImage = block.image ? block.image|media : 'assets/images/about-team.png'|theme %}
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-md-6 pt-5">
+            <h2 class="my-4">{{ block.title }}</h2>
+            {{ block.content|raw }}
+
+            {% if block.list_items %}
+                <ul class="list-inline list-with-ticks py-2">
+                    {% for item in block.list_items %}
+                        <li class="list-inline-item">{{ item.text }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <p>
+                <a href="{{ block.button_url }}" class="btn btn-primary btn-lg btn-pill">
+                    {{ block.button_text }}
+                </a>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ blockImage }}" alt="" class="img-fluid" />
+        </div>
+    </div>
+</div>

@@ -5,5 +5,7 @@
     "Owner": "صاحب امتیاز",
     "Plugins": "افرونه ها",
     "Disabled": "غیر فعال شده",
-    "Current Build": "نسخه ی کنونی"
+    "Current Build": "نسخه ی کنونی",
+    "System Updates": "بروز رسانی ها",
+    "Update the system modules and plugins.": "به روز رسانی ی سیستم، مدیریت افزونه ها و قالب های نصب شده."
 }

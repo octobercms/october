@@ -4,100 +4,28 @@ layout = "blog"
 title = "Blog Homepage"
 
 [collection blog]
-handle = "Blog"
+handle = "Blog\Post"
+
+[global blogConfig]
+handle = "Blog\Config"
 
 [resources]
-vars[activeNavLink] = 'tailor'
+vars[activeNavLink] = 'blog'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/index.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
+vars[howItsMadeTailorContent] = 'entries/blog_post'
 ==
-{% set featuredPosts = blog.where('is_featured', true).limit(5).get() %}
-{% set featuredPost = featuredPosts.shift() %}
 {% set posts = blog.paginate(5) %}
 {% set archiveDates = blog
     .selectRaw("count(*) as post_count, published_at_month, published_at_year")
     .groupBy('published_at_month', 'published_at_year').get()
 %}
+{% put pageTitle = blogConfig.blog_name ?: 'Blog' %}
 
-<main class="container">
-    {% if featuredPost %}
-        <div class="p-4 p-md-5 mb-4 rounded text-white bg-dark" style="{% if featuredPost.banner %}background-image:url('{{ featuredPost.banner.path }}'){% endif %}">
-            <div class="col-md-10 col-lg-8 px-0">
-                <h1 class="display-4 fst-italic">{{ featuredPost.title }}</h1>
-                <p class="lead my-3">{{ featuredPost.featured_text }}</p>
-                <p class="lead mb-0"><a href="{{ 'blog/post'|page({ slug: featuredPost.slug }) }}" class="text-white fw-bold">Continue reading...</a></p>
-            </div>
-        </div>
-    {% endif %}
+{% for post in posts %}
+    {% partial 'blog/post-card' post=post bannerCss='banner-lg' %}
+{% endfor %}
 
-    <div class="blog-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">
-        {% for post in featuredPosts %}
-            {% partial 'blog/post-card' post=post cssClass=loop.last ? 'd-none d-xl-block' %}
-        {% endfor %}
-    </div>
-
-    <div class="row g-5">
-        <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                From the Firehose
-            </h3>
-
-            {% for post in posts %}
-                {% partial 'blog/post-article' post=post %}
-            {% endfor %}
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                {{ posts.links|raw }}
-            </nav>
-        </div>
-
-        <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
-                <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="fst-italic">About</h4>
-                    <p class="mb-0">
-                    {% if blogConfig.about_this_blog %}
-                        {{ blogConfig.about_this_blog|md }}
-                    {% else %}
-                        Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
-                    {% endif %}
-                </div>
-
-                <div class="p-4">
-                    <h4 class="fst-italic">Archives</h4>
-                    <ol class="list-unstyled mb-0">
-                        {% for date in archiveDates %}
-                            {% if date.published_at_year %}
-                                {% set dateParsed = date('1-'~date.published_at_month~'-'~date.published_at_year) %}
-                                <li>
-                                    <a
-                                        href="{{ 'blog/archive'|page({ month: date.published_at_month, year: date.published_at_year }) }}"
-                                    >{{ dateParsed|date('F Y') }}</a>
-                                    ({{ date.post_count }})
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ol>
-                </div>
-
-                <div class="p-4">
-                    <h4 class="fst-italic">Elsewhere</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="https://octobercms.com" target="_blank">October CMS</a></li>
-                        {% if blogConfig.facebook_url %}
-                            <li><a href="{{ blogConfig.facebook_url }}" target="_blank">Facebook</a></li>
-                        {% endif %}
-                        {% if blogConfig.twitter_url %}
-                            <li><a href="{{ blogConfig.twitter_url }}" target="_blank">Twitter</a></li>
-                        {% endif %}
-                        {% if blogConfig.linkedin_url %}
-                            <li><a href="{{ blogConfig.linkedin_url }}" target="_blank">LinkedIn</a></li>
-                        {% endif %}
-                        {% if blogConfig.github_url %}
-                            <li><a href="{{ blogConfig.github_url }}" target="_blank">GitHub</a></li>
-                        {% endif %}
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</main>
+<nav class="blog-pagination" aria-label="Pagination">
+    {{ posts.links|raw }}
+</nav>

@@ -5,5 +5,7 @@
     "Owner": "Vlastník",
     "Plugins": "Pluginy",
     "Disabled": "Neaktívny",
-    "Current Build": "Aktuálne zostavenie"
+    "Current Build": "Aktuálne zostavenie",
+    "System Updates": "Aktualizácia a pluginy",
+    "Update the system modules and plugins.": "Aktualizácie systému, správa a inštalácia pluginov a tém."
 }
