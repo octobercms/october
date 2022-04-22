@@ -26,7 +26,7 @@ trait SetupBuilder
             exit(1);
         }
 
-        $this->output->newLine();
+        $this->line('');
     }
 
     /**
@@ -59,16 +59,16 @@ trait SetupBuilder
     protected function outputIntro()
     {
         $message = [
-            ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~. ",
-            "                                                                       ",
-            " .d8888b.   .o8888b.   db  .d8888b.  d8888b. d88888b d8888b.  .d88b.   ",
-            ".8P    Y8. d8P    Y8   88 .8P    Y8. 88  `8D 88'     88  `8D .8',, `8  ",
-            "88      88 8P      oooo88 88      88 88oooY' 88oooo  88oobY' 8. ||  `8 ",
-            "88      88 8b      ~~~~88 88      88 88~~~b. 88~~~~  88`8b   8. ||// 8 ",
-            "`8b    d8' Y8b    d8   88 `8b    d8' 88   8D 88.     88 `88. `8 || d'  ",
-            " `Y8888P'   `Y8888P'   YP  `Y8888P'  Y8888P' Y88888P 88   YD  `.88P'   ",
-            "                                                                       ",
-            "`=========================== INSTALLATION ===========================' ",
+            ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~. ",
+            "                                                                      ",
+            " .d888b.   .o888b.   db  .d888b.  d8888b. d88888b d8888b.  .d88b.     ",
+            ".8P   Y8. d8P   Y8   88 .8P   Y8. 88  `8D 88'     88  `8D .8',, `8    ",
+            "88     88 8P     oooo88 88     88 88oooY' 88oooo  88oobY' 8. ||  `8   ",
+            "88     88 8b     ~~~~88 88     88 88~~~b. 88~~~~  88`8b   8. ||// 8   ",
+            "`8b   d8' Y8b   d8   88 `8b   d8' 88   8D 88.     88 `88. `8 || d'    ",
+            " `Y888P'   `Y888P'   YP  `Y888P'  Y8888P' Y88888P 88   YD  `.88P'     ",
+            "                                                                      ",
+            "`=========================== INSTALLATION ==========================' ",
             "",
         ];
 
@@ -99,14 +99,14 @@ trait SetupBuilder
 
         // Please migrate the database with the following command
         $this->comment(Lang::get('system::lang.installer.migrate_database_comment'));
-        $this->output->newLine();
+        $this->line('');
         $this->line("* php artisan october:migrate");
-        $this->output->newLine();
+        $this->line('');
 
         $adminUrl = $this->getEnvVar('APP_URL') . $this->getEnvVar('BACKEND_URI');
         // Then, open the administration area at this URL
         $this->comment(Lang::get('system::lang.installer.visit_backend_comment'));
-        $this->output->newLine();
+        $this->line('');
         $this->line("* {$adminUrl}");
     }
 
@@ -120,17 +120,17 @@ trait SetupBuilder
 
         // Please try running these commands manually.
         $this->output->error(Lang::get('system::lang.installer.install_failed_comment'));
-        $this->output->newLine();
+        $this->line('');
 
         // Open this application in your browser
         $this->line(Lang::get('system::lang.installer.open_configurator_comment'));
-        $this->output->newLine();
+        $this->line('');
 
         $this->line('-- OR --');
-        $this->output->newLine();
+        $this->line('');
 
         $this->line("* php artisan project:set <LICENSE KEY>");
-        $this->output->newLine();
+        $this->line('');
 
         if ($want = $this->option('want')) {
             $this->line("* php artisan october:build --want=".$want);
