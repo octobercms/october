@@ -57,6 +57,10 @@ class OctoberInstall extends Command
         $this->setupApplicationUrls();
         $this->setupDatabaseConfig();
 
+        // Demo Theme
+        $this->output->section(Lang::get('system::lang.installer.demo_section'));
+        $this->setupDemoTheme();
+
         if ($this->nonInteractiveCheck()) {
             $this->outputNonInteractive();
             return 1;
@@ -75,6 +79,17 @@ class OctoberInstall extends Command
         // $this->setupMigrateDatabase();
 
         $this->outputOutro();
+    }
+
+    /**
+     * setupDemoTheme
+     */
+    protected function setupDemoTheme()
+    {
+        // Install the demo theme and content?
+        $this->setDemoContent(
+            $this->confirm(Lang::get('system::lang.installer.install_demo_label'), true)
+        );
     }
 
     /**
@@ -374,7 +389,7 @@ class OctoberInstall extends Command
         $errCode = null;
         $exec = 'php artisan october:migrate';
         $this->comment("Executing: {$exec}");
-        $this->output->newLine();
+        $this->line('');
 
         passthru($exec, $errCode);
 
@@ -391,17 +406,17 @@ class OctoberInstall extends Command
 
         // If you see this error immediately, use these non-interactive commands instead.
         $this->comment(Lang::get('system::lang.installer.non_interactive_comment'));
-        $this->output->newLine();
+        $this->line('');
 
         // Open this application in your browser
         $this->line(Lang::get('system::lang.installer.open_configurator_comment'));
-        $this->output->newLine();
+        $this->line('');
 
         $this->line('-- OR --');
-        $this->output->newLine();
+        $this->line('');
 
         $this->line("* php artisan project:set <LICENSE KEY>");
-        $this->output->newLine();
+        $this->line('');
 
         if ($want = $this->option('want')) {
             $this->line("* php artisan october:build --want=".$want);

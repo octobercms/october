@@ -3,6 +3,7 @@
     'app_config_section' => 'Application Configuration',
     'license_section' => 'License Key',
     'dependencies_section' => 'Installing Dependencies',
+    'demo_section' => 'Demo Content',
     'locale_select_label' => 'Select Language',
     'locale_select_error' => 'Language code :code is invalid, please try again',
     'app_url_label' => 'Application URL',
@@ -33,6 +34,7 @@
     'migrate_database_comment' => 'Please migrate the database with the following command',
     'visit_backend_comment' => 'Then, open the administration area at this URL',
     'open_configurator_comment' => 'Open this application in your browser',
+    'install_demo_label' => 'Install the demonstration theme and content? (Recommended)',
   ],
   'app' => [
     'name' => 'October CMS',

@@ -43,6 +43,23 @@ trait SetupHelper
     }
 
     /**
+     * setDemoContent instructs the system to install demo content or not
+     */
+    protected function setDemoContent($confirm = true)
+    {
+        if ($confirm) {
+            $this->injectJsonToFile(storage_path('cms/autoexec.json'), [
+                'theme:seed demo --root'
+            ]);
+        }
+        else {
+            $this->injectJsonToFile(storage_path('cms/autoexec.json'), [
+                'october:fresh'
+            ]);
+        }
+    }
+
+    /**
      * composerRequireString returns the composer require string for installing dependencies
      */
     protected function composerRequireCore($composer, $want = null)
