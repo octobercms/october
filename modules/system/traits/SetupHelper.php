@@ -96,6 +96,7 @@ trait SetupHelper
     protected function checkEnvWritable()
     {
         $path = base_path('.env');
+        $gitignore = base_path('.gitignore');
 
         // Copy environment variables and reload
         if (!file_exists($path)) {
@@ -103,7 +104,28 @@ trait SetupHelper
             $this->refreshEnvVars();
         }
 
+        // Add modules to .gitignore
+        if (file_exists($gitignore) && is_writable($gitignore)) {
+            $this->addModulesToGitignore($gitignore);
+        }
+
         return is_writable($path);
+    }
+
+    /**
+     * addModulesToGitignore
+     */
+    protected function addModulesToGitignore($gitignore)
+    {
+        $toIgnore = '/modules';
+        $contents = file_get_contents($gitignore);
+
+        if (strpos($contents, $toIgnore) === false) {
+            file_put_contents($gitignore,
+                trim(file_get_contents($gitignore), PHP_EOL) . PHP_EOL .
+                $toIgnore . PHP_EOL
+            );
+        }
     }
 
     /**
