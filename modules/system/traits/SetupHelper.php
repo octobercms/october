@@ -6,7 +6,6 @@ use Lang;
 use Config;
 use Exception;
 use System\Classes\UpdateManager;
-use October\Rain\Process\Composer as ComposerProcess;
 use Illuminate\Support\Env;
 use Dotenv\Dotenv;
 use PDOException;
@@ -55,7 +54,7 @@ trait SetupHelper
         }
         else {
             $this->injectJsonToFile(storage_path('cms/autoexec.json'), [
-                'october:fresh'
+                'october:fresh --force'
             ]);
         }
     }
