@@ -1,6 +1,7 @@
 <?php return [
   'auth' => [
     'title' => 'Area di Amministrazione',
+    'invalid_login' => 'Le credenziali inserite non sono valide oppure non si dispone di un profilo. Si prega di ricontrollare e riprovare.',
   ],
   'field' => [
     'invalid_type' => 'Il tipo di campo :type non è valido.',

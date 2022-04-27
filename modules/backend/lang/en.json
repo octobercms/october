@@ -53,5 +53,11 @@
     "Import error": "Import error",
     "Export error": "Export error",
     "Column preview": "Column preview",
-    "Column": "Column"
+    "Column": "Column",
+    "Disable": "Disable",
+    "Enable": "Enable",
+    "Delete": "Delete",
+    "Export": "Export",
+    "Import": "Import",
+    "Select Action": "Select Action"
 }
