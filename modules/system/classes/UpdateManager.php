@@ -44,18 +44,17 @@ class UpdateManager
      */
     public function requestServerData($uri, $postData = [])
     {
-        $result = Http::post($this->createServerUrl($uri), function ($http) use ($postData) {
-            $this->applyHttpAttributes($http, $postData);
-        });
+        $result = $this->makeHttpRequest($this->createServerUrl($uri), $postData);
+        $contents = $result->body();
 
-        if ($result->code == 404) {
+        if ($result->status() === 404) {
             throw new ApplicationException(Lang::get('system::lang.server.response_not_found'));
         }
 
-        if ($result->code != 200) {
+        if ($result->status() !== 200) {
             throw new ApplicationException(
-                strlen($result->body)
-                ? $result->body
+                strlen($contents)
+                ? $contents
                 : Lang::get('system::lang.server.response_empty')
             );
         }
@@ -63,7 +62,7 @@ class UpdateManager
         $resultData = false;
 
         try {
-            $resultData = @json_decode($result->body, true);
+            $resultData = @json_decode($contents, true);
         }
         catch (Exception $ex) {
             throw new ApplicationException(Lang::get('system::lang.server.response_invalid'));
@@ -92,27 +91,35 @@ class UpdateManager
     }
 
     /**
-     * Modifies the Network HTTP object with common attributes.
-     * @param  Http $http      Network object
-     * @param  array $postData Post data
-     * @return void
+     * makeHttpRequest makes a specialized server request to a URL.
+     * @param string $url
+     * @param array $postData
+     * @return \Illuminate\Http\Client\Response
      */
-    protected function applyHttpAttributes($http, $postData)
+    protected function makeHttpRequest($url, $postData)
     {
-        $postData['protocol_version'] = '2.0';
-        $postData['client'] = 'october';
+        // New HTTP instance
+        $http = Http::asForm();
 
+        // Post data
+        $postData['protocol_version'] = '2.0';
+        $postData['client'] = 'October CMS';
         $postData['server'] = base64_encode(json_encode([
-            'php'   => PHP_VERSION,
-            'url'   => Url::to('/'),
+            'php' => PHP_VERSION,
+            'url' => Url::to('/'),
             'since' => date('c')
         ]));
 
+        // Gateway auth
         if ($credentials = Config::get('system.update_gateway_auth')) {
-            $http->auth($credentials);
+            if (is_string($credentials)) {
+                $credentials = explode(':', $credentials);
+            }
+
+            list($user, $pass) = $credentials;
+            $http->withBasicAuth($user, $pass);
         }
 
-        $http->noRedirect();
-        $http->data($postData);
+        return $http->post($url, $postData);
     }
 }
