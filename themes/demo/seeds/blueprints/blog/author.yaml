@@ -6,7 +6,7 @@ drafts: false
 
 navigation:
     parent: Blog\Post
-    icon: icon-user
+    icon: octo-icon-user
     order: 200
 
 fields:

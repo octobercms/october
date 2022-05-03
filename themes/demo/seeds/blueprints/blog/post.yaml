@@ -6,11 +6,11 @@ drafts: true
 
 primaryNavigation:
     label: Blog
-    icon: icon-copy
+    icon: octo-icon-file
     order: 95
 
 navigation:
-    icon: icon-pencil
+    icon: octo-icon-pencil
     order: 100
 
 groups:

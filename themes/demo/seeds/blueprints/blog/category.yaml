@@ -9,7 +9,7 @@ structure:
 
 navigation:
     parent: Blog\Post
-    icon: icon-star
+    icon: octo-icon-list-ul
     order: 150
 
 fields:

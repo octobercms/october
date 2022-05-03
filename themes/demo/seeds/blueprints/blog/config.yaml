@@ -5,7 +5,7 @@ name: Blog Settings
 
 navigation:
     parent: Blog\Post
-    icon: icon-cog
+    icon: octo-icon-cog
     order: 200
 
 fields:
