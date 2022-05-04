@@ -1,50 +1,20 @@
-==
-<?
-function onStart()
-{
-    $this['backendUrl'] = System::checkDebugMode() ? Backend::url('/') : null;
-}
-?>
-==
-{% set activeNavLink = activeNavLink|default(this.page.id) %}
-
 <!-- Nav -->
-<nav id="layout-nav" class="navbar fixed-top navbar-expand-lg navbar-dark navbar-autohide">
+{% placeholder headerBefore %}
+<nav id="layout-nav" class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="{{ 'index'|page }}">
-            <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" height="25" />
+            <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" width="230" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ activeNavLink == 'index' ? 'active' }}" href="{{ 'index'|page }}">Basic Concepts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ activeNavLink == 'ajax' ? 'active' }}" href="{{ 'ajax'|page }}">AJAX Framework</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ activeNavLink == 'plugins' ? 'active' }}" href="{{ 'plugins'|page }}">CMS Components</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ activeNavLink == 'tailor' ? 'active' }}" href="{{ 'blog'|page }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tailor Content
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ 'blog/index'|page }}">Blog</a></li>
-                        <li><a class="dropdown-item" href="{{ 'wiki/index'|page }}">Wiki</a></li>
-                        <li><a class="dropdown-item" href="{{ 'landing/index'|page }}">Landing Page</a></li>
-                        {# <li><hr class="dropdown-divider"></li> #}
-                    </ul>
-                </li>
-                {% if backendUrl %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ backendUrl }}" target="backend">Backend Area</a>
-                    </li>
-                {% endif %}
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% partial 'site/nav' %}
             </ul>
         </div>
+        <div class="navbar-decoration-1"></div>
+        <div class="navbar-decoration-2"></div>
     </div>
 </nav>
+{% placeholder headerAfter %}

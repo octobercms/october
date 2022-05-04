@@ -1,0 +1,23 @@
+{% macro render_toc(articles, activeSlug) %}
+    {% for article in articles %}
+        {% set hasChildren = article.children %}
+        {% set isActive = article.slug == activeSlug %}
+        <li class="{{ hasChildren ? 'collapsible' }} {{ isActive ? 'active' }}">
+            <a href="#tocItem{{ article.id }}" class="collapse-caret {{ not isActive ? 'collapsed' }}" data-bs-toggle="collapse"></a>
+            <a class="mb-1 d-block" href="{{ 'wiki/article'|page({ slug: article.slug }) }}" class="label">{{ article.title }}</a>
+            {% if hasChildren %}
+                <ul id="tocItem{{ article.id }}" class="collapse {{ isActive ? 'show' }}">
+                    {% if article.children %}
+                        {{ _self.render_toc(article.children, activeSlug) }}
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as nav %}
+
+<ul class="bullet-list">
+    {{ nav.render_toc(articles, activeSlug|default(this.param.slug|default(''))) }}
+</ul>

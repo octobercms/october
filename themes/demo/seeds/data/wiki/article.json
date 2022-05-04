@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "title": "Our Locations",
+        "content": "<p>The term location generally implies a higher degree of certainty than place, the latter often indicating an entity with an ambiguous boundary, relying more on human or social attributes of place identity and sense of place than on geometry. An absolute location can be designated using a specific pairing of latitude and longitude in a Cartesian coordinate grid (for example, a spherical coordinate system or an ellipsoid-based system such as the World Geodetic System) or similar methods. For instance, the position of Lake Maracaibo in Venezuela can be expressed using the coordinate system as the location 9.80\u00b0N (latitude), 71.56\u00b0W (longitude).<\/p>",
+        "slug": "our-locations",
+        "is_enabled": 1,
+        "content_group": null,
+        "parent_id": null,
+        "banner": null,
+        "show_in_toc": 1,
+        "summary_text": "In geography, location or place are used to denote a region (point, line, or area) on Earth's surface or elsewhere.",
+        "external_links": []
+    },
+    {
+        "id": 2,
+        "title": "Canberra",
+        "content": "<p>Unusual among Australian cities, it is an entirely planned city. The city is located at the northern end of the Australian Capital Territory[11] at the northern tip of the Australian Alps, the country's highest mountain range. As of June 2020, Canberra's estimated population was 431,380.[12]<\/p><p>The area chosen for the capital had been inhabited by Indigenous Australians for up to 21,000 years,[13] with the principal group being the Ngunnawal people. European settlement commenced in the first half of the 19th century, as evidenced by surviving landmarks such as St John's Anglican Church and Blundells Cottage. On 1 January 1901, federation of the colonies of Australia was achieved. Following a long dispute over whether Sydney or Melbourne should be the national capital,[14] a compromise was reached: the new capital would be built in New South Wales, so long as it was at least 100 miles (160 km) from Sydney. The capital city was founded and formally named as Canberra in 1913. A blueprint by American architects Walter Burley Griffin and Marion Mahony Griffin was selected after an international design contest, and construction commenced in 1913.[15] The Griffins' plan featured geometric motifs and was centred on axes aligned with significant topographical landmarks such as Black Mountain, Mount Ainslie, Capital Hill and City Hill. Canberra's mountainous location makes it the only mainland Australian city where snow-capped mountains can be seen in winter; although snow in the city itself is rare.<\/p><p>As the seat of the Government of Australia, Canberra is home to many important institutions of the federal government, national monuments and museums. This includes Parliament House, Government House, the High Court and the headquarters of numerous government agencies. It is the location of many social and cultural institutions of national significance such as the Australian War Memorial, the Australian National University, the Royal Australian Mint, the Australian Institute of Sport, the National Gallery, the National Museum and the National Library. The city is home to many important institutions of the Australian Defence Force including the Royal Military College Duntroon and the Australian Defence Force Academy. It hosts all foreign embassies in Australia as well as regional headquarters of many international organisations, not-for-profit groups, lobbying groups and professional associations.<\/p>",
+        "slug": "canberra",
+        "is_enabled": 1,
+        "content_group": null,
+        "parent_id": 1,
+        "banner": null,
+        "show_in_toc": 1,
+        "summary_text": "Canberra (\/\u02c8k\u00e6nb\u0259r\u0259\/ KAN-b\u0259-r\u0259) is the capital city of Australia. Founded following the federation of the colonies of Australia as the seat of government for the new nation, it is Australia's largest inland city and the eighth-largest city overall.",
+        "external_links": [
+            {
+                "link_text": "Canberra travel guide from Wikivoyage",
+                "link_url": "https:\/\/en.wikivoyage.org\/wiki\/Canberra",
+                "content_group": null,
+                "sort_order": 1
+            },
+            {
+                "link_text": "Official Tourism Website",
+                "link_url": "https:\/\/visitcanberra.com.au\/",
+                "content_group": null,
+                "sort_order": 2
+            },
+            {
+                "link_text": "Canberra 100 \u2013 Celebrating Canberra's 100th anniversary",
+                "link_url": "https:\/\/www.canberra100.com.au\/",
+                "content_group": null,
+                "sort_order": 3
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Sydney",
+        "content": "<p>Located on Australia's east coast, the metropolis surrounds Port Jackson and extends about 70 km (43.5 mi) on its periphery towards the Blue Mountains to the west, Hawkesbury to the north, the Royal National Park to the south and Macarthur to the south-west. Sydney is made up of 658 suburbs, spread across 33 local government areas. Residents of the city are known as \"Sydneysiders\". As of June 2020, Sydney's estimated metropolitan population was 5,361,466, meaning the city is home to approximately 66% of the state's population. Nicknames of the city include the 'Emerald City' and the 'Harbour City'.<\/p><p>Indigenous Australians have inhabited the Sydney area for at least 30,000 years, and thousands of Aboriginal engravings remain throughout the region. During his first Pacific voyage in 1770, Lieutenant James Cook and his crew became the first Europeans to chart the eastern coast of Australia, making landfall at Botany Bay. In 1788, the First Fleet of convicts, led by Arthur Phillip, founded Sydney as a British penal colony, the first European settlement in Australia. After World War II, it experienced mass migration and became one of the most multicultural cities in the world. Furthermore, 45.4% of the population reported having been born overseas, and the city has the third-largest foreign-born population of any city in the world after London and New York City.<\/p><p>Despite being one of the most expensive cities in the world, Sydney frequently ranks in the top ten most liveable cities in the world. It is classified as an Alpha global city by the Globalization and World Cities Research Network, indicating its influence in the region and throughout the world. Ranked eleventh in the world for economic opportunity, Sydney has an advanced market economy with strengths in finance, manufacturing and tourism. Established in 1850, the University of Sydney was Australia's first university and is regarded as one of the world's leading universities.<\/p>",
+        "slug": "sydney",
+        "is_enabled": 1,
+        "content_group": null,
+        "parent_id": 1,
+        "banner": null,
+        "show_in_toc": 1,
+        "summary_text": "Sydney is the capital city of the state of New South Wales, and the most populous city in Australia and Oceania.",
+        "external_links": []
+    },
+    {
+        "id": 4,
+        "title": "Vancouver",
+        "content": "<p>As the most populous city in the province, the 2021 census recorded 662,248 people in the city, up from 631,486 in 2016. The Greater Vancouver area had a population of 2,642,825 in 2021, making it the third-largest metropolitan area in Canada. Vancouver has the highest population density in Canada, with over 5,400 people per square kilometre. Vancouver is one of the most ethnically and linguistically diverse cities in Canada: 52 percent of its residents are not native English speakers, 48.9 percent are native speakers of neither English nor French, and 50.6 percent of residents belong to visible minority groups.<\/p><p>Vancouver is one of the most livable cities in Canada and in the world. In terms of housing affordability, Vancouver is also one of the most expensive cities in Canada and in the world. Vancouver plans to become the greenest city in the world. Vancouverism is the city's urban planning design philosophy.<\/p><p>Indigenous settlement of Vancouver began more than 10,000 years ago, and the city is on the traditional and unceded territories of the Squamish, Musqueam, and Tsleil-Waututh (Burrard) peoples. The beginnings of the modern city, which was originally named Gastown, grew around the site of a makeshift tavern on the western edges of Hastings Mill that was built on July 1, 1867, and owned by proprietor Gassy Jack. The original site is marked by the Gastown steam clock. Gastown then formally registered as a townsite dubbed Granville, Burrard Inlet. The city was renamed \"Vancouver\" in 1886, through a deal with the Canadian Pacific Railway (CPR). The Canadian Pacific transcontinental railway was extended to the city by 1887. The city's large natural seaport on the Pacific Ocean became a vital link in the trade between Asia-Pacific, East Asia, Europe, and Eastern Canada.<\/p>",
+        "slug": "vancouver",
+        "is_enabled": 1,
+        "content_group": null,
+        "parent_id": 1,
+        "banner": null,
+        "show_in_toc": 1,
+        "summary_text": "Vancouver is a major city in western Canada, located in the Lower Mainland region of British Columbia.",
+        "external_links": []
+    },
+    {
+        "id": 5,
+        "title": "Knowledge Base",
+        "content": "<p>Knowledge Base<\/p>",
+        "slug": "knowledge-base",
+        "is_enabled": 1,
+        "content_group": null,
+        "parent_id": null,
+        "banner": null,
+        "show_in_toc": 1,
+        "summary_text": "",
+        "external_links": []
+    }
+]

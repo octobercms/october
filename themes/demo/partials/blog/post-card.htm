@@ -1,19 +1,48 @@
 <div class="col {{ cssClass|default('') }}">
-    <div class="card shadow-sm h-100">
+    <div class="card post-card mb-5">
         {% if post.banner %}
-            <img src="{{ post.banner.path }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+            <div class="card-banner {{ bannerCss|default('') }}" style="background-image:url('{{ post.banner.path }}')"></div>
         {% else %}
-            <img src="{{ 'assets/images/default-post.png'|theme }}" alt="{{ post.title }}" class="bd-placeholder-img card-img-top" role="img" aria-label="Placeholder: Thumbnail" />
+            <div class="card-banner {{ bannerCss|default('') }}" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
         {% endif %}
+
         <div class="card-body">
-            <h4>{{ post.title }}</h4>
+            {% if post.categories %}
+                <div class="blog-post-categories">
+                    <ul class="list-inline">
+                        {% for category in post.categories %}
+                            <li class="list-inline-item">
+                                &mdash; <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">{{ category.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <h4 class="blog-post-title">
+                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">{{ post.title }}</a>
+            </h4>
+
+            <div class="blog-post-featured-text">
+                <p>{{ post.featured_text }}</p>
+            </div>
         </div>
+
         <div class="card-footer">
-            <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">
-                    {{ post.categories.first.title|default('') }}
-                </a>
-                <small class="text-muted">{{ post.published_at_date|date('j M Y') }}</small>
+            <div class="blog-post-meta">
+                <div class="meta-item meta-date text-icon text-icon-date">
+                    {{ post.published_at_date|date('j M Y') }}
+                </div>
+                {% if post.author %}
+                    <div class="meta-item meta-divider">
+                        &bull;
+                    </div>
+                    <div class="meta-item meta-author text-icon text-icon-author">
+                        By <a href="{{ 'blog/author'|page({ slug: post.author.slug }) }}">
+                            {{ post.author.title|default('') }}
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

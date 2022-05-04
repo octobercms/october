@@ -1,31 +1,35 @@
 ##
 url = "/wiki/search"
-layout = "wiki"
+layout = "default"
 title = "Search Wiki Articles"
 meta_title = "Search - Wiki"
 
 [collection wiki]
+handle = "Wiki\Article"
 
 [resources]
-vars[activeNavLink] = "tailor"
+vars[activeNavLink] = "wiki"
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:wiki/search.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:wiki/article.yaml'
+vars[howItsMadeTailorContent] = 'entries/wiki_article'
 ==
 {% set searchTerm = get('term')|trim %}
 {% set articles = wiki.searchWhere(searchTerm, ['title', 'content']).paginate(4) %}
 {% put pageTitle=searchTerm ~ ' - Search Results' %}
 
 <div class="container">
+    <header>
+        <h1>{{ searchTerm }} - Search Results</h1>
+    </header>
     <div class="row">
         <div class="col-md-12">
-            <h3 class="pb-4 my-4 fst-italic border-bottom">
-                {{ searchTerm }} - Search Results
-            </h3>
-
-            <form class="pb-3">
+            <form class="mb-5">
                 <div class="input-group">
-                    <input type="text" name="term" class="form-control" placeholder="" value="{{ searchTerm }}">
-                    <button type="submit" class="btn btn-secondary">Search</button>
+                    <div class="form-control-search">
+                        <input type="text" name="term" class="form-control" placeholder="Search" value="{{ searchTerm }}">
+                        <span class="search-icon"></span>
+                    </div>
                 </div>
-                <p><small>If you're not happy with the results, please try another search.</small></p>
             </form>
 
             <div class="pb-3">

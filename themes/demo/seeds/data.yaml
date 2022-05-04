@@ -1,0 +1,35 @@
+-
+    name: Blog Category Data
+    class: Tailor\Models\EntryRecordImport
+    file: seeds/data/blog/category.json
+    attributes:
+        file_format: json
+        blueprint_uuid: b022a74b-15e6-4c6b-9eb9-17efc5103543
+-
+    name: Blog Author Data
+    class: Tailor\Models\EntryRecordImport
+    file: seeds/data/blog/author.json
+    attributes:
+        file_format: json
+        blueprint_uuid: 6947ff28-b660-47d7-9240-24ca6d58aeae
+-
+    name: Blog Post Data
+    class: Tailor\Models\EntryRecordImport
+    file: seeds/data/blog/post.json
+    attributes:
+        file_format: json
+        blueprint_uuid: edcd102e-0525-4e4d-b07e-633ae6c18db6
+-
+    name: Wiki Data
+    class: Tailor\Models\EntryRecordImport
+    file: seeds/data/wiki/article.json
+    attributes:
+        file_format: json
+        blueprint_uuid: 339b11b7-69ad-43c4-9be1-6953e7738827
+-
+    name: About Page Data
+    class: Tailor\Models\EntryRecordImport
+    file: seeds/data/landing/landing-page.json
+    attributes:
+        file_format: json
+        blueprint_uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1

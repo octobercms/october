@@ -1,0 +1,34 @@
+div.how-its-made {
+    position: fixed;
+    bottom: 50px;
+    width: 800px;
+    max-width: 100%;
+    z-index: 3;
+    padding: 0 30px;
+    margin: 0 0 0 50%;
+    transform: translateX(-50%) scale(1);
+    background-color: transparent;
+    transition: all 0.4s cubic-bezier(.25,-0.59,.35,1.58);
+
+    &.init {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.3);
+    }
+
+    > div {
+        background-color: #FFE297;
+        box-shadow: 14px -8px 52px rgba(129, 138, 166, 0.42);
+        text-align: center;
+        padding: 10px 20px;
+        border-radius: 14px;
+
+        p {
+            margin-bottom: 0;
+
+            a {
+                color: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -5,44 +5,84 @@ title = "Display a Blog Post"
 meta_title = "{{ blog.title }} - Blog"
 
 [section blog]
+handle = "Blog\Post"
 entrySlug = "{{ :slug }}"
 
 [collection blogCategories]
+handle = "Blog\Category"
 
 [resources]
-vars[activeNavLink] = 'tailor'
+vars[activeNavLink] = 'blog'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/post.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
+vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
 ==
 {% if blog is empty %}
     {% do abort(404) %}
 {% endif %}
 
 {% set post = blog %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="blog-post-summary">
-                {% if post.categories %}
-                    <h6>
-                        {% for category in post.categories %}
-                            {{ category.title }}
-                            {% if not loop.last %}&bull;{% endif %}
-                        {% endfor %}
-                    </h6>
-                {% endif %}
-                {% if post.author %}
-                    <p>by <a href="{{ 'blog/author'|page({ slug: post.author.slug }) }}">{{ post.author.title }}</a></p>
-                {% endif %}
-                <p class="text-muted">
-                    {{ post.published_at_date|date('j M Y') }}
-                </p>
-            </div>
+
+<article class="card post-card card-primary">
+    {% if post.banner %}
+        <div class="card-banner banner-lg" style="background-image:url('{{ post.banner.path }}')"></div>
+    {% else %}
+        <div class="card-banner banner-lg" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+    {% endif %}
+
+    <div class="card-body card-lg">
+        <h1 class="blog-post-title">
+            {{ post.title }}
+        </h1>
+
+        {% if post.entry_type == 'markdown_post' %}
+            {{ post.content|md }}
+        {% else %}
+            {{ post.content|raw }}
+        {% endif %}
+
+        <div class="blog-post-gallery">
+            {% partial 'controls/image-carousel' gallery=post.gallery %}
         </div>
 
-        <div class="col-md-10 col-xl-8">
-            {% partial 'blog/post-article' post=post %}
-        </div>
-        <div class="col-xl-2 d-none d-xl-block">
-            {# Whitespace / Latest Posts #}
+        <div class="row pt-3">
+            <div class="col-md-8">
+                <div class="blog-post-meta">
+                    {% if post.categories %}
+                        <div class="meta-item meta-categories">
+                            Posted in
+                            {% for category in post.categories %}
+                                <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">{{ category.title }}</a>{{ not loop.last ? ',' }}
+                            {% endfor %}
+                        </div>
+                        <div class="meta-item px-2">
+                            &bull;
+                        </div>
+                    {% endif %}
+                    <div class="meta-item text-icon text-icon-date">
+                        {{ post.published_at_date|date('j M Y') }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="blog-post-share-button">
+                    {% partial 'share-button' %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    {% if post.author %}
+        <div class="card-divider"></div>
+        <div class="card-body card-lg">
+            {% partial 'elements/user-panel-author' user=post.author %}
+        </div>
+    {% endif %}
+    <div class="card-divider"></div>
+    <div class="card-body card-lg">
+        {% partial 'blog/comment-list' %}
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body card-lg">
+        {% partial 'blog/comment-form' %}
+    </div>
+</article>

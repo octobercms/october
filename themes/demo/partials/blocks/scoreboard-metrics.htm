@@ -1,0 +1,18 @@
+##
+[resources]
+less[] = "blocks/scoreboard-metrics.less"
+==
+<div class="block-scoreboard-metrics mt-3">
+    <div class="container">
+        <div class="metrics d-flex justify-content-between">
+            {% for metric in block.metrics|default([]) %}
+                <div class="metric">
+                    <img src="{{ ('assets/images/icons/icon-' ~ metric.icon|default('notepad') ~ '.png')|theme }}" width="42" alt="" />
+                    <h3>{{ metric.number }}</h3>
+                    <p>{{ metric.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="pb-3"></div>

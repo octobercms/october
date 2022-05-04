@@ -1,0 +1,8 @@
+##
+[resources]
+less[] = "blocks/hero-image.less"
+==
+{% set heroImage = block.image ? block.image|media : 'assets/images/stock/desks-cropped.png'|theme %}
+
+<div class="block-hero-image" style="background-image:url('{{ heroImage }}')"></div>
+<div class="pb-5"></div>

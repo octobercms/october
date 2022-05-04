@@ -6,5 +6,7 @@
     "Plugins": "ปลั๊กอิน",
     "Disabled": "ปิดการใช้งาน",
     "Current Build": "การสร้างตัวปัจจุบัน",
-    "View Changelog": "ดูบันทึกการเปลี่ยนแปลง"
+    "View Changelog": "ดูบันทึกการเปลี่ยนแปลง",
+    "System Updates": "อัพเดท & ปลั๊กอิน (Plugin)",
+    "Update the system modules and plugins.": "อัพเดทระบบ, จัดการ และลงปลั๊กอินหรือธีม"
 }

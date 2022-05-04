@@ -5,5 +5,7 @@
     "Owner": "Proje Sahibi",
     "Plugins": "Modüller",
     "Disabled": "Devre dışı",
-    "Current Build": "Mevcut versiyon"
+    "Current Build": "Mevcut versiyon",
+    "System Updates": "Güncellemeler",
+    "Update the system modules and plugins.": "Sistemi güncelleyin, temaları ve eklentileri yönetin."
 }

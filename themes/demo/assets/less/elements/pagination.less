@@ -1,0 +1,72 @@
+.blog-pagination {
+    display: inline-block;
+    .oc-pagination {
+        box-shadow: 0px 0px 22px rgba(0, 0, 0, 0.07);
+    }
+}
+
+ul.pagination {
+    > li.page-item > .page-link {
+        padding: 8px 15px;
+        color: #A1A1A1;
+        background: #fff;
+        border-color: #EBEBEB;
+        text-decoration: none;
+
+        &:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+    }
+
+    > li.page-item {
+        &.active > .page-link {
+            font-weight: 700;
+            color: #343F52;
+            background: #fff;
+        }
+
+        &.first {
+            > .page-link {
+                border-bottom-left-radius: 0.25rem;
+                border-top-left-radius: 0.25rem;
+            }
+            .render-pagination-arrow();
+
+            > .page-link:before {
+                transform: scaleX(-1);
+            }
+        }
+
+        &.last {
+            > .page-link {
+                border-bottom-right-radius: 0.25rem;
+                border-top-right-radius: 0.25rem;
+            }
+            .render-pagination-arrow();
+        }
+    }
+}
+
+.render-pagination-arrow() {
+    > .page-link {
+        position: relative;
+        color: #fff;
+        width: 44px;
+
+        &:before {
+            content: '';
+            display: block;
+            width: 15px;
+            height: 12.5px;
+            background: url('@{assets-url}/images/icons/icon-pagination-arrow.png') no-repeat 0 0;
+            background-size: 15px 12.5px;
+            position: absolute;
+            top: 16px;
+            left: 14px;
+        }
+    }
+
+    &.disabled > .page-link:before {
+        opacity: .5;
+    }
+}

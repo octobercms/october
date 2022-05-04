@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "John Smith",
+        "slug": "john-smith",
+        "is_enabled": 1,
+        "role": "Manager",
+        "about": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "social_links": [
+            {
+                "platform": "twitter",
+                "url": "https:\/\/twitter.com\/octobercms",
+                "sort_order": 1
+            },
+            {
+                "platform": "youtube",
+                "url": "https:\/\/www.youtube.com\/c\/OctoberCMSOfficial",
+                "sort_order": 2
+            },
+            {
+                "platform": "facebook",
+                "url": "https:\/\/facebook.com\/octobercms",
+                "sort_order": 3
+            },
+            {
+                "platform": "linkedin",
+                "url": "https:\/\/www.linkedin.com\/company\/october-cms\/",
+                "sort_order": 4
+            }
+        ]
+    }
+]

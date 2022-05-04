@@ -1,0 +1,17 @@
+{% if howItsMadeCmsTemplate %}
+    <div class="how-its-made init">
+        <div>
+            <p>Wondering how this page is made? View the
+                {% if howItsMadeCmsTemplate|default(false) %}
+                    <a target="_blank" href="{{ backendUrl ~ '/editor?open=' ~ howItsMadeCmsTemplate }}">CMS Template</a>
+                {% endif %}
+                {% if howItsMadeTailorBlueprint|default(false) %}
+                    •  <a target="_blank" href="{{ backendUrl ~ '/editor?open=' ~ howItsMadeTailorBlueprint }}">Tailor Blueprint</a>
+                {% endif %}
+                {% if howItsMadeTailorContent|default(false) %}
+                    •  <a target="_blank" href="{{ backendUrl ~ '/tailor/' ~ howItsMadeTailorContent }}">Tailor Content</a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+{% endif %}

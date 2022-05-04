@@ -4,46 +4,9 @@
 // AJAX Page Stylesheet
 //
 
-body {
-    background: #FAFBFD;
-}
-
-.jumbotron {
-    position: relative;
-    margin-bottom: 0;
-
-    &:before {
-        .decoration-circle();
-        left: -600px;
-        top: -600px;
-        width: 1116px;
-        height: 1116px;
-    }
-
-    .container {
-        position: relative;
-        z-index: 1;
-    }
-
-    h1:before {
-        background: url('@{assets-url}/images/calculator.png') no-repeat 0 0;
-    }
-
-    p {
-        margin-top: 20px;
-    }
-
-    @media (max-width: @screen-md-max) {
-        p {
-            margin-top: 0;
-        }
-    }
-}
-
 //
 // Calculator form
 //
-
 .panel {
     border: none;
     overflow: hidden;
@@ -160,4 +123,42 @@ body {
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.explanation {
+    background: #f6f2ff;
+    padding: 50px 0 70px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    > .container {
+        position: relative;
+    }
+
+    h3 {
+        font-size: 26px;
+        margin: 60px 0 20px;
+    }
+
+    // Decorations
+    .explanation-decoration-1 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 321px;
+        height: 321px;
+        left: -140px;
+        top: -140px;
+        opacity: .5;
+    }
+
+    .explanation-decoration-2 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 380px;
+        height: 380px;
+        right: -165px;
+        top: -180px;
+        opacity: .5;
+    }
 }

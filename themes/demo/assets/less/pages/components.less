@@ -1,0 +1,163 @@
+@import "../theme/boot";
+
+//
+// Plugins Page Stylesheet
+//
+
+//
+// TODO list
+//
+.panel {
+    margin-bottom: 27px;
+    background-color: #fff;
+}
+
+.panel.panel-default {
+    border: 2px solid @brand-accent;
+    overflow: hidden;
+    margin-top: 40px;
+    border-radius: 9px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.16);
+
+    .panel-heading {
+        background: transparent;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        color: #333333;
+
+        h3 {
+            position: relative;
+            padding-left: 32px;
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 18px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 0;
+                width: 24px;
+                height: 24px;
+                background: url('@{assets-url}/images/icons/icon-todo.png') no-repeat 0 0;
+                background-size: 24px 24px !important;
+            }
+        }
+    }
+
+    .panel-body {
+        padding: 0;
+
+        input.form-control {
+            border: none;
+            padding-left: 17px;
+            box-shadow: none;
+        }
+
+        input.form-control, button.btn {
+            height: 41px;
+        }
+
+        .input-group-btn {
+            margin-left: 0 !important;
+        }
+
+        button.btn.btn-primary {
+            background: transparent;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            color: @text-color;
+            padding-left: 20px;
+            padding-right: 45px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 9px;
+                right: 9px;
+                width: 23px;
+                height: 23px;
+                background: url('@{assets-url}/images/icons/icon-keyboard-return.png') no-repeat 0 0;
+                background-size: 23px 23px !important;
+            }
+        }
+    }
+
+    .list-group {
+        border-radius: 0;
+        li {
+            padding: 10px 15px 10px 37px;
+            position: relative;
+            border-left: none;
+            border-right: none;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            button {
+                .text-hide();
+                position: absolute;
+                left: 15px;
+                top: 16px;
+                width: 15px;
+                height: 15px;
+                opacity: 1;
+                outline: none!important;
+                border: 1px solid #BDC3C7;
+                border-radius: 100%;
+
+                &:active, &:focus {
+                    background: url('@{assets-url}/images/icon-tick.png') no-repeat 0 0;
+                    background-size: 15px 15px;
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+.explanation {
+    background: #f6f2ff;
+    padding: 90px 0 70px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    > .container {
+        position: relative;
+    }
+
+    h3 {
+        font-size: 26px;
+        margin-bottom: 45px;
+    }
+
+    p.lead {
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    // Decorations
+    .explanation-decoration-1 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 321px;
+        height: 321px;
+        left: -140px;
+        top: -140px;
+        opacity: .5;
+    }
+
+    .explanation-decoration-2 {
+        .decoration-circle();
+        background-color: #fff;
+        width: 380px;
+        height: 380px;
+        right: -165px;
+        top: -180px;
+        opacity: .5;
+    }
+}

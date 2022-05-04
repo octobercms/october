@@ -5,7 +5,7 @@
     "homepage": "https://octobercms.com",
     "license": "proprietary",
     "require": {
-        "php": "^8.1",
+        "php": "^8.0.2",
         "october/rain": "^3.0",
         "laravel/framework": "^9.0"
     },

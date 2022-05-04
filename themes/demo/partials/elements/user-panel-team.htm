@@ -1,0 +1,23 @@
+<div class="element-user-panel team-panel">
+    <div class="user-avatar">
+        {% if user.avatar %}
+            <img src="{{ user.avatar|media }}" alt="{{ user.title }}" />
+        {% else %}
+            <img src="{{ partial('helpers/random-avatar-image') }}" alt="{{ user.title }}" />
+        {% endif %}
+    </div>
+    <div class="user-details">
+        <h3 class="mb-0">{{ user.title }}</h3>
+        <p>
+            {{ user.role }}
+        </p>
+    </div>
+
+    <div class="user-social">
+        {% partial 'elements/social-links' links=user.social_links %}
+    </div>
+
+    <div class="user-profile">
+        <p>{{ user.description }}</p>
+    </div>
+</div>

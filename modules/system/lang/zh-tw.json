@@ -5,5 +5,7 @@
     "Owner": "擁有者",
     "Plugins": "外掛",
     "Disabled": "停用",
-    "Current Build": "目前版本"
+    "Current Build": "目前版本",
+    "System Updates": "更新",
+    "Update the system modules and plugins.": "更新系統, 管理並安裝外掛和主題."
 }

@@ -1,0 +1,27 @@
+uuid: ae2d2c25-3a0e-4765-8b36-d1666fc0e31f
+name: Social Links
+type: mixin
+handle: Fields\SocialLinks
+
+fields:
+    social_links:
+        type: repeater
+        prompt: Add Link
+        form:
+            fields:
+                platform:
+                    span: auto
+                    label: Platform
+                    type: dropdown
+                    options:
+                        facebook: Facebook
+                        linkedin: LinkedIn
+                        dribbble: Dribbble
+                        twitter: Twitter
+                        youtube: YouTube
+
+                url:
+                    span: auto
+                    label: Social Link
+                    type: text
+                    placeholder: "https://..."

@@ -1,0 +1,18 @@
+<div class="element-social-links">
+    <ul class="nav">
+        {% for link in links|default([]) %}
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{ link.url }}" target="_blank" rel="nofollow">
+                    <img src="{{ ('assets/images/social-icons/' ~ link.platform ~ '.png')|theme }}" alt="Dribbble"  />
+                </a>
+            </li>
+        {% endfor %}
+        {% if showRssLink|default(false) %}
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{ 'blog/rss'|page }}" target="_blank">
+                    <img src="{{ ('assets/images/social-icons/rss.png')|theme }}" alt="RSS Feed"  />
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

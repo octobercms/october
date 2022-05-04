@@ -5,5 +5,7 @@
     "Owner": "Omistaja",
     "Plugins": "Lisäosat",
     "Disabled": "Pois käytöstä",
-    "Current Build": "Nykyinen versio"
+    "Current Build": "Nykyinen versio",
+    "System Updates": "Päivitykset & Lisäosat",
+    "Update the system modules and plugins.": "Päivitä järjestelmää, hallitse ja asenna lisäosia ja teemoja."
 }

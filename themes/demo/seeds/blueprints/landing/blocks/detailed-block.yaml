@@ -1,0 +1,39 @@
+uuid: da034c4f-0e24-4906-94b9-66b26c0549c9
+name: Detailed Block
+type: mixin
+handle: Blocks\DetailedBlock
+
+fields:
+    title:
+        label: Title
+        type: text
+
+    content:
+        label: Description
+        type: richeditor
+        size: small
+
+    list_items:
+        label: List Items
+        type: datatable
+        btnAddRowLabel: Add Item
+        btnDeleteRowLabel: Delete Item
+        columns:
+            text:
+                type: string
+                title: Text
+
+    button_text:
+        label: Button Text
+        span: auto
+        placeholder: Main call to action
+
+    button_url:
+        label: Button URL
+        span: auto
+
+    image:
+        label: Image
+        type: mediafinder
+        mode: image
+        maxItems: 1

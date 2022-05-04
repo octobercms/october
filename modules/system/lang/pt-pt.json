@@ -5,5 +5,7 @@
     "Owner": "Desenvolvedor",
     "Plugins": "Extensões",
     "Disabled": "Desactivados",
-    "Current Build": "Compilação atual"
+    "Current Build": "Compilação atual",
+    "System Updates": "Actualizações",
+    "Update the system modules and plugins.": "Actualize o sistema, gira e instale extensões e temas."
 }

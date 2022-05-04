@@ -1,13 +1,12 @@
 ##
 description = "Blog layout"
 
-[collection blogCategories]
+[backendLink]
 
 [resources]
+less[] = "layouts/default.less"
 less[] = "layouts/blog.less"
 vars[activeBlogCategory] = ""
-
-[global blogConfig]
 ==
 <!DOCTYPE html>
 <html>
@@ -24,34 +23,26 @@ vars[activeBlogCategory] = ""
         <!-- Content -->
         <section id="layout-content">
             <div class="container">
-                <header class="blog-header py-3">
-                    <div class="row flex-nowrap justify-content-between align-items-center">
-                        <div class="col-4 pt-1">
-                            <a class="link-secondary" href="{{ 'blog/rss'|page }}">Subscribe</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a class="blog-header-logo text-dark" href="{{ 'blog/index'|page }}">{{ blogConfig.blog_name|default('Latest News') }}</a>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end align-items-center">
-                            {% partial 'search-popover' action='blog/search'|page %}
+                {% set pageTitle = placeholder('pageTitle') %}
+                {% if pageTitle %}
+                    <header>
+                        <h1>{{ pageTitle }}</h1>
+                    </header>
+                {% endif %}
+                <div class="row g-5">
+                    <div class="col-md-8">
+                        <div class="pe-3">
+                            {% page %}
                         </div>
                     </div>
-                </header>
 
-                <div class="nav-scroller py-1 mb-2">
-                    <nav class="nav d-flex justify-content-center">
-                        {% for category in blogCategories %}
-                            <a
-                                class="p-2 nav-link link-secondary {{ activeBlogCategory == category.slug ? 'active' }}"
-                                href="{{ 'blog/category'|page({ slug: category.slug }) }}">
-                                {{ category.title }}
-                            </a>
-                        {% endfor %}
-                    </nav>
+                    <div class="col-md-4">
+                        <div class="position-sticky" style="top: 2rem;">
+                            {% partial 'blog/sidebar' %}
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            {% page %}
         </section>
 
         <!-- Footer -->
@@ -59,5 +50,10 @@ vars[activeBlogCategory] = ""
             {% partial 'site/footer' %}
         </footer>
 
+        <!-- Mobile -->
+        {% partial 'site/mobile' %}
+
+        <!-- How the page is made -->
+        {% partial 'site/how-its-made' %}
     </body>
 </html>

@@ -5,5 +5,7 @@
     "Owner": "Ejer",
     "Plugins": "Plugins",
     "Disabled": "Deaktiveret",
-    "Current Build": "Nuværende build"
+    "Current Build": "Nuværende build",
+    "System Updates": "Opdateringer & Plugins",
+    "Update the system modules and plugins.": "Opdater systemet, og administrer og installer plugins og temaer."
 }

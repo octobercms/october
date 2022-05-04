@@ -2,12 +2,14 @@
 
 return [
     'auth' => [
-        'title' => 'Ylläpitoalue'
+        'title' => 'Ylläpitoalue',
+        'invalid_login' => 'Antamasi kirjautumistiedot eivät täsmänneet tietoihin. Ole hyvä ja tarkista ne kokeillaksesi uudelleen.',
     ],
     'field' => [
         'invalid_type' => 'Kentän tyyppi :type ei ole sallittu.',
         'options_method_invalid_model' => "Attribuutti ':field' ratkaise kelvollista mallia. Spesifioit vaihtoehtoinen metodi mallille :model explisiittisesti.",
-        'options_method_not_exists' => "Luokan :model täytyy määritellä metodi :method(), joka palauttaa ':field' lomakekentän ehdot."
+        'options_method_not_exists' => "Luokan :model täytyy määritellä metodi :method(), joka palauttaa ':field' lomakekentän ehdot.",
+        'colors_method_not_exists' => "Malliluokka :model pitää määritellä :method() palauttaaksesi HEX-arvoisen värin ':field' lomakekenttään."
     ],
     'widget' => [
         'not_registered' => "Vimpaimen luokan nimi ':name' ei ole rekisteröity",
@@ -15,6 +17,11 @@ return [
     ],
     'page' => [
         'untitled' => 'Nimetön',
+        'not_found' => [
+            'label' => 'Sivua ei löytynyt',
+            'help' => "Pyydettyä sivua ei löydy.",
+            'back_link' => 'Palaa takaisin edelliselle sivulle',
+        ],
         'access_denied' => [
             'label' => 'Pääsy kielletty',
             'help' => "Sinulla ei ole tarvittavia oikeuksia tälle sivulle.",
@@ -27,15 +34,30 @@ return [
         ],
     ],
     'partial' => [
-        'not_found_name' => "Osiota ':name' ei löydy."
+        'not_found_name' => "Osiota ':name' ei löydy.",
+        'invalid_name' => 'Virheellinen osion nimi: :name.',
+    ],
+    'ajax_handler' => [
+        'invalid_name' => 'Virheellinen AJAX-käsittelijän nimi: :name.',
+        'not_found' => "AJAX-käsittelijää ':name' ei löydy.",
     ],
     'account' => [
+        'impersonate' => 'Impersonate User',
+        'impersonate_confirm' => 'Are you sure you want to impersonate this user? You can revert to your original state by logging out.',
+        'impersonate_success' => 'You are now impersonating this user',
+        'impersonate_working' => 'Impersonating...',
+        'impersonating' => 'Impersonating :full_name',
+        'stop_impersonating' => 'Stop impersonating',
         'signed_in_as' => 'Kirjauduit nimellä :full_name',
         'sign_out' => 'Kirjaudu ulos',
         'login' => 'Kirjaudu',
+        'input_username' => 'Kirjatumistunnus',
+        'input_password' => 'Salasana',
+        'login_prompt' => 'Tervetuloa takaisin! Jatkaaksesi, sinun on kirjauduttava sisään käyttäjätilillesi.',
         'reset' => 'Nollaa',
         'restore' => 'Palauta',
         'login_placeholder' => 'tunnus',
+        'password_restore' => 'Salasanan palautus',
         'password_placeholder' => 'salasana',
         'remember_me' => 'Pysy kirjautuneena',
         'forgot_password' => 'Unohditko salasanasi?',
@@ -136,16 +158,19 @@ return [
         'last_login' => 'Viimeisin kirjautuminen',
         'created_at' => 'Luontipäivä',
         'updated_at' => 'Päivityspäiväys',
+        'deleted_at' => 'Poistettu',
+        'show_deleted' => 'Näytä poistetut',
         'group' => [
             'name' => 'Ryhmä',
-            'name_comment' => 'Nimi näytetään ryhmän listauksessa Luo/Muokkaa ylläpitolomakkeella.',
+            'menu_label' => 'Hallinnoi ryhmiä',
+            'menu_description' => 'Lisää ylläpitäjiä ryhmiin, joita käytetään notifikaatioihin ja ominaisuuksiin.',
             'name_field' => 'Nimi',
+            'name_comment' => 'Nimi näytetään ryhmän listauksessa Luo/Muokkaa ylläpitolomakkeella.',
             'description_field' => 'Kuvaus',
             'is_new_user_default_field_label' => 'Oletusryhmä',
             'is_new_user_default_field_comment' => 'Lisää uudet ylläpitäjät tähän ryhmään automaattisesti',
             'code_field' => 'Koodi',
             'code_comment' => 'Lisää uniikkikoodi jolla päästään ryhmäobjektin API:in.',
-            'menu_label' => 'Hallinnoi ryhmiä',
             'list_title' => 'Hallinnoi ryhmiä',
             'new' => 'Uusi ryhmä',
             'delete_confirm' => 'Poista tämä ylläpitoryhmä?',
@@ -168,7 +193,9 @@ return [
         ],
         'preferences' => [
             'not_authenticated' => 'Sallittua käyttäjää, joka voisi tallentaa asetukset, ei löydy.'
-        ]
+        ],
+        'trashed_hint_title' => 'Tämä tili on poistettu',
+        'trashed_hint_desc' => 'Tämä tili on poistettu ja sillä ei voi kirjautua enää järjestelmään. Valitse Palauta käyttäjä ikoni (oikealla alhaalla) aktivoidaksesi tili uudelleen',
     ],
     'list' => [
         'default_title' => 'Lista',
@@ -194,12 +221,17 @@ return [
         'records_per_page' => 'Tietuetta per sivu',
         'records_per_page_help' => 'Valitse kohteiden määrä per sivu. Huomaathan, että suurempi numero voi vähentää suorituskykyä.',
         'check' => 'Valitse',
+        'create_button' => 'Uusi :name',
         'delete_selected' => 'Poista valitut',
         'delete_selected_empty' => 'Yhtään tietuetta ei ole valittu poistettavaksi.',
         'delete_selected_confirm' => 'Poistetaan valitut tietueet?',
         'delete_selected_success' => 'Tietueet poistettu.',
         'column_switch_true' => 'Kyllä',
         'column_switch_false' => 'Ei'
+    ],
+    'object_list' => [
+        'prop_cant_be_empty' => 'Ominaisuus :property ei voi olla tyhjä',
+        'key_value_exists' => 'Arvo on jo määritelty: :property_value',
     ],
     'fileupload' => [
         'attachment' => 'Liite',
@@ -211,7 +243,16 @@ return [
         'upload_file' => 'Siirrä tiedosto',
         'upload_error' => 'Virhe siirrossa',
         'remove_confirm' => 'Oletko varma?',
-        'remove_file' => 'Poista tiedosto'
+        'remove_file' => 'Poista tiedosto',
+        'clear' => 'Tyhjennä',
+        'delete_selected' => 'Poista valittu',
+        'upload' => 'Siirrä',
+        'replace' => 'Korvaa',
+    ],
+    'repeater' => [
+        'add_new_item' => 'Lisää uusi osio',
+        'min_items_failed' => ':name vaatii vähintään :min osiota, vain :items on annettu',
+        'max_items_failed' => ':name sallii vain :max osiota, :items on annettu',
     ],
     'form' => [
         'create_title' => 'Uusi :name',
@@ -220,8 +261,10 @@ return [
         'create_success' => ':name luotu',
         'update_success' => ':name siirretty',
         'delete_success' => ':name poistettu',
+        'restore_success' => ':name palautettu',
         'reset_success' => 'Palautus valmis',
         'missing_id' => 'Lomakkeen tietue ID ei ole määritelty.',
+        'missing_tab' => 'Validi välilehden määrittely puuttuu.',
         'missing_model' => 'Lomake luokassa :class ei ole mallia määriteltynä.',
         'missing_definition' => "Lomake ei sisällä kenttää ':field'.",
         'not_found' => 'Lomaketta ID:llä :id ei voitu löytää.',
@@ -239,6 +282,9 @@ return [
         'confirm_delete' => 'Poista tietue?',
         'confirm_delete_multiple' => 'Poista valitut tietueet?',
         'deleting_name' => 'Poistetaan :name...',
+        'restore' => 'Palautus',
+        'restoring' => 'Palautetaan',
+        'confirm_restore' => 'Haluatko varmasti palauttaa tämän tietueen?',
         'reset_default' => 'Palauta oletukseksi',
         'resetting' => 'Palautetaan',
         'resetting_name' => 'Palautetaan :name',
@@ -268,10 +314,39 @@ return [
         'delete_row' => 'Poista rivi',
         'concurrency_file_changed_title' => 'Tiedosto muutettu',
         'concurrency_file_changed_description' => "Toinen käyttäjä on muokannut samaa tiedostoa, jota olet muokkaamassa. Voit joko ladata tiedoston ja menettää tekemäsi muutokset tai ylikirjoittaa toisen käyttäjän tekemät muutokset.",
-        'return_to_list' => 'Palaa listaukseen'
+        'return_to_list' => 'Palaa listaukseen',
+        'no_options_found' => 'Vaihtoehtoja ei löytynyt',
+        'error' => 'Virhe',
+        'toggle_full_screen' => 'Kokoruudun tila',
+    ],
+    'treeview' => [
+        'expand' => 'Laajenna',
+        'collapse' => 'Sulje',
+        'reorder' => 'Järjestä',
+        'clear_search' => 'Tyhjennä haku',
+        'search' => 'Etsi',
+        'command_or_document' => 'Käsky tai Dokumentti...',
+        'quick_access' => 'Pikapääsy',
+        'open' => 'Avaa',
+        'commands' => 'Käskyt',
+    ],
+    'tabs' => [
+        'close' => 'Sulje välilehti',
+        'close_all' => 'Sulje kaikki',
+        'close_others' => 'Sulje muut',
+        'close_saved' => 'Sulje tallennetut',
+        'full_screen' => 'Kokoruudun tila',
+    ],
+    'modal' => [
+        'close' => 'Sulje',
+    ],
+    'dropdownmenu' => [
+        'go_back' => 'Takaisin',
+        'close_menu' => 'Sulje valittko',
     ],
     'recordfinder' => [
         'find_record' => 'Etsi tietue',
+        'invalid_model_class' => 'Annettu malliluokka ":modelClass" recordfinderille on virheellinen',
         'cancel' => 'Peruuta',
     ],
     'pagelist' => [
@@ -279,6 +354,10 @@ return [
         'select_page' => 'Valitse sivu...'
     ],
     'relation' => [
+        'add_success' => ':name Lisätty',
+        'link_success' => ':name Linkitetty',
+        'remove_success' => ':name Poistettu',
+        'unlink_success' => ':name Linkki purettu',
         'missing_config' => "Suhteella ei ole mitään asetuksia ':config'.",
         'missing_definition' => "Suhteella ei ole määritelmää ':field'.",
         'missing_model' => 'Suhde luokassa :class ei määrittele mallia.',
@@ -330,6 +409,7 @@ return [
         'permissions'  => 'Hakemisto :name tai sen alihakemistot ei ole PHP:n kirjoitettavissa. Aseta vastaavat oikeudet tälle hakemistolle verkkopalvelimella.',
         'extension' => 'PHP laajennus :name ei ole asennettuna. Asenna ja aktivoi kyseinen laajennus.',
         'plugin_missing' => 'Lisäosa :name on riippuvuus, mutta sitä ei ole asennettu. Asenna lisäosa.',
+        'debug' => 'Debug-moodi on valittu. Tätä ei suositella julkaistuihin asennuksiin.',
     ],
     'editor' => [
         'menu_label' => 'Editorin asetukset',
@@ -372,12 +452,24 @@ return [
         'allowed_empty_tags_comment' => 'Lista tageista, joita ei poisteta vaikka niiden sisällä ei ole sisältöä.',
         'allowed_tags' => 'Sallitut tagit',
         'allowed_tags_comment' => 'Lista sallituista tageista.',
+        'allowed_attrs' => 'Sallitut attribuutit',
+        'allowed_attrs_comment' => 'Tämä on listaus sallituista HTML-attribuuteista – normaalisti sallituujen lisäksi.',
         'no_wrap' => 'Älä kääri tageja',
         'no_wrap_comment' => 'Lista tageista, joita ei tulisi kääriä block tagin sisälle.',
         'remove_tags' => 'Poista tagit',
         'remove_tags_comment' => 'Lista tageista, jotka poistetaan sisältöineen.',
-        'toolbar_buttons' => 'Työkalurivin Nappulat',
+        'line_breaker_tags' => 'Rivinvaihtotägit',
+        'line_breaker_tags_comment' => 'Listaus tägeistä, joita käytetään rivinvaihtojen välissä.',
+        'toolbar_buttons' => 'Työkalurivin nappulat',
         'toolbar_buttons_comment' => 'Työkalurivin nappulat, jotka näytetään editorissa oletuksena.',
+        'toolbar_buttons_preset' => 'Lisää valmiit työkalurivin nappuloiden konfiguroinnit',
+        'toolbar_buttons_presets' => [
+            'default' => 'Oletus',
+            'minimal' => 'Minimaalinen',
+            'full' => 'Runsas',
+        ],
+        'paragraph_formats' => 'Paragraph Formats',
+        'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown.',
     ],
     'tooltips' => [
         'preview_website' => 'Esikatsele verkkosivusto'
@@ -397,6 +489,8 @@ return [
         'brand' => 'Brändi',
         'logo' => 'Logo',
         'logo_description' => 'Siirrä haluamasi logo ylläpitopuolelle.',
+        'favicon' => 'Favicon',
+        'favicon_description' => 'Siirrä oma favicon, jota käytetään ylläpidossa',
         'app_name' => 'Sovelluksen nimi',
         'app_name_description' => 'Tämä näytetään ylläpidon Title-rivillä',
         'app_tagline' => 'Sovelluksen esittelylause',
@@ -405,13 +499,30 @@ return [
         'primary_color' => 'Primaariväri',
         'secondary_color' => 'Sekundaariväri',
         'accent_color' => 'Korostusväri',
+        'selection_color' => 'Värivalinnat',
+        'login_background_type' => 'Taustan tyyppi',
+        'background_flat_color' => 'Väripinta',
+        'background_wallpaper' => 'Taustakuva',
+        'login_page' => 'Kirjautumissivu',
+        'login_image' => 'Kuva',
+        'login_page_image' => 'Kirjautumissivun kuva',
+        'login_image_random_autumn_images' => 'Satunnainen syksyaiheinen kuva',
+        'login_image_custom' => 'Haluamasi kuva',
+        'background_color' => 'Taustan väri',
+        'background_wallpaper_image' => 'Taustakuva',
+        'background_wallpaper_image_size' => 'Taustakuvan koko',
+        'background_wallpaper_size_auto' => 'Automaattinen',
+        'background_wallpaper_size_cover' => 'Täyspeitto',
         'styles' => 'Tyylit',
-        'custom_stylesheet' => 'Oma CSS-tyyli',
+        'custom_stylesheet' => 'Omat tyylit',
         'navigation' => 'Navigaatio',
         'menu_mode' => 'Valikon tyyli',
-        'menu_mode_inline' => 'Rivissä',
-        'menu_mode_tile' => 'Laatat',
-        'menu_mode_collapsed' => 'Taitettu'
+        'menu_mode_inline' => 'Inline',
+        'menu_mode_text' => 'Teksti',
+        'menu_mode_tile' => 'Tiles',
+        'menu_mode_icon' => 'Ikonit',
+        'menu_mode_collapsed' => 'Suljettu',
+        'menu_mode_left' => 'Vasenpuoli',
     ],
     'backend_preferences' => [
         'menu_label' => 'Hallinnan asetukset',
@@ -437,7 +548,9 @@ return [
     'filter' => [
         'all' => 'kaikki',
         'options_method_not_exists' => "Mallin :model täytyy määritellä metodi :method(), joka palauttaa ehdot ':filter' suodattimelle.",
-        'date_all' => 'kaikilta ajoilta'
+        'options_static_method_invalid_value' => "Staattinen metodi ':method()' luokassa :class ei palauta sopivaa vaihtoehtojonoa.",
+        'date_all' => 'kaikki jaksot',
+        'number_all' => 'kaikki numerot',
     ],
     'import_export' => [
         'upload_csv_file' => '1. Vie CSV-tiedosto',
@@ -515,8 +628,12 @@ return [
         'manage_media' => 'Siirrä ja hallitse mediaa - kuvat, videot, äänet, dokumentit'
     ],
     'mediafinder' => [
-        'label' => 'Mediaetsin',
-        'default_prompt' => 'Klikkaa %s nappulaa etsiäksesi media'
+    'label' => 'Mediaetsin',
+    'no_image' => 'Kuvaa ei löytynyt',
+    'select' => 'Valitse',
+    'replace' => 'Korvaa',
+    'not_an_image' => 'Valitsemasi tiedosto ei ole kuva',
+    'click_to_select_file' => 'Klikkaa valitaksesi kuva',
     ],
     'media' => [
         'menu_label' => 'Media',
@@ -580,5 +697,31 @@ return [
         'resize_image' => 'Muuta kuvakokoa',
         'image_size' => 'Kuvakoko:',
         'selected_size' => 'Valittuna:'
+],
+    'table' => [
+        'add_item' => 'Lisää kohde',
+    ],
+    'dictionary' => [
+        'key_required' => 'Avainkenttä on pakollinen',
+        'value_required' => 'Arvokenttä on pakollinen',
+    ],
+    'uploader' => [
+        'uploading' => 'Siirretään tiedostoja',
+        'complete' => 'Siirto valmis',
+    ],
+    'richeditor' => [
+        'upload_from_computer' => 'Siirrä tietokoneelta',
+        'embedding_code' => 'Liitetään koodia',
+        'url_required' => 'URL-osoite on pakollinen',
+        'url_validation' => 'URL-osoitteen on alettava http:// tai https://',
+        'add_image' => 'Lisää kuva',
+        'add_video' => 'Lisää video',
+        'add_audio' => 'Lisää audio',
+        'add_file' => 'Lisää tiedosto',
+        'embedding_code_required' => 'Upotuskoodi on pakollinen',
+        'embedding_code_invalid' => 'Liitä kelvollinen HTML-upotuskoodi',
+        'embedding_code_invalid_title' => 'Virheellinen koodi',
+        'browse' => 'Selaa mediakirjastoa',
+        'by_url' => 'URL-osoitteen mukaan',
     ],
 ];

@@ -1,0 +1,35 @@
+uuid: 8c4041cf-f16d-46f8-86be-9372a266ae6d
+name: Team Leaders
+type: mixin
+handle: Blocks\TeamLeaders
+
+fields:
+    members:
+        label: Members
+        type: repeater
+        itemsExpanded: false
+        form:
+            fields:
+                title:
+                    label: Title
+                    span: left
+
+                role:
+                    label: Role
+                    span: right
+
+                description:
+                    label: Description
+                    type: textarea
+                    size: tiny
+
+                avatar:
+                    label: Image
+                    type: mediafinder
+                    mode: image
+                    maxItems: 1
+
+                _social_links:
+                    label: Social Links
+                    type: mixin
+                    source: Fields\SocialLinks

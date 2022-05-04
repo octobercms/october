@@ -1,0 +1,7 @@
+{% set images = [
+    'avatar-1',
+    'avatar-2',
+    'avatar-3',
+    'avatar-4',
+    'avatar-5'
+] %}{{ ('assets/images/avatars/' ~ random(images) ~ '.png')|theme }}

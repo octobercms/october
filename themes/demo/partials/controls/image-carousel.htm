@@ -1,0 +1,35 @@
+##
+[resources]
+js[] = "controls/image-carousel.js"
+less[] = "controls/image-carousel.less"
+==
+{% set galleryId = 'carousel' ~ random() %}
+
+<div data-control="image-carousel" id="{{ galleryId }}">
+    {% if gallery %}
+        {% for image in gallery %}
+            <div>
+                <div class="image-container">
+                    <a href="{{ image|media }}">
+                        <img src="{{ image|resize(640, 640, { extension: 'png', mode: 'crop' }) }}">
+                    </a>
+                    <div class="pswp-caption-content">
+                        <h3>{{ image.title }}</h3>
+                        <p>{{ image.description }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for defaultImage in ['workspace', 'desktop', 'pancakes', 'doughnuts'] %}
+            {% set image = ('assets/images/stock/' ~ defaultImage ~ '.png')|theme %}
+            <div>
+                <div class="image-container">
+                    <a href="{{ image }}">
+                        <img src="{{ image|resize(640, 640, { extension: 'png', mode: 'crop' }) }}">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

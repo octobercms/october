@@ -36,7 +36,7 @@ return [
     | not be stored in the file system.
     |
     | false - All theme templates are sourced from the filesystem.
-    | true  - Source theme templates from the database with fallback to the filesytem.
+    | true  - Source theme templates from the database with fallback to the filesystem.
     |
     */
 

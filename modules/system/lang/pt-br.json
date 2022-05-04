@@ -6,5 +6,7 @@
     "Plugins": "Plugins",
     "Disabled": "Desabilitados",
     "Current Build": "Compilação atual",
-    "View Changelog": "Visualizar Changelog"
+    "View Changelog": "Visualizar Changelog",
+    "System Updates": "Atualizações",
+    "Update the system modules and plugins.": "Atualize o sistema, gerencie e instale plugins e temas."
 }

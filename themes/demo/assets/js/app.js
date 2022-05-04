@@ -3,42 +3,13 @@
  */
 $(function() {
     /*
-     * Auto hide navbar
+     * Auto Collapsed List
      */
-    var $header = $('.navbar-autohide'),
-        scrolling = false,
-        previousTop = 0,
-        scrollDelta = 10,
-        scrollOffset = 150;
-
-    $(window).on('scroll', function(){
-        if (!scrolling) {
-            scrolling = true;
-
-            if (!window.requestAnimationFrame) {
-                setTimeout(autoHideHeader, 250);
-            }
-            else {
-                requestAnimationFrame(autoHideHeader);
-            }
-        }
+    $('ul.bullet-list li.active:first').each(function() {
+        $(this).parents('ul.collapse').each(function() {
+            $(this).addClass('show').prevAll('.collapse-caret:first').removeClass('collapsed');
+        });
     });
-
-    function autoHideHeader() {
-        var currentTop = $(window).scrollTop();
-
-        // Scrolling up
-        if (previousTop - currentTop > scrollDelta) {
-            $header.removeClass('is-hidden');
-        }
-        else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
-            // Scrolling down
-            $header.addClass('is-hidden');
-        }
-
-        previousTop = currentTop;
-        scrolling = false;
-    }
 
     /*
      * Popovers
@@ -56,5 +27,12 @@ $(function() {
         else {
             $el.popover();
         }
+    });
+
+    /*
+     * How it is made
+     */
+    $( document ).ready(function() {
+        $('.how-its-made').removeClass('init');
     });
 });

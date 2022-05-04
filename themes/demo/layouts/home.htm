@@ -1,0 +1,50 @@
+##
+description = "Default layout"
+
+[backendLink]
+
+[resources]
+less[] = "layouts/home.less"
+==
+<!DOCTYPE html>
+<html>
+    <head>
+        {% partial 'site/meta' %}
+    </head>
+    <body class="{{ 'page-'~this.page.id }}">
+
+        <!-- Nav -->
+        <nav id="layout-nav" class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{{ 'index'|page }}">
+                    <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" width="190" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        {% partial 'site/nav' %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            {% partial 'site/footer' %}
+        </footer>
+
+        <!-- Mobile -->
+        {% partial 'site/mobile' %}
+
+        <!-- How the page is made -->
+        {% partial 'site/how-its-made' %}
+
+    </body>
+</html>

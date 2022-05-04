@@ -1,31 +1,35 @@
 ##
 url = "/blog/search"
-layout = "blog"
+layout = "default"
 title = "Search Blog Posts"
 meta_title = "Search - Blog"
 
 [collection blog]
+handle = "Blog\Post"
 
 [resources]
-vars[activeNavLink] = "tailor"
+vars[activeNavLink] = 'blog'
+vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/search.htm'
+vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
+vars[howItsMadeTailorContent] = 'entries/blog_post'
 ==
 {% set searchTerm = get('term')|trim %}
 {% set posts = blog.searchWhere(searchTerm, ['title', 'content']).paginate(16) %}
 {% put pageTitle=searchTerm ~ ' - Search Results' %}
 
 <div class="container">
+    <header>
+        <h1>{{ searchTerm }} - Search Results</h1>
+    </header>
     <div class="row">
         <div class="col-md-12">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                {{ searchTerm }} - Search Results
-            </h3>
-
-            <form>
+            <form class="mb-5">
                 <div class="input-group">
-                    <input type="text" name="term" class="form-control" placeholder="" value="{{ searchTerm }}">
-                    <button type="submit" class="btn btn-secondary">Search</button>
+                    <div class="form-control-search">
+                        <input type="text" name="term" class="form-control" placeholder="Search" value="{{ searchTerm }}">
+                        <span class="search-icon"></span>
+                    </div>
                 </div>
-                <p><small>If you're not happy with the results, please try another search.</small></p>
             </form>
 
             <div class="blog-featured row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 pb-5">

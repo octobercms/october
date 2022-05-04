@@ -1,0 +1,28 @@
+
+<div class="share-button">
+    <a
+        class="btn btn-primary btn-pill"
+        href="javascript:;"
+        aria-label="Share"
+        data-bs-toggle="popover"
+        data-bs-trigger="focus"
+        data-bs-placement="bottom"
+        data-content-target="#sharePopover">
+        Share
+    </a>
+    <div style="display:none">
+        <div id="sharePopover" class="share-button-popover">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://twitter.com/share?url={{ ''|page }}" target="_blank"><i class="bi-twitter"></i> Twitter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/sharer/sharer.php?u={{ ''|page }}" target="_blank"><i class="bi-facebook"></i> Facebook</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/sharing/share-offsite/?url={{ ''|page }}" target="_blank"><i class="bi-linkedin"></i> LinkedIn</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

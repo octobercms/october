@@ -1,0 +1,21 @@
+.block-hero-image {
+    background-size: 125%;
+    background-position: 45% 25%;
+    background-repeat: no-repeat;
+    height: 520px;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 120px;
+        width: 100%;
+        z-index: 1;
+        background-image: url('../../images/landing-page-slice.svg');
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        background-size: 100%;
+    }
+}

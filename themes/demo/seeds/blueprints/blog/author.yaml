@@ -1,0 +1,30 @@
+uuid: 6947ff28-b660-47d7-9240-24ca6d58aeae
+handle: Blog\Author
+type: entry
+name: Author
+drafts: false
+
+navigation:
+    parent: Blog\Post
+    icon: octo-icon-user
+    order: 200
+
+fields:
+    avatar:
+        label: Avatar
+        type: mediafinder
+        mode: image
+
+    role:
+        label: Role
+        type: text
+
+    about:
+        label: About
+        type: textarea
+
+    _social_links:
+        type: mixin
+        label: Social Links
+        source: Fields\SocialLinks
+        tab: Social

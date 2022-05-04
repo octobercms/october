@@ -1,0 +1,32 @@
+uuid: 55615b16-120f-4be9-9429-6ae6dabc523c
+name: Scoreboard Metrics
+type: mixin
+handle: Blocks\ScoreboardMetrics
+
+fields:
+    metrics:
+        label: Metrics
+        type: repeater
+        form:
+            fields:
+                number:
+                    label: Number
+                    type: number
+                    span: row
+                    spanClass: col-md-3
+
+                description:
+                    label: Description
+                    type: text
+                    span: row
+                    spanClass: col-md-9
+
+                icon:
+                    label: Icon
+                    type: radio
+                    cssClass: inline-options
+                    options:
+                        notepad: Notepad
+                        shield: Shield
+                        basket: Basket
+                        briefcase: Briefcase
