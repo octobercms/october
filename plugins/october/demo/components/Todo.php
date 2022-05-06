@@ -3,13 +3,15 @@
 use Cms\Classes\ComponentBase;
 use ApplicationException;
 
+/**
+ * Todo component
+ */
 class Todo extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
-            'name'        => 'To Do List',
+            'name' => 'To Do List',
             'description' => 'Implements a simple to-do list.'
         ];
     }
@@ -18,18 +20,18 @@ class Todo extends ComponentBase
     {
         return [
             'max' => [
-                'description'       => 'The most amount of To Do items allowed',
-                'title'             => 'Max items',
-                'default'           => 10,
-                'type'              => 'string',
+                'description' => 'The most amount of To Do items allowed',
+                'title' => 'Max items',
+                'default' => 10,
+                'type' => 'string',
                 'validationPattern' => '^[0-9]+$',
                 'validationMessage' => 'The Max Items value is required and should be integer.'
             ],
             'addDefault' => [
-                'description'      => 'Determines if default items must be added to the To Do list',
-                'title'            => 'Add default items',
-                'type'             => 'checkbox',
-                'default'          => 0
+                'description' => 'Determines if default items must be added to the To Do list',
+                'title' => 'Add default items',
+                'type' => 'checkbox',
+                'default' => 0
             ]
         ];
     }
