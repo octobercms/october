@@ -19,7 +19,7 @@
     # RewriteRule (.*) https://%{SERVER_NAME}/$1 [L,R=301]
 
     ##
-    ## Black listed folders
+    ## Blocked folders
     ##
     RewriteRule ^bootstrap/.* index.php [L,NC]
     RewriteRule ^config/.* index.php [L,NC]
@@ -31,7 +31,7 @@
     RewriteRule ^storage/app/uploads/protected/.* index.php [L,NC]
 
     ##
-    ## White listed folders
+    ## Allowed folders
     ##
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteCond %{REQUEST_FILENAME} !/.well-known/*
