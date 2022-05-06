@@ -7,6 +7,7 @@ drafts: true
 primaryNavigation:
     label: Blog
     icon: octo-icon-file
+    iconSvg: modules/tailor/assets/images/blog-icon.svg
     order: 95
 
 navigation:
