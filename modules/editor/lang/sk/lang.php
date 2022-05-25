@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => 'Editor',
-        'access_editor' => 'Prístup k nástroju Editor. Prístup k špecifickým funkciám editora, ako je úprava stránok CMS, je spravovaný pomocou iných povolení doplnku.',
+        'access_editor' => 'Prístup k špecifickým funkciám editora, ako je úprava stránok CMS, je spravovaný pomocou iných povolení doplnku.',
     ],
     'common' => [
         'settings' => 'Nastavenia',

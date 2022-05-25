@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => 'Editori',
-        'access_editor' => 'Editoriin pääsy. Pääsy tiettyihin editorin toimintoihin, kuten sivujen muokkaukseen, hallitaan lisäosien oikeuksien kautta.',
+        'access_editor' => 'Pääsy tiettyihin editorin toimintoihin, kuten sivujen muokkaukseen, hallitaan lisäosien oikeuksien kautta.',
     ],
     'common' => [
         'settings' => 'Asetukset',

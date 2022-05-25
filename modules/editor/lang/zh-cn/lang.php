@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => '编辑',
-        'access_editor' => '打开编辑器工具。 对某些编辑功能的访问，例如编辑 CMS 页面，可以通过其他插件的权限进行管理',
+        'access_editor' => '对某些编辑功能的访问，例如编辑 CMS 页面，可以通过其他插件的权限进行管理',
     ],
     'common' => [
         'settings' => '设置',

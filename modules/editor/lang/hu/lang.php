@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => 'Szerkesztő',
-        'access_editor' => 'Nyissa meg a Szerkesztő eszközt. Az egyes szerkesztő funkciókhoz, például a CMS oldalak szerkesztéséhez való hozzáférést más beépülő modulok engedélyeivel kezelhető.'
+        'access_editor' => 'Az egyes szerkesztő funkciókhoz, például a CMS oldalak szerkesztéséhez való hozzáférést más beépülő modulok engedélyeivel kezelhető.'
     ],
     'common' => [
         'settings' => 'Beállítások',
