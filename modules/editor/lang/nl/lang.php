@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => 'Editor',
-        'access_editor' => 'Toegang tot de Editor. Toegang tot specifieke Editor-functies, zoals het bewerken van CMS pagina\'s, wordt beheerd door permissie instellingen van andere plugins.',
+        'access_editor' => 'Toegang tot specifieke Editor-functies, zoals het bewerken van CMS pagina\'s, wordt beheerd door permissie instellingen van andere plugins.',
     ],
     'common' => [
         'settings' => 'Instellingen',

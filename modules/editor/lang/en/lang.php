@@ -14,7 +14,7 @@ return [
     ],
     'permissions' => [
         'name' => 'Editor',
-        'access_editor' => 'Access the Editor tool. Access to specific editor features like editing CMS pages is managed using other plugin permissions.',
+        'access_editor' => 'Access to specific editor features like editing CMS pages is managed using other plugin permissions.',
     ],
     'common' => [
         'settings' => 'Settings',

@@ -81,7 +81,7 @@ return [
             'raw' => 'Raw',
         ],
         'editor' => [
-            'title' => 'Source code editor',
+            'title' => 'Source Code Editor',
             'description' => 'Your operating system should be configured to listen to one of these URL schemes.',
             'openWith' => 'Open with',
             'remember_choice' => 'Remember selected option for this session',
