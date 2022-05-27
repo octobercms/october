@@ -13,7 +13,6 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::register('system');
 
-        $this->registerConsoleCommand('project.set', \System\Console\ProjectSet::class);
         $this->registerConsoleCommand('october.build', \System\Console\OctoberBuild::class);
         $this->registerConsoleCommand('october.install', \System\Console\OctoberInstall::class);
         $this->registerConsoleCommand('october.migrate', \System\Console\OctoberMigrate::class);
