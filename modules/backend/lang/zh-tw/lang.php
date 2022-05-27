@@ -307,7 +307,7 @@
     'number_all' => '全部數目',
   ],
   'permissions' => [
-    'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
+    'manage_media' => 'Create new media items - images, videos, sounds, documents',
   ],
   'mediafinder' => [
     'label' => 'Media Finder',
