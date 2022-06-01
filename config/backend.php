@@ -83,16 +83,15 @@ return [
     |
     | Define live duration of backend sessions:
     |
-    | true  - session never expire (cookie expiration in 5 years)
+    | true  - session never expires (cookie expiration in 5 years)
     |
-    | false - session have a limited time (see session.lifetime)
+    | false - session has a limited time (see session.lifetime)
     |
-    | null  - The form login display a checkbox that allow user to choose
-    |         wanted behavior
+    | null  - the form login displays a checkbox that allow user to choose
     |
     */
 
-    'force_remember' => true,
+    'force_remember' => null,
 
     /*
     |--------------------------------------------------------------------------

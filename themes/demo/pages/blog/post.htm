@@ -36,7 +36,7 @@ vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
         </h1>
 
         {% if post.entry_type == 'markdown_post' %}
-            {{ post.content|md }}
+            {{ post.content|md_safe }}
         {% else %}
             {{ post.content|raw }}
         {% endif %}

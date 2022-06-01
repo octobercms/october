@@ -58,7 +58,7 @@
     'password_restore' => 'Password restore',
     'password_placeholder' => 'password',
     'remember_me' => 'Stay logged in',
-    'forgot_password' => 'Forgot your password?',
+    'forgot_password' => 'Forgot password?',
     'enter_email' => 'Enter your email',
     'enter_login' => 'Please enter your login to restore the password.',
     'email_placeholder' => 'email',
