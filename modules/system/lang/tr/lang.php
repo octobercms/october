@@ -170,7 +170,6 @@
     'method' => 'Mail Metodu',
     'sender_name' => 'Gönderici Adı',
     'sender_email' => 'Gönderici Email',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP Adresi',
     'smtp_authorization' => 'SMTP yetkilendirmesi kullan',

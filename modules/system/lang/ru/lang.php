@@ -205,7 +205,6 @@
     'method' => 'Метод',
     'sender_name' => 'Имя отправителя',
     'sender_email' => 'Адрес отправителя',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Сервер исходящей почты',
     'smtp_authorization' => 'Использовать SMTP авторизацию',

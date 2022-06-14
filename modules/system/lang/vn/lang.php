@@ -157,7 +157,6 @@
     'method' => 'Phương thức gửi mail',
     'sender_name' => 'Tên người gửi',
     'sender_email' => 'Email người gửi',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Địa chỉ SMTP',
     'smtp_authorization' => 'Yêu cầu cấp quyền',

@@ -82,7 +82,6 @@
     'method' => 'Metode Surat',
     'sender_name' => 'Nama Pengirim',
     'sender_email' => 'Surel Pengirim',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Alamat SMTP',
     'smtp_authorization' => 'Otorisasi SMTP diperlukan',

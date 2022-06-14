@@ -151,7 +151,6 @@
     'method' => 'Saatmise meetod',
     'sender_name' => 'Saatja nimi',
     'sender_email' => 'Saatja e-post',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP serveri aadress',
     'smtp_authorization' => 'SMTP autenimine',

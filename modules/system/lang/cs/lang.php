@@ -115,7 +115,6 @@
     'method' => 'Metoda posílání zpráv',
     'sender_name' => 'Jméno odesílatele',
     'sender_email' => 'E-mail odesílatele',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresa',
     'smtp_authorization' => 'Vyžadována SMTP autorizace',

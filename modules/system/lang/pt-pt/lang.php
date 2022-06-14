@@ -149,7 +149,6 @@
     'method' => 'Método de Envio',
     'sender_name' => 'Nome do Remetente',
     'sender_email' => 'E-mail do Remetente',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Endereço SMTP',
     'smtp_authorization' => 'Autenticação SMTP obrigatória',

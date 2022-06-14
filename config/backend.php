@@ -8,11 +8,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specifies the URL name used for accessing backend pages.
-    | For example: backend -> http://localhost/backend
+    | For example: admin -> http://localhost/admin
     |
     */
 
-    'uri' => env('BACKEND_URI', 'backend'),
+    'uri' => env('BACKEND_URI', 'admin'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,19 @@ return [
         'login_image_type' => 'autumn_images',
         'login_custom_image' => '~/app/assets/images/loginimage.png',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Turbo Router
+    |--------------------------------------------------------------------------
+    |
+    | Enhance the backend experience using PJAX (push state and AJAX) so when
+    | you click a link, the page is automatically swapped client-side without
+    | the cost of a full page load.
+    |
+    */
+
+    'turbo_router' => true,
 
     /*
     |--------------------------------------------------------------------------

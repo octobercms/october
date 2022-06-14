@@ -130,7 +130,6 @@
     'method' => 'Metoda wiadomości',
     'sender_name' => 'Imię nadawcy',
     'sender_email' => 'Email nadawcy',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Adres serwera SMTP',
     'smtp_authorization' => 'Autoryzacja SMTP wymagana',

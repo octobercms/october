@@ -112,7 +112,6 @@
     'method' => 'Имейл метод',
     'sender_name' => 'Име на подателя',
     'sender_email' => 'Имейл на подателя',
-    'php_mail' => 'PHP имейл',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP адрес',
     'smtp_authorization' => 'SMTP изисква потвърждение.',

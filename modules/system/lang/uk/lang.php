@@ -115,7 +115,6 @@
     'method' => 'Метод',
     'sender_name' => 'Ім\'я відправника',
     'sender_email' => 'Адреса відправника',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Сервер вихідної пошти',
     'smtp_authorization' => 'Використовувати SMTP авторизацію',

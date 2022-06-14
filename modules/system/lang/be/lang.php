@@ -112,7 +112,6 @@
     'method' => 'Метад пошты',
     'sender_name' => 'Імя адпраўніка',
     'sender_email' => 'Адрас пошты адпраўніка',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Адрас SMTP',
     'smtp_authorization' => 'Патрабуецца аўтарызацыя SMTP',

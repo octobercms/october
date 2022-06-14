@@ -113,7 +113,6 @@
     'method' => '전송 방법',
     'sender_name' => '보내는이',
     'sender_email' => '보내는이 주소',
-    'php_mail' => 'PHP메일',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP주소',
     'smtp_authorization' => 'SMTP설정이 필요',

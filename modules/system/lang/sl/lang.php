@@ -166,7 +166,6 @@
     'method' => 'Način za e-pošto',
     'sender_name' => 'Ime pošiljatelja',
     'sender_email' => 'E-pošta pošiljatelja',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP naslov',
     'smtp_authorization' => 'Obvezna SMTP avtorizacija',

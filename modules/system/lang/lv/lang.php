@@ -112,7 +112,6 @@
     'method' => 'Epasta metode',
     'sender_name' => 'Sūtītāja vārds',
     'sender_email' => 'Sūtītāja Epasts',
-    'php_mail' => 'PHP pasts',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP Adrese',
     'smtp_authorization' => 'Nepieciešama SMTP autorizācija',

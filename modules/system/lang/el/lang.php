@@ -112,7 +112,6 @@
     'method' => 'Μέθοδος Ηλεκτρονικού Ταχυδρομείου',
     'sender_name' => 'Όνομα Αποστολέα',
     'sender_email' => 'eMail Αποστολέα',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Διεύθυνση SMTP',
     'smtp_authorization' => 'Απαιτείται εξουσιοδότηση SMTP',

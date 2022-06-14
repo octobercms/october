@@ -168,7 +168,6 @@
     'method' => 'Metóda posielania správ',
     'sender_name' => 'Meno odosielateľa',
     'sender_email' => 'E-mail odosielateľa',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresa',
     'smtp_authorization' => 'Vyžadovaná SMTP autorizácia',

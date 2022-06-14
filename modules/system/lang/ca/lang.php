@@ -120,7 +120,6 @@
     'method' => 'Mètode de correu',
     'sender_name' => 'Nom del remitent',
     'sender_email' => 'Email del remitent',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Adreça SMTP',
     'smtp_authorization' => 'Autorització SMTP requerida',

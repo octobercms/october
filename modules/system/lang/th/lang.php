@@ -120,7 +120,6 @@
     'method' => 'วิธีการส่งอีเมล',
     'sender_name' => 'ชื่อผู้ส่ง',
     'sender_email' => 'อีเมลผู้ส่ง',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP address',
     'smtp_authorization' => 'จำเป็นต้องมีการอนุญาต SMTP',

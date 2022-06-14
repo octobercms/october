@@ -82,7 +82,6 @@
     'method' => 'メール方法',
     'sender_name' => '送信者名',
     'sender_email' => '送信者メール',
-    'php_mail' => 'PHPメール',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTPアドレス',
     'smtp_authorization' => 'SMTP認証が必要',

@@ -103,7 +103,6 @@
     'method' => '郵件方法',
     'sender_name' => '發送者名稱',
     'sender_email' => '發送者郵件',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP 地址',
     'smtp_authorization' => '需要 SMTP 認證',

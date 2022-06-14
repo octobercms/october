@@ -69,7 +69,6 @@
     'method' => 'Mail-Methode',
     'sender_name' => 'Absender Name',
     'sender_email' => 'Absender-E-Mail',
-    'php_mail' => 'PHP-Mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP Adresse',
     'smtp_authorization' => 'SMTP Authorisation erforderlich',

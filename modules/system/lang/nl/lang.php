@@ -205,7 +205,6 @@
     'method' => 'E-mail methode',
     'sender_name' => 'Naam afzender',
     'sender_email' => 'E-mailadres afzender',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adres',
     'smtp_authorization' => 'SMTP authenticatie vereist',

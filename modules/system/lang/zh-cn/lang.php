@@ -161,7 +161,6 @@
     'method' => '邮件方法',
     'sender_name' => '发件人姓名',
     'sender_email' => '发件人电子邮件',
-    'php_mail' => 'PHP 邮件',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP 地址',
     'smtp_authorization' => '需要 SMTP 授权',

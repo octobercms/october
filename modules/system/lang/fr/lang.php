@@ -158,7 +158,6 @@
     'method' => 'Méthode d’envoi',
     'sender_name' => 'Nom de l’expéditeur',
     'sender_email' => 'Adresse e-mail de l’expéditeur',
-    'php_mail' => 'Fonction mail de PHP',
     'smtp' => 'SMTP',
     'smtp_address' => 'Adresse SMTP',
     'smtp_authorization' => 'Authentification SMTP requise',

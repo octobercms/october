@@ -156,7 +156,6 @@
     'method' => 'روش ارسال',
     'sender_name' => 'نام ارسال کننده',
     'sender_email' => 'پست الکترونیکی ارسال کننده',
-    'php_mail' => 'تابع داخلی PHP',
     'smtp' => 'SMTP',
     'smtp_address' => 'آدرس SMTP',
     'smtp_authorization' => 'مجوز اتصال به SMTP مورد نیاز است',

@@ -112,7 +112,6 @@
     'method' => 'Metodo di invio',
     'sender_name' => 'Nome del mittente',
     'sender_email' => 'Indirizzo e-mail del mittente',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Indirizzo SMTP',
     'smtp_authorization' => 'Il server SMTP richiede l\'autenticazione',

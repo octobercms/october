@@ -112,7 +112,6 @@
     'method' => 'E-postmetod',
     'sender_name' => 'Avsändarnamn',
     'sender_email' => 'Avsändarens e-postadress',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP-adress',
     'smtp_authorization' => 'SMTP-autentisering krävs',

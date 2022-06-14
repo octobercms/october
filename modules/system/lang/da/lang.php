@@ -112,7 +112,6 @@
     'method' => 'Mail metode',
     'sender_name' => 'Afsender navn',
     'sender_email' => 'Afsender email',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresse',
     'smtp_authorization' => 'SMTP authorization påkrævet',

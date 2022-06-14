@@ -191,7 +191,6 @@
     'method' => 'Sähköpostimenetelmä',
     'sender_name' => 'Lähettäjän nimi',
     'sender_email' => 'Lähettäjän sähköposti',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP-osoite',
     'smtp_authorization' => 'Pakollinen SMTP autorisointi',

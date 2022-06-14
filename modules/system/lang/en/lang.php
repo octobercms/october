@@ -207,7 +207,6 @@
     'method' => 'Mail method',
     'sender_name' => 'Sender name',
     'sender_email' => 'Sender email',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP address',
     'smtp_authorization' => 'SMTP authorization required',

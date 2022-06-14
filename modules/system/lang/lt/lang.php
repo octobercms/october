@@ -149,7 +149,6 @@
     'method' => 'Pašto siuntimo metodas',
     'sender_name' => 'Siuntėjo vardas',
     'sender_email' => 'Siuntėjo el.paštas',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresas',
     'smtp_authorization' => 'SMTP leidimas reikalingas',

@@ -161,7 +161,6 @@
     'method' => 'Levélküldés módja',
     'sender_name' => 'Feladó neve',
     'sender_email' => 'Feladó e-mail címe',
-    'php_mail' => 'PHP levélküldő',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP címe',
     'smtp_authorization' => 'SMTP hitelesítés szükséges',

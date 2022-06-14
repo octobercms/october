@@ -113,7 +113,6 @@
     'method' => 'Método de correo',
     'sender_name' => 'Nombre del remitente',
     'sender_email' => 'Correo del remitente',
-    'php_mail' => 'mail PHP',
     'smtp' => 'SMTP',
     'smtp_address' => 'Dirección SMTP',
     'smtp_authorization' => 'autorización requerida de SMTP',
