@@ -1,19 +1,15 @@
-/*
- * Application
- */
-$(function() {
-    /*
-     * Auto Collapsed List
-     */
+$(document).on('render', function() {
+
+    // Auto Collapsed List
+    //
     $('ul.bullet-list li.active:first').each(function() {
         $(this).parents('ul.collapse').each(function() {
             $(this).addClass('show').prevAll('.collapse-caret:first').removeClass('collapsed');
         });
     });
 
-    /*
-     * Popovers
-     */
+    // Popovers
+    //
     $('[data-bs-toggle="popover"]').each(function() {
         var $el = $(this);
         if ($el.data('content-target')) {
@@ -29,10 +25,9 @@ $(function() {
         }
     });
 
-    /*
-     * How it is made
-     */
-    $( document ).ready(function() {
+    // How it is made
+    //
+    setTimeout(function() {
         $('.how-its-made').removeClass('init');
-    });
+    }, 1);
 });

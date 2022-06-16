@@ -24,8 +24,6 @@ mix.webpackConfig(webpackConfig)
     .copy('node_modules/photoswipe/dist/photoswipe.css', 'assets/vendor/photoswipe/photoswipe.css')
     .copy('node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js', 'assets/vendor/photoswipe/photoswipe-lightbox.esm.min.js')
     .copy('node_modules/photoswipe/dist/photoswipe.esm.min.js', 'assets/vendor/photoswipe/photoswipe.esm.min.js')
-    .copy('node_modules/photoswipe/LICENSE', 'assets/vendor/photoswipe/LICENSE')
     .copy('node_modules/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.esm.js', 'assets/vendor/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.esm.js')
     .copy('node_modules/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css', 'assets/vendor/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css')
-    .copy('node_modules/photoswipe-dynamic-caption-plugin/LICENSE', 'assets/vendor/photoswipe-dynamic-caption-plugin/LICENSE')
 ;
