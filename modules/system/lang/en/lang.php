@@ -150,6 +150,8 @@
     'recommended' => 'Recommended',
     'plugin_label' => 'Plugin',
     'unknown_plugin' => 'Plugin has been removed from the file system.',
+    'disabled_by_config' => 'Plugin has been disabled by configuration.',
+    'disabled_by_system' => 'Plugin has missing dependencies or disabled by system.',
     'select_label' => 'Select Action...',
     'bulk_actions_label' => 'Bulk actions',
     'check_yes' => 'Yes',
