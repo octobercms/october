@@ -69,8 +69,6 @@ return [
 
     'template_cache_ttl' => 1440,
 
-    'template_cache_driver' => 'file',
-
     /*
     |--------------------------------------------------------------------------
     | Twig Cache

@@ -1,3 +1,49 @@
+//
+// Base Styles
+// --------------------------------------------------
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+
+    > .page-item {
+        > .page-link {
+            margin-left: -1px;
+            padding: 5px 15px;
+            color: #666666;
+            background-color: #FFFFFF;
+            border: 1px solid #EBEBEB;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+
+        &.active > .page-link {
+            color: #000000;
+            font-weight: bold;
+
+            &:hover {
+                background-color: #FFFFFF;
+            }
+        }
+
+        &.disabled > .page-link {
+            color: #A1A1A1;
+
+            &:hover {
+                background-color: #FFFFFF;
+            }
+        }
+    }
+}
+
+//
+// Custom Styles
+// --------------------------------------------------
+
 .blog-pagination {
     display: inline-block;
     .oc-pagination {
