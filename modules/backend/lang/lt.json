@@ -89,5 +89,7 @@
   "Delete Admins": "Ištrinti administratorius",
   "Preferences": "Parinktys",
   "Settings": "Nustatymai",
-  "Background Color": "Fono spalva"
+  "Background Color": "Fono spalva",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Leiskite vartotojams kurti naujus vaidmenis ir redaguoti arba ištrinti vaidmenis, žemesnius nei jų aukščiausias vaidmuo.",
+  "Save Changes": "Išsaugoti pakeitimus"
 }

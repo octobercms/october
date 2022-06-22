@@ -89,5 +89,7 @@
   "Delete Admins": "Smazat správce",
   "Preferences": "Předvolby",
   "Settings": "Nastavení",
-  "Background Color": "Barva pozadí"
+  "Background Color": "Barva pozadí",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Umožněte uživatelům vytvářet nové role a upravovat nebo mazat role nižší, než je jejich nejvyšší role.",
+  "Save Changes": "Uložit změny"
 }

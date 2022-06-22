@@ -89,5 +89,7 @@
   "Delete Admins": "Elimina gli amministratori",
   "Preferences": "Preferenze",
   "Settings": "Impostazioni",
-  "Background Color": "Colore di sfondo"
+  "Background Color": "Colore di sfondo",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Consenti agli utenti di creare nuovi ruoli e modificare o eliminare ruoli inferiori al loro ruolo più alto.",
+  "Save Changes": "Salvare le modifiche"
 }

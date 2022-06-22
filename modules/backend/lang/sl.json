@@ -89,5 +89,7 @@
   "Delete Admins": "Izbriši skrbnike",
   "Preferences": "Nastavitve",
   "Settings": "Nastavitve",
-  "Background Color": "Barva ozadja"
+  "Background Color": "Barva ozadja",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Uporabnikom dovoli ustvarjanje novih vlog ter urejanje ali brisanje vlog, ki so nižje od njihove najvišje vloge.",
+  "Save Changes": "Shrani spremembe"
 }

@@ -89,5 +89,7 @@
   "Delete Admins": "Poista järjestelmänvalvojat",
   "Preferences": "Asetukset",
   "Settings": "asetukset",
-  "Background Color": "Taustaväri"
+  "Background Color": "Taustaväri",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Salli käyttäjien luoda uusia rooleja ja muokata tai poistaa korkeinta rooliaan alempia rooleja.",
+  "Save Changes": "Tallenna muutokset"
 }

@@ -89,5 +89,7 @@
   "Delete Admins": "ادمین ها را حذف کنید",
   "Preferences": "اولویت ها",
   "Settings": "تنظیمات",
-  "Background Color": "رنگ پس زمینه"
+  "Background Color": "رنگ پس زمینه",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "به کاربران اجازه ایجاد نقش های جدید و ویرایش یا حذف نقش های پایین تر از بالاترین نقش خود را بدهید.",
+  "Save Changes": "ذخیره تغییرات"
 }

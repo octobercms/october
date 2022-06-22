@@ -89,5 +89,7 @@
   "Delete Admins": "ลบผู้ดูแลระบบ",
   "Preferences": "การตั้งค่า",
   "Settings": "การตั้งค่า",
-  "Background Color": "สีพื้นหลัง"
+  "Background Color": "สีพื้นหลัง",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "อนุญาตให้ผู้ใช้สร้างบทบาทใหม่และแก้ไขหรือลบบทบาทที่ต่ำกว่าบทบาทสูงสุดของพวกเขา",
+  "Save Changes": "บันทึกการเปลี่ยนแปลง"
 }

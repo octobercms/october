@@ -89,5 +89,7 @@
   "Delete Admins": "管理者を削除",
   "Preferences": "環境設定",
   "Settings": "設定",
-  "Background Color": "背景色"
+  "Background Color": "背景色",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "ユーザーが新しい役割を作成し、最高の役割よりも低い役割を編集または削除できるようにします。",
+  "Save Changes": "変更内容を保存"
 }

@@ -89,5 +89,7 @@
   "Delete Admins": "Yöneticileri Sil",
   "Preferences": "tercihler",
   "Settings": "Ayarlar",
-  "Background Color": "Arka plan rengi"
+  "Background Color": "Arka plan rengi",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Kullanıcıların yeni roller oluşturmasına ve en yüksek rollerinden daha düşük rolleri düzenlemesine veya silmesine izin verin.",
+  "Save Changes": "Değişiklikleri Kaydet"
 }

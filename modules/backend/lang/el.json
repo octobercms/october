@@ -89,5 +89,7 @@
   "Delete Admins": "Διαγραφή διαχειριστών",
   "Preferences": "Προτιμήσεις",
   "Settings": "Ρυθμίσεις",
-  "Background Color": "Χρώμα του φόντου"
+  "Background Color": "Χρώμα του φόντου",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Να επιτρέπεται στους χρήστες να δημιουργούν νέους ρόλους και να επεξεργάζονται ή να διαγράφουν ρόλους χαμηλότερους από τον υψηλότερο ρόλο τους.",
+  "Save Changes": "Αποθήκευσε τις αλλαγές"
 }

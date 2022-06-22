@@ -89,5 +89,7 @@
   "Delete Admins": "Удалить администраторов",
   "Preferences": "Настройки",
   "Settings": "Настройки",
-  "Background Color": "Фоновый цвет"
+  "Background Color": "Фоновый цвет",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Разрешить пользователям создавать новые роли, а также изменять или удалять роли ниже их самой высокой роли.",
+  "Save Changes": "Сохранить изменения"
 }

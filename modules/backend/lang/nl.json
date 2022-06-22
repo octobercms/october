@@ -89,5 +89,7 @@
   "Delete Admins": "Beheerders verwijderen",
   "Preferences": "Voorkeuren",
   "Settings": "Instellingen",
-  "Background Color": "Achtergrond kleur"
+  "Background Color": "Achtergrond kleur",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Sta gebruikers toe om nieuwe rollen aan te maken en rollen te bewerken of te verwijderen die lager zijn dan hun hoogste rol.",
+  "Save Changes": "Wijzigingen opslaan"
 }

@@ -89,5 +89,7 @@
   "Delete Admins": "Slet administratorer",
   "Preferences": "Præferencer",
   "Settings": "Indstillinger",
-  "Background Color": "Baggrundsfarve"
+  "Background Color": "Baggrundsfarve",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Tillad brugere at oprette nye roller og redigere eller slette roller lavere end deres højeste rolle.",
+  "Save Changes": "Gem ændringer"
 }

@@ -90,5 +90,6 @@
     "Preferences": "Preferences",
     "Settings": "Settings",
     "Background Color": "Background Color",
-    "Allow users to create new roles and edit or delete roles lower than their highest role.": "Allow users to create new roles and edit or delete roles lower than their highest role."
+    "Allow users to create new roles and edit or delete roles lower than their highest role.": "Allow users to create new roles and edit or delete roles lower than their highest role.",
+    "Save Changes": "Save Changes"
 }

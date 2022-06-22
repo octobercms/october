@@ -89,5 +89,7 @@
   "Delete Admins": "Hapus Admin",
   "Preferences": "Preferensi",
   "Settings": "Pengaturan",
-  "Background Color": "Warna latar belakang"
+  "Background Color": "Warna latar belakang",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Izinkan pengguna membuat peran baru dan mengedit atau menghapus peran yang lebih rendah dari peran tertingginya.",
+  "Save Changes": "Simpan perubahan"
 }

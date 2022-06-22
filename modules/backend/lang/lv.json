@@ -89,5 +89,7 @@
   "Delete Admins": "Dzēst administratorus",
   "Preferences": "Preferences",
   "Settings": "Iestatījumi",
-  "Background Color": "Fona krāsa"
+  "Background Color": "Fona krāsa",
+  "Allow users to create new roles and edit or delete roles lower than their highest role.": "Ļaujiet lietotājiem izveidot jaunas lomas un rediģēt vai dzēst lomas, kas ir zemākas par viņu augstāko lomu.",
+  "Save Changes": "Saglabāt izmaiņas"
 }
