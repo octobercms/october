@@ -193,7 +193,7 @@
   ],
   'settings' => [
     'menu_label' => 'Settings',
-    'home_label' => 'Show all Settings',
+    'home_label' => 'Show All Settings',
     'not_found' => 'Unable to find the specified settings.',
     'missing_model' => 'The settings page is missing a Model definition.',
     'update_success' => ':name settings updated',
