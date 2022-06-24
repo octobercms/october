@@ -211,12 +211,12 @@ trait SetupHelper
 
             case 'sqlsrv':
                 $availableDrivers = PDO::getAvailableDrivers();
-                $_port = $port ? ','.$port : '';
+                $portStr = $port ? ','.$port : '';
                 if (in_array('dblib', $availableDrivers)) {
-                    $dsn = 'dblib:host='.$host.$_port.';dbname='.$name;
+                    $dsn = 'dblib:host='.$host.$portStr.';dbname='.$name;
                 }
                 else {
-                    $dsn = 'sqlsrv:Server='.$host.(empty($port) ? '':','.$_port).';Database='.$name;
+                    $dsn = 'sqlsrv:Server='.$host.$portStr.';Database='.$name;
                 }
                 break;
         }
