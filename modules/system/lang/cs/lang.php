@@ -100,11 +100,6 @@
     'unbind_success' => 'Projekt byl úspěšně odpojen.',
   ],
   'settings' => [
-    'menu_label' => 'Nastavení',
-    'not_found' => 'Takové nastavení se nepovedlo najít.',
-    'missing_model' => 'Stránka s nastavením vyžaduje definovat Model.',
-    'update_success' => 'Nastavení pro :name byla úspěšně uložena.',
-    'return' => 'Zpět do systémového nastavení',
     'search' => 'Hledat',
   ],
   'mail' => [

@@ -97,11 +97,6 @@
     'unbind_success' => 'Projekts tika veiksmīgi atvienots.',
   ],
   'settings' => [
-    'menu_label' => 'Iestatījumi',
-    'not_found' => 'Nebija iespējams atrast norādītos iestatījumus.',
-    'missing_model' => 'Iestatījumu lapa nav norādīta Moduļa definīcijā.',
-    'update_success' => 'Iestatījumi priekš :name tika veiksmīgi atjaunināti.',
-    'return' => 'Atgriezties sistēmas iestatījumos',
     'search' => 'Meklēt',
   ],
   'mail' => [

@@ -1,11 +1,16 @@
 {
-  "Themes": "Témák",
-  "Manage Themes": "Témák kezelése",
-  "Customize Theme": "Téma testreszabása",
-  "Manage Maintenance Mode": "Karbantartási mód kezelése",
-  "View Website During Maintenance": "Webhely megtekintése a karbantartás során",
-  "Manage Content": "Tartalom kezelése",
-  "Manage Asset Files": "Eszközfájlok kezelése",
-  "Manage Pages": "Oldalak kezelése",
-  "Manage Layouts": "Elrendezések kezelése"
+    "Themes": "Témák",
+    "Manage Themes": "Témák kezelése",
+    "Customize Theme": "Téma testreszabása",
+    "Manage Maintenance Mode": "Karbantartási mód kezelése",
+    "View Website During Maintenance": "Webhely megtekintése a karbantartás során",
+    "Manage Content": "Tartalom kezelése",
+    "Manage Asset Files": "Eszközfájlok kezelése",
+    "Manage Pages": "Oldalak kezelése",
+    "Manage Layouts": "Elrendezések kezelése",
+    "Configure the maintenance mode page and toggle the setting.": "A weboldal ideiglenes felfüggesztése a látogatók számára.",
+    "Maintenance Mode": "Karbantartás",
+    "Select the page to show when maintenance mode is activated.": "Aktiválása esetén a weboldal látogatói csak a kiválasztott oldalt fogják látni.",
+    "Enable maintenance mode": "Karbantartás engedélyezése",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Karbantartás módban a lentebb megadott oldal fog megjelenni azon látogatók számára, akik nincsenek bejelentkezve az admin felületre."
 }

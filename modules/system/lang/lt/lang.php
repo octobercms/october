@@ -134,11 +134,6 @@
     'unbind_success' => 'Projektas buvo sėkmingai atjungtas.',
   ],
   'settings' => [
-    'menu_label' => 'Nustatymai',
-    'not_found' => 'Nepavyko rasti nurodytų nustatymų.',
-    'missing_model' => 'Nustatymų puslapiui trūksta Modelio aprašo.',
-    'update_success' => ':name nustatymai atnaujinti',
-    'return' => 'Grįžti į sistemos nustatymus',
     'search' => 'Ieškoti',
   ],
   'mail' => [

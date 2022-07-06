@@ -97,11 +97,6 @@
     'unbind_success' => 'Projektet har avlänkats',
   ],
   'settings' => [
-    'menu_label' => 'Inställningar',
-    'not_found' => 'Det går inte att hitta de angivna inställningarna.',
-    'missing_model' => 'Inställningssidan saknar en modell-definition',
-    'update_success' => 'Inställningar för :name har uppdaterats',
-    'return' => 'Återgå till systeminställningar',
     'search' => 'Sök',
   ],
   'mail' => [

@@ -7,5 +7,10 @@
     "Disabled": "Deaktivert",
     "Current Build": "Nåværende build",
     "System Updates": "Oppdateringer",
-    "Update the system modules and plugins.": "Oppdatere systemet, administrer og installere plugins og temaer."
+    "Update the system modules and plugins.": "Oppdatere systemet, administrer og installere plugins og temaer.",
+    "Settings": "Innstillinger",
+    "Unable to find the specified settings.": "Fant ikke spesifiserte innstilling.",
+    "The settings page is missing a Model definition.": "Innstillingssiden mangler en modell-definisjon.",
+    ":name settings updated": "Innstillingene for :name har blitt lagret.",
+    "Return to System Settings": "Tilbake til systeminnstillinger"
 }

@@ -1,4 +1,7 @@
 {
-  "Editor": "Toimittaja",
-  "Access the Editor Tool": "Käytä muokkaustyökalua"
+    "Editor": "Toimittaja",
+    "Access the Editor Tool": "Käytä muokkaustyökalua",
+    "Editor Tabs": "Editorin välilehdet",
+    "Close Tab": "Sulje-välilehti",
+    "Editor Objects": "Editor objects"
 }

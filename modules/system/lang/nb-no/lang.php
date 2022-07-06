@@ -97,11 +97,6 @@
     'unbind_success' => 'Prosjektet har blitt avkoblet.',
   ],
   'settings' => [
-    'menu_label' => 'Innstillinger',
-    'not_found' => 'Fant ikke spesifiserte innstilling.',
-    'missing_model' => 'Innstillingssiden mangler en modell-definisjon.',
-    'update_success' => 'Innstillingene for :name har blitt lagret.',
-    'return' => 'Tilbake til systeminnstillinger',
     'search' => 'Søk',
   ],
   'mail' => [

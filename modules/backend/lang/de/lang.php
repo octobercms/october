@@ -457,17 +457,7 @@
     'locale' => 'Sprache',
     'locale_comment' => 'Wählen Sie Ihre gewünschte Sprache für das Backend.',
   ],
-  'access_log' => [
-    'hint' => 'Dieses Log zeigt eine Liste mit erfolgreichen Anmelde-Versuchen von Administratoren. Die Aufzeichnungen bleiben erhalten für :days Tage.',
-    'menu_label' => 'Zugriffslog',
-    'menu_description' => 'Sehen Sie sich eine Liste mit erfolgreichen Backend Benutzeranmeldungen an.',
-    'created_at' => 'Datum & Uhrzeit',
-    'login' => 'Anmeldung',
-    'ip_address' => 'IP Adresse',
-    'first_name' => 'Vorname',
-    'last_name' => 'Nachname',
-    'email' => 'E-Mail',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'Alle',
     'options_method_not_exists' => 'Die Modelklasse :model muss eine methode :method() definiert haben und returning options for the \':filter\' filter.',

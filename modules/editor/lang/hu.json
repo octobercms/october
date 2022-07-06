@@ -1,4 +1,7 @@
 {
-  "Editor": "Szerkesztő",
-  "Access the Editor Tool": "Nyissa meg a Szerkesztő eszközt"
+    "Editor": "Szerkesztő",
+    "Access the Editor Tool": "Nyissa meg a Szerkesztő eszközt",
+    "Editor Tabs": "Fülek",
+    "Close Tab": "Fül bezárása",
+    "Editor Objects": "Objektumok"
 }

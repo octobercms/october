@@ -1,11 +1,16 @@
 {
-  "Themes": "Θέματα",
-  "Manage Themes": "Διαχείριση θεμάτων",
-  "Customize Theme": "Προσαρμογή θέματος",
-  "Manage Maintenance Mode": "Διαχείριση λειτουργίας συντήρησης",
-  "View Website During Maintenance": "Προβολή ιστότοπου κατά τη διάρκεια της συντήρησης",
-  "Manage Content": "Διαχείριση Περιεχομένου",
-  "Manage Asset Files": "Διαχείριση αρχείων περιουσιακών στοιχείων",
-  "Manage Pages": "Διαχείριση Σελίδων",
-  "Manage Layouts": "Διαχείριση διατάξεων"
+    "Themes": "Θέματα",
+    "Manage Themes": "Διαχείριση θεμάτων",
+    "Customize Theme": "Προσαρμογή θέματος",
+    "Manage Maintenance Mode": "Διαχείριση λειτουργίας συντήρησης",
+    "View Website During Maintenance": "Προβολή ιστότοπου κατά τη διάρκεια της συντήρησης",
+    "Manage Content": "Διαχείριση Περιεχομένου",
+    "Manage Asset Files": "Διαχείριση αρχείων περιουσιακών στοιχείων",
+    "Manage Pages": "Διαχείριση Σελίδων",
+    "Manage Layouts": "Διαχείριση διατάξεων",
+    "Configure the maintenance mode page and toggle the setting.": "Διαμορφώστε τη σελίδα λειτουργίας συντήρησης και εναλλάξτε την ρύθμιση.",
+    "Maintenance Mode": "Λειτουργία συντήρησης",
+    "Select the page to show when maintenance mode is activated.": "Επιλέξτε την σελίδα που θα προβληθεί όταν η λειτουργεία συντήρησης ενεργοποιηθεί.",
+    "Enable maintenance mode": "Ενεργοποίηση λειτουργίας συντήρησης",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Η λειτουργεία συντήρησης θα εμφανίσει την σελίδα συντήρησης στους επισκέπτες που δεν είναι συνδεδεμένοι στην περιοχή του back-end."
 }

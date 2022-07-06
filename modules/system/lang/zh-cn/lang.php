@@ -144,14 +144,7 @@
     'unbind_success' => '项目删除成功。',
   ],
   'settings' => [
-    'menu_label' => '设置',
-    'home_label' => '显示所有设置',
-    'not_found' => '无法找到指定的设置。',
-    'missing_model' => '设置页面缺少模型定义。',
-    'update_success' => ':name 设置已更新',
-    'return' => '返回系统设置',
     '搜索' => '搜索',
-    'find_setting' => '查找设置...',
   ],
   'mail' => [
     'log_file' => '日志文件',

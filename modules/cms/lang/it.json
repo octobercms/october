@@ -1,11 +1,15 @@
 {
-  "Themes": "Temi",
-  "Manage Themes": "Gestisci temi",
-  "Customize Theme": "Personalizza il tema",
-  "Manage Maintenance Mode": "Gestisci la modalità di manutenzione",
-  "View Website During Maintenance": "Visualizza il sito Web durante la manutenzione",
-  "Manage Content": "Gestisci i contenuti",
-  "Manage Asset Files": "Gestisci i file delle risorse",
-  "Manage Pages": "Gestisci pagine",
-  "Manage Layouts": "Gestisci layout"
+    "Themes": "Temi",
+    "Manage Themes": "Gestisci temi",
+    "Customize Theme": "Personalizza il tema",
+    "Manage Maintenance Mode": "Gestisci la modalità di manutenzione",
+    "View Website During Maintenance": "Visualizza il sito Web durante la manutenzione",
+    "Manage Content": "Gestisci i contenuti",
+    "Manage Asset Files": "Gestisci i file delle risorse",
+    "Manage Pages": "Gestisci pagine",
+    "Manage Layouts": "Gestisci layout",
+    "Configure the maintenance mode page and toggle the setting.": "Configura la pagina da visualizzare in modalità di manutenzione e cambia l'impostazione.",
+    "Maintenance Mode": "Modalità di manutenzione",
+    "Select the page to show when maintenance mode is activated.": "Se attivo i visitatori del sito vedranno la pagina selezionata sotto.",
+    "Enable maintenance mode": "Abilita modalità di manutenzione"
 }

@@ -324,17 +324,7 @@
     'locale' => 'Valoda',
     'locale_comment' => 'Izvēlieties kādu valodu izmantosiet.',
   ],
-  'access_log' => [
-    'hint' => 'Šis žurnāls rāda sarakstu ar vieksmīgajiem ielogošanās mēģinājumiem no administrātoriem. Ieraksti tiek saglabāti :days dienas.',
-    'menu_label' => 'Autorizēšanās žurnāls',
-    'menu_description' => 'Rāda sarakstu ar veiksmīgajiem back-end autorizēšanās mēģinājumiem.',
-    'created_at' => 'Datums & Laiks',
-    'login' => 'Lietotājvārds',
-    'ip_address' => 'IP adrese',
-    'first_name' => 'Vārds',
-    'last_name' => 'Uzvārds',
-    'email' => 'Epasts',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'visi',
   ],

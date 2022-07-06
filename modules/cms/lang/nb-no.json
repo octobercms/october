@@ -1,2 +1,7 @@
 {
+    "Configure the maintenance mode page and toggle the setting.": "Konfigurer vedlikeholdsmodussiden og endre innstillinger.",
+    "Maintenance Mode": "Vedlikeholdsmodus",
+    "Select the page to show when maintenance mode is activated.": "Når aktivert, vil besøkende se følgende side:",
+    "Enable maintenance mode": "Aktivér vedlikeholdsmodus",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Vedlikeholdsmodus vil vise vedlikehodsmodussiden til besøkende som ikke er logget inn."
 }

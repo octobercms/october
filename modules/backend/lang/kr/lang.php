@@ -400,17 +400,7 @@
     'locale' => '로케일',
     'locale_comment' => '사용언어에 맞는 로케일을 선택해주세요.',
   ],
-  'access_log' => [
-    'hint' => '이 로그는 사용자들의 성공적인 로그인 접속 기록 목록을 표시합니다. 총 :days일보관함.',
-    'menu_label' => '접속 로그',
-    'menu_description' => '백엔드 계정의 성공 로그인 기록보기',
-    'created_at' => '일시',
-    'login' => '계정',
-    'ip_address' => 'IP주소',
-    'first_name' => '이름',
-    'last_name' => '성',
-    'email' => '이메일',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => '전체',
     'options_method_not_exists' => ':model 모델클래스는 \':filter\' 필터옵션을 리턴하기위해서 반드시 :method() 메소드를 정의해야합니다.',

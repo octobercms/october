@@ -55,11 +55,6 @@
     'unbind_success' => 'Projekt wurde erfolgreich getrennt (detached).',
   ],
   'settings' => [
-    'menu_label' => 'Einstellungen',
-    'not_found' => 'Die gesuchten Einstellungen können nicht gefunden werden.',
-    'missing_model' => 'Der Einstellungsseite fehlt eine Model-Definition.',
-    'update_success' => 'Einstellung für :name wurde erfolgreich aktualisiert.',
-    'return' => 'Zurück zu den Einstellungen',
     'search' => 'Suche',
   ],
   'mail' => [

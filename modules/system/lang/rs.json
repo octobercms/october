@@ -8,5 +8,10 @@
     "Current Build": "Trenutna verzija",
     "View Changelog": "Prikaži listu promena",
     "System Updates": "Ispravke & priključci",
-    "Update the system modules and plugins.": "Ažuriraj sistem, upravljaj i instaliraj priključke i teme."
+    "Update the system modules and plugins.": "Ažuriraj sistem, upravljaj i instaliraj priključke i teme.",
+    "Settings": "Podešavanja",
+    "Unable to find the specified settings.": "Nije moguće pronaći navedena podešavanja.",
+    "The settings page is missing a Model definition.": "Na stranici sa podešavanjima nedostaje definicija modela.",
+    ":name settings updated": "Podešavanje :name je uspešno ažurirano.",
+    "Return to System Settings": "Nazad na sistemska podešavanja"
 }

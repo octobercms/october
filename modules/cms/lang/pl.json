@@ -1,11 +1,16 @@
 {
-  "Themes": "Motywy",
-  "Manage Themes": "Zarządzaj motywami",
-  "Customize Theme": "Dostosuj motyw",
-  "Manage Maintenance Mode": "Zarządzaj trybem konserwacji",
-  "View Website During Maintenance": "Wyświetl witrynę podczas konserwacji",
-  "Manage Content": "Zarządzaj treścią",
-  "Manage Asset Files": "Zarządzaj plikami zasobów",
-  "Manage Pages": "Zarządzaj stronami",
-  "Manage Layouts": "Zarządzaj układami"
+    "Themes": "Motywy",
+    "Manage Themes": "Zarządzaj motywami",
+    "Customize Theme": "Dostosuj motyw",
+    "Manage Maintenance Mode": "Zarządzaj trybem konserwacji",
+    "View Website During Maintenance": "Wyświetl witrynę podczas konserwacji",
+    "Manage Content": "Zarządzaj treścią",
+    "Manage Asset Files": "Zarządzaj plikami zasobów",
+    "Manage Pages": "Zarządzaj stronami",
+    "Manage Layouts": "Zarządzaj układami",
+    "Configure the maintenance mode page and toggle the setting.": "Konfiguruj oraz włącz tryb konserwacji strony.",
+    "Maintenance Mode": "Tryb konserwacji",
+    "Select the page to show when maintenance mode is activated.": "Kiedy włączony odwiedzający zamiast normalnej strony zobaczą stronę wybraną poniżej.",
+    "Enable maintenance mode": "Włącz tryb konserwacji",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Tryb konserwacji wyświetli stronę konserwacji dla odwiedzających, którzy nie są zalogowani do panelu administracyjnego."
 }

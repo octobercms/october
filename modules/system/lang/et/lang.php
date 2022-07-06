@@ -136,11 +136,6 @@
     'unbind_success' => 'Projekt on eemaldatud.',
   ],
   'settings' => [
-    'menu_label' => 'Seaded',
-    'not_found' => 'Soovitud seadeid ei leitud.',
-    'missing_model' => 'Seadete lehel puudub modeli seos.',
-    'update_success' => ':name seaded on uuendatud',
-    'return' => 'Tagasi süsteemi seadete juurde',
     'search' => 'Otsi',
   ],
   'mail' => [

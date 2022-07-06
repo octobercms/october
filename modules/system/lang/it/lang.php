@@ -97,11 +97,6 @@
     'unbind_success' => 'Il progetto è stato scollegato con successo.',
   ],
   'settings' => [
-    'menu_label' => 'Impostazioni',
-    'not_found' => 'Impossibile trovare le impostazioni specificate.',
-    'missing_model' => 'La pagine delle impostazioni non ha nessun modello associato.',
-    'update_success' => 'Le impostazioni per :name sono state aggiornate con successo.',
-    'return' => 'Ritorna alle impostazioni di sistema',
     'search' => 'Cerca',
   ],
   'mail' => [

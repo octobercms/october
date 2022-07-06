@@ -45,9 +45,7 @@
     'zh-cn' => '简体中文',
     'zh-tw' => '繁體中文',
   ],
-  'settings' => [
-    'menu_label' => 'الإعدادات',
-  ],
+  'settings' => [],
   'pagination' => [
     'previous' => 'السابق',
     'next' => 'التالي',

@@ -7,5 +7,10 @@
     "Manage Content": "Manage Content",
     "Manage Asset Files": "Manage Asset Files",
     "Manage Pages": "Manage Pages",
-    "Manage Layouts": "Manage Layouts"
+    "Manage Layouts": "Manage Layouts",
+    "Configure the maintenance mode page and toggle the setting.": "Configure the maintenance mode page and toggle the setting.",
+    "Maintenance Mode": "Maintenance Mode",
+    "Select the page to show when maintenance mode is activated.": "Select the page to show when maintenance mode is activated.",
+    "Enable maintenance mode": "Enable maintenance mode",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area."
 }

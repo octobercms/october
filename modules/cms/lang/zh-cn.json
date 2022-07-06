@@ -1,11 +1,16 @@
 {
-  "Themes": "主题",
-  "Manage Themes": "管理主题",
-  "Customize Theme": "自定义主题",
-  "Manage Maintenance Mode": "管理维护模式",
-  "View Website During Maintenance": "在维护期间查看网站",
-  "Manage Content": "管理内容",
-  "Manage Asset Files": "管理资产文件",
-  "Manage Pages": "管理页面",
-  "Manage Layouts": "管理布局"
+    "Themes": "主题",
+    "Manage Themes": "管理主题",
+    "Customize Theme": "自定义主题",
+    "Manage Maintenance Mode": "管理维护模式",
+    "View Website During Maintenance": "在维护期间查看网站",
+    "Manage Content": "管理内容",
+    "Manage Asset Files": "管理资产文件",
+    "Manage Pages": "管理页面",
+    "Manage Layouts": "管理布局",
+    "Configure the maintenance mode page and toggle the setting.": "配置维护模式页面和开关设置.",
+    "Maintenance Mode": "维护模式",
+    "Select the page to show when maintenance mode is activated.": "当启用时, 网站访问者会看到下述页面.",
+    "Enable maintenance mode": "启用维护模式",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "维护模式将对未登陆后台的访客展示维护页面."
 }

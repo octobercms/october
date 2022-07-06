@@ -1,11 +1,16 @@
 {
-  "Themes": "Теми",
-  "Manage Themes": "Керування темами",
-  "Customize Theme": "Налаштувати тему",
-  "Manage Maintenance Mode": "Керувати режимом обслуговування",
-  "View Website During Maintenance": "Перегляд веб-сайту під час технічного обслуговування",
-  "Manage Content": "Керуйте вмістом",
-  "Manage Asset Files": "Керування файлами активів",
-  "Manage Pages": "Керування сторінками",
-  "Manage Layouts": "Керування макетами"
+    "Themes": "Теми",
+    "Manage Themes": "Керування темами",
+    "Customize Theme": "Налаштувати тему",
+    "Manage Maintenance Mode": "Керувати режимом обслуговування",
+    "View Website During Maintenance": "Перегляд веб-сайту під час технічного обслуговування",
+    "Manage Content": "Керуйте вмістом",
+    "Manage Asset Files": "Керування файлами активів",
+    "Manage Pages": "Керування сторінками",
+    "Manage Layouts": "Керування макетами",
+    "Configure the maintenance mode page and toggle the setting.": "Керування режимом роботи сайту.",
+    "Maintenance Mode": "Режим обслуговування",
+    "Select the page to show when maintenance mode is activated.": "При активації цього режиму відвідувачі сайту побачать сторінку обрану нижче.",
+    "Enable maintenance mode": "Увімкнути режим обслуговування",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Режим обслуговування покаже сторінку обслуговування для відвідувачів, що не авторизувалися в CMS."
 }

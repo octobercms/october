@@ -1,11 +1,16 @@
 {
-  "Themes": "Témy",
-  "Manage Themes": "Spravovať motívy",
-  "Customize Theme": "Prispôsobiť tému",
-  "Manage Maintenance Mode": "Spravovať režim údržby",
-  "View Website During Maintenance": "Zobraziť webovú stránku počas údržby",
-  "Manage Content": "Správa obsahu",
-  "Manage Asset Files": "Spravovať súbory aktív",
-  "Manage Pages": "Spravovať stránky",
-  "Manage Layouts": "Spravovať rozloženia"
+    "Themes": "Témy",
+    "Manage Themes": "Spravovať motívy",
+    "Customize Theme": "Prispôsobiť tému",
+    "Manage Maintenance Mode": "Spravovať režim údržby",
+    "View Website During Maintenance": "Zobraziť webovú stránku počas údržby",
+    "Manage Content": "Správa obsahu",
+    "Manage Asset Files": "Spravovať súbory aktív",
+    "Manage Pages": "Spravovať stránky",
+    "Manage Layouts": "Spravovať rozloženia",
+    "Configure the maintenance mode page and toggle the setting.": "Nastavte stránku režimu údržby a jej nastavenia.",
+    "Maintenance Mode": "Režim údržby",
+    "Select the page to show when maintenance mode is activated.": "Zvoľte stránku, ktorá bude zobrazená pri aktivovanom režime údržby.",
+    "Enable maintenance mode": "Aktivovať režim údržby",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Režim údržby zobrazí stránku údržby návštevníkom, ktorí nie sú prihlásení do adminstrácie."
 }

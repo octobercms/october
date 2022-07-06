@@ -1,11 +1,16 @@
 {
-  "Themes": "Temas",
-  "Manage Themes": "Administrar temas",
-  "Customize Theme": "Tema personalizado",
-  "Manage Maintenance Mode": "Administrar el modo de mantenimiento",
-  "View Website During Maintenance": "Ver sitio web durante el mantenimiento",
-  "Manage Content": "Administrar contenido",
-  "Manage Asset Files": "Administrar archivos de activos",
-  "Manage Pages": "Administrar páginas",
-  "Manage Layouts": "Administrar diseños"
+    "Themes": "Temas",
+    "Manage Themes": "Administrar temas",
+    "Customize Theme": "Tema personalizado",
+    "Manage Maintenance Mode": "Administrar el modo de mantenimiento",
+    "View Website During Maintenance": "Ver sitio web durante el mantenimiento",
+    "Manage Content": "Administrar contenido",
+    "Manage Asset Files": "Administrar archivos de activos",
+    "Manage Pages": "Administrar páginas",
+    "Manage Layouts": "Administrar diseños",
+    "Configure the maintenance mode page and toggle the setting.": "Configura la página del modo de mantenimiento y cambia su configuración",
+    "Maintenance Mode": "Modo de mantenimiento",
+    "Select the page to show when maintenance mode is activated.": "Selecciona la página para mostrar cuando el modo de mantenimiento esté activado.",
+    "Enable maintenance mode": "Activar el modo de mantenimiento",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "El modo de mantenimiento mostrará la página de mantenimiento a los visitantes que no estén conectados en el área de back-end."
 }

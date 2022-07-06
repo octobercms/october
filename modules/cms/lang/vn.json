@@ -1,2 +1,7 @@
 {
+    "Configure the maintenance mode page and toggle the setting.": "Bật chế độ bảo trì và chỉ định trang sẽ hiển thị ở chế độ bảo trì.",
+    "Maintenance Mode": "Chế độ bảo trì",
+    "Select the page to show when maintenance mode is activated.": "Chọn trang sẽ hiển thị ở chế độ bảo trì.",
+    "Enable maintenance mode": "Bật chế độ bảo trì",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Chế độ bảo trì sẽ hiển thị trang bảo trì đối với khách truy cập trang"
 }

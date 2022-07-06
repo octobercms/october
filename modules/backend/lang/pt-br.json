@@ -35,5 +35,16 @@
     "Import error": "Erro de importação",
     "Export error": "Erro de exportação",
     "Column preview": "Pré-visualizar coluna",
-    "Column": "Coluna"
+    "Column": "Coluna",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Este registro mostra a lista de acessos dos administradores. Os registros são mantidos por um período de :days dias.",
+    "Access Log": "Registro de Acesso",
+    "View a list of successful back-end user sign ins.": "Veja a lista de acessos à administração.",
+    "ID": "ID",
+    "Date & Time": "Data & Hora",
+    "Type": "Tipo",
+    "IP address": "Endereço IP",
+    "Login": "Login",
+    "First name": "Nome",
+    "Last name": "Sobrenome",
+    "Email": "E-mail"
 }

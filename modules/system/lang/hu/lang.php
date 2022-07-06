@@ -144,14 +144,7 @@
     'unbind_success' => 'A projekt leválasztása sikerült.',
   ],
   'settings' => [
-    'menu_label' => 'Beállítások',
-    'home_label' => 'Összes beállítás',
-    'not_found' => 'Nem létezik a megadott beállítás oldal.',
-    'missing_model' => 'A beállítások oldal egy modell definíciót hiányol.',
-    'update_success' => 'A(z) :name beállításainak frissítése sikerült.',
-    'return' => 'Vissza a beállításokhoz',
     'search' => 'Keresés...',
-    'find_setting' => 'Beállítás keresése...',
   ],
   'mail' => [
     'log_file' => 'Naplófájl',

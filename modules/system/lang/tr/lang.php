@@ -155,11 +155,6 @@
     'unbind_success' => 'Proje ayırma işlemi tamamlandı.',
   ],
   'settings' => [
-    'menu_label' => 'Ayarlar',
-    'not_found' => 'Belirtilen ayarlar bulunamadı.',
-    'missing_model' => 'Ayarlar sayfasında Model tanımı eksik.',
-    'update_success' => ':name için ayarlar güncellendi.',
-    'return' => 'Sistem ayarları sayfasına dön',
     'search' => 'Ara',
   ],
   'mail' => [

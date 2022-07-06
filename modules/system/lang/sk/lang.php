@@ -153,11 +153,6 @@
     'unbind_success' => 'Projekt bol odpojený.',
   ],
   'settings' => [
-    'menu_label' => 'Nastavenia',
-    'not_found' => 'Zvolené nastavenie sa nepodarilo .',
-    'missing_model' => 'Stránka s nastaveniami vyžaduje definíciu Modelu.',
-    'update_success' => 'nastavenia pre :name úspešne uložené',
-    'return' => 'Návrat do systémových nastavení',
     'search' => 'Hľadať',
   ],
   'mail' => [

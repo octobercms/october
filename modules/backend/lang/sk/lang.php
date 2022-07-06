@@ -434,17 +434,7 @@
     'locale' => 'Jazyk',
     'locale_comment' => 'Vyberte jazyk administrácie.',
   ],
-  'access_log' => [
-    'hint' => 'Tento záznam zobrazuje zoznam úspešných administrátorských prihlásení. Záznamy sú uchovávané po dobu :days dní.',
-    'menu_label' => 'Záznam prihlásení',
-    'menu_description' => 'Zobraziť zoznam úspešných prihlásení do administrácie.',
-    'created_at' => 'Čas a dátum',
-    'login' => 'Login',
-    'ip_address' => 'IP adresa',
-    'first_name' => 'Meno',
-    'last_name' => 'Priezvisko',
-    'email' => 'E-mail',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'všetko',
     'options_method_not_exists' => 'Trieda modelu :model musí definovať metódu :method() vracajúcu možnosti pre \':filter\' filter.',

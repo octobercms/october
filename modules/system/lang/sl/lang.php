@@ -151,11 +151,6 @@
     'unbind_success' => 'Projekt je bil odpet.',
   ],
   'settings' => [
-    'menu_label' => 'Nastavitve',
-    'not_found' => 'Navedenih nastavitev ni mogoče najti.',
-    'missing_model' => 'Na strani z nastavitvami manjka definicija modela.',
-    'update_success' => 'Nastavitve za ":name" so shranjene.',
-    'return' => 'Vrni se na sistemske nastavitve',
     'search' => 'Iskanje',
   ],
   'mail' => [

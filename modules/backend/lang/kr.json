@@ -23,5 +23,14 @@
     "Import error": "가져오기 오류",
     "Export error": "내보내기 오류",
     "Column preview": "열 미리보기",
-    "Column": "열"
+    "Column": "열",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "이 로그는 사용자들의 성공적인 로그인 접속 기록 목록을 표시합니다. 총 :days일보관함.",
+    "Access Log": "접속 로그",
+    "View a list of successful back-end user sign ins.": "백엔드 계정의 성공 로그인 기록보기",
+    "Date & Time": "일시",
+    "IP address": "IP주소",
+    "Login": "계정",
+    "First name": "이름",
+    "Last name": "성",
+    "Email": "이메일"
 }

@@ -431,17 +431,7 @@
     'locale' => 'Idioma',
     'locale_comment' => 'Selecciona el teu idioma preferit.',
   ],
-  'access_log' => [
-    'hint' => 'Aquest registre mostra una llista dels accessos d\'administradors. Els registres es guarden durant :days dies.',
-    'menu_label' => 'Registre d\'accés',
-    'menu_description' => 'Veure una llista d\'accessos correctes al panell.',
-    'created_at' => 'Data i Hora',
-    'login' => 'Login',
-    'ip_address' => 'Adreça IP',
-    'first_name' => 'Nom',
-    'last_name' => 'Cognom',
-    'email' => 'Email',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'tots',
     'options_method_not_exists' => 'La classe de model :model ha de definir un mètode :method() que retorni opcions pel filtre \':filter\'.',

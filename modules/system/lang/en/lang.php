@@ -191,16 +191,6 @@
     'detach_confirm' => 'Are you sure you want to detach this project?',
     'unbind_success' => 'Project has been detached.',
   ],
-  'settings' => [
-    'menu_label' => 'Settings',
-    'home_label' => 'Show All Settings',
-    'not_found' => 'Unable to find the specified settings.',
-    'missing_model' => 'The settings page is missing a Model definition.',
-    'update_success' => ':name settings updated',
-    'return' => 'Return to System Settings',
-    'search' => 'Search',
-    'find_setting' => 'Find a Setting...',
-  ],
   'mail' => [
     'log_file' => 'Log file',
     'menu_label' => 'Mail Configuration',

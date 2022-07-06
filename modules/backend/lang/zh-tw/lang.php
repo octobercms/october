@@ -290,17 +290,7 @@
     'locale' => '語言',
     'locale_comment' => '選擇您希望使用的本地語言。',
   ],
-  'access_log' => [
-    'hint' => '這個log顯示了管理員成功登入的訊息. 記錄保持:days天。',
-    'menu_label' => '訪問日誌',
-    'menu_description' => '查看成功登入管理介面使用者日誌。',
-    'created_at' => '日期 & 時間',
-    'login' => '登入',
-    'ip_address' => 'IP地址',
-    'first_name' => '名',
-    'last_name' => '姓',
-    'email' => 'Email',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => '全部',
     'date_all' => '全部區間',

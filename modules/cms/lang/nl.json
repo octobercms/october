@@ -1,11 +1,16 @@
 {
-  "Themes": "Thema's",
-  "Manage Themes": "Thema's beheren",
-  "Customize Theme": "Thema aanpassen",
-  "Manage Maintenance Mode": "Onderhoudsmodus beheren",
-  "View Website During Maintenance": "Website bekijken tijdens onderhoud",
-  "Manage Content": "Inhoud beheren",
-  "Manage Asset Files": "Beheer activabestanden",
-  "Manage Pages": "Pagina's beheren",
-  "Manage Layouts": "Lay-outs beheren"
+    "Themes": "Thema's",
+    "Manage Themes": "Thema's beheren",
+    "Customize Theme": "Thema aanpassen",
+    "Manage Maintenance Mode": "Onderhoudsmodus beheren",
+    "View Website During Maintenance": "Website bekijken tijdens onderhoud",
+    "Manage Content": "Inhoud beheren",
+    "Manage Asset Files": "Beheer activabestanden",
+    "Manage Pages": "Pagina's beheren",
+    "Manage Layouts": "Lay-outs beheren",
+    "Configure the maintenance mode page and toggle the setting.": "Instellingen voor de onderhoudsmodus pagina.",
+    "Maintenance Mode": "Onderhoudsmodus",
+    "Select the page to show when maintenance mode is activated.": "Toon de volgende pagina als onderhoudsmodus is ingeschakeld:",
+    "Enable maintenance mode": "Onderhoudsmodus inschakelen",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Onderhoudsmodus zal de onderhoudspagina tonen aan bezoekers die niet ingelogd zijn in het CMS."
 }

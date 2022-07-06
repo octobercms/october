@@ -16,5 +16,12 @@
     "Update the system modules and plugins.": "Update the system modules and plugins.",
     "General": "General",
     "Mail": "Mail",
-    "Utilities": "Utilities"
+    "Utilities": "Utilities",
+    "Settings": "Settings",
+    "Show All Settings": "Show All Settings",
+    "Unable to find the specified settings.": "Unable to find the specified settings.",
+    "The settings page is missing a Model definition.": "The settings page is missing a Model definition.",
+    ":name settings updated": ":name settings updated",
+    "Return to System Settings": "Return to System Settings",
+    "Find a Setting...": "Find a Setting..."
 }

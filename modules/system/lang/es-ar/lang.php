@@ -67,10 +67,6 @@
     'unbind_success' => 'El proyecto ha sido separado con éxito.',
   ],
   'settings' => [
-    'menu_label' => 'Configuración',
-    'missing_model' => 'La página de configuración no encuentra una definición de modelo.',
-    'update_success' => 'Los ajustes para :name han sido actualizados correctamente.',
-    'return' => 'Regresar a la configuración del sistema',
     'search' => 'Buscar',
   ],
   'mail' => [

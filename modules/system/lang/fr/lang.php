@@ -143,11 +143,6 @@
     'unbind_success' => 'Le projet a été détaché avec succès.',
   ],
   'settings' => [
-    'menu_label' => 'Réglages',
-    'not_found' => 'Les paramètres spécifiés sont introuvables.',
-    'missing_model' => 'La page de réglages nécessite la définition d’un Model.',
-    'update_success' => 'Les réglages pour :name ont étés mis à jour avec succès.',
-    'return' => 'Retourner à la page des réglages du système',
     'search' => 'Rechercher',
   ],
   'mail' => [

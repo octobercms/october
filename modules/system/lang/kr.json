@@ -7,5 +7,10 @@
     "Disabled": "비활성됨",
     "Current Build": "현재의 빌드",
     "System Updates": "업데이트",
-    "Update the system modules and plugins.": "시스템 변경, 플러그인과 테마의 관리와 설치."
+    "Update the system modules and plugins.": "시스템 변경, 플러그인과 테마의 관리와 설치.",
+    "Settings": "설정",
+    "Unable to find the specified settings.": "선택하신 설정을 사용할 수 없습니다.",
+    "The settings page is missing a Model definition.": "모델의 정의를 발견할 수 없습니다.",
+    ":name settings updated": ":name 을 설정했습니다.",
+    "Return to System Settings": "시스템 설정으로 돌아가기"
 }

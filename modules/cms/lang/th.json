@@ -1,11 +1,16 @@
 {
-  "Themes": "ธีม",
-  "Manage Themes": "จัดการธีม",
-  "Customize Theme": "ปรับแต่งธีม",
-  "Manage Maintenance Mode": "จัดการโหมดการบำรุงรักษา",
-  "View Website During Maintenance": "ดูเว็บไซต์ระหว่างการบำรุงรักษา",
-  "Manage Content": "จัดการเนื้อหา",
-  "Manage Asset Files": "จัดการไฟล์สินทรัพย์",
-  "Manage Pages": "จัดการเพจ",
-  "Manage Layouts": "จัดการเค้าโครง"
+    "Themes": "ธีม",
+    "Manage Themes": "จัดการธีม",
+    "Customize Theme": "ปรับแต่งธีม",
+    "Manage Maintenance Mode": "จัดการโหมดการบำรุงรักษา",
+    "View Website During Maintenance": "ดูเว็บไซต์ระหว่างการบำรุงรักษา",
+    "Manage Content": "จัดการเนื้อหา",
+    "Manage Asset Files": "จัดการไฟล์สินทรัพย์",
+    "Manage Pages": "จัดการเพจ",
+    "Manage Layouts": "จัดการเค้าโครง",
+    "Configure the maintenance mode page and toggle the setting.": "ปรับแก้หน้าโหมดการบำรุงรักษา และเลือกการตั้งค่า",
+    "Maintenance Mode": "โหมดการบำรุงรักษา",
+    "Select the page to show when maintenance mode is activated.": "เลือกหน้าที่ต้องการให้แสดงเมื่อเปิดใช้งานโหมดการบำรุงรักษา",
+    "Enable maintenance mode": "เปิดใช้โหมดการบำรุงรักษา",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "โหลดการบำรุงรักษาจะแสดงหน้าบำรุงรักษาสำหรับผู้เยี่ยมชมที่ไม่ได้ลงชื่อเข้าใช้หน้าเว็บหลังบ้าน"
 }

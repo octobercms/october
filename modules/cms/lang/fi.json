@@ -1,11 +1,16 @@
 {
-  "Themes": "Teemat",
-  "Manage Themes": "Hallitse teemoja",
-  "Customize Theme": "Muokkaa teemaa",
-  "Manage Maintenance Mode": "Hallitse ylläpitotilaa",
-  "View Website During Maintenance": "Tarkastele verkkosivustoa huollon aikana",
-  "Manage Content": "Hallitse sisältöä",
-  "Manage Asset Files": "Hallitse omaisuustiedostoja",
-  "Manage Pages": "Hallitse sivuja",
-  "Manage Layouts": "Hallitse asetteluja"
+    "Themes": "Teemat",
+    "Manage Themes": "Hallitse teemoja",
+    "Customize Theme": "Muokkaa teemaa",
+    "Manage Maintenance Mode": "Hallitse ylläpitotilaa",
+    "View Website During Maintenance": "Tarkastele verkkosivustoa huollon aikana",
+    "Manage Content": "Hallitse sisältöä",
+    "Manage Asset Files": "Hallitse omaisuustiedostoja",
+    "Manage Pages": "Hallitse sivuja",
+    "Manage Layouts": "Hallitse asetteluja",
+    "Configure the maintenance mode page and toggle the setting.": "Muokkaa huoltotilan sivua ja valitse asetus.",
+    "Maintenance Mode": "Ylläpitotila",
+    "Select the page to show when maintenance mode is activated.": "Valitse sivu näytettäväksi kun huoltotila on käytössä.",
+    "Enable maintenance mode": "Ota huoltotila käyttöön",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Huoltotila näyttää huoltosivun vierailijoille, jotka eivät ole kirjautuneena hallintapaneeliin."
 }

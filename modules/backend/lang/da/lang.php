@@ -385,17 +385,7 @@
     'locale' => 'Locale',
     'locale_comment' => 'Vælg din ønskede locale.',
   ],
-  'access_log' => [
-    'hint' => 'Denne log viser en liste af successfulde administratorlogins. Records bliver gemt i :days dage.',
-    'menu_label' => 'Access log',
-    'menu_description' => 'Se en liste af successfulde backendbruger logins.',
-    'created_at' => 'Dato & Tid',
-    'login' => 'Login',
-    'ip_address' => 'IP addresse',
-    'first_name' => 'Fornavn',
-    'last_name' => 'Efternavn',
-    'email' => 'Email',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'alle',
     'options_method_not_exists' => 'Model klassen :model skal implementere metoden :method() som returnerer muligheder til \':filter\' filteret.',

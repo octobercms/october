@@ -382,17 +382,7 @@
     'locale' => 'Lingua',
     'locale_comment' => 'Seleziona la lingua da utilizzare.',
   ],
-  'access_log' => [
-    'hint' => 'Questo registro visualizza un elenco dei tentativi di accesso di un amministratore avvenuti con successo. I record sono mantenuti per un totale di :days giorni.',
-    'menu_label' => 'Registro accessi',
-    'menu_description' => 'Visualizza una lista degli accessi da parte degli amministratori.',
-    'created_at' => 'Data e ora',
-    'login' => 'Login',
-    'ip_address' => 'Indirizzo IP',
-    'first_name' => 'Nome',
-    'last_name' => 'Cognome',
-    'email' => 'Indirizzo e-mail',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'tutto',
     'options_method_not_exists' => 'Il modello :model deve definire un metodo :method() che ritorni le opzioni per il filtro \':filter\'.',

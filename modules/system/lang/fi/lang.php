@@ -176,11 +176,6 @@
     'unbind_success' => 'Projekti on irrotettu.',
   ],
   'settings' => [
-    'menu_label' => 'Asetukset',
-    'not_found' => 'Määriteltyjä asetuksia ei löytynyt.',
-    'missing_model' => 'The settings page is missing a Model definition.',
-    'update_success' => ':name settings updated',
-    'return' => 'Palaa järjestelmän asetuksiin',
     'search' => 'Haku',
   ],
   'mail' => [

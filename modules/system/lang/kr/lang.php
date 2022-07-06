@@ -98,11 +98,6 @@
     'unbind_success' => '프로젝트를 분리했습니다.',
   ],
   'settings' => [
-    'menu_label' => '설정',
-    'not_found' => '선택하신 설정을 사용할 수 없습니다.',
-    'missing_model' => '모델의 정의를 발견할 수 없습니다.',
-    'update_success' => ':name 을 설정했습니다.',
-    'return' => '시스템 설정으로 돌아가기',
     'search' => '검색',
   ],
   'mail' => [

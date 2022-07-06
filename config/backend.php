@@ -51,7 +51,7 @@ return [
     'brand' => [
         'enabled' => false,
         'app_name' => 'October CMS',
-        'tagline' => 'Getting Back to Basics',
+        'tagline' => 'Administration Panel',
         'menu_mode' => 'icons',
         'favicon_path' => '~/app/assets/images/logo.png',
         'logo_path' => '~/app/assets/images/logo.png',

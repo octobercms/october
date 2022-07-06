@@ -115,11 +115,6 @@
     'unbind_success' => 'Projekt został pomyślnie odłączony.',
   ],
   'settings' => [
-    'menu_label' => 'Ustawienia',
-    'not_found' => 'Nie można znaleźć określonych ustawień.',
-    'missing_model' => 'Na stronie ustawień brakuje definicji modelu.',
-    'update_success' => 'Ustawienia dla :name zostały pomyślnie zaktualizowane.',
-    'return' => 'Wróc do ustawień systemu',
     'search' => 'Szukaj',
   ],
   'mail' => [

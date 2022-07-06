@@ -1,11 +1,15 @@
 {
-  "Themes": "主題",
-  "Manage Themes": "管理主題",
-  "Customize Theme": "自定義主題",
-  "Manage Maintenance Mode": "管理維護模式",
-  "View Website During Maintenance": "在維護期間查看網站",
-  "Manage Content": "管理內容",
-  "Manage Asset Files": "管理資產文件",
-  "Manage Pages": "管理頁面",
-  "Manage Layouts": "管理佈局"
+    "Themes": "主題",
+    "Manage Themes": "管理主題",
+    "Customize Theme": "自定義主題",
+    "Manage Maintenance Mode": "管理維護模式",
+    "View Website During Maintenance": "在維護期間查看網站",
+    "Manage Content": "管理內容",
+    "Manage Asset Files": "管理資產文件",
+    "Manage Pages": "管理頁面",
+    "Manage Layouts": "管理佈局",
+    "Configure the maintenance mode page and toggle the setting.": "設定維護模式頁面和開關設定.",
+    "Maintenance Mode": "維護模式",
+    "Select the page to show when maintenance mode is activated.": "當啟用時, 網站訪問者會看到下述頁面.",
+    "Enable maintenance mode": "啟用維護模式"
 }

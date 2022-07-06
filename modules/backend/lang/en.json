@@ -91,5 +91,16 @@
     "Settings": "Settings",
     "Background Color": "Background Color",
     "Allow users to create new roles and edit or delete roles lower than their highest role.": "Allow users to create new roles and edit or delete roles lower than their highest role.",
-    "Save Changes": "Save Changes"
+    "Save Changes": "Save Changes",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.",
+    "Access Log": "Access Log",
+    "View a list of successful back-end user sign ins.": "View a list of successful back-end user sign ins.",
+    "ID": "ID",
+    "Date & Time": "Date & Time",
+    "Type": "Type",
+    "IP address": "IP address",
+    "Login": "Login",
+    "First name": "First name",
+    "Last name": "Last name",
+    "Email": "Email"
 }

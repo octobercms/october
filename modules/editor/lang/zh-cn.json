@@ -1,4 +1,7 @@
 {
-  "Editor": "编辑",
-  "Access the Editor Tool": "访问编辑器工具"
+    "Editor": "编辑",
+    "Access the Editor Tool": "访问编辑器工具",
+    "Editor Tabs": "标签",
+    "Close Tab": "关闭标签",
+    "Editor Objects": "对象"
 }

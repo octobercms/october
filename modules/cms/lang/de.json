@@ -1,11 +1,16 @@
 {
-  "Themes": "Themen",
-  "Manage Themes": "Themen verwalten",
-  "Customize Theme": "Thema anpassen",
-  "Manage Maintenance Mode": "Wartungsmodus verwalten",
-  "View Website During Maintenance": "Website während der Wartung anzeigen",
-  "Manage Content": "Inhalte verwalten",
-  "Manage Asset Files": "Asset-Dateien verwalten",
-  "Manage Pages": "Seiten verwalten",
-  "Manage Layouts": "Layouts verwalten"
+    "Themes": "Themen",
+    "Manage Themes": "Themen verwalten",
+    "Customize Theme": "Thema anpassen",
+    "Manage Maintenance Mode": "Wartungsmodus verwalten",
+    "View Website During Maintenance": "Website während der Wartung anzeigen",
+    "Manage Content": "Inhalte verwalten",
+    "Manage Asset Files": "Asset-Dateien verwalten",
+    "Manage Pages": "Seiten verwalten",
+    "Manage Layouts": "Layouts verwalten",
+    "Configure the maintenance mode page and toggle the setting.": "Konfigurieren Sie den Wartungsmodus.",
+    "Maintenance Mode": "Wartungsmodus",
+    "Select the page to show when maintenance mode is activated.": "Sobald aktiviert, werden Besucher die unten ausgewählte Seite sehen.",
+    "Enable maintenance mode": "Wartungsmodus aktivieren",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Im Wartungsmodus wird die Wartungsseite für Besucher angezeigt, die nicht im Back-End-Bereich angemeldet sind."
 }

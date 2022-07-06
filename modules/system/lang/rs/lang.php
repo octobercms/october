@@ -151,11 +151,6 @@
     'unbind_success' => 'Projekat je uspešno odvojen.',
   ],
   'settings' => [
-    'menu_label' => 'Podešavanja',
-    'not_found' => 'Nije moguće pronaći navedena podešavanja.',
-    'missing_model' => 'Na stranici sa podešavanjima nedostaje definicija modela.',
-    'update_success' => 'Podešavanje :name je uspešno ažurirano.',
-    'return' => 'Nazad na sistemska podešavanja',
     'search' => 'Traži',
   ],
   'mail' => [

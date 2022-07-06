@@ -1,11 +1,16 @@
 {
-  "Themes": "Temalar",
-  "Manage Themes": "Temaları Yönet",
-  "Customize Theme": "Temayı Özelleştir",
-  "Manage Maintenance Mode": "Bakım Modunu Yönet",
-  "View Website During Maintenance": "Bakım Sırasında Web Sitesini Görüntüle",
-  "Manage Content": "İçeriği Yönet",
-  "Manage Asset Files": "Varlık Dosyalarını Yönet",
-  "Manage Pages": "Sayfaları yönet",
-  "Manage Layouts": "Düzenleri Yönet"
+    "Themes": "Temalar",
+    "Manage Themes": "Temaları Yönet",
+    "Customize Theme": "Temayı Özelleştir",
+    "Manage Maintenance Mode": "Bakım Modunu Yönet",
+    "View Website During Maintenance": "Bakım Sırasında Web Sitesini Görüntüle",
+    "Manage Content": "İçeriği Yönet",
+    "Manage Asset Files": "Varlık Dosyalarını Yönet",
+    "Manage Pages": "Sayfaları yönet",
+    "Manage Layouts": "Düzenleri Yönet",
+    "Configure the maintenance mode page and toggle the setting.": "Bakım modu ayarlarını düzenleyip bakım sayfasını yapılandırabilirsiniz.",
+    "Maintenance Mode": "Bakım modu",
+    "Select the page to show when maintenance mode is activated.": "Aktifleştirildiğinde, web sitesi ziyaretçileri aşağıdaki seçtiğiniz sayfayı görecektir.",
+    "Enable maintenance mode": "Bakım modunu aktifleştir",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Bakımda sayfası, yönetim paneli girişi yapmamış tüm ziyaretçilere seçilen bakımda sayfasını gösterir."
 }

@@ -88,11 +88,6 @@
     'unbind_success' => '產品刪除成功.',
   ],
   'settings' => [
-    'menu_label' => '設定',
-    'not_found' => '不能找到特定的設定.',
-    'missing_model' => '設定頁缺少Model定義.',
-    'update_success' => ':name 的設定更新成功了.',
-    'return' => '返回系統設定',
     'search' => '搜尋',
   ],
   'mail' => [
