@@ -97,11 +97,6 @@
     'unbind_success' => 'Il progetto è stato scollegato con successo.',
   ],
   'settings' => [
-    'menu_label' => 'Impostazioni',
-    'not_found' => 'Impossibile trovare le impostazioni specificate.',
-    'missing_model' => 'La pagine delle impostazioni non ha nessun modello associato.',
-    'update_success' => 'Le impostazioni per :name sono state aggiornate con successo.',
-    'return' => 'Ritorna alle impostazioni di sistema',
     'search' => 'Cerca',
   ],
   'mail' => [
@@ -112,7 +107,6 @@
     'method' => 'Metodo di invio',
     'sender_name' => 'Nome del mittente',
     'sender_email' => 'Indirizzo e-mail del mittente',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Indirizzo SMTP',
     'smtp_authorization' => 'Il server SMTP richiede l\'autenticazione',

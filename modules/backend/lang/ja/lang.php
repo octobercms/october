@@ -278,17 +278,7 @@
     'locale' => 'ロケール',
     'locale_comment' => '使用する言語のロケールを選択してください。',
   ],
-  'access_log' => [
-    'hint' => 'このログは管理者のサインインが成功したリストです。記録は:days日間保持されます。',
-    'menu_label' => 'アクセスログ',
-    'menu_description' => 'サインインに成功したバックエンドユーザーを表示します。',
-    'created_at' => '日時',
-    'login' => 'ログイン',
-    'ip_address' => 'IPアドレス',
-    'first_name' => '名',
-    'last_name' => '姓',
-    'email' => 'メール',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'すべて',
   ],

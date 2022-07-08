@@ -8,5 +8,10 @@
     "Current Build": "Compilação atual",
     "View Changelog": "Visualizar Changelog",
     "System Updates": "Atualizações",
-    "Update the system modules and plugins.": "Atualize o sistema, gerencie e instale plugins e temas."
+    "Update the system modules and plugins.": "Atualize o sistema, gerencie e instale plugins e temas.",
+    "Settings": "Configurações",
+    "Unable to find the specified settings.": "Impossível encontrar as configurações solicitadas.",
+    "The settings page is missing a Model definition.": "Falta uma definição de modelo na página de configurações.",
+    ":name settings updated": "Configurações para :name foram atualizados com sucesso.",
+    "Return to System Settings": "Retornar para as configurações do sistema"
 }

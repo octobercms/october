@@ -188,14 +188,7 @@
     'unbind_success' => 'Project is succesvol ontkoppeld.',
   ],
   'settings' => [
-    'menu_label' => 'Instellingen',
-    'home_label' => 'Toon alle instellingen',
-    'not_found' => 'Kan specifieke instellingen niet vinden.',
-    'missing_model' => 'De instellingenpagina mist de definitie van een Model.',
-    'update_success' => 'Instellingen voor :name zijn succesvol bijgewerkt.',
-    'return' => 'Terug naar systeeminstellingen',
     'search' => 'Zoeken',
-    'find_setting' => 'Zoek een instelling...',
   ],
   'mail' => [
     'log_file' => 'Logboek bestand',
@@ -205,7 +198,6 @@
     'method' => 'E-mail methode',
     'sender_name' => 'Naam afzender',
     'sender_email' => 'E-mailadres afzender',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adres',
     'smtp_authorization' => 'SMTP authenticatie vereist',

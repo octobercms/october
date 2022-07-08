@@ -88,11 +88,6 @@
     'unbind_success' => '產品刪除成功.',
   ],
   'settings' => [
-    'menu_label' => '設定',
-    'not_found' => '不能找到特定的設定.',
-    'missing_model' => '設定頁缺少Model定義.',
-    'update_success' => ':name 的設定更新成功了.',
-    'return' => '返回系統設定',
     'search' => '搜尋',
   ],
   'mail' => [
@@ -103,7 +98,6 @@
     'method' => '郵件方法',
     'sender_name' => '發送者名稱',
     'sender_email' => '發送者郵件',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP 地址',
     'smtp_authorization' => '需要 SMTP 認證',

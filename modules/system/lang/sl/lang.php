@@ -151,11 +151,6 @@
     'unbind_success' => 'Projekt je bil odpet.',
   ],
   'settings' => [
-    'menu_label' => 'Nastavitve',
-    'not_found' => 'Navedenih nastavitev ni mogoče najti.',
-    'missing_model' => 'Na strani z nastavitvami manjka definicija modela.',
-    'update_success' => 'Nastavitve za ":name" so shranjene.',
-    'return' => 'Vrni se na sistemske nastavitve',
     'search' => 'Iskanje',
   ],
   'mail' => [
@@ -166,7 +161,6 @@
     'method' => 'Način za e-pošto',
     'sender_name' => 'Ime pošiljatelja',
     'sender_email' => 'E-pošta pošiljatelja',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP naslov',
     'smtp_authorization' => 'Obvezna SMTP avtorizacija',

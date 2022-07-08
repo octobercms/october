@@ -1,2 +1,7 @@
 {
+    "Configure the maintenance mode page and toggle the setting.": "유지보수모드 페이지의 설정과 변경을 합니다.",
+    "Maintenance Mode": "유지보수모드",
+    "Select the page to show when maintenance mode is activated.": "유지보수모드일때 웹사이트 방문자가 보는 페이지를 선택해주세요.",
+    "Enable maintenance mode": "유지보수모드 활성화",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "유지보수모드는 백엔드에 로그인하지않은 방문자에 유지보수안내 페이지를 표시합니다."
 }

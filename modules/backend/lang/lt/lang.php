@@ -398,17 +398,7 @@
     'locale' => 'Kalba',
     'locale_comment' => 'Pasirinkite norimą kalbą.',
   ],
-  'access_log' => [
-    'hint' => 'Šis registras rodo sėkmingų administratoriaus prisijungimų sąrašą. Įrašai yra saugomi viso :days dienų.',
-    'menu_label' => 'Prieigos registras',
-    'menu_description' => 'Žiūrėti sėkmingų administratoriaus prisijungimų sąrašą.',
-    'created_at' => 'Data ir Laikas',
-    'login' => 'Prisijungimas',
-    'ip_address' => 'IP adresas',
-    'first_name' => 'Vardas',
-    'last_name' => 'Pavardė',
-    'email' => 'El.paštas',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'viską',
     'options_method_not_exists' => 'Modelio klasė :model turi nurodyti metodą :method() gražinantš parinktis \':filter\' filtrui.',

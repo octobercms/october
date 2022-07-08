@@ -1,11 +1,16 @@
 {
-  "Themes": "Teme",
-  "Manage Themes": "Upravljajte teme",
-  "Customize Theme": "Prilagodite temo",
-  "Manage Maintenance Mode": "Upravljanje načina vzdrževanja",
-  "View Website During Maintenance": "Ogled spletnega mesta med vzdrževanjem",
-  "Manage Content": "Upravljajte vsebino",
-  "Manage Asset Files": "Upravljanje datotek sredstev",
-  "Manage Pages": "Upravljanje strani",
-  "Manage Layouts": "Upravljajte postavitve"
+    "Themes": "Teme",
+    "Manage Themes": "Upravljajte teme",
+    "Customize Theme": "Prilagodite temo",
+    "Manage Maintenance Mode": "Upravljanje načina vzdrževanja",
+    "View Website During Maintenance": "Ogled spletnega mesta med vzdrževanjem",
+    "Manage Content": "Upravljajte vsebino",
+    "Manage Asset Files": "Upravljanje datotek sredstev",
+    "Manage Pages": "Upravljanje strani",
+    "Manage Layouts": "Upravljajte postavitve",
+    "Configure the maintenance mode page and toggle the setting.": "Nastavitve načina vzdrževanja in preklop na način vzdrževanja.",
+    "Maintenance Mode": "Način vzdrževanja",
+    "Select the page to show when maintenance mode is activated.": "Izberite stran, ki bo prikazana ob vključenem načinu vzdrževanja.",
+    "Enable maintenance mode": "Omogoči način vzdrževanja",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "V načinu vzdrževanja bo stran o vzdrževanju prikazana obiskovalcem, ki niso prijavljeni v administracijo."
 }

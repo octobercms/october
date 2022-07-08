@@ -98,11 +98,6 @@
     'unbind_success' => 'Proyecto ha sido separado con éxito.',
   ],
   'settings' => [
-    'menu_label' => 'Configuración',
-    'not_found' => 'No se encuentra la configuración especificada.',
-    'missing_model' => 'La página de configuración no encuentra una definición del Modelo.',
-    'update_success' => 'Los ajustes para :name se han actualizado correctamente.',
-    'return' => 'Volver a la configuración del sistema',
     'search' => 'Buscar',
   ],
   'mail' => [
@@ -113,7 +108,6 @@
     'method' => 'Método de correo',
     'sender_name' => 'Nombre del remitente',
     'sender_email' => 'Correo del remitente',
-    'php_mail' => 'mail PHP',
     'smtp' => 'SMTP',
     'smtp_address' => 'Dirección SMTP',
     'smtp_authorization' => 'autorización requerida de SMTP',

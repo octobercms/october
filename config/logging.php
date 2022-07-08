@@ -41,16 +41,14 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/system.log'),
-            'level' => 'debug',
-            'permission' => octdec((string) env('DEFAULT_FILE_MASK')) ?: null,
+            'level' => 'debug'
         ],
 
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/system.log'),
             'level' => 'debug',
-            'days' => 14,
-            'permission' => octdec((string) env('DEFAULT_FILE_MASK')) ?: null,
+            'days' => 14
         ],
 
         'slack' => [

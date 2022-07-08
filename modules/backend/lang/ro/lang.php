@@ -212,15 +212,5 @@
     'locale' => 'Limba',
     'locale_comment' => 'Selectati limba dorita.',
   ],
-  'access_log' => [
-    'hint' => 'Acest jurnal afiseaza o lista de conectari reusite, realizate de catre administratori. Inregistrarile sunt pastrate pentru un numar total de :days zile.',
-    'menu_label' => 'Jurnal acces',
-    'menu_description' => 'Vizualizati o lista de conectari reusite, realizate de catre administratori.',
-    'created_at' => 'Data & Ora',
-    'login' => 'Login',
-    'ip_address' => 'Adresa IP',
-    'first_name' => 'Prenume',
-    'last_name' => 'Nume',
-    'email' => 'Email',
-  ],
+  'access_log' => [],
 ];

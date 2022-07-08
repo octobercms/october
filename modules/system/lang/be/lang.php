@@ -97,11 +97,6 @@
     'unbind_success' => 'Праект быў аддзелены',
   ],
   'settings' => [
-    'menu_label' => 'Налады',
-    'not_found' => 'Не атрымалася знайці налады',
-    'missing_model' => 'На старонцы налад не вызначана мадэль',
-    'update_success' => ':name налады абноўленыя',
-    'return' => 'Вярнуцца да сістэмных налад',
     'search' => 'Пошук',
   ],
   'mail' => [
@@ -112,7 +107,6 @@
     'method' => 'Метад пошты',
     'sender_name' => 'Імя адпраўніка',
     'sender_email' => 'Адрас пошты адпраўніка',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Адрас SMTP',
     'smtp_authorization' => 'Патрабуецца аўтарызацыя SMTP',

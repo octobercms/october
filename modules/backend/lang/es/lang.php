@@ -381,17 +381,7 @@
     'locale' => 'Idioma',
     'locale_comment' => 'Seleccione su localización deseada para el uso del idioma.',
   ],
-  'access_log' => [
-    'hint' => 'Este registro muestra la lista de ingresos al panel de administración. Los registros se mantienen por un total de :days días.',
-    'menu_label' => 'Registro de acceso',
-    'menu_description' => 'Ver registro de ingresos al panel de administracion.',
-    'created_at' => 'Fecha y hora',
-    'login' => 'Entrar',
-    'ip_address' => 'IP',
-    'first_name' => 'Nombre',
-    'last_name' => 'Apellido',
-    'email' => 'Correo',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'todo',
     'options_method_not_exists' => 'La clase de modelo :model debe definir un método :method() para regresar opciones para el filtro \':filter\'.',

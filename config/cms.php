@@ -69,8 +69,6 @@ return [
 
     'template_cache_ttl' => 1440,
 
-    'template_cache_driver' => 'file',
-
     /*
     |--------------------------------------------------------------------------
     | Twig Cache
@@ -107,7 +105,7 @@ return [
     |
     */
 
-    'url_cache_ttl' => 10,
+    'url_cache_ttl' => 60,
 
     /*
     |--------------------------------------------------------------------------
@@ -162,5 +160,19 @@ return [
     */
 
     'force_bytecode_invalidation' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | V1 Security Policy
+    |--------------------------------------------------------------------------
+    |
+    | When using safe mode configuration, the Twig sandbox becomes very strict and
+    | uses an allow-list to protect calling unapproved methods. Instead, you may
+    | use V1, which is a more relaxed policy that uses a block-list, it blocks
+    | most of the unsecure methods but is not as secure as an allow-list.
+    |
+    */
+
+    'security_policy_v1' => env('CMS_SECURITY_POLICY_V1', false),
 
 ];

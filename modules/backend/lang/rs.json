@@ -23,5 +23,16 @@
     "Import error": "Greška pri uvozu",
     "Export error": "Greška pri izvozu",
     "Column preview": "Pregled kolone",
-    "Column": "Kolona"
+    "Column": "Kolona",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Ovaj log prikazuje listu uspešnih logova od strane administratora. Logovi se čuvaju ukupno :days dana.",
+    "Access Log": "Logovi pristupa",
+    "View a list of successful back-end user sign ins.": "Prikaži listu uspešnih logovanja na pozadinski sistem.",
+    "ID": "ID",
+    "Date & Time": "Datum & vreme",
+    "Type": "Tip",
+    "IP address": "IP adresa",
+    "Login": "Logovanje",
+    "First name": "Ime",
+    "Last name": "Prezime",
+    "Email": "Email"
 }

@@ -1,0 +1,11 @@
+{
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Este registro muestra la lista de ingresos al panel de administración. Los registros se mantienen por un total de :days días.",
+    "Access Log": "Registro de acceso",
+    "View a list of successful back-end user sign ins.": "Ver registro de ingresos al panel de administracion.",
+    "Date & Time": "Fecha y hora",
+    "IP address": "IP",
+    "Login": "Acceso",
+    "First name": "Nombre",
+    "Last name": "Apellido",
+    "Email": "Email"
+}

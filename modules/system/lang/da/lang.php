@@ -97,11 +97,6 @@
     'unbind_success' => 'Projektet er blevet frakoblet.',
   ],
   'settings' => [
-    'menu_label' => 'Indstillinger',
-    'not_found' => 'De ønskede indstillinger kunne ikke findes.',
-    'missing_model' => 'Indstillingssiden mangler en Model definition.',
-    'update_success' => ':name indstillinger opdateret',
-    'return' => 'Tilbage til systemindstillinger',
     'search' => 'Søg',
   ],
   'mail' => [
@@ -112,7 +107,6 @@
     'method' => 'Mail metode',
     'sender_name' => 'Afsender navn',
     'sender_email' => 'Afsender email',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresse',
     'smtp_authorization' => 'SMTP authorization påkrævet',

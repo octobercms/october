@@ -23,5 +23,14 @@
     "Import error": "Lỗi nhập file",
     "Export error": "Lỗi xuất file",
     "Column preview": "Xem trước cột",
-    "Column": "Column"
+    "Column": "Column",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Nhật ký những lần đăng nhập thành công của administrators. Số bản ghi được lưu trữ trong :days ngày.",
+    "Access Log": "Nhật ký truy cập",
+    "View a list of successful back-end user sign ins.": "Danh sách các lần người quản trị đăng nhập thành công.",
+    "Date & Time": "Thời gian",
+    "IP address": "Địa chỉ IP",
+    "Login": "Tên đăng nhập",
+    "First name": "First name",
+    "Last name": "Last name",
+    "Email": "Email"
 }

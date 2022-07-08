@@ -115,11 +115,6 @@
     'unbind_success' => 'Projekt został pomyślnie odłączony.',
   ],
   'settings' => [
-    'menu_label' => 'Ustawienia',
-    'not_found' => 'Nie można znaleźć określonych ustawień.',
-    'missing_model' => 'Na stronie ustawień brakuje definicji modelu.',
-    'update_success' => 'Ustawienia dla :name zostały pomyślnie zaktualizowane.',
-    'return' => 'Wróc do ustawień systemu',
     'search' => 'Szukaj',
   ],
   'mail' => [
@@ -130,7 +125,6 @@
     'method' => 'Metoda wiadomości',
     'sender_name' => 'Imię nadawcy',
     'sender_email' => 'Email nadawcy',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Adres serwera SMTP',
     'smtp_authorization' => 'Autoryzacja SMTP wymagana',

@@ -11,8 +11,13 @@ import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/addon/mode/multiplex';
 
-$(function() {
+$(document).on('render', function() {
     $('.code-block > pre').each(function () {
+        if (this.dataset.disposable) {
+            return;
+        }
+        this.dataset.disposable = true;
+
         var $pre = $(this),
             codeValue = $pre.text(),
             language = $pre.data('language'),
@@ -38,7 +43,8 @@ $(function() {
         });
     });
 
-    $(document).on('click', '.expand-code', function () {
-        $(this).closest('.collapsed-code-block').removeClass('collapsed');
-    });
+});
+
+$(document).on('click', '.expand-code', function () {
+    $(this).closest('.collapsed-code-block').removeClass('collapsed');
 });

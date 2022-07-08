@@ -176,11 +176,6 @@
     'unbind_success' => 'Projekti on irrotettu.',
   ],
   'settings' => [
-    'menu_label' => 'Asetukset',
-    'not_found' => 'Määriteltyjä asetuksia ei löytynyt.',
-    'missing_model' => 'The settings page is missing a Model definition.',
-    'update_success' => ':name settings updated',
-    'return' => 'Palaa järjestelmän asetuksiin',
     'search' => 'Haku',
   ],
   'mail' => [
@@ -191,7 +186,6 @@
     'method' => 'Sähköpostimenetelmä',
     'sender_name' => 'Lähettäjän nimi',
     'sender_email' => 'Lähettäjän sähköposti',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP-osoite',
     'smtp_authorization' => 'Pakollinen SMTP autorisointi',

@@ -1,11 +1,15 @@
 {
-  "Themes": "Tēmas",
-  "Manage Themes": "Pārvaldīt motīvus",
-  "Customize Theme": "Pielāgot motīvu",
-  "Manage Maintenance Mode": "Pārvaldīt uzturēšanas režīmu",
-  "View Website During Maintenance": "Apkopes laikā skatiet vietni",
-  "Manage Content": "Pārvaldīt saturu",
-  "Manage Asset Files": "Pārvaldīt līdzekļu failus",
-  "Manage Pages": "Pārvaldīt lapas",
-  "Manage Layouts": "Pārvaldīt izkārtojumus"
+    "Themes": "Tēmas",
+    "Manage Themes": "Pārvaldīt motīvus",
+    "Customize Theme": "Pielāgot motīvu",
+    "Manage Maintenance Mode": "Pārvaldīt uzturēšanas režīmu",
+    "View Website During Maintenance": "Apkopes laikā skatiet vietni",
+    "Manage Content": "Pārvaldīt saturu",
+    "Manage Asset Files": "Pārvaldīt līdzekļu failus",
+    "Manage Pages": "Pārvaldīt lapas",
+    "Manage Layouts": "Pārvaldīt izkārtojumus",
+    "Configure the maintenance mode page and toggle the setting.": "Konfigurējiet apkopes režīma lapu un pielāgojiet iestatījumus.",
+    "Maintenance Mode": "Apkopes režīms",
+    "Select the page to show when maintenance mode is activated.": "Kad aktivizēts mājaslapas apmeklētāji redzēs zemāk izvēlēto lapu.",
+    "Enable maintenance mode": "Iespējot apkopes režīmu"
 }

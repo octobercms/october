@@ -64,10 +64,6 @@
     'unbind_success' => 'Proiectul a fost detasat cu succes.',
   ],
   'settings' => [
-    'menu_label' => 'Setari',
-    'missing_model' => 'Paginii de setari ii lipseste o definitie de Model.',
-    'update_success' => 'Setarile pentru :name au fost actualizate cu succes.',
-    'return' => 'Intoarcere la setarile sistemului.',
     'search' => 'Cautare',
   ],
   'mail' => [

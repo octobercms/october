@@ -394,17 +394,7 @@
     'locale' => 'Лакалізацыя',
     'locale_comment' => 'Выберыце жаданую лакалізацыю, каб змяніць мову',
   ],
-  'access_log' => [
-    'hint' => 'Гэты ліст паказвае паспяховыя спробы ўваходу адміністратараў. Запісы захоўваюцца на працягу :days д',
-    'menu_label' => 'Дзеннік доступаў',
-    'menu_description' => 'Прагледзець ліст паспяховых уваходаў у панэль кіравання',
-    'created_at' => 'Дата і час',
-    'login' => 'Лагін',
-    'ip_address' => 'IP адрас',
-    'first_name' => 'Імя',
-    'last_name' => 'Прозвішча',
-    'email' => 'Электронная пошта',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'all',
     'options_method_not_exists' => 'The model class :model must define a method :method() returning options for the \':filter\' filter.',

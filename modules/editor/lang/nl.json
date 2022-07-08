@@ -1,4 +1,7 @@
 {
-  "Editor": "Editor",
-  "Access the Editor Tool": "Toegang tot de Editor-tool"
+    "Editor": "Editor",
+    "Access the Editor Tool": "Toegang tot de Editor-tool",
+    "Editor Tabs": "Editor tabbladen",
+    "Close Tab": "Sluit tabblad",
+    "Editor Objects": "Editor objecten"
 }

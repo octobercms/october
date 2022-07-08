@@ -141,11 +141,6 @@
     'unbind_success' => 'پروژه با موفقیت پاک شد.',
   ],
   'settings' => [
-    'menu_label' => 'تنظیمات',
-    'not_found' => 'تنظیمات مورد نظر یافت نشد.',
-    'missing_model' => 'صفحه تنظیمات شامل یک مدل تعریف نشده می باشد.',
-    'update_success' => 'تنظیمات برای :name با موفقیت تغییر یافت.',
-    'return' => 'بازگشت به تنظیمات سیستم',
     'search' => 'جستجو',
   ],
   'mail' => [
@@ -156,7 +151,6 @@
     'method' => 'روش ارسال',
     'sender_name' => 'نام ارسال کننده',
     'sender_email' => 'پست الکترونیکی ارسال کننده',
-    'php_mail' => 'تابع داخلی PHP',
     'smtp' => 'SMTP',
     'smtp_address' => 'آدرس SMTP',
     'smtp_authorization' => 'مجوز اتصال به SMTP مورد نیاز است',

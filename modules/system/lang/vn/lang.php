@@ -142,11 +142,6 @@
     'unbind_success' => 'Dự án đã được gỡ ra.',
   ],
   'settings' => [
-    'menu_label' => 'Cài đặt',
-    'not_found' => 'Không tìm thấy các cấu hình được chỉ định.',
-    'missing_model' => 'Không có Model cho trang cài đặt.',
-    'update_success' => 'Cấu hình cho :name thành công',
-    'return' => 'Trở lại trang cài đặt',
     'search' => 'Tìm kiếm',
   ],
   'mail' => [
@@ -157,7 +152,6 @@
     'method' => 'Phương thức gửi mail',
     'sender_name' => 'Tên người gửi',
     'sender_email' => 'Email người gửi',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Địa chỉ SMTP',
     'smtp_authorization' => 'Yêu cầu cấp quyền',

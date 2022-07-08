@@ -100,11 +100,6 @@
     'unbind_success' => 'Projekt byl úspěšně odpojen.',
   ],
   'settings' => [
-    'menu_label' => 'Nastavení',
-    'not_found' => 'Takové nastavení se nepovedlo najít.',
-    'missing_model' => 'Stránka s nastavením vyžaduje definovat Model.',
-    'update_success' => 'Nastavení pro :name byla úspěšně uložena.',
-    'return' => 'Zpět do systémového nastavení',
     'search' => 'Hledat',
   ],
   'mail' => [
@@ -115,7 +110,6 @@
     'method' => 'Metoda posílání zpráv',
     'sender_name' => 'Jméno odesílatele',
     'sender_email' => 'E-mail odesílatele',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresa',
     'smtp_authorization' => 'Vyžadována SMTP autorizace',

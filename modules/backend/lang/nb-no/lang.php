@@ -389,17 +389,7 @@
     'locale' => 'Språk',
     'locale_comment' => 'Velg ønsket språk.',
   ],
-  'access_log' => [
-    'hint' => 'Denne loggen viser en liste over vellykkede administratorinnlogginger. Innloggingene blir lagret i 60 dager.',
-    'menu_label' => 'Aksesslogg',
-    'menu_description' => 'Se en liste over vellykkede innlogginger på backend.',
-    'created_at' => 'Tid',
-    'login' => 'Brukernavn',
-    'ip_address' => 'IP-adresse',
-    'first_name' => 'Fornavn',
-    'last_name' => 'Etternavn',
-    'email' => 'E-postadresse',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'alle',
     'options_method_not_exists' => 'Modellen :model må definere en metode :method() som sender tilbake regler for  \':filter\' filteret.',

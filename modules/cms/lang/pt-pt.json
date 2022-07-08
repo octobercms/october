@@ -1,2 +1,7 @@
 {
+    "Configure the maintenance mode page and toggle the setting.": "Configurar modo de manutenção e a página exibida.",
+    "Maintenance Mode": "Modo de manutenção",
+    "Select the page to show when maintenance mode is activated.": "Quando activado visitantes do site vão ver a página selecionada.",
+    "Enable maintenance mode": "Activar modo de manutenção",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Modo de manutenção mostra a página de manutenção aos visitantes que não tenham feito acesso na área de backend."
 }

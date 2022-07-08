@@ -282,17 +282,7 @@
     'locale' => 'Bahasa',
     'locale_comment' => 'Pilih bahasa lokal yang ingin digunakan.',
   ],
-  'access_log' => [
-    'hint' => 'Catatan ini menampilkan senarai percobaan masuk yang berhasil oleh administrator. Rekam akan disimpan selama :days hari.',
-    'menu_label' => 'Catatan akses',
-    'menu_description' => 'Tampilan senarai pengguna back-end yang berhasil masuk.',
-    'created_at' => 'Tanggal & Waktu',
-    'login' => 'Nama Pengguna',
-    'ip_address' => 'Alamat IP',
-    'first_name' => 'Nama depan',
-    'last_name' => 'Nama belakang',
-    'email' => 'Surel',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'semua',
   ],

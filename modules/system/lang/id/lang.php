@@ -67,11 +67,6 @@
     'unbind_success' => 'Proyek telah berhasil dilepaskan.',
   ],
   'settings' => [
-    'menu_label' => 'Pengaturan',
-    'not_found' => 'Tidak dapat menemukan pengaturan yang ditentukan.',
-    'missing_model' => 'Laman pengaturan kehilangan definisi Model.',
-    'update_success' => 'Pengaturan untuk :name berhasil diperbarui.',
-    'return' => 'Kembali ke pengaturan sistem',
     'search' => 'Pencarian',
   ],
   'mail' => [
@@ -82,7 +77,6 @@
     'method' => 'Metode Surat',
     'sender_name' => 'Nama Pengirim',
     'sender_email' => 'Surel Pengirim',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Alamat SMTP',
     'smtp_authorization' => 'Otorisasi SMTP diperlukan',

@@ -23,5 +23,14 @@
     "Import error": "Feil under import",
     "Export error": "Feil under eksport",
     "Column preview": "Forhåndsvid kolonne",
-    "Column": "Kolonne"
+    "Column": "Kolonne",
+    "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Denne loggen viser en liste over vellykkede administratorinnlogginger. Innloggingene blir lagret i 60 dager.",
+    "Access Log": "Aksesslogg",
+    "View a list of successful back-end user sign ins.": "Se en liste over vellykkede innlogginger på backend.",
+    "Date & Time": "Tid",
+    "IP address": "IP-adresse",
+    "Login": "Brukernavn",
+    "First name": "Fornavn",
+    "Last name": "Etternavn",
+    "Email": "E-postadresse"
 }

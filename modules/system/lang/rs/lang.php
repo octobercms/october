@@ -151,11 +151,6 @@
     'unbind_success' => 'Projekat je uspešno odvojen.',
   ],
   'settings' => [
-    'menu_label' => 'Podešavanja',
-    'not_found' => 'Nije moguće pronaći navedena podešavanja.',
-    'missing_model' => 'Na stranici sa podešavanjima nedostaje definicija modela.',
-    'update_success' => 'Podešavanje :name je uspešno ažurirano.',
-    'return' => 'Nazad na sistemska podešavanja',
     'search' => 'Traži',
   ],
   'mail' => [
@@ -166,7 +161,6 @@
     'method' => 'Metod pošte',
     'sender_name' => 'Ime pošiljaoca',
     'sender_email' => 'Email pošiljaoca',
-    'php_mail' => 'PHP mejl',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP adresa',
     'smtp_authorization' => 'Potrebna SMTP autorizacija',

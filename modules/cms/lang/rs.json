@@ -1,2 +1,7 @@
 {
+    "Configure the maintenance mode page and toggle the setting.": "Konfiguriši mod održavanja stranice i uključi\/isključi isti.",
+    "Maintenance Mode": "Mod održavanja",
+    "Select the page to show when maintenance mode is activated.": "Izaberi stranicu za prikazivanje kada je mod održavanja uključen.",
+    "Enable maintenance mode": "Uključi mod održavanja",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Mod održavanja će prikazati odabranu stranicu korisnicima koji nisu ulogovani preko pozadinskog sistema."
 }

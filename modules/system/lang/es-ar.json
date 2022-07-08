@@ -5,5 +5,9 @@
     "Owner": "Dueño",
     "Current Build": "Versión actual",
     "System Updates": "Actualizaciones",
-    "Update the system modules and plugins.": "Actualizaciones del sistema, administrar e instalar plugins y temas."
+    "Update the system modules and plugins.": "Actualizaciones del sistema, administrar e instalar plugins y temas.",
+    "Settings": "Configuración",
+    "The settings page is missing a Model definition.": "La página de configuración no encuentra una definición de modelo.",
+    ":name settings updated": "Los ajustes para :name han sido actualizados correctamente.",
+    "Return to System Settings": "Regresar a la configuración del sistema"
 }

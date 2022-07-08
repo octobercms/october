@@ -67,11 +67,6 @@
     'unbind_success' => 'プロジェクトを切り離しました。',
   ],
   'settings' => [
-    'menu_label' => '設定',
-    'not_found' => '指定された設定は使えません。',
-    'missing_model' => 'モデルの定義が見つかりません。',
-    'update_success' => ':name を設定しました。',
-    'return' => 'システム設定へ戻る',
     'search' => '検索',
   ],
   'mail' => [
@@ -82,7 +77,6 @@
     'method' => 'メール方法',
     'sender_name' => '送信者名',
     'sender_email' => '送信者メール',
-    'php_mail' => 'PHPメール',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTPアドレス',
     'smtp_authorization' => 'SMTP認証が必要',

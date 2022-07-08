@@ -1,11 +1,15 @@
 {
-  "Themes": "Теми",
-  "Manage Themes": "Управление на теми",
-  "Customize Theme": "Персонализирайте темата",
-  "Manage Maintenance Mode": "Управление на режим на поддръжка",
-  "View Website During Maintenance": "Преглед на уебсайта по време на поддръжка",
-  "Manage Content": "Управление на съдържанието",
-  "Manage Asset Files": "Управление на файлове с активи",
-  "Manage Pages": "Управление на страници",
-  "Manage Layouts": "Управление на оформления"
+    "Themes": "Теми",
+    "Manage Themes": "Управление на теми",
+    "Customize Theme": "Персонализирайте темата",
+    "Manage Maintenance Mode": "Управление на режим на поддръжка",
+    "View Website During Maintenance": "Преглед на уебсайта по време на поддръжка",
+    "Manage Content": "Управление на съдържанието",
+    "Manage Asset Files": "Управление на файлове с активи",
+    "Manage Pages": "Управление на страници",
+    "Manage Layouts": "Управление на оформления",
+    "Configure the maintenance mode page and toggle the setting.": "Конфигуриране на страницата в Режим на поддръжка и превключване на настройката.",
+    "Maintenance Mode": "Режим на поддръжка",
+    "Select the page to show when maintenance mode is activated.": "Когато е активиран, посетителите на сайта ще виждат само страницата по-долу.",
+    "Enable maintenance mode": "Активиране на Режим на поддръжка"
 }

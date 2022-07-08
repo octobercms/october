@@ -297,17 +297,7 @@
     'locale' => 'Språk',
     'locale_comment' => 'Välj önskat språk.',
   ],
-  'access_log' => [
-    'hint' => 'Denna logg visar en lista över lyckade inloggningsförsök till administratrationen. Registret behålls i :days dagar.',
-    'menu_label' => 'Åtkomstlogg',
-    'menu_description' => 'Visa en lista över framgångsrika inloggningar av back-end användare.',
-    'created_at' => 'Dataum och tid',
-    'login' => 'Inloggning',
-    'ip_address' => 'IP adress',
-    'first_name' => 'Förnamn',
-    'last_name' => 'Efternamn',
-    'email' => 'E-post',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'alla',
   ],

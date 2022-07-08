@@ -421,17 +421,7 @@
     'locale' => 'Ngôn ngữ địa phương',
     'locale_comment' => 'Chọn khu vực của bạn để sử dụng đúng ngôn ngữ.',
   ],
-  'access_log' => [
-    'hint' => 'Nhật ký những lần đăng nhập thành công của administrators. Số bản ghi được lưu trữ trong :days ngày.',
-    'menu_label' => 'Nhật ký truy cập',
-    'menu_description' => 'Danh sách các lần người quản trị đăng nhập thành công.',
-    'created_at' => 'Thời gian',
-    'login' => 'Tên đăng nhập',
-    'ip_address' => 'Địa chỉ IP',
-    'first_name' => 'First name',
-    'last_name' => 'Last name',
-    'email' => 'Email',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'tất cả',
     'options_method_not_exists' => 'Model class :model cần phải khai báo method :method() trả về các tùy chọn lọc \':filter\'.',

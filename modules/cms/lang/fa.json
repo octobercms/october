@@ -1,11 +1,16 @@
 {
-  "Themes": "تم ها",
-  "Manage Themes": "مدیریت تم ها",
-  "Customize Theme": "سفارشی کردن تم",
-  "Manage Maintenance Mode": "مدیریت حالت نگهداری",
-  "View Website During Maintenance": "مشاهده وب سایت در حین تعمیر و نگهداری",
-  "Manage Content": "مدیریت محتوا",
-  "Manage Asset Files": "مدیریت فایل های دارایی",
-  "Manage Pages": "مدیریت صفحات",
-  "Manage Layouts": "مدیریت Layouts"
+    "Themes": "تم ها",
+    "Manage Themes": "مدیریت تم ها",
+    "Customize Theme": "سفارشی کردن تم",
+    "Manage Maintenance Mode": "مدیریت حالت نگهداری",
+    "View Website During Maintenance": "مشاهده وب سایت در حین تعمیر و نگهداری",
+    "Manage Content": "مدیریت محتوا",
+    "Manage Asset Files": "مدیریت فایل های دارایی",
+    "Manage Pages": "مدیریت صفحات",
+    "Manage Layouts": "مدیریت Layouts",
+    "Configure the maintenance mode page and toggle the setting.": "تنظیم کردن صفحه مربوط به تعمیرات و تغییر تنظیمات این حالت.",
+    "Maintenance Mode": "حالت تعمیرات",
+    "Select the page to show when maintenance mode is activated.": "اگر فعال شود کاربران به این صفحه هدایت خواهند شد.",
+    "Enable maintenance mode": "فعال سازی حالت تعمیرات",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "حالت تعمیرات کاربرانی را که در بخش مدیریت وارد نشده اند را به صفحه تعمیرات منتقل می کند."
 }

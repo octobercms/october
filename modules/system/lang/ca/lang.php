@@ -105,11 +105,6 @@
     'unbind_success' => 'El projecte ha estat desvinculat.',
   ],
   'settings' => [
-    'menu_label' => 'Opcions',
-    'not_found' => 'No s\'han pogut trobar les opcions especificades.',
-    'missing_model' => 'La pàgina d\'opcions no té una definició de Model.',
-    'update_success' => 'Opcions de :name actualitzades',
-    'return' => 'Tornar a les opcions del sistema',
     'search' => 'Cercar',
   ],
   'mail' => [
@@ -120,7 +115,6 @@
     'method' => 'Mètode de correu',
     'sender_name' => 'Nom del remitent',
     'sender_email' => 'Email del remitent',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Adreça SMTP',
     'smtp_authorization' => 'Autorització SMTP requerida',

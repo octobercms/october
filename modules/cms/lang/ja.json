@@ -1,11 +1,15 @@
 {
-  "Themes": "テーマ",
-  "Manage Themes": "テーマを管理する",
-  "Customize Theme": "テーマをカスタマイズする",
-  "Manage Maintenance Mode": "メンテナンスモードの管理",
-  "View Website During Maintenance": "メンテナンス中にウェブサイトを見る",
-  "Manage Content": "コンテンツを管理する",
-  "Manage Asset Files": "アセットファイルの管理",
-  "Manage Pages": "ページの管理",
-  "Manage Layouts": "レイアウトの管理"
+    "Themes": "テーマ",
+    "Manage Themes": "テーマを管理する",
+    "Customize Theme": "テーマをカスタマイズする",
+    "Manage Maintenance Mode": "メンテナンスモードの管理",
+    "View Website During Maintenance": "メンテナンス中にウェブサイトを見る",
+    "Manage Content": "コンテンツを管理する",
+    "Manage Asset Files": "アセットファイルの管理",
+    "Manage Pages": "ページの管理",
+    "Manage Layouts": "レイアウトの管理",
+    "Configure the maintenance mode page and toggle the setting.": "メンテナンスモードページの設定と切り替えをします。",
+    "Maintenance Mode": "メンテナンスモード",
+    "Select the page to show when maintenance mode is activated.": "メンテナンスモードの時、Webサイト訪問者が見るページを選択してください。",
+    "Enable maintenance mode": "メンテナンスモードを有効にする"
 }

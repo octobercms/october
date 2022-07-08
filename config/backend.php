@@ -8,11 +8,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specifies the URL name used for accessing backend pages.
-    | For example: backend -> http://localhost/backend
+    | For example: admin -> http://localhost/admin
     |
     */
 
-    'uri' => env('BACKEND_URI', 'backend'),
+    'uri' => env('BACKEND_URI', 'admin'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     'brand' => [
         'enabled' => false,
         'app_name' => 'October CMS',
-        'tagline' => 'Getting Back to Basics',
+        'tagline' => 'Administration Panel',
         'menu_mode' => 'icons',
         'favicon_path' => '~/app/assets/images/logo.png',
         'logo_path' => '~/app/assets/images/logo.png',
@@ -62,6 +62,19 @@ return [
         'login_image_type' => 'autumn_images',
         'login_custom_image' => '~/app/assets/images/loginimage.png',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Turbo Router
+    |--------------------------------------------------------------------------
+    |
+    | Enhance the backend experience using PJAX (push state and AJAX) so when
+    | you click a link, the page is automatically swapped client-side without
+    | the cost of a full page load.
+    |
+    */
+
+    'turbo_router' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -83,16 +96,15 @@ return [
     |
     | Define live duration of backend sessions:
     |
-    | true  - session never expire (cookie expiration in 5 years)
+    | true  - session never expires (cookie expiration in 5 years)
     |
-    | false - session have a limited time (see session.lifetime)
+    | false - session has a limited time (see session.lifetime)
     |
-    | null  - The form login display a checkbox that allow user to choose
-    |         wanted behavior
+    | null  - the form login displays a checkbox that allow user to choose
     |
     */
 
-    'force_remember' => true,
+    'force_remember' => null,
 
     /*
     |--------------------------------------------------------------------------

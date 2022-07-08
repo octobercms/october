@@ -106,10 +106,6 @@
     'unbind_success' => 'โครงการถูกถอดออกแล้ว',
   ],
   'settings' => [
-    'menu_label' => 'การตั้งค่า',
-    'not_found' => 'ไม่พบค่าที่กำหนด',
-    'update_success' => ':name อัพเดทการตั้งค่าแล้ว',
-    'return' => 'กลับสู่หน้าการตั้งค่าระบบ',
     'search' => 'ค้นหา',
   ],
   'mail' => [
@@ -120,7 +116,6 @@
     'method' => 'วิธีการส่งอีเมล',
     'sender_name' => 'ชื่อผู้ส่ง',
     'sender_email' => 'อีเมลผู้ส่ง',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP address',
     'smtp_authorization' => 'จำเป็นต้องมีการอนุญาต SMTP',

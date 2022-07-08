@@ -1,11 +1,15 @@
 {
-  "Themes": "teman",
-  "Manage Themes": "Hantera teman",
-  "Customize Theme": "Anpassa tema",
-  "Manage Maintenance Mode": "Hantera underhållsläge",
-  "View Website During Maintenance": "Se webbplatsen under underhåll",
-  "Manage Content": "Hantera innehåll",
-  "Manage Asset Files": "Hantera tillgångsfiler",
-  "Manage Pages": "Hantera sidor",
-  "Manage Layouts": "Hantera layouter"
+    "Themes": "teman",
+    "Manage Themes": "Hantera teman",
+    "Customize Theme": "Anpassa tema",
+    "Manage Maintenance Mode": "Hantera underhållsläge",
+    "View Website During Maintenance": "Se webbplatsen under underhåll",
+    "Manage Content": "Hantera innehåll",
+    "Manage Asset Files": "Hantera tillgångsfiler",
+    "Manage Pages": "Hantera sidor",
+    "Manage Layouts": "Hantera layouter",
+    "Configure the maintenance mode page and toggle the setting.": "Konfigurera underhållsläge-sidan och växla inställningen.",
+    "Maintenance Mode": "Underhållsläge",
+    "Select the page to show when maintenance mode is activated.": "När den är aktiverad så kommer besökare att se sidan som väljs nedan.",
+    "Enable maintenance mode": "Akrivera underhållsläge-läget"
 }

@@ -134,11 +134,6 @@
     'unbind_success' => 'Projecto desanexado com sucesso.',
   ],
   'settings' => [
-    'menu_label' => 'Configurações',
-    'not_found' => 'Impossível encontrar as configurações solicitadas.',
-    'missing_model' => 'Falta uma definição de modelo na página de configurações.',
-    'update_success' => 'Configurações para :name foram atualizados com sucesso.',
-    'return' => 'Regressar para as configurações do sistema',
     'search' => 'Procurar',
   ],
   'mail' => [
@@ -149,7 +144,6 @@
     'method' => 'Método de Envio',
     'sender_name' => 'Nome do Remetente',
     'sender_email' => 'E-mail do Remetente',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'Endereço SMTP',
     'smtp_authorization' => 'Autenticação SMTP obrigatória',

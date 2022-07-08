@@ -1,11 +1,16 @@
 {
-  "Themes": "Temes",
-  "Manage Themes": "Gestionar temes",
-  "Customize Theme": "Personalitza el tema",
-  "Manage Maintenance Mode": "Gestionar el mode de manteniment",
-  "View Website During Maintenance": "Veure lloc web durant el manteniment",
-  "Manage Content": "Gestionar continguts",
-  "Manage Asset Files": "Gestionar fitxers d'actius",
-  "Manage Pages": "Gestionar pàgines",
-  "Manage Layouts": "Gestiona els dissenys"
+    "Themes": "Temes",
+    "Manage Themes": "Gestionar temes",
+    "Customize Theme": "Personalitza el tema",
+    "Manage Maintenance Mode": "Gestionar el mode de manteniment",
+    "View Website During Maintenance": "Veure lloc web durant el manteniment",
+    "Manage Content": "Gestionar continguts",
+    "Manage Asset Files": "Gestionar fitxers d'actius",
+    "Manage Pages": "Gestionar pàgines",
+    "Manage Layouts": "Gestiona els dissenys",
+    "Configure the maintenance mode page and toggle the setting.": "Configura el mode de manteniment i canvia l'activació.",
+    "Maintenance Mode": "Mode de manteniment",
+    "Select the page to show when maintenance mode is activated.": "Selecciona la pàgina per mostrar quan el mode de manteniment està activat.",
+    "Enable maintenance mode": "Activar el mode de manteniment",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "El mode de manteniment mostrarà la pàgina de manteniment als visitants que no hagin accedit a l'àrea d'administració."
 }

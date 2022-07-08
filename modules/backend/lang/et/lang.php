@@ -401,17 +401,7 @@
     'locale' => 'Keel',
     'locale_comment' => 'Vali haldusliidese keel.',
   ],
-  'access_log' => [
-    'hint' => 'See logi sisaldab kõiki edukaid sisselogimisi haldusliidesesse. Andmeid hoitakse maksimaalselt :days päeva.',
-    'menu_label' => 'Juurdepääsu logi',
-    'menu_description' => 'Näita kõiki õnnestunud sisselogimisi.',
-    'created_at' => 'Kuupäev',
-    'login' => 'Kasutjanimi',
-    'ip_address' => 'IP aaddress',
-    'first_name' => 'Eesnimi',
-    'last_name' => 'Perenimi',
-    'email' => 'E-post',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'kõik',
     'options_method_not_exists' => 'Andmemudelis :model peab olema defineeritud functioon :method(), mis tagastab valikud filtrile \':filter\'.',

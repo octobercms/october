@@ -420,17 +420,7 @@
     'locale' => 'Jazyk',
     'locale_comment' => 'Vyberte jazyk administrace.',
   ],
-  'access_log' => [
-    'hint' => 'Tento záznam zobrazuje seznam úspěšných přihlášení do administrace. Záznamy jsou uchovávány :days dní.',
-    'menu_label' => 'Protokol přístupů',
-    'menu_description' => 'Zobrazit seznam úspěšných přihlášení do administrace.',
-    'created_at' => 'Datum & čas',
-    'login' => 'Login',
-    'ip_address' => 'IP adresa',
-    'first_name' => 'Jméno',
-    'last_name' => 'Příjmení',
-    'email' => 'E-mail',
-  ],
+  'access_log' => [],
   'filter' => [
     'all' => 'Vše',
     'options_method_not_exists' => 'Třída modelu :model musí definovat metodu :method(), která vrací položky filtru \':filter\'.',

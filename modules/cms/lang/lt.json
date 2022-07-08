@@ -1,11 +1,16 @@
 {
-  "Themes": "Temos",
-  "Manage Themes": "Tvarkyti temas",
-  "Customize Theme": "Tinkinti temą",
-  "Manage Maintenance Mode": "Tvarkyti priežiūros režimą",
-  "View Website During Maintenance": "Peržiūrėkite svetainę priežiūros metu",
-  "Manage Content": "Tvarkyti turinį",
-  "Manage Asset Files": "Tvarkyti turto failus",
-  "Manage Pages": "Tvarkyti puslapius",
-  "Manage Layouts": "Tvarkyti maketus"
+    "Themes": "Temos",
+    "Manage Themes": "Tvarkyti temas",
+    "Customize Theme": "Tinkinti temą",
+    "Manage Maintenance Mode": "Tvarkyti priežiūros režimą",
+    "View Website During Maintenance": "Peržiūrėkite svetainę priežiūros metu",
+    "Manage Content": "Tvarkyti turinį",
+    "Manage Asset Files": "Tvarkyti turto failus",
+    "Manage Pages": "Tvarkyti puslapius",
+    "Manage Layouts": "Tvarkyti maketus",
+    "Configure the maintenance mode page and toggle the setting.": "Konfigūruokite aptarnavimo režimo puslapį bei perjunkite režimo statusą.",
+    "Maintenance Mode": "Aptarnavimo režimas",
+    "Select the page to show when maintenance mode is activated.": "Parinkite kurį puslapį rodysite lankytojams aptarnavimo režimo metu.",
+    "Enable maintenance mode": "Įjungti aptarnavimo režimą",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Aptarnavimo režimo metu lankytojams, kurie nėra prisijungę į administracinę zoną, bus rodomas Jūsų nustatytas puslapis."
 }

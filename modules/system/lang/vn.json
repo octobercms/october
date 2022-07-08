@@ -7,5 +7,10 @@
     "Disabled": "Đã tắt",
     "Current Build": "Current build",
     "System Updates": "Những cập nhật & Plugins",
-    "Update the system modules and plugins.": "Cập nhật hệ thống, quản lý và cài đặt plugins, themes."
+    "Update the system modules and plugins.": "Cập nhật hệ thống, quản lý và cài đặt plugins, themes.",
+    "Settings": "Cài đặt",
+    "Unable to find the specified settings.": "Không tìm thấy các cấu hình được chỉ định.",
+    "The settings page is missing a Model definition.": "Không có Model cho trang cài đặt.",
+    ":name settings updated": "Cấu hình cho :name thành công",
+    "Return to System Settings": "Trở lại trang cài đặt"
 }

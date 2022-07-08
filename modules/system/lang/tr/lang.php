@@ -155,11 +155,6 @@
     'unbind_success' => 'Proje ayırma işlemi tamamlandı.',
   ],
   'settings' => [
-    'menu_label' => 'Ayarlar',
-    'not_found' => 'Belirtilen ayarlar bulunamadı.',
-    'missing_model' => 'Ayarlar sayfasında Model tanımı eksik.',
-    'update_success' => ':name için ayarlar güncellendi.',
-    'return' => 'Sistem ayarları sayfasına dön',
     'search' => 'Ara',
   ],
   'mail' => [
@@ -170,7 +165,6 @@
     'method' => 'Mail Metodu',
     'sender_name' => 'Gönderici Adı',
     'sender_email' => 'Gönderici Email',
-    'php_mail' => 'PHP mail',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP Adresi',
     'smtp_authorization' => 'SMTP yetkilendirmesi kullan',

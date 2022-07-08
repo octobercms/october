@@ -97,11 +97,6 @@
     'unbind_success' => 'Projekts tika veiksmīgi atvienots.',
   ],
   'settings' => [
-    'menu_label' => 'Iestatījumi',
-    'not_found' => 'Nebija iespējams atrast norādītos iestatījumus.',
-    'missing_model' => 'Iestatījumu lapa nav norādīta Moduļa definīcijā.',
-    'update_success' => 'Iestatījumi priekš :name tika veiksmīgi atjaunināti.',
-    'return' => 'Atgriezties sistēmas iestatījumos',
     'search' => 'Meklēt',
   ],
   'mail' => [
@@ -112,7 +107,6 @@
     'method' => 'Epasta metode',
     'sender_name' => 'Sūtītāja vārds',
     'sender_email' => 'Sūtītāja Epasts',
-    'php_mail' => 'PHP pasts',
     'smtp' => 'SMTP',
     'smtp_address' => 'SMTP Adrese',
     'smtp_authorization' => 'Nepieciešama SMTP autorizācija',

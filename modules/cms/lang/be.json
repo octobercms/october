@@ -1,11 +1,16 @@
 {
-  "Themes": "Тэмы",
-  "Manage Themes": "Кіраванне тэмамі",
-  "Customize Theme": "Наладзіць тэму",
-  "Manage Maintenance Mode": "Кіраванне рэжымам абслугоўвання",
-  "View Website During Maintenance": "Прагляд вэб-сайта падчас тэхнічнага абслугоўвання",
-  "Manage Content": "Кіраванне кантэнтам",
-  "Manage Asset Files": "Кіраванне файламі актываў",
-  "Manage Pages": "Кіраванне старонкамі",
-  "Manage Layouts": "Кіраванне макетамі"
+    "Themes": "Тэмы",
+    "Manage Themes": "Кіраванне тэмамі",
+    "Customize Theme": "Наладзіць тэму",
+    "Manage Maintenance Mode": "Кіраванне рэжымам абслугоўвання",
+    "View Website During Maintenance": "Прагляд вэб-сайта падчас тэхнічнага абслугоўвання",
+    "Manage Content": "Кіраванне кантэнтам",
+    "Manage Asset Files": "Кіраванне файламі актываў",
+    "Manage Pages": "Кіраванне старонкамі",
+    "Manage Layouts": "Кіраванне макетамі",
+    "Configure the maintenance mode page and toggle the setting.": "Наладзіць старонку рэжыма абслугоўвання і пераключыць наладу",
+    "Maintenance Mode": "Рэжым абслугоўвання",
+    "Select the page to show when maintenance mode is activated.": "Выберыце старонку, якую неабходна паказваць, калі ўключаны рэжым абслугоўвання",
+    "Enable maintenance mode": "Уключыць рэжым абслугоўвання",
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "Рэжым абслугоўвання будзе паказваць абраную старонку наведвальнікам, якія не ўвайшлі ў панэль кіравання"
 }

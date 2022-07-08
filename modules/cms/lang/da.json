@@ -1,11 +1,15 @@
 {
-  "Themes": "Temaer",
-  "Manage Themes": "Administrer temaer",
-  "Customize Theme": "Tilpas tema",
-  "Manage Maintenance Mode": "Administrer vedligeholdelsestilstand",
-  "View Website During Maintenance": "Se hjemmesiden under vedligeholdelse",
-  "Manage Content": "Administrer indhold",
-  "Manage Asset Files": "Administrer aktivfiler",
-  "Manage Pages": "Administrer sider",
-  "Manage Layouts": "Administrer layouts"
+    "Themes": "Temaer",
+    "Manage Themes": "Administrer temaer",
+    "Customize Theme": "Tilpas tema",
+    "Manage Maintenance Mode": "Administrer vedligeholdelsestilstand",
+    "View Website During Maintenance": "Se hjemmesiden under vedligeholdelse",
+    "Manage Content": "Administrer indhold",
+    "Manage Asset Files": "Administrer aktivfiler",
+    "Manage Pages": "Administrer sider",
+    "Manage Layouts": "Administrer layouts",
+    "Configure the maintenance mode page and toggle the setting.": "Konfigurer vedligeholdelsestilstand og aktiver\/deaktiver.",
+    "Maintenance Mode": "Vedligeholdelsestilstand",
+    "Select the page to show when maintenance mode is activated.": "Når vedligeholdelsestilstand er aktiveret, vil gæster se den nedfor valgte side.",
+    "Enable maintenance mode": "Aktiver vedligeholdelsestilstand"
 }
