@@ -153,6 +153,7 @@ trait SetupHelper
     {
         $path = base_path('.env');
         $old = $this->getEnvVar($key);
+        $value = $this->encodeEnvVar($value);
 
         if (is_bool(env($key))) {
             $old = env($key) ? 'true' : 'false';
@@ -160,13 +161,39 @@ trait SetupHelper
 
         if (file_exists($path)) {
             file_put_contents($path, str_replace(
-                "$key=".$old,
-                "$key=".$value,
+                [$key.'='.$old, $key.'='.'"'.$old.'"'],
+                [$key.'='.$value, $key.'='.$value],
                 file_get_contents($path)
             ));
         }
 
         $this->userConfig[$key] = $value;
+    }
+
+    /**
+     * encodeEnvVar for compatibility with certain characters
+     */
+    protected function encodeEnvVar($value)
+    {
+        if (!is_string($value)) {
+            return $value;
+        }
+
+        // Escape quotes
+        if (strpos($value, '"') !== false) {
+            $value = str_replace('"', '\"', $value);
+        }
+
+        // Quote values with comment, space, quotes
+        $triggerChars = ['#', ' ', '"', "'"];
+        foreach ($triggerChars as $char) {
+            if (strpos($value, $char) !== false) {
+                $value = '"'.$value.'"';
+                break;
+            }
+        }
+
+        return $value;
     }
 
     /**
