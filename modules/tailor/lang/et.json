@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "Kirjete haldamine",
+  "Create :name Entry": "Loo :name sisestus",
+  "Import Entries": "Kirjete importimine",
+  "Export Entries": "Ekspordi kirjed",
+  "First Draft": "Esimene mustand",
+  "Draft Saved": "Mustand salvestatud",
+  "Draft Applied": "Eelnõu rakendatud",
+  "Draft Created": "Mustand loodud",
+  "Draft Discarded": "Visatud mustand",
+  "Create Entry": "Loo kirje",
+  "Publish Entry": "Avalda kirje",
+  "Delete Entry": "Kustuta kirje",
+  "Entries have been disabled": "Kirjed on keelatud",
+  "Entries have been enabled": "Kirjed on lubatud",
+  "Entries have been deleted": "Kirjed on kustutatud"
+}

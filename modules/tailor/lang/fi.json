@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "Hallitse merkintöjä",
+  "Create :name Entry": "Luo :name -merkintä",
+  "Import Entries": "Tuo merkinnät",
+  "Export Entries": "Vie merkinnät",
+  "First Draft": "Ensimmäinen luonnos",
+  "Draft Saved": "Luonnos tallennettu",
+  "Draft Applied": "Luonnos sovellettu",
+  "Draft Created": "Luonnos luotu",
+  "Draft Discarded": "Luonnos hylätty",
+  "Create Entry": "Luo merkintä",
+  "Publish Entry": "Julkaise merkintä",
+  "Delete Entry": "Poista merkintä",
+  "Entries have been disabled": "Merkinnät on poistettu käytöstä",
+  "Entries have been enabled": "Merkinnät on otettu käyttöön",
+  "Entries have been deleted": "Merkinnät on poistettu"
+}

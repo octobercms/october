@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "Administrar entradas",
+  "Create :name Entry": "Crear :nombre Entrada",
+  "Import Entries": "Importar entradas",
+  "Export Entries": "Exportar entradas",
+  "First Draft": "Primer borrador",
+  "Draft Saved": "Borrador guardado",
+  "Draft Applied": "Borrador aplicado",
+  "Draft Created": "Borrador creado",
+  "Draft Discarded": "Borrador descartado",
+  "Create Entry": "Crear entrada",
+  "Publish Entry": "Publicar entrada",
+  "Delete Entry": "Eliminar la entrada",
+  "Entries have been disabled": "Las entradas han sido deshabilitadas",
+  "Entries have been enabled": "Las entradas han sido habilitadas",
+  "Entries have been deleted": "Se han eliminado las entradas."
+}

@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "エントリの管理",
+  "Create :name Entry": ":nameエントリを作成します",
+  "Import Entries": "エントリのインポート",
+  "Export Entries": "エントリのエクスポート",
+  "First Draft": "最初のドラフト",
+  "Draft Saved": "ドラフトを保存しました",
+  "Draft Applied": "ドラフトが適用されました",
+  "Draft Created": "ドラフトが作成されました",
+  "Draft Discarded": "ドラフトは破棄されました",
+  "Create Entry": "エントリの作成",
+  "Publish Entry": "エントリの公開",
+  "Delete Entry": "記入を消す",
+  "Entries have been disabled": "エントリが無効になりました",
+  "Entries have been enabled": "エントリが有効になりました",
+  "Entries have been deleted": "エントリが削除されました"
+}

@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "Управление на записите",
+  "Create :name Entry": "Създайте :name Запис",
+  "Import Entries": "Записи за импортиране",
+  "Export Entries": "Експортни записи",
+  "First Draft": "Първа чернова",
+  "Draft Saved": "Черновата е запазена",
+  "Draft Applied": "Приложена чернова",
+  "Draft Created": "Черновата е създадена",
+  "Draft Discarded": "Черновата е отхвърлена",
+  "Create Entry": "Създаване на запис",
+  "Publish Entry": "Публикуване на записа",
+  "Delete Entry": "Изтриване на записа",
+  "Entries have been disabled": "Записванията са деактивирани",
+  "Entries have been enabled": "Записванията са активирани",
+  "Entries have been deleted": "Записите са изтрити"
+}

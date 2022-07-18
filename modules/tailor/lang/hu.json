@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "Bejegyzések kezelése",
+  "Create :name Entry": "Hozzon létre :name bejegyzést",
+  "Import Entries": "Bejegyzések importálása",
+  "Export Entries": "Bejegyzések exportálása",
+  "First Draft": "Első piszkozat",
+  "Draft Saved": "Piszkozat mentve",
+  "Draft Applied": "Alkalmazott tervezet",
+  "Draft Created": "Vázlat létrehozva",
+  "Draft Discarded": "Piszkozat elvetve",
+  "Create Entry": "Bejegyzés létrehozása",
+  "Publish Entry": "Bejegyzés közzététele",
+  "Delete Entry": "Bejegyzés törlése",
+  "Entries have been disabled": "A bejegyzések letiltva",
+  "Entries have been enabled": "A bejegyzések engedélyezve vannak",
+  "Entries have been deleted": "A bejegyzések törölve"
+}

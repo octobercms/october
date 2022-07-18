@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "مدیریت ورودی ها",
+  "Create :name Entry": "ایجاد :name Entry",
+  "Import Entries": "ورودی های وارداتی",
+  "Export Entries": "صادرات ورودی ها",
+  "First Draft": "پیش نویس اول",
+  "Draft Saved": "پیش نویس ذخیره شد",
+  "Draft Applied": "پیش نویس اعمال شد",
+  "Draft Created": "پیش نویس ایجاد شد",
+  "Draft Discarded": "پیش نویس حذف شد",
+  "Create Entry": "ایجاد ورودی",
+  "Publish Entry": "انتشار ورودی",
+  "Delete Entry": "حذف ورودی",
+  "Entries have been disabled": "ورودی ها غیرفعال شده است",
+  "Entries have been enabled": "ورودی ها فعال شده اند",
+  "Entries have been deleted": "ورودی ها حذف شده اند"
+}
