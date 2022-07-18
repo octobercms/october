@@ -50,7 +50,7 @@ return [
 
     'brand' => [
         'enabled' => false,
-        'app_name' => 'October CMS',
+        'app_name' => env('APP_NAME', 'October CMS'),
         'tagline' => 'Administration Panel',
         'menu_mode' => 'icons',
         'favicon_path' => '~/app/assets/images/logo.png',

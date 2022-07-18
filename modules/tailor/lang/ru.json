@@ -1,0 +1,18 @@
+{
+    "Manage Entries": "Управление записями",
+    "Create :name Entry": "Создать запись :name",
+    "Import Entries": "Импорт записей",
+    "Export Entries": "Экспорт записей",
+    "First Draft": "Первый черновик",
+    "Draft Saved": "Черновик сохранен",
+    "Draft Applied": "Черновик применен",
+    "Draft Created": "Черновик создан",
+    "Draft Discarded": "Черновик удален",
+    "Create Entry": "Создать запись",
+    "Publish Entry": "Опубликовать запись",
+    "Delete Entry": "Удалить запись",
+    "Entries have been disabled": "Записи были отключены",
+    "Entries have been enabled": "Записи были включены",
+    "Entries have been deleted": "Записи были удалены",
+    "Manage Blueprints": "Управление чертежами"
+}

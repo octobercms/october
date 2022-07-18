@@ -1,0 +1,17 @@
+{
+  "Manage Entries": "管理条目",
+  "Create :name Entry": "创建 :name 条目",
+  "Import Entries": "导入条目",
+  "Export Entries": "导出条目",
+  "First Draft": "第一稿",
+  "Draft Saved": "已保存草稿",
+  "Draft Applied": "已申请草稿",
+  "Draft Created": "已创建草稿",
+  "Draft Discarded": "丢弃草稿",
+  "Create Entry": "创建条目",
+  "Publish Entry": "发布条目",
+  "Delete Entry": "删除条目",
+  "Entries have been disabled": "条目已被禁用",
+  "Entries have been enabled": "条目已启用",
+  "Entries have been deleted": "条目已被删除"
+}
