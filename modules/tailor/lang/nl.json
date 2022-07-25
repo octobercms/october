@@ -13,5 +13,22 @@
   "Delete Entry": "Invoer verwijderen",
   "Entries have been disabled": "Invoer is uitgeschakeld",
   "Entries have been enabled": "Invoer is ingeschakeld",
-  "Entries have been deleted": "Inzendingen zijn verwijderd"
+  "Entries have been deleted": "Inzendingen zijn verwijderd",
+  "Manage Blueprints": "Blauwdrukken beheren",
+  "All Entries": "Alle inzendingen",
+  "Published Date": "datum van het uitbrengen",
+  "Published": "gepubliceerd",
+  "Expired": "Niet meer geldig",
+  "Scheduled": "Gepland",
+  "Hidden": "Verborgen",
+  "Draft": "Voorlopige versie",
+  "Deleted": "verwijderd",
+  "Slug": "Naaktslak",
+  "Enabled": "Ingeschakeld",
+  "Schedule publish date": "Agendeer publicatie",
+  "Set expiry date": "Vervaldatum instellen",
+  "View full slug": "Volledige naaktslak bekijken",
+  "Apply this Draft": "Concept toepassen",
+  "Remove": "Verwijder",
+  "Drafts are not visible on the website until they are applied.": "Concepten zijn niet zichtbaar op de website totdat ze toegepast zijn."
 }

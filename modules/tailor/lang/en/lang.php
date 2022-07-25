@@ -2,14 +2,9 @@
   'edit' => [
     'create_draft' => 'Create new Draft',
     'select_draft' => 'Select Draft to Edit',
-    'schedule_publish_date' => 'Schedule publish date',
-    'set_expiry_date' => 'Set expiry date',
-    'remove' => 'Remove',
     'unsaved' => 'Unsaved',
     'apply_draft' => 'Apply this Draft',
     'edit_primary_record' => 'Edit the Primary Record',
-    'draft_publishing_notice' => 'Drafts are not visible on the website until they are applied.',
-    'apply_draft_to_make_primary' => 'Apply this Draft',
     'save_draft' => 'Save Draft',
     'save_apply_draft' => 'Save & Apply Draft',
     'draft_notes_placeholder' => 'Draft name: draft notes',
@@ -24,7 +19,6 @@
     'set_parent' => 'Set Item Parent',
     'root_item' => 'Top level',
     'preview' => 'Preview',
-    'view_full_slug' => 'View full slug',
   ],
   'blueprint' => [
     'saved' => 'Blueprint saved',

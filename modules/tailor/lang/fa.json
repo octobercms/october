@@ -13,5 +13,22 @@
   "Delete Entry": "حذف ورودی",
   "Entries have been disabled": "ورودی ها غیرفعال شده است",
   "Entries have been enabled": "ورودی ها فعال شده اند",
-  "Entries have been deleted": "ورودی ها حذف شده اند"
+  "Entries have been deleted": "ورودی ها حذف شده اند",
+  "Manage Blueprints": "نقشه ها را مدیریت کنید",
+  "All Entries": "همه ورودی ها",
+  "Published Date": "تاریخ انتشار",
+  "Published": "منتشر شده",
+  "Expired": "منقضی شده",
+  "Scheduled": "برنامه ریزی شده است",
+  "Hidden": "پنهان شده است",
+  "Draft": "پیش نویس",
+  "Deleted": "حذف شده",
+  "Slug": "حلزون حرکت کردن",
+  "Enabled": "فعال شد",
+  "Schedule publish date": "تاریخ انتشار را برنامه ریزی کنید",
+  "Set expiry date": "تاریخ انقضا را تنظیم کنید",
+  "View full slug": "مشاهده راب کامل",
+  "Apply this Draft": "این پیش نویس را اعمال کنید",
+  "Remove": "برداشتن",
+  "Drafts are not visible on the website until they are applied.": "پیش نویس ها تا زمانی که اعمال نشوند در وب سایت قابل مشاهده نیستند."
 }

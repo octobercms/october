@@ -13,5 +13,22 @@
   "Delete Entry": "Ta bort inlägg",
   "Entries have been disabled": "Inlägg har inaktiverats",
   "Entries have been enabled": "Inlägg har aktiverats",
-  "Entries have been deleted": "Inlägg har raderats"
+  "Entries have been deleted": "Inlägg har raderats",
+  "Manage Blueprints": "Hantera ritningar",
+  "All Entries": "Alla poster",
+  "Published Date": "Publiceringsdatum",
+  "Published": "Publicerad",
+  "Expired": "Utgånget",
+  "Scheduled": "Schemalagt",
+  "Hidden": "Dold",
+  "Draft": "Förslag",
+  "Deleted": "raderade",
+  "Slug": "Snigel",
+  "Enabled": "Aktiverad",
+  "Schedule publish date": "Schemalägg publiceringsdatum",
+  "Set expiry date": "Ställ in utgångsdatum",
+  "View full slug": "Se hela snigeln",
+  "Apply this Draft": "Tillämpa detta utkast",
+  "Remove": "Ta bort",
+  "Drafts are not visible on the website until they are applied.": "Utkast är inte synliga på webbplatsen förrän de tillämpas."
 }

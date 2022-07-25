@@ -13,5 +13,22 @@
   "Delete Entry": "Eliminar la entrada",
   "Entries have been disabled": "Las entradas han sido deshabilitadas",
   "Entries have been enabled": "Las entradas han sido habilitadas",
-  "Entries have been deleted": "Se han eliminado las entradas."
+  "Entries have been deleted": "Se han eliminado las entradas.",
+  "Manage Blueprints": "Administrar planos",
+  "All Entries": "Todas las entradas",
+  "Published Date": "Fecha de Publicación",
+  "Published": "Publicado",
+  "Expired": "Venció",
+  "Scheduled": "Programado",
+  "Hidden": "Oculto",
+  "Draft": "Reclutar",
+  "Deleted": "Eliminado",
+  "Slug": "Babosa",
+  "Enabled": "Activado",
+  "Schedule publish date": "Programar fecha de publicación",
+  "Set expiry date": "Establecer fecha de caducidad",
+  "View full slug": "ver slug completo",
+  "Apply this Draft": "Aplicar este borrador",
+  "Remove": "Remover",
+  "Drafts are not visible on the website until they are applied.": "Los borradores no son visibles en el sitio web hasta que se aplican."
 }

@@ -13,5 +13,22 @@
   "Delete Entry": "Bejegyzés törlése",
   "Entries have been disabled": "A bejegyzések letiltva",
   "Entries have been enabled": "A bejegyzések engedélyezve vannak",
-  "Entries have been deleted": "A bejegyzések törölve"
+  "Entries have been deleted": "A bejegyzések törölve",
+  "Manage Blueprints": "Tervrajzok kezelése",
+  "All Entries": "Minden bejegyzés",
+  "Published Date": "Közzététel dátuma",
+  "Published": "Közzétett",
+  "Expired": "Lejárt",
+  "Scheduled": "Ütemezett",
+  "Hidden": "Rejtett",
+  "Draft": "Piszkozat",
+  "Deleted": "Törölve",
+  "Slug": "Meztelen csiga",
+  "Enabled": "Engedélyezve",
+  "Schedule publish date": "Ütemezze be a közzététel dátumát",
+  "Set expiry date": "Állítsa be a lejárati dátumot",
+  "View full slug": "Teljes csiga megtekintése",
+  "Apply this Draft": "Alkalmazza ezt a tervezetet",
+  "Remove": "Távolítsa el",
+  "Drafts are not visible on the website until they are applied.": "A piszkozatok alkalmazásukig nem láthatók a weboldalon."
 }

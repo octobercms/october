@@ -13,5 +13,22 @@
   "Delete Entry": "Slet post",
   "Entries have been disabled": "Indgange er blevet deaktiveret",
   "Entries have been enabled": "Indgange er blevet aktiveret",
-  "Entries have been deleted": "Indlæg er blevet slettet"
+  "Entries have been deleted": "Indlæg er blevet slettet",
+  "Manage Blueprints": "Administrer Blueprints",
+  "All Entries": "Alle poster",
+  "Published Date": "Udgivet dato",
+  "Published": "Udgivet",
+  "Expired": "Udløbet",
+  "Scheduled": "Planlagt",
+  "Hidden": "Skjult",
+  "Draft": "Udkast",
+  "Deleted": "Slettet",
+  "Slug": "Snegl",
+  "Enabled": "Aktiveret",
+  "Schedule publish date": "Planlæg udgivelsesdato",
+  "Set expiry date": "Indstil udløbsdato",
+  "View full slug": "Se hele sneglen",
+  "Apply this Draft": "Anvend dette udkast",
+  "Remove": "Fjerne",
+  "Drafts are not visible on the website until they are applied.": "Udkast er ikke synlige på hjemmesiden, før de er anvendt."
 }

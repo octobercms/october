@@ -13,5 +13,22 @@
   "Delete Entry": "Ștergeți intrarea",
   "Entries have been disabled": "Intrările au fost dezactivate",
   "Entries have been enabled": "Intrările au fost activate",
-  "Entries have been deleted": "Intrările au fost șterse"
+  "Entries have been deleted": "Intrările au fost șterse",
+  "Manage Blueprints": "Gestionați Blueprints",
+  "All Entries": "Toate intrările",
+  "Published Date": "Data Publicării",
+  "Published": "Publicat",
+  "Expired": "Expirat",
+  "Scheduled": "Programat",
+  "Hidden": "Ascuns",
+  "Draft": "Proiect",
+  "Deleted": "Șters",
+  "Slug": "Melc",
+  "Enabled": "Activat",
+  "Schedule publish date": "Programați data publicării",
+  "Set expiry date": "Setați data de expirare",
+  "View full slug": "Vedeți melcul complet",
+  "Apply this Draft": "Aplicați această schiță",
+  "Remove": "Elimina",
+  "Drafts are not visible on the website until they are applied.": "Schițele nu sunt vizibile pe site până când nu sunt aplicate."
 }

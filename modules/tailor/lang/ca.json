@@ -13,5 +13,22 @@
   "Delete Entry": "Suprimeix l'entrada",
   "Entries have been disabled": "S'han desactivat les entrades",
   "Entries have been enabled": "S'han habilitat les entrades",
-  "Entries have been deleted": "S'han suprimit les entrades"
+  "Entries have been deleted": "S'han suprimit les entrades",
+  "Manage Blueprints": "Gestionar plànols",
+  "All Entries": "Totes les entrades",
+  "Published Date": "Data de publicació",
+  "Published": "Publicat",
+  "Expired": "Caducat",
+  "Scheduled": "Programat",
+  "Hidden": "Ocult",
+  "Draft": "Esborrany",
+  "Deleted": "S'ha suprimit",
+  "Slug": "Llimac",
+  "Enabled": "Habilitat",
+  "Schedule publish date": "Programa la data de publicació",
+  "Set expiry date": "Estableix la data de caducitat",
+  "View full slug": "Veure llimac complet",
+  "Apply this Draft": "Aplica aquest esborrany",
+  "Remove": "Eliminar",
+  "Drafts are not visible on the website until they are applied.": "Els esborranys no són visibles al lloc web fins que s'apliquen."
 }

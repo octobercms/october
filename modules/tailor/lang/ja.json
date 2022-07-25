@@ -13,5 +13,22 @@
   "Delete Entry": "記入を消す",
   "Entries have been disabled": "エントリが無効になりました",
   "Entries have been enabled": "エントリが有効になりました",
-  "Entries have been deleted": "エントリが削除されました"
+  "Entries have been deleted": "エントリが削除されました",
+  "Manage Blueprints": "ブループリントを管理する",
+  "All Entries": "すべてのエントリ",
+  "Published Date": "公開日",
+  "Published": "公開済み",
+  "Expired": "期限切れ",
+  "Scheduled": "予定",
+  "Hidden": "隠れた",
+  "Draft": "下書き",
+  "Deleted": "削除されました",
+  "Slug": "ナメクジ",
+  "Enabled": "有効",
+  "Schedule publish date": "公開予定日",
+  "Set expiry date": "有効期限を設定する",
+  "View full slug": "スラッグ全体を見る",
+  "Apply this Draft": "このドラフトを適用する",
+  "Remove": "削除する",
+  "Drafts are not visible on the website until they are applied.": "下書きは、適用されるまでWebサイトに表示されません。"
 }

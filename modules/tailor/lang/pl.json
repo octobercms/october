@@ -13,5 +13,22 @@
   "Delete Entry": "Usuń wpis",
   "Entries have been disabled": "Wpisy zostały wyłączone",
   "Entries have been enabled": "Wpisy zostały włączone",
-  "Entries have been deleted": "Wpisy zostały usunięte"
+  "Entries have been deleted": "Wpisy zostały usunięte",
+  "Manage Blueprints": "Zarządzaj projektami",
+  "All Entries": "Wszystkie wpisy",
+  "Published Date": "Data publikacji",
+  "Published": "Opublikowany",
+  "Expired": "Wygasły",
+  "Scheduled": "Zaplanowany",
+  "Hidden": "Ukryty",
+  "Draft": "Projekt",
+  "Deleted": "Usunięto",
+  "Slug": "Ślimak",
+  "Enabled": "Włączony",
+  "Schedule publish date": "Zaplanuj datę publikacji",
+  "Set expiry date": "Ustaw datę ważności",
+  "View full slug": "Wyświetl pełny ślimak",
+  "Apply this Draft": "Zastosuj ten szkic",
+  "Remove": "Usunąć",
+  "Drafts are not visible on the website until they are applied.": "Szkice nie są widoczne na stronie, dopóki nie zostaną zastosowane."
 }

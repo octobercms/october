@@ -13,5 +13,22 @@
   "Delete Entry": "Изтриване на записа",
   "Entries have been disabled": "Записванията са деактивирани",
   "Entries have been enabled": "Записванията са активирани",
-  "Entries have been deleted": "Записите са изтрити"
+  "Entries have been deleted": "Записите са изтрити",
+  "Manage Blueprints": "Управление на чертежи",
+  "All Entries": "Всички записи",
+  "Published Date": "Дата на публикуване",
+  "Published": "Публикувано",
+  "Expired": "Просрочен",
+  "Scheduled": "Планиран",
+  "Hidden": "Скрити",
+  "Draft": "Чернова",
+  "Deleted": "Изтрито",
+  "Slug": "плужек",
+  "Enabled": "Активирано",
+  "Schedule publish date": "Планирайте дата на публикуване",
+  "Set expiry date": "Задайте дата на изтичане",
+  "View full slug": "Вижте целия плужек",
+  "Apply this Draft": "Приложете тази чернова",
+  "Remove": "Премахване",
+  "Drafts are not visible on the website until they are applied.": "Черновите не се виждат на уебсайта, докато не бъдат приложени."
 }

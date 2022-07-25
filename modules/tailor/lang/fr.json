@@ -13,5 +13,22 @@
   "Delete Entry": "Supprimer l'entrée",
   "Entries have been disabled": "Les entrées ont été désactivées",
   "Entries have been enabled": "Les entrées ont été activées",
-  "Entries have been deleted": "Les entrées ont été supprimées"
+  "Entries have been deleted": "Les entrées ont été supprimées",
+  "Manage Blueprints": "Gérer les plans",
+  "All Entries": "Toutes les entrées",
+  "Published Date": "date de publication",
+  "Published": "Publié",
+  "Expired": "Expiré",
+  "Scheduled": "Programmé",
+  "Hidden": "Caché",
+  "Draft": "Brouillon",
+  "Deleted": "Supprimé",
+  "Slug": "Limace",
+  "Enabled": "Activé",
+  "Schedule publish date": "Planifier la date de publication",
+  "Set expiry date": "Définir la date d'expiration",
+  "View full slug": "Voir le slug complet",
+  "Apply this Draft": "Appliquer ce brouillon",
+  "Remove": "Retirer",
+  "Drafts are not visible on the website until they are applied.": "Les brouillons ne sont pas visibles sur le site Web tant qu'ils n'ont pas été appliqués."
 }

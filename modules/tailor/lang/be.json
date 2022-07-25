@@ -13,5 +13,22 @@
   "Delete Entry": "Выдаліць запіс",
   "Entries have been disabled": "Запісы былі адключаныя",
   "Entries have been enabled": "Запісы былі ўключаны",
-  "Entries have been deleted": "Запісы выдалены"
+  "Entries have been deleted": "Запісы выдалены",
+  "Manage Blueprints": "Кіраванне чарцяжамі",
+  "All Entries": "Усе запісы",
+  "Published Date": "Дата публікацыі",
+  "Published": "Апублікавана",
+  "Expired": "Пратэрмінаваны",
+  "Scheduled": "Запланаваны",
+  "Hidden": "Схаваны",
+  "Draft": "Чарнавік",
+  "Deleted": "Выдалены",
+  "Slug": "Смоўж",
+  "Enabled": "Уключана",
+  "Schedule publish date": "Запланаваць дату публікацыі",
+  "Set expiry date": "Усталюйце тэрмін прыдатнасці",
+  "View full slug": "Прагледзець поўны смоўж",
+  "Apply this Draft": "Прымяніць гэты чарнавік",
+  "Remove": "Зняць",
+  "Drafts are not visible on the website until they are applied.": "Чарнавікі не будуць бачныя на вэб-сайце, пакуль яны не будуць прыменены."
 }

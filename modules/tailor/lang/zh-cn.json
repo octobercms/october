@@ -13,5 +13,22 @@
   "Delete Entry": "删除条目",
   "Entries have been disabled": "条目已被禁用",
   "Entries have been enabled": "条目已启用",
-  "Entries have been deleted": "条目已被删除"
+  "Entries have been deleted": "条目已被删除",
+  "Manage Blueprints": "管理蓝图",
+  "All Entries": "所有参赛作品",
+  "Published Date": "发布日期",
+  "Published": "发表",
+  "Expired": "已到期",
+  "Scheduled": "预定的",
+  "Hidden": "隐",
+  "Draft": "草稿",
+  "Deleted": "已删除",
+  "Slug": "蛞蝓",
+  "Enabled": "启用",
+  "Schedule publish date": "安排发布日期",
+  "Set expiry date": "设置到期日",
+  "View full slug": "查看完整的蛞蝓",
+  "Apply this Draft": "应用此草稿",
+  "Remove": "消除",
+  "Drafts are not visible on the website until they are applied.": "在应用之前，草稿在网站上是不可见的。"
 }

@@ -13,5 +13,22 @@
   "Delete Entry": "Girişi sil",
   "Entries have been disabled": "Girişler devre dışı bırakıldı",
   "Entries have been enabled": "Girişler etkinleştirildi",
-  "Entries have been deleted": "girişler silindi"
+  "Entries have been deleted": "girişler silindi",
+  "Manage Blueprints": "Planları Yönet",
+  "All Entries": "Bütün girdiler",
+  "Published Date": "yayınlanma tarihi",
+  "Published": "Yayınlanan",
+  "Expired": "Süresi doldu",
+  "Scheduled": "zamanlanmış",
+  "Hidden": "Gizlenmiş",
+  "Draft": "Taslak",
+  "Deleted": "silindi",
+  "Slug": "sümüklü böcek",
+  "Enabled": "Etkinleştirilmiş",
+  "Schedule publish date": "Yayın tarihini planla",
+  "Set expiry date": "Son kullanma tarihini ayarla",
+  "View full slug": "Tam sümüklü böcek görüntüle",
+  "Apply this Draft": "Bu Taslağı uygula",
+  "Remove": "Kaldırmak",
+  "Drafts are not visible on the website until they are applied.": "Taslaklar, uygulanıncaya kadar web sitesinde görünmez."
 }

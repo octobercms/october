@@ -13,5 +13,22 @@
   "Delete Entry": "Kustuta kirje",
   "Entries have been disabled": "Kirjed on keelatud",
   "Entries have been enabled": "Kirjed on lubatud",
-  "Entries have been deleted": "Kirjed on kustutatud"
+  "Entries have been deleted": "Kirjed on kustutatud",
+  "Manage Blueprints": "Hallake jooniseid",
+  "All Entries": "Kõik sissekanded",
+  "Published Date": "Avaldamise kuupäev",
+  "Published": "Avaldatud",
+  "Expired": "Aegunud",
+  "Scheduled": "Planeeritud",
+  "Hidden": "Peidetud",
+  "Draft": "Mustand",
+  "Deleted": "Kustutatud",
+  "Slug": "Nälkjas",
+  "Enabled": "Lubatud",
+  "Schedule publish date": "Ajakava avaldamise kuupäev",
+  "Set expiry date": "Määrake aegumiskuupäev",
+  "View full slug": "Kuva täielik nälkjas",
+  "Apply this Draft": "Rakenda see mustand",
+  "Remove": "Eemalda",
+  "Drafts are not visible on the website until they are applied.": "Mustandid pole veebisaidil nähtavad enne, kui need on rakendatud."
 }

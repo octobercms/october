@@ -13,5 +13,22 @@
   "Delete Entry": "Видалити запис",
   "Entries have been disabled": "Записи вимкнено",
   "Entries have been enabled": "Записи ввімкнено",
-  "Entries have been deleted": "Записи видалено"
+  "Entries have been deleted": "Записи видалено",
+  "Manage Blueprints": "Керуйте кресленнями",
+  "All Entries": "Усі записи",
+  "Published Date": "Дата публікації",
+  "Published": "Опубліковано",
+  "Expired": "Термін дії минув",
+  "Scheduled": "За розкладом",
+  "Hidden": "Прихований",
+  "Draft": "Чернетка",
+  "Deleted": "Видалено",
+  "Slug": "Слимак",
+  "Enabled": "Увімкнено",
+  "Schedule publish date": "Запланувати дату публікації",
+  "Set expiry date": "Встановіть термін придатності",
+  "View full slug": "Переглянути повний слизень",
+  "Apply this Draft": "Застосувати цей проект",
+  "Remove": "видалити",
+  "Drafts are not visible on the website until they are applied.": "Чернетки не відображаються на веб-сайті, доки їх не буде застосовано."
 }

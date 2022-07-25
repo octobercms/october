@@ -26,5 +26,9 @@
     "Slug": "Slug",
     "Enabled": "Enabled",
     "Schedule publish date": "Schedule publish date",
-    "Set expiry date": "Set expiry date"
+    "Set expiry date": "Set expiry date",
+    "View full slug": "View full slug",
+    "Apply this Draft": "Apply this Draft",
+    "Remove": "Remove",
+    "Drafts are not visible on the website until they are applied.": "Drafts are not visible on the website until they are applied."
 }

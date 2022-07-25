@@ -13,5 +13,22 @@
   "Delete Entry": "Hapus Entri",
   "Entries have been disabled": "Entri telah dinonaktifkan",
   "Entries have been enabled": "Entri telah diaktifkan",
-  "Entries have been deleted": "Entri telah dihapus"
+  "Entries have been deleted": "Entri telah dihapus",
+  "Manage Blueprints": "Kelola Cetak Biru",
+  "All Entries": "Semua masukan",
+  "Published Date": "Tanggal publikasi",
+  "Published": "Diterbitkan",
+  "Expired": "Kedaluwarsa",
+  "Scheduled": "Terjadwal",
+  "Hidden": "Tersembunyi",
+  "Draft": "Konsep",
+  "Deleted": "Dihapus",
+  "Slug": "Siput",
+  "Enabled": "Diaktifkan",
+  "Schedule publish date": "Jadwalkan tanggal publikasi",
+  "Set expiry date": "Tetapkan tanggal kedaluwarsa",
+  "View full slug": "Lihat siput penuh",
+  "Apply this Draft": "Terapkan Draf ini",
+  "Remove": "Menghapus",
+  "Drafts are not visible on the website until they are applied.": "Draf tidak terlihat di situs web sampai diterapkan."
 }

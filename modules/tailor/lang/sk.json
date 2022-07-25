@@ -13,5 +13,22 @@
   "Delete Entry": "Odstrániť položku",
   "Entries have been disabled": "Vstupy boli zakázané",
   "Entries have been enabled": "Záznamy boli povolené",
-  "Entries have been deleted": "Záznamy boli vymazané"
+  "Entries have been deleted": "Záznamy boli vymazané",
+  "Manage Blueprints": "Spravujte plány",
+  "All Entries": "Všetky záznamy",
+  "Published Date": "Dátum zverejnenia",
+  "Published": "Uverejnený",
+  "Expired": "Platnosť vypršala",
+  "Scheduled": "Naplánovaný",
+  "Hidden": "Skryté",
+  "Draft": "Návrh",
+  "Deleted": "Odstránené",
+  "Slug": "Slimák",
+  "Enabled": "Povolené",
+  "Schedule publish date": "Naplánujte dátum zverejnenia",
+  "Set expiry date": "Nastavte dátum vypršania platnosti",
+  "View full slug": "Zobraziť celý slimák",
+  "Apply this Draft": "Použiť tento koncept",
+  "Remove": "Odstrániť",
+  "Drafts are not visible on the website until they are applied.": "Koncepty nie sú na webovej lokalite viditeľné, kým sa nepoužijú."
 }

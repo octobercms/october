@@ -13,5 +13,22 @@
   "Delete Entry": "حذف المدخلات",
   "Entries have been disabled": "تم تعطيل الإدخالات",
   "Entries have been enabled": "تم تمكين الإدخالات",
-  "Entries have been deleted": "تم حذف الإدخالات"
+  "Entries have been deleted": "تم حذف الإدخالات",
+  "Manage Blueprints": "إدارة المخططات",
+  "All Entries": "كل المقالات",
+  "Published Date": "تاريخ النشر",
+  "Published": "نشرت",
+  "Expired": "منتهي الصلاحية",
+  "Scheduled": "المقرر",
+  "Hidden": "مختفي",
+  "Draft": "مسودة",
+  "Deleted": "تم الحذف",
+  "Slug": "سبيكة",
+  "Enabled": "ممكن",
+  "Schedule publish date": "جدولة تاريخ النشر",
+  "Set expiry date": "حدد تاريخ انتهاء الصلاحية",
+  "View full slug": "مشاهدة ملف slug",
+  "Apply this Draft": "قم بتطبيق هذه المسودة",
+  "Remove": "إزالة",
+  "Drafts are not visible on the website until they are applied.": "المسودات غير مرئية على الموقع حتى يتم تطبيقها."
 }

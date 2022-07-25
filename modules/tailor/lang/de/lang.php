@@ -2,14 +2,9 @@
   'edit' => [
     'create_draft' => 'Neuen Entwurf erstellen',
     'select_draft' => 'Entwurf zur Bearbeitung auswählen',
-    'schedule_publish_date' => 'Veröffentlichung planen',
-    'set_expiry_date' => 'Ablaufdatum setzen',
-    'remove' => 'Entfernen',
     'unsaved' => 'Nicht gespeichert',
     'apply_draft' => 'Entwurf veröffentlichen',
     'edit_primary_record' => 'Öffentlichen Eintrag bearbeiten',
-    'draft_publishing_notice' => 'Entwürfe sind auf der Website nicht sichbar, bis sie veröffentlicht wurden.',
-    'apply_draft_to_make_primary' => 'Diesen Entwurf veröffentlichen',
     'save_draft' => 'Entwurf speichern',
     'save_apply_draft' => 'Entwurf speichern & veröffentlichen',
     'draft_notes_placeholder' => 'Entwurf-Name: Notizen',
@@ -24,7 +19,6 @@
     'set_parent' => 'Elternelement setzen',
     'root_item' => 'Oberste Ebene',
     'preview' => 'Vorschau',
-    'view_full_slug' => 'Volle URL anzeigen',
   ],
   'permissions' => [
     'name' => 'Tailor',

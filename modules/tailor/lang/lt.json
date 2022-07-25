@@ -13,5 +13,22 @@
   "Delete Entry": "Ištrinti įrašą",
   "Entries have been disabled": "Įrašai buvo išjungti",
   "Entries have been enabled": "Įrašai įjungti",
-  "Entries have been deleted": "Įrašai buvo ištrinti"
+  "Entries have been deleted": "Įrašai buvo ištrinti",
+  "Manage Blueprints": "Tvarkyti brėžinius",
+  "All Entries": "Visi įrašai",
+  "Published Date": "Paskelbimo data",
+  "Published": "Paskelbta",
+  "Expired": "Baigėsi galiojimo laikas",
+  "Scheduled": "Suplanuota",
+  "Hidden": "Paslėpta",
+  "Draft": "Juodraštis",
+  "Deleted": "Ištrinta",
+  "Slug": "Šliužas",
+  "Enabled": "Įjungtas",
+  "Schedule publish date": "Suplanuokite paskelbimo datą",
+  "Set expiry date": "Nustatykite galiojimo datą",
+  "View full slug": "Žiūrėti visą šliužą",
+  "Apply this Draft": "Taikyti šį juodraštį",
+  "Remove": "Pašalinti",
+  "Drafts are not visible on the website until they are applied.": "Juodraščiai svetainėje nematomi, kol jie nėra pritaikyti."
 }

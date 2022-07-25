@@ -13,5 +13,22 @@
   "Delete Entry": "Poista merkintä",
   "Entries have been disabled": "Merkinnät on poistettu käytöstä",
   "Entries have been enabled": "Merkinnät on otettu käyttöön",
-  "Entries have been deleted": "Merkinnät on poistettu"
+  "Entries have been deleted": "Merkinnät on poistettu",
+  "Manage Blueprints": "Hallitse piirustuksia",
+  "All Entries": "Kaikki merkinnät",
+  "Published Date": "Julkaisupäivämäärä",
+  "Published": "Julkaistu",
+  "Expired": "Vanhentunut",
+  "Scheduled": "Aikataulutettu",
+  "Hidden": "Piilotettu",
+  "Draft": "Luonnos",
+  "Deleted": "Poistettu",
+  "Slug": "Etana",
+  "Enabled": "Käytössä",
+  "Schedule publish date": "Aikataulu julkaisupäivä",
+  "Set expiry date": "Aseta viimeinen käyttöpäivä",
+  "View full slug": "Näytä koko etana",
+  "Apply this Draft": "Käytä tätä luonnosta",
+  "Remove": "Poista",
+  "Drafts are not visible on the website until they are applied.": "Luonnokset eivät näy verkkosivustolla ennen kuin ne on otettu käyttöön."
 }

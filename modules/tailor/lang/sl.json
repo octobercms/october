@@ -13,5 +13,22 @@
   "Delete Entry": "Izbriši vnos",
   "Entries have been disabled": "Vnosi so bili onemogočeni",
   "Entries have been enabled": "Vnosi so omogočeni",
-  "Entries have been deleted": "Vnosi so bili izbrisani"
+  "Entries have been deleted": "Vnosi so bili izbrisani",
+  "Manage Blueprints": "Upravljanje načrtov",
+  "All Entries": "Vsi vnosi",
+  "Published Date": "Datum objave",
+  "Published": "Objavljeno",
+  "Expired": "potekel",
+  "Scheduled": "Načrtovano",
+  "Hidden": "Skrito",
+  "Draft": "Osnutek",
+  "Deleted": "Izbrisano",
+  "Slug": "Polž",
+  "Enabled": "Omogočeno",
+  "Schedule publish date": "Načrtujte datum objave",
+  "Set expiry date": "Nastavite datum poteka",
+  "View full slug": "Ogled celotnega polža",
+  "Apply this Draft": "Uporabite ta osnutek",
+  "Remove": "Odstrani",
+  "Drafts are not visible on the website until they are applied.": "Osnutki niso vidni na spletni strani, dokler niso uporabljeni."
 }
