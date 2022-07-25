@@ -14,5 +14,17 @@
     "Entries have been disabled": "Entries have been disabled",
     "Entries have been enabled": "Entries have been enabled",
     "Entries have been deleted": "Entries have been deleted",
-    "Manage Blueprints": "Manage Blueprints"
+    "Manage Blueprints": "Manage Blueprints",
+    "All Entries": "All Entries",
+    "Published Date": "Published Date",
+    "Published": "Published",
+    "Expired": "Expired",
+    "Scheduled": "Scheduled",
+    "Hidden": "Hidden",
+    "Draft": "Draft",
+    "Deleted": "Deleted",
+    "Slug": "Slug",
+    "Enabled": "Enabled",
+    "Schedule publish date": "Schedule publish date",
+    "Set expiry date": "Set expiry date"
 }
