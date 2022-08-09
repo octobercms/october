@@ -16,17 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.2.9",
         "composer/installers": "~1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "October\\Demo\\": ""
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
     }
 }
