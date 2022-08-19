@@ -117,7 +117,7 @@
     'name' => 'Administrátor',
     'menu_label' => 'Administrátori',
     'menu_description' => 'Správa administrátorov, skupín a oprávnení.',
-    'list_title' => 'Spríva administrátorov',
+    'list_title' => 'Správa administrátorov',
     'new' => 'Nový administrátor',
     'login' => 'Prihlasovacie meno',
     'first_name' => 'Krstné meno',

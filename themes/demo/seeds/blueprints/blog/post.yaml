@@ -24,7 +24,7 @@ groups:
                 type: richeditor
                 span: adaptive
 
-            blog_post_content:
+            _blog_post_content:
                 type: mixin
                 source: Blog\PostContent
 
@@ -37,6 +37,6 @@ groups:
                 type: markdown
                 span: adaptive
 
-            blog_post_content:
+            _blog_post_content:
                 type: mixin
                 source: Blog\PostContent

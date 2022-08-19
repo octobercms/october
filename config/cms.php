@@ -58,6 +58,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Frontend Timezone
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a frontend user's timezone used when
+    | converting dates from the system setting, typically set to UTC.
+    |
+    */
+
+    'timezone' => 'UTC',
+
+    /*
+    |--------------------------------------------------------------------------
     | Template Caching
     |--------------------------------------------------------------------------
     |

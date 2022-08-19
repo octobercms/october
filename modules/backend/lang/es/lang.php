@@ -25,6 +25,9 @@
   'account' => [
     'sign_out' => 'Desconectarse',
     'login' => 'Entrar',
+    'input_username' => 'Usuario',
+    'input_password' => 'Clave',
+    'login_prompt' => '¡Bienvenido! Inicie sesión para continuar.',
     'reset' => 'Restablecer',
     'restore' => 'Restaurar',
     'login_placeholder' => 'usuario',
@@ -359,6 +362,8 @@
     'app_name_description' => 'Este nombre se mostrará en el título del back-end.',
     'app_tagline' => 'Eslogan',
     'app_tagline_description' => 'Se mostrará en la página de inicio de sesión del back-end.',
+    'login_prompt' => 'Mensaje de bienvenida',
+    'login_prompt_description' => 'Se mostrará en la página de inicio de sesión del back-end.',
     'colors' => 'Colores',
     'primary_color' => 'Primario color',
     'secondary_color' => 'Secundario color',

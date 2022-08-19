@@ -102,5 +102,8 @@
     "Login": "Login",
     "First name": "First name",
     "Last name": "Last name",
-    "Email": "Email"
+    "Email": "Email",
+    "Field is translated per locale": "Field is translated per locale",
+    "Field is translated per site": "Field is translated per site",
+    "A custom schema is used for this file format.": "A custom schema is used for this file format."
 }

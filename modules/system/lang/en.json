@@ -24,5 +24,7 @@
     ":name settings updated": ":name settings updated",
     "Return to System Settings": "Return to System Settings",
     "Find a Setting...": "Find a Setting...",
-    "Disable mail branding CSS": "Disable mail branding CSS"
+    "Disable mail branding CSS": "Disable mail branding CSS",
+    "Manage Sites": "Manage Sites",
+    "Manage the websites available for this application.": "Manage the websites available for this application."
 }
