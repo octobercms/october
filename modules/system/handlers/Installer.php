@@ -5,7 +5,7 @@ use View;
 use Config;
 use Redirect;
 use System\Classes\UpdateManager;
-use October\Rain\Process\ComposerPhp;
+use October\Rain\Composer\Manager as ComposerManager;
 use Illuminate\Routing\Controller as ControllerBase;
 use Exception;
 
@@ -153,8 +153,7 @@ class Installer extends ControllerBase
                 $this->setComposerAuth($projectEmail, $projectId);
 
                 // Add October CMS gateway as a composer repo
-                $composer = new ComposerPhp;
-                $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
+                ComposerManager::instance()->addOctoberRepository($this->getComposerUrl());
 
                 return Redirect::to('install');
             }
