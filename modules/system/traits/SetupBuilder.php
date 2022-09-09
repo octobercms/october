@@ -3,7 +3,6 @@
 use Lang;
 use Exception;
 use System\Classes\UpdateManager;
-use October\Rain\Composer\Manager as ComposerManager;
 use October\Rain\Process\Composer as ComposerProcess;
 
 /**
@@ -43,13 +42,11 @@ trait SetupBuilder
             throw new Exception(Lang::get('system::lang.installer.license_expired_comment'));
         }
 
-        // Save authentication token
-        $projectId = $result['project_id'] ?? null;
-        $projectEmail = $result['email'] ?? null;
-        $this->setComposerAuth($projectEmail, $projectId);
-
-        // Add October CMS gateway as a composer repo
-        ComposerManager::instance()->addOctoberRepository($this->getComposerUrl());
+        // Configure composer and save authentication token
+        $this->setComposerAuth(
+            $result['email'] ?? null,
+            $result['project_id'] ?? null
+        );
     }
 
     /**

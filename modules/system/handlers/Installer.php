@@ -5,7 +5,6 @@ use View;
 use Config;
 use Redirect;
 use System\Classes\UpdateManager;
-use October\Rain\Composer\Manager as ComposerManager;
 use Illuminate\Routing\Controller as ControllerBase;
 use Exception;
 
@@ -147,13 +146,11 @@ class Installer extends ControllerBase
                     throw new Exception('License is unpaid or has expired. Please visit octobercms.com to obtain a license.');
                 }
 
-                // Save authentication token
-                $projectId = $result['project_id'] ?? null;
-                $projectEmail = $result['email'] ?? null;
-                $this->setComposerAuth($projectEmail, $projectId);
-
-                // Add October CMS gateway as a composer repo
-                ComposerManager::instance()->addOctoberRepository($this->getComposerUrl());
+                // Configure composer and save authentication token
+                $this->setComposerAuth(
+                    $result['email'] ?? null,
+                    $result['project_id'] ?? null
+                );
 
                 return Redirect::to('install');
             }

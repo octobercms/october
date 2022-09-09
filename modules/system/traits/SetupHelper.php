@@ -6,6 +6,7 @@ use Lang;
 use Config;
 use Exception;
 use System\Classes\UpdateManager;
+use October\Rain\Composer\Manager as ComposerManager;
 use Illuminate\Support\Env;
 use Dotenv\Dotenv;
 use PDOException;
@@ -26,20 +27,22 @@ trait SetupHelper
      */
     protected function setComposerAuth($email, $projectKey)
     {
-        $composerUrl = $this->getComposerUrl(false);
+        $composer = ComposerManager::instance();
 
-        $this->injectJsonToFile(base_path('auth.json'), [
-            'http-basic' => [
-                $composerUrl => [
-                    'username' => $email,
-                    'password' => $projectKey
-                ]
-            ]
-        ]);
+        // Save authentication token
+        $composer->addAuthCredentials(
+            $this->getComposerUrl(false),
+            $email,
+            $projectKey
+        );
 
+        // Store project details
         $this->injectJsonToFile(storage_path('cms/project.json'), [
             'project' => $projectKey
         ]);
+
+        // Add gateway as a composer repo
+        $composer->addOctoberRepository($this->getComposerUrl());
     }
 
     /**
