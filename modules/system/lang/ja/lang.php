@@ -59,8 +59,6 @@
     'detach' => 'プロジェクト切り離し',
     'none' => '無し',
     'id' => [
-      'label' => 'プロジェクトID',
-      'help' => 'プロジェクトIDの見つけ方',
       'missing' => '使用するプロジェクトのIDを指定してください。',
     ],
     'detach_confirm' => 'このプロジェクトを切り離しますか？',
@@ -119,16 +117,12 @@
     'return' => 'テンプレートリストに戻る',
   ],
   'install' => [
-    'project_label' => 'プロジェクト追加',
     'plugin_label' => 'プラグインインストール',
     'missing_plugin_name' => 'インストールするプラグインの名前を指定してください。',
     'install_completing' => 'インストールを仕上げ中',
     'install_success' => 'プラグインをインストールしました。',
   ],
   'updates' => [
-    'title' => 'アップデート管理',
-    'name' => 'ソフトウェアアップデート',
-    'retry_label' => '再実行',
     'plugin_name' => '名前',
     'plugin_description' => '説明',
     'plugin_version' => 'バージョン',
@@ -137,9 +131,7 @@
     'core_build' => 'ビルド :build',
     'core_build_help' => '新しいビルドが存在します。',
     'core_downloading' => 'アプリケーションファイルのダウンロード中',
-    'core_extracting' => 'アプリケーションファイルの展開中',
     'plugin_downloading' => 'プラグインダウンロード中： :name',
-    'plugin_extracting' => 'プラグイン展開中： :name',
     'plugin_version_none' => '新プラグイン',
     'theme_new_install' => '新しいテーマのインストール',
     'theme_downloading' => 'テーマ \':name\' をダウンロードしています',
@@ -148,7 +140,6 @@
     'update_completing' => 'アップデート仕上げ中',
     'update_loading' => 'アップデートロード中…',
     'update_success' => 'アップデートしました。',
-    'update_failed_label' => 'アップデート失敗',
     'force_label' => '強制アップデート',
     'found' => [
       'label' => '新しいアップデートあり',

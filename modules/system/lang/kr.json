@@ -12,5 +12,21 @@
     "Unable to find the specified settings.": "선택하신 설정을 사용할 수 없습니다.",
     "The settings page is missing a Model definition.": "모델의 정의를 발견할 수 없습니다.",
     ":name settings updated": ":name 을 설정했습니다.",
-    "Return to System Settings": "시스템 설정으로 돌아가기"
+    "Return to System Settings": "시스템 설정으로 돌아가기",
+    "There is no documentation provided.": "참고문서가 제공되지 않습니다.",
+    "There are no upgrade instructions provided.": "업그레이드 지침이 제공되지 않습니다.",
+    "There is no licence provided.": "라이센스 정보가 제공되지 않습니다.",
+    "Documentation": "참고문서",
+    "Upgrade Guide": "업그레이드 지침",
+    "Licence": "라이센스",
+    "Attach to Project": "프로젝트 추가",
+    "Project ID": "프로젝트ID",
+    "How to find your Project ID": "프로젝트ID 찾는방법",
+    "Manage Updates": "업데이트 관리",
+    "Software Update": "SW 업데이트",
+    "Return to System Updates": "업데이트로 돌아가기",
+    "Try Again": "재실행",
+    "Unpacking application files": "애플리케이션 파일 압축해제는중",
+    "Update Failed": "업데이트 실패",
+    "Unpacking plugin: :name": "플러그인 압축해제는중: :name"
 }

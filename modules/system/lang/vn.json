@@ -12,5 +12,21 @@
     "Unable to find the specified settings.": "Không tìm thấy các cấu hình được chỉ định.",
     "The settings page is missing a Model definition.": "Không có Model cho trang cài đặt.",
     ":name settings updated": "Cấu hình cho :name thành công",
-    "Return to System Settings": "Trở lại trang cài đặt"
+    "Return to System Settings": "Trở lại trang cài đặt",
+    "There is no documentation provided.": "Không có tài liệu được cung cấp.",
+    "There are no upgrade instructions provided.": "Không có hướng dẫn nâng cấp nào được cung cấp.",
+    "There is no licence provided.": "Không có giấy phép nào được cung cấp.",
+    "Documentation": "Tài liệu hướng dẫn",
+    "Upgrade Guide": "Hướng dẫn nâng cấp",
+    "Licence": "Giấy phép",
+    "Attach to Project": "Chèn Project",
+    "Project ID": "ID Dự án",
+    "How to find your Project ID": "Cách để xem ID Dự án",
+    "Manage Updates": "Quản lý các cập nhật",
+    "Software Update": "Cập nhật hệ thống",
+    "Return to System Updates": "Quay lại trang cập nhật hệ thống",
+    "Try Again": "Thử lại",
+    "Unpacking application files": "Đang giải nén",
+    "Update Failed": "Lỗi cập nhật",
+    "Unpacking plugin: :name": "Đang giải nén plugin: :name"
 }

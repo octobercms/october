@@ -23,5 +23,22 @@
     "The settings page is missing a Model definition.": "A beállítások oldal egy modell definíciót hiányol.",
     ":name settings updated": "A(z) :name beállításainak frissítése sikerült.",
     "Return to System Settings": "Vissza a beállításokhoz",
-    "Find a Setting...": "Beállítás keresése..."
+    "Find a Setting...": "Beállítás keresése...",
+    "Marketplace": "Piactér",
+    "There is no documentation provided.": "Nincs megadva leírás.",
+    "There are no upgrade instructions provided.": "Nincs megadva instrukció.",
+    "There is no licence provided.": "Nincs megadva licenc.",
+    "Documentation": "Dokumentáció",
+    "Upgrade Guide": "Frissítési útmutató",
+    "Licence": "Felhasználási feltételek",
+    "Attach to Project": "Csatolás",
+    "Project ID": "Projekt azonosító",
+    "How to find your Project ID": "Súgó (angol nyelvű)",
+    "Manage Updates": "Gépház",
+    "Software Update": "Honlap állapota",
+    "Return to System Updates": "Vissza a gépházhoz",
+    "Try Again": "Újra próbál",
+    "Unpacking application files": "Rendszer kicsomagolása...",
+    "Update Failed": "A frissítés nem sikerült.",
+    "Unpacking plugin: :name": "Bővítmény kicsomagolása: :name"
 }

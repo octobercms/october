@@ -20,5 +20,14 @@
     "Settings": "Setari",
     "The settings page is missing a Model definition.": "Paginii de setari ii lipseste o definitie de Model.",
     ":name settings updated": "Setarile pentru :name au fost actualizate cu succes.",
-    "Return to System Settings": "Intoarcere la setarile sistemului."
+    "Return to System Settings": "Intoarcere la setarile sistemului.",
+    "Attach to Project": "Atasare la Proiect",
+    "Project ID": "ID Proiect",
+    "How to find your Project ID": "Cum sa gasiti ID-ul Proiectului",
+    "Manage Updates": "Gestioneaza Actualizari",
+    "Software Update": "Actualizare Software",
+    "Try Again": "Incercati din nou",
+    "Unpacking application files": "Se dezarhiveaza fisierele aplicatiei",
+    "Update Failed": "Actualizarea a esuat",
+    "Unpacking plugin: :name": "Se dezarhiveaza plugin-ul: :name"
 }

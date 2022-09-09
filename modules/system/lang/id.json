@@ -21,5 +21,14 @@
     "Unable to find the specified settings.": "Tidak dapat menemukan pengaturan yang ditentukan.",
     "The settings page is missing a Model definition.": "Laman pengaturan kehilangan definisi Model.",
     ":name settings updated": "Pengaturan untuk :name berhasil diperbarui.",
-    "Return to System Settings": "Kembali ke pengaturan sistem"
+    "Return to System Settings": "Kembali ke pengaturan sistem",
+    "Attach to Project": "Kaitkan Ke Proyek",
+    "Project ID": "ID Proyek",
+    "How to find your Project ID": "Bagaimana menemukan ID Proyek Anda",
+    "Manage Updates": "Kelola Pembaruan",
+    "Software Update": "Pembaruan perangkat lunak",
+    "Try Again": "Coba lagi",
+    "Unpacking application files": "Membongkar berkas aplikasi",
+    "Update Failed": "Pembaruan gagal",
+    "Unpacking plugin: :name": "Membongkar pengaya: :name"
 }

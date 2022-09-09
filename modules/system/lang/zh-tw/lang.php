@@ -80,8 +80,6 @@
     'detach' => '刪除產品',
     'none' => '沒有',
     'id' => [
-      'label' => '產品ID',
-      'help' => '如何找到您的產品ID',
       'missing' => '請確認您想使用的產品ID.',
     ],
     'detach_confirm' => '您確定要刪除這個產品嗎?',
@@ -143,7 +141,6 @@
     'return' => '返回模板列表',
   ],
   'install' => [
-    'project_label' => '加入產品',
     'plugin_label' => '安裝外掛',
     'theme_label' => '安裝主題',
     'missing_plugin_name' => '請輸入要安裝的外掛名稱。',
@@ -152,9 +149,6 @@
     'install_success' => '外掛安裝成功。',
   ],
   'updates' => [
-    'title' => '管理更新',
-    'name' => '軟件更新',
-    'retry_label' => '重試',
     'plugin_name' => '名字',
     'plugin_description' => '描述',
     'plugin_version' => '版本',
@@ -163,10 +157,8 @@
     'core_build' => '版本 :build',
     'core_build_help' => '新的版本可用.',
     'core_downloading' => '下載應用程式',
-    'core_extracting' => '解壓縮應用程式',
     'themes' => '主題',
     'plugin_downloading' => '下載外掛: :name',
-    'plugin_extracting' => '解壓縮外掛: :name',
     'plugin_version_none' => '新外掛',
     'theme_new_install' => '新主題安裝.',
     'theme_downloading' => '下載主題: :name',
@@ -175,7 +167,6 @@
     'update_completing' => '完成更新過程',
     'update_loading' => '加載可用更新...',
     'update_success' => '更新完成.',
-    'update_failed_label' => '更新失敗',
     'force_label' => '強制更新',
     'found' => [
       'label' => '發現新的更新!',

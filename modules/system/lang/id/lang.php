@@ -59,8 +59,6 @@
     'detach' => 'Lepas Proyek',
     'none' => 'Tidak ada',
     'id' => [
-      'label' => 'ID Proyek',
-      'help' => 'Bagaimana menemukan ID Proyek Anda',
       'missing' => 'Silakan tentukan ID Proyek yang akan digunakan.',
     ],
     'detach_confirm' => 'Anda yakin akan melepaskan proyek ini?',
@@ -122,16 +120,12 @@
     'return' => 'Kembali ke senarai acuan',
   ],
   'install' => [
-    'project_label' => 'Kaitkan Ke Proyek',
     'plugin_label' => 'Pasang Pengaya',
     'missing_plugin_name' => 'Silakan tentukan nama Pengaya yang akan dipasang.',
     'install_completing' => 'Menyelesaikan proses pemasangan',
     'install_success' => 'Pengaya berhasil dipasang.',
   ],
   'updates' => [
-    'title' => 'Kelola Pembaruan',
-    'name' => 'Pembaruan perangkat lunak',
-    'retry_label' => 'Coba lagi',
     'plugin_name' => 'Nama',
     'plugin_description' => 'Jabaran',
     'plugin_version' => 'Versi',
@@ -140,9 +134,7 @@
     'core_build' => 'Binaan :build',
     'core_build_help' => 'Tersedia binaan terbaru.',
     'core_downloading' => 'Mengunduh berkas-berkas aplikasi',
-    'core_extracting' => 'Membongkar berkas aplikasi',
     'plugin_downloading' => 'Mengunduh pengaya: :name',
-    'plugin_extracting' => 'Membongkar pengaya: :name',
     'plugin_version_none' => 'Pengaya baru',
     'theme_new_install' => 'Pemasangan tema baru.',
     'theme_downloading' => 'Mengunduh tema: :name',
@@ -151,7 +143,6 @@
     'update_completing' => 'Menyelesaikan proses pembaruan',
     'update_loading' => 'Memuat pembaruan yang tersedia...',
     'update_success' => 'Proses pembaruan berhasil dilaksanakan.',
-    'update_failed_label' => 'Pembaruan gagal',
     'force_label' => 'Paksa pembaruan',
     'found' => [
       'label' => 'Terdapat pembaruan baru!',

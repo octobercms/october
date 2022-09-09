@@ -103,7 +103,7 @@
     "First name": "First name",
     "Last name": "Last name",
     "Email": "Email",
-    "Field is translated per locale": "Field is translated per locale",
-    "Field is translated per site": "Field is translated per site",
+    "Translated for locale: :value": "Translated for locale: :value",
+    "Translated for site: :value": "Translated for site: :value",
     "A custom schema is used for this file format.": "A custom schema is used for this file format."
 }

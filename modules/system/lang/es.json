@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "No se encuentra la configuración especificada.",
     "The settings page is missing a Model definition.": "La página de configuración no encuentra una definición del Modelo.",
     ":name settings updated": "Los ajustes para :name se han actualizado correctamente.",
-    "Return to System Settings": "Volver a la configuración del sistema"
+    "Return to System Settings": "Volver a la configuración del sistema",
+    "There is no documentation provided.": "No hay documentación proporcionada.",
+    "There are no upgrade instructions provided.": "No hay instrucciones de actualización proporcionadas.",
+    "There is no licence provided.": "No hay licencia proporcionada.",
+    "Documentation": "Documentación",
+    "Upgrade Guide": "Guía de actualización",
+    "Licence": "Licencia",
+    "Attach to Project": "Adjuntar al proyecto",
+    "Project ID": "ID del Proyecto",
+    "How to find your Project ID": "Como encontrar el ID de tu proyecto",
+    "Manage Updates": "Administrar actualizaciones",
+    "Software Update": "Actualizaciones de software",
+    "Return to System Updates": "Volver a actualizaciones del sistema",
+    "Try Again": "Intentar nuevamente",
+    "Unpacking application files": "Descomprimiendo archivos de la aplicación",
+    "Update Failed": "Actualización falló",
+    "Unpacking plugin: :name": "Descomprimiendo plugin: :name"
 }

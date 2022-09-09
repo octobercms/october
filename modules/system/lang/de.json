@@ -21,5 +21,14 @@
     "Unable to find the specified settings.": "Die gesuchten Einstellungen können nicht gefunden werden.",
     "The settings page is missing a Model definition.": "Der Einstellungsseite fehlt eine Model-Definition.",
     ":name settings updated": "Einstellung für :name wurde erfolgreich aktualisiert.",
-    "Return to System Settings": "Zurück zu den Einstellungen"
+    "Return to System Settings": "Zurück zu den Einstellungen",
+    "Attach to Project": "Mit Projekt verbinden",
+    "Project ID": "Projekt-ID",
+    "How to find your Project ID": "Wie Sie Ihre Projekt-ID finden",
+    "Manage Updates": "Manage Updates",
+    "Software Update": "Software-Aktualisierung",
+    "Try Again": "Erneut versuchen",
+    "Unpacking application files": "Applikationsdaten werden entpackt",
+    "Update Failed": "Aktualisierungsvorgang fehlgeschlagen",
+    "Unpacking plugin: :name": "Entpacke Plugin: :name"
 }

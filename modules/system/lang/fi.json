@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Määriteltyjä asetuksia ei löytynyt.",
     "The settings page is missing a Model definition.": "The settings page is missing a Model definition.",
     ":name settings updated": ":name settings updated",
-    "Return to System Settings": "Palaa järjestelmän asetuksiin"
+    "Return to System Settings": "Palaa järjestelmän asetuksiin",
+    "There is no documentation provided.": "Dokumentaatiota ei löydy.",
+    "There are no upgrade instructions provided.": "Päivitysohjeita ei lödy.",
+    "There is no licence provided.": "Lisenssiä ei löydy.",
+    "Documentation": "Dokumentaatio",
+    "Upgrade Guide": "Päivitysopas",
+    "Licence": "Lisenssi",
+    "Attach to Project": "Kiinnitä projektiin",
+    "Project ID": "Projektin ID",
+    "How to find your Project ID": "Mistä löydän projektin ID:n",
+    "Manage Updates": "Hallinnoi päivityksiä",
+    "Software Update": "Ohjelmistopäivitys",
+    "Return to System Updates": "Palaa järjestelmäpäivityksiin",
+    "Try Again": "Yritä uudelleen",
+    "Unpacking application files": "Puretaan ohjelmiston tiedostoja",
+    "Update Failed": "Päivitys epäonnistui",
+    "Unpacking plugin: :name": "Puretaan lisäosaa: :name"
 }

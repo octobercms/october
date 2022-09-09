@@ -20,5 +20,21 @@
     "Settings": "การตั้งค่า",
     "Unable to find the specified settings.": "ไม่พบค่าที่กำหนด",
     ":name settings updated": ":name อัพเดทการตั้งค่าแล้ว",
-    "Return to System Settings": "กลับสู่หน้าการตั้งค่าระบบ"
+    "Return to System Settings": "กลับสู่หน้าการตั้งค่าระบบ",
+    "There is no documentation provided.": "ไม่มีเอกสารการใช้โปรแกรมมาด้วย",
+    "There are no upgrade instructions provided.": "ไม่มีขั้นตอนการอัพเกรดมาด้วย",
+    "There is no licence provided.": "ไม่มีใบอนุญาตมาด้วย",
+    "Documentation": "เอกสารการใช้โปรแกรม",
+    "Upgrade Guide": "คู่มือการอัพเกรด",
+    "Licence": "ใบอนุญาต",
+    "Attach to Project": "ผูกกับโครงการ",
+    "Project ID": "Project ID",
+    "How to find your Project ID": "วิธีหา Project ID ของคุณ",
+    "Manage Updates": "จัดการการอัพเดท",
+    "Software Update": "การอัพเดทซอฟต์แวร์",
+    "Return to System Updates": "กลับสู่หน้าการอัพเดทระบบ",
+    "Try Again": "ลองอีกครั้ง",
+    "Unpacking application files": "กำลังเปิดขยายกล่องไฟล์แอพพลิเคชั่น",
+    "Update Failed": "อัพเดทไม่สำเร็จ",
+    "Unpacking plugin: :name": "กำลังเปิดขยายกล่องปลั๊กอิน: :name"
 }

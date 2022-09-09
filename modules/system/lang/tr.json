@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Belirtilen ayarlar bulunamadı.",
     "The settings page is missing a Model definition.": "Ayarlar sayfasında Model tanımı eksik.",
     ":name settings updated": ":name için ayarlar güncellendi.",
-    "Return to System Settings": "Sistem ayarları sayfasına dön"
+    "Return to System Settings": "Sistem ayarları sayfasına dön",
+    "There is no documentation provided.": "Herhangi bir kılavuz bulunamadı.",
+    "There are no upgrade instructions provided.": "Yükseltme talimatı bulunamadı.",
+    "There is no licence provided.": "Lisans bilgisi yok.",
+    "Documentation": "Kılavuz",
+    "Upgrade Guide": "Yükseltme Kılavuzu",
+    "Licence": "Lisans",
+    "Attach to Project": "Projeye bağla",
+    "Project ID": "Proje ID",
+    "How to find your Project ID": "Proje ID'sini nasıl bulurum?",
+    "Manage Updates": "Güncellemeleri Yönet",
+    "Software Update": "Sistemi Güncelle",
+    "Return to System Updates": "Sistem güncellemelerine geri dön",
+    "Try Again": "Tekrar dene",
+    "Unpacking application files": "Uygulama dosyaları çıkarılıyor",
+    "Update Failed": "Güncelleme hatası",
+    "Unpacking plugin: :name": "Modül dosyaları çıkarılıyor: :name"
 }

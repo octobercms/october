@@ -21,5 +21,19 @@
     "Unable to find the specified settings.": "Det går inte att hitta de angivna inställningarna.",
     "The settings page is missing a Model definition.": "Inställningssidan saknar en modell-definition",
     ":name settings updated": "Inställningar för :name har uppdaterats",
-    "Return to System Settings": "Återgå till systeminställningar"
+    "Return to System Settings": "Återgå till systeminställningar",
+    "There is no documentation provided.": "Det finns ingen dokumentation tillgänglig.",
+    "There are no upgrade instructions provided.": "Det finns inga uppgraderingsinstruktioner tillgängliga.",
+    "Documentation": "Dokumentation",
+    "Upgrade Guide": "Uppgraderingsguide",
+    "Attach to Project": "Länka till Projekt",
+    "Project ID": "Projekt-ID",
+    "How to find your Project ID": "Hur du hittar ditt Projekt-ID",
+    "Manage Updates": "Hantera uppdateringar",
+    "Software Update": "Uppdatera systemet",
+    "Return to System Updates": "Återgå till systemuppdateringar",
+    "Try Again": "Försök igen",
+    "Unpacking application files": "Packar upp applikationsfiler",
+    "Update Failed": "Updateringen misslyckades",
+    "Unpacking plugin: :name": "Packar upp tillägg: :name"
 }

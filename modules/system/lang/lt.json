@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Nepavyko rasti nurodytų nustatymų.",
     "The settings page is missing a Model definition.": "Nustatymų puslapiui trūksta Modelio aprašo.",
     ":name settings updated": ":name nustatymai atnaujinti",
-    "Return to System Settings": "Grįžti į sistemos nustatymus"
+    "Return to System Settings": "Grįžti į sistemos nustatymus",
+    "There is no documentation provided.": "Dokumentacija nepateikta.",
+    "There are no upgrade instructions provided.": "Papildymo instrukcijos nepateiktos.",
+    "There is no licence provided.": "Licencija nepateikta.",
+    "Documentation": "Dokumentacija",
+    "Upgrade Guide": "Papildymo Gidas",
+    "Licence": "Licencija",
+    "Attach to Project": "Prisegti prie Projekto",
+    "Project ID": "Projekto ID",
+    "How to find your Project ID": "Kaip rasti Projekto ID",
+    "Manage Updates": "Tvarkyti Naujinimus",
+    "Software Update": "Programos naujinimas",
+    "Return to System Updates": "Grįžti į sistmos naujinimą",
+    "Try Again": "Bandykite dar kartą",
+    "Unpacking application files": "Išskleidžiami programos failai",
+    "Update Failed": "Atnaujinimas nepavyko",
+    "Unpacking plugin: :name": "Išpakuojame įskiepį: :name"
 }

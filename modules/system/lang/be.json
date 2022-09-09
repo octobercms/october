@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Не атрымалася знайці налады",
     "The settings page is missing a Model definition.": "На старонцы налад не вызначана мадэль",
     ":name settings updated": ":name налады абноўленыя",
-    "Return to System Settings": "Вярнуцца да сістэмных налад"
+    "Return to System Settings": "Вярнуцца да сістэмных налад",
+    "There is no documentation provided.": "Няма дакументацыі",
+    "There are no upgrade instructions provided.": "Няма кіраўніцтва па абнаўленні",
+    "There is no licence provided.": "Няма тэксту ліцэнзіі",
+    "Documentation": "Дакументацыя",
+    "Upgrade Guide": "Кіраўніцтва па абнаўленні",
+    "Licence": "Ліцэнзія",
+    "Attach to Project": "Далучыць да праекту",
+    "Project ID": "ID праекту",
+    "How to find your Project ID": "Як адшукаць ID праекту",
+    "Manage Updates": "Кіраванне абнаўленнямі",
+    "Software Update": "Абнаўленне праграмы",
+    "Return to System Updates": "Вярнуцца да абнаўленняў сістэмы",
+    "Try Again": "Паспрабаваць зноў",
+    "Unpacking application files": "Распакоўка файлаў прыкладання",
+    "Update Failed": "Не атрымалася абнавіць",
+    "Unpacking plugin: :name": "Распакоўка плагіну: \":name\""
 }

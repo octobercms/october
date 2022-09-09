@@ -21,5 +21,19 @@
     "Unable to find the specified settings.": "De ønskede indstillinger kunne ikke findes.",
     "The settings page is missing a Model definition.": "Indstillingssiden mangler en Model definition.",
     ":name settings updated": ":name indstillinger opdateret",
-    "Return to System Settings": "Tilbage til systemindstillinger"
+    "Return to System Settings": "Tilbage til systemindstillinger",
+    "There is no documentation provided.": "Der er ingen dokumentation tilgængelig.",
+    "There are no upgrade instructions provided.": "Der er ikke nogle opgraderingsinstruktioner.",
+    "Documentation": "Dokumentation",
+    "Upgrade Guide": "Opgraderingsguide",
+    "Attach to Project": "Tilknyt til Projekt",
+    "Project ID": "Projekt ID",
+    "How to find your Project ID": "Sådan findes dit projekt ID",
+    "Manage Updates": "Administrer Opdateringer",
+    "Software Update": "Softwareopdatering",
+    "Return to System Updates": "Tilbage til systemopdateringer",
+    "Try Again": "Prøv igen",
+    "Unpacking application files": "Pakker applicationsfiler ud",
+    "Update Failed": "Opdatering fejlede",
+    "Unpacking plugin: :name": "Udpakker plugin: :name"
 }

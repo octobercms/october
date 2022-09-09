@@ -26,5 +26,22 @@
     "Find a Setting...": "Find a Setting...",
     "Disable mail branding CSS": "Disable mail branding CSS",
     "Manage Sites": "Manage Sites",
-    "Manage the websites available for this application.": "Manage the websites available for this application."
+    "Manage the websites available for this application.": "Manage the websites available for this application.",
+    "Marketplace": "Marketplace",
+    "There is no documentation provided.": "There is no documentation provided.",
+    "There are no upgrade instructions provided.": "There are no upgrade instructions provided.",
+    "There is no licence provided.": "There is no licence provided.",
+    "Documentation": "Documentation",
+    "Upgrade Guide": "Upgrade Guide",
+    "Licence": "Licence",
+    "Attach to Project": "Attach to Project",
+    "Project ID": "Project ID",
+    "How to find your Project ID": "How to find your Project ID",
+    "Manage Updates": "Manage Updates",
+    "Software Update": "Software Update",
+    "Return to System Updates": "Return to System Updates",
+    "Try Again": "Try Again",
+    "Unpacking application files": "Unpacking application files",
+    "Update Failed": "Update Failed",
+    "Unpacking plugin: :name": "Unpacking plugin: :name"
 }

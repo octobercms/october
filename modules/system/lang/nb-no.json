@@ -12,5 +12,19 @@
     "Unable to find the specified settings.": "Fant ikke spesifiserte innstilling.",
     "The settings page is missing a Model definition.": "Innstillingssiden mangler en modell-definisjon.",
     ":name settings updated": "Innstillingene for :name har blitt lagret.",
-    "Return to System Settings": "Tilbake til systeminnstillinger"
+    "Return to System Settings": "Tilbake til systeminnstillinger",
+    "There is no documentation provided.": "Ingen dokumentasjon å vise.",
+    "There are no upgrade instructions provided.": "Det er ingen instruksjoner å vise.",
+    "Documentation": "Dokumentasjon",
+    "Upgrade Guide": "Oppgraderingsguide",
+    "Attach to Project": "Tilkoble prosjekt",
+    "Project ID": "Prosjekt-ID",
+    "How to find your Project ID": "Hvordan finne din prosjekt-ID",
+    "Manage Updates": "Administrer oppdateringer",
+    "Software Update": "Programvareoppdateringer",
+    "Return to System Updates": "Tilbake til oppdateringer",
+    "Try Again": "Prøv igjen",
+    "Unpacking application files": "Pakker ut applikasjonsfiler",
+    "Update Failed": "Oppdateringen mislyktes",
+    "Unpacking plugin: :name": "Pakker ut plugin: :name"
 }

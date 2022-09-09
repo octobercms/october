@@ -23,5 +23,22 @@
     "The settings page is missing a Model definition.": "На странице настроек отсутствует определение модели",
     ":name settings updated": "Настройки для :name успешно обновлены.",
     "Return to System Settings": "Вернуться к системным настройкам",
-    "Find a Setting...": "Найти настройки..."
+    "Find a Setting...": "Найти настройки...",
+    "Marketplace": "Маркетплейс",
+    "There is no documentation provided.": "Документация не предоставлена.",
+    "There are no upgrade instructions provided.": "Инструкция по обновлению не предоставлена.",
+    "There is no licence provided.": "Лицензия не предоставляется.",
+    "Documentation": "Документация",
+    "Upgrade Guide": "Инструкция по обновлению",
+    "Licence": "Лицензия",
+    "Attach to Project": "Присоединить к проекту",
+    "Project ID": "Идентификатор проекта",
+    "How to find your Project ID": "Как найти идентификатор вашего проекта",
+    "Manage Updates": "Менеджер обновлений",
+    "Software Update": "Обновление ПО",
+    "Return to System Updates": "Вернуться к системе обновлений",
+    "Try Again": "Попробовать еще раз",
+    "Unpacking application files": "Распаковка файлов приложения",
+    "Update Failed": "Не удалось выполнить обновление",
+    "Unpacking plugin: :name": "Распаковка плагина: :name"
 }

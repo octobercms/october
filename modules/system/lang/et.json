@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Soovitud seadeid ei leitud.",
     "The settings page is missing a Model definition.": "Seadete lehel puudub modeli seos.",
     ":name settings updated": ":name seaded on uuendatud",
-    "Return to System Settings": "Tagasi süsteemi seadete juurde"
+    "Return to System Settings": "Tagasi süsteemi seadete juurde",
+    "There is no documentation provided.": "Dokumentatsiooni pole lisatud.",
+    "There are no upgrade instructions provided.": "Uuendamise juhendit ei ole lisatud.",
+    "There is no licence provided.": "Litsentsi pole lisatud.",
+    "Documentation": "Dokumentatsioon",
+    "Upgrade Guide": "Uuendamise juhend",
+    "Licence": "Litsents",
+    "Attach to Project": "Lisa projektile",
+    "Project ID": "Projekti ID",
+    "How to find your Project ID": "Kuidas leida projekti ID-d",
+    "Manage Updates": "Halda uuendusi",
+    "Software Update": "Tarkvara uuendus",
+    "Return to System Updates": "Tagasi süsteemi uuenduste juurde",
+    "Try Again": "Proovi uuesti",
+    "Unpacking application files": "Pakin lahti süsteemifaile",
+    "Update Failed": "Uendamine ebaõnnestus",
+    "Unpacking plugin: :name": "Plugina failide lahtipakkimine: :name"
 }

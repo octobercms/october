@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "تنظیمات مورد نظر یافت نشد.",
     "The settings page is missing a Model definition.": "صفحه تنظیمات شامل یک مدل تعریف نشده می باشد.",
     ":name settings updated": "تنظیمات برای :name با موفقیت تغییر یافت.",
-    "Return to System Settings": "بازگشت به تنظیمات سیستم"
+    "Return to System Settings": "بازگشت به تنظیمات سیستم",
+    "There is no documentation provided.": "مستنداتی در دسترس نمی باشد",
+    "There are no upgrade instructions provided.": "راهنمایی جهت به روز رسانی در دسترس نیست.",
+    "There is no licence provided.": "هیچ گواهی نامه ای موجود نیست.",
+    "Documentation": "مستندات",
+    "Upgrade Guide": "راهنمای به روز رسانی",
+    "Licence": "گواهی نامه",
+    "Attach to Project": "ضمیمه کردن به نرم افزار",
+    "Project ID": "مشخصه ی پروژه",
+    "How to find your Project ID": "مشخصه ی پروژه ی خود را چگونه بیابید",
+    "Manage Updates": "مدیریت بروز رسانی",
+    "Software Update": "بروز رسانی نرم افزار",
+    "Return to System Updates": "بازگشت به صفحه به روز رسانی ها",
+    "Try Again": "تلاش مجدد",
+    "Unpacking application files": "گشودن فایل های نرم افزار",
+    "Update Failed": "بروز رسانی موفق نبود",
+    "Unpacking plugin: :name": "گشودن افزونه: :name"
 }

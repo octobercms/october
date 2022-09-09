@@ -21,5 +21,19 @@
     "Unable to find the specified settings.": "Неуспешно намиране на конкретните Настройки.",
     "The settings page is missing a Model definition.": "Страницата за Настройки липсва дефиниция на модел.",
     ":name settings updated": "Настройките за :name бяха успешно променени.",
-    "Return to System Settings": "Връщане към системните настройки."
+    "Return to System Settings": "Връщане към системните настройки.",
+    "There is no documentation provided.": "Не е предоставена документация.",
+    "There are no upgrade instructions provided.": "Все още няма предоставени инструкции за ъпгрейд.",
+    "Documentation": "Документация",
+    "Upgrade Guide": "Ръководство За Ъпгрейд",
+    "Attach to Project": "Закачете за Проект",
+    "Project ID": "Проект ID",
+    "How to find your Project ID": "Как да намерите своя Проект ID",
+    "Manage Updates": "Управление Актуализации",
+    "Software Update": "Софтуерни Актуализации",
+    "Return to System Updates": "Назад към система за актуализация",
+    "Try Again": "Опитай отново",
+    "Unpacking application files": "Разопаковане на файловете на приложението",
+    "Update Failed": "Актуализация се провали",
+    "Unpacking plugin: :name": "Разопаковане на Добавка: :name"
 }
