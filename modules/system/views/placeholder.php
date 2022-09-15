@@ -56,7 +56,7 @@
             </div>
 
             <div class="message" style="padding: 10px;">
-                php artisan october:build
+                php artisan october:install
             </div>
         </div>
     </body>
