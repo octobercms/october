@@ -1,12 +1,9 @@
 <?php namespace System\Traits;
 
-use App;
 use Lang;
 use Exception;
 use System\Classes\UpdateManager;
 use October\Rain\Process\Composer as ComposerProcess;
-use Illuminate\Support\Env;
-use Dotenv\Dotenv;
 
 /**
  * SetupBuilder is shared logic for the commands
@@ -161,44 +158,6 @@ trait SetupBuilder
         else {
             $this->line("* php artisan october:build");
         }
-    }
-
-    /**
-     * checkEnvWritable checks to see if the app can write to the .env file
-     */
-    protected function checkEnvWritable()
-    {
-        $path = base_path('.env');
-        $gitignore = base_path('.gitignore');
-
-        // Copy environment variables and reload
-        if (!file_exists($path)) {
-            copy(base_path('.env.example'), $path);
-            $this->refreshEnvVars();
-        }
-
-        // Add modules to .gitignore
-        if (file_exists($gitignore) && is_writable($gitignore)) {
-            $this->addModulesToGitignore($gitignore);
-        }
-
-        return is_writable($path);
-    }
-
-    /**
-     * getComposerUrl returns the endpoint for composer
-     */
-    protected function getComposerUrl(bool $withProtocol = true): string
-    {
-        return UpdateManager::instance()->getComposerUrl($withProtocol);
-    }
-
-    /**
-     * refreshEnvVars will reload defined environment variables
-     */
-    protected function refreshEnvVars()
-    {
-        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
     /**

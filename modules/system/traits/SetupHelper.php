@@ -1,8 +1,12 @@
 <?php namespace System\Traits;
 
+use App;
 use Str;
 use Config;
+use System\Classes\UpdateManager;
 use October\Rain\Composer\Manager as ComposerManager;
+use Illuminate\Support\Env;
+use Dotenv\Dotenv;
 use Exception;
 use PDOException;
 use PDO;
@@ -241,22 +245,6 @@ trait SetupHelper
     }
 
     /**
-     * getRandomKey generates a random application key
-     */
-    protected function getRandomKey(): string
-    {
-        return Str::random($this->getKeyLength(Config::get('app.cipher')));
-    }
-
-    /**
-     * getKeyLength returns the supported length of a key for a cipher
-     */
-    protected function getKeyLength(string $cipher): int
-    {
-        return $cipher === 'AES-128-CBC' ? 16 : 32;
-    }
-
-    /**
      * injectJsonToFile merges a JSON array in to an existing JSON file.
      * Merging is useful for preserving array values.
      */
@@ -349,5 +337,63 @@ trait SetupHelper
             'zh-cn' => [$this->getLang('system::lang.locale.zh-cn'), 'Chinese'],
             'zh-tw' => [$this->getLang('system::lang.locale.zh-tw'), 'Chinese'],
         ];
+    }
+
+    //
+    // Framework Booted
+    //
+
+    /**
+     * getRandomKey generates a random application key
+     */
+    protected function getRandomKey(): string
+    {
+        return Str::random($this->getKeyLength(Config::get('app.cipher')));
+    }
+
+    /**
+     * getKeyLength returns the supported length of a key for a cipher
+     */
+    protected function getKeyLength(string $cipher): int
+    {
+        return $cipher === 'AES-128-CBC' ? 16 : 32;
+    }
+
+    /**
+     * checkEnvWritable checks to see if the app can write to the .env file
+     */
+    protected function checkEnvWritable()
+    {
+        $path = base_path('.env');
+        $gitignore = base_path('.gitignore');
+
+        // Copy environment variables and reload
+        if (!file_exists($path)) {
+            copy(base_path('.env.example'), $path);
+            $this->refreshEnvVars();
+        }
+
+        // Add modules to .gitignore
+        if (file_exists($gitignore) && is_writable($gitignore)) {
+            $this->addModulesToGitignore($gitignore);
+        }
+
+        return is_writable($path);
+    }
+
+    /**
+     * getComposerUrl returns the endpoint for composer
+     */
+    protected function getComposerUrl(bool $withProtocol = true): string
+    {
+        return UpdateManager::instance()->getComposerUrl($withProtocol);
+    }
+
+    /**
+     * refreshEnvVars will reload defined environment variables
+     */
+    protected function refreshEnvVars()
+    {
+        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 }
