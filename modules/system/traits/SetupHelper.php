@@ -299,4 +299,55 @@ trait SetupHelper
 
         return $array1;
     }
+
+    /**
+     * getAvailableLocales returns available system locales
+     */
+    public function getAvailableLocales()
+    {
+        return [
+            'ar'    => [$this->getLang('system::lang.locale.ar'),    'Arabic'],
+            'be'    => [$this->getLang('system::lang.locale.be'),    'Belarusian'],
+            'bg'    => [$this->getLang('system::lang.locale.bg'),    'Bulgarian'],
+            'ca'    => [$this->getLang('system::lang.locale.ca'),    'Catalan'],
+            'cs'    => [$this->getLang('system::lang.locale.cs'),    'Czech'],
+            'da'    => [$this->getLang('system::lang.locale.da'),    'Danish'],
+            'de'    => [$this->getLang('system::lang.locale.de'),    'German'],
+            'el'    => [$this->getLang('system::lang.locale.el'),    'Greek'],
+            'en'    => [$this->getLang('system::lang.locale.en'),    'English'],
+            'en-au' => [$this->getLang('system::lang.locale.en-au'), 'English'],
+            'en-ca' => [$this->getLang('system::lang.locale.en-ca'), 'English'],
+            'en-gb' => [$this->getLang('system::lang.locale.en-gb'), 'English'],
+            'es'    => [$this->getLang('system::lang.locale.es'),    'Spanish'],
+            'es-ar' => [$this->getLang('system::lang.locale.es-ar'), 'Spanish'],
+            'et'    => [$this->getLang('system::lang.locale.et'),    'Estonian'],
+            'fa'    => [$this->getLang('system::lang.locale.fa'),    'Persian'],
+            'fi'    => [$this->getLang('system::lang.locale.fi'),    'Finnish'],
+            'fr'    => [$this->getLang('system::lang.locale.fr'),    'French'],
+            'fr-ca' => [$this->getLang('system::lang.locale.fr-ca'), 'French'],
+            'hu'    => [$this->getLang('system::lang.locale.hu'),    'Hungarian'],
+            'id'    => [$this->getLang('system::lang.locale.id'),    'Indonesian'],
+            'it'    => [$this->getLang('system::lang.locale.it'),    'Italian'],
+            'ja'    => [$this->getLang('system::lang.locale.ja'),    'Japanese'],
+            'kr'    => [$this->getLang('system::lang.locale.kr'),    'Korean'],
+            'lt'    => [$this->getLang('system::lang.locale.lt'),    'Lithuanian'],
+            'lv'    => [$this->getLang('system::lang.locale.lv'),    'Latvian'],
+            'nb-no' => [$this->getLang('system::lang.locale.nb-no'), 'Norwegian'],
+            'nl'    => [$this->getLang('system::lang.locale.nl'),    'Dutch'],
+            'pl'    => [$this->getLang('system::lang.locale.pl'),    'Polish'],
+            'pt-br' => [$this->getLang('system::lang.locale.pt-br'), 'Portuguese'],
+            'pt-pt' => [$this->getLang('system::lang.locale.pt-pt'), 'Portuguese'],
+            'ro'    => [$this->getLang('system::lang.locale.ro'),    'Romanian'],
+            'ru'    => [$this->getLang('system::lang.locale.ru'),    'Russian'],
+            'sk'    => [$this->getLang('system::lang.locale.sk'),    'Slovak'],
+            'sl'    => [$this->getLang('system::lang.locale.sl'),    'Slovene'],
+            'sv'    => [$this->getLang('system::lang.locale.sv'),    'Swedish'],
+            'th'    => [$this->getLang('system::lang.locale.th'),    'Thai'],
+            'tr'    => [$this->getLang('system::lang.locale.tr'),    'Turkish'],
+            'uk'    => [$this->getLang('system::lang.locale.uk'),    'Ukrainian'],
+            'vn'    => [$this->getLang('system::lang.locale.vn'),    'Vietnamese'],
+            'zh-cn' => [$this->getLang('system::lang.locale.zh-cn'), 'Chinese'],
+            'zh-tw' => [$this->getLang('system::lang.locale.zh-tw'), 'Chinese'],
+        ];
+    }
 }

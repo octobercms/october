@@ -30,6 +30,14 @@ trait SetupBuilder
     }
 
     /**
+     * getLang
+     */
+    public function getLang($key, $vars = [])
+    {
+        return Lang::get($key, $vars);
+    }
+
+    /**
      * setupInstallOctober installs October CMS using composer
      */
     protected function setupInstallOctober()
@@ -200,56 +208,5 @@ trait SetupBuilder
     protected function nonInteractiveCheck(): bool
     {
         return (microtime(true) - LARAVEL_START) < 1;
-    }
-
-    /**
-     * getAvailableLocales returns available system locales
-     */
-    protected function getAvailableLocales()
-    {
-        return [
-            'ar'    => [Lang::get('system::lang.locale.ar'),    'Arabic'],
-            'be'    => [Lang::get('system::lang.locale.be'),    'Belarusian'],
-            'bg'    => [Lang::get('system::lang.locale.bg'),    'Bulgarian'],
-            'ca'    => [Lang::get('system::lang.locale.ca'),    'Catalan'],
-            'cs'    => [Lang::get('system::lang.locale.cs'),    'Czech'],
-            'da'    => [Lang::get('system::lang.locale.da'),    'Danish'],
-            'de'    => [Lang::get('system::lang.locale.de'),    'German'],
-            'el'    => [Lang::get('system::lang.locale.el'),    'Greek'],
-            'en'    => [Lang::get('system::lang.locale.en'),    'English'],
-            'en-au' => [Lang::get('system::lang.locale.en-au'), 'English'],
-            'en-ca' => [Lang::get('system::lang.locale.en-ca'), 'English'],
-            'en-gb' => [Lang::get('system::lang.locale.en-gb'), 'English'],
-            'es'    => [Lang::get('system::lang.locale.es'),    'Spanish'],
-            'es-ar' => [Lang::get('system::lang.locale.es-ar'), 'Spanish'],
-            'et'    => [Lang::get('system::lang.locale.et'),    'Estonian'],
-            'fa'    => [Lang::get('system::lang.locale.fa'),    'Persian'],
-            'fi'    => [Lang::get('system::lang.locale.fi'),    'Finnish'],
-            'fr'    => [Lang::get('system::lang.locale.fr'),    'French'],
-            'fr-ca' => [Lang::get('system::lang.locale.fr-ca'), 'French'],
-            'hu'    => [Lang::get('system::lang.locale.hu'),    'Hungarian'],
-            'id'    => [Lang::get('system::lang.locale.id'),    'Indonesian'],
-            'it'    => [Lang::get('system::lang.locale.it'),    'Italian'],
-            'ja'    => [Lang::get('system::lang.locale.ja'),    'Japanese'],
-            'kr'    => [Lang::get('system::lang.locale.kr'),    'Korean'],
-            'lt'    => [Lang::get('system::lang.locale.lt'),    'Lithuanian'],
-            'lv'    => [Lang::get('system::lang.locale.lv'),    'Latvian'],
-            'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'Norwegian'],
-            'nl'    => [Lang::get('system::lang.locale.nl'),    'Dutch'],
-            'pl'    => [Lang::get('system::lang.locale.pl'),    'Polish'],
-            'pt-br' => [Lang::get('system::lang.locale.pt-br'), 'Portuguese'],
-            'pt-pt' => [Lang::get('system::lang.locale.pt-pt'), 'Portuguese'],
-            'ro'    => [Lang::get('system::lang.locale.ro'),    'Romanian'],
-            'ru'    => [Lang::get('system::lang.locale.ru'),    'Russian'],
-            'sk'    => [Lang::get('system::lang.locale.sk'),    'Slovak'],
-            'sl'    => [Lang::get('system::lang.locale.sl'),    'Slovene'],
-            'sv'    => [Lang::get('system::lang.locale.sv'),    'Swedish'],
-            'th'    => [Lang::get('system::lang.locale.th'),    'Thai'],
-            'tr'    => [Lang::get('system::lang.locale.tr'),    'Turkish'],
-            'uk'    => [Lang::get('system::lang.locale.uk'),    'Ukrainian'],
-            'vn'    => [Lang::get('system::lang.locale.vn'),    'Vietnamese'],
-            'zh-cn' => [Lang::get('system::lang.locale.zh-cn'), 'Chinese'],
-            'zh-tw' => [Lang::get('system::lang.locale.zh-tw'), 'Chinese'],
-        ];
     }
 }
