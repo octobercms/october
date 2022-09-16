@@ -62,21 +62,6 @@ trait SetupHelper
     }
 
     /**
-     * composerRequireString returns the composer require string for installing dependencies
-     */
-    protected function composerRequireCore($composer, $want = null)
-    {
-        if ($want === null) {
-            $composer->require('october/all', $this->getUpdateWantVersion());
-        }
-        else {
-            $want = $this->processWantString($want);
-            $composer->require('october/rain', $want);
-            $composer->require('october/all', $want);
-        }
-    }
-
-    /**
      * processWantString ensures a valid want version is supplied
      */
     protected function processWantString($version)
@@ -123,7 +108,7 @@ trait SetupHelper
      */
     protected function setEnvVar($key, $value)
     {
-        $path = $this->getBasePath('.env');
+        $path = base_path('.env');
         $old = $this->getEnvVar($key);
         $value = $this->encodeEnvVar($value);
 

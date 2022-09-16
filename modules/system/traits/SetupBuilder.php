@@ -19,14 +19,6 @@ trait SetupBuilder
     }
 
     /**
-     * getBasePath
-     */
-    public function getBasePath($path = '')
-    {
-        return base_path($path);
-    }
-
-    /**
      * getLang
      */
     public function getLang($key, $vars = [])
@@ -50,6 +42,21 @@ trait SetupBuilder
         }
 
         $this->line('');
+    }
+
+    /**
+     * composerRequireString returns the composer require string for installing dependencies
+     */
+    protected function composerRequireCore($composer, $want = null)
+    {
+        if ($want === null) {
+            $composer->require('october/all', $this->getUpdateWantVersion());
+        }
+        else {
+            $want = $this->processWantString($want);
+            $composer->require('october/rain', $want);
+            $composer->require('october/all', $want);
+        }
     }
 
     /**
