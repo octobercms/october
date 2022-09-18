@@ -23,9 +23,9 @@ return [
     "before"           => "Поле :attribute має бути датою перед :date.",
     "between"          => [
         "numeric" => "Поле :attribute має бути між :min и :max.",
-        "file"    => "Размер :attribute повинен бути від :min до :max Килобайт.",
-        "string"  => "Длина :attribute повинна бути від :min до :max символов.",
-        "array"   => "Поле :attribute має містити :min - :max элементов.",
+        "file"    => "Розмір :attribute повинен бути від :min до :max кілобайт.",
+        "string"  => "Довжина :attribute повинна бути від :min до :max символів.",
+        "array"   => "Поле :attribute має містити :min - :max елементів.",
     ],
     "confirmed"        => "Поле :attribute не збігається з підтвердженням.",
     "date"             => "Поле :attribute не є датою.",
