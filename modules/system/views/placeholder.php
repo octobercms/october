@@ -47,6 +47,13 @@
                 font-size: 18px;
                 text-align: center;
             }
+
+            @media (prefers-color-scheme: dark) {
+                html, body {
+                    background-color: #1a202c;
+                    color: #a0aec0;
+                }
+            }
         </style>
     </head>
     <body>
