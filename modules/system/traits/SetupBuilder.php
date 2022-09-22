@@ -3,7 +3,7 @@
 use Lang;
 use Exception;
 use System\Classes\UpdateManager;
-use October\Rain\Process\Composer as ComposerProcess;
+use October\Rain\Composer\Manager as ComposerManager;
 
 /**
  * SetupBuilder is shared logic for the commands
@@ -31,16 +31,10 @@ trait SetupBuilder
      */
     protected function setupInstallOctober()
     {
-        $composer = new ComposerProcess;
-        $composer->setCallback(function($message) { echo $message; });
+        $composer = ComposerManager::instance();
+        $composer->setOutputCommand($this, $this->input);
 
         $this->composerRequireCore($composer, $this->option('want') ?: null);
-
-        if ($composer->lastExitCode() !== 0) {
-            $this->outputFailedOutro();
-            exit(1);
-        }
-
         $this->line('');
     }
 
@@ -50,12 +44,12 @@ trait SetupBuilder
     protected function composerRequireCore($composer, $want = null)
     {
         if ($want === null) {
-            $composer->require('october/all', $this->getUpdateWantVersion());
+            $composer->require(['october/all' => $this->getUpdateWantVersion()]);
         }
         else {
             $want = $this->processWantString($want);
-            $composer->require('october/rain', $want);
-            $composer->require('october/all', $want);
+            $composer->require(['october/rain' => $want]);
+            $composer->require(['october/all' => $want]);
         }
     }
 
