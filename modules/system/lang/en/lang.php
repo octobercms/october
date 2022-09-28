@@ -35,6 +35,8 @@
     'visit_backend_comment' => 'Then, open the administration area at this URL',
     'open_configurator_comment' => 'Open this application in your browser',
     'install_demo_label' => 'Install the demonstration theme and content? (Recommended)',
+    'operation_timeout_comment' => 'The operation timed out. Please increase the server\'s timeout and try again.',
+    'operation_timeout_hint' => 'See the relevant documentation for :name.',
   ],
   'app' => [
     'name' => 'October CMS',
