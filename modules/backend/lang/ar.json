@@ -91,5 +91,21 @@
   "Settings": "إعدادات",
   "Background Color": "لون الخلفية",
   "Allow users to create new roles and edit or delete roles lower than their highest role.": "اسمح للمستخدمين بإنشاء أدوار جديدة وتعديل الأدوار الأقل من أعلى مستوى لهم أو حذفها.",
-  "Save Changes": "حفظ التغييرات"
+  "Save Changes": "حفظ التغييرات",
+  "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "يعرض هذا السجل قائمة بمحاولات تسجيل الدخول الناجحة بواسطة المسؤولين. يتم الاحتفاظ بالسجلات لما مجموعه: أيام أيام.",
+  "Access Log": "سجل الوصول",
+  "View a list of successful back-end user sign ins.": "اعرض قائمة بعمليات تسجيل دخول المستخدم الخلفية الناجحة.",
+  "ID": "بطاقة تعريف",
+  "Date & Time": "التاريخ والوقت",
+  "Type": "يكتب",
+  "IP address": "عنوان IP",
+  "Login": "تسجيل الدخول",
+  "First name": "الاسم الاول",
+  "Last name": "اللقب",
+  "Email": "البريد الإلكتروني",
+  "Translated for locale: :value": "مترجمة للغة:: القيمة",
+  "Translated for site: :value": "مترجم للموقع:: القيمة",
+  "A custom schema is used for this file format.": "يتم استخدام مخطط مخصص لتنسيق الملف هذا.",
+  "Select": "يختار",
+  "Replace": "يحل محل"
 }

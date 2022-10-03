@@ -1,4 +1,4 @@
-$(document).on('render', function() {
+addEventListener('render', function() {
 
     // Auto Collapsed List
     //

@@ -1,16 +1,12 @@
 ##
 description = "Wiki layout"
-
-[resources]
-less[] = "layouts/default.less"
-less[] = "layouts/wiki.less"
 ==
 <!DOCTYPE html>
 <html>
     <head>
         {% partial 'site/meta' %}
     </head>
-    <body class="{{ 'page-' ~ this.page.id }}">
+    <body class="wiki-layout {{ 'page-' ~ this.page.id }}">
 
         <!-- Header -->
         <header id="layout-header">
