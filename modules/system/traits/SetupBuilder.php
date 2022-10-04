@@ -48,8 +48,10 @@ trait SetupBuilder
         }
         else {
             $want = $this->processWantString($want);
-            $composer->require(['october/rain' => $want]);
-            $composer->require(['october/all' => $want]);
+            $composer->require([
+                'october/rain' => $want,
+                'october/all' => $want
+            ]);
         }
     }
 
