@@ -21,5 +21,19 @@
     "Unable to find the specified settings.": "Δεν κατέστη δυνατόν να βρεθούν οι συγκεκριμένες ρυθμίσεις.",
     "The settings page is missing a Model definition.": "Λείπει από την σελίδα των ρυθμίσεων ο ορισμός του μοντέλου.",
     ":name settings updated": "Οι ρυθμίσεις του :name έχουν ενημερωθεί.",
-    "Return to System Settings": "Επιστροφή στις ρυθμίσεις του συστήματος"
+    "Return to System Settings": "Επιστροφή στις ρυθμίσεις του συστήματος",
+    "There is no documentation provided.": "Δεν παρέχονται οδηγίες χρήσης.",
+    "There are no upgrade instructions provided.": "Δεν παρέχονται οδηγίες αναβάθμισης",
+    "Documentation": "Οδηγιες Χρήσης",
+    "Upgrade Guide": "Οδηγός Αναβάθμισης",
+    "Attach to Project": "Σύνδεση με το Project",
+    "Project ID": "Project ID",
+    "How to find your Project ID": "Πως να βρείτε το ID του Project σας",
+    "Manage Updates": "Διαχείριση Ενημερώσεων",
+    "Software Update": "Ενημέρωση λογισμικού",
+    "Return to System Updates": "Επιστροφή στις ενημερώσεις του συστήματος",
+    "Try Again": "Προσπαθήστε ξανά",
+    "Unpacking application files": "Ξεπακετάρισμα αρχείων εφαρμογής",
+    "Update Failed": "Η ενημέρωση απέτυχε",
+    "Unpacking plugin: :name": "Ξεπακετάρισμα πρόσθετου: :name"
 }

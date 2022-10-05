@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "No s'han pogut trobar les opcions especificades.",
     "The settings page is missing a Model definition.": "La pàgina d'opcions no té una definició de Model.",
     ":name settings updated": "Opcions de :name actualitzades",
-    "Return to System Settings": "Tornar a les opcions del sistema"
+    "Return to System Settings": "Tornar a les opcions del sistema",
+    "There is no documentation provided.": "No s'ha proveït documentació.",
+    "There are no upgrade instructions provided.": "No s'ha proveït guia d'actualització.",
+    "There is no licence provided.": "No s'ha proveït llicència.",
+    "Documentation": "Documentació",
+    "Upgrade Guide": "Guia d'actualització",
+    "Licence": "Llicència",
+    "Attach to Project": "Vincular a projecte",
+    "Project ID": "ID de projecte",
+    "How to find your Project ID": "Com trobar la teva ID de projecte",
+    "Manage Updates": "Gestionar actualitzacions",
+    "Software Update": "Actualització de software",
+    "Return to System Updates": "Tornar a les actualitzacions de sistema",
+    "Try Again": "Tornar-ho a intentar",
+    "Unpacking application files": "Desempaquetant arxius de l'aplicació",
+    "Update Failed": "Actualització fallida",
+    "Unpacking plugin: :name": "Desempaquetant plugin: :name"
 }

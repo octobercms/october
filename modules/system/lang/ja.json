@@ -21,5 +21,14 @@
     "Unable to find the specified settings.": "指定された設定は使えません。",
     "The settings page is missing a Model definition.": "モデルの定義が見つかりません。",
     ":name settings updated": ":name を設定しました。",
-    "Return to System Settings": "システム設定へ戻る"
+    "Return to System Settings": "システム設定へ戻る",
+    "Attach to Project": "プロジェクト追加",
+    "Project ID": "プロジェクトID",
+    "How to find your Project ID": "プロジェクトIDの見つけ方",
+    "Manage Updates": "アップデート管理",
+    "Software Update": "ソフトウェアアップデート",
+    "Try Again": "再実行",
+    "Unpacking application files": "アプリケーションファイルの展開中",
+    "Update Failed": "アップデート失敗",
+    "Unpacking plugin: :name": "プラグイン展開中： :name"
 }

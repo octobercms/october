@@ -1,7 +1,7 @@
 Demo Theme
 ==========
 
-October CMS demo theme that demonstrates the basic core functionality and utilizes the accompanying demo plugin. It is a great theme to copy when building a site from scratch. 
+October CMS demo theme that demonstrates the basic core functionality and utilizes the accompanying demo plugin. It is a great theme to copy when building a site from scratch.
 
 The theme acts as a reference implementation for default component markup when distributing plugins.
 
@@ -40,7 +40,7 @@ Uncombined JavaScript:
     <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
     <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
     <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-    {% framework extras %}
+    {% framework extras turbo %}
 
 Combined JavaScript:
 

@@ -22,6 +22,7 @@ package-lock.json
 _ide_helper.php
 .phpunit.result.cache
 nbproject
+.phpstorm.meta.php
 
 # Project
 /bootstrap/compiled.php

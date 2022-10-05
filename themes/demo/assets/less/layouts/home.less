@@ -1,11 +1,23 @@
-#layout-nav.navbar {
-    padding-top: 30px;
-    padding-bottom: 30px;
+@import "../theme/boot";
 
-    // Fixed top
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 1030;
+//
+// Home Layout Stylesheet
+//
+
+body.home-layout {
+    #layout-nav.navbar {
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        // Fixed top
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1030;
+    }
+
+    #layout-content {
+        padding-top: 0;
+    }
 }

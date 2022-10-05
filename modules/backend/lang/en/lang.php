@@ -472,7 +472,7 @@
     'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown.',
   ],
   'tooltips' => [
-    'preview_website' => 'Preview the website',
+    'preview_website' => 'Preview the Website',
   ],
   'mysettings' => [
     'menu_label' => 'My Settings',

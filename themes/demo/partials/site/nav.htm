@@ -1,3 +1,6 @@
+[backendLink]
+[sitePicker]
+==
 {% set activeNavLink = activeNavLink|default(this.page.id) %}
 
 <li class="nav-item">
@@ -15,7 +18,22 @@
 <li class="nav-item">
     <a class="nav-link {{ activeNavLink == 'components' ? 'active' }}" href="{{ 'components'|page }}">Components Demo</a>
 </li>
-{% if backendUrl %}
+{% if sitePicker.isEnabled %}
+    <li class="nav-item dropdown">
+        <a class="btn btn-outline-light dropdown-toggle" href="{{ ''|page }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ this.site.name|default('Sites') }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for site in sitePicker.sites %}
+                <li><a class="dropdown-item {{ this.site.code == site.code ? 'active' }}" href="{{ site.url }}">{{ site.name }}</a></li>
+            {% endfor %}
+            {% if backendUrl %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ backendUrl }}">Backend Area</a></li>
+            {% endif %}
+        </ul>
+    </li>
+{% elseif backendUrl %}
     <li class="nav-item">
         <a class="btn btn-outline-light" href="{{ backendUrl }}" target="backend">Backend Area</a>
     </li>

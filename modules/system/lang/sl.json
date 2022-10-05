@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Navedenih nastavitev ni mogoče najti.",
     "The settings page is missing a Model definition.": "Na strani z nastavitvami manjka definicija modela.",
     ":name settings updated": "Nastavitve za \":name\" so shranjene.",
-    "Return to System Settings": "Vrni se na sistemske nastavitve"
+    "Return to System Settings": "Vrni se na sistemske nastavitve",
+    "There is no documentation provided.": "Dokumentacija ni na voljo.",
+    "There are no upgrade instructions provided.": "Navodila za nadgradnjo niso na voljo.",
+    "There is no licence provided.": "Licenca ni na voljo.",
+    "Documentation": "Dokumentacija",
+    "Upgrade Guide": "Navodila za nadgradnjo",
+    "Licence": "Licenca",
+    "Attach to Project": "Pripni na projekt",
+    "Project ID": "ID projekta",
+    "How to find your Project ID": "Kako poiskati ID vašega projekta",
+    "Manage Updates": "Upravljanje posodobitev",
+    "Software Update": "Posodobitev programske opreme",
+    "Return to System Updates": "Vrni se na sistemske posodobitve",
+    "Try Again": "Poskusi ponovno",
+    "Unpacking application files": "Ekstrahiranje datotek aplikacije",
+    "Update Failed": "Posodabljanje ni bilo uspešno.",
+    "Unpacking plugin: :name": "Ekstrahiranje vtičnika :name"
 }

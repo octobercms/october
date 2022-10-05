@@ -23,5 +23,22 @@
     "The settings page is missing a Model definition.": "De instellingenpagina mist de definitie van een Model.",
     ":name settings updated": "Instellingen voor :name zijn succesvol bijgewerkt.",
     "Return to System Settings": "Terug naar systeeminstellingen",
-    "Find a Setting...": "Zoek een instelling..."
+    "Find a Setting...": "Zoek een instelling...",
+    "Marketplace": "Marketplace",
+    "There is no documentation provided.": "Er is geen documentatie beschikbaar.",
+    "There are no upgrade instructions provided.": "Er is geen upgrade instructie beschikbaar gemaakt.",
+    "There is no licence provided.": "Er is geen licentie aanwezig.",
+    "Documentation": "Documentatie",
+    "Upgrade Guide": "Upgrade instructie",
+    "Licence": "Licentie",
+    "Attach to Project": "Koppel aan project",
+    "Project ID": "Project ID",
+    "How to find your Project ID": "Hoe achterhaal je jouw Project ID?",
+    "Manage Updates": "Beheer updates",
+    "Software Update": "Applicatie-update",
+    "Return to System Updates": "Terug naar updates",
+    "Try Again": "Probeer nogmaals",
+    "Unpacking application files": "Bestanden aan het uitpakken",
+    "Update Failed": "Update mislukt",
+    "Unpacking plugin: :name": "Plugin uitpakken: :name"
 }

@@ -3,8 +3,7 @@
 use Lang;
 use Exception;
 use System\Classes\UpdateManager;
-use October\Rain\Process\ComposerPhp;
-use October\Rain\Process\Composer as ComposerProcess;
+use October\Rain\Composer\Manager as ComposerManager;
 
 /**
  * SetupBuilder is shared logic for the commands
@@ -12,21 +11,48 @@ use October\Rain\Process\Composer as ComposerProcess;
 trait SetupBuilder
 {
     /**
+     * getUpdateWantVersion
+     */
+    public function getUpdateWantVersion()
+    {
+        return UpdateManager::WANT_VERSION;
+    }
+
+    /**
+     * getLang
+     */
+    public function getLang($key, $vars = [])
+    {
+        return Lang::get($key, $vars);
+    }
+
+    /**
      * setupInstallOctober installs October CMS using composer
      */
     protected function setupInstallOctober()
     {
-        $composer = new ComposerProcess;
-        $composer->setCallback(function($message) { echo $message; });
+        $composer = ComposerManager::instance();
+        $composer->setOutputCommand($this, $this->input);
 
         $this->composerRequireCore($composer, $this->option('want') ?: null);
-
-        if ($composer->lastExitCode() !== 0) {
-            $this->outputFailedOutro();
-            exit(1);
-        }
-
         $this->line('');
+    }
+
+    /**
+     * composerRequireString returns the composer require string for installing dependencies
+     */
+    protected function composerRequireCore($composer, $want = null)
+    {
+        if ($want === null) {
+            $composer->require(['october/all' => $this->getUpdateWantVersion()]);
+        }
+        else {
+            $want = $this->processWantString($want);
+            $composer->require([
+                'october/rain' => $want,
+                'october/all' => $want
+            ]);
+        }
     }
 
     /**
@@ -43,14 +69,11 @@ trait SetupBuilder
             throw new Exception(Lang::get('system::lang.installer.license_expired_comment'));
         }
 
-        // Save authentication token
-        $projectId = $result['project_id'] ?? null;
-        $projectEmail = $result['email'] ?? null;
-        $this->setComposerAuth($projectEmail, $projectId);
-
-        // Add October CMS gateway as a composer repo
-        $composer = new ComposerPhp;
-        $composer->addRepository('octobercms', 'composer', $this->getComposerUrl());
+        // Configure composer and save authentication token
+        $this->setComposerAuth(
+            $result['email'] ?? null,
+            $result['project_id'] ?? null
+        );
     }
 
     /**
@@ -138,5 +161,14 @@ trait SetupBuilder
         else {
             $this->line("* php artisan october:build");
         }
+    }
+
+    /**
+     * nonInteractiveCheck will make a calculated guess if the command is running
+     * in non interactive mode by how long it takes to execute
+     */
+    protected function nonInteractiveCheck(): bool
+    {
+        return (microtime(true) - LARAVEL_START) < 1;
     }
 }

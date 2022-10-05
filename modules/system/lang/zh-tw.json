@@ -21,5 +21,14 @@
     "Unable to find the specified settings.": "不能找到特定的設定.",
     "The settings page is missing a Model definition.": "設定頁缺少Model定義.",
     ":name settings updated": ":name 的設定更新成功了.",
-    "Return to System Settings": "返回系統設定"
+    "Return to System Settings": "返回系統設定",
+    "Attach to Project": "加入產品",
+    "Project ID": "產品ID",
+    "How to find your Project ID": "如何找到您的產品ID",
+    "Manage Updates": "管理更新",
+    "Software Update": "軟件更新",
+    "Try Again": "重試",
+    "Unpacking application files": "解壓縮應用程式",
+    "Update Failed": "更新失敗",
+    "Unpacking plugin: :name": "解壓縮外掛: :name"
 }

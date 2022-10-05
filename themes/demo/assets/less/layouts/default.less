@@ -1,8 +1,9 @@
 @import "../theme/boot";
 
 //
-// Default Layout Stylesheet
+// Default Layout Stylesheet (All pages)
 //
+
 #layout-header {
     &, &.navbar {
         background: linear-gradient(102.01deg, #DB6A26 0.3%, #DBB326 106.31%);
@@ -24,21 +25,28 @@
 
 #layout-header .navbar {
     min-height: 155px;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
 
-    > .container {
+    > .navbar-container.container {
         position: relative;
+        z-index: 2;
     }
 
     // Decorations
+    .navbar-decorations {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
     .navbar-decoration-1 {
         .decoration-circle();
         width: 524px;
         height: 524px;
         left: -105px;
-        top: -475px;
+        top: -420px;
         opacity: .04;
     }
 
@@ -47,7 +55,7 @@
         width: 524px;
         height: 524px;
         left: 548px;
-        top: -440px;
+        top: -385px;
         opacity: .05;
     }
 }

@@ -2,12 +2,12 @@
 
 use App;
 use Str;
-use Lang;
 use Config;
-use Exception;
 use System\Classes\UpdateManager;
+use October\Rain\Composer\Manager as ComposerManager;
 use Illuminate\Support\Env;
 use Dotenv\Dotenv;
+use Exception;
 use PDOException;
 use PDO;
 
@@ -26,20 +26,22 @@ trait SetupHelper
      */
     protected function setComposerAuth($email, $projectKey)
     {
-        $composerUrl = $this->getComposerUrl(false);
+        $composer = ComposerManager::instance();
 
-        $this->injectJsonToFile(base_path('auth.json'), [
-            'http-basic' => [
-                $composerUrl => [
-                    'username' => $email,
-                    'password' => $projectKey
-                ]
-            ]
-        ]);
+        // Save authentication token
+        $composer->addAuthCredentials(
+            $this->getComposerUrl(false),
+            $email,
+            $projectKey
+        );
 
+        // Store project details
         $this->injectJsonToFile(storage_path('cms/project.json'), [
             'project' => $projectKey
         ]);
+
+        // Add gateway as a composer repo
+        $composer->addOctoberRepository($this->getComposerUrl());
     }
 
     /**
@@ -60,21 +62,6 @@ trait SetupHelper
     }
 
     /**
-     * composerRequireString returns the composer require string for installing dependencies
-     */
-    protected function composerRequireCore($composer, $want = null)
-    {
-        if ($want === null) {
-            $composer->require('october/all', UpdateManager::WANT_VERSION);
-        }
-        else {
-            $want = $this->processWantString($want);
-            $composer->require('october/rain', $want);
-            $composer->require('october/all', $want);
-        }
-    }
-
-    /**
      * processWantString ensures a valid want version is supplied
      */
     protected function processWantString($version)
@@ -91,28 +78,6 @@ trait SetupHelper
     }
 
     /**
-     * checkEnvWritable checks to see if the app can write to the .env file
-     */
-    protected function checkEnvWritable()
-    {
-        $path = base_path('.env');
-        $gitignore = base_path('.gitignore');
-
-        // Copy environment variables and reload
-        if (!file_exists($path)) {
-            copy(base_path('.env.example'), $path);
-            $this->refreshEnvVars();
-        }
-
-        // Add modules to .gitignore
-        if (file_exists($gitignore) && is_writable($gitignore)) {
-            $this->addModulesToGitignore($gitignore);
-        }
-
-        return is_writable($path);
-    }
-
-    /**
      * addModulesToGitignore
      */
     protected function addModulesToGitignore($gitignore)
@@ -126,14 +91,6 @@ trait SetupHelper
                 $toIgnore . PHP_EOL
             );
         }
-    }
-
-    /**
-     * refreshEnvVars will reload defined environment variables
-     */
-    protected function refreshEnvVars()
-    {
-        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
     /**
@@ -248,7 +205,7 @@ trait SetupHelper
                 break;
         }
         try {
-            new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            return new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         catch (PDOException $ex) {
             throw new Exception('Connection failed: ' . $ex->getMessage());
@@ -270,81 +227,6 @@ trait SetupHelper
         }
 
         new PDO('sqlite:'.$filename);
-    }
-
-    /**
-     * getAvailableLocales returns available system locales
-     */
-    protected function getAvailableLocales()
-    {
-        return [
-            'ar'    => [Lang::get('system::lang.locale.ar'),    'Arabic'],
-            'be'    => [Lang::get('system::lang.locale.be'),    'Belarusian'],
-            'bg'    => [Lang::get('system::lang.locale.bg'),    'Bulgarian'],
-            'ca'    => [Lang::get('system::lang.locale.ca'),    'Catalan'],
-            'cs'    => [Lang::get('system::lang.locale.cs'),    'Czech'],
-            'da'    => [Lang::get('system::lang.locale.da'),    'Danish'],
-            'de'    => [Lang::get('system::lang.locale.de'),    'German'],
-            'el'    => [Lang::get('system::lang.locale.el'),    'Greek'],
-            'en'    => [Lang::get('system::lang.locale.en'),    'English'],
-            'en-au' => [Lang::get('system::lang.locale.en-au'), 'English'],
-            'en-ca' => [Lang::get('system::lang.locale.en-ca'), 'English'],
-            'en-gb' => [Lang::get('system::lang.locale.en-gb'), 'English'],
-            'es'    => [Lang::get('system::lang.locale.es'),    'Spanish'],
-            'es-ar' => [Lang::get('system::lang.locale.es-ar'), 'Spanish'],
-            'et'    => [Lang::get('system::lang.locale.et'),    'Estonian'],
-            'fa'    => [Lang::get('system::lang.locale.fa'),    'Persian'],
-            'fi'    => [Lang::get('system::lang.locale.fi'),    'Finnish'],
-            'fr'    => [Lang::get('system::lang.locale.fr'),    'French'],
-            'fr-ca' => [Lang::get('system::lang.locale.fr-ca'), 'French'],
-            'hu'    => [Lang::get('system::lang.locale.hu'),    'Hungarian'],
-            'id'    => [Lang::get('system::lang.locale.id'),    'Indonesian'],
-            'it'    => [Lang::get('system::lang.locale.it'),    'Italian'],
-            'ja'    => [Lang::get('system::lang.locale.ja'),    'Japanese'],
-            'kr'    => [Lang::get('system::lang.locale.kr'),    'Korean'],
-            'lt'    => [Lang::get('system::lang.locale.lt'),    'Lithuanian'],
-            'lv'    => [Lang::get('system::lang.locale.lv'),    'Latvian'],
-            'nb-no' => [Lang::get('system::lang.locale.nb-no'), 'Norwegian'],
-            'nl'    => [Lang::get('system::lang.locale.nl'),    'Dutch'],
-            'pl'    => [Lang::get('system::lang.locale.pl'),    'Polish'],
-            'pt-br' => [Lang::get('system::lang.locale.pt-br'), 'Portuguese'],
-            'pt-pt' => [Lang::get('system::lang.locale.pt-pt'), 'Portuguese'],
-            'ro'    => [Lang::get('system::lang.locale.ro'),    'Romanian'],
-            'ru'    => [Lang::get('system::lang.locale.ru'),    'Russian'],
-            'sk'    => [Lang::get('system::lang.locale.sk'),    'Slovak'],
-            'sl'    => [Lang::get('system::lang.locale.sl'),    'Slovene'],
-            'sv'    => [Lang::get('system::lang.locale.sv'),    'Swedish'],
-            'th'    => [Lang::get('system::lang.locale.th'),    'Thai'],
-            'tr'    => [Lang::get('system::lang.locale.tr'),    'Turkish'],
-            'uk'    => [Lang::get('system::lang.locale.uk'),    'Ukrainian'],
-            'vn'    => [Lang::get('system::lang.locale.vn'),    'Vietnamese'],
-            'zh-cn' => [Lang::get('system::lang.locale.zh-cn'), 'Chinese'],
-            'zh-tw' => [Lang::get('system::lang.locale.zh-tw'), 'Chinese'],
-        ];
-    }
-
-    /**
-     * getRandomKey generates a random application key
-     */
-    protected function getRandomKey(): string
-    {
-        return Str::random($this->getKeyLength(Config::get('app.cipher')));
-    }
-
-    /**
-     * getKeyLength returns the supported length of a key for a cipher
-     */
-    protected function getKeyLength(string $cipher): int
-    {
-        return $cipher === 'AES-128-CBC' ? 16 : 32;
-    }
-
-    /**
-     * getComposerUrl returns the endpoint for composer
-     */
-    protected function getComposerUrl(bool $withProtocol = true): string
-    {
-        return UpdateManager::instance()->getComposerUrl($withProtocol);
     }
 
     /**
@@ -392,11 +274,111 @@ trait SetupHelper
     }
 
     /**
-     * nonInteractiveCheck will make a calculated guess if the command is running
-     * in non interactive mode by how long it takes to execute
+     * getAvailableLocales returns available system locales
      */
-    protected function nonInteractiveCheck(): bool
+    public function getAvailableLocales()
     {
-        return (microtime(true) - LARAVEL_START) < 1;
+        return [
+            'ar'    => [$this->getLang('system::lang.locale.ar'),    'Arabic'],
+            'be'    => [$this->getLang('system::lang.locale.be'),    'Belarusian'],
+            'bg'    => [$this->getLang('system::lang.locale.bg'),    'Bulgarian'],
+            'ca'    => [$this->getLang('system::lang.locale.ca'),    'Catalan'],
+            'cs'    => [$this->getLang('system::lang.locale.cs'),    'Czech'],
+            'da'    => [$this->getLang('system::lang.locale.da'),    'Danish'],
+            'de'    => [$this->getLang('system::lang.locale.de'),    'German'],
+            'el'    => [$this->getLang('system::lang.locale.el'),    'Greek'],
+            'en'    => [$this->getLang('system::lang.locale.en'),    'English'],
+            'en-au' => [$this->getLang('system::lang.locale.en-au'), 'English'],
+            'en-ca' => [$this->getLang('system::lang.locale.en-ca'), 'English'],
+            'en-gb' => [$this->getLang('system::lang.locale.en-gb'), 'English'],
+            'es'    => [$this->getLang('system::lang.locale.es'),    'Spanish'],
+            'es-ar' => [$this->getLang('system::lang.locale.es-ar'), 'Spanish'],
+            'et'    => [$this->getLang('system::lang.locale.et'),    'Estonian'],
+            'fa'    => [$this->getLang('system::lang.locale.fa'),    'Persian'],
+            'fi'    => [$this->getLang('system::lang.locale.fi'),    'Finnish'],
+            'fr'    => [$this->getLang('system::lang.locale.fr'),    'French'],
+            'fr-ca' => [$this->getLang('system::lang.locale.fr-ca'), 'French'],
+            'hu'    => [$this->getLang('system::lang.locale.hu'),    'Hungarian'],
+            'id'    => [$this->getLang('system::lang.locale.id'),    'Indonesian'],
+            'it'    => [$this->getLang('system::lang.locale.it'),    'Italian'],
+            'ja'    => [$this->getLang('system::lang.locale.ja'),    'Japanese'],
+            'kr'    => [$this->getLang('system::lang.locale.kr'),    'Korean'],
+            'lt'    => [$this->getLang('system::lang.locale.lt'),    'Lithuanian'],
+            'lv'    => [$this->getLang('system::lang.locale.lv'),    'Latvian'],
+            'nb-no' => [$this->getLang('system::lang.locale.nb-no'), 'Norwegian'],
+            'nl'    => [$this->getLang('system::lang.locale.nl'),    'Dutch'],
+            'pl'    => [$this->getLang('system::lang.locale.pl'),    'Polish'],
+            'pt-br' => [$this->getLang('system::lang.locale.pt-br'), 'Portuguese'],
+            'pt-pt' => [$this->getLang('system::lang.locale.pt-pt'), 'Portuguese'],
+            'ro'    => [$this->getLang('system::lang.locale.ro'),    'Romanian'],
+            'ru'    => [$this->getLang('system::lang.locale.ru'),    'Russian'],
+            'sk'    => [$this->getLang('system::lang.locale.sk'),    'Slovak'],
+            'sl'    => [$this->getLang('system::lang.locale.sl'),    'Slovene'],
+            'sv'    => [$this->getLang('system::lang.locale.sv'),    'Swedish'],
+            'th'    => [$this->getLang('system::lang.locale.th'),    'Thai'],
+            'tr'    => [$this->getLang('system::lang.locale.tr'),    'Turkish'],
+            'uk'    => [$this->getLang('system::lang.locale.uk'),    'Ukrainian'],
+            'vn'    => [$this->getLang('system::lang.locale.vn'),    'Vietnamese'],
+            'zh-cn' => [$this->getLang('system::lang.locale.zh-cn'), 'Chinese'],
+            'zh-tw' => [$this->getLang('system::lang.locale.zh-tw'), 'Chinese'],
+        ];
+    }
+
+    //
+    // Framework Booted
+    //
+
+    /**
+     * getRandomKey generates a random application key
+     */
+    protected function getRandomKey(): string
+    {
+        return Str::random($this->getKeyLength(Config::get('app.cipher')));
+    }
+
+    /**
+     * getKeyLength returns the supported length of a key for a cipher
+     */
+    protected function getKeyLength(string $cipher): int
+    {
+        return $cipher === 'AES-128-CBC' ? 16 : 32;
+    }
+
+    /**
+     * checkEnvWritable checks to see if the app can write to the .env file
+     */
+    protected function checkEnvWritable()
+    {
+        $path = base_path('.env');
+        $gitignore = base_path('.gitignore');
+
+        // Copy environment variables and reload
+        if (!file_exists($path)) {
+            copy(base_path('.env.example'), $path);
+            $this->refreshEnvVars();
+        }
+
+        // Add modules to .gitignore
+        if (file_exists($gitignore) && is_writable($gitignore)) {
+            $this->addModulesToGitignore($gitignore);
+        }
+
+        return is_writable($path);
+    }
+
+    /**
+     * getComposerUrl returns the endpoint for composer
+     */
+    protected function getComposerUrl(bool $withProtocol = true): string
+    {
+        return UpdateManager::instance()->getComposerUrl($withProtocol);
+    }
+
+    /**
+     * refreshEnvVars will reload defined environment variables
+     */
+    protected function refreshEnvVars()
+    {
+        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 }

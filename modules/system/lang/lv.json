@@ -21,5 +21,19 @@
     "Unable to find the specified settings.": "Nebija iespējams atrast norādītos iestatījumus.",
     "The settings page is missing a Model definition.": "Iestatījumu lapa nav norādīta Moduļa definīcijā.",
     ":name settings updated": "Iestatījumi priekš :name tika veiksmīgi atjaunināti.",
-    "Return to System Settings": "Atgriezties sistēmas iestatījumos"
+    "Return to System Settings": "Atgriezties sistēmas iestatījumos",
+    "There is no documentation provided.": "Dokumentācija nav pievienota.",
+    "There are no upgrade instructions provided.": "Atjaunināšanas padomi nav pievienoti.",
+    "Documentation": "Dokumentācija",
+    "Upgrade Guide": "Atjaunināšanas padomi",
+    "Attach to Project": "Pievienot projektam",
+    "Project ID": "Projekta ID",
+    "How to find your Project ID": "Kā atrast Projekta ID",
+    "Manage Updates": "Pārvaldīt Atjauninājumus",
+    "Software Update": "Programmatūras atjauninājumi",
+    "Return to System Updates": "Atgriezties sistēmas atjauninājumos",
+    "Try Again": "Mēģināt vēlreiz",
+    "Unpacking application files": "Atpakojam aplikācijas failus",
+    "Update Failed": "Atjauninājums neizdevās",
+    "Unpacking plugin: :name": "Atpakojam spraudni: :name"
 }

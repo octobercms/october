@@ -56,8 +56,6 @@
     'detach' => 'Detasare Proiect',
     'none' => 'Niciunul',
     'id' => [
-      'label' => 'ID Proiect',
-      'help' => 'Cum sa gasiti ID-ul Proiectului',
       'missing' => 'Va rugam sa specificati un ID de Proiect.',
     ],
     'detach_confirm' => 'Sunteti sigur(a) ca doriti sa detasati acest proiect?',
@@ -110,16 +108,12 @@
     'return' => 'Intoarcere la lista de sabloane',
   ],
   'install' => [
-    'project_label' => 'Atasare la Proiect',
     'plugin_label' => 'Instalare Plugin',
     'missing_plugin_name' => 'Va rugam sa specificati un nume de Plugin pentru instalare.',
     'install_completing' => 'Se finalizeaza procesul de instalare',
     'install_success' => 'Acest plugin a fost instalat cu succes.',
   ],
   'updates' => [
-    'title' => 'Gestioneaza Actualizari',
-    'name' => 'Actualizare Software',
-    'retry_label' => 'Incercati din nou',
     'plugin_name' => 'Nume',
     'plugin_description' => 'Descriere',
     'plugin_version' => 'Versiune',
@@ -128,9 +122,7 @@
     'core_build' => 'Versiune :build',
     'core_build_help' => 'Ultima versiune este disponibila.',
     'core_downloading' => 'Se descarca fisierele aplicatiei',
-    'core_extracting' => 'Se dezarhiveaza fisierele aplicatiei',
     'plugin_downloading' => 'Se descarca plugin-ul: :name',
-    'plugin_extracting' => 'Se dezarhiveaza plugin-ul: :name',
     'plugin_version_none' => 'Plugin nou',
     'theme_new_install' => 'Instalare tema noua.',
     'theme_downloading' => 'Se descarca tema: :name',
@@ -139,7 +131,6 @@
     'update_completing' => 'Se finalizeaza procesul de actualizare',
     'update_loading' => 'Se incarca actualizarile disponibile...',
     'update_success' => 'Procesul de actualizare a fost finalizat cu succes.',
-    'update_failed_label' => 'Actualizarea a esuat',
     'force_label' => 'Forteaza actualizarea',
     'found' => [
       'label' => 'Au fost gasite noi actualizari!',

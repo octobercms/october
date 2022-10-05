@@ -45,9 +45,12 @@ return [
         'invalid_audio_empty_insert' => "Por favor, selecione os áudios que deseja inserir.",
     ],
     'alert' => [
+        'error' => 'Erro',
+        'confirm' => 'Confirmar',
+        'dismiss' => 'Dispensar',
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancelar',
-        'widget_remove_confirm' => 'Remover este widget?'
+        'widget_remove_confirm' => 'Remover este widget?',
     ],
     'datepicker' => [
         'previousMonth' => 'Mês anterior',
@@ -98,5 +101,12 @@ return [
             'open' => 'Abrir',
             'cancel' => 'Cancelar'
         ]
-    ]
+    ],
+    'upload' => [
+        'max_files' => 'Você não pode enviar mais arquivos.',
+        'invalid_file_type' => 'Você não pode carregar arquivos deste tipo.',
+        'file_too_big' => 'O arquivo é muito grande ({{filesize}}MB). Tamanho máximo do arquivo: {{maxFilesize}}MB.',
+        'response_error' => 'O servidor respondeu com o código {{statusCode}}.',
+        'remove_file' => 'Remover arquivo',
+    ],
 ];

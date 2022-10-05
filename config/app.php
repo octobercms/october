@@ -150,9 +150,9 @@ return [
     |
     | Before you change this value, consider carefully if that is actually
     | what you want to do. It is highly recommended that this is always set
-    | to UTC (as your server & DB timezone should be as well) and instead you
-    | use backend.timezone to set the default timezone used in the backend
-    | to display dates & times.
+    | to UTC (as your server & DB timezone should be as well) and instead
+    | you can use backend.timezone or cms.timezone to set the default
+    | timezone used to display dates & times.
     |
     */
 

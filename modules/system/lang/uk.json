@@ -21,5 +21,21 @@
     "Unable to find the specified settings.": "Неможливо знайти зазначені налаштування.",
     "The settings page is missing a Model definition.": "На сторінці налаштувань відсутнє визначення моделі.",
     ":name settings updated": "Налаштування для :name успішно оновлені.",
-    "Return to System Settings": "Повернутися до системних налаштувань"
+    "Return to System Settings": "Повернутися до системних налаштувань",
+    "There is no documentation provided.": "Документація не надана.",
+    "There are no upgrade instructions provided.": "Інструкція по оновленню не надана.",
+    "There is no licence provided.": "Ліцензія не зазначена.",
+    "Documentation": "Документація",
+    "Upgrade Guide": "Інструкція по оновленню",
+    "Licence": "Ліцензія",
+    "Attach to Project": "Приєднати до проекту",
+    "Project ID": "Ідентифікатор проекту",
+    "How to find your Project ID": "Як знайти ідентифікатор проекту?",
+    "Manage Updates": "Менеджер оновлень",
+    "Software Update": "Оновлення ПЗ",
+    "Return to System Updates": "Повернутися до системи оновлень",
+    "Try Again": "Спробувати ще раз",
+    "Unpacking application files": "Розпакування файлів програми",
+    "Update Failed": "Неможливо оновити програму",
+    "Unpacking plugin: :name": "Розпакування плагіна: :name"
 }

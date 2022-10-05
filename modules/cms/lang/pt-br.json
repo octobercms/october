@@ -1,4 +1,13 @@
 {
+    "Themes": "Temas",
+    "Manage Themes": "Gerenciar Temas",
+    "Customize Theme": "Customizar Tema",
+    "Manage Maintenance Mode": "Gerenciar modo de manutenção",
+    "View Website During Maintenance": "Visualizar o site durante a manutenção",
+    "Manage Content": "Gerenciar conteúdo",
+    "Manage Asset Files": "Gerenciar arquivos dos recursos",
+    "Manage Pages": "Gerenciar páginas",
+    "Manage Layouts": "Gerenciar layouts",
     "Configure the maintenance mode page and toggle the setting.": "Configurar modo de manutenção e a página exibida.",
     "Maintenance Mode": "Modo de manutenção",
     "Select the page to show when maintenance mode is activated.": "Quando ativado visitantes do site vão ver a página selecionada.",

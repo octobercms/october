@@ -31,6 +31,8 @@ The best place to learn October CMS is by [reading the documentation](https://oc
 
 You may also watch this [introductory video](https://www.youtube.com/watch?v=yLZTOeOS7wI). Make sure to check out our [official YouTube channel](https://www.youtube.com/c/OctoberCMSOfficial). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
 
+For code examples of building with October CMS, visit the [RainLab Plugin Suite](https://github.com/rainlab) or the [October Demos Repo](https://github.com/octoberdemos).
+
 ## Coding Standards
 
 Please follow the following guides and code standards:

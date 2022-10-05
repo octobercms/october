@@ -59,8 +59,6 @@
     'detach' => 'Separar Proyect',
     'none' => 'Ningun',
     'id' => [
-      'label' => 'Identificación del proyecto',
-      'help' => '¿Cómo encontrar su ID de Proyecto',
       'missing' => 'Por favor, especifique un ID del proyecto para usar.',
     ],
     'detach_confirm' => '¿Seguro que quieres separar este proyecto?',
@@ -113,16 +111,12 @@
     'return' => 'Volver a la lista de plantilla',
   ],
   'install' => [
-    'project_label' => 'Adjuntar al proyecto',
     'plugin_label' => 'Instalar Plugin',
     'missing_plugin_name' => 'Por favor, especifique un nombre de Plugin para instalar',
     'install_completing' => 'Finalizó el proceso de instalación',
     'install_success' => 'El plugin se ha instalado correctamente.',
   ],
   'updates' => [
-    'title' => 'Administrar actualizaciones',
-    'name' => 'Actualizaciones de software',
-    'retry_label' => 'Intentar nuevamente',
     'plugin_name' => 'Nombre',
     'plugin_description' => 'Descripción',
     'plugin_version' => 'Versión',
@@ -131,9 +125,7 @@
     'core_build' => 'Versión :build',
     'core_build_help' => 'Última versión está disponible.',
     'core_downloading' => 'Descargando archivos de la aplicación',
-    'core_extracting' => 'Descomprimiendo archivos de la aplicación',
     'plugin_downloading' => 'Descargando plugin: :name',
-    'plugin_extracting' => 'Descomprimiendo plugin: :name',
     'plugin_version_none' => 'Nuevo plugin',
     'theme_new_install' => 'Intalación de nuevo tema.',
     'theme_downloading' => 'Descargando tema: :name',
@@ -142,7 +134,6 @@
     'update_completing' => 'Finalizando el proceso de actualización',
     'update_loading' => 'Cargando actualizaciones disponibles...',
     'update_success' => 'El proceso de actualización se realizó exitosamente.',
-    'update_failed_label' => 'Actualización falló',
     'force_label' => 'Forzar actualización',
     'found' => [
       'label' => 'Se encontraron nuevas actualizaciones!',
