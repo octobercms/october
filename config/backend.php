@@ -16,19 +16,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Backend Timezone
-    |--------------------------------------------------------------------------
-    |
-    | This acts as the default setting for a backend user's timezone. This can
-    | be changed by the user at any time using the backend preferences. All
-    | dates displayed in the backend will be converted to this timezone.
-    |
-    */
-
-    'timezone' => 'UTC',
-
-    /*
-    |--------------------------------------------------------------------------
     | Backend Skin
     |--------------------------------------------------------------------------
     |
@@ -157,5 +144,30 @@ return [
     */
 
     'default_avatar' => 'gravatar',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backend Locale
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a backend user's locale. This can
+    | be changed by the user at any time using the backend preferences.
+    |
+    */
+
+    'locale' => env('APP_LOCALE', 'en'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backend Timezone
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a backend user's timezone. This can
+    | be changed by the user at any time using the backend preferences. All
+    | dates displayed in the backend will be converted to this timezone.
+    |
+    */
+
+    'timezone' => 'UTC',
 
 ];
