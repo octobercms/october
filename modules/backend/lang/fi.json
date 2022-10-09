@@ -103,8 +103,6 @@
   "First name": "Etunimi",
   "Last name": "Sukunimi",
   "Email": "Sähköposti",
-  "Translated for locale: :value": "Käännetty maa-alueelle: :value",
-  "Translated for site: :value": "Käännetty sivustolle: :value",
   "A custom schema is used for this file format.": "Tässä tiedostomuodossa käytetään mukautettua mallia.",
   "Select": "Valitse",
   "Replace": "Korvata"

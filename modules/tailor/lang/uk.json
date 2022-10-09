@@ -51,5 +51,17 @@
   "Title": "Назва",
   "Publish Date": "Дата публікації",
   "Expiry Date": "Термін придатності",
-  "Entry Type": "Тип запису"
+  "Entry Type": "Тип запису",
+  "Handle": "Ручка",
+  "Collection": "Колекція",
+  "Displays a collection of entries.": "Відображає колекцію записів.",
+  "Global": "Глобальний",
+  "Makes globals available to the page.": "Робить глобальні дані доступними для сторінки.",
+  "Section": "Розділ",
+  "Defines a website section with a supporting entry.": "Визначає розділ веб-сайту з допоміжним записом.",
+  "Specify the slug used to find the primary record.": "Укажіть слаг, який використовується для пошуку основного запису.",
+  "Default View": "Перегляд за умовчанням",
+  "Used as default entry point when previewing the record.": "Використовується як точка входу за умовчанням під час попереднього перегляду запису.",
+  "Full Slug": "Повний Слизень",
+  "Use the full slug when looking up the record.": "Використовуйте повний слаг під час пошуку запису."
 }

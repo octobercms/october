@@ -51,5 +51,17 @@
   "Title": "Titel",
   "Publish Date": "Erscheinungsdatum",
   "Expiry Date": "Verfallsdatum",
-  "Entry Type": "Eintragstyp"
+  "Entry Type": "Eintragstyp",
+  "Handle": "Handhaben",
+  "Collection": "Sammlung",
+  "Displays a collection of entries.": "Zeigt eine Sammlung von Einträgen an.",
+  "Global": "Global",
+  "Makes globals available to the page.": "Macht Globals für die Seite verfügbar.",
+  "Section": "Abschnitt",
+  "Defines a website section with a supporting entry.": "Definiert einen Website-Abschnitt mit einem unterstützenden Eintrag.",
+  "Specify the slug used to find the primary record.": "Geben Sie den Slug an, der zum Suchen des primären Datensatzes verwendet wird.",
+  "Default View": "Standardansicht",
+  "Used as default entry point when previewing the record.": "Wird als Standardeinstiegspunkt bei der Vorschau des Datensatzes verwendet.",
+  "Full Slug": "Volle Schnecke",
+  "Use the full slug when looking up the record.": "Verwenden Sie den vollständigen Slug, wenn Sie den Datensatz nachschlagen."
 }

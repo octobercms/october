@@ -51,5 +51,17 @@
   "Title": "Заголовок",
   "Publish Date": "Дата публикации",
   "Expiry Date": "Дата истечения срока",
-  "Entry Type": "Тип входа"
+  "Entry Type": "Тип входа",
+  "Handle": "Справиться",
+  "Collection": "Коллекция",
+  "Displays a collection of entries.": "Отображает коллекцию записей.",
+  "Global": "Глобальный",
+  "Makes globals available to the page.": "Делает глобальные переменные доступными для страницы.",
+  "Section": "Раздел",
+  "Defines a website section with a supporting entry.": "Определяет раздел веб-сайта со вспомогательной записью.",
+  "Specify the slug used to find the primary record.": "Укажите слаг, используемый для поиска основной записи.",
+  "Default View": "Вид по умолчанию",
+  "Used as default entry point when previewing the record.": "Используется как точка входа по умолчанию при предварительном просмотре записи.",
+  "Full Slug": "Полный слизняк",
+  "Use the full slug when looking up the record.": "Используйте полный слаг при поиске записи."
 }

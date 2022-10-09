@@ -51,5 +51,17 @@
   "Title": "Cím",
   "Publish Date": "Közzététel dátuma",
   "Expiry Date": "Lejárati dátum",
-  "Entry Type": "Bejegyzés típusa"
+  "Entry Type": "Bejegyzés típusa",
+  "Handle": "Fogantyú",
+  "Collection": "Gyűjtemény",
+  "Displays a collection of entries.": "Bejegyzések gyűjteményét jeleníti meg.",
+  "Global": "Globális",
+  "Makes globals available to the page.": "Globálisokat tesz elérhetővé az oldal számára.",
+  "Section": "Szakasz",
+  "Defines a website section with a supporting entry.": "Meghatároz egy webhelyrészt támogató bejegyzéssel.",
+  "Specify the slug used to find the primary record.": "Adja meg az elsődleges rekord megtalálásához használt csigát.",
+  "Default View": "Alapértelmezett nézet",
+  "Used as default entry point when previewing the record.": "Alapértelmezett belépési pontként használatos a rekord előnézetekor.",
+  "Full Slug": "Full Slug",
+  "Use the full slug when looking up the record.": "Használja a teljes csigát, amikor megkeresi a rekordot."
 }

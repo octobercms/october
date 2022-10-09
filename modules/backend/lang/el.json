@@ -103,8 +103,6 @@
   "First name": "Όνομα",
   "Last name": "Επώνυμο",
   "Email": "Email",
-  "Translated for locale: :value": "Μεταφράστηκε για τοπικές ρυθμίσεις: :value",
-  "Translated for site: :value": "Μεταφράστηκε για τον ιστότοπο: :value",
   "A custom schema is used for this file format.": "Για αυτήν τη μορφή αρχείου χρησιμοποιείται ένα προσαρμοσμένο σχήμα.",
   "Select": "Επιλέγω",
   "Replace": "Αντικαθιστώ"

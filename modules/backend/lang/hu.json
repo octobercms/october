@@ -103,8 +103,6 @@
   "First name": "Keresztnév",
   "Last name": "Vezetéknév",
   "Email": "E-mail cím",
-  "Translated for locale: :value": "Lefordítva a következő nyelvre: :value",
-  "Translated for site: :value": "Lefordítva a következő webhelyre: :value",
   "A custom schema is used for this file format.": "Ehhez a fájlformátumhoz egyéni séma használatos.",
   "Select": "Válassza ki",
   "Replace": "Cserélje ki"

@@ -103,8 +103,6 @@
   "First name": "Fornavn",
   "Last name": "Efternavn",
   "Email": "Email",
-  "Translated for locale: :value": "Oversat til lokalitet: :value",
-  "Translated for site: :value": "Oversat til site: :value",
   "A custom schema is used for this file format.": "Et brugerdefineret skema bruges til dette filformat.",
   "Select": "Vælg",
   "Replace": "Erstatte"

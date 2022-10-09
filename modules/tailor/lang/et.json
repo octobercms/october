@@ -51,5 +51,17 @@
   "Title": "Pealkiri",
   "Publish Date": "Avaldamise kuupäev",
   "Expiry Date": "Aegumiskuupäev",
-  "Entry Type": "Kirje tüüp"
+  "Entry Type": "Kirje tüüp",
+  "Handle": "Käepide",
+  "Collection": "Kollektsioon",
+  "Displays a collection of entries.": "Kuvab kirjete kogu.",
+  "Global": "Globaalne",
+  "Makes globals available to the page.": "Teeb globaalsed lehele kättesaadavaks.",
+  "Section": "jaotis",
+  "Defines a website section with a supporting entry.": "Määrab veebisaidi jaotise koos toetava kirjega.",
+  "Specify the slug used to find the primary record.": "Määrake esmase kirje leidmiseks kasutatud nälkjas.",
+  "Default View": "Vaikevaade",
+  "Used as default entry point when previewing the record.": "Kasutatakse kirje eelvaate kuvamisel vaikimisi sisenemispunktina.",
+  "Full Slug": "Täielik nälkjas",
+  "Use the full slug when looking up the record.": "Kasutage kirje otsimisel täielikku nälkja."
 }

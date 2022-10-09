@@ -103,8 +103,6 @@
   "First name": "名",
   "Last name": "姓",
   "Email": "メール",
-  "Translated for locale: :value": "ロケール用に翻訳: :value",
-  "Translated for site: :value": "サイトの翻訳: :値",
   "A custom schema is used for this file format.": "このファイル形式には、カスタム スキーマが使用されます。",
   "Select": "選択する",
   "Replace": "交換"

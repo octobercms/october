@@ -103,8 +103,6 @@
   "First name": "Imię",
   "Last name": "Nazwisko",
   "Email": "Email",
-  "Translated for locale: :value": "Przetłumaczone na język: :wartość",
-  "Translated for site: :value": "Przetłumaczone dla witryny: :wartość",
   "A custom schema is used for this file format.": "Dla tego formatu pliku używany jest schemat niestandardowy.",
   "Select": "Wybierz",
   "Replace": "Zastępować"

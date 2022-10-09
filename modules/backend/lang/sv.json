@@ -103,8 +103,6 @@
   "First name": "Förnamn",
   "Last name": "Efternamn",
   "Email": "E-post",
-  "Translated for locale: :value": "Översatt för locale: :value",
-  "Translated for site: :value": "Översatt för webbplats: :value",
   "A custom schema is used for this file format.": "Ett anpassat schema används för detta filformat.",
   "Select": "Välj",
   "Replace": "Byta ut"

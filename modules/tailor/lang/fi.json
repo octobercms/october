@@ -51,5 +51,17 @@
   "Title": "Otsikko",
   "Publish Date": "Julkaisupäivämäärä",
   "Expiry Date": "Päättymispäivä",
-  "Entry Type": "Sisääntulotyyppi"
+  "Entry Type": "Sisääntulotyyppi",
+  "Handle": "Kahva",
+  "Collection": "Kokoelma",
+  "Displays a collection of entries.": "Näyttää kokoelman merkintöjä.",
+  "Global": "Maailmanlaajuinen",
+  "Makes globals available to the page.": "Tuo globaalit sivun saataville.",
+  "Section": "osio",
+  "Defines a website section with a supporting entry.": "Määrittää verkkosivuston osion, jossa on tukikohta.",
+  "Specify the slug used to find the primary record.": "Määritä etana, jota käytetään ensisijaisen tietueen löytämiseen.",
+  "Default View": "Oletusnäkymä",
+  "Used as default entry point when previewing the record.": "Käytetään oletusarvona tietueen esikatselussa.",
+  "Full Slug": "Täysi Slug",
+  "Use the full slug when looking up the record.": "Käytä täyttä etanaa, kun etsit tietuetta."
 }

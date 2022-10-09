@@ -103,8 +103,6 @@
   "First name": "Ime",
   "Last name": "Priimek",
   "Email": "E-pošta",
-  "Translated for locale: :value": "Prevedeno za jezik: :vrednost",
-  "Translated for site: :value": "Prevedeno za spletno mesto: :value",
   "A custom schema is used for this file format.": "Za to obliko datoteke je uporabljena shema po meri.",
   "Select": "Izberite",
   "Replace": "Zamenjati"

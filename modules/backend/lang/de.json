@@ -103,8 +103,6 @@
   "First name": "Vorname",
   "Last name": "Nachname",
   "Email": "E-Mail",
-  "Translated for locale: :value": "Übersetzt für Gebietsschema: :value",
-  "Translated for site: :value": "Übersetzt für site: :value",
   "A custom schema is used for this file format.": "Für dieses Dateiformat wird ein benutzerdefiniertes Schema verwendet.",
   "Select": "Auswählen",
   "Replace": "Ersetzen"

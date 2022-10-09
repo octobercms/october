@@ -103,8 +103,6 @@
   "First name": "Nama depan",
   "Last name": "Nama belakang",
   "Email": "Surel",
-  "Translated for locale: :value": "Diterjemahkan untuk lokal: :value",
-  "Translated for site: :value": "Diterjemahkan untuk situs: :value",
   "A custom schema is used for this file format.": "Skema kustom digunakan untuk format file ini.",
   "Select": "Pilih",
   "Replace": "Mengganti"

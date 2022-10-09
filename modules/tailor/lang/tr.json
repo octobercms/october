@@ -51,5 +51,17 @@
   "Title": "Başlık",
   "Publish Date": "Yayın tarihi",
   "Expiry Date": "Son kullanma tarihi",
-  "Entry Type": "Giriş Türü"
+  "Entry Type": "Giriş Türü",
+  "Handle": "Üstesinden gelmek",
+  "Collection": "Toplamak",
+  "Displays a collection of entries.": "Girişlerin bir koleksiyonunu görüntüler.",
+  "Global": "küresel",
+  "Makes globals available to the page.": "Globalleri sayfa için kullanılabilir hale getirir.",
+  "Section": "Bölüm",
+  "Defines a website section with a supporting entry.": "Destekleyici bir giriş içeren bir web sitesi bölümü tanımlar.",
+  "Specify the slug used to find the primary record.": "Birincil kaydı bulmak için kullanılan bilgi parçasını belirtin.",
+  "Default View": "Varsayılan görünüm",
+  "Used as default entry point when previewing the record.": "Kaydı önizlerken varsayılan giriş noktası olarak kullanılır.",
+  "Full Slug": "Tam Slug",
+  "Use the full slug when looking up the record.": "Kaydı ararken tam bilgi kullanın."
 }

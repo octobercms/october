@@ -51,5 +51,17 @@
   "Title": "題名",
   "Publish Date": "発行日",
   "Expiry Date": "有効期限",
-  "Entry Type": "エントリータイプ"
+  "Entry Type": "エントリータイプ",
+  "Handle": "扱う",
+  "Collection": "コレクション",
+  "Displays a collection of entries.": "エントリのコレクションを表示します。",
+  "Global": "グローバル",
+  "Makes globals available to the page.": "ページでグローバルを使用できるようにします。",
+  "Section": "セクション",
+  "Defines a website section with a supporting entry.": "サポート エントリを含む Web サイト セクションを定義します。",
+  "Specify the slug used to find the primary record.": "プライマリ レコードの検索に使用するスラッグを指定します。",
+  "Default View": "デフォルトビュー",
+  "Used as default entry point when previewing the record.": "レコードをプレビューするときのデフォルトのエントリ ポイントとして使用されます。",
+  "Full Slug": "フルスラッグ",
+  "Use the full slug when looking up the record.": "レコードを検索するときは、完全なスラッグを使用します。"
 }

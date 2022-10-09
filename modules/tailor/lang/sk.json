@@ -51,5 +51,17 @@
   "Title": "Názov",
   "Publish Date": "Dátum zverejnenia",
   "Expiry Date": "Dátum spotreby",
-  "Entry Type": "Typ vstupu"
+  "Entry Type": "Typ vstupu",
+  "Handle": "Rukoväť",
+  "Collection": "Zbierka",
+  "Displays a collection of entries.": "Zobrazí kolekciu záznamov.",
+  "Global": "globálne",
+  "Makes globals available to the page.": "Sprístupňuje pre stránku globálne informácie.",
+  "Section": "oddiel",
+  "Defines a website section with a supporting entry.": "Definuje sekciu webovej stránky s podporným záznamom.",
+  "Specify the slug used to find the primary record.": "Zadajte slimák použitý na nájdenie primárneho záznamu.",
+  "Default View": "Predvolené zobrazenie",
+  "Used as default entry point when previewing the record.": "Používa sa ako predvolený vstupný bod pri prezeraní záznamu.",
+  "Full Slug": "Full Slug",
+  "Use the full slug when looking up the record.": "Pri vyhľadávaní záznamu použite úplný slimák."
 }
