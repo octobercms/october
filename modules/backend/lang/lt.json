@@ -103,8 +103,6 @@
   "First name": "Vardas",
   "Last name": "Pavardė",
   "Email": "El.paštas",
-  "Translated for locale: :value": "Išversta pagal lokalę: :value",
-  "Translated for site: :value": "Išversta į svetainę: :value",
   "A custom schema is used for this file format.": "Šiam failo formatui naudojama tinkinta schema.",
   "Select": "Pasirinkite",
   "Replace": "Pakeiskite"

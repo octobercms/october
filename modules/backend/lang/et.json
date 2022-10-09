@@ -103,8 +103,6 @@
   "First name": "Eesnimi",
   "Last name": "Perenimi",
   "Email": "E-post",
-  "Translated for locale: :value": "Tõlgitud lokaadi jaoks: :value",
-  "Translated for site: :value": "Tõlgitud saidile: :value",
   "A custom schema is used for this file format.": "Selle failivormingu jaoks kasutatakse kohandatud skeemi.",
   "Select": "Valige",
   "Replace": "Asenda"

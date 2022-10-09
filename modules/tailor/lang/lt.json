@@ -51,5 +51,17 @@
   "Title": "Pavadinimas",
   "Publish Date": "Paskelbimo data",
   "Expiry Date": "Galiojimo pabaigos data",
-  "Entry Type": "Įvesties tipas"
+  "Entry Type": "Įvesties tipas",
+  "Handle": "Rankena",
+  "Collection": "Kolekcija",
+  "Displays a collection of entries.": "Rodo įrašų rinkinį.",
+  "Global": "Pasaulinis",
+  "Makes globals available to the page.": "Padaro pasaulinius puslapiui pasiekiamus.",
+  "Section": "Skyrius",
+  "Defines a website section with a supporting entry.": "Apibrėžia svetainės skyrių su pagalbiniu įrašu.",
+  "Specify the slug used to find the primary record.": "Nurodykite šliužą, naudojamą pirminiam įrašui rasti.",
+  "Default View": "Numatytasis vaizdas",
+  "Used as default entry point when previewing the record.": "Naudojamas kaip numatytasis įėjimo taškas peržiūrint įrašą.",
+  "Full Slug": "Pilnas šliužas",
+  "Use the full slug when looking up the record.": "Ieškodami įrašo naudokite visą šliužą."
 }

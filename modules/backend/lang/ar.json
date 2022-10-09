@@ -103,8 +103,6 @@
   "First name": "الاسم الاول",
   "Last name": "اللقب",
   "Email": "البريد الإلكتروني",
-  "Translated for locale: :value": "مترجمة للغة:: القيمة",
-  "Translated for site: :value": "مترجم للموقع:: القيمة",
   "A custom schema is used for this file format.": "يتم استخدام مخطط مخصص لتنسيق الملف هذا.",
   "Select": "يختار",
   "Replace": "يحل محل"

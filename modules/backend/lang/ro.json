@@ -103,8 +103,6 @@
   "First name": "Prenume",
   "Last name": "Nume",
   "Email": "Email",
-  "Translated for locale: :value": "Tradus pentru locale: :value",
-  "Translated for site: :value": "Tradus pentru site: :value",
   "A custom schema is used for this file format.": "Pentru acest format de fișier este utilizată o schemă personalizată.",
   "Select": "Selectați",
   "Replace": "A inlocui"

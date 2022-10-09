@@ -95,7 +95,7 @@
   "This log displays a list of successful sign in attempts by administrators. Records are kept for a total of :days days.": "Dieses Log zeigt eine Liste mit erfolgreichen Anmelde-Versuchen von Administratoren. Die Aufzeichnungen bleiben erhalten für :days Tage.",
   "Access Log": "Zugriffslog",
   "View a list of successful back-end user sign ins.": "Sehen Sie sich eine Liste mit erfolgreichen Backend Benutzeranmeldungen an.",
-  "ID": "ICH WÜRDE",
+  "ID": "ID",
   "Date & Time": "Datum & Uhrzeit",
   "Type": "Typ",
   "IP address": "IP Adresse",
@@ -103,8 +103,6 @@
   "First name": "Vorname",
   "Last name": "Nachname",
   "Email": "E-Mail",
-  "Translated for locale: :value": "Übersetzt für Gebietsschema: :value",
-  "Translated for site: :value": "Übersetzt für site: :value",
   "A custom schema is used for this file format.": "Für dieses Dateiformat wird ein benutzerdefiniertes Schema verwendet.",
   "Select": "Auswählen",
   "Replace": "Ersetzen"

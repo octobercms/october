@@ -51,5 +51,17 @@
   "Title": "Tytuł",
   "Publish Date": "Data publikacji",
   "Expiry Date": "Data wygaśnięcia",
-  "Entry Type": "Typ wpisu"
+  "Entry Type": "Typ wpisu",
+  "Handle": "Uchwyt",
+  "Collection": "Kolekcja",
+  "Displays a collection of entries.": "Wyświetla kolekcję wpisów.",
+  "Global": "Światowy",
+  "Makes globals available to the page.": "Udostępnia dane globalne stronie.",
+  "Section": "Sekcja",
+  "Defines a website section with a supporting entry.": "Definiuje sekcję witryny z wpisem pomocniczym.",
+  "Specify the slug used to find the primary record.": "Określ informacje o slugu używane do znalezienia rekordu podstawowego.",
+  "Default View": "Widok domyślny",
+  "Used as default entry point when previewing the record.": "Używany jako domyślny punkt wejścia podczas przeglądania rekordu.",
+  "Full Slug": "Pełny ślimak",
+  "Use the full slug when looking up the record.": "Użyj pełnego ślimaka podczas przeglądania rekordu."
 }

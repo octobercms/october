@@ -103,8 +103,6 @@
   "First name": "Jméno",
   "Last name": "Příjmení",
   "Email": "E-mail",
-  "Translated for locale: :value": "Přeloženo pro národní prostředí: :value",
-  "Translated for site: :value": "Přeloženo pro web: :value",
   "A custom schema is used for this file format.": "Pro tento formát souboru se používá vlastní schéma.",
   "Select": "Vybrat",
   "Replace": "Nahradit"

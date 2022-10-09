@@ -51,5 +51,17 @@
   "Title": "Titel",
   "Publish Date": "Publiceer datum",
   "Expiry Date": "Vervaldatum",
-  "Entry Type": "Invoertype"
+  "Entry Type": "Invoertype",
+  "Handle": "Handvat",
+  "Collection": "Verzameling",
+  "Displays a collection of entries.": "Geeft een verzameling vermeldingen weer.",
+  "Global": "Globaal",
+  "Makes globals available to the page.": "Maakt globalen beschikbaar voor de pagina.",
+  "Section": "Sectie",
+  "Defines a website section with a supporting entry.": "Definieert een websitegedeelte met een ondersteunend item.",
+  "Specify the slug used to find the primary record.": "Geef de slug op die wordt gebruikt om het primaire record te vinden.",
+  "Default View": "Standaard weergave",
+  "Used as default entry point when previewing the record.": "Wordt gebruikt als standaard ingangspunt bij het bekijken van een voorbeeld van de record.",
+  "Full Slug": "Volledige naaktslak",
+  "Use the full slug when looking up the record.": "Gebruik de volledige slug bij het opzoeken van de plaat."
 }

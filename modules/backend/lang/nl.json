@@ -103,8 +103,6 @@
   "First name": "Voornaam",
   "Last name": "Achternaam",
   "Email": "E-mailadres",
-  "Translated for locale: :value": "Vertaald voor landinstelling: :waarde",
-  "Translated for site: :value": "Vertaald voor site: :waarde",
   "A custom schema is used for this file format.": "Voor dit bestandsformaat wordt een aangepast schema gebruikt.",
   "Select": "Selecteer",
   "Replace": "Vervangen"

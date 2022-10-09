@@ -51,5 +51,17 @@
   "Title": "Titolo",
   "Publish Date": "Data di pubblicazione",
   "Expiry Date": "Data di scadenza",
-  "Entry Type": "Tipo di ingresso"
+  "Entry Type": "Tipo di ingresso",
+  "Handle": "Maneggiare",
+  "Collection": "Collezione",
+  "Displays a collection of entries.": "Visualizza una raccolta di voci.",
+  "Global": "Globale",
+  "Makes globals available to the page.": "Rende disponibili i globali alla pagina.",
+  "Section": "Sezione",
+  "Defines a website section with a supporting entry.": "Definisce una sezione del sito Web con una voce di supporto.",
+  "Specify the slug used to find the primary record.": "Specificare lo slug utilizzato per trovare il record principale.",
+  "Default View": "Visualizzazione predefinita",
+  "Used as default entry point when previewing the record.": "Utilizzato come punto di ingresso predefinito durante l'anteprima del record.",
+  "Full Slug": "Lumaca piena",
+  "Use the full slug when looking up the record.": "Usa lo slug pieno quando cerchi il record."
 }

@@ -51,5 +51,17 @@
   "Title": "Titel",
   "Publish Date": "Utgivningsdatum",
   "Expiry Date": "Utgångsdatum",
-  "Entry Type": "Ingångstyp"
+  "Entry Type": "Ingångstyp",
+  "Handle": "Hantera",
+  "Collection": "Samling",
+  "Displays a collection of entries.": "Visar en samling poster.",
+  "Global": "Global",
+  "Makes globals available to the page.": "Gör globaler tillgängliga för sidan.",
+  "Section": "Sektion",
+  "Defines a website section with a supporting entry.": "Definierar en webbplatssektion med en stödjande post.",
+  "Specify the slug used to find the primary record.": "Ange den slug som används för att hitta den primära posten.",
+  "Default View": "Standardläget",
+  "Used as default entry point when previewing the record.": "Används som standardingångspunkt vid förhandsgranskning av posten.",
+  "Full Slug": "Full Slug",
+  "Use the full slug when looking up the record.": "Använd hela snigeln när du slår upp posten."
 }

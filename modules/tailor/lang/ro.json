@@ -51,5 +51,17 @@
   "Title": "Titlu",
   "Publish Date": "Data publicării",
   "Expiry Date": "Data de expirare",
-  "Entry Type": "Tip de intrare"
+  "Entry Type": "Tip de intrare",
+  "Handle": "Mâner",
+  "Collection": "Colectie",
+  "Displays a collection of entries.": "Afișează o colecție de intrări.",
+  "Global": "Global",
+  "Makes globals available to the page.": "Face să fie disponibile paginilor globale.",
+  "Section": "Secțiune",
+  "Defines a website section with a supporting entry.": "Definește o secțiune de site web cu o intrare de sprijin.",
+  "Specify the slug used to find the primary record.": "Specificați slug-ul utilizat pentru a găsi înregistrarea primară.",
+  "Default View": "Vedere standard",
+  "Used as default entry point when previewing the record.": "Folosit ca punct de intrare implicit la previzualizarea înregistrării.",
+  "Full Slug": "Slug plin",
+  "Use the full slug when looking up the record.": "Folosiți slug-ul complet când căutați înregistrarea."
 }

@@ -51,5 +51,17 @@
   "Title": "Títol",
   "Publish Date": "Data de publicació",
   "Expiry Date": "Data de caducitat",
-  "Entry Type": "Tipus d'entrada"
+  "Entry Type": "Tipus d'entrada",
+  "Handle": "Gestionar",
+  "Collection": "Col · lecció",
+  "Displays a collection of entries.": "Mostra una col·lecció d'entrades.",
+  "Global": "Global",
+  "Makes globals available to the page.": "Fa que els globals estiguin disponibles a la pàgina.",
+  "Section": "Secció",
+  "Defines a website section with a supporting entry.": "Defineix una secció de lloc web amb una entrada de suport.",
+  "Specify the slug used to find the primary record.": "Especifiqueu el slug utilitzat per trobar el registre principal.",
+  "Default View": "Vista per defecte",
+  "Used as default entry point when previewing the record.": "S'utilitza com a punt d'entrada predeterminat quan es previsualitza el registre.",
+  "Full Slug": "Slug complet",
+  "Use the full slug when looking up the record.": "Utilitzeu el llimac complet quan busqueu el registre."
 }

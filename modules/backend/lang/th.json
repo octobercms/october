@@ -103,8 +103,6 @@
   "First name": "ชื่อ",
   "Last name": "นามสกุล",
   "Email": "อีเมล",
-  "Translated for locale: :value": "แปลสำหรับสถานที่: :value",
-  "Translated for site: :value": "แปลสำหรับไซต์: :value",
   "A custom schema is used for this file format.": "สคีมาที่กำหนดเองใช้สำหรับรูปแบบไฟล์นี้",
   "Select": "เลือก",
   "Replace": "แทนที่"

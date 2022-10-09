@@ -103,8 +103,6 @@
   "First name": "Nom",
   "Last name": "Cognom",
   "Email": "Email",
-  "Translated for locale: :value": "Traduït per localització: :value",
-  "Translated for site: :value": "Traduït per al lloc: :value",
   "A custom schema is used for this file format.": "S'utilitza un esquema personalitzat per a aquest format de fitxer.",
   "Select": "Seleccioneu",
   "Replace": "Substitueix"

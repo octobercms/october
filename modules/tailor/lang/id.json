@@ -51,5 +51,17 @@
   "Title": "Judul",
   "Publish Date": "Tanggal Publikasi",
   "Expiry Date": "Tanggal kadaluarsa",
-  "Entry Type": "Jenis entri"
+  "Entry Type": "Jenis entri",
+  "Handle": "Menangani",
+  "Collection": "Koleksi",
+  "Displays a collection of entries.": "Menampilkan kumpulan entri.",
+  "Global": "Global",
+  "Makes globals available to the page.": "Membuat global tersedia untuk halaman.",
+  "Section": "Bagian",
+  "Defines a website section with a supporting entry.": "Mendefinisikan bagian situs web dengan entri pendukung.",
+  "Specify the slug used to find the primary record.": "Tentukan slug yang digunakan untuk menemukan record utama.",
+  "Default View": "Tampilan Default",
+  "Used as default entry point when previewing the record.": "Digunakan sebagai titik masuk default saat melihat pratinjau rekaman.",
+  "Full Slug": "Siput Penuh",
+  "Use the full slug when looking up the record.": "Gunakan siput penuh saat mencari catatan."
 }

@@ -51,5 +51,17 @@
   "Title": "Naziv",
   "Publish Date": "Datum objave",
   "Expiry Date": "Datum poteka",
-  "Entry Type": "Vrsta vnosa"
+  "Entry Type": "Vrsta vnosa",
+  "Handle": "Ročaj",
+  "Collection": "Zbirka",
+  "Displays a collection of entries.": "Prikaže zbirko vnosov.",
+  "Global": "Globalno",
+  "Makes globals available to the page.": "Omogoči globalne podatke na voljo strani.",
+  "Section": "Razdelek",
+  "Defines a website section with a supporting entry.": "Določa razdelek spletnega mesta s podpornim vnosom.",
+  "Specify the slug used to find the primary record.": "Določite polž, uporabljen za iskanje primarnega zapisa.",
+  "Default View": "Privzeti pogled",
+  "Used as default entry point when previewing the record.": "Uporablja se kot privzeta vstopna točka pri predogledu zapisa.",
+  "Full Slug": "Poln polž",
+  "Use the full slug when looking up the record.": "Pri iskanju zapisa uporabite polno črko."
 }

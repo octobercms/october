@@ -103,8 +103,6 @@
   "First name": "Meno",
   "Last name": "Priezvisko",
   "Email": "E-mail",
-  "Translated for locale: :value": "Preložené pre miestne nastavenie: :value",
-  "Translated for site: :value": "Preložené pre stránku: :value",
   "A custom schema is used for this file format.": "Pre tento formát súboru sa používa vlastná schéma.",
   "Select": "Vyberte",
   "Replace": "Nahradiť"

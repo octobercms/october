@@ -103,8 +103,6 @@
   "First name": "Имя",
   "Last name": "Фамилия",
   "Email": "Почта",
-  "Translated for locale: :value": "Переведено для локали: :value",
-  "Translated for site: :value": "Переведено для сайта: :value",
   "A custom schema is used for this file format.": "Для этого формата файла используется пользовательская схема.",
   "Select": "Выбирать",
   "Replace": "Заменять"

@@ -40,6 +40,7 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
             'url' => '/storage/app/uploads',
+            'visibility' => 'public',
             'throw' => false,
         ],
 
@@ -55,6 +56,7 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/resources'),
             'url' => '/storage/app/resources',
+            'visibility' => 'public',
             'throw' => false,
         ],
 
