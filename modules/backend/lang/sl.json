@@ -105,5 +105,6 @@
   "Email": "E-pošta",
   "A custom schema is used for this file format.": "Za to obliko datoteke je uporabljena shema po meri.",
   "Select": "Izberite",
-  "Replace": "Zamenjati"
+  "Replace": "Zamenjati",
+  "and": "in"
 }

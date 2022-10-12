@@ -102,5 +102,9 @@
   "Login": "登录",
   "First name": "名",
   "Last name": "姓",
-  "Email": "电子邮箱"
+  "Email": "电子邮箱",
+  "A custom schema is used for this file format.": "自定义架构用于此文件格式。",
+  "Select": "选择",
+  "Replace": "代替",
+  "and": "和"
 }

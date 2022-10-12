@@ -105,5 +105,6 @@
   "Email": "E-mailadres",
   "A custom schema is used for this file format.": "Voor dit bestandsformaat wordt een aangepast schema gebruikt.",
   "Select": "Selecteer",
-  "Replace": "Vervangen"
+  "Replace": "Vervangen",
+  "and": "en"
 }

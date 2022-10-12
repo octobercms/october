@@ -105,5 +105,6 @@
   "Email": "Email",
   "A custom schema is used for this file format.": "Et brugerdefineret skema bruges til dette filformat.",
   "Select": "Vælg",
-  "Replace": "Erstatte"
+  "Replace": "Erstatte",
+  "and": "og"
 }

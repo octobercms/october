@@ -105,5 +105,6 @@
   "Email": "Email",
   "A custom schema is used for this file format.": "S'utilitza un esquema personalitzat per a aquest format de fitxer.",
   "Select": "Seleccioneu",
-  "Replace": "Substitueix"
+  "Replace": "Substitueix",
+  "and": "i"
 }

@@ -41,11 +41,11 @@
   "1. Upload an Import File": "1. Augšupielādējiet CSV failu",
   "Import File": "Importa fails",
   "File Encoding": "Faila kodējums",
-  "First row contains column titles": "Pirmā rinda satur kolonnu nosaukumus \/ virsrakstus",
-  "Leave this checked if the first row in the CSV is used as the column titles.": "Atstājiet šo izvēles aili aktīvu, ja pirmā rinda Jūsu CSV failā satur kolonnu nosaukumus \/ virsrakstus.",
+  "First row contains column titles": "Pirmā rinda satur kolonnu nosaukumus / virsrakstus",
+  "Leave this checked if the first row in the CSV is used as the column titles.": "Atstājiet šo izvēles aili aktīvu, ja pirmā rinda Jūsu CSV failā satur kolonnu nosaukumus / virsrakstus.",
   "2. Match the file columns to database fields": "2. Saskanējiet faila kolonnas ar datubāzes laukiem",
   "File columns": "Faila kolonnas",
-  "Database fields": "Datubāzes lauki \/ kolonnas",
+  "Database fields": "Datubāzes lauki / kolonnas",
   "3. Set import options": "3. Iestatiet importa opcijas",
   "Export progress": "Eksporta progress",
   "Processing": "Apstrāde",
@@ -105,5 +105,6 @@
   "Email": "Epasts",
   "A custom schema is used for this file format.": "Šim faila formātam tiek izmantota pielāgota shēma.",
   "Select": "Izvēlieties",
-  "Replace": "Aizvietot"
+  "Replace": "Aizvietot",
+  "and": "un"
 }

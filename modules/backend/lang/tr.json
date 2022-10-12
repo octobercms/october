@@ -105,5 +105,6 @@
   "Email": "Email",
   "A custom schema is used for this file format.": "Bu dosya biçimi için özel bir şema kullanılır.",
   "Select": "Seçme",
-  "Replace": "Yer değiştirmek"
+  "Replace": "Yer değiştirmek",
+  "and": "ve"
 }

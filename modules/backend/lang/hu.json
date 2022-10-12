@@ -105,5 +105,6 @@
   "Email": "E-mail cím",
   "A custom schema is used for this file format.": "Ehhez a fájlformátumhoz egyéni séma használatos.",
   "Select": "Válassza ki",
-  "Replace": "Cserélje ki"
+  "Replace": "Cserélje ki",
+  "and": "és"
 }

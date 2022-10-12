@@ -105,5 +105,6 @@
   "Email": "Correo",
   "A custom schema is used for this file format.": "Se utiliza un esquema personalizado para este formato de archivo.",
   "Select": "Seleccione",
-  "Replace": "Reemplazar"
+  "Replace": "Reemplazar",
+  "and": "y"
 }
