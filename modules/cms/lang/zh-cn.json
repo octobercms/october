@@ -12,5 +12,22 @@
     "Maintenance Mode": "维护模式",
     "Select the page to show when maintenance mode is activated.": "当启用时, 网站访问者会看到下述页面.",
     "Enable maintenance mode": "启用维护模式",
-    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "维护模式将对未登陆后台的访客展示维护页面."
+    "Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.": "维护模式将对未登陆后台的访客展示维护页面.",
+    "Resources": "资源",
+    "Reference assets and variables included on this page.": "参考本页中包含的资产和变量。",
+    "JavaScript": "JavaScript",
+    "JavaScript file(s) in the assets/js folder": "assets/js文件夹中的JavaScript文件",
+    "LESS": "LESS",
+    "LESS file(s) in the assets/less folder": "assets/less文件夹中的LESS文件",
+    "SCSS": "SCSS",
+    "SCSS file(s) in the assets/scss folder": "assets/scss文件夹中的SCSS文件",
+    "Variables": "变量",
+    "Page variables name(s) and value(s)": "页面变量名称和值",
+    "Headers": "Headers",
+    "Page header name(s) and value(s)": "Headers名称和值",
+    "Site Picker": "网站选择器",
+    "Displays links for selecting a different site.": "显示用于选择其他站点的链接。",
+    "Unknown component": "未知组件",
+    "View Bag": "查看包",
+    "Stores custom template properties.": "存储自定义模板属性。"
 }
