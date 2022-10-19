@@ -162,6 +162,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Site Redirect Policy
+    |--------------------------------------------------------------------------
+    |
+    | Controls the behavior when the root URL is opened without a matched site.
+    |
+    | detect    - detect the site based on the browser language
+    | primary   - use the primary site
+    | <site_id> - use a specific site identifier (id)
+    |
+    */
+
+    'redirect_policy' => env('CMS_REDIRECT_POLICY', 'detect'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Force bytecode invalidation
     |--------------------------------------------------------------------------
     |
