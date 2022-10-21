@@ -29,5 +29,10 @@
   "Displays links for selecting a different site.": "別のサイトを選択するためのリンクを表示します。",
   "Unknown component": "不明なコンポーネント",
   "View Bag": "バッグを見る",
-  "Stores custom template properties.": "カスタム テンプレート プロパティを格納します。"
+  "Stores custom template properties.": "カスタム テンプレート プロパティを格納します。",
+  "Manage the front-end theme and customization options.": "インストール済みのテーマのプレビュー一覧とアクティブテーマの選択。",
+  "Frontend Theme": "フロントエンドのテーマ",
+  "Activate": "現在アクティブ中です",
+  "Customize": "カスタマイズ",
+  "Find More Themes": "OctoberCMSマーケットプレースで、もっとテーマを探す。"
 }

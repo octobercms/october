@@ -29,5 +29,9 @@
   "Displays links for selecting a different site.": "Afișează linkuri pentru selectarea unui alt site.",
   "Unknown component": "Componentă necunoscută",
   "View Bag": "Vezi geanta",
-  "Stores custom template properties.": "Stochează proprietăți personalizate ale șablonului."
+  "Stores custom template properties.": "Stochează proprietăți personalizate ale șablonului.",
+  "Manage the front-end theme and customization options.": "Previzualizati lista de teme instalate si selectati o tema activa.",
+  "Frontend Theme": "Tema Front-end",
+  "Activate": "Activare",
+  "Find More Themes": "Gasiti mai multe teme in \"Piata OctoberCMS\"."
 }

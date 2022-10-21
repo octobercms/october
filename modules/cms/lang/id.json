@@ -29,5 +29,10 @@
   "Displays links for selecting a different site.": "Menampilkan tautan untuk memilih situs yang berbeda.",
   "Unknown component": "Komponen tidak diketahui",
   "View Bag": "Lihat Tas",
-  "Stores custom template properties.": "Menyimpan properti template kustom."
+  "Stores custom template properties.": "Menyimpan properti template kustom.",
+  "Manage the front-end theme and customization options.": "Tinjau senarai tema terpasang dan pilih tema aktif.",
+  "Frontend Theme": "Tema front-end",
+  "Activate": "Aktif",
+  "Customize": "Ubah suai",
+  "Find More Themes": "Temukan lebih banyak tema pada Toko Tema OctoberCMS."
 }
