@@ -79,5 +79,13 @@
   "Code": "Cod",
   "October CMS Marketplace": "Piața CMS din octombrie",
   "Visit the :link to add some.": "Proiectul nu are pluginuri sau teme. Accesați linkul : pentru a adăuga câteva.",
-  "Buy Now": "Cumpără acum"
+  "Buy Now": "Cumpără acum",
+  "Updating application files": "Se descarca fisierele aplicatiei",
+  "Finishing update process": "Se finalizeaza procesul de actualizare",
+  "Installing plugin: :name": "Se descarca plugin-ul: :name",
+  "Finishing installation process": "Se finalizeaza procesul de instalare",
+  "Installing theme: :name": "Se descarca tema: :name",
+  "Please specify a Plugin name to install.": "Va rugam sa specificati un nume de Plugin pentru instalare.",
+  "Update process complete": "Procesul de actualizare a fost finalizat cu succes.",
+  "Plugin installed successfully": "Acest plugin a fost instalat cu succes."
 }

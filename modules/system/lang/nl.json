@@ -79,5 +79,17 @@
   "Code": "Code",
   "October CMS Marketplace": "Oktober CMS Marktplaats",
   "Visit the :link to add some.": "Project heeft geen plug-ins of thema's. Bezoek de :link om wat toe te voegen.",
-  "Buy Now": "Nu kopen"
+  "Buy Now": "Nu kopen",
+  "Updating application files": "Bestanden aan het downloaden",
+  "Setting build number": "Versie informatie bijwerken",
+  "Finishing update process": "Afronden updateproces",
+  "Installing plugin: :name": "Plugin downloaden: :name",
+  "Finishing installation process": "Bezig met het afronden van het installatieproces",
+  "Removing theme: :name": "Thema verwijderen: :name",
+  "Please specify a Theme name to install.": "Voor de naam van een thema in om te installeren.",
+  "Installing theme: :name": "Thema downloaden: :name",
+  "Removing plugin: :name": "Plugin verwijderen: :name",
+  "Please specify a Plugin name to install.": "Voer de naam van een plugin in om te installeren.",
+  "Update process complete": "Het updateproces is succesvol afgerond.",
+  "Plugin installed successfully": "De plugin is succesvol geïnstalleerd."
 }

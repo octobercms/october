@@ -79,5 +79,14 @@
   "Code": "Koda",
   "October CMS Marketplace": "Oktober CMS Marketplace",
   "Visit the :link to add some.": "Project har inga plugins eller teman. Besök :länken för att lägga till några.",
-  "Buy Now": "Köp nu"
+  "Buy Now": "Köp nu",
+  "Updating application files": "Laddar ner applikationsfiler",
+  "Finishing update process": "Slutför uppdatering",
+  "Installing plugin: :name": "Laddar ner tillägg: :name",
+  "Finishing installation process": "Installationen är klar",
+  "Please specify a Theme name to install.": "Vänligen specificera ett tema att installera.",
+  "Installing theme: :name": "Ladda ner temat: :name",
+  "Please specify a Plugin name to install.": "Välj ett tilläggsnamn att installera",
+  "Update process complete": "Uppdateringen är slutförd.",
+  "Plugin installed successfully": "Tillägget har installerats"
 }

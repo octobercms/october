@@ -79,5 +79,12 @@
   "Code": "Code",
   "October CMS Marketplace": "Oktober CMS Marketplace",
   "Visit the :link to add some.": "Das Projekt hat keine verknüpften Plugins oder Designs. Besuchen Sie den :link, um einige hinzuzufügen.",
-  "Buy Now": "Jetzt kaufen"
+  "Buy Now": "Jetzt kaufen",
+  "Updating application files": "Applikationsdaten werden heruntergeladen",
+  "Finishing update process": "Schließe Aktualisierung ab",
+  "Installing plugin: :name": "Lade Plugin herunter: :name",
+  "Finishing installation process": "Schließe Installationsprozess ab",
+  "Please specify a Plugin name to install.": "Bitte geben Sie den Namen des zu installierenden Plugin an.",
+  "Update process complete": "Aktualisierungsvorgang erfolgreich.",
+  "Plugin installed successfully": "Das Plugin wurde erfolgreich installiert."
 }

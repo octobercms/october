@@ -79,5 +79,13 @@
   "Code": "Kode",
   "October CMS Marketplace": "Pasar CMS Oktober",
   "Visit the :link to add some.": "Proyek tidak memiliki plugin atau tema. Kunjungi :link untuk menambahkan beberapa.",
-  "Buy Now": "Beli sekarang"
+  "Buy Now": "Beli sekarang",
+  "Updating application files": "Mengunduh berkas-berkas aplikasi",
+  "Finishing update process": "Menyelesaikan proses pembaruan",
+  "Installing plugin: :name": "Mengunduh pengaya: :name",
+  "Finishing installation process": "Menyelesaikan proses pemasangan",
+  "Installing theme: :name": "Mengunduh tema: :name",
+  "Please specify a Plugin name to install.": "Silakan tentukan nama Pengaya yang akan dipasang.",
+  "Update process complete": "Proses pembaruan berhasil dilaksanakan.",
+  "Plugin installed successfully": "Pengaya berhasil dipasang."
 }

@@ -92,5 +92,8 @@
   "Find More Themes": "Find More Themes",
   "Saving Theme...": "Saving Theme...",
   "Return to Themes List": "Return to Themes List",
-  "No themes found": "No themes found"
+  "No themes found": "No themes found",
+  "Seed Theme": "Seed Theme",
+  "Seed the specified theme with blueprints, translations and data.": "Seed the specified theme with blueprints, translations and data.",
+  "Theme Seeded!": "Theme Seeded!"
 }

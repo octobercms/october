@@ -79,5 +79,14 @@
   "Code": "Koodi",
   "October CMS Marketplace": "lokakuun CMS Marketplace",
   "Visit the :link to add some.": "Projektissa ei ole lisäosia tai teemoja. Käy :linkissä lisätäksesi joitain.",
-  "Buy Now": "Osta nyt"
+  "Buy Now": "Osta nyt",
+  "Updating application files": "Ladataan ohjelmiston versiota",
+  "Finishing update process": "Viimeistellään päivitysprosessia",
+  "Installing plugin: :name": "Ladataan lisäosaa: :name",
+  "Finishing installation process": "Viimeistellään asennusta",
+  "Please specify a Theme name to install.": "Määritä asennettavan teeman nimi.",
+  "Installing theme: :name": "Ladataan teemaa: :name",
+  "Please specify a Plugin name to install.": "Määritä asennettavan lisäosan nimi.",
+  "Update process complete": "Päivitys valmis",
+  "Plugin installed successfully": "Lisäosa asennettu onnistuneesti"
 }

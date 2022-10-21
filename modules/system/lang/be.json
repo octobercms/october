@@ -79,5 +79,14 @@
   "Code": "Код",
   "October CMS Marketplace": "Кастрычніцкі CMS Marketplace",
   "Visit the :link to add some.": "Праект не мае плагінаў або тэм. Наведайце :link, каб дадаць.",
-  "Buy Now": "Купіць зараз"
+  "Buy Now": "Купіць зараз",
+  "Updating application files": "Загрузка файлаў прыкладання",
+  "Finishing update process": "Сканчэнне працэсу абнаўлення",
+  "Installing plugin: :name": "Загрузка плагіну: \":name\"",
+  "Finishing installation process": "Завяршэнне працэсу ўсталявання",
+  "Please specify a Theme name to install.": "Калі ласка, укажыце назву тэмы, каб усталяваць",
+  "Installing theme: :name": "Загрузка тэмы: \":name\"",
+  "Please specify a Plugin name to install.": "Калі ласка, укажыце назву плагіна, каб усталяваць",
+  "Update process complete": "Працэс абнаўлення скончаны",
+  "Plugin installed successfully": "Плагін быў паспяхова ўсталяваны"
 }

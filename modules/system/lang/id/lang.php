@@ -121,9 +121,6 @@
   ],
   'install' => [
     'plugin_label' => 'Pasang Pengaya',
-    'missing_plugin_name' => 'Silakan tentukan nama Pengaya yang akan dipasang.',
-    'install_completing' => 'Menyelesaikan proses pemasangan',
-    'install_success' => 'Pengaya berhasil dipasang.',
   ],
   'updates' => [
     'plugin_name' => 'Nama',
@@ -133,16 +130,11 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => 'Binaan :build',
     'core_build_help' => 'Tersedia binaan terbaru.',
-    'core_downloading' => 'Mengunduh berkas-berkas aplikasi',
-    'plugin_downloading' => 'Mengunduh pengaya: :name',
     'plugin_version_none' => 'Pengaya baru',
     'theme_new_install' => 'Pemasangan tema baru.',
-    'theme_downloading' => 'Mengunduh tema: :name',
     'theme_extracting' => 'Membuka tema: :name',
     'update_label' => 'Pembaruan perangkat lunak',
-    'update_completing' => 'Menyelesaikan proses pembaruan',
     'update_loading' => 'Memuat pembaruan yang tersedia...',
-    'update_success' => 'Proses pembaruan berhasil dilaksanakan.',
     'force_label' => 'Paksa pembaruan',
     'found' => [
       'label' => 'Terdapat pembaruan baru!',

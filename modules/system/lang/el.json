@@ -79,5 +79,14 @@
   "Code": "Κώδικας",
   "October CMS Marketplace": "Οκτώβριος CMS Marketplace",
   "Visit the :link to add some.": "Το έργο δεν έχει πρόσθετα ή θέματα. Επισκεφτείτε το :link για να προσθέσετε μερικά.",
-  "Buy Now": "Αγορασε τωρα"
+  "Buy Now": "Αγορασε τωρα",
+  "Updating application files": "Κατέβασμα αρχείων εφαρμογής",
+  "Finishing update process": "Ολοκλήρωση διαδικασίας ενημέρωσης",
+  "Installing plugin: :name": "Κατέβασμα πρόσθετου: :name",
+  "Finishing installation process": "Ολοκλήρωση διαδικασίας εγκατάστασης",
+  "Please specify a Theme name to install.": "Παρακαλούμε προσδιορίστε το όνομα του Θέματος για την εγκατάσταση",
+  "Installing theme: :name": "Κατέβασμα θέματος: :name",
+  "Please specify a Plugin name to install.": "Παρακαλούμε προσδιορίστε το όνομα του Πρόσθετου για την εγκατάσταση",
+  "Update process complete": "Η διαδικασία ενημέρωσης ολοκληρώθηκε",
+  "Plugin installed successfully": "Το πρόσθετο εγκαταστάθηκε επιτυχώς"
 }

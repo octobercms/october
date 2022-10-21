@@ -79,5 +79,14 @@
   "Code": "Kode",
   "October CMS Marketplace": "oktober CMS Marketplace",
   "Visit the :link to add some.": "Projektet har ingen plugins eller temaer. Besøg :linket for at tilføje nogle.",
-  "Buy Now": "Køb nu"
+  "Buy Now": "Køb nu",
+  "Updating application files": "Downloader applikationsfiler",
+  "Finishing update process": "Afslutter opdateringsproces",
+  "Installing plugin: :name": "Downloader plugin: :name",
+  "Finishing installation process": "Afslutter installationsproces",
+  "Please specify a Theme name to install.": "Angiv venligst et temanavn, at installere.",
+  "Installing theme: :name": "Downloader tema: :name",
+  "Please specify a Plugin name to install.": "Angiv venligst et pluginnavn, at installere.",
+  "Update process complete": "Opdateringsprocess afsluttet",
+  "Plugin installed successfully": "Plugin blev installeret"
 }

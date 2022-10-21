@@ -112,9 +112,6 @@
   ],
   'install' => [
     'plugin_label' => 'Instalar Plugin',
-    'missing_plugin_name' => 'Por favor, especifique un nombre de Plugin para instalar',
-    'install_completing' => 'Finalizó el proceso de instalación',
-    'install_success' => 'El plugin se ha instalado correctamente.',
   ],
   'updates' => [
     'plugin_name' => 'Nombre',
@@ -124,16 +121,11 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => 'Versión :build',
     'core_build_help' => 'Última versión está disponible.',
-    'core_downloading' => 'Descargando archivos de la aplicación',
-    'plugin_downloading' => 'Descargando plugin: :name',
     'plugin_version_none' => 'Nuevo plugin',
     'theme_new_install' => 'Intalación de nuevo tema.',
-    'theme_downloading' => 'Descargando tema: :name',
     'theme_extracting' => 'Descomprimiendo tema: :name',
     'update_label' => 'Actualizando software',
-    'update_completing' => 'Finalizando el proceso de actualización',
     'update_loading' => 'Cargando actualizaciones disponibles...',
-    'update_success' => 'El proceso de actualización se realizó exitosamente.',
     'force_label' => 'Forzar actualización',
     'found' => [
       'label' => 'Se encontraron nuevas actualizaciones!',

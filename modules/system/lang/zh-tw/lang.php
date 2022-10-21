@@ -143,10 +143,6 @@
   'install' => [
     'plugin_label' => '安裝外掛',
     'theme_label' => '安裝主題',
-    'missing_plugin_name' => '請輸入要安裝的外掛名稱。',
-    'missing_theme_name' => '請輸入要安裝的主題名稱。',
-    'install_completing' => '完成安裝過程',
-    'install_success' => '外掛安裝成功。',
   ],
   'updates' => [
     'plugin_name' => '名字',
@@ -156,17 +152,12 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => '版本 :build',
     'core_build_help' => '新的版本可用.',
-    'core_downloading' => '下載應用程式',
     'themes' => '主題',
-    'plugin_downloading' => '下載外掛: :name',
     'plugin_version_none' => '新外掛',
     'theme_new_install' => '新主題安裝.',
-    'theme_downloading' => '下載主題: :name',
     'theme_extracting' => '解壓縮主題: :name',
     'update_label' => '更新軟件',
-    'update_completing' => '完成更新過程',
     'update_loading' => '加載可用更新...',
-    'update_success' => '更新完成.',
     'force_label' => '強制更新',
     'found' => [
       'label' => '發現新的更新!',

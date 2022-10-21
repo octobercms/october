@@ -79,5 +79,14 @@
   "Code": "Kód",
   "October CMS Marketplace": "Říjnové CMS Marketplace",
   "Visit the :link to add some.": "Projekt nemá žádné pluginy ani motivy. Navštivte odkaz: a přidejte nějaké.",
-  "Buy Now": "Kup nyní"
+  "Buy Now": "Kup nyní",
+  "Updating application files": "Stahování aplikačních souborů",
+  "Finishing update process": "Dokončování aktualizace",
+  "Installing plugin: :name": "Stahování pluginu: :name",
+  "Finishing installation process": "Dokončování instalace",
+  "Please specify a Theme name to install.": "Zadejte prosím jméno téma které chcete instalovat.",
+  "Installing theme: :name": "Stahuji téma: :name",
+  "Please specify a Plugin name to install.": "Zadejte prosím jméno pluginu které chcete instalovat.",
+  "Update process complete": "Aktualizace systému proběhla úspěšně.",
+  "Plugin installed successfully": "Plugin byl úspěšně nainstalován."
 }

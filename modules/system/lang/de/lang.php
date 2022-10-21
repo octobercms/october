@@ -127,9 +127,6 @@
   ],
   'install' => [
     'plugin_label' => 'Plugin installieren',
-    'missing_plugin_name' => 'Bitte geben Sie den Namen des zu installierenden Plugin an.',
-    'install_completing' => 'Schließe Installationsprozess ab',
-    'install_success' => 'Das Plugin wurde erfolgreich installiert.',
   ],
   'updates' => [
     'plugin_name' => 'Name',
@@ -139,13 +136,9 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => 'Build :build',
     'core_build_help' => 'Aktuellster Build ist verfügbar.',
-    'core_downloading' => 'Applikationsdaten werden heruntergeladen',
-    'plugin_downloading' => 'Lade Plugin herunter: :name',
     'plugin_version_none' => 'Neues Plugin',
     'update_label' => 'Aktualisieren',
-    'update_completing' => 'Schließe Aktualisierung ab',
     'update_loading' => 'Lade verfügbare Aktualisierungen...',
-    'update_success' => 'Aktualisierungsvorgang erfolgreich.',
     'force_label' => 'Aktualisierung erzwingen',
     'found' => [
       'label' => 'Neue Aktualisierungen gefunden!',

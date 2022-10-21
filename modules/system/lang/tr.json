@@ -79,5 +79,15 @@
   "Code": "kod",
   "October CMS Marketplace": "Ekim CMS Pazar Yeri",
   "Visit the :link to add some.": "Projede eklenti veya tema yok. Biraz eklemek için :bağlantısını ziyaret edin.",
-  "Buy Now": "Şimdi al"
+  "Buy Now": "Şimdi al",
+  "Updating application files": "Uygulama dosyaları indiriliyor",
+  "Setting build number": "Build numarası güncelleniyor",
+  "Finishing update process": "Güncelleme işlemi tamamlanıyor",
+  "Installing plugin: :name": "Modül indiriliyor: :name",
+  "Finishing installation process": "Kurulumu tamamla",
+  "Please specify a Theme name to install.": "Lütfen yüklemek için bir tema ismi giriniz.",
+  "Installing theme: :name": "Tema indiriliyor: :name",
+  "Please specify a Plugin name to install.": "Yüklemek istediğiniz eklentinin adını giriniz.",
+  "Update process complete": "Güncelleme işlemi başarıyla tamamlandı.",
+  "Plugin installed successfully": "Eklenti kurulumu tamamlandı."
 }

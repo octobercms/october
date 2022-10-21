@@ -79,5 +79,14 @@
   "Code": "Kood",
   "October CMS Marketplace": "oktoobril CMS Marketplace",
   "Visit the :link to add some.": "Projektil pole pistikprogramme ega teemasid. Mõne lisamiseks külastage linki :.",
-  "Buy Now": "Osta kohe"
+  "Buy Now": "Osta kohe",
+  "Updating application files": "Laen alla süsteemifaile",
+  "Finishing update process": "Lõpetan uuendamise protsessi",
+  "Installing plugin: :name": "Plugina allalaadimine: :name",
+  "Finishing installation process": "Lõpetan paigaldamise protsessi",
+  "Please specify a Theme name to install.": "Palun sisesta teema nimi, mida paigaldada.",
+  "Installing theme: :name": "Teema allalaadimine: :name",
+  "Please specify a Plugin name to install.": "Palun sisesta plugina nimi, mida paigaldada.",
+  "Update process complete": "Uuendamise protsess lõpetatud",
+  "Plugin installed successfully": "Plugin on edukalt paigaldatud"
 }
