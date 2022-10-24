@@ -11,6 +11,7 @@
   "Password must contain at least one number.": "密码必须包含至少一个数字。",
   "Password must contain at least one nonalphanumeric character.": "密码必须至少包含一个非字母数字字符。",
   "Welcome to your Administration Area, :name": "欢迎来到您的管理区域，:name",
+  "Prevent anything from validating ever!": "阻止任何东西验证！",
   "Duplicate": "复制",
   "Expand": "展开",
   "Collapse": "折叠",
@@ -102,5 +103,9 @@
   "Login": "登录",
   "First name": "名",
   "Last name": "姓",
-  "Email": "电子邮箱"
+  "Email": "电子邮箱",
+  "A custom schema is used for this file format.": "自定义架构用于此文件格式。",
+  "Select": "选择",
+  "Replace": "代替",
+  "and": "和"
 }

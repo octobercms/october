@@ -78,5 +78,15 @@
   "or": "або",
   "Code": "Код",
   "October CMS Marketplace": "Жовтень CMS Marketplace",
-  "Visit the :link to add some.": "Проект не має плагінів або тем. Перейдіть за посиланням :link, щоб додати."
+  "Visit the :link to add some.": "Проект не має плагінів або тем. Перейдіть за посиланням :link, щоб додати.",
+  "Buy Now": "Купити зараз",
+  "Updating application files": "Завантаження файлів програми",
+  "Finishing update process": "Завершення процесу оновлення",
+  "Installing plugin: :name": "Завантаження плагіна: :name",
+  "Finishing installation process": "Завершення процесу установки",
+  "Please specify a Theme name to install.": "Будь ласка, вкажіть назву теми для установки.",
+  "Installing theme: :name": "Завантаження теми: :name",
+  "Please specify a Plugin name to install.": "Будь ласка, вкажіть назву плагіна для установки.",
+  "Update process complete": "Процес оновлення успішно завершений.",
+  "Plugin installed successfully": "Плагін був успішно встановлений."
 }

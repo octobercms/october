@@ -78,5 +78,15 @@
   "or": "或者",
   "Code": "代碼",
   "October CMS Marketplace": "十月 CMS 市場",
-  "Visit the :link to add some.": "項目沒有插件或主題。訪問 :link 添加一些內容。"
+  "Visit the :link to add some.": "項目沒有插件或主題。訪問 :link 添加一些內容。",
+  "Buy Now": "立即購買",
+  "Updating application files": "下載應用程式",
+  "Finishing update process": "完成更新過程",
+  "Installing plugin: :name": "下載外掛: :name",
+  "Finishing installation process": "完成安裝過程",
+  "Please specify a Theme name to install.": "請輸入要安裝的主題名稱。",
+  "Installing theme: :name": "下載主題: :name",
+  "Please specify a Plugin name to install.": "請輸入要安裝的外掛名稱。",
+  "Update process complete": "更新完成.",
+  "Plugin installed successfully": "外掛安裝成功。"
 }

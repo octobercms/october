@@ -78,5 +78,16 @@
   "or": "หรือ",
   "Code": "รหัส",
   "October CMS Marketplace": "ตุลาคม CMS Marketplace",
-  "Visit the :link to add some.": "โครงการไม่มีปลั๊กอินหรือธีม ไปที่ :link เพื่อเพิ่มบางส่วน"
+  "Visit the :link to add some.": "โครงการไม่มีปลั๊กอินหรือธีม ไปที่ :link เพื่อเพิ่มบางส่วน",
+  "Buy Now": "ซื้อเลย",
+  "Updating application files": "กำลังดาวน์โหลดไฟล์แอพพลิเคชั่น",
+  "Setting build number": "Setting build number",
+  "Finishing update process": "กำลังจบกระบวนการอัพเดท",
+  "Installing plugin: :name": "กำลังดาวน์โหลดปลั๊กอิน: :name",
+  "Finishing installation process": "กำลังจบกระบวนการติดตั้ง",
+  "Please specify a Theme name to install.": "กรุณากำหนดชื่อธีมที่จะติดตั้ง",
+  "Installing theme: :name": "กำลังดาวน์โหลดธีม: :name",
+  "Please specify a Plugin name to install.": "กรุณากำหนดชื่อปลั๊กอินที่จะติดตั้ง",
+  "Update process complete": "กระบวนการอัพเดทเสร็จสมบูรณ์",
+  "Plugin installed successfully": "ติดตั้งปลั๊กอินสำเร็จ"
 }

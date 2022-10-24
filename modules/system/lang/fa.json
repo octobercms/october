@@ -78,5 +78,16 @@
   "or": "یا",
   "Code": "کد",
   "October CMS Marketplace": "بازار CMS اکتبر",
-  "Visit the :link to add some.": "پروژه هیچ پلاگین یا تمی ندارد. برای افزودن مقداری از لینک: بازدید کنید."
+  "Visit the :link to add some.": "پروژه هیچ پلاگین یا تمی ندارد. برای افزودن مقداری از لینک: بازدید کنید.",
+  "Buy Now": "هم اکنون خریداری کنید",
+  "Updating application files": "دریافت فایل های نرم افزار",
+  "Setting build number": "شماره ساخت تنظیمات",
+  "Finishing update process": "اعمال بروز رسانی",
+  "Installing plugin: :name": "دریافت افزونه: :name",
+  "Finishing installation process": "مرحله ی پایانی عملیات نصب",
+  "Please specify a Theme name to install.": "لطفا نام قالب را جهت نصب وارد نمایید.",
+  "Installing theme: :name": "دریافت قالب: :name",
+  "Please specify a Plugin name to install.": "لطفا نام افزونه را جهت نصب وارد نمایید.",
+  "Update process complete": "بروز رسانی با موفقیت انجام شد.",
+  "Plugin installed successfully": "افزونه با موفقیت نصب شد."
 }

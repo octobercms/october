@@ -105,5 +105,6 @@
   "Email": "E-Mail",
   "A custom schema is used for this file format.": "Für dieses Dateiformat wird ein benutzerdefiniertes Schema verwendet.",
   "Select": "Auswählen",
-  "Replace": "Ersetzen"
+  "Replace": "Ersetzen",
+  "and": "und"
 }

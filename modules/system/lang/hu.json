@@ -78,5 +78,18 @@
   "or": "vagy",
   "Code": "Kód",
   "October CMS Marketplace": "októberi CMS piactér",
-  "Visit the :link to add some.": "A projektnek nincsenek bővítményei vagy témái. Látogassa meg a :linket néhány hozzáadásához."
+  "Visit the :link to add some.": "A projektnek nincsenek bővítményei vagy témái. Látogassa meg a :linket néhány hozzáadásához.",
+  "Buy Now": "Vásárolj most",
+  "Updating application files": "Rendszer letöltése...",
+  "Setting build number": "Rendszer beállítása...",
+  "Finishing update process": "Folyamat befejezése",
+  "Installing plugin: :name": "Bővítmény letöltése: :name",
+  "Finishing installation process": "A telepítési folyamat befejezése",
+  "Removing theme: :name": "Téma eltávolítása: :name",
+  "Please specify a Theme name to install.": "Adja meg a telepítendő téma nevét.",
+  "Installing theme: :name": "Téma letöltése: :name",
+  "Removing plugin: :name": "Bővítmény eltávolítása: :name",
+  "Please specify a Plugin name to install.": "Adja meg a telepítendő bővítmény nevét.",
+  "Update process complete": "A frissítés sikeresen megtörtént.",
+  "Plugin installed successfully": "A bővítmény telepítése sikerült."
 }

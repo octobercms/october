@@ -78,5 +78,18 @@
   "or": "или же",
   "Code": "Код",
   "October CMS Marketplace": "Октябрьская торговая площадка CMS",
-  "Visit the :link to add some.": "В проекте нет плагинов и тем. Посетите :link, чтобы добавить некоторые."
+  "Visit the :link to add some.": "В проекте нет плагинов и тем. Посетите :link, чтобы добавить некоторые.",
+  "Buy Now": "купить сейчас",
+  "Updating application files": "Загрузка файлов приложения",
+  "Setting build number": "Установка номера сборки",
+  "Finishing update process": "Завершение процесса обновления",
+  "Installing plugin: :name": "Загрузка плагина: :name",
+  "Finishing installation process": "Завершение процесса установки",
+  "Removing theme: :name": "Удаление шаблона: :name",
+  "Please specify a Theme name to install.": "Пожалуйста, укажите название темы для установки.",
+  "Installing theme: :name": "Загрузка темы: :name",
+  "Removing plugin: :name": "Удаление плагина: :name",
+  "Please specify a Plugin name to install.": "Пожалуйста, укажите название плагина для установки.",
+  "Update process complete": "Процесс обновления был успешно завершен.",
+  "Plugin installed successfully": "Плагин был успешно установлен."
 }

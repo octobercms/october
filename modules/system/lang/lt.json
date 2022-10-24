@@ -78,5 +78,15 @@
   "or": "arba",
   "Code": "Kodas",
   "October CMS Marketplace": "Spalio mėn. TVS prekyvietė",
-  "Visit the :link to add some.": "Projekte nėra papildinių ar temų. Jei norite pridėti keletą, apsilankykite :nuorodoje."
+  "Visit the :link to add some.": "Projekte nėra papildinių ar temų. Jei norite pridėti keletą, apsilankykite :nuorodoje.",
+  "Buy Now": "Pirkti dabar",
+  "Updating application files": "Siunčiami programos failai",
+  "Finishing update process": "Užbaigiamas naujinimo procesas",
+  "Installing plugin: :name": "Siunčiame įskiepį: :name",
+  "Finishing installation process": "Užbaigiamas diegimo procesas",
+  "Please specify a Theme name to install.": "Nurodykite instaliuojamo Dizaino pavadinimą.",
+  "Installing theme: :name": "Siunčiame dizainą: :name",
+  "Please specify a Plugin name to install.": "Nurodykite instaliuojamo Įskiepio pavadinimą.",
+  "Update process complete": "Atnaujinimo procesas baigtas",
+  "Plugin installed successfully": "Įskiepis įdiegtas sėkmingai"
 }

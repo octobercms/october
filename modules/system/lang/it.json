@@ -78,5 +78,15 @@
   "or": "o",
   "Code": "Codice",
   "October CMS Marketplace": "Mercato CMS di ottobre",
-  "Visit the :link to add some.": "Il progetto non ha plugin o temi. Visita il :link per aggiungerne alcuni."
+  "Visit the :link to add some.": "Il progetto non ha plugin o temi. Visita il :link per aggiungerne alcuni.",
+  "Buy Now": "Acquista ora",
+  "Updating application files": "Scaricamento dei file in corso",
+  "Finishing update process": "Completamento del processo di aggiornamento",
+  "Installing plugin: :name": "Scaricamento plugin: :name",
+  "Finishing installation process": "Sto terminando il processo di installazione",
+  "Please specify a Theme name to install.": "Specifica il nome del tema da installare.",
+  "Installing theme: :name": "Scaricamento tema: :name",
+  "Please specify a Plugin name to install.": "Specifica il nome del plugin da installare.",
+  "Update process complete": "L'aggiornamento è stato eseguito con successo.",
+  "Plugin installed successfully": "Il plugin è stato installato con successo."
 }

@@ -78,5 +78,16 @@
   "or": "o",
   "Code": "Codi",
   "October CMS Marketplace": "Mercat CMS d'octubre",
-  "Visit the :link to add some.": "El projecte no té complements ni temes. Visiteu l'enllaç: per afegir-ne alguns."
+  "Visit the :link to add some.": "El projecte no té complements ni temes. Visiteu l'enllaç: per afegir-ne alguns.",
+  "Buy Now": "Compra ara",
+  "Updating application files": "Descarregant arxius de l'aplicació",
+  "Setting build number": "Assignant número de versió",
+  "Finishing update process": "Finalitzant el procès d'actualització",
+  "Installing plugin: :name": "Descarregant plugin: :name",
+  "Finishing installation process": "Finalitzant el procès d'instal·lació",
+  "Please specify a Theme name to install.": "Si us plau indica un nom de tema per a instal·lar.",
+  "Installing theme: :name": "Descarregant tema: :name",
+  "Please specify a Plugin name to install.": "Si us plau indica un nom de plugin per a instal·lar.",
+  "Update process complete": "Procès d'actualització completat",
+  "Plugin installed successfully": "Plugin instal·lat correctament"
 }

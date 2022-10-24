@@ -118,9 +118,6 @@
   ],
   'install' => [
     'plugin_label' => 'プラグインインストール',
-    'missing_plugin_name' => 'インストールするプラグインの名前を指定してください。',
-    'install_completing' => 'インストールを仕上げ中',
-    'install_success' => 'プラグインをインストールしました。',
   ],
   'updates' => [
     'plugin_name' => '名前',
@@ -130,16 +127,11 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => 'ビルド :build',
     'core_build_help' => '新しいビルドが存在します。',
-    'core_downloading' => 'アプリケーションファイルのダウンロード中',
-    'plugin_downloading' => 'プラグインダウンロード中： :name',
     'plugin_version_none' => '新プラグイン',
     'theme_new_install' => '新しいテーマのインストール',
-    'theme_downloading' => 'テーマ \':name\' をダウンロードしています',
     'theme_extracting' => 'テーマ \':name\' を展開しています',
     'update_label' => 'ソフトウェアアップデート',
-    'update_completing' => 'アップデート仕上げ中',
     'update_loading' => 'アップデートロード中…',
-    'update_success' => 'アップデートしました。',
     'force_label' => '強制アップデート',
     'found' => [
       'label' => '新しいアップデートあり',

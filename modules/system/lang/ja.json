@@ -78,5 +78,14 @@
   "or": "また",
   "Code": "コード",
   "October CMS Marketplace": "10 月の CMS マーケットプレイス",
-  "Visit the :link to add some.": "プロジェクトにはプラグインやテーマはありません。 :link にアクセスして追加してください。"
+  "Visit the :link to add some.": "プロジェクトにはプラグインやテーマはありません。 :link にアクセスして追加してください。",
+  "Buy Now": "今買う",
+  "Updating application files": "アプリケーションファイルのダウンロード中",
+  "Finishing update process": "アップデート仕上げ中",
+  "Installing plugin: :name": "プラグインダウンロード中： :name",
+  "Finishing installation process": "インストールを仕上げ中",
+  "Installing theme: :name": "テーマ ':name' をダウンロードしています",
+  "Please specify a Plugin name to install.": "インストールするプラグインの名前を指定してください。",
+  "Update process complete": "アップデートしました。",
+  "Plugin installed successfully": "プラグインをインストールしました。"
 }

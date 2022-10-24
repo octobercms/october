@@ -109,9 +109,6 @@
   ],
   'install' => [
     'plugin_label' => 'Instalare Plugin',
-    'missing_plugin_name' => 'Va rugam sa specificati un nume de Plugin pentru instalare.',
-    'install_completing' => 'Se finalizeaza procesul de instalare',
-    'install_success' => 'Acest plugin a fost instalat cu succes.',
   ],
   'updates' => [
     'plugin_name' => 'Nume',
@@ -121,16 +118,11 @@
     'plugin_not_found' => 'Plugin not found',
     'core_build' => 'Versiune :build',
     'core_build_help' => 'Ultima versiune este disponibila.',
-    'core_downloading' => 'Se descarca fisierele aplicatiei',
-    'plugin_downloading' => 'Se descarca plugin-ul: :name',
     'plugin_version_none' => 'Plugin nou',
     'theme_new_install' => 'Instalare tema noua.',
-    'theme_downloading' => 'Se descarca tema: :name',
     'theme_extracting' => 'Se dezarhiveaza tema: :name',
     'update_label' => 'Actualizare software',
-    'update_completing' => 'Se finalizeaza procesul de actualizare',
     'update_loading' => 'Se incarca actualizarile disponibile...',
-    'update_success' => 'Procesul de actualizare a fost finalizat cu succes.',
     'force_label' => 'Forteaza actualizarea',
     'found' => [
       'label' => 'Au fost gasite noi actualizari!',

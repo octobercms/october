@@ -20,11 +20,6 @@
       'not_found' => 'Tema de editare nu a fost gasita.',
       'not_match' => 'Obiectul pe care incercati sa-l accesati nu apartine temei care este in curs de editare. Va rugam reincarcati pagina.',
     ],
-    'settings_menu' => 'Tema Front-end',
-    'settings_menu_description' => 'Previzualizati lista de teme instalate si selectati o tema activa.',
-    'find_more_themes' => 'Gasiti mai multe teme in "Piata OctoberCMS".',
-    'activate_button' => 'Activare',
-    'active_button' => 'Activare',
   ],
   'page' => [
     'not_found' => [

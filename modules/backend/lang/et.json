@@ -105,5 +105,6 @@
   "Email": "E-post",
   "A custom schema is used for this file format.": "Selle failivormingu jaoks kasutatakse kohandatud skeemi.",
   "Select": "Valige",
-  "Replace": "Asenda"
+  "Replace": "Asenda",
+  "and": "ja"
 }

@@ -78,5 +78,15 @@
   "or": "или",
   "Code": "Код",
   "October CMS Marketplace": "Октомври CMS Marketplace",
-  "Visit the :link to add some.": "Проектът няма плъгини или теми. Посетете връзката :, за да добавите някои."
+  "Visit the :link to add some.": "Проектът няма плъгини или теми. Посетете връзката :, за да добавите някои.",
+  "Buy Now": "Купи сега",
+  "Updating application files": "Изтеглянето на файловете на приложението",
+  "Finishing update process": "Завършване на инсталационния процес",
+  "Installing plugin: :name": "Изтегляне на Добавка: :name",
+  "Finishing installation process": "Завършване на инсталационния процес.",
+  "Please specify a Theme name to install.": "Моля, укажете име на Темата за инсталиране.",
+  "Installing theme: :name": "Изтегляне на Тема: :name",
+  "Please specify a Plugin name to install.": "Моля, укажете име на Добавката за инсталиране.",
+  "Update process complete": "Процесът на актуализация е извършена успешно.",
+  "Plugin installed successfully": "Добавката е инсталирана успешно."
 }

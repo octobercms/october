@@ -105,5 +105,6 @@
   "Email": "Електронна адреса",
   "A custom schema is used for this file format.": "Для цього формату файлу використовується спеціальна схема.",
   "Select": "Виберіть",
-  "Replace": "Замінити"
+  "Replace": "Замінити",
+  "and": "і"
 }

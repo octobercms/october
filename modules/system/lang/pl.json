@@ -78,5 +78,15 @@
   "or": "lub",
   "Code": "Kod",
   "October CMS Marketplace": "Październikowy rynek CMS",
-  "Visit the :link to add some.": "Projekt nie zawiera wtyczek ani motywów. Odwiedź :link, aby dodać kilka."
+  "Visit the :link to add some.": "Projekt nie zawiera wtyczek ani motywów. Odwiedź :link, aby dodać kilka.",
+  "Buy Now": "Kup Teraz",
+  "Updating application files": "Pobieranie plików aplikacji",
+  "Finishing update process": "Zakończenie procesu aktualizacji",
+  "Installing plugin: :name": "Pobieranie wtyczki: :name",
+  "Finishing installation process": "Proces instalacji prawie zakończony.",
+  "Please specify a Theme name to install.": "Proszę podać nazwę Motywu do zainstalowania.",
+  "Installing theme: :name": "Pobieranie nowego motywu: :name",
+  "Please specify a Plugin name to install.": "Proszę podać nazwę Wtyczki do zainstalowania.",
+  "Update process complete": "Proces aktualizacji został pomyślnie zakończony.",
+  "Plugin installed successfully": "Wtyczka została zainstalowana pomyślnie."
 }

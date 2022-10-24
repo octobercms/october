@@ -20,11 +20,6 @@
       'not_found' => 'El tema de edición no se encuentra.',
       'not_match' => 'El objeto que está intentando acceder no pertenece al tema que se está editando. Vuelve a cargar la página.',
     ],
-    'settings_menu' => 'Plantilla',
-    'settings_menu_description' => 'Vista previa de la lista de las plantillas instaladas.',
-    'find_more_themes' => 'Busque más Plantillas',
-    'activate_button' => 'Activar',
-    'active_button' => 'Activar',
   ],
   'page' => [
     'not_found' => [

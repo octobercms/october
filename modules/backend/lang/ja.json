@@ -105,5 +105,6 @@
   "Email": "メール",
   "A custom schema is used for this file format.": "このファイル形式には、カスタム スキーマが使用されます。",
   "Select": "選択する",
-  "Replace": "交換"
+  "Replace": "交換",
+  "and": "と"
 }

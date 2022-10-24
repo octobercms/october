@@ -105,5 +105,6 @@
   "Email": "El.paštas",
   "A custom schema is used for this file format.": "Šiam failo formatui naudojama tinkinta schema.",
   "Select": "Pasirinkite",
-  "Replace": "Pakeiskite"
+  "Replace": "Pakeiskite",
+  "and": "ir"
 }

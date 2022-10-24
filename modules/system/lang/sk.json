@@ -78,5 +78,16 @@
   "or": "alebo",
   "Code": "kód",
   "October CMS Marketplace": "Októbrový CMS Marketplace",
-  "Visit the :link to add some.": "Projekt nemá žiadne doplnky ani témy. Ak chcete nejaké pridať, navštívte odkaz:"
+  "Visit the :link to add some.": "Projekt nemá žiadne doplnky ani témy. Ak chcete nejaké pridať, navštívte odkaz:",
+  "Buy Now": "Kúpte teraz",
+  "Updating application files": "Sťahovanie súborov aplikácie",
+  "Setting build number": "Nastavenie čísla zostavenia",
+  "Finishing update process": "Dokončovanie aktualizácie",
+  "Installing plugin: :name": "Sťahovanie pluginu: :name",
+  "Finishing installation process": "Dokončovanie inštalačného procesu",
+  "Please specify a Theme name to install.": "Prosím zadajte názov témy na nainštalovanie.",
+  "Installing theme: :name": "Sťahovanie témy: :name",
+  "Please specify a Plugin name to install.": "Prosím zadajte názov pluginu na nainštalovanie.",
+  "Update process complete": "Proces aktualizácie úspešne ukončený",
+  "Plugin installed successfully": "Plugin bol úspešne nainštalovaný"
 }

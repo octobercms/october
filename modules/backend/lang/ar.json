@@ -105,5 +105,6 @@
   "Email": "البريد الإلكتروني",
   "A custom schema is used for this file format.": "يتم استخدام مخطط مخصص لتنسيق الملف هذا.",
   "Select": "يختار",
-  "Replace": "يحل محل"
+  "Replace": "يحل محل",
+  "and": "و"
 }
