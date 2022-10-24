@@ -106,5 +106,7 @@
   "A custom schema is used for this file format.": "A custom schema is used for this file format.",
   "Select": "Select",
   "Replace": "Replace",
-  "and": "and"
+  "and": "and",
+  "Go": "Go",
+  "Go to page": "Go to page"
 }
