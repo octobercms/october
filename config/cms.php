@@ -15,19 +15,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Safe Mode
-    |--------------------------------------------------------------------------
-    |
-    | If safe mode is enabled, the PHP code section is disabled in the CMS
-    | for security reasons. If set to null, safe mode is enabled when
-    | debug mode (app.debug) is disabled.
-    |
-    */
-
-    'safe_mode' => env('CMS_SAFE_MODE', null),
-
-    /*
-    |--------------------------------------------------------------------------
     | Database Themes
     |--------------------------------------------------------------------------
     |
@@ -148,7 +135,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Check import timestamps when combining assets
+    | Check Import Timestamps When Combining Assets
     |--------------------------------------------------------------------------
     |
     | If deep hashing is enabled, the combiner cache will be reset when a change
@@ -177,7 +164,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Force bytecode invalidation
+    | Force Bytecode Invalidation
     |--------------------------------------------------------------------------
     |
     | When using Opcache with opcache.validate_timestamps set to 0 or APC
@@ -187,6 +174,19 @@ return [
     */
 
     'force_bytecode_invalidation' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Safe Mode
+    |--------------------------------------------------------------------------
+    |
+    | If safe mode is enabled, the PHP code section is disabled in the CMS
+    | for security reasons. If set to null, safe mode is enabled when
+    | debug mode (app.debug) is disabled.
+    |
+    */
+
+    'safe_mode' => env('CMS_SAFE_MODE', null),
 
     /*
     |--------------------------------------------------------------------------
