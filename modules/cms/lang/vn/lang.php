@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Toàn màn hình',
     'exit_fullscreen' => 'Thoát toàn màn hình',
     'open_searchbox' => 'Mở hộp tìm kiếm',
-    'close_searchbox' => 'Đóng hộp tìm kiếm',
     'open_replacebox' => 'Mở hộp Replace',
-    'close_replacebox' => 'Đóng hộp Replace',
   ],
   'asset' => [
     'menu_label' => 'Assets',

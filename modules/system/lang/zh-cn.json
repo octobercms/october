@@ -24,6 +24,7 @@
   ":name settings updated": ":name 设置已更新",
   "Return to System Settings": "返回系统设置",
   "Find a Setting...": "查找设置...",
+  "Disable mail branding CSS": "禁用邮件品牌 CSS",
   "Marketplace": "应用市场",
   "There is no documentation provided.": "没有提供文档。",
   "There are no upgrade instructions provided.": "没有提供升级指南。",
@@ -86,6 +87,7 @@
   "Visit the :link to add some.": "项目没有插件或主题。访问 :link 添加一些内容。",
   "Display a color for this site": "为本网站显示颜色",
   "Buy Now": "立即购买",
+  "Updating package manager": "正在更新包管理器",
   "Updating application files": "下载应用程序文件",
   "Setting build number": "设置版本号",
   "Finishing update process": "完成更新过程",
@@ -97,5 +99,8 @@
   "Removing plugin: :name": "正在删除插件：:name",
   "Please specify a Plugin name to install.": "请指定要安装的插件名称。",
   "Update process complete": "更新过程完成",
-  "Plugin installed successfully": "插件安装成功"
+  "Plugin installed successfully": "插件安装成功",
+  "Check Dependencies": "检查依赖项",
+  "Install Dependencies": "安装依赖项",
+  "There are missing dependencies needed for the system to run correctly.": "缺少系统正确运行所需的依赖项。"
 }

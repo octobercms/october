@@ -107,5 +107,12 @@
   "A custom schema is used for this file format.": "自定义架构用于此文件格式。",
   "Select": "选择",
   "Replace": "代替",
-  "and": "和"
+  "and": "和",
+  "Go": "前往",
+  "Go to page": "跳页",
+  "Copy to Clipboard": "复制到剪贴板",
+  "Reveal Contents": "显示内容",
+  "Selected Site": "选择站点",
+  "Use Emmet abbreviations": "使用Emmet缩写",
+  "A record does not exist for the selected site. Create one?": "所选站点的记录不存在,创建一个？"
 }

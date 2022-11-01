@@ -109,4 +109,13 @@ return [
         'response_error' => 'Server responded with {{statusCode}} code.',
         'remove_file' => 'Remove file',
     ],
+    'inspector' => [
+        'add' => 'Add',
+        'remove' => 'Remove',
+        'key' => 'Key',
+        'value' => 'Value',
+        'ok' => 'OK',
+        'cancel' => 'Cancel',
+        'items' => 'Items',
+    ],
 ];

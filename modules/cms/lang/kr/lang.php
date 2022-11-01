@@ -114,9 +114,7 @@
     'enter_fullscreen' => '전체화면모드',
     'exit_fullscreen' => '전체화면모드 해제',
     'open_searchbox' => '검색 열기',
-    'close_searchbox' => '검색 닫기',
     'open_replacebox' => '교체 열기',
-    'close_replacebox' => '교체 닫기',
   ],
   'asset' => [
     'menu_label' => '자산',

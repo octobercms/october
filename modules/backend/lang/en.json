@@ -108,5 +108,10 @@
   "Replace": "Replace",
   "and": "and",
   "Go": "Go",
-  "Go to page": "Go to page"
+  "Go to page": "Go to page",
+  "Copy to Clipboard": "Copy to Clipboard",
+  "Reveal Contents": "Reveal Contents",
+  "Selected Site": "Selected Site",
+  "Use Emmet abbreviations": "Use Emmet abbreviations",
+  "A record does not exist for the selected site. Create one?": "A record does not exist for the selected site. Create one?"
 }

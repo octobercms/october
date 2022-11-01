@@ -109,9 +109,7 @@
     'enter_fullscreen' => 'Visualizza a schermo intero',
     'exit_fullscreen' => 'Esci dalla visualizzazione a schermo intero',
     'open_searchbox' => 'Apri casella di ricerca',
-    'close_searchbox' => 'Chiudi casella di ricerca',
     'open_replacebox' => 'Apri casella di sostituzione',
-    'close_replacebox' => 'Chiudi casella di sostituzione',
   ],
   'asset' => [
     'menu_label' => 'Assets',

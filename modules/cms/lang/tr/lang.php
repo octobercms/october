@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Tam Ekran moduna geç',
     'exit_fullscreen' => 'Tam Ekran modundan çık',
     'open_searchbox' => 'Arama kutusunu aç',
-    'close_searchbox' => 'Arama kutusunu kapat',
     'open_replacebox' => 'Düzenleme kutusunu aç',
-    'close_replacebox' => 'Düzenleme kutusunu kapat',
   ],
   'asset' => [
     'menu_label' => 'Dosyalar',

@@ -113,9 +113,7 @@
     'enter_fullscreen' => 'Eiti į pilno ekrano vaizdą',
     'exit_fullscreen' => 'Išeiti iš pilno ekrano vaizdo',
     'open_searchbox' => 'Atidaryti paieškos laukelį',
-    'close_searchbox' => 'Uždaryti paieškos laukelį',
     'open_replacebox' => 'Atidaryti pakeitimo laukelį',
-    'close_replacebox' => 'Uždaryti pakeitimo laukelį',
   ],
   'asset' => [
     'menu_label' => 'Aktyvai',

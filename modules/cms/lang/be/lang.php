@@ -110,9 +110,7 @@
     'enter_fullscreen' => 'Ўключыць паўнаэкранны рэжым',
     'exit_fullscreen' => 'Выключыць паўнаэкранны рэжым',
     'open_searchbox' => 'Адчыніць пошук',
-    'close_searchbox' => 'Зачыніць пошук',
     'open_replacebox' => 'Адчыніць налады для замены',
-    'close_replacebox' => 'Зачыніць налады для замены',
   ],
   'asset' => [
     'menu_label' => 'Рэсурсы',

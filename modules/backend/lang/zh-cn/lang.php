@@ -207,7 +207,7 @@
     'missing_parent_definition' => '列表行为不包含 \':definition\' 的定义。',
     'behavior_not_ready' => '列表行为尚未初始化，请检查您是否在控制器中调用了 makeLists()。',
     'invalid_column_datetime' => '列值 \':column\' 不是 DateTime 对象，您是否缺少模型中的 $dates 引用？',
-    'pagination' => '显示的记录：:from-:to of :total',
+    'pagination' => '显示的记录：第:from-:to项，共 :total 项',
     'first_page' => '首页',
     'last_page' => '末页',
     'prev_page' => '上一页',

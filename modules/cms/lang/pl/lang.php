@@ -109,9 +109,7 @@
     'enter_fullscreen' => 'Włącz tryb pełnoekranowy',
     'exit_fullscreen' => 'Wyłącz tryb pełnoekranowy',
     'open_searchbox' => 'Otwórz wyszukiwanie',
-    'close_searchbox' => 'Zamknij wyszukiwanie',
     'open_replacebox' => 'Otwórz zamienianie tekstu',
-    'close_replacebox' => 'Zamknij zamienianie tekstu',
   ],
   'asset' => [
     'menu_label' => 'Zasoby',

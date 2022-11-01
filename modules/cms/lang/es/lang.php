@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Abrir en pantalla completa',
     'exit_fullscreen' => 'Salir de pantalla completa',
     'open_searchbox' => 'Abrir caja de búsqueda',
-    'close_searchbox' => 'Cerrar caja de búsqueda',
     'open_replacebox' => 'Abrir caja de reemplazo',
-    'close_replacebox' => 'Cerrar caja de reemplazo',
   ],
   'asset' => [
     'menu_label' => 'Recursos',
