@@ -37,7 +37,7 @@
   "Discard Draft": "下書きを破棄",
   "Save & Apply Draft": "下書きを保存して適用",
   "Do you really want to delete the record? It will also delete all drafts if any exist.": "本当にレコードを削除しますか?また、存在する場合はすべての下書きを削除します。",
-  "Create new Draft": "新しい下書きを作成",
+  "Create New Draft": "新しい下書きを作成",
   "Select Draft to Edit": "編集する下書きを選択",
   "Edit the Primary Record": "プライマリ レコードを編集する",
   "Unnamed draft": "名前のない下書き",
