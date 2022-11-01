@@ -61,5 +61,7 @@
   "Provide a new directory name for the duplicated theme.": "Odaberi drugi naziv za direktorijum teme koja je duplikat.",
   "Find More Themes": "Pronađi još tema",
   "Saving Theme...": "Čuvanje tema...",
-  "Return to Themes List": "Nazad na listu tema"
+  "Return to Themes List": "Nazad na listu tema",
+  "Close Search box": "Zatvori polje za pretragu",
+  "Close Replace box": "Zatvori polje za zamenu"
 }

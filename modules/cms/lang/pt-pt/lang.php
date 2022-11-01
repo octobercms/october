@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Entrar no modo de tela cheia',
     'exit_fullscreen' => 'Sair do modo de tela cheia',
     'open_searchbox' => 'Abrir caixa de pesquisa',
-    'close_searchbox' => 'Fechar caixa de pesquisa',
     'open_replacebox' => 'Abrir caixa de substituição',
-    'close_replacebox' => 'Fechar caixa de substituição',
   ],
   'asset' => [
     'menu_label' => 'Ficheiros',

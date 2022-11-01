@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Activar mode de pàgina completa',
     'exit_fullscreen' => 'Sortir del mode de pàgina completa',
     'open_searchbox' => 'Obrir caixa de cerca',
-    'close_searchbox' => 'Tancar caixa de cerca',
     'open_replacebox' => 'Obrir caixa de substitució',
-    'close_replacebox' => 'Tancar caixa de substitució',
   ],
   'asset' => [
     'menu_label' => 'Recursos',

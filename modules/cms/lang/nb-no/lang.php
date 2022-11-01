@@ -109,9 +109,7 @@
     'enter_fullscreen' => 'Fullskjermmodus',
     'exit_fullscreen' => 'Avslutt fullskjermmodus',
     'open_searchbox' => 'Vis søkefelt',
-    'close_searchbox' => 'Skjul søkefelt',
     'open_replacebox' => 'Vis erstatt-felt',
-    'close_replacebox' => 'Skjul erstatt-felt',
   ],
   'asset' => [
     'menu_label' => 'Ressurser',

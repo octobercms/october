@@ -115,9 +115,7 @@
     'enter_fullscreen' => 'Zapnúť režim celej obrazovky',
     'exit_fullscreen' => 'Vypnúť režim celej obrazovky',
     'open_searchbox' => 'Otvoriť box hľadania',
-    'close_searchbox' => 'Zavrieť box hľadania',
     'open_replacebox' => 'Otvoriť box nahradzovania',
-    'close_replacebox' => 'Zavrieť box nahradzovania',
   ],
   'asset' => [
     'menu_label' => 'Súbory',

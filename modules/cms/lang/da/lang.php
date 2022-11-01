@@ -109,9 +109,7 @@
     'enter_fullscreen' => 'Start fuld skærm',
     'exit_fullscreen' => 'Afslut fuld skærm',
     'open_searchbox' => 'Åben søgeboks',
-    'close_searchbox' => 'Luk søgeboks',
     'open_replacebox' => 'Åben erstartningsboks',
-    'close_replacebox' => 'Luk erstatningsboks',
   ],
   'asset' => [
     'menu_label' => 'Assets',

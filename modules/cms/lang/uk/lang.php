@@ -114,9 +114,7 @@
     'enter_fullscreen' => 'Увійти в повноекранний режим',
     'exit_fullscreen' => 'Вийти з повноекранного режиму',
     'open_searchbox' => 'Відкрити вікно пошуку',
-    'close_searchbox' => 'Закрити вікно пошуку',
     'open_replacebox' => 'Відкрито вікно замінити',
-    'close_replacebox' => 'Закрити вікно замінити',
   ],
   'asset' => [
     'menu_label' => 'Ресурси',

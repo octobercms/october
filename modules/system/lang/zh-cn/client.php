@@ -109,4 +109,13 @@ return [
         'response_error' => '服务器响应 {{statusCode}} 代码',
         'remove_file' => '删除文件',
     ],
+    'inspector' => [
+        'add' => '新增',
+        'remove' => '移除',
+        'key' => '键',
+        'value' => '值',
+        'ok' => '确定',
+        'cancel' => '取消',
+        'items' => '项目',
+    ],
 ];
