@@ -35,8 +35,6 @@
   "Upgrade Guide": "Upgrade Guide",
   "Licence": "Licence",
   "Attach to Project": "Attach to Project",
-  "Project ID": "Project ID",
-  "How to find your Project ID": "How to find your Project ID",
   "Manage Updates": "Manage Updates",
   "Software Update": "Software Update",
   "Return to System Updates": "Return to System Updates",
@@ -95,5 +93,7 @@
   "Plugin installed successfully": "Plugin installed successfully",
   "Check Dependencies": "Check Dependencies",
   "Install Dependencies": "Install Dependencies",
-  "There are missing dependencies needed for the system to run correctly.": "There are missing dependencies needed for the system to run correctly."
+  "There are missing dependencies needed for the system to run correctly.": "There are missing dependencies needed for the system to run correctly.",
+  "License Key": "License Key",
+  "How to find your License Key": "How to find your License Key"
 }
