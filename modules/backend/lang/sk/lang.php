@@ -1,8 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Administrácia',
-    'invalid_login' => 'Údaje, ktoré ste zadali sú nesprávne. Prosím skontrolujte údaje a skúste to znova.',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Bol použitý zlý typ :type.',
     'options_method_invalid_model' => 'Vlastnosť \':field\' nezodpovedá platnému modelu. Skúste špecifikovať metódu možností pre triedu modelu :model explicitne.',
@@ -42,23 +39,10 @@
   'account' => [
     'signed_in_as' => 'Prihlásený ako :full_name',
     'sign_out' => 'Odhlásiť',
-    'login' => 'Prihlásiť sa',
-    'reset' => 'Resetovať',
-    'restore' => 'Obnoviť',
     'login_placeholder' => 'prihlasovacie meno',
     'password_placeholder' => 'heslo',
-    'remember_me' => 'Ostať prihlásený',
-    'forgot_password' => 'Zabudli ste heslo?',
     'enter_email' => 'Zadajte váš email',
-    'enter_login' => 'Zadajte vaše prihlasovacie meno',
     'email_placeholder' => 'email',
-    'enter_new_password' => 'Zadajte nové heslo',
-    'password_reset' => 'Obnova hesla',
-    'restore_success' => 'E-mail s inštrukciami bol zaslaný na vašu e-mailovú adresu.',
-    'restore_error' => 'Užívateľ s prihlasovacím menom \':login\' nebol nájdený',
-    'reset_success' => 'Vaše heslo bolo úspešne obnovené. Teraz sa môžete prihlásiť.',
-    'reset_error' => 'Dáta pre obnovu hesla nie sú správne. Prosím skúste to znova!',
-    'reset_fail' => 'Obnova hesla zlyhala!',
     'apply' => 'Použiť',
     'cancel' => 'Zrušiť',
     'delete' => 'Zmazať',

@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Haldusliides',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Välja tüüpi :type pole olemas.',
     'options_method_invalid_model' => 'Atribuut \':field\' ei vasta ühelegi olemasolevale andmemudelile. Palun defineeri valikväärtuste funktioon :model andmemudelis.',
@@ -29,22 +27,10 @@
   ],
   'account' => [
     'sign_out' => 'Logi välja',
-    'login' => 'Logi sisse',
-    'reset' => 'Lähtesta',
-    'restore' => 'Taasta',
     'login_placeholder' => 'logi sisse',
     'password_placeholder' => 'parool',
-    'forgot_password' => 'Unustasid parooli?',
     'enter_email' => 'Sisesta oma e-post',
-    'enter_login' => 'Sisesta oma kasutajanimi',
     'email_placeholder' => 'e-post',
-    'enter_new_password' => 'Siseta uus parool',
-    'password_reset' => 'Parooli lähtestamine',
-    'restore_success' => 'Sinu e-posti aadressile saadeti kiri juhistega.',
-    'restore_error' => 'Sellist kasutajat ei ole süsteemis: \':login\'',
-    'reset_success' => 'Parool on lähtestatud, võid nüüd oma uue parooli sisse logida.',
-    'reset_error' => 'Sisestasid parooli lähtestamiseks vigased andmed. Palun proovi uuesti!',
-    'reset_fail' => 'Parooli lähtestamine ebaõnnestus!',
     'apply' => 'Rakenda',
     'cancel' => 'Loobu',
     'delete' => 'Kustuta',

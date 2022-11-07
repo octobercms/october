@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Area Administrasi',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Jenis bidang isian tidak valid karena menggunakan :type.',
     'options_method_not_exists' => 'Kelas model :model harus menentukan metode :method() yang mengembalikan opsi untuk bidang isian \':field\'.',
@@ -23,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => 'Keluar',
-    'login' => 'Masuk',
-    'reset' => 'Reset',
-    'restore' => 'Memulihkan',
     'login_placeholder' => 'Nama Pengguna',
     'password_placeholder' => 'Kata Sandi',
-    'forgot_password' => 'Anda lupa kata sandi?',
     'enter_email' => 'Masukan email Anda',
-    'enter_login' => 'Masukan nama pengguna Anda',
     'email_placeholder' => 'Email',
-    'enter_new_password' => 'Masukkan kata sandi baru',
-    'password_reset' => 'Atur ulang kata sandi',
-    'restore_success' => 'Sebuah email yang berisi petunjuk pemulihan telah dikirim ke alamat email Anda.',
-    'restore_error' => 'Pengguna dengan username \':login\' tidak ditemukan',
-    'reset_success' => 'Kata sandi Anda telah diatur ulang. Anda dapat mengakses kembali sekarang.',
-    'reset_error' => 'Data untuk mengatur ulang kata sandi yang diberikan tidak valid. Silakan ulangi lagi!',
-    'reset_fail' => 'Tidak dapat mengatur ulang kata sandi Anda!',
     'apply' => 'Terapkan',
     'cancel' => 'Batalkan',
     'delete' => 'Hapus',

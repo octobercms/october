@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Administrācijas vide',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Nederīgs lauka tips :type.',
     'options_method_not_exists' => 'Moduļa klasei :model jādefinē metodi :method() atgrieztās vērtības \':field\' formas laukam.',
@@ -23,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => 'Izrakstīties',
-    'login' => 'Login',
-    'reset' => 'Atiestatīt',
-    'restore' => 'Atjaunot',
     'login_placeholder' => 'vārds',
     'password_placeholder' => 'parole',
-    'forgot_password' => 'Aizmirsāt paroli?',
     'enter_email' => 'Ievadiet epastu',
-    'enter_login' => 'Ievadiet lietotājvārdu',
     'email_placeholder' => 'epasts',
-    'enter_new_password' => 'Ievadiet jauno paroli',
-    'password_reset' => 'Paroles atiestatīšana',
-    'restore_success' => 'Epasts tika nosūtīts uz norādīto adresi ar paroles atiestatīšanas norādēm.',
-    'restore_error' => 'Lietotājs ar norādīto lietotājvārdu neeksistē \':login\'',
-    'reset_success' => 'Jūsu parole tika veiksmīgi atiestatīta. Varat pieslēgties.',
-    'reset_error' => 'Nederīgi paroles atiestatīšanas dati. Mēģiniet vēlreiz!',
-    'reset_fail' => 'Nebija iespējams atiestatīt paroli!',
     'apply' => 'Apstiprināt',
     'cancel' => 'Atcelt',
     'delete' => 'Dzēst',

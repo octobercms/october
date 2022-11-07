@@ -1,8 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Area di Amministrazione',
-    'invalid_login' => 'Le credenziali inserite non sono valide oppure non si dispone di un profilo. Si prega di ricontrollare e riprovare.',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Il tipo di campo :type non è valido.',
     'options_method_not_exists' => 'La classe :model deve definire un metodo :method() che ritorni le opzioni per il campo ":field".',
@@ -24,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => 'Esci',
-    'login' => 'Accedi',
-    'reset' => 'Reimposta',
-    'restore' => 'Ripristina',
     'login_placeholder' => 'login',
     'password_placeholder' => 'password',
-    'forgot_password' => 'Password dimenticata?',
     'enter_email' => 'Inserisci in tuo indirizzo e-mail',
-    'enter_login' => 'Inserisci il tuo username.',
     'email_placeholder' => 'email',
-    'enter_new_password' => 'Inserisci una nuova password',
-    'password_reset' => 'Reimposta password',
-    'restore_success' => 'Le istruzioni per reimpostare la password sono state inviate al tuo indirizzo e-mail.',
-    'restore_error' => 'Nessun utente con username \':login\' è stato trovato.',
-    'reset_success' => 'La tua password è stata reimpostata con successo. Ora puoi effettuare l\'accesso.',
-    'reset_error' => 'I dati forniti per la reimpostazione della password non sono validi. Riprova!',
-    'reset_fail' => 'Impossibile ripristinare la password!',
     'apply' => 'Applica',
     'cancel' => 'Annulla',
     'delete' => 'Elimina',

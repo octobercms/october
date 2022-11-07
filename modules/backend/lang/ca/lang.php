@@ -1,8 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Àrea d\'Administració',
-    'invalid_login' => 'Els detalls que has introduït no corresponen als nostres registres. Si us plau revisa\'ls i torna-ho a intentar.',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'El tipus de camp :type utilitzat és invàlid.',
     'options_method_invalid_model' => 'L\'atribut \':field\' no resol a un model vàlid. Intenta especificar explícitament el mètode d\'opcions per la classe de model :model.',
@@ -34,23 +31,10 @@
   'account' => [
     'signed_in_as' => 'Connectat com :full_name',
     'sign_out' => 'Sortir',
-    'login' => 'Accedir',
-    'reset' => 'Reiniciar',
-    'restore' => 'Restaurar',
     'login_placeholder' => 'usuari',
     'password_placeholder' => 'contrasenya',
-    'remember_me' => 'Recordar-me',
-    'forgot_password' => 'Has oblidat la teva contrasenya?',
     'enter_email' => 'Introdueix el teu email',
-    'enter_login' => 'Introdueix el teu usuari',
     'email_placeholder' => 'email',
-    'enter_new_password' => 'Introdueix una nova contrasenya',
-    'password_reset' => 'Reiniciar contrasenya',
-    'restore_success' => 'Hem enviat un missatge al teu correu amb instruccions.',
-    'restore_error' => 'No es pot trobar l\'usuari \':login\'',
-    'reset_success' => 'La contrasenya s\'ha reiniciat. Ara pots accedir.',
-    'reset_error' => 'Dades per restablir contrasenya incorrectes. Si us plau intenta-ho de nou!',
-    'reset_fail' => 'No s\'ha pogut restablir la contrasenya!',
     'apply' => 'Aplicar',
     'cancel' => 'Cancel·lar',
     'delete' => 'Eliminar',

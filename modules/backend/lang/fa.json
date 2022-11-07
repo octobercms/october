@@ -106,5 +106,18 @@
   "A custom schema is used for this file format.": "یک طرح سفارشی برای این فرمت فایل استفاده می شود.",
   "Select": "انتخاب کنید",
   "Replace": "جایگزین کردن",
-  "and": "و"
+  "and": "و",
+  "Administration Area": "بخش مدیریت",
+  "Password Reset": "بازنشاندن کلمه عبور",
+  "Please enter a new password.": "کلمه عبور جدید را وارد نمایید",
+  "Please enter your login to restore the password.": "نام کاربری خود را وارد نمایید",
+  "A user could not be found with a login value of ':login'": "کاربری با نام کاریری ':login' یافت نشد.",
+  "If your account was found, a message has been sent to your email address with instructions.": "یک نامه به پست الکترونیکی شما جهت شروع عملیات بارگرداندن کلمه عبور ارسال شد.",
+  "Invalid password reset data supplied. Please try again!": "اطلاعات رمز عبور نا معتبر است , لطفا مجددا تلاش نمایید!",
+  "Unable to reset your password!": "عدم توانایی در بازنشاندن کلمه عبور شما!",
+  "Password has been reset. You may now sign in.": "کلمه عبور شما بارگردانی شد و شما هم اکنون میتوانید وارد سیستم شوید.",
+  "Restore": "بازنشاندن",
+  "Reset": "تنظیم مجدد",
+  "Stay logged in": "مرا به خاطر نگهدار",
+  "Forgot password?": "کلمه عبور خود را فراموش کرده اید؟"
 }

@@ -106,5 +106,17 @@
   "A custom schema is used for this file format.": "自定義架構用於此文件格式。",
   "Select": "選擇",
   "Replace": "代替",
-  "and": "和"
+  "and": "和",
+  "Administration Area": "管理介面",
+  "Password Reset": "密碼重置",
+  "Please enter a new password.": "輸入新密碼",
+  "Please enter your login to restore the password.": "輸入帳號",
+  "A user could not be found with a login value of ':login'": "找不到使用者 ':login'",
+  "If your account was found, a message has been sent to your email address with instructions.": "密碼重置的郵件已發送到您的電子信箱",
+  "Invalid password reset data supplied. Please try again!": "密碼重置失敗. 請重試!",
+  "Unable to reset your password!": "不能重置您的密碼!",
+  "Password has been reset. You may now sign in.": "您的密碼已經重置成功. 您現在可以登入了",
+  "Restore": "還原",
+  "Reset": "重置",
+  "Forgot password?": "忘記您的密碼?"
 }

@@ -106,5 +106,16 @@
   "A custom schema is used for this file format.": "Pentru acest format de fișier este utilizată o schemă personalizată.",
   "Select": "Selectați",
   "Replace": "A inlocui",
-  "and": "și"
+  "and": "și",
+  "Password Reset": "Resetare parola",
+  "Please enter a new password.": "Introduceti o noua parola",
+  "Please enter your login to restore the password.": "Introduceti login",
+  "A user could not be found with a login value of ':login'": "Utilizatorul ':login' nu a fost gasit in sistem.",
+  "If your account was found, a message has been sent to your email address with instructions.": "Un mesaj a fost trimis catre adresa de email cu instructiuni pentru resetarea parolei.",
+  "Invalid password reset data supplied. Please try again!": "Date invalide pentru resetarea parolei. Va rugam incercati din nou!",
+  "Unable to reset your password!": "Eroare la resetarea parolei!",
+  "Password has been reset. You may now sign in.": "Parola a fost resetata cu succes. Va puteti conecta.",
+  "Restore": "Restaurare",
+  "Reset": "Resetare",
+  "Forgot password?": "Ati uitat parola?"
 }

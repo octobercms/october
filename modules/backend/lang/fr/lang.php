@@ -1,8 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Zone d’administration',
-    'invalid_login' => 'L\'utilisateur saisie ne correspond à aucun utilisateur enregistré. Merci de vérifier votre saisie et de réessayer.',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Type de champ invalide :type.',
     'options_method_invalid_model' => 'L’attribut \':field\' ne correspond à aucun modèle valide. Essayez de spécifier explicitement la méthode d’options pour la classe du modèle \':model\'.',
@@ -32,23 +29,10 @@
   'account' => [
     'signed_in_as' => 'Connecté en tant que :full_name',
     'sign_out' => 'Déconnexion',
-    'login' => 'OK',
-    'reset' => 'Réinitialiser',
-    'restore' => 'Restaurer',
     'login_placeholder' => 'identifiant',
     'password_placeholder' => 'mot de passe',
-    'remember_me' => 'Rester connecté',
-    'forgot_password' => 'Mot de passe oublié ?',
     'enter_email' => 'Saisir votre adresse e-mail',
-    'enter_login' => 'Saisir votre identifiant',
     'email_placeholder' => 'adresse e-mail',
-    'enter_new_password' => 'Saisir votre nouveau mot de passe',
-    'password_reset' => 'Réinitialiser le mot de passe',
-    'restore_success' => 'Un e-mail contenant les instructions a été envoyé à l’adresse e-mail de votre compte.',
-    'restore_error' => 'L’identifiant ":login" ne correspond à aucun utilisateur',
-    'reset_success' => 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.',
-    'reset_error' => 'Données de réinitialisation du mot de passe invalides. Veuillez réessayer !',
-    'reset_fail' => 'Réinitialisation du mot de passe impossible !',
     'apply' => 'Appliquer',
     'cancel' => 'Annuler',
     'delete' => 'Supprimer',

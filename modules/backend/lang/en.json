@@ -113,5 +113,21 @@
   "Reveal Contents": "Reveal Contents",
   "Selected Site": "Selected Site",
   "Use Emmet abbreviations": "Use Emmet abbreviations",
-  "A record does not exist for the selected site. Create one?": "A record does not exist for the selected site. Create one?"
+  "A record does not exist for the selected site. Create one?": "A record does not exist for the selected site. Create one?",
+  "The details you entered did not match our records. Please double-check and try again.": "The details you entered did not match our records. Please double-check and try again.",
+  "Administration Area": "Administration Area",
+  "Password Reset": "Password Reset",
+  "Please enter a new password.": "Please enter a new password.",
+  "Password": "Password",
+  "Password Restore": "Password Restore",
+  "Please enter your login to restore the password.": "Please enter your login to restore the password.",
+  "A user could not be found with a login value of ':login'": "A user could not be found with a login value of ':login'",
+  "If your account was found, a message has been sent to your email address with instructions.": "If your account was found, a message has been sent to your email address with instructions.",
+  "Invalid password reset data supplied. Please try again!": "Invalid password reset data supplied. Please try again!",
+  "Unable to reset your password!": "Unable to reset your password!",
+  "Password has been reset. You may now sign in.": "Password has been reset. You may now sign in.",
+  "Restore": "Restore",
+  "Reset": "Reset",
+  "Stay logged in": "Stay logged in",
+  "Forgot password?": "Forgot password?"
 }

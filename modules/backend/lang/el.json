@@ -106,5 +106,17 @@
   "A custom schema is used for this file format.": "Για αυτήν τη μορφή αρχείου χρησιμοποιείται ένα προσαρμοσμένο σχήμα.",
   "Select": "Επιλέγω",
   "Replace": "Αντικαθιστώ",
-  "and": "και"
+  "and": "και",
+  "Administration Area": "Περιοχή Διαχείρισης",
+  "Password Reset": "Επαναφορά Κωδικού",
+  "Please enter a new password.": "Πληκτρολογήστε νέο κωδικό.",
+  "Please enter your login to restore the password.": "Συμπληρώστε τον λογαριασμό σας",
+  "A user could not be found with a login value of ':login'": "Δεν βρέθηκε χρήστης με τα στοιχεία ':login'",
+  "If your account was found, a message has been sent to your email address with instructions.": "Ένα μήνυμα έχει σταλεί στην διεύθυνση ηλεκτρονικού ταχυδρομείου σου με οδηγίες.",
+  "Invalid password reset data supplied. Please try again!": "Τα στοιχεία που έχουν δοθεί για την επαναφορά του κωδικού είναι μη έγκυρα. Παρακαλούμε δοκιμάστε ξανά!",
+  "Unable to reset your password!": "Δεν κατέστη δυνατό να επαναφερθεί ο κωδικός σας!",
+  "Password has been reset. You may now sign in.": "Ο κωδικός σας έχει επαναφερθεί. Μπορείτε τώρα να συνδεθείτε.",
+  "Restore": "Αποκατάσταση",
+  "Reset": "Επαναφορά",
+  "Forgot password?": "Ξεχάσατε τον κωδικό σας;"
 }

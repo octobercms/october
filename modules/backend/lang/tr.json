@@ -106,5 +106,19 @@
   "A custom schema is used for this file format.": "Bu dosya biçimi için özel bir şema kullanılır.",
   "Select": "Seçme",
   "Replace": "Yer değiştirmek",
-  "and": "ve"
+  "and": "ve",
+  "The details you entered did not match our records. Please double-check and try again.": "Girdiğiniz bilgiler kayıtlarla eşleşmiyor. Lütfen kontrol edip tekrar deneyin.",
+  "Administration Area": "Yönetim Paneli",
+  "Password Reset": "Şifre Sıfırla",
+  "Please enter a new password.": "Yeni Şifrenizi girin",
+  "Please enter your login to restore the password.": "Kullanıcı adınızı girin",
+  "A user could not be found with a login value of ':login'": "':login' kullanıcı adı bulunamadı.",
+  "If your account was found, a message has been sent to your email address with instructions.": "Email adresinize şifrenizi nasıl sıfırlayacağınıza dair bilgiler gönderildi.",
+  "Invalid password reset data supplied. Please try again!": "Hatalı giriş yaptınız. Lütfen tekrar deneyin!",
+  "Unable to reset your password!": "Şifre sıfırlanamadı!",
+  "Password has been reset. You may now sign in.": "Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.",
+  "Restore": "Geri yükle",
+  "Reset": "Sıfırla",
+  "Stay logged in": "Beni hatırla",
+  "Forgot password?": "Şifrenizi mi unuttunuz?"
 }

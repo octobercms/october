@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => '시스템관리자영역',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => '유효하지 않은 필드타입 사용 :type ',
     'options_method_invalid_model' => '\':field\' 속성은 리졸브 될 수 없습니다. :model 모델 클래스의 특정 옵션 메소드를 명시적으로 사용해 보세요.',
@@ -29,22 +27,10 @@
   ],
   'account' => [
     'sign_out' => '로그아웃',
-    'login' => '로그인',
-    'reset' => '리셋',
-    'restore' => '되돌리기',
     'login_placeholder' => '아이디',
     'password_placeholder' => '비밀번호',
-    'forgot_password' => '비밀번호를 잊어버리셨습니까?',
     'enter_email' => '이메일 주소를 입력해주세요',
-    'enter_login' => '아이디를 입력해 주세요',
     'email_placeholder' => '이메일 주소',
-    'enter_new_password' => '변경할 비밀번호를 입력해주세요',
-    'password_reset' => '비밀번호 재설정',
-    'restore_success' => '비밀번호를 복구하기 위한 절차를 설명한 메일을 발송합니다.',
-    'restore_error' => '\':login\' 아이디는 등록되어있지 않습니다.',
-    'reset_success' => '비밀번호가 재설정 되었습니다.',
-    'reset_error' => '잘못된 비밀번호 재설정 데이터가 발송되었습니다. 다시 해주세요.',
-    'reset_fail' => '비밀번호를 재설정 할 수 없습니다.',
     'apply' => '적용',
     'cancel' => '취소',
     'delete' => '삭제',

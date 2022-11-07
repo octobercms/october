@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'システム管理者領域',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => '無効なフィールドタイプ :type が使用されています。',
     'options_method_not_exists' => 'モデルクラスの:modelは、":field"フォームフィールドのためにオプションを返す、:method()メソッドを定義しなくてはなりません。',
@@ -23,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => 'ログアウト',
-    'login' => 'ログイン',
-    'reset' => 'リセット',
-    'restore' => '元に戻す',
     'login_placeholder' => 'ユーザー名',
     'password_placeholder' => 'パスワード',
-    'forgot_password' => 'パスワードを忘れましたか？',
     'enter_email' => 'メールアドレスを入力してください',
-    'enter_login' => 'ユーザー名を入力してください',
     'email_placeholder' => 'メールアドレス',
-    'enter_new_password' => '新しいパスワードを入力してください',
-    'password_reset' => 'パスワードリセット',
-    'restore_success' => 'パスワードを元に戻すための手順を説明したメールを送信しました。',
-    'restore_error' => '\':login\'というユーザーは登録されていません。',
-    'reset_success' => 'パスワードがリセットされました。',
-    'reset_error' => '間違ったパスワードリセットデータが送信されました。再実行してください。',
-    'reset_fail' => 'パスワードをリセットできませんでした。',
     'apply' => '適用',
     'cancel' => 'キャンセル',
     'delete' => '削除',
