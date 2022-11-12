@@ -24,12 +24,12 @@
   "Hidden": "Прихований",
   "Draft": "Чернетка",
   "Deleted": "Видалено",
-  "Slug": "Слимак",
+  "Slug": "Слаг",
   "Enabled": "Увімкнено",
   "Schedule publish date": "Запланувати дату публікації",
   "Set expiry date": "Встановіть термін придатності",
-  "View full slug": "Переглянути повний слизень",
-  "Apply this Draft": "Застосувати цей проект",
+  "View full slug": "Переглянути повний слаг",
+  "Apply this Draft": "Застосувати цю чернетку",
   "Remove": "видалити",
   "Drafts are not visible on the website until they are applied.": "Чернетки не відображаються на веб-сайті, доки їх не буде застосовано.",
   "Save Draft": "Зберегти чернетку",
@@ -62,6 +62,6 @@
   "Specify the slug used to find the primary record.": "Укажіть слаг, який використовується для пошуку основного запису.",
   "Default View": "Перегляд за умовчанням",
   "Used as default entry point when previewing the record.": "Використовується як точка входу за умовчанням під час попереднього перегляду запису.",
-  "Full Slug": "Повний Слизень",
+  "Full Slug": "Повний слаг",
   "Use the full slug when looking up the record.": "Використовуйте повний слаг під час пошуку запису."
 }
