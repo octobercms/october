@@ -24,11 +24,11 @@
   "Hidden": "Скрытый",
   "Draft": "Черновик",
   "Deleted": "Удалено",
-  "Slug": "Ссылка",
+  "Slug": "Слаг",
   "Enabled": "Включено",
   "Schedule publish date": "Запланировать дату публикации",
   "Set expiry date": "Дата снятии с публикации",
-  "View full slug": "Посмотреть полную ссылку",
+  "View full slug": "Посмотреть полный слаг",
   "Apply this Draft": "Сделать этот черновик основной записью",
   "Remove": "Удалить",
   "Drafts are not visible on the website until they are applied.": "Черновики не видны на сайте до тех пор пока они не опубликованы.",
@@ -62,6 +62,6 @@
   "Specify the slug used to find the primary record.": "Укажите слаг, используемый для поиска основной записи.",
   "Default View": "Вид по умолчанию",
   "Used as default entry point when previewing the record.": "Используется как точка входа по умолчанию при предварительном просмотре записи.",
-  "Full Slug": "Полный слизняк",
+  "Full Slug": "Полный слаг",
   "Use the full slug when looking up the record.": "Используйте полный слаг при поиске записи."
 }
