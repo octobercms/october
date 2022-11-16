@@ -93,5 +93,10 @@
   "Saving Theme...": "Сохранение шаблона...",
   "Return to Themes List": "Вернуться к списку шаблонов",
   "No themes found": "Шаблоны не найдены",
+  "Seed Theme": "Сидинг шаблона",
+  "Seed the specified theme with blueprints, translations and data.": "Сидинг выбранного шаблона создаст все необходимые чертежи, переводы и демо-данные.",
+  "Theme Seeded!": "Сидинг выполнен успешно!",
+  "Select Page Link": "Выберите ссылку на страницу",
+  "Search all references...": "Поиск по всем ссылкам...",
   "CMS Page": "CMS страница"
 }

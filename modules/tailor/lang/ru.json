@@ -63,5 +63,6 @@
   "Default View": "Вид по умолчанию",
   "Used as default entry point when previewing the record.": "Используется как точка входа по умолчанию при предварительном просмотре записи.",
   "Full Slug": "Полный слаг",
-  "Use the full slug when looking up the record.": "Используйте полный слаг при поиске записи."
+  "Use the full slug when looking up the record.": "Используйте полный слаг при поиске записи.",
+  "Are you sure?": "Вы уверены?"
 }

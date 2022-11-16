@@ -1,7 +1,4 @@
 <?php return [
-  'permissions' => [
-    'name' => 'Тейлор',
-  ],
   'blueprint' => [
     'saved' => 'Чертёж сохранен',
     'reloaded' => 'Чертёж перезагружен',

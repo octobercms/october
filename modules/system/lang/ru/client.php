@@ -109,4 +109,13 @@ return [
         'response_error' => "Сервер ответил {{statusCode}} кодом.",
         'remove_file' => "Удалить файл",
     ],
+    'inspector' => [
+        'add' => 'Добавить',
+        'remove' => 'Убрать',
+        'key' => 'Ключ',
+        'value' => 'Значение',
+        'ok' => 'OK',
+        'cancel' => 'Отмена',
+        'items' => 'Элементы',
+    ],
 ];
