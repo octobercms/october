@@ -35,6 +35,8 @@
     'visit_backend_comment' => 'Затем, откройте панель управления по следующему URL',
     'open_configurator_comment' => 'Откройте приложение в браузере',
     'install_demo_label' => 'Установить демо шаблон и контент? (Рекомендуется)',
+    'operation_timeout_comment' => 'Время ожидания операции истекло. Пожалуйста увеличте лимит на сервере и попробуйте еще раз.',
+    'operation_timeout_hint' => 'See the relevant documentation for :name.',
   ],
   'app' => [
     'name' => 'October CMS',
@@ -188,9 +190,6 @@
     ],
     'detach_confirm' => 'Вы уверены, что хотите отсоединить этот проект?',
     'unbind_success' => 'Проект был успешно отсоединен.',
-  ],
-  'settings' => [
-    'search' => 'Поиск',
   ],
   'mail' => [
     'log_file' => 'Файл журнала',
