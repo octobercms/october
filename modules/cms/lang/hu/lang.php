@@ -54,7 +54,6 @@
     'delete_confirm_multiple' => 'Valóban törölni akarja a kijelölt oldalakat?',
     'delete_confirm_single' => 'Valóban törölni akarja ezt az oldalt?',
     'no_layout' => '-- nincs --',
-    'cms_page' => 'Oldalak',
     'title' => 'Elnevezés szerint',
     'url' => 'Webcím szerint',
     'url_required' => 'A webcím megadása kötelező.',

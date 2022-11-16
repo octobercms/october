@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Želite izbrisati izbrane strani?',
     'delete_confirm_single' => 'Želite izbrisati to stran?',
     'no_layout' => '-- brez postavitve --',
-    'cms_page' => 'CMS stran',
     'title' => 'Naslov strani',
     'url' => 'URL strani',
     'file_name' => 'Ime datoteke strani',

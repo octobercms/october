@@ -223,7 +223,6 @@
     'upload_error' => 'Feltöltési hiba',
     'remove_confirm' => 'Biztos benne?',
     'remove_file' => 'Fájl eltávolítása',
-    'clear' => 'Alaphelyzet',
     'delete_selected' => 'Kijelöltek törlése',
     'upload' => 'Feltöltés',
     'replace' => 'Csere',
@@ -573,8 +572,6 @@
   'mediafinder' => [
     'label' => 'Média',
     'no_image' => 'A kép nem található',
-    'select' => 'Kiválaszt',
-    'replace' => 'Csere',
     'not_an_image' => 'A kiválasztott fájl nem kép',
     'click_to_select_file' => 'Kattintson a fájl kiválasztásához',
   ],

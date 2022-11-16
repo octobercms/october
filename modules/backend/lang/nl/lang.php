@@ -223,7 +223,6 @@
     'upload_error' => 'Upload fout',
     'remove_confirm' => 'Weet je het zeker?',
     'remove_file' => 'Verwijder bestand',
-    'clear' => 'Leegmaken',
     'delete_selected' => 'Verwijder geselecteerde',
     'upload' => 'Uploaden',
     'replace' => 'Vervang',
@@ -577,8 +576,6 @@
   'mediafinder' => [
     'label' => 'Media Finder',
     'no_image' => 'De afbeelding kan niet gevonden worden',
-    'select' => 'Selecteer',
-    'replace' => 'Vervang',
     'not_an_image' => 'Het geselecteerde bestand is geen afbeelding',
     'click_to_select_file' => 'Klik om een bestand te selecteren',
   ],

@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Delete selected pages?',
     'delete_confirm_single' => 'Delete this page?',
     'no_layout' => '-- no layout --',
-    'cms_page' => 'CMS page',
     'title' => 'Page title',
     'url' => 'Page URL',
     'file_name' => 'Page file name',

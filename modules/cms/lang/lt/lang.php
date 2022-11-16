@@ -49,7 +49,6 @@
     'delete_confirm_multiple' => 'Trinti pasirinktus puslapius?',
     'delete_confirm_single' => 'Trinti šį puslapį?',
     'no_layout' => '-- be šablono --',
-    'cms_page' => 'CMS puslapis',
     'title' => 'Puslapio pavadinimas',
     'url' => 'Puslapio URL',
     'file_name' => 'Puslapio failo pavadinimas',

@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Opravdu chcete odstranit vybrané stránky?',
     'delete_confirm_single' => 'Opravdu chcete odstranit tuto stránku?',
     'no_layout' => '-- žádný layout --',
-    'cms_page' => 'CMS stránka',
     'title' => 'Název stránky',
     'url' => 'URL stránky',
     'file_name' => 'Název souboru stránky',

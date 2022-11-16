@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Confirmer la suppression des pages sélectionnées ?',
     'delete_confirm_single' => 'Confirmer la suppression de cette page ?',
     'no_layout' => '-- aucune maquette --',
-    'cms_page' => 'Page CMS',
     'title' => 'Titre de la page',
     'url' => 'URL de la page',
     'file_name' => 'Nom du fichier de la page',

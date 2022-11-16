@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Xóa các trang đang chọn?',
     'delete_confirm_single' => 'Xóa trang này?',
     'no_layout' => '-- Không chọn --',
-    'cms_page' => 'CMS page',
     'title' => 'Tiêu đề trang',
     'url' => 'URL trang',
     'file_name' => 'Tên file của trang',

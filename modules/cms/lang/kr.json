@@ -59,5 +59,6 @@
   "Provide a new directory name for the duplicated theme.": "복제된 테마를 위한 신규 디렉토리 이름을 설정하세요.",
   "Find More Themes": "테마 더 찾아보기",
   "Saving Theme...": "테마를 저장하는 중입니다...",
-  "Return to Themes List": "테마 목록으로 돌아가기"
+  "Return to Themes List": "테마 목록으로 돌아가기",
+  "CMS Page": "CMS 페이지"
 }

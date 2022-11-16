@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Seçili sayfaları silmek istediğinize emin misiniz?',
     'delete_confirm_single' => 'Bu sayfayı silmek istediğinize emin misiniz?',
     'no_layout' => '-- şablon yok --',
-    'cms_page' => 'CMS sayfa',
     'title' => 'Sayfa başlığı',
     'url' => 'Sayfa URL',
     'file_name' => 'Sayfa dosyası adı',

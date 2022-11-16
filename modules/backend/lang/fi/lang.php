@@ -223,7 +223,6 @@
     'upload_error' => 'Virhe siirrossa',
     'remove_confirm' => 'Oletko varma?',
     'remove_file' => 'Poista tiedosto',
-    'clear' => 'Tyhjennä',
     'delete_selected' => 'Poista valittu',
     'upload' => 'Siirrä',
     'replace' => 'Korvaa',
@@ -599,8 +598,6 @@
   'mediafinder' => [
     'label' => 'Mediaetsin',
     'no_image' => 'Kuvaa ei löytynyt',
-    'select' => 'Valitse',
-    'replace' => 'Korvaa',
     'not_an_image' => 'Valitsemasi tiedosto ei ole kuva',
     'click_to_select_file' => 'Klikkaa valitaksesi kuva',
   ],

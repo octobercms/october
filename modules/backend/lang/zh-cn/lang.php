@@ -223,7 +223,6 @@
     'upload_error' => '上传错误',
     'remove_confirm' => '你确定吗？',
     'remove_file' => '删除文件',
-    'clear' => '清除',
     'delete_selected' => '删除选中',
     'upload' => '上传',
     'replace' => '替换',
@@ -577,8 +576,6 @@
   'mediafinder' => [
     'label' => '媒体查找器',
     'no_image' => '找不到图片',
-    'select' => '选择',
-    'replace' => '替换',
     'not_an_image' => '所选文件不是图像',
     'click_to_select_file' => '点击选择文件',
   ],

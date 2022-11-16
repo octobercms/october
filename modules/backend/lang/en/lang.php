@@ -223,7 +223,6 @@
     'upload_error' => 'Upload error',
     'remove_confirm' => 'Are you sure?',
     'remove_file' => 'Remove file',
-    'clear' => 'Clear',
     'delete_selected' => 'Delete selected',
     'upload' => 'Upload',
     'replace' => 'Replace',
@@ -577,8 +576,6 @@
   'mediafinder' => [
     'label' => 'Media Finder',
     'no_image' => 'The image could not be found',
-    'select' => 'Select',
-    'replace' => 'Replace',
     'not_an_image' => 'The selected file is not an image',
     'click_to_select_file' => 'Click to select a file',
   ],

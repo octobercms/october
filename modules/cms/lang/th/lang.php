@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'ลบหน้าที่ถูกเลือกไว้?',
     'delete_confirm_single' => 'ลบหน้านี้?',
     'no_layout' => '-- ไม่มีโครงร่าง --',
-    'cms_page' => 'หน้าเว็บ CMS',
     'title' => 'หัวเรื่องหน้าเว็บ',
     'url' => 'URL หน้าเว็บ',
     'file_name' => 'ชื่อไฟล์หน้าเว็บ',

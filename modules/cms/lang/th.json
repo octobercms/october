@@ -83,5 +83,6 @@
   "Provide a new directory name for the duplicated theme.": "กำหนดโฟลเดอร์ใหม่สำหรับธีมที่จะทำซ้ำ",
   "Find More Themes": "หาธีมอื่นๆ",
   "Saving Theme...": "กำลังบันทึกธีม...",
-  "Return to Themes List": "กลับสู่หน้ารายการธีม"
+  "Return to Themes List": "กลับสู่หน้ารายการธีม",
+  "CMS Page": "หน้าเว็บ CMS"
 }
