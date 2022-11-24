@@ -82,7 +82,7 @@ return [
         'string'  => 'Le champ :attribute doit être de :size caractères.',
         'array'   => 'Le champ :attribute doit contenir :size objets.',
     ],
-    'string'               => 'La champ :attribute doit être une chaîne.',
+    'string'               => 'La champ :attribute doit être une chaîne de caractères.',
     'timezone'             => 'La champ :attribute doit être une zone valide.',
     'unique'               => 'Le champ :attribute doit être unique. La valeur renseignée est déjà utilisée.',
     'uploaded'             => 'La champ :attribute n’a pas téléchargé de données.',
