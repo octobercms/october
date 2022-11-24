@@ -29,7 +29,7 @@ return [
         'video' => 'Vidéo',
         'image' => 'Image',
         'link' => 'Lien',
-        'horizontalrule' => 'Insérer la règle horizontalement',
+        'horizontalrule' => 'Insérer une ligne horizontale',
         'fullscreen' => 'Plein écran',
         'preview' => 'Aperçu',
     ],
@@ -61,7 +61,7 @@ return [
     ],
     'filter' => [
         'group' => [
-            'all' => 'tous'
+            'all' => 'tout'
         ],
         'scopes' => [
             'apply_button_text' => 'Appliquer',
