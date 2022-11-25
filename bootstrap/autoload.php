@@ -13,10 +13,10 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-$helperPath = __DIR__.'/../vendor/october/rain/src/Support/helpers.php';
+$helperPath = __DIR__ . '/../vendor/october/rain/src/Support/helpers.php';
 
 if (!file_exists($helperPath)) {
-    echo 'Missing vendor files, try running "composer install" or use the Wizard installer.'.PHP_EOL;
+    echo 'Missing vendor files, try running "composer install" to install October CMS' . PHP_EOL;
     exit(1);
 }
 
@@ -24,17 +24,16 @@ require $helperPath;
 
 /*
 |--------------------------------------------------------------------------
-| Register The Composer Auto Loader
+| Register The Auto Loader
 |--------------------------------------------------------------------------
 |
-| Composer provides a convenient, automatically generated class loader
-| for our application. We just need to utilize it! We'll require it
-| into the script here so that we do not have to worry about the
-| loading of any our classes "manually". Feels great to relax.
+| Composer provides a convenient, automatically generated class loader for
+| this application. We just need to utilize it! We'll simply require it
+| into the script here so we don't need to manually load our classes.
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +46,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$compiledPath = __DIR__.'/../storage/framework/compiled.php';
+$compiledPath = __DIR__ . '/../storage/framework/compiled.php';
 
 if (file_exists($compiledPath)) {
     require $compiledPath;
