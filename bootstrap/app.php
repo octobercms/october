@@ -12,7 +12,7 @@
 */
 
 $app = new October\Rain\Foundation\Application(
-    realpath(__DIR__.'/../')
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
 /*
