@@ -327,10 +327,7 @@
     'invalid_model_class' => 'The provided model class ":modelClass" for the recordfinder is invalid',
     'cancel' => 'Cancel',
   ],
-  'pagelist' => [
-    'page_link' => 'Page link',
-    'select_page' => 'Select a page...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name Added',
     'link_success' => ':name Linked',

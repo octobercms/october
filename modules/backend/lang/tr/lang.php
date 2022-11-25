@@ -270,10 +270,7 @@
     'find_record' => 'Kayıt Bul',
     'cancel' => 'İptal',
   ],
-  'pagelist' => [
-    'page_link' => 'Sayfa bağlantısı',
-    'select_page' => 'Sayfa seçin...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'İlişki \':config\' için bir yapılandırma ayarı içermiyor.',
     'missing_definition' => 'İlişki \':field\' için bir sütun değeri içermiyor.',

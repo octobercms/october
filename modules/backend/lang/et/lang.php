@@ -240,10 +240,7 @@
     'find_record' => 'Leia kirje',
     'cancel' => 'Loobu',
   ],
-  'pagelist' => [
-    'page_link' => 'Lehe link',
-    'select_page' => 'Vali leht...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => '\':config\' jaoks puuduvad seoste definitsioonid.',
     'missing_definition' => 'Välja \':field\' jaoks puudub seose definitsioon.',

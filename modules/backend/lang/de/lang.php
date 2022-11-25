@@ -279,10 +279,7 @@
     'find_record' => 'Finde Eintrag',
     'cancel' => 'Abbrechen',
   ],
-  'pagelist' => [
-    'page_link' => 'Seitenlink',
-    'select_page' => 'Wähle eine Seite...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Verhalten (behaviour) der Verbindung hat keine Konfiguration für \':config\'.',
     'missing_definition' => 'Verhalten (behaviour) der Verbindung umfasst keine Definition für \':field\'.',

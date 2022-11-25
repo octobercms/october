@@ -264,10 +264,7 @@
     'find_record' => 'Trobar registre',
     'cancel' => 'Cancel·lar',
   ],
-  'pagelist' => [
-    'page_link' => 'Enllaç a pàgina',
-    'select_page' => 'Selecciona una pàgina...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'El comportament Relation no té una configuració per \':config\'.',
     'missing_definition' => 'El comportament Relation no té una definició per \':field\'.',

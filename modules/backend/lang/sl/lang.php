@@ -293,10 +293,7 @@
     'invalid_model_class' => 'Model ":modelClass", določen za iskalnik zapisov, je neveljaven.',
     'cancel' => 'Prekliči',
   ],
-  'pagelist' => [
-    'page_link' => 'Povezava do strani',
-    'select_page' => 'Izberite stran...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Relacija ne vsebuje nastavitev za \':config\'.',
     'missing_definition' => 'Relacija ne vsebuje definicije za \':field\'.',

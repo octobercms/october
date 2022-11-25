@@ -289,10 +289,7 @@
     'invalid_model_class' => 'Klasa ":modelClass" dla recordfinder jest niepoprawna',
     'cancel' => 'Anuluj',
   ],
-  'pagelist' => [
-    'page_link' => 'Link do strony',
-    'select_page' => 'Wybierz stronę...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Zachowanie relacji nie zawiera konfiguracji dla pola \':config\'.',
     'missing_definition' => 'Zachowanie relacji nie zawiera definicji dla pola \':field\'.',

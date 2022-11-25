@@ -234,10 +234,7 @@
   'recordfinder' => [
     'find_record' => 'Знайсці запіс',
   ],
-  'pagelist' => [
-    'page_link' => 'Спасылка на староку',
-    'select_page' => 'Выберыце старонку...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Паводзіны стаўлення не маюць ніводнай канфігурацыі для ":config"',
     'missing_definition' => 'Паводзіны стаўлення не маюць вызначэнняў для поля ":field"',

@@ -327,10 +327,7 @@
     'invalid_model_class' => 'Het opgegeven model klasse ":modelClass" voor de recordfinder is ongeldig',
     'cancel' => 'Annuleren',
   ],
-  'pagelist' => [
-    'page_link' => 'Pagina link',
-    'select_page' => 'Selecteer een pagina...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name toegevoegd',
     'link_success' => ':name gekoppeld',

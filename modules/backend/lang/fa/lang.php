@@ -257,10 +257,7 @@
     'find_record' => 'انتخاب مورد',
     'cancel' => 'انصراف',
   ],
-  'pagelist' => [
-    'page_link' => 'لینک صفحه',
-    'select_page' => 'صفحه ای را انتخاب نمایید...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'کنترل کننده ارتباطات پایگاه داده شامل تعریفی برای \':config\' نمی باشد.',
     'missing_definition' => 'در ارتباط مورد نظر فیلد \':field\' وجود ندارد.',

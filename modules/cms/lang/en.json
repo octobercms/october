@@ -98,5 +98,9 @@
   "Theme Seeded!": "Theme Seeded!",
   "Select Page Link": "Select Page Link",
   "Search all references...": "Search all references...",
-  "CMS Page": "CMS Page"
+  "CMS Page": "CMS Page",
+  "Link": "Link",
+  "Please select a CMS page": "Please select a CMS page",
+  "Please select a page reference": "Please select a page reference",
+  "Please enter a valid URL": "Please enter a valid URL"
 }

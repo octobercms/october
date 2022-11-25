@@ -292,10 +292,7 @@
     'invalid_model_class' => 'Klasa modela ":modelClass" za pretragu nije validna',
     'cancel' => 'Otkaži',
   ],
-  'pagelist' => [
-    'page_link' => 'Link strane',
-    'select_page' => 'Izaberi stranu...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Relacioni odnos nema konfiguraciju za \':config\'.',
     'missing_definition' => 'Relacioni odnos ne sadrži definiciju za polje \':field\'.',

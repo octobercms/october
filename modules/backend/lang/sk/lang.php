@@ -269,10 +269,7 @@
     'find_record' => 'Nájsť záznam',
     'cancel' => 'Zrušiť',
   ],
-  'pagelist' => [
-    'page_link' => 'Odkaz na stránku',
-    'select_page' => 'Vyberte stránku...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Správanie relácie nemá žiadne nastavenie pre \':config\'.',
     'missing_definition' => 'Správanie ralácie neobsahuje definíciu pre \':field\'.',

@@ -319,10 +319,7 @@
     'invalid_model_class' => 'A classe de modelo fornecida ":modelClass" para o recordfinder é inválida',
     'cancel' => 'Cancelar',
   ],
-  'pagelist' => [
-    'page_link' => 'Link da página',
-    'select_page' => 'Selecione uma página ...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name Adicionado(a)',
     'link_success' => ':name Vinculado(a)',

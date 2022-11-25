@@ -327,10 +327,7 @@
     'invalid_model_class' => '提供的 ":modelClass" 不可用',
     'cancel' => '取消',
   ],
-  'pagelist' => [
-    'page_link' => '页面链接',
-    'select_page' => '选择一个页面...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name 已添加',
     'link_success' => ':name 已关联',

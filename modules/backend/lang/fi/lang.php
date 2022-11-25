@@ -327,10 +327,7 @@
     'invalid_model_class' => 'Annettu malliluokka ":modelClass" recordfinderille on virheellinen',
     'cancel' => 'Peruuta',
   ],
-  'pagelist' => [
-    'page_link' => 'Linkki sivuun',
-    'select_page' => 'Valitse sivu...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name Lisätty',
     'link_success' => ':name Linkitetty',

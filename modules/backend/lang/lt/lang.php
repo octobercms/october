@@ -238,10 +238,7 @@
   'recordfinder' => [
     'find_record' => 'Rasti Įrašą',
   ],
-  'pagelist' => [
-    'page_link' => 'Puslapio nuoroda',
-    'select_page' => 'Pasirinkti puslapį...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Subendrinimo elgsena neturi konfigūracijos \':config\'.',
     'missing_definition' => 'Subendrinimo elgsena neturi nustatymo \':field\' laukeliui.',

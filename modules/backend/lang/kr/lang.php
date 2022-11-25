@@ -239,10 +239,7 @@
     'find_record' => '기록 찾기',
     'cancel' => '취소',
   ],
-  'pagelist' => [
-    'page_link' => '페이지 링크',
-    'select_page' => '페이지를 선택...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => '릴레이션 행동은 \':config\' 설정을 가지고 있지 않습니다.',
     'missing_definition' => '릴레이션 행동이 \':field\' 필드에 대한 정의를 가지고 있지 않습니다.',

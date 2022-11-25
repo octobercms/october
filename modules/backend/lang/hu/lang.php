@@ -326,10 +326,7 @@
     'invalid_model_class' => 'A(z) ":modelClass" modell osztály érvénytelen a tartalom kereséshez.',
     'cancel' => 'Mégsem',
   ],
-  'pagelist' => [
-    'page_link' => 'Lapok',
-    'select_page' => '-- válasszon --',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => ':name hozzáadva',
     'link_success' => ':name linkelve',

@@ -265,10 +265,7 @@
   'recordfinder' => [
     'cancel' => 'ยกเลิก',
   ],
-  'pagelist' => [
-    'page_link' => 'ลิงก์หน้าเว็บ',
-    'select_page' => 'เลือกหน้า...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add' => 'เพิ่ม',
     'add_selected' => 'เพิ่มรายการที่เลือก',

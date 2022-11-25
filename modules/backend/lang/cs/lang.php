@@ -256,10 +256,7 @@
     'find_record' => 'Najít záznam',
     'cancel' => 'Zrušit',
   ],
-  'pagelist' => [
-    'page_link' => 'Odkaz na stránku',
-    'select_page' => 'vyberte stránku...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Chování relace nemá žádné nastavení pro \':config\'.',
     'missing_definition' => 'Chování relace neobsahuje definici pro \':field\'.',

@@ -257,10 +257,7 @@
     'find_record' => 'Tìm kiếm bản ghi',
     'cancel' => 'Cancel',
   ],
-  'pagelist' => [
-    'page_link' => 'Page link',
-    'select_page' => 'Lựa chọn một trang...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Relation behavior không được cấu hình cho \':config\'.',
     'missing_definition' => 'Relation behavior không có định nghĩa cho \':field\'.',

@@ -288,10 +288,7 @@
     'invalid_model_class' => 'A classe modelo ":modelClass" definida para o localizador de registos é inválida.',
     'cancel' => 'Cancelar',
   ],
-  'pagelist' => [
-    'page_link' => 'Ligação de página',
-    'select_page' => 'Escolha uma página...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Comportamento da relação não tem uma configuração para ":config".',
     'missing_definition' => 'Comportamento da relação não contém uma definição para ":field".',
