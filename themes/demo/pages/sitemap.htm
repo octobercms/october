@@ -1,0 +1,39 @@
+##
+title = "Sitemap"
+url = "/sitemap.xml"
+
+[resources]
+headers[Content-Type] = 'application/xml'
+
+[collection sitemap]
+handle = "Site\Sitemap"
+==
+{% macro render_sitemap_item(item, reference) %}
+    {% import _self as nav %}
+    {% if reference.items %}
+        {% for child in reference.items %}
+            {{ nav.render_sitemap_item(item, child) }}
+        {% endfor %}
+    {% else %}
+        <url>
+            <loc>{{ reference.url }}</loc>
+            <lastmod>{{ reference.mtime|date('c') }}</lastmod>
+            <changefreq>{{ item.changefreq }}</changefreq>
+            <priority>{{ item.priority }}</priority>
+        </url>
+    {% endif  %}
+{% endmacro %}
+{% import _self as nav %}
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="https://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+>
+    {% for item in sitemap %}
+        {{ nav.render_sitemap_item(
+            item,
+            link(item.reference)
+        ) }}
+    {% endfor %}
+</urlset>
