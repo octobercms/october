@@ -106,7 +106,7 @@ return [
     'size'                 => [
         'numeric' => 'Поле :attribute должно быть :size.',
         'file'    => 'Поле :attribute должно быть :size килобайт.',
-        'string'  => 'Поле :attribute должнол быть длиной в :size символов(а).',
+        'string'  => 'Поле :attribute должно быть длиной в :size символов(а).',
         'array'   => 'Поле :attribute должно содержать :size элементов(а).',
     ],
     'starts_with'          => 'Поле :attribute должно начинаться с: :values.',
