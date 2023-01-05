@@ -56,7 +56,7 @@
   "Create Site": "Crear sitio",
   "Base URL": "URL base",
   "Status": "Estado",
-  "Current default value: :value": "Valor predeterminado actual: :valor",
+  "Current default value: :value": "Valor predeterminado actual: :value",
   "Locale": "Local",
   "Timezone": "Zona horaria",
   "Custom application URL": "URL de aplicación personalizada",

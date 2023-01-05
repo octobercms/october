@@ -56,7 +56,7 @@
   "Create Site": "Skapa webbplats",
   "Base URL": "Bas-URL",
   "Status": "Status",
-  "Current default value: :value": "Aktuellt standardvärde: :värde",
+  "Current default value: :value": "Aktuellt standardvärde: :value",
   "Locale": "Lokal",
   "Timezone": "Tidszon",
   "Custom application URL": "Anpassad applikations-URL",

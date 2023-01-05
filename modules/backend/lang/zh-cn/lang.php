@@ -504,8 +504,8 @@
     'menu_mode_left' => '左侧',
   ],
   'backend_preferences' => [
-    'menu_label' => '后台设置',
-    'menu_description' => '管理你的后台设置，如使用语言。',
+    'menu_label' => '偏好设置',
+    'menu_description' => '管理你的后台偏好设置，如使用语言。',
     'region' => '地区',
     'code_editor' => '代码编辑器',
     'timezone' => '时区',

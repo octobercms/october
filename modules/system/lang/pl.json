@@ -56,7 +56,7 @@
   "Create Site": "Utwórz witrynę",
   "Base URL": "Podstawowy adres URL",
   "Status": "Status",
-  "Current default value: :value": "Bieżąca wartość domyślna: :wartość",
+  "Current default value: :value": "Bieżąca wartość domyślna: :value",
   "Locale": "Lokalny",
   "Timezone": "Strefa czasowa",
   "Custom application URL": "Niestandardowy adres URL aplikacji",

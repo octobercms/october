@@ -56,7 +56,7 @@
   "Create Site": "Site Oluştur",
   "Base URL": "Temel URL",
   "Status": "Durum",
-  "Current default value: :value": "Geçerli varsayılan değer: :değer",
+  "Current default value: :value": "Geçerli varsayılan değer: :value",
   "Locale": "Yerel",
   "Timezone": "Saat dilimi",
   "Custom application URL": "Özel uygulama URL'si",

@@ -56,7 +56,7 @@
   "Create Site": "Создать сайт",
   "Base URL": "Базовый URL",
   "Status": "Статус",
-  "Current default value: :value": "Текущее значение по умолчанию: :значение",
+  "Current default value: :value": "Текущее значение по умолчанию: :value",
   "Locale": "Язык",
   "Timezone": "Часовой пояс",
   "Custom application URL": "Пользовательский URL приложения",

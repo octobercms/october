@@ -56,7 +56,7 @@
   "Create Site": "サイトを作成",
   "Base URL": "ベース URL",
   "Status": "状態",
-  "Current default value: :value": "現在のデフォルト値: :値",
+  "Current default value: :value": "現在のデフォルト値: :value",
   "Locale": "ローカル",
   "Timezone": "タイムゾーン",
   "Custom application URL": "カスタム アプリケーション URL",

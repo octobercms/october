@@ -56,7 +56,7 @@
   "Create Site": "Opret websted",
   "Base URL": "Basis URL",
   "Status": "Status",
-  "Current default value: :value": "Aktuel standardværdi: :værdi",
+  "Current default value: :value": "Aktuel standardværdi: :value",
   "Locale": "Lokal",
   "Timezone": "Tidszone",
   "Custom application URL": "Brugerdefineret applikations-URL",
