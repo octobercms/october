@@ -56,7 +56,7 @@
   "Create Site": "Създаване на сайт",
   "Base URL": "Основен URL адрес",
   "Status": "Статус",
-  "Current default value: :value": "Текуща стойност по подразбиране: :стойност",
+  "Current default value: :value": "Текуща стойност по подразбиране: :value",
   "Locale": "Местен",
   "Timezone": "Часова зона",
   "Custom application URL": "Персонализиран URL адрес на приложението",

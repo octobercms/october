@@ -56,7 +56,7 @@
   "Create Site": "Luo sivusto",
   "Base URL": "Perus-URL-osoite",
   "Status": "Tila",
-  "Current default value: :value": "Nykyinen oletusarvo: :arvo",
+  "Current default value: :value": "Nykyinen oletusarvo: :value",
   "Locale": "Paikallinen",
   "Timezone": "Aikavyöhyke",
   "Custom application URL": "Mukautetun sovelluksen URL-osoite",

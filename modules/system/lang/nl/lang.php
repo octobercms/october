@@ -3,6 +3,7 @@
     'app_config_section' => 'Applicatie configuratie',
     'license_section' => 'Licentiecode',
     'dependencies_section' => 'Installeren van vereiste pakketten',
+    'demo_section' => 'Demo inhoud',
     'locale_select_label' => 'Selecteer taal',
     'locale_select_error' => 'Taalcode :code is ongeldig, probeer het opnieuw',
     'app_url_label' => 'Applicatie URL',
@@ -33,6 +34,9 @@
     'migrate_database_comment' => 'Migreer de database met het volgende commando',
     'visit_backend_comment' => 'En open vervolgens het beheergedeelte op deze URL',
     'open_configurator_comment' => 'Open deze applicatie in je browser',
+    'install_demo_label' => 'Installeer demo thema en inhoud? (Aanbevolen)',
+    'operation_timeout_comment' => 'De aanroep is verlopen. Verhoog de timeout-instelling van de server en probeer het opnieuw.',
+    'operation_timeout_hint' => 'Bekijk relevante documentatie voor :name.',
   ],
   'app' => [
     'name' => 'October CMS',
@@ -148,6 +152,8 @@
     'recommended' => 'Aanbevolen',
     'plugin_label' => 'Plugin',
     'unknown_plugin' => 'Plugin is verwijderd van het bestandssysteem.',
+    'disabled_by_config' => 'Plugin is uitgeschakeld (configuratie).',
+    'disabled_by_system' => 'Plugin heeft ontbrekende afhankelijkheden of uitgeschakeld door systeem.',
     'select_label' => 'Selecteer actie...',
     'bulk_actions_label' => 'Bulk acties',
     'check_yes' => 'Ja',
@@ -184,9 +190,6 @@
     ],
     'detach_confirm' => 'Weet je zeker dat je dit project wilt ontkoppelen?',
     'unbind_success' => 'Project is succesvol ontkoppeld.',
-  ],
-  'settings' => [
-    'search' => 'Zoeken',
   ],
   'mail' => [
     'log_file' => 'Logboek bestand',

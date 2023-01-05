@@ -109,4 +109,13 @@ return [
         'response_error' => 'De server reageerde met de code {{statusCode}}.',
         'remove_file' => 'Verwijder bestand',
     ],
+    'inspector' => [
+        'add' => 'Toevoegen',
+        'remove' => 'Verwijderen',
+        'key' => 'Sleutel',
+        'value' => 'Waarde',
+        'ok' => 'Ok',
+        'cancel' => 'Annuleren',
+        'items' => 'Items',
+    ],
 ];

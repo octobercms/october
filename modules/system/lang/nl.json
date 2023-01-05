@@ -56,7 +56,7 @@
   "Create Site": "Site maken",
   "Base URL": "Basis-URL",
   "Status": "Toestand",
-  "Current default value: :value": "Huidige standaardwaarde: :waarde",
+  "Current default value: :value": "Huidige standaardwaarde: :value",
   "Locale": "lokaal",
   "Timezone": "Tijdzone",
   "Custom application URL": "Aangepaste applicatie-URL",
