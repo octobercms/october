@@ -45,7 +45,7 @@ vars[howItsMadeTailorContent] = 'entries/wiki_article'
                 {% endfor %}
             </div>
             <nav class="wiki-pagination" aria-label="Pagination">
-                {{ articles.appends(get()).links|raw }}
+                {{ pager(articles, { withQuery: true }) }}
             </nav>
         </div>
     </div>

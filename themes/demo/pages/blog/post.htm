@@ -17,11 +17,10 @@ vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/post.htm'
 vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
 vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
 ==
-{% if blog is empty %}
+{% set post = blog %}
+{% if post is empty %}
     {% do abort(404) %}
 {% endif %}
-
-{% set post = blog %}
 
 <article class="card post-card card-primary">
     {% if post.banner %}

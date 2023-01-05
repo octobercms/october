@@ -142,6 +142,8 @@
     'asset' => 'Asset File',
     'hidden' => 'Hidden',
     'hidden_comment' => 'Hidden pages are accessible only by logged-in back-end users.',
+    'priority' => 'Priority',
+    'priority_comment' => 'Priority layouts will load their contents before the page contents.',
     'enter_fullscreen' => 'Enter fullscreen mode',
     'exit_fullscreen' => 'Exit fullscreen mode',
     'open_searchbox' => 'Open Search box',

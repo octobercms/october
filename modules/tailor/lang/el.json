@@ -59,7 +59,7 @@
   "Makes globals available to the page.": "Κάνει τα παγκόσμια διαθέσιμα στη σελίδα.",
   "Section": "Ενότητα",
   "Defines a website section with a supporting entry.": "Καθορίζει μια ενότητα ιστότοπου με μια υποστηρικτική καταχώρηση.",
-  "Specify the slug used to find the primary record.": "Καθορίστε το γυμνοσάλιαγκο που χρησιμοποιείται για την εύρεση της κύριας εγγραφής.",
+  "URL code (slug) used to find the primary record.": "Καθορίστε το γυμνοσάλιαγκο που χρησιμοποιείται για την εύρεση της κύριας εγγραφής.",
   "Default View": "Προεπιλεγμένη προβολή",
   "Used as default entry point when previewing the record.": "Χρησιμοποιείται ως προεπιλεγμένο σημείο εισόδου κατά την προεπισκόπηση της εγγραφής.",
   "Full Slug": "Full Slug",

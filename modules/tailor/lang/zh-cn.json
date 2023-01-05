@@ -60,7 +60,7 @@
   "Makes globals available to the page.": "使全局变量可用于页面。",
   "Section": "条目详情",
   "Defines a website section with a supporting entry.": "显示条目的详情。",
-  "Specify the slug used to find the primary record.": "指定用于查找主记录的别名。",
+  "URL code (slug) used to find the primary record.": "指定用于查找主记录的别名。",
   "Default View": "默认视图",
   "Used as default entry point when previewing the record.": "预览记录时用作默认入口点。",
   "Full Slug": "完整别名",

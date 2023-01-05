@@ -59,7 +59,7 @@
   "Makes globals available to the page.": "Macht Globals für die Seite verfügbar.",
   "Section": "Abschnitt",
   "Defines a website section with a supporting entry.": "Definiert einen Website-Abschnitt mit einem unterstützenden Eintrag.",
-  "Specify the slug used to find the primary record.": "Geben Sie den Slug an, der zum Suchen des primären Datensatzes verwendet wird.",
+  "URL code (slug) used to find the primary record.": "Geben Sie den Slug an, der zum Suchen des primären Datensatzes verwendet wird.",
   "Default View": "Standardansicht",
   "Used as default entry point when previewing the record.": "Wird als Standardeinstiegspunkt bei der Vorschau des Datensatzes verwendet.",
   "Full Slug": "Volle Schnecke",
