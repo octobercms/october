@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Administracijos zona',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Netinkamas laukelio tipas :type.',
     'options_method_invalid_model' => 'Artributas \':field\' nenuskaito tinkamo modelio. Bandykite nurodyti parinkties metodą išskirtinai modelio klasei :model',
@@ -29,22 +27,10 @@
   ],
   'account' => [
     'sign_out' => 'Atsijungti',
-    'login' => 'Prisijungti',
-    'reset' => 'Perstatyti',
-    'restore' => 'Atstatyti',
     'login_placeholder' => 'vartotojas',
     'password_placeholder' => 'slaptažodis',
-    'forgot_password' => 'Pamiršote slaptažodį?',
     'enter_email' => 'Įveskite savo el.paštą',
-    'enter_login' => 'Įveskite savo vartotojo vardą',
     'email_placeholder' => 'el.paštas',
-    'enter_new_password' => 'Įveskite naują slaptažodį',
-    'password_reset' => 'Slaptažodžio Keitimas',
-    'restore_success' => 'Išsiuntėme Jums laišką el.paštu su tolimesnėmis instrukcijomis.',
-    'restore_error' => 'Vartotojas prisijungimo vardu \':login\' nerastas',
-    'reset_success' => 'Slaptažodį pakeitėme. Dabar galite prisijungti.',
-    'reset_error' => 'Peteikėte netinkamą slaptažodžio atstatymo informaciją. Bandykite dar kartą!',
-    'reset_fail' => 'Slaptažodžio pakeisti nepavyko!',
     'apply' => 'Taikyti',
     'cancel' => 'Atšaukti',
     'delete' => 'trinti',
@@ -252,10 +238,7 @@
   'recordfinder' => [
     'find_record' => 'Rasti Įrašą',
   ],
-  'pagelist' => [
-    'page_link' => 'Puslapio nuoroda',
-    'select_page' => 'Pasirinkti puslapį...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Subendrinimo elgsena neturi konfigūracijos \':config\'.',
     'missing_definition' => 'Subendrinimo elgsena neturi nustatymo \':field\' laukeliui.',

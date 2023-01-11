@@ -114,5 +114,21 @@
   "Reveal Contents": "显示内容",
   "Selected Site": "选择站点",
   "Use Emmet abbreviations": "使用Emmet缩写",
-  "A record does not exist for the selected site. Create one?": "所选站点的记录不存在,创建一个？"
+  "A record does not exist for the selected site. Create one?": "所选站点的记录不存在,创建一个？",
+  "The details you entered did not match our records. Please double-check and try again.": "无法匹配到您输入的相关内容，请检查后重试。",
+  "Administration Area": "管理",
+  "Password Reset": "密码重置",
+  "Please enter a new password.": "请输入新密码。",
+  "Password": "密码",
+  "Password Restore": "密码恢复",
+  "Please enter your login to restore the password.": "请输入您的登录名以恢复密码。",
+  "A user could not be found with a login value of ':login'": "找不到用户 ':login'",
+  "If your account was found, a message has been sent to your email address with instructions.": "密码重置邮件已发至您的邮箱。",
+  "Invalid password reset data supplied. Please try again!": "密码重置失败. 请重试！",
+  "Unable to reset your password!": "无法重置您的密码！",
+  "Password has been reset. You may now sign in.": "密码已重置。 您现在可以登录了。",
+  "Restore": "还原",
+  "Reset": "重置",
+  "Stay logged in": "保持登录状态",
+  "Forgot password?": "忘记密码?"
 }

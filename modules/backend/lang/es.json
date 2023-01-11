@@ -106,5 +106,19 @@
   "A custom schema is used for this file format.": "Se utiliza un esquema personalizado para este formato de archivo.",
   "Select": "Seleccione",
   "Replace": "Reemplazar",
-  "and": "y"
+  "and": "y",
+  "The details you entered did not match our records. Please double-check and try again.": "Los detalles que ingresó no coinciden con nuestros registros. Vuelva a verificar y vuelva a intentarlo.",
+  "Administration Area": "Area de Administración",
+  "Password Reset": "Restablecer la contraseña",
+  "Please enter a new password.": "Ingrese una nueva contraseña",
+  "Password": "Clave",
+  "Please enter your login to restore the password.": "Ingrese su usuario",
+  "A user could not be found with a login value of ':login'": "No se ha encontrado el usuario ':login'",
+  "If your account was found, a message has been sent to your email address with instructions.": "Correo electrónico enviado a su dirección con las instruciones.",
+  "Invalid password reset data supplied. Please try again!": "La información para restablecer la contraseña no es valida. ¡Por favor, vuelva a intentarlo!",
+  "Unable to reset your password!": "¡No es posible restablecer la contraseña!",
+  "Password has been reset. You may now sign in.": "Contraseña ha sido restablecida. Ahora puede iniciar sesión",
+  "Restore": "Restaurar",
+  "Reset": "Restablecer",
+  "Forgot password?": "¿Olvidó su clave?"
 }

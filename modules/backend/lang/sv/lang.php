@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Administrationsområde',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Felaktig fälttyp använd :type.',
     'options_method_not_exists' => 'Modellklassen :model måste definera en metod :method() som returnerar villkor för formfältet ":field"',
@@ -23,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => 'Logga ut',
-    'login' => 'Logga in',
-    'reset' => 'Nollställ',
-    'restore' => 'Återställ',
     'login_placeholder' => 'användarnamn',
     'password_placeholder' => 'lösenord',
-    'forgot_password' => 'Glömt ditt lösenord?',
     'enter_email' => 'Ange din e-postadress',
-    'enter_login' => 'Ange ditt användarnamn',
     'email_placeholder' => 'e-post',
-    'enter_new_password' => 'Välj ett nytt lösenord',
-    'password_reset' => 'Återställ lösenord',
-    'restore_success' => 'Ett meddelande har skickats till din e-postadress med instruktioner om hur du återställer ditt lösenord',
-    'restore_error' => 'En användare med användarnamnet \':login\' kunde inte hittas',
-    'reset_success' => 'Ditt lösenord har blivit återställt. Du kan nu logga in',
-    'reset_error' => 'Felaktig data för lösenordsåterställning. Var vänlig försök igen',
-    'reset_fail' => 'Det gick tyvärr inte att nollställa ditt lösenord',
     'apply' => 'Spara',
     'cancel' => 'Avbryt',
     'delete' => 'Radera',

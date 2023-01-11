@@ -54,7 +54,6 @@
     'delete_confirm_multiple' => 'Você realmente deseja excluir as páginas selecionadas?',
     'delete_confirm_single' => 'Você realmente deseja excluir esta página?',
     'no_layout' => '-- sem esboço --',
-    'cms_page' => 'Página do CMS',
     'title' => 'Título da página',
     'url' => 'URL da página',
     'url_required' => 'A URL da página é obrigatório.',

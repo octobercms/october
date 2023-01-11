@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => '管理介面',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => '錯誤的字串類型 :type',
     'options_method_not_exists' => '模型 :model 必須定義一個返回 \':field\' 表單字串選項的方法 :method()。',
@@ -23,22 +21,10 @@
   ],
   'account' => [
     'sign_out' => '登出',
-    'login' => '登入',
-    'reset' => '重置',
-    'restore' => '還原',
     'login_placeholder' => '登入',
     'password_placeholder' => '密碼',
-    'forgot_password' => '忘記您的密碼?',
     'enter_email' => '輸入您的email',
-    'enter_login' => '輸入帳號',
     'email_placeholder' => 'email',
-    'enter_new_password' => '輸入新密碼',
-    'password_reset' => '密碼重置',
-    'restore_success' => '密碼重置的郵件已發送到您的電子信箱',
-    'restore_error' => '找不到使用者 \':login\'',
-    'reset_success' => '您的密碼已經重置成功. 您現在可以登入了',
-    'reset_error' => '密碼重置失敗. 請重試!',
-    'reset_fail' => '不能重置您的密碼!',
     'apply' => '套用',
     'cancel' => '取消',
     'delete' => '刪除',

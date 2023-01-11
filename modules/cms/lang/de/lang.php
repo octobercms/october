@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Wollen Sie die ausgewählten Seiten wirklich löschen?',
     'delete_confirm_single' => 'Wollen Sie diese Seite wirklich löschen?',
     'no_layout' => '-- Kein Layout --',
-    'cms_page' => 'CMS Seite',
     'title' => 'Seitentitel',
     'url' => 'Seiten-URL',
     'file_name' => 'Seiten-Dateiname',

@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'لوحة الإدارة',
-  ],
+  'auth' => [],
   'page' => [
     'access_denied' => [
       'label' => 'ممنوع الوصول',
@@ -11,13 +9,8 @@
   ],
   'account' => [
     'sign_out' => 'تسجيل خروج',
-    'login' => 'تسجيل دخول',
-    'reset' => 'استعادة',
-    'restore' => 'استرجاع',
     'login_placeholder' => 'اسم المستخدم',
     'password_placeholder' => 'كلمة المرور',
-    'forgot_password' => 'نسيت كلمة المرور؟',
-    'enter_login' => 'أدخل اسم المستخدم',
   ],
   'dashboard' => [
     'menu_label' => 'لوحة الإدارة',

@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Eliminar pàgines seleccionades?',
     'delete_confirm_single' => 'Eliminar aquesta pàgina?',
     'no_layout' => '-- sense plantilla --',
-    'cms_page' => 'Pàgina de CMS',
     'title' => 'Títol de pàgina',
     'url' => 'URL de pàgina',
     'file_name' => 'Nom de l\'arxiu de pàgina',

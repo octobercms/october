@@ -346,10 +346,7 @@
     'invalid_model_class' => 'Предоставленный класс модели ":modelClass" для recordfinder недействителен.',
     'cancel' => 'Отмена',
   ],
-  'pagelist' => [
-    'page_link' => 'Ссылка на страницу',
-    'select_page' => 'Выберите страницу...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'add_success' => 'Объект ":name" добавлен',
     'link_success' => 'Объект ":name" связан',

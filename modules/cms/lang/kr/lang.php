@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => '선택하신 페이지 전체를 정말로 삭제하시겠습니까?',
     'delete_confirm_single' => '선택하신 페이지를 삭제하시겠습니까?',
     'no_layout' => '-- 레이아웃 없음 --',
-    'cms_page' => 'CMS 페이지',
     'title' => '페이지 제목',
     'url' => '페이지 URL',
     'file_name' => '페이지 파일 이름',

@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => 'Izbriši odabrane strane?',
     'delete_confirm_single' => 'Izbriši ovu stranu?',
     'no_layout' => '-- nema plana --',
-    'cms_page' => 'CMS strana',
     'title' => 'Naslov strane',
     'url' => 'URL strane',
     'file_name' => 'Naziv fajla strane',

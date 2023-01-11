@@ -106,5 +106,17 @@
   "A custom schema is used for this file format.": "このファイル形式には、カスタム スキーマが使用されます。",
   "Select": "選択する",
   "Replace": "交換",
-  "and": "と"
+  "and": "と",
+  "Administration Area": "システム管理者領域",
+  "Password Reset": "パスワードリセット",
+  "Please enter a new password.": "新しいパスワードを入力してください",
+  "Please enter your login to restore the password.": "ユーザー名を入力してください",
+  "A user could not be found with a login value of ':login'": "':login'というユーザーは登録されていません。",
+  "If your account was found, a message has been sent to your email address with instructions.": "パスワードを元に戻すための手順を説明したメールを送信しました。",
+  "Invalid password reset data supplied. Please try again!": "間違ったパスワードリセットデータが送信されました。再実行してください。",
+  "Unable to reset your password!": "パスワードをリセットできませんでした。",
+  "Password has been reset. You may now sign in.": "パスワードがリセットされました。",
+  "Restore": "元に戻す",
+  "Reset": "リセット",
+  "Forgot password?": "パスワードを忘れましたか？"
 }

@@ -1,8 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Yönetim Paneli',
-    'invalid_login' => 'Girdiğiniz bilgiler kayıtlarla eşleşmiyor. Lütfen kontrol edip tekrar deneyin.',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Geçersiz alan tipi :type.',
     'options_method_invalid_model' => '\':field\' metodu, geçerli bir model ile eşleşmiyor. :model Model\'i için options metodu tanımlamalısınız.',
@@ -32,23 +29,10 @@
   'account' => [
     'signed_in_as' => ':full_name olarak giriş yapıldı',
     'sign_out' => 'Çıkış',
-    'login' => 'Giriş',
-    'reset' => 'Sıfırla',
-    'restore' => 'Geri yükle',
     'login_placeholder' => 'kullanıcı adı',
     'password_placeholder' => 'şifre',
-    'remember_me' => 'Beni hatırla',
-    'forgot_password' => 'Şifrenizi mi unuttunuz?',
     'enter_email' => 'Email adresinizi girin',
-    'enter_login' => 'Kullanıcı adınızı girin',
     'email_placeholder' => 'email',
-    'enter_new_password' => 'Yeni Şifrenizi girin',
-    'password_reset' => 'Şifre Sıfırla',
-    'restore_success' => 'Email adresinize şifrenizi nasıl sıfırlayacağınıza dair bilgiler gönderildi.',
-    'restore_error' => '\':login\' kullanıcı adı bulunamadı.',
-    'reset_success' => 'Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.',
-    'reset_error' => 'Hatalı giriş yaptınız. Lütfen tekrar deneyin!',
-    'reset_fail' => 'Şifre sıfırlanamadı!',
     'apply' => 'Onayla',
     'cancel' => 'İptal',
     'delete' => 'Sil',
@@ -286,10 +270,7 @@
     'find_record' => 'Kayıt Bul',
     'cancel' => 'İptal',
   ],
-  'pagelist' => [
-    'page_link' => 'Sayfa bağlantısı',
-    'select_page' => 'Sayfa seçin...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'İlişki \':config\' için bir yapılandırma ayarı içermiyor.',
     'missing_definition' => 'İlişki \':field\' için bir sütun değeri içermiyor.',

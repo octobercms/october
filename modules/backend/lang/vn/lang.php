@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Khu vực quản trị',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Loại Field không hợp lệ :type.',
     'options_method_invalid_model' => 'Thuộc tính \':field\' không đưa ra được model hợp lệ. Hãy thử chỉ định phương pháp tùy chọn cho model :model một cách rõ ràng.',
@@ -30,23 +28,10 @@
   'account' => [
     'signed_in_as' => 'Đã đăng nhập với :full_name',
     'sign_out' => 'Đăng xuất',
-    'login' => 'Đăng nhập',
-    'reset' => 'Reset',
-    'restore' => 'Khôi phục',
     'login_placeholder' => 'đăng nhập',
     'password_placeholder' => 'mật khẩu',
-    'remember_me' => 'Giữ trạng thái đăng nhập',
-    'forgot_password' => 'Quên mật khẩu?',
     'enter_email' => 'Nhập email của bạn',
-    'enter_login' => 'Tên đăng nhập',
     'email_placeholder' => 'email',
-    'enter_new_password' => 'Nhập mật khẩu mới',
-    'password_reset' => 'Lấy lại mật khẩu',
-    'restore_success' => 'Một tin nhắn đã được gửi vào email của bạn. Vui lòng làm theo hướng dẫn',
-    'restore_error' => 'Không tìm thấy người dùng có tên \':login\'',
-    'reset_success' => 'Đã đặt lại mật khẩu. Bạn có thể đăng nhập ngay bây giờ',
-    'reset_error' => 'Dữ liệu khôi phục mật khẩu không hợp lệ. Vui lòng thử lại!',
-    'reset_fail' => 'Không thể đặt lại mật khẩu của bạn!',
     'apply' => 'Áp dụng',
     'cancel' => 'Bỏ qua',
     'delete' => 'Xóa',
@@ -272,10 +257,7 @@
     'find_record' => 'Tìm kiếm bản ghi',
     'cancel' => 'Cancel',
   ],
-  'pagelist' => [
-    'page_link' => 'Page link',
-    'select_page' => 'Lựa chọn một trang...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Relation behavior không được cấu hình cho \':config\'.',
     'missing_definition' => 'Relation behavior không có định nghĩa cho \':field\'.',

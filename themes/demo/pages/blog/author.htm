@@ -42,6 +42,6 @@ vars[howItsMadeTailorContent] = 'entries/blog_author/{{ author.id }}'
         {% endfor %}
     </div>
     <nav class="blog-pagination" aria-label="Pagination">
-        {{ authorPosts.links|raw }}
+        {{ pager(authorPosts) }}
     </nav>
 </main>

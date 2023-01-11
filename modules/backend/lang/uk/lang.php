@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Зона адміністрування',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Неправильний тип поля :type.',
     'options_method_invalid_model' => 'The attribute \':field\' does not resolve to a valid model. Try specifying the options method for model class :model explicitly.',
@@ -29,23 +27,10 @@
   ],
   'account' => [
     'sign_out' => 'Вийти',
-    'login' => 'Увійти',
-    'reset' => 'Скинути',
-    'restore' => 'Відновити',
     'login_placeholder' => 'логін',
     'password_placeholder' => 'пароль',
-    'remember_me' => 'Залишитись в системі',
-    'forgot_password' => 'Забули свій пароль?',
     'enter_email' => 'Введіть свою електронну адресу',
-    'enter_login' => 'Введіть своє ім\'я користувача',
     'email_placeholder' => 'електронна адреса',
-    'enter_new_password' => 'Введіть новий пароль',
-    'password_reset' => 'Скинути пароль',
-    'restore_success' => 'На Вашу електронну адресу було надіслано інструкції з відновлення паролю.',
-    'restore_error' => 'Неможливо знайти користувача з іменем користувача \':login\'',
-    'reset_success' => 'Ваш пароль було успішно змінено. Тепер Ви можете ввійти.',
-    'reset_error' => 'Надано неправильні дані з відновлення паролю. Будь ласка, спробуйте знову!',
-    'reset_fail' => 'Не вдалося змінити Ваш пароль!',
     'apply' => 'Застосувати',
     'cancel' => 'Скасувати',
     'delete' => 'Видалити',
@@ -271,10 +256,7 @@
     'find_record' => 'Знайти запис',
     'cancel' => 'Скасувати',
   ],
-  'pagelist' => [
-    'page_link' => 'Посилання на сторінку',
-    'select_page' => 'Обрати сторынку...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Поведінка відношення не містить жодного налаштування для \':config\'.',
     'missing_definition' => 'Поведінка відношення не містить визначення для \':field\'.',

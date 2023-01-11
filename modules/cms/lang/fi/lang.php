@@ -54,7 +54,6 @@
     'delete_confirm_multiple' => 'Poista valitut sivut?',
     'delete_confirm_single' => 'Posita tämä sivu?',
     'no_layout' => '-- ei ulkoasua --',
-    'cms_page' => 'CMS-sivu',
     'title' => 'Sivun nimi',
     'url' => 'Sivun URL-osoite',
     'url_required' => 'Sivun URL on pakollinen.',

@@ -50,7 +50,6 @@
     'delete_confirm_multiple' => '¿Deseas eliminar las páginas seleccionadas?',
     'delete_confirm_single' => '¿Deseas eliminar esta página?',
     'no_layout' => '-- sin diseño --',
-    'cms_page' => 'Página de CMS',
     'title' => 'Título de página',
     'url' => 'URL de página',
     'file_name' => 'Nombre de archivo de página',

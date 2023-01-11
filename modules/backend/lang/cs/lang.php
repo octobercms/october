@@ -1,7 +1,5 @@
 <?php return [
-  'auth' => [
-    'title' => 'Administrace',
-  ],
+  'auth' => [],
   'field' => [
     'invalid_type' => 'Byl použitý špatný typ :type.',
     'options_method_invalid_model' => 'Vlastnost \':field\' neodpovídá platnému modelu. Zkuste specifikovat metodu voleb pro modelovou třídu :model explicitně.',
@@ -29,23 +27,10 @@
   ],
   'account' => [
     'sign_out' => 'Odhlásit',
-    'login' => 'Přihlásit se',
-    'reset' => 'Resetovat',
-    'restore' => 'Obnovit',
     'login_placeholder' => 'Přihlašovací jméno',
     'password_placeholder' => 'Heslo',
-    'remember_me' => 'Zůstat přihlášený',
-    'forgot_password' => 'Zapomněli jste heslo?',
     'enter_email' => 'Zadejte váš e-mail',
-    'enter_login' => 'Zadejte váš login',
     'email_placeholder' => 'E-mail',
-    'enter_new_password' => 'Zadejte nové heslo',
-    'password_reset' => 'Obnova hesla',
-    'restore_success' => 'E-mail byl zaslán na vaší e-mailovou adresu s heslem a instrukcemi k obnově.',
-    'restore_error' => 'Uživatel s přihlašovacím jménem \':login\' nebyl nalezen',
-    'reset_success' => 'Vaše heslo bylo úspěšně obnoveno. Nyní se můžete přihlásit.',
-    'reset_error' => 'Data pro obnovu hesla nejsou správná. Prosím zkuste to znovu!',
-    'reset_fail' => 'Obnova hesla selhala!',
     'apply' => 'Použít',
     'cancel' => 'Zrušit',
     'delete' => 'Smazat',
@@ -271,10 +256,7 @@
     'find_record' => 'Najít záznam',
     'cancel' => 'Zrušit',
   ],
-  'pagelist' => [
-    'page_link' => 'Odkaz na stránku',
-    'select_page' => 'vyberte stránku...',
-  ],
+  'pagelist' => [],
   'relation' => [
     'missing_config' => 'Chování relace nemá žádné nastavení pro \':config\'.',
     'missing_definition' => 'Chování relace neobsahuje definici pro \':field\'.',

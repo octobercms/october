@@ -64,6 +64,7 @@
     'lt' => 'Lietuvių',
     'lv' => 'Latviešu',
     'nb-no' => 'Norsk (Bokmål)',
+    'nn-no' => 'Norsk (Nynorsk)',
     'nl' => 'Nederlands',
     'pl' => 'Polskie',
     'pt-br' => 'Português (Brasil)',

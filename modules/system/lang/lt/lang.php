@@ -26,6 +26,7 @@
     'lv' => 'Latvijas',
     'lt' => 'Lietuvių',
     'nb-no' => 'Norsk (Bokmål)',
+    'nn-no' => 'Norsk (Nynorsk)',
     'nl' => 'Nederlands',
     'pl' => 'Polski',
     'pt-br' => 'Português (Brasil)',

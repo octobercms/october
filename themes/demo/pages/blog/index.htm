@@ -27,5 +27,5 @@ vars[howItsMadeTailorContent] = 'entries/blog_post'
 {% endfor %}
 
 <nav class="blog-pagination" aria-label="Pagination">
-    {{ posts.links|raw }}
+    {{ pager(posts) }}
 </nav>

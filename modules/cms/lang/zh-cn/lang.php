@@ -53,7 +53,6 @@
     'delete_confirm_multiple' => '真的想要删除选择的页面吗?',
     'delete_confirm_single' => '真的想要删除这个页面吗?',
     'no_layout' => '-- 无布局 --',
-    'cms_page' => 'CMS 页面',
     'title' => '页面标题',
     'url' => '页面地址',
     'url_required' => '页面 URL 是必需的。',

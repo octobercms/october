@@ -54,7 +54,6 @@
     'delete_confirm_multiple' => 'Weet je zeker dat je de geselecteerde pagina\'s wilt verwijderen?',
     'delete_confirm_single' => 'Weet je zeker dat je deze pagina wilt verwijderen?',
     'no_layout' => '-- geen layout --',
-    'cms_page' => 'CMS pagina',
     'title' => 'Paginatitel',
     'url' => 'Pagina URL',
     'url_required' => 'De pagina URL is verplicht.',

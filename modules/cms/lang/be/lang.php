@@ -49,7 +49,6 @@
     'delete_confirm_multiple' => 'Выдаліць абраныя старонкі?',
     'delete_confirm_single' => 'Выдаліць гэтую старонку?',
     'no_layout' => '-- няма макету --',
-    'cms_page' => 'Старонка CMS',
   ],
   'layout' => [
     'not_found_name' => 'Макет ":name" не знойдзены',
