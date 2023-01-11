@@ -63,7 +63,7 @@ For announcements and updates:
 
 To chat or hang out:
 
-* [Join us on Slack](https://octobercms-slack.herokuapp.com/)
+* [Join us on Slack](https://octobercms.slack.com)
 * [Join us on Discord](https://discord.gg/gEKgwSZ)
 * [Join us on Telegram](https://t.me/octoberchat)
 
