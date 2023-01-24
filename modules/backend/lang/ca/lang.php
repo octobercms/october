@@ -95,7 +95,6 @@
     'menu_description' => 'Gestionar els usuaris administradors del panell, grups i permisos.',
     'list_title' => 'Gestionar Administradors',
     'new' => 'Nou Administrador',
-    'login' => 'Login',
     'first_name' => 'Nom',
     'last_name' => 'Cognom',
     'full_name' => 'Nom complet',

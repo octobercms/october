@@ -106,7 +106,6 @@
     'menu_description' => 'Backend-Benutzer, Administratoren, Gruppen und Zugriffsrechte verwalten.',
     'list_title' => 'Administratoren verwalten',
     'new' => 'Neuer Administrator',
-    'login' => 'Benutzername',
     'first_name' => 'Vorname',
     'last_name' => 'Nachname',
     'full_name' => 'Kompletter Name',

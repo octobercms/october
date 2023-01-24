@@ -114,7 +114,6 @@
     'menu_description' => 'Upravljanje z administratorji, skupinami in dovoljenji.',
     'list_title' => 'Upravljanje administratorjev',
     'new' => 'Nov administrator',
-    'login' => 'Uporabniško ime',
     'first_name' => 'Ime',
     'last_name' => 'Priimek',
     'full_name' => 'Polno ime',

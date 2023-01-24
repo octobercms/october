@@ -88,7 +88,6 @@
     'menu_description' => 'Administrer backend-administratorer, grupper og tilganger.',
     'list_title' => 'Håndter administratorer',
     'new' => 'Ny administrator',
-    'login' => 'Brukernavn',
     'first_name' => 'Fornavn',
     'last_name' => 'Etternavn',
     'full_name' => 'Fullt navn',

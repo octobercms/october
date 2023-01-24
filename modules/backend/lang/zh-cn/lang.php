@@ -110,7 +110,6 @@
     'menu_description' => '管理后台管理员用户, 组和权限.',
     'list_title' => '管理',
     'new' => '新管理员',
-    'login' => '登录',
     'first_name' => '名',
     'last_name' => '姓',
     'full_name' => '全名',

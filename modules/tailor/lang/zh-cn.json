@@ -81,5 +81,8 @@
   "Sorting": "排序",
   "Sort by Column": "按列排序",
   "Model column the records should be ordered by": "记录应按",
-  "Direction": "方向"
+  "Direction": "方向",
+  "Update :name Entries": "更新 :name 条目",
+  "Update :name": "更新 :name"
+
 }

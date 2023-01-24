@@ -110,7 +110,6 @@
     'menu_description' => 'Hallinnoi ylläpitäjiä, ryhmiä ja oikeuksia.',
     'list_title' => 'Hallinnoi ylläpitäjiä',
     'new' => 'Uusi Ylläpitäjä',
-    'login' => 'Kirjautumistunnus',
     'first_name' => 'Etunimi',
     'last_name' => 'Sukunimi',
     'full_name' => 'Koko nimi',

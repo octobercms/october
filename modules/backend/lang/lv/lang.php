@@ -57,7 +57,6 @@
     'menu_description' => 'Pārvaldiet back-end administrēšanas lietotājus, grupas un tiesības.',
     'list_title' => 'Pārvaldīt Administrātorus',
     'new' => 'Jauns Administrātors',
-    'login' => 'Lietotājvārds',
     'first_name' => 'Vārds',
     'last_name' => 'Uzvārds',
     'full_name' => 'Pilnais vārds',

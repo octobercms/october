@@ -99,7 +99,8 @@
   "Date & Time": "Datum & tijd",
   "Type": "Type",
   "IP address": "IP-adres",
-  "Login": "Gebruikersnaam",
+  "Username": "Gebruikersnaam",
+  "Login": "Inloggen",
   "First name": "Voornaam",
   "Last name": "Achternaam",
   "Email": "E-mailadres",
@@ -107,6 +108,13 @@
   "Select": "Selecteer",
   "Replace": "Vervangen",
   "and": "en",
+  "Go": "Go",
+  "Go to page": "Ga naar pagina",
+  "Copy to Clipboard": "Kopieer naar klembord",
+  "Reveal Contents": "Inhoud weergeven",
+  "Selected Site": "Geselecteerde site",
+  "Use Emmet abbreviations": "Gebruik Emmet-afkortingen",
+  "A record does not exist for the selected site. Create one?": "Er bestaat nog geen record voor de geselecteerde site. Een nieuwe aanmaken?"
   "The details you entered did not match our records. Please double-check and try again.": "De ingevoerde gegevens leveren geen resultaat. Controleer je invoer en probeer het opnieuw.",
   "Administration Area": "Beheeromgeving",
   "Password Reset": "Herstel wachtwoord",
@@ -123,11 +131,5 @@
   "Reset": "Wijzigen",
   "Stay logged in": "Blijf ingelogd",
   "Forgot password?": "Wachtwoord vergeten?",
-  "Go": "Go",
-  "Go to page": "Ga naar pagina",
-  "Copy to Clipboard": "Kopieer naar klembord",
-  "Reveal Contents": "Inhoud weergeven",
-  "Selected Site": "Geselecteerde site",
-  "Use Emmet abbreviations": "Gebruik Emmet-afkortingen",
-  "A record does not exist for the selected site. Create one?": "Er bestaat nog geen record voor de geselecteerde site. Een nieuwe aanmaken?"
+  "Global Editor Settings": "Globale editor instellingen"
 }

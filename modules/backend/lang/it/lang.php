@@ -83,7 +83,6 @@
     'menu_description' => 'Gestisci gli utenti amministratori, i gruppi e le autorizzazioni.',
     'list_title' => 'Gestisci amministratori',
     'new' => 'Nuovo amministratore',
-    'login' => 'Login',
     'first_name' => 'Nome',
     'last_name' => 'Cognome',
     'full_name' => 'Nome completo',

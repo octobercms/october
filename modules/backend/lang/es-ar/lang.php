@@ -57,7 +57,6 @@
     'menu_description' => 'Gestionar backend de administrador de usuarios, grupos y permisos.',
     'list_title' => 'Gestionar administradores',
     'new' => 'Nuevo administrador',
-    'login' => 'Acceso',
     'first_name' => 'Nombre',
     'last_name' => 'Apellido',
     'full_name' => 'Nombre completo',

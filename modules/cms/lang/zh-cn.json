@@ -93,5 +93,16 @@
   "Saving Theme...": "保存主题...",
   "Return to Themes List": "返回主题列表",
   "No themes found": "没有找到主题",
-  "CMS Page": "CMS 页面"
+  "Seed Theme": "迁移主题",
+  "Seed the specified theme with blueprints, translations and data.": "用蓝图、翻译和数据为指定主题迁移。",
+  "Theme Seeded!": "主题迁移完成！",
+  "Select Page Link": "选择页面链接",
+  "Search all references...": "搜索所有引用...",
+  "CMS Page": "CMS页面",
+  "Link": "链接",
+  "Please select a CMS page": "请选择CMS页面",
+  "Please select a page reference": "请选择页面引用",
+  "Delete Theme": "删除主题",
+  "Activate Theme": "激活主题",
+  "Manage Partials": "管理部件"
 }

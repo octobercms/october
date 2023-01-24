@@ -103,7 +103,6 @@
     'menu_description' => 'Správa administrátorov, skupín a oprávnení.',
     'list_title' => 'Správa administrátorov',
     'new' => 'Nový administrátor',
-    'login' => 'Prihlasovacie meno',
     'first_name' => 'Krstné meno',
     'last_name' => 'Priezvisko',
     'full_name' => 'Celé meno',

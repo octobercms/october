@@ -110,7 +110,6 @@
     'menu_description' => 'Beheer beheerders, groepen en rechten.',
     'list_title' => 'Beheer beheerders',
     'new' => 'Nieuwe beheerder',
-    'login' => 'Gebruikersnaam',
     'first_name' => 'Voornaam',
     'last_name' => 'Achternaam',
     'full_name' => 'Volledige naam',

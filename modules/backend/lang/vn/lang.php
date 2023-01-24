@@ -92,7 +92,6 @@
     'menu_description' => 'Quản lý các administrator, nhóm quản trị và quyền truy cập.',
     'list_title' => 'Quản lý Administrators',
     'new' => 'Thêm mới Administrator',
-    'login' => 'Tên đăng nhập',
     'first_name' => 'Họ',
     'last_name' => 'Tên',
     'full_name' => 'Tên đầy đủ',

@@ -57,7 +57,6 @@
     'menu_description' => 'バックエンドの管理ユーザーとグループ、権限の管理。',
     'list_title' => 'システム管理者の管理',
     'new' => '新規システム管理者',
-    'login' => 'ログイン',
     'first_name' => '名',
     'last_name' => '姓',
     'full_name' => '姓名',

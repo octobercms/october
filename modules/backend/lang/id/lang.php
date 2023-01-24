@@ -57,7 +57,6 @@
     'menu_description' => 'Kelola pengguna administrator back-end, grup, dan perizinan.',
     'list_title' => 'Kelola Administrator',
     'new' => 'Administrator Baru',
-    'login' => 'Nama Pengguna',
     'first_name' => 'Name Depan',
     'last_name' => 'Name Belakang',
     'full_name' => 'Nama Lengkap',

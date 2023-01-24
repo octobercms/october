@@ -108,6 +108,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Force Mail Setting
+    |--------------------------------------------------------------------------
+    |
+    | Use this setting to remove the option to configure the mail settings
+    | via the backend. This can be used in developer environments to prevent
+    | accidentally sending mail via the configured database.
+    |
+    */
+
+    'force_mail_setting' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Password Policy
     |--------------------------------------------------------------------------
     |

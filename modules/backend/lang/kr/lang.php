@@ -91,7 +91,6 @@
     'menu_description' => '백엔드 관리, 사용자,그룹 및 권한 관리.',
     'list_title' => '사용자 관리',
     'new' => '신규사용자',
-    'login' => '아이디',
     'first_name' => '이름',
     'last_name' => '성',
     'full_name' => '성명',

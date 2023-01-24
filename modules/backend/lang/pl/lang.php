@@ -109,7 +109,6 @@
     'menu_description' => 'Zarządzaj administratorami, użytkownikami, grupami i uprawnieniami.',
     'list_title' => 'Zarządzaj Administratorami',
     'new' => 'Nowy Administrator',
-    'login' => 'Login',
     'first_name' => 'Imię',
     'last_name' => 'Nazwisko',
     'full_name' => 'Imię i nazwisko',

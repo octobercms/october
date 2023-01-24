@@ -110,7 +110,6 @@
     'menu_description' => 'Jogosultságok, szerepkörök és csoportok módosítása.',
     'list_title' => 'Adminok kezelése',
     'new' => 'Új admin',
-    'login' => 'Felhasználói név',
     'first_name' => 'Vezetéknév',
     'last_name' => 'Keresztnév',
     'full_name' => 'Teljes név',

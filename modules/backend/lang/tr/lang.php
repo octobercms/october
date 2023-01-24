@@ -93,7 +93,6 @@
     'menu_description' => 'Yönetim paneli gruplarını, kullanıcılarını ve izinlerini yönetin.',
     'list_title' => 'Yöneticileri Yönet',
     'new' => 'Yeni Yönetici',
-    'login' => 'Kullanıcı Adı',
     'first_name' => 'İsim',
     'last_name' => 'Soyisim',
     'full_name' => 'Tam Adı',

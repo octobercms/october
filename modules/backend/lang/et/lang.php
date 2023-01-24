@@ -91,7 +91,6 @@
     'menu_description' => 'Muuda haldusliidese kasutajaid, õiguseid ja gruppe.',
     'list_title' => 'Halda administraatoreid',
     'new' => 'Uus administraator',
-    'login' => 'Logi sisse',
     'first_name' => 'Eesnimi',
     'last_name' => 'Perenimi',
     'full_name' => 'Täisnimi',
