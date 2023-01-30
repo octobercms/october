@@ -22,7 +22,7 @@ fields:
         label: Priority
         commentAbove: The priority of this URL relative to other URLs on your site.
         type: radio
-        span: left
+        inlineOptions: true
         options:
             '0.1': '0.1'
             '0.2': '0.2'
@@ -39,7 +39,7 @@ fields:
         commentAbove: How frequently the page is likely to change.
         label: Change Frequency
         type: radio
-        span: right
+        inlineOptions: true
         options:
             always: Always
             hourly: Hourly
@@ -48,3 +48,20 @@ fields:
             monthly: Monthly
             yearly: Yearly
             never: Never
+
+    nesting:
+        label: Include nested items
+        shortLabel: Nesting
+        comment: Nested items could be generated dynamically by supported page references.
+        type: checkbox
+
+    replace:
+        label: Replace this item with its generated children
+        comment: Use this checkbox to push generated menu items to the same level with this item. This item itself will be hidden.
+        type: checkbox
+        column: false
+        scope: false
+        trigger:
+            action: disable|empty
+            field: nesting
+            condition: unchecked

@@ -102,5 +102,8 @@
   "Link": "Link",
   "Please select a CMS page": "Please select a CMS page",
   "Please select a page reference": "Please select a page reference",
-  "Please enter a valid URL": "Please enter a valid URL"
+  "Please enter a valid URL": "Please enter a valid URL",
+  "Delete Theme": "Delete Theme",
+  "Activate Theme": "Activate Theme",
+  "Manage Partials": "Manage Partials"
 }

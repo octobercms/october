@@ -91,7 +91,6 @@
     'menu_description' => 'Správa uživatelů administrace, jejich skupin a opravnění.',
     'list_title' => 'Správa administrátorů',
     'new' => 'Nový administrátor',
-    'login' => 'Přihlašovací jméno',
     'first_name' => 'Křestní jméno',
     'last_name' => 'Příjmení',
     'full_name' => 'Celé jméno',

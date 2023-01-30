@@ -99,6 +99,7 @@
   "Date & Time": "Date & Time",
   "Type": "Type",
   "IP address": "IP address",
+  "Username": "Username",
   "Login": "Login",
   "First name": "First name",
   "Last name": "Last name",
@@ -129,5 +130,6 @@
   "Restore": "Restore",
   "Reset": "Reset",
   "Stay logged in": "Stay logged in",
-  "Forgot password?": "Forgot password?"
+  "Forgot password?": "Forgot password?",
+  "Global Editor Settings": "Global Editor Settings"
 }

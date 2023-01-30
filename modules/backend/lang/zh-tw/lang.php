@@ -64,7 +64,6 @@
     'menu_description' => '管理管理介面管理員使用者, 群組和權限',
     'list_title' => '管理',
     'new' => '新管理員',
-    'login' => '登入',
     'first_name' => '名',
     'last_name' => '姓',
     'full_name' => '全名',

@@ -114,7 +114,6 @@
     'menu_description' => 'Gerenciar administradores, grupos e permissões.',
     'list_title' => 'Gerenciar administradores',
     'new' => 'Novo administrador',
-    'login' => 'Usuário',
     'first_name' => 'Nome',
     'last_name' => 'Sobrenome',
     'full_name' => 'Nome Completo',

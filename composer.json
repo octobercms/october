@@ -40,6 +40,7 @@
     },
     "autoload": {
         "psr-4": {
+            "App\\": "app",
             "System\\Console\\": "modules/system/console"
         }
     },

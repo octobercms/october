@@ -91,7 +91,6 @@
     'menu_description' => 'Tvarkyti administracinius vartotojus, grupes ir prieigos leidimus.',
     'list_title' => 'Tvarkyti Administratorius',
     'new' => 'Naujas Administratorius',
-    'login' => 'Prisijungimo vardas',
     'first_name' => 'Vardas',
     'last_name' => 'Pavardė',
     'full_name' => 'Pilnas vardas',

@@ -113,7 +113,6 @@
     'menu_description' => 'Upravljaj administratorima pozadinskog sistema, grupama i dozvolama.',
     'list_title' => 'Upravljanje administratorima',
     'new' => 'Novi administrator',
-    'login' => 'Logovanje',
     'first_name' => 'Ime',
     'last_name' => 'Prezime',
     'full_name' => 'Ime i prezime',

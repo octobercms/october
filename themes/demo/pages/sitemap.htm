@@ -10,18 +10,19 @@ handle = "Site\Sitemap"
 ==
 {% macro render_sitemap_item(item, reference) %}
     {% import _self as nav %}
-    {% if reference.items %}
-        {% for child in reference.items %}
-            {{ nav.render_sitemap_item(item, child) }}
-        {% endfor %}
-    {% else %}
+    {% if reference.url and not item.replace %}
         <url>
             <loc>{{ reference.url }}</loc>
             <lastmod>{{ reference.mtime|date('c') }}</lastmod>
             <changefreq>{{ item.changefreq }}</changefreq>
             <priority>{{ item.priority }}</priority>
         </url>
-    {% endif  %}
+    {% endif %}
+    {% if reference.items %}
+        {% for child in reference.items %}
+            {{ nav.render_sitemap_item(item, child) }}
+        {% endfor %}
+    {% endif %}
 {% endmacro %}
 {% import _self as nav %}
 <urlset
@@ -33,7 +34,7 @@ handle = "Site\Sitemap"
     {% for item in sitemap %}
         {{ nav.render_sitemap_item(
             item,
-            link(item.reference)
+            link(item.reference, { nesting: item.nesting })
         ) }}
     {% endfor %}
 </urlset>

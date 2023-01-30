@@ -84,7 +84,6 @@
     'menu_description' => 'Gestionar usuarios, grupos y permisos para el back-end.',
     'list_title' => 'Gestionar administradores',
     'new' => 'Nuevo Administrador',
-    'login' => 'Entrar',
     'first_name' => 'Nombres',
     'last_name' => 'Apellidos',
     'full_name' => 'Nombre Completo',

@@ -110,7 +110,6 @@
     'menu_description' => 'Gerir utilizadores, grupos, e permissões de administração.',
     'list_title' => 'Gerir Administradores',
     'new' => 'Novo Administrator',
-    'login' => 'Login',
     'first_name' => 'Nome Próprio',
     'last_name' => 'Apelido',
     'full_name' => 'Nome Completo',

@@ -56,7 +56,6 @@
     'menu_description' => 'Gestionare administratori, grupuri si permisiuni.',
     'list_title' => 'Gestionare Administratori',
     'new' => 'Administrator nou',
-    'login' => 'Login',
     'first_name' => 'Prenume',
     'last_name' => 'Nume',
     'full_name' => 'Nume complet',

@@ -57,7 +57,6 @@
     'menu_description' => 'Hantera administratörer, grupper och behörigheter.',
     'list_title' => 'Hantera administratörer',
     'new' => 'Ny administratör',
-    'login' => 'Användarnamn',
     'first_name' => 'Förnamn',
     'last_name' => 'Efternamn',
     'full_name' => 'Fullständigt namn',

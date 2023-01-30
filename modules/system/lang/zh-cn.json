@@ -98,5 +98,16 @@
   "Plugin installed successfully": "插件安装成功",
   "Check Dependencies": "检查依赖项",
   "Install Dependencies": "安装依赖项",
-  "There are missing dependencies needed for the system to run correctly.": "缺少系统正确运行所需的依赖项。"
+  "There are missing dependencies needed for the system to run correctly.": "缺少系统正确运行所需的依赖项。",
+  "License Key": "许可证密钥",
+  "How to find your License Key": "如何查找许可证密钥",
+  "The password attribute is required.": "密码属性是必填项。",
+  "The login attribute is required.": "登录属性是必填项。",
+  "Cannot login user since they are not activated.": "无法登录用户，用户未被激活。",
+  "Cannot login user since they are banned.": "无法登录用户，用户被禁止。",
+  "Cannot login user since they are suspended.": "无法登录用户，用户被锁定。",
+  "A user was not found with the given credentials.": "找不到具有给定凭据的用户。",
+  "A user was found but the password did not match.": "找到了一个用户，但密码不匹配。",
+  "User is not logged in": "用户未登录",
+  "Register Software": "注册软件"
 }
