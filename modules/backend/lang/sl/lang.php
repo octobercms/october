@@ -398,7 +398,7 @@
     'line_breaker_tags_comment' => 'Seznam oznak, ki se uporabljajo za postavitev elementa prekinitve med vrstice.',
     'toolbar_options' => 'Nastavitve orodne vrstice',
     'toolbar_buttons' => 'Gumbi orodne vrstice',
-    'toolbar_buttons_comment' => 'Gumbi orodne vrstice, ki se privzeto prikažejo v urejevalniku. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+    'toolbar_buttons_comment' => 'Gumbi orodne vrstice, ki se privzeto prikažejo v urejevalniku.',
     'toolbar_buttons_preset' => 'Vstavite prednastavljeno konfiguracijo gumbov orodne vrstice:',
     'toolbar_buttons_presets' => [
       'default' => 'Privzeto',

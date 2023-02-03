@@ -392,7 +392,7 @@
     'line_breaker_tags' => 'Tagi przełamania linii',
     'line_breaker_tags_comment' => 'Lista tagów, pomiędzy którymi zostanie wstawiony znak przełamania linii.',
     'toolbar_buttons' => 'Przyciski paska narzędzi',
-    'toolbar_buttons_comment' => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora. [fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize, |, color, emoticons, inlineStyle, paragraphStyle, |, paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR, -, insertLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html]',
+    'toolbar_buttons_comment' => 'Przyciski domyślnie wyświetlane na pasku narzędzi Rich Editora.',
   ],
   'tooltips' => [
     'preview_website' => 'Podgląd strony',
