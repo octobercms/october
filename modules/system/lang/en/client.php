@@ -30,8 +30,12 @@ return [
         'image' => 'Image',
         'link' => 'Link',
         'horizontalrule' => 'Insert Horizontal Rule',
-        'fullscreen' => 'Full screen',
+        'fullscreen' => 'Full Screen',
         'preview' => 'Preview',
+        'strikethrough' => 'Strikethrough',
+        'cleanblock' => 'Clean Block',
+        'table' => 'Table',
+        'sidebyside' => 'Side by Side'
     ],
     'mediamanager' => [
         'insert_link' => 'Insert Media Link',
