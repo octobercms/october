@@ -2,5 +2,6 @@
   "Media": "Media",
   "Access the Media Manager": "Käytä Media Manageria",
   "Upload Media": "Lataa mediaa",
-  "Delete Media": "Poista media"
+  "Delete Media": "Poista media",
+  "A media file already exists at this location, please upload using a different filename.": "Mediatiedosto on jo olemassa tässä sijainnissa, ole hyvä ja lataa se eri tiedostonimellä."
 }
