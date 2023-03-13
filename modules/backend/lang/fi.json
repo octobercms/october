@@ -21,7 +21,7 @@
   "Clear Filters": "Tyhjennä suodattimet",
   "Filter Setup": "Suodattimen asetukset",
   "Apply": "Käytä",
-  "Clear": "Asia selvä",
+  "Clear": "Tyhjennä",
   "is equal to": "on yhtä suuri kuin",
   "is between": "on välissä",
   "contains": "sisältää",
@@ -99,6 +99,7 @@
   "Date & Time": "Pvm & aika",
   "Type": "Tyyppi",
   "IP address": "IP-osoite",
+  "Username": "Käyttäjänimi",
   "Login": "Kirjaudu",
   "First name": "Etunimi",
   "Last name": "Sukunimi",
@@ -107,6 +108,13 @@
   "Select": "Valitse",
   "Replace": "Korvata",
   "and": "ja",
+  "Go": "Siirry",
+  "Go to page": "Siirry sivulle",
+  "Copy to Clipboard": "Kopioi leikepöydälle",
+  "Reveal Contents": "Paljasta sisältö",
+  "Selected Site": "Valitse sivusto",
+  "Use Emmet abbreviations": "Käytä Emmet-lyhennystä",
+  "A record does not exist for the selected site. Create one?": "Tietuetta ei löytynyt valitulle sivustolle. Luodaanko?",
   "The details you entered did not match our records. Please double-check and try again.": "Antamasi kirjautumistiedot eivät täsmänneet tietoihin. Ole hyvä ja tarkista ne kokeillaksesi uudelleen.",
   "Administration Area": "Ylläpitoalue",
   "Password Reset": "Salasanan nollaus",
@@ -122,5 +130,6 @@
   "Restore": "Palauta",
   "Reset": "Nollaa",
   "Stay logged in": "Pysy kirjautuneena",
-  "Forgot password?": "Unohditko salasanasi?"
+  "Forgot password?": "Unohditko salasanasi?",
+  "Global Editor Settings": "Yleiset editorin asetukset"
 }
