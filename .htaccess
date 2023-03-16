@@ -19,6 +19,11 @@
     # RewriteRule (.*) https://%{SERVER_NAME}/$1 [L,R=301]
 
     ##
+    ## Uncomment to redirect index.php/path/to/page to /path/to/page
+    ##
+    # RewriteRule ^index\.php/(.*)$ /$1 [L,R=301]
+
+    ##
     ## Blocked folders
     ##
     RewriteRule ^bootstrap/.* index.php [L,NC]
