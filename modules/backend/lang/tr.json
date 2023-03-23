@@ -120,5 +120,15 @@
   "Restore": "Geri yükle",
   "Reset": "Sıfırla",
   "Stay logged in": "Beni hatırla",
-  "Forgot password?": "Şifrenizi mi unuttunuz?"
+  "Forgot password?": "Şifrenizi mi unuttunuz?",
+  "Manage Widgets": "Eklentileri yönet",
+  "Add Widget": "Eklenti ekle",
+  "Set the current layout as the default?": "Şuan kullanılan şablonu öntanımlı yapmak istediğinize emin misiniz?",
+  "Make Default": "Öntanımlı yap",
+  "Reset layout back to default?": "Şablonu özgün haline döndermek istediğinize emin misiniz?",
+  "Reset Layout": "Şablonu sıfırla",
+  "Widget": "Eklenti",
+  "please select": "lütfen seçin",
+  "Width": "Genişlik",
+  "full width": "tam genişlik"
 }

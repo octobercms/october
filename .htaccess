@@ -19,6 +19,17 @@
     # RewriteRule (.*) https://%{SERVER_NAME}/$1 [L,R=301]
 
     ##
+    ## Uncomment to redirect trailing slashes in URLs.
+    ##
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    ##
+    ## Uncomment to redirect /index.php/path to /path
+    ##
+    # RewriteRule ^index\.php/(.*)$ /$1 [L,R=301]
+
+    ##
     ## Blocked folders
     ##
     RewriteRule ^bootstrap/.* index.php [L,NC]

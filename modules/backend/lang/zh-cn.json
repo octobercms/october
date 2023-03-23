@@ -100,6 +100,7 @@
   "Date & Time": "日期 & 时间",
   "Type": "类型",
   "IP address": "IP地址",
+  "Username": "用户名",
   "Login": "登录",
   "First name": "名",
   "Last name": "姓",
@@ -131,5 +132,15 @@
   "Reset": "重置",
   "Stay logged in": "保持登录状态",
   "Forgot password?": "忘记密码?",
-  "Global Editor Settings": "全局编辑器设置"
+  "Global Editor Settings": "全局编辑器设置",
+  "Manage Widgets": "管理小部件",
+  "Add Widget": "添加小部件",
+  "Set the current layout as the default?": "是否设置当前布局作为默认？",
+  "Make Default": "设为默认",
+  "Reset layout back to default?": "是否将布局恢复为默认？",
+  "Reset Layout": "重置布局",
+  "Widget": "小工具",
+  "please select": "请选择",
+  "Width": "宽度",
+  "full width": "全部宽度"
 }

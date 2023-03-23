@@ -116,7 +116,6 @@
     'smtp_encryption' => 'Protocollo di crittografia SMTP',
     'smtp_encryption_none' => 'Nessuna crittografia',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Percorso Sendmail',
     'sendmail_path_comment' => 'Inserisci il percorso al servizio sendmail.',
@@ -275,7 +274,6 @@
     'manage_other_administrators' => 'Gestisci altri amministratori',
     'manage_preferences' => 'Gestisci preferenze pannello di controllo',
     'manage_editor' => 'Gestisci preferenze editor di codice',
-    'view_the_dashboard' => 'Visualizza la dashboard',
     'manage_branding' => 'Personalizza il pannello di controllo',
   ],
   'media' => [

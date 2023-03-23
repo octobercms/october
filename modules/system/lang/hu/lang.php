@@ -163,7 +163,6 @@
     'smtp_encryption' => 'SMTP titkosítás típusa',
     'smtp_encryption_none' => 'Nincs',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Elérési út',
     'sendmail_path_comment' => 'Adja meg a Sendmail elérését.',
@@ -396,8 +395,6 @@
     'manage_other_administrators' => 'Adminisztrátorok kezelése',
     'manage_preferences' => 'Saját beállítások kezelése',
     'manage_editor' => 'Kódszerkesztő testreszabása',
-    'view_the_dashboard' => 'Vezérlőpult elérése',
-    'manage_default_dashboard' => 'Vezérlőpult testreszabása',
     'manage_branding' => 'Kinézet testreszabása',
   ],
   'log' => [

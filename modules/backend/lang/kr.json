@@ -44,5 +44,15 @@
   "Password has been reset. You may now sign in.": "비밀번호가 재설정 되었습니다.",
   "Restore": "되돌리기",
   "Reset": "리셋",
-  "Forgot password?": "비밀번호를 잊어버리셨습니까?"
+  "Forgot password?": "비밀번호를 잊어버리셨습니까?",
+  "Manage Widgets": "위젯 관리",
+  "Add Widget": "위젯 추가",
+  "Set the current layout as the default?": "현재 레이아웃을 기본값으로 할까요?",
+  "Make Default": "기본값으로",
+  "Reset layout back to default?": "초기값으로 레이아웃을 재설정할까요?",
+  "Reset Layout": "레이아웃 재설정",
+  "Widget": "위젯",
+  "please select": "선택해주세요",
+  "Width": "위젯 넓이",
+  "full width": "전체 넓이"
 }

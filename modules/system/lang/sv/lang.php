@@ -116,7 +116,6 @@
     'smtp_encryption' => 'SMTP-krypteringsprotokoll',
     'smtp_encryption_none' => 'Ingen kryptering',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail-sökväg',
     'sendmail_path_comment' => 'Vänligen ange sökvägen till sendmail',
@@ -259,7 +258,6 @@
     'manage_other_administrators' => 'Hantera andra administratörer',
     'manage_preferences' => 'Hantera inställningar för back-end',
     'manage_editor' => 'Hantera inställningar för kodredigerare',
-    'view_the_dashboard' => 'Visa kontrollpanelen',
     'manage_branding' => 'Anpassa back-end',
   ],
   'media' => [

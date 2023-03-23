@@ -20,7 +20,9 @@ return [
     | Automatically Rename Filenames
     |--------------------------------------------------------------------------
     |
-    | When a media file is uploaded, automatically transform its filename.
+    | When a media file is uploaded, automatically transform its filename to
+    | something consistent. The "slug" mode will slug the file name for all
+    | uploads.
     |
     | Supported: "null", "slug"
     |

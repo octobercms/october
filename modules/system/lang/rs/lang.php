@@ -171,7 +171,6 @@
     'smtp_encryption' => 'SMTP šifarski protokol',
     'smtp_encryption_none' => 'Bez šifrovanja',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail putanja',
     'sendmail_path_comment' => 'Specificiraj putanju Sendmail programa.',
@@ -396,8 +395,6 @@
     'impersonate_users' => 'Oponašaj korisnike',
     'manage_preferences' => 'Upravljaj preferencama pozadinskog sistema',
     'manage_editor' => 'Upravljaj preferencama editora za kod',
-    'view_the_dashboard' => 'Prikaži kontrolnu tablu',
-    'manage_default_dashboard' => 'Upravljaj osnovama kontrolne table',
     'manage_branding' => 'Izmeni pozadinski sistem',
   ],
   'log' => [

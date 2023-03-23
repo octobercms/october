@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "Adgangskoden er blevet nulstillet. Du kan nu logge ind.",
   "Restore": "Genopret",
   "Reset": "Reset",
-  "Forgot password?": "Glemt din adgangskode?"
+  "Forgot password?": "Glemt din adgangskode?",
+  "Manage Widgets": "Administrer widgets",
+  "Add Widget": "Tilføj widget",
+  "Set the current layout as the default?": "Sæt det nuværende layout som standardlayout",
+  "Make Default": "Gør til standard",
+  "Reset layout back to default?": "Nulstil layout?",
+  "Reset Layout": "Nulstil layout",
+  "Widget": "Widget",
+  "please select": "Vælg venligst",
+  "Width": "Bredde",
+  "full width": "Fuld bredde"
 }

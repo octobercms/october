@@ -156,7 +156,6 @@
     'smtp_encryption' => 'SMTP krüpteerimise protokoll',
     'smtp_encryption_none' => 'Krüpteerimist ei kasutata',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmaili asukoht',
     'sendmail_path_comment' => 'Palun sisesta sendmail programmi asukoht.',
@@ -318,7 +317,6 @@
     'manage_other_administrators' => 'Administraatorite haldamine',
     'manage_preferences' => 'Haldusliidese seadete muutmine',
     'manage_editor' => 'Koodi redaktori seadete muutmine',
-    'view_the_dashboard' => 'Juurdepääs töölauale',
     'manage_branding' => 'Haldusliidese kohandamine',
   ],
   'log' => [

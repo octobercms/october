@@ -32,10 +32,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Dasbor',
-    'widget_label' => 'Widget',
-    'widget_width' => 'Lebar Widget',
-    'full_width' => 'Layar Lebar',
-    'add_widget' => 'Tambah Widget',
     'widget_inspector_title' => 'Konfigurasi widget',
     'widget_inspector_description' => 'Konfigurasi laporan widget',
     'widget_columns_label' => 'Lebar :columns',
@@ -165,7 +161,6 @@
     'select' => 'Pilih',
     'select_all' => 'Pilih Semua',
     'select_none' => 'Pilih tidak ada',
-    'select_placeholder' => 'silakan pilih',
     'insert_row' => 'Buat Baris',
     'delete_row' => 'Hapus Baris',
     'concurrency_file_changed_title' => 'Berkas telah diubah',

@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "Ο κωδικός σας έχει επαναφερθεί. Μπορείτε τώρα να συνδεθείτε.",
   "Restore": "Αποκατάσταση",
   "Reset": "Επαναφορά",
-  "Forgot password?": "Ξεχάσατε τον κωδικό σας;"
+  "Forgot password?": "Ξεχάσατε τον κωδικό σας;",
+  "Manage Widgets": "Διαχείριση Widgets",
+  "Add Widget": "Προσθήκη Widget",
+  "Set the current layout as the default?": "Να οριστεί η τρέχουσα διάταξη ως προκαθορισμένη;",
+  "Make Default": "Ορισμός προκαθορισμένης",
+  "Reset layout back to default?": "Επαναφορά της διάταξης στο προκαθορισμένο;",
+  "Reset Layout": "Επαναφορά διάταξης",
+  "Widget": "Widget",
+  "please select": "παρακαλούμε επιλέξτε",
+  "Width": "Πλάτος",
+  "full width": "πλήρες πλάτος"
 }

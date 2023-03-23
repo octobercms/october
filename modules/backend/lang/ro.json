@@ -117,5 +117,8 @@
   "Password has been reset. You may now sign in.": "Parola a fost resetata cu succes. Va puteti conecta.",
   "Restore": "Restaurare",
   "Reset": "Resetare",
-  "Forgot password?": "Ati uitat parola?"
+  "Forgot password?": "Ati uitat parola?",
+  "Add Widget": "Adauga widget",
+  "Widget": "Widget",
+  "Width": "Latime"
 }

@@ -199,6 +199,5 @@
     'manage_mail_templates' => 'Kelola templat surat',
     'manage_mail_settings' => 'Kelola pengaturan surat',
     'manage_other_administrators' => 'Kelola administrator lainnya',
-    'view_the_dashboard' => 'Tampilkan dasbor',
   ],
 ];

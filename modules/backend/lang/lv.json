@@ -118,5 +118,10 @@
   "Password has been reset. You may now sign in.": "Jūsu parole tika veiksmīgi atiestatīta. Varat pieslēgties.",
   "Restore": "Atjaunot",
   "Reset": "Atiestatīt",
-  "Forgot password?": "Aizmirsāt paroli?"
+  "Forgot password?": "Aizmirsāt paroli?",
+  "Add Widget": "Pievienot logrīku",
+  "Widget": "Logrīks",
+  "please select": "lūdzu izvēlieties",
+  "Width": "Platums",
+  "full width": "pilns platums"
 }

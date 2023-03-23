@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "Parool on lähtestatud, võid nüüd oma uue parooli sisse logida.",
   "Restore": "Taasta",
   "Reset": "Lähtesta",
-  "Forgot password?": "Unustasid parooli?"
+  "Forgot password?": "Unustasid parooli?",
+  "Manage Widgets": "Halda vidinaid",
+  "Add Widget": "Lisa vidin",
+  "Set the current layout as the default?": "Kas soovid määrata praeguse vidinate paigutuse vaikeseadeks?",
+  "Make Default": "Määra vaikeseadeks",
+  "Reset layout back to default?": "Lähtesta vidinate paigutus vaikeseadele?",
+  "Reset Layout": "Lähtesta paigutus",
+  "Widget": "Vidin",
+  "please select": "palun vali",
+  "Width": "Laius",
+  "full width": "täislaius"
 }

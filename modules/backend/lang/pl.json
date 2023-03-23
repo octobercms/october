@@ -120,5 +120,15 @@
   "Restore": "Odzyskaj",
   "Reset": "Reset",
   "Stay logged in": "Zapamiętaj mnie",
-  "Forgot password?": "Zapomniałeś hasła?"
+  "Forgot password?": "Zapomniałeś hasła?",
+  "Manage Widgets": "Zarządzaj widgetami",
+  "Add Widget": "Dodaj widget",
+  "Set the current layout as the default?": "Ustawić obecny układ jako domyślny?",
+  "Make Default": "Ustaw jako domyślny",
+  "Reset layout back to default?": "Ustawić domyślny układ?",
+  "Reset Layout": "Resetuj układ",
+  "Widget": "Widget",
+  "please select": "proszę zaznacz",
+  "Width": "Szerokość",
+  "full width": "pełna szerokość"
 }

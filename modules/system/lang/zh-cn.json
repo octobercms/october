@@ -109,5 +109,7 @@
   "A user was not found with the given credentials.": "找不到具有给定凭据的用户。",
   "A user was found but the password did not match.": "找到了一个用户，但密码不匹配。",
   "User is not logged in": "用户未登录",
-  "Register Software": "注册软件"
+  "Register Software": "注册软件",
+  "View the Dashboard": "查看仪表板",
+  "Set the Default Dashboard": "管理默认仪表板"
 }

@@ -37,5 +37,7 @@
   "Installing theme: :name": "Dopremanje teme: :name",
   "Please specify a Plugin name to install.": "Specificiraj naziv priključka za instaliranje.",
   "Update process complete": "Proces ažuriranja je završen",
-  "Plugin installed successfully": "Priključak je instaliran uspešno"
+  "Plugin installed successfully": "Priključak je instaliran uspešno",
+  "View the Dashboard": "Prikaži kontrolnu tablu",
+  "Set the Default Dashboard": "Upravljaj osnovama kontrolne table"
 }

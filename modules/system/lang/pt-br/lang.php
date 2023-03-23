@@ -212,7 +212,6 @@
     'smtp_encryption' => 'Protocolo de criptografia SMTP',
     'smtp_encryption_none' => 'Sem criptografia',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Caminho do Sendmail',
     'sendmail_path_comment' => 'Por favor, especifique o caminho do programa Sendmail.',
@@ -463,8 +462,6 @@
     'manage_other_administrators' => 'Gerenciar outros administradores',
     'manage_preferences' => 'Gerenciar preferências da área administrativa',
     'manage_editor' => 'Gerenciar preferências do editor de código',
-    'view_the_dashboard' => 'Visualizar o painel',
-    'manage_default_dashboard' => 'Gerenciar o painel padrão',
     'manage_branding' => 'Personalizar o painel',
   ],
   'log' => [

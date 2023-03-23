@@ -32,10 +32,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Mērinstrumentu panelis',
-    'widget_label' => 'Logrīks',
-    'widget_width' => 'Platums',
-    'full_width' => 'pilns platums',
-    'add_widget' => 'Pievienot logrīku',
     'widget_inspector_title' => 'Logrīka konfigurācija',
     'widget_inspector_description' => 'Konfigurējiet logrīku',
     'widget_columns_label' => 'Platums :columns',
@@ -184,7 +180,6 @@
     'select' => 'Izvēlēties',
     'select_all' => 'izvēlēties visus',
     'select_none' => 'neizvēlēties nevienu',
-    'select_placeholder' => 'lūdzu izvēlieties',
     'insert_row' => 'Ievietot rindu',
     'insert_row_below' => 'Ievietot riendu zemāk',
     'delete_row' => 'Dzēst rindu',

@@ -162,7 +162,6 @@
     'smtp_encryption' => 'Giao thức mã hóa SMTP',
     'smtp_encryption_none' => 'Không mã hóa',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Gửi mail',
     'sendmail_path' => 'Đường dẫn gửi mail',
     'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
@@ -379,7 +378,6 @@
     'manage_other_administrators' => 'Quản lý các administrator khác',
     'manage_preferences' => 'Cá nhân hóa trang quản trị',
     'manage_editor' => 'Cá nhân hóa trình biên tập(code editor)',
-    'view_the_dashboard' => 'Xem bảng điều khiển',
     'manage_branding' => 'Tùy chỉnh trang quản trị',
   ],
   'log' => [

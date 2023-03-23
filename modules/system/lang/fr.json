@@ -85,5 +85,7 @@
   "Installing theme: :name": "Téléchargement du thème : :name",
   "Please specify a Plugin name to install.": "Saisir le nom d’un plugin à installer.",
   "Update process complete": "Mise à jour terminée avec succès.",
-  "Plugin installed successfully": "Le plugin a été installé avec succès."
+  "Plugin installed successfully": "Le plugin a été installé avec succès.",
+  "View the Dashboard": "Voir le tableau de bord",
+  "Set the Default Dashboard": "Gérer le tableau de bord par défaut"
 }

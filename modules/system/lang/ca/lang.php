@@ -124,7 +124,6 @@
     'smtp_encryption' => 'Protocol d\'encriptació SMTP',
     'smtp_encryption_none' => 'Sense encriptació',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Ruta de sendmail',
     'sendmail_path_comment' => 'Si us plau especifica una ruta per l\'executable de sendmail.',
@@ -341,7 +340,6 @@
     'manage_other_administrators' => 'Gestionar altres administradors',
     'manage_preferences' => 'Gestionar preferències del panell',
     'manage_editor' => 'Gestionar preferències de l\'editor de codi',
-    'view_the_dashboard' => 'Veure l\'escriptori',
     'manage_branding' => 'Personalitzar el panell',
   ],
   'log' => [

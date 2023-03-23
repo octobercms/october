@@ -117,7 +117,6 @@
     'smtp_encryption' => 'SMTP 암호 프로토콜',
     'smtp_encryption_none' => '비 암호화',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail 경로',
     'sendmail_path_comment' => 'Sendmail프로그램의 경로를 설정해주세요.',
@@ -275,7 +274,6 @@
     'manage_other_administrators' => '다른 어드민 관리',
     'manage_preferences' => '백엔드 설정 관리',
     'manage_editor' => '코드 에디터 설정 관리',
-    'view_the_dashboard' => '대시보드 표시',
     'manage_branding' => '백엔드 브랜드 변경',
   ],
   'log' => [

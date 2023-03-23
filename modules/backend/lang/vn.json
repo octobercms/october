@@ -45,5 +45,15 @@
   "Restore": "Khôi phục",
   "Reset": "Reset",
   "Stay logged in": "Giữ trạng thái đăng nhập",
-  "Forgot password?": "Quên mật khẩu?"
+  "Forgot password?": "Quên mật khẩu?",
+  "Manage Widgets": "Quản lý widgets",
+  "Add Widget": "Thêm mới widget",
+  "Set the current layout as the default?": "Đặt layout hiện tại thành mặc định?",
+  "Make Default": "Đặt thành mặc định",
+  "Reset layout back to default?": "Reset  layout về mặc định?",
+  "Reset Layout": "Reset Layout",
+  "Widget": "Widget",
+  "please select": "Vui lòng lựa chọn",
+  "Width": "chiều rộng",
+  "full width": "rộng toàn màn hình"
 }

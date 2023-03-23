@@ -119,7 +119,6 @@
     'smtp_encryption' => 'SMTP šifrovací protokol',
     'smtp_encryption_none' => 'Bez šifrování',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail cesta',
     'sendmail_path_comment' => 'Zadejte prosím cestu k sendmail programu.',
@@ -287,7 +286,6 @@
     'manage_other_administrators' => 'Správa ostatních administrátorů',
     'manage_preferences' => 'Správa nastavení administrace',
     'manage_editor' => 'Správa nastavení editoru kódu',
-    'view_the_dashboard' => 'Zobrazit plochu',
     'manage_branding' => 'Nastavení administrace',
   ],
   'log' => [

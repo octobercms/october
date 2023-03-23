@@ -119,5 +119,15 @@
   "Password has been reset. You may now sign in.": "La tua password è stata reimpostata con successo. Ora puoi effettuare l'accesso.",
   "Restore": "Ripristina",
   "Reset": "Reimposta",
-  "Forgot password?": "Password dimenticata?"
+  "Forgot password?": "Password dimenticata?",
+  "Manage Widgets": "Gestisci widget",
+  "Add Widget": "Aggiungi widget",
+  "Set the current layout as the default?": "Impostare il layout corrente come predefinito?",
+  "Make Default": "Rendi predefinito",
+  "Reset layout back to default?": "Reimpostare il layout ai valori predefiniti?",
+  "Reset Layout": "Reimposta layout",
+  "Widget": "Widget",
+  "please select": "seleziona",
+  "Width": "Larghezza",
+  "full width": "intera larghezza"
 }

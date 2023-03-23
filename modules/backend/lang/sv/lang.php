@@ -32,10 +32,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Kontrollpanelen',
-    'widget_label' => 'Widget',
-    'widget_width' => 'Bredd',
-    'full_width' => 'max bredd',
-    'add_widget' => 'Lägg till widget',
     'widget_inspector_title' => 'Widget inställningar',
     'widget_inspector_description' => 'Widget informations inställningar',
     'widget_columns_label' => 'Bredd :columns',
@@ -175,7 +171,6 @@
     'select' => 'Välj',
     'select_all' => 'Välj alla',
     'select_none' => 'Välj ingen',
-    'select_placeholder' => 'Vänligen välj',
     'insert_row' => 'Lägg till rad',
     'delete_row' => 'Radera rad',
     'concurrency_file_changed_title' => 'Filen var ändrad',

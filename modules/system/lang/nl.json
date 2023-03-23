@@ -102,5 +102,7 @@
   "A user was not found with the given credentials.": "Gebruikersnaam en/of wachtwoord is onjuist.",
   "A user was found but the password did not match.": "Het wachtwoord voor deze gebruiker komt niet overeen.",
   "User is not logged in": "Gebruiker is niet ingelogd.",
-  "Register Software": "Registreer Software"
+  "Register Software": "Registreer Software",
+  "View the Dashboard": "Toon dashboard",
+  "Set the Default Dashboard": "Beheer het standaard dashboard"
 }

@@ -83,5 +83,6 @@
   "Installing theme: :name": "テーマ ':name' をダウンロードしています",
   "Please specify a Plugin name to install.": "インストールするプラグインの名前を指定してください。",
   "Update process complete": "アップデートしました。",
-  "Plugin installed successfully": "プラグインをインストールしました。"
+  "Plugin installed successfully": "プラグインをインストールしました。",
+  "View the Dashboard": "ダッシュボードの表示"
 }

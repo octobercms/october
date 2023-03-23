@@ -211,7 +211,6 @@
     'smtp_encryption' => 'SMTP 加密协议',
     'smtp_encryption_none' => '不加密',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => '发送邮件',
     'sendmail_path' => '邮件发送路径',
     'sendmail_path_comment' => '请指定邮件发送程序的路径。',
@@ -444,8 +443,6 @@
     'manage_other_administrators' => '管理其他管理员',
     'manage_preferences' => '管理后端首选项',
     'manage_editor' => '管理代码编辑器首选项',
-    'view_the_dashboard' => '查看仪表板',
-    'manage_default_dashboard' => '管理默认仪表板',
     'manage_branding' => '自定义后台',
   ],
   'log' => [

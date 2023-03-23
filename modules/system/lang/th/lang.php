@@ -125,7 +125,6 @@
     'smtp_encryption' => 'โปรโตคอลการเข้ารหัส SMTP',
     'smtp_encryption_none' => 'ไม่เข้ารหัส',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail path',
     'sendmail_path_comment' => 'กรุณากำหนด path ของโปรแกรม sendmail',
@@ -347,8 +346,6 @@
     'impersonate_users' => 'ปลอมตัวเป็นผู้ใช้',
     'manage_preferences' => 'จัดการหน้าเว็บหลังบ้านตามใจชอบ',
     'manage_editor' => 'จัดการตัวแก้ไขโค้ดตามใจชอบ',
-    'view_the_dashboard' => 'ดูหน้าแผงควบคุม',
-    'manage_default_dashboard' => 'จัดการตั้งค่าเริ่มต้นหน้าแผงควบคุม',
     'manage_branding' => 'ปรับแต่งหน้าเว็บหลังบ้าน',
   ],
   'log' => [

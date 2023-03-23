@@ -40,7 +40,7 @@
   ],
   'app' => [
     'name' => 'October CMS',
-    'tagline' => 'Getting Back to Basics',
+    'tagline' => 'Administration Panel',
   ],
   'locale' => [
     'ar' => 'العربية',
@@ -211,7 +211,6 @@
     'smtp_encryption' => 'SMTP encryption protocol',
     'smtp_encryption_none' => 'No encryption',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail path',
     'sendmail_path_comment' => 'Please specify the path of the sendmail program.',
@@ -444,8 +443,6 @@
     'manage_other_administrators' => 'Manage other administrators',
     'manage_preferences' => 'Manage Backend Preferences',
     'manage_editor' => 'Manage Code Editor Preferences',
-    'view_the_dashboard' => 'View the dashboard',
-    'manage_default_dashboard' => 'Manage the default dashboard',
     'manage_branding' => 'Customize Backend Styles',
   ],
   'log' => [

@@ -49,5 +49,15 @@
   "Restore": "Restaurar",
   "Reset": "Redefinir",
   "Stay logged in": "Manter sessão activa",
-  "Forgot password?": "Esqueceu sua senha?"
+  "Forgot password?": "Esqueceu sua senha?",
+  "Manage Widgets": "Gerir widgets",
+  "Add Widget": "Adicionar widget",
+  "Set the current layout as the default?": "Guardar o layout actual como o pré-definido?",
+  "Make Default": "Guardar como pré-definido",
+  "Reset layout back to default?": "Reinicializar o layout para a configuração de origem?",
+  "Reset Layout": "Reinicializar layout",
+  "Widget": "Widget",
+  "please select": "por favor, selecione",
+  "Width": "Largura",
+  "full width": "Largura completa"
 }

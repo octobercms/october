@@ -84,5 +84,6 @@
   "Installing theme: :name": "Scaricamento tema: :name",
   "Please specify a Plugin name to install.": "Specifica il nome del plugin da installare.",
   "Update process complete": "L'aggiornamento è stato eseguito con successo.",
-  "Plugin installed successfully": "Il plugin è stato installato con successo."
+  "Plugin installed successfully": "Il plugin è stato installato con successo.",
+  "View the Dashboard": "Visualizza la dashboard"
 }

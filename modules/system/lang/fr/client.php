@@ -57,7 +57,7 @@ return [
         'weekdaysShort' => ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [

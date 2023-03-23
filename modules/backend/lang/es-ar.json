@@ -18,5 +18,10 @@
   "Password has been reset. You may now sign in.": "Su contraseña fue correctamente reiniciada.",
   "Restore": "Restaurar",
   "Reset": "Reiniciar",
-  "Forgot password?": "Olvidó su contraseña?"
+  "Forgot password?": "Olvidó su contraseña?",
+  "Add Widget": "Agregar módulo",
+  "Widget": "Módulo",
+  "please select": "Seleccionar",
+  "Width": "Ancho",
+  "full width": "Ancho completo"
 }

@@ -120,5 +120,15 @@
   "Restore": "กู้คืน",
   "Reset": "ตั้งใหม่",
   "Stay logged in": "ให้ล็อกอินค้างไว้",
-  "Forgot password?": "ลืมรหัสผ่านของคุณ?"
+  "Forgot password?": "ลืมรหัสผ่านของคุณ?",
+  "Manage Widgets": "จัดการวิดเจ็ท",
+  "Add Widget": "เพิ่มวิดเจ็ท",
+  "Set the current layout as the default?": "ตั้งการวางโครงร่างปัจจุบันเป็นค่าเริ่มต้น?",
+  "Make Default": "ทำให้เป็นค่าเริ่มต้น",
+  "Reset layout back to default?": "ตั้งค่าการวางโครงร่างกลับสู่ค่าเริ่มต้น?",
+  "Reset Layout": "ตั้งค่าเริ่มต้นการวางโครงร่าง",
+  "Widget": "วิดเจ็ท",
+  "please select": "กรุณาเลือก",
+  "Width": "ความกว้าง",
+  "full width": "ความกว้างเต็มหน้า"
 }

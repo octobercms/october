@@ -84,5 +84,6 @@
   "Installing theme: :name": "下載主題: :name",
   "Please specify a Plugin name to install.": "請輸入要安裝的外掛名稱。",
   "Update process complete": "更新完成.",
-  "Plugin installed successfully": "外掛安裝成功。"
+  "Plugin installed successfully": "外掛安裝成功。",
+  "View the Dashboard": "查看儀表板"
 }

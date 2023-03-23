@@ -33,5 +33,6 @@
   "Installing theme: :name": "테마 ':name' 다운로드중입니다",
   "Please specify a Plugin name to install.": "설치할 플러그인명을 설정해주세요.",
   "Update process complete": "업데이트 했습니다.",
-  "Plugin installed successfully": "플러그인을 설치했습니다."
+  "Plugin installed successfully": "플러그인을 설치했습니다.",
+  "View the Dashboard": "대시보드 표시"
 }

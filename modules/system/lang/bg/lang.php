@@ -116,7 +116,6 @@
     'smtp_encryption' => 'SMTP протокол за криптиране',
     'smtp_encryption_none' => 'Без криптиране',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail директория',
     'sendmail_path_comment' => 'Моля, посочете директория на Sendmail програмата.',
@@ -266,7 +265,6 @@
     'manage_other_administrators' => 'Управление на други администратори',
     'manage_preferences' => 'Управление на предпочитанията на админ панела',
     'manage_editor' => 'Управление на предпочитанията на редактор на код',
-    'view_the_dashboard' => 'Преглед на таблото',
     'manage_branding' => 'Персонализиране на админ панела',
   ],
   'media' => [

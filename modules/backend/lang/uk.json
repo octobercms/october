@@ -119,5 +119,15 @@
   "Restore": "Відновити",
   "Reset": "Скинути",
   "Stay logged in": "Залишитись в системі",
-  "Forgot password?": "Забули свій пароль?"
+  "Forgot password?": "Забули свій пароль?",
+  "Manage Widgets": "Керування віджетами",
+  "Add Widget": "Додати віджет",
+  "Set the current layout as the default?": "Встановіть поточну схему розташування за замовчуванням?",
+  "Make Default": "Використовувати за замовчуванням",
+  "Reset layout back to default?": "Ви дійсно хочете встановити за замовчуванням?",
+  "Reset Layout": "Скидання макета",
+  "Widget": "Віджет",
+  "please select": "будь ласка, оберіть",
+  "Width": "Ширина",
+  "full width": "повна ширина"
 }

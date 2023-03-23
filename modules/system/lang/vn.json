@@ -34,5 +34,6 @@
   "Installing theme: :name": "Đang tải theme: :name",
   "Please specify a Plugin name to install.": "Điền vào tên Plugin để cài đặt.",
   "Update process complete": "Cập nhật hoàn tất",
-  "Plugin installed successfully": "Plugin đã được cài thành công"
+  "Plugin installed successfully": "Plugin đã được cài thành công",
+  "View the Dashboard": "Xem bảng điều khiển"
 }

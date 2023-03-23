@@ -31,6 +31,10 @@ return [
         'horizontalrule' => 'Lisää horisontaalinen jakaja',
         'fullscreen' => 'Kokonäyttö',
         'preview' => 'Esikatsele',
+        'strikethrough' => 'Yliviivattu',
+        'cleanblock' => 'Puhdas blokki',
+        'table' => 'Taulukko',
+        'sidebyside' => 'Vierekkäin'
     ],
     'mediamanager' => [
         'insert_link' => 'Lisää linkki Mediaan',
@@ -59,7 +63,7 @@ return [
         'weekdaysShort' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [
@@ -107,5 +111,14 @@ return [
         'file_too_big' => 'Tiedosto on liian iso ({{filesize}}MB). Suurin sallittu tiedostokoko on: {{maxFilesize}}MB.',
         'response_error' => 'Palvelin vastasi koodilla {{statusCode}}.',
         'remove_file' => 'Poista tiedosto',
+    ],
+    'inspector' => [
+      'add' => 'Lisää',
+      'remove' => 'Poista',
+      'key' => 'Avain',
+      'value' => 'Arvo',
+      'ok' => 'OK',
+      'cancel' => 'Peruuta',
+      'items' => 'Kohteet',
     ],
 ];

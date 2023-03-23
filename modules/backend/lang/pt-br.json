@@ -118,5 +118,15 @@
   "Restore": "Restaurar",
   "Reset": "Redefinir",
   "Stay logged in": "Permaneça logado",
-  "Forgot password?": "Esqueceu sua senha?"
+  "Forgot password?": "Esqueceu sua senha?",
+  "Manage Widgets": "Gerenciar widget",
+  "Add Widget": "Adicionar widget",
+  "Set the current layout as the default?": "Definir o painel atual como padrão?",
+  "Make Default": "Definir como padrão",
+  "Reset layout back to default?": "Reiniciar o painel para a configuração padrão?",
+  "Reset Layout": "Reiniciar painel",
+  "Widget": "Widget",
+  "please select": "por favor, selecione",
+  "Width": "Largura",
+  "full width": "Largura total"
 }

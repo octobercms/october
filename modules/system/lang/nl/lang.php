@@ -211,7 +211,6 @@
     'smtp_encryption' => 'SMTP encryptie protocol',
     'smtp_encryption_none' => 'Geen encryptie',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Pad naar Sendmail',
     'sendmail_path_comment' => 'Geef hier het volledige pad op naar de Sendmail-applicatie.',
@@ -444,8 +443,6 @@
     'manage_other_administrators' => 'Beheer mede-beheerders',
     'manage_preferences' => 'Beheer back-end voorkeuren',
     'manage_editor' => 'Beheer code editor voorkeuren',
-    'view_the_dashboard' => 'Toon dashboard',
-    'manage_default_dashboard' => 'Beheer het standaard dashboard',
     'manage_branding' => 'Back-end aanpassen',
   ],
   'log' => [

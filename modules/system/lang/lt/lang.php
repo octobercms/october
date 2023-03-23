@@ -154,7 +154,6 @@
     'smtp_encryption' => 'SMTP šifravimo protokolas',
     'smtp_encryption_none' => 'Be šifravimo',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail kelias',
     'sendmail_path_comment' => 'Nurodykite kelią į sendmail programą.',
@@ -315,7 +314,6 @@
     'manage_other_administrators' => 'Manage other administrators',
     'manage_preferences' => 'Tvarkyti posistemės nustatymus',
     'manage_editor' => 'Tvarkyti kodo redaktoriaus nustatymus',
-    'view_the_dashboard' => 'Skydelis',
     'manage_branding' => 'Redaguoti posistemę',
   ],
   'media' => [

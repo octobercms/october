@@ -14,9 +14,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'لوحة الإدارة',
-    'widget_width' => 'العرض',
-    'full_width' => 'عرض كامل',
-    'manage_widgets' => 'إدارة التطبيقات',
     'status' => [
       'widget_title_default' => 'حالة النظام',
       'update_available' => '{0} تحديث متاح!|{1} تحديث متاح!|[2,Inf] تحديثات متاحة!',
@@ -93,7 +90,6 @@
     'select' => 'تحديد',
     'select_all' => 'اختر الكل',
     'select_none' => 'لا تختر شيء',
-    'select_placeholder' => 'من فضلك اختار',
     'insert_row' => 'إضافة سجل',
     'return_to_list' => 'عودة للقائمة',
   ],

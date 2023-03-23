@@ -131,5 +131,17 @@
   "Reset": "Reset",
   "Stay logged in": "Stay logged in",
   "Forgot password?": "Forgot password?",
-  "Global Editor Settings": "Global Editor Settings"
+  "Global Editor Settings": "Global Editor Settings",
+  "Manage Widgets": "Manage Widgets",
+  "Add Widget": "Add Widget",
+  "Set the current layout as the default?": "Set the current layout as the default?",
+  "Make Default": "Make Default",
+  "Reset layout back to default?": "Reset layout back to default?",
+  "Reset Layout": "Reset Layout",
+  "Widget": "Widget",
+  "please select": "please select",
+  "Width": "Width",
+  "full width": "full width",
+  "Create Widgets": "Create Widgets",
+  "not equal to": "not equal to"
 }

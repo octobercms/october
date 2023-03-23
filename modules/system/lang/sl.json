@@ -85,5 +85,7 @@
   "Installing theme: :name": "Prenašanje teme :name",
   "Please specify a Plugin name to install.": "Podajte ime vtičnika, ki ga želite namestiti.",
   "Update process complete": "Posodabljanje končano.",
-  "Plugin installed successfully": "Produkt je bil uspešno nameščen."
+  "Plugin installed successfully": "Produkt je bil uspešno nameščen.",
+  "View the Dashboard": "Prikaz namizja oz. nadzorne plošče",
+  "Set the Default Dashboard": "Upravljanje s privzetim namizjem oz. nadzorno ploščo"
 }

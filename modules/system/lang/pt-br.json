@@ -51,5 +51,7 @@
   "Removing plugin: :name": "Removendo o plugin: :name",
   "Please specify a Plugin name to install.": "Por favor, especifique um nome de plugin para instalar.",
   "Update process complete": "O processo de atualização foi realizado com sucesso.",
-  "Plugin installed successfully": "O plugin foi instalado com sucesso."
+  "Plugin installed successfully": "O plugin foi instalado com sucesso.",
+  "View the Dashboard": "Visualizar o painel",
+  "Set the Default Dashboard": "Gerenciar o painel padrão"
 }

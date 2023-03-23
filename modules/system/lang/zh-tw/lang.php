@@ -223,7 +223,6 @@
     'manage_mail_templates' => '管理郵件模板',
     'manage_mail_settings' => '管理郵件設定',
     'manage_other_administrators' => '管理其他管理員',
-    'view_the_dashboard' => '查看儀表板',
     'manage_branding' => '自訂後台',
   ],
   'media' => [

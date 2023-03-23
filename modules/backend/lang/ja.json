@@ -118,5 +118,10 @@
   "Password has been reset. You may now sign in.": "パスワードがリセットされました。",
   "Restore": "元に戻す",
   "Reset": "リセット",
-  "Forgot password?": "パスワードを忘れましたか？"
+  "Forgot password?": "パスワードを忘れましたか？",
+  "Add Widget": "ウィジェットの追加",
+  "Widget": "ウィジェット",
+  "please select": "選択してください",
+  "Width": "ウィジェット幅",
+  "full width": "全幅"
 }

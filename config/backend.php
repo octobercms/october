@@ -31,7 +31,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | The default backend customization settings. These values are all optional
-    | and remember to set the enabled value to true.
+    | and remember to set the enabled value to true. Supported values:
+    |
+    | - menu_mode: inline, text, tile, collapse, icons, left
+    | - color_mode: light, dark, auto
+    | - color_palette: default, classic, oxford, console, valentino, punch
+    | - login_background_type: color, wallpaper
+    | - login_background_wallpaper_size: auto, cover
+    | - login_image_type: autumn_images, custom
     |
     */
 
@@ -40,8 +47,12 @@ return [
         'app_name' => env('APP_NAME', 'October CMS'),
         'tagline' => 'Administration Panel',
         'menu_mode' => 'icons',
-        'favicon_path' => '~/app/assets/images/logo.png',
+        'color_mode' => 'light',
+        'color_palette' => 'default',
         'logo_path' => '~/app/assets/images/logo.png',
+        'favicon_path' => '~/app/assets/images/favicon.png',
+        'menu_logo_path' => '~/app/assets/images/menu_logo.png',
+        'dashboard_icon_path' => '~/app/assets/images/dashboard_icon.png',
         'stylesheet_path' => '~/app/assets/less/styles.less',
         'login_background_type' => 'color',
         'login_background_color' => '#fef6eb',

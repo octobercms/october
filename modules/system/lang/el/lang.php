@@ -116,7 +116,6 @@
     'smtp_encryption' => 'Πρωτόκολλο κρυπτογράφησης SMTP',
     'smtp_encryption_none' => 'Χωρίς κρυπτογράφηση',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Διαδρομή Sendmail',
     'sendmail_path_comment' => 'Παρακαλούμε καθορίστε την διαδρομή του λογισμικού Sendmail.',
@@ -275,7 +274,6 @@
     'manage_other_administrators' => 'Διαχείριση άλλων διαχειριστών',
     'manage_preferences' => 'Διαχείριση προτιμήσεων του backend',
     'manage_editor' => 'Διαχείριση προτιμήσεων του επεξεργαστεί κώδικα',
-    'view_the_dashboard' => 'Προβολή του πίνακα ελέγχου',
     'manage_branding' => 'Προσαρμογή του back-end',
   ],
   'media' => [

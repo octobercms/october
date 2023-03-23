@@ -85,5 +85,7 @@
   "Installing theme: :name": "Tema indiriliyor: :name",
   "Please specify a Plugin name to install.": "Yüklemek istediğiniz eklentinin adını giriniz.",
   "Update process complete": "Güncelleme işlemi başarıyla tamamlandı.",
-  "Plugin installed successfully": "Eklenti kurulumu tamamlandı."
+  "Plugin installed successfully": "Eklenti kurulumu tamamlandı.",
+  "View the Dashboard": "Panoyu görüntüleyebilir",
+  "Set the Default Dashboard": "Varsayılan kontrol panelini yönetebilir"
 }

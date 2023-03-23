@@ -118,5 +118,10 @@
   "Password has been reset. You may now sign in.": "Вашата парола е  успешно нулирана. Сега може да се логнете.",
   "Restore": "Възстановяване",
   "Reset": "Нулиране",
-  "Forgot password?": "Забравена парола?"
+  "Forgot password?": "Забравена парола?",
+  "Add Widget": "Добави джаджа",
+  "Widget": "Джаджа",
+  "please select": "моля изберете",
+  "Width": "Широчина",
+  "full width": "Пълна ширина"
 }

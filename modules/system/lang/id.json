@@ -83,5 +83,6 @@
   "Installing theme: :name": "Mengunduh tema: :name",
   "Please specify a Plugin name to install.": "Silakan tentukan nama Plugin yang akan dipasang.",
   "Update process complete": "Proses pembaruan telah selesai.",
-  "Plugin installed successfully": "Plugin berhasil diinstal."
+  "Plugin installed successfully": "Plugin berhasil diinstal.",
+  "View the Dashboard": "Tampilkan dasbor"
 }

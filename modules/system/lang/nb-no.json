@@ -32,5 +32,6 @@
   "Installing theme: :name": "Laster ned tema: :name",
   "Please specify a Plugin name to install.": "Vennligst oppgi pluginens navn.",
   "Update process complete": "Oppdatering har fullført.",
-  "Plugin installed successfully": "Plugin har blitt installert."
+  "Plugin installed successfully": "Plugin har blitt installert.",
+  "View the Dashboard": "Se dashboard"
 }

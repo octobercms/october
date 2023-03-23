@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "Пароль быў зменены, цяпер Вы можаце ўвайсці",
   "Restore": "Аднавіць",
   "Reset": "Скасаваць",
-  "Forgot password?": "Забыліся пароль?"
+  "Forgot password?": "Забыліся пароль?",
+  "Manage Widgets": "Кіраванне віджэтамі",
+  "Add Widget": "Дадаць віджэт",
+  "Set the current layout as the default?": "Зрабіць дадзены макет заходным?",
+  "Make Default": "Зрабіць зыходным",
+  "Reset layout back to default?": "Скасаваць макет да зыходных наладаў",
+  "Reset Layout": "Скасаваць макет",
+  "Widget": "Віджэт",
+  "please select": "Калі ласка, выберыце",
+  "Width": "Шырыня віджэта",
+  "full width": "Поўная шырыня"
 }
