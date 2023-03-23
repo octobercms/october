@@ -249,7 +249,6 @@
     'manage_mail_templates' => 'Pārvaldīt epasta veidnes',
     'manage_mail_settings' => 'Pārvaldīt epasta iestatījumus',
     'manage_other_administrators' => 'Pārvaldīt citus administrātorus',
-    'view_the_dashboard' => 'Skatīt mērinstrumentu paneli',
     'manage_branding' => 'Pielāgot back-end',
   ],
   'media' => [

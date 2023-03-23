@@ -84,5 +84,6 @@
   "Installing theme: :name": "Teema allalaadimine: :name",
   "Please specify a Plugin name to install.": "Palun sisesta plugina nimi, mida paigaldada.",
   "Update process complete": "Uuendamise protsess lõpetatud",
-  "Plugin installed successfully": "Plugin on edukalt paigaldatud"
+  "Plugin installed successfully": "Plugin on edukalt paigaldatud",
+  "View the Dashboard": "Juurdepääs töölauale"
 }

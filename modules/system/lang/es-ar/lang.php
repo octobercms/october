@@ -188,6 +188,5 @@
     'manage_software_updates' => 'Gestionar actualización de software',
     'manage_mail_templates' => 'Gestionar plantillas de correo',
     'manage_other_administrators' => 'Gestionar otros administradores',
-    'view_the_dashboard' => 'Ver el Tablero',
   ],
 ];

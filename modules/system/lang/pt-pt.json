@@ -33,5 +33,6 @@
   "Installing theme: :name": "Descarregando o tema: :name",
   "Please specify a Plugin name to install.": "Por favor, especifique um nome da extensão para instalar.",
   "Update process complete": "O processo de actualização foi realizado com sucesso.",
-  "Plugin installed successfully": "A extensão foi instalada com sucesso."
+  "Plugin installed successfully": "A extensão foi instalada com sucesso.",
+  "View the Dashboard": "Visualizar o painel"
 }

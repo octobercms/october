@@ -63,7 +63,7 @@ return [
         'weekdaysShort' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [

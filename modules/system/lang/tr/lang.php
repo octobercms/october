@@ -175,7 +175,6 @@
     'smtp_encryption' => 'SMTP şifreleme protokolü',
     'smtp_encryption_none' => 'Şifreleme yok',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail Yolu',
     'sendmail_path_comment' => 'Sendmail programının yolunu belirtin.',
@@ -394,8 +393,6 @@
     'manage_other_administrators' => 'Diğer yöneticileri düzenleyebilir',
     'manage_preferences' => 'Yönetim paneli seçeneklerini düzenleyebilir',
     'manage_editor' => 'Kod editör ayarlarını düzenleyebilir',
-    'view_the_dashboard' => 'Panoyu görüntüleyebilir',
-    'manage_default_dashboard' => 'Varsayılan kontrol panelini yönetebilir',
     'manage_branding' => 'Yönetim Panelini özelleştirebilir',
   ],
   'log' => [

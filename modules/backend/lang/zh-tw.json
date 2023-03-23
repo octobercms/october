@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "您的密碼已經重置成功. 您現在可以登入了",
   "Restore": "還原",
   "Reset": "重置",
-  "Forgot password?": "忘記您的密碼?"
+  "Forgot password?": "忘記您的密碼?",
+  "Manage Widgets": "管理元件",
+  "Add Widget": "新增元件",
+  "Set the current layout as the default?": "確定將此版面設定為預設？",
+  "Make Default": "設定為預設",
+  "Reset layout back to default?": "確定重置為預設版面？",
+  "Reset Layout": "重置版面",
+  "Widget": "元件",
+  "please select": "請選擇",
+  "Width": "寬度",
+  "full width": "全部寬度"
 }

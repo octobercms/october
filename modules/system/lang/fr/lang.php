@@ -162,7 +162,6 @@
     'smtp_encryption' => 'Protocole de sécurisation des échanges SMTP',
     'smtp_encryption_none' => 'Aucun cryptage',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Chemin vers Sendmail',
     'sendmail_path_comment' => 'Saisir le chemin du programme Sendmail.',
@@ -387,8 +386,6 @@
     'impersonate_users' => 'Usurper l’identité des utilisateurs',
     'manage_preferences' => 'Gérer les préférences de l’interface d’administration',
     'manage_editor' => 'Gérer les préférences de l’éditeur de code',
-    'view_the_dashboard' => 'Voir le tableau de bord',
-    'manage_default_dashboard' => 'Gérer le tableau de bord par défaut',
     'manage_branding' => 'Personnaliser l’interface d’administration',
   ],
   'log' => [

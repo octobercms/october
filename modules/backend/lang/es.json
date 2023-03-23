@@ -120,5 +120,15 @@
   "Password has been reset. You may now sign in.": "Contraseña ha sido restablecida. Ahora puede iniciar sesión",
   "Restore": "Restaurar",
   "Reset": "Restablecer",
-  "Forgot password?": "¿Olvidó su clave?"
+  "Forgot password?": "¿Olvidó su clave?",
+  "Manage Widgets": "Gestionar modulos",
+  "Add Widget": "Agregar un módulo",
+  "Set the current layout as the default?": "Establecer el diseño actual por defecto?",
+  "Make Default": "Predeterminar",
+  "Reset layout back to default?": "Restablecer diseño de vualta a los valores por defecto?",
+  "Reset Layout": "Restablecer diseño",
+  "Widget": "Módulo",
+  "please select": "por favor seleccione",
+  "Width": "Ancho",
+  "full width": "ancho completo"
 }

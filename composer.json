@@ -6,7 +6,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8.0.2",
-        "october/rain": "^3.2",
+        "october/rain": "^3.3",
         "laravel/framework": "^9.0"
     },
     "require-dev": {
@@ -40,6 +40,7 @@
     },
     "autoload": {
         "psr-4": {
+            "App\\": "app",
             "System\\Console\\": "modules/system/console"
         }
     },

@@ -122,5 +122,15 @@
   "Restore": "Visszaállítás",
   "Reset": "Alaphelyzet",
   "Stay logged in": "Bejelentkezve maradok",
-  "Forgot password?": "Elfelejtette a jelszavát?"
+  "Forgot password?": "Elfelejtette a jelszavát?",
+  "Manage Widgets": "Widgetek kezelése",
+  "Add Widget": "Widget hozzáadása",
+  "Set the current layout as the default?": "A jelenlegi elrendezés legyen az alapértelmezett?",
+  "Make Default": "Elrendezés mentése",
+  "Reset layout back to default?": "Visszaállítás az alapértelmezettre?",
+  "Reset Layout": "Elrendezés visszaállítása",
+  "Widget": "Widget",
+  "please select": "válasszon",
+  "Width": "Szélesség",
+  "full width": "teljes szélesség"
 }

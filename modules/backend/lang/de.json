@@ -120,5 +120,15 @@
   "Restore": "Wiederherstellen",
   "Reset": "Zurücksetzen",
   "Stay logged in": "Angemeldet bleiben",
-  "Forgot password?": "Passwort vergessen?"
+  "Forgot password?": "Passwort vergessen?",
+  "Manage Widgets": "Widgets verwalten",
+  "Add Widget": "Neues Widget",
+  "Set the current layout as the default?": "Das aktuelle Layout and Standard setzen",
+  "Make Default": "Setze Standard",
+  "Reset layout back to default?": "Layout auf Ursprungszustand zurücksetzen",
+  "Reset Layout": "Layout zurücksetzen",
+  "Widget": "Widget",
+  "please select": "Bitte auswählen",
+  "Width": "Breite",
+  "full width": "ganze Breite"
 }

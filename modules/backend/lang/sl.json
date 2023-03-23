@@ -120,5 +120,15 @@
   "Restore": "Obnovi",
   "Reset": "Ponastavi",
   "Stay logged in": "Ostanite prijavljeni",
-  "Forgot password?": "Ste pozabili svoje geslo?"
+  "Forgot password?": "Ste pozabili svoje geslo?",
+  "Manage Widgets": "Upravljanje vtičnikov",
+  "Add Widget": "Dodaj vtičnik",
+  "Set the current layout as the default?": "Želite trenutno postavitev nastaviti za privzeto?",
+  "Make Default": "Nastavi za privzeto",
+  "Reset layout back to default?": "Želite postavitev ponastaviti nazaj na privzeto obliko?",
+  "Reset Layout": "Ponastavi postavitev",
+  "Widget": "Vtičnik",
+  "please select": "izberite",
+  "Width": "Širina",
+  "full width": "Celotna širina"
 }

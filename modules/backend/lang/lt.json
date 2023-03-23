@@ -118,5 +118,15 @@
   "Password has been reset. You may now sign in.": "Slaptažodį pakeitėme. Dabar galite prisijungti.",
   "Restore": "Atstatyti",
   "Reset": "Perstatyti",
-  "Forgot password?": "Pamiršote slaptažodį?"
+  "Forgot password?": "Pamiršote slaptažodį?",
+  "Manage Widgets": "Tvarkyti skydelius",
+  "Add Widget": "Pridėti skydelį",
+  "Set the current layout as the default?": "Nustatyti dabartinį išdėstymą kaip pagrindinį?",
+  "Make Default": "Įrašyti kaip pagrindinį",
+  "Reset layout back to default?": "Atstatyti išdėstymą į pirminę?",
+  "Reset Layout": "Atstatyti išdėstymą",
+  "Widget": "Skydelis",
+  "please select": "prašome pasirinkti",
+  "Width": "Plotis",
+  "full width": "pilnas proltis"
 }

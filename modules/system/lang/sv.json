@@ -84,5 +84,6 @@
   "Installing theme: :name": "Ladda ner temat: :name",
   "Please specify a Plugin name to install.": "Välj ett tilläggsnamn att installera",
   "Update process complete": "Uppdateringen är slutförd.",
-  "Plugin installed successfully": "Tillägget har installerats"
+  "Plugin installed successfully": "Tillägget har installerats",
+  "View the Dashboard": "Visa kontrollpanelen"
 }

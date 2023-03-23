@@ -116,7 +116,6 @@
     'smtp_encryption' => 'SMTP krypteringsprotkoll',
     'smtp_encryption_none' => 'Ingen kryptering',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail-sti',
     'sendmail_path_comment' => 'Vennligst oppgi stien til sendmail-programmet.',
@@ -275,7 +274,6 @@
     'manage_other_administrators' => 'Administrer andre administratorer',
     'manage_preferences' => 'Administrer backend-innstillinger',
     'manage_editor' => 'Administrer kodeeditor-innstillinger',
-    'view_the_dashboard' => 'Se dashboard',
     'manage_branding' => 'Tilpasse backend',
   ],
   'media' => [

@@ -48,5 +48,15 @@
   "Restore": "Povrati",
   "Reset": "Resetuj",
   "Stay logged in": "Ostani ulogovan",
-  "Forgot password?": "Zaboravljena lozinka?"
+  "Forgot password?": "Zaboravljena lozinka?",
+  "Manage Widgets": "Upravljanje posredničkim elementima",
+  "Add Widget": "Dodaj posrednički element",
+  "Set the current layout as the default?": "Postavi trenutni plan kao podrazumevani?",
+  "Make Default": "Učini podrazumevanim",
+  "Reset layout back to default?": "Resetuj plan na podrazumevani?",
+  "Reset Layout": "Resetuj plan",
+  "Widget": "Posrednički element",
+  "please select": "izaberi",
+  "Width": "Širina",
+  "full width": "puna širina"
 }

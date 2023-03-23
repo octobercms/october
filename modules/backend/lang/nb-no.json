@@ -44,5 +44,15 @@
   "Password has been reset. You may now sign in.": "Ditt passord har blitt gjenopprettet. Du kan nå logge inn.",
   "Restore": "Gjenopprett",
   "Reset": "Nullstill",
-  "Forgot password?": "Glemt passordet ditt?"
+  "Forgot password?": "Glemt passordet ditt?",
+  "Manage Widgets": "Administrer widgets",
+  "Add Widget": "Legg til widget",
+  "Set the current layout as the default?": "Sett nåværende layout som standard?",
+  "Make Default": "Sett som standard",
+  "Reset layout back to default?": "Tilbakestille layout til originalen?",
+  "Reset Layout": "Tilbakestill layout",
+  "Widget": "Widget",
+  "please select": "velg",
+  "Width": "Bredde",
+  "full width": "full bredde"
 }

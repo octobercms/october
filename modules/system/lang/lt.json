@@ -84,5 +84,6 @@
   "Installing theme: :name": "Siunčiame dizainą: :name",
   "Please specify a Plugin name to install.": "Nurodykite instaliuojamo Įskiepio pavadinimą.",
   "Update process complete": "Atnaujinimo procesas baigtas",
-  "Plugin installed successfully": "Įskiepis įdiegtas sėkmingai"
+  "Plugin installed successfully": "Įskiepis įdiegtas sėkmingai",
+  "View the Dashboard": "Skydelis"
 }

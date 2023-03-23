@@ -211,7 +211,6 @@
     'smtp_encryption' => 'Протокол шифрования для SMTP',
     'smtp_encryption_none' => 'Без шифрования',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Путь к Sendmail',
     'sendmail_path_comment' => 'Пожалуйста, укажите путь к sendmail.',
@@ -444,8 +443,6 @@
     'manage_other_administrators' => 'Управление другими администраторами',
     'manage_preferences' => 'Управление настройками бэкенда',
     'manage_editor' => 'Управление настройками редактора кода',
-    'view_the_dashboard' => 'Просмотр панели управления',
-    'manage_default_dashboard' => 'Управление заглавным дашбордом',
     'manage_branding' => 'Персонализация панели управления',
   ],
   'log' => [

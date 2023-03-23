@@ -131,5 +131,15 @@
   "Reset": "Nollaa",
   "Stay logged in": "Pysy kirjautuneena",
   "Forgot password?": "Unohditko salasanasi?",
-  "Global Editor Settings": "Yleiset editorin asetukset"
+  "Global Editor Settings": "Yleiset editorin asetukset",
+  "Manage Widgets": "Hallinnoi vimpaimia",
+  "Add Widget": "Lisää vimpain",
+  "Set the current layout as the default?": "Tee nykyisestä ulkoasusta oletus?",
+  "Make Default": "Aseta oletukseksi",
+  "Reset layout back to default?": "Palauta oletusulkoasu?",
+  "Reset Layout": "Nollaa ulkoasu",
+  "Widget": "Vimpain",
+  "please select": "ole hyvä ja valitse",
+  "Width": "Leveys",
+  "full width": "täysleveä"
 }

@@ -120,5 +120,15 @@
   "Restore": "Restaurar",
   "Reset": "Reiniciar",
   "Stay logged in": "Recordar-me",
-  "Forgot password?": "Has oblidat la teva contrasenya?"
+  "Forgot password?": "Has oblidat la teva contrasenya?",
+  "Manage Widgets": "Gestionar widgets",
+  "Add Widget": "Afegir widget",
+  "Set the current layout as the default?": "Convertir la disposició actual en els valors per defecte?",
+  "Make Default": "Desar per defecte",
+  "Reset layout back to default?": "Reiniciar la disposició als valors per defecte?",
+  "Reset Layout": "Reiniciar disposició",
+  "Widget": "Widget",
+  "please select": "si us plau selecciona",
+  "Width": "Ample",
+  "full width": "ample complet"
 }

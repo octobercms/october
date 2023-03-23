@@ -102,5 +102,7 @@
   "A user was not found with the given credentials.": "A user was not found with the given credentials.",
   "A user was found but the password did not match.": "A user was found but the password did not match.",
   "User is not logged in": "User is not logged in",
-  "Register Software": "Register Software"
+  "Register Software": "Register Software",
+  "View the Dashboard": "View the Dashboard",
+  "Set the Default Dashboard": "Set the Default Dashboard"
 }

@@ -57,7 +57,7 @@ return [
         'weekdaysShort' => ['Dg', 'Dl', 'Dm', 'Dx', 'Dj', 'Dv', 'Ds']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [

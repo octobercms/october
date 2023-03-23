@@ -85,5 +85,6 @@
   "Installing theme: :name": "دریافت قالب: :name",
   "Please specify a Plugin name to install.": "لطفا نام افزونه را جهت نصب وارد نمایید.",
   "Update process complete": "بروز رسانی با موفقیت انجام شد.",
-  "Plugin installed successfully": "افزونه با موفقیت نصب شد."
+  "Plugin installed successfully": "افزونه با موفقیت نصب شد.",
+  "View the Dashboard": "نمایش صفحه مدیریت"
 }

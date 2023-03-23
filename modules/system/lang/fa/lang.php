@@ -161,7 +161,6 @@
     'smtp_encryption' => 'پروتکل رمزگذاری SMTP',
     'smtp_encryption_none' => 'بدون رمزگذاری',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'آدرس برنامه Sendmail',
     'sendmail_path_comment' => 'لطفا محل ذخیره نرم افزار sendmail را مشخص نمایید.',
@@ -378,7 +377,6 @@
     'manage_other_administrators' => 'مدیریت سایر مدیران',
     'manage_preferences' => 'مدیریت تنظیمات بخش مدیریت',
     'manage_editor' => 'مدیریت تنظیمات ویرایشگر کد',
-    'view_the_dashboard' => 'نمایش صفحه مدیریت',
     'manage_branding' => 'شخصی سازی قسمت مدیریت',
   ],
   'log' => [

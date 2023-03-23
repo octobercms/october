@@ -82,5 +82,6 @@
   "Finishing installation process": "Schließe Installationsprozess ab",
   "Please specify a Plugin name to install.": "Bitte geben Sie den Namen des zu installierenden Plugin an.",
   "Update process complete": "Aktualisierungsvorgang erfolgreich.",
-  "Plugin installed successfully": "Das Plugin wurde erfolgreich installiert."
+  "Plugin installed successfully": "Das Plugin wurde erfolgreich installiert.",
+  "View the Dashboard": "Dashboard einsehen"
 }

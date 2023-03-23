@@ -84,5 +84,6 @@
   "Installing theme: :name": "Downloader tema: :name",
   "Please specify a Plugin name to install.": "Angiv venligst et pluginnavn, at installere.",
   "Update process complete": "Opdateringsprocess afsluttet",
-  "Plugin installed successfully": "Plugin blev installeret"
+  "Plugin installed successfully": "Plugin blev installeret",
+  "View the Dashboard": "Vis administratorpanelet"
 }

@@ -119,7 +119,6 @@
     'smtp_encryption' => 'Протокол шифрування для SMTP',
     'smtp_encryption_none' => 'Без шифрування',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail шлях',
     'sendmail_path_comment' => 'Будь ласка, вкажіть шлях до sendmail.',
@@ -281,7 +280,6 @@
     'manage_other_administrators' => 'Керування іншими адміністраторами',
     'manage_preferences' => 'Керування налаштуваннями бренду',
     'manage_editor' => 'Керування налаштуваннями редактора коду',
-    'view_the_dashboard' => 'Перегляд панелі керування',
     'manage_branding' => 'Персоналізація панелі керування',
   ],
   'log' => [

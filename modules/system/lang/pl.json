@@ -84,5 +84,6 @@
   "Installing theme: :name": "Pobieranie nowego motywu: :name",
   "Please specify a Plugin name to install.": "Proszę podać nazwę Wtyczki do zainstalowania.",
   "Update process complete": "Proces aktualizacji został pomyślnie zakończony.",
-  "Plugin installed successfully": "Wtyczka została zainstalowana pomyślnie."
+  "Plugin installed successfully": "Wtyczka została zainstalowana pomyślnie.",
+  "View the Dashboard": "Zobacz kokpit"
 }

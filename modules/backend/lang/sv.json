@@ -118,5 +118,10 @@
   "Password has been reset. You may now sign in.": "Ditt lösenord har blivit återställt. Du kan nu logga in",
   "Restore": "Återställ",
   "Reset": "Nollställ",
-  "Forgot password?": "Glömt ditt lösenord?"
+  "Forgot password?": "Glömt ditt lösenord?",
+  "Add Widget": "Lägg till widget",
+  "Widget": "Widget",
+  "please select": "Vänligen välj",
+  "Width": "Bredd",
+  "full width": "max bredd"
 }

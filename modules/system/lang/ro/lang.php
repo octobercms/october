@@ -185,6 +185,5 @@
     'manage_software_updates' => 'Gestioneaza actualizarile software',
     'manage_mail_templates' => 'Gestioneaza sabloanele de email',
     'manage_other_administrators' => 'Gestioneaza alti administratori',
-    'view_the_dashboard' => 'Vizualizare panou de control',
   ],
 ];

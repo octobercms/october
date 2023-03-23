@@ -84,5 +84,6 @@
   "Installing theme: :name": "Изтегляне на Тема: :name",
   "Please specify a Plugin name to install.": "Моля, укажете име на Добавката за инсталиране.",
   "Update process complete": "Процесът на актуализация е извършена успешно.",
-  "Plugin installed successfully": "Добавката е инсталирана успешно."
+  "Plugin installed successfully": "Добавката е инсталирана успешно.",
+  "View the Dashboard": "Преглед на таблото"
 }

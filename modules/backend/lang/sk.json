@@ -120,5 +120,15 @@
   "Restore": "Obnoviť",
   "Reset": "Resetovať",
   "Stay logged in": "Ostať prihlásený",
-  "Forgot password?": "Zabudli ste heslo?"
+  "Forgot password?": "Zabudli ste heslo?",
+  "Manage Widgets": "Správa widgetov",
+  "Add Widget": "Pridať widget",
+  "Set the current layout as the default?": "Nastaviť aktuálne usporiadanie ako predvolené?",
+  "Make Default": "Nastaviť ako predvolené",
+  "Reset layout back to default?": "Naozaj obnoviť pôvodné usporiadanie?",
+  "Reset Layout": "Obnoviť pôvodné usporiadanie",
+  "Widget": "Widget",
+  "please select": "prosím vyberte",
+  "Width": "Šírka",
+  "full width": "plná šírka"
 }

@@ -131,5 +131,15 @@
   "Reset": "Wijzigen",
   "Stay logged in": "Blijf ingelogd",
   "Forgot password?": "Wachtwoord vergeten?",
-  "Global Editor Settings": "Globale editor instellingen"
+  "Global Editor Settings": "Globale editor instellingen",
+  "Manage Widgets": "Beheer widgets",
+  "Add Widget": "Widget toevoegen",
+  "Set the current layout as the default?": "Huidige layout als standaard instellen?",
+  "Make Default": "Als standaard instellen",
+  "Reset layout back to default?": "Layout resetten naar standaard?",
+  "Reset Layout": "Layout resetten",
+  "Widget": "Widget",
+  "please select": "selecteer",
+  "Width": "Breedte",
+  "full width": "Volledige breedte"
 }

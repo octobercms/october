@@ -83,5 +83,6 @@
   "Installing theme: :name": "Se descarca tema: :name",
   "Please specify a Plugin name to install.": "Va rugam sa specificati un nume de Plugin pentru instalare.",
   "Update process complete": "Procesul de actualizare a fost finalizat cu succes.",
-  "Plugin installed successfully": "Acest plugin a fost instalat cu succes."
+  "Plugin installed successfully": "Acest plugin a fost instalat cu succes.",
+  "View the Dashboard": "Vizualizare panou de control"
 }

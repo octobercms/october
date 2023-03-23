@@ -84,5 +84,6 @@
   "Installing theme: :name": "Завантаження теми: :name",
   "Please specify a Plugin name to install.": "Будь ласка, вкажіть назву плагіна для установки.",
   "Update process complete": "Процес оновлення успішно завершений.",
-  "Plugin installed successfully": "Плагін був успішно встановлений."
+  "Plugin installed successfully": "Плагін був успішно встановлений.",
+  "View the Dashboard": "Перегляд панелі керування"
 }

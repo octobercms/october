@@ -171,7 +171,6 @@
     'smtp_encryption' => 'Enkripcijski protokol za SMTP',
     'smtp_encryption_none' => 'Brez enkripcije',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail lokacija',
     'sendmail_path_comment' => 'Določite lokacijo Sendmail programa.',
@@ -399,8 +398,6 @@
     'impersonate_users' => 'Impersonacija uporabnikov',
     'manage_preferences' => 'Upravljanje z nastavitvami administracije',
     'manage_editor' => 'Upravljanje z nastavitvami urejevalnika kode',
-    'view_the_dashboard' => 'Prikaz namizja oz. nadzorne plošče',
-    'manage_default_dashboard' => 'Upravljanje s privzetim namizjem oz. nadzorno ploščo',
     'manage_branding' => 'Prilagajanje administracije',
   ],
   'log' => [

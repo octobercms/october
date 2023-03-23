@@ -85,5 +85,6 @@
   "Installing theme: :name": "Sťahovanie témy: :name",
   "Please specify a Plugin name to install.": "Prosím zadajte názov pluginu na nainštalovanie.",
   "Update process complete": "Proces aktualizácie úspešne ukončený",
-  "Plugin installed successfully": "Plugin bol úspešne nainštalovaný"
+  "Plugin installed successfully": "Plugin bol úspešne nainštalovaný",
+  "View the Dashboard": "Zobrazenie hlavného panelu"
 }

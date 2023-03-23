@@ -84,5 +84,6 @@
   "Installing theme: :name": "Κατέβασμα θέματος: :name",
   "Please specify a Plugin name to install.": "Παρακαλούμε προσδιορίστε το όνομα του Πρόσθετου για την εγκατάσταση",
   "Update process complete": "Η διαδικασία ενημέρωσης ολοκληρώθηκε",
-  "Plugin installed successfully": "Το πρόσθετο εγκαταστάθηκε επιτυχώς"
+  "Plugin installed successfully": "Το πρόσθετο εγκαταστάθηκε επιτυχώς",
+  "View the Dashboard": "Προβολή του πίνακα ελέγχου"
 }

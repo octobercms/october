@@ -111,5 +111,9 @@
   "Please enter your login to restore the password.": "أدخل اسم المستخدم",
   "Restore": "استرجاع",
   "Reset": "استعادة",
-  "Forgot password?": "نسيت كلمة المرور؟"
+  "Forgot password?": "نسيت كلمة المرور؟",
+  "Manage Widgets": "إدارة التطبيقات",
+  "please select": "من فضلك اختار",
+  "Width": "العرض",
+  "full width": "عرض كامل"
 }

@@ -129,5 +129,15 @@
   "Restore": "Восстановить",
   "Reset": "Сбрость",
   "Stay logged in": "Оставаться в системе",
-  "Forgot password?": "Забыли пароль?"
+  "Forgot password?": "Забыли пароль?",
+  "Manage Widgets": "Управление виджетами",
+  "Add Widget": "Добавить виджет",
+  "Set the current layout as the default?": "Сделать текущее расположение расположением по умолчанию?",
+  "Make Default": "Сохранить по умолчанию",
+  "Reset layout back to default?": "Сбросить расположение к расположению по умолчанию?",
+  "Reset Layout": "Сбросить расположение",
+  "Widget": "Виджет",
+  "please select": "Пожалуйста, выберите",
+  "Width": "Ширина",
+  "full width": "полная ширина"
 }

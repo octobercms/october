@@ -101,5 +101,7 @@
   "Cannot login user since they are suspended.": "Невозможно авторизоваться так как действия пользователя приостановлены.",
   "A user was not found with the given credentials.": "Пользователь с указанными данными не найден.",
   "A user was found but the password did not match.": "Пользователь найден, но пароль не совпадает.",
-  "User is not logged in": "Пользователь не авторизован."
+  "User is not logged in": "Пользователь не авторизован.",
+  "View the Dashboard": "Просмотр панели управления",
+  "Set the Default Dashboard": "Управление заглавным дашбордом"
 }

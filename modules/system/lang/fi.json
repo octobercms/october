@@ -89,6 +89,7 @@
   "Please specify a Plugin name to install.": "Määritä asennettavan lisäosan nimi.",
   "Update process complete": "Päivitys valmis",
   "Plugin installed successfully": "Lisäosa asennettu onnistuneesti",
+  "View the Dashboard": "Katso Dashboardia",
   "Check Dependencies": "Tarkista riippuvuudet",
   "Install Dependencies": "Asenna riippuvuudet",
   "There are missing dependencies needed for the system to run correctly.": "Järjestelmän oikean toiminnan kannalta tarvittavia riippuvuuksia puuttuu.",

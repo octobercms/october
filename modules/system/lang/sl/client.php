@@ -70,7 +70,7 @@ return [
         'weekdaysShort' => ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
     ],
     'colorpicker'    => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter'         => [
         'group'   => [

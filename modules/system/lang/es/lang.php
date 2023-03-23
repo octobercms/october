@@ -117,7 +117,6 @@
     'smtp_encryption' => 'protocolo SMTP encryptado',
     'smtp_encryption_none' => 'Sin encryptación',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Directorio de Sendmail',
     'sendmail_path_comment' => 'Por favor, especifique la ruta de acceso del programa sendmail.',
@@ -332,7 +331,6 @@
     'manage_other_administrators' => 'Gestionar otros administradores',
     'manage_preferences' => 'Gestionar preferencias back-end',
     'manage_editor' => 'Gestionar preferencias editor código',
-    'view_the_dashboard' => 'Ver el Escritorio',
     'manage_branding' => 'Perzonalizar el back-end',
   ],
   'log' => [

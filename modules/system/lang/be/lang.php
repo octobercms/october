@@ -116,7 +116,6 @@
     'smtp_encryption' => 'Пратакол шыфравання SMTP',
     'smtp_encryption_none' => 'Няма шыфравання',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Шлях sendmail',
     'sendmail_path_comment' => 'Калі ласка, укажыце шлях дла праграмы sendmail',
@@ -276,7 +275,6 @@
     'manage_other_administrators' => 'Кіраванне іншымі адміністратарамі',
     'manage_preferences' => 'Кіраванне перавагамі панэлі кіравання',
     'manage_editor' => 'Кіраванне перавагамі рэдакатару коду',
-    'view_the_dashboard' => 'Прагледзець панэль кіравання',
     'manage_branding' => 'Наладзіць панэль кіравання',
   ],
   'media' => [

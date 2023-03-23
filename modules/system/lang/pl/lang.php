@@ -134,7 +134,6 @@
     'smtp_encryption' => 'Protokół szyfrowania SMTP',
     'smtp_encryption_none' => 'Bez szyfrowania',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Ścieżka Sendmail',
     'sendmail_path_comment' => 'Proszę podać ścieżkę programu sendmail.',
@@ -348,7 +347,6 @@
     'manage_other_administrators' => 'Zarządzaj innymi administratorami',
     'manage_preferences' => 'Zarządzaj ustawieniami backend',
     'manage_editor' => 'Zarządzaj ustawieniami edytora kodu',
-    'view_the_dashboard' => 'Zobacz kokpit',
     'manage_branding' => 'Personalizuj zaplecze',
   ],
   'log' => [

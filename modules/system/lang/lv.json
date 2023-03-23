@@ -84,5 +84,6 @@
   "Installing theme: :name": "Lejupielādējam tēmu: :name",
   "Please specify a Plugin name to install.": "Lūdzu norādiet Spraudņa nosaukumu, kuru instalēt.",
   "Update process complete": "Atjaunināšanas process noritēja veiksmīgi.",
-  "Plugin installed successfully": "Spraudnis tika veiksmīgi instalēts."
+  "Plugin installed successfully": "Spraudnis tika veiksmīgi instalēts.",
+  "View the Dashboard": "Skatīt mērinstrumentu paneli"
 }

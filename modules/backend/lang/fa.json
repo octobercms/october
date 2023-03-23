@@ -119,5 +119,15 @@
   "Restore": "بازنشاندن",
   "Reset": "تنظیم مجدد",
   "Stay logged in": "مرا به خاطر نگهدار",
-  "Forgot password?": "کلمه عبور خود را فراموش کرده اید؟"
+  "Forgot password?": "کلمه عبور خود را فراموش کرده اید؟",
+  "Manage Widgets": "مدیرت ابزارک ها",
+  "Add Widget": "افزودن ابزارک",
+  "Set the current layout as the default?": "آیا از استفاده طرح بندی کنونی به عنوان پیشفرض اطمینان دارید؟",
+  "Make Default": "استفاده به عنوان پیشفرض",
+  "Reset layout back to default?": "آیا از تنظیم مجدد طرح بندی به حالت پیشفرض اطمینان دارید؟",
+  "Reset Layout": "تنظیم مجدد طرح بندی",
+  "Widget": "ابزارک",
+  "please select": "لطفا انتخاب نمایید",
+  "Width": "عرض",
+  "full width": "عرض کامل"
 }

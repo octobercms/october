@@ -120,5 +120,15 @@
   "Restore": "Restaurer",
   "Reset": "Réinitialiser",
   "Stay logged in": "Rester connecté",
-  "Forgot password?": "Mot de passe oublié ?"
+  "Forgot password?": "Mot de passe oublié ?",
+  "Manage Widgets": "Gestion des Widgets",
+  "Add Widget": "Ajouter un Widget",
+  "Set the current layout as the default?": "Définir la maquette actuelle comme celle par défaut ?",
+  "Make Default": "Par défaut",
+  "Reset layout back to default?": "Réinitialisation vers la maquette par défaut ?",
+  "Reset Layout": "Réinitialisation de la maquette",
+  "Widget": "Widget",
+  "please select": "Sélectionner une valeur",
+  "Width": "Taille",
+  "full width": "Plein écran"
 }

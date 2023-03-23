@@ -54,7 +54,7 @@ return [
         'weekdaysShort' => ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So']
     ],
     'colorpicker' => [
-        'choose' => 'Ok',
+        'choose' => 'OK',
     ],
     'filter' => [
         'group' => [

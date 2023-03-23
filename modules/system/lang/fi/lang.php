@@ -213,7 +213,6 @@
     'smtp_encryption' => 'SMTP-salausprotokolla',
     'smtp_encryption_none' => 'Ei salausta',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail-polku',
     'sendmail_path_comment' => 'Määritä polku sendmail-ohjelmaan.',
@@ -441,7 +440,6 @@
     'manage_other_administrators' => 'Hallitse muita ylläpitäjiä',
     'manage_preferences' => 'Hallitse ylläpitopuolen asetuksia',
     'manage_editor' => 'Hallitse koodieditorin asetuksia',
-    'view_the_dashboard' => 'Katso Dashboardia',
     'manage_branding' => 'Muokkaa ylläpitoa',
   ],
   'log' => [

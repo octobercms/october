@@ -32,10 +32,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'ダッシュボード',
-    'widget_label' => 'ウィジェット',
-    'widget_width' => 'ウィジェット幅',
-    'full_width' => '全幅',
-    'add_widget' => 'ウィジェットの追加',
     'widget_inspector_title' => 'ウィジェットの設定',
     'widget_inspector_description' => 'リポートウィジェットを設定します。',
     'widget_columns_label' => '幅 :columns',
@@ -161,7 +157,6 @@
     'select' => '選択',
     'select_all' => 'すべて選択',
     'select_none' => 'どれも選択しない',
-    'select_placeholder' => '選択してください',
     'insert_row' => '行を挿入',
     'delete_row' => '行を削除',
     'concurrency_file_changed_title' => 'ファイルは変更されていません。',

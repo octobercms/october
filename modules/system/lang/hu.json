@@ -87,5 +87,7 @@
   "Removing plugin: :name": "Bővítmény eltávolítása: :name",
   "Please specify a Plugin name to install.": "Adja meg a telepítendő bővítmény nevét.",
   "Update process complete": "A frissítés sikeresen megtörtént.",
-  "Plugin installed successfully": "A bővítmény telepítése sikerült."
+  "Plugin installed successfully": "A bővítmény telepítése sikerült.",
+  "View the Dashboard": "Vezérlőpult elérése",
+  "Set the Default Dashboard": "Vezérlőpult testreszabása"
 }

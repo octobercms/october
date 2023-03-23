@@ -32,10 +32,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Табло',
-    'widget_label' => 'Джаджа',
-    'widget_width' => 'Широчина',
-    'full_width' => 'Пълна ширина',
-    'add_widget' => 'Добави джаджа',
     'widget_inspector_title' => 'Настойка на джаджи',
     'widget_inspector_description' => 'Конфигуриране на джаджите за доклад',
     'widget_columns_label' => 'Ширина :columns',
@@ -183,7 +179,6 @@
     'select' => 'Избери',
     'select_all' => 'Избери всички',
     'select_none' => 'изберете никой',
-    'select_placeholder' => 'моля изберете',
     'insert_row' => 'Вмъкни ред',
     'insert_row_below' => 'Вмъкни ред По-долу',
     'delete_row' => 'Изтрии ред',

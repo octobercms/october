@@ -85,5 +85,7 @@
   "Installing theme: :name": "กำลังดาวน์โหลดธีม: :name",
   "Please specify a Plugin name to install.": "กรุณากำหนดชื่อปลั๊กอินที่จะติดตั้ง",
   "Update process complete": "กระบวนการอัพเดทเสร็จสมบูรณ์",
-  "Plugin installed successfully": "ติดตั้งปลั๊กอินสำเร็จ"
+  "Plugin installed successfully": "ติดตั้งปลั๊กอินสำเร็จ",
+  "View the Dashboard": "ดูหน้าแผงควบคุม",
+  "Set the Default Dashboard": "จัดการตั้งค่าเริ่มต้นหน้าแผงควบคุม"
 }

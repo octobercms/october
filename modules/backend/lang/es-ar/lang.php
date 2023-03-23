@@ -31,10 +31,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Tablero',
-    'widget_label' => 'Módulo',
-    'widget_width' => 'Ancho',
-    'full_width' => 'Ancho completo',
-    'add_widget' => 'Agregar módulo',
     'widget_inspector_title' => 'Configurar módulo',
     'widget_inspector_description' => 'Configurar el módulo de informe.',
     'widget_columns_label' => 'Ancho :columnas',
@@ -147,7 +143,6 @@
     'select' => 'Seleccionar',
     'select_all' => 'seleccionar todo',
     'select_none' => 'no seleccionar ninguno',
-    'select_placeholder' => 'Seleccionar',
     'insert_row' => 'Insertar fila',
     'delete_row' => 'Eliminar fila',
     'concurrency-file-changed-title' => 'El archivo fue modificado',

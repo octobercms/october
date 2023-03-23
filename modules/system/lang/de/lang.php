@@ -73,7 +73,6 @@
     'smtp_encryption' => 'SMTP-Verschlüsselungs-Protokoll',
     'smtp_encryption_none' => 'Keine Verschlüsselung',
     'smtp_encryption_tls' => 'TLS',
-    'smtp_encryption_ssl' => 'SSL',
     'sendmail' => 'Sendmail',
     'sendmail_path' => 'Sendmail Pfad',
     'sendmail_path_comment' => 'Bitte gib den (absoluten) Pfad zum Sendmail Programm an.',
@@ -206,7 +205,6 @@
     'manage_other_administrators' => 'Andere Administratoren verwalten',
     'manage_preferences' => 'Backend-Einstellungen verwalten',
     'manage_editor' => 'Code-Editor-Einstellungen verwalten',
-    'view_the_dashboard' => 'Dashboard einsehen',
     'manage_branding' => 'Backend individualisieren',
   ],
   'media' => [

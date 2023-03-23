@@ -195,6 +195,5 @@
     'manage_software_updates' => 'ソフトウェアアップデートの管理',
     'manage_mail_templates' => 'メールテンプレートの管理',
     'manage_other_administrators' => '他のアドミニストレーターの管理',
-    'view_the_dashboard' => 'ダッシュボードの表示',
   ],
 ];

@@ -31,9 +31,6 @@
   ],
   'dashboard' => [
     'menu_label' => 'Dashboard',
-    'widget_label' => 'Widget',
-    'widget_width' => 'Latime',
-    'add_widget' => 'Adauga widget',
     'widget_inspector_title' => 'Configurare widget',
     'widget_inspector_description' => 'Configurare raport widget',
     'widget_columns_label' => 'Latime :columns',

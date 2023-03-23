@@ -118,5 +118,10 @@
   "Password has been reset. You may now sign in.": "Kata sandi Anda telah diatur ulang. Anda dapat mengakses kembali sekarang.",
   "Restore": "Memulihkan",
   "Reset": "Reset",
-  "Forgot password?": "Anda lupa kata sandi?"
+  "Forgot password?": "Anda lupa kata sandi?",
+  "Add Widget": "Tambah Widget",
+  "Widget": "Widget",
+  "please select": "silakan pilih",
+  "Width": "Lebar Widget",
+  "full width": "Layar Lebar"
 }
