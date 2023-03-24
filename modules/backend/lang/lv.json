@@ -123,5 +123,22 @@
   "Widget": "Logrīks",
   "please select": "lūdzu izvēlieties",
   "Width": "Platums",
-  "full width": "pilns platums"
+  "full width": "pilns platums",
+  "Primary Color": "Primārā krāsa",
+  "Secondary Color": "Sekundārā krāsa",
+  "This name is shown in the title area of the back-end.": "Šis nosaukums tiek rādīts augšpusē iekš back-end.",
+  "App Name": "Nosaukums",
+  "This name is shown on the sign in screen for the back-end.": "Šis apraksts tiek rādīts back-end auteintificēšanās lapā.",
+  "App Tagline": "Apraksts",
+  "Brand": "Brends",
+  "Upload a custom logo to use in the back-end.": "Augšupielādējiet pielāgotu logo lai izmantotu back-end.",
+  "Logo": "Logo",
+  "Colors": "Krāsas",
+  "Menu Style": "Izvēlnes stils",
+  "Navigation": "Navigācija",
+  "Custom Stylesheet": "Pielāgots css",
+  "Styles": "Stili",
+  "Inline": "Rindā (Inline)",
+  "Tiles": "Flīzes (Tiles)",
+  "Collapsed": "Collapsed"
 }

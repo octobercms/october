@@ -128,5 +128,22 @@
   "Widget": "Widget",
   "please select": "Vælg venligst",
   "Width": "Bredde",
-  "full width": "Fuld bredde"
+  "full width": "Fuld bredde",
+  "Primary Color": "Primær farve",
+  "Secondary Color": "Sekundær farve",
+  "This name is shown in the title area of the back-end.": "Dette navn vises i titlen i backenden.",
+  "App Name": "App Navn",
+  "This name is shown on the sign in screen for the back-end.": "Dette bliver vist ved backendlogin-siden.",
+  "App Tagline": "App Tagline",
+  "Brand": "Brand",
+  "Upload a custom logo to use in the back-end.": "Upload et custom logo, der skal bruges i backenden.",
+  "Logo": "Logo",
+  "Colors": "Farver",
+  "Menu Style": "Menu Style",
+  "Navigation": "Navigation",
+  "Custom Stylesheet": "Custom stylesheet",
+  "Styles": "Styles",
+  "Inline": "På linie",
+  "Tiles": "Stablet",
+  "Collapsed": "Kollapset"
 }

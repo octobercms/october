@@ -128,5 +128,22 @@
   "Widget": "Widget",
   "please select": "παρακαλούμε επιλέξτε",
   "Width": "Πλάτος",
-  "full width": "πλήρες πλάτος"
+  "full width": "πλήρες πλάτος",
+  "Primary Color": "Πρωτεύων χρώμα",
+  "Secondary Color": "Δευτερεύων χρώμα",
+  "This name is shown in the title area of the back-end.": "Το όνομα αυτό εμφανίζεται στην περιοχή τίλιου του back-end.",
+  "App Name": "Όνομα Εφαρμογής",
+  "This name is shown on the sign in screen for the back-end.": "Αυτό το όνομα εμφανίζεται στην οθόνη σύνδεσης στο back-end.",
+  "App Tagline": "Ετικέτα Εφαρμογής",
+  "Brand": "Διακριτικός Τίτλος",
+  "Upload a custom logo to use in the back-end.": "Ανεβάστε ένα προσαρμοσμένο λογότυπο για την χρήση στο back-end.",
+  "Logo": "Λογότυπο",
+  "Colors": "Χρώματα",
+  "Menu Style": "Στυλ μενού",
+  "Navigation": "Πλοήγηση",
+  "Custom Stylesheet": "Προσαρμοσμένο stylesheet",
+  "Styles": "Στυλ",
+  "Inline": "Ενσωματωμένο",
+  "Tiles": "Πλακίδια",
+  "Collapsed": "Συμπτυγμένο"
 }

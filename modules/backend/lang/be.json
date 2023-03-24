@@ -128,5 +128,22 @@
   "Widget": "Віджэт",
   "please select": "Калі ласка, выберыце",
   "Width": "Шырыня віджэта",
-  "full width": "Поўная шырыня"
+  "full width": "Поўная шырыня",
+  "Primary Color": "Галоўны колер",
+  "Secondary Color": "Дадатковы колер",
+  "This name is shown in the title area of the back-end.": "Гэта імя паказваецца ў загалоўку панэлі кіравання",
+  "App Name": "Назва прыкладання",
+  "This name is shown on the sign in screen for the back-end.": "Гэты слоган паказваецца на старонцы ўваходу",
+  "App Tagline": "Слоган прыкладання",
+  "Brand": "Брэнд",
+  "Upload a custom logo to use in the back-end.": "Загрузіце лагатып для ўжывання ў панэлі кіравання",
+  "Logo": "Лагатып",
+  "Colors": "Колеры",
+  "Menu Style": "Стыль меню",
+  "Navigation": "Навігацыя",
+  "Custom Stylesheet": "Карыстацкія табліцы стыляў",
+  "Styles": "Стылі",
+  "Inline": "Строкавы",
+  "Tiles": "Плітка",
+  "Collapsed": "Выпадаючы"
 }

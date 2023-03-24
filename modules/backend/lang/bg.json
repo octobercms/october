@@ -123,5 +123,15 @@
   "Widget": "Джаджа",
   "please select": "моля изберете",
   "Width": "Широчина",
-  "full width": "Пълна ширина"
+  "full width": "Пълна ширина",
+  "This name is shown in the title area of the back-end.": "Това име се показва в областта за заглавието на администраторския-панел.",
+  "App Name": "Име",
+  "This name is shown on the sign in screen for the back-end.": "Това име се показва на екрана за вход в администраторския-панел.",
+  "App Tagline": "Лозунг",
+  "Brand": "Марка",
+  "Upload a custom logo to use in the back-end.": "Качете ваше лого което да използвате за администраторския-панел.",
+  "Logo": "Лого",
+  "Colors": "Цветове",
+  "Custom Stylesheet": "Персонализиран стилове",
+  "Styles": "Стилове"
 }

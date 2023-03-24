@@ -129,5 +129,22 @@
   "Widget": "Widget",
   "please select": "seleziona",
   "Width": "Larghezza",
-  "full width": "intera larghezza"
+  "full width": "intera larghezza",
+  "Primary Color": "Principale color",
+  "Secondary Color": "Secondario color",
+  "This name is shown in the title area of the back-end.": "Questo campo verrà visualizzato nella barra del titolo del pannello di controllo.",
+  "App Name": "Nome dell'applicazione",
+  "This name is shown on the sign in screen for the back-end.": "Questo campo verrà visualizzato nella schermata di login del pannello di controllo.",
+  "App Tagline": "Slogan dell'applicazione",
+  "Brand": "Marchio",
+  "Upload a custom logo to use in the back-end.": "Carica un logo personalizzato da utilizzare nel pannello di controllo.",
+  "Logo": "Logo",
+  "Colors": "Colori",
+  "Menu Style": "Stile menu",
+  "Navigation": "Navigazione",
+  "Custom Stylesheet": "Foglio di stile personalizzato",
+  "Styles": "Stili",
+  "Inline": "In linea",
+  "Tiles": "Piastrelle",
+  "Collapsed": "Compresso"
 }

@@ -130,5 +130,22 @@
   "Widget": "Widget",
   "please select": "prosím vyberte",
   "Width": "Šírka",
-  "full width": "plná šírka"
+  "full width": "plná šírka",
+  "Primary Color": "Primárna farba",
+  "Secondary Color": "Sekundárna farba",
+  "This name is shown in the title area of the back-end.": "Toto meno se zobrazí v úvodnej lište stránok.",
+  "App Name": "Meno aplikácie",
+  "This name is shown on the sign in screen for the back-end.": "Toto motto se zobrazí na prihlasovacej stránke administrácie.",
+  "App Tagline": "Motto aplikácie",
+  "Brand": "Značka",
+  "Upload a custom logo to use in the back-end.": "Nahrajte vlastné logo, ktoré bude použité v administrácií.",
+  "Logo": "Logo",
+  "Colors": "Farby",
+  "Menu Style": "Štýl menu",
+  "Navigation": "Navigácia",
+  "Custom Stylesheet": "Vlastné kaskádové štýly",
+  "Styles": "Štýly",
+  "Inline": "V riadku",
+  "Tiles": "Dlaždice",
+  "Collapsed": "Zbalené"
 }

@@ -54,5 +54,22 @@
   "Widget": "위젯",
   "please select": "선택해주세요",
   "Width": "위젯 넓이",
-  "full width": "전체 넓이"
+  "full width": "전체 넓이",
+  "Primary Color": "주요 색상",
+  "Secondary Color": "부수적인 색상",
+  "This name is shown in the title area of the back-end.": "이 이름은 백엔드의 타이틀영역에 표시됩니다.",
+  "App Name": "앱 이름",
+  "This name is shown on the sign in screen for the back-end.": "이 이름은 백엔드의 로그인 페이지에 표시됩니다.",
+  "App Tagline": "앱 테그라인",
+  "Brand": "브랜드",
+  "Upload a custom logo to use in the back-end.": "백엔드에서 사용하는 로고를 업로드합니다.",
+  "Logo": "로고",
+  "Colors": "색상",
+  "Menu Style": "메뉴 스타일",
+  "Navigation": "네비게이션",
+  "Custom Stylesheet": "별도의 스타일시트",
+  "Styles": "스타일",
+  "Inline": "인라인",
+  "Tiles": "타일",
+  "Collapsed": "접힘"
 }

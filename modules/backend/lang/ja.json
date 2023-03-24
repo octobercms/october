@@ -123,5 +123,17 @@
   "Widget": "ウィジェット",
   "please select": "選択してください",
   "Width": "ウィジェット幅",
-  "full width": "全幅"
+  "full width": "全幅",
+  "Primary Color": "プライマリ color",
+  "Secondary Color": "セカンダリ color",
+  "This name is shown in the title area of the back-end.": "この名前はバックエンドのタイトル領域に表示されます。",
+  "App Name": "アプリ名",
+  "This name is shown on the sign in screen for the back-end.": "この名前はバックエンドのサインインページに表示されます。",
+  "App Tagline": "アプリタグライン",
+  "Brand": "ブランド",
+  "Upload a custom logo to use in the back-end.": "バックエンドで使用するロゴをアップロードします。",
+  "Logo": "ロゴ",
+  "Colors": "配色",
+  "Custom Stylesheet": "カスタムスタイルシート",
+  "Styles": "スタイル"
 }
