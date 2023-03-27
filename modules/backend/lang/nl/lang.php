@@ -261,6 +261,7 @@
     'field_on' => 'Aan',
     'add' => 'Toevoegen',
     'apply' => 'Toepassen',
+    'insert' => 'Invoegen',
     'cancel' => 'Annuleren',
     'close' => 'Sluiten',
     'confirm' => 'Bevestigen',

@@ -35,7 +35,6 @@
     'setting_edit_theme' => 'Wijzig bewerk-thema',
     'edit_theme_changed' => 'Bewerk-thema is gewijzigd',
   ],
-  'maintenance' => [],
   'page' => [
     'not_found_name' => 'De pagina \':name\' is niet gevonden.',
     'not_found' => [
@@ -143,6 +142,8 @@
     'asset' => 'Asset',
     'hidden' => 'Verborgen',
     'hidden_comment' => 'Verborgen pagina zijn alleen toegankelijk voor ingelogde gebruikers.',
+    'priority' => 'Prioriteit',
+    'priority_comment' => 'Prioriteit Layouts laden de inhoud voor de pagina inhoud.',
     'enter_fullscreen' => 'Volledig scherm starten',
     'exit_fullscreen' => 'Volledig scherm afsluiten',
     'open_searchbox' => 'Open zoekveld',

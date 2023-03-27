@@ -8,9 +8,10 @@ headers[Content-Type] = 'application/xml'
 [collection sitemap]
 handle = "Site\Sitemap"
 ==
-{% macro render_sitemap_item(item, reference) %}
+{% macro render_sitemap_item(item, reference, isRoot) %}
     {% import _self as nav %}
-    {% if reference.url and not item.replace %}
+    {% set hideRootItem = isRoot and item.replace %}
+    {% if reference.url and not hideRootItem %}
         <url>
             <loc>{{ reference.url }}</loc>
             <lastmod>{{ reference.mtime|date('c') }}</lastmod>
@@ -34,7 +35,8 @@ handle = "Site\Sitemap"
     {% for item in sitemap %}
         {{ nav.render_sitemap_item(
             item,
-            link(item.reference, { nesting: item.nesting })
+            link(item.reference, { nesting: item.nesting }),
+            true
         ) }}
     {% endfor %}
 </urlset>
