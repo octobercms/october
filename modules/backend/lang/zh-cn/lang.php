@@ -261,6 +261,7 @@
     'field_on' => '开启',
     'add' => '添加',
     'apply' => '应用',
+    'insert' => '插入',
     'cancel' => '取消',
     'close' => '关闭',
     'confirm' => '确认',
