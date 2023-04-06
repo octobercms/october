@@ -203,11 +203,6 @@
     'remove_confirm' => 'Sind Sie sicher?',
     'remove_file' => 'Datei entfernen',
   ],
-  'repeater' => [
-    'add_new_item' => 'Neues Element hinzufügen',
-    'min_items_failed' => ':name erfordert ein Minimum an :min Elementen, aber es wurden nur :items bereitgestellt',
-    'max_items_failed' => ':name lässt nur bis zu :max Elemente zu, :items wurden bereitgestellt',
-  ],
   'form' => [
     'create_title' => ':name erstellen',
     'update_title' => ':name bearbeiten',

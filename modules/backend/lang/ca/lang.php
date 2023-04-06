@@ -189,10 +189,6 @@
     'remove_confirm' => 'Segur que ho vols eliminar?',
     'remove_file' => 'Elminar arxiu',
   ],
-  'repeater' => [
-    'min_items_failed' => ':name requereix un mínim de :min elements, només n\'hi ha :items',
-    'max_items_failed' => ':name només permet fins a :max elements, n\'hi ha :items',
-  ],
   'form' => [
     'create_title' => 'Nou :name',
     'update_title' => 'Editar :name',

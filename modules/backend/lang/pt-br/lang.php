@@ -220,11 +220,6 @@
     'upload' => 'Carregar',
     'replace' => 'Substituir',
   ],
-  'repeater' => [
-    'add_new_item' => 'Adicionar novo item',
-    'min_items_failed' => ':name requer um mínimo de :min itens, apenas :items foram fornecidos',
-    'max_items_failed' => ':name requer um máximo de :max itens, apenas :items foram fornecidos',
-  ],
   'form' => [
     'create_title' => 'Novo :name',
     'update_title' => 'Editar :name',

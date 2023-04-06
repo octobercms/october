@@ -236,11 +236,6 @@
     'upload' => 'Загрузить',
     'replace' => 'Заменить',
   ],
-  'repeater' => [
-    'add_new_item' => 'Добавить элемент',
-    'min_items_failed' => ':name требует минимум :min объектов, было передано только :items',
-    'max_items_failed' => ':name позволяет передать максимум :max объектов, было передано :items',
-  ],
   'form' => [
     'create_title' => 'Создание :name',
     'update_title' => 'Редактирование :name',

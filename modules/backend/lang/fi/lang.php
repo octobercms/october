@@ -217,11 +217,6 @@
     'upload' => 'Siirrä',
     'replace' => 'Korvaa',
   ],
-  'repeater' => [
-    'add_new_item' => 'Lisää uusi osio',
-    'min_items_failed' => ':name vaatii vähintään :min osiota, vain :items on annettu',
-    'max_items_failed' => ':name sallii vain :max osiota, :items on annettu',
-  ],
   'form' => [
     'create_title' => 'Uusi :name',
     'update_title' => 'Muokkaa :name',

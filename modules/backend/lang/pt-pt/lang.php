@@ -208,10 +208,6 @@
     'remove_confirm' => 'Tem a certeza?',
     'remove_file' => 'Remover ficheiro',
   ],
-  'repeater' => [
-    'min_items_failed' => ':name requer no mínimo :min itens, apenas :items foram introduzidos',
-    'max_items_failed' => ':name requer no máximo :min itens, :items foram introduzidos',
-  ],
   'form' => [
     'create_title' => 'Novo :name',
     'update_title' => 'Editar :name',

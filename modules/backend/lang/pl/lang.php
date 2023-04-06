@@ -208,11 +208,6 @@
     'remove_confirm' => 'Jesteś pewien?',
     'remove_file' => 'Usuń plik',
   ],
-  'repeater' => [
-    'add_new_item' => 'Dodaj nowy element',
-    'min_items_failed' => ':name wymaga conajmniej :min elementów, a wprowadzono :items',
-    'max_items_failed' => ':name wymaga maksymalnie :max elementów, a wprowadzono :items',
-  ],
   'form' => [
     'create_title' => 'Nowy :name',
     'update_title' => 'Edytuj :name',

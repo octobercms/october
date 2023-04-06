@@ -217,11 +217,6 @@
     'upload' => 'Feltöltés',
     'replace' => 'Csere',
   ],
-  'repeater' => [
-    'add_new_item' => 'Új elem hozzáadása',
-    'min_items_failed' => 'A(z) :name mező legalább :max elemből állhat. Jelenleg csak :items mező van megadva.',
-    'max_items_failed' => 'A(z) :name mező legfeljebb :max elemből állhat. Jelenleg :items mező van megadva.',
-  ],
   'form' => [
     'create_title' => 'Új :name',
     'update_title' => ':name szerkesztése',

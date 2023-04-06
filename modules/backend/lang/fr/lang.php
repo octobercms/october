@@ -190,10 +190,6 @@
     'remove_confirm' => 'Confirmer l’action ?',
     'remove_file' => 'Supprimer le fichier',
   ],
-  'repeater' => [
-    'min_items_failed' => ':name nécéssite un minimum de :min choix sélectionné, seulement :items sont sélectionné(s)',
-    'max_items_failed' => ':name accepte un maximum de :max choix sélectionné, :items sont sélectionés',
-  ],
   'form' => [
     'create_title' => 'Créer un(e) :name',
     'update_title' => 'Mise à jour d\'un(e) :name',

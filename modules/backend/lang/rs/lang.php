@@ -211,11 +211,6 @@
     'remove_confirm' => 'Da li si siguran?',
     'remove_file' => 'Izbriši fajl',
   ],
-  'repeater' => [
-    'add_new_item' => 'Dodaj novi element',
-    'min_items_failed' => 'Ponavljač :name zahteva minimum :min elementa, samo :items je obezbeđeno',
-    'max_items_failed' => 'Ponavljač :name može imati maksimum :max elemenata, :items je obezbeđeno',
-  ],
   'form' => [
     'create_title' => 'Nova :name',
     'update_title' => 'Izmeni :name',

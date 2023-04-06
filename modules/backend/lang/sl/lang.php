@@ -212,11 +212,6 @@
     'remove_confirm' => 'Ali ste prepričani?',
     'remove_file' => 'Odstrani datoteko',
   ],
-  'repeater' => [
-    'add_new_item' => 'Dodaj nov element',
-    'min_items_failed' => ':name zahteva najmanj :min elementov, vendar je zagotovljenih le :items elementov.',
-    'max_items_failed' => ':name dovoli največ :max elementov, vendar je bilo podanih :items elementov.',
-  ],
   'form' => [
     'create_title' => 'Ustvari element ":name"',
     'update_title' => 'Uredi element ":name"',

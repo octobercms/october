@@ -217,11 +217,6 @@
     'upload' => '上传',
     'replace' => '替换',
   ],
-  'repeater' => [
-    'add_new_item' => '添加新项目',
-    'min_items_failed' => ':name 需要最少 :min 项，只提供 :items ',
-    'max_items_failed' => ':name 只允许最多 :max 个项目，提供 :items',
-  ],
   'form' => [
     'create_title' => '新的 :name',
     'update_title' => '编辑 :name',

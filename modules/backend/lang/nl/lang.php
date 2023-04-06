@@ -217,11 +217,6 @@
     'upload' => 'Uploaden',
     'replace' => 'Vervang',
   ],
-  'repeater' => [
-    'add_new_item' => 'Nieuw item toevoegen',
-    'min_items_failed' => ':name vereist minimaal :min items, er zijn :items opgegeven',
-    'max_items_failed' => ':name vereist maximaal :max items, er zijn :items opgegeven',
-  ],
   'form' => [
     'create_title' => 'Nieuwe :name',
     'update_title' => 'Bewerk :name',

@@ -191,10 +191,6 @@
     'remove_confirm' => 'Emin misiniz?',
     'remove_file' => 'Dosyayı sil',
   ],
-  'repeater' => [
-    'min_items_failed' => ':name için en az :min nesne gerekli, sadece :items nesne tanımlandı',
-    'max_items_failed' => ':name için en fazla :max nesne tanımlanabilir, :items nesne tanımlandı',
-  ],
   'form' => [
     'create_title' => ':name Oluştur',
     'update_title' => ':name Düzenle',
