@@ -60,5 +60,10 @@
   "Find More Themes": "테마 더 찾아보기",
   "Saving Theme...": "테마를 저장하는 중입니다...",
   "Return to Themes List": "테마 목록으로 돌아가기",
-  "CMS Page": "CMS 페이지"
+  "CMS Page": "CMS 페이지",
+  "A unique name given to this component when using it in the page or layout code.": "페이지나 레이아웃 코드에서 사용하는 고유 컴포넌트 이름.",
+  "Alias": "별칭",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "알파벳, 숫자, 언더스코어(_)로 구성한 컴포넌트 별칭이 필요합니다. 별칭은 알파벳으로 시작해야 합니다.",
+  "Unnamed": "이름없음",
+  "No description provided": "설명없음"
 }

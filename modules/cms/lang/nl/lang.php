@@ -210,11 +210,6 @@
   ],
   'component' => [
     'menu_label' => 'Componenten',
-    'unnamed' => 'Naamloos',
-    'no_description' => 'Geen beschrijving opgegeven',
-    'alias' => 'Alias',
-    'alias_description' => 'Een unieke naam voor dit component voor gebruik in de code van een pagina of layout.',
-    'validation_message' => 'Een alias voor de component is verplicht en mag alleen bestaan uit letters, cijfers en underscores. De alias moet beginnen met een letter.',
     'invalid_request' => 'De template kan niet worden opgeslagen vanwege ongeldige componentgegevens.',
     'no_records' => 'Geen componenten gevonden',
     'not_found' => 'De component \':name\' is niet gevonden.',

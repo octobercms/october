@@ -34,5 +34,10 @@
   "Frontend Theme": "フロントエンドのテーマ",
   "Activate": "現在アクティブ中です",
   "Customize": "カスタマイズ",
-  "Find More Themes": "OctoberCMSマーケットプレースで、もっとテーマを探す。"
+  "Find More Themes": "OctoberCMSマーケットプレースで、もっとテーマを探す。",
+  "A unique name given to this component when using it in the page or layout code.": "ページやレイアウトコードの中で使用される、一意のコンポーネント名。",
+  "Alias": "エイリアス",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "ラテン文字、数字、下線(_)で構成された、コンポーネントエイリアスが必要です。エイリアスはラテン文字で始まらなくてなりません。",
+  "Unnamed": "名前なし",
+  "No description provided": "説明なし"
 }

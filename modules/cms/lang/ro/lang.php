@@ -134,11 +134,6 @@
   ],
   'component' => [
     'menu_label' => 'Componente',
-    'unnamed' => 'Fara nume',
-    'no_description' => 'Nicio descriere furnizata',
-    'alias' => 'Alias',
-    'alias_description' => 'Numele unic dat acestei componente atunci cand este folosita intr-o pagina sau intr-o macheta.',
-    'validation_message' => 'Aliasul componentei este necesar si poate sa contina doar caractere latine, cifre si caractere underscore. Denumirile are trebui sa inceapa cu un caracter latin.',
     'invalid_request' => 'Sablonul nu a putut fi salvat din cauza datelor invalide ale componentei.',
     'no_records' => 'Nicio componenta nu a fost gasita',
     'not_found' => 'Componenta \':name\' nu a fost gasita.',

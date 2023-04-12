@@ -83,5 +83,10 @@
   "Find More Themes": "Raskite daugiau dizainų",
   "Saving Theme...": "Išsaugome dizainą...",
   "Return to Themes List": "Grįžti į dizainų sąrašą",
-  "CMS Page": "CMS puslapis"
+  "CMS Page": "CMS puslapis",
+  "A unique name given to this component when using it in the page or layout code.": "Unikalus vardas skiriamas šiam komponentui kai naudojate jį puslapyje ar šablone.",
+  "Alias": "Užvadintas",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentų užvadiniai yra būtini ir gali susidaryti tik iš Lotyniškų raidžių, skaitmenų bei _. Užvadiniai turi prasidėti Lotyniška reide.",
+  "Unnamed": "Neužvadintas",
+  "No description provided": "Nėra aprašymo"
 }

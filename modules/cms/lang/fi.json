@@ -105,5 +105,10 @@
   "Please enter a valid URL": "Anna URL-osoite oikeassa muodossa",
   "Delete Theme": "Poista teema",
   "Activate Theme": "Aktivoi teema",
-  "Manage Partials": "Hallitse osia"
+  "Manage Partials": "Hallitse osia",
+  "A unique name given to this component when using it in the page or layout code.": "Uniikki nimi komponentille kun käytössä sivulla tai ulkoasun koodissa.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentin alias on vaadittu ja se voi sisältää ainoastaan latinalaisia kirjaimia, numeroita ja alaviivoja. Aliaksien pitäisi alkaa latinalaisella kirjaisimella.",
+  "Unnamed": "Nimeämätön",
+  "No description provided": "Ei annettua kuvausta"
 }

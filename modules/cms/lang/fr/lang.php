@@ -169,11 +169,6 @@
   ],
   'component' => [
     'menu_label' => 'Composants',
-    'unnamed' => 'Sans nom',
-    'no_description' => 'Aucune description n’a été fournie',
-    'alias' => 'Alias',
-    'alias_description' => 'Nom unique fourni lors de l’utilisation du composant sur une page ou une maquette.',
-    'validation_message' => 'Les alias du composant sont requis et doivent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.',
     'invalid_request' => 'Le modèle ne peut être enregistré car les données d’un composant ne sont pas valides.',
     'no_records' => 'Aucun composant n’a été trouvé',
     'not_found' => 'Le composant ":name" est introuvable.',

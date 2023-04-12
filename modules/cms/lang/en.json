@@ -105,5 +105,11 @@
   "Please enter a valid URL": "Please enter a valid URL",
   "Delete Theme": "Delete Theme",
   "Activate Theme": "Activate Theme",
-  "Manage Partials": "Manage Partials"
+  "Manage Partials": "Manage Partials",
+  "No Title": "No Title",
+  "A unique name given to this component when using it in the page or layout code.": "A unique name given to this component when using it in the page or layout code.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.",
+  "Unnamed": "Unnamed",
+  "No description provided": "No description provided"
 }

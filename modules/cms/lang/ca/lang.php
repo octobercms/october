@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => 'Components',
-    'unnamed' => 'Sense nom',
-    'no_description' => 'No s\'ha proveït una descripció',
-    'alias' => 'Alies',
-    'alias_description' => 'Un nom únic assignat a aquest component per utilitzar-lo al codi de la pàgina o plantilla.',
-    'validation_message' => 'Els àlies de components són obligatoris i només poden contenir lletres llatines, números i subratllats. Han de començar amb una lletra.',
     'invalid_request' => 'La plantilla no es pot guardar perquè conté dades de components invàlides.',
     'no_records' => 'No s\'han trobat components',
     'not_found' => 'No s\'ha trobat el component \':name\'.',

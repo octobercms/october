@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Amgiv en ny mappe til det duplikerede tema.",
   "Find More Themes": "Find flere temaer",
   "Saving Theme...": "Gemmer tema...",
-  "Return to Themes List": "Tilbage til temaliste"
+  "Return to Themes List": "Tilbage til temaliste",
+  "A unique name given to this component when using it in the page or layout code.": "Et unikt navn givet til dette komponent, ved brug på en side eller layout.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponent aliaser er påkrævede og må kun indeholde latinske karakterer, tal og underscores.Aliaset skal starte med et latinsk bogstav.",
+  "Unnamed": "Unavngivet",
+  "No description provided": "Ingen beskrivelse tilgængelig"
 }

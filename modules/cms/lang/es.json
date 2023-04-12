@@ -83,5 +83,10 @@
   "Find More Themes": "Buscar nuevos temas",
   "Saving Theme...": "Guardando tema...",
   "Return to Themes List": "Volver a la lista de temas",
-  "CMS Page": "Página de CMS"
+  "CMS Page": "Página de CMS",
+  "A unique name given to this component when using it in the page or layout code.": "Un nombre único asignado a este componente cuando se utilice en el código de la página o del diseño.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "El alias de componente es requerido y puede contener solamente letras, números y guión bajo. El alias debe empezar con una letra.",
+  "Unnamed": "Sin nombre",
+  "No description provided": "No se proporcionó descripción"
 }

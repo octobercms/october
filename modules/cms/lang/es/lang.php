@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => 'Componentes',
-    'unnamed' => 'Sin nombre',
-    'no_description' => 'No se proporcionó descripción',
-    'alias' => 'Alias',
-    'alias_description' => 'Un nombre único asignado a este componente cuando se utilice en el código de la página o del diseño.',
-    'validation_message' => 'El alias de componente es requerido y puede contener solamente letras, números y guión bajo. El alias debe empezar con una letra.',
     'invalid_request' => 'La plantilla no puede ser guardada porque tiene datos de componente inválidos.',
     'no_records' => 'No se encontraron componentes',
     'not_found' => 'El componente \':name\' no se encuentra.',

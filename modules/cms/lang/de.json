@@ -84,5 +84,10 @@
   "Find More Themes": "Finde weitere Themen",
   "Saving Theme...": "Theme speichern...",
   "Return to Themes List": "Zur Themeliste zurückkehren",
-  "CMS Page": "CMS Seite"
+  "CMS Page": "CMS Seite",
+  "A unique name given to this component when using it in the page or layout code.": "Dieser Komponente wird ein eindeutiger Name gegeben, wenn sie im Code von Seite oder Layout benutzt wird.",
+  "Alias": "Verknüpfung",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentenverknüpfungen werden benötigt und dürfen nur lateinische Zeichen, Ziffern und Unterstriche beinhalten. Die Verknüpfungen müssen mit einem lateinischen Zeichen beginnen.",
+  "Unnamed": "Unbenannt",
+  "No description provided": "Keine Beschreibung angegeben"
 }

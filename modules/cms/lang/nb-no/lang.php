@@ -155,11 +155,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponenter',
-    'unnamed' => 'Navnløs',
-    'no_description' => 'Ingen beskrivelse spesifisert',
-    'alias' => 'Alias',
-    'alias_description' => 'Et unikt navn gitt til komponenten for å benytte den i sider og layouts.',
-    'validation_message' => 'Komponentaliaser kan kun inneholde latinske symboler, tall og understreker. Aliaser skal starte med et latinsk symbol.',
     'invalid_request' => 'Templaten kan ikke lagres på grunn av ugyldig komponentdata.',
     'no_records' => 'Ingen komponenter funnet',
     'not_found' => 'Komponenten \':name\' ble ikke funnet.',

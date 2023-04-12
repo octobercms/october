@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Δώστε ένα νέο όνομα καταλόγου για το διπλότυπο θέμα.",
   "Find More Themes": "Εύρεση περισσοτέρων θεμάτων",
   "Saving Theme...": "Αποθήκευση θέματος...",
-  "Return to Themes List": "Επιστροφή στην λίστα θεμάτων"
+  "Return to Themes List": "Επιστροφή στην λίστα θεμάτων",
+  "A unique name given to this component when using it in the page or layout code.": "Ένα μοναδικό όνομα δίνεται σε αυτό το συστατικό όταν το χρησιμοποιείτε στον κώδικα της σελίδας ή της διάταξης.",
+  "Alias": "Ψευδώνυμο",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Τα ψευδώνυμα των συστατικών είναι υποχρεωτικά και μπορούν να περιέχουν μόνο Λατινικά σύμβολα, αριθμούς, και κάτω παύλες. Τα ψευδώνυμα θα πρέπει να αρχίζουν με ένα λατινικό σύμβολο.",
+  "Unnamed": "Χωρίς Όνομα",
+  "No description provided": "Δεν παρέχεται περιγραφή"
 }

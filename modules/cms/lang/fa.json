@@ -84,5 +84,10 @@
   "Find More Themes": "نصب قالب های جدید",
   "Saving Theme...": "درحال ذخیره سازی قالب",
   "Return to Themes List": "بازگشت به صفحه لیست قالب ها",
-  "CMS Page": "صفحات مدیریت محتوی"
+  "CMS Page": "صفحات مدیریت محتوی",
+  "A unique name given to this component when using it in the page or layout code.": "نام یکتایی که به این ابزار داده می شود تا درون صفحات و طرح بندی ها به این ابزار اشاره کند.",
+  "Alias": "نام مستعار",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "نام مستعار برای ابزار مورد نیاز بوده و می تواند شامل حروف لاتین، اعداد، و خط زیر باشد و باید با حرف لاتین شروع شود.",
+  "Unnamed": "بدون نام",
+  "No description provided": "توصیحات وجود ندارد"
 }

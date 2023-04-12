@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Norādiet mapi priekš dublētās tēmas.",
   "Find More Themes": "Atrodast vairāk tēmas",
   "Saving Theme...": "Saglabājam tēmu...",
-  "Return to Themes List": "Atgriezties tēmu sarakstā"
+  "Return to Themes List": "Atgriezties tēmu sarakstā",
+  "A unique name given to this component when using it in the page or layout code.": "Unikāls nosaukums šim komponentam kad tas tiek izmantots lapas vai izkārtojuma kodā.",
+  "Alias": "Saīsinājums",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponenta saīsinājums ir obligāts un var sastāvēt tikai no Latīņu simboliem, skaitļiem un apakšsvītrām. Saīsinājumiem vajadzētu sākties ar Latīņu simbolu.",
+  "Unnamed": "Nenosaukts",
+  "No description provided": "Apraksts nav norādīts"
 }

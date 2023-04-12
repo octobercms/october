@@ -83,5 +83,10 @@
   "Find More Themes": "Знайсці больш тэм",
   "Saving Theme...": "Захаванне тэмы...",
   "Return to Themes List": "Вярнуцца да спісу тэм",
-  "CMS Page": "Старонка CMS"
+  "CMS Page": "Старонка CMS",
+  "A unique name given to this component when using it in the page or layout code.": "Унікальнае імя макету, каб ужываць яго на старонцы альбо ў макеце",
+  "Alias": "Псеўданім",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Псеўданімы для кампанентаў з'яўляюцца неабходнымі і могуць складацца толькі з лацінскіх сімвалаў, лічбаў і знакаў падкрэслівання. Пачынацца павінны з лацінскага сімвала",
+  "Unnamed": "Неназваны",
+  "No description provided": "Няма апісання"
 }

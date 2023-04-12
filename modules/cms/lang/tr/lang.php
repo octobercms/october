@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => 'Bileşenler',
-    'unnamed' => 'İsimsiz',
-    'no_description' => 'Açıklama girilmedi.',
-    'alias' => 'Takma ad',
-    'alias_description' => 'Bu bileşen için benzersiz bir isim. Sayfa veya şablonda kullanırken bu isim gerekecektir.',
-    'validation_message' => 'Bileşen isimleri gerkelidir ve sadece Latin semboller, sayılar, ve alt çizgi içerebilir. Bileşen ismi ayrıca Latin harfle başlamalı.',
     'invalid_request' => 'Şablonda hatalı bileşen verisi olduğu için kaydedilemedi.',
     'no_records' => 'Bileşen bulunamadı.',
     'not_found' => '\':name\' isimli bileşen bulunamadı.',

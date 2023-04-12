@@ -64,5 +64,10 @@
   "Provide a new directory name for the duplicated theme.": "提供複製主題的新聞目錄名.",
   "Find More Themes": "在 OctoberCMS 主題商店中搜尋更多主題",
   "Saving Theme...": "保存主題...",
-  "Return to Themes List": "返回主題列表"
+  "Return to Themes List": "返回主題列表",
+  "A unique name given to this component when using it in the page or layout code.": "這個組件的唯一名稱, 在頁面或者佈局代碼中.",
+  "Alias": "別名",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "需要組件別名, 且只能包含拉丁字元, 數字和下劃線. 別名必須以拉丁字元開頭.",
+  "Unnamed": "未命名的",
+  "No description provided": "沒有描述"
 }

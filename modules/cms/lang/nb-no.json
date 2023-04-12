@@ -58,5 +58,10 @@
   "Provide a new directory name for the duplicated theme.": "Oppgi en ny mappe for det dupliserte temaet.",
   "Find More Themes": "Finn flere temaer på OctoberCMS Theme Marketplace",
   "Saving Theme...": "Lagrer tema...",
-  "Return to Themes List": "Tilbake til temaliste"
+  "Return to Themes List": "Tilbake til temaliste",
+  "A unique name given to this component when using it in the page or layout code.": "Et unikt navn gitt til komponenten for å benytte den i sider og layouts.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentaliaser kan kun inneholde latinske symboler, tall og understreker. Aliaser skal starte med et latinsk symbol.",
+  "Unnamed": "Navnløs",
+  "No description provided": "Ingen beskrivelse spesifisert"
 }

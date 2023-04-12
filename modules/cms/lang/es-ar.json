@@ -2,5 +2,10 @@
   "Manage the front-end theme and customization options.": "Vista previa de la lista de las plantillas instaladas.",
   "Frontend Theme": "Plantilla",
   "Activate": "Activar",
-  "Find More Themes": "Busque más Plantillas"
+  "Find More Themes": "Busque más Plantillas",
+  "A unique name given to this component when using it in the page or layout code.": "Se le ha asignado un nombre único a este componente cuando se lo utilizaba en la página o en el código de disposición.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "El componente alias es requerido y puede contener solamente letras, números y guión bajo. El alias debe empezar con una letra.",
+  "Unnamed": "Sin nombre",
+  "No description provided": "No se proporciona descripción"
 }

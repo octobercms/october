@@ -105,5 +105,10 @@
   "Please enter a valid URL": "Voer een geldige URL in",
   "Delete Theme": "Verwijder thema",
   "Activate Theme": "Activeer thema",
-  "Manage Partials": "Beheer partials"
+  "Manage Partials": "Beheer partials",
+  "A unique name given to this component when using it in the page or layout code.": "Een unieke naam voor dit component voor gebruik in de code van een pagina of layout.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Een alias voor de component is verplicht en mag alleen bestaan uit letters, cijfers en underscores. De alias moet beginnen met een letter.",
+  "Unnamed": "Naamloos",
+  "No description provided": "Geen beschrijving opgegeven"
 }

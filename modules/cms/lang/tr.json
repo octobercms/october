@@ -84,5 +84,10 @@
   "Find More Themes": "Daha fazla tema bulun",
   "Saving Theme...": "Tema kaydediliyor...",
   "Return to Themes List": "Tema listesine geri dön",
-  "CMS Page": "CMS sayfa"
+  "CMS Page": "CMS sayfa",
+  "A unique name given to this component when using it in the page or layout code.": "Bu bileşen için benzersiz bir isim. Sayfa veya şablonda kullanırken bu isim gerekecektir.",
+  "Alias": "Takma ad",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Bileşen isimleri gerkelidir ve sadece Latin semboller, sayılar, ve alt çizgi içerebilir. Bileşen ismi ayrıca Latin harfle başlamalı.",
+  "Unnamed": "İsimsiz",
+  "No description provided": "Açıklama girilmedi."
 }
