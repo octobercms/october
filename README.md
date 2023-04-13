@@ -6,7 +6,9 @@
 
 October's mission is to show the world that web development is not rocket science.
 
-[![Build Status](https://travis-ci.org/octobercms/october.svg?branch=develop)](https://travis-ci.org/octobercms/october)
+[![Build Status](https://github.com/octobercms/library/actions/workflows/tests.yml/badge.svg)](https://octobercms.com/)
+[![Downloads](https://img.shields.io/packagist/dt/october/rain)](https://docs.octobercms.com/)
+[![Version](https://img.shields.io/packagist/v/october/october)](https://octobercms.com/changelog)
 [![License](https://poser.pugx.org/october/october/license.svg)](./LICENSE.md)
 
 > *Please note*: October is open source but it is not free software. A license with a small fee is required for each website you build with October CMS.
