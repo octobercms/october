@@ -15,7 +15,7 @@ October's mission is to show the world that web development is not rocket scienc
 
 ## Installing October
 
-Instructions on how to install October can be found at the [installation guide](https://octobercms.com/docs/setup/installation).
+Instructions on how to install October can be found at the [installation guide](https://docs.octobercms.com/3.x/setup/installation.html).
 
 ### Quick Start Installation
 
