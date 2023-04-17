@@ -25,5 +25,21 @@
   "Please specify a Plugin name to install.": "Por favor, especifique un nombre de Plugin para instalar",
   "Update process complete": "El proceso de actualización se realizó exitosamente.",
   "Plugin installed successfully": "El plugin se ha instalado correctamente.",
-  "View the Dashboard": "Ver el Tablero"
+  "View the Dashboard": "Ver el Tablero",
+  "Sendmail": "Sendmail",
+  "SMTP": "SMTP",
+  "Mail Configuration": "Administrar Correo",
+  "Manage email configuration.": "Administrar la configuración de correo electrónico.",
+  "Sender Name": "Nombre del remitente",
+  "General": "General",
+  "Sender Email": "Remitente Email",
+  "Mail Method": "Método",
+  "SMTP Address": "Dirección SMTP",
+  "SMTP Port": "Puerto SMTP",
+  "SMTP Authorization Required": "Autorización SMTP requerida",
+  "Use this checkbox if your SMTP server requires authorization.": "Usar esta opción si el servidor SMTP requiere autorización.",
+  "Username": "Nombre de usuario",
+  "Password": "Contraseña",
+  "Sendmail Path": "Ruta del Sendmail",
+  "Please specify the path of the sendmail program.": "Por favor, especifique la ruta del programa sendmail."
 }
