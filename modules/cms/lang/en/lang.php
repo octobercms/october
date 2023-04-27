@@ -171,7 +171,7 @@
     'drop_down_add_title' => 'Add...',
     'drop_down_operation_title' => 'Action...',
     'upload_files' => 'Upload File(s)',
-    'create_file' => 'Create file',
+    'create_file' => 'Create File',
     'create_directory' => 'New Directory',
     'directory_popup_title' => 'New Directory',
     'directory_name' => 'Directory Name',

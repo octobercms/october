@@ -338,7 +338,7 @@
     'details_view_homepage' => 'Перейти к домашней странице',
     'details_changelog' => 'Изменения',
     'details_changelog_missing' => 'Нет никакого измененного списка.',
-    'details_view_licence' => 'Посмотреть лицензию',
+    'details_view_license' => 'Посмотреть лицензию',
     'details_current_version' => 'Текущая версия',
     'details_author' => 'Автор',
   ],

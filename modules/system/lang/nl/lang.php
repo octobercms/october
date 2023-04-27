@@ -338,7 +338,7 @@
     'details_view_homepage' => 'Toon homepagina',
     'details_changelog' => 'Changelog',
     'details_changelog_missing' => 'Er is geen changelog aanwezig.',
-    'details_view_licence' => 'Toon licentie',
+    'details_view_license' => 'Toon licentie',
     'details_current_version' => 'Huidige versie',
     'details_author' => 'Auteur',
   ],

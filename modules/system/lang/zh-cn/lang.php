@@ -338,7 +338,7 @@
     'details_view_homepage' => '查看主页',
     'details_changelog' => '更新日志',
     'details_changelog_missing' => '没有提供更新日志。',
-    'details_view_licence' => '查看许可证',
+    'details_view_license' => '查看许可证',
     'details_current_version' => '当前版本',
     'details_author' => '作者',
   ],

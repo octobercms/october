@@ -338,7 +338,7 @@
     'details_view_homepage' => 'View Homepage',
     'details_changelog' => 'Changelog',
     'details_changelog_missing' => 'There is no changelog provided.',
-    'details_view_licence' => 'View Licence',
+    'details_view_license' => 'View License',
     'details_current_version' => 'Current version',
     'details_author' => 'Author',
   ],
