@@ -194,4 +194,16 @@ return [
 
     'timezone' => 'UTC',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware Group
+    |--------------------------------------------------------------------------
+    |
+    | The name of the middleware group to apply to all backend application routes.
+    | You may use this to apply your own middleware definition.
+    |
+    */
+
+    'middleware_group' => 'web',
+
 ];

@@ -121,7 +121,7 @@
   "Please enter a new password.": "Please enter a new password.",
   "Password": "Password",
   "Password Restore": "Password Restore",
-  "Please enter your login to restore the password.": "Please enter your login to restore the password.",
+  "Please enter your login to restore the password.": "Please enter your username to restore the password.",
   "A user could not be found with a login value of ':login'": "A user could not be found with a login value of ':login'",
   "If your account was found, a message has been sent to your email address with instructions.": "If your account was found, a message has been sent to your email address with instructions.",
   "Invalid password reset data supplied. Please try again!": "Invalid password reset data supplied. Please try again!",

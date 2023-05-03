@@ -121,7 +121,7 @@
   "Please enter a new password.": "Vul een nieuw wachtwoord in",
   "Password": "Wachtwoord",
   "Password Restore": "Herstel wachtwoord",
-  "Please enter your login to restore the password.": "Vul gebruikersnaam in",
+  "Please enter your login to restore the password.": "Vul je gebruikersnaam in om je wachtwoord te herstellen",
   "A user could not be found with a login value of ':login'": "Een gebruiker met de gebruikersnaam ':login' is niet gevonden",
   "If your account was found, a message has been sent to your email address with instructions.": "Een e-mail met instructies om het wachtwoord te herstellen is verzonden naar jouw e-mailadres.",
   "Invalid password reset data supplied. Please try again!": "Ongeldige herstelinformatie aangeboden. Probeer het opnieuw!",
