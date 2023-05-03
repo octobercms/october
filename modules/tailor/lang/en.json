@@ -83,5 +83,7 @@
     "Model column the records should be ordered by": "Model column the records should be ordered by",
     "Direction": "Direction",
     "Update :name Entries": "Update :name Entries",
-    "Update :name": "Update :name"
+    "Update :name": "Update :name",
+    ":name Entry": ":name Entry",
+    "All :name Items": "All :name Entries"
 }

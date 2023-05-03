@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => 'Components',
-    'unnamed' => 'Không có tên',
-    'no_description' => 'Không có mô tả',
-    'alias' => 'Alias',
-    'alias_description' => 'Chọn 1 mã duy nhất để phân biệt các component khi được dùng ở front-end.',
-    'validation_message' => 'Component aliases là bắt buộc và chỉ có thể chứa các ký hiệu Latin, chữ số và dấu gạch dưới. Các bí danh nên bắt đầu bằng một biểu tượng Latin.',
     'invalid_request' => 'Không thể lưu template vì chứa component không hợp lệ.',
     'no_records' => 'Không tìm thấy components nào',
     'not_found' => 'Component \':name\' không tồn tại.',

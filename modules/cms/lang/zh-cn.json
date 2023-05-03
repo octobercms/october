@@ -102,7 +102,14 @@
   "Link": "链接",
   "Please select a CMS page": "请选择CMS页面",
   "Please select a page reference": "请选择页面引用",
+  "Please enter a valid URL": "请输入有效的URL",
   "Delete Theme": "删除主题",
   "Activate Theme": "激活主题",
-  "Manage Partials": "管理部件"
+  "Manage Partials": "管理部件",
+  "Reference": "参考",
+  "A unique name given to this component when using it in the page or layout code.": "在页面或者布局代码中组件的唯一名称",
+  "Alias": "别名",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "需要组件别名, 且只能包含拉丁字符, 数字和下划线. 别名必须以拉丁字符开头.",
+  "Unnamed": "未命名",
+  "No description provided": "没有描述"
 }

@@ -149,11 +149,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponen',
-    'unnamed' => 'Tak bernama',
-    'no_description' => 'Tidak ada deskripsi',
-    'alias' => 'Alias',
-    'alias_description' => 'Nama unik untuk komponen ini saat digunakan di dalam kode halaman atau layout.',
-    'validation_message' => 'Alias komponen diperlukan dan hanya dapat memuat simbol Latin, angka, dan garis bawah. Alias harus diawali dengan simbol Latin.',
     'invalid_request' => 'Templat tidak dapat disimpan dikarenakan data komponen tidak valid.',
     'no_records' => 'Tidak ada komponen ditemukan',
     'not_found' => 'Komponen \':name\' tidak ditemukan.',

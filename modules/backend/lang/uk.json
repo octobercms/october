@@ -129,5 +129,22 @@
   "Widget": "Віджет",
   "please select": "будь ласка, оберіть",
   "Width": "Ширина",
-  "full width": "повна ширина"
+  "full width": "повна ширина",
+  "Primary Color": "Основний колір",
+  "Secondary Color": "Вторинний колір",
+  "This name is shown in the title area of the back-end.": "Ця назва показується в заголовку back-end-у.",
+  "App Name": "Назва додатку",
+  "This name is shown on the sign in screen for the back-end.": "Ця назва показується на екрані входу до back-end-у.",
+  "App Tagline": "Девіз додатку",
+  "Brand": "Бренд",
+  "Upload a custom logo to use in the back-end.": "Завантажити власне лого для використання в back-end-і.",
+  "Logo": "Лого",
+  "Colors": "Кольори",
+  "Menu Style": "Cтиль меню",
+  "Navigation": "Навігація",
+  "Custom Stylesheet": "Власна таблиця стилів",
+  "Styles": "Стилі",
+  "Inline": "В лінію",
+  "Tiles": "Плитка",
+  "Collapsed": "Схлопнутий"
 }

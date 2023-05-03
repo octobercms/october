@@ -55,5 +55,22 @@
   "Widget": "Widget",
   "please select": "Vui lòng lựa chọn",
   "Width": "chiều rộng",
-  "full width": "rộng toàn màn hình"
+  "full width": "rộng toàn màn hình",
+  "Primary Color": "Màu chủ đạo",
+  "Secondary Color": "Màu thứ hai",
+  "This name is shown in the title area of the back-end.": "Tên này sẽ được làm tiêu đề cho trang quản trị.",
+  "App Name": "Tên ứng dụng",
+  "This name is shown on the sign in screen for the back-end.": "Mục này hiển thị ở màn hình đăng nhập trang quản trị.",
+  "App Tagline": "App Tagline",
+  "Brand": "Nhãn",
+  "Upload a custom logo to use in the back-end.": "Tải lên logo sử dụng cho trang quản trị.",
+  "Logo": "Logo",
+  "Colors": "Màu sắc",
+  "Menu Style": "Kiểu menu",
+  "Navigation": "Thanh menu",
+  "Custom Stylesheet": "Stylesheet tùy chỉnh",
+  "Styles": "Styles",
+  "Inline": "Icon và tiêu đề cùng một dòng",
+  "Tiles": "Icon và tiêu đề khác dòng",
+  "Collapsed": "Thu gọn icon và tiêu đề"
 }

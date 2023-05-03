@@ -169,11 +169,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponenten',
-    'unnamed' => 'Unbenannt',
-    'no_description' => 'Keine Beschreibung angegeben',
-    'alias' => 'Verknüpfung',
-    'alias_description' => 'Dieser Komponente wird ein eindeutiger Name gegeben, wenn sie im Code von Seite oder Layout benutzt wird.',
-    'validation_message' => 'Komponentenverknüpfungen werden benötigt und dürfen nur lateinische Zeichen, Ziffern und Unterstriche beinhalten. Die Verknüpfungen müssen mit einem lateinischen Zeichen beginnen.',
     'invalid_request' => 'Aufgrund ungültiger Komponentendaten kann das Template nicht gespeichert werden.',
     'no_records' => 'Keine Komponenten gefunden',
     'not_found' => 'Die Komponente \':name\' wurde nicht gefunden.',

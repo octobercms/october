@@ -84,5 +84,10 @@
   "Find More Themes": "Otsi uusi teemasid",
   "Saving Theme...": "Salvestan teemat...",
   "Return to Themes List": "Tagasi teemade nimekirja",
-  "CMS Page": "CMS Page"
+  "CMS Page": "CMS Page",
+  "A unique name given to this component when using it in the page or layout code.": "A unique name given to this component when using it in the page or layout code.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.",
+  "Unnamed": "Unnamed",
+  "No description provided": "No description provided"
 }

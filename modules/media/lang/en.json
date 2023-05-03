@@ -3,5 +3,6 @@
     "Access the Media Manager": "Access the Media Manager",
     "Upload Media": "Upload Media",
     "Delete Media": "Delete Media",
-    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename."
+    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename.",
+    "Remove Selected": "Remove Selected"
 }

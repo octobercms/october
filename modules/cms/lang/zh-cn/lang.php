@@ -208,11 +208,6 @@
   ],
   'component' => [
     'menu_label' => '组件',
-    'unnamed' => '未命名',
-    'no_description' => '没有描述',
-    'alias' => '别名',
-    'alias_description' => '在页面或者布局代码中组件的唯一名称',
-    'validation_message' => '需要组件别名, 且只能包含拉丁字符, 数字和下划线. 别名必须以拉丁字符开头.',
     'invalid_request' => '组件数据非法，无法保存',
     'no_records' => '无法找到找不到',
     'not_found' => '无法找到组件 \':name\'',

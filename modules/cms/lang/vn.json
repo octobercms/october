@@ -60,5 +60,10 @@
   "Find More Themes": "Tìm kiếm giao diện",
   "Saving Theme...": "Đang lưu giao diện...",
   "Return to Themes List": "Quay lại trang quản lý giao diện",
-  "CMS Page": "CMS Page"
+  "CMS Page": "CMS Page",
+  "A unique name given to this component when using it in the page or layout code.": "Chọn 1 mã duy nhất để phân biệt các component khi được dùng ở front-end.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Component aliases là bắt buộc và chỉ có thể chứa các ký hiệu Latin, chữ số và dấu gạch dưới. Các bí danh nên bắt đầu bằng một biểu tượng Latin.",
+  "Unnamed": "Không có tên",
+  "No description provided": "Không có mô tả"
 }

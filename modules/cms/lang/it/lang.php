@@ -155,11 +155,6 @@
   ],
   'component' => [
     'menu_label' => 'Componenti',
-    'unnamed' => 'Senza nome',
-    'no_description' => 'Nessuna descrizione fornita',
-    'alias' => 'Alias',
-    'alias_description' => 'Un nome univoco fornito a questo componente quando utilizzato nella pagina o nel layout.',
-    'validation_message' => 'L\'alias del componente è obbligatorio e può contenere solo lettere latine, numeri e underscores. L\'alias deve iniziare con una lettera.',
     'invalid_request' => 'Il template non può essere salvato a causa di dati dei componenti non validi.',
     'no_records' => 'Nessun componente trovato',
     'not_found' => 'Il componente \':name\' non è stato trovato.',

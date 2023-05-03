@@ -150,11 +150,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponenter',
-    'unnamed' => 'Ej namngiven',
-    'no_description' => 'Ingen beskrivning',
-    'alias' => 'Alias',
-    'alias_description' => 'Ett unikt namn för denna komponent, när den skall användas i sid- eller layoutkod',
-    'validation_message' => 'Komponentalias är obligatoriska och får endast innehålla bokstäver, siffror, och understreck. De måste börja med en bokstav',
     'invalid_request' => 'Mallen kunde inte sparas pga felaktig komponentdata',
     'no_records' => 'Inga komponenter funna',
     'not_found' => 'Komponenten \':name\' kunde ej hittas',

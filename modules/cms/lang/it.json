@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Inserisci una nuova cartella per il tema duplicato.",
   "Find More Themes": "Trova nuovi temi",
   "Saving Theme...": "Salvataggio tema in corso...",
-  "Return to Themes List": "Ritorna all'elenco del temi"
+  "Return to Themes List": "Ritorna all'elenco del temi",
+  "A unique name given to this component when using it in the page or layout code.": "Un nome univoco fornito a questo componente quando utilizzato nella pagina o nel layout.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "L'alias del componente è obbligatorio e può contenere solo lettere latine, numeri e underscores. L'alias deve iniziare con una lettera.",
+  "Unnamed": "Senza nome",
+  "No description provided": "Nessuna descrizione fornita"
 }

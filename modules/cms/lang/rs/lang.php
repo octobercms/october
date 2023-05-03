@@ -169,11 +169,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponente',
-    'unnamed' => 'Bez naziva',
-    'no_description' => 'Opis nije dat',
-    'alias' => 'Pseudonim',
-    'alias_description' => 'Jedinstven naziv koji je dat komponenti kada se koristi u stranici ili kodu plana.',
-    'validation_message' => 'Pseudonimi komponente su neophodni i mogu sadržati samo latinske simbole, brojeve i donje crte. Pseudonimi bi trebalo da počinju latinskim simbolom.',
     'invalid_request' => 'Šablon ne može biti sačuvan zbog podataka koji nisu validni.',
     'no_records' => 'Nema pronađenih komponenti',
     'not_found' => 'Komponenta \':name\' nije pronađena.',

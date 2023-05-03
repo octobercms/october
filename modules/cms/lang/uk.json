@@ -84,5 +84,10 @@
   "Find More Themes": "Знайти нові теми",
   "Saving Theme...": "Збереження теми...",
   "Return to Themes List": "Повернутися до списку тем",
-  "CMS Page": "CMS сторінка"
+  "CMS Page": "CMS сторінка",
+  "A unique name given to this component when using it in the page or layout code.": "Назва компонента визначає його ім'я, під яким він доступний в коді сторінки або шаблону.",
+  "Alias": "Назва компонента",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Псевдонім обов'язковий і може містити тільки латинські букви, цифри і знаки підкреслення. Псевдоніми повинні починатися з літери.",
+  "Unnamed": "Без назви",
+  "No description provided": "Без опису"
 }

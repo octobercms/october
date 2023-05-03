@@ -130,5 +130,22 @@
   "Widget": "Widget",
   "please select": "si us plau selecciona",
   "Width": "Ample",
-  "full width": "ample complet"
+  "full width": "ample complet",
+  "Primary Color": "Color primari",
+  "Secondary Color": "Color secundari",
+  "This name is shown in the title area of the back-end.": "Aquest nom es mostra a l'àrea del títol del panell.",
+  "App Name": "Nom de l'aplicació",
+  "This name is shown on the sign in screen for the back-end.": "Aquest text es mostra a la finestra d'accés al panell.",
+  "App Tagline": "Tagline de l'aplicació",
+  "Brand": "Marca",
+  "Upload a custom logo to use in the back-end.": "Pujar un logo personalitzat per utilitzar al panell.",
+  "Logo": "Logo",
+  "Colors": "Colors",
+  "Menu Style": "Estil del menú",
+  "Navigation": "Navegació",
+  "Custom Stylesheet": "Full d'estils personalitzat",
+  "Styles": "Estils",
+  "Inline": "En línia",
+  "Tiles": "Rajoles",
+  "Collapsed": "Comprimit"
 }

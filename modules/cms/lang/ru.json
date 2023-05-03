@@ -98,5 +98,10 @@
   "Theme Seeded!": "Сидинг выполнен успешно!",
   "Select Page Link": "Выберите ссылку на страницу",
   "Search all references...": "Поиск по всем ссылкам...",
-  "CMS Page": "CMS страница"
+  "CMS Page": "CMS страница",
+  "A unique name given to this component when using it in the page or layout code.": "Псевдоним компонента определяет его имя, под которым он доступен в коде страницы или шаблона.",
+  "Alias": "Псевдоним",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Псевдонимы обязательны и могут содержать только латинские буквы, цифры и знаки подчеркивания. Псевдонимы должны начинаться с латинской буквы.",
+  "Unnamed": "Безымянный",
+  "No description provided": "Без описания"
 }

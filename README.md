@@ -6,14 +6,16 @@
 
 October's mission is to show the world that web development is not rocket science.
 
-[![Build Status](https://travis-ci.org/octobercms/october.svg?branch=develop)](https://travis-ci.org/octobercms/october)
+[![Build Status](https://github.com/octobercms/library/actions/workflows/tests.yml/badge.svg)](https://octobercms.com/)
+[![Downloads](https://img.shields.io/packagist/dt/october/rain)](https://docs.octobercms.com/)
+[![Version](https://img.shields.io/packagist/v/october/october)](https://octobercms.com/changelog)
 [![License](https://poser.pugx.org/october/october/license.svg)](./LICENSE.md)
 
 > *Please note*: October is open source but it is not free software. A license with a small fee is required for each website you build with October CMS.
 
 ## Installing October
 
-Instructions on how to install October can be found at the [installation guide](https://octobercms.com/docs/setup/installation).
+Instructions on how to install October can be found at the [installation guide](https://docs.octobercms.com/3.x/setup/installation.html).
 
 ### Quick Start Installation
 
@@ -27,7 +29,7 @@ If you plan on using a database, run this command inside the application directo
 
 ## Learning October
 
-The best place to learn October CMS is by [reading the documentation](https://octobercms.com/docs) or [following some tutorials](https://octobercms.com/support/articles/tutorials).
+The best place to learn October CMS is by [reading the documentation](https://docs.octobercms.com) or [following some tutorials](https://octobercms.com/support/articles/tutorials).
 
 You may also watch this [introductory video](https://www.youtube.com/watch?v=yLZTOeOS7wI). Make sure to check out our [official YouTube channel](https://www.youtube.com/c/OctoberCMSOfficial). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
 

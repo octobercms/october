@@ -160,11 +160,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponentai',
-    'unnamed' => 'Neužvadintas',
-    'no_description' => 'Nėra aprašymo',
-    'alias' => 'Užvadintas',
-    'alias_description' => 'Unikalus vardas skiriamas šiam komponentui kai naudojate jį puslapyje ar šablone.',
-    'validation_message' => 'Komponentų užvadiniai yra būtini ir gali susidaryti tik iš Lotyniškų raidžių, skaitmenų bei _. Užvadiniai turi prasidėti Lotyniška reide.',
     'invalid_request' => 'Šablono išsaugoti nepavyko dėl netinkamų komponento savybių.',
     'no_records' => 'Komponentų nėra',
     'not_found' => 'Komponento \':name\' neradome.',

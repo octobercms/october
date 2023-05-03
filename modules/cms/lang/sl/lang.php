@@ -169,11 +169,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponente',
-    'unnamed' => 'Neimenovano',
-    'no_description' => 'Opis ni podan',
-    'alias' => 'Vzdevek',
-    'alias_description' => 'Unikatno ime komponente, ki se uporablja na strani ali v kodi postavitve.',
-    'validation_message' => 'Vzdevki komponent so obvezni in lahko vsebujejo le latinične znake, številke in podčrtaje. Vzdevki naj se začnejo z latiničnim znakom.',
     'invalid_request' => 'Predloge ni bilo mogoče shraniti zaradi neveljavnih podatkov komponente.',
     'no_records' => 'Ni najdenih komponent.',
     'not_found' => 'Komponente :name ni mogoče najti.',

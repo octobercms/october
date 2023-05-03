@@ -130,5 +130,22 @@
   "Widget": "Eklenti",
   "please select": "lütfen seçin",
   "Width": "Genişlik",
-  "full width": "tam genişlik"
+  "full width": "tam genişlik",
+  "Primary Color": "Ana Renk color",
+  "Secondary Color": "İkincil Renk color",
+  "This name is shown in the title area of the back-end.": "Bu isim, Yönetim Panelinde başlık olarak kullanılacaktır.",
+  "App Name": "Site Adı",
+  "This name is shown on the sign in screen for the back-end.": "Bu motto Yönetim Paneli giriş ekranında görüntülenecektir.",
+  "App Tagline": "Site Mottosu",
+  "Brand": "Marka",
+  "Upload a custom logo to use in the back-end.": "Yönetim Panelinde kullanılacak logoyu yükleyin.",
+  "Logo": "Logo",
+  "Colors": "Renkler",
+  "Menu Style": "Menü stili",
+  "Navigation": "Navigsyon",
+  "Custom Stylesheet": "Özel stil - CSS",
+  "Styles": "Stiller",
+  "Inline": "Sıralı",
+  "Tiles": "Mozaik",
+  "Collapsed": "Katlanmış"
 }

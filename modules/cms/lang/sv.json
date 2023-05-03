@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Ange ett nytt katalognamn för det duplicerade temat.",
   "Find More Themes": "Hitta fler teman på OctoberCMS Theme Marketplace",
   "Saving Theme...": "Sparar tema...",
-  "Return to Themes List": "Återvänd till temalistan"
+  "Return to Themes List": "Återvänd till temalistan",
+  "A unique name given to this component when using it in the page or layout code.": "Ett unikt namn för denna komponent, när den skall användas i sid- eller layoutkod",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentalias är obligatoriska och får endast innehålla bokstäver, siffror, och understreck. De måste börja med en bokstav",
+  "Unnamed": "Ej namngiven",
+  "No description provided": "Ingen beskrivning"
 }

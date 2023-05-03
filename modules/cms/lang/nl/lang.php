@@ -35,7 +35,6 @@
     'setting_edit_theme' => 'Wijzig bewerk-thema',
     'edit_theme_changed' => 'Bewerk-thema is gewijzigd',
   ],
-  'maintenance' => [],
   'page' => [
     'not_found_name' => 'De pagina \':name\' is niet gevonden.',
     'not_found' => [
@@ -143,6 +142,8 @@
     'asset' => 'Asset',
     'hidden' => 'Verborgen',
     'hidden_comment' => 'Verborgen pagina zijn alleen toegankelijk voor ingelogde gebruikers.',
+    'priority' => 'Prioriteit',
+    'priority_comment' => 'Prioriteit Layouts laden de inhoud voor de pagina inhoud.',
     'enter_fullscreen' => 'Volledig scherm starten',
     'exit_fullscreen' => 'Volledig scherm afsluiten',
     'open_searchbox' => 'Open zoekveld',
@@ -209,11 +210,6 @@
   ],
   'component' => [
     'menu_label' => 'Componenten',
-    'unnamed' => 'Naamloos',
-    'no_description' => 'Geen beschrijving opgegeven',
-    'alias' => 'Alias',
-    'alias_description' => 'Een unieke naam voor dit component voor gebruik in de code van een pagina of layout.',
-    'validation_message' => 'Een alias voor de component is verplicht en mag alleen bestaan uit letters, cijfers en underscores. De alias moet beginnen met een letter.',
     'invalid_request' => 'De template kan niet worden opgeslagen vanwege ongeldige componentgegevens.',
     'no_records' => 'Geen componenten gevonden',
     'not_found' => 'De component \':name\' is niet gevonden.',

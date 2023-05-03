@@ -64,5 +64,10 @@
   "Return to Themes List": "Nazad na listu tema",
   "Close Search box": "Zatvori polje za pretragu",
   "Close Replace box": "Zatvori polje za zamenu",
-  "CMS Page": "CMS strana"
+  "CMS Page": "CMS strana",
+  "A unique name given to this component when using it in the page or layout code.": "Jedinstven naziv koji je dat komponenti kada se koristi u stranici ili kodu plana.",
+  "Alias": "Pseudonim",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Pseudonimi komponente su neophodni i mogu sadržati samo latinske simbole, brojeve i donje crte. Pseudonimi bi trebalo da počinju latinskim simbolom.",
+  "Unnamed": "Bez naziva",
+  "No description provided": "Opis nije dat"
 }

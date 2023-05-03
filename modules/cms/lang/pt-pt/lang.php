@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => 'Componentes',
-    'unnamed' => 'Sem nome',
-    'no_description' => 'Nenhuma descrição fornecida',
-    'alias' => 'Apelido',
-    'alias_description' => 'Um nome exclusivo dado a este componente quando utilizado no código de uma página ou esboço.',
-    'validation_message' => 'Apelidos de componentes são necessários e podem conter letras, números e sublinhados. Os apelidos devem começar com uma letra.',
     'invalid_request' => 'O modelo não pode ser guardado devido a dados inválidos nos componentes.',
     'no_records' => 'Nenhum componente encontrado',
     'not_found' => 'O componente ":name" não foi encontrado.',

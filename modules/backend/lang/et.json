@@ -128,5 +128,22 @@
   "Widget": "Vidin",
   "please select": "palun vali",
   "Width": "Laius",
-  "full width": "täislaius"
+  "full width": "täislaius",
+  "Primary Color": "Peamine värv",
+  "Secondary Color": "Teine color",
+  "This name is shown in the title area of the back-end.": "Seda nime kuvatakse haldusliidese päises.",
+  "App Name": "Haldusliidese nimi",
+  "This name is shown on the sign in screen for the back-end.": "Seda teksti kuvatakse haldusliidesesse sisselogimisel.",
+  "App Tagline": "Tervitustekst",
+  "Brand": "Bränd",
+  "Upload a custom logo to use in the back-end.": "Lae üles logo, mida kasutada haldusliideses.",
+  "Logo": "Logo",
+  "Colors": "Värvid",
+  "Menu Style": "Menüü stiil",
+  "Navigation": "Navigatsioon",
+  "Custom Stylesheet": "Kohandatud CSS",
+  "Styles": "Stiilid",
+  "Inline": "Järjekorras",
+  "Tiles": "Kastid",
+  "Collapsed": "Minimaalne"
 }

@@ -162,11 +162,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponenty',
-    'unnamed' => 'Bez názvu',
-    'no_description' => 'Nebol poskytnutý žiadny popis',
-    'alias' => 'Alias',
-    'alias_description' => 'Unikátny názov komponentu pri použití v kóde na stránke alebo layoute.',
-    'validation_message' => 'Aliasy komponentov sú povinné a môžu obsahovať iba písmená, čísla a podtržítka. Aliasy by mali začínať písmenom.',
     'invalid_request' => 'Šablóna nemôže byť uložená kvôli neplatným dátam kompentntu.',
     'no_records' => 'Žiadne komponenty',
     'not_found' => 'Komponent \':name\' nebol nájdený.',

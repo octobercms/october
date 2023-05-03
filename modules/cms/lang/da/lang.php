@@ -155,11 +155,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponenter',
-    'unnamed' => 'Unavngivet',
-    'no_description' => 'Ingen beskrivelse tilgængelig',
-    'alias' => 'Alias',
-    'alias_description' => 'Et unikt navn givet til dette komponent, ved brug på en side eller layout.',
-    'validation_message' => 'Komponent aliaser er påkrævede og må kun indeholde latinske karakterer, tal og underscores.Aliaset skal starte med et latinsk bogstav.',
     'invalid_request' => 'Skabelonen kan ikke gemmes, pga. ugyldigt komponentdata.',
     'no_records' => 'Ingen komponenter fundet',
     'not_found' => 'Komponentet \':name\' kunne ikke findes.',

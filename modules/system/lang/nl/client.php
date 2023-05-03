@@ -32,6 +32,10 @@ return [
         'horizontalrule' => 'Invoegen horizontale lijn',
         'fullscreen' => 'Volledig scherm',
         'preview' => 'Voorbeeldweergave',
+        'strikethrough' => 'Doorhalen',
+        'cleanblock' => 'Blok opschonen',
+        'table' => 'Tabel',
+        'sidebyside' => 'Zij aan zij'
     ],
     'mediamanager' => [
         'insert_link' => 'Media Link invoegen',

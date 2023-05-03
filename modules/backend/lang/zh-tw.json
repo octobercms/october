@@ -128,5 +128,17 @@
   "Widget": "元件",
   "please select": "請選擇",
   "Width": "寬度",
-  "full width": "全部寬度"
+  "full width": "全部寬度",
+  "Primary Color": "主要 color",
+  "Secondary Color": "次要 color",
+  "This name is shown in the title area of the back-end.": "這個名稱顯示在管理介面的標題區域",
+  "App Name": "網站名稱",
+  "This name is shown on the sign in screen for the back-end.": "標語顯示在管理介面的登入介面",
+  "App Tagline": "網站標語",
+  "Brand": "品牌",
+  "Upload a custom logo to use in the back-end.": "上傳自訂logo到管理介面",
+  "Logo": "Logo",
+  "Colors": "顏色",
+  "Custom Stylesheet": "自訂樣式",
+  "Styles": "樣式"
 }

@@ -129,5 +129,22 @@
   "Widget": "ابزارک",
   "please select": "لطفا انتخاب نمایید",
   "Width": "عرض",
-  "full width": "عرض کامل"
+  "full width": "عرض کامل",
+  "Primary Color": "اصلی color",
+  "Secondary Color": "ثانویه color",
+  "This name is shown in the title area of the back-end.": "این نام در بخش عنوان قسمت مدیریت نمایش داده می شود.",
+  "App Name": "نام برنامه",
+  "This name is shown on the sign in screen for the back-end.": "این شعار در قسمت ورود به بخش مدیریت نمایش داده می شود.",
+  "App Tagline": "شعار برنامه",
+  "Brand": "برند",
+  "Upload a custom logo to use in the back-end.": "لوگوی شخصی سازی شده خود را جهت استفاده در بخش مدیریت ارسال نمایید.",
+  "Logo": "لوگو",
+  "Colors": "رنگ ها",
+  "Menu Style": "سبک منو",
+  "Navigation": "ناو بری",
+  "Custom Stylesheet": "شیوه نامه های سفارشی",
+  "Styles": "شیوه نامه ها",
+  "Inline": "آیکون در کنار",
+  "Tiles": "آیکون در بالا",
+  "Collapsed": "جمع شونده"
 }

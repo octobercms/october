@@ -33,5 +33,10 @@
   "Manage the front-end theme and customization options.": "Previzualizati lista de teme instalate si selectati o tema activa.",
   "Frontend Theme": "Tema Front-end",
   "Activate": "Activare",
-  "Find More Themes": "Gasiti mai multe teme in \"Piata OctoberCMS\"."
+  "Find More Themes": "Gasiti mai multe teme in \"Piata OctoberCMS\".",
+  "A unique name given to this component when using it in the page or layout code.": "Numele unic dat acestei componente atunci cand este folosita intr-o pagina sau intr-o macheta.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Aliasul componentei este necesar si poate sa contina doar caractere latine, cifre si caractere underscore. Denumirile are trebui sa inceapa cu un caracter latin.",
+  "Unnamed": "Fara nume",
+  "No description provided": "Nicio descriere furnizata"
 }

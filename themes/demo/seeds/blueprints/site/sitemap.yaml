@@ -3,6 +3,7 @@ handle: Site\Sitemap
 type: structure
 name: Sitemap
 drafts: false
+pagefinder: false
 
 structure:
     maxDepth: 1

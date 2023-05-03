@@ -128,5 +128,22 @@
   "Widget": "Skydelis",
   "please select": "prašome pasirinkti",
   "Width": "Plotis",
-  "full width": "pilnas proltis"
+  "full width": "pilnas proltis",
+  "Primary Color": "Pirminė spalva",
+  "Secondary Color": "Antrinė spalva",
+  "This name is shown in the title area of the back-end.": "Šis pavadinimas bus rodomas naršyklės kortelėje naudojant administracinę zoną.",
+  "App Name": "Programos Pavadinimas",
+  "This name is shown on the sign in screen for the back-end.": "Šią antraštę matysite prisijungimo į administracinę zoną puslapyje.",
+  "App Tagline": "Programos Antraštė",
+  "Brand": "Prekės ženklas",
+  "Upload a custom logo to use in the back-end.": "Įkelkite logotipą, kurį norite naudoti posistemėje.",
+  "Logo": "Logotipas",
+  "Colors": "Spalvos",
+  "Menu Style": "Meniu stilius",
+  "Navigation": "Navigacija",
+  "Custom Stylesheet": "Individualus stiliaus planas (CSS)",
+  "Styles": "Stiliai",
+  "Inline": "Linijoje",
+  "Tiles": "Langeliais",
+  "Collapsed": "Sutraukta"
 }

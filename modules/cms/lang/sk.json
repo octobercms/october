@@ -84,5 +84,10 @@
   "Find More Themes": "Vyhľadať ďalšie témy",
   "Saving Theme...": "Ukladám tému...",
   "Return to Themes List": "Návrat na zoznam tém",
-  "CMS Page": "CMS stránka"
+  "CMS Page": "CMS stránka",
+  "A unique name given to this component when using it in the page or layout code.": "Unikátny názov komponentu pri použití v kóde na stránke alebo layoute.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Aliasy komponentov sú povinné a môžu obsahovať iba písmená, čísla a podtržítka. Aliasy by mali začínať písmenom.",
+  "Unnamed": "Bez názvu",
+  "No description provided": "Nebol poskytnutý žiadny popis"
 }

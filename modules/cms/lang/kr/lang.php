@@ -161,11 +161,6 @@
   ],
   'component' => [
     'menu_label' => '컴포넌트',
-    'unnamed' => '이름없음',
-    'no_description' => '설명없음',
-    'alias' => '별칭',
-    'alias_description' => '페이지나 레이아웃 코드에서 사용하는 고유 컴포넌트 이름.',
-    'validation_message' => '알파벳, 숫자, 언더스코어(_)로 구성한 컴포넌트 별칭이 필요합니다. 별칭은 알파벳으로 시작해야 합니다.',
     'invalid_request' => '컴포넌트 데이터가 올바르지 않아서 템플릿을 저장할 수 없습니다.',
     'no_records' => '컴포넌트가 없습니다.',
     'not_found' => '\':name\' 컴포넌트를 발견할 수 없습니다.',

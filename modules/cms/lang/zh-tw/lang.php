@@ -153,11 +153,6 @@
   ],
   'component' => [
     'menu_label' => '組件',
-    'unnamed' => '未命名的',
-    'no_description' => '沒有描述',
-    'alias' => '別名',
-    'alias_description' => '這個組件的唯一名稱, 在頁面或者佈局代碼中.',
-    'validation_message' => '需要組件別名, 且只能包含拉丁字元, 數字和下劃線. 別名必須以拉丁字元開頭.',
     'invalid_request' => '模板不能保存, 因為非法組件數據.',
     'no_records' => '找不到組件',
     'not_found' => '組件 \':name\' 找不到.',

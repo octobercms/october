@@ -84,5 +84,10 @@
   "Find More Themes": "Poišči več tem",
   "Saving Theme...": "Shranjevanje teme...",
   "Return to Themes List": "Nazaj na seznam tem",
-  "CMS Page": "CMS stran"
+  "CMS Page": "CMS stran",
+  "A unique name given to this component when using it in the page or layout code.": "Unikatno ime komponente, ki se uporablja na strani ali v kodi postavitve.",
+  "Alias": "Vzdevek",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Vzdevki komponent so obvezni in lahko vsebujejo le latinične znake, številke in podčrtaje. Vzdevki naj se začnejo z latiničnim znakom.",
+  "Unnamed": "Neimenovano",
+  "No description provided": "Opis ni podan"
 }

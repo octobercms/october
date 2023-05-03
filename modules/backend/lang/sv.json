@@ -123,5 +123,17 @@
   "Widget": "Widget",
   "please select": "Vänligen välj",
   "Width": "Bredd",
-  "full width": "max bredd"
+  "full width": "max bredd",
+  "Primary Color": "Primär color",
+  "Secondary Color": "Sekundär color",
+  "This name is shown in the title area of the back-end.": "Detta namn visas i titelområdet back-end.",
+  "App Name": "Applikationsnamn",
+  "This name is shown on the sign in screen for the back-end.": "Detta namn visas på inloggningsskärmen för back-end.",
+  "App Tagline": "Applikationstaggning",
+  "Brand": "Varumärke",
+  "Upload a custom logo to use in the back-end.": "Ladda upp en egen logotyp för att använda i back-end.",
+  "Logo": "Logga",
+  "Colors": "Färger",
+  "Custom Stylesheet": "Anpassad formatmall",
+  "Styles": "Formatmallar"
 }

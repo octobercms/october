@@ -84,5 +84,10 @@
   "Find More Themes": "Trouver davantage de thèmes sur le site du CMS October.",
   "Saving Theme...": "Enregistrement du thème en cours…",
   "Return to Themes List": "Retourner à la liste des thèmes",
-  "CMS Page": "Page CMS"
+  "CMS Page": "Page CMS",
+  "A unique name given to this component when using it in the page or layout code.": "Nom unique fourni lors de l’utilisation du composant sur une page ou une maquette.",
+  "Alias": "Alias",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Les alias du composant sont requis et doivent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.",
+  "Unnamed": "Sans nom",
+  "No description provided": "Aucune description n’a été fournie"
 }

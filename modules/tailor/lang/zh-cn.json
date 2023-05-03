@@ -15,6 +15,7 @@
   "Entries have been disabled": "条目已被禁用",
   "Entries have been enabled": "条目已启用",
   "Entries have been deleted": "条目已被删除",
+  "Entries have been restored": "条目已恢复",
   "Manage Blueprints": "管理蓝图",
   "All Entries": "所有项",
   "Published Date": "发布日期",
@@ -83,6 +84,7 @@
   "Model column the records should be ordered by": "记录应按",
   "Direction": "方向",
   "Update :name Entries": "更新 :name 条目",
-  "Update :name": "更新 :name"
-
+  "Update :name": "更新 :name",
+  ":name Entry": ":name 条目",
+  "All :name Items": "所有 :name 条目"
 }

@@ -220,11 +220,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponentit',
-    'unnamed' => 'Nimeämätön',
-    'no_description' => 'Ei annettua kuvausta',
-    'alias' => 'Alias',
-    'alias_description' => 'Uniikki nimi komponentille kun käytössä sivulla tai ulkoasun koodissa.',
-    'validation_message' => 'Komponentin alias on vaadittu ja se voi sisältää ainoastaan latinalaisia kirjaimia, numeroita ja alaviivoja. Aliaksien pitäisi alkaa latinalaisella kirjaisimella.',
     'invalid_request' => 'Mallia ei voida tallentaa koska komponentin tiedot eivät ole kelvollisia.',
     'no_records' => 'Komponentteja ei löytynyt',
     'not_found' => 'Komponenttia \':name\' ei löydy.',
@@ -353,7 +348,7 @@
       'app_filter' => '`app`-suodatin palauttaa osoitteen suhteessa sivuston julkiseen polkuun.',
       'media_filter' => '`media`-suodatin palauttaa osoitteen suhteessa [mediahallintakirjaston](https://octobercms.com/docs/cms/mediamanager) julkiseen polkuun.',
       'md_filter' => '`md`-suodatin muuntaa Markdown-muotoisen arvon HTML-muotoon.',
-      'raw_filter' => '`raw`-suodatin merkitsee arvon "turvalliseksi", mikä tarkoittaa, että muuttujaa ei koodata, jos `raw` on viimeinen siihen sovellettu suodatin.'
+      'raw_filter' => '`raw`-suodatin merkitsee arvon "turvalliseksi", mikä tarkoittaa, että muuttujaa ei koodata, jos `raw` on viimeinen siihen sovellettu suodatin.',
     ],
   ],
 ];

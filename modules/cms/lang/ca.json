@@ -84,5 +84,10 @@
   "Find More Themes": "Trobar més temes",
   "Saving Theme...": "Guardant tema...",
   "Return to Themes List": "Tornar a la llista de temes",
-  "CMS Page": "Pàgina de CMS"
+  "CMS Page": "Pàgina de CMS",
+  "A unique name given to this component when using it in the page or layout code.": "Un nom únic assignat a aquest component per utilitzar-lo al codi de la pàgina o plantilla.",
+  "Alias": "Alies",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Els àlies de components són obligatoris i només poden contenir lletres llatines, números i subratllats. Han de començar amb una lletra.",
+  "Unnamed": "Sense nom",
+  "No description provided": "No s'ha proveït una descripció"
 }

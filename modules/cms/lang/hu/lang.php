@@ -219,11 +219,6 @@
   ],
   'component' => [
     'menu_label' => 'Komponensek',
-    'unnamed' => 'Névtelen',
-    'no_description' => 'Nincs megadott leírás',
-    'alias' => 'Alias',
-    'alias_description' => 'Ennek a komponensnek az oldal vagy az elrendezés kódjában való használatkor adott egyedi név.',
-    'validation_message' => 'A komponens aliasok kötelezőek, és csak latin betűket, számokat, valamint aláhúzásokat tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.',
     'invalid_request' => 'A sablon érvénytelen komponens adatok miatt nem menthető.',
     'no_records' => 'Nem találhatók komponensek',
     'not_found' => 'A(z) \':name\' komponens nem található.',

@@ -82,5 +82,10 @@
   "Provide a new directory name for the duplicated theme.": "Представете ново име на директория за дубликата на темата.",
   "Find More Themes": "Намери още теми",
   "Saving Theme...": "Запазване на Тема...",
-  "Return to Themes List": "Назад към списъка с теми"
+  "Return to Themes List": "Назад към списъка с теми",
+  "A unique name given to this component when using it in the page or layout code.": "Уникално име е дадено на този компонент, когато се използва в кода на страница или оформление.",
+  "Alias": "Псевдоним",
+  "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Компонент псевдоними са задължителни и могат да съдържат само латински символи, цифри и долна черта. Псевдонимите трябва да започнат с латински символ",
+  "Unnamed": "Без име",
+  "No description provided": "Няма дадено описание"
 }
