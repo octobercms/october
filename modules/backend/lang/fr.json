@@ -201,5 +201,9 @@
   "Styles": "Styles",
   "Inline": "Horizontal",
   "Tiles": "Tuiles",
-  "Collapsed": "Replié"
+  "Collapsed": "Replié",
+  "Icons": "Icônes",
+  "Left Side": "Gauche",
+  "Add New Item": "Ajouter un nouvel élément",
+  "Link Color": "Couleur des lien"
 }
