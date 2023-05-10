@@ -3,6 +3,7 @@
     'app_config_section' => 'Configuration de l\'application',
     'license_section' => 'Clé de license',
     'dependencies_section' => 'Installation des dépendances',
+    'demo_section' => 'Contenu d\'exemple',
     'locale_select_label' => 'Choisir la langue',
     'locale_select_error' => 'Le code de langue :code n\'est pas valide, veuillez réessayer',
     'app_url_label' => 'URL de l\'application',
@@ -33,6 +34,9 @@
     'migrate_database_comment' => 'Veuillez migrer la base de données avec la commande suivante',
     'visit_backend_comment' => 'Ensuite, ouvrez la zone d\'administration à cette URL',
     'open_configurator_comment' => 'Ouvrez cette application dans votre navigateur',
+    'install_demo_label' => 'Voulez-vous installer le thème et le plugin d\'exemple ? (Recommandé)',
+    'operation_timeout_comment' => 'L\'opération a pris trop de temps. Veuillez augmenter le délai du serveur puis réessayer.',
+    'operation_timeout_hint' => 'Voir la documentation appropriée pour :name.',
   ],
   'app' => [
     'name' => 'OctoberCMS',
@@ -44,13 +48,11 @@
   'file' => [
     'create_fail' => 'Impossible de créer le fichier : :name',
   ],
-  'page' => [
-    'invalid_token' => [
-      'label' => 'La clé de sécurité est invalide',
-    ],
-  ],
   'combiner' => [
     'not_found' => 'Le fichier combiné \':name\' est introuvable.',
+  ],
+  'resizer' => [
+    'not_found' => 'Le fichier de taille modifiée \':name\' est introuvable.',
   ],
   'system' => [
     'name' => 'Système',
@@ -65,9 +67,11 @@
       'users' => 'Utilisateurs',
       'system' => 'Système',
       'social' => 'Social',
+      'backend' => 'Backend',
       'events' => 'Évènements',
       'customers' => 'Clients',
       'my_settings' => 'Mes réglages',
+      'notifications' => 'Notifications',
     ],
   ],
   'theme' => [
@@ -93,6 +97,7 @@
       'label' => 'Nom du plugin',
       'help' => 'Nommer le plugin avec un nom de code unique. Par exemple, RainLab.Blog',
     ],
+    'by_author' => 'Autheur: :name',
   ],
   'plugins' => [
     'install' => 'Installer des plugins',
@@ -103,6 +108,8 @@
     'recommended' => 'Recommandé',
     'plugin_label' => 'Plugin',
     'unknown_plugin' => 'Le plugin a été supprimé du système de fichiers.',
+    'disabled_by_config' => 'Le plugin a été désactivée dans la configuration.',
+    'disabled_by_system' => 'Le plugin a des dépendances manquantes ou a été désactivé par le système.',
     'select_label' => 'Sélectionner une action...',
     'bulk_actions_label' => 'Actions en bloc',
     'check_yes' => 'Oui',
@@ -249,8 +256,11 @@
     'plugin_code' => 'Code',
     'plugin_description' => 'Description',
     'plugin_version' => 'Version',
+    'plugin_latest' => 'Le plus récent',
     'plugin_author' => 'Auteur',
     'plugin_not_found' => 'Plugin non trouvé',
+    'plugin_version_not_found' => 'La version du plugin est introuvable',
+      'theme_not_found' => 'Thème non trouvé',
     'core_build' => 'Version :build',
     'core_build_help' => 'Une nouvelle version est disponible.',
     'changelog' => 'Changelog',
@@ -281,12 +291,19 @@
     'important_view_guide' => 'Consulter le guide de mise à jour',
     'important_view_release_notes' => 'Voir les notes de version',
     'important_alert_text' => 'Des mise à jour requièrent votre attention.',
+    'details_title_plugin' => 'Détails du plugin',
+    'details_title_theme' => 'Détails du thème',
     'details_title' => 'Détails du plugin',
     'details_view_homepage' => 'Voir la page d’accueil',
     'details_changelog' => 'Journal des modifications',
     'details_changelog_missing' => 'Aucun journal des modifications disponible.',
+    'details_view_license' => 'Voir la license',
     'details_current_version' => 'Version actuelle',
     'details_author' => 'Auteur',
+  ],
+  'market' => [
+    'menu_description' => 'Gérer et installer les plugins et thèmes.',
+    'content_loading' => 'Chargement...',
   ],
   'server' => [
     'connect_error' => 'Erreur lors de la connexion au serveur.',
@@ -364,6 +381,25 @@
   'media' => [
     'invalid_path' => 'Le chemin du fichier indiqué est invalide : \':path\'.',
     'folder_size_items' => 'Article(s)',
+  ],
+  'page' => [
+    'not_found' => [
+      'label' => 'Page introuvable',
+      'help' => 'La page demandée n\'a pas pu être trouvée.',
+    ],
+    'custom_error' => [
+      'label' => 'Erreur de la page',
+      'help' => 'Désolé, quelque chose s\'est mal passé et la page n\'a pas pu être affichée.',
+    ],
+    'invalid_token' => [
+      'label' => 'token de sécurité invalide',
+    ],
+    'maintenance' => [
+      'label' => 'Nous serons de retour prochainement !',
+      'help' => 'Notre site web est en cours de maintenance, revenez bientôt !',
+      'message' => 'Message:',
+      'available_at' => 'Veuillez essayer à nouveau dans:',
+    ],
   ],
   'pagination' => [
     'previous' => 'Précédente',
