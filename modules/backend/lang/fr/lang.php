@@ -207,7 +207,6 @@
     'help' => 'Ajouter un titre et une description pour cette pièce jointe.',
     'title_label' => 'Titre',
     'description_label' => 'Description',
-    'default_prompt' => 'Cliquer sur %s ou déposer un fichier ici pour le télécharger',
     'attachment_url' => 'Adresse URL du fichier joint',
     'upload_file' => 'Télécharger le fichier',
     'upload_error' => 'Erreur lors du téléchargement',
@@ -483,7 +482,6 @@
     'ignore_this_column' => 'Ignorer cette colonne',
     'processing_successful_line1' => 'Le processus d’export du fichier s’est terminé avec succès !',
     'processing_successful_line2' => 'Le navigateur devrait automatiquement vous rediriger vers le téléchargement du fichier.',
-    'export_error' => 'Erreur d’export',
     'file_not_found_error' => 'Fichier non trouvé',
     'empty_error' => 'Il n‘y a aucune donnée à exporter',
     'empty_import_columns_error' => 'Veuillez indiquer des colonnes à importer.',
@@ -521,7 +519,6 @@
   ],
   'mediafinder' => [
     'label' => 'Galerie média',
-    'default_prompt' => 'Cliquez sur le bouton %s pour trouver un élément média',
     'no_image' => 'L’image n’a pas été trouvée',
     'not_an_image' => 'Le fichier sélectionné n’est pas une image',
     'click_to_select_file' => 'Cliquez pour sélectionner un fichier',
