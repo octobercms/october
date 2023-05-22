@@ -1,7 +1,7 @@
 <?php return [
   'cms_object' => [
     'invalid_file' => 'Nom de fichier invalide : :name. Les noms de fichiers ne peuvent contenir que des caractères alphanumériques, des tirets bas, des tirets et des points. Voici des exemples de noms de fichiers valides : page.htm, ma-page, sous_repertoire/nouvelle.page',
-    'invalid_file_inspector' => 'Nom de fichier invalide. Les noms de fichiers ne peuvent contenir seulement des caractères alphanumeriques, des sous-tirets, tirets and points. Quelques exemples de noms de fichiers valides: page.htm, page, subdirectory/page',
+    'invalid_file_inspector' => 'Nom de fichier invalide. Les noms de fichiers ne peuvent contenir seulement des caractères alphanumériques, des sous-tirets, tirets and points. Quelques exemples de noms de fichiers valides: page.htm, page, sous-repertoire/page',
     'invalid_property' => 'L’attribut ":name" ne peut pas être défini',
     'file_already_exists' => 'Le fichier ":name" existe déjà.',
     'error_saving' => 'Erreur lors de l’enregistrement du fichier ":name". Veuillez vérifier les permissions en écriture.',
@@ -232,8 +232,8 @@
     'delete_confirm' => 'Supprimer les modèles sélectionnés ?',
     'order_by' => 'Trier par',
     'last_modified' => 'Modifié le',
-    'storage' => 'Stockage',
-    'template_file' => 'Fichier du modèle',
+    'storage' => 'Emplacement',
+    'template_file' => 'Nom du fichier',
     'storage_filesystem' => 'Fichier système',
     'storage_database' => 'Base de données',
     'update_file' => 'Mettre à jour le fichier du modèle',

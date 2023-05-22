@@ -12,7 +12,7 @@
   'page' => [
     'untitled' => 'Sans titre',
     'not_found' => [
-        'label' => 'La page n’a été trouvée',
+        'label' => 'La page est introuvable',
         'help' => 'La page demandée n’a pas pu être trouvée.',
         'back_link' => 'Retourner à la page précédente',
     ],
@@ -33,7 +33,7 @@
   ],
   'ajax_handler' => [
       'invalid_name' => 'Le nom du handler AJAX est invalide: :name.',
-      'not_found' => 'Le handler AJAX \':name\' n’a pas été trouvé.',
+      'not_found' => 'Le handler AJAX ":name" est introuvable.',
   ],
   'account' => [
     'impersonate' => 'Imiter l’utilisateur',
@@ -200,7 +200,7 @@
   ],
   'object_list' => [
       'prop_cant_be_empty' => 'La propriété :property ne peut pas être vide',
-      'key_value_exists' => 'Lavaleur est déjà définie: :property_value',
+      'key_value_exists' => 'La valeur est déjà définie: :property_value',
   ],
   'fileupload' => [
     'attachment' => 'Pièce jointe',
