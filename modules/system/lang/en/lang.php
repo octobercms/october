@@ -194,7 +194,7 @@
   ],
   'mail' => [
     'smtp_ssl' => 'SSL Connection Required',
-    'drivers_hint_header' => 'Drivers not installed',
+    'drivers_hint_header' => 'Drivers Not Installed',
     'drivers_hint_content' => 'This mail method requires the plugin ":plugin" be installed before you can send mail.',
   ],
   'mail_templates' => [
