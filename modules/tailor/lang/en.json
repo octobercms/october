@@ -85,5 +85,7 @@
     "Update :name Entries": "Update :name Entries",
     "Update :name": "Update :name",
     ":name Entry": ":name Entry",
-    "All :name Items": "All :name Entries"
+    "All :name Items": "All :name Entries",
+    "Update Existing Records": "Update Existing Records",
+    "Check this box to update records that match the same ID, title or slug.": "Check this box to update records that match the same ID, title or slug."
 }

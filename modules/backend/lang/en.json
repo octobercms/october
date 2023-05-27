@@ -206,5 +206,9 @@
   "Icons": "Icons",
   "Left Side": "Left Side",
   "Add New Item": "Add New Item",
-  "Link Color": "Link Color"
+  "Link Color": "Link Color",
+  "Current Password": "Current Password",
+  "New Password": "New Password",
+  "Current password does not match. Please try again!": "Current password does not match. Please try again!",
+  "Your password has expired, please create a new one for security reasons.": "Your password has expired, please create a new one for security reasons."
 }

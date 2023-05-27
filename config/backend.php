@@ -142,7 +142,7 @@ return [
     | require_lowercase - Require at least one lowercase letter (a–z)
     | require_number    - Require at least one number
     | require_nonalpha  - Require at least one non-alphanumeric character
-    | expire_days       - Enable password expiration after number of days (@todo)
+    | expire_days       - Enable password expiration after number of days
     |
     */
 
@@ -152,6 +152,7 @@ return [
         'require_lowercase' => false,
         'require_number' => false,
         'require_nonalpha' => false,
+        'expire_days' => false,
     ],
 
     /*

@@ -1,12 +1,13 @@
 ##
-url = "/wiki/:slug*"
+url = "/wiki/:fullslug*/:id"
 layout = "wiki"
 title = "Wiki Article"
 meta_title = "{{ wiki.title }}"
 
 [section wiki]
 handle = "Wiki\Article"
-entrySlug = "{{ :slug }}"
+entrySlug = "{{ :id }}"
+entryColumn = "id"
 
 [resources]
 vars[activeNavLink] = 'wiki'
@@ -17,6 +18,8 @@ vars[howItsMadeTailorContent] = 'entries/wiki_article/{{ wiki.id }}'
 {% set article = wiki %}
 {% if article is empty %}
     {% do abort(404) %}
+{% elseif article.fullslug != this.param.fullslug %}
+    {% do redirect(''|page({ fullslug: article.fullslug }), 301) %}
 {% endif %}
 
 <div class="container">
