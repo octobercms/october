@@ -40,7 +40,7 @@
   ],
   'app' => [
     'name' => 'October CMS',
-    'tagline' => 'Terug naar de basis',
+    'tagline' => 'Beheerpaneel',
   ],
   'locale' => [
     'ar' => 'العربية',
@@ -321,7 +321,7 @@
     ],
     'none' => [
       'label' => 'Geen updates',
-      'help' => 'Er zijn geen nieuwe updates.',
+      'help' => 'Geen nieuwe updates gevonden.',
     ],
     'important_action' => [
       'empty' => 'Selecteer actie',

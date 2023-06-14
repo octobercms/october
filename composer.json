@@ -44,6 +44,6 @@
             "System\\Console\\": "modules/system/console"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

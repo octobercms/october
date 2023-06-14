@@ -89,5 +89,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Aliasy komponentov sú povinné a môžu obsahovať iba písmená, čísla a podtržítka. Aliasy by mali začínať písmenom.",
   "Unnamed": "Bez názvu",
-  "No description provided": "Nebol poskytnutý žiadny popis"
+  "No description provided": "Nebol poskytnutý žiadny popis",
+  "No snippets found": "Neboli nájdené žiadne snippety",
+  "Search...": "Hľadať...",
+  "Snippet with the requested code :code was not found in the theme.": "Snippet s požadovaným kódom :code nebol nájdený v téme.",
+  "Snippet": "Snippet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Zadajte kód, aby táto čiastková šablóna bola dostupná ako snippet v plugine statických stránok.",
+  "Snippet Code": "Kód snippetu",
+  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Tento názov sa zobrazí v zozname snippetov v bočnom menu pluginu statických stránok a priamo na stránke, keď bude snippet pridaný.",
+  "Property Title": "Názov vlastnosti",
+  "Code": "Kód",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kód vlastnosti by mal začínať latinským písmenom a môže obsahovať len latinské písmená a číslice",
+  "Type": "Typ",
+  "String": "Reťazec",
+  "Checkbox": "Zaškrtávacie pole",
+  "Dropdown": "Rozbaľovací zoznam",
+  "Default": "Predvolená hodnota",
+  "Options": "Možnosti",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Neplatný kľúč položky rozbaľovacieho zoznamu: :key. Kľúč položky rozbaľovacieho zoznamu môže obsahovať iba písmená, číslice a znaky: _-"
 }

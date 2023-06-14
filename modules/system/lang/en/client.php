@@ -26,6 +26,7 @@ return [
         'italic' => 'Italic',
         'unorderedlist' => 'Unordered List',
         'orderedlist' => 'Ordered List',
+        'snippet' => 'Snippet',
         'video' => 'Video',
         'image' => 'Image',
         'link' => 'Link',

@@ -89,5 +89,22 @@
   "Alias": "نام مستعار",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "نام مستعار برای ابزار مورد نیاز بوده و می تواند شامل حروف لاتین، اعداد، و خط زیر باشد و باید با حرف لاتین شروع شود.",
   "Unnamed": "بدون نام",
-  "No description provided": "توصیحات وجود ندارد"
+  "No description provided": "توصیحات وجود ندارد",
+  "No snippets found": "تکه کدی یافت نشد",
+  "Search...": "جستجو...",
+  "Snippet with the requested code :code was not found in the theme.": "تکه کدی با کد یکتای :code در قالب یافت نشد.",
+  "Snippet": "تکه کد",
+  "Enter a code to make this partial available as a snippet in content editors.": "نام یکتایی را جهت دسترسی به این بخش در افزونه صفحات استاتیک به عنوان تکه کد وارد نمایید.",
+  "Snippet Code": "نام یکتای تکه کد",
+  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "نام نمایش داده شده این تکه کد در لیست",
+  "Property Title": "عنوان مشخصه",
+  "Code": "کد یکتا",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "کد مشخصه باید با یک حرف لاتین شروع شده و شامل حروف لاتین و اعداد می تواند باشد.",
+  "Type": "نوع",
+  "String": "رشته",
+  "Checkbox": "جعبه انتخابی",
+  "Dropdown": "انتخابگر کشویی",
+  "Default": "مقدار پیشفرض",
+  "Options": "گزینه ها",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "کلید گزینه %s نامعتبر است. کلید گزینه انتخابگر کشویی فقط میتواند شامل اعداد، حروف لاتین وکاراکتر های _ و - باشد."
 }

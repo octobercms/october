@@ -81,5 +81,22 @@
   "Alias": "Apelido",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Apelidos de componentes são necessários e podem conter letras, números e sublinhados. Os apelidos devem começar com uma letra.",
   "Unnamed": "Sem nome",
-  "No description provided": "Nenhuma descrição fornecida"
+  "No description provided": "Nenhuma descrição fornecida",
+  "No snippets found": "Nenhum fragmento encontrado",
+  "Search...": "Buscar...",
+  "Snippet with the requested code :code was not found in the theme.": "Fragmento com o código :code não foi encontrado.",
+  "Snippet": "Fragmentos",
+  "Enter a code to make this partial available as a snippet in content editors.": "Entre com o código para disponibilizar este bloco como um fragmento nas páginas estáticas.",
+  "Snippet Code": "Código do fragmento",
+  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "O nome é exibido na lista de fragmentos no menu lateral na área de páginas estáticas e nas páginas em que o fragmento é adicionado.",
+  "Property Title": "Título da propriedade",
+  "Code": "Código",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Código da propriedade deve iniciar com uma letra latina e pode conter apenas letras latinas e dígitos",
+  "Type": "Tipo",
+  "String": "Texto",
+  "Checkbox": "Caixa de seleção",
+  "Dropdown": "Caixa de seleção suspensa",
+  "Default": "Padrão",
+  "Options": "Opções",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Chave de opção inválida: %s. Chaves de opção podem conter apenas dígitos, letras latinas e os caracteres _ e -"
 }

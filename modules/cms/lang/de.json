@@ -89,5 +89,22 @@
   "Alias": "Verknüpfung",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentenverknüpfungen werden benötigt und dürfen nur lateinische Zeichen, Ziffern und Unterstriche beinhalten. Die Verknüpfungen müssen mit einem lateinischen Zeichen beginnen.",
   "Unnamed": "Unbenannt",
-  "No description provided": "Keine Beschreibung angegeben"
+  "No description provided": "Keine Beschreibung angegeben",
+  "No snippets found": "Keine Snippets gefunden",
+  "Search...": "Suche...",
+  "Snippet with the requested code :code was not found in the theme.": "Das Snippet mit dem angeforderten code :code wurde nicht im Theme gefunden.",
+  "Snippet": "Snippet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Geben Sie einen Code ein, um dieses Partial als ein Snippet für das Statische-Seiten Plugin freizugeben.",
+  "Snippet Code": "Snippet code",
+  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Der Name wird in der Snippet-Liste in der Seitenleiste der Statische-Seiten angezeigt. Außerdem auf einer Seite wenn ein Snippet angelegt wird.",
+  "Property Title": "Titel für die Eigenschaft",
+  "Code": "Code",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Der Code für die Eigenschaft muss mit einem Buchstaben anfangen, und darf nur Buchstaben und Zahlen enthalten",
+  "Type": "Typ",
+  "String": "Zeichenkette",
+  "Checkbox": "Checkbox",
+  "Dropdown": "Dropdown",
+  "Default": "Standard",
+  "Options": "Optionen",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ungültiger Dropdown Optionsschlüssel: %s. Optionsschlüssel dürfen nur Zahlen, Buchstaben und die Zeichen _ und - enthalten"
 }

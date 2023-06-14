@@ -97,5 +97,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "A komponens aliasok kötelezőek, és csak latin betűket, számokat, valamint aláhúzásokat tartalmazhatnak. Az aliasoknak latin szimbólummal kell kezdődniük.",
   "Unnamed": "Névtelen",
-  "No description provided": "Nincs megadott leírás"
+  "No description provided": "Nincs megadott leírás",
+  "No snippets found": "Nincs létrehozva kódrészlet",
+  "Search...": "Keresés...",
+  "Snippet with the requested code :code was not found in the theme.": "A(z) :code nevű kódrészlet nem található a témában.",
+  "Snippet": "Kódrészlet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Adja meg a kódot, hogy a jelenlegi részlap elérhető legyen kódrészletként a Oldalak bővítményben.",
+  "Snippet Code": "Kódrészlet kódja",
+  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "A Kódrészletek listában jelenik meg a Oldalak oldalsó menüjében, valamint a Oldalak aloldalon.",
+  "Property Title": "Cím",
+  "Code": "kód",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "A kód latin karakterrel kezdődhet és csak latin karaktereket és számokat tartalmazhat.",
+  "Type": "Típus",
+  "String": "Szöveg",
+  "Checkbox": "Jelölőnégyzet",
+  "Dropdown": "Lenyíló lista",
+  "Default": "Alapértelmezett",
+  "Options": "Lehetőségek",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Érvénytelen formátum: :key. Csak számokat, latin betűket és a következő szimbólumokat tartalmazhatja: _-"
 }
