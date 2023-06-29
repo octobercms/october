@@ -7,21 +7,32 @@ headers[Content-Type] = 'application/xml'
 
 [collection sitemap]
 handle = "Site\Sitemap"
+
+[sitePicker]
 ==
-{% macro render_sitemap_item(item, reference, isRoot) %}
+{% macro render_sitemap_item(item, reference, options) %}
     {% import _self as nav %}
-    {% set hideRootItem = isRoot and item.replace %}
+    {% set hideRootItem = options.isRoot and item.replace %}
     {% if reference.url and not hideRootItem %}
         <url>
             <loc>{{ reference.url }}</loc>
             <lastmod>{{ reference.mtime|date('c') }}</lastmod>
             <changefreq>{{ item.changefreq }}</changefreq>
             <priority>{{ item.priority }}</priority>
+
+            {#- Multisite implementation -#}
+            {% if reference.type == 'cms-page' and options.sitePicker.isEnabled %}
+                {% for site in options.sitePicker.pageSites(reference.reference) %}
+                    <xhtml:link rel="alternative" hreflang="{{ site.hard_locale }}" href="{{ site.url }}" />
+                {% endfor %}
+            {% endif %}
         </url>
     {% endif %}
+
+    {#- Render child items -#}
     {% if reference.items %}
         {% for child in reference.items %}
-            {{ nav.render_sitemap_item(item, child) }}
+            {{ nav.render_sitemap_item(item, child, { sitePicker: options.sitePicker}) }}
         {% endfor %}
     {% endif %}
 {% endmacro %}
@@ -36,7 +47,7 @@ handle = "Site\Sitemap"
         {{ nav.render_sitemap_item(
             item,
             link(item.reference, { nesting: item.nesting }),
-            true
+            { isRoot: true, sitePicker: sitePicker }
         ) }}
     {% endfor %}
 </urlset>
