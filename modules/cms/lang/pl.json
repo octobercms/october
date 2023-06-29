@@ -94,7 +94,7 @@
   "Snippet": "Fragment",
   "Enter a code to make this partial available as a snippet in content editors.": "Dodaj kod systemowy aby ten fragment był dostępny do użycia w treści stron statycznych.",
   "Snippet Code": "Kod systemowy",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Nazwa będzie się wyświetlać w menu obok stron statycznych.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Nazwa będzie się wyświetlać w menu obok stron statycznych.",
   "Property Title": "Nazwa parametru",
   "Code": "Kod systemowy",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Nazwa parametru musi się zaczynać od litery i może zawierać tylko litery oraz liczby",

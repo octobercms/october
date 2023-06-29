@@ -94,7 +94,7 @@
   "Snippet": "Koda fragmenti",
   "Enter a code to make this partial available as a snippet in content editors.": "Ievadi kodu, lai padarītu šo partialu par koda fragmentu.",
   "Snippet Code": "Koda fragmenta kods",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Nosaukums tiks rādīts koda fragmentu sarakstā.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Nosaukums tiks rādīts koda fragmentu sarakstā.",
   "Property Title": "Nosaukums",
   "Code": "Kods",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kodam vajadzētu sākties ar latīņu alfabēta burtu un tas var saturēt latīņu alfabēta burtus un ciparus",

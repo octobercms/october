@@ -118,7 +118,7 @@
   "Snippet": "Snippet",
   "Enter a code to make this partial available as a snippet in content editors.": "输入一个代码，使其部分可用作“静态页面”插件中的代码段。",
   "Snippet Code": "Snippet code",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "该名称显示在“静态页面”侧边栏的代码段列表中，并在添加代码段时显示在该页面上。",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "该名称显示在“静态页面”侧边栏的代码段列表中，并在添加代码段时显示在该页面上。",
   "Property Title": "性质",
   "Code": "编码",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "属性代码应以字母开头，只能包含字母和数字",

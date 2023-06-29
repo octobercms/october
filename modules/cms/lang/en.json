@@ -119,7 +119,7 @@
   "Enter a code to make this partial available as a snippet in content editors.": "Enter a code to make this partial available as a snippet in content editors.",
   "Please enter the snippet code": "Please enter the snippet code",
   "Snippet Code": "Snippet Code",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "The name is displayed in the snippet list in the editor when a snippet is added.",
   "Please enter the snippet name": "Please enter the snippet name",
   "Property Title": "Property Title",
   "Snippet Properties": "Snippet Properties",
@@ -136,5 +136,6 @@
   "Default": "Default",
   "Options": "Options",
   "Define Snippet": "Define Snippet",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -"
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -",
+  "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added."
 }

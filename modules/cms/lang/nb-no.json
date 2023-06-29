@@ -70,7 +70,7 @@
   "Snippet": "Snippet",
   "Enter a code to make this partial available as a snippet in content editors.": "Fyll inn en kode for å gjøre denne tilgjengelig som en snippet i Static Pages.",
   "Snippet Code": "Snippet-kode",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Navnet som blir presentert i snippetlisten i Static Pages-menyen og når snippeten er lagt inn på en side.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Navnet som blir presentert i snippetlisten i Static Pages-menyen og når snippeten er lagt inn på en side.",
   "Property Title": "Egenskap",
   "Code": "Kode",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Egenskapkoden skal starte med en latinsk bokstav og kan kun inneholde bokstver og tall.",

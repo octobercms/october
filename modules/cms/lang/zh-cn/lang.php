@@ -333,7 +333,7 @@
       'page_filter' => '`page` 过滤器使用页面文件名创建一个指向页面的链接，没有扩展名，作为参数。',
       'theme_filter' => '`theme` 过滤器返回一个相对于网站活动主题路径的地址。 ',
       'app_filter' => '`app` 过滤器返回一个相对于网站公共路径的地址。',
-      'media_filter' => '`media` 过滤器返回一个相对于 [媒体管理器库](https://octobercms.com/docs/cms/mediamanager) 公共路径的地址。 ',
+      'media_filter' => '`media` 过滤器返回一个相对于 [媒体管理器库](https://docs.octobercms.com/3.x/cms/media/introduction.html) 公共路径的地址。',
       'md_filter' => '`md` 过滤器将值从 Markdown 转换为 HTML 格式。',
       'raw_filter' => '`raw` 过滤器将值标记为“安全”，这意味着如果`raw` 是最后一个应用于它的过滤器，则该变量不会被转义。',
     ],

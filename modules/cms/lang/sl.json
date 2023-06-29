@@ -118,7 +118,7 @@
   "Snippet": "Gradniki",
   "Enter a code to make this partial available as a snippet in content editors.": "Vnesite kodo, s katero bo ta predloga na voljo kot gradnik v vtičniku za statične strani.",
   "Snippet Code": "Koda gradnika",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Ime se prikaže na seznamu gradnikov, na stranskem meniju statičnih strani in na vsebini strani, na katero je dodan gradnik.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Ime se prikaže na seznamu gradnikov, na stranskem meniju statičnih strani in na vsebini strani, na katero je dodan gradnik.",
   "Property Title": "Naslov lastnosti",
   "Code": "Koda",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Koda lastnosti se mora začeti z latinično črko in lahko vsebuje samo latinične črke in številke.",

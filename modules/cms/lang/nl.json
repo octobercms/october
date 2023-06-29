@@ -119,7 +119,7 @@
   "Enter a code to make this partial available as a snippet in content editors.": "Voer een code in om dit fragment beschikbaar the maken in de Static Pages plugin.",
   "Please enter the snippet code": "Geef de snippet een code",
   "Snippet Code": "Blok code",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "De naam wordt weergegeven in de blokkenlijst in de zijbalk en op de pagina waar dit blok wordt toegevoegd.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "De naam wordt weergegeven in de blokkenlijst in de zijbalk en op de pagina waar dit blok wordt toegevoegd.",
   "Please enter the snippet name": "Geef de snippet een naam",
   "Property Title": "Eigenschap naam",
   "Snippet Properties": "Snippet eigenschappen",

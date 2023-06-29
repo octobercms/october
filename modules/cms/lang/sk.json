@@ -96,7 +96,7 @@
   "Snippet": "Snippet",
   "Enter a code to make this partial available as a snippet in content editors.": "Zadajte kód, aby táto čiastková šablóna bola dostupná ako snippet v plugine statických stránok.",
   "Snippet Code": "Kód snippetu",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Tento názov sa zobrazí v zozname snippetov v bočnom menu pluginu statických stránok a priamo na stránke, keď bude snippet pridaný.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Tento názov sa zobrazí v zozname snippetov v bočnom menu pluginu statických stránok a priamo na stránke, keď bude snippet pridaný.",
   "Property Title": "Názov vlastnosti",
   "Code": "Kód",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kód vlastnosti by mal začínať latinským písmenom a môže obsahovať len latinské písmená a číslice",

@@ -104,7 +104,7 @@
   "Snippet": "Kódrészlet",
   "Enter a code to make this partial available as a snippet in content editors.": "Adja meg a kódot, hogy a jelenlegi részlap elérhető legyen kódrészletként a Oldalak bővítményben.",
   "Snippet Code": "Kódrészlet kódja",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "A Kódrészletek listában jelenik meg a Oldalak oldalsó menüjében, valamint a Oldalak aloldalon.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "A Kódrészletek listában jelenik meg a Oldalak oldalsó menüjében, valamint a Oldalak aloldalon.",
   "Property Title": "Cím",
   "Code": "kód",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "A kód latin karakterrel kezdődhet és csak latin karaktereket és számokat tartalmazhat.",

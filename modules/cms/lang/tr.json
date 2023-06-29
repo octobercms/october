@@ -96,7 +96,7 @@
   "Snippet": "Snippet",
   "Enter a code to make this partial available as a snippet in content editors.": "Sayfalar eklentisinde snippet olarak kullanabilmek için bir kod tanımlayın.",
   "Snippet Code": "Snippet kodu",
-  "The name is displayed in the snippet list in the Static Pages sidebar and on a Page when a snippet is added.": "Sol snippet listesinde görüntülenecek ismi girin.",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Sol snippet listesinde görüntülenecek ismi girin.",
   "Property Title": "Property başlığı",
   "Code": "Kod",
   "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kod sadece latin karakterle başlamalı ve latin karakter veya sayı içermelidir",
