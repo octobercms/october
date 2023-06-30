@@ -346,7 +346,7 @@
       'page_filter' => 'O filtro `page` cria um link para uma página usando um nome de arquivo de página, sem extensão, como parâmetro.',
       'theme_filter' => 'O filtro `theme` retorna um endereço relativo ao caminho do tema ativo do site. ',
       'app_filter' => 'O filtro `app` retorna um endereço relativo ao caminho público do site.',
-      'media_filter' => 'O filtro `media` retorna um endereço relativo ao caminho público da [biblioteca do gerenciador de mídia](https://octobercms.com/docs/cms/mediamanager). ',
+      'media_filter' => 'O filtro `media` retorna um endereço relativo ao caminho público da [biblioteca do gerenciador de mídia](https://docs.octobercms.com/3.x/cms/media/introduction.html).',
       'md_filter' => 'O filtro `md` converte o valor do Markdown para o formato HTML.',
       'raw_filter' => 'O filtro `raw` marca o valor como "seguro", o que significa que uma variável não será escapada se `raw` for o último filtro aplicado a ela.',
     ],

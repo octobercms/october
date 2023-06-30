@@ -111,5 +111,22 @@
   "Alias": "Vzdevek",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Vzdevki komponent so obvezni in lahko vsebujejo le latinične znake, številke in podčrtaje. Vzdevki naj se začnejo z latiničnim znakom.",
   "Unnamed": "Neimenovano",
-  "No description provided": "Opis ni podan"
+  "No description provided": "Opis ni podan",
+  "No snippets found": "Ni najdenih gradnikov.",
+  "Search...": "Išči...",
+  "Snippet with the requested code :code was not found in the theme.": "Gradnika s kodo :code v trenutni temi ni mogoče najti.",
+  "Snippet": "Gradniki",
+  "Enter a code to make this partial available as a snippet in content editors.": "Vnesite kodo, s katero bo ta predloga na voljo kot gradnik v vtičniku za statične strani.",
+  "Snippet Code": "Koda gradnika",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Ime se prikaže na seznamu gradnikov, na stranskem meniju statičnih strani in na vsebini strani, na katero je dodan gradnik.",
+  "Property Title": "Naslov lastnosti",
+  "Code": "Koda",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Koda lastnosti se mora začeti z latinično črko in lahko vsebuje samo latinične črke in številke.",
+  "Type": "Tip",
+  "String": "Niz znakov",
+  "Checkbox": "Potrditveno polje",
+  "Dropdown": "Spustni meni",
+  "Default": "Privzeto",
+  "Options": "Možnosti",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Neveljaven ključ elementa spustnega seznama: :key. Ključi lahko vsebujejo le številke, latinične črke in znaka _ ter -."
 }

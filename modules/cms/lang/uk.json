@@ -89,5 +89,22 @@
   "Alias": "Назва компонента",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Псевдонім обов'язковий і може містити тільки латинські букви, цифри і знаки підкреслення. Псевдоніми повинні починатися з літери.",
   "Unnamed": "Без назви",
-  "No description provided": "Без опису"
+  "No description provided": "Без опису",
+  "No snippets found": "Сніппети не знайдені",
+  "Search...": "Пошук...",
+  "Snippet with the requested code :code was not found in the theme.": "Сніппет з запитаним кодом %s не знайдений в темі.",
+  "Snippet": "Сніппети",
+  "Enter a code to make this partial available as a snippet in content editors.": "Введіть код, щоб зробити цей фрагмент доступним як сніппет в розширенні Сторінки.",
+  "Snippet Code": "Код сніппета",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Ім'я відображається в списку фрагментів розширення Сторінки і на сторінці, коли сніппет доданий.",
+  "Property Title": "Назва властивості",
+  "Code": "Код",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Код властивості повинен починатися з літери та може містити тільки латинські букви і цифри",
+  "Type": "Тип",
+  "String": "Рядок",
+  "Checkbox": "Чекбокс",
+  "Dropdown": "Список, що випадає",
+  "Default": "За замовчуванням",
+  "Options": "Опції",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Неправильний ключ списку: %s. Ключ може містити тільки цифри, латинські літери і символи _ і -"
 }

@@ -87,5 +87,22 @@
   "Alias": "Ψευδώνυμο",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Τα ψευδώνυμα των συστατικών είναι υποχρεωτικά και μπορούν να περιέχουν μόνο Λατινικά σύμβολα, αριθμούς, και κάτω παύλες. Τα ψευδώνυμα θα πρέπει να αρχίζουν με ένα λατινικό σύμβολο.",
   "Unnamed": "Χωρίς Όνομα",
-  "No description provided": "Δεν παρέχεται περιγραφή"
+  "No description provided": "Δεν παρέχεται περιγραφή",
+  "No snippets found": "Δεν βρέθηκαν αποσπάσματα",
+  "Search...": "Αναζήτηση...",
+  "Snippet with the requested code :code was not found in the theme.": "Απόσπασμα με τον ζητούμενο κωδικό :code δεν βρέθηκε στο πρότυπο θέμα.",
+  "Snippet": "Αποσπάσματα",
+  "Enter a code to make this partial available as a snippet in content editors.": "Εισάγετε ένα κώδικα για να κάνεται αυτό το partial διαθέσιμο σαν απόσπασμα στο πρόσθετο Στατικών Σελίδων.",
+  "Snippet Code": "Κώδικας αποσπάσματος",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Το όνομα εμφανίζεται στην λίστα αποσπασμάτων στην πλευρική στήλη Στατικών Σελίδων και σε μία Σελίδα όταν προστίθεται ένα απόσπασμα.",
+  "Property Title": "Τίτλος ιδιότητας",
+  "Code": "Κωδικός",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Οι κωδικοί των ιδιοτήτων πρέπει να ξεκινούν με Λατινικά γράμματα και μπορούν να περιέχουν μόνο Λατινικά γράμματα και αριθμητικά ψηφία",
+  "Type": "Τύπος",
+  "String": "Κείμενο",
+  "Checkbox": "Πλαίσιο ελέγχου",
+  "Dropdown": "Πτυσσόμενες επιλογές",
+  "Default": "Προκαθορισμένο",
+  "Options": "Επιλογές",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Μή έγκυρο κλειδί πτυσσόμενης επιλογής: :key. Τα κλειδιά επιλογών μπορούνα να περιέχουν μόνο αριθμιτικά ψηφία, Λατινικά γράμματα και τους χαρακτήρες _ και -"
 }

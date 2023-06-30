@@ -87,5 +87,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentalias är obligatoriska och får endast innehålla bokstäver, siffror, och understreck. De måste börja med en bokstav",
   "Unnamed": "Ej namngiven",
-  "No description provided": "Ingen beskrivning"
+  "No description provided": "Ingen beskrivning",
+  "No snippets found": "Inga stumpar hittades",
+  "Search...": "Sök...",
+  "Snippet with the requested code :code was not found in the theme.": "En stump med den begärda koden :code kunde inte hittas i temat.",
+  "Snippet": "Stump",
+  "Enter a code to make this partial available as a snippet in content editors.": "Skriv in en kod som gör att denna sidurklipp är tillgänglig som en stump i tillägget för statiska sidor.",
+  "Snippet Code": "Stumpkod",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Namnet visas i listan med stumpar i sidopanelen och på en sida när stumpen är tillagd.",
+  "Property Title": "Egenskapsrubrik",
+  "Code": "Kod",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Egenskapskoden ska börja med en latisk bokstav kan bara innehålla latinska bokstäver samt siffror",
+  "Type": "Typ",
+  "String": "Sträng",
+  "Checkbox": "Kryssruta",
+  "Dropdown": "Rullgardinsmeny",
+  "Default": "Standard",
+  "Options": "Alternativ",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nyckeln: %s, i Rullgardinsmenyn är ogiltig. Alternativnycklarna kan bara innehålla siffror, latinska bokstäver och karaktärerna _ samt -"
 }

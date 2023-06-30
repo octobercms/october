@@ -89,5 +89,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Les alias du composant sont requis et doivent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.",
   "Unnamed": "Sans nom",
-  "No description provided": "Aucune description n’a été fournie"
+  "No description provided": "Aucune description n’a été fournie",
+  "No snippets found": "Aucun fragment trouvé",
+  "Search...": "Rechercher...",
+  "Snippet with the requested code :code was not found in the theme.": "Le fragment demandé avec le code :code n’a pas été trouvé dans le thème.",
+  "Snippet": "Fragment",
+  "Enter a code to make this partial available as a snippet in content editors.": "Entrez un code pour rendre ce contenu partiel disponible en tant que fragment dans le plugin des Pages Statiques.",
+  "Snippet Code": "Code du fragment",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Le nom est affiché dans la liste des fragments dans le menu latéral des Pages Statiques et dans une Page lorsque qu’un fragment y est ajouté.",
+  "Property Title": "Nom de la propriété",
+  "Code": "Code",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Le code de la propriété devrait commencer par une lettre et ne peut contenir que des lettres et des chiffres",
+  "Type": "Type",
+  "String": "Chaîne de caractères",
+  "Checkbox": "Case à cocher",
+  "Dropdown": "Menu déroulant",
+  "Default": "Valeur par défaut",
+  "Options": "Options",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Clé de l’option de la liste déroulante invalide. Les clés des options ne peuvent contenir que des chiffres, des lettres et les symboles _ et -"
 }

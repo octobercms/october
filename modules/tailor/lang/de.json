@@ -15,6 +15,8 @@
   "Entries have been disabled": "Einträge wurden deaktiviert",
   "Entries have been enabled": "Einträge wurden aktiviert",
   "Entries have been deleted": "Einträge wurden gelöscht",
+  "Entries have been restored": "Einträge wurden wiederhergestellt",
+  "Entries have been duplicated": "Einträge wurden dupliziert",
   "Manage Blueprints": "Blueprints verwalten",
   "All Entries": "Alle Einträge",
   "Published Date": "Veröffentlichungsdatum",
@@ -63,5 +65,7 @@
   "Default View": "Standardansicht",
   "Used as default entry point when previewing the record.": "Wird als Standardeinstiegspunkt bei der Vorschau des Datensatzes verwendet.",
   "Full Slug": "Vollständiger Slug",
-  "Use the full slug when looking up the record.": "Vollständigen Slug verwenden, um einen Datensatz zu suchen."
+  "Use the full slug when looking up the record.": "Vollständigen Slug verwenden, um einen Datensatz zu suchen.",
+  "Are you sure?": "Sind Sie sicher?",
+  "Copy": "Kopie"
 }

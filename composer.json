@@ -6,7 +6,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8.0.2",
-        "october/rain": "^3.3",
+        "october/rain": "^3.4",
         "laravel/framework": "^9.0"
     },
     "require-dev": {
@@ -44,6 +44,6 @@
             "System\\Console\\": "modules/system/console"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

@@ -89,5 +89,22 @@
   "Alias": "Takma ad",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Bileşen isimleri gerkelidir ve sadece Latin semboller, sayılar, ve alt çizgi içerebilir. Bileşen ismi ayrıca Latin harfle başlamalı.",
   "Unnamed": "İsimsiz",
-  "No description provided": "Açıklama girilmedi."
+  "No description provided": "Açıklama girilmedi.",
+  "No snippets found": "Snippet bulunamadı",
+  "Search...": "Ara...",
+  "Snippet with the requested code :code was not found in the theme.": "Tema için :code kodu ile istenilen snippet bulunamadı.",
+  "Snippet": "Snippet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Sayfalar eklentisinde snippet olarak kullanabilmek için bir kod tanımlayın.",
+  "Snippet Code": "Snippet kodu",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Sol snippet listesinde görüntülenecek ismi girin.",
+  "Property Title": "Property başlığı",
+  "Code": "Kod",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kod sadece latin karakterle başlamalı ve latin karakter veya sayı içermelidir",
+  "Type": "Tip",
+  "String": "Metin (string)",
+  "Checkbox": "Seçmeli (checkbox)",
+  "Dropdown": "Açılır liste (dropdown)",
+  "Default": "Ön tanımlı (default)",
+  "Options": "Seçenekler (options)",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Seçenek key i geçersiz: :key. Seçenek keyleri sadece sayı, Latin harfler ve karakter _ ve - içerebilir"
 }

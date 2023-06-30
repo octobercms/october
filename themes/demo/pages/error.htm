@@ -6,6 +6,9 @@ layout = "default"
 less[] = "pages/404.less"
 vars[howItsMadeCmsTemplate] = 'cms:cms-page:error.htm'
 ==
+{% put meta %}
+    <meta name="turbo-visit-control" content="error">
+{% endput %}
 <div class="container">
     <div class="banner-404">
         <h1>Error</h1>

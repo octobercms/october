@@ -46,7 +46,7 @@
     'signed_in_as' => 'Signed in as :full_name',
     'sign_out' => 'Sign Out',
     'login_prompt' => 'Welcome back! Please login to your account to continue.',
-    'login_placeholder' => 'login',
+    'login_placeholder' => 'username',
     'password_placeholder' => 'password',
     'enter_email' => 'Enter your email',
     'email_placeholder' => 'email',

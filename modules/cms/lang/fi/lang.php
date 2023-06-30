@@ -351,7 +351,7 @@
       'page_filter' => '`page`-suodatin luo linkin sivulle käyttäen sivutiedoston nimeä ilman tiedostotunnistetta parametrina.',
       'theme_filter' => '`theme`-suodatin palauttaa osoitteen suhteessa sivuston aktiiviseen teeman polkuun.',
       'app_filter' => '`app`-suodatin palauttaa osoitteen suhteessa sivuston julkiseen polkuun.',
-      'media_filter' => '`media`-suodatin palauttaa osoitteen suhteessa [mediahallintakirjaston](https://octobercms.com/docs/cms/mediamanager) julkiseen polkuun.',
+      'media_filter' => '`media`-suodatin palauttaa osoitteen suhteessa [mediahallintakirjaston](https://docs.octobercms.com/3.x/cms/media/introduction.html) julkiseen polkuun.',
       'md_filter' => '`md`-suodatin muuntaa Markdown-muotoisen arvon HTML-muotoon.',
       'raw_filter' => '`raw`-suodatin merkitsee arvon "turvalliseksi", mikä tarkoittaa, että muuttujaa ei koodata, jos `raw` on viimeinen siihen sovellettu suodatin.'
     ],

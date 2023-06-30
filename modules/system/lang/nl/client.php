@@ -26,6 +26,7 @@ return [
         'italic' => 'Cursief',
         'unorderedlist' => 'Ongeordende lijst',
         'orderedlist' => 'Gerangschikte lijst',
+        'snippet' => 'Snippet',
         'video' => 'Video',
         'image' => 'Afbeelding',
         'link' => 'Hyperlink',

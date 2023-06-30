@@ -88,5 +88,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "El alias de componente es requerido y puede contener solamente letras, números y guión bajo. El alias debe empezar con una letra.",
   "Unnamed": "Sin nombre",
-  "No description provided": "No se proporcionó descripción"
+  "No description provided": "No se proporcionó descripción",
+  "No snippets found": "No se han encontrado fragmentos",
+  "Search...": "Buscar...",
+  "Snippet with the requested code :code was not found in the theme.": "No se ha encontrado ningún fragmento con el código :code en este tema.",
+  "Snippet": "Fragmentos",
+  "Enter a code to make this partial available as a snippet in content editors.": "Introduce un código para hacer que el fragmento esté disponible en el plugin de páginas.",
+  "Snippet Code": "Código del fragmento",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "El nombre se muestra en la lista de fragmentos, en el menu lateral del plugin de las páginas, y en cada página en la que se haya utilizado el fragmento.",
+  "Property Title": "Título de propiedad",
+  "Code": "Código",
+  "Property code should start with a Latin letter and can contain only Latin letters and digits": "El código de propiedad debería comenzar por una letra. Sólo puede contener letras y números.",
+  "Type": "Tipo",
+  "String": "Texto",
+  "Checkbox": "Casilla",
+  "Dropdown": "Desplegable",
+  "Default": "Valor Predeterminado",
+  "Options": "Opciones",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "La clave de opción del desplegable no es válida : %s. Estas claves sólo pueden contener números, letras y los símbolos _ y -"
 }
