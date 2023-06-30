@@ -18,7 +18,7 @@ vars[howItsMadeTailorContent] = 'entries/wiki_article/{{ wiki.id }}'
 {% set article = wiki %}
 {% if article is empty %}
     {% do abort(404) %}
-{% elseif article.fullslug != this.param.fullslug %}
+{% elseif article.fullslug and article.fullslug != this.param.fullslug %}
     {% do redirect(''|page({ fullslug: article.fullslug }), 301) %}
 {% endif %}
 
