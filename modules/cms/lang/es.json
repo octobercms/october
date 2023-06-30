@@ -98,7 +98,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "El nombre se muestra en la lista de fragmentos, en el menu lateral del plugin de las páginas, y en cada página en la que se haya utilizado el fragmento.",
   "Property Title": "Título de propiedad",
   "Code": "Código",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "El código de propiedad debería comenzar por una letra. Sólo puede contener letras y números.",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "El código de propiedad debería comenzar por una letra. Sólo puede contener letras y números.",
   "Type": "Tipo",
   "String": "Texto",
   "Checkbox": "Casilla",

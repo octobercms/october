@@ -97,7 +97,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Nazwa będzie się wyświetlać w menu obok stron statycznych.",
   "Property Title": "Nazwa parametru",
   "Code": "Kod systemowy",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Nazwa parametru musi się zaczynać od litery i może zawierać tylko litery oraz liczby",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Nazwa parametru musi się zaczynać od litery i może zawierać tylko litery oraz liczby",
   "Type": "Typ",
   "String": "Tekst",
   "Checkbox": "Checkbox",

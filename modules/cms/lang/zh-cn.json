@@ -121,7 +121,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "该名称显示在“静态页面”侧边栏的代码段列表中，并在添加代码段时显示在该页面上。",
   "Property Title": "性质",
   "Code": "编码",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "属性代码应以字母开头，只能包含字母和数字",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "属性代码应以字母开头，只能包含字母和数字",
   "Type": "类型",
   "String": "字符串",
   "Checkbox": "检查框",

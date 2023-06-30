@@ -99,7 +99,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Sol snippet listesinde görüntülenecek ismi girin.",
   "Property Title": "Property başlığı",
   "Code": "Kod",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kod sadece latin karakterle başlamalı ve latin karakter veya sayı içermelidir",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Kod sadece latin karakterle başlamalı ve latin karakter veya sayı içermelidir",
   "Type": "Tip",
   "String": "Metin (string)",
   "Checkbox": "Seçmeli (checkbox)",

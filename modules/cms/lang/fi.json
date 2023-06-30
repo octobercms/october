@@ -125,7 +125,7 @@
   "Please provide the property title": "Ole hyvä ja lisää ominaisuuden otsikko",
   "Code": "Koodi",
   "Please provide the property name": "Ominaisuuden nimi on pakollinen",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Ominaisuuden koodin tulisi alkaa latinalaisella kirjaimella ja voi sisältää ainoastaan latinalaisia merkkejä ja kokonaislukuja",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Ominaisuuden koodin tulisi alkaa latinalaisella kirjaimella ja voi sisältää ainoastaan latinalaisia merkkejä ja kokonaislukuja",
   "Type": "Tyyppi",
   "Select": "Valitse",
   "String": "Merkkijono",

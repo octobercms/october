@@ -126,7 +126,7 @@
   "Please provide the property title": "Geef de eigenschap titel op",
   "Code": "Code",
   "Please provide the property name": "Geef de eigenschap naam op",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "De naam van de eigenschap moet beginnen met een letter en kan alleen letters en cijfers bevatten.",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "De naam van de eigenschap moet beginnen met een letter en kan alleen letters en cijfers bevatten.",
   "Type": "Type",
   "Select": "Selectie",
   "String": "Tekst",

@@ -99,7 +99,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Le nom est affiché dans la liste des fragments dans le menu latéral des Pages Statiques et dans une Page lorsque qu’un fragment y est ajouté.",
   "Property Title": "Nom de la propriété",
   "Code": "Code",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Le code de la propriété devrait commencer par une lettre et ne peut contenir que des lettres et des chiffres",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Le code de la propriété devrait commencer par une lettre et ne peut contenir que des lettres et des chiffres",
   "Type": "Type",
   "String": "Chaîne de caractères",
   "Checkbox": "Case à cocher",

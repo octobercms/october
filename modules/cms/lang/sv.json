@@ -97,7 +97,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Namnet visas i listan med stumpar i sidopanelen och på en sida när stumpen är tillagd.",
   "Property Title": "Egenskapsrubrik",
   "Code": "Kod",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Egenskapskoden ska börja med en latisk bokstav kan bara innehålla latinska bokstäver samt siffror",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Egenskapskoden ska börja med en latisk bokstav kan bara innehålla latinska bokstäver samt siffror",
   "Type": "Typ",
   "String": "Sträng",
   "Checkbox": "Kryssruta",

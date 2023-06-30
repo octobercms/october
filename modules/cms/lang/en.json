@@ -126,7 +126,7 @@
   "Please provide the property title": "Please provide the property title",
   "Code": "Code",
   "Please provide the property name": "Please provide the property name",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Property code should start with a Latin letter and can contain only Latin letters and digits",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores",
   "Type": "Type",
   "Select": "Select",
   "String": "String",
