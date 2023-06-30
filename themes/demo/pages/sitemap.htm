@@ -7,12 +7,10 @@ headers[Content-Type] = 'application/xml'
 
 [collection sitemap]
 handle = "Site\Sitemap"
-
-[sitePicker]
 ==
-{% macro render_sitemap_item(item, reference, options) %}
+{% macro render_sitemap_item(item, reference, isRoot) %}
     {% import _self as nav %}
-    {% set hideRootItem = options.isRoot and item.replace %}
+    {% set hideRootItem = isRoot and item.replace %}
     {% if reference.url and not hideRootItem %}
         <url>
             <loc>{{ reference.url }}</loc>
@@ -21,9 +19,9 @@ handle = "Site\Sitemap"
             <priority>{{ item.priority }}</priority>
 
             {#- Multisite implementation -#}
-            {% if reference.type == 'cms-page' and options.sitePicker.isEnabled %}
-                {% for site in options.sitePicker.pageSites(reference.reference) %}
-                    <xhtml:link rel="alternative" hreflang="{{ site.hard_locale }}" href="{{ site.url }}" />
+            {% if reference.sites %}
+                {% for site in reference.sites %}
+                    <xhtml:link rel="alternative" hreflang="{{ site.locale }}" href="{{ site.url }}" />
                 {% endfor %}
             {% endif %}
         </url>
@@ -32,7 +30,7 @@ handle = "Site\Sitemap"
     {#- Render child items -#}
     {% if reference.items %}
         {% for child in reference.items %}
-            {{ nav.render_sitemap_item(item, child, { sitePicker: options.sitePicker}) }}
+            {{ nav.render_sitemap_item(item, child) }}
         {% endfor %}
     {% endif %}
 {% endmacro %}
@@ -46,8 +44,8 @@ handle = "Site\Sitemap"
     {% for item in sitemap %}
         {{ nav.render_sitemap_item(
             item,
-            link(item.reference, { nesting: item.nesting }),
-            { isRoot: true, sitePicker: sitePicker }
+            link(item.reference, { nesting: item.nesting, sites: true }),
+            true
         ) }}
     {% endfor %}
 </urlset>
