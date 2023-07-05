@@ -5,6 +5,7 @@
 <meta name="author" content="October CMS">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="October CMS">
+{% meta %}
 <link rel="icon" type="image/png" href="{{ 'assets/images/october.png'|theme }}">
 <link href="{{ 'assets/vendor/bootstrap/bootstrap.css'|theme }}" rel="stylesheet">
 <link href="{{ 'assets/vendor/bootstrap-icons/bootstrap-icons.css'|theme }}" rel="stylesheet">
@@ -24,7 +25,7 @@
 
 <script type="module">
     import PhotoSwipeLightbox from "{{ 'assets/vendor/photoswipe/photoswipe-lightbox.esm.min.js'|theme }}";
-    import PhotoSwipeModule from  "{{ 'assets/vendor/photoswipe/photoswipe.esm.min.js'|theme }}"
+    import PhotoSwipeModule from "{{ 'assets/vendor/photoswipe/photoswipe.esm.min.js'|theme }}"
     import PhotoSwipeDynamicCaption from "{{ 'assets/vendor/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.esm.js'|theme }}";
 
     window.PhotoSwipeLightbox = PhotoSwipeLightbox;

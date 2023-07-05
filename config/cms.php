@@ -190,6 +190,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Middleware Group
+    |--------------------------------------------------------------------------
+    |
+    | The name of the middleware group to apply to all CMS application routes.
+    | You may use this to apply your own middleware definition, or use some
+    | of the defaults: web, api
+    |
+    */
+
+    'middleware_group' => 'web',
+
+    /*
+    |--------------------------------------------------------------------------
     | V1 Security Policy
     |--------------------------------------------------------------------------
     |

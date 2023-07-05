@@ -7,7 +7,7 @@
         {% for sibling in parent.children %}
             {% if nextLink == true %}
                 <li class="mb-1">
-                    Next: <a href="{{ 'wiki/article'|page({ slug: sibling.slug }) }}">{{ sibling.title }}</a>
+                    Next: <a href="{{ 'wiki/article'|page({ fullslug: sibling.fullslug }) }}">{{ sibling.title }}</a>
                 </li>
                 {% set nextLink = null %}
             {% endif %}
@@ -15,7 +15,7 @@
             {% if sibling.id == article.id %}
                 {% if prevLink %}
                     <li class="mb-1">
-                        Previous: <a href="{{ 'wiki/article'|page({ slug: prevLink.slug }) }}">{{ prevLink.title }}</a>
+                        Previous: <a href="{{ 'wiki/article'|page({ fullslug: prevLink.fullslug }) }}">{{ prevLink.title }}</a>
                     </li>
                 {% endif %}
                 {% set nextLink = true %}
@@ -24,7 +24,7 @@
         {% endfor %}
 
         <li class="mb-1">
-            Return to <a href="{{ 'wiki/article'|page({ slug: parent.slug }) }}">{{ parent.title }}</a>
+            Return to <a href="{{ 'wiki/article'|page({ fullslug: parent.fullslug }) }}">{{ parent.title }}</a>
         </li>
     {% endif %}
 </ul>

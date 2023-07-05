@@ -103,5 +103,22 @@
   "Alias": "Псевдоним",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Псевдонимы обязательны и могут содержать только латинские буквы, цифры и знаки подчеркивания. Псевдонимы должны начинаться с латинской буквы.",
   "Unnamed": "Безымянный",
-  "No description provided": "Без описания"
+  "No description provided": "Без описания",
+  "No snippets found": "Сниппеты не найдены",
+  "Search...": "Поиск...",
+  "Snippet with the requested code :code was not found in the theme.": "Сниппет с запрошенным кодом %s не найден в теме.",
+  "Snippet": "Сниппеты",
+  "Enter a code to make this partial available as a snippet in content editors.": "Введите код, чтобы сделать этот фрагмент доступным как сниппет в расширении Страницы.",
+  "Snippet Code": "Код сниппета",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Имя отображается в списке сниппетов расширения Страницы и на странице, когда сниппет добавлен.",
+  "Property Title": "Название свойства",
+  "Code": "Код",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Код свойства должен начинаться с латинской буквы и может содержать только латинские буквы и цифры",
+  "Type": "Тип",
+  "String": "Строка",
+  "Checkbox": "Чекбокс",
+  "Dropdown": "Выпадающий список",
+  "Default": "По умолчанию",
+  "Options": "Опции",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Некорректный ключ выпадающего списка: %s. Ключ может содержать только цифры, латинские буквы и символы _ и -"
 }

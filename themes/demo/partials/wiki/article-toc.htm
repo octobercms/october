@@ -1,7 +1,7 @@
 {% macro render_toc(articles) %}
     {% for article in articles %}
         <li>
-            <a href="{{ 'wiki/article'|page({ slug: article.slug }) }}">{{ article.title }}</a>
+            <a href="{{ 'wiki/article'|page({ fullslug: article.fullslug, id: article.id }) }}">{{ article.title }}</a>
             - {{ article.summary_text }}
             <ul>
                 {% if article.children %}

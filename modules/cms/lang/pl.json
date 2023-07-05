@@ -87,5 +87,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.",
   "Unnamed": "Bez nazwy",
-  "No description provided": "Brak opisu"
+  "No description provided": "Brak opisu",
+  "No snippets found": "Nie znaleziono",
+  "Search...": "Szukaj...",
+  "Snippet with the requested code :code was not found in the theme.": "Fragment o podanym kodzie systemowym :code nie został znaleziony.",
+  "Snippet": "Fragment",
+  "Enter a code to make this partial available as a snippet in content editors.": "Dodaj kod systemowy aby ten fragment był dostępny do użycia w treści stron statycznych.",
+  "Snippet Code": "Kod systemowy",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Nazwa będzie się wyświetlać w menu obok stron statycznych.",
+  "Property Title": "Nazwa parametru",
+  "Code": "Kod systemowy",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Nazwa parametru musi się zaczynać od litery i może zawierać tylko litery oraz liczby",
+  "Type": "Typ",
+  "String": "Tekst",
+  "Checkbox": "Checkbox",
+  "Dropdown": "Lista rozwijana",
+  "Default": "Domyślny",
+  "Options": "Opcje",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nieprawidłowa opcja: :key. Opcja wyboru może zawierać tylko litery, cyfry, myślnik i podkreślnik"
 }

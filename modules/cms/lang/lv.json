@@ -87,5 +87,22 @@
   "Alias": "Saīsinājums",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponenta saīsinājums ir obligāts un var sastāvēt tikai no Latīņu simboliem, skaitļiem un apakšsvītrām. Saīsinājumiem vajadzētu sākties ar Latīņu simbolu.",
   "Unnamed": "Nenosaukts",
-  "No description provided": "Apraksts nav norādīts"
+  "No description provided": "Apraksts nav norādīts",
+  "No snippets found": "Koda fragmenti netika atrasti",
+  "Search...": "Meklēt...",
+  "Snippet with the requested code :code was not found in the theme.": "Koda fragments ar pieprasīto kodu :code netika atrasts tēmā.",
+  "Snippet": "Koda fragmenti",
+  "Enter a code to make this partial available as a snippet in content editors.": "Ievadi kodu, lai padarītu šo partialu par koda fragmentu.",
+  "Snippet Code": "Koda fragmenta kods",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Nosaukums tiks rādīts koda fragmentu sarakstā.",
+  "Property Title": "Nosaukums",
+  "Code": "Kods",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Kodam vajadzētu sākties ar latīņu alfabēta burtu un tas var saturēt latīņu alfabēta burtus un ciparus",
+  "Type": "Tips",
+  "String": "Teksts",
+  "Checkbox": "Checkboksis",
+  "Dropdown": "Dropdowns",
+  "Default": "Noklusējuma vērtība",
+  "Options": "Opcijas",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nekorekta dropdowna vērtība: :key."
 }

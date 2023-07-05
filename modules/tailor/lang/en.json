@@ -16,6 +16,7 @@
     "Entries have been enabled": "Entries have been enabled",
     "Entries have been deleted": "Entries have been deleted",
     "Entries have been restored": "Entries have been restored",
+    "Entries have been duplicated": "Entries have been duplicated",
     "Manage Blueprints": "Manage Blueprints",
     "All Entries": "All Entries",
     "Published Date": "Published Date",
@@ -85,5 +86,8 @@
     "Update :name Entries": "Update :name Entries",
     "Update :name": "Update :name",
     ":name Entry": ":name Entry",
-    "All :name Items": "All :name Entries"
+    "All :name Items": "All :name Entries",
+    "Update Existing Records": "Update Existing Records",
+    "Check this box to update records that match the same ID, title or slug.": "Check this box to update records that match the same ID, title or slug.",
+    "Copy": "Copy"
 }

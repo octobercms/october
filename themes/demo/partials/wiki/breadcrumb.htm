@@ -2,7 +2,7 @@
     {% if article.parent %}
         {{ _self.render_breadcrumb(article.parent) }}
         <li class="breadcrumb-item">
-            <a href="{{ 'wiki/article'|page({ slug: article.parent.slug }) }}">
+            <a href="{{ 'wiki/article'|page({ fullslug: article.parent.fullslug, id: article.parent.id }) }}">
                 {{ article.parent.title }}
             </a>
         </li>

@@ -17,8 +17,17 @@ handle = "Site\Sitemap"
             <lastmod>{{ reference.mtime|date('c') }}</lastmod>
             <changefreq>{{ item.changefreq }}</changefreq>
             <priority>{{ item.priority }}</priority>
+
+            {#- Multisite implementation -#}
+            {% if reference.sites %}
+                {% for site in reference.sites %}
+                    <xhtml:link rel="alternative" hreflang="{{ site.locale }}" href="{{ site.url }}" />
+                {% endfor %}
+            {% endif %}
         </url>
     {% endif %}
+
+    {#- Render child items -#}
     {% if reference.items %}
         {% for child in reference.items %}
             {{ nav.render_sitemap_item(item, child) }}
@@ -35,7 +44,7 @@ handle = "Site\Sitemap"
     {% for item in sitemap %}
         {{ nav.render_sitemap_item(
             item,
-            link(item.reference, { nesting: item.nesting }),
+            link(item.reference, { nesting: item.nesting, sites: true }),
             true
         ) }}
     {% endfor %}

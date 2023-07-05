@@ -87,5 +87,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "L'alias del componente è obbligatorio e può contenere solo lettere latine, numeri e underscores. L'alias deve iniziare con una lettera.",
   "Unnamed": "Senza nome",
-  "No description provided": "Nessuna descrizione fornita"
+  "No description provided": "Nessuna descrizione fornita",
+  "No snippets found": "Nessuno snippet trovato",
+  "Search...": "Cerca...",
+  "Snippet with the requested code :code was not found in the theme.": "Snippet con codice :code non trovato nel tema.",
+  "Snippet": "Snippet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Inserisci un codice per rendere questa vista parziale disponibile come snippet nel plugin Static Pages.",
+  "Snippet Code": "Codice Snippet",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Il nome è visualizzato nella lista degli snippet nella barra laterale di Static Pages e su una Pagina quando viene aggiunto lo snippet.",
+  "Property Title": "Titolo proprietà",
+  "Code": "Codice",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Il codice della proprietà deve iniziare con una lettera latina e può contenere solo lettere latine e numeri",
+  "Type": "Tipo",
+  "String": "Testo",
+  "Checkbox": "Checkbox",
+  "Dropdown": "Menu a cascata",
+  "Default": "Default",
+  "Options": "Opzioni",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Opzione del menu a cascata non valida: %s. Le opzioni possono contenere solo numeri, lettere latine e i caratteri _ e -"
 }

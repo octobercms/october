@@ -335,7 +335,7 @@
       'page_filter' => 'The `page` filter creates a link to a page using a page file name, without an extension, as a parameter.',
       'theme_filter' => 'The `theme` filter returns an address relative to the active theme path of the website. ',
       'app_filter' => 'The `app` filter returns an address relative to the public path of the website.',
-      'media_filter' => 'The `media` filter returns an address relative to the public path of the [media manager library](https://octobercms.com/docs/cms/mediamanager). ',
+      'media_filter' => 'The `media` filter returns an address relative to the public path of the [media manager library](https://docs.octobercms.com/3.x/cms/media/introduction.html).',
       'md_filter' => 'The `md` filter converts the value from Markdown to HTML format.',
       'raw_filter' => 'The `raw` filter marks the value as being "safe", which means that a variable will not be escaped if `raw` is the last filter applied to it.',
     ],

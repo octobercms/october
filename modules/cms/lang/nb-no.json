@@ -63,5 +63,22 @@
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentaliaser kan kun inneholde latinske symboler, tall og understreker. Aliaser skal starte med et latinsk symbol.",
   "Unnamed": "Navnløs",
-  "No description provided": "Ingen beskrivelse spesifisert"
+  "No description provided": "Ingen beskrivelse spesifisert",
+  "No snippets found": "Ingen snippets funnet",
+  "Search...": "Søk...",
+  "Snippet with the requested code :code was not found in the theme.": "En snippet med koden :code ble ikke funnet.",
+  "Snippet": "Snippet",
+  "Enter a code to make this partial available as a snippet in content editors.": "Fyll inn en kode for å gjøre denne tilgjengelig som en snippet i Static Pages.",
+  "Snippet Code": "Snippet-kode",
+  "The name is displayed in the snippet list in the editor when a snippet is added.": "Navnet som blir presentert i snippetlisten i Static Pages-menyen og når snippeten er lagt inn på en side.",
+  "Property Title": "Egenskap",
+  "Code": "Kode",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Egenskapkoden skal starte med en latinsk bokstav og kan kun inneholde bokstver og tall.",
+  "Type": "Type",
+  "String": "String",
+  "Checkbox": "Checkbox",
+  "Dropdown": "Dropdown",
+  "Default": "Standard",
+  "Options": "Alternativer",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ugyldig dropdown-alternativ kode: %s. Alternativkoder kan bare inneholde tall, latinske bokstaver, _ og -"
 }
