@@ -32,6 +32,10 @@ return [
         'horizontalrule' => 'Insérer une ligne horizontale',
         'fullscreen' => 'Plein écran',
         'preview' => 'Aperçu',
+        'strikethrough' => 'Barré',
+        'cleanblock' => 'Block propre',
+        'table' => 'Tableau',
+        'sidebyside' => 'Côte à côte'
     ],
     'mediamanager' => [
         'insert_link' => "Insérer un lien vers un fichier du gestionnaire de média",
@@ -45,6 +49,9 @@ return [
         'invalid_audio_empty_insert' => "Veuillez sélectionner un document audio à insérer.",
     ],
     'alert' => [
+        'error' => 'Erreur',
+        'confirm' => 'Confirmer',
+        'dismiss' => 'Masquer',
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Annuler',
         'widget_remove_confirm' => 'Retirer ce widget ?'
@@ -105,5 +112,14 @@ return [
         'file_too_big' => "Le fichier est trop volumineux ({{filesize}}MB). Taille maximale du fichier: {{maxFilesize}}MB.",
         'response_error' => "Le serveur a répondu avec le code {{statusCode}}.",
         'remove_file' => "Effacer le fichier",
+    ],
+    'inspector' => [
+        'add' => 'Ajouter',
+        'remove' => 'Retirer',
+        'key' => 'Clé',
+        'value' => 'Valeur',
+        'ok' => 'OK',
+        'cancel' => 'Annuler',
+        'items' => 'Eléments',
     ],
 ];
