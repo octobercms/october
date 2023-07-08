@@ -121,7 +121,6 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Nimi näkyy osiolistassa Staattisten sivujen -sivupalkissa ja sivuilla kun osa on lisätty.",
   "Please enter the snippet name": "Pätkällä on oltava nimi",
   "Property Title": "Ominaisuuden otsikko",
-  "Snippet Properties": "Koodin pätkän ominaisuudet",
   "Please provide the property title": "Ole hyvä ja lisää ominaisuuden otsikko",
   "Code": "Koodi",
   "Please provide the property name": "Ominaisuuden nimi on pakollinen",

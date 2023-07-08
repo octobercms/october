@@ -122,7 +122,6 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "De naam wordt weergegeven in de blokkenlijst in de zijbalk en op de pagina waar dit blok wordt toegevoegd.",
   "Please enter the snippet name": "Geef de snippet een naam",
   "Property Title": "Eigenschap naam",
-  "Snippet Properties": "Snippet eigenschappen",
   "Please provide the property title": "Geef de eigenschap titel op",
   "Code": "Code",
   "Please provide the property name": "Geef de eigenschap naam op",
@@ -135,6 +134,6 @@
   "Please select the property type": "Selecteer het eigenschap type",
   "Default": "Standaardwaarde",
   "Options": "Opties",
-  "Define Snippet": "Definieer snippet",
+  "Define a Snippet Partial": "Definieer snippet",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ongeldige selectlijst waarde: %s. Deze waarden mogen alleen cijfers, letters of de karakters _- bevatten."
 }

@@ -122,7 +122,6 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "The name is displayed in the snippet list in the editor when a snippet is added.",
   "Please enter the snippet name": "Please enter the snippet name",
   "Property Title": "Property Title",
-  "Snippet Properties": "Snippet Properties",
   "Please provide the property title": "Please provide the property title",
   "Code": "Code",
   "Please provide the property name": "Please provide the property name",
@@ -135,7 +134,8 @@
   "Please select the property type": "Please select the property type",
   "Default": "Default",
   "Options": "Options",
-  "Define Snippet": "Define Snippet",
+  "Define a Snippet Partial": "Define a Snippet Partial",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -",
-  "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added."
+  "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added.",
+  "Details": "Details"
 }
