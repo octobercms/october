@@ -302,7 +302,7 @@ trait SetupHelper
             'id'    => [$this->getLang('system::lang.locale.id'),    'Indonesian'],
             'it'    => [$this->getLang('system::lang.locale.it'),    'Italian'],
             'ja'    => [$this->getLang('system::lang.locale.ja'),    'Japanese'],
-            'kr'    => [$this->getLang('system::lang.locale.kr'),    'Korean'],
+            'ko'    => [$this->getLang('system::lang.locale.ko'),    'Korean'],
             'lt'    => [$this->getLang('system::lang.locale.lt'),    'Lithuanian'],
             'lv'    => [$this->getLang('system::lang.locale.lv'),    'Latvian'],
             'nb-no' => [$this->getLang('system::lang.locale.nb-no'), 'Norwegian'],
