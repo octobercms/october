@@ -12,7 +12,7 @@
                     <ul class="list-inline">
                         {% for category in post.categories %}
                             <li class="list-inline-item">
-                                &mdash; <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">{{ category.title }}</a>
+                                &mdash; <a href="{{ 'blog/category'|page({ slug: category.slug, id: category.id }) }}">{{ category.title }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -20,7 +20,7 @@
             {% endif %}
 
             <h4 class="blog-post-title">
-                <a href="{{ 'blog/post'|page({ slug: post.slug }) }}" class="stretched-link">{{ post.title }}</a>
+                <a href="{{ 'blog/post'|page({ slug: post.slug, id: post.id }) }}" class="stretched-link">{{ post.title }}</a>
             </h4>
 
             <div class="blog-post-featured-text">

@@ -97,7 +97,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Nosaukums tiks rādīts koda fragmentu sarakstā.",
   "Property Title": "Nosaukums",
   "Code": "Kods",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kodam vajadzētu sākties ar latīņu alfabēta burtu un tas var saturēt latīņu alfabēta burtus un ciparus",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Kodam vajadzētu sākties ar latīņu alfabēta burtu un tas var saturēt latīņu alfabēta burtus un ciparus",
   "Type": "Tips",
   "String": "Teksts",
   "Checkbox": "Checkboksis",

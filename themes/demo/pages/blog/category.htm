@@ -1,11 +1,11 @@
 ##
-url = "/blog/category/:slug"
+url = "/blog/category/:slug/:id"
 layout = "blog"
 title = "Display a Blog Category"
 
 [section category]
 handle = "Blog\Category"
-entrySlug = "{{ :slug }}"
+identifier = "id"
 
 [collection blog]
 handle = "Blog\Post"
@@ -13,12 +13,11 @@ handle = "Blog\Post"
 [resources]
 vars[activeNavLink] = 'blog'
 vars[activeBlogCategory] = "{{ :slug }}"
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/category.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/category.yaml'
-vars[howItsMadeTailorContent] = 'entries/blog_category/{{ category.id }}'
 ==
 {% if category is empty %}
     {% do abort(404) %}
+{% elseif category.slug and category.slug != this.param.slug %}
+    {% do redirect(''|page({ slug: category.slug }), 301) %}
 {% endif %}
 
 {% set posts = blog.whereRelation('categories', 'slug', category.slug).paginate(16) %}

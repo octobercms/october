@@ -1,1 +1,400 @@
-const defaultOptions={captionContent:".pswp-caption-content",type:"auto",horizontalEdgeThreshold:20,mobileCaptionOverlapRatio:.3,mobileLayoutBreakpoint:600};class PhotoSwipeDynamicCaption{constructor(i,t){this.options={...defaultOptions,...t},this.lightbox=i,this.lightbox.on("init",(()=>{this.initPlugin()}))}initPlugin(){this.pswp=this.lightbox.pswp,this.isCaptionHidden=!1,this.tempCaption=!1,this.captionElement=!1,this.pswp.on("uiRegister",(()=>{this.pswp.ui.registerElement({name:"dynamic-caption",order:9,isButton:!1,appendTo:"root",html:"",onInit:i=>{this.captionElement=i,this.initCaption()}})}))}initCaption(){const{pswp:i}=this;i.on("change",(()=>{this.updateCaptionHTML(),this.updateCurrentCaptionPosition(),this.showCaption()})),i.on("calcSlideSize",(i=>this.onCalcSlideSize(i))),i.on("moveMainScroll",(()=>{this.useMobileLayout()||(this.pswp.mainScroll.isShifted()?this.hideCaption():this.showCaption())})),i.on("zoomPanUpdate",(()=>{i.currSlide.currZoomLevel>i.currSlide.zoomLevels.initial?this.hideCaption():this.showCaption()})),i.on("beforeZoomTo",(t=>{const{currSlide:e}=i;e.__dcAdjustedPanAreaSize&&(t.destZoomLevel>e.zoomLevels.initial?(e.panAreaSize.x=e.__dcOriginalPanAreaSize.x,e.panAreaSize.y=e.__dcOriginalPanAreaSize.y):(e.panAreaSize.x=e.__dcAdjustedPanAreaSize.x,e.panAreaSize.y=e.__dcAdjustedPanAreaSize.y))}))}useMobileLayout(){const{mobileLayoutBreakpoint:i}=this.options;return"function"==typeof i?i.call(this):"number"==typeof i&&window.innerWidth<i}hideCaption(){this.isCaptionHidden||(this.isCaptionHidden=!0,this.captionElement.classList.add("pswp__dynamic-caption--faded"),this.captionFadeTimeout&&clearTimeout(this.captionFadeTimeout),this.captionFadeTimeout=setTimeout((()=>{this.captionElement.style.visibility="hidden",this.captionFadeTimeout=null}),400))}showCaption(){this.isCaptionHidden&&(this.isCaptionHidden=!1,this.captionElement.style.visibility="visible",clearTimeout(this.captionFadeTimeout),this.captionFadeTimeout=setTimeout((()=>{this.captionElement.classList.remove("pswp__dynamic-caption--faded"),this.captionFadeTimeout=null}),50))}setCaptionPosition(i,t){const e=i<=this.options.horizontalEdgeThreshold;this.captionElement.classList[e?"add":"remove"]("pswp__dynamic-caption--on-hor-edge"),this.captionElement.style.left=i+"px",this.captionElement.style.top=t+"px"}setCaptionWidth(i,t){t?i.style.width=t+"px":i.style.removeProperty("width")}setCaptionType(i,t){const e=i.dataset.pswpCaptionType;t!==e&&(i.classList.add("pswp__dynamic-caption--"+t),i.classList.remove("pswp__dynamic-caption--"+e),i.dataset.pswpCaptionType=t)}updateCurrentCaptionPosition(){const i=this.pswp.currSlide;if(!i.dynamicCaptionType)return;if("mobile"===i.dynamicCaptionType)return this.setCaptionType(this.captionElement,i.dynamicCaptionType),this.captionElement.style.removeProperty("left"),this.captionElement.style.removeProperty("top"),void this.setCaptionWidth(this.captionElement,!1);const t=i.zoomLevels.initial,e=Math.ceil(i.width*t),n=Math.ceil(i.height*t);this.setCaptionType(this.captionElement,i.dynamicCaptionType),"aside"===i.dynamicCaptionType?(this.setCaptionPosition(this.pswp.currSlide.bounds.center.x+e,this.pswp.currSlide.bounds.center.y),this.setCaptionWidth(this.captionElement,!1)):"below"===i.dynamicCaptionType&&(this.setCaptionPosition(this.pswp.currSlide.bounds.center.x,this.pswp.currSlide.bounds.center.y+n),this.setCaptionWidth(this.captionElement,e))}createTemporaryCaption(){this.tempCaption=document.createElement("div"),this.tempCaption.className="pswp__dynamic-caption pswp__dynamic-caption--temp",this.tempCaption.style.visibility="hidden",this.tempCaption.setAttribute("aria-hidden","true"),this.pswp.bg.after(this.captionElement),this.captionElement.after(this.tempCaption)}onCalcSlideSize(i){const{slide:t}=i;let e,n=!1;if(!this.getCaptionHTML(i.slide))return void(t.dynamicCaptionType=!1);this.storeOriginalPanAreaSize(t),t.bounds.update(t.zoomLevels.initial),this.useMobileLayout()?(t.dynamicCaptionType="mobile",n=!0):"auto"===this.options.type?t.bounds.center.x>t.bounds.center.y?t.dynamicCaptionType="aside":t.dynamicCaptionType="below":t.dynamicCaptionType=this.options.type;const o=Math.ceil(t.width*t.zoomLevels.initial),a=Math.ceil(t.height*t.zoomLevels.initial);if(this.tempCaption||this.createTemporaryCaption(),this.setCaptionType(this.tempCaption,t.dynamicCaptionType),"aside"===t.dynamicCaptionType){this.tempCaption.innerHTML=this.getCaptionHTML(i.slide),this.setCaptionWidth(this.tempCaption,!1),e=this.measureCaptionSize(this.tempCaption,i.slide);const n=e.x,a=o+t.bounds.center.x;t.panAreaSize.x-a<=n&&(t.panAreaSize.x-=n,this.recalculateZoomLevelAndBounds(t))}else if("below"===t.dynamicCaptionType||n){this.setCaptionWidth(this.tempCaption,n?this.pswp.viewportSize.x:o),this.tempCaption.innerHTML=this.getCaptionHTML(i.slide),e=this.measureCaptionSize(this.tempCaption,i.slide);const s=e.y,p=a+t.bounds.center.y,d=t.panAreaSize.y-p,c=t.panAreaSize.y;if(d<=s){t.panAreaSize.y-=Math.min(2*(s-d),s),this.recalculateZoomLevelAndBounds(t);const i=t.panAreaSize.x*this.options.mobileCaptionOverlapRatio/2;n&&t.bounds.center.x>i&&(t.panAreaSize.y=c,this.recalculateZoomLevelAndBounds(t))}}this.storeAdjustedPanAreaSize(t),t===this.pswp.currSlide&&this.updateCurrentCaptionPosition()}measureCaptionSize(i,t){const e=i.getBoundingClientRect();return this.pswp.dispatch("dynamicCaptionMeasureSize",{captionEl:i,slide:t,captionSize:{x:e.width,y:e.height}}).captionSize}recalculateZoomLevelAndBounds(i){i.zoomLevels.update(i.width,i.height,i.panAreaSize),i.bounds.update(i.zoomLevels.initial)}storeAdjustedPanAreaSize(i){i.__dcAdjustedPanAreaSize||(i.__dcAdjustedPanAreaSize={}),i.__dcAdjustedPanAreaSize.x=i.panAreaSize.x,i.__dcAdjustedPanAreaSize.y=i.panAreaSize.y}storeOriginalPanAreaSize(i){i.__dcOriginalPanAreaSize||(i.__dcOriginalPanAreaSize={}),i.__dcOriginalPanAreaSize.x=i.panAreaSize.x,i.__dcOriginalPanAreaSize.y=i.panAreaSize.y}getCaptionHTML(i){if("function"==typeof this.options.captionContent)return this.options.captionContent.call(this,i);const t=i.data.element;let e="";if(t){const i=t.querySelector(this.options.captionContent);if(i)e=i.innerHTML;else{const i=t.querySelector("img");i&&(e=i.getAttribute("alt"))}}return e}updateCaptionHTML(){const i=this.getCaptionHTML(pswp.currSlide);this.captionElement.style.visibility=i?"visible":"hidden",this.captionElement.innerHTML=i||"",this.pswp.dispatch("dynamicCaptionUpdateHTML",{captionElement:this.captionElement})}}export default PhotoSwipeDynamicCaption;
+/**
+ * PhotoSwipe Dynamic Caption plugin v1.1.0
+ * https://github.com/dimsemenov/photoswipe-dynamic-caption-plugin
+ * 
+ * By https://dimsemenov.com
+ */
+
+const defaultOptions = {
+  captionContent: '.pswp-caption-content',
+  type: 'auto',
+  horizontalEdgeThreshold: 20,
+  mobileCaptionOverlapRatio: 0.3,
+  mobileLayoutBreakpoint: 600,
+};
+
+class PhotoSwipeDynamicCaption {
+  constructor(lightbox, options) {
+    this.options = {
+      ...defaultOptions,
+      ...options
+    };
+
+    this.lightbox = lightbox;
+
+    this.lightbox.on('init', () => {
+      this.initPlugin();
+    });
+  }
+
+  initPlugin() {
+    this.pswp = this.lightbox.pswp;
+    this.isCaptionHidden = false;
+    this.tempCaption = false;
+    this.captionElement = false;
+
+    this.pswp.on('uiRegister', () => {
+      this.pswp.ui.registerElement({
+        name: 'dynamic-caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        html: '',
+        onInit: (el) => {
+          this.captionElement = el;
+          this.initCaption();
+        }
+      });
+    });
+  }
+
+  initCaption() {
+    const { pswp } = this;
+
+    pswp.on('change', () => {
+      this.updateCaptionHTML(); 
+      this.updateCurrentCaptionPosition();
+
+      // make sure caption is displayed after slides are switched
+      this.showCaption();
+    });
+
+    pswp.on('calcSlideSize', (e) => this.onCalcSlideSize(e));
+
+    // hide caption if mainscroll is shifted (dragging)
+    pswp.on('moveMainScroll', () => {
+      if (!this.useMobileLayout()) {
+        if (this.pswp.mainScroll.isShifted()) {
+          this.hideCaption();
+        } else {
+          this.showCaption();
+        }
+      }
+    });
+
+    // hide caption if zoomed
+    pswp.on('zoomPanUpdate', () => {
+      if (pswp.currSlide.currZoomLevel > pswp.currSlide.zoomLevels.initial) {
+        this.hideCaption();
+      } else {
+        this.showCaption();
+      }
+    });
+
+    pswp.on('beforeZoomTo', (e) => {
+      const { currSlide } = pswp;
+
+      if (currSlide.__dcAdjustedPanAreaSize) {
+        if (e.destZoomLevel > currSlide.zoomLevels.initial) {
+          currSlide.panAreaSize.x = currSlide.__dcOriginalPanAreaSize.x;
+          currSlide.panAreaSize.y = currSlide.__dcOriginalPanAreaSize.y;
+        } else {
+          // Restore panAreaSize after we zoom back to initial position
+          currSlide.panAreaSize.x = currSlide.__dcAdjustedPanAreaSize.x;
+          currSlide.panAreaSize.y = currSlide.__dcAdjustedPanAreaSize.y;
+        }
+      }
+    });
+  }
+
+  useMobileLayout() {
+    const { mobileLayoutBreakpoint } = this.options;
+
+    if (typeof mobileLayoutBreakpoint === 'function') {
+      return mobileLayoutBreakpoint.call(this);
+    } else if (typeof mobileLayoutBreakpoint === 'number') {
+      if (window.innerWidth < mobileLayoutBreakpoint) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  hideCaption() {
+    if (!this.isCaptionHidden) {
+      this.isCaptionHidden = true;
+      this.captionElement.classList.add('pswp__dynamic-caption--faded');
+
+      // Disable caption visibility with the delay, so it's not interactable 
+      if (this.captionFadeTimeout) {
+        clearTimeout(this.captionFadeTimeout);
+      }
+      this.captionFadeTimeout = setTimeout(() => {
+        this.captionElement.style.visibility = 'hidden';
+        this.captionFadeTimeout = null;
+      }, 400);
+    }
+  }
+
+  showCaption() {
+    if (this.isCaptionHidden) {
+      this.isCaptionHidden = false;
+      this.captionElement.style.visibility = 'visible';
+      
+      clearTimeout(this.captionFadeTimeout);
+      this.captionFadeTimeout = setTimeout(() => {
+        this.captionElement.classList.remove('pswp__dynamic-caption--faded');
+        this.captionFadeTimeout = null;
+      }, 50);
+    }
+  }
+
+  setCaptionPosition(x, y) {
+    const isOnHorizontalEdge = (x <= this.options.horizontalEdgeThreshold);
+    this.captionElement.classList[
+      isOnHorizontalEdge ? 'add' : 'remove'
+    ]('pswp__dynamic-caption--on-hor-edge');
+
+    this.captionElement.style.left = x + 'px';
+    this.captionElement.style.top = y + 'px';
+  }
+
+  setCaptionWidth(captionEl, width) {
+    if (!width) {
+      captionEl.style.removeProperty('width');
+    } else {
+      captionEl.style.width = width + 'px';
+    }
+  }
+
+  setCaptionType(captionEl, type) {
+    const prevType = captionEl.dataset.pswpCaptionType;
+    if (type !== prevType) {
+      captionEl.classList.add('pswp__dynamic-caption--' + type);
+      captionEl.classList.remove('pswp__dynamic-caption--' + prevType);
+      captionEl.dataset.pswpCaptionType = type;
+    }
+  }
+
+  updateCurrentCaptionPosition() {
+    const slide = this.pswp.currSlide;
+
+    if (!slide.dynamicCaptionType) {
+      return;
+    }
+
+    if (slide.dynamicCaptionType === 'mobile') {
+      this.setCaptionType(this.captionElement, slide.dynamicCaptionType);
+      
+      this.captionElement.style.removeProperty('left');
+      this.captionElement.style.removeProperty('top');
+      this.setCaptionWidth(this.captionElement, false);
+      return;
+    }
+
+    const zoomLevel = slide.zoomLevels.initial;
+    const imageWidth = Math.ceil(slide.width * zoomLevel);
+    const imageHeight = Math.ceil(slide.height * zoomLevel);
+
+    
+    this.setCaptionType(this.captionElement, slide.dynamicCaptionType);
+    if (slide.dynamicCaptionType === 'aside') {
+      this.setCaptionPosition(
+        this.pswp.currSlide.bounds.center.x + imageWidth,
+        this.pswp.currSlide.bounds.center.y
+      );
+      this.setCaptionWidth(this.captionElement, false);
+    } else if (slide.dynamicCaptionType === 'below') {
+      this.setCaptionPosition(
+        this.pswp.currSlide.bounds.center.x,
+        this.pswp.currSlide.bounds.center.y + imageHeight
+      );
+      this.setCaptionWidth(this.captionElement, imageWidth);
+    }
+  }
+
+  /**
+   * Temporary caption is used to measure size for the current/next/previous captions,
+   * (it has visibility:hidden)
+   */
+  createTemporaryCaption() {
+    this.tempCaption = document.createElement('div');
+    this.tempCaption.className = 'pswp__dynamic-caption pswp__dynamic-caption--temp';
+    this.tempCaption.style.visibility = 'hidden';
+    this.tempCaption.setAttribute('aria-hidden', 'true');
+    // move caption element, so it's after BG,
+    // so that other controls can freely overlap it
+    this.pswp.bg.after(this.captionElement); 
+    this.captionElement.after(this.tempCaption);
+  }
+
+  onCalcSlideSize(e) {
+    const { slide } = e;
+
+    const captionHTML = this.getCaptionHTML(e.slide);
+    let useMobileVersion = false;
+    let captionSize;
+
+    if (!captionHTML) {
+      slide.dynamicCaptionType = false;
+      return;
+    }
+
+    this.storeOriginalPanAreaSize(slide);
+
+    slide.bounds.update(slide.zoomLevels.initial);
+    
+    if (this.useMobileLayout()) {
+      slide.dynamicCaptionType = 'mobile';
+      useMobileVersion = true;
+    } else {
+      if (this.options.type === 'auto') {
+        if (slide.bounds.center.x > slide.bounds.center.y) {
+          slide.dynamicCaptionType = 'aside';
+        } else {
+          slide.dynamicCaptionType = 'below';
+        }
+      } else {
+        slide.dynamicCaptionType = this.options.type;
+      }
+    } 
+
+    const imageWidth = Math.ceil(slide.width * slide.zoomLevels.initial);
+    const imageHeight = Math.ceil(slide.height * slide.zoomLevels.initial);
+
+    if (!this.tempCaption) {
+      this.createTemporaryCaption();
+    }
+
+    this.setCaptionType(this.tempCaption, slide.dynamicCaptionType);
+
+    if (slide.dynamicCaptionType === 'aside') {
+      this.tempCaption.innerHTML = this.getCaptionHTML(e.slide);
+      this.setCaptionWidth(this.tempCaption, false);
+      captionSize = this.measureCaptionSize(this.tempCaption, e.slide);
+      const captionWidth = captionSize.x;      
+
+      const horizontalEnding = imageWidth + slide.bounds.center.x;
+      const horizontalLeftover = (slide.panAreaSize.x - horizontalEnding);
+
+      if (horizontalLeftover <= captionWidth) {
+        slide.panAreaSize.x -= captionWidth;
+        this.recalculateZoomLevelAndBounds(slide);
+      } else {
+        // do nothing, caption will fit aside without any adjustments
+      }
+    } else if (slide.dynamicCaptionType === 'below' || useMobileVersion) {
+      this.setCaptionWidth(
+        this.tempCaption, 
+        useMobileVersion ? this.pswp.viewportSize.x : imageWidth
+      );
+      this.tempCaption.innerHTML = this.getCaptionHTML(e.slide);
+      captionSize = this.measureCaptionSize(this.tempCaption, e.slide);
+      const captionHeight = captionSize.y;
+
+
+      // vertical ending of the image
+      const verticalEnding = imageHeight + slide.bounds.center.y;
+
+      // height between bottom of the screen and ending of the image
+      // (before any adjustments applied) 
+      const verticalLeftover = slide.panAreaSize.y - verticalEnding;
+      const initialPanAreaHeight = slide.panAreaSize.y;
+
+      if (verticalLeftover <= captionHeight) {
+        // lift up the image to give more space for caption
+        slide.panAreaSize.y -= Math.min((captionHeight - verticalLeftover) * 2, captionHeight);
+
+        // we reduce viewport size, thus we need to update zoom level and pan bounds
+        this.recalculateZoomLevelAndBounds(slide);
+
+        const maxPositionX = slide.panAreaSize.x * this.options.mobileCaptionOverlapRatio / 2;
+
+        // Do not reduce viewport height if too few space available
+        if (useMobileVersion 
+            && slide.bounds.center.x > maxPositionX) {
+          // Restore the default position
+          slide.panAreaSize.y = initialPanAreaHeight;
+          this.recalculateZoomLevelAndBounds(slide);
+        }
+      }
+
+      
+      
+      // if (this.useMobileLayout && slide.bounds.center.x > 100) {
+      //   // do nothing, caption will overlap the bottom part of the image
+      // } else if (verticalLeftover <= captionHeight) {
+        
+      // } else {
+      //   // do nothing, caption will fit below the image without any adjustments
+      // }
+    } else {
+      // mobile
+    }
+
+    this.storeAdjustedPanAreaSize(slide);
+
+    if (slide === this.pswp.currSlide) {
+      this.updateCurrentCaptionPosition();
+    }
+  }
+
+  measureCaptionSize(captionEl, slide) {
+    const rect = captionEl.getBoundingClientRect();
+    const event = this.pswp.dispatch('dynamicCaptionMeasureSize', {
+      captionEl,
+      slide,
+      captionSize: {
+        x: rect.width,
+        y: rect.height
+      }
+    });
+    return event.captionSize;
+  }
+
+  recalculateZoomLevelAndBounds(slide) {
+    slide.zoomLevels.update(slide.width, slide.height, slide.panAreaSize);
+    slide.bounds.update(slide.zoomLevels.initial);
+  }
+
+  storeAdjustedPanAreaSize(slide) {
+    if (!slide.__dcAdjustedPanAreaSize) {
+      slide.__dcAdjustedPanAreaSize = {};
+    }
+    slide.__dcAdjustedPanAreaSize.x = slide.panAreaSize.x;
+    slide.__dcAdjustedPanAreaSize.y = slide.panAreaSize.y;
+  }
+
+  storeOriginalPanAreaSize(slide) {
+    if (!slide.__dcOriginalPanAreaSize) {
+      slide.__dcOriginalPanAreaSize = {};
+    }
+    slide.__dcOriginalPanAreaSize.x = slide.panAreaSize.x;
+    slide.__dcOriginalPanAreaSize.y = slide.panAreaSize.y;
+  }
+
+  getCaptionHTML(slide) {
+    if (typeof this.options.captionContent === 'function') {
+      return this.options.captionContent.call(this, slide);
+    }
+
+    const currSlideElement = slide.data.element;
+    let captionHTML = '';
+    if (currSlideElement) {
+      const hiddenCaption = currSlideElement.querySelector(this.options.captionContent);
+      if (hiddenCaption) {
+        // get caption from element with class pswp-caption-content
+        captionHTML = hiddenCaption.innerHTML;
+      } else {
+        const img = currSlideElement.querySelector('img');
+        if (img) {
+          // get caption from alt attribute
+          captionHTML = img.getAttribute('alt');
+        }
+      }
+    }
+    return captionHTML;
+  }
+
+  updateCaptionHTML() {
+    const captionHTML = this.getCaptionHTML(pswp.currSlide);
+    this.captionElement.style.visibility = captionHTML ? 'visible' :  'hidden';
+    this.captionElement.innerHTML = captionHTML || '';
+    this.pswp.dispatch('dynamicCaptionUpdateHTML', { 
+      captionElement: this.captionElement
+    });
+  }
+}
+
+export default PhotoSwipeDynamicCaption;

@@ -99,7 +99,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Ім'я відображається в списку фрагментів розширення Сторінки і на сторінці, коли сніппет доданий.",
   "Property Title": "Назва властивості",
   "Code": "Код",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Код властивості повинен починатися з літери та може містити тільки латинські букви і цифри",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Код властивості повинен починатися з літери та може містити тільки латинські букви і цифри",
   "Type": "Тип",
   "String": "Рядок",
   "Checkbox": "Чекбокс",

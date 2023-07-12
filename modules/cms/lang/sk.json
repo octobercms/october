@@ -99,7 +99,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Tento názov sa zobrazí v zozname snippetov v bočnom menu pluginu statických stránok a priamo na stránke, keď bude snippet pridaný.",
   "Property Title": "Názov vlastnosti",
   "Code": "Kód",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Kód vlastnosti by mal začínať latinským písmenom a môže obsahovať len latinské písmená a číslice",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Kód vlastnosti by mal začínať latinským písmenom a môže obsahovať len latinské písmená a číslice",
   "Type": "Typ",
   "String": "Reťazec",
   "Checkbox": "Zaškrtávacie pole",

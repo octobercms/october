@@ -99,7 +99,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Der Name wird in der Snippet-Liste in der Seitenleiste der Statische-Seiten angezeigt. Außerdem auf einer Seite wenn ein Snippet angelegt wird.",
   "Property Title": "Titel für die Eigenschaft",
   "Code": "Code",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Der Code für die Eigenschaft muss mit einem Buchstaben anfangen, und darf nur Buchstaben und Zahlen enthalten",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Der Code für die Eigenschaft muss mit einem Buchstaben anfangen, und darf nur Buchstaben und Zahlen enthalten",
   "Type": "Typ",
   "String": "Zeichenkette",
   "Checkbox": "Checkbox",

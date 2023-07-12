@@ -9,9 +9,6 @@ handle = "Wiki\Article"
 
 [resources]
 vars[activeNavLink] = "wiki"
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:wiki/search.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:wiki/article.yaml'
-vars[howItsMadeTailorContent] = 'entries/wiki_article'
 ==
 {% set searchTerm = get('term')|trim %}
 {% set articles = wiki.searchWhere(searchTerm, ['title', 'content']).paginate(4) %}

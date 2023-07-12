@@ -42,7 +42,7 @@ handle = "Blog\Config"
     <ul class="bullet-list">
         {% for category in blogCategories %}
             <li class="{{ activeBlogCategory == category.slug ? 'active' }}">
-                <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">
+                <a href="{{ 'blog/category'|page({ slug: category.slug, id: category.id }) }}">
                     {{ category.title }}
                 </a>
             </li>

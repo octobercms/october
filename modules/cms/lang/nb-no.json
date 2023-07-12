@@ -73,7 +73,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Navnet som blir presentert i snippetlisten i Static Pages-menyen og når snippeten er lagt inn på en side.",
   "Property Title": "Egenskap",
   "Code": "Kode",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Egenskapkoden skal starte med en latinsk bokstav og kan kun inneholde bokstver og tall.",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Egenskapkoden skal starte med en latinsk bokstav og kan kun inneholde bokstver og tall.",
   "Type": "Type",
   "String": "String",
   "Checkbox": "Checkbox",

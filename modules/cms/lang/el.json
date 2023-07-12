@@ -97,7 +97,7 @@
   "The name is displayed in the snippet list in the editor when a snippet is added.": "Το όνομα εμφανίζεται στην λίστα αποσπασμάτων στην πλευρική στήλη Στατικών Σελίδων και σε μία Σελίδα όταν προστίθεται ένα απόσπασμα.",
   "Property Title": "Τίτλος ιδιότητας",
   "Code": "Κωδικός",
-  "Property code should start with a Latin letter and can contain only Latin letters and digits": "Οι κωδικοί των ιδιοτήτων πρέπει να ξεκινούν με Λατινικά γράμματα και μπορούν να περιέχουν μόνο Λατινικά γράμματα και αριθμητικά ψηφία",
+  "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Οι κωδικοί των ιδιοτήτων πρέπει να ξεκινούν με Λατινικά γράμματα και μπορούν να περιέχουν μόνο Λατινικά γράμματα και αριθμητικά ψηφία",
   "Type": "Τύπος",
   "String": "Κείμενο",
   "Checkbox": "Πλαίσιο ελέγχου",

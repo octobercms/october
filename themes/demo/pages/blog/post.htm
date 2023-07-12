@@ -1,25 +1,23 @@
 ##
-url = "/blog/post/:slug"
+url = "/blog/post/:slug/:id"
 layout = "blog"
 title = "Display a Blog Post"
 meta_title = "{{ blog.title }} - Blog"
 
-[section blog]
+[section post]
 handle = "Blog\Post"
-entrySlug = "{{ :slug }}"
+identifier = "id"
 
 [collection blogCategories]
 handle = "Blog\Category"
 
 [resources]
 vars[activeNavLink] = 'blog'
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/post.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
-vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
 ==
-{% set post = blog %}
 {% if post is empty %}
     {% do abort(404) %}
+{% elseif post.slug and post.slug != this.param.slug %}
+    {% do redirect(''|page({ slug: post.slug }), 301) %}
 {% endif %}
 
 <article class="card post-card card-primary">
@@ -51,7 +49,7 @@ vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
                         <div class="meta-item meta-categories">
                             Posted in
                             {% for category in post.categories %}
-                                <a href="{{ 'blog/category'|page({ slug: category.slug }) }}">{{ category.title }}</a>{{ not loop.last ? ',' }}
+                                <a href="{{ 'blog/category'|page({ slug: category.slug, id: category.id }) }}">{{ category.title }}</a>{{ not loop.last ? ',' }}
                             {% endfor %}
                         </div>
                         <div class="meta-item px-2">
@@ -65,7 +63,7 @@ vars[howItsMadeTailorContent] = 'entries/blog_post/{{ blog.id }}'
             </div>
             <div class="col-md-4 text-end">
                 <div class="blog-post-share-button">
-                    {% partial 'share-button' %}
+                    {% partial 'elements/share-button' %}
                 </div>
             </div>
         </div>

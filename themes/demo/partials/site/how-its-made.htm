@@ -1,5 +1,59 @@
 [backendLink]
 ==
+{% if this.page.id == 'contact' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/category.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/category.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_category/' ~ category.id %}
+{% elseif this.page.id == '404' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:404.htm' %}
+{% elseif this.page.id == 'error' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:error.htm' %}
+{% elseif this.page.id == 'about' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:about.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:landing/landing-page.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/landing_page' %}
+{% elseif this.page.id == 'ajax' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:ajax.htm' %}
+{% elseif this.page.id == 'components' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:components.htm' %}
+{% elseif this.page.id == 'contact' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:contact.htm' %}
+{% elseif this.page.id == 'index' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:index.htm' %}
+{% elseif this.page.id == 'blog-archive' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/archive.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+{% elseif this.page.id == 'blog-author' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/author.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/author.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_author/' ~ author.id %}
+{% elseif this.page.id == 'blog-index' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/index.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+{% elseif this.page.id == 'blog-post' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/post.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_post/' ~ blog.id %}
+{% elseif this.page.id == 'blog-search' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/search.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+{% elseif this.page.id == 'wiki-article' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/article.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/wiki_article/' ~ wiki.id %}
+{% elseif this.page.id == 'wiki-index' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/index.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/wiki_article' %}
+{% elseif this.page.id == 'wiki-search' %}
+    {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/search.htm' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/wiki_article' %}
+{% endif %}
+
 {% if backendUrl and howItsMadeCmsTemplate %}
     <div class="how-its-made init">
         <div>

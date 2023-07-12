@@ -6,19 +6,15 @@ meta_title = "{{ wiki.title }}"
 
 [section wiki]
 handle = "Wiki\Article"
-entrySlug = "{{ :id }}"
-entryColumn = "id"
+identifier = "id"
 
 [resources]
 vars[activeNavLink] = 'wiki'
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:wiki/article.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:wiki/article.yaml'
-vars[howItsMadeTailorContent] = 'entries/wiki_article/{{ wiki.id }}'
 ==
 {% set article = wiki %}
 {% if article is empty %}
     {% do abort(404) %}
-{% elseif article.fullslug != this.param.fullslug %}
+{% elseif article.fullslug and article.fullslug != this.param.fullslug %}
     {% do redirect(''|page({ fullslug: article.fullslug }), 301) %}
 {% endif %}
 
