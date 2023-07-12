@@ -213,15 +213,6 @@
   'editor' => [
     'menu_label' => 'エディタ',
     'menu_description' => 'コードエディタ設定の管理',
-    'font_size' => 'フォントサイズ',
-    'tab_size' => 'タブサイズ',
-    'use_hard_tabs' => 'インデントにタブを使用する',
-    'code_folding' => 'コード折りたたみ',
-    'word_wrap' => 'ワードラップ',
-    'highlight_active_line' => '選択行のハイライト',
-    'show_invisibles' => '見えない文字を表示する',
-    'show_gutter' => '行番号を表示する',
-    'theme' => 'カラーテーマ',
   ],
   'tooltips' => [
     'preview_website' => 'Webサイトをプレビューする',
@@ -243,8 +234,6 @@
   'backend_preferences' => [
     'menu_label' => 'バックエンド',
     'menu_description' => '言語の設定などを行います。',
-    'locale' => 'ロケール',
-    'locale_comment' => '使用する言語のロケールを選択してください。',
   ],
   'access_log' => [],
   'filter' => [

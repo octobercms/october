@@ -231,16 +231,6 @@
   'editor' => [
     'menu_label' => 'Kodnings preferenser',
     'menu_description' => 'Anpassa dina preferenser för kodredigering, så som typsnitt och färgschema.',
-    'font_size' => 'Teckenstorlek',
-    'tab_size' => 'Tab längd',
-    'use_hard_tabs' => 'Indentera med tab',
-    'code_folding' => 'Dölj kod',
-    'word_wrap' => 'Radbryting',
-    'highlight_active_line' => 'Markera aktiv rad',
-    'auto_closing' => 'Stäng taggar och specialtecken automatiskt',
-    'show_invisibles' => 'Visa dolda tecken',
-    'show_gutter' => 'Visa ränna',
-    'theme' => 'Färgschema',
   ],
   'tooltips' => [
     'preview_website' => 'Förhandsgranska websidan',
@@ -262,8 +252,6 @@
   'backend_preferences' => [
     'menu_label' => 'Back-end preferenser',
     'menu_description' => 'Hantera dina kontoinställningar såsom önskat språk.',
-    'locale' => 'Språk',
-    'locale_comment' => 'Välj önskat språk.',
   ],
   'access_log' => [],
   'filter' => [

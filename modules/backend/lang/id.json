@@ -135,5 +135,16 @@
   "Logo": "Logo",
   "Colors": "Warna",
   "Custom Stylesheet": "Kustomisasi Stylesheet",
-  "Styles": "Gaya"
+  "Styles": "Gaya",
+  "Locale": "Bahasa",
+  "Select your desired locale for language use.": "Pilih bahasa yang ingin digunakan.",
+  "Color Scheme": "Skema warna",
+  "Word Wrap": "Bungkus kata",
+  "Font Size": "Ukuran huruf",
+  "Tab Size": "Ukuran tab",
+  "Code Folding": "Melipat kode",
+  "Show gutter": "Tampilkan Gutter",
+  "Highlight active line": "Sorot baris yang aktif",
+  "Indent using tabs": "Inden dengan tabs",
+  "Show invisible characters": "Tampilkan karakter yang tidak terlihat"
 }

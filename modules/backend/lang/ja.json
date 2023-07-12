@@ -135,5 +135,16 @@
   "Logo": "ロゴ",
   "Colors": "配色",
   "Custom Stylesheet": "カスタムスタイルシート",
-  "Styles": "スタイル"
+  "Styles": "スタイル",
+  "Locale": "ロケール",
+  "Select your desired locale for language use.": "使用する言語のロケールを選択してください。",
+  "Color Scheme": "カラーテーマ",
+  "Word Wrap": "ワードラップ",
+  "Font Size": "フォントサイズ",
+  "Tab Size": "タブサイズ",
+  "Code Folding": "コード折りたたみ",
+  "Show gutter": "行番号を表示する",
+  "Highlight active line": "選択行のハイライト",
+  "Indent using tabs": "インデントにタブを使用する",
+  "Show invisible characters": "見えない文字を表示する"
 }

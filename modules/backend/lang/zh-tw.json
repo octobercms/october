@@ -140,5 +140,16 @@
   "Logo": "Logo",
   "Colors": "顏色",
   "Custom Stylesheet": "自訂樣式",
-  "Styles": "樣式"
+  "Styles": "樣式",
+  "Locale": "語言",
+  "Select your desired locale for language use.": "選擇您希望使用的本地語言。",
+  "Color Scheme": "色彩主題",
+  "Word Wrap": "自動換行",
+  "Font Size": "字體大小",
+  "Tab Size": "標籤大小",
+  "Code Folding": "代碼摺疊",
+  "Show gutter": "顯示gutter",
+  "Highlight active line": "醒目顯示操作中的行",
+  "Indent using tabs": "使用tabs縮進",
+  "Show invisible characters": "顯示隱藏字元"
 }

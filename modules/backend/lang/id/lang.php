@@ -217,15 +217,6 @@
   'editor' => [
     'menu_label' => 'Pengaturan Editor',
     'menu_description' => 'Pengaturan Editor yang sesuai dengan keinginan Anda, seperti ukuran huruf dan skema warna.',
-    'font_size' => 'Ukuran huruf',
-    'tab_size' => 'Ukuran tab',
-    'use_hard_tabs' => 'Inden dengan tabs',
-    'code_folding' => 'Melipat kode',
-    'word_wrap' => 'Bungkus kata',
-    'highlight_active_line' => 'Sorot baris yang aktif',
-    'show_invisibles' => 'Tampilkan karakter yang tidak terlihat',
-    'show_gutter' => 'Tampilkan Gutter',
-    'theme' => 'Skema warna',
   ],
   'tooltips' => [
     'preview_website' => 'Preview situs',
@@ -247,8 +238,6 @@
   'backend_preferences' => [
     'menu_label' => 'Penyesuaian Back-end',
     'menu_description' => 'Kelola penyesuaian akun Anda seperti bahasa yang diinginkan.',
-    'locale' => 'Bahasa',
-    'locale_comment' => 'Pilih bahasa yang ingin digunakan.',
   ],
   'access_log' => [],
   'filter' => [
