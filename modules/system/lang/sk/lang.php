@@ -25,7 +25,7 @@
     'id' => 'Bahasa Indonesia',
     'it' => 'Italiano',
     'ja' => '日本語',
-    'kr' => '한국어',
+    'ko' => '한국어',
     'lt' => 'Lietuvių',
     'lv' => 'Latviešu',
     'nb-no' => 'Norsk (Bokmål)',

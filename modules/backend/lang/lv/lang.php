@@ -245,21 +245,8 @@
   'editor' => [
     'menu_label' => 'Koda labotāja iestatījumi',
     'menu_description' => 'Pielāgojiet sava kodu labotāja iestatījumus, tādus kā fontu izmēru un krāsu shēmu.',
-    'font_size' => 'Fonta izmērs',
-    'tab_size' => 'Tabulācijas platums',
-    'use_hard_tabs' => 'Kārtot lietojot Tab',
-    'code_folding' => 'Koda savilkšana',
-    'word_wrap' => 'Vārdu aplaušana',
-    'highlight_active_line' => 'Iekrāsot aktīvo līniju',
-    'auto_closing' => 'Automātiski aizvērt birkas un īpašos simbolus',
-    'show_invisibles' => 'Rādīt slēptos simbolus',
-    'show_gutter' => 'Rādīt līniju numurus',
     'enable_basic_autocompletion' => 'Iespējot pamata automātisko pabeigšanu (Ctrl+Space)',
-    'enable_snippets' => 'Rādīt koda fragmentus automātiskajā pabeigšanā',
     'enable_live_autocompletion' => 'Iespējot dzīvo automātisko pabeigšanu',
-    'display_indent_guides' => 'Rādīt atkāpju ceļvežus',
-    'show_print_margin' => 'Rādīt printēšanas rezervi',
-    'theme' => 'Krāsu shēma',
   ],
   'tooltips' => [
     'preview_website' => 'Priekšskatīt web lapu',
@@ -281,11 +268,6 @@
   'backend_preferences' => [
     'menu_label' => 'Back-end iestatījumi',
     'menu_description' => 'Pārvaldiet sava konta iestatījumus, piemēram, valodu.',
-    'region' => 'Regions',
-    'code_editor' => 'Koda redaktors',
-    'timezone' => 'Laika josla',
-    'locale' => 'Valoda',
-    'locale_comment' => 'Izvēlieties kādu valodu izmantosiet.',
   ],
   'access_log' => [],
   'filter' => [

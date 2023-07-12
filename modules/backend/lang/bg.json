@@ -133,5 +133,17 @@
   "Logo": "Лого",
   "Colors": "Цветове",
   "Custom Stylesheet": "Персонализиран стилове",
-  "Styles": "Стилове"
+  "Styles": "Стилове",
+  "Locale": "Език",
+  "Select your desired locale for language use.": "Изберете желаното местоположение за използване на език.",
+  "Color Scheme": "Цветова схема",
+  "Word Wrap": "Събиране (разгъване) на текста",
+  "Font Size": "Размер шрифт",
+  "Tab Size": "Размер на табулацията",
+  "Code Folding": "Код сгъване",
+  "Show gutter": "Покажи gutter",
+  "Highlight active line": "Маркирайте активната линия",
+  "Automatically close tags": "Автоматично затваряне на тагове и специални символи",
+  "Indent using tabs": "Отстъпи използващи раздели",
+  "Show invisible characters": "Покажи невидими знаци"
 }

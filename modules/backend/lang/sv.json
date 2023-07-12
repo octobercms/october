@@ -135,5 +135,17 @@
   "Logo": "Logga",
   "Colors": "Färger",
   "Custom Stylesheet": "Anpassad formatmall",
-  "Styles": "Formatmallar"
+  "Styles": "Formatmallar",
+  "Locale": "Språk",
+  "Select your desired locale for language use.": "Välj önskat språk.",
+  "Color Scheme": "Färgschema",
+  "Word Wrap": "Radbryting",
+  "Font Size": "Teckenstorlek",
+  "Tab Size": "Tab längd",
+  "Code Folding": "Dölj kod",
+  "Show gutter": "Visa ränna",
+  "Highlight active line": "Markera aktiv rad",
+  "Automatically close tags": "Stäng taggar och specialtecken automatiskt",
+  "Indent using tabs": "Indentera med tab",
+  "Show invisible characters": "Visa dolda tecken"
 }

@@ -120,5 +120,17 @@
   "Forgot password?": "Ati uitat parola?",
   "Add Widget": "Adauga widget",
   "Widget": "Widget",
-  "Width": "Latime"
+  "Width": "Latime",
+  "Locale": "Limba",
+  "Select your desired locale for language use.": "Selectati limba dorita.",
+  "Color Scheme": "Schema culori",
+  "Word Wrap": "Word Wrap",
+  "Font Size": "Dimensiune font",
+  "Tab Size": "Lungime tab",
+  "Code Folding": "Code folding",
+  "Show gutter": "Afiseaza panou",
+  "Highlight active line": "Evidentiere linie activa",
+  "Automatically close tags": "Inchide automat tag-uri si caractere speciale",
+  "Indent using tabs": "Indentare folosind tab-uri",
+  "Show invisible characters": "Arata caractere invizibile"
 }

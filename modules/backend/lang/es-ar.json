@@ -23,5 +23,16 @@
   "Widget": "Módulo",
   "please select": "Seleccionar",
   "Width": "Ancho",
-  "full width": "Ancho completo"
+  "full width": "Ancho completo",
+  "Locale": "Idioma",
+  "Select your desired locale for language use.": "Seleccione la localización para el uso del lenguaje.",
+  "Color Scheme": "Color del esquema",
+  "Word Wrap": "Ajuste de línea",
+  "Font Size": "Tamaño de la letra",
+  "Tab Size": ">Tamaño de la solapa",
+  "Code Folding": "Código plegable",
+  "Show gutter": "Mostrar canal",
+  "Highlight active line": "Resaltar línea activa",
+  "Indent using tabs": "Espacio entre solapas",
+  "Show invisible characters": "Mostrar caracteres invisibles"
 }

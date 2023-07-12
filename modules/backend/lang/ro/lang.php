@@ -167,16 +167,6 @@
   'editor' => [
     'menu_label' => 'Preferinte Editor Cod',
     'menu_description' => 'Personalizati preferintele editorului de cod, preferinte precum dimensiunea fontului si culorile folosite.',
-    'font_size' => 'Dimensiune font',
-    'tab_size' => 'Lungime tab',
-    'use_hard_tabs' => 'Indentare folosind tab-uri',
-    'code_folding' => 'Code folding',
-    'word_wrap' => 'Word wrap',
-    'highlight_active_line' => 'Evidentiere linie activa',
-    'auto_closing' => 'Inchide automat tag-uri si caractere speciale',
-    'show_invisibles' => 'Arata caractere invizibile',
-    'show_gutter' => 'Afiseaza panou',
-    'theme' => 'Schema culori',
   ],
   'tooltips' => [
     'preview_website' => 'Previzualizare site',
@@ -193,8 +183,6 @@
   'backend_preferences' => [
     'menu_label' => 'Preferinte administrare',
     'menu_description' => 'Gestionati preferinte limba si setari aspect panou de administrare.',
-    'locale' => 'Limba',
-    'locale_comment' => 'Selectati limba dorita.',
   ],
   'access_log' => [],
 ];
