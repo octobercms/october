@@ -9,9 +9,6 @@ handle = "Blog\Post"
 
 [resources]
 vars[activeNavLink] = 'blog'
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/search.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
-vars[howItsMadeTailorContent] = 'entries/blog_post'
 ==
 {% set searchTerm = get('term')|trim %}
 {% set posts = blog.searchWhere(searchTerm, ['title', 'content']).paginate(16) %}

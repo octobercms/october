@@ -11,9 +11,6 @@ handle = "Blog\Config"
 
 [resources]
 vars[activeNavLink] = 'blog'
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:blog/index.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:blog/post.yaml'
-vars[howItsMadeTailorContent] = 'entries/blog_post'
 ==
 {% set posts = blog.paginate(5) %}
 {% set archiveDates = blog

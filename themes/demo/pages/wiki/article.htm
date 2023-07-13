@@ -6,14 +6,10 @@ meta_title = "{{ wiki.title }}"
 
 [section wiki]
 handle = "Wiki\Article"
-entrySlug = "{{ :id }}"
-entryColumn = "id"
+identifier = "id"
 
 [resources]
 vars[activeNavLink] = 'wiki'
-vars[howItsMadeCmsTemplate] = 'cms:cms-page:wiki/article.htm'
-vars[howItsMadeTailorBlueprint] = 'tailor:tailor-blueprint:wiki/article.yaml'
-vars[howItsMadeTailorContent] = 'entries/wiki_article/{{ wiki.id }}'
 ==
 {% set article = wiki %}
 {% if article is empty %}

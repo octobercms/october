@@ -17,7 +17,7 @@ headers[Content-Type] = 'text/xml'
         <atom:link href="{{ 'blog/rss'|page }}" rel="self" type="application/rss+xml" />
         {% for post in blog %}<item>
             <title>{{ post.title }}</title>
-            <link>{{ 'blog/post'|page({ slug: post.slug }) }}</link>
+            <link>{{ 'blog/post'|page({ slug: post.slug, id: post.id }) }}</link>
             <guid>{{ post.slug }}</guid>
             <pubDate>{{ post.published_at_date.toRfc2822String }}</pubDate>
             <description>{{ post.featured_text }}</description>

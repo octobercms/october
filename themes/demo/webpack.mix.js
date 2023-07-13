@@ -13,7 +13,21 @@ const webpackConfig = require('./webpack.config');
  */
 
 mix.webpackConfig(webpackConfig)
-    .options({ processCssUrls: false })
+    .options({
+        processCssUrls: false,
+        manifest: false,
+        terser: {
+            terserOptions: {
+                compress: true,
+                output: {
+                    comments: false
+                }
+            },
+        },
+    })
+    .setPublicPath('');
+
+mix
     .copy('node_modules/jquery/dist/jquery.min.js', 'assets/vendor/jquery.min.js')
     .js('assets/vendor/codeblocks/codeblocks.js', 'assets/vendor/codeblocks/codeblocks.min.js')
     .js('assets/vendor/bootstrap/bootstrap.js', 'assets/vendor/bootstrap/bootstrap.min.js')

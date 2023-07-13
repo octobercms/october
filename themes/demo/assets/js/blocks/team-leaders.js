@@ -1,6 +1,16 @@
-$(document).on('render', function() {
-    $('[data-control="team-leaders"]').each(function() {
-        $(this).slick({
+oc.registerControl('team-leaders', class extends oc.ControlBase {
+    connect() {
+        this.$el = $(this.element);
+        this.connectSlick();
+    }
+
+    disconnect() {
+        this.$el.slick('unslick');
+        this.$el = null;
+    }
+
+    connectSlick() {
+        this.$el.slick({
             dots: true,
             infinite: false,
             speed: 300,
@@ -32,5 +42,5 @@ $(document).on('render', function() {
                 }
             ]
         });
-    });
+    }
 });
