@@ -1,7 +1,6 @@
 addEventListener('render', function() {
 
     // Auto Collapsed List
-    //
     $('ul.bullet-list li.active:first').each(function() {
         $(this).parents('ul.collapse').each(function() {
             $(this).addClass('show').prevAll('.collapse-caret:first').removeClass('collapsed');
@@ -9,7 +8,6 @@ addEventListener('render', function() {
     });
 
     // Popovers
-    //
     $('[data-bs-toggle="popover"]').each(function() {
         var $el = $(this);
         if ($el.data('content-target')) {
@@ -26,8 +24,8 @@ addEventListener('render', function() {
     });
 
     // How it is made
-    //
     setTimeout(function() {
         $('.how-its-made').removeClass('init');
     }, 1);
+
 });

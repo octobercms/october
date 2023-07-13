@@ -1,8 +1,27 @@
-$(document).on('render', function() {
-    $('[data-control="image-carousel"]').each(function () {
-        var carousel = this;
 
-        $(this).slick({
+oc.registerControl('image-carousel', class extends oc.ControlBase {
+    connect() {
+        this.$el = $(this.element);
+        this.connectSlick();
+        this.connectLightbox();
+
+        setTimeout(() => {
+            this.prepareLightbox();
+        }, 1);
+    }
+
+    disconnect() {
+        if (this.lightbox) {
+            this.lightbox.destroy();
+            this.lightbox = null;
+        }
+
+        this.$el.slick('unslick');
+        this.$el = null;
+    }
+
+    connectSlick() {
+        this.$el.slick({
             dots: true,
             infinite: false,
             speed: 300,
@@ -25,32 +44,33 @@ $(document).on('render', function() {
                 }
             ]
         });
+    }
 
-        setTimeout(function () {
-            var links = $('.slick-slide a', carousel);
-            links.each(function () {
-                var image = new Image(),
-                    link = this;
-
-                image.src = this.getAttribute('href');
-                image.onload = function () {
-                    link.setAttribute('data-pswp-width', image.naturalWidth);
-                    link.setAttribute('data-pswp-height', image.naturalHeight);
-                };
-            });
-        }, 1);
-
-        var lightbox = new PhotoSwipeLightbox({
-            gallery: this,
+    connectLightbox() {
+        this.lightbox = new PhotoSwipeLightbox({
+            gallery: this.element,
             children: '.slick-slide',
             pswpModule: PhotoSwipeModule,
             showHideAnimationType: 'none'
         });
 
-        new PhotoSwipeDynamicCaption(lightbox, {
+        new PhotoSwipeDynamicCaption(this.lightbox, {
             type: 'auto'
         });
 
-        lightbox.init();
-    });
+        this.lightbox.init();
+    }
+
+    prepareLightbox() {
+        $('.slick-slide a', this.$el).each(function () {
+            var image = new Image(),
+                link = this;
+
+            image.src = this.getAttribute('href');
+            image.onload = function () {
+                link.setAttribute('data-pswp-width', image.naturalWidth);
+                link.setAttribute('data-pswp-height', image.naturalHeight);
+            };
+        });
+    }
 });
