@@ -2,5 +2,7 @@
   "Media": "Medier",
   "Access the Media Manager": "Få adgang til Media Manager",
   "Upload Media": "Upload medier",
-  "Delete Media": "Slet medier"
+  "Delete Media": "Slet medier",
+  "A media file already exists at this location, please upload using a different filename.": "Der findes allerede en mediefil på denne placering. Upload venligst med et andet filnavn.",
+  "Remove Selected": "Fjern valgte"
 }

@@ -2,5 +2,7 @@
   "Media": "СМІ",
   "Access the Media Manager": "Доступ да Media Manager",
   "Upload Media": "Загрузіць медыя",
-  "Delete Media": "Выдаліць медыя"
+  "Delete Media": "Выдаліць медыя",
+  "A media file already exists at this location, please upload using a different filename.": "Мультымедыйны файл ужо існуе ў гэтым месцы, запампуйце, выкарыстоўваючы іншую назву файла.",
+  "Remove Selected": "Выдаліць выбранае"
 }

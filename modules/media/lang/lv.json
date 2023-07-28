@@ -2,5 +2,7 @@
   "Media": "Plašsaziņas līdzekļi",
   "Access the Media Manager": "Piekļūstiet multivides pārvaldniekam",
   "Upload Media": "Augšupielādēt multividi",
-  "Delete Media": "Dzēst multividi"
+  "Delete Media": "Dzēst multividi",
+  "A media file already exists at this location, please upload using a different filename.": "Šajā vietā jau pastāv multivides fails. Lūdzu, augšupielādējiet, izmantojot citu faila nosaukumu.",
+  "Remove Selected": "Noņemt atlasītos"
 }

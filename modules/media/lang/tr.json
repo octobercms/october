@@ -2,5 +2,7 @@
   "Media": "medya",
   "Access the Media Manager": "Medya Yöneticisine Erişin",
   "Upload Media": "Medya Yükle",
-  "Delete Media": "Medyayı Sil"
+  "Delete Media": "Medyayı Sil",
+  "A media file already exists at this location, please upload using a different filename.": "Bu konumda zaten bir medya dosyası var, lütfen farklı bir dosya adı kullanarak yükleyin.",
+  "Remove Selected": "Seçileni Kaldır"
 }

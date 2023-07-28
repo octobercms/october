@@ -2,5 +2,7 @@
   "Media": "Média",
   "Access the Media Manager": "Otevřete Správce médií",
   "Upload Media": "Nahrát média",
-  "Delete Media": "Smazat média"
+  "Delete Media": "Smazat média",
+  "A media file already exists at this location, please upload using a different filename.": "V tomto umístění již mediální soubor existuje, nahrajte jej prosím s jiným názvem souboru.",
+  "Remove Selected": "Odstranit vybrané"
 }

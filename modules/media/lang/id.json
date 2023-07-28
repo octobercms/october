@@ -2,5 +2,7 @@
   "Media": "Media",
   "Access the Media Manager": "Mengakses kelola Media",
   "Upload Media": "Unggah Media",
-  "Delete Media": "Hapus Media"
+  "Delete Media": "Hapus Media",
+  "A media file already exists at this location, please upload using a different filename.": "File media sudah ada di lokasi ini, harap unggah menggunakan nama file yang berbeda.",
+  "Remove Selected": "Hapus yang Dipilih"
 }

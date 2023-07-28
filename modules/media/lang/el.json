@@ -2,5 +2,7 @@
   "Media": "Μεσο ΜΑΖΙΚΗΣ ΕΝΗΜΕΡΩΣΗΣ",
   "Access the Media Manager": "Πρόσβαση στο Media Manager",
   "Upload Media": "Μεταφόρτωση πολυμέσων",
-  "Delete Media": "Διαγραφή πολυμέσων"
+  "Delete Media": "Διαγραφή πολυμέσων",
+  "A media file already exists at this location, please upload using a different filename.": "Υπάρχει ήδη ένα αρχείο πολυμέσων σε αυτήν την τοποθεσία, μεταφορτώστε χρησιμοποιώντας διαφορετικό όνομα αρχείου.",
+  "Remove Selected": "Αφαιρέστε τα επιλεγμένα"
 }

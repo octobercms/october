@@ -2,5 +2,7 @@
   "Media": "Медия",
   "Access the Media Manager": "Достъп до Media Manager",
   "Upload Media": "Качване на медия",
-  "Delete Media": "Изтриване на медия"
+  "Delete Media": "Изтриване на медия",
+  "A media file already exists at this location, please upload using a different filename.": "На това място вече съществува медиен файл, моля, качете с друго име на файл.",
+  "Remove Selected": "Премахнете избраното"
 }

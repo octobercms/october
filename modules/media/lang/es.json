@@ -2,5 +2,7 @@
   "Media": "Medios de comunicación",
   "Access the Media Manager": "Acceder al Administrador de medios",
   "Upload Media": "Subir medios",
-  "Delete Media": "Eliminar medios"
+  "Delete Media": "Eliminar medios",
+  "A media file already exists at this location, please upload using a different filename.": "Ya existe un archivo multimedia en esta ubicación, cárguelo con un nombre de archivo diferente.",
+  "Remove Selected": "Eliminar selección"
 }
