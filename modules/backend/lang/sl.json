@@ -207,6 +207,10 @@
   "Left Side": "Leva stran",
   "Add New Item": "Dodaj nov element",
   "Link Color": "Barva povezave",
+  "Current Password": "Current Password",
+  "New Password": "New Password",
+  "Current password does not match. Please try again!": "Current password does not match. Please try again!",
+  "Your password has expired, please create a new one for security reasons.": "Your password has expired, please create a new one for security reasons.",
   "Region": "Regija",
   "Locale": "Jezik",
   "Select your desired locale for language use.": "Izberite želeni jezik za uporabo v administraciji.",
@@ -258,5 +262,7 @@
   "Toolbar Buttons": "Gumbi orodne vrstice",
   "The Toolbar Buttons to be displayed in the Rich Editor by default.": "Gumbi orodne vrstice, ki se privzeto prikažejo v urejevalniku.",
   "Insert a preset toolbar button configuration": "Vstavite prednastavljeno konfiguracijo gumbov orodne vrstice:",
+  "Allowed Attributes": "Allowed Attributes",
+  "The list of allowed HTML attributes, in addition to the normal allowances.": "The list of allowed HTML attributes, in addition to the normal allowances.",
   "Enable code snippets (Tab)": "Omogoči odseke kode (Tab)"
 }

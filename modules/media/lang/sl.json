@@ -1,8 +1,8 @@
 {
-  "Media": "Mediji",
-  "Access the Media Manager": "Dostop do upravitelja medijev",
-  "Upload Media": "Nalaganje medijev",
-  "Delete Media": "Izbriši medije",
-  "A media file already exists at this location, please upload using a different filename.": "Medijska datoteka na tej lokaciji že obstaja, prosimo, da jo naložite z drugim imenom.",
-  "Remove Selected": "Odstrani izbrano"
+    "Media": "Mediji",
+    "Access the Media Manager": "Dostop do upravitelja medijev",
+    "Upload Media": "Nalaganje medijev",
+    "Delete Media": "Izbriši medije",
+    "A media file already exists at this location, please upload using a different filename.": "Medijska datoteka na tej lokaciji že obstaja, prosimo, da jo naložite z drugim imenom.",
+    "Remove Selected": "Odstrani izbrano"
 }

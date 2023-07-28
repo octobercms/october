@@ -1,8 +1,8 @@
 {
-  "Media": "Media",
-  "Access the Media Manager": "Toegang tot de Media Manager",
-  "Upload Media": "Media uploaden",
-  "Delete Media": "Media verwijderen",
-  "A media file already exists at this location, please upload using a different filename.": "Er bestaat al een media-bestand op deze locatie, upload het bestand met een andere naam.",
-  "Remove Selected": "Verwijder selectie"
+    "Media": "Media",
+    "Access the Media Manager": "Toegang tot de Media Manager",
+    "Upload Media": "Media uploaden",
+    "Delete Media": "Media verwijderen",
+    "A media file already exists at this location, please upload using a different filename.": "Er bestaat al een media-bestand op deze locatie, upload het bestand met een andere naam.",
+    "Remove Selected": "Verwijder selectie"
 }

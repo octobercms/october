@@ -1,6 +1,8 @@
 {
-  "Media": "Głoska bezdźwięczna",
-  "Access the Media Manager": "Uzyskaj dostęp do Menedżera mediów",
-  "Upload Media": "Prześlij multimedia",
-  "Delete Media": "Usuń multimedia"
+    "Media": "Głoska bezdźwięczna",
+    "Access the Media Manager": "Uzyskaj dostęp do Menedżera mediów",
+    "Upload Media": "Prześlij multimedia",
+    "Delete Media": "Usuń multimedia",
+    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename.",
+    "Remove Selected": "Remove Selected"
 }
