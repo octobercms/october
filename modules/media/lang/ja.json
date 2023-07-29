@@ -2,5 +2,7 @@
   "Media": "メディア",
   "Access the Media Manager": "メディアマネージャーにアクセスする",
   "Upload Media": "メディアのアップロード",
-  "Delete Media": "メディアを削除"
+  "Delete Media": "メディアを削除",
+  "A media file already exists at this location, please upload using a different filename.": "メディア ファイルはこの場所にすでに存在します。別のファイル名を使用してアップロードしてください。",
+  "Remove Selected": "削除選択"
 }

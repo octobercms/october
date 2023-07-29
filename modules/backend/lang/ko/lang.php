@@ -157,16 +157,7 @@
     'column_switch_false' => 'N',
   ],
   'fileupload' => [
-    'attachment' => '첨부',
-    'help' => '이 첨부에 대한 제목과  설명을 추가.',
-    'title_label' => '제목',
-    'description_label' => '설명',
     'default_prompt' => '여기에 %s 클릭하거나 파일 드래그하여 업로드',
-    'attachment_url' => '첨부 URL',
-    'upload_file' => '파일 업로드',
-    'upload_error' => '업로드 오류',
-    'remove_confirm' => '삭제하시겠습니까?',
-    'remove_file' => '파일 삭제',
   ],
   'form' => [
     'create_title' => '신규 :name',

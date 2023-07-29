@@ -2,5 +2,7 @@
   "Media": "Žiniasklaida",
   "Access the Media Manager": "Pasiekite medijos tvarkyklę",
   "Upload Media": "Įkelti mediją",
-  "Delete Media": "Ištrinti laikmeną"
+  "Delete Media": "Ištrinti laikmeną",
+  "A media file already exists at this location, please upload using a different filename.": "Medijos failas jau yra šioje vietoje. Įkelkite naudodami kitą failo pavadinimą.",
+  "Remove Selected": "Pašalinti pasirinktą"
 }

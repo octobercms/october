@@ -2,5 +2,7 @@
   "Media": "Meedia",
   "Access the Media Manager": "Juurdepääs Media Managerile",
   "Upload Media": "Laadige meedia üles",
-  "Delete Media": "Kustuta meedia"
+  "Delete Media": "Kustuta meedia",
+  "A media file already exists at this location, please upload using a different filename.": "Selles kohas on meediumifail juba olemas. Laadige üles, kasutades teist failinime.",
+  "Remove Selected": "Eemalda valitud"
 }

@@ -197,16 +197,7 @@
     'column_switch_false' => 'Não',
   ],
   'fileupload' => [
-    'attachment' => 'Anexo',
-    'help' => 'Adicione um título e descrição a este anexo.',
-    'title_label' => 'Título',
-    'description_label' => 'Descrição',
     'default_prompt' => 'Clique em %s ou arraste um ficheiro para cá para enviar',
-    'attachment_url' => 'Anexar URL',
-    'upload_file' => 'Enviar ficheiro',
-    'upload_error' => 'Erro ao enviar',
-    'remove_confirm' => 'Tem a certeza?',
-    'remove_file' => 'Remover ficheiro',
   ],
   'form' => [
     'create_title' => 'Novo :name',

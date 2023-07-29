@@ -1,4 +1,7 @@
 {
-  "Editor": "Urednik",
-  "Access the Editor Tool": "Dostop do orodja za urejevalnik"
+    "Editor": "Urednik",
+    "Access the Editor Tool": "Dostop do orodja za urejevalnik",
+    "Editor Tabs": "Editor Tabs",
+    "Close Tab": "Close Tab",
+    "Editor Objects": "Editor Objects"
 }

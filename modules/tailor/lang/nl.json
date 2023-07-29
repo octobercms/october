@@ -16,6 +16,7 @@
     "Entries have been enabled": "Items zijn ingeschakeld",
     "Entries have been deleted": "Items zijn verwijderd",
     "Entries have been restored": "Items zijn hersteld",
+    "Entries have been duplicated": "Items zijn gedupliceerd",
     "Manage Blueprints": "Blauwdrukken beheren",
     "All Entries": "Alle items",
     "Published Date": "Publicatiedatum",
@@ -53,7 +54,7 @@
     "Publish Date": "Publicatiedatum",
     "Expiry Date": "Vervaldatum",
     "Entry Type": "Item type",
-    "Handle": "Handle",
+    "Handle": "Referentie",
     "Collection": "Verzameling",
     "Displays a collection of entries.": "Weergave van een verzameling items.",
     "Global": "Globaal",
@@ -87,5 +88,6 @@
     ":name Entry": ":name item",
     "All :name Items": "Alle :name items",
     "Update Existing Records": "Bijwerken bestaande records",
-    "Check this box to update records that match the same ID, title or slug.": "Vink aan om de records bij te werken die overeenkomen met dezelfde ID, titel of slug."
+    "Check this box to update records that match the same ID, title or slug.": "Vink aan om de records bij te werken die overeenkomen met dezelfde ID, titel of slug.",
+    "Copy": "Kopiëren"
 }

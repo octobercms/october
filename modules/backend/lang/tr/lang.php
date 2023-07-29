@@ -180,16 +180,7 @@
     'column_switch_false' => 'Hayır',
   ],
   'fileupload' => [
-    'attachment' => 'Dosya Eki',
-    'help' => 'Bu ek için bir başlık ve tanım girin.',
-    'title_label' => 'Başlık',
-    'description_label' => 'Tanım',
     'default_prompt' => '%s e tıkla ya da bir dosya sürükleyin',
-    'attachment_url' => 'Ek URLsi',
-    'upload_file' => 'Dosya yükle',
-    'upload_error' => 'Dosya yükleme hatası',
-    'remove_confirm' => 'Emin misiniz?',
-    'remove_file' => 'Dosyayı sil',
   ],
   'form' => [
     'create_title' => ':name Oluştur',

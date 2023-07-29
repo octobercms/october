@@ -200,16 +200,7 @@
     'column_switch_false' => 'Ne',
   ],
   'fileupload' => [
-    'attachment' => 'Prilog',
-    'help' => 'Dodaj naslov i opis za ovaj prilog.',
-    'title_label' => 'Naslov',
-    'description_label' => 'Opis',
     'default_prompt' => 'Klikni na %s ili prevuci fajl ovde za otpremanje',
-    'attachment_url' => 'URL priloga',
-    'upload_file' => 'Otpremi fajl',
-    'upload_error' => 'Greška pri otpremanju',
-    'remove_confirm' => 'Da li si siguran?',
-    'remove_file' => 'Izbriši fajl',
   ],
   'form' => [
     'create_title' => 'Nova :name',

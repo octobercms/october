@@ -17,7 +17,7 @@
   "Update the system modules and plugins.": "Update het systeem, beheer en installeer plugins en thema's.",
   "General": "Algemeen",
   "Mail": "E-mail",
-  "Utilities": "Utilities",
+  "Utilities": "Hulpmiddelen",
   "Settings": "Instellingen",
   "Show All Settings": "Toon alle instellingen",
   "Unable to find the specified settings.": "Kan specifieke instellingen niet vinden.",
@@ -28,7 +28,7 @@
   "Disable mail branding CSS": "CSS voor e-mailbranding uitschakelen",
   "Manage Sites": "Sites beheren",
   "Manage the websites available for this application.": "Beheer de websites die beschikbaar zijn voor deze toepassing.",
-  "Marketplace": "Marketplace",
+  "Marketplace": "Marktplaats",
   "There is no documentation provided.": "Er is geen documentatie beschikbaar.",
   "Documentation": "Documentatie",
   "Upgrade Guide": "Upgrade instructie",
@@ -74,7 +74,7 @@
   "Failed": "mislukt",
   "or": "of",
   "Code": "Code",
-  "October CMS Marketplace": "October CMS Marketplace",
+  "October CMS Marketplace": "October CMS Marktplaats",
   "Visit the :link to add some.": "Project heeft geen plug-ins of thema's. Bezoek de :link om wat toe te voegen.",
   "Buy Now": "Nu kopen",
   "Updating package manager": "Bijwerken pakketmanager",
@@ -139,5 +139,7 @@
   "SES Region": "SES regio",
   "Enter your SES region (e.g. us-east-1)": "Voer SES regio in (bijv. us-east-1)",
   "Postmark Token": "Postmark Token",
-  "Enter your Postmark API secret key": "Voer Postmark API secret key in"
+  "Enter your Postmark API secret key": "Voer Postmark API secret key in",
+  "Define administrator roles": "Bepaal beheerdersrollen",
+  "Restrict access to this site to only administrator with the following roles.": "Beperk de toegang tot deze site tot alleen beheerders met de volgende rollen."
 }

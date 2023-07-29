@@ -2,5 +2,7 @@
   "Media": "Mitjans de comunicació",
   "Access the Media Manager": "Accediu al Gestor de mitjans",
   "Upload Media": "Carrega multimèdia",
-  "Delete Media": "Suprimeix el contingut multimèdia"
+  "Delete Media": "Suprimeix el contingut multimèdia",
+  "A media file already exists at this location, please upload using a different filename.": "Ja hi ha un fitxer multimèdia en aquesta ubicació. Pengeu-lo amb un nom de fitxer diferent.",
+  "Remove Selected": "Elimina els seleccionats"
 }

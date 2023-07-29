@@ -115,16 +115,7 @@
     'delete_selected_success' => 'De markerade posterna är raderade.',
   ],
   'fileupload' => [
-    'attachment' => 'Bilaga',
-    'help' => 'Lägg till en och beskriving för denna bilagan.',
-    'title_label' => 'Titel',
-    'description_label' => 'Beskriving',
     'default_prompt' => 'Klicka på %s eller dra en fil hit för att ladda upp',
-    'attachment_url' => 'Bilage-URL',
-    'upload_file' => 'Ladda upp fil',
-    'upload_error' => 'Fel vid uppladdning',
-    'remove_confirm' => 'Är du säker?',
-    'remove_file' => 'Radera fil',
   ],
   'form' => [
     'create_title' => 'Skapa :name',

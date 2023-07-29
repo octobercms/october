@@ -108,12 +108,7 @@
     'records_per_page' => 'ページ中のレコード数',
     'records_per_page_help' => 'ページあたりの表示レコード数を選択してください。1ページにたくさん表示するとパフォーマンスに影響があるので留意してください。',
   ],
-  'fileupload' => [
-    'attachment' => '添付',
-    'help' => 'この添付のタイトルと説明を追加します。',
-    'title_label' => 'タイトル',
-    'description_label' => '説明',
-  ],
+  'fileupload' => [],
   'form' => [
     'create_title' => '新規 :name',
     'update_title' => '編集 :name',

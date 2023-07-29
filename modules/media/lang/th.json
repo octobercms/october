@@ -2,5 +2,7 @@
   "Media": "สื่อ",
   "Access the Media Manager": "เข้าถึงตัวจัดการสื่อ",
   "Upload Media": "อัพโหลดสื่อ",
-  "Delete Media": "ลบสื่อ"
+  "Delete Media": "ลบสื่อ",
+  "A media file already exists at this location, please upload using a different filename.": "มีไฟล์สื่ออยู่ในตำแหน่งนี้แล้ว โปรดอัปโหลดโดยใช้ชื่อไฟล์อื่น",
+  "Remove Selected": "ลบสิ่งที่เลือก"
 }

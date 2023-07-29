@@ -6,6 +6,7 @@
   "Project": "Проект",
   "Owner": "Владелец",
   "Plugins": "Плагины",
+  "Recommended": "Рекомендуется",
   "Disabled": "Отключено",
   "Current Build": "Текущая сборка",
   "Updates Available": "Доступны обновления",
@@ -102,6 +103,7 @@
   "A user was not found with the given credentials.": "Пользователь с указанными данными не найден.",
   "A user was found but the password did not match.": "Пользователь найден, но пароль не совпадает.",
   "User is not logged in": "Пользователь не авторизован.",
+  "Register Software": "Register Software",
   "View the Dashboard": "Просмотр панели управления",
   "Set the Default Dashboard": "Управление заглавным дашбордом",
   "Log File": "Файл журнала",
@@ -137,5 +139,7 @@
   "SES Region": "SES регион",
   "Enter your SES region (e.g. us-east-1)": "Введите свой SES регион (например: us-east-1)",
   "Postmark Token": "Postmark секрет",
-  "Enter your Postmark API secret key": "Введите свой Postmark API секретный ключ"
+  "Enter your Postmark API secret key": "Введите свой Postmark API секретный ключ",
+  "Define administrator roles": "Define administrator roles",
+  "Restrict access to this site to only administrator with the following roles.": "Restrict access to this site to only administrator with the following roles."
 }

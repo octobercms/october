@@ -1,6 +1,8 @@
 {
-  "Media": "Média",
-  "Access the Media Manager": "Nyissa meg a Médiakezelőt",
-  "Upload Media": "Média feltöltése",
-  "Delete Media": "Média törlése"
+    "Media": "Média",
+    "Access the Media Manager": "Nyissa meg a Médiakezelőt",
+    "Upload Media": "Média feltöltése",
+    "Delete Media": "Média törlése",
+    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename.",
+    "Remove Selected": "Remove Selected"
 }

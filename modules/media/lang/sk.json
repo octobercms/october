@@ -1,6 +1,8 @@
 {
-  "Media": "Médiá",
-  "Access the Media Manager": "Prístup k Správcovi médií",
-  "Upload Media": "Nahrať médiá",
-  "Delete Media": "Odstrániť médiá"
+    "Media": "Médiá",
+    "Access the Media Manager": "Prístup k Správcovi médií",
+    "Upload Media": "Nahrať médiá",
+    "Delete Media": "Odstrániť médiá",
+    "A media file already exists at this location, please upload using a different filename.": "V tejto lokácii už mediálny súbor existuje, prosím nahrajte ho s iným názvom.",
+    "Remove Selected": "Odstrániť vybrané"
 }

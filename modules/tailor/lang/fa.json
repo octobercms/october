@@ -15,6 +15,8 @@
   "Entries have been disabled": "ورودی ها غیرفعال شده است",
   "Entries have been enabled": "ورودی ها فعال شده اند",
   "Entries have been deleted": "ورودی ها حذف شده اند",
+  "Entries have been restored": "ورودی ها بازیابی شده اند",
+  "Entries have been duplicated": "ورودی ها تکراری شده اند",
   "Manage Blueprints": "نقشه ها را مدیریت کنید",
   "All Entries": "همه ورودی ها",
   "Published Date": "تاریخ انتشار",
@@ -63,5 +65,29 @@
   "Default View": "نمای پیش فرض",
   "Used as default entry point when previewing the record.": "به عنوان نقطه ورودی پیش فرض هنگام پیش نمایش رکورد استفاده می شود.",
   "Full Slug": "حلزون کامل",
-  "Use the full slug when looking up the record.": "هنگام جستجوی رکورد از اسلگ کامل استفاده کنید."
+  "Use the full slug when looking up the record.": "هنگام جستجوی رکورد از اسلگ کامل استفاده کنید.",
+  "Are you sure?": "مطمئنی؟",
+  "Delete Forever": "برای همیشه حذف کنید",
+  "This record is not visible because it has been deleted.": "این رکورد قابل مشاهده نیست زیرا حذف شده است.",
+  "Restore this Record": "این رکورد را بازیابی کنید",
+  "Do you really want to delete this permanently?": "آیا واقعاً می خواهید این را برای همیشه حذف کنید؟",
+  "ID (Primary Key)": "شناسه (کلید اصلی)",
+  "Column name (index) to match with the primary record.": "نام ستون (شاخص) برای مطابقت با رکورد اولیه.",
+  "Records Per Page": "رکورد در هر صفحه",
+  "Number of records to display on a single page. Leave empty to disable pagination.": "تعداد رکورد برای نمایش در یک صفحه برای غیرفعال کردن صفحه بندی، خالی بگذارید.",
+  "Invalid format of the records per page value. The value should be a number.": "فرمت رکوردها در هر مقدار صفحه نامعتبر است. مقدار باید یک عدد باشد.",
+  "Pagination": "صفحه بندی",
+  "Page Number": "شماره صفحه",
+  "This value is used to determine what page the user is on.": "این مقدار برای تعیین اینکه کاربر در چه صفحه ای است استفاده می شود.",
+  "Sorting": "مرتب سازی",
+  "Sort by Column": "مرتب سازی بر اساس ستون",
+  "Model column the records should be ordered by": "ستون مدل رکوردها باید بر اساس آن مرتب شوند",
+  "Direction": "جهت",
+  "Update :name Entries": "به روز رسانی: نام ورودی ها",
+  "Update :name": "به روز رسانی :name",
+  ":name Entry": ":نام ورودی",
+  "All :name Items": "همه: ورودی های نام",
+  "Update Existing Records": "به روز رسانی سوابق موجود",
+  "Check this box to update records that match the same ID, title or slug.": "برای به‌روزرسانی رکوردهایی که با همان شناسه، عنوان یا اسلاگ مطابقت دارند، این کادر را علامت بزنید.",
+  "Copy": "کپی 🀄"
 }

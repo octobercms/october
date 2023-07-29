@@ -149,16 +149,7 @@
     'column_switch_false' => 'Όχι',
   ],
   'fileupload' => [
-    'attachment' => 'Επισύναψη',
-    'help' => 'Προσθέστε τίτλο και περιγραφή για αυτήν την επισύναψη.',
-    'title_label' => 'Τίτλος',
-    'description_label' => 'Περιγραφή',
     'default_prompt' => 'Κάντε κλικ στο %s ή σύρετε ένα αρχείο εδώ για να το ανεβάσετε',
-    'attachment_url' => 'URL Συνημμένου',
-    'upload_file' => 'Ανέβασμα αρχείου',
-    'upload_error' => 'Σφάλμα ανεβάσματος',
-    'remove_confirm' => 'Είστε σίγουροι;',
-    'remove_file' => 'Διαγραφή αρχείου',
   ],
   'form' => [
     'create_title' => 'Νέο :name',

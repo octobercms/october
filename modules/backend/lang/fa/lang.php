@@ -175,16 +175,7 @@
     'column_switch_false' => 'خیر',
   ],
   'fileupload' => [
-    'attachment' => 'فایل ضمیمه',
-    'help' => 'برای فایل ضمیمه عنوان و توضیح اختصاص بهری وارد نمایید.',
-    'title_label' => 'عنوان',
-    'description_label' => 'توضیحات',
     'default_prompt' => 'فایل را جهت ارسال به این نقطه بکشید و یا %s را کلیک کنید',
-    'attachment_url' => 'نشانی پیوست',
-    'upload_file' => 'ارسال فایل',
-    'upload_error' => 'خطا در ارسال فایل',
-    'remove_confirm' => 'آیا اطمینان دارید؟',
-    'remove_file' => 'حذف فایل',
   ],
   'form' => [
     'create_title' => ':name جدید',

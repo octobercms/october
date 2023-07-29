@@ -135,5 +135,7 @@
   "Default": "Standaardwaarde",
   "Options": "Opties",
   "Define a Snippet Partial": "Definieer snippet",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ongeldige selectlijst waarde: %s. Deze waarden mogen alleen cijfers, letters of de karakters _- bevatten."
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ongeldige selectlijst waarde: %s. Deze waarden mogen alleen cijfers, letters of de karakters _- bevatten.",
+  "The description is displayed in the snippet list in the editor when a snippet is added.": "De beschrijving wordt getoond in de snippetlijst in de editor zodra een snippet wordt toegevoegd.",
+  "Details": "Details"
 }

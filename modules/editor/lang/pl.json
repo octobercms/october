@@ -1,4 +1,7 @@
 {
-  "Editor": "Redaktor",
-  "Access the Editor Tool": "Uzyskaj dostęp do narzędzia edytora"
+    "Editor": "Redaktor",
+    "Access the Editor Tool": "Uzyskaj dostęp do narzędzia edytora",
+    "Editor Tabs": "Editor Tabs",
+    "Close Tab": "Close Tab",
+    "Editor Objects": "Editor Objects"
 }

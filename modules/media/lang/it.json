@@ -2,5 +2,7 @@
   "Media": "Media",
   "Access the Media Manager": "Accedi al Gestore multimediale",
   "Upload Media": "Carica file multimediali",
-  "Delete Media": "Elimina media"
+  "Delete Media": "Elimina media",
+  "A media file already exists at this location, please upload using a different filename.": "Un file multimediale esiste già in questa posizione, caricalo utilizzando un nome file diverso.",
+  "Remove Selected": "Rimuovi i selezionati"
 }

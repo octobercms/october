@@ -192,16 +192,7 @@
     'column_switch_false' => 'Nein',
   ],
   'fileupload' => [
-    'attachment' => 'Anhang',
-    'help' => 'Fügen Sie dem Anhang einen Titel und eine Beschreibung hinzu.',
-    'title_label' => 'Titel',
-    'description_label' => 'Beschreibung',
     'default_prompt' => 'Auf %s klicken oder eine Datei hierhin ziehen, um sie hochzuladen',
-    'attachment_url' => 'Originaldatei-URL',
-    'upload_file' => 'Datei hochladen',
-    'upload_error' => 'Fehler beim hochladen',
-    'remove_confirm' => 'Sind Sie sicher?',
-    'remove_file' => 'Datei entfernen',
   ],
   'form' => [
     'create_title' => ':name erstellen',

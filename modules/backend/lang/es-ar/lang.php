@@ -103,12 +103,7 @@
     'records_per_page' => 'Registros por página',
     'records_per_page_help' => 'Seleccione el número de registros por página para mostrar. Tenga en cuenta que un alto número de registros en una sola página puede reducir el rendimiento.',
   ],
-  'fileupload' => [
-    'attachment' => 'Adjunto',
-    'help' => 'Añadir un título y una descripción para este Adjunto.',
-    'title_label' => 'Título',
-    'description_label' => 'Descripción',
-  ],
+  'fileupload' => [],
   'form' => [
     'create_title' => 'Nuevo :name',
     'update_title' => 'Editar :name',

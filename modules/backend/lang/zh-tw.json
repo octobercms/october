@@ -151,5 +151,9 @@
   "Show gutter": "顯示gutter",
   "Highlight active line": "醒目顯示操作中的行",
   "Indent using tabs": "使用tabs縮進",
-  "Show invisible characters": "顯示隱藏字元"
+  "Show invisible characters": "顯示隱藏字元",
+  "Title": "標題",
+  "Description": "描述",
+  "Attachment": "附件",
+  "Add a title and description for this attachment.": "給附件新增標題和描述"
 }

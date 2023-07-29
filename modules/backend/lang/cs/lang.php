@@ -174,16 +174,7 @@
     'column_switch_false' => 'Ne',
   ],
   'fileupload' => [
-    'attachment' => 'Příloha',
-    'help' => 'Přidat název a popisek k příloze.',
-    'title_label' => 'Název',
-    'description_label' => 'Popis',
     'default_prompt' => 'Kliknutím na %s nebo přetažením na toto místo můžete soubor nahrát',
-    'attachment_url' => 'URL přílohy',
-    'upload_file' => 'Nahrát soubor',
-    'upload_error' => 'Chyba nahrávání',
-    'remove_confirm' => 'Jste si jistí?',
-    'remove_file' => 'Odstranit soubor',
   ],
   'form' => [
     'create_title' => 'Nový :name',

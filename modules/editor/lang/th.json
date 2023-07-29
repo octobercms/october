@@ -1,4 +1,7 @@
 {
   "Editor": "บรรณาธิการ",
-  "Access the Editor Tool": "เข้าถึงเครื่องมือแก้ไข"
+  "Access the Editor Tool": "เข้าถึงเครื่องมือแก้ไข",
+  "Editor Tabs": "แท็บตัวแก้ไข",
+  "Close Tab": "ปิดแท็บ",
+  "Editor Objects": "วัตถุตัวแก้ไข"
 }

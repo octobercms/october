@@ -175,16 +175,7 @@
     'column_switch_false' => 'Không',
   ],
   'fileupload' => [
-    'attachment' => 'Tệp đính kèm',
-    'help' => 'Tên và mô tả cho tệp.',
-    'title_label' => 'Tên',
-    'description_label' => 'Mô tả',
     'default_prompt' => 'Bấm vào %s hoặc kéo thả file vào đây để upload',
-    'attachment_url' => 'URL file',
-    'upload_file' => 'Upload file',
-    'upload_error' => 'Lỗi upload',
-    'remove_confirm' => 'Bạn có chắc chắn muốn xóa?',
-    'remove_file' => 'Xóa file',
   ],
   'form' => [
     'create_title' => 'Thêm mới :name',

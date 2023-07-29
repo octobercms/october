@@ -1,7 +1,8 @@
 {
-  "Media": "Медиа",
-  "Access the Media Manager": "Доступ к медиа-менеджеру",
-  "Upload Media": "Загрузить медиа",
-  "Delete Media": "Удалить медиа",
-  "A media file already exists at this location, please upload using a different filename.": "Медиафайл уже существует по этому пути, пожалуйста выберите другое имя файла."
+    "Media": "Медиа",
+    "Access the Media Manager": "Доступ к медиа-менеджеру",
+    "Upload Media": "Загрузить медиа",
+    "Delete Media": "Удалить медиа",
+    "A media file already exists at this location, please upload using a different filename.": "Медиафайл уже существует по этому пути, пожалуйста выберите другое имя файла.",
+    "Remove Selected": "Убрать Выделенное"
 }

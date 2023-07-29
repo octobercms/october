@@ -1,7 +1,8 @@
 {
-  "Media": "Mídia",
-  "Access the Media Manager": "Acesse o Gerenciador de Mídia",
-  "Upload Media": "Carregar mídia",
-  "Delete Media": "Excluir mídia",
-  "A media file already exists at this location, please upload using a different filename.": "Já existe um arquivo de mídia neste local. Faça o upload usando um nome de arquivo diferente."
+    "Media": "Mídia",
+    "Access the Media Manager": "Acesse o Gerenciador de Mídia",
+    "Upload Media": "Carregar mídia",
+    "Delete Media": "Excluir mídia",
+    "A media file already exists at this location, please upload using a different filename.": "Já existe um arquivo de mídia neste local. Faça o upload usando um nome de arquivo diferente.",
+    "Remove Selected": "Remove Selected"
 }

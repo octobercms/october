@@ -2,5 +2,7 @@
   "Media": "رسانه ها",
   "Access the Media Manager": "به Media Manager دسترسی پیدا کنید",
   "Upload Media": "آپلود رسانه",
-  "Delete Media": "حذف رسانه"
+  "Delete Media": "حذف رسانه",
+  "A media file already exists at this location, please upload using a different filename.": "یک فایل رسانه از قبل در این مکان وجود دارد، لطفا با استفاده از نام فایل دیگری آپلود کنید.",
+  "Remove Selected": "حذف انتخاب شده"
 }

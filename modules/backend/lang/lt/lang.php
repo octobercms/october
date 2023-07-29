@@ -158,16 +158,7 @@
     'column_switch_false' => 'Ne',
   ],
   'fileupload' => [
-    'attachment' => 'Priedas',
-    'help' => 'Įrašykite pavadinimą ir aprašymą šiam priedui.',
-    'title_label' => 'Pavadinimas',
-    'description_label' => 'Aprašymas',
     'default_prompt' => 'Spauskite %s arba įtempkite failus čia',
-    'attachment_url' => 'Priedo URL',
-    'upload_file' => 'Įkelti failą',
-    'upload_error' => 'Įkėlimo klaida',
-    'remove_confirm' => 'Ar tikrai?',
-    'remove_file' => 'Pašalinti failą',
   ],
   'form' => [
     'create_title' => 'Naujas :name',

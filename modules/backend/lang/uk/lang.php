@@ -174,16 +174,7 @@
     'column_switch_false' => 'Ні',
   ],
   'fileupload' => [
-    'attachment' => 'Прикріплення',
-    'help' => 'Додайте назву та опис для цього прикріплення.',
-    'title_label' => 'Назва',
-    'description_label' => 'Опис',
     'default_prompt' => 'Натисніть %s або перетягніть файл сюди для завантаження',
-    'attachment_url' => 'URL прикріплення',
-    'upload_file' => 'Завантажити файл',
-    'upload_error' => 'Помилка завантаження',
-    'remove_confirm' => 'Ви впевнені?',
-    'remove_file' => 'Видалити файл',
   ],
   'form' => [
     'create_title' => 'Нова :name',

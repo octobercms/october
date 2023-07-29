@@ -115,12 +115,7 @@
     'delete_selected_confirm' => '刪除選取的記錄?',
     'delete_selected_success' => '成功刪除選擇的記錄',
   ],
-  'fileupload' => [
-    'attachment' => '附件',
-    'help' => '給附件新增標題和描述',
-    'title_label' => '標題',
-    'description_label' => '描述',
-  ],
+  'fileupload' => [],
   'form' => [
     'create_title' => '新 :name',
     'update_title' => '編輯 :name',

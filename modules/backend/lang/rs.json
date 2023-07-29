@@ -130,5 +130,13 @@
   "Toolbar Buttons": "Traka sa alatkama",
   "The Toolbar Buttons to be displayed in the Rich Editor by default.": "Traka sa alatkama će obično biti prikazana u editoru.",
   "Insert a preset toolbar button configuration": "Ubaci već podešenu konfiguraciju za traku sa alatkama:",
-  "Enable code snippets (Tab)": "Uključi isečke za kod (Tab)"
+  "Enable code snippets (Tab)": "Uključi isečke za kod (Tab)",
+  "Title": "Naslov",
+  "Description": "Opis",
+  "Attachment": "Prilog",
+  "Attachment URL": "URL priloga",
+  "Add a title and description for this attachment.": "Dodaj naslov i opis za ovaj prilog.",
+  "Are you sure?": "Da li si siguran?",
+  "Upload Error": "Greška pri otpremanju",
+  "Remove File": "Izbriši fajl"
 }

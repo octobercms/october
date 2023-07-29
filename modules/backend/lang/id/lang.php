@@ -112,12 +112,7 @@
     'delete_selected_confirm' => 'Hapus data yang dipilih?',
     'delete_selected_success' => 'Berhasil menghapus data yang dipilih.',
   ],
-  'fileupload' => [
-    'attachment' => 'Lampiran',
-    'help' => 'Tambah judul dan deskripsi untuk lampiran ini.',
-    'title_label' => 'Judul',
-    'description_label' => 'Deskripsi',
-  ],
+  'fileupload' => [],
   'form' => [
     'create_title' => ':name Baru',
     'update_title' => 'Ubah :name',

@@ -1,2 +1,8 @@
 {
+  "Media": "미디어",
+  "Access the Media Manager": "미디어 관리자에 액세스",
+  "Upload Media": "미디어 업로드",
+  "Delete Media": "미디어 삭제",
+  "A media file already exists at this location, please upload using a different filename.": "이 위치에 이미 미디어 파일이 있습니다. 다른 파일 이름을 사용하여 업로드하십시오.",
+  "Remove Selected": "선택된 것을 지우다"
 }

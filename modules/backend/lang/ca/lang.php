@@ -178,16 +178,7 @@
     'column_switch_false' => 'No',
   ],
   'fileupload' => [
-    'attachment' => 'Adjunt',
-    'help' => 'Afegeix un títol i descripció per aquest adjunt.',
-    'title_label' => 'Títol',
-    'description_label' => 'Descripció',
     'default_prompt' => 'Clica el %s o arrossega un arxiu aquí per pujar',
-    'attachment_url' => 'URL de l\'adjunt',
-    'upload_file' => 'Pujar arxiu',
-    'upload_error' => 'Error de pujada',
-    'remove_confirm' => 'Segur que ho vols eliminar?',
-    'remove_file' => 'Elminar arxiu',
   ],
   'form' => [
     'create_title' => 'Nou :name',

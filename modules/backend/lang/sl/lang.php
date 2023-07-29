@@ -201,16 +201,7 @@
     'column_switch_false' => 'Ne',
   ],
   'fileupload' => [
-    'attachment' => 'Priponka',
-    'help' => 'Dodajte naslov in opis za to priponko.',
-    'title_label' => 'Naslov',
-    'description_label' => 'Opis',
     'default_prompt' => 'Če želite naložiti datoteko, kliknite %s ali povlecite datoteko v to polje.',
-    'attachment_url' => 'URL priloge',
-    'upload_file' => 'Naloži datoteko',
-    'upload_error' => 'Napaka pri nalaganju',
-    'remove_confirm' => 'Ali ste prepričani?',
-    'remove_file' => 'Odstrani datoteko',
   ],
   'form' => [
     'create_title' => 'Ustvari element ":name"',

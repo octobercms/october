@@ -121,16 +121,7 @@
     'column_switch_false' => 'Не',
   ],
   'fileupload' => [
-    'attachment' => 'Прикачен файл',
-    'help' => 'Добавете заглавие и описание за този прикачен файл.',
-    'title_label' => 'Заглавие',
-    'description_label' => 'Описание',
     'default_prompt' => 'Кликнете на %s или плъзнете файла тук, за да го качите',
-    'attachment_url' => 'Адрес на прикачен файл',
-    'upload_file' => 'Качи файл',
-    'upload_error' => 'Грешка при качване',
-    'remove_confirm' => 'Сигурни ли сте?',
-    'remove_file' => 'Премахни файл',
   ],
   'form' => [
     'create_title' => 'Ново :name',

@@ -129,5 +129,13 @@
   "The list of tags that are used to place a line breaker element between.": "Lista de etiquetas entre as quais é inserida uma quebra de linha.",
   "Toolbar Buttons": "Botões da barra de ferramentas",
   "The Toolbar Buttons to be displayed in the Rich Editor by default.": "Botões da barra de ferramentas do editor rico a serem mostradas por defeito.",
-  "Enable code snippets (Tab)": "Activar trechos de códigos (Tab)"
+  "Enable code snippets (Tab)": "Activar trechos de códigos (Tab)",
+  "Title": "Título",
+  "Description": "Descrição",
+  "Attachment": "Anexo",
+  "Attachment URL": "Anexar URL",
+  "Add a title and description for this attachment.": "Adicione um título e descrição a este anexo.",
+  "Are you sure?": "Tem a certeza?",
+  "Upload Error": "Erro ao enviar",
+  "Remove File": "Remover ficheiro"
 }

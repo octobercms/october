@@ -118,5 +118,13 @@
   "The list of tags that should not be wrapped inside block tags.": "Liste av tagger som ikke kan puttes inne i block-tagger.",
   "Remove Tags": "Fjern tagger",
   "The list of tags that are removed together with their content.": "Liste over tagger som fjernes med innholdet.",
-  "Enable code snippets (Tab)": "Aktivér kodesnippets (Tab)"
+  "Enable code snippets (Tab)": "Aktivér kodesnippets (Tab)",
+  "Title": "Tittel",
+  "Description": "Beskrivelse",
+  "Attachment": "Vedlegg",
+  "Attachment URL": "URL til vedlegg",
+  "Add a title and description for this attachment.": "Legg til tittel og beskrivelse for dette vedlegget.",
+  "Are you sure?": "Er du sikker?",
+  "Upload Error": "Feil ved opplasting",
+  "Remove File": "Fjern filen"
 }
