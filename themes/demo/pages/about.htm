@@ -2,10 +2,10 @@
 url = "/about"
 layout = "default"
 title = "About Page"
-meta_title = "{{ landingPage.title }}"
+meta_title = "{{ aboutpage.title }}"
 
-[section landingPage]
-handle = "LandingPage"
+[section aboutpage]
+handle = "Page\About"
 
 [resources]
 vars[activeNavLink] = 'about'
@@ -19,7 +19,7 @@ vars[activeNavLink] = 'about'
     </div>
 {% endput %}
 <main class="header-flush">
-    {% for block in landingPage.blocks %}
+    {% for block in aboutpage.blocks %}
         {% partial 'blocks/' ~ str_slug(block.type) block=block %}
     {% endfor %}
 </main>

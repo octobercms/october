@@ -5,6 +5,7 @@ name: Author
 drafts: false
 
 navigation:
+    label: Authors
     parent: Blog\Post
     icon: octo-icon-user
     order: 200

@@ -8,6 +8,7 @@ structure:
     maxDepth: 1
 
 navigation:
+    label: Categories
     parent: Blog\Post
     icon: octo-icon-list-ul
     order: 150

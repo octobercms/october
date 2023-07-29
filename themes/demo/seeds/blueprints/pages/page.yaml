@@ -1,14 +1,16 @@
 uuid: 339b11b7-69ad-43c4-9be1-6953e7738827
-handle: Wiki\Article
+handle: Page\Article
 type: structure
-name: Article
+name: Pages
 drafts: true
 
 structure:
     maxDepth: 3
 
 navigation:
+    label: All Pages
     icon: icon-wikipedia-w
+    order: 100
 
 fields:
     content:
