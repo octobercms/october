@@ -158,16 +158,7 @@
     'column_switch_false' => 'Ei',
   ],
   'fileupload' => [
-    'attachment' => 'Manus',
-    'help' => 'Manuse nimi ja kirjeldus.',
-    'title_label' => 'Nimi',
-    'description_label' => 'Kirjeldus',
     'default_prompt' => 'Faili üleslaadimiseks kliki %s või lohista fail siia',
-    'attachment_url' => 'Manuse URL',
-    'upload_file' => 'Lae fail üles',
-    'upload_error' => 'Üleslaadimisel tekkis viga',
-    'remove_confirm' => 'Oled sa kindel?',
-    'remove_file' => 'Eemalda fail',
   ],
   'form' => [
     'create_title' => 'Loomine: :name',

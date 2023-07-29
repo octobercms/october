@@ -153,16 +153,7 @@
     'column_switch_false' => 'Nei',
   ],
   'fileupload' => [
-    'attachment' => 'Vedlegg',
-    'help' => 'Legg til tittel og beskrivelse for dette vedlegget.',
-    'title_label' => 'Tittel',
-    'description_label' => 'Beskrivelse',
     'default_prompt' => 'Klikk %s eller dra filen hit for å laste opp',
-    'attachment_url' => 'URL til vedlegg',
-    'upload_file' => 'Last opp fil',
-    'upload_error' => 'Feil ved opplasting',
-    'remove_confirm' => 'Er du sikker?',
-    'remove_file' => 'Fjern filen',
   ],
   'form' => [
     'create_title' => 'Ny :name',

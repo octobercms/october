@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Vložte přednastavenou konfiguraci tlačítka panelu nástrojů",
   "Allowed Attributes": "Povolené atributy",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Seznam povolených atributů HTML, kromě normálních povolenek.",
-  "Enable code snippets (Tab)": "Povolte úryvky (snippets) kódu (Tab)"
+  "Enable code snippets (Tab)": "Povolte úryvky (snippets) kódu (Tab)",
+  "Title": "Název",
+  "Description": "Popis",
+  "Attachment": "Příloha",
+  "Attachment URL": "URL přílohy",
+  "Add a title and description for this attachment.": "Přidat název a popisek k příloze.",
+  "Are you sure?": "Jste si jistí?",
+  "Upload Error": "Chyba nahrávání",
+  "Remove File": "Odstranit soubor"
 }

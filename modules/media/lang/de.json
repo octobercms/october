@@ -3,6 +3,6 @@
     "Access the Media Manager": "Greifen Sie auf den Medien-Manager zu",
     "Upload Media": "Medien hochladen",
     "Delete Media": "Medien löschen",
-    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename.",
-    "Remove Selected": "Remove Selected"
+    "A media file already exists at this location, please upload using a different filename.": "An diesem Ort existiert bereits eine Mediendatei. Bitte laden Sie eine Mediendatei mit einem anderen Namen hoch.",
+    "Remove Selected": "Markierte entfernen"
 }

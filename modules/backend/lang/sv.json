@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Infoga en förinställd knappkonfiguration för verktygsfältet",
   "Allowed Attributes": "Tillåtna attribut",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Listan över tillåtna HTML-attribut, utöver de normala tillstånden.",
-  "Enable code snippets (Tab)": "Aktivera kodavsnitt (flik)"
+  "Enable code snippets (Tab)": "Aktivera kodavsnitt (flik)",
+  "Title": "Titel",
+  "Description": "Beskriving",
+  "Attachment": "Bilaga",
+  "Attachment URL": "Bilage-URL",
+  "Add a title and description for this attachment.": "Lägg till en och beskriving för denna bilagan.",
+  "Are you sure?": "Är du säker?",
+  "Upload Error": "Fel vid uppladdning",
+  "Remove File": "Radera fil"
 }

@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Устаўце прадусталяваную канфігурацыю кнопак панэлі інструментаў",
   "Allowed Attributes": "Дазволеныя атрыбуты",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Спіс дазволеных атрыбутаў HTML у дадатак да звычайных дазволаў.",
-  "Enable code snippets (Tab)": "Уключыць фрагменты кода (Tab)"
+  "Enable code snippets (Tab)": "Уключыць фрагменты кода (Tab)",
+  "Title": "Назва",
+  "Description": "Апісанне",
+  "Attachment": "Прымацаванне",
+  "Attachment URL": "URL прымацавання",
+  "Add a title and description for this attachment.": "Дадайце назву і апісанне для гэтага прымацавання",
+  "Are you sure?": "Вы ўпэўнены?",
+  "Upload Error": "Памылка загрузкі",
+  "Remove File": "Выдаліць файл"
 }

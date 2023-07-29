@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Indsæt en forudindstillet konfiguration af værktøjslinjeknap",
   "Allowed Attributes": "Tilladte attributter",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Listen over tilladte HTML-attributter, ud over de normale kvoter.",
-  "Enable code snippets (Tab)": "Aktiver kode snippets (Tab)"
+  "Enable code snippets (Tab)": "Aktiver kode snippets (Tab)",
+  "Title": "Titel",
+  "Description": "Beskrivelse",
+  "Attachment": "Vedhæftning",
+  "Attachment URL": "Vedhæftnings URL",
+  "Add a title and description for this attachment.": "Tilføj en titel og beskrivelse til denne vedhæftning.",
+  "Are you sure?": "Er du sikker?",
+  "Upload Error": "Upload fejl",
+  "Remove File": "Fjern fil"
 }

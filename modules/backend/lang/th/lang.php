@@ -186,16 +186,7 @@
     'column_switch_false' => 'ไม่',
   ],
   'fileupload' => [
-    'attachment' => 'สิ่งที่แนบมา',
-    'help' => 'เพิ่มหัวเรื่องและรายละเอียดสำหรับไฟล์แนบนี้',
-    'title_label' => 'หัวเรื่อง',
-    'description_label' => 'รายละเอียด',
     'default_prompt' => 'คลิก %s หรือลากไฟล์มาวางที่นี่เพื่ออัพโหลด',
-    'attachment_url' => 'URL ไฟล์แนบ',
-    'upload_file' => 'อัพโหลดไฟล์',
-    'upload_error' => 'อัพโหลดผิดพลาด',
-    'remove_confirm' => 'คุณแน่ใจ?',
-    'remove_file' => 'ลบไฟล์',
   ],
   'form' => [
     'create_title' => 'สร้าง :name',

@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Inserisci una configurazione predefinita dei pulsanti della barra degli strumenti",
   "Allowed Attributes": "Attributi consentiti",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "L'elenco degli attributi HTML consentiti, in aggiunta ai normali valori consentiti.",
-  "Enable code snippets (Tab)": "Abilita frammenti di codice (Tab)"
+  "Enable code snippets (Tab)": "Abilita frammenti di codice (Tab)",
+  "Title": "Titolo",
+  "Description": "Descrizione",
+  "Attachment": "Allegato",
+  "Attachment URL": "URL Allegato",
+  "Add a title and description for this attachment.": "Aggiungi un titolo e una descrizione per questo allegato.",
+  "Are you sure?": "Sei sicuro?",
+  "Upload Error": "Errore nel caricamento",
+  "Remove File": "Rimuovi file"
 }

@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Önceden ayarlanmış bir araç çubuğu düğmesi yapılandırması ekleyin",
   "Allowed Attributes": "İzin Verilen Özellikler",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Normal izinlere ek olarak izin verilen HTML özelliklerinin listesi.",
-  "Enable code snippets (Tab)": "Kod snippetlerini aktifleştir (Tab)"
+  "Enable code snippets (Tab)": "Kod snippetlerini aktifleştir (Tab)",
+  "Title": "Başlık",
+  "Description": "Tanım",
+  "Attachment": "Dosya Eki",
+  "Attachment URL": "Ek URLsi",
+  "Add a title and description for this attachment.": "Bu ek için bir başlık ve tanım girin.",
+  "Are you sure?": "Emin misiniz?",
+  "Upload Error": "Dosya yükleme hatası",
+  "Remove File": "Dosyayı sil"
 }

@@ -145,16 +145,7 @@
     'column_switch_false' => 'No',
   ],
   'fileupload' => [
-    'attachment' => 'Allegato',
-    'help' => 'Aggiungi un titolo e una descrizione per questo allegato.',
-    'title_label' => 'Titolo',
-    'description_label' => 'Descrizione',
     'default_prompt' => 'Fai clic su %s o trascina un file qui per eseguire il caricamento',
-    'attachment_url' => 'URL Allegato',
-    'upload_file' => 'Carica file',
-    'upload_error' => 'Errore nel caricamento',
-    'remove_confirm' => 'Sei sicuro?',
-    'remove_file' => 'Rimuovi file',
   ],
   'form' => [
     'create_title' => 'Crea :name',

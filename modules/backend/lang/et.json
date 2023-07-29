@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Sisestage tööriistariba nupu eelseadistatud konfiguratsioon",
   "Allowed Attributes": "Lubatud atribuudid",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Lubatud HTML-i atribuutide loend, lisaks tavalistele piirangutele.",
-  "Enable code snippets (Tab)": "Kasuta eeldefineeritud koodijuppe (Tab)"
+  "Enable code snippets (Tab)": "Kasuta eeldefineeritud koodijuppe (Tab)",
+  "Title": "Nimi",
+  "Description": "Kirjeldus",
+  "Attachment": "Manus",
+  "Attachment URL": "Manuse URL",
+  "Add a title and description for this attachment.": "Manuse nimi ja kirjeldus.",
+  "Are you sure?": "Oled sa kindel?",
+  "Upload Error": "Üleslaadimisel tekkis viga",
+  "Remove File": "Eemalda fail"
 }

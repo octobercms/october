@@ -264,5 +264,9 @@
   "Insert a preset toolbar button configuration": "Masukkan konfigurasi tombol toolbar preset",
   "Allowed Attributes": "Atribut yang Diizinkan",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Daftar atribut HTML yang diizinkan, selain kelonggaran normal.",
-  "Enable code snippets (Tab)": "Aktifkan cuplikan kode (Tab)"
+  "Enable code snippets (Tab)": "Aktifkan cuplikan kode (Tab)",
+  "Title": "Judul",
+  "Description": "Deskripsi",
+  "Attachment": "Lampiran",
+  "Add a title and description for this attachment.": "Tambah judul dan deskripsi untuk lampiran ini."
 }

@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Įdėkite iš anksto nustatytą įrankių juostos mygtuko konfigūraciją",
   "Allowed Attributes": "Leidžiami atributai",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Leidžiamų HTML atributų sąrašas, be įprastų leidimų.",
-  "Enable code snippets (Tab)": "Įjungti kodo fragmentus (Tab)"
+  "Enable code snippets (Tab)": "Įjungti kodo fragmentus (Tab)",
+  "Title": "Pavadinimas",
+  "Description": "Aprašymas",
+  "Attachment": "Priedas",
+  "Attachment URL": "Priedo URL",
+  "Add a title and description for this attachment.": "Įrašykite pavadinimą ir aprašymą šiam priedui.",
+  "Are you sure?": "Ar tikrai?",
+  "Upload Error": "Įkėlimo klaida",
+  "Remove File": "Pašalinti failą"
 }

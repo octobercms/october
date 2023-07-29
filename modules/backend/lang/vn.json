@@ -121,5 +121,13 @@
   "The list of tags that are removed together with their content.": "Danh sách tag bị xóa kể cả nội dung của chúng.",
   "Toolbar Buttons": "Các nút trên thanh công cụ",
   "The Toolbar Buttons to be displayed in the Rich Editor by default.": "Các nút mặc định ở trên thanh công cụ  của Rich Editor.",
-  "Enable code snippets (Tab)": "Kích hoạt snippets (Tab)"
+  "Enable code snippets (Tab)": "Kích hoạt snippets (Tab)",
+  "Title": "Tên",
+  "Description": "Mô tả",
+  "Attachment": "Tệp đính kèm",
+  "Attachment URL": "URL file",
+  "Add a title and description for this attachment.": "Tên và mô tả cho tệp.",
+  "Are you sure?": "Bạn có chắc chắn muốn xóa?",
+  "Upload Error": "Lỗi upload",
+  "Remove File": "Xóa file"
 }

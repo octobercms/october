@@ -154,16 +154,7 @@
     'column_switch_false' => 'Не',
   ],
   'fileupload' => [
-    'attachment' => 'Прымацаванне',
-    'help' => 'Дадайце назву і апісанне для гэтага прымацавання',
-    'title_label' => 'Назва',
-    'description_label' => 'Апісанне',
     'default_prompt' => 'Націсніце %s альбо перацягніце файл сюды, каб загрузіць',
-    'attachment_url' => 'URL прымацавання',
-    'upload_file' => 'Загрузіць файл',
-    'upload_error' => 'Памылка загрузкі',
-    'remove_confirm' => 'Вы ўпэўнены?',
-    'remove_file' => 'Выдаліць файл',
   ],
   'form' => [
     'create_title' => 'Новая :name',

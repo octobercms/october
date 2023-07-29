@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Ievietojiet iepriekš iestatītu rīkjoslas pogas konfigurāciju",
   "Allowed Attributes": "Atļautie atribūti",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Atļauto HTML atribūtu saraksts papildus parastajiem pielaidēm.",
-  "Enable code snippets (Tab)": "Rādīt koda fragmentus automātiskajā pabeigšanā"
+  "Enable code snippets (Tab)": "Rādīt koda fragmentus automātiskajā pabeigšanā",
+  "Title": "Vrisraksts",
+  "Description": "Apraksts",
+  "Attachment": "Pielikums",
+  "Attachment URL": "Pielikuma URL",
+  "Add a title and description for this attachment.": "Pievienojiet virsrakstu un aprakstu šim pielikumam.",
+  "Are you sure?": "Vai esat pārliecināts?",
+  "Upload Error": "Augšupielādes kļūda",
+  "Remove File": "Noņemt failu"
 }

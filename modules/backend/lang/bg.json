@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Вмъкнете предварително зададена конфигурация на бутон на лентата с инструменти",
   "Allowed Attributes": "Позволени атрибути",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Списъкът с разрешени HTML атрибути в допълнение към нормалните допустими стойности.",
-  "Enable code snippets (Tab)": "Активиране на кодови фрагменти (Tab)"
+  "Enable code snippets (Tab)": "Активиране на кодови фрагменти (Tab)",
+  "Title": "Заглавие",
+  "Description": "Описание",
+  "Attachment": "Прикачен файл",
+  "Attachment URL": "Адрес на прикачен файл",
+  "Add a title and description for this attachment.": "Добавете заглавие и описание за този прикачен файл.",
+  "Are you sure?": "Сигурни ли сте?",
+  "Upload Error": "Грешка при качване",
+  "Remove File": "Премахни файл"
 }

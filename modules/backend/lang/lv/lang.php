@@ -122,16 +122,7 @@
     'column_switch_false' => 'Nē',
   ],
   'fileupload' => [
-    'attachment' => 'Pielikums',
-    'help' => 'Pievienojiet virsrakstu un aprakstu šim pielikumam.',
-    'title_label' => 'Vrisraksts',
-    'description_label' => 'Apraksts',
     'default_prompt' => 'Uzklikšķiniet uz %s vai nesiet failu šeit',
-    'attachment_url' => 'Pielikuma URL',
-    'upload_file' => 'Augšupielādēt failu',
-    'upload_error' => 'Augšupielādes kļūda',
-    'remove_confirm' => 'Vai esat pārliecināts?',
-    'remove_file' => 'Noņemt failu',
   ],
   'form' => [
     'create_title' => 'Jauns :name',

@@ -264,5 +264,15 @@
   "Insert a preset toolbar button configuration": "Insert a preset toolbar button configuration",
   "Allowed Attributes": "Allowed Attributes",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "The list of allowed HTML attributes, in addition to the normal allowances.",
-  "Enable code snippets (Tab)": "Enable code snippets (Tab)"
+  "Enable code snippets (Tab)": "Enable code snippets (Tab)",
+  "Title": "Title",
+  "Description": "Description",
+  "Attachment": "Attachment",
+  "Attachment URL": "Attachment URL",
+  "Add a title and description for this attachment.": "Add a title and description for this attachment.",
+  "Upload": "Upload",
+  "Are you sure?": "Are you sure?",
+  "Delete Selected": "Delete Selected",
+  "Upload Error": "Upload Error",
+  "Remove File": "Remove File"
 }

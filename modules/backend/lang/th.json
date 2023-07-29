@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "แทรกการกำหนดค่าปุ่มแถบเครื่องมือที่กำหนดไว้ล่วงหน้า",
   "Allowed Attributes": "แอตทริบิวต์ที่อนุญาต",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "รายการแอตทริบิวต์ HTML ที่อนุญาต นอกเหนือจากการอนุญาตปกติ",
-  "Enable code snippets (Tab)": "เปิดใช้งาน code snippets (แท็บ)"
+  "Enable code snippets (Tab)": "เปิดใช้งาน code snippets (แท็บ)",
+  "Title": "หัวเรื่อง",
+  "Description": "รายละเอียด",
+  "Attachment": "สิ่งที่แนบมา",
+  "Attachment URL": "URL ไฟล์แนบ",
+  "Add a title and description for this attachment.": "เพิ่มหัวเรื่องและรายละเอียดสำหรับไฟล์แนบนี้",
+  "Are you sure?": "คุณแน่ใจ?",
+  "Upload Error": "อัพโหลดผิดพลาด",
+  "Remove File": "ลบไฟล์"
 }

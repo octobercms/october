@@ -53,7 +53,7 @@
   "Theme": "主题",
   "Sites": "网站",
   "Create Site": "创建网站",
-  "Base URL": "Base URL",
+  "Base URL": "主机 URL",
   "Status": "状态",
   "Current default value: :value": "当前默认值：:value",
   "Locale": "语言环境",
@@ -140,6 +140,6 @@
   "Enter your SES region (e.g. us-east-1)": "输入您的 SES 区域（例如 us-east-1）",
   "Postmark Token": "Postmark 秘密",
   "Enter your Postmark API secret key": "输入您的 Postmark API 密钥",
-  "Define administrator roles": "Define administrator roles",
-  "Restrict access to this site to only administrator with the following roles.": "Restrict access to this site to only administrator with the following roles."
+  "Define administrator roles": "设置管理员角色",
+  "Restrict access to this site to only administrator with the following roles.": "仅限管理员访问此站点，具有以下角色。"
 }

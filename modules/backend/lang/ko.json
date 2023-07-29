@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "사전 설정 도구 모음 버튼 구성 삽입",
   "Allowed Attributes": "허용된 속성",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "허용되는 HTML 속성 목록과 일반 허용치.",
-  "Enable code snippets (Tab)": "코드 스니핏 사용 (Tab)"
+  "Enable code snippets (Tab)": "코드 스니핏 사용 (Tab)",
+  "Title": "제목",
+  "Description": "설명",
+  "Attachment": "첨부",
+  "Attachment URL": "첨부 URL",
+  "Add a title and description for this attachment.": "이 첨부에 대한 제목과  설명을 추가.",
+  "Are you sure?": "삭제하시겠습니까?",
+  "Upload Error": "업로드 오류",
+  "Remove File": "파일 삭제"
 }

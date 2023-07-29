@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Εισαγάγετε μια προκαθορισμένη διαμόρφωση κουμπιού γραμμής εργαλείων",
   "Allowed Attributes": "Επιτρεπόμενα χαρακτηριστικά",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "Η λίστα με τα επιτρεπόμενα χαρακτηριστικά HTML, εκτός από τα κανονικά δικαιώματα.",
-  "Enable code snippets (Tab)": "Enable code snippets (Tab)"
+  "Enable code snippets (Tab)": "Enable code snippets (Tab)",
+  "Title": "Τίτλος",
+  "Description": "Περιγραφή",
+  "Attachment": "Επισύναψη",
+  "Attachment URL": "URL Συνημμένου",
+  "Add a title and description for this attachment.": "Προσθέστε τίτλο και περιγραφή για αυτήν την επισύναψη.",
+  "Are you sure?": "Είστε σίγουροι;",
+  "Upload Error": "Σφάλμα ανεβάσματος",
+  "Remove File": "Διαγραφή αρχείου"
 }

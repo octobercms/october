@@ -264,5 +264,9 @@
   "Insert a preset toolbar button configuration": "プリセットのツールバーボタン構成を挿入する",
   "Allowed Attributes": "許可される属性",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "通常の許可に加えて、許可される HTML 属性のリスト。",
-  "Enable code snippets (Tab)": "コード スニペットを有効にする (タブ)"
+  "Enable code snippets (Tab)": "コード スニペットを有効にする (タブ)",
+  "Title": "タイトル",
+  "Description": "説明",
+  "Attachment": "添付",
+  "Add a title and description for this attachment.": "この添付のタイトルと説明を追加します。"
 }

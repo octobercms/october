@@ -197,16 +197,7 @@
     'column_switch_false' => 'Nie',
   ],
   'fileupload' => [
-    'attachment' => 'Załącznik',
-    'help' => 'Dodaj tytuł oraz opis załącznika.',
-    'title_label' => 'Tytuł',
-    'description_label' => 'Opis',
     'default_prompt' => 'Kliknij %s lub upuść plik aby przesłać',
-    'attachment_url' => 'URL załącznika',
-    'upload_file' => 'Prześlij plik',
-    'upload_error' => 'Błąd przesyłania',
-    'remove_confirm' => 'Jesteś pewien?',
-    'remove_file' => 'Usuń plik',
   ],
   'form' => [
     'create_title' => 'Nowy :name',

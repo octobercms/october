@@ -34,5 +34,9 @@
   "Show gutter": "Mostrar canal",
   "Highlight active line": "Resaltar línea activa",
   "Indent using tabs": "Espacio entre solapas",
-  "Show invisible characters": "Mostrar caracteres invisibles"
+  "Show invisible characters": "Mostrar caracteres invisibles",
+  "Title": "Título",
+  "Description": "Descripción",
+  "Attachment": "Adjunto",
+  "Add a title and description for this attachment.": "Añadir un título y una descripción para este Adjunto."
 }

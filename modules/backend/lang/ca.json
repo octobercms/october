@@ -264,5 +264,13 @@
   "Insert a preset toolbar button configuration": "Inseriu una configuració de botó de la barra d'eines predeterminada",
   "Allowed Attributes": "Atributs permesos",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "La llista d'atributs HTML permesos, a més dels permisos normals.",
-  "Enable code snippets (Tab)": "Activar snippets de codi (Tab)"
+  "Enable code snippets (Tab)": "Activar snippets de codi (Tab)",
+  "Title": "Títol",
+  "Description": "Descripció",
+  "Attachment": "Adjunt",
+  "Attachment URL": "URL de l'adjunt",
+  "Add a title and description for this attachment.": "Afegeix un títol i descripció per aquest adjunt.",
+  "Are you sure?": "Segur que ho vols eliminar?",
+  "Upload Error": "Error de pujada",
+  "Remove File": "Elminar arxiu"
 }

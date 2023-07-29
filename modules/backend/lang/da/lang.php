@@ -149,16 +149,7 @@
     'column_switch_false' => 'Nej',
   ],
   'fileupload' => [
-    'attachment' => 'Vedhæftning',
-    'help' => 'Tilføj en titel og beskrivelse til denne vedhæftning.',
-    'title_label' => 'Titel',
-    'description_label' => 'Beskrivelse',
     'default_prompt' => 'Tryk på %s eller træk en fil hertil, for at uploade',
-    'attachment_url' => 'Vedhæftnings URL',
-    'upload_file' => 'Upload fil',
-    'upload_error' => 'Upload fejl',
-    'remove_confirm' => 'Er du sikker?',
-    'remove_file' => 'Fjern fil',
   ],
   'form' => [
     'create_title' => 'Ny :name',
