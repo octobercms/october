@@ -244,7 +244,6 @@
   "Markup Classes": "Označevalni razredi",
   "Label": "Opis",
   "Paragraph": "Odstavek",
-  "Class name": "Oznaka razreda",
   "Link": "Povezava",
   "Table": "Tabela",
   "Table Cell": "Celica tabele",
@@ -264,5 +263,16 @@
   "Insert a preset toolbar button configuration": "Vstavite prednastavljeno konfiguracijo gumbov orodne vrstice:",
   "Allowed Attributes": "Allowed Attributes",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "The list of allowed HTML attributes, in addition to the normal allowances.",
-  "Enable code snippets (Tab)": "Omogoči odseke kode (Tab)"
+  "Enable code snippets (Tab)": "Omogoči odseke kode (Tab)",
+  "Title": "Naslov",
+  "Description": "Opis",
+  "Attachment": "Priponka",
+  "Attachment URL": "URL priloge",
+  "Add a title and description for this attachment.": "Dodajte naslov in opis za to priponko.",
+  "Upload": "Upload",
+  "Are you sure?": "Ali ste prepričani?",
+  "Delete Selected": "Delete Selected",
+  "Upload Error": "Napaka pri nalaganju",
+  "Remove File": "Odstrani datoteko",
+  "Class Name": "Oznaka razreda"
 }

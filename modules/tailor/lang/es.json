@@ -84,7 +84,7 @@
     "Model column the records should be ordered by": "Modelo de columna por la que se deben ordenar los registros",
     "Direction": "Dirección",
     "Update :name Entries": "Actualizar Entradas :name",
-    "Update :name": "Actualizar: nombre",
+    "Update :name": "Actualizar: name",
     ":name Entry": "Entrada :name",
     "All :name Items": "Todas las entradas de :name",
     "Update Existing Records": "Actualizar registros existentes",
