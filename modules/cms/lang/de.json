@@ -127,7 +127,7 @@
   "Please provide the property name": "Bitte Eigenschaftsname eingeben",
   "Property code should start with a Latin letter and can contain only Latin letters, digits and underscores": "Der Code für die Eigenschaft muss mit einem Buchstaben anfangen, und darf nur Buchstaben und Zahlen enthalten",
   "Type": "Typ",
-  "Select": "Select",
+  "Select": "Auswählen",
   "String": "Zeichenkette",
   "Checkbox": "Checkbox",
   "Dropdown": "Auswahlliste",

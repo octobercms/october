@@ -244,6 +244,7 @@
   "Markup Classes": "Классы разметки",
   "Label": "Название",
   "Paragraph": "Параграф",
+  "Class Name": "Класс",
   "Link": "Ссылка",
   "Table": "Таблица",
   "Table Cell": "Ячейка таблицы",
@@ -274,5 +275,6 @@
   "Delete Selected": "Удалить выбранное",
   "Upload Error": "Ошибка загрузки",
   "Remove File": "Удалить файл",
-  "Class Name": "Класс"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

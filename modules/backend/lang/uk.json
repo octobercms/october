@@ -244,6 +244,7 @@
   "Markup Classes": "Класи розмітки",
   "Label": "Назва поля",
   "Paragraph": "Абзац",
+  "Class Name": "Назва класу",
   "Link": "Посилання",
   "Table": "Таблиця",
   "Table Cell": "Клітинки таблиці",
@@ -274,5 +275,6 @@
   "Delete Selected": "Delete Selected",
   "Upload Error": "Помилка завантаження",
   "Remove File": "Видалити файл",
-  "Class Name": "Назва класу"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

@@ -244,6 +244,7 @@
   "Markup Classes": "Třídy stylů",
   "Label": "Popisek",
   "Paragraph": "Odstavec",
+  "Class Name": "Název třídy",
   "Link": "Odkaz",
   "Table": "Tabulka",
   "Table Cell": "Buňka tabulky",
@@ -271,8 +272,9 @@
   "Add a title and description for this attachment.": "Přidat název a popisek k příloze.",
   "Upload": "Upload",
   "Are you sure?": "Jste si jistí?",
-  "Delete Selected": "Delete Selected",
+  "Delete Selected": "Smazat vybrané",
   "Upload Error": "Chyba nahrávání",
   "Remove File": "Odstranit soubor",
-  "Class Name": "Class Name"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

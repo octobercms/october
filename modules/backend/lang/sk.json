@@ -244,6 +244,7 @@
   "Markup Classes": "Triedy štýlov",
   "Label": "Popis",
   "Paragraph": "Odstavec",
+  "Class Name": "Názov triedy",
   "Link": "Odkaz",
   "Table": "Tabuľka",
   "Table Cell": "Bunka tabuľky",
@@ -274,5 +275,6 @@
   "Delete Selected": "Odstrániť vybrané",
   "Upload Error": "Chyba nahrávania",
   "Remove File": "Odstrániť súbor",
-  "Class Name": "Názov triedy"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

@@ -244,6 +244,7 @@
   "Markup Classes": "标记类",
   "Label": "标签",
   "Paragraph": "段落",
+  "Class Name": "类名",
   "Link": "链接",
   "Table": "表格",
   "Table Cell": "单元格",
@@ -274,5 +275,6 @@
   "Delete Selected": "删除选中",
   "Upload Error": "上传错误",
   "Remove File": "删除文件",
-  "Class Name": "类名"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

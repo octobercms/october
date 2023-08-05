@@ -244,6 +244,7 @@
   "Markup Classes": "Označevalni razredi",
   "Label": "Opis",
   "Paragraph": "Odstavek",
+  "Class Name": "Oznaka razreda",
   "Link": "Povezava",
   "Table": "Tabela",
   "Table Cell": "Celica tabele",
@@ -274,5 +275,6 @@
   "Delete Selected": "Delete Selected",
   "Upload Error": "Napaka pri nalaganju",
   "Remove File": "Odstrani datoteko",
-  "Class Name": "Oznaka razreda"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

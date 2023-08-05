@@ -244,6 +244,7 @@
   "Markup Classes": "Klasy znaczników",
   "Label": "Etykieta",
   "Paragraph": "Paragraf",
+  "Class Name": "Nazwa klasy",
   "Link": "Link",
   "Table": "Tabela",
   "Table Cell": "Komórka Tabeli",
@@ -274,5 +275,6 @@
   "Delete Selected": "Delete Selected",
   "Upload Error": "Błąd przesyłania",
   "Remove File": "Usuń plik",
-  "Class Name": "Nazwa klasy"
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }
