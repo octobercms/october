@@ -270,7 +270,11 @@
   "Attachment": "Manus",
   "Attachment URL": "Manuse URL",
   "Add a title and description for this attachment.": "Manuse nimi ja kirjeldus.",
+  "Upload": "Upload",
   "Are you sure?": "Oled sa kindel?",
+  "Delete Selected": "Delete Selected",
   "Upload Error": "Üleslaadimisel tekkis viga",
-  "Remove File": "Eemalda fail"
+  "Remove File": "Eemalda fail",
+  "Show Light Switch": "Show Light Switch",
+  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
 }

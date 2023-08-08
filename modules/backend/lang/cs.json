@@ -275,6 +275,6 @@
   "Delete Selected": "Smazat vybrané",
   "Upload Error": "Chyba nahrávání",
   "Remove File": "Odstranit soubor",
-  "Show Light Switch": "Show Light Switch",
-  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
+  "Show Light Switch": "Zobrazit přepínač light/dark",
+  "Allow users to toggle the color mode from the navigation.": "Povolit uživatelům přepnout barevný režim z navigace."
 }

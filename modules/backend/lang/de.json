@@ -275,6 +275,6 @@
   "Delete Selected": "Ausgewählte löschen",
   "Upload Error": "Fehler beim hochladen",
   "Remove File": "Datei entfernen",
-  "Show Light Switch": "Show Light Switch",
-  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
+  "Show Light Switch": "Lichtschalter anzeigen",
+  "Allow users to toggle the color mode from the navigation.": "Benutzern erlauben, den Farbmodus in der Navigation umzustellen."
 }

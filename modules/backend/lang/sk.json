@@ -1,7 +1,7 @@
 {
   "Cancel": "Zrušiť",
   "You are viewing as": "Prezeráte si ako",
-  "Preview Role": "Úloha ukážky",
+  "Preview Role": "Ukážka roly",
   "This lets you test the actions this role can perform.": "To vám umožní otestovať akcie, ktoré môže táto rola vykonávať.",
   "View As Role": "Zobraziť ako rolu",
   "Return to Role Settings": "Vráťte sa na nastavenia roly",
@@ -77,7 +77,7 @@
   "In Maintenance": "V údržbe",
   "The site is currently in maintenance mode, please check back later.": "Stránka je momentálne v režime údržby, vráťte sa sem neskôr.",
   "Dashboard": "Hlavný panel",
-  "Administrators": "Administrátory",
+  "Administrators": "Administrátori",
   "Manage Admins": "Spravovať administrátorov",
   "Create Admins": "Vytvoriť administrátorov",
   "Moderate Admins": "Moderovať administrátorov",
@@ -86,7 +86,7 @@
   "Manage Groups": "Spravovať skupiny",
   "Manage Other Admins": "Spravovať ostatných administrátorov",
   "Allow users to reset passwords and update emails.": "Umožňuje obnovenie hesiel a aktualizáciu e-mailov",
-  "Delete Admins": "Odstrániť administrátora",
+  "Delete Admins": "Odstrániť administrátorov",
   "Preferences": "Predvoľby",
   "Settings": "Nastavenia",
   "Background Color": "Farba pozadia",
@@ -118,10 +118,10 @@
   "The details you entered did not match our records. Please double-check and try again.": "Údaje, ktoré ste zadali sú nesprávne. Prosím skontrolujte údaje a skúste to znova.",
   "Administration Area": "Administrácia",
   "Password Reset": "Obnova hesla",
-  "Please enter a new password.": "Zadajte nové heslo",
+  "Please enter a new password.": "Zadajte nové heslo.",
   "Password": "Heslo",
   "Password Restore": "Obnova hesla",
-  "Please enter your login to restore the password.": "Zadajte vaše prihlasovacie meno",
+  "Please enter your login to restore the password.": "Zadajte vaše prihlasovacie meno.",
   "A user could not be found with a login value of ':login'": "Užívateľ s prihlasovacím menom ':login' nebol nájdený",
   "If your account was found, a message has been sent to your email address with instructions.": "E-mail s inštrukciami bol zaslaný na vašu e-mailovú adresu.",
   "Invalid password reset data supplied. Please try again!": "Dáta pre obnovu hesla nie sú správne. Prosím skúste to znova!",
@@ -275,6 +275,6 @@
   "Delete Selected": "Odstrániť vybrané",
   "Upload Error": "Chyba nahrávania",
   "Remove File": "Odstrániť súbor",
-  "Show Light Switch": "Show Light Switch",
-  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
+  "Show Light Switch": "Zobraziť vypínač svetla",
+  "Allow users to toggle the color mode from the navigation.": "Umožniť používateľom prepínať farebný režim z navigácie."
 }
