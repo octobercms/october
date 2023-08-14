@@ -64,7 +64,7 @@
     "URL code (slug) used to find the primary record.": "Zadajte slimák použitý na nájdenie primárneho záznamu.",
     "Default View": "Predvolené zobrazenie",
     "Used as default entry point when previewing the record.": "Používa sa ako predvolený vstupný bod pri prezeraní záznamu.",
-    "Full Slug": "Full Slug",
+    "Full Slug": "Celý Slug",
     "Use the full slug when looking up the record.": "Pri vyhľadávaní záznamu použite úplný slimák.",
     "Are you sure?": "Ste si istý?",
     "Delete Forever": "Zmazať navždy",

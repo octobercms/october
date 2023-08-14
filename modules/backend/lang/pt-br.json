@@ -1,6 +1,6 @@
 {
   "Cancel": "Cancelar",
-  "You are viewing as": "Você está vendo como",
+  "You are viewing as": "Você está visualizando como",
   "Preview Role": "Função de visualização",
   "This lets you test the actions this role can perform.": "Isso permite que você teste as ações que esta função pode executar.",
   "View As Role": "Ver como função",
@@ -276,5 +276,5 @@
   "Upload Error": "Erro ao enviar",
   "Remove File": "Remover arquivo",
   "Show Light Switch": "Show Light Switch",
-  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
+  "Allow users to toggle the color mode from the navigation.": "Permitir que os usuários alternem o modo de cor da navegação."
 }
