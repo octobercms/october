@@ -120,7 +120,7 @@
   "Sender Email": "Saatja e-post",
   "Mail Method": "Saatmise meetod",
   "SMTP Address": "SMTP serveri aadress",
-  "SMTP Port": "SMTP Port",
+  "SMTP Port": "SMTP port",
   "SMTP Encryption Protocol": "SMTP krüpteerimise protokoll",
   "SMTP Authorization Required": "SMTP autenimine",
   "Use this checkbox if your SMTP server requires authorization.": "Märgi see kast kui serveri poolt on nõutud SMTP autoriseerimine.",

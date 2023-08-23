@@ -244,7 +244,7 @@
   "Markup Classes": "Markup-klasser",
   "Label": "Märka",
   "Paragraph": "Paragraf",
-  "Class name": "Klassnamn",
+  "Class Name": "Klassnamn",
   "Link": "Länk",
   "Table": "Tabell",
   "Table Cell": "Tabellcell",
@@ -272,5 +272,18 @@
   "Add a title and description for this attachment.": "Lägg till en och beskriving för denna bilagan.",
   "Are you sure?": "Är du säker?",
   "Upload Error": "Fel vid uppladdning",
-  "Remove File": "Radera fil"
+  "Remove File": "Radera fil",
+  "Create :name": "Skapa :name",
+  "Update :name": "Uppdatera :name",
+  "Add :name": "Lägg till :name",
+  "Link :name": "Länka :name",
+  "Unlink": "Avlänka",
+  "Preview :name": "Förhandsgranska :name",
+  "Link a New :name": "Länka till ny :name",
+  "Add a New :name": "Lägg till ny :name",
+  "Related :name Data": "Relaterad :name data",
+  ":name Created": ":name har skapats",
+  ":name Updated": ":name har uppdaterats",
+  ":name Deleted": ":name kunde inte raderas",
+  "Form record with an ID of :id could not be found.": "Rad-ID :id för formuläret kunde inte hittas"
 }

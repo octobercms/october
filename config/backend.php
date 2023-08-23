@@ -53,7 +53,7 @@ return [
         'favicon_path' => '~/app/assets/images/favicon.png',
         'menu_logo_path' => '~/app/assets/images/menu_logo.png',
         'dashboard_icon_path' => '~/app/assets/images/dashboard_icon.png',
-        'stylesheet_path' => '~/app/assets/less/styles.less',
+        'stylesheet_path' => '~/app/assets/css/brand_styles.css',
         'login_background_type' => 'color',
         'login_background_color' => '#fef6eb',
         'login_background_wallpaper_size' => 'auto',

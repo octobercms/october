@@ -244,7 +244,7 @@
   "Markup Classes": "Класы макету",
   "Label": "Назва",
   "Paragraph": "Параграф",
-  "Class name": "Імя класу",
+  "Class Name": "Імя класу",
   "Link": "Спасылка",
   "Table": "Табліца",
   "Table Cell": "Клетка табліцы",
@@ -272,5 +272,18 @@
   "Add a title and description for this attachment.": "Дадайце назву і апісанне для гэтага прымацавання",
   "Are you sure?": "Вы ўпэўнены?",
   "Upload Error": "Памылка загрузкі",
-  "Remove File": "Выдаліць файл"
+  "Remove File": "Выдаліць файл",
+  "Create :name": "Стварыць :name",
+  "Update :name": "Абнавіць :name",
+  "Add :name": "Дадаць :name",
+  "Link :name": "Звязаць :name",
+  "Unlink": "Раз'яднаць",
+  "Preview :name": "Прагледзець :name",
+  "Link a New :name": "Звязаць з новым :name",
+  "Add a New :name": "Дадаць новае :name",
+  "Related :name Data": "Роднасныя :name дадзеныя",
+  ":name Created": ":name была створаная",
+  ":name Updated": ":name абноўленая",
+  ":name Deleted": ":name выдаленая",
+  "Form record with an ID of :id could not be found.": "Немагчыма знайсці запіс формы з ідэнтыфікатарам :id"
 }

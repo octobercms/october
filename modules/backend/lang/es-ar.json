@@ -38,5 +38,17 @@
   "Title": "Título",
   "Description": "Descripción",
   "Attachment": "Adjunto",
-  "Add a title and description for this attachment.": "Añadir un título y una descripción para este Adjunto."
+  "Add a title and description for this attachment.": "Añadir un título y una descripción para este Adjunto.",
+  "Create :name": "Crear :name",
+  "Update :name": "Actualizar :name",
+  "Add :name": "Agregar :name",
+  "Delete": "Borrar",
+  "Remove": "Remover",
+  "Are you sure?": "Está seguro?",
+  "Add a New :name": "Agregar un nuevo :name",
+  "Related :name Data": "Relacionar :name datos.",
+  ":name Created": ":name ha sido creado con éxito.",
+  ":name Updated": ":name se ha actualizado correctamente.",
+  ":name Deleted": ":name se ha eliminado correctamente.",
+  "Form record with an ID of :id could not be found.": "El registro de formulario con el ID :id no se pudo encontrar."
 }

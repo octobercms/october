@@ -244,7 +244,7 @@
   "Markup Classes": "Marķējuma klases",
   "Label": "Etiķete",
   "Paragraph": "Paragrāfs",
-  "Class name": "Klases nosaukums",
+  "Class Name": "Klases nosaukums",
   "Link": "Saite",
   "Table": "Tabula",
   "Table Cell": "Tabulas šūna",
@@ -272,5 +272,18 @@
   "Add a title and description for this attachment.": "Pievienojiet virsrakstu un aprakstu šim pielikumam.",
   "Are you sure?": "Vai esat pārliecināts?",
   "Upload Error": "Augšupielādes kļūda",
-  "Remove File": "Noņemt failu"
+  "Remove File": "Noņemt failu",
+  "Create :name": "Izveidot :name",
+  "Update :name": "Atjaunot :name",
+  "Add :name": "Pievienot :name",
+  "Link :name": "Saistīt :name",
+  "Unlink": "Atsaistīt",
+  "Preview :name": "Priekšskatīt :name",
+  "Link a New :name": "Saistīt jaunu :name",
+  "Add a New :name": "Pievienot jaunu :name",
+  "Related :name Data": "Saistītie :name dati",
+  ":name Created": ":name tika veiksmīgi izveidots",
+  ":name Updated": ":name tika veiksmīgi atjaunināts",
+  ":name Deleted": ":name tika veiksmīgi izdzēsts",
+  "Form record with an ID of :id could not be found.": "Formas ieraksts ar ID :id netika atrasts."
 }

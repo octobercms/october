@@ -244,7 +244,7 @@
   "Markup Classes": "Žymėjimo Klasės",
   "Label": "Žymeklis",
   "Paragraph": "Pastraipa",
-  "Class name": "Klasės pavadinimas",
+  "Class Name": "Klasės pavadinimas",
   "Link": "Nuoroda",
   "Table": "Lentelė",
   "Table Cell": "Lentelės Langelis",
@@ -272,5 +272,18 @@
   "Add a title and description for this attachment.": "Įrašykite pavadinimą ir aprašymą šiam priedui.",
   "Are you sure?": "Ar tikrai?",
   "Upload Error": "Įkėlimo klaida",
-  "Remove File": "Pašalinti failą"
+  "Remove File": "Pašalinti failą",
+  "Create :name": "Kurti :name",
+  "Update :name": "Atnaujinti :name",
+  "Add :name": "Pridėti :name",
+  "Link :name": "Nuoroda :name",
+  "Unlink": "Atjungti",
+  "Preview :name": "Peržiūrėti :name",
+  "Link a New :name": "Jungti naują :name",
+  "Add a New :name": "Pridėti naują :name",
+  "Related :name Data": "Giminingi :name duomenys",
+  ":name Created": ":name sukurtas",
+  ":name Updated": ":name atnaujintas",
+  ":name Deleted": ":name ištrintas",
+  "Form record with an ID of :id could not be found.": "Formos įrašas su ID :id nebuvo rastas."
 }

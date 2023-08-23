@@ -106,7 +106,7 @@
   "Delete Theme": "Poista teema",
   "Activate Theme": "Aktivoi teema",
   "Manage Partials": "Hallitse osia",
-  "No Title": "No Title",
+  "No Title": "Ei otsikkoa",
   "A unique name given to this component when using it in the page or layout code.": "Uniikki nimi komponentille kun käytössä sivulla tai ulkoasun koodissa.",
   "Alias": "Alias",
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Komponentin alias on vaadittu ja se voi sisältää ainoastaan latinalaisia kirjaimia, numeroita ja alaviivoja. Aliaksien pitäisi alkaa latinalaisella kirjaisimella.",
@@ -134,8 +134,8 @@
   "Please select the property type": "Valitse ominaisuuden tyyppi",
   "Default": "Oletus",
   "Options": "Vaihtoehdot",
-  "Define a Snippet Partial": "Define a Snippet Partial",
+  "Define a Snippet Partial": "Määrittele pätkäosio",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Kelvoton alasvetovalikon vaihtoehtoavain :key. Vaihtoehtojen avaimet voivat sisältää ainoastaan kokonaislukuja, latinalaisia merkkejä, ja merkkejä _ ja -",
-  "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added.",
-  "Details": "Details"
+  "The description is displayed in the snippet list in the editor when a snippet is added.": "Kuvaus näytetään editorin pätkälistalla, kun pätkä on lisätty.",
+  "Details": "Yksityiskohdat"
 }

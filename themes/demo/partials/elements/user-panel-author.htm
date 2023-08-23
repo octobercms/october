@@ -5,7 +5,7 @@
                 {% if user.avatar %}
                     <img src="{{ user.avatar|media }}" alt="{{ user.title }}" />
                 {% else %}
-                    <img src="{{ partial('helpers/random-avatar-image') }}" alt="{{ user.title }}" />
+                    <img src="{{ partial('site/helpers/random-avatar-image') }}" alt="{{ user.title }}" />
                 {% endif %}
             </div>
             <div class="user-details">

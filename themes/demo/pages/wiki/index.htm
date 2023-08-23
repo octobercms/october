@@ -21,7 +21,7 @@ vars[activeNavLink] = 'wiki'
             {% if article.banner %}
                 <div class="text-banner" style="background-image:url('{{ article.banner.path }}')"></div>
             {% else %}
-                <div class="text-banner" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+                <div class="text-banner" style="background-image:url('{{ partial('site/helpers/random-stock-image') }}')"></div>
             {% endif %}
         </div>
 

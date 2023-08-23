@@ -1,8 +1,8 @@
 {
-    "Media": "ЗМІ",
-    "Access the Media Manager": "Доступ до медіа-менеджера",
-    "Upload Media": "Завантажити медіа",
-    "Delete Media": "Видалити медіа",
-    "A media file already exists at this location, please upload using a different filename.": "A media file already exists at this location, please upload using a different filename.",
-    "Remove Selected": "Remove Selected"
+    "Media": "Медіафайли",
+    "Access the Media Manager": "Доступ до менеджера медіафайлів",
+    "Upload Media": "Додати до медіафайлів",
+    "Delete Media": "Видалити медіафайли",
+    "A media file already exists at this location, please upload using a different filename.": "Медіафайл з такою назвою вже існує на цьому місці, будь ласка, завантажте файл з іншою назвою.",
+    "Remove Selected": "Видалити позначені"
 }

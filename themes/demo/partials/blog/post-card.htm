@@ -1,9 +1,9 @@
 <div class="col {{ cssClass|default('') }}">
-    <div class="card post-card mb-5">
+    <div class="card card-post mb-5">
         {% if post.banner %}
             <div class="card-banner {{ bannerCss|default('') }}" style="background-image:url('{{ post.banner.path }}')"></div>
         {% else %}
-            <div class="card-banner {{ bannerCss|default('') }}" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+            <div class="card-banner {{ bannerCss|default('') }}" style="background-image:url('{{ partial('site/helpers/random-stock-image') }}')"></div>
         {% endif %}
 
         <div class="card-body">
@@ -23,13 +23,13 @@
                 <a href="{{ 'blog/post'|page({ slug: post.slug, id: post.id }) }}" class="stretched-link">{{ post.title }}</a>
             </h4>
 
-            <div class="blog-post-featured-text">
+            <div class="featured-text">
                 <p>{{ post.featured_text }}</p>
             </div>
         </div>
 
         <div class="card-footer">
-            <div class="blog-post-meta">
+            <div class="card-meta">
                 <div class="meta-item meta-date text-icon text-icon-date">
                     {{ post.published_at_date|date('j M Y') }}
                 </div>
