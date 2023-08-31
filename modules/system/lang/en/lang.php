@@ -62,6 +62,7 @@
     'fi' => 'Suomi',
     'fr' => 'Français',
     'fr-ca' => 'Français (Canada)',
+    'hr' => 'Hrvatski',
     'hu' => 'Magyar',
     'id' => 'Bahasa Indonesia',
     'it' => 'Italiano',
