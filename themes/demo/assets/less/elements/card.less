@@ -10,6 +10,10 @@
         background-position: center center;
         background-size: cover;
 
+        &.banner-sm {
+            height: 120px;
+        }
+
         &.banner-lg {
             height: 268px;
         }
@@ -39,6 +43,18 @@
         padding: 1rem 1.5rem;
         border-bottom-left-radius: 13px;
         border-bottom-right-radius: 13px;
+    }
+
+    .card-title {
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+    }
+
+    .card-links {
+        position: relative;
+        z-index: 2;
     }
 }
 

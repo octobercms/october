@@ -104,3 +104,21 @@ ul.list-with-ticks {
         }
     }
 }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+html[data-turbo-preview] .fade-in-content {
+    opacity: 0;
+}
+
+html:not([data-turbo-preview]) .fade-in-content {
+    animation: fadeIn 0.15s ease-in-out;
+}

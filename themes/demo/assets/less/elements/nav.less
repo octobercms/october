@@ -1,0 +1,36 @@
+.nav-line-pills {
+    border-bottom: 1px solid var(--bs-gray-300);
+
+    .nav-item {
+        margin-right: 2rem;
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--bs-gray-600);
+            white-space: nowrap;
+            padding: 16px 0px;
+            margin-bottom: -1px;
+            border-bottom: 2px solid transparent;
+            border-radius: 0px;
+            &.active {
+                color: var(--bs-primary);
+                background-color: transparent;
+                border-bottom: 2px solid var(--bs-primary);
+            }
+            &:hover {
+                color: var(--bs-primary);
+                background-color: transparent;
+                border-bottom: 2px solid var(--bs-primary);
+            }
+        }
+    }
+
+    @media (max-width: 576px) {
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

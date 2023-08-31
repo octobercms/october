@@ -28,7 +28,7 @@ vars[activeNavLink] = 'blog'
     {% endif %}
 
     <div class="card-body card-lg">
-        <h1 class="blog-post-title">
+        <h1 class="card-title">
             {{ post.title }}
         </h1>
 
@@ -39,7 +39,7 @@ vars[activeNavLink] = 'blog'
         {% endif %}
 
         <div class="blog-post-gallery">
-            {% partial 'controls/image-carousel' gallery=post.gallery %}
+            {% partial 'controls/gallery-slider' gallery=post.gallery %}
         </div>
 
         <div class="row pt-3">

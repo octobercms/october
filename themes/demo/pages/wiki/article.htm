@@ -39,7 +39,7 @@ vars[activeNavLink] = 'wiki'
         {{ article.content|raw }}
 
         <div class="wiki-article-gallery mb-3">
-            {% partial 'controls/image-carousel' gallery=article.gallery %}
+            {% partial 'controls/gallery-slider' gallery=article.gallery %}
         </div>
     </article>
 

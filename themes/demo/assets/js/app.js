@@ -7,6 +7,11 @@ addEventListener('render', function() {
         });
     });
 
+    // Tooltips
+    $('[data-bs-toggle="tooltip"]').each(function() {
+        $(this).tooltip();
+    });
+
     // Popovers
     $('[data-bs-toggle="popover"]').each(function() {
         var $el = $(this);
