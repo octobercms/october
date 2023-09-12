@@ -106,7 +106,7 @@
     'full_name' => 'Full Name',
     'email' => 'Email',
     'role_field' => 'Role',
-    'role_comment' => 'Roles define user permissions, which can be overriden on the user level, on the Permissions tab.',
+    'role_comment' => 'Roles define user permissions, which can be overridden on the user level, on the Permissions tab.',
     'groups' => 'Groups',
     'groups_comment' => 'Specify which groups this account should belong to.',
     'avatar' => 'Avatar',
