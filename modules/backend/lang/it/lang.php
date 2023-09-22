@@ -70,8 +70,6 @@
   ],
   'user' => [
     'name' => 'Amministratore',
-    'menu_label' => 'Amministratori',
-    'menu_description' => 'Gestisci gli utenti amministratori, i gruppi e le autorizzazioni.',
     'list_title' => 'Gestisci amministratori',
     'new' => 'Nuovo amministratore',
     'first_name' => 'Nome',
@@ -103,7 +101,6 @@
       'is_new_user_default_field_comment' => 'Aggiungi i nuovi amministratori a questo gruppo per impostazione predefinita.',
       'code_field' => 'Codice',
       'code_comment' => 'Inserisci un codice univoco se vuoi accedere a questo elementro tramite API.',
-      'menu_label' => 'Gruppi',
       'list_title' => 'Gestisci gruppi',
       'new' => 'Nuovo gruppo',
       'delete_confirm' => 'Vuoi davvero eliminare questo gruppo amministratore?',
@@ -240,31 +237,17 @@
     'permissions' => 'La cartella :name o le sue sottocartelle non sono scrivibili da PHP. Imposta le corrette autorizzazioni per il server web su questa cartella.',
     'extension' => 'L\'estensione di PHP :name non è installata. Installa questa libreria ed attiva l\'estensione.',
   ],
-  'editor' => [
-    'menu_label' => 'Preferenze editor di codice',
-    'menu_description' => 'Personalizza le impostazioni dell\'editor, come la dimensione del carattere e lo schema di colori.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Anteprima del sito web',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Impostazioni personali',
     'menu_description' => 'Impostazioni legate al tuo account amministratore',
   ],
-  'myaccount' => [
-    'menu_label' => 'Il mio account',
-    'menu_description' => 'Aggiorna i dettagli del tuo account, come il nome, l\'indirizzo e-mail e la password.',
-    'menu_keywords' => 'sicurezza login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personalizza pannello di controllo',
-    'menu_description' => 'Personalizza l\'area di amministrazione, come il nome, i colori ed il logo.',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferenze pannello di controllo',
-    'menu_description' => 'Gestisci le preferenze del tuo account, come la lingua.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'tutto',

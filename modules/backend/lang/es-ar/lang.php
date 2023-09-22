@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'Administrador',
-    'menu_label' => 'Administradores',
-    'menu_description' => 'Gestionar backend de administrador de usuarios, grupos y permisos.',
     'list_title' => 'Gestionar administradores',
     'new' => 'Nuevo administrador',
     'first_name' => 'Nombre',
@@ -74,7 +72,6 @@
     'group' => [
       'name' => 'Grupo',
       'name_field' => 'Nombre',
-      'menu_label' => 'Grupos',
       'list_title' => 'Gestionar Grupos',
       'new' => 'Nuevo Grupo',
       'delete_confirm' => 'Realmente desea eliminar este grupo de administradores?',
@@ -168,26 +165,14 @@
     'permissions' => 'El directorio :name o los subdirectorios no se puede escribir por PHP. Por favor establezca los permisos correctos para el servidor web en este directorio.',
     'extension' => 'La extensión PHP :name no está instalada. Por favor instale esta librería y active la extensión.',
   ],
-  'editor' => [
-    'menu_label' => 'Preferencias del editor de código',
-    'menu_description' => 'Configurar preferencias del editor de código, como el tamaño de la letra y el color del esquema.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Vista previa de la página web',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mi configuración',
     'menu_description' => 'Ajustes relacionados con su cuenta de administración',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mi cuenta',
-    'menu_description' => 'Actualizar información de su cuenta, como nombre, dirección de correo electrónico y contraseña.',
-    'menu_keywords' => 'Inicio seguro',
-  ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferencias de backend',
-    'menu_description' => 'Gestionar preferencias de idioma y la apariencia del backend.',
-  ],
+  'myaccount' => [],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'Todo',

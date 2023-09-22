@@ -82,8 +82,6 @@
   ],
   'user' => [
     'name' => 'Administrador',
-    'menu_label' => 'Administradors',
-    'menu_description' => 'Gestionar els usuaris administradors del panell, grups i permisos.',
     'list_title' => 'Gestionar Administradors',
     'new' => 'Nou Administrador',
     'first_name' => 'Nom',
@@ -121,7 +119,6 @@
       'is_new_user_default_field_comment' => 'Afegir nous administradors a aquest grup per defecte',
       'code_field' => 'Codi',
       'code_comment' => 'Introdueix un codi únic si vols accedir a l\'objecte de grup amb l\'API.',
-      'menu_label' => 'Gestionar grups',
       'list_title' => 'Gestionar grups',
       'new' => 'Nou grup',
       'delete_confirm' => 'Eliminar aquest grup d\'administració?',
@@ -135,7 +132,6 @@
       'description_field' => 'Descripció',
       'code_field' => 'Codi',
       'code_comment' => 'Introdueix un codi únic si vols accedir a l\'objecte de rol amb l\'API.',
-      'menu_label' => 'Gestionar rols',
       'list_title' => 'Gestionar rols',
       'new' => 'Nou rol',
       'delete_confirm' => 'Eliminar aquest rol d\'administració?',
@@ -277,31 +273,17 @@
     'extension' => 'L\'extensió :name no està instal·lada. Si us plau instal·la aquesta llibreria i activa l\'extensió.',
     'plugin_missing' => 'El plugin :name és una dependència però no està instal·lat. Si us plau instal·la aquest plugin.',
   ],
-  'editor' => [
-    'menu_label' => 'Opcions de l\'editor',
-    'menu_description' => 'Personalitza les preferències globals de l\'editor, com ara el mida de la font i l\'esquema de colors.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Previsualitzar el lloc web',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Les meves opcions',
     'menu_description' => 'Les opcions de configuració relacionades amb el teu compte d\'administració',
   ],
-  'myaccount' => [
-    'menu_label' => 'El meu compte',
-    'menu_description' => 'Actualitza els teus detalls de compte com ara el nom, adreça d\'email i contrasenya.',
-    'menu_keywords' => 'seguretat acces security login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personalitzar el panell d\'administració',
-    'menu_description' => 'Personalitzar l\'aspecte de l\'àrea d\'administració, com ara el nom, els colors o el logo.',
     'accent_color' => 'Color d\'accent',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferències del panell',
-    'menu_description' => 'Gestiona les preferències del teu compte, com ara el teu idioma preferit.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'tots',

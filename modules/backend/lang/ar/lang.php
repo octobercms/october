@@ -108,12 +108,8 @@
     'default_title' => 'إعادة الترتيب',
     'no_records' => 'ليس هناك سجلات لإعادة ترتيبها.',
   ],
-  'myaccount' => [
-    'menu_label' => 'حسابي',
-  ],
-  'backend_preferences' => [
-    'menu_label' => 'تفضيلات لوحة الإدارة',
-  ],
+  'myaccount' => [],
+  'backend_preferences' => [],
   'filter' => [
     'all' => 'الكل',
     'date_all' => 'كل الفترات',

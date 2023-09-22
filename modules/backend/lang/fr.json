@@ -83,7 +83,7 @@
   "Moderate Admins": "Modérer les administrateurs",
   "Manage account suspension and ban admin accounts": "Gérer la suspension des comptes et bannir les comptes administrateur",
   "Manage Roles": "Gérer les rôles",
-  "Manage Groups": "Gérer les groupes",
+  "Manage Groups": "Groupes",
   "Manage Other Admins": "Gérer les autres administrateurs",
   "Allow users to reset passwords and update emails.": "Permet de réinitialiser les mots de passe et de mettre à jour les e-mails",
   "Delete Admins": "Supprimer les administrateurs",
@@ -293,5 +293,18 @@
   ":name Linked": ":name Lié(e)",
   ":name Removed": ":name Retiré(e)",
   ":name Unlinked": ":name Délié(e)",
-  "Form record with an ID of :id could not be found.": "Aucun enregistrement de formulaire ne correspond a l’ID :id."
+  "Form record with an ID of :id could not be found.": "Aucun enregistrement de formulaire ne correspond a l’ID :id.",
+  "Preview the Website": "Aperçu du site",
+  "Manage back-end administrator users, groups and permissions.": "Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.",
+  "Define permissions for administrators based on their role.": "Définir des permissions pour les utilisateurs en fonction de leurs rôles.",
+  "Add administrators to groups used for notifications and features.": "Ajouter des administrateurs aux groupes pour les notifications et fonctionnalités.",
+  "Customize Backend": "Personnaliser l’interface d’administration",
+  "Customize the administration area such as name, colors and logo.": "Personnaliser l’interface d’administration comme le nom, les couleurs ou le logo.",
+  "Editor Settings": "Préférences de l’éditeur de code",
+  "Change the global editor preferences.": "Personnaliser la configuration de l’éditeur de code, telle que la taille de la police ou la coloration syntaxique.",
+  "My Account": "Mon compte",
+  "Update your account details such as name, email address and password.": "Modifier les informations de votre compte comme le nom, l’adresse e-mail ou le mot de passe.",
+  "Backend Preferences": "Préférences d’administration",
+  "Manage your account preferences such as desired language.": "Gérer les préférences de votre compte telles que la langue utilisée.",
+  "security login": "security login sécurité authentification identification"
 }

@@ -101,8 +101,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratorji',
-    'menu_description' => 'Upravljanje z administratorji, skupinami in dovoljenji.',
     'list_title' => 'Upravljanje administratorjev',
     'new' => 'Nov administrator',
     'first_name' => 'Ime',
@@ -142,7 +140,6 @@
       'is_new_user_default_field_comment' => 'Nove administratorje vedno vključi v to skupino.',
       'code_field' => 'Koda',
       'code_comment' => 'Vnesite unikatno kodo, če želite dostopati do objekta skupine preko API klica.',
-      'menu_label' => 'Upravljanje s skupinami',
       'list_title' => 'Upravljanje s skupinami',
       'new' => 'Nova skupina',
       'delete_confirm' => 'Želite odstraniti to administratorsko skupino?',
@@ -156,7 +153,6 @@
       'description_field' => 'Opis',
       'code_field' => 'Koda',
       'code_comment' => 'Vnesite unikatno kodo, če želite dostopati do objekta vloge preko API klica.',
-      'menu_label' => 'Upravljanje z vlogami',
       'list_title' => 'Upravljanje z vlogami',
       'new' => 'Nova vloga',
       'delete_confirm' => 'Želite odstraniti to administratorsko vlogo?',
@@ -308,8 +304,6 @@
     'decompileBackendAssets' => 'Oblikovne datoteke (CSS, JavaSrcipt) v administraciji so trenutno ne-stisnjene. To ni priporočljivo za produkcijsko okolje.',
   ],
   'editor' => [
-    'menu_label' => 'Nastavitve urejevalnika',
-    'menu_description' => 'Splošne nastavitve urejevalnika, kot npr. velikost pisave in barvna shema.',
     'markup_tag' => 'Označevalna oznaka',
     'toolbar_options' => 'Nastavitve orodne vrstice',
     'toolbar_buttons_presets' => [
@@ -319,28 +313,17 @@
     ],
     'paragraph_formats_comment' => 'Možnosti, ki se prikažejo v spustnem seznamu Format odstavka.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Ogled spletne strani',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Moje nastavitve',
     'menu_description' => 'Nastavitve, povezane z vašim administratorskim računom',
   ],
-  'myaccount' => [
-    'menu_label' => 'Moj profil',
-    'menu_description' => 'Urejanje podatkov vašega profila, kot so ime, e-pošta in geslo.',
-    'menu_keywords' => 'varnostna prijava',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Prilagoditev administracije',
-    'menu_description' => 'Prilagoditev okolja administracije, kot so npr. ime, barve in logotip.',
     'accent_color' => 'Poudarjena barva',
     'menu_mode_inline_no_icons' => 'Vrstični (brez ikon)',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Nastavitve administracije',
-    'menu_description' => 'Upravljajte nastavitve vašega profila, kot je npr. jezik.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'vsi',

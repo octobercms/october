@@ -82,8 +82,8 @@
   "Create Admins": "Utwórz administratorów",
   "Moderate Admins": "Zarządzaj administratorami",
   "Manage account suspension and ban admin accounts": "Zarządzaj zawieszeniem konta i blokuj konta administratora",
-  "Manage Roles": "Zarządzaj rolami",
-  "Manage Groups": "Zarządzaj grupami",
+  "Manage Roles": "Zarządzaj Rolami",
+  "Manage Groups": "Grupy",
   "Manage Other Admins": "Zarządzaj innymi kontami administratorów",
   "Allow users to reset passwords and update emails.": "Umożliwia resetowanie haseł i aktualizowanie e-maili",
   "Delete Admins": "Usuń administratorów",
@@ -289,5 +289,16 @@
   ":name Created": ":name został stworzony pomyślnie",
   ":name Updated": ":name został zaktualizowany pomyślnie",
   ":name Deleted": ":name został usunięty pomyślnie",
-  "Form record with an ID of :id could not be found.": "Rekord formularza o ID :id nie został znaleziony."
+  "Form record with an ID of :id could not be found.": "Rekord formularza o ID :id nie został znaleziony.",
+  "Preview the Website": "Podgląd strony",
+  "Manage back-end administrator users, groups and permissions.": "Zarządzaj administratorami, użytkownikami, grupami i uprawnieniami.",
+  "Customize Backend": "Personalizuj back-end",
+  "Customize the administration area such as name, colors and logo.": "Personalizuj panel administracyjny, kolory, logo.",
+  "Editor Settings": "Ustawienia edytora kodu",
+  "Change the global editor preferences.": "Personalizuj ustawienia edytora kodu, takie jak wielkość czcionki oraz kolorostyka.",
+  "My Account": "Moje konto",
+  "Update your account details such as name, email address and password.": "Zmień informacje o koncie jak imię, email czy hasło.",
+  "Backend Preferences": "Ustawienia Back-end",
+  "Manage your account preferences such as desired language.": "Zarządzaj swoimi ustawieniami konta, jak język panelu.",
+  "security login": "security login"
 }

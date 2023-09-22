@@ -78,8 +78,6 @@
   ],
   'user' => [
     'name' => 'Administratorius',
-    'menu_label' => 'Administratoriai',
-    'menu_description' => 'Tvarkyti administracinius vartotojus, grupes ir prieigos leidimus.',
     'list_title' => 'Tvarkyti Administratorius',
     'new' => 'Naujas Administratorius',
     'first_name' => 'Vardas',
@@ -115,7 +113,6 @@
       'is_new_user_default_field_comment' => 'Naujus administratorius priskirti šiai grupei automatiškai',
       'code_field' => 'Kodas',
       'code_comment' => 'Įveskite unikalų grupės kodą jei norėsite pasiekti šią grupę per API.',
-      'menu_label' => 'Tvarkyti Grupes',
       'list_title' => 'Tvarkyti Grupes',
       'new' => 'Nauja Grupė',
       'delete_confirm' => 'Ištrinti šią administratorių grupę?',
@@ -254,31 +251,17 @@
     'permissions' => 'Direktorija :name arba jos subdirektorijos nėra įrašomos naudojant PHP. Prašome nustatyti rašymo prieigą serveryje šiai direktorijai.',
     'extension' => 'PHP priedas :name nėra įdiegtas. Prašome įdiegti ir aktyvuoti šį priedą.',
   ],
-  'editor' => [
-    'menu_label' => 'Redaktoriaus nustatymai',
-    'menu_description' => 'Redaguoti bendrąsias redaktoriaus savybes, tokias kaip šrifto dydis ir spalvų schema.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Peržiūrėti svetainę',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mano nustatymai',
     'menu_description' => 'Nustatymai susieto su Jūsų administracine anketa',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mano anketa',
-    'menu_description' => 'Atnaujinkite savo anketos informaciją tokią kaip vardas, el.paštas ir slaptažodis.',
-    'menu_keywords' => 'saugus prisijungimas',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Redaguoti posistemę',
-    'menu_description' => 'Redaguoti adminsitracinės zonos pavadinimą, spalvas bei logotipą.',
     'accent_color' => 'Akcento spalva',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Posistemės savybės',
-    'menu_description' => 'Tvarkykite savo anketos savybes tokias kaip norima kalba.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'viską',

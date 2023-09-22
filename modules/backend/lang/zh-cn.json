@@ -83,7 +83,7 @@
   "Moderate Admins": "中级管理员",
   "Manage account suspension and ban admin accounts": "管理帐户暂停和禁止管理员帐户",
   "Manage Roles": "管理角色",
-  "Manage Groups": "管理组",
+  "Manage Groups": "管理群组",
   "Manage Other Admins": "管理其他管理员",
   "Allow users to reset passwords and update emails.": "允许重置密码和更新电子邮件",
   "Delete Admins": "删除管理员",
@@ -293,5 +293,18 @@
   ":name Linked": ":name 已关联",
   ":name Removed": ":name 已删除",
   ":name Unlinked": ":name 已取消关联",
-  "Form record with an ID of :id could not be found.": "无法找到 ID 为 :id 的表单记录。"
+  "Form record with an ID of :id could not be found.": "无法找到 ID 为 :id 的表单记录。",
+  "Preview the Website": "预览网站",
+  "Manage back-end administrator users, groups and permissions.": "管理后台管理员用户, 组和权限.",
+  "Define permissions for administrators based on their role.": "根据管理员的角色定义他们的权限。",
+  "Add administrators to groups used for notifications and features.": "将管理员添加到用于通知和功能的组。",
+  "Customize Backend": "自定义后台",
+  "Customize the administration area such as name, colors and logo.": "自定义管理区域, 比如名字, 颜色和图标.",
+  "Editor Settings": "代码编辑器选项",
+  "Change the global editor preferences.": "自定义代码编辑器选项，比如字体大小和颜色主题.",
+  "My Account": "我的账户",
+  "Update your account details such as name, email address and password.": "更新你的账户细节, 如姓名、邮件地址和密码.",
+  "Backend Preferences": "偏好设置",
+  "Manage your account preferences such as desired language.": "管理你的后台偏好设置，如使用语言。",
+  "security login": "安全登录"
 }

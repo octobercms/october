@@ -101,8 +101,6 @@
   ],
   'user' => [
     'name' => 'Administrador',
-    'menu_label' => 'Administradores',
-    'menu_description' => 'Gerenciar administradores, grupos e permissões.',
     'list_title' => 'Gerenciar administradores',
     'new' => 'Novo administrador',
     'first_name' => 'Nome',
@@ -142,7 +140,6 @@
       'is_new_user_default_field_comment' => 'Adicionar novos administradores a este grupo por padrão',
       'code_field' => 'Código',
       'code_comment' => 'Insira um código exclusivo se você quiser acessá-lo com a API.',
-      'menu_label' => 'Grupos',
       'list_title' => 'Gerenciar grupos',
       'new' => 'Novo grupo administrador',
       'delete_confirm' => 'Você realmente deseja excluir este grupo?',
@@ -156,7 +153,6 @@
       'description_field' => 'Descrição',
       'code_field' => 'Código',
       'code_comment' => 'Digite um código exclusivo se quiser acessar o objeto de função com a API.',
-      'menu_label' => 'Gerenciar Funções',
       'list_title' => 'Gerenciar Funções',
       'new' => 'Nova Função',
       'delete_confirm' => 'Excluir esta função de administrador?',
@@ -333,8 +329,6 @@
     'backend_login' => 'Uma conta com e login genérica :name foi encontrada. Por favor, renomeie esta conta de administrador.',
   ],
   'editor' => [
-    'menu_label' => 'Definições do Editor',
-    'menu_description' => 'Gerenciar configurações do editor.',
     'preview' => 'Prévia',
     'markup_tag' => 'Tag de marcação',
     'toolbar_options' => 'Opções da barra de ferramentas',
@@ -345,28 +339,17 @@
     ],
     'paragraph_formats_comment' => 'As opções que aparecerão na lista de Formatos do parágrafo.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Visualizar a página',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Minhas Configurações',
     'menu_description' => 'Configurações relacionadas à sua conta de administrador',
   ],
-  'myaccount' => [
-    'menu_label' => 'Minha Conta',
-    'menu_description' => 'Atualizar detalhes da sua conta, como nome, e-mail e senha.',
-    'menu_keywords' => 'login de segurança',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personalização',
-    'menu_description' => 'Personalizar detalhes da área administrativa, tais como título, cores e logo.',
     'accent_color' => 'Cor de destaque',
     'menu_mode_inline_no_icons' => 'Em linha (sem ícones)',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferências da Administração',
-    'menu_description' => 'Gerenciar idiomas e aparência da administração.',
-  ],
+  'backend_preferences' => [],
   'filter' => [
     'all' => 'todos',
     'options_method_not_exists' => 'A classe modelo :model deve definir um método :method() retornando opções para o filtro \':filter\'.',

@@ -79,8 +79,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administrators',
-    'menu_description' => 'Quản lý các administrator, nhóm quản trị và quyền truy cập.',
     'list_title' => 'Quản lý Administrators',
     'new' => 'Thêm mới Administrator',
     'first_name' => 'Họ',
@@ -118,7 +116,6 @@
       'is_new_user_default_field_comment' => 'Khi thêm mới administrators mặc định sẽ vào nhóm này',
       'code_field' => 'Code',
       'code_comment' => 'Nhập mã code không được trùng lặp nếu bạn muốn truy cập group objectuop bằng API',
-      'menu_label' => 'Quản lý các nhóm',
       'list_title' => 'Quản lý các nhóm',
       'new' => 'Nhóm mới',
       'delete_confirm' => 'Xóa nhóm này?',
@@ -132,7 +129,6 @@
       'description_field' => 'Mô tả',
       'code_field' => 'Code',
       'code_comment' => 'Nhập mã code không được trùng lặp nếu bạn muốn truy cập group objectuop bằng API.',
-      'menu_label' => 'Quản lý các Role',
       'list_title' => 'Quản lý các Role',
       'new' => 'Thêm mới Role',
       'delete_confirm' => 'Xóa role này?',
@@ -274,31 +270,17 @@
     'extension' => 'PHP extension :name chưa được cài đặt. Vui lòng cài đặt extension này từ thư viện và kích hoạt nó.',
     'plugin_missing' => 'Plugin :name cần phải cài đặt. Vui lòng cài đặt plugin này.',
   ],
-  'editor' => [
-    'menu_label' => 'Cài đặt trình biên tập (Code editor)',
-    'menu_description' => 'Tùy chỉnh trình biên tập (Code editor) cho toàn trang, ví dụ kích thước chữ,màu nền cho trình biên tập.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Xem trước website',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Những cài đặt của tôi',
     'menu_description' => 'Những cài đặt liên quan đến tài khoản quản trị của bạn',
   ],
-  'myaccount' => [
-    'menu_label' => 'Tài khoản của tôi',
-    'menu_description' => 'Cập nhật thông tin tài khoản của bạn ví dụ như tên, email hoặc mật khẩu.',
-    'menu_keywords' => 'bảo mật đăng nhập',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Tùy chỉnh trang quản trị',
-    'menu_description' => 'Tùy chỉnh trang quản trị, ví dụ như chỉnh sửa tên,màu sắc, logo.',
     'accent_color' => 'Màu tạo các điểm nhấn',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Tùy chỉnh cá nhân',
-    'menu_description' => 'Cá nhân hóa trang quản trị với tài khoản của bạn, ví dụ chọn ngôn ngữ.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'tất cả',

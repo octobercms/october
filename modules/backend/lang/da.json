@@ -83,7 +83,7 @@
   "Moderate Admins": "Moderate administratorer",
   "Manage account suspension and ban admin accounts": "Administrer kontosuspendering og udelukk administratorkonti",
   "Manage Roles": "Administrer roller",
-  "Manage Groups": "Administrer grupper",
+  "Manage Groups": "Administrer Grupper",
   "Manage Other Admins": "Administrer andre administratorer",
   "Allow users to reset passwords and update emails.": "Tillader nulstilling af adgangskoder og opdatering af e-mails",
   "Delete Admins": "Slet administratorer",
@@ -285,5 +285,16 @@
   ":name Created": ":name oprettet",
   ":name Updated": ":name opdateret",
   ":name Deleted": ":name slettet",
-  "Form record with an ID of :id could not be found.": "Formular record med et ID'et :id kunne ikke findes."
+  "Form record with an ID of :id could not be found.": "Formular record med et ID'et :id kunne ikke findes.",
+  "Preview the Website": "Forhåndsvis hjemmesiden",
+  "Manage back-end administrator users, groups and permissions.": "Administrer back-end administratorbrugere, grupper og rettigheder.",
+  "Customize Backend": "Tilpas back-end",
+  "Customize the administration area such as name, colors and logo.": "Tilpas backendområdet med eksempelvis navn, farver og logo.",
+  "Editor Settings": "Indstillinger for redigeringsværktøj",
+  "Change the global editor preferences.": "Tilpas de globale indstllinger for redigeringsværktøjet, som eksempelvis skriftstørrelse og farver.",
+  "My Account": "Min konto",
+  "Update your account details such as name, email address and password.": "Opdater dine kontodetaljer som eksempelvis navn, email-adresse og adgangskode.",
+  "Backend Preferences": "Backend indstillinger",
+  "Manage your account preferences such as desired language.": "Administrer dine backend indstillinger som eksempelvis dit ønskede sprog.",
+  "security login": "Sikkerhedslogin"
 }

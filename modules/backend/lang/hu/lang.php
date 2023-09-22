@@ -97,8 +97,6 @@
   ],
   'user' => [
     'name' => 'Admin',
-    'menu_label' => 'Adminok',
-    'menu_description' => 'Jogosultságok, szerepkörök és csoportok módosítása.',
     'list_title' => 'Adminok kezelése',
     'new' => 'Új admin',
     'first_name' => 'Vezetéknév',
@@ -131,8 +129,6 @@
     'show_deleted' => 'Töröltek mutatása',
     'group' => [
       'name' => 'Csoport',
-      'menu_label' => 'Csoportok menedzselése',
-      'menu_description' => 'Adjon hozzá adminisztrátort az értesítésekhez és funkciókhoz.',
       'name_field' => 'Név',
       'name_comment' => 'A név a csoport létrehozásnál és szerkesztésnél jelenik meg.',
       'description_field' => 'Leírás',
@@ -148,8 +144,6 @@
     ],
     'role' => [
       'name' => 'Szerepkör',
-      'menu_label' => 'Szerepkör menedzselése',
-      'menu_description' => 'Határozza meg az adminisztrátorok jogosultságait szerepük alapján.',
       'name_field' => 'Név',
       'name_comment' => 'A szerepkör megnevezése, ami a listákban jelenik meg.',
       'description_field' => 'Leírás',
@@ -336,8 +330,6 @@
     'debug' => 'A hibakeresési mód engedélyezve van. Ez nem ajánlott éles weboldal esetén.',
   ],
   'editor' => [
-    'menu_label' => 'Szövegszerkesztő',
-    'menu_description' => 'A megjelenésének és működésének testreszabása.',
     'toolbar_buttons_presets' => [
       'default' => 'Alapértelmezett',
       'minimal' => 'Minimális',
@@ -345,27 +337,16 @@
     ],
     'paragraph_formats_comment' => 'A felvett értékek lenyíló listában fognak megjelenni.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Weboldal megtekintése',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Beállításaim',
     'menu_description' => 'A fiókkal kapcsolatos beállítások',
   ],
-  'myaccount' => [
-    'menu_label' => 'Fiókom',
-    'menu_description' => 'A felhasználói adatok módosítása.',
-    'menu_keywords' => 'biztonságos bejelentkezés',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Testreszabás',
-    'menu_description' => 'Az admin felület megjelenésének egyedivé tétele.',
     'accent_color' => 'Hangsúlyos szín',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Beállításaim',
-    'menu_description' => 'A működésének testreszabása.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'mind',

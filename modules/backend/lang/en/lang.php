@@ -97,8 +97,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administrators',
-    'menu_description' => 'Manage back-end administrator users, groups and permissions.',
     'list_title' => 'Manage Administrators',
     'new' => 'New Administrator',
     'first_name' => 'First Name',
@@ -131,8 +129,6 @@
     'show_deleted' => 'Show Deleted',
     'group' => [
       'name' => 'Group',
-      'menu_label' => 'Manage Groups',
-      'menu_description' => 'Add administrators to groups used for notifications and features.',
       'name_field' => 'Name',
       'name_comment' => 'The name is displayed in the group list on the Administrator form.',
       'description_field' => 'Description',
@@ -148,8 +144,6 @@
     ],
     'role' => [
       'name' => 'Role',
-      'menu_label' => 'Manage Roles',
-      'menu_description' => 'Define permissions for administrators based on their role.',
       'name_field' => 'Name',
       'name_comment' => 'The name is displayed in the role list on the Administrator form.',
       'description_field' => 'Description',
@@ -340,8 +334,6 @@
     'backend_login' => 'An account with a generic login :name was found. Please rename this administrator account.',
   ],
   'editor' => [
-    'menu_label' => 'Editor Settings',
-    'menu_description' => 'Change the global editor preferences.',
     'toolbar_buttons_presets' => [
       'default' => 'Default',
       'minimal' => 'Minimal',
@@ -349,27 +341,16 @@
     ],
     'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Preview the Website',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'My Settings',
     'menu_description' => 'Settings related to your administration account',
   ],
-  'myaccount' => [
-    'menu_label' => 'My Account',
-    'menu_description' => 'Update your account details such as name, email address and password.',
-    'menu_keywords' => 'security login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Customize Backend',
-    'menu_description' => 'Customize the administration area such as name, colors and logo.',
     'accent_color' => 'Accent Color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Backend Preferences',
-    'menu_description' => 'Manage your account preferences such as desired language.',
-  ],
+  'backend_preferences' => [],
   'filter' => [
     'all' => 'all',
     'options_method_not_exists' => 'The model class :model must define a method :method() returning options for the \':filter\' filter.',

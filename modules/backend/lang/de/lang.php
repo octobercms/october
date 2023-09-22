@@ -93,8 +93,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratoren',
-    'menu_description' => 'Backend-Benutzer, Administratoren, Gruppen und Zugriffsrechte verwalten.',
     'list_title' => 'Administratoren verwalten',
     'new' => 'Neuer Administrator',
     'first_name' => 'Vorname',
@@ -132,7 +130,6 @@
       'is_new_user_default_field_comment' => 'Fügt neue Administratoren zu dieser Gruppe standardmäßig hinzu.',
       'code_field' => 'Code',
       'code_comment' => 'Eindeutigen Code hinzufügen, wenn dies über die API bearbeitet werden soll.',
-      'menu_label' => 'Gruppen',
       'list_title' => 'Gruppen verwalten',
       'new' => 'Neue Administratoren Gruppe',
       'delete_confirm' => 'Möchten Sie diesen Administratoren-Gruppe wirklich löschen?',
@@ -146,7 +143,6 @@
       'description_field' => 'Beschreibung',
       'code_field' => 'Code',
       'code_comment' => 'Geben Sie einen eindeutigen Code an, wenn Sie mit der API auf das Rollenobjekt zugreifen möchten.',
-      'menu_label' => 'Rollen verwalten',
       'list_title' => 'Rollen verwalten',
       'new' => 'Neue Rolle',
       'delete_confirm' => 'Diese Administratorrolle löschen?',
@@ -294,8 +290,6 @@
     'decompileBackendAssets' => 'Assets im Backend sind derzeit dekompiliert. Dies wird für Produktionsinstallationen nicht empfohlen.',
   ],
   'editor' => [
-    'menu_label' => 'Editor-Einstellungen',
-    'menu_description' => 'Verwalten der Code-Editor-Einstellungen.',
     'toolbar_buttons_presets' => [
       'default' => 'Standard',
       'minimal' => 'Minimal',
@@ -303,28 +297,17 @@
     ],
     'paragraph_formats_comment' => 'Die Optionen, welche in der Dropdown-Liste für Absatzformatierungen angezeigt werden.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Vorschau der Webseite',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Meine Einstellungen',
     'menu_description' => 'Einstellungen beziehen sich auf Ihren Administratoren Account',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mein Account',
-    'menu_description' => 'Updaten Sie Ihre Account-Details wie z.B. den Namen, die E-Mail-Adresse und das Passwort.',
-    'menu_keywords' => 'Sicheres Anmelden',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Backend anpassen',
-    'menu_description' => 'Passe den Admin-Bereich an - z.B. Name, Farben und Logo.',
     'accent_color' => 'Akzentfarbe',
     'menu_mode_inline_no_icons' => 'Inline (ohne Icons)',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Backend-Einstellungen',
-    'menu_description' => 'Verwalten der Spracheinstellungen und der Backend-Darstellung.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'Alle',

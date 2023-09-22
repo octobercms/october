@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administrator',
-    'menu_description' => 'Kelola pengguna administrator back-end, grup, dan perizinan.',
     'list_title' => 'Kelola Administrator',
     'new' => 'Administrator Baru',
     'first_name' => 'Name Depan',
@@ -79,7 +77,6 @@
       'is_new_user_default_field' => 'Tambahkan administrator baru pada grup ini secara original',
       'code_field' => 'Kode',
       'code_comment' => 'Masukkan kode unik jika Anda ingin mengakses ini dengan API.',
-      'menu_label' => 'Grup',
       'list_title' => 'Kelola Grup',
       'new' => 'Grup Administrator Baru',
       'delete_confirm' => 'Apakah Anda yakin akan menghapus grup administrator ini?',
@@ -192,31 +189,17 @@
     'permissions' => 'Direktori :name atau direktori di bawahnya tidak dapat ditulis oleh PHP. Silakan atur hak akses webserver yang sesuai pada direktori ini.',
     'extension' => 'Ekstensi PHP :name tidak terpasang. Silakan instalasi modul ini dan aktifkan ekstensi.',
   ],
-  'editor' => [
-    'menu_label' => 'Pengaturan Editor',
-    'menu_description' => 'Pengaturan Editor yang sesuai dengan keinginan Anda, seperti ukuran huruf dan skema warna.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Preview situs',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Pengaturanku',
     'menu_description' => 'Pengaturan yang berkaitan dengan akun administrasi Anda',
   ],
-  'myaccount' => [
-    'menu_label' => 'Akun Saya',
-    'menu_description' => 'Kelola rincian akun Anda seperti nama, alamat surel dan sandi lewat.',
-    'menu_keywords' => 'Kata kunci',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Penyesuaian back-end',
-    'menu_description' => 'Penyesuaian area administrasi seperti nama, warna dan logo.',
     'accent_color' => 'Warna Aksen',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Penyesuaian Back-end',
-    'menu_description' => 'Kelola penyesuaian akun Anda seperti bahasa yang diinginkan.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'semua',

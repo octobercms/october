@@ -4,6 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Enable Multisite
+    |--------------------------------------------------------------------------
+    |
+    | Allows the creation of multiple site definitions in the same installation.
+    | Disabling this will lock any existing site definitions.
+    |
+    */
+
+    'enabled' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Multisite Features
     |--------------------------------------------------------------------------
     |

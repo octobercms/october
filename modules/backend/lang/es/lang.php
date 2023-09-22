@@ -71,8 +71,6 @@
   ],
   'user' => [
     'name' => 'Administrador',
-    'menu_label' => 'Administradores',
-    'menu_description' => 'Gestionar usuarios, grupos y permisos para el back-end.',
     'list_title' => 'Gestionar administradores',
     'new' => 'Nuevo Administrador',
     'first_name' => 'Nombres',
@@ -104,7 +102,6 @@
       'is_new_user_default_field' => 'Añadir a los nuevos administradores a este grupo por defecto',
       'code_field' => 'Código',
       'code_comment' => 'Entrar un código único para acceder a ella con la API.',
-      'menu_label' => 'Gestionar Grupos',
       'list_title' => 'Gestionar Grupos',
       'new' => 'Nuevo Grupo',
       'delete_confirm' => '¿Eliminar este grupo de administradores?',
@@ -240,31 +237,17 @@
     'permissions' => 'Directorio :name o los subdirectorios no se puede escribir por PHP. Por favor establecer los permisos correctos para el servidor web en este directorio.',
     'extension' => 'La extensión PHP :name no está instalada. Por favor instalar esta librería y activar la extensión.',
   ],
-  'editor' => [
-    'menu_label' => 'Preferencias del Editor',
-    'menu_description' => 'Configurar las preferencias del editor de código, como el tamaño de la letra y el color del esquema.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Vista previa del sitio',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mis configuraciones',
     'menu_description' => 'Configuraciones relacionadas con su cuenta',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mi Cuenta',
-    'menu_description' => 'Actualice la información de su cuenta, como nombre, dirección de correo electrónico y contraseña.',
-    'menu_keywords' => 'Inicio de sesión de seguridad',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personalizar back-end',
-    'menu_description' => 'Perzonalizar el área de administración, así como el nombre, los colores y el logo.',
     'accent_color' => 'Color de énfasis',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferencias del panel de administración',
-    'menu_description' => 'Gestione la preferencia de idioma y la apariencia del panel.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'todo',

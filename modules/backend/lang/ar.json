@@ -278,5 +278,7 @@
   ":name Created": "تم إنشاء :name بنجاح",
   ":name Updated": "تم تعديل :name بنجاح",
   ":name Deleted": "تم حذف :name بنجاح",
-  "Form record with an ID of :id could not be found.": "السجل رقم :id غير موجود."
+  "Form record with an ID of :id could not be found.": "السجل رقم :id غير موجود.",
+  "My Account": "حسابي",
+  "Backend Preferences": "تفضيلات لوحة الإدارة"
 }

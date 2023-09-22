@@ -82,8 +82,8 @@
   "Create Admins": "Vytvoriť administrátorov",
   "Moderate Admins": "Moderovať administrátorov",
   "Manage account suspension and ban admin accounts": "Spravujte pozastavenie účtu a zablokujte účty správcu",
-  "Manage Roles": "Spravovať roly",
-  "Manage Groups": "Spravovať skupiny",
+  "Manage Roles": "Role",
+  "Manage Groups": "Skupiny",
   "Manage Other Admins": "Spravovať ostatných administrátorov",
   "Allow users to reset passwords and update emails.": "Umožňuje obnovenie hesiel a aktualizáciu e-mailov",
   "Delete Admins": "Odstrániť administrátorov",
@@ -289,5 +289,16 @@
   ":name Created": ":name bol vytvorený",
   ":name Updated": ":name bol upravený",
   ":name Deleted": ":name bol zmazaný",
-  "Form record with an ID of :id could not be found.": "Záznam formulíára s ID :id nebol nájdený."
+  "Form record with an ID of :id could not be found.": "Záznam formulíára s ID :id nebol nájdený.",
+  "Preview the Website": "Náhľad stránok",
+  "Manage back-end administrator users, groups and permissions.": "Správa administrátorov, skupín a oprávnení.",
+  "Customize Backend": "Nastavenia administrácie",
+  "Customize the administration area such as name, colors and logo.": "Nastavte si mano, použité farby a logo v administrácií.",
+  "Editor Settings": "Nastavenia editora kódu",
+  "Change the global editor preferences.": "Upraviť globálne nastavenia editora, napríklad veľkosť písma a farebnú schému.",
+  "My Account": "Môj účet",
+  "Update your account details such as name, email address and password.": "Nastavte si detaily svojho účtu ako meno, e-mail a heslo.",
+  "Backend Preferences": "Nastavenia administrácie",
+  "Manage your account preferences such as desired language.": "Spravujte nastavenia svojho účtu ako napríklad jazyk.",
+  "security login": "bezpečnosť login"
 }

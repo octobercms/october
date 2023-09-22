@@ -100,8 +100,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratori',
-    'menu_description' => 'Upravljaj administratorima pozadinskog sistema, grupama i dozvolama.',
     'list_title' => 'Upravljanje administratorima',
     'new' => 'Novi administrator',
     'first_name' => 'Ime',
@@ -141,7 +139,6 @@
       'is_new_user_default_field_comment' => 'Podrazumevano dodaj nove administratore ovoj grupi.',
       'code_field' => 'Kod',
       'code_comment' => 'Unesi jedinstveni kod ako želiš da pristupaš objektu grupe preko API-ja.',
-      'menu_label' => 'Upravljaj grupama',
       'list_title' => 'Upravljaj grupama',
       'new' => 'Nova grupa',
       'delete_confirm' => 'Izbriši ovu administratorsku grupu?',
@@ -155,7 +152,6 @@
       'description_field' => 'Opis',
       'code_field' => 'Kod',
       'code_comment' => 'Unesi jedinstveni kod ako želiš da pristupaš objektu role preko API-ja.',
-      'menu_label' => 'Upravljaj rolama',
       'list_title' => 'Upravljaj rolama',
       'new' => 'Nova rola',
       'delete_confirm' => 'Izbriši ovu administratorsku rolu?',
@@ -307,36 +303,23 @@
     'decompileBackendAssets' => 'Sredstva u pozadinskom sistemu trenutno nisu kompajlovana što nije preporučljivo.',
   ],
   'editor' => [
-    'menu_label' => 'Podešavanje editora',
-    'menu_description' => 'Izmeni postavke globalnog editora, kao što su veličina fonta, boje, itd.',
     'toolbar_buttons_presets' => [
       'default' => 'Osnovna',
       'minimal' => 'Minimalna',
       'full' => 'Kompletna',
     ],
   ],
-  'tooltips' => [
-    'preview_website' => 'Pregledaj sajt',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Moja podešavanja',
     'menu_description' => 'Podešavanja vezana za administratorski nalog',
   ],
-  'myaccount' => [
-    'menu_label' => 'Moj nalog',
-    'menu_description' => 'Ažuriraj detalje svog naloga kao što su ime, prezime, email adresa i lozinka.',
-    'menu_keywords' => 'bezbednosno logovanje',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Izmene pozadinskog sistema',
-    'menu_description' => 'Izmene za administratorsku sekciju poput naziva, boja, logoa, itd.',
     'accent_color' => 'Akcentovane boje',
     'menu_mode_inline_no_icons' => 'Uveden (bez ikonica)',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Postavke pozadinskog sistema',
-    'menu_description' => 'Upravljaj postavkama tvog naloga.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'svi',

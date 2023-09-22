@@ -51,8 +51,6 @@
   ],
   'user' => [
     'name' => '管理員',
-    'menu_label' => '管理員',
-    'menu_description' => '管理管理介面管理員使用者, 群組和權限',
     'list_title' => '管理',
     'new' => '新管理員',
     'first_name' => '名',
@@ -82,7 +80,6 @@
       'is_new_user_default_field' => '預設增加新管理員到這個群組',
       'code_field' => '代碼',
       'code_comment' => '如果您想訪問 API, 請輸入唯一碼',
-      'menu_label' => '群組',
       'list_title' => '管理群組',
       'new' => '新管理群組',
       'delete_confirm' => '您真的想要刪除這個管理群組?',
@@ -195,31 +192,17 @@
     'permissions' => '目錄 :name 或子目錄對PHP不可寫. 請對這個目錄上的webserver設定正確的權限',
     'extension' => 'PHP外掛 :name 沒安裝. 請安裝這個庫並且啟用外掛',
   ],
-  'editor' => [
-    'menu_label' => '代碼編輯器選項',
-    'menu_description' => '自訂代碼編輯器選項, 例如字體大小和顏色主題',
-  ],
-  'tooltips' => [
-    'preview_website' => '預覽網站',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => '我的設定',
     'menu_description' => '設定涉及到您的管理帳號',
   ],
-  'myaccount' => [
-    'menu_label' => '我的帳號',
-    'menu_description' => '更新您的帳號細節, 例如名字, 郵件地址和密碼',
-    'menu_keywords' => '安全登入',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => '自訂管理介面',
-    'menu_description' => '自訂管理區域, 例如名字, 顏色和logo',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => '管理介面設定',
-    'menu_description' => '管理您的管理介面設定, 例如希望使用的語言。',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => '全部',

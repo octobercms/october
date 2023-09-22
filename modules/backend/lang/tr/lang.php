@@ -80,8 +80,6 @@
   ],
   'user' => [
     'name' => 'Yönetici',
-    'menu_label' => 'Yöneticiler',
-    'menu_description' => 'Yönetim paneli gruplarını, kullanıcılarını ve izinlerini yönetin.',
     'list_title' => 'Yöneticileri Yönet',
     'new' => 'Yeni Yönetici',
     'first_name' => 'İsim',
@@ -121,7 +119,6 @@
       'is_new_user_default_field_comment' => 'Yeni eklenen yöneticileri bu gruba dahil et',
       'code_field' => 'Grup kodu',
       'code_comment' => 'Grup kodunu yazın',
-      'menu_label' => 'Gruplar',
       'list_title' => 'Grupları Yönet',
       'new' => 'Yeni Yönetici Grubu',
       'delete_confirm' => 'Bu yönetici grubunu silmek istiyor musunuz?',
@@ -135,7 +132,6 @@
       'description_field' => 'Açıklama',
       'code_field' => 'Kod',
       'code_comment' => 'API ile rol nesnesine erişmek istiyorsanız, eşsiz bir kod girin.',
-      'menu_label' => 'Rolleri Yönet',
       'list_title' => 'Rolleri Yönet',
       'new' => 'Yeni Rol',
       'delete_confirm' => 'Bu yönetici rolü silinsin mi?',
@@ -283,31 +279,17 @@
     'extension' => ':name PHP eklentisi sistemde yüklü değil. Lütfen kütüphaneyi kurun ve eklentiyi aktifleştirin.',
     'plugin_missing' => ':name isimli eklenti gerekli, fakat yüklenmemiş. Lütfen bu eklentiyi yükleyin.',
   ],
-  'editor' => [
-    'menu_label' => 'Editör ayarları',
-    'menu_description' => 'Metin editörü ayarlarını düzenleyebilirsiniz.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Websiteyi Önizle',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Ayarlarım',
     'menu_description' => 'Yönetim hesabı ile ilgili ayarlar',
   ],
-  'myaccount' => [
-    'menu_label' => 'Kişisel Bilgilerim',
-    'menu_description' => 'Hesabınızın ismi, email adresi ve şifresi gibi bilgilerini düzenleyebilirsiniz.',
-    'menu_keywords' => 'güvenli oturum açma',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Yönetim paneli ayarlarını düzenle',
-    'menu_description' => 'Yönetim Panelinin isim, renk şeması ve logo gibi ayarlarını düzenleyin.',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Panel Ayarları',
-    'menu_description' => 'Hesabınızın tercih edilen dil ayarını değiştirebilirsiniz.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'tümü',

@@ -285,5 +285,16 @@
   ":name Created": ":name была створаная",
   ":name Updated": ":name абноўленая",
   ":name Deleted": ":name выдаленая",
-  "Form record with an ID of :id could not be found.": "Немагчыма знайсці запіс формы з ідэнтыфікатарам :id"
+  "Form record with an ID of :id could not be found.": "Немагчыма знайсці запіс формы з ідэнтыфікатарам :id",
+  "Preview the Website": "Праглядзець сайт",
+  "Manage back-end administrator users, groups and permissions.": "Кіраванне карыстальнікамі панэлі кіравання, групамі і дазволамі",
+  "Customize Backend": "Налады адлюстравання панэлі кіравання",
+  "Customize the administration area such as name, colors and logo.": "Налады панэлі кіравання, такія як колер фона, лагатып, апісанні",
+  "Editor Settings": "Налады рэдактара",
+  "Change the global editor preferences.": "Налада глабальных наладаў рэдактара, такіх як памер шрыфта і каляровая схема",
+  "My Account": "Мой акаунт",
+  "Update your account details such as name, email address and password.": "Абнавіць прыватныя налады (імя, электронную пошту, пароль)",
+  "Backend Preferences": "Сістэмныя налады панэлі кіравання",
+  "Manage your account preferences such as desired language.": "Кіруйце такімі наладамі, як, напрыклад, мовай прыкладання",
+  "security login": "бяспека лагін"
 }

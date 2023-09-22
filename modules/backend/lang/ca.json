@@ -285,5 +285,16 @@
   ":name Created": ":name creat",
   ":name Updated": ":name actualitzat",
   ":name Deleted": ":name eliminat",
-  "Form record with an ID of :id could not be found.": "El registre de formulari amb la ID :id no s'ha trobat."
+  "Form record with an ID of :id could not be found.": "El registre de formulari amb la ID :id no s'ha trobat.",
+  "Preview the Website": "Previsualitzar el lloc web",
+  "Manage back-end administrator users, groups and permissions.": "Gestionar els usuaris administradors del panell, grups i permisos.",
+  "Customize Backend": "Personalitzar el panell d'administració",
+  "Customize the administration area such as name, colors and logo.": "Personalitzar l'aspecte de l'àrea d'administració, com ara el nom, els colors o el logo.",
+  "Editor Settings": "Opcions de l'editor",
+  "Change the global editor preferences.": "Personalitza les preferències globals de l'editor, com ara el mida de la font i l'esquema de colors.",
+  "My Account": "El meu compte",
+  "Update your account details such as name, email address and password.": "Actualitza els teus detalls de compte com ara el nom, adreça d'email i contrasenya.",
+  "Backend Preferences": "Preferències del panell",
+  "Manage your account preferences such as desired language.": "Gestiona les preferències del teu compte, com ara el teu idioma preferit.",
+  "security login": "seguretat acces security login"
 }

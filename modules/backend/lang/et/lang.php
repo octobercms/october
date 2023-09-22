@@ -78,8 +78,6 @@
   ],
   'user' => [
     'name' => 'Administraator',
-    'menu_label' => 'Administraatorid',
-    'menu_description' => 'Muuda haldusliidese kasutajaid, õiguseid ja gruppe.',
     'list_title' => 'Halda administraatoreid',
     'new' => 'Uus administraator',
     'first_name' => 'Eesnimi',
@@ -115,7 +113,6 @@
       'is_new_user_default_field_comment' => 'Uued kasutajad lisatakse automaatselt sellesse gruppi',
       'code_field' => 'Kood',
       'code_comment' => 'Unikaalne kood, mida kasutatakse süsteemisiseselt.',
-      'menu_label' => 'Halda gruppe',
       'list_title' => 'Halda gruppe',
       'new' => 'Uus grupp',
       'delete_confirm' => 'Kusuta see grupp?',
@@ -257,31 +254,17 @@
     'extension' => 'PHP laiendus :name ei ole paigaldatud. Süsteemi toimiseks on vajalik selle paigaldamine.',
     'plugin_missing' => 'Plugin :name on vajalik süsteemi toimimiseks, kuid seda pole paigaldatud. Palun paigalda see plugin.',
   ],
-  'editor' => [
-    'menu_label' => 'Tekstiredaktori seadistused',
-    'menu_description' => 'Isikupärast kõikjal kasutatavaid redaktori seadeid, nagu teksti suurus ja värvivalik.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Kodulehe eelvaade',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Minu seaded',
     'menu_description' => 'Sinu haldusliidese kontoga seonduvad seadistused',
   ],
-  'myaccount' => [
-    'menu_label' => 'Minu konto',
-    'menu_description' => 'Muuda oma konto andmeid nagu nimi, e-posti aadress ja parool.',
-    'menu_keywords' => 'parool konto turva sala',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Isikupärasta haldusliidest',
-    'menu_description' => 'Muuda haldusliidese välimust (nt nimi, värvid, logo)',
     'accent_color' => 'Aktsendi color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Haldusliidese seaded',
-    'menu_description' => 'Muuda oma haldusliidese seadeid nagu keel jm.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'kõik',

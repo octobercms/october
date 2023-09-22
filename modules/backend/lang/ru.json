@@ -83,7 +83,7 @@
   "Moderate Admins": "Модерировать админа",
   "Manage account suspension and ban admin accounts": "Управляйте блокировками и приостановками учетной записи администратора",
   "Manage Roles": "Управление ролями",
-  "Manage Groups": "Управление группами",
+  "Manage Groups": "Группы",
   "Manage Other Admins": "Управление другими админами",
   "Allow users to reset passwords and update emails.": "Разрешить менять пароли и обновлять электронную почту",
   "Delete Admins": "Удалить админов",
@@ -293,5 +293,18 @@
   ":name Linked": "Объект \":name\" связан",
   ":name Removed": "Объект \":name\" убран",
   ":name Unlinked": "Объект \":name\" отвязан",
-  "Form record with an ID of :id could not be found.": "Форма записи с идентификатором :ID не найдена."
+  "Form record with an ID of :id could not be found.": "Форма записи с идентификатором :ID не найдена.",
+  "Preview the Website": "Просмотр сайта",
+  "Manage back-end administrator users, groups and permissions.": "Управление группой администраторов, создание групп и разрешений.",
+  "Define permissions for administrators based on their role.": "Настройте разрешения для администраторов в зависимости от их роли.",
+  "Add administrators to groups used for notifications and features.": "Добавьте администраторов в группы используемые для уведомлений и остальных функций.",
+  "Customize Backend": "Персонализация панели управления",
+  "Customize the administration area such as name, colors and logo.": "Управление внешним видом панели управления",
+  "Editor Settings": "Настройки редактора",
+  "Change the global editor preferences.": "Управление настройками редактора кода.",
+  "My Account": "Мой аккаунт",
+  "Update your account details such as name, email address and password.": "Управление личной информацией (имя, почта, пароль)",
+  "Backend Preferences": "Настройки панели управления",
+  "Manage your account preferences such as desired language.": "Управление языком и внешним видом панели управления.",
+  "security login": "безопасность логин"
 }

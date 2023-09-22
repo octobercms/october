@@ -75,8 +75,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratorer',
-    'menu_description' => 'Administrer backend-administratorer, grupper og tilganger.',
     'list_title' => 'Håndter administratorer',
     'new' => 'Ny administrator',
     'first_name' => 'Fornavn',
@@ -112,7 +110,6 @@
       'is_new_user_default_field_comment' => 'Legg nye administratorer til denne gruppen som standard',
       'code_field' => 'Kode',
       'code_comment' => 'Fyll inn en unik kode for å bruke API-en.',
-      'menu_label' => 'Grupper',
       'list_title' => 'Administrere grupper',
       'new' => 'Ny gruppe',
       'delete_confirm' => 'Vil du virkelig slette denne administratorgruppen?',
@@ -248,31 +245,17 @@
     'permissions' => 'Mappen :name eller dens undermapper kan ikke skrives på av PHP. Vennligst sjekk skrivetilganger på serveren.',
     'extension' => 'PHP-extensionen :name er ikke installert..',
   ],
-  'editor' => [
-    'menu_label' => 'Teksteditor-innstillinger',
-    'menu_description' => 'Endre teksteditor-innstillingene dine, for eksemplem tekststørrelse og fargevalg.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Forhåndsvis nettsiden',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mine innstillinger',
     'menu_description' => 'Innstillinger relatert til din administratorkonto',
   ],
-  'myaccount' => [
-    'menu_label' => 'Min konto',
-    'menu_description' => 'Oppdater dine kontodetaljer, som navn, e-postadresse og passord.',
-    'menu_keywords' => 'sikkerhetsinnlogging',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Tilpass backend',
-    'menu_description' => 'Tilpass administratorområdet, for eksempel navn, farger og logo.',
     'accent_color' => 'Accentfarge',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Backend-innstillinger',
-    'menu_description' => 'Administrer kontoinnstillinger som for eksempel språk.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'alle',

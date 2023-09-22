@@ -97,8 +97,6 @@
   ],
   'user' => [
     'name' => 'Administrador',
-    'menu_label' => 'Administradores',
-    'menu_description' => 'Gerir utilizadores, grupos, e permissões de administração.',
     'list_title' => 'Gerir Administradores',
     'new' => 'Novo Administrator',
     'first_name' => 'Nome Próprio',
@@ -138,7 +136,6 @@
       'is_new_user_default_field_comment' => 'Adicionar novos administradores a este grupo por padrão',
       'code_field' => 'Código',
       'code_comment' => 'Insira um código exclusivo se quiser utilizar o mesmo com a API.',
-      'menu_label' => 'Grupos',
       'list_title' => 'Gerir grupos',
       'new' => 'Novo grupo administrador',
       'delete_confirm' => 'Você realmente deseja apagar este grupo?',
@@ -152,7 +149,6 @@
       'description_field' => 'Descrição',
       'code_field' => 'Código',
       'code_comment' => 'Insira um código exclusivo se quiser utilizar o mesmo com a API.',
-      'menu_label' => 'Gerir Papéis',
       'list_title' => 'Gerir Papéis',
       'new' => 'Novo Papel',
       'delete_confirm' => 'Você realmente deseja apagar este papel?',
@@ -303,32 +299,18 @@
     'debug' => 'O modo de depuração está activo. Isto não é recomendado em abientes de produção.',
     'decompileBackendAssets' => 'Os recursos do backend não estao compilados. Isto não é recomendado em ambientes de produção.',
   ],
-  'editor' => [
-    'menu_label' => 'Definições do Editor',
-    'menu_description' => 'Gerir configurações globais do editor, como tamanho de fonte ou esquema de cores',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Prévisualizar a página',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'As minhas configurações',
     'menu_description' => 'Configurações relacionadas com sua conta de administrador',
   ],
-  'myaccount' => [
-    'menu_label' => 'Minha Conta',
-    'menu_description' => 'Actualizar detalhes da sua conta, como nome, e-mail e senha.',
-    'menu_keywords' => 'login de segurança',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personalização',
-    'menu_description' => 'Personalizar detalhes da área administrativa, tais como título, cores e logo.',
     'accent_color' => 'Cor destacada',
     'menu_mode_inline_no_icons' => 'Em linha (sem icons)',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferências da Administração',
-    'menu_description' => 'Gerir idiomas e aparência da administração.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'todos',

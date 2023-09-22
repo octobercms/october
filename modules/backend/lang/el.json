@@ -83,7 +83,7 @@
   "Moderate Admins": "Μέτριοι Διαχειριστές",
   "Manage account suspension and ban admin accounts": "Διαχείριση αναστολής λογαριασμού και αποκλεισμός λογαριασμών διαχειριστή",
   "Manage Roles": "Διαχείριση ρόλων",
-  "Manage Groups": "Διαχείριση ομάδων",
+  "Manage Groups": "Διαχείρηση Ομάδων",
   "Manage Other Admins": "Διαχείριση άλλων διαχειριστών",
   "Allow users to reset passwords and update emails.": "Επιτρέπει την επαναφορά κωδικών πρόσβασης και την ενημέρωση email",
   "Delete Admins": "Διαγραφή διαχειριστών",
@@ -285,5 +285,16 @@
   ":name Created": ":name δημιουργήθηκε",
   ":name Updated": ":name ενημερώθηκε",
   ":name Deleted": ":name διαγράφηκε",
-  "Form record with an ID of :id could not be found.": "Η εγγραφή της φόρμας με ID :id δεν βρέθηκε."
+  "Form record with an ID of :id could not be found.": "Η εγγραφή της φόρμας με ID :id δεν βρέθηκε.",
+  "Preview the Website": "Προεπισκόπηση ιστοσελίδας",
+  "Manage back-end administrator users, groups and permissions.": "Διευθέτηση των διαχειριστών, των ομάδων και των δικαιωμάτων του back-end",
+  "Customize Backend": "Προσαρμογή του back-end",
+  "Customize the administration area such as name, colors and logo.": "Προσαρμόστε την περιοχή διαχείρισης όπως το όνομα, τα χρώματα και το λογότυπο.",
+  "Editor Settings": "Editor settings",
+  "Change the global editor preferences.": "Customize the global editor preferences, such as font size and color scheme.",
+  "My Account": "Ο λογαριασμός μου",
+  "Update your account details such as name, email address and password.": "Ενημερώστε τις λεπτομερείς του λογαριασμού σας όπως το όνομα, την διεύθυνση email και τον κωδικού.",
+  "Backend Preferences": "Προτιμήσεις Back-End",
+  "Manage your account preferences such as desired language.": "Διαχειριστείτε τις ρυθμίσεις του λογαριασμού σας όπως την επιθυμητή γλώσσα.",
+  "security login": "ασφαλής σύνδεση"
 }

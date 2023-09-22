@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'Administratör',
-    'menu_label' => 'Administratörer',
-    'menu_description' => 'Hantera administratörer, grupper och behörigheter.',
     'list_title' => 'Hantera administratörer',
     'new' => 'Ny administratör',
     'first_name' => 'Förnamn',
@@ -80,7 +78,6 @@
       'is_new_user_default_field' => 'Lägg till nya administratörer till gruppen som standard',
       'code_field' => 'Kod',
       'code_comment' => 'Ange en unik kod om du vill komma åt det med API.',
-      'menu_label' => 'Grupper',
       'list_title' => 'Hantera grupper',
       'new' => 'Ny administratörsgrupp',
       'delete_confirm' => 'Vill du verkligen radera denna administratörsgrupp?',
@@ -202,31 +199,17 @@
     'permissions' => 'Katalogen :name eller dess underkataloger är inte skrivbara av PHP. Väligen ändra dess motsvarande behörigheter för web-servern i denna katalogen.',
     'extension' => 'PHP-tillägget: Namnet är inte installerat. Vänligen installera och aktivera det biblioteket.',
   ],
-  'editor' => [
-    'menu_label' => 'Kodnings preferenser',
-    'menu_description' => 'Anpassa dina preferenser för kodredigering, så som typsnitt och färgschema.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Förhandsgranska websidan',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mina inställningar',
     'menu_description' => 'Inställningar rörande ditt administrationskonto',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mitt konto',
-    'menu_description' => 'Uppdatera dina kontouppgifter såsom namn, e-postadress och lösenord.',
-    'menu_keywords' => 'säkerhets inloggning',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Anpassa back-end',
-    'menu_description' => 'Anpassa administrations området såsom namn, färger och logotyp.',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Back-end preferenser',
-    'menu_description' => 'Hantera dina kontoinställningar såsom önskat språk.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'alla',

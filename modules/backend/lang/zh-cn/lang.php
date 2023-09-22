@@ -97,8 +97,6 @@
   ],
   'user' => [
     'name' => '管理员',
-    'menu_label' => '管理员',
-    'menu_description' => '管理后台管理员用户, 组和权限.',
     'list_title' => '管理',
     'new' => '新管理员',
     'first_name' => '名',
@@ -131,8 +129,6 @@
     'show_deleted' => '显示已删除',
     'group' => [
       'name' => '组',
-      'menu_label' => '管理群组',
-      'menu_description' => '将管理员添加到用于通知和功能的组。',
       'name_field' => '名称',
       'name_comment' => '该名称显示在管理员表单的组列表中。',
       'description_field' => '描述',
@@ -148,8 +144,6 @@
     ],
     'role' => [
       'name' => '角色',
-      'menu_label' => '管理角色',
-      'menu_description' => '根据管理员的角色定义他们的权限。',
       'name_field' => '名称',
       'name_comment' => '该名称显示在管理员表单的角色列表中。',
       'description_field' => '描述',
@@ -340,8 +334,6 @@
     'backend_login' => '找到具有通用登录名：name 的帐户。请重命名此管理员帐户。',
   ],
   'editor' => [
-    'menu_label' => '代码编辑器选项',
-    'menu_description' => '自定义代码编辑器选项，比如字体大小和颜色主题.',
     'toolbar_buttons_presets' => [
       'default' => '默认',
       'minimal' => '精简',
@@ -349,27 +341,16 @@
     ],
     'paragraph_formats_comment' => '将出现在段落格式下拉列表中的选项。',
   ],
-  'tooltips' => [
-    'preview_website' => '预览网站',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => '我的设置',
     'menu_description' => '涉及您管理帐号的设置',
   ],
-  'myaccount' => [
-    'menu_label' => '我的账户',
-    'menu_description' => '更新你的账户细节, 如姓名、邮件地址和密码.',
-    'menu_keywords' => '安全登录',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => '自定义后台',
-    'menu_description' => '自定义管理区域, 比如名字, 颜色和图标.',
     'accent_color' => '强调色',
   ],
-  'backend_preferences' => [
-    'menu_label' => '偏好设置',
-    'menu_description' => '管理你的后台偏好设置，如使用语言。',
-  ],
+  'backend_preferences' => [],
   'filter' => [
     'all' => '全部',
     'options_method_not_exists' => '模型类 :model 必须定义一个方法 :method() 返回 \':filter\' 过滤器的选项。',

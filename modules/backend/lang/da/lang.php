@@ -75,8 +75,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratorer',
-    'menu_description' => 'Administrer back-end administratorbrugere, grupper og rettigheder.',
     'list_title' => 'Administrer Administrators',
     'new' => 'Ny Administrator',
     'first_name' => 'Fornavn',
@@ -108,7 +106,6 @@
       'is_new_user_default_field_comment' => 'Tilføj automatisk nye administratorer til denne gruppe',
       'code_field' => 'Kode',
       'code_comment' => 'Skriv en unik kode hvis du vil tilgå gruppe objektet, via API\'et.',
-      'menu_label' => 'Administrer Grupper',
       'list_title' => 'Administrer Grupper',
       'new' => 'Ny Gruppe',
       'delete_confirm' => 'Slet denne administratorgruppe??',
@@ -244,31 +241,17 @@
     'permissions' => 'Mappe :name eller dens undermapper, er ikke skrivbare for PHP. Konfigurer venligst webserverens rettigheder for denne mappe.',
     'extension' => 'PHP extensionen :name er ikke installeret. Installer og aktiver venligst denne extension.',
   ],
-  'editor' => [
-    'menu_label' => 'Indstillinger for redigeringsværktøj',
-    'menu_description' => 'Tilpas de globale indstllinger for redigeringsværktøjet, som eksempelvis skriftstørrelse og farver.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Forhåndsvis hjemmesiden',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mine indstillinger',
     'menu_description' => 'Indstilling til din administrationsbruger',
   ],
-  'myaccount' => [
-    'menu_label' => 'Min konto',
-    'menu_description' => 'Opdater dine kontodetaljer som eksempelvis navn, email-adresse og adgangskode.',
-    'menu_keywords' => 'Sikkerhedslogin',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Tilpas back-end',
-    'menu_description' => 'Tilpas backendområdet med eksempelvis navn, farver og logo.',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Backend indstillinger',
-    'menu_description' => 'Administrer dine backend indstillinger som eksempelvis dit ønskede sprog.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'alle',

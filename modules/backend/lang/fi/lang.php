@@ -106,8 +106,6 @@
   ],
   'user' => [
     'name' => 'Ylläpitäjä',
-    'menu_label' => 'Ylläpitäjät',
-    'menu_description' => 'Hallinnoi ylläpitäjiä, ryhmiä ja oikeuksia.',
     'list_title' => 'Hallinnoi ylläpitäjiä',
     'new' => 'Uusi Ylläpitäjä',
     'first_name' => 'Etunimi',
@@ -140,8 +138,6 @@
     'show_deleted' => 'Näytä poistetut',
     'group' => [
       'name' => 'Ryhmä',
-      'menu_label' => 'Hallinnoi ryhmiä',
-      'menu_description' => 'Lisää ylläpitäjiä ryhmiin, joita käytetään notifikaatioihin ja ominaisuuksiin.',
       'name_field' => 'Nimi',
       'name_comment' => 'Nimi näytetään ryhmän listauksessa Luo/Muokkaa ylläpitolomakkeella.',
       'description_field' => 'Kuvaus',
@@ -162,7 +158,6 @@
       'description_field' => 'Kuvaus',
       'code_field' => 'Koodi',
       'code_comment' => 'Anna uniikkikoodi, mikäli haluat päästä kiinni API:n kautta rooli objektiin.',
-      'menu_label' => 'Hallitse Rooleja',
       'list_title' => 'Hallitse Rooleja',
       'new' => 'Uusi Rooli',
       'delete_confirm' => 'Poista tämä hallintarooli?',
@@ -356,8 +351,6 @@
     'backend_login' => 'Löytyi tili nimeltä :name, joka on liian yleinen. Ole hyvä ja vaihda jokin omaperäisempi nimi.',
   ],
   'editor' => [
-    'menu_label' => 'Editorin asetukset',
-    'menu_description' => 'Kustomoi peruasetuksia, kuten kirjasinkoko ja väriteema.',
     'toolbar_buttons_presets' => [
       'default' => 'Oletus',
       'minimal' => 'Minimaalinen',
@@ -365,21 +358,13 @@
     ],
     'paragraph_formats_comment' => 'The options that will appear in the Paragraph Format dropdown.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Esikatsele verkkosivusto',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Omat asetukset',
     'menu_description' => 'Ylläpitäjän tiliin liittyvät asetukset.',
   ],
-  'myaccount' => [
-    'menu_label' => 'Oma tili',
-    'menu_description' => 'Päivitä tilisi asetukset, kuten nimesi, sähköpostisi ja salasanasi.',
-    'menu_keywords' => 'tietoturvakirjautuminen',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Kustomoi ylläpito',
-    'menu_description' => 'Muokkaa ylläpitoaluetta, kuten nimeä, värejä ja logo.',
     'brand' => 'Brändi',
     'logo' => 'Logo',
     'logo_description' => 'Siirrä haluamasi logo ylläpitopuolelle.',
@@ -420,10 +405,7 @@
     'menu_mode_collapsed' => 'Suljettu',
     'menu_mode_left' => 'Vasenpuoli',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Hallinnan asetukset',
-    'menu_description' => 'Hallitse oman tilisi asetuksia, kuten kieltä.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'kaikki',

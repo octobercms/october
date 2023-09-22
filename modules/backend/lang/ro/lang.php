@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'Administrator',
-    'menu_label' => 'Administratori',
-    'menu_description' => 'Gestionare administratori, grupuri si permisiuni.',
     'list_title' => 'Gestionare Administratori',
     'new' => 'Administrator nou',
     'first_name' => 'Prenume',
@@ -71,7 +69,6 @@
     'group' => [
       'name' => 'Grup',
       'name_field' => 'Nume',
-      'menu_label' => 'Grupuri',
       'list_title' => 'Gestionare Grupuri',
       'new' => 'Grup Nou de Administratori',
       'delete_confirm' => 'Sunteti sigur(a) ca vreti sa stergeti acest grup de administratori?',
@@ -155,25 +152,13 @@
     'permissions' => 'Directorul :name si subdirectoarele sale nu au permisiuni de scriere pentru PHP. Va rugam sa setati permisiunile corespunzatoare pentru acest director.',
     'extension' => 'Libraria PHP :name nu este instalata. Va rugam sa instalati aceasta librarie si apoi sa activati extensia.',
   ],
-  'editor' => [
-    'menu_label' => 'Preferinte Editor Cod',
-    'menu_description' => 'Personalizati preferintele editorului de cod, preferinte precum dimensiunea fontului si culorile folosite.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Previzualizare site',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Setarile mele',
     'menu_description' => 'Setarile in legatura cu contul de administrare',
   ],
-  'myaccount' => [
-    'menu_label' => 'Contul meu',
-    'menu_description' => 'Actualizati datele contului, precum nume, adresa de email si parola.',
-    'menu_keywords' => 'securitate login',
-  ],
-  'backend_preferences' => [
-    'menu_label' => 'Preferinte administrare',
-    'menu_description' => 'Gestionati preferinte limba si setari aspect panou de administrare.',
-  ],
+  'myaccount' => [],
+  'backend_preferences' => [],
   'access_log' => [],
 ];

@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'システム管理者',
-    'menu_label' => 'システム管理者',
-    'menu_description' => 'バックエンドの管理ユーザーとグループ、権限の管理。',
     'list_title' => 'システム管理者の管理',
     'new' => '新規システム管理者',
     'first_name' => '名',
@@ -79,7 +77,6 @@
       'is_new_user_default_field' => 'デフォルトで新しいシステム管理者をこのグループに追加する。',
       'code_field' => 'コード',
       'code_comment' => 'もしあなたがAPIでアクセスしたい場合は、ユニークなコードを入力してください。',
-      'menu_label' => 'グループ',
       'list_title' => 'グループ管理',
       'new' => '新規グループ',
       'delete_confirm' => '本当にこの管理者グループを削除しますか？',
@@ -188,31 +185,17 @@
     'permissions' => 'ディレクトリ":name"またはそのサブディレクトリは、PHPから書き込みできません。このディレクトリのパーミッションを設定してください。',
     'extension' => 'PHP拡張":name"はインストールされていません。PHP拡張をインストールして有効にしてください。',
   ],
-  'editor' => [
-    'menu_label' => 'エディタ',
-    'menu_description' => 'コードエディタ設定の管理',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Webサイトをプレビューする',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'マイ設定',
     'menu_description' => 'この管理者アカウントの設定をします。',
   ],
-  'myaccount' => [
-    'menu_label' => 'アカウント',
-    'menu_description' => '名前、電子メールアドレス、パスワードなどのあなたのアカウント詳細をアップデートしてください。',
-    'menu_keywords' => 'セキュリティ ログイン',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'バックエンドのカスタマイズ',
-    'menu_description' => 'システム管理者領域を設定します。例えば、名前や色、ロゴ。',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'バックエンド',
-    'menu_description' => '言語の設定などを行います。',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'すべて',

@@ -97,8 +97,6 @@
   ],
   'user' => [
     'name' => 'Beheerder',
-    'menu_label' => 'Beheerders',
-    'menu_description' => 'Beheer beheerders, groepen en rechten.',
     'list_title' => 'Beheer beheerders',
     'new' => 'Nieuwe beheerder',
     'first_name' => 'Voornaam',
@@ -131,8 +129,6 @@
     'show_deleted' => 'Toon verwijderd',
     'group' => [
       'name' => 'Groep',
-      'menu_label' => 'Beheer groepen',
-      'menu_description' => 'Voeg beheerders toe aan groepen t.b.v. notificaties en functionaliteiten.',
       'name_field' => 'Naam',
       'name_comment' => 'De naam die wordt weergegeven in de groepenlijst bij het aanmaken of bewerken van een beheerder.',
       'description_field' => 'Omschrijving',
@@ -148,8 +144,6 @@
     ],
     'role' => [
       'name' => 'Rol',
-      'menu_label' => 'Beheer rollen',
-      'menu_description' => 'Definieer rechten voor beheerders gebaseerd op hun rol.',
       'name_field' => 'Naam',
       'name_comment' => 'De naam wordt weergegeven in de rollenlijst in het Beheerders formulier.',
       'description_field' => 'Omschrijving',
@@ -340,8 +334,6 @@
     'backend_login' => 'Er is een account met een generieke gebruikersnaam gevonden (:name). Pas de gebruikersnaam aan van dit account.',
   ],
   'editor' => [
-    'menu_label' => 'Editor instellingen',
-    'menu_description' => 'Beheer editor instellingen, zoals lettergrootte en kleurschema.',
     'toolbar_buttons_presets' => [
       'default' => 'Standaard',
       'minimal' => 'Minimaal',
@@ -349,27 +341,16 @@
     ],
     'paragraph_formats_comment' => 'De opties die in de "Paragraaf formaat" lijst zullen verschijnen.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Voorbeeldweergave website',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mijn instellingen',
     'menu_description' => 'Instellingen gerelateerd aan jouw beheeraccount',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mijn account',
-    'menu_description' => 'Werk accountinstellingen zoals naam, e-mailadres en wachtwoord bij.',
-    'menu_keywords' => 'security login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Aanpassen beheeromgeving',
-    'menu_description' => 'Pas de beheeromgeving aan zoals de naam, kleuren en logo.',
     'accent_color' => 'Accentkleur',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Voorkeuren beheeromgeving',
-    'menu_description' => 'Beheer taalvoorkeur en de weergave van het CMS.',
-  ],
+  'backend_preferences' => [],
   'filter' => [
     'all' => 'alle',
     'options_method_not_exists' => 'De model class :model moet de methode :method() gedefinieerd hebben die de opties voor de filter \':filter\' teruggeeft.',

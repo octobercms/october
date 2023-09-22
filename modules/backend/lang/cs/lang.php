@@ -78,8 +78,6 @@
   ],
   'user' => [
     'name' => 'Administrátor',
-    'menu_label' => 'Administrátoři',
-    'menu_description' => 'Správa uživatelů administrace, jejich skupin a opravnění.',
     'list_title' => 'Správa administrátorů',
     'new' => 'Nový administrátor',
     'first_name' => 'Křestní jméno',
@@ -117,7 +115,6 @@
       'is_new_user_default_field_comment' => 'Zařadit nové administrátory automaticky do této skupiny',
       'code_field' => 'Kód',
       'code_comment' => 'Zadejte unikátní kód pro přístup přes API.',
-      'menu_label' => 'Skupiny',
       'list_title' => 'Správa skupin',
       'new' => 'Nová skupina',
       'delete_confirm' => 'Opravdu chcete smazat tuto skupinu administrátorů?',
@@ -131,7 +128,6 @@
       'description_field' => 'Popis',
       'code_field' => 'Kód',
       'code_comment' => 'Zadejte unikátní kód pro přístup přes API.',
-      'menu_label' => 'Role',
       'list_title' => 'Správa rolí',
       'new' => 'Nová role',
       'delete_confirm' => 'Opravdu chcete smazat tuto roli?',
@@ -273,31 +269,17 @@
     'extension' => 'PHP rozšíření :name není nainstalováno. Prosím nainstalujte toto rozšíření a aktivujte ho.',
     'plugin_missing' => 'Plugin :name je vyžadován, ale není nainstalovaný. Prosím nainstalujte tento plugin.',
   ],
-  'editor' => [
-    'menu_label' => 'Nastavení editoru kódu',
-    'menu_description' => 'Nastavení editoru kódu, velikosti písma a barevného schématu.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'Náhled stránek',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Moje nastavení',
     'menu_description' => 'Nastavení vašeho administrátorského účtu',
   ],
-  'myaccount' => [
-    'menu_label' => 'Můj účet',
-    'menu_description' => 'Nastavte si svoje jméno, e-mailovou adresu a heslo.',
-    'menu_keywords' => 'bezpečnost login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Nastavení administrace',
-    'menu_description' => 'Nastavte si název, logo a barvy použité v administraci.',
     'accent_color' => 'Barva pro zvýraznění',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Nastavení administrace',
-    'menu_description' => 'Spravujte nastavení svého uživatelského účtu, jako je například jazyk apod.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'Vše',

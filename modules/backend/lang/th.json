@@ -283,5 +283,15 @@
   "Add a New :name": "เพิ่มใหม่ :name",
   ":name Created": "สร้าง :name แล้ว",
   ":name Updated": "แก้ไข :name แล้ว",
-  ":name Deleted": "ลบ :name แล้ว"
+  ":name Deleted": "ลบ :name แล้ว",
+  "Preview the Website": "ดูตัวอย่างเว็บไซต์",
+  "Manage back-end administrator users, groups and permissions.": "กำหนด ผู้ใช้ กลุ่ม และสิทธิ์การใช้งาน ของหน้าเว็บหลังบ้าน",
+  "Customize Backend": "ปรับแก้หน้าเว็บหลังบ้าน",
+  "Customize the administration area such as name, colors and logo.": "ปรับแก้ส่วนจัดการระบบ เช่น ชื่อ สี และโลโก้",
+  "Editor Settings": "การตั้งค่าตัวแก้ไข",
+  "Change the global editor preferences.": "ปรับแก้ตามความชอบตัวแก้ไข เช่น ขนาดฟอนท์ และแผนผังสี",
+  "My Account": "บัญชีของฉัน",
+  "Update your account details such as name, email address and password.": "อัพเดทรายละเอียดบัญชีผู้ใช้ของท่านเช่น ชื่อ อีเมล และรหัสผ่าน",
+  "Backend Preferences": "หน้าเว็บหลังบ้านตามใจชอบ",
+  "Manage your account preferences such as desired language.": "จัดการบัญชีผู้ใช้ของคุณตามใจชอบ เช่นเลือกภาษาที่ต้องการ"
 }

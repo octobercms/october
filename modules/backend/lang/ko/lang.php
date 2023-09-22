@@ -78,8 +78,6 @@
   ],
   'user' => [
     'name' => '사용자관리',
-    'menu_label' => '사용자관리',
-    'menu_description' => '백엔드 관리, 사용자,그룹 및 권한 관리.',
     'list_title' => '사용자 관리',
     'new' => '신규사용자',
     'first_name' => '이름',
@@ -114,7 +112,6 @@
       'is_new_user_default_field_comment' => '신규 사용자를 이 그룹에 자동으로 소속시킵니다.',
       'code_field' => '코드',
       'code_comment' => 'API로 그룹 오브젝트에 접근하길 원할경우 고유한 코드를 입력해주세요.',
-      'menu_label' => '그룹 관리',
       'list_title' => '그룹 관리',
       'new' => '신규 그룹',
       'delete_confirm' => '이 사용자 그룹을 삭제하시겠습니까?',
@@ -256,31 +253,17 @@
     'extension' => '":name" PHP 익스텐션이 설치되어있지 않습니다. 설치후 활성화해주세요.',
     'plugin_missing' => ':name 플러그인에 의존성이 해결되지 않았습니다. 이 플러그인을 설치해주세요.',
   ],
-  'editor' => [
-    'menu_label' => '에디터 설정',
-    'menu_description' => '폰트 사이즈나 컬러 스키마등의 전역 에디터의 설정.',
-  ],
-  'tooltips' => [
-    'preview_website' => '웹사이트 미리보기',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => '내 설정',
     'menu_description' => '사용자 계정의 설정을 합니다.',
   ],
-  'myaccount' => [
-    'menu_label' => '계정',
-    'menu_description' => '이름, 이메일주소, 비밀번호 등의 계정 세부정보를 변경해주세요.',
-    'menu_keywords' => '보안 로그인',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => '백엔드 설정변경',
-    'menu_description' => '앱 이름이나 색, 로고 등의 시스템 설정을 변경합니다.',
     'accent_color' => '강조 색상',
   ],
-  'backend_preferences' => [
-    'menu_label' => '백엔드 환경설정',
-    'menu_description' => '당신 계정의 사용언어 등의 환경설정',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => '전체',

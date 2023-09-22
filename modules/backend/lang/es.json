@@ -83,7 +83,7 @@
   "Moderate Admins": "Moderar administradores",
   "Manage account suspension and ban admin accounts": "Administrar la suspensión de la cuenta y prohibir las cuentas de administrador",
   "Manage Roles": "Gestionar roles",
-  "Manage Groups": "Gestionar grupos",
+  "Manage Groups": "Gestionar Grupos",
   "Manage Other Admins": "Gestionar otros administradores",
   "Allow users to reset passwords and update emails.": "Permite restablecer contraseñas y actualizar correos electrónicos",
   "Delete Admins": "Eliminar administradores",
@@ -289,5 +289,16 @@
   ":name Created": ":name creado",
   ":name Updated": ":name actualizado",
   ":name Deleted": ":name borrado",
-  "Form record with an ID of :id could not be found.": "El registro del formulario con un ID de :id no se pudo encontrar."
+  "Form record with an ID of :id could not be found.": "El registro del formulario con un ID de :id no se pudo encontrar.",
+  "Preview the Website": "Vista previa del sitio",
+  "Manage back-end administrator users, groups and permissions.": "Gestionar usuarios, grupos y permisos para el back-end.",
+  "Customize Backend": "Personalizar back-end",
+  "Customize the administration area such as name, colors and logo.": "Perzonalizar el área de administración, así como el nombre, los colores y el logo.",
+  "Editor Settings": "Preferencias del Editor",
+  "Change the global editor preferences.": "Configurar las preferencias del editor de código, como el tamaño de la letra y el color del esquema.",
+  "My Account": "Mi Cuenta",
+  "Update your account details such as name, email address and password.": "Actualice la información de su cuenta, como nombre, dirección de correo electrónico y contraseña.",
+  "Backend Preferences": "Preferencias del panel de administración",
+  "Manage your account preferences such as desired language.": "Gestione la preferencia de idioma y la apariencia del panel.",
+  "security login": "Inicio de sesión de seguridad"
 }

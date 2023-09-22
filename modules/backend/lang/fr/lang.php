@@ -96,8 +96,6 @@
   ],
   'user' => [
     'name' => 'Administrateur',
-    'menu_label' => 'Administrateurs',
-    'menu_description' => 'Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.',
     'list_title' => 'Gérer les administrateurs',
     'new' => 'Créer un nouvel administrateur',
     'first_name' => 'Prénom',
@@ -137,8 +135,6 @@
       'is_new_user_default_field_comment' => 'Ajouter les nouveaux administrateurs dans ce groupe par défaut.',
       'code_field' => 'Code',
       'code_comment' => 'Saisir un code d’accès unique si vous souhaitez accéder à ce groupe via l’API.',
-      'menu_label' => 'Groupes',
-      'menu_description' => 'Ajouter des administrateurs aux groupes pour les notifications et fonctionnalités.',
       'list_title' => 'Gérer les groupes',
       'new' => 'Ajouter un groupe d’administrateur',
       'delete_confirm' => 'Supprimer ce groupe d’administrateurs ?',
@@ -152,8 +148,6 @@
       'description_field' => 'Description',
       'code_field' => 'Code',
       'code_comment' => 'Saisir un code d’accès unique si vous souhaitez accéder à ce rôle via l’API.',
-      'menu_label' => 'Gérer les rôles',
-      'menu_description' => 'Définir des permissions pour les utilisateurs en fonction de leurs rôles.',
       'list_title' => 'Gérer les rôles',
       'new' => 'Nouveau rôle',
       'delete_confirm' => 'Supprimer le rôle administrateur ?',
@@ -339,8 +333,6 @@
     'backend_login' => 'Un compte avec un identifiant générique :name a été trouvé. Veuillez renommer ce compte administrateur.',
   ],
   'editor' => [
-    'menu_label' => 'Préférences de l’éditeur de code',
-    'menu_description' => 'Personnaliser la configuration de l’éditeur de code, telle que la taille de la police ou la coloration syntaxique.',
     'toolbar_buttons_presets' => [
       'default' => 'Par défaut',
       'minimal' => 'Minimal',
@@ -348,27 +340,16 @@
     ],
     'paragraph_formats_comment' => 'Les options pour formatter les paragraphes qui apparaitront dans le dropdown.',
   ],
-  'tooltips' => [
-    'preview_website' => 'Aperçu du site',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mes paramètres',
     'menu_description' => 'Paramètres de votre compte administrateur',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mon compte',
-    'menu_description' => 'Modifier les informations de votre compte comme le nom, l’adresse e-mail ou le mot de passe.',
-    'menu_keywords' => 'security login sécurité authentification identification',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Personnaliser l’interface d’administration',
-    'menu_description' => 'Personnaliser l’interface d’administration comme le nom, les couleurs ou le logo.',
     'accent_color' => 'Couleur d’accentuation',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Préférences d’administration',
-    'menu_description' => 'Gérer les préférences de votre compte telles que la langue utilisée.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'tous',

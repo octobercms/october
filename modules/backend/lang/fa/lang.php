@@ -79,8 +79,6 @@
   ],
   'user' => [
     'name' => 'مدیریت',
-    'menu_label' => 'مدیران',
-    'menu_description' => 'مدیریت کاربران , گروه ها و دسترسی های مدیران.',
     'list_title' => 'مدیریت مدیران',
     'new' => 'مدیر جدید',
     'first_name' => 'نام',
@@ -118,7 +116,6 @@
       'is_new_user_default_field_comment' => 'بطور پیشفرض مدیران جدید را در این گروه ایجاد کن.',
       'code_field' => 'کد',
       'code_comment' => 'کد یکتایی را جهت دسترسی به آن توسط API وارد نمایید.',
-      'menu_label' => 'گروه ها',
       'list_title' => 'مدیریت گروه ها',
       'new' => 'گروه مدیریت جدید',
       'delete_confirm' => 'آیا از حذف این گروه از مدیران اطمینان دارید?',
@@ -132,7 +129,6 @@
       'description_field' => 'توضیحات',
       'code_field' => 'کد',
       'code_comment' => 'کد منحصربفرد نقش را جهت دسترسی به آن توسط رابط برنامه نویسی وارد نمایید.',
-      'menu_label' => 'مدیریت نقش ها',
       'list_title' => 'مدیریت نقش ها',
       'new' => 'نقش جدید',
       'delete_confirm' => 'آیا از حذف این نقش اطمینان دارید؟',
@@ -274,31 +270,17 @@
     'extension' => 'افزونه PHP با نام :name نصب نشده است. لطفن این افزونه را نصب کرده و فعال نمایید.',
     'plugin_missing' => 'افزونه :name مورد نیاز است ولی نصب نشده. لطفا این افزونه را نصب کنید.',
   ],
-  'editor' => [
-    'menu_label' => 'تنظیمات ویرایشگر کد',
-    'menu_description' => 'سفارشی سازی ویرایشگر کد، مانند اندازه فونت و رنگ بندی آن.',
-  ],
-  'tooltips' => [
-    'preview_website' => 'پیش نمایش وب سایت',
-  ],
+  'editor' => [],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'تنظیمات من',
     'menu_description' => 'تنظیمات مربوط به حساب کاربری شما',
   ],
-  'myaccount' => [
-    'menu_label' => 'حساب کاربری من',
-    'menu_description' => 'به روز رسانی اطلاعات حساب کار بری شما مانند نام و کلمه عبور و ... .',
-    'menu_keywords' => 'ورود امن',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'شخصی سازی بخش مدیریت',
-    'menu_description' => 'شخصی سازی بخش مدیریت مانند نام، رنگ ها  و لوگو.',
     'accent_color' => 'Accent color',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'تنظیمات مدیریت',
-    'menu_description' => 'تنظیمات مربوط به زبان مربوط به قسمت مدیریت.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'همه',

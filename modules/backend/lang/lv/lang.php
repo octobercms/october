@@ -49,8 +49,6 @@
   ],
   'user' => [
     'name' => 'Administrātors',
-    'menu_label' => 'Administrātori',
-    'menu_description' => 'Pārvaldiet back-end administrēšanas lietotājus, grupas un tiesības.',
     'list_title' => 'Pārvaldīt Administrātorus',
     'new' => 'Jauns Administrātors',
     'first_name' => 'Vārds',
@@ -82,7 +80,6 @@
       'is_new_user_default_field_comment' => 'Pievienot jaunos administrātorus šai grupai pēc noklusējuma',
       'code_field' => 'Kods',
       'code_comment' => 'Norādiet unikālu piekļuves kodu, ja vēlaties to sasniegt caur API.',
-      'menu_label' => 'Grupas',
       'list_title' => 'Pārvaldīt Grupas',
       'new' => 'Jauna Administrātoru Grupa',
       'delete_confirm' => 'Vai tiešām vēlaties dzēst šo administrātoru grupu?',
@@ -217,32 +214,19 @@
     'extension' => 'PHP paplašinājums :name nav instalēts. Lūdzu instalējiet šo papildinājumu un aktivizējiet to.',
   ],
   'editor' => [
-    'menu_label' => 'Koda labotāja iestatījumi',
-    'menu_description' => 'Pielāgojiet sava kodu labotāja iestatījumus, tādus kā fontu izmēru un krāsu shēmu.',
     'enable_basic_autocompletion' => 'Iespējot pamata automātisko pabeigšanu (Ctrl+Space)',
     'enable_live_autocompletion' => 'Iespējot dzīvo automātisko pabeigšanu',
   ],
-  'tooltips' => [
-    'preview_website' => 'Priekšskatīt web lapu',
-  ],
+  'tooltips' => [],
   'mysettings' => [
     'menu_label' => 'Mani Iestatījumi',
     'menu_description' => 'Iestatījumi saistībā ar jūsu administrātora kontu',
   ],
-  'myaccount' => [
-    'menu_label' => 'Mans konts',
-    'menu_description' => 'Atjaunojiet sava konta detaļas, piemēram, vārdu, epastu un paroli.',
-    'menu_keywords' => 'drošība login',
-  ],
+  'myaccount' => [],
   'branding' => [
-    'menu_label' => 'Back-end pielāgošana',
-    'menu_description' => 'Pielāgojiet administratīvo vidi, piemēram nosaukumu, krāsas un logo.',
     'accent_color' => 'Akcenta / Uzsvara krāsa',
   ],
-  'backend_preferences' => [
-    'menu_label' => 'Back-end iestatījumi',
-    'menu_description' => 'Pārvaldiet sava konta iestatījumus, piemēram, valodu.',
-  ],
+  'backend_preferences' => [],
   'access_log' => [],
   'filter' => [
     'all' => 'visi',
