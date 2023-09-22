@@ -275,6 +275,6 @@
   "Delete Selected": "Poista valittu",
   "Upload Error": "Virhe siirrossa",
   "Remove File": "Poista tiedosto",
-  "Show Light Switch": "Show Light Switch",
-  "Allow users to toggle the color mode from the navigation.": "Allow users to toggle the color mode from the navigation."
+  "Show Light Switch": "Näytä Vaalea-kytkin",
+  "Allow users to toggle the color mode from the navigation.": "Salli käyttäjien vaihtaa väriteema valikosta."
 }
