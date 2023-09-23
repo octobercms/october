@@ -3,7 +3,11 @@ handle: Blog\Config
 type: global
 name: Blog Settings
 
+customMessages:
+    titleUpdateForm: Update Blog Settings
+
 navigation:
+    label: Settings
     parent: Blog\Post
     icon: octo-icon-cog
     order: 200

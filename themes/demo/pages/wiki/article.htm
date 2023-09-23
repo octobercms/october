@@ -5,7 +5,7 @@ title = "Wiki Article"
 meta_title = "{{ wiki.title }}"
 
 [section wiki]
-handle = "Wiki\Article"
+handle = "Page\Article"
 identifier = "id"
 
 [resources]
@@ -32,14 +32,14 @@ vars[activeNavLink] = 'wiki'
             {% if article.banner %}
                 <div class="text-banner" style="background-image:url('{{ article.banner.path }}')"></div>
             {% else %}
-                <div class="text-banner" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+                <div class="text-banner" style="background-image:url('{{ partial('site/helpers/random-stock-image') }}')"></div>
             {% endif %}
         </div>
 
         {{ article.content|raw }}
 
         <div class="wiki-article-gallery mb-3">
-            {% partial 'controls/image-carousel' gallery=article.gallery %}
+            {% partial 'controls/gallery-slider' gallery=article.gallery %}
         </div>
     </article>
 

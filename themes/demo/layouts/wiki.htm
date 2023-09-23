@@ -4,7 +4,13 @@ description = "Wiki layout"
 <!DOCTYPE html>
 <html>
     <head>
-        {% partial 'site/meta' %}
+        {% partial 'site/head/head-meta' %}
+        <title>October CMS - {{ this.page.meta_title ?: placeholder('pageTitle') }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        {% partial 'site/head/head-links' %}
+        {% partial 'site/head/head-scripts' %}
+        {% partial 'site/head/analytics-code' %}
     </head>
     <body class="layout-wiki">
 
@@ -12,6 +18,8 @@ description = "Wiki layout"
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
+
+        {% partial 'site/flash-messages' %}
 
         <!-- Content -->
         <section id="layout-content">
@@ -35,7 +43,7 @@ description = "Wiki layout"
         </footer>
 
         <!-- Mobile -->
-        {% partial 'site/mobile' %}
+        {% partial 'site/nav-mobile' %}
 
         <!-- How the page is made -->
         {% partial 'site/how-its-made' %}

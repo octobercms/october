@@ -20,15 +20,15 @@ vars[activeNavLink] = 'blog'
     {% do redirect(''|page({ slug: post.slug }), 301) %}
 {% endif %}
 
-<article class="card post-card card-primary">
+<article class="card card-post card-primary">
     {% if post.banner %}
         <div class="card-banner banner-lg" style="background-image:url('{{ post.banner.path }}')"></div>
     {% else %}
-        <div class="card-banner banner-lg" style="background-image:url('{{ partial('helpers/random-stock-image') }}')"></div>
+        <div class="card-banner banner-lg" style="background-image:url('{{ partial('site/helpers/random-stock-image') }}')"></div>
     {% endif %}
 
     <div class="card-body card-lg">
-        <h1 class="blog-post-title">
+        <h1 class="card-title">
             {{ post.title }}
         </h1>
 
@@ -39,12 +39,12 @@ vars[activeNavLink] = 'blog'
         {% endif %}
 
         <div class="blog-post-gallery">
-            {% partial 'controls/image-carousel' gallery=post.gallery %}
+            {% partial 'controls/gallery-slider' gallery=post.gallery %}
         </div>
 
         <div class="row pt-3">
             <div class="col-md-8">
-                <div class="blog-post-meta">
+                <div class="card-meta">
                     {% if post.categories %}
                         <div class="meta-item meta-categories">
                             Posted in
@@ -62,7 +62,7 @@ vars[activeNavLink] = 'blog'
                 </div>
             </div>
             <div class="col-md-4 text-end">
-                <div class="blog-post-share-button">
+                <div class="share-button">
                     {% partial 'elements/share-button' %}
                 </div>
             </div>

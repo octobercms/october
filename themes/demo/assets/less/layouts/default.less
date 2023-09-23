@@ -70,9 +70,9 @@
     }
 }
 
-
 #layout-content {
     padding-top: 30px;
+    background: #fff;
 
     header {
         padding: 0 0 30px 0;
@@ -103,4 +103,22 @@ ul.list-with-ticks {
             top: 6px;
         }
     }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+html[data-turbo-preview] .fade-in-content {
+    opacity: 0;
+}
+
+html:not([data-turbo-preview]) .fade-in-content {
+    animation: fadeIn 0.15s ease-in-out;
 }

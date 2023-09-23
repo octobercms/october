@@ -1,13 +1,14 @@
 uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1
-handle: LandingPage
+handle: Page\About
 type: single
-name: Landing Page
+name: About Page
 drafts: true
 
 navigation:
     icon: icon-rocket
+    order: 200
 
 fields:
     block_builder:
         type: mixin
-        source: BlockBuilder
+        source: Page\Blocks

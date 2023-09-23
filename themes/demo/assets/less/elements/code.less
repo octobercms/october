@@ -67,30 +67,3 @@ pre {
         }
     }
 }
-
-.code-tab {
-    display: inline-block;
-    font-size: 14px;
-    padding: 8px 0 0 13px;
-    position: relative;
-
-    &, &:after {
-        height: 38px;
-        background: url('@{assets-url}/images/code-tab.png') no-repeat 0 0;
-        background-size: 335px 38px;
-    }
-
-    &:after {
-        content: '';
-        width: 34px;
-        display: block;
-        position: absolute;
-        right: -34px;
-        top: 0;
-        background-position: right top;
-    }
-
-    + pre {
-        border-radius: 0 6px 6px 6px;
-    }
-}

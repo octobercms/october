@@ -10,6 +10,10 @@
         background-position: center center;
         background-size: cover;
 
+        &.banner-sm {
+            height: 120px;
+        }
+
         &.banner-lg {
             height: 268px;
         }
@@ -40,33 +44,38 @@
         border-bottom-left-radius: 13px;
         border-bottom-right-radius: 13px;
     }
-}
 
-.post-card {
-    &.card-primary {
-        margin-bottom: -25px;
-        position: relative;
-        z-index: 3;
-    }
-
-    .blog-post-title {
+    .card-title {
         a {
             color: #000;
             text-decoration: none;
         }
     }
 
-    .blog-post-featured-text {
+    .card-links {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.card-post {
+    &.card-primary {
+        margin-bottom: -25px;
+        position: relative;
+        z-index: 3;
+    }
+
+    .featured-text {
         p:last-child {
             margin-bottom: 0;
         }
     }
 
-    .blog-post-share-button {
+    .share-button {
         margin-top: -5px;
     }
 
-    .blog-post-meta {
+    .card-meta {
         .meta-item {
             display: inline-block;
             position: relative;
@@ -80,3 +89,4 @@
         }
     }
 }
+

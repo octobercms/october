@@ -264,5 +264,21 @@
   "Insert a preset toolbar button configuration": "قم بإدراج تكوين زر شريط أدوات مُعد مسبقًا",
   "Allowed Attributes": "السمات المسموح بها",
   "The list of allowed HTML attributes, in addition to the normal allowances.": "قائمة سمات HTML المسموح بها ، بالإضافة إلى البدلات العادية.",
-  "Enable code snippets (Tab)": "تمكين مقتطفات التعليمات البرمجية (علامة تبويب)"
+  "Enable code snippets (Tab)": "تمكين مقتطفات التعليمات البرمجية (علامة تبويب)",
+  "Create :name": "إنشاء :name",
+  "Update :name": "تحديث :name",
+  "Add :name": "أضف :name",
+  "Link :name": "ربط :name",
+  "Unlink": "إلغاء ربط",
+  "Are you sure?": "هل أنت متأكد؟",
+  "Preview :name": "استعراض :name",
+  "Link a New :name": "ربط :name",
+  "Add a New :name": "أضف :name",
+  "Related :name Data": "بيانات :name المرتبطة",
+  ":name Created": "تم إنشاء :name بنجاح",
+  ":name Updated": "تم تعديل :name بنجاح",
+  ":name Deleted": "تم حذف :name بنجاح",
+  "Form record with an ID of :id could not be found.": "السجل رقم :id غير موجود.",
+  "My Account": "حسابي",
+  "Backend Preferences": "تفضيلات لوحة الإدارة"
 }

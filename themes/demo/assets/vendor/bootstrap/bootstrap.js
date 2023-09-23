@@ -8,7 +8,7 @@
 //
 // Import Bootstrap's bundle (all of Bootstrap's JS + Popper.js dependency)
 
-import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
+// import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 
 // Option 2
@@ -20,3 +20,12 @@ import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 // import "../../../node_modules/bootstrap/js/dist/util.js";
 // import "../../../node_modules/bootstrap/js/dist/modal.js";
+
+
+// Option 3
+//
+// Import Bootstrap as ESM module
+
+import * as Bootstrap from "../../../node_modules/bootstrap/dist/js/bootstrap.esm.js";
+
+window.bootstrap = Bootstrap;

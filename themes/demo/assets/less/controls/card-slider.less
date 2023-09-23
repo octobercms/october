@@ -1,0 +1,105 @@
+.control-card-slider {
+    position: relative;
+
+    &.type-hero {
+        .slide-item {
+            width: 100%;
+            height: 391px;
+            background-position: center center;
+            background-size: cover;
+            border-radius: 6px;
+        }
+
+        .slick-slide {
+            margin-right: 0rem !important;
+        }
+
+        .slick-dots {
+            position: absolute;
+            bottom: 18px;
+            display: block;
+            li {
+                margin: 0rem;
+            }
+        }
+    }
+
+    &.type-category {
+        margin-left: -.5rem;
+        margin-right: -.5rem;
+
+        .slick-slide {
+            margin-left: .5rem;
+            margin-right: .5rem;
+
+            img {
+                display: inline-block;
+            }
+        }
+
+        .slick-prev,
+        .slick-next {
+            position: absolute;
+            top: 0;
+            left: 97%;
+            padding: 0;
+            transform: translate(0, -50%);
+            cursor: pointer;
+
+            font-size: 18px;
+            height: 32px;
+            width: 32px;
+            display: inline-flex;
+            flex-shrink: 0;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bs-gray-200);
+            border: 1px solid var(--bs-gray-200);
+            border-radius: 50px;
+            color: var(--bs-gray-500);
+            transition: 0.3s ease-in-out;
+
+            &:before {
+                display: none;
+            }
+
+            &:hover {
+                background-color: var(--bs-primary);
+                border-color: var(--bs-primary);
+                color: var(--bs-white);
+            }
+
+            @media (max-width: 1024px) {
+                left: 94%;
+            }
+            @media (max-width: 390px) {
+                left: 87%;
+            }
+        }
+
+        .slick-prev {
+            margin-top: -38px;
+            margin-left: -40px;
+            &:hover {
+                color: var(--bs-white);
+                outline: none;
+                background: var(--bs-primary);
+            }
+            &:focus {
+                display: none;
+            }
+        }
+
+        .slick-next {
+            margin-top: -38px;
+            &:hover {
+                color: var(--bs-white);
+                outline: none;
+                background: var(--bs-primary);
+            }
+            &:focus {
+                display: none;
+            }
+        }
+    }
+}

@@ -4,7 +4,11 @@ type: entry
 name: Author
 drafts: false
 
+customMessages:
+    buttonCreate: New Author
+
 navigation:
+    label: Authors
     parent: Blog\Post
     icon: octo-icon-user
     order: 200

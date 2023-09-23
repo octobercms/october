@@ -4,10 +4,14 @@ handle: Blog\Category
 name: Category
 drafts: false
 
+customMessages:
+    buttonCreate: New Category
+
 structure:
     maxDepth: 1
 
 navigation:
+    label: Categories
     parent: Blog\Post
     icon: octo-icon-list-ul
     order: 150

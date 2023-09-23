@@ -4,6 +4,9 @@ type: stream
 name: Post
 drafts: true
 
+customMessages:
+    buttonCreate: New Post
+
 primaryNavigation:
     label: Blog
     icon: octo-icon-file
@@ -11,6 +14,7 @@ primaryNavigation:
     order: 95
 
 navigation:
+    label: Posts
     icon: octo-icon-pencil
     order: 100
 

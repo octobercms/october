@@ -1,0 +1,24 @@
+{% framework extras turbo %}
+<script src="{{ 'assets/vendor/jquery.min.js'|theme }}"></script>
+<script src="{{ 'assets/vendor/bootstrap/bootstrap.min.js'|theme }}"></script>
+<script src="{{ 'assets/vendor/codeblocks/codeblocks.min.js'|theme }}"></script>
+<script src="{{ 'assets/vendor/slick-carousel/slick.min.js'|theme }}"></script>
+<script src="{{ [
+    'assets/js/controls/alert-dialog.js',
+    'assets/js/controls/password-dialog.js',
+    'assets/js/controls/gallery-slider.js',
+    'assets/js/controls/card-slider.js',
+    'assets/js/controls/quantity-input.js',
+    'assets/js/app.js'
+]|theme }}"></script>
+{% scripts %}
+
+<script type="module">
+    import PhotoSwipeLightbox from "{{ 'assets/vendor/photoswipe/photoswipe-lightbox.esm.min.js'|theme }}";
+    import PhotoSwipeModule from "{{ 'assets/vendor/photoswipe/photoswipe.esm.min.js'|theme }}"
+    import PhotoSwipeDynamicCaption from "{{ 'assets/vendor/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.esm.js'|theme }}";
+
+    window.PhotoSwipeLightbox = PhotoSwipeLightbox;
+    window.PhotoSwipeModule = PhotoSwipeModule;
+    window.PhotoSwipeDynamicCaption = PhotoSwipeDynamicCaption;
+</script>
