@@ -4,11 +4,18 @@ type: structure
 name: Pages
 drafts: true
 
+customMessages:
+    buttonCreate: New Article
+
 structure:
     maxDepth: 3
 
 navigation:
+<<<<<<<< HEAD:themes/demo/seeds/blueprints/pages/page.yaml
     label: All Pages
+========
+    label: All Articles
+>>>>>>>> 3.x:themes/demo/seeds/blueprints/pages/article.yaml
     icon: icon-wikipedia-w
     order: 100
 

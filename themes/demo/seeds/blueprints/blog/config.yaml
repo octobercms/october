@@ -3,6 +3,9 @@ handle: Blog\Config
 type: global
 name: Blog Settings
 
+customMessages:
+    titleUpdateForm: Update Blog Settings
+
 navigation:
     label: Settings
     parent: Blog\Post

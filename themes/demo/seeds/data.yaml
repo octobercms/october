@@ -20,16 +20,16 @@
         file_format: json
         blueprint_uuid: edcd102e-0525-4e4d-b07e-633ae6c18db6
 -
-    name: Wiki Data
+    name: Pages Data
     class: Tailor\Models\EntryRecordImport
-    file: seeds/data/wiki/article.json
+    file: seeds/data/pages/article.json
     attributes:
         file_format: json
         blueprint_uuid: 339b11b7-69ad-43c4-9be1-6953e7738827
 -
     name: About Page Data
     class: Tailor\Models\EntryRecordImport
-    file: seeds/data/landing/landing-page.json
+    file: seeds/data/pages/aboutpage.json
     attributes:
         file_format: json
         blueprint_uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1

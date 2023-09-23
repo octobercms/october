@@ -4,6 +4,9 @@ handle: Blog\Category
 name: Category
 drafts: false
 
+customMessages:
+    buttonCreate: New Category
+
 structure:
     maxDepth: 1
 
