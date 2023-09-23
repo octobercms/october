@@ -1,7 +1,7 @@
 uuid: 339b11b7-69ad-43c4-9be1-6953e7738827
 handle: Page\Article
 type: structure
-name: Pages
+name: Article
 drafts: true
 
 customMessages:
@@ -11,11 +11,7 @@ structure:
     maxDepth: 3
 
 navigation:
-<<<<<<<< HEAD:themes/demo/seeds/blueprints/pages/page.yaml
-    label: All Pages
-========
     label: All Articles
->>>>>>>> 3.x:themes/demo/seeds/blueprints/pages/article.yaml
     icon: icon-wikipedia-w
     order: 100
 
