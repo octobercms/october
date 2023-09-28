@@ -294,6 +294,8 @@
   ":name Removed": ":name verwijderd",
   ":name Unlinked": ":name losgekoppeld",
   "Form record with an ID of :id could not be found.": "Het formulier met record ID :id is niet gevonden.",
+  "Remove Selected": "Verwijder geselecteerde",
+  "Unlink Selected": "Ontkoppel geselecteerde",
   "Preview the Website": "Voorbeeldweergave website",
   "Manage back-end administrator users, groups and permissions.": "Beheer beheerders, groepen en rechten.",
   "Define permissions for administrators based on their role.": "Definieer rechten voor beheerders gebaseerd op hun rol.",
