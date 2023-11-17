@@ -95,6 +95,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Page URL Exceptions (Beta)
+    |--------------------------------------------------------------------------
+    |
+    | This configuration can be used to bypass CMS routing logic, such as the
+    | maintenance mode page and site definition prefix. The key matches a page
+    | URL match with support for wildcards. The following exception values can
+    | be configured separated by the pipe character (|).
+    |
+    | maintenance - Skip maintenance mode and always allow access to this page
+    | site        - Skip the multisite definition matching engine
+    |
+    */
+
+    'url_exceptions' => [
+        // '/api/*' => 'maintenance',
+        // '/sitemap.xml' => 'site|maintenance',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Time to live for the URL map.
     |--------------------------------------------------------------------------
     |
