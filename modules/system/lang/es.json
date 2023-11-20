@@ -237,5 +237,6 @@
   "Event log emptied": "Los registros fueron borrados",
   "Empty Event Log": "Vaciar el registro de eventos",
   "Emptying Event Log...": "Borrando los registros...",
-  "Return to Event Log": "Regresar al registro de eventos"
+  "Return to Event Log": "Regresar al registro de eventos",
+  "Installed": "Installed"
 }

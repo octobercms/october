@@ -237,5 +237,6 @@
   "Event log emptied": "Protokol událostí úspěšně vymazán.",
   "Empty Event Log": "Smazat protokol událostí",
   "Emptying Event Log...": "Mazání protokolu událostí...",
-  "Return to Event Log": "Zpět na protokol událostí"
+  "Return to Event Log": "Zpět na protokol událostí",
+  "Installed": "Instalováno"
 }

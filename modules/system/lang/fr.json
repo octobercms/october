@@ -237,5 +237,6 @@
   "Event log emptied": "Le journal des évènements a été purgé avec succès.",
   "Empty Event Log": "Purger le journal des évènements",
   "Emptying Event Log...": "Purge du journal des évènements…",
-  "Return to Event Log": "Retour au journal des évènements"
+  "Return to Event Log": "Retour au journal des évènements",
+  "Installed": "Installed"
 }
