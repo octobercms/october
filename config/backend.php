@@ -36,7 +36,7 @@ return [
     | - menu_mode: inline, text, tile, collapse, icons, left
     | - color_mode: light, dark, auto
     | - color_palette: default, classic, oxford, console, valentino, punch
-    | - login_background_type: color, wallpaper
+    | - login_background_type: color, wallpaper, october_ai_images
     | - login_background_wallpaper_size: auto, cover
     | - login_image_type: autumn_images, custom
     |
@@ -56,6 +56,7 @@ return [
         'stylesheet_path' => '~/app/assets/css/brand_styles.css',
         'login_background_type' => 'color',
         'login_background_color' => '#fef6eb',
+        'login_background_wallpaper' => '~/app/assets/images/login_wallpaper.png',
         'login_background_wallpaper_size' => 'auto',
         'login_image_type' => 'autumn_images',
         'login_custom_image' => '~/app/assets/images/loginimage.png',
