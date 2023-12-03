@@ -48,7 +48,7 @@ return [
 
     'link_policy' => env('LINK_POLICY', 'detect'),
 
-    'relative_links' => false,
+    'relative_links' => env('RELATIVE_LINKS', false),
 
     /*
     |--------------------------------------------------------------------------
