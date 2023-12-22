@@ -11,7 +11,7 @@
 {% elseif this.page.id == 'about' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:about.htm' %}
     {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:landing/landing-page.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/landing_page' %}
+    {% set howItsMadeTailorContent = 'entries/page_about' %}
 {% elseif this.page.id == 'ajax' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:ajax.htm' %}
 {% elseif this.page.id == 'components' %}
@@ -43,15 +43,15 @@
 {% elseif this.page.id == 'wiki-article' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/article.htm' %}
     {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/wiki_article/' ~ wiki.id %}
+    {% set howItsMadeTailorContent = 'entries/page_article/' ~ wiki.id %}
 {% elseif this.page.id == 'wiki-index' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/index.htm' %}
     {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/wiki_article' %}
+    {% set howItsMadeTailorContent = 'entries/page_article' %}
 {% elseif this.page.id == 'wiki-search' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/search.htm' %}
     {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/wiki_article' %}
+    {% set howItsMadeTailorContent = 'entries/page_article' %}
 {% endif %}
 
 {% if backendUrl and howItsMadeCmsTemplate %}

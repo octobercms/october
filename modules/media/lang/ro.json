@@ -1,8 +1,8 @@
 {
-  "Media": "Mass-media",
-  "Access the Media Manager": "Accesați Media Manager",
-  "Upload Media": "Încărcați media",
-  "Delete Media": "Ștergeți media",
-  "A media file already exists at this location, please upload using a different filename.": "Un fișier media există deja în această locație, vă rugăm să încărcați folosind un alt nume de fișier.",
-  "Remove Selected": "Sterge selectia"
+    "Media": "Mass-media",
+    "Access the Media Manager": "Accesați Media Manager",
+    "Upload Media": "Încărcați media",
+    "Delete Media": "Ștergeți media",
+    "A media file already exists at this location, please upload using a different filename.": "Un fișier media există deja în această locație, vă rugăm să încărcați folosind un alt nume de fișier.",
+    "Remove Selected": "Sterge selectia"
 }

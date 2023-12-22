@@ -294,6 +294,8 @@
   ":name Removed": ":name Retiré(e)",
   ":name Unlinked": ":name Délié(e)",
   "Form record with an ID of :id could not be found.": "Aucun enregistrement de formulaire ne correspond a l’ID :id.",
+  "Remove Selected": "Supprimer la sélection",
+  "Unlink Selected": "Délier les éléments sélectionnés",
   "Preview the Website": "Aperçu du site",
   "Manage back-end administrator users, groups and permissions.": "Gérer les utilisateurs, les groupes et les permissions de l’interface d’administration.",
   "Define permissions for administrators based on their role.": "Définir des permissions pour les utilisateurs en fonction de leurs rôles.",

@@ -294,6 +294,8 @@
   ":name Removed": ":name eltávolítva",
   ":name Unlinked": ":name nem linkelve",
   "Form record with an ID of :id could not be found.": "A(z) :id azonosítójú űrlap rekord nem található.",
+  "Remove Selected": "Remove Selected",
+  "Unlink Selected": "Unlink Selected",
   "Preview the Website": "Weboldal megtekintése",
   "Manage back-end administrator users, groups and permissions.": "Jogosultságok, szerepkörök és csoportok módosítása.",
   "Define permissions for administrators based on their role.": "Határozza meg az adminisztrátorok jogosultságait szerepük alapján.",
